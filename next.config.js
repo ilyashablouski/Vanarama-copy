@@ -1,10 +1,17 @@
 module.exports = {
-  webpack: config => {
-    // Fixes npm packages that depend on `fs` module
+  devIndicators: {
+    autoPrerender: false,
+  },
+
+  webpack: (config) => {
+    // Allow absolute imports.
+    config.resolve.modules = [...config.resolve.modules, "."]
+
+    // Fixes npm packages that depend on `fs` module.
     config.node = {
-      fs: 'empty'
+      fs: "empty",
     }
 
     return config
-  }
+  },
 }
