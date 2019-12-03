@@ -1,6 +1,8 @@
 import React from "react"
 import Link from "next/link"
 
+import "./styles.scss"
+
 const Nav = () => (
   <nav>
     <ul>

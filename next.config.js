@@ -1,7 +1,16 @@
-module.exports = {
+const withSass = require("@zeit/next-sass")
+
+const config = {
   devIndicators: {
     autoPrerender: false,
   },
+
+  // Sass.
+  sassLoaderOptions: {
+    data: "@import 'application';",
+    includePaths: ["./static/styles"],
+  },
+  // cssModules: true,
 
   webpack: (config) => {
     // Allow absolute imports.
@@ -15,3 +24,5 @@ module.exports = {
     return config
   },
 }
+
+module.exports = withSass(config)
