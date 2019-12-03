@@ -3,7 +3,7 @@ module.exports = {
   sass: {
     sassLoaderOptions: {
       data: "@import 'application';",
-      includePaths: ["./public/styles"],
+      includePaths: ["./src/styles"],
     },
   },
 
