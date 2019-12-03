@@ -1,13 +1,21 @@
 import React from "react"
+import { connect } from "react-redux"
+import * as initActions from '../redux/actions/initActions'
 import Link from "next/link"
 
 import Header from "./shared/header"
 
-const Home = () => (
+type HomeProps = {
+  init: object,
+  helloWorld: boolean
+}
+
+const Home = (props: HomeProps) => (
   <div>
     <Header />
-    Next Storefront
+    {(props.helloWorld)? "Next Storefront intialized" : ":("}
   </div>
 )
 
-export default Home
+
+export default connect((state) => state, {...initActions})(Home)
