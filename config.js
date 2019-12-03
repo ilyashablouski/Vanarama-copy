@@ -3,9 +3,8 @@ module.exports = {
   sass: {
     sassLoaderOptions: {
       data: "@import 'application';",
-      includePaths: ["./static/styles"],
+      includePaths: ["./public/styles"],
     },
-    // cssModules: true,
   },
 
   // Next.
@@ -16,7 +15,7 @@ module.exports = {
 
     webpack: (config) => {
       // Allow absolute imports.
-      config.resolve.modules = [...config.resolve.modules, "."]
+      config.resolve.modules = [...config.resolve.modules, "src"]
 
       // Fixes npm packages that depend on `fs` module.
       config.node = {
