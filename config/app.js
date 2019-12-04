@@ -1,3 +1,7 @@
+const { homepage } = require("../package.json")
+// const { parse } = require("url")
+// const basename = parse(homepage).pathname
+
 module.exports = {
   // Sass.
   sass: {
@@ -5,6 +9,13 @@ module.exports = {
       data: "@import 'application';",
       includePaths: ["./src/styles"],
     },
+  },
+
+  // Sitemap.
+  sitemap: {
+    baseUrl: homepage,
+    pagesDirectory: "src/pages",
+    targetDirectory: "public/",
   },
 
   // Next.
