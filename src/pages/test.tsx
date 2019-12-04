@@ -1,7 +1,7 @@
 import React from "react"
 import Link from "next/link"
 
-import Header from "shared/header"
+import Header from "partials/header"
 
 const Test = () => (
   <div>

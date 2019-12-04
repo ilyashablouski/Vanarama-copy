@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import * as initActions from "redux/actions/initActions"
 import Link from "next/link"
 
-import Header from "shared/header"
+import Header from "partials/header"
 
 type HomeProps = {
   init: object
