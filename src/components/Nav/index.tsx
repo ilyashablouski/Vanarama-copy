@@ -7,17 +7,17 @@ const Nav = () => (
   <nav>
     <ul>
       <li>
-        <Link prefetch href="/">
+        <Link href="/">
           <a>Home</a>
         </Link>
       </li>
       <li>
-        <Link prefetch href="/test/">
+        <Link href="/test/">
           <a>Test</a>
         </Link>
       </li>
       <li>
-        <Link prefetch href="/sub/test/">
+        <Link href="/sub/test/">
           <a>Sub Test</a>
         </Link>
       </li>

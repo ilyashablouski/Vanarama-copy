@@ -2,13 +2,13 @@ import { Provider } from "react-redux"
 import App, { AppContext } from "next/app"
 import withRedux from "next-redux-wrapper"
 import { Store } from "redux"
-import { initStore } from "../redux/store"
+import { initStore } from "redux/store"
 
 interface Props {
   store: Store
 }
 
-class MyApp extends App<Props> {
+class ReduxApp extends App<Props> {
   static async getInitialProps({ Component, ctx }: AppContext) {
     return {
       pageProps: {
@@ -29,4 +29,4 @@ class MyApp extends App<Props> {
   }
 }
 
-export default withRedux(initStore, { debug: true })(MyApp)
+export default withRedux(initStore, { debug: true })(ReduxApp)

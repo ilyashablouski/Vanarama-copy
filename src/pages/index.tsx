@@ -1,9 +1,9 @@
 import React from "react"
 import { connect } from "react-redux"
-import * as initActions from "../redux/actions/initActions"
+import * as initActions from "redux/actions/initActions"
 import Link from "next/link"
 
-import Header from "./shared/header"
+import Header from "shared/header"
 
 type HomeProps = {
   init: object
