@@ -8,18 +8,23 @@
   "homepage": "http://localhost",
   "license": "",
   "scripts": {
-    "dev": "next -p 6601",
+    "dev": "NODE_ENV=development node express.js",
     "build": "next build",
-    "start": "next start"
+    "export": "next export",
+    "start": "NODE_ENV=production node express.js"
   },
   "dependencies": {
     "@zeit/next-sass": "^1.0.1",
+    "custom-env": "^1.0.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "next": "^9.1.4",
     "next-compose-plugins": "^2.2.0",
-    "next-redux-wrapper": "^4.0.1",
     "next-images": "^1.2.0",
+    "next-redux-wrapper": "^4.0.1",
     "nextjs-sitemap-generator": "^0.4.1",
     "node-sass": "^4.13.0",
+    "prerender-node": "^3.2.5",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",

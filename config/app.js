@@ -24,6 +24,13 @@ module.exports = {
       autoPrerender: false,
     },
 
+    exportTrailingSlash: true,
+    exportPathMap: function() {
+      return {
+        "/": { page: "/" },
+      }
+    },
+
     webpack: (config) => {
       // Allow absolute imports.
       config.resolve.modules = [...config.resolve.modules, "src"]
