@@ -10,8 +10,9 @@ type HomeType = {
   initialize: any
 }
 
-class Home extends Component<HomeType> {
+class Home extends Component<{init, initialize}, HomeType> {
   componentDidMount() {
+    console.log(this.props.init)
     this.props.init(true)
   }
   render() {
