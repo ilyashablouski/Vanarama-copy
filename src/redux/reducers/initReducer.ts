@@ -5,9 +5,9 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-  switch (action.payload) {
+  switch (action.type) {
     case INIT:
-      return { ...state, init: action.payload }
+      return { ...state, helloWorld: action.payload }
     default:
       return state
   }

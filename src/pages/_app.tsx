@@ -8,6 +8,10 @@ interface Props {
   store: Store
 }
 
+function isDebug() {
+  return process.env.NODE_ENV === "development" ? true : false
+}
+
 class ReduxApp extends App<Props> {
   static async getInitialProps({ Component, ctx }: AppContext) {
     return {
@@ -29,4 +33,4 @@ class ReduxApp extends App<Props> {
   }
 }
 
-export default withRedux(initStore, { debug: true })(ReduxApp)
+export default withRedux(initStore, { debug: isDebug() })(ReduxApp)
