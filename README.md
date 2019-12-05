@@ -1,6 +1,6 @@
 # Next-Storefront
 
-Storefront built with Next.js frontend.
+Next.js Storefront frontend.
 
 ## Prerequisites
 
@@ -30,7 +30,7 @@ $ yarn build
 $ yarn export
 ```
 
-Static website will be available in the `out` folder.
+Static website will be available in the "out" folder.
 
 ```
 $ serve -p 8080 out
@@ -53,7 +53,9 @@ $ docker-compose up [--build]
 
 - **Gianluca Agnocchetti** - _Initial work_ -
   [iamgnlc](https://github.com/iamgnlc)
+- **Warren Baugh** - _Redux support_ -
+  [street2geek](https://github.com/street2geek)
 
 See also the list of
-[contributors](https://github.com/Autorama/cap-gql/graphs/contributors) who
-participated in this project.
+[contributors](https://github.com/Autorama/next-storefront/graphs/contributors)
+who participated in this project.
