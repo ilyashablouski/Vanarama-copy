@@ -2152,14 +2152,6 @@ currently-unhandled@^0.4.1:
   dependencies:
     array-find-index "^1.0.1"
 
-custom-env@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/custom-env/-/custom-env-1.0.2.tgz#27c4db6a0caf274b112a78a32d60f5b8674a2c0c"
-  integrity sha512-PvhrR0te1RtS74fLN+wF8Qr9uCem7FuErK+DSaocIt94/Ic25rqwUVB4sj86Burv4xM19LPBssaXkk6LLm3OEQ==
-  dependencies:
-    dotenv "*"
-    dotenv-expand "^5.0.0"
-
 cyclist@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
@@ -2320,12 +2312,7 @@ dot-prop@^5.0.0:
   dependencies:
     is-obj "^2.0.0"
 
-dotenv-expand@^5.0.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/dotenv-expand/-/dotenv-expand-5.1.0.tgz#3fbaf020bfd794884072ea26b1e9791d45a629f0"
-  integrity sha512-YXQl1DSa4/PQyRfgrv6aoNjhasp/p4qs9FjJ4q4cQk+8m4r6k4ZSiEyytKG8f8W9gi8WsQtIObNmKd+tMzNTmA==
-
-dotenv@*, dotenv@^8.2.0:
+dotenv@^8.2.0:
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
   integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
