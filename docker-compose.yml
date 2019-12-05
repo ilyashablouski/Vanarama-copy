@@ -1,0 +1,16 @@
+version: "3.5"
+
+services:
+  next-storefront:
+    container_name: next-storefront
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ".:/usr/src/app"
+      - "/usr/src/app/node_modules"
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      - NODE_ENV=development
+      - FORCE_COLOR=true

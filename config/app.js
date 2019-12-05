@@ -24,6 +24,7 @@ module.exports = {
       autoPrerender: false,
     },
 
+    // Routes to export into static files.
     exportTrailingSlash: true,
     exportPathMap: function() {
       return {
