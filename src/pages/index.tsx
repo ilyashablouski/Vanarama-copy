@@ -5,12 +5,16 @@ import Link from "next/link"
 
 import Header from "partials/header"
 
-type HomeType = {
-  init: any
-  initialize: any
+interface Initalize{
+  helloWorld: boolean
 }
 
-class Home extends Component<{init, initialize}, HomeType> {
+interface HomeProps {
+  init: (bool: boolean) => boolean
+  initialize: Initalize
+}
+
+class Home extends Component<HomeProps> {
   componentDidMount() {
     this.props.init(true)
   }
