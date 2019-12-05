@@ -12,7 +12,6 @@ type HomeType = {
 
 class Home extends Component<{init, initialize}, HomeType> {
   componentDidMount() {
-    console.log(this.props.init)
     this.props.init(true)
   }
   render() {
@@ -24,14 +23,5 @@ class Home extends Component<{init, initialize}, HomeType> {
     )
   }
 }
-
-// const Home = (props: HomeProps) => {
-//   return (
-//     <div>
-//       <Header />
-//       {props.initialize.helloWorld ? "Next Storefront intialized" : ":("}
-//     </div>
-//   )
-// }
 
 export default connect((state) => state, { ...initActions })(Home)
