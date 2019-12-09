@@ -13,7 +13,7 @@ interface HomeProps {
   initialize: Initalize
 }
 
-class Home extends Component<HomeProps> {
+export class Home extends Component<HomeProps> {
   componentDidMount() {
     this.props.init(true)
   }
