@@ -1,5 +1,8 @@
 
 module.exports = {
+    "roots": [
+      "<rootDir>/src"
+    ],
     moduleFileExtensions: [
       "ts",
       "tsx",
@@ -21,7 +24,7 @@ module.exports = {
       "/node_modules/",
       "enzyme.js"
     ],
-    setupTestFrameworkScriptFile: "<rootDir>/enzyme.js",
+    setupFilesAfterEnv: ["<rootDir>/enzyme.js"],
     coverageReporters: [
       "json",
       "lcov",

@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import * as initActions from "redux/actions/initActions"
-import Link from "next/link"
 
 import Header from "partials/header"
 
