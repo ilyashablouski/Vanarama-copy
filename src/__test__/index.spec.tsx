@@ -5,6 +5,7 @@ import { Provider } from "react-redux"
 import thunk from "redux-thunk"
 import configureStore from "redux-mock-store"
 import { init } from "../redux/actions/initActions"
+import { withTestRouter } from "./withTestRouter.hoc"
 
 describe("Index --- REACT-REDUX (Mount + wrapping in <Provider>)", () => {
   const initialState = { initialize: { helloWorld: false } }
@@ -14,9 +15,11 @@ describe("Index --- REACT-REDUX (Mount + wrapping in <Provider>)", () => {
   beforeEach(() => {
     store = mockStore(initialState)
     wrapper = mount(
-      <Provider store={store}>
-        <IndexPage />
-      </Provider>,
+      withTestRouter(
+        <Provider store={store}>
+          <IndexPage />
+        </Provider>,
+      ),
     )
   })
 
