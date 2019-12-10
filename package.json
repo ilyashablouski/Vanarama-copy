@@ -11,7 +11,10 @@
     "dev": "NODE_ENV=development node express.js",
     "build": "next build",
     "export": "next export",
-    "start": "NODE_ENV=production node express.js"
+    "start": "NODE_ENV=production node express.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@zeit/next-sass": "^1.0.1",
@@ -21,6 +24,7 @@
     "next-compose-plugins": "^2.2.0",
     "next-images": "^1.2.0",
     "next-redux-wrapper": "^4.0.1",
+    "next-routes": "^1.4.2",
     "nextjs-sitemap-generator": "^0.4.1",
     "node-sass": "^4.13.0",
     "prerender-node": "^3.2.5",
@@ -33,8 +37,19 @@
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
+    "@types/enzyme": "^3.10.4",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@types/jest": "^24.0.23",
     "@types/node": "^12.12.14",
     "@types/react": "^16.9.14",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^24.9.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.2.0",
     "typescript": "^3.7.2"
   }
 }
