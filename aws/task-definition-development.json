@@ -28,6 +28,14 @@
                     "hostPort": 4004
                 }
             ],
+            "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {
+              "awslogs-group": "Grid-Development",
+              "awslogs-region": "eu-west-2",
+              "awslogs-stream-prefix": "storefront2"
+              }
+            },
             "memory": 500,
             "cpu": 10
         }

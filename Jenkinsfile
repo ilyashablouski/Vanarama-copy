@@ -61,14 +61,21 @@ node('master') {
           sh ''' docker-compose -f ${WORKSPACE}/docker-compose.yml down''' //Catch for failed unit tests - This is a temporary fix!
         }
 
-      if (currentBranch == "develop" || currentBranch == "DevOps")
+      if (currentBranch == "develop" || currentBranch == "devops")
       {
         stage ("4: Provision Dev Cluster...") {
 
               def currentService=""
               def taskDefinitionInitialNumber="nextstorefront:1"
-              def clusterName = "Grid-development"
+              def clusterName = ""
 
+              if(currentBranch == "devops")
+              {
+                clusterName = "Grid-Testing"
+              }
+              else{
+                clusterName = "Grid-Development"
+              }
 
               withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-techamigo-keys', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
 
@@ -151,7 +158,15 @@ node('master') {
 
       stage("5: Dev Deploy...") {
 
-        def clusterName = "Grid-development"
+        def clusterName = ""
+        if(currentBranch == "devops")
+        {
+          clusterName = "Grid-Testing"
+        }
+        else{
+          clusterName = "Grid-Development"
+        }
+
         def taskDefile      = "file://aws/task-definition-development.json"
         taskFamily = "nextstorefront"
 
@@ -163,12 +178,12 @@ node('master') {
               fi
           '''
 
-            sh '''
+          sh '''
             export ECR_REPO=$(aws ecr describe-repositories --query 'repositories[?repositoryName==`autorama-nextstorefront`].repositoryUri' --output text)
             $(aws ecr get-login --no-include-email )
             docker tag autorama-nextstorefront:latest ${ECR_REPO}:latest
             docker push ${ECR_REPO}:latest
-            '''
+          '''
 
             // Get current [TaskDefinition#revision-number]
               def currTaskDef = sh (
@@ -181,63 +196,62 @@ node('master') {
                 "
               ).trim()
 
-              println "current task Def: ${currTaskDef}"
+          println "current task Def: ${currTaskDef}"
 
-              def currentTask = sh (
-                returnStdout: true,
-                script:  "                                                              \
-                  aws ecs list-tasks  --cluster ${clusterName}                          \
-                                      --family ${taskFamily}                            \
-                                      --output text                                     \
-                                      | egrep 'TASKARNS'                                \
-                                      | awk '{print \$2}'                               \
-                "
-              ).trim()
+          def currentTask = sh (
+            returnStdout: true,
+            script:  "                                                              \
+              aws ecs list-tasks  --cluster ${clusterName}                          \
+                                  --family ${taskFamily}                            \
+                                  --output text                                     \
+                                  | egrep 'TASKARNS'                                \
+                                  | awk '{print \$2}'                               \
+           "
+          ).trim()
 
-              println "current task : ${currentTask}"
+          println "current task : ${currentTask}"
 
-              if(currTaskDef) {
-                sh  "                                                                   \
-                  aws ecs update-service  --cluster ${clusterName}                      \
-                                          --service ${serviceName}                      \
-                                          --task-definition ${taskFamily}:${currTaskDef}\
-                                          --desired-count 0                             \
-                "
-              }
-
-              if (currentTask) {
-                sh "aws ecs stop-task --cluster ${clusterName} --task ${currentTask}"
-              }
-
-              // Register the new [TaskDefinition]
-              // TODO : addition of the execution role in automated way
-              sh  "                                                                     \
-                aws ecs register-task-definition --execution-role-arn arn:aws:iam::000379120260:role/Acorn-DevOps --family ${taskFamily}                \
-                                                  --cli-input-json ${taskDefile}        \
-              "
-
-              // Get the last registered [TaskDefinition#revision]
-              def taskRevision = sh (
-                returnStdout: true,
-                script:  "                                                              \
-                  aws ecs describe-task-definition  --task-definition ${taskFamily}     \
-                                                    | egrep 'revision'                  \
-                                                    | tr ',' ' '                        \
-                                                    | awk '{print \$2}'                 \
-                "
-              ).trim()
-
-              // ECS update service to use the newly registered [TaskDefinition#revision]
-              //
-              sh  "                                                                     \
-                aws ecs update-service  --cluster ${clusterName}                        \
-                                        --service ${serviceName}                        \
-                                        --task-definition ${taskFamily}:${taskRevision} \
-                                        --desired-count 1                              \
-              "
-              }
-            }
+          if(currTaskDef) {
+            sh  "                                                                   \
+              aws ecs update-service  --cluster ${clusterName}                      \
+                                      --service ${serviceName}                      \
+                                      --task-definition ${taskFamily}:${currTaskDef}\
+                                      --desired-count 0                             \
+            "
           }
+
+          if (currentTask) {
+            sh "aws ecs stop-task --cluster ${clusterName} --task ${currentTask}"
+          }
+
+          // Register the new [TaskDefinition]
+          // TODO : addition of the execution role in automated way
+          sh  "                                                                     \
+            aws ecs register-task-definition --execution-role-arn arn:aws:iam::000379120260:role/Acorn-DevOps --family ${taskFamily}                \
+                                              --cli-input-json ${taskDefile}        \
+          "
+
+          // Get the last registered [TaskDefinition#revision]
+          def taskRevision = sh (
+            returnStdout: true,
+            script:  "                                                              \
+              aws ecs describe-task-definition  --task-definition ${taskFamily}     \
+                                                | egrep 'revision'                  \
+                                                | tr ',' ' '                        \
+                                                | awk '{print \$2}'                 \
+            "
+          ).trim()
+
+          // ECS update service to use the newly registered [TaskDefinition#revision]
+          sh  "                                                                     \
+            aws ecs update-service  --cluster ${clusterName}                        \
+                                    --service ${serviceName}                        \
+                                    --task-definition ${taskFamily}:${taskRevision} \
+                                     --desired-count 1                              \
+          "
+          }
+        }
+      }
 
       } catch(Exception e) {
 
