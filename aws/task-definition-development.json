@@ -24,8 +24,8 @@
             "name": "nextstorefront",
             "portMappings": [
                 {
-                    "containerPort": 4004,
-                    "hostPort": 4004
+                    "containerPort": 6601,
+                    "hostPort": 6601
                 }
             ],
             "logConfiguration": {
