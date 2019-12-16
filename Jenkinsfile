@@ -253,6 +253,14 @@ node('master') {
         }
       }
 
+      stage("6: Jira Feedback..."){
+          // This is for Build Feedback to Jira
+          println scm.branches[0].name
+          currentBranch = scm.branches[0].name
+          jiraSendBuildInfo branch: "${currentBranch}", site: 'autorama.atlassian.net'
+          //
+      }
+
       } catch(Exception e) {
 
           // These commands ensure that if the pipeline fails in Stage 2 that the container does not stay up! //
