@@ -19,7 +19,7 @@ export class Home extends Component<HomeProps> {
   }
   render() {
     return (
-      <div>
+      <div className="init">
         <Header />
         {this.props.initialize.helloWorld ? "Next Storefront intialized" : ":("}
       </div>
