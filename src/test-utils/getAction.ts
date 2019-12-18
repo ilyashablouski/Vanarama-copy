@@ -1,4 +1,3 @@
-// test/utils/getAction.js
 function findAction(store, type) {
   return store.getActions().find((action) => action.type === type)
 }
