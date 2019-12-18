@@ -13,15 +13,15 @@ interface HomeProps {
   initialize: Initalize
 }
 
-class Home extends Component<HomeProps> {
+export class Home extends Component<HomeProps> {
   componentDidMount() {
     this.props.init(true)
   }
   render() {
     return (
-      <div>
+      <div className="init">
         <Header />
-        {this.props.initialize.helloWorld ? "Next Storefront intialized" : ":("}
+        <p>{this.props.initialize.helloWorld ? "Next Storefront intialized" : ":("}</p>
       </div>
     )
   }
