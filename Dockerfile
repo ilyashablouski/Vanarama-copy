@@ -13,7 +13,7 @@ RUN yarn install
 COPY . .
 
 # Building app
-RUN npm run build
+# RUN npm run build
 
 # Running the app
 CMD [ "yarn", "dev" ]
