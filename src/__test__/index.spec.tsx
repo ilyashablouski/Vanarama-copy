@@ -4,7 +4,7 @@ import { Provider } from "react-redux"
 import thunk from "redux-thunk"
 import configureStore from "redux-mock-store"
 import { init } from "../redux/actions/initActions"
-import { withTestRouter } from "./withTestRouter.hoc"
+import { withTestRouter } from "../test-utils/withTestRouter.hoc"
 //import { getAction } from "../test-utils/getAction"
 import { INIT } from "../redux/types"
 
