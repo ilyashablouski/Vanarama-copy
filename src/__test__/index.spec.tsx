@@ -11,11 +11,12 @@ import { INIT } from "../redux/types"
 import IndexPage from "../pages/index"
 
 describe("Index --- REACT-REDUX (Mount + wrapping in <Provider>)", () => {
+  const initialState = { initialize: { helloWorld: false } }
   const mockStore = configureStore([thunk])
   let store, wrapper
 
   beforeEach(() => {
-    store = mockStore()
+    store = mockStore(initialState)
     wrapper = mount(
       withTestRouter(
         <Provider store={store}>
@@ -25,7 +26,7 @@ describe("Index --- REACT-REDUX (Mount + wrapping in <Provider>)", () => {
     )
   })
 
-  it("dispatches the correct action & payload", async () => {
+  it("dispatches correct action & payload", async () => {
     store.dispatch(init(true))
     const actions = store.getActions()
     expect(actions).toEqual([
