@@ -12,4 +12,8 @@ describe("<HEAD /> rendering", () => {
   it("renders correctly", () => {
     expect(wrapper).toMatchSnapshot()
   })
+
+  it("should render one <title>", () => {
+    expect(wrapper.find("title")).toHaveLength(1)
+  })
 })
