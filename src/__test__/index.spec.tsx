@@ -26,7 +26,8 @@ describe("Index --- REACT-REDUX (Mount + wrapping in <Provider>)", () => {
     )
   })
 
-  it("dispatches correct action & payload", async () => {
+  it("dispatches correct action & payload", () => {
+    store.clearActions()
     store.dispatch(init(true))
     const actions = store.getActions()
     expect(actions).toEqual([
@@ -37,7 +38,7 @@ describe("Index --- REACT-REDUX (Mount + wrapping in <Provider>)", () => {
     ])
   })
 
-  it("should render without throwing an error", () => {
-    expect(wrapper.find(".init").text()).toBe(":(")
+  it("should display correct default text", () => {
+    expect(wrapper.find(".init p").text()).toBe(":(")
   })
 })
