@@ -27,3 +27,5 @@ yarn-error.log*
 .env.test.local
 .env.production
 .env.production.local
+
+public/sitemap.xml
