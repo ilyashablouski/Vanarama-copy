@@ -26,7 +26,7 @@ module.exports = {
 
     // Routes to export into static files.
     exportTrailingSlash: true,
-    exportPathMap: function() {
+    exportPathMap: () => {
       return {
         "/": { page: "/" },
       }
