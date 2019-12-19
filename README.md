@@ -1,5 +1,9 @@
 # Next-Storefront
 
+[![Build Status](http://jenkins.autorama.co.uk:8080/buildStatus/icon?job=next-storefront%2Fdevelop)](http://jenkins.autorama.co.uk:8080/job/next-storefront/job/develop/)
+
+<img src="logos.png" width="640">
+
 Next.js Storefront frontend.
 
 ## Prerequisites
