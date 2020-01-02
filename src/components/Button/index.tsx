@@ -1,8 +1,9 @@
 import React from "react"
 
 
-const Button = ({size, color, label}) => {
-    return (<button className="button">{label}<span className="icon"></span></button>);
+const Button = (props) => {
+const {size, color} = props;
+return (<button className="button">{this.props.children}</button>);
 }
 
 export default Button
