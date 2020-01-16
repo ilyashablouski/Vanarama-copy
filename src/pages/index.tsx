@@ -4,13 +4,13 @@ import * as initActions from "../redux/actions/initActions"
 
 import Header from "../partials/header"
 
-interface Initalize{
+interface Initialize{
   helloWorld: boolean
 }
 
 interface HomeProps {
   init: (bool: boolean) => boolean
-  initialize: Initalize
+  initialize: Initialize
 }
 
 export class Home extends Component<HomeProps> {
