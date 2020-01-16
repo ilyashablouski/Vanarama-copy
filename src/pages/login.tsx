@@ -1,11 +1,13 @@
 import React, { Component } from "react"
+import { connect } from "react-redux"
 
-type AuthState = {
+
+type LoginState = {
   isLoggedIn: boolean
 }
 
-class AuthPage extends Component<{}, AuthState> {
+class LoginPage extends Component<{}, LoginState> {
 
 }
 
-export default AuthPage
+export default LoginPage
