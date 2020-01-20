@@ -1,7 +1,7 @@
 import React, { Component, MouseEvent } from "react"
 import { connect } from "react-redux"
 import { gql } from "apollo-boost"
-import { cognito } from "../../../config/apollo"
+import { cognitoClient as client } from "../../api/apollo"
 
 interface RegisterState {
   successful: boolean
@@ -12,7 +12,7 @@ class RegisterForm extends Component<{}, RegisterState> {
   }
 
   async registerHandler(e: MouseEvent<HTMLButtonElement>) {
-    const result = await cognito.query({
+    const result = await client.query({
       query: gql``,
     })
     console.log(result)

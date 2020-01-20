@@ -1,7 +1,7 @@
 import React, { Component, MouseEvent } from "react"
 import { connect } from "react-redux"
 import { gql } from "apollo-boost"
-import { cognito } from "../../../config/apollo"
+import { cognitoClient as client } from "../../api/apollo"
 
 interface Session {
   isAuthenticated: boolean
@@ -12,7 +12,7 @@ interface LoginState {
 
 class LoginForm extends Component<{}, LoginState> {
   async loginHandler(e: MouseEvent<HTMLButtonElement>) {
-    const result = await cognito.query({
+    const result = await client.query({
       query: gql``,
     })
     console.log(result)
