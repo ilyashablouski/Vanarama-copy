@@ -100,7 +100,7 @@ node('master') {
                         sh """
                           cd ecs-cluster
                           terraform --version
-                          terraform init -backend-config='key=cluster/ecs-cluster-dev.tfstate'
+                          terraform init -backend-config='key=service/ecs-service-${clusterName}.tfstate'
                           terraform plan -var-file=ecs-cluster-dev.tfvars -input=false -out=acorn-cluster-plan -var cluster=${clusterName} -var app_subdomain_name=${clusterName}.${app_subdomain_name}
                           terraform apply acorn-cluster-plan
                         """
@@ -141,7 +141,7 @@ node('master') {
                     if(currentService == "") {
                       sh """
                           cd ecs-service
-                          terraform init -backend-config='key=service/ecs-service-dev.tfstate'
+                          terraform init -backend-config='key=service/ecs-service-${clusterName}.tfstate'
                           terraform plan -var-file=ecs-service-dev.tfvars -input=false -out=acorn-service-plan -var service_name=${serviceName} -var cluster_arn=${currentCluster} -var task_definition=${taskDefinitionInitialNumber}
                           terraform apply acorn-service-plan
                         """
