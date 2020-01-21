@@ -9,9 +9,9 @@ const ADD_USER = gql`
     }
 `
 interface RegisterState {
-  successful: boolean,
-  emailAddress: string,
-  password: string,
+  successful: boolean
+  emailAddress: string
+  password: string
   passwordConf: string
 }
 class RegisterForm extends Component<{}, RegisterState> {
@@ -19,7 +19,7 @@ class RegisterForm extends Component<{}, RegisterState> {
     successful: false,
     emailAddress: "",
     password: "",
-    passwordConf: ""
+    passwordConf: "",
   }
 
   handleRegister = async (e: MouseEvent<HTMLButtonElement>) => {
@@ -30,10 +30,11 @@ class RegisterForm extends Component<{}, RegisterState> {
     console.log(result)
   }
 
-  handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-        [e.target.name]: e.target.value
-    })
+  handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    const { name, value } = e.currentTarget
+    if (Object.keys(this.state).includes(name)) {
+      this.setState((prevState) => ({ ...prevState, [name]: value }))
+    }
   }
 
   render() {
@@ -41,15 +42,27 @@ class RegisterForm extends Component<{}, RegisterState> {
       <form id="register" className="form">
         <div className="form--item">
           <label>Email Address</label>
-          <input onChange={(e) => this.handleInputChange(e)} name="email" type="text" />
+          <input
+            onChange={(e) => this.handleInputChange(e)}
+            name="email"
+            type="text"
+          />
         </div>
         <div className="form--item">
           <label>Password</label>
-          <input onChange={(e) => this.handleInputChange(e)} name="password" type="text" />
+          <input
+            onChange={(e) => this.handleInputChange(e)}
+            name="password"
+            type="text"
+          />
         </div>
         <div className="form--item">
           <label>Password Confirmation</label>
-          <input onChange={(e) => this.handleInputChange(e)} name="passwordConf" type="text" />
+          <input
+            onChange={(e) => this.handleInputChange(e)}
+            name="passwordConf"
+            type="text"
+          />
         </div>
         <div>
           //replace with lib cmpnt
