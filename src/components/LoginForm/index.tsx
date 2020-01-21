@@ -14,6 +14,14 @@ interface LoginState {
   password: string
 }
 
+const LOGIN_USER = gql`
+  mutation CreateRegisteredUser($email: email!, $pw: pw!) {
+    login(username: $email, password: $pw) {
+      data
+    }
+  }
+`
+
 class LoginForm extends Component<LoginProps, LoginState> {
   state: LoginState = {
     password: "",
@@ -22,13 +30,14 @@ class LoginForm extends Component<LoginProps, LoginState> {
 
   handleLogin = async (e: MouseEvent<HTMLButtonElement>) => {
     const result = await client.mutate({
-      mutation: gql``,
+      mutation: LOGIN_USER,
     })
     console.log(result)
   }
 
   handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({})
+    const { name, value } = e.currentTarget
+    this.setState((prevState) => ({ ...prevState, [name]: value }))
   }
 
   render() {
@@ -36,15 +45,23 @@ class LoginForm extends Component<LoginProps, LoginState> {
       <form id="login" className="form">
         <div className="form--item">
           <label>Email Address</label>
-          <input type="text" />
+          <input
+            onChange={(e) => this.handleInputChange(e)}
+            name="email"
+            type="text"
+          />
         </div>
         <div className="form--item">
           <label>Password</label>
-          <input type="text" />
+          <input
+            onChange={(e) => this.handleInputChange(e)}
+            name="password"
+            type="text"
+          />
         </div>
         <div>
           //replace with lib cmpnt
-          <button onClick={(e) => this.loginHandler(e)}>Submit</button>
+          <button onClick={(e) => this.handleLogin(e)}>Submit</button>
         </div>
       </form>
     )
