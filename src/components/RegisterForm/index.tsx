@@ -4,13 +4,14 @@ import { gql } from "apollo-boost"
 import { client } from "../../lib/apollo"
 
 const ADD_USER = gql`
-    mutation CreateRegisteredUser($email: email!, $pw: pw!){
-    register(username: $email, password: $pw){
-        data{
-            register 
-        } 
+  mutation CreateRegisteredUser($email: email!, $pw: pw!) {
+    register(username: $email, password: $pw) {
+      data {
+        register
+      }
     }
-}`
+  }
+`
 interface RegisterState {
   successful: boolean
   emailAddress: string
@@ -26,14 +27,18 @@ class RegisterForm extends Component<{}, RegisterState> {
   }
 
   handleRegister = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+    e.preventDefault()
     console.log(this.state)
     const { emailAddress, password } = this.state
-    const result = await client.mutate({
-      mutation: ADD_USER,
-      variables: { email: emailAddress, pw: password },
-    })
-    console.log(result)
+    try {
+      const result = await client.mutate({
+        mutation: ADD_USER,
+        variables: { email: emailAddress, pw: password },
+      })
+      console.log(result)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -71,7 +76,7 @@ class RegisterForm extends Component<{}, RegisterState> {
           />
         </div>
         <div>
-          <button onClick={e => this.handleRegister(e)}>Submit</button>
+          <button onClick={(e) => this.handleRegister(e)}>Submit</button>
         </div>
       </form>
     )
