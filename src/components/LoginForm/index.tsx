@@ -36,7 +36,7 @@ class LoginForm extends Component<LoginProps, LoginState> {
   }
 
   handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.currentTarget
+    const { name, value } = e.target
     this.setState((prevState) => ({ ...prevState, [name]: value }))
   }
 

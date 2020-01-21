@@ -6,7 +6,7 @@ import fetch from 'isomorphic-unfetch'
 
 export const client = new ApolloClient({
     link: createHttpLink({
-      uri: "http://localhost:5300",
+      uri: "http://localhost:5300/graphql",
       fetch: fetch,
     }),
     cache: new InMemoryCache(),

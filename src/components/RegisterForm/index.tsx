@@ -26,6 +26,8 @@ class RegisterForm extends Component<{}, RegisterState> {
   }
 
   handleRegister = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    console.log(this.state)
     const { emailAddress, password } = this.state
     const result = await client.mutate({
       mutation: ADD_USER,
@@ -48,7 +50,7 @@ class RegisterForm extends Component<{}, RegisterState> {
           <label>Email Address</label>
           <input
             onChange={(e) => this.handleInputChange(e)}
-            name="email"
+            name="emailAddress"
             type="text"
           />
         </div>
@@ -69,7 +71,7 @@ class RegisterForm extends Component<{}, RegisterState> {
           />
         </div>
         <div>
-          <button onClick={(e) => this.handleRegister(e)}>Submit</button>
+          <button onClick={e => this.handleRegister(e)}>Submit</button>
         </div>
       </form>
     )

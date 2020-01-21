@@ -12,7 +12,6 @@ class LoginPage extends Component<{}, LoginState> {
           <button>Login</button>
           <button>Register</button>
           <div id="loginTab">
-            <LoginForm />
           </div>
           <div id="registerTab">
             <RegisterForm />
