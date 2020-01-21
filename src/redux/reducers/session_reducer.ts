@@ -5,9 +5,9 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-  const {authenticated} = action.payload
   switch (action.type) {
     case IS_AUTHENTICATED:
+      const {authenticated} = action.payload
       return { ...state, isAuthenticated: authenticated }
     default:
       return state

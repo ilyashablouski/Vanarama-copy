@@ -1,7 +1,7 @@
 import React, { Component, MouseEvent } from "react"
 import { connect } from "react-redux"
 import { gql } from "apollo-boost"
-import { cognitoClient as client } from "../../api/apollo"
+import { client } from "../../lib/apollo"
 
 interface Session {
   isAuthenticated: boolean
