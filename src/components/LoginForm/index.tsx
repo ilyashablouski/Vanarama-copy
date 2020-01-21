@@ -1,4 +1,4 @@
-import React, { Component, MouseEvent } from "react"
+import React, { Component, MouseEvent, ChangeEvent } from "react"
 import { connect } from "react-redux"
 import { gql } from "apollo-boost"
 import { client } from "../../lib/apollo"
@@ -6,16 +6,29 @@ import { client } from "../../lib/apollo"
 interface Session {
   isAuthenticated: boolean
 }
-interface LoginState {
+interface LoginProps {
   session: Session
 }
+interface LoginState {
+  email: string
+  password: string
+}
 
-class LoginForm extends Component<{}, LoginState> {
-  async loginHandler(e: MouseEvent<HTMLButtonElement>) {
-    const result = await client.query({
-      query: gql``,
+class LoginForm extends Component<LoginProps, LoginState> {
+  state: LoginState = {
+    password: "",
+    email: "",
+  }
+
+  handleLogin = async (e: MouseEvent<HTMLButtonElement>) => {
+    const result = await client.mutate({
+      mutation: gql``,
     })
     console.log(result)
+  }
+
+  handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    this.setState({})
   }
 
   render() {
