@@ -4,7 +4,7 @@ import { gql } from "apollo-boost"
 import { client } from "../../lib/apollo"
 
 const ADD_USER = gql`
-  mutation CreateRegisteredUser($email: email!, $pw: pw!) {
+  mutation CreateRegisteredUser($email: String!, $pw: String!) {
     register(username: $email, password: $pw) {
       data {
         register
