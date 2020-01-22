@@ -1,4 +1,4 @@
-import React, { Component, MouseEvent, ChangeEvent } from "react"
+import React, { Component, MouseEvent, ChangeEvent, FormEvent } from "react"
 import { client } from "../../lib/apollo"
 import { REGISTER_USER } from "../../gql"
 
@@ -14,7 +14,7 @@ class RegisterForm extends Component<{}, RegisterState> {
     passwordConf: "",
   }
 
-  handleRegister = async (e: MouseEvent<HTMLButtonElement>) => {
+  handleRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     console.log(this.state)
     const { emailAddress, password } = this.state
@@ -38,7 +38,7 @@ class RegisterForm extends Component<{}, RegisterState> {
 
   render() {
     return (
-      <form id="register" className="form">
+      <form onSubmit={this.handleRegister} id="register" className="form">
         <div className="form--item">
           <label>Email Address</label>
           <input
@@ -64,7 +64,7 @@ class RegisterForm extends Component<{}, RegisterState> {
           />
         </div>
         <div>
-          <button onClick={(e) => this.handleRegister(e)}>Submit</button>
+          <button type="submit">Submit</button>
         </div>
       </form>
     )

@@ -1,4 +1,4 @@
-import React, { Component, MouseEvent, ChangeEvent } from "react"
+import React, { Component, MouseEvent, ChangeEvent, FormEvent } from "react"
 import { connect } from "react-redux"
 import { client } from "../../lib/apollo"
 import { LOGIN_USER } from "../../gql"
@@ -20,7 +20,8 @@ class LoginForm extends Component<LoginProps, LoginState> {
     emailAddress: "",
   }
 
-  handleLogin = async (e: MouseEvent<HTMLButtonElement>) => {
+  handleLogin = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     const { emailAddress, password } = this.state
     const result = await client.mutate({
       mutation: LOGIN_USER,
@@ -36,7 +37,7 @@ class LoginForm extends Component<LoginProps, LoginState> {
 
   render() {
     return (
-      <form id="login" className="form">
+      <form onClick={this.handleLogin} id="login" className="form">
         <div className="form--item">
           <label>Email Address</label>
           <input
@@ -55,7 +56,7 @@ class LoginForm extends Component<LoginProps, LoginState> {
         </div>
         <div>
           //replace with lib cmpnt
-          <button onClick={(e) => this.handleLogin(e)}>Submit</button>
+          <button type="submit">Submit</button>
         </div>
       </form>
     )
