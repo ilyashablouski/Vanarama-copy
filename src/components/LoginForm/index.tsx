@@ -10,27 +10,27 @@ interface LoginProps {
   session: Session
 }
 interface LoginState {
-  email: string
+  emailAddress: string
   password: string
 }
 
 const LOGIN_USER = gql`
-  mutation CreateRegisteredUser($email: email!, $pw: pw!) {
-    login(username: $email, password: $pw) {
-      data
-    }
+  mutation CreateRegisteredUser($email: String!, $pw: String!) {
+    login(username: $email, password: $pw)
   }
 `
 
 class LoginForm extends Component<LoginProps, LoginState> {
   state: LoginState = {
     password: "",
-    email: "",
+    emailAddress: "",
   }
 
   handleLogin = async (e: MouseEvent<HTMLButtonElement>) => {
+    const { emailAddress, password } = this.state
     const result = await client.mutate({
       mutation: LOGIN_USER,
+      variables: { email: emailAddress, pw: password },
     })
     console.log(result)
   }
@@ -47,7 +47,7 @@ class LoginForm extends Component<LoginProps, LoginState> {
           <label>Email Address</label>
           <input
             onChange={(e) => this.handleInputChange(e)}
-            name="email"
+            name="emailAddress"
             type="text"
           />
         </div>
