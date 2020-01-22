@@ -68,7 +68,7 @@ class RegisterForm extends Component<{}, RegisterState> {
           <input
             onChange={(e) => this.handleInputChange(e)}
             name="passwordConf"
-            type="text"
+            type="password"
           />
         </div>
         <div>
