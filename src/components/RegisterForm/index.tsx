@@ -5,11 +5,7 @@ import { client } from "../../lib/apollo"
 
 const ADD_USER = gql`
   mutation CreateRegisteredUser($email: String!, $pw: String!) {
-    register(username: $email, password: $pw) {
-      data {
-        register
-      }
-    }
+    register(username: $email, password: $pw) 
   }
 `
 interface RegisterState {
