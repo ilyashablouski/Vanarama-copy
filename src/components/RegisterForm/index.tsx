@@ -1,22 +1,14 @@
 import React, { Component, MouseEvent, ChangeEvent } from "react"
-import { connect } from "react-redux"
-import { gql } from "apollo-boost"
 import { client } from "../../lib/apollo"
+import { REGISTER_USER } from "../../gql"
 
-const ADD_USER = gql`
-  mutation CreateRegisteredUser($email: String!, $pw: String!) {
-    register(username: $email, password: $pw) 
-  }
-`
 interface RegisterState {
-  successful: boolean
   emailAddress: string
   password: string
   passwordConf: string
 }
 class RegisterForm extends Component<{}, RegisterState> {
   state: RegisterState = {
-    successful: false,
     emailAddress: "",
     password: "",
     passwordConf: "",
@@ -28,7 +20,7 @@ class RegisterForm extends Component<{}, RegisterState> {
     const { emailAddress, password } = this.state
     try {
       const result = await client.mutate({
-        mutation: ADD_USER,
+        mutation: REGISTER_USER,
         variables: { email: emailAddress, pw: password },
       })
       console.log(result)

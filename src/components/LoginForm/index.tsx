@@ -1,7 +1,7 @@
 import React, { Component, MouseEvent, ChangeEvent } from "react"
 import { connect } from "react-redux"
-import { gql } from "apollo-boost"
 import { client } from "../../lib/apollo"
+import { LOGIN_USER } from "../../gql"
 
 interface Session {
   isAuthenticated: boolean
@@ -13,12 +13,6 @@ interface LoginState {
   emailAddress: string
   password: string
 }
-
-const LOGIN_USER = gql`
-  mutation CreateRegisteredUser($email: String!, $pw: String!) {
-    login(username: $email, password: $pw)
-  }
-`
 
 class LoginForm extends Component<LoginProps, LoginState> {
   state: LoginState = {
