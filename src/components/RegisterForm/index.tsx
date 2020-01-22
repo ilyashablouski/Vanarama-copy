@@ -52,7 +52,7 @@ class RegisterForm extends Component<{}, RegisterState> {
           <input
             onChange={(e) => this.handleInputChange(e)}
             name="emailAddress"
-            type="text"
+            type="email"
           />
         </div>
         <div className="form--item">
@@ -60,7 +60,7 @@ class RegisterForm extends Component<{}, RegisterState> {
           <input
             onChange={(e) => this.handleInputChange(e)}
             name="password"
-            type="text"
+            type="password"
           />
         </div>
         <div className="form--item">

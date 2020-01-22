@@ -48,7 +48,7 @@ class LoginForm extends Component<LoginProps, LoginState> {
           <input
             onChange={(e) => this.handleInputChange(e)}
             name="emailAddress"
-            type="text"
+            type="email"
           />
         </div>
         <div className="form--item">
@@ -56,7 +56,7 @@ class LoginForm extends Component<LoginProps, LoginState> {
           <input
             onChange={(e) => this.handleInputChange(e)}
             name="password"
-            type="text"
+            type="password"
           />
         </div>
         <div>
