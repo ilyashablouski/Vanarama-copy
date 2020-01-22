@@ -45,6 +45,7 @@ class RegisterForm extends Component<{}, RegisterState> {
             onChange={(e) => this.handleInputChange(e)}
             name="emailAddress"
             type="email"
+            value={this.state.emailAddress}
           />
         </div>
         <div className="form--item">
@@ -53,6 +54,7 @@ class RegisterForm extends Component<{}, RegisterState> {
             onChange={(e) => this.handleInputChange(e)}
             name="password"
             type="password"
+            value={this.state.password}
           />
         </div>
         <div className="form--item">
@@ -61,6 +63,7 @@ class RegisterForm extends Component<{}, RegisterState> {
             onChange={(e) => this.handleInputChange(e)}
             name="passwordConf"
             type="password"
+            value={this.state.passwordConf}
           />
         </div>
         <div>
