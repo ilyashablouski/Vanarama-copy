@@ -1,4 +1,5 @@
 import React, { Component, MouseEvent, ChangeEvent, FormEvent } from "react"
+import { Formik } from "formik"
 import { connect } from "react-redux"
 import { client } from "../../lib/apollo"
 import { LOGIN_USER } from "../../gql"
@@ -37,7 +38,7 @@ class LoginForm extends Component<LoginProps, LoginState> {
 
   render() {
     return (
-      <form onClick={this.handleLogin} id="login" className="form">
+      <form onSubmit={this.handleLogin} id="login" className="form">
         <div className="form--item">
           <label>Email Address</label>
           <input
@@ -59,6 +60,42 @@ class LoginForm extends Component<LoginProps, LoginState> {
           <button type="submit">Submit</button>
         </div>
       </form>
+    )
+  }
+}
+
+class LoginFromV2 {
+  handleLogin = async (values) => {
+    const { emailAddress, password } = values
+    const result = await client.mutate({
+      mutation: LOGIN_USER,
+      variables: { email: emailAddress, pw: password },
+    })
+    console.log(result)
+  }
+  render() {
+    return (
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        onSubmit={this.handleLogin}
+      >
+        {({ handleSubmit, handleChange, values, errors }) => (
+          <form onSubmit={handleSubmit} id="login" className="form">
+            <div className="form--item">
+              <label>Email Address</label>
+              <input onChange={handleChange} name="emailAddress" type="email" />
+            </div>
+            <div className="form--item">
+              <label>Password</label>
+              <input onChange={handleChange} name="password" type="password" />
+            </div>
+            <div>
+              //replace with lib cmpnt
+              <button type="submit">Submit</button>
+            </div>
+          </form>
+        )}
+      </Formik>
     )
   }
 }
