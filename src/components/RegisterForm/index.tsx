@@ -75,7 +75,7 @@ class RegisterForm extends Component<{}, RegisterState> {
   }
 }
 
-class RegisterFormV2 extends Component<RegisterState> {
+class RegisterFormV2 extends Component<{}, RegisterState> {
   handleRegister = async (values, setSubmitting) => {
     const { email, password } = values
     try {
@@ -93,27 +93,54 @@ class RegisterFormV2 extends Component<RegisterState> {
   render() {
     return (
       <Formik
-        initialValues={{ emailAddress: "", password: "", passwordConf: "" }}
+        validate={(values) => {
+          const errors = {}
+          return errors
+        }}
+        initialValues={{ email: "", password: "", passwordConf: "" }}
         onSubmit={(values, { setSubmitting }) => {
           this.handleRegister(values, setSubmitting)
         }}
       >
-        {({ isSubmitting }) => (
-          <Form>
-            <Field type="email" name="email" />
-            <ErrorMessage name="email" component="div" />
-            <Field type="password" name="password" />
-            <ErrorMessage name="password" component="div" />
-            <Field type="passwordConf" name="password" />
-            <ErrorMessage name="passwordConf" component="div" />
-            <button type="submit" disabled={isSubmitting}>
-              Submit
-            </button>
-          </Form>
+        {({ isSubmitting, handleSubmit, handleChange, values, errors }) => (
+          <form onSubmit={handleSubmit} id="register" className="form">
+            <div className="form--item">
+              <label>Email Address</label>
+              <input
+                onChange={handleChange}
+                name="email"
+                type="email"
+                value={values.email}
+              />
+            </div>
+            <div className="form--item">
+              <label>Password</label>
+              <input
+                onChange={handleChange}
+                name="password"
+                type="password"
+                value={values.password}
+              />
+            </div>
+            <div className="form--item">
+              <label>Password Confirmation</label>
+              <input
+                onChange={handleChange}
+                name="passwordConf"
+                type="password"
+                value={values.passwordConf}
+              />
+            </div>
+            <div>
+              <button type="submit" disabled={isSubmitting}>
+                Submit
+              </button>
+            </div>
+          </form>
         )}
       </Formik>
     )
   }
 }
 
-export default RegisterForm
+export default RegisterFormV2
