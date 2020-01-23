@@ -1,8 +1,7 @@
 import React, { Component } from "react"
 import RegisterForm from "../components/RegisterForm"
 import LoginForm from "../components/LoginForm"
-
-type LoginState = {}
+interface LoginState{}
 class LoginPage extends Component<{}, LoginState> {
   render() {
     return (

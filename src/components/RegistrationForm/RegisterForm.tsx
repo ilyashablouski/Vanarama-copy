@@ -2,6 +2,7 @@ import React, { Component, MouseEvent, ChangeEvent, FormEvent } from "react"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import { client } from "../../lib/apollo"
 import { REGISTER_USER } from "../../gql"
+import Input from "../Input"
 
 interface RegisterState {
   email: string
@@ -9,7 +10,7 @@ interface RegisterState {
   passwordConf: string
 }
 
-/* class RegisterForm extends Component<{}, RegisterState> {
+class RegisterForm extends Component<{}, RegisterState> {
   state: RegisterState = {
     email: "",
     password: "",
@@ -43,10 +44,11 @@ interface RegisterState {
       <form onSubmit={this.handleRegister} id="register" className="form">
         <div className="form--item">
           <label>Email Address</label>
-          <input
-            onChange={(e) => this.handleInputChange(e)}
-            name="email"
-            type="email"
+          <Input
+            handleChange={this.handleInputChange}
+            handleBlur={e => e}
+            type={"email"}
+            name={"email"}
             value={this.state.email}
           />
         </div>
@@ -74,8 +76,9 @@ interface RegisterState {
       </form>
     )
   }
-} */
+}
 
+/*
 class RegisterFormV2 extends Component<{}, RegisterState> {
   handleRegister = async (values, setSubmitting) => {
     const { email, password } = values
@@ -143,5 +146,6 @@ class RegisterFormV2 extends Component<{}, RegisterState> {
     )
   }
 }
+*/
 
-export default RegisterFormV2
+export default RegisterForm

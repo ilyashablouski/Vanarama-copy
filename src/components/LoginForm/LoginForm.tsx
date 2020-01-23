@@ -56,7 +56,6 @@ class LoginForm extends Component<LoginProps, LoginState> {
           />
         </div>
         <div>
-          //replace with lib cmpnt
           <button type="submit">Submit</button>
         </div>
       </form>
@@ -64,7 +63,7 @@ class LoginForm extends Component<LoginProps, LoginState> {
   }
 }
 
-class LoginFromV2 {
+/* class LoginFormV2 {
   handleLogin = async (values) => {
     const { emailAddress, password } = values
     const result = await client.mutate({
@@ -90,7 +89,6 @@ class LoginFromV2 {
               <input onChange={handleChange} name="password" type="password" />
             </div>
             <div>
-              //replace with lib cmpnt
               <button type="submit">Submit</button>
             </div>
           </form>
@@ -98,6 +96,6 @@ class LoginFromV2 {
       </Formik>
     )
   }
-}
+} */
 
 export default connect((state) => state)(LoginForm)
