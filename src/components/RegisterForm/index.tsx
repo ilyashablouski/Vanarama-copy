@@ -8,7 +8,8 @@ interface RegisterState {
   password: string
   passwordConf: string
 }
-class RegisterForm extends Component<{}, RegisterState> {
+
+/* class RegisterForm extends Component<{}, RegisterState> {
   state: RegisterState = {
     email: "",
     password: "",
@@ -73,7 +74,7 @@ class RegisterForm extends Component<{}, RegisterState> {
       </form>
     )
   }
-}
+} */
 
 class RegisterFormV2 extends Component<{}, RegisterState> {
   handleRegister = async (values, setSubmitting) => {
