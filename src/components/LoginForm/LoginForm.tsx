@@ -63,7 +63,7 @@ class LoginForm extends Component<LoginProps, LoginState> {
   }
 }
 
-/* class LoginFormV2 {
+/* class LoginFormV2 extends Component<LoginProps, LoginState> {
   handleLogin = async (values) => {
     const { emailAddress, password } = values
     const result = await client.mutate({

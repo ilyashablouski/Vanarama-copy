@@ -76,10 +76,10 @@ class RegisterForm extends Component<{}, RegisterState> {
       </form>
     )
   }
-}
+} 
 
-/*
-class RegisterFormV2 extends Component<{}, RegisterState> {
+
+/* class RegisterFormV2 extends Component<{}, RegisterState> {
   handleRegister = async (values, setSubmitting) => {
     const { email, password } = values
     try {
@@ -110,12 +110,13 @@ class RegisterFormV2 extends Component<{}, RegisterState> {
           <form onSubmit={handleSubmit} id="register" className="form">
             <div className="form--item">
               <label>Email Address</label>
-              <input
-                onChange={handleChange}
-                name="email"
-                type="email"
-                value={values.email}
-              />
+              <Input
+            handleChange={handleChange}
+            handleBlur={e => e}
+            type={"email"}
+            name={"email"}
+            value={values.email}
+          />
             </div>
             <div className="form--item">
               <label>Password</label>
@@ -145,7 +146,7 @@ class RegisterFormV2 extends Component<{}, RegisterState> {
       </Formik>
     )
   }
-}
-*/
+} */
+
 
 export default RegisterForm

@@ -1,6 +1,6 @@
 import React, { Component } from "react"
+import { ResetForm } from "../components/Reset"
 
-import LoginForm from "../components/LoginForm"
 interface ResetPage{}
 class ResetPage extends Component<{}, ResetPage> {
   render() {
@@ -9,7 +9,7 @@ class ResetPage extends Component<{}, ResetPage> {
         <h1 className="title h1">Reset Password</h1>
         <section>
         <p>To reset your password please enter your email address below:</p>
-        
+        <ResetForm />
         </section>
       </div>
     )
