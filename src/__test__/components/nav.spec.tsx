@@ -1,4 +1,4 @@
-import Nav from "../components/Nav"
+import Nav from "../../components/Nav"
 import * as React from "react"
 import { shallow } from "enzyme"
 
