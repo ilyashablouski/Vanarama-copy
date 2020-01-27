@@ -30,10 +30,11 @@ class ResetForm extends Component<{}, Reset> {
 
   render() {
     return (
-      <form onSubmit={this.handleReset} id="login" className="form">
+      <form onSubmit={this.handleReset} id="resetForm" className="form">
         <div className="form--item">
           <label>Email Address</label>
           <input
+            id="resetFormEmail"
             onChange={this.handleInputChange}
             name="emailAddress"
             type="email"

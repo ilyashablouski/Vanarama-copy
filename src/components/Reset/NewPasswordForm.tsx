@@ -35,10 +35,11 @@ interface New {
   
     render() {
       return (
-        <form onSubmit={this.handleReset} id="login" className="form">
+        <form onSubmit={this.handleReset} id="newPasswordForm" className="form">
           <div className="form--item">
             <label>Password</label>
             <input
+              id="newEmail"
               onChange={this.handleInputChange}
               name="password"
               type="email"
@@ -47,6 +48,7 @@ interface New {
           <div className="form--item">
             <label>Password Confirmation</label>
             <input
+              id="newPassword"
               onChange={this.handleInputChange}
               name="password"
               type="email"
