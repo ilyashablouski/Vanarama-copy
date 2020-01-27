@@ -24,11 +24,15 @@ class LoginForm extends Component<LoginProps, LoginState> {
   handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const { emailAddress, password } = this.state
-    const result = await client.mutate({
-      mutation: LOGIN_USER,
-      variables: { email: emailAddress, pw: password },
-    })
-    console.log(result)
+    try {
+      const result = await client.mutate({
+        mutation: LOGIN_USER,
+        variables: { email: emailAddress, pw: password },
+      })
+      console.log(result.data.login)
+    } catch(err) {
+      console.log("login failed:", err )
+    }
   }
 
   handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -63,4 +67,4 @@ class LoginForm extends Component<LoginProps, LoginState> {
   }
 }
 
-export default connect((state) => state, {...sessionActions})(LoginForm)
+export default connect((state) => state, { ...sessionActions })(LoginForm)
