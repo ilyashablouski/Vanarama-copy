@@ -13,15 +13,20 @@ const logo = require("./logo")
 
 const PORT = process.env.PORT || 3000
 
-const redirects = [{ from: "/old-link", to: "/redirect" }]
+// Rewrites
+const rewrites = [{ from: "/:manufacturer-car-leasing.html", to: "/rewrite" }]
+// Redirects.
+const redirects = [{ from: "/old-link", to: "/redirect", type: 302 }]
 
 app.prepare().then(() => {
   const server = express()
 
-  // Rewrites
-  server.use(rewrite("/:manufacturer-car-leasing.html", "/rewrite"))
+  // Handle rewrites.
+  rewrites.forEach(({ from, to }) => {
+    server.use(rewrite(from, to))
+  })
 
-  // Redirects.
+  // Handle redirects.
   redirects.forEach(({ from, to, type = 301, method = "get" }) => {
     server[method](from, (req, res) => {
       res.redirect(type, to)
