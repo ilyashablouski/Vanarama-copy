@@ -1,5 +1,4 @@
 import React, { Component, MouseEvent, ChangeEvent, FormEvent } from "react"
-import { Formik, Form, Field, ErrorMessage } from "formik"
 import { client } from "../../lib/apollo"
 import { REGISTER_USER } from "../../gql"
 import Input from "../Input"
@@ -76,77 +75,6 @@ class RegisterForm extends Component<{}, RegisterState> {
       </form>
     )
   }
-} 
-
-
-/* class RegisterFormV2 extends Component<{}, RegisterState> {
-  handleRegister = async (values, setSubmitting) => {
-    const { email, password } = values
-    try {
-      const result = await client.mutate({
-        mutation: REGISTER_USER,
-        variables: { email: email, pw: password },
-      })
-      setSubmitting(false)
-      console.log(result)
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  render() {
-    return (
-      <Formik
-        validate={(values) => {
-          const errors = {}
-          return errors
-        }}
-        initialValues={{ email: "", password: "", passwordConf: "" }}
-        onSubmit={(values, { setSubmitting }) => {
-          this.handleRegister(values, setSubmitting)
-        }}
-      >
-        {({ isSubmitting, handleSubmit, handleChange, values, errors }) => (
-          <form onSubmit={handleSubmit} id="register" className="form">
-            <div className="form--item">
-              <label>Email Address</label>
-              <Input
-            handleChange={handleChange}
-            handleBlur={e => e}
-            type={"email"}
-            name={"email"}
-            value={values.email}
-          />
-            </div>
-            <div className="form--item">
-              <label>Password</label>
-              <input
-                onChange={handleChange}
-                name="password"
-                type="password"
-                value={values.password}
-              />
-            </div>
-            <div className="form--item">
-              <label>Password Confirmation</label>
-              <input
-                onChange={handleChange}
-                name="passwordConf"
-                type="password"
-                value={values.passwordConf}
-              />
-            </div>
-            <div>
-              <button type="submit" disabled={isSubmitting}>
-                Submit
-              </button>
-            </div>
-          </form>
-        )}
-      </Formik>
-    )
-  }
-} */
-
+}
 
 export default RegisterForm
