@@ -1,16 +1,16 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import * as initActions from "../redux/actions/initActions"
+import * as initActions from "../redux/actions/init_actions"
 
 import Header from "../partials/header"
 
-interface Initalize{
+interface Initialize{
   helloWorld: boolean
 }
 
 interface HomeProps {
   init: (bool: boolean) => boolean
-  initialize: Initalize
+  initialize: Initialize
 }
 
 export class Home extends Component<HomeProps> {
