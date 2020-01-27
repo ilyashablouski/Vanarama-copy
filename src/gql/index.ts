@@ -11,3 +11,6 @@ export const LOGIN_USER = gql`
     login(username: $email, password: $pw)
   }
 `
+
+export const RESET_REQUEST = gql`
+`
