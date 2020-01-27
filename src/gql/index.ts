@@ -11,3 +11,15 @@ export const LOGIN_USER = gql`
     login(username: $email, password: $pw)
   }
 `
+
+export const RESET_REQUEST = gql`
+mutation RequestNewPassword($email: String!) {
+  requestNewPassword(username: $email)
+}
+`
+
+export const NEW_PASSWORD = gql`
+mutation CreateNewPassword($email: String!, $pw: String!) {
+  createNewPassword(username: $email, password: $pw)
+}
+`
