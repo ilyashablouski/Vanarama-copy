@@ -49,6 +49,7 @@ class RegisterForm extends Component<{}, RegisterState> {
             type={"email"}
             name={"email"}
             value={this.state.email}
+            id={"input-email"}
           />
         </div>
         <div className="form--item">
@@ -58,6 +59,7 @@ class RegisterForm extends Component<{}, RegisterState> {
             name="password"
             type="password"
             value={this.state.password}
+            id="input-password"
           />
         </div>
         <div className="form--item">
@@ -67,6 +69,7 @@ class RegisterForm extends Component<{}, RegisterState> {
             name="passwordConf"
             type="password"
             value={this.state.passwordConf}
+            id="input-passwordConf"
           />
         </div>
         <div>

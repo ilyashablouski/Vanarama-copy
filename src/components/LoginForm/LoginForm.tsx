@@ -5,10 +5,12 @@ import { LOGIN_USER } from "../../gql"
 import * as sessionActions from "../../redux/actions/session_actions"
 
 interface Session {
-  isAuthenticated: boolean
+  isAuthenticated: boolean,
+  currentSessionData: any
 }
 interface LoginProps {
-  session: Session
+  session: Session,
+  updateSession: (isAuthenticated: boolean, currentSessionData: any) => boolean
 }
 interface LoginState {
   emailAddress: string
@@ -33,12 +35,13 @@ class LoginForm extends Component<LoginProps, LoginState> {
       })
       this.setState({token: result.data.login}, () => {
         console.log(this.state.token)
+        this.props.updateSession(true, {})
       })
     } catch(err) {
       console.log("login failed:", err )
     }
   }
-  
+
   handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     this.setState((prevState) => ({ ...prevState, [name]: value }))
@@ -53,6 +56,7 @@ class LoginForm extends Component<LoginProps, LoginState> {
             onChange={(e) => this.handleInputChange(e)}
             name="emailAddress"
             type="email"
+            id="input-email"
           />
         </div>
         <div className="form--item">
@@ -61,6 +65,7 @@ class LoginForm extends Component<LoginProps, LoginState> {
             onChange={(e) => this.handleInputChange(e)}
             name="password"
             type="password"
+            id="input-password"
           />
         </div>
         <div>
