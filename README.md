@@ -16,13 +16,13 @@ Next.js Storefront frontend.
 
 ### Install dependencies
 
-```ssh
+```
 $ yarn install
 ```
 
 ### Start dev server locally
 
-```ssh
+```
 $ yarn dev
 ```
 
@@ -30,7 +30,7 @@ Open [localhost](http://localhost:6601).
 
 ### Export static website
 
-```ssh
+```
 $ yarn build
 
 $ yarn export
@@ -38,7 +38,7 @@ $ yarn export
 
 Static website will be available in the "out" folder.
 
-```ssh
+```
 $ serve -p 8080 out
 ```
 
@@ -46,8 +46,19 @@ Open [localhost](http://localhost:8080).
 
 ### Start dev server with Docker container
 
-```ssh
+```
 $ docker-compose up [--build]
+```
+
+## Unit Tests
+
+Unit tests are perfomed using [Jest](https://jestjs.io/) and
+[jest-extended](https://github.com/jest-community/jest-extended/).
+
+### Running tests
+
+```
+$ docker-compose exec next-storefront yarn test
 ```
 
 ## Built With
