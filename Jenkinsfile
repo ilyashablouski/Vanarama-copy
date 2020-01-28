@@ -43,8 +43,7 @@ node('master') {
         }
       }
 
-      try{
-       stage("3: Unit Test Execution...") {
+      stage("3: Unit Test Execution...") {
           sh '''
           export PATH=/usr/local/bin:$PATH
           docker-compose -f ${WORKSPACE}/docker-compose.yml up -d
@@ -54,12 +53,7 @@ node('master') {
           docker cp next-storefront:/usr/src/app/results.xml ${WORKSPACE}/results.xml
           docker-compose -f ${WORKSPACE}/docker-compose.yml down
           '''
-          }
-        } catch(Exception e) {              //Catch for failed unit tests - This is a temporary fix!
-          echo "*Unit test execution has failed - Please read Logs*"
-          println "${e}"
-          sh ''' docker-compose -f ${WORKSPACE}/docker-compose.yml down''' //Catch for failed unit tests - This is a temporary fix!
-        }
+      }
 
       if (currentBranch == "develop" || currentBranch == "devops")
       {
