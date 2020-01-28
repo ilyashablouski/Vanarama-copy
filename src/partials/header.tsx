@@ -1,7 +1,7 @@
 import React from "react"
 import Link from "next/link"
 
-import Head from "../atomic/atoms/Head"
+import Head from "../"
 import Nav from "../atomic/Nav"
 
 const Header = () => (

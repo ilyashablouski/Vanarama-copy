@@ -4,8 +4,6 @@ import { useRouter } from "next/router"
 
 import "./styles.scss"
 
-import Phone from "atomic/atoms/Phone"
-
 const Nav = () => {
   const router = useRouter()
   useEffect(() => {
@@ -13,7 +11,7 @@ const Nav = () => {
   })
   return (
     <nav className="nav-elements">
-      <Phone />
+      <a href="tel:+01442 507665">01442 507665</a>
       <Link href="/">
         <a>Home</a>
       </Link>

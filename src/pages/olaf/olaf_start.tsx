@@ -3,16 +3,9 @@ import { connect } from "react-redux"
 import * as initActions from "../../redux/actions/initActions"
 
 import Header from "../../partials/header"
-import Button from "atomic/atoms/Button"
-import Title from "atomic/atoms/Title"
-
-interface Initalize {
-  helloWorld: boolean
-}
 
 interface HomeProps {
   init: (bool: boolean) => boolean
-  initialize: Initalize
 }
 
 export class Home extends Component<HomeProps> {
@@ -31,8 +24,8 @@ export class Home extends Component<HomeProps> {
           </p>
         </div>
         <div>
-          <Title title="Online Application Form" />
-          <Button name="Launch Olaf Journey" />
+          <h1>Online Application Form</h1>
+          <button>Launch Olaf Journey</button>
         </div>
       </div>
     )
