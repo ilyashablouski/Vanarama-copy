@@ -7,7 +7,7 @@ import { init } from "../redux/actions/initActions"
 import { withTestRouter } from "../test-utils/withTestRouter.hoc"
 import { INIT } from "../redux/types"
 
-import IndexPage from "../pages/index"
+import IndexPage from "../pages/olaf/olaf_landing_page"
 
 describe("Index --- REACT-REDUX (Mount + wrapping in <Provider>)", () => {
   const initialState = { initialize: { helloWorld: false } }

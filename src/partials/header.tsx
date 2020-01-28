@@ -1,8 +1,8 @@
 import React from "react"
 import Link from "next/link"
 
-import Head from "../components/Head/"
-import Nav from "../components/Nav/" 
+import Head from "../atomic/atoms/Head"
+import Nav from "../atomic/Nav"
 
 const Header = () => (
   <div>

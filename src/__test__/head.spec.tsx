@@ -1,4 +1,4 @@
-import Head from "../components/Head"
+import Head from "../atomic/atoms/Head"
 import * as React from "react"
 import { shallow } from "enzyme"
 

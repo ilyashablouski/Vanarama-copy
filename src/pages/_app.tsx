@@ -34,3 +34,4 @@ class ReduxApp extends App<Props> {
 }
 
 export default withRedux(initStore, { debug: isDebug() })(ReduxApp)
+ 
