@@ -1,6 +1,6 @@
 FROM node:10
 
-RUN npm install -g yarn
+RUN npm install -g yarn --force
 
 # Setting working directory. All the path will be relative to WORKDIR
 WORKDIR /usr/src/app
