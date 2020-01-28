@@ -3,6 +3,8 @@ import App, { AppContext } from "next/app"
 import withRedux from "next-redux-wrapper"
 import { Store } from "redux"
 import { initStore } from "redux/store"
+import { client } from "../lib/apollo"
+import { ApolloProvider } from "@apollo/react-hooks"
 
 interface Props {
   store: Store
@@ -27,7 +29,9 @@ class ReduxApp extends App<Props> {
     const { Component, pageProps, store } = this.props
     return (
       <Provider store={store}>
-        <Component {...pageProps} />
+        <ApolloProvider client={client}>
+          <Component {...pageProps} />
+        </ApolloProvider>
       </Provider>
     )
   }
