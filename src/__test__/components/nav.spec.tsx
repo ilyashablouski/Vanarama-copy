@@ -1,12 +1,12 @@
-import Nav from "../../components/Nav"
+import Index from "../../components/Nav"
 import * as React from "react"
 import { shallow } from "enzyme"
 
-describe("<Nav /> rendering", () => {
+describe("<Index /> rendering", () => {
   let wrapper
 
   beforeEach(() => {
-    wrapper = shallow(<Nav />)
+    wrapper = shallow(<Index />)
   })
 
   it("renders correctly", () => {
