@@ -1,8 +1,8 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import * as initActions from "../redux/actions/init_actions"
+import * as initActions from "redux/actions/init_actions"
 
-import Header from "../partials/header"
+import Header from "partials/header"
 
 interface Initialize{
   helloWorld: boolean
