@@ -13,12 +13,14 @@ interface LoginProps {
 interface LoginState {
   emailAddress: string
   password: string
+  token: string
 }
 
 class LoginForm extends Component<LoginProps, LoginState> {
   state: LoginState = {
     password: "",
     emailAddress: "",
+    token: ""
   }
 
   handleLogin = async (e: FormEvent<HTMLFormElement>) => {
@@ -29,12 +31,14 @@ class LoginForm extends Component<LoginProps, LoginState> {
         mutation: LOGIN_USER,
         variables: { email: emailAddress, pw: password },
       })
-      console.log(result.data.login)
+      this.setState({token: result.data.login}, () => {
+        console.log(this.state.token)
+      })
     } catch(err) {
       console.log("login failed:", err )
     }
   }
-
+  
   handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     this.setState((prevState) => ({ ...prevState, [name]: value }))
