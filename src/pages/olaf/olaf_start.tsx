@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import * as initActions from "../../redux/actions/initActions"
+import * as initActions from "redux/actions/init_actions"
 
 import Header from "../../partials/header"
 
@@ -17,11 +17,6 @@ export class Home extends Component<HomeProps> {
       <div>
         <div className="init">
           <Header />
-          <p>
-            {this.props.initialize.helloWorld
-              ? "Next Storefront intialized"
-              : ":("}
-          </p>
         </div>
         <div>
           <h1>Online Application Form</h1>
