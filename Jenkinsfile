@@ -46,7 +46,7 @@ node('master') {
       stage("3: Unit Test Execution...") {
           sh '''
           export PATH=/usr/local/bin:$PATH
-          docker-compose -f ${WORKSPACE}/docker-compose.yml up -d
+          docker-compose -f ${WORKSPACE}/docker-compose.yml up -d --build
           docker-compose -f ${WORKSPACE}/docker-compose.yml exec -T --index=1 next-storefront /bin/bash -c "ls -a"
           docker-compose -f ${WORKSPACE}/docker-compose.yml exec -T --index=1 next-storefront /bin/bash -c "yarn install"
           docker-compose -f ${WORKSPACE}/docker-compose.yml exec -T --index=1 next-storefront /bin/bash -c "yarn test >results.xml "
