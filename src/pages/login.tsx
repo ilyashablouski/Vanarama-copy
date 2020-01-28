@@ -8,10 +8,12 @@ class LoginPage extends Component<{}, LoginState> {
       <div className="container">
         <h1 className="title h1">Login or Register</h1>
         <section>
-          <button>Login</button>
-          <button>Register</button>
+          <button id="login">Login</button>
+          <button id="register">Register</button>
           <div id="loginTab">
+            <LoginForm />
           </div>
+          <br/>
           <div id="registerTab">
             <RegisterForm />
           </div>

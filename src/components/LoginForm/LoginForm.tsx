@@ -1,8 +1,8 @@
 import React, { Component, MouseEvent, ChangeEvent, FormEvent } from "react"
-import { Formik } from "formik"
 import { connect } from "react-redux"
 import { client } from "../../lib/apollo"
 import { LOGIN_USER } from "../../gql"
+import * as sessionActions from "../../redux/actions/session_actions"
 
 interface Session {
   isAuthenticated: boolean
@@ -13,24 +13,32 @@ interface LoginProps {
 interface LoginState {
   emailAddress: string
   password: string
+  token: string
 }
 
 class LoginForm extends Component<LoginProps, LoginState> {
   state: LoginState = {
     password: "",
     emailAddress: "",
+    token: ""
   }
 
   handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const { emailAddress, password } = this.state
-    const result = await client.mutate({
-      mutation: LOGIN_USER,
-      variables: { email: emailAddress, pw: password },
-    })
-    console.log(result)
+    try {
+      const result = await client.mutate({
+        mutation: LOGIN_USER,
+        variables: { email: emailAddress, pw: password },
+      })
+      this.setState({token: result.data.login}, () => {
+        console.log(this.state.token)
+      })
+    } catch(err) {
+      console.log("login failed:", err )
+    }
   }
-
+  
   handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     this.setState((prevState) => ({ ...prevState, [name]: value }))
@@ -63,39 +71,4 @@ class LoginForm extends Component<LoginProps, LoginState> {
   }
 }
 
-/* class LoginFormV2 extends Component<LoginProps, LoginState> {
-  handleLogin = async (values) => {
-    const { emailAddress, password } = values
-    const result = await client.mutate({
-      mutation: LOGIN_USER,
-      variables: { email: emailAddress, pw: password },
-    })
-    console.log(result)
-  }
-  render() {
-    return (
-      <Formik
-        initialValues={{ email: "", password: "" }}
-        onSubmit={this.handleLogin}
-      >
-        {({ handleSubmit, handleChange, values, errors }) => (
-          <form onSubmit={handleSubmit} id="login" className="form">
-            <div className="form--item">
-              <label>Email Address</label>
-              <input onChange={handleChange} name="emailAddress" type="email" />
-            </div>
-            <div className="form--item">
-              <label>Password</label>
-              <input onChange={handleChange} name="password" type="password" />
-            </div>
-            <div>
-              <button type="submit">Submit</button>
-            </div>
-          </form>
-        )}
-      </Formik>
-    )
-  }
-} */
-
-export default connect((state) => state)(LoginForm)
+export default connect((state) => state, { ...sessionActions })(LoginForm)
