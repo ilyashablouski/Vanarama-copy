@@ -25,13 +25,13 @@ export class Home extends Component<HomeProps> {
         </div>
         <div>
           <h1>Verify Your Identity</h1>
-          <button>VERIFY YOUR IDENTITY</button>
+          <button id="olaf-verify-identity-button">VERIFY YOUR IDENTITY</button>
         </div>
         <br></br>
         <div>
           <h2>Complete Your Application</h2>
           <Link href="./olaf_start">
-            <a className="button-link">Complete Application </a>
+            <a className="button-link" id="olaf-complete-application-link">Complete Application </a>
           </Link>
         </div>
       </div>
