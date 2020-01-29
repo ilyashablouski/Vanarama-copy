@@ -56,14 +56,14 @@ class LoginForm extends Component<LoginProps, LoginState> {
 
   render() {
     return (
-      <form onSubmit={this.handleLogin} id="login" className="form">
+      <form onSubmit={this.handleLogin} id="login-form" className="form">
         <div className="form--item">
           <label>Email Address</label>
           <input
             onChange={(e) => this.handleInputChange(e)}
             name="emailAddress"
             type="email"
-            id="input-email"
+            id="login-input-email"
           />
         </div>
         <div className="form--item">
@@ -72,11 +72,13 @@ class LoginForm extends Component<LoginProps, LoginState> {
             onChange={(e) => this.handleInputChange(e)}
             name="password"
             type="password"
-            id="input-password"
+            id="login-input-password"
           />
         </div>
         <div>
-          <button type="submit">Submit</button>
+          <button type="submit" id="login-button-submit">
+            Submit
+          </button>
         </div>
       </form>
     )
