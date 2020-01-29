@@ -46,10 +46,10 @@ class RegisterForm extends Component<{}, RegisterState> {
           <Input
             handleChange={this.handleInputChange}
             handleBlur={(e) => e}
-            type={"email"}
-            name={"email"}
+            type="email"
+            name="email"
             value={this.state.email}
-            id={"input-email"}
+            id="register-input-email"
           />
         </div>
         <div className="form--item">

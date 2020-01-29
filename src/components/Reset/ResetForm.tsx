@@ -30,7 +30,7 @@ class ResetForm extends Component<{}, Reset> {
 
   render() {
     return (
-      <form onSubmit={this.handleReset} id="resetForm" className="form">
+      <form onSubmit={this.handleReset} id="reset-form" className="form">
         <div className="Field">
           <label className="Field__label">Email Address</label>
           <input
@@ -38,10 +38,12 @@ class ResetForm extends Component<{}, Reset> {
             onChange={this.handleInputChange}
             name="emailAddress"
             type="email"
-            id="input-email"
+            id="reset-input-email"
           />
         </div>
-        <button type="submit">SEND ME RESET PASSWORD</button>
+        <button type="submit" id="reset-button-submit">
+          SEND ME RESET PASSWORD
+        </button>
       </form>
     )
   }
