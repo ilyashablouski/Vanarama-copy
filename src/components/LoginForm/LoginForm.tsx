@@ -49,8 +49,8 @@ class LoginForm extends Component<LoginProps, LoginState> {
     this.setState((prevState) => ({ ...prevState, [name]: value }))
   }
 
-  componentDidUpdate() {
-    if (this.state.token)
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.token !== this.state.token)
       localForage.setItem("tmpLogin-token", this.state.token)
   }
 

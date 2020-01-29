@@ -1,5 +1,4 @@
 import React, { Component, MouseEvent, ChangeEvent, FormEvent } from "react"
-import { Formik } from "formik"
 import { client } from "../../lib/apollo"
 import { NEW_PASSWORD } from "../../gql"
 
