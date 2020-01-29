@@ -40,7 +40,7 @@ class RegisterForm extends Component<{}, RegisterState> {
 
   render() {
     return (
-      <form onSubmit={this.handleRegister} id="register" className="form">
+      <form onSubmit={this.handleRegister} id="register-form" className="form">
         <div className="form--item">
           <label>Email Address</label>
           <Input
@@ -49,7 +49,7 @@ class RegisterForm extends Component<{}, RegisterState> {
             type={"email"}
             name={"email"}
             value={this.state.email}
-            id={"input-email"}
+            id={"register-email-input"}
           />
         </div>
         <div className="form--item">
@@ -59,7 +59,7 @@ class RegisterForm extends Component<{}, RegisterState> {
             name="password"
             type="password"
             value={this.state.password}
-            id="input-password"
+            id="register-password-input-1"
           />
         </div>
         <div className="form--item">
@@ -69,11 +69,11 @@ class RegisterForm extends Component<{}, RegisterState> {
             name="passwordConf"
             type="password"
             value={this.state.passwordConf}
-            id="input-passwordConf"
+            id="register-password-input-2"
           />
         </div>
         <div>
-          <button type="submit">Submit</button>
+          <button id="register-button" type="submit">Submit</button>
         </div>
       </form>
     )
