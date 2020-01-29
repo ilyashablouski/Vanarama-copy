@@ -1,6 +1,8 @@
 import React, { Component, StyleHTMLAttributes } from "react"
 import { connect } from "react-redux"
 import * as initActions from "redux/actions/init_actions"
+import Link from "next/link"
+
 
 import Header from "../../partials/header"
 
@@ -28,7 +30,9 @@ export class Home extends Component<HomeProps> {
         <br></br>
         <div>
           <h2>Complete Your Application</h2>
-          <a href="./olaf_start" className="button-link"> Complete Application </a>
+          <Link href="./olaf_start">
+            <a className="button-link">Complete Application </a>
+          </Link>
         </div>
       </div>
     )
