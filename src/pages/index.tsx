@@ -21,7 +21,7 @@ export class Home extends Component<HomeProps> {
     return (
       <div className="init">
         <Header />
-        <p>{this.props.initialize.helloWorld ? "Next Storefront intialized" : ":("}</p>
+        <p>{this.props.initialize.helloWorld ? "Next Storefront initialized" : ":("}</p>
       </div>
     )
   }
