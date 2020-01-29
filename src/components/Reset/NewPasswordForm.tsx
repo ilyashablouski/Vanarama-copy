@@ -7,14 +7,14 @@ interface Reset {}
 
 interface New {
   password: string
-  passwordConf: string
+  passwordConfirmation: string
   errors: object
 }
 
 class NewForm extends Component<{}, New> {
   state = {
     password: "",
-    passwordConf: "",
+    passwordConfirmation: "",
     errors: {},
   }
 
@@ -46,16 +46,13 @@ class NewForm extends Component<{}, New> {
           />
         </div>
         <p>
-          Your password must be at least: 
-           8 characters long Contain at least 
-           1 number 
-           Contain uppercase letters 
-           Contain lowercase letters
+          Your password must be at least: 8 characters long Contain at least 1
+          number Contain uppercase letters Contain lowercase letters
         </p>
         <div className="form--item">
           <label>Confirm New Password</label>
           <input
-            id="input-passwordConf"
+            id="input-password-confirmation"
             onChange={this.handleInputChange}
             name="password"
             type="email"
