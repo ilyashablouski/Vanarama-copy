@@ -3,18 +3,18 @@ import { client } from "../../lib/apollo"
 import { RESET_REQUEST } from "../../gql"
 
 interface Reset {
-  emailAddress: string,
+  emailAddress: string
   errors: object
 }
 
 class ResetForm extends Component<{}, Reset> {
   state = {
     emailAddress: "",
-    errors: {}
+    errors: {},
   }
 
   handleReset = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
     const { emailAddress } = this.state
     const result = await client.mutate({
       mutation: RESET_REQUEST,
@@ -31,18 +31,17 @@ class ResetForm extends Component<{}, Reset> {
   render() {
     return (
       <form onSubmit={this.handleReset} id="resetForm" className="form">
-        <div className="form--item">
-          <label>Email Address</label>
+        <div className="Field">
+          <label className="Field__label">Email Address</label>
           <input
-            id="resetFormEmail"
+            className="Field__Native"
             onChange={this.handleInputChange}
             name="emailAddress"
             type="email"
+            id="input-email"
           />
         </div>
-        <div>
-          <button type="submit">SEND ME RESET PASSWORD</button>
-        </div>
+        <button type="submit">SEND ME RESET PASSWORD</button>
       </form>
     )
   }
