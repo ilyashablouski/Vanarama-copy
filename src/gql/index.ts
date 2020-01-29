@@ -13,7 +13,7 @@ export const LOGIN_USER = gql`
 `
 export const RESET_REQUEST = gql`
   mutation RequestNewPassword($email: String!) {
-    requestNewPassword(username: $email)
+    passwordReset(username: $email)
   }
 `
 
