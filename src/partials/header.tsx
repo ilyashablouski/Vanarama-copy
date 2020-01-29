@@ -1,7 +1,7 @@
 import React from "react"
 
-import Head from "components/Head"
-import Nav from "components/Nav"
+import Head from "../components/Head"
+import Nav from "../components/Nav"
 
 const Header = () => (
   <div>
