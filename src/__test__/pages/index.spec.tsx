@@ -3,11 +3,11 @@ import { mount, shallow } from "enzyme"
 import { Provider } from "react-redux"
 import thunk from "redux-thunk"
 import configureStore from "redux-mock-store"
-import { init } from "../redux/actions/initActions"
-import { withTestRouter } from "../test-utils/withTestRouter.hoc"
-import { INIT } from "../redux/types"
+import { init } from "../../redux/actions/init_actions"
+import { withTestRouter } from "../../test-utils/withTestRouter.hoc"
+import { INIT } from "../../redux/types"
 
-import IndexPage from "../pages/index"
+import IndexPage from "../../pages/index"
 
 describe("Index --- REACT-REDUX (Mount + wrapping in <Provider>)", () => {
   const initialState = { initialize: { helloWorld: false } }

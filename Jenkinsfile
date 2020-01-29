@@ -43,23 +43,17 @@ node('master') {
         }
       }
 
-      try{
-       stage("3: Unit Test Execution...") {
+      stage("3: Unit Test Execution...") {
           sh '''
           export PATH=/usr/local/bin:$PATH
-          docker-compose -f ${WORKSPACE}/docker-compose.yml up -d
+          docker-compose -f ${WORKSPACE}/docker-compose.yml up -d --build
           docker-compose -f ${WORKSPACE}/docker-compose.yml exec -T --index=1 next-storefront /bin/bash -c "ls -a"
           docker-compose -f ${WORKSPACE}/docker-compose.yml exec -T --index=1 next-storefront /bin/bash -c "yarn install"
           docker-compose -f ${WORKSPACE}/docker-compose.yml exec -T --index=1 next-storefront /bin/bash -c "yarn test >results.xml "
           docker cp next-storefront:/usr/src/app/results.xml ${WORKSPACE}/results.xml
           docker-compose -f ${WORKSPACE}/docker-compose.yml down
           '''
-          }
-        } catch(Exception e) {              //Catch for failed unit tests - This is a temporary fix!
-          echo "*Unit test execution has failed - Please read Logs*"
-          println "${e}"
-          sh ''' docker-compose -f ${WORKSPACE}/docker-compose.yml down''' //Catch for failed unit tests - This is a temporary fix!
-        }
+      }
 
       if (currentBranch == "develop" || currentBranch == "devops")
       {
@@ -100,7 +94,7 @@ node('master') {
                         sh """
                           cd ecs-cluster
                           terraform --version
-                          terraform init -backend-config='key=cluster/ecs-cluster-dev.tfstate'
+                          terraform init -backend-config='key=service/ecs-service-${clusterName}.tfstate'
                           terraform plan -var-file=ecs-cluster-dev.tfvars -input=false -out=acorn-cluster-plan -var cluster=${clusterName} -var app_subdomain_name=${clusterName}.${app_subdomain_name}
                           terraform apply acorn-cluster-plan
                         """
@@ -141,7 +135,7 @@ node('master') {
                     if(currentService == "") {
                       sh """
                           cd ecs-service
-                          terraform init -backend-config='key=service/ecs-service-dev.tfstate'
+                          terraform init -backend-config='key=service/ecs-service-${clusterName}.tfstate'
                           terraform plan -var-file=ecs-service-dev.tfvars -input=false -out=acorn-service-plan -var service_name=${serviceName} -var cluster_arn=${currentCluster} -var task_definition=${taskDefinitionInitialNumber}
                           terraform apply acorn-service-plan
                         """
