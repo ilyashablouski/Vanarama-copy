@@ -1,28 +1,31 @@
 import React, { Component, MouseEvent, ChangeEvent, FormEvent } from "react"
 import { connect } from "react-redux"
+import localForage from "localforage"
 import { client } from "../../lib/apollo"
 import { LOGIN_USER } from "../../gql"
 import * as sessionActions from "../../redux/actions/session_actions"
 
 interface Session {
-  isAuthenticated: boolean,
+  isAuthenticated: boolean
   currentSessionData: any
 }
 interface LoginProps {
-  session: Session,
+  session: Session
   updateSession: (isAuthenticated: boolean, currentSessionData: any) => boolean
 }
 interface LoginState {
   emailAddress: string
   password: string
   token: string
+  errors: object
 }
 
 class LoginForm extends Component<LoginProps, LoginState> {
   state: LoginState = {
     password: "",
     emailAddress: "",
-    token: ""
+    token: "",
+    errors: {},
   }
 
   handleLogin = async (e: FormEvent<HTMLFormElement>) => {
@@ -33,18 +36,22 @@ class LoginForm extends Component<LoginProps, LoginState> {
         mutation: LOGIN_USER,
         variables: { email: emailAddress, pw: password },
       })
-      this.setState({token: result.data.login}, () => {
-        console.log(this.state.token)
+      this.setState({ token: result.data.login }, () => {
         this.props.updateSession(true, {})
       })
-    } catch(err) {
-      console.log("login failed:", err )
+    } catch (err) {
+      console.log("login failed:", err)
     }
   }
 
   handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     this.setState((prevState) => ({ ...prevState, [name]: value }))
+  }
+
+  componentDidUpdate() {
+    if (this.state.token)
+      localForage.setItem("tmpLogin-token", this.state.token)
   }
 
   render() {
