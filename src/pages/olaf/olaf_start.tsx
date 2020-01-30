@@ -1,16 +1,11 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import * as initActions from "../redux/actions/init_actions"
+import * as initActions from "redux/actions/init_actions"
 
-import Header from "../partials/header"
-
-interface Initialize{
-  helloWorld: boolean
-}
+import Header from "../../partials/header"
 
 interface HomeProps {
   init: (bool: boolean) => boolean
-  initialize: Initialize
 }
 
 export class Home extends Component<HomeProps> {
@@ -19,9 +14,14 @@ export class Home extends Component<HomeProps> {
   }
   render() {
     return (
-      <div className="init">
-        <Header />
-        <p>{this.props.initialize.helloWorld ? "Next Storefront initialized" : ":("}</p>
+      <div>
+        <div className="init">
+          <Header />
+        </div>
+        <div>
+          <h1>Online Application Form</h1>
+          <button>Launch Olaf Journey</button>
+        </div>
       </div>
     )
   }

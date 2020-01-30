@@ -49,7 +49,7 @@ class RegisterForm extends Component<{}, RegisterState> {
             type="email"
             name="email"
             value={this.state.email}
-            id="register-input-email"
+            id="registerinput-email"
           />
         </div>
         <div className="form--item">

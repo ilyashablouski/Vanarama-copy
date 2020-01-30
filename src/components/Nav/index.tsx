@@ -10,24 +10,17 @@ const Nav = () => {
     router.prefetch("/test")
   })
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link href="/">
-            <a>Home</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/test">
-            <a>Test</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/sub/test">
-            <a>Sub Test</a>
-          </Link>
-        </li>
-      </ul>
+    <nav className="nav-elements">
+      <a href="tel:+01442 507665">01442 507665</a>
+      <Link href="/">
+        <a>Home</a>
+      </Link>
+      <Link href="/test">
+        <a>Test</a>
+      </Link>
+      <Link href="/sub/test">
+        <a>Sub Test</a>
+      </Link>
     </nav>
   )
 }
