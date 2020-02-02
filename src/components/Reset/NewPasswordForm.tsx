@@ -1,21 +1,23 @@
 import React, { Component, MouseEvent, ChangeEvent, FormEvent } from "react"
+import { connect } from "react-redux"
 import { client } from "../../lib/apollo"
 import { NEW_PASSWORD } from "../../gql"
 
-interface Reset {}
-
-interface New {
+interface Session {
+  userEmail: boolean
+}
+interface NewProps {
+  session: Session
+}
+interface NewState {
   verifyCode: string
-  emailAddress: string
   password: string
   passwordConf: string
   errors: object
 }
-
-class NewForm extends Component<{}, New> {
+class NewForm extends Component<NewProps, NewState> {
   state = {
     verifyCode: "",
-    emailAddress: "",
     password: "",
     passwordConf: "",
     errors: {},
@@ -23,10 +25,11 @@ class NewForm extends Component<{}, New> {
 
   handleReset = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const { password } = this.state
+    const { password, verifyCode } = this.state
+    const {userEmail} = this.props.session
     const result = await client.mutate({
       mutation: NEW_PASSWORD,
-      variables: { pw: password },
+      variables: { code: verifyCode, email: userEmail , pw: password },
     })
     console.log(result)
   }
@@ -80,4 +83,4 @@ class NewForm extends Component<{}, New> {
   }
 }
 
-export default NewForm
+export default connect((state) => state)(NewForm)
