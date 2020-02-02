@@ -19,7 +19,7 @@ export const captchaUserEmail = (
     return (dispatch) => {
         return dispatch({
             type: TMP_USER_EMAIL,
-            payload: userEmail
+            payload: {userEmail}
         })
     }
 }
