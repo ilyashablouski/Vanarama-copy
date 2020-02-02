@@ -5,6 +5,8 @@ import { NEW_PASSWORD } from "../../gql"
 interface Reset {}
 
 interface New {
+  verifyCode: string
+  emailAddress: string
   password: string
   passwordConf: string
   errors: object
@@ -12,6 +14,8 @@ interface New {
 
 class NewForm extends Component<{}, New> {
   state = {
+    verifyCode: "",
+    emailAddress: "",
     password: "",
     passwordConf: "",
     errors: {},
@@ -36,23 +40,16 @@ class NewForm extends Component<{}, New> {
     return (
       <form onSubmit={this.handleReset} id="new-password-form" className="form">
         <div className="form--item">
-          <label>New Password</label>
+          <label>Verification Code</label>
           <input
             id="new-password-input-1"
             onChange={this.handleInputChange}
-            name="password"
-            type="password"
+            name="verification"
+            type="text"
           />
         </div>
-        <p>
-          Your password must be at least: 
-           8 characters long Contain at least 
-           1 number 
-           Contain uppercase letters 
-           Contain lowercase letters
-        </p>
         <div className="form--item">
-          <label>Confirm New Password</label>
+          <label>New Password</label>
           <input
             id="new-password-input-2"
             onChange={this.handleInputChange}
@@ -60,8 +57,23 @@ class NewForm extends Component<{}, New> {
             type="password"
           />
         </div>
+        <p>
+          Your password must be at least: 8 characters long Contain at least 1
+          number Contain uppercase letters Contain lowercase letters
+        </p>
+        <div className="form--item">
+          <label>Confirm New Password</label>
+          <input
+            id="new-password-input-3"
+            onChange={this.handleInputChange}
+            name="password"
+            type="password"
+          />
+        </div>
         <div>
-          <button id="new-password-button" type="submit">SUBMIT NEW PASSWORD</button>
+          <button id="new-password-button" type="submit">
+            SUBMIT NEW PASSWORD
+          </button>
         </div>
       </form>
     )
