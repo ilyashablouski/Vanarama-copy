@@ -47,7 +47,7 @@ class NewForm extends Component<NewProps, NewState> {
           <input
             id="new-password-input-1"
             onChange={this.handleInputChange}
-            name="verification"
+            name="verifyCode"
             type="text"
           />
         </div>
