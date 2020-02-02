@@ -31,7 +31,6 @@ class NewForm extends Component<NewProps, NewState> {
       mutation: NEW_PASSWORD,
       variables: { code: verifyCode, email: userEmail , pw: password },
     })
-    console.log(result)
   }
 
   handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
