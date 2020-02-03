@@ -1,6 +1,6 @@
-import React from 'react'
-import { NextRouter } from 'next/router'
-import { RouterContext } from 'next/dist/next-server/lib/router-context'
+import React from 'react';
+import { NextRouter } from 'next/router';
+import { RouterContext } from 'next/dist/next-server/lib/router-context';
 
 export function withTestRouter(tree: React.ReactElement, router: Partial<NextRouter> = {}) {
   const {
@@ -17,9 +17,9 @@ export function withTestRouter(tree: React.ReactElement, router: Partial<NextRou
     events = {
       on: () => null,
       off: () => null,
-      emit: () => null
-    }
-  } = router
+      emit: () => null,
+    },
+  } = router;
 
   return (
     <RouterContext.Provider
@@ -34,10 +34,10 @@ export function withTestRouter(tree: React.ReactElement, router: Partial<NextRou
         back,
         prefetch,
         beforePopState,
-        events
+        events,
       }}
     >
       {tree}
     </RouterContext.Provider>
-  )
+  );
 }
