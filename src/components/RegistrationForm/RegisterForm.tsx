@@ -49,7 +49,7 @@ class RegisterForm extends Component<{}, RegisterState> {
             type={"email"}
             name={"email"}
             value={this.state.email}
-            id={"register-email-input"}
+            id={"registerInputEmail"}
           />
         </div>
         <div className="form--item">
@@ -59,7 +59,7 @@ class RegisterForm extends Component<{}, RegisterState> {
             name="password"
             type="password"
             value={this.state.password}
-            id="register-password-input-1"
+            id="registerInputPassword"
           />
         </div>
         <div className="form--item">
@@ -69,11 +69,11 @@ class RegisterForm extends Component<{}, RegisterState> {
             name="passwordConf"
             type="password"
             value={this.state.passwordConf}
-            id="register-password-input-2"
+            id="registerInputPasswordConf"
           />
         </div>
         <div>
-          <button id="register-button" type="submit">Submit</button>
+          <button id="registerButton" type="submit">Submit</button>
         </div>
       </form>
     )

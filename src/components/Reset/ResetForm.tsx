@@ -7,7 +7,6 @@ import { RESET_REQUEST } from "../../gql"
 interface ResetProps {
   captchaUserEmail: (email: string) => string
 }
-
 interface ResetState {
   emailAddress: string
   errors: object
@@ -47,10 +46,10 @@ class ResetForm extends Component<ResetProps, ResetState> {
             onChange={this.handleInputChange}
             name="emailAddress"
             type="email"
-            id="reset-email-input"
+            id="resetInputForm"
           />
         </div>
-        <button id="reset-button" type="submit">
+        <button id="resetButton" type="submit">
           SEND ME RESET PASSWORD
         </button>
       </form>

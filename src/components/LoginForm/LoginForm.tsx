@@ -63,7 +63,7 @@ class LoginForm extends Component<LoginProps, LoginState> {
             onChange={(e) => this.handleInputChange(e)}
             name="emailAddress"
             type="email"
-            id="login-email-input"
+            id="loginInputEmail"
           />
         </div>
         <div className="form--item">
@@ -72,11 +72,11 @@ class LoginForm extends Component<LoginProps, LoginState> {
             onChange={(e) => this.handleInputChange(e)}
             name="password"
             type="password"
-            id="login-password-input"
+            id="loginInputPassword"
           />
         </div>
         <div>
-          <button id="login-button" type="submit">Submit</button>
+          <button id="loginButton" type="submit">Submit</button>
         </div>
       </form>
     )

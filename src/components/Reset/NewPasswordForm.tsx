@@ -40,11 +40,11 @@ class NewForm extends Component<NewProps, NewState> {
 
   render() {
     return (
-      <form onSubmit={this.handleReset} id="new-password-form" className="form">
+      <form onSubmit={this.handleReset} id="newForm" className="form">
         <div className="form--item">
           <label>Verification Code</label>
           <input
-            id="new-password-input-1"
+            id="newInputVerifyCode"
             onChange={this.handleInputChange}
             name="verifyCode"
             type="text"
@@ -53,7 +53,7 @@ class NewForm extends Component<NewProps, NewState> {
         <div className="form--item">
           <label>New Password</label>
           <input
-            id="new-password-input-2"
+            id="newInputPassword"
             onChange={this.handleInputChange}
             name="password"
             type="password"
@@ -66,14 +66,14 @@ class NewForm extends Component<NewProps, NewState> {
         <div className="form--item">
           <label>Confirm New Password</label>
           <input
-            id="new-password-input-3"
+            id="newInputPasswordConf"
             onChange={this.handleInputChange}
-            name="password"
+            name="passwordConf"
             type="password"
           />
         </div>
         <div>
-          <button id="new-password-button" type="submit">
+          <button id="newPasswordButton" type="submit">
             SUBMIT NEW PASSWORD
           </button>
         </div>
