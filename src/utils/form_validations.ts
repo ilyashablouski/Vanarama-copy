@@ -1,8 +1,8 @@
 
-export function registrationFormVals(){
+export function registrationFormVals() {
 
 }
 
-export function loginFormVals(){
-    
+export function loginFormVals() {
+
 }

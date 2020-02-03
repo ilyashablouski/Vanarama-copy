@@ -15,7 +15,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "tslint": "./node_modules/.bin/tslint --project . --config tslint.json || echo"
+    "lint": "./node_modules/.bin/tslint --project . --config tslint.json || echo"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",
