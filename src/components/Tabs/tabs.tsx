@@ -1,25 +1,27 @@
 import * as React from 'react';
 
+import './tabs.scss'
+
 export default class Tabs extends React.Component<any, any> {
 
   constructor(props: any, context: any) {
     super(props, context);
 
     this.state = {
-      activeTabIndex: 0
+      activeTabIndex: this.props.defaultActiveTabIndex
     }
 
-    this.handleTabClick = this.handTabClick.bind(this);
+    this.handleTabClick = this.handleTabClick.bind(this);
   }
 
   handleTabClick(tabIndex: number) {
     this.setState({
-      activeTabIndex: tabIndex === this.state.activeTabIndex ? this.state.activeTabIndex : tabIndex
+      activeTabIndex: tabIndex === this.state.activeTabIndex ? this.state.defaultTabIndex : tabIndex
     });
   }
 
   renderChildrenWithTabsApiAsProps() {
-    return React.Children.map( this.props.children, (child: any, index) => {
+    return React.Children.map( this.props.children, (child: JSX.Element, index:number) => {
       return React.cloneElement( child, {
         onClick: this.handleTabClick,
         tabIndex: index,
@@ -30,33 +32,32 @@ export default class Tabs extends React.Component<any, any> {
 
 
   renderActiveTabContent() {
-    if( this.state.activeTabIndex !== undefined) {
-      const {children} = this.props;
-      const {activeTabIndex} = this.state;
+    const children: any = this.props.children;
 
-      if(children != null) {
-        if (children[activeTabIndex]) {
-          return children[activeTabIndex].props.children;
-        }
-      } else {
-          console.error('Error! No Children for this tab');
-      }
+    if (!children) {
+      return null;
     }
+
+    const {activeTabIndex} = this.state;
+
+    if (children[activeTabIndex]) {
+      return children[activeTabIndex].props.children;
+    }
+
   }
 
 
   render() {
     return (
-      <div className="tabs">
-        <ul className="tabs-nav">
+      <div className="Tabs">
+        <ul className="Tabs__Nav">
           {this.renderChildrenWithTabsApiAsProps()}
         </ul>
 
-        <div className="tabs-active-content">
+        <div className="Tabs__Content">
           {this.renderActiveTabContent()}
         </div>
       </div>
     )
   }
-
 }
