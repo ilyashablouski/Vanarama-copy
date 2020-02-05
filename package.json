@@ -18,7 +18,6 @@
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",
-    "@vanarama/ui-components": "file:../uibook/packages/ui-components",
     "@zeit/next-sass": "^1.0.1",
     "apollo-boost": "^0.4.7",
     "apollo-cache-inmemory": "^1.6.5",
