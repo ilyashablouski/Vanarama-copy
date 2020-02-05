@@ -44,7 +44,7 @@ class ResetForm extends Component<ResetProps, ResetState> {
           <input
             className="Field__Native"
             onChange={this.handleInputChange}
-            name="emailAddress"
+            name="email-address"
             type="email"
             id="resetInputForm"
           />

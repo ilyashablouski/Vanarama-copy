@@ -12,14 +12,14 @@ interface NewProps {
 interface NewState {
   verifyCode: string
   password: string
-  passwordConf: string
+  passwordConfirmation: string
   errors: object
 }
 class NewForm extends Component<NewProps, NewState> {
   state = {
     verifyCode: "",
     password: "",
-    passwordConf: "",
+    passwordConfirmation: "",
     errors: {},
   }
 

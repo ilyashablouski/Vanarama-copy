@@ -61,6 +61,15 @@ Unit tests are perfomed using [Jest](https://jestjs.io/) and
 $ docker-compose exec next-storefront yarn test
 ```
 
+## Linting && Prettier
+
+tslint has been configured to the standard AirBNB styleguide rules, to run linting on your files you can use 
+`yarn run lint` and fix any errors. 
+
+This will eventually be moved to a githook on commit / push. 
+
+AirBNB Styleguide can be found here : [AIRBNB JSSG](https://github.com/airbnb/javascript)
+
 ## Built With
 
 - [Next.js](https://nextjs.org/)

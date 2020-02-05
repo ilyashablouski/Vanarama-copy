@@ -45,9 +45,9 @@ class RegisterForm extends Component<{}, RegisterState> {
           <label>Email Address</label>
           <Input
             handleChange={this.handleInputChange}
-            handleBlur={e => e}
-            type={"email"}
-            name={"email"}
+            handleBlur={(e) => e}
+            type="email"
+            name="email"
             value={this.state.email}
             id={"registerInputEmail"}
           />
