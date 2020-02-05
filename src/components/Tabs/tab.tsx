@@ -6,31 +6,28 @@ export interface Props {
   isActive ?: Boolean;
   tabTitle: String;
 }
-
 export class Tab extends React.PureComponent<Props, any> {
 
   constructor(props: any, context: any) {
     super(props, context);
 
-    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(event) {
+  handleClick = (event) => {
     event.preventDefault();
-    this.props.onClick(this.props.tabIndex)
+    this.props.onClick(this.props.tabIndex);
   }
 
-  render(){
+  render() {
     return(
       <li className="tab">
         <a
-          className={`Tab__Link ${this.props.isActive ? "active" : ""}`}
+          className={`Tab__Link ${this.props.isActive ? 'active' : ''}`}
           onClick={this.handleClick}
         >
           {this.props.tabTitle}
         </a>
       </li>
-    )
+    );
   }
-
 }

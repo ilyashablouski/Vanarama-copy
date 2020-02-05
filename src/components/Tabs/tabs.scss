@@ -1,4 +1,4 @@
-.Tabs__Nav{
+.Tabs__Nav {
   display: flex;
   flex-wrap: wrap;
   background: transparent;
@@ -9,20 +9,17 @@
   border-bottom: 1px solid lightgray;
 }
 
-.Tab__Link{
+.Tab__Link {
   cursor: pointer;
   padding: 10px;
 
-  &.active{
-    border-bottom:2px solid;
+  &.active {
+    border-bottom: 2px solid;
   }
 }
 
-.Tab__Content{
+.Tab__Content {
   width: 100%;
   order: 99;
   padding: 20px;
 }
-
-
-

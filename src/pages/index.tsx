@@ -1,12 +1,11 @@
-import React, { Component } from "react"
-import { connect } from "react-redux"
-import * as initActions from "../redux/actions/init_actions"
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import * as initActions from "../redux/actions/init_actions";
 
-// Tab Example
 import Tabs from '../components/Tabs/tabs';
-import {Tab} from '../components/Tabs/tab'
+import {Tab} from '../components/Tabs/tab';
 
-import Header from "../partials/header"
+import Header from "../partials/header";
 
 interface Initialize{
   helloWorld: boolean
