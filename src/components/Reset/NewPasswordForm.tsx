@@ -26,11 +26,15 @@ class NewForm extends Component<NewProps, NewState> {
   handleReset = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const { password, verifyCode } = this.state
-    const {userEmail} = this.props.session
-    const result = await client.mutate({
-      mutation: NEW_PASSWORD,
-      variables: { code: verifyCode, email: userEmail , pw: password },
-    })
+    const { userEmail } = this.props.session
+    try {
+      const result = await client.mutate({
+        mutation: NEW_PASSWORD,
+        variables: { code: verifyCode, email: userEmail, pw: password },
+      })
+    } catch(err) {
+      //handle error
+    }
   }
 
   handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
