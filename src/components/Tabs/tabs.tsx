@@ -51,7 +51,7 @@ export default class Tabs extends React.Component<any, any> {
           {this.renderChildrenWithTabsApiAsProps()}
         </ul>
 
-        <div className="Tabs__Content">
+        <div className="Tabs__Content" >
           {this.renderActiveTabContent()}
         </div>
       </div>

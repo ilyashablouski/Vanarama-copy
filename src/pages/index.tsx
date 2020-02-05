@@ -29,14 +29,14 @@ export class Home extends Component<HomeProps> {
         <Tabs defaultActiveTabIndex={0}>
           <Tab tabTitle="Login">
 
-            <div className="Tab__Content">
+            <div className="Tab__Content" id="tab-content-login">
               This is content for Tab 1
             </div>
 
           </Tab>
 
           <Tab tabTitle="Register">
-            <div className="Tab__Content">
+            <div className="Tab__Content" id="tab-content-register">
               This is content for Tab 2
             </div>
           </Tab>

@@ -24,6 +24,7 @@ export class Tab extends React.PureComponent<Props, any> {
         <a
           className={`Tab__Link ${this.props.isActive ? 'active' : ''}`}
           onClick={this.handleClick}
+          id={`tab-link-${this.props.tabTitle}`}
         >
           {this.props.tabTitle}
         </a>
