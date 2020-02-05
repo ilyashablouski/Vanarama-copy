@@ -38,15 +38,15 @@ class ResetForm extends Component<ResetProps, ResetState> {
 
   render() {
     return (
-      <form onSubmit={this.handleReset} id="reset-form" className="form">
+      <form onSubmit={this.handleReset} id="resetForm" className="form">
         <div className="Field">
           <label className="Field__label">Email Address</label>
           <input
             className="Field__Native"
             onChange={this.handleInputChange}
-            name="email-address"
+            name="emailAddress"
             type="email"
-            id="resetInputForm"
+            id="resetInputEmailAddress"
           />
         </div>
         <button id="resetButton" type="submit">
