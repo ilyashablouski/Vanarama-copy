@@ -8,11 +8,6 @@ export interface Props {
 }
 export class Tab extends React.PureComponent<Props, any> {
 
-  constructor(props: any, context: any) {
-    super(props, context);
-
-  }
-
   handleClick = (event) => {
     event.preventDefault();
     this.props.onClick(this.props.tabIndex);

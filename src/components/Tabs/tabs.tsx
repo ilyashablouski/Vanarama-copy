@@ -4,19 +4,14 @@ import './tabs.scss';
 
 export default class Tabs extends React.Component<any, any> {
 
-  constructor(props: any, context: any) {
-    super(props, context);
-
-    this.state = {
-      activeTabIndex: this.props.defaultActiveTabIndex,
-    };
-
-  }
+  state = {
+    activeTabIndex: this.props.defaultActiveTabIndex,
+  };
 
   handleTabClick = (tabIndex: number) => {
     this.setState({
       activeTabIndex: tabIndex === this.state.activeTabIndex ?
-        this.state.defaultTabIndex : tabIndex,
+        this.props.defaultTabIndex : tabIndex,
     });
   }
 
