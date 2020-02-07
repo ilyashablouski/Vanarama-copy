@@ -25,7 +25,7 @@
             "portMappings": [
                 {
                     "containerPort": 6601,
-                    "hostPort": 6601
+                    "hostPort": 0
                 }
             ],
             "logConfiguration": {
