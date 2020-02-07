@@ -1,31 +1,40 @@
 import React, { Component, MouseEvent, ChangeEvent, FormEvent } from "react"
-import { Formik } from "formik"
+import { connect } from "react-redux"
 import { client } from "../../lib/apollo"
 import { NEW_PASSWORD } from "../../gql"
 
-interface Reset {}
-
-interface New {
+interface Session {
+  userEmail: boolean
+}
+interface NewProps {
+  session: Session
+}
+interface NewState {
+  verifyCode: string
   password: string
-  passwordConfirmation: string
+  passwordConf: string
   errors: object
 }
-
-class NewForm extends Component<{}, New> {
+class NewForm extends Component<NewProps, NewState> {
   state = {
+    verifyCode: "",
     password: "",
-    passwordConfirmation: "",
+    passwordConf: "",
     errors: {},
   }
 
   handleReset = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const { password } = this.state
-    const result = await client.mutate({
-      mutation: NEW_PASSWORD,
-      variables: { pw: password },
-    })
-    console.log(result)
+    const { password, verifyCode } = this.state
+    const { userEmail } = this.props.session
+    try {
+      const result = await client.mutate({
+        mutation: NEW_PASSWORD,
+        variables: { code: verifyCode, email: userEmail, pw: password },
+      })
+    } catch(err) {
+      //handle error
+    }
   }
 
   handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -35,14 +44,23 @@ class NewForm extends Component<{}, New> {
 
   render() {
     return (
-      <form onSubmit={this.handleReset} id="new-password-form" className="form">
+      <form onSubmit={this.handleReset} id="newForm" className="form">
+        <div className="form--item">
+          <label>Verification Code</label>
+          <input
+            id="newInputVerifyCode"
+            onChange={this.handleInputChange}
+            name="verifyCode"
+            type="text"
+          />
+        </div>
         <div className="form--item">
           <label>New Password</label>
           <input
-            id="new-password-input-password"
+            id="newInputPassword"
             onChange={this.handleInputChange}
             name="password"
-            type="email"
+            type="password"
           />
         </div>
         <p>
@@ -52,14 +70,14 @@ class NewForm extends Component<{}, New> {
         <div className="form--item">
           <label>Confirm New Password</label>
           <input
-            id="new-password-input-password-confirmation"
+            id="newInputPasswordConf"
             onChange={this.handleInputChange}
-            name="password"
-            type="email"
+            name="passwordConf"
+            type="password"
           />
         </div>
         <div>
-          <button type="submit" id="new-password-button-submit">
+          <button id="newPasswordButton" type="submit">
             SUBMIT NEW PASSWORD
           </button>
         </div>
@@ -68,4 +86,4 @@ class NewForm extends Component<{}, New> {
   }
 }
 
-export default NewForm
+export default connect((state) => state)(NewForm)

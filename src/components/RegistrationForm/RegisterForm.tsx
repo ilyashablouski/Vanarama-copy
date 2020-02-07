@@ -6,14 +6,14 @@ import Input from "../Input"
 interface RegisterState {
   email: string
   password: string
-  passwordConfirmation: string
+  passwordConf: string
 }
 
 class RegisterForm extends Component<{}, RegisterState> {
   state: RegisterState = {
     email: "",
     password: "",
-    passwordConfirmation: "",
+    passwordConf: "",
   }
 
   handleRegister = async (e: FormEvent<HTMLFormElement>) => {
@@ -49,7 +49,7 @@ class RegisterForm extends Component<{}, RegisterState> {
             type="email"
             name="email"
             value={this.state.email}
-            id="registerinput-email"
+            id={"registerInputEmail"}
           />
         </div>
         <div className="form--item">
@@ -59,23 +59,21 @@ class RegisterForm extends Component<{}, RegisterState> {
             name="password"
             type="password"
             value={this.state.password}
-            id="register-input-password"
+            id="registerInputPassword"
           />
         </div>
         <div className="form--item">
           <label>Password Confirmation</label>
           <input
             onChange={(e) => this.handleInputChange(e)}
-            name="passwordConfirmation"
+            name="passwordConf"
             type="password"
-            value={this.state.passwordConfirmation}
-            id="register-input-password-confirmation"
+            value={this.state.passwordConf}
+            id="registerInputPasswordConf"
           />
         </div>
         <div>
-          <button type="submit" id="register-button-submit">
-            Submit
-          </button>
+          <button id="registerButton" type="submit">Submit</button>
         </div>
       </form>
     )

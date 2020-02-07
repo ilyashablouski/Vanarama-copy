@@ -13,12 +13,12 @@ export const LOGIN_USER = gql`
 `
 export const RESET_REQUEST = gql`
   mutation RequestNewPassword($email: String!) {
-    requestNewPassword(username: $email)
+    passwordReset(username: $email)
   }
 `
 
 export const NEW_PASSWORD = gql`
-  mutation CreateNewPassword($email: String!, $pw: String!) {
-    createNewPassword(username: $email, password: $pw)
+  mutation CreateNewPassword($code: String!, $email: String!, $pw: String!) {
+    passwordConfirm(verificationCode: $code, username: $email, password: $pw)
   }
 `

@@ -49,8 +49,8 @@ class LoginForm extends Component<LoginProps, LoginState> {
     this.setState((prevState) => ({ ...prevState, [name]: value }))
   }
 
-  componentDidUpdate() {
-    if (this.state.token)
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.token !== this.state.token)
       localForage.setItem("tmpLogin-token", this.state.token)
   }
 
@@ -63,7 +63,7 @@ class LoginForm extends Component<LoginProps, LoginState> {
             onChange={(e) => this.handleInputChange(e)}
             name="emailAddress"
             type="email"
-            id="login-input-email"
+            id="loginInputEmail"
           />
         </div>
         <div className="form--item">
@@ -72,13 +72,11 @@ class LoginForm extends Component<LoginProps, LoginState> {
             onChange={(e) => this.handleInputChange(e)}
             name="password"
             type="password"
-            id="login-input-password"
+            id="loginInputPassword"
           />
         </div>
         <div>
-          <button type="submit" id="login-button-submit">
-            Submit
-          </button>
+          <button id="loginButton" type="submit">Submit</button>
         </div>
       </form>
     )
