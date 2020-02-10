@@ -5,6 +5,9 @@ import Layout from '../../components/Layout';
 import Tabs from "../../components/Tabs/tabs"
 import { Tab } from "../../components/Tabs/tab"
 
+import LoginForm from '../../components/LoginForm';
+import RegisterForm from '../../components/RegistrationForm';
+
 
 const AuthenticationPage = () => {
 
@@ -18,14 +21,14 @@ return (
       <Tab tabTitle="Login">
 
         <div className="Tab__Content" id="tab-content-login">
-          This is content for Tab 1
+          <LoginForm />
         </div>
 
       </Tab>
 
       <Tab tabTitle="Register">
         <div className="Tab__Content" id="tab-content-register">
-          This is content for Tab 2
+          <RegisterForm />
         </div>
       </Tab>
 
