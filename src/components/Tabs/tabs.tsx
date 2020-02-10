@@ -1,6 +1,7 @@
 import * as React from 'react';
-
 import './tabs.scss';
+
+import Router from 'next/router';
 
 export default class Tabs extends React.Component<any, any> {
 
