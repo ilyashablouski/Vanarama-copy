@@ -36,7 +36,7 @@
               "awslogs-stream-prefix": "storefront2"
               }
             },
-            "memory": 500,
+            "memory": 750,
             "cpu": 10
         }
     ],
