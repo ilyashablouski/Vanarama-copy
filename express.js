@@ -1,60 +1,60 @@
-require("./config/dotenv")()
+require('./config/dotenv')();
 
-const express = require("express")
-const next = require("next")
-const rewrite = require("express-urlrewrite")
-const prerender = require("prerender-node")
+const express = require('express');
+const next = require('next');
+const rewrite = require('express-urlrewrite');
+const prerender = require('prerender-node');
 
-const dev = process.env.NODE_ENV !== "production"
-const app = next({ dev })
-const handle = app.getRequestHandler()
+const dev = process.env.NODE_ENV !== 'production';
+const app = next({ dev });
+const handle = app.getRequestHandler();
 
-const logo = require("./logo")
+const logo = require('./logo');
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000;
 
 // Rewrites
-const rewrites = [{ from: "/:manufacturer-car-leasing.html", to: "/rewrite" }]
+const rewrites = [{ from: '/:manufacturer-car-leasing.html', to: '/rewrite' }];
 // Redirects.
-const redirects = [{ from: "/old-link", to: "/redirect", type: 302 }]
+const redirects = [{ from: '/old-link', to: '/redirect', type: 302 }];
 
 app.prepare().then(() => {
-  const server = express()
+  const server = express();
 
   // Handle rewrites.
   rewrites.forEach(({ from, to }) => {
-    server.use(rewrite(from, to))
-  })
+    server.use(rewrite(from, to));
+  });
 
   // Handle redirects.
-  redirects.forEach(({ from, to, type = 301, method = "get" }) => {
+  redirects.forEach(({ from, to, type = 301, method = 'get' }) => {
     server[method](from, (req, res) => {
-      res.redirect(type, to)
-    })
-  })
+      res.redirect(type, to);
+    });
+  });
 
   // Prerender.
-  if (prerender && process.env.PRERENDER_SERVICE_URL) server.use(prerender)
+  if (prerender && process.env.PRERENDER_SERVICE_URL) server.use(prerender);
 
-  server.all("*", (req, res) => {
-    return handle(req, res)
-  })
+  server.all('*', (req, res) => {
+    return handle(req, res);
+  });
 
   server.listen(PORT, (err) => {
-    if (err) throw err
-    console.log(logo)
-    console.log(`Ready on http://localhost:${PORT}`.cyan)
-  })
-})
+    if (err) throw err;
+    console.log(logo);
+    console.log(`Ready on http://localhost:${PORT}`.cyan);
+  });
+});
 
-process.on("SIGTERM", () => {
-  console.log("Closing http server")
+process.on('SIGTERM', () => {
+  console.log('Closing http server');
   app.close(() => {
-    console.log("Server closed")
-  })
-})
+    console.log('Server closed');
+  });
+});
 
-process.on("SIGINT", () => {
-  console.log("Server terminated")
-  process.exit(1)
-})
+process.on('SIGINT', () => {
+  console.log('Server terminated');
+  process.exit(1);
+});
