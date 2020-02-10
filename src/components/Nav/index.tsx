@@ -1,17 +1,19 @@
-import React, { useEffect } from "react"
-import Link from "next/link"
-import { useRouter } from "next/router"
+import React, { useEffect } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import "./styles.scss"
+import './styles.scss';
 
 const Nav = () => {
-  const router = useRouter()
+  const router = useRouter();
   useEffect(() => {
-    router.prefetch("/test")
-  })
+    router.prefetch('/test');
+  });
   return (
     <nav className="nav-elements">
-      <a href="tel:+01442 507665">01442 507665</a>
+      <Link href="tel:+01442 507665">
+        <a>01442 507665</a>
+      </Link>
       <Link href="/">
         <a>Home</a>
       </Link>
@@ -22,7 +24,7 @@ const Nav = () => {
         <a>Sub Test</a>
       </Link>
     </nav>
-  )
-}
+  );
+};
 
-export default Nav
+export default Nav;
