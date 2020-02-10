@@ -1,6 +1,7 @@
 require('./config/dotenv')();
 
 const express = require('express');
+const cors = require('cors')
 const next = require('next');
 const rewrite = require('express-urlrewrite');
 const prerender = require('prerender-node');
@@ -36,7 +37,7 @@ app.prepare().then(() => {
   // Prerender.
   if (prerender && process.env.PRERENDER_SERVICE_URL) server.use(prerender);
 
-  server.all('*', (req, res) => {
+  server.all('*', cors(), (req, res) => {
     return handle(req, res);
   });
 
