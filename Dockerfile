@@ -1,27 +1,18 @@
 FROM node:13.6
 
 ARG NPM_TOKEN
-
+COPY package.json package.json
 COPY .npmrc .npmrc
-
-RUN npm install yarn --force
-
+#COPY package.json package.json
+RUN yarn -v
+RUN yarn install --force
 RUN rm -f .npmrc
-
 
 # Setting working directory. All the path will be relative to WORKDIR
 WORKDIR /usr/src/app
 
-# Installing dependencies
-#COPY package*.json ./
-
-RUN yarn install
-
 # Copying source files
 COPY . .
-
-# Building app
-# RUN npm run build
 
 RUN npm rebuild node-sass
 
