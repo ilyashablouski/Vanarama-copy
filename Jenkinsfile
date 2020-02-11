@@ -44,6 +44,8 @@ node('master') {
       }
 
       stage("3: Unit Test Execution...") {
+         withCredentials([string(credentialsId: 'npm_token', variable: 'npm_token')]) {
+          export npm_token=${npm_token}
           sh '''
           export PATH=/usr/local/bin:$PATH
           docker-compose -f ${WORKSPACE}/docker-compose.yml up -d --build
@@ -53,6 +55,7 @@ node('master') {
           docker cp next-storefront:/usr/src/app/results.xml ${WORKSPACE}/results.xml
           docker-compose -f ${WORKSPACE}/docker-compose.yml down
           '''
+        }
       }
 
       if (currentBranch == "develop" || currentBranch == "devops")

@@ -14,3 +14,4 @@ services:
     environment:
       - NODE_ENV=development
       - FORCE_COLOR=true
+      - NPM_TOKEN=${npm_token}
