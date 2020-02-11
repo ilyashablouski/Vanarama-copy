@@ -6,7 +6,7 @@ node('master') {
 
     echo "${WORKSPACE}"
 
-    cat ~/.profile
+    sh 'cat ~/.profile'
 
     // set global environment variables
     env.GIT_TAG = "jenkins-$BUILD_NUMBER"
