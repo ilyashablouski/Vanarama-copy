@@ -6,8 +6,6 @@ node('master') {
 
     echo "${WORKSPACE}"
 
-    sh 'cat ~/.profile'
-
     // set global environment variables
     env.GIT_TAG = "jenkins-$BUILD_NUMBER"
 
@@ -35,10 +33,7 @@ node('master') {
         currentBranch = scm.branches[0].name
 
         withCredentials([string(credentialsId: 'npm_token', variable: 'npm_token')]) {
-
-          export npm_token=${npm_token}
-          echo "${npm_token}"
-
+          export NPM_TOKEN=${npm_token}
           sh "docker build -t autorama-nextstorefront:latest -f Dockerfile ."
 
         }
@@ -55,9 +50,8 @@ node('master') {
 
       stage("3: Unit Test Execution...") {
          withCredentials([string(credentialsId: 'npm_token', variable: 'npm_token')]) {
-          export npm_token=${npm_token}
+          export NPM_TOKEN=${npm_token}
           sh '''
-          echo "${npm_token}"
           export PATH=/usr/local/bin:$PATH
           docker-compose -f ${WORKSPACE}/docker-compose.yml up -d --build
           docker-compose -f ${WORKSPACE}/docker-compose.yml exec -T --index=1 next-storefront /bin/bash -c "ls -a"
