@@ -1,5 +1,7 @@
 FROM node:10
 
+RUN echo sh "${NPM_TOKEN}"
+
 RUN npm install -g yarn --force
 
 # Setting working directory. All the path will be relative to WORKDIR
