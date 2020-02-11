@@ -34,11 +34,14 @@ node('master') {
         checkout scm
         currentBranch = scm.branches[0].name
 
-      withCredentials([string(credentialsId: 'npm_token', variable: 'npm_token')]) {
-        export npm_token=${npm_token}
-        echo "${npm_token}"
-        sh "docker build -t autorama-nextstorefront:latest -f Dockerfile ."
-      }
+        withCredentials([string(credentialsId: 'npm_token', variable: 'npm_token')]) {
+
+          export npm_token=${npm_token}
+          echo "${npm_token}"
+
+          sh "docker build -t autorama-nextstorefront:latest -f Dockerfile ."
+
+        }
       }
 
       stage("2: Sonarqube analysis..."){
