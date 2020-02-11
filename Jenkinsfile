@@ -34,7 +34,7 @@ node('master') {
 
         withCredentials([string(credentialsId: 'npm_token', variable: 'npm_token')]) {
           NPM_TOKEN="${npm_token}"
-          sh "docker build --build-arg NPM_TOKEN="${NPM_TOKEN}" -t autorama-nextstorefront:latest -f Dockerfile ."
+          sh "docker build --build-arg NPM_TOKEN=${NPM_TOKEN} -t autorama-nextstorefront:latest -f Dockerfile ."
 
         }
       }
