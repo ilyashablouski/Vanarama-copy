@@ -50,7 +50,7 @@ node('master') {
 
       stage("3: Unit Test Execution...") {
          withCredentials([string(credentialsId: 'npm_token', variable: 'npm_token')]) {
-          export NPM_TOKEN=${npm_token}
+          NPM_TOKEN="${npm_token}"
           sh '''
           export PATH=/usr/local/bin:$PATH
           docker-compose -f ${WORKSPACE}/docker-compose.yml up -d --build
