@@ -12,6 +12,9 @@ module.exports = {
     },
   },
   coveragePathIgnorePatterns: ["/node_modules/", "enzyme.js"],
+  transformIgnorePatterns: [
+    "node_modules/(?!(@vanarama)/)",
+  ],
   setupFilesAfterEnv: ["<rootDir>/enzyme.js"],
   coverageReporters: ["json", "lcov", "text", "text-summary"],
   moduleNameMapper: {
