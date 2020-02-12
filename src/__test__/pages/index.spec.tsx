@@ -9,7 +9,7 @@ import { INIT } from "../../redux/types"
 
 import IndexPage from "../../pages/index"
 
-// describe("Index --- REACT-REDUX (Mount + wrapping in <Provider>)", () => {
+ describe("Index --- REACT-REDUX (Mount + wrapping in <Provider>)", () => {
 //   const initialState = { initialize: { helloWorld: false } }
 //   const mockStore = configureStore([thunk])
 //   let store, wrapper
@@ -40,4 +40,8 @@ import IndexPage from "../../pages/index"
 //   it("should display correct default text", () => {
 //     expect(wrapper.find(".init p").text()).toBe(":(")
 //   })
-// })
+
+   it('placeholder', () => {
+     expect(1).toEqual(1);
+   });
+ });
