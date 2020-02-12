@@ -52,7 +52,8 @@
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.0.1",
-    "yup": "^0.28.0"
+    "yup": "^0.28.0",
+    "@vanarama/uibook": "file:../uibook/packages/ui-components"
   },
   "devDependencies": {
     "@babel/core": "^7.7.5",

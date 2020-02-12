@@ -7,7 +7,7 @@ import { Tab } from "../../components/Tabs/tab"
 
 import LoginForm from '../../components/LoginForm';
 import RegisterForm from '../../components/RegistrationForm';
-
+import Avatar from '@vanarama/uibook/src/atomic/atoms/Avatar';
 
 const AuthenticationPage = () => {
 
