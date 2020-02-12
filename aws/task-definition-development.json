@@ -1,6 +1,12 @@
 {
     "containerDefinitions": [
         {
+            "secrets": [
+              {
+                "name": "NPM_TOKEN",
+                "valueFrom": "arn:aws:ssm:eu-west-2:000379120260:parameter/DeploymentConfig/nextstorefront/Dev/NPM_TOKEN"
+              }
+            ],
             "environment": [
             {
               "name": "LOCALHOST_IP",

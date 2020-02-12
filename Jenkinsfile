@@ -31,7 +31,12 @@ node('master') {
         deleteDir()
         checkout scm
         currentBranch = scm.branches[0].name
-        sh "docker build -t autorama-nextstorefront:latest -f Dockerfile ."
+
+        withCredentials([string(credentialsId: 'npm_token', variable: 'npm_token')]) {
+          NPM_TOKEN="${npm_token}"
+          sh "docker build --build-arg NPM_TOKEN=${NPM_TOKEN} -t autorama-nextstorefront:latest -f Dockerfile ."
+
+        }
       }
 
       stage("2: Sonarqube analysis..."){
@@ -44,7 +49,10 @@ node('master') {
       }
 
       stage("3: Unit Test Execution...") {
+         withCredentials([string(credentialsId: 'npm_token', variable: 'npm_token')]) {
+          NPM_TOKEN="${npm_token}"
           sh '''
+          export NPM_TOKEN="${npm_token}"
           export PATH=/usr/local/bin:$PATH
           docker-compose -f ${WORKSPACE}/docker-compose.yml up -d --build
           docker-compose -f ${WORKSPACE}/docker-compose.yml exec -T --index=1 next-storefront /bin/bash -c "ls -a"
@@ -53,6 +61,7 @@ node('master') {
           docker cp next-storefront:/usr/src/app/results.xml ${WORKSPACE}/results.xml
           docker-compose -f ${WORKSPACE}/docker-compose.yml down
           '''
+        }
       }
 
       if (currentBranch == "develop" || currentBranch == "devops")

@@ -44,4 +44,17 @@ module.exports = {
       return config
     },
   },
+
+  withCustomWebpack: (config = {}) => {
+    const { webpack } = config;
+  
+    config.webpack = (config, ...rest) => {
+      config.externals = config.externals || [];
+  
+      return webpack(config, ...rest)
+    }
+  
+    return config
+  }
 }
+
