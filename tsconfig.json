@@ -16,6 +16,6 @@
     "jsx": "preserve",
     "preserveSymlinks": true
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules/(?!(@vanarama)/)"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

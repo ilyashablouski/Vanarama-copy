@@ -23,7 +23,7 @@
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-typescript": "^7.8.3",
     "@babel/runtime": "^7.8.4",
-    "@vanarama/uibook": "latest",
+    "@vanarama/uibook": "1.0.6",
     "@zeit/next-sass": "^1.0.1",
     "apollo-boost": "^0.4.7",
     "apollo-cache-inmemory": "^1.6.5",
