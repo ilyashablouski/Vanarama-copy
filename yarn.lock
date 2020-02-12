@@ -1644,7 +1644,7 @@
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
   integrity sha512-te5lMAWii1uEJ4FwLjzdlbw3+n0FZNOvFXHxQDKeT0dilh7HOzdMzV2TrJVUzq8ep7J4Na8OUYPRLSQkJHAlrg==
 
-"@vanarama/uibook@1.0.6":
+"@vanarama/uibook@latest":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-1.0.6.tgz#af63e5d800d8781689bf5eb8ac49752c994263fb"
   integrity sha512-SmniFJ9TzMpK6nfZOgWk3/qW9mjipPk36EMDE+C4JZ9JU727p9ROuu6AOoLgLBj/xoYRfyCaTlhCemWiYsHJ5Q==

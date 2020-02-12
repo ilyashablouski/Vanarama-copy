@@ -1,4 +1,4 @@
-import React, { Component, MouseEvent, ChangeEvent, FormEvent } from "react"
+import React, { Component, ChangeEvent, FormEvent } from "react"
 import { client } from "../../lib/apollo"
 import { REGISTER_USER } from "../../gql"
 import Input from "../Input"
