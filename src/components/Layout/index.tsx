@@ -2,8 +2,7 @@ import { Grid, Box } from 'react-raster';
 
 import Head from "../Head"
 
-import Header from './Header';
-import Footer from './Footer';
+import '@vanarama/uibook/packages/ui-components/src/atomic/style.scss';
 
 import Router from 'next/router';
 
@@ -12,12 +11,10 @@ const handleRouteChange = url => {
 }
 Router.events.on('routeChangeStart', handleRouteChange)
 
-
-
 export default ({ children, title = "Vanarama" }) => (
   <>
     <Head title={title} />
-    <Header />
+
     <Grid
       breakpoints={[0, 432, 768, 1024, 1200, 1400]}
       colspan={12}
@@ -25,7 +22,6 @@ export default ({ children, title = "Vanarama" }) => (
     >
         { children }
     </Grid>
-    <Footer />
   </>
 );
 

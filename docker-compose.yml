@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        - NPM_TOKEN=${NPM_TOKEN}
     volumes:
       - ".:/usr/src/app"
       - "/usr/src/app/node_modules"
@@ -14,3 +16,4 @@ services:
     environment:
       - NODE_ENV=development
       - FORCE_COLOR=true
+      - NPM_TOKEN=$NPM_TOKEN

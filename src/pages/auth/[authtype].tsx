@@ -7,7 +7,6 @@ import { Tab } from "../../components/Tabs/tab"
 
 import LoginForm from '../../components/LoginForm';
 import RegisterForm from '../../components/RegistrationForm';
-import Avatar from '@vanarama/uibook/src/atomic/atoms/Avatar';
 
 const AuthenticationPage = () => {
 
@@ -15,7 +14,7 @@ const AuthenticationPage = () => {
   const { authtype } = router.query;
 
 return (
-  <Layout title={`${authtype}`}>
+  <Layout title={`Vanarama ${authtype}`}>
 
     <Tabs defaultActiveTabIndex={authtype === 'register'? 1 : 0}>
       <Tab tabTitle="Login">
