@@ -2,8 +2,8 @@ import { useRouter } from 'next/router';
 
 import Layout from '../../components/Layout';
 
-import Tabs from "../../components/Tabs/tabs"
-import { Tab } from "../../components/Tabs/tab"
+import Tabs from "@vanarama/uibook/src/atomic/molecules/Tabs/Tabs";
+import { Tab } from "@vanarama/uibook/src/atomic/molecules/Tabs/Tab";
 
 import LoginForm from '../../components/LoginForm';
 import RegisterForm from '../../components/RegistrationForm';
