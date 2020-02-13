@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { Box } from 'react-raster';
 
 import Layout from '../../components/Layout';
 
@@ -8,14 +9,14 @@ const EmploymentHistoryPage = () => {
   return (
     <Layout title={`Employment History`}>
 
-      <h1>Employment History</h1>
+      <Box>
+        <h1>Employment History</h1>
 
 
-      <hr/>
-
-      <Link href='/olaf/expenses'>
-        <a>Next</a>
-      </Link>
+        <Link href='/olaf/expenses'>
+          <a>Next</a>
+        </Link>
+      </Box>
 
     </Layout>
   )

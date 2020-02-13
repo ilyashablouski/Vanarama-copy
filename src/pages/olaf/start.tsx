@@ -1,6 +1,5 @@
-import Header from "../../partials/header"
-
 import Link from 'next/link';
+import { Box } from 'react-raster';
 
 import Layout from '../../components/Layout';
 
@@ -9,14 +8,16 @@ const StartPage = () => {
   return (
     <Layout title={`Olaf Start`}>
 
-      <h1>Olaf Start Page</h1>
+      <Box>
+
+        <h1>Olaf Start Page</h1>
 
 
-      <hr/>
+        <Link href='/olaf/about'>
+          <a>Start</a>
+        </Link>
 
-      <Link href='/olaf/about'>
-        <a>Next</a>
-      </Link>
+      </Box>
 
     </Layout>
   )

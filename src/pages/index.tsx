@@ -1,37 +1,49 @@
 import React, { Component } from "react";
+import { Box } from 'react-raster';
 
 import Layout from '../components/Layout';
 
-import { connect } from "react-redux";
-import * as initActions from "../redux/actions/init_actions";
-
-import Tabs from '../components/Tabs/tabs';
-import { Tab } from '../components/Tabs/tab';
-
 import Header from '../partials/header';
+import Link from "next/link"
 
-interface Initialize {
-  helloWorld: boolean;
+
+const OlafHomePage = () => {
+
+  return (
+    <Layout title={`About You`}>
+
+      <Box>
+
+        <h1>Home Page : PLACEHOLDER</h1>
+
+        <h2>COMPLETED PAGES</h2>
+
+        <h2>IN PROGRESS</h2>
+
+        <ul>
+          <li><Link href='/auth/login'><a>Login</a></Link></li>
+          <li><Link href='/auth/register'><a>Register</a></Link></li>
+          <li><Link href='/olaf'><a>Olaf : Landing Page</a></Link></li>
+          <li><Link href='/olaf/start'><a>Olaf : Start Page</a></Link></li>
+          <li><Link href='/olaf/about'><a>Olaf : About You</a></Link></li>
+          <li><Link href='/olaf/address_history'><a>Olaf : Address History</a></Link></li>
+          <li><Link href='/olaf/employment_history'><a>Olaf : Employment History</a></Link></li>
+          <li><Link href='/olaf/expenses'><a>Olaf : Expenses</a></Link></li>
+          <li><Link href='/olaf/bank_details'><a>Olaf : Bank Details</a></Link></li>
+          <li><Link href='/olaf/summary'><a>Olaf : Summary</a></Link></li>
+        </ul>
+
+      </Box>
+
+    </Layout>
+  )
+
+
+
+
 }
 
-interface HomeProps {
-  init: (bool: boolean) => boolean;
-  initialize: Initialize;
-}
 
-export class Home extends Component<HomeProps> {
-  render() {
-    return (
-      <div className="init">
-        <Header />
-        <p>
-          {this.props.initialize.helloWorld
-            ? 'Next Storefront initialized'
-            : ':('}
-        </p>
-      </div>
-    );
-  }
-}
+export default OlafHomePage;
 
-export default connect((state) => state, { ...initActions })(Home);
+
