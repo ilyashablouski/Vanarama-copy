@@ -1,30 +1,24 @@
-import React, { Component } from "react"
-import { connect } from "react-redux"
-import * as initActions from "redux/actions/init_actions"
-
 import Header from "../../partials/header"
 
-interface HomeProps {
-  init: (bool: boolean) => boolean
-}
+import Link from 'next/link';
 
-export class Home extends Component<HomeProps> {
-  componentDidMount() {
-    this.props.init(true)
-  }
-  render() {
-    return (
-      <div>
-        <div className="init">
-          <Header />
-        </div>
-        <div>
-          <h1>Online Application Form</h1>
-          <button>Launch Olaf Journey</button>
-        </div>
-      </div>
-    )
-  }
-}
+import Layout from '../../components/Layout';
 
-export default connect((state) => state, { ...initActions })(Home)
+const StartPage = () => {
+
+  return (
+    <Layout title={`Olaf Start`}>
+
+      <h1>Olaf Start Page</h1>
+
+
+      <hr/>
+
+      <Link href='/olaf/about'>
+        <a>Next</a>
+      </Link>
+
+    </Layout>
+  )
+}
+export default StartPage;
