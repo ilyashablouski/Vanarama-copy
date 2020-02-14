@@ -2,10 +2,7 @@ import { Grid } from 'react-raster';
 
 import Head from "../Head"
 
-import '@vanarama/uibook/src/atomic/style.scss';
-
-// import Header from '@vanarama/uibook/src/atomic/organisms/Header';
-// import Footer from '@vanarama/uibook/src/atomic/organisms/Footer';
+import '@vanarama/uibook/packages/ui-components/src/atomic/style.scss';
 
 import Router from 'next/router';
 
