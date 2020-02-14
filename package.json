@@ -9,6 +9,7 @@
   "license": "",
   "scripts": {
     "dev": "NODE_ENV=development node express.js",
+    "reloadui": "rm -rf node_modules && yarn install",
     "build": "next build",
     "export": "next export",
     "start": "NODE_ENV=production node express.js",
@@ -23,7 +24,7 @@
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-typescript": "^7.8.3",
     "@babel/runtime": "^7.8.4",
-    "@vanarama/uibook": "1.0.6",
+    "@vanarama/uibook": "latest",
     "@zeit/next-sass": "^1.0.1",
     "apollo-boost": "^0.4.7",
     "apollo-cache-inmemory": "^1.6.5",
@@ -52,11 +53,13 @@
     "prerender-node": "^3.2.5",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-raster": "^5.0.4",
     "react-redux": "^7.1.3",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.3.0",
+    "styled-components": "^5.0.1",
     "yup": "^0.28.0"
   },
   "devDependencies": {
