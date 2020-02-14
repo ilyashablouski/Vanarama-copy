@@ -16,8 +16,6 @@ const OlafHomePage = () => {
 
         <h1>Home Page : PLACEHOLDER</h1>
 
-        <h2>COMPLETED PAGES</h2>
-
         <h2>IN PROGRESS</h2>
 
         <ul>
@@ -32,6 +30,9 @@ const OlafHomePage = () => {
           <li><Link href='/olaf/bank_details'><a>Olaf : Bank Details</a></Link></li>
           <li><Link href='/olaf/summary'><a>Olaf : Summary</a></Link></li>
         </ul>
+
+
+        <h2>COMPLETED PAGES</h2>
 
       </Box>
 
