@@ -2,7 +2,7 @@ FROM node:13.6
 
 ARG NPM_TOKEN
 COPY package.json package.json
-COPY .npmrc .npmrc
+COPY .npmrcDOCKER .npmrc
 #COPY package.json package.json
 RUN yarn -v
 RUN yarn install --force
