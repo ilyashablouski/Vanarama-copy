@@ -2,7 +2,7 @@ import { Grid } from 'react-raster';
 
 import Head from "../Head"
 
-import '@vanarama/uibook/packages/ui-components/src/atomic/style.scss';
+import '@vanarama/uibook/src/atomic/style.scss';
 
 import Router from 'next/router';
 
@@ -19,6 +19,7 @@ export default ({ children, title = "Vanarama" }) => (
       breakpoints={[0, 432, 768, 1024, 1200, 1400]}
       colspan={12}
       control={process.env.NODE_ENV !== "production"}
+      alignX='center'
     >
         { children }
     </Grid>
