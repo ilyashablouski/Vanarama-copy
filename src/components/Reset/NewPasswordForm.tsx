@@ -1,46 +1,48 @@
-import React, { Component, MouseEvent, ChangeEvent, FormEvent } from "react"
-import { connect } from "react-redux"
-import { client } from "../../lib/apollo"
-import { NEW_PASSWORD } from "../../gql"
+import React, { Component, MouseEvent, ChangeEvent, FormEvent } from 'react';
+import { connect } from 'react-redux';
+import { client } from '../../lib/apollo';
+import { NEW_PASSWORD } from '../../gql';
+import Router from 'next/router';
 
 interface Session {
-  userEmail: boolean
+  userEmail: boolean;
 }
 interface NewProps {
-  session: Session
+  session: Session;
 }
 interface NewState {
-  verifyCode: string
-  password: string
-  passwordConf: string
-  errors: object
+  verifyCode: string;
+  password: string;
+  passwordConf: string;
+  errors: object;
 }
 class NewForm extends Component<NewProps, NewState> {
   state = {
-    verifyCode: "",
-    password: "",
-    passwordConf: "",
+    verifyCode: '',
+    password: '',
+    passwordConf: '',
     errors: {},
-  }
+  };
 
   handleReset = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const { password, verifyCode } = this.state
-    const { userEmail } = this.props.session
+    e.preventDefault();
+    const { password, verifyCode } = this.state;
+    const { userEmail } = this.props.session;
     try {
       const result = await client.mutate({
         mutation: NEW_PASSWORD,
         variables: { code: verifyCode, email: userEmail, pw: password },
-      })
-    } catch(err) {
+      });
+      Router.push('/login');
+    } catch (err) {
       //handle error
     }
-  }
+  };
 
   handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    this.setState((prevState) => ({ ...prevState, [name]: value }))
-  }
+    const { name, value } = e.target;
+    this.setState((prevState) => ({ ...prevState, [name]: value }));
+  };
 
   render() {
     return (
@@ -82,8 +84,8 @@ class NewForm extends Component<NewProps, NewState> {
           </button>
         </div>
       </form>
-    )
+    );
   }
 }
 
-export default connect((state) => state)(NewForm)
+export default connect((state) => state)(NewForm);

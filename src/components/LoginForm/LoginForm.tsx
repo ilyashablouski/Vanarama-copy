@@ -18,6 +18,7 @@ interface LoginState {
   password: string;
   token: string;
   errors: object;
+  success: boolean;
 }
 
 class LoginForm extends Component<LoginProps, LoginState> {
@@ -26,6 +27,7 @@ class LoginForm extends Component<LoginProps, LoginState> {
     emailAddress: '',
     token: '',
     errors: {},
+    success: false,
   };
 
   handleLogin = async (e: FormEvent<HTMLFormElement>) => {
@@ -39,7 +41,9 @@ class LoginForm extends Component<LoginProps, LoginState> {
       this.setState({ token: result.data.login }, () => {
         this.props.updateSession(true, {});
       });
+      this.setState({ success: true });
     } catch (err) {
+      this.setState({ success: false });
       console.log('login failed:', err);
     }
   };
@@ -50,8 +54,9 @@ class LoginForm extends Component<LoginProps, LoginState> {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.token !== this.state.token)
+    if (prevState.token !== this.state.token) {
       localForage.setItem('tmpLogin-token', this.state.token);
+    }
   }
 
   render() {
@@ -79,10 +84,11 @@ class LoginForm extends Component<LoginProps, LoginState> {
           <button id="loginButton" type="submit">
             Submit
           </button>
+          {this.state.success ? <p id="loginSuccess">Login Success</p> : null}
         </div>
       </form>
     );
   }
 }
 
-export default connect(state => state, { ...sessionActions })(LoginForm);
+export default connect((state) => state, { ...sessionActions })(LoginForm);
