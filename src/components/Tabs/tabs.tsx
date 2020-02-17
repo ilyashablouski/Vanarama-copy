@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import './tabs.scss';
 
 export default class Tabs extends React.Component<any, any> {

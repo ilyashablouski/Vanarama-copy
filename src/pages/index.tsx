@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import Layout from '../components/Layout';
 import { connect } from 'react-redux';
 import * as initActions from '../redux/actions/init_actions';
-
 import Tabs from '../components/Tabs/tabs';
 import { Tab } from '../components/Tabs/tab';
 
@@ -17,35 +17,15 @@ interface HomeProps {
 }
 
 export class Home extends Component<HomeProps> {
-  componentDidMount() {
-    this.props.init(true);
-  }
   render() {
     return (
-      <div className="init">
-        <Header />
-        <p>
-          {this.props.initialize.helloWorld
-            ? 'Next Storefront initialized'
-            : ':('}
-        </p>
-
-        <Tabs defaultActiveTabIndex={0}>
-          <Tab tabTitle="Login">
-            <div className="Tab__Content" id="tab-content-login">
-              This is content for Tab 1
-            </div>
-          </Tab>
-
-          <Tab tabTitle="Register">
-            <div className="Tab__Content" id="tab-content-register">
-              This is content for Tab 2
-            </div>
-          </Tab>
-        </Tabs>
-      </div>
+      <Layout>
+        <div className="init">
+          <Header />
+        </div>
+      </Layout>
     );
   }
 }
 
-export default connect((state) => state, { ...initActions })(Home);
+export default connect(state => state, { ...initActions })(Home);
