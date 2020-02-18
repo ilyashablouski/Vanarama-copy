@@ -16,7 +16,7 @@ export class AboutYou extends Component<Props> {
       <Layout title={'About You'}>
         <Box>
           <div>
-            <h1>Verify Your Identity</h1>
+            <h1>About You</h1>
             <button id="olaf-verify-identity-button">
               VERIFY YOUR IDENTITY
             </button>
