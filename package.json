@@ -8,7 +8,7 @@
   "homepage": "http://localhost",
   "license": "",
   "scripts": {
-    "dev": "NODE_ENV=development node express.js",
+    "dev": "NODE_ENV=development nodemon express.js",
     "reloadui": "rm -rf node_modules && yarn install",
     "build": "next build",
     "export": "next export",
@@ -50,6 +50,7 @@
     "next-with-apollo": "^4.3.0",
     "nextjs-sitemap-generator": "^0.4.1",
     "node-sass": "^4.13.0",
+    "nodemon": "^2.0.2",
     "prerender-node": "^3.2.5",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",

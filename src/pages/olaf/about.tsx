@@ -13,28 +13,24 @@ interface Props {
 export class AboutYou extends Component<Props> {
   render() {
     return (
-      <Layout title={'About You'}>
-        <Box>
-          <div>
-            <h1>About You</h1>
-            <button id="olaf-verify-identity-button">
-              VERIFY YOUR IDENTITY
-            </button>
-          </div>
-          <div>
-            <h2>Complete Your Application</h2>
-            <Link href="./olaf_start">
-              <a className="button-link" id="olaf-complete-application-link">
-                Complete Application{' '}
-              </a>
-            </Link>
-          </div>
-
-          <Link href="/olaf/address_history">
-            <a>Next</a>
+      <>
+        <div>
+          <h1>About You</h1>
+          <button id="olaf-verify-identity-button">VERIFY YOUR IDENTITY</button>
+        </div>
+        <div>
+          <h2>Complete Your Application</h2>
+          <Link href="./olaf_start">
+            <a className="button-link" id="olaf-complete-application-link">
+              Complete Application{' '}
+            </a>
           </Link>
-        </Box>
-      </Layout>
+        </div>
+
+        <Link href="/olaf/address_history">
+          <a>Next</a>
+        </Link>
+      </>
     );
   }
 }
