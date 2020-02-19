@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Box } from 'react-raster';
-
 import Layout from '../components/Layout';
-
+import '@vanarama/uibook/src/atomic/style.scss';
 import Header from '../partials/header';
 import Link from 'next/link';
 
