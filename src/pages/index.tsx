@@ -6,12 +6,6 @@ import Link from "next/link"
 const Home = () => (
 <div className="init">
     <Header />
-    <br/>
-    <Link
-      href={'/account/password-request'}
-    >
-      <a>Forgot password?</a>
-    </Link>
 </div>
 );
 
