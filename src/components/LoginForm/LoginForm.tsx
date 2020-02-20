@@ -1,6 +1,7 @@
 import React, { Component, MouseEvent, ChangeEvent, FormEvent } from "react"
 import { connect } from "react-redux"
-import localForage from "localforage"
+import localForage from "localforage";
+import Link from "next/link"
 import { client } from "../../lib/apollo"
 import { LOGIN_USER } from "../../gql"
 import * as sessionActions from "../../redux/actions/session_actions"
@@ -79,6 +80,13 @@ class LoginForm extends Component<LoginProps, LoginState> {
             type="password"
             id="loginInputPassword"
           />
+        </div>
+        <div>
+        <Link
+          href={'/account/password-request'}
+        >
+          <a>Forgot password?</a>
+        </Link>
         </div>
         <div>
           <button id="loginButton" type="submit">Submit</button>
