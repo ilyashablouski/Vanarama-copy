@@ -56,7 +56,7 @@ export class AboutYou extends Component<IProps, IState> {
   async componentDidMount(): Promise<void> {
     try {
       const { data } = await getDropdownData();
-
+      console.log(data);
     } catch (e) {
       console.log(e);
     }
