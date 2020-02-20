@@ -1,14 +1,18 @@
-import { Component, ChangeEvent } from 'react';
+import { Component, ChangeEvent, FormEvent, MouseEvent } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { connect } from 'react-redux';
+import { getDropdownData } from '../../gql/olaf/service';
 import * as olafActions from 'redux/actions/olaf_actions';
-import '@vanarama/uibook/src/atomic/style.scss';
-import Button from '@vanarama/uibook/src/atomic/atoms/Button';
+/* import Button from '@vanarama/uibook/src/atomic/atoms/Button';
 import Header from '@vanarama/uibook/src/atomic/organisms/Header';
 import Footer from '@vanarama/uibook/src/atomic/organisms/Footer';
-import Field from '@vanarama/uibook/src/atomic/atoms/Field';
-import Input from '../../components/Input';
+import Field from '@vanarama/uibook/src/atomic/atoms/Field'; */
+import { Select, Input } from 'antd';
+import 'antd/dist/antd.css';
+const { Option } = Select;
+
+interface DropDownData {}
 
 interface IProps {
   captchaFormData: (pageRef: string, data: {}) => void;
@@ -28,6 +32,7 @@ interface IState {
   AdultsInHousehold: string;
   termsAndCons: boolean;
   updates: boolean;
+  dropDownData: Object;
 }
 
 export class AboutYou extends Component<IProps, IState> {
@@ -45,9 +50,23 @@ export class AboutYou extends Component<IProps, IState> {
     AdultsInHousehold: '',
     termsAndCons: false,
     updates: false,
+    dropDownData: {},
   };
 
-  handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
+  async componentDidMount(): Promise<void> {
+    try {
+      const { data } = await getDropdownData();
+
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  handleSubmission = (e: FormEvent<HTMLInputElement>): void => {};
+
+  handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ): void => {
     const { name, value } = e.currentTarget;
     if (Object.keys(this.state).includes(name)) {
       this.setState((prevState) => ({ ...prevState, [name]: value }));
@@ -65,36 +84,26 @@ export class AboutYou extends Component<IProps, IState> {
           </span>
           <form onSubmit={null} id="about-form" className="form">
             <div>
-              <label>Title</label>
-              <select
+              <Select
                 onChange={(e) => this.handleInputChange(e)}
-                name="title"
                 value={this.state.title}
                 id={'aboutInputEmail'}
               >
-                <option value=""></option>
-              </select>
+                <Option value=""></Option>
+              </Select>
             </div>
             <div>
               <label>Email Address</label>
-              <Input
+              {/* <Input
                 handleChange={this.handleInputChange}
                 handleBlur={(e) => e}
                 type="text"
                 name="title"
                 value={this.state.title}
                 id={'aboutInputEmail'}
-              />
+              /> */}
             </div>
           </form>
-          <Link href="/olaf/address_history">
-            {/**<Button
-                label="Continue"
-                size="Medium"
-                color="Primary"
-                fill="Solid"
-              ></Button> **/}
-          </Link>
         </section>
         {/*<Footer />*/}
       </>

@@ -11,6 +11,9 @@ module.exports = {
     },
   },
 
+  css: {
+    
+  },
   // Sitemap.
   sitemap: {
     baseUrl: homepage,

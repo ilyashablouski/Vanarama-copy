@@ -1,5 +1,6 @@
 const withPlugins = require("next-compose-plugins")
 const withSass = require("@zeit/next-sass")
+const withCss = require("@zeit/next-css")
 const withImages = require("next-images")
 const sitemap = require("nextjs-sitemap-generator")
 const withCustomBabelConfig = require("next-plugin-custom-babel-config");
@@ -12,6 +13,7 @@ module.exports = withPlugins(
     [withTM],
     [withCustomBabelConfig, { babelConfigFile: path.resolve("./babel.config.js") }],  
     [withSass, config.sass], withImages, [sitemap, config.sitemap],
+    [withCss, config.css],
     [config.withCustomWebpack]
   ],
   config.next,
