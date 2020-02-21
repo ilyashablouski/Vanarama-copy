@@ -9584,14 +9584,6 @@ react-obfuscate@^3.6.6:
   resolved "https://registry.yarnpkg.com/react-obfuscate/-/react-obfuscate-3.6.6.tgz#03a15005c1b2e13f1d102051a251f8dfba0fa706"
   integrity sha512-ZbQ0Qr1JtoSENXu+rZ3lDLgHM7qRaguM5WCwgr2XxzIrFssytjcIP+X0uc5jlWBuDqAjZbkSa3M7PveLBcefcA==
 
-react-raster@^5.0.4:
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/react-raster/-/react-raster-5.0.4.tgz#a2a0ced9d04876632c7d3a180a2e8d0f2bd120e0"
-  integrity sha512-LgjaBP/0NPD1gyOwETeMYe4o2NPopT7tsoWiGjGFj7iIsSEi2w1R/RwMlyg/Ab5s5pkVW8kGtvV9Djnzz73i9A==
-  dependencies:
-    classnames "^2.2.6"
-    prop-types "^15.7.2"
-
 react-redux@^7.1.3:
   version "7.2.0"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.0.tgz#f970f62192b3981642fec46fd0db18a074fe879d"

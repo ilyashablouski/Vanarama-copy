@@ -5,6 +5,7 @@ import { Store } from 'redux';
 import { initStore } from 'redux/store';
 import { client } from '../lib/apollo';
 import { ApolloProvider } from '@apollo/react-hooks';
+import 'antd/dist/antd.css';
 
 interface Props {
   store: Store;
