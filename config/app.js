@@ -1,4 +1,4 @@
-const { homepage } = require("../package.json")
+const { homepage } = require('../package.json');
 // const { parse } = require("url")
 // const basename = parse(homepage).pathname
 
@@ -7,18 +7,14 @@ module.exports = {
   sass: {
     sassLoaderOptions: {
       data: "@import 'application';",
-      includePaths: ["./src/styles"],
+      includePaths: ['./src/styles'],
     },
-  },
-
-  css: {
-    
   },
   // Sitemap.
   sitemap: {
     baseUrl: homepage,
-    pagesDirectory: "src/pages",
-    targetDirectory: "public/",
+    pagesDirectory: 'src/pages',
+    targetDirectory: 'public/',
   },
 
   // Next.
@@ -31,33 +27,32 @@ module.exports = {
     exportTrailingSlash: true,
     exportPathMap: () => {
       return {
-        "/": { page: "/" },
-      }
+        '/': { page: '/' },
+      };
     },
 
     webpack: (config) => {
       // Allow absolute imports.
-      config.resolve.modules = [...config.resolve.modules, "src"]
+      config.resolve.modules = [...config.resolve.modules, 'src'];
 
       // Fixes npm packages that depend on `fs` module.
       config.node = {
-        fs: "empty",
-      }
+        fs: 'empty',
+      };
 
-      return config
+      return config;
     },
   },
 
   withCustomWebpack: (config = {}) => {
     const { webpack } = config;
-  
+
     config.webpack = (config, ...rest) => {
       config.externals = config.externals || [];
-  
-      return webpack(config, ...rest)
-    }
-  
-    return config
-  }
-}
 
+      return webpack(config, ...rest);
+    };
+
+    return config;
+  },
+};

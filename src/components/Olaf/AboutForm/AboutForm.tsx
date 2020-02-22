@@ -2,8 +2,9 @@ import { Component, ChangeEvent, FormEvent, MouseEvent } from 'react';
 import { connect } from 'react-redux';
 import { getDropdownData } from '../../../gql/olaf/api_functions';
 import * as olafActions from 'redux/actions/olaf_actions';
-import { Select, Input, Checkbox, Row, Col } from 'antd';
-import { FormComponentProps } from 'antd/es/form';
+import { genMonths, genYears } from '../../../utils/helpers';
+
+import { Select, Input, Checkbox, Row, Col, Button } from 'antd';
 const { Option } = Select;
 
 import dropDownData from './stub';
@@ -22,8 +23,8 @@ interface IState {
   cob: string;
   nationality: string;
   maritalStatus: string;
-  Dependents: string;
-  AdultsInHousehold: string;
+  dependents: string;
+  adultsInHousehold: string;
   termsAndCons: boolean;
   updates: boolean;
   allDropDowns: any;
@@ -40,8 +41,8 @@ export class AboutForm extends Component<IProps, IState> {
     cob: '',
     nationality: '',
     maritalStatus: '',
-    Dependents: '',
-    AdultsInHousehold: '',
+    dependents: '',
+    adultsInHousehold: '',
     termsAndCons: false,
     updates: false,
     allDropDowns: {},
@@ -49,8 +50,9 @@ export class AboutForm extends Component<IProps, IState> {
 
   async componentDidMount(): Promise<void> {
     try {
-      //const { data } = await getDropdownData();
-      const { allDropDowns } = dropDownData.data;
+      //const { allDropDowns } = dropDownData.data;
+      const { data } = await getDropdownData();
+      const { allDropDowns } = data;
       this.setState({ allDropDowns }, () => {
         console.log(this.state.allDropDowns);
       });
@@ -71,15 +73,15 @@ export class AboutForm extends Component<IProps, IState> {
   };
 
   render() {
+    const months: string[] = genMonths() || [];
+    const years: number[] = genYears(100) || [];
+
     return (
       <form onSubmit={null} id="about-form" className="form">
         <Row>
           <Col>
             <label>Title</label>
-            <Select
-              onChange={this.handleInputChange}
-              id={'aboutInputEmail'}
-            >
+            <Select onChange={this.handleInputChange} id={'aboutInputTitle'}>
               <Option value=""></Option>
               {this.state.allDropDowns.titles &&
                 this.state.allDropDowns.titles.map((title, i) => (
@@ -143,12 +145,41 @@ export class AboutForm extends Component<IProps, IState> {
           </Col>
         </Row>
         <Row>
+          <label>Date of Birth</label>
+          <Row>
+            <Col span={8}>
+              <Select onChange={this.handleInputChange} id={'aboutInputDay'}>
+                {[...Array(31)].map((_, i) => (
+                  <Option key={i} value={i + 1}>
+                    {i + 1}
+                  </Option>
+                ))}
+              </Select>
+            </Col>
+            <Col span={8}>
+              <Select onChange={this.handleInputChange} id={'aboutInputMonth'}>
+                {months.map((month, i) => (
+                  <Option key={i} value={month}>
+                    {month}
+                  </Option>
+                ))}
+              </Select>
+            </Col>
+            <Col span={8}>
+              <Select onChange={this.handleInputChange} id={'aboutInputYear'}>
+                {years.map((year, i) => (
+                  <Option key={i} value={year}>
+                    {year}
+                  </Option>
+                ))}
+              </Select>
+            </Col>
+          </Row>
+        </Row>
+        <Row>
           <Col>
             <label>Country of Birth</label>
-            <Select
-              onChange={this.handleInputChange}
-              id={'aboutInputEmail'}
-            >
+            <Select onChange={this.handleInputChange} id={'aboutInputCOB'}>
               <Option value=""></Option>
               {this.state.allDropDowns.countries &&
                 this.state.allDropDowns.countries.map((title, i) => (
@@ -162,10 +193,7 @@ export class AboutForm extends Component<IProps, IState> {
         <Row>
           <Col>
             <label>Nationality</label>
-            <Select
-              onChange={this.handleInputChange}
-              id={'aboutInputEmail'}
-            >
+            <Select onChange={this.handleInputChange} id={'aboutInputNationality'}>
               <Option value=""></Option>
               {this.state.allDropDowns.nationalities &&
                 this.state.allDropDowns.nationalities.map((title, i) => (
@@ -179,10 +207,7 @@ export class AboutForm extends Component<IProps, IState> {
         <Row>
           <Col>
             <label>Marital Status</label>
-            <Select
-              onChange={this.handleInputChange}
-              id={'aboutInputEmail'}
-            >
+            <Select onChange={this.handleInputChange} id={'aboutInputMarStatus'}>
               <Option value=""></Option>
               {this.state.allDropDowns.maritalStatuses &&
                 this.state.allDropDowns.maritalStatuses.map((title, i) => (
@@ -196,10 +221,7 @@ export class AboutForm extends Component<IProps, IState> {
         <Row>
           <Col>
             <label>No. of Dependants</label>
-            <Select
-              onChange={this.handleInputChange}
-              id={'aboutInputEmail'}
-            >
+            <Select onChange={this.handleInputChange} id={'aboutInputDependents'}>
               <Option value=""></Option>
               {this.state.allDropDowns.noOfDependants &&
                 this.state.allDropDowns.noOfDependants.map((title, i) => (
@@ -213,10 +235,7 @@ export class AboutForm extends Component<IProps, IState> {
         <Row>
           <Col>
             <label>No. of Adults in Household</label>
-            <Select
-              onChange={this.handleInputChange}
-              id={'aboutInputEmail'}
-            >
+            <Select onChange={this.handleInputChange} id={'aboutInputAdultsHoushold'}>
               <Option value=""></Option>
               {this.state.allDropDowns.noOfAdultsInHousehold &&
                 this.state.allDropDowns.noOfAdultsInHousehold.map(
@@ -229,6 +248,22 @@ export class AboutForm extends Component<IProps, IState> {
             </Select>
           </Col>
         </Row>
+        <br />
+        <Row>
+          <Col>
+            <Checkbox>
+              I wish to receive emails and SMS messages for updates on the
+              latest deals, offers and promotions.
+            </Checkbox>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Checkbox>agree to the terms and conditions.</Checkbox>
+          </Col>
+        </Row>
+        <br />
+        <Button type="primary">Continue</Button>
       </form>
     );
   }

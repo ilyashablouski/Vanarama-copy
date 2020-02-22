@@ -1,20 +1,27 @@
-const withPlugins = require("next-compose-plugins")
-const withSass = require("@zeit/next-sass")
-const withCss = require("@zeit/next-css")
-const withImages = require("next-images")
-const sitemap = require("nextjs-sitemap-generator")
-const withCustomBabelConfig = require("next-plugin-custom-babel-config");
+const withPlugins = require('next-compose-plugins');
+const withSass = require('@zeit/next-sass');
+const withCss = require('@zeit/next-css');
+const withImages = require('next-images');
+const withFonts = require('next-fonts');
+const sitemap = require('nextjs-sitemap-generator');
+const withCustomBabelConfig = require('next-plugin-custom-babel-config');
 const withTM = require('next-transpile-modules')(['@vanarama/uibook']);
-const path = require("path");
-const config = require("./config/app")
+const path = require('path');
+const config = require('./config/app');
 
 module.exports = withPlugins(
   [
     [withTM],
-    [withCustomBabelConfig, { babelConfigFile: path.resolve("./babel.config.js") }],  
-    [withSass, config.sass], withImages, [sitemap, config.sitemap],
-    [withCss, config.css],
-    [config.withCustomWebpack]
+    [withFonts],
+    [
+      withCustomBabelConfig,
+      { babelConfigFile: path.resolve('./babel.config.js') },
+    ],
+    [withSass, config.sass],
+    withImages,
+    [sitemap, config.sitemap],
+    [withCss, { url: false }],
+    [config.withCustomWebpack],
   ],
   config.next,
-)
+);
