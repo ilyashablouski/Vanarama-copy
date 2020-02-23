@@ -27,7 +27,7 @@ interface IState {
   countryOfBirth: string;
   nationality: string;
   maritalStatus: string;
-  dependents: string;
+  dependants: string;
   adultsInHousehold: string;
   termsAndCons: boolean;
   updates: boolean;
@@ -47,7 +47,7 @@ export class AboutForm extends Component<IProps, IState> {
     countryOfBirth: '',
     nationality: '',
     maritalStatus: '',
-    dependents: '',
+    dependants: '',
     adultsInHousehold: '',
     termsAndCons: false,
     updates: false,
@@ -239,15 +239,15 @@ export class AboutForm extends Component<IProps, IState> {
           <Col>
             <label>No. of Dependants</label>
             <Select
-              name="dependents"
+              name="dependants"
               onChange={this.handleInputChange}
               values={
-                this.state.allDropDowns.dependents &&
-                this.state.allDropDowns.dependents.map((value) => ({
+                this.state.allDropDowns.noOfDependants &&
+                this.state.allDropDowns.noOfDependants.map((value) => ({
                   value,
                 }))
               }
-              id={'aboutInputMarDependents'}
+              id={'aboutInputMarDependants'}
             />
           </Col>
         </Row>
