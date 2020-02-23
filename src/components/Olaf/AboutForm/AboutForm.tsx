@@ -15,7 +15,7 @@ interface IProps {
   captchaFormData: (pageRef: string, data: {}) => void;
 }
 
-interface Details {
+interface IDetails {
   title: string;
   firstName: string;
   lastName: string;
@@ -34,7 +34,7 @@ interface Details {
 }
 
 interface IState {
-  details: Details;
+  details: IDetails;
   allDropDowns: any;
 }
 
@@ -79,7 +79,7 @@ export class AboutForm extends Component<IProps, IState> {
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ): void => {
     const { name, value } = e.currentTarget;
-    if (Object.keys(this.state).includes(name)) {
+    if (Object.keys(this.state.details).includes(name)) {
       this.setState(
         (prevState) => ({
           ...prevState,
