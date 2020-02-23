@@ -2,7 +2,7 @@ import React, { Component, ChangeEvent, FormEvent } from 'react';
 import { connect } from 'react-redux';
 import localForage from 'localforage';
 import { client } from '../../lib/apollo';
-import { LOGIN_USER } from '../../gql';
+import { LOGIN_USER } from '../../apollo/session/gql';
 import * as sessionActions from '../../redux/actions/session_actions';
 
 interface Session {

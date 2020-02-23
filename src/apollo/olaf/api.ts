@@ -1,5 +1,5 @@
 import { client } from '../../lib/apollo';
-import { ALL_DROPDOWNS, CREATE_UPDATE_PERSON } from '.';
+import { ALL_DROPDOWNS, CREATE_UPDATE_PERSON } from './gql';
 
 export const allDropdownData = async () => {
   return client.query({
@@ -7,6 +7,7 @@ export const allDropdownData = async () => {
   });
 };
 
+/**todo specify vars */
 export const createUpdatePerson = async (details) => {
   const result = await client.mutate({
     mutation: CREATE_UPDATE_PERSON,
