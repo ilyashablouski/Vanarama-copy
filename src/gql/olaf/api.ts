@@ -7,10 +7,10 @@ export const allDropdownData = async () => {
   });
 };
 
-export const createUpdatePerson = async (values) => {
+export const createUpdatePerson = async (details) => {
   const result = await client.mutate({
     mutation: CREATE_UPDATE_PERSON,
-    variables: { ...values },
+    variables: { ...details },
   });
   console.log(result);
 };
