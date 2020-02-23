@@ -1,6 +1,6 @@
 import { gql } from 'apollo-boost';
 
-export const GET_DROPDOWN_DATA = gql`
+export const ALL_DROPDOWNS = gql`
   query allDropDowns {
     allDropDowns {
       titles
@@ -15,7 +15,7 @@ export const GET_DROPDOWN_DATA = gql`
   }
 `;
 
-export const POST_ABOUT = gql`
+export const CREATE_UPDATE_PERSON = gql`
   mutation createUpdatePerson(
     $title: String!
     $mstatus: String!

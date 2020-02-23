@@ -1,6 +1,6 @@
 import { Component, ChangeEvent, FormEvent, MouseEvent } from 'react';
 import { connect } from 'react-redux';
-import { getDropdownData } from '../../../gql/olaf/api_functions';
+import { allDropdownData } from '../../../gql/olaf/api';
 import * as olafActions from 'redux/actions/olaf_actions';
 import { genMonths, genYears } from '../../../utils/helpers';
 import Select from '../../Select/Select';
@@ -63,7 +63,7 @@ export class AboutForm extends Component<IProps, IState> {
   async componentDidMount(): Promise<void> {
     try {
       //const { allDropDowns } = dropDownData.data;
-      const { data } = await getDropdownData();
+      const { data } = await allDropdownData();
       const { allDropDowns } = data;
       this.setState({ allDropDowns }, () => {
         console.log(this.state.allDropDowns);
