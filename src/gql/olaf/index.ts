@@ -16,7 +16,7 @@ export const GET_DROPDOWN_DATA = gql`
 `;
 
 export const POST_ABOUT = gql`
-  mutation SendAboutData($details: String!) {
+  mutation createUpdatePerson($details: String!) {
     createUpdatePerson(input: $details)
   }
 `;

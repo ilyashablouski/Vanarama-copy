@@ -15,7 +15,7 @@ interface IProps {
   captchaFormData: (pageRef: string, data: {}) => void;
 }
 
-interface IState {
+interface Details {
   title: string;
   firstName: string;
   lastName: string;
@@ -31,26 +31,32 @@ interface IState {
   adultsInHousehold: string;
   termsAndCons: boolean;
   updates: boolean;
+}
+
+interface IState {
+  details: Details;
   allDropDowns: any;
 }
 
 export class AboutForm extends Component<IProps, IState> {
   state: IState = {
-    title: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    mobile: '',
-    dayOfBirth: '',
-    monthOfBirth: '',
-    yearOfBirth: '',
-    countryOfBirth: '',
-    nationality: '',
-    maritalStatus: '',
-    dependants: '',
-    adultsInHousehold: '',
-    termsAndCons: false,
-    updates: false,
+    details: {
+      title: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      mobile: '',
+      dayOfBirth: '',
+      monthOfBirth: '',
+      yearOfBirth: '',
+      countryOfBirth: '',
+      nationality: '',
+      maritalStatus: '',
+      dependants: '',
+      adultsInHousehold: '',
+      termsAndCons: false,
+      updates: false,
+    },
     allDropDowns: {},
   };
 
@@ -270,7 +276,7 @@ export class AboutForm extends Component<IProps, IState> {
         <br />
         <Row>
           <Col>
-            <Checkbox>
+            <Checkbox name="updates">
               I wish to receive emails and SMS messages for updates on the
               latest deals, offers and promotions.
             </Checkbox>
@@ -278,7 +284,9 @@ export class AboutForm extends Component<IProps, IState> {
         </Row>
         <Row>
           <Col>
-            <Checkbox>agree to the terms and conditions.</Checkbox>
+            <Checkbox name="termsAndCons">
+              agree to the terms and conditions.
+            </Checkbox>
           </Col>
         </Row>
         <br />
