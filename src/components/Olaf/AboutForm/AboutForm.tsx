@@ -81,7 +81,10 @@ export class AboutForm extends Component<IProps, IState> {
     const { name, value } = e.currentTarget;
     if (Object.keys(this.state).includes(name)) {
       this.setState(
-        (prevState) => ({ ...prevState, [name]: value }),
+        (prevState) => ({
+          ...prevState,
+          details: { ...prevState.details, [name]: value },
+        }),
         () => console.log(this.state),
       );
     }
@@ -90,6 +93,7 @@ export class AboutForm extends Component<IProps, IState> {
   render() {
     const months: string[] = genMonths() || [];
     const years: number[] = genYears(100) || [];
+    const{firstName, lastName, email, mobile } = this.state.details
 
     return (
       <form onSubmit={null} id="about-form" className="form">
@@ -116,7 +120,7 @@ export class AboutForm extends Component<IProps, IState> {
               onBlur={(e) => e}
               type="text"
               name="firstName"
-              value={this.state.firstName}
+              value={firstName}
               id={'aboutInputFirstName'}
             />
           </Col>
@@ -129,7 +133,7 @@ export class AboutForm extends Component<IProps, IState> {
               onBlur={(e) => e}
               type="text"
               name="lastName"
-              value={this.state.lastName}
+              value={lastName}
               id={'aboutInputLastName'}
             />
           </Col>
@@ -142,7 +146,7 @@ export class AboutForm extends Component<IProps, IState> {
               onBlur={(e) => e}
               type="email"
               name="email"
-              value={this.state.email}
+              value={email}
               id={'aboutInputEmail'}
             />
           </Col>
@@ -155,7 +159,7 @@ export class AboutForm extends Component<IProps, IState> {
               onBlur={(e) => e}
               type="tel"
               name="mobile"
-              value={this.state.mobile}
+              value={mobile}
               id={'aboutInputPhoneNumber'}
             />
           </Col>
