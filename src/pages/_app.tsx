@@ -3,7 +3,7 @@ import App, { AppContext } from 'next/app';
 import withRedux from 'next-redux-wrapper';
 import { Store } from 'redux';
 import { initStore } from 'redux/store';
-import { client } from '../lib/apollo';
+import { client } from '../apollo/apollo';
 import { ApolloProvider } from '@apollo/react-hooks';
 import '@vanarama/uibook/src/css/App.css'
 /* import '@vanarama/uibook/src/css/theme/tokens/scales.css'

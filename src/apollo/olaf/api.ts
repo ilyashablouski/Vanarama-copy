@@ -1,4 +1,4 @@
-import { client } from '../../lib/apollo';
+import { client } from '../apollo';
 import { ALL_DROPDOWNS, CREATE_UPDATE_PERSON } from './gql';
 
 export const allDropdownData = async () => {

@@ -1,6 +1,6 @@
 import { Component, ChangeEvent, FormEvent, MouseEvent } from 'react';
 import { connect } from 'react-redux';
-import { allDropdownData } from '../../../gql/olaf/api';
+import { allDropdownData } from '../../../apollo/olaf/api';
 import * as olafActions from 'redux/actions/olaf_actions';
 import { genMonths, genYears } from '../../../utils/helpers';
 import Select from '../../Select/Select';

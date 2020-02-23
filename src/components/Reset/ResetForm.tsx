@@ -1,8 +1,8 @@
 import React, { Component, ChangeEvent, FormEvent } from "react"
 import { connect } from "react-redux"
 import * as sessionActions from "../../redux/actions/session_actions"
-import { client } from "../../lib/apollo"
-import { RESET_REQUEST } from "../../gql"
+import { client } from "../../apollo/apollo"
+import { RESET_REQUEST } from "../../apollo/session/gql"
 
 interface ResetProps {
   captchaUserEmail: (email: string) => string
