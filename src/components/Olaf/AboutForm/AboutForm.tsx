@@ -147,8 +147,8 @@ export class AboutForm extends Component<IProps, IState> {
             <Input
               onChange={this.handleInputChange}
               onBlur={(e) => e}
-              type="text"
-              name="phoneNumber"
+              type="tel"
+              name="mobile"
               value={this.state.mobile}
               id={'aboutInputPhoneNumber'}
             />
