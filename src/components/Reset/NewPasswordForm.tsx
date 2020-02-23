@@ -5,7 +5,7 @@ import { NEW_PASSWORD } from '../../gql';
 import Router from 'next/router';
 
 interface Session {
-  userEmail: boolean;
+  userEmail: string;
 }
 interface NewProps {
   session: Session;
@@ -14,7 +14,7 @@ interface NewState {
   verifyCode: string;
   password: string;
   passwordConf: string;
-  errors: object;
+  errors: object;     
 }
 class NewForm extends Component<NewProps, NewState> {
   state = {

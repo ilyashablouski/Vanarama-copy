@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import { getDropdownData } from '../../../gql/olaf/api_functions';
 import * as olafActions from 'redux/actions/olaf_actions';
 import { genMonths, genYears } from '../../../utils/helpers';
+import Select from '../../Select/Select';
+import '@vanarama/uibook/src/css/atoms/Select/Select.css';
+import IosArrowDown from 'react-ionicons/lib/IosArrowDown';
 
-import { Select, Input, Checkbox, Row, Col, Button } from 'antd';
-const { Option } = Select;
+import { Input, Checkbox, Row, Col, Button } from 'antd';
 
 import dropDownData from './stub';
 
@@ -19,8 +21,10 @@ interface IState {
   lastName: string;
   email: string;
   mobile: string;
-  dob: string;
-  cob: string;
+  dayOfBirth: string;
+  monthOfBirth: string;
+  yearOfBirth: string;
+  countryOfBirth: string;
   nationality: string;
   maritalStatus: string;
   dependents: string;
@@ -37,8 +41,10 @@ export class AboutForm extends Component<IProps, IState> {
     lastName: '',
     email: '',
     mobile: '',
-    dob: '',
-    cob: '',
+    dayOfBirth: '',
+    monthOfBirth: '',
+    yearOfBirth: '',
+    countryOfBirth: '',
     nationality: '',
     maritalStatus: '',
     dependents: '',
@@ -68,7 +74,10 @@ export class AboutForm extends Component<IProps, IState> {
   ): void => {
     const { name, value } = e.currentTarget;
     if (Object.keys(this.state).includes(name)) {
-      this.setState((prevState) => ({ ...prevState, [name]: value }));
+      this.setState(
+        (prevState) => ({ ...prevState, [name]: value }),
+        () => console.log(this.state),
+      );
     }
   };
 
@@ -81,15 +90,16 @@ export class AboutForm extends Component<IProps, IState> {
         <Row>
           <Col>
             <label>Title</label>
-            <Select onChange={this.handleInputChange} id={'aboutInputTitle'}>
-              <Option value=""></Option>
-              {this.state.allDropDowns.titles &&
-                this.state.allDropDowns.titles.map((title, i) => (
-                  <Option key={i} value={title}>
-                    {title}
-                  </Option>
-                ))}
-            </Select>
+            <Select
+              name="title"
+              onChange={this.handleInputChange}
+              values={
+                this.state.allDropDowns.titles &&
+                this.state.allDropDowns.titles.map((value) => ({
+                  value,
+                }))
+              }
+            />
           </Col>
         </Row>
         <Row>
@@ -100,7 +110,7 @@ export class AboutForm extends Component<IProps, IState> {
               onBlur={(e) => e}
               type="text"
               name="firstName"
-              value={this.state.title}
+              value={this.state.firstName}
               id={'aboutInputFirstName'}
             />
           </Col>
@@ -113,7 +123,7 @@ export class AboutForm extends Component<IProps, IState> {
               onBlur={(e) => e}
               type="text"
               name="lastName"
-              value={this.state.title}
+              value={this.state.lastName}
               id={'aboutInputLastName'}
             />
           </Col>
@@ -126,7 +136,7 @@ export class AboutForm extends Component<IProps, IState> {
               onBlur={(e) => e}
               type="email"
               name="email"
-              value={this.state.title}
+              value={this.state.email}
               id={'aboutInputEmail'}
             />
           </Col>
@@ -139,7 +149,7 @@ export class AboutForm extends Component<IProps, IState> {
               onBlur={(e) => e}
               type="text"
               name="phoneNumber"
-              value={this.state.title}
+              value={this.state.mobile}
               id={'aboutInputPhoneNumber'}
             />
           </Col>
@@ -148,104 +158,113 @@ export class AboutForm extends Component<IProps, IState> {
           <label>Date of Birth</label>
           <Row>
             <Col span={8}>
-              <Select onChange={this.handleInputChange} id={'aboutInputDay'}>
-                {[...Array(31)].map((_, i) => (
-                  <Option key={i} value={i + 1}>
-                    {i + 1}
-                  </Option>
-                ))}
-              </Select>
+              <Select
+                name="dayOfBirth"
+                onChange={this.handleInputChange}
+                values={[...Array(31)].map((_, i) => ({
+                  value: i + 1,
+                }))}
+              />
+            </Col>
+
+            <Col span={8}>
+              <Select
+                name="monthOfBirth"
+                onChange={this.handleInputChange}
+                values={months.map((month) => ({
+                  value: month,
+                }))}
+              />
             </Col>
             <Col span={8}>
-              <Select onChange={this.handleInputChange} id={'aboutInputMonth'}>
-                {months.map((month, i) => (
-                  <Option key={i} value={month}>
-                    {month}
-                  </Option>
-                ))}
-              </Select>
-            </Col>
-            <Col span={8}>
-              <Select onChange={this.handleInputChange} id={'aboutInputYear'}>
-                {years.map((year, i) => (
-                  <Option key={i} value={year}>
-                    {year}
-                  </Option>
-                ))}
-              </Select>
+              <Select
+                name="yearOfBirth"
+                onChange={this.handleInputChange}
+                values={years.map((year) => ({
+                  value: year,
+                }))}
+              />
             </Col>
           </Row>
         </Row>
         <Row>
           <Col>
             <label>Country of Birth</label>
-            <Select onChange={this.handleInputChange} id={'aboutInputCOB'}>
-              <Option value=""></Option>
-              {this.state.allDropDowns.countries &&
-                this.state.allDropDowns.countries.map((title, i) => (
-                  <Option key={i} value={title}>
-                    {title}
-                  </Option>
-                ))}
-            </Select>
+            <Select
+              name="countryOfBirth"
+              onChange={this.handleInputChange}
+              values={
+                this.state.allDropDowns.countries &&
+                this.state.allDropDowns.countries.map((value) => ({
+                  value,
+                }))
+              }
+              id={'aboutInputCOB'}
+            />
           </Col>
         </Row>
         <Row>
           <Col>
             <label>Nationality</label>
-            <Select onChange={this.handleInputChange} id={'aboutInputNationality'}>
-              <Option value=""></Option>
-              {this.state.allDropDowns.nationalities &&
-                this.state.allDropDowns.nationalities.map((title, i) => (
-                  <Option key={i} value={title}>
-                    {title}
-                  </Option>
-                ))}
-            </Select>
+            <Select
+              name="nationality"
+              onChange={this.handleInputChange}
+              values={
+                this.state.allDropDowns.nationalities &&
+                this.state.allDropDowns.nationalities.map((value) => ({
+                  value,
+                }))
+              }
+              id={'aboutInputNationality'}
+            />
           </Col>
         </Row>
         <Row>
           <Col>
             <label>Marital Status</label>
-            <Select onChange={this.handleInputChange} id={'aboutInputMarStatus'}>
-              <Option value=""></Option>
-              {this.state.allDropDowns.maritalStatuses &&
-                this.state.allDropDowns.maritalStatuses.map((title, i) => (
-                  <Option key={i} value={title}>
-                    {title}
-                  </Option>
-                ))}
-            </Select>
+            <Select
+              name="maritalStatus"
+              onChange={this.handleInputChange}
+              values={
+                this.state.allDropDowns.maritalStatuses &&
+                this.state.allDropDowns.maritalStatuses.map((value) => ({
+                  value,
+                }))
+              }
+              id={'aboutInputMarStatus'}
+            />
           </Col>
         </Row>
         <Row>
           <Col>
             <label>No. of Dependants</label>
-            <Select onChange={this.handleInputChange} id={'aboutInputDependents'}>
-              <Option value=""></Option>
-              {this.state.allDropDowns.noOfDependants &&
-                this.state.allDropDowns.noOfDependants.map((title, i) => (
-                  <Option key={i} value={title}>
-                    {title}
-                  </Option>
-                ))}
-            </Select>
+            <Select
+              name="dependents"
+              onChange={this.handleInputChange}
+              values={
+                this.state.allDropDowns.dependents &&
+                this.state.allDropDowns.dependents.map((value) => ({
+                  value,
+                }))
+              }
+              id={'aboutInputMarDependents'}
+            />
           </Col>
         </Row>
         <Row>
           <Col>
             <label>No. of Adults in Household</label>
-            <Select onChange={this.handleInputChange} id={'aboutInputAdultsHoushold'}>
-              <Option value=""></Option>
-              {this.state.allDropDowns.noOfAdultsInHousehold &&
-                this.state.allDropDowns.noOfAdultsInHousehold.map(
-                  (title, i) => (
-                    <Option key={i} value={title}>
-                      {title}
-                    </Option>
-                  ),
-                )}
-            </Select>
+            <Select
+              name="adultsInHousehold"
+              onChange={this.handleInputChange}
+              values={
+                this.state.allDropDowns.noOfAdultsInHousehold &&
+                this.state.allDropDowns.noOfAdultsInHousehold.map((value) => ({
+                  value,
+                }))
+              }
+              id={'aboutInputAdultsHoushold'}
+            />
           </Col>
         </Row>
         <br />
