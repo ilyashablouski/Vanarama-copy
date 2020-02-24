@@ -1,9 +1,8 @@
 import Link from 'next/link';
-import { Layout } from 'antd';
 
 const OlafHomePage = () => {
   return (
-    <Layout>
+    <>
       <h1>Home Page : PLACEHOLDER</h1>
 
       <h2>IN PROGRESS</h2>
@@ -50,7 +49,7 @@ const OlafHomePage = () => {
           </Link>
         </li>
       </ul>
-    </Layout>
+    </>
   );
 };
 

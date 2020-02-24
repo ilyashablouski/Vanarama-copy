@@ -22,5 +22,8 @@ module.exports = {
       "<rootDir>/__mocks__/mocks.js",
     "\\.(css|less|scss)$": "identity-obj-proxy",
   },
-  isolatedModules: true
+  isolatedModules: true,
+  snapshotSerializers: [
+    "enzyme-to-json/serializer"
+  ],
 }

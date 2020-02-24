@@ -6,9 +6,9 @@ import fetch from 'isomorphic-unfetch';
 export const client = new ApolloClient({
   ssrMode: true,
   link: createHttpLink({
-    fetch,
-    uri: "http://localhost:5300/graphql",
-    //uri: 'https://79ukz5xprd.execute-api.eu-west-2.amazonaws.com/dev/graphql',
+    // uri: "http://localhost:5301/graphql",
+    uri: 'https://79ukz5xprd.execute-api.eu-west-2.amazonaws.com/dev/graphql',
+    fetch: fetch,
   }),
   cache: new InMemoryCache(),
 });

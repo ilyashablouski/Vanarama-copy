@@ -6,10 +6,6 @@ import { initStore } from 'redux/store';
 import { client } from '../apollo/apollo';
 import { ApolloProvider } from '@apollo/react-hooks';
 import '@vanarama/uibook/src/css/App.css'
-/* import '@vanarama/uibook/src/css/theme/tokens/scales.css'
-import '@vanarama/uibook/src/css/theme/tokens/colors.css'
-import '@vanarama/uibook/src/css/theme/tokens/definitions.css'
-import '@vanarama/uibook/src/css/theme/helpers/classes.css' */
 import 'antd/dist/antd.css';
 
 interface Props {

@@ -3,25 +3,10 @@ import { connect } from 'react-redux';
 import localForage from 'localforage';
 import { loginUser } from '../../apollo/session/api';
 import * as sessionActions from '../../redux/actions/session_actions';
+import {IState, IProps} from './interface'
 
-interface Session {
-  isAuthenticated: boolean;
-  currentSessionData: any;
-}
-interface LoginProps {
-  session: Session;
-  updateSession: (isAuthenticated: boolean, currentSessionData: any) => boolean;
-}
-interface LoginState {
-  emailAddress: string;
-  password: string;
-  token: string;
-  errors: object;
-  success: boolean;
-}
-
-class LoginForm extends Component<LoginProps, LoginState> {
-  state: LoginState = {
+class LoginForm extends Component<IProps, IState> {
+  state: IState = {
     password: '',
     emailAddress: '',
     token: '',
@@ -76,10 +61,25 @@ class LoginForm extends Component<LoginProps, LoginState> {
           />
         </div>
         <div>
+<<<<<<< HEAD
           <button id="loginButton" type="submit">
             Submit
           </button>
           {this.state.success ? <p id="loginSuccess">Login Success</p> : null}
+=======
+        <Link
+          href={'/account/password-request'}
+        >
+          <a>Forgot password?</a>
+        </Link>
+        </div>
+        <div>
+          <button id="loginButton" type="submit">Submit</button>
+          {this.state.success ?
+            <p id="loginSuccess">Login Success</p> :
+            null
+          }
+>>>>>>> origin
         </div>
       </form>
     );

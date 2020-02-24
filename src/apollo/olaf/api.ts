@@ -32,21 +32,17 @@ export const createUpdatePerson = async (details: IDetails) => {
     'DD-MM-YY',
   );
 
-  try {
-    return await client.mutate({
-      mutation: CREATE_UPDATE_PERSON,
-      variables: {
-        title: title,
-        mstatus: maritalStatus,
-        fname: firstName,
-        lname: lastName,
-        consent: consent,
-        dob: dob,
-        email: email,
-        phone: mobile,
-      },
-    });
-  } catch (e) {
-    console.log(e);
-  }
+  return client.mutate({
+    mutation: CREATE_UPDATE_PERSON,
+    variables: {
+      title: title,
+      mstatus: maritalStatus,
+      fname: firstName,
+      lname: lastName,
+      consent: consent,
+      dob: dob,
+      email: email,
+      phone: mobile,
+    },
+  });
 };
