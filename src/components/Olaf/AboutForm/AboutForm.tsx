@@ -15,7 +15,7 @@ import { Input, Row, Col } from 'antd';
 export class AboutForm extends Component<IProps, IState> {
   state: IState = {
     details: {
-      title: '',
+      title: 'Mr',
       firstName: '',
       lastName: '',
       email: '',
@@ -48,6 +48,7 @@ export class AboutForm extends Component<IProps, IState> {
   }
 
   handleSubmission = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     try {
       const res = await createUpdatePerson(this.state.details);
       console.log(res);
@@ -266,9 +267,9 @@ export class AboutForm extends Component<IProps, IState> {
               className="Checkbox"
               type="checkbox"
               name="consent"
-              id={'aboutInputT&C'}
+              id={'aboutInputConsent'}
             />
-            <label className="Checkbox__label" htmlFor={'aboutInputT&C'}>
+            <label className="Checkbox__label" htmlFor={'aboutInputConsent'}>
               <span className="Text -secondary">
                 I wish to receive emails and SMS messages for updates on the
                 latest deals, offers and promotions.
