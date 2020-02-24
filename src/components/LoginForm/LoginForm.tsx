@@ -34,10 +34,9 @@ class LoginForm extends Component<LoginProps, LoginState> {
     const { emailAddress, password } = this.state;
     try {
       const result =  await loginUser(emailAddress, password);
-      this.setState({ token: result.data.login }, () => {
-        this.props.updateSession(true, {});
+      this.setState({ token: result.data.login, success: true }, () => {
+        this.props.updateSession(this.state.success, {});
       });
-      this.setState({ success: true });
     } catch (err) {
       this.setState({ success: false });
       console.log('login failed:', err);
