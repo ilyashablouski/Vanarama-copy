@@ -85,7 +85,7 @@ class LoginForm extends Component<LoginProps, LoginState> {
         <Link
           href={'/account/password-request'}
         >
-          <a>Forgot password?</a>
+          <a id="forgotPassword">Forgot password?</a>
         </Link>
         </div>
         <div>
