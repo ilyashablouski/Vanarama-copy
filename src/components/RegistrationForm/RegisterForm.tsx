@@ -18,7 +18,6 @@ class RegisterForm extends Component<{}, RegisterState> {
 
   handleRegister = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(this.state);
     const { email, password } = this.state;
     try {
       const result = await client.mutate({
