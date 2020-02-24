@@ -1,8 +1,7 @@
 import React, { Component, ChangeEvent, FormEvent } from 'react';
 import { connect } from 'react-redux';
 import localForage from 'localforage';
-import { client } from '../../apollo/apollo';
-import { LOGIN_USER } from '../../apollo/session/gql';
+import { loginUser } from '../../apollo/session/api';
 import * as sessionActions from '../../redux/actions/session_actions';
 
 interface Session {
@@ -34,10 +33,7 @@ class LoginForm extends Component<LoginProps, LoginState> {
     e.preventDefault();
     const { emailAddress, password } = this.state;
     try {
-      const result = await client.mutate({
-        mutation: LOGIN_USER,
-        variables: { email: emailAddress, pw: password },
-      });
+      const result =  await loginUser(emailAddress, password);
       this.setState({ token: result.data.login }, () => {
         this.props.updateSession(true, {});
       });
@@ -53,7 +49,7 @@ class LoginForm extends Component<LoginProps, LoginState> {
     this.setState((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_, prevState) {
     if (prevState.token !== this.state.token) {
       localForage.setItem('tmpLogin-token', this.state.token);
     }

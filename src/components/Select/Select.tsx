@@ -57,7 +57,7 @@ const Select: FC<Props> = memo((props) => {
           else return null;
         })}
       </select>
-      <IosArrowDown className="Icon md hydrated" />
+      <IosArrowDown className="Icon" />
     </div>
   );
 });
