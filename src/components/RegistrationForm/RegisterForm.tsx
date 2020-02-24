@@ -1,6 +1,5 @@
 import React, { Component, ChangeEvent, FormEvent } from 'react';
-import { client } from '../../apollo/apollo';
-import { REGISTER_USER } from '../../apollo/session/account/gql';
+import { registerUser } from '../../apollo/session/account/api';
 import Input from '../Input';
 
 interface RegisterState {
@@ -20,10 +19,7 @@ class RegisterForm extends Component<{}, RegisterState> {
     e.preventDefault();
     const { email, password } = this.state;
     try {
-      const result = await client.mutate({
-        mutation: REGISTER_USER,
-        variables: { email: email, pw: password },
-      });
+      const result = await registerUser(email, password);
       console.log(result);
     } catch (err) {
       console.log(err);
