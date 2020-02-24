@@ -23,7 +23,7 @@ export const CREATE_UPDATE_PERSON = gql`
     $lname: String!
     $mname: String
     $consent: Boolean!
-    $dob: String!
+    $dob: Date!
     $email: String!
     $phone: String!
   ) {
@@ -38,7 +38,7 @@ export const CREATE_UPDATE_PERSON = gql`
         middleName: $mname
         dateOfBirth: $dob
         emailAddress: { kind: "Home", value: $email, primary: true }
-        telephoneNumber: { kind: "Mobole", value: $phone, primary: true }
+        telephoneNumber: { kind: "Mobile", value: $phone, primary: true }
       }
     ) {
       id

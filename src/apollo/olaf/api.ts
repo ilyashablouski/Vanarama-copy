@@ -1,6 +1,7 @@
 import { client } from '../apollo';
 import { ALL_DROPDOWNS, CREATE_UPDATE_PERSON } from './gql';
 import { IDetails } from '../../components/Olaf/AboutForm/interface';
+import moment from 'moment';
 
 export const allDropdownData = async () => {
   return client.query({
@@ -27,6 +28,11 @@ export const createUpdatePerson = async (details: IDetails) => {
     consent,
     termsAndCons,
   } = details;
+
+  const dob = moment(`${dayOfBirth}-${monthOfBirth}-${yearOfBirth}`).format(
+    'DD-MM-YY',
+  );
+
   try {
     const result = await client.mutate({
       mutation: CREATE_UPDATE_PERSON,
@@ -36,7 +42,7 @@ export const createUpdatePerson = async (details: IDetails) => {
         fname: firstName,
         lname: lastName,
         consent: consent,
-        dob: '1988-01-21',
+        dob: dob,
         email: email,
         phone: mobile,
       },
