@@ -8,7 +8,7 @@ export const loginUser = async (email: string, pword: string) => {
   });
 };
 
-export const registerUser = async (email, pword) => {
+export const registerUser = async (email: string, pword: string) => {
   return client.mutate({
     mutation: REGISTER_USER,
     variables: { email: email, pw: pword },
