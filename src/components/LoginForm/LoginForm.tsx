@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import localForage from 'localforage';
 import { loginUser } from '../../apollo/session/account/api';
 import * as sessionActions from '../../redux/actions/session_actions';
-import {IState, IProps} from './interface'
+import { IState, IProps } from './interface';
 
 class LoginForm extends Component<IProps, IState> {
   state: IState = {
@@ -19,7 +19,7 @@ class LoginForm extends Component<IProps, IState> {
     e.preventDefault();
     const { emailAddress, password } = this.state;
     try {
-      const result =  await loginUser(emailAddress, password);
+      const result = await loginUser(emailAddress, password);
       this.setState({ token: result.data.login, success: true }, () => {
         this.props.updateSession(this.state.success, {});
       });
@@ -62,18 +62,15 @@ class LoginForm extends Component<IProps, IState> {
           />
         </div>
         <div>
-        <Link
-          href={'/account/password-request'}
-        >
-          <a>Forgot password?</a>
-        </Link>
+          <Link href={'/account/password-request'}>
+            <a>Forgot password?</a>
+          </Link>
         </div>
         <div>
-          <button id="loginButton" type="submit">Submit</button>
-          {this.state.success ?
-            <p id="loginSuccess">Login Success</p> :
-            null
-          }
+          <button id="loginButton" type="submit">
+            Submit
+          </button>
+          {this.state.success ? <p id="loginSuccess">Login Success</p> : null}
         </div>
       </form>
     );

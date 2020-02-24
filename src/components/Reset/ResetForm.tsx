@@ -1,40 +1,40 @@
-import React, { Component, ChangeEvent, FormEvent } from "react"
-import { connect } from "react-redux"
-import * as sessionActions from "../../redux/actions/session_actions"
-import { client } from "../../apollo/apollo"
-import { RESET_REQUEST } from "../../apollo/session/account/gql"
+import React, { Component, ChangeEvent, FormEvent } from 'react';
+import { connect } from 'react-redux';
+import * as sessionActions from '../../redux/actions/session_actions';
+import { client } from '../../apollo/apollo';
+import { RESET_REQUEST } from '../../apollo/session/account/gql';
 
 interface ResetProps {
-  captchaUserEmail: (email: string) => string
+  captchaUserEmail: (email: string) => string;
 }
 interface ResetState {
-  emailAddress: string
-  errors: object
+  emailAddress: string;
+  errors: object;
 }
 
 class ResetForm extends Component<ResetProps, ResetState> {
   state = {
-    emailAddress: "",
+    emailAddress: '',
     errors: {},
-  }
+  };
 
   handleReset = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const { emailAddress } = this.state
+    e.preventDefault();
+    const { emailAddress } = this.state;
     try {
       const result = await client.mutate({
         mutation: RESET_REQUEST,
         variables: { email: emailAddress },
-      })
-      console.log(result)
-      this.props.captchaUserEmail(emailAddress)
+      });
+      console.log(result);
+      this.props.captchaUserEmail(emailAddress);
     } catch {}
-  }
+  };
 
   handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    this.setState((prevState) => ({ ...prevState, [name]: value }))
-  }
+    const { name, value } = e.target;
+    this.setState((prevState) => ({ ...prevState, [name]: value }));
+  };
 
   render() {
     return (
@@ -53,8 +53,8 @@ class ResetForm extends Component<ResetProps, ResetState> {
           SEND ME RESET PASSWORD
         </button>
       </form>
-    )
+    );
   }
 }
 
-export default connect((state) => state, { ...sessionActions })(ResetForm)
+export default connect((state) => state, { ...sessionActions })(ResetForm);

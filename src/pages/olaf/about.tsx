@@ -11,7 +11,7 @@ export class AboutYou extends Component<{}> {
   render() {
     return (
       <>
-        <Header/>
+        <Header />
         <Row>
           <Col span={12} offset={6}>
             <h1>About You</h1>

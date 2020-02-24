@@ -14,7 +14,7 @@ interface NewState {
   verifyCode: string;
   password: string;
   passwordConf: string;
-  errors: object;     
+  errors: object;
 }
 class NewForm extends Component<NewProps, NewState> {
   state = {
