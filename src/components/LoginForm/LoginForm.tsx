@@ -1,4 +1,5 @@
 import React, { Component, ChangeEvent, FormEvent } from 'react';
+import Link from 'next/link';
 import { connect } from 'react-redux';
 import localForage from 'localforage';
 import { loginUser } from '../../apollo/session/account/api';
@@ -61,12 +62,6 @@ class LoginForm extends Component<IProps, IState> {
           />
         </div>
         <div>
-<<<<<<< HEAD
-          <button id="loginButton" type="submit">
-            Submit
-          </button>
-          {this.state.success ? <p id="loginSuccess">Login Success</p> : null}
-=======
         <Link
           href={'/account/password-request'}
         >
@@ -79,7 +74,6 @@ class LoginForm extends Component<IProps, IState> {
             <p id="loginSuccess">Login Success</p> :
             null
           }
->>>>>>> origin
         </div>
       </form>
     );
