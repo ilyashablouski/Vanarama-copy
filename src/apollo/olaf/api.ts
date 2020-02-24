@@ -9,7 +9,6 @@ export const allDropdownData = async () => {
   });
 };
 
-/* >>> todo specify vars <<< */
 export const createUpdatePerson = async (details: IDetails) => {
   const {
     title,
@@ -34,7 +33,7 @@ export const createUpdatePerson = async (details: IDetails) => {
   );
 
   try {
-    const result = await client.mutate({
+    return await client.mutate({
       mutation: CREATE_UPDATE_PERSON,
       variables: {
         title: title,
@@ -47,7 +46,6 @@ export const createUpdatePerson = async (details: IDetails) => {
         phone: mobile,
       },
     });
-    console.log(result);
   } catch (e) {
     console.log(e);
   }
