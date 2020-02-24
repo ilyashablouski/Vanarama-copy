@@ -1,7 +1,7 @@
 import React, { Component, ChangeEvent, FormEvent } from 'react';
 import { connect } from 'react-redux';
 import localForage from 'localforage';
-import { loginUser } from '../../apollo/session/api';
+import { loginUser } from '../../apollo/session/account/api';
 import * as sessionActions from '../../redux/actions/session_actions';
 import {IState, IProps} from './interface'
 

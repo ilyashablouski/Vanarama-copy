@@ -1,6 +1,6 @@
 import React, { Component, ChangeEvent, FormEvent } from "react"
 import { client } from "../../apollo/apollo"
-import { REGISTER_USER } from "../../apollo/session/gql"
+import { REGISTER_USER } from "../../apollo/session/account/gql"
 import Input from "../Input"
 
 interface RegisterState {

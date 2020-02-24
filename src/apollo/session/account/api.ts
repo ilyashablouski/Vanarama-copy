@@ -1,4 +1,4 @@
-import { client } from '../apollo';
+import { client } from '../../apollo';
 import { LOGIN_USER } from './gql';
 
 export const loginUser = async (email: string, pword: string) => {
