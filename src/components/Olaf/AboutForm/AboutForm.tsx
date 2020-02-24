@@ -4,8 +4,8 @@ import { allDropdownData, createUpdatePerson } from '../../../apollo/olaf/api';
 import * as olafActions from 'redux/actions/olaf_actions';
 import { genMonths, genYears } from '../../../utils/helpers';
 import Select from '../../Select/Select';
-import '@vanarama/uibook/src/css/atoms/Button/Button.css';
-import '@vanarama/uibook/src/css/atoms/Checkbox/Checkbox.css';
+import '@vanarama/uibook/packages/ui-components/src/css/atoms/Button/Button.css';
+import '@vanarama/uibook/packages/ui-components/src/css/atoms/Checkbox/Checkbox.css';
 
 import { IProps, IState } from './interface';
 
@@ -34,7 +34,7 @@ export class AboutForm extends Component<IProps, IState> {
     allDropDowns: {},
   };
 
-  // >>> console logs still to be removed <<< 
+  // >>> console logs still to be removed <<<
   async componentDidMount(): Promise<void> {
     try {
       const { data } = await allDropdownData();

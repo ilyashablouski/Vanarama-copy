@@ -1,7 +1,7 @@
 import React, { FC, memo, ChangeEvent } from 'react';
 import cx from 'classnames';
 
-import '@vanarama/uibook/src/css/atoms/Select/Select.css';
+import '@vanarama/uibook/packages/ui-components/src/css/atoms/Select/Select.css';
 import IosArrowDown from 'react-ionicons/lib/IosArrowDown';
 
 interface Props {

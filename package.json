@@ -8,7 +8,7 @@
   "homepage": "http://localhost",
   "license": "",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon express.js",
+    "dev": "NODE_ENV=development node express.js",
     "reloadui": "rm -rf node_modules && yarn install",
     "build": "next build",
     "export": "next export",

@@ -1,13 +1,11 @@
-import React from "react"
+import React from 'react';
 
-import Head from "../components/Head"
-import Nav from "../components/Nav"
+import Head from '../components/Head';
 
 const Header = () => (
   <div>
     <Head title="Home" />
-    <Nav />
   </div>
-)
+);
 
-export default Header
+export default Header;

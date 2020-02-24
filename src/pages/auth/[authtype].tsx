@@ -1,30 +1,30 @@
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 
-import Tabs from '@vanarama/uibook/src/atomic/molecules/Tabs/Tabs';
-import { Tab } from '@vanarama/uibook/src/atomic/molecules/Tabs/Tab';
+// import Tabs from '@vanarama/uibook/packages/ui-components/src/atomic/molecules/Tabs/Tabs';
+// import { Tab } from '@vanarama/uibook/packages/ui-components/src/atomic/molecules/Tabs/Tab';
 
-import LoginForm from '../../components/LoginForm';
-import RegisterForm from '../../components/RegistrationForm';
+// import LoginForm from '../../components/LoginForm';
+// import RegisterForm from '../../components/RegistrationForm';
 
-const AuthenticationPage = () => {
-  const router = useRouter();
-  const { authtype } = router.query;
+// const AuthenticationPage = () => {
+//   const router = useRouter();
+//   const { authtype } = router.query;
 
-  return (
-    <Tabs defaultActiveTabIndex={authtype === 'register' ? 1 : 0}>
-      <Tab tabTitle="Login">
-        <div className="Tab__Content" id="tab-content-login">
-          <LoginForm />
-        </div>
-      </Tab>
+//   return (
+//     <Tabs defaultActiveTabIndex={authtype === 'register' ? 1 : 0}>
+//       <Tab tabTitle="Login">
+//         <div className="Tab__Content" id="tab-content-login">
+//           <LoginForm />
+//         </div>
+//       </Tab>
 
-      <Tab tabTitle="Register">
-        <div className="Tab__Content" id="tab-content-register">
-          <RegisterForm />
-        </div>
-      </Tab>
-    </Tabs>
-  );
-};
+//       <Tab tabTitle="Register">
+//         <div className="Tab__Content" id="tab-content-register">
+//           <RegisterForm />
+//         </div>
+//       </Tab>
+//     </Tabs>
+//   );
+// };
 
-export default AuthenticationPage;
+// export default AuthenticationPage;
