@@ -1,42 +1,16 @@
 import { Component, ChangeEvent, FormEvent, MouseEvent } from 'react';
 import { connect } from 'react-redux';
-import { allDropdownData } from '../../../apollo/olaf/api';
+import { allDropdownData, createUpdatePerson } from '../../../apollo/olaf/api';
 import * as olafActions from 'redux/actions/olaf_actions';
 import { genMonths, genYears } from '../../../utils/helpers';
 import Select from '../../Select/Select';
-import '@vanarama/uibook/src/css/atoms/Select/Select.css';
-import IosArrowDown from 'react-ionicons/lib/IosArrowDown';
+import '@vanarama/uibook/src/css/atoms/Button/Button.css';
+import '@vanarama/uibook/src/css/atoms/Checkbox/Checkbox.css';
 
-import { Input, Checkbox, Row, Col, Button } from 'antd';
+import { IProps, IState } from './interface';
 
-import dropDownData from './stub';
-
-interface IProps {
-  captchaFormData: (pageRef: string, data: {}) => void;
-}
-
-interface IDetails {
-  title: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  mobile: string;
-  dayOfBirth: string;
-  monthOfBirth: string;
-  yearOfBirth: string;
-  countryOfBirth: string;
-  nationality: string;
-  maritalStatus: string;
-  dependants: string;
-  adultsInHousehold: string;
-  termsAndCons: boolean;
-  updates: boolean;
-}
-
-interface IState {
-  details: IDetails;
-  allDropDowns: any;
-}
+//>>> still to be replaced <<<
+import { Input, Row, Col } from 'antd';
 
 export class AboutForm extends Component<IProps, IState> {
   state: IState = {
@@ -55,14 +29,14 @@ export class AboutForm extends Component<IProps, IState> {
       dependants: '',
       adultsInHousehold: '',
       termsAndCons: false,
-      updates: false,
+      consent: false,
     },
     allDropDowns: {},
   };
 
+  // >>> console logs still to be removed <<< 
   async componentDidMount(): Promise<void> {
     try {
-      //const { allDropDowns } = dropDownData.data;
       const { data } = await allDropdownData();
       const { allDropDowns } = data;
       this.setState({ allDropDowns }, () => {
@@ -73,17 +47,24 @@ export class AboutForm extends Component<IProps, IState> {
     }
   }
 
-  handleSubmission = (e: FormEvent<HTMLInputElement>): void => {};
+  handleSubmission = async (e: FormEvent<HTMLFormElement>) => {
+    try {
+      const res = await createUpdatePerson(this.state.details);
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-  handleInputChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ): void => {
-    const { name, value } = e.currentTarget;
+  //>>>removed type checking for <HTMLInputElement | HTMLSelectElement> as checked does not exist ???
+  handleInputChange = (e): void => {
+    const { name, value, checked, type } = e.currentTarget;
+    const val = type === 'checkbox' ? checked : value;
     if (Object.keys(this.state.details).includes(name)) {
       this.setState(
         (prevState) => ({
           ...prevState,
-          details: { ...prevState.details, [name]: value },
+          details: { ...prevState.details, [name]: val },
         }),
         () => console.log(this.state),
       );
@@ -93,10 +74,10 @@ export class AboutForm extends Component<IProps, IState> {
   render() {
     const months: string[] = genMonths() || [];
     const years: number[] = genYears(100) || [];
-    const{firstName, lastName, email, mobile } = this.state.details
+    const { firstName, lastName, email, mobile } = this.state.details;
 
     return (
-      <form onSubmit={null} id="about-form" className="form">
+      <form onSubmit={this.handleSubmission} id="about-form" className="form">
         <Row>
           <Col>
             <label>Title</label>
@@ -278,23 +259,41 @@ export class AboutForm extends Component<IProps, IState> {
           </Col>
         </Row>
         <br />
-        <Row>
-          <Col>
-            <Checkbox name="updates">
-              I wish to receive emails and SMS messages for updates on the
-              latest deals, offers and promotions.
-            </Checkbox>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Checkbox name="termsAndCons">
-              agree to the terms and conditions.
-            </Checkbox>
-          </Col>
-        </Row>
+        <div role="presentation">
+          <div className="Form__item -Checkbox__wrapper">
+            <input
+              onChange={this.handleInputChange}
+              className="Checkbox"
+              type="checkbox"
+              name="consent"
+              id={'aboutInputT&C'}
+            />
+            <label className="Checkbox__label" htmlFor={'aboutInputT&C'}>
+              <span className="Text -secondary">
+                I wish to receive emails and SMS messages for updates on the
+                latest deals, offers and promotions.
+              </span>
+            </label>
+          </div>
+          <div className="Form__item -Checkbox__wrapper">
+            <input
+              onChange={this.handleInputChange}
+              className="Checkbox"
+              type="checkbox"
+              name="termsAndCons"
+              id={'aboutInputT&C'}
+            />
+            <label className="Checkbox__label" htmlFor={'aboutInputT&C'}>
+              <span className="Text -secondary">
+                agree to the terms and conditions.
+              </span>
+            </label>
+          </div>
+        </div>
         <br />
-        <Button type="primary">Continue</Button>
+        <button className="Button -primary -regular -solid" type="submit">
+          <div className="Button__inner">Continue</div>
+        </button>
       </form>
     );
   }
