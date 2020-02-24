@@ -1,3 +1,72 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<HEAD /> rendering renders correctly 1`] = `ShallowWrapper {}`;
+exports[`<HEAD /> rendering renders correctly 1`] = `
+<Head>
+  <meta
+    charSet="UTF-8"
+  />
+  <title />
+  <meta
+    content=""
+    name="description"
+  />
+  <meta
+    content="width=device-width, initial-scale=1"
+    name="viewport"
+  />
+  <link
+    href="/static/touch-icon.png"
+    rel="icon"
+    sizes="192x192"
+  />
+  <link
+    href="/static/touch-icon.png"
+    rel="apple-touch-icon"
+  />
+  <link
+    color="#49B882"
+    href="/static/favicon-mask.svg"
+    rel="mask-icon"
+  />
+  <link
+    href="/static/favicon.ico"
+    rel="icon"
+  />
+  <meta
+    content=""
+    property="og:url"
+  />
+  <meta
+    content=""
+    property="og:title"
+  />
+  <meta
+    content=""
+    property="og:description"
+  />
+  <meta
+    content=""
+    name="twitter:site"
+  />
+  <meta
+    content="summary_large_image"
+    name="twitter:card"
+  />
+  <meta
+    content=""
+    name="twitter:image"
+  />
+  <meta
+    content=""
+    property="og:image"
+  />
+  <meta
+    content="1200"
+    property="og:image:width"
+  />
+  <meta
+    content="630"
+    property="og:image:height"
+  />
+</Head>
+`;

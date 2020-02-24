@@ -1,28 +1,13 @@
 import React, { Component, ChangeEvent, FormEvent } from 'react';
+import Link from 'next/link';
 import { connect } from 'react-redux';
 import localForage from 'localforage';
-import { client } from '../../lib/apollo';
-import { LOGIN_USER } from '../../gql';
+import { loginUser } from '../../apollo/session/account/api';
 import * as sessionActions from '../../redux/actions/session_actions';
+import { IState, IProps } from './interface';
 
-interface Session {
-  isAuthenticated: boolean;
-  currentSessionData: any;
-}
-interface LoginProps {
-  session: Session;
-  updateSession: (isAuthenticated: boolean, currentSessionData: any) => boolean;
-}
-interface LoginState {
-  emailAddress: string;
-  password: string;
-  token: string;
-  errors: object;
-  success: boolean;
-}
-
-class LoginForm extends Component<LoginProps, LoginState> {
-  state: LoginState = {
+class LoginForm extends Component<IProps, IState> {
+  state: IState = {
     password: '',
     emailAddress: '',
     token: '',
@@ -34,14 +19,10 @@ class LoginForm extends Component<LoginProps, LoginState> {
     e.preventDefault();
     const { emailAddress, password } = this.state;
     try {
-      const result = await client.mutate({
-        mutation: LOGIN_USER,
-        variables: { email: emailAddress, pw: password },
+      const result = await loginUser(emailAddress, password);
+      this.setState({ token: result.data.login, success: true }, () => {
+        this.props.updateSession(this.state.success, {});
       });
-      this.setState({ token: result.data.login }, () => {
-        this.props.updateSession(true, {});
-      });
-      this.setState({ success: true });
     } catch (err) {
       this.setState({ success: false });
       console.log('login failed:', err);
@@ -53,7 +34,7 @@ class LoginForm extends Component<LoginProps, LoginState> {
     this.setState((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_, prevState) {
     if (prevState.token !== this.state.token) {
       localForage.setItem('tmpLogin-token', this.state.token);
     }
@@ -79,6 +60,11 @@ class LoginForm extends Component<LoginProps, LoginState> {
             type="password"
             id="loginInputPassword"
           />
+        </div>
+        <div>
+          <Link href={'/account/password-request'}>
+            <a>Forgot password?</a>
+          </Link>
         </div>
         <div>
           <button id="loginButton" type="submit">
