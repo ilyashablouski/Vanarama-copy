@@ -11,7 +11,7 @@ export interface IDetails {
     nationality: string;
     maritalStatus: string;
     dependants: string;
-    adultsInHousehold: string;
+    adultsInHousehold: number;
     termsAndCons: boolean;
     consent: boolean;
   }
