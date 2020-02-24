@@ -1,5 +1,5 @@
 import { client } from '../../apollo';
-import { LOGIN_USER } from './gql';
+import { LOGIN_USER, REGISTER_USER} from './gql';
 
 export const loginUser = async (email: string, pword: string) => {
   return client.mutate({
@@ -8,9 +8,9 @@ export const loginUser = async (email: string, pword: string) => {
   });
 };
 
-export const registerUser = async () => {
+export const registerUser = async (email, pword) => {
   return client.mutate({
     mutation: REGISTER_USER,
-    variables: { email: email, pw: password },
+    variables: { email: email, pw: pword },
   });
 };
