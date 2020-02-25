@@ -33,8 +33,6 @@ export const createUpdatePerson = async (details: IDetails) => {
     'DD-MM-YY',
   );
 
-  console.log(dob)
-
   return client.mutate({
     mutation: CREATE_UPDATE_PERSON,
     variables: {
