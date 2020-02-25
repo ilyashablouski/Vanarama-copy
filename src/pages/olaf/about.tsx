@@ -1,13 +1,13 @@
-import { Component } from 'react';
+import * as React from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import Header from '@vanarama/uibook/src/css/organisms/Header';
-//import Footer from '@vanarama/uibook/src/css/organisms/Footer';
+import Header from '@vanarama/uibook/packages/ui-components/src/css/organisms/Header';
+//import Footer from '@vanarama/uibook/packages/ui-components/src/css/organisms/Footer';
 import AboutForm from '../../components/Olaf/AboutForm';
 import { Row, Col } from 'antd';
 
 //convert to functional component
-export class AboutYou extends Component<{}> {
+export class AboutYou extends React.Component<{}> {
   render() {
     return (
       <>

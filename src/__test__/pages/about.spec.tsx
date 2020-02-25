@@ -1,5 +1,5 @@
-import AboutPage from '../../pages/olaf/about';
 import * as React from 'react';
+import AboutPage from '../../pages/olaf/about';
 import { shallow } from 'enzyme';
 
 describe('Olaf <AboutPage /> rendering', () => {
