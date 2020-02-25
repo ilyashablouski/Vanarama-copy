@@ -3,14 +3,33 @@ import { gql } from 'apollo-boost';
 export const ALL_DROPDOWNS = gql`
   query allDropDowns {
     allDropDowns {
-      titles
-      countries
-      nationalities
-      maritalStatuses
-      noOfDependants
-      noOfAdultsInHousehold
-      propertyStatuses
-      employmentStatuses
+      titles {
+        data
+        favourites
+      }
+      countries {
+        data
+        favourites
+      }
+      nationalities {
+        data
+        favourites
+      }
+      maritalStatuses {
+        data
+      }
+      noOfDependants {
+        data
+      }
+      noOfAdultsInHousehold {
+        data
+      }
+      propertyStatuses {
+        data
+      }
+      employmentStatuses {
+        data
+      }
     }
   }
 `;

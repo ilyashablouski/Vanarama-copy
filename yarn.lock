@@ -1712,10 +1712,10 @@
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
   integrity sha512-te5lMAWii1uEJ4FwLjzdlbw3+n0FZNOvFXHxQDKeT0dilh7HOzdMzV2TrJVUzq8ep7J4Na8OUYPRLSQkJHAlrg==
 
-"@vanarama/uibook@1.0.10":
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-1.0.10.tgz#683d3000d3eb40dc5d9bb5de96128dc40e94abf5"
-  integrity sha512-bIqPFYZibtkgBmmPQqRO/dGUx39t8Todg2oZVDdwgopKB+uqfTbUARnK3DbQ9ab1a1TZVLI3IgCoYr2Zi3dBLg==
+"@vanarama/uibook@latest":
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-1.0.11.tgz#55be13344397333078f68a0d4fcf91a78e849eef"
+  integrity sha512-LdnbfI5WcC/CBdmmWPrVPRT9qNU5AjM1EDxEYoaNiJkM/uhvv25iqU+l3ZqiMBmpfScSMk+cB3HnCd1STF1R4g==
 
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
