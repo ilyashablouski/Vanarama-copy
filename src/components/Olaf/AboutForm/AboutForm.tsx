@@ -1,7 +1,7 @@
-import { Component, ChangeEvent, FormEvent, MouseEvent } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { allDropdownData, createUpdatePerson } from '../../../apollo/olaf/api';
-import * as olafActions from 'redux/actions/olaf_actions';
+import { captchaFormData } from '../../../redux/actions/olaf_actions';
 import { genMonths, genYears } from '../../../utils/helpers';
 import Select from '../../Select/Select';
 import '@vanarama/uibook/packages/ui-components/src/css/atoms/Button/Button.css';
@@ -12,7 +12,7 @@ import { IProps, IState } from './interface';
 //>>> still to be replaced <<<
 import { Input, Row, Col } from 'antd';
 
-export class AboutForm extends Component<IProps, IState> {
+export class AboutForm extends React.Component<IProps, IState> {
   state: IState = {
     details: {
       title: 'Mr',
@@ -20,8 +20,8 @@ export class AboutForm extends Component<IProps, IState> {
       lastName: '',
       email: '',
       mobile: '',
-      dayOfBirth: '1',
       monthOfBirth: 'January',
+      dayOfBirth: '1',
       yearOfBirth: '1999',
       countryOfBirth: '',
       nationality: '',
@@ -47,7 +47,7 @@ export class AboutForm extends Component<IProps, IState> {
     }
   }
 
-  handleSubmission = async (e: FormEvent<HTMLFormElement>) => {
+  handleSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const res = await createUpdatePerson(this.state.details);
@@ -300,4 +300,4 @@ export class AboutForm extends Component<IProps, IState> {
   }
 }
 
-export default connect((state) => state, { ...olafActions })(AboutForm);
+export default connect((state) => state, { ...captchaFormData })(AboutForm);
