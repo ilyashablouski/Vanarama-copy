@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { allDropdownData, createUpdatePerson } from '../../../apollo/olaf/api';
 import { captchaFormData } from '../../../redux/actions/olaf_actions';
 import { genMonths, genYears } from '../../../utils/helpers';
-import Select from '../../Select/Select';
+import Select from '@vanarama/uibook/packages/ui-components/src/css/atoms/Select';
 import '@vanarama/uibook/packages/ui-components/src/css/atoms/Button/Button.css';
 import '@vanarama/uibook/packages/ui-components/src/css/atoms/Checkbox/Checkbox.css';
 
@@ -85,7 +85,7 @@ export class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="title"
               onChange={this.handleInputChange}
-              values={
+              options={
                 this.state.allDropDowns.titles &&
                 this.state.allDropDowns.titles.map((value) => ({
                   value,
@@ -153,7 +153,7 @@ export class AboutForm extends React.Component<IProps, IState> {
               <Select
                 name="dayOfBirth"
                 onChange={this.handleInputChange}
-                values={[...Array(31)].map((_, i) => ({
+                options={[...Array(31)].map((_, i) => ({
                   value: i + 1,
                 }))}
               />
@@ -163,7 +163,7 @@ export class AboutForm extends React.Component<IProps, IState> {
               <Select
                 name="monthOfBirth"
                 onChange={this.handleInputChange}
-                values={months.map((month) => ({
+                options={months.map((month) => ({
                   value: month,
                 }))}
               />
@@ -172,7 +172,7 @@ export class AboutForm extends React.Component<IProps, IState> {
               <Select
                 name="yearOfBirth"
                 onChange={this.handleInputChange}
-                values={years.map((year) => ({
+                options={years.map((year) => ({
                   value: year,
                 }))}
               />
@@ -185,7 +185,7 @@ export class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="countryOfBirth"
               onChange={this.handleInputChange}
-              values={
+              options={
                 this.state.allDropDowns.countries &&
                 this.state.allDropDowns.countries.map((value) => ({
                   value,
@@ -201,7 +201,7 @@ export class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="nationality"
               onChange={this.handleInputChange}
-              values={
+              options={
                 this.state.allDropDowns.nationalities &&
                 this.state.allDropDowns.nationalities.map((value) => ({
                   value,
@@ -217,7 +217,7 @@ export class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="maritalStatus"
               onChange={this.handleInputChange}
-              values={
+              options={
                 this.state.allDropDowns.maritalStatuses &&
                 this.state.allDropDowns.maritalStatuses.map((value) => ({
                   value,
@@ -233,7 +233,7 @@ export class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="dependants"
               onChange={this.handleInputChange}
-              values={
+              options={
                 this.state.allDropDowns.noOfDependants &&
                 this.state.allDropDowns.noOfDependants.map((value) => ({
                   value,
@@ -249,7 +249,7 @@ export class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="adultsInHousehold"
               onChange={this.handleInputChange}
-              values={
+              options={
                 this.state.allDropDowns.noOfAdultsInHousehold &&
                 this.state.allDropDowns.noOfAdultsInHousehold.map((value) => ({
                   value,
