@@ -20,14 +20,14 @@ export class AboutForm extends React.Component<IProps, IState> {
       lastName: '',
       email: '',
       mobile: '',
-      monthOfBirth: 'January',
-      dayOfBirth: '1',
-      yearOfBirth: '1999',
+      monthOfBirth: '',
+      dayOfBirth: '',
+      yearOfBirth: '',
       countryOfBirth: '',
       nationality: '',
-      maritalStatus: 'Single',
-      dependants: 'None',
-      adultsInHousehold: 1,
+      maritalStatus: '',
+      dependants: '',
+      adultsInHousehold: 0,
       termsAndCons: false,
       consent: false,
     },
@@ -78,7 +78,7 @@ export class AboutForm extends React.Component<IProps, IState> {
     const { firstName, lastName, email, mobile } = this.state.details;
 
     return (
-      <form onSubmit={this.handleSubmission} id="about-form" className="form">
+      <form onSubmit={this.handleSubmission} id="aboutForm" className="form">
         <Row>
           <Col>
             <label>Title</label>
