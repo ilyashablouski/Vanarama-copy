@@ -1,6 +1,5 @@
-import React, { Component } from "react"
-import { ResetForm } from "../components/Reset"
-import { NewPasswordForm } from "../components/Reset"
+import React, { Component } from 'react';
+import { ResetForm, NewPasswordForm } from '../components/Reset';
 
 interface ResetPage {}
 class ResetPage extends Component<{}, ResetPage> {
@@ -18,8 +17,8 @@ class ResetPage extends Component<{}, ResetPage> {
           <NewPasswordForm />
         </section>
       </div>
-    )
+    );
   }
 }
 
-export default ResetPage
+export default ResetPage;

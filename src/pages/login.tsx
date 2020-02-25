@@ -1,8 +1,9 @@
 import React, { Component } from "react"
 import RegisterForm from "../components/RegistrationForm"
 import LoginForm from "../components/LoginForm/LoginForm"
-interface LoginState{}
-class LoginPage extends Component<{}, LoginState> {
+
+//convert to functional component
+class LoginPage extends Component<{}> {
   render() {
     return (
       <div className="container">

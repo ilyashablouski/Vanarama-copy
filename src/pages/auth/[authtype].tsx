@@ -1,45 +1,30 @@
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 
-import Layout from '../../components/Layout';
+// import Tabs from '@vanarama/uibook/packages/ui-components/src/atomic/molecules/Tabs/Tabs';
+// import { Tab } from '@vanarama/uibook/packages/ui-components/src/atomic/molecules/Tabs/Tab';
 
-import Tabs from "@vanarama/uibook/src/atomic/molecules/Tabs/Tabs";
-import { Tab } from "@vanarama/uibook/src/atomic/molecules/Tabs/Tab";
+// import LoginForm from '../../components/LoginForm';
+// import RegisterForm from '../../components/RegistrationForm';
 
-import LoginForm from '../../components/LoginForm';
-import RegisterForm from '../../components/RegistrationForm';
+// const AuthenticationPage = () => {
+//   const router = useRouter();
+//   const { authtype } = router.query;
 
-const AuthenticationPage = () => {
+//   return (
+//     <Tabs defaultActiveTabIndex={authtype === 'register' ? 1 : 0}>
+//       <Tab tabTitle="Login">
+//         <div className="Tab__Content" id="tab-content-login">
+//           <LoginForm />
+//         </div>
+//       </Tab>
 
-  const router = useRouter();
-  const { authtype } = router.query;
+//       <Tab tabTitle="Register">
+//         <div className="Tab__Content" id="tab-content-register">
+//           <RegisterForm />
+//         </div>
+//       </Tab>
+//     </Tabs>
+//   );
+// };
 
-return (
-  <Layout title={`Vanarama ${authtype}`}>
-
-    <Tabs defaultActiveTabIndex={authtype === 'register'? 1 : 0}>
-      <Tab tabTitle="Login">
-
-        <div className="Tab__Content" id="tab-content-login">
-          <LoginForm />
-        </div>
-
-      </Tab>
-
-      <Tab tabTitle="Register">
-        <div className="Tab__Content" id="tab-content-register">
-          <RegisterForm />
-        </div>
-      </Tab>
-
-    </Tabs>
-
-  </Layout>
-)
-
-
-
-
-}
-
-
-export default AuthenticationPage;
+// export default AuthenticationPage;

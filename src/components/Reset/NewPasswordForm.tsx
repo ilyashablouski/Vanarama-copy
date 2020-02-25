@@ -1,11 +1,11 @@
 import React, { Component, MouseEvent, ChangeEvent, FormEvent } from 'react';
 import { connect } from 'react-redux';
-import { client } from '../../lib/apollo';
-import { NEW_PASSWORD } from '../../gql';
+import { client } from '../../apollo/apollo';
+import { NEW_PASSWORD } from '../../apollo/session/account/gql';
 import Router from 'next/router';
 
 interface Session {
-  userEmail: boolean;
+  userEmail: string;
 }
 interface NewProps {
   session: Session;

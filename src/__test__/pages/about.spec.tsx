@@ -1,12 +1,12 @@
-import LoginPage from '../../pages/login';
 import * as React from 'react';
+import AboutPage from '../../pages/olaf/about';
 import { shallow } from 'enzyme';
 
-describe('<LoginPage /> rendering', () => {
+describe('Olaf <AboutPage /> rendering', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<LoginPage />);
+    wrapper = shallow(<AboutPage />);
   });
 
   it('renders correctly', () => {

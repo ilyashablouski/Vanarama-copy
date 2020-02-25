@@ -1,42 +1,37 @@
-import React, { Component, MouseEvent, ChangeEvent, FormEvent } from "react"
-import { client } from "../../lib/apollo"
-import { REGISTER_USER } from "../../gql"
-import Input from "../Input"
+import React, { Component, ChangeEvent, FormEvent } from 'react';
+import { registerUser } from '../../apollo/session/account/api';
+import Input from '../Input';
 
 interface RegisterState {
-  email: string
-  password: string
-  passwordConf: string
+  email: string;
+  password: string;
+  passwordConf: string;
 }
 
 class RegisterForm extends Component<{}, RegisterState> {
   state: RegisterState = {
-    email: "",
-    password: "",
-    passwordConf: "",
-  }
+    email: '',
+    password: '',
+    passwordConf: '',
+  };
 
   handleRegister = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    console.log(this.state)
-    const { email, password } = this.state
+    e.preventDefault();
+    const { email, password } = this.state;
     try {
-      const result = await client.mutate({
-        mutation: REGISTER_USER,
-        variables: { email: email, pw: password },
-      })
-      console.log(result)
+      const result = await registerUser(email, password);
+      console.log(result);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = e.currentTarget
+    const { name, value } = e.currentTarget;
     if (Object.keys(this.state).includes(name)) {
-      this.setState((prevState) => ({ ...prevState, [name]: value }))
+      this.setState((prevState) => ({ ...prevState, [name]: value }));
     }
-  }
+  };
 
   render() {
     return (
@@ -49,7 +44,7 @@ class RegisterForm extends Component<{}, RegisterState> {
             type="email"
             name="email"
             value={this.state.email}
-            id={"registerInputEmail"}
+            id={'registerInputEmail'}
           />
         </div>
         <div className="form--item">
@@ -73,11 +68,13 @@ class RegisterForm extends Component<{}, RegisterState> {
           />
         </div>
         <div>
-          <button id="registerButton" type="submit">Submit</button>
+          <button id="registerButton" type="submit">
+            Submit
+          </button>
         </div>
       </form>
-    )
+    );
   }
 }
 
-export default RegisterForm
+export default RegisterForm;
