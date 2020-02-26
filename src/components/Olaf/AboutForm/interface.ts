@@ -22,5 +22,5 @@ export interface IState {
 }
 
 export interface IProps {
-  captchaFormData: (pageRef: string, data: {}) => void;
+  captchaOlafData: (pageRef: string, data: {}) => void;
 }
