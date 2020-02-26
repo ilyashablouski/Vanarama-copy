@@ -3,15 +3,23 @@ import App, { AppContext } from 'next/app';
 import withRedux from 'next-redux-wrapper';
 import { Store } from 'redux';
 import { initStore } from 'redux/store';
+import { Container } from 'react-grid-system';
 import { client } from '../apollo/apollo';
 import { ApolloProvider } from '@apollo/react-hooks';
+import Header from  '@vanarama/uibook/packages/ui-components/src/css/organisms/Header';
+import Footer from  '@vanarama/uibook/packages/ui-components/src/css/organisms/Footer';
 import '@vanarama/uibook/packages/ui-components/src/css/App.css';
-import 'antd/dist/antd.css';
+import './_app.css';
 
 interface Props {
   store: Store;
 }
 
+const MyDiv =() => {
+  return (
+    <div className="mydiv"></div>
+  )
+}
 function isDebug() {
   return process.env.NODE_ENV === 'development' ? true : false;
 }
@@ -30,11 +38,17 @@ class ReduxApp extends App<Props> {
   render() {
     const { Component, pageProps, store } = this.props;
     return (
-      <Provider store={store}>
-        <ApolloProvider client={client}>
-          <Component {...pageProps} />
-        </ApolloProvider>
-      </Provider>
+      <>
+        <Header />
+        <Container className="container">
+          <Provider store={store}>
+            <ApolloProvider client={client}>
+              <Component {...pageProps} />
+            </ApolloProvider>
+          </Provider>
+        </Container>
+        <Footer />
+      </>
     );
   }
 }
