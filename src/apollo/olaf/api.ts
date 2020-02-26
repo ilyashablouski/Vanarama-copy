@@ -28,7 +28,8 @@ export const createUpdatePerson = async (details: IDetails) => {
     termsAndCons,
   } = details;
 
-  const dob = moment(`${dayOfBirth} ${monthOfBirth} ${yearOfBirth}`).format(
+  const dateStr = `${dayOfBirth} ${monthOfBirth} ${yearOfBirth}`;
+  const dob = moment(dateStr, 'DD-MMMM-YYYY').format(
     'DD-MM-YY',
   );
 
