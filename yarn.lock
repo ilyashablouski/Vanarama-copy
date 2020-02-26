@@ -1712,10 +1712,10 @@
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
   integrity sha512-te5lMAWii1uEJ4FwLjzdlbw3+n0FZNOvFXHxQDKeT0dilh7HOzdMzV2TrJVUzq8ep7J4Na8OUYPRLSQkJHAlrg==
 
-"@vanarama/uibook@1.0.8":
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-1.0.8.tgz#b635f988bceb175f7180ef1a9886ca56cf82fc66"
-  integrity sha512-zI0cTarwiUY3t5gPVOlYeu+fVr7uaqq9a3wsVFrmVlaHcCjy+KPBrRA5d9uI19UD2hDFsAiBCHRcj1qsrs5ImQ==
+"@vanarama/uibook@latest":
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-1.0.14.tgz#9e7131120eb95b7d8575b2640521c6abe4cf4c5e"
+  integrity sha512-wSql/dvniVrAJM/6As2BUsciED78q/fUTkUsfagAIai5EXYzJ7WzU3Poqm8lLrrG2IPFFeTXUx5RUNOCkrot/g==
 
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
@@ -9629,6 +9629,13 @@ react-error-overlay@5.1.6:
   version "5.1.6"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.1.6.tgz#0cd73407c5d141f9638ae1e0c63e7b2bf7e9929d"
   integrity sha512-X1Y+0jR47ImDVr54Ab6V9eGk0Hnu7fVWGeHQSOXHf/C2pF9c6uy3gef8QUeuUiWlNb0i08InPSE5a/KJzNzw1Q==
+
+react-grid-system@^6.2.3:
+  version "6.2.3"
+  resolved "https://registry.yarnpkg.com/react-grid-system/-/react-grid-system-6.2.3.tgz#70dd51fdc9db5b0f12e4ad5dcbaed9a776b2eceb"
+  integrity sha512-vkSKzsnI2lyAgO5IDJu/YdOE4Ag67GOH0dZHE7AfCstnh+2kK2fCFZWPgW7r0Gwve34QQNKw0Pv5EVjemBWVpA==
+  dependencies:
+    prop-types "^15.7.2"
 
 react-ionicons@^3.1.4:
   version "3.1.4"
