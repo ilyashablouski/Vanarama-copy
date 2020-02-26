@@ -15,11 +15,6 @@ interface Props {
   store: Store;
 }
 
-const MyDiv =() => {
-  return (
-    <div className="mydiv"></div>
-  )
-}
 function isDebug() {
   return process.env.NODE_ENV === 'development' ? true : false;
 }
