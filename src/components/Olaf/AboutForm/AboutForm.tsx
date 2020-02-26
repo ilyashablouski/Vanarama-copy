@@ -51,12 +51,13 @@ export class AboutForm extends React.Component<IProps, IState> {
     e.preventDefault();
     try {
       const res = await createUpdatePerson(this.state.details);
+      this.props.captchaOlafData('aboutYou', res);
       console.log(res);
     } catch (e) {
       console.log(e);
     }
   };
-  
+
   //>>>removed type checking for <HTMLInputElement | HTMLSelectElement> as checked does not exist ???
   handleInputChange = (e): void => {
     const { name, value, checked, type } = e.currentTarget;
@@ -275,4 +276,4 @@ export class AboutForm extends React.Component<IProps, IState> {
   }
 }
 
-export default connect((state) => state, { ...captchaFormData })(AboutForm);
+export default connect((state) => state, { captchaOlafData })(AboutForm);

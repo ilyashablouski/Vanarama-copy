@@ -1,6 +1,6 @@
 import { TMP_OLAF_DATA } from '../types';
 
-export const captchaFormData = (pageRef: string, data: {}) => {
+export const captchaOlafData = (pageRef: string, data: {}) => {
   return (dispatch) => {
     return dispatch({
       type: TMP_OLAF_DATA,
