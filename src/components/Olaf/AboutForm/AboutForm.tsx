@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { allDropdownData, createUpdatePerson } from '../../../apollo/olaf/api';
-import { captchaFormData } from '../../../redux/actions/olaf_actions';
+import { captchaOlafData } from '../../../redux/actions/olaf_actions';
 import { genMonths, genYears } from '../../../utils/helpers';
 import Select from '@vanarama/uibook/packages/ui-components/src/css/atoms/Select';
 import '@vanarama/uibook/packages/ui-components/src/css/atoms/Button/Button.css';
