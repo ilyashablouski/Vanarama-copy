@@ -34,6 +34,7 @@ class LoginForm extends Component<IProps, IState> {
     this.setState((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  //<<< With SSR local storage is only available when component has mounted <<<
   componentDidUpdate(_, prevState) {
     if (prevState.token !== this.state.token) {
       localForage.setItem('tmpLogin-token', this.state.token);

@@ -15,7 +15,7 @@ import { Input, Row, Col } from 'antd';
 export class AboutForm extends React.Component<IProps, IState> {
   state: IState = {
     details: {
-      title: 'Mr',
+      title: '',
       firstName: '',
       lastName: '',
       email: '',
@@ -56,7 +56,7 @@ export class AboutForm extends React.Component<IProps, IState> {
       console.log(e);
     }
   };
-
+  
   //>>>removed type checking for <HTMLInputElement | HTMLSelectElement> as checked does not exist ???
   handleInputChange = (e): void => {
     const { name, value, checked, type } = e.currentTarget;
