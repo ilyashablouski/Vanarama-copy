@@ -30,21 +30,7 @@ export class AboutForm extends React.Component<IProps, IState> {
       termsAndCons: false,
       consent: false,
     },
-    allDropDowns: {},
   };
-
-  // >>> console logs still to be removed <<<
-  async componentDidMount(): Promise<void> {
-    try {
-      const { data } = await allDropdownData();
-      const { allDropDowns } = data;
-      this.setState({ allDropDowns }, () => {
-        console.log(this.state.allDropDowns);
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  }
 
   handleSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -76,6 +62,7 @@ export class AboutForm extends React.Component<IProps, IState> {
     const months: string[] = genMonths() || [];
     const years: number[] = genYears(100) || [];
     const { firstName, lastName, email, mobile } = this.state.details;
+    const { allDropDowns } = this.props;
 
     return (
       <form onSubmit={this.handleSubmission} id="aboutForm" className="form">
@@ -85,7 +72,7 @@ export class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="title"
               onChange={this.handleInputChange}
-              options={this.state.allDropDowns.titles || {}}
+              options={allDropDowns.titles || {}}
             />
           </Col>
         </Row>
@@ -183,7 +170,7 @@ export class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="countryOfBirth"
               onChange={this.handleInputChange}
-              options={this.state.allDropDowns.countries || {}}
+              options={allDropDowns.countries || {}}
               id={'aboutInputCOB'}
             />
           </Col>
@@ -194,7 +181,7 @@ export class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="nationality"
               onChange={this.handleInputChange}
-              options={this.state.allDropDowns.nationalities || {}}
+              options={allDropDowns.nationalities || {}}
               id={'aboutInputNationality'}
             />
           </Col>
@@ -205,7 +192,7 @@ export class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="maritalStatus"
               onChange={this.handleInputChange}
-              options={this.state.allDropDowns.maritalStatuses || {}}
+              options={allDropDowns.maritalStatuses || {}}
               id={'aboutInputMarStatus'}
             />
           </Col>
@@ -216,7 +203,7 @@ export class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="dependants"
               onChange={this.handleInputChange}
-              options={this.state.allDropDowns.noOfDependants || {}}
+              options={allDropDowns.noOfDependants || {}}
               id={'aboutInputMarDependants'}
             />
           </Col>
@@ -227,7 +214,7 @@ export class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="adultsInHousehold"
               onChange={this.handleInputChange}
-              options={this.state.allDropDowns.noOfAdultsInHousehold || {}}
+              options={allDropDowns.noOfAdultsInHousehold || {}}
               id={'aboutInputAdultsHoushold'}
             />
           </Col>

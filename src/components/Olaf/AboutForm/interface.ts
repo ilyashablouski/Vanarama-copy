@@ -18,9 +18,9 @@ export interface IDetails {
 
 export interface IState {
   details: IDetails;
-  allDropDowns: any;
 }
 
 export interface IProps {
   captchaOlafData: (pageRef: string, data: {}) => void;
+  allDropDowns: any;
 }
