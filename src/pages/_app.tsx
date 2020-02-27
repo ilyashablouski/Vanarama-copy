@@ -42,7 +42,7 @@ class ReduxApp extends App<Props> {
             </ApolloProvider>
           </Provider>
         </Container>
-        <Footer />
+        {/* <Footer /> */}
       </>
     );
   }
