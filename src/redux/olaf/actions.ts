@@ -1,4 +1,4 @@
-import { TMP_OLAF_DATA } from '../types';
+import { TMP_OLAF_DATA } from './types';
 
 export const captchaOlafData = (pageRef: string, data: {}) => {
   return (dispatch) => {

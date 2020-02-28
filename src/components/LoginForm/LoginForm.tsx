@@ -1,9 +1,7 @@
 import React, { Component, ChangeEvent, FormEvent } from 'react';
 import Link from 'next/link';
-import { connect } from 'react-redux';
-import localForage from 'localforage';
 import { loginUser } from '../../apollo/session/account/api';
-import * as sessionActions from '../../redux/actions/session_actions';
+import { loginSuccess } from '../../utils/auth-helpers';
 import { IState, IProps } from './interface';
 
 class LoginForm extends Component<IProps, IState> {
@@ -20,12 +18,18 @@ class LoginForm extends Component<IProps, IState> {
     const { emailAddress, password } = this.state;
     try {
       const result = await loginUser(emailAddress, password);
-      this.setState({ token: result.data.login, success: true }, () => {
-        this.props.updateSession(this.state.success, {});
-      });
+      const token = result.data.login || "";
+      // >>> check tokens existence <<<
+      if (token) {
+        // >>> probably no need for success true if redirecting <<<
+        this.setState({ success: true }, () => {
+          loginSuccess(result.data.login);
+        });
+      }else{
+        this.setState({ success: false });
+      }
     } catch (err) {
-      this.setState({ success: false });
-      console.log('login failed:', err);
+      console.log('promise rejected:', err);
     }
   };
 
@@ -33,13 +37,6 @@ class LoginForm extends Component<IProps, IState> {
     const { name, value } = e.target;
     this.setState((prevState) => ({ ...prevState, [name]: value }));
   };
-
-  //<<< With SSR local storage is only available when component has mounted <<<
-  componentDidUpdate(_, prevState) {
-    if (prevState.token !== this.state.token) {
-      localForage.setItem('tmpLogin-token', this.state.token);
-    }
-  }
 
   render() {
     return (
@@ -78,4 +75,4 @@ class LoginForm extends Component<IProps, IState> {
   }
 }
 
-export default connect((state) => state, { ...sessionActions })(LoginForm);
+export default LoginForm;

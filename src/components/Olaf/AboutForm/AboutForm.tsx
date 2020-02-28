@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { allDropdownData, createUpdatePerson } from '../../../apollo/olaf/api';
-import { captchaOlafData } from '../../../redux/actions/olaf_actions';
+import { createUpdatePerson } from '../../../apollo/olaf/api';
+import { captchaOlafData } from '../../../redux/olaf/actions';
 import { genMonths, genYears } from '../../../utils/helpers';
 import Select from '@vanarama/uibook/packages/ui-components/src/css/atoms/Select';
 import Input from '@vanarama/uibook/packages/ui-components/src/css/atoms/TextInput';
@@ -61,7 +61,7 @@ export class AboutForm extends React.Component<IProps, IState> {
   render() {
     const months: string[] = genMonths() || [];
     const years: number[] = genYears(100) || [];
-    const { firstName, lastName, email, mobile } = this.state.details;
+    const { details } = this.state;
     const { allDropDowns } = this.props;
 
     return (
@@ -83,7 +83,7 @@ export class AboutForm extends React.Component<IProps, IState> {
               handleChange={this.handleInputChange}
               type="text"
               name="firstName"
-              value={firstName}
+              value={details.firstName}
               id="aboutInputFirstName"
             />
           </Col>
@@ -95,7 +95,7 @@ export class AboutForm extends React.Component<IProps, IState> {
               handleChange={this.handleInputChange}
               type="text"
               name="lastName"
-              value={lastName}
+              value={details.lastName}
               id="aboutInputLastName"
             />
           </Col>
@@ -107,7 +107,7 @@ export class AboutForm extends React.Component<IProps, IState> {
               handleChange={this.handleInputChange}
               type="email"
               name="email"
-              value={email}
+              value={details.email}
               id="aboutInputEmail"
             />
           </Col>
@@ -119,7 +119,7 @@ export class AboutForm extends React.Component<IProps, IState> {
               handleChange={this.handleInputChange}
               type="tel"
               name="mobile"
-              value={mobile}
+              value={details.mobile}
               id="aboutInputPhoneNumber"
             />
           </Col>
