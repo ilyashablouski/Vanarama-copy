@@ -1,4 +1,4 @@
-import { TMP_OLAF_DATA } from '../types';
+import { TMP_OLAF_DATA } from './types';
 
 const initialState = {
   aboutYou: null,

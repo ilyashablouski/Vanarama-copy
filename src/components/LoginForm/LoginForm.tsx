@@ -21,8 +21,9 @@ class LoginForm extends Component<IProps, IState> {
     try {
       const result = await loginUser(emailAddress, password);
       const token = result.data.login || "";
-      //check tokens existence
+      // >>> check tokens existence <<<
       if (token) {
+        // >>> probably no need for success true if redirecting <<<
         this.setState({ success: true }, () => {
           this.props.updateSession(this.state.success, {});
           loginSuccess(result.data.login);

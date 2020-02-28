@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import PasswordRequest from '../../../components/molecules/account/password-request';
-import { passwordRequest } from '../../../redux/actions/account/actions';
+import { passwordRequest } from '../../../redux/account/actions';
 
 interface Props {
   onPasswordRequest: (email: string) => void;
