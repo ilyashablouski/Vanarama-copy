@@ -23,9 +23,9 @@ class LoginForm extends Component<IProps, IState> {
       const token = result.data.login || "";
       //check tokens existence
       if (token) {
-        loginSuccess(token);
         this.setState({ success: true }, () => {
-          this.props.updateSession(true, {});
+          this.props.updateSession(this.state.success, {});
+          loginSuccess(result.data.login);
         });
       }else{
         this.setState({ success: false });
