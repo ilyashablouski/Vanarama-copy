@@ -25,7 +25,6 @@ class LoginForm extends Component<IProps, IState> {
       if (token) {
         // >>> probably no need for success true if redirecting <<<
         this.setState({ success: true }, () => {
-          this.props.updateSession(this.state.success, {});
           loginSuccess(result.data.login);
         });
       }else{
