@@ -1,5 +1,5 @@
 import { client } from '../../../apollo/apollo';
-import { RESET_REQUEST, NEW_PASSWORD } from '../../../apollo/session/account/gql';
+import { PASSWORD_REQUEST_GQL, PASSWORD_RESET_GQL } from './types';
 import { PASSWORD_REQUEST, PASSWORD_RESET } from './types';
 
 export const passwordRequest = (email: string) => {

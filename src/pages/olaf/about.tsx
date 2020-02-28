@@ -1,27 +1,27 @@
-import * as React from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import Header from '@vanarama/uibook/packages/ui-components/src/css/organisms/Header';
-//import Footer from '@vanarama/uibook/packages/ui-components/src/css/organisms/Footer';
+import { Component } from 'react';
 import AboutForm from '../../components/Olaf/AboutForm';
-import { Row, Col } from 'antd';
+import { allDropdownData } from '../../apollo/olaf/api';
 
-//convert to functional component
-export class AboutYou extends React.Component<{}> {
+export class AboutYou extends Component<{ allDropDowns: any }> {
+  // >>> console logs still to be removed <<<
+  static async getInitialProps(ctx): Promise<Object> {
+    try {
+      const { data } = await allDropdownData();
+      const { allDropDowns } = data;
+      return { allDropDowns };
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   render() {
     return (
       <>
-        <Header />
-        <Row>
-          <Col span={12} offset={6}>
-            <h1>About You</h1>
-            <h3 className="Heading__Caption">
-              We just need some initial details for your credit check.
-            </h3>
-            <AboutForm />
-          </Col>
-        </Row>
-        {/*<Footer />*/}
+        <h1>About You</h1>
+        <h3 className="Heading__Caption">
+          We just need some initial details for your credit check.
+        </h3>
+        <AboutForm allDropDowns={this.props.allDropDowns} />
       </>
     );
   }

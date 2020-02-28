@@ -1,21 +1,20 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { allDropdownData, createUpdatePerson } from '../../../apollo/olaf/api';
-import { captchaFormData } from '../../../redux/actions/olaf_actions';
+import { captchaOlafData } from '../../../redux/actions/olaf_actions';
 import { genMonths, genYears } from '../../../utils/helpers';
-import Select from '../../Select/Select';
-import '@vanarama/uibook/packages/ui-components/src/css/atoms/Button/Button.css';
+import Select from '@vanarama/uibook/packages/ui-components/src/css/atoms/Select';
+import Input from '@vanarama/uibook/packages/ui-components/src/css/atoms/TextInput';
+import Button from '@vanarama/uibook/packages/ui-components/src/css/atoms/Button/Button';
 import '@vanarama/uibook/packages/ui-components/src/css/atoms/Checkbox/Checkbox.css';
 
+import { Row, Col } from 'react-grid-system';
 import { IProps, IState } from './interface';
-
-//>>> still to be replaced <<<
-import { Input, Row, Col } from 'antd';
 
 export class AboutForm extends React.Component<IProps, IState> {
   state: IState = {
     details: {
-      title: 'Mr',
+      title: '',
       firstName: '',
       lastName: '',
       email: '',
@@ -31,27 +30,14 @@ export class AboutForm extends React.Component<IProps, IState> {
       termsAndCons: false,
       consent: false,
     },
-    allDropDowns: {},
   };
-
-  // >>> console logs still to be removed <<<
-  async componentDidMount(): Promise<void> {
-    try {
-      const { data } = await allDropdownData();
-      const { allDropDowns } = data;
-      this.setState({ allDropDowns }, () => {
-        console.log(this.state.allDropDowns);
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  }
 
   handleSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await createUpdatePerson(this.state.details);
-      console.log(res);
+      const { data } = await createUpdatePerson(this.state.details);
+      this.props.captchaOlafData('aboutYou', data.createUpdatePerson);
+      console.log(data);
     } catch (e) {
       console.log(e);
     }
@@ -76,6 +62,7 @@ export class AboutForm extends React.Component<IProps, IState> {
     const months: string[] = genMonths() || [];
     const years: number[] = genYears(100) || [];
     const { firstName, lastName, email, mobile } = this.state.details;
+    const { allDropDowns } = this.props;
 
     return (
       <form onSubmit={this.handleSubmission} id="aboutForm" className="form">
@@ -85,99 +72,97 @@ export class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="title"
               onChange={this.handleInputChange}
-              values={
-                this.state.allDropDowns.titles &&
-                this.state.allDropDowns.titles.map((value) => ({
-                  value,
-                }))
-              }
+              options={allDropDowns.titles || {}}
             />
           </Col>
         </Row>
         <Row>
           <Col>
-            <label>First Name</label>
             <Input
-              onChange={this.handleInputChange}
-              onBlur={(e) => e}
+              label="First Name"
+              handleChange={this.handleInputChange}
               type="text"
               name="firstName"
               value={firstName}
-              id={'aboutInputFirstName'}
+              id="aboutInputFirstName"
             />
           </Col>
         </Row>
         <Row>
           <Col>
-            <label>Last Name</label>
             <Input
-              onChange={this.handleInputChange}
-              onBlur={(e) => e}
+              label="Last Name"
+              handleChange={this.handleInputChange}
               type="text"
               name="lastName"
               value={lastName}
-              id={'aboutInputLastName'}
+              id="aboutInputLastName"
             />
           </Col>
         </Row>
         <Row>
           <Col>
-            <label>Email</label>
             <Input
-              onChange={this.handleInputChange}
-              onBlur={(e) => e}
+              label="Email"
+              handleChange={this.handleInputChange}
               type="email"
               name="email"
               value={email}
-              id={'aboutInputEmail'}
+              id="aboutInputEmail"
             />
           </Col>
         </Row>
         <Row>
           <Col>
-            <label>Phone Number</label>
             <Input
-              onChange={this.handleInputChange}
-              onBlur={(e) => e}
+              label="Phone Number"
+              handleChange={this.handleInputChange}
               type="tel"
               name="mobile"
               value={mobile}
-              id={'aboutInputPhoneNumber'}
+              id="aboutInputPhoneNumber"
             />
           </Col>
         </Row>
         <Row>
-          <label>Date of Birth</label>
-          <Row>
-            <Col span={8}>
-              <Select
-                name="dayOfBirth"
-                onChange={this.handleInputChange}
-                values={[...Array(31)].map((_, i) => ({
-                  value: i + 1,
-                }))}
-              />
-            </Col>
-
-            <Col span={8}>
-              <Select
-                name="monthOfBirth"
-                onChange={this.handleInputChange}
-                values={months.map((month) => ({
-                  value: month,
-                }))}
-              />
-            </Col>
-            <Col span={8}>
-              <Select
-                name="yearOfBirth"
-                onChange={this.handleInputChange}
-                values={years.map((year) => ({
-                  value: year,
-                }))}
-              />
-            </Col>
-          </Row>
+          <Col sm={5}>
+            <label>Date of Birth</label>
+            <Row>
+              <Col sm={4}>
+                <Select
+                  name="dayOfBirth"
+                  onChange={this.handleInputChange}
+                  options={{
+                    data: [...Array(31)].map((_, i) => ({
+                      value: i + 1,
+                    })),
+                  }}
+                />
+              </Col>
+              <Col sm={4}>
+                <Select
+                  name="monthOfBirth"
+                  onChange={this.handleInputChange}
+                  options={{
+                    data: months.map((month) => ({
+                      value: month,
+                    })),
+                  }}
+                />
+              </Col>
+              <Col sm={4}>
+                <Select
+                  name="yearOfBirth"
+                  onChange={this.handleInputChange}
+                  options={{
+                    data: years.map((year) => ({
+                      value: year,
+                    })),
+                  }}
+                />
+              </Col>
+            </Row>
+          </Col>
         </Row>
         <Row>
           <Col>
@@ -185,12 +170,7 @@ export class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="countryOfBirth"
               onChange={this.handleInputChange}
-              values={
-                this.state.allDropDowns.countries &&
-                this.state.allDropDowns.countries.map((value) => ({
-                  value,
-                }))
-              }
+              options={allDropDowns.countries || {}}
               id={'aboutInputCOB'}
             />
           </Col>
@@ -201,12 +181,7 @@ export class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="nationality"
               onChange={this.handleInputChange}
-              values={
-                this.state.allDropDowns.nationalities &&
-                this.state.allDropDowns.nationalities.map((value) => ({
-                  value,
-                }))
-              }
+              options={allDropDowns.nationalities || {}}
               id={'aboutInputNationality'}
             />
           </Col>
@@ -217,12 +192,7 @@ export class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="maritalStatus"
               onChange={this.handleInputChange}
-              values={
-                this.state.allDropDowns.maritalStatuses &&
-                this.state.allDropDowns.maritalStatuses.map((value) => ({
-                  value,
-                }))
-              }
+              options={allDropDowns.maritalStatuses || {}}
               id={'aboutInputMarStatus'}
             />
           </Col>
@@ -233,12 +203,7 @@ export class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="dependants"
               onChange={this.handleInputChange}
-              values={
-                this.state.allDropDowns.noOfDependants &&
-                this.state.allDropDowns.noOfDependants.map((value) => ({
-                  value,
-                }))
-              }
+              options={allDropDowns.noOfDependants || {}}
               id={'aboutInputMarDependants'}
             />
           </Col>
@@ -249,12 +214,7 @@ export class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="adultsInHousehold"
               onChange={this.handleInputChange}
-              values={
-                this.state.allDropDowns.noOfAdultsInHousehold &&
-                this.state.allDropDowns.noOfAdultsInHousehold.map((value) => ({
-                  value,
-                }))
-              }
+              options={allDropDowns.noOfAdultsInHousehold || {}}
               id={'aboutInputAdultsHoushold'}
             />
           </Col>
@@ -292,12 +252,10 @@ export class AboutForm extends React.Component<IProps, IState> {
           </div>
         </div>
         <br />
-        <button className="Button -primary -regular -solid" type="submit">
-          <div className="Button__inner">Continue</div>
-        </button>
+        <Button type="submit" label="Continue" color="primary" />
       </form>
     );
   }
 }
 
-export default connect((state) => state, { ...captchaFormData })(AboutForm);
+export default connect((state) => state, { captchaOlafData })(AboutForm);
