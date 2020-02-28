@@ -5,7 +5,7 @@ import { PASSWORD_REQUEST, PASSWORD_RESET } from './types';
 export const passwordRequest = (email: string) => {
   return async (dispatch: any) => {
     await client.mutate({
-      mutation: PASSWORD_REQUEST_GQL,
+      mutation: RESET_REQUEST,
       variables: { email },
     });
     dispatch({
@@ -18,7 +18,7 @@ export const passwordRequest = (email: string) => {
 export const passwordReset = (verificationCode: string, password: string) => {
   return async (dispatch: any) => {
     await client.mutate({
-      mutation: PASSWORD_RESET_GQL,
+      mutation: NEW_PASSWORD,
       variables: { verificationCode, password },
     });
     dispatch({
