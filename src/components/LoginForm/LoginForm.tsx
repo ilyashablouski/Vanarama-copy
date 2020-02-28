@@ -1,8 +1,6 @@
 import React, { Component, ChangeEvent, FormEvent } from 'react';
 import Link from 'next/link';
-import { connect } from 'react-redux';
 import { loginUser } from '../../apollo/session/account/api';
-import * as sessionActions from '../../redux/actions/session-actions';
 import { loginSuccess } from '../../utils/auth-helpers';
 import { IState, IProps } from './interface';
 
@@ -77,4 +75,4 @@ class LoginForm extends Component<IProps, IState> {
   }
 }
 
-export default connect((state) => state, { ...sessionActions })(LoginForm);
+export default LoginForm;
