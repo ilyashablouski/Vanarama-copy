@@ -1,9 +1,9 @@
 import React, { Component, ChangeEvent, FormEvent } from 'react';
 import Link from 'next/link';
 import { connect } from 'react-redux';
-import localForage from 'localforage';
 import { loginUser } from '../../apollo/session/account/api';
 import * as sessionActions from '../../redux/actions/session-actions';
+import { loginSuccess } from '../../utils/auth-helpers';
 import { IState, IProps } from './interface';
 
 class LoginForm extends Component<IProps, IState> {
@@ -20,12 +20,18 @@ class LoginForm extends Component<IProps, IState> {
     const { emailAddress, password } = this.state;
     try {
       const result = await loginUser(emailAddress, password);
-      this.setState({ token: result.data.login, success: true }, () => {
-        this.props.updateSession(this.state.success, {});
-      });
+      const token = result.data.login || "";
+      //check tokens existence
+      if (token) {
+        loginSuccess(token);
+        this.setState({ success: true }, () => {
+          this.props.updateSession(true, {});
+        });
+      }else{
+        this.setState({ success: false });
+      }
     } catch (err) {
-      this.setState({ success: false });
-      console.log('login failed:', err);
+      console.log('promise rejected:', err);
     }
   };
 
@@ -33,13 +39,6 @@ class LoginForm extends Component<IProps, IState> {
     const { name, value } = e.target;
     this.setState((prevState) => ({ ...prevState, [name]: value }));
   };
-
-  //<<< With SSR local storage is only available when component has mounted, better off storing on server using next cookie <<<
-  componentDidUpdate(_, prevState) {
-    if (prevState.token !== this.state.token) {
-      localForage.setItem('tmpLogin-token', this.state.token);
-    }
-  }
 
   render() {
     return (
