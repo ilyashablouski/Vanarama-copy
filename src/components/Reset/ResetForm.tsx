@@ -1,6 +1,6 @@
 import React, { Component, ChangeEvent, FormEvent } from 'react';
 import { connect } from 'react-redux';
-import * as sessionActions from '../../redux/actions/session_actions';
+import * as sessionActions from '../../redux/actions/session-actions';
 import { client } from '../../apollo/apollo';
 import { RESET_REQUEST } from '../../apollo/session/account/gql';
 

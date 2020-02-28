@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { connect } from 'react-redux';
 import localForage from 'localforage';
 import { loginUser } from '../../apollo/session/account/api';
-import * as sessionActions from '../../redux/actions/session_actions';
+import * as sessionActions from '../../redux/actions/session-actions';
 import { IState, IProps } from './interface';
 
 class LoginForm extends Component<IProps, IState> {
@@ -34,7 +34,7 @@ class LoginForm extends Component<IProps, IState> {
     this.setState((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  //<<< With SSR local storage is only available when component has mounted <<<
+  //<<< With SSR local storage is only available when component has mounted, better off storing on server using next cookie <<<
   componentDidUpdate(_, prevState) {
     if (prevState.token !== this.state.token) {
       localForage.setItem('tmpLogin-token', this.state.token);
