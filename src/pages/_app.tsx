@@ -2,7 +2,7 @@ import { Provider } from 'react-redux';
 import App, { AppContext } from 'next/app';
 import withRedux from 'next-redux-wrapper';
 import { Store } from 'redux';
-import { initStore } from 'redux/store';
+import { initStore } from 'services/redux/store';
 import { Container } from 'react-grid-system';
 import { client } from '../apollo/apollo';
 import { ApolloProvider } from '@apollo/react-hooks';
@@ -42,7 +42,7 @@ class ReduxApp extends App<Props> {
             </ApolloProvider>
           </Provider>
         </Container>
-        {/* <Footer /> */}
+        <Footer />
       </>
     );
   }
