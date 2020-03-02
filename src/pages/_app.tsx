@@ -4,7 +4,7 @@ import withRedux from 'next-redux-wrapper';
 import { Store } from 'redux';
 import { initStore } from 'services/redux/store';
 import { Container } from 'react-grid-system';
-import { client } from '../services/apollo/apollo';
+import { apolloClient } from 'services/apollo/apolloClient';
 import { ApolloProvider } from '@apollo/react-hooks';
 import Header from  '@vanarama/uibook/packages/ui-components/src/css/organisms/Header';
 import Footer from  '@vanarama/uibook/packages/ui-components/src/css/organisms/Footer';
@@ -37,12 +37,12 @@ class ReduxApp extends App<Props> {
         <Header />
         <Container className="container">
           <Provider store={store}>
-            <ApolloProvider client={client}>
+            <ApolloProvider client={ apolloClient }>
               <Component {...pageProps} />
             </ApolloProvider>
           </Provider>
         </Container>
-        {/* <Footer /> */}
+        <Footer />
       </>
     );
   }
