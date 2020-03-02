@@ -1,6 +1,6 @@
 import { Component } from 'react';
-import AboutForm from '../../components/Olaf/AboutForm';
-import { allDropdownData } from '../../apollo/olaf/api';
+import AboutForm from '../../components/olaf/about-form';
+import { allDropdownData } from '../../services/apollo/olaf/api';
 
 export class AboutYou extends Component<{ allDropDowns: any }> {
   // >>> console logs still to be removed <<<

@@ -1,6 +1,6 @@
 import React, { Component, ChangeEvent, FormEvent } from 'react';
 import Link from 'next/link';
-import { loginUser } from '../../apollo/session/account/api';
+import { loginUser } from '../../services/apollo/session/account/api';
 import { loginSuccess } from '../../utils/auth-helpers';
 import { IState, IProps } from './interface';
 
@@ -8,7 +8,6 @@ class LoginForm extends Component<IProps, IState> {
   state: IState = {
     password: '',
     emailAddress: '',
-    token: '',
     errors: {},
     success: false,
   };

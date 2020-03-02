@@ -11,7 +11,6 @@ export interface IProps {
 export interface IState {
     emailAddress: string;
     password: string;
-    token: string;
     errors: object;
     success: boolean;
 }

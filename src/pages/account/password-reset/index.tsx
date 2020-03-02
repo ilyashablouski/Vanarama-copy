@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import PasswordReset from '../../../components/molecules/account/password-reset';
-import { passwordReset } from '../../../redux/account/actions';
+import { passwordReset } from '../../../services/redux/account/actions';
 
 interface Props {
   onPasswordReset: (verificationCode: string, password: string) => void;
