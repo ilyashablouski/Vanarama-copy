@@ -3,10 +3,12 @@ import { ALL_DROPDOWNS, CREATE_UPDATE_PERSON } from './gql';
 import { IDetails } from '../../../components/olaf/about-form/interface';
 import moment from 'moment';
 
-export const allDropdownData = () => {
-  return client.query({
+export const allDropdownData = async () => {
+  const { data } = await client.query({
     query: ALL_DROPDOWNS,
   });
+  const { allDropDowns } = data;
+  return allDropDowns;
 };
 
 export const createUpdatePerson = (details: IDetails) => {

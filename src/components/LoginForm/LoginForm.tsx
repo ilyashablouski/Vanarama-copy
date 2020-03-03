@@ -17,18 +17,17 @@ class LoginForm extends Component<IProps, IState> {
     const { emailAddress, password } = this.state;
     try {
       const result = await loginUser(emailAddress, password);
-      const token = result.data.login || "";
+      const token = result.data.login || '';
       // >>> check tokens existence <<<
       if (token) {
         // >>> probably no need for success true if redirecting <<<
         this.setState({ success: true }, () => {
           loginSuccess(result.data.login);
         });
-      }else{
-        this.setState({ success: false });
       }
     } catch (err) {
       console.log('promise rejected:', err);
+      this.setState({ success: false });
     }
   };
 

@@ -23,4 +23,5 @@ export interface IState {
 export interface IProps {
   captchaOlafData: (pageRef: string, data: {}) => void;
   allDropDowns: any;
+  details: Object;
 }

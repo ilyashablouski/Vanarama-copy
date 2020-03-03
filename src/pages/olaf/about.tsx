@@ -1,13 +1,17 @@
 import { Component } from 'react';
+import { connect } from 'react-redux';
+import { captchaOlafData } from '../../services/redux/olaf/actions';
 import AboutForm from '../../components/olaf/about-form';
 import { allDropdownData } from '../../services/apollo/olaf/api';
 
-export class AboutYou extends Component<{ allDropDowns: any }> {
+export class AboutYou extends Component<{
+  allDropDowns: any;
+  details: Object;
+}> {
   // >>> console logs still to be removed <<<
   static async getInitialProps(ctx): Promise<Object> {
     try {
-      const { data } = await allDropdownData();
-      const { allDropDowns } = data;
+      const allDropDowns = await allDropdownData();
       return { allDropDowns };
     } catch (e) {
       console.log(e);
@@ -21,10 +25,16 @@ export class AboutYou extends Component<{ allDropDowns: any }> {
         <h3 className="Heading__Caption">
           We just need some initial details for your credit check.
         </h3>
-        <AboutForm allDropDowns={this.props.allDropDowns} />
+        <AboutForm
+          details={this.props.details}
+          captchaOlafData={captchaOlafData}
+          allDropDowns={this.props.allDropDowns}
+        />
       </>
     );
   }
 }
 
-export default AboutYou;
+connect((state) => ({ details: state.olaf.aboutYou }), { captchaOlafData })(
+  AboutYou,
+);
