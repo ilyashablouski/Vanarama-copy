@@ -1,0 +1,1041 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Login /> renders correctly with authentication 1`] = `
+<Login
+  authenticated={true}
+  login={[MockFunction]}
+  token=""
+>
+  <section>
+    <form
+      className="form"
+      id="loginForm"
+      onSubmit={[Function]}
+    >
+      <Row
+        align="normal"
+        component="div"
+        debug={false}
+        gutterWidth={null}
+        justify="start"
+        nogutter={false}
+        nowrap={false}
+        style={
+          Object {
+            "marginBottom": "16px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "normal",
+              "display": "flex",
+              "flexGrow": 0,
+              "flexShrink": 0,
+              "flexWrap": "wrap",
+              "justifyContent": "flex-start",
+              "marginBottom": "16px",
+              "marginLeft": "-15px",
+              "marginRight": "-15px",
+            }
+          }
+        >
+          <Col
+            component="div"
+            debug={false}
+            lg={null}
+            md={null}
+            offset={Object {}}
+            pull={Object {}}
+            push={Object {}}
+            sm={null}
+            style={Object {}}
+            width={null}
+            xl={null}
+            xs={null}
+          >
+            <ScreenClassResolver>
+              <ScreenClassProvider
+                fallbackScreenClass={null}
+                useOwnWidth={false}
+              >
+                <div
+                  style={
+                    Object {
+                      "boxSizing": "border-box",
+                      "flexBasis": 0,
+                      "flexGrow": 1,
+                      "flexShrink": 0,
+                      "left": "auto",
+                      "marginLeft": "0%",
+                      "maxWidth": "100%",
+                      "minHeight": "1px",
+                      "paddingLeft": "15px",
+                      "paddingRight": "15px",
+                      "position": "relative",
+                      "right": "auto",
+                      "width": Object {
+                        "lg": null,
+                        "md": null,
+                        "sm": null,
+                        "xl": null,
+                        "xs": null,
+                      },
+                    }
+                  }
+                >
+                  <Component
+                    handleChange={[Function]}
+                    id="email"
+                    label="Your Email"
+                    name="email"
+                    type="text"
+                    value=""
+                  >
+                    <div
+                      className="TextInput__wrapper -Form__item"
+                      id="email-wrapper"
+                    >
+                      <label
+                        className="TextInput__label"
+                        htmlFor="email"
+                      >
+                        <span
+                          className="Text -primary"
+                        >
+                          Your Email
+                        </span>
+                      </label>
+                      <div
+                        className="TextInput__field-wrapper"
+                      >
+                        <input
+                          className="TextInput -regular"
+                          id="email"
+                          name="email"
+                          onChange={[Function]}
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </Component>
+                </div>
+              </ScreenClassProvider>
+            </ScreenClassResolver>
+          </Col>
+        </div>
+      </Row>
+      <Row
+        align="normal"
+        component="div"
+        debug={false}
+        gutterWidth={null}
+        justify="start"
+        nogutter={false}
+        nowrap={false}
+        style={
+          Object {
+            "marginBottom": "16px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "normal",
+              "display": "flex",
+              "flexGrow": 0,
+              "flexShrink": 0,
+              "flexWrap": "wrap",
+              "justifyContent": "flex-start",
+              "marginBottom": "16px",
+              "marginLeft": "-15px",
+              "marginRight": "-15px",
+            }
+          }
+        >
+          <Col
+            component="div"
+            debug={false}
+            lg={null}
+            md={null}
+            offset={Object {}}
+            pull={Object {}}
+            push={Object {}}
+            sm={null}
+            style={Object {}}
+            width={null}
+            xl={null}
+            xs={null}
+          >
+            <ScreenClassResolver>
+              <ScreenClassProvider
+                fallbackScreenClass={null}
+                useOwnWidth={false}
+              >
+                <div
+                  style={
+                    Object {
+                      "boxSizing": "border-box",
+                      "flexBasis": 0,
+                      "flexGrow": 1,
+                      "flexShrink": 0,
+                      "left": "auto",
+                      "marginLeft": "0%",
+                      "maxWidth": "100%",
+                      "minHeight": "1px",
+                      "paddingLeft": "15px",
+                      "paddingRight": "15px",
+                      "position": "relative",
+                      "right": "auto",
+                      "width": Object {
+                        "lg": null,
+                        "md": null,
+                        "sm": null,
+                        "xl": null,
+                        "xs": null,
+                      },
+                    }
+                  }
+                >
+                  <Component
+                    handleChange={[Function]}
+                    id="password"
+                    label="Your Password"
+                    name="password"
+                    type="password"
+                    value=""
+                  >
+                    <div
+                      className="TextInput__wrapper -Form__item"
+                      id="password-wrapper"
+                    >
+                      <label
+                        className="TextInput__label"
+                        htmlFor="password"
+                      >
+                        <span
+                          className="Text -primary"
+                        >
+                          Your Password
+                        </span>
+                      </label>
+                      <div
+                        className="TextInput__field-wrapper"
+                      >
+                        <input
+                          className="TextInput -regular"
+                          id="password"
+                          name="password"
+                          onChange={[Function]}
+                          type="password"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </Component>
+                </div>
+              </ScreenClassProvider>
+            </ScreenClassResolver>
+          </Col>
+        </div>
+      </Row>
+      <Row
+        align="normal"
+        component="div"
+        debug={false}
+        gutterWidth={null}
+        justify="start"
+        nogutter={false}
+        nowrap={false}
+        style={
+          Object {
+            "marginBottom": "16px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "normal",
+              "display": "flex",
+              "flexGrow": 0,
+              "flexShrink": 0,
+              "flexWrap": "wrap",
+              "justifyContent": "flex-start",
+              "marginBottom": "16px",
+              "marginLeft": "-15px",
+              "marginRight": "-15px",
+            }
+          }
+        >
+          <Col
+            component="div"
+            debug={false}
+            lg={null}
+            md={null}
+            offset={Object {}}
+            pull={Object {}}
+            push={Object {}}
+            sm={null}
+            style={Object {}}
+            width={null}
+            xl={null}
+            xs={null}
+          >
+            <ScreenClassResolver>
+              <ScreenClassProvider
+                fallbackScreenClass={null}
+                useOwnWidth={false}
+              >
+                <div
+                  style={
+                    Object {
+                      "boxSizing": "border-box",
+                      "flexBasis": 0,
+                      "flexGrow": 1,
+                      "flexShrink": 0,
+                      "left": "auto",
+                      "marginLeft": "0%",
+                      "maxWidth": "100%",
+                      "minHeight": "1px",
+                      "paddingLeft": "15px",
+                      "paddingRight": "15px",
+                      "position": "relative",
+                      "right": "auto",
+                      "width": Object {
+                        "lg": null,
+                        "md": null,
+                        "sm": null,
+                        "xl": null,
+                        "xs": null,
+                      },
+                    }
+                  }
+                >
+                  <Component
+                    color="primary"
+                    plain={true}
+                    size="regular"
+                  >
+                    <a
+                      className="Link -primary -regular -plain"
+                    >
+                      forgot your password?
+                    </a>
+                  </Component>
+                </div>
+              </ScreenClassProvider>
+            </ScreenClassResolver>
+          </Col>
+        </div>
+      </Row>
+      <Row
+        align="normal"
+        component="div"
+        debug={false}
+        gutterWidth={null}
+        justify="start"
+        nogutter={false}
+        nowrap={false}
+        style={
+          Object {
+            "marginBottom": "16px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "normal",
+              "display": "flex",
+              "flexGrow": 0,
+              "flexShrink": 0,
+              "flexWrap": "wrap",
+              "justifyContent": "flex-start",
+              "marginBottom": "16px",
+              "marginLeft": "-15px",
+              "marginRight": "-15px",
+            }
+          }
+        >
+          <Col
+            component="div"
+            debug={false}
+            lg={null}
+            md={null}
+            offset={Object {}}
+            pull={Object {}}
+            push={Object {}}
+            sm={null}
+            style={Object {}}
+            width={null}
+            xl={null}
+            xs={null}
+          >
+            <ScreenClassResolver>
+              <ScreenClassProvider
+                fallbackScreenClass={null}
+                useOwnWidth={false}
+              >
+                <div
+                  style={
+                    Object {
+                      "boxSizing": "border-box",
+                      "flexBasis": 0,
+                      "flexGrow": 1,
+                      "flexShrink": 0,
+                      "left": "auto",
+                      "marginLeft": "0%",
+                      "maxWidth": "100%",
+                      "minHeight": "1px",
+                      "paddingLeft": "15px",
+                      "paddingRight": "15px",
+                      "position": "relative",
+                      "right": "auto",
+                      "width": Object {
+                        "lg": null,
+                        "md": null,
+                        "sm": null,
+                        "xl": null,
+                        "xs": null,
+                      },
+                    }
+                  }
+                >
+                  <Component
+                    color="primary"
+                    fill="solid"
+                    label="Login"
+                    size="regular"
+                    tabIndex={0}
+                    type="submit"
+                  >
+                    <button
+                      className="Button -primary -regular -solid"
+                      tabIndex={0}
+                      type="submit"
+                    >
+                      <div
+                        className="Button__inner"
+                      >
+                        Login
+                      </div>
+                    </button>
+                  </Component>
+                </div>
+              </ScreenClassProvider>
+            </ScreenClassResolver>
+          </Col>
+        </div>
+      </Row>
+      <Row
+        align="normal"
+        component="div"
+        debug={false}
+        gutterWidth={null}
+        justify="start"
+        nogutter={false}
+        nowrap={false}
+        style={
+          Object {
+            "marginBottom": "16px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "normal",
+              "display": "flex",
+              "flexGrow": 0,
+              "flexShrink": 0,
+              "flexWrap": "wrap",
+              "justifyContent": "flex-start",
+              "marginBottom": "16px",
+              "marginLeft": "-15px",
+              "marginRight": "-15px",
+            }
+          }
+        >
+          <Col
+            component="div"
+            debug={false}
+            lg={null}
+            md={null}
+            offset={Object {}}
+            pull={Object {}}
+            push={Object {}}
+            sm={null}
+            style={Object {}}
+            width={null}
+            xl={null}
+            xs={null}
+          >
+            <ScreenClassResolver>
+              <ScreenClassProvider
+                fallbackScreenClass={null}
+                useOwnWidth={false}
+              >
+                <div
+                  style={
+                    Object {
+                      "boxSizing": "border-box",
+                      "flexBasis": 0,
+                      "flexGrow": 1,
+                      "flexShrink": 0,
+                      "left": "auto",
+                      "marginLeft": "0%",
+                      "maxWidth": "100%",
+                      "minHeight": "1px",
+                      "paddingLeft": "15px",
+                      "paddingRight": "15px",
+                      "position": "relative",
+                      "right": "auto",
+                      "width": Object {
+                        "lg": null,
+                        "md": null,
+                        "sm": null,
+                        "xl": null,
+                        "xs": null,
+                      },
+                    }
+                  }
+                >
+                  <p
+                    id="loginStatus"
+                  >
+                    Login Success
+                  </p>
+                </div>
+              </ScreenClassProvider>
+            </ScreenClassResolver>
+          </Col>
+        </div>
+      </Row>
+    </form>
+  </section>
+</Login>
+`;
+
+exports[`<Login /> renders correctly without authentication 1`] = `
+<Login
+  authenticated={false}
+  login={[MockFunction]}
+  token=""
+>
+  <section>
+    <form
+      className="form"
+      id="loginForm"
+      onSubmit={[Function]}
+    >
+      <Row
+        align="normal"
+        component="div"
+        debug={false}
+        gutterWidth={null}
+        justify="start"
+        nogutter={false}
+        nowrap={false}
+        style={
+          Object {
+            "marginBottom": "16px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "normal",
+              "display": "flex",
+              "flexGrow": 0,
+              "flexShrink": 0,
+              "flexWrap": "wrap",
+              "justifyContent": "flex-start",
+              "marginBottom": "16px",
+              "marginLeft": "-15px",
+              "marginRight": "-15px",
+            }
+          }
+        >
+          <Col
+            component="div"
+            debug={false}
+            lg={null}
+            md={null}
+            offset={Object {}}
+            pull={Object {}}
+            push={Object {}}
+            sm={null}
+            style={Object {}}
+            width={null}
+            xl={null}
+            xs={null}
+          >
+            <ScreenClassResolver>
+              <ScreenClassProvider
+                fallbackScreenClass={null}
+                useOwnWidth={false}
+              >
+                <div
+                  style={
+                    Object {
+                      "boxSizing": "border-box",
+                      "flexBasis": 0,
+                      "flexGrow": 1,
+                      "flexShrink": 0,
+                      "left": "auto",
+                      "marginLeft": "0%",
+                      "maxWidth": "100%",
+                      "minHeight": "1px",
+                      "paddingLeft": "15px",
+                      "paddingRight": "15px",
+                      "position": "relative",
+                      "right": "auto",
+                      "width": Object {
+                        "lg": null,
+                        "md": null,
+                        "sm": null,
+                        "xl": null,
+                        "xs": null,
+                      },
+                    }
+                  }
+                >
+                  <Component
+                    handleChange={[Function]}
+                    id="email"
+                    label="Your Email"
+                    name="email"
+                    type="text"
+                    value=""
+                  >
+                    <div
+                      className="TextInput__wrapper -Form__item"
+                      id="email-wrapper"
+                    >
+                      <label
+                        className="TextInput__label"
+                        htmlFor="email"
+                      >
+                        <span
+                          className="Text -primary"
+                        >
+                          Your Email
+                        </span>
+                      </label>
+                      <div
+                        className="TextInput__field-wrapper"
+                      >
+                        <input
+                          className="TextInput -regular"
+                          id="email"
+                          name="email"
+                          onChange={[Function]}
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </Component>
+                </div>
+              </ScreenClassProvider>
+            </ScreenClassResolver>
+          </Col>
+        </div>
+      </Row>
+      <Row
+        align="normal"
+        component="div"
+        debug={false}
+        gutterWidth={null}
+        justify="start"
+        nogutter={false}
+        nowrap={false}
+        style={
+          Object {
+            "marginBottom": "16px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "normal",
+              "display": "flex",
+              "flexGrow": 0,
+              "flexShrink": 0,
+              "flexWrap": "wrap",
+              "justifyContent": "flex-start",
+              "marginBottom": "16px",
+              "marginLeft": "-15px",
+              "marginRight": "-15px",
+            }
+          }
+        >
+          <Col
+            component="div"
+            debug={false}
+            lg={null}
+            md={null}
+            offset={Object {}}
+            pull={Object {}}
+            push={Object {}}
+            sm={null}
+            style={Object {}}
+            width={null}
+            xl={null}
+            xs={null}
+          >
+            <ScreenClassResolver>
+              <ScreenClassProvider
+                fallbackScreenClass={null}
+                useOwnWidth={false}
+              >
+                <div
+                  style={
+                    Object {
+                      "boxSizing": "border-box",
+                      "flexBasis": 0,
+                      "flexGrow": 1,
+                      "flexShrink": 0,
+                      "left": "auto",
+                      "marginLeft": "0%",
+                      "maxWidth": "100%",
+                      "minHeight": "1px",
+                      "paddingLeft": "15px",
+                      "paddingRight": "15px",
+                      "position": "relative",
+                      "right": "auto",
+                      "width": Object {
+                        "lg": null,
+                        "md": null,
+                        "sm": null,
+                        "xl": null,
+                        "xs": null,
+                      },
+                    }
+                  }
+                >
+                  <Component
+                    handleChange={[Function]}
+                    id="password"
+                    label="Your Password"
+                    name="password"
+                    type="password"
+                    value=""
+                  >
+                    <div
+                      className="TextInput__wrapper -Form__item"
+                      id="password-wrapper"
+                    >
+                      <label
+                        className="TextInput__label"
+                        htmlFor="password"
+                      >
+                        <span
+                          className="Text -primary"
+                        >
+                          Your Password
+                        </span>
+                      </label>
+                      <div
+                        className="TextInput__field-wrapper"
+                      >
+                        <input
+                          className="TextInput -regular"
+                          id="password"
+                          name="password"
+                          onChange={[Function]}
+                          type="password"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </Component>
+                </div>
+              </ScreenClassProvider>
+            </ScreenClassResolver>
+          </Col>
+        </div>
+      </Row>
+      <Row
+        align="normal"
+        component="div"
+        debug={false}
+        gutterWidth={null}
+        justify="start"
+        nogutter={false}
+        nowrap={false}
+        style={
+          Object {
+            "marginBottom": "16px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "normal",
+              "display": "flex",
+              "flexGrow": 0,
+              "flexShrink": 0,
+              "flexWrap": "wrap",
+              "justifyContent": "flex-start",
+              "marginBottom": "16px",
+              "marginLeft": "-15px",
+              "marginRight": "-15px",
+            }
+          }
+        >
+          <Col
+            component="div"
+            debug={false}
+            lg={null}
+            md={null}
+            offset={Object {}}
+            pull={Object {}}
+            push={Object {}}
+            sm={null}
+            style={Object {}}
+            width={null}
+            xl={null}
+            xs={null}
+          >
+            <ScreenClassResolver>
+              <ScreenClassProvider
+                fallbackScreenClass={null}
+                useOwnWidth={false}
+              >
+                <div
+                  style={
+                    Object {
+                      "boxSizing": "border-box",
+                      "flexBasis": 0,
+                      "flexGrow": 1,
+                      "flexShrink": 0,
+                      "left": "auto",
+                      "marginLeft": "0%",
+                      "maxWidth": "100%",
+                      "minHeight": "1px",
+                      "paddingLeft": "15px",
+                      "paddingRight": "15px",
+                      "position": "relative",
+                      "right": "auto",
+                      "width": Object {
+                        "lg": null,
+                        "md": null,
+                        "sm": null,
+                        "xl": null,
+                        "xs": null,
+                      },
+                    }
+                  }
+                >
+                  <Component
+                    color="primary"
+                    plain={true}
+                    size="regular"
+                  >
+                    <a
+                      className="Link -primary -regular -plain"
+                    >
+                      forgot your password?
+                    </a>
+                  </Component>
+                </div>
+              </ScreenClassProvider>
+            </ScreenClassResolver>
+          </Col>
+        </div>
+      </Row>
+      <Row
+        align="normal"
+        component="div"
+        debug={false}
+        gutterWidth={null}
+        justify="start"
+        nogutter={false}
+        nowrap={false}
+        style={
+          Object {
+            "marginBottom": "16px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "normal",
+              "display": "flex",
+              "flexGrow": 0,
+              "flexShrink": 0,
+              "flexWrap": "wrap",
+              "justifyContent": "flex-start",
+              "marginBottom": "16px",
+              "marginLeft": "-15px",
+              "marginRight": "-15px",
+            }
+          }
+        >
+          <Col
+            component="div"
+            debug={false}
+            lg={null}
+            md={null}
+            offset={Object {}}
+            pull={Object {}}
+            push={Object {}}
+            sm={null}
+            style={Object {}}
+            width={null}
+            xl={null}
+            xs={null}
+          >
+            <ScreenClassResolver>
+              <ScreenClassProvider
+                fallbackScreenClass={null}
+                useOwnWidth={false}
+              >
+                <div
+                  style={
+                    Object {
+                      "boxSizing": "border-box",
+                      "flexBasis": 0,
+                      "flexGrow": 1,
+                      "flexShrink": 0,
+                      "left": "auto",
+                      "marginLeft": "0%",
+                      "maxWidth": "100%",
+                      "minHeight": "1px",
+                      "paddingLeft": "15px",
+                      "paddingRight": "15px",
+                      "position": "relative",
+                      "right": "auto",
+                      "width": Object {
+                        "lg": null,
+                        "md": null,
+                        "sm": null,
+                        "xl": null,
+                        "xs": null,
+                      },
+                    }
+                  }
+                >
+                  <Component
+                    color="primary"
+                    fill="solid"
+                    label="Login"
+                    size="regular"
+                    tabIndex={0}
+                    type="submit"
+                  >
+                    <button
+                      className="Button -primary -regular -solid"
+                      tabIndex={0}
+                      type="submit"
+                    >
+                      <div
+                        className="Button__inner"
+                      >
+                        Login
+                      </div>
+                    </button>
+                  </Component>
+                </div>
+              </ScreenClassProvider>
+            </ScreenClassResolver>
+          </Col>
+        </div>
+      </Row>
+      <Row
+        align="normal"
+        component="div"
+        debug={false}
+        gutterWidth={null}
+        justify="start"
+        nogutter={false}
+        nowrap={false}
+        style={
+          Object {
+            "marginBottom": "16px",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "alignItems": "normal",
+              "display": "flex",
+              "flexGrow": 0,
+              "flexShrink": 0,
+              "flexWrap": "wrap",
+              "justifyContent": "flex-start",
+              "marginBottom": "16px",
+              "marginLeft": "-15px",
+              "marginRight": "-15px",
+            }
+          }
+        >
+          <Col
+            component="div"
+            debug={false}
+            lg={null}
+            md={null}
+            offset={Object {}}
+            pull={Object {}}
+            push={Object {}}
+            sm={null}
+            style={Object {}}
+            width={null}
+            xl={null}
+            xs={null}
+          >
+            <ScreenClassResolver>
+              <ScreenClassProvider
+                fallbackScreenClass={null}
+                useOwnWidth={false}
+              >
+                <div
+                  style={
+                    Object {
+                      "boxSizing": "border-box",
+                      "flexBasis": 0,
+                      "flexGrow": 1,
+                      "flexShrink": 0,
+                      "left": "auto",
+                      "marginLeft": "0%",
+                      "maxWidth": "100%",
+                      "minHeight": "1px",
+                      "paddingLeft": "15px",
+                      "paddingRight": "15px",
+                      "position": "relative",
+                      "right": "auto",
+                      "width": Object {
+                        "lg": null,
+                        "md": null,
+                        "sm": null,
+                        "xl": null,
+                        "xs": null,
+                      },
+                    }
+                  }
+                >
+                  <p
+                    id="loginFailure"
+                  >
+                    Login Failed
+                  </p>
+                </div>
+              </ScreenClassProvider>
+            </ScreenClassResolver>
+          </Col>
+        </div>
+      </Row>
+    </form>
+  </section>
+</Login>
+`;
