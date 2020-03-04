@@ -4,9 +4,9 @@ export interface IDetails {
   lastName: string;
   email: string;
   mobile: string;
-  dayOfBirth: string;
+  dayOfBirth: number;
   monthOfBirth: string;
-  yearOfBirth: string;
+  yearOfBirth: number;
   countryOfBirth: string;
   nationality: string;
   maritalStatus: string;
@@ -23,4 +23,5 @@ export interface IState {
 export interface IProps {
   captchaOlafData: (pageRef: string, data: {}) => void;
   allDropDowns: any;
+  details: Object;
 }

@@ -1,5 +1,5 @@
 import React, { Component, ChangeEvent, FormEvent } from 'react';
-import { registerUser } from '../../apollo/session/account/api';
+import { registerUser } from '../../services/apollo/session/account/api';
 import Input from '../Input';
 
 interface RegisterState {

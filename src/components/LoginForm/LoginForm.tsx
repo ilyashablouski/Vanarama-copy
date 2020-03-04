@@ -1,6 +1,6 @@
 import React, { Component, ChangeEvent, FormEvent } from 'react';
 import Link from 'next/link';
-import { loginUser } from '../../apollo/session/account/api';
+import { loginUser } from '../../services/apollo/session/account/api';
 import { loginSuccess } from '../../utils/auth-helpers';
 import { IState, IProps } from './interface';
 
@@ -8,7 +8,6 @@ class LoginForm extends Component<IProps, IState> {
   state: IState = {
     password: '',
     emailAddress: '',
-    token: '',
     errors: {},
     success: false,
   };
@@ -18,18 +17,17 @@ class LoginForm extends Component<IProps, IState> {
     const { emailAddress, password } = this.state;
     try {
       const result = await loginUser(emailAddress, password);
-      const token = result.data.login || "";
+      const token = result.data.login || '';
       // >>> check tokens existence <<<
       if (token) {
         // >>> probably no need for success true if redirecting <<<
         this.setState({ success: true }, () => {
           loginSuccess(result.data.login);
         });
-      }else{
-        this.setState({ success: false });
       }
     } catch (err) {
       console.log('promise rejected:', err);
+      this.setState({ success: false });
     }
   };
 
