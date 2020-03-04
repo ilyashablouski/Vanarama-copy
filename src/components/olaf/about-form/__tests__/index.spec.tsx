@@ -109,7 +109,7 @@ describe('<AboutForm />', () => {
       expect(wrapper.state('details').adultsInHousehold).toEqual(1);
     });
 
-    //awaiting uibook component
+    // >>> awaiting uibook component <<<
 
     /* it('should set termsAndCons', () => {
       const select = form.find('#aboutInputT&C').first();

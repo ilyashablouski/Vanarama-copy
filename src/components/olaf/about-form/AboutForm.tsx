@@ -124,7 +124,7 @@ export class AboutForm extends React.Component<IProps, IState> {
           </Col>
         </Row>
         <Row>
-          <Col sm={5}>
+          <Col sm={10}>
             <label>Date of Birth</label>
             <Row>
               <Col sm={4}>
