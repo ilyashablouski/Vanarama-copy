@@ -1,4 +1,9 @@
-export const PASSWORD_REQUEST = 'PASSWORD_REQUEST';
-export const PASSWORD_RESET = 'PASSWORD_RESET';
-export const PASSWORD_REQUEST_GQL = 'PASSWORD_REQUEST_GQL';
-export const PASSWORD_RESET_GQL = 'PASSWORD_REQUEST_GQL';
+export interface Auth {
+    token: string;
+}
+
+export interface AuthState {
+    data: Auth;
+    authenticated: boolean;
+}
+  
