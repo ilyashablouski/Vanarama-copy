@@ -35,7 +35,6 @@ export class AboutForm extends React.Component<IProps, IState> {
     try {
       const { data } = await createUpdatePerson(this.state.details);
       this.props.captchaOlafData('aboutYou', data.createUpdatePerson);
-      console.log(data);
     } catch (e) {
       console.log(e);
     }

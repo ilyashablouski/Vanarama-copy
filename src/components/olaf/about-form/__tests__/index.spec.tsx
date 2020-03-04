@@ -4,28 +4,36 @@ import AboutForm from '../AboutForm';
 
 describe('<AboutForm />', () => {
   let wrapper;
+  let form;
+  let mock;
+
   beforeAll(() => {
     const captchaOlafData = jest.fn();
-    const dropDownData = {};
+    mock = jest.genMockFromModule('./AboutFormMock.ts')
     wrapper = shallow(
       <AboutForm
         details={{}}
         captchaOlafData={captchaOlafData}
-        allDropDowns={dropDownData}
+        allDropDowns={{}}
       />,
     );
+    form = wrapper.find('form');
   });
 
   it('renders correctly', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  describe('Change Handlers', () => {
-    let form;
+  it('allDropdowns has matching properties', async () => {
+    const dropDowns = wrapper.props().allDropdowns
+    console.log(dropDowns);
+  })
 
-    beforeEach(() => {
-      form = wrapper.find('form');
-    });
+  it('should contain submit handler', () => {
+   
+  })
+
+  describe('Change Handlers', () => {
 
     it('should select title', () => {
       const select = form.find('#aboutSelectTitle').first();
