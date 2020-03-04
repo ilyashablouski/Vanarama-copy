@@ -787,7 +787,7 @@ exports[`<AboutForm /> renders correctly 1`] = `
         Nationality
       </label>
       <Memo()
-        id="aboutInputNationality"
+        id="aboutSelectNationality"
         name="nationality"
         onChange={[Function]}
         options={Object {}}
@@ -822,7 +822,7 @@ exports[`<AboutForm /> renders correctly 1`] = `
         Marital Status
       </label>
       <Memo()
-        id="aboutInputMarStatus"
+        id="aboutSelectMarStatus"
         name="maritalStatus"
         onChange={[Function]}
         options={Object {}}
@@ -857,7 +857,7 @@ exports[`<AboutForm /> renders correctly 1`] = `
         No. of Dependants
       </label>
       <Memo()
-        id="aboutInputMarDependants"
+        id="aboutSelectDependants"
         name="dependants"
         onChange={[Function]}
         options={Object {}}
@@ -892,7 +892,7 @@ exports[`<AboutForm /> renders correctly 1`] = `
         No. of Adults in Household
       </label>
       <Memo()
-        id="aboutInputAdultsHoushold"
+        id="aboutSelectAdultsInHouse"
         name="adultsInHousehold"
         onChange={[Function]}
         options={Object {}}

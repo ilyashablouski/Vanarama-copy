@@ -59,26 +59,81 @@ describe('<AboutForm />', () => {
 
     it('should set dateOfBirth', () => {
       const select = form.find('#aboutSelectDOB').first();
-      const day = select.props().options
-      console.log(day)
-      selectChange(select, 'dayOfBirth', 31);
+      const day = select.props().options.data[30].value;
+      selectChange(select, 'dayOfBirth', day);
       expect(wrapper.state('details').dayOfBirth).toEqual(31);
     });
 
     it('should set monthOfBirth', () => {
       const select = form.find('#aboutSelectMOB').first();
-      selectChange(select, 'monthOfBirth', 'June');
+      const mnth = select.props().options.data[5].value;
+      selectChange(select, 'monthOfBirth', mnth);
       expect(wrapper.state('details').monthOfBirth).toEqual('June');
     });
 
-    
+    it('should set yearOfBirth', () => {
+      const select = form.find('#aboutSelectYOB').first();
+      const thisYear = new Date().getFullYear();
+      const year = select.props().options.data.slice(-1)[0].value;
+      selectChange(select, 'yearOfBirth', year);
+      expect(wrapper.state('details').yearOfBirth).toEqual(thisYear);
+    });
+
+    it('should set countryOfBirth', () => {
+      const select = form.find('#aboutSelectCOB').first();
+      selectChange(select, 'countryOfBirth', 'United Kingdom');
+      expect(wrapper.state('details').countryOfBirth).toEqual('United Kingdom');
+    });
+
+    it('should set nationality', () => {
+      const select = form.find('#aboutSelectNationality').first();
+      selectChange(select, 'nationality', 'British');
+      expect(wrapper.state('details').nationality).toEqual('British');
+    });
+
+    it('should set maritalStatus', () => {
+      const select = form.find('#aboutSelectMarStatus').first();
+      selectChange(select, 'maritalStatus', 'Single');
+      expect(wrapper.state('details').maritalStatus).toEqual('Single');
+    });
+
+    it('should set dependants', () => {
+      const select = form.find('#aboutSelectDependants').first();
+      selectChange(select, 'dependants', 1);
+      expect(wrapper.state('details').dependants).toEqual(1);
+    });
+
+    it('should set adultsInHousehold', () => {
+      const select = form.find('#aboutSelectAdultsInHouse').first();
+      selectChange(select, 'adultsInHousehold', 1);
+      expect(wrapper.state('details').adultsInHousehold).toEqual(1);
+    });
+
+    //awaiting uibook component
+
+    /* it('should set termsAndCons', () => {
+      const select = form.find('#aboutInputT&C').first();
+      selectChange(select, 'termsAndCons', null, "checked");
+      expect(wrapper.state('details').termsAndCons).toBe("checked");
+    });
+
+    it('should set consent', () => {
+      const select = form.find('#aboutInputConsent').first();
+      selectChange(select, 'consent', null, "checked");
+      expect(wrapper.state('details').consent).toBe("checked");
+    }); */
 
   });
 });
 
-function selectChange(select, name: string, value: string | number) {
+function selectChange(
+  select,
+  name: string,
+  value: string | number,
+  checked: string = "",
+) {
   select.props().onChange({
-    currentTarget: { name, value },
+    currentTarget: { name, value, checked },
     preventDefault: () => false,
   });
 }

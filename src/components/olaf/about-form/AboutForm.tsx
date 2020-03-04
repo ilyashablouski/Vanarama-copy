@@ -60,7 +60,7 @@ export class AboutForm extends React.Component<IProps, IState> {
     const months: string[] = genMonths() || [];
     const years: number[] = genYears(100) || [];
     const { details } = this.state;
-    const { allDropDowns } = this.props;
+    const { allDropDowns = {} } = this.props;
 
     return (
       <form onSubmit={this.handleSubmission} id="aboutForm" className="form">
@@ -184,7 +184,7 @@ export class AboutForm extends React.Component<IProps, IState> {
               name="nationality"
               onChange={this.handleInputChange}
               options={allDropDowns.nationalities || {}}
-              id="aboutInputNationality"
+              id="aboutSelectNationality"
             />
           </Col>
         </Row>
@@ -195,7 +195,7 @@ export class AboutForm extends React.Component<IProps, IState> {
               name="maritalStatus"
               onChange={this.handleInputChange}
               options={allDropDowns.maritalStatuses || {}}
-              id="aboutInputMarStatus"
+              id="aboutSelectMarStatus"
             />
           </Col>
         </Row>
@@ -206,7 +206,7 @@ export class AboutForm extends React.Component<IProps, IState> {
               name="dependants"
               onChange={this.handleInputChange}
               options={allDropDowns.noOfDependants || {}}
-              id="aboutInputMarDependants"
+              id="aboutSelectDependants"
             />
           </Col>
         </Row>
@@ -217,7 +217,7 @@ export class AboutForm extends React.Component<IProps, IState> {
               name="adultsInHousehold"
               onChange={this.handleInputChange}
               options={allDropDowns.noOfAdultsInHousehold || {}}
-              id="aboutInputAdultsHoushold"
+              id="aboutSelectAdultsInHouse"
             />
           </Col>
         </Row>

@@ -1,4 +1,4 @@
-import { client } from '../apollo';
+import { apolloClient as client } from '../apolloClient';
 import { ALL_DROPDOWNS, CREATE_UPDATE_PERSON } from './gql';
 import { IDetails } from '../../../components/olaf/about-form/interface';
 import moment from 'moment';
@@ -32,6 +32,7 @@ export const createUpdatePerson = (details: IDetails) => {
 
   const dateStr = `${dayOfBirth} ${monthOfBirth} ${yearOfBirth}`;
   const dob = moment(dateStr, 'DD-MMMM-YYYY').format('DD-MM-YY');
+  console.log(dob);
 
   return client.mutate({
     mutation: CREATE_UPDATE_PERSON,

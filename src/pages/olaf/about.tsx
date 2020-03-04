@@ -35,6 +35,6 @@ export class AboutYou extends Component<{
   }
 }
 
-connect((state) => ({ details: state.olaf.aboutYou }), { captchaOlafData })(
+export default connect((state) => ({ details: state.olaf.aboutYou }), { captchaOlafData })(
   AboutYou,
 );
