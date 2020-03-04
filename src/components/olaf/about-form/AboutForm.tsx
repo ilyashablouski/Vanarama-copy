@@ -23,7 +23,7 @@ export class AboutForm extends React.Component<IProps, IState> {
       countryOfBirth: '',
       nationality: '',
       maritalStatus: '',
-      dependants: '',
+      dependants: 0,
       adultsInHousehold: 0,
       termsAndCons: false,
       consent: false,

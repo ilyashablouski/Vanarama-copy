@@ -76,7 +76,7 @@ describe('<AboutForm />', () => {
   });
 });
 
-function selectChange(select, name: string, value: string) {
+function selectChange(select, name: string, value: string | number) {
   select.props().onChange({
     currentTarget: { name, value },
     preventDefault: () => false,
