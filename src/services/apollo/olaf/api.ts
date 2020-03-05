@@ -37,13 +37,13 @@ export const createUpdatePerson = (details: IDetails) => {
   return client.mutate({
     mutation: CREATE_UPDATE_PERSON,
     variables: {
-      title: title,
+      title,
       mstatus: maritalStatus,
       fname: firstName,
       lname: lastName,
-      consent: consent,
+      consent,
       dob: dob,
-      email: email,
+      email,
       phone: mobile,
     },
   });
