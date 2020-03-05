@@ -42,7 +42,7 @@ export const createUpdatePerson = (details: IDetails) => {
       fname: firstName,
       lname: lastName,
       consent,
-      dob: dob,
+      dob,
       email,
       phone: mobile,
     },
