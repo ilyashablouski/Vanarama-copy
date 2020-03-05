@@ -11,8 +11,8 @@ import { IDetails } from '../../components/olaf/about-form/interface';
 import { Row, Col } from 'react-grid-system';
 
 interface IProps {
-  allDropDowns: Object;
-  preloadData: Object;
+  allDropDowns: any;
+  preloadData: any;
   captchaOlafData: (pageRef: string, data: {}) => void;
 }
 export class AboutYou extends Component<IProps> {

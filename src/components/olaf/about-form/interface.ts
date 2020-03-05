@@ -21,7 +21,7 @@ export interface IState {
 }
 
 export interface IProps {
-  allDropDowns: Object;
+  allDropDowns: any;
+  preloadData: any;
   submit: (details: IDetails) => void;
-  preloadData: Object;
 }
