@@ -1,22 +1,19 @@
 import * as React from 'react';
-import { shallow, mount, render } from 'enzyme';
+import { shallow } from 'enzyme';
+import { allDropdownData } from '../../../../services/apollo/olaf/api';
 import AboutForm from '../';
 
 describe('<AboutForm />', () => {
   let wrapper;
   let form;
   let submit;
-  let mock;
+  //let mock;
 
   beforeEach(() => {
     submit = jest.fn();
-    mock = jest.genMockFromModule('../mock.ts');
+    //mock = jest.genMockFromModule('../mock.ts');
     wrapper = shallow(
-      <AboutForm
-        submit={submit}
-        allDropDowns={{}}
-        details={{}}
-      />,
+      <AboutForm submit={submit} allDropDowns={{}} preloadData={{}} />,
     );
     form = wrapper.find('form');
   });
@@ -25,10 +22,10 @@ describe('<AboutForm />', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('allDropdowns has matching properties', async () => {
-    const dropDowns = wrapper.props().allDropdowns;
+ /*  it('allDropdowns has matching properties', async () => {
+    const dropDowns = await allDropdownData();
     console.log(dropDowns);
-  });
+  }); */
 
   describe('Submit Handlers', () => {
     it('should call submit handler', () => {
