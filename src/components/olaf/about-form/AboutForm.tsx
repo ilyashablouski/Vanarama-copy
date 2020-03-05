@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { createUpdatePerson } from '../../../services/apollo/olaf/api';
 import { genMonths, genYears } from '../../../utils/helpers';
 import Select from '@vanarama/uibook/packages/ui-components/src/css/atoms/Select';
@@ -23,8 +24,8 @@ export class AboutForm extends React.Component<IProps, IState> {
       countryOfBirth: '',
       nationality: '',
       maritalStatus: '',
-      dependants: 0,
-      adultsInHousehold: 0,
+      dependants: '',
+      adultsInHousehold: '',
       termsAndCons: false,
       consent: false,
     },
@@ -32,12 +33,7 @@ export class AboutForm extends React.Component<IProps, IState> {
 
   handleSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const { data } = await createUpdatePerson(this.state.details);
-      this.props.captchaOlafData('aboutYou', data.createUpdatePerson);
-    } catch (e) {
-      console.log(e);
-    }
+    this.props.submit(this.state.details);
   };
 
   //>>>removed type checking for <HTMLInputElement | HTMLSelectElement> as checked does not exist ???
@@ -259,4 +255,6 @@ export class AboutForm extends React.Component<IProps, IState> {
   }
 }
 
-export default AboutForm;
+export default connect((state) => ({ details: state.olaf.aboutYou }))(
+  AboutForm,
+);

@@ -1,45 +1,47 @@
-import { Component } from 'react';
-import { connect } from 'react-redux';
+import { NextPage, NextPageContext } from 'next';
 import { captchaOlafData } from '../../services/redux/olaf/actions';
-import { allDropdownData } from '../../services/apollo/olaf/api';
+import {
+  allDropdownData,
+  createUpdatePerson,
+} from '../../services/apollo/olaf/api';
 import AboutForm from '../../components/olaf/about-form';
+import { IDetails } from '../../components/olaf/about-form/interface';
 import { Row, Col } from 'react-grid-system';
 
-export class AboutYou extends Component<{
-  allDropDowns: any;
-  details: Object;
-}> {
-  
-  // >>> console logs still to be removed <<<
-  static async getInitialProps(ctx): Promise<Object> {
+const AboutYou: NextPage<{ allDropDowns: any }> = (props) => {
+  const createPersonHandle = async (details: IDetails) => {
     try {
-      const allDropDowns = await allDropdownData();
-      return { allDropDowns };
+      const { data } = await createUpdatePerson(details);
+      captchaOlafData('aboutYou', data.createUpdatePerson);
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
-  render() {
-    return (
-      <Row>
-        <Col sm={6}>
-          <h1>About You</h1>
-          <h3 className="Heading__Caption">
-            We just need some initial details for your credit check.
-          </h3>
-          <AboutForm
-            details={this.props.details}
-            captchaOlafData={captchaOlafData}
-            allDropDowns={this.props.allDropDowns}
-          />
-        </Col>
-        <Col sm={6}></Col>
-      </Row>
-    );
-  }
-}
+  return (
+    <Row>
+      <Col sm={6}>
+        <h1>About You</h1>
+        <h3 className="Heading__Caption">
+          We just need some initial details for your credit check.
+        </h3>
+        <AboutForm
+          submit={createPersonHandle}
+          allDropDowns={props.allDropDowns}
+        />
+      </Col>
+      <Col sm={6}></Col>
+    </Row>
+  );
+};
 
-export default connect((state) => ({ details: state.olaf.aboutYou }), {
-  captchaOlafData,
-})(AboutYou);
+AboutYou.getInitialProps = async (ctx: NextPageContext) => {
+  try {
+    const allDropDowns = await allDropdownData();
+    return { allDropDowns };
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export default AboutYou;

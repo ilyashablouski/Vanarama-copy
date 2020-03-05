@@ -7,9 +7,9 @@ describe('<AboutForm />', () => {
   let form;
   let mock;
 
-  beforeAll(() => {
+  beforeEach(() => {
     const captchaOlafData = jest.fn();
-    mock = jest.genMockFromModule('./AboutFormMock.ts')
+    mock = jest.genMockFromModule('./AboutFormMock.ts');
     wrapper = shallow(
       <AboutForm
         details={{}}
@@ -25,16 +25,13 @@ describe('<AboutForm />', () => {
   });
 
   it('allDropdowns has matching properties', async () => {
-    const dropDowns = wrapper.props().allDropdowns
+    const dropDowns = wrapper.props().allDropdowns;
     console.log(dropDowns);
-  })
+  });
 
-  it('should contain submit handler', () => {
-   
-  })
+  it('should contain submit handler', () => {});
 
   describe('Change Handlers', () => {
-
     it('should select title', () => {
       const select = form.find('#aboutSelectTitle').first();
       selectChange(select, 'title', 'Mr');
@@ -130,7 +127,6 @@ describe('<AboutForm />', () => {
       selectChange(select, 'consent', null, "checked");
       expect(wrapper.state('details').consent).toBe("checked");
     }); */
-
   });
 });
 
@@ -138,7 +134,7 @@ function selectChange(
   select,
   name: string,
   value: string | number,
-  checked: string = "",
+  checked: string = '',
 ) {
   select.props().onChange({
     currentTarget: { name, value, checked },

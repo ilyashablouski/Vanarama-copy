@@ -10,8 +10,8 @@ export interface IDetails {
   countryOfBirth: string;
   nationality: string;
   maritalStatus: string;
-  dependants: number;
-  adultsInHousehold: number;
+  dependants: string;
+  adultsInHousehold: string;
   termsAndCons: boolean;
   consent: boolean;
 }
@@ -21,7 +21,7 @@ export interface IState {
 }
 
 export interface IProps {
-  captchaOlafData: (pageRef: string, data: {}) => void;
   allDropDowns: any;
+  submit: (details: IDetails) => void;
   details: Object;
 }
