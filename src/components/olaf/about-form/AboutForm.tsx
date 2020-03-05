@@ -1,6 +1,4 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
-import { createUpdatePerson } from '../../../services/apollo/olaf/api';
+import React from 'react';
 import { genMonths, genYears } from '../../../utils/helpers';
 import Select from '@vanarama/uibook/packages/ui-components/src/css/atoms/Select';
 import Input from '@vanarama/uibook/packages/ui-components/src/css/atoms/TextInput';

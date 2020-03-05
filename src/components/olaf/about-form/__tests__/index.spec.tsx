@@ -15,6 +15,7 @@ describe('<AboutForm />', () => {
       <AboutForm
         submit={submit}
         allDropDowns={{}}
+        details={{}}
       />,
     );
     form = wrapper.find('form');

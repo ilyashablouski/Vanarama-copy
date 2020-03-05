@@ -1,5 +1,6 @@
 import { Provider } from 'react-redux';
 import App, { AppContext } from 'next/app';
+import { NextPageContext } from 'next';
 import withRedux from 'next-redux-wrapper';
 import { Store } from 'redux';
 import { initStore } from 'services/redux/store';
@@ -13,6 +14,11 @@ import './_app.css';
 
 interface Props {
   store: Store;
+}
+
+interface MyPageContext extends NextPageContext {
+  store: Store;
+  isServer: boolean;
 }
 
 function isDebug() {
