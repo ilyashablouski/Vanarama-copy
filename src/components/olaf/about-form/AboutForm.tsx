@@ -8,7 +8,7 @@ import '@vanarama/uibook/packages/ui-components/src/css/atoms/Checkbox/Checkbox.
 import { Row, Col } from 'react-grid-system';
 import { IProps, IState } from './interface';
 
-export class AboutForm extends React.Component<IProps, IState> {
+class AboutForm extends React.Component<IProps, IState> {
   state: IState = {
     details: {
       title: '',
