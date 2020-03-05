@@ -23,5 +23,4 @@ export interface IState {
 export interface IProps {
   allDropDowns: any;
   submit: (details: IDetails) => void;
-  details: Object;
 }

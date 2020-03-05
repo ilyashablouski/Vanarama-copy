@@ -255,6 +255,4 @@ export class AboutForm extends React.Component<IProps, IState> {
   }
 }
 
-export default connect((state) => ({ details: state.olaf.aboutYou }))(
-  AboutForm,
-);
+export default AboutForm;

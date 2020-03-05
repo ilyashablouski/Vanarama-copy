@@ -1,19 +1,19 @@
 import * as React from 'react';
 import { shallow, mount, render } from 'enzyme';
-import AboutForm from '../AboutForm';
+import AboutForm from '../';
 
 describe('<AboutForm />', () => {
   let wrapper;
   let form;
+  let submit;
   let mock;
 
   beforeEach(() => {
-    const captchaOlafData = jest.fn();
-    mock = jest.genMockFromModule('./AboutFormMock.ts');
+    submit = jest.fn();
+    mock = jest.genMockFromModule('../mock.ts');
     wrapper = shallow(
       <AboutForm
-        details={{}}
-        captchaOlafData={captchaOlafData}
+        submit={submit}
         allDropDowns={{}}
       />,
     );
@@ -29,7 +29,12 @@ describe('<AboutForm />', () => {
     console.log(dropDowns);
   });
 
-  it('should contain submit handler', () => {});
+  describe('Submit Handlers', () => {
+    it('should call submit handler', () => {
+      form.simulate('submit', { preventDefault() {} });
+      expect(submit).toHaveBeenCalledTimes(1);
+    });
+  });
 
   describe('Change Handlers', () => {
     it('should select title', () => {
