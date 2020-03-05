@@ -1,7 +1,7 @@
 
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '../actionTypes';
 import { actionCreator } from '../../utils';
-import { login as loginApi } from 'services/apollo/account/api';
+import { login as loginApi } from '../../../apollo/account/api';
 
 export const login = (email: string, password: string) => {
   return async (dispatch: any) => {
