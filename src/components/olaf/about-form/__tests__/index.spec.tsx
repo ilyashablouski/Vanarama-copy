@@ -7,11 +7,9 @@ describe('<AboutForm />', () => {
   let wrapper;
   let form;
   let submit;
-  //let mock;
 
   beforeEach(() => {
     submit = jest.fn();
-    //mock = jest.genMockFromModule('../mock.ts');
     wrapper = shallow(
       <AboutForm submit={submit} allDropDowns={{}} preloadData={{}} />,
     );
@@ -21,11 +19,6 @@ describe('<AboutForm />', () => {
   it('renders correctly', () => {
     expect(wrapper).toMatchSnapshot();
   });
-
- /*  it('allDropdowns has matching properties', async () => {
-    const dropDowns = await allDropdownData();
-    console.log(dropDowns);
-  }); */
 
   describe('Submit Handlers', () => {
     it('should call submit handler', () => {
