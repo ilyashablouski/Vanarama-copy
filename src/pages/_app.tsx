@@ -10,7 +10,6 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import Header from  '@vanarama/uibook/packages/ui-components/src/css/organisms/Header';
 import Footer from  '@vanarama/uibook/packages/ui-components/src/css/organisms/Footer';
 import '@vanarama/uibook/packages/ui-components/src/css/App.css';
-import './_app.css';
 
 interface Props {
   store: Store;
@@ -41,13 +40,13 @@ class ReduxApp extends App<Props> {
     return (
       <>
         <Header />
-        <Container className="container">
-          <Provider store={store}>
-            <ApolloProvider client={ apolloClient }>
-              <Component {...pageProps} />
-            </ApolloProvider>
-          </Provider>
-        </Container>
+          <Container>
+            <Provider store={store}>
+              <ApolloProvider client={ apolloClient }>
+                <Component {...pageProps} />
+              </ApolloProvider>
+            </Provider>
+          </Container>
         <Footer />
       </>
     );
