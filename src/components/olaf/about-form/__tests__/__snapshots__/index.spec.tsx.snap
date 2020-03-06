@@ -1,0 +1,959 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AboutForm /> renders correctly 1`] = `
+<form
+  className="form"
+  id="aboutForm"
+  onSubmit={[Function]}
+>
+  <Row
+    align="normal"
+    component="div"
+    debug={false}
+    gutterWidth={null}
+    justify="start"
+    nogutter={false}
+    nowrap={false}
+    style={Object {}}
+  >
+    <Col
+      component="div"
+      debug={false}
+      lg={null}
+      md={null}
+      offset={Object {}}
+      pull={Object {}}
+      push={Object {}}
+      sm={null}
+      style={Object {}}
+      width={null}
+      xl={null}
+      xs={null}
+    >
+      <label>
+        Title
+      </label>
+      <Memo()
+        id="aboutSelectTitle"
+        name="title"
+        onChange={[Function]}
+        options={Object {}}
+      />
+    </Col>
+  </Row>
+  <Row
+    align="normal"
+    component="div"
+    debug={false}
+    gutterWidth={null}
+    justify="start"
+    nogutter={false}
+    nowrap={false}
+    style={Object {}}
+  >
+    <Col
+      component="div"
+      debug={false}
+      lg={null}
+      md={null}
+      offset={Object {}}
+      pull={Object {}}
+      push={Object {}}
+      sm={null}
+      style={Object {}}
+      width={null}
+      xl={null}
+      xs={null}
+    >
+      <Memo()
+        handleChange={[Function]}
+        id="aboutInputFirstName"
+        label="First Name"
+        name="firstName"
+        type="text"
+        value=""
+      />
+    </Col>
+  </Row>
+  <Row
+    align="normal"
+    component="div"
+    debug={false}
+    gutterWidth={null}
+    justify="start"
+    nogutter={false}
+    nowrap={false}
+    style={Object {}}
+  >
+    <Col
+      component="div"
+      debug={false}
+      lg={null}
+      md={null}
+      offset={Object {}}
+      pull={Object {}}
+      push={Object {}}
+      sm={null}
+      style={Object {}}
+      width={null}
+      xl={null}
+      xs={null}
+    >
+      <Memo()
+        handleChange={[Function]}
+        id="aboutInputLastName"
+        label="Last Name"
+        name="lastName"
+        type="text"
+        value=""
+      />
+    </Col>
+  </Row>
+  <Row
+    align="normal"
+    component="div"
+    debug={false}
+    gutterWidth={null}
+    justify="start"
+    nogutter={false}
+    nowrap={false}
+    style={Object {}}
+  >
+    <Col
+      component="div"
+      debug={false}
+      lg={null}
+      md={null}
+      offset={Object {}}
+      pull={Object {}}
+      push={Object {}}
+      sm={null}
+      style={Object {}}
+      width={null}
+      xl={null}
+      xs={null}
+    >
+      <Memo()
+        handleChange={[Function]}
+        id="aboutInputEmail"
+        label="Email"
+        name="email"
+        type="email"
+        value=""
+      />
+    </Col>
+  </Row>
+  <Row
+    align="normal"
+    component="div"
+    debug={false}
+    gutterWidth={null}
+    justify="start"
+    nogutter={false}
+    nowrap={false}
+    style={Object {}}
+  >
+    <Col
+      component="div"
+      debug={false}
+      lg={null}
+      md={null}
+      offset={Object {}}
+      pull={Object {}}
+      push={Object {}}
+      sm={null}
+      style={Object {}}
+      width={null}
+      xl={null}
+      xs={null}
+    >
+      <Memo()
+        handleChange={[Function]}
+        id="aboutInputPhoneNumber"
+        label="Phone Number"
+        name="mobile"
+        type="tel"
+        value=""
+      />
+    </Col>
+  </Row>
+  <Row
+    align="normal"
+    component="div"
+    debug={false}
+    gutterWidth={null}
+    justify="start"
+    nogutter={false}
+    nowrap={false}
+    style={Object {}}
+  >
+    <Col
+      component="div"
+      debug={false}
+      lg={null}
+      md={null}
+      offset={Object {}}
+      pull={Object {}}
+      push={Object {}}
+      sm={10}
+      style={Object {}}
+      width={null}
+      xl={null}
+      xs={null}
+    >
+      <label>
+        Date of Birth
+      </label>
+      <Row
+        align="normal"
+        component="div"
+        debug={false}
+        gutterWidth={null}
+        justify="start"
+        nogutter={false}
+        nowrap={false}
+        style={Object {}}
+      >
+        <Col
+          component="div"
+          debug={false}
+          lg={null}
+          md={null}
+          offset={Object {}}
+          pull={Object {}}
+          push={Object {}}
+          sm={4}
+          style={Object {}}
+          width={null}
+          xl={null}
+          xs={null}
+        >
+          <Memo()
+            id="aboutSelectDOB"
+            name="dayOfBirth"
+            onChange={[Function]}
+            options={
+              Object {
+                "data": Array [
+                  Object {
+                    "value": 1,
+                  },
+                  Object {
+                    "value": 2,
+                  },
+                  Object {
+                    "value": 3,
+                  },
+                  Object {
+                    "value": 4,
+                  },
+                  Object {
+                    "value": 5,
+                  },
+                  Object {
+                    "value": 6,
+                  },
+                  Object {
+                    "value": 7,
+                  },
+                  Object {
+                    "value": 8,
+                  },
+                  Object {
+                    "value": 9,
+                  },
+                  Object {
+                    "value": 10,
+                  },
+                  Object {
+                    "value": 11,
+                  },
+                  Object {
+                    "value": 12,
+                  },
+                  Object {
+                    "value": 13,
+                  },
+                  Object {
+                    "value": 14,
+                  },
+                  Object {
+                    "value": 15,
+                  },
+                  Object {
+                    "value": 16,
+                  },
+                  Object {
+                    "value": 17,
+                  },
+                  Object {
+                    "value": 18,
+                  },
+                  Object {
+                    "value": 19,
+                  },
+                  Object {
+                    "value": 20,
+                  },
+                  Object {
+                    "value": 21,
+                  },
+                  Object {
+                    "value": 22,
+                  },
+                  Object {
+                    "value": 23,
+                  },
+                  Object {
+                    "value": 24,
+                  },
+                  Object {
+                    "value": 25,
+                  },
+                  Object {
+                    "value": 26,
+                  },
+                  Object {
+                    "value": 27,
+                  },
+                  Object {
+                    "value": 28,
+                  },
+                  Object {
+                    "value": 29,
+                  },
+                  Object {
+                    "value": 30,
+                  },
+                  Object {
+                    "value": 31,
+                  },
+                ],
+              }
+            }
+          />
+        </Col>
+        <Col
+          component="div"
+          debug={false}
+          lg={null}
+          md={null}
+          offset={Object {}}
+          pull={Object {}}
+          push={Object {}}
+          sm={4}
+          style={Object {}}
+          width={null}
+          xl={null}
+          xs={null}
+        >
+          <Memo()
+            id="aboutSelectMOB"
+            name="monthOfBirth"
+            onChange={[Function]}
+            options={
+              Object {
+                "data": Array [
+                  Object {
+                    "value": "January",
+                  },
+                  Object {
+                    "value": "February",
+                  },
+                  Object {
+                    "value": "March",
+                  },
+                  Object {
+                    "value": "April",
+                  },
+                  Object {
+                    "value": "May",
+                  },
+                  Object {
+                    "value": "June",
+                  },
+                  Object {
+                    "value": "July",
+                  },
+                  Object {
+                    "value": "August",
+                  },
+                  Object {
+                    "value": "September",
+                  },
+                  Object {
+                    "value": "October",
+                  },
+                  Object {
+                    "value": "November",
+                  },
+                  Object {
+                    "value": "December",
+                  },
+                ],
+              }
+            }
+          />
+        </Col>
+        <Col
+          component="div"
+          debug={false}
+          lg={null}
+          md={null}
+          offset={Object {}}
+          pull={Object {}}
+          push={Object {}}
+          sm={4}
+          style={Object {}}
+          width={null}
+          xl={null}
+          xs={null}
+        >
+          <Memo()
+            id="aboutSelectYOB"
+            name="yearOfBirth"
+            onChange={[Function]}
+            options={
+              Object {
+                "data": Array [
+                  Object {
+                    "value": 1921,
+                  },
+                  Object {
+                    "value": 1922,
+                  },
+                  Object {
+                    "value": 1923,
+                  },
+                  Object {
+                    "value": 1924,
+                  },
+                  Object {
+                    "value": 1925,
+                  },
+                  Object {
+                    "value": 1926,
+                  },
+                  Object {
+                    "value": 1927,
+                  },
+                  Object {
+                    "value": 1928,
+                  },
+                  Object {
+                    "value": 1929,
+                  },
+                  Object {
+                    "value": 1930,
+                  },
+                  Object {
+                    "value": 1931,
+                  },
+                  Object {
+                    "value": 1932,
+                  },
+                  Object {
+                    "value": 1933,
+                  },
+                  Object {
+                    "value": 1934,
+                  },
+                  Object {
+                    "value": 1935,
+                  },
+                  Object {
+                    "value": 1936,
+                  },
+                  Object {
+                    "value": 1937,
+                  },
+                  Object {
+                    "value": 1938,
+                  },
+                  Object {
+                    "value": 1939,
+                  },
+                  Object {
+                    "value": 1940,
+                  },
+                  Object {
+                    "value": 1941,
+                  },
+                  Object {
+                    "value": 1942,
+                  },
+                  Object {
+                    "value": 1943,
+                  },
+                  Object {
+                    "value": 1944,
+                  },
+                  Object {
+                    "value": 1945,
+                  },
+                  Object {
+                    "value": 1946,
+                  },
+                  Object {
+                    "value": 1947,
+                  },
+                  Object {
+                    "value": 1948,
+                  },
+                  Object {
+                    "value": 1949,
+                  },
+                  Object {
+                    "value": 1950,
+                  },
+                  Object {
+                    "value": 1951,
+                  },
+                  Object {
+                    "value": 1952,
+                  },
+                  Object {
+                    "value": 1953,
+                  },
+                  Object {
+                    "value": 1954,
+                  },
+                  Object {
+                    "value": 1955,
+                  },
+                  Object {
+                    "value": 1956,
+                  },
+                  Object {
+                    "value": 1957,
+                  },
+                  Object {
+                    "value": 1958,
+                  },
+                  Object {
+                    "value": 1959,
+                  },
+                  Object {
+                    "value": 1960,
+                  },
+                  Object {
+                    "value": 1961,
+                  },
+                  Object {
+                    "value": 1962,
+                  },
+                  Object {
+                    "value": 1963,
+                  },
+                  Object {
+                    "value": 1964,
+                  },
+                  Object {
+                    "value": 1965,
+                  },
+                  Object {
+                    "value": 1966,
+                  },
+                  Object {
+                    "value": 1967,
+                  },
+                  Object {
+                    "value": 1968,
+                  },
+                  Object {
+                    "value": 1969,
+                  },
+                  Object {
+                    "value": 1970,
+                  },
+                  Object {
+                    "value": 1971,
+                  },
+                  Object {
+                    "value": 1972,
+                  },
+                  Object {
+                    "value": 1973,
+                  },
+                  Object {
+                    "value": 1974,
+                  },
+                  Object {
+                    "value": 1975,
+                  },
+                  Object {
+                    "value": 1976,
+                  },
+                  Object {
+                    "value": 1977,
+                  },
+                  Object {
+                    "value": 1978,
+                  },
+                  Object {
+                    "value": 1979,
+                  },
+                  Object {
+                    "value": 1980,
+                  },
+                  Object {
+                    "value": 1981,
+                  },
+                  Object {
+                    "value": 1982,
+                  },
+                  Object {
+                    "value": 1983,
+                  },
+                  Object {
+                    "value": 1984,
+                  },
+                  Object {
+                    "value": 1985,
+                  },
+                  Object {
+                    "value": 1986,
+                  },
+                  Object {
+                    "value": 1987,
+                  },
+                  Object {
+                    "value": 1988,
+                  },
+                  Object {
+                    "value": 1989,
+                  },
+                  Object {
+                    "value": 1990,
+                  },
+                  Object {
+                    "value": 1991,
+                  },
+                  Object {
+                    "value": 1992,
+                  },
+                  Object {
+                    "value": 1993,
+                  },
+                  Object {
+                    "value": 1994,
+                  },
+                  Object {
+                    "value": 1995,
+                  },
+                  Object {
+                    "value": 1996,
+                  },
+                  Object {
+                    "value": 1997,
+                  },
+                  Object {
+                    "value": 1998,
+                  },
+                  Object {
+                    "value": 1999,
+                  },
+                  Object {
+                    "value": 2000,
+                  },
+                  Object {
+                    "value": 2001,
+                  },
+                  Object {
+                    "value": 2002,
+                  },
+                  Object {
+                    "value": 2003,
+                  },
+                  Object {
+                    "value": 2004,
+                  },
+                  Object {
+                    "value": 2005,
+                  },
+                  Object {
+                    "value": 2006,
+                  },
+                  Object {
+                    "value": 2007,
+                  },
+                  Object {
+                    "value": 2008,
+                  },
+                  Object {
+                    "value": 2009,
+                  },
+                  Object {
+                    "value": 2010,
+                  },
+                  Object {
+                    "value": 2011,
+                  },
+                  Object {
+                    "value": 2012,
+                  },
+                  Object {
+                    "value": 2013,
+                  },
+                  Object {
+                    "value": 2014,
+                  },
+                  Object {
+                    "value": 2015,
+                  },
+                  Object {
+                    "value": 2016,
+                  },
+                  Object {
+                    "value": 2017,
+                  },
+                  Object {
+                    "value": 2018,
+                  },
+                  Object {
+                    "value": 2019,
+                  },
+                  Object {
+                    "value": 2020,
+                  },
+                ],
+              }
+            }
+          />
+        </Col>
+      </Row>
+    </Col>
+  </Row>
+  <Row
+    align="normal"
+    component="div"
+    debug={false}
+    gutterWidth={null}
+    justify="start"
+    nogutter={false}
+    nowrap={false}
+    style={Object {}}
+  >
+    <Col
+      component="div"
+      debug={false}
+      lg={null}
+      md={null}
+      offset={Object {}}
+      pull={Object {}}
+      push={Object {}}
+      sm={null}
+      style={Object {}}
+      width={null}
+      xl={null}
+      xs={null}
+    >
+      <label>
+        Country of Birth
+      </label>
+      <Memo()
+        id="aboutSelectCOB"
+        name="countryOfBirth"
+        onChange={[Function]}
+        options={Object {}}
+      />
+    </Col>
+  </Row>
+  <Row
+    align="normal"
+    component="div"
+    debug={false}
+    gutterWidth={null}
+    justify="start"
+    nogutter={false}
+    nowrap={false}
+    style={Object {}}
+  >
+    <Col
+      component="div"
+      debug={false}
+      lg={null}
+      md={null}
+      offset={Object {}}
+      pull={Object {}}
+      push={Object {}}
+      sm={null}
+      style={Object {}}
+      width={null}
+      xl={null}
+      xs={null}
+    >
+      <label>
+        Nationality
+      </label>
+      <Memo()
+        id="aboutSelectNationality"
+        name="nationality"
+        onChange={[Function]}
+        options={Object {}}
+      />
+    </Col>
+  </Row>
+  <Row
+    align="normal"
+    component="div"
+    debug={false}
+    gutterWidth={null}
+    justify="start"
+    nogutter={false}
+    nowrap={false}
+    style={Object {}}
+  >
+    <Col
+      component="div"
+      debug={false}
+      lg={null}
+      md={null}
+      offset={Object {}}
+      pull={Object {}}
+      push={Object {}}
+      sm={null}
+      style={Object {}}
+      width={null}
+      xl={null}
+      xs={null}
+    >
+      <label>
+        Marital Status
+      </label>
+      <Memo()
+        id="aboutSelectMarStatus"
+        name="maritalStatus"
+        onChange={[Function]}
+        options={Object {}}
+      />
+    </Col>
+  </Row>
+  <Row
+    align="normal"
+    component="div"
+    debug={false}
+    gutterWidth={null}
+    justify="start"
+    nogutter={false}
+    nowrap={false}
+    style={Object {}}
+  >
+    <Col
+      component="div"
+      debug={false}
+      lg={null}
+      md={null}
+      offset={Object {}}
+      pull={Object {}}
+      push={Object {}}
+      sm={null}
+      style={Object {}}
+      width={null}
+      xl={null}
+      xs={null}
+    >
+      <label>
+        No. of Dependants
+      </label>
+      <Memo()
+        id="aboutSelectDependants"
+        name="dependants"
+        onChange={[Function]}
+        options={Object {}}
+      />
+    </Col>
+  </Row>
+  <Row
+    align="normal"
+    component="div"
+    debug={false}
+    gutterWidth={null}
+    justify="start"
+    nogutter={false}
+    nowrap={false}
+    style={Object {}}
+  >
+    <Col
+      component="div"
+      debug={false}
+      lg={null}
+      md={null}
+      offset={Object {}}
+      pull={Object {}}
+      push={Object {}}
+      sm={null}
+      style={Object {}}
+      width={null}
+      xl={null}
+      xs={null}
+    >
+      <label>
+        No. of Adults in Household
+      </label>
+      <Memo()
+        id="aboutSelectAdultsInHouse"
+        name="adultsInHousehold"
+        onChange={[Function]}
+        options={Object {}}
+      />
+    </Col>
+  </Row>
+  <br />
+  <div
+    role="presentation"
+  >
+    <div
+      className="Form__item -Checkbox__wrapper"
+    >
+      <input
+        className="Checkbox"
+        id="aboutInputConsent"
+        name="consent"
+        onChange={[Function]}
+        type="checkbox"
+      />
+      <label
+        className="Checkbox__label"
+        htmlFor="aboutInputConsent"
+      >
+        <span
+          className="Text -secondary"
+        >
+          I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions.
+        </span>
+      </label>
+    </div>
+    <div
+      className="Form__item -Checkbox__wrapper"
+    >
+      <input
+        className="Checkbox"
+        id="aboutInputT&C"
+        name="termsAndCons"
+        onChange={[Function]}
+        type="checkbox"
+      />
+      <label
+        className="Checkbox__label"
+        htmlFor="aboutInputT&C"
+      >
+        <span
+          className="Text -secondary"
+        >
+          agree to the terms and conditions.
+        </span>
+      </label>
+    </div>
+  </div>
+  <br />
+  <Memo()
+    color="primary"
+    fill="solid"
+    label="Continue"
+    size="regular"
+    tabIndex={0}
+    type="submit"
+  />
+</form>
+`;

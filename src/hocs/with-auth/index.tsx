@@ -10,9 +10,6 @@ interface withAuthProps{
 
 const withAuth = <P extends object>(PassedComponent: React.ComponentType) => {
   class Auth extends Component<P & withAuthProps> {
-    componentDidMount(){
-
-    }
 
     render() {
       return <PassedComponent />

@@ -1,7 +1,4 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
-import { createUpdatePerson } from '../../../apollo/olaf/api';
-import { captchaOlafData } from '../../../redux/olaf/actions';
+import React from 'react';
 import { genMonths, genYears } from '../../../utils/helpers';
 import Select from '@vanarama/uibook/packages/ui-components/src/css/atoms/Select';
 import Input from '@vanarama/uibook/packages/ui-components/src/css/atoms/TextInput';
@@ -11,7 +8,7 @@ import '@vanarama/uibook/packages/ui-components/src/css/atoms/Checkbox/Checkbox.
 import { Row, Col } from 'react-grid-system';
 import { IProps, IState } from './interface';
 
-export class AboutForm extends React.Component<IProps, IState> {
+class AboutForm extends React.Component<IProps, IState> {
   state: IState = {
     details: {
       title: '',
@@ -20,13 +17,13 @@ export class AboutForm extends React.Component<IProps, IState> {
       email: '',
       mobile: '',
       monthOfBirth: '',
-      dayOfBirth: '',
-      yearOfBirth: '',
+      dayOfBirth: 0,
+      yearOfBirth: 0,
       countryOfBirth: '',
       nationality: '',
       maritalStatus: '',
       dependants: '',
-      adultsInHousehold: 0,
+      adultsInHousehold: '',
       termsAndCons: false,
       consent: false,
     },
@@ -34,13 +31,7 @@ export class AboutForm extends React.Component<IProps, IState> {
 
   handleSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const { data } = await createUpdatePerson(this.state.details);
-      this.props.captchaOlafData('aboutYou', data.createUpdatePerson);
-      console.log(data);
-    } catch (e) {
-      console.log(e);
-    }
+    this.props.submit(this.state.details);
   };
 
   //>>>removed type checking for <HTMLInputElement | HTMLSelectElement> as checked does not exist ???
@@ -62,7 +53,7 @@ export class AboutForm extends React.Component<IProps, IState> {
     const months: string[] = genMonths() || [];
     const years: number[] = genYears(100) || [];
     const { details } = this.state;
-    const { allDropDowns } = this.props;
+    const { allDropDowns = {} } = this.props;
 
     return (
       <form onSubmit={this.handleSubmission} id="aboutForm" className="form">
@@ -73,6 +64,7 @@ export class AboutForm extends React.Component<IProps, IState> {
               name="title"
               onChange={this.handleInputChange}
               options={allDropDowns.titles || {}}
+              id="aboutSelectTitle"
             />
           </Col>
         </Row>
@@ -125,11 +117,12 @@ export class AboutForm extends React.Component<IProps, IState> {
           </Col>
         </Row>
         <Row>
-          <Col sm={5}>
+          <Col sm={10}>
             <label>Date of Birth</label>
             <Row>
               <Col sm={4}>
                 <Select
+                  id="aboutSelectDOB"
                   name="dayOfBirth"
                   onChange={this.handleInputChange}
                   options={{
@@ -141,6 +134,7 @@ export class AboutForm extends React.Component<IProps, IState> {
               </Col>
               <Col sm={4}>
                 <Select
+                  id="aboutSelectMOB"
                   name="monthOfBirth"
                   onChange={this.handleInputChange}
                   options={{
@@ -152,6 +146,7 @@ export class AboutForm extends React.Component<IProps, IState> {
               </Col>
               <Col sm={4}>
                 <Select
+                  id="aboutSelectYOB"
                   name="yearOfBirth"
                   onChange={this.handleInputChange}
                   options={{
@@ -171,7 +166,7 @@ export class AboutForm extends React.Component<IProps, IState> {
               name="countryOfBirth"
               onChange={this.handleInputChange}
               options={allDropDowns.countries || {}}
-              id={'aboutInputCOB'}
+              id="aboutSelectCOB"
             />
           </Col>
         </Row>
@@ -182,7 +177,7 @@ export class AboutForm extends React.Component<IProps, IState> {
               name="nationality"
               onChange={this.handleInputChange}
               options={allDropDowns.nationalities || {}}
-              id={'aboutInputNationality'}
+              id="aboutSelectNationality"
             />
           </Col>
         </Row>
@@ -193,7 +188,7 @@ export class AboutForm extends React.Component<IProps, IState> {
               name="maritalStatus"
               onChange={this.handleInputChange}
               options={allDropDowns.maritalStatuses || {}}
-              id={'aboutInputMarStatus'}
+              id="aboutSelectMarStatus"
             />
           </Col>
         </Row>
@@ -204,7 +199,7 @@ export class AboutForm extends React.Component<IProps, IState> {
               name="dependants"
               onChange={this.handleInputChange}
               options={allDropDowns.noOfDependants || {}}
-              id={'aboutInputMarDependants'}
+              id="aboutSelectDependants"
             />
           </Col>
         </Row>
@@ -215,7 +210,7 @@ export class AboutForm extends React.Component<IProps, IState> {
               name="adultsInHousehold"
               onChange={this.handleInputChange}
               options={allDropDowns.noOfAdultsInHousehold || {}}
-              id={'aboutInputAdultsHoushold'}
+              id="aboutSelectAdultsInHouse"
             />
           </Col>
         </Row>
@@ -227,7 +222,7 @@ export class AboutForm extends React.Component<IProps, IState> {
               className="Checkbox"
               type="checkbox"
               name="consent"
-              id={'aboutInputConsent'}
+              id="aboutInputConsent"
             />
             <label className="Checkbox__label" htmlFor={'aboutInputConsent'}>
               <span className="Text -secondary">
@@ -242,7 +237,7 @@ export class AboutForm extends React.Component<IProps, IState> {
               className="Checkbox"
               type="checkbox"
               name="termsAndCons"
-              id={'aboutInputT&C'}
+              id="aboutInputT&C"
             />
             <label className="Checkbox__label" htmlFor={'aboutInputT&C'}>
               <span className="Text -secondary">
@@ -258,4 +253,4 @@ export class AboutForm extends React.Component<IProps, IState> {
   }
 }
 
-export default connect((state) => state, { captchaOlafData })(AboutForm);
+export default AboutForm;
