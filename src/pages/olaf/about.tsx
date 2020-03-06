@@ -15,6 +15,10 @@ interface IProps {
   captchaOlafData: (pageRef: string, data: {}) => void;
 }
 export class AboutYou extends Component<IProps> {
+  state = {
+    failedMutation: false,
+  };
+
   static async getInitialProps(ctx): Promise<Object> {
     const { aboutYou } = ctx.store.getState().olaf;
     try {
@@ -28,9 +32,11 @@ export class AboutYou extends Component<IProps> {
   createDetailsHandle = async (details: IDetails) => {
     try {
       const { data } = await createUpdatePerson(details);
-      this.props.captchaOlafData('aboutYou', data.createUpdatePerson);
-    } catch (e) {
-      console.log(e);
+      this.setState({ failedMutation: false }, () => {
+        this.props.captchaOlafData('aboutYou', data.createUpdatePerson);
+      });
+    } catch {
+      this.setState({ failedMutation: true });
     }
   };
 
