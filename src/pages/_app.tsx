@@ -40,13 +40,13 @@ class ReduxApp extends App<Props> {
     return (
       <>
         <Header />
-          <Container>
-            <Provider store={store}>
-              <ApolloProvider client={ apolloClient }>
-                <Component {...pageProps} />
-              </ApolloProvider>
-            </Provider>
-          </Container>
+        <Container>
+          <Provider store={store}>
+            <ApolloProvider client={ apolloClient }>
+              <Component {...pageProps} />
+            </ApolloProvider>
+          </Provider>
+        </Container>
         <Footer />
       </>
     );
