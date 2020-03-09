@@ -87,7 +87,7 @@ exports[`<Login /> renders correctly with authentication 1`] = `
                 >
                   <Component
                     handleChange={[Function]}
-                    id="email"
+                    id="loginEmail"
                     label="Your Email"
                     name="email"
                     type="text"
@@ -95,11 +95,11 @@ exports[`<Login /> renders correctly with authentication 1`] = `
                   >
                     <div
                       className="TextInput__wrapper -Form__item"
-                      id="email-wrapper"
+                      id="loginEmail-wrapper"
                     >
                       <label
                         className="TextInput__label"
-                        htmlFor="email"
+                        htmlFor="loginEmail"
                       >
                         <span
                           className="Text -primary"
@@ -112,7 +112,7 @@ exports[`<Login /> renders correctly with authentication 1`] = `
                       >
                         <input
                           className="TextInput -regular"
-                          id="email"
+                          id="loginEmail"
                           name="email"
                           onChange={[Function]}
                           type="text"
@@ -202,7 +202,7 @@ exports[`<Login /> renders correctly with authentication 1`] = `
                 >
                   <Component
                     handleChange={[Function]}
-                    id="password"
+                    id="loginPassword"
                     label="Your Password"
                     name="password"
                     type="password"
@@ -210,11 +210,11 @@ exports[`<Login /> renders correctly with authentication 1`] = `
                   >
                     <div
                       className="TextInput__wrapper -Form__item"
-                      id="password-wrapper"
+                      id="loginPassword-wrapper"
                     >
                       <label
                         className="TextInput__label"
-                        htmlFor="password"
+                        htmlFor="loginPassword"
                       >
                         <span
                           className="Text -primary"
@@ -227,7 +227,7 @@ exports[`<Login /> renders correctly with authentication 1`] = `
                       >
                         <input
                           className="TextInput -regular"
-                          id="password"
+                          id="loginPassword"
                           name="password"
                           onChange={[Function]}
                           type="password"
@@ -317,11 +317,13 @@ exports[`<Login /> renders correctly with authentication 1`] = `
                 >
                   <Component
                     color="primary"
+                    id="forgotPassword"
                     plain={true}
                     size="regular"
                   >
                     <a
                       className="Link -primary -regular -plain"
+                      id="forgotPassword"
                     >
                       forgot your password?
                     </a>
@@ -408,6 +410,7 @@ exports[`<Login /> renders correctly with authentication 1`] = `
                   <Component
                     color="primary"
                     fill="solid"
+                    id="loginButton"
                     label="Login"
                     size="regular"
                     tabIndex={0}
@@ -415,6 +418,7 @@ exports[`<Login /> renders correctly with authentication 1`] = `
                   >
                     <button
                       className="Button -primary -regular -solid"
+                      id="loginButton"
                       tabIndex={0}
                       type="submit"
                     >
@@ -607,7 +611,7 @@ exports[`<Login /> renders correctly without authentication 1`] = `
                 >
                   <Component
                     handleChange={[Function]}
-                    id="email"
+                    id="loginEmail"
                     label="Your Email"
                     name="email"
                     type="text"
@@ -615,11 +619,11 @@ exports[`<Login /> renders correctly without authentication 1`] = `
                   >
                     <div
                       className="TextInput__wrapper -Form__item"
-                      id="email-wrapper"
+                      id="loginEmail-wrapper"
                     >
                       <label
                         className="TextInput__label"
-                        htmlFor="email"
+                        htmlFor="loginEmail"
                       >
                         <span
                           className="Text -primary"
@@ -632,7 +636,7 @@ exports[`<Login /> renders correctly without authentication 1`] = `
                       >
                         <input
                           className="TextInput -regular"
-                          id="email"
+                          id="loginEmail"
                           name="email"
                           onChange={[Function]}
                           type="text"
@@ -722,7 +726,7 @@ exports[`<Login /> renders correctly without authentication 1`] = `
                 >
                   <Component
                     handleChange={[Function]}
-                    id="password"
+                    id="loginPassword"
                     label="Your Password"
                     name="password"
                     type="password"
@@ -730,11 +734,11 @@ exports[`<Login /> renders correctly without authentication 1`] = `
                   >
                     <div
                       className="TextInput__wrapper -Form__item"
-                      id="password-wrapper"
+                      id="loginPassword-wrapper"
                     >
                       <label
                         className="TextInput__label"
-                        htmlFor="password"
+                        htmlFor="loginPassword"
                       >
                         <span
                           className="Text -primary"
@@ -747,7 +751,7 @@ exports[`<Login /> renders correctly without authentication 1`] = `
                       >
                         <input
                           className="TextInput -regular"
-                          id="password"
+                          id="loginPassword"
                           name="password"
                           onChange={[Function]}
                           type="password"
@@ -837,11 +841,13 @@ exports[`<Login /> renders correctly without authentication 1`] = `
                 >
                   <Component
                     color="primary"
+                    id="forgotPassword"
                     plain={true}
                     size="regular"
                   >
                     <a
                       className="Link -primary -regular -plain"
+                      id="forgotPassword"
                     >
                       forgot your password?
                     </a>
@@ -928,6 +934,7 @@ exports[`<Login /> renders correctly without authentication 1`] = `
                   <Component
                     color="primary"
                     fill="solid"
+                    id="loginButton"
                     label="Login"
                     size="regular"
                     tabIndex={0}
@@ -935,6 +942,7 @@ exports[`<Login /> renders correctly without authentication 1`] = `
                   >
                     <button
                       className="Button -primary -regular -solid"
+                      id="loginButton"
                       tabIndex={0}
                       type="submit"
                     >
