@@ -78,6 +78,6 @@ describe('<Login />', () => {
 });
 
 function fillLoginFields(wrapper: any) {
-    fillInputField(wrapper, 'email', { name: email, value: email })
-    fillInputField(wrapper, 'password', { name: password, value: password })
+    fillInputField(wrapper, 'loginEmail', { name: email, value: email })
+    fillInputField(wrapper, 'loginPassword', { name: password, value: password })
 }

@@ -9,7 +9,7 @@ export const initialState: AuthState = {
 export default function reducer(state = initialState, action: any) {
   switch (action.type) {
     case LOGIN_REQUEST:
-      return { ...state, data: null, isLoggingIn: true };
+        return { ...state, data: null, isLoggingIn: true };
     case LOGIN_SUCCESS:
         return { ...state, authenticated: true, data: { token: action.payload } };
     case LOGIN_FAILURE:
