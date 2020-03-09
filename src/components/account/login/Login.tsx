@@ -51,7 +51,7 @@ class Login extends React.Component<LoginProps, LoginState> {
           <Row style={{ marginBottom: '16px'}}>
             <Col>
               <Input
-                id="email"
+                id="loginEmail"
                 label="Your Email"
                 type="text"
                 name="email"
@@ -63,7 +63,7 @@ class Login extends React.Component<LoginProps, LoginState> {
           <Row style={{ marginBottom: '16px'}}>
             <Col>
               <Input
-                id="password"
+                id="loginPassword"
                 label="Your Password"
                 type="password"
                 name="password"
@@ -74,12 +74,12 @@ class Login extends React.Component<LoginProps, LoginState> {
           </Row>  
           <Row style={{ marginBottom: '16px'}}>
             <Col>
-              <Link>forgot your password?</Link>
+              <Link id="forgotPassword">forgot your password?</Link>
             </Col>
           </Row>  
           <Row style={{ marginBottom: '16px'}}>
             <Col>
-              <Button type="submit" label="Login" color="primary" />
+              <Button id="loginButton" type="submit" label="Login" color="primary" />
             </Col>
           </Row>  
           <Row style={{ marginBottom: '16px'}}>
