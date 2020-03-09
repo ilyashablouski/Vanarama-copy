@@ -43,7 +43,7 @@ class Regiter extends React.Component<IRegisterProps, IRegisterState> {
           <Row style={{ marginBottom: '16px'}}>
             <Col>
               <Input
-                id="email"
+                id="registerEmail"
                 label="Your Email"
                 type="text"
                 name="email"
@@ -55,7 +55,7 @@ class Regiter extends React.Component<IRegisterProps, IRegisterState> {
           <Row style={{ marginBottom: '16px'}}>
             <Col>
               <Input
-                id="password"
+                id="registerPassword"
                 label="Your Password"
                 type="password"
                 name="password"
@@ -67,7 +67,7 @@ class Regiter extends React.Component<IRegisterProps, IRegisterState> {
           <Row style={{ marginBottom: '16px'}}>
             <Col>
               <Input
-                id="repeatPassword"
+                id="registerRepeatPassword"
                 label="Repeat Password"
                 type="password"
                 name="repeatPassword"
@@ -78,7 +78,7 @@ class Regiter extends React.Component<IRegisterProps, IRegisterState> {
           </Row>   
           <Row style={{ marginBottom: '16px'}}>
             <Col>
-              <Button type="submit" label="Register" color="primary" />
+              <Button id="registerButton" type="submit" label="Register" color="primary" />
             </Col>
           </Row>  
         </form>
