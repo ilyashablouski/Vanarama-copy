@@ -41,7 +41,6 @@ class AboutForm extends React.Component<IProps, IState> {
     if (Object.keys(this.state.details).includes(name)) {
       this.setState(
         (prevState) => ({
-          ...prevState,
           details: { ...prevState.details, [name]: val },
         }),
         () => console.log(this.state),
