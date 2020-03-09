@@ -9,9 +9,9 @@ export const initialState: RegisterState = {
 export default function reducer(state = initialState, action: any) {
   switch (action.type) {
     case REGISTER_REQUEST:
-        return { ...state, isRequesting: true };
+      return { ...state, isRequesting: true };
     case REGISTER_SUCCESS:
-        return { ...state, success: true };
+      return { ...state, success: true };
     case REGISTER_FAILURE:
       return { ...state, success: false, error: action.payload};
     default:
