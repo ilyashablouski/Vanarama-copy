@@ -11,5 +11,15 @@ export const accountMock = {
       },
     }
   },
+  register: {
+    success: {
+      data: 'success',
+    },
+    failure: {
+      data: {
+        error: 'error',
+      },
+    }
+  },
 };
   

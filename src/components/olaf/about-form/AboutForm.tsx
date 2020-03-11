@@ -44,7 +44,6 @@ class AboutForm extends React.Component<IProps, IState> {
           ...prevState,
           details: { ...prevState.details, [name]: val },
         }),
-        () => console.log(this.state),
       );
     }
   };
