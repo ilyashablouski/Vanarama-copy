@@ -74,7 +74,7 @@ class Login extends React.Component<LoginProps, LoginState> {
           </Row>  
           <Row style={{ marginBottom: '16px'}}>
             <Col>
-              <Link id="forgotPassword">forgot your password?</Link>
+              <Link id="forgotPassword" href="password-request">forgot your password?</Link>
             </Col>
           </Row>  
           <Row style={{ marginBottom: '16px'}}>
