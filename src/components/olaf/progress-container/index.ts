@@ -1,3 +1,3 @@
-import ProgressContainer from "./progressContainer";
+import ProgressContainer from "./ProgressContainer";
 
 export default ProgressContainer;
