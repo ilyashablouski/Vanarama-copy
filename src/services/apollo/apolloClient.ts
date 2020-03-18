@@ -7,7 +7,7 @@ export const apolloClient = new ApolloClient({
   ssrMode: true,
   link: createHttpLink({
     uri: 'https://yv8w5m1kpc.execute-api.eu-west-2.amazonaws.com/dev/graphql',
-    fetch: fetch,
+    fetch,
   }),
   cache: new InMemoryCache(),
 });

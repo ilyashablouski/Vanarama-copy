@@ -3,6 +3,10 @@ export function findForm(wrapper) {
 }
 
 export function fillInputField(wrapper: any, fieldId: string, props: object) {
-    const inputField = findForm(wrapper).find('#' + fieldId).first();
-    inputField.props().handleChange({ currentTarget: props, preventDefault: () => { } });
+  const inputField = findForm(wrapper)
+    .find(`#${fieldId}`)
+    .first();
+  inputField
+    .props()
+    .handleChange({ currentTarget: props, preventDefault: () => {} });
 }

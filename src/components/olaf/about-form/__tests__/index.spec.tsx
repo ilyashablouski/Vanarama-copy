@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { allDropdownData } from '../../../../services/apollo/olaf/api';
-import AboutForm from '../';
+import AboutForm from '..';
 
 describe('<AboutForm />', () => {
   let wrapper;

@@ -1,20 +1,19 @@
-import React, { Component } from "react"
-import { connect } from "react-redux"
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 interface session {
-  userAuthenticated: boolean
+  userAuthenticated: boolean;
 }
-interface withAuthProps{
-  session: session
+interface withAuthProps {
+  session: session;
 }
 
 const withAuth = <P extends object>(PassedComponent: React.ComponentType) => {
   class Auth extends Component<P & withAuthProps> {
-
     render() {
-      return <PassedComponent />
+      return <PassedComponent />;
     }
   }
-}
+};
 
 export default connect(state => state)(withAuth);

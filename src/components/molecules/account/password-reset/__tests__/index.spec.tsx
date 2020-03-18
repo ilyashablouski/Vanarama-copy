@@ -7,7 +7,9 @@ describe('<PasswordReset />', () => {
   it('renders correctly', () => {
     const onPasswordReset = jest.fn();
 
-    const wrapper = shallow(<PasswordReset onPasswordReset={ onPasswordReset } />);
+    const wrapper = shallow(
+      <PasswordReset onPasswordReset={onPasswordReset} />,
+    );
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -18,10 +20,9 @@ describe('<PasswordReset />', () => {
     beforeEach(() => {
       onPasswordReset = jest.fn();
       Router.push = jest.fn();
-      wrapper = mount(<PasswordReset onPasswordReset={ onPasswordReset } />);
+      wrapper = mount(<PasswordReset onPasswordReset={onPasswordReset} />);
       fillFields(wrapper);
-      getForm(wrapper)
-        .simulate('submit', { preventDefault () {} });
+      getForm(wrapper).simulate('submit', { preventDefault() {} });
     });
 
     it('calls onPasswordReset when successfully submitted with valid email field', () => {
@@ -40,9 +41,8 @@ describe('<PasswordReset />', () => {
     beforeEach(() => {
       onPasswordReset = jest.fn();
       Router.push = jest.fn();
-      wrapper = mount(<PasswordReset onPasswordReset={ onPasswordReset } />);
-      getForm(wrapper)
-        .simulate('submit', { preventDefault () {} });
+      wrapper = mount(<PasswordReset onPasswordReset={onPasswordReset} />);
+      getForm(wrapper).simulate('submit', { preventDefault() {} });
     });
 
     it('does not call onPasswordReset when submitted with invalid email field', () => {
@@ -58,12 +58,18 @@ function getForm(wrapper) {
 function fillFields(wrapper) {
   const form = getForm(wrapper);
 
-  form.find('#verificationCode').first()
-  .simulate('change', { target: { value: 'test' } });
+  form
+    .find('#verificationCode')
+    .first()
+    .simulate('change', { target: { value: 'test' } });
 
-  form.find('#password').first()
-  .simulate('change', { target: { value: 'test' } });
+  form
+    .find('#password')
+    .first()
+    .simulate('change', { target: { value: 'test' } });
 
-  form.find('#repeatPassword').first()
-  .simulate('change', { target: { value: 'test' } });
+  form
+    .find('#repeatPassword')
+    .first()
+    .simulate('change', { target: { value: 'test' } });
 }

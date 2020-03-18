@@ -1,28 +1,36 @@
 import { register as registerAction } from '../actions';
-import { REGISTER_REQUEST, REGISTER_SUCCESS, REGISTER_FAILURE } from '../../actionTypes';
+import {
+  REGISTER_REQUEST,
+  REGISTER_SUCCESS,
+  REGISTER_FAILURE,
+} from '../../actionTypes';
 import { actionCreator } from '../../../utils';
 import { register } from '../../../../apollo/account/api';
 
 jest.mock('../../../../apollo/account/api', () => ({
-  register: jest.fn(() => { return { data:  'success' }}),
+  register: jest.fn(() => {
+    return { data: 'success' };
+  }),
 }));
 
 describe('Register actions', () => {
-  const email ='email';
+  const email = 'email';
   const password = 'password';
-  
+
   describe('REGISTER_REQUEST', () => {
     it('dispatches a register request', async () => {
       const dispatch = jest.fn();
       await registerAction(email, password)(dispatch);
 
-      expect(dispatch).toHaveBeenCalledWith(actionCreator(REGISTER_REQUEST, email));
+      expect(dispatch).toHaveBeenCalledWith(
+        actionCreator(REGISTER_REQUEST, email),
+      );
     });
   });
 
   describe('REGISTER_SUCCESS', () => {
     afterEach(() => {
-      jest.restoreAllMocks()
+      jest.restoreAllMocks();
     });
 
     it('calls register api successfully', async () => {
@@ -36,17 +44,23 @@ describe('Register actions', () => {
       const dispatch = jest.fn();
       await registerAction(email, password)(dispatch);
 
-      expect(dispatch).toHaveBeenCalledWith(actionCreator(REGISTER_SUCCESS, email));
+      expect(dispatch).toHaveBeenCalledWith(
+        actionCreator(REGISTER_SUCCESS, email),
+      );
     });
   });
 
   describe('REGISTER_FAILURE', () => {
     it('dispatches a register event on error [REGISTER_FAILURE]', async () => {
-      (register as jest.Mock).mockImplementationOnce(() => Promise.reject(null))
+      (register as jest.Mock).mockImplementationOnce(() =>
+        Promise.reject(null),
+      );
       const dispatch = jest.fn();
       await registerAction(email, password)(dispatch);
 
-      expect(dispatch).toHaveBeenCalledWith(actionCreator(REGISTER_FAILURE, null));
+      expect(dispatch).toHaveBeenCalledWith(
+        actionCreator(REGISTER_FAILURE, null),
+      );
     });
   });
 });

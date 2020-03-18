@@ -9,7 +9,7 @@ export const accountMock = {
       data: {
         error: 'error',
       },
-    }
+    },
   },
   register: {
     success: {
@@ -19,7 +19,6 @@ export const accountMock = {
       data: {
         error: 'error',
       },
-    }
+    },
   },
 };
-  

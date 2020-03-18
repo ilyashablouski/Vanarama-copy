@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import { Row, Col } from 'react-grid-system';
 import { captchaOlafData } from '../../services/redux/olaf/actions';
 import {
   allDropdownData,
@@ -7,7 +8,6 @@ import {
 } from '../../services/apollo/olaf/api';
 import AboutForm from '../../components/olaf/about-form';
 import { IDetails } from '../../components/olaf/about-form/interface';
-import { Row, Col } from 'react-grid-system';
 
 interface IProps {
   allDropDowns: any;
@@ -48,7 +48,7 @@ export class AboutYou extends Component<IProps> {
             preloadData={this.props.preloadData}
           />
         </Col>
-        <Col sm={6}></Col>
+        <Col sm={6} />
       </Row>
     );
   }

@@ -13,7 +13,7 @@ export default (state = initialState, action) => {
   const { pageRef, data } = action.payload || {};
   switch (action.type) {
     case TMP_OLAF_DATA:
-      return { ...state, [pageRef]: {...state[pageRef], data}};
+      return { ...state, [pageRef]: { ...state[pageRef], data } };
     default:
       return state;
   }

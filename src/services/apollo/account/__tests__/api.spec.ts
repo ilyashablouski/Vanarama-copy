@@ -9,12 +9,11 @@ describe('Apollo api Success', () => {
   const password = 'password';
 
   it('calls mutate correctly', async () => {
-      await login(email, password);
+    await login(email, password);
 
-      expect(apolloClient.mutate).toHaveBeenCalledWith({
-        mutation: LOGIN,
-        variables: { email, pw: password },
-      });
+    expect(apolloClient.mutate).toHaveBeenCalledWith({
+      mutation: LOGIN,
+      variables: { email, pw: password },
+    });
   });
 });
-

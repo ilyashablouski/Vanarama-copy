@@ -8,8 +8,7 @@ interface Props {
 }
 
 export const PasswordResetPage: React.FC<Props> = ({ onPasswordReset }) => {
-
-  return <PasswordReset onPasswordReset={ onPasswordReset } />;
+  return <PasswordReset onPasswordReset={onPasswordReset} />;
 };
 
 const mapDispatchToProps = {
