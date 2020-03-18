@@ -1,13 +1,13 @@
 interface IGridProps {
-  columns: number;
-  columnsLg?: number;
-  columnsSm?: number;
+  columns: string;
+  columnsLg?: string;
+  columnsSm?: string;
 }
 
 interface IColumnsProps {
-  span: number;
-  spanLg?: number;
-  spanSm?: number;
+  span: string;
+  spanLg?: string;
+  spanSm?: string;
 }
 
 export const Grid: React.FC<IGridProps> = (props) => {

@@ -10,7 +10,6 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import '@vanarama/uibook/src/components/base.scss';
 import Header from  '@vanarama/uibook/src/components/organisms/Header';
 import Footer from  '@vanarama/uibook/src/components/organisms/Footer';
-import './_app.css';
 
 interface Props {
   store: Store;

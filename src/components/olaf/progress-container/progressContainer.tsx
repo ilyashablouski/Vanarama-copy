@@ -21,13 +21,17 @@ const ProgressContainer: React.FC<IProgressContainerProps> = ({
   return (
     <>
       <section>
-        <ProgressIndicator
-          steps={steps}
-          activeStep={activeStep}
-          onRoute={(route) => Router.push(route)}
-        />
+        <div className="container">
+          <ProgressIndicator
+            steps={steps}
+            activeStep={activeStep}
+            onRoute={(route) => Router.push(route)}
+          />
+        </div>
       </section>
-      <section>{children}</section>
+      <section>
+        <div className="container">{children}</div>
+      </section>
     </>
   );
 };
