@@ -7,6 +7,7 @@ import {
   createUpdatePerson,
 } from '../../services/apollo/olaf/api';
 import Heading from '@vanarama/uibook/src/components/atoms/heading';
+import Text from '@vanarama/uibook/src/components/atoms/text';
 import ProgressContainer from '../../components/olaf/progress-container';
 import AboutForm from '../../components/olaf/about-form';
 
@@ -48,10 +49,10 @@ export class AboutYou extends Component<IProps> {
       <ProgressContainer activeStep={1}>
       <Row>
         <Col sm={6}>
-          <h1 className="heading -xlarge -black">About You</h1>
-          <h3>
+          <Heading color="black" size="xlarge" >About You</Heading>
+          <Text color="darker" size="lead">
             We just need some initial details for your credit check.
-          </h3>
+          </Text>
           <AboutForm
             submit={this.createDetailsHandle}
             allDropDowns={this.props.allDropDowns}
