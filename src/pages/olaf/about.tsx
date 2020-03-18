@@ -7,6 +7,7 @@ import {
   createUpdatePerson,
 } from '../../services/apollo/olaf/api';
 import Heading from '@vanarama/uibook/src/components/atoms/heading';
+import ProgressContainer from '../../components/olaf/progress-container';
 import AboutForm from '../../components/olaf/about-form';
 
 import { IDetails } from '../../components/olaf/about-form/interface';
@@ -44,6 +45,7 @@ export class AboutYou extends Component<IProps> {
 
   render() {
     return (
+      <ProgressContainer activeStep={1}>
       <Row>
         <Col sm={6}>
           <h1 className="heading -xlarge -black">About You</h1>
@@ -58,6 +60,7 @@ export class AboutYou extends Component<IProps> {
         </Col>
         <Col sm={6}></Col>
       </Row>
+      </ProgressContainer>
     );
   }
 }
