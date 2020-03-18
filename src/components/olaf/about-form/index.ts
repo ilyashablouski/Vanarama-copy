@@ -1,3 +1,3 @@
-import AboutForm from "./AboutForm"
+import AboutForm from './AboutForm';
 
-export default AboutForm
+export default AboutForm;

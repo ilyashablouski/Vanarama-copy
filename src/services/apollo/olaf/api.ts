@@ -1,7 +1,7 @@
+import moment from 'moment';
 import { apolloClient as client } from '../apolloClient';
 import { ALL_DROPDOWNS, CREATE_UPDATE_PERSON } from './gql';
 import { IDetails } from '../../../components/olaf/about-form/interface';
-import moment from 'moment';
 
 export const allDropdownData = async () => {
   const { data } = await client.query({

@@ -7,7 +7,9 @@ describe('<PasswordRequest />', () => {
   it('renders correctly', () => {
     const onPasswordRequest = jest.fn();
 
-    const wrapper = shallow(<PasswordRequest onPasswordRequest={ onPasswordRequest } />);
+    const wrapper = shallow(
+      <PasswordRequest onPasswordRequest={onPasswordRequest} />,
+    );
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -18,10 +20,11 @@ describe('<PasswordRequest />', () => {
     beforeEach(() => {
       onPasswordRequest = jest.fn();
       Router.push = jest.fn();
-      wrapper = mount(<PasswordRequest onPasswordRequest={ onPasswordRequest } />);
+      wrapper = mount(
+        <PasswordRequest onPasswordRequest={onPasswordRequest} />,
+      );
       fillEmailField(wrapper);
-      getForm(wrapper)
-        .simulate('submit', { preventDefault () {} });
+      getForm(wrapper).simulate('submit', { preventDefault() {} });
     });
 
     it('calls onPasswordRequest when successfully submitted with valid email field', () => {
@@ -40,9 +43,10 @@ describe('<PasswordRequest />', () => {
     beforeEach(() => {
       onPasswordRequest = jest.fn();
       Router.push = jest.fn();
-      wrapper = mount(<PasswordRequest onPasswordRequest={ onPasswordRequest } />);
-      getForm(wrapper)
-        .simulate('submit', { preventDefault () {} });
+      wrapper = mount(
+        <PasswordRequest onPasswordRequest={onPasswordRequest} />,
+      );
+      getForm(wrapper).simulate('submit', { preventDefault() {} });
     });
 
     it('does not call onPasswordRequest when submitted with invalid email field', () => {
@@ -58,6 +62,8 @@ function getForm(wrapper) {
 function fillEmailField(wrapper) {
   const form = getForm(wrapper);
 
-  form.find('input').first()
-  .simulate('change', { target: { value: 'test@test.com' } });
+  form
+    .find('input')
+    .first()
+    .simulate('change', { target: { value: 'test@test.com' } });
 }

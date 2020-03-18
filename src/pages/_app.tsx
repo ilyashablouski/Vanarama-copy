@@ -7,8 +7,8 @@ import { initStore } from 'services/redux/store';
 import { Container } from 'react-grid-system';
 import { apolloClient } from 'services/apollo/apolloClient';
 import { ApolloProvider } from '@apollo/react-hooks';
-import Header from  '@vanarama/uibook/packages/ui-components/src/css/organisms/Header';
-import Footer from  '@vanarama/uibook/packages/ui-components/src/css/organisms/Footer';
+import Header from '@vanarama/uibook/packages/ui-components/src/css/organisms/Header';
+import Footer from '@vanarama/uibook/packages/ui-components/src/css/organisms/Footer';
 import '@vanarama/uibook/packages/ui-components/src/css/App.css';
 
 interface Props {
@@ -21,7 +21,7 @@ interface MyPageContext extends NextPageContext {
 }
 
 function isDebug() {
-  return process.env.NODE_ENV === 'development' ? true : false;
+  return process.env.NODE_ENV === 'development';
 }
 
 class ReduxApp extends App<Props> {
@@ -42,7 +42,7 @@ class ReduxApp extends App<Props> {
         <Header />
         <Container>
           <Provider store={store}>
-            <ApolloProvider client={ apolloClient }>
+            <ApolloProvider client={apolloClient}>
               <Component {...pageProps} />
             </ApolloProvider>
           </Provider>

@@ -3,11 +3,11 @@ export interface Auth {
 }
 
 export interface AuthState {
-  data: Auth,
-  authenticated: boolean,
+  data: Auth;
+  authenticated: boolean;
 }
-  
+
 export interface RegisterState {
-  success: boolean,
-  error: string,
+  success: boolean;
+  error: string;
 }

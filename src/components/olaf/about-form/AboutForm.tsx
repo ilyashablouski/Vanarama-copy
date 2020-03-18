@@ -34,17 +34,15 @@ class AboutForm extends React.Component<IProps, IState> {
     this.props.submit(this.state.details);
   };
 
-  //>>>removed type checking for <HTMLInputElement | HTMLSelectElement> as checked does not exist ???
+  // >>>removed type checking for <HTMLInputElement | HTMLSelectElement> as checked does not exist ???
   handleInputChange = (e): void => {
     const { name, value, checked, type } = e.currentTarget;
     const val = type === 'checkbox' ? checked : value;
     if (Object.keys(this.state.details).includes(name)) {
-      this.setState(
-        (prevState) => ({
-          ...prevState,
-          details: { ...prevState.details, [name]: val },
-        }),
-      );
+      this.setState(prevState => ({
+        ...prevState,
+        details: { ...prevState.details, [name]: val },
+      }));
     }
   };
 
@@ -137,7 +135,7 @@ class AboutForm extends React.Component<IProps, IState> {
                   name="monthOfBirth"
                   onChange={this.handleInputChange}
                   options={{
-                    data: months.map((month) => ({
+                    data: months.map(month => ({
                       value: month,
                     })),
                   }}
@@ -149,7 +147,7 @@ class AboutForm extends React.Component<IProps, IState> {
                   name="yearOfBirth"
                   onChange={this.handleInputChange}
                   options={{
-                    data: years.map((year) => ({
+                    data: years.map(year => ({
                       value: year,
                     })),
                   }}
@@ -223,7 +221,7 @@ class AboutForm extends React.Component<IProps, IState> {
               name="consent"
               id="aboutInputConsent"
             />
-            <label className="Checkbox__label" htmlFor={'aboutInputConsent'}>
+            <label className="Checkbox__label" htmlFor="aboutInputConsent">
               <span className="Text -secondary">
                 I wish to receive emails and SMS messages for updates on the
                 latest deals, offers and promotions.
@@ -238,7 +236,7 @@ class AboutForm extends React.Component<IProps, IState> {
               name="termsAndCons"
               id="aboutInputT&C"
             />
-            <label className="Checkbox__label" htmlFor={'aboutInputT&C'}>
+            <label className="Checkbox__label" htmlFor="aboutInputT&C">
               <span className="Text -secondary">
                 agree to the terms and conditions.
               </span>

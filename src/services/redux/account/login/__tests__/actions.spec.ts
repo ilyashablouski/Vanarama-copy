@@ -5,19 +5,23 @@ import { accountMock } from '../../../../__fixtures__/account';
 import { login } from '../../../../apollo/account/api';
 
 jest.mock('../../../../apollo/account/api', () => ({
-  login: jest.fn(() => { return { data: { login: 'token'} }}),
+  login: jest.fn(() => {
+    return { data: { login: 'token' } };
+  }),
 }));
 
 describe('Login actions', () => {
-  const email ='email';
+  const email = 'email';
   const password = 'password';
-  
+
   describe('LOGIN_REQUEST', () => {
     it('dispatches a login request', async () => {
       const dispatch = jest.fn();
       await loginAction(email, password)(dispatch);
 
-      expect(dispatch).toHaveBeenCalledWith(actionCreator(LOGIN_REQUEST, email));
+      expect(dispatch).toHaveBeenCalledWith(
+        actionCreator(LOGIN_REQUEST, email),
+      );
     });
   });
 
@@ -33,13 +37,15 @@ describe('Login actions', () => {
       const dispatch = jest.fn();
       await loginAction(email, password)(dispatch);
 
-      expect(dispatch).toHaveBeenCalledWith(actionCreator(LOGIN_SUCCESS, accountMock.login.success.data.login));
+      expect(dispatch).toHaveBeenCalledWith(
+        actionCreator(LOGIN_SUCCESS, accountMock.login.success.data.login),
+      );
     });
   });
 
   describe('LOGIN_FAILURE', () => {
     it('dispatches a login event on error [LOGIN_FAILURE]', async () => {
-      (login as jest.Mock).mockImplementationOnce(() => Promise.reject(null))
+      (login as jest.Mock).mockImplementationOnce(() => Promise.reject(null));
       const dispatch = jest.fn();
       await loginAction(email, password)(dispatch);
 

@@ -6,7 +6,7 @@ import Button from '@vanarama/uibook/packages/ui-components/src/css/atoms/Button
 import Link from '@vanarama/uibook/packages/ui-components/src/css/atoms/Link';
 import '@vanarama/uibook/packages/ui-components/src/css/theme/helpers/classes.css';
 import { LoginProps, LoginState } from './interfaces';
- 
+
 class Login extends React.Component<LoginProps, LoginState> {
   constructor(props: any) {
     super(props);
@@ -31,14 +31,12 @@ class Login extends React.Component<LoginProps, LoginState> {
     this.props.login(email, password);
   };
 
-   handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
+  handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
     const { name, value } = e.currentTarget;
 
     if (Object.keys(this.state).includes(name)) {
-      this.setState(
-        (prevState) => ({ ...prevState, [name]: value })
-      );
+      this.setState(prevState => ({ ...prevState, [name]: value }));
     }
   };
 
@@ -48,46 +46,57 @@ class Login extends React.Component<LoginProps, LoginState> {
     return (
       <section>
         <form onSubmit={this.handleSubmit} id="loginForm" className="form">
-          <Row style={{ marginBottom: '16px'}}>
+          <Row style={{ marginBottom: '16px' }}>
             <Col>
               <Input
                 id="loginEmail"
                 label="Your Email"
                 type="text"
                 name="email"
-                value={ email }
+                value={email}
                 handleChange={this.handleInputChange}
               />
             </Col>
-          </Row>  
-          <Row style={{ marginBottom: '16px'}}>
+          </Row>
+          <Row style={{ marginBottom: '16px' }}>
             <Col>
               <Input
                 id="loginPassword"
                 label="Your Password"
                 type="password"
                 name="password"
-                value={ password }
+                value={password}
                 handleChange={this.handleInputChange}
               />
             </Col>
-          </Row>  
-          <Row style={{ marginBottom: '16px'}}>
+          </Row>
+          <Row style={{ marginBottom: '16px' }}>
             <Col>
-              <Link id="forgotPassword" href="password-request">forgot your password?</Link>
+              <Link id="forgotPassword" href="password-request">
+                forgot your password?
+              </Link>
             </Col>
-          </Row>  
-          <Row style={{ marginBottom: '16px'}}>
+          </Row>
+          <Row style={{ marginBottom: '16px' }}>
             <Col>
-              <Button id="loginButton" type="submit" label="Login" color="primary" />
+              <Button
+                id="loginButton"
+                type="submit"
+                label="Login"
+                color="primary"
+              />
             </Col>
-          </Row>  
-          <Row style={{ marginBottom: '16px'}}>
+          </Row>
+          <Row style={{ marginBottom: '16px' }}>
             <Col>
-              { this.props.authenticated ? <p id="loginStatus">Login Success</p> : null}
-              { this.props.authenticated === false ? <p id="loginFailure">Login Failed</p>: null}
+              {this.props.authenticated ? (
+                <p id="loginStatus">Login Success</p>
+              ) : null}
+              {this.props.authenticated === false ? (
+                <p id="loginFailure">Login Failed</p>
+              ) : null}
             </Col>
-          </Row>  
+          </Row>
         </form>
       </section>
     );

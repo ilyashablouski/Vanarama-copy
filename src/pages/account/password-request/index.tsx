@@ -8,8 +8,7 @@ interface Props {
 }
 
 export const PasswordRequestPage: React.FC<Props> = ({ onPasswordRequest }) => {
-
-  return <PasswordRequest onPasswordRequest={ onPasswordRequest } />;
+  return <PasswordRequest onPasswordRequest={onPasswordRequest} />;
 };
 
 const mapDispatchToProps = {

@@ -20,7 +20,7 @@ class PasswordReset extends React.Component<PasswordResetProps> {
         Router.push('/login');
       }
     });
-  }
+  };
 
   render() {
     const { getFieldDecorator } = this.props.form;
@@ -34,26 +34,29 @@ class PasswordReset extends React.Component<PasswordResetProps> {
             <p>Verification Code</p>
             <Form.Item>
               {getFieldDecorator('verificationCode', {
-                rules: [{ required: true, message: 'Please input verificstion code!' }],
-              })(
-                <Input id="verificationCode" />,
-              )}
+                rules: [
+                  {
+                    required: true,
+                    message: 'Please input verificstion code!',
+                  },
+                ],
+              })(<Input id="verificationCode" />)}
             </Form.Item>
             <p>New Password</p>
             <Form.Item>
               {getFieldDecorator('password', {
-                rules: [{ required: true, message: 'Please input your password!' }],
-              })(
-                <Input id="password" />,
-              )}
+                rules: [
+                  { required: true, message: 'Please input your password!' },
+                ],
+              })(<Input id="password" />)}
             </Form.Item>
             <p>Repeat Password</p>
             <Form.Item>
               {getFieldDecorator('repeatPassword', {
-                rules: [{ required: true, message: 'Please input your password!' }],
-              })(
-                <Input id="repeatPassword" />,
-              )}
+                rules: [
+                  { required: true, message: 'Please input your password!' },
+                ],
+              })(<Input id="repeatPassword" />)}
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit">
@@ -62,7 +65,7 @@ class PasswordReset extends React.Component<PasswordResetProps> {
             </Form.Item>
           </Form>
         </div>
-    </div>
+      </div>
     );
   }
 }

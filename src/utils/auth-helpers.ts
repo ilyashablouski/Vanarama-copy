@@ -3,12 +3,12 @@ import nextCookie from 'next-cookies';
 import cookie from 'js-cookie';
 import localforage from 'localforage';
 
-export const loginSuccess = (token) => {
+export const loginSuccess = token => {
   cookie.set('token', token, { expires: 1 });
   Router.push('/index');
 };
 
-export const auth = (ctx) => {
+export const auth = ctx => {
   const { token } = nextCookie(ctx);
 
   if (!token) {
