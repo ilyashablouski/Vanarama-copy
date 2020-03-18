@@ -1,13 +1,15 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import { Row, Col } from 'react-grid-system';
 import { captchaOlafData } from '../../services/redux/olaf/actions';
 import {
   allDropdownData,
   createUpdatePerson,
 } from '../../services/apollo/olaf/api';
+import Heading from '@vanarama/uibook/src/components/atoms/heading';
 import AboutForm from '../../components/olaf/about-form';
+
 import { IDetails } from '../../components/olaf/about-form/interface';
-import { Row, Col } from 'react-grid-system';
 
 interface IProps {
   allDropDowns: any;
@@ -44,8 +46,8 @@ export class AboutYou extends Component<IProps> {
     return (
       <Row>
         <Col sm={6}>
-          <h1>About You</h1>
-          <h3 className="Heading__Caption">
+          <h1 className="heading -xlarge -black">About You</h1>
+          <h3>
             We just need some initial details for your credit check.
           </h3>
           <AboutForm

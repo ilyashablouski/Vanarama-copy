@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Tabs, Tab, TabContent } from  '@vanarama/uibook/packages/ui-components/src/css/molecules/Tabs';
+import { Tabs, Tab, TabContent } from  '@vanarama/uibook/src/component/molecules/Tabs';
 
 const OlafHomePage = () => {
   return (

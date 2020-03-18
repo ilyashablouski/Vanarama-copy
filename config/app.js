@@ -6,8 +6,8 @@ module.exports = {
   // Sass.
   sass: {
     sassLoaderOptions: {
-      data: "@import 'application';",
-      includePaths: ['./src/styles'],
+      data:
+        "@import './node_modules/@vanarama/uibook/src/components/variables.scss';",
     },
   },
   // Sitemap.

@@ -7,9 +7,9 @@ import { initStore } from 'services/redux/store';
 import { Container } from 'react-grid-system';
 import { apolloClient } from 'services/apollo/apolloClient';
 import { ApolloProvider } from '@apollo/react-hooks';
-import Header from  '@vanarama/uibook/packages/ui-components/src/css/organisms/Header';
-import Footer from  '@vanarama/uibook/packages/ui-components/src/css/organisms/Footer';
-import '@vanarama/uibook/packages/ui-components/src/css/App.css';
+import '@vanarama/uibook/src/components/base.scss';
+import Header from  '@vanarama/uibook/src/components/organisms/Header';
+import Footer from  '@vanarama/uibook/src/components/organisms/Footer';
 import './_app.css';
 
 interface Props {
@@ -48,7 +48,7 @@ class ReduxApp extends App<Props> {
             </ApolloProvider>
           </Provider>
         </Container>
-        <Footer />
+        <Footer emailAddress="aaa@email.com" phoneNumber="012100000" />
       </>
     );
   }

@@ -1,9 +1,10 @@
 import React from 'react';
 import { genMonths, genYears } from '../../../services/utils/helpers';
-import Select from '@vanarama/uibook/packages/ui-components/src/css/atoms/Select';
-import Input from '@vanarama/uibook/packages/ui-components/src/css/atoms/TextInput';
-import Button from '@vanarama/uibook/packages/ui-components/src/css/atoms/Button/Button';
-import '@vanarama/uibook/packages/ui-components/src/css/atoms/Checkbox/Checkbox.css';
+
+import Select from '@vanarama/uibook/src/components/atoms/select/';
+import Input from '@vanarama/uibook/src/components/atoms/textinput/';
+import Button from '@vanarama/uibook/src/components/atoms/button/';
+import CheckBox from '@vanarama/uibook/src/components/atoms/checkbox/';
 
 import { Row, Col } from 'react-grid-system';
 import { IProps, IState } from './interface';
@@ -71,7 +72,7 @@ class AboutForm extends React.Component<IProps, IState> {
           <Col>
             <Input
               label="First Name"
-              handleChange={this.handleInputChange}
+              onChange={this.handleInputChange}
               type="text"
               name="firstName"
               value={details.firstName}
@@ -83,7 +84,7 @@ class AboutForm extends React.Component<IProps, IState> {
           <Col>
             <Input
               label="Last Name"
-              handleChange={this.handleInputChange}
+              onChange={this.handleInputChange}
               type="text"
               name="lastName"
               value={details.lastName}
@@ -95,7 +96,7 @@ class AboutForm extends React.Component<IProps, IState> {
           <Col>
             <Input
               label="Email"
-              handleChange={this.handleInputChange}
+              onChange={this.handleInputChange}
               type="email"
               name="email"
               value={details.email}
@@ -107,7 +108,7 @@ class AboutForm extends React.Component<IProps, IState> {
           <Col>
             <Input
               label="Phone Number"
-              handleChange={this.handleInputChange}
+              onChange={this.handleInputChange}
               type="tel"
               name="mobile"
               value={details.mobile}
@@ -125,9 +126,7 @@ class AboutForm extends React.Component<IProps, IState> {
                   name="dayOfBirth"
                   onChange={this.handleInputChange}
                   options={{
-                    data: [...Array(31)].map((_, i) => ({
-                      value: i + 1,
-                    })),
+                    data: [...Array(31)].map((_, i) => (i + 1).toString()),
                   }}
                 />
               </Col>
@@ -137,9 +136,7 @@ class AboutForm extends React.Component<IProps, IState> {
                   name="monthOfBirth"
                   onChange={this.handleInputChange}
                   options={{
-                    data: months.map((month) => ({
-                      value: month,
-                    })),
+                    data: months.map((month) => month),
                   }}
                 />
               </Col>
@@ -149,9 +146,7 @@ class AboutForm extends React.Component<IProps, IState> {
                   name="yearOfBirth"
                   onChange={this.handleInputChange}
                   options={{
-                    data: years.map((year) => ({
-                      value: year,
-                    })),
+                    data: years.map((year) => year.toString()),
                   }}
                 />
               </Col>
@@ -215,35 +210,27 @@ class AboutForm extends React.Component<IProps, IState> {
         </Row>
         <br />
         <div role="presentation">
-          <div className="Form__item -Checkbox__wrapper">
-            <input
-              onChange={this.handleInputChange}
-              className="Checkbox"
-              type="checkbox"
-              name="consent"
-              id="aboutInputConsent"
-            />
-            <label className="Checkbox__label" htmlFor={'aboutInputConsent'}>
-              <span className="Text -secondary">
-                I wish to receive emails and SMS messages for updates on the
-                latest deals, offers and promotions.
-              </span>
-            </label>
-          </div>
-          <div className="Form__item -Checkbox__wrapper">
-            <input
-              onChange={this.handleInputChange}
-              className="Checkbox"
-              type="checkbox"
-              name="termsAndCons"
-              id="aboutInputT&C"
-            />
-            <label className="Checkbox__label" htmlFor={'aboutInputT&C'}>
-              <span className="Text -secondary">
-                agree to the terms and conditions.
-              </span>
-            </label>
-          </div>
+          <CheckBox
+            onChange={this.handleInputChange}
+            checkboxes={[
+              {
+                name: 'consent',
+                label: 'I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions.',
+              },
+            ]}
+            id="aboutInputConsent"
+          />
+          
+          <CheckBox
+            onChange={this.handleInputChange}
+            checkboxes={[
+              {
+                name: 'termsAndCons',
+                label: 'agree to the terms and conditions.',
+              },
+            ]}
+            id="aboutInputT&C"
+          />
         </div>
         <br />
         <Button type="submit" label="Continue" color="primary" />
