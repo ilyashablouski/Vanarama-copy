@@ -63,7 +63,7 @@ class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="title"
               onChange={this.handleInputChange}
-              options={allDropDowns.titles || {}}
+              options={allDropDowns.titles}
               id="aboutSelectTitle"
             />
           </Col>
@@ -117,7 +117,7 @@ class AboutForm extends React.Component<IProps, IState> {
           </Col>
         </Row>
         <Row>
-          <Col sm={10}>
+          <Col sm={12}>
             <label>Date of Birth</label>
             <Row>
               <Col sm={4}>
@@ -159,7 +159,7 @@ class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="countryOfBirth"
               onChange={this.handleInputChange}
-              options={allDropDowns.countries || {}}
+              options={allDropDowns.countries}
               id="aboutSelectCOB"
             />
           </Col>
@@ -170,7 +170,7 @@ class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="nationality"
               onChange={this.handleInputChange}
-              options={allDropDowns.nationalities || {}}
+              options={allDropDowns.nationalities}
               id="aboutSelectNationality"
             />
           </Col>
@@ -181,7 +181,7 @@ class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="maritalStatus"
               onChange={this.handleInputChange}
-              options={allDropDowns.maritalStatuses || {}}
+              options={allDropDowns.maritalStatuses}
               id="aboutSelectMarStatus"
             />
           </Col>
@@ -192,7 +192,7 @@ class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="dependants"
               onChange={this.handleInputChange}
-              options={allDropDowns.noOfDependants || {}}
+              options={allDropDowns.noOfDependants}
               id="aboutSelectDependants"
             />
           </Col>
@@ -203,7 +203,7 @@ class AboutForm extends React.Component<IProps, IState> {
             <Select
               name="adultsInHousehold"
               onChange={this.handleInputChange}
-              options={allDropDowns.noOfAdultsInHousehold || {}}
+              options={allDropDowns.noOfAdultsInHousehold}
               id="aboutSelectAdultsInHouse"
             />
           </Col>
@@ -215,21 +215,15 @@ class AboutForm extends React.Component<IProps, IState> {
             checkboxes={[
               {
                 name: 'consent',
-                label: 'I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions.',
+                label:
+                  'I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions.',
               },
-            ]}
-            id="aboutInputConsent"
-          />
-          
-          <CheckBox
-            onChange={this.handleInputChange}
-            checkboxes={[
               {
                 name: 'termsAndCons',
                 label: 'agree to the terms and conditions.',
               },
             ]}
-            id="aboutInputT&C"
+            id="aboutInputCheckbox"
           />
         </div>
         <br />

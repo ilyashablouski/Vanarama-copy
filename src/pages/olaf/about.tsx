@@ -12,7 +12,6 @@ import ProgressContainer from '../../components/olaf/progress-container';
 import AboutForm from '../../components/olaf/about-form';
 
 import { IDetails } from '../../components/olaf/about-form/interface';
-
 interface IProps {
   allDropDowns: any;
   preloadData: any;
@@ -47,8 +46,8 @@ export class AboutYou extends Component<IProps> {
   render() {
     return (
       <ProgressContainer activeStep={1}>
-      <Row>
-        <Col sm={6}>
+      <div className="grid" columns-l="6" columns="2" columns-s="2">
+        <div className="column" columns="2" columns-s="2">
           <Heading color="black" size="xlarge" >About You</Heading>
           <Text color="darker" size="lead">
             We just need some initial details for your credit check.
@@ -58,9 +57,9 @@ export class AboutYou extends Component<IProps> {
             allDropDowns={this.props.allDropDowns}
             preloadData={this.props.preloadData}
           />
-        </Col>
-        <Col sm={6}></Col>
-      </Row>
+        </div>
+        <div className="column" columns="2" columns-s="2"></div>
+      </div>
       </ProgressContainer>
     );
   }
