@@ -1,22 +1,19 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Row, Col } from 'react-grid-system';
-import { captchaOlafData } from '../../services/redux/olaf/actions';
+import { captchaOlafData } from '../../../services/redux/olaf/actions';
 import {
   allDropdownData,
   createUpdatePerson,
-} from '../../services/apollo/olaf/api';
+} from '../../../services/apollo/olaf/api';
 
-import ProgressContainer from '../../components/olaf/progress-container';
-import AboutForm from '../../components/olaf/about-form';
+import OlafContainer from '../../../components/olaf/olaf-container';
+import AboutForm from '../../../components/olaf/about-form';
 
-import { IDetails } from '../../components/olaf/about-form/interface';
-interface IProps {
-  allDropDowns: any;
-  preloadData: any;
-  captchaOlafData: (pageRef: string, data: {}) => void;
-}
-export class AboutYou extends Component<IProps> {
+import { IDetails } from '../../../components/olaf/about-form/interface';
+import { IAboutProps } from './interface';
+
+export class AboutYou extends Component<IAboutProps> {
   state = {
     failedMutation: false,
   };
@@ -45,13 +42,13 @@ export class AboutYou extends Component<IProps> {
 
   render() {
     return (
-      <ProgressContainer activeStep={1}>
+      <OlafContainer activeStep={1}>
         <AboutForm
           submit={this.createDetailsHandle}
           allDropDowns={this.props.allDropDowns}
           preloadData={this.props.preloadData}
         />
-      </ProgressContainer>
+      </OlafContainer>
     );
   }
 }

@@ -4,7 +4,7 @@ import Heading from '@vanarama/uibook/src/components/atoms/heading';
 import StructuredList from '@vanarama/uibook/src/components/organisms/structured-list';
 import Card from '@vanarama/uibook/src/components/molecules/card';
 
-import { Grid, Column } from '../../../components/grid';
+import { Grid, Column } from '../../grid';
 
 interface IProgressContainerProps {
   activeStep: number;
@@ -22,7 +22,7 @@ const fakeData = [
   { label: 'Trim', value: 'Cloth - Black' },
 ];
 
-const ProgressContainer: React.FC<IProgressContainerProps> = ({
+const OlafContainer: React.FC<IProgressContainerProps> = ({
   activeStep,
   children,
 }) => {
@@ -91,4 +91,4 @@ const ProgressContainer: React.FC<IProgressContainerProps> = ({
   );
 };
 
-export default ProgressContainer;
+export default OlafContainer;
