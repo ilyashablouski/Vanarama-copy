@@ -46,7 +46,7 @@ const ProgressContainer: React.FC<IProgressContainerProps> = ({
           />
         </div>
       </section>
-      <section>
+      <section style={{ padding: '4rem 0' }} className="section">
         <div className="container">
           <Grid columnsLg="6" columns="2" columnsSm="2">
             <Column span="2" spanSm="2" spanLg="1-3">
