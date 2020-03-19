@@ -10,13 +10,13 @@ interface IColumnsProps {
   spanSm?: string;
 }
 
-export const Grid: React.FC<IGridProps> = (props) => {
+export const Grid: React.FC<IGridProps> = props => {
   const { children, columns, columnsLg, columnsSm } = props;
 
   const attrs = {
     ...(columns && { columns }),
-    ...(columnsLg && { ['columns-l']: columnsLg }),
-    ...(columnsSm && { ['columns-s']: columnsSm }),
+    ...(columnsLg && { 'columns-l': columnsLg }),
+    ...(columnsSm && { 'columns-s': columnsSm }),
   };
 
   return (
@@ -26,13 +26,13 @@ export const Grid: React.FC<IGridProps> = (props) => {
   );
 };
 
-export const Column: React.FC<IColumnsProps> = (props) => {
+export const Column: React.FC<IColumnsProps> = props => {
   const { children, span, spanLg, spanSm } = props;
 
   const attrs = {
     ...(span && { span }),
-    ...(spanLg && { ['span-l']: spanLg }),
-    ...(spanSm && { ['span-s']: spanSm }),
+    ...(spanLg && { 'span-l': spanLg }),
+    ...(spanSm && { 'span-s': spanSm }),
   };
   return (
     <div className="column" {...attrs}>
