@@ -2,6 +2,8 @@ import React from 'react';
 import { genMonths, genYears } from '../../../services/utils/helpers';
 import { Row, Col } from 'react-grid-system';
 
+import Heading from '@vanarama/uibook/src/components/atoms/heading';
+import Text from '@vanarama/uibook/src/components/atoms/text';
 import FormGroup from '@vanarama/uibook/src/components/molecules/formgroup';
 import Select from '@vanarama/uibook/src/components/atoms/select/';
 import Input from '@vanarama/uibook/src/components/atoms/textinput/';
@@ -58,6 +60,12 @@ class AboutForm extends React.Component<IProps, IState> {
 
     return (
       <form onSubmit={this.handleSubmission} id="aboutForm" className="form">
+        <Heading color="black" size="xlarge">
+          About You
+        </Heading>
+        <Text color="darker" size="lead">
+          We just need some initial details for your credit check.
+        </Text>
         <FormGroup legend="Title">
           <Select
             name="title"

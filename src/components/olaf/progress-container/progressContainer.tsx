@@ -10,6 +10,18 @@ interface IProgressContainerProps {
   activeStep: number;
 }
 
+const fakeData = [
+  { label: 'Initial Rental', value: '£815.70 (inc VAT)' },
+  { label: 'Contract Length', value: '60 months' },
+  { label: 'Annual Mileage', value: '6000 miles' },
+  { label: '£500 Damage Cover', value: 'Included' },
+  { label: 'Maintanence', value: 'No' },
+  { label: 'Fuel', value: 'Petrol' },
+  { label: 'Transmission', value: 'Manual' },
+  { label: 'Color', value: 'Solid - Polar White' },
+  { label: 'Trim', value: 'Cloth - Black' },
+];
+
 const ProgressContainer: React.FC<IProgressContainerProps> = ({
   activeStep,
   children,
@@ -21,18 +33,6 @@ const ProgressContainer: React.FC<IProgressContainerProps> = ({
     { label: 'Expenses', route: '/expense' },
     { label: 'Details', route: '/details' },
     { label: 'Summary', route: '/summary' },
-  ];
-
-  const fakeData = [
-    { label: 'Initial Rental', value: '£815.70 (inc VAT)' },
-    { label: 'Contract Length', value: '60 months' },
-    { label: 'Annual Mileage', value: '6000 miles' },
-    { label: '£500 Damage Cover', value: 'Included' },
-    { label: 'Maintanence', value: 'No' },
-    { label: 'Fuel', value: 'Petrol' },
-    { label: 'Transmission', value: 'Manual' },
-    { label: 'Color', value: 'Solid - Polar White' },
-    { label: 'Trim', value: 'Cloth - Black' },
   ];
 
   return (
@@ -71,7 +71,7 @@ const ProgressContainer: React.FC<IProgressContainerProps> = ({
                   </Heading>
                   {/* >>> rating here <<< */}
                 </hgroup>
-                 <StructuredList
+                <StructuredList
                   priceTag={{
                     pounds: 209,
                     pence: 0,
@@ -81,7 +81,7 @@ const ProgressContainer: React.FC<IProgressContainerProps> = ({
                   heading="
       59 month contact (inc VAT). Paid by Direct Debit. First due ≈ 10 days after delivery."
                   headingSize="xsmall"
-                /> 
+                />
               </Card>
             </Column>
           </Grid>
