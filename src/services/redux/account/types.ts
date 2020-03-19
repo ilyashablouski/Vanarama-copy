@@ -1,9 +1,13 @@
 export interface Auth {
-    token: string;
+  token: string;
 }
 
 export interface AuthState {
-    data: Auth;
-    authenticated: boolean;
+  data: Auth;
+  authenticated: boolean;
 }
-  
+
+export interface RegisterState {
+  success: boolean;
+  error: string;
+}

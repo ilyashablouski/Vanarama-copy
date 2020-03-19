@@ -38,7 +38,7 @@ class AboutForm extends Component<IProps, IState> {
     this.props.submit(this.state.details);
   };
 
-  //>>>removed type checking for <HTMLInputElement | HTMLSelectElement> as checked does not exist ???
+  // >>>removed type checking for <HTMLInputElement | HTMLSelectElement> as checked does not exist ???
   handleInputChange = (e): void => {
     const { name, value, checked, type } = e.currentTarget;
     const val = type === 'checkbox' ? checked : value;

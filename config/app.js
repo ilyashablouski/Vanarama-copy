@@ -31,7 +31,7 @@ module.exports = {
       };
     },
 
-    webpack: (config) => {
+    webpack: config => {
       // Allow absolute imports.
       config.resolve.modules = [...config.resolve.modules, 'src'];
 

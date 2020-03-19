@@ -20,24 +20,27 @@ class PasswordRequest extends React.Component<PasswordRequestProps> {
         Router.push('/account/password-reset');
       }
     });
-  }
+  };
 
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
       <div className="password-request">
         <h1>Forgot Your Password?</h1>
-        <p>Enter your email address below and we'll send you a password reset link by email.</p>
+        <p>
+          Enter your email address below and we'll send you a password reset
+          link by email.
+        </p>
 
         <div>
           <Form layout="inline" onSubmit={this.handleSubmit}>
             <p>Email</p>
             <Form.Item>
               {getFieldDecorator('email', {
-                rules: [{ required: true, message: 'Please input your email!' }],
-              })(
-                <Input  />,
-              )}
+                rules: [
+                  { required: true, message: 'Please input your email!' },
+                ],
+              })(<Input />)}
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit">
@@ -46,7 +49,7 @@ class PasswordRequest extends React.Component<PasswordRequestProps> {
             </Form.Item>
           </Form>
         </div>
-    </div>
+      </div>
     );
   }
 }

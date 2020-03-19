@@ -36,5 +36,5 @@ export default {
       __typename: 'DropDownDataType',
     },
     __typename: 'DropDownType',
-  }
+  },
 };

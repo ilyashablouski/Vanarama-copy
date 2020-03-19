@@ -1,7 +1,7 @@
 require('./config/dotenv')();
 
 const express = require('express');
-const cors = require('cors')
+const cors = require('cors');
 const next = require('next');
 const rewrite = require('express-urlrewrite');
 const prerender = require('prerender-node');
@@ -41,7 +41,7 @@ app.prepare().then(() => {
     return handle(req, res);
   });
 
-  server.listen(PORT, (err) => {
+  server.listen(PORT, err => {
     if (err) throw err;
     console.log(logo);
     console.log(`Ready on http://localhost:${PORT}`.cyan);

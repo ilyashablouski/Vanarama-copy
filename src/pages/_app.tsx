@@ -21,7 +21,7 @@ interface MyPageContext extends NextPageContext {
 }
 
 function isDebug() {
-  return process.env.NODE_ENV === 'development' ? true : false;
+  return process.env.NODE_ENV === 'development';
 }
 
 class ReduxApp extends App<Props> {
@@ -40,9 +40,9 @@ class ReduxApp extends App<Props> {
     return (
       <>
         <Header />
-        <Container className="container">
+        <Container>
           <Provider store={store}>
-            <ApolloProvider client={ apolloClient }>
+            <ApolloProvider client={apolloClient}>
               <Component {...pageProps} />
             </ApolloProvider>
           </Provider>
