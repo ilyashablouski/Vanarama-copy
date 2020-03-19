@@ -10,7 +10,7 @@ import Heading from '@vanarama/uibook/src/components/atoms/heading';
 import Text from '@vanarama/uibook/src/components/atoms/text';
 import ProgressContainer from '../../components/olaf/progress-container';
 import AboutForm from '../../components/olaf/about-form';
-import {Grid, Column} from '../../components/grid';
+import { Grid, Column } from '../../components/grid';
 
 import { IDetails } from '../../components/olaf/about-form/interface';
 interface IProps {
@@ -47,20 +47,17 @@ export class AboutYou extends Component<IProps> {
   render() {
     return (
       <ProgressContainer activeStep={1}>
-      <Grid  columnsLg="6" columns="2" columnsSm="2">
-        <Column span="2" spanSm="2" spanLg="1-3">
-          <Heading color="black" size="xlarge" >About You</Heading>
-          <Text color="darker" size="lead">
-            We just need some initial details for your credit check.
-          </Text>
-          <AboutForm
-            submit={this.createDetailsHandle}
-            allDropDowns={this.props.allDropDowns}
-            preloadData={this.props.preloadData}
-          />
-        </Column>
-        <Column span="2" spanSm="2" spanLg="1-3"></Column>
-      </Grid>
+        <Heading color="black" size="xlarge">
+          About You
+        </Heading>
+        <Text color="darker" size="lead">
+          We just need some initial details for your credit check.
+        </Text>
+        <AboutForm
+          submit={this.createDetailsHandle}
+          allDropDowns={this.props.allDropDowns}
+          preloadData={this.props.preloadData}
+        />
       </ProgressContainer>
     );
   }
