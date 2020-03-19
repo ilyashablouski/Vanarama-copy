@@ -30,6 +30,7 @@ export class AboutYou extends Component<IProps> {
     }
   }
 
+  //>>> may move into redux investigating apollo cache as an alternative for this scenario <<<
   createDetailsHandle = async (details: IDetails) => {
     try {
       const { data } = await createUpdatePerson(details);

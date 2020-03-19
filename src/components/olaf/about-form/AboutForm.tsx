@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import { genMonths, genYears } from '../../../services/utils/helpers';
 import { Row, Col } from 'react-grid-system';
 
@@ -12,7 +12,7 @@ import CheckBox from '@vanarama/uibook/src/components/atoms/checkbox/';
 
 import { IProps, IState } from './interface';
 
-class AboutForm extends React.Component<IProps, IState> {
+class AboutForm extends Component<IProps, IState> {
   state: IState = {
     details: {
       title: '',
@@ -191,7 +191,6 @@ class AboutForm extends React.Component<IProps, IState> {
             id="aboutSelectAdultsInHouse"
           />
         </FormGroup>
-
         <CheckBox
           label="Please Confirm"
           onChange={this.handleInputChange}
