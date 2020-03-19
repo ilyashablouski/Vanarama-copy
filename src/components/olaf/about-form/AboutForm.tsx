@@ -191,23 +191,24 @@ class AboutForm extends React.Component<IProps, IState> {
             id="aboutSelectAdultsInHouse"
           />
         </FormGroup>
-        <FormGroup legend="Please Confirm">
-          <CheckBox
-            onChange={this.handleInputChange}
-            checkboxes={[
-              {
-                name: 'consent',
-                label:
-                  'I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions.',
-              },
-              {
-                name: 'termsAndCons',
-                label: 'agree to the terms and conditions.',
-              },
-            ]}
-            id="aboutInputCheckbox"
-          />
-        </FormGroup>
+
+        <CheckBox
+          label="Please Confirm"
+          onChange={this.handleInputChange}
+          checkboxes={[
+            {
+              name: 'consent',
+              label:
+                'I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions.',
+            },
+            {
+              name: 'termsAndCons',
+              label: 'agree to the terms and conditions.',
+            },
+          ]}
+          id="aboutInputCheckbox"
+        />
+
         <Button type="submit" label="Continue" color="primary" />
       </form>
     );
