@@ -166,7 +166,6 @@ class AboutForm extends Component<IProps, IState> {
           />
         </FormGroup>
         <FormGroup legend="Marital Status">
-          <label>Marital Status</label>
           <Select
             name="maritalStatus"
             onChange={this.handleInputChange}
@@ -175,7 +174,6 @@ class AboutForm extends Component<IProps, IState> {
           />
         </FormGroup>
         <FormGroup legend="No. of Dependants">
-          <label>No. of Dependants</label>
           <Select
             name="dependants"
             onChange={this.handleInputChange}
