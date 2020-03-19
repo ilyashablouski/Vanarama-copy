@@ -133,7 +133,7 @@ class AboutForm extends Component<IProps, IState> {
                 name="monthOfBirth"
                 onChange={this.handleInputChange}
                 options={{
-                  data: months.map((month) => month),
+                  data: months,
                 }}
               />
             </Col>
