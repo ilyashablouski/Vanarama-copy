@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { Row, Col } from 'react-grid-system';
 import { captchaOlafData } from '../../../services/redux/olaf/actions';
 import {
   allDropdownData,
