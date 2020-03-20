@@ -1,5 +1,7 @@
+/* eslint-disable react/no-unused-state */
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import { NextPageContext } from 'next';
 import { captchaOlafData } from '../../../services/redux/olaf/actions';
 import {
   allDropdownData,
@@ -17,22 +19,23 @@ export class AboutYou extends Component<IAboutProps> {
     failedMutation: false,
   };
 
-  static async getInitialProps(ctx): Promise<Object> {
+  static async getInitialProps(ctx: NextPageContext): Promise<Object> {
     const { aboutYou } = ctx.store.getState().olaf;
     try {
       const allDropDowns = await allDropdownData();
       return { allDropDowns, preloadData: aboutYou };
-    } catch (e) {
-      console.log(e);
+    } catch {
+      return { failedQuery: true };
     }
   }
 
-  //>>> may move into redux investigating apollo cache as an alternative for this scenario <<<
+  // >>> may move into redux investigating apollo cache as an alternative for this scenario <<<
   createDetailsHandle = async (details: IDetails) => {
+    const { captchaOlafData: captcha } = this.props;
     try {
       const { data } = await createUpdatePerson(details);
       this.setState({ failedMutation: false }, () => {
-        this.props.captchaOlafData('aboutYou', data.createUpdatePerson);
+        captcha('aboutYou', data.createUpdatePerson);
       });
     } catch {
       this.setState({ failedMutation: true });
@@ -40,12 +43,13 @@ export class AboutYou extends Component<IAboutProps> {
   };
 
   render() {
+    const { allDropDowns, preloadData } = this.props;
     return (
       <OlafContainer activeStep={1}>
         <AboutForm
           submit={this.createDetailsHandle}
-          allDropDowns={this.props.allDropDowns}
-          preloadData={this.props.preloadData}
+          allDropDowns={allDropDowns}
+          preloadData={preloadData}
         />
       </OlafContainer>
     );
