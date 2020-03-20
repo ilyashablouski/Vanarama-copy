@@ -1234,6 +1234,13 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
+"@babel/runtime@^7.4.5":
+  version "7.9.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.9.0.tgz#337eda67401f5b066a6f205a3113d4ac18ba495b"
+  integrity sha512-cTIudHnzuWLS56ik4DnRnqqNf8MkdUzV4iFFI1h7Jo9xvrpQROYaAnaSd2mHLQAzzZAPfATynX5ord6YlNYNMA==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.7":
   version "7.8.7"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.8.7.tgz#8fefce9802db54881ba59f90bb28719b4996324d"
@@ -1602,11 +1609,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/classnames@^2.2.10":
-  version "2.2.10"
-  resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.2.10.tgz#cc658ca319b6355399efc1f5b9e818f1a24bf999"
-  integrity sha512-1UzDldn9GfYYEsWWnn/P4wkTlkZDH7lDb0wBMGbtIQc9zXEQq7FlKBdZUn6OBqD8sKZZ2RQO2mAjGpXiDGoRmQ==
-
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -1781,10 +1783,22 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@latest":
-  version "1.0.15"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-1.0.15.tgz#cc87c544423bc265a9e88f42e00e9861854e0727"
-  integrity sha512-UbM+8Q79yr5odN6gqgUScSv6GsrYxNDlOQWpgTyH4Tt7Dt3umwm9lIL8VRWdgs+NSAHSBuWK1m9MBz9p/NvNsA==
+"@vanarama/uibook@file:../uibook/packages/ui-components":
+  version "1.0.0"
+  dependencies:
+    "@babel/preset-typescript" "^7.8.3"
+    classnames "^2.2.6"
+    i18n-react "^0.7.0"
+    jest "^25.1.0"
+    js-yaml-loader "^1.2.2"
+    moment "^2.24.0"
+    paths.macro "^2.0.2"
+    postcss-preset-env "^6.7.0"
+    react "^16.12.0"
+    react-dom "^16.12.0"
+    react-html-parser "^2.0.2"
+    react-obfuscate "^3.6.6"
+    recompose "^0.30.0"
 
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
@@ -3281,6 +3295,7 @@ change-emitter@^0.1.2:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/change-emitter/-/change-emitter-0.1.6.tgz#e8b2fe3d7f1ab7d69a32199aff91ea6931409515"
   integrity sha1-6LL+PX8at9aaMhma/5HqaTFAlRU=
+
 chardet@^0.7.0:
   version "0.7.0"
   resolved "https://registry.npmjs.org/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
@@ -5302,6 +5317,11 @@ find-cache-dir@^3.0.0:
     make-dir "^3.0.2"
     pkg-dir "^4.1.0"
 
+find-root@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/find-root/-/find-root-1.1.0.tgz#abcfc8ba76f708c42a97b3d685b7e9450bfb9ce4"
+  integrity sha512-NKfW6bec6GfKc0SGx1e07QZY9PE99u0Bft/0rzSD5k3sO/vwkVUpDUKVm5Gpp5Ue3YfShPFTX2070tDs5kB9Ng==
+
 find-up@2.1.0, find-up@^2.0.0, find-up@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/find-up/-/find-up-2.1.0.tgz#45d1b7e506c717ddd482775a2b77920a3c0c57a7"
@@ -5972,7 +5992,7 @@ i18n-react@^0.7.0:
   resolved "https://registry.yarnpkg.com/i18n-react/-/i18n-react-0.7.0.tgz#458df2cc2562f24e14bf62763c2b8863cc39ec8f"
   integrity sha512-rDQs3p5KvRo7/ItFDyMcZQ2BXoVnmOhfahD27Q4loE1U1k7lKW6CsCY9kKbRBdfJSsBGZsaPc7PISg09nhWzJg==
 
-iconv-lite@0.4.24, iconv-lite@~0.4.13:
+iconv-lite@0.4.24, iconv-lite@^0.4.24, iconv-lite@~0.4.13:
   version "0.4.24"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.24.tgz#2022b4b25fbddc21d2f524974a474aafe733908b"
   integrity sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==
@@ -6065,7 +6085,7 @@ import-fresh@^2.0.0:
     caller-path "^2.0.0"
     resolve-from "^3.0.0"
 
-import-fresh@^3.1.0:
+import-fresh@^3.0.0, import-fresh@^3.1.0:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/import-fresh/-/import-fresh-3.2.1.tgz#633ff618506e793af5ac91bf48b72677e15cbe66"
   integrity sha512-6e1q1cnWP2RXD9/keSkxHScg508CdXqXWgWBaETNhyuBFz+kUZlKboh+ISK+bU++DmbHimVBrOz/zzPe0sZ3sQ==

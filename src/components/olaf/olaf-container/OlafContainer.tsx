@@ -2,12 +2,16 @@ import Router from 'next/router';
 import ProgressIndicator from '@vanarama/uibook/src/components/molecules/progress-indicator';
 import Heading from '@vanarama/uibook/src/components/atoms/heading';
 import StructuredList from '@vanarama/uibook/src/components/organisms/structured-list';
-import Card from '@vanarama/uibook/src/components/molecules/card';
+import Card, {
+  CardContent,
+  CardMedia,
+} from '@vanarama/uibook/src/components/molecules/card';
 
 import { Grid, Column } from '../../grid';
 
 interface IProgressContainerProps {
   activeStep: number;
+  olafAsideData: object[];
 }
 
 const fakeData = [
@@ -22,19 +26,19 @@ const fakeData = [
   { label: 'Trim', value: 'Cloth - Black' },
 ];
 
+const steps = [
+  { label: 'About You', route: '/about' },
+  { label: 'Address History', route: '/address' },
+  { label: 'Employment History', route: '/employment' },
+  { label: 'Expenses', route: '/expense' },
+  { label: 'Details', route: '/details' },
+  { label: 'Summary', route: '/summary' },
+];
+
 const OlafContainer: React.FC<IProgressContainerProps> = ({
   activeStep,
   children,
 }) => {
-  const steps = [
-    { label: 'About You', route: '/about' },
-    { label: 'Address History', route: '/address' },
-    { label: 'Employment History', route: '/employment' },
-    { label: 'Expenses', route: '/expense' },
-    { label: 'Details', route: '/details' },
-    { label: 'Summary', route: '/summary' },
-  ];
-
   return (
     <>
       <section>
@@ -42,7 +46,7 @@ const OlafContainer: React.FC<IProgressContainerProps> = ({
           <ProgressIndicator
             steps={steps}
             activeStep={activeStep}
-            onRoute={(route) => Router.push(route)}
+            onRoute={route => Router.push(route)}
           />
         </div>
       </section>
@@ -55,33 +59,34 @@ const OlafContainer: React.FC<IProgressContainerProps> = ({
             <Column span="2" spanSm="2" spanLg="4-6">
               <Card
                 className="olaf-aside"
-                imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/HondaHRV0319_7_nmblcf.jpg"
                 flag={{
                   text: 'In Stock - 14-21 Days Delivery',
                   accentText: 'Hot Deal',
                   accentIcon: '',
                 }}
               >
-                <hgroup>
-                  <Heading tag="a" color="black" size="large">
-                    Hyundai Tucson Estate{' '}
-                  </Heading>
-                  <Heading tag="h5" color="darker" size="xsmall">
-                    1.0 IG-T 100 Tekna 5dr Xtronic [Leather]{' '}
-                  </Heading>
-                  {/* >>> rating here <<< */}
-                </hgroup>
-                <StructuredList
-                  priceTag={{
-                    pounds: 209,
-                    pence: 0,
-                    info: 'Per Month Exc. VAT',
-                  }}
-                  list={fakeData}
-                  heading="
+                <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/HondaHRV0319_7_nmblcf.jpg" />
+                <CardContent>
+                  <hgroup>
+                    <Heading tag="a" color="black" size="large">
+                      Hyundai Tucson Estate{' '}
+                    </Heading>
+                    <Heading tag="h5" color="darker" size="xsmall">
+                      1.0 IG-T 100 Tekna 5dr Xtronic [Leather]{' '}
+                    </Heading>
+                    {/* >>> rating here <<< */}
+                  </hgroup>
+                  <StructuredList
+                    priceTag={{
+                      price: 269.99,
+                      info: 'Per Month Exc. VAT',
+                    }}
+                    list={fakeData}
+                    heading="
       59 month contact (inc VAT). Paid by Direct Debit. First due ≈ 10 days after delivery."
-                  headingSize="xsmall"
-                />
+                    headingSize="xsmall"
+                  />
+                </CardContent>
               </Card>
             </Column>
           </Grid>
