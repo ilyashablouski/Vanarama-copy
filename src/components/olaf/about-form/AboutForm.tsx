@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import { genMonths, genYears } from '../../../services/utils/helpers';
 import { Row, Col } from 'react-grid-system';
 
 import Heading from '@vanarama/uibook/src/components/atoms/heading';
@@ -9,6 +8,7 @@ import Select from '@vanarama/uibook/src/components/atoms/select/';
 import Input from '@vanarama/uibook/src/components/atoms/textinput/';
 import Button from '@vanarama/uibook/src/components/atoms/button/';
 import CheckBox from '@vanarama/uibook/src/components/atoms/checkbox/';
+import { genMonths, genYears } from '../../../services/utils/helpers';
 
 import { IProps, IState } from './interface';
 
@@ -35,16 +35,21 @@ class AboutForm extends Component<IProps, IState> {
 
   handleSubmission = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    this.props.submit(this.state.details);
+    const { details } = this.state;
+    const { submit } = this.props;
+
+    submit(details);
   };
 
   // >>>removed type checking for <HTMLInputElement | HTMLSelectElement> as checked does not exist ???
   handleInputChange = (e): void => {
     const { name, value, checked, type } = e.currentTarget;
     const val = type === 'checkbox' ? checked : value;
-    if (Object.keys(this.state.details).includes(name)) {
+    const { details } = this.state;
+
+    if (Object.keys(details).includes(name)) {
       this.setState(
-        (prevState) => ({
+        prevState => ({
           details: { ...prevState.details, [name]: val },
         }),
         () => console.log(this.state),
@@ -114,8 +119,7 @@ class AboutForm extends Component<IProps, IState> {
             id="aboutInputPhoneNumber"
           />
         </FormGroup>
-        <FormGroup>
-          <label>Date of Birth</label>
+        <FormGroup legend="Date of Birth">
           <Row>
             <Col sm={4}>
               <Select
@@ -143,7 +147,7 @@ class AboutForm extends Component<IProps, IState> {
                 name="yearOfBirth"
                 onChange={this.handleInputChange}
                 options={{
-                  data: years.map((year) => year.toString()),
+                  data: years.map(year => year.toString()),
                 }}
               />
             </Col>
