@@ -1,16 +1,5 @@
 module.exports = {
-  roots: ['<rootDir>/src'],
-  moduleFileExtensions: ['ts', 'tsx', 'js'],
-  transform: {
-    '^.+\\.tsx?$': 'ts-jest',
-  },
   testMatch: ['**/*.(test|spec).(ts|tsx)'],
-  globals: {
-    'ts-jest': {
-      useBabelrc: true,
-      tsConfigFile: 'jest.tsconfig.json',
-    },
-  },
   coveragePathIgnorePatterns: ['/node_modules/', 'enzyme.js'],
   transformIgnorePatterns: ['node_modules/(?!(@vanarama)/)'],
   setupFilesAfterEnv: ['<rootDir>/enzyme.js'],
@@ -20,7 +9,5 @@ module.exports = {
       '<rootDir>/__mocks__/mocks.js',
     '\\.(css|less|scss)$': 'identity-obj-proxy',
   },
-  isolatedModules: true,
   snapshotSerializers: ['enzyme-to-json/serializer'],
-  setupFilesAfterEnv: ['<rootDir>/enzyme.js'],
 };
