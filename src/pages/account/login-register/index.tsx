@@ -34,10 +34,8 @@ export const IndexPage: React.FC<Props> = ({
   token,
 }) => {
   return (
-    <>
-      <div className="heading">
-        <Heading size="xlarge">Login / Register</Heading>
-      </div>
+    <section style={{ padding: '4rem 0' }}>
+      <Heading size="xlarge">Login / Register</Heading>
       <Tabs tabs={['Login', 'Register']}>
         <div>
           <Login
@@ -51,7 +49,7 @@ export const IndexPage: React.FC<Props> = ({
           <Register register={registerUser} />
         </div>
       </Tabs>
-    </>
+    </section>
   );
 };
 

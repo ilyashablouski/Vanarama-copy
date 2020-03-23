@@ -4,6 +4,7 @@ import localForage from 'localforage';
 import Input from '@vanarama/uibook/src/components/atoms/textinput';
 import Button from '@vanarama/uibook/src/components/atoms/button';
 import Link from '@vanarama/uibook/src/components/atoms/link';
+import FormGroup from '@vanarama/uibook/src/components/molecules/formgroup';
 import { LoginProps, LoginState } from './interfaces';
 
 class Login extends React.Component<LoginProps, LoginState> {
@@ -48,47 +49,39 @@ class Login extends React.Component<LoginProps, LoginState> {
     return (
       <section>
         <form onSubmit={this.handleSubmit} id="loginForm" className="form">
-          <Row style={{ marginBottom: '16px' }}>
-            <Col>
-              <Input
-                id="loginEmail"
-                label="Your Email"
-                type="text"
-                name="email"
-                value={email}
-                onChange={this.handleInputChange}
-              />
-            </Col>
-          </Row>
-          <Row style={{ marginBottom: '16px' }}>
-            <Col>
-              <Input
-                id="loginPassword"
-                label="Your Password"
-                type="password"
-                name="password"
-                value={password}
-                onChange={this.handleInputChange}
-              />
-            </Col>
-          </Row>
-          <Row style={{ marginBottom: '16px' }}>
-            <Col>
-              <Link id="forgotPassword" href="password-request">
-                forgot your password?
-              </Link>
-            </Col>
-          </Row>
-          <Row style={{ marginBottom: '16px' }}>
-            <Col>
-              <Button
-                id="loginButton"
-                type="submit"
-                label="Login"
-                color="primary"
-              />
-            </Col>
-          </Row>
+          <FormGroup>
+            <Input
+              id="loginEmail"
+              label="Your Email"
+              type="text"
+              name="email"
+              value={email}
+              onChange={this.handleInputChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Input
+              id="loginPassword"
+              label="Your Password"
+              type="password"
+              name="password"
+              value={password}
+              onChange={this.handleInputChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Link id="forgotPassword" href="password-request">
+              forgot your password?
+            </Link>
+          </FormGroup>
+          <FormGroup>
+            <Button
+              id="loginButton"
+              type="submit"
+              label="Login"
+              color="primary"
+            />
+          </FormGroup>
           <Row style={{ marginBottom: '16px' }}>
             <Col>
               {authenticated ? <p id="loginStatus">Login Success</p> : null}
