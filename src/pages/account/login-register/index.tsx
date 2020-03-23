@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState } from 'services/redux/rootState';
-//import { Tabs } from  '@vanarama/uibook/src/components/molecules/Tabs';
+import Tabs from '@vanarama/uibook/src/components/molecules/tabs';
 import Heading from '@vanarama/uibook/src/components/atoms/heading';
 import Login from 'components/account/login';
 import Register from 'components/account/register';
@@ -32,19 +32,18 @@ export const IndexPage: React.FC<Props> = ({
 }) => {
   return (
     <>
-      <div className="heading"><Heading size="xlarge">Login / Register</Heading></div>
-      {/* <Tabs defaultActiveTabIndex={0}>
-        <Tab title="Login">
-          <TabContent id="tab-content-login">
-            <Login login={login} authenticated={authenticated} token={token} />
-          </TabContent>
-        </Tab>
-        <Tab title="Register">
-          <TabContent id="tab-content-register">
-            <Register register={register} />
-          </TabContent>
-        </Tab>
-      </Tabs> */}
+      <div className="heading">
+        <Heading size="xlarge">Login / Register</Heading>
+      </div>
+      <Tabs tabs={['Login', 'Register']}>
+        <div>
+          <Login login={login} authenticated={authenticated} token={token} />
+        </div>
+
+        <div>
+          <Register register={register} />
+        </div>
+      </Tabs>
     </>
   );
 };

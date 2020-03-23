@@ -1,10 +1,9 @@
 import React, { ChangeEvent } from 'react';
 import { Row, Col } from 'react-grid-system';
 import localForage from 'localforage';
-import Input from '@vanarama/uibook/packages/ui-components/src/css/atoms/TextInput';
-import Button from '@vanarama/uibook/packages/ui-components/src/css/atoms/Button/Button';
-import Link from '@vanarama/uibook/packages/ui-components/src/css/atoms/Link';
-import '@vanarama/uibook/packages/ui-components/src/css/theme/helpers/classes.css';
+import Input from '@vanarama/uibook/src/components/atoms/textinput';
+import Button from '@vanarama/uibook/src/components/atoms/button';
+import Link from '@vanarama/uibook/src/components/atoms/link';
 import { LoginProps, LoginState } from './interfaces';
 
 class Login extends React.Component<LoginProps, LoginState> {

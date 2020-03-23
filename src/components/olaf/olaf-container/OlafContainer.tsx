@@ -11,7 +11,7 @@ import { Grid, Column } from '../../grid';
 
 interface IProgressContainerProps {
   activeStep: number;
-  olafAsideData: object[];
+  olafAsideData?: object[];
 }
 
 const fakeData = [

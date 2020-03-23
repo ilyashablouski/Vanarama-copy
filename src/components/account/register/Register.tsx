@@ -1,8 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import { Row, Col } from 'react-grid-system';
-import Input from '@vanarama/uibook/packages/ui-components/src/css/atoms/TextInput';
-import Button from '@vanarama/uibook/packages/ui-components/src/css/atoms/Button/Button';
-import '@vanarama/uibook/packages/ui-components/src/css/theme/helpers/classes.css';
+import Input from '@vanarama/uibook/src/components/atoms/textinput';
+import Button from '@vanarama/uibook/src/components/atoms/button';
 import { IRegisterProps, IRegisterState } from './interfaces';
 
 class Regiter extends React.Component<IRegisterProps, IRegisterState> {
