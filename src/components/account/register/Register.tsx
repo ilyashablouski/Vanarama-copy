@@ -68,7 +68,7 @@ class Regiter extends React.Component<IRegisterProps, IRegisterState> {
               onChange={this.handleInputChange}
             />
           </FormGroup>
-          <FormGroup legend="Title">
+          <FormGroup>
             <Button
               id="registerButton"
               type="submit"
