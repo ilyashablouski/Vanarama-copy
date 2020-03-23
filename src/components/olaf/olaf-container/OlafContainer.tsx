@@ -7,7 +7,7 @@ import Card, {
   CardMedia,
 } from '@vanarama/uibook/src/components/molecules/card';
 
-import { Grid, Column } from '../../grid';
+import { Grid, Column } from '@vanarama/uibook/src/components/molecules/grid';
 
 interface IProgressContainerProps {
   activeStep: number;
