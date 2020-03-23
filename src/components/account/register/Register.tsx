@@ -17,9 +17,10 @@ class Regiter extends React.Component<IRegisterProps, IRegisterState> {
 
   handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const { register } = this.props;
     const { email, password } = this.state;
 
-    this.props.register(email, password);
+    register(email, password);
   };
 
   handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -45,7 +46,7 @@ class Regiter extends React.Component<IRegisterProps, IRegisterState> {
                 type="text"
                 name="email"
                 value={email}
-                handleChange={this.handleInputChange}
+                onChange={this.handleInputChange}
               />
             </Col>
           </Row>
@@ -57,7 +58,7 @@ class Regiter extends React.Component<IRegisterProps, IRegisterState> {
                 type="password"
                 name="password"
                 value={password}
-                handleChange={this.handleInputChange}
+                onChange={this.handleInputChange}
               />
             </Col>
           </Row>
@@ -69,7 +70,7 @@ class Regiter extends React.Component<IRegisterProps, IRegisterState> {
                 type="password"
                 name="repeatPassword"
                 value={repeatPassword}
-                handleChange={this.handleInputChange}
+                onChange={this.handleInputChange}
               />
             </Col>
           </Row>

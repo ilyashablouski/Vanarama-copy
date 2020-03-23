@@ -17,17 +17,19 @@ class Login extends React.Component<LoginProps, LoginState> {
     };
   }
 
-  componentDidUpdate(_, prevState) {
-    if (this.props.token) {
-      localForage.setItem('va-token', this.props.token);
+  componentDidUpdate() {
+    const { token } = this.props;
+    if (token) {
+      localForage.setItem('va-token', token);
     }
   }
 
   handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { email, password } = this.state;
+    const { login } = this.props;
 
-    this.props.login(email, password);
+    login(email, password);
   };
 
   handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -41,6 +43,7 @@ class Login extends React.Component<LoginProps, LoginState> {
 
   render() {
     const { email, password } = this.state;
+    const { authenticated } = this.props;
 
     return (
       <section>
@@ -53,7 +56,7 @@ class Login extends React.Component<LoginProps, LoginState> {
                 type="text"
                 name="email"
                 value={email}
-                handleChange={this.handleInputChange}
+                onChange={this.handleInputChange}
               />
             </Col>
           </Row>
@@ -65,7 +68,7 @@ class Login extends React.Component<LoginProps, LoginState> {
                 type="password"
                 name="password"
                 value={password}
-                handleChange={this.handleInputChange}
+                onChange={this.handleInputChange}
               />
             </Col>
           </Row>
@@ -88,10 +91,8 @@ class Login extends React.Component<LoginProps, LoginState> {
           </Row>
           <Row style={{ marginBottom: '16px' }}>
             <Col>
-              {this.props.authenticated ? (
-                <p id="loginStatus">Login Success</p>
-              ) : null}
-              {this.props.authenticated === false ? (
+              {authenticated ? <p id="loginStatus">Login Success</p> : null}
+              {authenticated === false ? (
                 <p id="loginFailure">Login Failed</p>
               ) : null}
             </Col>
