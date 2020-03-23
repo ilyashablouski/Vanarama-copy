@@ -26,8 +26,8 @@ interface Props {
 }
 
 export const IndexPage: React.FC<Props> = ({
-  login,
-  register,
+  login: loginUser,
+  register: registerUser,
   successMessage,
   errorMessage,
   authenticated,
@@ -40,11 +40,15 @@ export const IndexPage: React.FC<Props> = ({
       </div>
       <Tabs tabs={['Login', 'Register']}>
         <div>
-          <Login login={login} authenticated={authenticated} token={token} />
+          <Login
+            login={loginUser}
+            authenticated={authenticated}
+            token={token}
+          />
         </div>
 
         <div>
-          <Register register={register} />
+          <Register register={registerUser} />
         </div>
       </Tabs>
     </>
