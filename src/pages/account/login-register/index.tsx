@@ -1,16 +1,19 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { RootState } from 'services/redux/rootState';
+
 import Tabs from '@vanarama/uibook/src/components/molecules/tabs';
 import Heading from '@vanarama/uibook/src/components/atoms/heading';
-import Login from 'components/account/login';
-import Register from 'components/account/register';
-import { login } from 'services/redux/account/login/actions';
-import { register } from 'services/redux/account/register/actions';
+
+import { RootState } from '../../../services/redux/rootState';
+import { login } from '../../../services/redux/account/login/actions';
+import { register } from '../../../services/redux/account/register/actions';
 import {
   registerSuccessMessage,
   registerErrorMessage,
-} from 'services/redux/account/selectors';
+} from '../../../services/redux/account/selectors';
+import Login from '../../../components/account/login';
+import Register from '../../../components/account/register';
+
 import { registerStatusMessage } from './utils';
 
 interface Props {
