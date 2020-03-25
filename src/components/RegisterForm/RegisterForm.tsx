@@ -2,9 +2,11 @@ import { useMutation } from '@apollo/react-hooks';
 import Button from '@vanarama/uibook/src/components/atoms/button';
 import TextInput from '@vanarama/uibook/src/components/atoms/textinput';
 import Formgroup from '@vanarama/uibook/src/components/molecules/formgroup';
+import Details from '@vanarama/uibook/src/components/atoms/details';
 import { gql } from 'apollo-boost';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import Text from '@vanarama/uibook/src/components/atoms/text';
 import {
   RegisterUser,
   RegisterUserVariables,
@@ -55,6 +57,7 @@ const RegisterForm: React.FC = () => {
           as={TextInput}
           control={control}
           label="Your Email"
+          invalid={errors.email && errors.email.message}
           rules={{
             required: {
               value: true,
@@ -66,7 +69,6 @@ const RegisterForm: React.FC = () => {
             },
           }}
         />
-        {errors.email && errors.email.message}
       </Formgroup>
       <Formgroup>
         <Controller
@@ -74,22 +76,31 @@ const RegisterForm: React.FC = () => {
           type="password"
           as={TextInput}
           control={control}
+          invalid={errors.password && errors.password.message}
           label="Your Password"
           rules={{
             required: {
               value: true,
               message: 'Your Password is required',
             },
+            pattern: {
+              value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+              message: 'Your Password does not meet the requirements',
+            },
           }}
         />
-        {errors.password && errors.password.message}
       </Formgroup>
+      <Details
+        summary="Password Requirements"
+        content="Must be 8 characters long, contain at least 1 number, contain uppercase letters and contain lowercase letters."
+      />
       <Formgroup>
         <Controller
           name="confirmPassword"
           type="password"
           as={TextInput}
           control={control}
+          invalid={errors.confirmPassword && errors.confirmPassword.message}
           label="Repeat Password"
           rules={{
             validate: value => {
@@ -103,8 +114,10 @@ const RegisterForm: React.FC = () => {
             },
           }}
         />
-        {errors.confirmPassword && errors.confirmPassword.message}
       </Formgroup>
+      <Text tag="p" color="darker" size="xsmall">
+        Terms and conditions agreement text and link
+      </Text>
       <Formgroup>
         {loading ? (
           <Button type="submit" label="Loading..." disabled color="primary" />
