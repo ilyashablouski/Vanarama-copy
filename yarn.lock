@@ -11099,6 +11099,18 @@ react-grid-system@^6.2.3:
   dependencies:
     prop-types "^15.7.2"
 
+react-hook-form@^5.1.3:
+  version "5.1.3"
+  resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-5.1.3.tgz#24610e11878c6bd143569ce203320f7367893e75"
+  integrity sha512-6+6wSge72A2Y7WGqMke4afOz0uDJ3gOPSysmYKkjJszSbmw8X8at7tJPzifnZ+cwLDR88b4on/D+jfH5azWbIw==
+
+react-html-parser@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-html-parser/-/react-html-parser-2.0.2.tgz#6dbe1ddd2cebc1b34ca15215158021db5fc5685e"
+  integrity sha512-XeerLwCVjTs3njZcgCOeDUqLgNIt/t+6Jgi5/qPsO/krUWl76kWKXMeVs2LhY2gwM6X378DkhLjur0zUQdpz0g==
+  dependencies:
+    htmlparser2 "^3.9.0"
+
 react-ionicons@^3.1.4:
   version "3.1.4"
   resolved "https://registry.yarnpkg.com/react-ionicons/-/react-ionicons-3.1.4.tgz#20f49a6c8c612c7e458d8fbf902ced2e15a28620"
