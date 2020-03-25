@@ -1,16 +1,17 @@
 import { useMutation } from '@apollo/react-hooks';
 import Button from '@vanarama/uibook/src/components/atoms/button';
+import Details from '@vanarama/uibook/src/components/atoms/details';
+import Text from '@vanarama/uibook/src/components/atoms/text';
 import TextInput from '@vanarama/uibook/src/components/atoms/textinput';
 import Formgroup from '@vanarama/uibook/src/components/molecules/formgroup';
-import Details from '@vanarama/uibook/src/components/atoms/details';
 import { gql } from 'apollo-boost';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import Text from '@vanarama/uibook/src/components/atoms/text';
 import {
   RegisterUser,
   RegisterUserVariables,
 } from '../../../generated/RegisterUser';
+import { EMAIL_REGEX, PASSWORD_REGEX } from '../../utils/regex';
 
 const REGISTER_USER = gql`
   mutation RegisterUser($username: String!, $password: String!) {
@@ -64,7 +65,7 @@ const RegisterForm: React.FC = () => {
               message: 'Your Email is required',
             },
             pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+              value: EMAIL_REGEX,
               message: 'Invalid email address',
             },
           }}
@@ -84,7 +85,7 @@ const RegisterForm: React.FC = () => {
               message: 'Your Password is required',
             },
             pattern: {
-              value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+              value: PASSWORD_REGEX,
               message: 'Your Password does not meet the requirements',
             },
           }}
