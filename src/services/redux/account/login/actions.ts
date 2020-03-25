@@ -2,6 +2,7 @@ import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '../actionTypes';
 import { actionCreator } from '../../utils';
 import { login as loginApi } from '../../../apollo/account/api';
 
+// eslint-disable-next-line import/prefer-default-export
 export const login = (email: string, password: string) => {
   return async (dispatch: any) => {
     dispatch(actionCreator(LOGIN_REQUEST, email));
