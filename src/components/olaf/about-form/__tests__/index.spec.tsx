@@ -1,7 +1,25 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { allDropdownData } from '../../../../services/apollo/olaf/api';
 import AboutForm from '..';
+
+function selectChange(
+  select,
+  name: string,
+  value: string | number,
+  checked: string = '',
+) {
+  select.props().onChange({
+    currentTarget: { name, value, checked },
+    preventDefault: () => false,
+  });
+}
+
+function inputChange(input, name: string, value: string) {
+  input.props().handleChange({
+    currentTarget: { name, value },
+    preventDefault: () => false,
+  });
+}
 
 describe('<AboutForm />', () => {
   let wrapper;
@@ -125,22 +143,3 @@ describe('<AboutForm />', () => {
     }); */
   });
 });
-
-function selectChange(
-  select,
-  name: string,
-  value: string | number,
-  checked: string = '',
-) {
-  select.props().onChange({
-    currentTarget: { name, value, checked },
-    preventDefault: () => false,
-  });
-}
-
-function inputChange(input, name: string, value: string) {
-  input.props().handleChange({
-    currentTarget: { name, value },
-    preventDefault: () => false,
-  });
-}

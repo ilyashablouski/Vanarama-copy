@@ -4,9 +4,9 @@ export interface IDetails {
   lastName: string;
   email: string;
   mobile: string;
-  dayOfBirth: number;
+  dayOfBirth: string;
   monthOfBirth: string;
-  yearOfBirth: number;
+  yearOfBirth: string;
   countryOfBirth: string;
   nationality: string;
   maritalStatus: string;

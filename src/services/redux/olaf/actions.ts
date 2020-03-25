@@ -1,10 +1,9 @@
 import { TMP_OLAF_DATA } from './types';
 
-export const captchaOlafData = (pageRef: string, data: {}) => {
-  return dispatch => {
-    dispatch({
-      type: TMP_OLAF_DATA,
-      payload: { pageRef, data },
-    });
-  };
+// eslint-disable-next-line import/prefer-default-export
+export const captchaOlafData = (pageRef: string, data: {}) => dispatch => {
+  dispatch({
+    type: TMP_OLAF_DATA,
+    payload: { pageRef, data },
+  });
 };

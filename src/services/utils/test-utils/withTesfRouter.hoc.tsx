@@ -2,11 +2,12 @@ import React from 'react';
 import { NextRouter } from 'next/router';
 import { RouterContext } from 'next/dist/next-server/lib/router-context';
 
-export function withTestRouter(
+export default function withTestRouter(
   tree: React.ReactElement,
   router: Partial<NextRouter> = {},
 ) {
   const {
+    isFallback = false,
     route = '',
     pathname = '',
     query = {},
@@ -27,6 +28,7 @@ export function withTestRouter(
   return (
     <RouterContext.Provider
       value={{
+        isFallback,
         route,
         pathname,
         query,

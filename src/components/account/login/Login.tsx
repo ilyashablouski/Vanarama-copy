@@ -1,10 +1,10 @@
 import React, { ChangeEvent } from 'react';
 import { Row, Col } from 'react-grid-system';
 import localForage from 'localforage';
-import Input from '@vanarama/uibook/packages/ui-components/src/css/atoms/TextInput';
-import Button from '@vanarama/uibook/packages/ui-components/src/css/atoms/Button/Button';
-import Link from '@vanarama/uibook/packages/ui-components/src/css/atoms/Link';
-import '@vanarama/uibook/packages/ui-components/src/css/theme/helpers/classes.css';
+import Input from '@vanarama/uibook/src/components/atoms/textinput';
+import Button from '@vanarama/uibook/src/components/atoms/button';
+import Link from '@vanarama/uibook/src/components/atoms/link';
+import FormGroup from '@vanarama/uibook/src/components/molecules/formgroup';
 import { LoginProps, LoginState } from './interfaces';
 
 class Login extends React.Component<LoginProps, LoginState> {
@@ -18,17 +18,19 @@ class Login extends React.Component<LoginProps, LoginState> {
     };
   }
 
-  componentDidUpdate(_, prevState) {
-    if (this.props.token) {
-      localForage.setItem('va-token', this.props.token);
+  componentDidUpdate() {
+    const { token } = this.props;
+    if (token) {
+      localForage.setItem('va-token', token);
     }
   }
 
   handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { email, password } = this.state;
+    const { login } = this.props;
 
-    this.props.login(email, password);
+    login(email, password);
   };
 
   handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -42,57 +44,48 @@ class Login extends React.Component<LoginProps, LoginState> {
 
   render() {
     const { email, password } = this.state;
+    const { authenticated } = this.props;
 
     return (
       <section>
         <form onSubmit={this.handleSubmit} id="loginForm" className="form">
+          <FormGroup>
+            <Input
+              id="loginEmail"
+              label="Your Email"
+              type="text"
+              name="email"
+              value={email}
+              onChange={this.handleInputChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Input
+              id="loginPassword"
+              label="Your Password"
+              type="password"
+              name="password"
+              value={password}
+              onChange={this.handleInputChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Link id="forgotPassword" href="password-request">
+              forgot your password?
+            </Link>
+          </FormGroup>
+          <FormGroup>
+            <Button
+              id="loginButton"
+              type="submit"
+              label="Login"
+              color="primary"
+            />
+          </FormGroup>
           <Row style={{ marginBottom: '16px' }}>
             <Col>
-              <Input
-                id="loginEmail"
-                label="Your Email"
-                type="text"
-                name="email"
-                value={email}
-                handleChange={this.handleInputChange}
-              />
-            </Col>
-          </Row>
-          <Row style={{ marginBottom: '16px' }}>
-            <Col>
-              <Input
-                id="loginPassword"
-                label="Your Password"
-                type="password"
-                name="password"
-                value={password}
-                handleChange={this.handleInputChange}
-              />
-            </Col>
-          </Row>
-          <Row style={{ marginBottom: '16px' }}>
-            <Col>
-              <Link id="forgotPassword" href="password-request">
-                forgot your password?
-              </Link>
-            </Col>
-          </Row>
-          <Row style={{ marginBottom: '16px' }}>
-            <Col>
-              <Button
-                id="loginButton"
-                type="submit"
-                label="Login"
-                color="primary"
-              />
-            </Col>
-          </Row>
-          <Row style={{ marginBottom: '16px' }}>
-            <Col>
-              {this.props.authenticated ? (
-                <p id="loginStatus">Login Success</p>
-              ) : null}
-              {this.props.authenticated === false ? (
+              {authenticated ? <p id="loginStatus">Login Success</p> : null}
+              {authenticated === false ? (
                 <p id="loginFailure">Login Failed</p>
               ) : null}
             </Col>
