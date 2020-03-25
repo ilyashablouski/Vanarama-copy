@@ -4,7 +4,7 @@ import Button from '@vanarama/uibook/src/components/atoms/button';
 import FormGroup from '@vanarama/uibook/src/components/molecules/formgroup';
 import { IRegisterProps, IRegisterState } from './interfaces';
 
-class Regiter extends React.Component<IRegisterProps, IRegisterState> {
+class Register extends React.Component<IRegisterProps, IRegisterState> {
   constructor(props: any) {
     super(props);
 
@@ -82,4 +82,4 @@ class Regiter extends React.Component<IRegisterProps, IRegisterState> {
   }
 }
 
-export default Regiter;
+export default Register;

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Register /> renders correctly with registration 1`] = `
-<Regiter
+<Register
   register={[MockFunction]}
 >
   <section>
@@ -458,5 +458,5 @@ exports[`<Register /> renders correctly with registration 1`] = `
       </Row>
     </form>
   </section>
-</Regiter>
+</Register>
 `;
