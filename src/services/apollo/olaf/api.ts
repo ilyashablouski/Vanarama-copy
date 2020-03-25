@@ -21,13 +21,13 @@ export const createUpdatePerson = (details: IDetails) => {
     dayOfBirth,
     monthOfBirth,
     yearOfBirth,
-    countryOfBirth,
-    nationality,
+    // countryOfBirth,
+    // nationality,
     maritalStatus,
-    dependants,
-    adultsInHousehold,
+    // dependants,
+    // adultsInHousehold,
     consent,
-    termsAndCons,
+    // termsAndCons,
   } = details;
 
   const dateStr = `${dayOfBirth} ${monthOfBirth} ${yearOfBirth}`;
