@@ -1,14 +1,19 @@
 import moment from 'moment';
+import { AllDropDownsQuery } from '../../../../generated/AllDropDownsQuery';
+import {
+  CreateUpdatePersonMutation,
+  CreateUpdatePersonMutationVariables,
+} from '../../../../generated/CreateUpdatePersonMutation';
+import { IDetails } from '../../../components/olaf/about-form/interface';
 import { apolloClient as client } from '../apolloClient';
 import { ALL_DROPDOWNS, CREATE_UPDATE_PERSON } from './gql';
-import { IDetails } from '../../../components/olaf/about-form/interface';
 
 export const allDropdownData = async () => {
-  const { data } = await client.query({
+  const { data } = await client.query<AllDropDownsQuery>({
     query: ALL_DROPDOWNS,
   });
-  const { allDropDowns } = data;
-  return allDropDowns;
+
+  return data.allDropDowns;
 };
 
 export const createUpdatePerson = (details: IDetails) => {
@@ -21,19 +26,17 @@ export const createUpdatePerson = (details: IDetails) => {
     dayOfBirth,
     monthOfBirth,
     yearOfBirth,
-    // countryOfBirth,
-    // nationality,
     maritalStatus,
-    // dependants,
-    // adultsInHousehold,
     consent,
-    // termsAndCons,
   } = details;
 
   const dateStr = `${dayOfBirth} ${monthOfBirth} ${yearOfBirth}`;
   const dob = moment(dateStr, 'DD-MMMM-YYYY').format('DD-MM-YY');
 
-  return client.mutate({
+  return client.mutate<
+    CreateUpdatePersonMutation,
+    CreateUpdatePersonMutationVariables
+  >({
     mutation: CREATE_UPDATE_PERSON,
     variables: {
       title,

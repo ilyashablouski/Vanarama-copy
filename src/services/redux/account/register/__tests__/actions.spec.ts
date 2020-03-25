@@ -52,14 +52,13 @@ describe('Register actions', () => {
 
   describe('REGISTER_FAILURE', () => {
     it('dispatches a register event on error [REGISTER_FAILURE]', async () => {
-      (register as jest.Mock).mockImplementationOnce(() =>
-        Promise.reject(null),
-      );
+      (register as jest.Mock).mockRejectedValue(new Error('Some error'));
+
       const dispatch = jest.fn();
       await registerAction(email, password)(dispatch);
 
       expect(dispatch).toHaveBeenCalledWith(
-        actionCreator(REGISTER_FAILURE, null),
+        actionCreator(REGISTER_FAILURE, new Error('Some error')),
       );
     });
   });
