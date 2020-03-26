@@ -9,17 +9,17 @@ import { gql } from 'apollo-boost';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
-  RegisterUser,
-  RegisterUserVariables,
-} from '../../../generated/RegisterUser';
+  RegisterUserMutation,
+  RegisterUserMutationVariables,
+} from '../../../generated/RegisterUserMutation';
 import {
   confirmPasswordValidator,
   emailValidator,
   passwordValidator,
 } from './RegisterForm.validate';
 
-const REGISTER_USER = gql`
-  mutation RegisterUser($username: String!, $password: String!) {
+export const REGISTER_USER_MUTATION = gql`
+  mutation RegisterUserMutation($username: String!, $password: String!) {
     register(username: $username, password: $password) {
       # TODO: Update once register changed to return a boolean
       id
@@ -27,20 +27,24 @@ const REGISTER_USER = gql`
   }
 `;
 
+interface IProps {
+  onSuccess: () => void;
+}
+
 interface IFormValues {
   email: string;
   password: string;
   confirmPassword: string;
 }
 
-const RegisterForm: React.FC = () => {
+const RegisterForm: React.FC<IProps> = ({ onSuccess }) => {
   const { handleSubmit, errors, control, watch } = useForm<IFormValues>();
 
   // TODO: Handle error from mutation
   const [registerUser, { loading }] = useMutation<
-    RegisterUser,
-    RegisterUserVariables
-  >(REGISTER_USER);
+    RegisterUserMutation,
+    RegisterUserMutationVariables
+  >(REGISTER_USER_MUTATION);
 
   const onSubmit = async (values: IFormValues) => {
     await registerUser({
@@ -50,13 +54,13 @@ const RegisterForm: React.FC = () => {
       },
     });
 
-    // TODO: Show a success toast
-    alert('Registration successful');
+    onSuccess();
   };
 
   return (
     <form id="register-form" className="form" onSubmit={handleSubmit(onSubmit)}>
       <Controller
+        id="email"
         name="email"
         type="email"
         as={TextInput}
@@ -66,6 +70,7 @@ const RegisterForm: React.FC = () => {
         rules={emailValidator}
       />
       <Controller
+        id="password"
         name="password"
         type="password"
         as={TextInput}
@@ -79,6 +84,7 @@ const RegisterForm: React.FC = () => {
         content="Must be 8 characters long, contain at least 1 number, contain uppercase letters and contain lowercase letters."
       />
       <Controller
+        id="confirmPassword"
         name="confirmPassword"
         type="password"
         as={TextInput}
@@ -105,6 +111,7 @@ const RegisterForm: React.FC = () => {
         <Button type="submit" label="Loading..." disabled color="primary" />
       ) : (
         <Button
+          name="submit"
           type="submit"
           label="Register"
           icon={<ChevronForwardSharpIcon />}

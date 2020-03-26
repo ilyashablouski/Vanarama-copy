@@ -1,5 +1,6 @@
 import Heading from '@vanarama/uibook/src/components/atoms/heading';
 import Tabs from '@vanarama/uibook/src/components/molecules/tabs';
+import { useState } from 'react';
 import { connect } from 'react-redux';
 import Login from '../../../components/account/login';
 import RegisterForm from '../../../components/RegisterForm/RegisterForm';
@@ -8,18 +9,24 @@ import { RootState } from '../../../services/redux/rootState';
 
 interface IProps {
   authenticated: boolean;
-  token: string;
   login: (email: string, password: string) => void;
+  token: string;
 }
 
-export const IndexPage: React.FC<IProps> = ({
+export const LoginRegisterPage: React.FC<IProps> = ({
   login: loginUser,
   authenticated,
   token,
 }) => {
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
   return (
-    <section style={{ padding: '4rem 0' }}>
+    <section className="section">
       <Heading size="xlarge">Login / Register</Heading>
+      {registrationSuccess && (
+        <Heading size="regular" color="success">
+          Registration successful. Please verify your email.
+        </Heading>
+      )}
       <Tabs active={0} tabs={['Login', 'Register']}>
         <section>
           <Login
@@ -29,7 +36,7 @@ export const IndexPage: React.FC<IProps> = ({
           />
         </section>
         <section>
-          <RegisterForm />
+          <RegisterForm onSuccess={() => setRegistrationSuccess(true)} />
         </section>
       </Tabs>
     </section>
@@ -43,4 +50,4 @@ const mapStateToProps = ({ auth: { authenticated, data } }: RootState) => ({
 
 const mapDispatchToProps = { login };
 
-export default connect(mapStateToProps, mapDispatchToProps)(IndexPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginRegisterPage);
