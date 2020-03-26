@@ -11,6 +11,16 @@ const getEmailInput = getElementById('email');
 const getPasswordInput = getElementById('password');
 const getConfirmPasswordInput = getElementById('confirmPassword');
 
+const assertTextEquals = (wrapper: ReactWrapper, id: string) => (
+  expected: string,
+) =>
+  expect(
+    wrapper
+      .find(id)
+      .last()
+      .text(),
+  ).toEqual(expected);
+
 const submitForm = async (wrapper: ReactWrapper) => {
   // Because react-hook-form uses hooks, we need to wrap in `act` to stop warning occuring
   await act(async () => {
@@ -117,7 +127,6 @@ describe('<RegisterForm />', () => {
     await submitForm(wrapper);
 
     // ASSERT
-    expect(mocks[0].result).toHaveBeenCalledTimes(1);
     expect(onSuccess).toHaveBeenCalledTimes(1);
   });
 
@@ -150,26 +159,20 @@ describe('<RegisterForm />', () => {
     await submitForm(wrapper);
 
     // ASSERT
-    expect(
-      wrapper
-        .find('#emailWrapper .textinput--error')
-        .last()
-        .text(),
-    ).toEqual('Your Email is required');
+    assertTextEquals(
+      wrapper,
+      '#emailWrapper .textinput--error',
+    )('Your Email is required');
 
-    expect(
-      wrapper
-        .find('#passwordWrapper .textinput--error')
-        .last()
-        .text(),
-    ).toEqual('Your Password is required');
+    assertTextEquals(
+      wrapper,
+      '#passwordWrapper .textinput--error',
+    )('Your Password is required');
 
-    expect(
-      wrapper
-        .find('#confirmPasswordWrapper .textinput--error')
-        .last()
-        .text(),
-    ).toEqual('Repeat Password is required');
+    assertTextEquals(
+      wrapper,
+      '#confirmPasswordWrapper .textinput--error',
+    )('Repeat Password is required');
 
     expect(mocks[0].result).toHaveBeenCalledTimes(0);
     expect(onSuccess).toHaveBeenCalledTimes(0);
@@ -217,12 +220,10 @@ describe('<RegisterForm />', () => {
     await submitForm(wrapper);
 
     // ASSERT
-    expect(
-      wrapper
-        .find('#password .textinput--error')
-        .last()
-        .text(),
-    ).toEqual('Your Password does not meet the requirements');
+    assertTextEquals(
+      wrapper,
+      '#password .textinput--error',
+    )('Your Password does not meet the requirements');
 
     expect(mocks[0].result).toHaveBeenCalledTimes(0);
     expect(onSuccess).toHaveBeenCalledTimes(0);
@@ -270,12 +271,10 @@ describe('<RegisterForm />', () => {
     await submitForm(wrapper);
 
     // ASSERT
-    expect(
-      wrapper
-        .find('#confirmPassword .textinput--error')
-        .last()
-        .text(),
-    ).toEqual('Repeat Password does not match');
+    assertTextEquals(
+      wrapper,
+      '#confirmPassword .textinput--error',
+    )('Repeat Password does not match');
 
     expect(mocks[0].result).toHaveBeenCalledTimes(0);
     expect(onSuccess).toHaveBeenCalledTimes(0);
