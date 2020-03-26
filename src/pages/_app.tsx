@@ -4,21 +4,16 @@ import Footer from '@vanarama/uibook/src/components/organisms/Footer';
 import Header from '@vanarama/uibook/src/components/organisms/Header';
 import withRedux from 'next-redux-wrapper';
 import App, { AppContext } from 'next/app';
-import { Container } from 'react-grid-system';
 import { Provider } from 'react-redux';
 import { Store } from 'redux';
 import { apolloClient } from 'services/apollo/apolloClient';
 import { initStore } from 'services/redux/store';
 
-interface Props {
+interface IProps {
   store: Store;
 }
 
-function isDebug() {
-  return process.env.NODE_ENV === 'development';
-}
-
-class ReduxApp extends App<Props> {
+class ReduxApp extends App<IProps> {
   static async getInitialProps({ Component, ctx }: AppContext) {
     return {
       pageProps: {
@@ -32,19 +27,19 @@ class ReduxApp extends App<Props> {
   render() {
     const { Component, pageProps, store } = this.props;
     return (
-      <>
-        <Header />
-        <Container>
-          <Provider store={store}>
-            <ApolloProvider client={apolloClient}>
-              <Component {...pageProps} />
-            </ApolloProvider>
-          </Provider>
-        </Container>
-        <Footer emailAddress="aaa@email.com" phoneNumber="012100000" />
-      </>
+      <Provider store={store}>
+        <ApolloProvider client={apolloClient}>
+          <main>
+            <Header />
+            <Component {...pageProps} />
+            <Footer emailAddress="aaa@email.com" phoneNumber="012100000" />
+          </main>
+        </ApolloProvider>
+      </Provider>
     );
   }
 }
 
-export default withRedux(initStore, { debug: isDebug() })(ReduxApp);
+export default withRedux(initStore, {
+  debug: process.env.NODE_ENV === 'development',
+})(ReduxApp);

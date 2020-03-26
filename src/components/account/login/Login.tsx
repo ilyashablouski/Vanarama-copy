@@ -1,5 +1,4 @@
 import React, { ChangeEvent } from 'react';
-import { Row, Col } from 'react-grid-system';
 import localForage from 'localforage';
 import Input from '@vanarama/uibook/packages/ui-components/src/components/atoms/textinput';
 import Button from '@vanarama/uibook/packages/ui-components/src/components/atoms/button';
@@ -81,14 +80,11 @@ class Login extends React.Component<LoginProps, LoginState> {
             color="primary"
           />
         </FormGroup>
-        <Row style={{ marginBottom: '16px' }}>
-          <Col>
-            {authenticated ? <p id="loginStatus">Login Success</p> : null}
-            {authenticated === false ? (
-              <p id="loginFailure">Login Failed</p>
-            ) : null}
-          </Col>
-        </Row>
+        {authenticated ? (
+          <p id="loginStatus">Login Success</p>
+        ) : (
+          <p id="loginFailure">Login Failed</p>
+        )}
       </form>
     );
   }
