@@ -1,7 +1,7 @@
 import { ApolloProvider } from '@apollo/react-hooks';
-import '@vanarama/uibook/src/components/base.scss';
-import Footer from '@vanarama/uibook/src/components/organisms/Footer';
-import Header from '@vanarama/uibook/src/components/organisms/Header';
+import '@vanarama/uibook/packages/ui-components/src/components/base.scss';
+import Footer from '@vanarama/uibook/packages/ui-components/src/components/organisms/footer';
+import Header from '@vanarama/uibook/packages/ui-components/src/components/organisms/header';
 import withRedux from 'next-redux-wrapper';
 import App, { AppContext } from 'next/app';
 import { Provider } from 'react-redux';

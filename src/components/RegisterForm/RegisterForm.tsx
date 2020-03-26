@@ -1,10 +1,10 @@
 import { useMutation } from '@apollo/react-hooks';
-import ChevronForwardSharpIcon from '@vanarama/uibook/src/assets/icons/ChevronForwardSharp';
-import Button from '@vanarama/uibook/src/components/atoms/button';
-import Details from '@vanarama/uibook/src/components/atoms/details';
-import Link from '@vanarama/uibook/src/components/atoms/link';
-import Text from '@vanarama/uibook/src/components/atoms/text';
-import TextInput from '@vanarama/uibook/src/components/atoms/textinput';
+import ChevronForwardSharpIcon from '@vanarama/uibook/packages/ui-components/src/assets/icons/ChevronForwardSharp';
+import Button from '@vanarama/uibook/packages/ui-components/src/components/atoms/button';
+import Details from '@vanarama/uibook/packages/ui-components/src/components/atoms/details';
+import Link from '@vanarama/uibook/packages/ui-components/src/components/atoms/link';
+import Text from '@vanarama/uibook/packages/ui-components/src/components/atoms/text';
+import TextInput from '@vanarama/uibook/packages/ui-components/src/components/atoms/textinput';
 import { gql } from 'apollo-boost';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';

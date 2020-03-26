@@ -1,8 +1,11 @@
-import Heading from '@vanarama/uibook/src/components/atoms/heading';
-import Container from '@vanarama/uibook/src/components/container/Container';
-import Section from '@vanarama/uibook/src/components/container/Section';
-import { Column, Grid } from '@vanarama/uibook/src/components/molecules/grid';
-import Tabs from '@vanarama/uibook/src/components/molecules/tabs';
+import Heading from '@vanarama/uibook/packages/ui-components/src/components/atoms/heading';
+import Container from '@vanarama/uibook/packages/ui-components/src/components/container/Container';
+import Section from '@vanarama/uibook/packages/ui-components/src/components/container/Section';
+import {
+  Column,
+  Grid,
+} from '@vanarama/uibook/packages/ui-components/src/components/molecules/grid';
+import Tabs from '@vanarama/uibook/packages/ui-components/src/components/molecules/tabs';
 import { useState } from 'react';
 import { connect } from 'react-redux';
 import Login from '../../../components/account/login';
