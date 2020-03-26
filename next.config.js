@@ -17,7 +17,7 @@ module.exports = withPlugins(
       withCustomBabelConfig,
       { babelConfigFile: path.resolve('./babel.config.js') },
     ],
-    [withSass, config.sass],
+    [withSass],
     withImages,
     [sitemap, config.sitemap],
     [withCss, { url: false }],

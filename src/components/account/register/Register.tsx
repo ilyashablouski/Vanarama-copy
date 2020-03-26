@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
-import Input from '@vanarama/uibook/src/components/atoms/textinput';
-import Button from '@vanarama/uibook/src/components/atoms/button';
-import FormGroup from '@vanarama/uibook/src/components/molecules/formgroup';
+import Input from '@vanarama/uibook/packages/ui-components/src/components/atoms/textinput';
+import Button from '@vanarama/uibook/packages/ui-components/src/components/atoms/button';
+import FormGroup from '@vanarama/uibook/packages/ui-components/src/components/molecules/formgroup';
 import { IRegisterProps, IRegisterState } from './interfaces';
 
 class Register extends React.Component<IRegisterProps, IRegisterState> {

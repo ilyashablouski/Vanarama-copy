@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const { homepage } = require('../package.json');
 // const { parse } = require("url")
 // const basename = parse(homepage).pathname
@@ -47,6 +48,7 @@ module.exports = {
   withCustomWebpack: (config = {}) => {
     const { webpack } = config;
 
+    // eslint-disable-next-line no-shadow
     config.webpack = (config, ...rest) => {
       config.externals = config.externals || [];
 

@@ -1,13 +1,19 @@
 import Router from 'next/router';
-import ProgressIndicator from '@vanarama/uibook/src/components/molecules/progress-indicator';
-import Heading from '@vanarama/uibook/src/components/atoms/heading';
-import StructuredList from '@vanarama/uibook/src/components/organisms/structured-list';
+import ProgressIndicator from '@vanarama/uibook/packages/ui-components/src/components/molecules/progress-indicator';
+import Heading from '@vanarama/uibook/packages/ui-components/src/components/atoms/heading';
+import StructuredList from '@vanarama/uibook/packages/ui-components/src/components/organisms/structured-list';
+import Rating from '@vanarama/uibook/packages/ui-components/src/components/atoms/rating';
+import Icon from '@vanarama/uibook/packages/ui-components/src/components/atoms/icon';
+import Flame from '@vanarama/uibook/packages/ui-components/src/assets/icons/Flame';
 import Card, {
   CardContent,
   CardMedia,
-} from '@vanarama/uibook/src/components/molecules/card';
+} from '@vanarama/uibook/packages/ui-components/src/components/molecules/card';
 
-import { Grid, Column } from '@vanarama/uibook/src/components/molecules/grid';
+import {
+  Grid,
+  Column,
+} from '@vanarama/uibook/packages/ui-components/src/components/molecules/grid';
 
 interface IProgressContainerProps {
   activeStep: number;
@@ -52,17 +58,17 @@ const OlafContainer: React.FC<IProgressContainerProps> = ({
       </section>
       <section style={{ padding: '4rem 0' }} className="section">
         <div className="container">
-          <Grid columnsLg="6" columns="2" columnsSm="2">
-            <Column span="2" spanSm="2" spanLg="1-3">
+          <Grid lg="6" md="2" sm="2">
+            <Column md="2" sm="2" lg="1-3">
               {children}
             </Column>
-            <Column span="2" spanSm="2" spanLg="4-6">
+            <Column md="2" sm="2" lg="4-6">
               <Card
                 className="olaf-aside"
                 flag={{
                   text: 'In Stock - 14-21 Days Delivery',
                   accentText: 'Hot Deal',
-                  accentIcon: '',
+                  accentIcon: <Icon icon={<Flame />} fill color="white" />,
                 }}
               >
                 <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/HondaHRV0319_7_nmblcf.jpg" />
@@ -74,7 +80,13 @@ const OlafContainer: React.FC<IProgressContainerProps> = ({
                     <Heading tag="h5" color="darker" size="xsmall">
                       1.0 IG-T 100 Tekna 5dr Xtronic [Leather]{' '}
                     </Heading>
-                    {/* >>> rating here <<< */}
+                    <Rating
+                      id="product-card__rating"
+                      color="orange"
+                      size="regular"
+                      max={5}
+                      score={4.5}
+                    />
                   </hgroup>
                   <StructuredList
                     priceTag={{
