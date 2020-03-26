@@ -6,7 +6,6 @@ import Link from '@vanarama/uibook/packages/ui-components/src/components/atoms/l
 import Text from '@vanarama/uibook/packages/ui-components/src/components/atoms/text';
 import TextInput from '@vanarama/uibook/packages/ui-components/src/components/atoms/textinput';
 import { gql } from 'apollo-boost';
-import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
   RegisterUserMutation,

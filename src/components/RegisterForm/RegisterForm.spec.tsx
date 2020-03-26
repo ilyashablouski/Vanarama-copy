@@ -4,13 +4,12 @@ import React from 'react';
 import { act } from 'react-dom/test-utils';
 import RegisterForm, { REGISTER_USER_MUTATION } from './RegisterForm';
 
-const getEmailInput = (wrapper: ReactWrapper) => wrapper.find('#email').last();
+const getElementById = (id: string) => (wrapper: ReactWrapper) =>
+  wrapper.find(`#${id}`).last();
 
-const getPasswordInput = (wrapper: ReactWrapper) =>
-  wrapper.find('#password').last();
-
-const getConfirmPasswordInput = (wrapper: ReactWrapper) =>
-  wrapper.find('#confirmPassword').last();
+const getEmailInput = getElementById('email');
+const getPasswordInput = getElementById('password');
+const getConfirmPasswordInput = getElementById('confirmPassword');
 
 const submitForm = async (wrapper: ReactWrapper) => {
   // Because react-hook-form uses hooks, we need to wrap in `act` to stop warning occuring
@@ -28,6 +27,53 @@ const submitForm = async (wrapper: ReactWrapper) => {
 
 describe('<RegisterForm />', () => {
   it('should allow a user to register with valid credentials', async () => {
+    // ARRANGE
+    const email = 'barry.chuckle@gmail.com';
+    const password = 'Password1';
+    const onSuccess = jest.fn();
+    const mocks = [
+      {
+        request: {
+          query: REGISTER_USER_MUTATION,
+          variables: { username: email, password },
+        },
+        result: jest.fn().mockReturnValue({
+          data: {
+            register: { id: '1' },
+          },
+        }),
+      },
+    ];
+
+    // ACT
+    const wrapper = mount(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <RegisterForm onSuccess={onSuccess} />
+      </MockedProvider>,
+    );
+
+    // Set the email address
+    getEmailInput(wrapper).simulate('change', {
+      target: { value: email },
+    });
+
+    // Set the password
+    getPasswordInput(wrapper).simulate('change', {
+      target: { value: password },
+    });
+
+    // Set the confirm password
+    getConfirmPasswordInput(wrapper).simulate('change', {
+      target: { value: password },
+    });
+
+    await submitForm(wrapper);
+
+    // ASSERT
+    expect(mocks[0].result).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call `onSuccess` once the user has successfully registered', async () => {
     // ARRANGE
     const email = 'barry.chuckle@gmail.com';
     const password = 'Password1';
