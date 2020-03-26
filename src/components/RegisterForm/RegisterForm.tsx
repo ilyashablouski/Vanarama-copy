@@ -12,7 +12,11 @@ import {
   RegisterUser,
   RegisterUserVariables,
 } from '../../../generated/RegisterUser';
-import { EMAIL_REGEX, PASSWORD_REGEX } from '../../utils/regex';
+import {
+  confirmPasswordValidator,
+  emailValidator,
+  passwordValidator,
+} from './RegisterForm.validate';
 
 const REGISTER_USER = gql`
   mutation RegisterUser($username: String!, $password: String!) {
@@ -59,16 +63,7 @@ const RegisterForm: React.FC = () => {
         control={control}
         label="Your Email"
         invalid={errors.email && errors.email.message}
-        rules={{
-          required: {
-            value: true,
-            message: 'Your Email is required',
-          },
-          pattern: {
-            value: EMAIL_REGEX,
-            message: 'Invalid email address',
-          },
-        }}
+        rules={emailValidator}
       />
       <Controller
         name="password"
@@ -77,16 +72,7 @@ const RegisterForm: React.FC = () => {
         control={control}
         invalid={errors.password && errors.password.message}
         label="Your Password"
-        rules={{
-          required: {
-            value: true,
-            message: 'Your Password is required',
-          },
-          pattern: {
-            value: PASSWORD_REGEX,
-            message: 'Your Password does not meet the requirements',
-          },
-        }}
+        rules={passwordValidator}
       />
       <Details
         summary="Password Requirements"
@@ -99,17 +85,7 @@ const RegisterForm: React.FC = () => {
         control={control}
         invalid={errors.confirmPassword && errors.confirmPassword.message}
         label="Repeat Password"
-        rules={{
-          validate: value => {
-            return watch('password') !== value
-              ? 'Repeat Password does not match'
-              : null;
-          },
-          required: {
-            value: true,
-            message: 'Repeat Password is required',
-          },
-        }}
+        rules={confirmPasswordValidator(watch('password'))}
       />
       <Text tag="p" color="darker" size="xsmall">
         By creating your account, you agree to our{' '}
