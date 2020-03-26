@@ -1772,9 +1772,9 @@
     tsutils "^3.17.1"
 
 "@vanarama/uibook@latest":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-2.0.0.tgz#baac30b9410ced8a60a2ec1b9727e4edc75d6eff"
-  integrity sha512-eu+pEJDjrwE+q7tTyizITFQdVnFHyiRaeAMVcxK5f65KQtFeVofQOpsUq2mu5+mUW0m7RHeY7XQ+GhKD2r6nRg==
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-2.0.2.tgz#b910bfbef62ba78707ca9e79cf6a4c00e4e79d96"
+  integrity sha512-XraJxRspjydGbYOdRjaDqBHZjUbt/KCEBBO1Q9kkgp9pKxSl6vruEAMSLxeW/G07RdQJ+F3OxEUrsjsnQ4vmDg==
 
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"

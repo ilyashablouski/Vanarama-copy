@@ -196,6 +196,7 @@ class AboutForm extends Component<IProps, IState> {
         <CheckBox
           label="Please Confirm"
           onChange={this.handleInputChange}
+          name="confirmation"
           checkboxes={[
             {
               name: 'consent',
