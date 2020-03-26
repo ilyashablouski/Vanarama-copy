@@ -317,12 +317,14 @@ exports[`<Login /> renders correctly with authentication 1`] = `
                 >
                   <Component
                     color="primary"
+                    href="password-request"
                     id="forgotPassword"
                     plain={true}
                     size="regular"
                   >
                     <a
                       className="Link -primary -regular -plain"
+                      href="password-request"
                       id="forgotPassword"
                     >
                       forgot your password?
@@ -841,12 +843,14 @@ exports[`<Login /> renders correctly without authentication 1`] = `
                 >
                   <Component
                     color="primary"
+                    href="password-request"
                     id="forgotPassword"
                     plain={true}
                     size="regular"
                   >
                     <a
                       className="Link -primary -regular -plain"
+                      href="password-request"
                       id="forgotPassword"
                     >
                       forgot your password?

@@ -45,11 +45,14 @@ describe('Login actions', () => {
 
   describe('LOGIN_FAILURE', () => {
     it('dispatches a login event on error [LOGIN_FAILURE]', async () => {
-      (login as jest.Mock).mockImplementationOnce(() => Promise.reject(null));
+      (login as jest.Mock).mockRejectedValue(new Error('Some error'));
+
       const dispatch = jest.fn();
       await loginAction(email, password)(dispatch);
 
-      expect(dispatch).toHaveBeenCalledWith(actionCreator(LOGIN_FAILURE, null));
+      expect(dispatch).toHaveBeenCalledWith(
+        actionCreator(LOGIN_FAILURE, new Error('Some error')),
+      );
     });
   });
 });

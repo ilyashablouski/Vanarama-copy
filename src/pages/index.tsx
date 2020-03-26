@@ -1,23 +1,5 @@
-import Link from 'next/link';
-//import { Tabs, Tab, TabContent } from  '@vanarama/uibook/src/component/molecules/Tabs';
-
 const OlafHomePage = () => {
-  return (
-    <>
-      {/* <Tabs defaultActiveTabIndex={0}>
-        <Tab title="Login">
-          <TabContent id="tab-content-login">
-            This is content for Tab 1
-          </TabContent>
-        </Tab>
-        <Tab title="Register">
-          <TabContent id="tab-content-register">
-            This is content for Tab 2
-          </TabContent>
-        </Tab>
-      </Tabs> */}
-    </>
-  );
+  return <h1>Home</h1>;
 };
 
 export default OlafHomePage;

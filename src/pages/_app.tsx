@@ -16,11 +16,6 @@ interface Props {
   store: Store;
 }
 
-interface MyPageContext extends NextPageContext {
-  store: Store;
-  isServer: boolean;
-}
-
 function isDebug() {
   return process.env.NODE_ENV === 'development';
 }
