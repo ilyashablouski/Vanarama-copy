@@ -38,7 +38,9 @@ interface IFormValues {
 }
 
 const RegisterForm: React.FC<IProps> = ({ onSuccess }) => {
-  const { handleSubmit, errors, control, watch } = useForm<IFormValues>();
+  const { handleSubmit, errors, control, watch, reset } = useForm<
+    IFormValues
+  >();
 
   // TODO: Handle error from mutation
   const [registerUser, { loading }] = useMutation<
@@ -55,6 +57,7 @@ const RegisterForm: React.FC<IProps> = ({ onSuccess }) => {
     });
 
     onSuccess();
+    reset();
   };
 
   return (
