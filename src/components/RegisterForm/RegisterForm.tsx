@@ -12,6 +12,7 @@ import {
   RegisterUserMutation,
   RegisterUserMutationVariables,
 } from '../../../generated/RegisterUserMutation';
+import { IRegisterFormProps, IRegisterFormValues } from './interfaces';
 import {
   confirmPasswordValidator,
   emailValidator,
@@ -21,21 +22,10 @@ import {
 export const REGISTER_USER_MUTATION = gql`
   mutation RegisterUserMutation($username: String!, $password: String!) {
     register(username: $username, password: $password) {
-      # TODO: Update once register changed to return a boolean
       id
     }
   }
 `;
-
-interface IRegisterFormProps {
-  onSuccess: () => void;
-}
-
-interface IRegisterFormValues {
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
 
 const RegisterForm: React.FC<IRegisterFormProps> = ({ onSuccess }) => {
   const { handleSubmit, errors, control, watch, reset } = useForm<
