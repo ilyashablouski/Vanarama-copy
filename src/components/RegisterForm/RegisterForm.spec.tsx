@@ -181,4 +181,57 @@ describe('<RegisterForm />', () => {
     expect(mocks[0].result).toHaveBeenCalledTimes(0);
     expect(onSuccess).toHaveBeenCalledTimes(0);
   });
+
+  it('should ensure the password and confirm password match', async () => {
+    // ARRANGE
+    const email = 'barry.chuckle@gmail.com';
+    const password = 'foo';
+    const onSuccess = jest.fn();
+    const mocks = [
+      {
+        request: {
+          query: REGISTER_USER_MUTATION,
+          variables: { username: email, password },
+        },
+        result: jest.fn().mockReturnValue({
+          data: {
+            register: { id: '1' },
+          },
+        }),
+      },
+    ];
+
+    // ACT
+    const wrapper = mount(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <RegisterForm onSuccess={onSuccess} />
+      </MockedProvider>,
+    );
+
+    // Set the email address
+    getEmailInput(wrapper).simulate('change', { target: { value: email } });
+
+    // Set the password
+    getPasswordInput(wrapper).simulate('change', {
+      target: { value: password },
+    });
+
+    // Set the confirm password
+    getConfirmPasswordInput(wrapper).simulate('change', {
+      target: { value: 'not-matching' },
+    });
+
+    await submitForm(wrapper);
+
+    // ASSERT
+    expect(
+      wrapper
+        .find('#confirmPassword .textinput--error')
+        .last()
+        .text(),
+    ).toEqual('Repeat Password does not match');
+
+    expect(mocks[0].result).toHaveBeenCalledTimes(0);
+    expect(onSuccess).toHaveBeenCalledTimes(0);
+  });
 });
