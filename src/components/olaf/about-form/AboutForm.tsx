@@ -1,13 +1,13 @@
 import { Component } from 'react';
 import { Row, Col } from 'react-grid-system';
 
-import Heading from '@vanarama/uibook/src/components/atoms/heading';
-import Text from '@vanarama/uibook/src/components/atoms/text';
-import FormGroup from '@vanarama/uibook/src/components/molecules/formgroup';
-import Select from '@vanarama/uibook/src/components/atoms/select/';
-import Input from '@vanarama/uibook/src/components/atoms/textinput/';
-import Button from '@vanarama/uibook/src/components/atoms/button/';
-import CheckBox from '@vanarama/uibook/src/components/atoms/checkbox/';
+import Heading from '@vanarama/uibook/packages/ui-components/src/components/atoms/heading';
+import Text from '@vanarama/uibook/packages/ui-components/src/components/atoms/text';
+import FormGroup from '@vanarama/uibook/packages/ui-components/src/components/molecules/formgroup';
+import Select from '@vanarama/uibook/packages/ui-components/src/components/atoms/select/';
+import Input from '@vanarama/uibook/packages/ui-components/src/components/atoms/textinput/';
+import Button from '@vanarama/uibook/packages/ui-components/src/components/atoms/button/';
+import CheckBox from '@vanarama/uibook/packages/ui-components/src/components/atoms/checkbox/';
 import { genMonths, genYears } from '../../../services/utils/helpers';
 
 import { IProps, IState } from './interface';

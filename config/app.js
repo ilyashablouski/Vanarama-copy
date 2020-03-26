@@ -1,15 +1,9 @@
+/* eslint-disable no-param-reassign */
 const { homepage } = require('../package.json');
 // const { parse } = require("url")
 // const basename = parse(homepage).pathname
 
 module.exports = {
-  // Sass.
-  sass: {
-    sassLoaderOptions: {
-      data:
-        "@import './node_modules/@vanarama/uibook/src/components/variables.scss';",
-    },
-  },
   // Sitemap.
   sitemap: {
     baseUrl: homepage,
@@ -42,17 +36,5 @@ module.exports = {
 
       return config;
     },
-  },
-
-  withCustomWebpack: (config = {}) => {
-    const { webpack } = config;
-
-    config.webpack = (config, ...rest) => {
-      config.externals = config.externals || [];
-
-      return webpack(config, ...rest);
-    };
-
-    return config;
   },
 };

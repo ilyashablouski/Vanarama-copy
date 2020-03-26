@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 
-import Tabs from '@vanarama/uibook/src/components/molecules/tabs';
-import Heading from '@vanarama/uibook/src/components/atoms/heading';
+import Tabs from '@vanarama/uibook/packages/ui-components/src/components/molecules/tabs';
+import Heading from '@vanarama/uibook/packages/ui-components/src/components/atoms/heading';
 
 import { RootState } from '../../../services/redux/rootState';
 import { login } from '../../../services/redux/account/login/actions';
@@ -14,7 +14,7 @@ import {
 import Login from '../../../components/account/login';
 import Register from '../../../components/account/register';
 
-import { registerStatusMessage } from './utils';
+// import { registerStatusMessage } from './utils';
 
 interface Props {
   authenticated: boolean;
@@ -28,15 +28,15 @@ interface Props {
 export const IndexPage: React.FC<Props> = ({
   login: loginUser,
   register: registerUser,
-  successMessage,
-  errorMessage,
+  // successMessage,
+  // errorMessage,
   authenticated,
   token,
 }) => {
   return (
     <section style={{ padding: '4rem 0' }}>
       <Heading size="xlarge">Login / Register</Heading>
-      <Tabs tabs={['Login', 'Register']}>
+      <Tabs active={1} tabs={['Login', 'Register']}>
         <div>
           <Login
             login={loginUser}

@@ -3,13 +3,14 @@ import App, { AppContext } from 'next/app';
 import { NextPageContext } from 'next';
 import withRedux from 'next-redux-wrapper';
 import { Store } from 'redux';
-import { initStore } from 'services/redux/store';
-import { Container } from 'react-grid-system';
-import { apolloClient } from 'services/apollo/apolloClient';
 import { ApolloProvider } from '@apollo/react-hooks';
-import '@vanarama/uibook/src/components/base.scss';
-import Header from  '@vanarama/uibook/src/components/organisms/Header';
-import Footer from  '@vanarama/uibook/src/components/organisms/Footer';
+import { Container } from 'react-grid-system';
+import '@vanarama/uibook/packages/ui-components/src/components/base.scss';
+import Header from '@vanarama/uibook/packages/ui-components/src/components/organisms/header';
+import Footer from '@vanarama/uibook/packages/ui-components/src/components/organisms/footer';
+
+import { initStore } from '../services/redux/store';
+import { apolloClient } from '../services/apollo/apolloClient';
 
 interface Props {
   store: Store;
