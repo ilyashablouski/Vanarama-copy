@@ -27,19 +27,19 @@ export const REGISTER_USER_MUTATION = gql`
   }
 `;
 
-interface IProps {
+interface IRegisterFormProps {
   onSuccess: () => void;
 }
 
-interface IFormValues {
+interface IRegisterFormValues {
   email: string;
   password: string;
   confirmPassword: string;
 }
 
-const RegisterForm: React.FC<IProps> = ({ onSuccess }) => {
+const RegisterForm: React.FC<IRegisterFormProps> = ({ onSuccess }) => {
   const { handleSubmit, errors, control, watch, reset } = useForm<
-    IFormValues
+    IRegisterFormValues
   >();
 
   // TODO: Handle error from mutation
@@ -48,7 +48,7 @@ const RegisterForm: React.FC<IProps> = ({ onSuccess }) => {
     RegisterUserMutationVariables
   >(REGISTER_USER_MUTATION);
 
-  const onSubmit = async (values: IFormValues) => {
+  const onSubmit = async (values: IRegisterFormValues) => {
     await registerUser({
       variables: {
         username: values.email,
