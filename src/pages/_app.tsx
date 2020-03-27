@@ -7,7 +7,7 @@ import App, { AppContext } from 'next/app';
 import { Provider } from 'react-redux';
 import { Store } from 'redux';
 import { apolloClient } from 'services/apollo/apolloClient';
-import { initStore } from 'services/redux/store';
+import initStore from 'services/redux/store';
 
 interface IProps {
   store: Store;

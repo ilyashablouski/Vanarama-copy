@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import promise from 'redux-promise';
 import reducers from './reducers';
 
-export const initStore = (initialState = {}) => {
+export default function initStore(initialState = {}) {
   return createStore(
     reducers,
     initialState,
@@ -12,4 +12,4 @@ export const initStore = (initialState = {}) => {
       ? composeWithDevTools(applyMiddleware(...[thunk, promise]))
       : applyMiddleware(thunk, promise),
   );
-};
+}

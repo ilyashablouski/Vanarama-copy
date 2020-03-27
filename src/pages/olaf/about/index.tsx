@@ -1,18 +1,24 @@
 /* eslint-disable react/no-unused-state */
+import { NextPageContext } from 'next';
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { NextPageContext } from 'next';
-import { captchaOlafData } from '../../../services/redux/olaf/actions';
+import AboutForm from '../../../components/olaf/about-form';
+import { IDetails } from '../../../components/olaf/about-form/interface';
+import OlafContainer from '../../../components/olaf/olaf-container';
 import {
   allDropdownData,
   createUpdatePerson,
 } from '../../../services/apollo/olaf/api';
+import { captchaOlafData } from '../../../services/redux/olaf/actions';
 
-import OlafContainer from '../../../components/olaf/olaf-container';
-import AboutForm from '../../../components/olaf/about-form';
-
-import { IDetails } from '../../../components/olaf/about-form/interface';
-import { IAboutProps } from './interface';
+export interface IAboutProps {
+  /* required data for form drop downs, sourced via getInitialProps */
+  allDropDowns: any;
+  /* cached data for preloading forms when returning from other step in olaf journey */
+  preloadData: any;
+  /* action to cache form data */
+  captchaOlafData: (pageRef: string, data: {}) => void;
+}
 
 export class AboutYou extends Component<IAboutProps> {
   state = {
