@@ -14,15 +14,15 @@ export const LoginRegisterPage: NextPage = () => {
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   return (
     <MainLayout>
-      <Grid sm="2" lg="6">
-        <Column sm="row" lg="2-4">
+      <Grid sm="2" md="2" lg="6">
+        <Column sm="row" md="row" lg="2-4">
           <Heading tag="span" size="xlarge" color="black">
             Login / Register
           </Heading>
         </Column>
 
         {registrationSuccess && (
-          <Column sm="row" lg="2-4">
+          <Column sm="row" md="row" lg="2-4">
             <Heading
               id="registrationSuccessMessage"
               tag="span"
@@ -34,7 +34,7 @@ export const LoginRegisterPage: NextPage = () => {
           </Column>
         )}
 
-        <Column sm="row" lg="2-4">
+        <Column sm="row" md="row" lg="2-4">
           <div className="login-register-form">
             <Tabs active={0} tabs={['Login', 'Register']}>
               <LoginForm />

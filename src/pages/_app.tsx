@@ -32,7 +32,10 @@ class ReduxApp extends App<IProps> {
           <main>
             <Header />
             <Component {...pageProps} />
-            <Footer emailAddress="aaa@email.com" phoneNumber="012100000" />
+            <Footer
+              emailAddress="enquiries@vanarama.co.uk"
+              phoneNumber="01442 838 195"
+            />
           </main>
         </ApolloProvider>
       </Provider>

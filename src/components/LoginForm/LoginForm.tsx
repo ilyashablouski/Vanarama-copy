@@ -37,7 +37,7 @@ const LoginForm: React.FC = () => {
       },
     });
 
-    localForage.setItem('token', response.data.login);
+    await localForage.setItem('token', response.data.login);
     router.push('/');
   };
 
@@ -51,7 +51,12 @@ const LoginForm: React.FC = () => {
         control={control}
         label="Your Email"
         invalid={errors.email && errors.email.message}
-        rules={{ required: true }}
+        rules={{
+          required: {
+            value: true,
+            message: 'Your Email is required',
+          },
+        }}
       />
       <Controller
         id="loginFormInputPassword"
@@ -61,7 +66,12 @@ const LoginForm: React.FC = () => {
         control={control}
         invalid={errors.password && errors.password.message}
         label="Your Password"
-        rules={{ required: true }}
+        rules={{
+          required: {
+            value: true,
+            message: 'Your Password is required',
+          },
+        }}
       />
       {/* TODO: This should really be next/link. We need to determine how this would work */}
       <Link href="/password-reset" color="teal">
