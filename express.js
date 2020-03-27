@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 require('./config/dotenv')();
 
 const express = require('express');

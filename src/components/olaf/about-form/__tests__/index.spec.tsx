@@ -21,6 +21,16 @@ function inputChange(input, name: string, value: string) {
   });
 }
 
+let spy: jest.SpyInstance;
+beforeAll(() => {
+  // NOTE: `AboutForm.handleInputChange` is logging and cluttering the test output
+  spy = jest.spyOn(console, 'log').mockImplementation();
+});
+
+afterAll(() => {
+  spy.mockRestore();
+});
+
 describe('<AboutForm />', () => {
   let wrapper;
   let form;
@@ -76,7 +86,7 @@ describe('<AboutForm />', () => {
       expect(wrapper.state('details').mobile).toEqual('0121000');
     });
 
-   /*  it('should set dateOfBirth', () => {
+    /*  it('should set dateOfBirth', () => {
       const select = form.find('#aboutSelectDOB').first();
       const day = select.props().options.data[30].value;
       selectChange(select, 'dayOfBirth', day);

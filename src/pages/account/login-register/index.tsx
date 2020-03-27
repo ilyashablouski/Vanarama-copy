@@ -1,73 +1,71 @@
-import * as React from 'react';
-import { connect } from 'react-redux';
-
-import Tabs from '@vanarama/uibook/packages/ui-components/src/components/molecules/tabs';
 import Heading from '@vanarama/uibook/packages/ui-components/src/components/atoms/heading';
-
-import { RootState } from '../../../services/redux/rootState';
-import { login } from '../../../services/redux/account/login/actions';
-import { register } from '../../../services/redux/account/register/actions';
+import Container from '@vanarama/uibook/packages/ui-components/src/components/container/Container';
+import Section from '@vanarama/uibook/packages/ui-components/src/components/container/Section';
 import {
-  registerSuccessMessage,
-  registerErrorMessage,
-} from '../../../services/redux/account/selectors';
+  Column,
+  Grid,
+} from '@vanarama/uibook/packages/ui-components/src/components/molecules/grid';
+import Tabs from '@vanarama/uibook/packages/ui-components/src/components/molecules/tabs';
+import { useState } from 'react';
+import { connect } from 'react-redux';
 import Login from '../../../components/account/login';
-import Register from '../../../components/account/register';
+import RegisterForm from '../../../components/RegisterForm/RegisterForm';
+import { login } from '../../../services/redux/account/login/actions';
+import { RootState } from '../../../services/redux/rootState';
 
-// import { registerStatusMessage } from './utils';
-
-interface Props {
+interface IProps {
   authenticated: boolean;
-  token: string;
   login: (email: string, password: string) => void;
-  register: (email: string, password: string) => void;
-  successMessage: string;
-  errorMessage: string;
+  token: string;
 }
 
-export const IndexPage: React.FC<Props> = ({
+export const LoginRegisterPage: React.FC<IProps> = ({
   login: loginUser,
-  register: registerUser,
-  // successMessage,
-  // errorMessage,
   authenticated,
   token,
 }) => {
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
   return (
-    <section style={{ padding: '4rem 0' }}>
-      <Heading size="xlarge">Login / Register</Heading>
-      <Tabs active={1} tabs={['Login', 'Register']}>
-        <div>
-          <Login
-            login={loginUser}
-            authenticated={authenticated}
-            token={token}
-          />
-        </div>
+    <Section>
+      <Container>
+        <Grid sm="2" lg="6">
+          <Column sm="row" lg="2-4">
+            <Heading tag="span" size="xlarge" color="black">
+              Login / Register
+            </Heading>
+          </Column>
 
-        <div>
-          <Register register={registerUser} />
-        </div>
-      </Tabs>
-    </section>
+          {registrationSuccess && (
+            <Column sm="row" lg="2-4">
+              <Heading tag="span" size="regular" color="success">
+                Registration successful. Please verify your email.
+              </Heading>
+            </Column>
+          )}
+
+          <Column sm="row" lg="2-4">
+            <div className="login-register-form">
+              <Tabs active={0} tabs={['Login', 'Register']}>
+                <Login
+                  login={loginUser}
+                  authenticated={authenticated}
+                  token={token}
+                />
+                <RegisterForm onSuccess={() => setRegistrationSuccess(true)} />
+              </Tabs>
+            </div>
+          </Column>
+        </Grid>
+      </Container>
+    </Section>
   );
 };
 
-const mapStateToProps = ({
-  register: { success, error },
-  auth: { authenticated, data },
-}: RootState) => {
-  return {
-    authenticated,
-    token: data && data.token,
-    successMessage: registerSuccessMessage(success),
-    errorMessage: registerErrorMessage(error),
-  };
-};
+const mapStateToProps = ({ auth: { authenticated, data } }: RootState) => ({
+  authenticated,
+  token: data && data.token,
+});
 
-const mapDispatchToProps = {
-  login,
-  register,
-};
+const mapDispatchToProps = { login };
 
-export default connect(mapStateToProps, mapDispatchToProps)(IndexPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginRegisterPage);
