@@ -7,9 +7,11 @@ import RegisterForm, { REGISTER_USER_MUTATION } from './RegisterForm';
 const getElementById = (id: string) => (wrapper: ReactWrapper) =>
   wrapper.find(`#${id}`).last();
 
-const getEmailInput = getElementById('email');
-const getPasswordInput = getElementById('password');
-const getConfirmPasswordInput = getElementById('confirmPassword');
+const getEmailInput = getElementById('registerFormInputEmail');
+const getPasswordInput = getElementById('registerFormInputPassword');
+const getConfirmPasswordInput = getElementById(
+  'registerFormInputConfirmPassword',
+);
 
 const assertTextEquals = (wrapper: ReactWrapper, id: string) => (
   expected: string,
@@ -161,17 +163,17 @@ describe('<RegisterForm />', () => {
     // ASSERT
     assertTextEquals(
       wrapper,
-      '#emailWrapper .textinput--error',
+      '#registerFormInputEmailWrapper .textinput--error',
     )('Your Email is required');
 
     assertTextEquals(
       wrapper,
-      '#passwordWrapper .textinput--error',
+      '#registerFormInputPasswordWrapper .textinput--error',
     )('Your Password is required');
 
     assertTextEquals(
       wrapper,
-      '#confirmPasswordWrapper .textinput--error',
+      '#registerFormInputConfirmPasswordWrapper .textinput--error',
     )('Repeat Password is required');
 
     expect(mocks[0].result).toHaveBeenCalledTimes(0);
@@ -222,7 +224,7 @@ describe('<RegisterForm />', () => {
     // ASSERT
     assertTextEquals(
       wrapper,
-      '#password .textinput--error',
+      '#registerFormInputPasswordWrapper .textinput--error',
     )('Your Password does not meet the requirements');
 
     expect(mocks[0].result).toHaveBeenCalledTimes(0);
@@ -273,7 +275,7 @@ describe('<RegisterForm />', () => {
     // ASSERT
     assertTextEquals(
       wrapper,
-      '#confirmPassword .textinput--error',
+      '#registerFormInputConfirmPasswordWrapper .textinput--error',
     )('Repeat Password does not match');
 
     expect(mocks[0].result).toHaveBeenCalledTimes(0);

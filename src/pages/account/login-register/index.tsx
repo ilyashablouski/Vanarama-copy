@@ -37,7 +37,12 @@ export const LoginRegisterPage: React.FC<IProps> = ({
 
           {registrationSuccess && (
             <Column sm="row" lg="2-4">
-              <Heading tag="span" size="regular" color="success">
+              <Heading
+                id="registrationSuccessMessage"
+                tag="span"
+                size="regular"
+                color="success"
+              >
                 Registration successful. Please verify your email.
               </Heading>
             </Column>
