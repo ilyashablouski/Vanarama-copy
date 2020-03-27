@@ -12,6 +12,7 @@ import {
   LoginUserMutationVariables,
 } from '../../../generated/LoginUserMutation';
 import { ILoginFormValues } from './interfaces';
+import { emailValidator, passwordValidator } from './LoginForm.validate';
 
 export const LOGIN_USER_MUTATION = gql`
   mutation LoginUserMutation($username: String!, $password: String!) {
@@ -51,12 +52,7 @@ const LoginForm: React.FC = () => {
         control={control}
         label="Your Email"
         invalid={errors.email && errors.email.message}
-        rules={{
-          required: {
-            value: true,
-            message: 'Your Email is required',
-          },
-        }}
+        rules={emailValidator}
       />
       <Controller
         id="loginFormInputPassword"
@@ -66,12 +62,7 @@ const LoginForm: React.FC = () => {
         control={control}
         invalid={errors.password && errors.password.message}
         label="Your Password"
-        rules={{
-          required: {
-            value: true,
-            message: 'Your Password is required',
-          },
-        }}
+        rules={passwordValidator}
       />
       {/* TODO: This should really be next/link. We need to determine how this would work */}
       <Link href="/password-reset" color="teal">
