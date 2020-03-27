@@ -32,7 +32,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({ onSuccess }) => {
   >();
 
   // TODO: Handle error from mutation
-  const [registerUser, { loading }] = useMutation<
+  const [registerUser, { loading, error }] = useMutation<
     RegisterUserMutation,
     RegisterUserMutationVariables
   >(REGISTER_USER_MUTATION);
@@ -50,9 +50,9 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({ onSuccess }) => {
   };
 
   return (
-    <form id="register-form" className="form" onSubmit={handleSubmit(onSubmit)}>
+    <form id="registerForm" className="form" onSubmit={handleSubmit(onSubmit)}>
       <Controller
-        id="email"
+        id="registerFormInputEmail"
         name="email"
         type="email"
         as={TextInput}
@@ -62,7 +62,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({ onSuccess }) => {
         rules={emailValidator}
       />
       <Controller
-        id="password"
+        id="registerFormInputPassword"
         name="password"
         type="password"
         as={TextInput}
@@ -76,7 +76,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({ onSuccess }) => {
         content="Must be 8 characters long, contain at least 1 number, contain uppercase letters and contain lowercase letters."
       />
       <Controller
-        id="confirmPassword"
+        id="registerFormInputConfirmPassword"
         name="confirmPassword"
         type="password"
         as={TextInput}
@@ -99,18 +99,15 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({ onSuccess }) => {
         </Link>
         .
       </Text>
-      {loading ? (
-        <Button type="submit" label="Loading..." disabled color="primary" />
-      ) : (
-        <Button
-          name="submit"
-          type="submit"
-          label="Register"
-          icon={<ChevronForwardSharpIcon />}
-          iconPosition="after"
-          color="primary"
-        />
-      )}
+      <Button
+        id="registerFormButton"
+        type="submit"
+        label={loading ? 'Loading...' : 'Register'}
+        disabled={loading}
+        icon={loading ? undefined : <ChevronForwardSharpIcon />}
+        iconPosition="after"
+        color="primary"
+      />
     </form>
   );
 };
