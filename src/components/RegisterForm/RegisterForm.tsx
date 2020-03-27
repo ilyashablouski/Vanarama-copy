@@ -32,7 +32,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({ onSuccess }) => {
   >();
 
   // TODO: Handle error from mutation
-  const [registerUser, { loading, error }] = useMutation<
+  const [registerUser, { loading }] = useMutation<
     RegisterUserMutation,
     RegisterUserMutationVariables
   >(REGISTER_USER_MUTATION);
