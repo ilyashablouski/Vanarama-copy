@@ -5,6 +5,7 @@ import {
   RegisterUserMutationVariables,
 } from '../../../generated/RegisterUserMutation';
 import RegisterForm from '../../components/RegisterForm/RegisterForm';
+import { IRegisterFormContainerProps } from './interfaces';
 
 export const REGISTER_USER_MUTATION = gql`
   mutation RegisterUserMutation($username: String!, $password: String!) {
@@ -13,10 +14,6 @@ export const REGISTER_USER_MUTATION = gql`
     }
   }
 `;
-
-interface IRegisterFormContainerProps {
-  onSuccess: () => void;
-}
 
 const RegisterFormContainer: React.FC<IRegisterFormContainerProps> = ({
   onSuccess,

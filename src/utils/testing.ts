@@ -10,8 +10,6 @@ export const submitForm = async (wrapper: ReactWrapper) => {
     wrapper.simulate('submit');
     // Wait for the form effects to finish
     await wait(0);
-    // Wait for the mutation to finish
-    await wait(0);
   });
 
   wrapper.update();
