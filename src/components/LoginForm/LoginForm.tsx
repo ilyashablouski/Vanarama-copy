@@ -4,14 +4,12 @@ import Button from '@vanarama/uibook/packages/ui-components/src/components/atoms
 import Link from '@vanarama/uibook/packages/ui-components/src/components/atoms/link';
 import TextInput from '@vanarama/uibook/packages/ui-components/src/components/atoms/textinput';
 import { gql } from 'apollo-boost';
-import localForage from 'localforage';
-import { useRouter } from 'next/router';
 import { Controller, useForm } from 'react-hook-form';
 import {
   LoginUserMutation,
   LoginUserMutationVariables,
 } from '../../../generated/LoginUserMutation';
-import { ILoginFormValues } from './interfaces';
+import { ILoginFormProps, ILoginFormValues } from './interfaces';
 import { emailValidator, passwordValidator } from './LoginForm.validate';
 
 export const LOGIN_USER_MUTATION = gql`
@@ -20,8 +18,7 @@ export const LOGIN_USER_MUTATION = gql`
   }
 `;
 
-const LoginForm: React.FC = () => {
-  const router = useRouter();
+const LoginForm: React.FC<ILoginFormProps> = ({ onSuccess }) => {
   const { handleSubmit, errors, control } = useForm<ILoginFormValues>();
 
   // TODO: Handle error from mutation
@@ -38,8 +35,7 @@ const LoginForm: React.FC = () => {
       },
     });
 
-    await localForage.setItem('token', response.data.login);
-    router.push('/');
+    onSuccess(response.data.login);
   };
 
   return (

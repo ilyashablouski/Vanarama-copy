@@ -25,12 +25,19 @@ class ReduxApp extends App<IProps> {
   }
 
   render() {
-    const { Component, pageProps, store } = this.props;
+    const { Component, pageProps, store, router } = this.props;
     return (
       <Provider store={store}>
         <ApolloProvider client={apolloClient}>
           <main>
-            <Header />
+            <Header
+              topBarLinks={[
+                {
+                  label: 'Login',
+                  href: `/account/login-register?redirect=${router.pathname}`,
+                },
+              ]}
+            />
             <Component {...pageProps} />
             <Footer
               emailAddress="enquiries@vanarama.co.uk"

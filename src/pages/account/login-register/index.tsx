@@ -4,14 +4,29 @@ import {
   Grid,
 } from '@vanarama/uibook/packages/ui-components/src/components/molecules/grid';
 import Tabs from '@vanarama/uibook/packages/ui-components/src/components/molecules/tabs';
+import localForage from 'localforage';
 import { NextPage } from 'next';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import LoginForm from '../../../components/LoginForm/LoginForm';
 import RegisterForm from '../../../components/RegisterForm/RegisterForm';
 import MainLayout from '../../../layouts/MainLayout/MainLayout';
 
 export const LoginRegisterPage: NextPage = () => {
+  const router = useRouter();
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
+
+  const handleLoginSuccess = async (token: string) => {
+    await localForage.setItem('token', token);
+
+    // Redirect to the user's previous route or homepage.
+    const { redirect } = router.query;
+    const url =
+      typeof redirect === 'string' && redirect !== '/_error' ? redirect : '/';
+
+    router.push(url);
+  };
+
   return (
     <MainLayout>
       <Grid sm="2" md="2" lg="6">
@@ -37,7 +52,7 @@ export const LoginRegisterPage: NextPage = () => {
         <Column sm="row" md="row" lg="2-4">
           <div className="login-register-form">
             <Tabs active={0} tabs={['Login', 'Register']}>
-              <LoginForm />
+              <LoginForm onSuccess={handleLoginSuccess} />
               <RegisterForm onSuccess={() => setRegistrationSuccess(true)} />
             </Tabs>
           </div>
