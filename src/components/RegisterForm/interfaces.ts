@@ -1,5 +1,6 @@
 export interface IRegisterFormProps {
-  onSuccess: () => void;
+  isSubmitting?: boolean;
+  onSubmit: (values: IRegisterFormValues) => Promise<void>;
 }
 
 export interface IRegisterFormValues {

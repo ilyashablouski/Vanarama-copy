@@ -6,8 +6,8 @@ import {
 import Tabs from '@vanarama/uibook/packages/ui-components/src/components/molecules/tabs';
 import { NextPage } from 'next';
 import { useState } from 'react';
-import RegisterForm from '../../../components/RegisterForm/RegisterForm';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
+import RegisterFormContainer from '../../../containers/RegisterFormContainer/RegisterFormContainer';
 import MainLayout from '../../../layouts/MainLayout/MainLayout';
 
 export const LoginRegisterPage: NextPage = () => {
@@ -38,7 +38,9 @@ export const LoginRegisterPage: NextPage = () => {
           <div className="login-register-form">
             <Tabs active={0} tabs={['Login', 'Register']}>
               <LoginFormContainer />
-              <RegisterForm onSuccess={() => setRegistrationSuccess(true)} />
+              <RegisterFormContainer
+                onSuccess={() => setRegistrationSuccess(true)}
+              />
             </Tabs>
           </div>
         </Column>

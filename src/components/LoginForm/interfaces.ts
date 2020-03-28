@@ -4,6 +4,6 @@ export interface ILoginFormValues {
 }
 
 export interface ILoginFormProps {
-  isSubmitting: boolean;
+  isSubmitting?: boolean;
   onSubmit: (values: ILoginFormValues) => Promise<void>;
 }
