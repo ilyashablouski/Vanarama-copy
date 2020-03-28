@@ -1,43 +1,14 @@
-import { useMutation } from '@apollo/react-hooks';
 import ChevronForwardSharpIcon from '@vanarama/uibook/packages/ui-components/src/assets/icons/ChevronForwardSharp';
 import Button from '@vanarama/uibook/packages/ui-components/src/components/atoms/button';
 import Link from '@vanarama/uibook/packages/ui-components/src/components/atoms/link';
 import TextInput from '@vanarama/uibook/packages/ui-components/src/components/atoms/textinput';
-import { gql } from 'apollo-boost';
+import NextLink from 'next/link';
 import { Controller, useForm } from 'react-hook-form';
-import {
-  LoginUserMutation,
-  LoginUserMutationVariables,
-} from '../../../generated/LoginUserMutation';
 import { ILoginFormProps, ILoginFormValues } from './interfaces';
 import { emailValidator, passwordValidator } from './LoginForm.validate';
 
-export const LOGIN_USER_MUTATION = gql`
-  mutation LoginUserMutation($username: String!, $password: String!) {
-    login(username: $username, password: $password)
-  }
-`;
-
-const LoginForm: React.FC<ILoginFormProps> = ({ onSuccess }) => {
+const LoginForm: React.FC<ILoginFormProps> = ({ isSubmitting, onSubmit }) => {
   const { handleSubmit, errors, control } = useForm<ILoginFormValues>();
-
-  // TODO: Handle error from mutation
-  const [loginUser, { loading }] = useMutation<
-    LoginUserMutation,
-    LoginUserMutationVariables
-  >(LOGIN_USER_MUTATION);
-
-  const onSubmit = async (values: ILoginFormValues) => {
-    const response = await loginUser({
-      variables: {
-        username: values.email,
-        password: values.password,
-      },
-    });
-
-    onSuccess(response.data.login);
-  };
-
   return (
     <form id="loginForm" className="form" onSubmit={handleSubmit(onSubmit)}>
       <Controller
@@ -60,16 +31,15 @@ const LoginForm: React.FC<ILoginFormProps> = ({ onSuccess }) => {
         label="Your Password"
         rules={passwordValidator}
       />
-      {/* TODO: This should really be next/link. We need to determine how this would work */}
-      <Link href="/password-reset" color="teal">
-        Forgotten your Password?
-      </Link>
+      <NextLink href="/password-reset" passHref>
+        <Link color="teal">Forgotten your Password?</Link>
+      </NextLink>
       <Button
         id="loginFormButton"
         type="submit"
-        label={loading ? 'Loading...' : 'Login'}
-        disabled={loading}
-        icon={loading ? undefined : <ChevronForwardSharpIcon />}
+        label={isSubmitting ? 'Loading...' : 'Login'}
+        disabled={isSubmitting}
+        icon={isSubmitting ? undefined : <ChevronForwardSharpIcon />}
         iconPosition="after"
         color="primary"
       />
