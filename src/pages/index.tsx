@@ -1,5 +1,9 @@
-const OlafHomePage = () => {
-  return <h1>Home</h1>;
-};
+import MainLayout from '../layouts/MainLayout/MainLayout';
 
-export default OlafHomePage;
+const HomePage = () => (
+  <MainLayout>
+    <h1>Homepage</h1>
+  </MainLayout>
+);
+
+export default HomePage;

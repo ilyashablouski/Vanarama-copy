@@ -1,76 +1,52 @@
 import Heading from '@vanarama/uibook/packages/ui-components/src/components/atoms/heading';
-import Container from '@vanarama/uibook/packages/ui-components/src/components/container/Container';
-import Section from '@vanarama/uibook/packages/ui-components/src/components/container/Section';
 import {
   Column,
   Grid,
 } from '@vanarama/uibook/packages/ui-components/src/components/molecules/grid';
 import Tabs from '@vanarama/uibook/packages/ui-components/src/components/molecules/tabs';
+import { NextPage } from 'next';
 import { useState } from 'react';
-import { connect } from 'react-redux';
-import Login from '../../../components/account/login';
-import RegisterForm from '../../../components/RegisterForm/RegisterForm';
-import { login } from '../../../services/redux/account/login/actions';
-import { RootState } from '../../../services/redux/rootState';
+import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
+import RegisterFormContainer from '../../../containers/RegisterFormContainer/RegisterFormContainer';
+import MainLayout from '../../../layouts/MainLayout/MainLayout';
 
-interface IProps {
-  authenticated: boolean;
-  login: (email: string, password: string) => void;
-  token: string;
-}
-
-export const LoginRegisterPage: React.FC<IProps> = ({
-  login: loginUser,
-  authenticated,
-  token,
-}) => {
+export const LoginRegisterPage: NextPage = () => {
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   return (
-    <Section>
-      <Container>
-        <Grid sm="2" lg="6">
-          <Column sm="row" lg="2-4">
-            <Heading tag="span" size="xlarge" color="black">
-              Login / Register
+    <MainLayout>
+      <Grid sm="2" md="2" lg="6">
+        <Column sm="row" md="row" lg="2-4">
+          <Heading tag="span" size="xlarge" color="black">
+            Login / Register
+          </Heading>
+        </Column>
+
+        {registrationSuccess && (
+          <Column sm="row" md="row" lg="2-4">
+            <Heading
+              id="registrationSuccessMessage"
+              tag="span"
+              size="regular"
+              color="success"
+            >
+              Registration successful. Please verify your email.
             </Heading>
           </Column>
+        )}
 
-          {registrationSuccess && (
-            <Column sm="row" lg="2-4">
-              <Heading
-                id="registrationSuccessMessage"
-                tag="span"
-                size="regular"
-                color="success"
-              >
-                Registration successful. Please verify your email.
-              </Heading>
-            </Column>
-          )}
-
-          <Column sm="row" lg="2-4">
-            <div className="login-register-form">
-              <Tabs active={0} tabs={['Login', 'Register']}>
-                <Login
-                  login={loginUser}
-                  authenticated={authenticated}
-                  token={token}
-                />
-                <RegisterForm onSuccess={() => setRegistrationSuccess(true)} />
-              </Tabs>
-            </div>
-          </Column>
-        </Grid>
-      </Container>
-    </Section>
+        <Column sm="row" md="row" lg="2-4">
+          <div className="login-register-form">
+            <Tabs active={0} tabs={['Login', 'Register']}>
+              <LoginFormContainer />
+              <RegisterFormContainer
+                onSuccess={() => setRegistrationSuccess(true)}
+              />
+            </Tabs>
+          </div>
+        </Column>
+      </Grid>
+    </MainLayout>
   );
 };
 
-const mapStateToProps = ({ auth: { authenticated, data } }: RootState) => ({
-  authenticated,
-  token: data && data.token,
-});
-
-const mapDispatchToProps = { login };
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginRegisterPage);
+export default LoginRegisterPage;

@@ -7,7 +7,7 @@ import App, { AppContext } from 'next/app';
 import { Provider } from 'react-redux';
 import { Store } from 'redux';
 import { apolloClient } from 'services/apollo/apolloClient';
-import { initStore } from 'services/redux/store';
+import initStore from 'services/redux/store';
 
 interface IProps {
   store: Store;
@@ -25,14 +25,24 @@ class ReduxApp extends App<IProps> {
   }
 
   render() {
-    const { Component, pageProps, store } = this.props;
+    const { Component, pageProps, store, router } = this.props;
     return (
       <Provider store={store}>
         <ApolloProvider client={apolloClient}>
           <main>
-            <Header />
+            <Header
+              topBarLinks={[
+                {
+                  label: 'Login',
+                  href: `/account/login-register?redirect=${router.pathname}`,
+                },
+              ]}
+            />
             <Component {...pageProps} />
-            <Footer emailAddress="aaa@email.com" phoneNumber="012100000" />
+            <Footer
+              emailAddress="enquiries@vanarama.co.uk"
+              phoneNumber="01442 838 195"
+            />
           </main>
         </ApolloProvider>
       </Provider>
