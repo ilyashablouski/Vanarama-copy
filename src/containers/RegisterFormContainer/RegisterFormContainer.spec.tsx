@@ -34,6 +34,12 @@ describe('<RegisterFormContainer />', () => {
       },
     ];
 
+    // eslint-disable-next-line no-underscore-dangle, global-require
+    require('../../components/RegisterForm/RegisterForm').__setMockValues({
+      email: 'barry@chuckle.com',
+      password: 'Alpha!23',
+    });
+
     // ACT
     const wrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
@@ -58,8 +64,8 @@ describe('<RegisterFormContainer />', () => {
         request: {
           query: REGISTER_USER_MUTATION,
           variables: {
-            username: 'barry@chuckle.com',
-            password: 'Alpha!23',
+            username: 'paul@chuckle.com',
+            password: 'Passw0rd1',
           },
         },
         result: {
@@ -71,6 +77,12 @@ describe('<RegisterFormContainer />', () => {
         },
       },
     ];
+
+    // eslint-disable-next-line no-underscore-dangle, global-require
+    require('../../components/RegisterForm/RegisterForm').__setMockValues({
+      email: 'paul@chuckle.com',
+      password: 'Passw0rd1',
+    });
 
     // ACT
     const wrapper = mount(

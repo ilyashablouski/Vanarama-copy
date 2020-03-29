@@ -31,9 +31,12 @@ const LoginForm: React.FC<ILoginFormProps> = ({ isSubmitting, onSubmit }) => {
         label="Your Password"
         rules={passwordValidator}
       />
-      <NextLink href="/password-reset" passHref>
-        <Link color="teal">Forgotten your Password?</Link>
-      </NextLink>
+      {/* TODO: Make Link work with next/link */}
+      {/* <NextLink href="/password-reset" passHref> */}
+      <Link href="/password-reset" color="teal">
+        Forgotten your Password?
+      </Link>
+      {/* </NextLink> */}
       <Button
         id="loginFormButton"
         type="submit"

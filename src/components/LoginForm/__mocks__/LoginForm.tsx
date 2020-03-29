@@ -8,10 +8,10 @@ export function __setMockValues(values: any) {
 }
 
 /**
- * A mock implementation of the RegisterForm. Form values can be mocked by calling `__setMockValues`
+ * A mock implementation of the LoginForm. Form values can be mocked by calling `__setMockValues`
  */
-const RegisterFormMock: React.FC = ({ onSubmit }) => (
+const LoginFormMock: React.FC = ({ onSubmit }) => (
   <form onSubmit={() => onSubmit(mockValues)} />
 );
 
-export default RegisterFormMock;
+export default LoginFormMock;
