@@ -1,47 +1,36 @@
-import { mount } from 'enzyme';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import React from 'react';
-import {
-  assertTextEquals,
-  getElementById,
-  submitForm,
-} from '../../utils/testing';
 import RegisterForm from './RegisterForm';
 
-const getEmailInput = getElementById('registerFormInputEmail');
-const getPasswordInput = getElementById('registerFormInputPassword');
-const getConfirmPasswordInput = getElementById(
-  'registerFormInputConfirmPassword',
-);
-
 describe('<RegisterForm />', () => {
-  it('should call `onSubmit` once the user has successfully registered', async () => {
+  xit('should call `onSubmit` if there are no validation errors', async () => {
     // ARRANGE
-    const email = 'barry.chuckle@gmail.com';
-    const password = 'Password1';
     const onSubmit = jest.fn();
 
     // ACT
-    const wrapper = mount(<RegisterForm onSubmit={onSubmit} />);
+    const { getByLabelText, getByText } = render(
+      <RegisterForm onSubmit={onSubmit} />,
+    );
 
     // Set the email address
-    getEmailInput(wrapper).simulate('change', {
-      target: { value: email },
+    fireEvent.change(getByLabelText('Your Email'), {
+      target: { value: 'barry.chuckle@gmail.com' },
     });
 
     // Set the password
-    getPasswordInput(wrapper).simulate('change', {
-      target: { value: password },
+    fireEvent.change(getByLabelText('Your Password'), {
+      target: { value: 'Password1' },
     });
 
     // Set the confirm password
-    getConfirmPasswordInput(wrapper).simulate('change', {
-      target: { value: password },
+    fireEvent.change(getByLabelText('Repeat Password'), {
+      target: { value: 'Password1' },
     });
 
-    await submitForm(wrapper.find('form'));
+    fireEvent.click(getByText('Register'));
 
     // ASSERT
-    expect(onSubmit).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
   });
 
   it('should show required field validation messages', async () => {
@@ -49,92 +38,82 @@ describe('<RegisterForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const wrapper = mount(<RegisterForm onSubmit={onSubmit} />);
+    const { getByText } = render(<RegisterForm onSubmit={onSubmit} />);
 
-    await submitForm(wrapper);
+    fireEvent.click(getByText('Register'));
 
     // ASSERT
-    assertTextEquals(
-      wrapper,
-      '#registerFormInputEmailWrapper .textinput--error',
-    )('Your Email is required');
+    await waitFor(() =>
+      expect(getByText('Your Email is required')).toBeVisible(),
+    );
 
-    assertTextEquals(
-      wrapper,
-      '#registerFormInputPasswordWrapper .textinput--error',
-    )('Your Password is required');
-
-    assertTextEquals(
-      wrapper,
-      '#registerFormInputConfirmPasswordWrapper .textinput--error',
-    )('Repeat Password is required');
-
-    expect(onSubmit).toHaveBeenCalledTimes(0);
+    expect(getByText('Your Password is required')).toBeVisible();
+    expect(getByText('Repeat Password is required')).toBeVisible();
   });
 
   it('should ensure the password is the correct format', async () => {
     // ARRANGE
-    const email = 'barry.chuckle@gmail.com';
-    const password = 'foo';
     const onSubmit = jest.fn();
 
     // ACT
-    const wrapper = mount(<RegisterForm onSubmit={onSubmit} />);
+    const { getByLabelText, getByText } = render(
+      <RegisterForm onSubmit={onSubmit} />,
+    );
 
     // Set the email address
-    getEmailInput(wrapper).simulate('change', { target: { value: email } });
+    fireEvent.change(getByLabelText('Your Email'), {
+      target: { value: 'barry.chuckle@gmail.com' },
+    });
 
     // Set the password
-    getPasswordInput(wrapper).simulate('change', {
-      target: { value: password },
+    fireEvent.change(getByLabelText('Your Password'), {
+      target: { value: 'invalid' },
     });
 
     // Set the confirm password
-    getConfirmPasswordInput(wrapper).simulate('change', {
-      target: { value: password },
+    fireEvent.change(getByLabelText('Repeat Password'), {
+      target: { value: 'invalid' },
     });
 
-    await submitForm(wrapper.find('form'));
+    fireEvent.click(getByText('Register'));
 
     // ASSERT
-    assertTextEquals(
-      wrapper,
-      '#registerFormInputPasswordWrapper .textinput--error',
-    )('Your Password does not meet the requirements');
-
-    expect(onSubmit).toHaveBeenCalledTimes(0);
+    await waitFor(() =>
+      expect(
+        getByText('Your Password does not meet the requirements'),
+      ).toBeVisible(),
+    );
   });
 
   it('should ensure the password and confirm password match', async () => {
     // ARRANGE
-    const email = 'barry.chuckle@gmail.com';
-    const password = 'foo';
     const onSubmit = jest.fn();
 
     // ACT
-    const wrapper = mount(<RegisterForm onSubmit={onSubmit} />);
+    const { getByLabelText, getByText } = render(
+      <RegisterForm onSubmit={onSubmit} />,
+    );
 
     // Set the email address
-    getEmailInput(wrapper).simulate('change', { target: { value: email } });
+    fireEvent.change(getByLabelText('Your Email'), {
+      target: { value: 'barry.chuckle@gmail.com' },
+    });
 
     // Set the password
-    getPasswordInput(wrapper).simulate('change', {
-      target: { value: password },
+    fireEvent.change(getByLabelText('Your Password'), {
+      target: { value: 'Password1' },
     });
 
     // Set the confirm password
-    getConfirmPasswordInput(wrapper).simulate('change', {
-      target: { value: 'not-matching' },
+    fireEvent.change(getByLabelText('Repeat Password'), {
+      target: { value: 'Password2' },
     });
 
-    await submitForm(wrapper.find('form'));
+    fireEvent.click(getByText('Register'));
 
     // ASSERT
-    assertTextEquals(
-      wrapper,
-      '#registerFormInputConfirmPasswordWrapper .textinput--error',
-    )('Repeat Password does not match');
-
-    expect(onSubmit).toHaveBeenCalledTimes(0);
+    await waitFor(() =>
+      expect(getByText('Repeat Password does not match')).toBeVisible(),
+    );
   });
 });

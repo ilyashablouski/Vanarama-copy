@@ -1,3 +1,3 @@
 export interface IRegisterFormContainerProps {
-  onSuccess: () => void;
+  onCompleted: () => void;
 }

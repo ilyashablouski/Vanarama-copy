@@ -1,9 +1,8 @@
-import { MockedProvider, MockedResponse, wait } from '@apollo/react-testing';
-import { mount } from 'enzyme';
+import { MockedProvider, MockedResponse } from '@apollo/react-testing';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import localForage from 'localforage';
-import React from 'react';
 import { useRouter } from 'next/router';
-import { submitForm } from '../../utils/testing';
+import React from 'react';
 import LoginFormContainer, { LOGIN_USER_MUTATION } from './LoginFormContainer';
 
 jest.mock('../../components/LoginForm/LoginForm');
@@ -56,19 +55,16 @@ describe('<LoginFormContainer />', () => {
     });
 
     // ACT
-    const wrapper = mount(
+    const { getByRole } = render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <LoginFormContainer />
       </MockedProvider>,
     );
 
-    await submitForm(wrapper.find('form'));
-
-    // Wait for the mutation to finish
-    await wait(0);
+    fireEvent.submit(getByRole('form'));
 
     // ASSERT
-    expect(mockCalled).toBeTruthy();
+    await waitFor(() => expect(mockCalled).toBeTruthy());
   });
 
   it('should store the users token in localstorage after logging in', async () => {
@@ -97,19 +93,16 @@ describe('<LoginFormContainer />', () => {
     });
 
     // ACT
-    const wrapper = mount(
+    const { getByRole } = render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <LoginFormContainer />
       </MockedProvider>,
     );
 
-    await submitForm(wrapper.find('form'));
-
-    // Wait for the mutation to finish
-    await wait(0);
+    fireEvent.submit(getByRole('form'));
 
     // ASSERT
-    expect(localForage.setItem).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(localForage.setItem).toHaveBeenCalledTimes(1));
     expect(localForage.setItem).toHaveBeenCalledWith(
       'token',
       'some-fake-token',
@@ -137,7 +130,7 @@ describe('<LoginFormContainer />', () => {
 
     // Override the router mock for this test
     const pushMock = jest.fn();
-    (useRouter as jest.Mock).mockReturnValueOnce({
+    (useRouter as jest.Mock).mockReturnValue({
       push: pushMock,
       query: {
         redirect: '/previous-page',
@@ -151,19 +144,16 @@ describe('<LoginFormContainer />', () => {
     });
 
     // ACT
-    const wrapper = mount(
+    const { getByRole } = render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <LoginFormContainer />
       </MockedProvider>,
     );
 
-    await submitForm(wrapper.find('form'));
-
-    // Wait for the mutation to finish
-    await wait(0);
+    fireEvent.submit(getByRole('form'));
 
     // ASSERT
-    expect(pushMock).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(pushMock).toHaveBeenCalledTimes(1));
     expect(pushMock).toHaveBeenCalledWith('/previous-page');
   });
 
@@ -188,7 +178,7 @@ describe('<LoginFormContainer />', () => {
 
     // Override the router mock for this test
     const pushMock = jest.fn();
-    (useRouter as jest.Mock).mockReturnValueOnce({
+    (useRouter as jest.Mock).mockReturnValue({
       push: pushMock,
       query: {
         redirect: null,
@@ -202,19 +192,16 @@ describe('<LoginFormContainer />', () => {
     });
 
     // ACT
-    const wrapper = mount(
+    const { getByRole } = render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <LoginFormContainer />
       </MockedProvider>,
     );
 
-    await submitForm(wrapper.find('form'));
-
-    // Wait for the mutation to finish
-    await wait(0);
+    fireEvent.submit(getByRole('form'));
 
     // ASSERT
-    expect(pushMock).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(pushMock).toHaveBeenCalledTimes(1));
     expect(pushMock).toHaveBeenCalledWith('/');
   });
 
@@ -239,7 +226,7 @@ describe('<LoginFormContainer />', () => {
 
     // Override the router mock for this test
     const pushMock = jest.fn();
-    (useRouter as jest.Mock).mockReturnValueOnce({
+    (useRouter as jest.Mock).mockReturnValue({
       push: pushMock,
       query: {
         redirect: '/_error',
@@ -253,19 +240,16 @@ describe('<LoginFormContainer />', () => {
     });
 
     // ACT
-    const wrapper = mount(
+    const { getByRole } = render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <LoginFormContainer />
       </MockedProvider>,
     );
 
-    await submitForm(wrapper.find('form'));
-
-    // Wait for the mutation to finish
-    await wait(0);
+    fireEvent.submit(getByRole('form'));
 
     // ASSERT
-    expect(pushMock).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(pushMock).toHaveBeenCalledTimes(1));
     expect(pushMock).toHaveBeenCalledWith('/');
   });
 });

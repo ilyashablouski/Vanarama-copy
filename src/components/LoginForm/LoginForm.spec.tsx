@@ -1,39 +1,31 @@
-import { mount } from 'enzyme';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import React from 'react';
-import {
-  assertTextEquals,
-  getElementById,
-  submitForm,
-} from '../../utils/testing';
 import LoginForm from './LoginForm';
 
-const getEmailInput = getElementById('loginFormInputEmail');
-const getPasswordInput = getElementById('loginFormInputPassword');
-
 describe('<LoginForm />', () => {
-  it('should call `onSubmit` once the user has successfully registered', async () => {
+  it('should call `onSubmit` if there are no validation errors', async () => {
     // ARRANGE
-    const email = 'barry.chuckle@gmail.com';
-    const password = 'Password1';
     const onSubmit = jest.fn();
 
     // ACT
-    const wrapper = mount(<LoginForm onSubmit={onSubmit} />);
+    const { getByLabelText, getByText } = render(
+      <LoginForm onSubmit={onSubmit} />,
+    );
 
     // Set the email address
-    getEmailInput(wrapper).simulate('change', {
-      target: { value: email },
+    fireEvent.change(getByLabelText('Your Email'), {
+      target: { value: 'barry.chuckle@gmail.com' },
     });
 
     // Set the password
-    getPasswordInput(wrapper).simulate('change', {
-      target: { value: password },
+    fireEvent.change(getByLabelText('Your Password'), {
+      target: { value: 'Password1' },
     });
 
-    await submitForm(wrapper.find('form'));
+    fireEvent.submit(getByText('Login'));
 
     // ASSERT
-    expect(onSubmit).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
   });
 
   it('should show required field validation messages', async () => {
@@ -41,21 +33,16 @@ describe('<LoginForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const wrapper = mount(<LoginForm onSubmit={onSubmit} />);
+    const { getByText } = render(<LoginForm onSubmit={onSubmit} />);
 
-    await submitForm(wrapper);
+    fireEvent.submit(getByText('Login'));
 
     // ASSERT
-    assertTextEquals(
-      wrapper,
-      '#loginFormInputEmailWrapper .textinput--error',
-    )('Your Email is required');
+    await waitFor(() =>
+      expect(getByText('Your Email is required')).toBeVisible(),
+    );
 
-    assertTextEquals(
-      wrapper,
-      '#loginFormInputPasswordWrapper .textinput--error',
-    )('Your Password is required');
-
+    expect(getByText('Your Password is required')).toBeVisible();
     expect(onSubmit).toHaveBeenCalledTimes(0);
   });
 });

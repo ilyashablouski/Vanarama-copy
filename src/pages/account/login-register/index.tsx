@@ -16,7 +16,12 @@ export const LoginRegisterPage: NextPage = () => {
     <MainLayout>
       <Grid sm="2" md="2" lg="6">
         <Column sm="row" md="row" lg="2-4">
-          <Heading tag="span" size="xlarge" color="black">
+          <Heading
+            tag="span"
+            size="xlarge"
+            color="black"
+            testId="login-register-heading"
+          >
             Login / Register
           </Heading>
         </Column>
@@ -24,10 +29,10 @@ export const LoginRegisterPage: NextPage = () => {
         {registrationSuccess && (
           <Column sm="row" md="row" lg="2-4">
             <Heading
-              id="registrationSuccessMessage"
               tag="span"
               size="regular"
               color="success"
+              testId="registeration-success-message"
             >
               Registration successful. Please verify your email.
             </Heading>
@@ -36,10 +41,16 @@ export const LoginRegisterPage: NextPage = () => {
 
         <Column sm="row" md="row" lg="2-4">
           <div className="login-register-form">
-            <Tabs active={0} tabs={['Login', 'Register']}>
+            <Tabs
+              active={0}
+              tabs={[
+                { label: 'Login', testId: 'login-tab' },
+                { label: 'Register', testId: 'register-tab' },
+              ]}
+            >
               <LoginFormContainer />
               <RegisterFormContainer
-                onSuccess={() => setRegistrationSuccess(true)}
+                onCompleted={() => setRegistrationSuccess(true)}
               />
             </Tabs>
           </div>

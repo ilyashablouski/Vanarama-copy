@@ -3,8 +3,8 @@ import { gql } from 'apollo-boost';
 import localForage from 'localforage';
 import { useRouter } from 'next/router';
 import {
-  LoginUserMutation,
-  LoginUserMutationVariables,
+  LoginUserMutation as Mutation,
+  LoginUserMutationVariables as MutationVariables,
 } from '../../../generated/LoginUserMutation';
 import LoginForm from '../../components/LoginForm/LoginForm';
 
@@ -16,25 +16,13 @@ export const LOGIN_USER_MUTATION = gql`
 
 const LoginFormContainer: React.FC = () => {
   const router = useRouter();
-  // TODO: Handle error from mutation
-  const [loginUser, { loading }] = useMutation<
-    LoginUserMutation,
-    LoginUserMutationVariables
-  >(LOGIN_USER_MUTATION);
 
-  return (
-    <LoginForm
-      isSubmitting={loading}
-      onSubmit={async values => {
-        const response = await loginUser({
-          variables: {
-            username: values.email,
-            password: values.password,
-          },
-        });
-
-        const token = response.data.login;
-        await localForage.setItem('token', token);
+  const [login, { loading }] = useMutation<Mutation, MutationVariables>(
+    LOGIN_USER_MUTATION,
+    {
+      onCompleted: async data => {
+        // Put the token in localStorage
+        await localForage.setItem('token', data.login);
 
         // Redirect to the user's previous route or homepage.
         const { redirect } = router.query;
@@ -44,6 +32,20 @@ const LoginFormContainer: React.FC = () => {
             : '/';
 
         router.push(nextUrl);
+      },
+    },
+  );
+
+  return (
+    <LoginForm
+      isSubmitting={loading}
+      onSubmit={async values => {
+        await login({
+          variables: {
+            username: values.email,
+            password: values.password,
+          },
+        });
       }}
     />
   );

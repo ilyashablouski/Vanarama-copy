@@ -1,7 +1,6 @@
-import { MockedProvider, MockedResponse, wait } from '@apollo/react-testing';
-import { mount } from 'enzyme';
+import { MockedProvider, MockedResponse } from '@apollo/react-testing';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import React from 'react';
-import { submitForm } from '../../utils/testing';
 import RegisterFormContainer, {
   REGISTER_USER_MUTATION,
 } from './RegisterFormContainer';
@@ -41,24 +40,21 @@ describe('<RegisterFormContainer />', () => {
     });
 
     // ACT
-    const wrapper = mount(
+    const { getByRole } = render(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <RegisterFormContainer onSuccess={jest.fn()} />
+        <RegisterFormContainer onCompleted={jest.fn()} />
       </MockedProvider>,
     );
 
-    await submitForm(wrapper.find('form'));
-
-    // Wait for the mutation to finish
-    await wait(0);
+    fireEvent.submit(getByRole('form'));
 
     // ASSERT
-    expect(mockCalled).toBeTruthy();
+    await waitFor(() => expect(mockCalled).toBeTruthy());
   });
 
-  it('should call `onSuccess` when the user was created successfully', async () => {
+  it('should call `onCompleted` when the user was created successfully', async () => {
     // ARRANGE
-    const onSuccess = jest.fn();
+    const onCompleted = jest.fn();
     const mocks: MockedResponse[] = [
       {
         request: {
@@ -85,18 +81,15 @@ describe('<RegisterFormContainer />', () => {
     });
 
     // ACT
-    const wrapper = mount(
+    const { getByRole } = render(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <RegisterFormContainer onSuccess={onSuccess} />
+        <RegisterFormContainer onCompleted={onCompleted} />
       </MockedProvider>,
     );
 
-    await submitForm(wrapper.find('form'));
-
-    // Wait for the mutation to finish
-    await wait(0);
+    fireEvent.submit(getByRole('form'));
 
     // ASSERT
-    expect(onSuccess).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(onCompleted).toHaveBeenCalledTimes(1));
   });
 });

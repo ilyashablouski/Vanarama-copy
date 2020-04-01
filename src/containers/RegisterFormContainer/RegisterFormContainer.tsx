@@ -1,8 +1,8 @@
 import { useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import {
-  RegisterUserMutation,
-  RegisterUserMutationVariables,
+  RegisterUserMutation as Mutation,
+  RegisterUserMutationVariables as MutationVariables,
 } from '../../../generated/RegisterUserMutation';
 import RegisterForm from '../../components/RegisterForm/RegisterForm';
 import { IRegisterFormContainerProps } from './interfaces';
@@ -16,27 +16,23 @@ export const REGISTER_USER_MUTATION = gql`
 `;
 
 const RegisterFormContainer: React.FC<IRegisterFormContainerProps> = ({
-  onSuccess,
+  onCompleted,
 }) => {
-  // TODO: Handle error from mutation
-  const [registerUser, { loading }] = useMutation<
-    RegisterUserMutation,
-    RegisterUserMutationVariables
-  >(REGISTER_USER_MUTATION);
+  const [register, { loading }] = useMutation<Mutation, MutationVariables>(
+    REGISTER_USER_MUTATION,
+    { onCompleted },
+  );
 
   return (
     <RegisterForm
       isSubmitting={loading}
       onSubmit={async values => {
-        await registerUser({
+        await register({
           variables: {
             username: values.email,
             password: values.password,
           },
         });
-
-        // TODO: Should redirect here at some point.
-        onSuccess();
       }}
     />
   );
