@@ -4,6 +4,7 @@ import Details from '@vanarama/uibook/packages/ui-components/src/components/atom
 import Link from '@vanarama/uibook/packages/ui-components/src/components/atoms/link';
 import Text from '@vanarama/uibook/packages/ui-components/src/components/atoms/text';
 import TextInput from '@vanarama/uibook/packages/ui-components/src/components/atoms/textinput';
+import Form from '@vanarama/uibook/packages/ui-components/src/components/organisms/form';
 import { useForm } from 'react-hook-form';
 import { IRegisterFormProps, IRegisterFormValues } from './interfaces';
 import {
@@ -28,7 +29,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
 
   const watchPassword = watch('password');
   return (
-    <form
+    <Form
       data-testid="register-form"
       className="form"
       onSubmit={handleSubmit(onSubmit)}
@@ -39,8 +40,8 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
         type="email"
         label="Your Email"
         invalid={errors.email && errors.email.message}
-        testId="register-form_email"
-        errorTestId="register-form_email-error"
+        data-testid="register-form_email"
+        errorProps={{ 'data-testid': 'register-form_email-error' }}
         parentRef={register(emailValidator)}
       />
       <TextInput
@@ -49,8 +50,8 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
         type="password"
         invalid={errors.password && errors.password.message}
         label="Your Password"
-        testId="register-form_password"
-        errorTestId="register-form_password-error"
+        data-testid="register-form_password"
+        errorProps={{ 'data-testid': 'register-form_password-error' }}
         parentRef={register(passwordValidator)}
       />
       <Details
@@ -63,14 +64,14 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
         type="password"
         invalid={errors.confirmPassword && errors.confirmPassword.message}
         label="Repeat Password"
-        testId="register-form_confirm-password"
-        errorTestId="register-form_confirm-password-error"
+        data-testid="register-form_confirm-password"
+        errorProps={{ 'data-testid': 'register-form_confirm-password-error' }}
         parentRef={register(confirmPasswordValidator(watchPassword))}
       />
       <Text tag="p" color="darker" size="xsmall">
         By creating your account, you agree to our{' '}
         <Link
-          testId="terms_and_conditions"
+          data-testid="terms_and_conditions"
           href="https://www.motorama.com/terms-conditions"
           size="xsmall"
         >
@@ -78,7 +79,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
         </Link>{' '}
         and{' '}
         <Link
-          testId="privacy_policy"
+          data-testid="privacy_policy"
           href="https://www.motorama.com/cookie-privacy-policy"
           size="xsmall"
         >
@@ -87,7 +88,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
         .
       </Text>
       <Button
-        testId="register-form_submit"
+        data-testid="register-form_submit"
         type="submit"
         label={isSubmitting ? 'Loading...' : 'Register'}
         disabled={isSubmitting}
@@ -95,7 +96,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
         iconPosition="after"
         color="primary"
       />
-    </form>
+    </Form>
   );
 };
 

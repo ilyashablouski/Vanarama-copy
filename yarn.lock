@@ -1910,10 +1910,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@^2.0.8":
-  version "2.0.8"
-  resolved "https://registry.npmjs.org/@vanarama/uibook/-/uibook-2.0.8.tgz#1b976a10463e9f9d6f20883a1df08526d7573015"
-  integrity sha512-5ypMIoWamhT9yba/y3jRWPpwhzJF07fpmPagivVN/YIld2crif/UhGqfWW4bFhbmqGzChllWKIEVfVneNzqs6g==
+"@vanarama/uibook@^2.0.10":
+  version "2.0.10"
+  resolved "https://registry.npmjs.org/@vanarama/uibook/-/uibook-2.0.10.tgz#a4476d3702aa0b198fb725194c47b12b9eb9667c"
+  integrity sha512-N7al7OddpHHDGvZxcgduXjmKGwlmbuoLshOmGLVbCU9bvV15k7j0z0BTCpCtc74eGHGoKKy4Yg1NUyjuCoARLw==
 
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"

@@ -45,4 +45,14 @@ describe('<LoginForm />', () => {
     expect(getByText('Your Password is required')).toBeVisible();
     expect(onSubmit).toHaveBeenCalledTimes(0);
   });
+
+  it('should show an error message if set', async () => {
+    // ACT
+    const { getByText } = render(<LoginForm onSubmit={jest.fn()} hasError />);
+
+    // ASSERT
+    expect(
+      getByText('Email address and password combination is not valid'),
+    ).toBeVisible();
+  });
 });

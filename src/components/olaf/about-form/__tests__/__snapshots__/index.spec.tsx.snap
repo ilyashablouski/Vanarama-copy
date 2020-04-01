@@ -12,12 +12,12 @@ exports[`<AboutForm /> renders correctly 1`] = `
   >
     About You
   </Heading>
-  <Text
+  <Memo(Text)
     color="darker"
     size="lead"
   >
     We just need some initial details for your credit check.
-  </Text>
+  </Memo(Text)>
   <Memo()
     legend="Title"
   >

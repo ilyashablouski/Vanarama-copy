@@ -17,7 +17,7 @@ export const LOGIN_USER_MUTATION = gql`
 const LoginFormContainer: React.FC = () => {
   const router = useRouter();
 
-  const [login, { loading }] = useMutation<Mutation, MutationVariables>(
+  const [login, { loading, error }] = useMutation<Mutation, MutationVariables>(
     LOGIN_USER_MUTATION,
     {
       onCompleted: async data => {
@@ -38,6 +38,7 @@ const LoginFormContainer: React.FC = () => {
 
   return (
     <LoginForm
+      hasError={Boolean(error)}
       isSubmitting={loading}
       onSubmit={async values => {
         await login({

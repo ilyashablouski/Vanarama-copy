@@ -20,7 +20,7 @@ export const LoginRegisterPage: NextPage = () => {
             tag="span"
             size="xlarge"
             color="black"
-            testId="login-register-heading"
+            data-testid="login-register-heading"
           >
             Login / Register
           </Heading>
@@ -32,7 +32,7 @@ export const LoginRegisterPage: NextPage = () => {
               tag="span"
               size="regular"
               color="success"
-              testId="registeration-success-message"
+              data-testid="registeration-success-message"
             >
               Registration successful. Please verify your email.
             </Heading>
