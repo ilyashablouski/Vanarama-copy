@@ -59,7 +59,7 @@ node('master') {
           docker-compose -f ${WORKSPACE}/docker-compose.yml exec -T --index=1 next-storefront /bin/bash -c "yarn install"
           docker-compose -f ${WORKSPACE}/docker-compose.yml exec -T --index=1 next-storefront /bin/bash -c "yarn test -u >results.xml"
           docker cp next-storefront:/usr/src/app/results.xml ${WORKSPACE}/results.xml
-          docker-compose -f ${WORKSPACE}/docker-compose.yml down
+          docker-compose -f ${WORKSPACE}/docker-compose.yml down -v
           '''
         }
       }
@@ -269,7 +269,7 @@ node('master') {
           // These commands ensure that if the pipeline fails in Stage 2 that the container does not stay up! //
           sh '''
             export PATH=/usr/local/bin:$PATH
-            docker-compose -f ${WORKSPACE}/docker-compose.yml down
+            docker-compose -f ${WORKSPACE}/docker-compose.yml down -v
           '''
           // If the unit tests try/catch section remains viable then the docker-compose above will be redundant
 
