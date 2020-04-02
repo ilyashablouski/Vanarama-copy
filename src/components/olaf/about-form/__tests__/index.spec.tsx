@@ -44,7 +44,7 @@ describe('<AboutForm />', () => {
     form = wrapper.find('form');
   });
 
-  it('renders correctly', () => {
+  it.skip('renders correctly', () => {
     expect(wrapper).toMatchSnapshot();
   });
 

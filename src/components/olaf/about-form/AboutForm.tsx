@@ -7,7 +7,7 @@ import FormGroup from '@vanarama/uibook/packages/ui-components/src/components/mo
 import Select from '@vanarama/uibook/packages/ui-components/src/components/atoms/select/';
 import Input from '@vanarama/uibook/packages/ui-components/src/components/atoms/textinput/';
 import Button from '@vanarama/uibook/packages/ui-components/src/components/atoms/button/';
-import CheckBox from '@vanarama/uibook/packages/ui-components/src/components/atoms/checkbox/';
+// import CheckBox from '@vanarama/uibook/packages/ui-components/src/components/atoms/checkbox/';
 import { genMonths, genYears } from '../../../services/utils/helpers';
 
 import { IProps, IState } from './interface';
@@ -193,7 +193,7 @@ class AboutForm extends Component<IProps, IState> {
             id="aboutSelectAdultsInHouse"
           />
         </FormGroup>
-        <CheckBox
+        {/* <CheckBox
           label="Please Confirm"
           onChange={this.handleInputChange}
           name="confirmation"
@@ -209,7 +209,7 @@ class AboutForm extends Component<IProps, IState> {
             },
           ]}
           id="aboutInputCheckbox"
-        />
+        /> */}
 
         <Button type="submit" label="Continue" color="primary" />
       </form>
