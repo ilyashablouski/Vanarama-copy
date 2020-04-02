@@ -20,7 +20,7 @@ export const LoginRegisterPage: NextPage = () => {
             tag="span"
             size="xlarge"
             color="black"
-            data-testid="login-register-heading"
+            dataTestId="login-register-heading"
           >
             Login / Register
           </Heading>
@@ -32,7 +32,7 @@ export const LoginRegisterPage: NextPage = () => {
               tag="span"
               size="regular"
               color="success"
-              data-testid="registeration-success-message"
+              dataTestId="registeration-success-message"
             >
               Registration successful. Please verify your email.
             </Heading>
@@ -44,8 +44,8 @@ export const LoginRegisterPage: NextPage = () => {
             <Tabs
               active={0}
               tabs={[
-                { label: 'Login', testId: 'login-tab' },
-                { label: 'Register', testId: 'register-tab' },
+                { label: 'Login', dataTestId: 'login-tab' },
+                { label: 'Register', dataTestId: 'register-tab' },
               ]}
             >
               <LoginFormContainer />

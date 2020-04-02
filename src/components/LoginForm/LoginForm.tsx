@@ -22,13 +22,13 @@ const LoginForm: React.FC<ILoginFormProps> = ({
 
   return (
     <Form
-      data-testid="login-form"
+      dataTestId="login-form"
       className="form"
       invalid={error}
       onSubmit={handleSubmit(onSubmit)}
     >
       {error && (
-        <FormError data-testid="login-form_error">
+        <FormError dataTestId="login-form_error">
           Email address and password combination is not valid
         </FormError>
       )}
@@ -38,8 +38,8 @@ const LoginForm: React.FC<ILoginFormProps> = ({
         type="email"
         label="Your Email"
         invalid={errors.email && errors.email.message}
-        data-testid="login-form_email"
-        errorProps={{ 'data-testid': 'login-form_email-error' }}
+        dataTestId="login-form_email"
+        errorProps={{ dataTestId: 'login-form_email-error' }}
         parentRef={register(emailValidator)}
       />
       <TextInput
@@ -48,18 +48,18 @@ const LoginForm: React.FC<ILoginFormProps> = ({
         type="password"
         invalid={errors.password && errors.password.message}
         label="Your Password"
-        data-testid="login-form_password"
-        errorProps={{ 'data-testid': 'login-form_password-error' }}
+        dataTestId="login-form_password"
+        errorProps={{ dataTestId: 'login-form_password-error' }}
         parentRef={register(passwordValidator)}
       />
       {/* TODO: Make Link work with next/link */}
       {/* <NextLink href="/password-reset" passHref> */}
-      <Link data-testid="forgot-password" href="/password-reset" color="teal">
+      <Link dataTestId="forgot-password" href="/password-reset" color="teal">
         Forgotten your Password?
       </Link>
       {/* </NextLink> */}
       <Button
-        data-testid="login-form_submit"
+        dataTestId="login-form_submit"
         type="submit"
         label={isSubmitting ? 'Loading...' : 'Login'}
         disabled={isSubmitting}
