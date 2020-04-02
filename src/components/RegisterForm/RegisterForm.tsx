@@ -30,7 +30,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
   const watchPassword = watch('password');
   return (
     <Form
-      data-testid="register-form"
+      dataTestId="register-form"
       className="form"
       onSubmit={handleSubmit(onSubmit)}
     >
@@ -40,8 +40,8 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
         type="email"
         label="Your Email"
         invalid={errors.email && errors.email.message}
-        data-testid="register-form_email"
-        errorProps={{ 'data-testid': 'register-form_email-error' }}
+        dataTestId="register-form_email"
+        errorProps={{ dataTestId: 'register-form_email-error' }}
         parentRef={register(emailValidator)}
       />
       <TextInput
@@ -50,8 +50,8 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
         type="password"
         invalid={errors.password && errors.password.message}
         label="Your Password"
-        data-testid="register-form_password"
-        errorProps={{ 'data-testid': 'register-form_password-error' }}
+        dataTestId="register-form_password"
+        errorProps={{ dataTestId: 'register-form_password-error' }}
         parentRef={register(passwordValidator)}
       />
       <Details
@@ -64,14 +64,14 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
         type="password"
         invalid={errors.confirmPassword && errors.confirmPassword.message}
         label="Repeat Password"
-        data-testid="register-form_confirm-password"
-        errorProps={{ 'data-testid': 'register-form_confirm-password-error' }}
+        dataTestId="register-form_confirm-password"
+        errorProps={{ dataTestId: 'register-form_confirm-password-error' }}
         parentRef={register(confirmPasswordValidator(watchPassword))}
       />
       <Text tag="p" color="darker" size="xsmall">
         By creating your account, you agree to our{' '}
         <Link
-          data-testid="terms_and_conditions"
+          dataTestId="terms_and_conditions"
           href="https://www.motorama.com/terms-conditions"
           size="xsmall"
         >
@@ -79,7 +79,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
         </Link>{' '}
         and{' '}
         <Link
-          data-testid="privacy_policy"
+          dataTestId="privacy_policy"
           href="https://www.motorama.com/cookie-privacy-policy"
           size="xsmall"
         >
@@ -88,7 +88,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
         .
       </Text>
       <Button
-        data-testid="register-form_submit"
+        dataTestId="register-form_submit"
         type="submit"
         label={isSubmitting ? 'Loading...' : 'Register'}
         disabled={isSubmitting}

@@ -80,13 +80,7 @@ const OlafContainer: React.FC<IProgressContainerProps> = ({
                     <Heading tag="h5" color="darker" size="xsmall">
                       1.0 IG-T 100 Tekna 5dr Xtronic [Leather]{' '}
                     </Heading>
-                    <Rating
-                      id="product-card__rating"
-                      color="orange"
-                      size="regular"
-                      max={5}
-                      score={4.5}
-                    />
+                    <Rating color="orange" size="regular" max={5} score={4.5} />
                   </hgroup>
                   <StructuredList
                     priceTag={{
