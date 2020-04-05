@@ -1,0 +1,85 @@
+import * as yup from 'yup';
+import moment from 'moment';
+import { IDetails } from './interface';
+
+const reqMsg = rel => ` Please enter your ${rel}`;
+
+function ageCheck({ dayOfBirth, monthOfBirth, yearOfBirth }) {
+  let ageMsg = '';
+  const dateStr = `${dayOfBirth} ${monthOfBirth} ${yearOfBirth}`;
+  const validMinAge =
+    moment().diff(moment(dateStr, 'DD-MMMM-YYYY'), 'years') >= 18;
+
+  const validMaxAge =
+    moment().diff(moment(dateStr, 'DD-MMMM-YYYY'), 'years') <= 120;
+
+  if (validMaxAge && validMinAge) return true;
+
+  if (!validMaxAge) {
+    ageMsg = 'Oops, is your age correct?';
+  } else if (!validMinAge) {
+    ageMsg = 'Oops, you’re too young.';
+  }
+  return ageMsg;
+}
+
+const ValidationSchema: IDetails = yup.object().shape({
+  title: yup.string().required('Please select a title'),
+  firstName: yup
+    .string()
+    .required(reqMsg('first name'))
+    .min(
+      2,
+      'Oops, this name’s too short. Please make it longer than 2 characters',
+    )
+    .max(50, 'Oops, this name’s too long. Please keep it to 50 characters'),
+  lastName: yup
+    .string()
+    .required(reqMsg('last name'))
+    .min(
+      2,
+      'Oops, this name’s too short. Please make it longer than 2 characters',
+    )
+    .max(50, 'Oops, this name’s too long. Please keep it to 50 characters'),
+  email: yup
+    .string()
+    .required(reqMsg('Email'))
+    .email('Oops, this email address is invalid'),
+  mobile: yup
+    .string()
+    .matches(
+      /^([+]\d{2})?\d{11,12}$/,
+      'Please enter mobile number without spaces or hyphens',
+    )
+    .required(reqMsg('Mobile')),
+  dayOfBirth: yup
+    .string()
+    .required('Please complete your date of birth')
+    .test('age', function age() {
+      const msg = ageCheck(this.parent);
+      return this.createError({ msg });
+    }),
+  monthOfBirth: yup
+    .string()
+    .required('Please complete your date of birth')
+    .test('age', function age() {
+      const msg = ageCheck(this.parent);
+      return this.createError({ msg });
+    }),
+  yearOfBirth: yup
+    .string()
+    .required('Please complete your date of birth')
+    .test('age', function age() {
+      const msg = ageCheck(this.parent);
+      return this.createError({ msg });
+    }),
+  countryOfBirth: yup.string().required(reqMsg('country of birth')),
+  nationality: yup.string().required(reqMsg('nationality')),
+  maritalStatus: yup.string().required(reqMsg('marital status')),
+  dependants: yup.string().required('Please enter number of dependants'),
+  adultsInHousehold: yup.string().required('Please enter adults in household'),
+  consent: yup.string().notRequired(),
+  termsAndCons: yup.boolean().required('Please confirm terms and conditions'),
+});
+
+export default ValidationSchema;

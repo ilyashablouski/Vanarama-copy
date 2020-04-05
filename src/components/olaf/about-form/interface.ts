@@ -16,10 +16,6 @@ export interface IDetails {
   consent: boolean;
 }
 
-export interface IState {
-  details: IDetails;
-}
-
 export interface IProps {
   allDropDowns: any;
   preloadData: any;
