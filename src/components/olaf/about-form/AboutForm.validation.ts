@@ -76,7 +76,9 @@ const ValidationSchema = yup.object().shape<IAboutFormValues>({
   dependants: yup.string().required('Please enter number of dependants'),
   adultsInHousehold: yup.string().required('Please enter adults in household'),
   consent: yup.boolean().notRequired(),
-  termsAndCons: yup.boolean().required('Please confirm terms and conditions'),
+  termsAndCons: yup
+    .boolean()
+    .oneOf([true], 'The terms and conditions must be accepted.'),
 });
 
 export default ValidationSchema;
