@@ -38,7 +38,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
         We just need some initial details for your credit check.
       </Text>
       <FormGroup controlId="title" label="Title">
-        <Select id="title" name="title" data-testid="aboutTitle" ref={register}>
+        <Select id="title" name="title" dataTestId="aboutTitle" ref={register}>
           <OptionsWithFavourites options={dropdownData.titles} />
         </Select>
       </FormGroup>
@@ -54,7 +54,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
                 id="firstName"
                 name="firstName"
                 type="text"
-                data-testid="aboutFirstName"
+                dataTestId="aboutFirstName"
                 ref={register}
                 width={45}
               />
@@ -74,7 +74,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
                 id="lastName"
                 type="text"
                 name="lastName"
-                data-testid="aboutLastName"
+                dataTestId="aboutLastName"
                 ref={register}
                 width={45}
               />
@@ -94,7 +94,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
                 id="email"
                 type="email"
                 name="email"
-                data-testid="aboutEmail"
+                dataTestId="aboutEmail"
                 ref={register}
                 width={35}
               />
@@ -114,7 +114,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
                 id="mobile"
                 type="tel"
                 name="mobile"
-                data-testid="aboutMobile"
+                dataTestId="aboutMobile"
                 ref={register}
                 width={35}
               />
@@ -125,7 +125,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
       <FormGroup controlId="dayOfBirth" label="Date of Birth" inline>
         <Select
           id="dayOfBirth"
-          data-testid="aboutSelectDOB"
+          dataTestId="aboutSelectDOB"
           name="dayOfBirth"
           ref={register}
           placeholder="Day"
@@ -139,7 +139,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
             ))}
         </Select>
         <Select
-          data-testid="aboutSelectMOB"
+          dataTestId="aboutSelectMOB"
           name="monthOfBirth"
           ref={register}
           placeholder="Month"
@@ -151,7 +151,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
           ))}
         </Select>
         <Select
-          data-testid="aboutSelectYOB"
+          dataTestId="aboutSelectYOB"
           name="yearOfBirth"
           ref={register}
           placeholder="Year"
@@ -167,7 +167,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
         <Select
           id="countryOfBirth"
           name="countryOfBirth"
-          data-testid="aboutSelectCOB"
+          dataTestId="aboutSelectCOB"
           ref={register}
         >
           <OptionsWithFavourites options={dropdownData.countries} />
@@ -177,7 +177,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
         <Select
           id="nationality"
           name="nationality"
-          data-testid="aboutNationality"
+          dataTestId="aboutNationality"
           ref={register}
         >
           <OptionsWithFavourites options={dropdownData.nationalities} />
@@ -187,7 +187,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
         <Select
           id="maritalStatus"
           name="maritalStatus"
-          data-testid="aboutMaritalStatus"
+          dataTestId="aboutMaritalStatus"
           ref={register}
         >
           {dropdownData.maritalStatuses.data.map(value => (
@@ -201,7 +201,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
         <Select
           id="dependants"
           name="dependants"
-          data-testid="aboutDependants"
+          dataTestId="aboutDependants"
           ref={register}
         >
           {dropdownData.noOfDependants.data.map(value => (
@@ -218,7 +218,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
         <Select
           id="adultsInHousehold"
           name="adultsInHousehold"
-          data-testid="aboutAdultsInHouse"
+          dataTestId="aboutAdultsInHouse"
           ref={register}
         >
           {dropdownData.noOfAdultsInHousehold.data.map(value => (
@@ -231,14 +231,14 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
       <FormGroup label="Please Confirm">
         <CheckBox
           id="consent"
-          data-testid="aboutConsent"
+          dataTestId="aboutConsent"
           name="consent"
           label="I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions."
           ref={register}
         />
         <CheckBox
           id="termsAndCons"
-          data-testid="aboutTermsAndCons"
+          dataTestId="aboutTermsAndCons"
           name="termsAndCons"
           label="I agree to the terms and conditions."
           ref={register}
