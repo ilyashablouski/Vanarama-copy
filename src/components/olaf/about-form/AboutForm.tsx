@@ -7,7 +7,6 @@ import Text from '@vanarama/uibook/packages/ui-components/src/components/atoms/t
 import TextInput from '@vanarama/uibook/packages/ui-components/src/components/atoms/textinput/';
 import FormGroup from '@vanarama/uibook/packages/ui-components/src/components/molecules/formgroup';
 import { gql } from 'apollo-boost';
-import { Col, Row } from 'react-grid-system';
 import { useForm } from 'react-hook-form';
 import FCWithFragments from '../../../utils/FCWithFragments';
 import { genMonths, genYears } from '../../../utils/helpers';
@@ -37,92 +36,77 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
       <Text color="darker" size="lead">
         We just need some initial details for your credit check.
       </Text>
-      <FormGroup controlId="title" label="Title">
+      <FormGroup controlId="title" label="Title" error={errors?.title?.message}>
         <Select id="title" name="title" dataTestId="aboutTitle" ref={register}>
           <OptionsWithFavourites options={dropdownData.titles} />
         </Select>
       </FormGroup>
-      <FormGroup>
-        <Row>
-          <Col sm={8}>
-            <FormGroup
-              controlId="firstName"
-              label="First Name"
-              error={errors?.firstName?.message}
-            >
-              <TextInput
-                id="firstName"
-                name="firstName"
-                type="text"
-                dataTestId="aboutFirstName"
-                ref={register}
-                width={45}
-              />
-            </FormGroup>
-          </Col>
-        </Row>
+
+      <FormGroup
+        controlId="firstName"
+        label="First Name"
+        error={errors?.firstName?.message}
+      >
+        <TextInput
+          id="firstName"
+          name="firstName"
+          type="text"
+          dataTestId="aboutFirstName"
+          ref={register}
+          width={45}
+        />
+      </FormGroup>
+
+      <FormGroup
+        controlId="lastName"
+        label="Last Name"
+        error={errors?.lastName?.message}
+      >
+        <TextInput
+          id="lastName"
+          type="text"
+          name="lastName"
+          dataTestId="aboutLastName"
+          ref={register}
+          width={45}
+        />
+      </FormGroup>
+      <FormGroup controlId="email" label="Email" error={errors?.email?.message}>
+        <TextInput
+          id="email"
+          type="email"
+          name="email"
+          dataTestId="aboutEmail"
+          ref={register}
+          width={35}
+        />
       </FormGroup>
       <FormGroup>
-        <Row>
-          <Col sm={8}>
-            <FormGroup
-              controlId="lastName"
-              label="Last Name"
-              error={errors?.lastName?.message}
-            >
-              <TextInput
-                id="lastName"
-                type="text"
-                name="lastName"
-                dataTestId="aboutLastName"
-                ref={register}
-                width={45}
-              />
-            </FormGroup>
-          </Col>
-        </Row>
+        <FormGroup
+          controlId="mobile"
+          label="Mobile"
+          error={errors?.mobile?.message}
+        >
+          <TextInput
+            id="mobile"
+            type="tel"
+            name="mobile"
+            dataTestId="aboutMobile"
+            ref={register}
+            width={35}
+          />
+        </FormGroup>
       </FormGroup>
-      <FormGroup>
-        <Row>
-          <Col sm={6}>
-            <FormGroup
-              controlId="email"
-              label="Email"
-              error={errors?.email?.message}
-            >
-              <TextInput
-                id="email"
-                type="email"
-                name="email"
-                dataTestId="aboutEmail"
-                ref={register}
-                width={35}
-              />
-            </FormGroup>
-          </Col>
-        </Row>
-      </FormGroup>
-      <FormGroup>
-        <Row>
-          <Col sm={6}>
-            <FormGroup
-              controlId="mobile"
-              label="Mobile"
-              error={errors?.mobile?.message}
-            >
-              <TextInput
-                id="mobile"
-                type="tel"
-                name="mobile"
-                dataTestId="aboutMobile"
-                ref={register}
-                width={35}
-              />
-            </FormGroup>
-          </Col>
-        </Row>
-      </FormGroup>
-      <FormGroup controlId="dayOfBirth" label="Date of Birth" inline>
+      <FormGroup
+        controlId="dayOfBirth"
+        label="Date of Birth"
+        inline
+        error={
+          errors?.dayOfBirth?.message ||
+          errors?.monthOfBirth?.message ||
+          errors?.yearOfBirth?.message
+        }
+      >
         <Select
           id="dayOfBirth"
           dataTestId="aboutSelectDOB"
@@ -163,7 +147,11 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
           ))}
         </Select>
       </FormGroup>
-      <FormGroup controlId="countryOfBirth" label="Country of Birth">
+      <FormGroup
+        controlId="countryOfBirth"
+        label="Country of Birth"
+        error={errors?.countryOfBirth?.message}
+      >
         <Select
           id="countryOfBirth"
           name="countryOfBirth"
@@ -173,7 +161,11 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
           <OptionsWithFavourites options={dropdownData.countries} />
         </Select>
       </FormGroup>
-      <FormGroup controlId="nationality" label="Nationality">
+      <FormGroup
+        controlId="nationality"
+        label="Nationality"
+        error={errors?.nationality?.message}
+      >
         <Select
           id="nationality"
           name="nationality"
@@ -183,7 +175,11 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
           <OptionsWithFavourites options={dropdownData.nationalities} />
         </Select>
       </FormGroup>
-      <FormGroup controlId="maritalStatus" label="Marital Status">
+      <FormGroup
+        controlId="maritalStatus"
+        label="Marital Status"
+        error={errors?.maritalStatus?.message}
+      >
         <Select
           id="maritalStatus"
           name="maritalStatus"
@@ -197,7 +193,11 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
           ))}
         </Select>
       </FormGroup>
-      <FormGroup controlId="dependants" label="No. of Dependants">
+      <FormGroup
+        controlId="dependants"
+        label="No. of Dependants"
+        error={errors?.dependants?.message}
+      >
         <Select
           id="dependants"
           name="dependants"
@@ -214,6 +214,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
       <FormGroup
         controlId="adultsInHousehold"
         label="No. of Adults in Household"
+        error={errors?.adultsInHousehold?.message}
       >
         <Select
           id="adultsInHousehold"
@@ -228,7 +229,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
           ))}
         </Select>
       </FormGroup>
-      <FormGroup label="Please Confirm">
+      <FormGroup label="Please Confirm" error={errors?.termsAndCons?.message}>
         <CheckBox
           id="consent"
           dataTestId="aboutConsent"
