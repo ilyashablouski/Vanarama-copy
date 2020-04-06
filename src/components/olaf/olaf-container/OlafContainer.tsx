@@ -68,7 +68,7 @@ const OlafContainer: React.FC<IProgressContainerProps> = ({
                 flag={{
                   text: 'In Stock - 14-21 Days Delivery',
                   accentText: 'Hot Deal',
-                  accentIcon: <Icon icon={<Flame />} fill color="white" />,
+                  accentIcon: <Icon icon={<Flame />} color="white" />,
                 }}
               >
                 <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/HondaHRV0319_7_nmblcf.jpg" />
