@@ -6,6 +6,7 @@ import Text from '@vanarama/uibook/packages/ui-components/src/components/atoms/t
 import TextInput from '@vanarama/uibook/packages/ui-components/src/components/atoms/textinput';
 import Form from '@vanarama/uibook/packages/ui-components/src/components/organisms/form';
 import { useForm } from 'react-hook-form';
+import Formgroup from '@vanarama/uibook/packages/ui-components/src/components/molecules/formgroup';
 import { IRegisterFormProps, IRegisterFormValues } from './interfaces';
 import {
   confirmPasswordValidator,
@@ -34,40 +35,53 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
       className="form"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <TextInput
-        id="register-form_email"
-        name="email"
-        type="email"
+      <Formgroup
+        controlId="register-form_email"
         label="Your Email"
-        invalid={errors.email && errors.email.message}
-        dataTestId="register-form_email"
-        errorProps={{ dataTestId: 'register-form_email-error' }}
-        parentRef={register(emailValidator)}
-      />
-      <TextInput
-        id="register-form_password"
-        name="password"
-        type="password"
-        invalid={errors.password && errors.password.message}
+        error={errors.email?.message}
+      >
+        <TextInput
+          id="register-form_email"
+          dataTestId="register-form_email"
+          name="email"
+          ref={register(emailValidator)}
+          type="email"
+          width={45}
+        />
+      </Formgroup>
+      <Formgroup
+        controlId="register-form_password"
         label="Your Password"
-        dataTestId="register-form_password"
-        errorProps={{ dataTestId: 'register-form_password-error' }}
-        parentRef={register(passwordValidator)}
-      />
+        error={errors.password?.message}
+      >
+        <TextInput
+          id="register-form_password"
+          dataTestId="register-form_password"
+          name="password"
+          ref={register(passwordValidator)}
+          type="password"
+          width={45}
+        />
+      </Formgroup>
       <Details
         summary="Password Requirements"
         content="Must be 8 characters long, contain at least 1 number, contain uppercase letters and contain lowercase letters."
       />
-      <TextInput
-        id="register-form_confirmPassword"
-        name="confirmPassword"
-        type="password"
-        invalid={errors.confirmPassword && errors.confirmPassword.message}
+      <Formgroup
+        controlId="register-form_confirm-password"
         label="Repeat Password"
-        dataTestId="register-form_confirm-password"
-        errorProps={{ dataTestId: 'register-form_confirm-password-error' }}
-        parentRef={register(confirmPasswordValidator(watchPassword))}
-      />
+        error={errors.confirmPassword?.message}
+      >
+        <TextInput
+          id="register-form_confirm-password"
+          dataTestId="register-form_confirm-password"
+          name="confirmPassword"
+          ref={register(confirmPasswordValidator(watchPassword))}
+          type="password"
+          width={45}
+        />
+      </Formgroup>
+
       <Text tag="p" color="darker" size="xsmall">
         By creating your account, you agree to our{' '}
         <Link

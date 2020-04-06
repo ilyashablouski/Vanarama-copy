@@ -1,29 +1,30 @@
-import { FC } from 'react';
-import { Row, Col } from 'react-grid-system';
-
-import Heading from '@vanarama/uibook/packages/ui-components/src/components/atoms/heading';
-import Text from '@vanarama/uibook/packages/ui-components/src/components/atoms/text';
-import FormGroup from '@vanarama/uibook/packages/ui-components/src/components/molecules/formgroup';
-import Select from '@vanarama/uibook/packages/ui-components/src/components/atoms/select/';
-import TextInput from '@vanarama/uibook/packages/ui-components/src/components/atoms/textinput/';
-import Button from '@vanarama/uibook/packages/ui-components/src/components/atoms/button/';
 import ChevronForwardSharpIcon from '@vanarama/uibook/packages/ui-components/src/assets/icons/ChevronForwardCircleSharp';
+import Button from '@vanarama/uibook/packages/ui-components/src/components/atoms/button/';
 import CheckBox from '@vanarama/uibook/packages/ui-components/src/components/atoms/checkbox/';
-import { Controller, useForm } from 'react-hook-form';
-import { genMonths, genYears } from '../../../services/utils/helpers';
-import { IProps, IDetails } from './interface';
+import Heading from '@vanarama/uibook/packages/ui-components/src/components/atoms/heading';
+import Select from '@vanarama/uibook/packages/ui-components/src/components/atoms/select/';
+import Text from '@vanarama/uibook/packages/ui-components/src/components/atoms/text';
+import TextInput from '@vanarama/uibook/packages/ui-components/src/components/atoms/textinput/';
+import FormGroup from '@vanarama/uibook/packages/ui-components/src/components/molecules/formgroup';
+import { gql } from 'apollo-boost';
+import { Col, Row } from 'react-grid-system';
+import { useForm } from 'react-hook-form';
+import FCWithFragments from '../../../utils/FCWithFragments';
+import { genMonths, genYears } from '../../../utils/helpers';
+import OptionsWithFavourites from '../../OptionsWithFavourites/OptionsWithFavourites';
 import validationSchema from './AboutForm.validation';
+import { IAboutFormValues, IProps } from './interface';
 
-const AboutForm: FC<IProps> = ({ allDropDowns = {}, submit }) => {
+const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
   const months: string[] = genMonths() || [];
   const years: number[] = genYears(100) || [];
 
-  const { handleSubmit, errors, control, reset, register } = useForm<IDetails>({
+  const { handleSubmit, errors, reset, register } = useForm<IAboutFormValues>({
     mode: 'onBlur',
     validationSchema,
   });
 
-  const onSubmission = (values: IDetails) => {
+  const onSubmission = (values: IAboutFormValues) => {
     submit(values);
     reset();
   };
@@ -36,174 +37,213 @@ const AboutForm: FC<IProps> = ({ allDropDowns = {}, submit }) => {
       <Text color="darker" size="lead">
         We just need some initial details for your credit check.
       </Text>
-      <FormGroup legend="Title">
-        <Controller
-          name="title"
-          options={allDropDowns.titles}
-          data-testid="aboutTitle"
-          as={Select}
-          control={control}
-        />
+      <FormGroup controlId="title" label="Title">
+        <Select id="title" name="title" data-testid="aboutTitle" ref={register}>
+          <OptionsWithFavourites options={dropdownData.titles} />
+        </Select>
       </FormGroup>
       <FormGroup>
         <Row>
           <Col sm={8}>
-            <TextInput
-              name="firstName"
+            <FormGroup
+              controlId="firstName"
               label="First Name"
-              type="text"
-              data-testid="aboutFirstName"
-              parentRef={register}
-              invalid={errors?.firstName?.message}
-            />
+              error={errors?.firstName?.message}
+            >
+              <TextInput
+                id="firstName"
+                name="firstName"
+                type="text"
+                data-testid="aboutFirstName"
+                ref={register}
+                width={45}
+              />
+            </FormGroup>
           </Col>
         </Row>
       </FormGroup>
       <FormGroup>
         <Row>
           <Col sm={8}>
-            <TextInput
+            <FormGroup
+              controlId="lastName"
               label="Last Name"
-              type="text"
-              name="lastName"
-              data-testid="aboutLastName"
-              parentRef={register}
-              invalid={errors?.lastName?.message}
-            />
+              error={errors?.lastName?.message}
+            >
+              <TextInput
+                id="lastName"
+                type="text"
+                name="lastName"
+                data-testid="aboutLastName"
+                ref={register}
+                width={45}
+              />
+            </FormGroup>
           </Col>
         </Row>
       </FormGroup>
       <FormGroup>
         <Row>
           <Col sm={6}>
-            <TextInput
+            <FormGroup
+              controlId="email"
               label="Email"
-              type="email"
-              name="email"
-              data-testid="aboutEmail"
-              parentRef={register}
-              invalid={errors?.email?.message}
-            />
+              error={errors?.email?.message}
+            >
+              <TextInput
+                id="email"
+                type="email"
+                name="email"
+                data-testid="aboutEmail"
+                ref={register}
+                width={35}
+              />
+            </FormGroup>
           </Col>
         </Row>
       </FormGroup>
       <FormGroup>
         <Row>
           <Col sm={6}>
-            <TextInput
+            <FormGroup
+              controlId="mobile"
               label="Mobile"
-              type="tel"
-              name="mobile"
-              data-testid="aboutMobile"
-              parentRef={register}
-              invalid={errors?.mobile?.message}
-            />
+              error={errors?.mobile?.message}
+            >
+              <TextInput
+                id="mobile"
+                type="tel"
+                name="mobile"
+                data-testid="aboutMobile"
+                ref={register}
+                width={35}
+              />
+            </FormGroup>
           </Col>
         </Row>
       </FormGroup>
-      <FormGroup legend="Date of Birth">
-        <Row>
-          <Col sm={4}>
-            <Controller
-              data-testid="aboutSelectDOB"
-              name="dayOfBirth"
-              as={Select}
-              control={control}
-              options={{
-                data: [...Array(31)].map((_, i) => (i + 1).toString()),
-              }}
-            />
-          </Col>
-          <Col sm={4}>
-            <Controller
-              data-testid="aboutSelectMOB"
-              name="monthOfBirth"
-              as={Select}
-              control={control}
-              options={{
-                data: months,
-              }}
-            />
-          </Col>
-          <Col sm={4}>
-            <Controller
-              data-testid="aboutSelectYOB"
-              name="yearOfBirth"
-              as={Select}
-              control={control}
-              options={{
-                data: years.map(year => year.toString()),
-              }}
-            />
-          </Col>
-        </Row>
+      <FormGroup controlId="dayOfBirth" label="Date of Birth" inline>
+        <Select
+          id="dayOfBirth"
+          data-testid="aboutSelectDOB"
+          name="dayOfBirth"
+          ref={register}
+          placeholder="Day"
+        >
+          {[...Array(31)]
+            .map((_, i) => i + 1)
+            .map(value => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+        </Select>
+        <Select
+          data-testid="aboutSelectMOB"
+          name="monthOfBirth"
+          ref={register}
+          placeholder="Month"
+        >
+          {months.map(value => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
+        </Select>
+        <Select
+          data-testid="aboutSelectYOB"
+          name="yearOfBirth"
+          ref={register}
+          placeholder="Year"
+        >
+          {years.map(value => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
+        </Select>
       </FormGroup>
-      <FormGroup legend="Country of Birth">
-        <Controller
+      <FormGroup controlId="countryOfBirth" label="Country of Birth">
+        <Select
+          id="countryOfBirth"
           name="countryOfBirth"
-          as={Select}
-          control={control}
-          options={allDropDowns.countries}
           data-testid="aboutSelectCOB"
-        />
+          ref={register}
+        >
+          <OptionsWithFavourites options={dropdownData.countries} />
+        </Select>
       </FormGroup>
-      <FormGroup legend="Nationality">
-        <Controller
+      <FormGroup controlId="nationality" label="Nationality">
+        <Select
+          id="nationality"
           name="nationality"
-          as={Select}
-          control={control}
-          options={allDropDowns.nationalities}
           data-testid="aboutNationality"
-        />
+          ref={register}
+        >
+          <OptionsWithFavourites options={dropdownData.nationalities} />
+        </Select>
       </FormGroup>
-      <FormGroup legend="Marital Status">
-        <Controller
+      <FormGroup controlId="maritalStatus" label="Marital Status">
+        <Select
+          id="maritalStatus"
           name="maritalStatus"
-          as={Select}
-          control={control}
-          options={allDropDowns.maritalStatuses}
           data-testid="aboutMaritalStatus"
-        />
+          ref={register}
+        >
+          {dropdownData.maritalStatuses.data.map(value => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
+        </Select>
       </FormGroup>
-      <FormGroup legend="No. of Dependants">
-        <Controller
+      <FormGroup controlId="dependants" label="No. of Dependants">
+        <Select
+          id="dependants"
           name="dependants"
-          as={Select}
-          control={control}
-          options={allDropDowns.noOfDependants}
           data-testid="aboutDependants"
-        />
+          ref={register}
+        >
+          {dropdownData.noOfDependants.data.map(value => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
+        </Select>
       </FormGroup>
-      <FormGroup legend="No. of Adults in Household">
-        <Controller
+      <FormGroup
+        controlId="adultsInHousehold"
+        label="No. of Adults in Household"
+      >
+        <Select
+          id="adultsInHousehold"
           name="adultsInHousehold"
-          as={Select}
-          control={control}
-          options={allDropDowns.noOfAdultsInHousehold}
           data-testid="aboutAdultsInHouse"
-        />
+          ref={register}
+        >
+          {dropdownData.noOfAdultsInHousehold.data.map(value => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
+        </Select>
       </FormGroup>
-      <FormGroup legend="Please Confirm">
-        <Controller
+      <FormGroup label="Please Confirm">
+        <CheckBox
           id="consent"
           data-testid="aboutConsent"
-          as={CheckBox}
-          control={control}
           name="consent"
           label="I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions."
-          defaultValue={false}
+          ref={register}
         />
-        <Controller
+        <CheckBox
           id="termsAndCons"
           data-testid="aboutTermsAndCons"
-          as={CheckBox}
-          control={control}
           name="termsAndCons"
-          label="agree to the terms and conditions."
-          defaultValue={false}
+          label="I agree to the terms and conditions."
+          ref={register}
         />
       </FormGroup>
-
       <Button
         type="submit"
         label="Continue"
@@ -213,6 +253,49 @@ const AboutForm: FC<IProps> = ({ allDropDowns = {}, submit }) => {
       />
     </form>
   );
+};
+
+AboutForm.fragments = {
+  dropdownData: gql`
+    fragment AboutFormDropdownData on DropDownType {
+      __typename
+      titles {
+        __typename
+        data
+        favourites
+      }
+      countries {
+        __typename
+        data
+        favourites
+      }
+      nationalities {
+        __typename
+        data
+        favourites
+      }
+      maritalStatuses {
+        __typename
+        data
+      }
+      noOfDependants {
+        __typename
+        data
+      }
+      noOfAdultsInHousehold {
+        __typename
+        data
+      }
+      propertyStatuses {
+        __typename
+        data
+      }
+      employmentStatuses {
+        __typename
+        data
+      }
+    }
+  `,
 };
 
 export default AboutForm;

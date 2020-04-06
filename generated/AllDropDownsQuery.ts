@@ -4,58 +4,67 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: AllDropDownsQuery
+// GraphQL query operation: AllDropdownsQuery
 // ====================================================
 
-export interface AllDropDownsQuery_allDropDowns_titles {
+export interface AllDropdownsQuery_allDropDowns_titles {
+  __typename: "DropDownDataType";
   data: string[];
   favourites: string[];
 }
 
-export interface AllDropDownsQuery_allDropDowns_countries {
+export interface AllDropdownsQuery_allDropDowns_countries {
+  __typename: "DropDownDataType";
   data: string[];
   favourites: string[];
 }
 
-export interface AllDropDownsQuery_allDropDowns_nationalities {
+export interface AllDropdownsQuery_allDropDowns_nationalities {
+  __typename: "DropDownDataType";
   data: string[];
   favourites: string[];
 }
 
-export interface AllDropDownsQuery_allDropDowns_maritalStatuses {
+export interface AllDropdownsQuery_allDropDowns_maritalStatuses {
+  __typename: "DropDownDataType";
   data: string[];
 }
 
-export interface AllDropDownsQuery_allDropDowns_noOfDependants {
+export interface AllDropdownsQuery_allDropDowns_noOfDependants {
+  __typename: "DropDownDataType";
   data: string[];
 }
 
-export interface AllDropDownsQuery_allDropDowns_noOfAdultsInHousehold {
+export interface AllDropdownsQuery_allDropDowns_noOfAdultsInHousehold {
+  __typename: "DropDownDataType";
   data: string[];
 }
 
-export interface AllDropDownsQuery_allDropDowns_propertyStatuses {
+export interface AllDropdownsQuery_allDropDowns_propertyStatuses {
+  __typename: "DropDownDataType";
   data: string[];
 }
 
-export interface AllDropDownsQuery_allDropDowns_employmentStatuses {
+export interface AllDropdownsQuery_allDropDowns_employmentStatuses {
+  __typename: "DropDownDataType";
   data: string[];
 }
 
-export interface AllDropDownsQuery_allDropDowns {
-  titles: AllDropDownsQuery_allDropDowns_titles;
-  countries: AllDropDownsQuery_allDropDowns_countries;
-  nationalities: AllDropDownsQuery_allDropDowns_nationalities;
-  maritalStatuses: AllDropDownsQuery_allDropDowns_maritalStatuses;
-  noOfDependants: AllDropDownsQuery_allDropDowns_noOfDependants;
-  noOfAdultsInHousehold: AllDropDownsQuery_allDropDowns_noOfAdultsInHousehold;
-  propertyStatuses: AllDropDownsQuery_allDropDowns_propertyStatuses;
-  employmentStatuses: AllDropDownsQuery_allDropDowns_employmentStatuses;
+export interface AllDropdownsQuery_allDropDowns {
+  __typename: "DropDownType";
+  titles: AllDropdownsQuery_allDropDowns_titles;
+  countries: AllDropdownsQuery_allDropDowns_countries;
+  nationalities: AllDropdownsQuery_allDropDowns_nationalities;
+  maritalStatuses: AllDropdownsQuery_allDropDowns_maritalStatuses;
+  noOfDependants: AllDropdownsQuery_allDropDowns_noOfDependants;
+  noOfAdultsInHousehold: AllDropdownsQuery_allDropDowns_noOfAdultsInHousehold;
+  propertyStatuses: AllDropdownsQuery_allDropDowns_propertyStatuses;
+  employmentStatuses: AllDropdownsQuery_allDropDowns_employmentStatuses;
 }
 
-export interface AllDropDownsQuery {
+export interface AllDropdownsQuery {
   /**
    * get all drop downs
    */
-  allDropDowns: AllDropDownsQuery_allDropDowns | null;
+  allDropDowns: AllDropdownsQuery_allDropDowns | null;
 }

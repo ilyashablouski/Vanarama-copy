@@ -1,55 +1,38 @@
-import { ApolloProvider } from '@apollo/react-hooks';
 import '@vanarama/uibook/packages/ui-components/src/components/base.scss';
 import Footer from '@vanarama/uibook/packages/ui-components/src/components/organisms/footer';
 import Header from '@vanarama/uibook/packages/ui-components/src/components/organisms/header';
-import withRedux from 'next-redux-wrapper';
-import App, { AppContext } from 'next/app';
-import { Provider } from 'react-redux';
-import { Store } from 'redux';
-import { apolloClient } from '../services/apollo/apolloClient';
-import initStore from '../services/redux/store';
+import { AppProps } from 'next/app';
 
-interface IProps {
-  store: Store;
+function MyApp({ Component, pageProps, router }: AppProps) {
+  return (
+    <main>
+      <Header
+        topBarLinks={[
+          {
+            label: 'Login',
+            href: `/account/login-register?redirect=${router.pathname}`,
+          },
+        ]}
+      />
+      <Component {...pageProps} />
+      <Footer
+        emailAddress="enquiries@vanarama.co.uk"
+        phoneNumber="01442 838 195"
+      />
+    </main>
+  );
 }
 
-class ReduxApp extends App<IProps> {
-  static async getInitialProps({ Component, ctx }: AppContext) {
-    return {
-      pageProps: {
-        ...(Component.getInitialProps
-          ? await Component.getInitialProps(ctx)
-          : {}),
-      },
-    };
-  }
+// Only uncomment this method if you have blocking data requirements for
+// every single page in your application. This disables the ability to
+// perform automatic static optimization, causing every page in your app to
+// be server-side rendered.
+//
+// MyApp.getInitialProps = async (appContext) => {
+//   // calls page's `getInitialProps` and fills `appProps.pageProps`
+//   const appProps = await App.getInitialProps(appContext);
+//
+//   return { ...appProps }
+// }
 
-  render() {
-    const { Component, pageProps, store, router } = this.props;
-    return (
-      <Provider store={store}>
-        <ApolloProvider client={apolloClient}>
-          <main>
-            <Header
-              topBarLinks={[
-                {
-                  label: 'Login',
-                  href: `/account/login-register?redirect=${router.pathname}`,
-                },
-              ]}
-            />
-            <Component {...pageProps} />
-            <Footer
-              emailAddress="enquiries@vanarama.co.uk"
-              phoneNumber="01442 838 195"
-            />
-          </main>
-        </ApolloProvider>
-      </Provider>
-    );
-  }
-}
-
-export default withRedux(initStore, {
-  debug: process.env.NODE_ENV === 'development',
-})(ReduxApp);
+export default MyApp;

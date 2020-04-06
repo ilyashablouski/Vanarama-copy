@@ -8,6 +8,7 @@ import { NextPage } from 'next';
 import { useState } from 'react';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import RegisterFormContainer from '../../../containers/RegisterFormContainer/RegisterFormContainer';
+import withApollo from '../../../hocs/withApollo';
 import MainLayout from '../../../layouts/MainLayout/MainLayout';
 
 export const LoginRegisterPage: NextPage = () => {
@@ -60,4 +61,4 @@ export const LoginRegisterPage: NextPage = () => {
   );
 };
 
-export default LoginRegisterPage;
+export default withApollo(LoginRegisterPage);

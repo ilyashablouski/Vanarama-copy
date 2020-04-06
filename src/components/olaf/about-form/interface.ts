@@ -1,4 +1,6 @@
-export interface IDetails {
+import { AboutFormDropdownData } from '../../../../generated/AboutFormDropdownData';
+
+export interface IAboutFormValues {
   title: string;
   firstName: string;
   lastName: string;
@@ -17,7 +19,6 @@ export interface IDetails {
 }
 
 export interface IProps {
-  allDropDowns: any;
-  preloadData: any;
-  submit: (details: IDetails) => void;
+  dropdownData: AboutFormDropdownData;
+  submit: (values: IAboutFormValues) => void;
 }

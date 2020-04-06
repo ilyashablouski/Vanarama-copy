@@ -1,69 +1,80 @@
-/* eslint-disable react/no-unused-state */
-import { NextPageContext } from 'next';
-import { Component } from 'react';
-import { connect } from 'react-redux';
-import AboutForm from '../../../components/olaf/about-form';
-import { IDetails } from '../../../components/olaf/about-form/interface';
-import OlafContainer from '../../../components/olaf/olaf-container';
+import { useMutation, useQuery } from '@apollo/react-hooks';
+import { getDataFromTree } from '@apollo/react-ssr';
+import { gql } from 'apollo-boost';
+import moment from 'moment';
+import { NextPage } from 'next';
+import { AllDropdownsQuery } from '../../../../generated/AllDropdownsQuery';
 import {
-  allDropdownData,
-  createUpdatePerson,
-} from '../../../services/apollo/olaf/api';
-import { captchaOlafData } from '../../../services/redux/olaf/actions';
+  CreateUpdatePersonMutation as Mutation,
+  CreateUpdatePersonMutationVariables as MutationVariables,
+} from '../../../../generated/CreateUpdatePersonMutation';
+import AboutForm from '../../../components/olaf/about-form';
+import OlafContainer from '../../../components/olaf/olaf-container';
+import withApollo from '../../../hocs/withApollo';
 
-interface IAboutProps {
-  /* required data for form drop downs, sourced via getInitialProps */
-  allDropDowns: any;
-
-  /* cached data for preloading forms when returning from other step in olaf journey */
-  preloadData: any;
-
-  /* action to cache form data */
-  captchaOlafData: (pageRef: string, data: {}) => void;
-}
-
-export class AboutYou extends Component<IAboutProps> {
-  state = {
-    failedMutation: false,
-  };
-
-  static async getInitialProps(ctx: NextPageContext): Promise<Object> {
-    const { aboutYou } = ctx.store.getState().olaf;
-    try {
-      const allDropDowns = await allDropdownData();
-      return { allDropDowns, preloadData: aboutYou };
-    } catch {
-      return { failedQuery: true };
+const CREATE_UPDATE_PERSON = gql`
+  mutation CreateUpdatePersonMutation($input: PersonInputObject!) {
+    createUpdatePerson(input: $input) {
+      id
     }
   }
+`;
 
-  // >>> may move into redux investigating apollo cache as an alternative for this scenario <<<
-  createDetailsHandle = async (details: IDetails) => {
-    const { captchaOlafData: captcha } = this.props;
-    try {
-      const { data } = await createUpdatePerson(details);
-      this.setState({ failedMutation: false }, () => {
-        captcha('aboutYou', data.createUpdatePerson);
-      });
-    } catch {
-      this.setState({ failedMutation: true });
+const ALL_DROPDOWNS = gql`
+  query AllDropdownsQuery {
+    allDropDowns {
+      ...AboutFormDropdownData
     }
-  };
-
-  render() {
-    const { allDropDowns, preloadData } = this.props;
-    return (
-      <OlafContainer activeStep={1}>
-        <AboutForm
-          submit={this.createDetailsHandle}
-          allDropDowns={allDropDowns}
-          preloadData={preloadData}
-        />
-      </OlafContainer>
-    );
   }
-}
+  ${AboutForm.fragments.dropdownData}
+`;
 
-export default connect(null, {
-  captchaOlafData,
-})(AboutYou);
+const AboutYouPage: NextPage = () => {
+  const [createDetailsHandle] = useMutation<Mutation, MutationVariables>(
+    CREATE_UPDATE_PERSON,
+  );
+
+  const { data, loading, error } = useQuery<AllDropdownsQuery>(ALL_DROPDOWNS);
+  if (loading || error) {
+    // TODO: Handle loading and error states
+    return null;
+  }
+
+  return (
+    <OlafContainer activeStep={1}>
+      <AboutForm
+        dropdownData={data.allDropDowns}
+        submit={values => {
+          const input = `${values.dayOfBirth} ${values.monthOfBirth} ${values.yearOfBirth}`;
+          const dateOfBirth = moment(input, 'DD-MMMM-YYYY').format('DD-MM-YY');
+
+          createDetailsHandle({
+            variables: {
+              input: {
+                title: values.title,
+                maritalStatus: values.maritalStatus,
+                firstName: values.firstName,
+                lastName: values.lastName,
+                emailConsent: values.consent,
+                smsConsent: values.consent,
+                dateOfBirth,
+                emailAddress: {
+                  kind: 'Home',
+                  value: values.email,
+                  primary: true,
+                },
+                telephoneNumber: {
+                  kind: 'Mobile',
+                  value: values.mobile,
+                  primary: true,
+                },
+              },
+            },
+          });
+        }}
+      />
+    </OlafContainer>
+  );
+};
+
+export default withApollo(AboutYouPage, { getDataFromTree });

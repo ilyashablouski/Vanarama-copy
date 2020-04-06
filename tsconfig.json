@@ -17,9 +17,7 @@
     "preserveSymlinks": true
   },
   "exclude": [
-    "node_modules/(?!(@vanarama)/)",
-    /** NOTE: Exclude this for now as it is empty and causes build errors  */
-    "generated/globalTypes.ts"
+    "node_modules/(?!(@vanarama)/)"
   ],
   "include": [
     "next-env.d.ts", 

@@ -14,7 +14,7 @@ describe.skip('<AboutForm />', () => {
 
   beforeEach(() => {
     const { container } = render(
-      <AboutForm submit={submit} allDropDowns={{}} preloadData={{}} />,
+      <AboutForm submit={submit} dropdownData={{} as any} />,
     );
     rendered = container;
   });

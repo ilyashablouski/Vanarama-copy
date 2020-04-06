@@ -2,6 +2,7 @@ import ChevronForwardSharpIcon from '@vanarama/uibook/packages/ui-components/src
 import Button from '@vanarama/uibook/packages/ui-components/src/components/atoms/button';
 import Link from '@vanarama/uibook/packages/ui-components/src/components/atoms/link';
 import TextInput from '@vanarama/uibook/packages/ui-components/src/components/atoms/textinput';
+import Formgroup from '@vanarama/uibook/packages/ui-components/src/components/molecules/formgroup';
 import Form from '@vanarama/uibook/packages/ui-components/src/components/organisms/form';
 import FormError from '@vanarama/uibook/packages/ui-components/src/components/organisms/form/FormError';
 import { useForm } from 'react-hook-form';
@@ -32,26 +33,34 @@ const LoginForm: React.FC<ILoginFormProps> = ({
           Email address and password combination is not valid
         </FormError>
       )}
-      <TextInput
-        id="login-form_email"
-        name="email"
-        type="email"
+      <Formgroup
+        controlId="login-form_email"
         label="Your Email"
-        invalid={errors.email && errors.email.message}
-        dataTestId="login-form_email"
-        errorProps={{ dataTestId: 'login-form_email-error' }}
-        parentRef={register(emailValidator)}
-      />
-      <TextInput
-        id="login-form_password"
-        name="password"
-        type="password"
-        invalid={errors.password && errors.password.message}
+        error={errors.email?.message}
+      >
+        <TextInput
+          id="login-form_email"
+          dataTestId="login-form_email"
+          name="email"
+          ref={register(emailValidator)}
+          type="email"
+          width={45}
+        />
+      </Formgroup>
+      <Formgroup
+        controlId="login-form_password"
         label="Your Password"
-        dataTestId="login-form_password"
-        errorProps={{ dataTestId: 'login-form_password-error' }}
-        parentRef={register(passwordValidator)}
-      />
+        error={errors.password?.message}
+      >
+        <TextInput
+          id="login-form_password"
+          dataTestId="login-form_password"
+          name="password"
+          ref={register(passwordValidator)}
+          type="password"
+          width={45}
+        />
+      </Formgroup>
       {/* TODO: Make Link work with next/link */}
       {/* <NextLink href="/password-reset" passHref> */}
       <Link dataTestId="forgot-password" href="/password-reset" color="teal">
