@@ -8,7 +8,7 @@ import {
 } from '@testing-library/react';
 import AboutForm from '..';
 
-describe.skip('<AboutForm />', () => {
+describe('<AboutForm />', () => {
   const submit = jest.fn();
   let rendered;
 
@@ -30,11 +30,15 @@ describe.skip('<AboutForm />', () => {
 
     // ASSERT
     await waitFor(() => {
-      expect(screen.getByText('Please select your a title')).toBeVisible();
+      expect(screen.getByText('Please select a title')).toBeVisible();
       expect(screen.getByText('Please enter your first name')).toBeVisible();
       expect(screen.getByText('Please enter your last name')).toBeVisible();
-      expect(screen.getByText('Pleas enter your email address')).toBeVisible();
-      expect(screen.getByText('Please enter your mobile')).toBeVisible();
+      expect(screen.getByText('Please enter your email address')).toBeVisible();
+      expect(
+        screen.getByText(
+          'Please enter mobile number without spaces or hyphens',
+        ),
+      ).toBeVisible();
       expect(
         screen.getByText('Please complete your date of birth'),
       ).toBeVisible();
@@ -49,10 +53,10 @@ describe.skip('<AboutForm />', () => {
         screen.getByText('Please enter number of dependants'),
       ).toBeVisible();
       expect(
-        screen.getByText('Please enter number of adults in household'),
+        screen.getByText('Please enter adults in household'),
       ).toBeVisible();
       expect(
-        screen.getByText('Please confirm terms and conditions'),
+        screen.getByText('The terms and conditions must be accepted.'),
       ).toBeVisible();
     });
   });
@@ -207,7 +211,7 @@ describe.skip('<AboutForm />', () => {
     fireEvent.change(screen.getByTestId('aboutSelectYOB'), {
       target: { value: '2000' },
     });
-    fireEvent.change(screen.getByTestId('countryOfBirth'), {
+    fireEvent.change(screen.getByTestId('aboutSelectCOB'), {
       target: { value: 'United Kingdom' },
     });
     fireEvent.change(screen.getByTestId('aboutNationality'), {
