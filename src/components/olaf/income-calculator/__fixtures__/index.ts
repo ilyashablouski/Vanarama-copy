@@ -1,0 +1,33 @@
+export default {
+  averageMonthlyIncome: '200',
+  monthlyHouseholdIncome: '100',
+  futureMonthlyIncome: '50',
+  isFutureMonthlyIncome: true,
+  mortgageOrRent: '20',
+  creditCardPayments: '20',
+  insurance: '20',
+  foodAndClothes: '20',
+  studentLoans: '20',
+  phoneAndInternet: '20',
+  utilities: '20',
+  carFinance: '20',
+  fuel: '20',
+  otherCredit: '20',
+};
+
+export const data = {
+  averageMonthlyIncome: '200',
+  monthlyHouseholdIncome: '100',
+  futureMonthlyIncome: '50',
+  isFutureMonthlyIncome: true,
+  mortgageOrRent: '10',
+  creditCardPayments: '2',
+  insurance: '20',
+  foodAndClothes: '20',
+  studentLoans: '10',
+  phoneAndInternet: '20',
+  utilities: '20',
+  carFinance: '20',
+  fuel: '10',
+  otherCredit: '20',
+};

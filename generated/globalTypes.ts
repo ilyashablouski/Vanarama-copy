@@ -36,6 +36,28 @@ export interface EmailAddressInputObject {
 }
 
 /**
+ * Input object to create and add an Income And Expense
+ */
+export interface IncomeAndExpenseInputObject {
+  anticipateMonthlyIncomeChange?: boolean | null;
+  averageMonthlyIncome?: number | null;
+  carFinance?: number | null;
+  creditCardPayments?: number | null;
+  foodAndClothes?: number | null;
+  fuel?: number | null;
+  futureMonthlyIncome?: number | null;
+  householdIncome?: number | null;
+  id?: string | null;
+  insurance?: number | null;
+  mortgageOrRent?: number | null;
+  otherCredit?: number | null;
+  partyId?: string | null;
+  phoneAndInternet?: number | null;
+  studentLoan?: number | null;
+  utilities?: number | null;
+}
+
+/**
  * Input object to create a Person
  */
 export interface PersonInputObject {
