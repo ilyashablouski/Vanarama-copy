@@ -34,7 +34,7 @@ node('master') {
 
         withCredentials([string(credentialsId: 'npm_token', variable: 'npm_token')]) {
           NPM_TOKEN="${npm_token}"
-          sh "docker build --build-arg NPM_TOKEN=${NPM_TOKEN} -t autorama-nextstorefront:latest -f Dockerfile ."
+          sh "docker build --no-cache --build-arg NPM_TOKEN=${NPM_TOKEN} -t autorama-nextstorefront:latest -f Dockerfile ."
 
         }
       }
@@ -56,7 +56,8 @@ node('master') {
           export PATH=/usr/local/bin:$PATH
           docker-compose -f ${WORKSPACE}/docker-compose.yml up -d --build
           docker-compose -f ${WORKSPACE}/docker-compose.yml exec -T --index=1 next-storefront /bin/bash -c "ls -a"
-          docker-compose -f ${WORKSPACE}/docker-compose.yml exec -T --index=1 next-storefront /bin/bash -c "yarn install"
+          docker-compose -f ${WORKSPACE}/docker-compose.yml exec -e NPM_TOKEN=${NPM_TOKEN} -T --index=1 next-storefront /bin/bash -c "cp .npmrcDOCKER .npmrc"
+          docker-compose -f ${WORKSPACE}/docker-compose.yml exec -e NPM_TOKEN=${NPM_TOKEN} -T --index=1 next-storefront /bin/bash -c "yarn install"
           docker-compose -f ${WORKSPACE}/docker-compose.yml exec -T --index=1 next-storefront /bin/bash -c "yarn test -u >results.xml"
           docker cp next-storefront:/usr/src/app/results.xml ${WORKSPACE}/results.xml
           docker-compose -f ${WORKSPACE}/docker-compose.yml down -v
@@ -263,6 +264,11 @@ node('master') {
           jiraSendBuildInfo branch: "${currentBranch}", site: 'autorama.atlassian.net'
           //
       }
+      stage("7: Cleanup..."){
+          sh '''
+            docker rmi autorama-nextstorefront
+          '''
+      }
 
       } catch(Exception e) {
 
@@ -272,13 +278,6 @@ node('master') {
             docker-compose -f ${WORKSPACE}/docker-compose.yml down -v
           '''
           // If the unit tests try/catch section remains viable then the docker-compose above will be redundant
-
-
-          // These commands are simple checks at the end of the Jenkinsfile to ensure correct clean-up //
-          sh '''
-            ls -a
-            docker ps -a
-          '''
 
           // Printing Error sets and exiting pipeline //
           println "${e}"
