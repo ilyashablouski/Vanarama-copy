@@ -15,6 +15,7 @@ export interface CreateUpdatePersonMutation_createUpdatePerson {
 }
 
 export interface CreateUpdatePersonMutation {
+  createUpdateIncomeAndExpense: any;
   /**
    * Create new Person or update existing Person
    */
