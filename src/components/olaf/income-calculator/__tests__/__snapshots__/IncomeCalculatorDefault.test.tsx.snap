@@ -7,6 +7,26 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
     id="aboutForm"
     onSubmit={[Function]}
   >
+    <Heading
+      color="black"
+      size="xlarge"
+    >
+      <p
+        className="heading -black -xlarge"
+      >
+        Expenses
+      </p>
+    </Heading>
+    <Memo(Text)
+      color="darker"
+      size="lead"
+    >
+      <span
+        className="text -lead -darker"
+      >
+        Excellent, now we just need to know your outgoings so we can make sure your new car is affordable.
+      </span>
+    </Memo(Text)>
     <div>
       <Memo()
         lg={2}

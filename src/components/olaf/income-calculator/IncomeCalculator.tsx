@@ -6,6 +6,8 @@ import Tile from '@vanarama/uibook/packages/ui-components/src/components/molecul
 import Input from '@vanarama/uibook/packages/ui-components/src/components/atoms/textinput/';
 import CheckBox from '@vanarama/uibook/packages/ui-components/src/components/atoms/checkbox/';
 import Button from '@vanarama/uibook/packages/ui-components/src/components/atoms/button/';
+import Text from '@vanarama/uibook/packages/ui-components/src/components/atoms/text';
+import Heading from '@vanarama/uibook/packages/ui-components/src/components/atoms/heading';
 import {
   Grid,
   Column,
@@ -151,6 +153,13 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} id="aboutForm" className="form">
+      <Heading color="black" size="xlarge">
+        Expenses
+      </Heading>
+      <Text color="darker" size="lead">
+        Excellent, now we just need to know your outgoings so we can make sure
+        your new car is affordable.
+      </Text>
       <div id={id} className={className}>
         <Grid lg={2} md={2} sm={1}>
           <Column>
