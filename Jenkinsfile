@@ -264,6 +264,11 @@ node('master') {
           jiraSendBuildInfo branch: "${currentBranch}", site: 'autorama.atlassian.net'
           //
       }
+      stage("7: Cleanup..."){
+          sh '''
+            docker rmi autorama-nextstorefront
+          '''
+      }
 
       } catch(Exception e) {
 
@@ -273,13 +278,6 @@ node('master') {
             docker-compose -f ${WORKSPACE}/docker-compose.yml down -v
           '''
           // If the unit tests try/catch section remains viable then the docker-compose above will be redundant
-
-
-          // These commands are simple checks at the end of the Jenkinsfile to ensure correct clean-up //
-          sh '''
-            ls -a
-            docker ps -a
-          '''
 
           // Printing Error sets and exiting pipeline //
           println "${e}"
