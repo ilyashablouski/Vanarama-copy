@@ -186,7 +186,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
           dataTestId="aboutMaritalStatus"
           ref={register}
         >
-          {dropdownData.maritalStatuses.data.map(value => (
+          {dropdownData?.maritalStatuses?.data.map(value => (
             <option key={value} value={value}>
               {value}
             </option>
@@ -204,7 +204,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
           dataTestId="aboutDependants"
           ref={register}
         >
-          {dropdownData.noOfDependants.data.map(value => (
+          {dropdownData?.noOfDependants?.data.map(value => (
             <option key={value} value={value}>
               {value}
             </option>
@@ -222,7 +222,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
           dataTestId="aboutAdultsInHouse"
           ref={register}
         >
-          {dropdownData.noOfAdultsInHousehold.data.map(value => (
+          {dropdownData?.noOfAdultsInHousehold?.data.map(value => (
             <option key={value} value={value}>
               {value}
             </option>

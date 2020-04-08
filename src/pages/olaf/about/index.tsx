@@ -37,7 +37,7 @@ const AboutYouPage: NextPage = () => {
     CREATE_UPDATE_PERSON,
     {
       onCompleted: data => {
-        router.push(`/olaf/address-history/${data.createUpdatePerson.id}`);
+        router.push(`/olaf/address-history/${data.createUpdatePerson.partyId}`);
       },
     },
   );

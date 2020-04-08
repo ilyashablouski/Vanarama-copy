@@ -8,6 +8,14 @@
 //==============================================================
 
 /**
+ * Input array of addresses create and add an Address
+ */
+export interface AddressHistoryInputObject {
+  addresses: AddressInputObject[];
+  partyId: string;
+}
+
+/**
  * Input object to create and add an Address
  */
 export interface AddressInputObject {
@@ -16,10 +24,10 @@ export interface AddressInputObject {
   county?: string | null;
   endedOn?: any | null;
   kind?: string | null;
-  lineOne: string;
+  lineOne?: string | null;
   lineThree?: string | null;
   lineTwo?: string | null;
-  postcode: string;
+  postcode?: string | null;
   propertyStatus?: string | null;
   serviceId?: string | null;
   startedOn?: any | null;
@@ -33,6 +41,28 @@ export interface EmailAddressInputObject {
   partyId?: string | null;
   primary?: boolean | null;
   value: string;
+}
+
+/**
+ * Input object to create and add an Income And Expense
+ */
+export interface IncomeAndExpenseInputObject {
+  anticipateMonthlyIncomeChange?: boolean | null;
+  averageMonthlyIncome?: number | null;
+  carFinance?: number | null;
+  creditCardPayments?: number | null;
+  foodAndClothes?: number | null;
+  fuel?: number | null;
+  futureMonthlyIncome?: number | null;
+  householdIncome?: number | null;
+  id?: string | null;
+  insurance?: number | null;
+  mortgageOrRent?: number | null;
+  otherCredit?: number | null;
+  partyId?: string | null;
+  phoneAndInternet?: number | null;
+  studentLoan?: number | null;
+  utilities?: number | null;
 }
 
 /**
