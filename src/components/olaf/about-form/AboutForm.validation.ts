@@ -57,7 +57,8 @@ const ValidationSchema = yup.object().shape<IAboutFormValues>({
     .required(reqMsg('mobile number'))
     .max(16)
     .matches(
-      /^((\+44(0|\(0\)|\s0\s|\s)?)|0)7\d{3}(\s)?\d{6}/,
+      // /^((\+44(0|\(0\)|\s0\s|\s)?)|0)7\d{3}(\s)?\d{6}/, // UK Mobile.
+      /^((\+[0-9]+(0|\(0\)|\s0\s|\s)?)|0)[0-9]+\d{3}(\s)?\d{6}/, // Worldwide mobile.
       'Please enter mobile number without spaces or hyphens',
     ),
   dayOfBirth: yup
