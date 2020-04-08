@@ -33,6 +33,7 @@ const ValidationSchema = yup.object().shape<IAboutFormValues>({
   title: yup.string().required('Please select a title'),
   firstName: yup
     .string()
+    .strict(true)
     .required(reqMsg('first name'))
     .min(
       2,
@@ -41,6 +42,7 @@ const ValidationSchema = yup.object().shape<IAboutFormValues>({
     .max(50, 'Oops, this name’s too long. Please keep it to 50 characters'),
   lastName: yup
     .string()
+    .strict(true)
     .required(reqMsg('last name'))
     .min(
       2,
