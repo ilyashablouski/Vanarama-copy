@@ -2110,10 +2110,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@3.0.2":
-  version "3.0.2"
-  resolved "https://registry.npmjs.org/@vanarama/uibook/-/uibook-3.0.2.tgz#23f624d0cf4a06fbc9c0e4947a690f98e32753e0"
-  integrity sha512-h9IBQyaKVMpau7MuNkBezns8IWV/cg8+AF2bqxORZO2eFcKjkL50URDdLdrzQaYm5vGxb5qWnazGMjTsQ+nwWQ==
+"@vanarama/uibook@3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-3.0.4.tgz#468579b9630700f904bd92f5384bba31ff1fe892"
+  integrity sha512-12ysXJiyn5Y0sBXv4Z8L3BOZk7abYu/2NlxwGeDY0l5rfeWN2M6hXV1ad/w8AiryUKNdmDiFC17nVKLiSx4RCg==
   dependencies:
     jest "^25.2.4"
     jest-sonar-reporter "^2.0.0"

@@ -152,7 +152,11 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
   const isFutureMonthlyIncome = watch('isFutureMonthlyIncome');
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} id="aboutForm" className="form">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      id="incomeCalculatorForm"
+      className="form"
+    >
       <Heading color="black" size="xlarge">
         Expenses
       </Heading>
@@ -160,7 +164,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
         Excellent, now we just need to know your outgoings so we can make sure
         your new car is affordable.
       </Text>
-      <div id={id} className={className}>
+      <div id="incomeCalculator" className={className}>
         <Grid lg={2} md={2} sm={1}>
           <Column>
             <FormGroup
