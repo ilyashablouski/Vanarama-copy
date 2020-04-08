@@ -36,7 +36,7 @@ const ValidationSchema = yup.object().shape<IAboutFormValues>({
     .required(reqMsg('first name'))
     .min(
       2,
-      'Oops, this name’s too short. Please make it longer than 2 characters',
+      'Oops, this name’s too short. Please make it 2 characters or longer',
     )
     .max(50, 'Oops, this name’s too long. Please keep it to 50 characters'),
   lastName: yup
@@ -54,9 +54,10 @@ const ValidationSchema = yup.object().shape<IAboutFormValues>({
     .email('Oops, this email address is invalid'),
   mobile: yup
     .string()
-    .required(reqMsg('Mobile Number'))
+    .required(reqMsg('mobile number'))
+    .max(16)
     .matches(
-      /^([+]\d{2})?\d{11,12}$/,
+      /^((\+44(0|\(0\)|\s0\s|\s)?)|0)7\d{3}(\s)?\d{6}/,
       'Please enter mobile number without spaces or hyphens',
     ),
   dayOfBirth: yup
