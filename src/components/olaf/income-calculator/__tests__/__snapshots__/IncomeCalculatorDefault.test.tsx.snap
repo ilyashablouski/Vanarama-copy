@@ -4,7 +4,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
 <Memo()>
   <form
     className="form"
-    id="incomeCalculator"
+    id="incomeCalculatorForm"
     onSubmit={[Function]}
   >
     <Heading
@@ -3220,6 +3220,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           },
                         }
                       }
+                      calculated={true}
                       control={
                         Object {
                           "defaultValuesRef": Object {
@@ -3385,14 +3386,13 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           },
                         }
                       }
-                      disabled={true}
                       id="totalMonthlyExpenses"
                       name="totalMonthlyExpenses"
                       onChange={[Function]}
                       prefix="£"
                     >
                       <ForwardRef(TextInput)
-                        disabled={true}
+                        calculated={true}
                         id="totalMonthlyExpenses"
                         name="totalMonthlyExpenses"
                         onChange={[Function]}
@@ -3402,8 +3402,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           className="textinput regular"
                         >
                           <input
-                            className="textinput--native regular -prefix"
-                            disabled={true}
+                            className="textinput--native regular -calculated -prefix"
                             id="totalMonthlyExpenses"
                             name="totalMonthlyExpenses"
                             onChange={[Function]}
@@ -3460,6 +3459,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           },
                         }
                       }
+                      calculated={true}
                       control={
                         Object {
                           "defaultValuesRef": Object {
@@ -3625,14 +3625,13 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           },
                         }
                       }
-                      disabled={true}
                       id="netDisposableIncome"
                       name="netDisposableIncome"
                       onChange={[Function]}
                       prefix="£"
                     >
                       <ForwardRef(TextInput)
-                        disabled={true}
+                        calculated={true}
                         id="netDisposableIncome"
                         name="netDisposableIncome"
                         onChange={[Function]}
@@ -3642,8 +3641,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           className="textinput regular"
                         >
                           <input
-                            className="textinput--native regular -prefix"
-                            disabled={true}
+                            className="textinput--native regular -calculated -prefix"
                             id="netDisposableIncome"
                             name="netDisposableIncome"
                             onChange={[Function]}
