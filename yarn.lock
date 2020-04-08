@@ -2080,10 +2080,17 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
+<<<<<<< Updated upstream
 "@vanarama/uibook@3.0.3":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-3.0.3.tgz#05c5c4855d3c4b690064cc07a40459fbd1894b49"
   integrity sha512-+22Be3zmJSmnqEom5ZJXokKC4S1XbxuitpxC7rBS5thgTgHnqvfJxaNB4Hf/vAIp8iKyECe5po7zzT5JiQDnsg==
+=======
+"@vanarama/uibook@3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-3.0.4.tgz#468579b9630700f904bd92f5384bba31ff1fe892"
+  integrity sha512-12ysXJiyn5Y0sBXv4Z8L3BOZk7abYu/2NlxwGeDY0l5rfeWN2M6hXV1ad/w8AiryUKNdmDiFC17nVKLiSx4RCg==
+>>>>>>> Stashed changes
   dependencies:
     jest "^25.2.4"
     jest-sonar-reporter "^2.0.0"
