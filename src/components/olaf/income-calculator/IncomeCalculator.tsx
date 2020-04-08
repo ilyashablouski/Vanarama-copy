@@ -15,7 +15,7 @@ import {
 import { IIncomeCalculatorProps, IIncomeCalculatorObject } from './interfaces';
 
 const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
-  const { id, className, data, onSubmit } = props;
+  const { className, data, onSubmit } = props;
   const { handleSubmit, control, getValues, watch, setValue } = useForm<
     IIncomeCalculatorObject
   >({
@@ -157,7 +157,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
       id="incomeCalculatorForm"
       className="form"
     >
-      <Heading color="black" size="xlarge">
+      <Heading color="black" size="xlarge" dataTestId="expenses">
         Expenses
       </Heading>
       <Text color="darker" size="lead">
@@ -197,7 +197,10 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
             </FormGroup>
           </Column>
           <Column md="row">
-            <FormGroup label="Do You Anticipate Your Monthly Income Will Change?">
+            <FormGroup
+              dataTestId="futureMonthlyIncome"
+              label="Do You Anticipate Your Monthly Income Will Change?"
+            >
               <Controller
                 id="isFutureMonthlyIncome"
                 name="isFutureMonthlyIncome"
@@ -400,6 +403,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
             color="primary"
             icon={<ChevronForwardSharpIcon />}
             iconPosition="after"
+            dataTestId="continue"
           />
         </FormGroup>
       </div>
