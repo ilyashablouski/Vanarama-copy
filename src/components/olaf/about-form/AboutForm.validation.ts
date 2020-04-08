@@ -26,7 +26,13 @@ function isAgeValid({ dayOfBirth, monthOfBirth, yearOfBirth }) {
 function ageValidator() {
   const { createError, path, parent } = this;
   const error = isAgeValid(parent);
-  return error ? createError({ message: error, path }) : true;
+  if (error) {
+    return createError({ message: error, path });
+  }
+  parent.validateAt('dayOfBirth', parent.dayOfBirth);
+  parent.validateAt('monthOfBirth', parent.monthOfBirth);
+  parent.validateAt('yearOfBirth', parent.dayOfBirth);
+  return true;
 }
 
 const ValidationSchema = yup.object().shape<IAboutFormValues>(
@@ -77,7 +83,7 @@ const ValidationSchema = yup.object().shape<IAboutFormValues>(
       .string()
       .required('Please complete your date of birth')
       .when(['dayOfBirth', 'monthOfBirth'], {
-        is: (dayOfBirth, monthOfBirth) => !dayOfBirth && !monthOfBirth,
+        is: (dayOfBirth, monthOfBirth) => !!dayOfBirth && !!monthOfBirth,
         then: yup.string().test('age', 'Invalid age', ageValidator),
       }),
     countryOfBirth: yup.string().required(reqMsg('country of birth')),
