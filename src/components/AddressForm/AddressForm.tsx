@@ -5,7 +5,7 @@ import Form from '@vanarama/uibook/packages/ui-components/src/components/organis
 import { gql } from 'apollo-boost';
 import React from 'react';
 import { FormContext } from 'react-hook-form';
-import useHistoryForm from '../../hooks/useHistoryForm';
+import useHistoryForm from '../../hooks/useHistoryForm/useHistoryForm';
 import FCWithFragments from '../../utils/FCWithFragments';
 import AddressSubForm from './AddressSubForm';
 import {
@@ -14,23 +14,22 @@ import {
 } from './interfaces';
 import validationSchema from './validationSchema';
 
-const INITIAL_VALUE = { address: '', status: '', month: '', year: '' };
-
 const AddressForm: FCWithFragments<IAddressFormProps> = ({
   dropDownData,
   onSubmit,
 }) => {
   const { fields, remaining, ...methods } = useHistoryForm<IFormValues>({
     defaultValues: {
-      history: [INITIAL_VALUE],
+      history: [{}],
     },
-    validationSchema,
+    fieldArrayKey: 'history',
     mode: 'onBlur',
+    requiredMonths: 36,
+    validationSchema,
   });
 
   return (
     <Form className="form" onSubmit={methods.handleSubmit(onSubmit)}>
-      {methods.formState.isSubmitting && 'Submitting'}
       <Heading
         dataTestId="address-history-heading"
         tag="span"

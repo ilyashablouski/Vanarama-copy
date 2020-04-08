@@ -57,7 +57,7 @@ const AddressSubForm: FCWithFragments<IAddressSubFormProps> = ({
           name={`history[${index}].address`}
           as={AddressFinder}
           control={control}
-          dataTestId="address-history-address-field"
+          dataTestId={`address-history.[${index}]-address-field`}
           loqateApiKey={process.env.LOQATE_KEY}
           onChange={([suggestion]) => suggestion?.id || ''}
         />
@@ -70,7 +70,7 @@ const AddressSubForm: FCWithFragments<IAddressSubFormProps> = ({
         <Select
           id={`history[${index}].status`}
           name={`history[${index}].status`}
-          dataTestId="address-history-status-field"
+          dataTestId={`address-history.[${index}]-status-field`}
           ref={register}
         >
           <OptionsWithFavourites options={dropDownData.propertyStatuses} />
@@ -88,7 +88,7 @@ const AddressSubForm: FCWithFragments<IAddressSubFormProps> = ({
         <Select
           id={`history[${index}].month`}
           name={`history[${index}].month`}
-          dataTestId="address-history-month-field"
+          dataTestId={`address-history.[${index}]-month-field`}
           placeholder="Month"
           ref={register}
         >
@@ -101,7 +101,7 @@ const AddressSubForm: FCWithFragments<IAddressSubFormProps> = ({
         <Select
           id={`history[${index}].year`}
           name={`history[${index}].year`}
-          dataTestId="address-history-year-field"
+          dataTestId={`address-history.[${index}]-year-field`}
           placeholder="Year"
           ref={register}
         >
