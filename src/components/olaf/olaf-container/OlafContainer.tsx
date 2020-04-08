@@ -33,12 +33,12 @@ const fakeData = [
 ];
 
 const steps = [
-  { label: 'About You', route: '/about' },
-  { label: 'Address History', route: '/address' },
-  { label: 'Employment History', route: '/employment' },
-  { label: 'Expenses', route: '/expense' },
-  { label: 'Details', route: '/details' },
-  { label: 'Summary', route: '/summary' },
+  { label: 'About You', route: '/olaf/about' },
+  { label: 'Address History', route: '/olaf/address' },
+  { label: 'Employment History', route: '/olaf/employment' },
+  { label: 'Expenses', route: '/olaf/expense' },
+  { label: 'Details', route: '/olaf/details' },
+  { label: 'Summary', route: '/olaf/summary' },
 ];
 
 const OlafContainer: React.FC<IProgressContainerProps> = ({
