@@ -36,7 +36,7 @@ const steps = [
   { label: 'About You', route: '/olaf/about' },
   { label: 'Address History', route: '/olaf/address' },
   { label: 'Employment History', route: '/olaf/employment' },
-  { label: 'Expenses', route: '/olaf/expense' },
+  { label: 'Expenses', route: '/olaf/expenses' },
   { label: 'Details', route: '/olaf/details' },
   { label: 'Summary', route: '/olaf/summary' },
 ];
