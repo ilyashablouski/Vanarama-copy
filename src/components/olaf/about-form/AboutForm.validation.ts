@@ -35,6 +35,10 @@ const ValidationSchema = yup.object().shape<IAboutFormValues>({
     .string()
     .strict(true)
     .required(reqMsg('first name'))
+    .matches(
+      /^^[a-zA-Z\'-\s]+$/, // Worldwide mobile.
+      'Please use only letters, apostrophes and dashes',
+    )
     .min(
       2,
       'Oops, this name’s too short. Please make it 2 characters or longer',
@@ -44,6 +48,10 @@ const ValidationSchema = yup.object().shape<IAboutFormValues>({
     .string()
     .strict(true)
     .required(reqMsg('last name'))
+    .matches(
+      /^^[a-zA-Z\'-\s]+$/, // Worldwide mobile.
+      'Please use only letters, apostrophes and dashes',
+    )
     .min(
       2,
       'Oops, this name’s too short. Please make it 2 characters or longer',
