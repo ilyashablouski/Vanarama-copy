@@ -154,7 +154,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      id="incomeCalculator"
+      id="incomeCalculatorForm"
       className="form"
     >
       <Heading color="black" size="xlarge">
