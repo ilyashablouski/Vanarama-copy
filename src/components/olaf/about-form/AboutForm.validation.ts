@@ -58,7 +58,7 @@ const ValidationSchema = yup.object().shape<IAboutFormValues>({
   email: yup
     .string()
     .required(reqMsg('email address'))
-    .max(254, 'Oops, this email is too long. Please keep it to 50 characters')
+    .max(254, 'Oops, this email is too long. Please keep it to 254 characters')
     .email('Oops, this email address is invalid'),
   mobile: yup
     .string()
