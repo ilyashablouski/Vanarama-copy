@@ -1,7 +1,5 @@
 /* eslint-disable no-param-reassign */
 const { homepage } = require('../package.json');
-// const { parse } = require("url")
-// const basename = parse(homepage).pathname
 
 module.exports = {
   // Sass.
@@ -20,6 +18,9 @@ module.exports = {
 
   // Next.
   next: {
+    env: {
+      LOQATE_KEY: 'CG96-BE17-EY43-CM69',
+    },
     devIndicators: {
       autoPrerender: false,
     },
