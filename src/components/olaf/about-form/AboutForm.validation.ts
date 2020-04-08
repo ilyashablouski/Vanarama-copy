@@ -35,7 +35,7 @@ const ValidationSchema = yup.object().shape<IAboutFormValues>({
     .string()
     .required(reqMsg('first name'))
     .matches(
-      /^^[a-zA-Z\'-\s]+$/,
+      /^^[a-zA-Z'-\s]+$/,
       'Please use only letters, apostrophes and dashes',
     )
     .min(
@@ -47,7 +47,7 @@ const ValidationSchema = yup.object().shape<IAboutFormValues>({
     .string()
     .required(reqMsg('last name'))
     .matches(
-      /^^[a-zA-Z\'-\s]+$/,
+      /^^[a-zA-Z'-\s]+$/,
       'Please use only letters, apostrophes and dashes',
     )
     .min(
