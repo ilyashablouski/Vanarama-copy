@@ -8,6 +8,14 @@
 //==============================================================
 
 /**
+ * Input array of addresses create and add an Address
+ */
+export interface AddressHistoryInputObject {
+  addresses: AddressInputObject[];
+  partyId: string;
+}
+
+/**
  * Input object to create and add an Address
  */
 export interface AddressInputObject {
@@ -16,10 +24,10 @@ export interface AddressInputObject {
   county?: string | null;
   endedOn?: any | null;
   kind?: string | null;
-  lineOne: string;
+  lineOne?: string | null;
   lineThree?: string | null;
   lineTwo?: string | null;
-  postcode: string;
+  postcode?: string | null;
   propertyStatus?: string | null;
   serviceId?: string | null;
   startedOn?: any | null;

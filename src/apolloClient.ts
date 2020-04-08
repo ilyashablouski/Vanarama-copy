@@ -17,6 +17,13 @@ export default function createApolloClient(
       uri: 'https://yv8w5m1kpc.execute-api.eu-west-2.amazonaws.com/dev/graphql',
       fetch,
     }),
-    cache: new InMemoryCache().restore(initialState),
+    cache: new InMemoryCache({
+      cacheRedirects: {
+        Query: {
+          personById: (_, args, { getCacheKey }) =>
+            getCacheKey({ __typename: 'PersonType', id: args.id }),
+        },
+      },
+    }).restore(initialState),
   });
 }
