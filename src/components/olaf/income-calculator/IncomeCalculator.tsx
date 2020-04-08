@@ -371,7 +371,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                 control={control}
                 value={totalCalculatedExpenseValue}
                 onChange={handleChange}
-                disabled
+                calculated
               />
             </FormGroup>
           </Column>
@@ -388,7 +388,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                 control={control}
                 value={netIncomeValue}
                 onChange={handleChange}
-                disabled
+                calculated
               />
             </FormGroup>
           </Column>
