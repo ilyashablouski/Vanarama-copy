@@ -27,7 +27,7 @@ export const confirmPasswordValidator = (
   password: string,
 ): ValidationOptions => ({
   validate: (confirmPassword: string) =>
-    password !== confirmPassword ? 'Repeat Password does not match' : null,
+    password !== confirmPassword ? 'Repeat Password does not match' : undefined,
   required: {
     value: true,
     message: 'Repeat Password is required',

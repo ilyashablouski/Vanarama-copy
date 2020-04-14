@@ -12,12 +12,15 @@ import {
   Grid,
   Column,
 } from '@vanarama/uibook/packages/ui-components/src/components/molecules/grid';
-import { IIncomeCalculatorProps, IIncomeCalculatorObject } from './interfaces';
+import {
+  IIncomeCalculatorProps,
+  IIncomeCalculatorFormValues,
+} from './interfaces';
 
 const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
   const { className, data, onSubmit } = props;
   const { handleSubmit, control, getValues, watch, setValue } = useForm<
-    IIncomeCalculatorObject
+    IIncomeCalculatorFormValues
   >({
     defaultValues: {
       partyId: (data && data.partyId) || 1,
@@ -41,61 +44,24 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
   let totalCalculatedExpenseValue;
   let netIncomeValue;
 
-  const totalCalculatedExpense = (
-    phoneAndInternet: string,
-    mortgageOrRent: string,
-    creditCardPayments: string,
-    insurance: string,
-    foodAndClothes: string,
-    studentLoans: string,
-    utilities: string,
-    carFinance: string,
-    fuel: string,
-    otherCredit: string,
-  ) => {
-    const netCalculatedExpense: number =
-      Number(mortgageOrRent) +
-      Number(phoneAndInternet) +
-      Number(creditCardPayments) +
-      Number(insurance) +
-      Number(foodAndClothes) +
-      Number(studentLoans) +
-      Number(utilities) +
-      Number(carFinance) +
-      Number(fuel) +
-      Number(otherCredit);
+  const totalCalculatedExpense = (values: IIncomeCalculatorFormValues) => {
+    const netCalculatedExpense =
+      Number(values.mortgageOrRent) +
+      Number(values.phoneAndInternet) +
+      Number(values.creditCardPayments) +
+      Number(values.insurance) +
+      Number(values.foodAndClothes) +
+      Number(values.studentLoans) +
+      Number(values.utilities) +
+      Number(values.carFinance) +
+      Number(values.fuel) +
+      Number(values.otherCredit);
 
     return netCalculatedExpense;
   };
 
-  const netIncome = (
-    averageMonthlyIncome: string,
-    phoneAndInternet: string,
-    mortgageOrRent: string,
-    creditCardPayments: string,
-    insurance: string,
-    foodAndClothes: string,
-    studentLoans: string,
-    utilities: string,
-    carFinance: string,
-    fuel: string,
-    otherCredit: string,
-  ) => {
-    return (
-      Number(averageMonthlyIncome) -
-      totalCalculatedExpense(
-        phoneAndInternet,
-        mortgageOrRent,
-        creditCardPayments,
-        insurance,
-        foodAndClothes,
-        studentLoans,
-        utilities,
-        carFinance,
-        fuel,
-        otherCredit,
-      )
-    );
+  const netIncome = (values: IIncomeCalculatorFormValues) => {
+    return Number(values.averageMonthlyIncome) - totalCalculatedExpense(values);
   };
 
   const handleChange = (e: any) => {
@@ -103,47 +69,11 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
     const inputValue = type === 'checkbox' ? checked : value;
     setValue(name, inputValue);
 
-    const {
-      averageMonthlyIncome,
-      phoneAndInternet,
-      mortgageOrRent,
-      creditCardPayments,
-      insurance,
-      foodAndClothes,
-      studentLoans,
-      utilities,
-      carFinance,
-      fuel,
-      otherCredit,
-    } = getValues();
-
-    totalCalculatedExpenseValue = totalCalculatedExpense(
-      phoneAndInternet,
-      mortgageOrRent,
-      creditCardPayments,
-      insurance,
-      foodAndClothes,
-      studentLoans,
-      utilities,
-      carFinance,
-      fuel,
-      otherCredit,
-    );
+    const values = getValues();
+    totalCalculatedExpenseValue = totalCalculatedExpense(values);
     setValue('totalMonthlyExpenses', totalCalculatedExpenseValue);
 
-    netIncomeValue = netIncome(
-      averageMonthlyIncome,
-      phoneAndInternet,
-      mortgageOrRent,
-      creditCardPayments,
-      insurance,
-      foodAndClothes,
-      studentLoans,
-      utilities,
-      carFinance,
-      fuel,
-      otherCredit,
-    );
+    netIncomeValue = netIncome(values);
     setValue('netDisposableIncome', netIncomeValue);
 
     return inputValue;

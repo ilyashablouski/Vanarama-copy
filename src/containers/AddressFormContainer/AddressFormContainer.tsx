@@ -60,6 +60,10 @@ const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
     return <p>Error</p>;
   }
 
+  if (!data || !data.allDropDowns) {
+    return null;
+  }
+
   return (
     <AddressForm
       dropDownData={data.allDropDowns}

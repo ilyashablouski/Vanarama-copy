@@ -2,9 +2,13 @@ import * as yup from 'yup';
 import moment from 'moment';
 import { IAboutFormValues } from './interface';
 
-const reqMsg = (rel: string) => ` Please enter your ${rel}`;
+const reqMsg = (rel: string) => `Please enter your ${rel}`;
 
-function isAgeValid({ dayOfBirth, monthOfBirth, yearOfBirth }) {
+function isAgeValid({
+  dayOfBirth,
+  monthOfBirth,
+  yearOfBirth,
+}: IAboutFormValues) {
   const dateStr = `${dayOfBirth} ${monthOfBirth} ${yearOfBirth}`;
   const validMinAge =
     moment().diff(moment(dateStr, 'DD-MMMM-YYYY'), 'years') >= 18;
@@ -23,7 +27,7 @@ function isAgeValid({ dayOfBirth, monthOfBirth, yearOfBirth }) {
   return null;
 }
 
-function ageValidator() {
+function ageValidator(this: yup.TestContext) {
   const { createError, path, parent } = this;
   const error = isAgeValid(parent);
   return error ? createError({ message: error, path }) : true;

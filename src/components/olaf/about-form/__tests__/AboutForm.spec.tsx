@@ -10,7 +10,7 @@ import AboutForm from '..';
 
 describe.skip('<AboutForm />', () => {
   const submit = jest.fn();
-  let rendered;
+  let rendered: HTMLElement;
 
   beforeEach(() => {
     const { container } = render(

@@ -48,7 +48,7 @@ export function getUnorderedIndices(entries: THistoryEntry[]) {
   const dates = entries.filter(x => x.month && x.year).map(historyToDate);
 
   // Don't actually sort the array, just maintain a list of indices we need to swap
-  const swapIndices = [];
+  const swapIndices: [number, number][] = [];
   dates.sort((a, b) => {
     const diff = b.getTime() - a.getTime();
     if (diff < 0) {

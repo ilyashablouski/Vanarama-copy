@@ -16,7 +16,7 @@ jest.mock(
   () => {
     return {
       __esModule: true,
-      default: ({ id, dataTestId, onChange }) => {
+      default: ({ id, dataTestId, onChange }: any) => {
         return (
           <input
             id={id}

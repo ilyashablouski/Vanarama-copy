@@ -15,7 +15,7 @@ export interface IAboutFormValues {
   dependants: string;
   adultsInHousehold: string;
   termsAndCons: boolean;
-  consent: boolean;
+  consent?: boolean;
 }
 
 export interface IProps {

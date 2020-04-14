@@ -58,7 +58,7 @@ const AddressSubForm: FCWithFragments<IAddressSubFormProps> = ({
           as={AddressFinder}
           control={control}
           dataTestId={`address-history.[${index}]-address-field`}
-          loqateApiKey={process.env.LOQATE_KEY}
+          loqateApiKey={process.env.LOQATE_KEY!}
           onChange={([suggestion]) => suggestion?.id || ''}
         />
       </Formgroup>

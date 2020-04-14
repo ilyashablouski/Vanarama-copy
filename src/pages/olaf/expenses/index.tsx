@@ -29,7 +29,7 @@ const ExpensesPage: NextPage = () => {
     CreateExpenseMutationVariables
   >(EXPENSE_CREATE_MUTATION, {
     onCompleted: data => {
-      router.push(`/olaf/details/${data.createUpdateIncomeAndExpense.id}`);
+      router.push(`/olaf/details/${data.createUpdateIncomeAndExpense?.id}`);
     },
   });
 

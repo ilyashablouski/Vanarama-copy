@@ -5,12 +5,12 @@ import IncomeCalculator from '../IncomeCalculator';
 import { inputChange } from './utils';
 
 const getComponent = () => {
-  return render(<IncomeCalculator />);
+  return render(<IncomeCalculator onSubmit={jest.fn()} />);
 };
 
 describe('<IncomeCalculator />', () => {
   const value = '200';
-  const wrapper = mount(<IncomeCalculator />);
+  const wrapper = mount(<IncomeCalculator onSubmit={jest.fn()} />);
 
   it('renders correctly', () => {
     expect(wrapper).toMatchSnapshot();

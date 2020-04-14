@@ -37,13 +37,15 @@ const AboutYouPage: NextPage = () => {
     CREATE_UPDATE_PERSON,
     {
       onCompleted: data => {
-        router.push(`/olaf/address-history/${data.createUpdatePerson.partyId}`);
+        router.push(
+          `/olaf/address-history/${data.createUpdatePerson?.partyId}`,
+        );
       },
     },
   );
 
   const { data, loading, error } = useQuery<AllDropDownsQuery>(ALL_DROPDOWNS);
-  if (loading || error) {
+  if (loading || error || !data || !data.allDropDowns) {
     // TODO: Handle loading and error states
     return null;
   }

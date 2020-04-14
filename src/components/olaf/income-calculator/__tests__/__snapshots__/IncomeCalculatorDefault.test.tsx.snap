@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<IncomeCalculator /> renders correctly 1`] = `
-<Memo()>
+<Memo()
+  onSubmit={[MockFunction]}
+>
   <form
     className="form"
     id="incomeCalculatorForm"
