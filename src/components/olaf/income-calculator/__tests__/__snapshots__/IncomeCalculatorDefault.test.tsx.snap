@@ -529,12 +529,10 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
               span-m="row"
             >
               <Memo(Formgroup)
-                dataTestId="futureMonthlyIncome"
                 label="Do You Anticipate Your Monthly Income Will Change?"
               >
                 <div
                   className="formgroup"
-                  data-testid="futureMonthlyIncome"
                 >
                   <label
                     className="formgroup--legend"
@@ -722,6 +720,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           },
                         }
                       }
+                      dataTestId="futureMonthlyIncome"
                       id="isFutureMonthlyIncome"
                       label="Yes"
                       name="isFutureMonthlyIncome"
@@ -729,6 +728,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                     >
                       <ForwardRef(Checkbox)
                         checked={false}
+                        dataTestId="futureMonthlyIncome"
                         id="isFutureMonthlyIncome"
                         label="Yes"
                         name="isFutureMonthlyIncome"
@@ -740,6 +740,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           <input
                             checked={false}
                             className="checkbox--native"
+                            data-testid="futureMonthlyIncome"
                             id="isFutureMonthlyIncome"
                             name="isFutureMonthlyIncome"
                             onChange={[Function]}

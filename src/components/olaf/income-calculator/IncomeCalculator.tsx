@@ -197,10 +197,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
             </FormGroup>
           </Column>
           <Column md="row">
-            <FormGroup
-              dataTestId="futureMonthlyIncome"
-              label="Do You Anticipate Your Monthly Income Will Change?"
-            >
+            <FormGroup label="Do You Anticipate Your Monthly Income Will Change?">
               <Controller
                 id="isFutureMonthlyIncome"
                 name="isFutureMonthlyIncome"
@@ -209,6 +206,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                 label="Yes"
                 checked={isFutureMonthlyIncome}
                 onChange={handleChange}
+                dataTestId="futureMonthlyIncome"
               />
               {isFutureMonthlyIncome ? (
                 <FormGroup
