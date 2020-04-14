@@ -8,7 +8,6 @@ function isAgeValid({ dayOfBirth, monthOfBirth, yearOfBirth }) {
   const dateStr = `${dayOfBirth} ${monthOfBirth} ${yearOfBirth}`;
   const validMinAge =
     moment().diff(moment(dateStr, 'DD-MMMM-YYYY'), 'years') >= 18;
-
   const validMaxAge =
     moment().diff(moment(dateStr, 'DD-MMMM-YYYY'), 'years') <= 120;
 
@@ -26,12 +25,11 @@ function isAgeValid({ dayOfBirth, monthOfBirth, yearOfBirth }) {
 function ageValidator() {
   const { createError, path, parent } = this;
   const error = isAgeValid(parent);
+
   if (error) {
     return createError({ message: error, path });
   }
-  parent.validateAt('dayOfBirth', parent.dayOfBirth);
-  parent.validateAt('monthOfBirth', parent.monthOfBirth);
-  parent.validateAt('yearOfBirth', parent.dayOfBirth);
+
   return true;
 }
 

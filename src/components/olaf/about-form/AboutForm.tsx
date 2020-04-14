@@ -18,7 +18,9 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
   const months: string[] = genMonths() || [];
   const years: number[] = genYears(100) || [];
 
-  const { handleSubmit, errors, reset, register } = useForm<IAboutFormValues>({
+  const { handleSubmit, errors, reset, register, clearError } = useForm<
+    IAboutFormValues
+  >({
     mode: 'onBlur',
     validationSchema,
   });
@@ -111,7 +113,17 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
           id="dayOfBirth"
           dataTestId="aboutSelectDOB"
           name="dayOfBirth"
-          ref={register}
+          ref={register({
+            validate: val => {
+              return validationSchema
+                .validateAt('dayOfBirth', val)
+                .then(() => {
+                  clearError(['monthOfBirth', 'yearOfBirth']);
+                  return true;
+                })
+                .catch(e => e.message);
+            },
+          })}
           placeholder="Day"
         >
           {[...Array(31)]
@@ -125,7 +137,17 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
         <Select
           dataTestId="aboutSelectMOB"
           name="monthOfBirth"
-          ref={register}
+          ref={register({
+            validate: val => {
+              return validationSchema
+                .validateAt('monthOfBirth', val)
+                .then(() => {
+                  clearError(['dayOfBirth', 'yearOfBirth']);
+                  return true;
+                })
+                .catch(e => e.message);
+            },
+          })}
           placeholder="Month"
         >
           {months.map(value => (
@@ -137,7 +159,17 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
         <Select
           dataTestId="aboutSelectYOB"
           name="yearOfBirth"
-          ref={register}
+          ref={register({
+            validate: val => {
+              return validationSchema
+                .validateAt('yearOfBirth', val)
+                .then(() => {
+                  clearError(['dayOfBirth', 'monthOfBirth']);
+                  return true;
+                })
+                .catch(e => e.message);
+            },
+          })}
           placeholder="Year"
         >
           {years.map(value => (
