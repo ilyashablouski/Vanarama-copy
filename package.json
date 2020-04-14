@@ -19,6 +19,9 @@
     "typecheck": "tsc",
     "apollo:generate": "rimraf generated && apollo client:codegen generated --target=typescript --outputFlat --no-addTypename"
   },
+  "jest": {
+    "testResultsProcessor": "jest-sonar-reporter"
+  },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.4",
     "@apollo/react-ssr": "^3.1.4",
@@ -40,6 +43,7 @@
     "express": "^4.17.1",
     "express-urlrewrite": "^1.2.0",
     "isomorphic-unfetch": "^3.0.0",
+    "jest-sonar-reporter": "^2.0.0",
     "localforage": "^1.7.3",
     "mailcheck": "^1.1.1",
     "moment": "^2.24.0",

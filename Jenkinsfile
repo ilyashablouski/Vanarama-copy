@@ -32,37 +32,43 @@ node('master') {
         checkout scm
         currentBranch = scm.branches[0].name
 
-        withCredentials([string(credentialsId: 'npm_token', variable: 'npm_token')]) {
-          NPM_TOKEN="${npm_token}"
-          sh "docker build --no-cache --build-arg NPM_TOKEN=${NPM_TOKEN} -t autorama-nextstorefront:latest -f Dockerfile ."
+        if( currentBranch == "develop" || currentBranch == "devops")
+        {
+          echo "Current Branch = ${currentBranch}"
+          withCredentials([string(credentialsId: 'npm_token', variable: 'npm_token')]) {
+            NPM_TOKEN="${npm_token}"
+            sh "docker build --no-cache --build-arg NPM_TOKEN=${NPM_TOKEN} -t autorama-nextstorefront:latest -f Dockerfile ."
+            }
+        }
+        else
+        {
+          echo "Current Branch = ${currentBranch}"
+        }
 
+      }
+
+      stage("2: Unit Test Execution...") {
+         withCredentials([string(credentialsId: 'npm_token', variable: 'npm_token')]) {
+          nodejs('node') {
+            sh '''
+              export NPM_TOKEN="${npm_token}"
+              cp .npmrcDOCKER .npmrc
+              yarn install
+              yarn test --coverage
+            '''
+          }
         }
       }
 
-      stage("2: Sonarqube analysis..."){
+      stage("3: Sonarqube analysis..."){
 
+       nodejs('node') {
         // requires SonarQube Scanner 2.8+
         def scannerHome = tool 'SonarQubeScanner';
         withSonarQubeEnv('My SonarQube Server') {
         sh "${scannerHome}/bin/sonar-scanner"
         }
-      }
-
-      stage("3: Unit Test Execution...") {
-         withCredentials([string(credentialsId: 'npm_token', variable: 'npm_token')]) {
-          NPM_TOKEN="${npm_token}"
-          sh '''
-          export NPM_TOKEN="${npm_token}"
-          export PATH=/usr/local/bin:$PATH
-          docker-compose -f ${WORKSPACE}/docker-compose.yml up -d --build
-          docker-compose -f ${WORKSPACE}/docker-compose.yml exec -T --index=1 next-storefront /bin/bash -c "ls -a"
-          docker-compose -f ${WORKSPACE}/docker-compose.yml exec -e NPM_TOKEN=${NPM_TOKEN} -T --index=1 next-storefront /bin/bash -c "cp .npmrcDOCKER .npmrc"
-          docker-compose -f ${WORKSPACE}/docker-compose.yml exec -e NPM_TOKEN=${NPM_TOKEN} -T --index=1 next-storefront /bin/bash -c "yarn install"
-          docker-compose -f ${WORKSPACE}/docker-compose.yml exec -T --index=1 next-storefront /bin/bash -c "yarn test -u >results.xml"
-          docker cp next-storefront:/usr/src/app/results.xml ${WORKSPACE}/results.xml
-          docker-compose -f ${WORKSPACE}/docker-compose.yml down -v
-          '''
-        }
+       }
       }
 
       if (currentBranch == "develop" || currentBranch == "devops")
@@ -265,9 +271,13 @@ node('master') {
           //
       }
       stage("7: Cleanup..."){
+        try{
           sh '''
             docker rmi autorama-nextstorefront
           '''
+        } catch(Exception e){
+          echo "No Image - Current Branch = ${currentBranch}"
+        }
       }
 
       } catch(Exception e) {
