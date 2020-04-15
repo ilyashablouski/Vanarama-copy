@@ -4,7 +4,7 @@ import IncomeCalculator from '../IncomeCalculator';
 import { inputChange } from './utils';
 
 const getComponent = () => {
-  return render(<IncomeCalculator />);
+  return render(<IncomeCalculator onSubmit={jest.fn()} />);
 };
 
 describe('<IncomeCalculator Calculations />', () => {

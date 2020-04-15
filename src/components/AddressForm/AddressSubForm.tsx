@@ -1,11 +1,10 @@
-import Select from '@vanarama/uibook/packages/ui-components/src/components/atoms/select';
-import AddressFinder from '@vanarama/uibook/packages/ui-components/src/components/molecules/address-finder';
-import Formgroup from '@vanarama/uibook/packages/ui-components/src/components/molecules/formgroup';
-import Tile from '@vanarama/uibook/packages/ui-components/src/components/molecules/tile';
+import Select from '@vanarama/uibook/lib/components/atoms/select';
+import AddressFinder from '@vanarama/uibook/lib/components/molecules/address-finder';
+import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import { gql } from 'apollo-boost';
-import React, { useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import useDeepCompareEffect from 'use-deep-compare-effect';
 import { AddressSubFormDropDownData } from '../../../generated/AddressSubFormDropDownData';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { genMonths, genYears } from '../../utils/helpers';
@@ -21,29 +20,28 @@ const AddressSubForm: FCWithFragments<IAddressSubFormProps> = ({
   dropDownData,
   index,
 }) => {
-  const justMounted = useRef(true);
   const {
     control,
     errors,
     register,
+    formState,
     triggerValidation,
     watch,
   } = useFormContext<IFormValues>();
 
-  /**
-   * React Hook Form validation does not work across fields. Instead, we have to manually invoke it.
-   * This may be fixed with their new validationResolver API but would require refactoring.
-   * */
-  const dateFieldNames = [`history[${index}].month`, `history[${index}].year`];
-  const dateFields = watch(dateFieldNames);
-  useDeepCompareEffect(() => {
-    if (justMounted.current) {
-      justMounted.current = false;
-      return;
+  const touched = formState.touched.history?.[index];
+  const watched = watch({ nest: true }).history?.[index];
+
+  // Everytime the month or year is touched, revalidate the other field
+  useEffect(() => {
+    if (touched?.month && watched.year) {
+      triggerValidation(`history[${index}].month`);
     }
 
-    triggerValidation(dateFieldNames);
-  }, [dateFields]);
+    if (touched?.year && watched.month) {
+      triggerValidation(`history[${index}].year`);
+    }
+  }, [index, touched, triggerValidation, watched]);
 
   return (
     <Tile>
@@ -57,8 +55,8 @@ const AddressSubForm: FCWithFragments<IAddressSubFormProps> = ({
           name={`history[${index}].address`}
           as={AddressFinder}
           control={control}
-          dataTestId="address-history-address-field"
-          loqateApiKey={process.env.LOQATE_KEY}
+          dataTestId={`address-history.[${index}]-address-field`}
+          loqateApiKey={process.env.LOQATE_KEY!}
           onChange={([suggestion]) => suggestion?.id || ''}
         />
       </Formgroup>
@@ -70,7 +68,7 @@ const AddressSubForm: FCWithFragments<IAddressSubFormProps> = ({
         <Select
           id={`history[${index}].status`}
           name={`history[${index}].status`}
-          dataTestId="address-history-status-field"
+          dataTestId={`address-history.[${index}]-status-field`}
           ref={register}
         >
           <OptionsWithFavourites options={dropDownData.propertyStatuses} />
@@ -88,7 +86,7 @@ const AddressSubForm: FCWithFragments<IAddressSubFormProps> = ({
         <Select
           id={`history[${index}].month`}
           name={`history[${index}].month`}
-          dataTestId="address-history-month-field"
+          dataTestId={`address-history.[${index}]-month-field`}
           placeholder="Month"
           ref={register}
         >
@@ -101,7 +99,7 @@ const AddressSubForm: FCWithFragments<IAddressSubFormProps> = ({
         <Select
           id={`history[${index}].year`}
           name={`history[${index}].year`}
-          dataTestId="address-history-year-field"
+          dataTestId={`address-history.[${index}]-year-field`}
           placeholder="Year"
           ref={register}
         >

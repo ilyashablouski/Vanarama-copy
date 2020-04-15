@@ -1,12 +1,12 @@
-import ChevronForwardSharpIcon from '@vanarama/uibook/packages/ui-components/src/assets/icons/ChevronForwardSharp';
-import Button from '@vanarama/uibook/packages/ui-components/src/components/atoms/button';
-import Details from '@vanarama/uibook/packages/ui-components/src/components/atoms/details';
-import Link from '@vanarama/uibook/packages/ui-components/src/components/atoms/link';
-import Text from '@vanarama/uibook/packages/ui-components/src/components/atoms/text';
-import TextInput from '@vanarama/uibook/packages/ui-components/src/components/atoms/textinput';
-import Form from '@vanarama/uibook/packages/ui-components/src/components/organisms/form';
+import ChevronForwardSharpIcon from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
+import Button from '@vanarama/uibook/lib/components/atoms/button';
+import Details from '@vanarama/uibook/lib/components/atoms/details';
+import Link from '@vanarama/uibook/lib/components/atoms/link';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
+import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
+import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { useForm } from 'react-hook-form';
-import Formgroup from '@vanarama/uibook/packages/ui-components/src/components/molecules/formgroup';
+import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import { IRegisterFormProps, IRegisterFormValues } from './interfaces';
 import {
   confirmPasswordValidator,

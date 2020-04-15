@@ -1,6 +1,6 @@
-import '@vanarama/uibook/packages/ui-components/src/components/base.scss';
-import Footer from '@vanarama/uibook/packages/ui-components/src/components/organisms/footer';
-import Header from '@vanarama/uibook/packages/ui-components/src/components/organisms/header';
+import '@vanarama/uibook/src/components/base.scss';
+import Footer from '@vanarama/uibook/lib/components/organisms/footer';
+import Header from '@vanarama/uibook/lib/components/organisms/header';
 import { AppProps } from 'next/app';
 
 function MyApp({ Component, pageProps, router }: AppProps) {

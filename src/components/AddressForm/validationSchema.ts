@@ -1,8 +1,9 @@
 import * as Yup from 'yup';
 import moment from 'moment';
 import { historyToMoment } from '../../utils/dates';
+import { IAddressFormValues } from './interfaces';
 
-function checkFuture() {
+function checkFuture(this: Yup.TestContext) {
   const { month, year } = this.parent as any;
   if (month && year) {
     const asMoment = historyToMoment({ month, year });
@@ -15,7 +16,7 @@ function checkFuture() {
   return true;
 }
 
-export default Yup.object().shape({
+export default Yup.object().shape<IAddressFormValues>({
   history: Yup.array().of(
     Yup.object().shape({
       address: Yup.string().required('Please enter your address'),

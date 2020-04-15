@@ -1,10 +1,10 @@
-import ChevronForwardSharpIcon from '@vanarama/uibook/packages/ui-components/src/assets/icons/ChevronForwardSharp';
-import Button from '@vanarama/uibook/packages/ui-components/src/components/atoms/button';
-import Link from '@vanarama/uibook/packages/ui-components/src/components/atoms/link';
-import TextInput from '@vanarama/uibook/packages/ui-components/src/components/atoms/textinput';
-import Formgroup from '@vanarama/uibook/packages/ui-components/src/components/molecules/formgroup';
-import Form from '@vanarama/uibook/packages/ui-components/src/components/organisms/form';
-import FormError from '@vanarama/uibook/packages/ui-components/src/components/organisms/form/FormError';
+import ChevronForwardSharpIcon from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
+import Button from '@vanarama/uibook/lib/components/atoms/button';
+import Link from '@vanarama/uibook/lib/components/atoms/link';
+import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
+import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+import Form from '@vanarama/uibook/lib/components/organisms/form';
+import FormError from '@vanarama/uibook/lib/components/organisms/form/FormError';
 import { useForm } from 'react-hook-form';
 import { ILoginFormProps, ILoginFormValues } from './interfaces';
 import { emailValidator, passwordValidator } from './LoginForm.validate';

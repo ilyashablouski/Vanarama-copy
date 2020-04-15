@@ -1,5 +1,5 @@
-import Container from '@vanarama/uibook/packages/ui-components/src/components/container/Container';
-import Section from '@vanarama/uibook/packages/ui-components/src/components/container/Section';
+import Container from '@vanarama/uibook/lib/components/container/Container';
+import Section from '@vanarama/uibook/lib/components/container/Section';
 
 /**
  * This is a helper component for the common layout container used on most pages.

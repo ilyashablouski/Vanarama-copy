@@ -5,13 +5,11 @@ const withImages = require('next-images');
 const withFonts = require('next-fonts');
 const sitemap = require('nextjs-sitemap-generator');
 const withCustomBabelConfig = require('next-plugin-custom-babel-config');
-const withTM = require('next-transpile-modules')(['@vanarama/uibook']);
 const path = require('path');
 const config = require('./config/app');
 
 module.exports = withPlugins(
   [
-    [withTM],
     [withFonts],
     [
       withCustomBabelConfig,

@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<IncomeCalculator /> renders correctly 1`] = `
-<Memo()>
+<Memo()
+  onSubmit={[MockFunction]}
+>
   <form
     className="form"
     id="incomeCalculatorForm"
@@ -9,10 +11,12 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
   >
     <Heading
       color="black"
+      dataTestId="expenses"
       size="xlarge"
     >
       <p
         className="heading -black -xlarge"
+        data-testid="expenses"
       >
         Expenses
       </p>
@@ -718,6 +722,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           },
                         }
                       }
+                      dataTestId="futureMonthlyIncome"
                       id="isFutureMonthlyIncome"
                       label="Yes"
                       name="isFutureMonthlyIncome"
@@ -725,6 +730,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                     >
                       <ForwardRef(Checkbox)
                         checked={false}
+                        dataTestId="futureMonthlyIncome"
                         id="isFutureMonthlyIncome"
                         label="Yes"
                         name="isFutureMonthlyIncome"
@@ -736,6 +742,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           <input
                             checked={false}
                             className="checkbox--native"
+                            data-testid="futureMonthlyIncome"
                             id="isFutureMonthlyIncome"
                             name="isFutureMonthlyIncome"
                             onChange={[Function]}
@@ -3677,6 +3684,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
           >
             <Button
               color="primary"
+              dataTestId="continue"
               icon={<Memo />}
               iconPosition="after"
               label="Continue"
@@ -3684,6 +3692,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
             >
               <button
                 className="button -primary -regular -solid"
+                data-testid="continue"
                 tabIndex={0}
                 type="submit"
               >

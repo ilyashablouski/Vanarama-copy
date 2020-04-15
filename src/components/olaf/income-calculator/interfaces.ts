@@ -1,4 +1,4 @@
-export interface IIncomeCalculatorObject {
+export interface IIncomeCalculatorFormValues {
   partyId?: number;
   averageMonthlyIncome?: string;
   monthlyHouseholdIncome?: string;
@@ -22,7 +22,7 @@ export interface IBaseProps {
 }
 
 export interface IIncomeCalculatorProps extends IBaseProps {
-  data?: IIncomeCalculatorObject;
-  onSubmit?: (values: IIncomeCalculatorObject) => Promise<void>;
+  data?: IIncomeCalculatorFormValues;
+  onSubmit: (values: IIncomeCalculatorFormValues) => Promise<void>;
   isSubmitting?: boolean;
 }
