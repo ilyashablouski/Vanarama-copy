@@ -1,19 +1,16 @@
 import Router from 'next/router';
-import ProgressIndicator from '@vanarama/uibook/packages/ui-components/src/components/molecules/progress-indicator';
-import Heading from '@vanarama/uibook/packages/ui-components/src/components/atoms/heading';
-import StructuredList from '@vanarama/uibook/packages/ui-components/src/components/organisms/structured-list';
-import Rating from '@vanarama/uibook/packages/ui-components/src/components/atoms/rating';
-import Icon from '@vanarama/uibook/packages/ui-components/src/components/atoms/icon';
-import Flame from '@vanarama/uibook/packages/ui-components/src/assets/icons/Flame';
+import ProgressIndicator from '@vanarama/uibook/lib/components/molecules/progress-indicator';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
+import Rating from '@vanarama/uibook/lib/components/atoms/rating';
+import Icon from '@vanarama/uibook/lib/components/atoms/icon';
+import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import Card, {
   CardContent,
   CardMedia,
-} from '@vanarama/uibook/packages/ui-components/src/components/molecules/card';
+} from '@vanarama/uibook/lib/components/molecules/card';
 
-import {
-  Grid,
-  Column,
-} from '@vanarama/uibook/packages/ui-components/src/components/molecules/grid';
+import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
 
 interface IProgressContainerProps {
   activeStep: number;

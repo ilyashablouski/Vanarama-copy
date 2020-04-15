@@ -11,23 +11,20 @@ const mockDropDownData: AddressFormDropDownData = {
   },
 };
 
-jest.mock(
-  '@vanarama/uibook/packages/ui-components/src/components/molecules/address-finder',
-  () => {
-    return {
-      __esModule: true,
-      default: ({ id, dataTestId, onChange }: any) => {
-        return (
-          <input
-            id={id}
-            data-testid={dataTestId}
-            onChange={e => onChange({ id: e.target.value })}
-          />
-        );
-      },
-    };
-  },
-);
+jest.mock('@vanarama/uibook/lib/components/molecules/address-finder', () => {
+  return {
+    __esModule: true,
+    default: ({ id, dataTestId, onChange }: any) => {
+      return (
+        <input
+          id={id}
+          data-testid={dataTestId}
+          onChange={e => onChange({ id: e.target.value })}
+        />
+      );
+    },
+  };
+});
 
 describe('<AddressForm />', () => {
   it('should call `onSubmit` when entering valid information', async () => {

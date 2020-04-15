@@ -41,7 +41,7 @@ node('master') {
         stage("Install dependencies") {
           nodejs('node') {
             sh '''
-              cp .npmrcDOCKER .npmrc
+              npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
               yarn install
             '''
           }

@@ -1,13 +1,13 @@
 FROM node:13.6
 
 ARG NPM_TOKEN
-COPY yarn.lock yarn.lock
-COPY package.json package.json
-COPY .npmrcDOCKER .npmrc
-#COPY package.json package.json
-RUN yarn -v
+
+COPY yarn.lock .
+COPY package.json .
+
+RUN npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
+
 RUN yarn install --force
-RUN rm -f .npmrc
 
 # Setting working directory. All the path will be relative to WORKDIR
 WORKDIR /usr/src/app

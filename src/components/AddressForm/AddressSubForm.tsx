@@ -1,7 +1,7 @@
-import Select from '@vanarama/uibook/packages/ui-components/src/components/atoms/select';
-import AddressFinder from '@vanarama/uibook/packages/ui-components/src/components/molecules/address-finder';
-import Formgroup from '@vanarama/uibook/packages/ui-components/src/components/molecules/formgroup';
-import Tile from '@vanarama/uibook/packages/ui-components/src/components/molecules/tile';
+import Select from '@vanarama/uibook/lib/components/atoms/select';
+import AddressFinder from '@vanarama/uibook/lib/components/molecules/address-finder';
+import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import { gql } from 'apollo-boost';
 import React, { useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';

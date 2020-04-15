@@ -1,9 +1,6 @@
-import Heading from '@vanarama/uibook/packages/ui-components/src/components/atoms/heading';
-import {
-  Column,
-  Grid,
-} from '@vanarama/uibook/packages/ui-components/src/components/molecules/grid';
-import Tabs from '@vanarama/uibook/packages/ui-components/src/components/molecules/tabs';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import { Column, Grid } from '@vanarama/uibook/lib/components/molecules/grid';
+import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
 import { NextPage } from 'next';
 import { useState } from 'react';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';

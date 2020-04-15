@@ -1,17 +1,14 @@
 import React, { FC, memo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import ChevronForwardSharpIcon from '@vanarama/uibook/packages/ui-components/src/assets/icons/ChevronForwardCircleSharp';
-import FormGroup from '@vanarama/uibook/packages/ui-components/src/components/molecules/formgroup';
-import Tile from '@vanarama/uibook/packages/ui-components/src/components/molecules/tile';
-import Input from '@vanarama/uibook/packages/ui-components/src/components/atoms/textinput/';
-import CheckBox from '@vanarama/uibook/packages/ui-components/src/components/atoms/checkbox/';
-import Button from '@vanarama/uibook/packages/ui-components/src/components/atoms/button/';
-import Text from '@vanarama/uibook/packages/ui-components/src/components/atoms/text';
-import Heading from '@vanarama/uibook/packages/ui-components/src/components/atoms/heading';
-import {
-  Grid,
-  Column,
-} from '@vanarama/uibook/packages/ui-components/src/components/molecules/grid';
+import ChevronForwardSharpIcon from '@vanarama/uibook/lib/assets/icons/ChevronForwardCircleSharp';
+import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+import Tile from '@vanarama/uibook/lib/components/molecules/tile';
+import Input from '@vanarama/uibook/lib/components/atoms/textinput/';
+import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
+import Button from '@vanarama/uibook/lib/components/atoms/button/';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
 import {
   IIncomeCalculatorProps,
   IIncomeCalculatorFormValues,

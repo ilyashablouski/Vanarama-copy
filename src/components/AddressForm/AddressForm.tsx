@@ -1,7 +1,7 @@
-import Button from '@vanarama/uibook/packages/ui-components/src/components/atoms/button';
-import Heading from '@vanarama/uibook/packages/ui-components/src/components/atoms/heading';
-import Text from '@vanarama/uibook/packages/ui-components/src/components/atoms/text';
-import Form from '@vanarama/uibook/packages/ui-components/src/components/organisms/form';
+import Button from '@vanarama/uibook/lib/components/atoms/button';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
+import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { gql } from 'apollo-boost';
 import React from 'react';
 import { FormContext } from 'react-hook-form';
