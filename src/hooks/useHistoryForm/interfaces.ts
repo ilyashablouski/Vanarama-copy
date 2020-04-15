@@ -7,10 +7,6 @@ export type Options<V> = UseFormOptions<V> & {
    * This controls when new fields are added/removed.
    */
   requiredMonths: number;
-  /**
-   * The key of the field in the form values where the history entries are stored
-   */
-  fieldArrayKey: keyof V & string;
 };
 
 export interface WithHistory {

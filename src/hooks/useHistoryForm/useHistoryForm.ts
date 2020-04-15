@@ -21,32 +21,35 @@ export default function useHistoryForm<V extends WithHistory>(
   const methods = useForm(useFormOptions);
   const { append, fields, remove, swap } = useFieldArray({
     control: methods.control,
-    name: options.fieldArrayKey,
+    name: 'history',
   });
 
-  const watchHistory = methods.watch('history');
-  const remaining = calculateRemainingMonths(watchHistory, requiredMonths);
+  const values = methods.getValues({ nest: true }).history;
+  const remaining = calculateRemainingMonths(values, requiredMonths);
 
   useDeepCompareEffect(() => {
     // Only one array function can be called at a time - see https://react-hook-form.com/api#useFieldArray
-    const allDatesCompleted = watchHistory.every(x => x.month && x.year);
+    const allDatesCompleted = values.every(x => x.month && x.year);
     if (allDatesCompleted && remaining) {
       append({});
       return;
     }
 
-    const extraneous = getExtraneousIndices(watchHistory, requiredMonths);
+    const extraneous = getExtraneousIndices(values, requiredMonths);
     if (extraneous.length) {
       remove(extraneous);
       return;
     }
 
-    const unordered = getUnorderedIndices(watchHistory);
+    const unordered = getUnorderedIndices(values);
     if (unordered.length) {
-      // Only one array function can be called at a time - see https://react-hook-form.com/api#useFieldArray
       swap(unordered[0][0], unordered[0][1]);
     }
-  }, [watchHistory, remaining, requiredMonths, append, remove, swap]);
+    /**
+     * NOTE: append, remove, swap are not included here because they change on every render
+     * and this causes multiple cards to be appended
+     */
+  }, [values, remaining, requiredMonths]);
 
   return { fields, ...methods, remaining };
 }

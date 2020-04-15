@@ -3,9 +3,8 @@ import AddressFinder from '@vanarama/uibook/packages/ui-components/src/component
 import Formgroup from '@vanarama/uibook/packages/ui-components/src/components/molecules/formgroup';
 import Tile from '@vanarama/uibook/packages/ui-components/src/components/molecules/tile';
 import { gql } from 'apollo-boost';
-import React, { useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import useDeepCompareEffect from 'use-deep-compare-effect';
 import { AddressSubFormDropDownData } from '../../../generated/AddressSubFormDropDownData';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { genMonths, genYears } from '../../utils/helpers';
@@ -21,29 +20,28 @@ const AddressSubForm: FCWithFragments<IAddressSubFormProps> = ({
   dropDownData,
   index,
 }) => {
-  const justMounted = useRef(true);
   const {
     control,
     errors,
     register,
+    formState,
     triggerValidation,
     watch,
   } = useFormContext<IFormValues>();
 
-  /**
-   * React Hook Form validation does not work across fields. Instead, we have to manually invoke it.
-   * This may be fixed with their new validationResolver API but would require refactoring.
-   * */
-  const dateFieldNames = [`history[${index}].month`, `history[${index}].year`];
-  const dateFields = watch(dateFieldNames);
-  useDeepCompareEffect(() => {
-    if (justMounted.current) {
-      justMounted.current = false;
-      return;
+  const touched = formState.touched.history?.[index];
+  const watched = watch({ nest: true }).history?.[index];
+
+  // Everytime the month or year is touched, revalidate the other field
+  useEffect(() => {
+    if (touched?.month && watched.year) {
+      triggerValidation(`history[${index}].month`);
     }
 
-    triggerValidation(dateFieldNames);
-  }, [dateFields]);
+    if (touched?.year && watched.month) {
+      triggerValidation(`history[${index}].year`);
+    }
+  }, [index, touched, triggerValidation, watched]);
 
   return (
     <Tile>

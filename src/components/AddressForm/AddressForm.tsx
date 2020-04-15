@@ -22,7 +22,6 @@ const AddressForm: FCWithFragments<IAddressFormProps> = ({
     defaultValues: {
       history: [{}],
     },
-    fieldArrayKey: 'history',
     mode: 'onBlur',
     requiredMonths: 36,
     validationSchema,
