@@ -4,10 +4,9 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { gql } from 'apollo-boost';
 import React from 'react';
-import { FormContext } from 'react-hook-form';
-import useHistoryForm from '../../hooks/useHistoryForm/useHistoryForm';
+import { FormContext, useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
-import AddressSubForm from './AddressSubForm';
+import AddressFormFields from './AddressFormFields';
 import {
   IAddressFormProps,
   IAddressFormValues as IFormValues,
@@ -18,12 +17,11 @@ const AddressForm: FCWithFragments<IAddressFormProps> = ({
   dropDownData,
   onSubmit,
 }) => {
-  const { fields, remaining, ...methods } = useHistoryForm<IFormValues>({
+  const methods = useForm<IFormValues>({
     defaultValues: {
-      history: [{}],
+      history: [{ address: '', month: '', status: '', year: '' }],
     },
     mode: 'onBlur',
-    requiredMonths: 36,
     validationSchema,
   });
 
@@ -47,20 +45,7 @@ const AddressForm: FCWithFragments<IAddressFormProps> = ({
         complete your credit check.
       </Text>
       <FormContext {...methods}>
-        {fields.map((field, index) => {
-          const isLastEntry = index === fields.length - 1;
-          const hasMultipleEntries = fields.length > 1;
-          return (
-            <React.Fragment key={field.id}>
-              {isLastEntry && remaining > 0 && hasMultipleEntries && (
-                <Text tag="span" size="regular" color="darker">
-                  We need another {remaining} months of address history.
-                </Text>
-              )}
-              <AddressSubForm dropDownData={dropDownData} index={index} />
-            </React.Fragment>
-          );
-        })}
+        <AddressFormFields dropDownData={dropDownData} />
       </FormContext>
       <Button
         dataTestId="address-history-submit"
@@ -77,9 +62,9 @@ const AddressForm: FCWithFragments<IAddressFormProps> = ({
 AddressForm.fragments = {
   dropDownData: gql`
     fragment AddressFormDropDownData on DropDownType {
-      ...AddressSubFormDropDownData
+      ...AddressFormFieldsDropDownData
     }
-    ${AddressSubForm.fragments.dropDownData}
+    ${AddressFormFields.fragments.dropDownData}
   `,
 };
 

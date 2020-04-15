@@ -3,8 +3,9 @@ import AddressFinder from '@vanarama/uibook/lib/components/molecules/address-fin
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import { gql } from 'apollo-boost';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
+import useDeepCompareEffect from 'use-deep-compare-effect';
 import { AddressSubFormDropDownData } from '../../../generated/AddressSubFormDropDownData';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { genMonths, genYears } from '../../utils/helpers';
@@ -33,12 +34,12 @@ const AddressSubForm: FCWithFragments<IAddressSubFormProps> = ({
   const watched = watch({ nest: true }).history?.[index];
 
   // Everytime the month or year is touched, revalidate the other field
-  useEffect(() => {
-    if (touched?.month && watched.year) {
+  useDeepCompareEffect(() => {
+    if (touched?.month && watched?.year) {
       triggerValidation(`history[${index}].month`);
     }
 
-    if (touched?.year && watched.month) {
+    if (touched?.year && watched?.month) {
       triggerValidation(`history[${index}].year`);
     }
   }, [index, touched, triggerValidation, watched]);
