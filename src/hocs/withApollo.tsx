@@ -3,8 +3,8 @@ import withApollo from 'next-with-apollo';
 import createApolloClient from '../apolloClient';
 
 export default withApollo(
-  ({ initialState, ctx }) => {
-    return createApolloClient(initialState, ctx);
+  ({ initialState }) => {
+    return createApolloClient(initialState);
   },
   {
     render: ({ Page, props }) => {

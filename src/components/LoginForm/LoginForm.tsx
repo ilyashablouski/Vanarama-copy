@@ -36,7 +36,7 @@ const LoginForm: React.FC<ILoginFormProps> = ({
       <Formgroup
         controlId="login-form_email"
         label="Your Email"
-        error={errors.email?.message}
+        error={errors.email?.message?.toString()}
       >
         <TextInput
           id="login-form_email"
@@ -50,7 +50,7 @@ const LoginForm: React.FC<ILoginFormProps> = ({
       <Formgroup
         controlId="login-form_password"
         label="Your Password"
-        error={errors.password?.message}
+        error={errors.password?.message?.toString()}
       >
         <TextInput
           id="login-form_password"

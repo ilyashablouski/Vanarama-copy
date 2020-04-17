@@ -4,16 +4,16 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL fragment: AddressSubFormDropDownData
+// GraphQL fragment: EmploymentFormDropDownData
 // ====================================================
 
-export interface AddressSubFormDropDownData_propertyStatuses {
+export interface EmploymentFormDropDownData_employmentStatuses {
   __typename: "DropDownDataType";
   data: string[];
   favourites: string[];
 }
 
-export interface AddressSubFormDropDownData {
+export interface EmploymentFormDropDownData {
   __typename: "DropDownType";
-  propertyStatuses: AddressSubFormDropDownData_propertyStatuses;
+  employmentStatuses: EmploymentFormDropDownData_employmentStatuses;
 }
