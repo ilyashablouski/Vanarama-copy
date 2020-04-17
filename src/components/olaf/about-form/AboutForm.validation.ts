@@ -75,7 +75,10 @@ const ValidationSchema = yup.object().shape<IAboutFormValues>(
     mobile: yup
       .string()
       .required(reqMsg('mobile number'))
-      .max(16)
+      .max(
+        16,
+        'Oops, this mobile number is too long. Please enter 16 characters or less',
+      )
       .matches(
         /^((\+[0-9]+(0|\(0\)|\s0\s|\s)?)|0)[0-9]+\d{3}(\s)?\d{6}/, // Worldwide mobile
         // /^((\+44(0|\(0\)|\s0\s|\s)?)|0)7\d{3}(\s)?\d{6}/, // UK Mobile.
