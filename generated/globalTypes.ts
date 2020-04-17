@@ -34,6 +34,18 @@ export interface AddressInputObject {
 }
 
 /**
+ * Input object to create and add a Bank Account
+ */
+export interface BankAccountInputObject {
+  accountName?: string | null;
+  accountNumber?: string | null;
+  bankName?: string | null;
+  joinedAt?: any | null;
+  partyId: string;
+  sortCode?: string | null;
+}
+
+/**
  * Input object to create and add an Email Address
  */
 export interface EmailAddressInputObject {

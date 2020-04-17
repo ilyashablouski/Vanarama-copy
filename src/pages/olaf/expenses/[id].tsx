@@ -1,8 +1,8 @@
-import { useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import { NextPage } from 'next';
-import { getDataFromTree } from '@apollo/react-ssr';
 import { useRouter } from 'next/router';
+import { getDataFromTree } from '@apollo/react-ssr';
+import { useMutation } from '@apollo/react-hooks';
 import OlafContainer from '../../../components/olaf/olaf-container';
 import withApollo from '../../../hocs/withApollo';
 import IncomeCalculator from '../../../components/olaf/income-calculator';
@@ -23,13 +23,15 @@ export const EXPENSE_CREATE_MUTATION = gql`
 
 const ExpensesPage: NextPage = () => {
   const router = useRouter();
-
+  const partyId = router.query.id as string;
   const [expenses] = useMutation<
     CreateExpenseMutation,
     CreateExpenseMutationVariables
   >(EXPENSE_CREATE_MUTATION, {
-    onCompleted: data => {
-      router.push(`/olaf/details/${data.createUpdateIncomeAndExpense?.id}`);
+    onCompleted: () => {
+      const url = '/olaf/bank-details';
+
+      router.push(`${url}/[id]`, `${url}/${partyId}`);
     },
   });
 
