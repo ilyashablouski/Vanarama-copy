@@ -51,7 +51,7 @@ const BankDetails: FC<IBankDetailsProps> = memo(props => {
       <FormGroup
         controlId="nameOnTheAccount"
         label="Name on the Account"
-        error={errors?.nameOnTheAccount?.message}
+        error={errors?.nameOnTheAccount?.message?.toString()}
       >
         <TextInput
           id="nameOnTheAccount"
@@ -65,7 +65,7 @@ const BankDetails: FC<IBankDetailsProps> = memo(props => {
       <FormGroup
         controlId="accountNumber"
         label="Account Number"
-        error={errors?.accountNumber?.message}
+        error={errors?.accountNumber?.message?.toString()}
       >
         <TextInput
           id="accountNumber"
@@ -76,7 +76,10 @@ const BankDetails: FC<IBankDetailsProps> = memo(props => {
           width={35}
         />
       </FormGroup>
-      <FormGroup label="Sort Code" error={errors?.sortCode?.message}>
+      <FormGroup
+        label="Sort Code"
+        error={errors?.sortCode?.message?.toString()}
+      >
         <Controller
           id="sortCode"
           name="sortCode"
@@ -90,7 +93,7 @@ const BankDetails: FC<IBankDetailsProps> = memo(props => {
       <FormGroup
         controlId="bankName"
         label="Bank Name"
-        error={errors?.bankName?.message}
+        error={errors?.bankName?.message?.toString()}
       >
         <TextInput
           id="bankName"
@@ -104,7 +107,10 @@ const BankDetails: FC<IBankDetailsProps> = memo(props => {
       <FormGroup
         controlId="accountOpenSince"
         label="Account Open Since"
-        error={errors?.openingMonth?.message || errors?.openingYear?.message}
+        error={
+          errors?.openingMonth?.message?.toString() ||
+          errors?.openingYear?.message?.toString()
+        }
         inline
       >
         <Select
@@ -217,7 +223,7 @@ const BankDetails: FC<IBankDetailsProps> = memo(props => {
           </Text>
         </Tile>
       </FormGroup>
-      <FormGroup error={errors?.understand?.message}>
+      <FormGroup error={errors?.understand?.message?.toString()}>
         <CheckBox
           id="understand"
           dataTestId="understand"
@@ -228,7 +234,7 @@ const BankDetails: FC<IBankDetailsProps> = memo(props => {
       </FormGroup>
       <FormGroup
         label="Please Confirm"
-        error={errors?.termsAndConditions?.message}
+        error={errors?.termsAndConditions?.message?.toString()}
       >
         <CheckBox
           id="affordRental"

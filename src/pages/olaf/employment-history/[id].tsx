@@ -3,23 +3,15 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
 import OlafContainer from '../../../components/olaf/olaf-container';
-import AddressFormContainer from '../../../containers/AddressFormContainer/AddressFormContainer';
+import EmploymentFormContainer from '../../../containers/EmploymentFormContainer/EmploymentFormContainer';
 import withApollo from '../../../hocs/withApollo';
 
-const AddressHistoryPage: NextPage = () => {
+const EmploymentHistoryPage: NextPage = () => {
   const router = useRouter();
   const partyId = router.query.id as string;
   return (
-    <OlafContainer activeStep={2}>
-      <AddressFormContainer
-        onCompleted={() => {
-          router.push(
-            `/olaf/employment-history/[id]`,
-            `/olaf/employment-history/${partyId}`,
-          );
-        }}
-        partyId={partyId}
-      />
+    <OlafContainer activeStep={3}>
+      <EmploymentFormContainer partyId={partyId} />
     </OlafContainer>
   );
 };
@@ -30,10 +22,10 @@ const AddressHistoryPage: NextPage = () => {
  *  https://github.com/zeit/next.js/discussions/11484 &
  *  https://nextjs.org/docs/routing/dynamic-routes#caveats
  */
-AddressHistoryPage.getInitialProps = () => {
+EmploymentHistoryPage.getInitialProps = () => {
   return {};
 };
 
-export default withApollo(AddressHistoryPage, {
+export default withApollo(EmploymentHistoryPage, {
   getDataFromTree,
 });

@@ -7,68 +7,64 @@ import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { gql } from 'apollo-boost';
 import React from 'react';
 import { FormContext, useForm } from 'react-hook-form';
+import { EmploymentFormDropDownData } from '../../../generated/EmploymentFormDropDownData';
 import FCWithFragments from '../../utils/FCWithFragments';
-import {
-  IAddressFormProps,
-  IAddressFormValues as IFormValues,
-} from './interfaces';
-import validationSchema from './validationSchema';
-import AddressFormFields from './AddressFormFields';
+import EmploymentFormFields from './EmploymentFormFields';
+import { IEmploymentFormValues } from './interfaces';
 
-const AddressForm: FCWithFragments<IAddressFormProps> = ({
-  dropDownData,
-  onSubmit,
-}) => {
-  const methods = useForm<IFormValues>({
+interface IProps {
+  dropDownData: EmploymentFormDropDownData;
+}
+
+const EmploymentForm: FCWithFragments<IProps> = ({ dropDownData }) => {
+  const methods = useForm<IEmploymentFormValues>({
     defaultValues: {
-      history: [{ address: '', month: '', status: '', year: '' }],
+      history: [{ status: '' }],
     },
     mode: 'onBlur',
-    validationSchema,
   });
 
   return (
-    <Form onSubmit={methods.handleSubmit(onSubmit)}>
+    <Form onSubmit={methods.handleSubmit(console.log)}>
       <Heading
-        dataTestId="address-history-heading"
+        dataTestId="employment-history-heading"
         tag="span"
         size="xlarge"
         color="black"
       >
-        Address History
+        Employment History
       </Heading>
       <Text
-        dataTestId="address-history-lead"
+        dataTestId="employment-history-lead"
         size="lead"
         color="darker"
         tag="span"
       >
-        Great, we just need your address history for the past 3 years to
-        complete your credit check.
+        Thanks, we also need your employment history for the past 3 years so the
+        funder can check your status.
       </Text>
       <FormContext {...methods}>
-        <AddressFormFields dropDownData={dropDownData} />
+        <EmploymentFormFields dropDownData={dropDownData} />
       </FormContext>
       <Button
         color="primary"
-        dataTestId="address-history-submit"
-        disabled={methods.formState.isSubmitting}
+        dataTestId="employment-history-submit"
         icon={<Icon color="light" icon={<ChevronForwardSharp />} />}
         iconPosition="after"
-        label={methods.formState.isSubmitting ? 'Saving...' : 'Continue'}
+        label="Continue"
         type="submit"
       />
     </Form>
   );
 };
 
-AddressForm.fragments = {
+EmploymentForm.fragments = {
   dropDownData: gql`
-    fragment AddressFormDropDownData on DropDownType {
-      ...AddressFormFieldsDropDownData
+    fragment EmploymentFormDropDownData on DropDownType {
+      ...EmploymentFormFieldsDropDownData
     }
-    ${AddressFormFields.fragments.dropDownData}
+    ${EmploymentFormFields.fragments.dropDownData}
   `,
 };
 
-export default AddressForm;
+export default EmploymentForm;

@@ -38,7 +38,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
       <Formgroup
         controlId="register-form_email"
         label="Your Email"
-        error={errors.email?.message}
+        error={errors.email?.message?.toString()}
       >
         <TextInput
           id="register-form_email"
@@ -52,7 +52,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
       <Formgroup
         controlId="register-form_password"
         label="Your Password"
-        error={errors.password?.message}
+        error={errors.password?.message?.toString()}
       >
         <TextInput
           id="register-form_password"
@@ -70,7 +70,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
       <Formgroup
         controlId="register-form_confirm-password"
         label="Repeat Password"
-        error={errors.confirmPassword?.message}
+        error={errors.confirmPassword?.message?.toString()}
       >
         <TextInput
           id="register-form_confirm-password"

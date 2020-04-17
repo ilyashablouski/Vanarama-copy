@@ -36,7 +36,11 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
       <Text color="darker" size="lead">
         We just need some initial details for your credit check.
       </Text>
-      <FormGroup controlId="title" label="Title" error={errors?.title?.message}>
+      <FormGroup
+        controlId="title"
+        label="Title"
+        error={errors?.title?.message?.toString()}
+      >
         <Select id="title" name="title" dataTestId="aboutTitle" ref={register}>
           <OptionsWithFavourites options={dropdownData.titles} />
         </Select>
@@ -45,7 +49,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
       <FormGroup
         controlId="firstName"
         label="First Name"
-        error={errors?.firstName?.message}
+        error={errors?.firstName?.message?.toString()}
       >
         <TextInput
           id="firstName"
@@ -60,7 +64,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
       <FormGroup
         controlId="lastName"
         label="Last Name"
-        error={errors?.lastName?.message}
+        error={errors?.lastName?.message?.toString()}
       >
         <TextInput
           id="lastName"
@@ -71,7 +75,11 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
           width={45}
         />
       </FormGroup>
-      <FormGroup controlId="email" label="Email" error={errors?.email?.message}>
+      <FormGroup
+        controlId="email"
+        label="Email"
+        error={errors?.email?.message?.toString()}
+      >
         <TextInput
           id="email"
           type="email"
@@ -85,7 +93,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
         <FormGroup
           controlId="mobile"
           label="Mobile"
-          error={errors?.mobile?.message}
+          error={errors?.mobile?.message?.toString()}
         >
           <TextInput
             id="mobile"
@@ -102,9 +110,9 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
         label="Date of Birth"
         inline
         error={
-          errors?.dayOfBirth?.message ||
-          errors?.monthOfBirth?.message ||
-          errors?.yearOfBirth?.message
+          errors?.dayOfBirth?.message?.toString() ||
+          errors?.monthOfBirth?.message?.toString() ||
+          errors?.yearOfBirth?.message?.toString()
         }
       >
         <Select
@@ -150,7 +158,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
       <FormGroup
         controlId="countryOfBirth"
         label="Country of Birth"
-        error={errors?.countryOfBirth?.message}
+        error={errors?.countryOfBirth?.message?.toString()}
       >
         <Select
           id="countryOfBirth"
@@ -164,7 +172,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
       <FormGroup
         controlId="nationality"
         label="Nationality"
-        error={errors?.nationality?.message}
+        error={errors?.nationality?.message?.toString()}
       >
         <Select
           id="nationality"
@@ -178,7 +186,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
       <FormGroup
         controlId="maritalStatus"
         label="Marital Status"
-        error={errors?.maritalStatus?.message}
+        error={errors?.maritalStatus?.message?.toString()}
       >
         <Select
           id="maritalStatus"
@@ -196,7 +204,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
       <FormGroup
         controlId="dependants"
         label="No. of Dependants"
-        error={errors?.dependants?.message}
+        error={errors?.dependants?.message?.toString()}
       >
         <Select
           id="dependants"
@@ -214,7 +222,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
       <FormGroup
         controlId="adultsInHousehold"
         label="No. of Adults in Household"
-        error={errors?.adultsInHousehold?.message}
+        error={errors?.adultsInHousehold?.message?.toString()}
       >
         <Select
           id="adultsInHousehold"
@@ -229,7 +237,10 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
           ))}
         </Select>
       </FormGroup>
-      <FormGroup label="Please Confirm" error={errors?.termsAndCons?.message}>
+      <FormGroup
+        label="Please Confirm"
+        error={errors?.termsAndCons?.message?.toString()}
+      >
         <CheckBox
           id="consent"
           dataTestId="aboutConsent"
