@@ -7,25 +7,26 @@ import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { gql } from 'apollo-boost';
 import React from 'react';
 import { FormContext, useForm } from 'react-hook-form';
-import { EmploymentFormDropDownData } from '../../../generated/EmploymentFormDropDownData';
 import FCWithFragments from '../../utils/FCWithFragments';
-import EmploymentFormFields from './EmploymentFormFields';
-import { IEmploymentFormValues } from './interfaces';
+import HistoryFieldArray from '../HistoryFieldArray/HistoryFieldArray';
+import EmploymentSubForm from './EmploymentSubForm';
+import { IEmploymentFormProps, IEmploymentFormValues } from './interfaces';
+import validationSchema from './validationSchema';
 
-interface IProps {
-  dropDownData: EmploymentFormDropDownData;
-}
-
-const EmploymentForm: FCWithFragments<IProps> = ({ dropDownData }) => {
+const EmploymentForm: FCWithFragments<IEmploymentFormProps> = ({
+  dropDownData,
+  onSubmit,
+}) => {
   const methods = useForm<IEmploymentFormValues>({
     defaultValues: {
       history: [{ status: '' }],
     },
     mode: 'onBlur',
+    validationSchema,
   });
 
   return (
-    <Form onSubmit={methods.handleSubmit(console.log)}>
+    <Form onSubmit={methods.handleSubmit(onSubmit)}>
       <Heading
         dataTestId="employment-history-heading"
         tag="span"
@@ -44,7 +45,15 @@ const EmploymentForm: FCWithFragments<IProps> = ({ dropDownData }) => {
         funder can check your status.
       </Text>
       <FormContext {...methods}>
-        <EmploymentFormFields dropDownData={dropDownData} />
+        <HistoryFieldArray<IEmploymentFormValues>
+          initialState={{ status: '', month: '', year: '' }}
+          messageFormat="We need another %s months of employment history."
+          requiredMonths={36}
+        >
+          {(_, index) => (
+            <EmploymentSubForm dropDownData={dropDownData} index={index} />
+          )}
+        </HistoryFieldArray>
       </FormContext>
       <Button
         color="primary"
@@ -61,9 +70,9 @@ const EmploymentForm: FCWithFragments<IProps> = ({ dropDownData }) => {
 EmploymentForm.fragments = {
   dropDownData: gql`
     fragment EmploymentFormDropDownData on DropDownType {
-      ...EmploymentFormFieldsDropDownData
+      ...EmploymentSubFormDropDownData
     }
-    ${EmploymentFormFields.fragments.dropDownData}
+    ${EmploymentSubForm.fragments.dropDownData}
   `,
 };
 

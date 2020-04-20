@@ -42,7 +42,15 @@ const EmploymentFormContainer: React.FC<IProps> = ({ partyId }) => {
     return null;
   }
 
-  return <EmploymentForm dropDownData={data.allDropDowns} />;
+  return (
+    <EmploymentForm
+      dropDownData={data.allDropDowns}
+      onSubmit={async values => {
+        // eslint-disable-next-line no-console
+        console.log(values);
+      }}
+    />
+  );
 };
 
 export default EmploymentFormContainer;

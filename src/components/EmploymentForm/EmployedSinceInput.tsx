@@ -3,26 +3,26 @@ import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { genMonths, genYears } from '../../utils/helpers';
+import { IEmploymentFormValues } from './interfaces';
 
 interface IProps {
-  error?: string;
-  monthId: string;
-  yearId: string;
-  label: string;
+  index: number;
 }
 
-/**
- * A helper component that encapsulates all of the boilerplate for putting a
- * month and year select field in a form with RHF
- */
-const MonthField: React.FC<IProps> = ({ error, monthId, yearId, label }) => {
-  const { register } = useFormContext();
+const EmployedSinceInput: React.FC<IProps> = ({ index }) => {
+  const { errors, register } = useFormContext<IEmploymentFormValues>();
+  const error =
+    errors.history?.[index]?.month?.message?.toString() ||
+    errors.history?.[index]?.year?.message?.toString();
+
+  const monthName = `history[${index}].month`;
+  const yearName = `history[${index}].year`;
   return (
-    <Formgroup error={error} controlId={monthId} label={label} inline>
+    <Formgroup error={error} controlId={monthName} label="Since" inline>
       <Select
-        id={monthId}
-        name={monthId}
-        dataTestId={monthId}
+        id={monthName}
+        name={monthName}
+        dataTestId={monthName}
         placeholder="Month"
         ref={register()}
       >
@@ -33,9 +33,9 @@ const MonthField: React.FC<IProps> = ({ error, monthId, yearId, label }) => {
         ))}
       </Select>
       <Select
-        id={yearId}
-        name={yearId}
-        dataTestId={yearId}
+        id={yearName}
+        name={yearName}
+        dataTestId={yearName}
         placeholder="Year"
         ref={register()}
       >
@@ -49,4 +49,4 @@ const MonthField: React.FC<IProps> = ({ error, monthId, yearId, label }) => {
   );
 };
 
-export default MonthField;
+export default EmployedSinceInput;

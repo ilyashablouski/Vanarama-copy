@@ -2,6 +2,8 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 import { AddressFormDropDownData } from '../../../generated/AddressFormDropDownData';
 import AddressForm from './AddressForm';
 
+jest.mock('@vanarama/uibook/lib/components/molecules/address-finder');
+
 const mockDropDownData: AddressFormDropDownData = {
   __typename: 'DropDownType',
   propertyStatuses: {
@@ -10,21 +12,6 @@ const mockDropDownData: AddressFormDropDownData = {
     favourites: [],
   },
 };
-
-jest.mock('@vanarama/uibook/lib/components/molecules/address-finder', () => {
-  return {
-    __esModule: true,
-    default: ({ id, dataTestId, onChange }: any) => {
-      return (
-        <input
-          id={id}
-          data-testid={dataTestId}
-          onChange={e => onChange({ id: e.target.value })}
-        />
-      );
-    },
-  };
-});
 
 describe('<AddressForm />', () => {
   it('should call `onSubmit` when entering valid information', async () => {

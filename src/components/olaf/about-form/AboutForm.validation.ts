@@ -1,6 +1,7 @@
 import * as yup from 'yup';
 import moment from 'moment';
 import { IAboutFormValues } from './interface';
+import { WORLDWIDE_MOBILE_REGEX } from '../../../utils/regex';
 
 const reqMsg = (rel: string) => `Please enter your ${rel}`;
 
@@ -69,7 +70,7 @@ const ValidationSchema = yup.object().shape<IAboutFormValues>({
     .required(reqMsg('mobile number'))
     .max(16)
     .matches(
-      /^((\+[0-9]+(0|\(0\)|\s0\s|\s)?)|0)[0-9]+\d{3}(\s)?\d{6}/, // Worldwide mobile
+      WORLDWIDE_MOBILE_REGEX, // Worldwide mobile
       // /^((\+44(0|\(0\)|\s0\s|\s)?)|0)7\d{3}(\s)?\d{6}/, // UK Mobile.
       'Please enter mobile number without spaces or hyphens',
     ),
