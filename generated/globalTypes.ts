@@ -46,6 +46,38 @@ export interface BankAccountInputObject {
 }
 
 /**
+ * Input object to create a Company
+ */
+export interface CompanyInputObject {
+  about?: string | null;
+  addresses?: AddressInputObject[] | null;
+  annualExpenses?: string | null;
+  annualSales?: string | null;
+  annualTurnover?: string | null;
+  companyNature?: string | null;
+  companyNumber?: string | null;
+  companyType?: string | null;
+  deletedAt?: any | null;
+  emailAddresses?: EmailAddressInputObject[] | null;
+  id?: string | null;
+  leadManagerId?: string | null;
+  legalName: string;
+  monthlyAmountBeingReplaced?: string | null;
+  otherCountriesOfActivity?: string | null;
+  pictureUrl?: string | null;
+  replaceExistingVehicleFinance?: boolean | null;
+  sicCode?: string | null;
+  sicIndustry?: string | null;
+  telephoneNumber?: TelephoneNumberInputObject | null;
+  tradesOutsideUk?: boolean | null;
+  tradingName?: string | null;
+  tradingSince?: any | null;
+  turnoverOutsideUk?: number | null;
+  vatRegistrationNumber?: string | null;
+  withTradingAddress?: boolean | null;
+}
+
+/**
  * Input object to create and add an Email Address
  */
 export interface EmailAddressInputObject {
@@ -83,6 +115,7 @@ export interface IncomeAndExpenseInputObject {
 export interface PersonInputObject {
   about?: string | null;
   address?: AddressInputObject | null;
+  company?: CompanyInputObject | null;
   countryOfBirth?: string | null;
   dateOfBirth?: any | null;
   deletedAt?: any | null;
@@ -92,6 +125,8 @@ export interface PersonInputObject {
   firstName: string;
   gender?: string | null;
   id?: string | null;
+  isApplicant?: boolean | null;
+  isDirector?: boolean | null;
   jobTitle?: string | null;
   lastName: string;
   leadManagerId?: string | null;
@@ -102,12 +137,24 @@ export interface PersonInputObject {
   noOfDependants?: number | null;
   pictureUrl?: string | null;
   profilingConsent?: boolean | null;
+  role?: RoleInputObject | null;
   smsConsent?: boolean | null;
   telephoneNumber?: TelephoneNumberInputObject | null;
   termsAndConditions?: boolean | null;
   title?: string | null;
   tradingName?: string | null;
   vatRegistrationNumber?: string | null;
+}
+
+/**
+ * Input object to create and add a Role
+ */
+export interface RoleInputObject {
+  companyId?: number | null;
+  id?: string | null;
+  personId?: number | null;
+  primaryContact?: boolean | null;
+  roleLevel?: string | null;
 }
 
 /**

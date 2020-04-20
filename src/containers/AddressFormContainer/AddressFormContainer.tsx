@@ -35,13 +35,13 @@ const SAVE_ADDRESS_HISTORY = gql`
 `;
 
 const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
-  partyId,
+  personId,
   onCompleted,
 }) => {
   const { loading, error, data } = useQuery<Query, QueryVariables>(
     GET_ADDRESS_CONTAINER_DATA,
     {
-      variables: { id: partyId },
+      variables: { id: personId },
     },
   );
 
@@ -71,7 +71,7 @@ const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
         await saveAddressHistory({
           variables: {
             input: {
-              partyId,
+              partyId: data.personById?.partyId!,
               addresses: values.history.map(item => ({
                 serviceId: item.address,
                 propertyStatus: item.status,

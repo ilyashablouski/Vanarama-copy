@@ -23,7 +23,7 @@ export const EXPENSE_CREATE_MUTATION = gql`
 
 const ExpensesPage: NextPage = () => {
   const router = useRouter();
-  const partyId = router.query.id as string;
+  const personId = router.query.id as string;
   const [expenses] = useMutation<
     CreateExpenseMutation,
     CreateExpenseMutationVariables
@@ -31,7 +31,7 @@ const ExpensesPage: NextPage = () => {
     onCompleted: () => {
       const url = '/olaf/bank-details';
 
-      router.push(`${url}/[id]`, `${url}/${partyId}`);
+      router.push(`${url}/[id]`, `${url}/${personId}`);
     },
   });
 

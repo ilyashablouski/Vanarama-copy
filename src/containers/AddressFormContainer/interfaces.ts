@@ -1,4 +1,4 @@
 export interface IAddressFormContainerProps {
-  partyId: string;
+  personId: string;
   onCompleted: () => void;
 }

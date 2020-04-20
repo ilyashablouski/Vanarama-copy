@@ -8,7 +8,7 @@ import {
 import EmploymentForm from '../../components/EmploymentForm/EmploymentForm';
 
 interface IProps {
-  partyId: string;
+  personId: string;
 }
 
 const GET_EMPLOYMENT_CONTAINER_DATA = gql`
@@ -24,10 +24,10 @@ const GET_EMPLOYMENT_CONTAINER_DATA = gql`
   ${EmploymentForm.fragments.dropDownData}
 `;
 
-const EmploymentFormContainer: React.FC<IProps> = ({ partyId }) => {
+const EmploymentFormContainer: React.FC<IProps> = ({ personId }) => {
   const { loading, error, data } = useQuery<Query, QueryVariables>(
     GET_EMPLOYMENT_CONTAINER_DATA,
-    { variables: { id: partyId } },
+    { variables: { id: personId } },
   );
 
   if (loading) {

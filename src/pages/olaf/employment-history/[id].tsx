@@ -8,10 +8,10 @@ import withApollo from '../../../hocs/withApollo';
 
 const EmploymentHistoryPage: NextPage = () => {
   const router = useRouter();
-  const partyId = router.query.id as string;
+  const personId = router.query.id as string;
   return (
     <OlafContainer activeStep={3}>
-      <EmploymentFormContainer partyId={partyId} />
+      <EmploymentFormContainer personId={personId} />
     </OlafContainer>
   );
 };
