@@ -250,7 +250,7 @@ describe('<EmploymentForm />', () => {
 
     // ASSERT
     expect(
-      getByText('We need another 36 months of employment history.'),
+      getByText('We need another 3 years of employment history.'),
     ).toBeVisible();
   });
 
@@ -287,7 +287,7 @@ describe('<EmploymentForm />', () => {
 
     // ASSERT
     expect(
-      getByText('We need another 24 months of employment history.'),
+      getByText('We need another 2 years of employment history.'),
     ).toBeVisible();
   });
 

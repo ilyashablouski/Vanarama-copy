@@ -21,7 +21,7 @@ const AddressFormFields: FCWithFragments<IProps> = ({ dropDownData }) => {
   return (
     <HistoryFieldArray<IAddressFormValues>
       initialState={{ address: '', year: '', month: '', status: '' }}
-      messageFormat="We need another %s months of address history."
+      messageFormat="We need another %s of address history."
       requiredMonths={36}
     >
       {(_, index) => (
