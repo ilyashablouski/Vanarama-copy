@@ -216,9 +216,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                             "current": false,
                           },
                           "mode": Object {
-                            "isOnBlur": false,
+                            "isOnBlur": true,
                             "isOnChange": false,
-                            "isOnSubmit": true,
+                            "isOnSubmit": false,
                           },
                           "reRender": [Function],
                           "reValidateMode": Object {
@@ -251,6 +251,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           "validFieldsRef": Object {
                             "current": Set {},
                           },
+                          "validateSchemaIsValid": [Function],
                           "watchFieldsRef": Object {
                             "current": Set {
                               "isFutureMonthlyIncome",
@@ -262,12 +263,15 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                       name="averageMonthlyIncome"
                       onChange={[Function]}
                       prefix="£"
+                      type="number"
                     >
                       <ForwardRef(TextInput)
                         id="averageMonthlyIncome"
                         name="averageMonthlyIncome"
+                        onBlur={[Function]}
                         onChange={[Function]}
                         prefix="£"
+                        type="number"
                         value=""
                       >
                         <div
@@ -277,8 +281,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                             className="textinput--native regular -prefix"
                             id="averageMonthlyIncome"
                             name="averageMonthlyIncome"
+                            onBlur={[Function]}
                             onChange={[Function]}
-                            type="text"
+                            type="number"
                             value=""
                           />
                           <Memo(Text)
@@ -471,9 +476,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                             "current": false,
                           },
                           "mode": Object {
-                            "isOnBlur": false,
+                            "isOnBlur": true,
                             "isOnChange": false,
-                            "isOnSubmit": true,
+                            "isOnSubmit": false,
                           },
                           "reRender": [Function],
                           "reValidateMode": Object {
@@ -506,6 +511,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           "validFieldsRef": Object {
                             "current": Set {},
                           },
+                          "validateSchemaIsValid": [Function],
                           "watchFieldsRef": Object {
                             "current": Set {
                               "isFutureMonthlyIncome",
@@ -517,12 +523,15 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                       name="monthlyHouseholdIncome"
                       onChange={[Function]}
                       prefix="£"
+                      type="number"
                     >
                       <ForwardRef(TextInput)
                         id="monthlyHouseholdIncome"
                         name="monthlyHouseholdIncome"
+                        onBlur={[Function]}
                         onChange={[Function]}
                         prefix="£"
+                        type="number"
                         value=""
                       >
                         <div
@@ -532,8 +541,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                             className="textinput--native regular -prefix"
                             id="monthlyHouseholdIncome"
                             name="monthlyHouseholdIncome"
+                            onBlur={[Function]}
                             onChange={[Function]}
-                            type="text"
+                            type="number"
                             value=""
                           />
                           <Memo(Text)
@@ -728,9 +738,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                             "current": false,
                           },
                           "mode": Object {
-                            "isOnBlur": false,
+                            "isOnBlur": true,
                             "isOnChange": false,
-                            "isOnSubmit": true,
+                            "isOnSubmit": false,
                           },
                           "reRender": [Function],
                           "reValidateMode": Object {
@@ -763,6 +773,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           "validFieldsRef": Object {
                             "current": Set {},
                           },
+                          "validateSchemaIsValid": [Function],
                           "watchFieldsRef": Object {
                             "current": Set {
                               "isFutureMonthlyIncome",
@@ -782,6 +793,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                         id="isFutureMonthlyIncome"
                         label="Yes"
                         name="isFutureMonthlyIncome"
+                        onBlur={[Function]}
                         onChange={[Function]}
                       >
                         <div
@@ -793,6 +805,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                             data-testid="futureMonthlyIncome"
                             id="isFutureMonthlyIncome"
                             name="isFutureMonthlyIncome"
+                            onBlur={[Function]}
                             onChange={[Function]}
                             type="checkbox"
                           />
@@ -1009,9 +1022,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "current": false,
                               },
                               "mode": Object {
-                                "isOnBlur": false,
+                                "isOnBlur": true,
                                 "isOnChange": false,
-                                "isOnSubmit": true,
+                                "isOnSubmit": false,
                               },
                               "reRender": [Function],
                               "reValidateMode": Object {
@@ -1044,6 +1057,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               "validFieldsRef": Object {
                                 "current": Set {},
                               },
+                              "validateSchemaIsValid": [Function],
                               "watchFieldsRef": Object {
                                 "current": Set {
                                   "isFutureMonthlyIncome",
@@ -1055,12 +1069,15 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           name="mortgageOrRent"
                           onChange={[Function]}
                           prefix="£"
+                          type="number"
                         >
                           <ForwardRef(TextInput)
                             id="mortgageOrRent"
                             name="mortgageOrRent"
+                            onBlur={[Function]}
                             onChange={[Function]}
                             prefix="£"
+                            type="number"
                             value=""
                           >
                             <div
@@ -1070,8 +1087,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 className="textinput--native regular -prefix"
                                 id="mortgageOrRent"
                                 name="mortgageOrRent"
+                                onBlur={[Function]}
                                 onChange={[Function]}
-                                type="text"
+                                type="number"
                                 value=""
                               />
                               <Memo(Text)
@@ -1264,9 +1282,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "current": false,
                               },
                               "mode": Object {
-                                "isOnBlur": false,
+                                "isOnBlur": true,
                                 "isOnChange": false,
-                                "isOnSubmit": true,
+                                "isOnSubmit": false,
                               },
                               "reRender": [Function],
                               "reValidateMode": Object {
@@ -1299,6 +1317,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               "validFieldsRef": Object {
                                 "current": Set {},
                               },
+                              "validateSchemaIsValid": [Function],
                               "watchFieldsRef": Object {
                                 "current": Set {
                                   "isFutureMonthlyIncome",
@@ -1310,12 +1329,15 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           name="phoneAndInternet"
                           onChange={[Function]}
                           prefix="£"
+                          type="number"
                         >
                           <ForwardRef(TextInput)
                             id="phoneAndInternet"
                             name="phoneAndInternet"
+                            onBlur={[Function]}
                             onChange={[Function]}
                             prefix="£"
+                            type="number"
                             value=""
                           >
                             <div
@@ -1325,8 +1347,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 className="textinput--native regular -prefix"
                                 id="phoneAndInternet"
                                 name="phoneAndInternet"
+                                onBlur={[Function]}
                                 onChange={[Function]}
-                                type="text"
+                                type="number"
                                 value=""
                               />
                               <Memo(Text)
@@ -1519,9 +1542,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "current": false,
                               },
                               "mode": Object {
-                                "isOnBlur": false,
+                                "isOnBlur": true,
                                 "isOnChange": false,
-                                "isOnSubmit": true,
+                                "isOnSubmit": false,
                               },
                               "reRender": [Function],
                               "reValidateMode": Object {
@@ -1554,6 +1577,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               "validFieldsRef": Object {
                                 "current": Set {},
                               },
+                              "validateSchemaIsValid": [Function],
                               "watchFieldsRef": Object {
                                 "current": Set {
                                   "isFutureMonthlyIncome",
@@ -1565,12 +1589,15 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           name="creditCardPayments"
                           onChange={[Function]}
                           prefix="£"
+                          type="number"
                         >
                           <ForwardRef(TextInput)
                             id="creditCardPayments"
                             name="creditCardPayments"
+                            onBlur={[Function]}
                             onChange={[Function]}
                             prefix="£"
+                            type="number"
                             value=""
                           >
                             <div
@@ -1580,8 +1607,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 className="textinput--native regular -prefix"
                                 id="creditCardPayments"
                                 name="creditCardPayments"
+                                onBlur={[Function]}
                                 onChange={[Function]}
-                                type="text"
+                                type="number"
                                 value=""
                               />
                               <Memo(Text)
@@ -1774,9 +1802,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "current": false,
                               },
                               "mode": Object {
-                                "isOnBlur": false,
+                                "isOnBlur": true,
                                 "isOnChange": false,
-                                "isOnSubmit": true,
+                                "isOnSubmit": false,
                               },
                               "reRender": [Function],
                               "reValidateMode": Object {
@@ -1809,6 +1837,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               "validFieldsRef": Object {
                                 "current": Set {},
                               },
+                              "validateSchemaIsValid": [Function],
                               "watchFieldsRef": Object {
                                 "current": Set {
                                   "isFutureMonthlyIncome",
@@ -1820,12 +1849,15 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           name="utilities"
                           onChange={[Function]}
                           prefix="£"
+                          type="number"
                         >
                           <ForwardRef(TextInput)
                             id="utilities"
                             name="utilities"
+                            onBlur={[Function]}
                             onChange={[Function]}
                             prefix="£"
+                            type="number"
                             value=""
                           >
                             <div
@@ -1835,8 +1867,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 className="textinput--native regular -prefix"
                                 id="utilities"
                                 name="utilities"
+                                onBlur={[Function]}
                                 onChange={[Function]}
-                                type="text"
+                                type="number"
                                 value=""
                               />
                               <Memo(Text)
@@ -2029,9 +2062,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "current": false,
                               },
                               "mode": Object {
-                                "isOnBlur": false,
+                                "isOnBlur": true,
                                 "isOnChange": false,
-                                "isOnSubmit": true,
+                                "isOnSubmit": false,
                               },
                               "reRender": [Function],
                               "reValidateMode": Object {
@@ -2064,6 +2097,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               "validFieldsRef": Object {
                                 "current": Set {},
                               },
+                              "validateSchemaIsValid": [Function],
                               "watchFieldsRef": Object {
                                 "current": Set {
                                   "isFutureMonthlyIncome",
@@ -2075,12 +2109,15 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           name="insurance"
                           onChange={[Function]}
                           prefix="£"
+                          type="number"
                         >
                           <ForwardRef(TextInput)
                             id="insurance"
                             name="insurance"
+                            onBlur={[Function]}
                             onChange={[Function]}
                             prefix="£"
+                            type="number"
                             value=""
                           >
                             <div
@@ -2090,8 +2127,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 className="textinput--native regular -prefix"
                                 id="insurance"
                                 name="insurance"
+                                onBlur={[Function]}
                                 onChange={[Function]}
-                                type="text"
+                                type="number"
                                 value=""
                               />
                               <Memo(Text)
@@ -2284,9 +2322,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "current": false,
                               },
                               "mode": Object {
-                                "isOnBlur": false,
+                                "isOnBlur": true,
                                 "isOnChange": false,
-                                "isOnSubmit": true,
+                                "isOnSubmit": false,
                               },
                               "reRender": [Function],
                               "reValidateMode": Object {
@@ -2319,6 +2357,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               "validFieldsRef": Object {
                                 "current": Set {},
                               },
+                              "validateSchemaIsValid": [Function],
                               "watchFieldsRef": Object {
                                 "current": Set {
                                   "isFutureMonthlyIncome",
@@ -2330,12 +2369,15 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           name="carFinance"
                           onChange={[Function]}
                           prefix="£"
+                          type="number"
                         >
                           <ForwardRef(TextInput)
                             id="carFinance"
                             name="carFinance"
+                            onBlur={[Function]}
                             onChange={[Function]}
                             prefix="£"
+                            type="number"
                             value=""
                           >
                             <div
@@ -2345,8 +2387,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 className="textinput--native regular -prefix"
                                 id="carFinance"
                                 name="carFinance"
+                                onBlur={[Function]}
                                 onChange={[Function]}
-                                type="text"
+                                type="number"
                                 value=""
                               />
                               <Memo(Text)
@@ -2539,9 +2582,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "current": false,
                               },
                               "mode": Object {
-                                "isOnBlur": false,
+                                "isOnBlur": true,
                                 "isOnChange": false,
-                                "isOnSubmit": true,
+                                "isOnSubmit": false,
                               },
                               "reRender": [Function],
                               "reValidateMode": Object {
@@ -2574,6 +2617,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               "validFieldsRef": Object {
                                 "current": Set {},
                               },
+                              "validateSchemaIsValid": [Function],
                               "watchFieldsRef": Object {
                                 "current": Set {
                                   "isFutureMonthlyIncome",
@@ -2585,12 +2629,15 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           name="foodAndClothes"
                           onChange={[Function]}
                           prefix="£"
+                          type="number"
                         >
                           <ForwardRef(TextInput)
                             id="foodAndClothes"
                             name="foodAndClothes"
+                            onBlur={[Function]}
                             onChange={[Function]}
                             prefix="£"
+                            type="number"
                             value=""
                           >
                             <div
@@ -2600,8 +2647,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 className="textinput--native regular -prefix"
                                 id="foodAndClothes"
                                 name="foodAndClothes"
+                                onBlur={[Function]}
                                 onChange={[Function]}
-                                type="text"
+                                type="number"
                                 value=""
                               />
                               <Memo(Text)
@@ -2794,9 +2842,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "current": false,
                               },
                               "mode": Object {
-                                "isOnBlur": false,
+                                "isOnBlur": true,
                                 "isOnChange": false,
-                                "isOnSubmit": true,
+                                "isOnSubmit": false,
                               },
                               "reRender": [Function],
                               "reValidateMode": Object {
@@ -2829,6 +2877,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               "validFieldsRef": Object {
                                 "current": Set {},
                               },
+                              "validateSchemaIsValid": [Function],
                               "watchFieldsRef": Object {
                                 "current": Set {
                                   "isFutureMonthlyIncome",
@@ -2840,12 +2889,15 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           name="fuel"
                           onChange={[Function]}
                           prefix="£"
+                          type="number"
                         >
                           <ForwardRef(TextInput)
                             id="fuel"
                             name="fuel"
+                            onBlur={[Function]}
                             onChange={[Function]}
                             prefix="£"
+                            type="number"
                             value=""
                           >
                             <div
@@ -2855,8 +2907,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 className="textinput--native regular -prefix"
                                 id="fuel"
                                 name="fuel"
+                                onBlur={[Function]}
                                 onChange={[Function]}
-                                type="text"
+                                type="number"
                                 value=""
                               />
                               <Memo(Text)
@@ -3049,9 +3102,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "current": false,
                               },
                               "mode": Object {
-                                "isOnBlur": false,
+                                "isOnBlur": true,
                                 "isOnChange": false,
-                                "isOnSubmit": true,
+                                "isOnSubmit": false,
                               },
                               "reRender": [Function],
                               "reValidateMode": Object {
@@ -3084,6 +3137,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               "validFieldsRef": Object {
                                 "current": Set {},
                               },
+                              "validateSchemaIsValid": [Function],
                               "watchFieldsRef": Object {
                                 "current": Set {
                                   "isFutureMonthlyIncome",
@@ -3095,12 +3149,15 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           name="studentLoans"
                           onChange={[Function]}
                           prefix="£"
+                          type="number"
                         >
                           <ForwardRef(TextInput)
                             id="studentLoans"
                             name="studentLoans"
+                            onBlur={[Function]}
                             onChange={[Function]}
                             prefix="£"
+                            type="number"
                             value=""
                           >
                             <div
@@ -3110,8 +3167,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 className="textinput--native regular -prefix"
                                 id="studentLoans"
                                 name="studentLoans"
+                                onBlur={[Function]}
                                 onChange={[Function]}
-                                type="text"
+                                type="number"
                                 value=""
                               />
                               <Memo(Text)
@@ -3304,9 +3362,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "current": false,
                               },
                               "mode": Object {
-                                "isOnBlur": false,
+                                "isOnBlur": true,
                                 "isOnChange": false,
-                                "isOnSubmit": true,
+                                "isOnSubmit": false,
                               },
                               "reRender": [Function],
                               "reValidateMode": Object {
@@ -3339,6 +3397,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               "validFieldsRef": Object {
                                 "current": Set {},
                               },
+                              "validateSchemaIsValid": [Function],
                               "watchFieldsRef": Object {
                                 "current": Set {
                                   "isFutureMonthlyIncome",
@@ -3350,12 +3409,15 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           name="otherCredit"
                           onChange={[Function]}
                           prefix="£"
+                          type="number"
                         >
                           <ForwardRef(TextInput)
                             id="otherCredit"
                             name="otherCredit"
+                            onBlur={[Function]}
                             onChange={[Function]}
                             prefix="£"
+                            type="number"
                             value=""
                           >
                             <div
@@ -3365,8 +3427,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 className="textinput--native regular -prefix"
                                 id="otherCredit"
                                 name="otherCredit"
+                                onBlur={[Function]}
                                 onChange={[Function]}
-                                type="text"
+                                type="number"
                                 value=""
                               />
                               <Memo(Text)
@@ -3575,9 +3638,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                             "current": false,
                           },
                           "mode": Object {
-                            "isOnBlur": false,
+                            "isOnBlur": true,
                             "isOnChange": false,
-                            "isOnSubmit": true,
+                            "isOnSubmit": false,
                           },
                           "reRender": [Function],
                           "reValidateMode": Object {
@@ -3610,6 +3673,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           "validFieldsRef": Object {
                             "current": Set {},
                           },
+                          "validateSchemaIsValid": [Function],
                           "watchFieldsRef": Object {
                             "current": Set {
                               "isFutureMonthlyIncome",
@@ -3621,13 +3685,16 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                       name="totalMonthlyExpenses"
                       onChange={[Function]}
                       prefix="£"
+                      type="number"
                     >
                       <ForwardRef(TextInput)
                         calculated={true}
                         id="totalMonthlyExpenses"
                         name="totalMonthlyExpenses"
+                        onBlur={[Function]}
                         onChange={[Function]}
                         prefix="£"
+                        type="number"
                       >
                         <div
                           className="textinput regular"
@@ -3636,8 +3703,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                             className="textinput--native regular -calculated -prefix"
                             id="totalMonthlyExpenses"
                             name="totalMonthlyExpenses"
+                            onBlur={[Function]}
                             onChange={[Function]}
-                            type="text"
+                            type="number"
                           />
                           <Memo(Text)
                             className="textinput--prefix"
@@ -3830,9 +3898,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                             "current": false,
                           },
                           "mode": Object {
-                            "isOnBlur": false,
+                            "isOnBlur": true,
                             "isOnChange": false,
-                            "isOnSubmit": true,
+                            "isOnSubmit": false,
                           },
                           "reRender": [Function],
                           "reValidateMode": Object {
@@ -3865,6 +3933,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           "validFieldsRef": Object {
                             "current": Set {},
                           },
+                          "validateSchemaIsValid": [Function],
                           "watchFieldsRef": Object {
                             "current": Set {
                               "isFutureMonthlyIncome",
@@ -3876,13 +3945,16 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                       name="netDisposableIncome"
                       onChange={[Function]}
                       prefix="£"
+                      type="number"
                     >
                       <ForwardRef(TextInput)
                         calculated={true}
                         id="netDisposableIncome"
                         name="netDisposableIncome"
+                        onBlur={[Function]}
                         onChange={[Function]}
                         prefix="£"
+                        type="number"
                       >
                         <div
                           className="textinput regular"
@@ -3891,8 +3963,9 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                             className="textinput--native regular -calculated -prefix"
                             id="netDisposableIncome"
                             name="netDisposableIncome"
+                            onBlur={[Function]}
                             onChange={[Function]}
-                            type="text"
+                            type="number"
                           />
                           <Memo(Text)
                             className="textinput--prefix"
