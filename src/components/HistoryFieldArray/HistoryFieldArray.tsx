@@ -5,7 +5,7 @@ import useDeepCompareEffect from 'use-deep-compare-effect';
 import useExtraneousHistoryEntries from '../../hooks/useExtraneousHistoryEntries';
 import useRemainingMonths from '../../hooks/useRemainingMonths';
 import useUnorderedHistoryEntries from '../../hooks/useUnorderedHistoryEntries';
-import { THistoryEntry } from '../../utils/dates';
+import { THistoryEntry, toYearsAndMonthsDisplay } from '../../utils/dates';
 import { IHistoryFieldArrayProps, WithHistory } from './interfaces';
 
 function HistoryFieldArray<V extends WithHistory>({
@@ -66,7 +66,10 @@ function HistoryFieldArray<V extends WithHistory>({
           <React.Fragment key={field.id}>
             {showMessage && (
               <Text tag="span" size="regular" color="darker">
-                {messageFormat.replace('%s', String(remainingMonths))}
+                {messageFormat.replace(
+                  '%s',
+                  toYearsAndMonthsDisplay(remainingMonths),
+                )}
               </Text>
             )}
             {children(field, index)}

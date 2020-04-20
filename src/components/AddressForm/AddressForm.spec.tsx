@@ -124,7 +124,7 @@ describe('<AddressForm />', () => {
     });
   });
 
-  it('should show a message saying 36 months remaining when selecting today as the move in date', async () => {
+  it('should show a message saying 3 years remaining when selecting today as the move in date', async () => {
     // ARRANGE
     const now = new Date();
     const currentYear = String(now.getFullYear());
@@ -152,12 +152,12 @@ describe('<AddressForm />', () => {
     // ASSERT
     await waitFor(() =>
       expect(
-        getByText('We need another 36 months of address history.'),
+        getByText('We need another 3 years of address history.'),
       ).toBeVisible(),
     );
   });
 
-  it('should show a message saying 24 months remaining when selecting one year ago as the move in date', async () => {
+  it('should show a message saying 2 years remaining when selecting one year ago as the move in date', async () => {
     // ARRANGE
     const now = new Date();
     const lastYear = String(now.getFullYear() - 1);
@@ -185,7 +185,7 @@ describe('<AddressForm />', () => {
     // ASSERT
     await waitFor(() =>
       expect(
-        getByText('We need another 24 months of address history.'),
+        getByText('We need another 2 years of address history.'),
       ).toBeVisible(),
     );
   });
