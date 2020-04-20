@@ -48,7 +48,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmission)} id="aboutForm" className="form">
-      <Heading color="black" size="xlarge">
+      <Heading color="black" size="xlarge" dataTestId="aboutHeading">
         About You
       </Heading>
       <Text color="darker" size="lead">
@@ -281,6 +281,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
         icon={<ChevronForwardSharpIcon />}
         iconColor="white"
         iconPosition="after"
+        dataTestId="aboutSubmit"
       />
     </form>
   );
