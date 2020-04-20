@@ -31,11 +31,7 @@ function ageValidator(this: yup.TestContext) {
   const { createError, path, parent } = this;
   const error = isAgeValid(parent);
 
-  if (error) {
-    return createError({ message: error, path });
-  }
-
-  return true;
+  return error ? createError({ message: error, path }) : true;
 }
 
 const ValidationSchema = yup.object().shape<IAboutFormValues>(
