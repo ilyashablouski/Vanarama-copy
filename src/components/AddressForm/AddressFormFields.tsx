@@ -1,14 +1,15 @@
+import Select from '@vanarama/uibook/lib/components/atoms/select';
+import AddressFinder from '@vanarama/uibook/lib/components/molecules/address-finder';
+import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import { gql } from 'apollo-boost';
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 import { AddressFormFieldsDropDownData } from '../../../generated/AddressFormFieldsDropDownData';
 import FCWithFragments from '../../utils/FCWithFragments';
-import AddressFinderField from '../AddressFinderField/AddressFinderField';
+import { genMonths, genYears } from '../../utils/helpers';
 import HistoryFieldArray from '../HistoryFieldArray/HistoryFieldArray';
-import MonthField from '../MonthField/MonthField';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
-import SelectField from '../SelectField/SelectField';
 import { IAddressFormValues } from './interfaces';
 
 interface IProps {
@@ -16,7 +17,7 @@ interface IProps {
 }
 
 const AddressFormFields: FCWithFragments<IProps> = ({ dropDownData }) => {
-  const { errors } = useFormContext();
+  const { control, errors, register } = useFormContext();
   return (
     <HistoryFieldArray<IAddressFormValues>
       initialState={{ address: '', year: '', month: '', status: '' }}
@@ -25,27 +26,71 @@ const AddressFormFields: FCWithFragments<IProps> = ({ dropDownData }) => {
     >
       {(_, index) => (
         <Tile>
-          <AddressFinderField
-            id={`history[${index}].address`}
+          <Formgroup
             error={errors.history?.[index]?.address?.message?.toString()}
+            controlId={`history[${index}].address`}
             label="Your Postcode or Address"
-          />
-          <SelectField
+          >
+            <Controller
+              id={`history[${index}].address`}
+              name={`history[${index}].address`}
+              as={AddressFinder}
+              control={control}
+              dataTestId={`history[${index}].address`}
+              loqateApiKey={process.env.LOQATE_KEY!}
+              onChange={([suggestion]) => suggestion?.id || ''}
+            />
+          </Formgroup>
+          <Formgroup
             error={errors.history?.[index]?.status?.message?.toString()}
-            id={`history[${index}].status`}
+            controlId={`history[${index}].status`}
             label="Your Property Status"
           >
-            <OptionsWithFavourites options={dropDownData.propertyStatuses} />
-          </SelectField>
-          <MonthField
+            <Select
+              id={`history[${index}].status`}
+              name={`history[${index}].status`}
+              dataTestId={`history[${index}].status`}
+              ref={register()}
+            >
+              <OptionsWithFavourites options={dropDownData.propertyStatuses} />
+            </Select>
+          </Formgroup>
+          <Formgroup
             error={
               errors.history?.[index]?.month?.message?.toString() ||
               errors.history?.[index]?.year?.message?.toString()
             }
+            controlId={`history[${index}].month`}
             label="Date Moved In"
-            monthId={`history[${index}].month`}
-            yearId={`history[${index}].year`}
-          />
+            inline
+          >
+            <Select
+              id={`history[${index}].month`}
+              name={`history[${index}].month`}
+              dataTestId={`history[${index}].month`}
+              placeholder="Month"
+              ref={register()}
+            >
+              {genMonths().map((month, i) => (
+                <option key={month} value={i + 1}>
+                  {month}
+                </option>
+              ))}
+            </Select>
+            <Select
+              id={`history[${index}].year`}
+              name={`history[${index}].year`}
+              dataTestId={`history[${index}].year`}
+              placeholder="Year"
+              ref={register()}
+            >
+              {genYears(100).map(year => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </Select>
+          </Formgroup>
         </Tile>
       )}
     </HistoryFieldArray>

@@ -1,8 +1,11 @@
 import Text from '@vanarama/uibook/lib/components/atoms/text';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import useHistoryFieldArray from '../../hooks/useHistoryFieldArray';
+import useDeepCompareEffect from 'use-deep-compare-effect';
+import useExtraneousHistoryEntries from '../../hooks/useExtraneousHistoryEntries';
 import useRemainingMonths from '../../hooks/useRemainingMonths';
+import useUnorderedHistoryEntries from '../../hooks/useUnorderedHistoryEntries';
+import { THistoryEntry } from '../../utils/dates';
 import { IHistoryFieldArrayProps, WithHistory } from './interfaces';
 
 function HistoryFieldArray<V extends WithHistory>({
@@ -17,28 +20,45 @@ function HistoryFieldArray<V extends WithHistory>({
     name: 'history',
   });
 
-  const { history } = watch({ nest: true });
+  // This is a hack to make `watch` work with `useFieldArray`
+  // see: https://github.com/react-hook-form/react-hook-form/issues/1336
+  const [history, setHistory] = useState<THistoryEntry[]>(() =>
+    watch('history'),
+  );
+
+  useEffect(() => {
+    setHistory(watch('history'));
+  }, [watch]);
+
   const remainingMonths = useRemainingMonths(history, requiredMonths);
-
-  useHistoryFieldArray({
-    onAppend: () => {
+  useDeepCompareEffect(() => {
+    const allDatesCompleted = history.every(x => x.month && x.year);
+    if (allDatesCompleted && remainingMonths) {
       append(initialState);
-    },
-    onRemove: indices => {
-      remove(indices);
-    },
-    onSwap: (indexA, indexB) => {
-      swap(indexA, indexB);
-    },
-    requiredMonths,
-    values: history,
-  });
+    }
+  }, [remainingMonths, history]);
 
+  const extraneous = useExtraneousHistoryEntries(history, requiredMonths);
+  useDeepCompareEffect(() => {
+    if (extraneous.length) {
+      remove(extraneous);
+    }
+  }, [extraneous]);
+
+  const unordered = useUnorderedHistoryEntries(history);
+  useDeepCompareEffect(() => {
+    if (unordered.length) {
+      swap(unordered[0][0], unordered[0][1]);
+    }
+  }, [unordered]);
+
+  // NOTE: Sometimes `fields` has `undefined` entries so strip them out
+  const validFields = fields.filter(Boolean);
   return (
     <>
-      {fields.map((field, index) => {
-        const isLastEntry = index === fields.length - 1;
-        const hasMultipleEntries = fields.length > 1;
+      {validFields.map((field, index) => {
+        const isLastEntry = index === validFields.length - 1;
+        const hasMultipleEntries = validFields.length > 1;
         const showMessage =
           isLastEntry && remainingMonths > 0 && hasMultipleEntries;
 

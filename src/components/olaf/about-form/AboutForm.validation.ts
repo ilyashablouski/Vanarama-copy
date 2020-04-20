@@ -1,6 +1,7 @@
 import * as yup from 'yup';
 import moment from 'moment';
 import { IAboutFormValues } from './interface';
+import { WORLDWIDE_MOBILE_REGEX } from '../../../utils/regex';
 
 const reqMsg = (rel: string) => `Please enter your ${rel}`;
 
