@@ -202,7 +202,7 @@ const BankDetails: FC<IBankDetailsProps> = memo(props => {
             may search the files of any licensed credit reference agency who
             will keep a record of that search. If the funder enters into this
             agreement with you, they will declare information about you and the
-            conduct of your account at any time to any licenced credit reference
+            conduct of your account at any time to any licensed credit reference
             agency. This information may be used by other lenders in assessing
             applications for finance from you and members of your household and
             occasionally for fraud prevention and trading orders. They may also
@@ -217,8 +217,8 @@ const BankDetails: FC<IBankDetailsProps> = memo(props => {
             guarantee to give you a no quibble refund and we won&apos;t charge
             you a thing should you need to cancel your order. Our finance
             partners will have their own cancellation policy should you wish to
-            your contract once you have taken delivery of your vehicle. For more
-            information on the individual cancellation policies please refer to
+            cancel your contract once you have taken delivery of your vehicle.
+            For more information on the individual cancellation policies please
             your finance documentation.
           </Text>
         </Tile>
