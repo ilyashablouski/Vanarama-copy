@@ -3,7 +3,7 @@ export interface IIncomeCalculatorFormValues {
   averageMonthlyIncome?: string;
   monthlyHouseholdIncome?: string;
   futureMonthlyIncome?: string;
-  isFutureMonthlyIncome: boolean;
+  isFutureMonthlyIncome?: boolean;
   mortgageOrRent?: string;
   creditCardPayments?: string;
   insurance?: string;

@@ -14,11 +14,15 @@ import {
   IIncomeCalculatorFormValues,
 } from './interfaces';
 
+import validationSchema from './IncomeCalculator.validation';
+
 const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
   const { className, data, onSubmit } = props;
-  const { handleSubmit, control, getValues, watch, setValue } = useForm<
+  const { handleSubmit, control, getValues, watch, setValue, errors } = useForm<
     IIncomeCalculatorFormValues
   >({
+    mode: 'onBlur',
+    validationSchema,
     defaultValues: {
       partyId: (data && data.partyId) || 1,
       averageMonthlyIncome: (data && data.averageMonthlyIncome) || '',
@@ -97,11 +101,13 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
             <FormGroup
               controlId="averageMonthlyIncome"
               label="Average Monthly Income"
+              error={errors?.averageMonthlyIncome?.message?.toString()}
             >
               <Controller
                 id="averageMonthlyIncome"
                 name="averageMonthlyIncome"
                 prefix="£"
+                type="number"
                 as={Input}
                 control={control}
                 onChange={handleChange}
@@ -117,6 +123,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                 id="monthlyHouseholdIncome"
                 name="monthlyHouseholdIncome"
                 prefix="£"
+                type="number"
                 as={Input}
                 control={control}
                 onChange={handleChange}
@@ -144,6 +151,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                     id="futureMonthlyIncome"
                     name="futureMonthlyIncome"
                     prefix="£"
+                    type="number"
                     as={Input}
                     control={control}
                     onChange={handleChange}
@@ -162,6 +170,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                   id="mortgageOrRent"
                   name="mortgageOrRent"
                   prefix="£"
+                  type="number"
                   as={Input}
                   control={control}
                   onChange={handleChange}
@@ -177,6 +186,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                   id="phoneAndInternet"
                   name="phoneAndInternet"
                   prefix="£"
+                  type="number"
                   as={Input}
                   control={control}
                   onChange={handleChange}
@@ -192,6 +202,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                   id="creditCardPayments"
                   name="creditCardPayments"
                   prefix="£"
+                  type="number"
                   as={Input}
                   control={control}
                   onChange={handleChange}
@@ -204,6 +215,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                   id="utilities"
                   name="utilities"
                   prefix="£"
+                  type="number"
                   as={Input}
                   control={control}
                   onChange={handleChange}
@@ -216,6 +228,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                   id="insurance"
                   name="insurance"
                   prefix="£"
+                  type="number"
                   as={Input}
                   control={control}
                   onChange={handleChange}
@@ -228,6 +241,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                   id="carFinance"
                   name="carFinance"
                   prefix="£"
+                  type="number"
                   as={Input}
                   control={control}
                   onChange={handleChange}
@@ -240,6 +254,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                   id="foodAndClothes"
                   name="foodAndClothes"
                   prefix="£"
+                  type="number"
                   as={Input}
                   control={control}
                   onChange={handleChange}
@@ -252,6 +267,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                   id="fuel"
                   name="fuel"
                   prefix="£"
+                  type="number"
                   as={Input}
                   control={control}
                   onChange={handleChange}
@@ -264,6 +280,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                   id="studentLoans"
                   name="studentLoans"
                   prefix="£"
+                  type="number"
                   as={Input}
                   control={control}
                   onChange={handleChange}
@@ -276,6 +293,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                   id="otherCredit"
                   name="otherCredit"
                   prefix="£"
+                  type="number"
                   as={Input}
                   control={control}
                   onChange={handleChange}
@@ -295,6 +313,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                 id="totalMonthlyExpenses"
                 name="totalMonthlyExpenses"
                 prefix="£"
+                type="number"
                 as={Input}
                 control={control}
                 value={totalCalculatedExpenseValue}
@@ -312,6 +331,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                 id="netDisposableIncome"
                 name="netDisposableIncome"
                 prefix="£"
+                type="number"
                 as={Input}
                 control={control}
                 value={netIncomeValue}
