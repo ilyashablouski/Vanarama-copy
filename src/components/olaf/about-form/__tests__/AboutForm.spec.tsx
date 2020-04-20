@@ -8,7 +8,7 @@ import {
 } from '@testing-library/react';
 import AboutForm from '..';
 
-describe.skip('<AboutForm />', () => {
+describe('<AboutForm />', () => {
   const submit = jest.fn();
   let rendered: HTMLElement;
 
@@ -34,11 +34,7 @@ describe.skip('<AboutForm />', () => {
       expect(screen.getByText('Please enter your first name')).toBeVisible();
       expect(screen.getByText('Please enter your last name')).toBeVisible();
       expect(screen.getByText('Please enter your email address')).toBeVisible();
-      expect(
-        screen.getByText(
-          'Please enter mobile number without spaces or hyphens',
-        ),
-      ).toBeVisible();
+      expect(screen.getByText('Please enter your mobile number')).toBeVisible();
       expect(
         screen.getByText('Please complete your date of birth'),
       ).toBeVisible();
@@ -71,7 +67,7 @@ describe.skip('<AboutForm />', () => {
     await waitFor(() => {
       expect(
         screen.getByText(
-          'Oops, this name’s too short. Please make it longer than 2 characters',
+          'Oops, this name’s too short. Please make it 2 characters or longer',
         ),
       );
     });
@@ -103,7 +99,7 @@ describe.skip('<AboutForm />', () => {
     await waitFor(() => {
       expect(
         screen.getByText(
-          'Oops, this name’s too short. Please make it longer than 2 characters',
+          'Oops, this name’s too short. Please make it 2 characters or longer',
         ),
       );
     });
@@ -155,8 +151,8 @@ describe.skip('<AboutForm />', () => {
 
   it('should assure max mobile chars', async () => {
     fireEvent.change(screen.getByTestId('aboutMobile'), {
-      // over 15 digits
-      target: { value: '0740292992222222' },
+      // over 16 digits
+      target: { value: '074029299222222200' },
     });
     fireEvent.click(screen.getByText('Continue'));
 
@@ -164,7 +160,7 @@ describe.skip('<AboutForm />', () => {
     await waitFor(() => {
       expect(
         screen.getByText(
-          'Please enter mobile number without spaces or hyphens',
+          'Oops, this mobile number is too long. Please enter 16 characters or less',
         ),
       );
     });

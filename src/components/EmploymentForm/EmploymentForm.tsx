@@ -47,7 +47,7 @@ const EmploymentForm: FCWithFragments<IEmploymentFormProps> = ({
       <FormContext {...methods}>
         <HistoryFieldArray<IEmploymentFormValues>
           initialState={{ status: '', month: '', year: '' }}
-          messageFormat="We need another %s months of employment history."
+          messageFormat="We need another %s of employment history."
           requiredMonths={36}
         >
           {(_, index) => (
