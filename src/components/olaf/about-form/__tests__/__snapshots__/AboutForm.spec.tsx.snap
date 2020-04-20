@@ -8,6 +8,7 @@ exports[`<AboutForm /> renders with default props correctly 1`] = `
   >
     <p
       class="heading -black -xlarge"
+      data-testid="aboutHeading"
     >
       About You
     </p>
@@ -1353,6 +1354,7 @@ exports[`<AboutForm /> renders with default props correctly 1`] = `
     </div>
     <button
       class="button -primary -regular -solid"
+      data-testid="aboutSubmit"
       tabindex="0"
       type="submit"
     >
