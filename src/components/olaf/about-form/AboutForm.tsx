@@ -1,4 +1,5 @@
-import ChevronForwardSharpIcon from '@vanarama/uibook/lib/assets/icons/ChevronForwardCircleSharp';
+import { useEffect } from 'react';
+import ChevronForwardSharpIcon from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button/';
 import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -18,10 +19,27 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
   const months: string[] = genMonths() || [];
   const years: number[] = genYears(100) || [];
 
-  const { handleSubmit, errors, reset, register } = useForm<IAboutFormValues>({
+  const {
+    handleSubmit,
+    reset,
+    register,
+    errors,
+    watch,
+    triggerValidation,
+  } = useForm<IAboutFormValues>({
     mode: 'onBlur',
     validationSchema,
   });
+
+  const day = watch('dayOfBirth');
+  const mth = watch('monthOfBirth');
+  const year = watch('yearOfBirth');
+
+  useEffect(() => {
+    if (day && mth && year) {
+      triggerValidation(['dayOfBirth', 'yearOfBirth', 'monthOfBirth']);
+    }
+  }, [day, mth, year, triggerValidation]);
 
   const onSubmission = (values: IAboutFormValues) => {
     submit(values);
@@ -261,6 +279,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
         label="Continue"
         color="primary"
         icon={<ChevronForwardSharpIcon />}
+        iconColor="white"
         iconPosition="after"
       />
     </form>
