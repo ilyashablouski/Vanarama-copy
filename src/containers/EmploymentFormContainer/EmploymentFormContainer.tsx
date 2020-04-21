@@ -1,17 +1,19 @@
-import { useQuery } from '@apollo/react-hooks';
+import { useMutation, useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import React from 'react';
 import {
   GetEmploymentContainerDataQuery as Query,
   GetEmploymentContainerDataQueryVariables as QueryVariables,
 } from '../../../generated/GetEmploymentContainerDataQuery';
+import {
+  SaveEmploymentHistoryMutation as Mutation,
+  SaveEmploymentHistoryMutationVariables as MutationVariables,
+} from '../../../generated/SaveEmploymentHistoryMutation';
 import EmploymentForm from '../../components/EmploymentForm/EmploymentForm';
+import { historyToMoment } from '../../utils/dates';
+import { IEmploymentFormContainerProps } from './interfaces';
 
-interface IProps {
-  personId: string;
-}
-
-const GET_EMPLOYMENT_CONTAINER_DATA = gql`
+export const GET_EMPLOYMENT_CONTAINER_DATA = gql`
   query GetEmploymentContainerDataQuery($id: ID!) {
     personById(id: $id) {
       id
@@ -24,10 +26,28 @@ const GET_EMPLOYMENT_CONTAINER_DATA = gql`
   ${EmploymentForm.fragments.dropDownData}
 `;
 
-const EmploymentFormContainer: React.FC<IProps> = ({ personId }) => {
+export const SAVE_EMPLOYMENT_HISTORY = gql`
+  mutation SaveEmploymentHistoryMutation(
+    $input: EmploymentHistoryInputObject!
+  ) {
+    createUpdateEmploymentHistory(input: $input) {
+      id
+    }
+  }
+`;
+
+const EmploymentFormContainer: React.FC<IEmploymentFormContainerProps> = ({
+  personId,
+  onCompleted,
+}) => {
   const { loading, error, data } = useQuery<Query, QueryVariables>(
     GET_EMPLOYMENT_CONTAINER_DATA,
     { variables: { id: personId } },
+  );
+
+  const [saveEmploymentHistory] = useMutation<Mutation, MutationVariables>(
+    SAVE_EMPLOYMENT_HISTORY,
+    { onCompleted },
   );
 
   if (loading) {
@@ -35,10 +55,10 @@ const EmploymentFormContainer: React.FC<IProps> = ({ personId }) => {
   }
 
   if (error) {
-    return <p>Error</p>;
+    return <p>Error: {error.message}</p>;
   }
 
-  if (!data || !data.allDropDowns) {
+  if (!data || !data.allDropDowns || !data.personById) {
     return null;
   }
 
@@ -46,8 +66,23 @@ const EmploymentFormContainer: React.FC<IProps> = ({ personId }) => {
     <EmploymentForm
       dropDownData={data.allDropDowns}
       onSubmit={async values => {
-        // eslint-disable-next-line no-console
-        console.log(values);
+        await saveEmploymentHistory({
+          variables: {
+            input: {
+              partyId: data.personById?.partyId!,
+              employmentHistories: values.history.map(item => ({
+                companyAddressServiceId: item.address?.id,
+                companyName: item.company,
+                contract: item.contract,
+                employedSinceDate: historyToMoment(item).format('YYYY-MM-DD'),
+                employmentStatus: item.status,
+                grossAnnualIncome: Number(item.income),
+                jobTitle: item.title,
+                workPhoneNumber: item.phoneNumber,
+              })),
+            },
+          },
+        });
       }}
     />
   );

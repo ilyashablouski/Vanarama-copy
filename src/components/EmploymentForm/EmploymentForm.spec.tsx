@@ -119,7 +119,7 @@ describe('<EmploymentForm />', () => {
           phoneNumber: '01442838195',
           status: 'Employed',
           title: 'Janitor',
-          type: 'Part Time',
+          contract: 'Part time',
           year: '1994',
         },
       ],
@@ -165,7 +165,7 @@ describe('<EmploymentForm />', () => {
       <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
     );
 
-    const prevType = getByLabelText('Part Time');
+    const prevType = getByLabelText('Full Time');
     fireEvent.click(prevType);
 
     const prevTitle = getByLabelText('Job Title');
@@ -214,7 +214,7 @@ describe('<EmploymentForm />', () => {
           phoneNumber: '01442838195',
           status: 'Employed',
           title: 'Janitor',
-          type: 'Part Time',
+          contract: 'Full time',
           year: '1992',
         },
       ],

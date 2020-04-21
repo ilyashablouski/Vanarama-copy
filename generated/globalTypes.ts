@@ -88,6 +88,35 @@ export interface EmailAddressInputObject {
 }
 
 /**
+ * Input object to create and add Employment Histories
+ */
+export interface EmploymentHistoryInputObject {
+  employmentHistories: EmploymentInputObject[];
+  partyId: string;
+}
+
+/**
+ * Input object to create and add an Employment History
+ */
+export interface EmploymentInputObject {
+  companyAddressCity?: string | null;
+  companyAddressCountry?: string | null;
+  companyAddressLineOne?: string | null;
+  companyAddressLineThree?: string | null;
+  companyAddressLineTwo?: string | null;
+  companyAddressPostcode?: string | null;
+  companyAddressServiceId?: string | null;
+  companyName?: string | null;
+  contract?: string | null;
+  employedSinceDate?: any | null;
+  employedUntilDate?: any | null;
+  employmentStatus?: string | null;
+  grossAnnualIncome?: number | null;
+  jobTitle?: string | null;
+  workPhoneNumber?: string | null;
+}
+
+/**
  * Input object to create and add an Income And Expense
  */
 export interface IncomeAndExpenseInputObject {

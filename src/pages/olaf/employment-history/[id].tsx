@@ -11,7 +11,12 @@ const EmploymentHistoryPage: NextPage = () => {
   const personId = router.query.id as string;
   return (
     <OlafContainer activeStep={3}>
-      <EmploymentFormContainer personId={personId} />
+      <EmploymentFormContainer
+        onCompleted={() => {
+          router.push(`/olaf/expenses/[id]`, `/olaf/expenses/${personId}`);
+        }}
+        personId={personId}
+      />
     </OlafContainer>
   );
 };
