@@ -110,7 +110,9 @@ describe('<EmploymentForm />', () => {
     expect(onSubmit.mock.calls[0][0]).toEqual({
       history: [
         {
-          address: 'Maylands Avenue, HP2 7DE',
+          address: {
+            id: 'Maylands Avenue, HP2 7DE',
+          },
           company: 'Autorama Ltd.',
           income: '52000.00',
           month: '4',
@@ -203,7 +205,9 @@ describe('<EmploymentForm />', () => {
           year: currentYear,
         },
         {
-          address: 'Maylands Avenue, HP2 7DE',
+          address: {
+            id: 'Maylands Avenue, HP2 7DE',
+          },
           company: 'Autorama Ltd.',
           income: '52000.00',
           month: '11',

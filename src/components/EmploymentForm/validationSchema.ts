@@ -1,7 +1,6 @@
 import * as Yup from 'yup';
-import { checkFuture } from '../../utils/validation';
-import { IEmploymentFormValues } from './interfaces';
 import { WORLDWIDE_MOBILE_REGEX } from '../../utils/regex';
+import { checkFuture } from '../../utils/validation';
 
 const requiredWhenEmployed = (message: string) => (
   status: string,
@@ -12,7 +11,7 @@ const requiredWhenEmployed = (message: string) => (
     ? schema.required(message)
     : schema;
 
-export default Yup.object().shape<IEmploymentFormValues>({
+export default Yup.object().shape({
   history: Yup.array().of(
     Yup.object().shape({
       status: Yup.string().required('Please enter your employment status'),
@@ -37,7 +36,7 @@ export default Yup.object().shape<IEmploymentFormValues>({
           WORLDWIDE_MOBILE_REGEX,
           'Please enter work phone number without spaces or hyphens',
         ),
-      address: Yup.string().when(
+      address: Yup.object().when(
         'status',
         requiredWhenEmployed('Please enter the company address'),
       ),

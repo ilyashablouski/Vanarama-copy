@@ -73,7 +73,7 @@ const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
             input: {
               partyId: data.personById?.partyId!,
               addresses: values.history.map(item => ({
-                serviceId: item.address,
+                serviceId: item.address?.id,
                 propertyStatus: item.status,
                 startedOn: historyToMoment(item).format('YYYY-MM-DD'),
               })),

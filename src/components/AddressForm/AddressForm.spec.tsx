@@ -49,7 +49,9 @@ describe('<AddressForm />', () => {
     // ASSERT
     await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
     expect(onSubmit.mock.calls[0][0]).toEqual({
-      history: [{ address: '000', month: '1', status: 'Rented', year: '1990' }],
+      history: [
+        { address: { id: '000' }, month: '1', status: 'Rented', year: '1990' },
+      ],
     });
   });
 
@@ -114,12 +116,17 @@ describe('<AddressForm />', () => {
     expect(onSubmit.mock.calls[0][0]).toEqual({
       history: [
         {
-          address: '000',
+          address: { id: '000' },
           month: currentMonth,
           status: 'Rented',
           year: currentYear,
         },
-        { address: '111', month: '4', status: 'Mortgage', year: '1994' },
+        {
+          address: { id: '111' },
+          month: '4',
+          status: 'Mortgage',
+          year: '1994',
+        },
       ],
     });
   });
@@ -257,7 +264,7 @@ describe('<AddressForm />', () => {
     expect(onSubmit.mock.calls[0][0]).toEqual({
       history: [
         {
-          address: '000',
+          address: { id: '000' },
           month: currentMonth,
           status: 'Rented',
           year: '1997',

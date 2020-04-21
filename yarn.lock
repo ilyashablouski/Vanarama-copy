@@ -1965,12 +1965,13 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@^4.1.3":
-  version "4.1.3"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-4.1.3.tgz#c1a0f31f51588d7aa8e2f816c41dbdde32ab68db"
-  integrity sha512-b0u+g7uKI8YNF512poCpHVGzIX4kTVItDdci1FHWIAN3DG0NIo9N+28MvTez6DLLc6qgX9/gzWw0tHLAZDoL+A==
+"@vanarama/uibook@4.2.0":
+  version "4.2.0"
+  resolved "https://registry.npmjs.org/@vanarama/uibook/-/uibook-4.2.0.tgz#495c3dc08b0eeb7f51569a4e9d2dd5d264b6f1ae"
+  integrity sha512-knWilktTN05e3S//lBsxvuTBq5WtYwz6ykG2u4DlBqibnANivFRNrGEPgEHGR4SM+87emCfujT0hbf6CwhzLbw==
   dependencies:
     "@babel/preset-typescript" "^7.8.3"
+    "@testing-library/react" "^10.0.2"
     classnames "^2.2.6"
     i18n-react "^0.7.0"
     jest "^25.1.0"
@@ -10112,10 +10113,10 @@ react-dom@^16.12.0:
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
-react-hook-form@^5.4.2:
-  version "5.4.2"
-  resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-5.4.2.tgz#a610f565387191612e3b4286c813949542e84caf"
-  integrity sha512-0okvGDiIboTxgWdLTgqsuNeuJPE9YLNuwS0z+1iNvGCYXcHFsrnryI0RCtcFMClflmFKuA4OtD9xZxSrmdLkbw==
+react-hook-form@^5.5.1:
+  version "5.5.1"
+  resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-5.5.1.tgz#2320dc478d2f3661f0466cd84292dc41c675bb75"
+  integrity sha512-OicuetMsvuWaTMZqmOAszsqky56hZIirOA6YSVUGyL4IFDkubgqFoWmdEHFRjv3hly8KHEaPFkhZrRrIkUN4ww==
 
 react-html-parser@^2.0.2:
   version "2.0.2"

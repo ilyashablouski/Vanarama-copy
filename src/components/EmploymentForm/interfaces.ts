@@ -8,7 +8,7 @@ export type TEmploymentEntry = {
   title?: string;
   company?: string;
   phoneNumber?: string;
-  address?: string;
+  address?: { id: string };
   income?: string;
 };
 
