@@ -10113,10 +10113,10 @@ react-dom@^16.12.0:
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
-react-hook-form@^5.5.1:
-  version "5.5.1"
-  resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-5.5.1.tgz#2320dc478d2f3661f0466cd84292dc41c675bb75"
-  integrity sha512-OicuetMsvuWaTMZqmOAszsqky56hZIirOA6YSVUGyL4IFDkubgqFoWmdEHFRjv3hly8KHEaPFkhZrRrIkUN4ww==
+react-hook-form@^5.5.3:
+  version "5.5.3"
+  resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-5.5.3.tgz#6c0fc9136d0b6358ab1917a7b54286b1a7b0c749"
+  integrity sha512-dVPqbJZqLmfbolrC7yP3uDLYYUSSFZBFIeV0hrjve43GxFjXegEgQZ7KzUMxqrCbB+gB+vPA6+A0niyzdmcntQ==
 
 react-html-parser@^2.0.2:
   version "2.0.2"

@@ -19,30 +19,25 @@ describe('<AddressForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId, rerender } = render(
+    const { getByText, getByTestId } = render(
       <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
     );
 
-    fireEvent.change(getByTestId('history[0].address'), {
+    fireEvent.input(getByTestId('history[0].address'), {
       target: { value: '000' },
     });
 
-    fireEvent.change(getByTestId('history[0].status'), {
+    fireEvent.input(getByTestId('history[0].status'), {
       target: { value: 'Rented' },
     });
 
-    fireEvent.change(getByTestId('history[0].month'), {
+    fireEvent.input(getByTestId('history[0].month'), {
       target: { value: '1' },
     });
 
-    fireEvent.change(getByTestId('history[0].year'), {
+    fireEvent.input(getByTestId('history[0].year'), {
       target: { value: '1990' },
     });
-
-    // Wait for all effects to execute
-    rerender(
-      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
 
     fireEvent.click(getByText('Continue'));
 
@@ -63,51 +58,41 @@ describe('<AddressForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId, rerender } = render(
+    const { getByText, getByTestId } = render(
       <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
     );
 
-    fireEvent.change(getByTestId('history[0].address'), {
+    fireEvent.input(getByTestId('history[0].address'), {
       target: { value: '000' },
     });
 
-    fireEvent.change(getByTestId('history[0].status'), {
+    fireEvent.input(getByTestId('history[0].status'), {
       target: { value: 'Rented' },
     });
 
-    fireEvent.change(getByTestId('history[0].month'), {
+    fireEvent.input(getByTestId('history[0].month'), {
       target: { value: currentMonth },
     });
 
-    fireEvent.change(getByTestId('history[0].year'), {
+    fireEvent.input(getByTestId('history[0].year'), {
       target: { value: currentYear },
     });
 
-    // Wait for all effects to execute
-    rerender(
-      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
-
-    fireEvent.change(getByTestId('history[1].address'), {
+    fireEvent.input(getByTestId('history[1].address'), {
       target: { value: '111' },
     });
 
-    fireEvent.change(getByTestId('history[1].status'), {
+    fireEvent.input(getByTestId('history[1].status'), {
       target: { value: 'Mortgage' },
     });
 
-    fireEvent.change(getByTestId('history[1].month'), {
+    fireEvent.input(getByTestId('history[1].month'), {
       target: { value: '4' },
     });
 
-    fireEvent.change(getByTestId('history[1].year'), {
+    fireEvent.input(getByTestId('history[1].year'), {
       target: { value: '1994' },
     });
-
-    // Wait for all effects to execute
-    rerender(
-      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
 
     fireEvent.click(getByText('Continue'));
 
@@ -139,22 +124,17 @@ describe('<AddressForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId, rerender } = render(
+    const { getByText, getByTestId } = render(
       <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
     );
 
-    fireEvent.change(getByTestId('history[0].month'), {
+    fireEvent.input(getByTestId('history[0].month'), {
       target: { value: currentMonth },
     });
 
-    fireEvent.change(getByTestId('history[0].year'), {
+    fireEvent.input(getByTestId('history[0].year'), {
       target: { value: currentYear },
     });
-
-    // Wait for all effects to execute
-    rerender(
-      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
 
     // ASSERT
     await waitFor(() =>
@@ -172,22 +152,17 @@ describe('<AddressForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId, rerender } = render(
+    const { getByText, getByTestId } = render(
       <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
     );
 
-    fireEvent.change(getByTestId('history[0].month'), {
+    fireEvent.input(getByTestId('history[0].month'), {
       target: { value: currentMonth },
     });
 
-    fireEvent.change(getByTestId('history[0].year'), {
+    fireEvent.input(getByTestId('history[0].year'), {
       target: { value: lastYear },
     });
-
-    // Wait for all effects to execute
-    rerender(
-      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
 
     // ASSERT
     await waitFor(() =>
@@ -205,54 +180,39 @@ describe('<AddressForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId, rerender } = render(
+    const { getByText, getByTestId } = render(
       <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
     );
 
     // Add a history for the current year
-    fireEvent.change(getByTestId('history[0].month'), {
+    fireEvent.input(getByTestId('history[0].month'), {
       target: { value: currentMonth },
     });
 
-    fireEvent.change(getByTestId('history[0].year'), {
+    fireEvent.input(getByTestId('history[0].year'), {
       target: { value: currentYear },
     });
 
-    // Wait for all effects to execute
-    rerender(
-      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
-
     // Then add one for 1994
-    fireEvent.change(getByTestId('history[1].month'), {
+    fireEvent.input(getByTestId('history[1].month'), {
       target: { value: '4' },
     });
 
-    fireEvent.change(getByTestId('history[1].year'), {
+    fireEvent.input(getByTestId('history[1].year'), {
       target: { value: '1994' },
     });
 
-    // Wait for all effects to execute
-    rerender(
-      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
-
     // Then modify the date on the first history to 1997
-    fireEvent.change(getByTestId('history[0].year'), {
+    fireEvent.input(getByTestId('history[0].year'), {
       target: { value: '1997' },
     });
 
-    // Wait for all effects to execute
-    rerender(
-      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
-
     // Then fill the first one in
-    fireEvent.change(getByTestId('history[0].address'), {
+    fireEvent.input(getByTestId('history[0].address'), {
       target: { value: '000' },
     });
 
-    fireEvent.change(getByTestId('history[0].status'), {
+    fireEvent.input(getByTestId('history[0].status'), {
       target: { value: 'Rented' },
     });
 

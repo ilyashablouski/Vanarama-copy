@@ -13,17 +13,17 @@ describe('<RegisterForm />', () => {
     );
 
     // Set the email address
-    fireEvent.change(getByLabelText('Your Email'), {
+    fireEvent.input(getByLabelText('Your Email'), {
       target: { value: 'barry.chuckle@gmail.com' },
     });
 
     // Set the password
-    fireEvent.change(getByLabelText('Your Password'), {
+    fireEvent.input(getByLabelText('Your Password'), {
       target: { value: 'Password1' },
     });
 
     // Set the confirm password
-    fireEvent.change(getByLabelText('Repeat Password'), {
+    fireEvent.input(getByLabelText('Repeat Password'), {
       target: { value: 'Password1' },
     });
 
@@ -61,17 +61,17 @@ describe('<RegisterForm />', () => {
     );
 
     // Set the email address
-    fireEvent.change(getByLabelText('Your Email'), {
+    fireEvent.input(getByLabelText('Your Email'), {
       target: { value: 'barry.chuckle@gmail.com' },
     });
 
     // Set the password
-    fireEvent.change(getByLabelText('Your Password'), {
+    fireEvent.input(getByLabelText('Your Password'), {
       target: { value: 'invalid' },
     });
 
     // Set the confirm password
-    fireEvent.change(getByLabelText('Repeat Password'), {
+    fireEvent.input(getByLabelText('Repeat Password'), {
       target: { value: 'invalid' },
     });
 
@@ -95,17 +95,17 @@ describe('<RegisterForm />', () => {
     );
 
     // Set the email address
-    fireEvent.change(getByLabelText('Your Email'), {
+    fireEvent.input(getByLabelText('Your Email'), {
       target: { value: 'barry.chuckle@gmail.com' },
     });
 
     // Set the password
-    fireEvent.change(getByLabelText('Your Password'), {
+    fireEvent.input(getByLabelText('Your Password'), {
       target: { value: 'Password1' },
     });
 
     // Set the confirm password
-    fireEvent.change(getByLabelText('Repeat Password'), {
+    fireEvent.input(getByLabelText('Repeat Password'), {
       target: { value: 'Password2' },
     });
 

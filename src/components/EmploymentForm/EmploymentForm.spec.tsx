@@ -19,28 +19,18 @@ describe('<EmploymentForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId, rerender, getByLabelText } = render(
+    const { getByText, getByTestId, getByLabelText } = render(
       <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
     );
 
     const status = getByLabelText('Your Current Employment Status');
-    fireEvent.change(status, { target: { value: 'Retired' } });
-
-    // Wait for all effects to execute
-    rerender(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
+    fireEvent.input(status, { target: { value: 'Retired' } });
 
     const month = getByTestId('history[0].month');
-    fireEvent.change(month, { target: { value: '1' } });
+    fireEvent.input(month, { target: { value: '1' } });
 
     const year = getByTestId('history[0].year');
-    fireEvent.change(year, { target: { value: '1990' } });
-
-    // Wait for all effects to execute
-    rerender(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
+    fireEvent.input(year, { target: { value: '1990' } });
 
     await act(async () => {
       fireEvent.click(getByText('Continue'));
@@ -58,48 +48,38 @@ describe('<EmploymentForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId, getByLabelText, rerender } = render(
+    const { getByText, getByTestId, getByLabelText } = render(
       <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
     );
 
     const status = getByLabelText('Your Current Employment Status');
-    fireEvent.change(status, { target: { value: 'Employed' } });
-
-    // Wait for all effects to execute
-    rerender(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
+    fireEvent.input(status, { target: { value: 'Employed' } });
 
     const type = getByLabelText('Part Time');
     fireEvent.click(type);
 
     const title = getByLabelText('Job Title');
-    fireEvent.change(title, { target: { value: 'Janitor' } });
+    fireEvent.input(title, { target: { value: 'Janitor' } });
 
     const company = getByLabelText('Company Name');
-    fireEvent.change(company, { target: { value: 'Autorama Ltd.' } });
+    fireEvent.input(company, { target: { value: 'Autorama Ltd.' } });
 
     const phone = getByLabelText('Work Phone Number');
-    fireEvent.change(phone, { target: { value: '01442838195' } });
+    fireEvent.input(phone, { target: { value: '01442838195' } });
 
     const address = getByLabelText('Company Postcode or Address');
-    fireEvent.change(address, {
+    fireEvent.input(address, {
       target: { value: 'Maylands Avenue, HP2 7DE' },
     });
 
     const income = getByLabelText('Gross Annual Income');
-    fireEvent.change(income, { target: { value: '52000.00' } });
+    fireEvent.input(income, { target: { value: '52000.00' } });
 
     const month = getByTestId('history[0].month');
-    fireEvent.change(month, { target: { value: '4' } });
+    fireEvent.input(month, { target: { value: '4' } });
 
     const year = getByTestId('history[0].year');
-    fireEvent.change(year, { target: { value: '1994' } });
-
-    // Wait for all effects to execute
-    rerender(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
+    fireEvent.input(year, { target: { value: '1994' } });
 
     await act(async () => {
       fireEvent.click(getByText('Continue'));
@@ -134,62 +114,47 @@ describe('<EmploymentForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId, rerender, getByLabelText } = render(
+    const { getByText, getByTestId, getByLabelText } = render(
       <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
     );
 
     const status = getByLabelText('Your Current Employment Status');
-    fireEvent.change(status, { target: { value: 'Retired' } });
-
-    // Wait for all effects to execute
-    rerender(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
+    fireEvent.input(status, { target: { value: 'Retired' } });
 
     const month = getByTestId('history[0].month');
-    fireEvent.change(month, { target: { value: currentMonth } });
+    fireEvent.input(month, { target: { value: currentMonth } });
 
     const year = getByTestId('history[0].year');
-    fireEvent.change(year, { target: { value: currentYear } });
-
-    // Wait for all effects to execute
-    rerender(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
+    fireEvent.input(year, { target: { value: currentYear } });
 
     const prevStatus = getByLabelText('Your Previous Employment Status');
-    fireEvent.change(prevStatus, { target: { value: 'Employed' } });
-
-    // Wait for all effects to execute
-    rerender(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
+    fireEvent.input(prevStatus, { target: { value: 'Employed' } });
 
     const prevType = getByLabelText('Full Time');
     fireEvent.click(prevType);
 
     const prevTitle = getByLabelText('Job Title');
-    fireEvent.change(prevTitle, { target: { value: 'Janitor' } });
+    fireEvent.input(prevTitle, { target: { value: 'Janitor' } });
 
     const prevCompany = getByLabelText('Company Name');
-    fireEvent.change(prevCompany, { target: { value: 'Autorama Ltd.' } });
+    fireEvent.input(prevCompany, { target: { value: 'Autorama Ltd.' } });
 
     const prevPhone = getByLabelText('Work Phone Number');
-    fireEvent.change(prevPhone, { target: { value: '01442838195' } });
+    fireEvent.input(prevPhone, { target: { value: '01442838195' } });
 
     const prevAddress = getByLabelText('Company Postcode or Address');
-    fireEvent.change(prevAddress, {
+    fireEvent.input(prevAddress, {
       target: { value: 'Maylands Avenue, HP2 7DE' },
     });
 
     const prevIncome = getByLabelText('Gross Annual Income');
-    fireEvent.change(prevIncome, { target: { value: '52000.00' } });
+    fireEvent.input(prevIncome, { target: { value: '52000.00' } });
 
     const prevMonth = getByTestId('history[1].month');
-    fireEvent.change(prevMonth, { target: { value: '11' } });
+    fireEvent.input(prevMonth, { target: { value: '11' } });
 
     const prevYear = getByTestId('history[1].year');
-    fireEvent.change(prevYear, { target: { value: '1992' } });
+    fireEvent.input(prevYear, { target: { value: '1992' } });
 
     await act(async () => {
       fireEvent.click(getByText('Continue'));
@@ -229,28 +194,18 @@ describe('<EmploymentForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId, rerender, getByLabelText } = render(
+    const { getByText, getByTestId, getByLabelText } = render(
       <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
     );
 
     const status = getByLabelText('Your Current Employment Status');
-    fireEvent.change(status, { target: { value: 'Retired' } });
-
-    // Wait for all effects to execute
-    rerender(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
+    fireEvent.input(status, { target: { value: 'Retired' } });
 
     const month = getByTestId('history[0].month');
-    fireEvent.change(month, { target: { value: currentMonth } });
+    fireEvent.input(month, { target: { value: currentMonth } });
 
     const year = getByTestId('history[0].year');
-    fireEvent.change(year, { target: { value: currentYear } });
-
-    // Wait for all effects to execute
-    rerender(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
+    fireEvent.input(year, { target: { value: currentYear } });
 
     // ASSERT
     expect(
@@ -266,28 +221,18 @@ describe('<EmploymentForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId, rerender, getByLabelText } = render(
+    const { getByText, getByTestId, getByLabelText } = render(
       <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
     );
 
     const status = getByLabelText('Your Current Employment Status');
-    fireEvent.change(status, { target: { value: 'Retired' } });
-
-    // Wait for all effects to execute
-    rerender(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
+    fireEvent.input(status, { target: { value: 'Retired' } });
 
     const month = getByTestId('history[0].month');
-    fireEvent.change(month, { target: { value: currentMonth } });
+    fireEvent.input(month, { target: { value: currentMonth } });
 
     const year = getByTestId('history[0].year');
-    fireEvent.change(year, { target: { value: lastYear } });
-
-    // Wait for all effects to execute
-    rerender(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
+    fireEvent.input(year, { target: { value: lastYear } });
 
     // ASSERT
     expect(
@@ -317,17 +262,12 @@ describe('<EmploymentForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, rerender, getByLabelText } = render(
+    const { getByText, getByLabelText } = render(
       <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
     );
 
     const status = getByLabelText('Your Current Employment Status');
-    fireEvent.change(status, { target: { value: 'Employed' } });
-
-    // Wait for all effects to execute
-    rerender(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
+    fireEvent.input(status, { target: { value: 'Employed' } });
 
     await act(async () => {
       fireEvent.click(getByText('Continue'));
@@ -350,17 +290,12 @@ describe('<EmploymentForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, rerender, getByLabelText, queryByText } = render(
+    const { getByText, getByLabelText, queryByText } = render(
       <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
     );
 
     const status = getByLabelText('Your Current Employment Status');
-    fireEvent.change(status, { target: { value: 'Retired' } });
-
-    // Wait for all effects to execute
-    rerender(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
+    fireEvent.input(status, { target: { value: 'Retired' } });
 
     await act(async () => {
       fireEvent.click(getByText('Continue'));
