@@ -58,7 +58,7 @@ describe('<AboutForm />', () => {
   });
 
   it('should assure minimum characters allowed for first name', async () => {
-    fireEvent.change(screen.getByTestId('aboutFirstName'), {
+    fireEvent.input(screen.getByTestId('aboutFirstName'), {
       target: { value: 'W' },
     });
     fireEvent.click(screen.getByText('Continue'));
@@ -74,7 +74,7 @@ describe('<AboutForm />', () => {
   });
 
   it('should assure max characters allowed for first name', async () => {
-    fireEvent.change(screen.getByTestId('aboutFirstName'), {
+    fireEvent.input(screen.getByTestId('aboutFirstName'), {
       target: { value: 'ThisFirstNameIsOverFiftyCharactersLongggggggggggggg' },
     });
     fireEvent.click(screen.getByText('Continue'));
@@ -90,7 +90,7 @@ describe('<AboutForm />', () => {
   });
 
   it('should assure minimum characters allowed for last name', async () => {
-    fireEvent.change(screen.getByTestId('aboutLastName'), {
+    fireEvent.input(screen.getByTestId('aboutLastName'), {
       target: { value: 'W' },
     });
     fireEvent.click(screen.getByText('Continue'));
@@ -106,7 +106,7 @@ describe('<AboutForm />', () => {
   });
 
   it('should assure max characters allowed for last name', async () => {
-    fireEvent.change(screen.getByTestId('aboutLastName'), {
+    fireEvent.input(screen.getByTestId('aboutLastName'), {
       target: { value: 'ThisLastNameIsOverFiftyCharactersLonggggggggggggggg' },
     });
     fireEvent.click(screen.getByText('Continue'));
@@ -122,7 +122,7 @@ describe('<AboutForm />', () => {
   });
 
   it('should assure correct email format', async () => {
-    fireEvent.change(screen.getByTestId('aboutEmail'), {
+    fireEvent.input(screen.getByTestId('aboutEmail'), {
       target: { value: 'invalid@' },
     });
     fireEvent.click(screen.getByText('Continue'));
@@ -134,7 +134,7 @@ describe('<AboutForm />', () => {
   });
 
   it('should assure min mobile chars', async () => {
-    fireEvent.change(screen.getByTestId('aboutMobile'), {
+    fireEvent.input(screen.getByTestId('aboutMobile'), {
       target: { value: '0740292992' },
     });
     fireEvent.click(screen.getByText('Continue'));
@@ -150,7 +150,7 @@ describe('<AboutForm />', () => {
   });
 
   it('should assure max mobile chars', async () => {
-    fireEvent.change(screen.getByTestId('aboutMobile'), {
+    fireEvent.input(screen.getByTestId('aboutMobile'), {
       // over 16 digits
       target: { value: '074029299222222200' },
     });
@@ -168,13 +168,13 @@ describe('<AboutForm />', () => {
 
   it('should assure minimum age', async () => {
     const thisYear = new Date().getFullYear();
-    fireEvent.change(screen.getByTestId('aboutSelectDOB'), {
+    fireEvent.input(screen.getByTestId('aboutSelectDOB'), {
       target: { value: '1' },
     });
-    fireEvent.change(screen.getByTestId('aboutSelectMOB'), {
+    fireEvent.input(screen.getByTestId('aboutSelectMOB'), {
       target: { value: 'January' },
     });
-    fireEvent.change(screen.getByTestId('aboutSelectYOB'), {
+    fireEvent.input(screen.getByTestId('aboutSelectYOB'), {
       target: { value: thisYear },
     });
     fireEvent.click(screen.getByText('Continue'));
@@ -186,46 +186,46 @@ describe('<AboutForm />', () => {
   });
 
   it.skip('should call submit with valid field inputs', async () => {
-    fireEvent.change(screen.getByTestId('aboutTitle'), {
+    fireEvent.input(screen.getByTestId('aboutTitle'), {
       target: { value: 'Mr' },
     });
-    fireEvent.change(screen.getByTestId('aboutFirstName'), {
+    fireEvent.input(screen.getByTestId('aboutFirstName'), {
       target: { value: 'John' },
     });
-    fireEvent.change(screen.getByTestId('aboutLastName'), {
+    fireEvent.input(screen.getByTestId('aboutLastName'), {
       target: { value: 'Doe' },
     });
-    fireEvent.change(screen.getByTestId('aboutEmail'), {
+    fireEvent.input(screen.getByTestId('aboutEmail'), {
       target: { value: 'hello@email.com' },
     });
-    fireEvent.change(screen.getByTestId('aboutMobile'), {
+    fireEvent.input(screen.getByTestId('aboutMobile'), {
       target: { value: '07402020200' },
     });
-    fireEvent.change(screen.getByTestId('aboutSelectDOB'), {
+    fireEvent.input(screen.getByTestId('aboutSelectDOB'), {
       target: { value: '1' },
     });
-    fireEvent.change(screen.getByTestId('aboutSelectMOB'), {
+    fireEvent.input(screen.getByTestId('aboutSelectMOB'), {
       target: { value: 'January' },
     });
-    fireEvent.change(screen.getByTestId('aboutSelectYOB'), {
+    fireEvent.input(screen.getByTestId('aboutSelectYOB'), {
       target: { value: '2000' },
     });
-    fireEvent.change(screen.getByTestId('aboutSelectCOB'), {
+    fireEvent.input(screen.getByTestId('aboutSelectCOB'), {
       target: { value: 'United Kingdom' },
     });
-    fireEvent.change(screen.getByTestId('aboutNationality'), {
+    fireEvent.input(screen.getByTestId('aboutNationality'), {
       target: { value: 'British' },
     });
-    fireEvent.change(screen.getByTestId('aboutMaritalStatus'), {
+    fireEvent.input(screen.getByTestId('aboutMaritalStatus'), {
       target: { value: 'Single' },
     });
-    fireEvent.change(screen.getByTestId('aboutDependants'), {
+    fireEvent.input(screen.getByTestId('aboutDependants'), {
       target: { value: '1' },
     });
-    fireEvent.change(screen.getByTestId('aboutAdultsInHouse'), {
+    fireEvent.input(screen.getByTestId('aboutAdultsInHouse'), {
       target: { value: '1' },
     });
-    fireEvent.change(screen.getByTestId('aboutTermsAndCons'), {
+    fireEvent.input(screen.getByTestId('aboutTermsAndCons'), {
       target: { checked: true },
     });
     fireEvent.click(screen.getByText('Continue'));

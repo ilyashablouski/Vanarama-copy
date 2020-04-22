@@ -1,13 +1,13 @@
 import Select from '@vanarama/uibook/lib/components/atoms/select';
-import AddressFinder from '@vanarama/uibook/lib/components/molecules/address-finder';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import { gql } from 'apollo-boost';
 import React from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { AddressFormFieldsDropDownData } from '../../../generated/AddressFormFieldsDropDownData';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { genMonths, genYears } from '../../utils/helpers';
+import AddressField from '../AddressField/AddressField';
 import HistoryFieldArray from '../HistoryFieldArray/HistoryFieldArray';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
 import { IAddressFormValues } from './interfaces';
@@ -17,30 +17,20 @@ interface IProps {
 }
 
 const AddressFormFields: FCWithFragments<IProps> = ({ dropDownData }) => {
-  const { control, errors, register } = useFormContext();
+  const { errors, register } = useFormContext();
   return (
     <HistoryFieldArray<IAddressFormValues>
-      initialState={{ address: '', year: '', month: '', status: '' }}
+      initialState={{ address: undefined, year: '', month: '', status: '' }}
       messageFormat="We need another %s of address history."
       requiredMonths={36}
     >
       {(_, index) => (
         <Tile>
-          <Formgroup
+          <AddressField
             error={errors.history?.[index]?.address?.message?.toString()}
-            controlId={`history[${index}].address`}
             label="Your Postcode or Address"
-          >
-            <Controller
-              id={`history[${index}].address`}
-              name={`history[${index}].address`}
-              as={AddressFinder}
-              control={control}
-              dataTestId={`history[${index}].address`}
-              loqateApiKey={process.env.LOQATE_KEY!}
-              onChange={([suggestion]) => suggestion?.id || ''}
-            />
-          </Formgroup>
+            name={`history[${index}].address`}
+          />
           <Formgroup
             error={errors.history?.[index]?.status?.message?.toString()}
             controlId={`history[${index}].status`}

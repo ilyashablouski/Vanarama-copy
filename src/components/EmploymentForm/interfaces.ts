@@ -4,11 +4,11 @@ export type TEmploymentEntry = {
   status: string;
   month: string;
   year: string;
-  type?: string;
+  contract?: string;
   title?: string;
   company?: string;
   phoneNumber?: string;
-  address?: string;
+  address?: { id: string };
   income?: string;
 };
 

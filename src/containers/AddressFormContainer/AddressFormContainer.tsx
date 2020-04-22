@@ -40,16 +40,12 @@ const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
 }) => {
   const { loading, error, data } = useQuery<Query, QueryVariables>(
     GET_ADDRESS_CONTAINER_DATA,
-    {
-      variables: { id: personId },
-    },
+    { variables: { id: personId } },
   );
 
   const [saveAddressHistory] = useMutation<Mutation, MutationVariables>(
     SAVE_ADDRESS_HISTORY,
-    {
-      onCompleted,
-    },
+    { onCompleted },
   );
 
   if (loading) {
@@ -57,10 +53,10 @@ const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
   }
 
   if (error) {
-    return <p>Error</p>;
+    return <p>Error: {error.message}</p>;
   }
 
-  if (!data || !data.allDropDowns) {
+  if (!data || !data.allDropDowns || !data.personById) {
     return null;
   }
 
@@ -73,7 +69,7 @@ const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
             input: {
               partyId: data.personById?.partyId!,
               addresses: values.history.map(item => ({
-                serviceId: item.address,
+                serviceId: item.address?.id,
                 propertyStatus: item.status,
                 startedOn: historyToMoment(item).format('YYYY-MM-DD'),
               })),

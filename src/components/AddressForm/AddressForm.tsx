@@ -21,7 +21,7 @@ const AddressForm: FCWithFragments<IAddressFormProps> = ({
 }) => {
   const methods = useForm<IFormValues>({
     defaultValues: {
-      history: [{ address: '', month: '', status: '', year: '' }],
+      history: [{ address: undefined, month: '', status: '', year: '' }],
     },
     mode: 'onBlur',
     validationSchema,

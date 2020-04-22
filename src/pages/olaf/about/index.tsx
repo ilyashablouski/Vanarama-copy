@@ -43,8 +43,15 @@ const AboutYouPage: NextPage = () => {
   );
 
   const { data, loading, error } = useQuery<AllDropDownsQuery>(ALL_DROPDOWNS);
-  if (loading || error || !data || !data.allDropDowns) {
-    // TODO: Handle loading and error states
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
+
+  if (!data || !data.allDropDowns) {
     return null;
   }
 

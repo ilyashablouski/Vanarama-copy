@@ -1,7 +1,7 @@
 import { AddressFormDropDownData } from '../../../generated/AddressFormDropDownData';
 
 export type TAddressEntry = {
-  address: string;
+  address?: { id: string };
   status: string;
   month: string;
   year: string;

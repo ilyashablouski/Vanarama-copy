@@ -10,8 +10,8 @@ interface IProps {
 
 const EmploymentTypeRadioGroup: React.FC<IProps> = ({ index }) => {
   const { errors, register } = useFormContext<IEmploymentFormValues>();
-  const error = errors.history?.[index]?.type?.message?.toString();
-  const name = `history[${index}].type`;
+  const error = errors.history?.[index]?.contract?.message?.toString();
+  const name = `history[${index}].contract`;
 
   return (
     <Formgroup label="Are You" error={error}>
@@ -21,7 +21,7 @@ const EmploymentTypeRadioGroup: React.FC<IProps> = ({ index }) => {
         dataTestId={`${name}_fulltime`}
         label="Full Time"
         ref={register()}
-        value="Full Time"
+        value="Full time"
       />
       <Radio
         id={`${name}_parttime`}
@@ -29,7 +29,7 @@ const EmploymentTypeRadioGroup: React.FC<IProps> = ({ index }) => {
         dataTestId={`${name}_parttime`}
         label="Part Time"
         ref={register()}
-        value="Part Time"
+        value="Part time"
       />
     </Formgroup>
   );

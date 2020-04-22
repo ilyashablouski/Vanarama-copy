@@ -4,7 +4,7 @@ test.skip('skip to ignore the warning message', () => {});
 
 // eslint-disable-next-line import/prefer-default-export
 export const inputChange = (getByLabelText: any, value: string) => {
-  fireEvent.change(getByLabelText, {
+  fireEvent.input(getByLabelText, {
     target: { value },
   });
 };

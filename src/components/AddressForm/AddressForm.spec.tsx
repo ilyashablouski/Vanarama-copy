@@ -8,7 +8,7 @@ const mockDropDownData: AddressFormDropDownData = {
   __typename: 'DropDownType',
   propertyStatuses: {
     __typename: 'DropDownDataType',
-    data: ['Rented', 'Mortgage'],
+    data: ['Rented', 'Mortgage', 'Living with parents'],
     favourites: [],
   },
 };
@@ -19,37 +19,34 @@ describe('<AddressForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId, rerender } = render(
+    const { getByText, getByTestId } = render(
       <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
     );
 
-    fireEvent.change(getByTestId('history[0].address'), {
+    fireEvent.input(getByTestId('history[0].address'), {
       target: { value: '000' },
     });
 
-    fireEvent.change(getByTestId('history[0].status'), {
+    fireEvent.input(getByTestId('history[0].status'), {
       target: { value: 'Rented' },
     });
 
-    fireEvent.change(getByTestId('history[0].month'), {
+    fireEvent.input(getByTestId('history[0].month'), {
       target: { value: '1' },
     });
 
-    fireEvent.change(getByTestId('history[0].year'), {
+    fireEvent.input(getByTestId('history[0].year'), {
       target: { value: '1990' },
     });
-
-    // Wait for all effects to execute
-    rerender(
-      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
 
     fireEvent.click(getByText('Continue'));
 
     // ASSERT
     await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
     expect(onSubmit.mock.calls[0][0]).toEqual({
-      history: [{ address: '000', month: '1', status: 'Rented', year: '1990' }],
+      history: [
+        { address: { id: '000' }, month: '1', status: 'Rented', year: '1990' },
+      ],
     });
   });
 
@@ -61,51 +58,41 @@ describe('<AddressForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId, rerender } = render(
+    const { getByText, getByTestId } = render(
       <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
     );
 
-    fireEvent.change(getByTestId('history[0].address'), {
+    fireEvent.input(getByTestId('history[0].address'), {
       target: { value: '000' },
     });
 
-    fireEvent.change(getByTestId('history[0].status'), {
+    fireEvent.input(getByTestId('history[0].status'), {
       target: { value: 'Rented' },
     });
 
-    fireEvent.change(getByTestId('history[0].month'), {
+    fireEvent.input(getByTestId('history[0].month'), {
       target: { value: currentMonth },
     });
 
-    fireEvent.change(getByTestId('history[0].year'), {
+    fireEvent.input(getByTestId('history[0].year'), {
       target: { value: currentYear },
     });
 
-    // Wait for all effects to execute
-    rerender(
-      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
-
-    fireEvent.change(getByTestId('history[1].address'), {
+    fireEvent.input(getByTestId('history[1].address'), {
       target: { value: '111' },
     });
 
-    fireEvent.change(getByTestId('history[1].status'), {
+    fireEvent.input(getByTestId('history[1].status'), {
       target: { value: 'Mortgage' },
     });
 
-    fireEvent.change(getByTestId('history[1].month'), {
+    fireEvent.input(getByTestId('history[1].month'), {
       target: { value: '4' },
     });
 
-    fireEvent.change(getByTestId('history[1].year'), {
+    fireEvent.input(getByTestId('history[1].year'), {
       target: { value: '1994' },
     });
-
-    // Wait for all effects to execute
-    rerender(
-      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
 
     fireEvent.click(getByText('Continue'));
 
@@ -114,12 +101,17 @@ describe('<AddressForm />', () => {
     expect(onSubmit.mock.calls[0][0]).toEqual({
       history: [
         {
-          address: '000',
+          address: { id: '000' },
           month: currentMonth,
           status: 'Rented',
           year: currentYear,
         },
-        { address: '111', month: '4', status: 'Mortgage', year: '1994' },
+        {
+          address: { id: '111' },
+          month: '4',
+          status: 'Mortgage',
+          year: '1994',
+        },
       ],
     });
   });
@@ -132,22 +124,17 @@ describe('<AddressForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId, rerender } = render(
+    const { getByText, getByTestId } = render(
       <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
     );
 
-    fireEvent.change(getByTestId('history[0].month'), {
+    fireEvent.input(getByTestId('history[0].month'), {
       target: { value: currentMonth },
     });
 
-    fireEvent.change(getByTestId('history[0].year'), {
+    fireEvent.input(getByTestId('history[0].year'), {
       target: { value: currentYear },
     });
-
-    // Wait for all effects to execute
-    rerender(
-      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
 
     // ASSERT
     await waitFor(() =>
@@ -165,22 +152,17 @@ describe('<AddressForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId, rerender } = render(
+    const { getByText, getByTestId } = render(
       <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
     );
 
-    fireEvent.change(getByTestId('history[0].month'), {
+    fireEvent.input(getByTestId('history[0].month'), {
       target: { value: currentMonth },
     });
 
-    fireEvent.change(getByTestId('history[0].year'), {
+    fireEvent.input(getByTestId('history[0].year'), {
       target: { value: lastYear },
     });
-
-    // Wait for all effects to execute
-    rerender(
-      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
 
     // ASSERT
     await waitFor(() =>
@@ -198,54 +180,39 @@ describe('<AddressForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId, rerender } = render(
+    const { getByText, getByTestId } = render(
       <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
     );
 
     // Add a history for the current year
-    fireEvent.change(getByTestId('history[0].month'), {
+    fireEvent.input(getByTestId('history[0].month'), {
       target: { value: currentMonth },
     });
 
-    fireEvent.change(getByTestId('history[0].year'), {
+    fireEvent.input(getByTestId('history[0].year'), {
       target: { value: currentYear },
     });
 
-    // Wait for all effects to execute
-    rerender(
-      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
-
     // Then add one for 1994
-    fireEvent.change(getByTestId('history[1].month'), {
+    fireEvent.input(getByTestId('history[1].month'), {
       target: { value: '4' },
     });
 
-    fireEvent.change(getByTestId('history[1].year'), {
+    fireEvent.input(getByTestId('history[1].year'), {
       target: { value: '1994' },
     });
 
-    // Wait for all effects to execute
-    rerender(
-      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
-
     // Then modify the date on the first history to 1997
-    fireEvent.change(getByTestId('history[0].year'), {
+    fireEvent.input(getByTestId('history[0].year'), {
       target: { value: '1997' },
     });
 
-    // Wait for all effects to execute
-    rerender(
-      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
-    );
-
     // Then fill the first one in
-    fireEvent.change(getByTestId('history[0].address'), {
+    fireEvent.input(getByTestId('history[0].address'), {
       target: { value: '000' },
     });
 
-    fireEvent.change(getByTestId('history[0].status'), {
+    fireEvent.input(getByTestId('history[0].status'), {
       target: { value: 'Rented' },
     });
 
@@ -257,10 +224,104 @@ describe('<AddressForm />', () => {
     expect(onSubmit.mock.calls[0][0]).toEqual({
       history: [
         {
-          address: '000',
+          address: { id: '000' },
           month: currentMonth,
           status: 'Rented',
           year: '1997',
+        },
+      ],
+    });
+  });
+
+  it('should reorder entries chronologically by the move in date', async () => {
+    // ARRANGE
+    const now = new Date();
+    const currentYear = String(now.getFullYear());
+    const lastYear = String(now.getFullYear() - 1);
+    const currentMonth = String(now.getMonth() + 1);
+    const onSubmit = jest.fn();
+
+    // ACT
+    const { getByText, getByTestId } = render(
+      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+    );
+
+    // Add a history for last year
+    fireEvent.input(getByTestId('history[0].address'), {
+      target: { value: '000' },
+    });
+
+    fireEvent.input(getByTestId('history[0].status'), {
+      target: { value: 'Rented' },
+    });
+
+    fireEvent.input(getByTestId('history[0].month'), {
+      target: { value: currentMonth },
+    });
+
+    fireEvent.input(getByTestId('history[0].year'), {
+      target: { value: lastYear },
+    });
+
+    // Then add a history for this year
+    fireEvent.input(getByTestId('history[1].address'), {
+      target: { value: '111' },
+    });
+
+    fireEvent.input(getByTestId('history[1].status'), {
+      target: { value: 'Rented' },
+    });
+
+    fireEvent.input(getByTestId('history[1].month'), {
+      target: { value: currentMonth },
+    });
+
+    fireEvent.input(getByTestId('history[1].year'), {
+      target: { value: currentYear },
+    });
+
+    // Then add another to meet the 3 years requirement
+    fireEvent.input(getByTestId('history[2].address'), {
+      target: { value: '222' },
+    });
+
+    fireEvent.input(getByTestId('history[2].status'), {
+      target: { value: 'Living with parents' },
+    });
+
+    fireEvent.input(getByTestId('history[2].month'), {
+      target: { value: '4' },
+    });
+
+    fireEvent.input(getByTestId('history[2].year'), {
+      target: { value: '1994' },
+    });
+
+    // Then submit the form
+    fireEvent.click(getByText(/Continue/));
+
+    // ASSERT
+    // All dates should be submitted, ordered by most recent
+    await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
+    expect(onSubmit.mock.calls[0][0]).toEqual({
+      history: [
+        {
+          address: { id: '111' },
+          month: currentMonth,
+          status: 'Rented',
+          year: currentYear,
+        },
+        {
+          address: { id: '000' },
+          month: currentMonth,
+          status: 'Rented',
+          year: lastYear,
+        },
+        {
+          address: { id: '222' },
+          month: '4',
+          status: 'Living with parents',
+          year: '1994',
         },
       ],
     });
