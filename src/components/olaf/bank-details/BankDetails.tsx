@@ -9,6 +9,7 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
+import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import { IBankDetailsProps, IBankDetails } from './interfaces';
 import { genMonths, genYears } from '../../../utils/helpers';
 import validationSchema from './BankDetails.validation';
@@ -262,6 +263,9 @@ const BankDetails: FC<IBankDetailsProps> = memo(props => {
         type="submit"
         label="Continue"
         color="primary"
+        icon={<ChevronForwardSharp />}
+        iconColor="white"
+        iconPosition="after"
         dataTestId="continue"
       />
     </form>

@@ -1,7 +1,6 @@
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { gql } from 'apollo-boost';
@@ -53,7 +52,8 @@ const AddressForm: FCWithFragments<IAddressFormProps> = ({
         color="primary"
         dataTestId="address-history-submit"
         disabled={methods.formState.isSubmitting}
-        icon={<Icon color="light" icon={<ChevronForwardSharp />} />}
+        icon={<ChevronForwardSharp />}
+        iconColor="white"
         iconPosition="after"
         label={methods.formState.isSubmitting ? 'Saving...' : 'Continue'}
         type="submit"

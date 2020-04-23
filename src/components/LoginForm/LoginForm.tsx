@@ -1,4 +1,4 @@
-import ChevronForwardSharpIcon from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
+import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
@@ -72,7 +72,8 @@ const LoginForm: React.FC<ILoginFormProps> = ({
         type="submit"
         label={isSubmitting ? 'Loading...' : 'Login'}
         disabled={isSubmitting}
-        icon={isSubmitting ? undefined : <ChevronForwardSharpIcon />}
+        icon={<ChevronForwardSharp />}
+        iconColor="white"
         iconPosition="after"
         color="primary"
       />

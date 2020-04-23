@@ -1,6 +1,6 @@
 import React, { FC, memo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import ChevronForwardSharpIcon from '@vanarama/uibook/lib/assets/icons/ChevronForwardCircleSharp';
+import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import Input from '@vanarama/uibook/lib/components/atoms/textinput/';
@@ -346,7 +346,8 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
             type="submit"
             label="Continue"
             color="primary"
-            icon={<ChevronForwardSharpIcon />}
+            icon={<ChevronForwardSharp />}
+            iconColor="white"
             iconPosition="after"
             dataTestId="continue"
           />

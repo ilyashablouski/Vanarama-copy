@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import ChevronForwardSharpIcon from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
+import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button/';
 import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -278,7 +278,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
         type="submit"
         label="Continue"
         color="primary"
-        icon={<ChevronForwardSharpIcon />}
+        icon={<ChevronForwardSharp />}
         iconColor="white"
         iconPosition="after"
         dataTestId="aboutSubmit"

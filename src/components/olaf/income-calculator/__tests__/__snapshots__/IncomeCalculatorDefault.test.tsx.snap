@@ -3999,6 +3999,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
               color="primary"
               dataTestId="continue"
               icon={<Memo />}
+              iconColor="white"
               iconPosition="after"
               label="Continue"
               type="submit"
@@ -4014,10 +4015,11 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                 >
                   Continue
                   <Icon
+                    color="white"
                     icon={<Memo />}
                   >
                     <i
-                      className="icon"
+                      className="icon -white"
                     >
                       <Memo()>
                         <svg
@@ -4026,10 +4028,19 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           width="1em"
                         >
                           <title>
-                            ionicons-v5-b
+                            ionicons-v5-a
                           </title>
-                          <path
-                            d="M256,48C141.13,48,48,141.13,48,256s93.13,208,208,208,208-93.13,208-208S370.87,48,256,48ZM216,374.63,193.37,352l96-96-96-96L216,137.37,334.63,256Z"
+                          <polyline
+                            points="184 112 328 256 184 400"
+                            style={
+                              Object {
+                                "fill": "none",
+                                "stroke": "var(--class-color)",
+                                "strokeLinecap": "square",
+                                "strokeMiterlimit": 10,
+                                "strokeWidth": 48,
+                              }
+                            }
                           />
                         </svg>
                       </Memo()>

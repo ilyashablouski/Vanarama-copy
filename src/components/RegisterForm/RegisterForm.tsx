@@ -1,4 +1,4 @@
-import ChevronForwardSharpIcon from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
+import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Details from '@vanarama/uibook/lib/components/atoms/details';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
@@ -106,7 +106,8 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
         type="submit"
         label={isSubmitting ? 'Loading...' : 'Register'}
         disabled={isSubmitting}
-        icon={isSubmitting ? undefined : <ChevronForwardSharpIcon />}
+        icon={<ChevronForwardSharp />}
+        iconColor="white"
         iconPosition="after"
         color="primary"
       />
