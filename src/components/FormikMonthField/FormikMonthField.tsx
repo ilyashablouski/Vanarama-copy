@@ -1,30 +1,28 @@
 import Select from '@vanarama/uibook/lib/components/atoms/select';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+import { useField } from 'formik';
 import React from 'react';
-import { useFormContext } from 'react-hook-form';
 import { genMonths, genYears } from '../../utils/helpers';
-import { IEmploymentFormValues } from './interfaces';
 
 interface IProps {
-  index: number;
+  monthName: string;
+  yearName: string;
+  label: string;
 }
 
-const EmployedSinceInput: React.FC<IProps> = ({ index }) => {
-  const { errors, register } = useFormContext<IEmploymentFormValues>();
-  const error =
-    errors.history?.[index]?.month?.message?.toString() ||
-    errors.history?.[index]?.year?.message?.toString();
-
-  const monthName = `history[${index}].month`;
-  const yearName = `history[${index}].year`;
+const FormikMonthField: React.FC<IProps> = ({ monthName, yearName, label }) => {
+  const [monthField, monthMeta] = useField(monthName);
+  const [yearField, yearMeta] = useField(yearName);
+  const touched = monthMeta.touched && yearMeta.touched;
+  const error = (touched && (monthMeta.error || yearMeta.error)) || undefined;
   return (
-    <Formgroup error={error} controlId={monthName} label="Since" inline>
+    <Formgroup error={error} controlId={monthName} label={label} inline>
       <Select
         id={monthName}
         name={monthName}
         dataTestId={monthName}
         placeholder="Month"
-        ref={register()}
+        {...monthField}
       >
         {genMonths().map((month, i) => (
           <option key={month} value={i + 1}>
@@ -37,7 +35,7 @@ const EmployedSinceInput: React.FC<IProps> = ({ index }) => {
         name={yearName}
         dataTestId={yearName}
         placeholder="Year"
-        ref={register()}
+        {...yearField}
       >
         {genYears(100).map(year => (
           <option key={year} value={year}>
@@ -49,4 +47,4 @@ const EmployedSinceInput: React.FC<IProps> = ({ index }) => {
   );
 };
 
-export default EmployedSinceInput;
+export default FormikMonthField;

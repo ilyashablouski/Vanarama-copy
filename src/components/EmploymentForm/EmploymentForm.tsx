@@ -4,75 +4,77 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { gql } from 'apollo-boost';
+import { FieldArray, Formik } from 'formik';
 import React from 'react';
-import { FormContext, useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
-import HistoryFieldArray from '../HistoryFieldArray/HistoryFieldArray';
-import EmploymentSubForm from './EmploymentSubForm';
-import { IEmploymentFormProps, IEmploymentFormValues } from './interfaces';
+import EmploymentFormFieldArray from './EmploymentFormFieldArray';
+import {
+  EMPTY_EMPLOYMENT_ENTRY,
+  IEmploymentFormProps,
+  IEmploymentFormValues as IFormValues,
+} from './interfaces';
 import validationSchema from './validationSchema';
 
 const EmploymentForm: FCWithFragments<IEmploymentFormProps> = ({
   dropDownData,
   onSubmit,
 }) => {
-  const methods = useForm<IEmploymentFormValues>({
-    defaultValues: {
-      history: [{ status: '' }],
-    },
-    mode: 'onBlur',
-    validationSchema,
-  });
-
   return (
-    <Form onSubmit={methods.handleSubmit(onSubmit)}>
-      <Heading
-        dataTestId="employment-history-heading"
-        tag="span"
-        size="xlarge"
-        color="black"
-      >
-        Employment History
-      </Heading>
-      <Text
-        dataTestId="employment-history-lead"
-        size="lead"
-        color="darker"
-        tag="span"
-      >
-        Thanks, we also need your employment history for the past 3 years so the
-        funder can check your status.
-      </Text>
-      <FormContext {...methods}>
-        <HistoryFieldArray<IEmploymentFormValues>
-          initialState={{ status: '', month: '', year: '' }}
-          messageFormat="We need another %s of employment history."
-          requiredMonths={36}
-        >
-          {(_, index) => (
-            <EmploymentSubForm dropDownData={dropDownData} index={index} />
-          )}
-        </HistoryFieldArray>
-      </FormContext>
-      <Button
-        color="primary"
-        dataTestId="employment-history-submit"
-        icon={<ChevronForwardSharp />}
-        iconColor="white"
-        iconPosition="after"
-        label="Continue"
-        type="submit"
-      />
-    </Form>
+    <Formik<IFormValues>
+      initialValues={{ history: [EMPTY_EMPLOYMENT_ENTRY] }}
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
+    >
+      {formikProps => (
+        <Form onSubmit={formikProps.handleSubmit}>
+          <Heading
+            dataTestId="employment-history-heading"
+            tag="span"
+            size="xlarge"
+            color="black"
+          >
+            Employment History
+          </Heading>
+          <Text
+            dataTestId="employment-history-lead"
+            size="lead"
+            color="darker"
+            tag="span"
+          >
+            Thanks, we also need your employment history for the past 3 years so
+            the funder can check your status.
+          </Text>
+          <FieldArray name="history">
+            {arrayHelpers => (
+              <EmploymentFormFieldArray
+                arrayHelpers={arrayHelpers}
+                dropDownData={dropDownData}
+                values={formikProps.values}
+              />
+            )}
+          </FieldArray>
+          <Button
+            color="primary"
+            dataTestId="employment-history-submit"
+            icon={<ChevronForwardSharp />}
+            iconColor="white"
+            iconPosition="after"
+            disabled={formikProps.isSubmitting}
+            label={formikProps.isSubmitting ? 'Saving...' : 'Continue'}
+            type="submit"
+          />
+        </Form>
+      )}
+    </Formik>
   );
 };
 
 EmploymentForm.fragments = {
   dropDownData: gql`
     fragment EmploymentFormDropDownData on DropDownType {
-      ...EmploymentSubFormDropDownData
+      ...EmploymentFormFieldArrayDownData
     }
-    ${EmploymentSubForm.fragments.dropDownData}
+    ${EmploymentFormFieldArray.fragments.dropDownData}
   `,
 };
 

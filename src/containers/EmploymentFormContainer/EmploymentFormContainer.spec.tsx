@@ -56,9 +56,14 @@ describe('<EmploymentFormContainer />', () => {
               partyId: '911',
               employmentHistories: [
                 {
+                  companyAddressServiceId: undefined,
+                  companyName: undefined,
+                  contract: undefined,
                   employedSinceDate: '1990-01-01',
                   employmentStatus: 'Retired',
-                  grossAnnualIncome: null,
+                  grossAnnualIncome: undefined,
+                  jobTitle: undefined,
+                  workPhoneNumber: undefined,
                 },
               ],
             },
@@ -89,13 +94,13 @@ describe('<EmploymentFormContainer />', () => {
     await waitFor(() => screen.findByTestId('employment-history-heading'));
 
     const status = screen.getByLabelText('Your Current Employment Status');
-    fireEvent.input(status, { target: { value: 'Retired' } });
+    fireEvent.change(status, { target: { value: 'Retired' } });
 
     const month = screen.getByTestId('history[0].month');
-    fireEvent.input(month, { target: { value: '1' } });
+    fireEvent.change(month, { target: { value: '1' } });
 
     const year = screen.getByTestId('history[0].year');
-    fireEvent.input(year, { target: { value: '1990' } });
+    fireEvent.change(year, { target: { value: '1990' } });
 
     await act(async () => {
       fireEvent.click(screen.getByText('Continue'));

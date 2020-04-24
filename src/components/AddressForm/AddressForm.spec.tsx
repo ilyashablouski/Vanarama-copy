@@ -23,19 +23,19 @@ describe('<AddressForm />', () => {
       <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
     );
 
-    fireEvent.input(getByTestId('history[0].address'), {
+    fireEvent.change(getByTestId('history[0].address'), {
       target: { value: '000' },
     });
 
-    fireEvent.input(getByTestId('history[0].status'), {
+    fireEvent.change(getByTestId('history[0].status'), {
       target: { value: 'Rented' },
     });
 
-    fireEvent.input(getByTestId('history[0].month'), {
+    fireEvent.change(getByTestId('history[0].month'), {
       target: { value: '1' },
     });
 
-    fireEvent.input(getByTestId('history[0].year'), {
+    fireEvent.change(getByTestId('history[0].year'), {
       target: { value: '1990' },
     });
 
@@ -62,35 +62,35 @@ describe('<AddressForm />', () => {
       <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
     );
 
-    fireEvent.input(getByTestId('history[0].address'), {
+    fireEvent.change(getByTestId('history[0].address'), {
       target: { value: '000' },
     });
 
-    fireEvent.input(getByTestId('history[0].status'), {
+    fireEvent.change(getByTestId('history[0].status'), {
       target: { value: 'Rented' },
     });
 
-    fireEvent.input(getByTestId('history[0].month'), {
+    fireEvent.change(getByTestId('history[0].month'), {
       target: { value: currentMonth },
     });
 
-    fireEvent.input(getByTestId('history[0].year'), {
+    fireEvent.change(getByTestId('history[0].year'), {
       target: { value: currentYear },
     });
 
-    fireEvent.input(getByTestId('history[1].address'), {
+    fireEvent.change(getByTestId('history[1].address'), {
       target: { value: '111' },
     });
 
-    fireEvent.input(getByTestId('history[1].status'), {
+    fireEvent.change(getByTestId('history[1].status'), {
       target: { value: 'Mortgage' },
     });
 
-    fireEvent.input(getByTestId('history[1].month'), {
+    fireEvent.change(getByTestId('history[1].month'), {
       target: { value: '4' },
     });
 
-    fireEvent.input(getByTestId('history[1].year'), {
+    fireEvent.change(getByTestId('history[1].year'), {
       target: { value: '1994' },
     });
 
@@ -128,11 +128,11 @@ describe('<AddressForm />', () => {
       <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
     );
 
-    fireEvent.input(getByTestId('history[0].month'), {
+    fireEvent.change(getByTestId('history[0].month'), {
       target: { value: currentMonth },
     });
 
-    fireEvent.input(getByTestId('history[0].year'), {
+    fireEvent.change(getByTestId('history[0].year'), {
       target: { value: currentYear },
     });
 
@@ -156,11 +156,11 @@ describe('<AddressForm />', () => {
       <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
     );
 
-    fireEvent.input(getByTestId('history[0].month'), {
+    fireEvent.change(getByTestId('history[0].month'), {
       target: { value: currentMonth },
     });
 
-    fireEvent.input(getByTestId('history[0].year'), {
+    fireEvent.change(getByTestId('history[0].year'), {
       target: { value: lastYear },
     });
 
@@ -185,34 +185,34 @@ describe('<AddressForm />', () => {
     );
 
     // Add a history for the current year
-    fireEvent.input(getByTestId('history[0].month'), {
+    fireEvent.change(getByTestId('history[0].month'), {
       target: { value: currentMonth },
     });
 
-    fireEvent.input(getByTestId('history[0].year'), {
+    fireEvent.change(getByTestId('history[0].year'), {
       target: { value: currentYear },
     });
 
     // Then add one for 1994
-    fireEvent.input(getByTestId('history[1].month'), {
+    fireEvent.change(getByTestId('history[1].month'), {
       target: { value: '4' },
     });
 
-    fireEvent.input(getByTestId('history[1].year'), {
+    fireEvent.change(getByTestId('history[1].year'), {
       target: { value: '1994' },
     });
 
     // Then modify the date on the first history to 1997
-    fireEvent.input(getByTestId('history[0].year'), {
+    fireEvent.change(getByTestId('history[0].year'), {
       target: { value: '1997' },
     });
 
     // Then fill the first one in
-    fireEvent.input(getByTestId('history[0].address'), {
+    fireEvent.change(getByTestId('history[0].address'), {
       target: { value: '000' },
     });
 
-    fireEvent.input(getByTestId('history[0].status'), {
+    fireEvent.change(getByTestId('history[0].status'), {
       target: { value: 'Rented' },
     });
 
@@ -247,53 +247,53 @@ describe('<AddressForm />', () => {
     );
 
     // Add a history for last year
-    fireEvent.input(getByTestId('history[0].address'), {
+    fireEvent.change(getByTestId('history[0].address'), {
       target: { value: '000' },
     });
 
-    fireEvent.input(getByTestId('history[0].status'), {
+    fireEvent.change(getByTestId('history[0].status'), {
       target: { value: 'Rented' },
     });
 
-    fireEvent.input(getByTestId('history[0].month'), {
+    fireEvent.change(getByTestId('history[0].month'), {
       target: { value: currentMonth },
     });
 
-    fireEvent.input(getByTestId('history[0].year'), {
+    fireEvent.change(getByTestId('history[0].year'), {
       target: { value: lastYear },
     });
 
     // Then add a history for this year
-    fireEvent.input(getByTestId('history[1].address'), {
+    fireEvent.change(getByTestId('history[1].address'), {
       target: { value: '111' },
     });
 
-    fireEvent.input(getByTestId('history[1].status'), {
+    fireEvent.change(getByTestId('history[1].status'), {
       target: { value: 'Rented' },
     });
 
-    fireEvent.input(getByTestId('history[1].month'), {
+    fireEvent.change(getByTestId('history[1].month'), {
       target: { value: currentMonth },
     });
 
-    fireEvent.input(getByTestId('history[1].year'), {
+    fireEvent.change(getByTestId('history[1].year'), {
       target: { value: currentYear },
     });
 
     // Then add another to meet the 3 years requirement
-    fireEvent.input(getByTestId('history[2].address'), {
+    fireEvent.change(getByTestId('history[2].address'), {
       target: { value: '222' },
     });
 
-    fireEvent.input(getByTestId('history[2].status'), {
+    fireEvent.change(getByTestId('history[2].status'), {
       target: { value: 'Living with parents' },
     });
 
-    fireEvent.input(getByTestId('history[2].month'), {
+    fireEvent.change(getByTestId('history[2].month'), {
       target: { value: '4' },
     });
 
-    fireEvent.input(getByTestId('history[2].year'), {
+    fireEvent.change(getByTestId('history[2].year'), {
       target: { value: '1994' },
     });
 

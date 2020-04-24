@@ -1,4 +1,4 @@
-import { fireEvent, render, act } from '@testing-library/react';
+import { fireEvent, render, act, waitFor } from '@testing-library/react';
 import { EmploymentFormDropDownData } from '../../../generated/EmploymentFormDropDownData';
 import EmploymentForm from './EmploymentForm';
 
@@ -24,13 +24,13 @@ describe('<EmploymentForm />', () => {
     );
 
     const status = getByLabelText('Your Current Employment Status');
-    fireEvent.input(status, { target: { value: 'Retired' } });
+    fireEvent.change(status, { target: { value: 'Retired' } });
 
     const month = getByTestId('history[0].month');
-    fireEvent.input(month, { target: { value: '1' } });
+    fireEvent.change(month, { target: { value: '1' } });
 
     const year = getByTestId('history[0].year');
-    fireEvent.input(year, { target: { value: '1990' } });
+    fireEvent.change(year, { target: { value: '1990' } });
 
     await act(async () => {
       fireEvent.click(getByText('Continue'));
@@ -39,7 +39,19 @@ describe('<EmploymentForm />', () => {
     // ASSERT
     expect(onSubmit).toHaveBeenCalledTimes(1);
     expect(onSubmit.mock.calls[0][0]).toEqual({
-      history: [{ month: '1', status: 'Retired', year: '1990' }],
+      history: [
+        {
+          address: undefined,
+          company: '',
+          contract: '',
+          income: '',
+          month: '1',
+          phoneNumber: '',
+          status: 'Retired',
+          year: '1990',
+          title: '',
+        },
+      ],
     });
   });
 
@@ -53,33 +65,33 @@ describe('<EmploymentForm />', () => {
     );
 
     const status = getByLabelText('Your Current Employment Status');
-    fireEvent.input(status, { target: { value: 'Employed' } });
+    fireEvent.change(status, { target: { value: 'Employed' } });
 
     const type = getByLabelText('Part Time');
     fireEvent.click(type);
 
     const title = getByLabelText('Job Title');
-    fireEvent.input(title, { target: { value: 'Janitor' } });
+    fireEvent.change(title, { target: { value: 'Janitor' } });
 
     const company = getByLabelText('Company Name');
-    fireEvent.input(company, { target: { value: 'Autorama Ltd.' } });
+    fireEvent.change(company, { target: { value: 'Autorama Ltd.' } });
 
     const phone = getByLabelText('Work Phone Number');
-    fireEvent.input(phone, { target: { value: '01442838195' } });
+    fireEvent.change(phone, { target: { value: '01442838195' } });
 
     const address = getByLabelText('Company Postcode or Address');
-    fireEvent.input(address, {
+    fireEvent.change(address, {
       target: { value: 'Maylands Avenue, HP2 7DE' },
     });
 
     const income = getByLabelText('Gross Annual Income');
-    fireEvent.input(income, { target: { value: '52000.00' } });
+    fireEvent.change(income, { target: { value: '52000.00' } });
 
     const month = getByTestId('history[0].month');
-    fireEvent.input(month, { target: { value: '4' } });
+    fireEvent.change(month, { target: { value: '4' } });
 
     const year = getByTestId('history[0].year');
-    fireEvent.input(year, { target: { value: '1994' } });
+    fireEvent.change(year, { target: { value: '1994' } });
 
     await act(async () => {
       fireEvent.click(getByText('Continue'));
@@ -94,7 +106,7 @@ describe('<EmploymentForm />', () => {
             id: 'Maylands Avenue, HP2 7DE',
           },
           company: 'Autorama Ltd.',
-          income: '52000.00',
+          income: 52000,
           month: '4',
           phoneNumber: '01442838195',
           status: 'Employed',
@@ -119,42 +131,42 @@ describe('<EmploymentForm />', () => {
     );
 
     const status = getByLabelText('Your Current Employment Status');
-    fireEvent.input(status, { target: { value: 'Retired' } });
+    fireEvent.change(status, { target: { value: 'Retired' } });
 
     const month = getByTestId('history[0].month');
-    fireEvent.input(month, { target: { value: currentMonth } });
+    fireEvent.change(month, { target: { value: currentMonth } });
 
     const year = getByTestId('history[0].year');
-    fireEvent.input(year, { target: { value: currentYear } });
+    fireEvent.change(year, { target: { value: currentYear } });
 
     const prevStatus = getByLabelText('Your Previous Employment Status');
-    fireEvent.input(prevStatus, { target: { value: 'Employed' } });
+    fireEvent.change(prevStatus, { target: { value: 'Employed' } });
 
     const prevType = getByLabelText('Full Time');
     fireEvent.click(prevType);
 
     const prevTitle = getByLabelText('Job Title');
-    fireEvent.input(prevTitle, { target: { value: 'Janitor' } });
+    fireEvent.change(prevTitle, { target: { value: 'Janitor' } });
 
     const prevCompany = getByLabelText('Company Name');
-    fireEvent.input(prevCompany, { target: { value: 'Autorama Ltd.' } });
+    fireEvent.change(prevCompany, { target: { value: 'Autorama Ltd.' } });
 
     const prevPhone = getByLabelText('Work Phone Number');
-    fireEvent.input(prevPhone, { target: { value: '01442838195' } });
+    fireEvent.change(prevPhone, { target: { value: '01442838195' } });
 
     const prevAddress = getByLabelText('Company Postcode or Address');
-    fireEvent.input(prevAddress, {
+    fireEvent.change(prevAddress, {
       target: { value: 'Maylands Avenue, HP2 7DE' },
     });
 
     const prevIncome = getByLabelText('Gross Annual Income');
-    fireEvent.input(prevIncome, { target: { value: '52000.00' } });
+    fireEvent.change(prevIncome, { target: { value: '52000.00' } });
 
     const prevMonth = getByTestId('history[1].month');
-    fireEvent.input(prevMonth, { target: { value: '11' } });
+    fireEvent.change(prevMonth, { target: { value: '11' } });
 
     const prevYear = getByTestId('history[1].year');
-    fireEvent.input(prevYear, { target: { value: '1992' } });
+    fireEvent.change(prevYear, { target: { value: '1992' } });
 
     await act(async () => {
       fireEvent.click(getByText('Continue'));
@@ -165,8 +177,14 @@ describe('<EmploymentForm />', () => {
     expect(onSubmit.mock.calls[0][0]).toEqual({
       history: [
         {
+          address: undefined,
+          company: '',
+          contract: '',
+          income: '',
           month: currentMonth,
+          phoneNumber: '',
           status: 'Retired',
+          title: '',
           year: currentYear,
         },
         {
@@ -174,7 +192,7 @@ describe('<EmploymentForm />', () => {
             id: 'Maylands Avenue, HP2 7DE',
           },
           company: 'Autorama Ltd.',
-          income: '52000.00',
+          income: 52000,
           month: '11',
           phoneNumber: '01442838195',
           status: 'Employed',
@@ -199,18 +217,20 @@ describe('<EmploymentForm />', () => {
     );
 
     const status = getByLabelText('Your Current Employment Status');
-    fireEvent.input(status, { target: { value: 'Retired' } });
+    fireEvent.change(status, { target: { value: 'Retired' } });
 
     const month = getByTestId('history[0].month');
-    fireEvent.input(month, { target: { value: currentMonth } });
+    fireEvent.change(month, { target: { value: currentMonth } });
 
     const year = getByTestId('history[0].year');
-    fireEvent.input(year, { target: { value: currentYear } });
+    fireEvent.change(year, { target: { value: currentYear } });
 
     // ASSERT
-    expect(
-      getByText('We need another 3 years of employment history.'),
-    ).toBeVisible();
+    await waitFor(() =>
+      expect(
+        getByText('We need another 3 years of employment history.'),
+      ).toBeVisible(),
+    );
   });
 
   it('should show the correct value for the remaining months', async () => {
@@ -226,18 +246,20 @@ describe('<EmploymentForm />', () => {
     );
 
     const status = getByLabelText('Your Current Employment Status');
-    fireEvent.input(status, { target: { value: 'Retired' } });
+    fireEvent.change(status, { target: { value: 'Retired' } });
 
     const month = getByTestId('history[0].month');
-    fireEvent.input(month, { target: { value: currentMonth } });
+    fireEvent.change(month, { target: { value: currentMonth } });
 
     const year = getByTestId('history[0].year');
-    fireEvent.input(year, { target: { value: lastYear } });
+    fireEvent.change(year, { target: { value: lastYear } });
 
     // ASSERT
-    expect(
-      getByText('We need another 2 years of employment history.'),
-    ).toBeVisible();
+    await waitFor(() =>
+      expect(
+        getByText('We need another 2 years of employment history.'),
+      ).toBeVisible(),
+    );
   });
 
   it('should show the correct validation messages when pressing submit on a pristine form', async () => {
@@ -267,7 +289,7 @@ describe('<EmploymentForm />', () => {
     );
 
     const status = getByLabelText('Your Current Employment Status');
-    fireEvent.input(status, { target: { value: 'Employed' } });
+    fireEvent.change(status, { target: { value: 'Employed' } });
 
     await act(async () => {
       fireEvent.click(getByText('Continue'));
@@ -277,9 +299,7 @@ describe('<EmploymentForm />', () => {
     expect(getByText('Please enter the job title')).toBeVisible();
     expect(getByText('Please enter the employment type')).toBeVisible();
     expect(getByText('Please enter the company name')).toBeVisible();
-    expect(
-      getByText('Please enter work phone number without spaces or hyphens'),
-    ).toBeVisible();
+    expect(getByText('Please enter the work phone number')).toBeVisible();
     expect(getByText('Please enter the company address')).toBeVisible();
     expect(getByText('Please enter the gross annual income')).toBeVisible();
     expect(getByText('Please select the date you started')).toBeVisible();
@@ -295,7 +315,7 @@ describe('<EmploymentForm />', () => {
     );
 
     const status = getByLabelText('Your Current Employment Status');
-    fireEvent.input(status, { target: { value: 'Retired' } });
+    fireEvent.change(status, { target: { value: 'Retired' } });
 
     await act(async () => {
       fireEvent.click(getByText('Continue'));
