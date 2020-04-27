@@ -8,13 +8,13 @@ import OlafContainer from '../../../components/olaf/olaf-container';
 import withApollo from '../../../hocs/withApollo';
 import BankDetails from '../../../components/olaf/bank-details';
 import {
-  CreateUpdateBankAccountMutation,
-  CreateUpdateBankAccountMutationVariables,
+  CreateUpdateBankAccountMutation as Mutation,
+  CreateUpdateBankAccountMutationVariables as MutationVariables,
 } from '../../../../generated/CreateUpdateBankAccountMutation';
 import {
-  GetBankDetailsPageData,
-  GetBankDetailsPageDataVariables,
-} from '../../../../generated/GetBankDetailsPageData';
+  GetBankDetailsPageDataQuery as Query,
+  GetBankDetailsPageDataQueryVariables as QueryVariables,
+} from '../../../../generated/GetBankDetailsPageDataQuery';
 
 export const CREATE_UPDATE_BANK_ACCOUNT = gql`
   mutation CreateUpdateBankAccountMutation($input: BankAccountInputObject) {
@@ -25,9 +25,9 @@ export const CREATE_UPDATE_BANK_ACCOUNT = gql`
 `;
 
 const GET_BANK_DETAILS_PAGE_DATA = gql`
-  query GetBankDetailsPageData($id: ID!) {
-    personById(id: $id) {
-      id
+  query GetBankDetailsPageDataQuery($uuid: ID!) {
+    personByUuid(uuid: $uuid) {
+      uuid
       partyId
     }
   }
@@ -35,25 +35,33 @@ const GET_BANK_DETAILS_PAGE_DATA = gql`
 
 const BankDetailsPage: NextPage = () => {
   const router = useRouter();
-  const personId = router.query.id as string;
-  const { data } = useQuery<
-    GetBankDetailsPageData,
-    GetBankDetailsPageDataVariables
-  >(GET_BANK_DETAILS_PAGE_DATA, {
-    variables: { id: personId },
-  });
-
-  const [bankDetails] = useMutation<
-    CreateUpdateBankAccountMutation,
-    CreateUpdateBankAccountMutationVariables
-  >(CREATE_UPDATE_BANK_ACCOUNT, {
-    onCompleted: () => {
-      const url = '/olaf/summary';
-      router.push(`${url}/[id]`, `${url}/${personId}`);
+  const personUuid = router.query.id as string;
+  const { loading, error, data } = useQuery<Query, QueryVariables>(
+    GET_BANK_DETAILS_PAGE_DATA,
+    {
+      variables: { uuid: personUuid },
     },
-  });
+  );
 
-  if (!data) {
+  const [bankDetails] = useMutation<Mutation, MutationVariables>(
+    CREATE_UPDATE_BANK_ACCOUNT,
+    {
+      onCompleted: () => {
+        const url = '/olaf/summary';
+        router.push(`${url}/[id]`, `${url}/${personUuid}`);
+      },
+    },
+  );
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
+
+  if (!data || !data.personByUuid) {
     return null;
   }
 
@@ -70,7 +78,7 @@ const BankDetailsPage: NextPage = () => {
           await bankDetails({
             variables: {
               input: {
-                partyId: data?.personById?.partyId!,
+                partyId: data?.personByUuid!.partyId,
                 accountName: values.nameOnTheAccount,
                 accountNumber: values.accountNumber,
                 sortCode: values.sortCode?.join(''),

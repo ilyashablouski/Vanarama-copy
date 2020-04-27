@@ -1,86 +1,45 @@
+import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
+import Button from '@vanarama/uibook/lib/components/atoms/button/';
+import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
+import Input from '@vanarama/uibook/lib/components/atoms/textinput/';
+import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+import { Column, Grid } from '@vanarama/uibook/lib/components/molecules/grid';
+import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import React, { FC, memo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
-import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
-import Tile from '@vanarama/uibook/lib/components/molecules/tile';
-import Input from '@vanarama/uibook/lib/components/atoms/textinput/';
-import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
-import Button from '@vanarama/uibook/lib/components/atoms/button/';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
-import {
-  IIncomeCalculatorProps,
-  IIncomeCalculatorFormValues,
-} from './interfaces';
-
 import validationSchema from './IncomeCalculator.validation';
+import {
+  IIncomeCalculatorFormValues as IFormValues,
+  IIncomeCalculatorProps,
+} from './interfaces';
+import { calculateIncome } from './utils';
 
-const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
-  const { className, data, onSubmit } = props;
-  const { handleSubmit, control, getValues, watch, setValue, errors } = useForm<
-    IIncomeCalculatorFormValues
-  >({
+const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(({ onSubmit }) => {
+  const { handleSubmit, control, watch, errors } = useForm<IFormValues>({
     mode: 'onBlur',
     validationSchema,
     defaultValues: {
-      partyId: (data && data.partyId) || 1,
-      averageMonthlyIncome: (data && data.averageMonthlyIncome) || '',
-      monthlyHouseholdIncome: (data && data.monthlyHouseholdIncome) || '',
-      futureMonthlyIncome: (data && data.futureMonthlyIncome) || '',
-      isFutureMonthlyIncome: (data && data.isFutureMonthlyIncome) || false,
-      mortgageOrRent: (data && data.mortgageOrRent) || '',
-      phoneAndInternet: (data && data.phoneAndInternet) || '',
-      creditCardPayments: (data && data.creditCardPayments) || '',
-      insurance: (data && data.insurance) || '',
-      foodAndClothes: (data && data.foodAndClothes) || '',
-      studentLoans: (data && data.studentLoans) || '',
-      utilities: (data && data.utilities) || '',
-      carFinance: (data && data.carFinance) || '',
-      fuel: (data && data.fuel) || '',
-      otherCredit: (data && data.otherCredit) || '',
+      averageMonthlyIncome: '',
+      carFinance: '',
+      creditCardPayments: '',
+      foodAndClothes: '',
+      fuel: '',
+      futureMonthlyIncome: '',
+      insurance: '',
+      isFutureMonthlyIncome: false,
+      monthlyHouseholdIncome: '',
+      mortgageOrRent: '',
+      otherCredit: '',
+      phoneAndInternet: '',
+      studentLoans: '',
+      utilities: '',
     },
   });
 
-  let totalCalculatedExpenseValue;
-  let netIncomeValue;
-
-  const totalCalculatedExpense = (values: IIncomeCalculatorFormValues) => {
-    const netCalculatedExpense =
-      Number(values.mortgageOrRent) +
-      Number(values.phoneAndInternet) +
-      Number(values.creditCardPayments) +
-      Number(values.insurance) +
-      Number(values.foodAndClothes) +
-      Number(values.studentLoans) +
-      Number(values.utilities) +
-      Number(values.carFinance) +
-      Number(values.fuel) +
-      Number(values.otherCredit);
-
-    return netCalculatedExpense;
-  };
-
-  const netIncome = (values: IIncomeCalculatorFormValues) => {
-    return Number(values.averageMonthlyIncome) - totalCalculatedExpense(values);
-  };
-
-  const handleChange = (e: any) => {
-    const { name, value, checked, type } = e[0].target;
-    const inputValue = type === 'checkbox' ? checked : value;
-    setValue(name, inputValue);
-
-    const values = getValues();
-    totalCalculatedExpenseValue = totalCalculatedExpense(values);
-    setValue('totalMonthlyExpenses', totalCalculatedExpenseValue);
-
-    netIncomeValue = netIncome(values);
-    setValue('netDisposableIncome', netIncomeValue);
-
-    return inputValue;
-  };
-
-  const isFutureMonthlyIncome = watch('isFutureMonthlyIncome');
+  const values = watch();
+  const { disposableIncome, monthlyExpenses } = calculateIncome(values);
 
   return (
     <form
@@ -95,7 +54,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
         Excellent, now we just need to know your outgoings so we can make sure
         your new car is affordable.
       </Text>
-      <div id="incomeCalculator" className={className}>
+      <div id="incomeCalculator">
         <Grid lg={2} md={2} sm={1}>
           <Column>
             <FormGroup
@@ -110,7 +69,6 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                 type="number"
                 as={Input}
                 control={control}
-                onChange={handleChange}
               />
             </FormGroup>
           </Column>
@@ -126,7 +84,6 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                 type="number"
                 as={Input}
                 control={control}
-                onChange={handleChange}
               />
             </FormGroup>
           </Column>
@@ -138,11 +95,10 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                 as={CheckBox}
                 control={control}
                 label="Yes"
-                checked={isFutureMonthlyIncome}
-                onChange={handleChange}
+                checked={values.isFutureMonthlyIncome}
                 dataTestId="futureMonthlyIncome"
               />
-              {isFutureMonthlyIncome ? (
+              {values.isFutureMonthlyIncome && (
                 <FormGroup
                   controlId="futureMonthlyIncome"
                   label="Future Monthly Income"
@@ -154,10 +110,9 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                     type="number"
                     as={Input}
                     control={control}
-                    onChange={handleChange}
                   />
                 </FormGroup>
-              ) : null}
+              )}
             </FormGroup>
           </Column>
         </Grid>
@@ -173,7 +128,6 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                   type="number"
                   as={Input}
                   control={control}
-                  onChange={handleChange}
                 />
               </FormGroup>
             </Column>
@@ -189,7 +143,6 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                   type="number"
                   as={Input}
                   control={control}
-                  onChange={handleChange}
                 />
               </FormGroup>
             </Column>
@@ -205,7 +158,6 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                   type="number"
                   as={Input}
                   control={control}
-                  onChange={handleChange}
                 />
               </FormGroup>
             </Column>
@@ -218,7 +170,6 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                   type="number"
                   as={Input}
                   control={control}
-                  onChange={handleChange}
                 />
               </FormGroup>
             </Column>
@@ -231,7 +182,6 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                   type="number"
                   as={Input}
                   control={control}
-                  onChange={handleChange}
                 />
               </FormGroup>
             </Column>
@@ -244,7 +194,6 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                   type="number"
                   as={Input}
                   control={control}
-                  onChange={handleChange}
                 />
               </FormGroup>
             </Column>
@@ -257,7 +206,6 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                   type="number"
                   as={Input}
                   control={control}
-                  onChange={handleChange}
                 />
               </FormGroup>
             </Column>
@@ -270,7 +218,6 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                   type="number"
                   as={Input}
                   control={control}
-                  onChange={handleChange}
                 />
               </FormGroup>
             </Column>
@@ -283,7 +230,6 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                   type="number"
                   as={Input}
                   control={control}
-                  onChange={handleChange}
                 />
               </FormGroup>
             </Column>
@@ -296,7 +242,6 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
                   type="number"
                   as={Input}
                   control={control}
-                  onChange={handleChange}
                 />
               </FormGroup>
             </Column>
@@ -309,15 +254,14 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
               controlId="totalMonthlyExpenses"
               label="Total Monthly Expenses"
             >
-              <Controller
+              <Input
                 id="totalMonthlyExpenses"
                 name="totalMonthlyExpenses"
                 prefix="£"
                 type="number"
-                as={Input}
-                control={control}
-                value={totalCalculatedExpenseValue}
-                onChange={handleChange}
+                value={String(monthlyExpenses)}
+                // Need as there is currently no `readOnly` prop
+                onChange={() => {}}
                 calculated
               />
             </FormGroup>
@@ -327,15 +271,14 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(props => {
               controlId="netDisposableIncome"
               label="Net Disposable Income"
             >
-              <Controller
+              <Input
                 id="netDisposableIncome"
                 name="netDisposableIncome"
                 prefix="£"
                 type="number"
-                as={Input}
-                control={control}
-                value={netIncomeValue}
-                onChange={handleChange}
+                value={String(disposableIncome)}
+                // Need as there is currently no `readOnly` prop
+                onChange={() => {}}
                 calculated
               />
             </FormGroup>

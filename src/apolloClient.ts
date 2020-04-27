@@ -1,4 +1,4 @@
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { InMemoryCache, defaultDataIdFromObject } from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import fetch from 'isomorphic-unfetch';
@@ -20,9 +20,18 @@ export default function createApolloClient(
     cache: new InMemoryCache({
       cacheRedirects: {
         Query: {
-          personById: (_, args, { getCacheKey }) =>
-            getCacheKey({ __typename: 'PersonType', id: args.id }),
+          personByUuid: (_, args, { getCacheKey }) =>
+            getCacheKey({ __typename: 'PersonType', uuid: args.uuid }),
         },
+      },
+      dataIdFromObject: object => {
+        // eslint-disable-next-line no-underscore-dangle
+        switch (object.__typename) {
+          case 'PersonType':
+            return `PersonType:${(object as any).uuid}`; // use the `uuid` field as the identifier
+          default:
+            return defaultDataIdFromObject(object); // fall back to default handling
+        }
       },
     }).restore(initialState),
   });

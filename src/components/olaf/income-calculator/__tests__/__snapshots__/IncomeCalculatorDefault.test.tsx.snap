@@ -92,7 +92,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               "monthlyHouseholdIncome": "",
                               "mortgageOrRent": "",
                               "otherCredit": "",
-                              "partyId": 1,
                               "phoneAndInternet": "",
                               "studentLoans": "",
                               "utilities": "",
@@ -166,12 +165,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "name": "mortgageOrRent",
                                 },
                               },
-                              "netDisposableIncome": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "netDisposableIncome",
-                                },
-                              },
                               "otherCredit": Object {
                                 "ref": Object {
                                   "focus": undefined,
@@ -188,12 +181,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "ref": Object {
                                   "focus": undefined,
                                   "name": "studentLoans",
-                                },
-                              },
-                              "totalMonthlyExpenses": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "totalMonthlyExpenses",
                                 },
                               },
                               "utilities": Object {
@@ -213,7 +200,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                             "current": false,
                           },
                           "isWatchAllRef": Object {
-                            "current": false,
+                            "current": true,
                           },
                           "mode": Object {
                             "isOnBlur": true,
@@ -253,15 +240,12 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           },
                           "validateSchemaIsValid": [Function],
                           "watchFieldsRef": Object {
-                            "current": Set {
-                              "isFutureMonthlyIncome",
-                            },
+                            "current": Set {},
                           },
                         }
                       }
                       id="averageMonthlyIncome"
                       name="averageMonthlyIncome"
-                      onChange={[Function]}
                       prefix="£"
                       type="number"
                     >
@@ -352,7 +336,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               "monthlyHouseholdIncome": "",
                               "mortgageOrRent": "",
                               "otherCredit": "",
-                              "partyId": 1,
                               "phoneAndInternet": "",
                               "studentLoans": "",
                               "utilities": "",
@@ -426,12 +409,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "name": "mortgageOrRent",
                                 },
                               },
-                              "netDisposableIncome": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "netDisposableIncome",
-                                },
-                              },
                               "otherCredit": Object {
                                 "ref": Object {
                                   "focus": undefined,
@@ -448,12 +425,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "ref": Object {
                                   "focus": undefined,
                                   "name": "studentLoans",
-                                },
-                              },
-                              "totalMonthlyExpenses": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "totalMonthlyExpenses",
                                 },
                               },
                               "utilities": Object {
@@ -473,7 +444,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                             "current": false,
                           },
                           "isWatchAllRef": Object {
-                            "current": false,
+                            "current": true,
                           },
                           "mode": Object {
                             "isOnBlur": true,
@@ -513,15 +484,12 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           },
                           "validateSchemaIsValid": [Function],
                           "watchFieldsRef": Object {
-                            "current": Set {
-                              "isFutureMonthlyIncome",
-                            },
+                            "current": Set {},
                           },
                         }
                       }
                       id="monthlyHouseholdIncome"
                       name="monthlyHouseholdIncome"
-                      onChange={[Function]}
                       prefix="£"
                       type="number"
                     >
@@ -614,7 +582,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               "monthlyHouseholdIncome": "",
                               "mortgageOrRent": "",
                               "otherCredit": "",
-                              "partyId": 1,
                               "phoneAndInternet": "",
                               "studentLoans": "",
                               "utilities": "",
@@ -688,12 +655,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "name": "mortgageOrRent",
                                 },
                               },
-                              "netDisposableIncome": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "netDisposableIncome",
-                                },
-                              },
                               "otherCredit": Object {
                                 "ref": Object {
                                   "focus": undefined,
@@ -710,12 +671,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "ref": Object {
                                   "focus": undefined,
                                   "name": "studentLoans",
-                                },
-                              },
-                              "totalMonthlyExpenses": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "totalMonthlyExpenses",
                                 },
                               },
                               "utilities": Object {
@@ -735,7 +690,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                             "current": false,
                           },
                           "isWatchAllRef": Object {
-                            "current": false,
+                            "current": true,
                           },
                           "mode": Object {
                             "isOnBlur": true,
@@ -775,9 +730,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           },
                           "validateSchemaIsValid": [Function],
                           "watchFieldsRef": Object {
-                            "current": Set {
-                              "isFutureMonthlyIncome",
-                            },
+                            "current": Set {},
                           },
                         }
                       }
@@ -785,7 +738,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                       id="isFutureMonthlyIncome"
                       label="Yes"
                       name="isFutureMonthlyIncome"
-                      onChange={[Function]}
                     >
                       <ForwardRef(Checkbox)
                         checked={false}
@@ -898,7 +850,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "monthlyHouseholdIncome": "",
                                   "mortgageOrRent": "",
                                   "otherCredit": "",
-                                  "partyId": 1,
                                   "phoneAndInternet": "",
                                   "studentLoans": "",
                                   "utilities": "",
@@ -972,12 +923,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                       "name": "mortgageOrRent",
                                     },
                                   },
-                                  "netDisposableIncome": Object {
-                                    "ref": Object {
-                                      "focus": undefined,
-                                      "name": "netDisposableIncome",
-                                    },
-                                  },
                                   "otherCredit": Object {
                                     "ref": Object {
                                       "focus": undefined,
@@ -994,12 +939,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                     "ref": Object {
                                       "focus": undefined,
                                       "name": "studentLoans",
-                                    },
-                                  },
-                                  "totalMonthlyExpenses": Object {
-                                    "ref": Object {
-                                      "focus": undefined,
-                                      "name": "totalMonthlyExpenses",
                                     },
                                   },
                                   "utilities": Object {
@@ -1019,7 +958,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "current": false,
                               },
                               "isWatchAllRef": Object {
-                                "current": false,
+                                "current": true,
                               },
                               "mode": Object {
                                 "isOnBlur": true,
@@ -1059,15 +998,12 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               },
                               "validateSchemaIsValid": [Function],
                               "watchFieldsRef": Object {
-                                "current": Set {
-                                  "isFutureMonthlyIncome",
-                                },
+                                "current": Set {},
                               },
                             }
                           }
                           id="mortgageOrRent"
                           name="mortgageOrRent"
-                          onChange={[Function]}
                           prefix="£"
                           type="number"
                         >
@@ -1158,7 +1094,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "monthlyHouseholdIncome": "",
                                   "mortgageOrRent": "",
                                   "otherCredit": "",
-                                  "partyId": 1,
                                   "phoneAndInternet": "",
                                   "studentLoans": "",
                                   "utilities": "",
@@ -1232,12 +1167,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                       "name": "mortgageOrRent",
                                     },
                                   },
-                                  "netDisposableIncome": Object {
-                                    "ref": Object {
-                                      "focus": undefined,
-                                      "name": "netDisposableIncome",
-                                    },
-                                  },
                                   "otherCredit": Object {
                                     "ref": Object {
                                       "focus": undefined,
@@ -1254,12 +1183,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                     "ref": Object {
                                       "focus": undefined,
                                       "name": "studentLoans",
-                                    },
-                                  },
-                                  "totalMonthlyExpenses": Object {
-                                    "ref": Object {
-                                      "focus": undefined,
-                                      "name": "totalMonthlyExpenses",
                                     },
                                   },
                                   "utilities": Object {
@@ -1279,7 +1202,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "current": false,
                               },
                               "isWatchAllRef": Object {
-                                "current": false,
+                                "current": true,
                               },
                               "mode": Object {
                                 "isOnBlur": true,
@@ -1319,15 +1242,12 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               },
                               "validateSchemaIsValid": [Function],
                               "watchFieldsRef": Object {
-                                "current": Set {
-                                  "isFutureMonthlyIncome",
-                                },
+                                "current": Set {},
                               },
                             }
                           }
                           id="phoneAndInternet"
                           name="phoneAndInternet"
-                          onChange={[Function]}
                           prefix="£"
                           type="number"
                         >
@@ -1418,7 +1338,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "monthlyHouseholdIncome": "",
                                   "mortgageOrRent": "",
                                   "otherCredit": "",
-                                  "partyId": 1,
                                   "phoneAndInternet": "",
                                   "studentLoans": "",
                                   "utilities": "",
@@ -1492,12 +1411,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                       "name": "mortgageOrRent",
                                     },
                                   },
-                                  "netDisposableIncome": Object {
-                                    "ref": Object {
-                                      "focus": undefined,
-                                      "name": "netDisposableIncome",
-                                    },
-                                  },
                                   "otherCredit": Object {
                                     "ref": Object {
                                       "focus": undefined,
@@ -1514,12 +1427,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                     "ref": Object {
                                       "focus": undefined,
                                       "name": "studentLoans",
-                                    },
-                                  },
-                                  "totalMonthlyExpenses": Object {
-                                    "ref": Object {
-                                      "focus": undefined,
-                                      "name": "totalMonthlyExpenses",
                                     },
                                   },
                                   "utilities": Object {
@@ -1539,7 +1446,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "current": false,
                               },
                               "isWatchAllRef": Object {
-                                "current": false,
+                                "current": true,
                               },
                               "mode": Object {
                                 "isOnBlur": true,
@@ -1579,15 +1486,12 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               },
                               "validateSchemaIsValid": [Function],
                               "watchFieldsRef": Object {
-                                "current": Set {
-                                  "isFutureMonthlyIncome",
-                                },
+                                "current": Set {},
                               },
                             }
                           }
                           id="creditCardPayments"
                           name="creditCardPayments"
-                          onChange={[Function]}
                           prefix="£"
                           type="number"
                         >
@@ -1678,7 +1582,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "monthlyHouseholdIncome": "",
                                   "mortgageOrRent": "",
                                   "otherCredit": "",
-                                  "partyId": 1,
                                   "phoneAndInternet": "",
                                   "studentLoans": "",
                                   "utilities": "",
@@ -1752,12 +1655,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                       "name": "mortgageOrRent",
                                     },
                                   },
-                                  "netDisposableIncome": Object {
-                                    "ref": Object {
-                                      "focus": undefined,
-                                      "name": "netDisposableIncome",
-                                    },
-                                  },
                                   "otherCredit": Object {
                                     "ref": Object {
                                       "focus": undefined,
@@ -1774,12 +1671,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                     "ref": Object {
                                       "focus": undefined,
                                       "name": "studentLoans",
-                                    },
-                                  },
-                                  "totalMonthlyExpenses": Object {
-                                    "ref": Object {
-                                      "focus": undefined,
-                                      "name": "totalMonthlyExpenses",
                                     },
                                   },
                                   "utilities": Object {
@@ -1799,7 +1690,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "current": false,
                               },
                               "isWatchAllRef": Object {
-                                "current": false,
+                                "current": true,
                               },
                               "mode": Object {
                                 "isOnBlur": true,
@@ -1839,15 +1730,12 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               },
                               "validateSchemaIsValid": [Function],
                               "watchFieldsRef": Object {
-                                "current": Set {
-                                  "isFutureMonthlyIncome",
-                                },
+                                "current": Set {},
                               },
                             }
                           }
                           id="utilities"
                           name="utilities"
-                          onChange={[Function]}
                           prefix="£"
                           type="number"
                         >
@@ -1938,7 +1826,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "monthlyHouseholdIncome": "",
                                   "mortgageOrRent": "",
                                   "otherCredit": "",
-                                  "partyId": 1,
                                   "phoneAndInternet": "",
                                   "studentLoans": "",
                                   "utilities": "",
@@ -2012,12 +1899,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                       "name": "mortgageOrRent",
                                     },
                                   },
-                                  "netDisposableIncome": Object {
-                                    "ref": Object {
-                                      "focus": undefined,
-                                      "name": "netDisposableIncome",
-                                    },
-                                  },
                                   "otherCredit": Object {
                                     "ref": Object {
                                       "focus": undefined,
@@ -2034,12 +1915,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                     "ref": Object {
                                       "focus": undefined,
                                       "name": "studentLoans",
-                                    },
-                                  },
-                                  "totalMonthlyExpenses": Object {
-                                    "ref": Object {
-                                      "focus": undefined,
-                                      "name": "totalMonthlyExpenses",
                                     },
                                   },
                                   "utilities": Object {
@@ -2059,7 +1934,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "current": false,
                               },
                               "isWatchAllRef": Object {
-                                "current": false,
+                                "current": true,
                               },
                               "mode": Object {
                                 "isOnBlur": true,
@@ -2099,15 +1974,12 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               },
                               "validateSchemaIsValid": [Function],
                               "watchFieldsRef": Object {
-                                "current": Set {
-                                  "isFutureMonthlyIncome",
-                                },
+                                "current": Set {},
                               },
                             }
                           }
                           id="insurance"
                           name="insurance"
-                          onChange={[Function]}
                           prefix="£"
                           type="number"
                         >
@@ -2198,7 +2070,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "monthlyHouseholdIncome": "",
                                   "mortgageOrRent": "",
                                   "otherCredit": "",
-                                  "partyId": 1,
                                   "phoneAndInternet": "",
                                   "studentLoans": "",
                                   "utilities": "",
@@ -2272,12 +2143,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                       "name": "mortgageOrRent",
                                     },
                                   },
-                                  "netDisposableIncome": Object {
-                                    "ref": Object {
-                                      "focus": undefined,
-                                      "name": "netDisposableIncome",
-                                    },
-                                  },
                                   "otherCredit": Object {
                                     "ref": Object {
                                       "focus": undefined,
@@ -2294,12 +2159,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                     "ref": Object {
                                       "focus": undefined,
                                       "name": "studentLoans",
-                                    },
-                                  },
-                                  "totalMonthlyExpenses": Object {
-                                    "ref": Object {
-                                      "focus": undefined,
-                                      "name": "totalMonthlyExpenses",
                                     },
                                   },
                                   "utilities": Object {
@@ -2319,7 +2178,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "current": false,
                               },
                               "isWatchAllRef": Object {
-                                "current": false,
+                                "current": true,
                               },
                               "mode": Object {
                                 "isOnBlur": true,
@@ -2359,15 +2218,12 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               },
                               "validateSchemaIsValid": [Function],
                               "watchFieldsRef": Object {
-                                "current": Set {
-                                  "isFutureMonthlyIncome",
-                                },
+                                "current": Set {},
                               },
                             }
                           }
                           id="carFinance"
                           name="carFinance"
-                          onChange={[Function]}
                           prefix="£"
                           type="number"
                         >
@@ -2458,7 +2314,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "monthlyHouseholdIncome": "",
                                   "mortgageOrRent": "",
                                   "otherCredit": "",
-                                  "partyId": 1,
                                   "phoneAndInternet": "",
                                   "studentLoans": "",
                                   "utilities": "",
@@ -2532,12 +2387,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                       "name": "mortgageOrRent",
                                     },
                                   },
-                                  "netDisposableIncome": Object {
-                                    "ref": Object {
-                                      "focus": undefined,
-                                      "name": "netDisposableIncome",
-                                    },
-                                  },
                                   "otherCredit": Object {
                                     "ref": Object {
                                       "focus": undefined,
@@ -2554,12 +2403,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                     "ref": Object {
                                       "focus": undefined,
                                       "name": "studentLoans",
-                                    },
-                                  },
-                                  "totalMonthlyExpenses": Object {
-                                    "ref": Object {
-                                      "focus": undefined,
-                                      "name": "totalMonthlyExpenses",
                                     },
                                   },
                                   "utilities": Object {
@@ -2579,7 +2422,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "current": false,
                               },
                               "isWatchAllRef": Object {
-                                "current": false,
+                                "current": true,
                               },
                               "mode": Object {
                                 "isOnBlur": true,
@@ -2619,15 +2462,12 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               },
                               "validateSchemaIsValid": [Function],
                               "watchFieldsRef": Object {
-                                "current": Set {
-                                  "isFutureMonthlyIncome",
-                                },
+                                "current": Set {},
                               },
                             }
                           }
                           id="foodAndClothes"
                           name="foodAndClothes"
-                          onChange={[Function]}
                           prefix="£"
                           type="number"
                         >
@@ -2718,7 +2558,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "monthlyHouseholdIncome": "",
                                   "mortgageOrRent": "",
                                   "otherCredit": "",
-                                  "partyId": 1,
                                   "phoneAndInternet": "",
                                   "studentLoans": "",
                                   "utilities": "",
@@ -2792,12 +2631,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                       "name": "mortgageOrRent",
                                     },
                                   },
-                                  "netDisposableIncome": Object {
-                                    "ref": Object {
-                                      "focus": undefined,
-                                      "name": "netDisposableIncome",
-                                    },
-                                  },
                                   "otherCredit": Object {
                                     "ref": Object {
                                       "focus": undefined,
@@ -2814,12 +2647,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                     "ref": Object {
                                       "focus": undefined,
                                       "name": "studentLoans",
-                                    },
-                                  },
-                                  "totalMonthlyExpenses": Object {
-                                    "ref": Object {
-                                      "focus": undefined,
-                                      "name": "totalMonthlyExpenses",
                                     },
                                   },
                                   "utilities": Object {
@@ -2839,7 +2666,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "current": false,
                               },
                               "isWatchAllRef": Object {
-                                "current": false,
+                                "current": true,
                               },
                               "mode": Object {
                                 "isOnBlur": true,
@@ -2879,15 +2706,12 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               },
                               "validateSchemaIsValid": [Function],
                               "watchFieldsRef": Object {
-                                "current": Set {
-                                  "isFutureMonthlyIncome",
-                                },
+                                "current": Set {},
                               },
                             }
                           }
                           id="fuel"
                           name="fuel"
-                          onChange={[Function]}
                           prefix="£"
                           type="number"
                         >
@@ -2978,7 +2802,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "monthlyHouseholdIncome": "",
                                   "mortgageOrRent": "",
                                   "otherCredit": "",
-                                  "partyId": 1,
                                   "phoneAndInternet": "",
                                   "studentLoans": "",
                                   "utilities": "",
@@ -3052,12 +2875,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                       "name": "mortgageOrRent",
                                     },
                                   },
-                                  "netDisposableIncome": Object {
-                                    "ref": Object {
-                                      "focus": undefined,
-                                      "name": "netDisposableIncome",
-                                    },
-                                  },
                                   "otherCredit": Object {
                                     "ref": Object {
                                       "focus": undefined,
@@ -3074,12 +2891,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                     "ref": Object {
                                       "focus": undefined,
                                       "name": "studentLoans",
-                                    },
-                                  },
-                                  "totalMonthlyExpenses": Object {
-                                    "ref": Object {
-                                      "focus": undefined,
-                                      "name": "totalMonthlyExpenses",
                                     },
                                   },
                                   "utilities": Object {
@@ -3099,7 +2910,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "current": false,
                               },
                               "isWatchAllRef": Object {
-                                "current": false,
+                                "current": true,
                               },
                               "mode": Object {
                                 "isOnBlur": true,
@@ -3139,15 +2950,12 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               },
                               "validateSchemaIsValid": [Function],
                               "watchFieldsRef": Object {
-                                "current": Set {
-                                  "isFutureMonthlyIncome",
-                                },
+                                "current": Set {},
                               },
                             }
                           }
                           id="studentLoans"
                           name="studentLoans"
-                          onChange={[Function]}
                           prefix="£"
                           type="number"
                         >
@@ -3238,7 +3046,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "monthlyHouseholdIncome": "",
                                   "mortgageOrRent": "",
                                   "otherCredit": "",
-                                  "partyId": 1,
                                   "phoneAndInternet": "",
                                   "studentLoans": "",
                                   "utilities": "",
@@ -3312,12 +3119,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                       "name": "mortgageOrRent",
                                     },
                                   },
-                                  "netDisposableIncome": Object {
-                                    "ref": Object {
-                                      "focus": undefined,
-                                      "name": "netDisposableIncome",
-                                    },
-                                  },
                                   "otherCredit": Object {
                                     "ref": Object {
                                       "focus": undefined,
@@ -3334,12 +3135,6 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                     "ref": Object {
                                       "focus": undefined,
                                       "name": "studentLoans",
-                                    },
-                                  },
-                                  "totalMonthlyExpenses": Object {
-                                    "ref": Object {
-                                      "focus": undefined,
-                                      "name": "totalMonthlyExpenses",
                                     },
                                   },
                                   "utilities": Object {
@@ -3359,7 +3154,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                 "current": false,
                               },
                               "isWatchAllRef": Object {
-                                "current": false,
+                                "current": true,
                               },
                               "mode": Object {
                                 "isOnBlur": true,
@@ -3399,15 +3194,12 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               },
                               "validateSchemaIsValid": [Function],
                               "watchFieldsRef": Object {
-                                "current": Set {
-                                  "isFutureMonthlyIncome",
-                                },
+                                "current": Set {},
                               },
                             }
                           }
                           id="otherCredit"
                           name="otherCredit"
-                          onChange={[Function]}
                           prefix="£"
                           type="number"
                         >
@@ -3486,241 +3278,39 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                   <div
                     className="formgroup--content"
                   >
-                    <Controller
-                      as={
-                        Object {
-                          "$$typeof": Symbol(react.memo),
-                          "compare": null,
-                          "type": Object {
-                            "$$typeof": Symbol(react.forward_ref),
-                            "displayName": "ForwardRef(TextInput)",
-                            "render": [Function],
-                          },
-                        }
-                      }
+                    <ForwardRef(TextInput)
                       calculated={true}
-                      control={
-                        Object {
-                          "defaultValuesRef": Object {
-                            "current": Object {
-                              "averageMonthlyIncome": "",
-                              "carFinance": "",
-                              "creditCardPayments": "",
-                              "foodAndClothes": "",
-                              "fuel": "",
-                              "futureMonthlyIncome": "",
-                              "insurance": "",
-                              "isFutureMonthlyIncome": false,
-                              "monthlyHouseholdIncome": "",
-                              "mortgageOrRent": "",
-                              "otherCredit": "",
-                              "partyId": 1,
-                              "phoneAndInternet": "",
-                              "studentLoans": "",
-                              "utilities": "",
-                            },
-                          },
-                          "dirtyFieldsRef": Object {
-                            "current": Set {},
-                          },
-                          "errorsRef": Object {
-                            "current": Object {},
-                          },
-                          "fieldArrayDefaultValues": Object {
-                            "current": Object {},
-                          },
-                          "fieldArrayNamesRef": Object {
-                            "current": Set {},
-                          },
-                          "fieldsRef": Object {
-                            "current": Object {
-                              "averageMonthlyIncome": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "averageMonthlyIncome",
-                                },
-                              },
-                              "carFinance": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "carFinance",
-                                },
-                              },
-                              "creditCardPayments": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "creditCardPayments",
-                                },
-                              },
-                              "foodAndClothes": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "foodAndClothes",
-                                },
-                              },
-                              "fuel": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "fuel",
-                                },
-                              },
-                              "insurance": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "insurance",
-                                },
-                              },
-                              "isFutureMonthlyIncome": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "isFutureMonthlyIncome",
-                                },
-                              },
-                              "monthlyHouseholdIncome": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "monthlyHouseholdIncome",
-                                },
-                              },
-                              "mortgageOrRent": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "mortgageOrRent",
-                                },
-                              },
-                              "netDisposableIncome": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "netDisposableIncome",
-                                },
-                              },
-                              "otherCredit": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "otherCredit",
-                                },
-                              },
-                              "phoneAndInternet": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "phoneAndInternet",
-                                },
-                              },
-                              "studentLoans": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "studentLoans",
-                                },
-                              },
-                              "totalMonthlyExpenses": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "totalMonthlyExpenses",
-                                },
-                              },
-                              "utilities": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "utilities",
-                                },
-                              },
-                            },
-                          },
-                          "fieldsWithValidationRef": Object {
-                            "current": Set {},
-                          },
-                          "formState": null,
-                          "getValues": [Function],
-                          "isDirtyRef": Object {
-                            "current": false,
-                          },
-                          "isWatchAllRef": Object {
-                            "current": false,
-                          },
-                          "mode": Object {
-                            "isOnBlur": true,
-                            "isOnChange": false,
-                            "isOnSubmit": false,
-                          },
-                          "reRender": [Function],
-                          "reValidateMode": Object {
-                            "isReValidateOnBlur": false,
-                            "isReValidateOnSubmit": false,
-                          },
-                          "readFormStateRef": Object {
-                            "current": Object {
-                              "constructor": true,
-                              "dirty": false,
-                              "dirtyFields": false,
-                              "isSubmitted": true,
-                              "isSubmitting": false,
-                              "isValid": false,
-                              "submitCount": false,
-                              "touched": false,
-                            },
-                          },
-                          "register": [Function],
-                          "removeFieldEventListener": [Function],
-                          "resetFieldArrayFunctionRef": Object {
-                            "current": Object {},
-                          },
-                          "setValue": [Function],
-                          "touchedFieldsRef": Object {
-                            "current": Object {},
-                          },
-                          "triggerValidation": [Function],
-                          "unregister": [Function],
-                          "validFieldsRef": Object {
-                            "current": Set {},
-                          },
-                          "validateSchemaIsValid": [Function],
-                          "watchFieldsRef": Object {
-                            "current": Set {
-                              "isFutureMonthlyIncome",
-                            },
-                          },
-                        }
-                      }
                       id="totalMonthlyExpenses"
                       name="totalMonthlyExpenses"
                       onChange={[Function]}
                       prefix="£"
                       type="number"
+                      value="0"
                     >
-                      <ForwardRef(TextInput)
-                        calculated={true}
-                        id="totalMonthlyExpenses"
-                        name="totalMonthlyExpenses"
-                        onBlur={[Function]}
-                        onChange={[Function]}
-                        prefix="£"
-                        type="number"
+                      <div
+                        className="textinput regular"
                       >
-                        <div
-                          className="textinput regular"
+                        <input
+                          className="textinput--native regular -calculated -prefix"
+                          id="totalMonthlyExpenses"
+                          name="totalMonthlyExpenses"
+                          onChange={[Function]}
+                          type="number"
+                          value="0"
+                        />
+                        <Memo(Text)
+                          className="textinput--prefix"
+                          color="dark"
+                          size="regular"
                         >
-                          <input
-                            className="textinput--native regular -calculated -prefix"
-                            id="totalMonthlyExpenses"
-                            name="totalMonthlyExpenses"
-                            onBlur={[Function]}
-                            onChange={[Function]}
-                            type="number"
-                          />
-                          <Memo(Text)
-                            className="textinput--prefix"
-                            color="dark"
-                            size="regular"
+                          <span
+                            className="text textinput--prefix -regular -dark"
                           >
-                            <span
-                              className="text textinput--prefix -regular -dark"
-                            >
-                              £
-                            </span>
-                          </Memo(Text)>
-                        </div>
-                      </ForwardRef(TextInput)>
-                    </Controller>
+                            £
+                          </span>
+                        </Memo(Text)>
+                      </div>
+                    </ForwardRef(TextInput)>
                   </div>
                 </div>
               </Memo(Formgroup)>
@@ -3746,241 +3336,39 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                   <div
                     className="formgroup--content"
                   >
-                    <Controller
-                      as={
-                        Object {
-                          "$$typeof": Symbol(react.memo),
-                          "compare": null,
-                          "type": Object {
-                            "$$typeof": Symbol(react.forward_ref),
-                            "displayName": "ForwardRef(TextInput)",
-                            "render": [Function],
-                          },
-                        }
-                      }
+                    <ForwardRef(TextInput)
                       calculated={true}
-                      control={
-                        Object {
-                          "defaultValuesRef": Object {
-                            "current": Object {
-                              "averageMonthlyIncome": "",
-                              "carFinance": "",
-                              "creditCardPayments": "",
-                              "foodAndClothes": "",
-                              "fuel": "",
-                              "futureMonthlyIncome": "",
-                              "insurance": "",
-                              "isFutureMonthlyIncome": false,
-                              "monthlyHouseholdIncome": "",
-                              "mortgageOrRent": "",
-                              "otherCredit": "",
-                              "partyId": 1,
-                              "phoneAndInternet": "",
-                              "studentLoans": "",
-                              "utilities": "",
-                            },
-                          },
-                          "dirtyFieldsRef": Object {
-                            "current": Set {},
-                          },
-                          "errorsRef": Object {
-                            "current": Object {},
-                          },
-                          "fieldArrayDefaultValues": Object {
-                            "current": Object {},
-                          },
-                          "fieldArrayNamesRef": Object {
-                            "current": Set {},
-                          },
-                          "fieldsRef": Object {
-                            "current": Object {
-                              "averageMonthlyIncome": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "averageMonthlyIncome",
-                                },
-                              },
-                              "carFinance": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "carFinance",
-                                },
-                              },
-                              "creditCardPayments": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "creditCardPayments",
-                                },
-                              },
-                              "foodAndClothes": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "foodAndClothes",
-                                },
-                              },
-                              "fuel": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "fuel",
-                                },
-                              },
-                              "insurance": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "insurance",
-                                },
-                              },
-                              "isFutureMonthlyIncome": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "isFutureMonthlyIncome",
-                                },
-                              },
-                              "monthlyHouseholdIncome": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "monthlyHouseholdIncome",
-                                },
-                              },
-                              "mortgageOrRent": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "mortgageOrRent",
-                                },
-                              },
-                              "netDisposableIncome": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "netDisposableIncome",
-                                },
-                              },
-                              "otherCredit": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "otherCredit",
-                                },
-                              },
-                              "phoneAndInternet": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "phoneAndInternet",
-                                },
-                              },
-                              "studentLoans": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "studentLoans",
-                                },
-                              },
-                              "totalMonthlyExpenses": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "totalMonthlyExpenses",
-                                },
-                              },
-                              "utilities": Object {
-                                "ref": Object {
-                                  "focus": undefined,
-                                  "name": "utilities",
-                                },
-                              },
-                            },
-                          },
-                          "fieldsWithValidationRef": Object {
-                            "current": Set {},
-                          },
-                          "formState": null,
-                          "getValues": [Function],
-                          "isDirtyRef": Object {
-                            "current": false,
-                          },
-                          "isWatchAllRef": Object {
-                            "current": false,
-                          },
-                          "mode": Object {
-                            "isOnBlur": true,
-                            "isOnChange": false,
-                            "isOnSubmit": false,
-                          },
-                          "reRender": [Function],
-                          "reValidateMode": Object {
-                            "isReValidateOnBlur": false,
-                            "isReValidateOnSubmit": false,
-                          },
-                          "readFormStateRef": Object {
-                            "current": Object {
-                              "constructor": true,
-                              "dirty": false,
-                              "dirtyFields": false,
-                              "isSubmitted": true,
-                              "isSubmitting": false,
-                              "isValid": false,
-                              "submitCount": false,
-                              "touched": false,
-                            },
-                          },
-                          "register": [Function],
-                          "removeFieldEventListener": [Function],
-                          "resetFieldArrayFunctionRef": Object {
-                            "current": Object {},
-                          },
-                          "setValue": [Function],
-                          "touchedFieldsRef": Object {
-                            "current": Object {},
-                          },
-                          "triggerValidation": [Function],
-                          "unregister": [Function],
-                          "validFieldsRef": Object {
-                            "current": Set {},
-                          },
-                          "validateSchemaIsValid": [Function],
-                          "watchFieldsRef": Object {
-                            "current": Set {
-                              "isFutureMonthlyIncome",
-                            },
-                          },
-                        }
-                      }
                       id="netDisposableIncome"
                       name="netDisposableIncome"
                       onChange={[Function]}
                       prefix="£"
                       type="number"
+                      value="0"
                     >
-                      <ForwardRef(TextInput)
-                        calculated={true}
-                        id="netDisposableIncome"
-                        name="netDisposableIncome"
-                        onBlur={[Function]}
-                        onChange={[Function]}
-                        prefix="£"
-                        type="number"
+                      <div
+                        className="textinput regular"
                       >
-                        <div
-                          className="textinput regular"
+                        <input
+                          className="textinput--native regular -calculated -prefix"
+                          id="netDisposableIncome"
+                          name="netDisposableIncome"
+                          onChange={[Function]}
+                          type="number"
+                          value="0"
+                        />
+                        <Memo(Text)
+                          className="textinput--prefix"
+                          color="dark"
+                          size="regular"
                         >
-                          <input
-                            className="textinput--native regular -calculated -prefix"
-                            id="netDisposableIncome"
-                            name="netDisposableIncome"
-                            onBlur={[Function]}
-                            onChange={[Function]}
-                            type="number"
-                          />
-                          <Memo(Text)
-                            className="textinput--prefix"
-                            color="dark"
-                            size="regular"
+                          <span
+                            className="text textinput--prefix -regular -dark"
                           >
-                            <span
-                              className="text textinput--prefix -regular -dark"
-                            >
-                              £
-                            </span>
-                          </Memo(Text)>
-                        </div>
-                      </ForwardRef(TextInput)>
-                    </Controller>
+                            £
+                          </span>
+                        </Memo(Text)>
+                      </div>
+                    </ForwardRef(TextInput)>
                   </div>
                 </div>
               </Memo(Formgroup)>

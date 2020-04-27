@@ -16,18 +16,18 @@ describe('<EmploymentFormContainer />', () => {
   it('should post data to the server correctly', async () => {
     // ARRANGE
     let mutationCalled = false;
-    const personId = '1337';
+    const personUuid = '1337';
     const onCompletedMock = jest.fn();
     const mocks: MockedResponse[] = [
       {
         request: {
           query: GET_EMPLOYMENT_CONTAINER_DATA,
-          variables: { id: personId },
+          variables: { uuid: personUuid },
         },
         result: {
           data: {
-            personById: {
-              id: personId,
+            personByUuid: {
+              uuid: personUuid,
               partyId: '911',
               __typename: 'PersonType',
             },
@@ -84,7 +84,7 @@ describe('<EmploymentFormContainer />', () => {
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
         <EmploymentFormContainer
-          personId={personId}
+          personUuid={personUuid}
           onCompleted={onCompletedMock}
         />
       </MockedProvider>,

@@ -7,8 +7,8 @@
 // GraphQL query operation: GetEmploymentContainerDataQuery
 // ====================================================
 
-export interface GetEmploymentContainerDataQuery_personById {
-  id: string;
+export interface GetEmploymentContainerDataQuery_personByUuid {
+  uuid: string;
   partyId: string;
 }
 
@@ -25,9 +25,9 @@ export interface GetEmploymentContainerDataQuery_allDropDowns {
 
 export interface GetEmploymentContainerDataQuery {
   /**
-   * Find Person by Id
+   * Find Person by Uuid
    */
-  personById: GetEmploymentContainerDataQuery_personById | null;
+  personByUuid: GetEmploymentContainerDataQuery_personByUuid | null;
   /**
    * get all drop downs
    */
@@ -35,5 +35,5 @@ export interface GetEmploymentContainerDataQuery {
 }
 
 export interface GetEmploymentContainerDataQueryVariables {
-  id: string;
+  uuid: string;
 }

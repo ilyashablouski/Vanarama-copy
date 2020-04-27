@@ -33,8 +33,8 @@ const BankDetails: FC<IBankDetailsProps> = memo(props => {
     },
   });
 
-  const months: string[] = genMonths() || [];
-  const years: number[] = genYears(100) || [];
+  const months = genMonths();
+  const years = genYears(100);
 
   return (
     <form

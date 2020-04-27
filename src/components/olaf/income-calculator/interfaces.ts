@@ -1,28 +1,21 @@
 export interface IIncomeCalculatorFormValues {
-  partyId?: number;
   averageMonthlyIncome?: string;
-  monthlyHouseholdIncome?: string;
-  futureMonthlyIncome?: string;
-  isFutureMonthlyIncome?: boolean;
-  mortgageOrRent?: string;
-  creditCardPayments?: string;
-  insurance?: string;
-  foodAndClothes?: string;
-  studentLoans?: string;
-  phoneAndInternet?: string;
-  utilities?: string;
   carFinance?: string;
+  creditCardPayments?: string;
+  foodAndClothes?: string;
   fuel?: string;
+  futureMonthlyIncome?: string;
+  insurance?: string;
+  isFutureMonthlyIncome?: boolean;
+  monthlyHouseholdIncome?: string;
+  mortgageOrRent?: string;
   otherCredit?: string;
+  phoneAndInternet?: string;
+  studentLoans?: string;
+  utilities?: string;
 }
 
-export interface IBaseProps {
-  id?: string;
-  className?: string;
-}
-
-export interface IIncomeCalculatorProps extends IBaseProps {
-  data?: IIncomeCalculatorFormValues;
+export interface IIncomeCalculatorProps {
   onSubmit: (values: IIncomeCalculatorFormValues) => Promise<void>;
   isSubmitting?: boolean;
 }

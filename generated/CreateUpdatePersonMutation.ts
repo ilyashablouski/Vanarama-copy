@@ -10,7 +10,7 @@ import { PersonInputObject } from "./globalTypes";
 // ====================================================
 
 export interface CreateUpdatePersonMutation_createUpdatePerson {
-  id: string;
+  uuid: string;
   partyId: string;
 }
 

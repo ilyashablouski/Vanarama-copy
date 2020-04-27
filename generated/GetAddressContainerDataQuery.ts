@@ -7,8 +7,8 @@
 // GraphQL query operation: GetAddressContainerDataQuery
 // ====================================================
 
-export interface GetAddressContainerDataQuery_personById {
-  id: string;
+export interface GetAddressContainerDataQuery_personByUuid {
+  uuid: string;
   partyId: string;
 }
 
@@ -25,9 +25,9 @@ export interface GetAddressContainerDataQuery_allDropDowns {
 
 export interface GetAddressContainerDataQuery {
   /**
-   * Find Person by Id
+   * Find Person by Uuid
    */
-  personById: GetAddressContainerDataQuery_personById | null;
+  personByUuid: GetAddressContainerDataQuery_personByUuid | null;
   /**
    * get all drop downs
    */
@@ -35,5 +35,5 @@ export interface GetAddressContainerDataQuery {
 }
 
 export interface GetAddressContainerDataQueryVariables {
-  id: string;
+  uuid: string;
 }

@@ -16,7 +16,7 @@ import { AllDropDownsQuery } from '../../../../generated/AllDropDownsQuery';
 const CREATE_UPDATE_PERSON = gql`
   mutation CreateUpdatePersonMutation($input: PersonInputObject!) {
     createUpdatePerson(input: $input) {
-      id
+      uuid
       partyId
     }
   }
@@ -37,7 +37,7 @@ const AboutYouPage: NextPage = () => {
     CREATE_UPDATE_PERSON,
     {
       onCompleted: data => {
-        router.push(`/olaf/address-history/${data.createUpdatePerson?.id}`);
+        router.push(`/olaf/address-history/${data.createUpdatePerson!.uuid}`);
       },
     },
   );

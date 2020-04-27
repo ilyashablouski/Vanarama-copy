@@ -14,9 +14,9 @@ import { historyToMoment } from '../../utils/dates';
 import { IEmploymentFormContainerProps } from './interfaces';
 
 export const GET_EMPLOYMENT_CONTAINER_DATA = gql`
-  query GetEmploymentContainerDataQuery($id: ID!) {
-    personById(id: $id) {
-      id
+  query GetEmploymentContainerDataQuery($uuid: ID!) {
+    personByUuid(uuid: $uuid) {
+      uuid
       partyId
     }
     allDropDowns {
@@ -37,12 +37,12 @@ export const SAVE_EMPLOYMENT_HISTORY = gql`
 `;
 
 const EmploymentFormContainer: React.FC<IEmploymentFormContainerProps> = ({
-  personId,
+  personUuid,
   onCompleted,
 }) => {
   const { loading, error, data } = useQuery<Query, QueryVariables>(
     GET_EMPLOYMENT_CONTAINER_DATA,
-    { variables: { id: personId } },
+    { variables: { uuid: personUuid } },
   );
 
   const [saveEmploymentHistory] = useMutation<Mutation, MutationVariables>(
@@ -58,7 +58,7 @@ const EmploymentFormContainer: React.FC<IEmploymentFormContainerProps> = ({
     return <p>Error: {error.message}</p>;
   }
 
-  if (!data || !data.allDropDowns || !data.personById) {
+  if (!data || !data.allDropDowns || !data.personByUuid) {
     return null;
   }
 
@@ -69,7 +69,7 @@ const EmploymentFormContainer: React.FC<IEmploymentFormContainerProps> = ({
         await saveEmploymentHistory({
           variables: {
             input: {
-              partyId: data.personById?.partyId!,
+              partyId: data.personByUuid!.partyId,
               employmentHistories: values.history.map(item => ({
                 companyAddressServiceId: item.address?.id || undefined,
                 companyName: item.company || undefined,

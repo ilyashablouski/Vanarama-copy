@@ -14,9 +14,9 @@ import { historyToMoment } from '../../utils/dates';
 import { IAddressFormContainerProps } from './interfaces';
 
 const GET_ADDRESS_CONTAINER_DATA = gql`
-  query GetAddressContainerDataQuery($id: ID!) {
-    personById(id: $id) {
-      id
+  query GetAddressContainerDataQuery($uuid: ID!) {
+    personByUuid(uuid: $uuid) {
+      uuid
       partyId
     }
     allDropDowns {
@@ -35,12 +35,12 @@ const SAVE_ADDRESS_HISTORY = gql`
 `;
 
 const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
-  personId,
+  personUuid,
   onCompleted,
 }) => {
   const { loading, error, data } = useQuery<Query, QueryVariables>(
     GET_ADDRESS_CONTAINER_DATA,
-    { variables: { id: personId } },
+    { variables: { uuid: personUuid } },
   );
 
   const [saveAddressHistory] = useMutation<Mutation, MutationVariables>(
@@ -56,7 +56,7 @@ const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
     return <p>Error: {error.message}</p>;
   }
 
-  if (!data || !data.allDropDowns || !data.personById) {
+  if (!data || !data.allDropDowns || !data.personByUuid) {
     return null;
   }
 
@@ -67,7 +67,7 @@ const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
         await saveAddressHistory({
           variables: {
             input: {
-              partyId: data.personById?.partyId!,
+              partyId: data.personByUuid!.partyId,
               addresses: values.history.map(item => ({
                 serviceId: item.address?.id,
                 propertyStatus: item.status,

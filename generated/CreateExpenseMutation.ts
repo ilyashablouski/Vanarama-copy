@@ -10,7 +10,6 @@ import { IncomeAndExpenseInputObject } from "./globalTypes";
 // ====================================================
 
 export interface CreateExpenseMutation_createUpdateIncomeAndExpense {
-  id: string;
   uuid: string;
   averageMonthlyIncome: number;
 }
