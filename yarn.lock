@@ -1237,6 +1237,70 @@
   resolved "https://registry.npmjs.org/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
 
+"@egjs/agent@^2.1.5":
+  version "2.1.5"
+  resolved "https://registry.npmjs.org/@egjs/agent/-/agent-2.1.5.tgz#692d2c92b1d8b6f36d0ceccc627199490b445698"
+  integrity sha512-PfdMXd+4WiZN9Xcc1MU31w/RSi6GK6hgufuADRKNY60nXvT34dnXaIyEQlTBkviDfYSOZ8kYW66udyiEMcpqVA==
+
+"@egjs/axes@^2.5.13":
+  version "2.6.1"
+  resolved "https://registry.npmjs.org/@egjs/axes/-/axes-2.6.1.tgz#d6faa1d3e06b32eaa30762c40019db5dd7911eae"
+  integrity sha512-6Ca5oGM57+deYCxl73i0UZumEssVHndMJXEj2Bdr+TM5OByftykZ99OvxGgTmoEVZoLkEdvT0kG2h1is0ddmBA==
+  dependencies:
+    "@egjs/agent" "^2.1.5"
+    "@egjs/component" "^2.1.2"
+    "@egjs/hammerjs" "^2.0.15"
+
+"@egjs/children-differ@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/@egjs/children-differ/-/children-differ-1.0.0.tgz#7f74d2aa47e9ae342cdc8e1e50c440391de1ec53"
+  integrity sha512-NxaJx+dzLUVqLb6iPcu7Mt5m2HDH55VqqZUxGKZ74DKAsL1jxbXSv0jeql0ShN6ZuocULLgr+fztz2bsaBBLkQ==
+  dependencies:
+    "@egjs/list-differ" "^1.0.0"
+
+"@egjs/component@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.npmjs.org/@egjs/component/-/component-2.1.2.tgz#c466a0a6fc6ba2d479814dcbe6ee4643c25a2e5b"
+  integrity sha512-7tnPiqxbSZ0porzlm0+/O3qZdanMj0zOq0sb17wQXuaRG49XKKKJaO+SacGnZDqf308N5hzJ0m9fZ4+j+VBvXA==
+
+"@egjs/flicking@^3.4.7":
+  version "3.4.7"
+  resolved "https://registry.npmjs.org/@egjs/flicking/-/flicking-3.4.7.tgz#93ca7b9e5cd1832346f6b630afb72b021036f6a1"
+  integrity sha512-RM9GHGcDOvyUBj3U6lJKCtUJiu/Z0rvivuZILymPqLPplBu8crbLp+sKkb5uVJavupp7Czssu8zLgZGNFlsIiQ==
+  dependencies:
+    "@egjs/axes" "^2.5.13"
+    "@egjs/component" "^2.1.2"
+    "@egjs/list-differ" "^1.0.0"
+
+"@egjs/hammerjs@^2.0.15":
+  version "2.0.17"
+  resolved "https://registry.npmjs.org/@egjs/hammerjs/-/hammerjs-2.0.17.tgz#5dc02af75a6a06e4c2db0202cae38c9263895124"
+  integrity sha512-XQsZgjm2EcVUiZQf11UBJQfmZeEmOW8DpI1gsFeln6w0ae0ii4dMQEQ0kjl6DspdWX1aGY1/loyXnP0JS06e/A==
+  dependencies:
+    "@types/hammerjs" "^2.0.36"
+
+"@egjs/list-differ@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/@egjs/list-differ/-/list-differ-1.0.0.tgz#2277aff52e3e4bd9318d5c30ffc3ba3b6216f05e"
+  integrity sha512-HsbMKc0ZAQH+EUeCmI/2PvTYSybmkaWwakU8QGDYYgMVIg9BQ5sM0A0Nnombjxo2+JzXHxmH+jw//yGX+y6GYw==
+
+"@egjs/react-children-differ@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/@egjs/react-children-differ/-/react-children-differ-1.0.0.tgz#646e90d15c51fce42b8746d1b1cae7bdab433536"
+  integrity sha512-ZWD0DQYvHs429Igo3eRsOK1Db5P+ldPwVWU2VHEAEZC7yVa1dCfp+NtxEOgmQGF/S2KQjsrJbVwBddG1PDbKhg==
+  dependencies:
+    "@egjs/children-differ" "^1.0.0"
+
+"@egjs/react-flicking@^3.2.1":
+  version "3.2.1"
+  resolved "https://registry.npmjs.org/@egjs/react-flicking/-/react-flicking-3.2.1.tgz#56c6ed364940455b214e2a093ba7254279296750"
+  integrity sha512-IJQ6hC15ASO8JNByAQfZFa+fdGvcxkbb2E8UBQG2zsEcoP3hS0a4zmz+5JPwxK10SbTBrCygXmBAmW6eDoFwEg==
+  dependencies:
+    "@egjs/children-differ" "^1.0.0"
+    "@egjs/flicking" "^3.4.7"
+    "@egjs/list-differ" "^1.0.0"
+    "@egjs/react-children-differ" "^1.0.0"
+
 "@endemolshinegroup/cosmiconfig-typescript-loader@^1.0.0":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@endemolshinegroup/cosmiconfig-typescript-loader/-/cosmiconfig-typescript-loader-1.0.1.tgz#484ee6f4e9209ffde5d3edbdacf03e0bc5ee0c67"
@@ -1750,6 +1814,11 @@
   resolved "https://registry.yarnpkg.com/@types/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#1ee30d79544ca84d68d4b3cdb0af4f205663dd2d"
   integrity sha512-OCutwjDZ4aFS6PB1UZ988C4YgwlBHJd6wCeQqaLdmadZ/7e+w79+hbMUFC1QXDNCmdyoRfAFdm0RypzwR+Qpag==
 
+"@types/hammerjs@^2.0.36":
+  version "2.0.36"
+  resolved "https://registry.npmjs.org/@types/hammerjs/-/hammerjs-2.0.36.tgz#17ce0a235e9ffbcdcdf5095646b374c2bf615a4c"
+  integrity sha512-7TUK/k2/QGpEAv/BCwSHlYu3NXZhQ9ZwBYpzr9tjlPIL2C5BeGhH3DmVavRx3ZNyELX5TLC91JTz/cen6AAtIQ==
+
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0", "@types/istanbul-lib-coverage@^2.0.1":
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.1.tgz#42995b446db9a48a11a07ec083499a860e9138ff"
@@ -1832,6 +1901,13 @@
   version "16.9.5"
   resolved "https://registry.npmjs.org/@types/react-dom/-/react-dom-16.9.5.tgz#5de610b04a35d07ffd8f44edad93a71032d9aaa7"
   integrity sha512-BX6RQ8s9D+2/gDhxrj8OW+YD4R+8hj7FEM/OJHGNR0KipE1h1mSsf39YeyC81qafkq+N3rU3h3RFbLSwE5VqUg==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-responsive@^8.0.2":
+  version "8.0.2"
+  resolved "https://registry.npmjs.org/@types/react-responsive/-/react-responsive-8.0.2.tgz#959fdc32f72e38b807e32be617a74be2c315081b"
+  integrity sha512-DTvm3Hb77v0hme7L4GYzRjLQqlZP+zNImFBzdKbSH7CsQ5c7QebGnSQX2Xf3BaA0rm/TQE57eFMhMGLcMe/A9w==
   dependencies:
     "@types/react" "*"
 
@@ -1965,13 +2041,16 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@4.2.0":
-  version "4.2.0"
-  resolved "https://registry.npmjs.org/@vanarama/uibook/-/uibook-4.2.0.tgz#495c3dc08b0eeb7f51569a4e9d2dd5d264b6f1ae"
-  integrity sha512-knWilktTN05e3S//lBsxvuTBq5WtYwz6ykG2u4DlBqibnANivFRNrGEPgEHGR4SM+87emCfujT0hbf6CwhzLbw==
+"@vanarama/uibook@4.3.0":
+  version "4.3.0"
+  resolved "https://registry.npmjs.org/@vanarama/uibook/-/uibook-4.3.0.tgz#27864b4ba9b31f065341565ca46a22fc75080362"
+  integrity sha512-SBvcJIPPf3crZSqMIGqksVtCcWlVumnEUV9iHE5Jn+bFyXuPE8HXOfco6WCZ7TVl2nejwOqZaRPQWsvuk/r5Vw==
   dependencies:
     "@babel/preset-typescript" "^7.8.3"
+    "@egjs/flicking" "^3.4.7"
+    "@egjs/react-flicking" "^3.2.1"
     "@testing-library/react" "^10.0.2"
+    "@types/react-responsive" "^8.0.2"
     classnames "^2.2.6"
     i18n-react "^0.7.0"
     jest "^25.1.0"
@@ -1983,6 +2062,8 @@
     react "^16.12.0"
     react-dom "^16.12.0"
     react-html-parser "^2.0.2"
+    react-player "^1.15.3"
+    react-responsive "^8.0.3"
     recompose "^0.30.0"
     use-deep-compare-effect "^1.3.1"
 
@@ -4170,6 +4251,11 @@ css-loader@3.3.0:
     postcss-value-parser "^4.0.2"
     schema-utils "^2.6.0"
 
+css-mediaquery@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.npmjs.org/css-mediaquery/-/css-mediaquery-0.1.2.tgz#6a2c37344928618631c54bd33cedd301da18bea0"
+  integrity sha1-aiw3NEkoYYYxxUvTPO3TAdoYvqA=
+
 css-prefers-color-scheme@^3.1.1:
   version "3.1.1"
   resolved "https://registry.npmjs.org/css-prefers-color-scheme/-/css-prefers-color-scheme-3.1.1.tgz#6f830a2714199d4f0d0d0bb8a27916ed65cff1f4"
@@ -4451,7 +4537,7 @@ deepmerge@^2.1.1:
   resolved "https://registry.npmjs.org/deepmerge/-/deepmerge-2.2.1.tgz#5d3ff22a01c00f645405a2fbc17d0778a1801170"
   integrity sha512-R9hc1Xa/NOBi9WRVUWg19rl1UB7Tt4kuPd+thNJgFZoxXsTz7ncaPaeIm+40oSGuP33DfMb4sZt1QIGiJzC4EA==
 
-deepmerge@^4.2.2:
+deepmerge@^4.0.0, deepmerge@^4.2.2:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-4.2.2.tgz#44d2ea3679b8f4d4ffba33f03d865fc1e7bf4955"
   integrity sha512-FJ3UgI4gIl+PHZm53knsuSFpE+nESMr7M4v9QcgB7S63Kj/6WqMiFQJpBBYz1Pt+66bZpP3Q7Lye0Oo9MPKEdg==
@@ -6213,6 +6299,11 @@ hyperlinker@^1.0.0:
   resolved "https://registry.yarnpkg.com/hyperlinker/-/hyperlinker-1.0.0.tgz#23dc9e38a206b208ee49bc2d6c8ef47027df0c0e"
   integrity sha512-Ty8UblRWFEcfSuIaajM34LdPXIhbs1ajEX/BBPv24J+enSVaEVY63xQ6lTO9VRYS5LAoghIG0IDJ+p+IPzKUQQ==
 
+hyphenate-style-name@^1.0.0:
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/hyphenate-style-name/-/hyphenate-style-name-1.0.3.tgz#097bb7fa0b8f1a9cf0bd5c734cf95899981a9b48"
+  integrity sha512-EcuixamT82oplpoJ2XU4pDtKGWQ7b00CD9f1ug9IaQ3p1bkHMiKCZ9ut9QDI6qsa6cpUuB+A/I+zLtdNK4n2DQ==
+
 i18n-react@^0.7.0:
   version "0.7.0"
   resolved "https://registry.npmjs.org/i18n-react/-/i18n-react-0.7.0.tgz#458df2cc2562f24e14bf62763c2b8863cc39ec8f"
@@ -7651,6 +7742,11 @@ load-json-file@^5.2.0:
     strip-bom "^3.0.0"
     type-fest "^0.3.0"
 
+load-script@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/load-script/-/load-script-1.0.0.tgz#0491939e0bee5643ee494a7e3da3d2bac70c6ca4"
+  integrity sha1-BJGTngvuVkPuSUp+PaPSuscMbKQ=
+
 loader-runner@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-2.4.0.tgz#ed47066bfe534d7e84c4c7b9998c2a75607d9357"
@@ -7921,6 +8017,13 @@ map-visit@^1.0.0:
   integrity sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
   dependencies:
     object-visit "^1.0.0"
+
+matchmediaquery@^0.3.0:
+  version "0.3.1"
+  resolved "https://registry.npmjs.org/matchmediaquery/-/matchmediaquery-0.3.1.tgz#8247edc47e499ebb7c58f62a9ff9ccf5b815c6d7"
+  integrity sha512-Hlk20WQHRIm9EE9luN1kjRjYXAQToHOIAHPJn9buxBwuhfTHoKUcX+lXBbxc85DVQfXYbEQ4HcwQdd128E3qHQ==
+  dependencies:
+    css-mediaquery "^0.1.2"
 
 md5.js@^1.3.4:
   version "1.3.5"
@@ -9947,7 +10050,7 @@ prop-types-exact@1.2.0, prop-types-exact@^1.2.0:
     object.assign "^4.1.0"
     reflect.ownkeys "^0.2.0"
 
-prop-types@15.7.2, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@15.7.2, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -10170,6 +10273,25 @@ react-lifecycles-compat@^3.0.2:
   version "3.0.4"
   resolved "https://registry.npmjs.org/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
+
+react-player@^1.15.3:
+  version "1.15.3"
+  resolved "https://registry.npmjs.org/react-player/-/react-player-1.15.3.tgz#d00cf145f9c86184cb0a071a1fbf8ecb7b68987f"
+  integrity sha512-8fc0R1AipFIy7l4lKgnIg+gMU2IY32ZMxxBlINjXAq/YnN3HUP3hOaE+aQ0lQv+a1/MMZgbekWD86ZGDO7kB8g==
+  dependencies:
+    deepmerge "^4.0.0"
+    load-script "^1.0.0"
+    prop-types "^15.7.2"
+
+react-responsive@^8.0.3:
+  version "8.0.3"
+  resolved "https://registry.npmjs.org/react-responsive/-/react-responsive-8.0.3.tgz#ceb84205359b6032d306650e51490dc1f63d907b"
+  integrity sha512-F9VXyLao7O8XHXbLjQbIr4+mC6Zr0RDTwNjd7ixTmYEAyKyNanBkLkFchNaMZgszoSK6PgSs/3m/QDWw33/gpg==
+  dependencies:
+    hyphenate-style-name "^1.0.0"
+    matchmediaquery "^0.3.0"
+    prop-types "^15.6.1"
+    shallow-equal "^1.1.0"
 
 react-test-renderer@^16.0.0-0, react-test-renderer@^16.12.0:
   version "16.13.1"
@@ -10917,6 +11039,11 @@ shallow-clone@^3.0.0:
   integrity sha512-/6KqX+GVUdqPuPPd2LxDDxzX6CAbjJehAAOKlNpqqUpAqPM6HeL8f+o3a+JsyGjn2lv0WY8UsTgUJjU9Ok55NA==
   dependencies:
     kind-of "^6.0.2"
+
+shallow-equal@^1.1.0:
+  version "1.2.1"
+  resolved "https://registry.npmjs.org/shallow-equal/-/shallow-equal-1.2.1.tgz#4c16abfa56043aa20d050324efa68940b0da79da"
+  integrity sha512-S4vJDjHHMBaiZuT9NPb616CSmLf618jawtv3sufLl6ivK8WocjAo58cXwbRV1cgqxH0Qbv+iUt6m05eqEa2IRA==
 
 shebang-command@^1.2.0:
   version "1.2.0"

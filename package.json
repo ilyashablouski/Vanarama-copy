@@ -30,7 +30,7 @@
     "@babel/preset-typescript": "^7.9.0",
     "@babel/runtime": "^7.8.4",
     "@types/qs": "^6.9.1",
-    "@vanarama/uibook": "4.2.0",
+    "@vanarama/uibook": "4.3.0",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
     "apollo-boost": "^0.4.7",

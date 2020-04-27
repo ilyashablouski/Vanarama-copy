@@ -1,8 +1,8 @@
-import { ILoqateSuggestion } from '@vanarama/uibook/lib/hooks/useLoqate/interfaces';
+import { IAddressSuggestion } from '@vanarama/uibook/lib/components/molecules/address-finder/interfaces';
 import { EmploymentFormDropDownData } from '../../../generated/EmploymentFormDropDownData';
 
 export type TEmploymentEntry = {
-  address?: ILoqateSuggestion;
+  address?: IAddressSuggestion;
   company: string;
   contract: string;
   income: string;
