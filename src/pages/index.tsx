@@ -3,11 +3,17 @@ import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
+import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
 import Slider from '@vanarama/uibook/lib/components/organisms/slider';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import ProductCard from '@vanarama/uibook/lib/components/organisms/product-card';
+import Card, {
+  CardContent,
+  CardMedia,
+} from '@vanarama/uibook/lib/components/molecules/card';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
+import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
 import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
@@ -158,7 +164,69 @@ const HomePage: NextPage = () => (
         </Tabs>
       </div>
     </section>
-    <section className="section">2</section>
+    <section style={{ background: '#f3f5f7' }} className="section">
+      <div className="container">
+        <Grid lg="3" md="1" sm="1">
+          <Column md="1">
+            <Card>
+              <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg" />
+              <CardContent flex>
+                <Heading tag="a" size="regular" color="black">
+                  Vans
+                </Heading>
+                <Button
+                  label=""
+                  size="large"
+                  color="teal"
+                  fill="clear"
+                  round
+                  icon={<ArrowForwardSharp />}
+                  iconPosition="after"
+                />
+              </CardContent>
+            </Card>
+          </Column>
+          <Column md="1">
+            <Card>
+              <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg" />
+              <CardContent flex>
+                <Heading tag="a" size="regular" color="black">
+                  Vans
+                </Heading>
+                <Button
+                  label=""
+                  size="large"
+                  color="teal"
+                  fill="clear"
+                  round
+                  icon={<ArrowForwardSharp />}
+                  iconPosition="after"
+                />
+              </CardContent>
+            </Card>
+          </Column>
+          <Column md="1">
+            <Card>
+              <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
+              <CardContent flex>
+                <Heading tag="a" size="regular" color="black">
+                  Vans
+                </Heading>
+                <Button
+                  label=""
+                  size="large"
+                  color="teal"
+                  fill="clear"
+                  round
+                  icon={<ArrowForwardSharp />}
+                  iconPosition="after"
+                />
+              </CardContent>
+            </Card>
+          </Column>
+        </Grid>
+      </div>
+    </section>
     <section className="section">3</section>
     <section className="section">4</section>
     <section className="section">5</section>
