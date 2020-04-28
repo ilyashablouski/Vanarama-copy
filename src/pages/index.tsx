@@ -37,6 +37,12 @@ const styles = {
     marginBottom: '1rem',
     fontWeight: 500,
   },
+  iconListFirstLi: {
+    paddingTop: '0.75rem',
+    marginTop: '0.75rem',
+    display: 'flex',
+    alignItems: 'center',
+  },
   iconListLi: {
     paddingTop: '0.75rem',
     marginTop: '0.75rem',
@@ -84,7 +90,7 @@ const HomePage: NextPage = () => (
           </Column>
         </Grid>
       </div>
-      <svg
+      {/*       <svg
         id="hero--curve"
         className="hero--curve"
         data-name="curve"
@@ -121,7 +127,7 @@ const HomePage: NextPage = () => (
           d="M0,66.86H375c-125.08-4.32-252.17-13.61-375-30Z"
           transform="translate(0 -1.81)"
         />
-      </svg>
+      </svg> */}
     </div>
     <section className="section">
       <div className="container">
@@ -245,29 +251,31 @@ const HomePage: NextPage = () => (
       <div className="container">
         <Grid lg="6" md="2" sm="2">
           <Column className="-inset -middle" md="3">
-            <Heading size="large" color="black">
-              Why Leasing ?
-            </Heading>
-            <Text size="regular" color="darker">
-              If you&apos;re looking to drive a brand new car, van or truck
-              without any of the hassle - leasing might just be for you!
-              It&apos;s affordable, simple and you&apos;re not left with a
-              depreciating asset at the end of your contract.
-            </Text>
-            <ul className="icon-list -orange" style={styles.iconList}>
-              <li>
-                <Icon icon={<CheckmarkCircleSharp />} color="orange" />
-                &nbsp;&nbsp;Choose your contract length &amp; agreed mileage
-              </li>
-              <li style={styles.iconListLi}>
-                <Icon icon={<CheckmarkCircleSharp />} color="orange" />
-                &nbsp;&nbsp;Pay an initial payment
-              </li>
-              <li style={styles.iconListLi}>
-                <Icon icon={<CheckmarkCircleSharp />} color="orange" />
-                &nbsp;&nbsp;Set up your agreed fixed monthly rental
-              </li>
-            </ul>
+            <div style={{ padding: '1rem' }}>
+              <Heading size="large" color="black">
+                Why Leasing ?
+              </Heading>
+              <Text tag="p" size="regular" color="darker">
+                If you&apos;re looking to drive a brand new car, van or truck
+                without any of the hassle - leasing might just be for you!
+                It&apos;s affordable, simple and you&apos;re not left with a
+                depreciating asset at the end of your contract.
+              </Text>
+              <ul className="icon-list -orange" style={styles.iconList}>
+                <li style={styles.iconListFirstLi}>
+                  <Icon icon={<CheckmarkCircleSharp />} color="orange" />
+                  &nbsp;&nbsp;Choose your contract length &amp; agreed mileage
+                </li>
+                <li style={styles.iconListLi}>
+                  <Icon icon={<CheckmarkCircleSharp />} color="orange" />
+                  &nbsp;&nbsp;Pay an initial payment
+                </li>
+                <li style={styles.iconListLi}>
+                  <Icon icon={<CheckmarkCircleSharp />} color="orange" />
+                  &nbsp;&nbsp;Set up your agreed fixed monthly rental
+                </li>
+              </ul>
+            </div>
           </Column>
           <Column md="3">
             <Media
