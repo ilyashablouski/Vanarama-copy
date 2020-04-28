@@ -7,6 +7,7 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
 import Slider from '@vanarama/uibook/lib/components/organisms/slider';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
+import Media from '@vanarama/uibook/lib/components/atoms/media';
 import ProductCard from '@vanarama/uibook/lib/components/organisms/product-card';
 import Card, {
   CardContent,
@@ -14,6 +15,7 @@ import Card, {
 } from '@vanarama/uibook/lib/components/molecules/card';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
 import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
+import CheckmarkCircleSharp from '@vanarama/uibook/lib/assets/icons/CheckmarkCircleSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
 import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
@@ -29,6 +31,18 @@ const styles = {
     padding: '.25ch 2ch .25ch 1ch',
     background: '#ec6409',
     clipPath: 'polygon(100% 0, calc(100% - 1ch) 50%, 100% 100%, 0 100%, 0 0)',
+  },
+  iconList: {
+    marginTop: '1rem',
+    marginBottom: '1rem',
+    fontWeight: 500,
+  },
+  iconListLi: {
+    paddingTop: '0.75rem',
+    marginTop: '0.75rem',
+    borderTop: ' 1px solid #e7ebee',
+    display: 'flex',
+    alignItems: 'center',
   },
 };
 
@@ -120,7 +134,7 @@ const HomePage: NextPage = () => (
           <div>
             <Slider className="" gutter={16}>
               {[1, 2, 3, 4, 5].map(k => (
-                <div key={k} style={{ width: 370 }}>
+                <div key={k} style={{ width: 345 }}>
                   <ProductCard
                     flag={{
                       accentIcon: <Icon icon={<Flame />} color="white" />,
@@ -227,7 +241,43 @@ const HomePage: NextPage = () => (
         </Grid>
       </div>
     </section>
-    <section className="section">3</section>
+    <section className="section">
+      <div className="container">
+        <Grid lg="6" md="2" sm="2">
+          <Column className="-inset -middle" md="3">
+            <Heading size="large" color="black">
+              Why Leasing ?
+            </Heading>
+            <Text size="regular" color="darker">
+              If you&apos;re looking to drive a brand new car, van or truck
+              without any of the hassle - leasing might just be for you!
+              It&apos;s affordable, simple and you&apos;re not left with a
+              depreciating asset at the end of your contract.
+            </Text>
+            <ul className="icon-list -orange" style={styles.iconList}>
+              <li>
+                <Icon icon={<CheckmarkCircleSharp />} color="orange" />
+                &nbsp;&nbsp;Choose your contract length &amp; agreed mileage
+              </li>
+              <li style={styles.iconListLi}>
+                <Icon icon={<CheckmarkCircleSharp />} color="orange" />
+                &nbsp;&nbsp;Pay an initial payment
+              </li>
+              <li style={styles.iconListLi}>
+                <Icon icon={<CheckmarkCircleSharp />} color="orange" />
+                &nbsp;&nbsp;Set up your agreed fixed monthly rental
+              </li>
+            </ul>
+          </Column>
+          <Column md="3">
+            <Media
+              src="https://player.vimeo.com/video/263419265"
+              vimeoConfig={{ color: 'EC6408', portrait: false }}
+            />
+          </Column>
+        </Grid>
+      </div>
+    </section>
     <section className="section">4</section>
     <section className="section">5</section>
     <section className="league section">6</section>
