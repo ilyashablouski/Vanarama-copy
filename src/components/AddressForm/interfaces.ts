@@ -14,7 +14,8 @@ export interface IAddressFormValues {
 
 export interface IAddressFormProps {
   dropDownData: AddressFormDropDownData;
-  onSubmit: (values: IAddressFormValues) => Promise<void>;
+  initialValues?: IAddressFormValues;
+  onSubmit: (values: IAddressFormValues) => Promise<any>;
 }
 
 export const EMPTY_ADDRESS_ENTRY: TAddressEntry = {

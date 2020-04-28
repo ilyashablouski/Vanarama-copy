@@ -302,7 +302,10 @@ describe('<AddressForm />', () => {
 
     // ASSERT
     // All dates should be submitted, ordered by most recent
-    await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1), {
+      timeout: 5000,
+    });
+
     expect(onSubmit.mock.calls[0][0]).toEqual({
       history: [
         {

@@ -16,7 +16,8 @@ module.exports = {
     'react/static-property-placement': 0,
     "jsx-a11y/anchor-is-valid": [ "error", { "components": ["a"] }],
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "no-underscore-dangle": ["error", { "allow": ["__typename"] }]
   },
   overrides: [
     {

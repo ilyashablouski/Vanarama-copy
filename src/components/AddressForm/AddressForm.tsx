@@ -17,10 +17,11 @@ import validationSchema from './validationSchema';
 
 const AddressForm: FCWithFragments<IAddressFormProps> = ({
   dropDownData,
+  initialValues,
   onSubmit,
 }) => (
   <Formik<IFormValues>
-    initialValues={{ history: [EMPTY_ADDRESS_ENTRY] }}
+    initialValues={initialValues || { history: [EMPTY_ADDRESS_ENTRY] }}
     onSubmit={onSubmit}
     validationSchema={validationSchema}
   >

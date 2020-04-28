@@ -1,9 +1,11 @@
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { getDataFromTree } from '@apollo/react-ssr';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { gql } from 'apollo-boost';
 import moment from 'moment';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { AllDropDownsQuery } from '../../../../generated/AllDropDownsQuery';
 import {
   CreateUpdatePersonMutation as Mutation,
   CreateUpdatePersonMutationVariables as MutationVariables,
@@ -11,7 +13,6 @@ import {
 import AboutForm from '../../../components/olaf/about-form';
 import OlafContainer from '../../../components/olaf/olaf-container';
 import withApollo from '../../../hocs/withApollo';
-import { AllDropDownsQuery } from '../../../../generated/AllDropDownsQuery';
 
 const CREATE_UPDATE_PERSON = gql`
   mutation CreateUpdatePersonMutation($input: PersonInputObject!) {
@@ -37,14 +38,17 @@ const AboutYouPage: NextPage = () => {
     CREATE_UPDATE_PERSON,
     {
       onCompleted: data => {
-        router.push(`/olaf/address-history/${data.createUpdatePerson!.uuid}`);
+        router.push(
+          `/olaf/address-history/[id]`,
+          `/olaf/address-history/${data.createUpdatePerson!.uuid}`,
+        );
       },
     },
   );
 
   const { data, loading, error } = useQuery<AllDropDownsQuery>(ALL_DROPDOWNS);
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loading size="large" />;
   }
 
   if (error) {

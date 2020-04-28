@@ -10,7 +10,7 @@ import { AddressHistoryInputObject } from "./globalTypes";
 // ====================================================
 
 export interface SaveAddressHistoryMutation_createUpdateAddress {
-  id: string;
+  uuid: string;
 }
 
 export interface SaveAddressHistoryMutation {

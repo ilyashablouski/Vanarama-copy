@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@apollo/react-hooks';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { gql } from 'apollo-boost';
 import React from 'react';
 import {
@@ -10,14 +11,24 @@ import {
   SaveAddressHistoryMutationVariables as MutationVariables,
 } from '../../../generated/SaveAddressHistoryMutation';
 import AddressForm from '../../components/AddressForm/AddressForm';
-import { historyToMoment } from '../../utils/dates';
 import { IAddressFormContainerProps } from './interfaces';
+import { formValuesToInput, responseToInitialFormValues } from './mappers';
 
-const GET_ADDRESS_CONTAINER_DATA = gql`
+export const GET_ADDRESS_CONTAINER_DATA = gql`
   query GetAddressContainerDataQuery($uuid: ID!) {
     personByUuid(uuid: $uuid) {
       uuid
       partyId
+      addresses {
+        uuid
+        serviceId
+        lineOne
+        lineTwo
+        postcode
+        city
+        propertyStatus
+        startedOn
+      }
     }
     allDropDowns {
       ...AddressFormDropDownData
@@ -26,10 +37,10 @@ const GET_ADDRESS_CONTAINER_DATA = gql`
   ${AddressForm.fragments.dropDownData}
 `;
 
-const SAVE_ADDRESS_HISTORY = gql`
+export const SAVE_ADDRESS_HISTORY = gql`
   mutation SaveAddressHistoryMutation($input: AddressHistoryInputObject!) {
     createUpdateAddress(input: $input) {
-      id
+      uuid
     }
   }
 `;
@@ -49,7 +60,7 @@ const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
   );
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loading size="large" />;
   }
 
   if (error) {
@@ -57,26 +68,20 @@ const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
   }
 
   if (!data || !data.allDropDowns || !data.personByUuid) {
-    return null;
+    return <p>Address details cannot be found</p>;
   }
 
   return (
     <AddressForm
       dropDownData={data.allDropDowns}
-      onSubmit={async values => {
-        await saveAddressHistory({
+      initialValues={responseToInitialFormValues(data)}
+      onSubmit={values =>
+        saveAddressHistory({
           variables: {
-            input: {
-              partyId: data.personByUuid!.partyId,
-              addresses: values.history.map(item => ({
-                serviceId: item.address?.id,
-                propertyStatus: item.status,
-                startedOn: historyToMoment(item).format('YYYY-MM-DD'),
-              })),
-            },
+            input: formValuesToInput(data.personByUuid!.partyId, values),
           },
-        });
-      }}
+        })
+      }
     />
   );
 };

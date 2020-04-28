@@ -7,9 +7,21 @@
 // GraphQL query operation: GetAddressContainerDataQuery
 // ====================================================
 
+export interface GetAddressContainerDataQuery_personByUuid_addresses {
+  uuid: string;
+  serviceId: string | null;
+  lineOne: string;
+  lineTwo: string | null;
+  postcode: string;
+  city: string;
+  propertyStatus: string | null;
+  startedOn: any | null;
+}
+
 export interface GetAddressContainerDataQuery_personByUuid {
   uuid: string;
   partyId: string;
+  addresses: GetAddressContainerDataQuery_personByUuid_addresses[] | null;
 }
 
 export interface GetAddressContainerDataQuery_allDropDowns_propertyStatuses {

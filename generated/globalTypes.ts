@@ -41,8 +41,9 @@ export interface BankAccountInputObject {
   accountNumber?: string | null;
   bankName?: string | null;
   joinedAt?: any | null;
-  partyId: string;
+  partyId?: string | null;
   sortCode?: string | null;
+  uuid?: string | null;
 }
 
 /**
