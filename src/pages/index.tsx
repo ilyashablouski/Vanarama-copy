@@ -1,18 +1,21 @@
 import { NextPage } from 'next';
-import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
-import Slider from '@vanarama/uibook/lib/components/organisms/slider';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Media from '@vanarama/uibook/lib/components/atoms/media';
+import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
+import Tile from '@vanarama/uibook/lib/components/molecules/tile';
+import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
+import LogoRow from '@vanarama/uibook/lib/components/molecules/logo-row';
 import ProductCard from '@vanarama/uibook/lib/components/organisms/product-card';
+import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
 import Card, {
   CardContent,
   CardMedia,
 } from '@vanarama/uibook/lib/components/molecules/card';
+import Slider from '@vanarama/uibook/lib/components/organisms/slider';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
 import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import CheckmarkCircleSharp from '@vanarama/uibook/lib/assets/icons/CheckmarkCircleSharp';
@@ -320,10 +323,63 @@ const HomePage: NextPage = () => (
         </Grid>
       </div>
     </section>
-    <section className="section">5</section>
-    <section className="league section">6</section>
-    <section className="logo-row section">7</section>
-    <section className=" trust-pilot section">8</section>
+    <section className="section">
+      <div className="container">el</div>
+    </section>
+    <section className="league section">
+      <div className="container">el</div>
+    </section>
+    <section className="logo-row section">
+      <div className="container">
+        <LogoRow
+          urls={[
+            {
+              label: 'bbc',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/bbc.png',
+            },
+            {
+              label: 'btsport',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/btsport.png',
+            },
+            {
+              label: 'dailymirror',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymail.png',
+            },
+            {
+              label: 'itv',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/itv.png',
+            },
+            {
+              label: 'metro',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/metro.png',
+            },
+            {
+              label: 'thesun',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/thesun.png',
+            },
+            {
+              label: 'sky',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/sky.png',
+            },
+            {
+              label: 'thetelegraph',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/thetelegraph.png',
+            },
+          ]}
+        />
+      </div>
+    </section>
+    <section className="trust-pilot section">
+      <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
+    </section>
   </main>
 );
 
