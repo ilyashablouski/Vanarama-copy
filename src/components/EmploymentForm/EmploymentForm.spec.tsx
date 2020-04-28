@@ -85,7 +85,8 @@ describe('<EmploymentForm />', () => {
     });
 
     const income = getByLabelText('Gross Annual Income');
-    fireEvent.change(income, { target: { value: '52000.00' } });
+    const incomeValue = '52000.00';
+    fireEvent.change(income, { target: { value: incomeValue } });
 
     const month = getByTestId('history[0].month');
     fireEvent.change(month, { target: { value: '4' } });
@@ -106,7 +107,7 @@ describe('<EmploymentForm />', () => {
             id: 'Maylands Avenue, HP2 7DE',
           },
           company: 'Autorama Ltd.',
-          income: 52000,
+          income: incomeValue,
           month: '4',
           phoneNumber: '01442838195',
           status: 'Employed',
@@ -160,7 +161,8 @@ describe('<EmploymentForm />', () => {
     });
 
     const prevIncome = getByLabelText('Gross Annual Income');
-    fireEvent.change(prevIncome, { target: { value: '52000.00' } });
+    const incomeValue = '52000.00';
+    fireEvent.change(prevIncome, { target: { value: incomeValue } });
 
     const prevMonth = getByTestId('history[1].month');
     fireEvent.change(prevMonth, { target: { value: '11' } });
@@ -192,7 +194,7 @@ describe('<EmploymentForm />', () => {
             id: 'Maylands Avenue, HP2 7DE',
           },
           company: 'Autorama Ltd.',
-          income: 52000,
+          income: incomeValue,
           month: '11',
           phoneNumber: '01442838195',
           status: 'Employed',

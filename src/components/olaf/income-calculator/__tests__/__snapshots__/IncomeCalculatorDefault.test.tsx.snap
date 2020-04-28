@@ -66,17 +66,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                     className="formgroup--content"
                   >
                     <Controller
-                      as={
-                        Object {
-                          "$$typeof": Symbol(react.memo),
-                          "compare": null,
-                          "type": Object {
-                            "$$typeof": Symbol(react.forward_ref),
-                            "displayName": "ForwardRef(TextInput)",
-                            "render": [Function],
-                          },
-                        }
-                      }
+                      as={[Function]}
                       control={
                         Object {
                           "defaultValuesRef": Object {
@@ -247,42 +237,51 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                       id="averageMonthlyIncome"
                       name="averageMonthlyIncome"
                       prefix="£"
-                      type="number"
                     >
-                      <ForwardRef(TextInput)
+                      <NumericInput
                         id="averageMonthlyIncome"
                         name="averageMonthlyIncome"
                         onBlur={[Function]}
                         onChange={[Function]}
                         prefix="£"
-                        type="number"
                         value=""
                       >
-                        <div
-                          className="textinput regular"
+                        <ForwardRef(TextInput)
+                          id="averageMonthlyIncome"
+                          name="averageMonthlyIncome"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onKeyPress={[Function]}
+                          prefix="£"
+                          value=""
                         >
-                          <input
-                            className="textinput--native regular -prefix"
-                            id="averageMonthlyIncome"
-                            name="averageMonthlyIncome"
-                            onBlur={[Function]}
-                            onChange={[Function]}
-                            type="number"
-                            value=""
-                          />
-                          <Memo(Text)
-                            className="textinput--prefix"
-                            color="dark"
-                            size="regular"
+                          <div
+                            className="textinput regular"
                           >
-                            <span
-                              className="text textinput--prefix -regular -dark"
+                            <input
+                              className="textinput--native regular -prefix"
+                              id="averageMonthlyIncome"
+                              name="averageMonthlyIncome"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              type="text"
+                              value=""
+                            />
+                            <Memo(Text)
+                              className="textinput--prefix"
+                              color="dark"
+                              size="regular"
                             >
-                              £
-                            </span>
-                          </Memo(Text)>
-                        </div>
-                      </ForwardRef(TextInput)>
+                              <span
+                                className="text textinput--prefix -regular -dark"
+                              >
+                                £
+                              </span>
+                            </Memo(Text)>
+                          </div>
+                        </ForwardRef(TextInput)>
+                      </NumericInput>
                     </Controller>
                   </div>
                 </div>
@@ -310,17 +309,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                     className="formgroup--content"
                   >
                     <Controller
-                      as={
-                        Object {
-                          "$$typeof": Symbol(react.memo),
-                          "compare": null,
-                          "type": Object {
-                            "$$typeof": Symbol(react.forward_ref),
-                            "displayName": "ForwardRef(TextInput)",
-                            "render": [Function],
-                          },
-                        }
-                      }
+                      as={[Function]}
                       control={
                         Object {
                           "defaultValuesRef": Object {
@@ -491,42 +480,51 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                       id="monthlyHouseholdIncome"
                       name="monthlyHouseholdIncome"
                       prefix="£"
-                      type="number"
                     >
-                      <ForwardRef(TextInput)
+                      <NumericInput
                         id="monthlyHouseholdIncome"
                         name="monthlyHouseholdIncome"
                         onBlur={[Function]}
                         onChange={[Function]}
                         prefix="£"
-                        type="number"
                         value=""
                       >
-                        <div
-                          className="textinput regular"
+                        <ForwardRef(TextInput)
+                          id="monthlyHouseholdIncome"
+                          name="monthlyHouseholdIncome"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onKeyPress={[Function]}
+                          prefix="£"
+                          value=""
                         >
-                          <input
-                            className="textinput--native regular -prefix"
-                            id="monthlyHouseholdIncome"
-                            name="monthlyHouseholdIncome"
-                            onBlur={[Function]}
-                            onChange={[Function]}
-                            type="number"
-                            value=""
-                          />
-                          <Memo(Text)
-                            className="textinput--prefix"
-                            color="dark"
-                            size="regular"
+                          <div
+                            className="textinput regular"
                           >
-                            <span
-                              className="text textinput--prefix -regular -dark"
+                            <input
+                              className="textinput--native regular -prefix"
+                              id="monthlyHouseholdIncome"
+                              name="monthlyHouseholdIncome"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              type="text"
+                              value=""
+                            />
+                            <Memo(Text)
+                              className="textinput--prefix"
+                              color="dark"
+                              size="regular"
                             >
-                              £
-                            </span>
-                          </Memo(Text)>
-                        </div>
-                      </ForwardRef(TextInput)>
+                              <span
+                                className="text textinput--prefix -regular -dark"
+                              >
+                                £
+                              </span>
+                            </Memo(Text)>
+                          </div>
+                        </ForwardRef(TextInput)>
+                      </NumericInput>
                     </Controller>
                   </div>
                 </div>
@@ -824,17 +822,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                         className="formgroup--content"
                       >
                         <Controller
-                          as={
-                            Object {
-                              "$$typeof": Symbol(react.memo),
-                              "compare": null,
-                              "type": Object {
-                                "$$typeof": Symbol(react.forward_ref),
-                                "displayName": "ForwardRef(TextInput)",
-                                "render": [Function],
-                              },
-                            }
-                          }
+                          as={[Function]}
                           control={
                             Object {
                               "defaultValuesRef": Object {
@@ -1005,42 +993,51 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           id="mortgageOrRent"
                           name="mortgageOrRent"
                           prefix="£"
-                          type="number"
                         >
-                          <ForwardRef(TextInput)
+                          <NumericInput
                             id="mortgageOrRent"
                             name="mortgageOrRent"
                             onBlur={[Function]}
                             onChange={[Function]}
                             prefix="£"
-                            type="number"
                             value=""
                           >
-                            <div
-                              className="textinput regular"
+                            <ForwardRef(TextInput)
+                              id="mortgageOrRent"
+                              name="mortgageOrRent"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              prefix="£"
+                              value=""
                             >
-                              <input
-                                className="textinput--native regular -prefix"
-                                id="mortgageOrRent"
-                                name="mortgageOrRent"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                type="number"
-                                value=""
-                              />
-                              <Memo(Text)
-                                className="textinput--prefix"
-                                color="dark"
-                                size="regular"
+                              <div
+                                className="textinput regular"
                               >
-                                <span
-                                  className="text textinput--prefix -regular -dark"
+                                <input
+                                  className="textinput--native regular -prefix"
+                                  id="mortgageOrRent"
+                                  name="mortgageOrRent"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onKeyPress={[Function]}
+                                  type="text"
+                                  value=""
+                                />
+                                <Memo(Text)
+                                  className="textinput--prefix"
+                                  color="dark"
+                                  size="regular"
                                 >
-                                  £
-                                </span>
-                              </Memo(Text)>
-                            </div>
-                          </ForwardRef(TextInput)>
+                                  <span
+                                    className="text textinput--prefix -regular -dark"
+                                  >
+                                    £
+                                  </span>
+                                </Memo(Text)>
+                              </div>
+                            </ForwardRef(TextInput)>
+                          </NumericInput>
                         </Controller>
                       </div>
                     </div>
@@ -1068,17 +1065,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                         className="formgroup--content"
                       >
                         <Controller
-                          as={
-                            Object {
-                              "$$typeof": Symbol(react.memo),
-                              "compare": null,
-                              "type": Object {
-                                "$$typeof": Symbol(react.forward_ref),
-                                "displayName": "ForwardRef(TextInput)",
-                                "render": [Function],
-                              },
-                            }
-                          }
+                          as={[Function]}
                           control={
                             Object {
                               "defaultValuesRef": Object {
@@ -1249,42 +1236,51 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           id="phoneAndInternet"
                           name="phoneAndInternet"
                           prefix="£"
-                          type="number"
                         >
-                          <ForwardRef(TextInput)
+                          <NumericInput
                             id="phoneAndInternet"
                             name="phoneAndInternet"
                             onBlur={[Function]}
                             onChange={[Function]}
                             prefix="£"
-                            type="number"
                             value=""
                           >
-                            <div
-                              className="textinput regular"
+                            <ForwardRef(TextInput)
+                              id="phoneAndInternet"
+                              name="phoneAndInternet"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              prefix="£"
+                              value=""
                             >
-                              <input
-                                className="textinput--native regular -prefix"
-                                id="phoneAndInternet"
-                                name="phoneAndInternet"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                type="number"
-                                value=""
-                              />
-                              <Memo(Text)
-                                className="textinput--prefix"
-                                color="dark"
-                                size="regular"
+                              <div
+                                className="textinput regular"
                               >
-                                <span
-                                  className="text textinput--prefix -regular -dark"
+                                <input
+                                  className="textinput--native regular -prefix"
+                                  id="phoneAndInternet"
+                                  name="phoneAndInternet"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onKeyPress={[Function]}
+                                  type="text"
+                                  value=""
+                                />
+                                <Memo(Text)
+                                  className="textinput--prefix"
+                                  color="dark"
+                                  size="regular"
                                 >
-                                  £
-                                </span>
-                              </Memo(Text)>
-                            </div>
-                          </ForwardRef(TextInput)>
+                                  <span
+                                    className="text textinput--prefix -regular -dark"
+                                  >
+                                    £
+                                  </span>
+                                </Memo(Text)>
+                              </div>
+                            </ForwardRef(TextInput)>
+                          </NumericInput>
                         </Controller>
                       </div>
                     </div>
@@ -1312,17 +1308,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                         className="formgroup--content"
                       >
                         <Controller
-                          as={
-                            Object {
-                              "$$typeof": Symbol(react.memo),
-                              "compare": null,
-                              "type": Object {
-                                "$$typeof": Symbol(react.forward_ref),
-                                "displayName": "ForwardRef(TextInput)",
-                                "render": [Function],
-                              },
-                            }
-                          }
+                          as={[Function]}
                           control={
                             Object {
                               "defaultValuesRef": Object {
@@ -1493,42 +1479,51 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           id="creditCardPayments"
                           name="creditCardPayments"
                           prefix="£"
-                          type="number"
                         >
-                          <ForwardRef(TextInput)
+                          <NumericInput
                             id="creditCardPayments"
                             name="creditCardPayments"
                             onBlur={[Function]}
                             onChange={[Function]}
                             prefix="£"
-                            type="number"
                             value=""
                           >
-                            <div
-                              className="textinput regular"
+                            <ForwardRef(TextInput)
+                              id="creditCardPayments"
+                              name="creditCardPayments"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              prefix="£"
+                              value=""
                             >
-                              <input
-                                className="textinput--native regular -prefix"
-                                id="creditCardPayments"
-                                name="creditCardPayments"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                type="number"
-                                value=""
-                              />
-                              <Memo(Text)
-                                className="textinput--prefix"
-                                color="dark"
-                                size="regular"
+                              <div
+                                className="textinput regular"
                               >
-                                <span
-                                  className="text textinput--prefix -regular -dark"
+                                <input
+                                  className="textinput--native regular -prefix"
+                                  id="creditCardPayments"
+                                  name="creditCardPayments"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onKeyPress={[Function]}
+                                  type="text"
+                                  value=""
+                                />
+                                <Memo(Text)
+                                  className="textinput--prefix"
+                                  color="dark"
+                                  size="regular"
                                 >
-                                  £
-                                </span>
-                              </Memo(Text)>
-                            </div>
-                          </ForwardRef(TextInput)>
+                                  <span
+                                    className="text textinput--prefix -regular -dark"
+                                  >
+                                    £
+                                  </span>
+                                </Memo(Text)>
+                              </div>
+                            </ForwardRef(TextInput)>
+                          </NumericInput>
                         </Controller>
                       </div>
                     </div>
@@ -1556,17 +1551,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                         className="formgroup--content"
                       >
                         <Controller
-                          as={
-                            Object {
-                              "$$typeof": Symbol(react.memo),
-                              "compare": null,
-                              "type": Object {
-                                "$$typeof": Symbol(react.forward_ref),
-                                "displayName": "ForwardRef(TextInput)",
-                                "render": [Function],
-                              },
-                            }
-                          }
+                          as={[Function]}
                           control={
                             Object {
                               "defaultValuesRef": Object {
@@ -1737,42 +1722,51 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           id="utilities"
                           name="utilities"
                           prefix="£"
-                          type="number"
                         >
-                          <ForwardRef(TextInput)
+                          <NumericInput
                             id="utilities"
                             name="utilities"
                             onBlur={[Function]}
                             onChange={[Function]}
                             prefix="£"
-                            type="number"
                             value=""
                           >
-                            <div
-                              className="textinput regular"
+                            <ForwardRef(TextInput)
+                              id="utilities"
+                              name="utilities"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              prefix="£"
+                              value=""
                             >
-                              <input
-                                className="textinput--native regular -prefix"
-                                id="utilities"
-                                name="utilities"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                type="number"
-                                value=""
-                              />
-                              <Memo(Text)
-                                className="textinput--prefix"
-                                color="dark"
-                                size="regular"
+                              <div
+                                className="textinput regular"
                               >
-                                <span
-                                  className="text textinput--prefix -regular -dark"
+                                <input
+                                  className="textinput--native regular -prefix"
+                                  id="utilities"
+                                  name="utilities"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onKeyPress={[Function]}
+                                  type="text"
+                                  value=""
+                                />
+                                <Memo(Text)
+                                  className="textinput--prefix"
+                                  color="dark"
+                                  size="regular"
                                 >
-                                  £
-                                </span>
-                              </Memo(Text)>
-                            </div>
-                          </ForwardRef(TextInput)>
+                                  <span
+                                    className="text textinput--prefix -regular -dark"
+                                  >
+                                    £
+                                  </span>
+                                </Memo(Text)>
+                              </div>
+                            </ForwardRef(TextInput)>
+                          </NumericInput>
                         </Controller>
                       </div>
                     </div>
@@ -1800,17 +1794,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                         className="formgroup--content"
                       >
                         <Controller
-                          as={
-                            Object {
-                              "$$typeof": Symbol(react.memo),
-                              "compare": null,
-                              "type": Object {
-                                "$$typeof": Symbol(react.forward_ref),
-                                "displayName": "ForwardRef(TextInput)",
-                                "render": [Function],
-                              },
-                            }
-                          }
+                          as={[Function]}
                           control={
                             Object {
                               "defaultValuesRef": Object {
@@ -1981,42 +1965,51 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           id="insurance"
                           name="insurance"
                           prefix="£"
-                          type="number"
                         >
-                          <ForwardRef(TextInput)
+                          <NumericInput
                             id="insurance"
                             name="insurance"
                             onBlur={[Function]}
                             onChange={[Function]}
                             prefix="£"
-                            type="number"
                             value=""
                           >
-                            <div
-                              className="textinput regular"
+                            <ForwardRef(TextInput)
+                              id="insurance"
+                              name="insurance"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              prefix="£"
+                              value=""
                             >
-                              <input
-                                className="textinput--native regular -prefix"
-                                id="insurance"
-                                name="insurance"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                type="number"
-                                value=""
-                              />
-                              <Memo(Text)
-                                className="textinput--prefix"
-                                color="dark"
-                                size="regular"
+                              <div
+                                className="textinput regular"
                               >
-                                <span
-                                  className="text textinput--prefix -regular -dark"
+                                <input
+                                  className="textinput--native regular -prefix"
+                                  id="insurance"
+                                  name="insurance"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onKeyPress={[Function]}
+                                  type="text"
+                                  value=""
+                                />
+                                <Memo(Text)
+                                  className="textinput--prefix"
+                                  color="dark"
+                                  size="regular"
                                 >
-                                  £
-                                </span>
-                              </Memo(Text)>
-                            </div>
-                          </ForwardRef(TextInput)>
+                                  <span
+                                    className="text textinput--prefix -regular -dark"
+                                  >
+                                    £
+                                  </span>
+                                </Memo(Text)>
+                              </div>
+                            </ForwardRef(TextInput)>
+                          </NumericInput>
                         </Controller>
                       </div>
                     </div>
@@ -2044,17 +2037,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                         className="formgroup--content"
                       >
                         <Controller
-                          as={
-                            Object {
-                              "$$typeof": Symbol(react.memo),
-                              "compare": null,
-                              "type": Object {
-                                "$$typeof": Symbol(react.forward_ref),
-                                "displayName": "ForwardRef(TextInput)",
-                                "render": [Function],
-                              },
-                            }
-                          }
+                          as={[Function]}
                           control={
                             Object {
                               "defaultValuesRef": Object {
@@ -2225,42 +2208,51 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           id="carFinance"
                           name="carFinance"
                           prefix="£"
-                          type="number"
                         >
-                          <ForwardRef(TextInput)
+                          <NumericInput
                             id="carFinance"
                             name="carFinance"
                             onBlur={[Function]}
                             onChange={[Function]}
                             prefix="£"
-                            type="number"
                             value=""
                           >
-                            <div
-                              className="textinput regular"
+                            <ForwardRef(TextInput)
+                              id="carFinance"
+                              name="carFinance"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              prefix="£"
+                              value=""
                             >
-                              <input
-                                className="textinput--native regular -prefix"
-                                id="carFinance"
-                                name="carFinance"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                type="number"
-                                value=""
-                              />
-                              <Memo(Text)
-                                className="textinput--prefix"
-                                color="dark"
-                                size="regular"
+                              <div
+                                className="textinput regular"
                               >
-                                <span
-                                  className="text textinput--prefix -regular -dark"
+                                <input
+                                  className="textinput--native regular -prefix"
+                                  id="carFinance"
+                                  name="carFinance"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onKeyPress={[Function]}
+                                  type="text"
+                                  value=""
+                                />
+                                <Memo(Text)
+                                  className="textinput--prefix"
+                                  color="dark"
+                                  size="regular"
                                 >
-                                  £
-                                </span>
-                              </Memo(Text)>
-                            </div>
-                          </ForwardRef(TextInput)>
+                                  <span
+                                    className="text textinput--prefix -regular -dark"
+                                  >
+                                    £
+                                  </span>
+                                </Memo(Text)>
+                              </div>
+                            </ForwardRef(TextInput)>
+                          </NumericInput>
                         </Controller>
                       </div>
                     </div>
@@ -2288,17 +2280,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                         className="formgroup--content"
                       >
                         <Controller
-                          as={
-                            Object {
-                              "$$typeof": Symbol(react.memo),
-                              "compare": null,
-                              "type": Object {
-                                "$$typeof": Symbol(react.forward_ref),
-                                "displayName": "ForwardRef(TextInput)",
-                                "render": [Function],
-                              },
-                            }
-                          }
+                          as={[Function]}
                           control={
                             Object {
                               "defaultValuesRef": Object {
@@ -2469,42 +2451,51 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           id="foodAndClothes"
                           name="foodAndClothes"
                           prefix="£"
-                          type="number"
                         >
-                          <ForwardRef(TextInput)
+                          <NumericInput
                             id="foodAndClothes"
                             name="foodAndClothes"
                             onBlur={[Function]}
                             onChange={[Function]}
                             prefix="£"
-                            type="number"
                             value=""
                           >
-                            <div
-                              className="textinput regular"
+                            <ForwardRef(TextInput)
+                              id="foodAndClothes"
+                              name="foodAndClothes"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              prefix="£"
+                              value=""
                             >
-                              <input
-                                className="textinput--native regular -prefix"
-                                id="foodAndClothes"
-                                name="foodAndClothes"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                type="number"
-                                value=""
-                              />
-                              <Memo(Text)
-                                className="textinput--prefix"
-                                color="dark"
-                                size="regular"
+                              <div
+                                className="textinput regular"
                               >
-                                <span
-                                  className="text textinput--prefix -regular -dark"
+                                <input
+                                  className="textinput--native regular -prefix"
+                                  id="foodAndClothes"
+                                  name="foodAndClothes"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onKeyPress={[Function]}
+                                  type="text"
+                                  value=""
+                                />
+                                <Memo(Text)
+                                  className="textinput--prefix"
+                                  color="dark"
+                                  size="regular"
                                 >
-                                  £
-                                </span>
-                              </Memo(Text)>
-                            </div>
-                          </ForwardRef(TextInput)>
+                                  <span
+                                    className="text textinput--prefix -regular -dark"
+                                  >
+                                    £
+                                  </span>
+                                </Memo(Text)>
+                              </div>
+                            </ForwardRef(TextInput)>
+                          </NumericInput>
                         </Controller>
                       </div>
                     </div>
@@ -2532,17 +2523,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                         className="formgroup--content"
                       >
                         <Controller
-                          as={
-                            Object {
-                              "$$typeof": Symbol(react.memo),
-                              "compare": null,
-                              "type": Object {
-                                "$$typeof": Symbol(react.forward_ref),
-                                "displayName": "ForwardRef(TextInput)",
-                                "render": [Function],
-                              },
-                            }
-                          }
+                          as={[Function]}
                           control={
                             Object {
                               "defaultValuesRef": Object {
@@ -2713,42 +2694,51 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           id="fuel"
                           name="fuel"
                           prefix="£"
-                          type="number"
                         >
-                          <ForwardRef(TextInput)
+                          <NumericInput
                             id="fuel"
                             name="fuel"
                             onBlur={[Function]}
                             onChange={[Function]}
                             prefix="£"
-                            type="number"
                             value=""
                           >
-                            <div
-                              className="textinput regular"
+                            <ForwardRef(TextInput)
+                              id="fuel"
+                              name="fuel"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              prefix="£"
+                              value=""
                             >
-                              <input
-                                className="textinput--native regular -prefix"
-                                id="fuel"
-                                name="fuel"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                type="number"
-                                value=""
-                              />
-                              <Memo(Text)
-                                className="textinput--prefix"
-                                color="dark"
-                                size="regular"
+                              <div
+                                className="textinput regular"
                               >
-                                <span
-                                  className="text textinput--prefix -regular -dark"
+                                <input
+                                  className="textinput--native regular -prefix"
+                                  id="fuel"
+                                  name="fuel"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onKeyPress={[Function]}
+                                  type="text"
+                                  value=""
+                                />
+                                <Memo(Text)
+                                  className="textinput--prefix"
+                                  color="dark"
+                                  size="regular"
                                 >
-                                  £
-                                </span>
-                              </Memo(Text)>
-                            </div>
-                          </ForwardRef(TextInput)>
+                                  <span
+                                    className="text textinput--prefix -regular -dark"
+                                  >
+                                    £
+                                  </span>
+                                </Memo(Text)>
+                              </div>
+                            </ForwardRef(TextInput)>
+                          </NumericInput>
                         </Controller>
                       </div>
                     </div>
@@ -2776,17 +2766,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                         className="formgroup--content"
                       >
                         <Controller
-                          as={
-                            Object {
-                              "$$typeof": Symbol(react.memo),
-                              "compare": null,
-                              "type": Object {
-                                "$$typeof": Symbol(react.forward_ref),
-                                "displayName": "ForwardRef(TextInput)",
-                                "render": [Function],
-                              },
-                            }
-                          }
+                          as={[Function]}
                           control={
                             Object {
                               "defaultValuesRef": Object {
@@ -2957,42 +2937,51 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           id="studentLoans"
                           name="studentLoans"
                           prefix="£"
-                          type="number"
                         >
-                          <ForwardRef(TextInput)
+                          <NumericInput
                             id="studentLoans"
                             name="studentLoans"
                             onBlur={[Function]}
                             onChange={[Function]}
                             prefix="£"
-                            type="number"
                             value=""
                           >
-                            <div
-                              className="textinput regular"
+                            <ForwardRef(TextInput)
+                              id="studentLoans"
+                              name="studentLoans"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              prefix="£"
+                              value=""
                             >
-                              <input
-                                className="textinput--native regular -prefix"
-                                id="studentLoans"
-                                name="studentLoans"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                type="number"
-                                value=""
-                              />
-                              <Memo(Text)
-                                className="textinput--prefix"
-                                color="dark"
-                                size="regular"
+                              <div
+                                className="textinput regular"
                               >
-                                <span
-                                  className="text textinput--prefix -regular -dark"
+                                <input
+                                  className="textinput--native regular -prefix"
+                                  id="studentLoans"
+                                  name="studentLoans"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onKeyPress={[Function]}
+                                  type="text"
+                                  value=""
+                                />
+                                <Memo(Text)
+                                  className="textinput--prefix"
+                                  color="dark"
+                                  size="regular"
                                 >
-                                  £
-                                </span>
-                              </Memo(Text)>
-                            </div>
-                          </ForwardRef(TextInput)>
+                                  <span
+                                    className="text textinput--prefix -regular -dark"
+                                  >
+                                    £
+                                  </span>
+                                </Memo(Text)>
+                              </div>
+                            </ForwardRef(TextInput)>
+                          </NumericInput>
                         </Controller>
                       </div>
                     </div>
@@ -3020,17 +3009,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                         className="formgroup--content"
                       >
                         <Controller
-                          as={
-                            Object {
-                              "$$typeof": Symbol(react.memo),
-                              "compare": null,
-                              "type": Object {
-                                "$$typeof": Symbol(react.forward_ref),
-                                "displayName": "ForwardRef(TextInput)",
-                                "render": [Function],
-                              },
-                            }
-                          }
+                          as={[Function]}
                           control={
                             Object {
                               "defaultValuesRef": Object {
@@ -3201,42 +3180,51 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                           id="otherCredit"
                           name="otherCredit"
                           prefix="£"
-                          type="number"
                         >
-                          <ForwardRef(TextInput)
+                          <NumericInput
                             id="otherCredit"
                             name="otherCredit"
                             onBlur={[Function]}
                             onChange={[Function]}
                             prefix="£"
-                            type="number"
                             value=""
                           >
-                            <div
-                              className="textinput regular"
+                            <ForwardRef(TextInput)
+                              id="otherCredit"
+                              name="otherCredit"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              prefix="£"
+                              value=""
                             >
-                              <input
-                                className="textinput--native regular -prefix"
-                                id="otherCredit"
-                                name="otherCredit"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                type="number"
-                                value=""
-                              />
-                              <Memo(Text)
-                                className="textinput--prefix"
-                                color="dark"
-                                size="regular"
+                              <div
+                                className="textinput regular"
                               >
-                                <span
-                                  className="text textinput--prefix -regular -dark"
+                                <input
+                                  className="textinput--native regular -prefix"
+                                  id="otherCredit"
+                                  name="otherCredit"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onKeyPress={[Function]}
+                                  type="text"
+                                  value=""
+                                />
+                                <Memo(Text)
+                                  className="textinput--prefix"
+                                  color="dark"
+                                  size="regular"
                                 >
-                                  £
-                                </span>
-                              </Memo(Text)>
-                            </div>
-                          </ForwardRef(TextInput)>
+                                  <span
+                                    className="text textinput--prefix -regular -dark"
+                                  >
+                                    £
+                                  </span>
+                                </Memo(Text)>
+                              </div>
+                            </ForwardRef(TextInput)>
+                          </NumericInput>
                         </Controller>
                       </div>
                     </div>

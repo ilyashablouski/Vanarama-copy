@@ -10,6 +10,7 @@ import FormikMonthField from '../FormikMonthField/FormikMonthField';
 import FormikRadioField from '../FormikRadioField/FormikRadioField';
 import FormikSelectField from '../FormikSelectField/FormikSelectField';
 import FormikTextField from '../FormikTextField/FormikTextField';
+import FormikNumericField from '../FormikNumericField/FormikNumericField';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
 import RemainingMonthsMessage from '../RemainingMonthsMessage/RemainingMonthsMessage';
 import { EMPTY_EMPLOYMENT_ENTRY, IEmploymentFormValues } from './interfaces';
@@ -91,11 +92,10 @@ const EmploymentFormFieldArray: FCWithFragments<IProps> = ({
                   name={`history[${index}].address`}
                   label="Company Postcode or Address"
                 />
-                <FormikTextField
+                <FormikNumericField
                   name={`history[${index}].income`}
                   label="Gross Annual Income"
                   prefix="£"
-                  type="number"
                 />
               </>
             )}
