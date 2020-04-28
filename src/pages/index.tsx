@@ -6,8 +6,9 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Media from '@vanarama/uibook/lib/components/atoms/media';
 import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
-import Tile from '@vanarama/uibook/lib/components/molecules/tile';
+// import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
+import League from '@vanarama/uibook/lib/components/organisms/league';
 import LogoRow from '@vanarama/uibook/lib/components/molecules/logo-row';
 import ProductCard from '@vanarama/uibook/lib/components/organisms/product-card';
 import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
@@ -326,8 +327,8 @@ const HomePage: NextPage = () => (
     <section className="section">
       <div className="container">el</div>
     </section>
-    <section className="league section">
-      <div className="container">el</div>
+    <section className="league">
+      <League altText="vanarama national league" />
     </section>
     <section className="logo-row section">
       <div className="container">
