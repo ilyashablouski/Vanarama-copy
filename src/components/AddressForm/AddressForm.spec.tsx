@@ -1,4 +1,4 @@
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import { AddressFormDropDownData } from '../../../generated/AddressFormDropDownData';
 import AddressForm from './AddressForm';
 
@@ -39,7 +39,9 @@ describe('<AddressForm />', () => {
       target: { value: '1990' },
     });
 
-    fireEvent.click(getByText('Continue'));
+    await act(async () => {
+      fireEvent.click(getByText('Continue'));
+    });
 
     // ASSERT
     await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
@@ -94,7 +96,9 @@ describe('<AddressForm />', () => {
       target: { value: '1994' },
     });
 
-    fireEvent.click(getByText('Continue'));
+    await act(async () => {
+      fireEvent.click(getByText('Continue'));
+    });
 
     // ASSERT
     await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
@@ -216,7 +220,9 @@ describe('<AddressForm />', () => {
       target: { value: 'Rented' },
     });
 
-    fireEvent.click(getByText('Continue'));
+    await act(async () => {
+      fireEvent.click(getByText('Continue'));
+    });
 
     // ASSERT
     // Only one date should be submitted, the other should have been removed
@@ -298,13 +304,13 @@ describe('<AddressForm />', () => {
     });
 
     // Then submit the form
-    fireEvent.click(getByText(/Continue/));
+    await act(async () => {
+      fireEvent.click(getByText('Continue'));
+    });
 
     // ASSERT
     // All dates should be submitted, ordered by most recent
-    await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1), {
-      timeout: 5000,
-    });
+    await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
 
     expect(onSubmit.mock.calls[0][0]).toEqual({
       history: [
