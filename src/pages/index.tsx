@@ -3,7 +3,15 @@ import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
-import MainLayout from '../layouts/MainLayout/MainLayout';
+import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
+import Slider from '@vanarama/uibook/lib/components/organisms/slider';
+import Icon from '@vanarama/uibook/lib/components/atoms/icon';
+import ProductCard from '@vanarama/uibook/lib/components/organisms/product-card';
+import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
+import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
+import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
+import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
+import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 
 const styles = {
   hero: {
@@ -17,6 +25,8 @@ const styles = {
     clipPath: 'polygon(100% 0, calc(100% - 1ch) 50%, 100% 100%, 0 100%, 0 0)',
   },
 };
+
+const tabs = [{ label: 'Vans' }, { label: 'Pickups' }, { label: 'Cars' }];
 
 const HomePage: NextPage = () => (
   <main>
@@ -36,6 +46,7 @@ const HomePage: NextPage = () => (
               <Heading size="xlarge" color="black">
                 The Vehicle Leasing Experts
               </Heading>
+              <br />
               <Text size="large" color="darker">
                 Drive Your Dream Vehicle For
                 <br /> Less With Vanarama
@@ -49,7 +60,7 @@ const HomePage: NextPage = () => (
             />
           </Column>
           <Column className="-inset" sm="row" md="1" lg="2">
-            <div className="hero--search">tab</div>
+            <div className="hero--search">...</div>
           </Column>
         </Grid>
       </div>
@@ -92,7 +103,61 @@ const HomePage: NextPage = () => (
         />
       </svg>
     </div>
-    <section className="section">1</section>
+    <section className="section">
+      <div className="container">
+        <Heading size="large" color="black">
+          <span style={{ textAlign: 'center', display: 'block' }}>
+            Hot Deals
+          </span>
+        </Heading>
+        <Tabs active={0} tabs={tabs}>
+          <div>
+            <Slider className="" gutter={16}>
+              {[1, 2, 3, 4, 5].map(k => (
+                <div key={k} style={{ width: 370 }}>
+                  <ProductCard
+                    flag={{
+                      accentIcon: <Icon icon={<Flame />} color="white" />,
+                      accentText: 'Hot Deal',
+                      text: 'In Stock - 14-21 Days Delivery',
+                    }}
+                    href="#"
+                    features={[
+                      {
+                        icon: <Icon icon={<SnowSharp />} color="dark" />,
+                        label: 'Aircon',
+                      },
+                      {
+                        icon: <Icon icon={<BluetoothSharp />} color="dark" />,
+                        label: 'Bluetooth',
+                      },
+                      {
+                        icon: <Icon icon={<CompassSharp />} color="dark" />,
+                        label: 'Navigation',
+                      },
+                      {
+                        icon: <Icon icon={<WifiSharp />} color="dark" />,
+                        label: 'Sensors',
+                      },
+                    ]}
+                    imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
+                    onCompare={() => true}
+                    onViewOffer={() => true}
+                    onWishlist={() => true}
+                    price={209}
+                    rating={4.5}
+                    subtitle="1.0 IG-T 100 Tekna 5dr Xtronic [Leather]"
+                    title="Peugeot 208"
+                  />
+                </div>
+              ))}
+            </Slider>
+          </div>
+          <div>2</div>
+          <div>3</div>
+        </Tabs>
+      </div>
+    </section>
     <section className="section">2</section>
     <section className="section">3</section>
     <section className="section">4</section>
