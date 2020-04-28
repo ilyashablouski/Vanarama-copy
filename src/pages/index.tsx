@@ -293,7 +293,15 @@ const HomePage: NextPage = () => (
             <Image src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349" />
           </Column>
           <Column className="-inset -middle" md="3">
-            <div style={{ padding: '1rem' }}>
+            <div
+              style={{
+                height: '100%',
+                padding: '1rem',
+                display: 'flex',
+                justifyContent: 'center',
+                flexDirection: 'column',
+              }}
+            >
               <Heading size="large" color="black">
                 What Makes Us The Lease Experts?
               </Heading>
