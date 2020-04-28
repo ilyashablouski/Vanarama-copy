@@ -286,7 +286,32 @@ const HomePage: NextPage = () => (
         </Grid>
       </div>
     </section>
-    <section className="section">4</section>
+    <section className="section">
+      <div className="container">
+        <Grid lg="6" md="2" sm="2">
+          <Column md="3">
+            <Image src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349" />
+          </Column>
+          <Column className="-inset -middle" md="3">
+            <div style={{ padding: '1rem' }}>
+              <Heading size="large" color="black">
+                What Makes Us The Lease Experts?
+              </Heading>
+              <Text tag="p" size="regular" color="darker">
+                Vanarama is more than just a broker or leasing company,
+                we&apos;ve been leading the market and putting our customers at
+                the heart of everything we do for more than a decade.
+                <br /> After 15 years of experience in business & personal van,
+                pickup and car leasing, we&apos;re still pushing the industry
+                forward & our vast buying power gives us access to a range of
+                vehicles and lease deal pricing you can&apos;t get anywhere
+                else.
+              </Text>
+            </div>
+          </Column>
+        </Grid>
+      </div>
+    </section>
     <section className="section">5</section>
     <section className="league section">6</section>
     <section className="logo-row section">7</section>
