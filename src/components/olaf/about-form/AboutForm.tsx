@@ -31,6 +31,9 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
   } = useForm<IAboutFormValues>({
     mode: 'onBlur',
     validationSchema,
+    defaultValues: {
+      mobile: '',
+    },
   });
 
   const day = watch('dayOfBirth');
