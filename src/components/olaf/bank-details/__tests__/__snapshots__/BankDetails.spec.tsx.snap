@@ -65,7 +65,7 @@ exports[`<BankDetails /> renders with default props correctly 1`] = `
             data-testid="accountNumber"
             id="accountNumber"
             name="accountNumber"
-            type="number"
+            type="text"
             value=""
           />
         </div>

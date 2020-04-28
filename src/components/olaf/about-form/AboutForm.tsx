@@ -6,9 +6,10 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Select from '@vanarama/uibook/lib/components/atoms/select/';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput/';
+import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import { gql } from 'apollo-boost';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import FCWithFragments from '../../../utils/FCWithFragments';
 import { genMonths, genYears } from '../../../utils/helpers';
 import OptionsWithFavourites from '../../OptionsWithFavourites/OptionsWithFavourites';
@@ -26,6 +27,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
     errors,
     watch,
     triggerValidation,
+    control,
   } = useForm<IAboutFormValues>({
     mode: 'onBlur',
     validationSchema,
@@ -113,13 +115,14 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
           label="Mobile"
           error={errors?.mobile?.message?.toString()}
         >
-          <TextInput
+          <Controller
             id="mobile"
             type="tel"
             name="mobile"
             dataTestId="aboutMobile"
-            ref={register}
             width={35}
+            as={NumericInput}
+            control={control}
           />
         </FormGroup>
       </FormGroup>

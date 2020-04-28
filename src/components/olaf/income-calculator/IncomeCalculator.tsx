@@ -4,6 +4,7 @@ import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Input from '@vanarama/uibook/lib/components/atoms/textinput/';
+import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import { Column, Grid } from '@vanarama/uibook/lib/components/molecules/grid';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
@@ -66,8 +67,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(({ onSubmit }) => {
                 id="averageMonthlyIncome"
                 name="averageMonthlyIncome"
                 prefix="£"
-                type="number"
-                as={Input}
+                as={NumericInput}
                 control={control}
               />
             </FormGroup>
@@ -81,8 +81,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(({ onSubmit }) => {
                 id="monthlyHouseholdIncome"
                 name="monthlyHouseholdIncome"
                 prefix="£"
-                type="number"
-                as={Input}
+                as={NumericInput}
                 control={control}
               />
             </FormGroup>
@@ -107,8 +106,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(({ onSubmit }) => {
                     id="futureMonthlyIncome"
                     name="futureMonthlyIncome"
                     prefix="£"
-                    type="number"
-                    as={Input}
+                    as={NumericInput}
                     control={control}
                   />
                 </FormGroup>
@@ -125,8 +123,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(({ onSubmit }) => {
                   id="mortgageOrRent"
                   name="mortgageOrRent"
                   prefix="£"
-                  type="number"
-                  as={Input}
+                  as={NumericInput}
                   control={control}
                 />
               </FormGroup>
@@ -140,8 +137,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(({ onSubmit }) => {
                   id="phoneAndInternet"
                   name="phoneAndInternet"
                   prefix="£"
-                  type="number"
-                  as={Input}
+                  as={NumericInput}
                   control={control}
                 />
               </FormGroup>
@@ -155,8 +151,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(({ onSubmit }) => {
                   id="creditCardPayments"
                   name="creditCardPayments"
                   prefix="£"
-                  type="number"
-                  as={Input}
+                  as={NumericInput}
                   control={control}
                 />
               </FormGroup>
@@ -167,8 +162,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(({ onSubmit }) => {
                   id="utilities"
                   name="utilities"
                   prefix="£"
-                  type="number"
-                  as={Input}
+                  as={NumericInput}
                   control={control}
                 />
               </FormGroup>
@@ -179,8 +173,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(({ onSubmit }) => {
                   id="insurance"
                   name="insurance"
                   prefix="£"
-                  type="number"
-                  as={Input}
+                  as={NumericInput}
                   control={control}
                 />
               </FormGroup>
@@ -191,8 +184,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(({ onSubmit }) => {
                   id="carFinance"
                   name="carFinance"
                   prefix="£"
-                  type="number"
-                  as={Input}
+                  as={NumericInput}
                   control={control}
                 />
               </FormGroup>
@@ -203,8 +195,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(({ onSubmit }) => {
                   id="foodAndClothes"
                   name="foodAndClothes"
                   prefix="£"
-                  type="number"
-                  as={Input}
+                  as={NumericInput}
                   control={control}
                 />
               </FormGroup>
@@ -215,8 +206,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(({ onSubmit }) => {
                   id="fuel"
                   name="fuel"
                   prefix="£"
-                  type="number"
-                  as={Input}
+                  as={NumericInput}
                   control={control}
                 />
               </FormGroup>
@@ -227,8 +217,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(({ onSubmit }) => {
                   id="studentLoans"
                   name="studentLoans"
                   prefix="£"
-                  type="number"
-                  as={Input}
+                  as={NumericInput}
                   control={control}
                 />
               </FormGroup>
@@ -239,8 +228,7 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(({ onSubmit }) => {
                   id="otherCredit"
                   name="otherCredit"
                   prefix="£"
-                  type="number"
-                  as={Input}
+                  as={NumericInput}
                   control={control}
                 />
               </FormGroup>
