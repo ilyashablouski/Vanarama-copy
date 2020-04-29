@@ -20,7 +20,11 @@ describe('<AddressForm />', () => {
 
     // ACT
     const { getByText, getByTestId } = render(
-      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+      <AddressForm
+        addresses={[]}
+        dropDownData={mockDropDownData}
+        onSubmit={onSubmit}
+      />,
     );
 
     fireEvent.change(getByTestId('history[0].address'), {
@@ -61,7 +65,11 @@ describe('<AddressForm />', () => {
 
     // ACT
     const { getByText, getByTestId } = render(
-      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+      <AddressForm
+        addresses={[]}
+        dropDownData={mockDropDownData}
+        onSubmit={onSubmit}
+      />,
     );
 
     fireEvent.change(getByTestId('history[0].address'), {
@@ -129,7 +137,11 @@ describe('<AddressForm />', () => {
 
     // ACT
     const { getByText, getByTestId } = render(
-      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+      <AddressForm
+        addresses={[]}
+        dropDownData={mockDropDownData}
+        onSubmit={onSubmit}
+      />,
     );
 
     fireEvent.change(getByTestId('history[0].month'), {
@@ -157,7 +169,11 @@ describe('<AddressForm />', () => {
 
     // ACT
     const { getByText, getByTestId } = render(
-      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+      <AddressForm
+        addresses={[]}
+        dropDownData={mockDropDownData}
+        onSubmit={onSubmit}
+      />,
     );
 
     fireEvent.change(getByTestId('history[0].month'), {
@@ -185,7 +201,11 @@ describe('<AddressForm />', () => {
 
     // ACT
     const { getByText, getByTestId } = render(
-      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+      <AddressForm
+        addresses={[]}
+        dropDownData={mockDropDownData}
+        onSubmit={onSubmit}
+      />,
     );
 
     // Add a history for the current year
@@ -249,7 +269,11 @@ describe('<AddressForm />', () => {
 
     // ACT
     const { getByText, getByTestId } = render(
-      <AddressForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+      <AddressForm
+        addresses={[]}
+        dropDownData={mockDropDownData}
+        onSubmit={onSubmit}
+      />,
     );
 
     // Add a history for last year

@@ -1,4 +1,5 @@
 import { IAddressSuggestion } from '@vanarama/uibook/lib/components/molecules/address-finder/interfaces';
+import { AddressFormAddresses } from '../../../generated/AddressFormAddresses';
 import { AddressFormDropDownData } from '../../../generated/AddressFormDropDownData';
 
 export type TAddressEntry = {
@@ -13,8 +14,8 @@ export interface IAddressFormValues {
 }
 
 export interface IAddressFormProps {
+  addresses: AddressFormAddresses[];
   dropDownData: AddressFormDropDownData;
-  initialValues?: IAddressFormValues;
   onSubmit: (values: IAddressFormValues) => Promise<any>;
 }
 

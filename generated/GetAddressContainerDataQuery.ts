@@ -8,6 +8,7 @@
 // ====================================================
 
 export interface GetAddressContainerDataQuery_personByUuid_addresses {
+  __typename: "AddressType";
   uuid: string;
   serviceId: string | null;
   lineOne: string;

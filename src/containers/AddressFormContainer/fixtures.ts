@@ -25,6 +25,7 @@ export const withSavedAddresses = (
     partyId: '911',
     addresses: [
       {
+        __typename: 'AddressType',
         serviceId: 'GB|1337',
         uuid: 'a1e79c5d-4e69-4098-aede-e55ac8394123',
         lineOne: 'Buckingham Palace',
@@ -35,6 +36,7 @@ export const withSavedAddresses = (
         startedOn: date,
       },
       {
+        __typename: 'AddressType',
         serviceId: 'GB|002',
         uuid: '88924d6c-ddb5-4067-97c4-081dbed0318a',
         lineOne: '742 Evergreen Terrace',
@@ -64,6 +66,7 @@ export const withSavedAddressesInWrongOrder = (
     partyId: '911',
     addresses: [
       {
+        __typename: 'AddressType',
         serviceId: 'GB|002',
         uuid: '88924d6c-ddb5-4067-97c4-081dbed0318a',
         lineOne: '742 Evergreen Terrace',
@@ -74,6 +77,7 @@ export const withSavedAddressesInWrongOrder = (
         startedOn: '1990-01-01',
       },
       {
+        __typename: 'AddressType',
         serviceId: 'GB|1337',
         uuid: 'a1e79c5d-4e69-4098-aede-e55ac8394123',
         lineOne: 'Buckingham Palace',
