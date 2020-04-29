@@ -6,7 +6,7 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Media from '@vanarama/uibook/lib/components/atoms/media';
 import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
-// import Tile from '@vanarama/uibook/lib/components/molecules/tile';
+import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
 import League from '@vanarama/uibook/lib/components/organisms/league';
 import LogoRow from '@vanarama/uibook/lib/components/molecules/logo-row';
@@ -325,7 +325,82 @@ const HomePage: NextPage = () => (
       </div>
     </section>
     <section className="section">
-      <div className="container">el</div>
+      <div className="container">
+        <Grid lg="4" md="2" sm="1">
+          <Column md="1">
+            <Tile className="-plain -button -align-center">
+              <Image
+                className="-inline"
+                round
+                size="large"
+                src="https://source.unsplash.com/collection/2102317/1000x650?sig=403420"
+              />
+              <a className="tile--link" href="##">
+                <Heading tag="span" size="regular" color="black">
+                  Price Protection
+                </Heading>
+              </a>
+              <Text tag="p">
+                Pretium facilisi etiam pretium, cras interdum enim, nullam.
+              </Text>
+            </Tile>
+          </Column>
+          <Column md="1">
+            <Tile className="-plain -button -align-center">
+              <Image
+                className="-inline"
+                round
+                size="large"
+                src="https://source.unsplash.com/collection/2102317/1000x650?sig=403411"
+              />
+              <a className="tile--link" href="##">
+                <Heading tag="span" size="regular" color="black">
+                  Customer Reviews
+                </Heading>
+              </a>
+              <Text tag="p">
+                Pretium facilisi etiam pretium, cras interdum enim, nullam.
+              </Text>
+            </Tile>
+          </Column>
+          <Column md="1">
+            <Tile className="-plain -button -align-center">
+              <Image
+                className="-inline"
+                round
+                size="large"
+                src="https://source.unsplash.com/collection/2102317/1000x650?sig=403424"
+              />
+              <a className="tile--link" href="##">
+                <Heading tag="span" size="regular" color="black">
+                  Quote Online
+                </Heading>
+              </a>
+              <Text tag="p">
+                Pretium facilisi etiam pretium, cras interdum enim, nullam.
+              </Text>
+            </Tile>
+          </Column>
+          <Column md="1">
+            <Tile className="-plain -button -align-center">
+              <Image
+                className="-inline"
+                round
+                size="large"
+                src="https://source.unsplash.com/collection/2102317/1000x650?sig=403445"
+              />
+              <a className="tile--link" href="##">
+                <Heading tag="span" size="regular" color="black">
+                  Confused About Leasing?
+                </Heading>
+              </a>
+              <Text tag="p">
+                Pretium facilisi etiam pretium, cras interdum enim, nullam.
+              </Text>
+            </Tile>
+          </Column>
+        </Grid>
+      </div>
     </section>
     <section className="league">
       <League altText="vanarama national league" />
