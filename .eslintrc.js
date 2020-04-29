@@ -17,7 +17,8 @@ module.exports = {
     "jsx-a11y/anchor-is-valid": [ "error", { "components": ["a"] }],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "no-underscore-dangle": ["error", { "allow": ["__typename"] }]
+    "no-underscore-dangle": ["error", { "allow": ["__typename"] }],
+    "@typescript-eslint/no-use-before-define": ["error", { "functions": false }],
   },
   overrides: [
     {

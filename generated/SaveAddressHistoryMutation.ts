@@ -10,7 +10,15 @@ import { AddressHistoryInputObject } from "./globalTypes";
 // ====================================================
 
 export interface SaveAddressHistoryMutation_createUpdateAddress {
+  __typename: "AddressType";
   uuid: string;
+  serviceId: string | null;
+  lineOne: string;
+  lineTwo: string | null;
+  postcode: string;
+  city: string;
+  propertyStatus: string | null;
+  startedOn: any | null;
 }
 
 export interface SaveAddressHistoryMutation {

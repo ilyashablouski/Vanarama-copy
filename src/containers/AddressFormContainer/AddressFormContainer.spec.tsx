@@ -58,7 +58,17 @@ describe('<AddressFormContainer />', () => {
           return {
             data: {
               createUpdateAddress: [
-                { uuid: '24fee0a6-8953-11ea-bc55-0242ac130003' },
+                {
+                  __typename: 'AddressType',
+                  uuid: '24fee0a6-8953-11ea-bc55-0242ac130003',
+                  city: '',
+                  lineOne: '',
+                  serviceId: 'GB|001',
+                  lineTwo: null,
+                  postcode: '',
+                  propertyStatus: 'Mortgage',
+                  startedOn: '1990-01-01',
+                },
               ],
             } as Mutation,
           };
@@ -154,8 +164,28 @@ describe('<AddressFormContainer />', () => {
           return {
             data: {
               createUpdateAddress: [
-                { uuid: 'a1e79c5d-4e69-4098-aede-e55ac8394123' },
-                { uuid: '88924d6c-ddb5-4067-97c4-081dbed0318a' },
+                {
+                  __typename: 'AddressType',
+                  uuid: 'a1e79c5d-4e69-4098-aede-e55ac8394123',
+                  city: '',
+                  lineOne: '',
+                  serviceId: 'GB|1337',
+                  lineTwo: null,
+                  postcode: '',
+                  propertyStatus: 'Rented',
+                  startedOn: asDateString,
+                },
+                {
+                  __typename: 'AddressType',
+                  uuid: '88924d6c-ddb5-4067-97c4-081dbed0318a',
+                  city: '',
+                  lineOne: '',
+                  serviceId: 'GB|002',
+                  lineTwo: null,
+                  postcode: '',
+                  propertyStatus: 'Motgage',
+                  startedOn: '1990-01-01',
+                },
               ],
             } as Mutation,
           };
@@ -237,8 +267,28 @@ describe('<AddressFormContainer />', () => {
           return {
             data: {
               createUpdateAddress: [
-                { uuid: 'a1e79c5d-4e69-4098-aede-e55ac8394123' },
-                { uuid: '88924d6c-ddb5-4067-97c4-081dbed0318a' },
+                {
+                  __typename: 'AddressType',
+                  uuid: 'a1e79c5d-4e69-4098-aede-e55ac8394123',
+                  city: '',
+                  lineOne: '',
+                  serviceId: 'GB|1337',
+                  lineTwo: null,
+                  postcode: '',
+                  propertyStatus: 'Rented',
+                  startedOn: asDateString,
+                },
+                {
+                  __typename: 'AddressType',
+                  uuid: '88924d6c-ddb5-4067-97c4-081dbed0318a',
+                  city: '',
+                  lineOne: '',
+                  serviceId: 'GB|002',
+                  lineTwo: null,
+                  postcode: '',
+                  propertyStatus: 'Motgage',
+                  startedOn: '1990-01-01',
+                },
               ],
             } as Mutation,
           };
