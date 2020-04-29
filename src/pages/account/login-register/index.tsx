@@ -3,25 +3,30 @@ import { Column, Grid } from '@vanarama/uibook/lib/components/molecules/grid';
 import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
 import { NextPage } from 'next';
 import React, { useState } from 'react';
+import { ParsedUrlQuery } from 'querystring';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import RegisterFormContainer from '../../../containers/RegisterFormContainer/RegisterFormContainer';
 import withApollo from '../../../hocs/withApollo';
 import MainLayout from '../../../layouts/MainLayout/MainLayout';
 
-const Message = ({ message }: any) => (
+const Message: React.SFC<{ message: string }> = ({ message }) => (
   <Column sm="row" md="row" lg="2-4">
     <Heading
       tag="span"
       size="regular"
       color="success"
-      dataTestId="registeration-success-message"
+      dataTestId="registration-success-message"
     >
       {message}
     </Heading>
   </Column>
 );
 
-export const LoginRegisterPage: NextPage = (props: any) => {
+interface IProps {
+  query: ParsedUrlQuery;
+}
+
+export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const { query } = props;
 
