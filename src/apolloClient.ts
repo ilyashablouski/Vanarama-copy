@@ -1,8 +1,14 @@
-import { InMemoryCache, defaultDataIdFromObject } from 'apollo-cache-inmemory';
+import {
+  defaultDataIdFromObject,
+  IdGetterObj,
+  InMemoryCache,
+} from 'apollo-cache-inmemory';
 import { ApolloClient } from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import fetch from 'isomorphic-unfetch';
 import { NextPageContext } from 'next';
+
+type ObjWithUuid = IdGetterObj & { uuid: string };
 
 export default function createApolloClient(
   initialState: any,
@@ -25,10 +31,12 @@ export default function createApolloClient(
         },
       },
       dataIdFromObject: object => {
-        // eslint-disable-next-line no-underscore-dangle
         switch (object.__typename) {
           case 'PersonType':
-            return `PersonType:${(object as any).uuid}`; // use the `uuid` field as the identifier
+          case 'AddressType': {
+            const { __typename, uuid } = object as ObjWithUuid;
+            return `${__typename}:${uuid}`;
+          }
           default:
             return defaultDataIdFromObject(object); // fall back to default handling
         }

@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import { gql, MutationUpdaterFn } from 'apollo-boost';
 import React from 'react';
 import {
   GetAddressContainerDataQuery as Query,
@@ -10,28 +11,33 @@ import {
   SaveAddressHistoryMutationVariables as MutationVariables,
 } from '../../../generated/SaveAddressHistoryMutation';
 import AddressForm from '../../components/AddressForm/AddressForm';
-import { historyToMoment } from '../../utils/dates';
 import { IAddressFormContainerProps } from './interfaces';
+import { formValuesToInput } from './mappers';
 
-const GET_ADDRESS_CONTAINER_DATA = gql`
+export const GET_ADDRESS_CONTAINER_DATA = gql`
   query GetAddressContainerDataQuery($uuid: ID!) {
     personByUuid(uuid: $uuid) {
       uuid
       partyId
+      addresses {
+        ...AddressFormAddresses
+      }
     }
     allDropDowns {
       ...AddressFormDropDownData
     }
   }
+  ${AddressForm.fragments.addresses}
   ${AddressForm.fragments.dropDownData}
 `;
 
-const SAVE_ADDRESS_HISTORY = gql`
+export const SAVE_ADDRESS_HISTORY = gql`
   mutation SaveAddressHistoryMutation($input: AddressHistoryInputObject!) {
     createUpdateAddress(input: $input) {
-      id
+      ...AddressFormAddresses
     }
   }
+  ${AddressForm.fragments.addresses}
 `;
 
 const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
@@ -40,16 +46,21 @@ const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
 }) => {
   const { loading, error, data } = useQuery<Query, QueryVariables>(
     GET_ADDRESS_CONTAINER_DATA,
-    { variables: { uuid: personUuid } },
+    {
+      variables: { uuid: personUuid },
+    },
   );
 
   const [saveAddressHistory] = useMutation<Mutation, MutationVariables>(
     SAVE_ADDRESS_HISTORY,
-    { onCompleted },
+    {
+      onCompleted,
+      update: updateCache(personUuid),
+    },
   );
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loading size="large" />;
   }
 
   if (error) {
@@ -57,28 +68,47 @@ const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
   }
 
   if (!data || !data.allDropDowns || !data.personByUuid) {
-    return null;
+    return <p>Address details cannot be found</p>;
   }
 
   return (
     <AddressForm
+      addresses={data.personByUuid.addresses || []}
       dropDownData={data.allDropDowns}
-      onSubmit={async values => {
-        await saveAddressHistory({
+      onSubmit={values =>
+        saveAddressHistory({
           variables: {
-            input: {
-              partyId: data.personByUuid!.partyId,
-              addresses: values.history.map(item => ({
-                serviceId: item.address?.id,
-                propertyStatus: item.status,
-                startedOn: historyToMoment(item).format('YYYY-MM-DD'),
-              })),
-            },
+            input: formValuesToInput(data.personByUuid!.partyId, values),
           },
-        });
-      }}
+        })
+      }
     />
   );
 };
+
+function updateCache(uuid: string) {
+  const updater: MutationUpdaterFn<Mutation> = (store, result) => {
+    // Read the data from our cache for this query.
+    const cachedData = store.readQuery<Query, QueryVariables>({
+      query: GET_ADDRESS_CONTAINER_DATA,
+      variables: { uuid },
+    });
+
+    // Add the addresses from the mutation to the end.
+    if (cachedData?.personByUuid?.addresses) {
+      cachedData.personByUuid.addresses =
+        result.data?.createUpdateAddress || [];
+
+      // Write our data back to the cache.
+      store.writeQuery<Query, QueryVariables>({
+        query: GET_ADDRESS_CONTAINER_DATA,
+        variables: { uuid },
+        data: cachedData,
+      });
+    }
+  };
+
+  return updater;
+}
 
 export default AddressFormContainer;

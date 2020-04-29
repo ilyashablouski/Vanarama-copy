@@ -3,7 +3,7 @@ import React from 'react';
 import RegisterForm from './RegisterForm';
 
 describe('<RegisterForm />', () => {
-  xit('should call `onSubmit` if there are no validation errors', async () => {
+  it('should call `onSubmit` if there are no validation errors', async () => {
     // ARRANGE
     const onSubmit = jest.fn();
 

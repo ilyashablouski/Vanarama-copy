@@ -21,16 +21,4 @@ const EmploymentHistoryPage: NextPage = () => {
   );
 };
 
-/**
- * Had to define `getInitialProps` to turn off Static Optimization and get the query from the router
- * see:
- *  https://github.com/zeit/next.js/discussions/11484 &
- *  https://nextjs.org/docs/routing/dynamic-routes#caveats
- */
-EmploymentHistoryPage.getInitialProps = () => {
-  return {};
-};
-
-export default withApollo(EmploymentHistoryPage, {
-  getDataFromTree,
-});
+export default withApollo(EmploymentHistoryPage, { getDataFromTree });

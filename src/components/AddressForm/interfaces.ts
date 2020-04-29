@@ -1,8 +1,9 @@
-import { ILoqateSuggestion } from '@vanarama/uibook/lib/hooks/useLoqate/interfaces';
+import { IAddressSuggestion } from '@vanarama/uibook/lib/components/molecules/address-finder/interfaces';
+import { AddressFormAddresses } from '../../../generated/AddressFormAddresses';
 import { AddressFormDropDownData } from '../../../generated/AddressFormDropDownData';
 
 export type TAddressEntry = {
-  address?: ILoqateSuggestion;
+  address?: IAddressSuggestion;
   month: string;
   status: string;
   year: string;
@@ -13,8 +14,9 @@ export interface IAddressFormValues {
 }
 
 export interface IAddressFormProps {
+  addresses: AddressFormAddresses[];
   dropDownData: AddressFormDropDownData;
-  onSubmit: (values: IAddressFormValues) => Promise<void>;
+  onSubmit: (values: IAddressFormValues) => Promise<any>;
 }
 
 export const EMPTY_ADDRESS_ENTRY: TAddressEntry = {

@@ -9,6 +9,7 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
+import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import { IBankDetailsProps, IBankDetails } from './interfaces';
 import { genMonths, genYears } from '../../../utils/helpers';
@@ -68,12 +69,12 @@ const BankDetails: FC<IBankDetailsProps> = memo(props => {
         label="Account Number"
         error={errors?.accountNumber?.message?.toString()}
       >
-        <TextInput
+        <Controller
           id="accountNumber"
-          type="number"
           name="accountNumber"
           dataTestId="accountNumber"
-          ref={register}
+          as={NumericInput}
+          control={control}
           width={35}
         />
       </FormGroup>

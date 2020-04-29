@@ -9,18 +9,19 @@ import React from 'react';
 import FCWithFragments from '../../utils/FCWithFragments';
 import AddressFormFieldArray from './AddressFormFieldArray';
 import {
-  EMPTY_ADDRESS_ENTRY,
   IAddressFormProps,
   IAddressFormValues as IFormValues,
 } from './interfaces';
+import { responseToInitialFormValues } from './mappers';
 import validationSchema from './validationSchema';
 
 const AddressForm: FCWithFragments<IAddressFormProps> = ({
+  addresses,
   dropDownData,
   onSubmit,
 }) => (
   <Formik<IFormValues>
-    initialValues={{ history: [EMPTY_ADDRESS_ENTRY] }}
+    initialValues={responseToInitialFormValues(addresses)}
     onSubmit={onSubmit}
     validationSchema={validationSchema}
   >
@@ -68,6 +69,19 @@ const AddressForm: FCWithFragments<IAddressFormProps> = ({
 );
 
 AddressForm.fragments = {
+  addresses: gql`
+    fragment AddressFormAddresses on AddressType {
+      __typename
+      uuid
+      serviceId
+      lineOne
+      lineTwo
+      postcode
+      city
+      propertyStatus
+      startedOn
+    }
+  `,
   dropDownData: gql`
     fragment AddressFormDropDownData on DropDownType {
       ...AddressFormFieldArrayDownData
