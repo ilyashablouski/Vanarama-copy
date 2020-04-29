@@ -73,12 +73,8 @@ const AboutYouPage: NextPage = () => {
             variables: {
               input: {
                 title: values.title,
-                maritalStatus: values.maritalStatus,
                 firstName: values.firstName,
                 lastName: values.lastName,
-                emailConsent: values.consent,
-                smsConsent: values.consent,
-                dateOfBirth,
                 emailAddress: {
                   kind: 'Home',
                   value: values.email,
@@ -89,6 +85,14 @@ const AboutYouPage: NextPage = () => {
                   value: values.mobile,
                   primary: true,
                 },
+                dateOfBirth,
+                countryOfBirth: values.countryOfBirth,
+                nationality: values.nationality,
+                maritalStatus: values.maritalStatus,
+                noOfDependants: Number(values.dependants),
+                noOfAdultsInHousehold: Number(values.adultsInHousehold),
+                emailConsent: values.consent,
+                smsConsent: values.consent,
               },
             },
           });
