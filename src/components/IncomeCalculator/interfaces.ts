@@ -1,3 +1,5 @@
+import { IncomeCalculatorExpenditure } from '../../../generated/IncomeCalculatorExpenditure';
+
 export interface IIncomeCalculatorFormValues {
   averageMonthlyIncome?: string;
   carFinance?: string;
@@ -16,6 +18,7 @@ export interface IIncomeCalculatorFormValues {
 }
 
 export interface IIncomeCalculatorProps {
-  onSubmit: (values: IIncomeCalculatorFormValues) => Promise<void>;
+  expenditure: IncomeCalculatorExpenditure | null;
+  onSubmit: (values: IIncomeCalculatorFormValues) => Promise<any>;
   isSubmitting?: boolean;
 }

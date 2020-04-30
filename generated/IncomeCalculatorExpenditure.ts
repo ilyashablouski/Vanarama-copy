@@ -3,13 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { IncomeAndExpenseInputObject } from "./globalTypes";
-
 // ====================================================
-// GraphQL mutation operation: CreateExpenseMutation
+// GraphQL fragment: IncomeCalculatorExpenditure
 // ====================================================
 
-export interface CreateExpenseMutation_createUpdateIncomeAndExpense {
+export interface IncomeCalculatorExpenditure {
   __typename: "IncomeAndExpenseType";
   uuid: string;
   anticipateMonthlyIncomeChange: boolean;
@@ -26,15 +24,4 @@ export interface CreateExpenseMutation_createUpdateIncomeAndExpense {
   fuel: number | null;
   studentLoan: number | null;
   otherCredit: number | null;
-}
-
-export interface CreateExpenseMutation {
-  /**
-   * Create new monthly income and expenses or update existing
-   */
-  createUpdateIncomeAndExpense: CreateExpenseMutation_createUpdateIncomeAndExpense | null;
-}
-
-export interface CreateExpenseMutationVariables {
-  input?: IncomeAndExpenseInputObject | null;
 }

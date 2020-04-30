@@ -2,46 +2,36 @@ import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwar
 import Button from '@vanarama/uibook/lib/components/atoms/button/';
 import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Input from '@vanarama/uibook/lib/components/atoms/textinput/';
-import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import { Column, Grid } from '@vanarama/uibook/lib/components/molecules/grid';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
-import React, { FC, memo } from 'react';
+import { gql } from 'apollo-boost';
+import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import FCWithFragments from '../../utils/FCWithFragments';
 import validationSchema from './IncomeCalculator.validation';
 import {
   IIncomeCalculatorFormValues as IFormValues,
   IIncomeCalculatorProps,
 } from './interfaces';
+import { responseToInitialFormValues } from './mappers';
 import { calculateIncome } from './utils';
 
-const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(({ onSubmit }) => {
+const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
+  expenditure,
+  onSubmit,
+}) => {
   const { handleSubmit, control, watch, errors } = useForm<IFormValues>({
     mode: 'onBlur',
     validationSchema,
-    defaultValues: {
-      averageMonthlyIncome: '',
-      carFinance: '',
-      creditCardPayments: '',
-      foodAndClothes: '',
-      fuel: '',
-      futureMonthlyIncome: '',
-      insurance: '',
-      isFutureMonthlyIncome: false,
-      monthlyHouseholdIncome: '',
-      mortgageOrRent: '',
-      otherCredit: '',
-      phoneAndInternet: '',
-      studentLoans: '',
-      utilities: '',
-    },
+    defaultValues: responseToInitialFormValues(expenditure),
   });
 
   const values = watch();
   const { disposableIncome, monthlyExpenses } = calculateIncome(values);
-
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -87,7 +77,10 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(({ onSubmit }) => {
             </FormGroup>
           </Column>
           <Column md="row">
-            <FormGroup label="Do You Anticipate Your Monthly Income Will Change?">
+            <FormGroup
+              controlId="isFutureMonthlyIncome"
+              label="Do You Anticipate Your Monthly Income Will Change?"
+            >
               <Controller
                 id="isFutureMonthlyIncome"
                 name="isFutureMonthlyIncome"
@@ -286,6 +279,29 @@ const IncomeCalculator: FC<IIncomeCalculatorProps> = memo(({ onSubmit }) => {
       </div>
     </form>
   );
-});
+};
+
+IncomeCalculator.fragments = {
+  expenditure: gql`
+    fragment IncomeCalculatorExpenditure on IncomeAndExpenseType {
+      __typename
+      uuid
+      anticipateMonthlyIncomeChange
+      averageMonthlyIncome
+      householdIncome
+      futureMonthlyIncome
+      mortgageOrRent
+      utilities
+      insurance
+      phoneAndInternet
+      creditCardPayments
+      carFinance
+      foodAndClothes
+      fuel
+      studentLoan
+      otherCredit
+    }
+  `,
+};
 
 export default IncomeCalculator;
