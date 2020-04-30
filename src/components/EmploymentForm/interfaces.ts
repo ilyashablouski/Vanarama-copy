@@ -4,13 +4,13 @@ import { EmploymentFormEmployment } from '../../../generated/EmploymentFormEmplo
 
 export type TEmploymentEntry = {
   address?: IAddressSuggestion;
-  company: string;
-  contract: string;
-  income: string;
+  company: string | null;
+  contract: string | null;
+  income: string | null;
   month: string;
-  phoneNumber: string;
+  phoneNumber: string | null;
   status: string;
-  title: string;
+  title: string | null;
   year: string;
 };
 

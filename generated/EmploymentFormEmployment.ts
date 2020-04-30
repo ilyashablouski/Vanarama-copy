@@ -10,6 +10,7 @@
 export interface EmploymentFormEmployment {
   __typename: "EmploymentHistoryType";
   uuid: string;
+  companyAddressServiceId: string | null;
   companyAddressCity: string | null;
   companyAddressLineOne: string | null;
   companyAddressLineTwo: string | null;

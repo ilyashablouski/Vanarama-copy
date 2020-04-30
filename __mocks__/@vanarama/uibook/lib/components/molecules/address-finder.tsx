@@ -9,9 +9,10 @@ const MockAddressFinderContext = createContext<any>({});
 const MockAddressFinder: React.FC<IAddressFinderProps> = ({
   children,
   onSuggestionChange,
+  selected,
 }) => {
   return (
-    <MockAddressFinderContext.Provider value={{ onSuggestionChange }}>
+    <MockAddressFinderContext.Provider value={{ onSuggestionChange, selected }}>
       {children}
     </MockAddressFinderContext.Provider>
   );
@@ -21,16 +22,15 @@ const MockInput: React.FC<{ id: string; dataTestId: string }> = ({
   id,
   dataTestId,
 }) => {
-  const { onSuggestionChange } = useContext(MockAddressFinderContext);
+  const { onSuggestionChange, selected } = useContext(MockAddressFinderContext);
   return (
     <input
       id={id}
       data-testid={dataTestId}
       onChange={e => {
-        onSuggestionChange({
-          id: e.target.value,
-        } as any);
+        onSuggestionChange({ id: e.target.value } as any);
       }}
+      value={selected?.label}
     />
   );
 };

@@ -12,6 +12,7 @@ import { EmploymentHistoryInputObject } from "./globalTypes";
 export interface SaveEmploymentHistoryMutation_createUpdateEmploymentHistory {
   __typename: "EmploymentHistoryType";
   uuid: string;
+  companyAddressServiceId: string | null;
   companyAddressCity: string | null;
   companyAddressLineOne: string | null;
   companyAddressLineTwo: string | null;

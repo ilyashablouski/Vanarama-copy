@@ -2,8 +2,6 @@ import { fireEvent, render, act, waitFor } from '@testing-library/react';
 import { EmploymentFormDropDownData } from '../../../generated/EmploymentFormDropDownData';
 import EmploymentForm from './EmploymentForm';
 
-jest.mock('@vanarama/uibook/lib/components/molecules/address-finder');
-
 const mockDropDownData: EmploymentFormDropDownData = {
   __typename: 'DropDownType',
   employmentStatuses: {
