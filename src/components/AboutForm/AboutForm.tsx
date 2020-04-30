@@ -10,9 +10,9 @@ import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import { gql } from 'apollo-boost';
 import { useForm, Controller } from 'react-hook-form';
-import FCWithFragments from '../../../utils/FCWithFragments';
-import { genMonths, genYears } from '../../../utils/helpers';
-import OptionsWithFavourites from '../../OptionsWithFavourites/OptionsWithFavourites';
+import FCWithFragments from '../../utils/FCWithFragments';
+import { genMonths, genYears } from '../../utils/helpers';
+import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
 import validationSchema from './AboutForm.validation';
 import { IAboutFormValues, IProps } from './interface';
 

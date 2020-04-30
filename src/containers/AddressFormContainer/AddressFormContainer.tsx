@@ -47,7 +47,9 @@ const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
   const { loading, error, data } = useQuery<Query, QueryVariables>(
     GET_ADDRESS_CONTAINER_DATA,
     {
-      variables: { uuid: personUuid },
+      variables: {
+        uuid: personUuid,
+      },
     },
   );
 
@@ -89,21 +91,20 @@ const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
 function updateCache(uuid: string) {
   const updater: MutationUpdaterFn<Mutation> = (store, result) => {
     // Read the data from our cache for this query.
-    const cachedData = store.readQuery<Query, QueryVariables>({
+    const data = store.readQuery<Query, QueryVariables>({
       query: GET_ADDRESS_CONTAINER_DATA,
       variables: { uuid },
     });
 
     // Add the addresses from the mutation to the end.
-    if (cachedData?.personByUuid?.addresses) {
-      cachedData.personByUuid.addresses =
-        result.data?.createUpdateAddress || [];
+    if (data?.personByUuid?.addresses) {
+      data.personByUuid.addresses = result.data?.createUpdateAddress || [];
 
       // Write our data back to the cache.
       store.writeQuery<Query, QueryVariables>({
         query: GET_ADDRESS_CONTAINER_DATA,
         variables: { uuid },
-        data: cachedData,
+        data,
       });
     }
   };

@@ -1,5 +1,6 @@
 import { IAddressSuggestion } from '@vanarama/uibook/lib/components/molecules/address-finder/interfaces';
 import { EmploymentFormDropDownData } from '../../../generated/EmploymentFormDropDownData';
+import { EmploymentFormEmployment } from '../../../generated/EmploymentFormEmployment';
 
 export type TEmploymentEntry = {
   address?: IAddressSuggestion;
@@ -19,7 +20,8 @@ export interface IEmploymentFormValues {
 
 export interface IEmploymentFormProps {
   dropDownData: EmploymentFormDropDownData;
-  onSubmit: (values: IEmploymentFormValues) => Promise<void>;
+  employments: EmploymentFormEmployment[];
+  onSubmit: (values: IEmploymentFormValues) => Promise<any>;
 }
 
 export const EMPTY_EMPLOYMENT_ENTRY: TEmploymentEntry = {

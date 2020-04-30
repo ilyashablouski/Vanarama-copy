@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
-import OlafContainer from '../../../components/olaf/olaf-container';
+import OlafContainer from '../../../components/OlafContainer';
 import AddressFormContainer from '../../../containers/AddressFormContainer/AddressFormContainer';
 import withApollo from '../../../hocs/withApollo';
 

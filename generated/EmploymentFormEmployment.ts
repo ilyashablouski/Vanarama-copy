@@ -3,13 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { EmploymentHistoryInputObject } from "./globalTypes";
-
 // ====================================================
-// GraphQL mutation operation: SaveEmploymentHistoryMutation
+// GraphQL fragment: EmploymentFormEmployment
 // ====================================================
 
-export interface SaveEmploymentHistoryMutation_createUpdateEmploymentHistory {
+export interface EmploymentFormEmployment {
   __typename: "EmploymentHistoryType";
   uuid: string;
   companyAddressCity: string | null;
@@ -23,15 +21,4 @@ export interface SaveEmploymentHistoryMutation_createUpdateEmploymentHistory {
   grossAnnualIncome: number | null;
   jobTitle: string | null;
   workPhoneNumber: string | null;
-}
-
-export interface SaveEmploymentHistoryMutation {
-  /**
-   * Create new Employment History or update existing
-   */
-  createUpdateEmploymentHistory: SaveEmploymentHistoryMutation_createUpdateEmploymentHistory[] | null;
-}
-
-export interface SaveEmploymentHistoryMutationVariables {
-  input: EmploymentHistoryInputObject;
 }

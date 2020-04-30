@@ -76,6 +76,23 @@ EmploymentForm.fragments = {
     }
     ${EmploymentFormFieldArray.fragments.dropDownData}
   `,
+  employments: gql`
+    fragment EmploymentFormEmployment on EmploymentHistoryType {
+      __typename
+      uuid
+      companyAddressCity
+      companyAddressLineOne
+      companyAddressLineTwo
+      companyAddressPostcode
+      companyName
+      contract
+      employedSinceDate
+      employmentStatus
+      grossAnnualIncome
+      jobTitle
+      workPhoneNumber
+    }
+  `,
 };
 
 export default EmploymentForm;

@@ -1,4 +1,4 @@
-import { AboutFormDropdownData } from '../../../../generated/AboutFormDropdownData';
+import { AboutFormDropdownData } from '../../../generated/AboutFormDropdownData';
 
 export interface IAboutFormValues {
   title: string;

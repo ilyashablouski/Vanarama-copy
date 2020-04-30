@@ -10,8 +10,8 @@ import {
   CreateUpdatePersonMutation as Mutation,
   CreateUpdatePersonMutationVariables as MutationVariables,
 } from '../../../../generated/CreateUpdatePersonMutation';
-import AboutForm from '../../../components/olaf/about-form';
-import OlafContainer from '../../../components/olaf/olaf-container';
+import AboutForm from '../../../components/AboutForm';
+import OlafContainer from '../../../components/OlafContainer';
 import withApollo from '../../../hocs/withApollo';
 
 const CREATE_UPDATE_PERSON = gql`

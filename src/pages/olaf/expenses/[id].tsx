@@ -3,9 +3,9 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import OlafContainer from '../../../components/olaf/olaf-container';
+import OlafContainer from '../../../components/OlafContainer';
 import withApollo from '../../../hocs/withApollo';
-import IncomeCalculator from '../../../components/olaf/income-calculator';
+import IncomeCalculator from '../../../components/IncomeCalculator';
 import {
   CreateExpenseMutation as Mutation,
   CreateExpenseMutationVariables as MutationVariables,

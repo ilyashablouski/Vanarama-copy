@@ -12,7 +12,7 @@ import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import { IBankDetailsProps, IBankDetails } from './interfaces';
-import { genMonths, genYears } from '../../../utils/helpers';
+import { genMonths, genYears } from '../../utils/helpers';
 import validationSchema from './BankDetails.validation';
 
 const BankDetails: FC<IBankDetailsProps> = memo(props => {

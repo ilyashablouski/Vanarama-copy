@@ -20,7 +20,11 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     const { getByText, getByTestId, getByLabelText } = render(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+      <EmploymentForm
+        employments={[]}
+        dropDownData={mockDropDownData}
+        onSubmit={onSubmit}
+      />,
     );
 
     const status = getByLabelText('Your Current Employment Status');
@@ -61,7 +65,11 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     const { getByText, getByTestId, getByLabelText } = render(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+      <EmploymentForm
+        employments={[]}
+        dropDownData={mockDropDownData}
+        onSubmit={onSubmit}
+      />,
     );
 
     const status = getByLabelText('Your Current Employment Status');
@@ -128,7 +136,11 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     const { getByText, getByTestId, getByLabelText } = render(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+      <EmploymentForm
+        employments={[]}
+        dropDownData={mockDropDownData}
+        onSubmit={onSubmit}
+      />,
     );
 
     const status = getByLabelText('Your Current Employment Status');
@@ -215,7 +227,11 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     const { getByText, getByTestId, getByLabelText } = render(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+      <EmploymentForm
+        employments={[]}
+        dropDownData={mockDropDownData}
+        onSubmit={onSubmit}
+      />,
     );
 
     const status = getByLabelText('Your Current Employment Status');
@@ -244,7 +260,11 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     const { getByText, getByTestId, getByLabelText } = render(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+      <EmploymentForm
+        employments={[]}
+        dropDownData={mockDropDownData}
+        onSubmit={onSubmit}
+      />,
     );
 
     const status = getByLabelText('Your Current Employment Status');
@@ -270,7 +290,11 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     const { getByText } = render(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+      <EmploymentForm
+        employments={[]}
+        dropDownData={mockDropDownData}
+        onSubmit={onSubmit}
+      />,
     );
 
     await act(async () => {
@@ -287,7 +311,11 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     const { getByText, getByLabelText } = render(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+      <EmploymentForm
+        employments={[]}
+        dropDownData={mockDropDownData}
+        onSubmit={onSubmit}
+      />,
     );
 
     const status = getByLabelText('Your Current Employment Status');
@@ -313,7 +341,11 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     const { getByText, getByLabelText, queryByText } = render(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+      <EmploymentForm
+        employments={[]}
+        dropDownData={mockDropDownData}
+        onSubmit={onSubmit}
+      />,
     );
 
     const status = getByLabelText('Your Current Employment Status');

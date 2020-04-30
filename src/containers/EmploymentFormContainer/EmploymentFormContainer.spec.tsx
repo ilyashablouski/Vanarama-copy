@@ -7,6 +7,14 @@ import {
   waitFor,
 } from '@testing-library/react';
 import React from 'react';
+import {
+  GetEmploymentContainerDataQuery as Query,
+  GetEmploymentContainerDataQueryVariables as QueryVariables,
+} from '../../../generated/GetEmploymentContainerDataQuery';
+import {
+  SaveEmploymentHistoryMutation as Mutation,
+  SaveEmploymentHistoryMutationVariables as MutationVariables,
+} from '../../../generated/SaveEmploymentHistoryMutation';
 import EmploymentFormContainer, {
   GET_EMPLOYMENT_CONTAINER_DATA,
   SAVE_EMPLOYMENT_HISTORY,
@@ -22,14 +30,16 @@ describe('<EmploymentFormContainer />', () => {
       {
         request: {
           query: GET_EMPLOYMENT_CONTAINER_DATA,
-          variables: { uuid: personUuid },
+          variables: {
+            uuid: personUuid,
+          } as QueryVariables,
         },
         result: {
           data: {
             personByUuid: {
               uuid: personUuid,
               partyId: '911',
-              __typename: 'PersonType',
+              employmentHistories: [],
             },
             allDropDowns: {
               __typename: 'DropDownType',
@@ -45,7 +55,7 @@ describe('<EmploymentFormContainer />', () => {
                 favourites: [],
               },
             },
-          },
+          } as Query,
         },
       },
       {
@@ -56,25 +66,35 @@ describe('<EmploymentFormContainer />', () => {
               partyId: '911',
               employmentHistories: [
                 {
-                  companyAddressServiceId: undefined,
-                  companyName: undefined,
-                  contract: undefined,
                   employedSinceDate: '1990-01-01',
                   employmentStatus: 'Retired',
-                  grossAnnualIncome: undefined,
-                  jobTitle: undefined,
-                  workPhoneNumber: undefined,
                 },
               ],
             },
-          },
+          } as MutationVariables,
         },
         result: () => {
           mutationCalled = true;
           return {
             data: {
-              createUpdateEmploymentHistory: [{ id: '1' }, { id: '2' }],
-            },
+              createUpdateEmploymentHistory: [
+                {
+                  __typename: 'EmploymentHistoryType',
+                  uuid: '4f3ff930-090f-400b-b7fa-f51d83e7eaa9',
+                  companyAddressCity: null,
+                  companyAddressLineOne: null,
+                  companyAddressLineTwo: null,
+                  companyAddressPostcode: null,
+                  companyName: null,
+                  contract: null,
+                  employedSinceDate: '1990-01-01',
+                  employmentStatus: 'Retired',
+                  grossAnnualIncome: null,
+                  jobTitle: null,
+                  workPhoneNumber: null,
+                },
+              ],
+            } as Mutation,
           };
         },
       },

@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import { gql, MutationUpdaterFn } from 'apollo-boost';
 import React from 'react';
 import {
   GetEmploymentContainerDataQuery as Query,
@@ -10,20 +11,24 @@ import {
   SaveEmploymentHistoryMutationVariables as MutationVariables,
 } from '../../../generated/SaveEmploymentHistoryMutation';
 import EmploymentForm from '../../components/EmploymentForm/EmploymentForm';
-import { historyToMoment } from '../../utils/dates';
 import { IEmploymentFormContainerProps } from './interfaces';
+import { formValuesToInput } from './mappers';
 
 export const GET_EMPLOYMENT_CONTAINER_DATA = gql`
   query GetEmploymentContainerDataQuery($uuid: ID!) {
     personByUuid(uuid: $uuid) {
       uuid
       partyId
+      employmentHistories {
+        ...EmploymentFormEmployment
+      }
     }
     allDropDowns {
       ...EmploymentFormDropDownData
     }
   }
   ${EmploymentForm.fragments.dropDownData}
+  ${EmploymentForm.fragments.employments}
 `;
 
 export const SAVE_EMPLOYMENT_HISTORY = gql`
@@ -31,9 +36,10 @@ export const SAVE_EMPLOYMENT_HISTORY = gql`
     $input: EmploymentHistoryInputObject!
   ) {
     createUpdateEmploymentHistory(input: $input) {
-      id
+      ...EmploymentFormEmployment
     }
   }
+  ${EmploymentForm.fragments.employments}
 `;
 
 const EmploymentFormContainer: React.FC<IEmploymentFormContainerProps> = ({
@@ -42,16 +48,23 @@ const EmploymentFormContainer: React.FC<IEmploymentFormContainerProps> = ({
 }) => {
   const { loading, error, data } = useQuery<Query, QueryVariables>(
     GET_EMPLOYMENT_CONTAINER_DATA,
-    { variables: { uuid: personUuid } },
+    {
+      variables: {
+        uuid: personUuid,
+      },
+    },
   );
 
   const [saveEmploymentHistory] = useMutation<Mutation, MutationVariables>(
     SAVE_EMPLOYMENT_HISTORY,
-    { onCompleted },
+    {
+      onCompleted,
+      update: updateCache(personUuid),
+    },
   );
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loading size="large" />;
   }
 
   if (error) {
@@ -65,27 +78,41 @@ const EmploymentFormContainer: React.FC<IEmploymentFormContainerProps> = ({
   return (
     <EmploymentForm
       dropDownData={data.allDropDowns}
-      onSubmit={async values => {
-        await saveEmploymentHistory({
+      employments={data.personByUuid.employmentHistories || []}
+      onSubmit={values =>
+        saveEmploymentHistory({
           variables: {
-            input: {
-              partyId: data.personByUuid!.partyId,
-              employmentHistories: values.history.map(item => ({
-                companyAddressServiceId: item.address?.id || undefined,
-                companyName: item.company || undefined,
-                contract: item.contract || undefined,
-                employedSinceDate: historyToMoment(item).format('YYYY-MM-DD'),
-                employmentStatus: item.status || undefined,
-                grossAnnualIncome: Number(item.income) || undefined,
-                jobTitle: item.title || undefined,
-                workPhoneNumber: item.phoneNumber || undefined,
-              })),
-            },
+            input: formValuesToInput(data.personByUuid!.partyId, values),
           },
-        });
-      }}
+        })
+      }
     />
   );
 };
+
+function updateCache(uuid: string) {
+  const updater: MutationUpdaterFn<Mutation> = (store, result) => {
+    // Read the data from our cache for this query.
+    const data = store.readQuery<Query, QueryVariables>({
+      query: GET_EMPLOYMENT_CONTAINER_DATA,
+      variables: { uuid },
+    });
+
+    // Add the employment from the mutation to the end.
+    if (data?.personByUuid?.employmentHistories) {
+      data.personByUuid.employmentHistories =
+        result.data?.createUpdateEmploymentHistory || [];
+
+      // Write our data back to the cache.
+      store.writeQuery<Query, QueryVariables>({
+        query: GET_EMPLOYMENT_CONTAINER_DATA,
+        variables: { uuid },
+        data,
+      });
+    }
+  };
+
+  return updater;
+}
 
 export default EmploymentFormContainer;

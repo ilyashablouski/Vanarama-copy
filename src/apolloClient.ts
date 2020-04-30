@@ -32,8 +32,9 @@ export default function createApolloClient(
       },
       dataIdFromObject: object => {
         switch (object.__typename) {
-          case 'PersonType':
-          case 'AddressType': {
+          case 'AddressType':
+          case 'EmploymentHistoryType':
+          case 'PersonType': {
             const { __typename, uuid } = object as ObjWithUuid;
             return `${__typename}:${uuid}`;
           }

@@ -4,9 +4,9 @@ import moment from 'moment';
 import { useRouter } from 'next/router';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { getDataFromTree } from '@apollo/react-ssr';
-import OlafContainer from '../../../components/olaf/olaf-container';
+import OlafContainer from '../../../components/OlafContainer';
 import withApollo from '../../../hocs/withApollo';
-import BankDetails from '../../../components/olaf/bank-details';
+import BankDetails from '../../../components/BankDetails';
 import {
   CreateUpdateBankAccountMutation as Mutation,
   CreateUpdateBankAccountMutationVariables as MutationVariables,
