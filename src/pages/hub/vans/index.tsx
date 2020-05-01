@@ -5,7 +5,6 @@ import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Media from '@vanarama/uibook/lib/components/atoms/media';
-import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
 import League from '@vanarama/uibook/lib/components/organisms/league';
@@ -25,7 +24,8 @@ import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
 import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 
-import Hero, { HeroTitle, HeroHeading } from '../components/Hero';
+import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
+import DealOfMonth from '../../../components/DealOfMonth';
 
 const styles = {
   iconList: {
@@ -48,82 +48,97 @@ const styles = {
   },
 };
 
-const tabs = [{ label: 'Vans' }, { label: 'Pickups' }, { label: 'Cars' }];
-
-const HomePage: NextPage = () => (
+const VansPage: NextPage = () => (
   <main>
     <Hero>
-      <HeroHeading>The Vehicle Leasing Experts</HeroHeading>
+      <HeroHeading>Vans Hub Page</HeroHeading>
       <br />
       <HeroTitle>
         Drive Your Dream Vehicle For
         <br /> Less With Vanarama
       </HeroTitle>
     </Hero>
+    <section className="section -pv-400">
+      <div className="container">
+        <DealOfMonth
+          imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg"
+          vehicle="Ford Ranger"
+          specification="Pick Up Double Cab Wildtrak 3.2 EcoBlue 200 Auto"
+          price={180}
+          rating={4.5}
+        />
+      </div>
+    </section>
     <section className="section">
       <div className="container">
         <Heading size="large" color="black">
           <span style={{ textAlign: 'center', display: 'block' }}>
-            Hot Deals
+            Van Special Offers
           </span>
         </Heading>
-        <Tabs active={0} tabs={tabs}>
-          <div>
-            <Slider className="" gutter={16}>
-              {[1, 2, 3, 4, 5].map(k => (
-                <div key={k} style={{ width: 345 }}>
-                  <ProductCard
-                    flag={{
-                      accentIcon: <Icon icon={<Flame />} color="white" />,
-                      accentText: 'Hot Deal',
-                      text: 'In Stock - 14-21 Days Delivery',
-                    }}
-                    href="#"
-                    features={[
-                      {
-                        icon: <Icon icon={<SnowSharp />} color="dark" />,
-                        label: 'Aircon',
-                      },
-                      {
-                        icon: <Icon icon={<BluetoothSharp />} color="dark" />,
-                        label: 'Bluetooth',
-                      },
-                      {
-                        icon: <Icon icon={<CompassSharp />} color="dark" />,
-                        label: 'Navigation',
-                      },
-                      {
-                        icon: <Icon icon={<WifiSharp />} color="dark" />,
-                        label: 'Sensors',
-                      },
-                    ]}
-                    imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
-                    onCompare={() => true}
-                    onViewOffer={() => true}
-                    onWishlist={() => true}
-                    price={209}
-                    rating={4.5}
-                    subtitle="1.0 IG-T 100 Tekna 5dr Xtronic [Leather]"
-                    title="Peugeot 208"
-                  />
-                </div>
-              ))}
-            </Slider>
-          </div>
-          <div>2</div>
-          <div>3</div>
-        </Tabs>
+        <Slider className="" gutter={16}>
+          {[1, 2, 3, 4, 5].map(k => (
+            <div key={k} style={{ width: 345 }}>
+              <ProductCard
+                flag={{
+                  accentIcon: <Icon icon={<Flame />} color="white" />,
+                  accentText: 'Hot Deal',
+                  text: 'In Stock - 14-21 Days Delivery',
+                }}
+                href="#"
+                features={[
+                  {
+                    icon: <Icon icon={<SnowSharp />} color="dark" />,
+                    label: 'Aircon',
+                  },
+                  {
+                    icon: <Icon icon={<BluetoothSharp />} color="dark" />,
+                    label: 'Bluetooth',
+                  },
+                  {
+                    icon: <Icon icon={<CompassSharp />} color="dark" />,
+                    label: 'Navigation',
+                  },
+                  {
+                    icon: <Icon icon={<WifiSharp />} color="dark" />,
+                    label: 'Sensors',
+                  },
+                ]}
+                imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
+                onCompare={() => true}
+                onViewOffer={() => true}
+                onWishlist={() => true}
+                price={209}
+                rating={4.5}
+                subtitle="1.0 IG-T 100 Tekna 5dr Xtronic [Leather]"
+                title="Peugeot 208"
+              />
+            </div>
+          ))}
+        </Slider>
       </div>
     </section>
-    <section style={{ background: '#f3f5f7' }} className="section">
+    <section className="section">
       <div className="container">
-        <Grid lg="3" md="1" sm="1">
+        <Grid lg="4" md="1" sm="1">
+          <Column md="row">
+            <div style={{ textAlign: 'center' }}>
+              <Heading size="large" color="black">
+                What Type Of Van Do You Need?
+              </Heading>
+              <Text tag="p" size="regular" color="darker">
+                Choose from Small, Medium and Large vans, or Tippers/Lutons,
+                Crew/Minibus, Pickups and <br />
+                Refrigerated Vans - whatever you need, we&apos;ve got it.
+              </Text>
+            </div>
+          </Column>
           <Column md="1">
             <Card>
               <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg" />
               <CardContent flex>
                 <Heading tag="a" size="regular" color="black">
-                  Vans
+                  Small Vans
                 </Heading>
                 <Button
                   label=""
@@ -142,7 +157,7 @@ const HomePage: NextPage = () => (
               <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg" />
               <CardContent flex>
                 <Heading tag="a" size="regular" color="black">
-                  Vans
+                  Medium Vans
                 </Heading>
                 <Button
                   label=""
@@ -161,7 +176,26 @@ const HomePage: NextPage = () => (
               <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
               <CardContent flex>
                 <Heading tag="a" size="regular" color="black">
-                  Vans
+                  Large Vans
+                </Heading>
+                <Button
+                  label=""
+                  size="large"
+                  color="teal"
+                  fill="clear"
+                  round
+                  icon={<ArrowForwardSharp />}
+                  iconPosition="after"
+                />
+              </CardContent>
+            </Card>
+          </Column>
+          <Column md="1">
+            <Card>
+              <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
+              <CardContent flex>
+                <Heading tag="a" size="regular" color="black">
+                  Other Vans
                 </Heading>
                 <Button
                   label=""
@@ -178,6 +212,13 @@ const HomePage: NextPage = () => (
         </Grid>
       </div>
     </section>
+
+    <section className="section">
+      <div className="container">
+        <Heading>Leasing - The Simple Way To Get Your Brand New Car</Heading>
+      </div>
+    </section>
+
     <section className="section">
       <div className="container">
         <Grid lg="6" md="2" sm="2">
@@ -234,7 +275,7 @@ const HomePage: NextPage = () => (
               }}
             >
               <Heading size="large" color="black">
-                What Makes Us The Lease Experts?
+                Why Choose Vanarama For Your Van?
               </Heading>
               <Text tag="p" size="regular" color="darker">
                 Vanarama is more than just a broker or leasing company,
@@ -249,6 +290,80 @@ const HomePage: NextPage = () => (
             </div>
           </Column>
         </Grid>
+      </div>
+    </section>
+    <section className="section">
+      <div className="container">
+        <div style={{ textAlign: 'center' }}>
+          <Heading size="large" color="black">
+            Wide Range of Optional Accessories
+          </Heading>
+          <Text size="lead" color="dark">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit
+          </Text>
+        </div>
+        <br />
+        <Grid lg="4" md="1" sm="1">
+          <Column md="1">
+            <Heading size="lead" color="black">
+              Hard Tops
+            </Heading>
+            <Text tag="p" size="regular" color="darker">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Voluptates provident magni quaerat, culpa repudiandae minima quo
+              nobis error laboriosam ipsa.
+            </Text>
+          </Column>
+          <Column md="1">
+            <Heading size="lead" color="black">
+              Bed Liners
+            </Heading>
+            <Text tag="p" size="regular" color="darker">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Voluptates provident magni quaerat, culpa repudiandae minima quo
+              nobis error laboriosam ipsa.
+            </Text>
+          </Column>
+          <Column md="1">
+            <Heading size="lead" color="black">
+              Storage Systems
+            </Heading>
+            <Text tag="p" size="regular" color="darker">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Voluptates provident magni quaerat, culpa repudiandae minima quo
+              nobis error laboriosam ipsa.
+            </Text>
+          </Column>
+          <Column md="1">
+            <Heading size="lead" color="black">
+              Roller Covers
+            </Heading>
+            <Text tag="p" size="regular" color="darker">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Voluptates provident magni quaerat, culpa repudiandae minima quo
+              nobis error laboriosam ipsa.
+            </Text>
+          </Column>
+        </Grid>
+      </div>
+    </section>
+    <section className="section">
+      <div className="container">
+        <Heading size="large" color="black">
+          Not Sure How Van Leasing Works?
+        </Heading>
+        <Text size="regular" color="darker">
+          Leasing a Van is really simple. You drive a brand new vehicle and pay
+          fixed monthly rentals over 2-5 years after paying an initial rental at
+          the start of your contract. At the end of your agreement, you simply
+          hand the van back and choose which vehicle to upgrade to.
+        </Text>
+        <br />
+        <Text size="regular" color="black">
+          Everything you need to know is a click away in our easy to understand
+          leasing guide
+        </Text>
+        <Button label="Veiw Leasing Guides" color="teal" />
       </div>
     </section>
     <section className="section">
@@ -329,10 +444,17 @@ const HomePage: NextPage = () => (
         </Grid>
       </div>
     </section>
+
+    <section className="section">
+      <div className="container">
+        <Heading>Search By Manufacturer</Heading>
+      </div>
+    </section>
+
     <section className="league">
       <League altText="vanarama national league" />
     </section>
-    <section className="logo-row section">
+    <section className="logo-row">
       <div className="container">
         <LogoRow
           urls={[
@@ -380,10 +502,10 @@ const HomePage: NextPage = () => (
         />
       </div>
     </section>
-    <section className="trust-pilot section">
+    <section className="trust-pilot">
       <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
     </section>
   </main>
 );
 
-export default HomePage;
+export default VansPage;
