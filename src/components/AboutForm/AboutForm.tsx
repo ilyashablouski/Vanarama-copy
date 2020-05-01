@@ -1,33 +1,31 @@
-import { useEffect } from 'react';
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button/';
 import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import Select from '@vanarama/uibook/lib/components/atoms/select/';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput/';
-import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import { gql } from 'apollo-boost';
-import { useForm, Controller } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { genMonths, genYears } from '../../utils/helpers';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
 import validationSchema from './AboutForm.validation';
 import { IAboutFormValues, IProps } from './interface';
+import useDateOfBirthValidation from './useDateOfBirthValidation';
 
 const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
-  const months: string[] = genMonths() || [];
-  const years: number[] = genYears(100) || [];
-
+  const months = genMonths();
+  const years = genYears(100);
   const {
-    handleSubmit,
-    reset,
-    register,
-    errors,
-    watch,
-    triggerValidation,
     control,
+    errors,
+    handleSubmit,
+    register,
+    triggerValidation,
+    watch,
   } = useForm<IAboutFormValues>({
     mode: 'onBlur',
     validationSchema,
@@ -36,23 +34,10 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
     },
   });
 
-  const day = watch('dayOfBirth');
-  const mth = watch('monthOfBirth');
-  const year = watch('yearOfBirth');
-
-  useEffect(() => {
-    if (day && mth && year) {
-      triggerValidation(['dayOfBirth', 'yearOfBirth', 'monthOfBirth']);
-    }
-  }, [day, mth, year, triggerValidation]);
-
-  const onSubmission = (values: IAboutFormValues) => {
-    submit(values);
-    reset();
-  };
+  useDateOfBirthValidation(watch, triggerValidation);
 
   return (
-    <form onSubmit={handleSubmit(onSubmission)} id="aboutForm" className="form">
+    <form onSubmit={handleSubmit(submit)} id="aboutForm" className="form">
       <Heading color="black" size="xlarge" dataTestId="aboutHeading">
         About You
       </Heading>
@@ -332,6 +317,31 @@ AboutForm.fragments = {
         __typename
         data
       }
+    }
+  `,
+  person: gql`
+    fragment AboutFormPerson on PersonType {
+      __typename
+      uuid
+      title
+      firstName
+      lastName
+      emailAddresses {
+        uuid
+        primary
+        value
+      }
+      telephoneNumbers {
+        uuid
+        kind
+        value
+      }
+      dateOfBirth
+      countryOfBirth
+      nationality
+      maritalStatus
+      noOfDependants
+      emailConsent
     }
   `,
 };

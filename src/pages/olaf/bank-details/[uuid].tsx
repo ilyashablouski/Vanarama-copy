@@ -7,15 +7,15 @@ import withApollo from '../../../hocs/withApollo';
 
 const BankDetailsPage: NextPage = () => {
   const router = useRouter();
-  const personUuid = router.query.id as string;
-
+  const uuid = router.query.uuid as string;
   return (
     <OlafContainer activeStep={5}>
       <BankDetailsFormContainer
         onCompleted={() => {
-          router.push(`/olaf/summary/[id]`, `/olaf/summary/${personUuid}`);
+          const url = `/olaf/summary/[uuid]`;
+          router.push(url, url.replace('[uuid]', uuid));
         }}
-        personUuid={personUuid}
+        personUuid={uuid}
       />
     </OlafContainer>
   );

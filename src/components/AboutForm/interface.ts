@@ -1,4 +1,5 @@
 import { AboutFormDropdownData } from '../../../generated/AboutFormDropdownData';
+import { AboutFormPerson } from '../../../generated/AboutFormPerson';
 
 export interface IAboutFormValues {
   title: string;
@@ -20,5 +21,6 @@ export interface IAboutFormValues {
 
 export interface IProps {
   dropdownData: AboutFormDropdownData;
+  person?: AboutFormPerson;
   submit: (values: IAboutFormValues) => void;
 }

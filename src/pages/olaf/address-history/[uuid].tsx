@@ -8,17 +8,15 @@ import withApollo from '../../../hocs/withApollo';
 
 const AddressHistoryPage: NextPage = () => {
   const router = useRouter();
-  const personUuid = router.query.id as string;
+  const uuid = router.query.uuid as string;
   return (
     <OlafContainer activeStep={2}>
       <AddressFormContainer
         onCompleted={() => {
-          router.push(
-            `/olaf/employment-history/[id]`,
-            `/olaf/employment-history/${personUuid}`,
-          );
+          const url = `/olaf/employment-history/[uuid]`;
+          router.push(url, url.replace('[uuid]', uuid));
         }}
-        personUuid={personUuid}
+        personUuid={uuid}
       />
     </OlafContainer>
   );

@@ -9,7 +9,7 @@ import RegisterFormContainer from '../../../containers/RegisterFormContainer/Reg
 import withApollo from '../../../hocs/withApollo';
 import MainLayout from '../../../layouts/MainLayout/MainLayout';
 
-const Message: React.SFC<{ message: string }> = ({ message }) => (
+const Message: React.FC<{ message: string }> = ({ message }) => (
   <Column sm="row" md="row" lg="2-4">
     <Heading
       tag="span"

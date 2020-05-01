@@ -163,8 +163,8 @@ export interface PersonInputObject {
   maritalStatus?: string | null;
   middleName?: string | null;
   nationality?: string | null;
-  noOfAdultsInHousehold?: number | null;
-  noOfDependants?: number | null;
+  noOfAdultsInHousehold?: string | null;
+  noOfDependants?: string | null;
   pictureUrl?: string | null;
   profilingConsent?: boolean | null;
   role?: RoleInputObject | null;
