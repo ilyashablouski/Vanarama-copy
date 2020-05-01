@@ -255,13 +255,15 @@ const HomePage: NextPage = () => (
       <div className="container">
         <Grid lg="4" md="2" sm="1">
           <Column md="1">
-            <Tile className="-plain -button -align-center">
-              <Image
-                className="-inline"
-                round
-                size="large"
-                src="https://source.unsplash.com/collection/2102317/1000x650?sig=403420"
-              />
+            <Tile className="-plain -button -align-center" plain>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Image
+                  inline
+                  round
+                  size="large"
+                  src="https://source.unsplash.com/collection/2102317/1000x650?sig=403420"
+                />
+              </div>
               <a className="tile--link" href="##">
                 <Heading tag="span" size="regular" color="black">
                   Price Protection
@@ -273,13 +275,15 @@ const HomePage: NextPage = () => (
             </Tile>
           </Column>
           <Column md="1">
-            <Tile className="-plain -button -align-center">
-              <Image
-                className="-inline"
-                round
-                size="large"
-                src="https://source.unsplash.com/collection/2102317/1000x650?sig=403411"
-              />
+            <Tile className="-button -align-center" plain>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Image
+                  inline
+                  round
+                  size="large"
+                  src="https://source.unsplash.com/collection/2102317/1000x650?sig=403411"
+                />
+              </div>
               <a className="tile--link" href="##">
                 <Heading tag="span" size="regular" color="black">
                   Customer Reviews
@@ -291,13 +295,15 @@ const HomePage: NextPage = () => (
             </Tile>
           </Column>
           <Column md="1">
-            <Tile className="-plain -button -align-center">
-              <Image
-                className="-inline"
-                round
-                size="large"
-                src="https://source.unsplash.com/collection/2102317/1000x650?sig=403424"
-              />
+            <Tile className="-plain -button -align-center" plain>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Image
+                  inline
+                  round
+                  size="large"
+                  src="https://source.unsplash.com/collection/2102317/1000x650?sig=403424"
+                />
+              </div>
               <a className="tile--link" href="##">
                 <Heading tag="span" size="regular" color="black">
                   Quote Online
@@ -309,13 +315,15 @@ const HomePage: NextPage = () => (
             </Tile>
           </Column>
           <Column md="1">
-            <Tile className="-plain -button -align-center">
-              <Image
-                className="-inline"
-                round
-                size="large"
-                src="https://source.unsplash.com/collection/2102317/1000x650?sig=403445"
-              />
+            <Tile className="-plain -button -align-center" plain>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Image
+                  inline
+                  round
+                  size="large"
+                  src="https://source.unsplash.com/collection/2102317/1000x650?sig=403445"
+                />
+              </div>
               <a className="tile--link" href="##">
                 <Heading tag="span" size="regular" color="black">
                   Confused About Leasing?
