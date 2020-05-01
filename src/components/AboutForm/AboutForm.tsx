@@ -14,9 +14,14 @@ import { genMonths, genYears } from '../../utils/helpers';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
 import validationSchema from './AboutForm.validation';
 import { IAboutFormValues, IProps } from './interface';
+import { responseToInitialFormValues } from './mappers';
 import useDateOfBirthValidation from './useDateOfBirthValidation';
 
-const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
+const AboutForm: FCWithFragments<IProps> = ({
+  dropdownData,
+  person,
+  submit,
+}) => {
   const months = genMonths();
   const years = genYears(100);
   const {
@@ -29,9 +34,7 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
   } = useForm<IAboutFormValues>({
     mode: 'onBlur',
     validationSchema,
-    defaultValues: {
-      mobile: '',
-    },
+    defaultValues: responseToInitialFormValues(person),
   });
 
   useDateOfBirthValidation(watch, triggerValidation);
@@ -145,8 +148,8 @@ const AboutForm: FCWithFragments<IProps> = ({ dropdownData, submit }) => {
           ref={register}
           placeholder="Month"
         >
-          {months.map(value => (
-            <option key={value} value={value}>
+          {months.map((value, i) => (
+            <option key={value} value={i + 1}>
               {value}
             </option>
           ))}
@@ -309,14 +312,6 @@ AboutForm.fragments = {
         __typename
         data
       }
-      propertyStatuses {
-        __typename
-        data
-      }
-      employmentStatuses {
-        __typename
-        data
-      }
     }
   `,
   person: gql`
@@ -327,11 +322,13 @@ AboutForm.fragments = {
       firstName
       lastName
       emailAddresses {
+        __typename
         uuid
         primary
         value
       }
       telephoneNumbers {
+        __typename
         uuid
         kind
         value
@@ -340,6 +337,7 @@ AboutForm.fragments = {
       countryOfBirth
       nationality
       maritalStatus
+      noOfAdultsInHousehold
       noOfDependants
       emailConsent
     }
