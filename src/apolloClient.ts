@@ -8,7 +8,7 @@ import { HttpLink } from 'apollo-link-http';
 import fetch from 'isomorphic-unfetch';
 import { NextPageContext } from 'next';
 
-type ObjWithUuid = IdGetterObj & { uuid: string };
+type ObjWithUuid = IdGetterObj & { uuid?: string };
 
 export default function createApolloClient(
   initialState: any,
@@ -31,16 +31,12 @@ export default function createApolloClient(
         },
       },
       dataIdFromObject: object => {
-        switch (object.__typename) {
-          case 'AddressType':
-          case 'EmploymentHistoryType':
-          case 'PersonType': {
-            const { __typename, uuid } = object as ObjWithUuid;
-            return `${__typename}:${uuid}`;
-          }
-          default:
-            return defaultDataIdFromObject(object); // fall back to default handling
+        if ((object as ObjWithUuid).uuid) {
+          const { __typename, uuid } = object as ObjWithUuid;
+          return `${__typename}:${uuid}`;
         }
+
+        return defaultDataIdFromObject(object); // fall back to default handling
       },
     }).restore(initialState),
   });

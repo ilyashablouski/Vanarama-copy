@@ -1,37 +1,31 @@
-import React, { FC, memo } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
-import Tile from '@vanarama/uibook/lib/components/molecules/tile';
-import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox';
-import Select from '@vanarama/uibook/lib/components/atoms/select';
-import SortCode from '@vanarama/uibook/lib/components/molecules/sortcode';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
-import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
-import { IBankDetailsProps, IBankDetails } from './interfaces';
+import Button from '@vanarama/uibook/lib/components/atoms/button';
+import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
+import Select from '@vanarama/uibook/lib/components/atoms/select';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
+import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
+import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+import SortCode from '@vanarama/uibook/lib/components/molecules/sortcode';
+import Tile from '@vanarama/uibook/lib/components/molecules/tile';
+import { gql } from 'apollo-boost';
+import React from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import FCWithFragments from '../../utils/FCWithFragments';
 import { genMonths, genYears } from '../../utils/helpers';
 import validationSchema from './BankDetails.validation';
+import { IBankDetails, IBankDetailsProps } from './interfaces';
+import { responseToInitialFormValues } from './mappers';
 
-const BankDetails: FC<IBankDetailsProps> = memo(props => {
-  const { onSubmit } = props;
+const BankDetails: FCWithFragments<IBankDetailsProps> = ({
+  account,
+  onSubmit,
+}) => {
   const { handleSubmit, register, control, errors } = useForm<IBankDetails>({
     mode: 'onBlur',
     validationSchema,
-    defaultValues: {
-      nameOnTheAccount: '',
-      accountNumber: '',
-      sortCode: [],
-      bankName: '',
-      openingMonth: '',
-      openingYear: '',
-      understand: false,
-      affordRental: false,
-      checkCreditHistory: false,
-      termsAndConditions: false,
-    },
+    defaultValues: responseToInitialFormValues(account),
   });
 
   const months = genMonths();
@@ -122,8 +116,8 @@ const BankDetails: FC<IBankDetailsProps> = memo(props => {
           ref={register}
           placeholder="Month"
         >
-          {months.map(value => (
-            <option key={value} value={value}>
+          {months.map((value, i) => (
+            <option key={value} value={i + 1}>
               {value}
             </option>
           ))}
@@ -271,6 +265,20 @@ const BankDetails: FC<IBankDetailsProps> = memo(props => {
       />
     </form>
   );
-});
+};
+
+BankDetails.fragments = {
+  account: gql`
+    fragment BankDetailsAccount on BankAccountType {
+      __typename
+      uuid
+      accountName
+      accountNumber
+      bankName
+      joinedAt
+      sortCode
+    }
+  `,
+};
 
 export default BankDetails;

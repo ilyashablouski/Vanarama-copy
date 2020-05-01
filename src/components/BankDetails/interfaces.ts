@@ -1,3 +1,5 @@
+import { BankDetailsAccount } from '../../../generated/BankDetailsAccount';
+
 export interface IBankDetails {
   nameOnTheAccount?: string;
   accountNumber?: string;
@@ -12,6 +14,7 @@ export interface IBankDetails {
 }
 
 export interface IBankDetailsProps {
+  account?: BankDetailsAccount;
   data?: IBankDetails;
-  onSubmit: (values: IBankDetails) => Promise<void>;
+  onSubmit: (values: IBankDetails) => Promise<any>;
 }

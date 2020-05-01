@@ -1,0 +1,43 @@
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import React from 'react';
+import BankDetails from '../../components/BankDetails';
+import { useBankDetails, useUpdateBankDetails } from './gql';
+import { IProps } from './interfaces';
+import { formValuesToInput } from './mappers';
+
+const BankDetailsFormContainer: React.FC<IProps> = ({
+  personUuid,
+  onCompleted,
+}) => {
+  const { loading, error, data } = useBankDetails(personUuid);
+  const [updateBankDetails] = useUpdateBankDetails(personUuid, onCompleted);
+  if (loading) {
+    return <Loading size="large" />;
+  }
+
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
+
+  if (!data || !data.personByUuid) {
+    return null;
+  }
+
+  const { bankAccounts, partyId } = data.personByUuid;
+  const firstAccount = bankAccounts?.[0];
+  return (
+    <BankDetails
+      // `PersonType.bankAccount`s is an array, so just take the first one???
+      account={firstAccount}
+      onSubmit={values =>
+        updateBankDetails({
+          variables: {
+            input: formValuesToInput(partyId, values),
+          },
+        })
+      }
+    />
+  );
+};
+
+export default BankDetailsFormContainer;

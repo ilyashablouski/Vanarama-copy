@@ -17,7 +17,7 @@ const ValidationSchema = yup.object().shape<IBankDetails>({
   bankName: yup.string().required('Please enter bank name'),
   openingMonth: yup.string().required('Please select account opening date'),
   openingYear: yup.string().required('Please select account opening date'),
-  understand: yup.boolean().oneOf([true], 'The understading must be accetped'),
+  understand: yup.boolean().oneOf([true], 'The understanding must be accepted'),
   termsAndConditions: yup
     .boolean()
     .oneOf([true], 'The terms and conditions must be accepted'),

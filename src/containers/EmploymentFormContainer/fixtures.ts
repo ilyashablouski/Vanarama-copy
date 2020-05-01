@@ -8,10 +8,7 @@ import {
   SaveEmploymentHistoryMutation,
   SaveEmploymentHistoryMutationVariables,
 } from '../../../generated/SaveEmploymentHistoryMutation';
-import {
-  GET_EMPLOYMENT_CONTAINER_DATA,
-  SAVE_EMPLOYMENT_HISTORY,
-} from './EmploymentFormContainer';
+import { GET_EMPLOYMENT_CONTAINER_DATA, SAVE_EMPLOYMENT_HISTORY } from './gql';
 
 export const withoutPrefilledAddress = (
   personUuid: string,

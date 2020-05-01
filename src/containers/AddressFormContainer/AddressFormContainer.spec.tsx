@@ -7,17 +7,13 @@ import {
   SaveAddressHistoryMutationVariables as MutationVariables,
 } from '../../../generated/SaveAddressHistoryMutation';
 import { historyToMoment } from '../../utils/dates';
-import AddressFormContainer, {
-  GET_ADDRESS_CONTAINER_DATA,
-  SAVE_ADDRESS_HISTORY,
-} from './AddressFormContainer';
+import AddressFormContainer from './AddressFormContainer';
 import {
   noSavedAddresses,
   withSavedAddresses,
   withSavedAddressesInWrongOrder,
 } from './fixtures';
-
-jest.mock('@vanarama/uibook/lib/components/molecules/address-finder');
+import { GET_ADDRESS_CONTAINER_DATA, SAVE_ADDRESS_HISTORY } from './gql';
 
 describe('<AddressFormContainer />', () => {
   it('should post data to the server correctly', async () => {

@@ -35,7 +35,7 @@ describe('<BankDetails />', () => {
         screen.getByText('Please select account opening date'),
       ).toBeVisible();
       expect(
-        screen.getByText('The understading must be accetped'),
+        screen.getByText('The understanding must be accepted'),
       ).toBeVisible();
       expect(
         screen.getByText('The terms and conditions must be accepted'),

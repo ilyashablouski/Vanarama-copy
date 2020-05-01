@@ -5,9 +5,8 @@ import {
   GetExpensesPageDataQuery,
   GetExpensesPageDataQueryVariables,
 } from '../../../generated/GetExpensesPageDataQuery';
-import ExpensesFormContainer, {
-  GET_EXPENSES_PAGE_DATA,
-} from './ExpensesFormContainer';
+import ExpensesFormContainer from './ExpensesFormContainer';
+import { GET_EXPENSES_PAGE_DATA } from './gql';
 
 describe('<ExpensesFormContainer />', () => {
   it('should prepopulate the form with existing data', async () => {

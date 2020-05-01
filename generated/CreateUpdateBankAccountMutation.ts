@@ -10,7 +10,13 @@ import { BankAccountInputObject } from "./globalTypes";
 // ====================================================
 
 export interface CreateUpdateBankAccountMutation_createUpdateBankAccount {
-  id: string;
+  __typename: "BankAccountType";
+  uuid: string;
+  accountName: string | null;
+  accountNumber: string | null;
+  bankName: string | null;
+  joinedAt: any | null;
+  sortCode: string | null;
 }
 
 export interface CreateUpdateBankAccountMutation {
