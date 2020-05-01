@@ -1,57 +1,18 @@
-import { useMutation, useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React from 'react';
-import {
-  GetEmploymentContainerDataQuery as Query,
-  GetEmploymentContainerDataQueryVariables as QueryVariables,
-} from '../../../generated/GetEmploymentContainerDataQuery';
-import {
-  SaveEmploymentHistoryMutation as Mutation,
-  SaveEmploymentHistoryMutationVariables as MutationVariables,
-} from '../../../generated/SaveEmploymentHistoryMutation';
 import EmploymentForm from '../../components/EmploymentForm/EmploymentForm';
-import { historyToMoment } from '../../utils/dates';
+import { useEmploymentData, useUpdateEmployment } from './gql';
 import { IEmploymentFormContainerProps } from './interfaces';
-
-export const GET_EMPLOYMENT_CONTAINER_DATA = gql`
-  query GetEmploymentContainerDataQuery($uuid: ID!) {
-    personByUuid(uuid: $uuid) {
-      uuid
-      partyId
-    }
-    allDropDowns {
-      ...EmploymentFormDropDownData
-    }
-  }
-  ${EmploymentForm.fragments.dropDownData}
-`;
-
-export const SAVE_EMPLOYMENT_HISTORY = gql`
-  mutation SaveEmploymentHistoryMutation(
-    $input: EmploymentHistoryInputObject!
-  ) {
-    createUpdateEmploymentHistory(input: $input) {
-      id
-    }
-  }
-`;
+import { formValuesToInput } from './mappers';
 
 const EmploymentFormContainer: React.FC<IEmploymentFormContainerProps> = ({
   personUuid,
   onCompleted,
 }) => {
-  const { loading, error, data } = useQuery<Query, QueryVariables>(
-    GET_EMPLOYMENT_CONTAINER_DATA,
-    { variables: { uuid: personUuid } },
-  );
-
-  const [saveEmploymentHistory] = useMutation<Mutation, MutationVariables>(
-    SAVE_EMPLOYMENT_HISTORY,
-    { onCompleted },
-  );
-
+  const { loading, error, data } = useEmploymentData(personUuid);
+  const [saveEmploymentHistory] = useUpdateEmployment(personUuid, onCompleted);
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loading size="large" />;
   }
 
   if (error) {
@@ -62,28 +23,18 @@ const EmploymentFormContainer: React.FC<IEmploymentFormContainerProps> = ({
     return null;
   }
 
+  const { partyId, employmentHistories } = data.personByUuid;
   return (
     <EmploymentForm
       dropDownData={data.allDropDowns}
-      onSubmit={async values => {
-        await saveEmploymentHistory({
+      employments={employmentHistories || []}
+      onSubmit={values =>
+        saveEmploymentHistory({
           variables: {
-            input: {
-              partyId: data.personByUuid!.partyId,
-              employmentHistories: values.history.map(item => ({
-                companyAddressServiceId: item.address?.id || undefined,
-                companyName: item.company || undefined,
-                contract: item.contract || undefined,
-                employedSinceDate: historyToMoment(item).format('YYYY-MM-DD'),
-                employmentStatus: item.status || undefined,
-                grossAnnualIncome: Number(item.income) || undefined,
-                jobTitle: item.title || undefined,
-                workPhoneNumber: item.phoneNumber || undefined,
-              })),
-            },
+            input: formValuesToInput(partyId, values),
           },
-        });
-      }}
+        })
+      }
     />
   );
 };

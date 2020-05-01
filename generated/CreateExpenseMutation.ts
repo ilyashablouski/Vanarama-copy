@@ -10,8 +10,22 @@ import { IncomeAndExpenseInputObject } from "./globalTypes";
 // ====================================================
 
 export interface CreateExpenseMutation_createUpdateIncomeAndExpense {
+  __typename: "IncomeAndExpenseType";
   uuid: string;
+  anticipateMonthlyIncomeChange: boolean;
   averageMonthlyIncome: number;
+  householdIncome: number | null;
+  futureMonthlyIncome: number | null;
+  mortgageOrRent: number | null;
+  utilities: number | null;
+  insurance: number | null;
+  phoneAndInternet: number | null;
+  creditCardPayments: number | null;
+  carFinance: number | null;
+  foodAndClothes: number | null;
+  fuel: number | null;
+  studentLoan: number | null;
+  otherCredit: number | null;
 }
 
 export interface CreateExpenseMutation {

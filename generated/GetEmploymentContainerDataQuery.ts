@@ -7,9 +7,27 @@
 // GraphQL query operation: GetEmploymentContainerDataQuery
 // ====================================================
 
+export interface GetEmploymentContainerDataQuery_personByUuid_employmentHistories {
+  __typename: "EmploymentHistoryType";
+  uuid: string;
+  companyAddressServiceId: string | null;
+  companyAddressCity: string | null;
+  companyAddressLineOne: string | null;
+  companyAddressLineTwo: string | null;
+  companyAddressPostcode: string | null;
+  companyName: string | null;
+  contract: string | null;
+  employedSinceDate: any | null;
+  employmentStatus: string | null;
+  grossAnnualIncome: number | null;
+  jobTitle: string | null;
+  workPhoneNumber: string | null;
+}
+
 export interface GetEmploymentContainerDataQuery_personByUuid {
   uuid: string;
   partyId: string;
+  employmentHistories: GetEmploymentContainerDataQuery_personByUuid_employmentHistories[] | null;
 }
 
 export interface GetEmploymentContainerDataQuery_allDropDowns_employmentStatuses {

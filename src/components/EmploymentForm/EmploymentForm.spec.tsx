@@ -2,8 +2,6 @@ import { fireEvent, render, act, waitFor } from '@testing-library/react';
 import { EmploymentFormDropDownData } from '../../../generated/EmploymentFormDropDownData';
 import EmploymentForm from './EmploymentForm';
 
-jest.mock('@vanarama/uibook/lib/components/molecules/address-finder');
-
 const mockDropDownData: EmploymentFormDropDownData = {
   __typename: 'DropDownType',
   employmentStatuses: {
@@ -20,7 +18,11 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     const { getByText, getByTestId, getByLabelText } = render(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+      <EmploymentForm
+        employments={[]}
+        dropDownData={mockDropDownData}
+        onSubmit={onSubmit}
+      />,
     );
 
     const status = getByLabelText('Your Current Employment Status');
@@ -61,7 +63,11 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     const { getByText, getByTestId, getByLabelText } = render(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+      <EmploymentForm
+        employments={[]}
+        dropDownData={mockDropDownData}
+        onSubmit={onSubmit}
+      />,
     );
 
     const status = getByLabelText('Your Current Employment Status');
@@ -128,7 +134,11 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     const { getByText, getByTestId, getByLabelText } = render(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+      <EmploymentForm
+        employments={[]}
+        dropDownData={mockDropDownData}
+        onSubmit={onSubmit}
+      />,
     );
 
     const status = getByLabelText('Your Current Employment Status');
@@ -215,7 +225,11 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     const { getByText, getByTestId, getByLabelText } = render(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+      <EmploymentForm
+        employments={[]}
+        dropDownData={mockDropDownData}
+        onSubmit={onSubmit}
+      />,
     );
 
     const status = getByLabelText('Your Current Employment Status');
@@ -244,7 +258,11 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     const { getByText, getByTestId, getByLabelText } = render(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+      <EmploymentForm
+        employments={[]}
+        dropDownData={mockDropDownData}
+        onSubmit={onSubmit}
+      />,
     );
 
     const status = getByLabelText('Your Current Employment Status');
@@ -270,7 +288,11 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     const { getByText } = render(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+      <EmploymentForm
+        employments={[]}
+        dropDownData={mockDropDownData}
+        onSubmit={onSubmit}
+      />,
     );
 
     await act(async () => {
@@ -287,7 +309,11 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     const { getByText, getByLabelText } = render(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+      <EmploymentForm
+        employments={[]}
+        dropDownData={mockDropDownData}
+        onSubmit={onSubmit}
+      />,
     );
 
     const status = getByLabelText('Your Current Employment Status');
@@ -313,7 +339,11 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     const { getByText, getByLabelText, queryByText } = render(
-      <EmploymentForm dropDownData={mockDropDownData} onSubmit={onSubmit} />,
+      <EmploymentForm
+        employments={[]}
+        dropDownData={mockDropDownData}
+        onSubmit={onSubmit}
+      />,
     );
 
     const status = getByLabelText('Your Current Employment Status');

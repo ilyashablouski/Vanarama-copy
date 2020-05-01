@@ -1,0 +1,3437 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<IncomeCalculator /> renders correctly 1`] = `
+<IncomeCalculator
+  expenditure={null}
+  onSubmit={[MockFunction]}
+>
+  <form
+    className="form"
+    id="incomeCalculatorForm"
+    onSubmit={[Function]}
+  >
+    <Heading
+      color="black"
+      dataTestId="expenses"
+      size="xlarge"
+    >
+      <p
+        className="heading -black -xlarge"
+        data-testid="expenses"
+      >
+        Expenses
+      </p>
+    </Heading>
+    <Memo(Text)
+      color="darker"
+      size="lead"
+    >
+      <span
+        className="text -lead -darker"
+      >
+        Excellent, now we just need to know your outgoings so we can make sure your new car is affordable.
+      </span>
+    </Memo(Text)>
+    <div
+      id="incomeCalculator"
+    >
+      <Memo()
+        lg={2}
+        md={2}
+        sm={1}
+      >
+        <div
+          className="grid"
+          columns-l={2}
+          columns-m={2}
+          columns-s={1}
+        >
+          <Memo()>
+            <div
+              className="column"
+            >
+              <Memo(Formgroup)
+                controlId="averageMonthlyIncome"
+                label="Average Monthly Income"
+              >
+                <div
+                  className="formgroup"
+                >
+                  <label
+                    className="formgroup--legend"
+                    htmlFor="averageMonthlyIncome"
+                  >
+                    Average Monthly Income
+                  </label>
+                  <div
+                    className="formgroup--content"
+                  >
+                    <Controller
+                      as={[Function]}
+                      control={
+                        Object {
+                          "defaultValuesRef": Object {
+                            "current": Object {
+                              "averageMonthlyIncome": "",
+                              "carFinance": "",
+                              "creditCardPayments": "",
+                              "foodAndClothes": "",
+                              "fuel": "",
+                              "futureMonthlyIncome": "",
+                              "insurance": "",
+                              "isFutureMonthlyIncome": false,
+                              "monthlyHouseholdIncome": "",
+                              "mortgageOrRent": "",
+                              "otherCredit": "",
+                              "phoneAndInternet": "",
+                              "studentLoans": "",
+                              "utilities": "",
+                            },
+                          },
+                          "dirtyFieldsRef": Object {
+                            "current": Set {},
+                          },
+                          "errorsRef": Object {
+                            "current": Object {},
+                          },
+                          "fieldArrayDefaultValues": Object {
+                            "current": Object {},
+                          },
+                          "fieldArrayNamesRef": Object {
+                            "current": Set {},
+                          },
+                          "fieldsRef": Object {
+                            "current": Object {
+                              "averageMonthlyIncome": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "averageMonthlyIncome",
+                                },
+                              },
+                              "carFinance": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "carFinance",
+                                },
+                              },
+                              "creditCardPayments": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "creditCardPayments",
+                                },
+                              },
+                              "foodAndClothes": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "foodAndClothes",
+                                },
+                              },
+                              "fuel": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "fuel",
+                                },
+                              },
+                              "insurance": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "insurance",
+                                },
+                              },
+                              "isFutureMonthlyIncome": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "isFutureMonthlyIncome",
+                                },
+                              },
+                              "monthlyHouseholdIncome": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "monthlyHouseholdIncome",
+                                },
+                              },
+                              "mortgageOrRent": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "mortgageOrRent",
+                                },
+                              },
+                              "otherCredit": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "otherCredit",
+                                },
+                              },
+                              "phoneAndInternet": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "phoneAndInternet",
+                                },
+                              },
+                              "studentLoans": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "studentLoans",
+                                },
+                              },
+                              "utilities": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "utilities",
+                                },
+                              },
+                            },
+                          },
+                          "fieldsWithValidationRef": Object {
+                            "current": Set {},
+                          },
+                          "formState": null,
+                          "getValues": [Function],
+                          "isDirtyRef": Object {
+                            "current": false,
+                          },
+                          "isWatchAllRef": Object {
+                            "current": true,
+                          },
+                          "mode": Object {
+                            "isOnBlur": true,
+                            "isOnChange": false,
+                            "isOnSubmit": false,
+                          },
+                          "reRender": [Function],
+                          "reValidateMode": Object {
+                            "isReValidateOnBlur": false,
+                            "isReValidateOnSubmit": false,
+                          },
+                          "readFormStateRef": Object {
+                            "current": Object {
+                              "constructor": true,
+                              "dirty": false,
+                              "dirtyFields": false,
+                              "isSubmitted": true,
+                              "isSubmitting": false,
+                              "isValid": false,
+                              "submitCount": false,
+                              "touched": false,
+                            },
+                          },
+                          "register": [Function],
+                          "removeFieldEventListener": [Function],
+                          "resetFieldArrayFunctionRef": Object {
+                            "current": Object {},
+                          },
+                          "setValue": [Function],
+                          "touchedFieldsRef": Object {
+                            "current": Object {},
+                          },
+                          "triggerValidation": [Function],
+                          "unregister": [Function],
+                          "validFieldsRef": Object {
+                            "current": Set {},
+                          },
+                          "validateSchemaIsValid": [Function],
+                          "watchFieldsRef": Object {
+                            "current": Set {},
+                          },
+                        }
+                      }
+                      id="averageMonthlyIncome"
+                      name="averageMonthlyIncome"
+                      prefix="£"
+                    >
+                      <NumericInput
+                        id="averageMonthlyIncome"
+                        name="averageMonthlyIncome"
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        prefix="£"
+                        value=""
+                      >
+                        <ForwardRef(TextInput)
+                          id="averageMonthlyIncome"
+                          name="averageMonthlyIncome"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onKeyPress={[Function]}
+                          prefix="£"
+                          value=""
+                        >
+                          <div
+                            className="textinput regular"
+                          >
+                            <input
+                              className="textinput--native regular -prefix"
+                              id="averageMonthlyIncome"
+                              name="averageMonthlyIncome"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              type="text"
+                              value=""
+                            />
+                            <Memo(Text)
+                              className="textinput--prefix"
+                              color="dark"
+                              size="regular"
+                            >
+                              <span
+                                className="text textinput--prefix -regular -dark"
+                              >
+                                £
+                              </span>
+                            </Memo(Text)>
+                          </div>
+                        </ForwardRef(TextInput)>
+                      </NumericInput>
+                    </Controller>
+                  </div>
+                </div>
+              </Memo(Formgroup)>
+            </div>
+          </Memo()>
+          <Memo()>
+            <div
+              className="column"
+            >
+              <Memo(Formgroup)
+                controlId="monthlyHouseholdIncome"
+                label="Monthly Household Income"
+              >
+                <div
+                  className="formgroup"
+                >
+                  <label
+                    className="formgroup--legend"
+                    htmlFor="monthlyHouseholdIncome"
+                  >
+                    Monthly Household Income
+                  </label>
+                  <div
+                    className="formgroup--content"
+                  >
+                    <Controller
+                      as={[Function]}
+                      control={
+                        Object {
+                          "defaultValuesRef": Object {
+                            "current": Object {
+                              "averageMonthlyIncome": "",
+                              "carFinance": "",
+                              "creditCardPayments": "",
+                              "foodAndClothes": "",
+                              "fuel": "",
+                              "futureMonthlyIncome": "",
+                              "insurance": "",
+                              "isFutureMonthlyIncome": false,
+                              "monthlyHouseholdIncome": "",
+                              "mortgageOrRent": "",
+                              "otherCredit": "",
+                              "phoneAndInternet": "",
+                              "studentLoans": "",
+                              "utilities": "",
+                            },
+                          },
+                          "dirtyFieldsRef": Object {
+                            "current": Set {},
+                          },
+                          "errorsRef": Object {
+                            "current": Object {},
+                          },
+                          "fieldArrayDefaultValues": Object {
+                            "current": Object {},
+                          },
+                          "fieldArrayNamesRef": Object {
+                            "current": Set {},
+                          },
+                          "fieldsRef": Object {
+                            "current": Object {
+                              "averageMonthlyIncome": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "averageMonthlyIncome",
+                                },
+                              },
+                              "carFinance": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "carFinance",
+                                },
+                              },
+                              "creditCardPayments": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "creditCardPayments",
+                                },
+                              },
+                              "foodAndClothes": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "foodAndClothes",
+                                },
+                              },
+                              "fuel": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "fuel",
+                                },
+                              },
+                              "insurance": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "insurance",
+                                },
+                              },
+                              "isFutureMonthlyIncome": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "isFutureMonthlyIncome",
+                                },
+                              },
+                              "monthlyHouseholdIncome": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "monthlyHouseholdIncome",
+                                },
+                              },
+                              "mortgageOrRent": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "mortgageOrRent",
+                                },
+                              },
+                              "otherCredit": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "otherCredit",
+                                },
+                              },
+                              "phoneAndInternet": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "phoneAndInternet",
+                                },
+                              },
+                              "studentLoans": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "studentLoans",
+                                },
+                              },
+                              "utilities": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "utilities",
+                                },
+                              },
+                            },
+                          },
+                          "fieldsWithValidationRef": Object {
+                            "current": Set {},
+                          },
+                          "formState": null,
+                          "getValues": [Function],
+                          "isDirtyRef": Object {
+                            "current": false,
+                          },
+                          "isWatchAllRef": Object {
+                            "current": true,
+                          },
+                          "mode": Object {
+                            "isOnBlur": true,
+                            "isOnChange": false,
+                            "isOnSubmit": false,
+                          },
+                          "reRender": [Function],
+                          "reValidateMode": Object {
+                            "isReValidateOnBlur": false,
+                            "isReValidateOnSubmit": false,
+                          },
+                          "readFormStateRef": Object {
+                            "current": Object {
+                              "constructor": true,
+                              "dirty": false,
+                              "dirtyFields": false,
+                              "isSubmitted": true,
+                              "isSubmitting": false,
+                              "isValid": false,
+                              "submitCount": false,
+                              "touched": false,
+                            },
+                          },
+                          "register": [Function],
+                          "removeFieldEventListener": [Function],
+                          "resetFieldArrayFunctionRef": Object {
+                            "current": Object {},
+                          },
+                          "setValue": [Function],
+                          "touchedFieldsRef": Object {
+                            "current": Object {},
+                          },
+                          "triggerValidation": [Function],
+                          "unregister": [Function],
+                          "validFieldsRef": Object {
+                            "current": Set {},
+                          },
+                          "validateSchemaIsValid": [Function],
+                          "watchFieldsRef": Object {
+                            "current": Set {},
+                          },
+                        }
+                      }
+                      id="monthlyHouseholdIncome"
+                      name="monthlyHouseholdIncome"
+                      prefix="£"
+                    >
+                      <NumericInput
+                        id="monthlyHouseholdIncome"
+                        name="monthlyHouseholdIncome"
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        prefix="£"
+                        value=""
+                      >
+                        <ForwardRef(TextInput)
+                          id="monthlyHouseholdIncome"
+                          name="monthlyHouseholdIncome"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onKeyPress={[Function]}
+                          prefix="£"
+                          value=""
+                        >
+                          <div
+                            className="textinput regular"
+                          >
+                            <input
+                              className="textinput--native regular -prefix"
+                              id="monthlyHouseholdIncome"
+                              name="monthlyHouseholdIncome"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              type="text"
+                              value=""
+                            />
+                            <Memo(Text)
+                              className="textinput--prefix"
+                              color="dark"
+                              size="regular"
+                            >
+                              <span
+                                className="text textinput--prefix -regular -dark"
+                              >
+                                £
+                              </span>
+                            </Memo(Text)>
+                          </div>
+                        </ForwardRef(TextInput)>
+                      </NumericInput>
+                    </Controller>
+                  </div>
+                </div>
+              </Memo(Formgroup)>
+            </div>
+          </Memo()>
+          <Memo()
+            md="row"
+          >
+            <div
+              className="column"
+              span-m="row"
+            >
+              <Memo(Formgroup)
+                controlId="isFutureMonthlyIncome"
+                label="Do You Anticipate Your Monthly Income Will Change?"
+              >
+                <div
+                  className="formgroup"
+                >
+                  <label
+                    className="formgroup--legend"
+                    htmlFor="isFutureMonthlyIncome"
+                  >
+                    Do You Anticipate Your Monthly Income Will Change?
+                  </label>
+                  <div
+                    className="formgroup--content"
+                  >
+                    <Controller
+                      as={
+                        Object {
+                          "$$typeof": Symbol(react.memo),
+                          "compare": null,
+                          "type": Object {
+                            "$$typeof": Symbol(react.forward_ref),
+                            "displayName": "ForwardRef(Checkbox)",
+                            "render": [Function],
+                          },
+                        }
+                      }
+                      checked={false}
+                      control={
+                        Object {
+                          "defaultValuesRef": Object {
+                            "current": Object {
+                              "averageMonthlyIncome": "",
+                              "carFinance": "",
+                              "creditCardPayments": "",
+                              "foodAndClothes": "",
+                              "fuel": "",
+                              "futureMonthlyIncome": "",
+                              "insurance": "",
+                              "isFutureMonthlyIncome": false,
+                              "monthlyHouseholdIncome": "",
+                              "mortgageOrRent": "",
+                              "otherCredit": "",
+                              "phoneAndInternet": "",
+                              "studentLoans": "",
+                              "utilities": "",
+                            },
+                          },
+                          "dirtyFieldsRef": Object {
+                            "current": Set {},
+                          },
+                          "errorsRef": Object {
+                            "current": Object {},
+                          },
+                          "fieldArrayDefaultValues": Object {
+                            "current": Object {},
+                          },
+                          "fieldArrayNamesRef": Object {
+                            "current": Set {},
+                          },
+                          "fieldsRef": Object {
+                            "current": Object {
+                              "averageMonthlyIncome": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "averageMonthlyIncome",
+                                },
+                              },
+                              "carFinance": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "carFinance",
+                                },
+                              },
+                              "creditCardPayments": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "creditCardPayments",
+                                },
+                              },
+                              "foodAndClothes": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "foodAndClothes",
+                                },
+                              },
+                              "fuel": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "fuel",
+                                },
+                              },
+                              "insurance": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "insurance",
+                                },
+                              },
+                              "isFutureMonthlyIncome": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "isFutureMonthlyIncome",
+                                },
+                              },
+                              "monthlyHouseholdIncome": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "monthlyHouseholdIncome",
+                                },
+                              },
+                              "mortgageOrRent": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "mortgageOrRent",
+                                },
+                              },
+                              "otherCredit": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "otherCredit",
+                                },
+                              },
+                              "phoneAndInternet": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "phoneAndInternet",
+                                },
+                              },
+                              "studentLoans": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "studentLoans",
+                                },
+                              },
+                              "utilities": Object {
+                                "ref": Object {
+                                  "focus": undefined,
+                                  "name": "utilities",
+                                },
+                              },
+                            },
+                          },
+                          "fieldsWithValidationRef": Object {
+                            "current": Set {},
+                          },
+                          "formState": null,
+                          "getValues": [Function],
+                          "isDirtyRef": Object {
+                            "current": false,
+                          },
+                          "isWatchAllRef": Object {
+                            "current": true,
+                          },
+                          "mode": Object {
+                            "isOnBlur": true,
+                            "isOnChange": false,
+                            "isOnSubmit": false,
+                          },
+                          "reRender": [Function],
+                          "reValidateMode": Object {
+                            "isReValidateOnBlur": false,
+                            "isReValidateOnSubmit": false,
+                          },
+                          "readFormStateRef": Object {
+                            "current": Object {
+                              "constructor": true,
+                              "dirty": false,
+                              "dirtyFields": false,
+                              "isSubmitted": true,
+                              "isSubmitting": false,
+                              "isValid": false,
+                              "submitCount": false,
+                              "touched": false,
+                            },
+                          },
+                          "register": [Function],
+                          "removeFieldEventListener": [Function],
+                          "resetFieldArrayFunctionRef": Object {
+                            "current": Object {},
+                          },
+                          "setValue": [Function],
+                          "touchedFieldsRef": Object {
+                            "current": Object {},
+                          },
+                          "triggerValidation": [Function],
+                          "unregister": [Function],
+                          "validFieldsRef": Object {
+                            "current": Set {},
+                          },
+                          "validateSchemaIsValid": [Function],
+                          "watchFieldsRef": Object {
+                            "current": Set {},
+                          },
+                        }
+                      }
+                      dataTestId="futureMonthlyIncome"
+                      id="isFutureMonthlyIncome"
+                      label="Yes"
+                      name="isFutureMonthlyIncome"
+                    >
+                      <ForwardRef(Checkbox)
+                        checked={false}
+                        dataTestId="futureMonthlyIncome"
+                        id="isFutureMonthlyIncome"
+                        label="Yes"
+                        name="isFutureMonthlyIncome"
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                      >
+                        <div
+                          className="checkbox"
+                        >
+                          <input
+                            checked={false}
+                            className="checkbox--native"
+                            data-testid="futureMonthlyIncome"
+                            id="isFutureMonthlyIncome"
+                            name="isFutureMonthlyIncome"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            type="checkbox"
+                          />
+                          <label
+                            className="checkbox--label"
+                            htmlFor="isFutureMonthlyIncome"
+                          >
+                            <Memo(Text)
+                              color="darker"
+                              size="regular"
+                            >
+                              <span
+                                className="text -regular -darker"
+                              >
+                                Yes
+                              </span>
+                            </Memo(Text)>
+                          </label>
+                        </div>
+                      </ForwardRef(Checkbox)>
+                    </Controller>
+                  </div>
+                </div>
+              </Memo(Formgroup)>
+            </div>
+          </Memo()>
+        </div>
+      </Memo()>
+      <Tile
+        color="lighter"
+      >
+        <div
+          className="tile -lighter tile--color"
+        >
+          <Memo()
+            lg={2}
+            md={2}
+            sm={1}
+          >
+            <div
+              className="grid"
+              columns-l={2}
+              columns-m={2}
+              columns-s={1}
+            >
+              <Memo()>
+                <div
+                  className="column"
+                >
+                  <Memo(Formgroup)
+                    controlId="mortgageOrRent"
+                    label="Mortgage or Rent"
+                  >
+                    <div
+                      className="formgroup"
+                    >
+                      <label
+                        className="formgroup--legend"
+                        htmlFor="mortgageOrRent"
+                      >
+                        Mortgage or Rent
+                      </label>
+                      <div
+                        className="formgroup--content"
+                      >
+                        <Controller
+                          as={[Function]}
+                          control={
+                            Object {
+                              "defaultValuesRef": Object {
+                                "current": Object {
+                                  "averageMonthlyIncome": "",
+                                  "carFinance": "",
+                                  "creditCardPayments": "",
+                                  "foodAndClothes": "",
+                                  "fuel": "",
+                                  "futureMonthlyIncome": "",
+                                  "insurance": "",
+                                  "isFutureMonthlyIncome": false,
+                                  "monthlyHouseholdIncome": "",
+                                  "mortgageOrRent": "",
+                                  "otherCredit": "",
+                                  "phoneAndInternet": "",
+                                  "studentLoans": "",
+                                  "utilities": "",
+                                },
+                              },
+                              "dirtyFieldsRef": Object {
+                                "current": Set {},
+                              },
+                              "errorsRef": Object {
+                                "current": Object {},
+                              },
+                              "fieldArrayDefaultValues": Object {
+                                "current": Object {},
+                              },
+                              "fieldArrayNamesRef": Object {
+                                "current": Set {},
+                              },
+                              "fieldsRef": Object {
+                                "current": Object {
+                                  "averageMonthlyIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "averageMonthlyIncome",
+                                    },
+                                  },
+                                  "carFinance": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "carFinance",
+                                    },
+                                  },
+                                  "creditCardPayments": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "creditCardPayments",
+                                    },
+                                  },
+                                  "foodAndClothes": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "foodAndClothes",
+                                    },
+                                  },
+                                  "fuel": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "fuel",
+                                    },
+                                  },
+                                  "insurance": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "insurance",
+                                    },
+                                  },
+                                  "isFutureMonthlyIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "isFutureMonthlyIncome",
+                                    },
+                                  },
+                                  "monthlyHouseholdIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "monthlyHouseholdIncome",
+                                    },
+                                  },
+                                  "mortgageOrRent": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "mortgageOrRent",
+                                    },
+                                  },
+                                  "otherCredit": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "otherCredit",
+                                    },
+                                  },
+                                  "phoneAndInternet": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "phoneAndInternet",
+                                    },
+                                  },
+                                  "studentLoans": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "studentLoans",
+                                    },
+                                  },
+                                  "utilities": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "utilities",
+                                    },
+                                  },
+                                },
+                              },
+                              "fieldsWithValidationRef": Object {
+                                "current": Set {},
+                              },
+                              "formState": null,
+                              "getValues": [Function],
+                              "isDirtyRef": Object {
+                                "current": false,
+                              },
+                              "isWatchAllRef": Object {
+                                "current": true,
+                              },
+                              "mode": Object {
+                                "isOnBlur": true,
+                                "isOnChange": false,
+                                "isOnSubmit": false,
+                              },
+                              "reRender": [Function],
+                              "reValidateMode": Object {
+                                "isReValidateOnBlur": false,
+                                "isReValidateOnSubmit": false,
+                              },
+                              "readFormStateRef": Object {
+                                "current": Object {
+                                  "constructor": true,
+                                  "dirty": false,
+                                  "dirtyFields": false,
+                                  "isSubmitted": true,
+                                  "isSubmitting": false,
+                                  "isValid": false,
+                                  "submitCount": false,
+                                  "touched": false,
+                                },
+                              },
+                              "register": [Function],
+                              "removeFieldEventListener": [Function],
+                              "resetFieldArrayFunctionRef": Object {
+                                "current": Object {},
+                              },
+                              "setValue": [Function],
+                              "touchedFieldsRef": Object {
+                                "current": Object {},
+                              },
+                              "triggerValidation": [Function],
+                              "unregister": [Function],
+                              "validFieldsRef": Object {
+                                "current": Set {},
+                              },
+                              "validateSchemaIsValid": [Function],
+                              "watchFieldsRef": Object {
+                                "current": Set {},
+                              },
+                            }
+                          }
+                          id="mortgageOrRent"
+                          name="mortgageOrRent"
+                          prefix="£"
+                        >
+                          <NumericInput
+                            id="mortgageOrRent"
+                            name="mortgageOrRent"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            prefix="£"
+                            value=""
+                          >
+                            <ForwardRef(TextInput)
+                              id="mortgageOrRent"
+                              name="mortgageOrRent"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              prefix="£"
+                              value=""
+                            >
+                              <div
+                                className="textinput regular"
+                              >
+                                <input
+                                  className="textinput--native regular -prefix"
+                                  id="mortgageOrRent"
+                                  name="mortgageOrRent"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onKeyPress={[Function]}
+                                  type="text"
+                                  value=""
+                                />
+                                <Memo(Text)
+                                  className="textinput--prefix"
+                                  color="dark"
+                                  size="regular"
+                                >
+                                  <span
+                                    className="text textinput--prefix -regular -dark"
+                                  >
+                                    £
+                                  </span>
+                                </Memo(Text)>
+                              </div>
+                            </ForwardRef(TextInput)>
+                          </NumericInput>
+                        </Controller>
+                      </div>
+                    </div>
+                  </Memo(Formgroup)>
+                </div>
+              </Memo()>
+              <Memo()>
+                <div
+                  className="column"
+                >
+                  <Memo(Formgroup)
+                    controlId="phoneAndInternet"
+                    label="Phone and Internet"
+                  >
+                    <div
+                      className="formgroup"
+                    >
+                      <label
+                        className="formgroup--legend"
+                        htmlFor="phoneAndInternet"
+                      >
+                        Phone and Internet
+                      </label>
+                      <div
+                        className="formgroup--content"
+                      >
+                        <Controller
+                          as={[Function]}
+                          control={
+                            Object {
+                              "defaultValuesRef": Object {
+                                "current": Object {
+                                  "averageMonthlyIncome": "",
+                                  "carFinance": "",
+                                  "creditCardPayments": "",
+                                  "foodAndClothes": "",
+                                  "fuel": "",
+                                  "futureMonthlyIncome": "",
+                                  "insurance": "",
+                                  "isFutureMonthlyIncome": false,
+                                  "monthlyHouseholdIncome": "",
+                                  "mortgageOrRent": "",
+                                  "otherCredit": "",
+                                  "phoneAndInternet": "",
+                                  "studentLoans": "",
+                                  "utilities": "",
+                                },
+                              },
+                              "dirtyFieldsRef": Object {
+                                "current": Set {},
+                              },
+                              "errorsRef": Object {
+                                "current": Object {},
+                              },
+                              "fieldArrayDefaultValues": Object {
+                                "current": Object {},
+                              },
+                              "fieldArrayNamesRef": Object {
+                                "current": Set {},
+                              },
+                              "fieldsRef": Object {
+                                "current": Object {
+                                  "averageMonthlyIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "averageMonthlyIncome",
+                                    },
+                                  },
+                                  "carFinance": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "carFinance",
+                                    },
+                                  },
+                                  "creditCardPayments": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "creditCardPayments",
+                                    },
+                                  },
+                                  "foodAndClothes": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "foodAndClothes",
+                                    },
+                                  },
+                                  "fuel": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "fuel",
+                                    },
+                                  },
+                                  "insurance": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "insurance",
+                                    },
+                                  },
+                                  "isFutureMonthlyIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "isFutureMonthlyIncome",
+                                    },
+                                  },
+                                  "monthlyHouseholdIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "monthlyHouseholdIncome",
+                                    },
+                                  },
+                                  "mortgageOrRent": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "mortgageOrRent",
+                                    },
+                                  },
+                                  "otherCredit": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "otherCredit",
+                                    },
+                                  },
+                                  "phoneAndInternet": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "phoneAndInternet",
+                                    },
+                                  },
+                                  "studentLoans": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "studentLoans",
+                                    },
+                                  },
+                                  "utilities": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "utilities",
+                                    },
+                                  },
+                                },
+                              },
+                              "fieldsWithValidationRef": Object {
+                                "current": Set {},
+                              },
+                              "formState": null,
+                              "getValues": [Function],
+                              "isDirtyRef": Object {
+                                "current": false,
+                              },
+                              "isWatchAllRef": Object {
+                                "current": true,
+                              },
+                              "mode": Object {
+                                "isOnBlur": true,
+                                "isOnChange": false,
+                                "isOnSubmit": false,
+                              },
+                              "reRender": [Function],
+                              "reValidateMode": Object {
+                                "isReValidateOnBlur": false,
+                                "isReValidateOnSubmit": false,
+                              },
+                              "readFormStateRef": Object {
+                                "current": Object {
+                                  "constructor": true,
+                                  "dirty": false,
+                                  "dirtyFields": false,
+                                  "isSubmitted": true,
+                                  "isSubmitting": false,
+                                  "isValid": false,
+                                  "submitCount": false,
+                                  "touched": false,
+                                },
+                              },
+                              "register": [Function],
+                              "removeFieldEventListener": [Function],
+                              "resetFieldArrayFunctionRef": Object {
+                                "current": Object {},
+                              },
+                              "setValue": [Function],
+                              "touchedFieldsRef": Object {
+                                "current": Object {},
+                              },
+                              "triggerValidation": [Function],
+                              "unregister": [Function],
+                              "validFieldsRef": Object {
+                                "current": Set {},
+                              },
+                              "validateSchemaIsValid": [Function],
+                              "watchFieldsRef": Object {
+                                "current": Set {},
+                              },
+                            }
+                          }
+                          id="phoneAndInternet"
+                          name="phoneAndInternet"
+                          prefix="£"
+                        >
+                          <NumericInput
+                            id="phoneAndInternet"
+                            name="phoneAndInternet"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            prefix="£"
+                            value=""
+                          >
+                            <ForwardRef(TextInput)
+                              id="phoneAndInternet"
+                              name="phoneAndInternet"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              prefix="£"
+                              value=""
+                            >
+                              <div
+                                className="textinput regular"
+                              >
+                                <input
+                                  className="textinput--native regular -prefix"
+                                  id="phoneAndInternet"
+                                  name="phoneAndInternet"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onKeyPress={[Function]}
+                                  type="text"
+                                  value=""
+                                />
+                                <Memo(Text)
+                                  className="textinput--prefix"
+                                  color="dark"
+                                  size="regular"
+                                >
+                                  <span
+                                    className="text textinput--prefix -regular -dark"
+                                  >
+                                    £
+                                  </span>
+                                </Memo(Text)>
+                              </div>
+                            </ForwardRef(TextInput)>
+                          </NumericInput>
+                        </Controller>
+                      </div>
+                    </div>
+                  </Memo(Formgroup)>
+                </div>
+              </Memo()>
+              <Memo()>
+                <div
+                  className="column"
+                >
+                  <Memo(Formgroup)
+                    controlId="creditCardPayments"
+                    label="Credit Card Payments"
+                  >
+                    <div
+                      className="formgroup"
+                    >
+                      <label
+                        className="formgroup--legend"
+                        htmlFor="creditCardPayments"
+                      >
+                        Credit Card Payments
+                      </label>
+                      <div
+                        className="formgroup--content"
+                      >
+                        <Controller
+                          as={[Function]}
+                          control={
+                            Object {
+                              "defaultValuesRef": Object {
+                                "current": Object {
+                                  "averageMonthlyIncome": "",
+                                  "carFinance": "",
+                                  "creditCardPayments": "",
+                                  "foodAndClothes": "",
+                                  "fuel": "",
+                                  "futureMonthlyIncome": "",
+                                  "insurance": "",
+                                  "isFutureMonthlyIncome": false,
+                                  "monthlyHouseholdIncome": "",
+                                  "mortgageOrRent": "",
+                                  "otherCredit": "",
+                                  "phoneAndInternet": "",
+                                  "studentLoans": "",
+                                  "utilities": "",
+                                },
+                              },
+                              "dirtyFieldsRef": Object {
+                                "current": Set {},
+                              },
+                              "errorsRef": Object {
+                                "current": Object {},
+                              },
+                              "fieldArrayDefaultValues": Object {
+                                "current": Object {},
+                              },
+                              "fieldArrayNamesRef": Object {
+                                "current": Set {},
+                              },
+                              "fieldsRef": Object {
+                                "current": Object {
+                                  "averageMonthlyIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "averageMonthlyIncome",
+                                    },
+                                  },
+                                  "carFinance": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "carFinance",
+                                    },
+                                  },
+                                  "creditCardPayments": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "creditCardPayments",
+                                    },
+                                  },
+                                  "foodAndClothes": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "foodAndClothes",
+                                    },
+                                  },
+                                  "fuel": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "fuel",
+                                    },
+                                  },
+                                  "insurance": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "insurance",
+                                    },
+                                  },
+                                  "isFutureMonthlyIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "isFutureMonthlyIncome",
+                                    },
+                                  },
+                                  "monthlyHouseholdIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "monthlyHouseholdIncome",
+                                    },
+                                  },
+                                  "mortgageOrRent": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "mortgageOrRent",
+                                    },
+                                  },
+                                  "otherCredit": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "otherCredit",
+                                    },
+                                  },
+                                  "phoneAndInternet": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "phoneAndInternet",
+                                    },
+                                  },
+                                  "studentLoans": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "studentLoans",
+                                    },
+                                  },
+                                  "utilities": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "utilities",
+                                    },
+                                  },
+                                },
+                              },
+                              "fieldsWithValidationRef": Object {
+                                "current": Set {},
+                              },
+                              "formState": null,
+                              "getValues": [Function],
+                              "isDirtyRef": Object {
+                                "current": false,
+                              },
+                              "isWatchAllRef": Object {
+                                "current": true,
+                              },
+                              "mode": Object {
+                                "isOnBlur": true,
+                                "isOnChange": false,
+                                "isOnSubmit": false,
+                              },
+                              "reRender": [Function],
+                              "reValidateMode": Object {
+                                "isReValidateOnBlur": false,
+                                "isReValidateOnSubmit": false,
+                              },
+                              "readFormStateRef": Object {
+                                "current": Object {
+                                  "constructor": true,
+                                  "dirty": false,
+                                  "dirtyFields": false,
+                                  "isSubmitted": true,
+                                  "isSubmitting": false,
+                                  "isValid": false,
+                                  "submitCount": false,
+                                  "touched": false,
+                                },
+                              },
+                              "register": [Function],
+                              "removeFieldEventListener": [Function],
+                              "resetFieldArrayFunctionRef": Object {
+                                "current": Object {},
+                              },
+                              "setValue": [Function],
+                              "touchedFieldsRef": Object {
+                                "current": Object {},
+                              },
+                              "triggerValidation": [Function],
+                              "unregister": [Function],
+                              "validFieldsRef": Object {
+                                "current": Set {},
+                              },
+                              "validateSchemaIsValid": [Function],
+                              "watchFieldsRef": Object {
+                                "current": Set {},
+                              },
+                            }
+                          }
+                          id="creditCardPayments"
+                          name="creditCardPayments"
+                          prefix="£"
+                        >
+                          <NumericInput
+                            id="creditCardPayments"
+                            name="creditCardPayments"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            prefix="£"
+                            value=""
+                          >
+                            <ForwardRef(TextInput)
+                              id="creditCardPayments"
+                              name="creditCardPayments"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              prefix="£"
+                              value=""
+                            >
+                              <div
+                                className="textinput regular"
+                              >
+                                <input
+                                  className="textinput--native regular -prefix"
+                                  id="creditCardPayments"
+                                  name="creditCardPayments"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onKeyPress={[Function]}
+                                  type="text"
+                                  value=""
+                                />
+                                <Memo(Text)
+                                  className="textinput--prefix"
+                                  color="dark"
+                                  size="regular"
+                                >
+                                  <span
+                                    className="text textinput--prefix -regular -dark"
+                                  >
+                                    £
+                                  </span>
+                                </Memo(Text)>
+                              </div>
+                            </ForwardRef(TextInput)>
+                          </NumericInput>
+                        </Controller>
+                      </div>
+                    </div>
+                  </Memo(Formgroup)>
+                </div>
+              </Memo()>
+              <Memo()>
+                <div
+                  className="column"
+                >
+                  <Memo(Formgroup)
+                    controlId="utilities"
+                    label="Utilities"
+                  >
+                    <div
+                      className="formgroup"
+                    >
+                      <label
+                        className="formgroup--legend"
+                        htmlFor="utilities"
+                      >
+                        Utilities
+                      </label>
+                      <div
+                        className="formgroup--content"
+                      >
+                        <Controller
+                          as={[Function]}
+                          control={
+                            Object {
+                              "defaultValuesRef": Object {
+                                "current": Object {
+                                  "averageMonthlyIncome": "",
+                                  "carFinance": "",
+                                  "creditCardPayments": "",
+                                  "foodAndClothes": "",
+                                  "fuel": "",
+                                  "futureMonthlyIncome": "",
+                                  "insurance": "",
+                                  "isFutureMonthlyIncome": false,
+                                  "monthlyHouseholdIncome": "",
+                                  "mortgageOrRent": "",
+                                  "otherCredit": "",
+                                  "phoneAndInternet": "",
+                                  "studentLoans": "",
+                                  "utilities": "",
+                                },
+                              },
+                              "dirtyFieldsRef": Object {
+                                "current": Set {},
+                              },
+                              "errorsRef": Object {
+                                "current": Object {},
+                              },
+                              "fieldArrayDefaultValues": Object {
+                                "current": Object {},
+                              },
+                              "fieldArrayNamesRef": Object {
+                                "current": Set {},
+                              },
+                              "fieldsRef": Object {
+                                "current": Object {
+                                  "averageMonthlyIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "averageMonthlyIncome",
+                                    },
+                                  },
+                                  "carFinance": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "carFinance",
+                                    },
+                                  },
+                                  "creditCardPayments": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "creditCardPayments",
+                                    },
+                                  },
+                                  "foodAndClothes": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "foodAndClothes",
+                                    },
+                                  },
+                                  "fuel": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "fuel",
+                                    },
+                                  },
+                                  "insurance": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "insurance",
+                                    },
+                                  },
+                                  "isFutureMonthlyIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "isFutureMonthlyIncome",
+                                    },
+                                  },
+                                  "monthlyHouseholdIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "monthlyHouseholdIncome",
+                                    },
+                                  },
+                                  "mortgageOrRent": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "mortgageOrRent",
+                                    },
+                                  },
+                                  "otherCredit": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "otherCredit",
+                                    },
+                                  },
+                                  "phoneAndInternet": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "phoneAndInternet",
+                                    },
+                                  },
+                                  "studentLoans": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "studentLoans",
+                                    },
+                                  },
+                                  "utilities": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "utilities",
+                                    },
+                                  },
+                                },
+                              },
+                              "fieldsWithValidationRef": Object {
+                                "current": Set {},
+                              },
+                              "formState": null,
+                              "getValues": [Function],
+                              "isDirtyRef": Object {
+                                "current": false,
+                              },
+                              "isWatchAllRef": Object {
+                                "current": true,
+                              },
+                              "mode": Object {
+                                "isOnBlur": true,
+                                "isOnChange": false,
+                                "isOnSubmit": false,
+                              },
+                              "reRender": [Function],
+                              "reValidateMode": Object {
+                                "isReValidateOnBlur": false,
+                                "isReValidateOnSubmit": false,
+                              },
+                              "readFormStateRef": Object {
+                                "current": Object {
+                                  "constructor": true,
+                                  "dirty": false,
+                                  "dirtyFields": false,
+                                  "isSubmitted": true,
+                                  "isSubmitting": false,
+                                  "isValid": false,
+                                  "submitCount": false,
+                                  "touched": false,
+                                },
+                              },
+                              "register": [Function],
+                              "removeFieldEventListener": [Function],
+                              "resetFieldArrayFunctionRef": Object {
+                                "current": Object {},
+                              },
+                              "setValue": [Function],
+                              "touchedFieldsRef": Object {
+                                "current": Object {},
+                              },
+                              "triggerValidation": [Function],
+                              "unregister": [Function],
+                              "validFieldsRef": Object {
+                                "current": Set {},
+                              },
+                              "validateSchemaIsValid": [Function],
+                              "watchFieldsRef": Object {
+                                "current": Set {},
+                              },
+                            }
+                          }
+                          id="utilities"
+                          name="utilities"
+                          prefix="£"
+                        >
+                          <NumericInput
+                            id="utilities"
+                            name="utilities"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            prefix="£"
+                            value=""
+                          >
+                            <ForwardRef(TextInput)
+                              id="utilities"
+                              name="utilities"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              prefix="£"
+                              value=""
+                            >
+                              <div
+                                className="textinput regular"
+                              >
+                                <input
+                                  className="textinput--native regular -prefix"
+                                  id="utilities"
+                                  name="utilities"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onKeyPress={[Function]}
+                                  type="text"
+                                  value=""
+                                />
+                                <Memo(Text)
+                                  className="textinput--prefix"
+                                  color="dark"
+                                  size="regular"
+                                >
+                                  <span
+                                    className="text textinput--prefix -regular -dark"
+                                  >
+                                    £
+                                  </span>
+                                </Memo(Text)>
+                              </div>
+                            </ForwardRef(TextInput)>
+                          </NumericInput>
+                        </Controller>
+                      </div>
+                    </div>
+                  </Memo(Formgroup)>
+                </div>
+              </Memo()>
+              <Memo()>
+                <div
+                  className="column"
+                >
+                  <Memo(Formgroup)
+                    controlId="insurance"
+                    label="Insurance"
+                  >
+                    <div
+                      className="formgroup"
+                    >
+                      <label
+                        className="formgroup--legend"
+                        htmlFor="insurance"
+                      >
+                        Insurance
+                      </label>
+                      <div
+                        className="formgroup--content"
+                      >
+                        <Controller
+                          as={[Function]}
+                          control={
+                            Object {
+                              "defaultValuesRef": Object {
+                                "current": Object {
+                                  "averageMonthlyIncome": "",
+                                  "carFinance": "",
+                                  "creditCardPayments": "",
+                                  "foodAndClothes": "",
+                                  "fuel": "",
+                                  "futureMonthlyIncome": "",
+                                  "insurance": "",
+                                  "isFutureMonthlyIncome": false,
+                                  "monthlyHouseholdIncome": "",
+                                  "mortgageOrRent": "",
+                                  "otherCredit": "",
+                                  "phoneAndInternet": "",
+                                  "studentLoans": "",
+                                  "utilities": "",
+                                },
+                              },
+                              "dirtyFieldsRef": Object {
+                                "current": Set {},
+                              },
+                              "errorsRef": Object {
+                                "current": Object {},
+                              },
+                              "fieldArrayDefaultValues": Object {
+                                "current": Object {},
+                              },
+                              "fieldArrayNamesRef": Object {
+                                "current": Set {},
+                              },
+                              "fieldsRef": Object {
+                                "current": Object {
+                                  "averageMonthlyIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "averageMonthlyIncome",
+                                    },
+                                  },
+                                  "carFinance": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "carFinance",
+                                    },
+                                  },
+                                  "creditCardPayments": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "creditCardPayments",
+                                    },
+                                  },
+                                  "foodAndClothes": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "foodAndClothes",
+                                    },
+                                  },
+                                  "fuel": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "fuel",
+                                    },
+                                  },
+                                  "insurance": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "insurance",
+                                    },
+                                  },
+                                  "isFutureMonthlyIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "isFutureMonthlyIncome",
+                                    },
+                                  },
+                                  "monthlyHouseholdIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "monthlyHouseholdIncome",
+                                    },
+                                  },
+                                  "mortgageOrRent": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "mortgageOrRent",
+                                    },
+                                  },
+                                  "otherCredit": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "otherCredit",
+                                    },
+                                  },
+                                  "phoneAndInternet": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "phoneAndInternet",
+                                    },
+                                  },
+                                  "studentLoans": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "studentLoans",
+                                    },
+                                  },
+                                  "utilities": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "utilities",
+                                    },
+                                  },
+                                },
+                              },
+                              "fieldsWithValidationRef": Object {
+                                "current": Set {},
+                              },
+                              "formState": null,
+                              "getValues": [Function],
+                              "isDirtyRef": Object {
+                                "current": false,
+                              },
+                              "isWatchAllRef": Object {
+                                "current": true,
+                              },
+                              "mode": Object {
+                                "isOnBlur": true,
+                                "isOnChange": false,
+                                "isOnSubmit": false,
+                              },
+                              "reRender": [Function],
+                              "reValidateMode": Object {
+                                "isReValidateOnBlur": false,
+                                "isReValidateOnSubmit": false,
+                              },
+                              "readFormStateRef": Object {
+                                "current": Object {
+                                  "constructor": true,
+                                  "dirty": false,
+                                  "dirtyFields": false,
+                                  "isSubmitted": true,
+                                  "isSubmitting": false,
+                                  "isValid": false,
+                                  "submitCount": false,
+                                  "touched": false,
+                                },
+                              },
+                              "register": [Function],
+                              "removeFieldEventListener": [Function],
+                              "resetFieldArrayFunctionRef": Object {
+                                "current": Object {},
+                              },
+                              "setValue": [Function],
+                              "touchedFieldsRef": Object {
+                                "current": Object {},
+                              },
+                              "triggerValidation": [Function],
+                              "unregister": [Function],
+                              "validFieldsRef": Object {
+                                "current": Set {},
+                              },
+                              "validateSchemaIsValid": [Function],
+                              "watchFieldsRef": Object {
+                                "current": Set {},
+                              },
+                            }
+                          }
+                          id="insurance"
+                          name="insurance"
+                          prefix="£"
+                        >
+                          <NumericInput
+                            id="insurance"
+                            name="insurance"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            prefix="£"
+                            value=""
+                          >
+                            <ForwardRef(TextInput)
+                              id="insurance"
+                              name="insurance"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              prefix="£"
+                              value=""
+                            >
+                              <div
+                                className="textinput regular"
+                              >
+                                <input
+                                  className="textinput--native regular -prefix"
+                                  id="insurance"
+                                  name="insurance"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onKeyPress={[Function]}
+                                  type="text"
+                                  value=""
+                                />
+                                <Memo(Text)
+                                  className="textinput--prefix"
+                                  color="dark"
+                                  size="regular"
+                                >
+                                  <span
+                                    className="text textinput--prefix -regular -dark"
+                                  >
+                                    £
+                                  </span>
+                                </Memo(Text)>
+                              </div>
+                            </ForwardRef(TextInput)>
+                          </NumericInput>
+                        </Controller>
+                      </div>
+                    </div>
+                  </Memo(Formgroup)>
+                </div>
+              </Memo()>
+              <Memo()>
+                <div
+                  className="column"
+                >
+                  <Memo(Formgroup)
+                    controlId="carFinance"
+                    label="Car Finance"
+                  >
+                    <div
+                      className="formgroup"
+                    >
+                      <label
+                        className="formgroup--legend"
+                        htmlFor="carFinance"
+                      >
+                        Car Finance
+                      </label>
+                      <div
+                        className="formgroup--content"
+                      >
+                        <Controller
+                          as={[Function]}
+                          control={
+                            Object {
+                              "defaultValuesRef": Object {
+                                "current": Object {
+                                  "averageMonthlyIncome": "",
+                                  "carFinance": "",
+                                  "creditCardPayments": "",
+                                  "foodAndClothes": "",
+                                  "fuel": "",
+                                  "futureMonthlyIncome": "",
+                                  "insurance": "",
+                                  "isFutureMonthlyIncome": false,
+                                  "monthlyHouseholdIncome": "",
+                                  "mortgageOrRent": "",
+                                  "otherCredit": "",
+                                  "phoneAndInternet": "",
+                                  "studentLoans": "",
+                                  "utilities": "",
+                                },
+                              },
+                              "dirtyFieldsRef": Object {
+                                "current": Set {},
+                              },
+                              "errorsRef": Object {
+                                "current": Object {},
+                              },
+                              "fieldArrayDefaultValues": Object {
+                                "current": Object {},
+                              },
+                              "fieldArrayNamesRef": Object {
+                                "current": Set {},
+                              },
+                              "fieldsRef": Object {
+                                "current": Object {
+                                  "averageMonthlyIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "averageMonthlyIncome",
+                                    },
+                                  },
+                                  "carFinance": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "carFinance",
+                                    },
+                                  },
+                                  "creditCardPayments": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "creditCardPayments",
+                                    },
+                                  },
+                                  "foodAndClothes": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "foodAndClothes",
+                                    },
+                                  },
+                                  "fuel": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "fuel",
+                                    },
+                                  },
+                                  "insurance": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "insurance",
+                                    },
+                                  },
+                                  "isFutureMonthlyIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "isFutureMonthlyIncome",
+                                    },
+                                  },
+                                  "monthlyHouseholdIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "monthlyHouseholdIncome",
+                                    },
+                                  },
+                                  "mortgageOrRent": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "mortgageOrRent",
+                                    },
+                                  },
+                                  "otherCredit": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "otherCredit",
+                                    },
+                                  },
+                                  "phoneAndInternet": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "phoneAndInternet",
+                                    },
+                                  },
+                                  "studentLoans": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "studentLoans",
+                                    },
+                                  },
+                                  "utilities": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "utilities",
+                                    },
+                                  },
+                                },
+                              },
+                              "fieldsWithValidationRef": Object {
+                                "current": Set {},
+                              },
+                              "formState": null,
+                              "getValues": [Function],
+                              "isDirtyRef": Object {
+                                "current": false,
+                              },
+                              "isWatchAllRef": Object {
+                                "current": true,
+                              },
+                              "mode": Object {
+                                "isOnBlur": true,
+                                "isOnChange": false,
+                                "isOnSubmit": false,
+                              },
+                              "reRender": [Function],
+                              "reValidateMode": Object {
+                                "isReValidateOnBlur": false,
+                                "isReValidateOnSubmit": false,
+                              },
+                              "readFormStateRef": Object {
+                                "current": Object {
+                                  "constructor": true,
+                                  "dirty": false,
+                                  "dirtyFields": false,
+                                  "isSubmitted": true,
+                                  "isSubmitting": false,
+                                  "isValid": false,
+                                  "submitCount": false,
+                                  "touched": false,
+                                },
+                              },
+                              "register": [Function],
+                              "removeFieldEventListener": [Function],
+                              "resetFieldArrayFunctionRef": Object {
+                                "current": Object {},
+                              },
+                              "setValue": [Function],
+                              "touchedFieldsRef": Object {
+                                "current": Object {},
+                              },
+                              "triggerValidation": [Function],
+                              "unregister": [Function],
+                              "validFieldsRef": Object {
+                                "current": Set {},
+                              },
+                              "validateSchemaIsValid": [Function],
+                              "watchFieldsRef": Object {
+                                "current": Set {},
+                              },
+                            }
+                          }
+                          id="carFinance"
+                          name="carFinance"
+                          prefix="£"
+                        >
+                          <NumericInput
+                            id="carFinance"
+                            name="carFinance"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            prefix="£"
+                            value=""
+                          >
+                            <ForwardRef(TextInput)
+                              id="carFinance"
+                              name="carFinance"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              prefix="£"
+                              value=""
+                            >
+                              <div
+                                className="textinput regular"
+                              >
+                                <input
+                                  className="textinput--native regular -prefix"
+                                  id="carFinance"
+                                  name="carFinance"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onKeyPress={[Function]}
+                                  type="text"
+                                  value=""
+                                />
+                                <Memo(Text)
+                                  className="textinput--prefix"
+                                  color="dark"
+                                  size="regular"
+                                >
+                                  <span
+                                    className="text textinput--prefix -regular -dark"
+                                  >
+                                    £
+                                  </span>
+                                </Memo(Text)>
+                              </div>
+                            </ForwardRef(TextInput)>
+                          </NumericInput>
+                        </Controller>
+                      </div>
+                    </div>
+                  </Memo(Formgroup)>
+                </div>
+              </Memo()>
+              <Memo()>
+                <div
+                  className="column"
+                >
+                  <Memo(Formgroup)
+                    controlId="foodAndClothes"
+                    label="Food and Clothes"
+                  >
+                    <div
+                      className="formgroup"
+                    >
+                      <label
+                        className="formgroup--legend"
+                        htmlFor="foodAndClothes"
+                      >
+                        Food and Clothes
+                      </label>
+                      <div
+                        className="formgroup--content"
+                      >
+                        <Controller
+                          as={[Function]}
+                          control={
+                            Object {
+                              "defaultValuesRef": Object {
+                                "current": Object {
+                                  "averageMonthlyIncome": "",
+                                  "carFinance": "",
+                                  "creditCardPayments": "",
+                                  "foodAndClothes": "",
+                                  "fuel": "",
+                                  "futureMonthlyIncome": "",
+                                  "insurance": "",
+                                  "isFutureMonthlyIncome": false,
+                                  "monthlyHouseholdIncome": "",
+                                  "mortgageOrRent": "",
+                                  "otherCredit": "",
+                                  "phoneAndInternet": "",
+                                  "studentLoans": "",
+                                  "utilities": "",
+                                },
+                              },
+                              "dirtyFieldsRef": Object {
+                                "current": Set {},
+                              },
+                              "errorsRef": Object {
+                                "current": Object {},
+                              },
+                              "fieldArrayDefaultValues": Object {
+                                "current": Object {},
+                              },
+                              "fieldArrayNamesRef": Object {
+                                "current": Set {},
+                              },
+                              "fieldsRef": Object {
+                                "current": Object {
+                                  "averageMonthlyIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "averageMonthlyIncome",
+                                    },
+                                  },
+                                  "carFinance": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "carFinance",
+                                    },
+                                  },
+                                  "creditCardPayments": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "creditCardPayments",
+                                    },
+                                  },
+                                  "foodAndClothes": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "foodAndClothes",
+                                    },
+                                  },
+                                  "fuel": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "fuel",
+                                    },
+                                  },
+                                  "insurance": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "insurance",
+                                    },
+                                  },
+                                  "isFutureMonthlyIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "isFutureMonthlyIncome",
+                                    },
+                                  },
+                                  "monthlyHouseholdIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "monthlyHouseholdIncome",
+                                    },
+                                  },
+                                  "mortgageOrRent": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "mortgageOrRent",
+                                    },
+                                  },
+                                  "otherCredit": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "otherCredit",
+                                    },
+                                  },
+                                  "phoneAndInternet": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "phoneAndInternet",
+                                    },
+                                  },
+                                  "studentLoans": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "studentLoans",
+                                    },
+                                  },
+                                  "utilities": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "utilities",
+                                    },
+                                  },
+                                },
+                              },
+                              "fieldsWithValidationRef": Object {
+                                "current": Set {},
+                              },
+                              "formState": null,
+                              "getValues": [Function],
+                              "isDirtyRef": Object {
+                                "current": false,
+                              },
+                              "isWatchAllRef": Object {
+                                "current": true,
+                              },
+                              "mode": Object {
+                                "isOnBlur": true,
+                                "isOnChange": false,
+                                "isOnSubmit": false,
+                              },
+                              "reRender": [Function],
+                              "reValidateMode": Object {
+                                "isReValidateOnBlur": false,
+                                "isReValidateOnSubmit": false,
+                              },
+                              "readFormStateRef": Object {
+                                "current": Object {
+                                  "constructor": true,
+                                  "dirty": false,
+                                  "dirtyFields": false,
+                                  "isSubmitted": true,
+                                  "isSubmitting": false,
+                                  "isValid": false,
+                                  "submitCount": false,
+                                  "touched": false,
+                                },
+                              },
+                              "register": [Function],
+                              "removeFieldEventListener": [Function],
+                              "resetFieldArrayFunctionRef": Object {
+                                "current": Object {},
+                              },
+                              "setValue": [Function],
+                              "touchedFieldsRef": Object {
+                                "current": Object {},
+                              },
+                              "triggerValidation": [Function],
+                              "unregister": [Function],
+                              "validFieldsRef": Object {
+                                "current": Set {},
+                              },
+                              "validateSchemaIsValid": [Function],
+                              "watchFieldsRef": Object {
+                                "current": Set {},
+                              },
+                            }
+                          }
+                          id="foodAndClothes"
+                          name="foodAndClothes"
+                          prefix="£"
+                        >
+                          <NumericInput
+                            id="foodAndClothes"
+                            name="foodAndClothes"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            prefix="£"
+                            value=""
+                          >
+                            <ForwardRef(TextInput)
+                              id="foodAndClothes"
+                              name="foodAndClothes"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              prefix="£"
+                              value=""
+                            >
+                              <div
+                                className="textinput regular"
+                              >
+                                <input
+                                  className="textinput--native regular -prefix"
+                                  id="foodAndClothes"
+                                  name="foodAndClothes"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onKeyPress={[Function]}
+                                  type="text"
+                                  value=""
+                                />
+                                <Memo(Text)
+                                  className="textinput--prefix"
+                                  color="dark"
+                                  size="regular"
+                                >
+                                  <span
+                                    className="text textinput--prefix -regular -dark"
+                                  >
+                                    £
+                                  </span>
+                                </Memo(Text)>
+                              </div>
+                            </ForwardRef(TextInput)>
+                          </NumericInput>
+                        </Controller>
+                      </div>
+                    </div>
+                  </Memo(Formgroup)>
+                </div>
+              </Memo()>
+              <Memo()>
+                <div
+                  className="column"
+                >
+                  <Memo(Formgroup)
+                    controlId="fuel"
+                    label="Fuel"
+                  >
+                    <div
+                      className="formgroup"
+                    >
+                      <label
+                        className="formgroup--legend"
+                        htmlFor="fuel"
+                      >
+                        Fuel
+                      </label>
+                      <div
+                        className="formgroup--content"
+                      >
+                        <Controller
+                          as={[Function]}
+                          control={
+                            Object {
+                              "defaultValuesRef": Object {
+                                "current": Object {
+                                  "averageMonthlyIncome": "",
+                                  "carFinance": "",
+                                  "creditCardPayments": "",
+                                  "foodAndClothes": "",
+                                  "fuel": "",
+                                  "futureMonthlyIncome": "",
+                                  "insurance": "",
+                                  "isFutureMonthlyIncome": false,
+                                  "monthlyHouseholdIncome": "",
+                                  "mortgageOrRent": "",
+                                  "otherCredit": "",
+                                  "phoneAndInternet": "",
+                                  "studentLoans": "",
+                                  "utilities": "",
+                                },
+                              },
+                              "dirtyFieldsRef": Object {
+                                "current": Set {},
+                              },
+                              "errorsRef": Object {
+                                "current": Object {},
+                              },
+                              "fieldArrayDefaultValues": Object {
+                                "current": Object {},
+                              },
+                              "fieldArrayNamesRef": Object {
+                                "current": Set {},
+                              },
+                              "fieldsRef": Object {
+                                "current": Object {
+                                  "averageMonthlyIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "averageMonthlyIncome",
+                                    },
+                                  },
+                                  "carFinance": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "carFinance",
+                                    },
+                                  },
+                                  "creditCardPayments": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "creditCardPayments",
+                                    },
+                                  },
+                                  "foodAndClothes": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "foodAndClothes",
+                                    },
+                                  },
+                                  "fuel": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "fuel",
+                                    },
+                                  },
+                                  "insurance": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "insurance",
+                                    },
+                                  },
+                                  "isFutureMonthlyIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "isFutureMonthlyIncome",
+                                    },
+                                  },
+                                  "monthlyHouseholdIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "monthlyHouseholdIncome",
+                                    },
+                                  },
+                                  "mortgageOrRent": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "mortgageOrRent",
+                                    },
+                                  },
+                                  "otherCredit": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "otherCredit",
+                                    },
+                                  },
+                                  "phoneAndInternet": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "phoneAndInternet",
+                                    },
+                                  },
+                                  "studentLoans": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "studentLoans",
+                                    },
+                                  },
+                                  "utilities": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "utilities",
+                                    },
+                                  },
+                                },
+                              },
+                              "fieldsWithValidationRef": Object {
+                                "current": Set {},
+                              },
+                              "formState": null,
+                              "getValues": [Function],
+                              "isDirtyRef": Object {
+                                "current": false,
+                              },
+                              "isWatchAllRef": Object {
+                                "current": true,
+                              },
+                              "mode": Object {
+                                "isOnBlur": true,
+                                "isOnChange": false,
+                                "isOnSubmit": false,
+                              },
+                              "reRender": [Function],
+                              "reValidateMode": Object {
+                                "isReValidateOnBlur": false,
+                                "isReValidateOnSubmit": false,
+                              },
+                              "readFormStateRef": Object {
+                                "current": Object {
+                                  "constructor": true,
+                                  "dirty": false,
+                                  "dirtyFields": false,
+                                  "isSubmitted": true,
+                                  "isSubmitting": false,
+                                  "isValid": false,
+                                  "submitCount": false,
+                                  "touched": false,
+                                },
+                              },
+                              "register": [Function],
+                              "removeFieldEventListener": [Function],
+                              "resetFieldArrayFunctionRef": Object {
+                                "current": Object {},
+                              },
+                              "setValue": [Function],
+                              "touchedFieldsRef": Object {
+                                "current": Object {},
+                              },
+                              "triggerValidation": [Function],
+                              "unregister": [Function],
+                              "validFieldsRef": Object {
+                                "current": Set {},
+                              },
+                              "validateSchemaIsValid": [Function],
+                              "watchFieldsRef": Object {
+                                "current": Set {},
+                              },
+                            }
+                          }
+                          id="fuel"
+                          name="fuel"
+                          prefix="£"
+                        >
+                          <NumericInput
+                            id="fuel"
+                            name="fuel"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            prefix="£"
+                            value=""
+                          >
+                            <ForwardRef(TextInput)
+                              id="fuel"
+                              name="fuel"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              prefix="£"
+                              value=""
+                            >
+                              <div
+                                className="textinput regular"
+                              >
+                                <input
+                                  className="textinput--native regular -prefix"
+                                  id="fuel"
+                                  name="fuel"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onKeyPress={[Function]}
+                                  type="text"
+                                  value=""
+                                />
+                                <Memo(Text)
+                                  className="textinput--prefix"
+                                  color="dark"
+                                  size="regular"
+                                >
+                                  <span
+                                    className="text textinput--prefix -regular -dark"
+                                  >
+                                    £
+                                  </span>
+                                </Memo(Text)>
+                              </div>
+                            </ForwardRef(TextInput)>
+                          </NumericInput>
+                        </Controller>
+                      </div>
+                    </div>
+                  </Memo(Formgroup)>
+                </div>
+              </Memo()>
+              <Memo()>
+                <div
+                  className="column"
+                >
+                  <Memo(Formgroup)
+                    controlId="studentLoans"
+                    label="Student Loan"
+                  >
+                    <div
+                      className="formgroup"
+                    >
+                      <label
+                        className="formgroup--legend"
+                        htmlFor="studentLoans"
+                      >
+                        Student Loan
+                      </label>
+                      <div
+                        className="formgroup--content"
+                      >
+                        <Controller
+                          as={[Function]}
+                          control={
+                            Object {
+                              "defaultValuesRef": Object {
+                                "current": Object {
+                                  "averageMonthlyIncome": "",
+                                  "carFinance": "",
+                                  "creditCardPayments": "",
+                                  "foodAndClothes": "",
+                                  "fuel": "",
+                                  "futureMonthlyIncome": "",
+                                  "insurance": "",
+                                  "isFutureMonthlyIncome": false,
+                                  "monthlyHouseholdIncome": "",
+                                  "mortgageOrRent": "",
+                                  "otherCredit": "",
+                                  "phoneAndInternet": "",
+                                  "studentLoans": "",
+                                  "utilities": "",
+                                },
+                              },
+                              "dirtyFieldsRef": Object {
+                                "current": Set {},
+                              },
+                              "errorsRef": Object {
+                                "current": Object {},
+                              },
+                              "fieldArrayDefaultValues": Object {
+                                "current": Object {},
+                              },
+                              "fieldArrayNamesRef": Object {
+                                "current": Set {},
+                              },
+                              "fieldsRef": Object {
+                                "current": Object {
+                                  "averageMonthlyIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "averageMonthlyIncome",
+                                    },
+                                  },
+                                  "carFinance": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "carFinance",
+                                    },
+                                  },
+                                  "creditCardPayments": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "creditCardPayments",
+                                    },
+                                  },
+                                  "foodAndClothes": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "foodAndClothes",
+                                    },
+                                  },
+                                  "fuel": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "fuel",
+                                    },
+                                  },
+                                  "insurance": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "insurance",
+                                    },
+                                  },
+                                  "isFutureMonthlyIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "isFutureMonthlyIncome",
+                                    },
+                                  },
+                                  "monthlyHouseholdIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "monthlyHouseholdIncome",
+                                    },
+                                  },
+                                  "mortgageOrRent": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "mortgageOrRent",
+                                    },
+                                  },
+                                  "otherCredit": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "otherCredit",
+                                    },
+                                  },
+                                  "phoneAndInternet": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "phoneAndInternet",
+                                    },
+                                  },
+                                  "studentLoans": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "studentLoans",
+                                    },
+                                  },
+                                  "utilities": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "utilities",
+                                    },
+                                  },
+                                },
+                              },
+                              "fieldsWithValidationRef": Object {
+                                "current": Set {},
+                              },
+                              "formState": null,
+                              "getValues": [Function],
+                              "isDirtyRef": Object {
+                                "current": false,
+                              },
+                              "isWatchAllRef": Object {
+                                "current": true,
+                              },
+                              "mode": Object {
+                                "isOnBlur": true,
+                                "isOnChange": false,
+                                "isOnSubmit": false,
+                              },
+                              "reRender": [Function],
+                              "reValidateMode": Object {
+                                "isReValidateOnBlur": false,
+                                "isReValidateOnSubmit": false,
+                              },
+                              "readFormStateRef": Object {
+                                "current": Object {
+                                  "constructor": true,
+                                  "dirty": false,
+                                  "dirtyFields": false,
+                                  "isSubmitted": true,
+                                  "isSubmitting": false,
+                                  "isValid": false,
+                                  "submitCount": false,
+                                  "touched": false,
+                                },
+                              },
+                              "register": [Function],
+                              "removeFieldEventListener": [Function],
+                              "resetFieldArrayFunctionRef": Object {
+                                "current": Object {},
+                              },
+                              "setValue": [Function],
+                              "touchedFieldsRef": Object {
+                                "current": Object {},
+                              },
+                              "triggerValidation": [Function],
+                              "unregister": [Function],
+                              "validFieldsRef": Object {
+                                "current": Set {},
+                              },
+                              "validateSchemaIsValid": [Function],
+                              "watchFieldsRef": Object {
+                                "current": Set {},
+                              },
+                            }
+                          }
+                          id="studentLoans"
+                          name="studentLoans"
+                          prefix="£"
+                        >
+                          <NumericInput
+                            id="studentLoans"
+                            name="studentLoans"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            prefix="£"
+                            value=""
+                          >
+                            <ForwardRef(TextInput)
+                              id="studentLoans"
+                              name="studentLoans"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              prefix="£"
+                              value=""
+                            >
+                              <div
+                                className="textinput regular"
+                              >
+                                <input
+                                  className="textinput--native regular -prefix"
+                                  id="studentLoans"
+                                  name="studentLoans"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onKeyPress={[Function]}
+                                  type="text"
+                                  value=""
+                                />
+                                <Memo(Text)
+                                  className="textinput--prefix"
+                                  color="dark"
+                                  size="regular"
+                                >
+                                  <span
+                                    className="text textinput--prefix -regular -dark"
+                                  >
+                                    £
+                                  </span>
+                                </Memo(Text)>
+                              </div>
+                            </ForwardRef(TextInput)>
+                          </NumericInput>
+                        </Controller>
+                      </div>
+                    </div>
+                  </Memo(Formgroup)>
+                </div>
+              </Memo()>
+              <Memo()>
+                <div
+                  className="column"
+                >
+                  <Memo(Formgroup)
+                    controlId="otherCredit"
+                    label="Other Credit"
+                  >
+                    <div
+                      className="formgroup"
+                    >
+                      <label
+                        className="formgroup--legend"
+                        htmlFor="otherCredit"
+                      >
+                        Other Credit
+                      </label>
+                      <div
+                        className="formgroup--content"
+                      >
+                        <Controller
+                          as={[Function]}
+                          control={
+                            Object {
+                              "defaultValuesRef": Object {
+                                "current": Object {
+                                  "averageMonthlyIncome": "",
+                                  "carFinance": "",
+                                  "creditCardPayments": "",
+                                  "foodAndClothes": "",
+                                  "fuel": "",
+                                  "futureMonthlyIncome": "",
+                                  "insurance": "",
+                                  "isFutureMonthlyIncome": false,
+                                  "monthlyHouseholdIncome": "",
+                                  "mortgageOrRent": "",
+                                  "otherCredit": "",
+                                  "phoneAndInternet": "",
+                                  "studentLoans": "",
+                                  "utilities": "",
+                                },
+                              },
+                              "dirtyFieldsRef": Object {
+                                "current": Set {},
+                              },
+                              "errorsRef": Object {
+                                "current": Object {},
+                              },
+                              "fieldArrayDefaultValues": Object {
+                                "current": Object {},
+                              },
+                              "fieldArrayNamesRef": Object {
+                                "current": Set {},
+                              },
+                              "fieldsRef": Object {
+                                "current": Object {
+                                  "averageMonthlyIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "averageMonthlyIncome",
+                                    },
+                                  },
+                                  "carFinance": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "carFinance",
+                                    },
+                                  },
+                                  "creditCardPayments": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "creditCardPayments",
+                                    },
+                                  },
+                                  "foodAndClothes": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "foodAndClothes",
+                                    },
+                                  },
+                                  "fuel": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "fuel",
+                                    },
+                                  },
+                                  "insurance": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "insurance",
+                                    },
+                                  },
+                                  "isFutureMonthlyIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "isFutureMonthlyIncome",
+                                    },
+                                  },
+                                  "monthlyHouseholdIncome": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "monthlyHouseholdIncome",
+                                    },
+                                  },
+                                  "mortgageOrRent": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "mortgageOrRent",
+                                    },
+                                  },
+                                  "otherCredit": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "otherCredit",
+                                    },
+                                  },
+                                  "phoneAndInternet": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "phoneAndInternet",
+                                    },
+                                  },
+                                  "studentLoans": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "studentLoans",
+                                    },
+                                  },
+                                  "utilities": Object {
+                                    "ref": Object {
+                                      "focus": undefined,
+                                      "name": "utilities",
+                                    },
+                                  },
+                                },
+                              },
+                              "fieldsWithValidationRef": Object {
+                                "current": Set {},
+                              },
+                              "formState": null,
+                              "getValues": [Function],
+                              "isDirtyRef": Object {
+                                "current": false,
+                              },
+                              "isWatchAllRef": Object {
+                                "current": true,
+                              },
+                              "mode": Object {
+                                "isOnBlur": true,
+                                "isOnChange": false,
+                                "isOnSubmit": false,
+                              },
+                              "reRender": [Function],
+                              "reValidateMode": Object {
+                                "isReValidateOnBlur": false,
+                                "isReValidateOnSubmit": false,
+                              },
+                              "readFormStateRef": Object {
+                                "current": Object {
+                                  "constructor": true,
+                                  "dirty": false,
+                                  "dirtyFields": false,
+                                  "isSubmitted": true,
+                                  "isSubmitting": false,
+                                  "isValid": false,
+                                  "submitCount": false,
+                                  "touched": false,
+                                },
+                              },
+                              "register": [Function],
+                              "removeFieldEventListener": [Function],
+                              "resetFieldArrayFunctionRef": Object {
+                                "current": Object {},
+                              },
+                              "setValue": [Function],
+                              "touchedFieldsRef": Object {
+                                "current": Object {},
+                              },
+                              "triggerValidation": [Function],
+                              "unregister": [Function],
+                              "validFieldsRef": Object {
+                                "current": Set {},
+                              },
+                              "validateSchemaIsValid": [Function],
+                              "watchFieldsRef": Object {
+                                "current": Set {},
+                              },
+                            }
+                          }
+                          id="otherCredit"
+                          name="otherCredit"
+                          prefix="£"
+                        >
+                          <NumericInput
+                            id="otherCredit"
+                            name="otherCredit"
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            prefix="£"
+                            value=""
+                          >
+                            <ForwardRef(TextInput)
+                              id="otherCredit"
+                              name="otherCredit"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onKeyPress={[Function]}
+                              prefix="£"
+                              value=""
+                            >
+                              <div
+                                className="textinput regular"
+                              >
+                                <input
+                                  className="textinput--native regular -prefix"
+                                  id="otherCredit"
+                                  name="otherCredit"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  onKeyPress={[Function]}
+                                  type="text"
+                                  value=""
+                                />
+                                <Memo(Text)
+                                  className="textinput--prefix"
+                                  color="dark"
+                                  size="regular"
+                                >
+                                  <span
+                                    className="text textinput--prefix -regular -dark"
+                                  >
+                                    £
+                                  </span>
+                                </Memo(Text)>
+                              </div>
+                            </ForwardRef(TextInput)>
+                          </NumericInput>
+                        </Controller>
+                      </div>
+                    </div>
+                  </Memo(Formgroup)>
+                </div>
+              </Memo()>
+            </div>
+          </Memo()>
+        </div>
+      </Tile>
+      <Memo()
+        lg={2}
+        md={2}
+        sm={1}
+      >
+        <div
+          className="grid"
+          columns-l={2}
+          columns-m={2}
+          columns-s={1}
+        >
+          <Memo()>
+            <div
+              className="column"
+            >
+              <Memo(Formgroup)
+                controlId="totalMonthlyExpenses"
+                label="Total Monthly Expenses"
+              >
+                <div
+                  className="formgroup"
+                >
+                  <label
+                    className="formgroup--legend"
+                    htmlFor="totalMonthlyExpenses"
+                  >
+                    Total Monthly Expenses
+                  </label>
+                  <div
+                    className="formgroup--content"
+                  >
+                    <ForwardRef(TextInput)
+                      calculated={true}
+                      id="totalMonthlyExpenses"
+                      name="totalMonthlyExpenses"
+                      onChange={[Function]}
+                      prefix="£"
+                      type="number"
+                      value="0"
+                    >
+                      <div
+                        className="textinput regular"
+                      >
+                        <input
+                          className="textinput--native regular -calculated -prefix"
+                          id="totalMonthlyExpenses"
+                          name="totalMonthlyExpenses"
+                          onChange={[Function]}
+                          type="number"
+                          value="0"
+                        />
+                        <Memo(Text)
+                          className="textinput--prefix"
+                          color="dark"
+                          size="regular"
+                        >
+                          <span
+                            className="text textinput--prefix -regular -dark"
+                          >
+                            £
+                          </span>
+                        </Memo(Text)>
+                      </div>
+                    </ForwardRef(TextInput)>
+                  </div>
+                </div>
+              </Memo(Formgroup)>
+            </div>
+          </Memo()>
+          <Memo()>
+            <div
+              className="column"
+            >
+              <Memo(Formgroup)
+                controlId="netDisposableIncome"
+                label="Net Disposable Income"
+              >
+                <div
+                  className="formgroup"
+                >
+                  <label
+                    className="formgroup--legend"
+                    htmlFor="netDisposableIncome"
+                  >
+                    Net Disposable Income
+                  </label>
+                  <div
+                    className="formgroup--content"
+                  >
+                    <ForwardRef(TextInput)
+                      calculated={true}
+                      id="netDisposableIncome"
+                      name="netDisposableIncome"
+                      onChange={[Function]}
+                      prefix="£"
+                      type="number"
+                      value="0"
+                    >
+                      <div
+                        className="textinput regular"
+                      >
+                        <input
+                          className="textinput--native regular -calculated -prefix"
+                          id="netDisposableIncome"
+                          name="netDisposableIncome"
+                          onChange={[Function]}
+                          type="number"
+                          value="0"
+                        />
+                        <Memo(Text)
+                          className="textinput--prefix"
+                          color="dark"
+                          size="regular"
+                        >
+                          <span
+                            className="text textinput--prefix -regular -dark"
+                          >
+                            £
+                          </span>
+                        </Memo(Text)>
+                      </div>
+                    </ForwardRef(TextInput)>
+                  </div>
+                </div>
+              </Memo(Formgroup)>
+            </div>
+          </Memo()>
+        </div>
+      </Memo()>
+      <Memo(Formgroup)>
+        <div
+          className="formgroup"
+        >
+          <div
+            className="formgroup--content"
+          >
+            <Button
+              color="primary"
+              dataTestId="continue"
+              icon={<Memo />}
+              iconColor="white"
+              iconPosition="after"
+              label="Continue"
+              type="submit"
+            >
+              <button
+                className="button -primary -regular -solid"
+                data-testid="continue"
+                tabIndex={0}
+                type="submit"
+              >
+                <div
+                  className="button--inner"
+                >
+                  Continue
+                  <Icon
+                    color="white"
+                    icon={<Memo />}
+                  >
+                    <i
+                      className="icon -white"
+                    >
+                      <Memo()>
+                        <svg
+                          height="1em"
+                          viewBox="0 0 512 512"
+                          width="1em"
+                        >
+                          <title>
+                            ionicons-v5-a
+                          </title>
+                          <polyline
+                            points="184 112 328 256 184 400"
+                            style={
+                              Object {
+                                "fill": "none",
+                                "stroke": "var(--class-color)",
+                                "strokeLinecap": "square",
+                                "strokeMiterlimit": 10,
+                                "strokeWidth": 48,
+                              }
+                            }
+                          />
+                        </svg>
+                      </Memo()>
+                    </i>
+                  </Icon>
+                </div>
+              </button>
+            </Button>
+          </div>
+        </div>
+      </Memo(Formgroup)>
+    </div>
+  </form>
+</IncomeCalculator>
+`;

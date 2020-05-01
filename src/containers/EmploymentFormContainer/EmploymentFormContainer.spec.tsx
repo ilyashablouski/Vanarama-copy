@@ -7,10 +7,8 @@ import {
   waitFor,
 } from '@testing-library/react';
 import React from 'react';
-import EmploymentFormContainer, {
-  GET_EMPLOYMENT_CONTAINER_DATA,
-  SAVE_EMPLOYMENT_HISTORY,
-} from './EmploymentFormContainer';
+import EmploymentFormContainer from './EmploymentFormContainer';
+import { withoutPrefilledAddress, withPrefilledAddress } from './fixtures';
 
 describe('<EmploymentFormContainer />', () => {
   it('should post data to the server correctly', async () => {
@@ -18,67 +16,9 @@ describe('<EmploymentFormContainer />', () => {
     let mutationCalled = false;
     const personUuid = '1337';
     const onCompletedMock = jest.fn();
-    const mocks: MockedResponse[] = [
-      {
-        request: {
-          query: GET_EMPLOYMENT_CONTAINER_DATA,
-          variables: { uuid: personUuid },
-        },
-        result: {
-          data: {
-            personByUuid: {
-              uuid: personUuid,
-              partyId: '911',
-              __typename: 'PersonType',
-            },
-            allDropDowns: {
-              __typename: 'DropDownType',
-              employmentStatuses: {
-                __typename: 'DropDownDataType',
-                data: [
-                  'Employed',
-                  'Self employed',
-                  'Unemployed',
-                  'Student',
-                  'Retired',
-                ],
-                favourites: [],
-              },
-            },
-          },
-        },
-      },
-      {
-        request: {
-          query: SAVE_EMPLOYMENT_HISTORY,
-          variables: {
-            input: {
-              partyId: '911',
-              employmentHistories: [
-                {
-                  companyAddressServiceId: undefined,
-                  companyName: undefined,
-                  contract: undefined,
-                  employedSinceDate: '1990-01-01',
-                  employmentStatus: 'Retired',
-                  grossAnnualIncome: undefined,
-                  jobTitle: undefined,
-                  workPhoneNumber: undefined,
-                },
-              ],
-            },
-          },
-        },
-        result: () => {
-          mutationCalled = true;
-          return {
-            data: {
-              createUpdateEmploymentHistory: [{ id: '1' }, { id: '2' }],
-            },
-          };
-        },
-      },
-    ];
+    const mocks: MockedResponse[] = withoutPrefilledAddress(personUuid, () => {
+      mutationCalled = true;
+    });
 
     // ACT
     render(
@@ -107,6 +47,64 @@ describe('<EmploymentFormContainer />', () => {
     });
 
     // ASSERT
+    await waitFor(() => expect(mutationCalled).toBeTruthy());
+    expect(onCompletedMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('should prefill data from the server', async () => {
+    // ARRANGE
+    let mutationCalled = false;
+    const personUuid = '1337';
+    const onCompletedMock = jest.fn();
+    const mocks = withPrefilledAddress(personUuid, () => {
+      mutationCalled = true;
+    });
+
+    // ACT
+    render(
+      <MockedProvider addTypename={false} mocks={mocks}>
+        <EmploymentFormContainer
+          personUuid={personUuid}
+          onCompleted={onCompletedMock}
+        />
+      </MockedProvider>,
+    );
+
+    // Wait for the initial query to resolve
+    await waitFor(() => screen.findByTestId('employment-history-heading'));
+
+    // Assert form is pre-filled
+    const status = screen.getByLabelText('Your Current Employment Status');
+    expect((status as HTMLInputElement).value).toEqual('Employed');
+
+    const month = screen.getByTestId('history[0].month');
+    expect((month as HTMLInputElement).value).toEqual('1');
+
+    const year = screen.getByTestId('history[0].year');
+    expect((year as HTMLInputElement).value).toEqual('2002');
+
+    const jobTitle = screen.getByLabelText('Job Title');
+    expect((jobTitle as HTMLInputElement).value).toEqual('Senior Developer');
+
+    const companyName = screen.getByLabelText('Company Name');
+    expect((companyName as HTMLInputElement).value).toEqual('Google');
+
+    const phoneNumber = screen.getByLabelText('Work Phone Number');
+    expect((phoneNumber as HTMLInputElement).value).toEqual('0777777777777');
+
+    const address = screen.getByLabelText('Company Postcode or Address');
+    expect((address as HTMLInputElement).value).toEqual(
+      '1-13 St Giles High St,, West End, London, WC2H 8AG',
+    );
+
+    const income = screen.getByLabelText('Gross Annual Income');
+    expect((income as HTMLInputElement).value).toEqual('200000');
+
+    await act(async () => {
+      fireEvent.click(screen.getByText('Continue'));
+    });
+
+    // Assert pre-filled data is saved again on clicking "Continue"
     await waitFor(() => expect(mutationCalled).toBeTruthy());
     expect(onCompletedMock).toHaveBeenCalledTimes(1);
   });

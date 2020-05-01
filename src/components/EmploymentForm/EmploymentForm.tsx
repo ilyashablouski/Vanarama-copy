@@ -9,19 +9,20 @@ import React from 'react';
 import FCWithFragments from '../../utils/FCWithFragments';
 import EmploymentFormFieldArray from './EmploymentFormFieldArray';
 import {
-  EMPTY_EMPLOYMENT_ENTRY,
   IEmploymentFormProps,
   IEmploymentFormValues as IFormValues,
 } from './interfaces';
+import { responseToInitialFormValues } from './mappers';
 import validationSchema from './validationSchema';
 
 const EmploymentForm: FCWithFragments<IEmploymentFormProps> = ({
   dropDownData,
+  employments,
   onSubmit,
 }) => {
   return (
     <Formik<IFormValues>
-      initialValues={{ history: [EMPTY_EMPLOYMENT_ENTRY] }}
+      initialValues={responseToInitialFormValues(employments)}
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
@@ -75,6 +76,24 @@ EmploymentForm.fragments = {
       ...EmploymentFormFieldArrayDownData
     }
     ${EmploymentFormFieldArray.fragments.dropDownData}
+  `,
+  employments: gql`
+    fragment EmploymentFormEmployment on EmploymentHistoryType {
+      __typename
+      uuid
+      companyAddressServiceId
+      companyAddressCity
+      companyAddressLineOne
+      companyAddressLineTwo
+      companyAddressPostcode
+      companyName
+      contract
+      employedSinceDate
+      employmentStatus
+      grossAnnualIncome
+      jobTitle
+      workPhoneNumber
+    }
   `,
 };
 

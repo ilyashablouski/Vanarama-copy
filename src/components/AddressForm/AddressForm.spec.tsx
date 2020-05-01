@@ -2,8 +2,6 @@ import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import { AddressFormDropDownData } from '../../../generated/AddressFormDropDownData';
 import AddressForm from './AddressForm';
 
-jest.mock('@vanarama/uibook/lib/components/molecules/address-finder');
-
 const mockDropDownData: AddressFormDropDownData = {
   __typename: 'DropDownType',
   propertyStatuses: {
