@@ -122,16 +122,18 @@ const VansPage: NextPage = () => (
       <div className="container">
         <Grid lg="4" md="1" sm="1">
           <Column md="row">
-            <div style={{ textAlign: 'center' }}>
-              <Heading size="large" color="black">
+            <Heading size="large" color="black">
+              <div style={{ textAlign: 'center' }}>
                 What Type Of Van Do You Need?
-              </Heading>
-              <Text tag="p" size="regular" color="darker">
+              </div>
+            </Heading>
+            <Text tag="p" size="regular" color="darker">
+              <div style={{ textAlign: 'center' }}>
                 Choose from Small, Medium and Large vans, or Tippers/Lutons,
                 Crew/Minibus, Pickups and <br />
                 Refrigerated Vans - whatever you need, we&apos;ve got it.
-              </Text>
-            </div>
+              </div>
+            </Text>
           </Column>
           <Column md="1">
             <Card>
