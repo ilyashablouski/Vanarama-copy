@@ -154,7 +154,7 @@ const HomePage: NextPage = () => (
               <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg" />
               <CardContent flex>
                 <Heading tag="a" size="regular" color="black">
-                  Vans
+                  Pickups
                 </Heading>
                 <Button
                   label=""
@@ -173,7 +173,7 @@ const HomePage: NextPage = () => (
               <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
               <CardContent flex>
                 <Heading tag="a" size="regular" color="black">
-                  Vans
+                  Cars
                 </Heading>
                 <Button
                   label=""
