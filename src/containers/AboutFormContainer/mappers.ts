@@ -8,7 +8,7 @@ export const formValuesToInput = (
 ): PersonInputObject => {
   const dateOfBirth = moment(
     `${values.dayOfBirth}-${values.monthOfBirth}-${values.yearOfBirth}`,
-    'DD-MMMM-YYYY',
+    'DD-MM-YYYY',
   ).format('YYYY-MM-DD');
 
   return {
