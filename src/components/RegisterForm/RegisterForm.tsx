@@ -10,17 +10,19 @@ import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import { IRegisterFormProps, IRegisterFormValues } from './interfaces';
 import {
   confirmPasswordValidator,
-  emailValidator,
   passwordValidator,
 } from './RegisterForm.validate';
+import { EMAIL_REGEX } from '../../utils/regex';
 
 const RegisterForm: React.FC<IRegisterFormProps> = ({
   isSubmitting,
   onSubmit,
+  onEmailAlreadyExists,
 }) => {
   const { handleSubmit, errors, watch, register } = useForm<
     IRegisterFormValues
   >({
+    mode: 'onBlur',
     defaultValues: {
       confirmPassword: '',
       email: '',
@@ -29,6 +31,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
   });
 
   const watchPassword = watch('password');
+
   return (
     <Form
       dataTestId="register-form"
@@ -44,9 +47,27 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
           id="register-form_email"
           dataTestId="register-form_email"
           name="email"
-          ref={register(emailValidator)}
-          type="email"
-          width={45}
+          ref={register({
+            required: {
+              value: true,
+              message: 'Your Email is required',
+            },
+            pattern: {
+              value: EMAIL_REGEX,
+              message: 'Invalid email address',
+            },
+            validate: async value => {
+              const results = await onEmailAlreadyExists({
+                variables: { email: value },
+              });
+              const emailAlreadyExists = results?.data?.emailAlreadyExists
+                ? 'Email Already Exists'
+                : undefined;
+
+              return emailAlreadyExists;
+            },
+          })}
+          type="text"
         />
       </Formgroup>
       <Formgroup
