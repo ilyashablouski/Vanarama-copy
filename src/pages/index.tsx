@@ -109,6 +109,7 @@ const HomePage: NextPage = () => (
                 </div>
               ))}
             </Slider>
+            <br />
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Button label="View All Van Offers" color="teal" />
             </div>
