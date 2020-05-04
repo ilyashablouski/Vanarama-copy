@@ -109,9 +109,20 @@ const HomePage: NextPage = () => (
                 </div>
               ))}
             </Slider>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Button label="View All Van Offers" color="teal" />
+            </div>
           </div>
-          <div>2</div>
-          <div>3</div>
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Button label="View All Pickup Offers" color="teal" />
+            </div>
+          </div>
+          <div>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Button label="View All Car Offers" color="teal" />
+            </div>
+          </div>
         </Tabs>
       </div>
     </section>
