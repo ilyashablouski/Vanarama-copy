@@ -24,7 +24,9 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
   expenditure,
   onSubmit,
 }) => {
-  const { handleSubmit, control, watch, errors } = useForm<IFormValues>({
+  const { handleSubmit, control, watch, errors, formState } = useForm<
+    IFormValues
+  >({
     mode: 'onBlur',
     validationSchema,
     defaultValues: responseToInitialFormValues(expenditure),
@@ -268,7 +270,8 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
         <FormGroup>
           <Button
             type="submit"
-            label="Continue"
+            label={formState.isSubmitting ? 'Saving...' : 'Continue'}
+            disabled={formState.isSubmitting}
             color="primary"
             icon={<ChevronForwardSharp />}
             iconColor="white"

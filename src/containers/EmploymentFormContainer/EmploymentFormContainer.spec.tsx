@@ -8,7 +8,10 @@ import {
 } from '@testing-library/react';
 import React from 'react';
 import EmploymentFormContainer from './EmploymentFormContainer';
-import { withoutPrefilledAddress, withPrefilledAddress } from './fixtures';
+import {
+  withoutPrefilledEmployments,
+  withPrefilledEmployments,
+} from './fixtures';
 
 describe('<EmploymentFormContainer />', () => {
   it('should post data to the server correctly', async () => {
@@ -16,9 +19,12 @@ describe('<EmploymentFormContainer />', () => {
     let mutationCalled = false;
     const personUuid = '1337';
     const onCompletedMock = jest.fn();
-    const mocks: MockedResponse[] = withoutPrefilledAddress(personUuid, () => {
-      mutationCalled = true;
-    });
+    const mocks: MockedResponse[] = withoutPrefilledEmployments(
+      personUuid,
+      () => {
+        mutationCalled = true;
+      },
+    );
 
     // ACT
     render(
@@ -56,7 +62,7 @@ describe('<EmploymentFormContainer />', () => {
     let mutationCalled = false;
     const personUuid = '1337';
     const onCompletedMock = jest.fn();
-    const mocks = withPrefilledAddress(personUuid, () => {
+    const mocks = withPrefilledEmployments(personUuid, () => {
       mutationCalled = true;
     });
 

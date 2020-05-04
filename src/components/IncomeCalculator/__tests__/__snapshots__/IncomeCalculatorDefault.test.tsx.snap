@@ -209,7 +209,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               "dirty": false,
                               "dirtyFields": false,
                               "isSubmitted": true,
-                              "isSubmitting": false,
+                              "isSubmitting": true,
                               "isValid": false,
                               "submitCount": false,
                               "touched": false,
@@ -452,7 +452,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               "dirty": false,
                               "dirtyFields": false,
                               "isSubmitted": true,
-                              "isSubmitting": false,
+                              "isSubmitting": true,
                               "isValid": false,
                               "submitCount": false,
                               "touched": false,
@@ -709,7 +709,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                               "dirty": false,
                               "dirtyFields": false,
                               "isSubmitted": true,
-                              "isSubmitting": false,
+                              "isSubmitting": true,
                               "isValid": false,
                               "submitCount": false,
                               "touched": false,
@@ -967,7 +967,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "dirty": false,
                                   "dirtyFields": false,
                                   "isSubmitted": true,
-                                  "isSubmitting": false,
+                                  "isSubmitting": true,
                                   "isValid": false,
                                   "submitCount": false,
                                   "touched": false,
@@ -1210,7 +1210,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "dirty": false,
                                   "dirtyFields": false,
                                   "isSubmitted": true,
-                                  "isSubmitting": false,
+                                  "isSubmitting": true,
                                   "isValid": false,
                                   "submitCount": false,
                                   "touched": false,
@@ -1453,7 +1453,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "dirty": false,
                                   "dirtyFields": false,
                                   "isSubmitted": true,
-                                  "isSubmitting": false,
+                                  "isSubmitting": true,
                                   "isValid": false,
                                   "submitCount": false,
                                   "touched": false,
@@ -1696,7 +1696,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "dirty": false,
                                   "dirtyFields": false,
                                   "isSubmitted": true,
-                                  "isSubmitting": false,
+                                  "isSubmitting": true,
                                   "isValid": false,
                                   "submitCount": false,
                                   "touched": false,
@@ -1939,7 +1939,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "dirty": false,
                                   "dirtyFields": false,
                                   "isSubmitted": true,
-                                  "isSubmitting": false,
+                                  "isSubmitting": true,
                                   "isValid": false,
                                   "submitCount": false,
                                   "touched": false,
@@ -2182,7 +2182,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "dirty": false,
                                   "dirtyFields": false,
                                   "isSubmitted": true,
-                                  "isSubmitting": false,
+                                  "isSubmitting": true,
                                   "isValid": false,
                                   "submitCount": false,
                                   "touched": false,
@@ -2425,7 +2425,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "dirty": false,
                                   "dirtyFields": false,
                                   "isSubmitted": true,
-                                  "isSubmitting": false,
+                                  "isSubmitting": true,
                                   "isValid": false,
                                   "submitCount": false,
                                   "touched": false,
@@ -2668,7 +2668,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "dirty": false,
                                   "dirtyFields": false,
                                   "isSubmitted": true,
-                                  "isSubmitting": false,
+                                  "isSubmitting": true,
                                   "isValid": false,
                                   "submitCount": false,
                                   "touched": false,
@@ -2911,7 +2911,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "dirty": false,
                                   "dirtyFields": false,
                                   "isSubmitted": true,
-                                  "isSubmitting": false,
+                                  "isSubmitting": true,
                                   "isValid": false,
                                   "submitCount": false,
                                   "touched": false,
@@ -3154,7 +3154,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
                                   "dirty": false,
                                   "dirtyFields": false,
                                   "isSubmitted": true,
-                                  "isSubmitting": false,
+                                  "isSubmitting": true,
                                   "isValid": false,
                                   "submitCount": false,
                                   "touched": false,
@@ -3377,6 +3377,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
             <Button
               color="primary"
               dataTestId="continue"
+              disabled={false}
               icon={<Memo />}
               iconColor="white"
               iconPosition="after"
@@ -3386,6 +3387,7 @@ exports[`<IncomeCalculator /> renders correctly 1`] = `
               <button
                 className="button -primary -regular -solid"
                 data-testid="continue"
+                disabled={false}
                 tabIndex={0}
                 type="submit"
               >

@@ -10,7 +10,7 @@ import {
 } from '../../../generated/SaveEmploymentHistoryMutation';
 import { GET_EMPLOYMENT_CONTAINER_DATA, SAVE_EMPLOYMENT_HISTORY } from './gql';
 
-export const withoutPrefilledAddress = (
+export const withoutPrefilledEmployments = (
   personUuid: string,
   onMutationCalled: () => any,
 ) => {
@@ -92,7 +92,7 @@ export const withoutPrefilledAddress = (
   return mocks;
 };
 
-export const withPrefilledAddress = (
+export const withPrefilledEmployments = (
   personUuid: string,
   onMutationCalled: () => any,
 ) => {
@@ -125,6 +125,22 @@ export const withPrefilledAddress = (
                 grossAnnualIncome: 200000,
                 jobTitle: 'Senior Developer',
                 workPhoneNumber: '0777777777777',
+              },
+              {
+                __typename: 'EmploymentHistoryType',
+                uuid: '4f4b31ad-df91-417f-913a-7363727abce',
+                companyAddressCity: null,
+                companyAddressLineOne: null,
+                companyAddressLineTwo: null,
+                companyAddressPostcode: null,
+                companyAddressServiceId: null,
+                companyName: null,
+                contract: null,
+                employedSinceDate: '1990-01-01',
+                employmentStatus: 'Student',
+                grossAnnualIncome: null,
+                jobTitle: null,
+                workPhoneNumber: null,
               },
             ],
           },
