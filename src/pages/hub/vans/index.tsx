@@ -116,6 +116,9 @@ const VansPage: NextPage = () => (
             </div>
           ))}
         </Slider>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <Button label="View All Vans" color="teal" />
+        </div>
       </div>
     </section>
     <section className="section">
