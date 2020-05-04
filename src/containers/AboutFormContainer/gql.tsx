@@ -1,10 +1,13 @@
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-import { AllDropDownsQuery } from '../../../generated/AllDropDownsQuery';
 import {
   CreateUpdatePersonMutation as Mutation,
   CreateUpdatePersonMutationVariables as MutationVariables,
 } from '../../../generated/CreateUpdatePersonMutation';
+import {
+  GetAboutYouDataQuery,
+  GetAboutYouDataQueryVariables,
+} from '../../../generated/GetAboutYouDataQuery';
 import AboutForm from '../../components/AboutForm';
 
 export const CREATE_UPDATE_PERSON = gql`
@@ -16,17 +19,33 @@ export const CREATE_UPDATE_PERSON = gql`
   ${AboutForm.fragments.person}
 `;
 
-export const ALL_DROPDOWNS = gql`
-  query AllDropDownsQuery {
+export const GET_ABOUT_YOU_DATA = gql`
+  query GetAboutYouDataQuery($uuid: ID!, $includePerson: Boolean!) {
     allDropDowns {
       ...AboutFormDropdownData
     }
+    personByUuid(uuid: $uuid) @include(if: $includePerson) {
+      ...AboutFormPerson
+    }
   }
   ${AboutForm.fragments.dropdownData}
+  ${AboutForm.fragments.person}
 `;
 
-export function useDropdowns() {
-  return useQuery<AllDropDownsQuery>(ALL_DROPDOWNS);
+export function useAboutYouData(personByUuid?: string) {
+  return useQuery<GetAboutYouDataQuery, GetAboutYouDataQueryVariables>(
+    GET_ABOUT_YOU_DATA,
+    {
+      variables: {
+        /**
+         * If there's not a personUuid then we can set it to anything
+         * as it will be excluded from the query anyway
+         */
+        uuid: personByUuid || '🐔',
+        includePerson: Boolean(personByUuid),
+      },
+    },
+  );
 }
 
 export function useCreatePerson(onCompleted: (data: Mutation) => void) {

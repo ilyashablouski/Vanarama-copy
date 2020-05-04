@@ -10,11 +10,11 @@ function isAgeValid({
   monthOfBirth,
   yearOfBirth,
 }: IAboutFormValues) {
-  const dateStr = `${dayOfBirth} ${monthOfBirth} ${yearOfBirth}`;
+  const dateStr = `${dayOfBirth}-${monthOfBirth}-${yearOfBirth}`;
   const validMinAge =
-    moment().diff(moment(dateStr, 'DD-MMMM-YYYY'), 'years') >= 18;
+    moment().diff(moment(dateStr, 'DD-MM-YYYY'), 'years') >= 18;
   const validMaxAge =
-    moment().diff(moment(dateStr, 'DD-MMMM-YYYY'), 'years') <= 120;
+    moment().diff(moment(dateStr, 'DD-MM-YYYY'), 'years') <= 120;
 
   if (!validMaxAge) {
     return 'Oops, is your age correct?';
