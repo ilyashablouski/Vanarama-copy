@@ -10,12 +10,14 @@ import { PersonInputObject } from "./globalTypes";
 // ====================================================
 
 export interface CreateUpdatePersonMutation_createUpdatePerson_emailAddresses {
+  __typename: "EmailAddressType";
   uuid: string;
   primary: boolean;
   value: string;
 }
 
 export interface CreateUpdatePersonMutation_createUpdatePerson_telephoneNumbers {
+  __typename: "TelephoneNumberType";
   uuid: string;
   kind: string | null;
   value: string;
@@ -33,6 +35,7 @@ export interface CreateUpdatePersonMutation_createUpdatePerson {
   countryOfBirth: string | null;
   nationality: string | null;
   maritalStatus: string | null;
+  noOfAdultsInHousehold: string | null;
   noOfDependants: string | null;
   emailConsent: boolean | null;
 }
