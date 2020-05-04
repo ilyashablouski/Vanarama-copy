@@ -21,6 +21,6 @@ export interface IAboutFormValues {
 
 export interface IProps {
   dropdownData: AboutFormDropdownData;
-  person?: AboutFormPerson;
+  person?: AboutFormPerson | null;
   submit: (values: IAboutFormValues) => void;
 }

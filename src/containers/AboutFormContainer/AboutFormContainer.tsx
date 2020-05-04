@@ -1,13 +1,13 @@
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React from 'react';
 import AboutForm from '../../components/AboutForm';
-import { useCreatePerson, useDropdowns } from './gql';
+import { useCreatePerson, useAboutYouData } from './gql';
 import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
 
-const AboutFormContainer: React.FC<IProps> = ({ onCompleted }) => {
+const AboutFormContainer: React.FC<IProps> = ({ onCompleted, personUuid }) => {
   const [createDetailsHandle] = useCreatePerson(onCompleted);
-  const { data, loading, error } = useDropdowns();
+  const { data, loading, error } = useAboutYouData(personUuid);
   if (loading) {
     return <Loading size="large" />;
   }
@@ -23,6 +23,7 @@ const AboutFormContainer: React.FC<IProps> = ({ onCompleted }) => {
   return (
     <AboutForm
       dropdownData={data.allDropDowns}
+      person={data.personByUuid}
       submit={values => {
         createDetailsHandle({
           variables: {

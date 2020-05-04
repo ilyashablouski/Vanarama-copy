@@ -172,7 +172,7 @@ describe('<AboutForm />', () => {
       target: { value: '1' },
     });
     fireEvent.input(screen.getByTestId('aboutSelectMOB'), {
-      target: { value: 'January' },
+      target: { value: '2' },
     });
     fireEvent.input(screen.getByTestId('aboutSelectYOB'), {
       target: { value: thisYear },

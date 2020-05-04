@@ -40,16 +40,6 @@ export interface AboutFormDropdownData_noOfAdultsInHousehold {
   data: string[];
 }
 
-export interface AboutFormDropdownData_propertyStatuses {
-  __typename: "DropDownDataType";
-  data: string[];
-}
-
-export interface AboutFormDropdownData_employmentStatuses {
-  __typename: "DropDownDataType";
-  data: string[];
-}
-
 export interface AboutFormDropdownData {
   __typename: "DropDownType";
   titles: AboutFormDropdownData_titles;
@@ -58,6 +48,4 @@ export interface AboutFormDropdownData {
   maritalStatuses: AboutFormDropdownData_maritalStatuses;
   noOfDependants: AboutFormDropdownData_noOfDependants;
   noOfAdultsInHousehold: AboutFormDropdownData_noOfAdultsInHousehold;
-  propertyStatuses: AboutFormDropdownData_propertyStatuses;
-  employmentStatuses: AboutFormDropdownData_employmentStatuses;
 }
