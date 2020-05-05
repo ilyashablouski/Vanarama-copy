@@ -20,6 +20,11 @@ const SummaryForm: FCWithFragments<IProps> = ({ person }) => {
   const router = useRouter();
   // NOTE: Many are returned so just take the first one?
   const primaryBankAccount = person.bankAccounts?.[0];
+
+  const handleEdit = (url: string) => () => {
+    router.push(url, url.replace('[uuid]', person.uuid));
+  };
+
   return (
     <form className="form">
       <Heading color="black" size="xlarge" dataTestId="summary-heading">
@@ -30,16 +35,29 @@ const SummaryForm: FCWithFragments<IProps> = ({ person }) => {
         check everything is correct. If you do spot a mistake, simply edit to
         make a change.
       </Text>
-      <SummaryFormDetailsSection person={person} />
-      <SummaryFormAddressHistory addresses={person.addresses || []} />
+      <SummaryFormDetailsSection
+        person={person}
+        onEdit={handleEdit('/olaf/about/[uuid]')}
+      />
+      <SummaryFormAddressHistory
+        addresses={person.addresses || []}
+        onEdit={handleEdit('/olaf/address-history/[uuid]')}
+      />
       <SummaryFormEmploymentHistory
         employments={person.employmentHistories || []}
+        onEdit={handleEdit('/olaf/employment-history/[uuid]')}
       />
       {person.incomeAndExpense && (
-        <SummaryFormIncomeSection income={person.incomeAndExpense} />
+        <SummaryFormIncomeSection
+          income={person.incomeAndExpense}
+          onEdit={handleEdit('/olaf/expenses/[uuid]')}
+        />
       )}
       {primaryBankAccount && (
-        <SummaryFormBankDetailsSection account={primaryBankAccount} />
+        <SummaryFormBankDetailsSection
+          account={primaryBankAccount}
+          onEdit={handleEdit('/olaf/bank-details/[uuid]')}
+        />
       )}
       <Button
         color="teal"

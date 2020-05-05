@@ -1,11 +1,22 @@
 import { MockedProvider } from '@apollo/react-testing';
 import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
-import { useRouter } from 'next/router';
 import SummaryFormContainer from './SummaryFormContainer';
 import createBruceData from './__fixtures__/bruceData';
 
-jest.mock('next/router');
+const mockPush = jest.fn();
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      prefetch: () => null,
+      push: mockPush,
+    };
+  },
+}));
+
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
 describe('<SummaryFormContainer />', () => {
   it('should render personal details correctly', async () => {
@@ -209,13 +220,10 @@ describe('<SummaryFormContainer />', () => {
     );
   });
 
-  it('should redirect to the thank you page when clicking "Continuer"', async () => {
+  it('should redirect to the thank you page when clicking "Continue"', async () => {
     // ARRANGE
-    const push = jest.fn();
     const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
     const mocks = [createBruceData(uuid)];
-
-    (useRouter as jest.Mock).mockReturnValue({ push });
 
     // ACT
     render(
@@ -230,7 +238,107 @@ describe('<SummaryFormContainer />', () => {
     fireEvent.click(screen.getByText(/Continue/));
 
     // ASSERT
-    expect(push).toHaveBeenCalledTimes(1);
-    expect(push).toHaveBeenCalledWith('/olaf/thank-you');
+    expect(mockPush).toHaveBeenCalledTimes(1);
+    expect(mockPush).toHaveBeenCalledWith('/olaf/thank-you');
+  });
+
+  it('should redirect to about page when clicking "Edit" on the "Your Details" section', async () => {
+    // ARRANGE
+    const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
+    const mocks = [createBruceData(uuid)];
+
+    // ACT
+    render(
+      <MockedProvider addTypename={false} mocks={mocks}>
+        <SummaryFormContainer personUuid={uuid} />
+      </MockedProvider>,
+    );
+
+    // Wait for the data to load
+    await waitFor(() => screen.findByTestId('summary-heading'));
+
+    fireEvent.click(screen.getByTestId(/edit-your-details/));
+
+    // ASSERT
+    expect(mockPush).toHaveBeenCalledTimes(1);
+    expect(mockPush).toHaveBeenCalledWith(
+      '/olaf/about/[uuid]',
+      '/olaf/about/fd2333b8-6da1-47d2-837d-bc69849e0764',
+    );
+  });
+
+  it('should redirect to employment history page when clicking "Edit" on the "Employment History" section', async () => {
+    // ARRANGE
+    const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
+    const mocks = [createBruceData(uuid)];
+
+    // ACT
+    render(
+      <MockedProvider addTypename={false} mocks={mocks}>
+        <SummaryFormContainer personUuid={uuid} />
+      </MockedProvider>,
+    );
+
+    // Wait for the data to load
+    await waitFor(() => screen.findByTestId('summary-heading'));
+
+    fireEvent.click(screen.getByTestId(/edit-employment-history/));
+
+    // ASSERT
+    expect(mockPush).toHaveBeenCalledTimes(1);
+    expect(mockPush).toHaveBeenCalledWith(
+      '/olaf/employment-history/[uuid]',
+      '/olaf/employment-history/fd2333b8-6da1-47d2-837d-bc69849e0764',
+    );
+  });
+
+  it('should redirect to expenses page when clicking "Edit" on the "Monthly Income" section', async () => {
+    // ARRANGE
+    const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
+    const mocks = [createBruceData(uuid)];
+
+    // ACT
+    render(
+      <MockedProvider addTypename={false} mocks={mocks}>
+        <SummaryFormContainer personUuid={uuid} />
+      </MockedProvider>,
+    );
+
+    // Wait for the data to load
+    await waitFor(() => screen.findByTestId('summary-heading'));
+
+    fireEvent.click(screen.getByTestId(/edit-expenses/));
+
+    // ASSERT
+    expect(mockPush).toHaveBeenCalledTimes(1);
+    expect(mockPush).toHaveBeenCalledWith(
+      '/olaf/expenses/[uuid]',
+      '/olaf/expenses/fd2333b8-6da1-47d2-837d-bc69849e0764',
+    );
+  });
+
+  it('should redirect to bank details page when clicking "Edit" on the "Bank Details" section', async () => {
+    // ARRANGE
+    const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
+    const mocks = [createBruceData(uuid)];
+
+    // ACT
+    render(
+      <MockedProvider addTypename={false} mocks={mocks}>
+        <SummaryFormContainer personUuid={uuid} />
+      </MockedProvider>,
+    );
+
+    // Wait for the data to load
+    await waitFor(() => screen.findByTestId('summary-heading'));
+
+    fireEvent.click(screen.getByTestId(/edit-bank-details/));
+
+    // ASSERT
+    expect(mockPush).toHaveBeenCalledTimes(1);
+    expect(mockPush).toHaveBeenCalledWith(
+      '/olaf/bank-details/[uuid]',
+      '/olaf/bank-details/fd2333b8-6da1-47d2-837d-bc69849e0764',
+    );
   });
 });

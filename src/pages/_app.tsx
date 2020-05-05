@@ -2,8 +2,17 @@ import '@vanarama/uibook/src/components/base.scss';
 import Footer from '@vanarama/uibook/lib/components/organisms/footer';
 import Header from '@vanarama/uibook/lib/components/organisms/header';
 import { AppProps } from 'next/app';
+import { Router } from 'next/router';
+import { useEffect } from 'react';
 
 function MyApp({ Component, pageProps, router }: AppProps) {
+  useEffect(() => {
+    // Anytime router.push is called, scroll to the top of the page.
+    Router.events.on('routeChangeComplete', () => {
+      window.scrollTo(0, 0);
+    });
+  }, []);
+
   return (
     <main>
       <Header

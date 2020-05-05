@@ -6,12 +6,17 @@ import FCWithFragments from '../../utils/FCWithFragments';
 
 interface IProps {
   account: SummaryFormBankDetailsSectionAccount;
+  onEdit: () => any;
 }
 
 const SummaryFormBankDetailsSection: FCWithFragments<IProps> = ({
   account,
+  onEdit,
 }) => (
   <StructuredList
+    editable
+    editDataTestId="edit-bank-details"
+    onEditClicked={onEdit}
     list={[
       {
         label: 'Bank',

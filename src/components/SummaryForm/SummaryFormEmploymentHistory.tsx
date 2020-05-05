@@ -10,13 +10,23 @@ import { toCurrencyDisplay } from '../../utils/helpers';
 
 interface IProps {
   employments: SummaryFormEmploymentHistoryEmployment[];
+  onEdit: () => any;
 }
 
 const SummaryFormEmploymentHistory: FCWithFragments<IProps> = ({
   employments,
+  onEdit,
 }) => {
   const items = useMemo(() => reduceToItems(employments), [employments]);
-  return <StructuredList list={items} heading="Employment History" />;
+  return (
+    <StructuredList
+      editable
+      editDataTestId="edit-employment-history"
+      onEditClicked={onEdit}
+      list={items}
+      heading="Employment History"
+    />
+  );
 };
 
 function reduceToItems(employments: SummaryFormEmploymentHistoryEmployment[]) {

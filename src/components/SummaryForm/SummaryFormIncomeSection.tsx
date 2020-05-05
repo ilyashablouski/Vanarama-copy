@@ -7,10 +7,17 @@ import { toCurrencyDisplay } from '../../utils/helpers';
 
 interface IProps {
   income: SummaryFormIncomeSectionIncome;
+  onEdit: () => any;
 }
 
-const SummaryFormIncomeSection: FCWithFragments<IProps> = ({ income }) => (
+const SummaryFormIncomeSection: FCWithFragments<IProps> = ({
+  income,
+  onEdit,
+}) => (
   <StructuredList
+    editable
+    editDataTestId="edit-expenses"
+    onEditClicked={onEdit}
     list={[
       {
         label: 'Average Monthly Income',

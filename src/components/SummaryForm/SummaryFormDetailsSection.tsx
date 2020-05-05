@@ -7,10 +7,17 @@ import FCWithFragments from '../../utils/FCWithFragments';
 
 interface IProps {
   person: SummaryFormDetailsSectionPerson;
+  onEdit: () => any;
 }
 
-const SummaryFormDetailsSection: FCWithFragments<IProps> = ({ person }) => (
+const SummaryFormDetailsSection: FCWithFragments<IProps> = ({
+  onEdit,
+  person,
+}) => (
   <StructuredList
+    editable
+    editDataTestId="edit-your-details"
+    onEditClicked={onEdit}
     list={[
       {
         label: 'Email',

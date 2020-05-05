@@ -9,11 +9,23 @@ import FCWithFragments from '../../utils/FCWithFragments';
 
 interface IProps {
   addresses: SummaryFormAddressHistoryAddress[];
+  onEdit: () => any;
 }
 
-const SummaryFormAddressHistory: FCWithFragments<IProps> = ({ addresses }) => {
+const SummaryFormAddressHistory: FCWithFragments<IProps> = ({
+  addresses,
+  onEdit,
+}) => {
   const items = useMemo(() => reduceToItems(addresses), [addresses]);
-  return <StructuredList list={items} heading="Address History" />;
+  return (
+    <StructuredList
+      editable
+      editDataTestId="edit-address-history"
+      onEditClicked={onEdit}
+      list={items}
+      heading="Address History"
+    />
+  );
 };
 
 function reduceToItems(addresses: SummaryFormAddressHistoryAddress[]) {
