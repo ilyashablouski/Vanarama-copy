@@ -146,9 +146,13 @@ describe('<RegisterForm />', () => {
   });
 
   describe('Email Already Exists', () => {
+    const message = () => {
+      return 'This email address already exists. Please log in';
+    };
+
     let onSubmit: jest.Mock<any, any>;
     const labelText = 'Your Email';
-    const errorMessage = 'Email Already Exists';
+    const errorMessage = message();
     const email = 'test@test.com';
 
     beforeEach(() => {
