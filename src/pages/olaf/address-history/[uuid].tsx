@@ -13,7 +13,11 @@ const AddressHistoryPage: NextPage = () => {
     <OlafContainer activeStep={2}>
       <AddressFormContainer
         onCompleted={() => {
-          const url = `/olaf/employment-history/[uuid]`;
+          const url =
+            router.query.redirect === 'summary'
+              ? `/olaf/summary/[uuid]`
+              : `/olaf/employment-history/[uuid]`;
+
           router.push(url, url.replace('[uuid]', uuid));
         }}
         personUuid={uuid}

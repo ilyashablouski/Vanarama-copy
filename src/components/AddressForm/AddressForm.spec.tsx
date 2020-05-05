@@ -1,4 +1,4 @@
-import { act, fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { AddressFormDropDownData } from '../../../generated/AddressFormDropDownData';
 import AddressForm from './AddressForm';
 
@@ -17,7 +17,7 @@ describe('<AddressForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId } = render(
+    render(
       <AddressForm
         addresses={[]}
         dropDownData={mockDropDownData}
@@ -25,25 +25,23 @@ describe('<AddressForm />', () => {
       />,
     );
 
-    fireEvent.change(getByTestId('history[0].address'), {
+    fireEvent.change(screen.getByTestId('history[0].address'), {
       target: { value: '000' },
     });
 
-    fireEvent.change(getByTestId('history[0].status'), {
+    fireEvent.change(screen.getByTestId('history[0].status'), {
       target: { value: 'Rented' },
     });
 
-    fireEvent.change(getByTestId('history[0].month'), {
+    fireEvent.change(screen.getByTestId('history[0].month'), {
       target: { value: '1' },
     });
 
-    fireEvent.change(getByTestId('history[0].year'), {
+    fireEvent.change(screen.getByTestId('history[0].year'), {
       target: { value: '1990' },
     });
 
-    await act(async () => {
-      fireEvent.click(getByText('Continue'));
-    });
+    fireEvent.click(screen.getByText('Continue'));
 
     // ASSERT
     await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
@@ -62,7 +60,7 @@ describe('<AddressForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId } = render(
+    render(
       <AddressForm
         addresses={[]}
         dropDownData={mockDropDownData}
@@ -70,41 +68,39 @@ describe('<AddressForm />', () => {
       />,
     );
 
-    fireEvent.change(getByTestId('history[0].address'), {
+    fireEvent.change(screen.getByTestId('history[0].address'), {
       target: { value: '000' },
     });
 
-    fireEvent.change(getByTestId('history[0].status'), {
+    fireEvent.change(screen.getByTestId('history[0].status'), {
       target: { value: 'Rented' },
     });
 
-    fireEvent.change(getByTestId('history[0].month'), {
+    fireEvent.change(screen.getByTestId('history[0].month'), {
       target: { value: currentMonth },
     });
 
-    fireEvent.change(getByTestId('history[0].year'), {
+    fireEvent.change(screen.getByTestId('history[0].year'), {
       target: { value: currentYear },
     });
 
-    fireEvent.change(getByTestId('history[1].address'), {
+    fireEvent.change(screen.getByTestId('history[1].address'), {
       target: { value: '111' },
     });
 
-    fireEvent.change(getByTestId('history[1].status'), {
+    fireEvent.change(screen.getByTestId('history[1].status'), {
       target: { value: 'Mortgage' },
     });
 
-    fireEvent.change(getByTestId('history[1].month'), {
+    fireEvent.change(screen.getByTestId('history[1].month'), {
       target: { value: '4' },
     });
 
-    fireEvent.change(getByTestId('history[1].year'), {
+    fireEvent.change(screen.getByTestId('history[1].year'), {
       target: { value: '1994' },
     });
 
-    await act(async () => {
-      fireEvent.click(getByText('Continue'));
-    });
+    fireEvent.click(screen.getByText('Continue'));
 
     // ASSERT
     await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
@@ -134,7 +130,7 @@ describe('<AddressForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId } = render(
+    render(
       <AddressForm
         addresses={[]}
         dropDownData={mockDropDownData}
@@ -142,18 +138,18 @@ describe('<AddressForm />', () => {
       />,
     );
 
-    fireEvent.change(getByTestId('history[0].month'), {
+    fireEvent.change(screen.getByTestId('history[0].month'), {
       target: { value: currentMonth },
     });
 
-    fireEvent.change(getByTestId('history[0].year'), {
+    fireEvent.change(screen.getByTestId('history[0].year'), {
       target: { value: currentYear },
     });
 
     // ASSERT
     await waitFor(() =>
       expect(
-        getByText('We need another 3 years of address history.'),
+        screen.getByText('We need another 3 years of address history.'),
       ).toBeVisible(),
     );
   });
@@ -166,7 +162,7 @@ describe('<AddressForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId } = render(
+    render(
       <AddressForm
         addresses={[]}
         dropDownData={mockDropDownData}
@@ -174,18 +170,18 @@ describe('<AddressForm />', () => {
       />,
     );
 
-    fireEvent.change(getByTestId('history[0].month'), {
+    fireEvent.change(screen.getByTestId('history[0].month'), {
       target: { value: currentMonth },
     });
 
-    fireEvent.change(getByTestId('history[0].year'), {
+    fireEvent.change(screen.getByTestId('history[0].year'), {
       target: { value: lastYear },
     });
 
     // ASSERT
     await waitFor(() =>
       expect(
-        getByText('We need another 2 years of address history.'),
+        screen.getByText('We need another 2 years of address history.'),
       ).toBeVisible(),
     );
   });
@@ -198,7 +194,7 @@ describe('<AddressForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId } = render(
+    render(
       <AddressForm
         addresses={[]}
         dropDownData={mockDropDownData}
@@ -207,40 +203,38 @@ describe('<AddressForm />', () => {
     );
 
     // Add a history for the current year
-    fireEvent.change(getByTestId('history[0].month'), {
+    fireEvent.change(screen.getByTestId('history[0].month'), {
       target: { value: currentMonth },
     });
 
-    fireEvent.change(getByTestId('history[0].year'), {
+    fireEvent.change(screen.getByTestId('history[0].year'), {
       target: { value: currentYear },
     });
 
     // Then add one for 1994
-    fireEvent.change(getByTestId('history[1].month'), {
+    fireEvent.change(screen.getByTestId('history[1].month'), {
       target: { value: '4' },
     });
 
-    fireEvent.change(getByTestId('history[1].year'), {
+    fireEvent.change(screen.getByTestId('history[1].year'), {
       target: { value: '1994' },
     });
 
     // Then modify the date on the first history to 1997
-    fireEvent.change(getByTestId('history[0].year'), {
+    fireEvent.change(screen.getByTestId('history[0].year'), {
       target: { value: '1997' },
     });
 
     // Then fill the first one in
-    fireEvent.change(getByTestId('history[0].address'), {
+    fireEvent.change(screen.getByTestId('history[0].address'), {
       target: { value: '000' },
     });
 
-    fireEvent.change(getByTestId('history[0].status'), {
+    fireEvent.change(screen.getByTestId('history[0].status'), {
       target: { value: 'Rented' },
     });
 
-    await act(async () => {
-      fireEvent.click(getByText('Continue'));
-    });
+    fireEvent.click(screen.getByText('Continue'));
 
     // ASSERT
     // Only one date should be submitted, the other should have been removed
@@ -266,7 +260,7 @@ describe('<AddressForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId } = render(
+    render(
       <AddressForm
         addresses={[]}
         dropDownData={mockDropDownData}
@@ -275,64 +269,64 @@ describe('<AddressForm />', () => {
     );
 
     // Add a history for last year
-    fireEvent.change(getByTestId('history[0].address'), {
+    fireEvent.change(screen.getByTestId('history[0].address'), {
       target: { value: '000' },
     });
 
-    fireEvent.change(getByTestId('history[0].status'), {
+    fireEvent.change(screen.getByTestId('history[0].status'), {
       target: { value: 'Rented' },
     });
 
-    fireEvent.change(getByTestId('history[0].month'), {
+    fireEvent.change(screen.getByTestId('history[0].month'), {
       target: { value: currentMonth },
     });
 
-    fireEvent.change(getByTestId('history[0].year'), {
+    fireEvent.change(screen.getByTestId('history[0].year'), {
       target: { value: lastYear },
     });
 
     // Then add a history for this year
-    fireEvent.change(getByTestId('history[1].address'), {
+    fireEvent.change(screen.getByTestId('history[1].address'), {
       target: { value: '111' },
     });
 
-    fireEvent.change(getByTestId('history[1].status'), {
+    fireEvent.change(screen.getByTestId('history[1].status'), {
       target: { value: 'Rented' },
     });
 
-    fireEvent.change(getByTestId('history[1].month'), {
+    fireEvent.change(screen.getByTestId('history[1].month'), {
       target: { value: currentMonth },
     });
 
-    fireEvent.change(getByTestId('history[1].year'), {
+    fireEvent.change(screen.getByTestId('history[1].year'), {
       target: { value: currentYear },
     });
 
     // Then add another to meet the 3 years requirement
-    fireEvent.change(getByTestId('history[2].address'), {
+    fireEvent.change(screen.getByTestId('history[2].address'), {
       target: { value: '222' },
     });
 
-    fireEvent.change(getByTestId('history[2].status'), {
+    fireEvent.change(screen.getByTestId('history[2].status'), {
       target: { value: 'Living with parents' },
     });
 
-    fireEvent.change(getByTestId('history[2].month'), {
+    fireEvent.change(screen.getByTestId('history[2].month'), {
       target: { value: '4' },
     });
 
-    fireEvent.change(getByTestId('history[2].year'), {
+    fireEvent.change(screen.getByTestId('history[2].year'), {
       target: { value: '1994' },
     });
 
     // Then submit the form
-    await act(async () => {
-      fireEvent.click(getByText('Continue'));
-    });
+    fireEvent.click(screen.getByText('Continue'));
 
     // ASSERT
     // All dates should be submitted, ordered by most recent
-    await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1), {
+      timeout: 5000,
+    });
 
     expect(onSubmit.mock.calls[0][0]).toEqual({
       history: [

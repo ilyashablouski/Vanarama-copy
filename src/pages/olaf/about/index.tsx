@@ -12,7 +12,11 @@ const AboutYouPage: NextPage = () => {
     <OlafContainer activeStep={1}>
       <AboutFormContainer
         onCompleted={({ createUpdatePerson }) => {
-          const url = `/olaf/address-history/[uuid]`;
+          const url =
+            router.query.redirect === 'summary'
+              ? `/olaf/summary/[uuid]`
+              : `/olaf/address-history/[uuid]`;
+
           router.push(url, url.replace('[uuid]', createUpdatePerson!.uuid));
         }}
         personUuid={uuid}

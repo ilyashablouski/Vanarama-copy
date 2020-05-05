@@ -1,5 +1,5 @@
 import { MockedProvider, MockedResponse } from '@apollo/react-testing';
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import React from 'react';
 import RegisterFormContainer, {
   REGISTER_USER_MUTATION,
@@ -40,13 +40,13 @@ describe('<RegisterFormContainer />', () => {
     });
 
     // ACT
-    const { getByRole } = render(
+    render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <RegisterFormContainer onCompleted={jest.fn()} />
       </MockedProvider>,
     );
 
-    fireEvent.submit(getByRole('form'));
+    fireEvent.submit(screen.getByRole('form'));
 
     // ASSERT
     await waitFor(() => expect(mockCalled).toBeTruthy());
@@ -81,13 +81,13 @@ describe('<RegisterFormContainer />', () => {
     });
 
     // ACT
-    const { getByRole } = render(
+    render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <RegisterFormContainer onCompleted={onCompleted} />
       </MockedProvider>,
     );
 
-    fireEvent.submit(getByRole('form'));
+    fireEvent.submit(screen.getByRole('form'));
 
     // ASSERT
     await waitFor(() => expect(onCompleted).toHaveBeenCalledTimes(1));

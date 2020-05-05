@@ -1,4 +1,4 @@
-import { fireEvent, render, waitFor, act } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import RegisterForm from './RegisterForm';
 
@@ -10,7 +10,7 @@ const renderComponent = (
   onSubmit: jest.Mock<any, any>,
   emailAlreadyExists: jest.Mock<any, any>,
 ) => {
-  return render(
+  render(
     <RegisterForm
       onSubmit={onSubmit}
       onEmailAlreadyExists={emailAlreadyExists}
@@ -18,18 +18,12 @@ const renderComponent = (
   );
 };
 
-const fillTextandBlur = async (
-  getByLabelText: any,
-  labelText: string,
-  email: string,
-) => {
-  fireEvent.input(getByLabelText(labelText), {
+const fillTextandBlur = async (labelText: string, email: string) => {
+  fireEvent.input(screen.getByLabelText(labelText), {
     target: { value: email },
   });
 
-  await act(async () => {
-    fireEvent.blur(getByLabelText(labelText));
-  });
+  fireEvent.blur(screen.getByLabelText(labelText));
 };
 
 describe('<RegisterForm />', () => {
@@ -39,27 +33,24 @@ describe('<RegisterForm />', () => {
     const emailAlreadyExists = jestMock(false);
 
     // ACT
-    const { getByLabelText, getByText } = renderComponent(
-      onSubmit,
-      emailAlreadyExists,
-    );
+    renderComponent(onSubmit, emailAlreadyExists);
 
     // Set the email address
-    fireEvent.input(getByLabelText('Your Email'), {
+    fireEvent.input(screen.getByLabelText('Your Email'), {
       target: { value: 'barry.chuckle@gmail.com' },
     });
 
     // Set the password
-    fireEvent.input(getByLabelText('Your Password'), {
+    fireEvent.input(screen.getByLabelText('Your Password'), {
       target: { value: 'Password1' },
     });
 
     // Set the confirm password
-    fireEvent.input(getByLabelText('Repeat Password'), {
+    fireEvent.input(screen.getByLabelText('Repeat Password'), {
       target: { value: 'Password1' },
     });
 
-    fireEvent.click(getByText('Register'));
+    fireEvent.click(screen.getByText('Register'));
 
     // ASSERT
     await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
@@ -70,17 +61,17 @@ describe('<RegisterForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText } = renderComponent(onSubmit, jest.fn());
+    renderComponent(onSubmit, jest.fn());
 
-    fireEvent.click(getByText('Register'));
+    fireEvent.click(screen.getByText('Register'));
 
     // ASSERT
     await waitFor(() =>
-      expect(getByText('Your Email is required')).toBeVisible(),
+      expect(screen.getByText('Your Email is required')).toBeVisible(),
     );
 
-    expect(getByText('Your Password is required')).toBeVisible();
-    expect(getByText('Repeat Password is required')).toBeVisible();
+    expect(screen.getByText('Your Password is required')).toBeVisible();
+    expect(screen.getByText('Repeat Password is required')).toBeVisible();
   });
 
   it('should ensure the password is the correct format', async () => {
@@ -88,29 +79,29 @@ describe('<RegisterForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByLabelText, getByText } = renderComponent(onSubmit, jest.fn());
+    renderComponent(onSubmit, jest.fn());
 
     // Set the email address
-    fireEvent.input(getByLabelText('Your Email'), {
+    fireEvent.input(screen.getByLabelText('Your Email'), {
       target: { value: 'barry.chuckle@gmail.com' },
     });
 
     // Set the password
-    fireEvent.input(getByLabelText('Your Password'), {
+    fireEvent.input(screen.getByLabelText('Your Password'), {
       target: { value: 'invalid' },
     });
 
     // Set the confirm password
-    fireEvent.input(getByLabelText('Repeat Password'), {
+    fireEvent.input(screen.getByLabelText('Repeat Password'), {
       target: { value: 'invalid' },
     });
 
-    fireEvent.click(getByText('Register'));
+    fireEvent.click(screen.getByText('Register'));
 
     // ASSERT
     await waitFor(() =>
       expect(
-        getByText('Your Password does not meet the requirements'),
+        screen.getByText('Your Password does not meet the requirements'),
       ).toBeVisible(),
     );
   });
@@ -120,28 +111,28 @@ describe('<RegisterForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByLabelText, getByText } = renderComponent(onSubmit, jest.fn());
+    renderComponent(onSubmit, jest.fn());
 
     // Set the email address
-    fireEvent.input(getByLabelText('Your Email'), {
+    fireEvent.input(screen.getByLabelText('Your Email'), {
       target: { value: 'barry.chuckle@gmail.com' },
     });
 
     // Set the password
-    fireEvent.input(getByLabelText('Your Password'), {
+    fireEvent.input(screen.getByLabelText('Your Password'), {
       target: { value: 'Password1' },
     });
 
     // Set the confirm password
-    fireEvent.input(getByLabelText('Repeat Password'), {
+    fireEvent.input(screen.getByLabelText('Repeat Password'), {
       target: { value: 'Password2' },
     });
 
-    fireEvent.click(getByText('Register'));
+    fireEvent.click(screen.getByText('Register'));
 
     // ASSERT
     await waitFor(() =>
-      expect(getByText('Repeat Password does not match')).toBeVisible(),
+      expect(screen.getByText('Repeat Password does not match')).toBeVisible(),
     );
   });
 
@@ -165,27 +156,21 @@ describe('<RegisterForm />', () => {
 
     it('should show validation email error for existing email', async () => {
       const emailAlreadyExists = jestMock(true);
-      const { getByLabelText, getByText } = renderComponent(
-        onSubmit,
-        emailAlreadyExists,
-      );
+      renderComponent(onSubmit, emailAlreadyExists);
 
-      fillTextandBlur(getByLabelText, labelText, email);
+      fillTextandBlur(labelText, email);
 
-      await waitFor(() => expect(getByText(errorMessage)).toBeVisible());
+      await waitFor(() => expect(screen.getByText(errorMessage)).toBeVisible());
     });
 
     it('should not show validation email error for new email', async () => {
       const emailAlreadyExists = jestMock(false);
-      const { getByLabelText, queryByText } = renderComponent(
-        onSubmit,
-        emailAlreadyExists,
-      );
+      renderComponent(onSubmit, emailAlreadyExists);
 
-      fillTextandBlur(getByLabelText, labelText, email);
+      fillTextandBlur(labelText, email);
 
       await waitFor(() =>
-        expect(queryByText(errorMessage)).not.toBeInTheDocument(),
+        expect(screen.queryByText(errorMessage)).not.toBeInTheDocument(),
       );
     });
   });
