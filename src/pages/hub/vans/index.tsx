@@ -72,11 +72,14 @@ const VansPage: NextPage = () => (
     <section className="section">
       <div className="container">
         <Heading size="large" color="black">
-          <span style={{ textAlign: 'center', display: 'block' }}>
+          <span
+            style={{ textAlign: 'center', display: 'block' }}
+            className="-mb-400"
+          >
             Van Special Offers
           </span>
         </Heading>
-        <Slider className="" gutter={16}>
+        <Slider className="-mh-400" gutter={16}>
           {[1, 2, 3, 4, 5].map(k => (
             <div key={k} style={{ width: 345 }}>
               <ProductCard
@@ -116,28 +119,29 @@ const VansPage: NextPage = () => (
             </div>
           ))}
         </Slider>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div className="-justify-content-row -pt-500">
           <Button label="View All Vans" color="teal" />
         </div>
       </div>
     </section>
     <section className="section">
       <div className="container">
+        <div style={{ textAlign: 'center' }}>
+          <Heading size="large" color="black">
+            What Type Of Van Do You Need?
+          </Heading>
+          <Text
+            className="-justify-content-row -mb-400"
+            tag="p"
+            size="regular"
+            color="darker"
+          >
+            Choose from Small, Medium and Large vans, or Tippers/Lutons,
+            Crew/Minibus, Pickups and Refrigerated Vans - whatever you need,
+            we&apos;ve got it.
+          </Text>
+        </div>
         <Grid lg="4" md="1" sm="1">
-          <Column md="row">
-            <Heading size="large" color="black">
-              <div style={{ textAlign: 'center' }}>
-                What Type Of Van Do You Need?
-              </div>
-            </Heading>
-            <Text tag="p" size="regular" color="darker">
-              <div style={{ textAlign: 'center' }}>
-                Choose from Small, Medium and Large vans, or Tippers/Lutons,
-                Crew/Minibus, Pickups and <br />
-                Refrigerated Vans - whatever you need, we&apos;ve got it.
-              </div>
-            </Text>
-          </Column>
           <Column md="1">
             <Card>
               <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg" />
@@ -460,7 +464,11 @@ const VansPage: NextPage = () => (
 
     <section className="section">
       <div className="container">
-        <Heading>Search By Manufacturer</Heading>
+        <Grid md="1">
+          <Column md="row" className="-align-center">
+            <Heading>Search By Manufacturer</Heading>
+          </Column>
+        </Grid>
       </div>
     </section>
 
