@@ -14,6 +14,21 @@ import {
 } from './RegisterForm.validate';
 import { EMAIL_REGEX } from '../../utils/regex';
 
+const PasswordRequirements = () => {
+  return (
+    <div className="Details__Text">
+      <div className="Markdown" va-gap="Small" va-size="Small">
+        <ul>
+          <li>8 characters long</li>
+          <li>Contain at least 1 number</li>
+          <li>Contain uppercase letters</li>
+          <li>Contain lowercase letters</li>
+        </ul>
+      </div>
+    </div>
+  );
+};
+
 const RegisterForm: React.FC<IRegisterFormProps> = ({
   isSubmitting,
   onSubmit,
@@ -61,7 +76,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
                 variables: { email: value },
               });
               const emailAlreadyExists = results?.data?.emailAlreadyExists
-                ? 'Email Already Exists'
+                ? 'This email address already exists. Please log in'
                 : undefined;
 
               return emailAlreadyExists;
@@ -84,10 +99,9 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
           width={45}
         />
       </Formgroup>
-      <Details
-        summary="Password Requirements"
-        content="Must be 8 characters long, contain at least 1 number, contain uppercase letters and contain lowercase letters."
-      />
+      <Details summary="Password Requirements">
+        <PasswordRequirements />
+      </Details>
       <Formgroup
         controlId="register-form_confirm-password"
         label="Repeat Password"
