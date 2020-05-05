@@ -14,18 +14,14 @@ import {
 } from './RegisterForm.validate';
 import { EMAIL_REGEX } from '../../utils/regex';
 
-const PasswordRequirements = () => {
+const PasswordRequirements: React.FC = () => {
   return (
-    <div className="Details__Text">
-      <div className="Markdown" va-gap="Small" va-size="Small">
-        <ul>
-          <li>8 characters long</li>
-          <li>Contain at least 1 number</li>
-          <li>Contain uppercase letters</li>
-          <li>Contain lowercase letters</li>
-        </ul>
-      </div>
-    </div>
+    <ul>
+      <li>8 characters long</li>
+      <li>Contain at least 1 number</li>
+      <li>Contain uppercase letters</li>
+      <li>Contain lowercase letters</li>
+    </ul>
   );
 };
 
