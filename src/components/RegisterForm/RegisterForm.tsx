@@ -17,7 +17,7 @@ import { EMAIL_REGEX } from '../../utils/regex';
 const PasswordRequirements: React.FC = () => {
   return (
     <ul>
-      <li>8 characters long</li>
+      <li>Minimum length 8 characters</li>
       <li>Contain at least 1 number</li>
       <li>Contain uppercase letters</li>
       <li>Contain lowercase letters</li>
