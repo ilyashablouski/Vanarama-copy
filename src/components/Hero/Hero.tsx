@@ -10,13 +10,10 @@ const Hero: React.FC<IHeroProps> = ({
 }) => {
   return (
     <section className="hero">
-      <div
-        className="container"
-        style={{ paddingTop: '6vh', paddingBottom: '6vh' }}
-      >
+      <div className="container">
         <Grid lg="6" md="2" sm="2">
           <Column sm="row" md="1" lg="4">
-            <div className="hero--flag">
+            <div className="hero--flag -mb-500">
               <Heading size="small" color="white">
                 {flagText}
               </Heading>

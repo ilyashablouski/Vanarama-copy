@@ -63,13 +63,16 @@ const HomePage: NextPage = () => (
     <section className="section">
       <div className="container">
         <Heading size="large" color="black">
-          <span style={{ textAlign: 'center', display: 'block' }}>
+          <span
+            style={{ textAlign: 'center', display: 'block' }}
+            className="-mb-400"
+          >
             Hot Deals
           </span>
         </Heading>
         <Tabs active={0} tabs={tabs}>
           <div>
-            <Slider className="" gutter={16}>
+            <Slider className="-mh-400" gutter={16}>
               {[1, 2, 3, 4, 5].map(k => (
                 <div key={k} style={{ width: 345 }}>
                   <ProductCard
@@ -109,8 +112,7 @@ const HomePage: NextPage = () => (
                 </div>
               ))}
             </Slider>
-            <br />
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div className="-justify-content-row -pt-500">
               <Button label="View All Van Offers" color="teal" />
             </div>
           </div>

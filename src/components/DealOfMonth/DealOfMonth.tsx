@@ -17,6 +17,7 @@ interface IDealOfMonthProps {
   rating?: number;
   price: number;
   imageSrc: string;
+  flagText?: string;
 }
 
 const DealOfMonth: React.FC<IDealOfMonthProps> = ({
@@ -25,6 +26,7 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
   rating,
   price,
   imageSrc,
+  flagText = 'DEAL OF THE MONTH',
 }) => (
   <Grid lg="6" md="2" sm="2">
     <Column md="3">
@@ -32,7 +34,7 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
         flag={{
           accentIcon: <Icon icon={<Flame />} color="white" />,
           accentText: 'Hot Deal',
-          text: 'In Stock - 14-21 Days Delivery',
+          text: flagText,
         }}
       >
         <CardMedia imageSrc={imageSrc} />
