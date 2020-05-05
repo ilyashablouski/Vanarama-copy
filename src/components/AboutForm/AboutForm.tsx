@@ -31,6 +31,7 @@ const AboutForm: FCWithFragments<IProps> = ({
     register,
     triggerValidation,
     watch,
+    formState,
   } = useForm<IAboutFormValues>({
     mode: 'onBlur',
     validationSchema,
@@ -270,8 +271,9 @@ const AboutForm: FCWithFragments<IProps> = ({
       </FormGroup>
       <Button
         type="submit"
-        label="Continue"
+        label={formState.isSubmitting ? 'Saving...' : 'Continue'}
         color="primary"
+        disabled={formState.isSubmitting}
         icon={<ChevronForwardSharp />}
         iconColor="white"
         iconPosition="after"

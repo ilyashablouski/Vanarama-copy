@@ -5,7 +5,17 @@ import {
   RegisterUserMutationVariables as MutationVariables,
 } from '../../../generated/RegisterUserMutation';
 import RegisterForm from '../../components/RegisterForm/RegisterForm';
+import {
+  EmailAlreadyExistsMutation as EMutation,
+  EmailAlreadyExistsMutationVariables as EMutationVariables,
+} from '../../../generated/EmailAlreadyExistsMutation';
 import { IRegisterFormContainerProps } from './interfaces';
+
+export const EMAIL_ALREADY_EXISTS = gql`
+  mutation EmailAlreadyExistsMutation($email: String!) {
+    emailAlreadyExists(email: $email)
+  }
+`;
 
 export const REGISTER_USER_MUTATION = gql`
   mutation RegisterUserMutation($username: String!, $password: String!) {
@@ -23,6 +33,10 @@ const RegisterFormContainer: React.FC<IRegisterFormContainerProps> = ({
     { onCompleted },
   );
 
+  const [emailAlreadyExists] = useMutation<EMutation, EMutationVariables>(
+    EMAIL_ALREADY_EXISTS,
+  );
+
   return (
     <RegisterForm
       isSubmitting={loading}
@@ -34,6 +48,7 @@ const RegisterFormContainer: React.FC<IRegisterFormContainerProps> = ({
           },
         });
       }}
+      onEmailAlreadyExists={emailAlreadyExists}
     />
   );
 };

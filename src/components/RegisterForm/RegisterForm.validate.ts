@@ -1,16 +1,5 @@
 import { ValidationOptions } from 'react-hook-form';
-import { EMAIL_REGEX, PASSWORD_REGEX } from '../../utils/regex';
-
-export const emailValidator: ValidationOptions = {
-  required: {
-    value: true,
-    message: 'Your Email is required',
-  },
-  pattern: {
-    value: EMAIL_REGEX,
-    message: 'Invalid email address',
-  },
-};
+import { PASSWORD_REGEX } from '../../utils/regex';
 
 export const passwordValidator: ValidationOptions = {
   required: {

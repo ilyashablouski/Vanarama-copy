@@ -22,7 +22,9 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
   account,
   onSubmit,
 }) => {
-  const { handleSubmit, register, control, errors } = useForm<IBankDetails>({
+  const { handleSubmit, register, control, errors, formState } = useForm<
+    IBankDetails
+  >({
     mode: 'onBlur',
     validationSchema,
     defaultValues: responseToInitialFormValues(account),
@@ -256,7 +258,8 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
       </FormGroup>
       <Button
         type="submit"
-        label="Continue"
+        label={formState.isSubmitting ? 'Saving...' : 'Continue'}
+        disabled={formState.isSubmitting}
         color="primary"
         icon={<ChevronForwardSharp />}
         iconColor="white"

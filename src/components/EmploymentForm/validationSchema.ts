@@ -9,7 +9,7 @@ const requiredWhenEmployed = (message: string) => (
   // TODO: Work out how to get these magic strings from the BE instead
   status === 'Employed' || status === 'Self employed'
     ? schema.required(message)
-    : schema;
+    : schema.nullable();
 
 export default Yup.object().shape({
   history: Yup.array().of(

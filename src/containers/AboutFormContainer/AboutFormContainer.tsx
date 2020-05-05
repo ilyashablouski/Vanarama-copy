@@ -24,13 +24,13 @@ const AboutFormContainer: React.FC<IProps> = ({ onCompleted, personUuid }) => {
     <AboutForm
       dropdownData={data.allDropDowns}
       person={data.personByUuid}
-      submit={values => {
+      submit={values =>
         createDetailsHandle({
           variables: {
             input: formValuesToInput(values),
           },
-        });
-      }}
+        })
+      }
     />
   );
 };
