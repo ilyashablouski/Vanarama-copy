@@ -23,6 +23,7 @@ import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
 import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
+import Step from '@vanarama/uibook/lib/components/molecules/step';
 
 import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 import DealOfMonth from '../../../components/DealOfMonth';
@@ -224,7 +225,38 @@ const VansPage: NextPage = () => (
 
     <section className="section">
       <div className="container">
-        <Heading>Leasing - The Simple Way To Get Your Brand New Car</Heading>
+        <Heading size="large" color="black">
+          Leasing - The Simple Way To Get Your Brand New Car
+        </Heading>
+        <div className="-flex-h">
+          <Step step={1}>
+            <Heading tag="span" color="black" className="lead">
+              Choose
+            </Heading>
+            <Text color="darker" size="regular">
+              Get the car you want from our range of manufacturers - from
+              something sporty to something for all the family.
+            </Text>
+          </Step>
+          <Step step={2}>
+            <Heading tag="span" color="black" className="lead">
+              Apply
+            </Heading>
+            <Text color="darker" size="regular">
+              To lease your new car, we&apos;ll just need a few details to apply
+              for finance from one of our funding partners.
+            </Text>
+          </Step>
+          <Step step={3}>
+            <Heading tag="span" color="black" className="lead">
+              Drive
+            </Heading>
+            <Text color="darker" size="regular">
+              And that&apos;s it - once you&apos;ve been approved, your brand
+              new car will be delivered direct to your door.
+            </Text>
+          </Step>
+        </div>
       </div>
     </section>
 
