@@ -7,17 +7,15 @@
   "homepage": "https://github.com/Autorama/next-storefront",
   "license": "UNLICENCED",
   "scripts": {
-    "dev": "NODE_ENV=development node express.js",
-    "reloadui": "rm -rf node_modules && yarn install",
+    "apollo:generate": "rimraf generated && apollo client:codegen generated --target=typescript --outputFlat --no-addTypename",
     "build": "next build",
-    "export": "next export",
-    "start": "NODE_ENV=production node express.js",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
+    "dev": "NODE_ENV=development node express.js",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
-    "typecheck": "tsc",
-    "apollo:generate": "rimraf generated && apollo client:codegen generated --target=typescript --outputFlat --no-addTypename"
+    "start": "NODE_ENV=production node express.js",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test": "jest",
+    "typecheck": "tsc"
   },
   "jest": {
     "testResultsProcessor": "jest-sonar-reporter"
