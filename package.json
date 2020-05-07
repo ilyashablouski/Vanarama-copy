@@ -17,9 +17,6 @@
     "test": "jest",
     "typecheck": "tsc"
   },
-  "jest": {
-    "testResultsProcessor": "jest-sonar-reporter"
-  },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.4",
     "@apollo/react-ssr": "^3.1.4",

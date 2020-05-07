@@ -10,4 +10,5 @@ module.exports = {
     '\\.(css|less|scss)$': 'identity-obj-proxy',
   },
   coverageDirectory: './.coverage',
+  testResultsProcessor: 'jest-sonar-reporter',
 };
