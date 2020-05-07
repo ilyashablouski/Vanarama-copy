@@ -138,7 +138,7 @@ const HomePage: NextPage = () => (
                   Get the car you want from our range of manufacturers - from
                   something sporty to something for all the family
                 </Text>
-                <Button label="Search Vans" color="teal" fill="solid" />
+                <Button label="Search Pickups" color="teal" fill="solid" />
               </CardContent>
             </Card>
           </Column>
@@ -153,7 +153,7 @@ const HomePage: NextPage = () => (
                   Get the car you want from our range of manufacturers - from
                   something sporty to something for all the family
                 </Text>
-                <Button label="Search Vans" color="teal" fill="solid" />
+                <Button label="Search Cars" color="teal" fill="solid" />
               </CardContent>
             </Card>
           </Column>
