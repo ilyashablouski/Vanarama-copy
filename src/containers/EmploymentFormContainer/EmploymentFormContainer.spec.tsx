@@ -1,11 +1,5 @@
 import { MockedProvider, MockedResponse } from '@apollo/react-testing';
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import EmploymentFormContainer from './EmploymentFormContainer';
 import {
@@ -48,9 +42,7 @@ describe('<EmploymentFormContainer />', () => {
     const year = screen.getByTestId('history[0].year');
     fireEvent.change(year, { target: { value: '1990' } });
 
-    await act(async () => {
-      fireEvent.click(screen.getByText('Continue'));
-    });
+    fireEvent.click(screen.getByText('Continue'));
 
     // ASSERT
     await waitFor(() => expect(mutationCalled).toBeTruthy());
@@ -106,9 +98,7 @@ describe('<EmploymentFormContainer />', () => {
     const income = screen.getByLabelText('Gross Annual Income');
     expect((income as HTMLInputElement).value).toEqual('200000');
 
-    await act(async () => {
-      fireEvent.click(screen.getByText('Continue'));
-    });
+    fireEvent.click(screen.getByText('Continue'));
 
     // Assert pre-filled data is saved again on clicking "Continue"
     await waitFor(() => expect(mutationCalled).toBeTruthy());

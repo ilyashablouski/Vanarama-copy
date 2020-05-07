@@ -22,7 +22,7 @@ const SummaryForm: FCWithFragments<IProps> = ({ person }) => {
   const primaryBankAccount = person.bankAccounts?.[0];
 
   const handleEdit = (url: string) => () => {
-    router.push(url, url.replace('[uuid]', person.uuid));
+    router.push(`${url}?redirect=summary`, url.replace('[uuid]', person.uuid));
   };
 
   return (
@@ -62,7 +62,9 @@ const SummaryForm: FCWithFragments<IProps> = ({ person }) => {
       <Button
         color="teal"
         label="Continue"
-        onClick={() => router.push('/olaf/thank-you')}
+        onClick={() => {
+          router.push('/olaf/thank-you');
+        }}
       />
     </form>
   );

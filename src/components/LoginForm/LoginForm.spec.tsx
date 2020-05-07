@@ -1,4 +1,4 @@
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import React from 'react';
 import LoginForm from './LoginForm';
 
@@ -8,21 +8,19 @@ describe('<LoginForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByLabelText, getByText } = render(
-      <LoginForm onSubmit={onSubmit} />,
-    );
+    render(<LoginForm onSubmit={onSubmit} />);
 
     // Set the email address
-    fireEvent.input(getByLabelText('Your Email'), {
+    fireEvent.input(screen.getByLabelText('Your Email'), {
       target: { value: 'barry.chuckle@gmail.com' },
     });
 
     // Set the password
-    fireEvent.input(getByLabelText('Your Password'), {
+    fireEvent.input(screen.getByLabelText('Your Password'), {
       target: { value: 'Password1' },
     });
 
-    fireEvent.submit(getByText('Login'));
+    fireEvent.submit(screen.getByText('Login'));
 
     // ASSERT
     await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
@@ -33,26 +31,26 @@ describe('<LoginForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText } = render(<LoginForm onSubmit={onSubmit} />);
+    render(<LoginForm onSubmit={onSubmit} />);
 
-    fireEvent.submit(getByText('Login'));
+    fireEvent.submit(screen.getByText('Login'));
 
     // ASSERT
     await waitFor(() =>
-      expect(getByText('Your Email is required')).toBeVisible(),
+      expect(screen.getByText('Your Email is required')).toBeVisible(),
     );
 
-    expect(getByText('Your Password is required')).toBeVisible();
+    expect(screen.getByText('Your Password is required')).toBeVisible();
     expect(onSubmit).toHaveBeenCalledTimes(0);
   });
 
   it('should show an error message if set', async () => {
     // ACT
-    const { getByText } = render(<LoginForm onSubmit={jest.fn()} hasError />);
+    render(<LoginForm onSubmit={jest.fn()} hasError />);
 
     // ASSERT
     expect(
-      getByText('Email address and password combination is not valid'),
+      screen.getByText('Email address and password combination is not valid'),
     ).toBeVisible();
   });
 });

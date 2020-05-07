@@ -1,5 +1,5 @@
 import { MockedProvider, MockedResponse } from '@apollo/react-testing';
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import localForage from 'localforage';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -55,13 +55,13 @@ describe('<LoginFormContainer />', () => {
     });
 
     // ACT
-    const { getByRole } = render(
+    render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <LoginFormContainer />
       </MockedProvider>,
     );
 
-    fireEvent.submit(getByRole('form'));
+    fireEvent.submit(screen.getByRole('form'));
 
     // ASSERT
     await waitFor(() => expect(mockCalled).toBeTruthy());
@@ -93,13 +93,13 @@ describe('<LoginFormContainer />', () => {
     });
 
     // ACT
-    const { getByRole } = render(
+    render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <LoginFormContainer />
       </MockedProvider>,
     );
 
-    fireEvent.submit(getByRole('form'));
+    fireEvent.submit(screen.getByRole('form'));
 
     // ASSERT
     await waitFor(() => expect(localForage.setItem).toHaveBeenCalledTimes(1));
@@ -144,13 +144,13 @@ describe('<LoginFormContainer />', () => {
     });
 
     // ACT
-    const { getByRole } = render(
+    render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <LoginFormContainer />
       </MockedProvider>,
     );
 
-    fireEvent.submit(getByRole('form'));
+    fireEvent.submit(screen.getByRole('form'));
 
     // ASSERT
     await waitFor(() => expect(pushMock).toHaveBeenCalledTimes(1));
@@ -192,13 +192,13 @@ describe('<LoginFormContainer />', () => {
     });
 
     // ACT
-    const { getByRole } = render(
+    render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <LoginFormContainer />
       </MockedProvider>,
     );
 
-    fireEvent.submit(getByRole('form'));
+    fireEvent.submit(screen.getByRole('form'));
 
     // ASSERT
     await waitFor(() => expect(pushMock).toHaveBeenCalledTimes(1));
@@ -240,13 +240,13 @@ describe('<LoginFormContainer />', () => {
     });
 
     // ACT
-    const { getByRole } = render(
+    render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <LoginFormContainer />
       </MockedProvider>,
     );
 
-    fireEvent.submit(getByRole('form'));
+    fireEvent.submit(screen.getByRole('form'));
 
     // ASSERT
     await waitFor(() => expect(pushMock).toHaveBeenCalledTimes(1));

@@ -7,20 +7,15 @@
   "homepage": "https://github.com/Autorama/next-storefront",
   "license": "UNLICENCED",
   "scripts": {
-    "dev": "NODE_ENV=development node express.js",
-    "reloadui": "rm -rf node_modules && yarn install",
+    "apollo:generate": "rimraf generated && apollo client:codegen generated --target=typescript --outputFlat --no-addTypename",
     "build": "next build",
-    "export": "next export",
-    "start": "NODE_ENV=production node express.js",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
+    "dev": "NODE_ENV=development node express.js",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
-    "typecheck": "tsc",
-    "apollo:generate": "rimraf generated && apollo client:codegen generated --target=typescript --outputFlat --no-addTypename"
-  },
-  "jest": {
-    "testResultsProcessor": "jest-sonar-reporter"
+    "start": "NODE_ENV=production node express.js",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test": "jest",
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.4",
@@ -79,9 +74,6 @@
     "@typescript-eslint/eslint-plugin": "^2.24.0",
     "apollo": "^2.25.0",
     "babel-jest": "^24.9.0",
-    "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.15.1",
-    "enzyme-to-json": "^3.4.4",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-typescript": "^7.2.0",
     "eslint-config-prettier": "^6.10.0",
@@ -90,6 +82,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.0",
+    "eslint-plugin-testing-library": "^3.1.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^25.1.0",
     "prettier": "^1.19.1",

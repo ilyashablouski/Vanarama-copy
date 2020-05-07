@@ -5,6 +5,7 @@ module.exports = {
     'plugin:prettier/recommended',
     'prettier/react',
     'prettier/@typescript-eslint',
+    'plugin:testing-library/react',
   ],
   plugins: ["react-hooks"],
   parserOptions: {
@@ -19,6 +20,10 @@ module.exports = {
     "react-hooks/exhaustive-deps": "warn",
     "no-underscore-dangle": ["error", { "allow": ["__typename"] }],
     "@typescript-eslint/no-use-before-define": ["error", { "functions": false }],
+    "testing-library/no-manual-cleanup": "error",
+    "testing-library/prefer-screen-queries": "error",
+    "testing-library/prefer-wait-for": "error",
+    "testing-library/prefer-presence-queries": "error"
   },
   overrides: [
     {

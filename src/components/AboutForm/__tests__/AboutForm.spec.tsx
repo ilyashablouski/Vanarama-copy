@@ -1,60 +1,75 @@
 import React from 'react';
-import {
-  fireEvent,
-  render,
-  waitFor,
-  screen,
-  cleanup,
-} from '@testing-library/react';
+import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import AboutForm from '..';
 
 describe('<AboutForm />', () => {
   const submit = jest.fn();
-  let rendered: HTMLElement;
 
   beforeEach(() => {
-    const { container } = render(
-      <AboutForm submit={submit} dropdownData={{} as any} />,
+    jest.clearAllMocks();
+    render(
+      <AboutForm
+        submit={submit}
+        dropdownData={{
+          __typename: 'DropDownType',
+          titles: {
+            __typename: 'DropDownDataType',
+            data: ['Mr.', 'Mrs.', 'Professor'],
+            favourites: [],
+          },
+          countries: {
+            __typename: 'DropDownDataType',
+            data: ['United Kingdom', 'United States'],
+            favourites: [],
+          },
+          nationalities: {
+            __typename: 'DropDownDataType',
+            data: ['British', 'Irish'],
+            favourites: [],
+          },
+          maritalStatuses: {
+            __typename: 'DropDownDataType',
+            data: ['Single', 'Married'],
+          },
+          noOfAdultsInHousehold: {
+            __typename: 'DropDownDataType',
+            data: ['1', 'More than 1'],
+          },
+          noOfDependants: {
+            __typename: 'DropDownDataType',
+            data: ['None', 'Lots...'],
+          },
+        }}
+      />,
     );
-    rendered = container;
-  });
-
-  afterEach(cleanup);
-
-  it('renders with default props correctly', () => {
-    expect(rendered).toMatchSnapshot();
   });
 
   it('should show required form field validation messages', async () => {
     fireEvent.click(screen.getByText('Continue'));
 
     // ASSERT
-    await waitFor(() => {
-      expect(screen.getByText('Please select a title')).toBeVisible();
-      expect(screen.getByText('Please enter your first name')).toBeVisible();
-      expect(screen.getByText('Please enter your last name')).toBeVisible();
-      expect(screen.getByText('Please enter your email address')).toBeVisible();
-      expect(screen.getByText('Please enter your mobile number')).toBeVisible();
-      expect(
-        screen.getByText('Please complete your date of birth'),
-      ).toBeVisible();
-      expect(
-        screen.getByText('Please enter your country of birth'),
-      ).toBeVisible();
-      expect(screen.getByText('Please enter your nationality')).toBeVisible();
-      expect(
-        screen.getByText('Please enter your marital status'),
-      ).toBeVisible();
-      expect(
-        screen.getByText('Please enter number of dependants'),
-      ).toBeVisible();
-      expect(
-        screen.getByText('Please enter adults in household'),
-      ).toBeVisible();
-      expect(
-        screen.getByText('The terms and conditions must be accepted.'),
-      ).toBeVisible();
-    });
+    await waitFor(() =>
+      expect(screen.getByText('Please select a title')).toBeVisible(),
+    );
+
+    expect(screen.getByText('Please select a title')).toBeVisible();
+    expect(screen.getByText('Please enter your first name')).toBeVisible();
+    expect(screen.getByText('Please enter your last name')).toBeVisible();
+    expect(screen.getByText('Please enter your email address')).toBeVisible();
+    expect(screen.getByText('Please enter your mobile number')).toBeVisible();
+    expect(
+      screen.getByText('Please complete your date of birth'),
+    ).toBeVisible();
+    expect(
+      screen.getByText('Please enter your country of birth'),
+    ).toBeVisible();
+    expect(screen.getByText('Please enter your nationality')).toBeVisible();
+    expect(screen.getByText('Please enter your marital status')).toBeVisible();
+    expect(screen.getByText('Please enter number of dependants')).toBeVisible();
+    expect(screen.getByText('Please enter adults in household')).toBeVisible();
+    expect(
+      screen.getByText('The terms and conditions must be accepted.'),
+    ).toBeVisible();
   });
 
   it('should assure minimum characters allowed for first name', async () => {
@@ -185,9 +200,9 @@ describe('<AboutForm />', () => {
     });
   });
 
-  it.skip('should call submit with valid field inputs', async () => {
+  it('should call submit with valid field inputs', async () => {
     fireEvent.input(screen.getByTestId('aboutTitle'), {
-      target: { value: 'Mr' },
+      target: { value: 'Mr.' },
     });
     fireEvent.input(screen.getByTestId('aboutFirstName'), {
       target: { value: 'John' },
@@ -205,7 +220,7 @@ describe('<AboutForm />', () => {
       target: { value: '1' },
     });
     fireEvent.input(screen.getByTestId('aboutSelectMOB'), {
-      target: { value: 'January' },
+      target: { value: '4' },
     });
     fireEvent.input(screen.getByTestId('aboutSelectYOB'), {
       target: { value: '2000' },
@@ -220,7 +235,7 @@ describe('<AboutForm />', () => {
       target: { value: 'Single' },
     });
     fireEvent.input(screen.getByTestId('aboutDependants'), {
-      target: { value: '1' },
+      target: { value: 'None' },
     });
     fireEvent.input(screen.getByTestId('aboutAdultsInHouse'), {
       target: { value: '1' },

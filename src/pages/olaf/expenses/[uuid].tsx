@@ -12,7 +12,11 @@ const ExpensesPage: NextPage = () => {
     <OlafContainer activeStep={4}>
       <ExpensesFormContainer
         onCompleted={() => {
-          const url = `/olaf/bank-details/[uuid]`;
+          const url =
+            router.query.redirect === 'summary'
+              ? `/olaf/summary/[uuid]`
+              : `/olaf/bank-details/[uuid]`;
+
           router.push(url, url.replace('[uuid]', uuid));
         }}
         personUuid={uuid}

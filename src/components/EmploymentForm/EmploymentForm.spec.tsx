@@ -1,4 +1,4 @@
-import { fireEvent, render, act, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { EmploymentFormDropDownData } from '../../../generated/EmploymentFormDropDownData';
 import EmploymentForm from './EmploymentForm';
 
@@ -17,7 +17,7 @@ describe('<EmploymentForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId, getByLabelText } = render(
+    render(
       <EmploymentForm
         employments={[]}
         dropDownData={mockDropDownData}
@@ -25,21 +25,19 @@ describe('<EmploymentForm />', () => {
       />,
     );
 
-    const status = getByLabelText('Your Current Employment Status');
+    const status = screen.getByLabelText('Your Current Employment Status');
     fireEvent.change(status, { target: { value: 'Retired' } });
 
-    const month = getByTestId('history[0].month');
+    const month = screen.getByTestId('history[0].month');
     fireEvent.change(month, { target: { value: '1' } });
 
-    const year = getByTestId('history[0].year');
+    const year = screen.getByTestId('history[0].year');
     fireEvent.change(year, { target: { value: '1990' } });
 
-    await act(async () => {
-      fireEvent.click(getByText('Continue'));
-    });
+    fireEvent.click(screen.getByText('Continue'));
 
     // ASSERT
-    expect(onSubmit).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
     expect(onSubmit.mock.calls[0][0]).toEqual({
       history: [
         {
@@ -62,7 +60,7 @@ describe('<EmploymentForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId, getByLabelText } = render(
+    render(
       <EmploymentForm
         employments={[]}
         dropDownData={mockDropDownData}
@@ -70,42 +68,40 @@ describe('<EmploymentForm />', () => {
       />,
     );
 
-    const status = getByLabelText('Your Current Employment Status');
+    const status = screen.getByLabelText('Your Current Employment Status');
     fireEvent.change(status, { target: { value: 'Employed' } });
 
-    const type = getByLabelText('Part Time');
+    const type = screen.getByLabelText('Part Time');
     fireEvent.click(type);
 
-    const title = getByLabelText('Job Title');
+    const title = screen.getByLabelText('Job Title');
     fireEvent.change(title, { target: { value: 'Janitor' } });
 
-    const company = getByLabelText('Company Name');
+    const company = screen.getByLabelText('Company Name');
     fireEvent.change(company, { target: { value: 'Autorama Ltd.' } });
 
-    const phone = getByLabelText('Work Phone Number');
+    const phone = screen.getByLabelText('Work Phone Number');
     fireEvent.change(phone, { target: { value: '01442838195' } });
 
-    const address = getByLabelText('Company Postcode or Address');
+    const address = screen.getByLabelText('Company Postcode or Address');
     fireEvent.change(address, {
       target: { value: 'Maylands Avenue, HP2 7DE' },
     });
 
-    const income = getByLabelText('Gross Annual Income');
+    const income = screen.getByLabelText('Gross Annual Income');
     const incomeValue = '52000.00';
     fireEvent.change(income, { target: { value: incomeValue } });
 
-    const month = getByTestId('history[0].month');
+    const month = screen.getByTestId('history[0].month');
     fireEvent.change(month, { target: { value: '4' } });
 
-    const year = getByTestId('history[0].year');
+    const year = screen.getByTestId('history[0].year');
     fireEvent.change(year, { target: { value: '1994' } });
 
-    await act(async () => {
-      fireEvent.click(getByText('Continue'));
-    });
+    fireEvent.click(screen.getByText('Continue'));
 
     // ASSERT
-    expect(onSubmit).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
     expect(onSubmit.mock.calls[0][0]).toEqual({
       history: [
         {
@@ -133,7 +129,7 @@ describe('<EmploymentForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId, getByLabelText } = render(
+    render(
       <EmploymentForm
         employments={[]}
         dropDownData={mockDropDownData}
@@ -141,51 +137,49 @@ describe('<EmploymentForm />', () => {
       />,
     );
 
-    const status = getByLabelText('Your Current Employment Status');
+    const status = screen.getByLabelText('Your Current Employment Status');
     fireEvent.change(status, { target: { value: 'Retired' } });
 
-    const month = getByTestId('history[0].month');
+    const month = screen.getByTestId('history[0].month');
     fireEvent.change(month, { target: { value: currentMonth } });
 
-    const year = getByTestId('history[0].year');
+    const year = screen.getByTestId('history[0].year');
     fireEvent.change(year, { target: { value: currentYear } });
 
-    const prevStatus = getByLabelText('Your Previous Employment Status');
+    const prevStatus = screen.getByLabelText('Your Previous Employment Status');
     fireEvent.change(prevStatus, { target: { value: 'Employed' } });
 
-    const prevType = getByLabelText('Full Time');
+    const prevType = screen.getByLabelText('Full Time');
     fireEvent.click(prevType);
 
-    const prevTitle = getByLabelText('Job Title');
+    const prevTitle = screen.getByLabelText('Job Title');
     fireEvent.change(prevTitle, { target: { value: 'Janitor' } });
 
-    const prevCompany = getByLabelText('Company Name');
+    const prevCompany = screen.getByLabelText('Company Name');
     fireEvent.change(prevCompany, { target: { value: 'Autorama Ltd.' } });
 
-    const prevPhone = getByLabelText('Work Phone Number');
+    const prevPhone = screen.getByLabelText('Work Phone Number');
     fireEvent.change(prevPhone, { target: { value: '01442838195' } });
 
-    const prevAddress = getByLabelText('Company Postcode or Address');
+    const prevAddress = screen.getByLabelText('Company Postcode or Address');
     fireEvent.change(prevAddress, {
       target: { value: 'Maylands Avenue, HP2 7DE' },
     });
 
-    const prevIncome = getByLabelText('Gross Annual Income');
+    const prevIncome = screen.getByLabelText('Gross Annual Income');
     const incomeValue = '52000.00';
     fireEvent.change(prevIncome, { target: { value: incomeValue } });
 
-    const prevMonth = getByTestId('history[1].month');
+    const prevMonth = screen.getByTestId('history[1].month');
     fireEvent.change(prevMonth, { target: { value: '11' } });
 
-    const prevYear = getByTestId('history[1].year');
+    const prevYear = screen.getByTestId('history[1].year');
     fireEvent.change(prevYear, { target: { value: '1992' } });
 
-    await act(async () => {
-      fireEvent.click(getByText('Continue'));
-    });
+    fireEvent.click(screen.getByText('Continue'));
 
     // ASSERT
-    expect(onSubmit).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
     expect(onSubmit.mock.calls[0][0]).toEqual({
       history: [
         {
@@ -224,7 +218,7 @@ describe('<EmploymentForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId, getByLabelText } = render(
+    render(
       <EmploymentForm
         employments={[]}
         dropDownData={mockDropDownData}
@@ -232,20 +226,20 @@ describe('<EmploymentForm />', () => {
       />,
     );
 
-    const status = getByLabelText('Your Current Employment Status');
+    const status = screen.getByLabelText('Your Current Employment Status');
     fireEvent.change(status, { target: { value: 'Retired' } });
 
-    const month = getByTestId('history[0].month');
+    const month = screen.getByTestId('history[0].month');
     fireEvent.change(month, { target: { value: currentMonth } });
 
-    const year = getByTestId('history[0].year');
+    const year = screen.getByTestId('history[0].year');
     fireEvent.change(year, { target: { value: currentYear } });
 
     // ASSERT
     await waitFor(() =>
       expect(
-        getByText('We need another 3 years of employment history.'),
-      ).toBeVisible(),
+        screen.getByText('We need another 3 years of employment history.'),
+      ).toBeInTheDocument(),
     );
   });
 
@@ -257,7 +251,7 @@ describe('<EmploymentForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByTestId, getByLabelText } = render(
+    render(
       <EmploymentForm
         employments={[]}
         dropDownData={mockDropDownData}
@@ -265,20 +259,20 @@ describe('<EmploymentForm />', () => {
       />,
     );
 
-    const status = getByLabelText('Your Current Employment Status');
+    const status = screen.getByLabelText('Your Current Employment Status');
     fireEvent.change(status, { target: { value: 'Retired' } });
 
-    const month = getByTestId('history[0].month');
+    const month = screen.getByTestId('history[0].month');
     fireEvent.change(month, { target: { value: currentMonth } });
 
-    const year = getByTestId('history[0].year');
+    const year = screen.getByTestId('history[0].year');
     fireEvent.change(year, { target: { value: lastYear } });
 
     // ASSERT
     await waitFor(() =>
       expect(
-        getByText('We need another 2 years of employment history.'),
-      ).toBeVisible(),
+        screen.getByText('We need another 2 years of employment history.'),
+      ).toBeInTheDocument(),
     );
   });
 
@@ -287,7 +281,7 @@ describe('<EmploymentForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText } = render(
+    render(
       <EmploymentForm
         employments={[]}
         dropDownData={mockDropDownData}
@@ -295,12 +289,14 @@ describe('<EmploymentForm />', () => {
       />,
     );
 
-    await act(async () => {
-      fireEvent.click(getByText('Continue'));
-    });
+    fireEvent.click(screen.getByText('Continue'));
 
     // ASSERT
-    expect(getByText('Please enter your employment status')).toBeVisible();
+    await waitFor(() =>
+      expect(
+        screen.getByText('Please enter your employment status'),
+      ).toBeInTheDocument(),
+    );
   });
 
   it('should show the correct validation messages when pressing submit after choosing a status that requires additional information', async () => {
@@ -308,7 +304,7 @@ describe('<EmploymentForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByLabelText } = render(
+    render(
       <EmploymentForm
         employments={[]}
         dropDownData={mockDropDownData}
@@ -316,21 +312,36 @@ describe('<EmploymentForm />', () => {
       />,
     );
 
-    const status = getByLabelText('Your Current Employment Status');
+    const status = screen.getByLabelText('Your Current Employment Status');
     fireEvent.change(status, { target: { value: 'Employed' } });
 
-    await act(async () => {
-      fireEvent.click(getByText('Continue'));
-    });
+    fireEvent.click(screen.getByText('Continue'));
 
     // ASSERT
-    expect(getByText('Please enter the job title')).toBeVisible();
-    expect(getByText('Please enter the employment type')).toBeVisible();
-    expect(getByText('Please enter the company name')).toBeVisible();
-    expect(getByText('Please enter the work phone number')).toBeVisible();
-    expect(getByText('Please enter the company address')).toBeVisible();
-    expect(getByText('Please enter the gross annual income')).toBeVisible();
-    expect(getByText('Please select the date you started')).toBeVisible();
+    await waitFor(() =>
+      expect(
+        screen.getByText('Please enter the job title'),
+      ).toBeInTheDocument(),
+    );
+
+    expect(
+      screen.getByText('Please enter the employment type'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Please enter the company name'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Please enter the work phone number'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Please enter the company address'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Please enter the gross annual income'),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText('Please select the date you started'),
+    ).toBeInTheDocument();
   });
 
   it('should show the correct validation messages when pressing submit after choosing a status that does not require additional information', async () => {
@@ -338,7 +349,7 @@ describe('<EmploymentForm />', () => {
     const onSubmit = jest.fn();
 
     // ACT
-    const { getByText, getByLabelText, queryByText } = render(
+    render(
       <EmploymentForm
         employments={[]}
         dropDownData={mockDropDownData}
@@ -346,23 +357,38 @@ describe('<EmploymentForm />', () => {
       />,
     );
 
-    const status = getByLabelText('Your Current Employment Status');
+    const status = screen.getByLabelText('Your Current Employment Status');
     fireEvent.change(status, { target: { value: 'Retired' } });
 
-    await act(async () => {
-      fireEvent.click(getByText('Continue'));
-    });
+    fireEvent.click(screen.getByText('Continue'));
 
     // ASSERT
-    expect(queryByText('Please enter the job title')).toBeNull();
-    expect(queryByText('Please enter the employment type')).toBeNull();
-    expect(queryByText('Please enter the company name')).toBeNull();
+    await waitFor(() =>
+      expect(
+        screen.queryByText('Please enter the job title'),
+      ).not.toBeInTheDocument(),
+    );
     expect(
-      queryByText('Please enter work phone number without spaces or hyphens'),
-    ).toBeNull();
-    expect(queryByText('Please enter the company address')).toBeNull();
-    expect(queryByText('Please enter the gross annual income')).toBeNull();
+      screen.queryByText('Please enter the employment type'),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText('Please enter the company name'),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(
+        'Please enter work phone number without spaces or hyphens',
+      ),
+    ).not.toBeInTheDocument();
 
-    expect(queryByText('Please select the date you started')).toBeVisible();
+    expect(
+      screen.queryByText('Please enter the company address'),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText('Please enter the gross annual income'),
+    ).not.toBeInTheDocument();
+
+    expect(
+      screen.getByText('Please select the date you started'),
+    ).toBeInTheDocument();
   });
 });
