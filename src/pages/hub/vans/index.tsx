@@ -17,7 +17,6 @@ import Card, {
 } from '@vanarama/uibook/lib/components/molecules/card';
 import Slider from '@vanarama/uibook/lib/components/organisms/slider';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
-import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
 import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
@@ -40,7 +39,7 @@ const VansPage: NextPage = () => (
         <br /> Less With Vanarama
       </HeroTitle>
     </Hero>
-    <section className="section -pv-400">
+    <section className="section -pv-500">
       <div className="container">
         <DealOfMonth
           imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg"
@@ -125,78 +124,62 @@ const VansPage: NextPage = () => (
         </div>
         <Grid lg="4" md="1" sm="1">
           <Column md="1">
-            <Card>
+            <Card className="-a-center">
+              <Heading className="-pv-300" size="regular" color="black">
+                Small Vans
+              </Heading>
               <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg" />
-              <CardContent flex>
-                <Heading tag="a" size="regular" color="black">
-                  Small Vans
-                </Heading>
-                <Button
-                  label=""
-                  size="large"
-                  color="teal"
-                  fill="clear"
-                  round
-                  icon={<ArrowForwardSharp />}
-                  iconPosition="after"
-                />
+              <CardContent>
+                <Text tag="p" className="-pt-400 -pb-400">
+                  Get the car you want from our range of manufacturers - from
+                  something sporty to something for all the family
+                </Text>
+                <Button label="Search Vans" color="teal" fill="solid" />
               </CardContent>
             </Card>
           </Column>
           <Column md="1">
-            <Card>
-              <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg" />
-              <CardContent flex>
-                <Heading tag="a" size="regular" color="black">
-                  Medium Vans
-                </Heading>
-                <Button
-                  label=""
-                  size="large"
-                  color="teal"
-                  fill="clear"
-                  round
-                  icon={<ArrowForwardSharp />}
-                  iconPosition="after"
-                />
+            <Card className="-a-center">
+              <Heading className="-pv-300" size="regular" color="black">
+                Medium Vans
+              </Heading>
+              <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg" />
+              <CardContent>
+                <Text tag="p" className="-pt-400 -pb-400">
+                  Get the car you want from our range of manufacturers - from
+                  something sporty to something for all the family
+                </Text>
+                <Button label="Search Vans" color="teal" fill="solid" />
               </CardContent>
             </Card>
           </Column>
           <Column md="1">
-            <Card>
-              <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
-              <CardContent flex>
-                <Heading tag="a" size="regular" color="black">
-                  Large Vans
-                </Heading>
-                <Button
-                  label=""
-                  size="large"
-                  color="teal"
-                  fill="clear"
-                  round
-                  icon={<ArrowForwardSharp />}
-                  iconPosition="after"
-                />
+            <Card className="-a-center">
+              <Heading className="-pv-300" size="regular" color="black">
+                Large Vans
+              </Heading>
+              <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg" />
+              <CardContent>
+                <Text tag="p" className="-pt-400 -pb-400">
+                  Get the car you want from our range of manufacturers - from
+                  something sporty to something for all the family
+                </Text>
+                <Button label="Search Vans" color="teal" fill="solid" />
               </CardContent>
             </Card>
           </Column>
           <Column md="1">
-            <Card>
-              <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
-              <CardContent flex>
-                <Heading tag="a" size="regular" color="black">
-                  Other Vans
-                </Heading>
-                <Button
-                  label=""
-                  size="large"
-                  color="teal"
-                  fill="clear"
-                  round
-                  icon={<ArrowForwardSharp />}
-                  iconPosition="after"
-                />
+            <Card className="-a-center">
+              <Heading className="-pv-300" size="regular" color="black">
+                Other Vans
+              </Heading>
+              <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg" />
+              <CardContent>
+                <Text tag="p" className="-pt-400 -pb-400">
+                  Get the car you want from our range of manufacturers - from
+                  something sporty to something for all the family
+                </Text>
+                <Button label="Search Vans" color="teal" fill="solid" />
               </CardContent>
             </Card>
           </Column>
@@ -324,6 +307,10 @@ const VansPage: NextPage = () => (
         <br />
         <Grid lg="4" md="1" sm="1">
           <Column md="1">
+            <Image
+              size="expand"
+              src="https://source.unsplash.com/collection/2102317/1000x650?sig=403410"
+            />
             <Heading size="lead" color="black">
               Hard Tops
             </Heading>
@@ -334,6 +321,10 @@ const VansPage: NextPage = () => (
             </Text>
           </Column>
           <Column md="1">
+            <Image
+              size="expand"
+              src="https://source.unsplash.com/collection/2102317/1000x650?sig=4034228"
+            />
             <Heading size="lead" color="black">
               Bed Liners
             </Heading>
@@ -344,6 +335,10 @@ const VansPage: NextPage = () => (
             </Text>
           </Column>
           <Column md="1">
+            <Image
+              size="expand"
+              src="https://source.unsplash.com/collection/2102317/1000x650?sig=403422"
+            />
             <Heading size="lead" color="black">
               Storage Systems
             </Heading>
@@ -354,6 +349,10 @@ const VansPage: NextPage = () => (
             </Text>
           </Column>
           <Column md="1">
+            <Image
+              size="expand"
+              src="https://source.unsplash.com/collection/2102317/1000x650?sig=403418"
+            />
             <Heading size="lead" color="black">
               Roller Covers
             </Heading>

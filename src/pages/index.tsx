@@ -18,7 +18,6 @@ import Card, {
 } from '@vanarama/uibook/lib/components/molecules/card';
 import Slider from '@vanarama/uibook/lib/components/organisms/slider';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
-import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
 import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
@@ -114,59 +113,47 @@ const HomePage: NextPage = () => (
       <div className="container">
         <Grid lg="3" md="1" sm="1">
           <Column md="1">
-            <Card>
+            <Card className="-a-center">
+              <Heading className="-pv-300" size="regular" color="black">
+                Vans
+              </Heading>
               <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg" />
-              <CardContent flex>
-                <Heading tag="a" size="regular" color="black">
-                  Vans
-                </Heading>
-                <Button
-                  label=""
-                  size="large"
-                  color="teal"
-                  fill="clear"
-                  round
-                  icon={<ArrowForwardSharp />}
-                  iconPosition="after"
-                />
+              <CardContent>
+                <Text tag="p" className="-pt-400 -pb-400">
+                  Get the car you want from our range of manufacturers - from
+                  something sporty to something for all the family
+                </Text>
+                <Button label="Search Vans" color="teal" fill="solid" />
               </CardContent>
             </Card>
           </Column>
           <Column md="1">
-            <Card>
+            <Card className="-a-center">
+              <Heading className="-pv-300" size="regular" color="black">
+                Pickups
+              </Heading>
               <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg" />
-              <CardContent flex>
-                <Heading tag="a" size="regular" color="black">
-                  Pickups
-                </Heading>
-                <Button
-                  label=""
-                  size="large"
-                  color="teal"
-                  fill="clear"
-                  round
-                  icon={<ArrowForwardSharp />}
-                  iconPosition="after"
-                />
+              <CardContent>
+                <Text tag="p" className="-pt-400 -pb-400">
+                  Get the car you want from our range of manufacturers - from
+                  something sporty to something for all the family
+                </Text>
+                <Button label="Search Vans" color="teal" fill="solid" />
               </CardContent>
             </Card>
           </Column>
           <Column md="1">
-            <Card>
+            <Card className="-a-center">
+              <Heading className="-pv-300" size="regular" color="black">
+                Cars
+              </Heading>
               <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
-              <CardContent flex>
-                <Heading tag="a" size="regular" color="black">
-                  Cars
-                </Heading>
-                <Button
-                  label=""
-                  size="large"
-                  color="teal"
-                  fill="clear"
-                  round
-                  icon={<ArrowForwardSharp />}
-                  iconPosition="after"
-                />
+              <CardContent>
+                <Text tag="p" className="-pt-400 -pb-400">
+                  Get the car you want from our range of manufacturers - from
+                  something sporty to something for all the family
+                </Text>
+                <Button label="Search Vans" color="teal" fill="solid" />
               </CardContent>
             </Card>
           </Column>
