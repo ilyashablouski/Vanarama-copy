@@ -52,7 +52,7 @@ const HomePage: NextPage = () => (
         </Heading>
         <Tabs active={0} tabs={tabs}>
           <div>
-            <Slider className="-mh-400" gutter={16}>
+            <Slider className="-mh-auto" gutter={16}>
               {[1, 2, 3, 4, 5].map(k => (
                 <div key={k} style={{ width: 345 }}>
                   <ProductCard

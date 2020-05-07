@@ -60,7 +60,7 @@ const VansPage: NextPage = () => (
             Van Special Offers
           </span>
         </Heading>
-        <Slider className="-mh-400" gutter={16}>
+        <Slider className="-mh-auto" gutter={16}>
           {[1, 2, 3, 4, 5].map(k => (
             <div key={k} style={{ width: 345 }}>
               <ProductCard
@@ -311,7 +311,7 @@ const VansPage: NextPage = () => (
               size="expand"
               src="https://source.unsplash.com/collection/2102317/1000x650?sig=403410"
             />
-            <Heading size="lead" color="black">
+            <Heading className="-mt-300" size="lead" color="black">
               Hard Tops
             </Heading>
             <Text tag="p" size="regular" color="darker">
@@ -325,7 +325,7 @@ const VansPage: NextPage = () => (
               size="expand"
               src="https://source.unsplash.com/collection/2102317/1000x650?sig=4034228"
             />
-            <Heading size="lead" color="black">
+            <Heading className="-mt-300" size="lead" color="black">
               Bed Liners
             </Heading>
             <Text tag="p" size="regular" color="darker">
@@ -339,7 +339,7 @@ const VansPage: NextPage = () => (
               size="expand"
               src="https://source.unsplash.com/collection/2102317/1000x650?sig=403422"
             />
-            <Heading size="lead" color="black">
+            <Heading className="-mt-300" size="lead" color="black">
               Storage Systems
             </Heading>
             <Text tag="p" size="regular" color="darker">
@@ -353,7 +353,7 @@ const VansPage: NextPage = () => (
               size="expand"
               src="https://source.unsplash.com/collection/2102317/1000x650?sig=403418"
             />
-            <Heading size="lead" color="black">
+            <Heading className="-mt-300" size="lead" color="black">
               Roller Covers
             </Heading>
             <Text tag="p" size="regular" color="darker">
