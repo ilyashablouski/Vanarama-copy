@@ -9,6 +9,6 @@ module.exports = {
       '<rootDir>/__mocks__/mocks.js',
     '\\.(css|less|scss)$': 'identity-obj-proxy',
   },
-  snapshotSerializers: ['enzyme-to-json/serializer'],
   coverageDirectory: './.coverage',
+  testResultsProcessor: 'jest-sonar-reporter',
 };

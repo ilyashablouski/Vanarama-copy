@@ -43,17 +43,14 @@ describe('<AboutFormContainer />', () => {
               maritalStatuses: {
                 __typename: 'DropDownDataType',
                 data: ['Single', 'Married'],
-                favourites: [],
               },
               noOfAdultsInHousehold: {
                 __typename: 'DropDownDataType',
                 data: ['1', 'More than 1'],
-                favourites: [],
               },
               noOfDependants: {
                 __typename: 'DropDownDataType',
                 data: ['None', 'Lots...'],
-                favourites: [],
               },
             },
             personByUuid: {

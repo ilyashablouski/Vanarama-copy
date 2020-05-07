@@ -13,7 +13,11 @@ const EmploymentHistoryPage: NextPage = () => {
     <OlafContainer activeStep={3}>
       <EmploymentFormContainer
         onCompleted={() => {
-          const url = `/olaf/expenses/[uuid]`;
+          const url =
+            router.query.redirect === 'summary'
+              ? `/olaf/summary/[uuid]`
+              : `/olaf/expenses/[uuid]`;
+
           router.push(url, url.replace('[uuid]', uuid));
         }}
         personUuid={uuid}

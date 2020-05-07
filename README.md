@@ -44,11 +44,24 @@ $ serve -p 8080 out
 
 Open [localhost](http://localhost:8080).
 
-### Start dev server with Docker container
+### Developing locally with Docker
 
+You need to have the environment variable `NPM_TOKEN` set for this to install dependencies correctly. Easiest way to do this is to edit your `.bashrc` or `.zshrc` files with the following:
+
+```sh
+export NPM_TOKEN=your-token-goes-here
 ```
-$ docker-compose up [--build]
+
+**N.B** Don't wrap the token in quotes!
+
+You can get a token by logging into NPM as the user `autoramasultan` or by asking one of the devs.
+
+Then simply run:
+```sh
+docker-compose up
 ```
+
+Volume mounting is configured in the `docker-compose.yml` and therefore you will get hot module reloading when changing code locally.
 
 ## Unit Tests
 

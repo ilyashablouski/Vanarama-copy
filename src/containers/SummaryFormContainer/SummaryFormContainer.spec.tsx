@@ -262,7 +262,7 @@ describe('<SummaryFormContainer />', () => {
     // ASSERT
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
-      '/olaf/about/[uuid]',
+      '/olaf/about/[uuid]?redirect=summary',
       '/olaf/about/fd2333b8-6da1-47d2-837d-bc69849e0764',
     );
   });
@@ -287,7 +287,7 @@ describe('<SummaryFormContainer />', () => {
     // ASSERT
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
-      '/olaf/employment-history/[uuid]',
+      '/olaf/employment-history/[uuid]?redirect=summary',
       '/olaf/employment-history/fd2333b8-6da1-47d2-837d-bc69849e0764',
     );
   });
@@ -312,7 +312,7 @@ describe('<SummaryFormContainer />', () => {
     // ASSERT
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
-      '/olaf/expenses/[uuid]',
+      '/olaf/expenses/[uuid]?redirect=summary',
       '/olaf/expenses/fd2333b8-6da1-47d2-837d-bc69849e0764',
     );
   });
@@ -337,7 +337,7 @@ describe('<SummaryFormContainer />', () => {
     // ASSERT
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
-      '/olaf/bank-details/[uuid]',
+      '/olaf/bank-details/[uuid]?redirect=summary',
       '/olaf/bank-details/fd2333b8-6da1-47d2-837d-bc69849e0764',
     );
   });
