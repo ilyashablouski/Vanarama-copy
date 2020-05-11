@@ -18,35 +18,15 @@ import Card, {
 } from '@vanarama/uibook/lib/components/molecules/card';
 import Slider from '@vanarama/uibook/lib/components/organisms/slider';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
-import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
-import CheckmarkCircleSharp from '@vanarama/uibook/lib/assets/icons/CheckmarkCircleSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
 import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
+import IconList, {
+  IconListItem,
+} from '@vanarama/uibook/lib/components/organisms/icon-list';
 
 import Hero, { HeroTitle, HeroHeading } from '../components/Hero';
-
-const styles = {
-  iconList: {
-    marginTop: '1rem',
-    marginBottom: '1rem',
-    fontWeight: 500,
-  },
-  iconListFirstLi: {
-    paddingTop: '0.75rem',
-    marginTop: '0.75rem',
-    display: 'flex',
-    alignItems: 'center',
-  },
-  iconListLi: {
-    paddingTop: '0.75rem',
-    marginTop: '0.75rem',
-    borderTop: ' 1px solid #e7ebee',
-    display: 'flex',
-    alignItems: 'center',
-  },
-};
 
 const tabs = [{ label: 'Vans' }, { label: 'Pickups' }, { label: 'Cars' }];
 
@@ -72,7 +52,7 @@ const HomePage: NextPage = () => (
         </Heading>
         <Tabs active={0} tabs={tabs}>
           <div>
-            <Slider className="-mh-400" gutter={16}>
+            <Slider className="-mh-auto" gutter={16}>
               {[1, 2, 3, 4, 5].map(k => (
                 <div key={k} style={{ width: 345 }}>
                   <ProductCard
@@ -133,59 +113,47 @@ const HomePage: NextPage = () => (
       <div className="container">
         <Grid lg="3" md="1" sm="1">
           <Column md="1">
-            <Card>
+            <Card className="-a-center">
+              <Heading className="-pv-300" size="regular" color="black">
+                Vans
+              </Heading>
               <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg" />
-              <CardContent flex>
-                <Heading tag="a" size="regular" color="black">
-                  Vans
-                </Heading>
-                <Button
-                  label=""
-                  size="large"
-                  color="teal"
-                  fill="clear"
-                  round
-                  icon={<ArrowForwardSharp />}
-                  iconPosition="after"
-                />
+              <CardContent>
+                <Text tag="p" className="-pt-400 -pb-400">
+                  Get the car you want from our range of manufacturers - from
+                  something sporty to something for all the family
+                </Text>
+                <Button label="Search Vans" color="teal" fill="solid" />
               </CardContent>
             </Card>
           </Column>
           <Column md="1">
-            <Card>
+            <Card className="-a-center">
+              <Heading className="-pv-300" size="regular" color="black">
+                Pickups
+              </Heading>
               <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg" />
-              <CardContent flex>
-                <Heading tag="a" size="regular" color="black">
-                  Pickups
-                </Heading>
-                <Button
-                  label=""
-                  size="large"
-                  color="teal"
-                  fill="clear"
-                  round
-                  icon={<ArrowForwardSharp />}
-                  iconPosition="after"
-                />
+              <CardContent>
+                <Text tag="p" className="-pt-400 -pb-400">
+                  Get the car you want from our range of manufacturers - from
+                  something sporty to something for all the family
+                </Text>
+                <Button label="Search Pickups" color="teal" fill="solid" />
               </CardContent>
             </Card>
           </Column>
           <Column md="1">
-            <Card>
+            <Card className="-a-center">
+              <Heading className="-pv-300" size="regular" color="black">
+                Cars
+              </Heading>
               <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
-              <CardContent flex>
-                <Heading tag="a" size="regular" color="black">
-                  Cars
-                </Heading>
-                <Button
-                  label=""
-                  size="large"
-                  color="teal"
-                  fill="clear"
-                  round
-                  icon={<ArrowForwardSharp />}
-                  iconPosition="after"
-                />
+              <CardContent>
+                <Text tag="p" className="-pt-400 -pb-400">
+                  Get the car you want from our range of manufacturers - from
+                  something sporty to something for all the family
+                </Text>
+                <Button label="Search Cars" color="teal" fill="solid" />
               </CardContent>
             </Card>
           </Column>
@@ -206,20 +174,17 @@ const HomePage: NextPage = () => (
                 It&apos;s affordable, simple and you&apos;re not left with a
                 depreciating asset at the end of your contract.
               </Text>
-              <ul className="icon-list -orange" style={styles.iconList}>
-                <li style={styles.iconListFirstLi}>
-                  <Icon icon={<CheckmarkCircleSharp />} color="orange" />
+              <IconList>
+                <IconListItem iconColor="orange">
                   &nbsp;&nbsp;Choose your contract length &amp; agreed mileage
-                </li>
-                <li style={styles.iconListLi}>
-                  <Icon icon={<CheckmarkCircleSharp />} color="orange" />
+                </IconListItem>
+                <IconListItem iconColor="orange">
                   &nbsp;&nbsp;Pay an initial payment
-                </li>
-                <li style={styles.iconListLi}>
-                  <Icon icon={<CheckmarkCircleSharp />} color="orange" />
+                </IconListItem>
+                <IconListItem iconColor="orange">
                   &nbsp;&nbsp;Set up your agreed fixed monthly rental
-                </li>
-              </ul>
+                </IconListItem>
+              </IconList>
             </div>
           </Column>
           <Column md="3">

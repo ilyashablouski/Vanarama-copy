@@ -17,36 +17,17 @@ import Card, {
 } from '@vanarama/uibook/lib/components/molecules/card';
 import Slider from '@vanarama/uibook/lib/components/organisms/slider';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
-import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
-import CheckmarkCircleSharp from '@vanarama/uibook/lib/assets/icons/CheckmarkCircleSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
 import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
+import Step from '@vanarama/uibook/lib/components/molecules/step';
+import IconList, {
+  IconListItem,
+} from '@vanarama/uibook/lib/components/organisms/icon-list';
 
 import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 import DealOfMonth from '../../../components/DealOfMonth';
-
-const styles = {
-  iconList: {
-    marginTop: '1rem',
-    marginBottom: '1rem',
-    fontWeight: 500,
-  },
-  iconListFirstLi: {
-    paddingTop: '0.75rem',
-    marginTop: '0.75rem',
-    display: 'flex',
-    alignItems: 'center',
-  },
-  iconListLi: {
-    paddingTop: '0.75rem',
-    marginTop: '0.75rem',
-    borderTop: ' 1px solid #e7ebee',
-    display: 'flex',
-    alignItems: 'center',
-  },
-};
 
 const VansPage: NextPage = () => (
   <main>
@@ -58,7 +39,7 @@ const VansPage: NextPage = () => (
         <br /> Less With Vanarama
       </HeroTitle>
     </Hero>
-    <section className="section -pv-400">
+    <section className="section -pv-500">
       <div className="container">
         <DealOfMonth
           imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg"
@@ -79,7 +60,7 @@ const VansPage: NextPage = () => (
             Van Special Offers
           </span>
         </Heading>
-        <Slider className="-mh-400" gutter={16}>
+        <Slider className="-mh-auto" gutter={16}>
           {[1, 2, 3, 4, 5].map(k => (
             <div key={k} style={{ width: 345 }}>
               <ProductCard
@@ -126,7 +107,7 @@ const VansPage: NextPage = () => (
     </section>
     <section className="section">
       <div className="container">
-        <div style={{ textAlign: 'center' }}>
+        <div className="-a-center">
           <Heading size="large" color="black">
             What Type Of Van Do You Need?
           </Heading>
@@ -143,78 +124,62 @@ const VansPage: NextPage = () => (
         </div>
         <Grid lg="4" md="1" sm="1">
           <Column md="1">
-            <Card>
+            <Card className="-a-center">
+              <Heading className="-pv-300" size="regular" color="black">
+                Small Vans
+              </Heading>
               <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg" />
-              <CardContent flex>
-                <Heading tag="a" size="regular" color="black">
-                  Small Vans
-                </Heading>
-                <Button
-                  label=""
-                  size="large"
-                  color="teal"
-                  fill="clear"
-                  round
-                  icon={<ArrowForwardSharp />}
-                  iconPosition="after"
-                />
+              <CardContent>
+                <Text tag="p" className="-pt-400 -pb-400">
+                  Get the car you want from our range of manufacturers - from
+                  something sporty to something for all the family
+                </Text>
+                <Button label="Search Vans" color="teal" fill="solid" />
               </CardContent>
             </Card>
           </Column>
           <Column md="1">
-            <Card>
-              <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg" />
-              <CardContent flex>
-                <Heading tag="a" size="regular" color="black">
-                  Medium Vans
-                </Heading>
-                <Button
-                  label=""
-                  size="large"
-                  color="teal"
-                  fill="clear"
-                  round
-                  icon={<ArrowForwardSharp />}
-                  iconPosition="after"
-                />
+            <Card className="-a-center">
+              <Heading className="-pv-300" size="regular" color="black">
+                Medium Vans
+              </Heading>
+              <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg" />
+              <CardContent>
+                <Text tag="p" className="-pt-400 -pb-400">
+                  Get the car you want from our range of manufacturers - from
+                  something sporty to something for all the family
+                </Text>
+                <Button label="Search Vans" color="teal" fill="solid" />
               </CardContent>
             </Card>
           </Column>
           <Column md="1">
-            <Card>
-              <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
-              <CardContent flex>
-                <Heading tag="a" size="regular" color="black">
-                  Large Vans
-                </Heading>
-                <Button
-                  label=""
-                  size="large"
-                  color="teal"
-                  fill="clear"
-                  round
-                  icon={<ArrowForwardSharp />}
-                  iconPosition="after"
-                />
+            <Card className="-a-center">
+              <Heading className="-pv-300" size="regular" color="black">
+                Large Vans
+              </Heading>
+              <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg" />
+              <CardContent>
+                <Text tag="p" className="-pt-400 -pb-400">
+                  Get the car you want from our range of manufacturers - from
+                  something sporty to something for all the family
+                </Text>
+                <Button label="Search Vans" color="teal" fill="solid" />
               </CardContent>
             </Card>
           </Column>
           <Column md="1">
-            <Card>
-              <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
-              <CardContent flex>
-                <Heading tag="a" size="regular" color="black">
-                  Other Vans
-                </Heading>
-                <Button
-                  label=""
-                  size="large"
-                  color="teal"
-                  fill="clear"
-                  round
-                  icon={<ArrowForwardSharp />}
-                  iconPosition="after"
-                />
+            <Card className="-a-center">
+              <Heading className="-pv-300" size="regular" color="black">
+                Other Vans
+              </Heading>
+              <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg" />
+              <CardContent>
+                <Text tag="p" className="-pt-400 -pb-400">
+                  Get the car you want from our range of manufacturers - from
+                  something sporty to something for all the family
+                </Text>
+                <Button label="Search Vans" color="teal" fill="solid" />
               </CardContent>
             </Card>
           </Column>
@@ -224,7 +189,38 @@ const VansPage: NextPage = () => (
 
     <section className="section">
       <div className="container">
-        <Heading>Leasing - The Simple Way To Get Your Brand New Car</Heading>
+        <Heading className="-a-center -mb-400" size="large" color="black">
+          Leasing - The Simple Way To Get Your Brand New Car
+        </Heading>
+        <div className="-flex-h">
+          <Step step={1}>
+            <Heading tag="span" color="black" className="lead">
+              Choose
+            </Heading>
+            <Text color="darker" size="regular">
+              Get the car you want from our range of manufacturers - from
+              something sporty to something for all the family.
+            </Text>
+          </Step>
+          <Step step={2}>
+            <Heading tag="span" color="black" className="lead">
+              Apply
+            </Heading>
+            <Text color="darker" size="regular">
+              To lease your new car, we&apos;ll just need a few details to apply
+              for finance from one of our funding partners.
+            </Text>
+          </Step>
+          <Step step={3}>
+            <Heading tag="span" color="black" className="lead">
+              Drive
+            </Heading>
+            <Text color="darker" size="regular">
+              And that&apos;s it - once you&apos;ve been approved, your brand
+              new car will be delivered direct to your door.
+            </Text>
+          </Step>
+        </div>
       </div>
     </section>
 
@@ -242,20 +238,17 @@ const VansPage: NextPage = () => (
                 It&apos;s affordable, simple and you&apos;re not left with a
                 depreciating asset at the end of your contract.
               </Text>
-              <ul className="icon-list -orange" style={styles.iconList}>
-                <li style={styles.iconListFirstLi}>
-                  <Icon icon={<CheckmarkCircleSharp />} color="orange" />
+              <IconList>
+                <IconListItem iconColor="orange">
                   &nbsp;&nbsp;Choose your contract length &amp; agreed mileage
-                </li>
-                <li style={styles.iconListLi}>
-                  <Icon icon={<CheckmarkCircleSharp />} color="orange" />
+                </IconListItem>
+                <IconListItem iconColor="orange">
                   &nbsp;&nbsp;Pay an initial payment
-                </li>
-                <li style={styles.iconListLi}>
-                  <Icon icon={<CheckmarkCircleSharp />} color="orange" />
+                </IconListItem>
+                <IconListItem iconColor="orange">
                   &nbsp;&nbsp;Set up your agreed fixed monthly rental
-                </li>
-              </ul>
+                </IconListItem>
+              </IconList>
             </div>
           </Column>
           <Column md="3">
@@ -314,7 +307,11 @@ const VansPage: NextPage = () => (
         <br />
         <Grid lg="4" md="1" sm="1">
           <Column md="1">
-            <Heading size="lead" color="black">
+            <Image
+              size="expand"
+              src="https://source.unsplash.com/collection/2102317/1000x650?sig=403410"
+            />
+            <Heading className="-mt-300" size="lead" color="black">
               Hard Tops
             </Heading>
             <Text tag="p" size="regular" color="darker">
@@ -324,7 +321,11 @@ const VansPage: NextPage = () => (
             </Text>
           </Column>
           <Column md="1">
-            <Heading size="lead" color="black">
+            <Image
+              size="expand"
+              src="https://source.unsplash.com/collection/2102317/1000x650?sig=4034228"
+            />
+            <Heading className="-mt-300" size="lead" color="black">
               Bed Liners
             </Heading>
             <Text tag="p" size="regular" color="darker">
@@ -334,7 +335,11 @@ const VansPage: NextPage = () => (
             </Text>
           </Column>
           <Column md="1">
-            <Heading size="lead" color="black">
+            <Image
+              size="expand"
+              src="https://source.unsplash.com/collection/2102317/1000x650?sig=403422"
+            />
+            <Heading className="-mt-300" size="lead" color="black">
               Storage Systems
             </Heading>
             <Text tag="p" size="regular" color="darker">
@@ -344,7 +349,11 @@ const VansPage: NextPage = () => (
             </Text>
           </Column>
           <Column md="1">
-            <Heading size="lead" color="black">
+            <Image
+              size="expand"
+              src="https://source.unsplash.com/collection/2102317/1000x650?sig=403418"
+            />
+            <Heading className="-mt-300" size="lead" color="black">
               Roller Covers
             </Heading>
             <Text tag="p" size="regular" color="darker">
@@ -358,21 +367,31 @@ const VansPage: NextPage = () => (
     </section>
     <section className="section">
       <div className="container">
-        <Heading size="large" color="black">
-          Not Sure How Van Leasing Works?
-        </Heading>
-        <Text size="regular" color="darker">
-          Leasing a Van is really simple. You drive a brand new vehicle and pay
-          fixed monthly rentals over 2-5 years after paying an initial rental at
-          the start of your contract. At the end of your agreement, you simply
-          hand the van back and choose which vehicle to upgrade to.
-        </Text>
-        <br />
-        <Text size="regular" color="black">
-          Everything you need to know is a click away in our easy to understand
-          leasing guide
-        </Text>
-        <Button label="Veiw Leasing Guides" color="teal" />
+        <Grid lg="6" md="2" sm="2">
+          <Column className="-col-300" md="row" lg="row">
+            <Heading className="-mb-300" size="large" color="black">
+              Not Sure How Van Leasing Works?
+            </Heading>
+            <Text tag="p" size="regular" color="darker">
+              Leasing a Van is really simple. You drive a brand new vehicle and
+              pay fixed monthly rentals over 2-5 years after paying an initial
+              rental at the start of your contract. At the end of your
+              agreement, you simply hand the van back and choose which vehicle
+              to upgrade to.
+            </Text>
+            <Text className="-mt-500" tag="p" size="regular" color="black">
+              <b>
+                Everything you need to know is a click away in our easy to
+                understand leasing guide
+              </b>
+            </Text>
+            <Button
+              className="-mt-100"
+              label="Veiw Leasing Guides"
+              color="teal"
+            />
+          </Column>
+        </Grid>
       </div>
     </section>
     <section className="section">
@@ -465,8 +484,26 @@ const VansPage: NextPage = () => (
     <section className="section">
       <div className="container">
         <Grid md="1">
-          <Column md="row" className="-align-center">
-            <Heading>Search By Manufacturer</Heading>
+          <Column md="row">
+            <Heading size="large" color="black" className="-a-center -mb-500">
+              Search By Manufacturer
+            </Heading>
+            <div className="-justify-content-dense">
+              {[
+                'Mercedez-Benz',
+                'Mitsubishi',
+                'Nissan',
+                'Volkswagen',
+                'Fiat',
+                'Ford',
+                'Toyota',
+                'BMW',
+                'Isuzu',
+                'Porche',
+              ].map(n => (
+                <Button color="teal" size="large" label={n} />
+              ))}
+            </div>
           </Column>
         </Grid>
       </div>
