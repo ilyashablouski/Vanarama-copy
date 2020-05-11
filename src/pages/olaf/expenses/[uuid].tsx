@@ -1,15 +1,15 @@
 import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import OlafContainer from '../../../components/OlafContainer';
 import ExpensesFormContainer from '../../../containers/ExpensesFormContainer/ExpensesFormContainer';
+import OLAFContainer from '../../../containers/OLAFContainer/OLAFContainer';
 import withApollo from '../../../hocs/withApollo';
 
 const ExpensesPage: NextPage = () => {
   const router = useRouter();
   const uuid = router.query.uuid as string;
   return (
-    <OlafContainer activeStep={4}>
+    <OLAFContainer>
       <ExpensesFormContainer
         onCompleted={() => {
           const url =
@@ -21,7 +21,7 @@ const ExpensesPage: NextPage = () => {
         }}
         personUuid={uuid}
       />
-    </OlafContainer>
+    </OLAFContainer>
   );
 };
 

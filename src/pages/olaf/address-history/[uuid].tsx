@@ -1,16 +1,16 @@
+import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { getDataFromTree } from '@apollo/react-ssr';
-import OlafContainer from '../../../components/OlafContainer';
 import AddressFormContainer from '../../../containers/AddressFormContainer/AddressFormContainer';
+import OLAFContainer from '../../../containers/OLAFContainer/OLAFContainer';
 import withApollo from '../../../hocs/withApollo';
 
 const AddressHistoryPage: NextPage = () => {
   const router = useRouter();
   const uuid = router.query.uuid as string;
   return (
-    <OlafContainer activeStep={2}>
+    <OLAFContainer>
       <AddressFormContainer
         onCompleted={() => {
           const url =
@@ -22,7 +22,7 @@ const AddressHistoryPage: NextPage = () => {
         }}
         personUuid={uuid}
       />
-    </OlafContainer>
+    </OLAFContainer>
   );
 };
 

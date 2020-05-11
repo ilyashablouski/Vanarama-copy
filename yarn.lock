@@ -2051,11 +2051,6 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@4.8.1":
-  version "4.8.1"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-4.8.1.tgz#314009da7b41b5d4481ec6fed1984c3cfb748214"
-  integrity sha512-Mkk2lmLwaU0Y/4afVT3oANTZEKp8qMTgx2fulZpOHa6N0eDP2XvN7cNWmDlplqgbtcXgvpYIStlzmLBB1fquUg==
-
 "@typescript-eslint/typescript-estree@2.31.0":
   version "2.31.0"
   resolved "https://registry.npmjs.org/@typescript-eslint/typescript-estree/-/typescript-estree-2.31.0.tgz#ac536c2d46672aa1f27ba0ec2140d53670635cfd"
@@ -2069,6 +2064,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
+"@vanarama/uibook@4.9.0":
+  version "4.9.0"
+  resolved "https://registry.npmjs.org/@vanarama/uibook/-/uibook-4.9.0.tgz#eb52eb18aa89c9168f9e1c07b1558917c1072f08"
+  integrity sha512-wQ5ShJu8t/l7Yn0JTYTGlUzCXu4idKUfoHP+XKCBK/3DK4lXjRm0XqldMI7wSsQlJUDeUphyMgXx4TBdaFMqYw==
   dependencies:
     "@babel/preset-typescript" "^7.8.3"
     "@egjs/flicking" "^3.4.7"
