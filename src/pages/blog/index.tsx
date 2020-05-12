@@ -32,11 +32,11 @@ const BlogPage: NextPage = () => (
             />
           </Column>
           <Column className="-inset -middle -col-400" md="3">
-            <div>
-              <Heading size="large" color="black">
+            <div className="-col-400">
+              <Heading tag="span" size="large" color="black">
                 Featured Article Title
               </Heading>
-              <Text tag="p" size="regular" color="darker">
+              <Text tag="span" size="regular" color="darker">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 Habitant morbi tristique senectus et netus et malesuada fames
@@ -44,13 +44,13 @@ const BlogPage: NextPage = () => (
                 risus ultricies tristique nulla aliquet enim. Ut tellus
                 elementum sagittis vitae et.
               </Text>
-              <Button
-                color="teal"
-                size="regular"
-                fill="clear"
-                label="Read More"
-              />
             </div>
+            <Button
+              color="teal"
+              size="regular"
+              fill="clear"
+              label="Read More"
+            />
           </Column>
         </Grid>
       </div>
