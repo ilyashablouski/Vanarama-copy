@@ -20,7 +20,8 @@ export default function createApolloClient(
     ssrMode: Boolean(ctx),
     link: new HttpLink({
       // TODO: Put this in an environment variable
-      uri: 'https://0cd4xp98dj.execute-api.eu-west-2.amazonaws.com/dev/graphql',
+      uri:
+        'https://zw5ndxwfck.execute-api.eu-west-2.amazonaws.com/dev/federation-dev',
       fetch,
     }),
     cache: new InMemoryCache({
