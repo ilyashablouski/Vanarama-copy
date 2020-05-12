@@ -266,16 +266,8 @@ const VansPage: NextPage = () => (
           <Column md="3">
             <Image src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349" />
           </Column>
-          <Column className="-inset -middle" md="3">
-            <div
-              style={{
-                height: '100%',
-                padding: '1rem',
-                display: 'flex',
-                justifyContent: 'center',
-                flexDirection: 'column',
-              }}
-            >
+          <Column className="-inset -middle -col-400" md="3">
+            <div>
               <Heading size="large" color="black">
                 Why Choose Vanarama For Your Van?
               </Heading>

@@ -109,7 +109,7 @@ const HomePage: NextPage = () => (
         </Tabs>
       </div>
     </section>
-    <section style={{ background: '#f3f5f7' }} className="section">
+    <section className="section">
       <div className="container">
         <Grid lg="3" md="1" sm="1">
           <Column md="1">
@@ -202,16 +202,8 @@ const HomePage: NextPage = () => (
           <Column md="3">
             <Image src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349" />
           </Column>
-          <Column className="-inset -middle" md="3">
-            <div
-              style={{
-                height: '100%',
-                padding: '1rem',
-                display: 'flex',
-                justifyContent: 'center',
-                flexDirection: 'column',
-              }}
-            >
+          <Column className="-inset -middle -col-400" md="3">
+            <div>
               <Heading size="large" color="black">
                 What Makes Us The Lease Experts?
               </Heading>
