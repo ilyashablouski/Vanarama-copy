@@ -3,7 +3,6 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import BreadCrumbs from '../../containers/BreadCrumbContainer/BreadCrumbContainer';
 import Slider from '@vanarama/uibook/lib/components/organisms/slider';
 import Card, {
   CardContent,
@@ -11,6 +10,7 @@ import Card, {
 } from '@vanarama/uibook/lib/components/molecules/card';
 import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
 import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
+import BreadCrumbs from '../../containers/BreadCrumbContainer/BreadCrumbContainer';
 
 const BlogPage: NextPage = () => (
   <>
