@@ -252,10 +252,16 @@ const VansPage: NextPage = () => (
             </div>
           </Column>
           <Column md="3">
-            <Media
-              src="https://player.vimeo.com/video/263419265"
-              vimeoConfig={{ color: 'EC6408', portrait: false }}
-            />
+            <div className="player-wrapper">
+              <Media
+                src="https://player.vimeo.com/video/263419265"
+                vimeoConfig={{ color: 'EC6408', portrait: false }}
+                controls
+                width="100%"
+                height="100%"
+                className="react-player"
+              />
+            </div>
           </Column>
         </Grid>
       </div>
