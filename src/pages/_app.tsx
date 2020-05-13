@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
         topBarLinks={[
           {
             label: 'Login',
-            href: `/account/login-register?redirect=${router.pathname}`,
+            href: `/account/login-register?redirect=${router.asPath}`,
           },
         ]}
       />

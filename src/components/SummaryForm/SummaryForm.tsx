@@ -22,7 +22,8 @@ const SummaryForm: FCWithFragments<IProps> = ({ person }) => {
   const primaryBankAccount = person.bankAccounts?.[0];
 
   const handleEdit = (url: string) => () => {
-    router.push(`${url}?redirect=summary`, url.replace('[uuid]', person.uuid));
+    const href = `${url}?redirect=summary`;
+    router.push(href, href.replace('[uuid]', person.uuid));
   };
 
   return (
