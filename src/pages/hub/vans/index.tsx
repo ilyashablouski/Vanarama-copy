@@ -50,7 +50,7 @@ const VansPage: NextPage = () => (
         />
       </div>
     </section>
-    <section className="section">
+    <section className="section -bg-lighter">
       <div className="container">
         <Heading size="large" color="black">
           <span
@@ -187,40 +187,56 @@ const VansPage: NextPage = () => (
       </div>
     </section>
 
-    <section className="section">
+    <section className="section -bg-lighter">
       <div className="container">
-        <Heading className="-a-center -mb-400" size="large" color="black">
-          Leasing - The Simple Way To Get Your Brand New Car
-        </Heading>
-        <div className="-flex-h">
-          <Step step={1}>
-            <Heading tag="span" color="black" className="lead">
-              Choose
-            </Heading>
-            <Text color="darker" size="regular">
-              Get the car you want from our range of manufacturers - from
-              something sporty to something for all the family.
-            </Text>
-          </Step>
-          <Step step={2}>
-            <Heading tag="span" color="black" className="lead">
-              Apply
-            </Heading>
-            <Text color="darker" size="regular">
-              To lease your new car, we&apos;ll just need a few details to apply
-              for finance from one of our funding partners.
-            </Text>
-          </Step>
-          <Step step={3}>
-            <Heading tag="span" color="black" className="lead">
-              Drive
-            </Heading>
-            <Text color="darker" size="regular">
-              And that&apos;s it - once you&apos;ve been approved, your brand
-              new car will be delivered direct to your door.
-            </Text>
-          </Step>
-        </div>
+        <Grid lg="2" md="2" sm="2">
+          <Column md="row">
+            <Grid lg="3" sm="1" md="1">
+              <Column md="row">
+                <Heading
+                  className="-a-center -mb-400"
+                  size="large"
+                  color="black"
+                >
+                  Leasing - The Simple Way To Get Your Brand New Car
+                </Heading>
+              </Column>
+              <Column md="1">
+                <Step step={1}>
+                  <Heading tag="span" color="black" className="lead">
+                    Choose
+                  </Heading>
+                  <Text color="darker" size="regular">
+                    Get the car you want from our range of manufacturers - from
+                    something sporty to something for all the family.
+                  </Text>
+                </Step>
+              </Column>
+              <Column md="1">
+                <Step step={2}>
+                  <Heading tag="span" color="black" className="lead">
+                    Apply
+                  </Heading>
+                  <Text color="darker" size="regular">
+                    To lease your new car, we&apos;ll just need a few details to
+                    apply for finance from one of our funding partners.
+                  </Text>
+                </Step>
+              </Column>
+              <Column md="1">
+                <Step step={3}>
+                  <Heading tag="span" color="black" className="lead">
+                    Drive
+                  </Heading>
+                  <Text color="darker" size="regular">
+                    And that&apos;s it - once you&apos;ve been approved, your
+                    brand new car will be delivered direct to your door.
+                  </Text>
+                </Step>
+              </Column>
+            </Grid>
+          </Column>
+        </Grid>
       </div>
     </section>
 
@@ -254,19 +270,20 @@ const VansPage: NextPage = () => (
           <Column md="3">
             <div className="player-wrapper">
               <Media
+                responsive
                 src="https://player.vimeo.com/video/263419265"
                 vimeoConfig={{ color: 'EC6408', portrait: false }}
+                className="media-wrapper"
                 controls
                 width="100%"
                 height="100%"
-                className="react-player"
               />
             </div>
           </Column>
         </Grid>
       </div>
     </section>
-    <section className="section">
+    <section className="section -bg-lighter">
       <div className="container">
         <Grid lg="6" md="2" sm="2">
           <Column md="3">
@@ -363,7 +380,7 @@ const VansPage: NextPage = () => (
         </Grid>
       </div>
     </section>
-    <section className="section">
+    <section className="section -bg-lighter">
       <div className="container">
         <Grid lg="6" md="2" sm="2">
           <Column className="-col-300" md="row" lg="row">
@@ -479,7 +496,7 @@ const VansPage: NextPage = () => (
       </div>
     </section>
 
-    <section className="section">
+    <section className="section -bg-lighter">
       <div className="container">
         <Grid md="1">
           <Column md="row">
@@ -510,6 +527,7 @@ const VansPage: NextPage = () => (
     <League altText="vanarama national league" />
 
     <LogoRow
+      className="-bg-lighter"
       urls={[
         {
           label: 'bbc',
@@ -553,8 +571,9 @@ const VansPage: NextPage = () => (
         },
       ]}
     />
-
-    <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
+    <section className="section">
+      <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
+    </section>
   </main>
 );
 

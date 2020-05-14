@@ -40,7 +40,7 @@ const HomePage: NextPage = () => (
         <br /> Less With Vanarama
       </HeroTitle>
     </Hero>
-    <section className="section">
+    <section className="section -bg-lighter">
       <div className="container">
         <Heading size="large" color="black">
           <span
@@ -160,7 +160,7 @@ const HomePage: NextPage = () => (
         </Grid>
       </div>
     </section>
-    <section className="section">
+    <section className="section -bg-lighter">
       <div className="container">
         <Grid lg="6" md="2" sm="2">
           <Column className="-inset -middle" md="3">
@@ -188,13 +188,15 @@ const HomePage: NextPage = () => (
             </div>
           </Column>
           <Column md="3">
-            <div className="player-wrapper">
-              <Media
-                src="https://player.vimeo.com/video/263419265"
-                vimeoConfig={{ color: 'EC6408', portrait: false }}
-                className="react-player"
-              />
-            </div>
+            <Media
+              responsive
+              src="https://player.vimeo.com/video/263419265"
+              vimeoConfig={{ color: 'EC6408', portrait: false }}
+              className="media-wrapper"
+              controls
+              width="100%"
+              height="100%"
+            />
           </Column>
         </Grid>
       </div>
@@ -225,7 +227,7 @@ const HomePage: NextPage = () => (
         </Grid>
       </div>
     </section>
-    <section className="section">
+    <section className="section -bg-lighter">
       <div className="container">
         <Grid lg="4" md="2" sm="1">
           <Column md="1">
@@ -315,6 +317,7 @@ const HomePage: NextPage = () => (
     <League altText="vanarama national league" />
 
     <LogoRow
+      className="-bg-lighter"
       urls={[
         {
           label: 'bbc',
@@ -358,8 +361,9 @@ const HomePage: NextPage = () => (
         },
       ]}
     />
-
-    <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
+    <section className="section">
+      <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
+    </section>
   </main>
 );
 

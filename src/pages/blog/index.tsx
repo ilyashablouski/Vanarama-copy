@@ -55,7 +55,7 @@ const BlogPage: NextPage = () => (
         </Grid>
       </div>
     </section>
-    <section className="section -pb-500 -pt-500">
+    <section className="section -pb-500 -pt-500 -bg-lighter">
       <div className="container">
         <Heading size="large" color="black">
           <span
