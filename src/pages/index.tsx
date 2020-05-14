@@ -1,5 +1,5 @@
-import { NextPage } from 'next';
-import { useQuery } from '@apollo/react-hooks';
+// import { NextPage } from 'next';
+// import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
@@ -368,13 +368,7 @@ HomePage.fragments = {
   dropdownData: gql`
     fragment HomePageSections on HomePage {
       __typename
-      sections {
-        __typename
-        hero {
-          flag
-          title
-        }
-      }
+      sections
     }
   `,
 };
