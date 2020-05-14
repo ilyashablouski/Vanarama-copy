@@ -1,6 +1,5 @@
-// import { NextPage } from 'next';
+import { NextPage } from 'next';
 // import { useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
@@ -28,11 +27,10 @@ import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import Hero, { HeroTitle, HeroHeading } from '../components/Hero';
-import FCWithFragments from '../utils/FCWithFragments';
 
 const tabs = [{ label: 'Vans' }, { label: 'Pickups' }, { label: 'Cars' }];
 
-const HomePage: FCWithFragments<{}> = () => (
+const HomePage: NextPage = () => (
   <main>
     <Hero>
       <HeroHeading>The Vehicle Leasing Experts</HeroHeading>
@@ -363,12 +361,3 @@ const HomePage: FCWithFragments<{}> = () => (
 );
 
 export default HomePage;
-
-HomePage.fragments = {
-  dropdownData: gql`
-    fragment HomePageSections on HomePage {
-      __typename
-      sections
-    }
-  `,
-};
