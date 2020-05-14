@@ -2064,10 +2064,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@4.10.3":
-  version "4.10.3"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-4.10.3.tgz#7d03d22b0272a389011005b78f63eec21b6c6133"
-  integrity sha512-aqTuxTkAEnKDtudvGr/HFIh8hp4ADmBbsztoCBJ0dY2veQNeHiCaNoPADLbeo94SoRK6p5ZMUuYrDc7IEWt5TA==
+"@vanarama/uibook@4.11.2":
+  version "4.11.2"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-4.11.2.tgz#bdd5f4d44a9fd99f6e87b7fc06c9d26364fdde94"
+  integrity sha512-3IIYLX6tlc8ienenYjPk2IE2BstQVn+/QtcsffMLe1XazUDMxVzeTY5zndoNh4JSeQ6CCFgpp77/D5YxWNJmzA==
   dependencies:
     "@babel/preset-typescript" "^7.8.3"
     "@egjs/flicking" "^3.4.7"
