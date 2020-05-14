@@ -58,7 +58,7 @@ export function useUpdateAddresses(
       });
 
       // Add the addresses from the mutation to the end.
-      if (data?.personByUuid?.addresses) {
+      if (data?.personByUuid) {
         data.personByUuid.addresses = result.data?.createUpdateAddress || [];
 
         // Write our data back to the cache.

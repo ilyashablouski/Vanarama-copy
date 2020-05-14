@@ -60,7 +60,7 @@ export function useUpdateEmployment(
       });
 
       // Add the employment from the mutation to the end.
-      if (data?.personByUuid?.employmentHistories) {
+      if (data?.personByUuid) {
         data.personByUuid.employmentHistories =
           result.data?.createUpdateEmploymentHistory || [];
 
