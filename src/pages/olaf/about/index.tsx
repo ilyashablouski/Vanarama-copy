@@ -2,14 +2,14 @@ import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import AboutFormContainer from '../../../containers/AboutFormContainer/AboutFormContainer';
-import OLAFContainer from '../../../containers/OLAFContainer/OLAFContainer';
+import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
 
 const AboutYouPage: NextPage = () => {
   const router = useRouter();
   const uuid = router.query.uuid as string;
   return (
-    <OLAFContainer>
+    <OLAFLayout>
       <AboutFormContainer
         onCompleted={({ createUpdatePerson }) => {
           const url =
@@ -21,7 +21,7 @@ const AboutYouPage: NextPage = () => {
         }}
         personUuid={uuid}
       />
-    </OLAFContainer>
+    </OLAFLayout>
   );
 };
 

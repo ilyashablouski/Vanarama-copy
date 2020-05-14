@@ -14,11 +14,11 @@ jest.mock('next/router', () => ({
   },
 }));
 
-afterEach(() => {
-  jest.clearAllMocks();
-});
-
 describe('<SummaryFormContainer />', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should render personal details correctly', async () => {
     // ARRANGE
     const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
@@ -263,7 +263,7 @@ describe('<SummaryFormContainer />', () => {
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
       '/olaf/about/[uuid]?redirect=summary',
-      '/olaf/about/fd2333b8-6da1-47d2-837d-bc69849e0764',
+      '/olaf/about/fd2333b8-6da1-47d2-837d-bc69849e0764?redirect=summary',
     );
   });
 
@@ -288,7 +288,7 @@ describe('<SummaryFormContainer />', () => {
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
       '/olaf/employment-history/[uuid]?redirect=summary',
-      '/olaf/employment-history/fd2333b8-6da1-47d2-837d-bc69849e0764',
+      '/olaf/employment-history/fd2333b8-6da1-47d2-837d-bc69849e0764?redirect=summary',
     );
   });
 
@@ -313,7 +313,7 @@ describe('<SummaryFormContainer />', () => {
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
       '/olaf/expenses/[uuid]?redirect=summary',
-      '/olaf/expenses/fd2333b8-6da1-47d2-837d-bc69849e0764',
+      '/olaf/expenses/fd2333b8-6da1-47d2-837d-bc69849e0764?redirect=summary',
     );
   });
 
@@ -338,7 +338,7 @@ describe('<SummaryFormContainer />', () => {
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
       '/olaf/bank-details/[uuid]?redirect=summary',
-      '/olaf/bank-details/fd2333b8-6da1-47d2-837d-bc69849e0764',
+      '/olaf/bank-details/fd2333b8-6da1-47d2-837d-bc69849e0764?redirect=summary',
     );
   });
 });

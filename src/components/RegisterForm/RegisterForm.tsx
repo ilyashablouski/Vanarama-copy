@@ -44,11 +44,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
   const watchPassword = watch('password');
 
   return (
-    <Form
-      dataTestId="register-form"
-      className="form"
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <Form dataTestId="register-form" onSubmit={handleSubmit(onSubmit)}>
       <Formgroup
         controlId="register-form_email"
         label="Your Email"

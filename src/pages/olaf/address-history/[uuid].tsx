@@ -3,14 +3,14 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
 import AddressFormContainer from '../../../containers/AddressFormContainer/AddressFormContainer';
-import OLAFContainer from '../../../containers/OLAFContainer/OLAFContainer';
+import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
 
 const AddressHistoryPage: NextPage = () => {
   const router = useRouter();
   const uuid = router.query.uuid as string;
   return (
-    <OLAFContainer>
+    <OLAFLayout>
       <AddressFormContainer
         onCompleted={() => {
           const url =
@@ -22,7 +22,7 @@ const AddressHistoryPage: NextPage = () => {
         }}
         personUuid={uuid}
       />
-    </OLAFContainer>
+    </OLAFLayout>
   );
 };
 

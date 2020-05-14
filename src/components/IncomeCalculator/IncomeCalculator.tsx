@@ -11,6 +11,7 @@ import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import { gql } from 'apollo-boost';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import Form from '@vanarama/uibook/lib/components/organisms/form';
 import FCWithFragments from '../../utils/FCWithFragments';
 import validationSchema from './IncomeCalculator.validation';
 import {
@@ -35,11 +36,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
   const values = watch();
   const { disposableIncome, monthlyExpenses } = calculateIncome(values);
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      id="incomeCalculatorForm"
-      className="form"
-    >
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <Heading color="black" size="xlarge" dataTestId="expenses">
         Expenses
       </Heading>
@@ -280,7 +277,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
           />
         </FormGroup>
       </div>
-    </form>
+    </Form>
   );
 };
 

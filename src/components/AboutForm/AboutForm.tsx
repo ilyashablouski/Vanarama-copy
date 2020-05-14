@@ -7,6 +7,7 @@ import Select from '@vanarama/uibook/lib/components/atoms/select/';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput/';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { gql } from 'apollo-boost';
 import { Controller, useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
@@ -41,7 +42,7 @@ const AboutForm: FCWithFragments<IProps> = ({
   useDateOfBirthValidation(watch, triggerValidation);
 
   return (
-    <form onSubmit={handleSubmit(submit)} id="aboutForm" className="form">
+    <Form onSubmit={handleSubmit(submit)}>
       <Heading color="black" size="xlarge" dataTestId="aboutHeading">
         About You
       </Heading>
@@ -279,7 +280,7 @@ const AboutForm: FCWithFragments<IProps> = ({
         iconPosition="after"
         dataTestId="aboutSubmit"
       />
-    </form>
+    </Form>
   );
 };
 
