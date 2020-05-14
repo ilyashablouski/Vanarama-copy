@@ -9,6 +9,7 @@ import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import SortCode from '@vanarama/uibook/lib/components/molecules/sortcode';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
+import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { gql } from 'apollo-boost';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -34,11 +35,7 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
   const years = genYears(100);
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      id="bankDetailsForm"
-      className="form"
-    >
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <Heading color="black" size="xlarge" dataTestId="bankDetails">
         Bank Details
       </Heading>
@@ -266,7 +263,7 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
         iconPosition="after"
         dataTestId="continue"
       />
-    </form>
+    </Form>
   );
 };
 
