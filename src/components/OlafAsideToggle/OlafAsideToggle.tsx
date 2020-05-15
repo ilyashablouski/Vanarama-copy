@@ -27,7 +27,7 @@ const OlafAsideToggle: React.FC = ({ children }) => {
         )}
         type="button"
         onClick={() => {
-          setToggle(!toggle);
+          setToggle(prev => !prev);
         }}
       >
         <ButtonWithIcon
