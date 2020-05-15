@@ -40,7 +40,7 @@ const HomePage: NextPage = () => (
         <br /> Less With Vanarama
       </HeroTitle>
     </Hero>
-    <section className="section">
+    <section className="section -bg-lighter">
       <div className="container">
         <Heading size="large" color="black">
           <span
@@ -160,7 +160,7 @@ const HomePage: NextPage = () => (
         </Grid>
       </div>
     </section>
-    <section className="section">
+    <section className="section -bg-lighter">
       <div className="container">
         <Grid lg="6" md="2" sm="2">
           <Column className="-inset -middle" md="3">
@@ -189,8 +189,13 @@ const HomePage: NextPage = () => (
           </Column>
           <Column md="3">
             <Media
+              responsive
               src="https://player.vimeo.com/video/263419265"
               vimeoConfig={{ color: 'EC6408', portrait: false }}
+              className="media-wrapper"
+              controls
+              width="100%"
+              height="100%"
             />
           </Column>
         </Grid>
@@ -222,7 +227,7 @@ const HomePage: NextPage = () => (
         </Grid>
       </div>
     </section>
-    <section className="section">
+    <section className="section -bg-lighter">
       <div className="container">
         <Grid lg="4" md="2" sm="1">
           <Column md="1">
@@ -312,6 +317,7 @@ const HomePage: NextPage = () => (
     <League altText="vanarama national league" />
 
     <LogoRow
+      className="-bg-lighter"
       urls={[
         {
           label: 'bbc',
