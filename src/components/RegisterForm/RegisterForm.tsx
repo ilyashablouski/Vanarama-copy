@@ -67,11 +67,10 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
               const results = await onEmailAlreadyExists({
                 variables: { email: value },
               });
-              const emailAlreadyExists = results?.data?.emailAlreadyExists
+
+              return results?.data?.emailAlreadyExists
                 ? 'This email address already exists. Please log in'
                 : undefined;
-
-              return emailAlreadyExists;
             },
           })}
           type="text"
