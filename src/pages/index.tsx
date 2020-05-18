@@ -54,7 +54,7 @@ const HomePage: NextPage = () => (
           <div>
             <Slider className="-mh-auto" gutter={16}>
               {[1, 2, 3, 4, 5].map(k => (
-                <div key={k} style={{ width: 345 }}>
+                <div key={k.toString()} style={{ width: 345 }}>
                   <ProductCard
                     flag={{
                       accentIcon: <Icon icon={<Flame />} color="white" />,
