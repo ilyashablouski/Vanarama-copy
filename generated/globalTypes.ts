@@ -31,6 +31,7 @@ export interface AddressInputObject {
   propertyStatus?: string | null;
   serviceId?: string | null;
   startedOn?: any | null;
+  uuid?: string | null;
 }
 
 /**
@@ -60,7 +61,6 @@ export interface CompanyInputObject {
   companyType?: string | null;
   deletedAt?: any | null;
   emailAddresses?: EmailAddressInputObject[] | null;
-  id?: string | null;
   leadManagerId?: string | null;
   legalName: string;
   monthlyAmountBeingReplaced?: string | null;
@@ -74,6 +74,7 @@ export interface CompanyInputObject {
   tradingName?: string | null;
   tradingSince?: any | null;
   turnoverOutsideUk?: number | null;
+  uuid?: string | null;
   vatRegistrationNumber?: string | null;
   withTradingAddress?: boolean | null;
 }
@@ -85,6 +86,7 @@ export interface EmailAddressInputObject {
   kind?: string | null;
   partyId?: string | null;
   primary?: boolean | null;
+  uuid?: string | null;
   value: string;
 }
 
@@ -94,6 +96,7 @@ export interface EmailAddressInputObject {
 export interface EmploymentHistoryInputObject {
   employmentHistories: EmploymentInputObject[];
   partyId: string;
+  uuid?: string | null;
 }
 
 /**
@@ -154,7 +157,6 @@ export interface PersonInputObject {
   emailConsent?: boolean | null;
   firstName: string;
   gender?: string | null;
-  id?: string | null;
   isApplicant?: boolean | null;
   isDirector?: boolean | null;
   jobTitle?: string | null;
@@ -173,6 +175,7 @@ export interface PersonInputObject {
   termsAndConditions?: boolean | null;
   title?: string | null;
   tradingName?: string | null;
+  uuid?: string | null;
   vatRegistrationNumber?: string | null;
 }
 
@@ -181,10 +184,10 @@ export interface PersonInputObject {
  */
 export interface RoleInputObject {
   companyId?: number | null;
-  id?: string | null;
   personId?: number | null;
+  position?: string | null;
   primaryContact?: boolean | null;
-  roleLevel?: string | null;
+  uuid?: string | null;
 }
 
 /**
@@ -194,6 +197,7 @@ export interface TelephoneNumberInputObject {
   kind?: string | null;
   partyId?: string | null;
   primary?: boolean | null;
+  uuid?: string | null;
   value: string;
 }
 
