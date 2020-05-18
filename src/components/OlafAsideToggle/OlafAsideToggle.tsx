@@ -1,41 +1,32 @@
-import React, { FC, useState, ReactNode } from 'react';
+import React, { useState } from 'react';
 import cx from 'classnames';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
+import Button from '@vanarama/uibook/lib/components/atoms/button';
 import ChevronUpSharp from '@vanarama/uibook/lib/assets/icons/ChevronUpSharp';
 import ChevronDownSharp from '@vanarama/uibook/lib/assets/icons/ChevronDownSharp';
-
-const ButtonWithIcon: FC<{ icon: ReactNode }> = ({ icon }) => {
-  return (
-    <div className="button--inner">
-      View Your Order
-      <Icon icon={icon} size="small" color="white" />
-    </div>
-  );
-};
 
 const OlafAsideToggle: React.FC = ({ children }) => {
   const [toggle, setToggle] = useState(false);
 
   return (
     <div className="-vp-max:small">
-      <button
+      <Button
         data-testid="olaf-aside-toggle"
-        className={cx(
-          `button -darker -xsmall -solid -fullwidth  -mt-400 -mv-400 ${
-            toggle ? '-mb-400' : ''
-          }`,
-        )}
-        type="button"
+        className={cx('-fullwidth -mt-400 -mv-400', {
+          '-mb-400': toggle,
+        })}
         onClick={() => {
           setToggle(prev => !prev);
         }}
-      >
-        <ButtonWithIcon
-          icon={!toggle ? <ChevronDownSharp /> : <ChevronUpSharp />}
-        />
-      </button>
+        color="darker"
+        fill="solid"
+        size="xsmall"
+        label="View Your Order"
+        iconPosition="after"
+        iconColor="white"
+        icon={!toggle ? <ChevronDownSharp /> : <ChevronUpSharp />}
+      />
 
-      {!toggle ? null : <div>{children}</div>}
+      {toggle && <div>{children}</div>}
     </div>
   );
 };
