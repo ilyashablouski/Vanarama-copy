@@ -62,7 +62,7 @@ const VansPage: NextPage = () => (
         </Heading>
         <Slider className="-mh-auto" gutter={16}>
           {[1, 2, 3, 4, 5].map(k => (
-            <div key={k} style={{ width: 345 }}>
+            <div key={k.toString()} style={{ width: 345 }}>
               <ProductCard
                 flag={{
                   accentIcon: <Icon icon={<Flame />} color="white" />,
@@ -255,13 +255,13 @@ const VansPage: NextPage = () => (
                 depreciating asset at the end of your contract.
               </Text>
               <IconList>
-                <IconListItem key="1st" iconColor="orange">
+                <IconListItem iconColor="orange">
                   Choose your contract length &amp; agreed mileage
                 </IconListItem>
-                <IconListItem key="2nd" iconColor="orange">
+                <IconListItem iconColor="orange">
                   Pay an initial payment
                 </IconListItem>
-                <IconListItem key="3rd" iconColor="orange">
+                <IconListItem iconColor="orange">
                   Set up your agreed fixed monthly rental
                 </IconListItem>
               </IconList>
