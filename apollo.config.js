@@ -6,7 +6,7 @@ module.exports = {
      */
     service: {
       name: 'federation-gateway',
-      url: 'https://yv8w5m1kpc.execute-api.eu-west-2.amazonaws.com/dev/graphql',
+      url: 'https://7wz7q9eq15.execute-api.eu-west-2.amazonaws.com/dev/graphql',
     },
   },
 };
