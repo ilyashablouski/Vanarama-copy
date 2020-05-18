@@ -67,7 +67,7 @@ const BlogPage: NextPage = () => (
         </Heading>
         <Slider className="-mh-auto" gutter={16}>
           {[1, 2, 3, 4, 5].map(k => (
-            <div key={k} style={{ width: 345 }}>
+            <div key={k.toString()} style={{ width: 345 }}>
               <Card className="-a-left">
                 <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
                 <div className="-p-300 -col-100">
@@ -108,7 +108,7 @@ const BlogPage: NextPage = () => (
             </Heading>
           </Column>
           {[1, 2, 3, 4, 5, 6].map(v => (
-            <Column md="2" key={v}>
+            <Column md="2" key={v.toString()}>
               <Card>
                 <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg" />
                 <CardContent flex className="-p-300">
