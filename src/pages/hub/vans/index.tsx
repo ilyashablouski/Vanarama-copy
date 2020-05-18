@@ -516,7 +516,7 @@ const VansPage: NextPage = () => (
                 'Isuzu',
                 'Porche',
               ].map(n => (
-                <Button color="teal" size="large" label={n} />
+                <Button key={n} color="teal" size="large" label={n} />
               ))}
             </div>
           </Column>
