@@ -12,7 +12,7 @@ import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { gql } from 'apollo-boost';
 import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, FieldError, useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { genMonths, genYears } from '../../utils/helpers';
 import validationSchema from './BankDetails.validation';
@@ -33,6 +33,9 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
 
   const months = genMonths();
   const years = genYears(100);
+  const sortCodeErrors = (
+    ((errors?.sortCode as unknown) as (FieldError | undefined)[]) || []
+  ).filter(Boolean);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -73,13 +76,17 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
       </FormGroup>
       <FormGroup
         label="Sort Code"
-        error={errors?.sortCode?.message?.toString()}
+        error={
+          sortCodeErrors.length
+            ? sortCodeErrors[0]?.message?.toString()
+            : undefined
+        }
       >
         <Controller
-          id="sortCode"
           name="sortCode"
-          dataTestId="sortCode"
-          width={4.25}
+          firstInputProps={{ 'aria-label': 'Sort code first two digits' }}
+          middleInputProps={{ 'aria-label': 'Sort code middle two digits' }}
+          lastInputProps={{ 'aria-label': 'Sort code last two digits' }}
           as={SortCode}
           control={control}
           onChange={([, parts]) => parts}
@@ -229,7 +236,11 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
       </FormGroup>
       <FormGroup
         label="Please Confirm"
-        error={errors?.termsAndConditions?.message?.toString()}
+        error={
+          errors?.affordRental?.message?.toString() ||
+          errors?.checkCreditHistory?.message?.toString() ||
+          errors?.termsAndConditions?.message?.toString()
+        }
       >
         <CheckBox
           id="affordRental"
