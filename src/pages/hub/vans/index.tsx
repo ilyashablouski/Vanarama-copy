@@ -258,11 +258,11 @@ const VansPage: NextPage = () => (
                 <IconListItem key="1st" iconColor="orange">
                   Choose your contract length &amp; agreed mileage
                 </IconListItem>
-                <IconListItem key="2nd"  iconColor="orange">
-                 Pay an initial payment
+                <IconListItem key="2nd" iconColor="orange">
+                  Pay an initial payment
                 </IconListItem>
-                <IconListItem key="3rd"  iconColor="orange">
-                 Set up your agreed fixed monthly rental
+                <IconListItem key="3rd" iconColor="orange">
+                  Set up your agreed fixed monthly rental
                 </IconListItem>
               </IconList>
             </div>
