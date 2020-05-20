@@ -1,303 +1,343 @@
-#!groovy
-import groovy.json.*
+serviceName = 'next-storefront'
+ecrRegion = 'eu-west-2'
+stack = 'grid'
+dockerRepoName = "000379120260.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}"
+taskDefFile = "deploy/aws/task-definition.json"
+currentCommit = ""
+applyInfraPlan = false
 
-node('master') {
-   ansiColor('xterm') {
+def app_environment = [
+    "devops": [
+        clusterName: 'grid-dev',
+        logGroupName: "dev/grid/apps",
+        taskFamily: "grid-dev-${serviceName}",
+        app: serviceName,
+        ssmParametersBase: "arn:aws:ssm:eu-west-2:000379120260:parameter/dev/${stack}/${serviceName}",
+        env: 'dev',
+        stack: 'grid',
+        state_bucket: 'autorama-terraform-state',
+        slackChannel: '#jenkinsalerts'
+    ],
+    "develop": [
+        clusterName: 'grid-dev',
+        logGroupName: "dev/grid/apps",
+        taskFamily: "grid-dev-${serviceName}",
+        app: serviceName,
+        ssmParametersBase: "arn:aws:ssm:eu-west-2:000379120260:parameter/dev/${stack}/${serviceName}",
+        env: 'dev',
+        stack: 'grid',
+        state_bucket: 'autorama-terraform-state',
+        slackChannel: '#jenkinsalerts'
+    ]
+]
 
-    echo "${WORKSPACE}"
+def ecrLogin() {
+    //todo - this will log the whole of jenkins into this registry ?
+    //todo withcredentials repitition - can we separate this to library, or at least once-per-pipeline
+    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-techamigo-keys', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
+        sh """
+            set +x #don't print output.
+            \$(aws ecr get-login --no-include-email --region ${ecrRegion})
+        """
+    }
+}
 
-    // set global environment variables
-    env.GIT_TAG = "jenkins-$BUILD_NUMBER"
+def getTaskDefinition(family, region) {
+    return "${family}:" + sh(
+        returnStdout: true,
+        script: "aws ecs describe-task-definition --task-definition ${family} --region ${region} | egrep 'revision'  | tr ',' ' ' | awk '{print \$2}'"
+    ).trim()
+}
 
-    // This path is needed for terraform to work
-    env.PATH += ":/usr/local/bin/"
+pipeline {
+    agent none
+    options {
+        timestamps()
+        ansiColor('xterm')
+    }
 
-    // aws environment variables required for aws cli
-    env.AWS_DEFAULT_REGION = "eu-west-2"
-    def ecRegistry      = "https://%ACCOUNT%.dkr.ecr.eu-west-2.amazonaws.com"
+    stages {
+        stage("1: Create docker repo") {
+            agent { node('master') }
+            options { skipDefaultCheckout() }
 
-    // Jenkins Job specific variables
-    def serviceName = "nextstorefront"
-    def taskFamily
-    def app_subdomain_name  = "autorama.co.uk"
-    def currentBranch = ""
-    def releaseBranch = ""
-    def masterBranch = ""
-
-    try {
-      withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
-        stage("Checkout scm") {
-          cleanWs()
-          deleteDir()
-          checkout scm
-          currentBranch = scm.branches[0].name
-          echo "Current Branch = ${currentBranch}"
-
-          if (currentBranch == "develop" || currentBranch == "devops") {
-            sh "docker build --no-cache --build-arg NPM_TOKEN=${NPM_TOKEN} -t autorama-nextstorefront:latest -f Dockerfile ."
-          }
+            steps {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-techamigo-keys', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
+                    sh "aws ecr describe-repositories --repository-names ${serviceName} --region ${ecrRegion} || aws ecr create-repository --repository-name ${serviceName} --region ${ecrRegion}"
+                }
+            }
         }
 
-        stage("Install dependencies") {
-          nodejs('node') {
-            sh '''
-              npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
-              yarn install
-            '''
-          }
-        }
+        stage("2: Unit testing") {
+            // TODO: run me in docker -- zero cleanup required; also concurrency safe
+            //agent { node('master') }
+            agent {
+                ecs {
+                    inheritFrom 'grid-dev-jenkins-agent'
+                }
+            }
 
-        stage("Unit test execution") {
-          nodejs('node') {
-            sh 'yarn test --coverage'
-          }
-        }
-
-        stage('ESLint execution') {
-          nodejs('node') {
-            sh 'yarn lint'
-          }
-        }
-
-        stage('TypeScript build') {
-          nodejs('node') {
-            sh 'yarn typecheck'
-          }
-        }     
-      }
-
-      stage("Sonarqube analysis") {
-        nodejs('node') {
-          // requires SonarQube Scanner 2.8+
-          def scannerHome = tool 'SonarQubeScanner';
-          withSonarQubeEnv('My SonarQube Server') {
-            sh "${scannerHome}/bin/sonar-scanner"
-          }
-        }
-      }
-
-      if (currentBranch == "develop" || currentBranch == "devops")
-      {
-        stage ("Provision Dev Cluster") {
-
-              def currentService=""
-              def taskDefinitionInitialNumber="nextstorefront:1"
-              def clusterName = ""
-
-              if(currentBranch == "devops")
-              {
-                clusterName = "Grid-Testing"
+            steps {
+              withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
+                    sh '''npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"'''
+                    sh "yarn install"
+                    sh "yarn pack --filename next-storefront.tar.gz"
+                    sh "yarn test --coverage"
+                    sh "yarn lint"
+                    sh "yarn typecheck"
+                    stash includes: 'next-storefront.tar.gz', name: 'package'
               }
-              else{
-                clusterName = "Grid-Development"
-              }
+            }
+        }
 
-              withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-techamigo-keys', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-
-
-                // TODO : Add better logic to check cluster and service check
-                def currentCluster = sh (
-                        returnStdout: true,
-                        script:  "                                                              \
-                          aws ecs list-clusters --output text                                     \
-                                              | egrep '${clusterName}'                              \
-                                              | awk '{print \$2}'                               \
-                        "
-                      ).trim()
-
-                println "current cluster : ${currentCluster}"
-
-                dir('terraformECS') {
-                git branch: 'master', credentialsId: 'TechAmigo-DevOps-New', url: 'https://github.com/Autorama/ACORNInfrastructure.git'
-
-                if(currentCluster == "") {
-
-                        sh """
-                          cd ecs-cluster
-                          terraform --version
-                          terraform init -backend-config='key=service/ecs-service-${clusterName}.tfstate'
-                          terraform plan -var-file=ecs-cluster-dev.tfvars -input=false -out=acorn-cluster-plan -var cluster=${clusterName} -var app_subdomain_name=${clusterName}.${app_subdomain_name}
-                          terraform apply acorn-cluster-plan
-                        """
-
-                    } else {
-
-                          sh 'echo -e "\033[32m"'
-                          echo "Cluster ${clusterName} is already created"
-                          sh 'echo -e "\033[0m"'
-
+        stage("3. Static Code Analysis") {
+            agent { node('master') }
+            steps {
+              nodejs('node') {
+                  // requires SonarQube Scanner 2.8+
+                  script {
+                      def scannerHome = tool 'SonarQubeScanner';
+                      withSonarQubeEnv('My SonarQube Server') {
+                          sh "${scannerHome}/bin/sonar-scanner"
+                        }
                     }
+                }
+            }
+        }
 
-                    currentCluster = sh (
-                        returnStdout: true,
-                        script:  "                                                              \
-                          aws ecs list-clusters --output text                                     \
-                                              | egrep '${clusterName}'                              \
-                                              | awk '{print \$2}'                               \
-                        "
-                      ).trim()
+        stage("4. Production Build & push") {
+            agent { node('master') }
+            environment { //todo can the agent determine path.
+                PATH = "${env.PATH}:/usr/local/bin"
+            }
+            when {
+                beforeAgent true
+                anyOf {
+                  branch 'develop'
+                  branch 'devops'
+                }
+            }
 
-                    println "current cluster : ${currentCluster}"
+            steps {
+                ecrLogin()
 
-                    if (currentCluster != "")
-                    {
-                        currentService = sh (
-                                returnStdout: true,
-                                script:  "                                                              \
-                                  aws ecs list-services --cluster ${clusterName} --output text                                     \
-                                                      | egrep '${serviceName}'                              \
-                                                      | awk '{print \$2}'                               \
-                                "
-                              ).trim()
+                script {
+                    currentCommit = env.GIT_COMMIT
+                }
+                withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
+                 sh """
+                    docker pull $dockerRepoName:latest || true
+                    docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --cache-from $dockerRepoName:latest .
+                    docker push $dockerRepoName:${env.GIT_COMMIT}
+                    docker tag $dockerRepoName:${env.GIT_COMMIT} $dockerRepoName:latest
+                    docker push $dockerRepoName:latest
+                    docker rmi $dockerRepoName:latest
+                 """
+                } 
+            }
+        }
 
-                    println "current Service: ${currentService}"
+        stage("5. Register task definition") {
+            agent { node('master') }
+            environment { //todo can the agent determine path.
+                PATH = "${env.PATH}:/usr/local/bin"
+                B_NAME = "${env.BRANCH_NAME}"
+            }
+            when {
+                beforeAgent true
+                anyOf {
+                  branch 'develop'
+                  branch 'devops'
+                }
+            }
 
-                    // TODO : find the better solution for task definition and service create and update
-                    if(currentService == "") {
-                      sh """
-                          cd ecs-service
-                          terraform init -backend-config='key=service/ecs-service-${clusterName}.tfstate'
-                          terraform plan -var-file=ecs-service-dev.tfvars -input=false -out=acorn-service-plan -var service_name=${serviceName} -var cluster_arn=${currentCluster} -var task_definition=${taskDefinitionInitialNumber}
-                          terraform apply acorn-service-plan
-                        """
-                      } else {
+            steps {
+                script {
+                    def clusterName = app_environment["${B_NAME}"].clusterName
+                    def appName = app_environment["${B_NAME}"].app
+                    def logGroupName = app_environment["${B_NAME}"].logGroupName
+                    def taskFamily = app_environment["${B_NAME}"].taskFamily
+                    def env = app_environment["${B_NAME}"].env
+                    def ssmParametersBase = app_environment["${B_NAME}"].ssmParametersBase
 
-                              sh 'echo -e "\033[32m"'
-                              echo "Service ${serviceName} is already created"
-                              sh 'echo -e "\033[0m"'
-                      }
+                    // 1. register-task-definition - new task def
+                    sh  """
+                        cat ${taskDefFile} \
+                            | sed -e "s;%APP_NAME%;${appName};g" \
+                            | sed -e "s;%LOG_GROUP%;${logGroupName};g" \
+                            | sed -e "s;%IMAGE%;$dockerRepoName:$currentCommit;g" \
+                            | sed -e "s;%ENVIRONMENT%;${env};g" \
+                            | sed -e "s;%AWS_REGION%;${ecrRegion};g" \
+                            | sed -e "s;%SSM_PARAMETER_BASE%;${ssmParametersBase};g" \
+                            | tee ${taskDefFile}_final.json
+                        aws ecs register-task-definition --execution-role-arn arn:aws:iam::000379120260:role/Acorn-DevOps \
+                            --family ${taskFamily} --cli-input-json file://${taskDefFile}_final.json --region ${ecrRegion}
+                    """
+                }
+            }
+        }
+
+        stage("6. Infra - plan") {
+            agent {
+                ecs {
+                    inheritFrom 'grid-dev-jenkins-agent'
+                    image '000379120260.dkr.ecr.eu-west-2.amazonaws.com/jenkins-agent-terraform:latest'
+                }
+            }
+            environment { //todo can the agent determine path.
+                PATH = "${env.PATH}:/usr/local/bin"
+                B_NAME = "${env.BRANCH_NAME}"
+            }
+            when {
+                beforeAgent true
+                anyOf {
+                  branch 'develop'
+                  branch 'devops'
+                }
+            }
+
+            steps {
+                lock(env.JOB_NAME) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-techamigo-keys', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        sshagent (credentials: ['git-ssh-credentials-readonly']) {
+                            script {
+
+                                def taskFamily = app_environment["${B_NAME}"].taskFamily
+                                def taskDefinition = getTaskDefinition(taskFamily, ecrRegion)
+                                def app = app_environment["${B_NAME}"].app
+                                def env = app_environment["${B_NAME}"].env
+                                def stack = app_environment["${B_NAME}"].stack
+                                def clusterName = app_environment["${B_NAME}"].clusterName
+                                def state_bucket = app_environment["${B_NAME}"].state_bucket
+
+                                sh """
+                                    mkdir $HOME/.ssh && chmod 700 $HOME/.ssh && ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+                                    cd deploy/terraform
+                                        terraform init -backend-config="backend.tfvars" -backend-config="key=${env}/${app}.tfstate"
+                                """
+
+                                def terraformStatus = sh(
+                                    returnStatus:true, 
+                                    script: 
+                                        "cd deploy/terraform; set +e; terraform plan -detailed-exitcode -var=stack=${stack} \
+                                        -var=app=${app} \
+                                        -var=env=${env} \
+                                        -var=state_bucket=${state_bucket} \
+                                        -var=task_definition=${taskDefinition} \
+                                        -out=.plan")
+                                sh """    
+                                    cd ../../
+                                """
+
+                                stash includes: 'deploy/terraform/.plan', name: 'plan'
+
+                                if (terraformStatus == 0) {
+                                    currentBuild.result == 'SUCCESS'
+                                }
+
+                                if (terraformStatus == 2) {
+                                    stash includes: 'deploy/terraform/.plan', name: 'plan'
+                                    slackSend channel: app_environment["${app_env_map}"].slackChannel, color: 'good', message: "Terraform Plan Awaiting Approval: ${J_NAME} - ${B_NUMBER} "
+                                    try {
+                                        input message: 'Apply Plan?', ok: 'Apply'
+                                        applyInfraPlan = true
+                                    } catch (err) {
+                                        slackSend channel: app_environment["${app_env_map}"].slackChannel, color: 'warning', message: "Terraform Plan Discarded: ${J_NAME} - ${B_NUMBER} "
+                                        applyInfraPlan = false
+                                        currentBuild.result = 'UNSTABLE'
+                                        exit 0
+                                    }
+                                }
+
+                                if (terraformStatus == 1) {
+                                    slackSend channel: app_environment["${app_env_map}"].slackChannel, color: '#0080ff', message: "Terraform Plan Failed: ${J_NAME} - ${B_NUMBER} "
+                                    currentBuild.result = 'FAILURE'
+                                    exit 0
+                                }
+
+                            }
+                        }
                     }
-                  }
-              }
-          }
-
-      stage("Dev Deploy") {
-
-        def clusterName = ""
-        if(currentBranch == "devops")
-        {
-          clusterName = "Grid-Testing"
-        }
-        else{
-          clusterName = "Grid-Development"
+                }
+            }
         }
 
-        def taskDefile      = "file://aws/task-definition-development.json"
-        taskFamily = "nextstorefront"
+        stage("7. Infra - apply") {
+            input {
+                message 'Continue with infra apply?'
+            }
+            agent {
+                ecs {
+                    inheritFrom 'grid-dev-jenkins-agent'
+                    image '000379120260.dkr.ecr.eu-west-2.amazonaws.com/jenkins-agent-terraform:latest'
+                }
+            }
+            environment { //todo can the agent determine path.
+                PATH = "${env.PATH}:/usr/local/bin"
+                B_NAME = "${env.BRANCH_NAME}"
+            }
+            when {
+                beforeAgent true
+                beforeInput true
+                anyOf {
+                  branch 'develop'
+                  branch 'devops'
+                }
+                expression {
+                    applyInfraPlan == true
+                }
+            }
+            steps {
+                lock(env.JOB_NAME) {
+                    // TODO - move tf here - needs approval steps e.g. following stages only when required
+                    // TODO - env -> plan mapping
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-techamigo-keys', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                        sshagent (credentials: ['git-ssh-credentials-readonly']) {
+                            unstash 'plan'
+                            script {
+                                def app = app_environment["${B_NAME}"].app
+                                def clusterName = app_environment["${B_NAME}"].clusterName
 
-        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-techamigo-keys', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-
-          sh '''#!/usr/bin/env bash
-              if [[ $(aws ecr describe-repositories --query 'repositories[?repositoryName==`autorama-nextstorefront`].repositoryUri' --output text) -lt 1 ]]; then
-              aws ecr create-repository --repository-name autorama-nextstorefront;
-              fi
-          '''
-
-          sh '''
-            export ECR_REPO=$(aws ecr describe-repositories --query 'repositories[?repositoryName==`autorama-nextstorefront`].repositoryUri' --output text)
-            $(aws ecr get-login --no-include-email )
-            docker tag autorama-nextstorefront:latest ${ECR_REPO}:latest
-            docker push ${ECR_REPO}:latest
-          '''
-
-            // Get current [TaskDefinition#revision-number]
-              def currTaskDef = sh (
-                returnStdout: true,
-                script:  "                                                              \
-                  aws ecs describe-task-definition  --task-definition ${taskFamily}     \
-                                                    | egrep 'revision'                  \
-                                                    | tr ',' ' '                        \
-                                                    | awk '{print \$2}'                 \
-                "
-              ).trim()
-
-          println "current task Def: ${currTaskDef}"
-
-          def currentTask = sh (
-            returnStdout: true,
-            script:  "                                                              \
-              aws ecs list-tasks  --cluster ${clusterName}                          \
-                                  --family ${taskFamily}                            \
-                                  --output text                                     \
-                                  | egrep 'TASKARNS'                                \
-                                  | awk '{print \$2}'                               \
-           "
-          ).trim()
-
-          println "current task : ${currentTask}"
-
-          if(currTaskDef) {
-            sh  "                                                                   \
-              aws ecs update-service  --cluster ${clusterName}                      \
-                                      --service ${serviceName}                      \
-                                      --task-definition ${taskFamily}:${currTaskDef}\
-                                      --desired-count 0                             \
-            "
-          }
-
-          if (currentTask) {
-            sh "aws ecs stop-task --cluster ${clusterName} --task ${currentTask}"
-          }
-
-          // Register the new [TaskDefinition]
-          // TODO : addition of the execution role in automated way
-          sh  "                                                                     \
-            aws ecs register-task-definition --execution-role-arn arn:aws:iam::000379120260:role/Acorn-DevOps --family ${taskFamily}                \
-                                              --cli-input-json ${taskDefile}        \
-          "
-
-          // Get the last registered [TaskDefinition#revision]
-          def taskRevision = sh (
-            returnStdout: true,
-            script:  "                                                              \
-              aws ecs describe-task-definition  --task-definition ${taskFamily}     \
-                                                | egrep 'revision'                  \
-                                                | tr ',' ' '                        \
-                                                | awk '{print \$2}'                 \
-            "
-          ).trim()
-
-          // ECS update service to use the newly registered [TaskDefinition#revision]
-          sh  "                                                                     \
-            aws ecs update-service  --cluster ${clusterName}                        \
-                                    --service ${serviceName}                        \
-                                    --task-definition ${taskFamily}:${taskRevision} \
-                                     --desired-count 1                              \
-          "
-          }
+                                sh """
+                                    mkdir $HOME/.ssh && chmod 700 $HOME/.ssh && ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+                                    cd deploy/terraform
+                                        terraform init -backend-config="backend.tfvars" -backend-config="key=${env}/${app}.tfstate"
+                                        terraform apply .plan
+                                    cd ../../
+                                """
+                            }
+                        }
+                    }
+                }
+            }
         }
-      }
 
-      stage("Jira Feedback"){
-          // This is for Build Feedback to Jira
-          println scm.branches[0].name
-          currentBranch = scm.branches[0].name
-          jiraSendBuildInfo branch: "${currentBranch}", site: 'autorama.atlassian.net'
-          //
-      }
-      stage("Cleanup"){
-        try{
-          sh '''
-            docker rmi autorama-nextstorefront
-          '''
-        } catch(Exception e){
-          echo "No Image - Current Branch = ${currentBranch}"
+        stage("8. Deploy app") {
+            agent { node('master') }
+            environment { //todo can the agent determine path.
+                PATH = "${env.PATH}:/usr/local/bin"
+            }
+            when {
+                beforeAgent true
+                anyOf {
+                  branch 'develop'
+                  branch 'devops'
+                }
+            }
+
+            steps {
+                script {
+                    def clusterName = app_environment[env.BRANCH_NAME].clusterName
+                    def logGroupName = app_environment[env.BRANCH_NAME].logGroupName
+                    def taskFamily = app_environment[env.BRANCH_NAME].taskFamily
+                    def taskDefinition = getTaskDefinition(taskFamily, ecrRegion)
+
+                    // 3. update-service to new taskdef, with previous desired count (or 1, whichever greater)
+                    sh """
+                        aws ecs update-service --cluster ${clusterName} --service ${serviceName} --task-definition ${taskDefinition} --region ${ecrRegion}
+                    """
+                }
+            }
         }
-      }
-
-      } catch(Exception e) {
-
-          // These commands ensure that if the pipeline fails in Stage 2 that the container does not stay up! //
-          sh '''
-            export PATH=/usr/local/bin:$PATH
-            docker-compose -f ${WORKSPACE}/docker-compose.yml down -v
-          '''
-          // If the unit tests try/catch section remains viable then the docker-compose above will be redundant
-
-          // Printing Error sets and exiting pipeline //
-          println "${e}"
-          error "Program failed, please read logs..."
-
-        }
-   }
+    }
 }

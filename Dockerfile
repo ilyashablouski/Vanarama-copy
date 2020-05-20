@@ -19,5 +19,7 @@ RUN npm rebuild node-sass
 # Build the app
 RUN yarn build
 
+EXPOSE 8080
+
 # Running the app
 CMD [ "yarn", "start" ]

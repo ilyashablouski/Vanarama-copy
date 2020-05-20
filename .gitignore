@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+dist
 
 # testing
 /coverage
@@ -35,3 +36,5 @@ public/sitemap.xml
 
 .idea
 .package-lock.json
+
+test.report.xml
