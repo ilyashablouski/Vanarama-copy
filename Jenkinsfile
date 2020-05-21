@@ -16,7 +16,7 @@ def app_environment = [
         env: 'dev',
         stack: 'grid',
         state_bucket: 'autorama-terraform-state',
-        slackChannel: '#jenkinsalerts'
+        slackChannel: '#dev-infra-approvals'
     ],
     "develop": [
         clusterName: 'grid-dev',
@@ -27,7 +27,7 @@ def app_environment = [
         env: 'dev',
         stack: 'grid',
         state_bucket: 'autorama-terraform-state',
-        slackChannel: '#jenkinsalerts'
+        slackChannel: '#dev-infra-approvals'
     ]
 ]
 
@@ -209,50 +209,41 @@ pipeline {
                                 def stack = app_environment["${B_NAME}"].stack
                                 def clusterName = app_environment["${B_NAME}"].clusterName
                                 def state_bucket = app_environment["${B_NAME}"].state_bucket
+                                def slackChannel = app_environment["${B_NAME}"].slackChannel
 
                                 sh """
+                                    set +e
                                     mkdir $HOME/.ssh && chmod 700 $HOME/.ssh && ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-                                    cd deploy/terraform
-                                        terraform init -backend-config="backend.tfvars" -backend-config="key=${env}/${app}.tfstate"
+                                    (cd deploy/terraform
+                                    terraform init -backend-config="backend.tfvars" -backend-config="key=${env}/${app}.tfstate")
                                 """
 
                                 def terraformStatus = sh(
-                                    returnStatus:true, 
-                                    script: 
-                                        "cd deploy/terraform; set +e; terraform plan -detailed-exitcode -var=stack=${stack} \
-                                        -var=app=${app} \
-                                        -var=env=${env} \
-                                        -var=state_bucket=${state_bucket} \
-                                        -var=task_definition=${taskDefinition} \
-                                        -out=.plan")
-                                sh """    
-                                    cd ../../
-                                """
+                                    returnStatus:true,
+                                    script: """
+                                        (cd deploy/terraform
+                                        terraform plan -detailed-exitcode -var=stack=${stack} \
+                                            -var=app=${app} \
+                                            -var=env=${env} \
+                                            -var=state_bucket=${state_bucket} \
+                                            -var=task_definition=${taskDefinition} \
+                                            -out=.plan)
+                                    """
+                                )
 
-                                stash includes: 'deploy/terraform/.plan', name: 'plan'
-
-                                if (terraformStatus == 0) {
-                                    currentBuild.result == 'SUCCESS'
-                                }
-
-                                if (terraformStatus == 2) {
-                                    stash includes: 'deploy/terraform/.plan', name: 'plan'
-                                    slackSend channel: app_environment["${app_env_map}"].slackChannel, color: 'good', message: "Terraform Plan Awaiting Approval: ${J_NAME} - ${B_NUMBER} "
-                                    try {
-                                        input message: 'Apply Plan?', ok: 'Apply'
-                                        applyInfraPlan = true
-                                    } catch (err) {
-                                        slackSend channel: app_environment["${app_env_map}"].slackChannel, color: 'warning', message: "Terraform Plan Discarded: ${J_NAME} - ${B_NUMBER} "
-                                        applyInfraPlan = false
-                                        currentBuild.result = 'UNSTABLE'
-                                        exit 0
-                                    }
-                                }
-
-                                if (terraformStatus == 1) {
-                                    slackSend channel: app_environment["${app_env_map}"].slackChannel, color: '#0080ff', message: "Terraform Plan Failed: ${J_NAME} - ${B_NUMBER} "
-                                    currentBuild.result = 'FAILURE'
-                                    exit 0
+                                switch(terraformStatus) {
+                                    case 0: // no changes found
+                                        terraformHasChange = false;
+                                        break;
+                                    case 2: // changes found
+                                        terraformHasChange = true;
+                                        stash includes: 'deploy/terraform/.plan', name: 'plan'
+                                        slackSend channel: slackChannel, color: 'warning', message: "Terraform Plan Pending: ${JOB_NAME} - ${BUILD_NUMBER}"
+                                        break;
+                                    default: // error
+                                        slackSend channel: slackChannel, color: 'error', message: "Terraform Plan Failed: ${JOB_NAME} - ${BUILD_NUMBER}"
+                                        exit 1;
+                                        break;
                                 }
 
                             }
@@ -283,9 +274,7 @@ pipeline {
                   branch 'develop'
                   branch 'devops'
                 }
-                expression {
-                    applyInfraPlan == true
-                }
+                expression { terraformHasChange == true }
             }
             steps {
                 lock(env.JOB_NAME) {
