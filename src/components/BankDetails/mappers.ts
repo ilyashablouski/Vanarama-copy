@@ -21,7 +21,7 @@ export const responseToInitialFormValues = (
           account.sortCode.slice(2, 4),
           account.sortCode.slice(4, 6),
         ]
-      : [],
+      : ['', '', ''],
     termsAndConditions: hasExistingAccount,
     understand: hasExistingAccount,
   };

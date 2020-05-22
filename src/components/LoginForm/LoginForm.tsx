@@ -24,7 +24,6 @@ const LoginForm: React.FC<ILoginFormProps> = ({
   return (
     <Form
       dataTestId="login-form"
-      className="form"
       invalid={error}
       onSubmit={handleSubmit(onSubmit)}
     >

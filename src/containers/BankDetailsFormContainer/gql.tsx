@@ -52,7 +52,7 @@ export function useUpdateBankDetails(
       });
 
       // Update the person's bank details.
-      if (data?.personByUuid?.bankAccounts) {
+      if (data?.personByUuid) {
         data.personByUuid.bankAccounts = result.data?.createUpdateBankAccount
           ? [result.data?.createUpdateBankAccount]
           : null;

@@ -54,7 +54,7 @@ export function useUpdateExpenses(
       });
 
       // Add the employment from the mutation to the end.
-      if (data?.personByUuid?.incomeAndExpense) {
+      if (data?.personByUuid) {
         data.personByUuid.incomeAndExpense =
           result.data?.createUpdateIncomeAndExpense || null;
 

@@ -18,3 +18,11 @@ services:
       - NODE_ENV=development
       - FORCE_COLOR=true
       - NPM_TOKEN=$NPM_TOKEN
+    networks:
+      - overlay
+
+
+
+networks:
+  overlay:
+    name: grid_shared_network

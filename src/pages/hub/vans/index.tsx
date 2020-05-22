@@ -50,7 +50,7 @@ const VansPage: NextPage = () => (
         />
       </div>
     </section>
-    <section className="section">
+    <section className="section -bg-lighter">
       <div className="container">
         <Heading size="large" color="black">
           <span
@@ -62,7 +62,7 @@ const VansPage: NextPage = () => (
         </Heading>
         <Slider className="-mh-auto" gutter={16}>
           {[1, 2, 3, 4, 5].map(k => (
-            <div key={k} style={{ width: 345 }}>
+            <div key={k.toString()} style={{ width: 345 }}>
               <ProductCard
                 flag={{
                   accentIcon: <Icon icon={<Flame />} color="white" />,
@@ -187,40 +187,56 @@ const VansPage: NextPage = () => (
       </div>
     </section>
 
-    <section className="section">
+    <section className="section -bg-lighter">
       <div className="container">
-        <Heading className="-a-center -mb-400" size="large" color="black">
-          Leasing - The Simple Way To Get Your Brand New Car
-        </Heading>
-        <div className="-flex-h">
-          <Step step={1}>
-            <Heading tag="span" color="black" className="lead">
-              Choose
-            </Heading>
-            <Text color="darker" size="regular">
-              Get the car you want from our range of manufacturers - from
-              something sporty to something for all the family.
-            </Text>
-          </Step>
-          <Step step={2}>
-            <Heading tag="span" color="black" className="lead">
-              Apply
-            </Heading>
-            <Text color="darker" size="regular">
-              To lease your new car, we&apos;ll just need a few details to apply
-              for finance from one of our funding partners.
-            </Text>
-          </Step>
-          <Step step={3}>
-            <Heading tag="span" color="black" className="lead">
-              Drive
-            </Heading>
-            <Text color="darker" size="regular">
-              And that&apos;s it - once you&apos;ve been approved, your brand
-              new car will be delivered direct to your door.
-            </Text>
-          </Step>
-        </div>
+        <Grid lg="2" md="2" sm="2">
+          <Column md="row">
+            <Grid lg="3" sm="1" md="1">
+              <Column md="row">
+                <Heading
+                  className="-a-center -mb-400"
+                  size="large"
+                  color="black"
+                >
+                  Leasing - The Simple Way To Get Your Brand New Car
+                </Heading>
+              </Column>
+              <Column md="1">
+                <Step step={1}>
+                  <Heading tag="span" color="black" className="lead">
+                    Choose
+                  </Heading>
+                  <Text color="darker" size="regular">
+                    Get the car you want from our range of manufacturers - from
+                    something sporty to something for all the family.
+                  </Text>
+                </Step>
+              </Column>
+              <Column md="1">
+                <Step step={2}>
+                  <Heading tag="span" color="black" className="lead">
+                    Apply
+                  </Heading>
+                  <Text color="darker" size="regular">
+                    To lease your new car, we&apos;ll just need a few details to
+                    apply for finance from one of our funding partners.
+                  </Text>
+                </Step>
+              </Column>
+              <Column md="1">
+                <Step step={3}>
+                  <Heading tag="span" color="black" className="lead">
+                    Drive
+                  </Heading>
+                  <Text color="darker" size="regular">
+                    And that&apos;s it - once you&apos;ve been approved, your
+                    brand new car will be delivered direct to your door.
+                  </Text>
+                </Step>
+              </Column>
+            </Grid>
+          </Column>
+        </Grid>
       </div>
     </section>
 
@@ -240,27 +256,34 @@ const VansPage: NextPage = () => (
               </Text>
               <IconList>
                 <IconListItem iconColor="orange">
-                  &nbsp;&nbsp;Choose your contract length &amp; agreed mileage
+                  Choose your contract length &amp; agreed mileage
                 </IconListItem>
                 <IconListItem iconColor="orange">
-                  &nbsp;&nbsp;Pay an initial payment
+                  Pay an initial payment
                 </IconListItem>
                 <IconListItem iconColor="orange">
-                  &nbsp;&nbsp;Set up your agreed fixed monthly rental
+                  Set up your agreed fixed monthly rental
                 </IconListItem>
               </IconList>
             </div>
           </Column>
           <Column md="3">
-            <Media
-              src="https://player.vimeo.com/video/263419265"
-              vimeoConfig={{ color: 'EC6408', portrait: false }}
-            />
+            <div className="player-wrapper">
+              <Media
+                responsive
+                src="https://player.vimeo.com/video/263419265"
+                vimeoConfig={{ color: 'EC6408', portrait: false }}
+                className="media-wrapper"
+                controls
+                width="100%"
+                height="100%"
+              />
+            </div>
           </Column>
         </Grid>
       </div>
     </section>
-    <section className="section">
+    <section className="section -bg-lighter">
       <div className="container">
         <Grid lg="6" md="2" sm="2">
           <Column md="3">
@@ -357,7 +380,7 @@ const VansPage: NextPage = () => (
         </Grid>
       </div>
     </section>
-    <section className="section">
+    <section className="section -bg-lighter">
       <div className="container">
         <Grid lg="6" md="2" sm="2">
           <Column className="-col-300" md="row" lg="row">
@@ -473,7 +496,7 @@ const VansPage: NextPage = () => (
       </div>
     </section>
 
-    <section className="section">
+    <section className="section -bg-lighter">
       <div className="container">
         <Grid md="1">
           <Column md="row">
@@ -493,7 +516,7 @@ const VansPage: NextPage = () => (
                 'Isuzu',
                 'Porche',
               ].map(n => (
-                <Button color="teal" size="large" label={n} />
+                <Button key={n} color="teal" size="large" label={n} />
               ))}
             </div>
           </Column>
@@ -504,6 +527,7 @@ const VansPage: NextPage = () => (
     <League altText="vanarama national league" />
 
     <LogoRow
+      className="-bg-lighter"
       urls={[
         {
           label: 'bbc',
