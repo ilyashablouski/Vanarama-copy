@@ -24,26 +24,59 @@ const CreditChecker: NextPage = () => {
     <div>
       <section className="section">
         <div className="container">
-          <Grid sm="6" md="2" lg="2">
-            <Column sm="row" md="row" lg="row">
+          <Grid lg="6" md="2" sm="2">
+             <Column sm="row">
+               <Breadcrumb items={breadcrumbProps.items} />
+             </Column>
+             <Column className="-col-400" md="row">
+              <Heading color="black" size="xlarge">
+                  Your Result
+                </Heading>
+             </Column>
+             <Column md="2">
+              <Score score={75} />
+            </Column>
+             <Column className="column -inset -col-400" md="4">
+             <Heading tag="span" size="large">Choose Your Vehicle</Heading>
+             <Text tag="p" size="regular" color="darker">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod
+                odio blanditiis amet reiciendis cupiditate voluptas dolorum?
+                Quidem nam ad debitis!
+              </Text>
+              <Text>
+                Not sure?
+                <Link>We can help you choose</Link>
+              </Text>
+              <Button
+                color="teal"
+                size="regular"
+                fill="solid"
+                label="Choose Your Vehicle"
+              />
+             </Column>
+          </Grid>
+        </div>
+        {/* <div className="container">
+          <Grid lg="6" md="2" sm="2">
+            <Column sm="row">
               <Breadcrumb items={breadcrumbProps.items} />
             </Column>
-            <Column className="-col-400" sm="row" md="row" lg="row">
+            <Column className="-col-400" sm="row">
               <Heading color="black" size="xlarge">
                 Your Result
               </Heading>
             </Column>
-            <Column sm="row" md="row" lg="row">
+            <Column sm="row">
               <Text size="regular" color="darker">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod
                 odio blanditiis amet reiciendis cupiditate voluptas dolorum?
                 Quidem nam ad debitis!
               </Text>
             </Column>
-            <Column sm="row" md="row" lg="row">
+            <Column sm="2">
               <Score score={75} />
             </Column>
-            <Column className="-inset -col-400" sm="row" md="row" lg="row">
+            <Column className="-inset -col-400" sm="row">
               <Heading>Choose Your Vehicle</Heading>
               <Text>
                 Not sure?
@@ -57,7 +90,7 @@ const CreditChecker: NextPage = () => {
               />
             </Column>
           </Grid>
-        </div>
+        </div> */}
       </section>
     </div>
   );
