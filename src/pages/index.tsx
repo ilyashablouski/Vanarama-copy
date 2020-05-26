@@ -27,6 +27,7 @@ import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import Hero, { HeroTitle, HeroHeading } from '../components/Hero';
+import withApollo from '../hocs/withApollo';
 
 const tabs = [{ label: 'Vans' }, { label: 'Pickups' }, { label: 'Cars' }];
 
@@ -366,4 +367,4 @@ const HomePage: NextPage = () => (
   </main>
 );
 
-export default HomePage;
+export default withApollo(HomePage);
