@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CustomerThing /> renders correctly 1`] = `
+<section
+  className="section"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="grid"
+      columns-l="6"
+      columns-m="2"
+      columns-s="2"
+    >
+      <div
+        className="column -col-400 -a-center"
+        span-l="2-5"
+      >
+        <p
+          className="heading -black -large"
+        >
+          What Do Our Customers Think?
+        </p>
+        <p
+          className="text -regular -darker"
+        >
+          More than 1000 people use our eligibility check each week to find out their likelihood of getting accepted for credit on a new car lease.
+        </p>
+        <button
+          className="button -teal -regular -solid"
+          data-testid="eligibility-Checker-btn"
+          onClick={[Function]}
+        >
+          <div
+            className="button--inner"
+          >
+            Check Your Eligibility
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+`;
