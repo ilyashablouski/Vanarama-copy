@@ -33,7 +33,7 @@ const reviewTiles = [
   },
 ];
 
-const CustomersReviews: FC<{}> = () => (
+const CustomersReviews: FC = () => (
   <section className="section -bg-lighter">
     <div className="container">
       <Heading className="-mb-400 -a-center" size="large" color="black">

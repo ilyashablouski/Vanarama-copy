@@ -7,7 +7,7 @@ import IconList, {
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import EligibilityCheckerButton from './EligibilityCheckerButton';
 
-const WhyEligibilityChecker: FC<{}> = () => (
+const WhyEligibilityChecker: FC = () => (
   <section className="section -bg-lighter">
     <div className="container">
       <Grid lg="6" md="2" sm="2">
@@ -18,17 +18,17 @@ const WhyEligibilityChecker: FC<{}> = () => (
             </Heading>
             <IconList>
               <IconListItem iconColor="dark">
-                &nbsp;&nbsp;Find out if you'll be accepted for credit with no
-                impact on your credit score
+                &nbsp;&nbsp;Find out if you&apos;ll be accepted for credit with
+                no impact on your credit score
               </IconListItem>
               <IconListItem iconColor="dark">
                 &nbsp;&nbsp;Get an instant answer
               </IconListItem>
               <IconListItem iconColor="dark">
-                &nbsp;&nbsp;It's free and easy
+                &nbsp;&nbsp;It&apos;s free and easy
               </IconListItem>
               <IconListItem iconColor="dark">
-                &nbsp;&nbsp;We won't use or share your data
+                &nbsp;&nbsp;We won&apos;t use or share your data
               </IconListItem>
             </IconList>
             <EligibilityCheckerButton />

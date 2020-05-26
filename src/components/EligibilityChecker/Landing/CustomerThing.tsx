@@ -4,7 +4,7 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
 import EligibilityCheckerButton from './EligibilityCheckerButton';
 
-const CustomerThink: FC<{}> = () => (
+const CustomerThing: FC = () => (
   <section className="section">
     <div className="container">
       <Grid lg="6" md="2" sm="2">
@@ -24,4 +24,4 @@ const CustomerThink: FC<{}> = () => (
   </section>
 );
 
-export default CustomerThink;
+export default CustomerThing;

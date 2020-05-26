@@ -5,7 +5,7 @@ import Media from '@vanarama/uibook/lib/components/atoms/media';
 import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
 import EligibilityCheckerButton from './EligibilityCheckerButton';
 
-const Lease: FC<{}> = () => (
+const Lease: FC = () => (
   <section className="section">
     <div className="container">
       <Grid lg="6" md="2" sm="2">
