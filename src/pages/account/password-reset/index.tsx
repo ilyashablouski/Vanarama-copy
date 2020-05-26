@@ -5,6 +5,7 @@ import Section from '@vanarama/uibook/lib/components/container/Section';
 import { Column, Grid } from '@vanarama/uibook/lib/components/molecules/grid';
 import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
+import { useRouter } from 'next/router';
 import PasswordResetContainer from '../../../containers/PasswordResetContainer';
 import withApollo from '../../../hocs/withApollo';
 import MainLayout from '../../../layouts/MainLayout/MainLayout';
@@ -13,8 +14,9 @@ interface IProps {
   query: ParsedUrlQuery;
 }
 
-export const PasswordResetPage: NextPage<IProps> = ({ query }) => {
+export const PasswordResetPage: NextPage<IProps> = () => {
   const [username, setUsername] = useState('');
+  const { query } = useRouter();
   useEffect(() => {
     setUsername(
       Array.isArray(query?.username) ? query.username[0] : query?.username,
