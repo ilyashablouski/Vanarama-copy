@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Lease /> renders correctly 1`] = `
+<section
+  className="section"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="grid"
+      columns-l="6"
+      columns-m="2"
+      columns-s="2"
+    >
+      <div
+        className="column"
+        span-m="3"
+      >
+        <div
+          className="media media-wrapper"
+        >
+          <div
+            className="react-player"
+            src="https://player.vimeo.com/video/263419265"
+            style={
+              Object {
+                "height": "100%",
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "display": undefined,
+                  "height": "100%",
+                  "overflow": "hidden",
+                  "width": "100%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="column -inset -middle -col-400"
+        span-m="3"
+      >
+        <div>
+          <p
+            className="heading -black -large"
+          >
+            Can I Lease A Brand-New Car?
+          </p>
+          <p
+            className="text -regular -darker"
+          >
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id assumenda tenetur cumque tempore sit commodi perferendis minima ipsam reiciendis rerum!
+          </p>
+        </div>
+        <button
+          className="button -teal -regular -solid"
+          data-testid="eligibility-Checker-btn"
+          onClick={[Function]}
+        >
+          <div
+            className="button--inner"
+          >
+            Check Your Eligibility
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+`;

@@ -62,7 +62,11 @@ const LoginForm: React.FC<ILoginFormProps> = ({
       </Formgroup>
       {/* TODO: Make Link work with next/link */}
       {/* <NextLink href="/password-reset" passHref> */}
-      <Link dataTestId="forgot-password" href="/password-reset" color="teal">
+      <Link
+        dataTestId="forgot-password"
+        href="/account/password-request"
+        color="teal"
+      >
         Forgotten your Password?
       </Link>
       {/* </NextLink> */}
