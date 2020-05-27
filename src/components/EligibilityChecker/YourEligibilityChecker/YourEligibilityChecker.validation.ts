@@ -33,7 +33,7 @@ function ageValidator(this: yup.TestContext) {
   return error ? createError({ message: error, path }) : true;
 }
 
-const ValidationSchema = yup.object().shape<IEligiblityCheckerValues>(
+const ValidationSchema = yup.object().shape<IYourEligiblityCheckerValues>(
   {
     addressFinder: yup.object().required('Please enter address'),
     firstName: yup
