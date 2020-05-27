@@ -27,7 +27,7 @@ const YourEligibilityChecker: React.FC<IProps> = ({ submit }) => {
     watch,
     formState,
     control,
-  } = useForm<IEligiblityCheckerValues>({
+  } = useForm<IYourEligiblityCheckerValues>({
     mode: 'onBlur',
     validationSchema,
     defaultValues: responseToInitialFormValues(),
