@@ -1,7 +1,5 @@
 import React from 'react';
-
 import { NextPage } from 'next';
-
 import Score from '@vanarama/uibook/lib/components/atoms/score';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
