@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 
 import Score from '@vanarama/uibook/lib/components/atoms/score';
@@ -10,7 +9,6 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
-import withApollo from '../hocs/withApollo';
 
 const CreditChecker: NextPage = () => {
   const breadcrumbProps = {
