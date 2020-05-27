@@ -63,4 +63,4 @@ const CreditChecker: NextPage = () => {
   );
 };
 
-export default withApollo(CreditChecker, { getDataFromTree });
+export default CreditChecker;
