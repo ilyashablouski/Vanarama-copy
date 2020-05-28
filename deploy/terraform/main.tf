@@ -55,3 +55,20 @@ resource "aws_ssm_parameter" "secret-key-base" {
     created-by = "terraform"
   }
 }
+
+data "aws_ssm_parameter" "federation_gateway_url" {
+  name = "/${var.env}/${var.stack}/federation-gateway/federation-gateway-url"
+}
+
+resource "aws_ssm_parameter" "nextstorefront_gateway_url" {
+    name       = "/${var.env}/${var.stack}/${var.app}/fed-gateway-api-url"
+    type       = "SecureString"
+    value      = "${data.aws_ssm_parameter.federation_gateway_url.value}"
+
+    tags = {
+      env        = "${var.env}"
+      stack      = "${var.stack}"
+      app        = "${var.app}"
+      created-by = "terraform"
+    }
+  }

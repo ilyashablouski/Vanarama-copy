@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+require('dotenv').config();
 const { homepage } = require('../package.json');
 
 module.exports = {
@@ -19,7 +20,8 @@ module.exports = {
   // Next.
   next: {
     env: {
-      LOQATE_KEY: 'CG96-BE17-EY43-CM69',
+      API_URL: process.env.API_URL,
+      API_KEY: process.env.API_KEY,
     },
     devIndicators: {
       autoPrerender: false,
