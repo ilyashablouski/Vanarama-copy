@@ -16,17 +16,11 @@ describe('<YourEligibilityChecker />', () => {
     await waitFor(() =>
       expect(screen.getByText('Please enter your first name')).toBeVisible(),
     );
-    await waitFor(() =>
-      expect(screen.getByText('Please enter your last name')).toBeVisible(),
-    );
-    await waitFor(() =>
-      expect(screen.getByText('Please enter your email address')).toBeVisible(),
-    );
-    await waitFor(() =>
-      expect(
-        screen.getByText('Please complete your date of birth'),
-      ).toBeVisible(),
-    );
+    expect(screen.getByText('Please enter your last name')).toBeVisible();
+    expect(screen.getByText('Please enter your email address')).toBeVisible();
+    expect(
+      screen.getByText('Please complete your date of birth'),
+    ).toBeVisible();
   });
 
   it('should assure minimum characters allowed for first name', async () => {
@@ -35,7 +29,6 @@ describe('<YourEligibilityChecker />', () => {
     });
     fireEvent.click(screen.getByText('Check Your Eligibility'));
 
-    // ASSERT
     await waitFor(() => {
       expect(
         screen.getByText(
@@ -46,7 +39,7 @@ describe('<YourEligibilityChecker />', () => {
   });
 
   it('should assure max characters allowed for first name', async () => {
-    fireEvent.input(screen.getByTestId('eligibilityCheckerFirstName'), {
+    fireEvent.input(screen.getByLabelText('First Name'), {
       target: { value: 'ThisFirstNameIsOverFiftyCharactersLongggggggggggggg' },
     });
     fireEvent.click(screen.getByText('Check Your Eligibility'));
