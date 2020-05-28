@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-require('./config/dotenv')();
+require('dotenv').config();
 require('colors');
 
 const express = require('express');

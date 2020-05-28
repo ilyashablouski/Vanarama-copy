@@ -6,45 +6,31 @@
 
 Next.js Storefront frontend.
 
-## Prerequisites
-
-- Install [yarn](https://yarnpkg.com/lang/en/docs/install).
-- Install [Docker](https://www.docker.com/) (optional).
-- Globally install [serve](https://www.npmjs.com/package/serve) (optional).
-
 ## Getting Started
 
-### Install dependencies
+## Installation
 
-```
-$ yarn install
-```
+1. Install the dependencies
 
-### Start dev server locally
-
-```
-$ yarn dev
+```sh
+yarn install
 ```
 
-Open [localhost](http://localhost:6601).
+2. Create a `.env` file by copying `.env.example` and fill in the values
 
-### Export static website
-
-```
-$ yarn build
-
-$ yarn export
+```sh
+cp .env.example .env
 ```
 
-Static website will be available in the "out" folder.
+3. Run the server in development mode
 
+```sh
+yarn dev
 ```
-$ serve -p 8080 out
-```
 
-Open [localhost](http://localhost:8080).
+4. Open [http://localhost:3000](http://localhost:3000) (_3000 is the default port_).
 
-### Developing locally with Docker
+## Developing locally with Docker
 
 You need to have the environment variable `NPM_TOKEN` set for this to install dependencies correctly. Easiest way to do this is to edit your `.bashrc` or `.zshrc` files with the following:
 
@@ -52,49 +38,54 @@ You need to have the environment variable `NPM_TOKEN` set for this to install de
 export NPM_TOKEN=your-token-goes-here
 ```
 
+Or you can add it to your local `.env` if you want to keep your machine clean.
+
 **N.B** Don't wrap the token in quotes!
 
 You can get a token by logging into NPM as the user `autoramasultan` or by asking one of the devs.
 
 Then simply run:
+
 ```sh
 docker-compose up
 ```
 
 Volume mounting is configured in the `docker-compose.yml` and therefore you will get hot module reloading when changing code locally.
 
-## Unit Tests
+## Running tests
 
-Unit tests are perfomed using [Jest](https://jestjs.io/) and
-[jest-extended](https://github.com/jest-community/jest-extended/).
+Tests are executed using [Jest](https://jestjs.io/).
 
-### Running tests
+### Locally
 
+```sh
+yarn test
 ```
-$ docker-compose exec next-storefront yarn test
+
+### Docker
+
+```sh
+docker-compose exec next-storefront yarn test
 ```
 
-## Linting && Prettier
+## Static Code Analysis
 
-tslint has been configured to the standard AirBNB styleguide rules, to run linting on your files you can use 
-`yarn run lint` and fix any errors. 
+ESLint has been configured to the [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript). To run linting on your files you can use:
 
-This will eventually be moved to a githook on commit / push. 
-
-AirBNB Styleguide can be found here : [AIRBNB JSSG](https://github.com/airbnb/javascript)
+```sh
+yarn lint
+```
 
 ## Built With
 
 - [Next.js](https://nextjs.org/)
-- [Redux](https://redux.js.org/)
+- [Apollo](https://www.apollographql.com/)
 - [Express](https://expressjs.com/)
 
 ## Authors
 
-- **Gianluca Agnocchetti** - _Initial work_ -
-  [iamgnlc](https://github.com/iamgnlc)
-- **Warren Baugh** - _Redux support_ -
-  [street2geek](https://github.com/street2geek)
+- **Gianluca Agnocchetti** - _Initial work_ - [iamgnlc](https://github.com/iamgnlc)
+- **Warren Baugh** - _Redux support_ - [street2geek](https://github.com/street2geek)
 
 See also the list of
 [contributors](https://github.com/Autorama/next-storefront/graphs/contributors)
