@@ -27,6 +27,6 @@ describe('<CreditChecker />', () => {
     render(<CreditChecker />);
 
     // ASSERT
-    expect(screen.getByRole('button'));
+    expect(screen.getByRole('button', { name: /choose your vehicle/i }));
   });
 });
