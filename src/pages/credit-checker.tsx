@@ -7,6 +7,14 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
+import Slider from '@vanarama/uibook/lib/components/organisms/slider';
+import ProductCard from '@vanarama/uibook/lib/components/organisms/product-card';
+import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
+import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
+import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
+import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
+import Icon from '@vanarama/uibook/lib/components/atoms/icon';
+import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 
 const CreditChecker: NextPage = () => {
   const breadcrumbProps = {
@@ -16,6 +24,7 @@ const CreditChecker: NextPage = () => {
       { label: 'Check Your Eligibility', href: '/' },
     ],
   };
+
   return (
     <div>
       <section className="section">
@@ -55,6 +64,47 @@ const CreditChecker: NextPage = () => {
           </Grid>
         </div>
       </section>
+      <Slider className="-mh-auto" gutter={16}>
+        {[1, 2, 3, 4, 5].map(k => (
+          <div key={k.toString()} style={{ width: 345 }}>
+            <ProductCard
+              flag={{
+                accentIcon: <Icon icon={<Flame />} color="white" />,
+                accentText: 'Hot Deal',
+                text: 'In Stock - 14-21 Days Delivery',
+              }}
+              href="#"
+              features={[
+                {
+                  icon: <Icon icon={<SnowSharp />} color="dark" />,
+                  label: 'Aircon',
+                },
+                {
+                  icon: <Icon icon={<BluetoothSharp />} color="dark" />,
+                  label: 'Bluetooth',
+                },
+                {
+                  icon: <Icon icon={<CompassSharp />} color="dark" />,
+                  label: 'Navigation',
+                },
+                {
+                  icon: <Icon icon={<WifiSharp />} color="dark" />,
+                  label: 'Sensors',
+                },
+              ]}
+              imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
+              onCompare={() => true}
+              onViewOffer={() => true}
+              onWishlist={() => true}
+              price={209}
+              rating={4.5}
+              subtitle="1.0 IG-T 100 Tekna 5dr Xtronic [Leather]"
+              title="Peugeot 208"
+            />
+          </div>
+        ))}
+      </Slider>
+      <br />
     </div>
   );
 };
