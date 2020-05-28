@@ -6,7 +6,7 @@ const EligibilityCheckerButton: FC<{}> = () => {
   const router = useRouter();
 
   const goToPage = () => {
-    router.push('/eligibility-checker-details');
+    router.push('/eligibility-checker/details');
   };
 
   return (

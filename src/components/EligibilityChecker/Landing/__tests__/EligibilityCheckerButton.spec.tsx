@@ -16,6 +16,6 @@ describe('<EligibilityCheckerButton />', () => {
     render(<EligibilityCheckerButton />);
     fireEvent.click(screen.getByTestId(/eligibility-Checker-btn/));
 
-    expect(mockPush).toHaveBeenCalledWith('/eligibility-checker-details');
+    expect(mockPush).toHaveBeenCalledWith('/eligibility-checker/details');
   });
 });
