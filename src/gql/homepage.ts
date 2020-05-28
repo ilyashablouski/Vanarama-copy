@@ -34,9 +34,18 @@ const ALL_CONTENT = gql`
           title
           body
         }
-      }
-      metaData {
-        name
+        tiles {
+          name
+          tiles {
+            body
+            image {
+              file {
+                url
+              }
+              title
+            }
+          }
+        }
       }
     }
   }

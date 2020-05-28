@@ -184,13 +184,10 @@ const HomePage: NextPage = () => {
             <Column className="-inset -middle" md="3">
               <div style={{ padding: '1rem' }}>
                 <Heading size="large" color="black">
-                  Why Leasing ?
+                  {data && data.homePage.sections.featured1.title}
                 </Heading>
                 <Text tag="p" size="regular" color="darker">
-                  If you&apos;re looking to drive a brand new car, van or truck
-                  without any of the hassle - leasing might just be for you!
-                  It&apos;s affordable, simple and you&apos;re not left with a
-                  depreciating asset at the end of your contract.
+                  {data && data.homePage.sections.featured1.body}
                 </Text>
                 <IconList>
                   <IconListItem iconColor="orange">
@@ -228,17 +225,10 @@ const HomePage: NextPage = () => {
             <Column className="-inset -middle -col-400" md="3">
               <div>
                 <Heading size="large" color="black">
-                  What Makes Us The Lease Experts?
+                  {data && data.homePage.sections.featured2.title}
                 </Heading>
                 <Text tag="p" size="regular" color="darker">
-                  Vanarama is more than just a broker or leasing company,
-                  we&apos;ve been leading the market and putting our customers
-                  at the heart of everything we do for more than a decade.
-                  <br /> After 15 years of experience in business & personal
-                  van, pickup and car leasing, we&apos;re still pushing the
-                  industry forward & our vast buying power gives us access to a
-                  range of vehicles and lease deal pricing you can&apos;t get
-                  anywhere else.
+                  {data && data.homePage.sections.featured2.body}
                 </Text>
               </div>
             </Column>
@@ -248,86 +238,30 @@ const HomePage: NextPage = () => {
       <section className="section -bg-lighter">
         <div className="container">
           <Grid lg="4" md="2" sm="1">
-            <Column md="1">
-              <Tile className="-plain -button -align-center" plain>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Image
-                    inline
-                    round
-                    size="large"
-                    src="https://source.unsplash.com/collection/2102317/1000x650?sig=403420"
-                  />
-                </div>
-                <a className="tile--link" href="##">
-                  <Heading tag="span" size="regular" color="black">
-                    Price Protection
-                  </Heading>
-                </a>
-                <Text tag="p">
-                  Pretium facilisi etiam pretium, cras interdum enim, nullam.
-                </Text>
-              </Tile>
-            </Column>
-            <Column md="1">
-              <Tile className="-button -align-center" plain>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Image
-                    inline
-                    round
-                    size="large"
-                    src="https://source.unsplash.com/collection/2102317/1000x650?sig=403411"
-                  />
-                </div>
-                <a className="tile--link" href="##">
-                  <Heading tag="span" size="regular" color="black">
-                    Customer Reviews
-                  </Heading>
-                </a>
-                <Text tag="p">
-                  Pretium facilisi etiam pretium, cras interdum enim, nullam.
-                </Text>
-              </Tile>
-            </Column>
-            <Column md="1">
-              <Tile className="-plain -button -align-center" plain>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Image
-                    inline
-                    round
-                    size="large"
-                    src="https://source.unsplash.com/collection/2102317/1000x650?sig=403424"
-                  />
-                </div>
-                <a className="tile--link" href="##">
-                  <Heading tag="span" size="regular" color="black">
-                    Quote Online
-                  </Heading>
-                </a>
-                <Text tag="p">
-                  Pretium facilisi etiam pretium, cras interdum enim, nullam.
-                </Text>
-              </Tile>
-            </Column>
-            <Column md="1">
-              <Tile className="-plain -button -align-center" plain>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Image
-                    inline
-                    round
-                    size="large"
-                    src="https://source.unsplash.com/collection/2102317/1000x650?sig=403445"
-                  />
-                </div>
-                <a className="tile--link" href="##">
-                  <Heading tag="span" size="regular" color="black">
-                    Confused About Leasing?
-                  </Heading>
-                </a>
-                <Text tag="p">
-                  Pretium facilisi etiam pretium, cras interdum enim, nullam.
-                </Text>
-              </Tile>
-            </Column>
+            {data &&
+              data.homePage.sections.tiles.tiles.map((t: any) => (
+                <Column md="1">
+                  <Tile className="-plain -button -align-center" plain>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      <Image
+                        inline
+                        round
+                        size="large"
+                        src={
+                          t.image?.file.url ||
+                          ' https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
+                        }
+                      />
+                    </div>
+                    <a className="tile--link" href="##">
+                      <Heading tag="span" size="regular" color="black">
+                        {t.image?.title}
+                      </Heading>
+                    </a>
+                    <Text tag="p">{t.body}</Text>
+                  </Tile>
+                </Column>
+              ))}
           </Grid>
         </div>
       </section>
