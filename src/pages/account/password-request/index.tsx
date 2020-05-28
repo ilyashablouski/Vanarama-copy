@@ -39,7 +39,7 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
   const [hasRequest, setRequestStatus] = useState(false);
   const [isEmailExist, setIsEmailExist] = useState(true);
 
-  const [requestPassword, { loading, error }] = useMutation<
+  const [requestPassword, { loading }] = useMutation<
     Mutation,
     MutationVariables
   >(PASSWORD_REQUEST_MUTATION, {
@@ -61,8 +61,8 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
         email: values.email,
       },
     });
-    setIsEmailExist(results?.data?.emailAlreadyExists || false)
-    if (isEmailExist) {
+    setIsEmailExist(results?.data?.emailAlreadyExists || false);
+    if (results?.data?.emailAlreadyExists) {
       await requestPassword({
         variables: {
           username: values.email,
