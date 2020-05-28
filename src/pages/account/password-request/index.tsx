@@ -10,12 +10,18 @@ import { useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import CheckmarkSharp from '@vanarama/uibook/lib/assets/icons/CheckmarkSharp';
+import { EMAIL_ALREADY_EXISTS } from '../../../containers/RegisterFormContainer/RegisterFormContainer';
+import { IRequestPasswordFormValues } from '../../../components/RequestPasswordForm/interfaces';
 import Message from '../../../core/components/Message';
 import RequestPasswordForm from '../../../components/RequestPasswordForm';
 import {
   PasswordRequestMutation as Mutation,
   PasswordRequestMutationVariables as MutationVariables,
 } from '../../../../generated/PasswordRequestMutation';
+import {
+  EmailAlreadyExistsMutation as EMutation,
+  EmailAlreadyExistsMutationVariables as EMutationVariables,
+} from '../../../../generated/EmailAlreadyExistsMutation';
 import MainLayout from '../../../layouts/MainLayout/MainLayout';
 import withApollo from '../../../hocs/withApollo';
 
@@ -40,6 +46,27 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
       setRequestStatus(true);
     },
   });
+
+  const [checkEmail, { loading: emailLoading }] = useMutation<
+    EMutation,
+    EMutationVariables
+  >(EMAIL_ALREADY_EXISTS);
+
+  const onSubmit = async (values: IRequestPasswordFormValues) => {
+    setRequestStatus(false);
+    const results = await checkEmail({
+      variables: {
+        email: values.email,
+      },
+    });
+    if (results?.data?.emailAlreadyExists) {
+      await requestPassword({
+        variables: {
+          username: values.email,
+        },
+      });
+    }
+  };
   return (
     <MainLayout>
       <Section>
@@ -55,7 +82,7 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
                 Forgot Your Password?
               </Heading>
               <Text color="darker" size="lead">
-                Enter your email address below and we`&apos;`ll send you a
+                Enter your email address below and we&apos;ll send you a
                 password reset link by email.
               </Text>
             </Column>
@@ -67,15 +94,9 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
             <Column sm="row" md="row" lg="2-4">
               <div className="login-register-form">
                 <RequestPasswordForm
-                  onSubmit={async values => {
-                    await requestPassword({
-                      variables: {
-                        username: values.email,
-                      },
-                    });
-                  }}
+                  onSubmit={onSubmit}
                   hasError={Boolean(error)}
-                  isSubmitting={loading}
+                  isSubmitting={loading || emailLoading}
                 />
               </div>
             </Column>
