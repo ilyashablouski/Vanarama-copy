@@ -37,6 +37,7 @@ export const PASSWORD_REQUEST_MUTATION = gql`
 
 export const PasswordRequestPage: NextPage<IProps> = () => {
   const [hasRequest, setRequestStatus] = useState(false);
+  const [isEmailExist, setIsEmailExist] = useState(true);
 
   const [requestPassword, { loading, error }] = useMutation<
     Mutation,
@@ -54,12 +55,14 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
 
   const onSubmit = async (values: IRequestPasswordFormValues) => {
     setRequestStatus(false);
+    setIsEmailExist(true);
     const results = await checkEmail({
       variables: {
         email: values.email,
       },
     });
-    if (results?.data?.emailAlreadyExists) {
+    setIsEmailExist(results?.data?.emailAlreadyExists || false)
+    if (isEmailExist) {
       await requestPassword({
         variables: {
           username: values.email,
@@ -95,7 +98,7 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
               <div className="login-register-form">
                 <RequestPasswordForm
                   onSubmit={onSubmit}
-                  hasError={Boolean(error)}
+                  hasError={!isEmailExist}
                   isSubmitting={loading || emailLoading}
                 />
               </div>
