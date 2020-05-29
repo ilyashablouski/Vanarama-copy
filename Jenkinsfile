@@ -123,8 +123,8 @@ pipeline {
 
                 script {
                     currentCommit = env.GIT_COMMIT
-                    def env = app_environment["${app_env_map}"].env
-                    def stack = app_environment["${app_env_map}"].stack
+                    def env = app_environment["${B_NAME}"].env
+                    def stack = app_environment["${B_NAME}"].stack
                     def app = "${serviceName}"
                     def region = "${ecrRegion}"
 
