@@ -110,6 +110,7 @@ pipeline {
             environment { //todo can the agent determine path.
                 PATH = "${env.PATH}:/usr/local/bin"
                 B_NAME = "${env.BRANCH_NAME}"
+                GIT_COMMIT=${env.GIT_COMMIT}
             }
             when {
                 beforeAgent true
@@ -127,6 +128,7 @@ pipeline {
                     def stack = app_environment["${B_NAME}"].stack
                     def app = "${serviceName}"
                     def region = "${ecrRegion}"
+
 
                     withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
                     sh """
