@@ -110,7 +110,6 @@ pipeline {
             environment { //todo can the agent determine path.
                 PATH = "${env.PATH}:/usr/local/bin"
                 B_NAME = "${env.BRANCH_NAME}"
-                GIT_COMMIT="${env.GIT_COMMIT}"
             }
             when {
                 beforeAgent true
