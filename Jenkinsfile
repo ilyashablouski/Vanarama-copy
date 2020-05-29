@@ -135,7 +135,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
                     sh """
                       docker pull $dockerRepoName:latest || true
-                      docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg API_KEY=${API_KEY} --build-arg API_URL=${API_URL} --cache-from $dockerRepoName:latest .
+                      docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg API_KEY=\${API_KEY} --build-arg API_URL=\${API_URL} --cache-from $dockerRepoName:latest .
                       docker push $dockerRepoName:${env.GIT_COMMIT}
                       docker tag $dockerRepoName:${env.GIT_COMMIT} $dockerRepoName:latest
                       docker push $dockerRepoName:latest
