@@ -121,19 +121,20 @@ pipeline {
 
             steps {
                 ecrLogin()
+
+
                 script {
                     currentCommit = env.GIT_COMMIT
                     def env = app_environment["${B_NAME}"].env
                     def stack = app_environment["${B_NAME}"].stack
-                    source ./setup.sh "${env}" "${stack}" "${serviceName}" "${ecrRegion}"
                 }
 
                     withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
                     sh """
                       set -x
-                      echo "${API_KEY}"
+                      source ./setup.sh ${env} ${stack} ${serviceName} ${ecrRegion}
                       docker pull $dockerRepoName:latest || true
-                      docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg API_KEY="${API_KEY}" --build-arg API_URL="${API_URL}" --cache-from $dockerRepoName:latest .
+                      docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg API_KEY=${API_KEY} --build-arg API_URL=${API_URL} --cache-from $dockerRepoName:latest .
                       docker push $dockerRepoName:${env.GIT_COMMIT}
                       docker tag $dockerRepoName:${env.GIT_COMMIT} $dockerRepoName:latest
                       docker push $dockerRepoName:latest
