@@ -129,8 +129,8 @@ pipeline {
                     def stack = app_environment["${B_NAME}"].stack
                     def app = "${serviceName}"
                     def region = "${ecrRegion}"
-                    def API_KEY = "$(aws ssm get-parameter --name "/${ENV}/${STACK}/${APP}/API_KEY" --region $REGION --with-decryption | jq -r ".Parameter.Value")"
-                    def API_URL = "$(aws ssm get-parameter --name "/${ENV}/${STACK}/${APP}/API_URL" --region $REGION --with-decryption | jq -r ".Parameter.Value")"
+                    def API_KEY = "${aws ssm get-parameter --name "/${ENV}/${STACK}/${APP}/API_KEY" --region $REGION --with-decryption | jq -r ".Parameter.Value"}"
+                    def API_URL = "${aws ssm get-parameter --name "/${ENV}/${STACK}/${APP}/API_URL" --region $REGION --with-decryption | jq -r ".Parameter.Value"}"
 
                 }
 
