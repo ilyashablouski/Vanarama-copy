@@ -129,12 +129,13 @@ pipeline {
                     def stack = app_environment["${B_NAME}"].stack
                     def app = "${serviceName}"
                     def region = "${ecrRegion}"
+                    def API_KEY="$(aws ssm get-parameter --name "/${ENV}/${STACK}/${APP}/API_KEY" --region $REGION --with-decryption | jq -r ".Parameter.Value")"
+                    def API_URL="$(aws ssm get-parameter --name "/${ENV}/${STACK}/${APP}/API_URL" --region $REGION --with-decryption | jq -r ".Parameter.Value")"
+
                 }
 
                     withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
                     sh """
-                      def API_KEY="$(aws ssm get-parameter --name "/${ENV}/${STACK}/${APP}/API_KEY" --region $REGION --with-decryption | jq -r ".Parameter.Value")"
-                      def API_URL="$(aws ssm get-parameter --name "/${ENV}/${STACK}/${APP}/API_URL" --region $REGION --with-decryption | jq -r ".Parameter.Value")"
                       docker pull $dockerRepoName:latest || true
                       docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg API_KEY=${API_KEY} --build-arg API_URL=${API_URL} --cache-from $dockerRepoName:latest .
                       docker push $dockerRepoName:${env.GIT_COMMIT}
