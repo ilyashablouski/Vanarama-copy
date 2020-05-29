@@ -127,8 +127,10 @@ pipeline {
                     currentCommit = env.GIT_COMMIT
                     def env = app_environment["${B_NAME}"].env
                     def stack = app_environment["${B_NAME}"].stack
+                    sh """
                     def API_KEY="$(aws ssm get-parameter --name "/dev/grid/fed-gateway/API_KEY" --region $REGION --with-decryption | jq -r ".Parameter.Value")"
                     def API_URL="$(aws ssm get-parameter --name "/dev/grid/fed-gateway/API_URL" --region $REGION --with-decryption | jq -r ".Parameter.Value")"
+                    """
                 }
 
                     withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
