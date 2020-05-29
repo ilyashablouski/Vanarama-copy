@@ -66,6 +66,11 @@ const CreditChecker: NextPage = () => {
       </section>
       <div className="row:carousel">
         <div className="row:bg-lighter">
+          <div className="-a-center" style={{ margin: '4rem 0 2rem 0' }}>
+            <Heading size="large" color="black">
+              Top Offers
+            </Heading>
+          </div>
           <Slider className="-mh-auto" gutter={16}>
             {[1, 2, 3, 4, 5].map(k => (
               <div key={k.toString()} style={{ width: 345 }}>

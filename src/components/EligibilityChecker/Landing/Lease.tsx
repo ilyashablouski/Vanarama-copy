@@ -22,13 +22,17 @@ const Lease: FC = () => (
         </Column>
         <Column className="-inset -middle -col-400" md="3">
           <div>
-            <Heading size="large" color="black">
-              Can I Lease A Brand-New Car?
+            <div style={{ marginBottom: '1rem' }}>
+              <Heading size="large" color="black">
+                Check If You’re Eligible To Lease
+              </Heading>
+            </div>
+            <Heading size="regular" color="black">
+              Can I Lease A Brand New Car?
             </Heading>
             <Text tag="p" size="regular" color="darker">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id
-              assumenda tenetur cumque tempore sit commodi perferendis minima
-              ipsam reiciendis rerum!
+              Check your likelihood of being accepted for credit, without
+              affecting your credit score. Check Your Eligibility
             </Text>
           </div>
           <EligibilityCheckerButton />
