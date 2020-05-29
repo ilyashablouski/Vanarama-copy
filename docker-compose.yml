@@ -6,6 +6,8 @@ services:
       context: .
       args:
         - NPM_TOKEN
+        - API_KEY
+        - API_URL
     command: yarn dev
     volumes:
       - '.:/usr/src/app'
