@@ -1,28 +1,21 @@
-version: "3.5"
+version: '3.5'
 
 services:
   next-storefront:
-    container_name: next-storefront
     build:
       context: .
-      dockerfile: Dockerfile
       args:
-        - NPM_TOKEN=${NPM_TOKEN}
+        - NPM_TOKEN
     command: yarn dev
     volumes:
-      - ".:/usr/src/app"
-      - "/usr/src/app/node_modules"
+      - '.:/usr/src/app'
+      - '/usr/src/app/node_modules'
     ports:
-      - "${PORT}:${PORT}"
-    environment:
-      - NODE_ENV=development
-      - FORCE_COLOR=true
-      - NPM_TOKEN=$NPM_TOKEN
+      - '${PORT}:${PORT}'
     networks:
       - overlay
 
-
-
+# NOTE: Allows communication with https://github.com/Autorama/grid-shared-dev-services#network
 networks:
   overlay:
     name: grid_shared_network

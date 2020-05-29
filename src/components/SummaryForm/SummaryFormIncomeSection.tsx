@@ -30,7 +30,7 @@ const SummaryFormIncomeSection: FCWithFragments<IProps> = ({
         dataTestId: 'summary-total-expenses',
       },
       {
-        label: 'Net Disposal Income',
+        label: 'Net Disposable Income',
         value: toCurrencyDisplay(income.netDisposableIncome || 0),
         dataTestId: 'summary-net-disposable',
       },

@@ -75,7 +75,7 @@ export interface CompanyInputObject {
   tradingSince?: any | null;
   turnoverOutsideUk?: number | null;
   uuid?: string | null;
-  vatRegistrationNumber?: string | null;
+  vatNumber?: string | null;
   withTradingAddress?: boolean | null;
 }
 

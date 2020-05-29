@@ -25,7 +25,7 @@ const SummaryFormDetailsSection: FCWithFragments<IProps> = ({
         dataTestId: 'summary-email-address',
       },
       {
-        label: 'Fullname',
+        label: 'Full name',
         value: [person.title, person.firstName, person.lastName].join(' '),
         dataTestId: 'summary-fullname',
       },

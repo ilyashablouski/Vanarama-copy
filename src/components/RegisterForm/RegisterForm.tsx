@@ -7,23 +7,13 @@ import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { useForm } from 'react-hook-form';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+import PasswordRequirements from '../../core/components/PasswordRequirements';
 import { IRegisterFormProps, IRegisterFormValues } from './interfaces';
 import {
   confirmPasswordValidator,
   passwordValidator,
-} from './RegisterForm.validate';
+} from '../../utils/inputValidators';
 import { EMAIL_REGEX } from '../../utils/regex';
-
-const PasswordRequirements: React.FC = () => {
-  return (
-    <ul>
-      <li>Minimum length 8 characters</li>
-      <li>Contain at least 1 number</li>
-      <li>Contain uppercase letters</li>
-      <li>Contain lowercase letters</li>
-    </ul>
-  );
-};
 
 const RegisterForm: React.FC<IRegisterFormProps> = ({
   isSubmitting,

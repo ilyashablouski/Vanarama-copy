@@ -6,23 +6,13 @@ import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
 import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
+import Icon from '@vanarama/uibook/lib/components/atoms/icon';
+import CheckmarkSharp from '@vanarama/uibook/lib/assets/icons/CheckmarkSharp';
+import Message from '../../../core/components/Message';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import RegisterFormContainer from '../../../containers/RegisterFormContainer/RegisterFormContainer';
 import withApollo from '../../../hocs/withApollo';
 import MainLayout from '../../../layouts/MainLayout/MainLayout';
-
-const Message: React.FC<{ message: string }> = ({ message }) => (
-  <Column sm="row" md="row" lg="2-4">
-    <Heading
-      tag="span"
-      size="regular"
-      color="success"
-      dataTestId="registration-success-message"
-    >
-      {message}
-    </Heading>
-  </Column>
-);
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -54,6 +44,12 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
 
             {registrationSuccess && (
               <Message message="Registration successful. Please verify your email." />
+            )}
+
+            {query.hasResetPassword && (
+              <Message message="Password Successfully Reset">
+                <Icon icon={<CheckmarkSharp />} size="regular" color="teal" />
+              </Message>
             )}
 
             <Column sm="row" md="row" lg="2-4">
