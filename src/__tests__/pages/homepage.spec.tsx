@@ -4,9 +4,11 @@ import { render, screen, waitFor } from '@testing-library/react';
 import HomePage from '../../pages';
 import { ALL_CONTENT } from '../../gql/homepage';
 
+require('dotenv').config();
+
 describe('<HomePage />', () => {
   it('should successfully query contentful data', async () => {
-    const mock: MockedResponse[] = [
+    const mocked: MockedResponse[] = [
       {
         request: {
           query: ALL_CONTENT,
@@ -25,7 +27,7 @@ describe('<HomePage />', () => {
       },
     ];
     render(
-      <MockedProvider addTypename={false} mocks={mock}>
+      <MockedProvider addTypename={false} mocks={mocked}>
         <HomePage />
       </MockedProvider>,
     );

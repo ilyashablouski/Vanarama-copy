@@ -19,6 +19,7 @@ export default function createApolloClient(
     // use it to extract auth headers (ctx.req) or similar.
     ssrMode: Boolean(ctx),
     link: new HttpLink({
+      // uri: 'http://localhost:5305/graphql',
       uri: process.env.API_URL!,
       fetch,
       headers: {
