@@ -19,13 +19,7 @@ export default function createApolloClient(
     // use it to extract auth headers (ctx.req) or similar.
     ssrMode: Boolean(ctx),
     link: new HttpLink({
-<<<<<<< HEAD
-      // TODO: Put this in an environment variable
-      // uri: 'https://7wz7q9eq15.execute-api.eu-west-2.amazonaws.com/dev/graphql',
-      uri: 'http://localhost:5305/graphql',
-=======
       uri: process.env.API_URL!,
->>>>>>> develop
       fetch,
       headers: {
         'x-api-key': process.env.API_KEY!,
