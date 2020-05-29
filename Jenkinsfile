@@ -110,6 +110,9 @@ pipeline {
             environment {
                 PATH = "${env.PATH}:/usr/local/bin"
                 B_NAME = "${env.BRANCH_NAME}"
+                sh """
+                  source ./setup.sh ${env} ${stack} ${serviceName} ${ecrRegion} ${BRANCH_NAME}
+                """
             }
             when {
                 beforeAgent true
@@ -127,9 +130,6 @@ pipeline {
                     currentCommit = env.GIT_COMMIT
                     def env = app_environment["${B_NAME}"].env
                     def stack = app_environment["${B_NAME}"].stack
-                    sh """
-                      source ./setup.sh ${env} ${stack} ${serviceName} ${ecrRegion} ${BRANCH_NAME}
-                    """
 
                     withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
                     sh """
