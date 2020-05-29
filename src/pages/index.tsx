@@ -27,6 +27,7 @@ import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Hero, { HeroTitle, HeroHeading } from '../components/Hero';
 import withApollo from '../hocs/withApollo';
 import { ALL_CONTENT } from '../gql/homepage';
@@ -34,29 +35,39 @@ import { ALL_CONTENT } from '../gql/homepage';
 const tabs = [{ label: 'Vans' }, { label: 'Pickups' }, { label: 'Cars' }];
 
 const HomePage: NextPage = () => {
-  const { data, error } = useQuery(ALL_CONTENT, {
+  const { data, loading, error } = useQuery(ALL_CONTENT, {
     variables: {
       id: '42LjdTY9hSi2YdVi4aEsuO',
     },
   });
 
-  if (data) {
-    console.log(data);
+  if (loading) {
+    return <Loading size="large" />;
   }
 
   if (error) {
-    console.log(error);
+    return <p>Error: {error.message}</p>;
+  }
+
+  if (data) {
+    // eslint-disable-next-line no-console
+    console.log(JSON.stringify(data, null, 2));
   }
 
   return (
     <main>
       <Hero>
-        <HeroHeading>The Vehicle Leasing Experts</HeroHeading>
-        <br />
-        <HeroTitle>
-          Drive Your Dream Vehicle For
-          <br /> Less With Vanarama
-        </HeroTitle>
+        <div className="hero--title">
+          <HeroHeading>{data && data.homePage.sections.hero.title}</HeroHeading>
+          <br />
+          <HeroTitle>{data && data.homePage.sections.hero.body}</HeroTitle>
+        </div>
+        <Image
+          className="hero--image"
+          plain
+          size="expand"
+          src={data && data.homePage.sections.hero.image.file.url}
+        />
       </Hero>
       <section className="section -bg-lighter">
         <div className="container">
@@ -240,7 +251,7 @@ const HomePage: NextPage = () => {
           <Grid lg="4" md="2" sm="1">
             {data &&
               data.homePage.sections.tiles.tiles.map((t: any) => (
-                <Column md="1">
+                <Column md="1" key={t.title}>
                   <Tile className="-plain -button -align-center" plain>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                       <Image
@@ -255,7 +266,7 @@ const HomePage: NextPage = () => {
                     </div>
                     <a className="tile--link" href="##">
                       <Heading tag="span" size="regular" color="black">
-                        {t.image?.title}
+                        {t.title}
                       </Heading>
                     </a>
                     <Text tag="p">{t.body}</Text>

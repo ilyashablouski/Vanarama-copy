@@ -37,6 +37,7 @@ const ALL_CONTENT = gql`
         tiles {
           name
           tiles {
+            title
             body
             image {
               file {
