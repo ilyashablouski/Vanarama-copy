@@ -132,7 +132,6 @@ pipeline {
                     sh """
                       set -x
                       source ./setup.sh ${env} ${stack} ${serviceName} ${ecrRegion}
-                      echo "${API_KEY}"
                       docker pull $dockerRepoName:latest || true
                       docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg API_KEY="${API_KEY}" --build-arg API_URL="${API_URL}" --cache-from $dockerRepoName:latest .
                       docker push $dockerRepoName:${env.GIT_COMMIT}
