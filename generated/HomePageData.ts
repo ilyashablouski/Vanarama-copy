@@ -8,75 +8,75 @@
 // ====================================================
 
 export interface HomePageData_homePage_sections_hero_image_file {
-  url: string | null;
+  url: string;
 }
 
 export interface HomePageData_homePage_sections_hero_image {
-  title: string | null;
-  file: HomePageData_homePage_sections_hero_image_file | null;
+  title: string;
+  file: HomePageData_homePage_sections_hero_image_file;
 }
 
 export interface HomePageData_homePage_sections_hero {
-  title: string | null;
-  flag: string | null;
-  body: string | null;
-  image: HomePageData_homePage_sections_hero_image | null;
+  title: string;
+  flag: string;
+  body: string;
+  image: HomePageData_homePage_sections_hero_image;
 }
 
 export interface HomePageData_homePage_sections_cards_cards_image_file {
-  url: string | null;
+  url: string;
 }
 
 export interface HomePageData_homePage_sections_cards_cards_image {
-  file: HomePageData_homePage_sections_cards_cards_image_file | null;
+  file: HomePageData_homePage_sections_cards_cards_image_file;
 }
 
 export interface HomePageData_homePage_sections_cards_cards {
-  title: string | null;
+  title: string;
   image: HomePageData_homePage_sections_cards_cards_image | null;
 }
 
 export interface HomePageData_homePage_sections_cards {
-  name: string | null;
+  name: string;
   cards: HomePageData_homePage_sections_cards_cards[] | null;
 }
 
 export interface HomePageData_homePage_sections_featured1 {
-  title: string | null;
-  body: string | null;
+  title: string;
+  body: string;
 }
 
 export interface HomePageData_homePage_sections_featured2 {
-  title: string | null;
-  body: string | null;
+  title: string;
+  body: string;
 }
 
 export interface HomePageData_homePage_sections_tiles_tiles_image_file {
-  url: string | null;
+  url: string;
 }
 
 export interface HomePageData_homePage_sections_tiles_tiles_image {
-  file: HomePageData_homePage_sections_tiles_tiles_image_file | null;
-  title: string | null;
+  file: HomePageData_homePage_sections_tiles_tiles_image_file;
+  title: string;
 }
 
 export interface HomePageData_homePage_sections_tiles_tiles {
-  title: string | null;
-  body: string | null;
+  title: string;
+  body: string;
   image: HomePageData_homePage_sections_tiles_tiles_image | null;
 }
 
 export interface HomePageData_homePage_sections_tiles {
-  name: string | null;
+  name: string;
   tiles: HomePageData_homePage_sections_tiles_tiles[] | null;
 }
 
 export interface HomePageData_homePage_sections {
-  hero: HomePageData_homePage_sections_hero | null;
-  cards: HomePageData_homePage_sections_cards | null;
-  featured1: HomePageData_homePage_sections_featured1 | null;
-  featured2: HomePageData_homePage_sections_featured2 | null;
-  tiles: HomePageData_homePage_sections_tiles | null;
+  hero: HomePageData_homePage_sections_hero;
+  cards: HomePageData_homePage_sections_cards;
+  featured1: HomePageData_homePage_sections_featured1;
+  featured2: HomePageData_homePage_sections_featured2;
+  tiles: HomePageData_homePage_sections_tiles;
 }
 
 export interface HomePageData_homePage {
@@ -84,5 +84,5 @@ export interface HomePageData_homePage {
 }
 
 export interface HomePageData {
-  homePage: HomePageData_homePage | null;
+  homePage: HomePageData_homePage;
 }

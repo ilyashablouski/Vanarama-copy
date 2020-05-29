@@ -58,15 +58,15 @@ const HomePage: NextPage = () => {
     <main>
       <Hero>
         <div className="hero--title">
-          <HeroHeading>{data?.homePage?.sections?.hero?.title}</HeroHeading>
+          <HeroHeading>{data?.homePage.sections.hero.title}</HeroHeading>
           <br />
-          <HeroTitle>{data?.homePage?.sections?.hero?.body}</HeroTitle>
+          <HeroTitle>{data?.homePage.sections.hero.body}</HeroTitle>
         </div>
         <Image
           className="hero--image"
           plain
           size="expand"
-          src={data?.homePage?.sections?.hero?.image?.file?.url || ''}
+          src={data?.homePage.sections.hero.image.file.url || ''}
         />
       </Hero>
       <section className="section -bg-lighter">
@@ -195,10 +195,10 @@ const HomePage: NextPage = () => {
             <Column className="-inset -middle" md="3">
               <div style={{ padding: '1rem' }}>
                 <Heading size="large" color="black">
-                  {data?.homePage?.sections?.featured1?.title}
+                  {data?.homePage.sections.featured1.title}
                 </Heading>
                 <Text tag="p" size="regular" color="darker">
-                  {data?.homePage?.sections?.featured1?.body}
+                  {data?.homePage.sections.featured1.body}
                 </Text>
                 <IconList>
                   <IconListItem iconColor="orange">
@@ -236,10 +236,10 @@ const HomePage: NextPage = () => {
             <Column className="-inset -middle -col-400" md="3">
               <div>
                 <Heading size="large" color="black">
-                  {data?.homePage?.sections?.featured2?.title}
+                  {data?.homePage.sections.featured2.title}
                 </Heading>
                 <Text tag="p" size="regular" color="darker">
-                  {data?.homePage?.sections?.featured2?.body}
+                  {data?.homePage.sections.featured2.body}
                 </Text>
               </div>
             </Column>
@@ -249,8 +249,8 @@ const HomePage: NextPage = () => {
       <section className="section -bg-lighter">
         <div className="container">
           <Grid lg="4" md="2" sm="1">
-            {data?.homePage?.sections?.tiles?.tiles?.map((t: TileData) => (
-              <Column md="1" key={t.title || undefined}>
+            {data?.homePage.sections.tiles.tiles?.map((t: TileData) => (
+              <Column md="1" key={t.title}>
                 <Tile className="-plain -button -align-center" plain>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Image
