@@ -123,12 +123,11 @@ pipeline {
 
                 script {
                     currentCommit = env.GIT_COMMIT
+                    def env = app_environment["${app_env_map}"].env
+                    def stack = app_environment["${app_env_map}"].stack
+                    def app = "${serviceName}"
+                    def region = "${ecrRegion}"
                 }
-
-                def env = app_environment["${app_env_map}"].env
-                def stack = app_environment["${app_env_map}"].stack
-                def app = "${serviceName}"
-                def region = "${ecrRegion}"
 
                 withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
                  sh """
