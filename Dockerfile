@@ -1,6 +1,8 @@
 FROM node:13.6
 
 ARG NPM_TOKEN
+ARG API_KEY
+ARG API_URL
 
 # Setting working directory. All the path will be relative to WORKDIR
 WORKDIR /usr/src/app
