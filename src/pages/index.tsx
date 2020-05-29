@@ -35,11 +35,7 @@ import { ALL_CONTENT } from '../gql/homepage';
 const tabs = [{ label: 'Vans' }, { label: 'Pickups' }, { label: 'Cars' }];
 
 const HomePage: NextPage = () => {
-  const { data, loading, error } = useQuery(ALL_CONTENT, {
-    variables: {
-      id: '42LjdTY9hSi2YdVi4aEsuO',
-    },
-  });
+  const { data, loading, error } = useQuery(ALL_CONTENT);
 
   if (loading) {
     return <Loading size="large" />;

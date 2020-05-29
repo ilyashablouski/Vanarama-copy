@@ -10,9 +10,6 @@ describe('<HomePage />', () => {
       {
         request: {
           query: ALL_CONTENT,
-          variables: {
-            id: '42LjdTY9hSi2YdVi4aEsuO',
-          },
         },
         result: {
           data: {
