@@ -128,7 +128,7 @@ pipeline {
                     def env = app_environment["${B_NAME}"].env
                     def stack = app_environment["${B_NAME}"].stack
                     sh """
-                      source ./setup.sh ${env} ${stack} ${serviceName} ${ecrRegion}
+                      source ./setup.sh ${env} ${stack} ${serviceName} ${ecrRegion} ${ecrRegion} ${CURRENTBRANCH}
                     """
                 }
 
