@@ -110,9 +110,6 @@ pipeline {
             environment {
                 PATH = "${env.PATH}:/usr/local/bin"
                 B_NAME = "${env.BRANCH_NAME}"
-                sh """
-                  source ./setup.sh ${env} ${stack} ${serviceName} ${ecrRegion} ${BRANCH_NAME}
-                """
             }
             when {
                 beforeAgent true
@@ -133,6 +130,7 @@ pipeline {
 
                     withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
                     sh """
+                      source ./setup.sh ${env} ${stack} ${serviceName} ${ecrRegion} ${BRANCH_NAME}
                       docker pull $dockerRepoName:latest || true
                       docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg API_KEY=${API_KEY} --build-arg API_URL=${API_URL}s --cache-from $dockerRepoName:latest .
                       docker push $dockerRepoName:${env.GIT_COMMIT}
