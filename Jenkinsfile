@@ -107,7 +107,7 @@ pipeline {
 
         stage("4. Production Build & push") {
             agent { node('master') }
-            environment { //todo can the agent determine path.
+            environment {
                 PATH = "${env.PATH}:/usr/local/bin"
                 B_NAME = "${env.BRANCH_NAME}"
             }
