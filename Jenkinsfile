@@ -121,13 +121,11 @@ pipeline {
 
             steps {
                 ecrLogin()
-
-
                 script {
                     currentCommit = env.GIT_COMMIT
                     def env = app_environment["${B_NAME}"].env
                     def stack = app_environment["${B_NAME}"].stack
-                    source ./setup.sh ${env} ${stack} ${serviceName} ${ecrRegion}
+                    source ./setup.sh "${env}" "${stack}" "${serviceName}" "${ecrRegion}"
                 }
 
                     withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
