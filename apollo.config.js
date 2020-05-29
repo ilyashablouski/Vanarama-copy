@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = {
   client: {
     /**
@@ -6,7 +8,10 @@ module.exports = {
      */
     service: {
       name: 'federation-gateway',
-      url: 'https://7wz7q9eq15.execute-api.eu-west-2.amazonaws.com/dev/graphql',
+      url: process.env.API_URL,
+      headers: {
+        'x-api-key': process.env.API_KEY,
+      },
     },
   },
 };
