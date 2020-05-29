@@ -49,7 +49,7 @@ exports[`<WhyEligibilityChecker /> renders correctly 1`] = `
                   />
                 </svg>
               </i>
-                Find out if you'll be accepted for credit with no impact on your credit score
+              Find out if you'll be accepted for credit with no impact on on your credit score
             </li>
             <li>
               <i
@@ -68,7 +68,7 @@ exports[`<WhyEligibilityChecker /> renders correctly 1`] = `
                   />
                 </svg>
               </i>
-                Get an instant answer
+              Get an instant answer
             </li>
             <li>
               <i
@@ -87,7 +87,7 @@ exports[`<WhyEligibilityChecker /> renders correctly 1`] = `
                   />
                 </svg>
               </i>
-                It's free and easy
+              It's free and easy
             </li>
             <li>
               <i
@@ -106,7 +106,7 @@ exports[`<WhyEligibilityChecker /> renders correctly 1`] = `
                   />
                 </svg>
               </i>
-                We won't use or share your data
+              We won't ever use or share your data
             </li>
           </ul>
           <button

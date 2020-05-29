@@ -12,9 +12,9 @@ const CustomerThing: FC = () => (
           <Heading size="large" color="black">
             What Do Our Customers Think?
           </Heading>
-          <Text tag="p" size="regular" color="darker">
-            More than 1000 people use our eligibility check each week to find
-            out their likelihood of getting accepted for credit on a new car
+          <Text tag="p" size="expand" color="darker">
+            More than 1,000 people use our Eligibility Checker every week to
+            find out their likelihood of getting accepted to lease a new car
             lease.
           </Text>
           <EligibilityCheckerButton />
