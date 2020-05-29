@@ -128,7 +128,7 @@ pipeline {
                     def env = app_environment["${B_NAME}"].env
                     def stack = app_environment["${B_NAME}"].stack
                     def app = "${serviceName}"
-                    def region = "${ecrRegion}""
+                    def region = "${ecrRegion}"
                 }
 
                     withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
