@@ -23,9 +23,9 @@ exports[`<CustomerThing /> renders correctly 1`] = `
           What Do Our Customers Think?
         </p>
         <p
-          className="text -regular -darker"
+          className="text -expand -darker"
         >
-          More than 1000 people use our eligibility check each week to find out their likelihood of getting accepted for credit on a new car lease.
+          More than 1,000 people use our Eligibility Checker every week to find out their likelihood of getting accepted to lease a new car lease.
         </p>
         <button
           className="button -teal -regular -solid"

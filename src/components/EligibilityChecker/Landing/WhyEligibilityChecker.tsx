@@ -18,17 +18,17 @@ const WhyEligibilityChecker: FC = () => (
             </Heading>
             <IconList>
               <IconListItem iconColor="dark">
-                &nbsp;&nbsp;Find out if you&apos;ll be accepted for credit with
-                no impact on your credit score
+                Find out if you&apos;ll be accepted for credit with no impact on
+                on your credit score
               </IconListItem>
               <IconListItem iconColor="dark">
-                &nbsp;&nbsp;Get an instant answer
+                Get an instant answer
               </IconListItem>
               <IconListItem iconColor="dark">
-                &nbsp;&nbsp;It&apos;s free and easy
+                It&apos;s free and easy
               </IconListItem>
               <IconListItem iconColor="dark">
-                &nbsp;&nbsp;We won&apos;t use or share your data
+                We won&apos;t ever use or share your data
               </IconListItem>
             </IconList>
             <EligibilityCheckerButton />

@@ -48,15 +48,28 @@ exports[`<Lease /> renders correctly 1`] = `
         span-m="3"
       >
         <div>
-          <p
-            className="heading -black -large"
+          <div
+            style={
+              Object {
+                "marginBottom": "1rem",
+              }
+            }
           >
-            Can I Lease A Brand-New Car?
+            <p
+              className="heading -black -large"
+            >
+              Check If You’re Eligible To Lease
+            </p>
+          </div>
+          <p
+            className="heading -black -regular"
+          >
+            Can I Lease A Brand New Car?
           </p>
           <p
             className="text -regular -darker"
           >
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id assumenda tenetur cumque tempore sit commodi perferendis minima ipsam reiciendis rerum!
+            Check your likelihood of being accepted for credit, without affecting your credit score. Check Your Eligibility
           </p>
         </div>
         <button
