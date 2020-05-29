@@ -124,10 +124,15 @@ pipeline {
                 script {
                     currentCommit = env.GIT_COMMIT
                 }
+
+                def env = app_environment["${app_env_map}"].env
+                def stack = app_environment["${app_env_map}"].stack
+                def app = "${serviceName}"
+                def region = "${ecrRegion}"
+
                 withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
                  sh """
-                    export API_URL=$(aws ssm get-parameters --name fed-gateway-api-url)
-                    export API_KEY=$(aws ssm get-parameters --name fed-gateway-api-key)
+                    source ./setup.sh ${env} ${stack} ${app} ${region}
                     docker pull $dockerRepoName:latest || true
                     docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg API_KEY=${API_KEY} --build-arg API_URL=${API_URL} --cache-from $dockerRepoName:latest .
                     docker push $dockerRepoName:${env.GIT_COMMIT}
