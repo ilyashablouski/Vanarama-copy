@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost';
 
 const ALL_CONTENT = gql`
-  query getHomePageData {
+  query HomePageData {
     homePage {
       sections {
         hero {

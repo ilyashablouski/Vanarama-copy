@@ -124,6 +124,7 @@ export interface EmploymentInputObject {
  * Input object to create and add an Income And Expense
  */
 export interface IncomeAndExpenseInputObject {
+  annualIncome?: number | null;
   anticipateMonthlyIncomeChange?: boolean | null;
   averageMonthlyIncome?: number | null;
   carFinance?: number | null;
@@ -140,6 +141,7 @@ export interface IncomeAndExpenseInputObject {
   phoneAndInternet?: number | null;
   studentLoan?: number | null;
   utilities?: number | null;
+  withStudentLoan?: boolean | null;
 }
 
 /**

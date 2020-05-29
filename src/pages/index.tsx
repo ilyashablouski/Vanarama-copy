@@ -31,11 +31,15 @@ import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Hero, { HeroTitle, HeroHeading } from '../components/Hero';
 import withApollo from '../hocs/withApollo';
 import { ALL_CONTENT } from '../gql/homepage';
+import {
+  HomePageData,
+  HomePageData_homePage_sections_tiles_tiles as TileData,
+} from '../../generated/HomePageData';
 
 const tabs = [{ label: 'Vans' }, { label: 'Pickups' }, { label: 'Cars' }];
 
 const HomePage: NextPage = () => {
-  const { data, loading, error } = useQuery(ALL_CONTENT);
+  const { data, loading, error } = useQuery<HomePageData>(ALL_CONTENT);
 
   if (loading) {
     return <Loading size="large" />;
@@ -54,15 +58,15 @@ const HomePage: NextPage = () => {
     <main>
       <Hero>
         <div className="hero--title">
-          <HeroHeading>{data && data.homePage.sections.hero.title}</HeroHeading>
+          <HeroHeading>{data?.homePage?.sections?.hero?.title}</HeroHeading>
           <br />
-          <HeroTitle>{data && data.homePage.sections.hero.body}</HeroTitle>
+          <HeroTitle>{data?.homePage?.sections?.hero?.body}</HeroTitle>
         </div>
         <Image
           className="hero--image"
           plain
           size="expand"
-          src={data && data.homePage.sections.hero.image.file.url}
+          src={data?.homePage?.sections?.hero?.image?.file?.url || ''}
         />
       </Hero>
       <section className="section -bg-lighter">
@@ -191,10 +195,10 @@ const HomePage: NextPage = () => {
             <Column className="-inset -middle" md="3">
               <div style={{ padding: '1rem' }}>
                 <Heading size="large" color="black">
-                  {data && data.homePage.sections.featured1.title}
+                  {data?.homePage?.sections?.featured1?.title}
                 </Heading>
                 <Text tag="p" size="regular" color="darker">
-                  {data && data.homePage.sections.featured1.body}
+                  {data?.homePage?.sections?.featured1?.body}
                 </Text>
                 <IconList>
                   <IconListItem iconColor="orange">
@@ -232,10 +236,10 @@ const HomePage: NextPage = () => {
             <Column className="-inset -middle -col-400" md="3">
               <div>
                 <Heading size="large" color="black">
-                  {data && data.homePage.sections.featured2.title}
+                  {data?.homePage?.sections?.featured2?.title}
                 </Heading>
                 <Text tag="p" size="regular" color="darker">
-                  {data && data.homePage.sections.featured2.body}
+                  {data?.homePage?.sections?.featured2?.body}
                 </Text>
               </div>
             </Column>
@@ -245,30 +249,29 @@ const HomePage: NextPage = () => {
       <section className="section -bg-lighter">
         <div className="container">
           <Grid lg="4" md="2" sm="1">
-            {data &&
-              data.homePage.sections.tiles.tiles.map((t: any) => (
-                <Column md="1" key={t.title}>
-                  <Tile className="-plain -button -align-center" plain>
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                      <Image
-                        inline
-                        round
-                        size="large"
-                        src={
-                          t.image?.file.url ||
-                          ' https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
-                        }
-                      />
-                    </div>
-                    <a className="tile--link" href="##">
-                      <Heading tag="span" size="regular" color="black">
-                        {t.title}
-                      </Heading>
-                    </a>
-                    <Text tag="p">{t.body}</Text>
-                  </Tile>
-                </Column>
-              ))}
+            {data?.homePage?.sections?.tiles?.tiles?.map((t: TileData) => (
+              <Column md="1" key={t.title || undefined}>
+                <Tile className="-plain -button -align-center" plain>
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Image
+                      inline
+                      round
+                      size="large"
+                      src={
+                        t.image?.file?.url ||
+                        ' https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
+                      }
+                    />
+                  </div>
+                  <a className="tile--link" href="##">
+                    <Heading tag="span" size="regular" color="black">
+                      {t.title}
+                    </Heading>
+                  </a>
+                  <Text tag="p">{t.body}</Text>
+                </Tile>
+              </Column>
+            ))}
           </Grid>
         </div>
       </section>
