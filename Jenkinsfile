@@ -123,7 +123,6 @@ pipeline {
                 ecrLogin()
 
                 script {
-                    currentCommit = env.GIT_COMMIT
                     def env = app_environment["${B_NAME}"].env
                     def stack = app_environment["${B_NAME}"].stack
                     def app = "${serviceName}"
