@@ -130,9 +130,6 @@ pipeline {
                     sh """
                       source ./setup.sh ${env} ${stack} ${serviceName} ${ecrRegion} ${BRANCH_NAME}
                     """
-                    def API_KEY = "$API_KEY"
-                    def API_URL = "$API_URL"
-                }
 
                     withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
                     sh """
@@ -143,6 +140,7 @@ pipeline {
                       docker push $dockerRepoName:latest
                       docker rmi $dockerRepoName:latest
                     """
+                    }
                 }
             }
         }
