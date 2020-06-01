@@ -1,5 +1,5 @@
-import { useMutation, useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
+import { useMutation, useQuery, gql } from '@apollo/client';
+
 import {
   CreateUpdateBankAccountMutation as Mutation,
   CreateUpdateBankAccountMutationVariables as MutationVariables,
@@ -53,7 +53,7 @@ export function useUpdateBankDetails(
 
       // Update the person's bank details.
       if (data?.personByUuid) {
-        data.personByUuid.bankAccounts = result.data?.createUpdateBankAccount
+        const bankAccounts = result.data?.createUpdateBankAccount
           ? [result.data?.createUpdateBankAccount]
           : null;
 
@@ -61,7 +61,13 @@ export function useUpdateBankDetails(
         store.writeQuery<Query, QueryVariables>({
           query: GET_BANK_DETAILS_PAGE_DATA,
           variables: { uuid: personUuid },
-          data,
+          data: {
+            ...data,
+            personByUuid: {
+              ...data.personByUuid,
+              bankAccounts,
+            },
+          },
         });
       }
     },

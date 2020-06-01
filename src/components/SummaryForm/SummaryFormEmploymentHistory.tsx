@@ -1,6 +1,6 @@
 import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
 import { IList } from '@vanarama/uibook/lib/components/organisms/structured-list/interfaces';
-import { gql } from 'apollo-boost';
+import { gql } from '@apollo/client';
 import moment from 'moment';
 import React, { useMemo } from 'react';
 import { SummaryFormEmploymentHistoryEmployment } from '../../../generated/SummaryFormEmploymentHistoryEmployment';
@@ -30,7 +30,7 @@ const SummaryFormEmploymentHistory: FCWithFragments<IProps> = ({
 };
 
 function reduceToItems(employments: SummaryFormEmploymentHistoryEmployment[]) {
-  return employments
+  return [...employments]
     .sort(
       (a, b) =>
         new Date(b.employedSinceDate).getTime() -

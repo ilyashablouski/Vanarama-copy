@@ -1,6 +1,6 @@
 import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
 import { IList } from '@vanarama/uibook/lib/components/organisms/structured-list/interfaces';
-import { gql } from 'apollo-boost';
+import { gql } from '@apollo/client';
 import moment from 'moment';
 import React, { useMemo } from 'react';
 import { SummaryFormAddressHistoryAddress } from '../../../generated/SummaryFormAddressHistoryAddress';
@@ -29,7 +29,7 @@ const SummaryFormAddressHistory: FCWithFragments<IProps> = ({
 };
 
 function reduceToItems(addresses: SummaryFormAddressHistoryAddress[]) {
-  return addresses
+  return [...addresses]
     .sort(
       (a, b) =>
         new Date(b.startedOn).getTime() - new Date(a.startedOn).getTime(),

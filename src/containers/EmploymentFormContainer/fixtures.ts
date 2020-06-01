@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { MockedResponse } from '@apollo/react-testing';
+import { MockedResponse } from '@apollo/client/testing';
 import {
   GetEmploymentContainerDataQuery,
   GetEmploymentContainerDataQueryVariables,
@@ -25,6 +25,7 @@ export const withoutPrefilledEmployments = (
       result: {
         data: {
           personByUuid: {
+            __typename: 'PersonType',
             uuid: personUuid,
             partyId: '911',
             employmentHistories: [],
@@ -54,8 +55,14 @@ export const withoutPrefilledEmployments = (
             partyId: '911',
             employmentHistories: [
               {
+                companyAddressServiceId: undefined,
+                companyName: undefined,
+                contract: undefined,
                 employedSinceDate: '1990-01-01',
                 employmentStatus: 'Retired',
+                grossAnnualIncome: undefined,
+                jobTitle: undefined,
+                workPhoneNumber: undefined,
               },
             ],
           },

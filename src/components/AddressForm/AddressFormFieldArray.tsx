@@ -1,5 +1,5 @@
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
-import { gql } from 'apollo-boost';
+import { gql } from '@apollo/client';
 import { FieldArrayRenderProps } from 'formik';
 import React from 'react';
 import { AddressFormFieldArrayDownData } from '../../../generated/AddressFormFieldArrayDownData';

@@ -1,12 +1,11 @@
-import React from 'react';
-import { gql } from 'apollo-boost';
-import { useQuery } from '@apollo/react-hooks';
+import { gql, useQuery } from '@apollo/client';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import SummaryForm from '../../components/SummaryForm/SummaryForm';
+import React from 'react';
 import {
   GetPersonSummaryQuery as Query,
   GetPersonSummaryQueryVariables as QueryVariables,
 } from '../../../generated/GetPersonSummaryQuery';
+import SummaryForm from '../../components/SummaryForm/SummaryForm';
 
 interface IProps {
   personUuid: string;

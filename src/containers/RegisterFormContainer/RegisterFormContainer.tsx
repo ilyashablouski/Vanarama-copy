@@ -1,14 +1,13 @@
-import { useMutation } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
+import { gql, useMutation } from '@apollo/client';
+import {
+  EmailAlreadyExistsMutation as EMutation,
+  EmailAlreadyExistsMutationVariables as EMutationVariables,
+} from '../../../generated/EmailAlreadyExistsMutation';
 import {
   RegisterUserMutation as Mutation,
   RegisterUserMutationVariables as MutationVariables,
 } from '../../../generated/RegisterUserMutation';
 import RegisterForm from '../../components/RegisterForm/RegisterForm';
-import {
-  EmailAlreadyExistsMutation as EMutation,
-  EmailAlreadyExistsMutationVariables as EMutationVariables,
-} from '../../../generated/EmailAlreadyExistsMutation';
 import { IRegisterFormContainerProps } from './interfaces';
 
 export const EMAIL_ALREADY_EXISTS = gql`
@@ -48,7 +47,13 @@ const RegisterFormContainer: React.FC<IRegisterFormContainerProps> = ({
           },
         });
       }}
-      onEmailAlreadyExists={emailAlreadyExists}
+      onCheckEmailExists={async value => {
+        const results = await emailAlreadyExists({
+          variables: { email: value },
+        });
+
+        return Boolean(results?.data?.emailAlreadyExists);
+      }}
     />
   );
 };

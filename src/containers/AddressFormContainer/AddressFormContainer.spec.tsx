@@ -1,4 +1,4 @@
-import { MockedProvider, MockedResponse } from '@apollo/react-testing';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { GetAddressContainerDataQueryVariables as QueryVariables } from '../../../generated/GetAddressContainerDataQuery';
@@ -82,7 +82,6 @@ describe('<AddressFormContainer />', () => {
       </MockedProvider>,
     );
 
-    // Wait for the initial query to resolve
     await waitFor(() => screen.findByTestId('address-history-heading'));
 
     fireEvent.change(screen.getByTestId('history[0].address'), {

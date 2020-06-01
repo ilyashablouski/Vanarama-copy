@@ -1,9 +1,9 @@
-import React from 'react';
-import { MockedProvider, MockedResponse } from '@apollo/react-testing';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor } from '@testing-library/react';
-import { HomePage } from '../../pages';
-import { ALL_CONTENT } from '../../gql/homepage';
+import React from 'react';
 import { HomePageData } from '../../../generated/HomePageData';
+import { ALL_CONTENT } from '../../gql/homepage';
+import { HomePage } from '../../pages';
 
 require('dotenv').config();
 

@@ -10,7 +10,7 @@ import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import SortCode from '@vanarama/uibook/lib/components/molecules/sortcode';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import { gql } from 'apollo-boost';
+import { gql } from '@apollo/client';
 import React from 'react';
 import { Controller, FieldError, useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';

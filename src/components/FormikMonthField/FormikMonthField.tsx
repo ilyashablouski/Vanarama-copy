@@ -19,7 +19,6 @@ const FormikMonthField: React.FC<IProps> = ({ monthName, yearName, label }) => {
     <Formgroup error={error} controlId={monthName} label={label} inline>
       <Select
         id={monthName}
-        name={monthName}
         dataTestId={monthName}
         placeholder="Month"
         {...monthField}
@@ -32,7 +31,6 @@ const FormikMonthField: React.FC<IProps> = ({ monthName, yearName, label }) => {
       </Select>
       <Select
         id={yearName}
-        name={yearName}
         dataTestId={yearName}
         placeholder="Year"
         {...yearField}

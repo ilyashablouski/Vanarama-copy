@@ -1,14 +1,6 @@
-import {
-  defaultDataIdFromObject,
-  IdGetterObj,
-  InMemoryCache,
-} from 'apollo-cache-inmemory';
-import { ApolloClient } from 'apollo-client';
-import { HttpLink } from 'apollo-link-http';
+import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 import fetch from 'isomorphic-unfetch';
 import { NextPageContext } from 'next';
-
-type ObjWithUuid = IdGetterObj & { uuid?: string };
 
 export default function createApolloClient(
   initialState: any,
@@ -26,19 +18,20 @@ export default function createApolloClient(
       },
     }),
     cache: new InMemoryCache({
-      cacheRedirects: {
+      typePolicies: {
         Query: {
-          personByUuid: (_, args, { getCacheKey }) =>
-            getCacheKey({ __typename: 'PersonType', uuid: args.uuid }),
+          fields: {
+            personByUuid(existing, { args, toReference }) {
+              return (
+                existing ||
+                toReference({ __typename: 'PersonType', uuid: args?.uuid })
+              );
+            },
+          },
         },
-      },
-      dataIdFromObject: object => {
-        if ((object as ObjWithUuid).uuid) {
-          const { __typename, uuid } = object as ObjWithUuid;
-          return `${__typename}:${uuid}`;
-        }
-
-        return defaultDataIdFromObject(object); // fall back to default handling
+        PersonType: {
+          keyFields: ['uuid'],
+        },
       },
     }).restore(initialState),
   });

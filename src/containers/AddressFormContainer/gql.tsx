@@ -1,5 +1,5 @@
-import { useMutation, useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
+import { useMutation, useQuery, gql } from '@apollo/client';
+
 import {
   GetAddressContainerDataQuery as Query,
   GetAddressContainerDataQueryVariables as QueryVariables,
@@ -59,13 +59,19 @@ export function useUpdateAddresses(
 
       // Add the addresses from the mutation to the end.
       if (data?.personByUuid) {
-        data.personByUuid.addresses = result.data?.createUpdateAddress || [];
+        const addresses = result.data?.createUpdateAddress || [];
 
         // Write our data back to the cache.
         store.writeQuery<Query, QueryVariables>({
           query: GET_ADDRESS_CONTAINER_DATA,
           variables: { uuid: personUuid },
-          data,
+          data: {
+            ...data,
+            personByUuid: {
+              ...data.personByUuid,
+              addresses,
+            },
+          },
         });
       }
     },

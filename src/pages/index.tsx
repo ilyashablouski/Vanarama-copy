@@ -1,46 +1,45 @@
-import { NextPage } from 'next';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Image from '@vanarama/uibook/lib/components/atoms/image';
+import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
+import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
+import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
+import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
+import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
+import Image from '@vanarama/uibook/lib/components/atoms/image';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Media from '@vanarama/uibook/lib/components/atoms/media';
-import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
-import Tile from '@vanarama/uibook/lib/components/molecules/tile';
-import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
-import League from '@vanarama/uibook/lib/components/organisms/league';
-import LogoRow from '@vanarama/uibook/lib/components/molecules/logo-row';
-import ProductCard from '@vanarama/uibook/lib/components/organisms/product-card';
-import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Card, {
   CardContent,
   CardMedia,
 } from '@vanarama/uibook/lib/components/molecules/card';
-import Slider from '@vanarama/uibook/lib/components/organisms/slider';
-import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
-import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
-import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
-import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
-import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
+import { Column, Grid } from '@vanarama/uibook/lib/components/molecules/grid';
+import LogoRow from '@vanarama/uibook/lib/components/molecules/logo-row';
+import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
+import Tile from '@vanarama/uibook/lib/components/molecules/tile';
+import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
 import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import Hero, { HeroTitle, HeroHeading } from '../components/Hero';
-import withApollo from '../hocs/withApollo';
-import { ALL_CONTENT } from '../gql/homepage';
+import League from '@vanarama/uibook/lib/components/organisms/league';
+import ProductCard from '@vanarama/uibook/lib/components/organisms/product-card';
+import Slider from '@vanarama/uibook/lib/components/organisms/slider';
+import { NextPage } from 'next';
 import {
   HomePageData,
   HomePageData_homePage_sections_tiles_tiles as TileData,
 } from '../../generated/HomePageData';
+import Hero, { HeroHeading, HeroTitle } from '../components/Hero';
+import { ALL_CONTENT } from '../gql/homepage';
+import withApollo from '../hocs/withApollo';
 
 const tabs = [{ label: 'Vans' }, { label: 'Pickups' }, { label: 'Cars' }];
 
 export const HomePage: NextPage = () => {
   const { data, loading, error } = useQuery<HomePageData>(ALL_CONTENT);
-
   if (loading) {
     return <Loading size="large" />;
   }

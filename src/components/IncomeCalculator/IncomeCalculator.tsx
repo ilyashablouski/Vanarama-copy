@@ -8,7 +8,7 @@ import Input from '@vanarama/uibook/lib/components/atoms/textinput/';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import { Column, Grid } from '@vanarama/uibook/lib/components/molecules/grid';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
-import { gql } from 'apollo-boost';
+import { gql } from '@apollo/client';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Form from '@vanarama/uibook/lib/components/organisms/form';

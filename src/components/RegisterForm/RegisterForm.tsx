@@ -4,21 +4,21 @@ import Details from '@vanarama/uibook/lib/components/atoms/details';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
+import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { useForm } from 'react-hook-form';
-import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import PasswordRequirements from '../../core/components/PasswordRequirements';
-import { IRegisterFormProps, IRegisterFormValues } from './interfaces';
 import {
   confirmPasswordValidator,
   passwordValidator,
 } from '../../utils/inputValidators';
 import { EMAIL_REGEX } from '../../utils/regex';
+import { IRegisterFormProps, IRegisterFormValues } from './interfaces';
 
 const RegisterForm: React.FC<IRegisterFormProps> = ({
   isSubmitting,
   onSubmit,
-  onEmailAlreadyExists,
+  onCheckEmailExists,
 }) => {
   const { handleSubmit, errors, watch, register } = useForm<
     IRegisterFormValues
@@ -53,15 +53,10 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
               value: EMAIL_REGEX,
               message: 'Invalid email address',
             },
-            validate: async value => {
-              const results = await onEmailAlreadyExists({
-                variables: { email: value },
-              });
-
-              return results?.data?.emailAlreadyExists
+            validate: async value =>
+              (await onCheckEmailExists(value))
                 ? 'This email address already exists. Please log in'
-                : undefined;
-            },
+                : undefined,
           })}
           type="text"
         />

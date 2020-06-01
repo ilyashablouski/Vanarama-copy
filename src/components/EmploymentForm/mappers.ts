@@ -16,7 +16,7 @@ export const responseToInitialFormValues = (
      * are being auto-removed due to having more than 3 years history
      * because the server returns them in the incorrect order.
      */
-    history: employments
+    history: [...employments]
       .sort(
         (a, b) =>
           new Date(b.employedSinceDate).getTime() -

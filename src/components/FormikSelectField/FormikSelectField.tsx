@@ -19,7 +19,7 @@ const FormikSelectField: React.FC<IProps> = ({
   const error = (meta.touched && meta.error) || undefined;
   return (
     <Formgroup error={error} controlId={name} label={label}>
-      <Select id={name} name={name} dataTestId={name} {...rest} {...field}>
+      <Select id={name} dataTestId={name} {...rest} {...field}>
         {children}
       </Select>
     </Formgroup>

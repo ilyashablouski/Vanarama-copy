@@ -3,7 +3,7 @@ import React from 'react';
 import RegisterForm from './RegisterForm';
 
 const jestMock = (emailAlreadyExists: boolean) => {
-  return jest.fn().mockReturnValue({ data: { emailAlreadyExists } });
+  return jest.fn().mockReturnValue(emailAlreadyExists);
 };
 
 const renderComponent = (
@@ -13,7 +13,7 @@ const renderComponent = (
   render(
     <RegisterForm
       onSubmit={onSubmit}
-      onEmailAlreadyExists={emailAlreadyExists}
+      onCheckEmailExists={emailAlreadyExists}
     />,
   );
 };

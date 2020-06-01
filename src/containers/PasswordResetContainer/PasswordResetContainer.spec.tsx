@@ -1,4 +1,4 @@
-import { MockedProvider, MockedResponse } from '@apollo/react-testing';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import React from 'react';
 import PasswordResetContainer, {

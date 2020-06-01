@@ -14,7 +14,7 @@ const FormikTextField: React.FC<IProps> = ({ name, label, ...rest }) => {
   const error = (meta.touched && meta.error) || undefined;
   return (
     <Formgroup controlId={name} label={label} error={error}>
-      <TextInput dataTestId={name} id={name} name={name} {...rest} {...field} />
+      <TextInput dataTestId={name} id={name} {...rest} {...field} />
     </Formgroup>
   );
 };

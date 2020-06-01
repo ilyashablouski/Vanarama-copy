@@ -2,7 +2,7 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import { gql } from 'apollo-boost';
+import { gql } from '@apollo/client';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { SummaryFormPerson } from '../../../generated/SummaryFormPerson';

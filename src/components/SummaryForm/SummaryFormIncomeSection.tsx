@@ -1,5 +1,5 @@
 import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
-import { gql } from 'apollo-boost';
+import { gql } from '@apollo/client';
 import React from 'react';
 import { SummaryFormIncomeSectionIncome } from '../../../generated/SummaryFormIncomeSectionIncome';
 import FCWithFragments from '../../utils/FCWithFragments';

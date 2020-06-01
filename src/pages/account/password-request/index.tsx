@@ -1,4 +1,7 @@
+import { gql, useMutation } from '@apollo/client';
+import CheckmarkSharp from '@vanarama/uibook/lib/assets/icons/CheckmarkSharp';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Container from '@vanarama/uibook/lib/components/container/Container';
 import Section from '@vanarama/uibook/lib/components/container/Section';
@@ -6,24 +9,20 @@ import { Column, Grid } from '@vanarama/uibook/lib/components/molecules/grid';
 import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
-import { useMutation } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import CheckmarkSharp from '@vanarama/uibook/lib/assets/icons/CheckmarkSharp';
-import { EMAIL_ALREADY_EXISTS } from '../../../containers/RegisterFormContainer/RegisterFormContainer';
-import { IRequestPasswordFormValues } from '../../../components/RequestPasswordForm/interfaces';
-import Message from '../../../core/components/Message';
-import RequestPasswordForm from '../../../components/RequestPasswordForm';
-import {
-  PasswordRequestMutation as Mutation,
-  PasswordRequestMutationVariables as MutationVariables,
-} from '../../../../generated/PasswordRequestMutation';
 import {
   EmailAlreadyExistsMutation as EMutation,
   EmailAlreadyExistsMutationVariables as EMutationVariables,
 } from '../../../../generated/EmailAlreadyExistsMutation';
-import MainLayout from '../../../layouts/MainLayout/MainLayout';
+import {
+  PasswordRequestMutation as Mutation,
+  PasswordRequestMutationVariables as MutationVariables,
+} from '../../../../generated/PasswordRequestMutation';
+import RequestPasswordForm from '../../../components/RequestPasswordForm';
+import { IRequestPasswordFormValues } from '../../../components/RequestPasswordForm/interfaces';
+import { EMAIL_ALREADY_EXISTS } from '../../../containers/RegisterFormContainer/RegisterFormContainer';
+import Message from '../../../core/components/Message';
 import withApollo from '../../../hocs/withApollo';
+import MainLayout from '../../../layouts/MainLayout/MainLayout';
 
 interface IProps {
   query: ParsedUrlQuery;

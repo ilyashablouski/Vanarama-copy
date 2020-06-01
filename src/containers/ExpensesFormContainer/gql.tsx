@@ -1,5 +1,4 @@
-import { useMutation, useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import {
   CreateExpenseMutation as Mutation,
   CreateExpenseMutationVariables as MutationVariables,
@@ -55,14 +54,20 @@ export function useUpdateExpenses(
 
       // Add the employment from the mutation to the end.
       if (data?.personByUuid) {
-        data.personByUuid.incomeAndExpense =
+        const incomeAndExpense =
           result.data?.createUpdateIncomeAndExpense || null;
 
         // Write our data back to the cache.
         store.writeQuery<Query, QueryVariables>({
           query: GET_EXPENSES_PAGE_DATA,
           variables: { uuid: personUuid },
-          data,
+          data: {
+            ...data,
+            personByUuid: {
+              ...data.personByUuid,
+              incomeAndExpense,
+            },
+          },
         });
       }
     },

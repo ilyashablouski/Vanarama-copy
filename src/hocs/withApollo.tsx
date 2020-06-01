@@ -1,4 +1,4 @@
-import { ApolloProvider } from '@apollo/react-hooks';
+import { ApolloProvider } from '@apollo/client';
 import withApollo from 'next-with-apollo';
 import createApolloClient from '../apolloClient';
 

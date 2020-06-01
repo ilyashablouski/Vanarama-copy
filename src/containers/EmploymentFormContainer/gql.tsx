@@ -1,5 +1,5 @@
-import { useMutation, useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
+import { useMutation, useQuery, gql } from '@apollo/client';
+
 import {
   GetEmploymentContainerDataQuery as Query,
   GetEmploymentContainerDataQueryVariables as QueryVariables,
@@ -61,14 +61,20 @@ export function useUpdateEmployment(
 
       // Add the employment from the mutation to the end.
       if (data?.personByUuid) {
-        data.personByUuid.employmentHistories =
+        const employmentHistories =
           result.data?.createUpdateEmploymentHistory || [];
 
         // Write our data back to the cache.
         store.writeQuery<Query, QueryVariables>({
           query: GET_EMPLOYMENT_CONTAINER_DATA,
           variables: { uuid: personByUuid },
-          data,
+          data: {
+            ...data,
+            personByUuid: {
+              ...data.personByUuid,
+              employmentHistories,
+            },
+          },
         });
       }
     },
