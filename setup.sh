@@ -7,3 +7,4 @@ CURRENTBRANCH=${5}
 
 export API_KEY="$(aws ssm get-parameter --name "/$ENV/$STACK/$APP/fed-gateway-api-key" --region $REGION --with-decryption | jq -r ".Parameter.Value")"
 export API_URL="$(aws ssm get-parameter --name "/$ENV/$STACK/$APP/fed-gateway-api-url" --region $REGION --with-decryption | jq -r ".Parameter.Value")"
+export LOQATE_KEY="$(aws ssm get-parameter --name "/$ENV/$STACK/$APP/loqate-key" --region $REGION --with-decryption | jq -r ".Parameter.Value")"
