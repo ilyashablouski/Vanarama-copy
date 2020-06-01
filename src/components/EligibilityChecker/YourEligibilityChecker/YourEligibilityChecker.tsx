@@ -1,4 +1,5 @@
 import { useForm, Controller } from 'react-hook-form';
+import { gql } from 'apollo-boost';
 import Button from '@vanarama/uibook/lib/components/atoms/button/';
 import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -13,10 +14,10 @@ import AddressFinder from '@vanarama/uibook/lib/components/molecules/address-fin
 import { genMonths, genYears } from '../../../utils/helpers';
 import validationSchema from './YourEligibilityChecker.validation';
 import { IYourEligiblityCheckerValues, IProps } from './interface';
-import { responseToInitialFormValues } from './mappers';
 import useDateOfBirthValidation from './useDateOfBirthValidation';
+import FCWithFragments from '../../../utils/FCWithFragments';
 
-const YourEligibilityChecker: React.FC<IProps> = ({ submit }) => {
+const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
   const months = genMonths();
   const years = genYears(100);
   const {
@@ -30,7 +31,15 @@ const YourEligibilityChecker: React.FC<IProps> = ({ submit }) => {
   } = useForm<IYourEligiblityCheckerValues>({
     mode: 'onBlur',
     validationSchema,
-    defaultValues: responseToInitialFormValues(),
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      addressFinder: undefined,
+      promotions: false,
+      dayOfBirth: '',
+      monthOfBirth: '',
+      yearOfBirth: '',
+    },
   });
 
   useDateOfBirthValidation(watch, triggerValidation);
@@ -212,4 +221,34 @@ const YourEligibilityChecker: React.FC<IProps> = ({ submit }) => {
   );
 };
 
+YourEligibilityChecker.fragments = {
+  creditChecker: gql`
+    fragment QuickCreditCheckerEligibility on QuickCreditCheckerType {
+      __typename
+      score
+      status
+      person {
+        __typename
+        firstName
+        lastName
+        dateOfBirth
+        emailAddresses {
+          __typename
+          __typename
+          uuid
+          primary
+          value
+        }
+        addresses {
+          __typename
+          serviceId
+          city
+          lineOne
+          lineTwo
+          postcode
+        }
+      }
+    }
+  `,
+};
 export default YourEligibilityChecker;

@@ -1,12 +1,13 @@
 import React from 'react';
 import { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import Score from '@vanarama/uibook/lib/components/atoms/score';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Slider from '@vanarama/uibook/lib/components/organisms/carousel';
+import Slider from '@vanarama/uibook/lib/components/organisms/slider';
 import ProductCard from '@vanarama/uibook/lib/components/organisms/product-card';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
@@ -14,8 +15,13 @@ import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
 import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
+import { Column } from '@vanarama/uibook/lib/components/molecules/grid';
 
 const CreditChecker: NextPage = () => {
+  const router = useRouter();
+  const scoreParam = router.query.score as string;
+  const score = parseInt(scoreParam, 10) || 0;
+
   const breadcrumbProps = {
     items: [
       { label: 'Home', href: '/' },
@@ -36,29 +42,29 @@ const CreditChecker: NextPage = () => {
               <Heading color="black" size="xlarge">
                 Your Result
               </Heading>
-            </div>
-            <div>
-              <Score score={75} />
-            </div>
-            <div className="column -inset -col-400">
-              <Heading tag="span" size="large">
-                Choose Your Vehicle
-              </Heading>
-              <Text tag="p" size="regular" color="darker">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod
-                odio blanditiis amet reiciendis cupiditate voluptas dolorum?
-                Quidem nam ad debitis!
-              </Text>
-              <Button
-                color="teal"
-                size="regular"
-                fill="solid"
-                label="Choose Your Vehicle"
-                role="button"
-              />
-              <Text tag="p">
-                Not sure? We can <Link>help you choose</Link>
-              </Text>
+              <Column md="2">
+                <Score score={score} />
+              </Column>
+              <Column className="column -inset -col-400" md="4">
+                <Heading tag="span" size="large">
+                  Choose Your Vehicle
+                </Heading>
+                <Text tag="p" size="regular" color="darker">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod
+                  odio blanditiis amet reiciendis cupiditate voluptas dolorum?
+                  Quidem nam ad debitis!
+                </Text>
+                <Button
+                  color="teal"
+                  size="regular"
+                  fill="solid"
+                  label="Choose Your Vehicle"
+                  role="button"
+                />
+                <Text tag="p">
+                  Not sure? We can <Link>help you choose</Link>
+                </Text>
+              </Column>
             </div>
           </div>
         </div>
