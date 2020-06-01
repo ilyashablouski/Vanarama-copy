@@ -38,7 +38,7 @@ import {
 
 const tabs = [{ label: 'Vans' }, { label: 'Pickups' }, { label: 'Cars' }];
 
-const HomePage: NextPage = () => {
+export const HomePage: NextPage = () => {
   const { data, loading, error } = useQuery<HomePageData>(ALL_CONTENT);
 
   if (loading) {
@@ -47,11 +47,6 @@ const HomePage: NextPage = () => {
 
   if (error) {
     return <p>Error: {error.message}</p>;
-  }
-
-  if (data) {
-    // eslint-disable-next-line no-console
-    console.log(JSON.stringify(data, null, 2));
   }
 
   return (
