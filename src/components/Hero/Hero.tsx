@@ -1,5 +1,4 @@
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Image from '@vanarama/uibook/lib/components/atoms/image';
 import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
 
 import { IHeroProps } from './interface';
@@ -18,13 +17,7 @@ const Hero: React.FC<IHeroProps> = ({
                 {flagText}
               </Heading>
             </div>
-            <div className="hero--title -distribute-content">{children}</div>
-            <Image
-              className="hero--image"
-              plain
-              size="expand"
-              src="https://www.vanarama.com/Assets/images-optimised/home/vanilla/Vehicle-Hero-Image.png"
-            />
+            {children}
           </Column>
           <Column className="-inset" sm="row" md="1" lg="2">
             <div className="hero--search">...</div>

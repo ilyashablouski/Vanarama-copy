@@ -14,7 +14,7 @@ import BreadCrumbs from '../../containers/BreadCrumbContainer/BreadCrumbContaine
 
 const BlogPage: NextPage = () => (
   <>
-    <section className="section -pb-500 ">
+    <section className="section -pb-500 -bg-white">
       <div className="container">
         <Grid className="-pb-400" lg="6" md="2" sm="2">
           <Column md="row">
@@ -99,7 +99,7 @@ const BlogPage: NextPage = () => (
         </Slider>
       </div>
     </section>
-    <section className="section -pb-500 -pt-500">
+    <section className="section -pb-500 -pt-500 -bg-white">
       <div className="container">
         <Grid lg="6" md="2" sm="2" className="-pb-400 -pt-400">
           <Column className="-center" md="row">
