@@ -158,10 +158,7 @@ pipeline {
                 def railsEnv = app_environment["${env.BRANCH_NAME}"].railsEnv
                 def envs = app_environment["${B_NAME}"].env
                 def stack = app_environment["${B_NAME}"].stack
-              script {
                 currentCommit = env.GIT_COMMIT
-                def stack = app_environment["${B_NAME}"].stack
-              }
                     //TO DO - Paramaterise the source function with env variable
                     withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
                     sh """
