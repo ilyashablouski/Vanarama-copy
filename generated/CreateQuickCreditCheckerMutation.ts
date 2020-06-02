@@ -27,6 +27,7 @@ export interface CreateQuickCreditCheckerMutation_quickCreditChecker_person_addr
 
 export interface CreateQuickCreditCheckerMutation_quickCreditChecker_person {
   __typename: "PersonType";
+  uuid: string;
   firstName: string;
   lastName: string;
   dateOfBirth: any | null;

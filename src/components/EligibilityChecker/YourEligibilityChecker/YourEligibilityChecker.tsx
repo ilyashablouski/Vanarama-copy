@@ -1,5 +1,5 @@
 import { useForm, Controller } from 'react-hook-form';
-import { gql } from 'apollo-boost';
+import { gql } from '@apollo/client';
 import Button from '@vanarama/uibook/lib/components/atoms/button/';
 import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -139,7 +139,7 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
           ref={register}
           placeholder="Month"
         >
-          {months.map((value, i) => (
+          {months.map((value: any, i: number) => (
             <option key={value} value={i + 1}>
               {value}
             </option>
@@ -229,11 +229,11 @@ YourEligibilityChecker.fragments = {
       status
       person {
         __typename
+        uuid
         firstName
         lastName
         dateOfBirth
         emailAddresses {
-          __typename
           __typename
           uuid
           primary

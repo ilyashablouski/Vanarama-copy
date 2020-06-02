@@ -25,6 +25,7 @@ export interface QuickCreditCheckerEligibility_person_addresses {
 
 export interface QuickCreditCheckerEligibility_person {
   __typename: "PersonType";
+  uuid: string;
   firstName: string;
   lastName: string;
   dateOfBirth: any | null;
