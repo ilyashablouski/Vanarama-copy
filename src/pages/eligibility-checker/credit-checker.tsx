@@ -33,37 +33,38 @@ const CreditChecker: NextPage = () => {
     <div>
       <section className="section">
         <div className="container">
-          <div>
-            <div>
-              <Breadcrumb items={breadcrumbProps.items} />
-            </div>
+          <div className="row:title">
+            <Breadcrumb items={breadcrumbProps.items} />
             <div className="-col-400">
               <Heading color="black" size="xlarge">
                 Your Result
               </Heading>
-              <Score score={score} />
               <Heading tag="span" size="large">
                 Choose Your Vehicle
               </Heading>
-              <Text tag="p" size="regular" color="darker">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod
-                odio blanditiis amet reiciendis cupiditate voluptas dolorum?
-                Quidem nam ad debitis!
-              </Text>
-              <Button
-                color="teal"
-                size="regular"
-                fill="solid"
-                label="Choose Your Vehicle"
-                role="button"
-              />
-              <Text tag="p">
-                Not sure? We can <Link>help you choose</Link>
-              </Text>
             </div>
+          </div>
+          <div className="row:featured-left">
+            <Score score={score} />
+            <Text tag="p" size="regular" color="darker">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod odio
+              blanditiis amet reiciendis cupiditate voluptas dolorum? Quidem nam
+              ad debitis!
+            </Text>
+            <Button
+              color="teal"
+              size="regular"
+              fill="solid"
+              label="Choose Your Vehicle"
+              role="button"
+            />
+            <Text tag="p">
+              Not sure? We can <Link>help you choose</Link>
+            </Text>
           </div>
         </div>
       </section>
+
       <div className="row:carousel">
         <div className="row:bg-lighter">
           <div className="-a-center" style={{ margin: '4rem 0 2rem 0' }}>
