@@ -7,16 +7,8 @@ exports[`<Lease /> renders correctly 1`] = `
   <div
     className="container"
   >
-    <div
-      className="grid"
-      columns-l="6"
-      columns-m="2"
-      columns-s="2"
-    >
-      <div
-        className="column"
-        span-m="3"
-      >
+    <div>
+      <div>
         <div
           className="media media-wrapper"
         >
@@ -44,8 +36,7 @@ exports[`<Lease /> renders correctly 1`] = `
         </div>
       </div>
       <div
-        className="column -inset -middle -col-400"
-        span-m="3"
+        className="-inset -middle -col-400"
       >
         <div>
           <div

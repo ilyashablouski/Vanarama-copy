@@ -3,9 +3,6 @@ import CheckmarkSharp from '@vanarama/uibook/lib/assets/icons/CheckmarkSharp';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Container from '@vanarama/uibook/lib/components/container/Container';
-import Section from '@vanarama/uibook/lib/components/container/Section';
-import { Column, Grid } from '@vanarama/uibook/lib/components/molecules/grid';
 import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
@@ -22,7 +19,6 @@ import { IRequestPasswordFormValues } from '../../../components/RequestPasswordF
 import { EMAIL_ALREADY_EXISTS } from '../../../containers/RegisterFormContainer/RegisterFormContainer';
 import Message from '../../../core/components/Message';
 import withApollo from '../../../hocs/withApollo';
-import MainLayout from '../../../layouts/MainLayout/MainLayout';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -69,43 +65,36 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
       });
     }
   };
+
   return (
-    <MainLayout>
-      <Section>
-        <Container>
-          <Grid sm="2" md="2" lg="5">
-            <Column sm="row" md="row" lg="2-4">
-              <Heading
-                tag="h2"
-                size="xlarge"
-                color="black"
-                dataTestId="login-register-heading"
-              >
-                Forgot Your Password?
-              </Heading>
-              <Text color="darker" size="lead">
-                Enter your email address below and we&apos;ll send you a
-                password reset link by email.
-              </Text>
-            </Column>
-            {hasRequest && (
-              <Message message="Please check your email">
-                <Icon icon={<CheckmarkSharp />} size="regular" color="teal" />
-              </Message>
-            )}
-            <Column sm="row" md="row" lg="2-4">
-              <div className="login-register-form">
-                <RequestPasswordForm
-                  onSubmit={onSubmit}
-                  hasError={!isEmailExist}
-                  isSubmitting={loading || emailLoading}
-                />
-              </div>
-            </Column>
-          </Grid>
-        </Container>
-      </Section>
-    </MainLayout>
+    <>
+      <div className="row:title">
+        <Heading
+          tag="h1"
+          size="xlarge"
+          color="black"
+          dataTestId="login-register-heading"
+        >
+          Forgot Your Password?
+        </Heading>
+        <Text color="darker" size="lead">
+          Enter your email address below and we&apos;ll send you a password
+          reset link by email.
+        </Text>
+        {hasRequest && (
+          <Message message="Please check your email">
+            <Icon icon={<CheckmarkSharp />} size="regular" color="teal" />
+          </Message>
+        )}
+      </div>
+      <div className="row:form">
+        <RequestPasswordForm
+          onSubmit={onSubmit}
+          hasError={!isEmailExist}
+          isSubmitting={loading || emailLoading}
+        />
+      </div>
+    </>
   );
 };
 

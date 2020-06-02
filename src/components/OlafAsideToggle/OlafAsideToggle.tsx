@@ -10,7 +10,7 @@ const OlafAsideToggle: React.FC = ({ children }) => {
   return (
     <div className="-vp-max:small">
       <Button
-        data-testid="olaf-aside-toggle"
+        dataTestId="olaf-aside-toggle"
         className={cx('-fullwidth -mt-400 -mv-400', {
           '-mb-400': toggle,
         })}

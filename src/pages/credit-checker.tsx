@@ -6,8 +6,7 @@ import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
-import Slider from '@vanarama/uibook/lib/components/organisms/slider';
+import Slider from '@vanarama/uibook/lib/components/organisms/carousel';
 import ProductCard from '@vanarama/uibook/lib/components/organisms/product-card';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
@@ -29,19 +28,19 @@ const CreditChecker: NextPage = () => {
     <div>
       <section className="section">
         <div className="container">
-          <Grid lg="6" md="2" sm="2">
-            <Column sm="row">
+          <div>
+            <div>
               <Breadcrumb items={breadcrumbProps.items} />
-            </Column>
-            <Column className="-col-400" md="row">
+            </div>
+            <div className="-col-400">
               <Heading color="black" size="xlarge">
                 Your Result
               </Heading>
-            </Column>
-            <Column md="2">
+            </div>
+            <div>
               <Score score={75} />
-            </Column>
-            <Column className="column -inset -col-400" md="4">
+            </div>
+            <div className="column -inset -col-400">
               <Heading tag="span" size="large">
                 Choose Your Vehicle
               </Heading>
@@ -60,8 +59,8 @@ const CreditChecker: NextPage = () => {
               <Text tag="p">
                 Not sure? We can <Link>help you choose</Link>
               </Text>
-            </Column>
-          </Grid>
+            </div>
+          </div>
         </div>
       </section>
       <div className="row:carousel">

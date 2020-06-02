@@ -16,18 +16,21 @@ import Card, {
   CardContent,
   CardMedia,
 } from '@vanarama/uibook/lib/components/molecules/card';
-import { Column, Grid } from '@vanarama/uibook/lib/components/molecules/grid';
-import LogoRow from '@vanarama/uibook/lib/components/molecules/logo-row';
 import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
+import Tab from '@vanarama/uibook/lib/components/molecules/tabs/Tab';
+import TabList from '@vanarama/uibook/lib/components/molecules/tabs/TabList';
+import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
+import TabPanels from '@vanarama/uibook/lib/components/molecules/tabs/TabPanels';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
+import Slider from '@vanarama/uibook/lib/components/organisms/carousel';
 import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
 import ProductCard from '@vanarama/uibook/lib/components/organisms/product-card';
-import Slider from '@vanarama/uibook/lib/components/organisms/slider';
 import { NextPage } from 'next';
+import { useState } from 'react';
 import {
   HomePageData,
   HomePageData_homePage_sections_tiles_tiles as TileData,
@@ -36,9 +39,8 @@ import Hero, { HeroHeading, HeroTitle } from '../components/Hero';
 import { ALL_CONTENT } from '../gql/homepage';
 import withApollo from '../hocs/withApollo';
 
-const tabs = [{ label: 'Vans' }, { label: 'Pickups' }, { label: 'Cars' }];
-
 export const HomePage: NextPage = () => {
+  const [activeTab, setActiveTab] = useState(0);
   const { data, loading, error } = useQuery<HomePageData>(ALL_CONTENT);
   if (loading) {
     return <Loading size="large" />;
@@ -73,69 +75,86 @@ export const HomePage: NextPage = () => {
               Hot Deals
             </span>
           </Heading>
-          <Tabs active={0} tabs={tabs}>
-            <div>
-              <Slider className="-mh-auto" gutter={16}>
-                {[1, 2, 3, 4, 5].map(k => (
-                  <div key={k.toString()} style={{ width: 345 }}>
-                    <ProductCard
-                      flag={{
-                        accentIcon: <Icon icon={<Flame />} color="white" />,
-                        accentText: 'Hot Deal',
-                        text: 'In Stock - 14-21 Days Delivery',
-                      }}
-                      href="#"
-                      features={[
-                        {
-                          icon: <Icon icon={<SnowSharp />} color="dark" />,
-                          label: 'Aircon',
-                        },
-                        {
-                          icon: <Icon icon={<BluetoothSharp />} color="dark" />,
-                          label: 'Bluetooth',
-                        },
-                        {
-                          icon: <Icon icon={<CompassSharp />} color="dark" />,
-                          label: 'Navigation',
-                        },
-                        {
-                          icon: <Icon icon={<WifiSharp />} color="dark" />,
-                          label: 'Sensors',
-                        },
-                      ]}
-                      imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
-                      onCompare={() => true}
-                      onViewOffer={() => true}
-                      onWishlist={() => true}
-                      price={209}
-                      rating={4.5}
-                      subtitle="1.0 IG-T 100 Tekna 5dr Xtronic [Leather]"
-                      title="Peugeot 208"
-                    />
+          <Tabs activeIndex={activeTab} onChange={setActiveTab}>
+            <TabList>
+              <Tab index={0}>Vans</Tab>
+              <Tab index={1}>Pickups</Tab>
+              <Tab index={2}>Cars</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel index={0}>
+                <div>
+                  <Slider className="-mh-auto" gutter={16}>
+                    {[1, 2, 3, 4, 5].map(k => (
+                      <div key={k.toString()} style={{ width: 345 }}>
+                        <ProductCard
+                          flag={{
+                            accentIcon: <Icon icon={<Flame />} color="white" />,
+                            accentText: 'Hot Deal',
+                            text: 'In Stock - 14-21 Days Delivery',
+                          }}
+                          href="#"
+                          features={[
+                            {
+                              icon: <Icon icon={<SnowSharp />} color="dark" />,
+                              label: 'Aircon',
+                            },
+                            {
+                              icon: (
+                                <Icon icon={<BluetoothSharp />} color="dark" />
+                              ),
+                              label: 'Bluetooth',
+                            },
+                            {
+                              icon: (
+                                <Icon icon={<CompassSharp />} color="dark" />
+                              ),
+                              label: 'Navigation',
+                            },
+                            {
+                              icon: <Icon icon={<WifiSharp />} color="dark" />,
+                              label: 'Sensors',
+                            },
+                          ]}
+                          imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
+                          onCompare={() => true}
+                          onViewOffer={() => true}
+                          onWishlist={() => true}
+                          price={209}
+                          rating={4.5}
+                          subtitle="1.0 IG-T 100 Tekna 5dr Xtronic [Leather]"
+                          title="Peugeot 208"
+                        />
+                      </div>
+                    ))}
+                  </Slider>
+                  <div className="-justify-content-row -pt-500">
+                    <Button label="View All Van Offers" color="teal" />
                   </div>
-                ))}
-              </Slider>
-              <div className="-justify-content-row -pt-500">
-                <Button label="View All Van Offers" color="teal" />
-              </div>
-            </div>
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button label="View All Pickup Offers" color="teal" />
-              </div>
-            </div>
-            <div>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button label="View All Car Offers" color="teal" />
-              </div>
-            </div>
+                </div>
+              </TabPanel>
+              <TabPanel index={1}>
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Button label="View All Pickup Offers" color="teal" />
+                  </div>
+                </div>
+              </TabPanel>
+              <TabPanel index={2}>
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Button label="View All Car Offers" color="teal" />
+                  </div>
+                </div>
+              </TabPanel>
+            </TabPanels>
           </Tabs>
         </div>
       </section>
       <section className="section">
         <div className="container">
-          <Grid lg="3" md="1" sm="1">
-            <Column md="1">
+          <div>
+            <div>
               <Card className="-a-center">
                 <Heading className="-pv-300" size="regular" color="black">
                   Vans
@@ -149,8 +168,8 @@ export const HomePage: NextPage = () => {
                   <Button label="Search Vans" color="teal" fill="solid" />
                 </CardContent>
               </Card>
-            </Column>
-            <Column md="1">
+            </div>
+            <div>
               <Card className="-a-center">
                 <Heading className="-pv-300" size="regular" color="black">
                   Pickups
@@ -164,8 +183,8 @@ export const HomePage: NextPage = () => {
                   <Button label="Search Pickups" color="teal" fill="solid" />
                 </CardContent>
               </Card>
-            </Column>
-            <Column md="1">
+            </div>
+            <div>
               <Card className="-a-center">
                 <Heading className="-pv-300" size="regular" color="black">
                   Cars
@@ -179,14 +198,14 @@ export const HomePage: NextPage = () => {
                   <Button label="Search Cars" color="teal" fill="solid" />
                 </CardContent>
               </Card>
-            </Column>
-          </Grid>
+            </div>
+          </div>
         </div>
       </section>
       <section className="section -bg-lighter">
         <div className="container">
-          <Grid lg="6" md="2" sm="2">
-            <Column className="-inset -middle" md="3">
+          <div>
+            <div className="-inset -middle">
               <div style={{ padding: '1rem' }}>
                 <Heading size="large" color="black">
                   {data?.homePage.sections.featured1.title}
@@ -206,8 +225,8 @@ export const HomePage: NextPage = () => {
                   </IconListItem>
                 </IconList>
               </div>
-            </Column>
-            <Column md="3">
+            </div>
+            <div>
               <Media
                 responsive
                 src="https://player.vimeo.com/video/263419265"
@@ -217,17 +236,17 @@ export const HomePage: NextPage = () => {
                 width="100%"
                 height="100%"
               />
-            </Column>
-          </Grid>
+            </div>
+          </div>
         </div>
       </section>
       <section className="section">
         <div className="container">
-          <Grid lg="6" md="2" sm="2">
-            <Column md="3">
+          <div>
+            <div>
               <Image src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349" />
-            </Column>
-            <Column className="-inset -middle -col-400" md="3">
+            </div>
+            <div className="-inset -middle -col-400">
               <div>
                 <Heading size="large" color="black">
                   {data?.homePage.sections.featured2.title}
@@ -236,15 +255,15 @@ export const HomePage: NextPage = () => {
                   {data?.homePage.sections.featured2.body}
                 </Text>
               </div>
-            </Column>
-          </Grid>
+            </div>
+          </div>
         </div>
       </section>
       <section className="section -bg-lighter">
         <div className="container">
-          <Grid lg="4" md="2" sm="1">
+          <div>
             {data?.homePage.sections.tiles.tiles?.map((t: TileData) => (
-              <Column md="1" key={t.title}>
+              <div key={t.title}>
                 <Tile className="-plain -button -align-center" plain>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Image
@@ -264,15 +283,15 @@ export const HomePage: NextPage = () => {
                   </a>
                   <Text tag="p">{t.body}</Text>
                 </Tile>
-              </Column>
+              </div>
             ))}
-          </Grid>
+          </div>
         </div>
       </section>
 
       <League altText="vanarama national league" />
 
-      <LogoRow
+      {/* <LogoRow
         className="-bg-lighter"
         urls={[
           {
@@ -316,7 +335,7 @@ export const HomePage: NextPage = () => {
               'https://www.vanarama.com/Assets/images-optimised/home/featured/thetelegraph.png',
           },
         ]}
-      />
+      /> */}
 
       <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
     </main>

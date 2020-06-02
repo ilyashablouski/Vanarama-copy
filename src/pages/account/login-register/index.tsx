@@ -1,8 +1,9 @@
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Container from '@vanarama/uibook/lib/components/container/Container';
-import Section from '@vanarama/uibook/lib/components/container/Section';
-import { Column, Grid } from '@vanarama/uibook/lib/components/molecules/grid';
 import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
+import TabList from '@vanarama/uibook/lib/components/molecules/tabs/TabList';
+import Tab from '@vanarama/uibook/lib/components/molecules/tabs/Tab';
+import TabPanels from '@vanarama/uibook/lib/components/molecules/tabs/TabPanels';
+import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
 import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
@@ -12,7 +13,6 @@ import Message from '../../../core/components/Message';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import RegisterFormContainer from '../../../containers/RegisterFormContainer/RegisterFormContainer';
 import withApollo from '../../../hocs/withApollo';
-import MainLayout from '../../../layouts/MainLayout/MainLayout';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -21,57 +21,56 @@ interface IProps {
 export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const { query } = props;
+  const [activeTab, setActiveTab] = useState(1);
 
   return (
-    <MainLayout>
-      <Section>
-        <Container>
-          <Grid sm="2" md="2" lg="6">
-            <Column sm="row" md="row" lg="2-4">
-              <Heading
-                tag="span"
-                size="xlarge"
-                color="black"
-                dataTestId="login-register-heading"
-              >
-                Login / Register
-              </Heading>
-            </Column>
+    <>
+      <div className="row:title">
+        <Heading
+          tag="span"
+          size="xlarge"
+          color="black"
+          dataTestId="login-register-heading"
+        >
+          Login / Register
+        </Heading>
+        {query.status === 'success' && (
+          <Message message="Email successfully verified." />
+        )}
 
-            {query.status === 'success' && (
-              <Message message="Email successfully verified." />
-            )}
+        {registrationSuccess && (
+          <Message message="Registration successful. Please verify your email." />
+        )}
 
-            {registrationSuccess && (
-              <Message message="Registration successful. Please verify your email." />
-            )}
-
-            {query.hasResetPassword && (
-              <Message message="Password Successfully Reset">
-                <Icon icon={<CheckmarkSharp />} size="regular" color="teal" />
-              </Message>
-            )}
-
-            <Column sm="row" md="row" lg="2-4">
-              <div className="login-register-form">
-                <Tabs
-                  active={0}
-                  tabs={[
-                    { label: 'Login', dataTestId: 'login-tab' },
-                    { label: 'Register', dataTestId: 'register-tab' },
-                  ]}
-                >
-                  <LoginFormContainer />
-                  <RegisterFormContainer
-                    onCompleted={() => setRegistrationSuccess(true)}
-                  />
-                </Tabs>
-              </div>
-            </Column>
-          </Grid>
-        </Container>
-      </Section>
-    </MainLayout>
+        {query.hasResetPassword && (
+          <Message message="Password Successfully Reset">
+            <Icon icon={<CheckmarkSharp />} size="regular" color="teal" />
+          </Message>
+        )}
+      </div>
+      <div className="row:tabbed-left">
+        <Tabs activeIndex={activeTab} onChange={setActiveTab}>
+          <TabList>
+            <Tab index={1} dataTestId="login-tab">
+              Login
+            </Tab>
+            <Tab index={2} dataTestId="register-tab">
+              Register
+            </Tab>
+          </TabList>
+          <TabPanels className="-pv-400">
+            <TabPanel index={1}>
+              <LoginFormContainer />
+            </TabPanel>
+            <TabPanel index={2}>
+              <RegisterFormContainer
+                onCompleted={() => setRegistrationSuccess(true)}
+              />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </div>
+    </>
   );
 };
 

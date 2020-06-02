@@ -1,9 +1,5 @@
-import Container from '@vanarama/uibook/lib/components/container/Container';
-import Section from '@vanarama/uibook/lib/components/container/Section';
-import { Column, Grid } from '@vanarama/uibook/lib/components/molecules/grid';
 import OlafAside from '@vanarama/uibook/lib/components/organisms/olaf-aside/OlafAside';
 import OLAFProgressIndicator from '../../components/OLAFProgressIndicator/OLAFProgressIndicator';
-import MainLayout from '../MainLayout/MainLayout';
 import OlafAsideToggle from '../../components/OlafAsideToggle/OlafAsideToggle';
 
 interface IProps {
@@ -31,36 +27,20 @@ const OlafAsideComponent = () => (
 );
 
 const OLAFLayout: React.FC<IProps> = ({ children, hideProgress }) => (
-  <MainLayout>
+  <>
     {!hideProgress && (
-      <Container>
+      <div className="row:progress">
         <OLAFProgressIndicator />
         <OlafAsideToggle>
           <OlafAsideComponent />
         </OlafAsideToggle>
-      </Container>
+      </div>
     )}
-    <Section>
-      <Container>
-        <Grid lg="6" md="2" sm="2">
-          <Column md="1" sm="row" lg="1-3">
-            {children}
-          </Column>
-          <Column md="1" sm="row" lg="4-6">
-            <div className="-vp-min:small">
-              <OlafAsideComponent />
-            </div>
-          </Column>
-        </Grid>
-      </Container>
-    </Section>
-    {/* TODO: Remove this once the section styles have been updated */}
-    <style jsx global>{`
-      .section {
-        background-color: white !important;
-      }
-    `}</style>
-  </MainLayout>
+    <div className="row:olaf">
+      {children}
+      <OlafAsideComponent />
+    </div>
+  </>
 );
 
 export default OLAFLayout;

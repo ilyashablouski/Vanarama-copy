@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   }, []);
 
   return (
-    <main>
+    <main className="page:default">
       <Header
         topBarLinks={[
           {

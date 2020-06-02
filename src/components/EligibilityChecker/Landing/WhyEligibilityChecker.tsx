@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
 import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
@@ -10,8 +9,8 @@ import EligibilityCheckerButton from './EligibilityCheckerButton';
 const WhyEligibilityChecker: FC = () => (
   <section className="section -bg-lighter">
     <div className="container">
-      <Grid lg="6" md="2" sm="2">
-        <Column className="-inset -middle" md="3">
+      <div>
+        <div className="-inset -middle">
           <div style={{ padding: '1rem' }}>
             <Heading size="large" color="black">
               Why Use Our Eligibility Checker?
@@ -33,11 +32,11 @@ const WhyEligibilityChecker: FC = () => (
             </IconList>
             <EligibilityCheckerButton />
           </div>
-        </Column>
-        <Column md="3">
+        </div>
+        <div>
           <Image src="https://source.unsplash.com/collection/2102317/1000x650?sig=40344" />
-        </Column>
-      </Grid>
+        </div>
+      </div>
     </div>
   </section>
 );

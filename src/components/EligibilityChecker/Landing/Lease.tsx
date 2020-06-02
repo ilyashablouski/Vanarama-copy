@@ -2,14 +2,13 @@ import { FC } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Media from '@vanarama/uibook/lib/components/atoms/media';
-import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
 import EligibilityCheckerButton from './EligibilityCheckerButton';
 
 const Lease: FC = () => (
   <section className="section">
     <div className="container">
-      <Grid lg="6" md="2" sm="2">
-        <Column md="3">
+      <div>
+        <div>
           <Media
             responsive
             src="https://player.vimeo.com/video/263419265"
@@ -19,8 +18,8 @@ const Lease: FC = () => (
             width="100%"
             height="100%"
           />
-        </Column>
-        <Column className="-inset -middle -col-400" md="3">
+        </div>
+        <div className="-inset -middle -col-400">
           <div>
             <div style={{ marginBottom: '1rem' }}>
               <Heading size="large" color="black">
@@ -36,8 +35,8 @@ const Lease: FC = () => (
             </Text>
           </div>
           <EligibilityCheckerButton />
-        </Column>
-      </Grid>
+        </div>
+      </div>
     </div>
   </section>
 );

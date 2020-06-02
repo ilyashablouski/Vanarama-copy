@@ -1,4 +1,3 @@
-import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
 import Card, {
   CardMedia,
 } from '@vanarama/uibook/lib/components/molecules/card';
@@ -28,8 +27,8 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
   imageSrc,
   flagText = 'DEAL OF THE MONTH',
 }) => (
-  <Grid lg="6" md="2" sm="2">
-    <Column md="3">
+  <div>
+    <div>
       <Card
         flag={{
           accentIcon: <Icon icon={<Flame />} color="white" />,
@@ -39,8 +38,8 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
       >
         <CardMedia imageSrc={imageSrc} />
       </Card>
-    </Column>
-    <Column className="-inset -middle -col-500" md="3">
+    </div>
+    <div className="-inset -middle -col-500">
       <div
         style={{
           padding: '1rem',
@@ -78,8 +77,8 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
           iconColor="white"
         />
       </div>
-    </Column>
-  </Grid>
+    </div>
+  </div>
 );
 
 export default DealOfMonth;
