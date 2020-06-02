@@ -4,7 +4,7 @@ stack = 'grid'
 dockerRepoName = "000379120260.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}"
 taskDefFile = "deploy/aws/task-definition.json"
 currentCommit = ""
-applyInfraPlan = false
+applyInfraPlan = false  //This is not present in the other applications
 
 def app_environment = [
     "devops": [
