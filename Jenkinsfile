@@ -170,7 +170,8 @@ pipeline {
                       docker push $dockerRepoName:latest
                       docker rmi $dockerRepoName:latest
                     """
-                    }
+                  }
+               }
             }
         }
 
