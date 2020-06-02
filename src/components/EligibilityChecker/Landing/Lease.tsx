@@ -31,7 +31,7 @@ const Lease: FC = () => (
             </Heading>
             <Text tag="p" size="regular" color="darker">
               Check your likelihood of being accepted for credit, without
-              affecting your credit score. Check Your Eligibility
+              affecting your credit score.
             </Text>
           </div>
           <EligibilityCheckerButton />

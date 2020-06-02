@@ -60,7 +60,7 @@ exports[`<Lease /> renders correctly 1`] = `
           <p
             className="text -regular -darker"
           >
-            Check your likelihood of being accepted for credit, without affecting your credit score. Check Your Eligibility
+            Check your likelihood of being accepted for credit, without affecting your credit score.
           </p>
         </div>
         <button
