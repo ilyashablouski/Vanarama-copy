@@ -6,7 +6,7 @@ currentCommit = ""
 applyMasterMerge = false
 
 def app_environment = [
-    "develop": [
+    "feature/DIG-xxx-devops-QA": [
         clusterName: 'grid-dev',
         logGroupName: "dev/grid/apps",
         taskFamily: "grid-dev-${serviceName}",
@@ -75,7 +75,7 @@ pipeline {
             when {
                 beforeAgent true
                 anyOf {
-                  branch 'develop'
+                  branch 'feature/DIG-xxx-devops-QA'
                   branch 'master'
                 }
             }
@@ -140,7 +140,7 @@ pipeline {
             when {
                 beforeAgent true
                 anyOf {
-                  branch 'develop'
+                  branch 'feature/DIG-xxx-devops-QA'
                   branch 'master'
                 }
             }
@@ -179,7 +179,7 @@ pipeline {
             when {
                 beforeAgent true
                 anyOf {
-                  branch 'develop'
+                  branch 'feature/DIG-xxx-devops-QA'
                   branch 'master'
                 }
             }
@@ -235,7 +235,7 @@ pipeline {
             when {
                   beforeAgent true
                   anyOf {
-                    branch 'develop'
+                    branch 'feature/DIG-xxx-devops-QA'
                     branch 'master'
                   }
               }
@@ -321,7 +321,7 @@ pipeline {
                   beforeAgent true
                   beforeInput true
                   anyOf {
-                    branch 'develop'
+                    branch 'feature/DIG-xxx-devops-QA'
                     branch 'master'
                   }
                   expression { terraformHasChange == true }
@@ -404,7 +404,7 @@ pipeline {
             when {
                   beforeAgent true
                   anyOf {
-                    branch 'develop'
+                    branch 'feature/DIG-xxx-devops-QA'
                   }
               }
             steps {
@@ -432,7 +432,7 @@ pipeline {
                   beforeAgent true
                   beforeInput true
                   anyOf {
-                    branch 'develop'
+                    branch 'feature/DIG-xxx-devops-QA'
                   }
               }
               steps {
@@ -452,7 +452,7 @@ pipeline {
               when {
                   beforeAgent true
                   anyOf {
-                    branch 'develop'
+                    branch 'feature/DIG-xxx-devops-QA'
                   }
 
                   expression {
