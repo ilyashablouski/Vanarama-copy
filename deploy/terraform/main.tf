@@ -2,11 +2,13 @@ provider "aws" {
   region = "eu-west-2"
   allowed_account_ids = ["${var.aws_account_id}"]
 }
+
 provider "aws" {
   alias = "master_role"
   region = "${var.region}"
   assume_role {
     role_arn     = "${var.aws_master_role}"
+  }
 }
 
 terraform {
