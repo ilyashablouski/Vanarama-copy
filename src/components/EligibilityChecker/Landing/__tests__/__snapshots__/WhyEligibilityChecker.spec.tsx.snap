@@ -1,132 +1,91 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<WhyEligibilityChecker /> renders correctly 1`] = `
-<section
-  className="section -bg-lighter"
+<div
+  className="row:featured-right"
 >
-  <div
-    className="container"
-  >
-    <div>
-      <div
-        className="-inset -middle"
-      >
-        <div
-          style={
-            Object {
-              "padding": "1rem",
-            }
-          }
+  <div>
+    <p
+      className="heading -black -large"
+    >
+      Why Use Our Eligibility Checker?
+    </p>
+    <p
+      className="text -regular -darker"
+    >
+      If you're looking to drive a brand new car, van or truck without any of the hassle - leasing might just be for you! It's affordable, simple and you're not left with a depreciating asset at the end of your contract.
+    </p>
+    <ul
+      className="icon-list"
+    >
+      <li>
+        <i
+          className="icon -orange"
         >
-          <p
-            className="heading -black -large"
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
           >
-            Why Use Our Eligibility Checker?
-          </p>
-          <ul
-            className="icon-list"
-          >
-            <li>
-              <i
-                className="icon -dark"
-              >
-                <svg
-                  height="1em"
-                  viewBox="0 0 512 512"
-                  width="1em"
-                >
-                  <title>
-                    ionicons-v5-e
-                  </title>
-                  <path
-                    d="M256,48C141.31,48,48,141.31,48,256s93.31,208,208,208,208-93.31,208-208S370.69,48,256,48ZM218,360.38,137.4,270.81l23.79-21.41,56,62.22L350,153.46,374.54,174Z"
-                  />
-                </svg>
-              </i>
-              Find out if you'll be accepted for credit with no impact on on your credit score
-            </li>
-            <li>
-              <i
-                className="icon -dark"
-              >
-                <svg
-                  height="1em"
-                  viewBox="0 0 512 512"
-                  width="1em"
-                >
-                  <title>
-                    ionicons-v5-e
-                  </title>
-                  <path
-                    d="M256,48C141.31,48,48,141.31,48,256s93.31,208,208,208,208-93.31,208-208S370.69,48,256,48ZM218,360.38,137.4,270.81l23.79-21.41,56,62.22L350,153.46,374.54,174Z"
-                  />
-                </svg>
-              </i>
-              Get an instant answer
-            </li>
-            <li>
-              <i
-                className="icon -dark"
-              >
-                <svg
-                  height="1em"
-                  viewBox="0 0 512 512"
-                  width="1em"
-                >
-                  <title>
-                    ionicons-v5-e
-                  </title>
-                  <path
-                    d="M256,48C141.31,48,48,141.31,48,256s93.31,208,208,208,208-93.31,208-208S370.69,48,256,48ZM218,360.38,137.4,270.81l23.79-21.41,56,62.22L350,153.46,374.54,174Z"
-                  />
-                </svg>
-              </i>
-              It's free and easy
-            </li>
-            <li>
-              <i
-                className="icon -dark"
-              >
-                <svg
-                  height="1em"
-                  viewBox="0 0 512 512"
-                  width="1em"
-                >
-                  <title>
-                    ionicons-v5-e
-                  </title>
-                  <path
-                    d="M256,48C141.31,48,48,141.31,48,256s93.31,208,208,208,208-93.31,208-208S370.69,48,256,48ZM218,360.38,137.4,270.81l23.79-21.41,56,62.22L350,153.46,374.54,174Z"
-                  />
-                </svg>
-              </i>
-              We won't ever use or share your data
-            </li>
-          </ul>
-          <button
-            className="button -teal -regular -solid"
-            data-testid="eligibility-Checker-btn"
-            onClick={[Function]}
-          >
-            <div
-              className="button--inner"
-            >
-              Check Your Eligibility
-            </div>
-          </button>
-        </div>
-      </div>
-      <div>
-        <div
-          className="image -expand"
+            <title>
+              ionicons-v5-e
+            </title>
+            <path
+              d="M256,48C141.31,48,48,141.31,48,256s93.31,208,208,208,208-93.31,208-208S370.69,48,256,48ZM218,360.38,137.4,270.81l23.79-21.41,56,62.22L350,153.46,374.54,174Z"
+            />
+          </svg>
+        </i>
+        Choose your contract length & agreed mileage
+      </li>
+      <li>
+        <i
+          className="icon -orange"
         >
-          <img
-            className="image--native"
-            src="https://source.unsplash.com/collection/2102317/1000x650?sig=40344"
-          />
-        </div>
-      </div>
-    </div>
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-e
+            </title>
+            <path
+              d="M256,48C141.31,48,48,141.31,48,256s93.31,208,208,208,208-93.31,208-208S370.69,48,256,48ZM218,360.38,137.4,270.81l23.79-21.41,56,62.22L350,153.46,374.54,174Z"
+            />
+          </svg>
+        </i>
+        Pay an initial payment
+      </li>
+      <li>
+        <i
+          className="icon -orange"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-e
+            </title>
+            <path
+              d="M256,48C141.31,48,48,141.31,48,256s93.31,208,208,208,208-93.31,208-208S370.69,48,256,48ZM218,360.38,137.4,270.81l23.79-21.41,56,62.22L350,153.46,374.54,174Z"
+            />
+          </svg>
+        </i>
+        Set up your agreed fixed monthly rental
+      </li>
+    </ul>
   </div>
-</section>
+  <div
+    className="image -expand"
+  >
+    <img
+      className="image--native"
+      height="500"
+      src="https://source.unsplash.com/collection/2102317/1000x650?sig=40344"
+      width="900"
+    />
+  </div>
+</div>
 `;

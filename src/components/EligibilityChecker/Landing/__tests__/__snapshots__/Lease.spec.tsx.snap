@@ -1,81 +1,65 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Lease /> renders correctly 1`] = `
-<section
-  className="section"
+<div
+  className="row:featured-right"
 >
-  <div
-    className="container"
-  >
-    <div>
-      <div>
-        <div
-          className="media media-wrapper"
-        >
-          <div
-            className="react-player"
-            src="https://player.vimeo.com/video/263419265"
-            style={
-              Object {
-                "height": "100%",
-                "width": "100%",
-              }
-            }
-          >
-            <div
-              style={
-                Object {
-                  "display": undefined,
-                  "height": "100%",
-                  "overflow": "hidden",
-                  "width": "100%",
-                }
-              }
-            />
-          </div>
-        </div>
-      </div>
+  <div>
+    <p
+      className="heading -black -large"
+    >
+      Find Out If You Can Lease A Brand-New Car
+    </p>
+    <p
+      className="text -regular -darker"
+    >
+      Et sunt irure sunt dolore laboris dolore mollit amet enim fugiat in qui sunt mollit magna sint consectetur cillum consequat excepteur nisi pariatur laborum aute minim voluptate dolor ex adipisicing aliqua sit ipsum reprehenderit amet ut nostrud sint do exercitation
+    </p>
+    <p
+      className="text -regular -darker"
+    >
+      Veniam tempor ea officia velit ex et sint enim consectetur labore quis commodo ea ut esse duis incididunt eu ex
+    </p>
+    <button
+      className="button -teal -regular -solid"
+      data-testid="eligibility-Checker-btn"
+      onClick={[Function]}
+    >
       <div
-        className="-inset -middle -col-400"
+        className="button--inner"
       >
-        <div>
-          <div
-            style={
-              Object {
-                "marginBottom": "1rem",
-              }
+        Check Your Eligibility
+      </div>
+    </button>
+  </div>
+  <div
+    className="media"
+  >
+    <div
+      className="media media-player"
+    >
+      <div
+        className="react-player"
+        src="https://player.vimeo.com/video/263419265"
+        style={
+          Object {
+            "height": "100%",
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": undefined,
+              "height": "100%",
+              "overflow": "hidden",
+              "width": "100%",
             }
-          >
-            <p
-              className="heading -black -large"
-            >
-              Check If You’re Eligible To Lease
-            </p>
-          </div>
-          <p
-            className="heading -black -regular"
-          >
-            Can I Lease A Brand New Car?
-          </p>
-          <p
-            className="text -regular -darker"
-          >
-            Check your likelihood of being accepted for credit, without affecting your credit score.
-          </p>
-        </div>
-        <button
-          className="button -teal -regular -solid"
-          data-testid="eligibility-Checker-btn"
-          onClick={[Function]}
-        >
-          <div
-            className="button--inner"
-          >
-            Check Your Eligibility
-          </div>
-        </button>
+          }
+        />
       </div>
     </div>
   </div>
-</section>
+</div>
 `;
