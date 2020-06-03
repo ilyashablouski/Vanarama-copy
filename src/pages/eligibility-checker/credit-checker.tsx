@@ -24,54 +24,49 @@ const CreditChecker: NextPage = () => {
   const breadcrumbProps = {
     items: [
       { label: 'Home', href: '/' },
-      { label: 'Leasing Guide', href: '/' },
-      { label: 'Check Your Eligibility', href: '/' },
+      { label: 'Eligibility Checker', href: '/' },
+      { label: 'Your Result', href: '/' },
     ],
   };
 
   return (
-    <div>
-      <section className="section">
-        <div className="container">
-          <div>
-            <div>
-              <Breadcrumb items={breadcrumbProps.items} />
-            </div>
-            <div className="-col-400">
-              <Heading color="black" size="xlarge">
-                Your Result
-              </Heading>
-              <Score score={score} />
-              <Heading tag="span" size="large">
-                Choose Your Vehicle
-              </Heading>
-              <Text tag="p" size="regular" color="darker">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod
-                odio blanditiis amet reiciendis cupiditate voluptas dolorum?
-                Quidem nam ad debitis!
-              </Text>
-              <Button
-                color="teal"
-                size="regular"
-                fill="solid"
-                label="Choose Your Vehicle"
-                role="button"
-              />
-              <Text tag="p">
-                Not sure? We can <Link>help you choose</Link>
-              </Text>
-            </div>
-          </div>
+    <>
+      <div className="row:title">
+        <Breadcrumb items={breadcrumbProps.items} />
+        <Heading tag="h1" color="black" size="xlarge">
+          Your Result
+        </Heading>
+      </div>
+      <div className="row:featured-left">
+        <Score score={score} />
+        <div>
+          <Heading tag="span" size="large">
+            Choose Your Vehicle
+          </Heading>
+          <Text tag="p" size="regular" color="darker">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod odio
+            blanditiis amet reiciendis cupiditate voluptas dolorum? Quidem nam
+            ad debitis!
+          </Text>
+          <Button
+            color="teal"
+            size="regular"
+            fill="solid"
+            label="Choose Your Vehicle"
+            role="button"
+          />
+          <Text tag="p">
+            Not sure? We can <Link>help you choose</Link>
+          </Text>
         </div>
-      </section>
-      <div className="row:carousel">
-        <div className="row:bg-lighter">
-          <div className="-a-center" style={{ margin: '4rem 0 2rem 0' }}>
-            <Heading size="large" color="black">
-              Top Offers
-            </Heading>
-          </div>
-          <Carousel className="-mh-auto" gutter={16}>
+      </div>
+
+      <div className="row:bg-lighter">
+        <div className="row:carousel">
+          <Heading tag="h3" size="large" color="black">
+            Top Offers
+          </Heading>
+          <Carousel gutter={16}>
             {[1, 2, 3, 4, 5].map(k => (
               <div key={k.toString()} style={{ width: 345 }}>
                 <ProductCard
@@ -111,17 +106,15 @@ const CreditChecker: NextPage = () => {
               </div>
             ))}
           </Carousel>
-          <div className="-a-center" style={{ margin: '4rem 0 2rem 0' }}>
-            <Button
-              color="teal"
-              size="regular"
-              fill="solid"
-              label="View All Top Offers"
-            />
-          </div>
+          <Button
+            color="teal"
+            size="regular"
+            fill="solid"
+            label="View All Top Offers"
+          />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
