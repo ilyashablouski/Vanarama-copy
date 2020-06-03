@@ -1,11 +1,18 @@
 import '@vanarama/uibook/src/components/base.scss';
 import Footer from '@vanarama/uibook/lib/components/organisms/footer';
-import Header from '@vanarama/uibook/lib/components/organisms/header';
 import { AppProps } from 'next/app';
 import { Router } from 'next/router';
 import { useEffect } from 'react';
+import { PHONE_NUMBER_LINK, TOP_BAR_LINKS } from '../models/enum/HeaderLinks';
+
+import Header from './header/Header';
 
 function MyApp({ Component, pageProps, router }: AppProps) {
+  const LOGIN_LINK = {
+    label: 'Login',
+    href: `/account/login-register?redirect=${router.asPath}`,
+  };
+
   useEffect(() => {
     // Anytime router.push is called, scroll to the top of the page.
     Router.events.on('routeChangeComplete', () => {
@@ -16,12 +23,9 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   return (
     <main>
       <Header
-        topBarLinks={[
-          {
-            label: 'Login',
-            href: `/account/login-register?redirect=${router.asPath}`,
-          },
-        ]}
+        loginLink={LOGIN_LINK}
+        phoneNumberLink={PHONE_NUMBER_LINK}
+        topBarLinks={TOP_BAR_LINKS}
       />
       <Component {...pageProps} />
       <Footer
