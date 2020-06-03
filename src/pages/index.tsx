@@ -51,7 +51,7 @@ export const HomePage: NextPage = () => {
   }
 
   return (
-    <main>
+    <>
       <Hero>
         <div className="hero--title">
           <HeroHeading>{data?.homePage.sections.hero.title}</HeroHeading>
@@ -151,57 +151,53 @@ export const HomePage: NextPage = () => {
           </Tabs>
         </div>
       </section>
-      <section className="section">
-        <div className="container">
-          <div>
-            <div>
-              <Card className="-a-center">
-                <Heading className="-pv-300" size="regular" color="black">
-                  Vans
-                </Heading>
-                <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg" />
-                <CardContent>
-                  <Text tag="p" className="-pt-400 -pb-400">
-                    Get the car you want from our range of manufacturers - from
-                    something sporty to something for all the family
-                  </Text>
-                  <Button label="Search Vans" color="teal" fill="solid" />
-                </CardContent>
-              </Card>
-            </div>
-            <div>
-              <Card className="-a-center">
-                <Heading className="-pv-300" size="regular" color="black">
-                  Pickups
-                </Heading>
-                <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg" />
-                <CardContent>
-                  <Text tag="p" className="-pt-400 -pb-400">
-                    Get the car you want from our range of manufacturers - from
-                    something sporty to something for all the family
-                  </Text>
-                  <Button label="Search Pickups" color="teal" fill="solid" />
-                </CardContent>
-              </Card>
-            </div>
-            <div>
-              <Card className="-a-center">
-                <Heading className="-pv-300" size="regular" color="black">
-                  Cars
-                </Heading>
-                <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
-                <CardContent>
-                  <Text tag="p" className="-pt-400 -pb-400">
-                    Get the car you want from our range of manufacturers - from
-                    something sporty to something for all the family
-                  </Text>
-                  <Button label="Search Cars" color="teal" fill="solid" />
-                </CardContent>
-              </Card>
-            </div>
-          </div>
+
+      <section className="row:bg-lighter">
+        <div className="row:cards-3col">
+          <Card className="-a-center">
+            <Heading className="-pv-300" size="regular" color="black">
+              Vans
+            </Heading>
+            <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg" />
+            <CardContent>
+              <Text tag="p" className="-pt-400 -pb-400">
+                Get the car you want from our range of manufacturers - from
+                something sporty to something for all the family
+              </Text>
+              <Button label="Search Vans" color="teal" fill="solid" />
+            </CardContent>
+          </Card>
+
+          <Card className="-a-center">
+            <Heading className="-pv-300" size="regular" color="black">
+              Pickups
+            </Heading>
+            <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg" />
+            <CardContent>
+              <Text tag="p" className="-pt-400 -pb-400">
+                Get the car you want from our range of manufacturers - from
+                something sporty to something for all the family
+              </Text>
+              <Button label="Search Pickups" color="teal" fill="solid" />
+            </CardContent>
+          </Card>
+
+          <Card className="-a-center">
+            <Heading className="-pv-300" size="regular" color="black">
+              Cars
+            </Heading>
+            <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
+            <CardContent>
+              <Text tag="p" className="-pt-400 -pb-400">
+                Get the car you want from our range of manufacturers - from
+                something sporty to something for all the family
+              </Text>
+              <Button label="Search Cars" color="teal" fill="solid" />
+            </CardContent>
+          </Card>
         </div>
       </section>
+
       <section className="section -bg-lighter">
         <div className="container">
           <div>
@@ -338,7 +334,7 @@ export const HomePage: NextPage = () => {
       /> */}
 
       <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
-    </main>
+    </>
   );
 };
 
