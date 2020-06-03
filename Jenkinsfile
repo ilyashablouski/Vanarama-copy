@@ -1,10 +1,8 @@
 serviceName = 'next-storefront'
 ecrRegion = 'eu-west-2'
 stack = 'grid'
-// dockerRepoName = "000379120260.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}"
 taskDefFile = "deploy/aws/task-definition.json"
 currentCommit = ""
-applyInfraPlan = false  //This is not present in the other applications
 applyMasterMerge = false
 
 def app_environment = [
@@ -45,7 +43,7 @@ def app_environment = [
     ]
 ]
 
-def ecrLogin() {
+def ecrLogin(String accountId) {
     //todo - this will log the whole of jenkins into this registry ?
     //todo withcredentials repitition - can we separate this to library, or at least once-per-pipeline
     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: "${accountId}", secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
@@ -138,7 +136,6 @@ pipeline {
             agent { node('master') }
             environment {
                 PATH = "${env.PATH}:/usr/local/bin"
-                B_NAME = "${env.BRANCH_NAME}"
             }
             when {
                 beforeAgent true
@@ -155,9 +152,8 @@ pipeline {
                 def jenkinsCredentialsId = app_environment["${env.BRANCH_NAME}"].jenkinsCredentialsId
                 ecrLogin(jenkinsCredentialsId)
                 def dockerRepoName = app_environment["${env.BRANCH_NAME}"].dockerRepoName
-                def railsEnv = app_environment["${env.BRANCH_NAME}"].railsEnv
-                def envs = app_environment["${B_NAME}"].env
-                def stack = app_environment["${B_NAME}"].stack
+                def envs = app_environment["${BRANCH_NAME}"].env
+                def stack = app_environment["${BRANCH_NAME}"].stack
                 currentCommit = env.GIT_COMMIT
                     //TO DO - Paramaterise the source function with env variable
                     withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
@@ -179,7 +175,6 @@ pipeline {
             agent { node('master') }
             environment { //todo can the agent determine path.
                 PATH = "${env.PATH}:/usr/local/bin"
-                B_NAME = "${env.BRANCH_NAME}"
             }
             when {
                 beforeAgent true
@@ -192,12 +187,12 @@ pipeline {
             steps {
                 milestone(40)
                 script {
-                    def clusterName = app_environment["${B_NAME}"].clusterName
-                    def appName = app_environment["${B_NAME}"].app
-                    def logGroupName = app_environment["${B_NAME}"].logGroupName
-                    def taskFamily = app_environment["${B_NAME}"].taskFamily
-                    def env = app_environment["${B_NAME}"].env
-                    def ssmParametersBase = app_environment["${B_NAME}"].ssmParametersBase
+                    def clusterName = app_environment["${BRANCH_NAME}"].clusterName
+                    def appName = app_environment["${BRANCH_NAME}"].app
+                    def logGroupName = app_environment["${BRANCH_NAME}"].logGroupName
+                    def taskFamily = app_environment["${BRANCH_NAME}"].taskFamily
+                    def env = app_environment["${BRANCH_NAME}"].env
+                    def ssmParametersBase = app_environment["${BRANCH_NAME}"].ssmParametersBase
                     def accountId =  app_environment["${BRANCH_NAME}"].accountId
                     def dockerRepoName = app_environment["${BRANCH_NAME}"].dockerRepoName
 
@@ -212,7 +207,6 @@ pipeline {
                             | sed -e "s;%ENVIRONMENT%;${env};g" \
                             | sed -e "s;%AWS_REGION%;${ecrRegion};g" \
                             | sed -e "s;%SSM_PARAMETER_BASE%;${ssmParametersBase};g" \
-                            | sed -e "s;%RAILS_ENV%;${railsEnv};g" \
                             | sed -e "s;%ACCOUNT_NUMBER%;${accountId};g" \
                             | tee ${taskDefFile}_final.json
                         aws ecs register-task-definition --execution-role-arn arn:aws:iam::${accountId}:role/Acorn-DevOps \
