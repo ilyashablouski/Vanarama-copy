@@ -72,6 +72,20 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
         />
       </FormGroup>
       <FormGroup
+        controlId="lastName"
+        label="Last Name"
+        error={errors?.lastName?.message?.toString()}
+      >
+        <TextInput
+          id="lastName"
+          type="text"
+          name="lastName"
+          dataTestId="eligibilityCheckerLastName"
+          ref={register}
+          width={45}
+        />
+      </FormGroup>
+      <FormGroup
         label="Address"
         error={errors?.addressFinder?.message?.toString()}
       >
@@ -92,20 +106,6 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
             </AddressFinder>
           }
           control={control}
-        />
-      </FormGroup>
-      <FormGroup
-        controlId="lastName"
-        label="Last Name"
-        error={errors?.lastName?.message?.toString()}
-      >
-        <TextInput
-          id="lastName"
-          type="text"
-          name="lastName"
-          dataTestId="eligibilityCheckerLastName"
-          ref={register}
-          width={45}
         />
       </FormGroup>
       <FormGroup
