@@ -65,6 +65,16 @@ export const HomePage: NextPage = () => {
           src={data?.homePage.sections.hero.image.file.url || ''}
         />
       </Hero>
+
+      <section className="row:lead-text">
+        <span className="heading -xlarge -black">Large Sales Heading</span>
+        <span className="text -lead -darker">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio
+          aspernatur fugiat. Lorem ipsum dolor sit amet consectetur adipisicing
+          elit.
+        </span>
+      </section>
+
       <section className="section -bg-lighter">
         <div className="container">
           <Heading size="large" color="black">
