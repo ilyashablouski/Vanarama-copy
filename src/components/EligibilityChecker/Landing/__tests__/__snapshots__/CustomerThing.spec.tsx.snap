@@ -7,15 +7,9 @@ exports[`<CustomerThing /> renders correctly 1`] = `
   <div
     className="container"
   >
-    <div
-      className="grid"
-      columns-l="6"
-      columns-m="2"
-      columns-s="2"
-    >
+    <div>
       <div
-        className="column -col-400 -a-center"
-        span-l="2-5"
+        className="-col-400 -a-center"
       >
         <p
           className="heading -black -large"

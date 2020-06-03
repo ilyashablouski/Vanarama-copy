@@ -1,13 +1,13 @@
 import React from 'react';
 import { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import Score from '@vanarama/uibook/lib/components/atoms/score';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
-import Slider from '@vanarama/uibook/lib/components/organisms/slider';
+import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import ProductCard from '@vanarama/uibook/lib/components/organisms/product-card';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
@@ -17,6 +17,10 @@ import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 
 const CreditChecker: NextPage = () => {
+  const router = useRouter();
+  const scoreParam = router.query.score as string;
+  const score = parseInt(scoreParam, 10) || 0;
+
   const breadcrumbProps = {
     items: [
       { label: 'Home', href: '/' },
@@ -29,19 +33,15 @@ const CreditChecker: NextPage = () => {
     <div>
       <section className="section">
         <div className="container">
-          <Grid lg="6" md="2" sm="2">
-            <Column sm="row">
+          <div>
+            <div>
               <Breadcrumb items={breadcrumbProps.items} />
-            </Column>
-            <Column className="-col-400" md="row">
+            </div>
+            <div className="-col-400">
               <Heading color="black" size="xlarge">
                 Your Result
               </Heading>
-            </Column>
-            <Column md="2">
-              <Score score={75} />
-            </Column>
-            <Column className="column -inset -col-400" md="4">
+              <Score score={score} />
               <Heading tag="span" size="large">
                 Choose Your Vehicle
               </Heading>
@@ -60,8 +60,8 @@ const CreditChecker: NextPage = () => {
               <Text tag="p">
                 Not sure? We can <Link>help you choose</Link>
               </Text>
-            </Column>
-          </Grid>
+            </div>
+          </div>
         </div>
       </section>
       <div className="row:carousel">
@@ -71,7 +71,7 @@ const CreditChecker: NextPage = () => {
               Top Offers
             </Heading>
           </div>
-          <Slider className="-mh-auto" gutter={16}>
+          <Carousel className="-mh-auto" gutter={16}>
             {[1, 2, 3, 4, 5].map(k => (
               <div key={k.toString()} style={{ width: 345 }}>
                 <ProductCard
@@ -110,7 +110,7 @@ const CreditChecker: NextPage = () => {
                 />
               </div>
             ))}
-          </Slider>
+          </Carousel>
           <div className="-a-center" style={{ margin: '4rem 0 2rem 0' }}>
             <Button
               color="teal"

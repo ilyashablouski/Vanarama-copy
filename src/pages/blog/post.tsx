@@ -7,107 +7,113 @@ import Card, {
   CardContent,
   CardMedia,
 } from '@vanarama/uibook/lib/components/molecules/card';
-import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
 import BreadCrumbs from '../../containers/BreadCrumbContainer/BreadCrumbContainer';
 
 const BlogPost: NextPage = () => (
   <>
-    <section className="section -pb-400 ">
-      <div className="container">
-        <Grid className="-pb-400" lg="6" md="2" sm="2">
-          <Column md="row">
-            <BreadCrumbs />
-          </Column>
-          <Column className="-mb-400 -col-400" md="row">
-            <Heading size="xlarge" color="black">
-              Blog Post
+    <div className="row:title">
+      <BreadCrumbs />
+      <Heading tag="h1" size="xlarge" color="black">
+        Blog Post
+      </Heading>
+    </div>
+    <div className="row:bg-black -compact">
+      <div className="row:featured-image">
+        <Image
+          size="expand"
+          src="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg"
+        />
+        <Text tag="span" size="regular" color="inherit" className="-caption">
+          Photo credit — Jocelyn Bell Burnell
+        </Text>
+      </div>
+    </div>
+    <div className="row:article">
+      <article className="markdown">
+        <b>
+          While 2020 has been a strange year, vans &amp; pickup trucks are still
+          being bought &amp; leased. The people who use them - tradespeople,
+          delivery drivers, cleaners &amp; more - are keeping the UK&apos;s
+          wheels turning, so now is an especially interesting time to find out
+          from Vanarama&apos;s Tom Roberts which vans &amp; pickup trucks are
+          the top 10 best selling of 2020 so far.
+        </b>
+        <p>
+          At the beginning of the year, the Society of Motor Manufacturers &amp;
+          Traders (SMMT) were feeling confident that the UK&apos;s light
+          commercial vehicle (LCV) market would see the registration of 348,000
+          vans in 2020. Now, with the Covid-19 outbreak locking the trade down,
+          that figure has changed to 263,000.
+        </p>
+        <hr />
+        <h2>Lorem Ipsum Dolor Sit Amet Consectetur</h2>
+        <a href="https://youtu.be/QYdWYha0w0E">https://youtu.be/QYdWYha0w0E</a>
+        <p>
+          At the beginning of the year, the Society of Motor Manufacturers &amp;
+          Traders (SMMT) were feeling confident that the UK&apos;s light
+          commercial vehicle (LCV) market would see the registration of 348,000
+          vans in 2020. Now, with the Covid-19 outbreak locking the trade down,
+          that figure has changed to 263,000.
+        </p>
+      </article>
+      <div>
+        <Heading tag="span" size="large" color="black">
+          Related Articles
+        </Heading>
+        <Card className="card__article">
+          <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
+          <div className="-p-300 -col-100">
+            <Heading
+              tag="a"
+              size="regular"
+              color="black"
+              className="card--link"
+            >
+              Article Name
             </Heading>
-          </Column>
-        </Grid>
-      </div>
-    </section>
-    <section className="-pt-000 -pb-000 -bg-lighter">
-      <div className="container">
-        <Grid className="-pt-000 -pb-000 -bg-lighter" lg="6" md="2" sm="2">
-          <Column md="row" className="-a-center">
-            <Image
-              size="expand"
-              src="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg"
-            />
-          </Column>
-        </Grid>
-      </div>
-    </section>
-    <section className="section -pt-500 -pb-500">
-      <div className="container">
-        <Grid lg="6" md="2" sm="2">
-          <Column className="-col-400 -inset" md="4">
-            <Text size="lead" color="darker">
-              Accusamus reprehenderit ad illum aliquam, accusantium sed sapiente
-              in similique veniam iusto, expedita ut facere illo modi
-              praesentium sint nesciunt odio debitis!
-            </Text>
-          </Column>
-          <Column className="-col-400 -inset" md="2">
-            <Heading size="lead" color="black">
-              Related Articles
+            <CardContent>
+              <Text tag="div" size="small" color="darker">
+                GLorem ipsum dolor sit amet adipisicing elit. Iste, quaerat
+                consequatur sapiente sed.
+              </Text>
+              <Button
+                label="Read More"
+                color="teal"
+                size="small"
+                fill="solid"
+                className="-mt-400"
+              />
+            </CardContent>
+          </div>
+        </Card>
+        <Card className="card__article">
+          <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
+          <div className="-p-300 -col-100">
+            <Heading
+              tag="a"
+              size="regular"
+              color="black"
+              className="card--link"
+            >
+              Article Name
             </Heading>
-            <Card className="-a-left">
-              <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
-              <div className="-p-300 -col-100">
-                <Heading
-                  tag="a"
-                  size="regular"
-                  color="black"
-                  className="card--link"
-                >
-                  Article Name
-                </Heading>
-                <CardContent>
-                  <Text tag="div" size="small" color="darker">
-                    GLorem ipsum dolor sit amet adipisicing elit. Iste, quaerat
-                    consequatur sapiente sed.
-                  </Text>
-                  <Button
-                    label="Read More"
-                    color="teal"
-                    size="small"
-                    fill="solid"
-                    className="-mt-400"
-                  />
-                </CardContent>
-              </div>
-            </Card>
-            <Card className="-a-left">
-              <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
-              <div className="-p-300 -col-100">
-                <Heading
-                  tag="a"
-                  size="regular"
-                  color="black"
-                  className="card--link"
-                >
-                  Article Name
-                </Heading>
-                <CardContent>
-                  <Text tag="div" size="small" color="darker">
-                    GLorem ipsum dolor sit amet adipisicing elit. Iste, quaerat
-                    consequatur sapiente sed.
-                  </Text>
-                  <Button
-                    label="Read More"
-                    color="teal"
-                    size="small"
-                    fill="solid"
-                    className="-mt-400"
-                  />
-                </CardContent>
-              </div>
-            </Card>
-          </Column>
-        </Grid>
+            <CardContent>
+              <Text tag="div" size="small" color="darker">
+                GLorem ipsum dolor sit amet adipisicing elit. Iste, quaerat
+                consequatur sapiente sed.
+              </Text>
+              <Button
+                label="Read More"
+                color="teal"
+                size="small"
+                fill="solid"
+                className="-mt-400"
+              />
+            </CardContent>
+          </div>
+        </Card>
       </div>
-    </section>
+    </div>
   </>
 );
 

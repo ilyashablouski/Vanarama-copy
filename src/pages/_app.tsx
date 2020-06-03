@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   }, []);
 
   return (
-    <main>
+    <main className="page:default">
       <Header
         loginLink={LOGIN_LINK}
         phoneNumberLink={PHONE_NUMBER_LINK}

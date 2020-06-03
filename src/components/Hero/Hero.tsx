@@ -1,5 +1,4 @@
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
 
 import { IHeroProps } from './interface';
 
@@ -10,19 +9,19 @@ const Hero: React.FC<IHeroProps> = ({
   return (
     <section className="hero">
       <div className="container">
-        <Grid lg="6" md="2" sm="2">
-          <Column sm="row" md="1" lg="4">
+        <div>
+          <div>
             <div className="hero--flag -mb-500">
               <Heading size="small" color="white">
                 {flagText}
               </Heading>
             </div>
             {children}
-          </Column>
-          <Column className="-inset" sm="row" md="1" lg="2">
+          </div>
+          <div className="-inset">
             <div className="hero--search">...</div>
-          </Column>
-        </Grid>
+          </div>
+        </div>
       </div>
       <svg
         id="hero--curve"
