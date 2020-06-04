@@ -21,7 +21,8 @@ import PasswordRequirements from '../../core/components/PasswordRequirements';
 const PasswordResetContainer = ({
   hasError: error,
   isSubmitting,
-  username = '',
+  username,
+  code,
   onSubmit,
 }: IResetPasswordFormProps) => {
   const { handleSubmit, errors, watch, register } = useForm<
@@ -29,9 +30,9 @@ const PasswordResetContainer = ({
   >({
     mode: 'onBlur',
     defaultValues: {
-      confirmPass: '',
-      code: '',
+      code,
       password: '',
+      confirmPass: '',
     },
   });
   const watchPassword = watch('password');
