@@ -1,39 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<CustomerThing /> renders correctly 1`] = `
-<section
-  className="section"
+<div
+  className="row:lead-text"
 >
-  <div
-    className="container"
+  <p
+    className="heading -black -large"
   >
-    <div>
-      <div
-        className="-col-400 -a-center"
-      >
-        <p
-          className="heading -black -large"
-        >
-          What Do Our Customers Think?
-        </p>
-        <p
-          className="text -expand -darker"
-        >
-          More than 1,000 people use our Eligibility Checker every week to find out their likelihood of getting accepted to lease a new car lease.
-        </p>
-        <button
-          className="button -teal -regular -solid"
-          data-testid="eligibility-Checker-btn"
-          onClick={[Function]}
-        >
-          <div
-            className="button--inner"
-          >
-            Check Your Eligibility
-          </div>
-        </button>
-      </div>
+    What Do Our Customers Think?
+  </p>
+  <p
+    className="text -regular -darker"
+  >
+    More than 1,000 people use our Eligibility Checker every week to find out their likelihood of getting accepted to lease a new car lease.
+  </p>
+  <button
+    className="button -teal -regular -solid"
+    data-testid="eligibility-Checker-btn"
+    onClick={[Function]}
+  >
+    <div
+      className="button--inner"
+    >
+      Check Your Eligibility
     </div>
-  </div>
-</section>
+  </button>
+</div>
 `;
