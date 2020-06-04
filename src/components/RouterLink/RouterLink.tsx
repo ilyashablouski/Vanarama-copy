@@ -11,7 +11,6 @@ import { ILinkProps } from './interface';
 
 interface IAppLinkProps extends IBaseProps {
   link: ILinkProps;
-  children: React.ReactNode;
   replace?: boolean;
   onClick?(e: React.MouseEvent): void;
   className?: string;
@@ -39,6 +38,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
         target={link.target}
         rel="noopener noreferrer"
         onClick={e => onClick && onClick(e)}
+        data-testid="link"
       >
         {children}
       </a>
@@ -47,7 +47,11 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
 
   return (
     <Link href={link.href} replace={replace}>
-      <a className={linkClassName} onClick={e => onClick && onClick(e)}>
+      <a
+        className={linkClassName}
+        onClick={e => onClick && onClick(e)}
+        data-testid="router-link"
+      >
         {children}
       </a>
     </Link>

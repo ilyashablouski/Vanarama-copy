@@ -35,7 +35,7 @@ const Header: FC<IHeaderProps> = memo(props => {
 
   const renderChildrenMenu = (childrenLinks: ILinkProps[]) => {
     return (
-      <nav>
+      <nav data-testid="header--menu-children">
         <ul>
           {childrenLinks.map((link: ILinkProps) => (
             <li key={link.label}>
@@ -58,7 +58,7 @@ const Header: FC<IHeaderProps> = memo(props => {
 
   const renderMenu = () => {
     return (
-      <div className="header--menu">
+      <div className="header--menu" data-testid="header--menu">
         <nav className="header--menu-nav">
           {!!topBarLinks.length &&
             topBarLinks.map(entry => (
@@ -125,7 +125,7 @@ const Header: FC<IHeaderProps> = memo(props => {
   };
 
   const renderMessage = () => (
-    <div className="header--notice">
+    <div className="header--notice" data-testid="header--notice">
       <Text tag="p" color="darker">
         {message}
       </Text>
@@ -133,8 +133,8 @@ const Header: FC<IHeaderProps> = memo(props => {
   );
 
   return (
-    <header className={cx('header', className)}>
-      <div className="header--logo">
+    <header className={cx('header', className)} data-testid="header">
+      <div className="header--logo" data-testid="header--logo">
         <RouterLink
           link={{ href: '/', label: '' }}
           classNames={{ color: 'orange', plain: true }}
@@ -143,12 +143,12 @@ const Header: FC<IHeaderProps> = memo(props => {
         </RouterLink>
       </div>
       {renderMenu()}
-      <div className="header--compact-menu">
+      <div className="header--compact-menu" data-testid="header--compact-menu">
         <Button
           className="header--responsive-icon"
           color="orange"
           fill="clear"
-          iconPosition="before"
+          dataTestId="call-btn"
           label={
             <RouterLink
               className="-clear"
@@ -164,10 +164,11 @@ const Header: FC<IHeaderProps> = memo(props => {
           color="orange"
           fill="clear"
           iconPosition="before"
+          dataTestId="menu-btn"
           label={<Icon icon={<Menu />} size="small" />}
         />
       </div>
-      <div className="header--cta">
+      <div className="header--cta" data-testid="header--cta">
         {renderCta()}
         {!!message && renderMessage()}
       </div>
