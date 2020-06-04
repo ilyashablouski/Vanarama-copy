@@ -8,14 +8,12 @@ import Media from '@vanarama/uibook/lib/components/atoms/media';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
 import League from '@vanarama/uibook/lib/components/organisms/league';
-import LogoRow from '@vanarama/uibook/lib/components/molecules/logo-row';
 import ProductCard from '@vanarama/uibook/lib/components/organisms/product-card';
-import { Grid, Column } from '@vanarama/uibook/lib/components/molecules/grid';
 import Card, {
   CardContent,
   CardMedia,
 } from '@vanarama/uibook/lib/components/molecules/card';
-import Slider from '@vanarama/uibook/lib/components/organisms/slider';
+import Slider from '@vanarama/uibook/lib/components/organisms/carousel';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
@@ -122,8 +120,8 @@ const VansPage: NextPage = () => (
             we&apos;ve got it.
           </Text>
         </div>
-        <Grid lg="4" md="1" sm="1">
-          <Column md="1">
+        <div>
+          <div>
             <Card className="-a-center">
               <Heading className="-pv-300" size="regular" color="black">
                 Small Vans
@@ -137,8 +135,8 @@ const VansPage: NextPage = () => (
                 <Button label="Search Vans" color="teal" fill="solid" />
               </CardContent>
             </Card>
-          </Column>
-          <Column md="1">
+          </div>
+          <div>
             <Card className="-a-center">
               <Heading className="-pv-300" size="regular" color="black">
                 Medium Vans
@@ -152,8 +150,8 @@ const VansPage: NextPage = () => (
                 <Button label="Search Vans" color="teal" fill="solid" />
               </CardContent>
             </Card>
-          </Column>
-          <Column md="1">
+          </div>
+          <div>
             <Card className="-a-center">
               <Heading className="-pv-300" size="regular" color="black">
                 Large Vans
@@ -167,8 +165,8 @@ const VansPage: NextPage = () => (
                 <Button label="Search Vans" color="teal" fill="solid" />
               </CardContent>
             </Card>
-          </Column>
-          <Column md="1">
+          </div>
+          <div>
             <Card className="-a-center">
               <Heading className="-pv-300" size="regular" color="black">
                 Other Vans
@@ -182,17 +180,17 @@ const VansPage: NextPage = () => (
                 <Button label="Search Vans" color="teal" fill="solid" />
               </CardContent>
             </Card>
-          </Column>
-        </Grid>
+          </div>
+        </div>
       </div>
     </section>
 
     <section className="section -bg-lighter">
       <div className="container">
-        <Grid lg="2" md="2" sm="2">
-          <Column md="row">
-            <Grid lg="3" sm="1" md="1">
-              <Column md="row">
+        <div>
+          <div>
+            <div>
+              <div>
                 <Heading
                   className="-a-center -mb-400"
                   size="large"
@@ -200,50 +198,38 @@ const VansPage: NextPage = () => (
                 >
                   Leasing - The Simple Way To Get Your Brand New Car
                 </Heading>
-              </Column>
-              <Column md="1">
-                <Step step={1}>
-                  <Heading tag="span" color="black" className="lead">
-                    Choose
-                  </Heading>
-                  <Text color="darker" size="regular">
-                    Get the car you want from our range of manufacturers - from
-                    something sporty to something for all the family.
-                  </Text>
-                </Step>
-              </Column>
-              <Column md="1">
-                <Step step={2}>
-                  <Heading tag="span" color="black" className="lead">
-                    Apply
-                  </Heading>
-                  <Text color="darker" size="regular">
-                    To lease your new car, we&apos;ll just need a few details to
-                    apply for finance from one of our funding partners.
-                  </Text>
-                </Step>
-              </Column>
-              <Column md="1">
-                <Step step={3}>
-                  <Heading tag="span" color="black" className="lead">
-                    Drive
-                  </Heading>
-                  <Text color="darker" size="regular">
-                    And that&apos;s it - once you&apos;ve been approved, your
-                    brand new car will be delivered direct to your door.
-                  </Text>
-                </Step>
-              </Column>
-            </Grid>
-          </Column>
-        </Grid>
+              </div>
+              <div>
+                <Step
+                  heading="Choose"
+                  step={1}
+                  text="Get the car you want from our range of manufacturers - from something sporty to something for all the family."
+                />
+              </div>
+              <div>
+                <Step
+                  heading="Apply"
+                  step={2}
+                  text="To lease your new car, we'll just need a few details to apply for finance from one of our funding partners."
+                />
+              </div>
+              <div>
+                <Step
+                  heading="Drive"
+                  step={3}
+                  text="And that's it - once you've been approved, your brand new car will be delivered direct to your door."
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <section className="section">
       <div className="container">
-        <Grid lg="6" md="2" sm="2">
-          <Column className="-inset -middle" md="3">
+        <div>
+          <div className="-inset -middle">
             <div style={{ padding: '1rem' }}>
               <Heading size="large" color="black">
                 Why Leasing ?
@@ -266,8 +252,8 @@ const VansPage: NextPage = () => (
                 </IconListItem>
               </IconList>
             </div>
-          </Column>
-          <Column md="3">
+          </div>
+          <div>
             <div className="player-wrapper">
               <Media
                 responsive
@@ -279,17 +265,17 @@ const VansPage: NextPage = () => (
                 height="100%"
               />
             </div>
-          </Column>
-        </Grid>
+          </div>
+        </div>
       </div>
     </section>
     <section className="section -bg-lighter">
       <div className="container">
-        <Grid lg="6" md="2" sm="2">
-          <Column md="3">
+        <div>
+          <div>
             <Image src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349" />
-          </Column>
-          <Column className="-inset -middle -col-400" md="3">
+          </div>
+          <div className="-inset -middle -col-400">
             <div>
               <Heading size="large" color="black">
                 Why Choose Vanarama For Your Van?
@@ -305,8 +291,8 @@ const VansPage: NextPage = () => (
                 else.
               </Text>
             </div>
-          </Column>
-        </Grid>
+          </div>
+        </div>
       </div>
     </section>
     <section className="section">
@@ -320,8 +306,8 @@ const VansPage: NextPage = () => (
           </Text>
         </div>
         <br />
-        <Grid lg="4" md="1" sm="1">
-          <Column md="1">
+        <div>
+          <div>
             <Image
               size="expand"
               src="https://source.unsplash.com/collection/2102317/1000x650?sig=403410"
@@ -334,8 +320,8 @@ const VansPage: NextPage = () => (
               Voluptates provident magni quaerat, culpa repudiandae minima quo
               nobis error laboriosam ipsa.
             </Text>
-          </Column>
-          <Column md="1">
+          </div>
+          <div>
             <Image
               size="expand"
               src="https://source.unsplash.com/collection/2102317/1000x650?sig=4034228"
@@ -348,8 +334,8 @@ const VansPage: NextPage = () => (
               Voluptates provident magni quaerat, culpa repudiandae minima quo
               nobis error laboriosam ipsa.
             </Text>
-          </Column>
-          <Column md="1">
+          </div>
+          <div>
             <Image
               size="expand"
               src="https://source.unsplash.com/collection/2102317/1000x650?sig=403422"
@@ -362,8 +348,8 @@ const VansPage: NextPage = () => (
               Voluptates provident magni quaerat, culpa repudiandae minima quo
               nobis error laboriosam ipsa.
             </Text>
-          </Column>
-          <Column md="1">
+          </div>
+          <div>
             <Image
               size="expand"
               src="https://source.unsplash.com/collection/2102317/1000x650?sig=403418"
@@ -376,14 +362,14 @@ const VansPage: NextPage = () => (
               Voluptates provident magni quaerat, culpa repudiandae minima quo
               nobis error laboriosam ipsa.
             </Text>
-          </Column>
-        </Grid>
+          </div>
+        </div>
       </div>
     </section>
     <section className="section -bg-lighter">
       <div className="container">
-        <Grid lg="6" md="2" sm="2">
-          <Column className="-col-300" md="row" lg="row">
+        <div>
+          <div className="-col-300">
             <Heading className="-mb-300" size="large" color="black">
               Not Sure How Van Leasing Works?
             </Heading>
@@ -405,14 +391,14 @@ const VansPage: NextPage = () => (
               label="Veiw Leasing Guides"
               color="teal"
             />
-          </Column>
-        </Grid>
+          </div>
+        </div>
       </div>
     </section>
     <section className="section">
       <div className="container">
-        <Grid lg="4" md="2" sm="1">
-          <Column md="1">
+        <div>
+          <div>
             <Tile className="-plain -button -align-center">
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Image
@@ -431,8 +417,8 @@ const VansPage: NextPage = () => (
                 Pretium facilisi etiam pretium, cras interdum enim, nullam.
               </Text>
             </Tile>
-          </Column>
-          <Column md="1">
+          </div>
+          <div>
             <Tile className="-plain -button -align-center">
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Image
@@ -451,8 +437,8 @@ const VansPage: NextPage = () => (
                 Pretium facilisi etiam pretium, cras interdum enim, nullam.
               </Text>
             </Tile>
-          </Column>
-          <Column md="1">
+          </div>
+          <div>
             <Tile className="-plain -button -align-center">
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Image
@@ -471,8 +457,8 @@ const VansPage: NextPage = () => (
                 Pretium facilisi etiam pretium, cras interdum enim, nullam.
               </Text>
             </Tile>
-          </Column>
-          <Column md="1">
+          </div>
+          <div>
             <Tile className="-plain -button -align-center">
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Image
@@ -491,15 +477,15 @@ const VansPage: NextPage = () => (
                 Pretium facilisi etiam pretium, cras interdum enim, nullam.
               </Text>
             </Tile>
-          </Column>
-        </Grid>
+          </div>
+        </div>
       </div>
     </section>
 
     <section className="section -bg-lighter">
       <div className="container">
-        <Grid md="1">
-          <Column md="row">
+        <div>
+          <div>
             <Heading size="large" color="black" className="-a-center -mb-500">
               Search By Manufacturer
             </Heading>
@@ -519,14 +505,14 @@ const VansPage: NextPage = () => (
                 <Button key={n} color="teal" size="large" label={n} />
               ))}
             </div>
-          </Column>
-        </Grid>
+          </div>
+        </div>
       </div>
     </section>
 
     <League altText="vanarama national league" />
 
-    <LogoRow
+    {/* <LogoRow
       className="-bg-lighter"
       urls={[
         {
@@ -570,7 +556,7 @@ const VansPage: NextPage = () => (
             'https://www.vanarama.com/Assets/images-optimised/home/featured/thetelegraph.png',
         },
       ]}
-    />
+    /> */}
 
     <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
   </main>

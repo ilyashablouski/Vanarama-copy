@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import CreditChecker from '../../pages/credit-checker';
+import CreditChecker from '../../pages/eligibility-checker/credit-checker';
 
 const mockPush = jest.fn();
 jest.mock('next/router', () => ({
@@ -8,6 +8,9 @@ jest.mock('next/router', () => ({
     return {
       prefetch: () => null,
       push: mockPush,
+      query: {
+        score: 50,
+      },
     };
   },
 }));
@@ -17,7 +20,6 @@ describe('<CreditChecker />', () => {
     // ACT
     render(<CreditChecker />);
 
-    expect(screen.getByText('Your Result')).toBeInTheDocument();
     expect(screen.getByText('Not sure? We can')).toBeInTheDocument();
     expect(screen.getByText('help you choose')).toBeInTheDocument();
   });

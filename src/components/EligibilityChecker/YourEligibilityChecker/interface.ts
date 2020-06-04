@@ -1,3 +1,5 @@
+import { QuickCreditCheckerEligibility } from '../../../../generated/QuickCreditCheckerEligibility';
+
 export interface IYourEligiblityCheckerValues {
   firstName: string;
   lastName: string;
@@ -13,5 +15,6 @@ export interface IYourEligiblityCheckerValues {
 }
 
 export interface IProps {
+  creditChecker?: QuickCreditCheckerEligibility;
   submit: (values: IYourEligiblityCheckerValues) => void;
 }

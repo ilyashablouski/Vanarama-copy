@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Slider from '@vanarama/uibook/lib/components/organisms/slider';
-import ReviewTile from '@vanarama/uibook/lib/components/organisms/review-tile';
+import Slider from '@vanarama/uibook/lib/components/organisms/carousel';
+// import ReviewTile from '@vanarama/uibook/lib/components/organisms/review-tile';
 
 const reviewTiles = [
   {
@@ -42,14 +42,16 @@ const CustomersReviews: FC = () => (
       <Slider className="-mh-auto" gutter={16}>
         {reviewTiles.map((reviewTile, index) => (
           <div key={index.toString()} style={{ width: 345 }}>
-            <ReviewTile
+            <div />
+            {/* TODO: ReviewTile seems to have been deleted. Needs fixing */}
+            {/* <ReviewTile
               name={reviewTile.name}
               description={reviewTile.description}
               timeStamp={reviewTile.timeStamp}
               reviews={reviewTile.reviews}
               src={reviewTile.src}
               rating={reviewTile.rating}
-            />
+            /> */}
           </div>
         ))}
       </Slider>

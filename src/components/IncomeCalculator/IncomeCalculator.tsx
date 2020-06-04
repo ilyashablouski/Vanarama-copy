@@ -6,7 +6,6 @@ import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Input from '@vanarama/uibook/lib/components/atoms/textinput/';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
-import { Column, Grid } from '@vanarama/uibook/lib/components/molecules/grid';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import { gql } from '@apollo/client';
 import React from 'react';
@@ -45,8 +44,8 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
         your new car is affordable.
       </Text>
       <div id="incomeCalculator">
-        <Grid lg={2} md={2} sm={1}>
-          <Column>
+        <div>
+          <div>
             <FormGroup
               controlId="averageMonthlyIncome"
               label="Average Monthly Income"
@@ -60,8 +59,8 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
                 control={control}
               />
             </FormGroup>
-          </Column>
-          <Column>
+          </div>
+          <div>
             <FormGroup
               controlId="monthlyHouseholdIncome"
               label="Monthly Household Income"
@@ -74,8 +73,8 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
                 control={control}
               />
             </FormGroup>
-          </Column>
-          <Column md="row">
+          </div>
+          <div>
             <FormGroup
               controlId="isFutureMonthlyIncome"
               label="Do You Anticipate Your Monthly Income Will Change?"
@@ -104,12 +103,12 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
                 </FormGroup>
               )}
             </FormGroup>
-          </Column>
-        </Grid>
+          </div>
+        </div>
 
         <Tile color="lighter">
-          <Grid lg={2} md={2} sm={1}>
-            <Column>
+          <div>
+            <div>
               <FormGroup controlId="mortgageOrRent" label="Mortgage or Rent">
                 <Controller
                   id="mortgageOrRent"
@@ -119,8 +118,8 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
                   control={control}
                 />
               </FormGroup>
-            </Column>
-            <Column>
+            </div>
+            <div>
               <FormGroup
                 controlId="phoneAndInternet"
                 label="Phone and Internet"
@@ -133,8 +132,8 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
                   control={control}
                 />
               </FormGroup>
-            </Column>
-            <Column>
+            </div>
+            <div>
               <FormGroup
                 controlId="creditCardPayments"
                 label="Credit Card Payments"
@@ -147,8 +146,8 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
                   control={control}
                 />
               </FormGroup>
-            </Column>
-            <Column>
+            </div>
+            <div>
               <FormGroup controlId="utilities" label="Utilities">
                 <Controller
                   id="utilities"
@@ -158,8 +157,8 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
                   control={control}
                 />
               </FormGroup>
-            </Column>
-            <Column>
+            </div>
+            <div>
               <FormGroup controlId="insurance" label="Insurance">
                 <Controller
                   id="insurance"
@@ -169,8 +168,8 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
                   control={control}
                 />
               </FormGroup>
-            </Column>
-            <Column>
+            </div>
+            <div>
               <FormGroup controlId="carFinance" label="Car Finance">
                 <Controller
                   id="carFinance"
@@ -180,8 +179,8 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
                   control={control}
                 />
               </FormGroup>
-            </Column>
-            <Column>
+            </div>
+            <div>
               <FormGroup controlId="foodAndClothes" label="Food and Clothes">
                 <Controller
                   id="foodAndClothes"
@@ -191,8 +190,8 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
                   control={control}
                 />
               </FormGroup>
-            </Column>
-            <Column>
+            </div>
+            <div>
               <FormGroup controlId="fuel" label="Fuel">
                 <Controller
                   id="fuel"
@@ -202,8 +201,8 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
                   control={control}
                 />
               </FormGroup>
-            </Column>
-            <Column>
+            </div>
+            <div>
               <FormGroup controlId="studentLoans" label="Student Loan">
                 <Controller
                   id="studentLoans"
@@ -213,8 +212,8 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
                   control={control}
                 />
               </FormGroup>
-            </Column>
-            <Column>
+            </div>
+            <div>
               <FormGroup controlId="otherCredit" label="Other Credit">
                 <Controller
                   id="otherCredit"
@@ -224,12 +223,12 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
                   control={control}
                 />
               </FormGroup>
-            </Column>
-          </Grid>
+            </div>
+          </div>
         </Tile>
 
-        <Grid lg={2} md={2} sm={1}>
-          <Column>
+        <div>
+          <div>
             <FormGroup
               controlId="totalMonthlyExpenses"
               label="Total Monthly Expenses"
@@ -245,8 +244,8 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
                 calculated
               />
             </FormGroup>
-          </Column>
-          <Column>
+          </div>
+          <div>
             <FormGroup
               controlId="netDisposableIncome"
               label="Net Disposable Income"
@@ -262,8 +261,8 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
                 calculated
               />
             </FormGroup>
-          </Column>
-        </Grid>
+          </div>
+        </div>
         <FormGroup>
           <Button
             type="submit"
