@@ -10,7 +10,6 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import Media from '@vanarama/uibook/lib/components/atoms/media';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Card, {
   CardContent,
@@ -208,63 +207,41 @@ export const HomePage: NextPage = () => {
         </div>
       </section>
 
-      <section className="section -bg-lighter">
-        <div className="container">
-          <div>
-            <div className="-inset -middle">
-              <div style={{ padding: '1rem' }}>
-                <Heading size="large" color="black">
-                  {data?.homePage.sections.featured1.title}
-                </Heading>
-                <Text tag="p" size="regular" color="darker">
-                  {data?.homePage.sections.featured1.body}
-                </Text>
-                <IconList>
-                  <IconListItem iconColor="orange">
-                    &nbsp;&nbsp;Choose your contract length &amp; agreed mileage
-                  </IconListItem>
-                  <IconListItem iconColor="orange">
-                    &nbsp;&nbsp;Pay an initial payment
-                  </IconListItem>
-                  <IconListItem iconColor="orange">
-                    &nbsp;&nbsp;Set up your agreed fixed monthly rental
-                  </IconListItem>
-                </IconList>
-              </div>
-            </div>
-            <div>
-              <Media
-                responsive
-                src="https://player.vimeo.com/video/263419265"
-                vimeoConfig={{ color: 'EC6408', portrait: false }}
-                className="media-wrapper"
-                controls
-                width="100%"
-                height="100%"
-              />
-            </div>
-          </div>
+      <section className="row:featured-right">
+        <div style={{ padding: '1rem' }}>
+          <Heading size="large" color="black">
+            {data && data.homePage.sections.featured1.title}
+          </Heading>
+          <Text tag="p" size="regular" color="darker">
+            {data && data.homePage.sections.featured1.body}
+          </Text>
+          <IconList>
+            <IconListItem iconColor="orange">
+              &nbsp;&nbsp;Choose your contract length &amp; agreed mileage
+            </IconListItem>
+            <IconListItem iconColor="orange">
+              &nbsp;&nbsp;Pay an initial payment
+            </IconListItem>
+            <IconListItem iconColor="orange">
+              &nbsp;&nbsp;Set up your agreed fixed monthly rental
+            </IconListItem>
+          </IconList>
+        </div>
+        <Image src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349" />
+      </section>
+
+      <section className="row:featured-left">
+        <Image src="https://source.unsplash.com/collection/2102317/900x500?sig=403422" />
+        <div>
+          <Heading size="large" color="black">
+            {data && data.homePage.sections.featured2.title}
+          </Heading>
+          <Text tag="p" size="regular" color="darker">
+            {data && data.homePage.sections.featured2.body}
+          </Text>
         </div>
       </section>
-      <section className="section">
-        <div className="container">
-          <div>
-            <div>
-              <Image src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349" />
-            </div>
-            <div className="-inset -middle -col-400">
-              <div>
-                <Heading size="large" color="black">
-                  {data?.homePage.sections.featured2.title}
-                </Heading>
-                <Text tag="p" size="regular" color="darker">
-                  {data?.homePage.sections.featured2.body}
-                </Text>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
       <section className="section -bg-lighter">
         <div className="container">
           <div>

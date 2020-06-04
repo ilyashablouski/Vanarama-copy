@@ -101,11 +101,12 @@ const BlogPage: NextPage = () => (
                 </Heading>
                 <Button
                   label=""
-                  size="regular"
+                  size="xsmall"
                   color="teal"
-                  fill="clear"
+                  fill="solid"
                   round
                   icon={<ArrowForwardSharp />}
+                  iconColor="white"
                   iconPosition="after"
                 />
               </CardContent>
