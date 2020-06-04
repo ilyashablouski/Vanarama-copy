@@ -8,7 +8,7 @@ import {
   GetAboutYouDataQuery,
   GetAboutYouDataQueryVariables,
 } from '../../../generated/GetAboutYouDataQuery';
-import PersonalInformarion from '../../components/PersonalInformation/PersonalInformation';
+import AboutForm from '../../components/PersonalInformation/AboutForm';
 
 export const CREATE_UPDATE_PERSON = gql`
   mutation CreateUpdatePersonMutation($input: PersonInputObject!) {
@@ -16,24 +16,44 @@ export const CREATE_UPDATE_PERSON = gql`
       ...AboutFormPerson
     }
   }
-  ${PersonalInformarion.fragments.person}
+  ${AboutForm.fragments.person}
 `;
 
 export const GET_ABOUT_YOU_DATA = gql`
-  query GetAboutYouDataQuery($uuid: ID!, $includePerson: Boolean!) {
-    allDropDowns {
-      ...AboutFormDropdownData
-    }
-    personByUuid(uuid: $uuid) @include(if: $includePerson) {
-      ...AboutFormPerson
+  query getPersonalInformation($uuid: ID!) {
+    getPersonalInformation(uuid: $uuid) {
+      uuid
+      person {
+        title
+        firstName
+        lastName
+      }
+      emailAddresses {
+        kind
+        primary
+        value
+      }
+      telephoneNumbers {
+        kind
+        primary
+        value
+      }
+      addresses {
+        uuid
+        serviceId
+        lineOne
+        lineTwo
+        lineThree
+        city
+        postcode
+        country
+      }
     }
   }
-  ${PersonalInformarion.fragments.dropdownData}
-  ${PersonalInformarion.fragments.person}
 `;
 
 export function useAboutYouData(personByUuid?: string) {
-  return useQuery<GetAboutYouDataQuery, GetAboutYouDataQueryVariables>(
+  return useQuery(
     GET_ABOUT_YOU_DATA,
     {
       variables: {
@@ -42,7 +62,6 @@ export function useAboutYouData(personByUuid?: string) {
          * as it will be excluded from the query anyway
          */
         uuid: personByUuid || '🐔',
-        includePerson: Boolean(personByUuid),
       },
     },
   );

@@ -1,98 +1,46 @@
-import { gql } from '@apollo/client';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Container from '@vanarama/uibook/lib/components/container/Container';
 import Section from '@vanarama/uibook/lib/components/container/Section';
+import Link from '@vanarama/uibook/lib/components/atoms/link';
 import Card, {
   CardContent,
-  CardIcons,
 } from '@vanarama/uibook/lib/components/molecules/card';
-import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
 import { Column, Grid } from '@vanarama/uibook/lib/components/molecules/grid';
 import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
 import withApollo from '../../../hocs/withApollo';
 import MainLayout from '../../../layouts/MainLayout/MainLayout';
-import ResetPasswordForm from '../../../components/ResetPasswordForm';
-import PersonalInformationFormContainer from '../../../containers/PersonalInformationFormContainer/PersonalInformationContainer';
+import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
 
 interface IProps {
   query: ParsedUrlQuery;
 }
 
-export const PASSWORD_REQUEST_MUTATION = gql`
-  mutation PasswordRequestMutation($username: String!) {
-    passwordReset(username: $username)
-  }
-`;
-
-export const PasswordRequestPage: NextPage<IProps> = () => {
-
+export const MyDetailsPage: NextPage<IProps> = () => {
   const [resetPassword, setResetPassword] = useState(false);
 
-  const props = {
+  const path = {
     items: [
       { label: 'Home', href: '/' },
       { label: 'My Details', href: '/' },
     ],
   };
 
-  const editableList = [
-    {
-      textEdit: true,
-      label: 'First Name',
-      value: '',
-      name: 'First Name',
-      id: 'firstName',
-    },
-    {
-      textEdit: true,
-      label: 'Last Name',
-      value: '',
-      name: 'Last Name',
-      id: 'lastName',
-    },
-    {
-      selectEdit: true,
-      label: 'Address',
-      value: '012100000',
-      name: 'Address',
-      options: {
-        data: ['Unitied Kingdom', 'Canada', 'Unitied States'],
-        favourites: ['United Kingdom'],
-      },
-      id: 'address',
-    },
-    {
-      textEdit: true,
-      label: 'Telephone',
-      value: 'Telephone',
-      name: 'telephone',
-      id: 'telephone',
-    },
-    {
-      textEdit: false,
-      label: 'Email',
-      value: 'Email',
-      name: 'email',
-      id: 'email',
-    },
-  ];
-
   return (
     <MainLayout>
       <section className="sectionn -pb-400 -pt-400">
         <Container>
-          <Breadcrumb items={props.items} />
+          <Breadcrumb items={path.items} />
         </Container>
       </section>
-      <section className="section -pb-400 -pt-100">
+      <section className="section -pb-500 -pt-000">
         <Container>
           <Heading
-            tag="h2"
+            tag="h1"
             size="xlarge"
             color="black"
             dataTestId="my-details-heading"
@@ -107,15 +55,17 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
             <Column sm="row" md="1" lg="1">
               <Card>
                 <CardContent>
-                  <Heading tag="h3" size="regular">
+                  <Heading tag="span" size="regular" color="black">
                     My Orders
                   </Heading>
-                  <div className=" -pt-500 -pb-500">
-                    <Text>You have <b>(0)</b> orders.</Text>
+                  <div className="-pt-300 -pb-300">
+                    <Text>
+                      You have <b>(0)</b> orders.
+                    </Text>
                   </div>
-                </CardContent>
-                <CardContent flex>
-                  <Text color="teal">View Orders</Text>
+                  <Link color="teal" href="#">
+                    View Orders
+                  </Link>
                 </CardContent>
               </Card>
             </Column>
@@ -125,27 +75,14 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
                   <Heading tag="h3" size="regular">
                     My Quotes
                   </Heading>
-                  <div className="-pt-500 -pb-500">
-                    <Text>You have <b>(0)</b> quotes.</Text>
+                  <div className="-pt-300 -pb-300">
+                    <Text>
+                      You have <b>(0)</b> quotes.
+                    </Text>
                   </div>
-                </CardContent>
-                <CardContent>
-                  <Button label="View Quotes" color="teal" />
-                </CardContent>
-              </Card>
-            </Column>
-            <Column sm="row" md="1" lg="1">
-              <Card>
-                <CardContent>
-                  <Heading tag="h3" size="regular">
-                    My Wishlist
-                  </Heading>
-                  <div className="-pt-500 -pb-500">
-                    <Text>You have <b>(0)</b> items in your wishlist.</Text>
-                  </div>
-                </CardContent>
-                <CardContent>
-                  <Button label="View Wishlist" color="teal" />
+                  <Link color="teal" href="#">
+                    View Quotes
+                  </Link>
                 </CardContent>
               </Card>
             </Column>
@@ -156,7 +93,7 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
         <Container>
           <Grid sm="1" md="1" lg="5">
             <Column sm="row" md="1" lg="1-2">
-              <PersonalInformationFormContainer onCompleted={() => {}}/>
+              <PersonalInformationFormContainer onCompleted={() => {}} />
             </Column>
             <Column sm="row" md="1" lg="4-5">
               <Heading
@@ -176,20 +113,13 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
                     laborum anim esse amet fugiat
                   </Text>
                   <div className="-pt-300 -pb-300">
-                    <Button 
+                    <Button
                       label="Change Password"
                       color="teal"
                       onClick={() => setResetPassword(true)}
                     />
                   </div>
                 </>
-              )} 
-              {resetPassword && (
-                <ResetPasswordForm
-                  username="username"
-                  // hasError={Boolean(error)}
-                  onSubmit={async values => {setResetPassword(false)}}
-                />
               )}
             </Column>
           </Grid>
@@ -199,4 +129,4 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
   );
 };
 
-export default withApollo(PasswordRequestPage);
+export default withApollo(MyDetailsPage);

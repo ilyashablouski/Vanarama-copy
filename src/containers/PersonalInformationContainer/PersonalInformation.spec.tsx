@@ -5,10 +5,10 @@ import {
   GetAboutYouDataQuery,
   GetAboutYouDataQueryVariables,
 } from '../../../generated/GetAboutYouDataQuery';
-import PersonalInformationContainer from './PersonalInformationContainer';
+import AboutFormContainer from './AboutFormContainer';
 import { GET_ABOUT_YOU_DATA } from './gql';
 
-describe('<PersonalInformationContainer />', () => {
+describe('<AboutFormContainer />', () => {
   it('should prepopulate the form with existing data', async () => {
     // ARRANGE
     const personUuid = '1927e308-18f8-4d95-aef3-57cc46459930';
@@ -103,7 +103,7 @@ describe('<PersonalInformationContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
-        <PersonalInformationContainer personUuid={personUuid} onCompleted={jest.fn()} />
+        <AboutFormContainer personUuid={personUuid} onCompleted={jest.fn()} />
       </MockedProvider>,
     );
 

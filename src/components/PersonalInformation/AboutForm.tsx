@@ -8,11 +8,11 @@ import { gql } from '@apollo/client';
 import { Controller, useForm } from 'react-hook-form';
 import { Column, Grid } from '@vanarama/uibook/lib/components/molecules/grid';
 import FCWithFragments from '../../utils/FCWithFragments';
-import validationSchema from './PersonalInformation.validation';
-import { IPersonalInformationValues, IProps } from './interface';
+import validationSchema from './AboutForm.validation';
+import { IAboutFormValues, IProps } from './interface';
 import { responseToInitialFormValues } from './mappers';
 
-const PersonalInformation: FCWithFragments<IProps> = ({
+const AboutForm: FCWithFragments<IProps> = ({
   dropdownData,
   person,
   submit,
@@ -27,12 +27,14 @@ const PersonalInformation: FCWithFragments<IProps> = ({
     triggerValidation,
     watch,
     formState,
-  } = useForm<IPersonalInformationValues>({
+  } = useForm<IAboutFormValues>({
     mode: 'onBlur',
     validationSchema,
     defaultValues: responseToInitialFormValues(person),
   });
 
+  console.log("dropdownData", dropdownData)
+  console.log("person", person)
   return (
     <Form onSubmit={handleSubmit(submit)}>
       <Heading color="black" size="large" dataTestId="aboutHeading">
@@ -170,7 +172,7 @@ const PersonalInformation: FCWithFragments<IProps> = ({
   );
 };
 
-PersonalInformation.fragments = {
+AboutForm.fragments = {
   dropdownData: gql`
     fragment AboutFormDropdownData on DropDownType {
       __typename
@@ -205,32 +207,34 @@ PersonalInformation.fragments = {
   `,
   person: gql`
     fragment AboutFormPerson on PersonType {
-      __typename
       uuid
-      title
-      firstName
-      lastName
+      person {
+        title
+        firstName
+        lastName
+      }
       emailAddresses {
-        __typename
-        uuid
+        kind
         primary
         value
       }
       telephoneNumbers {
-        __typename
-        uuid
         kind
+        primary
         value
       }
-      dateOfBirth
-      countryOfBirth
-      nationality
-      maritalStatus
-      noOfAdultsInHousehold
-      noOfDependants
-      emailConsent
+      addresses {
+        uuid
+        serviceId
+        lineOne
+        lineTwo
+        lineThree
+        city
+        postcode
+        country
+      }
     }
   `,
 };
 
-export default PersonalInformation;
+export default AboutForm;

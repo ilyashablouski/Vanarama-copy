@@ -1,3 +1,3 @@
-import PersonalInformation from './AboutForm';
+import AboutForm from './AboutForm';
 
-export default PersonalInformation;
+export default AboutForm;

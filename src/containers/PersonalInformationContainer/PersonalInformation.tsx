@@ -1,17 +1,19 @@
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React from 'react';
-import PersonalInformation from '../../components/PersonalInformation';
+import AboutForm from '../../components/PersonalInformation';
 import { useCreatePerson, useAboutYouData } from './gql';
 import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
 
-const AboutFormContainer: React.FC<IProps> = ({ onCompleted, personUuid }) => {
+const PersonalInformationContainer: React.FC<IProps> = ({ onCompleted, personUuid }) => {
   const [createDetailsHandle] = useCreatePerson(onCompleted);
   const { data, loading, error } = useAboutYouData(personUuid);
+
   if (loading) {
     return <Loading size="large" />;
   }
 
+  console.log("data", data)
   if (error) {
     return <p>Error: {error.message}</p>;
   }
@@ -21,7 +23,7 @@ const AboutFormContainer: React.FC<IProps> = ({ onCompleted, personUuid }) => {
   }
 
   return (
-    <PersonalInformation
+    <AboutForm
       dropdownData={data.allDropDowns}
       person={data.personByUuid}
       submit={values =>
@@ -35,4 +37,4 @@ const AboutFormContainer: React.FC<IProps> = ({ onCompleted, personUuid }) => {
   );
 };
 
-export default AboutFormContainer;
+export default PersonalInformationContainer;

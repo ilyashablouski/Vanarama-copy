@@ -1,20 +1,31 @@
 import { AboutFormPerson } from '../../../generated/AboutFormPerson';
-import { IPersonalInformationValues } from './interface';
+import { IAboutFormValues } from './interface';
 
 // eslint-disable-next-line import/prefer-default-export
 export const responseToInitialFormValues = (
   person?: AboutFormPerson | null,
-): IPersonalInformationValues => {
+): IAboutFormValues => {
   const email = person?.emailAddresses.find(_ => _.primary)?.value || '';
+  const dateOfBirth = person?.dateOfBirth && new Date(person.dateOfBirth);
 
   const mobile =
     person?.telephoneNumbers?.find(_ => _.kind === 'Mobile')?.value || '';
 
   return {
     mobile,
+    adultsInHousehold: person?.noOfAdultsInHousehold || '',
+    countryOfBirth: person?.countryOfBirth || '',
+    dependants: person?.noOfDependants || '',
     email,
     firstName: person?.firstName || '',
     lastName: person?.lastName || '',
+    maritalStatus: person?.maritalStatus || '',
+    nationality: person?.nationality || '',
+    termsAndCons: Boolean(person),
+    title: person?.title || '',
     consent: person?.emailConsent || false,
+    dayOfBirth: dateOfBirth ? String(dateOfBirth.getDate()) : '',
+    monthOfBirth: dateOfBirth ? String(dateOfBirth.getMonth() + 1) : '',
+    yearOfBirth: dateOfBirth ? String(dateOfBirth.getFullYear()) : '',
   };
 };
