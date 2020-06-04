@@ -20,7 +20,6 @@ describe('<CreditChecker />', () => {
     // ACT
     render(<CreditChecker />);
 
-    expect(screen.getByText('Your Result')).toBeInTheDocument();
     expect(screen.getByText('Not sure? We can')).toBeInTheDocument();
     expect(screen.getByText('help you choose')).toBeInTheDocument();
   });
