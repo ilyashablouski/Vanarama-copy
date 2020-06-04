@@ -12,8 +12,8 @@ import Call from '@vanarama/uibook/lib/assets/icons/Call';
 import Menu from '@vanarama/uibook/lib/assets/icons/Menu';
 import ChevronDown from '@vanarama/uibook/lib/assets/icons/ChevronDown';
 
-import { ILinkProps } from '../../components/RouterLink/interface';
-import RouterLink from '../../components/RouterLink/RouterLink';
+import { ILinkProps } from '../RouterLink/interface';
+import RouterLink from '../RouterLink/RouterLink';
 
 export interface IHeaderProps extends IBaseProps {
   topBarLinks: ILinkProps[];

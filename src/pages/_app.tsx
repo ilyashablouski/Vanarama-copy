@@ -5,7 +5,7 @@ import { Router } from 'next/router';
 import { useEffect } from 'react';
 import { PHONE_NUMBER_LINK, TOP_BAR_LINKS } from '../models/enum/HeaderLinks';
 
-import Header from './header/Header';
+import Header from '../components/Header/Header';
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const LOGIN_LINK = {
