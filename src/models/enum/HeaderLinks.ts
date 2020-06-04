@@ -7,20 +7,20 @@ export const PHONE_NUMBER_LINK = {
 };
 
 export const TOP_BAR_LINKS = [
-  { label: 'Vans', href: '/van-leasing' },
+  { label: 'Vans', href: '/van-leasing/' },
   {
     label: 'Pickup',
-    href: '/pickup-truck-leasing',
+    href: '/pickup-truck-leasing/',
     children: [],
   },
   {
     label: 'Cars',
-    href: '/car-leasing',
+    href: '/car-leasing/',
     children: [],
   },
   {
     label: 'Insurance',
-    href: '/van-insurance',
+    href: '/van-insurance/',
     children: [],
   },
   {

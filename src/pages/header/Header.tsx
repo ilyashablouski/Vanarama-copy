@@ -16,14 +16,13 @@ import { ILinkProps } from '../../components/RouterLink/interface';
 import RouterLink from '../../components/RouterLink/RouterLink';
 
 export interface IHeaderProps extends IBaseProps {
-  topBarLinks?: ILinkProps[];
+  topBarLinks: ILinkProps[];
   loginLink: ILinkProps;
   phoneNumberLink: ILinkProps;
   showIvan?: boolean;
   message?: string;
 }
 
-// TODO: uncomment all comments when merged new UIBook
 const Header: FC<IHeaderProps> = memo(props => {
   const {
     className,
@@ -61,7 +60,7 @@ const Header: FC<IHeaderProps> = memo(props => {
     return (
       <div className="header--menu">
         <nav className="header--menu-nav">
-          {!!topBarLinks?.length &&
+          {!!topBarLinks.length &&
             topBarLinks.map(entry => (
               <Button
                 key={entry.label}
@@ -125,6 +124,14 @@ const Header: FC<IHeaderProps> = memo(props => {
     );
   };
 
+  const renderMessage = () => (
+    <div className="header--notice">
+      <Text tag="p" color="darker">
+        {message}
+      </Text>
+    </div>
+  );
+
   return (
     <header className={cx('header', className)}>
       <div className="header--logo">
@@ -142,7 +149,15 @@ const Header: FC<IHeaderProps> = memo(props => {
           color="orange"
           fill="clear"
           iconPosition="before"
-          label={<Icon icon={<Call />} size="small" name="call-sharp" />}
+          label={
+            <RouterLink
+              className="-clear"
+              classNames={{ size: 'large', color: 'inherit' }}
+              link={phoneNumberLink}
+            >
+              <Icon icon={<Call />} size="small" name="call-sharp" />
+            </RouterLink>
+          }
         />
         <Button
           className="header--responsive-icon"
@@ -152,15 +167,9 @@ const Header: FC<IHeaderProps> = memo(props => {
           label={<Icon icon={<Menu />} size="small" />}
         />
       </div>
-      <div>
-        <div className="header--cta">{renderCta()}</div>
-        {!!message && (
-          <div className="header--notice">
-            <Text tag="p" color="darker">
-              {message}
-            </Text>
-          </div>
-        )}
+      <div className="header--cta">
+        {renderCta()}
+        {!!message && renderMessage()}
       </div>
     </header>
   );
