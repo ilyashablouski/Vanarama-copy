@@ -302,6 +302,63 @@ export const HomePage: NextPage = () => {
         <League altText="vanarama national league" />
       </section>
 
+      <section className="row:featured-logos">
+        <Heading tag="span" size="small" color="darker">
+          AS FEATURED ON
+        </Heading>
+        <div>
+          {[
+            {
+              label: 'bbc',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/bbc.png',
+            },
+            {
+              label: 'btsport',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/btsport.png',
+            },
+            {
+              label: 'dailymail',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymail.png',
+            },
+            {
+              label: 'dailymirror',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymirror.png',
+            },
+            {
+              label: 'itv',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/itv.png',
+            },
+            {
+              label: 'metro',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/metro.png',
+            },
+            {
+              label: 'thesun',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/thesun.png',
+            },
+            {
+              label: 'sky',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/sky.png',
+            },
+            {
+              label: 'thetelegraph',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/thetelegraph.png',
+            },
+          ].map(({ href, label }) => (
+            <Image key={label} src={href} alt={label} size="expand" plain />
+          ))}
+        </div>
+      </section>
+
       {/* <LogoRow
         className="-bg-lighter"
         urls={[
