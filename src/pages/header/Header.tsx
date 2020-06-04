@@ -6,6 +6,7 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Logo from '@vanarama/uibook/lib/components/atoms/logo';
+import IvanCta from '@vanarama/uibook/lib/components/molecules/ivan-cta';
 
 import Call from '@vanarama/uibook/lib/assets/icons/Call';
 import Menu from '@vanarama/uibook/lib/assets/icons/Menu';
@@ -66,14 +67,11 @@ const Header: FC<IHeaderProps> = memo(props => {
                 key={entry.label}
                 className="-multiple"
                 fill="clear"
-                // color="inherit"
+                color="inherit"
                 label={
                   <>
                     <RouterLink link={entry}>
-                      <Heading
-                        size="lead"
-                        // color="inherit"
-                      >
+                      <Heading size="lead" color="inherit">
                         {entry.label}
                       </Heading>
                       {!!entry.childrenLinks?.length && (
@@ -91,18 +89,14 @@ const Header: FC<IHeaderProps> = memo(props => {
               <span className="header--vertical-rule" />
               <Button
                 key={loginLink.label}
-                // color="inherit"
+                color="inherit"
                 fill="clear"
                 label={
-                  <Text
-                    size="lead"
-                    // color="inherit"
-                  >
+                  <Text size="lead" color="inherit">
                     <RouterLink
                       link={loginLink}
-                      // color="inherit"
                       className="button -clear"
-                      classNames={{ size: 'large' }}
+                      classNames={{ size: 'large', color: 'inherit' }}
                     >
                       {loginLink.label}
                     </RouterLink>
@@ -118,14 +112,13 @@ const Header: FC<IHeaderProps> = memo(props => {
 
   const renderCta = () => {
     if (showIvan) {
-      return null; // <IvanCta isCompact />;
+      return <IvanCta isCompact />;
     }
     return (
       <RouterLink
         link={phoneNumberLink}
-        // color="inherit"
         className="button -clear"
-        classNames={{ size: 'large' }}
+        classNames={{ size: 'large', color: 'inherit' }}
       >
         01442 838195
       </RouterLink>
@@ -137,7 +130,7 @@ const Header: FC<IHeaderProps> = memo(props => {
       <div className="header--logo">
         <RouterLink
           link={{ href: '/', label: '' }}
-          classNames={{ color: 'white', plain: true }}
+          classNames={{ color: 'orange', plain: true }}
         >
           <Logo asset="vanarama" />
         </RouterLink>
@@ -146,20 +139,14 @@ const Header: FC<IHeaderProps> = memo(props => {
       <div className="header--compact-menu">
         <Button
           className="header--responsive-icon"
-          color="white"
+          color="orange"
           fill="clear"
           iconPosition="before"
-          label={
-            <Icon
-              icon={<Call />}
-              size="small"
-              // name="call-sharp"
-            />
-          }
+          label={<Icon icon={<Call />} size="small" name="call-sharp" />}
         />
         <Button
           className="header--responsive-icon"
-          color="white"
+          color="orange"
           fill="clear"
           iconPosition="before"
           label={<Icon icon={<Menu />} size="small" />}
