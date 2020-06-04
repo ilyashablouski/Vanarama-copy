@@ -7,7 +7,7 @@ import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
+import Slider from '@vanarama/uibook/lib/components/organisms/carousel';
 import ProductCard from '@vanarama/uibook/lib/components/organisms/product-card';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
@@ -61,57 +61,52 @@ const CreditChecker: NextPage = () => {
         </div>
       </div>
 
-      <div className="row:bg-lighter">
-        <div className="row:carousel">
-          <Heading tag="h3" size="large" color="black">
-            Top Offers
-          </Heading>
-          <Carousel gutter={16}>
-            {[1, 2, 3, 4, 5].map(k => (
-              <div key={k.toString()} style={{ width: 345 }}>
-                <ProductCard
-                  flag={{
-                    accentIcon: <Icon icon={<Flame />} color="white" />,
-                    accentText: 'Hot Deal',
-                    text: 'In Stock - 14-21 Days Delivery',
-                  }}
-                  href="#"
-                  features={[
-                    {
-                      icon: <Icon icon={<SnowSharp />} color="dark" />,
-                      label: 'Aircon',
-                    },
-                    {
-                      icon: <Icon icon={<BluetoothSharp />} color="dark" />,
-                      label: 'Bluetooth',
-                    },
-                    {
-                      icon: <Icon icon={<CompassSharp />} color="dark" />,
-                      label: 'Navigation',
-                    },
-                    {
-                      icon: <Icon icon={<WifiSharp />} color="dark" />,
-                      label: 'Sensors',
-                    },
-                  ]}
-                  imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
-                  onCompare={() => true}
-                  onViewOffer={() => true}
-                  onWishlist={() => true}
-                  price={209}
-                  rating={4.5}
-                  subtitle="1.0 IG-T 100 Tekna 5dr Xtronic [Leather]"
-                  title="Peugeot 208"
-                />
-              </div>
-            ))}
-          </Carousel>
-          <Button
-            color="teal"
-            size="regular"
-            fill="solid"
-            label="View All Top Offers"
-          />
+      <div className="row:bg-lighter -col-300">
+        <Heading className="-a-center" tag="h3" size="large" color="black">
+          Top Offers
+        </Heading>
+        <Slider slidesToShow={3} gutter={16}>
+          {[1, 2, 3, 4, 5].map(k => (
+            <div key={k.toString()} style={{ width: 394 }}>
+              <ProductCard
+                flag={{
+                  accentIcon: <Icon icon={<Flame />} color="white" />,
+                  accentText: 'Hot Deal',
+                  text: 'In Stock - 14-21 Days Delivery',
+                }}
+                href="#"
+                features={[
+                  {
+                    icon: <Icon icon={<SnowSharp />} color="dark" />,
+                    label: 'Aircon',
+                  },
+                  {
+                    icon: <Icon icon={<BluetoothSharp />} color="dark" />,
+                    label: 'Bluetooth',
+                  },
+                  {
+                    icon: <Icon icon={<CompassSharp />} color="dark" />,
+                    label: 'Navigation',
+                  },
+                  {
+                    icon: <Icon icon={<WifiSharp />} color="dark" />,
+                    label: 'Sensors',
+                  },
+                ]}
+                imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
+                onCompare={() => true}
+                onViewOffer={() => true}
+                onWishlist={() => true}
+                price={209}
+                rating={4.5}
+                subtitle="1.0 IG-T 100 Tekna 5dr Xtronic [Leather]"
+                title="Peugeot 208"
+              />
+            </div>
+          ))}
+        </Slider>
+        <div className="-justify-content-row -pt-500">
+          <Button label="View All Top Offers" color="teal" />
         </div>
       </div>
     </>
