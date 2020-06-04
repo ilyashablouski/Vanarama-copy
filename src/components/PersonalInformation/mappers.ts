@@ -3,20 +3,20 @@ import { IAboutFormValues } from './interface';
 
 // eslint-disable-next-line import/prefer-default-export
 export const responseToInitialFormValues = (
-  person?: AboutFormPerson | null,
-): IAboutFormValues => {
-  const email = person?.emailAddresses.find(_ => _.primary)?.value || '';
+  person: any
+): any => {
+  // const email = person.data?.emailAddresses?.emailAddresses.find(_ => _.primary)?.value || '';
   const dateOfBirth = person?.dateOfBirth && new Date(person.dateOfBirth);
 
-  const mobile =
-    person?.telephoneNumbers?.find(_ => _.kind === 'Mobile')?.value || '';
+  // const mobile =
+  //   person?.telephoneNumbers?.find(_ => _.kind === 'Mobile')?.value || '';
 
   return {
-    mobile,
+    // mobile,
     adultsInHousehold: person?.noOfAdultsInHousehold || '',
     countryOfBirth: person?.countryOfBirth || '',
     dependants: person?.noOfDependants || '',
-    email,
+    // email,
     firstName: person?.firstName || '',
     lastName: person?.lastName || '',
     maritalStatus: person?.maritalStatus || '',

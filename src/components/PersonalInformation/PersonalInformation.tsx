@@ -8,16 +8,15 @@ import { gql } from '@apollo/client';
 import { Controller, useForm } from 'react-hook-form';
 import { Column, Grid } from '@vanarama/uibook/lib/components/molecules/grid';
 import FCWithFragments from '../../utils/FCWithFragments';
-import validationSchema from './AboutForm.validation';
+import validationSchema from './PersonalInformation.validation';
 import { IAboutFormValues, IProps } from './interface';
 import { responseToInitialFormValues } from './mappers';
 
-const AboutForm: FCWithFragments<IProps> = ({
+const PersonalInformation: FCWithFragments<IProps> = ({
   dropdownData,
   person,
   submit,
 }) => {
-
   const [editData, setEditData] = useState(false);
   const {
     control,
@@ -33,8 +32,6 @@ const AboutForm: FCWithFragments<IProps> = ({
     defaultValues: responseToInitialFormValues(person),
   });
 
-  console.log("dropdownData", dropdownData)
-  console.log("person", person)
   return (
     <Form onSubmit={handleSubmit(submit)}>
       <Heading color="black" size="large" dataTestId="aboutHeading">
@@ -49,7 +46,9 @@ const AboutForm: FCWithFragments<IProps> = ({
               </div>
             </Column>
             <Column sm="1" md="2" lg="3" className="-middle">
-              {!editData && <div className="structured-list-td">Kira</div>}
+              {!editData && (
+                <div className="structured-list-td">{person?.person?.firstName}</div>
+              )}
               {editData && (
                 <FormGroup
                   className="structured-list-td structured-list-content --inline-preserved -pt-100"
@@ -60,6 +59,7 @@ const AboutForm: FCWithFragments<IProps> = ({
                     id="firstName"
                     name="firstName"
                     type="text"
+                    defaultValue={person.person?.firstName}
                     dataTestId="aboutFirstName"
                     ref={register}
                     width={28}
@@ -78,7 +78,7 @@ const AboutForm: FCWithFragments<IProps> = ({
               </div>
             </Column>
             <Column sm="1" md="2" lg="3" className="-middle">
-              {!editData && <div className="structured-list-td">Kira</div>}
+              {!editData && <div className="structured-list-td">{person.person?.lastName}</div>}
               {editData && (
                 <FormGroup
                   className="structured-list-td structured-list-content --inline-preserved -pt-100"
@@ -89,6 +89,7 @@ const AboutForm: FCWithFragments<IProps> = ({
                     id="lastName"
                     name="lastName"
                     type="text"
+                    defaultValue={person.person?.lastName}
                     dataTestId="aboutLastName"
                     ref={register}
                     width={28}
@@ -107,7 +108,9 @@ const AboutForm: FCWithFragments<IProps> = ({
               </div>
             </Column>
             <Column sm="1" md="2" lg="3" className="-middle  -col-200">
-              {!editData && <div className="structured-list-td">Kira</div>}
+              {!editData && (
+                <div className="structured-list-td">{person.telephoneNumbers[0].value}</div>
+              )}
               {editData && (
                 <FormGroup
                   className="structured-list-td structured-list-content --inline-preserved -pt-100"
@@ -136,23 +139,7 @@ const AboutForm: FCWithFragments<IProps> = ({
               </div>
             </Column>
             <Column sm="1" md="2" lg="3" className="-middle">
-              {!editData && <div className="structured-list-td">Kira</div>}
-              {editData && (
-                <FormGroup
-                  className="structured-list-td structured-list-content --inline-preserved -pt-100"
-                  controlId="email"
-                  error={errors?.email?.message?.toString()}
-                >
-                  <TextInput
-                    id="email"
-                    name="email"
-                    type="enail"
-                    dataTestId="aboutEmail"
-                    ref={register}
-                    width={28}
-                  />
-                </FormGroup>
-              )}
+              <div className="structured-list-td">{person.emailAddresses[0].value}</div>
             </Column>
           </Grid>
         </div>
@@ -172,7 +159,7 @@ const AboutForm: FCWithFragments<IProps> = ({
   );
 };
 
-AboutForm.fragments = {
+PersonalInformation.fragments = {
   dropdownData: gql`
     fragment AboutFormDropdownData on DropDownType {
       __typename
@@ -237,4 +224,4 @@ AboutForm.fragments = {
   `,
 };
 
-export default AboutForm;
+export default PersonalInformation;
