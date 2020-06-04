@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
+import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
 import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
@@ -10,7 +11,6 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import Media from '@vanarama/uibook/lib/components/atoms/media';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Card, {
   CardContent,
@@ -51,7 +51,7 @@ export const HomePage: NextPage = () => {
   }
 
   return (
-    <main>
+    <>
       <Hero>
         <div className="hero--title">
           <HeroHeading>{data?.homePage.sections.hero.title}</HeroHeading>
@@ -65,231 +65,237 @@ export const HomePage: NextPage = () => {
           src={data?.homePage.sections.hero.image.file.url || ''}
         />
       </Hero>
-      <section className="section -bg-lighter">
-        <div className="container">
-          <Heading size="large" color="black">
-            <span
-              style={{ textAlign: 'center', display: 'block' }}
-              className="-mb-400"
-            >
-              Hot Deals
-            </span>
-          </Heading>
-          <Tabs activeIndex={activeTab} onChange={setActiveTab}>
-            <TabList>
-              <Tab index={0}>Vans</Tab>
-              <Tab index={1}>Pickups</Tab>
-              <Tab index={2}>Cars</Tab>
-            </TabList>
-            <TabPanels>
-              <TabPanel index={0}>
-                <div>
-                  <Slider className="-mh-auto" gutter={16}>
-                    {[1, 2, 3, 4, 5].map(k => (
-                      <div key={k.toString()} style={{ width: 345 }}>
-                        <ProductCard
-                          flag={{
-                            accentIcon: <Icon icon={<Flame />} color="white" />,
-                            accentText: 'Hot Deal',
-                            text: 'In Stock - 14-21 Days Delivery',
-                          }}
-                          href="#"
-                          features={[
-                            {
-                              icon: <Icon icon={<SnowSharp />} color="dark" />,
-                              label: 'Aircon',
-                            },
-                            {
-                              icon: (
-                                <Icon icon={<BluetoothSharp />} color="dark" />
-                              ),
-                              label: 'Bluetooth',
-                            },
-                            {
-                              icon: (
-                                <Icon icon={<CompassSharp />} color="dark" />
-                              ),
-                              label: 'Navigation',
-                            },
-                            {
-                              icon: <Icon icon={<WifiSharp />} color="dark" />,
-                              label: 'Sensors',
-                            },
-                          ]}
-                          imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
-                          onCompare={() => true}
-                          onViewOffer={() => true}
-                          onWishlist={() => true}
-                          price={209}
-                          rating={4.5}
-                          subtitle="1.0 IG-T 100 Tekna 5dr Xtronic [Leather]"
-                          title="Peugeot 208"
-                        />
-                      </div>
-                    ))}
-                  </Slider>
-                  <div className="-justify-content-row -pt-500">
-                    <Button label="View All Van Offers" color="teal" />
-                  </div>
-                </div>
-              </TabPanel>
-              <TabPanel index={1}>
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Button label="View All Pickup Offers" color="teal" />
-                  </div>
-                </div>
-              </TabPanel>
-              <TabPanel index={2}>
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Button label="View All Car Offers" color="teal" />
-                  </div>
-                </div>
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
-        </div>
+
+      <section className="row:lead-text">
+        <span className="heading -xlarge -black">Large Sales Heading</span>
+        <span className="text -lead -darker">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio
+          aspernatur fugiat. Lorem ipsum dolor sit amet consectetur adipisicing
+          elit.
+        </span>
       </section>
-      <section className="section">
-        <div className="container">
-          <div>
-            <div>
-              <Card className="-a-center">
-                <Heading className="-pv-300" size="regular" color="black">
-                  Vans
-                </Heading>
-                <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg" />
-                <CardContent>
-                  <Text tag="p" className="-pt-400 -pb-400">
-                    Get the car you want from our range of manufacturers - from
-                    something sporty to something for all the family
-                  </Text>
-                  <Button label="Search Vans" color="teal" fill="solid" />
-                </CardContent>
-              </Card>
-            </div>
-            <div>
-              <Card className="-a-center">
-                <Heading className="-pv-300" size="regular" color="black">
-                  Pickups
-                </Heading>
-                <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg" />
-                <CardContent>
-                  <Text tag="p" className="-pt-400 -pb-400">
-                    Get the car you want from our range of manufacturers - from
-                    something sporty to something for all the family
-                  </Text>
-                  <Button label="Search Pickups" color="teal" fill="solid" />
-                </CardContent>
-              </Card>
-            </div>
-            <div>
-              <Card className="-a-center">
-                <Heading className="-pv-300" size="regular" color="black">
-                  Cars
-                </Heading>
-                <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
-                <CardContent>
-                  <Text tag="p" className="-pt-400 -pb-400">
-                    Get the car you want from our range of manufacturers - from
-                    something sporty to something for all the family
-                  </Text>
-                  <Button label="Search Cars" color="teal" fill="solid" />
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section className="section -bg-lighter">
-        <div className="container">
-          <div>
-            <div className="-inset -middle">
-              <div style={{ padding: '1rem' }}>
-                <Heading size="large" color="black">
-                  {data?.homePage.sections.featured1.title}
-                </Heading>
-                <Text tag="p" size="regular" color="darker">
-                  {data?.homePage.sections.featured1.body}
-                </Text>
-                <IconList>
-                  <IconListItem iconColor="orange">
-                    &nbsp;&nbsp;Choose your contract length &amp; agreed mileage
-                  </IconListItem>
-                  <IconListItem iconColor="orange">
-                    &nbsp;&nbsp;Pay an initial payment
-                  </IconListItem>
-                  <IconListItem iconColor="orange">
-                    &nbsp;&nbsp;Set up your agreed fixed monthly rental
-                  </IconListItem>
-                </IconList>
-              </div>
-            </div>
-            <div>
-              <Media
-                responsive
-                src="https://player.vimeo.com/video/263419265"
-                vimeoConfig={{ color: 'EC6408', portrait: false }}
-                className="media-wrapper"
-                controls
-                width="100%"
-                height="100%"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-      <section className="section">
-        <div className="container">
-          <div>
-            <div>
-              <Image src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349" />
-            </div>
-            <div className="-inset -middle -col-400">
+
+      <section className="tabs-wrap row:tabbed">
+        <Tabs activeIndex={activeTab} onChange={setActiveTab}>
+          <TabList>
+            <Tab index={0}>Vans</Tab>
+            <Tab index={1}>Pickups</Tab>
+            <Tab index={2}>Cars</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel index={0}>
               <div>
-                <Heading size="large" color="black">
-                  {data?.homePage.sections.featured2.title}
-                </Heading>
-                <Text tag="p" size="regular" color="darker">
-                  {data?.homePage.sections.featured2.body}
-                </Text>
+                <Slider className="-mh-auto" gutter={16}>
+                  {[1, 2, 3, 4, 5].map(k => (
+                    <div key={k.toString()} style={{ width: 345 }}>
+                      <ProductCard
+                        flag={{
+                          accentIcon: <Icon icon={<Flame />} color="white" />,
+                          accentText: 'Hot Deal',
+                          text: 'In Stock - 14-21 Days Delivery',
+                        }}
+                        href="#"
+                        features={[
+                          {
+                            icon: <Icon icon={<SnowSharp />} color="dark" />,
+                            label: 'Aircon',
+                          },
+                          {
+                            icon: (
+                              <Icon icon={<BluetoothSharp />} color="dark" />
+                            ),
+                            label: 'Bluetooth',
+                          },
+                          {
+                            icon: <Icon icon={<CompassSharp />} color="dark" />,
+                            label: 'Navigation',
+                          },
+                          {
+                            icon: <Icon icon={<WifiSharp />} color="dark" />,
+                            label: 'Sensors',
+                          },
+                        ]}
+                        imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
+                        onCompare={() => true}
+                        onViewOffer={() => true}
+                        onWishlist={() => true}
+                        price={209}
+                        rating={4.5}
+                        subtitle="1.0 IG-T 100 Tekna 5dr Xtronic [Leather]"
+                        title="Peugeot 208"
+                      />
+                    </div>
+                  ))}
+                </Slider>
+                <div className="-justify-content-row -pt-500">
+                  <Button label="View All Van Offers" color="teal" />
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
+            </TabPanel>
+            <TabPanel index={1}>
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Button label="View All Pickup Offers" color="teal" />
+                </div>
+              </div>
+            </TabPanel>
+            <TabPanel index={2}>
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Button label="View All Car Offers" color="teal" />
+                </div>
+              </div>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
       </section>
-      <section className="section -bg-lighter">
-        <div className="container">
-          <div>
-            {data?.homePage.sections.tiles.tiles?.map((t: TileData) => (
-              <div key={t.title}>
-                <Tile className="-plain -button -align-center" plain>
-                  <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Image
-                      inline
-                      round
-                      size="large"
-                      src={
-                        t.image?.file?.url ||
-                        ' https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
-                      }
-                    />
-                  </div>
-                  <a className="tile--link" href="##">
-                    <Heading tag="span" size="regular" color="black">
-                      {t.title}
-                    </Heading>
-                  </a>
-                  <Text tag="p">{t.body}</Text>
-                </Tile>
+
+      <section className="row:bg-lighter">
+        <div className="row:cards-3col">
+          <Card>
+            <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/CitroenBerlingo0718_4_xjonps.jpg" />
+            <CardContent>
+              <div className="title flex-h">
+                <Heading size="lead" color="black">
+                  Search Vans
+                  <Button
+                    className=""
+                    label=""
+                    size="xsmall"
+                    color="teal"
+                    fill="solid"
+                    round
+                    icon={<ArrowForwardSharp />}
+                    iconColor="white"
+                    iconPosition="after"
+                  />
+                </Heading>
               </div>
-            ))}
-          </div>
+              <Text tag="span" color="dark" size="regular">
+                Get the car you want from our range of manufacturers - from
+                something sporty to something for all the family
+              </Text>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg" />
+            <CardContent>
+              <div className="title flex-h">
+                <Heading size="lead" color="black">
+                  Search Pickups
+                  <Button
+                    className=""
+                    label=""
+                    size="xsmall"
+                    color="teal"
+                    fill="solid"
+                    round
+                    icon={<ArrowForwardSharp />}
+                    iconColor="white"
+                    iconPosition="after"
+                  />
+                </Heading>
+              </div>
+              <Text tag="span" color="dark" size="regular">
+                Get the car you want from our range of manufacturers - from
+                something sporty to something for all the family
+              </Text>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
+            <CardContent>
+              <div className="title flex-h">
+                <Heading size="lead" color="black">
+                  Search Cars
+                  <Button
+                    className=""
+                    label=""
+                    size="xsmall"
+                    color="teal"
+                    fill="solid"
+                    round
+                    icon={<ArrowForwardSharp />}
+                    iconColor="white"
+                    iconPosition="after"
+                  />
+                </Heading>
+              </div>
+              <Text tag="span" color="dark" size="regular">
+                Get the car you want from our range of manufacturers - from
+                something sporty to something for all the family
+              </Text>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
-      <League altText="vanarama national league" />
+      <section className="row:featured-right">
+        <div style={{ padding: '1rem' }}>
+          <Heading size="large" color="black">
+            {data && data.homePage.sections.featured1.title}
+          </Heading>
+          <Text tag="p" size="regular" color="darker">
+            {data && data.homePage.sections.featured1.body}
+          </Text>
+          <IconList>
+            <IconListItem iconColor="orange">
+              &nbsp;&nbsp;Choose your contract length &amp; agreed mileage
+            </IconListItem>
+            <IconListItem iconColor="orange">
+              &nbsp;&nbsp;Pay an initial payment
+            </IconListItem>
+            <IconListItem iconColor="orange">
+              &nbsp;&nbsp;Set up your agreed fixed monthly rental
+            </IconListItem>
+          </IconList>
+        </div>
+        <Image src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349" />
+      </section>
+
+      <section className="row:featured-left">
+        <Image src="https://source.unsplash.com/collection/2102317/900x500?sig=403422" />
+        <div>
+          <Heading size="large" color="black">
+            {data && data.homePage.sections.featured2.title}
+          </Heading>
+          <Text tag="p" size="regular" color="darker">
+            {data && data.homePage.sections.featured2.body}
+          </Text>
+        </div>
+      </section>
+
+      <section className="row:features-4col">
+        {data?.homePage.sections.tiles.tiles?.map((t: TileData) => (
+          <div key={t.title}>
+            <Tile className="-plain -button -align-center" plain>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Image
+                  inline
+                  round
+                  size="large"
+                  src={
+                    t.image?.file?.url ||
+                    ' https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
+                  }
+                />
+              </div>
+              <a className="tile--link" href="##">
+                <Heading tag="span" size="regular" color="black">
+                  {t.title}
+                </Heading>
+              </a>
+              <Text tag="p">{t.body}</Text>
+            </Tile>
+          </div>
+        ))}
+      </section>
+
+      <section className="row:league">
+        <League altText="vanarama national league" />
+      </section>
 
       {/* <LogoRow
         className="-bg-lighter"
@@ -336,9 +342,10 @@ export const HomePage: NextPage = () => {
           },
         ]}
       /> */}
-
-      <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
-    </main>
+      <section className="row:trustpilot">
+        <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
+      </section>
+    </>
   );
 };
 
