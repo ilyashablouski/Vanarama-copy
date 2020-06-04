@@ -358,52 +358,6 @@ export const HomePage: NextPage = () => {
           ))}
         </div>
       </section>
-
-      {/* <LogoRow
-        className="-bg-lighter"
-        urls={[
-          {
-            label: 'bbc',
-            href:
-              'https://www.vanarama.com/Assets/images-optimised/home/featured/bbc.png',
-          },
-          {
-            label: 'btsport',
-            href:
-              'https://www.vanarama.com/Assets/images-optimised/home/featured/btsport.png',
-          },
-          {
-            label: 'dailymirror',
-            href:
-              'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymail.png',
-          },
-          {
-            label: 'itv',
-            href:
-              'https://www.vanarama.com/Assets/images-optimised/home/featured/itv.png',
-          },
-          {
-            label: 'metro',
-            href:
-              'https://www.vanarama.com/Assets/images-optimised/home/featured/metro.png',
-          },
-          {
-            label: 'thesun',
-            href:
-              'https://www.vanarama.com/Assets/images-optimised/home/featured/thesun.png',
-          },
-          {
-            label: 'sky',
-            href:
-              'https://www.vanarama.com/Assets/images-optimised/home/featured/sky.png',
-          },
-          {
-            label: 'thetelegraph',
-            href:
-              'https://www.vanarama.com/Assets/images-optimised/home/featured/thetelegraph.png',
-          },
-        ]}
-      /> */}
       <section className="row:trustpilot">
         <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
       </section>
