@@ -76,15 +76,20 @@ export const HomePage: NextPage = () => {
       </section>
 
       <section className="tabs-wrap row:tabbed">
-        <Tabs activeIndex={activeTab} onChange={setActiveTab}>
-          <TabList>
+        <Tabs
+          activeIndex={activeTab}
+          onChange={setActiveTab}
+          variant="alternative"
+          align="center"
+        >
+          <TabList className="lead">
             <Tab index={0}>Vans</Tab>
             <Tab index={1}>Pickups</Tab>
             <Tab index={2}>Cars</Tab>
           </TabList>
           <TabPanels>
             <TabPanel index={0}>
-              <div>
+              <div style={{ maxWidth: 1216 }} className="-mh-auto">
                 <Slider className="-mh-auto" gutter={16}>
                   {[1, 2, 3, 4, 5].map(k => (
                     <div key={k.toString()} style={{ width: 345 }}>
