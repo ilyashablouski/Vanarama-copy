@@ -39,7 +39,7 @@ const EligibilityCheckerDetails: NextPage = () => {
               ) {
                 setEligibilityCheckerScoreError(true);
               } else {
-                const url = `/credit-checker?score=${quickCreditChecker?.score}`;
+                const url = `/eligibility-checker/credit-checker?score=${quickCreditChecker?.score}`;
                 router.push(url);
               }
             }}
