@@ -44,44 +44,42 @@ const BlogPage: NextPage = () => (
         <Button color="teal" size="regular" fill="clear" label="Read More" />
       </div>
     </div>
-    <div className="row:bg-lighter">
-      <div className="row:carousel">
-        <Heading tag="h3" size="large" color="black">
-          Top Articles
-        </Heading>
-        <Slider gutter={16}>
-          {[1, 2, 3, 4, 5].map(k => (
-            <div key={k.toString()} style={{ width: 345 }}>
-              <Card className="card__article">
-                <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
-                <div className="-p-300 -col-100">
-                  <Heading
-                    tag="a"
-                    size="regular"
-                    color="black"
-                    className="card--link"
-                  >
-                    Article Name
-                  </Heading>
-                  <CardContent>
-                    <Text tag="div" size="small" color="darker">
-                      GLorem ipsum dolor sit amet adipisicing elit. Iste,
-                      quaerat consequatur sapiente sed.
-                    </Text>
-                    <Button
-                      label="Read More"
-                      color="teal"
-                      size="small"
-                      fill="solid"
-                      className="-mt-400"
-                    />
-                  </CardContent>
-                </div>
-              </Card>
-            </div>
-          ))}
-        </Slider>
-      </div>
+    <div className="row:bg-lighter -col-300">
+      <Heading className="-a-center" tag="h3" size="large" color="black">
+        Top Articles
+      </Heading>
+      <Slider slidesToShow={3} gutter={16}>
+        {[1, 2, 3, 4, 5].map(k => (
+          <div key={k.toString()} style={{ width: 394 }}>
+            <Card className="card__article">
+              <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
+              <div className="-p-300 -col-100">
+                <Heading
+                  tag="a"
+                  size="regular"
+                  color="black"
+                  className="card--link"
+                >
+                  Article Name
+                </Heading>
+                <CardContent>
+                  <Text tag="div" size="small" color="darker">
+                    GLorem ipsum dolor sit amet adipisicing elit. Iste, quaerat
+                    consequatur sapiente sed.
+                  </Text>
+                  <Button
+                    label="Read More"
+                    color="teal"
+                    size="small"
+                    fill="solid"
+                    className="-mt-400"
+                  />
+                </CardContent>
+              </div>
+            </Card>
+          </div>
+        ))}
+      </Slider>
     </div>
     <div className="row:bg-lighter">
       <div className="row:cards-3col">
