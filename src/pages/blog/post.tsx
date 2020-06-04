@@ -56,10 +56,12 @@ const BlogPost: NextPage = () => (
           that figure has changed to 263,000.
         </p>
       </article>
+
       <div>
         <Heading tag="span" size="large" color="black">
           Related Articles
         </Heading>
+
         <Card className="card__article">
           <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
           <div className="-p-300 -col-100">
@@ -114,6 +116,8 @@ const BlogPost: NextPage = () => (
         </Card>
       </div>
     </div>
+
+    <div className="row:comments">...</div>
   </>
 );
 
