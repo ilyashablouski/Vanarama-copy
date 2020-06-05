@@ -182,6 +182,15 @@ export interface PersonInputObject {
 }
 
 /**
+ * Input object to make quick credit check
+ */
+export interface QuickCreditCheckerInputObject {
+  addressServiceId: string;
+  emailAddress: EmailAddressInputObject;
+  person: PersonInputObject;
+}
+
+/**
  * Input object to create and add a Role
  */
 export interface RoleInputObject {
