@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import { NextPage } from 'next';
-import { ParsedUrlQuery } from 'querystring';
 import { useRouter } from 'next/router';
 import PasswordResetContainer from '../../../containers/PasswordResetContainer';
 import withApollo from '../../../hocs/withApollo';
 
-interface IProps {
-  query: ParsedUrlQuery;
-}
+export const PasswordResetPage: NextPage = () => {
+  const [email, setEmail] = useState('');
+  const [code, setCode] = useState('');
 
-export const PasswordResetPage: NextPage<IProps> = () => {
-  const [username, setUsername] = useState('');
   const { query } = useRouter();
+
   useEffect(() => {
-    setUsername(
-      Array.isArray(query?.username) ? query.username[0] : query?.username,
-    );
+    setEmail(Array.isArray(query?.email) ? query.email[0] : query?.email);
+    setCode(Array.isArray(query?.code) ? query.code[0] : query?.code);
   }, [query]);
 
   return (
@@ -32,7 +29,7 @@ export const PasswordResetPage: NextPage<IProps> = () => {
         </Heading>
       </div>
       <div className="row:form">
-        <PasswordResetContainer username={username} />
+        {code! && <PasswordResetContainer code={code!} username={email} />}
       </div>
     </>
   );
