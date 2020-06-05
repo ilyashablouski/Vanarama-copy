@@ -2397,10 +2397,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@5.0.3":
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.0.3.tgz#85bc1239effdb04709e92d4ac85fe405c13bbf6d"
-  integrity sha512-CIx7s/+rjGJFhYGzcl0+xPKBWdooK2QbFXG/kM2Nb06mIBKmiL9//ip0yvBf643Yd1t4M+GcPXd4FNeMjEMzuA==
+"@vanarama/uibook@5.5.2":
+  version "5.5.2"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.5.2.tgz#0df500773885fd36778c58272a5d89aebc033aef"
+  integrity sha512-L+rxdKXTTxUh+183TlnMLUbTntciR5QZc2hMYqSZFady+jlCHQVCO83KvzdlvVRbltaBHpCPQnETCQbBElKFCA==
   dependencies:
     "@babel/preset-typescript" "^7.8.3"
     "@egjs/flicking" "^3.4.7"
@@ -2425,6 +2425,7 @@
     recompose "^0.30.0"
     stylelint "^13.5.0"
     stylelint-prettier "^1.1.2"
+    uniqid "^5.2.0"
     use-deep-compare-effect "^1.3.1"
 
 "@webassemblyjs/ast@1.9.0":
@@ -12809,6 +12810,11 @@ uniq@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/uniq/-/uniq-1.0.1.tgz#b31c5ae8254844a3a8281541ce2b04b865a734ff"
   integrity sha1-sxxa6CVIRKOoKBVBzisEuGWnNP8=
+
+uniqid@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/uniqid/-/uniqid-5.2.0.tgz#0d0589a7e9ce07116848126764fbff0b68e74329"
+  integrity sha512-LH8zsvwJ/GL6YtNfSOmMCrI9piraAUjBfw2MCvleNE6a4pVKJwXjG2+HWhkVeFcSg+nmaPKbMrMOoxwQluZ1Mg==
 
 uniqs@^2.0.0:
   version "2.0.0"

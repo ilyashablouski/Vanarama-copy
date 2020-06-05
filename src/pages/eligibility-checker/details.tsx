@@ -3,6 +3,7 @@ import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { useRouter } from 'next/router';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import withApollo from '../../hocs/withApollo';
 import EligibilityCheckerContainer from '../../containers/EligibilityCheckerContainer/EligibilityCheckerContainer';
 import ErrorMessage from './error-message';
@@ -23,30 +24,35 @@ const EligibilityCheckerDetails: NextPage = () => {
   };
 
   return (
-    <main>
-      <section className="section">
-        <div className="container">
-          {eligibilityCheckerScoreError && <ErrorMessage />}
-          <div style={{ marginBottom: '1rem' }}>
-            <Breadcrumb items={breadcrumbProps.items} />
-          </div>
-          <EligibilityCheckerContainer
-            onCompleted={({ quickCreditChecker }) => {
-              if (
-                quickCreditChecker?.score === 0 &&
-                quickCreditChecker?.status &&
-                quickCreditChecker?.status > 1
-              ) {
-                setEligibilityCheckerScoreError(true);
-              } else {
-                const url = `/credit-checker?score=${quickCreditChecker?.score}`;
-                router.push(url);
-              }
-            }}
-          />
-        </div>
-      </section>
-    </main>
+    <>
+      <div className="row:title">
+        <Breadcrumb items={breadcrumbProps.items} />
+        <Heading
+          color="black"
+          size="xlarge"
+          dataTestId="eligibilityCheckerHeading"
+        >
+          Enter Details
+        </Heading>
+      </div>
+      <div className="eligibility-checker">
+        {eligibilityCheckerScoreError && <ErrorMessage />}
+        <EligibilityCheckerContainer
+          onCompleted={({ quickCreditChecker }) => {
+            if (
+              quickCreditChecker?.score === 0 &&
+              quickCreditChecker?.status &&
+              quickCreditChecker?.status > 1
+            ) {
+              setEligibilityCheckerScoreError(true);
+            } else {
+              const url = `/credit-checker?score=${quickCreditChecker?.score}`;
+              router.push(url);
+            }
+          }}
+        />
+      </div>
+    </>
   );
 };
 
