@@ -19,18 +19,22 @@ export const GET_ABOUT_YOU_DATA = gql`
     partyByUuid(uuid: $uuid) {
       uuid
       person {
+        uuid
         firstName
         lastName
       }
       emailAddresses {
+        uuid
         primary
         value
       }
       telephoneNumbers {
+        uuid
         primary
         value
       }
       addresses {
+        uuid
         serviceId
         lineOne
         lineTwo
