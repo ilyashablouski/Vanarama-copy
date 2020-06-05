@@ -35,6 +35,7 @@ const PasswordResetContainer = ({
       confirmPass: '',
     },
   });
+
   const watchPassword = watch('password');
   const onHandleSubmit = (data: IResetPasswordFormValues) =>
     onSubmit({ ...data, username: username || '' });
