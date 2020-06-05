@@ -82,7 +82,6 @@ export const MyDetailsPage: NextPage<IProps> = () => {
       </section>
       <div className="row:my-details row\:my-details">
         <PersonalInformationFormContainer
-          onCompleted={() => {}}
           personUuid="eef3eade-3110-4e77-8330-a313e6647cb3"
         />
         <div className="my-details--form " style={{ gridColumnStart: 6 }}>

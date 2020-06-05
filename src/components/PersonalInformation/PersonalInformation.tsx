@@ -2,36 +2,31 @@ import React, { useState } from 'react';
 import Button from '@vanarama/uibook/lib/components/atoms/button/';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput/';
+import AddressFinder from '@vanarama/uibook/lib/components/molecules/address-finder';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
-import { gql } from '@apollo/client';
-import { Controller, useForm } from 'react-hook-form';
-import FCWithFragments from '../../utils/FCWithFragments';
+import { useForm } from 'react-hook-form';
 import validationSchema from './PersonalInformation.validation';
 import { IAboutFormValues, IProps } from './interface';
 import { responseToInitialFormValues } from './mappers';
 
-const PersonalInformation: FCWithFragments<IProps> = ({
-  dropdownData,
-  person,
-  submit,
-}) => {
+const apiKey = 'CG96-BE17-EY43-CM69';
+
+const PersonalInformation = ({ person, submit }: IProps) => {
+  const personAddress = person?.addresses[0];
+
   const [editData, setEditData] = useState(false);
-  const {
-    control,
-    errors,
-    handleSubmit,
-    register,
-    triggerValidation,
-    watch,
-    formState,
-  } = useForm<IAboutFormValues>({
+  const [address, setAddress] = useState({
+    id: person?.addresses[0]?.serviceId,
+    label: `${personAddress.lineOne}, ${personAddress.lineTwo}${
+      personAddress.lineTree ? `, ${personAddress.lineTree}` : ''
+    } - ${personAddress.city}, ${personAddress.postcode}`,
+  });
+
+  const { errors, handleSubmit, formState } = useForm<IAboutFormValues>({
     mode: 'onBlur',
     validationSchema,
     defaultValues: responseToInitialFormValues(person),
   });
-
-  console.log('person', person);
 
   return (
     <div className="my-details--form" style={{ gridColumnEnd: 6 }}>
@@ -97,6 +92,40 @@ const PersonalInformation: FCWithFragments<IProps> = ({
 
             <div className="structured-list-row ">
               <div className="structured-list-td structured-list-content--nowrap">
+                Address
+              </div>
+              <div className="structured-list-td">
+                {!editData && (
+                  <>{person?.telephoneNumbers[0].value || 'No information'}</>
+                )}
+                {editData && (
+                  <AddressFinder
+                    apiKey={apiKey}
+                    onSuggestionChange={value => {
+                      setAddress(value);
+                    }}
+                    selected={address}
+                  >
+                    <FormGroup
+                      className="address-finder--input"
+                      controlId="empty"
+                      selected={address}
+                    >
+                      <AddressFinder.Input
+                        id="empty"
+                        dataTestId="empty__input"
+                      />
+                      <AddressFinder.Selected dataTestId="empty__edit" />
+                      <AddressFinder.Intermediate dataTestId="empty__change" />
+                    </FormGroup>
+                    <AddressFinder.Results dataTestId="empty__results" />
+                  </AddressFinder>
+                )}
+              </div>
+            </div>
+
+            <div className="structured-list-row ">
+              <div className="structured-list-td structured-list-content--nowrap">
                 Telephone
               </div>
               <div className="structured-list-td">
@@ -133,7 +162,7 @@ const PersonalInformation: FCWithFragments<IProps> = ({
           </div>
         </section>
         <Button
-          type="button"
+          type={!editData ? 'button' : 'submit'}
           label={formState.isSubmitting ? 'Saving...' : 'Edit Personal Details'}
           color="primary"
           onClick={() => {
@@ -149,41 +178,6 @@ const PersonalInformation: FCWithFragments<IProps> = ({
       </form>
     </div>
   );
-};
-
-PersonalInformation.fragments = {
-  dropdownData: gql`
-    fragment AboutFormDropdownData on DropDownType {
-      __typename
-      titles {
-        __typename
-        data
-        favourites
-      }
-      countries {
-        __typename
-        data
-        favourites
-      }
-      nationalities {
-        __typename
-        data
-        favourites
-      }
-      maritalStatuses {
-        __typename
-        data
-      }
-      noOfDependants {
-        __typename
-        data
-      }
-      noOfAdultsInHousehold {
-        __typename
-        data
-      }
-    }
-  `,
 };
 
 export default PersonalInformation;
