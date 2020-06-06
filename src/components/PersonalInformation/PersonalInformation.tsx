@@ -6,13 +6,15 @@ import AddressFinder from '@vanarama/uibook/lib/components/molecules/address-fin
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import { useForm } from 'react-hook-form';
 import validationSchema from './PersonalInformation.validation';
-import { IAboutFormValues, IProps } from './interface';
+import { IPersonalInformationFormValues, IProps } from './interface';
 import { responseToInitialFormValues } from './mappers';
 
 const apiKey = 'CG96-BE17-EY43-CM69';
 
 const PersonalInformation = ({ person, submit }: IProps) => {
   const personAddress = person?.addresses[0];
+  const telephoneNumber = person?.telephoneNumbers.find(_ => _.primary)?.value;
+  const email = person?.emailAddresses.find(_ => _.primary)?.value;
 
   const [editData, setEditData] = useState(false);
   const [address, setAddress] = useState({
@@ -22,7 +24,9 @@ const PersonalInformation = ({ person, submit }: IProps) => {
     } - ${personAddress.city}, ${personAddress.postcode}`,
   });
 
-  const { errors, handleSubmit, formState } = useForm<IAboutFormValues>({
+  const { errors, handleSubmit, formState } = useForm<
+    IPersonalInformationFormValues
+  >({
     mode: 'onBlur',
     validationSchema,
     defaultValues: responseToInitialFormValues(person),
@@ -82,7 +86,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
                       name="lastName"
                       type="text"
                       defaultValue={person?.person?.lastName}
-                      dataTestId="aboutLastName"
+                      dataTestId="personalLastName"
                       width={35}
                     />
                   </FormGroup>
@@ -95,9 +99,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
                 Address
               </div>
               <div className="structured-list-td">
-                {!editData && (
-                  <>{person?.telephoneNumbers[0].value || 'No information'}</>
-                )}
+                {!editData && <>{address.label || 'No information'}</>}
                 {editData && (
                   <AddressFinder
                     apiKey={apiKey}
@@ -113,12 +115,12 @@ const PersonalInformation = ({ person, submit }: IProps) => {
                     >
                       <AddressFinder.Input
                         id="empty"
-                        dataTestId="empty__input"
+                        dataTestId="input_adress_personal_information"
                       />
-                      <AddressFinder.Selected dataTestId="empty__edit" />
-                      <AddressFinder.Intermediate dataTestId="empty__change" />
+                      <AddressFinder.Selected dataTestId="adress_personal_information__edit" />
+                      <AddressFinder.Intermediate dataTestId="adress_personal_information__change" />
                     </FormGroup>
-                    <AddressFinder.Results dataTestId="empty__results" />
+                    <AddressFinder.Results dataTestId="adress_personal_information__results" />
                   </AddressFinder>
                 )}
               </div>
@@ -129,9 +131,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
                 Telephone
               </div>
               <div className="structured-list-td">
-                {!editData && (
-                  <>{person?.telephoneNumbers[0].value || 'No information'}</>
-                )}
+                {!editData && <>{telephoneNumber || 'No information'}</>}
                 {editData && (
                   <FormGroup
                     className="structured-list-td structured-list-content --inline-preserved  -pb-000 -pt-000 -pr-000"
@@ -142,8 +142,8 @@ const PersonalInformation = ({ person, submit }: IProps) => {
                       id="mobile"
                       name="mobile"
                       type="tel"
-                      value={person?.telephoneNumbers[0].value}
-                      dataTestId="aboutMobile"
+                      value={telephoneNumber || ''}
+                      dataTestId="personalMobile"
                       width={35}
                     />
                   </FormGroup>
@@ -156,7 +156,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
                 Email
               </div>
               <div className="structured-list-td">
-                {person?.emailAddresses[0].value}
+                {email}
               </div>
             </div>
           </div>
@@ -173,7 +173,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             return true;
           }}
           disabled={formState.isSubmitting}
-          dataTestId="aboutSubmit"
+          dataTestId="personalSubmit"
         />
       </form>
     </div>

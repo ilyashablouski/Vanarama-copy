@@ -4,7 +4,6 @@ import {
   CreateUpdatePersonMutation as Mutation,
   CreateUpdatePersonMutationVariables as MutationVariables,
 } from '../../../generated/CreateUpdatePersonMutation';
-import PersonalInformation from '../../components/PersonalInformation';
 
 export const CREATE_UPDATE_PERSON = gql`
   mutation CreateUpdatePersonMutation($input: PersonInputObject!) {
@@ -17,9 +16,33 @@ export const CREATE_UPDATE_PERSON = gql`
 export const GET_ABOUT_YOU_DATA = gql`
   query getPersonalInformation($uuid: ID!) {
     partyByUuid(uuid: $uuid) {
-      ...partyByUuid
+      uuid
+      person {
+        uuid
+        firstName
+        lastName
+      }
+      emailAddresses {
+        uuid
+        primary
+        value
+      }
+      telephoneNumbers {
+        uuid
+        primary
+        value
+      }
+      addresses {
+        uuid
+        serviceId
+        lineOne
+        lineTwo
+        lineThree
+        city
+        postcode
+        country
+      }
     }
-    ${PersonalInformation.fragments.person}
   }
 `;
 
