@@ -19,15 +19,17 @@ const PersonalInformation = ({ person, submit }: IProps) => {
 
   const [editData, setEditData] = useState(false);
   const [address, setAddress] = useState({
-    id: person?.addresses[0]?.serviceId,
+    uuid: personAddress.uuid,
+    id: personAddress?.serviceId,
     label: `${personAddress?.lineOne}, ${personAddress?.lineTwo}${
       personAddress?.lineTree ? `, ${personAddress?.lineTree}` : ''
     } - ${personAddress?.city}, ${personAddress?.postcode}`,
   });
+  const [buttonLabel, setButtonLabel] = useState('Edit Personal Details');
 
   const { errors, handleSubmit, register, formState } = useForm({
     mode: 'onBlur',
-    // validationSchema,
+    validationSchema,
     defaultValues: responseToInitialFormValues(person),
   });
 
@@ -46,7 +48,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
               <div className="structured-list-td structured-list-content--nowrap  -midle">
                 Firs Name
               </div>
-              <div className="structured-list-td">
+              <div className="structured-list-td -pl-600">
                 {!editData && (
                   <>{person?.person?.firstName || 'No information'}</>
                 )}
@@ -73,7 +75,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
               <div className="structured-list-td structured-list-content--nowrap">
                 Last Name
               </div>
-              <div className="structured-list-td">
+              <div className="structured-list-td -pl-600">
                 {!editData && (
                   <>{person?.person?.lastName || 'No information'}</>
                 )}
@@ -100,22 +102,25 @@ const PersonalInformation = ({ person, submit }: IProps) => {
               <div className="structured-list-td structured-list-content--nowrap">
                 Address
               </div>
-              <div className="structured-list-td">
+              <div className="structured-list-td -pl-600">
                 {!editData && <>{address.label || 'No information'}</>}
                 {editData && (
                   <AddressFinder
                     apiKey={apiKey}
-                    onSuggestionChange={value => setAddress(value)}
+                    onSuggestionChange={value =>
+                      setAddress({
+                        ...address,
+                        ...value,
+                      })
+                    }
                     selected={address}
                   >
                     <FormGroup
                       className="address-finder--input"
                       controlId="empty"
-                      selected={address}
                     >
                       <AddressFinder.Input
                         id="empty"
-                        ref={register}
                         dataTestId="input_adress_person_information"
                       />
                       <AddressFinder.Selected dataTestId="adress_person_information__edit" />
@@ -131,7 +136,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
               <div className="structured-list-td structured-list-content--nowrap">
                 Telephone
               </div>
-              <div className="structured-list-td">
+              <div className="structured-list-td -pl-600">
                 {!editData && <>{telephoneNumber || 'No information'}</>}
                 {editData && (
                   <FormGroup
@@ -156,7 +161,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
               <div className="structured-list-td structured-list-content--nowrap">
                 Email
               </div>
-              <div className="structured-list-td">{email}</div>
+              <div className="structured-list-td -pl-600">{email}</div>
             </div>
           </div>
         </section>
@@ -170,7 +175,10 @@ const PersonalInformation = ({ person, submit }: IProps) => {
           }
           color="primary"
           onClick={() => {
-            setEditData(!formState.isSubmitting);
+            if(!editData){
+              setEditData(!editData);
+              return;
+            }
           }}
           disabled={formState.isSubmitting}
           dataTestId="personalSubmit"

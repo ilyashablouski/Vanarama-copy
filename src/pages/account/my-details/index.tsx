@@ -28,24 +28,18 @@ export const MyDetailsPage: NextPage<IProps> = () => {
 
   return (
     <>
-      <section className="sectionn -pb-400 -pt-400">
-        <div className="row:title">
-          <Breadcrumb items={path.items} />
-        </div>
-      </section>
-      <section className="section -pb-500 -pt-000">
-        <div className="row:title">
-          <Heading
-            tag="h1"
-            size="xlarge"
-            color="black"
-            dataTestId="my-details-heading"
-          >
-            My Details
-          </Heading>
-        </div>
-      </section>
-      <section className="row:bg-light">
+      <div className="row:title">
+        <Breadcrumb items={path.items} />
+        <Heading
+          tag="h1"
+          size="xlarge"
+          color="black"
+          dataTestId="my-details-heading"
+        >
+          My Details
+        </Heading>
+      </div>
+      <div className="row:bg-light">
         <div className="row:cards-3col">
           <Card>
             <CardContent>
@@ -79,27 +73,19 @@ export const MyDetailsPage: NextPage<IProps> = () => {
             </CardContent>
           </Card>
         </div>
-      </section>
-      <div className="row:my-details row\:my-details">
-        <PersonalInformationFormContainer
-          personUuid="eef3eade-3110-4e77-8330-a313e6647cb3"
-        />
-        <div className="my-details--form " style={{ gridColumnStart: 6 }}>
-          <Heading
-            tag="h2"
-            size="large"
-            color="black"
-            dataTestId="my-details-heading"
-            className="-pt-400 -pb-400"
-          >
+      </div>
+      <div className="row:my-details">
+        <PersonalInformationFormContainer personUuid="eef3eade-3110-4e77-8330-a313e6647cb3" />
+        <div className="my-details--form " style={{ gridColumnStart: 7 }}>
+          <Heading tag="span" size="large" color="black" className="-mb-300">
             Password
           </Heading>
           {!resetPassword && (
-            <>
+            <div className="form">
               <Text>
-                Excepteur fugiat pariatur officia aliquip ex enim culpa voluptate eu
-                deserunt labore sit dolore sit proident velit esse adipisicing
-                deserunt velit elit sunt mollit Lorem
+                Excepteur fugiat pariatur officia aliquip ex enim culpa
+                voluptate eu deserunt labore sit dolore sit proident velit esse
+                adipisicing deserunt velit elit sunt mollit Lorem
               </Text>
               <div className="-pt-300 -pb-300">
                 <Button
@@ -108,7 +94,7 @@ export const MyDetailsPage: NextPage<IProps> = () => {
                   onClick={() => setResetPassword(true)}
                 />
               </div>
-            </>
+            </div>
           )}
         </div>
       </div>

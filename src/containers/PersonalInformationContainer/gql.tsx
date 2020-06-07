@@ -20,6 +20,7 @@ export const CREATE_UPDATE_PERSON = gql`
         value
       }
       addresses {
+        uuid
         kind
         serviceId
         lineOne

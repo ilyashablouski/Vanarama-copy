@@ -6,7 +6,7 @@ import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
 
 const PersonalInformationContainer: React.FC<IProps> = ({ personUuid }) => {
-  const [createDetailsHandle] = useCreatePerson(() => console.log("hi"));
+  const [createDetailsHandle] = useCreatePerson(() => {});
   const { data, loading, error } = usePersonalInformationData(personUuid);
 
   if (loading) {
@@ -27,11 +27,7 @@ const PersonalInformationContainer: React.FC<IProps> = ({ personUuid }) => {
       submit={(values, address) =>
         createDetailsHandle({
           variables: {
-            input: formValuesToInput(
-              values, 
-              data.partyByUuid,
-              address
-              ),
+            input: formValuesToInput(values, data.partyByUuid, address),
           },
         })
       }

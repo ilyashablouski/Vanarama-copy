@@ -7,6 +7,7 @@ const addressParser = (address) => {
   const country = address?.id?.split('|')[0].trim() || '';
 
   return {
+    uuid: address.uuid,
     kind: "Home",
     serviceId: address?.id.trim(),
     lineOne: addressLines[0]?.trim() || '',
