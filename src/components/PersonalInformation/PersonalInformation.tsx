@@ -5,6 +5,7 @@ import TextInput from '@vanarama/uibook/lib/components/atoms/textinput/';
 import AddressFinder from '@vanarama/uibook/lib/components/molecules/address-finder';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import { useForm } from 'react-hook-form';
+import Form from '@vanarama/uibook/lib/components/organisms/form';
 import validationSchema from './PersonalInformation.validation';
 import { IPersonalInformationFormValues, IProps } from './interface';
 import { responseToInitialFormValues } from './mappers';
@@ -12,30 +13,31 @@ import { responseToInitialFormValues } from './mappers';
 const apiKey = 'CG96-BE17-EY43-CM69';
 
 const PersonalInformation = ({ person, submit }: IProps) => {
-  const personAddress = person?.addresses[0];
+  const personAddress = person?.addresses?.find(_ => _.kind === 'Home');
   const telephoneNumber = person?.telephoneNumbers.find(_ => _.primary)?.value;
   const email = person?.emailAddresses.find(_ => _.primary)?.value;
 
   const [editData, setEditData] = useState(false);
   const [address, setAddress] = useState({
     id: person?.addresses[0]?.serviceId,
-    label: `${personAddress.lineOne}, ${personAddress.lineTwo}${
-      personAddress.lineTree ? `, ${personAddress.lineTree}` : ''
-    } - ${personAddress.city}, ${personAddress.postcode}`,
+    label: `${personAddress?.lineOne}, ${personAddress?.lineTwo}${
+      personAddress?.lineTree ? `, ${personAddress?.lineTree}` : ''
+    } - ${personAddress?.city}, ${personAddress?.postcode}`,
   });
 
-  const { errors, handleSubmit, formState } = useForm<
-    IPersonalInformationFormValues
-  >({
+  const { errors, handleSubmit, register, formState } = useForm({
     mode: 'onBlur',
-    validationSchema,
+    // validationSchema,
     defaultValues: responseToInitialFormValues(person),
   });
 
   return (
     <div className="my-details--form" style={{ gridColumnEnd: 6 }}>
-      <form onSubmit={handleSubmit(submit)} className="form">
-        <Heading color="black" size="large" dataTestId="aboutHeading">
+      <Form
+        onSubmit={handleSubmit(values => submit(values, address))}
+        className="form"
+      >
+        <Heading color="black" size="large" dataTestId="personHeading">
           Personal Information
         </Heading>
         <section className="structured-list  -styled-headers">
@@ -58,8 +60,8 @@ const PersonalInformation = ({ person, submit }: IProps) => {
                       id="firstName"
                       name="firstName"
                       type="text"
-                      value={person.person?.firstName}
-                      dataTestId="aboutFirstName"
+                      ref={register}
+                      dataTestId="personFirstName"
                       width={35}
                     />
                   </FormGroup>
@@ -85,8 +87,8 @@ const PersonalInformation = ({ person, submit }: IProps) => {
                       id="lastName"
                       name="lastName"
                       type="text"
-                      defaultValue={person?.person?.lastName}
-                      dataTestId="personalLastName"
+                      ref={register}
+                      dataTestId="personLastName"
                       width={35}
                     />
                   </FormGroup>
@@ -103,9 +105,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
                 {editData && (
                   <AddressFinder
                     apiKey={apiKey}
-                    onSuggestionChange={value => {
-                      setAddress(value);
-                    }}
+                    onSuggestionChange={value => setAddress(value)}
                     selected={address}
                   >
                     <FormGroup
@@ -115,12 +115,13 @@ const PersonalInformation = ({ person, submit }: IProps) => {
                     >
                       <AddressFinder.Input
                         id="empty"
-                        dataTestId="input_adress_personal_information"
+                        ref={register}
+                        dataTestId="input_adress_person_information"
                       />
-                      <AddressFinder.Selected dataTestId="adress_personal_information__edit" />
-                      <AddressFinder.Intermediate dataTestId="adress_personal_information__change" />
+                      <AddressFinder.Selected dataTestId="adress_person_information__edit" />
+                      <AddressFinder.Intermediate dataTestId="adress_person_information__change" />
                     </FormGroup>
-                    <AddressFinder.Results dataTestId="adress_personal_information__results" />
+                    <AddressFinder.Results dataTestId="adress_person_information__results" />
                   </AddressFinder>
                 )}
               </div>
@@ -142,8 +143,8 @@ const PersonalInformation = ({ person, submit }: IProps) => {
                       id="mobile"
                       name="mobile"
                       type="tel"
-                      value={telephoneNumber || ''}
-                      dataTestId="personalMobile"
+                      ref={register}
+                      dataTestId="personMobile"
                       width={35}
                     />
                   </FormGroup>
@@ -155,27 +156,26 @@ const PersonalInformation = ({ person, submit }: IProps) => {
               <div className="structured-list-td structured-list-content--nowrap">
                 Email
               </div>
-              <div className="structured-list-td">
-                {email}
-              </div>
+              <div className="structured-list-td">{email}</div>
             </div>
           </div>
         </section>
         <Button
-          type={!editData ? 'button' : 'submit'}
-          label={formState.isSubmitting ? 'Saving...' : 'Edit Personal Details'}
+          type="submit"
+          label={
+            formState.isSubmitting
+              ? 'Saving...'
+              : (!editData && 'Edit Personal Details') ||
+                'Save New Personal Details'
+          }
           color="primary"
           onClick={() => {
-            if (!editData) {
-              setEditData(!editData);
-              return false;
-            }
-            return true;
+            setEditData(!formState.isSubmitting);
           }}
           disabled={formState.isSubmitting}
           dataTestId="personalSubmit"
         />
-      </form>
+      </Form>
     </div>
   );
 };

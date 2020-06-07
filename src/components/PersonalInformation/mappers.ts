@@ -5,13 +5,12 @@ export const responseToInitialFormValues = (
   person: any,
 ): IPersonInformationFormValues => {
   const email = person?.emailAddresses.find(_ => _.primary)?.value || '';
-  const mobile =
-    person?.telephoneNumbers?.find(_ => _.kind === 'Mobile')?.value || '';
+  const mobile = person?.telephoneNumbers.find(_ => _.primary)?.value || '';
 
   return {
-    firstName: person?.firstName || '',
-    lastName: person?.lastName || '',
-    address: person?.address || '',
+    firstName: person?.person?.firstName || '',
+    lastName: person?.person?.lastName || '',
+    address: person?.person?.address || '',
     mobile,
     email,
   };

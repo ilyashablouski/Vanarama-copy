@@ -5,10 +5,10 @@ import { useCreatePerson, usePersonalInformationData } from './gql';
 import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
 
-const PersonalInformationContainer: React.FC<IProps> = ({ onCompleted, personUuid }) => {
-  const [createDetailsHandle] = useCreatePerson(onCompleted);
+const PersonalInformationContainer: React.FC<IProps> = ({ personUuid }) => {
+  const [createDetailsHandle] = useCreatePerson(() => console.log("hi"));
   const { data, loading, error } = usePersonalInformationData(personUuid);
-  console.log('data', data)
+
   if (loading) {
     return <Loading size="large" />;
   }
@@ -23,12 +23,15 @@ const PersonalInformationContainer: React.FC<IProps> = ({ onCompleted, personUui
 
   return (
     <PersonalInformation
-      dropdownData={data ? data.allDropDowns : []}
       person={data.partyByUuid}
-      submit={values =>
+      submit={(values, address) =>
         createDetailsHandle({
           variables: {
-            input: formValuesToInput(values),
+            input: formValuesToInput(
+              values, 
+              data.partyByUuid,
+              address
+              ),
           },
         })
       }
