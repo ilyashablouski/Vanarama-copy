@@ -38,7 +38,7 @@ describe('BusinessAboutForm', () => {
       screen.getByText('Please select a type of company'),
     ).toBeInTheDocument();
     expect(
-      screen.getByText('The must be authorised to apply for credit'),
+      screen.getByText('You must be authorised to apply for credit'),
     ).toBeInTheDocument();
   });
 

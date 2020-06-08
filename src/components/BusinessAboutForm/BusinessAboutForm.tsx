@@ -52,7 +52,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({ dropDownData }) => {
       </Heading>
       <Text color="darker" size="lead">
         To get you your brand new vehicle, firstly we’ll just need some details
-        about you and your company. This will be used for your credit check.
+        about you and your company.
       </Text>
       <Formgroup
         controlId="title"
@@ -197,7 +197,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({ dropDownData }) => {
           dataTestId="about-you_consent"
           ref={register({
             validate: value =>
-              value ? undefined : 'The must be authorised to apply for credit',
+              value ? undefined : 'You must be authorised to apply for credit',
           })}
           label="I am authorised to apply for credit on behalf of the company"
         />
