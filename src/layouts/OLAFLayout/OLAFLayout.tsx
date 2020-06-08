@@ -1,48 +1,55 @@
-import OlafAside from '@vanarama/uibook/lib/components/organisms/olaf-aside/OlafAside';
-import OLAFProgressIndicator from '../../components/OLAFProgressIndicator/OLAFProgressIndicator';
-import OlafAsideToggle from '../../components/OlafAsideToggle/OlafAsideToggle';
+import ChevronDownSharp from '@vanarama/uibook/lib/assets/icons/ChevronDownSharp';
+import ChevronUpSharp from '@vanarama/uibook/lib/assets/icons/ChevronUpSharp';
+import Button from '@vanarama/uibook/lib/components/atoms/button';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
+import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
+import OLAFAsideContainer from '../../containers/OLAFAsideContainer/OLAFAsideContainer';
+import { useMobileViewport } from '../../hooks/useMediaQuery';
 
-interface IProps {
-  /**
-   * Whether to hide the progress indicator at the top of the page
-   */
-  hideProgress?: boolean;
-}
-
-const OLAFLayout: React.FC<IProps> = ({ children, hideProgress }) => (
-  <>
-    {!hideProgress && (
-      <div className="row:progress">
-        <OLAFProgressIndicator />
-        <OlafAsideToggle>
-          <OLAFAsideWrapper />
-        </OlafAsideToggle>
-      </div>
-    )}
-    <div className="row:olaf">
-      {children}
-      <OLAFAsideWrapper className="-vp-min:small" />
-    </div>
-  </>
-);
-
-function OLAFAsideWrapper({ className }: { className?: string }) {
+const OLAFLayout: React.FC = ({ children }) => {
+  const isMobile = useMobileViewport();
+  const [asideOpen, setAsideOpen] = useState(false);
+  const showAside = !isMobile || asideOpen;
   return (
-    <OlafAside
-      annualMileage="6000 miles"
-      className={className}
-      color="Solid - Polar white"
-      contractLength="60 months"
-      fuel="Petrol"
-      imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/KiaeNiro0219_j7on5z.jpg"
-      initailRental="£815.70 (inc VAT)"
-      price={209}
-      rating={4.5}
-      subtitle="1.4T ecoTEC Elite Nav 5dr"
-      title="FIAT 500 Hatchback"
-      transmission="Manual"
-      trim="Cloth - Black"
-    />
+    <>
+      <ProgressSection />
+      {isMobile && (
+        <Button
+          className="-fullwidth -mv-400"
+          dataTestId="olaf-aside-toggle"
+          icon={asideOpen ? <ChevronUpSharp /> : <ChevronDownSharp />}
+          iconColor="white"
+          iconPosition="after"
+          label={asideOpen ? 'Hide Your Order' : 'View Your Order'}
+          onClick={() => setAsideOpen(prev => !prev)}
+        />
+      )}
+      <div className="row:olaf">
+        {children}
+        {showAside && <OLAFAsideContainer />}
+      </div>
+    </>
+  );
+};
+
+function ProgressSection() {
+  const { pathname } = useRouter();
+  const hideProgress = pathname === '/olaf/thank-you';
+  if (hideProgress) {
+    return null;
+  }
+
+  const isB2BJourney = pathname.match(/^\/b2b\/.+/);
+  return (
+    <div className="row:progress">
+      {isB2BJourney ? (
+        <BusinessProgressIndicator />
+      ) : (
+        <ConsumerProgressIndicator />
+      )}
+    </div>
   );
 }
 
