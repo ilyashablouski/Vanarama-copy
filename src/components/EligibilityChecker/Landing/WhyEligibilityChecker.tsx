@@ -10,7 +10,7 @@ const WhyEligibilityChecker: FC = () => (
   <div className="row:featured-right">
     <div>
       <Heading size="large" color="black">
-        Why Use Our Eligibility Checker?
+        Why Use Our Car Lease Eligibility Checker?
       </Heading>
       <Text tag="p" size="regular" color="darker">
         If you&apos;re looking to drive a brand new car, van or truck without

@@ -15,4 +15,5 @@ export interface IResetPasswordFormProps {
   isSubmitting?: boolean;
   onSubmit: (values: IResetPasswordRequestValues) => Promise<void>;
   username?: string;
+  code?: string;
 }

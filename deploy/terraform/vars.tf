@@ -22,3 +22,18 @@ variable "state_bucket" {
   type        = "string"
   description = "The s3 bucket ref for state"
 }
+
+variable "region" {
+  type    = "string"
+  default = "eu-west-2"
+}
+
+variable "aws_master_role" {
+  type = "string"
+  description = "Role to be assumed for actions on master account resources"
+  default = null
+}
+
+variable "aws_account_id" {
+  type = "string"
+}

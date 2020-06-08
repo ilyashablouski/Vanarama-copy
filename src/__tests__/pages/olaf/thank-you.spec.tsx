@@ -1,16 +1,19 @@
+import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
 import ThankYouPage from '../../../pages/olaf/thank-you';
 
 const mockPush = jest.fn();
 jest.mock('next/router', () => ({
   useRouter() {
     return {
+      pathname: '/olaf/thank-you',
       prefetch: () => null,
       push: mockPush,
     };
   },
 }));
+
+jest.mock('../../../hooks/useMediaQuery');
 
 describe('<ThankYouPage />', () => {
   afterEach(() => {

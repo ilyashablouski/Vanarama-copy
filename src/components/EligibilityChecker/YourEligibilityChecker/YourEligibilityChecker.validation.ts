@@ -35,7 +35,9 @@ function ageValidator(this: yup.TestContext) {
 
 const ValidationSchema = yup.object().shape<IYourEligiblityCheckerValues>(
   {
-    addressFinder: yup.object().required('Please enter address'),
+    addressFinder: yup
+      .object()
+      .required('Please enter your postcode or address'),
     firstName: yup
       .string()
       .required(reqMsg('first name'))

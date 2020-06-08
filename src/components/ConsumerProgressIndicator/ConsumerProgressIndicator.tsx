@@ -5,7 +5,7 @@ import NextJsLink from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 
-const OLAFProgressIndicator: React.FC = () => {
+const ConsumerProgressIndicator: React.FC = () => {
   const { pathname, query } = useRouter();
   const { redirect, uuid } = query as { [key: string]: string };
 
@@ -68,4 +68,4 @@ function generateSteps(uuid: string) {
   ];
 }
 
-export default OLAFProgressIndicator;
+export default ConsumerProgressIndicator;

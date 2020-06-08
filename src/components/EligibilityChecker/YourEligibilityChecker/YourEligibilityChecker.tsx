@@ -2,7 +2,6 @@ import { useForm, Controller } from 'react-hook-form';
 import { gql } from '@apollo/client';
 import Button from '@vanarama/uibook/lib/components/atoms/button/';
 import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Select from '@vanarama/uibook/lib/components/atoms/select/';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput/';
@@ -45,14 +44,7 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
   useDateOfBirthValidation(watch, triggerValidation);
 
   return (
-    <Form onSubmit={handleSubmit(submit)}>
-      <Heading
-        color="black"
-        size="xlarge"
-        dataTestId="eligibilityCheckerHeading"
-      >
-        Enter Details
-      </Heading>
+    <Form onSubmit={handleSubmit(submit)} className="-mt-400">
       <Text color="darker" size="lead">
         Please fill your details in the form below or scan your driving licence
         to help you.
@@ -68,30 +60,6 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
           type="text"
           dataTestId="eligibilityCheckerFirstName"
           ref={register}
-          width={45}
-        />
-      </FormGroup>
-      <FormGroup
-        label="Address"
-        error={errors?.addressFinder?.message?.toString()}
-      >
-        <Controller
-          name="addressFinder"
-          valueName="selected"
-          width={45}
-          onChangeName="onSuggestionChange"
-          as={
-            <AddressFinder
-              apiKey={process.env.LOQATE_KEY!}
-              onSuggestionChange={() => {}}
-            >
-              <AddressFinder.Input id="addressFinder" />
-              <AddressFinder.Selected />
-              <AddressFinder.Intermediate />
-              <AddressFinder.Results />
-            </AddressFinder>
-          }
-          control={control}
         />
       </FormGroup>
       <FormGroup
@@ -105,9 +73,33 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
           name="lastName"
           dataTestId="eligibilityCheckerLastName"
           ref={register}
-          width={45}
         />
       </FormGroup>
+      <AddressFinder
+        apiKey={process.env.LOQATE_KEY!}
+        onSuggestionChange={() => {}}
+      >
+        <FormGroup
+          label="Your Postcode or Address"
+          error={errors?.addressFinder?.message?.toString()}
+          className="address-finder"
+        >
+          <Controller
+            name="addressFinder"
+            valueName="selected"
+            onChangeName="onSuggestionChange"
+            as={
+              <>
+                <AddressFinder.Input id="addressFinder" />
+                <AddressFinder.Selected />
+                <AddressFinder.Intermediate />
+                <AddressFinder.Results />
+              </>
+            }
+            control={control}
+          />
+        </FormGroup>
+      </AddressFinder>
       <FormGroup
         controlId="dayOfBirth"
         label="Date of Birth"
@@ -169,7 +161,6 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
           name="email"
           dataTestId="eligibilityCheckerEmail"
           ref={register}
-          width={45}
         />
       </FormGroup>
       <FormGroup
