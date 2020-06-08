@@ -6,7 +6,7 @@ import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
 
 const PersonalInformationContainer: React.FC<IProps> = ({ personUuid }) => {
-  const [createDetailsHandle] = useCreatePerson(() => {});
+  const [createDetailsHandle] = useCreatePerson();
   const { data, loading, error } = usePersonalInformationData(personUuid);
 
   if (loading) {

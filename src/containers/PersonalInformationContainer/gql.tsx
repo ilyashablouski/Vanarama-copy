@@ -76,8 +76,6 @@ export function usePersonalInformationData(personByUuid?: string) {
   });
 }
 
-export function useCreatePerson(onCompleted: (data: Mutation) => void) {
-  return useMutation<Mutation, MutationVariables>(CREATE_UPDATE_PERSON, {
-    onCompleted,
-  });
+export function useCreatePerson() {
+  return useMutation<Mutation, MutationVariables>(CREATE_UPDATE_PERSON);
 }

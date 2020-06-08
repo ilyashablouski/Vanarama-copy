@@ -75,7 +75,9 @@ export const MyDetailsPage: NextPage<IProps> = () => {
         </div>
       </div>
       <div className="row:my-details">
-        <PersonalInformationFormContainer personUuid="eef3eade-3110-4e77-8330-a313e6647cb3" />
+        <div className="my-details--form" style={{ gridColumnEnd: 6 }}>
+          <PersonalInformationFormContainer personUuid="eef3eade-3110-4e77-8330-a313e6647cb3" />
+        </div>
         <div className="my-details--form " style={{ gridColumnStart: 7 }}>
           <Heading tag="span" size="large" color="black" className="-mb-300">
             Password

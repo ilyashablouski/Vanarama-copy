@@ -7,7 +7,7 @@ import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import { useForm } from 'react-hook-form';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import validationSchema from './PersonalInformation.validation';
-import { IPersonalInformationFormValues, IProps } from './interface';
+import { IPersonInformationFormValues, IProps } from './interface';
 import { responseToInitialFormValues } from './mappers';
 
 const apiKey = 'CG96-BE17-EY43-CM69';
@@ -19,15 +19,16 @@ const PersonalInformation = ({ person, submit }: IProps) => {
 
   const [editData, setEditData] = useState(false);
   const [address, setAddress] = useState({
-    uuid: personAddress.uuid,
+    uuid: personAddress?.uuid,
     id: personAddress?.serviceId,
     label: `${personAddress?.lineOne}, ${personAddress?.lineTwo}${
-      personAddress?.lineTree ? `, ${personAddress?.lineTree}` : ''
+      personAddress?.lineThree ? `, ${personAddress?.lineThree}` : ''
     } - ${personAddress?.city}, ${personAddress?.postcode}`,
   });
-  const [buttonLabel, setButtonLabel] = useState('Edit Personal Details');
 
-  const { errors, handleSubmit, register, formState } = useForm({
+  const { errors, handleSubmit, register, formState } = useForm<
+    IPersonInformationFormValues
+  >({
     mode: 'onBlur',
     validationSchema,
     defaultValues: responseToInitialFormValues(person),
@@ -36,7 +37,10 @@ const PersonalInformation = ({ person, submit }: IProps) => {
   return (
     <div className="my-details--form" style={{ gridColumnEnd: 6 }}>
       <Form
-        onSubmit={handleSubmit(values => submit(values, address))}
+        onSubmit={handleSubmit(values => {
+          setEditData(false);
+          return submit(values, address);
+        })}
         className="form"
       >
         <Heading color="black" size="large" dataTestId="personHeading">
@@ -45,8 +49,8 @@ const PersonalInformation = ({ person, submit }: IProps) => {
         <section className="structured-list  -styled-headers">
           <div className="structured-list-tbody">
             <div className="structured-list-row">
-              <div className="structured-list-td structured-list-content--nowrap  -midle">
-                Firs Name
+              <div className="structured-list-td structured-list-content--nowrap -inset -middle">
+                First Name
               </div>
               <div className="structured-list-td -pl-600">
                 {!editData && (
@@ -165,24 +169,30 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             </div>
           </div>
         </section>
-        <Button
-          type="submit"
-          label={
-            formState.isSubmitting
-              ? 'Saving...'
-              : (!editData && 'Edit Personal Details') ||
-                'Save New Personal Details'
-          }
-          color="primary"
-          onClick={() => {
-            if(!editData){
-              setEditData(!editData);
-              return;
+        {editData && (
+          <Button
+            type="submit"
+            label={
+              formState.isSubmitting ? 'Saving...' : 'Save New Personal Details'
             }
-          }}
-          disabled={formState.isSubmitting}
-          dataTestId="personalSubmit"
-        />
+            color="primary"
+            disabled={formState.isSubmitting}
+            dataTestId="personalSubmit"
+          />
+        )}
+        {!editData && (
+          <Button
+            type="button"
+            label={
+              formState.isSubmitting ? 'Saving...' : 'Edit Personal Details'
+            }
+            color="primary"
+            onClick={() => {
+              setEditData(!editData);
+            }}
+            disabled={formState.isSubmitting}
+          />
+        )}
       </Form>
     </div>
   );
