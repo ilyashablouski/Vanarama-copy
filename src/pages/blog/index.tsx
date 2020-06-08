@@ -48,7 +48,7 @@ const BlogPage: NextPage = () => (
       <Heading className="-a-center" tag="h3" size="large" color="black">
         Top Articles
       </Heading>
-      <Slider slidesToShow={3} gutter={16}>
+      <Slider className="-mh-auto" slidesToShow={3} gutter={16}>
         {[1, 2, 3, 4, 5].map(k => (
           <div key={k.toString()} style={{ width: 394 }}>
             <Card className="card__article">

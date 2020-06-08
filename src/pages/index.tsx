@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
@@ -76,15 +77,20 @@ export const HomePage: NextPage = () => {
       </section>
 
       <section className="tabs-wrap row:tabbed">
-        <Tabs activeIndex={activeTab} onChange={setActiveTab}>
-          <TabList>
+        <Tabs
+          activeIndex={activeTab}
+          onChange={setActiveTab}
+          variant="alternative"
+          align="center"
+        >
+          <TabList className="lead">
             <Tab index={0}>Vans</Tab>
             <Tab index={1}>Pickups</Tab>
             <Tab index={2}>Cars</Tab>
           </TabList>
           <TabPanels>
             <TabPanel index={0}>
-              <div>
+              <div style={{ maxWidth: 1216 }} className="-mh-auto">
                 <Slider className="-mh-auto" gutter={16}>
                   {[1, 2, 3, 4, 5].map(k => (
                     <div key={k.toString()} style={{ width: 345 }}>
@@ -158,17 +164,17 @@ export const HomePage: NextPage = () => {
               <div className="title flex-h">
                 <Heading size="lead" color="black">
                   Search Vans
-                  <Button
-                    className=""
-                    label=""
-                    size="xsmall"
-                    color="teal"
-                    fill="solid"
-                    round
-                    icon={<ArrowForwardSharp />}
-                    iconColor="white"
-                    iconPosition="after"
-                  />
+                  <Link href="/hub/vans">
+                    <Button
+                      size="xsmall"
+                      color="teal"
+                      fill="solid"
+                      round
+                      icon={<ArrowForwardSharp />}
+                      iconColor="white"
+                      iconPosition="after"
+                    />
+                  </Link>
                 </Heading>
               </div>
               <Text tag="span" color="dark" size="regular">
@@ -184,17 +190,17 @@ export const HomePage: NextPage = () => {
               <div className="title flex-h">
                 <Heading size="lead" color="black">
                   Search Pickups
-                  <Button
-                    className=""
-                    label=""
-                    size="xsmall"
-                    color="teal"
-                    fill="solid"
-                    round
-                    icon={<ArrowForwardSharp />}
-                    iconColor="white"
-                    iconPosition="after"
-                  />
+                  <Link href="/hub/pickups">
+                    <Button
+                      size="xsmall"
+                      color="teal"
+                      fill="solid"
+                      round
+                      icon={<ArrowForwardSharp />}
+                      iconColor="white"
+                      iconPosition="after"
+                    />
+                  </Link>
                 </Heading>
               </div>
               <Text tag="span" color="dark" size="regular">
@@ -210,17 +216,17 @@ export const HomePage: NextPage = () => {
               <div className="title flex-h">
                 <Heading size="lead" color="black">
                   Search Cars
-                  <Button
-                    className=""
-                    label=""
-                    size="xsmall"
-                    color="teal"
-                    fill="solid"
-                    round
-                    icon={<ArrowForwardSharp />}
-                    iconColor="white"
-                    iconPosition="after"
-                  />
+                  <Link href="/hub/cars">
+                    <Button
+                      size="xsmall"
+                      color="teal"
+                      fill="solid"
+                      round
+                      icon={<ArrowForwardSharp />}
+                      iconColor="white"
+                      iconPosition="after"
+                    />
+                  </Link>
                 </Heading>
               </div>
               <Text tag="span" color="dark" size="regular">
@@ -297,51 +303,62 @@ export const HomePage: NextPage = () => {
         <League altText="vanarama national league" />
       </section>
 
-      {/* <LogoRow
-        className="-bg-lighter"
-        urls={[
-          {
-            label: 'bbc',
-            href:
-              'https://www.vanarama.com/Assets/images-optimised/home/featured/bbc.png',
-          },
-          {
-            label: 'btsport',
-            href:
-              'https://www.vanarama.com/Assets/images-optimised/home/featured/btsport.png',
-          },
-          {
-            label: 'dailymirror',
-            href:
-              'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymail.png',
-          },
-          {
-            label: 'itv',
-            href:
-              'https://www.vanarama.com/Assets/images-optimised/home/featured/itv.png',
-          },
-          {
-            label: 'metro',
-            href:
-              'https://www.vanarama.com/Assets/images-optimised/home/featured/metro.png',
-          },
-          {
-            label: 'thesun',
-            href:
-              'https://www.vanarama.com/Assets/images-optimised/home/featured/thesun.png',
-          },
-          {
-            label: 'sky',
-            href:
-              'https://www.vanarama.com/Assets/images-optimised/home/featured/sky.png',
-          },
-          {
-            label: 'thetelegraph',
-            href:
-              'https://www.vanarama.com/Assets/images-optimised/home/featured/thetelegraph.png',
-          },
-        ]}
-      /> */}
+      <section className="row:featured-logos">
+        <Heading tag="span" size="small" color="darker">
+          AS FEATURED ON
+        </Heading>
+        <div>
+          {[
+            {
+              label: 'bbc',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/bbc.png',
+            },
+            {
+              label: 'btsport',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/btsport.png',
+            },
+            {
+              label: 'dailymail',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymail.png',
+            },
+            {
+              label: 'dailymirror',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymirror.png',
+            },
+            {
+              label: 'itv',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/itv.png',
+            },
+            {
+              label: 'metro',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/metro.png',
+            },
+            {
+              label: 'thesun',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/thesun.png',
+            },
+            {
+              label: 'sky',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/sky.png',
+            },
+            {
+              label: 'thetelegraph',
+              href:
+                'https://www.vanarama.com/Assets/images-optimised/home/featured/thetelegraph.png',
+            },
+          ].map(({ href, label }) => (
+            <Image key={label} src={href} alt={label} size="expand" plain />
+          ))}
+        </div>
+      </section>
       <section className="row:trustpilot">
         <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
       </section>
