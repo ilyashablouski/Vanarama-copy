@@ -166,8 +166,6 @@ export const HomePage: NextPage = () => {
                   Search Vans
                   <Link href="/hub/vans">
                     <Button
-                      className=""
-                      label=""
                       size="xsmall"
                       color="teal"
                       fill="solid"
@@ -194,8 +192,6 @@ export const HomePage: NextPage = () => {
                   Search Pickups
                   <Link href="/hub/pickups">
                     <Button
-                      className=""
-                      label=""
                       size="xsmall"
                       color="teal"
                       fill="solid"
@@ -222,8 +218,6 @@ export const HomePage: NextPage = () => {
                   Search Cars
                   <Link href="/hub/cars">
                     <Button
-                      className=""
-                      label=""
                       size="xsmall"
                       color="teal"
                       fill="solid"
