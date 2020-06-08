@@ -8,7 +8,7 @@ exports[`<WhyEligibilityChecker /> renders correctly 1`] = `
     <p
       className="heading -black -large"
     >
-      Why Use Our Eligibility Checker?
+      Why Use Our Car Lease Eligibility Checker?
     </p>
     <p
       className="text -regular -darker"

@@ -11,7 +11,7 @@ import OLAFLayout from '../../layouts/OLAFLayout/OLAFLayout';
 const ThankYouPage: NextPage = () => {
   const router = useRouter();
   return (
-    <OLAFLayout hideProgress>
+    <OLAFLayout>
       <Form>
         <Heading color="black" tag="h1" size="xlarge">
           Great News - Your Application Is On Its Way

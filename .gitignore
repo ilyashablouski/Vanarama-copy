@@ -31,3 +31,6 @@ public/sitemap.xml
 .package-lock.json
 
 test.report.xml
+
+aws.keys
+JenkinsfileOLD
