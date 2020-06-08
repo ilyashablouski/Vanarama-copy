@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { useRouter } from 'next/router';
-import OLAFProgressIndicator from './OLAFProgressIndicator';
+import ConsumerProgressIndicator from './ConsumerProgressIndicator';
 
 jest.mock('next/router');
 
-describe('<OLAFProgressIndicator />', () => {
+describe('<ConsumerProgressIndicator />', () => {
   afterEach(() => {
     jest.resetAllMocks();
   });
@@ -22,7 +22,7 @@ describe('<OLAFProgressIndicator />', () => {
     });
 
     // ACT
-    render(<OLAFProgressIndicator />);
+    render(<ConsumerProgressIndicator />);
 
     // ASSERT
     expect(
@@ -62,7 +62,7 @@ describe('<OLAFProgressIndicator />', () => {
     });
 
     // ACT
-    render(<OLAFProgressIndicator />);
+    render(<ConsumerProgressIndicator />);
 
     // ASSERT
     expect(
@@ -82,7 +82,7 @@ describe('<OLAFProgressIndicator />', () => {
     });
 
     // ACT
-    render(<OLAFProgressIndicator />);
+    render(<ConsumerProgressIndicator />);
 
     // ASSERT
     expect(
@@ -119,7 +119,7 @@ describe('<OLAFProgressIndicator />', () => {
     });
 
     // ACT
-    render(<OLAFProgressIndicator />);
+    render(<ConsumerProgressIndicator />);
 
     // ASSERT
     // The anchors should not exist for the future pages
