@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
@@ -163,17 +164,19 @@ export const HomePage: NextPage = () => {
               <div className="title flex-h">
                 <Heading size="lead" color="black">
                   Search Vans
-                  <Button
-                    className=""
-                    label=""
-                    size="xsmall"
-                    color="teal"
-                    fill="solid"
-                    round
-                    icon={<ArrowForwardSharp />}
-                    iconColor="white"
-                    iconPosition="after"
-                  />
+                  <Link href="/hub/vans">
+                    <Button
+                      className=""
+                      label=""
+                      size="xsmall"
+                      color="teal"
+                      fill="solid"
+                      round
+                      icon={<ArrowForwardSharp />}
+                      iconColor="white"
+                      iconPosition="after"
+                    />
+                  </Link>
                 </Heading>
               </div>
               <Text tag="span" color="dark" size="regular">
@@ -189,17 +192,19 @@ export const HomePage: NextPage = () => {
               <div className="title flex-h">
                 <Heading size="lead" color="black">
                   Search Pickups
-                  <Button
-                    className=""
-                    label=""
-                    size="xsmall"
-                    color="teal"
-                    fill="solid"
-                    round
-                    icon={<ArrowForwardSharp />}
-                    iconColor="white"
-                    iconPosition="after"
-                  />
+                  <Link href="/hub/pickups">
+                    <Button
+                      className=""
+                      label=""
+                      size="xsmall"
+                      color="teal"
+                      fill="solid"
+                      round
+                      icon={<ArrowForwardSharp />}
+                      iconColor="white"
+                      iconPosition="after"
+                    />
+                  </Link>
                 </Heading>
               </div>
               <Text tag="span" color="dark" size="regular">
@@ -215,17 +220,19 @@ export const HomePage: NextPage = () => {
               <div className="title flex-h">
                 <Heading size="lead" color="black">
                   Search Cars
-                  <Button
-                    className=""
-                    label=""
-                    size="xsmall"
-                    color="teal"
-                    fill="solid"
-                    round
-                    icon={<ArrowForwardSharp />}
-                    iconColor="white"
-                    iconPosition="after"
-                  />
+                  <Link href="/hub/cars">
+                    <Button
+                      className=""
+                      label=""
+                      size="xsmall"
+                      color="teal"
+                      fill="solid"
+                      round
+                      icon={<ArrowForwardSharp />}
+                      iconColor="white"
+                      iconPosition="after"
+                    />
+                  </Link>
                 </Heading>
               </div>
               <Text tag="span" color="dark" size="regular">
