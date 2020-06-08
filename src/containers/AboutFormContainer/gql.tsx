@@ -49,7 +49,6 @@ export function useAboutYouData(personByUuid?: string) {
 }
 
 export function useCreatePerson(onCompleted: (data: Mutation) => void) {
-  debugger
   return useMutation<Mutation, MutationVariables>(CREATE_UPDATE_PERSON, {
     onCompleted,
   });

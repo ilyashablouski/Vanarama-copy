@@ -1,10 +1,9 @@
 import * as yup from 'yup';
-import { IPersonalInformationFormValues } from './interface';
 import { WORLDWIDE_MOBILE_REGEX } from '../../utils/regex';
 
 const reqMsg = (rel: string) => `Please enter your ${rel}`;
 
-const ValidationSchema = yup.object().shape<IPersonalInformationFormValues>({
+const ValidationSchema = yup.object().shape({
   firstName: yup
     .string()
     .required(reqMsg('first name'))

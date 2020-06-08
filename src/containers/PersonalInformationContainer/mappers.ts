@@ -1,10 +1,12 @@
-import { IAddressPerson, IProps } from './interfaces';
+import { IAddressPerson } from './interfaces';
 import {
   IPersonInformationFormValues,
   IPropsPersonFormValues,
 } from '../../components/PersonalInformation/interface';
 
-const addressParser = (address: IAddressPerson) => {
+const addressParser = (address: IAddressPerson | undefined) => {
+  if (!address) return false;
+  
   const addressLines = address?.label?.split('-')[0]?.split(',');
   const addressCityData = address?.label?.split('-')[1]?.split(',');
   const country = address?.id?.split('|')[0].trim() || '';
@@ -26,9 +28,9 @@ const addressParser = (address: IAddressPerson) => {
 export const formValuesToInput = (
   values: IPersonInformationFormValues,
   person: IPropsPersonFormValues,
-  address: IAddressPerson,
+  address: IAddressPerson | undefined,
 ) => {
-  const email = person?.emailAddresses?.find(_ => _.primary).value;
+  const email = person?.emailAddresses?.find(_ => _.primary)?.value;
 
   return {
     uuid: person.uuid,

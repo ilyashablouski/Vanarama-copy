@@ -1,8 +1,11 @@
-import { IPersonInformationFormValues } from './interface';
+import {
+  IPersonInformationFormValues,
+  IPropsPersonFormValues,
+} from './interface';
 
 // eslint-disable-next-line import/prefer-default-export
 export const responseToInitialFormValues = (
-  person: any,
+  person: IPropsPersonFormValues,
 ): IPersonInformationFormValues => {
   const email = person?.emailAddresses.find(_ => _.primary)?.value || '';
   const mobile = person?.telephoneNumbers.find(_ => _.primary)?.value || '';
@@ -10,7 +13,6 @@ export const responseToInitialFormValues = (
   return {
     firstName: person?.person?.firstName || '',
     lastName: person?.person?.lastName || '',
-    address: person?.person?.address || '',
     mobile,
     email,
   };

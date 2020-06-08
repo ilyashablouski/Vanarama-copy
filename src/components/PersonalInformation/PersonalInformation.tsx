@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import validationSchema from './PersonalInformation.validation';
 import { IPersonInformationFormValues, IProps } from './interface';
+import { IAddressPerson } from '../../containers/PersonalInformationContainer/interfaces';
 import { responseToInitialFormValues } from './mappers';
 
 const apiKey = 'CG96-BE17-EY43-CM69';
@@ -18,8 +19,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
   const email = person?.emailAddresses.find(_ => _.primary)?.value;
 
   const [editData, setEditData] = useState(false);
-  const [address, setAddress] = useState({
-    uuid: personAddress?.uuid,
+  const [address, setAddress] = useState<IAddressPerson | undefined>({
     id: personAddress?.serviceId,
     label: `${personAddress?.lineOne}, ${personAddress?.lineTwo}${
       personAddress?.lineThree ? `, ${personAddress?.lineThree}` : ''
@@ -111,12 +111,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
                 {editData && (
                   <AddressFinder
                     apiKey={apiKey}
-                    onSuggestionChange={value =>
-                      setAddress({
-                        ...address,
-                        ...value,
-                      })
-                    }
+                    onSuggestionChange={value => setAddress(value)}
                     selected={address}
                   >
                     <FormGroup

@@ -45,9 +45,9 @@ export interface IPropsPersonFormValues {
 }
 
 export interface IProps {
-  person: IPropsFormValues;
+  person: IPropsPersonFormValues;
   submit: (
     values: IPersonInformationFormValues,
-    address: IAddressPerson,
+    address: IAddressPerson | undefined,
   ) => Promise<any>;
 }

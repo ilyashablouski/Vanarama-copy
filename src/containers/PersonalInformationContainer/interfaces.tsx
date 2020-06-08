@@ -6,7 +6,6 @@ export interface IProps {
 }
 
 export interface IAddressPerson {
-  label?: string | undefined;
-  id?: string | undefined;
-  uuid?: string | undefined;
+  label: string;
+  id: string;
 }
