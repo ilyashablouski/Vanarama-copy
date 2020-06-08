@@ -4,22 +4,23 @@ import {
   IPropsPersonFormValues,
 } from '../../components/PersonalInformation/interface';
 
-const addressParser = (address: IAddressPerson | undefined) => {
-  if (!address) return false;
-  
+const addressParser = (
+  address: IAddressPerson | undefined,
+  addressId: string | undefined,
+) => {
   const addressLines = address?.label?.split('-')[0]?.split(',');
   const addressCityData = address?.label?.split('-')[1]?.split(',');
-  const country = address?.id?.split('|')[0].trim() || '';
+  const country = address?.id?.split('|')[0].trim() || null;
 
   return {
-    uuid: address.uuid,
+    uuid: addressId || null,
     kind: 'Home',
-    serviceId: address?.id?.trim(),
-    lineOne: addressLines ? addressLines[0]?.trim() : '',
-    lineTwo: addressLines ? addressLines[1]?.trim() : '',
-    lineThree: addressLines ? addressLines[2]?.trim() : '',
-    city: addressCityData ? addressCityData[0]?.trim() : '',
-    postcode: addressCityData ? addressCityData[1]?.trim() : '',
+    serviceId: address?.id?.trim() || null,
+    lineOne: addressLines ? addressLines[0]?.trim() : null,
+    lineTwo: addressLines ? addressLines[1]?.trim() : null,
+    lineThree: addressLines ? addressLines[2]?.trim() : null,
+    city: addressCityData ? addressCityData[0]?.trim() : null,
+    postcode: addressCityData ? addressCityData[1]?.trim() : null,
     country,
   };
 };
@@ -29,6 +30,7 @@ export const formValuesToInput = (
   values: IPersonInformationFormValues,
   person: IPropsPersonFormValues,
   address: IAddressPerson | undefined,
+  addressId: string | undefined,
 ) => {
   const email = person?.emailAddresses?.find(_ => _.primary)?.value;
 
@@ -37,13 +39,13 @@ export const formValuesToInput = (
     firstName: values.firstName,
     lastName: values.lastName,
     emailAddress: {
-      value: email,
+      value: email || '',
       primary: true,
     },
     telephoneNumber: {
       value: values.mobile,
       primary: true,
     },
-    address: addressParser(address),
+    address: addressParser(address, addressId),
   };
 };

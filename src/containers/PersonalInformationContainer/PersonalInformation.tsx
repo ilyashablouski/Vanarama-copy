@@ -24,10 +24,15 @@ const PersonalInformationContainer: React.FC<IProps> = ({ personUuid }) => {
   return (
     <PersonalInformation
       person={data.partyByUuid}
-      submit={(values, address) =>
+      submit={(values, address, addressId) =>
         createDetailsHandle({
           variables: {
-            input: formValuesToInput(values, data.partyByUuid, address),
+            input: formValuesToInput(
+              values,
+              data.partyByUuid,
+              address,
+              addressId,
+            ),
           },
         })
       }

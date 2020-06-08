@@ -20,7 +20,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
 
   const [editData, setEditData] = useState(false);
   const [address, setAddress] = useState<IAddressPerson | undefined>({
-    id: personAddress?.serviceId,
+    id: personAddress?.serviceId || '',
     label: `${personAddress?.lineOne}, ${personAddress?.lineTwo}${
       personAddress?.lineThree ? `, ${personAddress?.lineThree}` : ''
     } - ${personAddress?.city}, ${personAddress?.postcode}`,
@@ -39,7 +39,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
       <Form
         onSubmit={handleSubmit(values => {
           setEditData(false);
-          return submit(values, address);
+          return submit(values, address, personAddress?.uuid);
         })}
         className="form"
       >
@@ -49,7 +49,10 @@ const PersonalInformation = ({ person, submit }: IProps) => {
         <section className="structured-list  -styled-headers">
           <div className="structured-list-tbody">
             <div className="structured-list-row">
-              <div className="structured-list-td structured-list-content--nowrap -inset -middle">
+              <div
+                style={{ verticalAlign: 'middle' }}
+                className="structured-list-td structured-list-content--nowrap"
+              >
                 First Name
               </div>
               <div className="structured-list-td -pl-600">
@@ -76,7 +79,10 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             </div>
 
             <div className="structured-list-row">
-              <div className="structured-list-td structured-list-content--nowrap">
+              <div
+                style={{ verticalAlign: 'middle' }}
+                className="structured-list-td structured-list-content--nowrap"
+              >
                 Last Name
               </div>
               <div className="structured-list-td -pl-600">
@@ -103,11 +109,14 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             </div>
 
             <div className="structured-list-row ">
-              <div className="structured-list-td structured-list-content--nowrap">
+              <div
+                className="structured-list-td structured-list-content--nowrap"
+                style={{ verticalAlign: 'middle' }}
+              >
                 Address
               </div>
               <div className="structured-list-td -pl-600">
-                {!editData && <>{address.label || 'No information'}</>}
+                {!editData && <>{address?.label || 'No information'}</>}
                 {editData && (
                   <AddressFinder
                     apiKey={apiKey}
@@ -132,7 +141,10 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             </div>
 
             <div className="structured-list-row ">
-              <div className="structured-list-td structured-list-content--nowrap">
+              <div
+                style={{ verticalAlign: 'middle' }}
+                className="structured-list-td structured-list-content--nowrap"
+              >
                 Telephone
               </div>
               <div className="structured-list-td -pl-600">
@@ -172,7 +184,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             }
             color="primary"
             disabled={formState.isSubmitting}
-            dataTestId="personalSubmit"
+            dataTestId="personalSubmitEdit"
           />
         )}
         {!editData && (
@@ -186,6 +198,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
               setEditData(!editData);
             }}
             disabled={formState.isSubmitting}
+            dataTestId="personalSubmit"
           />
         )}
       </Form>
