@@ -62,7 +62,7 @@ export interface CompanyInputObject {
   deletedAt?: any | null;
   emailAddresses?: EmailAddressInputObject[] | null;
   leadManagerId?: string | null;
-  legalName: string;
+  legalName?: string | null;
   monthlyAmountBeingReplaced?: string | null;
   otherCountriesOfActivity?: string | null;
   pictureUrl?: string | null;
