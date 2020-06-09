@@ -18,9 +18,13 @@ export interface HomePageData_homePage_sections_hero_image {
 
 export interface HomePageData_homePage_sections_hero {
   title: string;
-  flag: string;
   body: string;
   image: HomePageData_homePage_sections_hero_image;
+}
+
+export interface HomePageData_homePage_sections_leadText {
+  heading: string;
+  description: string;
 }
 
 export interface HomePageData_homePage_sections_cards_cards_image_file {
@@ -74,6 +78,7 @@ export interface HomePageData_homePage_sections_tiles {
 
 export interface HomePageData_homePage_sections {
   hero: HomePageData_homePage_sections_hero;
+  leadText: HomePageData_homePage_sections_leadText;
   cards: HomePageData_homePage_sections_cards;
   featured1: HomePageData_homePage_sections_featured1;
   featured2: HomePageData_homePage_sections_featured2;

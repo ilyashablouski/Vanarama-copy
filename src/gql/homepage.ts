@@ -6,7 +6,6 @@ const ALL_CONTENT = gql`
       sections {
         hero {
           title
-          flag
           body
           image {
             title
@@ -14,6 +13,10 @@ const ALL_CONTENT = gql`
               url
             }
           }
+        }
+        leadText {
+          heading
+          description
         }
         cards {
           name

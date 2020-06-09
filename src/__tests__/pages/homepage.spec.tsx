@@ -18,18 +18,9 @@ describe('<HomePage />', () => {
           data: {
             homePage: {
               sections: {
-                featured1: {
-                  title: 'Why Leasing?',
-                  body: '',
-                },
-                featured2: {
-                  title: 'Featured 2 title',
-                  body: '',
-                },
                 hero: {
                   title: '',
-                  flag: '',
-                  body: '',
+                  body: 'hero body',
                   image: {
                     file: {
                       url: '',
@@ -37,9 +28,21 @@ describe('<HomePage />', () => {
                     title: '',
                   },
                 },
+                leadText: {
+                  heading: 'Lead heading',
+                  description: 'hellow world description',
+                },
                 cards: {
                   name: '',
                   cards: [],
+                },
+                featured1: {
+                  title: 'Why Leasing?',
+                  body: '',
+                },
+                featured2: {
+                  title: 'Featured 2 title',
+                  body: '',
                 },
                 tiles: {
                   name: '',

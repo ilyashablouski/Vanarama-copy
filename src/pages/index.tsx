@@ -69,11 +69,11 @@ export const HomePage: NextPage = () => {
       </Hero>
 
       <section className="row:lead-text">
-        <span className="heading -xlarge -black">Large Sales Heading</span>
+        <span className="heading -xlarge -black">
+          {data?.homePage.sections.leadText.heading}
+        </span>
         <span className="text -lead -darker">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio
-          aspernatur fugiat. Lorem ipsum dolor sit amet consectetur adipisicing
-          elit.
+          {data?.homePage.sections.leadText.description}
         </span>
       </section>
 
@@ -160,7 +160,7 @@ export const HomePage: NextPage = () => {
       <section className="row:bg-lighter">
         <div className="row:cards-3col">
           {data?.homePage.sections.cards.cards?.map((c: CardData) => (
-            <Card>
+            <Card key={c.title}>
               <CardMedia
                 imageSrc={
                   c.image?.file?.url ||
