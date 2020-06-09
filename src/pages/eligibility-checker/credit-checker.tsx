@@ -8,13 +8,14 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Slider from '@vanarama/uibook/lib/components/organisms/carousel';
-import ProductCard from '@vanarama/uibook/lib/components/organisms/product-card';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
 import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
+import ProductCard from '../../components/ProductCard/ProductCard';
+import RouterLink from '../../components/RouterLink/RouterLink';
 
 const CreditChecker: NextPage = () => {
   const router = useRouter();
@@ -69,12 +70,11 @@ const CreditChecker: NextPage = () => {
           {[1, 2, 3, 4, 5].map(k => (
             <div key={k.toString()} style={{ width: 394 }}>
               <ProductCard
-                flag={{
+                header={{
                   accentIcon: <Icon icon={<Flame />} color="white" />,
                   accentText: 'Hot Deal',
                   text: 'In Stock - 14-21 Days Delivery',
                 }}
-                href="#"
                 features={[
                   {
                     icon: <Icon icon={<SnowSharp />} color="dark" />,
@@ -98,9 +98,18 @@ const CreditChecker: NextPage = () => {
                 onViewOffer={() => true}
                 onWishlist={() => true}
                 price={209}
-                rating={4.5}
-                subtitle="1.0 IG-T 100 Tekna 5dr Xtronic [Leather]"
-                title="Peugeot 208"
+                title={{
+                  title: '',
+                  link: (
+                    <RouterLink
+                      link={{ href: '#', label: 'Peugeot 208' }}
+                      className="heading"
+                      classNames={{ size: 'large', color: 'black' }}
+                    />
+                  ),
+                  description: '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
+                  score: 4.5,
+                }}
               />
             </div>
           ))}

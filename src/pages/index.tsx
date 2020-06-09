@@ -1,9 +1,7 @@
-import Link from 'next/link';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
-import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
 import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
@@ -13,10 +11,7 @@ import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Card, {
-  CardContent,
-  CardMedia,
-} from '@vanarama/uibook/lib/components/molecules/card';
+import Card from '@vanarama/uibook/lib/components/molecules/card';
 import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
 import Tab from '@vanarama/uibook/lib/components/molecules/tabs/Tab';
 import TabList from '@vanarama/uibook/lib/components/molecules/tabs/TabList';
@@ -29,9 +24,10 @@ import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
-import ProductCard from '@vanarama/uibook/lib/components/organisms/product-card';
 import { NextPage } from 'next';
 import { useState } from 'react';
+import ProductCard from '../components/ProductCard/ProductCard';
+import RouterLink from '../components/RouterLink/RouterLink';
 import {
   HomePageData,
   HomePageData_homePage_sections_tiles_tiles as TileData,
@@ -95,12 +91,11 @@ export const HomePage: NextPage = () => {
                   {[1, 2, 3, 4, 5].map(k => (
                     <div key={k.toString()} style={{ width: 345 }}>
                       <ProductCard
-                        flag={{
+                        header={{
                           accentIcon: <Icon icon={<Flame />} color="white" />,
                           accentText: 'Hot Deal',
                           text: 'In Stock - 14-21 Days Delivery',
                         }}
-                        href="#"
                         features={[
                           {
                             icon: <Icon icon={<SnowSharp />} color="dark" />,
@@ -126,9 +121,19 @@ export const HomePage: NextPage = () => {
                         onViewOffer={() => true}
                         onWishlist={() => true}
                         price={209}
-                        rating={4.5}
-                        subtitle="1.0 IG-T 100 Tekna 5dr Xtronic [Leather]"
-                        title="Peugeot 208"
+                        title={{
+                          title: '',
+                          link: (
+                            <RouterLink
+                              link={{ href: '#', label: 'Peugeot 208' }}
+                              className="heading"
+                              classNames={{ size: 'large', color: 'black' }}
+                            />
+                          ),
+                          description:
+                            '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
+                          score: 4.5,
+                        }}
                       />
                     </div>
                   ))}
@@ -158,83 +163,59 @@ export const HomePage: NextPage = () => {
 
       <section className="row:bg-lighter">
         <div className="row:cards-3col">
-          <Card>
-            <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/CitroenBerlingo0718_4_xjonps.jpg" />
-            <CardContent>
-              <div className="title flex-h">
-                <Heading size="lead" color="black">
+          <Card
+            title={{
+              title: '',
+              withBtn: true,
+              link: (
+                <RouterLink
+                  link={{ href: '/hub/vans', label: 'Search Vans' }}
+                  className="heading"
+                  classNames={{ size: 'lead', color: 'black' }}
+                >
                   Search Vans
-                  <Link href="/hub/vans">
-                    <Button
-                      size="xsmall"
-                      color="teal"
-                      fill="solid"
-                      round
-                      icon={<ArrowForwardSharp />}
-                      iconColor="white"
-                      iconPosition="after"
-                    />
-                  </Link>
-                </Heading>
-              </div>
-              <Text tag="span" color="dark" size="regular">
-                Get the car you want from our range of manufacturers - from
-                something sporty to something for all the family
-              </Text>
-            </CardContent>
-          </Card>
+                </RouterLink>
+              ),
+            }}
+            imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/CitroenBerlingo0718_4_xjonps.jpg"
+            description="Get the car you want from our range of manufacturers - from something sporty to something for all the family"
+          />
 
-          <Card>
-            <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg" />
-            <CardContent>
-              <div className="title flex-h">
-                <Heading size="lead" color="black">
+          <Card
+            title={{
+              title: '',
+              withBtn: true,
+              link: (
+                <RouterLink
+                  link={{ href: '/hub/pickups', label: 'Search Pickups' }}
+                  className="heading"
+                  classNames={{ size: 'lead', color: 'black' }}
+                >
                   Search Pickups
-                  <Link href="/hub/pickups">
-                    <Button
-                      size="xsmall"
-                      color="teal"
-                      fill="solid"
-                      round
-                      icon={<ArrowForwardSharp />}
-                      iconColor="white"
-                      iconPosition="after"
-                    />
-                  </Link>
-                </Heading>
-              </div>
-              <Text tag="span" color="dark" size="regular">
-                Get the car you want from our range of manufacturers - from
-                something sporty to something for all the family
-              </Text>
-            </CardContent>
-          </Card>
+                </RouterLink>
+              ),
+            }}
+            imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg"
+            description="Get the car you want from our range of manufacturers - from something sporty to something for all the family"
+          />
 
-          <Card>
-            <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
-            <CardContent>
-              <div className="title flex-h">
-                <Heading size="lead" color="black">
+          <Card
+            title={{
+              title: '',
+              withBtn: true,
+              link: (
+                <RouterLink
+                  link={{ href: '/hub/cars', label: 'Search Cars' }}
+                  className="heading"
+                  classNames={{ size: 'lead', color: 'black' }}
+                >
                   Search Cars
-                  <Link href="/hub/cars">
-                    <Button
-                      size="xsmall"
-                      color="teal"
-                      fill="solid"
-                      round
-                      icon={<ArrowForwardSharp />}
-                      iconColor="white"
-                      iconPosition="after"
-                    />
-                  </Link>
-                </Heading>
-              </div>
-              <Text tag="span" color="dark" size="regular">
-                Get the car you want from our range of manufacturers - from
-                something sporty to something for all the family
-              </Text>
-            </CardContent>
-          </Card>
+                </RouterLink>
+              ),
+            }}
+            imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg"
+            description="Get the car you want from our range of manufacturers - from something sporty to something for all the family"
+          />
         </div>
       </section>
 

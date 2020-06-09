@@ -40,7 +40,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
         onClick={e => onClick && onClick(e)}
         data-testid="link"
       >
-        {children}
+        {children || link.label}
       </a>
     );
   }
@@ -52,7 +52,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
         onClick={e => onClick && onClick(e)}
         data-testid="router-link"
       >
-        {children}
+        {children || link.label}
       </a>
     </Link>
   );
