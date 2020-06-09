@@ -2,13 +2,13 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Link from '@vanarama/uibook/lib/components/atoms/link';
 import Card, {
   CardContent,
 } from '@vanarama/uibook/lib/components/molecules/card';
 import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
+import RouterLink from '../../../components/RouterLink/RouterLink';
 import withApollo from '../../../hocs/withApollo';
 import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
 
@@ -16,20 +16,20 @@ interface IProps {
   query: ParsedUrlQuery;
 }
 
+const PATH = {
+  items: [
+    { label: 'Home', href: '/' },
+    { label: 'My Details', href: '/' },
+  ],
+};
+
 export const MyDetailsPage: NextPage<IProps> = () => {
   const [resetPassword, setResetPassword] = useState(false);
-
-  const path = {
-    items: [
-      { label: 'Home', href: '/' },
-      { label: 'My Details', href: '/' },
-    ],
-  };
 
   return (
     <>
       <div className="row:title">
-        <Breadcrumb items={path.items} />
+        <Breadcrumb items={PATH.items} />
         <Heading
           tag="h1"
           size="xlarge"
@@ -51,9 +51,14 @@ export const MyDetailsPage: NextPage<IProps> = () => {
                   You have <b>(0)</b> orders.
                 </Text>
               </div>
-              <Link color="teal" href="#">
+              <RouterLink
+                classNames={{
+                  color: 'teal',
+                }}
+                link={{ href: '/', label: '' }}
+              >
                 View Orders
-              </Link>
+              </RouterLink>
             </CardContent>
           </Card>
 
@@ -67,9 +72,14 @@ export const MyDetailsPage: NextPage<IProps> = () => {
                   You have <b>(0)</b> quotes.
                 </Text>
               </div>
-              <Link color="teal" href="#">
+              <RouterLink
+                classNames={{
+                  color: 'teal',
+                }}
+                link={{ href: '/', label: '' }}
+              >
                 View Quotes
-              </Link>
+              </RouterLink>
             </CardContent>
           </Card>
         </div>

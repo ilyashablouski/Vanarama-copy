@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { WORLDWIDE_MOBILE_REGEX } from '../../utils/regex';
+import { WORLDWIDE_MOBILE_REGEX, NAME_REGEX } from '../../utils/regex';
 
 const reqMsg = (rel: string) => `Please enter your ${rel}`;
 
@@ -7,10 +7,7 @@ const ValidationSchema = yup.object().shape({
   firstName: yup
     .string()
     .required(reqMsg('first name'))
-    .matches(
-      /^^[a-zA-Z'-\s]+$/,
-      'Please use only letters, apostrophes and dashes',
-    )
+    .matches(NAME_REGEX, 'Please use only letters, apostrophes and dashes')
     .min(
       2,
       'Oops, this name’s too short. Please make it 2 characters or longer',
@@ -19,10 +16,7 @@ const ValidationSchema = yup.object().shape({
   lastName: yup
     .string()
     .required(reqMsg('last name'))
-    .matches(
-      /^^[a-zA-Z'-\s]+$/,
-      'Please use only letters, apostrophes and dashes',
-    )
+    .matches(NAME_REGEX, 'Please use only letters, apostrophes and dashes')
     .min(
       2,
       'Oops, this name’s too short. Please make it 2 characters or longer',
