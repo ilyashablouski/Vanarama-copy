@@ -1,34 +1,35 @@
 import { FC } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Slider from '@vanarama/uibook/lib/components/organisms/carousel';
+import Card from '@vanarama/uibook/lib/components/molecules/card';
 // import ReviewTile from '@vanarama/uibook/lib/components/organisms/review-tile';
 
 const REVIEW_TILES = [
   {
-    name: 'John Smith',
-    description:
+    author: 'John Smith',
+    text:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore adipiscing ipsum dolor sit amet.',
     timeStamp: '12/02/2020',
     reviews: 87,
-    rating: 4.5,
+    score: 4,
     src: 'https://www.thispersondoesnotexist.com/image',
   },
   {
-    name: 'John Smith',
-    description:
+    author: 'John Smith',
+    text:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore adipiscing ipsum dolor sit amet.',
     timeStamp: '12/02/2020',
     reviews: 87,
-    rating: 4.5,
+    score: 2.5,
     src: 'https://www.thispersondoesnotexist.com/image',
   },
   {
-    name: 'John Smith',
-    description:
+    author: 'John Smith',
+    text:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore adipiscing ipsum dolor sit amet.',
     timeStamp: '12/02/2020',
     reviews: 87,
-    rating: 4.5,
+    score: 4.5,
     src: 'https://www.thispersondoesnotexist.com/image',
   },
 ];
@@ -39,18 +40,10 @@ const CustomersReviews: FC = () => (
       <Heading className="-mb-400 -a-center" size="large" color="black">
         Customer Reviews
       </Heading>
-      <Slider className="-mh-auto" gutter={16}>
+      <Slider className="-mh-000" slidesToShow={3} gutter={16}>
         {REVIEW_TILES.map((reviewTile, index) => (
           <div key={index.toString()} style={{ width: 345 }}>
-            {/* TODO: ReviewTile seems to have been deleted. Needs fixing */}
-            {/* <ReviewTile
-            name={reviewTile.name}
-            description={reviewTile.description}
-            timeStamp={reviewTile.timeStamp}
-            reviews={reviewTile.reviews}
-            src={reviewTile.src}
-            rating={reviewTile.rating}
-          /> */}
+            <Card review={{ ...reviewTile }} />
           </div>
         ))}
       </Slider>

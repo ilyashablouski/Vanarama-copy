@@ -4,12 +4,9 @@ import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Slider from '@vanarama/uibook/lib/components/organisms/carousel';
-import Card, {
-  CardContent,
-  CardMedia,
-} from '@vanarama/uibook/lib/components/molecules/card';
-import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
+import Card from '@vanarama/uibook/lib/components/molecules/card';
 import BreadCrumbs from '../../containers/BreadCrumbContainer/BreadCrumbContainer';
+import RouterLink from '../../components/RouterLink/RouterLink';
 
 const BlogPage: NextPage = () => (
   <>
@@ -51,31 +48,28 @@ const BlogPage: NextPage = () => (
       <Slider className="-mh-auto" slidesToShow={3} gutter={16}>
         {[1, 2, 3, 4, 5].map(k => (
           <div key={k.toString()} style={{ width: 394 }}>
-            <Card className="card__article">
-              <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
-              <div className="-p-300 -col-100">
-                <Heading
-                  tag="a"
-                  size="regular"
-                  color="black"
-                  className="card--link"
-                >
-                  Article Name
-                </Heading>
-                <CardContent>
-                  <Text tag="div" size="small" color="darker">
-                    GLorem ipsum dolor sit amet adipisicing elit. Iste, quaerat
-                    consequatur sapiente sed.
-                  </Text>
-                  <Button
-                    label="Read More"
-                    color="teal"
-                    size="small"
-                    fill="solid"
-                    className="-mt-400"
+            <Card
+              className="card__article"
+              imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg"
+              title={{
+                title: '',
+                link: (
+                  <RouterLink
+                    link={{ href: '#', label: 'Article Name' }}
+                    className="card--link"
+                    classNames={{ color: 'black', size: 'regular' }}
                   />
-                </CardContent>
-              </div>
+                ),
+              }}
+              description="Lorem ipsum dolor sit amet adipisicing elit. Iste, quaerat consequatur sapiente sed."
+            >
+              <Button
+                label="Read More"
+                color="teal"
+                size="small"
+                fill="solid"
+                className="-mt-400"
+              />
             </Card>
           </div>
         ))}
@@ -88,29 +82,21 @@ const BlogPage: NextPage = () => (
         </Heading>
         {[1, 2, 3, 4, 5, 6].map(v => (
           <div key={v.toString()}>
-            <Card className="card__category">
-              <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg" />
-              <CardContent flex className="-p-300">
-                <Heading
-                  tag="a"
-                  size="regular"
-                  color="black"
-                  className="card--link"
-                >
-                  Category Name
-                </Heading>
-                <Button
-                  label=""
-                  size="xsmall"
-                  color="teal"
-                  fill="solid"
-                  round
-                  icon={<ArrowForwardSharp />}
-                  iconColor="white"
-                  iconPosition="after"
-                />
-              </CardContent>
-            </Card>
+            <Card
+              className="card__category"
+              imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg"
+              title={{
+                title: '',
+                link: (
+                  <RouterLink
+                    link={{ href: '#', label: 'Category Name' }}
+                    className="card--link"
+                    classNames={{ color: 'black', size: 'regular' }}
+                  />
+                ),
+                withBtn: true,
+              }}
+            />
           </div>
         ))}
       </div>
