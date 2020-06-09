@@ -121,6 +121,7 @@ export const HomePage: NextPage = () => {
                         onViewOffer={() => true}
                         onWishlist={() => true}
                         price={209}
+                        priceDescription="Per Month Exc.VAT"
                         title={{
                           title: '',
                           link: (

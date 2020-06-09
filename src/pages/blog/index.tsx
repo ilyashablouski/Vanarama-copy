@@ -59,7 +59,7 @@ const BlogPage: NextPage = () => (
                     className="card--link"
                     classNames={{ color: 'black', size: 'regular' }}
                   />
-                )
+                ),
               }}
               description="Lorem ipsum dolor sit amet adipisicing elit. Iste, quaerat consequatur sapiente sed."
             >

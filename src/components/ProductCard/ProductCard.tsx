@@ -6,10 +6,11 @@ import Price from '@vanarama/uibook/lib/components/atoms/price';
 
 export interface IProductCardProps extends ICardProps {
   price: number;
+  priceDescription: string;
 }
 
 const ProductCard: FC<IProductCardProps> = memo(props => {
-  const { price, onViewOffer } = props;
+  const { price, priceDescription, onViewOffer } = props;
 
   return (
     <Card {...props}>
@@ -18,7 +19,7 @@ const ProductCard: FC<IProductCardProps> = memo(props => {
           price={price || 0}
           size="large"
           separator="."
-          priceDescription="Per Month Exc.VAT"
+          priceDescription={priceDescription}
         />
         <Button
           color="teal"
