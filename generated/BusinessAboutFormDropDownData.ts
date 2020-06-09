@@ -13,7 +13,14 @@ export interface BusinessAboutFormDropDownData_titles {
   favourites: string[];
 }
 
+export interface BusinessAboutFormDropDownData_companyTypes {
+  __typename: "DropDownDataType";
+  data: string[];
+  favourites: string[];
+}
+
 export interface BusinessAboutFormDropDownData {
   __typename: "DropDownType";
   titles: BusinessAboutFormDropDownData_titles;
+  companyTypes: BusinessAboutFormDropDownData_companyTypes;
 }

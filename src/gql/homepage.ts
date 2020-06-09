@@ -19,6 +19,7 @@ const ALL_CONTENT = gql`
           name
           cards {
             title
+            body
             image {
               file {
                 url

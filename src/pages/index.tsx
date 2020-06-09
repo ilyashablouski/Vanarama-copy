@@ -8,8 +8,8 @@ import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
 import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
@@ -35,6 +35,7 @@ import { useState } from 'react';
 import {
   HomePageData,
   HomePageData_homePage_sections_tiles_tiles as TileData,
+  HomePageData_homePage_sections_cards_cards as CardData,
 } from '../../generated/HomePageData';
 import Hero, { HeroHeading, HeroTitle } from '../components/Hero';
 import { ALL_CONTENT } from '../gql/homepage';
@@ -158,83 +159,37 @@ export const HomePage: NextPage = () => {
 
       <section className="row:bg-lighter">
         <div className="row:cards-3col">
-          <Card>
-            <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/CitroenBerlingo0718_4_xjonps.jpg" />
-            <CardContent>
-              <div className="title flex-h">
-                <Heading size="lead" color="black">
-                  Search Vans
-                  <Link href="/hub/vans">
-                    <Button
-                      size="xsmall"
-                      color="teal"
-                      fill="solid"
-                      round
-                      icon={<ArrowForwardSharp />}
-                      iconColor="white"
-                      iconPosition="after"
-                    />
-                  </Link>
-                </Heading>
-              </div>
-              <Text tag="span" color="dark" size="regular">
-                Get the car you want from our range of manufacturers - from
-                something sporty to something for all the family
-              </Text>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg" />
-            <CardContent>
-              <div className="title flex-h">
-                <Heading size="lead" color="black">
-                  Search Pickups
-                  <Link href="/hub/pickups">
-                    <Button
-                      size="xsmall"
-                      color="teal"
-                      fill="solid"
-                      round
-                      icon={<ArrowForwardSharp />}
-                      iconColor="white"
-                      iconPosition="after"
-                    />
-                  </Link>
-                </Heading>
-              </div>
-              <Text tag="span" color="dark" size="regular">
-                Get the car you want from our range of manufacturers - from
-                something sporty to something for all the family
-              </Text>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardMedia imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg" />
-            <CardContent>
-              <div className="title flex-h">
-                <Heading size="lead" color="black">
-                  Search Cars
-                  <Link href="/hub/cars">
-                    <Button
-                      size="xsmall"
-                      color="teal"
-                      fill="solid"
-                      round
-                      icon={<ArrowForwardSharp />}
-                      iconColor="white"
-                      iconPosition="after"
-                    />
-                  </Link>
-                </Heading>
-              </div>
-              <Text tag="span" color="dark" size="regular">
-                Get the car you want from our range of manufacturers - from
-                something sporty to something for all the family
-              </Text>
-            </CardContent>
-          </Card>
+          {data?.homePage.sections.cards.cards?.map((c: CardData) => (
+            <Card>
+              <CardMedia
+                imageSrc={
+                  c.image?.file?.url ||
+                  'https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/CitroenBerlingo0718_4_xjonps.jpg'
+                }
+              />
+              <CardContent>
+                <div className="title flex-h">
+                  <Heading size="lead" color="black">
+                    {c.title}
+                    <Link href="/hub/vans">
+                      <Button
+                        size="xsmall"
+                        color="teal"
+                        fill="solid"
+                        round
+                        icon={<ArrowForwardSharp />}
+                        iconColor="white"
+                        iconPosition="after"
+                      />
+                    </Link>
+                  </Heading>
+                </div>
+                <Text tag="span" color="dark" size="regular">
+                  {c.body}
+                </Text>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </section>
 
