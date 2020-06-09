@@ -21,7 +21,7 @@ const PATH = {
   ],
 };
 
-export const MyDetailsPage: NextPage<IProps> = () => {
+export const MyOrdersPage: NextPage<IProps> = () => {
   const [resetPassword, setResetPassword] = useState(false);
 
   return (
@@ -102,4 +102,4 @@ export const MyDetailsPage: NextPage<IProps> = () => {
   );
 };
 
-export default withApollo(MyDetailsPage);
+export default withApollo(MyOrdersPage);

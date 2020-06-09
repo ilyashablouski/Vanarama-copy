@@ -1,6 +1,4 @@
-import Card, {
-  CardMedia,
-} from '@vanarama/uibook/lib/components/molecules/card';
+import Card from '@vanarama/uibook/lib/components/molecules/card';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
@@ -27,18 +25,15 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
   imageSrc,
   flagText = 'DEAL OF THE MONTH',
 }) => (
-  <div>
-    <div>
-      <Card
-        flag={{
-          accentIcon: <Icon icon={<Flame />} color="white" />,
-          accentText: 'Hot Deal',
-          text: flagText,
-        }}
-      >
-        <CardMedia imageSrc={imageSrc} />
-      </Card>
-    </div>
+  <>
+    <Card
+      header={{
+        accentIcon: <Icon icon={<Flame />} color="white" />,
+        accentText: 'Hot Deal',
+        text: flagText,
+      }}
+      imageSrc={imageSrc}
+    />
     <div className="-inset -middle -col-500">
       <div
         style={{
@@ -78,7 +73,7 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
         />
       </div>
     </div>
-  </div>
+  </>
 );
 
 export default DealOfMonth;
