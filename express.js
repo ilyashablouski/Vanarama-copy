@@ -39,6 +39,10 @@ app.prepare().then(() => {
   // Prerender.
   if (prerender && process.env.PRERENDER_SERVICE_URL) server.use(prerender);
 
+  server.get('/status', (req, res) => {
+    res.sendStatus(200);
+  });
+
   server.all('*', cors(), (req, res) => {
     return handle(req, res);
   });
