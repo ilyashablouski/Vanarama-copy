@@ -25,16 +25,9 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({ dropDownData }) => {
   const { control, handleSubmit, errors, register, reset } = useForm<
     IBusinessAboutFormValues
   >({
+    mode: 'onBlur',
     defaultValues: {
-      title: '',
-      firstName: '',
-      lastName: '',
       telephone: '',
-      email: '',
-      companyType: '',
-      marketing: false,
-      consent: false,
-      termsAndConditions: false,
     },
   });
 
@@ -52,7 +45,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({ dropDownData }) => {
       </Heading>
       <Text color="darker" size="lead">
         To get you your brand new vehicle, firstly we’ll just need some details
-        about you and your company. This will be used for your credit check.
+        about you and your company.
       </Text>
       <Formgroup
         controlId="title"
@@ -80,6 +73,10 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({ dropDownData }) => {
           dataTestId="about_you_first-name"
           ref={register({
             required: 'Please enter your first name',
+            pattern: {
+              value: /^[a-zA-Z'-\s]+$/,
+              message: 'Please use only letters, apostrophes and dashes',
+            },
             minLength: {
               value: 2,
               message:
@@ -105,6 +102,10 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({ dropDownData }) => {
           dataTestId="about-you_last-name"
           ref={register({
             required: 'Please enter your last name',
+            pattern: {
+              value: /^[a-zA-Z'-\s]+$/,
+              message: 'Please use only letters, apostrophes and dashes',
+            },
             minLength: {
               value: 2,
               message:
@@ -197,7 +198,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({ dropDownData }) => {
           dataTestId="about-you_consent"
           ref={register({
             validate: value =>
-              value ? undefined : 'The must be authorised to apply for credit',
+              value ? undefined : 'You must be authorised to apply for credit',
           })}
           label="I am authorised to apply for credit on behalf of the company"
         />
