@@ -73,10 +73,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             </div>
 
             <div className="structured-list-row">
-              <div
-                style={{ verticalAlign: 'middle' }}
-                className="structured-list-td structured-list-content--nowrap"
-              >
+              <div className="structured-list-td structured-list-content--nowrap middle">
                 Last Name
               </div>
               <div className="structured-list-td -pl-600">
@@ -104,7 +101,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             <div className="structured-list-row ">
               <div
                 style={{ verticalAlign: 'middle' }}
-                className="structured-list-td structured-list-content--nowrap"
+                className="structured-list-td structured-list-content--nowrap middle"
               >
                 Address
               </div>
@@ -121,6 +118,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
                     >
                       <AddressFinder.Input
                         id="empty"
+                        width={35}
                         dataTestId="input_adress_person_information"
                       />
                       <AddressFinder.Selected dataTestId="adress_person_information__edit" />
@@ -135,10 +133,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             </div>
 
             <div className="structured-list-row ">
-              <div
-                style={{ verticalAlign: 'middle' }}
-                className="structured-list-td structured-list-content--nowrap"
-              >
+              <div className="structured-list-td structured-list-content--nowrap middle">
                 Telephone
               </div>
               <div className="structured-list-td -pl-600">
@@ -164,10 +159,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             </div>
 
             <div className="structured-list-row ">
-              <div
-                style={{ verticalAlign: 'middle' }}
-                className="structured-list-td structured-list-content--nowrap"
-              >
+              <div className="structured-list-td structured-list-content--nowrap middle">
                 Email
               </div>
               <div className="structured-list-td -pl-600">{email}</div>
