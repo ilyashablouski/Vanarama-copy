@@ -3,6 +3,7 @@ import Footer from '@vanarama/uibook/lib/components/organisms/footer';
 import { AppProps } from 'next/app';
 import { Router } from 'next/router';
 import { useEffect } from 'react';
+import './account/styles.scss';
 import { PHONE_NUMBER_LINK, TOP_BAR_LINKS } from '../models/enum/HeaderLinks';
 
 import Header from '../components/Header/Header';

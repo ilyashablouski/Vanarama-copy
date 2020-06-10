@@ -4,6 +4,7 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Card from '@vanarama/uibook/lib/components/molecules/card';
 import { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
 import RouterLink from '../../../components/RouterLink/RouterLink';
@@ -23,6 +24,9 @@ const PATH = {
 
 export const MyDetailsPage: NextPage<IProps> = () => {
   const [resetPassword, setResetPassword] = useState(false);
+
+  const router = useRouter();
+  const uuid = router.query.uuid as string;
 
   return (
     <>
@@ -72,11 +76,13 @@ export const MyDetailsPage: NextPage<IProps> = () => {
           </Card>
         </div>
       </div>
-      <div className="row:my-details">
-        <div className="my-details--form" style={{ gridColumnEnd: 6 }}>
-          <PersonalInformationFormContainer personUuid="eef3eade-3110-4e77-8330-a313e6647cb3" />
+      <div className="row:my-details personalInformation">
+        <div className="my-details--form">
+          <PersonalInformationFormContainer
+            personUuid={uuid || 'eef3eade-3110-4e77-8330-a313e6647cb3'}
+          />
         </div>
-        <div className="my-details--form " style={{ gridColumnStart: 7 }}>
+        <div className="my-details--form">
           <Heading tag="span" size="large" color="black" className="-mb-300">
             Password
           </Heading>
