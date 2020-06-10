@@ -9,6 +9,7 @@ import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import withApollo from '../../../hocs/withApollo';
+import PasswordResetContainer from '../../../containers/PasswordResetContainer/PasswordResetContainer';
 import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
 
 interface IProps {
@@ -46,9 +47,11 @@ export const MyDetailsPage: NextPage<IProps> = () => {
           <Card
             title={{
               title: 'My Orders',
-              description: `You have ${(<b>(0)</b>)} orders.`,
             }}
           >
+            <Text tag="span" size="regular" color="dark">
+              You have <b>(0)</b> orders.
+            </Text>
             <RouterLink
               classNames={{
                 color: 'teal',
@@ -62,9 +65,11 @@ export const MyDetailsPage: NextPage<IProps> = () => {
           <Card
             title={{
               title: 'My Quotes',
-              description: `You have ${(<b>(0)</b>)} quotes.`,
             }}
           >
+            <Text tag="span" size="regular" color="dark">
+              You have <b>(0)</b> quotes.
+            </Text>
             <RouterLink
               classNames={{
                 color: 'teal',
@@ -86,7 +91,7 @@ export const MyDetailsPage: NextPage<IProps> = () => {
           <Heading tag="span" size="large" color="black" className="-mb-300">
             Password
           </Heading>
-          {!resetPassword && (
+          {!resetPassword ? (
             <div className="form">
               <Text>
                 Excepteur fugiat pariatur officia aliquip ex enim culpa
@@ -101,6 +106,12 @@ export const MyDetailsPage: NextPage<IProps> = () => {
                 />
               </div>
             </div>
+          ) : (
+            <PasswordResetContainer
+              oldPassword
+              code={'123'!}
+              username="aasdf@gmail.com"
+            />
           )}
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
@@ -24,6 +25,7 @@ const PasswordResetContainer = ({
   username,
   code,
   onSubmit,
+  oldPassword,
 }: IResetPasswordFormProps) => {
   const { handleSubmit, errors, watch, register } = useForm<
     IResetPasswordFormValues
@@ -45,24 +47,52 @@ const PasswordResetContainer = ({
       invalid={error}
       onSubmit={handleSubmit(onHandleSubmit)}
     >
-      {error && (
-        <FormError dataTestId="login-form_error">
-          Please request a verification code again
-        </FormError>
+      {!oldPassword ? (
+        <>
+          {error && (
+            <FormError dataTestId="login-form_error">
+              Please request a verification code again
+            </FormError>
+          )}
+          <Formgroup
+            controlId="password-reset-form_code"
+            label="Verification Code"
+            error={errors.code?.message?.toString()}
+          >
+            <TextInput
+              id="password-reset-form_code"
+              dataTestId="password-reset-form_code"
+              name="code"
+              ref={register(
+                requiredField('Your Verification сode is required'),
+              )}
+              width={23}
+            />
+          </Formgroup>
+        </>
+      ) : (
+        <>
+          {error && (
+            <FormError dataTestId="login-form_error">
+              Your old password seems incorrect. Reset your password here
+            </FormError>
+          )}
+          <Formgroup
+            controlId="password-reset-form_code"
+            label="Old Password"
+            error={errors.code?.message?.toString()}
+          >
+            <TextInput
+              id="password-reset-form_code"
+              dataTestId="password-reset-form_code"
+              name="code"
+              type="password"
+              ref={register(requiredField('Please fill in your Old Password'))}
+            />
+          </Formgroup>
+        </>
       )}
-      <Formgroup
-        controlId="password-reset-form_code"
-        label="Verification Code"
-        error={errors.code?.message?.toString()}
-      >
-        <TextInput
-          id="password-reset-form_code"
-          dataTestId="password-reset-form_code"
-          name="code"
-          ref={register(requiredField('Your Verification сode is required'))}
-          width={23}
-        />
-      </Formgroup>
+
       <Formgroup
         controlId="password-reset-form_new-pass"
         label="New Password"
@@ -74,12 +104,19 @@ const PasswordResetContainer = ({
           name="password"
           ref={register(passwordValidator)}
           type="password"
-          width={30}
+          width={!oldPassword ? 30 : undefined}
         />
       </Formgroup>
-      <Details summary="Password Requirements">
-        <PasswordRequirements />
-      </Details>
+      {oldPassword ? (
+        <Text size="small" color="dark">
+          Must be 8 characters long, contain at least 1 number, contain
+          uppercase letters and contain lowercase letters.
+        </Text>
+      ) : (
+        <Details summary="Password Requirements">
+          <PasswordRequirements />
+        </Details>
+      )}
       <Formgroup
         controlId="password-reset-form_confirm-pass"
         label="Repeat Password"
@@ -91,15 +128,21 @@ const PasswordResetContainer = ({
           name="confirmPass"
           ref={register(confirmPasswordValidator(watchPassword))}
           type="password"
-          width={30}
+          width={!oldPassword ? 30 : undefined}
         />
       </Formgroup>
       <Button
         dataTestId="password-reset-form_submit"
         type="submit"
-        label={isSubmitting ? 'Loading...' : 'Submit'}
+        label={
+          isSubmitting
+            ? 'Loading...'
+            : oldPassword
+            ? 'Save New Password'
+            : 'Submit'
+        }
         disabled={isSubmitting}
-        icon={<ArrowForwardSharp />}
+        icon={!oldPassword && <ArrowForwardSharp />}
         iconColor="white"
         iconPosition="after"
         color="primary"

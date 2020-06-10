@@ -47,7 +47,10 @@ const PersonalInformation = ({ person, submit }: IProps) => {
         <section className="structured-list  -styled-headers">
           <div className="structured-list-tbody">
             <div className="structured-list-row">
-              <div className="structured-list-td structured-list-content--nowrap middle">
+              <div
+                style={{ verticalAlign: 'middle' }}
+                className="structured-list-td structured-list-content--nowrap"
+              >
                 First Name
               </div>
               <div className="structured-list-td -pl-600">
@@ -63,7 +66,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
                       type="text"
                       ref={register}
                       dataTestId="personFirstName"
-                      width={35}
+                      width={30}
                     />
                   </FormGroup>
                 ) : (
@@ -73,7 +76,10 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             </div>
 
             <div className="structured-list-row">
-              <div className="structured-list-td structured-list-content--nowrap middle">
+              <div
+                style={{ verticalAlign: 'middle' }}
+                className="structured-list-td structured-list-content--nowrap middle"
+              >
                 Last Name
               </div>
               <div className="structured-list-td -pl-600">
@@ -89,7 +95,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
                       type="text"
                       ref={register}
                       dataTestId="personLastName"
-                      width={35}
+                      width={30}
                     />
                   </FormGroup>
                 ) : (
@@ -118,7 +124,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
                     >
                       <AddressFinder.Input
                         id="empty"
-                        width={35}
+                        width={30}
                         dataTestId="input_adress_person_information"
                       />
                       <AddressFinder.Selected dataTestId="adress_person_information__edit" />
@@ -133,7 +139,10 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             </div>
 
             <div className="structured-list-row ">
-              <div className="structured-list-td structured-list-content--nowrap middle">
+              <div
+                style={{ verticalAlign: 'middle' }}
+                className="structured-list-td structured-list-content--nowrap middle"
+              >
                 Telephone
               </div>
               <div className="structured-list-td -pl-600">
@@ -149,7 +158,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
                       type="tel"
                       ref={register}
                       dataTestId="personMobile"
-                      width={35}
+                      width={30}
                     />
                   </FormGroup>
                 ) : (
@@ -159,7 +168,10 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             </div>
 
             <div className="structured-list-row ">
-              <div className="structured-list-td structured-list-content--nowrap middle">
+              <div
+                style={{ verticalAlign: 'middle' }}
+                className="structured-list-td structured-list-content--nowrap middle"
+              >
                 Email
               </div>
               <div className="structured-list-td -pl-600">{email}</div>
