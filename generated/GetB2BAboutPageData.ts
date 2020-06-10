@@ -13,16 +13,9 @@ export interface GetB2BAboutPageData_allDropDowns_titles {
   favourites: string[];
 }
 
-export interface GetB2BAboutPageData_allDropDowns_companyTypes {
-  __typename: "DropDownDataType";
-  data: string[];
-  favourites: string[];
-}
-
 export interface GetB2BAboutPageData_allDropDowns {
   __typename: "DropDownType";
   titles: GetB2BAboutPageData_allDropDowns_titles;
-  companyTypes: GetB2BAboutPageData_allDropDowns_companyTypes;
 }
 
 export interface GetB2BAboutPageData {
