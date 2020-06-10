@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
-const ALL_HOME_CONTENT = gql`
-  query HomePageData {
+const ALL_HUB_CONTENT = gql`
+  query HubPageData {
     homePage {
       sections {
         hero {
@@ -17,18 +17,6 @@ const ALL_HOME_CONTENT = gql`
         leadText {
           heading
           description
-        }
-        cards {
-          name
-          cards {
-            title
-            body
-            image {
-              file {
-                url
-              }
-            }
-          }
         }
         featured1 {
           title
@@ -57,4 +45,4 @@ const ALL_HOME_CONTENT = gql`
 `;
 
 // eslint-disable-next-line import/prefer-default-export
-export { ALL_HOME_CONTENT };
+export { ALL_HUB_CONTENT };

@@ -34,12 +34,12 @@ import {
   HomePageData_homePage_sections_cards_cards as CardData,
 } from '../../generated/HomePageData';
 import Hero, { HeroHeading, HeroTitle } from '../components/Hero';
-import { ALL_CONTENT } from '../gql/homepage';
+import { ALL_HOME_CONTENT } from '../gql/homepage';
 import withApollo from '../hocs/withApollo';
 
 export const HomePage: NextPage = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const { data, loading, error } = useQuery<HomePageData>(ALL_CONTENT);
+  const { data, loading, error } = useQuery<HomePageData>(ALL_HOME_CONTENT);
   if (loading) {
     return <Loading size="large" />;
   }
