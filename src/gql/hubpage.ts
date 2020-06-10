@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-const ALL_HUB_CONTENT = gql`
+const HUB_VAN_CONTENT = gql`
   query HubPageData {
     homePage {
       sections {
@@ -45,4 +45,4 @@ const ALL_HUB_CONTENT = gql`
 `;
 
 // eslint-disable-next-line import/prefer-default-export
-export { ALL_HUB_CONTENT };
+export { HUB_VAN_CONTENT };

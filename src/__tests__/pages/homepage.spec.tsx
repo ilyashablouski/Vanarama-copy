@@ -2,7 +2,7 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { HomePageData } from '../../../generated/HomePageData';
-import { ALL_CONTENT } from '../../gql/homepage';
+import { ALL_HOME_CONTENT } from '../../gql/homepage';
 import { HomePage } from '../../pages';
 
 require('dotenv').config();
@@ -12,7 +12,7 @@ describe('<HomePage />', () => {
     const mocked: MockedResponse[] = [
       {
         request: {
-          query: ALL_CONTENT,
+          query: ALL_HOME_CONTENT,
         },
         result: {
           data: {
