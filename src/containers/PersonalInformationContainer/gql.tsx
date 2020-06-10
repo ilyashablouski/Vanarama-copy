@@ -1,12 +1,11 @@
-import { useMutation, useQuery, gql } from '@apollo/client';
-
+import { gql, useMutation, useQuery } from '@apollo/client';
 import {
-  CreateUpdatePersonMutation as Mutation,
-  CreateUpdatePersonMutationVariables as MutationVariables,
-} from '../../../generated/CreateUpdatePersonMutation';
+  CreateUpdatePersonalInformationMutation as Mutation,
+  CreateUpdatePersonalInformationMutationVariables as MutationVariables,
+} from '../../../generated/CreateUpdatePersonalInformationMutation';
 
 export const CREATE_UPDATE_PERSON = gql`
-  mutation CreateUpdatePersonMutation($input: PersonInputObject!) {
+  mutation CreateUpdatePersonalInformationMutation($input: PersonInputObject!) {
     createUpdatePerson(input: $input) {
       uuid
       firstName
@@ -68,10 +67,10 @@ export const GET_PERSON_INFORMATION_DATA = gql`
   }
 `;
 
-export function usePersonalInformationData(personByUuid?: string) {
+export function usePersonalInformationData(personByUuid: string) {
   return useQuery(GET_PERSON_INFORMATION_DATA, {
     variables: {
-      uuid: personByUuid || '🐔',
+      uuid: personByUuid,
     },
   });
 }

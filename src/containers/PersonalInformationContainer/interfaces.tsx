@@ -2,7 +2,7 @@ import { CreateUpdatePersonMutation as Mutation } from '../../../generated/Creat
 
 export interface IProps {
   onCompleted?: (data: Mutation) => void;
-  personUuid?: string;
+  personUuid: string;
 }
 
 export interface IAddressPerson {

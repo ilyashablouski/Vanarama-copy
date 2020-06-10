@@ -87,7 +87,7 @@ export interface EmailAddressInputObject {
   partyId?: string | null;
   primary?: boolean | null;
   uuid?: string | null;
-  value?: string;
+  value: string;
 }
 
 /**
