@@ -181,7 +181,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({ dropDownData }) => {
           dataTestId="about-you_company-type"
           ref={register({ required: 'Please select a type of company' })}
         >
-          <option value="Limited">Limited</option>
+          <option value="limited">Limited</option>
         </Select>
       </Formgroup>
       <hr className="-mv-400" />
@@ -241,11 +241,6 @@ BusinessAboutForm.fragments = {
     fragment BusinessAboutFormDropDownData on DropDownType {
       __typename
       titles {
-        __typename
-        data
-        favourites
-      }
-      companyTypes {
         __typename
         data
         favourites
