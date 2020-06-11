@@ -53,7 +53,7 @@ const CarDetailsPage: NextPage<IProps> = () => {
 
   return (
     <div className="dpd-content -pt-500">
-      <div style={{ maxWidth: 700 }} dataTestId="carDetailsWrapper">
+      <div style={{ maxWidth: 700 }} data-testid="carDetailsWrapper">
         <Breadcrumb items={PATH.items} />
         <Heading className="-pt-100" tag="span" size="xlarge" color="black">
           {vehicleConfigurationByCapId?.capManufacturerDescription}
