@@ -2,13 +2,12 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Card from '@vanarama/uibook/lib/components/molecules/card';
 import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
-import RouterLink from '../../../components/RouterLink/RouterLink';
 import withApollo from '../../../hocs/withApollo';
 import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
+import OrderInformationContainer from '../../../containers/OrdersInformation/OrderInformationContainer';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -37,41 +36,10 @@ export const MyDetailsPage: NextPage<IProps> = () => {
           My Details
         </Heading>
       </div>
-      <div className="row:bg-light">
-        <div className="row:cards-3col">
-          <Card
-            title={{
-              title: 'My Orders',
-              description: `You have ${(<b>(0)</b>)} orders.`,
-            }}
-          >
-            <RouterLink
-              classNames={{
-                color: 'teal',
-              }}
-              link={{ href: '/', label: '' }}
-            >
-              View Orders
-            </RouterLink>
-          </Card>
-
-          <Card
-            title={{
-              title: 'My Quotes',
-              description: `You have ${(<b>(0)</b>)} quotes.`,
-            }}
-          >
-            <RouterLink
-              classNames={{
-                color: 'teal',
-              }}
-              link={{ href: '/', label: '' }}
-            >
-              View Quotes
-            </RouterLink>
-          </Card>
-        </div>
-      </div>
+      <OrderInformationContainer
+        uuid="df9b082f-bb2e-4699-9849-d09379cb5de6"
+        partyByUuid="894096e9-7536-4ee7-aac3-2f209681d904"
+      />
       <div className="row:my-details">
         <div className="my-details--form" style={{ gridColumnEnd: 6 }}>
           <PersonalInformationFormContainer personUuid="eef3eade-3110-4e77-8330-a313e6647cb3" />

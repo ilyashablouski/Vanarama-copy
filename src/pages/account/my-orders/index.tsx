@@ -1,28 +1,84 @@
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Card from '@vanarama/uibook/lib/components/molecules/card';
+import Card from '@vanarama/uibook/lib/components/molecules/cards';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
+import TabList from '@vanarama/uibook/lib/components/molecules/tabs/TabList';
+import Tab from '@vanarama/uibook/lib/components/molecules/tabs/Tab';
+import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
 import { NextPage } from 'next';
-import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import withApollo from '../../../hocs/withApollo';
-import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
+import { ordersByPartyUuidData } from '../../../containers/OrdersInformation/gql';
 
-interface IProps {
-  query: ParsedUrlQuery;
-}
+interface IProps {}
 
 const PATH = {
   items: [
     { label: 'Home', href: '/' },
-    { label: 'My Details', href: '/' },
+    { label: 'My Account', href: '/account/my-details' },
+    { label: 'My Orders', href: '/' },
   ],
 };
 
 export const MyOrdersPage: NextPage<IProps> = () => {
-  const [resetPassword, setResetPassword] = useState(false);
+  const [activeTab, setActiveTab] = useState(0);
+  const {
+    data,
+    loading,
+  } = ordersByPartyUuidData('894096e9-7536-4ee7-aac3-2f209681d904', [
+    'credit',
+    'new',
+  ]);
+
+  if (loading) {
+    return <Loading size="large" />;
+  }
+
+  if (!data) {
+    return null;
+  }
+
+  const onChangeTabs = (value: React.SetStateAction<number>) => {
+    setActiveTab(value);
+    switch (value) {
+      case 1:
+      case 2:
+        ordersByPartyUuidData('894096e9-7536-4ee7-aac3-2f209681d904', [
+          'credit',
+        ]);
+        break;
+      default:
+        ordersByPartyUuidData('894096e9-7536-4ee7-aac3-2f209681d904', [
+          'complete',
+          'new',
+          'incomplete',
+        ]);
+        break;
+    }
+  };
+
+  const renderOffers = () => {
+    return data?.ordersByPartyUuid.map((el: any) => (
+      <Card
+        key={el.id}
+        title={{
+          title: el.lineItems[0].vehicleProduct.title || '',
+          description: el.lineItems[0].vehicleProduct.description,
+        }}
+      >
+        <RouterLink
+          classNames={{
+            color: 'teal',
+          }}
+          link={{ href: '/', label: '' }}
+        >
+          View Orders
+        </RouterLink>
+      </Card>
+    ));
+  };
 
   return (
     <>
@@ -34,68 +90,32 @@ export const MyOrdersPage: NextPage<IProps> = () => {
           color="black"
           dataTestId="my-details-heading"
         >
-          My Details
+          My Orders
         </Heading>
       </div>
-      <div className="row:bg-light">
-        <div className="row:cards-3col">
-          <Card
-            title={{
-              title: 'My Orders',
-              description: `You have ${(<b>(0)</b>)} orders.`,
-            }}
+      <div className="row:bg-lighter -thin">
+        <div className="row:results">
+          <Tabs
+            activeIndex={activeTab}
+            onChange={onChangeTabs}
+            variant="alternative"
+            align="center"
           >
-            <RouterLink
-              classNames={{
-                color: 'teal',
-              }}
-              link={{ href: '/', label: '' }}
-            >
-              View Orders
-            </RouterLink>
-          </Card>
-
-          <Card
-            title={{
-              title: 'My Quotes',
-              description: `You have ${(<b>(0)</b>)} quotes.`,
-            }}
-          >
-            <RouterLink
-              classNames={{
-                color: 'teal',
-              }}
-              link={{ href: '/', label: '' }}
-            >
-              View Quotes
-            </RouterLink>
-          </Card>
-        </div>
-      </div>
-      <div className="row:my-details">
-        <div className="my-details--form" style={{ gridColumnEnd: 6 }}>
-          <PersonalInformationFormContainer personUuid="eef3eade-3110-4e77-8330-a313e6647cb3" />
-        </div>
-        <div className="my-details--form " style={{ gridColumnStart: 7 }}>
-          <Heading tag="span" size="large" color="black" className="-mb-300">
-            Password
-          </Heading>
-          {!resetPassword && (
-            <div className="form">
-              <Text>
-                Excepteur fugiat pariatur officia aliquip ex enim culpa
-                voluptate eu deserunt labore sit dolore sit proident velit esse
-                adipisicing deserunt velit elit sunt mollit Lorem
-              </Text>
-              <div className="-pt-300 -pb-300">
-                <Button
-                  label="Change Password"
-                  color="teal"
-                  onClick={() => setResetPassword(true)}
-                />
-              </div>
-            </div>
-          )}
+            <TabList className="lead">
+              <Tab index={0}>All Orders</Tab>
+              <Tab index={1}>Complete</Tab>
+              <Tab index={2}>Incomplete</Tab>
+            </TabList>
+            <TabPanel index={0}>
+              <div className="row:cards-1col">{renderOffers()}</div>
+            </TabPanel>
+            <TabPanel index={1}>
+              <div className="row:cards-1col">{renderOffers()}</div>
+            </TabPanel>
+            <TabPanel index={2}>
+              <div className="row:cards-1col">{renderOffers()}</div>
+            </TabPanel>
+          </Tabs>
         </div>
       </div>
     </>
