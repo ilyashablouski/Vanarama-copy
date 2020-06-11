@@ -2511,10 +2511,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@5.8.0":
-  version "5.8.0"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.8.0.tgz#e56c724409a137d18b8e18146faa873fe0b1c98f"
-  integrity sha512-SjTjuQe66m5jEyYHi4XhBhSIP54LZwE/exDHQVyEehhT4nZTDZUnlmeSX9/Bk9bqG4oCqF/tbDMXryhWzyLVFw==
+"@vanarama/uibook@5.8.1":
+  version "5.8.1"
+  resolved "https://registry.npmjs.org/@vanarama/uibook/-/uibook-5.8.1.tgz#3847993386ba8f86982842ae7c3eff77808ff687"
+  integrity sha512-6ZCC6dYqFqK2zpnXff7HzKiy373hsrNjPUyCPP0QP67gBSIs+3WwHDcVLSeFPxrAeybqxbMS3oUOymhzyGYylQ==
   dependencies:
     "@babel/preset-typescript" "^7.8.3"
     "@egjs/flicking" "^3.4.7"
