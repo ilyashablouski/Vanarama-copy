@@ -1,11 +1,11 @@
 import ChevronDownSharp from '@vanarama/uibook/lib/assets/icons/ChevronDownSharp';
 import ChevronUpSharp from '@vanarama/uibook/lib/assets/icons/ChevronUpSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
+import OlafCard from '@vanarama/uibook/lib/components/molecules/cards/OlafCard/OlafCard';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
-import OLAFAsideContainer from '../../containers/OLAFAsideContainer/OLAFAsideContainer';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 
 const OLAFLayout: React.FC = ({ children }) => {
@@ -28,7 +28,35 @@ const OLAFLayout: React.FC = ({ children }) => {
       )}
       <div className="row:olaf">
         {children}
-        {showAside && <OLAFAsideContainer />}
+        {showAside && (
+          <div className="olaf-aside">
+            <OlafCard
+              header={{ text: '14-21 Days Delivery' }}
+              olafDetails={{
+                annualMileage: '6000 miles',
+                color: 'Solid - Polar white',
+                contractLength: '60 months',
+                fuel: 'Petrol',
+                initailRental: '£815.70 (inc VAT)',
+                price: 209,
+                transmission: 'Manual',
+                trim: 'Cloth - Black',
+                priceDescription: 'Per Month ex. VAT',
+                description:
+                  '59 month contact (inc VAT). Paid by Direct Debit. First due ≈ 10 days after delivery.',
+                annualMileageBooster: 'Extra 600 miles FREE',
+                damageCover: 'Included',
+                maintenance: 'No',
+              }}
+              imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/KiaeNiro0219_j7on5z.jpg"
+              title={{
+                title: 'FIAT 500 Hatchback',
+                description: '1.4T ecoTEC Elite Nav 5dr',
+                score: 4.5,
+              }}
+            />
+          </div>
+        )}
       </div>
     </>
   );
