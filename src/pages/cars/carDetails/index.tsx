@@ -26,8 +26,8 @@ const PATH = {
   ],
 };
 
-const CarPage: NextPage<IProps> = () => {
-  const { data, loading, error } = useCarData(84429, 84429, 'CAR');
+const CarDetailsPage: NextPage<IProps> = () => {
+  const { data, loading, error } = useCarData(84429, 'CAR');
 
   if (loading) {
     return (
@@ -53,9 +53,9 @@ const CarPage: NextPage<IProps> = () => {
 
   return (
     <div className="dpd-content -pt-500">
-      <div style={{ maxWidth: 700 }}>
+      <div style={{ maxWidth: 700 }} dataTestId="carDetailsWrapper">
         <Breadcrumb items={PATH.items} />
-        <Heading tag="span" size="xlarge" color="black">
+        <Heading className="-pt-100" tag="span" size="xlarge" color="black">
           {vehicleConfigurationByCapId?.capManufacturerDescription}
         </Heading>
         <Text tag="span" size="lead" color="darker">
@@ -79,7 +79,7 @@ const CarPage: NextPage<IProps> = () => {
               flag={{
                 accentIcon: <Icon icon={<Flame />} color="white" />,
                 accentText: 'Hot Deal',
-                text: 'dealText',
+                text: '14 - 21 Days Delivery',
                 incomplete: true,
               }}
               images={[
@@ -99,4 +99,4 @@ const CarPage: NextPage<IProps> = () => {
   );
 };
 
-export default withApollo(CarPage);
+export default withApollo(CarDetailsPage);

@@ -22,32 +22,18 @@ export const GET_CAR_DATA = gql`
     }
     vehicleDetails(capId: $capIdDetails, vehicleType: $vehicleType) {
       averageRating
-      warranty
       brochureUrl
-      # keyInformation
-      customerReview {
-        name
-        rating
-      }
-      relatedVehicle {
-        capId
-      }s
-      independentReview
     }
   }
 `;
 
-export function useCarData(
-  capId: number,
-  capIdDetails: number,
-  vehicleType: 'CAR' | 'LCV',
-) {
+export function useCarData(capId: number, vehicleType: 'CAR' | 'LCV') {
   return useQuery<GetAboutCarDataQuery, GetAboutCarDataQueryVariables>(
     GET_CAR_DATA,
     {
       variables: {
         capId,
-        capIdDetails,
+        capIdDetails: capId,
         vehicleType,
       },
     },

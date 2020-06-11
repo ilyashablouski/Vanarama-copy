@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CarDetailsPage /> renders correctly with error 1`] = `
+<div
+  className="page:bg-light"
+  style={
+    Object {
+      "alignItems": "center",
+      "minHeight": "40rem",
+    }
+  }
+>
+  <div
+    className="loading -xlarge"
+  >
+    <svg
+      className="loading--svg"
+      viewBox="-75 -75 150 150"
+    >
+      <circle
+        className="loading--stroke"
+        cx="0"
+        cy="0"
+        r="37.5"
+      />
+    </svg>
+  </div>
+</div>
+`;
