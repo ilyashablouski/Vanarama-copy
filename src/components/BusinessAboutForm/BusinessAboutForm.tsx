@@ -10,7 +10,7 @@ import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, OnSubmit, useForm } from 'react-hook-form';
 import { BusinessAboutFormDropDownData } from '../../../generated/BusinessAboutFormDropDownData';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { EMAIL_REGEX, WORLDWIDE_MOBILE_REGEX } from '../../utils/regex';
@@ -19,10 +19,14 @@ import { IBusinessAboutFormValues } from './interfaces';
 
 interface IProps {
   dropDownData: BusinessAboutFormDropDownData;
+  onSubmit: OnSubmit<IBusinessAboutFormValues>;
 }
 
-const BusinessAboutForm: FCWithFragments<IProps> = ({ dropDownData }) => {
-  const { control, handleSubmit, errors, register, reset } = useForm<
+const BusinessAboutForm: FCWithFragments<IProps> = ({
+  dropDownData,
+  onSubmit,
+}) => {
+  const { control, formState, handleSubmit, errors, register } = useForm<
     IBusinessAboutFormValues
   >({
     mode: 'onBlur',
@@ -32,14 +36,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({ dropDownData }) => {
   });
 
   return (
-    <Form
-      onSubmit={handleSubmit(() => {
-        // NOTE: temporary until the BE integration is done
-        // eslint-disable-next-line no-alert
-        alert('Form successfully submitted');
-        reset();
-      })}
-    >
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <Heading color="black" dataTestId="about-you_heading" size="xlarge">
         About You
       </Heading>
@@ -134,6 +131,11 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({ dropDownData }) => {
           control={control}
           rules={{
             required: 'Please enter your telephone number',
+            minLength: {
+              value: 11,
+              message:
+                'Oops, this mobile number is too short. Please enter 11 characters or more',
+            },
             maxLength: {
               value: 16,
               message:
@@ -224,11 +226,12 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({ dropDownData }) => {
         className="-mt-400"
         color="teal"
         dataTestId="about-you_continue-button"
+        disabled={formState.isSubmitting}
         fill="solid"
         iconColor="white"
         icon={<ChevronForwardSharp />}
         iconPosition="after"
-        label="Continue"
+        label={formState.isSubmitting ? 'Saving...' : 'Continue'}
         size="large"
         type="submit"
       />
