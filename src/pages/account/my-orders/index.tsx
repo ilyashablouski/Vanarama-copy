@@ -60,7 +60,7 @@ export const MyOrdersPage: NextPage<IProps> = () => {
   };
 
   const renderOffers = () => {
-    return data?.ordersByPartyUuid.map(el => (
+    return data?.ordersByPartyUuid.map((el: any) => (
       <Card
         key={el.id}
         title={{
