@@ -2,9 +2,9 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import Pagination from '@vanarama/uibook/lib/components/atoms/pagination';
 import { NextPage } from 'next';
 import React, { useState } from 'react';
-import ReactPaginate from 'react-paginate';
 import cx from 'classnames';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import withApollo from '../../../hocs/withApollo';
@@ -120,18 +120,14 @@ export const MyOrdersPage: NextPage<IProps> = () => {
             <div className="row:cards-1col">{renderOffers()}</div>
           )}
 
-          <ReactPaginate
-            pageCount={countPages()}
-            pageRangeDisplayed={3}
-            onPageChange={(page: { selected: number }) =>
-              setActivePage(page.selected + 1)
-            }
-            previousLabel={null}
-            nextLabel={null}
-            containerClassName="pagination"
-            pageLinkClassName="link -regular -clear"
-            activeLinkClassName="-teal"
-            marginPagesDisplayed={0}
+          <Pagination
+            path=""
+            pages={[...Array(countPages())].map((el, i) => i + 1)}
+            onClick={el => {
+              el.preventDefault();
+              setActivePage(+el.target.innerText);
+            }}
+            selected={activePage}
           />
         </div>
       </div>
