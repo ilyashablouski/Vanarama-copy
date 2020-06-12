@@ -30,6 +30,7 @@
     "@zeit/next-sass": "^1.0.1",
     "classnames": "^2.2.6",
     "colors": "^1.4.0",
+    "contentful": "^7.14.4",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
