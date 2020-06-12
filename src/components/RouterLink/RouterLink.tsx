@@ -20,15 +20,13 @@ interface IAppLinkProps extends IBaseProps {
 const RouterLink: React.FC<IAppLinkProps> = props => {
   const { link, className, children, replace, onClick, classNames } = props;
 
-  const linkClassName = cx(
-    'link',
-    className,
-    classNames?.color && `-${classNames.color}`,
-    classNames?.size && `-${classNames.size}`,
-    classNames?.position && `-${classNames.position}`,
-    classNames?.plain && '-plain',
-    classNames?.solid && '-solid',
-  );
+  const linkClassName = cx('link', className, {
+    [`-${classNames?.color}`]: classNames?.color,
+    [`-${classNames?.size}`]: classNames?.size,
+    [`-${classNames?.position}`]: classNames?.position,
+    '-plain': classNames?.plain,
+    '-solid': classNames?.solid,
+  });
 
   if (link.linkType === LinkTypes.external || !!link.target) {
     return (

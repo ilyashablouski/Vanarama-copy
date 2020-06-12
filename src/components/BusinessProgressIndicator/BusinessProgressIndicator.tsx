@@ -1,14 +1,43 @@
 import ProgressIndicator from '@vanarama/uibook/lib/components/molecules/progress-indicator';
 import Step from '@vanarama/uibook/lib/components/molecules/progress-indicator/Step';
 import StepLink from '@vanarama/uibook/lib/components/molecules/progress-indicator/StepLink';
-import React from 'react';
+import React, { useMemo } from 'react';
+import NextJsLink from 'next/link';
+import { useRouter } from 'next/router';
 
-const BusinessProgressIndicator: React.FC = () => (
-  <ProgressIndicator activeStep={1}>
-    <Step step={1}>
-      <StepLink label="About You" />
-    </Step>
-  </ProgressIndicator>
-);
+const BusinessProgressIndicator: React.FC = () => {
+  const { pathname, query } = useRouter();
+  const { uuid } = query as { [key: string]: string };
+  const steps = useMemo(() => generateSteps(), []);
+
+  // Work out the current step based on the URL
+  const currentStep = steps.find(x => x.href === pathname)?.step;
+  return (
+    <ProgressIndicator activeStep={currentStep || 0}>
+      {steps.map(({ href, label, step }) => (
+        <Step key={href} step={step}>
+          <NextJsLink href={href} as={href.replace('[uuid]', uuid)} passHref>
+            <StepLink label={label} />
+          </NextJsLink>
+        </Step>
+      ))}
+    </ProgressIndicator>
+  );
+};
+
+function generateSteps() {
+  return [
+    {
+      href: '/b2b/olaf/about',
+      label: 'About You',
+      step: 1,
+    },
+    {
+      href: '/b2b/olaf/company-details/[uuid]',
+      label: 'Company Details',
+      step: 2,
+    },
+  ];
+}
 
 export default BusinessProgressIndicator;
