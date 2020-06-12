@@ -2,7 +2,7 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Card from '@vanarama/uibook/lib/components/molecules/card';
+import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
