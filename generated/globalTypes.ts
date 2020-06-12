@@ -16,6 +16,14 @@ export enum LeaseTypeEnum {
 }
 
 /**
+ * Vehicle type enum
+ */
+export enum VehicleTypeEnum {
+  CAR = "CAR",
+  LCV = "LCV",
+}
+
+/**
  * Input array of addresses create and add an Address
  */
 export interface AddressHistoryInputObject {
