@@ -13,7 +13,6 @@ import Step from '@vanarama/uibook/lib/components/molecules/step';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
 import EligibiltyScore from '@vanarama/uibook/lib/components/atoms/score';
-import Toggle from '@vanarama/uibook/lib/components/atoms/toggle';
 import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
