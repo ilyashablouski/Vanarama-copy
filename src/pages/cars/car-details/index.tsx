@@ -11,7 +11,7 @@ import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import DownloadSharp from '@vanarama/uibook/lib/assets/icons/DownloadSharp';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
 import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-gallery';
-import { useCarData } from './gql';
+import { useCarData } from '../../../gql/carDetailsPage';
 import withApollo from '../../../hocs/withApollo';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 
