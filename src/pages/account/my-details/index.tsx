@@ -20,9 +20,12 @@ const PATH = {
   ],
 };
 
-export const MyDetailsPage: NextPage<IProps> = () => {
+export const MyDetailsPage: NextPage<IProps> = (props: IProps) => {
+  const [state] = useState();
+  const uuid = 'eef3eade-3110-4e77-8330-a313e6647cb3';
   const [resetPassword, setResetPassword] = useState(false);
 
+  console.log(props);
   return (
     <>
       <div className="row:title">
@@ -38,11 +41,11 @@ export const MyDetailsPage: NextPage<IProps> = () => {
       </div>
       <OrderInformationContainer
         uuid="df9b082f-bb2e-4699-9849-d09379cb5de6"
-        partyByUuid="894096e9-7536-4ee7-aac3-2f209681d904"
+        partyByUuid={uuid}
       />
       <div className="row:my-details">
         <div className="my-details--form" style={{ gridColumnEnd: 6 }}>
-          <PersonalInformationFormContainer personUuid="eef3eade-3110-4e77-8330-a313e6647cb3" />
+          <PersonalInformationFormContainer personUuid={uuid} />
         </div>
         <div className="my-details--form " style={{ gridColumnStart: 7 }}>
           <Heading tag="span" size="large" color="black" className="-mb-300">

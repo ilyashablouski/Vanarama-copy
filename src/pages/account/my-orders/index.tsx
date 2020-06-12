@@ -2,15 +2,13 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
-import TabList from '@vanarama/uibook/lib/components/molecules/tabs/TabList';
-import Tab from '@vanarama/uibook/lib/components/molecules/tabs/Tab';
-import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
 import { NextPage } from 'next';
 import React, { useState } from 'react';
+import ReactPaginate from 'react-paginate';
+import cx from 'classnames';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import withApollo from '../../../hocs/withApollo';
-import { ordersByPartyUuidData } from '../../../containers/OrdersInformation/gql';
+import { useOrdersByPartyUuidData } from '../../../containers/OrdersInformation/gql';
 
 interface IProps {}
 
@@ -24,17 +22,14 @@ const PATH = {
 
 export const MyOrdersPage: NextPage<IProps> = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const {
-    data,
-    loading,
-  } = ordersByPartyUuidData('894096e9-7536-4ee7-aac3-2f209681d904', [
-    'credit',
-    'new',
-  ]);
+  const [activePage, setActivePage] = useState(1);
 
-  if (loading) {
-    return <Loading size="large" />;
-  }
+  const [status, changeStatus] = useState([]);
+  const { data, loading } = useOrdersByPartyUuidData(
+    '894096e9-7536-4ee7-aac3-2f209681d904',
+    status,
+    // 'quote',
+  );
 
   if (!data) {
     return null;
@@ -45,22 +40,37 @@ export const MyOrdersPage: NextPage<IProps> = () => {
     switch (value) {
       case 1:
       case 2:
-        ordersByPartyUuidData('894096e9-7536-4ee7-aac3-2f209681d904', [
-          'credit',
-        ]);
+        changeStatus(['credit']);
         break;
       default:
-        ordersByPartyUuidData('894096e9-7536-4ee7-aac3-2f209681d904', [
-          'complete',
-          'new',
-          'incomplete',
-        ]);
+        changeStatus(['credit', 'new']);
         break;
     }
   };
 
+  const hasCreditOrder = () =>
+    !!data?.ordersByPartyUuid.find(el => el.aasmState === 'credit');
+
+  const countPages = () => Math.ceil(data?.ordersByPartyUuid.length / 6);
+
+  const renderChoiceBtn = (index: number, text: string) => (
+    <button
+      className={cx('choicebox', { '-active': activeTab === index })}
+      onClick={() => onChangeTabs(index)}
+      type="button"
+    >
+      {text}
+    </button>
+  );
+
   const renderOffers = () => {
-    return data?.ordersByPartyUuid.map((el: any) => (
+    const indexOfLastOffer = activePage * 6;
+    const indexOfFirstOffer = indexOfLastOffer - 6;
+    const showOffers = data?.ordersByPartyUuid.slice(
+      indexOfFirstOffer,
+      indexOfLastOffer,
+    );
+    return showOffers.map((el: any) => (
       <Card
         key={el.id}
         title={{
@@ -95,27 +105,34 @@ export const MyOrdersPage: NextPage<IProps> = () => {
       </div>
       <div className="row:bg-lighter -thin">
         <div className="row:results">
-          <Tabs
-            activeIndex={activeTab}
-            onChange={onChangeTabs}
-            variant="alternative"
-            align="center"
-          >
-            <TabList className="lead">
-              <Tab index={0}>All Orders</Tab>
-              <Tab index={1}>Complete</Tab>
-              <Tab index={2}>Incomplete</Tab>
-            </TabList>
-            <TabPanel index={0}>
-              <div className="row:cards-1col">{renderOffers()}</div>
-            </TabPanel>
-            <TabPanel index={1}>
-              <div className="row:cards-1col">{renderOffers()}</div>
-            </TabPanel>
-            <TabPanel index={2}>
-              <div className="row:cards-1col">{renderOffers()}</div>
-            </TabPanel>
-          </Tabs>
+          <div className="choiceboxes -teal">
+            {renderChoiceBtn(0, 'All Orders')}
+            {hasCreditOrder() && (
+              <>
+                {renderChoiceBtn(1, 'Complete')}
+                {renderChoiceBtn(2, 'Incomplete')}
+              </>
+            )}
+          </div>
+          {loading ? (
+            <Loading size="large" />
+          ) : (
+            <div className="row:cards-1col">{renderOffers()}</div>
+          )}
+
+          <ReactPaginate
+            pageCount={countPages()}
+            pageRangeDisplayed={3}
+            onPageChange={(page: { selected: number }) =>
+              setActivePage(page.selected + 1)
+            }
+            previousLabel={null}
+            nextLabel={null}
+            containerClassName="pagination"
+            pageLinkClassName="link -regular -clear"
+            activeLinkClassName="-teal"
+            marginPagesDisplayed={0}
+          />
         </div>
       </div>
     </>

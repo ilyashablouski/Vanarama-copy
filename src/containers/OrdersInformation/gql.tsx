@@ -1,4 +1,8 @@
 import { useQuery, gql } from '@apollo/client';
+import {
+  getOrdersByPartyUuid,
+  getOrdersByPartyUuidVariables,
+} from '../../../generated/getOrdersByPartyUuid';
 
 export const GET_ORDERS_BY_PARTY_UUID_DATA = gql`
   query getOrdersByPartyUuid($partyUuid: ID!, $statuses: [String!]) {
@@ -39,15 +43,17 @@ export const GET_ORDERS_BY_PARTY_UUID_DATA = gql`
   }
 `;
 
-export function ordersByPartyUuidData(
+export function useOrdersByPartyUuidData(
   partyByUuid?: string,
   statuses?: string[],
 ) {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  return useQuery(GET_ORDERS_BY_PARTY_UUID_DATA, {
-    variables: {
-      partyUuid: partyByUuid || '',
-      statuses: statuses || [],
+  return useQuery<getOrdersByPartyUuid, getOrdersByPartyUuidVariables>(
+    GET_ORDERS_BY_PARTY_UUID_DATA,
+    {
+      variables: {
+        partyUuid: partyByUuid || '',
+        statuses: statuses || [],
+      },
     },
-  });
+  );
 }

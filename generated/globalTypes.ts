@@ -8,6 +8,14 @@
 //==============================================================
 
 /**
+ * Lease type
+ */
+export enum LeaseTypeEnum {
+  BUSINESS = "BUSINESS",
+  PERSONAL = "PERSONAL",
+}
+
+/**
  * Input array of addresses create and add an Address
  */
 export interface AddressHistoryInputObject {

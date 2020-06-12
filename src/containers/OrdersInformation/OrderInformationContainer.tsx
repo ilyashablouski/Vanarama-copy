@@ -2,11 +2,11 @@ import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React from 'react';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import { ordersByPartyUuidData } from './gql';
+import { useOrdersByPartyUuidData } from './gql';
 import { IProps } from './interfaces';
 
 const OrderInformationContainer: React.FC<IProps> = ({ partyByUuid }) => {
-  const { data, loading } = ordersByPartyUuidData(partyByUuid, [
+  const { data, loading } = useOrdersByPartyUuidData(partyByUuid || '', [
     'complete',
     'new',
     'incomplete',
