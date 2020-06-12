@@ -1,11 +1,12 @@
 import { useQuery, gql } from '@apollo/client';
 import {
-  GetCarDetailsDataQuery,
-  GetCarDetailsDataQueryVariables,
-} from '../../../../generated/GetCarDetailsDaraQuery';
+  GetVehicleDetails,
+  GetVehicleDetailsVariables,
+} from '../../../../generated/GetVehicleDetails';
+import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 
 export const GET_CAR_DATA = gql`
-  query vehicleConfigurationByCapId(
+  query GetVehicleDetails(
     $capId: Int!
     $capIdDetails: ID!
     $vehicleType: VehicleTypeEnum
@@ -27,15 +28,12 @@ export const GET_CAR_DATA = gql`
   }
 `;
 
-export function useCarData(capId: number, vehicleType: 'CAR' | 'LCV') {
-  return useQuery<GetCarDetailsDataQuery, GetCarDetailsDataQueryVariables>(
-    GET_CAR_DATA,
-    {
-      variables: {
-        capId,
-        capIdDetails: capId,
-        vehicleType,
-      },
+export function useCarData(capId: number, vehicleType: VehicleTypeEnum) {
+  return useQuery<GetVehicleDetails, GetVehicleDetailsVariables>(GET_CAR_DATA, {
+    variables: {
+      capId,
+      capIdDetails: `${capId}`,
+      vehicleType,
     },
-  );
+  });
 }
