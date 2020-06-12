@@ -11,7 +11,7 @@ import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import DownloadSharp from '@vanarama/uibook/lib/assets/icons/DownloadSharp';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
 import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-gallery';
-import { useCarData } from '../../../gql/carDetailsPage';
+import { useCarData } from '../../../gql/carpage';
 import withApollo from '../../../hocs/withApollo';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 
@@ -56,7 +56,7 @@ const CarDetailsPage: NextPage<IProps> = () => {
   const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
 
   return (
-    <div className="pdp-content">
+    <div>
       <div className="page:pdp -pt-500" style={{ background: 'none' }}>
         <div style={{ maxWidth: 740 }}>
           <Breadcrumb items={PATH.items} />
