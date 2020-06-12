@@ -13,6 +13,7 @@ import Link from '@vanarama/uibook/lib/components/atoms/link';
 import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-gallery';
 import { useCarData } from './gql';
 import withApollo from '../../../hocs/withApollo';
+import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -27,7 +28,7 @@ const PATH = {
 };
 
 const CarDetailsPage: NextPage<IProps> = () => {
-  const { data, loading, error } = useCarData(84429, 'CAR');
+  const { data, loading, error } = useCarData(84429, VehicleTypeEnum.CAR);
 
   if (loading) {
     return (
