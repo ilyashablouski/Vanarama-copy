@@ -1,3 +1,4 @@
+import { getDataFromTree } from '@apollo/react-ssr';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
@@ -11,15 +12,17 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Step from '@vanarama/uibook/lib/components/molecules/step';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
+import EligibiltyScore from '@vanarama/uibook/lib/components/atoms/score';
+import Toggle from '@vanarama/uibook/lib/components/atoms/toggle';
 import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
 import { NextPage } from 'next';
-import contentful from '../../../contentfulClient';
 import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 import ProductCard from '../../../components/ProductCard/ProductCard';
 import RouterLink from '../../../components/RouterLink/RouterLink';
+import withApollo from '../../../hocs/withApollo';
 
 export const CarsPage: NextPage = () => {
   return (
@@ -40,7 +43,7 @@ export const CarsPage: NextPage = () => {
         />
       </Hero>
 
-      <div className="row:lead-text">
+      <section className="row:lead-text">
         <Heading size="xlarge" color="black">
           Large Sales Heading
         </Heading>
@@ -49,9 +52,41 @@ export const CarsPage: NextPage = () => {
           aspernatur fugiat. Lorem ipsum dolor sit amet consectetur adipisicing
           elit.
         </Text>
-      </div>
+      </section>
 
-      <section className="row:steps-3col">
+      <section className="row:eligibility-checker-cta">
+        <div>...choiceboxes</div>
+        <div>
+          <EligibiltyScore score={75} />
+          <Heading size="large" color="black">
+            Check Your Eligibility For A New Car Lease
+          </Heading>
+          <Button
+            label="Check My Eligibility"
+            size="lead"
+            fill="solid"
+            color="teal"
+          />
+        </div>
+        <div>
+          <Image
+            src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Help-Me-Choose2.jpg"
+            plain
+            size="expand"
+          />
+          <Heading size="large" color="black">
+            Not Sure Which Vehicle Is Best For You?
+          </Heading>
+          <Button
+            label="Help Me Choose"
+            size="lead"
+            fill="solid"
+            color="teal"
+          />
+        </div>
+      </section>
+
+      <section className="row:cards-3col">
         {Array.from(Array(9).keys()).map(val => (
           <ProductCard
             key={val}
@@ -268,10 +303,4 @@ export const CarsPage: NextPage = () => {
   );
 };
 
-export async function getStaticProps() {
-  const entry = await contentful.getEntry('42LjdTY9hSi2YdVi4aEsuO');
-  console.log(entry.fields.templates);
-  return { props: { entry } };
-}
-
-export default CarsPage;
+export default withApollo(CarsPage, { getDataFromTree });
