@@ -15,7 +15,12 @@ const mockDropdownData: BusinessAboutFormDropDownData = {
 describe('BusinessAboutForm', () => {
   it('should show required field validation messages if the user submits without filling the form', async () => {
     // ACT
-    render(<BusinessAboutForm dropDownData={mockDropdownData} />);
+    render(
+      <BusinessAboutForm
+        dropDownData={mockDropdownData}
+        onSubmit={jest.fn()}
+      />,
+    );
 
     fireEvent.click(screen.getByRole('button', { name: /continue/i }));
 
@@ -44,7 +49,12 @@ describe('BusinessAboutForm', () => {
 
   it('should validate the first name field correctly', async () => {
     // ACT
-    render(<BusinessAboutForm dropDownData={mockDropdownData} />);
+    render(
+      <BusinessAboutForm
+        dropDownData={mockDropdownData}
+        onSubmit={jest.fn()}
+      />,
+    );
 
     fireEvent.input(screen.getByRole('textbox', { name: /first name/i }), {
       target: { value: 'A' },
@@ -77,7 +87,12 @@ describe('BusinessAboutForm', () => {
 
   it('should validate the last name field correctly', async () => {
     // ACT
-    render(<BusinessAboutForm dropDownData={mockDropdownData} />);
+    render(
+      <BusinessAboutForm
+        dropDownData={mockDropdownData}
+        onSubmit={jest.fn()}
+      />,
+    );
 
     fireEvent.input(screen.getByRole('textbox', { name: /last name/i }), {
       target: { value: 'A' },
@@ -110,12 +125,17 @@ describe('BusinessAboutForm', () => {
 
   it('should validate the telephone field correctly', async () => {
     // ACT
-    render(<BusinessAboutForm dropDownData={mockDropdownData} />);
+    render(
+      <BusinessAboutForm
+        dropDownData={mockDropdownData}
+        onSubmit={jest.fn()}
+      />,
+    );
 
     fireEvent.input(
       screen.getByRole('textbox', { name: /telephone number/i }),
       {
-        target: { value: '999999' },
+        target: { value: '999999999999' },
       },
     );
 
@@ -145,11 +165,33 @@ describe('BusinessAboutForm', () => {
         ),
       ).toBeInTheDocument();
     });
+
+    fireEvent.input(
+      screen.getByRole('textbox', { name: /telephone number/i }),
+      {
+        target: { value: '0234567890' },
+      },
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: /continue/i }));
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          'Oops, this mobile number is too short. Please enter 11 characters or more',
+        ),
+      ).toBeInTheDocument();
+    });
   });
 
   it('should validate the email field correctly', async () => {
     // ACT
-    render(<BusinessAboutForm dropDownData={mockDropdownData} />);
+    render(
+      <BusinessAboutForm
+        dropDownData={mockDropdownData}
+        onSubmit={jest.fn()}
+      />,
+    );
 
     fireEvent.input(screen.getByRole('textbox', { name: /email address/i }), {
       target: { value: 'fff.bar.com' },
@@ -166,7 +208,12 @@ describe('BusinessAboutForm', () => {
 
   it('should validate the terms and conditions are selected', async () => {
     // ACT
-    render(<BusinessAboutForm dropDownData={mockDropdownData} />);
+    render(
+      <BusinessAboutForm
+        dropDownData={mockDropdownData}
+        onSubmit={jest.fn()}
+      />,
+    );
 
     fireEvent.input(
       screen.getByRole('checkbox', {

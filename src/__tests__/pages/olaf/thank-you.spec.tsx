@@ -7,7 +7,6 @@ jest.mock('next/router', () => ({
   useRouter() {
     return {
       pathname: '/olaf/thank-you',
-      prefetch: () => null,
       push: mockPush,
     };
   },
