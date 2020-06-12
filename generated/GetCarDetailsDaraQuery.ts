@@ -4,7 +4,7 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: GetAboutCarDataQuery
+// GraphQL query operation: GetCarDetailsDataQuery
 // ====================================================
   
   export interface GetCustomerReview {
@@ -16,7 +16,7 @@
     capId?: string;
   }
   
-  export interface GetAboutCarDataQuery_vehicleDetails {
+  export interface GetCarDetailsDataQuery_vehicleDetails {
     averageRating?: number;
     warranty?: string;
     brochureUrl?: string | null;
@@ -25,7 +25,7 @@
     independentReview?: string;
   }
 
-  export interface GetAboutCarDataQuery_vehicleConfigurationByCapId {
+  export interface GetCarDetailsDataQuery_vehicleConfigurationByCapId {
     uuid: string;
     capManufacturerDescription?: string;
     capModelDescription?: string;
@@ -36,12 +36,12 @@
     offerRanking?: number;
   }
   
-  export interface GetAboutCarDataQuery {
-    vehicleDetails: GetAboutCarDataQuery_vehicleDetails | null;
-    vehicleConfigurationByCapId: GetAboutCarDataQuery_vehicleConfigurationByCapId | null;
+  export interface GetCarDetailsDataQuery {
+    vehicleDetails: GetCarDetailsDataQuery_vehicleDetails | null;
+    vehicleConfigurationByCapId: GetCarDetailsDataQuery_vehicleConfigurationByCapId | null;
   }
   
-  export interface GetAboutCarDataQueryVariables {
+  export interface GetCarDetailsDataQueryVariables {
     capId: number;
     capIdDetails: number,
     vehicleType?: 'CAR' | 'LCV';

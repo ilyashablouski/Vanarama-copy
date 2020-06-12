@@ -1,8 +1,8 @@
 import { useQuery, gql } from '@apollo/client';
 import {
-  GetAboutCarDataQuery,
-  GetAboutCarDataQueryVariables,
-} from '../../../../generated/GetAboutCarDaraQuery';
+  GetCarDetailsDataQuery,
+  GetCarDetailsDataQueryVariables,
+} from '../../../../generated/GetCarDetailsDaraQuery';
 
 export const GET_CAR_DATA = gql`
   query vehicleConfigurationByCapId(
@@ -28,7 +28,7 @@ export const GET_CAR_DATA = gql`
 `;
 
 export function useCarData(capId: number, vehicleType: 'CAR' | 'LCV') {
-  return useQuery<GetAboutCarDataQuery, GetAboutCarDataQueryVariables>(
+  return useQuery<GetCarDetailsDataQuery, GetCarDetailsDataQueryVariables>(
     GET_CAR_DATA,
     {
       variables: {

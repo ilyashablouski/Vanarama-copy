@@ -5,10 +5,9 @@ exports[`<CarDetailsPage /> renders correctly with data 1`] = `
   className="dpd-content -pt-500"
 >
   <div
-    data-testid="carDetailsWrapper"
     style={
       Object {
-        "maxWidth": 700,
+        "maxWidth": 740,
       }
     }
   >
@@ -291,6 +290,7 @@ exports[`<CarDetailsPage /> renders correctly with data 1`] = `
       <div
         style={
           Object {
+            "gridColumnEnd": 15,
             "gridColumnStart": 1,
           }
         }
@@ -691,11 +691,13 @@ exports[`<CarDetailsPage /> renders correctly with data 1`] = `
 </div>
 `;
 
-exports[`<CarDetailsPage /> renders correctly with data 2`] = `
+exports[`<CarDetailsPage /> renders correctly with error 1`] = `
 <div
-  className="page:bg-light"
+  className="dpd-content"
   style={
     Object {
+      "alignItems": "center",
+      "display": "flex",
       "minHeight": "40rem",
     }
   }
@@ -704,12 +706,13 @@ exports[`<CarDetailsPage /> renders correctly with data 2`] = `
 </div>
 `;
 
-exports[`<CarDetailsPage /> renders correctly with data 3`] = `
+exports[`<CarDetailsPage /> renders correctly with loading 1`] = `
 <div
-  className="page:bg-light"
+  className="dpd-content"
   style={
     Object {
       "alignItems": "center",
+      "display": "flex",
       "minHeight": "40rem",
     }
   }

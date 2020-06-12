@@ -32,8 +32,8 @@ const CarDetailsPage: NextPage<IProps> = () => {
   if (loading) {
     return (
       <div
-        className="page:bg-light"
-        style={{ minHeight: '40rem', alignItems: 'center' }}
+        className="dpd-content"
+        style={{ minHeight: '40rem', display: 'flex', alignItems: 'center' }}
       >
         <Loading size="xlarge" />
       </div>
@@ -42,7 +42,10 @@ const CarDetailsPage: NextPage<IProps> = () => {
 
   if (error) {
     return (
-      <div className="page:bg-light" style={{ minHeight: '40rem' }}>
+      <div
+        className="dpd-content"
+        style={{ minHeight: '40rem', display: 'flex', alignItems: 'center' }}
+      >
         {error.message}
       </div>
     );
@@ -53,7 +56,7 @@ const CarDetailsPage: NextPage<IProps> = () => {
 
   return (
     <div className="dpd-content -pt-500">
-      <div style={{ maxWidth: 700 }} data-testid="carDetailsWrapper">
+      <div style={{ maxWidth: 740 }}>
         <Breadcrumb items={PATH.items} />
         <Heading className="-pt-100" tag="span" size="xlarge" color="black">
           {vehicleConfigurationByCapId?.capManufacturerDescription}
@@ -74,7 +77,7 @@ const CarDetailsPage: NextPage<IProps> = () => {
           )}
         </div>
         <div className="page:pdp" style={{ background: 'none' }}>
-          <div style={{ gridColumnStart: 1 }}>
+          <div style={{ gridColumnStart: 1, gridColumnEnd: 15 }}>
             <MediaGallery
               flag={{
                 accentIcon: <Icon icon={<Flame />} color="white" />,

@@ -12,7 +12,7 @@ jest.mock('../gql');
 
 describe('<CarDetailsPage />', () => {
   it('renders correctly with data', async () => {
-    useCarData.mockReturnValue({
+    (useCarData as jest.Mock).mockReturnValue({
       loading: false,
       data: {
         vehicleConfigurationByCapId: {
@@ -43,8 +43,8 @@ describe('<CarDetailsPage />', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('renders correctly with data', async () => {
-    useCarData.mockReturnValue({
+  it('renders correctly with error', async () => {
+    (useCarData as jest.Mock).mockReturnValue({
       loading: false,
       data: undefined,
       error: { message: 'Error' },
@@ -58,8 +58,8 @@ describe('<CarDetailsPage />', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('renders correctly with data', async () => {
-    useCarData.mockReturnValue({
+  it('renders correctly with loading', async () => {
+    (useCarData as jest.Mock).mockReturnValue({
       loading: true,
       data: undefined,
       error: undefined,
