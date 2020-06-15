@@ -9,7 +9,8 @@ import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
 import League from '@vanarama/uibook/lib/components/organisms/league';
-import Card from '@vanarama/uibook/lib/components/molecules/card';
+import Card from '@vanarama/uibook/lib/components/molecules/cards';
+import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
 import Slider from '@vanarama/uibook/lib/components/organisms/carousel';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
@@ -20,10 +21,10 @@ import Step from '@vanarama/uibook/lib/components/molecules/step';
 import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
+import Price from '@vanarama/uibook/lib/components/atoms/price';
 
 import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 import DealOfMonth from '../../../components/DealOfMonth';
-import ProductCard from '../../../components/ProductCard/ProductCard';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import withApollo from '../../../hocs/withApollo';
 
@@ -109,10 +110,7 @@ const VansPage: NextPage = () => (
                 ]}
                 imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
                 onCompare={() => true}
-                onViewOffer={() => true}
                 onWishlist={() => true}
-                price={209}
-                priceDescription="Per Month Exc.VAT"
                 title={{
                   title: '',
                   link: (
@@ -125,7 +123,23 @@ const VansPage: NextPage = () => (
                   description: '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
                   score: 4.5,
                 }}
-              />
+              >
+                <div className="-flex-h">
+                  <Price
+                    price={209}
+                    size="large"
+                    separator="."
+                    priceDescription="Per Month Exc.VAT"
+                  />
+                  <Button
+                    color="teal"
+                    fill="solid"
+                    label="View Offer"
+                    onClick={() => true}
+                    size="regular"
+                  />
+                </div>
+              </ProductCard>
             </div>
           ))}
         </Slider>

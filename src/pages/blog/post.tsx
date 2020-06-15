@@ -3,7 +3,7 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Card from '@vanarama/uibook/lib/components/molecules/card';
+import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import BreadCrumbs from '../../containers/BreadCrumbContainer/BreadCrumbContainer';
 import RouterLink from '../../components/RouterLink/RouterLink';
 

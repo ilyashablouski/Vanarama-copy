@@ -157,6 +157,7 @@ pipeline {
                 currentCommit = env.GIT_COMMIT
                     //TO DO - Paramaterise the source function with env variable
                     withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: "${jenkinsCredentialsId}" , secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
                     sh """
                       source ./setup.sh ${envs} ${stack} ${serviceName} ${ecrRegion} ${BRANCH_NAME}
                       docker pull $dockerRepoName:latest || true
@@ -167,6 +168,7 @@ pipeline {
                       docker rmi $dockerRepoName:latest
                     """
                   }
+                }
                }
             }
         }
