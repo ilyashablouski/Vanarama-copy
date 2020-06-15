@@ -9,7 +9,7 @@ import moment from 'moment';
 import { NextPage } from 'next';
 import React, { useState, CSSProperties } from 'react';
 import cx from 'classnames';
-import RouterLink from '../../../components/RouterLink/RouterLink';
+import { useRouter } from 'next/router';
 import withApollo from '../../../hocs/withApollo';
 import {
   useOrdersByPartyUuidData,
@@ -34,15 +34,16 @@ const PATH = {
   ],
 };
 
-export const MyOrdersPage: NextPage = () => {
-  const partyByUuid = PARTY_BY_UUID;
+const MyOrdersPage: NextPage = () => {
+  const router = useRouter();
+  const partyByUuid = (router.query.partyByUuid as string) || PARTY_BY_UUID;
 
   const [activeTab, setActiveTab] = useState(0);
   const [activePage, setActivePage] = useState(1);
   const [status, changeStatus] = useState(undefined as any);
 
   const { data, loading } = useOrdersByPartyUuidData(partyByUuid, status, [
-    'quote',
+    // 'quote',
   ]);
 
   const capIdArray =
@@ -90,16 +91,10 @@ export const MyOrdersPage: NextPage = () => {
       orderButton: (
         <Button
           color="teal"
-          label={
-            <RouterLink
-              classNames={{
-                color: 'white',
-              }}
-              link={{ href: '#', label: '' }}
-            >
-              View Orders
-            </RouterLink>
-          }
+          label="View Orders"
+          onClick={() => {
+            router.push('/');
+          }}
         />
       ),
     };
@@ -135,7 +130,7 @@ export const MyOrdersPage: NextPage = () => {
     const showOffers =
       data?.ordersByPartyUuid.slice(indexOfFirstOffer, indexOfLastOffer) || [];
     return showOffers.map((el: GetOrdersByPartyUuid_ordersByPartyUuid) => {
-      const derivative = dataCars.data?.derivatives?.find(
+      const derivative = dataCars?.data?.derivatives?.find(
         (der: { id: string }) => der.id,
       );
       return (

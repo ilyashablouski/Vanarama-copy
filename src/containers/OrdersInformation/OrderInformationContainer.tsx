@@ -25,6 +25,7 @@ const OrderInformationContainer: React.FC<IProps> = ({ partyByUuid }) => {
             }}
             link={{ href: '/account/my-orders', label: '' }}
             onClick={ev => !haveOrders && ev.preventDefault()}
+            dataTestId="orders-link"
           >
             View Orders
           </RouterLink>
@@ -42,6 +43,7 @@ const OrderInformationContainer: React.FC<IProps> = ({ partyByUuid }) => {
             }}
             link={{ href: '/account/my-quotes', label: '' }}
             onClick={ev => ev.preventDefault()}
+            dataTestId="quotes-link"
           >
             View Quotes
           </RouterLink>

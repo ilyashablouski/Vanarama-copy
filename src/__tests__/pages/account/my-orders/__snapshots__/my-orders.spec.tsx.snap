@@ -1,0 +1,686 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MyOrdersPage /> renders correctly with data 1`] = `
+Array [
+  <div
+    className="row:title"
+  >
+    <nav>
+      <ol
+        className="breadcrumb"
+      >
+        <li
+          className="breadcrumb-item -parent"
+        >
+          <a
+            className="link breadcrumb-item--backlink -teal -small -plain"
+            href="/"
+          >
+            Back to 
+            Home
+            <i
+              className="icon -medium -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="328 112 184 256 328 400"
+                  style={
+                    Object {
+                      "fill": "none",
+                      "stroke": "var(--class-color)",
+                      "strokeLinecap": "round",
+                      "strokeLinejoin": "round",
+                      "strokeWidth": 48,
+                    }
+                  }
+                />
+              </svg>
+            </i>
+          </a>
+          <a
+            className="link breadcrumb-item--parent -teal -small -plain"
+            href="/"
+          >
+            Home
+          </a>
+          <i
+            className="icon -medium -xsmall"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <title>
+                ionicons-v5-a
+              </title>
+              <polyline
+                points="184 112 328 256 184 400"
+                style={
+                  Object {
+                    "fill": "none",
+                    "stroke": "var(--class-color)",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "strokeWidth": 48,
+                  }
+                }
+              />
+            </svg>
+          </i>
+        </li>
+        <li
+          className="breadcrumb-item -parent"
+        >
+          <a
+            className="link breadcrumb-item--backlink -teal -small -plain"
+            href="/account/my-details"
+          >
+            Back to 
+            My Account
+            <i
+              className="icon -medium -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="328 112 184 256 328 400"
+                  style={
+                    Object {
+                      "fill": "none",
+                      "stroke": "var(--class-color)",
+                      "strokeLinecap": "round",
+                      "strokeLinejoin": "round",
+                      "strokeWidth": 48,
+                    }
+                  }
+                />
+              </svg>
+            </i>
+          </a>
+          <a
+            className="link breadcrumb-item--parent -teal -small -plain"
+            href="/account/my-details"
+          >
+            My Account
+          </a>
+          <i
+            className="icon -medium -xsmall"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <title>
+                ionicons-v5-a
+              </title>
+              <polyline
+                points="184 112 328 256 184 400"
+                style={
+                  Object {
+                    "fill": "none",
+                    "stroke": "var(--class-color)",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "strokeWidth": 48,
+                  }
+                }
+              />
+            </svg>
+          </i>
+        </li>
+        <li
+          className="breadcrumb-item -child"
+        >
+          <span
+            className="text breadcrumb-item--child -small -darker"
+          >
+            My Orders
+          </span>
+        </li>
+      </ol>
+    </nav>
+    <h1
+      className="heading -black -xlarge"
+      data-testid="my-details-heading"
+    >
+      My Orders
+    </h1>
+  </div>,
+  <div
+    className="row:bg-lighter -thin"
+  >
+    <div
+      className="row:results"
+    >
+      <div
+        className="choiceboxes -teal"
+      >
+        <button
+          className="choicebox -active"
+          onClick={[Function]}
+          type="button"
+        >
+          All Orders
+        </button>
+      </div>
+      <div
+        className="row:cards-1col"
+      >
+        <div
+          className="card -inline"
+          data-testid="card"
+          style={
+            Object {
+              "--img-w": "300px",
+            }
+          }
+        >
+          <img
+            alt="img"
+            className="card-image"
+            data-testid="card-image"
+            src="https://source.unsplash.com/collection/2102317/1000x650?sig=40344"
+          />
+          <div
+            className="title"
+          >
+            <span
+              className="heading -black -lead"
+            >
+              manufacturerName modelName
+            </span>
+            <span
+              className="heading -dark -small"
+            >
+              name
+            </span>
+          </div>
+          <div
+            className="spec-list"
+          >
+            <span>
+              Available
+               
+              Now
+            </span>
+            <span>
+              Initial Rental
+               
+              £100 (inc. VAT)
+            </span>
+            <span>
+              Contract Length
+               
+              100 month
+            </span>
+            <span>
+              Annual Mileage
+               
+              100
+            </span>
+            <span>
+              Maintanence
+               
+              No
+            </span>
+            <span>
+              Fuel
+               
+              fuelTypeName
+            </span>
+            <span>
+              Transmission
+               
+              transmissionName
+            </span>
+            <span>
+              Color
+               
+              colour
+            </span>
+            <span>
+              Trim
+               
+              trim
+            </span>
+            <hr />
+            <div>
+              <span>
+                Order No:
+              </span>
+              <span>
+                id
+              </span>
+            </div>
+            <div>
+              <span>
+                Date:
+              </span>
+              <span>
+                15.06.2020
+              </span>
+            </div>
+          </div>
+          <div
+            className="-flex-h"
+          >
+            <div
+              className="price -large -black"
+            >
+              <span
+                className="price--sub"
+              >
+                £
+              </span>
+              <span
+                className="price--pounds"
+              >
+                100
+              </span>
+              <span
+                className="price--sub"
+              >
+                .
+                00
+              </span>
+              <div
+                className="price--label"
+              >
+                Per Month Inc.VAT
+              </div>
+            </div>
+            <button
+              className="button -teal -regular -solid"
+              onClick={[Function]}
+            >
+              <div
+                className="button--inner"
+              >
+                View Orders
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        className="pagination"
+      >
+        <a
+          className="link -teal -regular -plain -solid"
+          href="/1"
+          onClick={[Function]}
+        >
+          1
+        </a>
+      </div>
+    </div>
+  </div>,
+]
+`;
+
+exports[`<MyOrdersPage /> renders correctly with error 1`] = `
+Array [
+  <div
+    className="row:title"
+  >
+    <nav>
+      <ol
+        className="breadcrumb"
+      >
+        <li
+          className="breadcrumb-item -parent"
+        >
+          <a
+            className="link breadcrumb-item--backlink -teal -small -plain"
+            href="/"
+          >
+            Back to 
+            Home
+            <i
+              className="icon -medium -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="328 112 184 256 328 400"
+                  style={
+                    Object {
+                      "fill": "none",
+                      "stroke": "var(--class-color)",
+                      "strokeLinecap": "round",
+                      "strokeLinejoin": "round",
+                      "strokeWidth": 48,
+                    }
+                  }
+                />
+              </svg>
+            </i>
+          </a>
+          <a
+            className="link breadcrumb-item--parent -teal -small -plain"
+            href="/"
+          >
+            Home
+          </a>
+          <i
+            className="icon -medium -xsmall"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <title>
+                ionicons-v5-a
+              </title>
+              <polyline
+                points="184 112 328 256 184 400"
+                style={
+                  Object {
+                    "fill": "none",
+                    "stroke": "var(--class-color)",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "strokeWidth": 48,
+                  }
+                }
+              />
+            </svg>
+          </i>
+        </li>
+        <li
+          className="breadcrumb-item -parent"
+        >
+          <a
+            className="link breadcrumb-item--backlink -teal -small -plain"
+            href="/account/my-details"
+          >
+            Back to 
+            My Account
+            <i
+              className="icon -medium -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="328 112 184 256 328 400"
+                  style={
+                    Object {
+                      "fill": "none",
+                      "stroke": "var(--class-color)",
+                      "strokeLinecap": "round",
+                      "strokeLinejoin": "round",
+                      "strokeWidth": 48,
+                    }
+                  }
+                />
+              </svg>
+            </i>
+          </a>
+          <a
+            className="link breadcrumb-item--parent -teal -small -plain"
+            href="/account/my-details"
+          >
+            My Account
+          </a>
+          <i
+            className="icon -medium -xsmall"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <title>
+                ionicons-v5-a
+              </title>
+              <polyline
+                points="184 112 328 256 184 400"
+                style={
+                  Object {
+                    "fill": "none",
+                    "stroke": "var(--class-color)",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "strokeWidth": 48,
+                  }
+                }
+              />
+            </svg>
+          </i>
+        </li>
+        <li
+          className="breadcrumb-item -child"
+        >
+          <span
+            className="text breadcrumb-item--child -small -darker"
+          >
+            My Orders
+          </span>
+        </li>
+      </ol>
+    </nav>
+    <h1
+      className="heading -black -xlarge"
+      data-testid="my-details-heading"
+    >
+      My Orders
+    </h1>
+  </div>,
+  <div
+    className="dpd-content"
+    style={
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "minHeight": "40rem",
+      }
+    }
+  >
+    You have no Orders.
+  </div>,
+]
+`;
+
+exports[`<MyOrdersPage /> renders correctly with loading 1`] = `
+Array [
+  <div
+    className="row:title"
+  >
+    <nav>
+      <ol
+        className="breadcrumb"
+      >
+        <li
+          className="breadcrumb-item -parent"
+        >
+          <a
+            className="link breadcrumb-item--backlink -teal -small -plain"
+            href="/"
+          >
+            Back to 
+            Home
+            <i
+              className="icon -medium -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="328 112 184 256 328 400"
+                  style={
+                    Object {
+                      "fill": "none",
+                      "stroke": "var(--class-color)",
+                      "strokeLinecap": "round",
+                      "strokeLinejoin": "round",
+                      "strokeWidth": 48,
+                    }
+                  }
+                />
+              </svg>
+            </i>
+          </a>
+          <a
+            className="link breadcrumb-item--parent -teal -small -plain"
+            href="/"
+          >
+            Home
+          </a>
+          <i
+            className="icon -medium -xsmall"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <title>
+                ionicons-v5-a
+              </title>
+              <polyline
+                points="184 112 328 256 184 400"
+                style={
+                  Object {
+                    "fill": "none",
+                    "stroke": "var(--class-color)",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "strokeWidth": 48,
+                  }
+                }
+              />
+            </svg>
+          </i>
+        </li>
+        <li
+          className="breadcrumb-item -parent"
+        >
+          <a
+            className="link breadcrumb-item--backlink -teal -small -plain"
+            href="/account/my-details"
+          >
+            Back to 
+            My Account
+            <i
+              className="icon -medium -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="328 112 184 256 328 400"
+                  style={
+                    Object {
+                      "fill": "none",
+                      "stroke": "var(--class-color)",
+                      "strokeLinecap": "round",
+                      "strokeLinejoin": "round",
+                      "strokeWidth": 48,
+                    }
+                  }
+                />
+              </svg>
+            </i>
+          </a>
+          <a
+            className="link breadcrumb-item--parent -teal -small -plain"
+            href="/account/my-details"
+          >
+            My Account
+          </a>
+          <i
+            className="icon -medium -xsmall"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <title>
+                ionicons-v5-a
+              </title>
+              <polyline
+                points="184 112 328 256 184 400"
+                style={
+                  Object {
+                    "fill": "none",
+                    "stroke": "var(--class-color)",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "strokeWidth": 48,
+                  }
+                }
+              />
+            </svg>
+          </i>
+        </li>
+        <li
+          className="breadcrumb-item -child"
+        >
+          <span
+            className="text breadcrumb-item--child -small -darker"
+          >
+            My Orders
+          </span>
+        </li>
+      </ol>
+    </nav>
+    <h1
+      className="heading -black -xlarge"
+      data-testid="my-details-heading"
+    >
+      My Orders
+    </h1>
+  </div>,
+  <div
+    className="dpd-content"
+    style={
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "minHeight": "40rem",
+      }
+    }
+  >
+    You have no Orders.
+  </div>,
+]
+`;
