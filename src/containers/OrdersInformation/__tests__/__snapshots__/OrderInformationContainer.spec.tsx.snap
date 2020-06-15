@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<OrderInformationContainer /> renders correctly with data 1`] = `
+<div
+  className="row:bg-light"
+>
+  <div
+    className="row:cards-3col"
+  >
+    <div
+      className="card"
+      data-testid="card"
+    >
+      <div
+        className="title"
+      >
+        <span
+          className="heading -black -lead"
+        >
+          My Orders
+        </span>
+        <span
+          className="heading -dark -small"
+        >
+          You have (1) orders.
+        </span>
+      </div>
+      <a
+        className="link -teal"
+        data-testid="orders-link"
+        href="/account/my-orders"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+      >
+        View Orders
+      </a>
+    </div>
+    <div
+      className="card"
+      data-testid="card"
+    >
+      <div
+        className="title"
+      >
+        <span
+          className="heading -black -lead"
+        >
+          My Quotes
+        </span>
+        <span
+          className="heading -dark -small"
+        >
+          You have (0) quotes.
+        </span>
+      </div>
+      <a
+        className="link -teal"
+        data-testid="quotes-link"
+        href="/account/my-quotes"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+      >
+        View Quotes
+      </a>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
+<div
+  className="row:bg-light"
+>
+  <div
+    className="row:cards-3col"
+  >
+    <div
+      className="card"
+      data-testid="card"
+    >
+      <div
+        className="title"
+      >
+        <span
+          className="heading -black -lead"
+        >
+          My Orders
+        </span>
+        <span
+          className="heading -dark -small"
+        >
+          You have (0) orders.
+        </span>
+      </div>
+      <a
+        className="link -teal"
+        data-testid="orders-link"
+        href="/account/my-orders"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+      >
+        View Orders
+      </a>
+    </div>
+    <div
+      className="card"
+      data-testid="card"
+    >
+      <div
+        className="title"
+      >
+        <span
+          className="heading -black -lead"
+        >
+          My Quotes
+        </span>
+        <span
+          className="heading -dark -small"
+        >
+          You have (0) quotes.
+        </span>
+      </div>
+      <a
+        className="link -teal"
+        data-testid="quotes-link"
+        href="/account/my-quotes"
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+      >
+        View Quotes
+      </a>
+    </div>
+  </div>
+</div>
+`;

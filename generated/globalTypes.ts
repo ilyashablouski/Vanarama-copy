@@ -8,6 +8,14 @@
 //==============================================================
 
 /**
+ * Lease type
+ */
+export enum LeaseTypeEnum {
+  BUSINESS = "BUSINESS",
+  PERSONAL = "PERSONAL",
+}
+
+/**
  * Vehicle type enum
  */
 export enum VehicleTypeEnum {
