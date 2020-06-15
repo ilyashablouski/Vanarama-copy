@@ -43,7 +43,7 @@ const MyOrdersPage: NextPage = () => {
   const [status, changeStatus] = useState(undefined as any);
 
   const { data, loading } = useOrdersByPartyUuidData(partyByUuid, status, [
-    // 'quote',
+    'quote',
   ]);
 
   const capIdArray =
