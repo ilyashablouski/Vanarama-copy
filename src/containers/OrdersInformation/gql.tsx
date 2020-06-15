@@ -1,13 +1,13 @@
 import { useQuery, gql } from '@apollo/client';
-import {
-  GetOrdersByPartyUuid,
-  GetOrdersByPartyUuidVariables,
-} from '../../../generated/GetOrdersByPartyUuid';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import {
   GetDerivatives,
   GetDerivativesVariables,
 } from '../../../generated/GetDerivatives';
+import {
+  GetOrdersByPartyUuid,
+  GetOrdersByPartyUuidVariables,
+} from '../../../generated/GetOrdersByPartyUuid';
 
 export const GET_ORDERS_BY_PARTY_UUID_DATA = gql`
   query GetOrdersByPartyUuid(

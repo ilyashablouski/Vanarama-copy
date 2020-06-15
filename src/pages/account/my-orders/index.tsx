@@ -16,15 +16,15 @@ import {
   useCarDerivativesData,
 } from '../../../containers/OrdersInformation/gql';
 import {
-  GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct,
-  GetOrdersByPartyUuid_ordersByPartyUuid,
-} from '../../../../generated/GetOrdersByPartyUuid';
-import {
   VehicleTypeEnum,
   LeaseTypeEnum,
 } from '../../../../generated/globalTypes';
 import { GetDerivatives_derivatives } from '../../../../generated/GetDerivatives';
 import { PARTY_BY_UUID } from '../my-details';
+import {
+  GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct,
+  GetOrdersByPartyUuid_ordersByPartyUuid,
+} from '../../../../generated/GetOrdersByPartyUuid';
 
 const PATH = {
   items: [
