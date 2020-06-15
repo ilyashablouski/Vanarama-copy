@@ -2,8 +2,8 @@ import { useQuery, gql } from '@apollo/client';
 import {
   GetVehicleDetails,
   GetVehicleDetailsVariables,
-} from '../../../../generated/GetVehicleDetails';
-import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+} from '../../generated/GetVehicleDetails';
+import { VehicleTypeEnum } from '../../generated/globalTypes';
 
 export const GET_CAR_DATA = gql`
   query GetVehicleDetails(
