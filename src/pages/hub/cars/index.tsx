@@ -1,3 +1,4 @@
+import { NextPage } from 'next';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
@@ -21,19 +22,15 @@ import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
-import { NextPage } from 'next';
-/* import {
-  HomePageData,
-  HomePageData_homePage_sections_tiles_tiles as TileData,
-  HomePageData_homePage_sections_cards_cards as CardData,
-} from '../../../../generated/HomePageData'; */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { HubCarPageData } from '../../../../generated/HubCarPageData';
 import { HUB_CAR_CONTENT } from '../../../gql/hubCarPage';
 import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import withApollo from '../../../hocs/withApollo';
 
 export const CarsPage: NextPage = () => {
-  const { data, loading, error } = useQuery<HomePageData>(HUB_CAR_CONTENT);
+  const { data, loading, error } = useQuery(HUB_CAR_CONTENT);
 
   if (loading) {
     return <Loading size="large" />;
@@ -42,10 +39,11 @@ export const CarsPage: NextPage = () => {
   if (error) {
     return <p>Error: {error.message}</p>;
   }
+
   return (
     <>
       <Hero>
-        <HeroHeading>Best Car Lease Deals</HeroHeading>
+        <HeroHeading>{data?.hubCarPage.sections.hero.title}</HeroHeading>
         <br />
         <HeroTitle>
           Brand New Vans, In Stock Delivered Fast and Free
@@ -106,6 +104,7 @@ export const CarsPage: NextPage = () => {
       <section className="row:cards-3col">
         {Array.from(Array(9).keys()).map(val => (
           <ProductCard
+            key={val}
             header={{
               accentIcon: <Icon icon={<Flame />} color="white" />,
               accentText: 'Hot Deal',

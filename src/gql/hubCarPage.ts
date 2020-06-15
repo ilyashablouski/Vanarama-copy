@@ -26,12 +26,6 @@ const HUB_CAR_CONTENT = gql`
           title
           body
         }
-        steps {
-          steps {
-            title
-            body
-          }
-        }
         tiles {
           name
           tiles {
