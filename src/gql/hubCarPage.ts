@@ -27,7 +27,7 @@ const HUB_CAR_CONTENT = gql`
           body
         }
         steps {
-          step {
+          steps {
             title
             body
           }
