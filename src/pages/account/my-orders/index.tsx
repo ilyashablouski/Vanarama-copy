@@ -43,7 +43,7 @@ const MyOrdersPage: NextPage = () => {
   const [status, changeStatus] = useState(undefined as any);
 
   const { data, loading } = useOrdersByPartyUuidData(partyByUuid, status, [
-    'quote',
+    // 'quote',
   ]);
 
   const capIdArray =
@@ -57,8 +57,15 @@ const MyOrdersPage: NextPage = () => {
 
   const dataCars = useCarDerivativesData(capIdArray, VehicleTypeEnum.CAR);
 
-  const hasCreditOrder = () =>
-    !!data?.ordersByPartyUuid.find(el => el.aasmState === 'credit');
+  const hasCreditCompleteOrder = () =>
+    !!data?.ordersByPartyUuid.find(
+      el => el.aasmState === 'credit' && el.lineItems[0].state !== 'draft',
+    );
+
+  const hasCreditIncompleteOrder = () =>
+    !!data?.ordersByPartyUuid.find(
+      el => el.aasmState === 'credit' && el.lineItems[0].state === 'draft',
+    );
   const countPages = () =>
     Math.ceil((data?.ordersByPartyUuid?.length || 0) / 6);
   const pages = [...Array(countPages())].map((_el, i) => i + 1);
@@ -93,7 +100,11 @@ const MyOrdersPage: NextPage = () => {
           color="teal"
           label="View Orders"
           onClick={() => {
-            router.push('/');
+            router.push(
+              leasType === LeaseTypeEnum.PERSONAL
+                ? '/olaf/about'
+                : '/b2b/olaf/about',
+            );
           }}
         />
       ),
@@ -104,11 +115,13 @@ const MyOrdersPage: NextPage = () => {
     setActiveTab(value);
     switch (value) {
       case 1:
-      case 2:
         changeStatus(['credit']);
         break;
+      case 2:
+        changeStatus(['credit', 'draft']);
+        break;
       default:
-        changeStatus(['credit', 'new']);
+        changeStatus([]);
         break;
     }
   };
@@ -151,6 +164,11 @@ const MyOrdersPage: NextPage = () => {
             el.lineItems[0].vehicleProduct!,
             derivative,
           )}
+          header={{
+            text: el.lineItems[0].state === 'draft' ? 'Incomplete' : 'Complete',
+            complete: el.lineItems[0].state !== 'draft',
+            incomplete: el.lineItems[0].state === 'draft',
+          }}
         />
       );
     });
@@ -169,7 +187,7 @@ const MyOrdersPage: NextPage = () => {
           My Orders
         </Heading>
       </div>
-      {!data?.ordersByPartyUuid?.length ? (
+      {!data?.ordersByPartyUuid?.length && !loading ? (
         <div
           className="dpd-content"
           style={{ minHeight: '40rem', display: 'flex', alignItems: 'center' }}
@@ -181,12 +199,8 @@ const MyOrdersPage: NextPage = () => {
           <div className="row:results">
             <div className="choiceboxes -teal">
               {renderChoiceBtn(0, 'All Orders')}
-              {hasCreditOrder() && (
-                <>
-                  {renderChoiceBtn(1, 'Complete')}
-                  {renderChoiceBtn(2, 'Incomplete')}
-                </>
-              )}
+              {hasCreditCompleteOrder() && renderChoiceBtn(1, 'Complete')}
+              {hasCreditIncompleteOrder() && renderChoiceBtn(2, 'Incomplete')}
             </div>
             {loading ? (
               <Loading size="large" />
