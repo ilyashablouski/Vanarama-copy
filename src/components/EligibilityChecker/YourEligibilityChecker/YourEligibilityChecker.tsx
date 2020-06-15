@@ -75,31 +75,29 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
           ref={register}
         />
       </FormGroup>
-      <AddressFinder
-        apiKey={process.env.LOQATE_KEY!}
-        onSuggestionChange={() => {}}
-      >
-        <FormGroup
-          label="Your Postcode or Address"
-          error={errors?.addressFinder?.message?.toString()}
-          className="address-finder"
-        >
-          <Controller
-            name="addressFinder"
-            valueName="selected"
-            onChangeName="onSuggestionChange"
-            as={
-              <>
-                <AddressFinder.Input id="addressFinder" />
-                <AddressFinder.Selected />
-                <AddressFinder.Intermediate />
-                <AddressFinder.Results />
-              </>
-            }
-            control={control}
-          />
-        </FormGroup>
-      </AddressFinder>
+      <Controller
+        name="addressFinder"
+        valueName="selected"
+        onChangeName="onSuggestionChange"
+        as={
+          <AddressFinder
+            apiKey={process.env.LOQATE_KEY!}
+            onSuggestionChange={() => {}}
+          >
+            <FormGroup
+              label="Your Postcode or Address"
+              error={errors?.addressFinder?.message?.toString()}
+              className="address-finder"
+            >
+              <AddressFinder.Input id="addressFinder" />
+              <AddressFinder.Selected />
+              <AddressFinder.Intermediate />
+            </FormGroup>
+            <AddressFinder.Results />
+          </AddressFinder>
+        }
+        control={control}
+      />
       <FormGroup
         controlId="dayOfBirth"
         label="Date of Birth"
