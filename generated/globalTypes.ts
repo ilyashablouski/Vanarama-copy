@@ -8,6 +8,14 @@
 //==============================================================
 
 /**
+ * Vehicle type enum
+ */
+export enum VehicleTypeEnum {
+  CAR = "CAR",
+  LCV = "LCV",
+}
+
+/**
  * Input array of addresses create and add an Address
  */
 export interface AddressHistoryInputObject {
@@ -87,7 +95,7 @@ export interface EmailAddressInputObject {
   partyId?: string | null;
   primary?: boolean | null;
   uuid?: string | null;
-  value?: string;
+  value: string;
 }
 
 /**

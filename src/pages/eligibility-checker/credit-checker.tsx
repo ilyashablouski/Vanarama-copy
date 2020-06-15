@@ -14,7 +14,8 @@ import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
 import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
-import ProductCard from '../../components/ProductCard/ProductCard';
+import Price from '@vanarama/uibook/lib/components/atoms/price';
+import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
 import RouterLink from '../../components/RouterLink/RouterLink';
 
 const CreditChecker: NextPage = () => {
@@ -95,10 +96,7 @@ const CreditChecker: NextPage = () => {
                 ]}
                 imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
                 onCompare={() => true}
-                onViewOffer={() => true}
                 onWishlist={() => true}
-                price={209}
-                priceDescription="Per Month Exc.VAT"
                 title={{
                   title: '',
                   link: (
@@ -111,7 +109,23 @@ const CreditChecker: NextPage = () => {
                   description: '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
                   score: 4.5,
                 }}
-              />
+              >
+                <div className="-flex-h">
+                  <Price
+                    price={209}
+                    size="large"
+                    separator="."
+                    priceDescription="Per Month Exc.VAT"
+                  />
+                  <Button
+                    color="teal"
+                    fill="solid"
+                    label="View Offer"
+                    onClick={() => true}
+                    size="regular"
+                  />
+                </div>
+              </ProductCard>
             </div>
           ))}
         </Slider>

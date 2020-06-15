@@ -1,0 +1,729 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CarDetailsPage /> renders correctly with data 1`] = `
+<div>
+  <div
+    className="page:pdp -pt-500"
+    style={
+      Object {
+        "background": "none",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "maxWidth": 740,
+        }
+      }
+    >
+      <nav>
+        <ol
+          className="breadcrumb"
+        >
+          <li
+            className="breadcrumb-item -parent"
+          >
+            <a
+              className="link breadcrumb-item--backlink -teal -small -plain"
+              href="/"
+            >
+              Back to 
+              Home
+              <i
+                className="icon -medium -xsmall"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-a
+                  </title>
+                  <polyline
+                    points="328 112 184 256 328 400"
+                    style={
+                      Object {
+                        "fill": "none",
+                        "stroke": "var(--class-color)",
+                        "strokeLinecap": "round",
+                        "strokeLinejoin": "round",
+                        "strokeWidth": 48,
+                      }
+                    }
+                  />
+                </svg>
+              </i>
+            </a>
+            <a
+              className="link breadcrumb-item--parent -teal -small -plain"
+              href="/"
+            >
+              Home
+            </a>
+            <i
+              className="icon -medium -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="184 112 328 256 184 400"
+                  style={
+                    Object {
+                      "fill": "none",
+                      "stroke": "var(--class-color)",
+                      "strokeLinecap": "round",
+                      "strokeLinejoin": "round",
+                      "strokeWidth": 48,
+                    }
+                  }
+                />
+              </svg>
+            </i>
+          </li>
+          <li
+            className="breadcrumb-item -parent"
+          >
+            <a
+              className="link breadcrumb-item--backlink -teal -small -plain"
+              href="/"
+            >
+              Back to 
+              Mercedes
+              <i
+                className="icon -medium -xsmall"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-a
+                  </title>
+                  <polyline
+                    points="328 112 184 256 328 400"
+                    style={
+                      Object {
+                        "fill": "none",
+                        "stroke": "var(--class-color)",
+                        "strokeLinecap": "round",
+                        "strokeLinejoin": "round",
+                        "strokeWidth": 48,
+                      }
+                    }
+                  />
+                </svg>
+              </i>
+            </a>
+            <a
+              className="link breadcrumb-item--parent -teal -small -plain"
+              href="/"
+            >
+              Mercedes
+            </a>
+            <i
+              className="icon -medium -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="184 112 328 256 184 400"
+                  style={
+                    Object {
+                      "fill": "none",
+                      "stroke": "var(--class-color)",
+                      "strokeLinecap": "round",
+                      "strokeLinejoin": "round",
+                      "strokeWidth": 48,
+                    }
+                  }
+                />
+              </svg>
+            </i>
+          </li>
+          <li
+            className="breadcrumb-item -child"
+          >
+            <span
+              className="text breadcrumb-item--child -small -darker"
+            >
+              Benz
+            </span>
+          </li>
+        </ol>
+      </nav>
+      <span
+        className="heading -pt-100 -black -xlarge"
+      >
+        Mercedes-Benz
+      </span>
+      <span
+        className="text -lead -darker"
+      >
+        C200 Amg Line Premium 2 Doors 9g-Tronic
+      </span>
+      <div
+        className="-mt-500 -mb-200"
+        style={
+          Object {
+            "display": "flex",
+            "justifyContent": "space-between",
+          }
+        }
+      >
+        <div
+          className="rating -regular -orange"
+        >
+          <span>
+            <i
+              className="icon -orange"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-e
+                </title>
+                <path
+                  d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
+                />
+              </svg>
+            </i>
+          </span>
+          <span>
+            <i
+              className="icon -orange"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-e
+                </title>
+                <path
+                  d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
+                />
+              </svg>
+            </i>
+          </span>
+          <span>
+            <i
+              className="icon -orange"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-e
+                </title>
+                <path
+                  d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
+                />
+              </svg>
+            </i>
+          </span>
+          <span>
+            <i
+              className="icon -orange"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-e
+                </title>
+                <path
+                  d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
+                />
+              </svg>
+            </i>
+          </span>
+          <span>
+            <i
+              className="icon -orange"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-e
+                </title>
+                <path
+                  d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7ZM274.63,347.82,256,334.49V134.39l26,78.91,7.24,22H394.63l-67.32,47.2-19.69,13.81,7.78,22.75,26.26,76.75Z"
+                />
+              </svg>
+            </i>
+          </span>
+          <span
+            className="text -regular -dark"
+          >
+            4.7
+          </span>
+        </div>
+      </div>
+      <div>
+        <div>
+          <nav
+            className="pdp--flag"
+          >
+            <div>
+              <span>
+                14 - 21 Days Delivery
+              </span>
+            </div>
+            <div>
+              <i
+                className="icon"
+              >
+                <i
+                  className="icon -white"
+                >
+                  <svg
+                    height="1em"
+                    viewBox="0 0 512 512"
+                    width="1em"
+                  >
+                    <title>
+                      ionicons-v5-m
+                    </title>
+                    <path
+                      d="M394.23,197.56a300.43,300.43,0,0,0-53.37-90C301.2,61.65,249.05,32,208,32a16,16,0,0,0-15.48,20c13.87,53-14.88,97.07-45.31,143.72C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.23,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,4.95-10.74,10-21.67,13-33.37a8,8,0,0,1,12.49-4.51A126.48,126.48,0,0,1,275,292c18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
+                    />
+                  </svg>
+                </i>
+              </i>
+              <span>
+                Hot Deal
+              </span>
+            </div>
+          </nav>
+          <div
+            className="tabs-wrap"
+          >
+            <div
+              className="tabs__panel -pt-000"
+            >
+              <div
+                aria-labelledby="tab:1-1"
+                className="tabs--active"
+                hidden={false}
+                id="panel:1-1"
+                role="tabpanel"
+              >
+                <div
+                  className="media-gallery"
+                  style={
+                    Object {
+                      "--x": 0,
+                      "--y": 0,
+                    }
+                  }
+                >
+                  <div
+                    className="media-gallery--x-scroll"
+                  >
+                    <div
+                      className="media-gallery--x-track"
+                    >
+                      <div
+                        className="media-gallery--x-track-item -active"
+                      >
+                        <div
+                          className="image -expand -plain"
+                        >
+                          <img
+                            className="image--native"
+                            src="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        className="media-gallery--x-track-item"
+                      >
+                        <div
+                          className="image -expand -plain"
+                        >
+                          <img
+                            className="image--native"
+                            src="https://source.unsplash.com/collection/2102317/1000x650?sig=403425"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        className="media-gallery--x-track-item"
+                      >
+                        <div
+                          className="image -expand -plain"
+                        >
+                          <img
+                            className="image--native"
+                            src="https://source.unsplash.com/collection/2102317/1000x650?sig=403425"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        className="media-gallery--x-track-item"
+                      >
+                        <div
+                          className="image -expand -plain"
+                        >
+                          <img
+                            className="image--native"
+                            src="https://source.unsplash.com/collection/2102317/1000x650?sig=403425"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        className="media-gallery--x-track-item"
+                      >
+                        <div
+                          className="image -expand -plain"
+                        >
+                          <img
+                            className="image--native"
+                            src="https://source.unsplash.com/collection/2102317/1000x650?sig=403425"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        className="media-gallery--x-track-item"
+                      >
+                        <div
+                          className="image -expand -plain"
+                        >
+                          <img
+                            className="image--native"
+                            src="https://source.unsplash.com/collection/2102317/1000x650?sig=403425"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <nav
+                      className="media-gallery--x-scroll-nav"
+                    >
+                      <button
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <i
+                          className="icon md hydrated -orange -lead"
+                        >
+                          <svg
+                            height="1em"
+                            viewBox="0 0 512 512"
+                            width="1em"
+                          >
+                            <title>
+                              ionicons-v5-b
+                            </title>
+                            <path
+                              d="M256,48C141.13,48,48,141.13,48,256s93.13,208,208,208,208-93.13,208-208S370.87,48,256,48Zm62.63,304L296,374.63,177.37,256,296,137.37,318.63,160l-96,96Z"
+                            />
+                          </svg>
+                        </i>
+                      </button>
+                      <button
+                        onClick={[Function]}
+                        type="button"
+                      >
+                        <i
+                          className="icon md hydrated -orange -lead"
+                        >
+                          <svg
+                            height="1em"
+                            viewBox="0 0 512 512"
+                            width="1em"
+                          >
+                            <title>
+                              ionicons-v5-b
+                            </title>
+                            <path
+                              d="M256,48C141.13,48,48,141.13,48,256s93.13,208,208,208,208-93.13,208-208S370.87,48,256,48ZM216,374.63,193.37,352l96-96-96-96L216,137.37,334.63,256Z"
+                            />
+                          </svg>
+                        </i>
+                      </button>
+                    </nav>
+                  </div>
+                  <div
+                    className="media-gallery--y-scroll"
+                  >
+                    <div
+                      className="media-gallery--y-track"
+                    >
+                      <div
+                        className="media-gallery--y-track-item -active"
+                        onClick={[Function]}
+                        role="list"
+                      >
+                        <div
+                          className="image -xlarge"
+                        >
+                          <img
+                            className="image--native"
+                            src="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        className="media-gallery--y-track-item"
+                        onClick={[Function]}
+                        role="list"
+                      >
+                        <div
+                          className="image -xlarge"
+                        >
+                          <img
+                            className="image--native"
+                            src="https://source.unsplash.com/collection/2102317/1000x650?sig=403425"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        className="media-gallery--y-track-item"
+                        onClick={[Function]}
+                        role="list"
+                      >
+                        <div
+                          className="image -xlarge"
+                        >
+                          <img
+                            className="image--native"
+                            src="https://source.unsplash.com/collection/2102317/1000x650?sig=403425"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        className="media-gallery--y-track-item"
+                        onClick={[Function]}
+                        role="list"
+                      >
+                        <div
+                          className="image -xlarge"
+                        >
+                          <img
+                            className="image--native"
+                            src="https://source.unsplash.com/collection/2102317/1000x650?sig=403425"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        className="media-gallery--y-track-item"
+                        onClick={[Function]}
+                        role="list"
+                      >
+                        <div
+                          className="image -xlarge"
+                        >
+                          <img
+                            className="image--native"
+                            src="https://source.unsplash.com/collection/2102317/1000x650?sig=403425"
+                          />
+                        </div>
+                      </div>
+                      <div
+                        className="media-gallery--y-track-item"
+                        onClick={[Function]}
+                        role="list"
+                      >
+                        <div
+                          className="image -xlarge"
+                        >
+                          <img
+                            className="image--native"
+                            src="https://source.unsplash.com/collection/2102317/1000x650?sig=403425"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                aria-labelledby="tab:1-2"
+                className=""
+                hidden={true}
+                id="panel:1-2"
+                role="tabpanel"
+              >
+                <div
+                  className="media"
+                >
+                  <div
+                    className=""
+                    src="https://player.vimeo.com/video/263419265"
+                    style={
+                      Object {
+                        "height": "360px",
+                        "width": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      style={
+                        Object {
+                          "display": undefined,
+                          "height": "100%",
+                          "overflow": "hidden",
+                          "width": "100%",
+                        }
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                aria-labelledby="tab:1-3"
+                className=""
+                hidden={true}
+                id="panel:1-3"
+                role="tabpanel"
+              >
+                <div
+                  className="media"
+                >
+                  <div
+                    className=""
+                    src="https://player.vimeo.com/video/263419265"
+                    style={
+                      Object {
+                        "height": "360px",
+                        "width": "100%",
+                      }
+                    }
+                  >
+                    <div
+                      style={
+                        Object {
+                          "display": undefined,
+                          "height": "100%",
+                          "overflow": "hidden",
+                          "width": "100%",
+                        }
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <nav
+              className="tabs -content-end -regular"
+            >
+              <div
+                className="tabs__list-wrap"
+              >
+                <div
+                  className="tabs__list"
+                  role="tablist"
+                >
+                  <button
+                    aria-controls="panel:1-1"
+                    aria-selected={true}
+                    className="-active"
+                    id="tab:1-1"
+                    onClick={[Function]}
+                    role="tab"
+                    type="button"
+                  >
+                    Photos
+                  </button>
+                  <button
+                    aria-controls="panel:1-2"
+                    aria-selected={false}
+                    className=""
+                    id="tab:1-2"
+                    onClick={[Function]}
+                    role="tab"
+                    type="button"
+                  >
+                    Videos
+                  </button>
+                  <button
+                    aria-controls="panel:1-3"
+                    aria-selected={false}
+                    className=""
+                    id="tab:1-3"
+                    onClick={[Function]}
+                    role="tab"
+                    type="button"
+                  >
+                    360° View
+                  </button>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<CarDetailsPage /> renders correctly with error 1`] = `
+<div
+  className="dpd-content"
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+      "minHeight": "40rem",
+    }
+  }
+>
+  Error
+</div>
+`;
+
+exports[`<CarDetailsPage /> renders correctly with loading 1`] = `
+<div
+  className="dpd-content"
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+      "minHeight": "40rem",
+    }
+  }
+>
+  <div
+    className="loading -xlarge"
+  >
+    <svg
+      className="loading--svg"
+      viewBox="-75 -75 150 150"
+    >
+      <circle
+        className="loading--stroke"
+        cx="0"
+        cy="0"
+        r="37.5"
+      />
+    </svg>
+  </div>
+</div>
+`;

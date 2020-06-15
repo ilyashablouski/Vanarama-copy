@@ -2,15 +2,14 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
-import RouterLink from '../../../components/RouterLink/RouterLink';
 import withApollo from '../../../hocs/withApollo';
 import PasswordResetContainer from '../../../containers/PasswordResetContainer/PasswordResetContainer';
 import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
+import OrderInformationContainer from '../../../containers/OrdersInformation/OrderInformationContainer';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -42,50 +41,13 @@ export const MyDetailsPage: NextPage<IProps> = () => {
           My Details
         </Heading>
       </div>
-      <div className="row:bg-light">
-        <div className="row:cards-3col">
-          <Card
-            title={{
-              title: 'My Orders',
-            }}
-          >
-            <Text tag="span" size="regular" color="dark">
-              You have <b>(0)</b> orders.
-            </Text>
-            <RouterLink
-              classNames={{
-                color: 'teal',
-              }}
-              link={{ href: '/', label: '' }}
-            >
-              View Orders
-            </RouterLink>
-          </Card>
-
-          <Card
-            title={{
-              title: 'My Quotes',
-            }}
-          >
-            <Text tag="span" size="regular" color="dark">
-              You have <b>(0)</b> quotes.
-            </Text>
-            <RouterLink
-              classNames={{
-                color: 'teal',
-              }}
-              link={{ href: '/', label: '' }}
-            >
-              View Quotes
-            </RouterLink>
-          </Card>
-        </div>
-      </div>
-      <div className="row:my-details personalInformation">
-        <div className="my-details--form">
-          <PersonalInformationFormContainer
-            personUuid={uuid || 'eef3eade-3110-4e77-8330-a313e6647cb3'}
-          />
+      <OrderInformationContainer
+        uuid="df9b082f-bb2e-4699-9849-d09379cb5de6"
+        partyByUuid="894096e9-7536-4ee7-aac3-2f209681d904"
+      />
+      <div className="row:my-details">
+        <div className="my-details--form" style={{ gridColumnEnd: 6 }}>
+          <PersonalInformationFormContainer personUuid="eef3eade-3110-4e77-8330-a313e6647cb3" />
         </div>
         <div className="my-details--form">
           <Heading tag="span" size="large" color="black" className="-mb-300">
