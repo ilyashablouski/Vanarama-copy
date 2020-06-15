@@ -1,4 +1,6 @@
 import { NextPage } from 'next';
+// import { useQuery } from '@apollo/client';
+import { getDataFromTree } from '@apollo/react-ssr';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
@@ -23,6 +25,7 @@ import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 import DealOfMonth from '../../../components/DealOfMonth';
 import ProductCard from '../../../components/ProductCard/ProductCard';
 import RouterLink from '../../../components/RouterLink/RouterLink';
+import withApollo from '../../../hocs/withApollo';
 
 const VansPage: NextPage = () => (
   <>
@@ -631,4 +634,4 @@ const VansPage: NextPage = () => (
   </>
 );
 
-export default VansPage;
+export default withApollo(VansPage, { getDataFromTree });

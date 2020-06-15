@@ -1,3 +1,4 @@
+import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
@@ -13,17 +14,33 @@ import Step from '@vanarama/uibook/lib/components/molecules/step';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
 import EligibiltyScore from '@vanarama/uibook/lib/components/atoms/score';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
 import { NextPage } from 'next';
+/* import {
+  HomePageData,
+  HomePageData_homePage_sections_tiles_tiles as TileData,
+  HomePageData_homePage_sections_cards_cards as CardData,
+} from '../../../../generated/HomePageData'; */
+import { HUB_CAR_CONTENT } from '../../../gql/hubCarPage';
 import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 import ProductCard from '../../../components/ProductCard/ProductCard';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import withApollo from '../../../hocs/withApollo';
 
 export const CarsPage: NextPage = () => {
+  const { data, loading, error } = useQuery<HomePageData>(HUB_CAR_CONTENT);
+
+  if (loading) {
+    return <Loading size="large" />;
+  }
+
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
   return (
     <>
       <Hero>
