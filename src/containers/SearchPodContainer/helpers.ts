@@ -1,11 +1,7 @@
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
 
-export const makeHandler = (data: IFilterList): string[] => {
-  if (data.groupedRanges) {
-    return data.groupedRanges.map(range => range.parent);
-  }
-  return [];
-};
+export const makeHandler = (data: IFilterList): string[] =>
+  data.groupedRanges?.map(range => range.parent) || [];
 
 export const modelHandler = (data: IFilterList, make: string): string[] => {
   if (make && data.groupedRanges) {
