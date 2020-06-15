@@ -163,10 +163,18 @@ const VansPage: NextPage = () => (
             <div key={k.toString()} style={{ width: 345 }}>
               <ProductCard
                 header={{
-                  accentIcon: <Icon icon={<Flame />} color="white" />,
+                  accentIcon: (
+                    <Icon
+                      icon={<Flame />}
+                      color="white"
+                      className="md hydrated"
+                    />
+                  ),
                   accentText: 'Hot Deal',
                   text: 'In Stock - 14-21 Days Delivery',
                 }}
+                description="Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id"
+                imageSrc="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
                 features={[
                   {
                     icon: <Icon icon={<SnowSharp />} color="dark" />,
@@ -185,25 +193,35 @@ const VansPage: NextPage = () => (
                     label: 'Sensors',
                   },
                 ]}
-                imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
                 onCompare={() => true}
-                onViewOffer={() => true}
                 onWishlist={() => true}
-                price={209}
-                priceDescription="Per Month Exc.VAT"
                 title={{
                   title: '',
                   link: (
-                    <RouterLink
-                      link={{ href: '#', label: 'Peugeot 208' }}
-                      className="heading"
-                      classNames={{ size: 'large', color: 'black' }}
-                    />
+                    <a href="/#" className="heading -large -black">
+                      Peugeot 208
+                    </a>
                   ),
                   description: '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
                   score: 4.5,
                 }}
-              />
+              >
+                <div className="-flex-h">
+                  <Price
+                    price={233.95}
+                    size="large"
+                    separator="."
+                    priceDescription="Per Month Exc.VAT"
+                  />
+                  <Button
+                    color="teal"
+                    fill="solid"
+                    label="View Offer"
+                    onClick={() => true}
+                    size="regular"
+                  />
+                </div>
+              </ProductCard>
             </div>
           ))}
         </Slider>
@@ -227,10 +245,18 @@ const VansPage: NextPage = () => (
             <div key={k.toString()} style={{ width: 345 }}>
               <ProductCard
                 header={{
-                  accentIcon: <Icon icon={<Flame />} color="white" />,
+                  accentIcon: (
+                    <Icon
+                      icon={<Flame />}
+                      color="white"
+                      className="md hydrated"
+                    />
+                  ),
                   accentText: 'Hot Deal',
                   text: 'In Stock - 14-21 Days Delivery',
                 }}
+                description="Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id"
+                imageSrc="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
                 features={[
                   {
                     icon: <Icon icon={<SnowSharp />} color="dark" />,
@@ -249,25 +275,35 @@ const VansPage: NextPage = () => (
                     label: 'Sensors',
                   },
                 ]}
-                imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
                 onCompare={() => true}
-                onViewOffer={() => true}
                 onWishlist={() => true}
-                price={209}
-                priceDescription="Per Month Exc.VAT"
                 title={{
                   title: '',
                   link: (
-                    <RouterLink
-                      link={{ href: '#', label: 'Peugeot 208' }}
-                      className="heading"
-                      classNames={{ size: 'large', color: 'black' }}
-                    />
+                    <a href="/#" className="heading -large -black">
+                      Peugeot 208
+                    </a>
                   ),
                   description: '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
                   score: 4.5,
                 }}
-              />
+              >
+                <div className="-flex-h">
+                  <Price
+                    price={233.95}
+                    size="large"
+                    separator="."
+                    priceDescription="Per Month Exc.VAT"
+                  />
+                  <Button
+                    color="teal"
+                    fill="solid"
+                    label="View Offer"
+                    onClick={() => true}
+                    size="regular"
+                  />
+                </div>
+              </ProductCard>
             </div>
           ))}
         </Slider>
