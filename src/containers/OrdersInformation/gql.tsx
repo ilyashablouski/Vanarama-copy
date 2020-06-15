@@ -1,12 +1,25 @@
 import { useQuery, gql } from '@apollo/client';
 import {
-  getOrdersByPartyUuid,
-  getOrdersByPartyUuidVariables,
-} from '../../../generated/getOrdersByPartyUuid';
+  GetOrdersByPartyUuid,
+  GetOrdersByPartyUuidVariables,
+} from '../../../generated/GetOrdersByPartyUuid';
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import {
+  GetDerivatives,
+  GetDerivativesVariables,
+} from '../../../generated/GetDerivatives';
 
 export const GET_ORDERS_BY_PARTY_UUID_DATA = gql`
-  query getOrdersByPartyUuid($partyUuid: ID!, $statuses: [String!]) {
-    ordersByPartyUuid(partyUuid: $partyUuid, statuses: $statuses) {
+  query GetOrdersByPartyUuid(
+    $partyUuid: ID!
+    $statuses: [String!]
+    $excludeStatuses: [String!]
+  ) {
+    ordersByPartyUuid(
+      partyUuid: $partyUuid
+      statuses: $statuses
+      excludeStatuses: $excludeStatuses
+    ) {
       uuid
       id
       leaseType
@@ -44,15 +57,59 @@ export const GET_ORDERS_BY_PARTY_UUID_DATA = gql`
 `;
 
 export function useOrdersByPartyUuidData(
-  partyByUuid?: string,
+  partyByUuid: string,
   statuses?: string[],
+  excludeStatuses?: string[],
 ) {
-  return useQuery<getOrdersByPartyUuid, getOrdersByPartyUuidVariables>(
+  return useQuery<GetOrdersByPartyUuid, GetOrdersByPartyUuidVariables>(
     GET_ORDERS_BY_PARTY_UUID_DATA,
     {
       variables: {
-        partyUuid: partyByUuid || '',
-        statuses: statuses || [],
+        partyUuid: partyByUuid,
+        statuses: statuses || null,
+        excludeStatuses: excludeStatuses || null,
+      },
+    },
+  );
+}
+
+export const GET_CAR_DERIVATIVES = gql`
+  query GetDerivatives($ids: [ID!], $vehicleType: VehicleTypeEnum) {
+    derivatives(ids: $ids, vehicleType: $vehicleType) {
+      id
+      capCode
+      name
+      slug
+      manufacturer {
+        name
+      }
+      manufacturerName
+      model {
+        name
+      }
+      modelName
+      fuelType {
+        name
+      }
+      fuelTypeName
+      transmission {
+        name
+      }
+      transmissionName
+    }
+  }
+`;
+
+export function useCarDerivativesData(
+  ids: string[],
+  vehicleType: VehicleTypeEnum,
+) {
+  return useQuery<GetDerivatives, GetDerivativesVariables>(
+    GET_CAR_DERIVATIVES,
+    {
+      variables: {
+        ids,
+        vehicleType,
       },
     },
   );
