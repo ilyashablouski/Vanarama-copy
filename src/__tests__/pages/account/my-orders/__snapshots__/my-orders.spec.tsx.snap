@@ -190,6 +190,13 @@ Array [
             }
           }
         >
+          <div
+            className="card-header -success"
+          >
+            <div>
+              Complete
+            </div>
+          </div>
           <img
             alt="img"
             className="card-image"
@@ -671,16 +678,38 @@ Array [
     </h1>
   </div>,
   <div
-    className="dpd-content"
-    style={
-      Object {
-        "alignItems": "center",
-        "display": "flex",
-        "minHeight": "40rem",
-      }
-    }
+    className="row:bg-lighter -thin"
   >
-    You have no Orders.
+    <div
+      className="row:results"
+    >
+      <div
+        className="choiceboxes -teal"
+      >
+        <button
+          className="choicebox -active"
+          onClick={[Function]}
+          type="button"
+        >
+          All Orders
+        </button>
+      </div>
+      <div
+        className="loading -large"
+      >
+        <svg
+          className="loading--svg"
+          viewBox="-75 -75 150 150"
+        >
+          <circle
+            className="loading--stroke"
+            cx="0"
+            cy="0"
+            r="37.5"
+          />
+        </svg>
+      </div>
+    </div>
   </div>,
 ]
 `;
