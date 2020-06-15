@@ -15,6 +15,8 @@ import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
 import EligibiltyScore from '@vanarama/uibook/lib/components/atoms/score';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
+import Price from '@vanarama/uibook/lib/components/atoms/price';
 import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
@@ -27,7 +29,6 @@ import { NextPage } from 'next';
 } from '../../../../generated/HomePageData'; */
 import { HUB_CAR_CONTENT } from '../../../gql/hubCarPage';
 import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
-import ProductCard from '../../../components/ProductCard/ProductCard';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import withApollo from '../../../hocs/withApollo';
 
@@ -105,7 +106,6 @@ export const CarsPage: NextPage = () => {
       <section className="row:cards-3col">
         {Array.from(Array(9).keys()).map(val => (
           <ProductCard
-            key={val}
             header={{
               accentIcon: <Icon icon={<Flame />} color="white" />,
               accentText: 'Hot Deal',
@@ -131,10 +131,7 @@ export const CarsPage: NextPage = () => {
             ]}
             imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
             onCompare={() => true}
-            onViewOffer={() => true}
             onWishlist={() => true}
-            price={209}
-            priceDescription="Per Month Exc.VAT"
             title={{
               title: '',
               link: (
@@ -147,7 +144,23 @@ export const CarsPage: NextPage = () => {
               description: '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
               score: 4.5,
             }}
-          />
+          >
+            <div className="-flex-h">
+              <Price
+                price={209}
+                size="large"
+                separator="."
+                priceDescription="Per Month Exc.VAT"
+              />
+              <Button
+                color="teal"
+                fill="solid"
+                label="View Offer"
+                onClick={() => true}
+                size="regular"
+              />
+            </div>
+          </ProductCard>
         ))}
 
         <Button label="View All Cars" size="large" color="teal" />
