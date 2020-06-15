@@ -1,20 +1,12 @@
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React from 'react';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { useOrdersByPartyUuidData } from './gql';
 import { IProps } from './interfaces';
 
 const OrderInformationContainer: React.FC<IProps> = ({ partyByUuid }) => {
-  const { data, loading } = useOrdersByPartyUuidData(partyByUuid || '', [
-    'complete',
-    'new',
-    'incomplete',
-  ]);
-
-  if (loading) {
-    return <Loading size="large" />;
-  }
+  const orders = useOrdersByPartyUuidData(partyByUuid, [], ['quote']);
+  const haveOrders = !!orders.data?.ordersByPartyUuid.length;
 
   return (
     <div className="row:bg-light">
@@ -23,7 +15,7 @@ const OrderInformationContainer: React.FC<IProps> = ({ partyByUuid }) => {
           title={{
             title: 'My Orders',
             description: `You have (${
-              data?.ordersByPartyUuid.length ? data.ordersByPartyUuid.length : 0
+              haveOrders ? orders.data?.ordersByPartyUuid.length : 0
             }) orders.`,
           }}
         >
@@ -31,7 +23,8 @@ const OrderInformationContainer: React.FC<IProps> = ({ partyByUuid }) => {
             classNames={{
               color: 'teal',
             }}
-            link={{ href: '/account/my-orders/', label: '' }}
+            link={{ href: '/account/my-orders', label: '' }}
+            onClick={ev => !haveOrders && ev.preventDefault()}
           >
             View Orders
           </RouterLink>
@@ -47,7 +40,8 @@ const OrderInformationContainer: React.FC<IProps> = ({ partyByUuid }) => {
             classNames={{
               color: 'teal',
             }}
-            link={{ href: '/', label: '' }}
+            link={{ href: '/account/my-quotes', label: '' }}
+            onClick={ev => ev.preventDefault()}
           >
             View Quotes
           </RouterLink>

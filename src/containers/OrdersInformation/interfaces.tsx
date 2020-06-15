@@ -1,4 +1,4 @@
 export interface IProps {
   uuid?: string;
-  partyByUuid?: string;
+  partyByUuid: string;
 }
