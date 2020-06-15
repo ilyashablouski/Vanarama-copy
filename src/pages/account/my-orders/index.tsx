@@ -199,7 +199,7 @@ const MyOrdersPage: NextPage = () => {
                   pages={pages}
                   onClick={el => {
                     el.preventDefault();
-                    setActivePage(+el.target.innerText);
+                    setActivePage(+(el.target as Element).innerHTML);
                   }}
                   selected={activePage}
                 />
