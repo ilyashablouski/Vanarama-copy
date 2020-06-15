@@ -57,7 +57,7 @@ describe('<SearchPodContainer />', () => {
     // ASSERT
     await waitFor(() => expect(mockCalled).toBeTruthy());
   });
-  it('search button should be have uniq search url for vans', async () => {
+  it('should be have uniq search url for vans', async () => {
     // Override the router mock for this test
     const pushMock = jest.fn();
     (useRouter as jest.Mock).mockReturnValue({
@@ -82,7 +82,7 @@ describe('<SearchPodContainer />', () => {
       '/search',
     );
   });
-  it('search button should be have uniq search url for cars', async () => {
+  it('should be have uniq search url for cars', async () => {
     // Override the router mock for this test
     const pushMock = jest.fn();
     (useRouter as jest.Mock).mockReturnValue({
