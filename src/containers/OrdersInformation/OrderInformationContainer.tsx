@@ -8,6 +8,9 @@ const OrderInformationContainer: React.FC<IProps> = ({ partyByUuid }) => {
   const orders = useOrdersByPartyUuidData(partyByUuid, [], ['quote']);
   const haveOrders = !!orders.data?.ordersByPartyUuid.length;
 
+  const quotes = useOrdersByPartyUuidData(partyByUuid, [], ['quote']);
+  const haveQuotes = !!quotes.data?.ordersByPartyUuid.length;
+
   return (
     <div className="row:bg-light">
       <div className="row:cards-3col">
@@ -34,7 +37,9 @@ const OrderInformationContainer: React.FC<IProps> = ({ partyByUuid }) => {
         <Card
           title={{
             title: 'My Quotes',
-            description: `You have (${0}) quotes.`,
+            description: `You have (${
+              haveQuotes ? quotes.data?.ordersByPartyUuid.length : 0
+            }) quotes.`,
           }}
         >
           <RouterLink
@@ -42,7 +47,7 @@ const OrderInformationContainer: React.FC<IProps> = ({ partyByUuid }) => {
               color: 'teal',
             }}
             link={{ href: '/account/my-quotes', label: '' }}
-            onClick={ev => ev.preventDefault()}
+            onClick={ev => !haveQuotes && ev.preventDefault()}
             dataTestId="quotes-link"
           >
             View Quotes
