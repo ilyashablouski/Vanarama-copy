@@ -32,6 +32,9 @@ export default function createApolloClient(
         PersonType: {
           keyFields: ['uuid'],
         },
+        CompanyDataType: {
+          keyFields: ['companyNumber'],
+        },
       },
     }).restore(initialState),
   });

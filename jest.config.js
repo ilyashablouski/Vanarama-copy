@@ -11,4 +11,5 @@ module.exports = {
   },
   coverageDirectory: './.coverage',
   testResultsProcessor: 'jest-sonar-reporter',
+  clearMocks: true,
 };
