@@ -1,3 +1,5 @@
+import { NextPage } from 'next';
+import { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
@@ -6,8 +8,8 @@ import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
 import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
@@ -26,21 +28,20 @@ import IconList, {
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
-import { NextPage } from 'next';
-import { useState } from 'react';
 
 import RouterLink from '../components/RouterLink/RouterLink';
 import {
   HomePageData,
   HomePageData_homePage_sections_tiles_tiles as TileData,
+  HomePageData_homePage_sections_cards_cards as CardData,
 } from '../../generated/HomePageData';
 import Hero, { HeroHeading, HeroTitle } from '../components/Hero';
-import { ALL_CONTENT } from '../gql/homepage';
+import { ALL_HOME_CONTENT } from '../gql/homepage';
 import withApollo from '../hocs/withApollo';
 
 export const HomePage: NextPage = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const { data, loading, error } = useQuery<HomePageData>(ALL_CONTENT);
+  const { data, loading, error } = useQuery<HomePageData>(ALL_HOME_CONTENT);
   if (loading) {
     return <Loading size="large" />;
   }
@@ -53,24 +54,27 @@ export const HomePage: NextPage = () => {
     <>
       <Hero>
         <div className="hero--title">
-          <HeroHeading>{data?.homePage.sections.hero.title}</HeroHeading>
+          <HeroHeading>{data?.homePage.sections.hero?.title}</HeroHeading>
           <br />
-          <HeroTitle>{data?.homePage.sections.hero.body}</HeroTitle>
+          <HeroTitle>{data?.homePage.sections.hero?.body}</HeroTitle>
         </div>
         <Image
           className="hero--image"
           plain
           size="expand"
-          src={data?.homePage.sections.hero.image.file.url || ''}
+          src={
+            data?.homePage.sections.hero?.image?.file?.url ||
+            'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
+          }
         />
       </Hero>
 
       <section className="row:lead-text">
-        <span className="heading -xlarge -black">Large Sales Heading</span>
+        <span className="heading -xlarge -black">
+          {data?.homePage.sections.leadText?.heading}
+        </span>
         <span className="text -lead -darker">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio
-          aspernatur fugiat. Lorem ipsum dolor sit amet consectetur adipisicing
-          elit.
+          {data?.homePage.sections.leadText?.description}
         </span>
       </section>
 
@@ -179,69 +183,39 @@ export const HomePage: NextPage = () => {
 
       <section className="row:bg-lighter">
         <div className="row:cards-3col">
-          <Card
-            title={{
-              title: '',
-              withBtn: true,
-              link: (
-                <RouterLink
-                  link={{ href: '/hub/vans', label: 'Search Vans' }}
-                  className="heading"
-                  classNames={{ size: 'lead', color: 'black' }}
-                >
-                  Search Vans
-                </RouterLink>
-              ),
-            }}
-            imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/CitroenBerlingo0718_4_xjonps.jpg"
-            description="Get the car you want from our range of manufacturers - from something sporty to something for all the family"
-          />
-
-          <Card
-            title={{
-              title: '',
-              withBtn: true,
-              link: (
-                <RouterLink
-                  link={{ href: '/hub/pickups', label: 'Search Pickups' }}
-                  className="heading"
-                  classNames={{ size: 'lead', color: 'black' }}
-                >
-                  Search Pickups
-                </RouterLink>
-              ),
-            }}
-            imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg"
-            description="Get the car you want from our range of manufacturers - from something sporty to something for all the family"
-          />
-
-          <Card
-            title={{
-              title: '',
-              withBtn: true,
-              link: (
-                <RouterLink
-                  link={{ href: '/hub/cars', label: 'Search Cars' }}
-                  className="heading"
-                  classNames={{ size: 'lead', color: 'black' }}
-                >
-                  Search Cars
-                </RouterLink>
-              ),
-            }}
-            imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg"
-            description="Get the car you want from our range of manufacturers - from something sporty to something for all the family"
-          />
+          {data?.homePage.sections.cards?.cards?.map((c: CardData, idx) => (
+            <Card
+              key={c.title || idx}
+              title={{
+                title: '',
+                withBtn: true,
+                link: (
+                  <RouterLink
+                    link={{ href: '/hub/vans', label: 'Search Vans' }}
+                    className="heading"
+                    classNames={{ size: 'lead', color: 'black' }}
+                  >
+                    {c.title}
+                  </RouterLink>
+                ),
+              }}
+              imageSrc={
+                c.image?.file?.url ||
+                'https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/CitroenBerlingo0718_4_xjonps.jpg'
+              }
+              description={c.body || ''}
+            />
+          ))}
         </div>
       </section>
 
       <section className="row:featured-right">
         <div style={{ padding: '1rem' }}>
           <Heading size="large" color="black">
-            {data && data.homePage.sections.featured1.title}
+            {data && data.homePage.sections.featured1?.title}
           </Heading>
           <Text tag="p" size="regular" color="darker">
-            {data && data.homePage.sections.featured1.body}
+            {data && data.homePage.sections.featured1?.body}
           </Text>
           <IconList>
             <IconListItem iconColor="orange">
@@ -262,17 +236,17 @@ export const HomePage: NextPage = () => {
         <Image src="https://source.unsplash.com/collection/2102317/900x500?sig=403422" />
         <div>
           <Heading size="large" color="black">
-            {data && data.homePage.sections.featured2.title}
+            {data && data.homePage.sections.featured2?.title}
           </Heading>
           <Text tag="p" size="regular" color="darker">
-            {data && data.homePage.sections.featured2.body}
+            {data && data.homePage.sections.featured2?.body}
           </Text>
         </div>
       </section>
 
       <section className="row:features-4col">
-        {data?.homePage.sections.tiles.tiles?.map((t: TileData) => (
-          <div key={t.title}>
+        {data?.homePage.sections.tiles?.tiles?.map((t: TileData, idx) => (
+          <div key={t.title || idx}>
             <Tile className="-plain -button -align-center" plain>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Image
