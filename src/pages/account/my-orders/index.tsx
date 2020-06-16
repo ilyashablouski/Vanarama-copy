@@ -1,18 +1,30 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
+import OrderCard from '@vanarama/uibook/lib/components/molecules/cards/OrderCard/OrderCard';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
-import TabList from '@vanarama/uibook/lib/components/molecules/tabs/TabList';
-import Tab from '@vanarama/uibook/lib/components/molecules/tabs/Tab';
-import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
+import Pagination from '@vanarama/uibook/lib/components/atoms/pagination';
+import Button from '@vanarama/uibook/lib/components/atoms/button';
+import moment from 'moment';
 import { NextPage } from 'next';
-import React, { useState } from 'react';
-import RouterLink from '../../../components/RouterLink/RouterLink';
+import React, { useState, CSSProperties } from 'react';
+import cx from 'classnames';
+import { useRouter } from 'next/router';
 import withApollo from '../../../hocs/withApollo';
-import { ordersByPartyUuidData } from '../../../containers/OrdersInformation/gql';
-
-interface IProps {}
+import {
+  useOrdersByPartyUuidData,
+  useCarDerivativesData,
+} from '../../../containers/OrdersInformation/gql';
+import {
+  VehicleTypeEnum,
+  LeaseTypeEnum,
+} from '../../../../generated/globalTypes';
+import { GetDerivatives_derivatives } from '../../../../generated/GetDerivatives';
+import { PARTY_BY_UUID } from '../my-details';
+import {
+  GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct,
+  GetOrdersByPartyUuid_ordersByPartyUuid,
+} from '../../../../generated/GetOrdersByPartyUuid';
 
 const PATH = {
   items: [
@@ -22,62 +34,144 @@ const PATH = {
   ],
 };
 
-export const MyOrdersPage: NextPage<IProps> = () => {
+const MyOrdersPage: NextPage = () => {
+  const router = useRouter();
+  const partyByUuid = (router.query.partyByUuid as string) || PARTY_BY_UUID;
+
   const [activeTab, setActiveTab] = useState(0);
-  const {
-    data,
-    loading,
-  } = ordersByPartyUuidData('894096e9-7536-4ee7-aac3-2f209681d904', [
-    'credit',
-    'new',
+  const [activePage, setActivePage] = useState(1);
+  const [status, changeStatus] = useState(undefined as any);
+
+  const { data, loading } = useOrdersByPartyUuidData(partyByUuid, status, [
+    // 'quote',
   ]);
 
-  if (loading) {
-    return <Loading size="large" />;
-  }
+  const capIdArray =
+    data?.ordersByPartyUuid?.reduce((array, el) => {
+      const capId = el.lineItems[0].vehicleProduct?.derivativeCapId || '';
+      if (capId !== array[0]) {
+        array.unshift(capId);
+      }
+      return array;
+    }, [] as string[]) || [];
 
-  if (!data) {
-    return null;
-  }
+  const dataCars = useCarDerivativesData(capIdArray, VehicleTypeEnum.CAR);
+
+  const hasCreditCompleteOrder = () =>
+    !!data?.ordersByPartyUuid.find(
+      el => el.aasmState === 'credit' && el.lineItems[0].state !== 'draft',
+    );
+
+  const hasCreditIncompleteOrder = () =>
+    !!data?.ordersByPartyUuid.find(
+      el => el.aasmState === 'credit' && el.lineItems[0].state === 'draft',
+    );
+  const countPages = () =>
+    Math.ceil((data?.ordersByPartyUuid?.length || 0) / 6);
+  const pages = [...Array(countPages())].map((_el, i) => i + 1);
+
+  const createOffersObject = (
+    id: string,
+    createdAt: string,
+    leasType: string,
+    offer: GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct,
+    derivative?: GetDerivatives_derivatives,
+  ) => {
+    return {
+      price: offer.monthlyPayment || 0,
+      priceDescription: `Per Month ${
+        leasType === LeaseTypeEnum.PERSONAL ? 'Inc' : 'Ex'
+      }.VAT`,
+      available: 'Now',
+      initailRental: `£${offer.depositPayment} (${
+        leasType === LeaseTypeEnum.PERSONAL ? 'inc.' : 'ex.'
+      } VAT)`,
+      contractLength: `${offer.depositMonths} month`,
+      annualMileage: offer.annualMileage?.toString() || '',
+      maintenance: offer.maintenance ? 'Yes' : 'No',
+      fuel: derivative?.fuelTypeName || '',
+      transmission: derivative?.transmissionName || '',
+      color: offer.colour || '',
+      trim: offer.trim || '',
+      orderNumber: id,
+      orderDate: moment(createdAt).format('DD.MM.YYYY'),
+      orderButton: (
+        <Button
+          color="teal"
+          label="View Orders"
+          onClick={() => {
+            router.push(
+              leasType === LeaseTypeEnum.PERSONAL
+                ? '/olaf/about'
+                : '/b2b/olaf/about',
+            );
+          }}
+        />
+      ),
+    };
+  };
 
   const onChangeTabs = (value: React.SetStateAction<number>) => {
     setActiveTab(value);
     switch (value) {
       case 1:
+        changeStatus(['credit']);
+        break;
       case 2:
-        ordersByPartyUuidData('894096e9-7536-4ee7-aac3-2f209681d904', [
-          'credit',
-        ]);
+        changeStatus(['credit', 'draft']);
         break;
       default:
-        ordersByPartyUuidData('894096e9-7536-4ee7-aac3-2f209681d904', [
-          'complete',
-          'new',
-          'incomplete',
-        ]);
+        changeStatus([]);
         break;
     }
   };
 
+  const renderChoiceBtn = (index: number, text: string) => (
+    <button
+      className={cx('choicebox', { '-active': activeTab === index })}
+      onClick={() => onChangeTabs(index)}
+      type="button"
+      key={index}
+    >
+      {text}
+    </button>
+  );
+
   const renderOffers = () => {
-    return data?.ordersByPartyUuid.map((el: any) => (
-      <Card
-        key={el.id}
-        title={{
-          title: el.lineItems[0].vehicleProduct.title || '',
-          description: el.lineItems[0].vehicleProduct.description,
-        }}
-      >
-        <RouterLink
-          classNames={{
-            color: 'teal',
+    const indexOfLastOffer = activePage * 6;
+    const indexOfFirstOffer = indexOfLastOffer - 6;
+    const showOffers =
+      data?.ordersByPartyUuid.slice(indexOfFirstOffer, indexOfLastOffer) || [];
+    return showOffers.map((el: GetOrdersByPartyUuid_ordersByPartyUuid) => {
+      const derivative = dataCars?.data?.derivatives?.find(
+        (der: { id: string }) => der.id,
+      );
+      return (
+        <OrderCard
+          style={{ '--img-w': '300px' } as CSSProperties}
+          inline
+          imageSrc="https://source.unsplash.com/collection/2102317/1000x650?sig=40344"
+          key={el.id}
+          title={{
+            title: `${derivative?.manufacturerName ||
+              ''} ${derivative?.modelName || ''}`,
+            description: derivative?.name || '',
           }}
-          link={{ href: '/', label: '' }}
-        >
-          View Orders
-        </RouterLink>
-      </Card>
-    ));
+          orderDetails={createOffersObject(
+            el.id,
+            el.createdAt,
+            el.leaseType,
+            el.lineItems[0].vehicleProduct!,
+            derivative,
+          )}
+          header={{
+            text: el.lineItems[0].state === 'draft' ? 'Incomplete' : 'Complete',
+            complete: el.lineItems[0].state !== 'draft',
+            incomplete: el.lineItems[0].state === 'draft',
+          }}
+        />
+      );
+    });
   };
 
   return (
@@ -93,31 +187,41 @@ export const MyOrdersPage: NextPage<IProps> = () => {
           My Orders
         </Heading>
       </div>
-      <div className="row:bg-lighter -thin">
-        <div className="row:results">
-          <Tabs
-            activeIndex={activeTab}
-            onChange={onChangeTabs}
-            variant="alternative"
-            align="center"
-          >
-            <TabList className="lead">
-              <Tab index={0}>All Orders</Tab>
-              <Tab index={1}>Complete</Tab>
-              <Tab index={2}>Incomplete</Tab>
-            </TabList>
-            <TabPanel index={0}>
-              <div className="row:cards-1col">{renderOffers()}</div>
-            </TabPanel>
-            <TabPanel index={1}>
-              <div className="row:cards-1col">{renderOffers()}</div>
-            </TabPanel>
-            <TabPanel index={2}>
-              <div className="row:cards-1col">{renderOffers()}</div>
-            </TabPanel>
-          </Tabs>
+      {!data?.ordersByPartyUuid?.length && !loading ? (
+        <div
+          className="dpd-content"
+          style={{ minHeight: '40rem', display: 'flex', alignItems: 'center' }}
+        >
+          You have no Orders.
         </div>
-      </div>
+      ) : (
+        <div className="row:bg-lighter -thin">
+          <div className="row:results">
+            <div className="choiceboxes -teal">
+              {renderChoiceBtn(0, 'All Orders')}
+              {hasCreditCompleteOrder() && renderChoiceBtn(1, 'Complete')}
+              {hasCreditIncompleteOrder() && renderChoiceBtn(2, 'Incomplete')}
+            </div>
+            {loading ? (
+              <Loading size="large" />
+            ) : (
+              <>
+                <div className="row:cards-1col">{renderOffers()}</div>
+
+                <Pagination
+                  path=""
+                  pages={pages}
+                  onClick={el => {
+                    el.preventDefault();
+                    setActivePage(+(el.target as Element).innerHTML);
+                  }}
+                  selected={activePage}
+                />
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </>
   );
 };

@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
-const ALL_HOME_CONTENT = gql`
-  query HomePageData {
-    homePage {
+const HUB_VAN_CONTENT = gql`
+  query HubVanPageData {
+    hubVanPage {
       sections {
         hero {
           title
@@ -18,6 +18,24 @@ const ALL_HOME_CONTENT = gql`
           heading
           description
         }
+        featured1 {
+          title
+          body
+          image {
+            file {
+              url
+            }
+          }
+        }
+        featured2 {
+          title
+          body
+          image {
+            file {
+              url
+            }
+          }
+        }
         cards {
           name
           cards {
@@ -30,13 +48,12 @@ const ALL_HOME_CONTENT = gql`
             }
           }
         }
-        featured1 {
-          title
-          body
-        }
-        featured2 {
-          title
-          body
+        steps {
+          heading
+          steps {
+            title
+            body
+          }
         }
         tiles {
           name
@@ -57,4 +74,4 @@ const ALL_HOME_CONTENT = gql`
 `;
 
 // eslint-disable-next-line import/prefer-default-export
-export { ALL_HOME_CONTENT };
+export { HUB_VAN_CONTENT };
