@@ -22,15 +22,18 @@ import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { HubCarPageData } from '../../../../generated/HubCarPageData';
+import {
+  HubCarPageData,
+  HubCarPageData_hubCarPage_sections_tiles_tiles as TileData,
+  HubCarPageData_hubCarPage_sections_steps_steps as StepData,
+} from '../../../../generated/HubCarPageData';
 import { HUB_CAR_CONTENT } from '../../../gql/hubCarPage';
 import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import withApollo from '../../../hocs/withApollo';
 
 export const CarsPage: NextPage = () => {
-  const { data, loading, error } = useQuery(HUB_CAR_CONTENT);
+  const { data, loading, error } = useQuery<HubCarPageData>(HUB_CAR_CONTENT);
 
   if (loading) {
     return <Loading size="large" />;
@@ -45,27 +48,25 @@ export const CarsPage: NextPage = () => {
       <Hero>
         <HeroHeading>{data?.hubCarPage.sections.hero.title}</HeroHeading>
         <br />
-        <HeroTitle>
-          Brand New Vans, In Stock Delivered Fast and Free
-          <b> From Just £115pm</b>
-        </HeroTitle>
+        <HeroTitle>{data?.hubCarPage.sections.hero.body}</HeroTitle>
         <br />
         <Image
           className="hero--image"
           plain
           size="expand"
-          src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png"
+          src={
+            data?.hubCarPage.sections.hero.image?.file?.url ||
+            'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
+          }
         />
       </Hero>
 
       <section className="row:lead-text">
         <Heading size="xlarge" color="black">
-          Large Sales Heading
+          {data?.hubCarPage.sections.leadText.heading}
         </Heading>
         <Text tag="span" size="lead" color="darker">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio
-          aspernatur fugiat. Lorem ipsum dolor sit amet consectetur adipisicing
-          elit.
+          {data?.hubCarPage.sections.leadText.description}
         </Text>
       </section>
 
@@ -165,37 +166,26 @@ export const CarsPage: NextPage = () => {
         <Button label="View All Cars" size="large" color="teal" />
       </section>
 
-      <section className="row:steps-3col">
+      <section className="row:steps-4col">
         <Heading className="-a-center -mb-400" size="large" color="black">
-          Leasing - The Simple Way To Get Your Brand New Car
+          {data?.hubCarPage.sections.steps.heading}
         </Heading>
-        <Step
-          heading="Choose"
-          step={1}
-          text="Get the car you want from our range of manufacturers - from something sporty to something for all the family."
-        />
-        <Step
-          heading="Apply"
-          step={2}
-          text="To lease your new car, we'll just need a few details to apply for finance from one of our funding partners."
-        />
-        <Step
-          heading="Drive"
-          step={3}
-          text="And that's it - once you've been approved, your brand new car will be delivered direct to your door."
-        />
+        {data?.hubCarPage.sections.steps.steps?.map((step: StepData, idx) => (
+          <Step
+            heading={step.title || ''}
+            step={idx + 1}
+            text={step.body || ''}
+          />
+        ))}
       </section>
 
       <section className="row:featured-right">
         <div style={{ padding: '1rem' }}>
           <Heading size="large" color="black">
-            Car Leasing With Vanarama?
+            {data?.hubCarPage.sections.featured1.title}
           </Heading>
           <Text tag="p" size="regular" color="darker">
-            If you&apos;re looking to drive a brand new car, van or truck
-            without any of the hassle - leasing might just be for you! It&apos;s
-            affordable, simple and you&apos;re not left with a depreciating
-            asset at the end of your contract.
+            {data?.hubCarPage.sections.featured1.body}
           </Text>
           <IconList>
             <IconListItem iconColor="orange">
@@ -209,32 +199,59 @@ export const CarsPage: NextPage = () => {
             </IconListItem>
           </IconList>
         </div>
-        <Image src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349" />
+        <Image
+          src={
+            data?.hubCarPage.sections.featured1.image?.file?.url ||
+            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+          }
+        />
       </section>
 
       <section className="row:featured-left">
         <div>
-          <Image src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349" />
+          <Image
+            src={
+              data?.hubCarPage.sections.featured2.image?.file?.url ||
+              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+            }
+          />
         </div>
         <div className="-inset -middle -col-400">
           <div>
             <Heading size="large" color="black">
-              How Does Car Leasing Work?
+              {data?.hubCarPage.sections.featured2.title}
             </Heading>
             <Text tag="p" size="regular" color="darker">
-              Vanarama is more than just a broker or leasing company, we&apos;ve
-              been leading the market and putting our customers at the heart of
-              everything we do for more than a decade.
-              <br /> After 15 years of experience in business & personal van,
-              pickup and car leasing, we&apos;re still pushing the industry
-              forward & our vast buying power gives us access to a range of
-              vehicles and lease deal pricing you can&apos;t get anywhere else.
+              {data?.hubCarPage.sections.featured2.body}
             </Text>
           </div>
         </div>
       </section>
 
       <section className="row:features-4col">
+        {data?.hubCarPage.sections.tiles.tiles?.map((tile: TileData, idx) => (
+          <div key={tile.title || idx}>
+            <Tile className="-plain -button -align-center" plain>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Image
+                  inline
+                  round
+                  size="large"
+                  src={
+                    tile.image?.file?.url ||
+                    'https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
+                  }
+                />
+              </div>
+              <a className="tile--link" href="##">
+                <Heading tag="span" size="regular" color="black">
+                  {tile.title}
+                </Heading>
+              </a>
+              <Text tag="p">{tile.body}</Text>
+            </Tile>
+          </div>
+        ))}
         {[
           'Price Protection',
           'Customer Reviews',

@@ -62,7 +62,7 @@ export const HomePage: NextPage = () => {
           className="hero--image"
           plain
           size="expand"
-          src={data?.homePage.sections.hero.image.file.url || ''}
+          src={data?.homePage.sections.hero?.image?.file?.url || ''}
         />
       </Hero>
 
@@ -180,9 +180,9 @@ export const HomePage: NextPage = () => {
 
       <section className="row:bg-lighter">
         <div className="row:cards-3col">
-          {data?.homePage.sections.cards.cards?.map((c: CardData) => (
+          {data?.homePage.sections.cards.cards?.map((c: CardData, idx) => (
             <Card
-              key={c.title}
+              key={c.title || idx}
               title={{
                 title: '',
                 withBtn: true,
@@ -200,7 +200,7 @@ export const HomePage: NextPage = () => {
                 c.image?.file?.url ||
                 'https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/CitroenBerlingo0718_4_xjonps.jpg'
               }
-              description={c.body}
+              description={c.body || ''}
             />
           ))}
         </div>
@@ -242,8 +242,8 @@ export const HomePage: NextPage = () => {
       </section>
 
       <section className="row:features-4col">
-        {data?.homePage.sections.tiles.tiles?.map((t: TileData) => (
-          <div key={t.title}>
+        {data?.homePage.sections.tiles.tiles?.map((t: TileData, idx) => (
+          <div key={t.title || idx}>
             <Tile className="-plain -button -align-center" plain>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Image

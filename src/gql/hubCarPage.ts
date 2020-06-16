@@ -21,10 +21,27 @@ const HUB_CAR_CONTENT = gql`
         featured1 {
           title
           body
+          image {
+            file {
+              url
+            }
+          }
         }
         featured2 {
           title
           body
+          image {
+            file {
+              url
+            }
+          }
+        }
+        steps {
+          heading
+          steps {
+            title
+            body
+          }
         }
         tiles {
           name

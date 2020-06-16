@@ -12,29 +12,39 @@ export interface HubVanPageData_hubVanPage_sections_hero_image_file {
 }
 
 export interface HubVanPageData_hubVanPage_sections_hero_image {
-  title: string;
-  file: HubVanPageData_hubVanPage_sections_hero_image_file;
+  title: string | null;
+  file: HubVanPageData_hubVanPage_sections_hero_image_file | null;
 }
 
 export interface HubVanPageData_hubVanPage_sections_hero {
-  title: string;
-  body: string;
-  image: HubVanPageData_hubVanPage_sections_hero_image;
+  title: string | null;
+  body: string | null;
+  image: HubVanPageData_hubVanPage_sections_hero_image | null;
 }
 
 export interface HubVanPageData_hubVanPage_sections_leadText {
-  heading: string;
-  description: string;
+  heading: string | null;
+  description: string | null;
 }
 
 export interface HubVanPageData_hubVanPage_sections_featured1 {
-  title: string;
-  body: string;
+  title: string | null;
+  body: string | null;
 }
 
 export interface HubVanPageData_hubVanPage_sections_featured2 {
-  title: string;
-  body: string;
+  title: string | null;
+  body: string | null;
+}
+
+export interface HubVanPageData_hubVanPage_sections_steps_steps {
+  title: string | null;
+  body: string | null;
+}
+
+export interface HubVanPageData_hubVanPage_sections_steps {
+  heading: string | null;
+  steps: HubVanPageData_hubVanPage_sections_steps_steps[] | null;
 }
 
 export interface HubVanPageData_hubVanPage_sections_tiles_tiles_image_file {
@@ -42,13 +52,13 @@ export interface HubVanPageData_hubVanPage_sections_tiles_tiles_image_file {
 }
 
 export interface HubVanPageData_hubVanPage_sections_tiles_tiles_image {
-  file: HubVanPageData_hubVanPage_sections_tiles_tiles_image_file;
-  title: string;
+  file: HubVanPageData_hubVanPage_sections_tiles_tiles_image_file | null;
+  title: string | null;
 }
 
 export interface HubVanPageData_hubVanPage_sections_tiles_tiles {
-  title: string;
-  body: string;
+  title: string | null;
+  body: string | null;
   image: HubVanPageData_hubVanPage_sections_tiles_tiles_image | null;
 }
 
@@ -62,6 +72,7 @@ export interface HubVanPageData_hubVanPage_sections {
   leadText: HubVanPageData_hubVanPage_sections_leadText;
   featured1: HubVanPageData_hubVanPage_sections_featured1;
   featured2: HubVanPageData_hubVanPage_sections_featured2;
+  steps: HubVanPageData_hubVanPage_sections_steps;
   tiles: HubVanPageData_hubVanPage_sections_tiles;
 }
 

@@ -26,6 +26,13 @@ const HUB_VAN_CONTENT = gql`
           title
           body
         }
+        steps {
+          heading
+          steps {
+            title
+            body
+          }
+        }
         tiles {
           name
           tiles {
