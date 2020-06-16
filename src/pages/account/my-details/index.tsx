@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
 import withApollo from '../../../hocs/withApollo';
-import PasswordResetContainer from '../../../containers/PasswordResetContainer/PasswordResetContainer';
+import PasswordChangeContainer from '../../../containers/PasswordChangeContainer';
 import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
 import OrderInformationContainer from '../../../containers/OrdersInformation/OrderInformationContainer';
 
@@ -69,11 +69,7 @@ export const MyDetailsPage: NextPage<IProps> = () => {
               </div>
             </div>
           ) : (
-            <PasswordResetContainer
-              oldPassword
-              code={'123'!}
-              username="aasdf@gmail.com"
-            />
+            <PasswordChangeContainer username="aasdf@gmail.com" />
           )}
         </div>
       </div>
