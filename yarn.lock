@@ -2515,6 +2515,7 @@
   version "5.9.2"
   resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.9.2.tgz#1cc6ff466d8d5c00159bdf52147347dc861238e1"
   integrity sha512-CB6gPIqqKceERzjWRLaEs6FM7oE813ziuXriR5KfYQuw+eCLAOgypRiL1pUh176UXL2oxGq1/5671QiN0JMeyg==
+
   dependencies:
     "@babel/preset-typescript" "^7.8.3"
     "@egjs/flicking" "^3.4.7"
