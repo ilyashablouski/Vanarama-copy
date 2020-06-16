@@ -45,10 +45,10 @@ const MyDetailsPage: NextPage<IProps> = () => {
       </div>
       <OrderInformationContainer uuid={uuid} partyByUuid={partyByUuid} />
       <div className="row:my-details">
-        <div className="my-details--form" style={{ gridColumnEnd: 6 }}>
+        <div className="my-details--form">
           <PersonalInformationFormContainer personUuid={uuid} />
         </div>
-        <div className="my-details--form " style={{ gridColumnStart: 7 }}>
+        <div className="my-details--form ">
           <Heading tag="span" size="large" color="black" className="-mb-300">
             Password
           </Heading>

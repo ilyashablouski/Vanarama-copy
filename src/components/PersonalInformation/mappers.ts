@@ -7,13 +7,10 @@ import {
 export const responseToInitialFormValues = (
   person: IPropsPersonFormValues,
 ): IPersonInformationFormValues => {
-  const email = person?.emailAddresses.find(_ => _.primary)?.value || '';
-  const mobile = person?.telephoneNumbers.find(_ => _.primary)?.value || '';
-
   return {
-    firstName: person?.person?.firstName || '',
-    lastName: person?.person?.lastName || '',
-    mobile,
-    email,
+    firstName: person?.firstName || '',
+    lastName: person?.lastName || '',
+    telephoneNumber: person.telephoneNumber,
+    emailAddress: person.emailAddress,
   };
 };

@@ -7,9 +7,7 @@ import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
 
 const getKey = (person: IPropsPersonFormValues): string => {
-  const personAddress = person?.addresses?.find(_ => _.kind === 'Home');
-  const telephoneNumber = person?.telephoneNumbers.find(_ => _.primary)?.value;
-  return `${person.person.firstName}${person.person.lastName}${personAddress?.serviceId}${telephoneNumber}`;
+  return `${person.firstName}${person.lastName}${person.address?.serviceId}${person.telephoneNumber}`;
 };
 
 const PersonalInformationContainer: React.FC<IProps> = ({ personUuid }) => {
@@ -30,16 +28,15 @@ const PersonalInformationContainer: React.FC<IProps> = ({ personUuid }) => {
 
   return (
     <PersonalInformation
-      person={data.partyByUuid}
-      key={getKey(data.partyByUuid)}
-      submit={(values, address, addressId) =>
+      person={data.myAccountDetailsByPersonUuid}
+      key={getKey(data.myAccountDetailsByPersonUuid)}
+      submit={(values, serviceId) =>
         createDetailsHandle({
           variables: {
             input: formValuesToInput(
               values,
-              data.partyByUuid,
-              address,
-              addressId,
+              data.myAccountDetailsByPersonUuid,
+              serviceId,
             ),
           },
         })

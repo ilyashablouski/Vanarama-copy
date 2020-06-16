@@ -5,76 +5,62 @@ import {
 } from '../../../generated/CreateUpdatePersonalInformationMutation';
 
 export const CREATE_UPDATE_PERSON = gql`
-  mutation CreateUpdatePersonalInformationMutation($input: PersonInputObject!) {
-    createUpdatePerson(input: $input) {
-      uuid
+  mutation updateMyAccountDetails($input: MyAccountInputObject!) {
+    updateMyAccountDetails(input: $input) {
+      personUuid
       firstName
       lastName
-      emailAddresses {
-        primary
-        value
-      }
-      telephoneNumbers {
-        primary
-        value
-      }
-      addresses {
-        uuid
-        kind
-        serviceId
+      address {
         lineOne
         lineTwo
-        lineThree
         city
         postcode
-        country
+        serviceId
       }
+      telephoneNumber
+      emailAddress
     }
   }
 `;
 
 export const GET_PERSON_INFORMATION_DATA = gql`
-  query getPersonalInformation($uuid: ID!) {
-    partyByUuid(uuid: $uuid) {
-      uuid
-      person {
-        uuid
-        firstName
-        lastName
-      }
-      emailAddresses {
-        uuid
-        primary
-        value
-      }
-      telephoneNumbers {
-        uuid
-        primary
-        value
-      }
-      addresses {
-        uuid
-        serviceId
+  query my_account($personUuid: String!) {
+    myAccountDetailsByPersonUuid(personUuid: $personUuid) {
+      personUuid
+      firstName
+      lastName
+      address {
         lineOne
         lineTwo
-        lineThree
         city
-        kind
         postcode
-        country
+        serviceId
       }
+      telephoneNumber
+      emailAddress
     }
   }
 `;
 
-export function usePersonalInformationData(personByUuid: string) {
+export function usePersonalInformationData(personUuid: string | undefined) {
   return useQuery(GET_PERSON_INFORMATION_DATA, {
     variables: {
-      uuid: personByUuid,
+      personUuid: personUuid || 'aa08cca2-5f8d-4b8c-9506-193d9c32e05f',
     },
   });
 }
 
 export function useCreatePerson() {
-  return useMutation<Mutation, MutationVariables>(CREATE_UPDATE_PERSON);
+  return useMutation(CREATE_UPDATE_PERSON, {
+    update: (store, result) => {
+      // Write our data back to the cache.
+      store.writeQuery({
+        query: GET_PERSON_INFORMATION_DATA,
+        variables: { personUuid: 'aa08cca2-5f8d-4b8c-9506-193d9c32e05f' },
+        data: {
+          ...result.data,
+        },
+      });
+    },
+  });
 }
