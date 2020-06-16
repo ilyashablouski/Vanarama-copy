@@ -36,7 +36,6 @@ import withApollo from '../../../hocs/withApollo';
 import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 import DealOfMonth from '../../../components/DealOfMonth';
 import RouterLink from '../../../components/RouterLink/RouterLink';
-import withApollo from '../../../hocs/withApollo';
 
 const VansPage: NextPage = () => {
   const { data, loading, error } = useQuery<HubVanPageData>(HUB_VAN_CONTENT);

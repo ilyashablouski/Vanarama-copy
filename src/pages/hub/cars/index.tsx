@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import Link from 'next/link';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
@@ -14,7 +15,6 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Step from '@vanarama/uibook/lib/components/molecules/step';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
-import EligibiltyScore from '@vanarama/uibook/lib/components/atoms/score';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
@@ -75,16 +75,25 @@ export const CarsPage: NextPage = () => {
       <section className="row:eligibility-checker-cta">
         <div>...choiceboxes</div>
         <div>
-          <EligibiltyScore score={75} />
+          <Image
+            size="expand"
+            plain
+            src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Eligibility-Checker-Arc+(2).jpg"
+          />
           <Heading size="large" color="black">
             Check Your Eligibility For A New Car Lease
           </Heading>
-          <Button
-            label="Check My Eligibility"
-            size="lead"
-            fill="solid"
-            color="teal"
-          />
+          <Link href="/eligibility-checker">
+            <Button
+              label="Check My Eligibility"
+              size="lead"
+              fill="solid"
+              color="teal"
+            />
+          </Link>
+          <Text tag="p" color="dark" size="xsmall">
+            This will not affect your credit score.
+          </Text>
         </div>
         <div>
           <Image

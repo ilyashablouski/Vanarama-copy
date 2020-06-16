@@ -6,10 +6,10 @@
 import { LeaseTypeEnum } from "./globalTypes";
 
 // ====================================================
-// GraphQL query operation: getOrdersByPartyUuid
+// GraphQL query operation: GetOrdersByPartyUuid
 // ====================================================
 
-export interface getOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct {
+export interface GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct {
   derivativeCapId: string;
   description: string | null;
   vsku: string | null;
@@ -25,7 +25,7 @@ export interface getOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct
   maintenance: boolean | null;
 }
 
-export interface getOrdersByPartyUuid_ordersByPartyUuid_lineItems {
+export interface GetOrdersByPartyUuid_ordersByPartyUuid_lineItems {
   createdAt: any | null;
   leadManagerQuoteId: string | null;
   productId: string;
@@ -34,10 +34,10 @@ export interface getOrdersByPartyUuid_ordersByPartyUuid_lineItems {
   state: string | null;
   updatedAt: any | null;
   uuid: string;
-  vehicleProduct: getOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct | null;
+  vehicleProduct: GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct | null;
 }
 
-export interface getOrdersByPartyUuid_ordersByPartyUuid {
+export interface GetOrdersByPartyUuid_ordersByPartyUuid {
   uuid: string;
   id: string;
   leaseType: LeaseTypeEnum;
@@ -45,17 +45,18 @@ export interface getOrdersByPartyUuid_ordersByPartyUuid {
   aasmState: string;
   createdAt: any | null;
   updatedAt: any | null;
-  lineItems: getOrdersByPartyUuid_ordersByPartyUuid_lineItems[];
+  lineItems: GetOrdersByPartyUuid_ordersByPartyUuid_lineItems[];
 }
 
-export interface getOrdersByPartyUuid {
+export interface GetOrdersByPartyUuid {
   /**
    * Get orders by party_uuid
    */
-  ordersByPartyUuid: getOrdersByPartyUuid_ordersByPartyUuid[];
+  ordersByPartyUuid: GetOrdersByPartyUuid_ordersByPartyUuid[];
 }
 
-export interface getOrdersByPartyUuidVariables {
+export interface GetOrdersByPartyUuidVariables {
   partyUuid: string;
   statuses?: string[] | null;
+  excludeStatuses?: string[] | null;
 }
