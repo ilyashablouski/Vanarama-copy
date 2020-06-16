@@ -34,7 +34,7 @@ describe('<MyOrdersPage />', () => {
           {
             id: 'id',
             leaseType: LeaseTypeEnum.PERSONAL,
-            createdAt: new Date(),
+            createdAt: new Date(1592293249880),
             lineItems: [
               {
                 vehicleProduct: {
