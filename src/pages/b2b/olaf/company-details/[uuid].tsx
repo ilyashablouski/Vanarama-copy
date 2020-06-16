@@ -1,14 +1,16 @@
-import React from 'react';
+import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import React from 'react';
+import CompanyDetailsForm from '../../../../components/CompanyDetailsForm/CompanyDetailsForm';
+import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 
-const CompanyDetailsPage: NextPage = () => (
+export const CompanyDetailsPage: NextPage = () => (
   <OLAFLayout>
-    <Heading color="black" dataTestId="company-details_heading" size="xlarge">
-      Company Details
-    </Heading>
+    <CompanyDetailsForm />
   </OLAFLayout>
 );
 
-export default CompanyDetailsPage;
+export default withApollo(CompanyDetailsPage, {
+  getDataFromTree,
+});

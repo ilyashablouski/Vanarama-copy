@@ -15,10 +15,6 @@ jest.mock('next/router', () => ({
 }));
 
 describe('<SummaryFormContainer />', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
   it('should render personal details correctly', async () => {
     // ARRANGE
     const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';

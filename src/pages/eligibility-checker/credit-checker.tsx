@@ -31,6 +31,30 @@ const CreditChecker: NextPage = () => {
     ],
   };
 
+  const setText = () => {
+    // Average.
+    let text = {
+      heading: 'Congratulations',
+      body: `Great news - scoring ${score} means you’re likely to be accepted for credit to lease your brand new vehicle. So what are you waiting for? It’s time to get started.`,
+    };
+    // Poor.
+    if (score <= 50)
+      text = {
+        heading: 'Your Score Is Less Than 50%',
+        body:
+          'Don’t worry, scoring less than 50% doesn’t necessarily mean you won’t be accepted for credit. Get in touch and we’ll look into this for you and see what we can do. In the meantime, why not have a browse at our range of cars?',
+      };
+    // Good.
+    if (score >= 80)
+      text = {
+        heading: 'Congratulations',
+        body:
+          'Scoring more than 80% means you’re extremely likely to be accepted for credit to lease your brand new vehicle. So what are you waiting for? It’s time to get started.',
+      };
+
+    return text;
+  };
+
   return (
     <>
       <div className="row:title">
@@ -43,12 +67,10 @@ const CreditChecker: NextPage = () => {
         <Score score={score} />
         <div>
           <Heading tag="span" size="large">
-            Choose Your Vehicle
+            {setText().heading}
           </Heading>
           <Text tag="p" size="regular" color="darker">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod odio
-            blanditiis amet reiciendis cupiditate voluptas dolorum? Quidem nam
-            ad debitis!
+            {setText().body}
           </Text>
           <Button
             color="teal"

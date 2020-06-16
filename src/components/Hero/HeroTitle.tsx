@@ -2,7 +2,7 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 
 const HeroTitle: React.FC<{}> = ({ children }) => {
   return (
-    <Text size="large" color="white">
+    <Text tag="p" size="large" color="white">
       {children}
     </Text>
   );

@@ -33,12 +33,10 @@ describe('<SearchPod />', () => {
   };
 
   let mocks = resetMocks();
-
   beforeEach(() => {
-    jest.clearAllMocks();
-    jest.restoreAllMocks();
     mocks = resetMocks();
   });
+
   it('tabs should be changeable', () => {
     render(<SearchPod {...mocks} />);
     fireEvent.click(screen.getByTestId('Carstab'));
