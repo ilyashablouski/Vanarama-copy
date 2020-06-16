@@ -5,7 +5,6 @@ import OrderCard from '@vanarama/uibook/lib/components/molecules/cards/OrderCard
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Pagination from '@vanarama/uibook/lib/components/atoms/pagination';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import moment from 'moment';
 import React, { useState, CSSProperties } from 'react';
 import cx from 'classnames';
 import { NextRouter } from 'next/router';
@@ -14,11 +13,8 @@ import {
   useCarDerivativesData,
 } from '../OrdersInformation/gql';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
-import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
-import {
-  GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct,
-  GetOrdersByPartyUuid_ordersByPartyUuid,
-} from '../../../generated/GetOrdersByPartyUuid';
+import { GetOrdersByPartyUuid_ordersByPartyUuid } from '../../../generated/GetOrdersByPartyUuid';
+import { createOffersObject } from './helpers';
 
 interface IMyOverviewProps {
   partyByUuid: string;
@@ -78,51 +74,6 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   const countPages = () =>
     Math.ceil((data?.ordersByPartyUuid?.length || 0) / 6);
   const pages = [...Array(countPages())].map((_el, i) => i + 1);
-
-  const createOffersObject = (
-    id: string,
-    createdAt: string,
-    leasType: string,
-    state: string,
-    offer: GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct,
-    derivative?: GetDerivatives_derivatives,
-  ) => {
-    return {
-      price: offer.monthlyPayment || 0,
-      priceDescription: `Per Month ${
-        leasType === LeaseTypeEnum.PERSONAL ? 'Inc' : 'Ex'
-      }.VAT`,
-      available: 'Now',
-      initailRental: `£${offer.depositPayment} (${
-        leasType === LeaseTypeEnum.PERSONAL ? 'inc.' : 'ex.'
-      } VAT)`,
-      contractLength: `${offer.depositMonths} month`,
-      annualMileage: offer.annualMileage?.toString() || '-',
-      maintenance: offer.maintenance ? 'Yes' : 'No',
-      fuel: derivative?.fuelTypeName || '-',
-      transmission: derivative?.transmissionName || '-',
-      color: offer.colour || '-',
-      trim: offer.trim || '-',
-      orderNumber: state === 'draft' ? id : undefined,
-      orderDate: moment(createdAt).format('DD.MM.YYYY'),
-      orderButton:
-        state !== 'draft' ? (
-          <Button
-            color="teal"
-            label={quote ? 'Continue To Order' : 'Order Now'}
-            onClick={() => {
-              router.push(
-                leasType === LeaseTypeEnum.PERSONAL
-                  ? '/olaf/about'
-                  : '/b2b/olaf/about',
-              );
-            }}
-          />
-        ) : (
-          undefined
-        ),
-    };
-  };
 
   const onChangeTabs = (value: React.SetStateAction<number>) => {
     setActiveTab!(value);
@@ -184,6 +135,17 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
             el.lineItems[0].state || '',
             el.lineItems[0].vehicleProduct!,
             derivative,
+            <Button
+              color="teal"
+              label={quote ? 'Continue To Order' : 'Order Now'}
+              onClick={() => {
+                router.push(
+                  el.leaseType === LeaseTypeEnum.PERSONAL
+                    ? '/olaf/about'
+                    : '/b2b/olaf/about',
+                );
+              }}
+            />,
           )}
           header={
             !quote
