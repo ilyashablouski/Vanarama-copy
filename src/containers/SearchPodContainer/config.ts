@@ -12,9 +12,9 @@ export const tabsFields = [
   },
   {
     dropdowns: [
-      { label: 'Select Type', accessor: 'typeCars' },
       { label: 'Select Make', accessor: 'makeCars' },
       { label: 'Select Model', accessor: 'modelCars' },
+      { label: 'Select Type', accessor: 'typeCars' },
       { label: 'Select Budget', accessor: 'budgetCars' },
     ],
     buttonText: 'Search Cars',
