@@ -7,15 +7,15 @@ export const PHONE_NUMBER_LINK = {
 };
 
 export const TOP_BAR_LINKS = [
-  { label: 'Vans', href: '/hub/vans/' },
+  { label: 'Vans', href: '/van-leasing/' },
   {
     label: 'Pickup',
-    href: '/hub/pickups',
+    href: '/pickup-truck-leasing/',
     children: [],
   },
   {
     label: 'Cars',
-    href: '/hub/cars',
+    href: '/car-leasing/',
     children: [],
   },
   {
