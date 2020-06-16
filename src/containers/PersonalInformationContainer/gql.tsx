@@ -1,80 +1,61 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
 import {
-  CreateUpdatePersonalInformationMutation as Mutation,
-  CreateUpdatePersonalInformationMutationVariables as MutationVariables,
-} from '../../../generated/CreateUpdatePersonalInformationMutation';
+  UpdateMyAccountDetails,
+  UpdateMyAccountDetailsVariables,
+} from '../../../generated/UpdateMyAccountDetails';
+import { MyAccount, MyAccountVariables } from '../../../generated/MyAccount';
 
 export const CREATE_UPDATE_PERSON = gql`
-  mutation CreateUpdatePersonalInformationMutation($input: PersonInputObject!) {
-    createUpdatePerson(input: $input) {
-      uuid
+  mutation UpdateMyAccountDetails($input: MyAccountInputObject!) {
+    updateMyAccountDetails(input: $input) {
+      personUuid
       firstName
       lastName
-      emailAddresses {
-        primary
-        value
-      }
-      telephoneNumbers {
-        primary
-        value
-      }
-      addresses {
-        uuid
-        kind
-        serviceId
+      address {
         lineOne
         lineTwo
-        lineThree
         city
         postcode
-        country
+        serviceId
       }
+      telephoneNumber
+      emailAddress
     }
   }
 `;
 
 export const GET_PERSON_INFORMATION_DATA = gql`
-  query getPersonalInformation($uuid: ID!) {
-    partyByUuid(uuid: $uuid) {
-      uuid
-      person {
-        uuid
-        firstName
-        lastName
-      }
-      emailAddresses {
-        uuid
-        primary
-        value
-      }
-      telephoneNumbers {
-        uuid
-        primary
-        value
-      }
-      addresses {
-        uuid
-        serviceId
+  query MyAccount($personUuid: String!) {
+    myAccountDetailsByPersonUuid(personUuid: $personUuid) {
+      personUuid
+      firstName
+      lastName
+      address {
         lineOne
         lineTwo
-        lineThree
         city
-        kind
         postcode
-        country
+        serviceId
       }
+      telephoneNumber
+      emailAddress
     }
   }
 `;
 
-export function usePersonalInformationData(personByUuid: string) {
-  return useQuery(GET_PERSON_INFORMATION_DATA, {
+export function usePersonalInformationData(personUuid: string | undefined) {
+  return useQuery<MyAccount, MyAccountVariables>(GET_PERSON_INFORMATION_DATA, {
     variables: {
-      uuid: personByUuid,
+      personUuid: personUuid || '',
     },
   });
 }
 
-export function useCreatePerson() {
-  return useMutation<Mutation, MutationVariables>(CREATE_UPDATE_PERSON);
+export function useCreatePerson(onCompleted: () => void) {
+  return useMutation<UpdateMyAccountDetails, UpdateMyAccountDetailsVariables>(
+    CREATE_UPDATE_PERSON,
+    {
+      onCompleted,
+    },
+  );
 }
