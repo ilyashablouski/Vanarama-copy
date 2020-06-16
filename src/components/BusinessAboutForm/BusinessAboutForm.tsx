@@ -183,7 +183,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
           dataTestId="about-you_company-type"
           ref={register({ required: 'Please select a type of company' })}
         >
-          <option value="limited">Limited</option>
+          <option value="Limited">Limited</option>
         </Select>
       </Formgroup>
       <hr className="-mv-400" />
