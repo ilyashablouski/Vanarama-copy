@@ -50,9 +50,9 @@ const VansPage: NextPage = () => {
   return (
     <>
       <Hero>
-        <HeroHeading>{data?.hubVanPage.sections.hero.title}</HeroHeading>
+        <HeroHeading>{data?.hubVanPage.sections.hero?.title}</HeroHeading>
         <br />
-        <HeroTitle>{data?.hubVanPage.sections.hero.body}</HeroTitle>
+        <HeroTitle>{data?.hubVanPage.sections.hero?.body}</HeroTitle>
         <Button
           size="lead"
           fill="outline"
@@ -65,17 +65,17 @@ const VansPage: NextPage = () => {
           plain
           size="expand"
           src={
-            data?.hubVanPage.sections.hero.image?.file?.url ||
+            data?.hubVanPage.sections.hero?.image?.file?.url ||
             'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
           }
         />
       </Hero>
       <div className="row:lead-text">
         <Heading size="xlarge" color="black">
-          {data?.hubVanPage.sections.leadText.heading}
+          {data?.hubVanPage.sections.leadText?.heading}
         </Heading>
         <Text tag="span" size="lead" color="darker">
-          {data?.hubVanPage.sections.leadText.description}
+          {data?.hubVanPage.sections.leadText?.description}
         </Text>
       </div>
       <hr className="-fullwidth" />
@@ -333,7 +333,7 @@ const VansPage: NextPage = () => {
       <div className="row:bg-lighter ">
         <div className="row:cards-4col">
           <Heading size="large" color="black">
-            {data?.hubVanPage.sections.cards.name}
+            {data?.hubVanPage.sections.cards?.name}
           </Heading>
           <Text
             className="-justify-content-row -mb-400"
@@ -345,34 +345,36 @@ const VansPage: NextPage = () => {
             Crew/Minibus, Pickups and Refrigerated Vans - whatever you need,
             we&apos;ve got it.
           </Text>
-          {data?.hubVanPage.sections.cards.cards?.map((card: CardData, idx) => (
-            <Card
-              key={card.title || idx}
-              title={{
-                title: '',
-                withBtn: true,
-                link: (
-                  <RouterLink
-                    link={{ href: '#', label: card.title || '' }}
-                    className="heading"
-                    classNames={{ size: 'lead', color: 'black' }}
-                  >
-                    {card.body}
-                  </RouterLink>
-                ),
-              }}
-              imageSrc={card.image?.file?.url}
-              description={card.body || ''}
-            />
-          ))}
+          {data?.hubVanPage.sections.cards?.cards?.map(
+            (card: CardData, idx) => (
+              <Card
+                key={card.title || idx}
+                title={{
+                  title: '',
+                  withBtn: true,
+                  link: (
+                    <RouterLink
+                      link={{ href: '#', label: card.title || '' }}
+                      className="heading"
+                      classNames={{ size: 'lead', color: 'black' }}
+                    >
+                      {card.body}
+                    </RouterLink>
+                  ),
+                }}
+                imageSrc={card.image?.file?.url}
+                description={card.body || ''}
+              />
+            ),
+          )}
         </div>
       </div>
 
       <section className="row:steps-4col">
         <Heading className="-a-center -mb-400" size="large" color="black">
-          {data?.hubVanPage.sections.steps.heading}
+          {data?.hubVanPage.sections.steps?.heading}
         </Heading>
-        {data?.hubVanPage.sections.steps.steps?.map((step: StepData, idx) => (
+        {data?.hubVanPage.sections.steps?.steps?.map((step: StepData, idx) => (
           <Step
             heading={step.title || ''}
             step={idx + 1}
@@ -384,10 +386,10 @@ const VansPage: NextPage = () => {
       <section className="row:featured-right">
         <div style={{ padding: '1rem' }}>
           <Heading size="large" color="black">
-            {data?.hubVanPage.sections.featured1.title}
+            {data?.hubVanPage.sections.featured1?.title}
           </Heading>
           <Text tag="p" size="regular" color="darker">
-            {data?.hubVanPage.sections.featured1.body}
+            {data?.hubVanPage.sections.featured1?.body}
           </Text>
           <IconList>
             <IconListItem iconColor="orange">
@@ -403,7 +405,7 @@ const VansPage: NextPage = () => {
         </div>
         <Image
           src={
-            data?.hubVanPage.sections.featured1.image?.file?.url ||
+            data?.hubVanPage.sections.featured1?.image?.file?.url ||
             'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
           }
         />
@@ -416,10 +418,10 @@ const VansPage: NextPage = () => {
         <div className="-inset -middle -col-400">
           <div>
             <Heading size="large" color="black">
-              {data?.hubVanPage.sections.featured2.title}
+              {data?.hubVanPage.sections.featured2?.title}
             </Heading>
             <Text tag="p" size="regular" color="darker">
-              {data?.hubVanPage.sections.featured2.body}
+              {data?.hubVanPage.sections.featured2?.body}
             </Text>
           </div>
         </div>
@@ -453,7 +455,7 @@ const VansPage: NextPage = () => {
       <hr className="fullWidth" />
 
       <section className="row:features-4col">
-        {data?.hubVanPage.sections.tiles.tiles?.map((tile: TileData, idx) => (
+        {data?.hubVanPage.sections.tiles?.tiles?.map((tile: TileData, idx) => (
           <div key={tile.title || idx}>
             <Tile className="-plain -button -align-center" plain>
               <div style={{ display: 'flex', justifyContent: 'center' }}>

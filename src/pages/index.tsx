@@ -54,24 +54,27 @@ export const HomePage: NextPage = () => {
     <>
       <Hero>
         <div className="hero--title">
-          <HeroHeading>{data?.homePage.sections.hero.title}</HeroHeading>
+          <HeroHeading>{data?.homePage.sections.hero?.title}</HeroHeading>
           <br />
-          <HeroTitle>{data?.homePage.sections.hero.body}</HeroTitle>
+          <HeroTitle>{data?.homePage.sections.hero?.body}</HeroTitle>
         </div>
         <Image
           className="hero--image"
           plain
           size="expand"
-          src={data?.homePage.sections.hero?.image?.file?.url || ''}
+          src={
+            data?.homePage.sections.hero?.image?.file?.url ||
+            'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
+          }
         />
       </Hero>
 
       <section className="row:lead-text">
         <span className="heading -xlarge -black">
-          {data?.homePage.sections.leadText.heading}
+          {data?.homePage.sections.leadText?.heading}
         </span>
         <span className="text -lead -darker">
-          {data?.homePage.sections.leadText.description}
+          {data?.homePage.sections.leadText?.description}
         </span>
       </section>
 
@@ -180,7 +183,7 @@ export const HomePage: NextPage = () => {
 
       <section className="row:bg-lighter">
         <div className="row:cards-3col">
-          {data?.homePage.sections.cards.cards?.map((c: CardData, idx) => (
+          {data?.homePage.sections.cards?.cards?.map((c: CardData, idx) => (
             <Card
               key={c.title || idx}
               title={{
@@ -209,10 +212,10 @@ export const HomePage: NextPage = () => {
       <section className="row:featured-right">
         <div style={{ padding: '1rem' }}>
           <Heading size="large" color="black">
-            {data && data.homePage.sections.featured1.title}
+            {data && data.homePage.sections.featured1?.title}
           </Heading>
           <Text tag="p" size="regular" color="darker">
-            {data && data.homePage.sections.featured1.body}
+            {data && data.homePage.sections.featured1?.body}
           </Text>
           <IconList>
             <IconListItem iconColor="orange">
@@ -233,16 +236,16 @@ export const HomePage: NextPage = () => {
         <Image src="https://source.unsplash.com/collection/2102317/900x500?sig=403422" />
         <div>
           <Heading size="large" color="black">
-            {data && data.homePage.sections.featured2.title}
+            {data && data.homePage.sections.featured2?.title}
           </Heading>
           <Text tag="p" size="regular" color="darker">
-            {data && data.homePage.sections.featured2.body}
+            {data && data.homePage.sections.featured2?.body}
           </Text>
         </div>
       </section>
 
       <section className="row:features-4col">
-        {data?.homePage.sections.tiles.tiles?.map((t: TileData, idx) => (
+        {data?.homePage.sections.tiles?.tiles?.map((t: TileData, idx) => (
           <div key={t.title || idx}>
             <Tile className="-plain -button -align-center" plain>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
