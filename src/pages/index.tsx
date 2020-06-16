@@ -62,7 +62,10 @@ export const HomePage: NextPage = () => {
           className="hero--image"
           plain
           size="expand"
-          src={data?.homePage.sections.hero.image.file.url || ''}
+          src={
+            data?.homePage.sections.hero.image?.file?.url ||
+            'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
+          }
         />
       </Hero>
 
