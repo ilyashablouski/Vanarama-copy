@@ -1,3 +1,4 @@
+import SearchPodContainer from '../../containers/SearchPodContainer';
 import { IHeroProps } from './interface';
 
 const Hero: React.FC<IHeroProps> = ({ children }) => {
@@ -6,7 +7,7 @@ const Hero: React.FC<IHeroProps> = ({ children }) => {
       <div className="row:hero">
         <div className="hero--left">{children}</div>
         <div className="hero--right">
-          <div>...search</div>
+          <SearchPodContainer />
         </div>
         <div className="hero--decals">
           <svg

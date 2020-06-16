@@ -18,7 +18,15 @@ interface IAppLinkProps extends IBaseProps {
 }
 
 const RouterLink: React.FC<IAppLinkProps> = props => {
-  const { link, className, children, replace, onClick, classNames } = props;
+  const {
+    link,
+    className,
+    children,
+    replace,
+    onClick,
+    classNames,
+    dataTestId,
+  } = props;
 
   const linkClassName = cx('link', className, {
     [`-${classNames?.color}`]: classNames?.color,
@@ -48,7 +56,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
       <a
         className={linkClassName}
         onClick={e => onClick && onClick(e)}
-        data-testid="router-link"
+        data-testid={dataTestId ?? 'router-link'}
       >
         {children || link.label}
       </a>
