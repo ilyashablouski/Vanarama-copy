@@ -29,22 +29,12 @@ const PersonalInformationContainer: React.FC<IProps> = ({
     return null;
   }
 
-  console.log('DATA', data);
-
   return (
     <PersonalInformation
       person={data.myAccountDetailsByPersonUuid}
       key={getKey(data.myAccountDetailsByPersonUuid)}
-      submit={(values, serviceId) => {
-        console.log(
-          'formValuesToInput',
-          formValuesToInput(
-            values,
-            data.myAccountDetailsByPersonUuid,
-            serviceId,
-          ),
-        );
-        return createDetailsHandle({
+      submit={(values, serviceId) =>
+        createDetailsHandle({
           variables: {
             input: formValuesToInput(
               values,
@@ -52,8 +42,8 @@ const PersonalInformationContainer: React.FC<IProps> = ({
               serviceId,
             ),
           },
-        });
-      }}
+        })
+      }
     />
   );
 };

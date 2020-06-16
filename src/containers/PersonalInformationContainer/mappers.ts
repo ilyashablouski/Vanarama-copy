@@ -1,16 +1,14 @@
-import {
-  IPersonInformationFormValues,
-  IPropsPersonFormValues,
-} from '../../components/PersonalInformation/interface';
+import { IPersonInformationFormValues } from '../../components/PersonalInformation/interface';
+import { MyAccount_myAccountDetailsByPersonUuid as IPerson } from '../../../generated/MyAccount';
 
 // eslint-disable-next-line import/prefer-default-export
 export const formValuesToInput = (
   values: IPersonInformationFormValues,
-  person: IPropsPersonFormValues,
+  person: IPerson | null,
   serviceId: string | undefined,
 ) => {
   return {
-    personUuid: person.personUuid,
+    personUuid: person?.personUuid,
     firstName: values.firstName,
     lastName: values.lastName,
     telephoneNumber: values.telephoneNumber,
