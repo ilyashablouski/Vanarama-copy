@@ -74,7 +74,7 @@ export function useOrdersByPartyUuidData(
 }
 
 export const GET_CAR_DERIVATIVES = gql`
-  query GetDerivatives($ids: [ID!], $vehicleType: VehicleTypeEnum) {
+  query GetDerivatives($ids: [ID!]!, $vehicleType: VehicleTypeEnum) {
     derivatives(ids: $ids, vehicleType: $vehicleType) {
       id
       capCode

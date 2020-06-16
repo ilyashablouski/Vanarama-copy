@@ -10,8 +10,6 @@ import withApollo from '../../../hocs/withApollo';
 import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
 import OrderInformationContainer from '../../../containers/OrdersInformation/OrderInformationContainer';
 
-export const PARTY_BY_UUID = '7c53729d-7000-4268-8f6b-354ee8e999ce';
-
 interface IProps {
   query: ParsedUrlQuery;
 }
@@ -27,7 +25,7 @@ const MyDetailsPage: NextPage<IProps> = () => {
   const router = useRouter();
   const uuid = router.query.uuid as string;
 
-  const partyByUuid = PARTY_BY_UUID;
+  const partyByUuid = '';
   const [resetPassword, setResetPassword] = useState(false);
 
   return (

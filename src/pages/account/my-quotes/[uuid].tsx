@@ -1,4 +1,4 @@
-import MyOrdersPage from './index';
+import MyQuotesPage from './index';
 
-// This is here to ensure that '/account/my-orders/[id]' & '/account/my-orders' both point to the about page
-export default MyOrdersPage;
+// This is here to ensure that '/account/my-quotes/[id]' & '/account/my-quotes' both point to the about page
+export default MyQuotesPage;

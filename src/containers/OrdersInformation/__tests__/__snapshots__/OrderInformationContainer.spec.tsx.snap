@@ -50,7 +50,7 @@ exports[`<OrderInformationContainer /> renders correctly with data 1`] = `
         <span
           className="heading -dark -small"
         >
-          You have (0) quotes.
+          You have (1) quotes.
         </span>
       </div>
       <a
