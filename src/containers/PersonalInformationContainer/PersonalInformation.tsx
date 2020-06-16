@@ -14,8 +14,12 @@ const getKey = (person: IPerson | null): string => {
 const PersonalInformationContainer: React.FC<IProps> = ({
   personUuid = 'aa08cca2-5f8d-4b8c-9506-193d9c32e05f',
 }) => {
-  const [createDetailsHandle] = useCreatePerson();
-  const { data, loading, error } = usePersonalInformationData(personUuid);
+  const { data, loading, error, refetch } = usePersonalInformationData(
+    personUuid,
+  );
+  const [createDetailsHandle] = useCreatePerson(() => {
+    refetch();
+  });
 
   if (loading) {
     return <Loading size="large" />;

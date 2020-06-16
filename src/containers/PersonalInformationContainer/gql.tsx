@@ -51,8 +51,11 @@ export function usePersonalInformationData(personUuid: string | undefined) {
   });
 }
 
-export function useCreatePerson() {
+export function useCreatePerson(onCompleted: () => void) {
   return useMutation<UpdateMyAccountDetails, UpdateMyAccountDetailsVariables>(
     CREATE_UPDATE_PERSON,
+    {
+      onCompleted,
+    },
   );
 }

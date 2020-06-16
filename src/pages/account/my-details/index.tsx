@@ -11,6 +11,7 @@ import PersonalInformationFormContainer from '../../../containers/PersonalInform
 import OrderInformationContainer from '../../../containers/OrdersInformation/OrderInformationContainer';
 
 export const PARTY_BY_UUID = '7c53729d-7000-4268-8f6b-354ee8e999ce';
+const personUuid = 'aa08cca2-5f8d-4b8c-9506-193d9c32e05f';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -46,7 +47,7 @@ const MyDetailsPage: NextPage<IProps> = () => {
       <OrderInformationContainer uuid={uuid} partyByUuid={partyByUuid} />
       <div className="row:my-details">
         <div className="my-details--form">
-          <PersonalInformationFormContainer personUuid={uuid} />
+          <PersonalInformationFormContainer personUuid={personUuid} />
         </div>
         <div className="my-details--form ">
           <Heading tag="span" size="large" color="black" className="-mb-300">

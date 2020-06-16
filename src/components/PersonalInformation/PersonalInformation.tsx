@@ -47,11 +47,11 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             <div className="structured-list-row">
               <div
                 style={{ verticalAlign: 'middle' }}
-                className="structured-list-td structured-list-content--nowrap"
+                className="structured-list-td structured-list-content--nowrap -pr-600"
               >
                 First Name
               </div>
-              <div className="structured-list-td -pl-600">
+              <div className="structured-list-td">
                 {editData ? (
                   <FormGroup
                     className="structured-list-td structured-list-content --inline-preserved -pb-000 -pt-000 -pr-000"
@@ -80,7 +80,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
               >
                 Last Name
               </div>
-              <div className="structured-list-td -pl-600">
+              <div className="structured-list-td">
                 {editData ? (
                   <FormGroup
                     className="structured-list-td structured-list-content --inline-preserved -pt-000 -pb-000 -pr-000"
@@ -109,7 +109,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
               >
                 Address
               </div>
-              <div className="structured-list-td -pl-600">
+              <div className="structured-list-td">
                 {editData ? (
                   <AddressFinder
                     apiKey={process.env.LOQATE_KEY || ''}
@@ -143,7 +143,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
               >
                 Telephone
               </div>
-              <div className="structured-list-td -pl-600">
+              <div className="structured-list-td">
                 {editData ? (
                   <FormGroup
                     className="structured-list-td structured-list-content --inline-preserved  -pb-000 -pt-000 -pr-000"
@@ -160,7 +160,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
                     />
                   </FormGroup>
                 ) : (
-                  <>{person.telephoneNumber || 'No information'}</>
+                  <>{person?.telephoneNumber || 'No information'}</>
                 )}
               </div>
             </div>
@@ -172,9 +172,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
               >
                 Email
               </div>
-              <div className="structured-list-td -pl-600">
-                {person.emailAddress}
-              </div>
+              <div className="structured-list-td">{person?.emailAddress}</div>
             </div>
           </div>
         </section>

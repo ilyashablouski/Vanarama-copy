@@ -1,14 +1,18 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import { render, waitFor, screen } from '@testing-library/react';
 import PersonalInformation from './PersonalInformation';
-import { usePersonalInformationData } from './gql';
+import { GET_PERSON_INFORMATION_DATA } from './gql';
 
-jest.mock('./gql');
-
-describe('<PersonalInformation />', () => {
-  it('should prepopulate the form with existing data', async () => {
-    (usePersonalInformationData as jest.Mock).mockReturnValue({
-      loading: false,
+const mocks: MockedResponse[] = [
+  {
+    request: {
+      query: GET_PERSON_INFORMATION_DATA,
+      variables: {
+        personUuid: 'aa08cca2-5f8d-4b8c-9506-193d9c32e05f',
+      },
+    },
+    result: {
       data: {
         myAccountDetailsByPersonUuid: {
           address: {
@@ -17,57 +21,53 @@ describe('<PersonalInformation />', () => {
             city: 'Portsmouth',
             postcode: 'PO6 3EN',
             serviceId: 'GB|RM|B|55855593',
-            __typename: 'AddressType',
           },
           emailAddress: 'someone.testing.motorama+44@gmail.com',
-          firstName: 'Robby',
-          lastName: 'William',
+          firstName: 'Jonses',
+          lastName: 'Lanes',
           personUuid: 'aa08cca2-5f8d-4b8c-9506-193d9c32e05f',
-          telephoneNumber: '07987654567d',
-          __typename: 'MyAccountType',
+          telephoneNumber: '02020202334',
         },
       },
-      error: undefined,
-    });
+    },
+  },
+];
 
-    // ACT
-    const getComponent = () => {
-      return renderer.create(<PersonalInformation personUuid="" />).toJSON();
-    };
-
-    const tree = getComponent();
-    expect(tree).toMatchSnapshot();
-  });
-
+describe('<PersonalInformation />', () => {
   it('should prepopulate the form with existing data', async () => {
-    (usePersonalInformationData as jest.Mock).mockReturnValue({
-      loading: true,
-      data: undefined,
-      error: undefined,
+    // ACT
+    render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <PersonalInformation personUuid="aa08cca2-5f8d-4b8c-9506-193d9c32e05f" />
+      </MockedProvider>,
+    );
+
+    // Wait for the initial query to resolve
+    await waitFor(() => screen.findByTestId('personHeading'));
+
+    // // ASSERT
+    await waitFor(() => {
+      expect(screen.getByText('Jonses'));
     });
 
-    // ACT
-    const getComponent = () => {
-      return renderer.create(<PersonalInformation personUuid="" />).toJSON();
-    };
-
-    const tree = getComponent();
-    expect(tree).toMatchSnapshot();
-  });
-
-  it('should prepopulate the form with existing data', async () => {
-    (usePersonalInformationData as jest.Mock).mockReturnValue({
-      loading: false,
-      data: undefined,
-      error: { message: 'error' },
+    await waitFor(() => {
+      expect(screen.getByText('Lanes'));
     });
 
-    // ACT
-    const getComponent = () => {
-      return renderer.create(<PersonalInformation personUuid="" />).toJSON();
-    };
+    await waitFor(() => {
+      expect(screen.getByText('02020202334'));
+    });
 
-    const tree = getComponent();
-    expect(tree).toMatchSnapshot();
+    await waitFor(() => {
+      expect(screen.getByText('someone.testing.motorama+44@gmail.com'));
+    });
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          'Building 1000, Lakeside North Harbour - Portsmouth, PO6 3EN',
+        ),
+      );
+    });
   });
 });

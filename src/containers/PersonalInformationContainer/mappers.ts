@@ -8,7 +8,7 @@ export const formValuesToInput = (
   serviceId: string | undefined,
 ) => {
   return {
-    personUuid: person?.personUuid,
+    personUuid: person?.personUuid || '',
     firstName: values.firstName,
     lastName: values.lastName,
     telephoneNumber: values.telephoneNumber,
