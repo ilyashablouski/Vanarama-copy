@@ -51,12 +51,13 @@ const PasswordChangeContainer = ({
       hasError={Boolean(error)}
       onSubmit={async values => {
         console.log({values})
-        // await cahngePassword({
-        //   variables: {
-        //     username: values.username,
-        //     opassword: values.password,
-        //   },
-        // });
+        await cahngePassword({
+          variables: {
+            username: values.username,
+            oldPassword: values.password,
+            newPassword: values.code,
+          },
+        });
       }}
     />
   );

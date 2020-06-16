@@ -69,7 +69,7 @@ export const MyDetailsPage: NextPage<IProps> = () => {
               </div>
             </div>
           ) : (
-            <PasswordChangeContainer username="aasdf@gmail.com" />
+            <PasswordChangeContainer username="some61@lexu4g.com" />
           )}
         </div>
       </div>
