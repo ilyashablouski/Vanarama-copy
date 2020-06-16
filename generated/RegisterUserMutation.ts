@@ -8,7 +8,7 @@
 // ====================================================
 
 export interface RegisterUserMutation_register {
-  id: number | null;
+  uuid: string | null;
 }
 
 export interface RegisterUserMutation {

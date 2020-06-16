@@ -161,6 +161,17 @@ export interface IncomeAndExpenseInputObject {
 }
 
 /**
+ * Input object to update my account section
+ */
+export interface MyAccountInputObject {
+  firstName?: string | null;
+  lastName?: string | null;
+  personUuid: string;
+  serviceId?: string | null;
+  telephoneNumber?: string | null;
+}
+
+/**
  * Input object to create a Person
  */
 export interface PersonInputObject {

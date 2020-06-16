@@ -1,11 +1,12 @@
 import { gql, useMutation, useQuery } from '@apollo/client';
 import {
-  CreateUpdatePersonalInformationMutation as Mutation,
-  CreateUpdatePersonalInformationMutationVariables as MutationVariables,
-} from '../../../generated/CreateUpdatePersonalInformationMutation';
+  UpdateMyAccountDetails,
+  UpdateMyAccountDetailsVariables,
+} from '../../../generated/UpdateMyAccountDetails';
+import { MyAccount, MyAccountVariables } from '../../../generated/MyAccount';
 
 export const CREATE_UPDATE_PERSON = gql`
-  mutation updateMyAccountDetails($input: MyAccountInputObject!) {
+  mutation UpdateMyAccountDetails($input: MyAccountInputObject!) {
     updateMyAccountDetails(input: $input) {
       personUuid
       firstName
@@ -24,7 +25,7 @@ export const CREATE_UPDATE_PERSON = gql`
 `;
 
 export const GET_PERSON_INFORMATION_DATA = gql`
-  query my_account($personUuid: String!) {
+  query MyAccount($personUuid: String!) {
     myAccountDetailsByPersonUuid(personUuid: $personUuid) {
       personUuid
       firstName
@@ -43,24 +44,15 @@ export const GET_PERSON_INFORMATION_DATA = gql`
 `;
 
 export function usePersonalInformationData(personUuid: string | undefined) {
-  return useQuery(GET_PERSON_INFORMATION_DATA, {
+  return useQuery<MyAccount, MyAccountVariables>(GET_PERSON_INFORMATION_DATA, {
     variables: {
-      personUuid: personUuid || 'aa08cca2-5f8d-4b8c-9506-193d9c32e05f',
+      personUuid: personUuid || '',
     },
   });
 }
 
 export function useCreatePerson() {
-  return useMutation(CREATE_UPDATE_PERSON, {
-    update: (store, result) => {
-      // Write our data back to the cache.
-      store.writeQuery({
-        query: GET_PERSON_INFORMATION_DATA,
-        variables: { personUuid: 'aa08cca2-5f8d-4b8c-9506-193d9c32e05f' },
-        data: {
-          ...result.data,
-        },
-      });
-    },
-  });
+  return useMutation<UpdateMyAccountDetails, UpdateMyAccountDetailsVariables>(
+    CREATE_UPDATE_PERSON,
+  );
 }

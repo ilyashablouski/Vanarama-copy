@@ -1,16 +1,19 @@
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React from 'react';
 import PersonalInformation from '../../components/PersonalInformation/PersonalInformation';
-import { IPropsPersonFormValues } from '../../components/PersonalInformation/interface';
+import { MyAccount_myAccountDetailsByPersonUuid as IPerson } from '../../../generated/MyAccount';
+
 import { useCreatePerson, usePersonalInformationData } from './gql';
 import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
 
-const getKey = (person: IPropsPersonFormValues): string => {
-  return `${person.firstName}${person.lastName}${person.address?.serviceId}${person.telephoneNumber}`;
+const getKey = (person: IPerson | null): string => {
+  return `${person?.firstName}${person?.lastName}${person?.address?.serviceId}${person?.telephoneNumber}`;
 };
 
-const PersonalInformationContainer: React.FC<IProps> = ({ personUuid }) => {
+const PersonalInformationContainer: React.FC<IProps> = ({
+  personUuid = 'aa08cca2-5f8d-4b8c-9506-193d9c32e05f',
+}) => {
   const [createDetailsHandle] = useCreatePerson();
   const { data, loading, error } = usePersonalInformationData(personUuid);
 
@@ -26,12 +29,22 @@ const PersonalInformationContainer: React.FC<IProps> = ({ personUuid }) => {
     return null;
   }
 
+  console.log('DATA', data);
+
   return (
     <PersonalInformation
       person={data.myAccountDetailsByPersonUuid}
       key={getKey(data.myAccountDetailsByPersonUuid)}
-      submit={(values, serviceId) =>
-        createDetailsHandle({
+      submit={(values, serviceId) => {
+        console.log(
+          'formValuesToInput',
+          formValuesToInput(
+            values,
+            data.myAccountDetailsByPersonUuid,
+            serviceId,
+          ),
+        );
+        return createDetailsHandle({
           variables: {
             input: formValuesToInput(
               values,
@@ -39,8 +52,8 @@ const PersonalInformationContainer: React.FC<IProps> = ({ personUuid }) => {
               serviceId,
             ),
           },
-        })
-      }
+        });
+      }}
     />
   );
 };
