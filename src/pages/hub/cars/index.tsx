@@ -22,15 +22,17 @@ import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
+
 import {
   HubCarPageData,
   HubCarPageData_hubCarPage_sections_tiles_tiles as TileData,
   HubCarPageData_hubCarPage_sections_steps_steps as StepData,
 } from '../../../../generated/HubCarPageData';
 import { HUB_CAR_CONTENT } from '../../../gql/hubCarPage';
+import withApollo from '../../../hocs/withApollo';
+
 import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 import RouterLink from '../../../components/RouterLink/RouterLink';
-import withApollo from '../../../hocs/withApollo';
 
 export const CarsPage: NextPage = () => {
   const { data, loading, error } = useQuery<HubCarPageData>(HUB_CAR_CONTENT);
@@ -249,33 +251,6 @@ export const CarsPage: NextPage = () => {
                 </Heading>
               </a>
               <Text tag="p">{tile.body}</Text>
-            </Tile>
-          </div>
-        ))}
-        {[
-          'Price Protection',
-          'Customer Reviews',
-          'Quote On line',
-          'Confused About Leasing?',
-        ].map(t => (
-          <div key={t}>
-            <Tile className="-plain -button -align-center" plain>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Image
-                  inline
-                  round
-                  size="large"
-                  src="https://source.unsplash.com/collection/2102317/1000x650?sig=403411"
-                />
-              </div>
-              <a className="tile--link" href="##">
-                <Heading tag="span" size="regular" color="black">
-                  {t}
-                </Heading>
-              </a>
-              <Text tag="p">
-                Pretium facilisi etiam pretium, cras interdum enim, nullam.
-              </Text>
             </Tile>
           </div>
         ))}

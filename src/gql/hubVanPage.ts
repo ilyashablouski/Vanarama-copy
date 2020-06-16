@@ -21,10 +21,32 @@ const HUB_VAN_CONTENT = gql`
         featured1 {
           title
           body
+          image {
+            file {
+              url
+            }
+          }
         }
         featured2 {
           title
           body
+          image {
+            file {
+              url
+            }
+          }
+        }
+        cards {
+          name
+          cards {
+            title
+            body
+            image {
+              file {
+                url
+              }
+            }
+          }
         }
         steps {
           heading

@@ -1,3 +1,5 @@
+import { NextPage } from 'next';
+import { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
@@ -26,8 +28,6 @@ import IconList, {
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
-import { NextPage } from 'next';
-import { useState } from 'react';
 
 import RouterLink from '../components/RouterLink/RouterLink';
 import {

@@ -27,14 +27,51 @@ export interface HubVanPageData_hubVanPage_sections_leadText {
   description: string | null;
 }
 
+export interface HubVanPageData_hubVanPage_sections_featured1_image_file {
+  url: string;
+}
+
+export interface HubVanPageData_hubVanPage_sections_featured1_image {
+  file: HubVanPageData_hubVanPage_sections_featured1_image_file | null;
+}
+
 export interface HubVanPageData_hubVanPage_sections_featured1 {
   title: string | null;
   body: string | null;
+  image: HubVanPageData_hubVanPage_sections_featured1_image | null;
+}
+
+export interface HubVanPageData_hubVanPage_sections_featured2_image_file {
+  url: string;
+}
+
+export interface HubVanPageData_hubVanPage_sections_featured2_image {
+  file: HubVanPageData_hubVanPage_sections_featured2_image_file | null;
 }
 
 export interface HubVanPageData_hubVanPage_sections_featured2 {
   title: string | null;
   body: string | null;
+  image: HubVanPageData_hubVanPage_sections_featured2_image | null;
+}
+
+export interface HubVanPageData_hubVanPage_sections_cards_cards_image_file {
+  url: string;
+}
+
+export interface HubVanPageData_hubVanPage_sections_cards_cards_image {
+  file: HubVanPageData_hubVanPage_sections_cards_cards_image_file | null;
+}
+
+export interface HubVanPageData_hubVanPage_sections_cards_cards {
+  title: string | null;
+  body: string | null;
+  image: HubVanPageData_hubVanPage_sections_cards_cards_image | null;
+}
+
+export interface HubVanPageData_hubVanPage_sections_cards {
+  name: string | null;
+  cards: HubVanPageData_hubVanPage_sections_cards_cards[] | null;
 }
 
 export interface HubVanPageData_hubVanPage_sections_steps_steps {
@@ -72,6 +109,7 @@ export interface HubVanPageData_hubVanPage_sections {
   leadText: HubVanPageData_hubVanPage_sections_leadText;
   featured1: HubVanPageData_hubVanPage_sections_featured1;
   featured2: HubVanPageData_hubVanPage_sections_featured2;
+  cards: HubVanPageData_hubVanPage_sections_cards;
   steps: HubVanPageData_hubVanPage_sections_steps;
   tiles: HubVanPageData_hubVanPage_sections_tiles;
 }
