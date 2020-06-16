@@ -2,7 +2,7 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { HomePageData } from '../../../generated/HomePageData';
-import { ALL_CONTENT } from '../../gql/homepage';
+import { ALL_HOME_CONTENT } from '../../gql/homepage';
 import { HomePage } from '../../pages';
 import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
 
@@ -13,24 +13,15 @@ describe('<HomePage />', () => {
     const mocked: MockedResponse[] = [
       {
         request: {
-          query: ALL_CONTENT,
+          query: ALL_HOME_CONTENT,
         },
         result: {
           data: {
             homePage: {
               sections: {
-                featured1: {
-                  title: 'Why Leasing?',
-                  body: '',
-                },
-                featured2: {
-                  title: 'Featured 2 title',
-                  body: '',
-                },
                 hero: {
                   title: '',
-                  flag: '',
-                  body: '',
+                  body: 'hero body',
                   image: {
                     file: {
                       url: '',
@@ -38,9 +29,21 @@ describe('<HomePage />', () => {
                     title: '',
                   },
                 },
+                leadText: {
+                  heading: 'Lead heading',
+                  description: 'hellow world description',
+                },
                 cards: {
                   name: '',
                   cards: [],
+                },
+                featured1: {
+                  title: 'Why Leasing?',
+                  body: '',
+                },
+                featured2: {
+                  title: 'Featured 2 title',
+                  body: '',
                 },
                 tiles: {
                   name: '',

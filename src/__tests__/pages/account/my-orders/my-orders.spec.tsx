@@ -22,10 +22,6 @@ jest.mock('next/router', () => ({
 }));
 
 describe('<MyOrdersPage />', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
   it('renders correctly with data', async () => {
     (useOrdersByPartyUuidData as jest.Mock).mockReturnValue({
       loading: false,
@@ -34,7 +30,7 @@ describe('<MyOrdersPage />', () => {
           {
             id: 'id',
             leaseType: LeaseTypeEnum.PERSONAL,
-            createdAt: new Date(),
+            createdAt: new Date(1592293249880),
             lineItems: [
               {
                 vehicleProduct: {

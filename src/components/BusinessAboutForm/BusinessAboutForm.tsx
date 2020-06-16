@@ -150,7 +150,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
       </Formgroup>
       <Formgroup
         controlId="email"
-        hint="Please provide your email number"
+        hint="Please provide your email address"
         label="Email Address"
         error={errors.email?.message?.toString()}
       >

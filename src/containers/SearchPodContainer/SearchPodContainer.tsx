@@ -170,8 +170,10 @@ const SearchPodContainer = () => {
         values[`type${tabType}`] &&
         !(isCarTab && values[`model${tabType}`])
       ) {
-        queryTypePart = `bodyType=${values[`type${tabType}`].replace(' ', '')}`;
-        queryPart += `${queryTypePart} + ${values[`type${tabType}`] &&
+        queryTypePart = `bodyType=${values[`type${tabType}`]
+          .split(' ')
+          .join('')}`;
+        queryPart += `${queryTypePart}${values[`type${tabType}`] &&
           values[`budget${tabType}`] &&
           (!(isCarTab && values[`model${tabType}`]) || '') &&
           '&'}`;
