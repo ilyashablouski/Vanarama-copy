@@ -22,7 +22,7 @@ const ValidationSchema = yup.object().shape({
       'Oops, this name’s too short. Please make it 2 characters or longer',
     )
     .max(50, 'Oops, this name’s too long. Please keep it to 50 characters'),
-  mobile: yup
+  telephoneNumber: yup
     .string()
     .required(reqMsg('mobile number'))
     .max(

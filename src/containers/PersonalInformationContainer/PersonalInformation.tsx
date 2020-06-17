@@ -1,20 +1,25 @@
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React from 'react';
 import PersonalInformation from '../../components/PersonalInformation/PersonalInformation';
-import { IPropsPersonFormValues } from '../../components/PersonalInformation/interface';
+import { MyAccount_myAccountDetailsByPersonUuid as IPerson } from '../../../generated/MyAccount';
+
 import { useCreatePerson, usePersonalInformationData } from './gql';
 import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
 
-const getKey = (person: IPropsPersonFormValues): string => {
-  const personAddress = person?.addresses?.find(_ => _.kind === 'Home');
-  const telephoneNumber = person?.telephoneNumbers.find(_ => _.primary)?.value;
-  return `${person.person.firstName}${person.person.lastName}${personAddress?.serviceId}${telephoneNumber}`;
+const getKey = (person: IPerson | null): string => {
+  return `${person?.firstName}${person?.lastName}${person?.address?.serviceId}${person?.telephoneNumber}`;
 };
 
-const PersonalInformationContainer: React.FC<IProps> = ({ personUuid }) => {
-  const [createDetailsHandle] = useCreatePerson();
-  const { data, loading, error } = usePersonalInformationData(personUuid);
+const PersonalInformationContainer: React.FC<IProps> = ({
+  personUuid = 'aa08cca2-5f8d-4b8c-9506-193d9c32e05f',
+}) => {
+  const { data, loading, error, refetch } = usePersonalInformationData(
+    personUuid,
+  );
+  const [createDetailsHandle] = useCreatePerson(() => {
+    refetch();
+  });
 
   if (loading) {
     return <Loading size="large" />;
@@ -30,16 +35,15 @@ const PersonalInformationContainer: React.FC<IProps> = ({ personUuid }) => {
 
   return (
     <PersonalInformation
-      person={data.partyByUuid}
-      key={getKey(data.partyByUuid)}
-      submit={(values, address, addressId) =>
+      person={data.myAccountDetailsByPersonUuid}
+      key={getKey(data.myAccountDetailsByPersonUuid)}
+      submit={(values, serviceId) =>
         createDetailsHandle({
           variables: {
             input: formValuesToInput(
               values,
-              data.partyByUuid,
-              address,
-              addressId,
+              data.myAccountDetailsByPersonUuid,
+              serviceId,
             ),
           },
         })

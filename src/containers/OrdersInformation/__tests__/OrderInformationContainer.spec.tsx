@@ -6,10 +6,6 @@ import { useOrdersByPartyUuidData } from '../gql';
 jest.mock('../gql');
 
 describe('<OrderInformationContainer />', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
   it('renders correctly with data', async () => {
     (useOrdersByPartyUuidData as jest.Mock).mockReturnValue({
       loading: false,

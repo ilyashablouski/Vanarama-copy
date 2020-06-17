@@ -2334,6 +2334,13 @@
   resolved "https://registry.npmjs.org/@types/qs/-/qs-6.9.1.tgz#937fab3194766256ee09fcd40b781740758617e7"
   integrity sha512-lhbQXx9HKZAPgBkISrBcmAcMpZsmpe/Cd/hY7LGZS5OfkySUBItnPZHgQPssWYUET8elF+yCFBbP1Q0RZPTdaw==
 
+"@types/react-autosuggest@^9.3.14":
+  version "9.3.14"
+  resolved "https://registry.npmjs.org/@types/react-autosuggest/-/react-autosuggest-9.3.14.tgz#0a759db913f28609f390605283747c497af7e931"
+  integrity sha512-cvGpKaQaNsFbDxTwP56VKVj2FO6SpJ9PsrQtlVzN7aVa/SsMZoQrBLEUx5HQKfIS4Zupb6K4tHmIyTjF7AEcow==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-dom@*", "@types/react-dom@^16.9.5":
   version "16.9.5"
   resolved "https://registry.npmjs.org/@types/react-dom/-/react-dom-16.9.5.tgz#5de610b04a35d07ffd8f44edad93a71032d9aaa7"
@@ -2511,10 +2518,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@5.9.5":
-  version "5.9.5"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.9.5.tgz#6af8dcc1a35bce58c3cf4cef0ad0370bd7b99440"
-  integrity sha512-kv19oZ09L63q1bfivtzlgBbC7H7rfpH04DF+xNM/8VAJK4ZU3L+DyGlDMpAw84KUX2yJ4aDtBfHU37+R/lIh5w==
+"@vanarama/uibook@5.10.0":
+  version "5.10.0"
+  resolved "https://registry.npmjs.org/@vanarama/uibook/-/uibook-5.10.0.tgz#a7b3f73a6ce5e8be75a253db4410e87ebf2de3ad"
+  integrity sha512-Ogu1WbTUZ1Xio4to/x/UMCD+JZFK+cgtgZiq7Y12QCyIuriZBIB7vgi0QVpkFnjDDHiQuReGSSr5my+CV+UqVA==
   dependencies:
     "@babel/preset-typescript" "^7.8.3"
     "@egjs/flicking" "^3.4.7"

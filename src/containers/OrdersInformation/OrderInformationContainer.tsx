@@ -1,5 +1,6 @@
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import React from 'react';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { useOrdersByPartyUuidData } from './gql';
 import { IProps } from './interfaces';
@@ -25,11 +26,11 @@ const OrderInformationContainer: React.FC<IProps> = ({ partyByUuid }) => {
         <Card
           title={{
             title: 'My Orders',
-            description: `You have (${
-              haveOrders ? orders.data?.ordersByPartyUuid.length : 0
-            }) orders.`,
           }}
         >
+          <Text tag="span" size="regular" color="dark">{`You have (${
+            haveOrders ? orders.data?.ordersByPartyUuid.length : 0
+          }) orders.`}</Text>
           <RouterLink
             classNames={{
               color: 'teal',
@@ -45,11 +46,11 @@ const OrderInformationContainer: React.FC<IProps> = ({ partyByUuid }) => {
         <Card
           title={{
             title: 'My Quotes',
-            description: `You have (${
-              haveQuotes ? quotes.data?.ordersByPartyUuid.length : 0
-            }) quotes.`,
           }}
         >
+          <Text tag="span" size="regular" color="dark">{`You have (${
+            haveQuotes ? quotes.data?.ordersByPartyUuid.length : 0
+          }) quotes.`}</Text>
           <RouterLink
             classNames={{
               color: 'teal',

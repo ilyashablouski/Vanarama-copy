@@ -56,52 +56,46 @@ const CarDetailsPage: NextPage<IProps> = () => {
   const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
 
   return (
-    <div>
-      <div className="page:pdp -pt-500" style={{ background: 'none' }}>
-        <div style={{ maxWidth: 740 }}>
-          <Breadcrumb items={PATH.items} />
-          <Heading className="-pt-100" tag="span" size="xlarge" color="black">
-            {vehicleConfigurationByCapId?.capManufacturerDescription}
-          </Heading>
-          <Text tag="span" size="lead" color="darker">
-            {vehicleConfigurationByCapId?.capDerivativeDescription}
-          </Text>
-          <div
-            className="-mt-500 -mb-200"
-            style={{ display: 'flex', justifyContent: 'space-between' }}
-          >
-            <Rating size="regular" score={vehicleDetails?.averageRating || 0} />
-            {vehicleDetails?.brochureUrl && (
-              <Link
-                href={vehicleDetails?.brochureUrl}
-                color="teal"
-                size="xsmall"
-              >
-                Download Brochure{' '}
-                <Icon color="teal" size="xsmall" icon={<DownloadSharp />} />
-              </Link>
-            )}
-          </div>
-          <div>
-            <div>
-              <MediaGallery
-                flag={{
-                  accentIcon: <Icon icon={<Flame />} color="white" />,
-                  accentText: 'Hot Deal',
-                  text: '14 - 21 Days Delivery',
-                  incomplete: true,
-                }}
-                images={[
-                  'https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg',
-                  'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
-                  'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
-                  'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
-                  'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
-                  'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
-                ]}
-                videoSrc="https://player.vimeo.com/video/263419265"
-              />
-            </div>
+    <div className="dpd-content -pt-500">
+      <div style={{ maxWidth: 740 }}>
+        <Breadcrumb items={PATH.items} />
+        <Heading className="-pt-100" tag="span" size="xlarge" color="black">
+          {vehicleConfigurationByCapId?.capManufacturerDescription}
+        </Heading>
+        <Text tag="span" size="lead" color="darker">
+          {vehicleConfigurationByCapId?.capDerivativeDescription}
+        </Text>
+        <div
+          className="-mt-500 -mb-200"
+          style={{ display: 'flex', justifyContent: 'space-between' }}
+        >
+          <Rating size="regular" score={vehicleDetails?.averageRating || 0} />
+          {vehicleDetails?.brochureUrl && (
+            <Link href={vehicleDetails?.brochureUrl} color="teal" size="xsmall">
+              Download Brochure{' '}
+              <Icon color="teal" size="xsmall" icon={<DownloadSharp />} />
+            </Link>
+          )}
+        </div>
+        <div className="page:pdp" style={{ background: 'none' }}>
+          <div style={{ gridColumnStart: 1, gridColumnEnd: 15 }}>
+            <MediaGallery
+              flag={{
+                accentIcon: <Icon icon={<Flame />} color="white" />,
+                accentText: 'Hot Deal',
+                text: '14 - 21 Days Delivery',
+                incomplete: true,
+              }}
+              images={[
+                'https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg',
+                'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
+                'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
+                'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
+                'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
+                'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
+              ]}
+              videoSrc="https://player.vimeo.com/video/263419265"
+            />
           </div>
         </div>
       </div>

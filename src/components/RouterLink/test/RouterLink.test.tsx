@@ -22,8 +22,6 @@ describe('<RouterLink />', () => {
   let mocks = resetMocks();
 
   beforeEach(() => {
-    jest.clearAllMocks();
-    jest.restoreAllMocks();
     mocks = resetMocks();
   });
 

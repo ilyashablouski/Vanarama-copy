@@ -28,6 +28,9 @@ export const SAVE_BUSINESS_ABOUT_YOU = gql`
   mutation SaveBusinessAboutYou($input: PersonInputObject!) {
     createUpdateBusinessPerson(input: $input) {
       uuid
+      companies {
+        uuid
+      }
     }
   }
 `;
@@ -44,7 +47,10 @@ export const BusinessAboutPage: NextPage = () => {
   >(SAVE_BUSINESS_ABOUT_YOU, {
     onCompleted: ({ createUpdateBusinessPerson }) => {
       const url = '/b2b/olaf/company-details/[uuid]';
-      router.push(url, url.replace('[uuid]', createUpdateBusinessPerson!.uuid));
+      router.push(
+        url,
+        url.replace('[uuid]', createUpdateBusinessPerson!.companies?.[0].uuid!),
+      );
     },
     onError: () => {
       toast.error(
