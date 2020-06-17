@@ -57,7 +57,7 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
           name="nameOnTheAccount"
           dataTestId="nameOnTheAccount"
           ref={register}
-          width={35}
+          width="35ch"
         />
       </FormGroup>
       <FormGroup
@@ -71,7 +71,7 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
           dataTestId="accountNumber"
           as={NumericInput}
           control={control}
-          width={35}
+          width="35ch"
         />
       </FormGroup>
       <FormGroup
@@ -103,7 +103,7 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
           name="bankName"
           dataTestId="bankName"
           ref={register}
-          width={45}
+          width="45ch"
         />
       </FormGroup>
       <FormGroup
