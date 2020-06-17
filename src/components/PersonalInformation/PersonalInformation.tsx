@@ -76,7 +76,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             <div className="structured-list-row">
               <div
                 style={{ verticalAlign: 'middle' }}
-                className="structured-list-td structured-list-content--nowrap middle"
+                className="structured-list-td structured-list-content--nowrap"
               >
                 Last Name
               </div>
@@ -105,7 +105,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             <div className="structured-list-row ">
               <div
                 style={{ verticalAlign: 'middle' }}
-                className="structured-list-td structured-list-content--nowrap middle"
+                className="structured-list-td structured-list-content--nowrap"
               >
                 Address
               </div>
@@ -140,7 +140,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             <div className="structured-list-row ">
               <div
                 style={{ verticalAlign: 'middle' }}
-                className="structured-list-td structured-list-content--nowrap middle"
+                className="structured-list-td structured-list-content--nowrap"
               >
                 Telephone
               </div>
@@ -169,7 +169,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             <div className="structured-list-row ">
               <div
                 style={{ verticalAlign: 'middle' }}
-                className="structured-list-td structured-list-content--nowrap middle"
+                className="structured-list-td structured-list-content--nowrap"
               >
                 Email
               </div>
