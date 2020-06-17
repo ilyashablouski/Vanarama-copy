@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import SearchPod from '../../components/SearchPod';
 import { tabsFields, budget } from './config';
-import { filterListByTypes } from './gql';
+import { filterListByTypes, filterTypeAndBudget } from './gql';
 import { makeHandler, modelHandler } from './helpers';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
 
@@ -47,11 +47,17 @@ const SearchPodContainer = () => {
   };
 
   const { register, getValues, watch, setValue } = useForm();
-  const { data, refetch } = filterListByTypes([Tabs[activeIndex]]);
-
   const selectMakeCars = watch('makeCars');
   const selectMakeVans = watch('makeVans');
   const selectModelVans = watch('modelVans');
+  const selectModelCars = watch('modelCars');
+
+  const { data, refetch } = filterListByTypes([Tabs[activeIndex]]);
+  const [getVehicleData, { data: actualVehicleData }] = filterTypeAndBudget(
+    [Tabs[activeIndex]],
+    activeIndex === 1 ? selectMakeVans : selectMakeCars,
+    activeIndex === 1 ? selectModelVans : selectModelCars,
+  );
 
   const setAllDataForVans = (filtersData: IFilterList) => {
     setVansDataCache(filtersData);
@@ -119,6 +125,40 @@ const SearchPodContainer = () => {
     setValue,
     vansDataCache.groupedRanges,
   ]);
+
+  // refetch body types and budgets for selected vehicle
+  useEffect(() => {
+    if (activeIndex === 1 && !selectMakeVans) {
+      setTypesVans(vansDataCache.bodyStyles || []);
+    }
+    if (activeIndex === 2 && !selectMakeCars) {
+      setTypesVans(carsDataCache.bodyStyles || []);
+    }
+    if (!modelVansTemp) {
+      getVehicleData();
+    }
+  }, [
+    selectMakeVans,
+    selectMakeCars,
+    selectModelVans,
+    selectModelCars,
+    modelVansTemp,
+    activeIndex,
+    carsDataCache.bodyStyles,
+    getVehicleData,
+    vansDataCache.bodyStyles,
+  ]);
+
+  // set body types and budgets for selected vehicle
+  useEffect(() => {
+    if (actualVehicleData?.filterList) {
+      if (activeIndex === 1) {
+        setTypesVans(actualVehicleData?.filterList.bodyStyles);
+      } else {
+        setTypesCars(actualVehicleData?.filterList.bodyStyles);
+      }
+    }
+  }, [actualVehicleData, activeIndex]);
 
   // get options list
   const getOptions = (field: keyof typeof fieldsMapper) => fieldsMapper[field];

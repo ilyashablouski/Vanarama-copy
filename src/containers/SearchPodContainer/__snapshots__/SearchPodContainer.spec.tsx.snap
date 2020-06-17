@@ -1,0 +1,690 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SearchPodContainer /> renders correctly with data 1`] = `
+<div
+  className="card hero-card"
+  data-testid="card"
+>
+  <div
+    className="tabs-wrap"
+  >
+    <nav
+      className="tabs -content-end -regular -expand"
+    >
+      <div
+        className="tabs__list-wrap"
+        data-testid="tablist"
+      >
+        <div
+          className="tabs__list"
+          role="tablist"
+        >
+          <button
+            aria-controls="panel:28-1"
+            aria-selected={true}
+            className="-active"
+            data-testid="Vans & Truckstab"
+            id="tab:28-1"
+            onClick={[Function]}
+            role="tab"
+            type="button"
+          >
+            Vans & Trucks
+          </button>
+          <button
+            aria-controls="panel:28-2"
+            aria-selected={false}
+            className=""
+            data-testid="Carstab"
+            id="tab:28-2"
+            onClick={[Function]}
+            role="tab"
+            type="button"
+          >
+            Cars
+          </button>
+        </div>
+      </div>
+    </nav>
+    <div
+      className="tabs__panel"
+      data-testid="tabPanels"
+    >
+      <div
+        aria-labelledby="tab:28-1"
+        className="hero-card--inner tabs--active"
+        data-testid="Vans & Trucks-panel"
+        hidden={false}
+        id="panel:28-1"
+        role="tabpanel"
+      >
+        <span
+          className="heading -dark -small"
+        >
+          Search vehicles
+        </span>
+        <form
+          className="form"
+        >
+          <div
+            className="formgroup"
+          >
+            <div
+              className="formgroup--content"
+            >
+              <div
+                className="select -fullwidth"
+              >
+                <select
+                  className="select--native"
+                  data-testid="typeVans"
+                  defaultValue=""
+                  name="typeVans"
+                >
+                  <option
+                    disabled={true}
+                    value=""
+                  >
+                    Select Type
+                  </option>
+                  <option
+                    value=""
+                  >
+                    All
+                     
+                    Type
+                    s
+                  </option>
+                  <option
+                    value=""
+                  >
+                    
+                  </option>
+                </select>
+                <span
+                  className="icon select--chevron"
+                >
+                  <i
+                    className="icon -stroke -dark"
+                  >
+                    <svg
+                      height="1em"
+                      viewBox="0 0 512 512"
+                      width="1em"
+                    >
+                      <title>
+                        ionicons-v5-a
+                      </title>
+                      <polyline
+                        points="112 184 256 328 400 184"
+                        style={
+                          Object {
+                            "fill": "none",
+                            "stroke": "var(--class-color)",
+                            "strokeLinecap": "round",
+                            "strokeLinejoin": "round",
+                            "strokeWidth": 48,
+                          }
+                        }
+                      />
+                    </svg>
+                  </i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="formgroup"
+          >
+            <div
+              className="formgroup--content"
+            >
+              <div
+                className="select -fullwidth"
+              >
+                <select
+                  className="select--native"
+                  data-testid="makeVans"
+                  defaultValue=""
+                  name="makeVans"
+                >
+                  <option
+                    disabled={true}
+                    value=""
+                  >
+                    Select Make
+                  </option>
+                  <option
+                    value=""
+                  >
+                    All
+                     
+                    Make
+                    s
+                  </option>
+                  <option
+                    value=""
+                  >
+                    
+                  </option>
+                </select>
+                <span
+                  className="icon select--chevron"
+                >
+                  <i
+                    className="icon -stroke -dark"
+                  >
+                    <svg
+                      height="1em"
+                      viewBox="0 0 512 512"
+                      width="1em"
+                    >
+                      <title>
+                        ionicons-v5-a
+                      </title>
+                      <polyline
+                        points="112 184 256 328 400 184"
+                        style={
+                          Object {
+                            "fill": "none",
+                            "stroke": "var(--class-color)",
+                            "strokeLinecap": "round",
+                            "strokeLinejoin": "round",
+                            "strokeWidth": 48,
+                          }
+                        }
+                      />
+                    </svg>
+                  </i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="formgroup"
+          >
+            <div
+              className="formgroup--content"
+            >
+              <div
+                className="select -fullwidth"
+              >
+                <select
+                  className="select--native"
+                  data-testid="modelVans"
+                  defaultValue=""
+                  name="modelVans"
+                >
+                  <option
+                    disabled={true}
+                    value=""
+                  >
+                    Select Model
+                  </option>
+                  <option
+                    value=""
+                  >
+                    All
+                     
+                    Model
+                    s
+                  </option>
+                </select>
+                <span
+                  className="icon select--chevron"
+                >
+                  <i
+                    className="icon -stroke -dark"
+                  >
+                    <svg
+                      height="1em"
+                      viewBox="0 0 512 512"
+                      width="1em"
+                    >
+                      <title>
+                        ionicons-v5-a
+                      </title>
+                      <polyline
+                        points="112 184 256 328 400 184"
+                        style={
+                          Object {
+                            "fill": "none",
+                            "stroke": "var(--class-color)",
+                            "strokeLinecap": "round",
+                            "strokeLinejoin": "round",
+                            "strokeWidth": 48,
+                          }
+                        }
+                      />
+                    </svg>
+                  </i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="formgroup"
+          >
+            <div
+              className="formgroup--content"
+            >
+              <div
+                className="select -fullwidth"
+              >
+                <select
+                  className="select--native"
+                  data-testid="budgetVans"
+                  defaultValue=""
+                  name="budgetVans"
+                >
+                  <option
+                    disabled={true}
+                    value=""
+                  >
+                    Select Budget
+                  </option>
+                  <option
+                    value=""
+                  >
+                    All
+                     
+                    Budget
+                    s
+                  </option>
+                  <option
+                    value="£0-£150"
+                  >
+                    £0-£150
+                  </option>
+                  <option
+                    value="£150-£250"
+                  >
+                    £150-£250
+                  </option>
+                  <option
+                    value="£250-£350"
+                  >
+                    £250-£350
+                  </option>
+                  <option
+                    value="£350-£450"
+                  >
+                    £350-£450
+                  </option>
+                  <option
+                    value="£450-£550"
+                  >
+                    £450-£550
+                  </option>
+                  <option
+                    value="£550+"
+                  >
+                    £550+
+                  </option>
+                </select>
+                <span
+                  className="icon select--chevron"
+                >
+                  <i
+                    className="icon -stroke -dark"
+                  >
+                    <svg
+                      height="1em"
+                      viewBox="0 0 512 512"
+                      width="1em"
+                    >
+                      <title>
+                        ionicons-v5-a
+                      </title>
+                      <polyline
+                        points="112 184 256 328 400 184"
+                        style={
+                          Object {
+                            "fill": "none",
+                            "stroke": "var(--class-color)",
+                            "strokeLinecap": "round",
+                            "strokeLinejoin": "round",
+                            "strokeWidth": 48,
+                          }
+                        }
+                      />
+                    </svg>
+                  </i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </form>
+        <button
+          className="button -fullwidth -teal -large -solid"
+          data-testid="VanssearchBtn"
+          onClick={[Function]}
+        >
+          <div
+            className="button--inner"
+          >
+            Search Vans & Trucks
+          </div>
+        </button>
+      </div>
+      <div
+        aria-labelledby="tab:28-2"
+        className="hero-card--inner"
+        data-testid="Cars-panel"
+        hidden={true}
+        id="panel:28-2"
+        role="tabpanel"
+      >
+        <span
+          className="heading -dark -small"
+        >
+          Search vehicles
+        </span>
+        <form
+          className="form"
+        >
+          <div
+            className="formgroup"
+          >
+            <div
+              className="formgroup--content"
+            >
+              <div
+                className="select -fullwidth"
+              >
+                <select
+                  className="select--native"
+                  data-testid="makeCars"
+                  defaultValue=""
+                  name="makeCars"
+                >
+                  <option
+                    disabled={true}
+                    value=""
+                  >
+                    Select Make
+                  </option>
+                  <option
+                    value=""
+                  >
+                    All
+                     
+                    Make
+                    s
+                  </option>
+                  <option
+                    value=""
+                  >
+                    
+                  </option>
+                </select>
+                <span
+                  className="icon select--chevron"
+                >
+                  <i
+                    className="icon -stroke -dark"
+                  >
+                    <svg
+                      height="1em"
+                      viewBox="0 0 512 512"
+                      width="1em"
+                    >
+                      <title>
+                        ionicons-v5-a
+                      </title>
+                      <polyline
+                        points="112 184 256 328 400 184"
+                        style={
+                          Object {
+                            "fill": "none",
+                            "stroke": "var(--class-color)",
+                            "strokeLinecap": "round",
+                            "strokeLinejoin": "round",
+                            "strokeWidth": 48,
+                          }
+                        }
+                      />
+                    </svg>
+                  </i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="formgroup"
+          >
+            <div
+              className="formgroup--content"
+            >
+              <div
+                className="select -fullwidth"
+              >
+                <select
+                  className="select--native"
+                  data-testid="modelCars"
+                  defaultValue=""
+                  name="modelCars"
+                >
+                  <option
+                    disabled={true}
+                    value=""
+                  >
+                    Select Model
+                  </option>
+                  <optgroup
+                    label="Please Select Make"
+                  />
+                  <option
+                    value=""
+                  >
+                    
+                  </option>
+                </select>
+                <span
+                  className="icon select--chevron"
+                >
+                  <i
+                    className="icon -stroke -dark"
+                  >
+                    <svg
+                      height="1em"
+                      viewBox="0 0 512 512"
+                      width="1em"
+                    >
+                      <title>
+                        ionicons-v5-a
+                      </title>
+                      <polyline
+                        points="112 184 256 328 400 184"
+                        style={
+                          Object {
+                            "fill": "none",
+                            "stroke": "var(--class-color)",
+                            "strokeLinecap": "round",
+                            "strokeLinejoin": "round",
+                            "strokeWidth": 48,
+                          }
+                        }
+                      />
+                    </svg>
+                  </i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="formgroup"
+          >
+            <div
+              className="formgroup--content"
+            >
+              <div
+                className="select -fullwidth"
+              >
+                <select
+                  className="select--native"
+                  data-testid="typeCars"
+                  defaultValue=""
+                  name="typeCars"
+                >
+                  <option
+                    disabled={true}
+                    value=""
+                  >
+                    Select Type
+                  </option>
+                  <option
+                    value=""
+                  >
+                    All
+                     
+                    Type
+                    s
+                  </option>
+                  <option
+                    value=""
+                  >
+                    
+                  </option>
+                </select>
+                <span
+                  className="icon select--chevron"
+                >
+                  <i
+                    className="icon -stroke -dark"
+                  >
+                    <svg
+                      height="1em"
+                      viewBox="0 0 512 512"
+                      width="1em"
+                    >
+                      <title>
+                        ionicons-v5-a
+                      </title>
+                      <polyline
+                        points="112 184 256 328 400 184"
+                        style={
+                          Object {
+                            "fill": "none",
+                            "stroke": "var(--class-color)",
+                            "strokeLinecap": "round",
+                            "strokeLinejoin": "round",
+                            "strokeWidth": 48,
+                          }
+                        }
+                      />
+                    </svg>
+                  </i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="formgroup"
+          >
+            <div
+              className="formgroup--content"
+            >
+              <div
+                className="select -fullwidth"
+              >
+                <select
+                  className="select--native"
+                  data-testid="budgetCars"
+                  defaultValue=""
+                  name="budgetCars"
+                >
+                  <option
+                    disabled={true}
+                    value=""
+                  >
+                    Select Budget
+                  </option>
+                  <option
+                    value=""
+                  >
+                    All
+                     
+                    Budget
+                    s
+                  </option>
+                  <option
+                    value="£0-£150"
+                  >
+                    £0-£150
+                  </option>
+                  <option
+                    value="£150-£250"
+                  >
+                    £150-£250
+                  </option>
+                  <option
+                    value="£250-£350"
+                  >
+                    £250-£350
+                  </option>
+                  <option
+                    value="£350-£450"
+                  >
+                    £350-£450
+                  </option>
+                  <option
+                    value="£450-£550"
+                  >
+                    £450-£550
+                  </option>
+                  <option
+                    value="£550+"
+                  >
+                    £550+
+                  </option>
+                </select>
+                <span
+                  className="icon select--chevron"
+                >
+                  <i
+                    className="icon -stroke -dark"
+                  >
+                    <svg
+                      height="1em"
+                      viewBox="0 0 512 512"
+                      width="1em"
+                    >
+                      <title>
+                        ionicons-v5-a
+                      </title>
+                      <polyline
+                        points="112 184 256 328 400 184"
+                        style={
+                          Object {
+                            "fill": "none",
+                            "stroke": "var(--class-color)",
+                            "strokeLinecap": "round",
+                            "strokeLinejoin": "round",
+                            "strokeWidth": 48,
+                          }
+                        }
+                      />
+                    </svg>
+                  </i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </form>
+        <button
+          className="button -fullwidth -teal -large -solid"
+          data-testid="CarssearchBtn"
+          onClick={[Function]}
+        >
+          <div
+            className="button--inner"
+          >
+            Search Cars
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
