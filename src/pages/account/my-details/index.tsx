@@ -4,7 +4,6 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
-import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
 import withApollo from '../../../hocs/withApollo';
@@ -31,9 +30,6 @@ const MyDetailsPage: NextPage<IProps> = () => {
 
   const partyByUuid = PARTY_BY_UUID;
   const [resetPassword, setResetPassword] = useState(false);
-
-  const router = useRouter();
-  const uuid = router.query.uuid as string;
 
   return (
     <>
