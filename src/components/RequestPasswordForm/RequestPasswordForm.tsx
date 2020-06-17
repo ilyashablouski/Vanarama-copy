@@ -46,7 +46,7 @@ const RequestPasswordForm = ({
           name="email"
           ref={register(requiredField('Your Email is required'))}
           type="email"
-          width={30}
+          width="30ch"
         />
       </Formgroup>
       <Button

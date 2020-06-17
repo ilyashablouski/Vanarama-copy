@@ -43,7 +43,7 @@ const LoginForm: React.FC<ILoginFormProps> = ({
           name="email"
           ref={register(emailValidator)}
           type="email"
-          width={45}
+          width="45ch"
         />
       </Formgroup>
       <Formgroup
@@ -57,7 +57,7 @@ const LoginForm: React.FC<ILoginFormProps> = ({
           name="password"
           ref={register(passwordValidator)}
           type="password"
-          width={45}
+          width="45ch"
         />
       </Formgroup>
       {/* TODO: Make Link work with next/link */}

@@ -60,7 +60,7 @@ const PasswordResetContainer = ({
           dataTestId="password-reset-form_code"
           name="code"
           ref={register(requiredField('Your Verification сode is required'))}
-          width={23}
+          width="23ch"
         />
       </Formgroup>
       <Formgroup
@@ -74,7 +74,7 @@ const PasswordResetContainer = ({
           name="password"
           ref={register(passwordValidator)}
           type="password"
-          width={30}
+          width="30ch"
         />
       </Formgroup>
       <Details summary="Password Requirements">
@@ -91,7 +91,7 @@ const PasswordResetContainer = ({
           name="confirmPass"
           ref={register(confirmPasswordValidator(watchPassword))}
           type="password"
-          width={30}
+          width="30ch"
         />
       </Formgroup>
       <Button
