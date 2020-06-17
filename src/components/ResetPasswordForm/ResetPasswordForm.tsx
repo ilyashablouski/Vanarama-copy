@@ -42,6 +42,9 @@ const PasswordResetContainer = ({
   const watchPassword = watch('password');
   const onHandleSubmit = (data: IResetPasswordFormValues) =>
     onSubmit({ ...data, username: username || '' });
+  const resetTypeLabel = oldPassword ? 'Save New Password' : 'Submit';
+  const resetPasswordButtonLabel = isSubmitting ? 'Loading...' : resetTypeLabel;
+
   return (
     <Form
       dataTestId="password-reset-form"
@@ -141,13 +144,7 @@ const PasswordResetContainer = ({
       <Button
         dataTestId="password-reset-form_submit"
         type="submit"
-        label={
-          isSubmitting
-            ? 'Loading...'
-            : oldPassword
-            ? 'Save New Password'
-            : 'Submit'
-        }
+        label={resetPasswordButtonLabel}
         disabled={isSubmitting}
         icon={!oldPassword && <ArrowForwardSharp />}
         iconColor="white"
