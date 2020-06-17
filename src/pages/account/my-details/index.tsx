@@ -70,18 +70,16 @@ const MyDetailsPage: NextPage<IProps> = () => {
               </div>
             </div>
           ) : (
-            <>
-              <PasswordChangeContainer
-                uuid={uuid || personUuid}
-                onCompleted={() => {
-                  toast.success(
-                    'Your New Password Has Been Saved',
-                    'Ipsum duis aute cupidatat occaecat nisi aute dolore do non ex incididunt do consectetur excepteur',
-                  );
-                  setResetPassword(false);
-                }}
-              />
-            </>
+            <PasswordChangeContainer
+              uuid={uuid || personUuid}
+              onCompleted={() => {
+                toast.success(
+                  'Your New Password Has Been Saved',
+                  'Ipsum duis aute cupidatat occaecat nisi aute dolore do non ex incididunt do consectetur excepteur',
+                );
+                setResetPassword(false);
+              }}
+            />
           )}
         </div>
       </div>
