@@ -20,11 +20,11 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
           role="tablist"
         >
           <button
-            aria-controls="panel:28-1"
+            aria-controls="panel:1-1"
             aria-selected={true}
             className="-active"
             data-testid="Vans & Truckstab"
-            id="tab:28-1"
+            id="tab:1-1"
             onClick={[Function]}
             role="tab"
             type="button"
@@ -32,11 +32,11 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
             Vans & Trucks
           </button>
           <button
-            aria-controls="panel:28-2"
+            aria-controls="panel:1-2"
             aria-selected={false}
             className=""
             data-testid="Carstab"
-            id="tab:28-2"
+            id="tab:1-2"
             onClick={[Function]}
             role="tab"
             type="button"
@@ -51,11 +51,11 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
       data-testid="tabPanels"
     >
       <div
-        aria-labelledby="tab:28-1"
+        aria-labelledby="tab:1-1"
         className="hero-card--inner tabs--active"
         data-testid="Vans & Trucks-panel"
         hidden={false}
-        id="panel:28-1"
+        id="panel:1-1"
         role="tabpanel"
       >
         <span
@@ -96,9 +96,14 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                     s
                   </option>
                   <option
-                    value=""
+                    value="Dropside Tipper"
                   >
-                    
+                    Dropside Tipper
+                  </option>
+                  <option
+                    value="Pickup"
+                  >
+                    Pickup
                   </option>
                 </select>
                 <span
@@ -163,9 +168,14 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                     s
                   </option>
                   <option
-                    value=""
+                    value="Citroën"
                   >
-                    
+                    Citroën
+                  </option>
+                  <option
+                    value="Dacia"
+                  >
+                    Dacia
                   </option>
                 </select>
                 <span
@@ -229,6 +239,34 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                     Model
                     s
                   </option>
+                  <optgroup
+                    label="Citroën"
+                  >
+                    <option
+                      value="Berlingo"
+                    >
+                      Berlingo
+                    </option>
+                    <option
+                      value="Dispatch"
+                    >
+                      Dispatch
+                    </option>
+                    <option
+                      value="Relay"
+                    >
+                      Relay
+                    </option>
+                  </optgroup>
+                  <optgroup
+                    label="Dacia"
+                  >
+                    <option
+                      value="Duster"
+                    >
+                      Duster
+                    </option>
+                  </optgroup>
                 </select>
                 <span
                   className="icon select--chevron"
@@ -368,11 +406,11 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
         </button>
       </div>
       <div
-        aria-labelledby="tab:28-2"
+        aria-labelledby="tab:1-2"
         className="hero-card--inner"
         data-testid="Cars-panel"
         hidden={true}
-        id="panel:28-2"
+        id="panel:1-2"
         role="tabpanel"
       >
         <span

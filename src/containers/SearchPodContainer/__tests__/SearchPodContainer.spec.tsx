@@ -2,12 +2,8 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, waitFor, fireEvent, screen } from '@testing-library/react';
 import React from 'react';
 import { useRouter } from 'next/router';
-import renderer from 'react-test-renderer';
-import SearchPodContainer from './SearchPodContainer';
-import {
-  GET_SEARCH_POD_DATA,
-  GET_TYPE_AND_BUDGET_DATA,
-} from './gql';
+import SearchPodContainer from '../SearchPodContainer';
+import { GET_SEARCH_POD_DATA, GET_TYPE_AND_BUDGET_DATA } from '../gql';
 
 jest.mock('next/router', () => ({
   useRouter: jest.fn().mockReturnValue({
@@ -140,48 +136,5 @@ describe('<SearchPodContainer />', () => {
         '/car-leasing-search',
       );
     });
-  });
-  it('renders correctly with data', async () => {
-    jest.mock('./gql', () => ({
-      filterTypeAndBudget: jest.fn().mockReturnValue([
-        jest.fn(),
-        {
-          data: {
-            filterList: {
-              vehicleTypes: ['LCV'],
-              bodyStyles: ['Dropside Tipper', 'Pickup'],
-              financeProfilesRateMax: 597.98,
-              financeProfilesRateMin: 194.95,
-            },
-          },
-        },
-      ]),
-      filterListByTypes: jest.fn().mockReturnValue({
-        data: {
-          filterList: {
-            vehicleTypes: ['LCV'],
-            groupedRanges: [
-              {
-                parent: 'Citroën',
-                children: ['Berlingo', 'Dispatch', 'Relay'],
-              },
-              {
-                parent: 'Dacia',
-                children: ['Duster'],
-              },
-            ],
-            bodyStyles: ['Dropside Tipper', 'Large Van'],
-          },
-        },
-        refetch: jest.fn(),
-      }),
-    }));
-
-    const getComponent = () => {
-      return renderer.create(<SearchPodContainer />).toJSON();
-    };
-
-    const tree = getComponent();
-    expect(tree).toMatchSnapshot();
   });
 });
