@@ -36,6 +36,10 @@ export const GET_ORDERS_BY_PARTY_UUID_DATA = gql`
         state
         updatedAt
         uuid
+        creditApplications {
+          aasmState
+          uuid
+        }
         vehicleProduct {
           derivativeCapId
           description

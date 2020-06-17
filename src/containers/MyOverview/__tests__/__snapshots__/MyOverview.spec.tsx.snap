@@ -558,13 +558,6 @@ Array [
             }
           }
         >
-          <div
-            className="card-header -success"
-          >
-            <div>
-              Complete
-            </div>
-          </div>
           <img
             alt="img"
             className="card-image"
@@ -671,29 +664,8 @@ Array [
                 Per Month Inc.VAT
               </div>
             </div>
-            <button
-              className="button -teal -regular -solid"
-              onClick={[Function]}
-            >
-              <div
-                className="button--inner"
-              >
-                Order Now
-              </div>
-            </button>
           </div>
         </div>
-      </div>
-      <div
-        className="pagination"
-      >
-        <a
-          className="link -teal -regular -plain -solid"
-          href="/1"
-          onClick={[Function]}
-        >
-          1
-        </a>
       </div>
     </div>
   </div>,
@@ -998,17 +970,6 @@ Array [
             </button>
           </div>
         </div>
-      </div>
-      <div
-        className="pagination"
-      >
-        <a
-          className="link -teal -regular -plain -solid"
-          href="/1"
-          onClick={[Function]}
-        >
-          1
-        </a>
       </div>
     </div>
   </div>,

@@ -64,12 +64,18 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
 
   const hasCreditCompleteOrder = () =>
     !!data?.ordersByPartyUuid.find(
-      el => el.aasmState === 'credit' && el.lineItems[0].state !== 'draft',
+      el =>
+        el.aasmState === 'credit' &&
+        el.lineItems[0].creditApplications &&
+        el.lineItems[0].creditApplications[0]?.aasmState !== 'draft',
     );
 
   const hasCreditIncompleteOrder = () =>
     !!data?.ordersByPartyUuid.find(
-      el => el.aasmState === 'credit' && el.lineItems[0].state === 'draft',
+      el =>
+        el.aasmState === 'credit' &&
+        el.lineItems[0].creditApplications &&
+        el.lineItems[0].creditApplications[0]?.aasmState === 'draft',
     );
   const countPages = () =>
     Math.ceil((data?.ordersByPartyUuid?.length || 0) / 6);
@@ -117,6 +123,10 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
         (der: { id: string }) =>
           der.id === el.lineItems[0].vehicleProduct?.derivativeCapId,
       );
+      const creditState =
+        (el.lineItems[0].creditApplications &&
+          el.lineItems[0].creditApplications[0]?.aasmState) ||
+        '';
       return (
         <OrderCard
           style={{ '--img-w': '300px' } as CSSProperties}
@@ -132,7 +142,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
             el.id,
             el.createdAt,
             el.leaseType,
-            el.lineItems[0].state || '',
+            creditState,
             el.lineItems[0].vehicleProduct!,
             derivative,
             <Button
@@ -146,16 +156,14 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
                 );
               }}
             />,
+            quote,
           )}
           header={
-            !quote
+            !quote && !!creditState
               ? {
-                  text:
-                    el.lineItems[0].state === 'draft'
-                      ? 'Incomplete'
-                      : 'Complete',
-                  complete: el.lineItems[0].state !== 'draft',
-                  incomplete: el.lineItems[0].state === 'draft',
+                  text: creditState === 'draft' ? 'Incomplete' : 'Complete',
+                  complete: creditState !== 'draft',
+                  incomplete: creditState === 'draft',
                 }
               : undefined
           }
@@ -199,16 +207,17 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
             ) : (
               <>
                 <div className="row:cards-1col">{renderOffers()}</div>
-
-                <Pagination
-                  path=""
-                  pages={pages}
-                  onClick={el => {
-                    el.preventDefault();
-                    setActivePage(+(el.target as Element).innerHTML);
-                  }}
-                  selected={activePage}
-                />
+                {pages.length > 1 && (
+                  <Pagination
+                    path=""
+                    pages={pages}
+                    onClick={el => {
+                      el.preventDefault();
+                      setActivePage(+(el.target as Element).innerHTML);
+                    }}
+                    selected={activePage}
+                  />
+                )}
               </>
             )}
           </div>

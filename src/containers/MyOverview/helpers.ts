@@ -13,6 +13,7 @@ export const createOffersObject = (
   offer: GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct,
   derivative?: GetDerivatives_derivatives,
   button?: any,
+  quote?: boolean,
 ) => ({
   price: offer.monthlyPayment || 0,
   priceDescription: `Per Month ${
@@ -29,9 +30,9 @@ export const createOffersObject = (
   transmission: derivative?.transmissionName || '-',
   color: offer.colour || '-',
   trim: offer.trim || '-',
-  orderNumber: state === 'draft' ? id : undefined,
+  orderNumber: !!state && state === 'draft' ? id : undefined,
   orderDate: moment(createdAt).format('DD.MM.YYYY'),
-  orderButton: state !== 'draft' ? button : undefined,
+  orderButton: (!!state && state !== 'draft') || quote ? button : undefined,
 });
 
 export default createOffersObject;

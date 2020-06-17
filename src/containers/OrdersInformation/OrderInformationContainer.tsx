@@ -4,18 +4,17 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import { useOrdersByPartyUuidData } from './gql';
 import { IProps } from './interfaces';
 
-export const PARTY_BY_UUID_QUOTES = '7c53729d-7000-4268-8f6b-354ee8e999ce';
-export const PARTY_BY_UUID_ORDERS = 'f2404cbb-aa42-4d9c-902f-852949e266e2';
+export const PARTY_BY_UUID = 'f5229b02-7d8a-47f9-b33e-bb9137fded23';
 
 const OrderInformationContainer: React.FC<IProps> = ({ partyByUuid }) => {
   const orders = useOrdersByPartyUuidData(
-    partyByUuid || PARTY_BY_UUID_ORDERS,
+    partyByUuid || PARTY_BY_UUID,
     [],
     ['quote'],
   );
   const haveOrders = !!orders.data?.ordersByPartyUuid.length;
 
-  const quotes = useOrdersByPartyUuidData(partyByUuid || PARTY_BY_UUID_QUOTES, [
+  const quotes = useOrdersByPartyUuidData(partyByUuid || PARTY_BY_UUID, [
     'quote',
   ]);
   const haveQuotes = !!quotes.data?.ordersByPartyUuid.length;
