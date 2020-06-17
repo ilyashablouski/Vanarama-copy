@@ -1,61 +1,48 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
-import { useRouter } from 'next/router';
 import {
-  ResetPasswordMutation as Mutation,
-  ResetPasswordMutationVariables as MutationVariables,
-} from '../../../generated/ResetPasswordMutation';
+  ChangePasswordByUuidMutation as Mutation,
+  ChangePasswordByUuidMutationVariables as MutationVariables,
+} from '../../../generated/ChangePasswordByUuidMutation';
 import ResetPasswordForm from '../../components/ResetPasswordForm';
 import { IPasswordChangeContainerProps } from './interfaces';
 
-export const CHANGE_PASSWORD_MUTATION = gql`
-  mutation ChangePasswordMutation(
-    $username: String!
+export const CHANGE_PASSWORD_BY_UUID_MUTATION = gql`
+  mutation ChangePasswordByUuidMutation(
+    $uuid: ID!
     $oldPassword: String!
     $newPassword: String!
   ) {
     passwordChange(
-      username: $username
+      uuid: $uuid
       oldPassword: $oldPassword
       newPassword: $newPassword
     )
   }
 `;
 
-export interface ChangePasswordMutation {
-  passwordChange: string | null;
-}
-
-export interface ChangePasswordMutationVariables {
-  username: string;
-  oldPassword: string;
-  newPassword: string;
-}
-
 const PasswordChangeContainer = ({
-  username,
+  uuid,
+  onCompleted,
 }: IPasswordChangeContainerProps) => {
-  const [cahngePassword, { loading, error }] = useMutation<
-    ChangePasswordMutation,
-    ChangePasswordMutationVariables
-  >(CHANGE_PASSWORD_MUTATION, {
-    onCompleted: () => {
-    },
+  const [cahngePasswordByUuid, { loading, error }] = useMutation<
+    Mutation,
+    MutationVariables
+  >(CHANGE_PASSWORD_BY_UUID_MUTATION, {
+    onCompleted,
   });
 
   return (
     <ResetPasswordForm
       oldPassword
       isSubmitting={loading}
-      username={username}
       hasError={Boolean(error)}
       onSubmit={async values => {
-        console.log({values})
-        await cahngePassword({
+        await cahngePasswordByUuid({
           variables: {
-            username: values.username,
-            oldPassword: values.password,
-            newPassword: values.code,
+            uuid,
+            oldPassword: values.code,
+            newPassword: values.password,
           },
         });
       }}

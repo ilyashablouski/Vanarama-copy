@@ -70,7 +70,12 @@ const MyDetailsPage: NextPage<IProps> = () => {
               </div>
             </div>
           ) : (
-            <PasswordChangeContainer username="some61@lexu4g.com" />
+            <>
+              <PasswordChangeContainer
+                uuid={uuid || personUuid}
+                onCompleted={() => {}}
+              />
+            </>
           )}
         </div>
       </div>

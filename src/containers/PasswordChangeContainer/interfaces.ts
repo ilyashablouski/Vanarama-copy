@@ -1,4 +1,4 @@
 export interface IPasswordChangeContainerProps {
-    username: string;
-  }
-  
+  uuid: string;
+  onCompleted?: () => void;
+}
