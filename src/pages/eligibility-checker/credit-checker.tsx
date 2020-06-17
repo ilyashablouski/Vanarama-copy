@@ -23,7 +23,7 @@ const CreditChecker: NextPage = () => {
   const router = useRouter();
   const scoreParam = router.query.score as string;
   const score = parseInt(scoreParam, 10) || 0;
-  const { itemWidth, slidesToShow } = useSliderProperties(345, 345, 328);
+  const { itemWidth, slidesToShow } = useSliderProperties(345, 345, 310);
 
   const breadcrumbProps = {
     items: [
@@ -99,7 +99,10 @@ const CreditChecker: NextPage = () => {
           </Heading>
           <Slider className="-mh-auto" gutter={16} slidesToShow={slidesToShow}>
             {[1, 2, 3, 4, 5].map(k => (
-              <div key={k.toString()} style={{ width: itemWidth }}>
+              <div
+                key={k.toString()}
+                style={{ width: itemWidth, textAlign: 'center' }}
+              >
                 <ProductCard
                   header={{
                     accentIcon:

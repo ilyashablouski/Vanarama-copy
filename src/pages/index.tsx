@@ -42,7 +42,7 @@ import useSliderProperties from '../hooks/useSliderProperties';
 
 export const HomePage: NextPage = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const { itemWidth, slidesToShow } = useSliderProperties(345, 345, 328);
+  const { itemWidth, slidesToShow } = useSliderProperties(345, 345, 310);
 
   const { data, loading, error } = useQuery<HomePageData>(ALL_HOME_CONTENT);
   if (loading) {
