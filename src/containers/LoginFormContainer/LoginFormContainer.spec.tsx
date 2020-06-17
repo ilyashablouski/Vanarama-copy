@@ -6,7 +6,6 @@ import React from 'react';
 import LoginFormContainer, { LOGIN_USER_MUTATION } from './LoginFormContainer';
 
 jest.mock('../../components/LoginForm/LoginForm');
-
 jest.mock('next/router', () => ({
   useRouter: jest.fn().mockReturnValue({
     push: jest.fn(),
@@ -21,10 +20,6 @@ jest.mock('localforage', () => ({
 }));
 
 describe('<LoginFormContainer />', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
   it('should make a server request to register a user when the form is submitted', async () => {
     // ARRANGE
     let mockCalled = false;

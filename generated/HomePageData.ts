@@ -12,15 +12,19 @@ export interface HomePageData_homePage_sections_hero_image_file {
 }
 
 export interface HomePageData_homePage_sections_hero_image {
-  title: string;
-  file: HomePageData_homePage_sections_hero_image_file;
+  title: string | null;
+  file: HomePageData_homePage_sections_hero_image_file | null;
 }
 
 export interface HomePageData_homePage_sections_hero {
-  title: string;
-  flag: string;
-  body: string;
-  image: HomePageData_homePage_sections_hero_image;
+  title: string | null;
+  body: string | null;
+  image: HomePageData_homePage_sections_hero_image | null;
+}
+
+export interface HomePageData_homePage_sections_leadText {
+  heading: string | null;
+  description: string | null;
 }
 
 export interface HomePageData_homePage_sections_cards_cards_image_file {
@@ -28,27 +32,28 @@ export interface HomePageData_homePage_sections_cards_cards_image_file {
 }
 
 export interface HomePageData_homePage_sections_cards_cards_image {
-  file: HomePageData_homePage_sections_cards_cards_image_file;
+  file: HomePageData_homePage_sections_cards_cards_image_file | null;
 }
 
 export interface HomePageData_homePage_sections_cards_cards {
-  title: string;
+  title: string | null;
+  body: string | null;
   image: HomePageData_homePage_sections_cards_cards_image | null;
 }
 
 export interface HomePageData_homePage_sections_cards {
-  name: string;
+  name: string | null;
   cards: HomePageData_homePage_sections_cards_cards[] | null;
 }
 
 export interface HomePageData_homePage_sections_featured1 {
-  title: string;
-  body: string;
+  title: string | null;
+  body: string | null;
 }
 
 export interface HomePageData_homePage_sections_featured2 {
-  title: string;
-  body: string;
+  title: string | null;
+  body: string | null;
 }
 
 export interface HomePageData_homePage_sections_tiles_tiles_image_file {
@@ -56,13 +61,13 @@ export interface HomePageData_homePage_sections_tiles_tiles_image_file {
 }
 
 export interface HomePageData_homePage_sections_tiles_tiles_image {
-  file: HomePageData_homePage_sections_tiles_tiles_image_file;
-  title: string;
+  file: HomePageData_homePage_sections_tiles_tiles_image_file | null;
+  title: string | null;
 }
 
 export interface HomePageData_homePage_sections_tiles_tiles {
-  title: string;
-  body: string;
+  title: string | null;
+  body: string | null;
   image: HomePageData_homePage_sections_tiles_tiles_image | null;
 }
 
@@ -73,6 +78,7 @@ export interface HomePageData_homePage_sections_tiles {
 
 export interface HomePageData_homePage_sections {
   hero: HomePageData_homePage_sections_hero;
+  leadText: HomePageData_homePage_sections_leadText;
   cards: HomePageData_homePage_sections_cards;
   featured1: HomePageData_homePage_sections_featured1;
   featured2: HomePageData_homePage_sections_featured2;

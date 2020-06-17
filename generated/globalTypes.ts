@@ -8,6 +8,14 @@
 //==============================================================
 
 /**
+ * Lease type
+ */
+export enum LeaseTypeEnum {
+  BUSINESS = "BUSINESS",
+  PERSONAL = "PERSONAL",
+}
+
+/**
  * Vehicle type enum
  */
 export enum VehicleTypeEnum {
@@ -150,6 +158,17 @@ export interface IncomeAndExpenseInputObject {
   studentLoan?: number | null;
   utilities?: number | null;
   withStudentLoan?: boolean | null;
+}
+
+/**
+ * Input object to update my account section
+ */
+export interface MyAccountInputObject {
+  firstName?: string | null;
+  lastName?: string | null;
+  personUuid: string;
+  serviceId?: string | null;
+  telephoneNumber?: string | null;
 }
 
 /**

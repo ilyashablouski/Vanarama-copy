@@ -1,12 +1,11 @@
 import { gql } from '@apollo/client';
 
-const ALL_CONTENT = gql`
+const ALL_HOME_CONTENT = gql`
   query HomePageData {
     homePage {
       sections {
         hero {
           title
-          flag
           body
           image {
             title
@@ -15,10 +14,15 @@ const ALL_CONTENT = gql`
             }
           }
         }
+        leadText {
+          heading
+          description
+        }
         cards {
           name
           cards {
             title
+            body
             image {
               file {
                 url
@@ -53,4 +57,4 @@ const ALL_CONTENT = gql`
 `;
 
 // eslint-disable-next-line import/prefer-default-export
-export { ALL_CONTENT };
+export { ALL_HOME_CONTENT };
