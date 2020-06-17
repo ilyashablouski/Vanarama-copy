@@ -22,10 +22,6 @@ jest.mock('next/router', () => ({
 }));
 
 describe('<MyOrdersPage />', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
   it('renders correctly with data', async () => {
     (useOrdersByPartyUuidData as jest.Mock).mockReturnValue({
       loading: false,

@@ -73,7 +73,7 @@ export const CarsPage: NextPage = () => {
       </section>
 
       <section className="row:eligibility-checker-cta">
-        <div>...choiceboxes</div>
+        <div />
         <div>
           <Image
             size="expand"
@@ -113,69 +113,71 @@ export const CarsPage: NextPage = () => {
         </div>
       </section>
 
-      <section className="row:cards-3col">
-        {Array.from(Array(9).keys()).map(val => (
-          <ProductCard
-            key={val}
-            header={{
-              accentIcon: <Icon icon={<Flame />} color="white" />,
-              accentText: 'Hot Deal',
-              text: 'In Stock - 14-21 Days Delivery',
-            }}
-            features={[
-              {
-                icon: <Icon icon={<SnowSharp />} color="dark" />,
-                label: 'Aircon',
-              },
-              {
-                icon: <Icon icon={<BluetoothSharp />} color="dark" />,
-                label: 'Bluetooth',
-              },
-              {
-                icon: <Icon icon={<CompassSharp />} color="dark" />,
-                label: 'Navigation',
-              },
-              {
-                icon: <Icon icon={<WifiSharp />} color="dark" />,
-                label: 'Sensors',
-              },
-            ]}
-            imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
-            onCompare={() => true}
-            onWishlist={() => true}
-            title={{
-              title: '',
-              link: (
-                <RouterLink
-                  link={{ href: '#', label: 'Peugeot 208' }}
-                  className="heading"
-                  classNames={{ size: 'large', color: 'black' }}
+      <div className="row:bg-lighter">
+        <section className="row:cards-3col">
+          {Array.from(Array(9).keys()).map(val => (
+            <ProductCard
+              key={val}
+              header={{
+                accentIcon: <Icon icon={<Flame />} color="white" />,
+                accentText: 'Hot Deal',
+                text: 'In Stock - 14-21 Days Delivery',
+              }}
+              features={[
+                {
+                  icon: <Icon icon={<SnowSharp />} color="dark" />,
+                  label: 'Aircon',
+                },
+                {
+                  icon: <Icon icon={<BluetoothSharp />} color="dark" />,
+                  label: 'Bluetooth',
+                },
+                {
+                  icon: <Icon icon={<CompassSharp />} color="dark" />,
+                  label: 'Navigation',
+                },
+                {
+                  icon: <Icon icon={<WifiSharp />} color="dark" />,
+                  label: 'Sensors',
+                },
+              ]}
+              imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
+              onCompare={() => true}
+              onWishlist={() => true}
+              title={{
+                title: '',
+                link: (
+                  <RouterLink
+                    link={{ href: '#', label: 'Peugeot 208' }}
+                    className="heading"
+                    classNames={{ size: 'large', color: 'black' }}
+                  />
+                ),
+                description: '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
+                score: 4.5,
+              }}
+            >
+              <div className="-flex-h">
+                <Price
+                  price={209}
+                  size="large"
+                  separator="."
+                  priceDescription="Per Month Exc.VAT"
                 />
-              ),
-              description: '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
-              score: 4.5,
-            }}
-          >
-            <div className="-flex-h">
-              <Price
-                price={209}
-                size="large"
-                separator="."
-                priceDescription="Per Month Exc.VAT"
-              />
-              <Button
-                color="teal"
-                fill="solid"
-                label="View Offer"
-                onClick={() => true}
-                size="regular"
-              />
-            </div>
-          </ProductCard>
-        ))}
+                <Button
+                  color="teal"
+                  fill="solid"
+                  label="View Offer"
+                  onClick={() => true}
+                  size="regular"
+                />
+              </div>
+            </ProductCard>
+          ))}
 
-        <Button label="View All Cars" size="large" color="teal" />
-      </section>
+          <Button label="View All Cars" size="large" color="teal" />
+        </section>
+      </div>
 
       <section className="row:steps-4col">
         <Heading className="-a-center -mb-400" size="large" color="black">
@@ -183,6 +185,7 @@ export const CarsPage: NextPage = () => {
         </Heading>
         {data?.hubCarPage.sections.steps?.steps?.map((step: StepData, idx) => (
           <Step
+            key={step.title || idx}
             heading={step.title || ''}
             step={idx + 1}
             text={step.body || ''}

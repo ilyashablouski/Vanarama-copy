@@ -15,10 +15,6 @@ jest.mock('next/router', () => ({
 jest.mock('../../../hooks/useMediaQuery');
 
 describe('<ThankYouPage />', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
   it('should redirect to the home page when clicking the "View order" button', () => {
     // ACT
     render(<ThankYouPage />);

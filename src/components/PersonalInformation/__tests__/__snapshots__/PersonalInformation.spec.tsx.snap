@@ -1,0 +1,140 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PersonalInformation /> should render correctly 1`] = `
+<div
+  className="my-details--form"
+  style={
+    Object {
+      "gridColumnEnd": 6,
+    }
+  }
+>
+  <form
+    className="form form"
+    onSubmit={[Function]}
+  >
+    <p
+      className="heading -black -large"
+      data-testid="personHeading"
+    >
+      Personal Information
+    </p>
+    <section
+      className="structured-list  -styled-headers"
+    >
+      <div
+        className="structured-list-tbody"
+      >
+        <div
+          className="structured-list-row"
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap -pr-600"
+            style={
+              Object {
+                "verticalAlign": "middle",
+              }
+            }
+          >
+            First Name
+          </div>
+          <div
+            className="structured-list-td"
+          >
+            Robby
+          </div>
+        </div>
+        <div
+          className="structured-list-row"
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            style={
+              Object {
+                "verticalAlign": "middle",
+              }
+            }
+          >
+            Last Name
+          </div>
+          <div
+            className="structured-list-td"
+          >
+            William
+          </div>
+        </div>
+        <div
+          className="structured-list-row "
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            style={
+              Object {
+                "verticalAlign": "middle",
+              }
+            }
+          >
+            Address
+          </div>
+          <div
+            className="structured-list-td"
+          >
+            Building 1000, Lakeside North Harbour - Portsmouth, PO6 3EN
+          </div>
+        </div>
+        <div
+          className="structured-list-row "
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            style={
+              Object {
+                "verticalAlign": "middle",
+              }
+            }
+          >
+            Telephone
+          </div>
+          <div
+            className="structured-list-td"
+          >
+            07987654567d
+          </div>
+        </div>
+        <div
+          className="structured-list-row "
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            style={
+              Object {
+                "verticalAlign": "middle",
+              }
+            }
+          >
+            Email
+          </div>
+          <div
+            className="structured-list-td"
+          >
+            someone.testing.motorama+44@gmail.com
+          </div>
+        </div>
+      </div>
+    </section>
+    <button
+      className="button -primary -regular -solid"
+      data-testid="personalSubmit"
+      disabled={false}
+      onClick={[Function]}
+      type="button"
+    >
+      <div
+        className="button--inner"
+      >
+        Edit Personal Details
+      </div>
+    </button>
+  </form>
+</div>
+`;
