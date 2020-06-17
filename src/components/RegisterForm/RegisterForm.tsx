@@ -72,7 +72,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
           name="password"
           ref={register(passwordValidator)}
           type="password"
-          width={45}
+          width="45ch"
         />
       </Formgroup>
       <Details summary="Password Requirements">
@@ -89,7 +89,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
           name="confirmPassword"
           ref={register(confirmPasswordValidator(watchPassword))}
           type="password"
-          width={45}
+          width="45ch"
         />
       </Formgroup>
 

@@ -12,7 +12,6 @@ import PasswordChangeContainer from '../../../containers/PasswordChangeContainer
 import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
 import OrderInformationContainer from '../../../containers/OrdersInformation/OrderInformationContainer';
 
-export const PARTY_BY_UUID = '7c53729d-7000-4268-8f6b-354ee8e999ce';
 const personUuid = 'aa08cca2-5f8d-4b8c-9506-193d9c32e05f'; // for test
 
 interface IProps {
@@ -30,7 +29,7 @@ const MyDetailsPage: NextPage<IProps> = () => {
   const router = useRouter();
   const uuid = router.query.uuid as string;
 
-  const partyByUuid = PARTY_BY_UUID;
+  const partyByUuid = '';
   const [resetPassword, setResetPassword] = useState(false);
 
   return (

@@ -100,7 +100,19 @@ const PasswordResetContainer = ({
           </Formgroup>
         </>
       )}
-
+      <Formgroup
+        controlId="password-reset-form_code"
+        label="Verification Code"
+        error={errors.code?.message?.toString()}
+      >
+        <TextInput
+          id="password-reset-form_code"
+          dataTestId="password-reset-form_code"
+          name="code"
+          ref={register(requiredField('Your Verification сode is required'))}
+          width="23ch"
+        />
+      </Formgroup>
       <Formgroup
         controlId="password-reset-form_new-pass"
         label="New Password"
@@ -112,7 +124,7 @@ const PasswordResetContainer = ({
           name="password"
           ref={register(passwordValidator)}
           type="password"
-          width={!oldPassword ? 30 : undefined}
+          width="30ch"
         />
       </Formgroup>
       {oldPassword ? (
@@ -136,7 +148,7 @@ const PasswordResetContainer = ({
           name="confirmPass"
           ref={register(confirmPasswordValidator(watchPassword))}
           type="password"
-          width={!oldPassword ? 30 : undefined}
+          width="30ch"
         />
       </Formgroup>
       <Button
