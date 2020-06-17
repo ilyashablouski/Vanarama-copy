@@ -51,7 +51,7 @@ exports[`<OrderInformationContainer /> renders correctly with data 1`] = `
       <span
         className="text -regular -dark"
       >
-        You have (0) quotes.
+        You have (1) quotes.
       </span>
       <a
         className="link -teal"
