@@ -38,9 +38,12 @@ import {
 import Hero, { HeroHeading, HeroTitle } from '../components/Hero';
 import { ALL_HOME_CONTENT } from '../gql/homepage';
 import withApollo from '../hocs/withApollo';
+import useSliderProperties from '../hooks/useSliderProperties';
 
 export const HomePage: NextPage = () => {
   const [activeTab, setActiveTab] = useState(0);
+  const { itemWidth, slidesToShow } = useSliderProperties(345, 345, 328);
+
   const { data, loading, error } = useQuery<HomePageData>(ALL_HOME_CONTENT);
   if (loading) {
     return <Loading size="large" />;
@@ -93,13 +96,22 @@ export const HomePage: NextPage = () => {
           <TabPanels>
             <TabPanel index={0}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <Slider className="-mh-auto" gutter={16}>
+                <Slider
+                  className="-mh-auto"
+                  gutter={16}
+                  slidesToShow={slidesToShow}
+                >
                   {[1, 2, 3, 4, 5].map(k => (
-                    <div key={k.toString()} style={{ width: 345 }}>
+                    <div key={k.toString()} style={{ width: itemWidth }}>
                       <ProductCard
                         header={{
-                          accentIcon: <Icon icon={<Flame />} color="white" />,
-                          accentText: 'Hot Deal',
+                          accentIcon:
+                            slidesToShow > 2 ? (
+                              <Icon icon={<Flame />} color="white" />
+                            ) : (
+                              ''
+                            ),
+                          accentText: slidesToShow > 2 ? 'Hot Deal' : '',
                           text: 'In Stock - 14-21 Days Delivery',
                         }}
                         features={[

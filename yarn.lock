@@ -2515,7 +2515,6 @@
   version "5.9.2"
   resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.9.2.tgz#1cc6ff466d8d5c00159bdf52147347dc861238e1"
   integrity sha512-CB6gPIqqKceERzjWRLaEs6FM7oE813ziuXriR5KfYQuw+eCLAOgypRiL1pUh176UXL2oxGq1/5671QiN0JMeyg==
-
   dependencies:
     "@babel/preset-typescript" "^7.8.3"
     "@egjs/flicking" "^3.4.7"
@@ -11178,6 +11177,16 @@ react-responsive@^8.0.3:
   version "8.0.3"
   resolved "https://registry.npmjs.org/react-responsive/-/react-responsive-8.0.3.tgz#ceb84205359b6032d306650e51490dc1f63d907b"
   integrity sha512-F9VXyLao7O8XHXbLjQbIr4+mC6Zr0RDTwNjd7ixTmYEAyKyNanBkLkFchNaMZgszoSK6PgSs/3m/QDWw33/gpg==
+  dependencies:
+    hyphenate-style-name "^1.0.0"
+    matchmediaquery "^0.3.0"
+    prop-types "^15.6.1"
+    shallow-equal "^1.1.0"
+
+react-responsive@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/react-responsive/-/react-responsive-8.1.0.tgz#afcc2293c46a37b1e7926ff7fef66bcb147e7cba"
+  integrity sha512-U8Nv2/ZWACIw/fAE9XNPbc2Xo33X5q1bcCASc2SufvJ9ifB+o/rokfogfznSVcvS22hN1rafGi0uZD6GiVFEHw==
   dependencies:
     hyphenate-style-name "^1.0.0"
     matchmediaquery "^0.3.0"
