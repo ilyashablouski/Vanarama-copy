@@ -8,6 +8,7 @@ import Form from '@vanarama/uibook/lib/components/organisms/form';
 import FormError from '@vanarama/uibook/lib/components/organisms/form/FormError';
 import { useForm } from 'react-hook-form';
 import Details from '@vanarama/uibook/lib/components/atoms/details';
+import Link from '@vanarama/uibook/lib/components/atoms/link';
 import {
   IResetPasswordFormValues,
   IResetPasswordFormProps,
@@ -74,7 +75,14 @@ const PasswordResetContainer = ({
         <>
           {error && (
             <FormError dataTestId="login-form_error">
-              Your old password seems incorrect. Reset your password here
+              {'Your old password seems incorrect. '}
+              <Link
+                dataTestId="forgot-password"
+                href="/account/password-request"
+                color="teal"
+              >
+                Reset your password here
+              </Link>
             </FormError>
           )}
           <Formgroup

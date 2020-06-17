@@ -2,6 +2,7 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
+import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
@@ -73,7 +74,13 @@ const MyDetailsPage: NextPage<IProps> = () => {
             <>
               <PasswordChangeContainer
                 uuid={uuid || personUuid}
-                onCompleted={() => {}}
+                onCompleted={() => {
+                  toast.success(
+                    'Your New Password Has Been Saved',
+                    'Ipsum duis aute cupidatat occaecat nisi aute dolore do non ex incididunt do consectetur excepteur',
+                  );
+                  setResetPassword(false);
+                }}
               />
             </>
           )}
