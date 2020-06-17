@@ -30,9 +30,9 @@ export const createOffersObject = (
   transmission: derivative?.transmissionName || '-',
   color: offer.colour || '-',
   trim: offer.trim || '-',
-  orderNumber: !!state && state === 'draft' ? id : undefined,
+  orderNumber: state !== 'draft' ? id : undefined,
   orderDate: moment(createdAt).format('DD.MM.YYYY'),
-  orderButton: (!!state && state !== 'draft') || quote ? button : undefined,
+  orderButton: state === 'draft' || quote ? button : undefined,
 });
 
 export default createOffersObject;
