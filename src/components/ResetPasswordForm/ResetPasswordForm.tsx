@@ -101,19 +101,6 @@ const PasswordResetContainer = ({
         </>
       )}
       <Formgroup
-        controlId="password-reset-form_code"
-        label="Verification Code"
-        error={errors.code?.message?.toString()}
-      >
-        <TextInput
-          id="password-reset-form_code"
-          dataTestId="password-reset-form_code"
-          name="code"
-          ref={register(requiredField('Your Verification сode is required'))}
-          width="23ch"
-        />
-      </Formgroup>
-      <Formgroup
         controlId="password-reset-form_new-pass"
         label="New Password"
         error={errors.password?.message?.toString()}
