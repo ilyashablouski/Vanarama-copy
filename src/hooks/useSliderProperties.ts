@@ -1,6 +1,6 @@
 import { useMediaQuery } from 'react-responsive';
 
-export default function SliderDimensions(
+export default function useSliderProperties(
   defaultWidth: number,
   mediumWidth: number,
   mobileWidth: number,
