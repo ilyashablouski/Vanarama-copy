@@ -155,35 +155,43 @@ const SearchPodContainer = () => {
   useEffect(() => {
     if (actualVehicleData?.filterList) {
       // we should filter initial list of budget ranges
-      // get a first actual range
-      const minBudgetIndex = budget.findIndex(range =>
-        budgetBetween(
-          range,
-          actualVehicleData?.filterList.financeProfilesRateMin,
-        ),
+      // get a first/last actual range
+      const [minBudgetIndex, maxBudgetIndex] = budget.reduce(
+        (array, range, index) => {
+          if (
+            budgetBetween(
+              range,
+              actualVehicleData?.filterList.financeProfilesRateMax,
+            )
+          ) {
+            array.push(index);
+          }
+          if (
+            budgetBetween(
+              range,
+              actualVehicleData?.filterList.financeProfilesRateMin,
+            )
+          ) {
+            array.push(index > -1 ? index + 1 : array.length);
+          }
+          return array;
+        },
+        [] as number[],
       );
-      // get a last actual range
-      let maxBudgetIndex = budget.findIndex(range =>
-        budgetBetween(
-          range,
-          actualVehicleData?.filterList.financeProfilesRateMax,
-        ),
-      );
-      maxBudgetIndex = maxBudgetIndex > -1 ? maxBudgetIndex + 1 : budget.length;
       if (activeIndex === 1) {
         setTypesVans(actualVehicleData?.filterList.bodyStyles);
-        if (minBudgetIndex >= 0) {
-          setBudgetVans(budget.slice(minBudgetIndex, maxBudgetIndex));
-        } else {
-          setBudgetVans(budget);
-        }
+        setBudgetVans(
+          minBudgetIndex >= 0
+            ? budget.slice(minBudgetIndex, maxBudgetIndex)
+            : budget,
+        );
       } else {
         setTypesCars(actualVehicleData?.filterList.bodyStyles);
-        if (minBudgetIndex >= 0) {
-          setBudgetCars(budget.slice(minBudgetIndex, maxBudgetIndex));
-        } else {
-          setBudgetCars(budget);
-        }
+        setBudgetCars(
+          minBudgetIndex >= 0
+            ? budget.slice(minBudgetIndex, maxBudgetIndex)
+            : budget,
+        );
       }
     }
   }, [actualVehicleData, activeIndex]);
