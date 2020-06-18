@@ -12,3 +12,10 @@ export const modelHandler = (data: IFilterList, make: string): string[] => {
   }
   return [];
 };
+
+export const budgetBetween = (range: string, price: number) => {
+  const rangeArray = range
+    .split('-')
+    .map(value => parseFloat(value.replace('£', '')));
+  return price >= rangeArray[0] && price <= rangeArray[1];
+};
