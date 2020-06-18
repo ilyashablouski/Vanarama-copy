@@ -45,6 +45,6 @@ export interface GetDerivatives {
 }
 
 export interface GetDerivativesVariables {
-  ids?: string[] | null;
+  ids: string[];
   vehicleType?: VehicleTypeEnum | null;
 }

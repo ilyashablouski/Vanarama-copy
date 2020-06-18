@@ -17,4 +17,5 @@ export interface IResetPasswordFormProps {
   username?: string;
   code?: string;
   oldPassword?: boolean;
+  onPasswordValidation?: (password: string) => Promise<boolean | undefined>;
 }
