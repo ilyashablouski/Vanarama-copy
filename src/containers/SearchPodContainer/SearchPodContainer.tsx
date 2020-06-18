@@ -122,33 +122,34 @@ const SearchPodContainer = () => {
     selectMakeVans,
     modelVansTemp,
     setValue,
+    getValues,
     vansDataCache.groupedRanges,
   ]);
 
-    // refetch body types and budgets for selected vehicle
-    useEffect(() => {
-      // if make don't selected set initial bodystyles
-      if (activeIndex === 1 && !selectMakeVans) {
-        setTypesVans(vansDataCache.bodyStyles || []);
-        setValue('modelVans', null)
-      }
-      else if (activeIndex === 2 && !selectMakeCars) {
-        setTypesVans(carsDataCache.bodyStyles || []);
-        setValue('modelCars', null)
-      }
-      // else fetch actual
-      else if (!modelVansTemp) {
-        getVehicleData();
-      }
-    }, [
-      selectMakeVans,
-      selectMakeCars,
-      modelVansTemp,
-      activeIndex,
-      carsDataCache.bodyStyles,
-      getVehicleData,
-      vansDataCache.bodyStyles,
-    ]);
+  // refetch body types and budgets for selected vehicle
+  useEffect(() => {
+    // if make don't selected set initial bodystyles
+    if (activeIndex === 1 && !selectMakeVans) {
+      setTypesVans(vansDataCache.bodyStyles || []);
+      setValue('modelVans', null);
+    } else if (activeIndex === 2 && !selectMakeCars) {
+      setTypesVans(carsDataCache.bodyStyles || []);
+      setValue('modelCars', null);
+    }
+    // else fetch actual
+    else if (!modelVansTemp) {
+      getVehicleData();
+    }
+  }, [
+    selectMakeVans,
+    selectMakeCars,
+    modelVansTemp,
+    activeIndex,
+    carsDataCache.bodyStyles,
+    getVehicleData,
+    setValue,
+    vansDataCache.bodyStyles,
+  ]);
 
   // set body types and budgets for selected vehicle
   useEffect(() => {
