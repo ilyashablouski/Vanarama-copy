@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
-import ThankYouPage from '../../../pages/olaf/thank-you';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
+import ThankYouPage from '../../../pages/olaf/thank-you';
 
 const mockPush = jest.fn();
 jest.mock('next/router', () => ({
