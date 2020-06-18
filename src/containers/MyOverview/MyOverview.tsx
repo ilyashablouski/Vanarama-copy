@@ -15,6 +15,7 @@ import {
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import { GetOrdersByPartyUuid_ordersByPartyUuid } from '../../../generated/GetOrdersByPartyUuid';
 import { createOffersObject } from './helpers';
+import { useApolloClient, gql } from '@apollo/client';
 
 interface IMyOverviewProps {
   partyByUuid: string;
@@ -36,6 +37,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     status,
     changeStatus,
   } = props;
+  const client = useApolloClient();
   const [activePage, setActivePage] = useState(1);
   const PATH = {
     items: [
@@ -96,6 +98,25 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     }
   };
 
+  const onClickOrderBtn = (
+    orderUuid: string,
+    orderCapId: string,
+    leaseType: LeaseTypeEnum,
+  ) => {
+    client.writeQuery({
+      query: gql`
+        query GetOrder {
+          order
+          derivative
+        }
+      `,
+      data: { order: { uuid: orderUuid }, derivative: { id: orderCapId } },
+    });
+    router.push(
+      leaseType === LeaseTypeEnum.PERSONAL ? '/olaf/about' : '/b2b/olaf/about',
+    );
+  };
+
   const renderChoiceBtn = (index: number, text: string) => (
     <button
       className={cx('choicebox', { '-active': activeTab === index })}
@@ -148,13 +169,9 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
             <Button
               color="teal"
               label={quote ? 'Continue To Order' : 'Order Now'}
-              onClick={() => {
-                router.push(
-                  el.leaseType === LeaseTypeEnum.PERSONAL
-                    ? '/olaf/about'
-                    : '/b2b/olaf/about',
-                );
-              }}
+              onClick={() =>
+                onClickOrderBtn(el.uuid, derivative?.id || '', el.leaseType)
+              }
             />,
             quote,
           )}

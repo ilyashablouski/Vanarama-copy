@@ -1,19 +1,12 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import moment from 'moment';
-
 import { GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct } from '../../../generated/GetOrdersByPartyUuid';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 
-export const createOffersObject = (
-  id: string,
-  createdAt: string,
+export const createOlafDetails = (
   leasType: string,
-  state: string,
   offer: GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct,
-  derivative?: GetDerivatives_derivatives,
-  button?: any,
-  quote?: boolean,
+  derivative: GetDerivatives_derivatives,
 ) => ({
   price: offer.monthlyPayment || 0,
   priceDescription: `Per Month ${
@@ -24,15 +17,17 @@ export const createOffersObject = (
     leasType === LeaseTypeEnum.PERSONAL ? 'inc.' : 'ex.'
   } VAT)`,
   contractLength: `${offer.depositMonths} month`,
-  annualMileage: offer.annualMileage?.toString() || '-',
+  annualMileage: offer.annualMileage ? `${offer.annualMileage} miles` : '-',
   maintenance: offer.maintenance ? 'Yes' : 'No',
   fuel: derivative?.fuelTypeName || '-',
   transmission: derivative?.transmissionName || '-',
   color: offer.colour || '-',
   trim: offer.trim || '-',
-  orderNumber: state !== 'draft' ? id : undefined,
-  orderDate: moment(createdAt).format('DD.MM.YYYY'),
-  orderButton: state === 'draft' || quote || !state ? button : undefined,
+  description: `${(offer.depositMonths || 1) - 1} month contact (${
+    leasType === LeaseTypeEnum.PERSONAL ? 'inc.' : 'ex.'
+  } VAT). Paid by Direct Debit. First due ≈ 10 days after delivery.`,
+  annualMileageBooster: 'Extra 600 miles FREE',
+  damageCover: 'Included',
 });
 
-export default createOffersObject;
+export default createOlafDetails;

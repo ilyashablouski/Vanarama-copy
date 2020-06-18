@@ -4,14 +4,43 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import OlafCard from '@vanarama/uibook/lib/components/molecules/cards/OlafCard/OlafCard';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { gql, useQuery } from '@apollo/client';
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
+import { useGetOrder, useCarDerivativesData } from '../../gql/order';
+import { createOlafDetails } from './helpers';
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
+
+const GET_ORDER_INFORMATION = gql`
+  query GetOrder {
+    order @client {
+      uuid
+    }
+    derivative @client {
+      id
+    }
+  }
+`;
 
 const OLAFLayout: React.FC = ({ children }) => {
   const isMobile = useMobileViewport();
   const [asideOpen, setAsideOpen] = useState(false);
   const showAside = !isMobile || asideOpen;
+
+  let order = { uuid: '' };
+  let derivative = { id: '' };
+  const { data } = useQuery(GET_ORDER_INFORMATION);
+  if (data) {
+    order = data.order;
+    derivative = data.derivative;
+  }
+  const dataOrder = useGetOrder(order.uuid);
+  const dataDerivative = useCarDerivativesData(
+    derivative.id,
+    VehicleTypeEnum.CAR,
+  );
+
   return (
     <>
       <ProgressSection />
@@ -28,30 +57,20 @@ const OLAFLayout: React.FC = ({ children }) => {
       )}
       <div className="row:olaf">
         {children}
-        {showAside && (
+        {showAside && dataOrder.data && dataDerivative.data && (
           <div className="olaf-aside">
             <OlafCard
               header={{ text: '14-21 Days Delivery' }}
-              olafDetails={{
-                annualMileage: '6000 miles',
-                color: 'Solid - Polar white',
-                contractLength: '60 months',
-                fuel: 'Petrol',
-                initailRental: '£815.70 (inc VAT)',
-                price: 209,
-                transmission: 'Manual',
-                trim: 'Cloth - Black',
-                priceDescription: 'Per Month ex. VAT',
-                description:
-                  '59 month contact (inc VAT). Paid by Direct Debit. First due ≈ 10 days after delivery.',
-                annualMileageBooster: 'Extra 600 miles FREE',
-                damageCover: 'Included',
-                maintenance: 'No',
-              }}
+              olafDetails={createOlafDetails(
+                dataOrder.data.orderByUuid.leasType,
+                dataOrder.data.orderByUuid.lineItems[0].vehicleProduct,
+                dataDerivative.data.derivative,
+              )}
               imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/KiaeNiro0219_j7on5z.jpg"
               title={{
-                title: 'FIAT 500 Hatchback',
-                description: '1.4T ecoTEC Elite Nav 5dr',
+                title: `${dataDerivative.data.derivative?.manufacturerName ||
+                  ''} ${dataDerivative.data.derivative?.modelName || ''}`,
+                description: dataDerivative.data.derivative?.name || '',
                 score: 4.5,
               }}
             />
