@@ -8,6 +8,7 @@ import {
 import { LeaseTypeEnum } from '../../../../generated/globalTypes';
 
 jest.mock('../../OrdersInformation/gql');
+jest.mock('@apollo/client');
 
 const mockPush = jest.fn();
 const router = jest.mock('next/router', () => ({

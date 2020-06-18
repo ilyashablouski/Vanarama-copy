@@ -3,6 +3,11 @@ import { GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct } from 
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 
+/**
+ * @param leasType - string, offer leasType
+ * @param offer - offer
+ * @param derivative - derivative data for offer car
+ */
 export const createOlafDetails = (
   leasType: string,
   offer: GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct,

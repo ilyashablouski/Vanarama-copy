@@ -10,6 +10,7 @@ import { CompanyDetailsPage } from '../../../../pages/b2b/olaf/company-details/[
 
 jest.spyOn(window, 'alert').mockImplementation(() => {});
 jest.mock('../../../../hooks/useMediaQuery');
+jest.mock('../../../../gql/order');
 jest.mock('next/router', () => ({
   useRouter() {
     return {
@@ -146,9 +147,9 @@ describe('B2B Company Details page', () => {
 
     // Choose to enter details manually
     fireEvent.click(
-      screen.getByRole('button', {
+      screen.getAllByRole('button', {
         name: /I’d Rather Enter My Details Manually/i,
-      }),
+      })[0],
     );
 
     // Fill the rest of the form in manually

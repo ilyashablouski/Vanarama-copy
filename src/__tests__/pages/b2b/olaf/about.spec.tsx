@@ -14,6 +14,7 @@ import {
 } from '../../../../../generated/SaveBusinessAboutYou';
 
 jest.mock('../../../../hooks/useMediaQuery');
+jest.mock('../../../../gql/order');
 
 const mockPush = jest.fn();
 jest.mock('next/router', () => ({

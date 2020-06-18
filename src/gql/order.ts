@@ -81,7 +81,7 @@ export const GET_CAR_DERIVATIVE = gql`
 
 export function useCarDerivativesData(
   id: string,
-  vehicleType: VehicleTypeEnum,
+  vehicleType?: VehicleTypeEnum,
 ) {
   return useQuery(GET_CAR_DERIVATIVE, {
     variables: {

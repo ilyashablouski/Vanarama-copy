@@ -12,7 +12,7 @@ import { useGetOrder, useCarDerivativesData } from '../../gql/order';
 import { createOlafDetails } from './helpers';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
-const GET_ORDER_INFORMATION = gql`
+export const GET_ORDER_INFORMATION = gql`
   query GetOrder {
     order @client {
       uuid
@@ -30,12 +30,18 @@ const OLAFLayout: React.FC = ({ children }) => {
 
   let order = { uuid: '' };
   let derivative = { id: '' };
+
+  // get order information from apollo client cache
   const { data } = useQuery(GET_ORDER_INFORMATION);
   if (data) {
     order = data.order;
     derivative = data.derivative;
   }
+
+  // get Order data
   const dataOrder = useGetOrder(order.uuid);
+
+  // get Derivative data for order car
   const dataDerivative = useCarDerivativesData(
     derivative.id,
     VehicleTypeEnum.CAR,
@@ -57,7 +63,7 @@ const OLAFLayout: React.FC = ({ children }) => {
       )}
       <div className="row:olaf">
         {children}
-        {showAside && dataOrder.data && dataDerivative.data && (
+        {showAside && dataOrder?.data && dataDerivative?.data && (
           <div className="olaf-aside">
             <OlafCard
               header={{ text: '14-21 Days Delivery' }}

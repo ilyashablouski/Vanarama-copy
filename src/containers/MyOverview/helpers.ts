@@ -5,6 +5,16 @@ import { GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct } from 
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 
+/**
+ * @param id - string, order ID
+ * @param createdAt - string, order createdAt date
+ * @param leasType - string, order leasType
+ * @param state - string, order credit state
+ * @param offer - GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct object, order
+ * @param derivative - GetDerivatives_derivatives, order derivative data for car
+ * @param button - html element
+ * @param quote - boolean, this order is quote
+ */
 export const createOffersObject = (
   id: string,
   createdAt: string,
