@@ -161,7 +161,7 @@ const SearchPodContainer = () => {
           if (
             budgetBetween(
               range,
-              actualVehicleData?.filterList.financeProfilesRateMax,
+              actualVehicleData?.filterList.financeProfilesRateMin,
             )
           ) {
             array.push(index);
@@ -169,7 +169,7 @@ const SearchPodContainer = () => {
           if (
             budgetBetween(
               range,
-              actualVehicleData?.filterList.financeProfilesRateMin,
+              actualVehicleData?.filterList.financeProfilesRateMax,
             )
           ) {
             array.push(index > -1 ? index + 1 : array.length);
