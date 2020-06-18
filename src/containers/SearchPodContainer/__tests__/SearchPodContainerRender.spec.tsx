@@ -21,7 +21,7 @@ describe('<SearchPodContainer />', () => {
             vehicleTypes: ['LCV'],
             bodyStyles: ['Dropside Tipper', 'Pickup'],
             financeProfilesRateMax: 597.98,
-            financeProfilesRateMin: 194.95,
+            financeProfilesRateMin: 124.95,
           },
         },
       },

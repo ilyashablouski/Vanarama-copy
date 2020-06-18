@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import SearchPod from '../../components/SearchPod';
 import { tabsFields, budget } from './config';
 import { filterListByTypes, filterTypeAndBudget } from './gql';
-import { makeHandler, modelHandler } from './helpers';
+import { makeHandler, modelHandler, budgetBetween } from './helpers';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
 
 enum Tabs {
@@ -20,8 +20,8 @@ const SearchPodContainer = () => {
   const [vansDataCache, setVansDataCache] = useState({} as IFilterList);
   const [carsDataCache, setCarsDataCache] = useState({} as IFilterList);
 
-  const [budgetVans] = useState(budget);
-  const [budgetCars] = useState(budget);
+  const [budgetVans, setBudgetVans] = useState(budget);
+  const [budgetCars, setBudgetCars] = useState(budget);
 
   const [typeVans, setTypesVans] = useState(['']);
   const [typeCars, setTypesCars] = useState(['']);
@@ -105,9 +105,8 @@ const SearchPodContainer = () => {
     activeIndex,
   ]);
 
-  // auto select make value for Vans
   useEffect(() => {
-    if (!selectMakeVans && selectModelVans) {
+    if (!selectMakeVans && getValues('modelVans')) {
       setModelsVansTemp(selectModelVans);
       const parent = vansDataCache.groupedRanges?.find(range =>
         range.children.includes(selectModelVans),
@@ -123,39 +122,76 @@ const SearchPodContainer = () => {
     selectMakeVans,
     modelVansTemp,
     setValue,
+    getValues,
     vansDataCache.groupedRanges,
   ]);
 
   // refetch body types and budgets for selected vehicle
   useEffect(() => {
+    // if make don't selected set initial bodystyles
     if (activeIndex === 1 && !selectMakeVans) {
       setTypesVans(vansDataCache.bodyStyles || []);
-    }
-    if (activeIndex === 2 && !selectMakeCars) {
+      setValue('modelVans', null);
+    } else if (activeIndex === 2 && !selectMakeCars) {
       setTypesVans(carsDataCache.bodyStyles || []);
+      setValue('modelCars', null);
     }
-    if (!modelVansTemp) {
+    // else fetch actual
+    else if (!modelVansTemp) {
       getVehicleData();
     }
   }, [
     selectMakeVans,
     selectMakeCars,
-    selectModelVans,
-    selectModelCars,
     modelVansTemp,
     activeIndex,
     carsDataCache.bodyStyles,
     getVehicleData,
+    setValue,
     vansDataCache.bodyStyles,
   ]);
 
   // set body types and budgets for selected vehicle
   useEffect(() => {
     if (actualVehicleData?.filterList) {
+      // we should filter initial list of budget ranges
+      // get a first/last actual range
+      const [minBudgetIndex, maxBudgetIndex] = budget.reduce(
+        (array, range, index) => {
+          if (
+            budgetBetween(
+              range,
+              actualVehicleData?.filterList.financeProfilesRateMin,
+            )
+          ) {
+            array.push(index);
+          }
+          if (
+            budgetBetween(
+              range,
+              actualVehicleData?.filterList.financeProfilesRateMax,
+            )
+          ) {
+            array.push(index > -1 ? index + 1 : array.length);
+          }
+          return array;
+        },
+        [] as number[],
+      );
       if (activeIndex === 1) {
         setTypesVans(actualVehicleData?.filterList.bodyStyles);
+        setBudgetVans(
+          minBudgetIndex >= 0
+            ? budget.slice(minBudgetIndex, maxBudgetIndex)
+            : budget,
+        );
       } else {
         setTypesCars(actualVehicleData?.filterList.bodyStyles);
+        setBudgetCars(
+          minBudgetIndex >= 0
+            ? budget.slice(minBudgetIndex, maxBudgetIndex)
+            : budget,
+        );
       }
     }
   }, [actualVehicleData, activeIndex]);
