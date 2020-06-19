@@ -18,10 +18,12 @@ export const createOlafDetails = (
     leaseType === LeaseTypeEnum.PERSONAL ? 'Inc' : 'Ex'
   }.VAT`,
   available: 'Now',
-  initailRental: `£${offer.depositPayment} (${
-    leaseType === LeaseTypeEnum.PERSONAL ? 'inc.' : 'ex.'
-  } VAT)`,
-  contractLength: `${offer.depositMonths} month`,
+  initailRental: offer.depositPayment
+    ? `£${offer.depositPayment} (${
+        leaseType === LeaseTypeEnum.PERSONAL ? 'inc.' : 'ex.'
+      } VAT)`
+    : '-',
+  contractLength: offer.depositMonths ? `${offer.depositMonths} month` : '-',
   annualMileage: offer.annualMileage ? `${offer.annualMileage} miles` : '-',
   maintenance: offer.maintenance ? 'Yes' : 'No',
   fuel: derivative?.fuelTypeName || '-',
