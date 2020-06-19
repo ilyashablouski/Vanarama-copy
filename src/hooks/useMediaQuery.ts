@@ -8,13 +8,13 @@ export default function useMediaQuery(query: string) {
     // Set the value on the initial render
     setMatches(mql.matches);
 
-    function handleChange(ev: MediaQueryListEvent) {
-      setMatches(ev.matches);
+    function handleChange(e: MediaQueryListEvent) {
+      setMatches(e.matches);
     }
 
     // Then subscribe to additional changes
-    mql.addEventListener('change', handleChange);
-    return () => mql.removeEventListener('change', handleChange);
+    mql.addListener(handleChange);
+    return () => mql.removeListener(handleChange);
   }, [query]);
 
   return matches;
