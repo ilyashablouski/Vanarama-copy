@@ -123,6 +123,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
                       <AddressFinder.Input
                         style={{ minWidth: '35ch' }}
                         id="empty"
+                        width={30}
                         dataTestId="input_adress_person_information"
                       />
                       <AddressFinder.Selected dataTestId="adress_person_information__edit" />

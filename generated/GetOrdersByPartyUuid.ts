@@ -9,6 +9,11 @@ import { LeaseTypeEnum } from "./globalTypes";
 // GraphQL query operation: GetOrdersByPartyUuid
 // ====================================================
 
+export interface GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_creditApplications {
+  aasmState: string;
+  uuid: string;
+}
+
 export interface GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct {
   derivativeCapId: string;
   description: string | null;
@@ -34,6 +39,7 @@ export interface GetOrdersByPartyUuid_ordersByPartyUuid_lineItems {
   state: string | null;
   updatedAt: any | null;
   uuid: string;
+  creditApplications: GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_creditApplications[] | null;
   vehicleProduct: GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct | null;
 }
 

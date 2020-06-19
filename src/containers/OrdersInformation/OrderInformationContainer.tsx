@@ -5,9 +5,20 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import { useOrdersByPartyUuidData } from './gql';
 import { IProps } from './interfaces';
 
+export const PARTY_BY_UUID = 'f5229b02-7d8a-47f9-b33e-bb9137fded23';
+
 const OrderInformationContainer: React.FC<IProps> = ({ partyByUuid }) => {
-  const orders = useOrdersByPartyUuidData(partyByUuid, [], ['quote']);
+  const orders = useOrdersByPartyUuidData(
+    partyByUuid || PARTY_BY_UUID,
+    [],
+    ['quote'],
+  );
   const haveOrders = !!orders.data?.ordersByPartyUuid.length;
+
+  const quotes = useOrdersByPartyUuidData(partyByUuid || PARTY_BY_UUID, [
+    'quote',
+  ]);
+  const haveQuotes = !!quotes.data?.ordersByPartyUuid.length;
 
   return (
     <div className="row:bg-light">
@@ -37,17 +48,15 @@ const OrderInformationContainer: React.FC<IProps> = ({ partyByUuid }) => {
             title: 'My Quotes',
           }}
         >
-          <Text
-            tag="span"
-            size="regular"
-            color="dark"
-          >{`You have (${0}) quotes.`}</Text>
+          <Text tag="span" size="regular" color="dark">{`You have (${
+            haveQuotes ? quotes.data?.ordersByPartyUuid.length : 0
+          }) quotes.`}</Text>
           <RouterLink
             classNames={{
               color: 'teal',
             }}
             link={{ href: '/account/my-quotes', label: '' }}
-            onClick={ev => ev.preventDefault()}
+            onClick={ev => !haveQuotes && ev.preventDefault()}
             dataTestId="quotes-link"
           >
             View Quotes
