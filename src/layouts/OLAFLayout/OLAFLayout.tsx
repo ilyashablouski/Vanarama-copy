@@ -3,12 +3,12 @@ import ChevronUpSharp from '@vanarama/uibook/lib/assets/icons/ChevronUpSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import OlafCard from '@vanarama/uibook/lib/components/molecules/cards/OlafCard/OlafCard';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, ReactNode } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
-import { useGetOrder, useCarDerivativesData } from '../../gql/order';
+import { useOlafData } from '../../gql/order';
 import { createOlafDetails } from './helpers';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
@@ -23,29 +23,36 @@ export const GET_ORDER_INFORMATION = gql`
   }
 `;
 
-const OLAFLayout: React.FC = ({ children }) => {
+interface IOLAFLayoutProps {
+  children: ReactNode;
+  orderId?: string;
+  derivativeId?: string;
+}
+
+const OLAFLayout: React.FC<IOLAFLayoutProps> = props => {
+  const { children, orderId, derivativeId } = props;
   const isMobile = useMobileViewport();
   const [asideOpen, setAsideOpen] = useState(false);
   const showAside = !isMobile || asideOpen;
 
-  let order = { uuid: '' };
-  let derivative = { id: '' };
+  let order = { uuid: orderId || '' };
+  let derivativeCarId = { id: derivativeId || '' };
 
   // get order information from apollo client cache
   const { data } = useQuery(GET_ORDER_INFORMATION);
-  if (data) {
+  if (data?.order && data?.derivative) {
     order = data.order;
-    derivative = data.derivative;
+    derivativeCarId = data.derivative;
   }
 
-  // get Order data
-  const dataOrder = useGetOrder(order.uuid);
-
-  // get Derivative data for order car
-  const dataDerivative = useCarDerivativesData(
-    derivative.id,
+  // get Order data and Derivative data for order car
+  const olafData = useOlafData(
+    order.uuid,
+    derivativeCarId.id,
     VehicleTypeEnum.CAR,
   );
+  const orderByUuid = olafData && olafData.data?.orderByUuid;
+  const derivative = olafData && olafData.data?.derivative;
 
   return (
     <>
@@ -63,20 +70,20 @@ const OLAFLayout: React.FC = ({ children }) => {
       )}
       <div className="row:olaf">
         {children}
-        {showAside && dataOrder?.data && dataDerivative?.data && (
+        {showAside && orderByUuid && derivative && (
           <div className="olaf-aside">
             <OlafCard
               header={{ text: '14-21 Days Delivery' }}
               olafDetails={createOlafDetails(
-                dataOrder.data.orderByUuid.leasType,
-                dataOrder.data.orderByUuid.lineItems[0].vehicleProduct,
-                dataDerivative.data.derivative,
+                orderByUuid.leaseType,
+                orderByUuid.lineItems[0].vehicleProduct,
+                derivative,
               )}
               imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/KiaeNiro0219_j7on5z.jpg"
               title={{
-                title: `${dataDerivative.data.derivative?.manufacturerName ||
-                  ''} ${dataDerivative.data.derivative?.modelName || ''}`,
-                description: dataDerivative.data.derivative?.name || '',
+                title: `${derivative?.manufacturerName ||
+                  ''} ${derivative?.modelName || ''}`,
+                description: derivative?.name || '',
                 score: 4.5,
               }}
             />

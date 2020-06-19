@@ -4,22 +4,22 @@ import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 
 /**
- * @param leasType - string, offer leasType
+ * @param leaseType - string, offer leaseType
  * @param offer - offer
  * @param derivative - derivative data for offer car
  */
 export const createOlafDetails = (
-  leasType: string,
+  leaseType: string,
   offer: GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct,
   derivative: GetDerivatives_derivatives,
 ) => ({
   price: offer.monthlyPayment || 0,
   priceDescription: `Per Month ${
-    leasType === LeaseTypeEnum.PERSONAL ? 'Inc' : 'Ex'
+    leaseType === LeaseTypeEnum.PERSONAL ? 'Inc' : 'Ex'
   }.VAT`,
   available: 'Now',
   initailRental: `£${offer.depositPayment} (${
-    leasType === LeaseTypeEnum.PERSONAL ? 'inc.' : 'ex.'
+    leaseType === LeaseTypeEnum.PERSONAL ? 'inc.' : 'ex.'
   } VAT)`,
   contractLength: `${offer.depositMonths} month`,
   annualMileage: offer.annualMileage ? `${offer.annualMileage} miles` : '-',
@@ -29,7 +29,7 @@ export const createOlafDetails = (
   color: offer.colour || '-',
   trim: offer.trim || '-',
   description: `${(offer.depositMonths || 1) - 1} month contact (${
-    leasType === LeaseTypeEnum.PERSONAL ? 'inc.' : 'ex.'
+    leaseType === LeaseTypeEnum.PERSONAL ? 'inc.' : 'ex.'
   } VAT). Paid by Direct Debit. First due ≈ 10 days after delivery.`,
   annualMileageBooster: 'Extra 600 miles FREE',
   damageCover: 'Included',

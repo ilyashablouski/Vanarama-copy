@@ -8,7 +8,7 @@ import { LeaseTypeEnum } from '../../../generated/globalTypes';
 /**
  * @param id - string, order ID
  * @param createdAt - string, order createdAt date
- * @param leasType - string, order leasType
+ * @param leaseType - string, order leaseType
  * @param state - string, order credit state
  * @param offer - GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct object, order
  * @param derivative - GetDerivatives_derivatives, order derivative data for car
@@ -18,7 +18,7 @@ import { LeaseTypeEnum } from '../../../generated/globalTypes';
 export const createOffersObject = (
   id: string,
   createdAt: string,
-  leasType: string,
+  leaseType: string,
   state: string,
   offer: GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct,
   derivative?: GetDerivatives_derivatives,
@@ -27,11 +27,11 @@ export const createOffersObject = (
 ) => ({
   price: offer.monthlyPayment || 0,
   priceDescription: `Per Month ${
-    leasType === LeaseTypeEnum.PERSONAL ? 'Inc' : 'Ex'
+    leaseType === LeaseTypeEnum.PERSONAL ? 'Inc' : 'Ex'
   }.VAT`,
   available: 'Now',
   initailRental: `£${offer.depositPayment} (${
-    leasType === LeaseTypeEnum.PERSONAL ? 'inc.' : 'ex.'
+    leaseType === LeaseTypeEnum.PERSONAL ? 'inc.' : 'ex.'
   } VAT)`,
   contractLength: `${offer.depositMonths} month`,
   annualMileage: offer.annualMileage?.toString() || '-',
