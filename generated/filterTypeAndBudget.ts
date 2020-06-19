@@ -26,5 +26,5 @@ export interface filterTypeAndBudget {
 export interface filterTypeAndBudgetVariables {
   vehicleTypes?: VehicleTypeEnum[] | null;
   manufacturerName?: string | null;
-  modelName?: string | null;
+  rangeName?: string | null;
 }
