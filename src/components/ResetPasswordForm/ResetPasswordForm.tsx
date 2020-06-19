@@ -38,6 +38,7 @@ const PasswordResetContainer = ({
     IResetPasswordFormValues
   >({
     mode: 'onBlur',
+    reValidateMode: 'onBlur',
     defaultValues: {
       code,
       password: '',

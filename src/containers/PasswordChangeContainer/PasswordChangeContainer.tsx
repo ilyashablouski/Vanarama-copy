@@ -64,7 +64,7 @@ const PasswordChangeContainer = ({
           variables: { uuid, password: value },
         });
 
-        return Boolean(results?.data?.passwordCorrect);
+        return Boolean(!results?.data?.passwordCorrect);
       }}
     />
   );
