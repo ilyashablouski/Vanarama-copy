@@ -49,7 +49,7 @@ const mocks: MockedResponse[] = [
       variables: {
         vehicleTypes: ['LCV'],
         manufacturerName: '',
-        modelName: '',
+        rangeName: '',
       },
     },
     result: () => {
