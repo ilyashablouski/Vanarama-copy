@@ -74,25 +74,11 @@ const OLAFLayout: React.FC<IOLAFLayoutProps> = props => {
           <div className="olaf-aside">
             <OlafCard
               header={{ text: '14-21 Days Delivery' }}
-              olafDetails={{
-                ...createOlafDetails(
-                  orderByUuid.leaseType,
-                  orderByUuid.lineItems[0].vehicleProduct,
-                  derivative,
-                ),
-                initialRentalDataTestId: 'about_intial-rental-testID',
-                controlLengthDataTestId: 'about_control-length-testID',
-                annualMileageDataTestId: 'about_annual-mileage-testID',
-                annualMileageBoosterDataTestId:
-                  'about_annual-milage-booster-testID',
-                damageCoverDataTestId: 'about_damage-cover-testID',
-                maintenanceDataTestId: 'about_maintenance-testID',
-                fuelDataTestId: 'about_fuel-testID',
-                transmissionDataTestId: 'about_transmission-testID',
-                colorDataTestId: 'about_color-testID',
-                trimDataTestId: 'about_trim-testID',
-                descriptionDataTestId: 'about_description-testID',
-              }}
+              olafDetails={createOlafDetails(
+                orderByUuid.leaseType,
+                orderByUuid.lineItems[0].vehicleProduct,
+                derivative,
+              )}
               imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/KiaeNiro0219_j7on5z.jpg"
               title={{
                 title: `${derivative?.manufacturerName ||
