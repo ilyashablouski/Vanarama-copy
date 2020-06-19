@@ -26,13 +26,13 @@ export const GET_TYPE_AND_BUDGET_DATA = gql`
   query filterTypeAndBudget(
     $vehicleTypes: [VehicleTypeEnum!]
     $manufacturerName: String
-    $modelName: String
+    $rangeName: String
   ) {
     filterList(
       filter: {
         vehicleTypes: $vehicleTypes
         manufacturerName: $manufacturerName
-        modelName: $modelName
+        rangeName: $rangeName
       }
     ) {
       vehicleTypes
@@ -46,14 +46,14 @@ export const GET_TYPE_AND_BUDGET_DATA = gql`
 export function filterTypeAndBudget(
   vehicleTypes: string[],
   manufacturerName: string,
-  modelName?: string,
+  rangeName?: string,
 ) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   return useLazyQuery(GET_TYPE_AND_BUDGET_DATA, {
     variables: {
       vehicleTypes,
       manufacturerName,
-      modelName,
+      rangeName,
     },
   });
 }
