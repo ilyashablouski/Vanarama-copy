@@ -183,6 +183,7 @@ export const CarsPage: NextPage = () => {
         </Heading>
         {data?.hubCarPage.sections.steps?.steps?.map((step: StepData, idx) => (
           <Step
+            key={step.title || idx}
             heading={step.title || ''}
             step={idx + 1}
             text={step.body || ''}
