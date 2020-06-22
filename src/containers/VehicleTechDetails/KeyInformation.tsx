@@ -2,11 +2,11 @@ import React from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
+import Newspaper from '@vanarama/uibook/lib/assets/icons/Newspaper';
 
 export interface KeyInformationItem {
-  title: string;
-  icon?: string;
-  description?: string;
+  name: string | null;
+  value: string | null;
 }
 
 interface IKeyInformationProps {
@@ -18,23 +18,16 @@ const KeyInformation: React.FC<IKeyInformationProps> = ({
 }) => {
   return (
     <div className="pdp--feature-grid tabs--active">
-      {keysInformation.map((info: KeyInformationItem) => (
-        <div className="pdp--feature-grid--item">
-          {info.icon && (
-            <Icon
-              icon={info.icon}
-              color="orange"
-              size="large"
-              className="md hydrated"
-            />
-          )}
+      {keysInformation.slice(0, 12).map((info: KeyInformationItem) => (
+        <div className="pdp--feature-grid--item" key={info.name || ''}>
+          <Icon icon={<Newspaper />} color="orange" className="icon-custom" />
           <div>
             <Heading color="black" size="regular" tag="div">
-              {info.title}
+              {info.name}
             </Heading>
-            {info.description && (
+            {info.value && (
               <Text color="dark" size="small" tag="div">
-                {info.description}
+                {info.value}
               </Text>
             )}
           </div>

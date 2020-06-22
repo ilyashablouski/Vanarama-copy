@@ -14,7 +14,7 @@ import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-galler
 import { useCarData } from '../../../gql/carpage';
 import withApollo from '../../../hocs/withApollo';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
-import VehicleTechDetails from 'containers/VehicleTechDetails/VehicleTechDetails';
+import VehicleTechDetails from '../../../containers/VehicleTechDetails/VehicleTechDetails';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -54,6 +54,7 @@ const CarDetailsPage: NextPage<IProps> = () => {
   }
 
   const vehicleDetails = data?.vehicleDetails;
+  const derivativeInfo = data?.derivativeInfo;
   const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
 
   return (
@@ -94,7 +95,10 @@ const CarDetailsPage: NextPage<IProps> = () => {
         ]}
         videoSrc="https://player.vimeo.com/video/263419265"
       />
-      <VehicleTechDetails partyByUuid="" />
+      <VehicleTechDetails
+        vehicleDetails={vehicleDetails}
+        derivativeInfo={derivativeInfo}
+      />
     </div>
   );
 };
