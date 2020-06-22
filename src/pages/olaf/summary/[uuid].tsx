@@ -7,10 +7,15 @@ import withApollo from '../../../hocs/withApollo';
 
 const SummaryPage: NextPage = () => {
   const router = useRouter();
-  const uuid = router.query.uuid as string;
+  const {
+    query: { uuid, derivativeId, orderId },
+  } = router;
   return (
-    <OLAFLayout>
-      <SummaryFormContainer personUuid={uuid} />
+    <OLAFLayout
+      orderId={orderId as string}
+      derivativeId={derivativeId as string}
+    >
+      <SummaryFormContainer personUuid={uuid as string} />
     </OLAFLayout>
   );
 };

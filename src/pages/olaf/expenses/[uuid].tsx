@@ -4,22 +4,31 @@ import { useRouter } from 'next/router';
 import ExpensesFormContainer from '../../../containers/ExpensesFormContainer/ExpensesFormContainer';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
+import { getUrlParam } from '../../../utils/url';
 
 const ExpensesPage: NextPage = () => {
   const router = useRouter();
-  const uuid = router.query.uuid as string;
+  const {
+    query: { uuid, derivativeId, orderId },
+  } = router;
   return (
-    <OLAFLayout>
+    <OLAFLayout
+      orderId={orderId as string}
+      derivativeId={derivativeId as string}
+    >
       <ExpensesFormContainer
         onCompleted={() => {
           const url =
             router.query.redirect === 'summary'
-              ? `/olaf/summary/[uuid]`
-              : `/olaf/bank-details/[uuid]`;
+              ? `/olaf/summary/[uuid]${getUrlParam({ orderId, derivativeId })}`
+              : `/olaf/bank-details/[uuid]${getUrlParam({
+                  orderId,
+                  derivativeId,
+                })}`;
 
-          router.push(url, url.replace('[uuid]', uuid));
+          router.push(url, url.replace('[uuid]', uuid as string));
         }}
-        personUuid={uuid}
+        personUuid={uuid as string}
       />
     </OLAFLayout>
   );

@@ -14,6 +14,7 @@ import {
 import BusinessAboutForm from '../../../../components/BusinessAboutForm/BusinessAboutForm';
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
+import { getUrlParam } from '../../../../utils/url';
 
 export const GET_B2B_ABOUT_PAGE_DATA = gql`
   query GetB2BAboutPageData {
@@ -37,6 +38,10 @@ export const SAVE_BUSINESS_ABOUT_YOU = gql`
 
 export const BusinessAboutPage: NextPage = () => {
   const router = useRouter();
+  const {
+    query: { derivativeId, orderId },
+  } = router;
+
   const { data, loading, error } = useQuery<GetB2BAboutPageData>(
     GET_B2B_ABOUT_PAGE_DATA,
   );
@@ -46,7 +51,10 @@ export const BusinessAboutPage: NextPage = () => {
     SaveBusinessAboutYouVariables
   >(SAVE_BUSINESS_ABOUT_YOU, {
     onCompleted: ({ createUpdateBusinessPerson }) => {
-      const url = '/b2b/olaf/company-details/[companyUuid]';
+      const url = `/b2b/olaf/company-details/[companyUuid]${getUrlParam({
+        orderId,
+        derivativeId,
+      })}`;
       router.push(
         url,
         url.replace(
@@ -65,7 +73,10 @@ export const BusinessAboutPage: NextPage = () => {
   });
 
   return (
-    <OLAFLayout>
+    <OLAFLayout
+      orderId={orderId as string}
+      derivativeId={derivativeId as string}
+    >
       {error && (
         <Text tag="p" color="danger" size="lead">
           Sorry, an unexpected error occurred. Please try again!
