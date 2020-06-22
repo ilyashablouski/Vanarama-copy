@@ -1,4 +1,4 @@
 export interface IFilterContainerProps {
-    isPersonal: boolean;
-    setType: (value: boolean) => void
+  isPersonal: boolean;
+  setType: (value: boolean) => void;
 }

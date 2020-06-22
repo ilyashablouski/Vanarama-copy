@@ -6,20 +6,12 @@ import {
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
 export const GET_VEHICLE_LIST = gql`
-  query vehicleList(
-    $vehicleTypes: [VehicleTypeEnum!]
-    $after: String
-  ) {
+  query vehicleList($vehicleTypes: [VehicleTypeEnum!], $after: String) {
     vehicleList(
-      first: 9,
-      after: $after,
-      filter: {
-        vehicleTypes: $vehicleTypes,
-      }
-      sort: {
-        field:offerRanking,
-        direction:ASC,
-      }
+      first: 9
+      after: $after
+      filter: { vehicleTypes: $vehicleTypes }
+      sort: { field: offerRanking, direction: ASC }
     ) {
       totalCount
       pageInfo {
@@ -57,7 +49,10 @@ export const GET_VEHICLE_LIST = gql`
   }
 `;
 
-export function getVehiclesList(vehicleTypes: VehicleTypeEnum[] , after?: string) {
+export function getVehiclesList(
+  vehicleTypes: VehicleTypeEnum[],
+  after?: string,
+) {
   return useLazyQuery<vehicleList, vehicleListVariables>(GET_VEHICLE_LIST, {
     variables: {
       vehicleTypes,

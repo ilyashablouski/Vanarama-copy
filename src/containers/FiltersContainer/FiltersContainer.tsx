@@ -17,7 +17,7 @@ import { filtersConfig } from './config';
 import SearchPod from '../../components/SearchPod';
 import { IFilterContainerProps } from './interfaces';
 
-const FiltersContainer = ({isPersonal, setType}: IFilterContainerProps) => {
+const FiltersContainer = ({ isPersonal, setType }: IFilterContainerProps) => {
   // const [selectedFiltersState, setSelectedFiltersState] = useState(
   //   presetFilters || initialState,
   // );
@@ -64,7 +64,7 @@ const FiltersContainer = ({isPersonal, setType}: IFilterContainerProps) => {
   //   setSelectedFiltersState(initialState);
   //   console.log(selectedFiltersState);
   // };
-  const  toggleHandler = (value) => setType(value.target.checked)
+  const toggleHandler = value => setType(value.target.checked);
   return (
     <SearchFilters>
       <SearchFiltersHead>
@@ -75,49 +75,49 @@ const FiltersContainer = ({isPersonal, setType}: IFilterContainerProps) => {
           />
           &nbsp; Filters
         </Heading>
-        <Toggle offLabel="Business" onLabel="Personal" id="contractType" onChange={toggleHandler} checked={isPersonal}/>
+        <Toggle
+          offLabel="Business"
+          onLabel="Personal"
+          id="contractType"
+          onChange={toggleHandler}
+          checked={isPersonal}
+        />
       </SearchFiltersHead>
-      {filtersConfig.map((filter) => (
+      {filtersConfig.map(filter => (
         <Dropdown label={filter.label} className="search-filters--dropdown">
-          {filter.contentType === 'dropdowns' && (
-            filter.dropdowns?.map((dropdown)=>(
+          {filter.contentType === 'dropdowns' &&
+            filter.dropdowns?.map(dropdown => (
               <FormGroup label={dropdown.label}>
                 <Select
                   name={dropdown.accessor}
                   placeholder={`Select ${dropdown.accessor}`}
                 >
-                    <option value="value}">
-                      "test"
-                    </option>
+                  <option value="value}">"test"</option>
                 </Select>
               </FormGroup>
-            ))
-          )}
+            ))}
           {filter.contentType === 'multiSelect' && (
-              <FormGroup label={filter.label}>
-                <Checkbox
-                    onChange={() => {}}
-                    outline
-                    name={filter.accessor}
-                    id={filter.accessor}
-                    label={filter.label}
-            />
-              </FormGroup>
+            <FormGroup label={filter.label}>
+              <Checkbox
+                onChange={() => {}}
+                outline
+                name={filter.accessor}
+                id={filter.accessor}
+                label={filter.label}
+              />
+            </FormGroup>
           )}
-        <Button
-          size="small"
-          color="teal"
-          fill="solid"
-          className="-fullwidth"
-          label="View 277 Results"
-        />
-      </Dropdown>
+          <Button
+            size="small"
+            color="teal"
+            fill="solid"
+            className="-fullwidth"
+            label="View 277 Results"
+          />
+        </Dropdown>
       ))}
-      
-      <SearchFilterTags
-        selectedFilters={['']}
-        onClearAll={()=>{}}
-      />
+
+      <SearchFilterTags selectedFilters={['']} onClearAll={() => {}} />
     </SearchFilters>
   );
 };
