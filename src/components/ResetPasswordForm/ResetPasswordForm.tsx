@@ -32,11 +32,13 @@ const PasswordResetContainer = ({
   code,
   onSubmit,
   oldPassword,
+  onPasswordValidation,
 }: IResetPasswordFormProps) => {
   const { handleSubmit, errors, watch, register } = useForm<
     IResetPasswordFormValues
   >({
     mode: 'onBlur',
+    reValidateMode: 'onBlur',
     defaultValues: {
       code,
       password: '',
@@ -75,7 +77,6 @@ const PasswordResetContainer = ({
               ref={register(
                 requiredField('Your Verification сode is required'),
               )}
-              width={23}
             />
           </Formgroup>
         </>
@@ -101,7 +102,13 @@ const PasswordResetContainer = ({
               dataTestId="password-reset-form_code"
               name="code"
               type="password"
-              ref={register(requiredField('Please fill in your Old Password'))}
+              ref={register({
+                ...requiredField('Please fill in your Old Password'),
+                validate: async value =>
+                  (await onPasswordValidation?.(value))
+                    ? 'Your old password seems incorrect.'
+                    : undefined,
+              })}
             />
           </Formgroup>
         </>
@@ -117,7 +124,6 @@ const PasswordResetContainer = ({
           name="password"
           ref={register(passwordValidator)}
           type="password"
-          width="30ch"
         />
       </Formgroup>
       {oldPassword ? (
@@ -141,7 +147,6 @@ const PasswordResetContainer = ({
           name="confirmPass"
           ref={register(confirmPasswordValidator(watchPassword))}
           type="password"
-          width="30ch"
         />
       </Formgroup>
       <Button

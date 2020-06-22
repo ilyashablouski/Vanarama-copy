@@ -1,5 +1,14 @@
 import { useQuery, gql } from '@apollo/client';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
+import {
+  GetDerivative,
+  GetDerivativeVariables,
+} from '../../generated/GetDerivative';
+import { GetOlafDataVariables, GetOlafData } from '../../generated/GetOlafData';
+import {
+  GetOrderByUuid,
+  GetOrderByUuidVariables,
+} from '../../generated/GetOrderByUuid';
 
 export const GET_ORDER_BY_UUID_DATA = gql`
   query GetOrderByUuid($uuid: ID!) {
@@ -45,11 +54,14 @@ export const GET_ORDER_BY_UUID_DATA = gql`
 `;
 
 export function useGetOrder(uuid: string) {
-  return useQuery(GET_ORDER_BY_UUID_DATA, {
-    variables: {
-      uuid,
+  return useQuery<GetOrderByUuid, GetOrderByUuidVariables>(
+    GET_ORDER_BY_UUID_DATA,
+    {
+      variables: {
+        uuid,
+      },
     },
-  });
+  );
 }
 
 export const GET_CAR_DERIVATIVE = gql`
@@ -83,7 +95,7 @@ export function useCarDerivativesData(
   id: string,
   vehicleType?: VehicleTypeEnum,
 ) {
-  return useQuery(GET_CAR_DERIVATIVE, {
+  return useQuery<GetDerivative, GetDerivativeVariables>(GET_CAR_DERIVATIVE, {
     variables: {
       id,
       vehicleType,
@@ -161,7 +173,7 @@ export function useOlafData(
   id: string,
   vehicleType?: VehicleTypeEnum,
 ) {
-  return useQuery(GET_OLAF_DATA, {
+  return useQuery<GetOlafData, GetOlafDataVariables>(GET_OLAF_DATA, {
     variables: {
       uuid,
       id,

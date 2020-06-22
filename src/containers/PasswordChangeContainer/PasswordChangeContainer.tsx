@@ -1,9 +1,13 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
 import {
-  ChangePasswordByUuidMutation as Mutation,
-  ChangePasswordByUuidMutationVariables as MutationVariables,
+  ChangePasswordByUuidMutation,
+  ChangePasswordByUuidMutationVariables,
 } from '../../../generated/ChangePasswordByUuidMutation';
+import {
+  IsPasswordCorrectMutation,
+  IsPasswordCorrectMutationVariables,
+} from '../../../generated/IsPasswordCorrectMutation';
 import ResetPasswordForm from '../../components/ResetPasswordForm';
 import { IPasswordChangeContainerProps } from './interfaces';
 
@@ -21,16 +25,25 @@ export const CHANGE_PASSWORD_BY_UUID_MUTATION = gql`
   }
 `;
 
+export const IS_PASSWORD_CORRECT = gql`
+  mutation IsPasswordCorrectMutation($uuid: ID!, $password: String!) {
+    passwordCorrect(uuid: $uuid, password: $password)
+  }
+`;
+
 const PasswordChangeContainer = ({
   uuid,
   onCompleted,
 }: IPasswordChangeContainerProps) => {
   const [cahngePasswordByUuid, { loading, error }] = useMutation<
-    Mutation,
-    MutationVariables
-  >(CHANGE_PASSWORD_BY_UUID_MUTATION, {
-    onCompleted,
-  });
+    ChangePasswordByUuidMutation,
+    ChangePasswordByUuidMutationVariables
+  >(CHANGE_PASSWORD_BY_UUID_MUTATION, { onCompleted });
+
+  const [isPasswordCorrect] = useMutation<
+    IsPasswordCorrectMutation,
+    IsPasswordCorrectMutationVariables
+  >(IS_PASSWORD_CORRECT);
 
   return (
     <ResetPasswordForm
@@ -45,6 +58,13 @@ const PasswordChangeContainer = ({
             newPassword: values.password,
           },
         });
+      }}
+      onPasswordValidation={async value => {
+        const results = await isPasswordCorrect({
+          variables: { uuid, password: value },
+        });
+
+        return Boolean(!results?.data?.passwordCorrect);
       }}
     />
   );
