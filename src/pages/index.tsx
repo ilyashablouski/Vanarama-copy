@@ -28,6 +28,7 @@ import IconList, {
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
+import Head from '../components/Head/Head';
 
 import RouterLink from '../components/RouterLink/RouterLink';
 import {
@@ -55,6 +56,7 @@ export const HomePage: NextPage = () => {
 
   return (
     <>
+      <Head />
       <Hero>
         <div className="hero--title">
           <HeroHeading>{data?.homePage.sections.hero?.title}</HeroHeading>

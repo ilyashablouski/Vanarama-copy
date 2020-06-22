@@ -19,12 +19,12 @@ exports[`<OrderInformationContainer /> renders correctly with data 1`] = `
         >
           My Orders
         </span>
-        <span
-          className="heading -dark -small"
-        >
-          You have (1) orders.
-        </span>
       </div>
+      <span
+        className="text -regular -dark"
+      >
+        You have (1) orders.
+      </span>
       <a
         className="link -teal"
         data-testid="orders-link"
@@ -47,12 +47,12 @@ exports[`<OrderInformationContainer /> renders correctly with data 1`] = `
         >
           My Quotes
         </span>
-        <span
-          className="heading -dark -small"
-        >
-          You have (0) quotes.
-        </span>
       </div>
+      <span
+        className="text -regular -dark"
+      >
+        You have (1) quotes.
+      </span>
       <a
         className="link -teal"
         data-testid="quotes-link"
@@ -86,12 +86,12 @@ exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
         >
           My Orders
         </span>
-        <span
-          className="heading -dark -small"
-        >
-          You have (0) orders.
-        </span>
       </div>
+      <span
+        className="text -regular -dark"
+      >
+        You have (0) orders.
+      </span>
       <a
         className="link -teal"
         data-testid="orders-link"
@@ -114,12 +114,12 @@ exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
         >
           My Quotes
         </span>
-        <span
-          className="heading -dark -small"
-        >
-          You have (0) quotes.
-        </span>
       </div>
+      <span
+        className="text -regular -dark"
+      >
+        You have (0) quotes.
+      </span>
       <a
         className="link -teal"
         data-testid="quotes-link"

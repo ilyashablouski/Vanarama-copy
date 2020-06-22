@@ -6,7 +6,6 @@ describe('<YourEligibilityChecker />', () => {
   const submit = jest.fn();
 
   beforeEach(() => {
-    jest.clearAllMocks();
     render(<YourEligibilityChecker submit={submit} />);
   });
 

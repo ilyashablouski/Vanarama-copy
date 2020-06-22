@@ -14,6 +14,7 @@ import {
 import BusinessAboutForm from '../../../../components/BusinessAboutForm/BusinessAboutForm';
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
+import { getUrlParam } from '../../../../utils/url';
 
 export const GET_B2B_ABOUT_PAGE_DATA = gql`
   query GetB2BAboutPageData {
@@ -28,12 +29,19 @@ export const SAVE_BUSINESS_ABOUT_YOU = gql`
   mutation SaveBusinessAboutYou($input: PersonInputObject!) {
     createUpdateBusinessPerson(input: $input) {
       uuid
+      companies {
+        uuid
+      }
     }
   }
 `;
 
 export const BusinessAboutPage: NextPage = () => {
   const router = useRouter();
+  const {
+    query: { derivativeId, orderId },
+  } = router;
+
   const { data, loading, error } = useQuery<GetB2BAboutPageData>(
     GET_B2B_ABOUT_PAGE_DATA,
   );
@@ -43,8 +51,17 @@ export const BusinessAboutPage: NextPage = () => {
     SaveBusinessAboutYouVariables
   >(SAVE_BUSINESS_ABOUT_YOU, {
     onCompleted: ({ createUpdateBusinessPerson }) => {
-      const url = '/b2b/olaf/company-details/[uuid]';
-      router.push(url, url.replace('[uuid]', createUpdateBusinessPerson!.uuid));
+      const url = `/b2b/olaf/company-details/[companyUuid]${getUrlParam({
+        orderId,
+        derivativeId,
+      })}`;
+      router.push(
+        url,
+        url.replace(
+          '[companyUuid]',
+          createUpdateBusinessPerson!.companies?.[0].uuid!,
+        ),
+      );
     },
     onError: () => {
       toast.error(
@@ -56,7 +73,10 @@ export const BusinessAboutPage: NextPage = () => {
   });
 
   return (
-    <OLAFLayout>
+    <OLAFLayout
+      orderId={orderId as string}
+      derivativeId={derivativeId as string}
+    >
       {error && (
         <Text tag="p" color="danger" size="lead">
           Sorry, an unexpected error occurred. Please try again!
@@ -73,9 +93,11 @@ export const BusinessAboutPage: NextPage = () => {
                   title: values.title,
                   firstName: values.firstName,
                   lastName: values.lastName,
-                  telephoneNumber: {
-                    value: values.telephone,
-                  },
+                  telephoneNumbers: [
+                    {
+                      value: values.telephone,
+                    },
+                  ],
                   emailAddress: {
                     value: values.email,
                   },

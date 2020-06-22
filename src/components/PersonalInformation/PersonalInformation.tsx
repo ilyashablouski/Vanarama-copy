@@ -12,15 +12,13 @@ import { IAddressPerson } from '../../containers/PersonalInformationContainer/in
 import { responseToInitialFormValues } from './mappers';
 
 const PersonalInformation = ({ person, submit }: IProps) => {
-  const personAddress = person?.addresses?.find(_ => _.kind === 'Home');
-  const telephoneNumber = person?.telephoneNumbers.find(_ => _.primary)?.value;
-  const email = person?.emailAddresses.find(_ => _.primary)?.value;
+  const personAddress = person?.address;
 
   const [editData, setEditData] = useState(false);
   const [address, setAddress] = useState<IAddressPerson | undefined>({
     id: personAddress?.serviceId || '',
-    label: `${personAddress?.lineOne}, ${personAddress?.lineTwo}${
-      personAddress?.lineThree ? `, ${personAddress?.lineThree}` : ''
+    label: `${personAddress?.lineOne}${
+      personAddress?.lineTwo ? `, ${personAddress?.lineTwo}` : ''
     } - ${personAddress?.city}, ${personAddress?.postcode}`,
   });
 
@@ -37,7 +35,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
       <Form
         onSubmit={handleSubmit(values => {
           setEditData(false);
-          return submit(values, address, personAddress?.uuid);
+          return submit(values, address?.id);
         })}
         className="form"
       >
@@ -47,10 +45,13 @@ const PersonalInformation = ({ person, submit }: IProps) => {
         <section className="structured-list  -styled-headers">
           <div className="structured-list-tbody">
             <div className="structured-list-row">
-              <div className="structured-list-td structured-list-content--nowrap middle">
+              <div
+                style={{ verticalAlign: 'middle' }}
+                className="structured-list-td structured-list-content--nowrap -pr-600"
+              >
                 First Name
               </div>
-              <div className="structured-list-td -pl-600">
+              <div className="structured-list-td">
                 {editData ? (
                   <FormGroup
                     className="structured-list-td structured-list-content --inline-preserved -pb-000 -pt-000 -pr-000"
@@ -63,11 +64,11 @@ const PersonalInformation = ({ person, submit }: IProps) => {
                       type="text"
                       ref={register}
                       dataTestId="personFirstName"
-                      width={35}
+                      style={{ minWidth: '35ch' }}
                     />
                   </FormGroup>
                 ) : (
-                  <>{person?.person?.firstName || 'No information'}</>
+                  <>{person?.firstName || 'No information'}</>
                 )}
               </div>
             </div>
@@ -79,7 +80,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
               >
                 Last Name
               </div>
-              <div className="structured-list-td -pl-600">
+              <div className="structured-list-td">
                 {editData ? (
                   <FormGroup
                     className="structured-list-td structured-list-content --inline-preserved -pt-000 -pb-000 -pr-000"
@@ -87,16 +88,16 @@ const PersonalInformation = ({ person, submit }: IProps) => {
                     error={errors?.lastName?.message?.toString()}
                   >
                     <TextInput
+                      style={{ minWidth: '35ch' }}
                       id="lastName"
                       name="lastName"
                       type="text"
                       ref={register}
                       dataTestId="personLastName"
-                      width={35}
                     />
                   </FormGroup>
                 ) : (
-                  <>{person?.person?.lastName || 'No information'}</>
+                  <>{person?.lastName || 'No information'}</>
                 )}
               </div>
             </div>
@@ -108,7 +109,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
               >
                 Address
               </div>
-              <div className="structured-list-td -pl-600">
+              <div className="structured-list-td">
                 {editData ? (
                   <AddressFinder
                     apiKey={process.env.LOQATE_KEY || ''}
@@ -120,7 +121,9 @@ const PersonalInformation = ({ person, submit }: IProps) => {
                       controlId="empty"
                     >
                       <AddressFinder.Input
+                        style={{ minWidth: '35ch' }}
                         id="empty"
+                        width={30}
                         dataTestId="input_adress_person_information"
                       />
                       <AddressFinder.Selected dataTestId="adress_person_information__edit" />
@@ -141,24 +144,24 @@ const PersonalInformation = ({ person, submit }: IProps) => {
               >
                 Telephone
               </div>
-              <div className="structured-list-td -pl-600">
+              <div className="structured-list-td">
                 {editData ? (
                   <FormGroup
                     className="structured-list-td structured-list-content --inline-preserved  -pb-000 -pt-000 -pr-000"
-                    controlId="mobile"
-                    error={errors?.mobile?.message?.toString()}
+                    controlId="telephoneNumber"
+                    error={errors?.telephoneNumber?.message?.toString()}
                   >
                     <TextInput
-                      id="mobile"
-                      name="mobile"
+                      style={{ minWidth: '35ch' }}
+                      id="telephoneNumber"
+                      name="telephoneNumber"
                       type="tel"
                       ref={register}
                       dataTestId="personMobile"
-                      width={35}
                     />
                   </FormGroup>
                 ) : (
-                  <>{telephoneNumber || 'No information'}</>
+                  <>{person?.telephoneNumber || 'No information'}</>
                 )}
               </div>
             </div>
@@ -170,7 +173,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
               >
                 Email
               </div>
-              <div className="structured-list-td -pl-600">{email}</div>
+              <div className="structured-list-td">{person?.emailAddress}</div>
             </div>
           </div>
         </section>

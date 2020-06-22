@@ -6,7 +6,6 @@ describe('<AboutForm />', () => {
   const submit = jest.fn();
 
   beforeEach(() => {
-    jest.clearAllMocks();
     render(
       <AboutForm
         submit={submit}

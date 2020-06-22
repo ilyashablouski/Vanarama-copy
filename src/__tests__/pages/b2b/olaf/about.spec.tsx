@@ -14,6 +14,7 @@ import {
 } from '../../../../../generated/SaveBusinessAboutYou';
 
 jest.mock('../../../../hooks/useMediaQuery');
+jest.mock('../../../../gql/order');
 
 const mockPush = jest.fn();
 jest.mock('next/router', () => ({
@@ -27,10 +28,6 @@ jest.mock('next/router', () => ({
 }));
 
 describe('B2B About You page', () => {
-  beforeEach(() => {
-    jest.resetAllMocks();
-  });
-
   it('should submit data to the server and redirect to the company details page', async () => {
     let mutationCalled = false;
     const mocks: MockedResponse[] = [
@@ -59,9 +56,9 @@ describe('B2B About You page', () => {
               title: 'Mr',
               firstName: 'Bruce',
               lastName: 'Forsyth',
-              telephoneNumber: { value: '07777777777' },
+              telephoneNumbers: [{ value: '07777777777' }],
               emailAddress: { value: 'bruce_bonus@gmail.com' },
-              company: { companyType: 'limited' },
+              company: { companyType: 'Limited' },
               profilingConsent: true,
               emailConsent: false,
               smsConsent: false,
@@ -76,6 +73,11 @@ describe('B2B About You page', () => {
             data: {
               createUpdateBusinessPerson: {
                 uuid: 'f16564ce-b076-4a8d-aa6c-b4c394f090c9',
+                companies: [
+                  {
+                    uuid: '6b4b95b3-8fa4-47e8-8846-ce478ef85169',
+                  },
+                ],
               },
             } as SaveBusinessAboutYou,
           };
@@ -116,7 +118,7 @@ describe('B2B About You page', () => {
 
     fireEvent.input(
       screen.getByRole('combobox', { name: /type of company/i }),
-      { target: { value: 'limited' } },
+      { target: { value: 'Limited' } },
     );
 
     fireEvent.input(
@@ -138,8 +140,8 @@ describe('B2B About You page', () => {
     await waitFor(() => expect(mutationCalled).toBeTruthy());
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
-      '/b2b/olaf/company-details/[uuid]',
-      '/b2b/olaf/company-details/f16564ce-b076-4a8d-aa6c-b4c394f090c9',
+      '/b2b/olaf/company-details/[companyUuid]',
+      '/b2b/olaf/company-details/6b4b95b3-8fa4-47e8-8846-ce478ef85169',
     );
   });
 
@@ -170,9 +172,9 @@ describe('B2B About You page', () => {
               title: 'Mr',
               firstName: 'Bruce',
               lastName: 'Forsyth',
-              telephoneNumber: { value: '07777777777' },
+              telephoneNumbers: [{ value: '07777777777' }],
               emailAddress: { value: 'bruce_bonus@gmail.com' },
-              company: { companyType: 'limited' },
+              company: { companyType: 'Limited' },
               profilingConsent: true,
               emailConsent: false,
               smsConsent: false,
@@ -221,7 +223,7 @@ describe('B2B About You page', () => {
 
     fireEvent.input(
       screen.getByRole('combobox', { name: /type of company/i }),
-      { target: { value: 'limited' } },
+      { target: { value: 'Limited' } },
     );
 
     fireEvent.input(
