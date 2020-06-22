@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { VehicleTypeEnum } from './globalTypes';
+import { VehicleTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetVehicleDetails
@@ -28,62 +28,35 @@ export interface GetVehicleDetails_vehicleDetails_keyInformation {
 export interface GetVehicleDetails_vehicleDetails {
   averageRating: number | null;
   brochureUrl: string | null;
-  keyInformation: GetVehicleDetails_vehicleDetails_keyInformation[] | null;
+  keyInformation: (GetVehicleDetails_vehicleDetails_keyInformation | null)[] | null;
+  independentReview: string | null;
+}
+
+export interface GetVehicleDetails_derivativeInfo_technicals {
+  id: string;
+  derivativeId: string;
+  technicalDescription: string;
+  technicalLongDescription: string;
+  categoryDescription: string;
+  effectiveFrom: any;
+  effectiveTo: any | null;
+  value: string;
+}
+
+export interface GetVehicleDetails_derivativeInfo_standardEquipments {
+  id: string;
+  derivativeId: string;
+  optionDescription: string;
+  optionLongDescription: string;
+  categoryDescription: string;
+  genericDescription: string | null;
+  effectiveFrom: any;
+  effectiveTo: any | null;
 }
 
 export interface GetVehicleDetails_derivativeInfo {
-  technicals: [
-    {
-      id: string | null;
-      derivativeId: string | null;
-      technicalDescription: string | null;
-      technicalLongDescription: string | null;
-      categoryDescription: string | null;
-      effectiveFrom: string | null;
-      effectiveTo: string | null;
-      value: string | null;
-      dictionaryTechnical: {
-        id: string | null;
-        categoryId: string | null;
-        description: string | null;
-        longDescription: string | null;
-      };
-      dictionaryCategory: {
-        id: string | null;
-        description: string | null;
-        longDescription: string | null;
-      };
-    },
-  ];
-  standardEquipments: [
-    {
-      id: string | null;
-      derivativeId: string | null;
-      optionDescription: string | null;
-      optionLongDescription: string | null;
-      categoryDescription: string | null;
-      genericDescription: string | null;
-      effectiveFrom: string | null;
-      effectiveTo: string | null;
-      dictionaryOption: {
-        id: string | null;
-        categoryId: string | null;
-        description: string | null;
-        longDescription: string | null;
-      };
-      dictionaryCategory: {
-        id: string | null;
-        description: string | null;
-        longDescription: string | null;
-      };
-      dictionaryGeneric: {
-        id: string | null;
-        categoryId: string | null;
-        description: string | null;
-        longDescription: string | null;
-      };
-    },
-  ];
+  technicals: (GetVehicleDetails_derivativeInfo_technicals | null)[];
+  standardEquipments: (GetVehicleDetails_derivativeInfo_standardEquipments | null)[];
 }
 
 export interface GetVehicleDetails {

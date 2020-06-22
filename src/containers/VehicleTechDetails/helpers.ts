@@ -1,6 +1,29 @@
+/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 
-export const getTechData = (derivativeInfo: any[]): any[] => {
+import {
+  GetVehicleDetails_derivativeInfo_technicals,
+  GetVehicleDetails_derivativeInfo_standardEquipments,
+} from '../../../generated/GetVehicleDetails';
+
+interface ITechDataItem {
+  id: string;
+  label: string;
+  value: string;
+}
+
+interface ITechDataItemGroup {
+  id: string;
+  categoryDescription: string;
+  items: ITechDataItem[];
+}
+
+export const getTechData = (
+  derivativeInfo: (
+    | GetVehicleDetails_derivativeInfo_technicals
+    | GetVehicleDetails_derivativeInfo_standardEquipments
+  )[],
+): ITechDataItemGroup[] => {
   return derivativeInfo
     ?.reduce((arr, el) => {
       const index = arr.findIndex(
@@ -13,7 +36,7 @@ export const getTechData = (derivativeInfo: any[]): any[] => {
         categoryDescription,
         technicalDescription,
         value,
-      } = el;
+      } = el as any;
       if (index !== -1) {
         (genericDescription || value) &&
           arr[index].items.push({
@@ -37,8 +60,8 @@ export const getTechData = (derivativeInfo: any[]): any[] => {
         });
       }
       return arr;
-    }, [] as any[])
-    ?.filter((el: any) => el.items.length);
+    }, [] as ITechDataItemGroup[])
+    ?.filter((el: ITechDataItemGroup) => el.items.length);
 };
 
 export default getTechData;

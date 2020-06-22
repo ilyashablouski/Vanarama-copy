@@ -8,10 +8,12 @@ import TabPanels from '@vanarama/uibook/lib/components/molecules/tabs/TabPanels'
 import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
 import Accordion from '@vanarama/uibook/lib/components/molecules/accordion/Accordion';
 import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
-import KeyInformation from './KeyInformation';
+import KeyInformation, { KeyInformationItem } from './KeyInformation';
 import {
   GetVehicleDetails_vehicleDetails,
   GetVehicleDetails_derivativeInfo,
+  GetVehicleDetails_derivativeInfo_standardEquipments,
+  GetVehicleDetails_derivativeInfo_technicals,
 } from '../../../generated/GetVehicleDetails';
 import { getTechData } from './helpers';
 
@@ -25,9 +27,13 @@ const VehicleTechDetails: React.FC<IVehicleTechDetailsProps> = props => {
   const [activeTab, setActiveTab] = useState(1);
 
   const standardEquipments = getTechData(
-    derivativeInfo?.standardEquipments || [],
+    (derivativeInfo?.standardEquipments as GetVehicleDetails_derivativeInfo_standardEquipments[]) ||
+      [],
   );
-  const technicals = getTechData(derivativeInfo?.technicals || []);
+  const technicals = getTechData(
+    (derivativeInfo?.technicals as GetVehicleDetails_derivativeInfo_technicals[]) ||
+      [],
+  );
 
   const accordionItems = (items: any) => {
     return items.map((item: any) => ({
@@ -52,7 +58,11 @@ const VehicleTechDetails: React.FC<IVehicleTechDetailsProps> = props => {
       <TabPanels className="-p-000">
         <TabPanel index={1}>
           {vehicleDetails?.keyInformation?.length ? (
-            <KeyInformation keysInformation={vehicleDetails.keyInformation} />
+            <KeyInformation
+              keysInformation={
+                vehicleDetails.keyInformation as KeyInformationItem[]
+              }
+            />
           ) : null}
         </TabPanel>
         <TabPanel index={2}>
