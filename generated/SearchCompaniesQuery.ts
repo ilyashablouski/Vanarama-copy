@@ -11,8 +11,8 @@ export interface SearchCompaniesQuery_searchCompanies_nodes {
   title: string;
   companyNumber: string;
   addressSnippet: string | null;
-  dateOfCreation: string | null;
-  companyStatus: string | null;
+  dateOfCreation: string;
+  companyStatus: string;
 }
 
 export interface SearchCompaniesQuery_searchCompanies {

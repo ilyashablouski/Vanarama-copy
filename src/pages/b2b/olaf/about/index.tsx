@@ -51,13 +51,16 @@ export const BusinessAboutPage: NextPage = () => {
     SaveBusinessAboutYouVariables
   >(SAVE_BUSINESS_ABOUT_YOU, {
     onCompleted: ({ createUpdateBusinessPerson }) => {
-      const url = `/b2b/olaf/company-details/[uuid]${getUrlParam({
+      const url = `/b2b/olaf/company-details/[companyUuid]${getUrlParam({
         orderId,
         derivativeId,
       })}`;
       router.push(
         url,
-        url.replace('[uuid]', createUpdateBusinessPerson!.companies?.[0].uuid!),
+        url.replace(
+          '[companyUuid]',
+          createUpdateBusinessPerson!.companies?.[0].uuid!,
+        ),
       );
     },
     onError: () => {
