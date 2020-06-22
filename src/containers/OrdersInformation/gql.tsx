@@ -60,6 +60,11 @@ export const GET_ORDERS_BY_PARTY_UUID_DATA = gql`
   }
 `;
 
+/**
+ *  @props partyByUuid - string with partyByUuid
+ *  @props statuses - optional param, array of strings with statuses we want to get
+ *  @props excludeStatuses - optional param, array of strings with statuses that we don’t want to receive
+ */
 export function useOrdersByPartyUuidData(
   partyByUuid: string,
   statuses?: string[],
@@ -104,6 +109,10 @@ export const GET_CAR_DERIVATIVES = gql`
   }
 `;
 
+/**
+ *  @props capIdArray - string array with capId from orders
+ *  @props vehicleType - VehicleTypeEnum
+ */
 export function useCarDerivativesData(
   ids: string[],
   vehicleType: VehicleTypeEnum,

@@ -2,15 +2,25 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import React, { useEffect, useReducer } from 'react';
-import { FormContext, useForm } from 'react-hook-form';
+import { FormContext, useForm, OnSubmit } from 'react-hook-form';
 import CompanyCard from './CompanyCard';
 import CompanyTypeahead from './CompanyTypeahead';
 import CompanyDetailsFormFields from './CompanyDetailsFormFields';
-import { ICompanyDetailsFormValues } from './interfaces';
+import { ICompanyDetailsFormValues, InputMode } from './interfaces';
 import reducer from './reducer';
 import SearchActions from './SearchActions';
+import { SearchCompaniesQuery_searchCompanies_nodes as CompanySearchResult } from '../../../generated/SearchCompaniesQuery';
 
-const CompanyDetailsForm: React.FC = () => {
+type SubmissionValues = ICompanyDetailsFormValues & {
+  confirmedCompany?: CompanySearchResult;
+  inputMode: InputMode;
+};
+
+interface IProps {
+  onSubmit: OnSubmit<SubmissionValues>;
+}
+
+const CompanyDetailsForm: React.FC<IProps> = ({ onSubmit }) => {
   const methods = useForm<ICompanyDetailsFormValues>({
     mode: 'onBlur',
     defaultValues: {
@@ -43,13 +53,13 @@ const CompanyDetailsForm: React.FC = () => {
 
   return (
     <Form
-      onSubmit={methods.handleSubmit(values => {
-        // Temporary until BE integration done
-        // eslint-disable-next-line no-alert
-        alert(
-          JSON.stringify({ ...values, company: confirmedCompany }, null, 2),
-        );
-      })}
+      onSubmit={methods.handleSubmit(values =>
+        onSubmit({
+          ...values,
+          confirmedCompany,
+          inputMode,
+        }),
+      )}
     >
       <Heading color="black" dataTestId="company-details_heading" size="xlarge">
         Company Details

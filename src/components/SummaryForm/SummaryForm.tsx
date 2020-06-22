@@ -12,18 +12,31 @@ import SummaryFormBankDetailsSection from './SummaryFormBankDetailsSection';
 import SummaryFormDetailsSection from './SummaryFormDetailsSection';
 import SummaryFormEmploymentHistory from './SummaryFormEmploymentHistory';
 import SummaryFormIncomeSection from './SummaryFormIncomeSection';
+import { getUrlParam } from '../../utils/url';
 
 interface IProps {
   person: SummaryFormPerson;
+  orderId?: string;
+  derivativeId?: string;
 }
 
-const SummaryForm: FCWithFragments<IProps> = ({ person }) => {
+const SummaryForm: FCWithFragments<IProps> = ({
+  person,
+  orderId,
+  derivativeId,
+}) => {
   const router = useRouter();
   // NOTE: Many are returned so just take the first one?
   const primaryBankAccount = person.bankAccounts?.[0];
 
   const handleEdit = (url: string) => () => {
-    const href = `${url}?redirect=summary`;
+    const href = `${url}?redirect=summary${getUrlParam(
+      {
+        orderId,
+        derivativeId,
+      },
+      true,
+    )}`;
     router.push(href, href.replace('[uuid]', person.uuid));
   };
 
@@ -66,7 +79,9 @@ const SummaryForm: FCWithFragments<IProps> = ({ person }) => {
         color="teal"
         label="Continue"
         onClick={() => {
-          router.push('/olaf/thank-you');
+          router.push(
+            `/olaf/thank-you${getUrlParam({ orderId, derivativeId })}`,
+          );
         }}
       />
     </Form>
