@@ -42,7 +42,7 @@ describe('<VehicleTechDetails />', () => {
           value: 'value',
         },
       ],
-    };
+    } as any;
 
     const getComponent = () => {
       return renderer
