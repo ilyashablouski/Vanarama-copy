@@ -93,9 +93,11 @@ export const BusinessAboutPage: NextPage = () => {
                   title: values.title,
                   firstName: values.firstName,
                   lastName: values.lastName,
-                  telephoneNumber: {
-                    value: values.telephone,
-                  },
+                  telephoneNumbers: [
+                    {
+                      value: values.telephone,
+                    },
+                  ],
                   emailAddress: {
                     value: values.email,
                   },

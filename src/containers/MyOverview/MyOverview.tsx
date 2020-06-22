@@ -16,6 +16,7 @@ import {
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import { GetOrdersByPartyUuid_ordersByPartyUuid } from '../../../generated/GetOrdersByPartyUuid';
 import { createOffersObject } from './helpers';
+import { GetCachedOrderInformation } from '../../../generated/GetCachedOrderInformation';
 
 interface IMyOverviewProps {
   partyByUuid: string;
@@ -116,14 +117,14 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     leaseType: LeaseTypeEnum,
   ) => {
     // when we click 'Order' btn, need write data to apollo client cache with orderUuid and orderCapId
-    client.writeQuery({
+    client.writeQuery<GetCachedOrderInformation>({
       query: gql`
-        query GetOrder {
-          order
-          derivative
+        query GetCachedOrderInformation {
+          selectedOrderUuid
+          selectedDerivativeId
         }
       `,
-      data: { order: { uuid: orderUuid }, derivative: { id: orderCapId } },
+      data: { selectedOrderUuid: orderUuid, selectedDerivativeId: orderCapId },
     });
     // change current page to '/olaf/about' or '/b2b/olaf/about'
     router.push(
