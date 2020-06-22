@@ -11,15 +11,12 @@ import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { useOlafData } from '../../gql/order';
 import { createOlafDetails } from './helpers';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import { GetOrderInformation } from '../../../generated/GetOrderInformation';
 
 export const GET_ORDER_INFORMATION = gql`
-  query GetOrder {
-    order @client {
-      uuid
-    }
-    derivative @client {
-      id
-    }
+  query GetOrderInformation {
+    selectedOrderUuid @client
+    selectedDerivativeId @client
   }
 `;
 
@@ -35,20 +32,20 @@ const OLAFLayout: React.FC<IOLAFLayoutProps> = props => {
   const [asideOpen, setAsideOpen] = useState(false);
   const showAside = !isMobile || asideOpen;
 
-  let order = { uuid: orderId || '' };
-  let derivativeCarId = { id: derivativeId || '' };
+  let selectedOrderUuid = orderId || '';
+  let selectedDerivativeId = derivativeId || '';
 
   // get order information from apollo client cache
-  const { data } = useQuery(GET_ORDER_INFORMATION);
-  if (data?.order && data?.derivative) {
-    order = data.order;
-    derivativeCarId = data.derivative;
+  const { data } = useQuery<GetOrderInformation>(GET_ORDER_INFORMATION);
+  if (data?.selectedOrderUuid && data?.selectedDerivativeId) {
+    selectedOrderUuid = data.selectedOrderUuid;
+    selectedDerivativeId = data.selectedDerivativeId;
   }
 
   // get Order data and Derivative data for order car
   const olafData = useOlafData(
-    order.uuid,
-    derivativeCarId.id,
+    selectedOrderUuid,
+    selectedDerivativeId,
     VehicleTypeEnum.CAR,
   );
   const orderByUuid = olafData && olafData.data?.orderByUuid;
@@ -76,7 +73,7 @@ const OLAFLayout: React.FC<IOLAFLayoutProps> = props => {
               header={{ text: '14-21 Days Delivery' }}
               olafDetails={createOlafDetails(
                 orderByUuid.leaseType,
-                orderByUuid.lineItems[0].vehicleProduct,
+                orderByUuid.lineItems[0].vehicleProduct!,
                 derivative,
               )}
               imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/KiaeNiro0219_j7on5z.jpg"

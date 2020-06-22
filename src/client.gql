@@ -1,0 +1,4 @@
+extend type Query {
+  selectedOrderUuid: ID
+  selectedDerivativeId: ID
+}
