@@ -24,7 +24,9 @@ export const SAVE_COMPANY_DETAILS = gql`
 
 export const CompanyDetailsPage: NextPage = () => {
   const router = useRouter();
-  const companyUuid = router.query.companyUuid as string;
+  const {
+    query: { derivativeId, orderId, companyUuid },
+  } = router;
 
   const [saveCompanyDetails] = useMutation<Mutation, MutationVariables>(
     SAVE_COMPANY_DETAILS,
@@ -40,7 +42,10 @@ export const CompanyDetailsPage: NextPage = () => {
   );
 
   return (
-    <OLAFLayout>
+    <OLAFLayout
+      orderId={orderId as string}
+      derivativeId={derivativeId as string}
+    >
       <CompanyDetailsForm
         onSubmit={async values => {
           const searchResult =
@@ -49,7 +54,7 @@ export const CompanyDetailsPage: NextPage = () => {
           await saveCompanyDetails({
             variables: {
               input: {
-                uuid: companyUuid,
+                uuid: companyUuid as string,
                 legalName: searchResult
                   ? searchResult.title
                   : values.companyName,
