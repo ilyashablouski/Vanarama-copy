@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 
 const BusinessProgressIndicator: React.FC = () => {
   const { pathname, query } = useRouter();
-  const { uuid } = query as { [key: string]: string };
+  const { companyUuid } = query as { [key: string]: string };
   const steps = useMemo(() => generateSteps(), []);
 
   // Work out the current step based on the URL
@@ -16,7 +16,11 @@ const BusinessProgressIndicator: React.FC = () => {
     <ProgressIndicator activeStep={currentStep || 0}>
       {steps.map(({ href, label, step }) => (
         <Step key={href} step={step}>
-          <NextJsLink href={href} as={href.replace('[uuid]', uuid)} passHref>
+          <NextJsLink
+            href={href}
+            as={href.replace('[companyUuid]', companyUuid)}
+            passHref
+          >
             <StepLink label={label} />
           </NextJsLink>
         </Step>
@@ -33,7 +37,7 @@ function generateSteps() {
       step: 1,
     },
     {
-      href: '/b2b/olaf/company-details/[uuid]',
+      href: '/b2b/olaf/company-details/[companyUuid]',
       label: 'Company Details',
       step: 2,
     },

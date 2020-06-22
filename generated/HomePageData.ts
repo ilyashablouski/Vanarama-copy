@@ -77,12 +77,12 @@ export interface HomePageData_homePage_sections_tiles {
 }
 
 export interface HomePageData_homePage_sections {
-  hero: HomePageData_homePage_sections_hero;
-  leadText: HomePageData_homePage_sections_leadText;
-  cards: HomePageData_homePage_sections_cards;
-  featured1: HomePageData_homePage_sections_featured1;
-  featured2: HomePageData_homePage_sections_featured2;
-  tiles: HomePageData_homePage_sections_tiles;
+  hero: HomePageData_homePage_sections_hero | null;
+  leadText: HomePageData_homePage_sections_leadText | null;
+  cards: HomePageData_homePage_sections_cards | null;
+  featured1: HomePageData_homePage_sections_featured1 | null;
+  featured2: HomePageData_homePage_sections_featured2 | null;
+  tiles: HomePageData_homePage_sections_tiles | null;
 }
 
 export interface HomePageData_homePage {

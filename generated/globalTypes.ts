@@ -64,6 +64,33 @@ export interface BankAccountInputObject {
 }
 
 /**
+ * Input object to create a Company Associate (Director, Partner etc.)
+ */
+export interface CompanyAssociateInputObject {
+  addresses?: AddressInputObject[] | null;
+  businessShare?: number | null;
+  countryOfBirth?: string | null;
+  dateOfBirth?: any | null;
+  emailAddress?: EmailAddressInputObject | null;
+  emailConsent?: boolean | null;
+  firstName: string;
+  gender?: string | null;
+  incomeAndExpense?: IncomeAndExpenseInputObject | null;
+  lastName: string;
+  maritalStatus?: string | null;
+  middleName?: string | null;
+  nationality?: string | null;
+  noOfAdultsInHousehold?: string | null;
+  noOfDependants?: string | null;
+  profilingConsent?: boolean | null;
+  role?: RoleInputObject | null;
+  smsConsent?: boolean | null;
+  termsAndConditions?: boolean | null;
+  title?: string | null;
+  uuid?: string | null;
+}
+
+/**
  * Input object to create a Company
  */
 export interface CompanyInputObject {
@@ -161,6 +188,29 @@ export interface IncomeAndExpenseInputObject {
 }
 
 /**
+ * Input object to create a Limited Company
+ */
+export interface LimitedCompanyInputObject {
+  addresses?: AddressInputObject[] | null;
+  associates?: CompanyAssociateInputObject[] | null;
+  bankAccount?: BankAccountInputObject | null;
+  companyNature?: string | null;
+  companyNumber?: string | null;
+  emailAddress?: EmailAddressInputObject | null;
+  isVatRegistered?: boolean | null;
+  legalName: string;
+  otherCountriesOfActivity?: string[] | null;
+  telephoneNumbers?: TelephoneNumberInputObject[] | null;
+  tradesOutsideUk?: boolean | null;
+  tradingName?: string | null;
+  tradingSince?: any | null;
+  turnoverOutsideUk?: number | null;
+  uuid: string;
+  vatNumber?: string | null;
+  withTradingAddress?: boolean | null;
+}
+
+/**
  * Input object to update my account section
  */
 export interface MyAccountInputObject {
@@ -176,7 +226,6 @@ export interface MyAccountInputObject {
  */
 export interface PersonInputObject {
   about?: string | null;
-  address?: AddressInputObject | null;
   company?: CompanyInputObject | null;
   countryOfBirth?: string | null;
   dateOfBirth?: any | null;
@@ -200,7 +249,7 @@ export interface PersonInputObject {
   profilingConsent?: boolean | null;
   role?: RoleInputObject | null;
   smsConsent?: boolean | null;
-  telephoneNumber?: TelephoneNumberInputObject | null;
+  telephoneNumbers?: TelephoneNumberInputObject[] | null;
   termsAndConditions?: boolean | null;
   title?: string | null;
   tradingName?: string | null;
