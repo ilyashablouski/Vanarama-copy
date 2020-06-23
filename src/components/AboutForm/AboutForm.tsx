@@ -1,10 +1,8 @@
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button/';
 import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import Select from '@vanarama/uibook/lib/components/atoms/select/';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput/';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
@@ -43,12 +41,6 @@ const AboutForm: FCWithFragments<IProps> = ({
 
   return (
     <Form onSubmit={handleSubmit(submit)}>
-      <Heading color="black" size="xlarge" dataTestId="aboutHeading">
-        About You
-      </Heading>
-      <Text color="darker" size="lead">
-        We just need some initial details for your credit check.
-      </Text>
       <FormGroup
         controlId="title"
         label="Title"
