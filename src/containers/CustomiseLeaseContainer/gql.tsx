@@ -7,6 +7,8 @@ export const GET_QUOTE_DATA = gql`
     $vehicleType: VehicleTypeEnum
     $leaseType: LeaseTypeEnum
     $mileage: Int
+    $trim: Int
+    $colour: Int
     $term: Int
     $upfront: Int
   ) {
@@ -17,6 +19,8 @@ export const GET_QUOTE_DATA = gql`
       upfront: $upfront
       vehicleType: $vehicleType
       leaseType: $leaseType
+      colour: $colour
+      trim: $trim
     ) {
       term
       mileage

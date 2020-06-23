@@ -35,6 +35,7 @@ const CustomiseLease = ({
   setTerm,
   setTrim,
   data,
+  trim,
   derivativeInfo,
   leaseAdjustParams,
 }: IProps) => {
@@ -109,7 +110,7 @@ const CustomiseLease = ({
         Vehicle Options
       </Heading>
       <Select
-        defaultValue={quoteByCapId?.colour || ''}
+        defaultValue={`${quoteByCapId?.colour}`}
         className="-fullwidth"
         onChange={option => {
           setColour(+option.currentTarget.value);
@@ -122,7 +123,7 @@ const CustomiseLease = ({
         ))}
       </Select>
       <Select
-        defaultValue={quoteByCapId?.trim || ''}
+        defaultValue={`${trim}`}
         className="-fullwidth"
         onChange={option => {
           setTrim(+option.currentTarget.value);

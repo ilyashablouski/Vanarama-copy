@@ -1,10 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useQuery } from '@apollo/client';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import {
-  GetQuoteDetails,
-  GetQuoteDetailsVariables,
-} from '../../../generated/GetQuoteDetails';
 import CustomiseLease from '../../components/CustomiseLease/CustomiseLease';
 import { useQuoteData } from './gql';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
@@ -26,11 +21,11 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   );
   const [colour, setColour] = useState<null | number>(null);
   const [term, setTerm] = useState<number>(leaseAdjustParams?.terms[0]);
-  const [trim, setTrim] = useState<null | number>(null);
-
   const trims = derivativeInfo?.trims || [];
   const defaultTrim = trims[0] || undefined;
   const defaultTrimId = defaultTrim?.id;
+  const [trim, setTrim] = useState<number | undefined>(+defaultTrimId);
+
   const colours = derivativeInfo?.colours || [];
   const defaultColour = colours[0] || undefined;
   const defaultColourId = defaultColour?.id;
@@ -49,7 +44,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       leaseType === 'Personal'
         ? LeaseTypeEnum.PERSONAL
         : LeaseTypeEnum.BUSINESS,
-    trim: trim || +(defaultTrimId || 0),
+    trim: trim || 0,
     colour: colour || +(defaultColourId || 0),
   });
 
@@ -120,6 +115,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       setTerm={setTerm}
       setTrim={setTrim}
       data={data}
+      trim={trim}
       derivativeInfo={derivativeInfo}
       leaseAdjustParams={leaseAdjustParams}
     />
