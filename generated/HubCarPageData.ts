@@ -86,12 +86,12 @@ export interface HubCarPageData_hubCarPage_sections_tiles {
 }
 
 export interface HubCarPageData_hubCarPage_sections {
-  hero: HubCarPageData_hubCarPage_sections_hero;
-  leadText: HubCarPageData_hubCarPage_sections_leadText;
-  featured1: HubCarPageData_hubCarPage_sections_featured1;
-  featured2: HubCarPageData_hubCarPage_sections_featured2;
-  steps: HubCarPageData_hubCarPage_sections_steps;
-  tiles: HubCarPageData_hubCarPage_sections_tiles;
+  hero: HubCarPageData_hubCarPage_sections_hero | null;
+  leadText: HubCarPageData_hubCarPage_sections_leadText | null;
+  featured1: HubCarPageData_hubCarPage_sections_featured1 | null;
+  featured2: HubCarPageData_hubCarPage_sections_featured2 | null;
+  steps: HubCarPageData_hubCarPage_sections_steps | null;
+  tiles: HubCarPageData_hubCarPage_sections_tiles | null;
 }
 
 export interface HubCarPageData_hubCarPage {

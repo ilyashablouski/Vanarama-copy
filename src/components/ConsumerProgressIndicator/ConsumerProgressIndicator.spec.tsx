@@ -6,10 +6,6 @@ import ConsumerProgressIndicator from './ConsumerProgressIndicator';
 jest.mock('next/router');
 
 describe('<ConsumerProgressIndicator />', () => {
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
-
   it('should show previous pages as completed', () => {
     // ARRANGE
     // Mock that the user is on the address history page

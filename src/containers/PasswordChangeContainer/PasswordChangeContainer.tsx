@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import {
-  ChangePasswordByUuidMutation as Mutation,
-  ChangePasswordByUuidMutationVariables as MutationVariables,
+  ChangePasswordByUuidMutation,
+  ChangePasswordByUuidMutationVariables,
 } from '../../../generated/ChangePasswordByUuidMutation';
+import {
+  IsPasswordCorrectMutation,
+  IsPasswordCorrectMutationVariables,
+} from '../../../generated/IsPasswordCorrectMutation';
 import ResetPasswordForm from '../../components/ResetPasswordForm';
 import { IPasswordChangeContainerProps } from './interfaces';
 
@@ -21,22 +25,48 @@ export const CHANGE_PASSWORD_BY_UUID_MUTATION = gql`
   }
 `;
 
+export const IS_PASSWORD_CORRECT = gql`
+  mutation IsPasswordCorrectMutation($uuid: ID!, $password: String!) {
+    passwordCorrect(uuid: $uuid, password: $password)
+  }
+`;
+
 const PasswordChangeContainer = ({
   uuid,
   onCompleted,
+  onNetworkError,
 }: IPasswordChangeContainerProps) => {
-  const [cahngePasswordByUuid, { loading, error }] = useMutation<
-    Mutation,
-    MutationVariables
-  >(CHANGE_PASSWORD_BY_UUID_MUTATION, {
-    onCompleted,
-  });
+  const [
+    cahngePasswordByUuid,
+    { loading, error: changePasswordError },
+  ] = useMutation<
+    ChangePasswordByUuidMutation,
+    ChangePasswordByUuidMutationVariables
+  >(CHANGE_PASSWORD_BY_UUID_MUTATION, { onCompleted });
+
+  const [isPasswordCorrect, { error: checkPasswordError }] = useMutation<
+    IsPasswordCorrectMutation,
+    IsPasswordCorrectMutationVariables
+  >(IS_PASSWORD_CORRECT);
+
+  const graphQLErrors =
+    changePasswordError?.graphQLErrors ||
+    checkPasswordError?.graphQLErrors ||
+    [];
+  const hasError = graphQLErrors.length > 0;
+
+  useEffect(() => {
+    const error = changePasswordError || checkPasswordError;
+    if (error && error?.networkError !== null) {
+      onNetworkError?.(error?.networkError);
+    }
+  }, [changePasswordError, checkPasswordError]);
 
   return (
     <ResetPasswordForm
       oldPassword
       isSubmitting={loading}
-      hasError={Boolean(error)}
+      hasError={hasError}
       onSubmit={async values => {
         await cahngePasswordByUuid({
           variables: {
@@ -45,6 +75,13 @@ const PasswordChangeContainer = ({
             newPassword: values.password,
           },
         });
+      }}
+      onPasswordValidation={async value => {
+        const results = await isPasswordCorrect({
+          variables: { uuid, password: value },
+        });
+
+        return Boolean(!results?.data?.passwordCorrect);
       }}
     />
   );

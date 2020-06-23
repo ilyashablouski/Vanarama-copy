@@ -672,6 +672,16 @@ Array [
                 Per Month Inc.VAT
               </div>
             </div>
+            <button
+              className="button -teal -regular -solid"
+              onClick={[Function]}
+            >
+              <div
+                className="button--inner"
+              >
+                Order Now
+              </div>
+            </button>
           </div>
         </div>
       </div>

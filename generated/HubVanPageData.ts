@@ -105,13 +105,13 @@ export interface HubVanPageData_hubVanPage_sections_tiles {
 }
 
 export interface HubVanPageData_hubVanPage_sections {
-  hero: HubVanPageData_hubVanPage_sections_hero;
-  leadText: HubVanPageData_hubVanPage_sections_leadText;
-  featured1: HubVanPageData_hubVanPage_sections_featured1;
-  featured2: HubVanPageData_hubVanPage_sections_featured2;
-  cards: HubVanPageData_hubVanPage_sections_cards;
-  steps: HubVanPageData_hubVanPage_sections_steps;
-  tiles: HubVanPageData_hubVanPage_sections_tiles;
+  hero: HubVanPageData_hubVanPage_sections_hero | null;
+  leadText: HubVanPageData_hubVanPage_sections_leadText | null;
+  featured1: HubVanPageData_hubVanPage_sections_featured1 | null;
+  featured2: HubVanPageData_hubVanPage_sections_featured2 | null;
+  cards: HubVanPageData_hubVanPage_sections_cards | null;
+  steps: HubVanPageData_hubVanPage_sections_steps | null;
+  tiles: HubVanPageData_hubVanPage_sections_tiles | null;
 }
 
 export interface HubVanPageData_hubVanPage {
