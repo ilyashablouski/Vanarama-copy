@@ -49,7 +49,7 @@ export const CompanyDetailsPage: NextPage = () => {
       <CompanyDetailsForm
         onSubmit={async values => {
           const searchResult =
-            values.inputMode === 'search' && values.confirmedCompany;
+            values.inputMode === 'search' && values.companySearchResult;
 
           await saveCompanyDetails({
             variables: {
