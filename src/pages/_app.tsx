@@ -20,10 +20,12 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     });
   }, []);
 
+  const isCarPage = router.pathname === '/cars/car-details';
+
   return (
     <>
       <ToastContainer />
-      <main className="page:default">
+      <main className={isCarPage ? 'page:pdp' : 'page:default'}>
         <Header
           loginLink={LOGIN_LINK}
           phoneNumberLink={PHONE_NUMBER_LINK}

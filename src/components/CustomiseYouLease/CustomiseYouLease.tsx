@@ -6,6 +6,7 @@ import Select from '@vanarama/uibook/lib/components/atoms/select';
 import SlidingInput from '@vanarama/uibook/lib/components/atoms/sliding-input';
 import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
 import SpeedometerOutline from '@vanarama/uibook/lib/assets/icons/SpeedometerSharp';
+import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import { IProps, IColour, ITrim } from './interfase';
 
 const LEASING_PROVIDERS = [
@@ -28,6 +29,7 @@ const CustomiseYourLease = ({
   leaseTypes,
   mileages,
   setLeaseType,
+  leaseType,
   setMileage,
   setUpfront,
   setColour,
@@ -39,8 +41,10 @@ const CustomiseYourLease = ({
   const quoteByCapId = quoteData?.quoteByCapId;
   const leaseAdjustParams = data?.leaseAdjustParams;
   const derivativeInfo = data?.derivativeInfo;
+  const stateVAT = leaseType === LeaseTypeEnum.PERSONAL ? 'inc' : 'exc';
+
   return (
-    <div className="pdp--sidebar -pb-600">
+    <div className="pdp--sidebar">
       <Heading tag="span" size="xlarge" color="black">
         Customise Your Lease
       </Heading>
@@ -50,7 +54,11 @@ const CustomiseYourLease = ({
       <Choiceboxes
         choices={leaseTypes}
         onSubmit={value => {
-          setLeaseType(value.label.toUpperCase());
+          setLeaseType(
+            value.label === 'Person'
+              ? LeaseTypeEnum.PERSONAL
+              : LeaseTypeEnum.BUSINESS,
+          );
         }}
       />
       <Heading tag="span" size="regular" color="black">
@@ -62,7 +70,7 @@ const CustomiseYourLease = ({
       <SlidingInput
         steps={mileages}
         onChange={value => {
-          setMileage(leaseAdjustParams?.mileages[value] || 0);
+          setMileage(leaseAdjustParams?.mileages[value - 1] || 0);
         }}
       />
       <div className="-flex-row">
@@ -89,7 +97,7 @@ const CustomiseYourLease = ({
       <Heading tag="span" size="regular" color="black">
         Initial Payment:{' '}
         <Text color="orange" className="-b">
-          {`£${quoteByCapId?.nonMaintained?.initialRental} inc. VAT`}
+          {`£${quoteByCapId?.nonMaintained?.initialRental} ${stateVAT}. VAT`}
         </Text>
       </Heading>
       <Choiceboxes
@@ -124,11 +132,11 @@ const CustomiseYourLease = ({
         ))}
       </Select>
 
-      <div className="pdp--order-summary">
+      <div className="lease-scanner--sticky-wrap">
         <LeaseScanner
           price={quoteByCapId?.nonMaintained?.monthlyRental || 0}
           orderNowClick={() => {}}
-          headingText="PM inc. VAT"
+          headingText={`PM ${stateVAT}. VAT`}
           phoneNumber="+1313222"
           leasingProviders={LEASING_PROVIDERS}
           startLoading={false}

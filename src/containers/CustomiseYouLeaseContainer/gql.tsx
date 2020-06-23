@@ -1,8 +1,8 @@
 import { useQuery, gql } from '@apollo/client';
 import {
-  GetVehicleDetails,
-  GetVehicleDetailsVariables,
-} from '../../generated/GetVehicleDetails';
+  GetLeaseDetails,
+  GetLeaseDetailsVariables,
+} from '../../../generated/GetLeaseDetails';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
 export const GET_DETAILS_DATA = gql`
@@ -69,9 +69,9 @@ export const GET_QUOTE_DATA = gql`
 `;
 
 export function useDetailsData(capId: number, vehicleType: VehicleTypeEnum) {
-  return useQuery(GET_DETAILS_DATA, {
+  return useQuery<GetLeaseDetails, GetLeaseDetailsVariables>(GET_DETAILS_DATA, {
     variables: {
-      capIdDetails: capId,
+      capIdDetails: `${capId}`,
       vehicleType,
     },
   });

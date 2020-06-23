@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
-import { GetLeaseDetails } from '../../../generated/GetLeaseDetails';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
+import { GetLeaseDetails } from '../../../generated/GetLeaseDetails';
+import { LeaseTypeEnum } from '../../../generated/globalTypes';
 
 export interface IChoice {
   label: string;
@@ -22,12 +23,13 @@ export interface IProps {
   upfronts: IChoice[];
   leaseTypes: IChoice[];
   mileages: string[] | undefined;
-  setLeaseType: Dispatch<SetStateAction<string>>;
+  setLeaseType: Dispatch<SetStateAction<LeaseTypeEnum>>;
   setMileage: Dispatch<SetStateAction<number | null>>;
   setUpfront: Dispatch<SetStateAction<number | null>>;
   setColour: Dispatch<SetStateAction<number | null>>;
   setTerm: Dispatch<SetStateAction<number | null>>;
   setTrim: Dispatch<SetStateAction<number | null>>;
   quoteData: GetQuoteDetails;
+  leaseType: string;
   data: GetLeaseDetails | undefined;
 }

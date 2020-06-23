@@ -37,7 +37,7 @@ const CarDetailsPage: NextPage<IProps> = () => {
   if (loading) {
     return (
       <div
-        className="dpd-content"
+        className="pdp--content"
         style={{ minHeight: '40rem', display: 'flex', alignItems: 'center' }}
       >
         <Loading size="xlarge" />
@@ -48,7 +48,7 @@ const CarDetailsPage: NextPage<IProps> = () => {
   if (error) {
     return (
       <div
-        className="dpd-content"
+        className="pdp--content"
         style={{ minHeight: '40rem', display: 'flex', alignItems: 'center' }}
       >
         {error?.message}
@@ -57,7 +57,7 @@ const CarDetailsPage: NextPage<IProps> = () => {
   }
 
   return (
-    <div className="page:pdp">
+    <>
       <div className="pdp--content -pt-500">
         <div style={{ maxWidth: 740 }}>
           <Breadcrumb items={PATH.items} />
@@ -83,26 +83,24 @@ const CarDetailsPage: NextPage<IProps> = () => {
               </Link>
             )}
           </div>
-          <div className="page:pdp" style={{ background: 'none' }}>
-            <div style={{ gridColumnStart: 1, gridColumnEnd: 15 }}>
-              <MediaGallery
-                flag={{
-                  accentIcon: <Icon icon={<Flame />} color="white" />,
-                  accentText: 'Hot Deal',
-                  text: `14-21 DAYS DELIVERY`,
-                  incomplete: true,
-                }}
-                images={[
-                  'https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg',
-                  'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
-                  'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
-                  'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
-                  'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
-                  'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
-                ]}
-                videoSrc="https://player.vimeo.com/video/263419265"
-              />
-            </div>
+          <div style={{ background: 'none' }}>
+            <MediaGallery
+              flag={{
+                accentIcon: <Icon icon={<Flame />} color="white" />,
+                accentText: 'Hot Deal',
+                text: `14-21 DAYS DELIVERY`,
+                incomplete: true,
+              }}
+              images={[
+                'https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg',
+                'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
+                'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
+                'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
+                'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
+                'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
+              ]}
+              videoSrc="https://player.vimeo.com/video/263419265"
+            />
           </div>
         </div>
       </div>
@@ -110,7 +108,7 @@ const CarDetailsPage: NextPage<IProps> = () => {
         capId={84429}
         vehicleType={VehicleTypeEnum.CAR}
       />
-    </div>
+    </>
   );
 };
 
