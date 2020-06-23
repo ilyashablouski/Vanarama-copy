@@ -13,6 +13,7 @@ import CompanyDetailsForm from '../../../../components/CompanyDetailsForm/Compan
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { historyToMoment } from '../../../../utils/dates';
+import { getUrlParam, OLAFQueryParams } from '../../../../utils/url';
 
 export const SAVE_COMPANY_DETAILS = gql`
   mutation SaveCompanyDetailsMutation($input: LimitedCompanyInputObject!) {
@@ -22,15 +23,22 @@ export const SAVE_COMPANY_DETAILS = gql`
   }
 `;
 
+type QueryParams = OLAFQueryParams & {
+  companyUuid: string;
+};
+
 export const CompanyDetailsPage: NextPage = () => {
   const router = useRouter();
-  const {
-    query: { derivativeId, orderId, companyUuid },
-  } = router;
+  const { companyUuid, derivativeId, orderId } = router.query as QueryParams;
 
   const [saveCompanyDetails] = useMutation<Mutation, MutationVariables>(
     SAVE_COMPANY_DETAILS,
     {
+      onCompleted: () => {
+        const params = getUrlParam({ derivativeId, orderId });
+        const url = `/b2b/olaf/vat-details/[companyUuid]${params}`;
+        router.push(url, url.replace('[companyUuid]', companyUuid));
+      },
       onError: () => {
         toast.error(
           'Oops, an unexpected error occurred',
@@ -42,19 +50,16 @@ export const CompanyDetailsPage: NextPage = () => {
   );
 
   return (
-    <OLAFLayout
-      orderId={orderId as string}
-      derivativeId={derivativeId as string}
-    >
+    <OLAFLayout>
       <CompanyDetailsForm
         onSubmit={async values => {
           const searchResult =
-            values.inputMode === 'search' && values.confirmedCompany;
+            values.inputMode === 'search' && values.companySearchResult;
 
           await saveCompanyDetails({
             variables: {
               input: {
-                uuid: companyUuid as string,
+                uuid: companyUuid,
                 legalName: searchResult
                   ? searchResult.title
                   : values.companyName,

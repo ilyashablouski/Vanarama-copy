@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import {
   ChangePasswordByUuidMutation,
@@ -34,22 +34,39 @@ export const IS_PASSWORD_CORRECT = gql`
 const PasswordChangeContainer = ({
   uuid,
   onCompleted,
+  onNetworkError,
 }: IPasswordChangeContainerProps) => {
-  const [cahngePasswordByUuid, { loading, error }] = useMutation<
+  const [
+    cahngePasswordByUuid,
+    { loading, error: changePasswordError },
+  ] = useMutation<
     ChangePasswordByUuidMutation,
     ChangePasswordByUuidMutationVariables
   >(CHANGE_PASSWORD_BY_UUID_MUTATION, { onCompleted });
 
-  const [isPasswordCorrect] = useMutation<
+  const [isPasswordCorrect, { error: checkPasswordError }] = useMutation<
     IsPasswordCorrectMutation,
     IsPasswordCorrectMutationVariables
   >(IS_PASSWORD_CORRECT);
+
+  const graphQLErrors =
+    changePasswordError?.graphQLErrors ||
+    checkPasswordError?.graphQLErrors ||
+    [];
+  const hasError = graphQLErrors.length > 0;
+
+  useEffect(() => {
+    const error = changePasswordError || checkPasswordError;
+    if (error && error?.networkError !== null) {
+      onNetworkError?.(error?.networkError);
+    }
+  }, [changePasswordError, checkPasswordError, onNetworkError]);
 
   return (
     <ResetPasswordForm
       oldPassword
       isSubmitting={loading}
-      hasError={Boolean(error)}
+      hasError={hasError}
       onSubmit={async values => {
         await cahngePasswordByUuid({
           variables: {

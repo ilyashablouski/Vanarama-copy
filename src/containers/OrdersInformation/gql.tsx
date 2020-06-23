@@ -24,7 +24,7 @@ export const GET_ORDERS_BY_PARTY_UUID_DATA = gql`
       id
       leaseType
       partyUuid
-      aasmState
+      status
       createdAt
       updatedAt
       lineItems {
@@ -33,11 +33,11 @@ export const GET_ORDERS_BY_PARTY_UUID_DATA = gql`
         productId
         productType
         quantity
-        state
+        status
         updatedAt
         uuid
         creditApplications {
-          aasmState
+          status
           uuid
         }
         vehicleProduct {
