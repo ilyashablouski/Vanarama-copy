@@ -44,7 +44,8 @@ app.prepare().then(() => {
   });
 
   server.all('*', cors(), (req, res) => {
-    res.setHeader('X-Robots-Tag', 'noindex'); // Disable indexing.
+    if (process.env.NODE_ENV !== 'production')
+      res.setHeader('X-Robots-Tag', 'noindex'); // Disable indexing.
     return handle(req, res);
   });
 
