@@ -3,7 +3,7 @@ import ChevronUpSharp from '@vanarama/uibook/lib/assets/icons/ChevronUpSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import OlafCard from '@vanarama/uibook/lib/components/molecules/cards/OlafCard/OlafCard';
 import { useRouter } from 'next/router';
-import { useState, ReactNode } from 'react';
+import { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
@@ -12,6 +12,7 @@ import { useOlafData } from '../../gql/order';
 import { createOlafDetails } from './helpers';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { GetOrderInformation } from '../../../generated/GetOrderInformation';
+import { OLAFQueryParams } from '../../utils/url';
 
 export const GET_ORDER_INFORMATION = gql`
   query GetOrderInformation {
@@ -20,14 +21,10 @@ export const GET_ORDER_INFORMATION = gql`
   }
 `;
 
-interface IOLAFLayoutProps {
-  children: ReactNode;
-  orderId?: string;
-  derivativeId?: string;
-}
+const OLAFLayout: React.FC = ({ children }) => {
+  const router = useRouter();
+  const { derivativeId, orderId } = router.query as OLAFQueryParams;
 
-const OLAFLayout: React.FC<IOLAFLayoutProps> = props => {
-  const { children, orderId, derivativeId } = props;
   const isMobile = useMobileViewport();
   const [asideOpen, setAsideOpen] = useState(false);
   const showAside = !isMobile || asideOpen;
