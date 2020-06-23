@@ -25,6 +25,7 @@ export const RESET_PASSWORD_MUTATION = gql`
 const PasswordResetContainer = ({
   username,
   code,
+  oldPassword,
 }: IPasswordResetContainerProps) => {
   const router = useRouter();
   const [resetPassword, { loading, error }] = useMutation<
@@ -46,6 +47,7 @@ const PasswordResetContainer = ({
       isSubmitting={loading}
       username={username}
       code={code}
+      oldPassword={oldPassword}
       hasError={Boolean(error)}
       onSubmit={async values => {
         await resetPassword({

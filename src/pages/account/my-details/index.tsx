@@ -2,15 +2,16 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
+import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
 import withApollo from '../../../hocs/withApollo';
+import PasswordChangeContainer from '../../../containers/PasswordChangeContainer';
 import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
 import OrderInformationContainer from '../../../containers/OrdersInformation/OrderInformationContainer';
 
-export const PARTY_BY_UUID = '7c53729d-7000-4268-8f6b-354ee8e999ce';
 const personUuid = 'aa08cca2-5f8d-4b8c-9506-193d9c32e05f'; // for test
 
 interface IProps {
@@ -24,11 +25,17 @@ const PATH = {
   ],
 };
 
+const handleNetworkError = () =>
+  toast.error(
+    'Sorry there seems to be an issue for your password reset request. Pleaser try again in a few moments',
+    'Dolor ut tempor eiusmod enim consequat laboris dolore ut pariatur labore sunt incididunt dolore veniam mollit excepteur dolor aliqua minim nostrud adipisicing culpa aliquip ex',
+  );
+
 const MyDetailsPage: NextPage<IProps> = () => {
   const router = useRouter();
   const uuid = router.query.uuid as string;
 
-  const partyByUuid = PARTY_BY_UUID;
+  const partyByUuid = '';
   const [resetPassword, setResetPassword] = useState(false);
 
   return (
@@ -53,7 +60,7 @@ const MyDetailsPage: NextPage<IProps> = () => {
           <Heading tag="span" size="large" color="black" className="-mb-300">
             Password
           </Heading>
-          {!resetPassword && (
+          {!resetPassword ? (
             <div className="form">
               <Text>
                 Excepteur fugiat pariatur officia aliquip ex enim culpa
@@ -68,6 +75,18 @@ const MyDetailsPage: NextPage<IProps> = () => {
                 />
               </div>
             </div>
+          ) : (
+            <PasswordChangeContainer
+              uuid={uuid || personUuid}
+              onCompleted={() => {
+                toast.success(
+                  'Your New Password Has Been Saved',
+                  'Ipsum duis aute cupidatat occaecat nisi aute dolore do non ex incididunt do consectetur excepteur',
+                );
+                setResetPassword(false);
+              }}
+              onNetworkError={handleNetworkError}
+            />
           )}
         </div>
       </div>

@@ -70,7 +70,7 @@ const AboutForm: FCWithFragments<IProps> = ({
           type="text"
           dataTestId="aboutFirstName"
           ref={register}
-          width={45}
+          width="45ch"
         />
       </FormGroup>
 
@@ -85,7 +85,7 @@ const AboutForm: FCWithFragments<IProps> = ({
           name="lastName"
           dataTestId="aboutLastName"
           ref={register}
-          width={45}
+          width="45ch"
         />
       </FormGroup>
       <FormGroup
@@ -99,7 +99,7 @@ const AboutForm: FCWithFragments<IProps> = ({
           name="email"
           dataTestId="aboutEmail"
           ref={register}
-          width={35}
+          width="35ch"
         />
       </FormGroup>
       <FormGroup>
@@ -113,7 +113,7 @@ const AboutForm: FCWithFragments<IProps> = ({
             type="tel"
             name="mobile"
             dataTestId="aboutMobile"
-            width={35}
+            width="45ch"
             as={NumericInput}
             control={control}
           />

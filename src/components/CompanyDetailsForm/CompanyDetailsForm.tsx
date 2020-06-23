@@ -1,16 +1,28 @@
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import React, { useEffect, useReducer } from 'react';
-import { FormContext, useForm } from 'react-hook-form';
+import React, { useState } from 'react';
+import { FormContext, OnSubmit, useForm } from 'react-hook-form';
+import { SearchCompaniesQuery_searchCompanies_nodes as SearchResult } from '../../../generated/SearchCompaniesQuery';
 import CompanyCard from './CompanyCard';
-import CompanyTypeahead from './CompanyTypeahead';
 import CompanyDetailsFormFields from './CompanyDetailsFormFields';
-import { ICompanyDetailsFormValues } from './interfaces';
-import reducer from './reducer';
+import CompanyTypeahead from './CompanyTypeahead';
+import {
+  ICompanyDetailsFormValues,
+  InputMode,
+  SubmissionValues,
+} from './interfaces';
 import SearchActions from './SearchActions';
 
-const CompanyDetailsForm: React.FC = () => {
+interface IProps {
+  onSubmit: OnSubmit<SubmissionValues>;
+}
+
+const CompanyDetailsForm: React.FC<IProps> = ({ onSubmit }) => {
+  const [companySearchTerm, setCompanySearchTerm] = useState('');
+  const [hasConfirmedCompany, setHasConfirmedCompany] = useState(false);
+  const [inputMode, setInputMode] = useState<InputMode>('search');
+
   const methods = useForm<ICompanyDetailsFormValues>({
     mode: 'onBlur',
     defaultValues: {
@@ -18,74 +30,68 @@ const CompanyDetailsForm: React.FC = () => {
     },
   });
 
-  const [
-    { companySearchTerm, inputMode, confirmedCompany, tentativeCompany },
-    dispatch,
-  ] = useReducer(reducer, {
-    companySearchTerm: '',
-    inputMode: 'search',
-  });
+  const companySearchResult = methods.watch('companySearchResult');
+  const clearSearchResult = () => {
+    setCompanySearchTerm('');
+    methods.setValue('companySearchResult', undefined, true);
+    setHasConfirmedCompany(false);
+  };
 
-  const showForm = confirmedCompany || inputMode === 'manual';
-  useEffect(() => {
-    // Each time the mode changes to manual, clear the selected company
-    if (inputMode === 'manual') {
-      dispatch({ type: 'CLEAR_COMPANY' });
-    }
-  }, [inputMode]);
+  const handleManualClick = () => {
+    setInputMode('manual');
+    clearSearchResult();
+  };
 
-  useEffect(() => {
-    // Each time the tentative company is set, change the mode to search
-    if (tentativeCompany) {
-      dispatch({ type: 'SET_SEARCH_MODE' });
-    }
-  }, [tentativeCompany]);
+  const handleCompanySelect = (company: SearchResult) => {
+    methods.setValue('companySearchResult', company, true);
+    setInputMode('search');
+  };
+
+  const handleProceed = () => {
+    setHasConfirmedCompany(true);
+  };
 
   return (
     <Form
-      onSubmit={methods.handleSubmit(values => {
-        // Temporary until BE integration done
-        // eslint-disable-next-line no-alert
-        alert(
-          JSON.stringify({ ...values, company: confirmedCompany }, null, 2),
-        );
-      })}
+      onSubmit={methods.handleSubmit(values =>
+        onSubmit({ ...values, inputMode }),
+      )}
     >
       <Heading color="black" dataTestId="company-details_heading" size="xlarge">
         Company Details
       </Heading>
       <FormContext {...methods}>
         <CompanyTypeahead
-          onChange={value => dispatch({ type: 'TYPE_COMPANY_NAME', value })}
-          onCompanySelected={company =>
-            dispatch({ type: 'COMPANY_SELECTED', company })
-          }
+          onChange={setCompanySearchTerm}
+          onCompanySelected={handleCompanySelect}
           value={companySearchTerm}
         />
-        {tentativeCompany && (
-          <>
-            <CompanyCard company={tentativeCompany} />
-            <SearchActions
-              confirmedCompany={confirmedCompany}
-              onProceed={() =>
-                dispatch({ type: 'PROCEED', company: tentativeCompany })
-              }
-              onSearchAgain={() => dispatch({ type: 'SEARCH_AGAIN' })}
-            />
-          </>
-        )}
-        {inputMode === 'search' && (
-          <Button
-            color="primary"
-            dataTestId="company-details_enter-manually"
-            fill="clear"
-            label="I’d Rather Enter My Details Manually"
-            onClick={() => dispatch({ type: 'SET_MANUAL_MODE' })}
-            type="button"
-          />
-        )}
-        {showForm && <CompanyDetailsFormFields inputMode={inputMode} />}
       </FormContext>
+      {companySearchResult && (
+        <>
+          <CompanyCard company={companySearchResult} />
+          <SearchActions
+            hasConfirmedCompany={hasConfirmedCompany}
+            onProceed={handleProceed}
+            onSearchAgain={clearSearchResult}
+          />
+        </>
+      )}
+      {inputMode === 'search' && (
+        <Button
+          color="primary"
+          dataTestId="company-details_enter-manually"
+          fill="clear"
+          label="I’d Rather Enter My Details Manually"
+          onClick={handleManualClick}
+          type="button"
+        />
+      )}
+      {(hasConfirmedCompany || inputMode === 'manual') && (
+        <FormContext {...methods}>
+          <CompanyDetailsFormFields inputMode={inputMode} />
+        </FormContext>
+      )}
     </Form>
   );
 };

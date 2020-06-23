@@ -11,7 +11,11 @@ import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import { IProps } from './interfaces';
 
 // eslint-disable-next-line no-empty-pattern
-const CustomiseLeaseContainer: React.FC<IProps> = ({ capId, vehicleType }) => {
+const CustomiseLeaseContainer: React.FC<IProps> = ({
+  capId,
+  vehicleType,
+  derivativeInfo,
+}) => {
   const { data, loading, error } = useDetailsData(capId, vehicleType);
 
   const [leaseType, setLeaseType] = useState<string>('Personal');
@@ -22,7 +26,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({ capId, vehicleType }) => {
   const [trim, setTrim] = useState<null | number>(null);
 
   const leaseAdjustParams = data?.leaseAdjustParams;
-  const derivativeInfo = data?.derivativeInfo;
+  console.log('derivativeInfo3', derivativeInfo)
 
   const trims = derivativeInfo?.trims || [];
   const defaultTrim = trims[0] || undefined;
@@ -116,6 +120,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({ capId, vehicleType }) => {
       setTrim={setTrim}
       quoteData={quoteData}
       data={data}
+      derivativeInfo={derivativeInfo}
     />
   );
 };

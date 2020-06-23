@@ -24,6 +24,41 @@ export const GET_CAR_DATA = gql`
     vehicleDetails(capId: $capIdDetails, vehicleType: $vehicleType) {
       averageRating
       brochureUrl
+      keyInformation {
+        name
+        value
+      }
+      independentReview
+    }
+    derivativeInfo(id: $capIdDetails, vehicleType: $vehicleType) {
+      technicals {
+        id
+        derivativeId
+        technicalDescription
+        technicalLongDescription
+        categoryDescription
+        effectiveFrom
+        effectiveTo
+        value
+      }
+      standardEquipments {
+        id
+        derivativeId
+        optionDescription
+        optionLongDescription
+        categoryDescription
+        genericDescription
+        effectiveFrom
+        effectiveTo
+      }
+      colours {
+        id
+        optionDescription
+      }
+      trims {
+        id
+        optionDescription
+      }
     }
   }
 `;

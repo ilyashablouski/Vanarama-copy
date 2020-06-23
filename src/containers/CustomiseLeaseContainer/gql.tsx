@@ -6,23 +6,11 @@ import {
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
 export const GET_DETAILS_DATA = gql`
-  query GetLeaseDetails($capIdDetails: ID!, $vehicleType: VehicleTypeEnum) {
+  query GetLeaseDetails {
     leaseAdjustParams {
       mileages
       terms
       upfronts
-    }
-    derivativeInfo(id: $capIdDetails, vehicleType: $vehicleType) {
-      id
-      name
-      colours {
-        id
-        optionDescription
-      }
-      trims {
-        id
-        optionDescription
-      }
     }
   }
 `;

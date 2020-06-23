@@ -36,11 +36,12 @@ const CustomiseLease = ({
   setTrim,
   quoteData,
   data,
+  derivativeInfo,
 }: IProps) => {
   const quoteByCapId = quoteData?.quoteByCapId;
   const leaseAdjustParams = data?.leaseAdjustParams;
-  const derivativeInfo = data?.derivativeInfo;
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
+  console.log('derivativeInfo2', derivativeInfo)
 
   return (
     <div className="pdp--sidebar">

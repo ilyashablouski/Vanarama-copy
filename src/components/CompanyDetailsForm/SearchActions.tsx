@@ -1,15 +1,14 @@
-import React from 'react';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import { SearchCompaniesQuery_searchCompanies_nodes as CompanySearchResult } from '../../../generated/SearchCompaniesQuery';
+import React from 'react';
 
 interface IProps {
-  confirmedCompany?: CompanySearchResult;
+  hasConfirmedCompany: boolean;
   onProceed: () => void;
   onSearchAgain: () => void;
 }
 
 export default function SearchActions({
-  confirmedCompany,
+  hasConfirmedCompany,
   onProceed,
   onSearchAgain,
 }: IProps) {
@@ -18,7 +17,7 @@ export default function SearchActions({
       <Button
         color="primary"
         dataTestId="company-details_proceed"
-        disabled={Boolean(confirmedCompany)}
+        disabled={hasConfirmedCompany}
         label="Yes And Proceed"
         onClick={onProceed}
         size="small"

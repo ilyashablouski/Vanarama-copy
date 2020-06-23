@@ -3,15 +3,54 @@ import ChevronUpSharp from '@vanarama/uibook/lib/assets/icons/ChevronUpSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import OlafCard from '@vanarama/uibook/lib/components/molecules/cards/OlafCard/OlafCard';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, ReactNode } from 'react';
+import { gql, useQuery } from '@apollo/client';
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
+import { useOlafData } from '../../gql/order';
+import { createOlafDetails } from './helpers';
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import { GetOrderInformation } from '../../../generated/GetOrderInformation';
 
-const OLAFLayout: React.FC = ({ children }) => {
+export const GET_ORDER_INFORMATION = gql`
+  query GetOrderInformation {
+    selectedOrderUuid @client
+    selectedDerivativeId @client
+  }
+`;
+
+interface IOLAFLayoutProps {
+  children: ReactNode;
+  orderId?: string;
+  derivativeId?: string;
+}
+
+const OLAFLayout: React.FC<IOLAFLayoutProps> = props => {
+  const { children, orderId, derivativeId } = props;
   const isMobile = useMobileViewport();
   const [asideOpen, setAsideOpen] = useState(false);
   const showAside = !isMobile || asideOpen;
+
+  let selectedOrderUuid = orderId || '';
+  let selectedDerivativeId = derivativeId || '';
+
+  // get order information from apollo client cache
+  const { data } = useQuery<GetOrderInformation>(GET_ORDER_INFORMATION);
+  if (data?.selectedOrderUuid && data?.selectedDerivativeId) {
+    selectedOrderUuid = data.selectedOrderUuid;
+    selectedDerivativeId = data.selectedDerivativeId;
+  }
+
+  // get Order data and Derivative data for order car
+  const olafData = useOlafData(
+    selectedOrderUuid,
+    selectedDerivativeId,
+    VehicleTypeEnum.CAR,
+  );
+  const orderByUuid = olafData && olafData.data?.orderByUuid;
+  const derivative = olafData && olafData.data?.derivative;
+
   return (
     <>
       <ProgressSection />
@@ -28,30 +67,20 @@ const OLAFLayout: React.FC = ({ children }) => {
       )}
       <div className="row:olaf">
         {children}
-        {showAside && (
+        {showAside && orderByUuid && derivative && (
           <div className="olaf-aside">
             <OlafCard
               header={{ text: '14-21 Days Delivery' }}
-              olafDetails={{
-                annualMileage: '6000 miles',
-                color: 'Solid - Polar white',
-                contractLength: '60 months',
-                fuel: 'Petrol',
-                initailRental: '£815.70 (inc VAT)',
-                price: 209,
-                transmission: 'Manual',
-                trim: 'Cloth - Black',
-                priceDescription: 'Per Month ex. VAT',
-                description:
-                  '59 month contact (inc VAT). Paid by Direct Debit. First due ≈ 10 days after delivery.',
-                annualMileageBooster: 'Extra 600 miles FREE',
-                damageCover: 'Included',
-                maintenance: 'No',
-              }}
+              olafDetails={createOlafDetails(
+                orderByUuid.leaseType,
+                orderByUuid.lineItems[0].vehicleProduct!,
+                derivative,
+              )}
               imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/KiaeNiro0219_j7on5z.jpg"
               title={{
-                title: 'FIAT 500 Hatchback',
-                description: '1.4T ecoTEC Elite Nav 5dr',
+                title: `${derivative?.manufacturerName ||
+                  ''} ${derivative?.modelName || ''}`,
+                description: derivative?.name || '',
                 score: 4.5,
               }}
             />

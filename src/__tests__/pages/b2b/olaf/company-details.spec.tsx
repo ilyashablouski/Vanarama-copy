@@ -2,28 +2,44 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import {
+  SaveCompanyDetailsMutation,
+  SaveCompanyDetailsMutationVariables,
+} from '../../../../../generated/SaveCompanyDetailsMutation';
+import {
   SearchCompaniesQuery,
   SearchCompaniesQueryVariables,
 } from '../../../../../generated/SearchCompaniesQuery';
 import { SEARCH_COMPANIES } from '../../../../components/CompanyDetailsForm/useSearchCompanies';
-import { CompanyDetailsPage } from '../../../../pages/b2b/olaf/company-details/[uuid]';
+import {
+  CompanyDetailsPage,
+  SAVE_COMPANY_DETAILS,
+} from '../../../../pages/b2b/olaf/company-details/[companyUuid]';
 
-jest.spyOn(window, 'alert').mockImplementation(() => {});
+const MOCK_COMPANY_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
+
 jest.mock('../../../../hooks/useMediaQuery');
+jest.mock('../../../../gql/order');
 jest.mock('next/router', () => ({
-  useRouter() {
-    return {
-      push: jest.fn(),
-      pathname: '/b2b/olaf/company-details',
-      query: {},
-    };
-  },
+  useRouter: () => ({
+    push: jest.fn(),
+    pathname: '/b2b/olaf/company-details',
+    query: {
+      companyUuid: MOCK_COMPANY_UUID,
+    },
+  }),
 }));
+
+function typeIntoSearchField(value: string) {
+  const field = screen.getByRole('textbox', { name: /Company Lookup/i });
+  fireEvent.focus(field);
+  fireEvent.change(field, { target: { value } });
+}
 
 describe('B2B Company Details page', () => {
   it('should allow the user to search for and select a company', async () => {
     // ARRANGE
-    let searchExecuted = false;
+    const queryMock = jest.fn();
+    const mutationMock = jest.fn();
     const mocks: MockedResponse[] = [
       {
         request: {
@@ -32,33 +48,62 @@ describe('B2B Company Details page', () => {
             searchTerm: 'Autora',
           } as SearchCompaniesQueryVariables,
         },
-        result: () => {
-          searchExecuted = true;
-          return {
-            data: {
-              searchCompanies: {
-                nodes: [
-                  {
-                    addressSnippet:
-                      'The Long Lodge 265-269 Kingston Road, Wimbledon, London, England, SW19 3NW',
-                    companyNumber: '08491180',
-                    companyStatus: 'active',
-                    dateOfCreation: '2013-04-01',
-                    title: 'AUTORA LTD',
-                  },
-                  {
-                    addressSnippet:
-                      'Vanarama, Maylands Avenue, Hemel Hempstead, Hertfordshire, England, HP2 7DE',
-                    companyNumber: '05137709',
-                    companyStatus: 'active',
-                    dateOfCreation: '2004-05-01',
-                    title: 'AUTORAMA UK LTD',
-                  },
-                ],
+        result: queryMock.mockImplementation(() => ({
+          data: {
+            searchCompanies: {
+              nodes: [
+                {
+                  addressSnippet: 'The Long Lodge 265-269 Kingston Road',
+                  companyNumber: '08491180',
+                  companyStatus: 'active',
+                  dateOfCreation: '2013-04-01',
+                  title: 'AUTORA LTD',
+                },
+                {
+                  addressSnippet: 'Vanarama, Maylands Avenue',
+                  companyNumber: '05137709',
+                  companyStatus: 'active',
+                  dateOfCreation: '2004-05-01',
+                  title: 'AUTORAMA UK LTD',
+                },
+              ],
+            },
+          } as SearchCompaniesQuery,
+        })),
+      },
+      {
+        request: {
+          query: SAVE_COMPANY_DETAILS,
+          variables: {
+            input: {
+              uuid: MOCK_COMPANY_UUID,
+              legalName: 'AUTORAMA UK LTD',
+              companyNumber: '05137709',
+              tradingSince: '01-05-2004',
+              addresses: [
+                {
+                  serviceId: 'Vanarama, Maylands Avenue',
+                  kind: 'registered',
+                },
+              ],
+              withTradingAddress: false,
+              companyNature: 'Selling cars',
+              emailAddress: {
+                kind: 'Home',
+                value: 'info@autorama.co.uk',
+                primary: true,
               },
-            } as SearchCompaniesQuery,
-          };
+              telephoneNumbers: [{ value: '07777777777', primary: true }],
+            },
+          } as SaveCompanyDetailsMutationVariables,
         },
+        result: mutationMock.mockImplementation(() => ({
+          data: {
+            updateLimitedCompany: {
+              uuid: MOCK_COMPANY_UUID,
+            },
+          } as SaveCompanyDetailsMutation,
+        })),
       },
     ];
 
@@ -70,13 +115,8 @@ describe('B2B Company Details page', () => {
     );
 
     // Type a search term and wait for the results to load
-    const companyLookup = screen.getByRole('textbox', {
-      name: /company lookup/i,
-    });
-
-    fireEvent.focus(companyLookup);
-    fireEvent.change(companyLookup, { target: { value: 'Autora' } });
-    await waitFor(() => expect(searchExecuted).toBeTruthy());
+    typeIntoSearchField('Autora');
+    await waitFor(() => expect(queryMock).toHaveBeenCalledTimes(1));
 
     // Click the Autorama UK result
     fireEvent.click(screen.getByText(/AUTORAMA UK LTD/i));
@@ -100,42 +140,55 @@ describe('B2B Company Details page', () => {
     });
 
     fireEvent.change(screen.getByTestId('company-details_registered-address'), {
-      target: {
-        value:
-          'Vanarama, Maylands Avenue, Hemel Hempstead, Hertfordshire, England, HP2 7DE',
-      },
+      target: { value: 'Vanarama, Maylands Avenue' },
     });
 
     // Submit the form
     fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
 
-    // Expect an alert show with the correct form values
-    // NOTE: This is temporary until the BE integration is done
-    await waitFor(() => expect(window.alert).toHaveBeenCalledTimes(1));
-    const parsed = JSON.parse((window.alert as jest.Mock).mock.calls[0][0]);
-    expect(parsed).toEqual({
-      nature: 'Selling cars',
-      tradingDifferent: false,
-      email: 'info@autorama.co.uk',
-      registeredAddress: {
-        id:
-          'Vanarama, Maylands Avenue, Hemel Hempstead, Hertfordshire, England, HP2 7DE',
-      },
-      telephone: '07777777777',
-      company: {
-        title: 'AUTORAMA UK LTD',
-        companyNumber: '05137709',
-        addressSnippet:
-          'Vanarama, Maylands Avenue, Hemel Hempstead, Hertfordshire, England, HP2 7DE',
-        dateOfCreation: '2004-05-01',
-        companyStatus: 'active',
-      },
-    });
+    // ASSERT
+    await waitFor(() => expect(mutationMock).toHaveBeenCalledTimes(1));
   });
 
   it('should allow the user to enter their company details manually', async () => {
     // ARRANGE
-    const mocks: MockedResponse[] = [];
+    const mutationMock = jest.fn();
+    const mocks: MockedResponse[] = [
+      {
+        request: {
+          query: SAVE_COMPANY_DETAILS,
+          variables: {
+            input: {
+              uuid: MOCK_COMPANY_UUID,
+              legalName: 'AUTORAMA UK LTD',
+              companyNumber: '05137709',
+              tradingSince: '01-05-2004',
+              addresses: [
+                {
+                  serviceId: 'Vanarama, Maylands Avenue',
+                  kind: 'registered',
+                },
+              ],
+              withTradingAddress: false,
+              companyNature: 'Selling cars',
+              emailAddress: {
+                kind: 'Home',
+                value: 'info@autorama.co.uk',
+                primary: true,
+              },
+              telephoneNumbers: [{ value: '07777777777', primary: true }],
+            },
+          } as SaveCompanyDetailsMutationVariables,
+        },
+        result: mutationMock.mockImplementation(() => ({
+          data: {
+            updateLimitedCompany: {
+              uuid: MOCK_COMPANY_UUID,
+            },
+          } as SaveCompanyDetailsMutation,
+        })),
+      },
+    ];
 
     // ACT
     render(
@@ -184,38 +237,20 @@ describe('B2B Company Details page', () => {
     });
 
     fireEvent.change(screen.getByTestId('company-details_registered-address'), {
-      target: {
-        value:
-          'Vanarama, Maylands Avenue, Hemel Hempstead, Hertfordshire, England, HP2 7DE',
-      },
+      target: { value: 'Vanarama, Maylands Avenue' },
     });
 
     // Submit the form
     fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
 
-    // Expect an alert show with the correct form values
-    // NOTE: This is temporary until the BE integration is done
-    await waitFor(() => expect(window.alert).toHaveBeenCalledTimes(1));
-    const parsed = JSON.parse((window.alert as jest.Mock).mock.calls[0][0]);
-    expect(parsed).toEqual({
-      companyName: 'AUTORAMA UK LTD',
-      companyNumber: '05137709',
-      tradingSinceMonth: '5',
-      tradingSinceYear: '2004',
-      nature: 'Selling cars',
-      tradingDifferent: false,
-      email: 'info@autorama.co.uk',
-      registeredAddress: {
-        id:
-          'Vanarama, Maylands Avenue, Hemel Hempstead, Hertfordshire, England, HP2 7DE',
-      },
-      telephone: '07777777777',
-    });
+    // ASSERT
+    await waitFor(() => expect(mutationMock).toHaveBeenCalledTimes(1));
   });
 
   it('should allow the user to select a trading address that is different from the registered address', async () => {
     // ARRANGE
-    let searchExecuted = false;
+    const queryMock = jest.fn();
+    const mutationMock = jest.fn();
     const mocks: MockedResponse[] = [
       {
         request: {
@@ -224,33 +259,66 @@ describe('B2B Company Details page', () => {
             searchTerm: 'Autora',
           } as SearchCompaniesQueryVariables,
         },
-        result: () => {
-          searchExecuted = true;
-          return {
-            data: {
-              searchCompanies: {
-                nodes: [
-                  {
-                    addressSnippet:
-                      'The Long Lodge 265-269 Kingston Road, Wimbledon, London, England, SW19 3NW',
-                    companyNumber: '08491180',
-                    companyStatus: 'active',
-                    dateOfCreation: '2013-04-01',
-                    title: 'AUTORA LTD',
-                  },
-                  {
-                    addressSnippet:
-                      'Vanarama, Maylands Avenue, Hemel Hempstead, Hertfordshire, England, HP2 7DE',
-                    companyNumber: '05137709',
-                    companyStatus: 'active',
-                    dateOfCreation: '2004-05-01',
-                    title: 'AUTORAMA UK LTD',
-                  },
-                ],
+        result: queryMock.mockImplementation(() => ({
+          data: {
+            searchCompanies: {
+              nodes: [
+                {
+                  addressSnippet: 'The Long Lodge 265-269 Kingston Road',
+                  companyNumber: '08491180',
+                  companyStatus: 'active',
+                  dateOfCreation: '2013-04-01',
+                  title: 'AUTORA LTD',
+                },
+                {
+                  addressSnippet: 'Vanarama, Maylands Avenue',
+                  companyNumber: '05137709',
+                  companyStatus: 'active',
+                  dateOfCreation: '2004-05-01',
+                  title: 'AUTORAMA UK LTD',
+                },
+              ],
+            },
+          } as SearchCompaniesQuery,
+        })),
+      },
+      {
+        request: {
+          query: SAVE_COMPANY_DETAILS,
+          variables: {
+            input: {
+              uuid: MOCK_COMPANY_UUID,
+              legalName: 'AUTORAMA UK LTD',
+              companyNumber: '05137709',
+              tradingSince: '01-05-2004',
+              addresses: [
+                {
+                  serviceId: 'Vanarama, Maylands Avenue',
+                  kind: 'registered',
+                },
+                {
+                  serviceId: 'Vanarama Trading Address, PO BOX 999',
+                  kind: 'trading',
+                },
+              ],
+              withTradingAddress: true,
+              companyNature: 'Selling cars',
+              emailAddress: {
+                kind: 'Home',
+                value: 'info@autorama.co.uk',
+                primary: true,
               },
-            } as SearchCompaniesQuery,
-          };
+              telephoneNumbers: [{ value: '07777777777', primary: true }],
+            },
+          } as SaveCompanyDetailsMutationVariables,
         },
+        result: mutationMock.mockImplementation(() => ({
+          data: {
+            updateLimitedCompany: {
+              uuid: MOCK_COMPANY_UUID,
+            },
+          } as SaveCompanyDetailsMutation,
+        })),
       },
     ];
 
@@ -262,13 +330,8 @@ describe('B2B Company Details page', () => {
     );
 
     // Type a search term and wait for the results to load
-    const companyLookup = screen.getByRole('textbox', {
-      name: /company lookup/i,
-    });
-
-    fireEvent.focus(companyLookup);
-    fireEvent.change(companyLookup, { target: { value: 'Autora' } });
-    await waitFor(() => expect(searchExecuted).toBeTruthy());
+    typeIntoSearchField('Autora');
+    await waitFor(() => expect(queryMock).toHaveBeenCalledTimes(1));
 
     // Click the Autorama UK result
     fireEvent.click(screen.getByText(/AUTORAMA UK LTD/i));
@@ -292,10 +355,7 @@ describe('B2B Company Details page', () => {
     });
 
     fireEvent.change(screen.getByTestId('company-details_registered-address'), {
-      target: {
-        value:
-          'Vanarama, Maylands Avenue, Hemel Hempstead, Hertfordshire, England, HP2 7DE',
-      },
+      target: { value: 'Vanarama, Maylands Avenue' },
     });
 
     // Choose that the trading address is different
@@ -306,38 +366,107 @@ describe('B2B Company Details page', () => {
     );
 
     fireEvent.change(screen.getByTestId('company-details_trading-address'), {
-      target: {
-        value: 'Vanarama Trading Address, PO BOX 999',
-      },
+      target: { value: 'Vanarama Trading Address, PO BOX 999' },
     });
 
     // Submit the form
     fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
 
-    // Expect an alert show with the correct form values
-    // NOTE: This is temporary until the BE integration is done
-    await waitFor(() => expect(window.alert).toHaveBeenCalledTimes(1));
-    const parsed = JSON.parse((window.alert as jest.Mock).mock.calls[0][0]);
-    expect(parsed).toEqual({
-      nature: 'Selling cars',
-      tradingDifferent: true,
-      email: 'info@autorama.co.uk',
-      registeredAddress: {
-        id:
-          'Vanarama, Maylands Avenue, Hemel Hempstead, Hertfordshire, England, HP2 7DE',
+    // ASSERT
+    await waitFor(() => expect(mutationMock).toHaveBeenCalledTimes(1));
+  });
+
+  it('should show a validation message if the user selects a company that is not active', async () => {
+    // ARRANGE
+    const inactiveQueryMock = jest.fn();
+    const activeQueryMock = jest.fn();
+    const mocks: MockedResponse[] = [
+      {
+        request: {
+          query: SEARCH_COMPANIES,
+          variables: {
+            searchTerm: 'INACTIVE LTD',
+          } as SearchCompaniesQueryVariables,
+        },
+        result: inactiveQueryMock.mockImplementation(() => ({
+          data: {
+            searchCompanies: {
+              nodes: [
+                {
+                  addressSnippet: '123 Fake Street',
+                  companyNumber: '111111111',
+                  companyStatus: 'dissolved',
+                  dateOfCreation: '2013-04-01',
+                  title: 'INACTIVE LTD',
+                },
+              ],
+            },
+          } as SearchCompaniesQuery,
+        })),
       },
-      tradingAddress: {
-        id: 'Vanarama Trading Address, PO BOX 999',
+      {
+        request: {
+          query: SEARCH_COMPANIES,
+          variables: {
+            searchTerm: 'ACTIVE LTD',
+          } as SearchCompaniesQueryVariables,
+        },
+        result: activeQueryMock.mockImplementation(() => ({
+          data: {
+            searchCompanies: {
+              nodes: [
+                {
+                  addressSnippet: '123 Fake Street',
+                  companyNumber: '111111111',
+                  companyStatus: 'active',
+                  dateOfCreation: '2013-04-01',
+                  title: 'ACTIVE LTD',
+                },
+              ],
+            },
+          } as SearchCompaniesQuery,
+        })),
       },
-      telephone: '07777777777',
-      company: {
-        title: 'AUTORAMA UK LTD',
-        companyNumber: '05137709',
-        addressSnippet:
-          'Vanarama, Maylands Avenue, Hemel Hempstead, Hertfordshire, England, HP2 7DE',
-        dateOfCreation: '2004-05-01',
-        companyStatus: 'active',
-      },
-    });
+    ];
+
+    // ACT
+    render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <CompanyDetailsPage />
+      </MockedProvider>,
+    );
+
+    // Type a search term and wait for the results to load
+    typeIntoSearchField('INACTIVE LTD');
+    await waitFor(() => expect(inactiveQueryMock).toHaveBeenCalledTimes(1));
+
+    // Click the inactive company result
+    fireEvent.click(screen.getByText(/INACTIVE LTD/i));
+
+    await waitFor(() =>
+      expect(
+        screen.getByText(
+          /This company seems to be dissolved. Please try a new search/i,
+        ),
+      ).toBeInTheDocument(),
+    );
+
+    // Search again
+    fireEvent.click(screen.getByRole('button', { name: /Search Again/i }));
+
+    // Type a search term and wait for the results to load
+    typeIntoSearchField('ACTIVE LTD');
+    await waitFor(() => expect(activeQueryMock).toHaveBeenCalledTimes(1));
+
+    // Click the active company result
+    fireEvent.click(screen.getByText(/ACTIVE LTD/i));
+
+    await waitFor(() =>
+      expect(
+        screen.queryByText(
+          /This company seems to be dissolved. Please try a new search/i,
+        ),
+      ).not.toBeInTheDocument(),
+    );
   });
 });

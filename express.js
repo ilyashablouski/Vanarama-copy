@@ -44,6 +44,8 @@ app.prepare().then(() => {
   });
 
   server.all('*', cors(), (req, res) => {
+    res.setHeader('X-Robots-Tag', 'noindex'); // Disable indexing.
+    console.log('environment:', process.env.NODE_ENV);
     return handle(req, res);
   });
 
