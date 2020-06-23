@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Dispatch, SetStateAction } from 'react';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 import { GetLeaseDetails } from '../../../generated/GetLeaseDetails';
+import { GetVehicleDetails_derivativeInfo } from '../../../generated/GetVehicleDetails';
 
 export interface IChoice {
   label: string;
@@ -31,4 +33,5 @@ export interface IProps {
   quoteData: GetQuoteDetails;
   leaseType: string;
   data: GetLeaseDetails | undefined;
+  derivativeInfo: GetVehicleDetails_derivativeInfo | null | undefined;
 }

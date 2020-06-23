@@ -54,9 +54,21 @@ export interface GetVehicleDetails_derivativeInfo_standardEquipments {
   effectiveTo: any | null;
 }
 
+export interface GetVehicleDetails_derivativeInfo_colours {
+  id: string;
+  optionDescription: string;
+}
+
+export interface GetVehicleDetails_derivativeInfo_trims {
+  id: string;
+  optionDescription: string;
+}
+
 export interface GetVehicleDetails_derivativeInfo {
   technicals: (GetVehicleDetails_derivativeInfo_technicals | null)[];
   standardEquipments: (GetVehicleDetails_derivativeInfo_standardEquipments | null)[];
+  colours: (GetVehicleDetails_derivativeInfo_colours | null)[] | null;
+  trims: (GetVehicleDetails_derivativeInfo_trims | null)[] | null;
 }
 
 export interface GetVehicleDetails {
