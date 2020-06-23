@@ -34,12 +34,11 @@ const CustomiseLease = ({
   setColour,
   setTerm,
   setTrim,
-  quoteData,
   data,
   derivativeInfo,
+  leaseAdjustParams,
 }: IProps) => {
-  const quoteByCapId = quoteData?.quoteByCapId;
-  const leaseAdjustParams = data?.leaseAdjustParams;
+  const quoteByCapId = data?.quoteByCapId;
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
 
   return (
@@ -112,7 +111,9 @@ const CustomiseLease = ({
       <Select
         defaultValue={quoteByCapId?.colour || ''}
         className="-fullwidth"
-        onChange={option => setColour(+option.currentTarget.value)}
+        onChange={option => {
+          setColour(+option.currentTarget.value);
+        }}
       >
         {derivativeInfo?.colours?.map((currentColour: IColour | null) => (
           <option key={currentColour?.id} value={currentColour?.id}>
@@ -123,7 +124,9 @@ const CustomiseLease = ({
       <Select
         defaultValue={quoteByCapId?.trim || ''}
         className="-fullwidth"
-        onChange={option => setTrim(+option.currentTarget.value)}
+        onChange={option => {
+          setTrim(+option.currentTarget.value);
+        }}
       >
         {derivativeInfo?.trims?.map((currentTrim: ITrim | null) => (
           <option key={currentTrim?.id} value={currentTrim?.id}>

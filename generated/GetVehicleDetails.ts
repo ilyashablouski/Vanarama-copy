@@ -71,6 +71,12 @@ export interface GetVehicleDetails_derivativeInfo {
   trims: (GetVehicleDetails_derivativeInfo_trims | null)[] | null;
 }
 
+export interface GetVehicleDetails_leaseAdjustParams {
+    mileages: number[];
+    terms: number[]
+    upfronts: number[];
+}
+
 export interface GetVehicleDetails {
   /**
    * Find vehicle configuration by cap id
@@ -78,6 +84,7 @@ export interface GetVehicleDetails {
   vehicleConfigurationByCapId: GetVehicleDetails_vehicleConfigurationByCapId | null;
   vehicleDetails: GetVehicleDetails_vehicleDetails | null;
   derivativeInfo: GetVehicleDetails_derivativeInfo | null;
+  GetVehicleDetails_leaseAdjustParams: GetVehicleDetails_leaseAdjustParams | null;
 }
 
 export interface GetVehicleDetailsVariables {

@@ -1,19 +1,5 @@
 import { useQuery, gql } from '@apollo/client';
-import {
-  GetLeaseDetails,
-  GetLeaseDetailsVariables,
-} from '../../../generated/GetLeaseDetails';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
-
-export const GET_DETAILS_DATA = gql`
-  query GetLeaseDetails {
-    leaseAdjustParams {
-      mileages
-      terms
-      upfronts
-    }
-  }
-`;
+import { IQuoteDataInputs } from './interfaces';
 
 export const GET_QUOTE_DATA = gql`
   query GetQuoteDetails(
@@ -56,11 +42,26 @@ export const GET_QUOTE_DATA = gql`
   }
 `;
 
-export function useDetailsData(capId: number, vehicleType: VehicleTypeEnum) {
-  return useQuery<GetLeaseDetails, GetLeaseDetailsVariables>(GET_DETAILS_DATA, {
+export function useQuoteData({
+  capId,
+  vehicleType,
+  mileage,
+  term,
+  upfront,
+  leaseType,
+  trim,
+  colour,
+}: IQuoteDataInputs) {
+  return useQuery(GET_QUOTE_DATA, {
     variables: {
-      capIdDetails: `${capId}`,
+      capId,
       vehicleType,
+      mileage,
+      term,
+      upfront,
+      leaseType,
+      trim,
+      colour,
     },
   });
 }

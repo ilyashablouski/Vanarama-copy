@@ -33,7 +33,7 @@ describe('<CustomiseLease />', () => {
       setColour: jest.fn(),
       setTerm: jest.fn(),
       setTrim: jest.fn(),
-      quoteData: {
+      data: {
         quoteByCapId: {
           colour: '13990',
           leadTime: '14-21 Day Delivery',
@@ -57,28 +57,14 @@ describe('<CustomiseLease />', () => {
           vehicleType: VehicleTypeEnum.CAR,
         },
       },
-      data: {
-        derivativeInfo: {
-          colours: [{ id: '13990', optionDescription: 'Solid - Polar white' }],
-          id: '84429',
-          name: 'Name',
-          trims: [
-            { id: '104562', optionDescription: 'Leather - Cranberry red' },
-          ],
-        },
-        leaseAdjustParams: {
-          mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
-          terms: [24, 36, 48, 60],
-          upfronts: [1, 3, 6, 9, 12],
-        },
+      leaseAdjustParams: {
+        mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
+        terms: [24, 36, 48, 60],
+        upfronts: [1, 3, 6, 9, 12],
       },
       derivativeInfo: {
-        colours: [
-          {
-            id: '13990',
-            optionDescription: 'Solid - Polar white',
-          },
-        ],
+        colours: [{ id: '13990', optionDescription: 'Solid - Polar white' }],
+        trims: [{ id: '104562', optionDescription: 'Leather - Cranberry red' }],
         standardEquipments: [
           {
             categoryDescription: 'Body Glass',
@@ -103,7 +89,6 @@ describe('<CustomiseLease />', () => {
             value: '1515',
           },
         ],
-        trims: [{ id: '106120', optionDescription: 'Leather - Porcelain' }],
       },
     });
 
@@ -124,7 +109,7 @@ describe('<CustomiseLease />', () => {
         { label: 'Personal', active: false },
         { label: 'Business', active: true },
       ],
-      mileages: ['6K', '8K', '10K', '12K'],
+      mileages: ['6K', '8K', '10K'],
       setLeaseType: jest.fn(),
       leaseType: LeaseTypeEnum.PERSONAL,
       setMileage: jest.fn(),
@@ -132,11 +117,11 @@ describe('<CustomiseLease />', () => {
       setColour: jest.fn(),
       setTerm: jest.fn(),
       setTrim: jest.fn(),
-      quoteData: {
+      data: {
         quoteByCapId: {
           colour: '13990',
           leadTime: '14-21 Day Delivery',
-          leaseType: LeaseTypeEnum.PERSONAL,
+          leaseType: LeaseTypeEnum.BUSINESS,
           maintained: {
             monthlyRental: 61.75,
             initialRental: 61.75,
@@ -156,28 +141,14 @@ describe('<CustomiseLease />', () => {
           vehicleType: VehicleTypeEnum.CAR,
         },
       },
-      data: {
-        derivativeInfo: {
-          colours: [{ id: '13990', optionDescription: 'Solid - Polar white' }],
-          id: '84429',
-          name: 'Name',
-          trims: [
-            { id: '104562', optionDescription: 'Leather - Cranberry red' },
-          ],
-        },
-        leaseAdjustParams: {
-          mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
-          terms: [24, 36, 48, 60],
-          upfronts: [1, 3, 6, 9, 12],
-        },
+      leaseAdjustParams: {
+        mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
+        terms: [24, 36, 48, 60],
+        upfronts: [1, 3, 6, 9, 12],
       },
       derivativeInfo: {
-        colours: [
-          {
-            id: '13990',
-            optionDescription: 'Solid - Polar white',
-          },
-        ],
+        colours: [{ id: '13990', optionDescription: 'Solid - Polar white' }],
+        trims: [{ id: '104562', optionDescription: 'Leather - Cranberry red' }],
         standardEquipments: [
           {
             categoryDescription: 'Body Glass',
@@ -202,7 +173,6 @@ describe('<CustomiseLease />', () => {
             value: '1515',
           },
         ],
-        trims: [{ id: '106120', optionDescription: 'Leather - Porcelain' }],
       },
     });
     expect(tree).toMatchSnapshot();

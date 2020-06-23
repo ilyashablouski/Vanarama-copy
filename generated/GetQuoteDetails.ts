@@ -46,5 +46,6 @@ export interface GetQuoteDetailsVariables {
   leaseType?: LeaseTypeEnum | null;
   mileage?: number | null;
   term?: number | null;
+  trim?: number | null;
   upfront?: number | null;
 }

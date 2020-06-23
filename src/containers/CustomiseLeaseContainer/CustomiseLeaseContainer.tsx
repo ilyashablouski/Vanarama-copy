@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useQuery } from '@apollo/client';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import {
@@ -6,7 +6,7 @@ import {
   GetQuoteDetailsVariables,
 } from '../../../generated/GetQuoteDetails';
 import CustomiseLease from '../../components/CustomiseLease/CustomiseLease';
-import { useDetailsData, GET_QUOTE_DATA } from './gql';
+import { useQuoteData } from './gql';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import { IProps } from './interfaces';
 
@@ -17,19 +17,20 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   derivativeInfo,
   leaseAdjustParams,
 }) => {
+  const isInitialMount = useRef(true);
+
   const [leaseType, setLeaseType] = useState<string>('Personal');
   const [mileage, setMileage] = useState<null | number>(null);
-  const [upfront, setUpfront] = useState<number>(
+  const [upfront, setUpfront] = useState<number | undefined>(
     leaseAdjustParams?.upfronts[0],
   );
   const [colour, setColour] = useState<null | number>(null);
-  const [term, setTerm] = useState<null | number>(null);
+  const [term, setTerm] = useState<number>(leaseAdjustParams?.terms[0]);
   const [trim, setTrim] = useState<null | number>(null);
 
   const trims = derivativeInfo?.trims || [];
   const defaultTrim = trims[0] || undefined;
   const defaultTrimId = defaultTrim?.id;
-
   const colours = derivativeInfo?.colours || [];
   const defaultColour = colours[0] || undefined;
   const defaultColourId = defaultColour?.id;
@@ -38,24 +39,27 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   );
   const defaultMillage = leaseAdjustParams?.mileages[defaultMillageNumber - 1];
 
-  const { data, error } = useQuery<GetQuoteDetails, GetQuoteDetailsVariables>(
-    GET_QUOTE_DATA,
-    {
-      variables: {
-        capId: `${capId}`,
-        vehicleType,
-        mileage: mileage || defaultMillage,
-        term: term || leaseAdjustParams?.terms[0],
-        upfront: upfront || leaseAdjustParams?.upfronts[0],
-        leaseType:
-          leaseType === 'Personal'
-            ? LeaseTypeEnum.PERSONAL
-            : LeaseTypeEnum.BUSINESS,
-        trim: trim || +(defaultTrimId || 0),
-        colour: colour || +(defaultColourId || 0),
-      },
-    },
-  );
+  const { data, error, refetch } = useQuoteData({
+    capId: `${capId}`,
+    vehicleType,
+    mileage: mileage || defaultMillage,
+    term,
+    upfront,
+    leaseType:
+      leaseType === 'Personal'
+        ? LeaseTypeEnum.PERSONAL
+        : LeaseTypeEnum.BUSINESS,
+    trim: trim || +(defaultTrimId || 0),
+    colour: colour || +(defaultColourId || 0),
+  });
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      refetch();
+    }
+  }, [leaseType, upfront, mileage, colour, term, trim, refetch]);
 
   if (error) {
     return (
@@ -115,9 +119,9 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       setColour={setColour}
       setTerm={setTerm}
       setTrim={setTrim}
-      quoteData={quoteData}
       data={data}
       derivativeInfo={derivativeInfo}
+      leaseAdjustParams={leaseAdjustParams}
     />
   );
 };

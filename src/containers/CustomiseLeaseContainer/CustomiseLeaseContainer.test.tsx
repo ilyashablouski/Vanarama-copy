@@ -2,49 +2,11 @@ import React from 'react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import CustomiseLeaseContainer from './CustomiseLeaseContainer';
-import { GET_DETAILS_DATA, GET_QUOTE_DATA } from './gql';
+import { GET_QUOTE_DATA } from './gql';
 
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 
 const mocks: MockedResponse[] = [
-  {
-    request: {
-      query: GET_DETAILS_DATA,
-      variables: {
-        capIdDetails: '84429',
-        vehicleType: VehicleTypeEnum.CAR,
-      },
-    },
-    result: {
-      data: {
-        derivativeInfo: {
-          colours: [
-            {
-              id: '13990',
-              optionDescription: 'Solid - Polar white',
-              __typename: 'Colour',
-            },
-          ],
-          id: '84429',
-          name: 'C200 AMG Line Premium 2 Doors 9G-Tronic',
-          trims: [
-            {
-              id: '15002',
-              optionDescription: 'Leather - Black',
-              __typename: 'Trim',
-            },
-          ],
-          __typename: 'Derivative',
-        },
-        leaseAdjustParams: {
-          mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
-          terms: [24, 36, 48, 60],
-          upfronts: [1, 3, 6, 9, 12],
-          __typename: 'LeaseAdjustType',
-        },
-      },
-    },
-  },
   {
     request: {
       query: GET_QUOTE_DATA,
@@ -99,6 +61,11 @@ describe('<PersonalInformation />', () => {
         <CustomiseLeaseContainer
           capId={84429}
           vehicleType={VehicleTypeEnum.CAR}
+          leaseAdjustParams={{
+            mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
+            terms: [24, 36, 48, 60],
+            upfronts: [1, 3, 6, 9, 12],
+          }}
           derivativeInfo={{
             colours: [
               { id: '13990', optionDescription: 'Solid - Polar white' },
