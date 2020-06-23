@@ -111,6 +111,7 @@ pipeline {
                     sh "yarn test --coverage"
                     sh "yarn lint"
                     sh "yarn typecheck"
+                    sh "yarn build"
                     stash includes: 'next-storefront.tar.gz', name: 'package'
               }
             }
