@@ -56,6 +56,7 @@ const CarDetailsPage: NextPage<IProps> = () => {
 
   const vehicleDetails = data?.vehicleDetails;
   const derivativeInfo = data?.derivativeInfo;
+  const leaseAdjustParams = data?.leaseAdjustParams;
   const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
 
   return (
@@ -106,6 +107,7 @@ const CarDetailsPage: NextPage<IProps> = () => {
         capId={84429}
         vehicleType={VehicleTypeEnum.CAR}
         derivativeInfo={derivativeInfo}
+        leaseAdjustParams={leaseAdjustParams}
       />
     </>
   );

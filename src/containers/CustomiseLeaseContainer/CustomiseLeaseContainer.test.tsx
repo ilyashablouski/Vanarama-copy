@@ -10,10 +10,32 @@ const mocks: MockedResponse[] = [
   {
     request: {
       query: GET_DETAILS_DATA,
-      variables: {},
+      variables: {
+        capIdDetails: '84429',
+        vehicleType: VehicleTypeEnum.CAR,
+      },
     },
     result: {
       data: {
+        derivativeInfo: {
+          colours: [
+            {
+              id: '13990',
+              optionDescription: 'Solid - Polar white',
+              __typename: 'Colour',
+            },
+          ],
+          id: '84429',
+          name: 'C200 AMG Line Premium 2 Doors 9G-Tronic',
+          trims: [
+            {
+              id: '15002',
+              optionDescription: 'Leather - Black',
+              __typename: 'Trim',
+            },
+          ],
+          __typename: 'Derivative',
+        },
         leaseAdjustParams: {
           mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
           terms: [24, 36, 48, 60],
@@ -67,50 +89,6 @@ const mocks: MockedResponse[] = [
       },
     },
   },
-  {
-    request: {
-      query: GET_QUOTE_DATA,
-      variables: {
-        capId: '84429',
-        colour: 13990,
-        leaseType: LeaseTypeEnum.BUSINESS,
-        mileage: 12000,
-        term: 24,
-        trim: 15002,
-        upfront: 1,
-        vehicleType: VehicleTypeEnum.CAR,
-      },
-    },
-    result: {
-      data: {
-        quoteByCapId: {
-          colour: '13990',
-          leadTime: '14-21 Day Delivery',
-          leaseType: 'BUSINESS',
-          maintained: {
-            monthlyRental: 61.75,
-            initialRental: 61.75,
-            excessMileage: 0,
-            __typename: 'RentalCost',
-          },
-          mileage: 12000,
-          nonMaintained: {
-            monthlyRental: 605.95,
-            initialRental: 605.95,
-            excessMileage: 14.76,
-            __typename: 'RentalCost',
-          },
-          processingFee: 0,
-          stock: 'Brand New - ',
-          term: 24,
-          trim: '112981',
-          upfront: 1,
-          vehicleType: 'CAR',
-          __typename: 'Quote',
-        },
-      },
-    },
-  },
 ];
 
 describe('<PersonalInformation />', () => {
@@ -121,6 +99,38 @@ describe('<PersonalInformation />', () => {
         <CustomiseLeaseContainer
           capId={84429}
           vehicleType={VehicleTypeEnum.CAR}
+          derivativeInfo={{
+            colours: [
+              { id: '13990', optionDescription: 'Solid - Polar white' },
+            ],
+            technicals: [
+              {
+                categoryDescription: 'Weight and Capacities',
+                derivativeId: '84429',
+                effectiveFrom: '2019-07-01T00:00:00.000Z',
+                effectiveTo: null,
+                id: '3',
+                technicalDescription: 'Minimum Kerbweight',
+                technicalLongDescription: 'Minimum Kerbweight',
+                value: '1515',
+              },
+            ],
+            standardEquipments: [
+              {
+                categoryDescription: 'Body Glass',
+                derivativeId: '84429',
+                effectiveFrom: '2018-06-01T00:00:00.000Z',
+                effectiveTo: null,
+                genericDescription: null,
+                id: '1475',
+                optionDescription: 'Green tinted glass',
+                optionLongDescription: 'Green tinted glass',
+              },
+            ],
+            trims: [
+              { id: '104562', optionDescription: 'Leather - Cranberry red' },
+            ],
+          }}
         />
       </MockedProvider>,
     );

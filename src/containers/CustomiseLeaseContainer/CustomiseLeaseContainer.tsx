@@ -15,18 +15,16 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   capId,
   vehicleType,
   derivativeInfo,
+  leaseAdjustParams,
 }) => {
-  const { data, loading, error } = useDetailsData(capId, vehicleType);
-
   const [leaseType, setLeaseType] = useState<string>('Personal');
   const [mileage, setMileage] = useState<null | number>(null);
-  const [upfront, setUpfront] = useState<null | number>(null);
+  const [upfront, setUpfront] = useState<number>(
+    leaseAdjustParams?.upfronts[0],
+  );
   const [colour, setColour] = useState<null | number>(null);
   const [term, setTerm] = useState<null | number>(null);
   const [trim, setTrim] = useState<null | number>(null);
-
-  const leaseAdjustParams = data?.leaseAdjustParams;
-  console.log('derivativeInfo3', derivativeInfo)
 
   const trims = derivativeInfo?.trims || [];
   const defaultTrim = trims[0] || undefined;
@@ -40,38 +38,37 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   );
   const defaultMillage = leaseAdjustParams?.mileages[defaultMillageNumber - 1];
 
-  const { data: quoteData, error: quoteError } = useQuery<
-    GetQuoteDetails,
-    GetQuoteDetailsVariables
-  >(GET_QUOTE_DATA, {
-    skip: !data,
-    variables: {
-      capId: `${capId}`,
-      vehicleType,
-      mileage: mileage || defaultMillage,
-      term: term || leaseAdjustParams?.terms[0],
-      upfront: upfront || leaseAdjustParams?.upfronts[0],
-      leaseType:
-        leaseType === 'Personal'
-          ? LeaseTypeEnum.PERSONAL
-          : LeaseTypeEnum.BUSINESS,
-      trim: trim || +(defaultTrimId || 0),
-      colour: colour || +(defaultColourId || 0),
+  const { data, error } = useQuery<GetQuoteDetails, GetQuoteDetailsVariables>(
+    GET_QUOTE_DATA,
+    {
+      variables: {
+        capId: `${capId}`,
+        vehicleType,
+        mileage: mileage || defaultMillage,
+        term: term || leaseAdjustParams?.terms[0],
+        upfront: upfront || leaseAdjustParams?.upfronts[0],
+        leaseType:
+          leaseType === 'Personal'
+            ? LeaseTypeEnum.PERSONAL
+            : LeaseTypeEnum.BUSINESS,
+        trim: trim || +(defaultTrimId || 0),
+        colour: colour || +(defaultColourId || 0),
+      },
     },
-  });
+  );
 
-  if (error || quoteError) {
+  if (error) {
     return (
       <div
         className="pdp--sidebar"
         style={{ minHeight: '40rem', display: 'flex', alignItems: 'center' }}
       >
-        {error?.message || quoteError?.message}
+        {error?.message}
       </div>
     );
   }
 
-  if (loading || !quoteData) {
+  if (!data) {
     return (
       <div
         className="pdp--sidebar"

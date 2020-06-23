@@ -26,9 +26,9 @@ export interface IProps {
   mileages: string[] | undefined;
   setLeaseType: Dispatch<SetStateAction<string>>;
   setMileage: Dispatch<SetStateAction<number | null>>;
-  setUpfront: Dispatch<SetStateAction<number | null>>;
+  setUpfront: Dispatch<SetStateAction<number>>;
   setColour: Dispatch<SetStateAction<number | null>>;
-  setTerm: Dispatch<SetStateAction<number | null>>;
+  setTerm: Dispatch<SetStateAction<number>>;
   setTrim: Dispatch<SetStateAction<number | null>>;
   quoteData: GetQuoteDetails;
   leaseType: string;

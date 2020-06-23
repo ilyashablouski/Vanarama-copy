@@ -255,9 +255,9 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         Please Select
       </option>
       <option
-        value="104562"
+        value="106120"
       >
-        Leather - Cranberry red
+        Leather - Porcelain
       </option>
     </select>
     <span
@@ -405,7 +405,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     <span
       className="text -b -ml-100 -regular -orange"
     >
-      6000 Miles
+      8000 Miles
     </span>
   </span>
   <div
@@ -414,14 +414,14 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     <input
       className="sliding-input__native"
       id="slidinginput"
-      max={3}
+      max={4}
       min="1"
       onChange={[Function]}
       step={1}
       style={
         Object {
-          "--steps": "3",
-          "--value": "150%",
+          "--steps": "4",
+          "--value": "100%",
         }
       }
       type="range"
@@ -445,6 +445,11 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         className="sliding-input__label-step"
       >
         10K
+      </span>
+      <span
+        className="sliding-input__label-step"
+      >
+        12K
       </span>
     </label>
   </div>
@@ -485,7 +490,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     <span
       className="text -b -ml-100 -regular -orange"
     >
-      36 Months
+      24 Months
     </span>
   </span>
   <div
@@ -615,9 +620,9 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         Please Select
       </option>
       <option
-        value="104562"
+        value="106120"
       >
-        Leather - Cranberry red
+        Leather - Porcelain
       </option>
     </select>
     <span

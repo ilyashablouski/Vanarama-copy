@@ -41,7 +41,6 @@ const CustomiseLease = ({
   const quoteByCapId = quoteData?.quoteByCapId;
   const leaseAdjustParams = data?.leaseAdjustParams;
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
-  console.log('derivativeInfo2', derivativeInfo)
 
   return (
     <div className="pdp--sidebar">
@@ -113,7 +112,7 @@ const CustomiseLease = ({
       <Select
         defaultValue={quoteByCapId?.colour || ''}
         className="-fullwidth"
-        onChange={value => setColour(+value)}
+        onChange={option => setColour(+option.currentTarget.value)}
       >
         {derivativeInfo?.colours?.map((currentColour: IColour | null) => (
           <option key={currentColour?.id} value={currentColour?.id}>
@@ -124,7 +123,7 @@ const CustomiseLease = ({
       <Select
         defaultValue={quoteByCapId?.trim || ''}
         className="-fullwidth"
-        onChange={value => setTrim(+value)}
+        onChange={option => setTrim(+option.currentTarget.value)}
       >
         {derivativeInfo?.trims?.map((currentTrim: ITrim | null) => (
           <option key={currentTrim?.id} value={currentTrim?.id}>
@@ -133,7 +132,17 @@ const CustomiseLease = ({
         ))}
       </Select>
 
-      <div className="lease-scanner--sticky-wrap">
+      <div
+        style={{
+          position: 'sticky',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          top: 0,
+          height: '100vh',
+          pointerEvents: 'none',
+        }}
+      >
         <LeaseScanner
           price={quoteByCapId?.nonMaintained?.monthlyRental || 0}
           orderNowClick={() => {}}

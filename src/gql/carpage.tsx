@@ -60,6 +60,11 @@ export const GET_CAR_DATA = gql`
         optionDescription
       }
     }
+    leaseAdjustParams {
+      mileages
+      terms
+      upfronts
+    }
   }
 `;
 
