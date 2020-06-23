@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
 import ThankYouPage from '../../../pages/olaf/thank-you';
@@ -18,7 +18,7 @@ jest.mock('../../../hooks/useMediaQuery');
 jest.mock('../../../gql/order');
 
 describe('<ThankYouPage />', () => {
-  it('should redirect to the home page when clicking the "View order" button', () => {
+  it('should redirect to the home page when clicking the "View order" button', async () => {
     // ARRANGE
     const mocks: MockedResponse[] = [];
 
@@ -33,7 +33,7 @@ describe('<ThankYouPage />', () => {
     fireEvent.click(screen.getByText(/View order/));
 
     // ASSERT
-    expect(mockPush).toBeCalledTimes(1);
+    await waitFor(() => expect(mockPush).toBeCalledTimes(1));
     expect(mockPush).toBeCalledWith('/');
   });
 });
