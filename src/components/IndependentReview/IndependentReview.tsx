@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
+import DOMPurify from 'dompurify';
 
 interface IIndependentReviewProps {
   review: any;
@@ -9,9 +10,10 @@ interface IIndependentReviewProps {
 
 const IndependentReview: React.FC<IIndependentReviewProps> = ({ review }) => {
   const [readMore, toggleRead] = useState(true);
+  const clearHtml = DOMPurify.sanitize(review);
   const props = {
     dangerouslySetInnerHTML: {
-      __html: readMore ? `${review.slice(0, 400)}...` : review,
+      __html: readMore ? `${clearHtml.slice(0, 400)}...` : clearHtml,
     },
   };
   return (
