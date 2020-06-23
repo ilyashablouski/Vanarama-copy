@@ -15,6 +15,7 @@ import { useCarData } from '../../../gql/carpage';
 import withApollo from '../../../hocs/withApollo';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import VehicleTechDetails from '../../../containers/VehicleTechDetails/VehicleTechDetails';
+import IndependentReview from '../../../components/IndependentReview/IndependentReview';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -56,6 +57,7 @@ const CarDetailsPage: NextPage<IProps> = () => {
   const vehicleDetails = data?.vehicleDetails;
   const derivativeInfo = data?.derivativeInfo;
   const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
+  const independentReview = data?.vehicleDetails?.independentReview;
 
   return (
     <div className="pdp--content">
@@ -99,6 +101,7 @@ const CarDetailsPage: NextPage<IProps> = () => {
         vehicleDetails={vehicleDetails}
         derivativeInfo={derivativeInfo}
       />
+      <IndependentReview review={independentReview || ''} />
     </div>
   );
 };
