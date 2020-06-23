@@ -5,17 +5,16 @@ import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import SummaryFormContainer from '../../../containers/SummaryFormContainer/SummaryFormContainer';
 import withApollo from '../../../hocs/withApollo';
 
+type QueryParams = {
+  uuid: string;
+};
+
 const SummaryPage: NextPage = () => {
   const router = useRouter();
-  const {
-    query: { uuid, derivativeId, orderId },
-  } = router;
+  const { uuid } = router.query as QueryParams;
   return (
-    <OLAFLayout
-      orderId={orderId as string}
-      derivativeId={derivativeId as string}
-    >
-      <SummaryFormContainer personUuid={uuid as string} />
+    <OLAFLayout>
+      <SummaryFormContainer personUuid={uuid} />
     </OLAFLayout>
   );
 };

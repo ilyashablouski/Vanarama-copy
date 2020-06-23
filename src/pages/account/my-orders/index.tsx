@@ -5,12 +5,16 @@ import withApollo from '../../../hocs/withApollo';
 import MyOverview from '../../../containers/MyOverview/MyOverview';
 import { PARTY_BY_UUID } from '../../../containers/OrdersInformation/OrderInformationContainer';
 
+type QueryParams = {
+  partyByUuid?: string;
+};
+
 const MyOrdersPage: NextPage = () => {
   const router = useRouter();
-  const partyByUuid = (router.query.partyByUuid as string) || PARTY_BY_UUID;
+  const { partyByUuid = PARTY_BY_UUID } = router.query as QueryParams;
 
   const [activeTab, setActiveTab] = useState(0);
-  const [status, changeStatus] = useState([] as string[]);
+  const [status, changeStatus] = useState<string[]>([]);
 
   return (
     <MyOverview
