@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
+import Card from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
 import { ICardTitleProps } from '@vanarama/uibook/lib/components/molecules/cards/CardTitle';
 import { ICardHeaderProps } from '@vanarama/uibook/lib/components/molecules/cards/CardHeader';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
@@ -39,13 +39,12 @@ const VehicleCard = ({ header, title, price }: IVehicleCardProps) => {
   return (
     <Card
       header={header}
+      features={FEATURES}
       description="Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id"
       imageSrc="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
-      features={FEATURES}
       onCompare={() => {}}
       onWishlist={() => {}}
       title={title}
-      withFooter
     >
       <div className="-flex-h">
         <Price

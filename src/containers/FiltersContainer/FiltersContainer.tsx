@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
+import React from 'react';
 import SearchFilters from '@vanarama/uibook/lib/components/organisms/search-filters';
 import SearchFiltersHead from '@vanarama/uibook/lib/components/organisms/search-filters/SearchFiltersHead';
-import SearchFilterTags from '@vanarama/uibook/lib/components/organisms/search-filters/SearchFilterTags';
 import Dropdown from '@vanarama/uibook/lib/components/atoms/dropdown';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
@@ -14,57 +11,13 @@ import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import OptionsIcon from '@vanarama/uibook/lib/assets/icons/Options';
 import { filtersConfig } from './config';
-import SearchPod from '../../components/SearchPod';
 import { IFilterContainerProps } from './interfaces';
 
 const FiltersContainer = ({ isPersonal, setType }: IFilterContainerProps) => {
-  // const [selectedFiltersState, setSelectedFiltersState] = useState(
-  //   presetFilters || initialState,
-  // );
-  // const [selectedFilterTags, setSelectedFilterTags] = useState(['']);
+  // toogle personal/bussiness prices
+  const toggleHandler = (value: React.ChangeEvent<HTMLInputElement>) =>
+    setType(value.target.checked);
 
-  // useEffect(() => {
-  //   const selected: string[] = Object.entries(selectedFiltersState)
-  //     ?.map(entry => entry[1])
-  //     .flat()
-  //     .filter(Boolean);
-  //   setSelectedFilterTags([...new Set(selected)]);
-  // }, [selectedFiltersState]);
-
-  // const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //   const { value, name } = e.target;
-  //   setSelectedFiltersState({ ...selectedFiltersState, [name]: [value] });
-  // };
-
-  // const handleChecked = (e: {
-  //   target: { name: any; value: string; checked: boolean };
-  // }) => {
-  //   // eslint-disable-next-line prefer-destructuring
-  //   const name: keyof typeof selectedFiltersState = e.target.name;
-  //   const { value, checked } = e.target;
-  //   const newSelectedFilters = { ...selectedFiltersState };
-
-  //   if (!newSelectedFilters[name]) newSelectedFilters[name] = [];
-
-  //   // Add.
-  //   if (checked) newSelectedFilters[name].push(value);
-  //   // Remove.
-  //   else {
-  //     const index = newSelectedFilters[name].indexOf(value);
-  //     if (index > -1) newSelectedFilters[name].splice(index, 1);
-  //   }
-
-  //   // Remove duplicates.
-  //   newSelectedFilters[name] = [...new Set(newSelectedFilters[name])];
-
-  //   setSelectedFiltersState({ ...newSelectedFilters });
-  // };
-
-  // const handleClearAll = () => {
-  //   setSelectedFiltersState(initialState);
-  //   console.log(selectedFiltersState);
-  // };
-  const toggleHandler = value => setType(value.target.checked);
   return (
     <SearchFilters>
       <SearchFiltersHead>
@@ -84,15 +37,19 @@ const FiltersContainer = ({ isPersonal, setType }: IFilterContainerProps) => {
         />
       </SearchFiltersHead>
       {filtersConfig.map(filter => (
-        <Dropdown label={filter.label} className="search-filters--dropdown">
+        <Dropdown
+          label={filter.label}
+          className="search-filters--dropdown"
+          key={filter.label}
+        >
           {filter.contentType === 'dropdowns' &&
             filter.dropdowns?.map(dropdown => (
-              <FormGroup label={dropdown.label}>
+              <FormGroup label={dropdown.label} key={dropdown.label}>
                 <Select
                   name={dropdown.accessor}
                   placeholder={`Select ${dropdown.accessor}`}
                 >
-                  <option value="value}">"test"</option>
+                  <option value="value}">test</option>
                 </Select>
               </FormGroup>
             ))}
@@ -116,8 +73,6 @@ const FiltersContainer = ({ isPersonal, setType }: IFilterContainerProps) => {
           />
         </Dropdown>
       ))}
-
-      <SearchFilterTags selectedFilters={['']} onClearAll={() => {}} />
     </SearchFilters>
   );
 };

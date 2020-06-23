@@ -5,70 +5,91 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Search from '@vanarama/uibook/lib/components/atoms/search';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
-import FiltersContainer from 'containers/FiltersContainer';
 import { useRouter } from 'next/router';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
+import FiltersContainer from '../FiltersContainer';
 import VehicleCard from './VehicleCard';
 import { getVehiclesList } from './gql';
 import withApollo from '../../hocs/withApollo';
-import { vehicleList_vehicleList_edges as IEdges } from '../../../generated/vehicleList';
+import {
+  vehicleList_vehicleList_edges_node_financeProfiles as IFinanceProfile,
+  vehicleList_vehicleList_edges as IVehicles,
+} from '../../../generated/vehicleList';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
-const crumbs = [
-  { label: 'Home', href: '/' },
-  { label: 'Home', href: '/' },
-  { label: 'Home', href: '/' },
-];
-
 const SearchPage: NextPage = () => {
-  const { pathname, query } = useRouter();
+  const { query } = useRouter();
 
-  const [vehiclesList, setVehicleList] = useState([] as (IEdges | null)[] | []);
+  const [vehiclesList, setVehicleList] = useState([] as any);
   const [lastCard, setLastCard] = useState('');
   const [isPersonal, setIsPersonal] = useState(true);
+  const [isSpecialOffers, setIsSpecialOffers] = useState(true);
   const [totalCount, setTotalCount] = useState(0);
+  const [isCarSearchType, setCarSearchType] = useState(false);
 
-  const [getVehicles, { data }] = getVehiclesList([VehicleTypeEnum.LCV]);
+  const [getVehicles, { data }] = getVehiclesList(
+    isCarSearchType ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
+    isSpecialOffers,
+  );
+  // using for cache request
   const [getVehiclesCache, { data: cacheData }] = getVehiclesList(
-    [VehicleTypeEnum.LCV],
+    isCarSearchType ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
+    isSpecialOffers,
     lastCard,
   );
 
-  useEffect(() => {
-    getVehicles();
-  }, [getVehicles]);
+  // check for vehicle type search
+  const isCarSearch = (value = '') => value.indexOf('car') > -1;
+  const crumbs = [
+    { label: 'Home', href: '/' },
+    { label: `${isCarSearchType ? 'Car' : 'Vans'} Search`, href: '/' },
+  ];
 
+  // made a first requeset after render
+  useEffect(() => {
+    if (query.search) {
+      getVehicles();
+      setCarSearchType(isCarSearch(query.search as string));
+    }
+  }, [getVehicles, query.search]);
+
+  // initial set offers
   useEffect(() => {
     if (data?.vehicleList) {
-      setVehicleList(data.vehicleList.edges || []);
+      setVehicleList(data.vehicleList?.edges || []);
       setLastCard(data.vehicleList.pageInfo.endCursor || '');
       setTotalCount(data.vehicleList.totalCount);
     }
   }, [data, setVehicleList, setLastCard, setTotalCount]);
 
+  // get vehicles to cache
   useEffect(() => {
     if (lastCard) getVehiclesCache();
-  }, [lastCard]);
+  }, [lastCard, getVehiclesCache]);
 
+  // load more offers
   const onLoadMore = () => {
     setVehicleList([...vehiclesList, ...(cacheData?.vehicleList.edges || [])]);
     if (vehiclesList.length < totalCount)
       setLastCard(cacheData?.vehicleList.pageInfo.endCursor || '');
   };
 
-  const priceBuilder = (financeProfiles) :number|null => {
+  // build price for offers
+  const priceBuilder = (financeProfiles: IFinanceProfile[]): number | null => {
     let price = null;
-    isPersonal
-      ? financeProfiles.find(el =>
-          el.leaseType === 'PERSONAL' ? price = el.rate : false,
-        )
-      : financeProfiles.find(el =>
-          el.leaseType === 'BUSINESS' ? price = el.rate : false,
-        );
+    if (isPersonal) {
+      financeProfiles.forEach(el => {
+        if (el.leaseType === 'PERSONAL') price = el.rate;
+      });
+    } else {
+      financeProfiles.forEach(el => {
+        if (el.leaseType === 'BUSINESS') price = el.rate;
+      });
+    }
 
-        return price;
+    return price;
   };
 
   return (
@@ -84,7 +105,12 @@ const SearchPage: NextPage = () => {
       </div>
       <div className="-mv-400 -stretch-left">
         <Search />
-        <Checkbox id="specialOffer" label="View Special Offers Only" />
+        <Checkbox
+          id="specialOffer"
+          label="View Special Offers Only"
+          checked={isSpecialOffers}
+          onChange={e => setIsSpecialOffers(e.target.checked)}
+        />
       </div>
       <div className="row:bg-light -xthin">
         <div className="row:search-filters">
@@ -97,12 +123,12 @@ const SearchPage: NextPage = () => {
       <div className="row:bg-lighter -thin">
         <div className="row:results">
           <Text color="darker" size="regular" tag="span">
-            We just need some initial details for your credit check.
+            {`Showing ${totalCount} Results`}
           </Text>
           <div className="row:cards-3col">
-            {vehiclesList?.map(vehicle => (
+            {vehiclesList?.map((vehicle: IVehicles) => (
               <VehicleCard
-                key={vehicle.node.capCode}
+                key={vehicle?.node?.capCode || ''}
                 header={{
                   accentIcon: (
                     <Icon
@@ -117,14 +143,16 @@ const SearchPage: NextPage = () => {
                 title={{
                   title: '',
                   link: (
-                    <a href="#" className="heading -large -black">
-                      {`${vehicle.node.manufacturerName} ${vehicle.node.modelName}`}
+                    <a href="/" className="heading -large -black">
+                      {`${vehicle.node?.manufacturerName} ${vehicle.node?.modelName}`}
                     </a>
                   ),
-                  description: vehicle.node.derivativeName,
+                  description: vehicle.node?.derivativeName || '',
                   score: 4.5,
                 }}
-                price={priceBuilder(vehicle.node.financeProfiles)}
+                price={priceBuilder(
+                  vehicle.node?.financeProfiles as IFinanceProfile[],
+                )}
               />
             ))}
           </div>

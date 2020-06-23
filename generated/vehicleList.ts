@@ -85,5 +85,6 @@ export interface vehicleList {
 
 export interface vehicleListVariables {
   vehicleTypes?: VehicleTypeEnum[] | null;
+  onOffer?: boolean | null;
   after?: string | null;
 }
