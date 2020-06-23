@@ -60,7 +60,7 @@ const PasswordChangeContainer = ({
     if (error && error?.networkError !== null) {
       onNetworkError?.(error?.networkError);
     }
-  }, [changePasswordError, checkPasswordError]);
+  }, [changePasswordError, checkPasswordError, onNetworkError]);
 
   return (
     <ResetPasswordForm
