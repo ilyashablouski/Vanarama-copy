@@ -5,31 +5,28 @@ import React from 'react';
 import EmploymentFormContainer from '../../../containers/EmploymentFormContainer/EmploymentFormContainer';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
-import { getUrlParam } from '../../../utils/url';
+import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
+
+type QueryParams = OLAFQueryParams & {
+  uuid: string;
+};
 
 const EmploymentHistoryPage: NextPage = () => {
   const router = useRouter();
-  const {
-    query: { uuid, derivativeId, orderId },
-  } = router;
+  const { derivativeId, orderId, uuid } = router.query as QueryParams;
   return (
-    <OLAFLayout
-      orderId={orderId as string}
-      derivativeId={derivativeId as string}
-    >
+    <OLAFLayout>
       <EmploymentFormContainer
         onCompleted={() => {
+          const params = getUrlParam({ derivativeId, orderId });
           const url =
             router.query.redirect === 'summary'
-              ? `/olaf/summary/[uuid]${getUrlParam({ orderId, derivativeId })}`
-              : `/olaf/expenses/[uuid]${getUrlParam({
-                  orderId,
-                  derivativeId,
-                })}`;
+              ? `/olaf/summary/[uuid]${params}`
+              : `/olaf/expenses/[uuid]${params}`;
 
-          router.push(url, url.replace('[uuid]', uuid as string));
+          router.push(url, url.replace('[uuid]', uuid));
         }}
-        personUuid={uuid as string}
+        personUuid={uuid}
       />
     </OLAFLayout>
   );

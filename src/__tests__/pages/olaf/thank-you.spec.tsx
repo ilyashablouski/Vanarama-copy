@@ -9,6 +9,7 @@ jest.mock('next/router', () => ({
     return {
       pathname: '/olaf/thank-you',
       push: mockPush,
+      query: {},
     };
   },
 }));
