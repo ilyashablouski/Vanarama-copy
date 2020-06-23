@@ -9,13 +9,12 @@ import Rating from '@vanarama/uibook/lib/components/atoms/rating';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import DownloadSharp from '@vanarama/uibook/lib/assets/icons/DownloadSharp';
-import Select from '@vanarama/uibook/lib/components/atoms/select';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
-import Toggle from '@vanarama/uibook/lib/components/atoms/toggle';
 import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-gallery';
 import { useCarData } from '../../../gql/carpage';
 import withApollo from '../../../hocs/withApollo';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import CustomiseYouLeaseContainer from '../../../containers/CustomiseYouLeaseContainer/CustomiseYourLeaseContainer';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -31,6 +30,9 @@ const PATH = {
 
 const CarDetailsPage: NextPage<IProps> = () => {
   const { data, loading, error } = useCarData(84429, VehicleTypeEnum.CAR);
+
+  const vehicleDetails = data?.vehicleDetails;
+  const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
 
   if (loading) {
     return (
@@ -49,13 +51,10 @@ const CarDetailsPage: NextPage<IProps> = () => {
         className="dpd-content"
         style={{ minHeight: '40rem', display: 'flex', alignItems: 'center' }}
       >
-        {error.message}
+        {error?.message}
       </div>
     );
   }
-
-  const vehicleDetails = data?.vehicleDetails;
-  const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
 
   return (
     <div className="page:pdp">
@@ -90,7 +89,7 @@ const CarDetailsPage: NextPage<IProps> = () => {
                 flag={{
                   accentIcon: <Icon icon={<Flame />} color="white" />,
                   accentText: 'Hot Deal',
-                  text: '14 - 21 Days Delivery',
+                  text: `14-21 DAYS DELIVERY`,
                   incomplete: true,
                 }}
                 images={[
@@ -107,49 +106,10 @@ const CarDetailsPage: NextPage<IProps> = () => {
           </div>
         </div>
       </div>
-      <div className="pdp--sidebar">
-        <Heading tag="span" size="xlarge" color="black">
-          Customise Your Lease
-        </Heading>
-        <Heading tag="span" size="regular" color="black">
-          Lease Type
-        </Heading>
-        <Toggle
-          className="--cols2"
-          id="teal"
-          onLabel="Personal"
-          offLabel="Business"
-          color="teal"
-        />
-        <Heading tag="span" size="regular" color="black">
-          Annual Mileage: 10,000 Miles
-        </Heading>
-        <Heading tag="span" size="regular" color="black">
-          Length Of Lease: 36 Months
-        </Heading>
-        <Heading tag="span" size="regular" color="black">
-          Initial Payment: £1200 inc. VAT
-        </Heading>
-        <Heading tag="span" size="regular" color="black">
-          Vehicle Options
-        </Heading>
-        <Select defaultValue="black">
-          <option style={{ width: '100%' }} value="black">
-            Mettalick Black
-          </option>
-          <option style={{ width: '100%' }} value="red">
-            Mettalick Red
-          </option>
-          <option style={{ width: '100%' }} value="blue">
-            Mettalick Blue
-          </option>
-        </Select>
-        <Select>
-          <option style={{ width: '100%' }} value="options">
-            Options...
-          </option>
-        </Select>
-      </div>
+      <CustomiseYouLeaseContainer
+        capId={84429}
+        vehicleType={VehicleTypeEnum.CAR}
+      />
     </div>
   );
 };

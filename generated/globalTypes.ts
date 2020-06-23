@@ -176,7 +176,6 @@ export interface MyAccountInputObject {
  */
 export interface PersonInputObject {
   about?: string | null;
-  address?: AddressInputObject | null;
   company?: CompanyInputObject | null;
   countryOfBirth?: string | null;
   dateOfBirth?: any | null;
@@ -200,7 +199,7 @@ export interface PersonInputObject {
   profilingConsent?: boolean | null;
   role?: RoleInputObject | null;
   smsConsent?: boolean | null;
-  telephoneNumber?: TelephoneNumberInputObject | null;
+  telephoneNumbers?: TelephoneNumberInputObject[] | null;
   termsAndConditions?: boolean | null;
   title?: string | null;
   tradingName?: string | null;
