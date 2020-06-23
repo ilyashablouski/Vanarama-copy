@@ -14,7 +14,7 @@ import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-galler
 import { useCarData } from '../../../gql/carpage';
 import withApollo from '../../../hocs/withApollo';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
-import CustomiseYouLeaseContainer from '../../../containers/CustomiseYouLeaseContainer/CustomiseYourLeaseContainer';
+import CustomiseLeaseContainer from '../../../containers/CustomiseLeaseContainer/CustomiseLeaseContainer';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -104,7 +104,7 @@ const CarDetailsPage: NextPage<IProps> = () => {
           </div>
         </div>
       </div>
-      <CustomiseYouLeaseContainer
+      <CustomiseLeaseContainer
         capId={84429}
         vehicleType={VehicleTypeEnum.CAR}
       />

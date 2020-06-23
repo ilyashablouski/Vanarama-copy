@@ -6,7 +6,6 @@ import Select from '@vanarama/uibook/lib/components/atoms/select';
 import SlidingInput from '@vanarama/uibook/lib/components/atoms/sliding-input';
 import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
 import SpeedometerOutline from '@vanarama/uibook/lib/assets/icons/SpeedometerSharp';
-import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import { IProps, IColour, ITrim } from './interfase';
 
 const LEASING_PROVIDERS = [
@@ -23,7 +22,7 @@ const LEASING_PROVIDERS = [
   'BlackHorse',
 ];
 
-const CustomiseYourLease = ({
+const CustomiseLease = ({
   terms,
   upfronts,
   leaseTypes,
@@ -41,11 +40,16 @@ const CustomiseYourLease = ({
   const quoteByCapId = quoteData?.quoteByCapId;
   const leaseAdjustParams = data?.leaseAdjustParams;
   const derivativeInfo = data?.derivativeInfo;
-  const stateVAT = leaseType === LeaseTypeEnum.PERSONAL ? 'inc' : 'exc';
+  const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
 
   return (
     <div className="pdp--sidebar">
-      <Heading tag="span" size="xlarge" color="black">
+      <Heading
+        tag="span"
+        size="xlarge"
+        color="black"
+        dataTestId="customiseYourLease"
+      >
         Customise Your Lease
       </Heading>
       <Heading tag="span" size="regular" color="black">
@@ -54,11 +58,7 @@ const CustomiseYourLease = ({
       <Choiceboxes
         choices={leaseTypes}
         onSubmit={value => {
-          setLeaseType(
-            value.label === 'Person'
-              ? LeaseTypeEnum.PERSONAL
-              : LeaseTypeEnum.BUSINESS,
-          );
+          setLeaseType(value.label);
         }}
       />
       <Heading tag="span" size="regular" color="black">
@@ -146,4 +146,4 @@ const CustomiseYourLease = ({
   );
 };
 
-export default CustomiseYourLease;
+export default CustomiseLease;

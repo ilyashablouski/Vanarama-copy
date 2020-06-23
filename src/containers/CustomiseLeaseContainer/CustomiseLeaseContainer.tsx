@@ -1,25 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import {
   GetQuoteDetails,
   GetQuoteDetailsVariables,
 } from '../../../generated/GetQuoteDetails';
-import CustomiseYouLease from '../../components/CustomiseYouLease/CustomiseYouLease';
+import CustomiseLease from '../../components/CustomiseLease/CustomiseLease';
 import { useDetailsData, GET_QUOTE_DATA } from './gql';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import { IProps } from './interfaces';
 
 // eslint-disable-next-line no-empty-pattern
-const CustomiseYourLeaseContainer: React.FC<IProps> = ({
-  capId,
-  vehicleType,
-}) => {
+const CustomiseLeaseContainer: React.FC<IProps> = ({ capId, vehicleType }) => {
   const { data, loading, error } = useDetailsData(capId, vehicleType);
 
-  const [leaseType, setLeaseType] = useState<LeaseTypeEnum>(
-    LeaseTypeEnum.PERSONAL,
-  );
+  const [leaseType, setLeaseType] = useState<string>('Personal');
   const [mileage, setMileage] = useState<null | number>(null);
   const [upfront, setUpfront] = useState<null | number>(null);
   const [colour, setColour] = useState<null | number>(null);
@@ -52,7 +47,10 @@ const CustomiseYourLeaseContainer: React.FC<IProps> = ({
       mileage: mileage || defaultMillage,
       term: term || leaseAdjustParams?.terms[0],
       upfront: upfront || leaseAdjustParams?.upfronts[0],
-      leaseType,
+      leaseType:
+        leaseType === 'Personal'
+          ? LeaseTypeEnum.PERSONAL
+          : LeaseTypeEnum.BUSINESS,
       trim: trim || +(defaultTrimId || 0),
       colour: colour || +(defaultColourId || 0),
     },
@@ -104,7 +102,7 @@ const CustomiseYourLeaseContainer: React.FC<IProps> = ({
   });
 
   return (
-    <CustomiseYouLease
+    <CustomiseLease
       terms={terms || [{ label: '', active: false }]}
       upfronts={upfronts || [{ label: '', active: false }]}
       leaseType={leaseType}
@@ -122,4 +120,4 @@ const CustomiseYourLeaseContainer: React.FC<IProps> = ({
   );
 };
 
-export default CustomiseYourLeaseContainer;
+export default CustomiseLeaseContainer;

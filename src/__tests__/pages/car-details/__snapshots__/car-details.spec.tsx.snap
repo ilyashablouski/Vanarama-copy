@@ -1,297 +1,289 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<CarDetailsPage /> renders correctly with data 1`] = `
-<div
-  className="dpd-content -pt-500"
->
+Array [
   <div
-    style={
-      Object {
-        "maxWidth": 740,
-      }
-    }
+    className="pdp--content -pt-500"
   >
-    <nav>
-      <ol
-        className="breadcrumb"
-      >
-        <li
-          className="breadcrumb-item -parent"
-        >
-          <a
-            className="link breadcrumb-item--backlink -teal -small -plain"
-            href="/"
-          >
-            Back to 
-            Home
-            <i
-              className="icon -medium -xsmall"
-            >
-              <svg
-                height="1em"
-                viewBox="0 0 512 512"
-                width="1em"
-              >
-                <title>
-                  ionicons-v5-a
-                </title>
-                <polyline
-                  points="328 112 184 256 328 400"
-                  style={
-                    Object {
-                      "fill": "none",
-                      "stroke": "var(--class-color)",
-                      "strokeLinecap": "round",
-                      "strokeLinejoin": "round",
-                      "strokeWidth": 48,
-                    }
-                  }
-                />
-              </svg>
-            </i>
-          </a>
-          <a
-            className="link breadcrumb-item--parent -teal -small -plain"
-            href="/"
-          >
-            Home
-          </a>
-          <i
-            className="icon -medium -xsmall"
-          >
-            <svg
-              height="1em"
-              viewBox="0 0 512 512"
-              width="1em"
-            >
-              <title>
-                ionicons-v5-a
-              </title>
-              <polyline
-                points="184 112 328 256 184 400"
-                style={
-                  Object {
-                    "fill": "none",
-                    "stroke": "var(--class-color)",
-                    "strokeLinecap": "round",
-                    "strokeLinejoin": "round",
-                    "strokeWidth": 48,
-                  }
-                }
-              />
-            </svg>
-          </i>
-        </li>
-        <li
-          className="breadcrumb-item -parent"
-        >
-          <a
-            className="link breadcrumb-item--backlink -teal -small -plain"
-            href="/"
-          >
-            Back to 
-            Mercedes
-            <i
-              className="icon -medium -xsmall"
-            >
-              <svg
-                height="1em"
-                viewBox="0 0 512 512"
-                width="1em"
-              >
-                <title>
-                  ionicons-v5-a
-                </title>
-                <polyline
-                  points="328 112 184 256 328 400"
-                  style={
-                    Object {
-                      "fill": "none",
-                      "stroke": "var(--class-color)",
-                      "strokeLinecap": "round",
-                      "strokeLinejoin": "round",
-                      "strokeWidth": 48,
-                    }
-                  }
-                />
-              </svg>
-            </i>
-          </a>
-          <a
-            className="link breadcrumb-item--parent -teal -small -plain"
-            href="/"
-          >
-            Mercedes
-          </a>
-          <i
-            className="icon -medium -xsmall"
-          >
-            <svg
-              height="1em"
-              viewBox="0 0 512 512"
-              width="1em"
-            >
-              <title>
-                ionicons-v5-a
-              </title>
-              <polyline
-                points="184 112 328 256 184 400"
-                style={
-                  Object {
-                    "fill": "none",
-                    "stroke": "var(--class-color)",
-                    "strokeLinecap": "round",
-                    "strokeLinejoin": "round",
-                    "strokeWidth": 48,
-                  }
-                }
-              />
-            </svg>
-          </i>
-        </li>
-        <li
-          className="breadcrumb-item -child"
-        >
-          <span
-            className="text breadcrumb-item--child -small -darker"
-          >
-            Benz
-          </span>
-        </li>
-      </ol>
-    </nav>
-    <span
-      className="heading -pt-100 -black -xlarge"
-    >
-      Mercedes-Benz
-    </span>
-    <span
-      className="text -lead -darker"
-    >
-      C200 Amg Line Premium 2 Doors 9g-Tronic
-    </span>
     <div
-      className="-mt-500 -mb-200"
       style={
         Object {
-          "display": "flex",
-          "justifyContent": "space-between",
+          "maxWidth": 740,
         }
       }
     >
+      <nav>
+        <ol
+          className="breadcrumb"
+        >
+          <li
+            className="breadcrumb-item -parent"
+          >
+            <a
+              className="link breadcrumb-item--backlink -teal -small -plain"
+              href="/"
+            >
+              Back to 
+              Home
+              <i
+                className="icon -medium -xsmall"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-a
+                  </title>
+                  <polyline
+                    points="328 112 184 256 328 400"
+                    style={
+                      Object {
+                        "fill": "none",
+                        "stroke": "var(--class-color)",
+                        "strokeLinecap": "round",
+                        "strokeLinejoin": "round",
+                        "strokeWidth": 48,
+                      }
+                    }
+                  />
+                </svg>
+              </i>
+            </a>
+            <a
+              className="link breadcrumb-item--parent -teal -small -plain"
+              href="/"
+            >
+              Home
+            </a>
+            <i
+              className="icon -medium -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="184 112 328 256 184 400"
+                  style={
+                    Object {
+                      "fill": "none",
+                      "stroke": "var(--class-color)",
+                      "strokeLinecap": "round",
+                      "strokeLinejoin": "round",
+                      "strokeWidth": 48,
+                    }
+                  }
+                />
+              </svg>
+            </i>
+          </li>
+          <li
+            className="breadcrumb-item -parent"
+          >
+            <a
+              className="link breadcrumb-item--backlink -teal -small -plain"
+              href="/"
+            >
+              Back to 
+              Mercedes
+              <i
+                className="icon -medium -xsmall"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-a
+                  </title>
+                  <polyline
+                    points="328 112 184 256 328 400"
+                    style={
+                      Object {
+                        "fill": "none",
+                        "stroke": "var(--class-color)",
+                        "strokeLinecap": "round",
+                        "strokeLinejoin": "round",
+                        "strokeWidth": 48,
+                      }
+                    }
+                  />
+                </svg>
+              </i>
+            </a>
+            <a
+              className="link breadcrumb-item--parent -teal -small -plain"
+              href="/"
+            >
+              Mercedes
+            </a>
+            <i
+              className="icon -medium -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="184 112 328 256 184 400"
+                  style={
+                    Object {
+                      "fill": "none",
+                      "stroke": "var(--class-color)",
+                      "strokeLinecap": "round",
+                      "strokeLinejoin": "round",
+                      "strokeWidth": 48,
+                    }
+                  }
+                />
+              </svg>
+            </i>
+          </li>
+          <li
+            className="breadcrumb-item -child"
+          >
+            <span
+              className="text breadcrumb-item--child -small -darker"
+            >
+              Benz
+            </span>
+          </li>
+        </ol>
+      </nav>
+      <span
+        className="heading -pt-100 -black -xlarge"
+      >
+        Mercedes-Benz
+      </span>
+      <span
+        className="text -lead -darker"
+      >
+        C200 Amg Line Premium 2 Doors 9g-Tronic
+      </span>
       <div
-        className="rating -regular -orange"
-      >
-        <span>
-          <i
-            className="icon -orange"
-          >
-            <svg
-              height="1em"
-              viewBox="0 0 512 512"
-              width="1em"
-            >
-              <title>
-                ionicons-v5-e
-              </title>
-              <path
-                d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
-              />
-            </svg>
-          </i>
-        </span>
-        <span>
-          <i
-            className="icon -orange"
-          >
-            <svg
-              height="1em"
-              viewBox="0 0 512 512"
-              width="1em"
-            >
-              <title>
-                ionicons-v5-e
-              </title>
-              <path
-                d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
-              />
-            </svg>
-          </i>
-        </span>
-        <span>
-          <i
-            className="icon -orange"
-          >
-            <svg
-              height="1em"
-              viewBox="0 0 512 512"
-              width="1em"
-            >
-              <title>
-                ionicons-v5-e
-              </title>
-              <path
-                d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
-              />
-            </svg>
-          </i>
-        </span>
-        <span>
-          <i
-            className="icon -orange"
-          >
-            <svg
-              height="1em"
-              viewBox="0 0 512 512"
-              width="1em"
-            >
-              <title>
-                ionicons-v5-e
-              </title>
-              <path
-                d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
-              />
-            </svg>
-          </i>
-        </span>
-        <span>
-          <i
-            className="icon -orange"
-          >
-            <svg
-              height="1em"
-              viewBox="0 0 512 512"
-              width="1em"
-            >
-              <title>
-                ionicons-v5-e
-              </title>
-              <path
-                d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7ZM274.63,347.82,256,334.49V134.39l26,78.91,7.24,22H394.63l-67.32,47.2-19.69,13.81,7.78,22.75,26.26,76.75Z"
-              />
-            </svg>
-          </i>
-        </span>
-        <span
-          className="text -regular -dark"
-        >
-          4.7
-        </span>
-      </div>
-    </div>
-    <div
-      className="page:pdp"
-      style={
-        Object {
-          "background": "none",
+        className="-mt-500 -mb-200"
+        style={
+          Object {
+            "display": "flex",
+            "justifyContent": "space-between",
+          }
         }
-      }
-    >
+      >
+        <div
+          className="rating -regular -orange"
+        >
+          <span>
+            <i
+              className="icon -orange"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-e
+                </title>
+                <path
+                  d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
+                />
+              </svg>
+            </i>
+          </span>
+          <span>
+            <i
+              className="icon -orange"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-e
+                </title>
+                <path
+                  d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
+                />
+              </svg>
+            </i>
+          </span>
+          <span>
+            <i
+              className="icon -orange"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-e
+                </title>
+                <path
+                  d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
+                />
+              </svg>
+            </i>
+          </span>
+          <span>
+            <i
+              className="icon -orange"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-e
+                </title>
+                <path
+                  d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
+                />
+              </svg>
+            </i>
+          </span>
+          <span>
+            <i
+              className="icon -orange"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-e
+                </title>
+                <path
+                  d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7ZM274.63,347.82,256,334.49V134.39l26,78.91,7.24,22H394.63l-67.32,47.2-19.69,13.81,7.78,22.75,26.26,76.75Z"
+                />
+              </svg>
+            </i>
+          </span>
+          <span
+            className="text -regular -dark"
+          >
+            4.7
+          </span>
+        </div>
+      </div>
       <div
         style={
           Object {
-            "gridColumnEnd": 15,
-            "gridColumnStart": 1,
+            "background": "none",
           }
         }
       >
@@ -300,7 +292,7 @@ exports[`<CarDetailsPage /> renders correctly with data 1`] = `
         >
           <div>
             <span>
-              14 - 21 Days Delivery
+              14-21 DAYS DELIVERY
             </span>
           </div>
           <div>
@@ -687,13 +679,39 @@ exports[`<CarDetailsPage /> renders correctly with data 1`] = `
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </div>,
+  <div
+    className="pdp--sidebar"
+    style={
+      Object {
+        "alignItems": "center",
+        "display": "flex",
+        "minHeight": "40rem",
+      }
+    }
+  >
+    <div
+      className="loading -xlarge"
+    >
+      <svg
+        className="loading--svg"
+        viewBox="-75 -75 150 150"
+      >
+        <circle
+          className="loading--stroke"
+          cx="0"
+          cy="0"
+          r="37.5"
+        />
+      </svg>
+    </div>
+  </div>,
+]
 `;
 
 exports[`<CarDetailsPage /> renders correctly with error 1`] = `
 <div
-  className="dpd-content"
+  className="pdp--content"
   style={
     Object {
       "alignItems": "center",
@@ -708,7 +726,7 @@ exports[`<CarDetailsPage /> renders correctly with error 1`] = `
 
 exports[`<CarDetailsPage /> renders correctly with loading 1`] = `
 <div
-  className="dpd-content"
+  className="pdp--content"
   style={
     Object {
       "alignItems": "center",
