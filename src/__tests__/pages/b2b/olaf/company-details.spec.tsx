@@ -446,7 +446,7 @@ describe('B2B Company Details page', () => {
     await waitFor(() =>
       expect(
         screen.getByText(
-          /This company seems to be dissolved. Please try a new search/i,
+          /This company seems not to be trading actively. Please try a new search/i,
         ),
       ).toBeInTheDocument(),
     );
@@ -464,7 +464,7 @@ describe('B2B Company Details page', () => {
     await waitFor(() =>
       expect(
         screen.queryByText(
-          /This company seems to be dissolved. Please try a new search/i,
+          /This company seems not to be trading actively. Please try a new search/i,
         ),
       ).not.toBeInTheDocument(),
     );
