@@ -120,7 +120,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   <span
     className="heading -black -regular"
   >
-    Lease Type
+    Length Of Lease:
     <span
       className="text -b -ml-100 -regular -orange"
     >
@@ -201,7 +201,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         disabled={true}
         value=""
       >
-        Please Select
+        Select Paint Holder
       </option>
       <option
         value="13990"
@@ -252,7 +252,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         disabled={true}
         value=""
       >
-        Please Select
+        Select Interior
       </option>
       <option
         value="104562"
@@ -490,7 +490,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   <span
     className="heading -black -regular"
   >
-    Lease Type
+    Length Of Lease:
     <span
       className="text -b -ml-100 -regular -orange"
     >
@@ -571,7 +571,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         disabled={true}
         value=""
       >
-        Please Select
+        Select Paint Holder
       </option>
       <option
         value="13990"
@@ -622,7 +622,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         disabled={true}
         value=""
       >
-        Please Select
+        Select Interior
       </option>
       <option
         value="104562"
