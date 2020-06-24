@@ -30,6 +30,7 @@ export interface GetVehicleDetails_vehicleDetails {
   brochureUrl: string | null;
   keyInformation: (GetVehicleDetails_vehicleDetails_keyInformation | null)[] | null;
   independentReview: string | null;
+  warranty: string | null;
 }
 
 export interface GetVehicleDetails_derivativeInfo_technicals {
