@@ -31,10 +31,10 @@ export interface IProps {
   setUpfront: Dispatch<SetStateAction<number | undefined>>;
   setColour: Dispatch<SetStateAction<number | null>>;
   setTerm: Dispatch<SetStateAction<number>>;
-  setTrim: Dispatch<SetStateAction<number | undefined>>;
+  setTrim: Dispatch<SetStateAction<string | undefined>>;
   data: GetQuoteDetails;
   leaseType: string;
-  trim: number | undefined;
+  trim: string | undefined;
   derivativeInfo: GetVehicleDetails_derivativeInfo | null | undefined;
-  leaseAdjustParams: GetVehicleDetails_leaseAdjustParams;
+  leaseAdjustParams: GetVehicleDetails_leaseAdjustParams | null | undefined;
 }

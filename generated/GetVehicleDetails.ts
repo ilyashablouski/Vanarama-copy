@@ -84,7 +84,7 @@ export interface GetVehicleDetails {
   vehicleConfigurationByCapId: GetVehicleDetails_vehicleConfigurationByCapId | null;
   vehicleDetails: GetVehicleDetails_vehicleDetails | null;
   derivativeInfo: GetVehicleDetails_derivativeInfo | null;
-  GetVehicleDetails_leaseAdjustParams: GetVehicleDetails_leaseAdjustParams | null;
+  leaseAdjustParams: GetVehicleDetails_leaseAdjustParams | null;
 }
 
 export interface GetVehicleDetailsVariables {

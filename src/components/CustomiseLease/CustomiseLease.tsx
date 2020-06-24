@@ -74,7 +74,7 @@ const CustomiseLease = ({
         }}
       />
       <div className="-flex-row">
-        <Icon color="orange" icon={<SpeedometerOutline />} />
+        <Icon color="orange" size="large" icon={<SpeedometerOutline />} />
         <Text color="orange" size="small" className="-b -ml-200">
           + 1000
         </Text>
@@ -126,7 +126,7 @@ const CustomiseLease = ({
         defaultValue={`${trim}`}
         className="-fullwidth"
         onChange={option => {
-          setTrim(+option.currentTarget.value);
+          setTrim(option.currentTarget.value);
         }}
       >
         {derivativeInfo?.trims?.map((currentTrim: ITrim | null) => (

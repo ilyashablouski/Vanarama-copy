@@ -20,11 +20,11 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     leaseAdjustParams?.upfronts[0],
   );
   const [colour, setColour] = useState<null | number>(null);
-  const [term, setTerm] = useState<number>(leaseAdjustParams?.terms[0]);
+  const [term, setTerm] = useState<number>(leaseAdjustParams?.terms[0] || 0);
   const trims = derivativeInfo?.trims || [];
-  const defaultTrim = trims[0] || undefined;
+  const defaultTrim = trims[0];
   const defaultTrimId = defaultTrim?.id;
-  const [trim, setTrim] = useState<number | undefined>(+defaultTrimId);
+  const [trim, setTrim] = useState<string | undefined>(defaultTrimId);
 
   const colours = derivativeInfo?.colours || [];
   const defaultColour = colours[0] || undefined;
@@ -37,14 +37,14 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const { data, error, refetch } = useQuoteData({
     capId: `${capId}`,
     vehicleType,
-    mileage: mileage || defaultMillage,
+    mileage: mileage || defaultMillage || 0,
     term,
     upfront,
     leaseType:
       leaseType === 'Personal'
         ? LeaseTypeEnum.PERSONAL
         : LeaseTypeEnum.BUSINESS,
-    trim: trim || 0,
+    trim: +(trim || 0),
     colour: colour || +(defaultColourId || 0),
   });
 

@@ -9,7 +9,7 @@ export interface IProps {
   capId: number;
   vehicleType: VehicleTypeEnum;
   derivativeInfo: GetVehicleDetails_derivativeInfo | null | undefined;
-  leaseAdjustParams: GetVehicleDetails_leaseAdjustParams;
+  leaseAdjustParams: GetVehicleDetails_leaseAdjustParams | null | undefined;
 }
 
 export interface IQuoteDataInputs {
