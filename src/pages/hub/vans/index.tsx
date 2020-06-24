@@ -16,6 +16,7 @@ import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
 import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
+import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import Step from '@vanarama/uibook/lib/components/molecules/step';
 import IconList, {
@@ -446,6 +447,8 @@ const VansPage: NextPage = () => {
             color="teal"
             fill="clear"
             size="regular"
+            icon={<ArrowForwardSharp />}
+            iconPosition="after"
           />
         </div>
       </section>
