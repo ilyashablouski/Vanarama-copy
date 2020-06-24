@@ -15,7 +15,7 @@ import {
 import {
   requiredField,
   confirmPasswordValidator,
-  passwordValidator,
+  newPasswordValidator,
 } from '../../utils/inputValidators';
 import PasswordRequirements from '../../core/components/PasswordRequirements';
 import RouterLink from '../RouterLink/RouterLink';
@@ -103,7 +103,7 @@ const PasswordResetContainer = ({
               name="code"
               type="password"
               ref={register({
-                ...requiredField('Please fill in your Old Password'),
+                ...requiredField('Please fill in your old password'),
                 validate: async value =>
                   (await onPasswordValidation?.(value))
                     ? 'Your old password seems incorrect.'
@@ -122,7 +122,7 @@ const PasswordResetContainer = ({
           id="password-reset-form_new-pass"
           dataTestId="password-reset-form_new-pass"
           name="password"
-          ref={register(passwordValidator)}
+          ref={register(newPasswordValidator)}
           type="password"
         />
       </Formgroup>
