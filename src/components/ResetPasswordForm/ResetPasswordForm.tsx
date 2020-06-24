@@ -103,7 +103,7 @@ const PasswordResetContainer = ({
               name="code"
               type="password"
               ref={register({
-                ...requiredField('Please fill in your Old Password'),
+                ...requiredField('Please fill in your old password'),
                 validate: async value =>
                   (await onPasswordValidation?.(value))
                     ? 'Your old password seems incorrect.'
