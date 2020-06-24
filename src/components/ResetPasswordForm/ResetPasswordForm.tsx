@@ -15,7 +15,7 @@ import {
 import {
   requiredField,
   confirmPasswordValidator,
-  passwordValidator,
+  newPasswordValidator,
 } from '../../utils/inputValidators';
 import PasswordRequirements from '../../core/components/PasswordRequirements';
 import RouterLink from '../RouterLink/RouterLink';
@@ -122,7 +122,7 @@ const PasswordResetContainer = ({
           id="password-reset-form_new-pass"
           dataTestId="password-reset-form_new-pass"
           name="password"
-          ref={register(passwordValidator)}
+          ref={register(newPasswordValidator)}
           type="password"
         />
       </Formgroup>

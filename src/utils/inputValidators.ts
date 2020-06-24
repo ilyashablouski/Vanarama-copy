@@ -11,6 +11,17 @@ export const requiredField = (message: string): ValidationOptions => ({
 export const passwordValidator: ValidationOptions = {
   required: {
     value: true,
+    message: 'Your Password is required',
+  },
+  pattern: {
+    value: PASSWORD_REGEX,
+    message: 'Your Password does not meet the requirements',
+  },
+};
+
+export const newPasswordValidator: ValidationOptions = {
+  required: {
+    value: true,
     message: 'Please fill in your new password',
   },
   pattern: {
