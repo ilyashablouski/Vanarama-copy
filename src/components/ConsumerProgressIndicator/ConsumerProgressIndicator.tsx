@@ -5,9 +5,14 @@ import NextJsLink from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 
+type QueryParams = {
+  redirect?: string;
+  uuid: string;
+};
+
 const ConsumerProgressIndicator: React.FC = () => {
   const { pathname, query } = useRouter();
-  const { redirect, uuid } = query as { [key: string]: string };
+  const { redirect, uuid } = query as QueryParams;
 
   // Only regenerate the steps if the `uuid` changes
   const steps = useMemo(() => generateSteps(uuid), [uuid]);

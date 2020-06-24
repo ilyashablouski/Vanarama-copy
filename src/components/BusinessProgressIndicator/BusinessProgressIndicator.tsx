@@ -5,9 +5,13 @@ import React, { useMemo } from 'react';
 import NextJsLink from 'next/link';
 import { useRouter } from 'next/router';
 
+type QueryParams = {
+  companyUuid: string;
+};
+
 const BusinessProgressIndicator: React.FC = () => {
   const { pathname, query } = useRouter();
-  const { companyUuid } = query as { [key: string]: string };
+  const { companyUuid } = query as QueryParams;
   const steps = useMemo(() => generateSteps(), []);
 
   // Work out the current step based on the URL
@@ -40,6 +44,11 @@ function generateSteps() {
       href: '/b2b/olaf/company-details/[companyUuid]',
       label: 'Company Details',
       step: 2,
+    },
+    {
+      href: '/b2b/olaf/vat-details/[companyUuid]',
+      label: 'VAT Details',
+      step: 3,
     },
   ];
 }

@@ -35,7 +35,7 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
   const years = genYears(100);
   const sortCodeErrors = (
     ((errors?.sortCode as unknown) as (FieldError | undefined)[]) || []
-  ).filter(Boolean);
+  ).filter((_): _ is FieldError => Boolean(_));
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -78,7 +78,7 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
         label="Sort Code"
         error={
           sortCodeErrors.length
-            ? sortCodeErrors[0]?.message?.toString()
+            ? sortCodeErrors[0].message?.toString()
             : undefined
         }
       >
