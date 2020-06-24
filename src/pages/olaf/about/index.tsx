@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import * as jwt from 'jsonwebtoken';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
@@ -31,29 +30,35 @@ const AboutYouPage: NextPage = () => {
         To get you your brand new vehicle, firstly we’ll just need some details
         about you and your company. This will be used for your credit check.
       </Text>
-      <div className="form">
-        <div className="-pt-300 -pb-300">
-          <Button
-            label="Login For A Speedy Checkout"
-            color="teal"
-            onClick={() => toggleLogInVisibility(!isLogInVisible)}
-          />
-        </div>
-      </div>
-      {isLogInVisible && (
-        <LoginFormContainer
-          onCompleted={data => {
-            if (data.login !== null) {
-              const decodedData = jwt.decode(data.login, { json: true });
-              const currentUrl = '/olaf/about/[uuid]';
-              const redirectUrl = currentUrl.replace(
-                '/[uuid]',
-                `/${decodedData?.username || ''}`,
-              );
-              router.push(currentUrl, redirectUrl, { shallow: true });
-            }
-          }}
-        />
+      {!uuid && (
+        <>
+          <div className="form">
+            <div className="-pt-300 -pb-300">
+              <Button
+                label="Login For A Speedy Checkout"
+                color="teal"
+                onClick={() => toggleLogInVisibility(!isLogInVisible)}
+              />
+            </div>
+          </div>
+          {isLogInVisible && (
+            <LoginFormContainer
+              onCompleted={data => {
+                if (data.login !== null) {
+                  // const decodedData = jwt.decode(data.login, { json: true });
+                  // const currentUrl = '/olaf/about/[uuid]';
+                  // const redirectUrl = currentUrl.replace(
+                  //   '/[uuid]',
+                  //   decodedData?.username ? `/${decodedData.username}` : '',
+                  // );
+                  // // reddirect on the same page,
+                  // // if login is successfull query params will contain uuid
+                  // router.push(currentUrl, redirectUrl, { shallow: true });
+                }
+              }}
+            />
+          )}
+        </>
       )}
       <AboutFormContainer
         onCompleted={({ createUpdatePerson }) => {
