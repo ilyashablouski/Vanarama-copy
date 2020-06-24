@@ -59,7 +59,6 @@ const CarDetailsPage: NextPage<IProps> = () => {
   const derivativeInfo = data?.derivativeInfo;
   const leaseAdjustParams = data?.leaseAdjustParams;
   const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
-  const independentReview = data?.vehicleDetails?.independentReview;
 
   return (
     <>

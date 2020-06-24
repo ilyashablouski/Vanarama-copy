@@ -738,32 +738,6 @@ Array [
         />
       </div>
     </div>
-    <div
-      className="tilebox -col-300 -p-400"
-    >
-      <span
-        className="heading -black -lead"
-      >
-        Independent Review By Car & Driving
-      </span>
-      <p
-        className="text -regular -darker"
-      >
-        <span
-          dangerouslySetInnerHTML={
-            Object {
-              "__html": "...",
-            }
-          }
-        />
-        <a
-          className="link -teal -regular -plain"
-          onClick={[Function]}
-        >
-          Read More
-        </a>
-      </p>
-    </div>
   </div>,
   <div
     className="pdp--sidebar"
