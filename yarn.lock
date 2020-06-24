@@ -2512,10 +2512,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@5.17.0":
-  version "5.17.0"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.17.0.tgz#077fef17085f15f0ae3ad44e31082d93a8fcd2f0"
-  integrity sha512-J92cLcwV7/36LWeR57UUyWHt0ls7YNk0xdgJemHoeKI7UtQIykHjYBi245pbtzaK6P25nadevU28J/f0JFU/1w==
+"@vanarama/uibook@5.17.1":
+  version "5.17.1"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.17.1.tgz#f902970ad183a9a55788d50ef204d00d96f526e9"
+  integrity sha512-/urs9ztV7iPOtNnp9llTz2OWxihkJwBE+hmRe5paSBaTsFXNbqWvwwm1CXUhuYGRCfk9S3LgWr0C5Y5KkHHkhQ==
   dependencies:
     "@egjs/flicking" "^3.4.7"
     "@egjs/react-flicking" "^3.2.1"
