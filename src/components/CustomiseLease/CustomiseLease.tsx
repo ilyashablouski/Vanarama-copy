@@ -63,10 +63,12 @@ const select = (
       )[]
     | undefined
     | null,
+  placeholder: string,
 ) => (
   <Select
     dataTestId={defaultValue}
-    defaultValue={defaultValue}
+    defaultValue={defaultValue || ''}
+    placeholder={placeholder}
     className="-fullwidth"
     onChange={option => {
       setChanges(+option.currentTarget.value);
@@ -130,7 +132,7 @@ const CustomiseLease = ({
       {choices(
         terms,
         value => setTerm(+(value || 0) || null),
-        'Lease Type',
+        'Length Of Lease:',
         `${quoteByCapId?.term} Months`,
       )}
       {choices(
@@ -142,8 +144,13 @@ const CustomiseLease = ({
       <Heading tag="span" size="regular" color="black">
         Vehicle Options
       </Heading>
-      {select(`${quoteByCapId?.colour}`, setColour, derivativeInfo?.colours)}
-      {select(`${trim}`, setTrim, derivativeInfo?.trims)}
+      {select(
+        `${quoteByCapId?.colour}`,
+        setColour,
+        derivativeInfo?.colours,
+        'Select Paint Holder',
+      )}
+      {select(`${trim}`, setTrim, derivativeInfo?.trims, 'Select Interior')}
       <div
         style={{
           position: 'sticky',

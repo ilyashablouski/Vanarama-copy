@@ -35,6 +35,7 @@ export interface IProps {
   data: GetQuoteDetails;
   leaseType: string | null;
   trim: number | null;
+  colour: number | null;
   derivativeInfo: GetVehicleDetails_derivativeInfo | null | undefined;
   leaseAdjustParams: GetVehicleDetails_leaseAdjustParams | null | undefined;
 }

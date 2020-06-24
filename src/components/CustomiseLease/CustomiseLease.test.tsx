@@ -14,6 +14,7 @@ function getComponent(props: IProps) {
 describe('<CustomiseLease />', () => {
   it('renders correctly', () => {
     const tree = getComponent({
+      colour: 13990,
       trim: 112981,
       terms: [
         { label: '24', active: true },
@@ -100,6 +101,7 @@ describe('<CustomiseLease />', () => {
   it('renders correctly', () => {
     const tree = getComponent({
       trim: 112981,
+      colour: 13990,
       terms: [
         { label: '24', active: false },
         { label: '36', active: true },
@@ -202,6 +204,7 @@ describe('<CustomiseLease />', () => {
       <CustomiseLease
         {...mocks}
         trim={112981}
+        colour={13990}
         terms={[
           { label: '24', active: false },
           { label: '36', active: true },
