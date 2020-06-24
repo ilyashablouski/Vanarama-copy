@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import { Dispatch, SetStateAction } from 'react';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Choiceboxes from '@vanarama/uibook/lib/components/atoms/choiceboxes';
@@ -6,7 +8,11 @@ import Select from '@vanarama/uibook/lib/components/atoms/select';
 import SlidingInput from '@vanarama/uibook/lib/components/atoms/sliding-input';
 import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
 import SpeedometerOutline from '@vanarama/uibook/lib/assets/icons/SpeedometerSharp';
-import { IProps, IColour, ITrim } from './interfase';
+import { IProps, IColour, ITrim, IChoice } from './interfase';
+import {
+  GetVehicleDetails_derivativeInfo_trims,
+  GetVehicleDetails_derivativeInfo_colours,
+} from '../../../generated/GetVehicleDetails';
 
 const LEASING_PROVIDERS = [
   'LeasePlan',
@@ -21,6 +27,58 @@ const LEASING_PROVIDERS = [
   'Agility Fleet',
   'BlackHorse',
 ];
+
+const choices = (
+  choicesValues: IChoice[],
+  setChoice: Dispatch<SetStateAction<string | null>>,
+  heading: string,
+  currentValue?: string,
+) => (
+  <>
+    <Heading tag="span" size="regular" color="black">
+      {heading}
+      {currentValue && (
+        <Text color="orange" className="-b -ml-100">
+          {currentValue}
+        </Text>
+      )}
+    </Heading>
+    <Choiceboxes
+      choices={choicesValues}
+      onSubmit={value => {
+        setChoice(value.label);
+      }}
+    />
+  </>
+);
+
+const select = (
+  defaultValue: string,
+  setChanges: Dispatch<SetStateAction<number | null>>,
+  items:
+    | (
+        | GetVehicleDetails_derivativeInfo_colours
+        | GetVehicleDetails_derivativeInfo_trims
+        | null
+      )[]
+    | undefined
+    | null,
+) => (
+  <Select
+    dataTestId={defaultValue}
+    defaultValue={defaultValue}
+    className="-fullwidth"
+    onChange={option => {
+      setChanges(+option.currentTarget.value);
+    }}
+  >
+    {items?.map((item: IColour | ITrim | null) => (
+      <option key={item?.id} value={item?.id}>
+        {item?.optionDescription}
+      </option>
+    ))}
+  </Select>
+);
 
 const CustomiseLease = ({
   terms,
@@ -44,23 +102,10 @@ const CustomiseLease = ({
 
   return (
     <div className="pdp--sidebar">
-      <Heading
-        tag="span"
-        size="xlarge"
-        color="black"
-        dataTestId="customiseYourLease"
-      >
+      <Heading tag="span" size="xlarge" color="black">
         Customise Your Lease
       </Heading>
-      <Heading tag="span" size="regular" color="black">
-        Lease Type
-      </Heading>
-      <Choiceboxes
-        choices={leaseTypes}
-        onSubmit={value => {
-          setLeaseType(value.label);
-        }}
-      />
+      {choices(leaseTypes, setLeaseType, 'Lease Type')}
       <Heading tag="span" size="regular" color="black">
         Annual Mileage:
         <Text color="orange" className="-b -ml-100">
@@ -82,60 +127,23 @@ const CustomiseLease = ({
           Extra Miles FREE
         </Text>
       </div>
-      <Heading tag="span" size="regular" color="black">
-        Length Of Lease:
-        <Text color="orange" className="-b -ml-100">
-          {`${quoteByCapId?.term} Months`}
-        </Text>
-      </Heading>
-      <Choiceboxes
-        choices={terms}
-        onSubmit={value => {
-          setTerm(+value.label);
-        }}
-      />
-      <Heading tag="span" size="regular" color="black">
-        Initial Payment:{' '}
-        <Text color="orange" className="-b">
-          {`£${quoteByCapId?.nonMaintained?.initialRental} ${stateVAT}. VAT`}
-        </Text>
-      </Heading>
-      <Choiceboxes
-        choices={upfronts}
-        onSubmit={value => {
-          setUpfront(+value.label);
-        }}
-      />
+      {choices(
+        terms,
+        value => setTerm(+(value || 0) || null),
+        'Lease Type',
+        `${quoteByCapId?.term} Months`,
+      )}
+      {choices(
+        upfronts,
+        value => setUpfront(+(value || 0) || null),
+        'Initial Payment: ',
+        `£${quoteByCapId?.nonMaintained?.initialRental} ${stateVAT}. VAT`,
+      )}
       <Heading tag="span" size="regular" color="black">
         Vehicle Options
       </Heading>
-      <Select
-        defaultValue={`${quoteByCapId?.colour}`}
-        className="-fullwidth"
-        onChange={option => {
-          setColour(+option.currentTarget.value);
-        }}
-      >
-        {derivativeInfo?.colours?.map((currentColour: IColour | null) => (
-          <option key={currentColour?.id} value={currentColour?.id}>
-            {currentColour?.optionDescription}
-          </option>
-        ))}
-      </Select>
-      <Select
-        defaultValue={`${trim}`}
-        className="-fullwidth"
-        onChange={option => {
-          setTrim(option.currentTarget.value);
-        }}
-      >
-        {derivativeInfo?.trims?.map((currentTrim: ITrim | null) => (
-          <option key={currentTrim?.id} value={currentTrim?.id}>
-            {currentTrim?.optionDescription}
-          </option>
-        ))}
-      </Select>
-
+      {select(`${quoteByCapId?.colour}`, setColour, derivativeInfo?.colours)}
+      {select(`${trim}`, setTrim, derivativeInfo?.trims)}
       <div
         style={{
           position: 'sticky',

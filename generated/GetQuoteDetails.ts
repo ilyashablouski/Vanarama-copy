@@ -48,4 +48,5 @@ export interface GetQuoteDetailsVariables {
   term?: number | null;
   trim?: number | null;
   upfront?: number | null;
+  colour?: number | null;
 }

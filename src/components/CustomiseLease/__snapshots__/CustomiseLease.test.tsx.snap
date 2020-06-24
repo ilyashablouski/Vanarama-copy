@@ -6,7 +6,6 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
 >
   <span
     className="heading -black -xlarge"
-    data-testid="customiseYourLease"
   >
     Customise Your Lease
   </span>
@@ -121,7 +120,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   <span
     className="heading -black -regular"
   >
-    Length Of Lease:
+    Lease Type
     <span
       className="text -b -ml-100 -regular -orange"
     >
@@ -154,10 +153,9 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   <span
     className="heading -black -regular"
   >
-    Initial Payment:
-     
+    Initial Payment: 
     <span
-      className="text -b -regular -orange"
+      className="text -b -ml-100 -regular -orange"
     >
       £605.95 exc. VAT
     </span>
@@ -195,6 +193,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   >
     <select
       className="select--native"
+      data-testid="13990"
       defaultValue="13990"
       onChange={[Function]}
     >
@@ -245,6 +244,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   >
     <select
       className="select--native"
+      data-testid="112981"
       defaultValue="112981"
       onChange={[Function]}
     >
@@ -376,7 +376,6 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
 >
   <span
     className="heading -black -xlarge"
-    data-testid="customiseYourLease"
   >
     Customise Your Lease
   </span>
@@ -491,7 +490,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   <span
     className="heading -black -regular"
   >
-    Length Of Lease:
+    Lease Type
     <span
       className="text -b -ml-100 -regular -orange"
     >
@@ -524,10 +523,9 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   <span
     className="heading -black -regular"
   >
-    Initial Payment:
-     
+    Initial Payment: 
     <span
-      className="text -b -regular -orange"
+      className="text -b -ml-100 -regular -orange"
     >
       £605.95 exc. VAT
     </span>
@@ -565,6 +563,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   >
     <select
       className="select--native"
+      data-testid="13990"
       defaultValue="13990"
       onChange={[Function]}
     >
@@ -615,6 +614,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   >
     <select
       className="select--native"
+      data-testid="112981"
       defaultValue="112981"
       onChange={[Function]}
     >

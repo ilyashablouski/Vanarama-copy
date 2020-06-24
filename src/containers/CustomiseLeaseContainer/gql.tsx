@@ -1,4 +1,8 @@
 import { useQuery, gql } from '@apollo/client';
+import {
+  GetQuoteDetails,
+  GetQuoteDetailsVariables,
+} from '../../../generated/GetQuoteDetails';
 import { IQuoteDataInputs } from './interfaces';
 
 export const GET_QUOTE_DATA = gql`
@@ -56,7 +60,7 @@ export function useQuoteData({
   trim,
   colour,
 }: IQuoteDataInputs) {
-  return useQuery(GET_QUOTE_DATA, {
+  return useQuery<GetQuoteDetails, GetQuoteDetailsVariables>(GET_QUOTE_DATA, {
     variables: {
       capId,
       vehicleType,

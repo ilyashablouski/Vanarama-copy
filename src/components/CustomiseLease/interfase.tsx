@@ -26,15 +26,15 @@ export interface IProps {
   upfronts: IChoice[];
   leaseTypes: IChoice[];
   mileages: string[] | undefined;
-  setLeaseType: Dispatch<SetStateAction<string>>;
+  setLeaseType: Dispatch<SetStateAction<string | null>>;
   setMileage: Dispatch<SetStateAction<number | null>>;
   setUpfront: Dispatch<SetStateAction<number | null>>;
   setColour: Dispatch<SetStateAction<number | null>>;
   setTerm: Dispatch<SetStateAction<number | null>>;
-  setTrim: Dispatch<SetStateAction<string | null>>;
+  setTrim: Dispatch<SetStateAction<number | null>>;
   data: GetQuoteDetails;
-  leaseType: string;
-  trim: string | null;
+  leaseType: string | null;
+  trim: number | null;
   derivativeInfo: GetVehicleDetails_derivativeInfo | null | undefined;
   leaseAdjustParams: GetVehicleDetails_leaseAdjustParams | null | undefined;
 }

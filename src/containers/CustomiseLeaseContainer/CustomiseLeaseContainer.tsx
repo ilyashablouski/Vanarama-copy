@@ -14,7 +14,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
 }) => {
   const isInitialMount = useRef(true);
 
-  const [leaseType, setLeaseType] = useState<string>('Personal');
+  const [leaseType, setLeaseType] = useState<string | null>('Personal');
   const [mileage, setMileage] = useState<null | number>(null);
   const [upfront, setUpfront] = useState<number | null>(
     leaseAdjustParams?.upfronts[0] || null,
@@ -28,7 +28,9 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const trims = derivativeInfo?.trims || [];
   const defaultTrim = trims[0];
   const defaultTrimId = defaultTrim?.id;
-  const [trim, setTrim] = useState<string | null>(defaultTrimId || null);
+  const [trim, setTrim] = useState<number | null>(
+    +(defaultTrimId || 0) || null,
+  );
 
   // set first value in colours
   const colours = derivativeInfo?.colours || [];

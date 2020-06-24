@@ -6,7 +6,6 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
 >
   <span
     className="heading -black -xlarge"
-    data-testid="customiseYourLease"
   >
     Customise Your Lease
   </span>
@@ -146,7 +145,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
   <span
     className="heading -black -regular"
   >
-    Length Of Lease:
+    Lease Type
     <span
       className="text -b -ml-100 -regular -orange"
     >
@@ -193,10 +192,9 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
   <span
     className="heading -black -regular"
   >
-    Initial Payment:
-     
+    Initial Payment: 
     <span
-      className="text -b -regular -orange"
+      className="text -b -ml-100 -regular -orange"
     >
       £605.95 inc. VAT
     </span>
@@ -255,6 +253,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
   >
     <select
       className="select--native"
+      data-testid="13990"
       defaultValue="13990"
       onChange={[Function]}
     >
@@ -305,6 +304,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
   >
     <select
       className="select--native"
+      data-testid="104562"
       defaultValue="104562"
       onChange={[Function]}
     >
