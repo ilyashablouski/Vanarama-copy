@@ -15,10 +15,10 @@ export interface IProps {
 export interface IQuoteDataInputs {
   capId: string;
   vehicleType: VehicleTypeEnum;
-  mileage: number;
-  term: number;
-  upfront: number | undefined;
+  mileage: number | null;
+  term: number | null;
+  upfront: number | null;
   leaseType: LeaseTypeEnum;
-  trim: number;
-  colour: number;
+  trim: number | null;
+  colour: number | null;
 }

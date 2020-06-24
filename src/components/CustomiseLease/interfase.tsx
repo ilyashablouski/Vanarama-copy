@@ -28,13 +28,13 @@ export interface IProps {
   mileages: string[] | undefined;
   setLeaseType: Dispatch<SetStateAction<string>>;
   setMileage: Dispatch<SetStateAction<number | null>>;
-  setUpfront: Dispatch<SetStateAction<number | undefined>>;
+  setUpfront: Dispatch<SetStateAction<number | null>>;
   setColour: Dispatch<SetStateAction<number | null>>;
-  setTerm: Dispatch<SetStateAction<number>>;
-  setTrim: Dispatch<SetStateAction<string | undefined>>;
+  setTerm: Dispatch<SetStateAction<number | null>>;
+  setTrim: Dispatch<SetStateAction<string | null>>;
   data: GetQuoteDetails;
   leaseType: string;
-  trim: string | undefined;
+  trim: string | null;
   derivativeInfo: GetVehicleDetails_derivativeInfo | null | undefined;
   leaseAdjustParams: GetVehicleDetails_leaseAdjustParams | null | undefined;
 }

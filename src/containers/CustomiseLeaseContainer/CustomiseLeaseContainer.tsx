@@ -16,19 +16,26 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
 
   const [leaseType, setLeaseType] = useState<string>('Personal');
   const [mileage, setMileage] = useState<null | number>(null);
-  const [upfront, setUpfront] = useState<number | undefined>(
-    leaseAdjustParams?.upfronts[0],
+  const [upfront, setUpfront] = useState<number | null>(
+    leaseAdjustParams?.upfronts[0] || null,
   );
   const [colour, setColour] = useState<null | number>(null);
-  const [term, setTerm] = useState<number>(leaseAdjustParams?.terms[0] || 0);
+  const [term, setTerm] = useState<number | null>(
+    leaseAdjustParams?.terms[0] || null,
+  );
+
+  // set first value in trims
   const trims = derivativeInfo?.trims || [];
   const defaultTrim = trims[0];
   const defaultTrimId = defaultTrim?.id;
-  const [trim, setTrim] = useState<string | undefined>(defaultTrimId);
+  const [trim, setTrim] = useState<string | null>(defaultTrimId || null);
 
+  // set first value in colours
   const colours = derivativeInfo?.colours || [];
   const defaultColour = colours[0] || undefined;
   const defaultColourId = defaultColour?.id;
+
+  // set avarage step
   const defaultMillageNumber = Math.floor(
     (leaseAdjustParams?.mileages?.length || 0) / 2,
   );
@@ -37,7 +44,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const { data, error, refetch } = useQuoteData({
     capId: `${capId}`,
     vehicleType,
-    mileage: mileage || defaultMillage || 0,
+    mileage: mileage || defaultMillage || null,
     term,
     upfront,
     leaseType:
@@ -107,7 +114,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       upfronts={upfronts || [{ label: '', active: false }]}
       leaseType={leaseType}
       leaseTypes={leaseTypes}
-      mileages={mileages}
+      mileages={mileages || undefined}
       setLeaseType={setLeaseType}
       setMileage={setMileage}
       setUpfront={setUpfront}

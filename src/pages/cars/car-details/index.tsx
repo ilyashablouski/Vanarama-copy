@@ -16,6 +16,7 @@ import withApollo from '../../../hocs/withApollo';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import VehicleTechDetails from '../../../containers/VehicleTechDetails/VehicleTechDetails';
 import CustomiseLeaseContainer from '../../../containers/CustomiseLeaseContainer/CustomiseLeaseContainer';
+import IndependentReview from '../../../components/IndependentReview/IndependentReview';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -58,6 +59,7 @@ const CarDetailsPage: NextPage<IProps> = () => {
   const derivativeInfo = data?.derivativeInfo;
   const leaseAdjustParams = data?.leaseAdjustParams;
   const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
+  const independentReview = data?.vehicleDetails?.independentReview;
 
   return (
     <>
@@ -102,6 +104,7 @@ const CarDetailsPage: NextPage<IProps> = () => {
           vehicleDetails={vehicleDetails}
           derivativeInfo={derivativeInfo}
         />
+        <IndependentReview review={independentReview || ''} />
       </div>
       <CustomiseLeaseContainer
         capId={84429}
