@@ -23,19 +23,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [term, setTerm] = useState<number | null>(
     leaseAdjustParams?.terms[0] || null,
   );
-
-  // set first value in trims
-  const trims = derivativeInfo?.trims || [];
-  const defaultTrim = trims[0];
-  const defaultTrimId = defaultTrim?.id;
-  const [trim, setTrim] = useState<number | null>(
-    +(defaultTrimId || 0) || null,
-  );
-
-  // set first value in colours
-  const colours = derivativeInfo?.colours || [];
-  const defaultColour = colours[0] || undefined;
-  const defaultColourId = defaultColour?.id;
+  const [trim, setTrim] = useState<number | null>(null);
 
   // set avarage step
   const defaultMillageNumber = Math.floor(
@@ -54,7 +42,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         ? LeaseTypeEnum.PERSONAL
         : LeaseTypeEnum.BUSINESS,
     trim: +(trim || 0),
-    colour: colour || +(defaultColourId || 0),
+    colour,
   });
 
   useEffect(() => {
@@ -126,6 +114,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       data={data}
       trim={trim}
       derivativeInfo={derivativeInfo}
+      colour={colour}
       leaseAdjustParams={leaseAdjustParams}
     />
   );

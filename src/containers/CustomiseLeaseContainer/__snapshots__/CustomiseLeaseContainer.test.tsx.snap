@@ -145,7 +145,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
   <span
     className="heading -black -regular"
   >
-    Lease Type
+    Length Of Lease:
     <span
       className="text -b -ml-100 -regular -orange"
     >
@@ -261,7 +261,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
         disabled={true}
         value=""
       >
-        Please Select
+        Select Paint Holder
       </option>
       <option
         value="13990"
@@ -304,15 +304,15 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
   >
     <select
       className="select--native"
-      data-testid="104562"
-      defaultValue="104562"
+      data-testid="null"
+      defaultValue="null"
       onChange={[Function]}
     >
       <option
         disabled={true}
         value=""
       >
-        Please Select
+        Select Interior
       </option>
       <option
         value="104562"
