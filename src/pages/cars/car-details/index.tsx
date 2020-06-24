@@ -16,6 +16,7 @@ import withApollo from '../../../hocs/withApollo';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import VehicleTechDetails from '../../../containers/VehicleTechDetails/VehicleTechDetails';
 import IndependentReview from '../../../components/IndependentReview/IndependentReview';
+import WhyChooseLeasing from '../../../components/WhyChooseLeasing/WhyChooseLeasing';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -30,7 +31,7 @@ const PATH = {
 };
 
 const CarDetailsPage: NextPage<IProps> = () => {
-  const { data, loading, error } = useCarData(84429, VehicleTypeEnum.CAR);
+  const { data, loading, error } = useCarData(89233, VehicleTypeEnum.CAR);
 
   if (loading) {
     return (
@@ -58,6 +59,7 @@ const CarDetailsPage: NextPage<IProps> = () => {
   const derivativeInfo = data?.derivativeInfo;
   const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
   const independentReview = data?.vehicleDetails?.independentReview;
+  const warranty = data?.vehicleDetails?.warranty;
 
   return (
     <div className="pdp--content">
@@ -102,6 +104,7 @@ const CarDetailsPage: NextPage<IProps> = () => {
         derivativeInfo={derivativeInfo}
       />
       <IndependentReview review={independentReview || ''} />
+      <WhyChooseLeasing warranty={warranty || ''} />
     </div>
   );
 };
