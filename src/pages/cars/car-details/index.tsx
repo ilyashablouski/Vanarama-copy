@@ -101,7 +101,6 @@ const CarDetailsPage: NextPage<IProps> = () => {
         vehicleDetails={vehicleDetails}
         derivativeInfo={derivativeInfo}
       />
-      <IndependentReview review={independentReview || ''} />
     </div>
   );
 };
