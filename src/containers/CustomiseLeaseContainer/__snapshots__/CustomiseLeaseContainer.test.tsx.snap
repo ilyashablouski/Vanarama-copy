@@ -1,0 +1,460 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = `
+<div
+  className="pdp--sidebar"
+>
+  <span
+    className="heading -black -xlarge"
+  >
+    Customise Your Lease
+  </span>
+  <span
+    className="heading -black -regular"
+  >
+    Lease Type
+  </span>
+  <div
+    className="choiceboxes -teal"
+    style={
+      Object {
+        "--cols": "2",
+      }
+    }
+  >
+    <button
+      className="choicebox -active"
+      onClick={[Function]}
+      type="button"
+    >
+      Personal
+    </button>
+    <button
+      className="choicebox"
+      onClick={[Function]}
+      type="button"
+    >
+      Business
+    </button>
+  </div>
+  <span
+    className="heading -black -regular"
+  >
+    Annual Mileage:
+    <span
+      className="text -b -ml-100 -regular -orange"
+    >
+      12000 Miles
+    </span>
+  </span>
+  <div
+    className="sliding-input"
+  >
+    <input
+      className="sliding-input__native"
+      id="slidinginput"
+      max={8}
+      min="1"
+      onChange={[Function]}
+      step={1}
+      style={
+        Object {
+          "--steps": "8",
+          "--value": "42.857142857142854%",
+        }
+      }
+      type="range"
+      value={4}
+    />
+    <label
+      className="sliding-input__label"
+      htmlFor="slidinginput"
+    >
+      <span
+        className="sliding-input__label-step"
+      >
+        6K
+      </span>
+      <span
+        className="sliding-input__label-step"
+      >
+        8K
+      </span>
+      <span
+        className="sliding-input__label-step"
+      >
+        10K
+      </span>
+      <span
+        className="sliding-input__label-step"
+      >
+        12K
+      </span>
+      <span
+        className="sliding-input__label-step"
+      >
+        15K
+      </span>
+      <span
+        className="sliding-input__label-step"
+      >
+        20K
+      </span>
+      <span
+        className="sliding-input__label-step"
+      >
+        25K
+      </span>
+      <span
+        className="sliding-input__label-step"
+      >
+        30K
+      </span>
+    </label>
+  </div>
+  <div
+    className="-flex-row"
+  >
+    <i
+      className="icon -orange -large"
+    >
+      <svg
+        height="1em"
+        viewBox="0 0 512 512"
+        width="1em"
+      >
+        <title>
+          ionicons-v5-q
+        </title>
+        <path
+          d="M256,48C123.46,48,16,156.55,16,290.56A243.3,243.3,0,0,0,76.32,451.43c1.18,1.3,2.25,2.6,3.43,3.79C89.2,464,92.07,464,99.57,464s12.43,0,19.93-8.88C152,416.64,202,400,256,400s104.07,16.71,136.5,55.12C400,464,404.82,464,412.43,464s11.3,0,19.82-8.78c1.22-1.25,2.25-2.49,3.43-3.79A243.3,243.3,0,0,0,496,290.56C496,156.55,388.54,48,256,48Zm-16,64h32v64H240ZM144,304H80V272h64Zm21.49-83.88-45.25-45.26,22.62-22.62,45.26,45.25ZM278.6,307.4a31,31,0,0,1-7,7,30.11,30.11,0,0,1-35-49L320,224Zm45.28-109.91,45.26-45.25,22.62,22.62-45.25,45.26ZM432,304H368V272h64Z"
+        />
+      </svg>
+    </i>
+    <span
+      className="text -b -ml-200 -small -orange"
+    >
+      + 1000
+    </span>
+    <span
+      className="text -mt-000 -ml-100 -small -black"
+    >
+      Extra Miles FREE
+    </span>
+  </div>
+  <span
+    className="heading -black -regular"
+  >
+    Lease Type
+    <span
+      className="text -b -ml-100 -regular -orange"
+    >
+      24 Months
+    </span>
+  </span>
+  <div
+    className="choiceboxes -teal"
+    style={
+      Object {
+        "--cols": "4",
+      }
+    }
+  >
+    <button
+      className="choicebox -active"
+      onClick={[Function]}
+      type="button"
+    >
+      24
+    </button>
+    <button
+      className="choicebox"
+      onClick={[Function]}
+      type="button"
+    >
+      36
+    </button>
+    <button
+      className="choicebox"
+      onClick={[Function]}
+      type="button"
+    >
+      48
+    </button>
+    <button
+      className="choicebox"
+      onClick={[Function]}
+      type="button"
+    >
+      60
+    </button>
+  </div>
+  <span
+    className="heading -black -regular"
+  >
+    Initial Payment: 
+    <span
+      className="text -b -ml-100 -regular -orange"
+    >
+      £605.95 inc. VAT
+    </span>
+  </span>
+  <div
+    className="choiceboxes -teal"
+    style={
+      Object {
+        "--cols": "5",
+      }
+    }
+  >
+    <button
+      className="choicebox -active"
+      onClick={[Function]}
+      type="button"
+    >
+      1
+    </button>
+    <button
+      className="choicebox"
+      onClick={[Function]}
+      type="button"
+    >
+      3
+    </button>
+    <button
+      className="choicebox"
+      onClick={[Function]}
+      type="button"
+    >
+      6
+    </button>
+    <button
+      className="choicebox"
+      onClick={[Function]}
+      type="button"
+    >
+      9
+    </button>
+    <button
+      className="choicebox"
+      onClick={[Function]}
+      type="button"
+    >
+      12
+    </button>
+  </div>
+  <span
+    className="heading -black -regular"
+  >
+    Vehicle Options
+  </span>
+  <div
+    className="select -fullwidth"
+  >
+    <select
+      className="select--native"
+      data-testid="13990"
+      defaultValue="13990"
+      onChange={[Function]}
+    >
+      <option
+        disabled={true}
+        value=""
+      >
+        Please Select
+      </option>
+      <option
+        value="13990"
+      >
+        Solid - Polar white
+      </option>
+    </select>
+    <span
+      className="icon select--chevron"
+    >
+      <i
+        className="icon -stroke -dark"
+      >
+        <svg
+          height="1em"
+          viewBox="0 0 512 512"
+          width="1em"
+        >
+          <title>
+            ionicons-v5-a
+          </title>
+          <polyline
+            points="112 184 256 328 400 184"
+            style={
+              Object {
+                "fill": "none",
+                "stroke": "var(--class-color)",
+                "strokeLinecap": "round",
+                "strokeLinejoin": "round",
+                "strokeWidth": 48,
+              }
+            }
+          />
+        </svg>
+      </i>
+    </span>
+  </div>
+  <div
+    className="select -fullwidth"
+  >
+    <select
+      className="select--native"
+      data-testid="104562"
+      defaultValue="104562"
+      onChange={[Function]}
+    >
+      <option
+        disabled={true}
+        value=""
+      >
+        Please Select
+      </option>
+      <option
+        value="104562"
+      >
+        Leather - Cranberry red
+      </option>
+    </select>
+    <span
+      className="icon select--chevron"
+    >
+      <i
+        className="icon -stroke -dark"
+      >
+        <svg
+          height="1em"
+          viewBox="0 0 512 512"
+          width="1em"
+        >
+          <title>
+            ionicons-v5-a
+          </title>
+          <polyline
+            points="112 184 256 328 400 184"
+            style={
+              Object {
+                "fill": "none",
+                "stroke": "var(--class-color)",
+                "strokeLinecap": "round",
+                "strokeLinejoin": "round",
+                "strokeWidth": 48,
+              }
+            }
+          />
+        </svg>
+      </i>
+    </span>
+  </div>
+  <div
+    style={
+      Object {
+        "bottom": 0,
+        "height": "100vh",
+        "left": 0,
+        "pointerEvents": "none",
+        "position": "sticky",
+        "right": 0,
+        "top": 0,
+      }
+    }
+  >
+    <div
+      className="lease-scanner"
+      style={
+        Object {
+          "--lease-scanner-height": "6.75rem",
+        }
+      }
+    >
+      <div>
+        <div
+          className="price -xlarge -black"
+        >
+          <span
+            className="price--sub"
+          >
+            £
+          </span>
+          <span
+            className="price--pounds"
+          >
+            605
+          </span>
+          <span
+            className="price--sub"
+          >
+            .
+            95
+          </span>
+        </div>
+        <div
+          className="heading -darker -xsmall"
+        >
+          PM inc. VAT
+        </div>
+      </div>
+      <div>
+        <button
+          className="button -fullwidth -teal -regular -solid"
+          onClick={[Function]}
+        >
+          <div
+            className="button--inner"
+          >
+            Order Now
+          </div>
+        </button>
+      </div>
+      <div />
+      <div>
+        <div
+          className="text -regular -darker"
+        >
+          Need Help?
+           
+          <a
+            className="link -primary -regular -plain"
+            href="tel:+1313222"
+          >
+            Request a Call Back
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<CustomiseLeaseContainer /> should show data correctly with data 2`] = `
+<div
+  className="pdp--sidebar"
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+      "minHeight": "40rem",
+    }
+  }
+>
+  <div
+    className="loading -xlarge"
+  >
+    <svg
+      className="loading--svg"
+      viewBox="-75 -75 150 150"
+    >
+      <circle
+        className="loading--stroke"
+        cx="0"
+        cy="0"
+        r="37.5"
+      />
+    </svg>
+  </div>
+</div>
+`;
