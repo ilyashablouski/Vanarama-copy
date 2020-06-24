@@ -146,7 +146,7 @@ export const PickupsPage: NextPage = () => {
             </ProductCard>
           ))}
 
-          <Button label="View All Cars" size="large" color="teal" />
+          <Button label="View All Pickups" size="large" color="teal" />
         </section>
       </div>
 
@@ -211,6 +211,12 @@ export const PickupsPage: NextPage = () => {
             </Text>
           </div>
         </div>
+      </section>
+
+      <section className="row:accessories">
+        <Heading size="large" color="black">
+          Wide Range of Optional Accessories
+        </Heading>
       </section>
 
       <hr className="fullWidth" />
