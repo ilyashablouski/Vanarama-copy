@@ -31,7 +31,7 @@ const PATH = {
 };
 
 const PickupDetailsPage: NextPage<IProps> = () => {
-  const { data, loading, error } = useCarData(84429, VehicleTypeEnum.CAR);
+  const { data, loading, error } = useCarData(84429, VehicleTypeEnum.LCV);
 
   if (loading) {
     return (
