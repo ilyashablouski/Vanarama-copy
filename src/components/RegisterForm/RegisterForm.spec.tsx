@@ -71,7 +71,9 @@ describe('<RegisterForm />', () => {
     );
 
     expect(screen.getByText('Your Password is required')).toBeVisible();
-    expect(screen.getByText('Repeat Password is required')).toBeVisible();
+    expect(
+      screen.getByText('Please fill in your repeat password'),
+    ).toBeVisible();
   });
 
   it('should ensure the password is the correct format', async () => {
