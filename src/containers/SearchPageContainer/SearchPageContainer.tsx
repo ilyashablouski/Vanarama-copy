@@ -117,6 +117,8 @@ const SearchPage: NextPage = () => {
           <FiltersContainer
             isPersonal={isPersonal}
             setType={value => setIsPersonal(value)}
+            onSearch={getVehicles}
+            isCarSearch={isCarSearchType}
           />
         </div>
       </div>

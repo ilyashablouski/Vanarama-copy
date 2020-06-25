@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/prefer-default-export
 export const filtersConfig = [
   {
     label: 'Make & Model',
@@ -14,15 +13,17 @@ export const filtersConfig = [
     accessor: 'budget',
     contentType: 'dropdowns',
     dropdowns: [
-      { label: 'Price From', accessor: 'budgetFrom' },
-      { label: 'Price To', accessor: 'budgetTo' },
+      { label: 'Price From', accessor: 'from' },
+      { label: 'Price To', accessor: 'to' },
     ],
   },
-  { label: 'Body Type', accessor: 'type', contentType: 'multiSelect' },
+  { label: 'Body Type', accessor: 'bodyStyles', contentType: 'multiSelect' },
   {
     label: 'Transmission',
-    accessor: 'transmission',
+    accessor: 'transmissions',
     contentType: 'multiSelect',
   },
-  { label: 'Fuel Type', accessor: 'fuelType', contentType: 'multiSelect' },
+  { label: 'Fuel Type', accessor: 'fuelTypes', contentType: 'multiSelect' },
 ];
+
+export const budgets = [0, 150, 250, 350, 450, 550];
