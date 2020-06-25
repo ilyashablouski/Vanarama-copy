@@ -40,8 +40,8 @@ import RouterLink from '../../../components/RouterLink/RouterLink';
 import useSliderProperties from '../../../hooks/useSliderProperties';
 
 const VansPage: NextPage = () => {
-  const { data, loading, error } = useQuery<HubVanPageData>(HUB_VAN_CONTENT);
   const { itemWidth, slidesToShow } = useSliderProperties(345, 345, 310);
+  const { data, loading, error } = useQuery<HubVanPageData>(HUB_VAN_CONTENT);
 
   if (loading) {
     return <Loading size="large" />;
@@ -101,7 +101,7 @@ const VansPage: NextPage = () => {
               Small Vans
             </span>
           </Heading>
-          <Slider className="-mh-auto" gutter={16}>
+          <Slider className="-mh-auto" gutter={16} slidesToShow={slidesToShow}>
             {[1, 2, 3, 4, 5].map(k => (
               <div key={k.toString()} style={{ width: itemWidth }}>
                 <ProductCard
@@ -183,7 +183,7 @@ const VansPage: NextPage = () => {
               Medium Vans
             </span>
           </Heading>
-          <Slider className="-mh-auto" gutter={16}>
+          <Slider className="-mh-auto" gutter={16} slidesToShow={slidesToShow}>
             {[1, 2, 3, 4, 5].map(k => (
               <div key={k.toString()} style={{ width: itemWidth }}>
                 <ProductCard
@@ -263,7 +263,7 @@ const VansPage: NextPage = () => {
               Large Vans
             </span>
           </Heading>
-          <Slider className="-mh-auto" gutter={16}>
+          <Slider className="-mh-auto" gutter={16} slidesToShow={slidesToShow}>
             {[1, 2, 3, 4, 5].map(k => (
               <div key={k.toString()} style={{ width: itemWidth }}>
                 <ProductCard
