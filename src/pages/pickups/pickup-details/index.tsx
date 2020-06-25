@@ -10,13 +10,13 @@ interface IProps {
   query: ParsedUrlQuery;
 }
 
-const CarDetailsPage: NextPage<IProps> = () => {
-  const { data, loading, error } = useCarData(84429, VehicleTypeEnum.CAR);
+const PickupDetailsPage: NextPage<IProps> = () => {
+  const { data, loading, error } = useCarData(84429, VehicleTypeEnum.LCV);
 
   return (
     <DetailsPage
       capId={84429}
-      cars
+      pickups
       data={data}
       loading={loading}
       error={error}
@@ -24,4 +24,4 @@ const CarDetailsPage: NextPage<IProps> = () => {
   );
 };
 
-export default withApollo(CarDetailsPage);
+export default withApollo(PickupDetailsPage);
