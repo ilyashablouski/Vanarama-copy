@@ -24,11 +24,12 @@ import IconList, {
 import League from '@vanarama/uibook/lib/components/organisms/league';
 
 import {
-  HubCarPageData,
-  HubCarPageData_hubCarPage_sections_tiles_tiles as TileData,
-  HubCarPageData_hubCarPage_sections_steps_steps as StepData,
-} from '../../../../generated/HubCarPageData';
-import { HUB_CAR_CONTENT } from '../../../gql/hubCarPage';
+  HubPickupPageData,
+  HubPickupPageData_hubPickupPage_sections_tiles_tiles as TileData,
+  HubPickupPageData_hubPickupPage_sections_steps_steps as StepData,
+  HubPickupPageData_hubPickupPage_sections_accessories_accessories as AccessoryData,
+} from '../../../../generated/HubPickupPageData';
+import { HUB_PICKUP_CONTENT } from '../../../gql/hubPickupPage';
 import withApollo from '../../../hocs/withApollo';
 
 import DealOfMonth from '../../../components/DealOfMonth';
@@ -36,7 +37,9 @@ import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 
 export const PickupsPage: NextPage = () => {
-  const { data, loading, error } = useQuery<HubCarPageData>(HUB_CAR_CONTENT);
+  const { data, loading, error } = useQuery<HubPickupPageData>(
+    HUB_PICKUP_CONTENT,
+  );
 
   if (loading) {
     return <Loading size="large" />;
@@ -49,16 +52,16 @@ export const PickupsPage: NextPage = () => {
   return (
     <>
       <Hero>
-        <HeroHeading>{data?.hubCarPage.sections.hero?.title}</HeroHeading>
+        <HeroHeading>{data?.hubPickupPage.sections.hero?.title}</HeroHeading>
         <br />
-        <HeroTitle>{data?.hubCarPage.sections.hero?.body}</HeroTitle>
+        <HeroTitle>{data?.hubPickupPage.sections.hero?.body}</HeroTitle>
         <br />
         <Image
           className="hero--image"
           plain
           size="expand"
           src={
-            data?.hubCarPage.sections.hero?.image?.file?.url ||
+            data?.hubPickupPage.sections.hero?.image?.file?.url ||
             'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
           }
         />
@@ -66,10 +69,10 @@ export const PickupsPage: NextPage = () => {
 
       <section className="row:lead-text">
         <Heading size="xlarge" color="black">
-          {data?.hubCarPage.sections.leadText?.heading}
+          {data?.hubPickupPage.sections.leadText?.heading}
         </Heading>
         <Text tag="span" size="lead" color="darker">
-          {data?.hubCarPage.sections.leadText?.description}
+          {data?.hubPickupPage.sections.leadText?.description}
         </Text>
       </section>
       <hr className="-fullwidth" />
@@ -152,25 +155,27 @@ export const PickupsPage: NextPage = () => {
 
       <section className="row:steps-4col">
         <Heading className="-a-center -mb-400" size="large" color="black">
-          {data?.hubCarPage.sections.steps?.heading}
+          {data?.hubPickupPage.sections.steps?.heading}
         </Heading>
-        {data?.hubCarPage.sections.steps?.steps?.map((step: StepData, idx) => (
-          <Step
-            key={step.title || idx}
-            heading={step.title || ''}
-            step={idx + 1}
-            text={step.body || ''}
-          />
-        ))}
+        {data?.hubPickupPage.sections.steps?.steps?.map(
+          (step: StepData, idx: number) => (
+            <Step
+              key={step.title || idx}
+              heading={step.title || ''}
+              step={idx + 1}
+              text={step.body || ''}
+            />
+          ),
+        )}
       </section>
 
       <section className="row:featured-right">
         <div style={{ padding: '1rem' }}>
           <Heading size="large" color="black">
-            {data?.hubCarPage.sections.featured1?.title}
+            {data?.hubPickupPage.sections.featured1?.title}
           </Heading>
           <Text tag="p" size="regular" color="darker">
-            {data?.hubCarPage.sections.featured1?.body}
+            {data?.hubPickupPage.sections.featured1?.body}
           </Text>
           <IconList>
             <IconListItem iconColor="orange">
@@ -186,7 +191,7 @@ export const PickupsPage: NextPage = () => {
         </div>
         <Image
           src={
-            data?.hubCarPage.sections.featured1?.image?.file?.url ||
+            data?.hubPickupPage.sections.featured1?.image?.file?.url ||
             'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
           }
         />
@@ -196,7 +201,7 @@ export const PickupsPage: NextPage = () => {
         <div>
           <Image
             src={
-              data?.hubCarPage.sections.featured2?.image?.file?.url ||
+              data?.hubPickupPage.sections.featured2?.image?.file?.url ||
               'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
             }
           />
@@ -204,10 +209,10 @@ export const PickupsPage: NextPage = () => {
         <div className="-inset -middle -col-400">
           <div>
             <Heading size="large" color="black">
-              {data?.hubCarPage.sections.featured2?.title}
+              {data?.hubPickupPage.sections.featured2?.title}
             </Heading>
             <Text tag="p" size="regular" color="darker">
-              {data?.hubCarPage.sections.featured2?.body}
+              {data?.hubPickupPage.sections.featured2?.body}
             </Text>
           </div>
         </div>
@@ -217,23 +222,38 @@ export const PickupsPage: NextPage = () => {
         <Heading size="large" color="black">
           Wide Range of Optional Accessories
         </Heading>
+        {data?.hubPickupPage.sections.accessories?.accessories?.map(
+          (acc: AccessoryData, idx: number) => (
+            <div key={acc.title || idx}>
+              <Image
+                size="expand"
+                src={
+                  acc.image?.file?.url ||
+                  'https://source.unsplash.com/collection/2102317/500x325?sig=403450'
+                }
+              />
+              <Heading size="regular" color="black">
+                {acc.title}{' '}
+              </Heading>
+              <Text tag="div" size="regular" color="darker">
+                {acc.body}
+              </Text>
+            </div>
+          ),
+        )}
       </section>
 
       <hr className="fullWidth" />
       <section className="row:text">
         <Heading size="large" color="black">
-          Not Sure How Van Leasing Works?
+          {data?.hubPickupPage.sections.rowText?.heading}
         </Heading>
         <div>
           <Text tag="p" size="regular" color="darker">
-            Leasing a van is really simple. You drive a brand new vehicle and
-            pay fixed monthly rentals over 2-5 years after paying an initial
-            rental at the start of your contract. At the end of your agreement,
-            you simply hand the van back and choose which vehicle to upgrade to.
+            {data?.hubPickupPage.sections.rowText?.body}
           </Text>
           <Heading size="regular" color="black">
-            Everything you need to know is a click away in our easy to
-            understand guide
+            {data?.hubPickupPage.sections.rowText?.subHeading}
           </Heading>
           <Button
             className="-pt-200"
@@ -249,29 +269,31 @@ export const PickupsPage: NextPage = () => {
       <hr className="fullWidth" />
 
       <section className="row:features-4col">
-        {data?.hubCarPage.sections.tiles?.tiles?.map((tile: TileData, idx) => (
-          <div key={tile.title || idx}>
-            <Tile className="-plain -button -align-center" plain>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Image
-                  inline
-                  round
-                  size="large"
-                  src={
-                    tile.image?.file?.url ||
-                    'https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
-                  }
-                />
-              </div>
-              <a className="tile--link" href="##">
-                <Heading tag="span" size="regular" color="black">
-                  {tile.title}
-                </Heading>
-              </a>
-              <Text tag="p">{tile.body}</Text>
-            </Tile>
-          </div>
-        ))}
+        {data?.hubPickupPage.sections.tiles?.tiles?.map(
+          (tile: TileData, idx: number) => (
+            <div key={tile.title || idx}>
+              <Tile className="-plain -button -align-center" plain>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Image
+                    inline
+                    round
+                    size="large"
+                    src={
+                      tile.image?.file?.url ||
+                      'https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
+                    }
+                  />
+                </div>
+                <a className="tile--link" href="##">
+                  <Heading tag="span" size="regular" color="black">
+                    {tile.title}
+                  </Heading>
+                </a>
+                <Text tag="p">{tile.body}</Text>
+              </Tile>
+            </div>
+          ),
+        )}
       </section>
 
       <section className="row:league">

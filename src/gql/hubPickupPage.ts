@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 const HUB_PICKUP_CONTENT = gql`
   query HubPickupPageData {
     hubPickupPage {
+      id
       sections {
         hero {
           title
