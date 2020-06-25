@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 
 const HUB_VAN_CONTENT = gql`
   query HubVanPageData {
-    id
     hubVanPage {
+      id
       sections {
         hero {
           title

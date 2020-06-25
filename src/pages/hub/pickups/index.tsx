@@ -62,7 +62,7 @@ export const PickupsPage: NextPage = () => {
           size="expand"
           src={
             data?.hubPickupPage.sections.hero?.image?.file?.url ||
-            'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
+            'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/hilux-removebg-preview.png'
           }
         />
       </Hero>
@@ -220,7 +220,7 @@ export const PickupsPage: NextPage = () => {
 
       <section className="row:accessories">
         <Heading size="large" color="black">
-        {data?.hubPickupPage.sections.accessories?.name}
+          {data?.hubPickupPage.sections.accessories?.name}
         </Heading>
         {data?.hubPickupPage.sections.accessories?.accessories?.map(
           (acc: AccessoryData, idx: number) => (
