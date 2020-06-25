@@ -36,6 +36,11 @@ const HUB_VAN_CONTENT = gql`
             }
           }
         }
+        rowText {
+          heading
+          subHeading
+          body
+        }
         cards {
           name
           cards {

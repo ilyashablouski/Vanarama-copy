@@ -51,6 +51,19 @@ export const GET_CAR_DATA = gql`
         effectiveFrom
         effectiveTo
       }
+      colours {
+        id
+        optionDescription
+      }
+      trims {
+        id
+        optionDescription
+      }
+    }
+    leaseAdjustParams {
+      mileages
+      terms
+      upfronts
     }
   }
 `;

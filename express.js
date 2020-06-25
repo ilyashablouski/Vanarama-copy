@@ -66,6 +66,8 @@ app.prepare().then(() => {
     req.url = req.url.replace(/\/$/, '');
     if (req.url === '') req.url = '/';
 
+    if (process.env.ENV !== 'production')
+      res.setHeader('X-Robots-Tag', 'noindex'); // Disable indexing.
     return handle(req, res);
   });
 

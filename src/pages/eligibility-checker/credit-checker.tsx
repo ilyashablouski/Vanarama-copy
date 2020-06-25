@@ -17,11 +17,13 @@ import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
 import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import useSliderProperties from '../../hooks/useSliderProperties';
 
 const CreditChecker: NextPage = () => {
   const router = useRouter();
   const scoreParam = router.query.score as string;
   const score = parseInt(scoreParam, 10) || 0;
+  const { itemWidth, slidesToShow } = useSliderProperties(345, 345, 310);
 
   const breadcrumbProps = {
     items: [
@@ -85,74 +87,89 @@ const CreditChecker: NextPage = () => {
         </div>
       </div>
 
-      <div className="row:bg-lighter -col-300">
-        <Heading className="-a-center" tag="h3" size="large" color="black">
-          Top Offers
-        </Heading>
-        <Slider className="-mh-auto" slidesToShow={3} gutter={16}>
-          {[1, 2, 3, 4, 5].map(k => (
-            <div key={k.toString()} style={{ width: 394 }}>
-              <ProductCard
-                header={{
-                  accentIcon: <Icon icon={<Flame />} color="white" />,
-                  accentText: 'Hot Deal',
-                  text: 'In Stock - 14-21 Days Delivery',
-                }}
-                features={[
-                  {
-                    icon: <Icon icon={<SnowSharp />} color="dark" />,
-                    label: 'Aircon',
-                  },
-                  {
-                    icon: <Icon icon={<BluetoothSharp />} color="dark" />,
-                    label: 'Bluetooth',
-                  },
-                  {
-                    icon: <Icon icon={<CompassSharp />} color="dark" />,
-                    label: 'Navigation',
-                  },
-                  {
-                    icon: <Icon icon={<WifiSharp />} color="dark" />,
-                    label: 'Sensors',
-                  },
-                ]}
-                imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
-                onCompare={() => true}
-                onWishlist={() => true}
-                title={{
-                  title: '',
-                  link: (
-                    <RouterLink
-                      link={{ href: '#', label: 'Peugeot 208' }}
-                      className="heading"
-                      classNames={{ size: 'large', color: 'black' }}
-                    />
-                  ),
-                  description: '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
-                  score: 4.5,
-                }}
+      <div className="row:bg-lighter">
+        <div>
+          <Heading size="large" color="black">
+            <span
+              style={{ textAlign: 'center', display: 'block' }}
+              className="-mb-400"
+            >
+              Top Offers
+            </span>
+          </Heading>
+          <Slider className="-mh-auto" gutter={16} slidesToShow={slidesToShow}>
+            {[1, 2, 3, 4, 5].map(k => (
+              <div
+                key={k.toString()}
+                style={{ width: itemWidth, textAlign: 'center' }}
               >
-                <div className="-flex-h">
-                  <Price
-                    price={209}
-                    size="large"
-                    separator="."
-                    priceDescription="Per Month Exc.VAT"
-                  />
-                  <Button
-                    color="teal"
-                    fill="solid"
-                    label="View Offer"
-                    onClick={() => true}
-                    size="regular"
-                  />
-                </div>
-              </ProductCard>
-            </div>
-          ))}
-        </Slider>
-        <div className="-justify-content-row -pt-500">
-          <Button label="View All Top Offers" color="teal" />
+                <ProductCard
+                  header={{
+                    accentIcon:
+                      slidesToShow > 2 ? (
+                        <Icon icon={<Flame />} color="white" />
+                      ) : (
+                        ''
+                      ),
+                    accentText: slidesToShow > 2 ? 'Hot Deal' : '',
+                    text: 'In Stock - 14-21 Days Delivery',
+                  }}
+                  features={[
+                    {
+                      icon: <Icon icon={<SnowSharp />} color="dark" />,
+                      label: 'Aircon',
+                    },
+                    {
+                      icon: <Icon icon={<BluetoothSharp />} color="dark" />,
+                      label: 'Bluetooth',
+                    },
+                    {
+                      icon: <Icon icon={<CompassSharp />} color="dark" />,
+                      label: 'Navigation',
+                    },
+                    {
+                      icon: <Icon icon={<WifiSharp />} color="dark" />,
+                      label: 'Sensors',
+                    },
+                  ]}
+                  imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
+                  onCompare={() => true}
+                  onWishlist={() => true}
+                  title={{
+                    title: '',
+                    link: (
+                      <RouterLink
+                        link={{ href: '#', label: 'Peugeot 208' }}
+                        className="heading"
+                        classNames={{ size: 'large', color: 'black' }}
+                      />
+                    ),
+                    description: '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
+                    score: 4.5,
+                  }}
+                >
+                  <div className="-flex-h">
+                    <Price
+                      price={209}
+                      size="large"
+                      separator="."
+                      priceDescription="Per Month Exc.VAT"
+                    />
+                    <Button
+                      color="teal"
+                      fill="solid"
+                      label="View Offer"
+                      onClick={() => true}
+                      size="regular"
+                    />
+                  </div>
+                </ProductCard>
+              </div>
+            ))}
+          </Slider>
+          <div className="-justify-content-row -pt-500">
+            <Button label="View All Vans" color="teal" />
+          </div>
         </div>
       </div>
     </>
