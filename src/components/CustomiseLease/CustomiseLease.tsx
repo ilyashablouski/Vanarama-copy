@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import 'rsuite/dist/styles/rsuite-default.css';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import { Dispatch, SetStateAction } from 'react';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Choiceboxes from '@vanarama/uibook/lib/components/atoms/choiceboxes';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
-import SlidingInput from '@vanarama/uibook/lib/components/atoms/sliding-input';
+import { Slider } from 'rsuite';
 import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
 import SpeedometerOutline from '@vanarama/uibook/lib/assets/icons/SpeedometerSharp';
 import { IProps, IColour, ITrim, IChoice } from './interfase';
@@ -95,9 +96,8 @@ const CustomiseLease = ({
   setTerm,
   setTrim,
   data,
-  trim,
   derivativeInfo,
-  leaseAdjustParams,
+  mileage,
 }: IProps) => {
   const quoteByCapId = data?.quoteByCapId;
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
@@ -114,16 +114,24 @@ const CustomiseLease = ({
           {`${quoteByCapId?.mileage} Miles`}
         </Text>
       </Heading>
-      <SlidingInput
-        steps={mileages}
-        onChange={value => {
-          setMileage(leaseAdjustParams?.mileages[value - 1] || 0);
-        }}
-      />
+      <div className="-pb-100 -pt-200">
+        <Slider
+          step={1}
+          graduated
+          defaultValue={mileages.indexOf(mileage || 0) + 1}
+          progress
+          style={{ fontSize: '0.75rem' }}
+          tooltip={false}
+          min={1}
+          onChange={value => setMileage(mileages[value - 1])}
+          max={mileages?.length}
+          renderMark={mark => `${mileages[mark - 1] / 1000}K`}
+        />
+      </div>
       <div className="-flex-row">
         <Icon color="orange" size="large" icon={<SpeedometerOutline />} />
         <Text color="orange" size="small" className="-b -ml-200">
-          + 1000
+          {`+ ${(quoteByCapId?.mileage || 0) / 10}`}
         </Text>
         <Text color="black" size="small" className="-mt-000 -ml-100">
           Extra Miles FREE
@@ -150,7 +158,12 @@ const CustomiseLease = ({
         derivativeInfo?.colours,
         'Select Paint Holder',
       )}
-      {select(`${trim}`, setTrim, derivativeInfo?.trims, 'Select Interior')}
+      {select(
+        `${quoteByCapId?.trim}`,
+        setTrim,
+        derivativeInfo?.trims,
+        'Select Interior',
+      )}
       <div
         style={{
           position: 'sticky',
