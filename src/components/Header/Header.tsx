@@ -133,46 +133,48 @@ const Header: FC<IHeaderProps> = memo(props => {
   );
 
   return (
-    <header className={cx('header', className)} data-testid="header">
-      <div className="header--logo" data-testid="header--logo">
-        <RouterLink
-          link={{ href: '/', label: '' }}
-          classNames={{ color: 'orange', plain: true }}
-        >
-          <Logo asset="vanarama" />
-        </RouterLink>
-      </div>
-      {renderMenu()}
-      <div className="header--compact-menu" data-testid="header--compact-menu">
-        <Button
-          className="header--responsive-icon"
-          color="orange"
-          fill="clear"
-          dataTestId="call-btn"
-          label={
-            <RouterLink
-              className="-clear"
-              classNames={{ size: 'large', color: 'inherit' }}
-              link={phoneNumberLink}
-            >
-              <Icon icon={<Call />} size="small" name="call-sharp" />
-            </RouterLink>
-          }
-        />
-        <Button
-          className="header--responsive-icon"
-          color="orange"
-          fill="clear"
-          iconPosition="before"
-          dataTestId="menu-btn"
-          label={<Icon icon={<Menu />} size="small" />}
-        />
-      </div>
-      <div className="header--cta" data-testid="header--cta">
-        {renderCta()}
-        {!!message && renderMessage()}
-      </div>
-    </header>
+    <header/>
+    // ToDo: uncomment it when header will be fixed
+    // <header className={cx('header', className)} data-testid="header">
+    //   <div className="header--logo" data-testid="header--logo">
+    //     <RouterLink
+    //       link={{ href: '/', label: '' }}
+    //       classNames={{ color: 'orange', plain: true }}
+    //     >
+    //       <Logo asset="vanarama" />
+    //     </RouterLink>
+    //   </div>
+    //   {renderMenu()}
+    //   <div className="header--compact-menu" data-testid="header--compact-menu">
+    //     <Button
+    //       className="header--responsive-icon"
+    //       color="orange"
+    //       fill="clear"
+    //       dataTestId="call-btn"
+    //       label={
+    //         <RouterLink
+    //           className="-clear"
+    //           classNames={{ size: 'large', color: 'inherit' }}
+    //           link={phoneNumberLink}
+    //         >
+    //           <Icon icon={<Call />} size="small" name="call-sharp" />
+    //         </RouterLink>
+    //       }
+    //     />
+    //     <Button
+    //       className="header--responsive-icon"
+    //       color="orange"
+    //       fill="clear"
+    //       iconPosition="before"
+    //       dataTestId="menu-btn"
+    //       label={<Icon icon={<Menu />} size="small" />}
+    //     />
+    //   </div>
+    //   <div className="header--cta" data-testid="header--cta">
+    //     {renderCta()}
+    //     {!!message && renderMessage()}
+    //   </div>
+    // </header>
   );
 });
 
