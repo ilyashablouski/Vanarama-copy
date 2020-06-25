@@ -47,31 +47,19 @@ const WhyChooseLeasing: React.FC<IWhyChooseLeasingProps> = ({ warranty }) => {
       <Heading tag="span" color="black" size="lead">
         Why Choose Leasing?
       </Heading>
-      <div className="pdp--feature-grid--item">
-        <Icon name="BrandNewCar" color="orange" size="xlarge" />
-        <div>
-          <Heading tag="div" size="regular" color="black">
-            Brand New Vehicles
-          </Heading>
-        </div>
-      </div>
+      {renderGridItem(
+        'Brand New Vehicles',
+        <Icon name="BrandNewCar" color="orange" size="xlarge" />,
+      )}
       {warrantyRender()}
-      <div className="pdp--feature-grid--item">
-        <Icon name="Calendar" color="orange" size="xlarge" />
-        <div>
-          <Heading tag="div" size="regular" color="black">
-            Fixed Monthly Payments
-          </Heading>
-        </div>
-      </div>
-      <div className="pdp--feature-grid--item">
-        <Icon name="NoMOT" color="orange" size="xlarge" />
-        <div>
-          <Heading tag="div" size="regular" color="black">
-            No MOT Costs
-          </Heading>
-        </div>
-      </div>
+      {renderGridItem(
+        'Fixed Monthly Payments',
+        <Icon name="Calendar" color="orange" size="xlarge" />,
+      )}
+      {renderGridItem(
+        'No MOT Costs',
+        <Icon name="NoMOT" color="orange" size="xlarge" />,
+      )}
     </div>
   );
 };
