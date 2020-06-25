@@ -4,6 +4,7 @@ ARG NPM_TOKEN
 ARG API_KEY
 ARG API_URL
 ARG LOQATE_KEY
+ARG NODE_ENV
 
 # Setting working directory. All the path will be relative to WORKDIR
 WORKDIR /usr/src/app

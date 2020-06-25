@@ -1,65 +1,72 @@
-/* eslint-disable testing-library/prefer-presence-queries */
-/* eslint-disable testing-library/prefer-screen-queries */
-import { render, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
-import RouterLink from '../RouterLink';
 import { LinkTypes } from '../../../models/enum/LinkTypes';
+import RouterLink from '../RouterLink';
 
 describe('<RouterLink />', () => {
-  const resetMocks = () => {
-    return {
-      link: {
-        label: 'Login',
-        href: '/account/login-register',
-      },
-      replace: false,
-      onClick: null,
-      className: '',
-      classNames: null,
-    } as any;
-  };
+  // eslint-disable-next-line no-console
+  const originalError = console.error;
+  beforeAll(() => {
+    // This is here to silence as navigation is not supported by JSDOM
+    jest.spyOn(console, 'error').mockImplementation((...args) => {
+      if (
+        typeof args[0] === 'string' &&
+        args[0].includes('Not implemented: navigation (except hash changes)')
+      ) {
+        return undefined;
+      }
 
-  let mocks = resetMocks();
-
-  beforeEach(() => {
-    mocks = resetMocks();
+      return originalError.call(console, args);
+    });
   });
 
-  it('should make render router-link', () => {
-    // ARRANGE
-
+  it('should use the Next.js router by default', () => {
     // ACT
-    const { queryByTestId } = render(<RouterLink {...mocks} />);
+    render(
+      <RouterLink link={{ label: 'Login', href: '/account/login-register' }} />,
+    );
 
     // ASSERT
-
-    expect(queryByTestId('link')).toBeFalsy();
-    expect(queryByTestId('router-link')).toBeTruthy();
+    expect(screen.getByTestId('router-link')).toBeInTheDocument();
+    expect(screen.queryByTestId('link')).not.toBeInTheDocument();
   });
 
-  it('should make render link', () => {
-    // ARRANGE
-    mocks.link.linkType = LinkTypes.external;
-
+  it('should not use the Next.js router for external links', () => {
     // ACT
-    const { queryByTestId } = render(<RouterLink {...mocks} />);
+    render(
+      <RouterLink
+        link={{
+          href: 'https://www.google.com',
+          label: 'Google',
+          linkType: LinkTypes.external,
+        }}
+      />,
+    );
 
     // ASSERT
-    expect(queryByTestId('link')).toBeTruthy();
-    expect(queryByTestId('router-link')).toBeFalsy();
+    expect(screen.getByTestId('link')).toBeInTheDocument();
+    expect(screen.queryByTestId('router-link')).not.toBeInTheDocument();
   });
 
-  it('should call onClick from props when we have this and click link', () => {
+  it('should call `onClick` when clicking the link', () => {
     // ARRANGE
-    mocks.link.linkType = LinkTypes.external;
-    mocks.onClick = jest.fn();
+    const onClick = jest.fn();
 
     // ACT
-    const { getByTestId } = render(<RouterLink {...mocks} />);
+    render(
+      <RouterLink
+        link={{
+          href: '/account/login-register',
+          label: 'Login',
+          linkType: LinkTypes.external,
+        }}
+        onClick={onClick}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole('link'));
 
     // ASSERT
-    fireEvent.click(getByTestId('link'));
-
-    expect(mocks.onClick).toBeCalled();
+    expect(onClick).toBeCalled();
   });
 });

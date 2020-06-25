@@ -16,6 +16,7 @@ import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
 import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
+import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import Step from '@vanarama/uibook/lib/components/molecules/step';
 import IconList, {
@@ -431,18 +432,14 @@ const VansPage: NextPage = () => {
       <hr className="fullWidth" />
       <section className="row:text">
         <Heading size="large" color="black">
-          Not Sure How Van Leasing Works?
+          {data?.hubVanPage.sections.rowText?.heading}
         </Heading>
         <div>
           <Text tag="p" size="regular" color="darker">
-            Leasing a Van is really simple. You drive a brand new vehicle and
-            pay fixed monthly rentals over 2-5 years after paying an initial
-            rental at the start of your contract. At the end of your agreement,
-            you simply hand the van back and choose which vehicle to upgrade to.
+            {data?.hubVanPage.sections.rowText?.body}
           </Text>
           <Heading size="regular" color="black">
-            Everything you need to know is a click away in our easy to
-            understand leasing guide
+            {data?.hubVanPage.sections.rowText?.subHeading}
           </Heading>
           <Button
             className="-pt-200"
@@ -450,6 +447,8 @@ const VansPage: NextPage = () => {
             color="teal"
             fill="clear"
             size="regular"
+            icon={<ArrowForwardSharp />}
+            iconPosition="after"
           />
         </div>
       </section>
