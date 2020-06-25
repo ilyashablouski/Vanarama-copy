@@ -1,12 +1,15 @@
-export type PercentageTrade = {
+type Market = {
   country: string;
   percentage: string;
 };
 
 export type VatDetailsFormValues = {
-  isValidTotal: boolean;
+  /**
+   * This is a "virtual" field, only used for complex validation outside the standard supported.
+   */
+  isValid: boolean;
+  markets: Market[];
   outsideUK: boolean;
-  trade: PercentageTrade[];
-  vatNumber: string;
+  vatNumber?: string;
   vatRegistered: boolean;
 };

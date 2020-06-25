@@ -1,51 +1,59 @@
 import { useCallback, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
+import { hasDuplicates, sum } from '../../utils/array';
 import { VatDetailsFormValues as FormValues } from './interfaces';
+
+const DUPLICATE_ERROR = 'You cannot select the same country more than once';
+const MAX_ERROR = 'The Total % of Turnover Cannot Exceed 100%';
+const MIN_ERROR = 'The % of turnover must be at least 1%';
+const REQUIRED_ERROR = 'Please fill in country of trade and % of turnover';
 
 export function useTurnoverErrorMessage() {
   const { errors } = useFormContext<FormValues>();
-  const validEntries = errors.trade?.filter(Boolean) || [];
+  const validErrors = errors.markets?.filter(Boolean) || [];
 
-  const isMissing = validEntries.find(
+  const isMissing = validErrors.find(
     _ => _.country?.type === 'required' || _.percentage?.type === 'required',
   );
 
   if (isMissing) {
-    return 'Please fill in country of trade and % of turnover';
+    return REQUIRED_ERROR;
   }
 
-  const isTooLow = validEntries.find(_ => _.percentage?.type === 'min');
+  const isTooLow = validErrors.find(_ => _.percentage?.type === 'min');
   if (isTooLow) {
-    return 'The % of turnover must be at least 1%';
+    return MIN_ERROR;
   }
 
-  const isTooHigh = validEntries.find(_ => _.percentage?.type === 'max');
+  const isTooHigh = validErrors.find(_ => _.percentage?.type === 'max');
   if (isTooHigh) {
-    return 'The Total % of Turnover Cannot Exceed 100%';
+    return MAX_ERROR;
   }
 
-  return errors.isValidTotal?.message?.toString();
+  return errors.isValid?.message?.toString();
 }
 
-/**
- * A simple custom hook that handles the validation logic for the total turnover percentage
- */
-export function useTotalPercentageValidation() {
+export function useCustomValidation() {
   const { triggerValidation, register, watch } = useFormContext<FormValues>();
-  const trade = watch('trade');
 
-  const validate = useCallback(() => {
-    const total = trade.reduce((sum, _) => sum + parseInt(_.percentage, 10), 0);
-    return total > 100
-      ? 'The Total % of Turnover Cannot Exceed 100%'
-      : undefined;
-  }, [trade]);
+  const markets = watch('markets');
+  const validateMarkets = useCallback(() => {
+    const countries = markets.map(_ => _.country);
+    if (hasDuplicates(countries)) {
+      return DUPLICATE_ERROR;
+    }
 
+    const total = sum(markets, _ => parseInt(_.percentage, 10));
+    return total > 100 ? MAX_ERROR : undefined;
+  }, [markets]);
+
+  // Register the "virtual" field that holds the validation state
   useEffect(() => {
-    register('isValidTotal', { validate });
-  }, [register, validate]);
+    register('isValid', { validate: validateMarkets });
+  }, [register, validateMarkets]);
 
+  // Validate each time the markets change
   useEffect(() => {
-    triggerValidation('isValidTotal');
-  }, [trade, triggerValidation]);
+    triggerValidation('isValid');
+  }, [markets, triggerValidation]);
 }
