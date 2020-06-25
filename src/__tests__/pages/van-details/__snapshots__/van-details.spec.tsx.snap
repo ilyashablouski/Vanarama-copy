@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<CarDetailsPage /> renders correctly with data 1`] = `
+exports[`<VanDetailsPage /> renders correctly with data 1`] = `
 Array [
   <div
     className="pdp--content"
@@ -738,6 +738,32 @@ Array [
         />
       </div>
     </div>
+    <div
+      className="tilebox -col-300 -p-400"
+    >
+      <span
+        className="heading -black -lead"
+      >
+        Independent Review By Car & Driving
+      </span>
+      <p
+        className="text -regular -darker"
+      >
+        <span
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "...",
+            }
+          }
+        />
+        <a
+          className="link -teal -regular -plain"
+          onClick={[Function]}
+        >
+          Read More
+        </a>
+      </p>
+    </div>
   </div>,
   <div
     className="pdp--sidebar"
@@ -768,7 +794,7 @@ Array [
 ]
 `;
 
-exports[`<CarDetailsPage /> renders correctly with error 1`] = `
+exports[`<VanDetailsPage /> renders correctly with error 1`] = `
 <div
   className="pdp--content"
   style={
@@ -783,7 +809,7 @@ exports[`<CarDetailsPage /> renders correctly with error 1`] = `
 </div>
 `;
 
-exports[`<CarDetailsPage /> renders correctly with loading 1`] = `
+exports[`<VanDetailsPage /> renders correctly with loading 1`] = `
 <div
   className="pdp--content"
   style={

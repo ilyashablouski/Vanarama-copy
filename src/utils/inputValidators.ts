@@ -19,6 +19,17 @@ export const passwordValidator: ValidationOptions = {
   },
 };
 
+export const newPasswordValidator: ValidationOptions = {
+  required: {
+    value: true,
+    message: 'Please fill in your new password',
+  },
+  pattern: {
+    value: PASSWORD_REGEX,
+    message: 'Your Password does not meet the requirements',
+  },
+};
+
 export const confirmPasswordValidator = (
   password: string,
 ): ValidationOptions => ({
@@ -26,6 +37,6 @@ export const confirmPasswordValidator = (
     password !== confirmPassword ? 'Repeat Password does not match' : undefined,
   required: {
     value: true,
-    message: 'Repeat Password is required',
+    message: 'Please fill in your repeat password',
   },
 });
