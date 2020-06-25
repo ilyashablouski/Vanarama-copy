@@ -44,6 +44,7 @@ const HUB_VAN_CONTENT = gql`
         }
         cards {
           name
+          description
           cards {
             title
             body
