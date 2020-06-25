@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { useCarData } from '../../../gql/carpage';
-import VanDetailsPage from '../../../pages/vans/vans-details';
+import VanDetailsPage from '../../../pages/vans/van-details';
 
 jest.mock('../../../gql/carpage');
 

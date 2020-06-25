@@ -63,17 +63,23 @@ const VehicleTechDetails: React.FC<IVehicleTechDetailsProps> = props => {
                 vehicleDetails.keyInformation as KeyInformationItem[]
               }
             />
-          ) : null}
+          ) : (
+            <p>Error: No data</p>
+          )}
         </TabPanel>
         <TabPanel index={2}>
           {standardEquipments?.length ? (
             <Accordion items={accordionItems(standardEquipments)} />
-          ) : null}
+          ) : (
+            <p>Error: No data</p>
+          )}
         </TabPanel>
         <TabPanel index={3}>
           {technicals?.length ? (
             <Accordion items={accordionItems(technicals)} />
-          ) : null}
+          ) : (
+            <p>Error: No data</p>
+          )}
         </TabPanel>
       </TabPanels>
     </Tabs>

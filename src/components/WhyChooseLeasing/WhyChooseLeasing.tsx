@@ -1,13 +1,5 @@
 import React from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import WarrantyRosetteFull from '@vanarama/uibook/lib/assets/icons/WarrantyRosetteFull';
-import WarrantyRosette5 from '@vanarama/uibook/lib/assets/icons/WarrantyRosette5';
-import WarrantyRosette4 from '@vanarama/uibook/lib/assets/icons/WarrantyRosette4';
-import WarrantyRosette3 from '@vanarama/uibook/lib/assets/icons/WarrantyRosette3';
-import WarrantyRosette2 from '@vanarama/uibook/lib/assets/icons/WarrantyRosette2';
-import BrandNewCar from '@vanarama/uibook/lib/assets/icons/BrandNewCar';
-import Calendar from '@vanarama/uibook/lib/assets/icons/Calendar';
-import NoMOT from '@vanarama/uibook/lib/assets/icons/NoMOT';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 
 interface IWhyChooseLeasingProps {
@@ -31,27 +23,19 @@ const WhyChooseLeasing: React.FC<IWhyChooseLeasingProps> = ({ warranty }) => {
       case 'N/A':
         return renderGridItem(
           'Full Manufacturer Warranty',
-          <Icon icon={<WarrantyRosetteFull />} color="orange" size="xlarge" />,
-        );
-      case '5':
-        return renderGridItem(
-          'Full 5 Year Warranty',
-          <Icon icon={<WarrantyRosette5 />} color="orange" size="xlarge" />,
-        );
-      case '4':
-        return renderGridItem(
-          'Full 4 Year Warranty',
-          <Icon icon={<WarrantyRosette4 />} color="orange" size="xlarge" />,
-        );
-      case '3':
-        return renderGridItem(
-          'Full 3 Year Warranty',
-          <Icon icon={<WarrantyRosette3 />} color="orange" size="xlarge" />,
+          <Icon name="WarrantyRosetteFull" color="orange" size="xlarge" />,
         );
       case '2':
+      case '3':
+      case '4':
+      case '5':
         return renderGridItem(
-          'Full 2 Year Warranty',
-          <Icon icon={<WarrantyRosette2 />} color="orange" size="xlarge" />,
+          `Full ${warranty} Year Warranty`,
+          <Icon
+            name={`WarrantyRosette${warranty}`}
+            color="orange"
+            size="xlarge"
+          />,
         );
       default:
         return null;
@@ -64,7 +48,7 @@ const WhyChooseLeasing: React.FC<IWhyChooseLeasingProps> = ({ warranty }) => {
         Why Choose Leasing?
       </Heading>
       <div className="pdp--feature-grid--item">
-        <Icon icon={<BrandNewCar />} color="orange" size="xlarge" />
+        <Icon name="BrandNewCar" color="orange" size="xlarge" />
         <div>
           <Heading tag="div" size="regular" color="black">
             Brand New Vehicles
@@ -73,7 +57,7 @@ const WhyChooseLeasing: React.FC<IWhyChooseLeasingProps> = ({ warranty }) => {
       </div>
       {warrantyRender()}
       <div className="pdp--feature-grid--item">
-        <Icon icon={<Calendar />} color="orange" size="xlarge" />
+        <Icon name="Calendar" color="orange" size="xlarge" />
         <div>
           <Heading tag="div" size="regular" color="black">
             Fixed Monthly Payments
@@ -81,7 +65,7 @@ const WhyChooseLeasing: React.FC<IWhyChooseLeasingProps> = ({ warranty }) => {
         </div>
       </div>
       <div className="pdp--feature-grid--item">
-        <Icon icon={<NoMOT />} color="orange" size="xlarge" />
+        <Icon name="NoMOT" color="orange" size="xlarge" />
         <div>
           <Heading tag="div" size="regular" color="black">
             No MOT Costs
