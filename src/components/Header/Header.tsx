@@ -1,19 +1,19 @@
 import React, { FC, memo } from 'react';
-import cx from 'classnames';
+// import cx from 'classnames';
 import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Logo from '@vanarama/uibook/lib/components/atoms/logo';
-import IvanCta from '@vanarama/uibook/lib/components/molecules/ivan-cta';
+// import Button from '@vanarama/uibook/lib/components/atoms/button';
+// import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+// import Icon from '@vanarama/uibook/lib/components/atoms/icon';
+// import Text from '@vanarama/uibook/lib/components/atoms/text';
+// import Logo from '@vanarama/uibook/lib/components/atoms/logo';
+// import IvanCta from '@vanarama/uibook/lib/components/molecules/ivan-cta';
 
-import Call from '@vanarama/uibook/lib/assets/icons/Call';
-import Menu from '@vanarama/uibook/lib/assets/icons/Menu';
-import ChevronDown from '@vanarama/uibook/lib/assets/icons/ChevronDown';
+// import Call from '@vanarama/uibook/lib/assets/icons/Call';
+// import Menu from '@vanarama/uibook/lib/assets/icons/Menu';
+// import ChevronDown from '@vanarama/uibook/lib/assets/icons/ChevronDown';
 
 import { ILinkProps } from '../RouterLink/interface';
-import RouterLink from '../RouterLink/RouterLink';
+// import RouterLink from '../RouterLink/RouterLink';
 
 export interface IHeaderProps extends IBaseProps {
   topBarLinks: ILinkProps[];
@@ -23,117 +23,117 @@ export interface IHeaderProps extends IBaseProps {
   message?: string;
 }
 
-const Header: FC<IHeaderProps> = memo(props => {
-  const {
-    className,
-    topBarLinks,
-    loginLink,
-    showIvan,
-    message,
-    phoneNumberLink,
-  } = props;
+const Header: FC<IHeaderProps> = memo(() => {
+  // const {
+  //   className,
+  //   topBarLinks,
+  //   loginLink,
+  //   showIvan,
+  //   message,
+  //   phoneNumberLink,
+  // } = props;
 
-  const renderChildrenMenu = (childrenLinks: ILinkProps[]) => {
-    return (
-      <nav data-testid="header--menu-children">
-        <ul>
-          {childrenLinks.map((link: ILinkProps) => (
-            <li key={link.label}>
-              <RouterLink
-                link={link}
-                classNames={{
-                  size: 'large',
-                  color: 'black',
-                }}
-                className="button -clear"
-              >
-                {link.label}
-              </RouterLink>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    );
-  };
+  // const renderChildrenMenu = (childrenLinks: ILinkProps[]) => {
+  //   return (
+  //     <nav data-testid="header--menu-children">
+  //       <ul>
+  //         {childrenLinks.map((link: ILinkProps) => (
+  //           <li key={link.label}>
+  //             <RouterLink
+  //               link={link}
+  //               classNames={{
+  //                 size: 'large',
+  //                 color: 'black',
+  //               }}
+  //               className="button -clear"
+  //             >
+  //               {link.label}
+  //             </RouterLink>
+  //           </li>
+  //         ))}
+  //       </ul>
+  //     </nav>
+  //   );
+  // };
 
-  const renderMenu = () => {
-    return (
-      <div className="header--menu" data-testid="header--menu">
-        <nav className="header--menu-nav">
-          {!!topBarLinks.length &&
-            topBarLinks.map(entry => (
-              <Button
-                key={entry.label}
-                className="-multiple"
-                fill="clear"
-                color="inherit"
-                label={
-                  <>
-                    <RouterLink link={entry}>
-                      <Heading size="lead" color="inherit">
-                        {entry.label}
-                      </Heading>
-                      {!!entry.childrenLinks?.length && (
-                        <Icon color="dark" icon={<ChevronDown />} />
-                      )}
-                    </RouterLink>
-                    {!!entry.childrenLinks?.length &&
-                      renderChildrenMenu(entry.childrenLinks)}
-                  </>
-                }
-              />
-            ))}
-          {loginLink && (
-            <>
-              <span className="header--vertical-rule" />
-              <Button
-                key={loginLink.label}
-                color="inherit"
-                fill="clear"
-                label={
-                  <Text size="lead" color="inherit">
-                    <RouterLink
-                      link={loginLink}
-                      className="button -clear"
-                      classNames={{ size: 'large', color: 'inherit' }}
-                    >
-                      {loginLink.label}
-                    </RouterLink>
-                  </Text>
-                }
-              />
-            </>
-          )}
-        </nav>
-      </div>
-    );
-  };
+  // const renderMenu = () => {
+  //   return (
+  //     <div className="header--menu" data-testid="header--menu">
+  //       <nav className="header--menu-nav">
+  //         {!!topBarLinks.length &&
+  //           topBarLinks.map(entry => (
+  //             <Button
+  //               key={entry.label}
+  //               className="-multiple"
+  //               fill="clear"
+  //               color="inherit"
+  //               label={
+  //                 <>
+  //                   <RouterLink link={entry}>
+  //                     <Heading size="lead" color="inherit">
+  //                       {entry.label}
+  //                     </Heading>
+  //                     {!!entry.childrenLinks?.length && (
+  //                       <Icon color="dark" icon={<ChevronDown />} />
+  //                     )}
+  //                   </RouterLink>
+  //                   {!!entry.childrenLinks?.length &&
+  //                     renderChildrenMenu(entry.childrenLinks)}
+  //                 </>
+  //               }
+  //             />
+  //           ))}
+  //         {loginLink && (
+  //           <>
+  //             <span className="header--vertical-rule" />
+  //             <Button
+  //               key={loginLink.label}
+  //               color="inherit"
+  //               fill="clear"
+  //               label={
+  //                 <Text size="lead" color="inherit">
+  //                   <RouterLink
+  //                     link={loginLink}
+  //                     className="button -clear"
+  //                     classNames={{ size: 'large', color: 'inherit' }}
+  //                   >
+  //                     {loginLink.label}
+  //                   </RouterLink>
+  //                 </Text>
+  //               }
+  //             />
+  //           </>
+  //         )}
+  //       </nav>
+  //     </div>
+  //   );
+  // };
 
-  const renderCta = () => {
-    if (showIvan) {
-      return <IvanCta isCompact />;
-    }
-    return (
-      <RouterLink
-        link={phoneNumberLink}
-        className="button -clear"
-        classNames={{ size: 'large', color: 'inherit' }}
-      >
-        01442 838195
-      </RouterLink>
-    );
-  };
+  // const renderCta = () => {
+  //   if (showIvan) {
+  //     return <IvanCta isCompact />;
+  //   }
+  //   return (
+  //     <RouterLink
+  //       link={phoneNumberLink}
+  //       className="button -clear"
+  //       classNames={{ size: 'large', color: 'inherit' }}
+  //     >
+  //       01442 838195
+  //     </RouterLink>
+  //   );
+  // };
 
-  const renderMessage = () => (
-    <div className="header--notice" data-testid="header--notice">
-      <Text tag="p" color="darker">
-        {message}
-      </Text>
-    </div>
-  );
+  // const renderMessage = () => (
+  //   <div className="header--notice" data-testid="header--notice">
+  //     <Text tag="p" color="darker">
+  //       {message}
+  //     </Text>
+  //   </div>
+  // );
 
   return (
-    <header/>
+    <header />
     // ToDo: uncomment it when header will be fixed
     // <header className={cx('header', className)} data-testid="header">
     //   <div className="header--logo" data-testid="header--logo">
