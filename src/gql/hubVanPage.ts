@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 const HUB_VAN_CONTENT = gql`
   query HubVanPageData {
     hubVanPage {
+      id
       sections {
         hero {
           title
@@ -43,6 +44,7 @@ const HUB_VAN_CONTENT = gql`
         }
         cards {
           name
+          description
           cards {
             title
             body
