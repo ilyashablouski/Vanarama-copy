@@ -48,9 +48,9 @@ const HUB_PICKUP_CONTENT = gql`
             body
           }
         }
-        accesories {
+        accessories {
           name
-          accesories {
+          accessories {
             title
             body
             image {
