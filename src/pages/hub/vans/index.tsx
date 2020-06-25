@@ -37,9 +37,11 @@ import withApollo from '../../../hocs/withApollo';
 import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 import DealOfMonth from '../../../components/DealOfMonth';
 import RouterLink from '../../../components/RouterLink/RouterLink';
+import useSliderProperties from '../../../hooks/useSliderProperties';
 
 const VansPage: NextPage = () => {
   const { data, loading, error } = useQuery<HubVanPageData>(HUB_VAN_CONTENT);
+  const { itemWidth, slidesToShow } = useSliderProperties(345, 345, 310);
 
   if (loading) {
     return <Loading size="large" />;
@@ -96,16 +98,21 @@ const VansPage: NextPage = () => {
               style={{ textAlign: 'center', display: 'block' }}
               className="-mb-400"
             >
-              Large Vans
+              Small Vans
             </span>
           </Heading>
           <Slider className="-mh-auto" gutter={16}>
             {[1, 2, 3, 4, 5].map(k => (
-              <div key={k.toString()} style={{ width: 345 }}>
+              <div key={k.toString()} style={{ width: itemWidth }}>
                 <ProductCard
                   header={{
-                    accentIcon: <Icon icon={<Flame />} color="white" />,
-                    accentText: 'Hot Deal',
+                    accentIcon:
+                      slidesToShow > 2 ? (
+                        <Icon icon={<Flame />} color="white" />
+                      ) : (
+                        ''
+                      ),
+                    accentText: slidesToShow > 2 ? 'Hot Deal' : '',
                     text: 'In Stock - 14-21 Days Delivery',
                   }}
                   features={[
@@ -178,20 +185,18 @@ const VansPage: NextPage = () => {
           </Heading>
           <Slider className="-mh-auto" gutter={16}>
             {[1, 2, 3, 4, 5].map(k => (
-              <div key={k.toString()} style={{ width: 345 }}>
+              <div key={k.toString()} style={{ width: itemWidth }}>
                 <ProductCard
                   header={{
-                    accentIcon: (
-                      <Icon
-                        icon={<Flame />}
-                        color="white"
-                        className="md hydrated"
-                      />
-                    ),
-                    accentText: 'Hot Deal',
+                    accentIcon:
+                      slidesToShow > 2 ? (
+                        <Icon icon={<Flame />} color="white" />
+                      ) : (
+                        ''
+                      ),
+                    accentText: slidesToShow > 2 ? 'Hot Deal' : '',
                     text: 'In Stock - 14-21 Days Delivery',
                   }}
-                  description="Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id"
                   imageSrc="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
                   features={[
                     {
@@ -255,25 +260,23 @@ const VansPage: NextPage = () => {
               style={{ textAlign: 'center', display: 'block' }}
               className="-mb-400"
             >
-              Small Vans
+              Large Vans
             </span>
           </Heading>
           <Slider className="-mh-auto" gutter={16}>
             {[1, 2, 3, 4, 5].map(k => (
-              <div key={k.toString()} style={{ width: 345 }}>
+              <div key={k.toString()} style={{ width: itemWidth }}>
                 <ProductCard
                   header={{
-                    accentIcon: (
-                      <Icon
-                        icon={<Flame />}
-                        color="white"
-                        className="md hydrated"
-                      />
-                    ),
-                    accentText: 'Hot Deal',
+                    accentIcon:
+                      slidesToShow > 2 ? (
+                        <Icon icon={<Flame />} color="white" />
+                      ) : (
+                        ''
+                      ),
+                    accentText: slidesToShow > 2 ? 'Hot Deal' : '',
                     text: 'In Stock - 14-21 Days Delivery',
                   }}
-                  description="Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id"
                   imageSrc="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
                   features={[
                     {
@@ -342,9 +345,7 @@ const VansPage: NextPage = () => {
             size="regular"
             color="darker"
           >
-            Choose from Small, Medium and Large vans, or Tippers/Lutons,
-            Crew/Minibus, Pickups and Refrigerated Vans - whatever you need,
-            we&apos;ve got it.
+            {data?.hubVanPage.sections.cards?.description}
           </Text>
           {data?.hubVanPage.sections.cards?.cards?.map(
             (card: CardData, idx) => (

@@ -14,7 +14,7 @@ const VatDetailsForm: React.FC = () => {
   const methods = useForm<VatDetailsFormValues>({
     mode: 'onBlur',
     defaultValues: {
-      trade: [{ country: '', percentage: '' }],
+      markets: [{ country: '', percentage: '' }],
     },
   });
 
