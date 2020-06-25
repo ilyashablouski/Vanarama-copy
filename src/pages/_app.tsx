@@ -4,6 +4,7 @@ import '@vanarama/uibook/src/components/base.scss';
 import { AppProps } from 'next/app';
 import { Router } from 'next/router';
 import { useEffect } from 'react';
+import cx from 'classnames';
 import Header from '../components/Header/Header';
 import { PHONE_NUMBER_LINK, TOP_BAR_LINKS } from '../models/enum/HeaderLinks';
 
@@ -23,7 +24,11 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   return (
     <>
       <ToastContainer />
-      <main className="page:default">
+      <main
+        className={cx(
+          router.asPath === '/cars/car-details' ? 'page:pdp' : 'page:default',
+        )}
+      >
         <Header
           loginLink={LOGIN_LINK}
           phoneNumberLink={PHONE_NUMBER_LINK}

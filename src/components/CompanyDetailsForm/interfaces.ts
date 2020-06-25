@@ -1,4 +1,7 @@
+import { SearchCompaniesQuery_searchCompanies_nodes as CompanySearchResult } from '../../../generated/SearchCompaniesQuery';
+
 export interface ICompanyDetailsFormValues {
+  companySearchResult?: CompanySearchResult;
   companyName: string;
   companyNumber: string;
   tradingSinceMonth: string;
@@ -16,3 +19,7 @@ export interface ICompanyDetailsFormValues {
 }
 
 export type InputMode = 'search' | 'manual';
+
+export type SubmissionValues = ICompanyDetailsFormValues & {
+  inputMode: InputMode;
+};

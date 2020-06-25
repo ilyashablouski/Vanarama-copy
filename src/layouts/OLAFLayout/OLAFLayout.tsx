@@ -3,7 +3,7 @@ import ChevronUpSharp from '@vanarama/uibook/lib/assets/icons/ChevronUpSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import OlafCard from '@vanarama/uibook/lib/components/molecules/cards/OlafCard/OlafCard';
 import { useRouter } from 'next/router';
-import { useState, ReactNode } from 'react';
+import { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
@@ -12,6 +12,7 @@ import { useOlafData } from '../../gql/order';
 import { createOlafDetails } from './helpers';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { GetOrderInformation } from '../../../generated/GetOrderInformation';
+import { OLAFQueryParams } from '../../utils/url';
 
 export const GET_ORDER_INFORMATION = gql`
   query GetOrderInformation {
@@ -20,14 +21,10 @@ export const GET_ORDER_INFORMATION = gql`
   }
 `;
 
-interface IOLAFLayoutProps {
-  children: ReactNode;
-  orderId?: string;
-  derivativeId?: string;
-}
+const OLAFLayout: React.FC = ({ children }) => {
+  const router = useRouter();
+  const { derivativeId, orderId } = router.query as OLAFQueryParams;
 
-const OLAFLayout: React.FC<IOLAFLayoutProps> = props => {
-  const { children, orderId, derivativeId } = props;
   const isMobile = useMobileViewport();
   const [asideOpen, setAsideOpen] = useState(false);
   const showAside = !isMobile || asideOpen;
@@ -76,12 +73,24 @@ const OLAFLayout: React.FC<IOLAFLayoutProps> = props => {
                 orderByUuid.lineItems[0].vehicleProduct!,
                 derivative,
               )}
+              initialRentalDataTestId="about_intial-rental-testID"
+              controlLengthDataTestId="about_control-length-testID"
+              annualMileageDataTestId="about_annual-mileage-testID"
+              annualMileageBoosterDataTestId="about_annual-milage-booster-testID"
+              damageCoverDataTestId="about_damage-cover-testID"
+              maintenanceDataTestId="about_maintenance-testID"
+              fuelDataTestId="about_fuel-testID"
+              transmissionDataTestId="about_transmission-testID"
+              colorDataTestId="about_color-testID"
+              trimDataTestId="about_trim-testID"
+              descriptionDataTestId="about_description-testID"
               imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/KiaeNiro0219_j7on5z.jpg"
               title={{
                 title: `${derivative?.manufacturerName ||
                   ''} ${derivative?.modelName || ''}`,
                 description: derivative?.name || '',
                 score: 4.5,
+                dataTestId: 'olaf_about_title_derivative',
               }}
             />
           </div>
