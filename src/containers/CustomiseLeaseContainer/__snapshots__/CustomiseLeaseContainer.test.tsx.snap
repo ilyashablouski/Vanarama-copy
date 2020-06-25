@@ -15,7 +15,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
     Lease Type
   </span>
   <div
-    className="choiceboxes -teal"
+    className="choiceboxes -cols-2 -teal"
     style={
       Object {
         "--cols": "2",
@@ -48,149 +48,69 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
     </span>
   </span>
   <div
-    className="-pb-100 -pt-200"
+    className="sliding-input"
   >
-    <div
-      className="rs-slider rs-slider-graduated rs-slider-with-mark"
-      role="presentation"
+    <input
+      className="sliding-input__native"
+      id="slidinginput"
+      max={8}
+      min="1"
+      onChange={[Function]}
+      step={1}
       style={
         Object {
-          "fontSize": "0.75rem",
+          "--steps": "8",
+          "--value": "42.857142857142854%",
         }
       }
+      type="range"
+      value={4}
+    />
+    <label
+      className="sliding-input__label"
+      htmlFor="slidinginput"
     >
-      <div
-        className="rs-slider-bar"
-        onClick={[Function]}
+      <span
+        className="sliding-input__label-step"
       >
-        <div
-          className="rs-slider-progress-bar"
-          style={
-            Object {
-              "left": "0%",
-              "width": "42.857142857142854%",
-            }
-          }
-        />
-        <div
-          className="rs-slider-graduator"
-        >
-          <ul>
-            <li
-              className="rs-slider-pass"
-            >
-              <span
-                className="rs-slider-mark"
-              >
-                <span
-                  className="rs-slider-mark-content"
-                >
-                  6K
-                </span>
-              </span>
-            </li>
-            <li
-              className="rs-slider-pass"
-            >
-              <span
-                className="rs-slider-mark"
-              >
-                <span
-                  className="rs-slider-mark-content"
-                >
-                  8K
-                </span>
-              </span>
-            </li>
-            <li
-              className="rs-slider-pass"
-            >
-              <span
-                className="rs-slider-mark"
-              >
-                <span
-                  className="rs-slider-mark-content"
-                >
-                  10K
-                </span>
-              </span>
-            </li>
-            <li
-              className="rs-slider-pass rs-slider-active"
-            >
-              <span
-                className="rs-slider-mark"
-              >
-                <span
-                  className="rs-slider-mark-content"
-                >
-                  12K
-                </span>
-              </span>
-            </li>
-            <li
-              className=""
-            >
-              <span
-                className="rs-slider-mark"
-              >
-                <span
-                  className="rs-slider-mark-content"
-                >
-                  15K
-                </span>
-              </span>
-            </li>
-            <li
-              className=""
-            >
-              <span
-                className="rs-slider-mark"
-              >
-                <span
-                  className="rs-slider-mark-content"
-                >
-                  20K
-                </span>
-              </span>
-            </li>
-            <li
-              className=""
-            >
-              <span
-                className="rs-slider-mark"
-              >
-                <span
-                  className="rs-slider-mark-content"
-                >
-                  25K
-                </span>
-              </span>
-              <span
-                className="rs-slider-mark rs-slider-last-mark"
-              >
-                <span
-                  className="rs-slider-mark-content"
-                >
-                  30K
-                </span>
-              </span>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div
-        className="rs-slider-handle"
-        onMouseDown={[Function]}
-        onMouseEnter={[Function]}
-        role="presentation"
-        style={
-          Object {
-            "left": "42.857142857142854%",
-          }
-        }
-      />
-    </div>
+        6K
+      </span>
+      <span
+        className="sliding-input__label-step"
+      >
+        8K
+      </span>
+      <span
+        className="sliding-input__label-step"
+      >
+        10K
+      </span>
+      <span
+        className="sliding-input__label-step"
+      >
+        12K
+      </span>
+      <span
+        className="sliding-input__label-step"
+      >
+        15K
+      </span>
+      <span
+        className="sliding-input__label-step"
+      >
+        20K
+      </span>
+      <span
+        className="sliding-input__label-step"
+      >
+        25K
+      </span>
+      <span
+        className="sliding-input__label-step"
+      >
+        30K
+      </span>
+    </label>
   </div>
   <div
     className="-flex-row"
@@ -233,7 +153,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
     </span>
   </span>
   <div
-    className="choiceboxes -teal"
+    className="choiceboxes -cols-4 -teal"
     style={
       Object {
         "--cols": "4",
@@ -280,7 +200,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
     </span>
   </span>
   <div
-    className="choiceboxes -teal"
+    className="choiceboxes -cols-5 -teal"
     style={
       Object {
         "--cols": "5",
@@ -431,17 +351,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
     </span>
   </div>
   <div
-    style={
-      Object {
-        "bottom": 0,
-        "height": "100vh",
-        "left": 0,
-        "pointerEvents": "none",
-        "position": "sticky",
-        "right": 0,
-        "top": 0,
-      }
-    }
+    className="lease-scanner--sticky-wrap"
   >
     <div
       className="lease-scanner"

@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import 'rsuite/dist/styles/rsuite-default.css';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import { Dispatch, SetStateAction } from 'react';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Choiceboxes from '@vanarama/uibook/lib/components/atoms/choiceboxes';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
-import { Slider } from 'rsuite';
+import SlidingInput from '@vanarama/uibook/lib/components/atoms/sliding-input';
 import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
 import SpeedometerOutline from '@vanarama/uibook/lib/assets/icons/SpeedometerSharp';
 import { IProps, IColour, ITrim, IChoice } from './interfase';
@@ -45,6 +44,7 @@ const choices = (
       )}
     </Heading>
     <Choiceboxes
+      className={`-cols-${choicesValues?.length}`}
       choices={choicesValues}
       onSubmit={value => {
         setChoice(value.label);
@@ -114,20 +114,13 @@ const CustomiseLease = ({
           {`${quoteByCapId?.mileage} Miles`}
         </Text>
       </Heading>
-      <div className="-pb-100 -pt-200">
-        <Slider
-          step={1}
-          graduated
-          defaultValue={mileages.indexOf(mileage || 0) + 1}
-          progress
-          style={{ fontSize: '0.75rem' }}
-          tooltip={false}
-          min={1}
-          onChange={value => setMileage(mileages[value - 1])}
-          max={mileages?.length}
-          renderMark={mark => `${mileages[mark - 1] / 1000}K`}
-        />
-      </div>
+      <SlidingInput
+        value={mileages.indexOf(mileage || 0) + 1}
+        onChange={value => {
+          setMileage(mileages[value - 1]);
+        }}
+        steps={mileages.map((item: number) => `${item / 1000}K`)}
+      />
       <div className="-flex-row">
         <Icon color="orange" size="large" icon={<SpeedometerOutline />} />
         <Text color="orange" size="small" className="-b -ml-200">
@@ -164,18 +157,9 @@ const CustomiseLease = ({
         derivativeInfo?.trims,
         'Select Interior',
       )}
-      <div
-        style={{
-          position: 'sticky',
-          left: 0,
-          right: 0,
-          bottom: 0,
-          top: 0,
-          height: '100vh',
-          pointerEvents: 'none',
-        }}
-      >
+      <div className="lease-scanner--sticky-wrap">
         <LeaseScanner
+          className="pdp-footer"
           price={quoteByCapId?.nonMaintained?.monthlyRental || 0}
           orderNowClick={() => {}}
           headingText={`PM ${stateVAT}. VAT`}
