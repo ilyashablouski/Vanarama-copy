@@ -1,5 +1,4 @@
 module.exports = {
-  testMatch: ['**/*.(test|spec).(ts|tsx)'],
   coveragePathIgnorePatterns: ['/node_modules/', 'enzyme.js'],
   transformIgnorePatterns: ['node_modules/(?!(@vanarama)/)'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],

@@ -533,4 +533,48 @@ describe('B2B VAT Details page', () => {
       ).toBeInTheDocument(),
     );
   });
+
+  it('should not show the duplicate country validation when the dropdowns are both empty', async () => {
+    // ACT
+    render(
+      <MockedProvider addTypename={false} mocks={dropDownData}>
+        <VatDetailsPage />
+      </MockedProvider>,
+    );
+
+    await waitFor(() => screen.findByTestId('vat-details_heading'));
+    fireEvent.click(
+      screen.getByRole('checkbox', {
+        name: /The company trades outside the UK/i,
+      }),
+    );
+
+    // Wait for the countries to load
+    await waitFor(() =>
+      expect(
+        screen.getByRole('combobox', { name: /Country 1/i }),
+      ).toBeInTheDocument(),
+    );
+
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: /add country/i,
+      }),
+    );
+
+    await waitFor(() =>
+      expect(
+        screen.getByRole('combobox', { name: /Country 2/i }),
+      ).toBeInTheDocument(),
+    );
+
+    // ASSERT
+    await waitFor(() =>
+      expect(
+        screen.queryByText(
+          /You cannot select the same country more than once/i,
+        ),
+      ).not.toBeInTheDocument(),
+    );
+  });
 });

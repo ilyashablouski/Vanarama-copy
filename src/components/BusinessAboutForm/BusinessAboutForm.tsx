@@ -10,7 +10,7 @@ import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import React from 'react';
-import { Controller, OnSubmit, useForm } from 'react-hook-form';
+import { OnSubmit, useForm } from 'react-hook-form';
 import { BusinessAboutFormDropDownData } from '../../../generated/BusinessAboutFormDropDownData';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { EMAIL_REGEX, WORLDWIDE_MOBILE_REGEX } from '../../utils/regex';
@@ -26,7 +26,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
   dropDownData,
   onSubmit,
 }) => {
-  const { control, formState, handleSubmit, errors, register } = useForm<
+  const { formState, handleSubmit, errors, register } = useForm<
     IBusinessAboutFormValues
   >({
     mode: 'onBlur',
@@ -122,14 +122,12 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
         label="Telephone Number"
         error={errors.telephone?.message?.toString()}
       >
-        <Controller
+        <NumericInput
           id="telephone"
           type="tel"
           name="telephone"
           dataTestId="about-you_telephone"
-          as={NumericInput}
-          control={control}
-          rules={{
+          ref={register({
             required: 'Please enter your telephone number',
             minLength: {
               value: 11,
@@ -145,7 +143,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
               value: WORLDWIDE_MOBILE_REGEX,
               message: 'Please enter mobile number without spaces or hyphens',
             },
-          }}
+          })}
         />
       </Formgroup>
       <Formgroup

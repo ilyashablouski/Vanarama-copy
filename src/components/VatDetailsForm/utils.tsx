@@ -38,7 +38,7 @@ export function useCustomValidation() {
 
   const markets = watch('markets');
   const validateMarkets = useCallback(() => {
-    const countries = markets.map(_ => _.country);
+    const countries = markets.map(_ => _.country).filter(Boolean);
     if (hasDuplicates(countries)) {
       return DUPLICATE_ERROR;
     }
