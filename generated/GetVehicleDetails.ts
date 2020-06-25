@@ -72,9 +72,9 @@ export interface GetVehicleDetails_derivativeInfo {
 }
 
 export interface GetVehicleDetails_leaseAdjustParams {
-    mileages: number[];
-    terms: number[]
-    upfronts: number[];
+  mileages: number[];
+  terms: number[];
+  upfronts: number[];
 }
 
 export interface GetVehicleDetails {
@@ -84,6 +84,9 @@ export interface GetVehicleDetails {
   vehicleConfigurationByCapId: GetVehicleDetails_vehicleConfigurationByCapId | null;
   vehicleDetails: GetVehicleDetails_vehicleDetails | null;
   derivativeInfo: GetVehicleDetails_derivativeInfo | null;
+  /**
+   * Retrieve all params for lease adjust
+   */
   leaseAdjustParams: GetVehicleDetails_leaseAdjustParams | null;
 }
 
