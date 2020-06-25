@@ -220,7 +220,7 @@ export const PickupsPage: NextPage = () => {
 
       <section className="row:accessories">
         <Heading size="large" color="black">
-          Wide Range of Optional Accessories
+        {data?.hubPickupPage.sections.accessories?.name}
         </Heading>
         {data?.hubPickupPage.sections.accessories?.accessories?.map(
           (acc: AccessoryData, idx: number) => (
