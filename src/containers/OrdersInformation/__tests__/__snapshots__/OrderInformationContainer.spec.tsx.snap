@@ -16,7 +16,6 @@ exports[`<OrderInformationContainer /> renders correctly with data 1`] = `
       >
         <span
           className="heading -black -lead"
-          data-testid="card-heading"
         >
           My Orders
         </span>
@@ -45,7 +44,6 @@ exports[`<OrderInformationContainer /> renders correctly with data 1`] = `
       >
         <span
           className="heading -black -lead"
-          data-testid="card-heading"
         >
           My Quotes
         </span>
@@ -85,7 +83,6 @@ exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
       >
         <span
           className="heading -black -lead"
-          data-testid="card-heading"
         >
           My Orders
         </span>
@@ -114,7 +111,6 @@ exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
       >
         <span
           className="heading -black -lead"
-          data-testid="card-heading"
         >
           My Quotes
         </span>

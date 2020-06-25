@@ -569,13 +569,11 @@ Array [
           >
             <span
               className="heading -black -lead"
-              data-testid="card-heading"
             >
               manufacturerName modelName
             </span>
             <span
               className="heading -dark -small"
-              data-testid="card-description"
             >
               name
             </span>
@@ -883,13 +881,11 @@ Array [
           >
             <span
               className="heading -black -lead"
-              data-testid="card-heading"
             >
               manufacturerName modelName
             </span>
             <span
               className="heading -dark -small"
-              data-testid="card-description"
             >
               name
             </span>
