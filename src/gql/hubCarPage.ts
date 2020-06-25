@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 const HUB_CAR_CONTENT = gql`
   query HubCarPageData {
     hubCarPage {
+      id
       sections {
         hero {
           title

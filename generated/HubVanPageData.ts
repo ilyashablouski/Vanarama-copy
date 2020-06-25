@@ -77,6 +77,7 @@ export interface HubVanPageData_hubVanPage_sections_cards_cards {
 
 export interface HubVanPageData_hubVanPage_sections_cards {
   name: string | null;
+  description: string | null;
   cards: HubVanPageData_hubVanPage_sections_cards_cards[] | null;
 }
 
@@ -122,6 +123,7 @@ export interface HubVanPageData_hubVanPage_sections {
 }
 
 export interface HubVanPageData_hubVanPage {
+  id: string;
   sections: HubVanPageData_hubVanPage_sections;
 }
 
