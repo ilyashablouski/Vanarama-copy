@@ -90,6 +90,7 @@ const OLAFLayout: React.FC = ({ children }) => {
                   ''} ${derivative?.modelName || ''}`,
                 description: derivative?.name || '',
                 score: 4.5,
+                dataTestId: 'olaf_about_title_derivative',
               }}
             />
           </div>
