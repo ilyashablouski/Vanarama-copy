@@ -40,6 +40,10 @@
           "value": "development"
         },
         {
+          "name": "ENV",
+          "value": "development"
+        },
+        {
           "name": "PORT",
           "value": "8080"
         }

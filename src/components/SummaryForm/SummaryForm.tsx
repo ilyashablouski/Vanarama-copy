@@ -45,7 +45,7 @@ const SummaryForm: FCWithFragments<IProps> = ({
       <Heading color="black" size="xlarge" dataTestId="summary-heading">
         Summary
       </Heading>
-      <Text color="darker" size="lead">
+      <Text color="darker" size="lead" dataTestId="olaf_summary_text">
         Here’s a summary of all the details you’ve entered. Have a look below to
         check everything is correct. If you do spot a mistake, simply edit to
         make a change.
@@ -78,6 +78,7 @@ const SummaryForm: FCWithFragments<IProps> = ({
         type="button"
         color="teal"
         label="Continue"
+        dataTestId="olaf_summary_continue_buttton"
         onClick={() => {
           router.push(
             `/olaf/thank-you${getUrlParam({ orderId, derivativeId })}`,

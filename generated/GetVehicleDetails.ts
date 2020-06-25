@@ -54,9 +54,27 @@ export interface GetVehicleDetails_derivativeInfo_standardEquipments {
   effectiveTo: any | null;
 }
 
+export interface GetVehicleDetails_derivativeInfo_colours {
+  id: string;
+  optionDescription: string;
+}
+
+export interface GetVehicleDetails_derivativeInfo_trims {
+  id: string;
+  optionDescription: string;
+}
+
 export interface GetVehicleDetails_derivativeInfo {
   technicals: (GetVehicleDetails_derivativeInfo_technicals | null)[];
   standardEquipments: (GetVehicleDetails_derivativeInfo_standardEquipments | null)[];
+  colours: (GetVehicleDetails_derivativeInfo_colours | null)[] | null;
+  trims: (GetVehicleDetails_derivativeInfo_trims | null)[] | null;
+}
+
+export interface GetVehicleDetails_leaseAdjustParams {
+  mileages: number[];
+  terms: number[];
+  upfronts: number[];
 }
 
 export interface GetVehicleDetails {
@@ -66,6 +84,10 @@ export interface GetVehicleDetails {
   vehicleConfigurationByCapId: GetVehicleDetails_vehicleConfigurationByCapId | null;
   vehicleDetails: GetVehicleDetails_vehicleDetails | null;
   derivativeInfo: GetVehicleDetails_derivativeInfo | null;
+  /**
+   * Retrieve all params for lease adjust
+   */
+  leaseAdjustParams: GetVehicleDetails_leaseAdjustParams | null;
 }
 
 export interface GetVehicleDetailsVariables {
