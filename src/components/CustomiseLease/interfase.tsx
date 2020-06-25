@@ -25,7 +25,7 @@ export interface IProps {
   terms: IChoice[];
   upfronts: IChoice[];
   leaseTypes: IChoice[];
-  mileages: string[] | undefined;
+  mileages: number[];
   setLeaseType: Dispatch<SetStateAction<string | null>>;
   setMileage: Dispatch<SetStateAction<number | null>>;
   setUpfront: Dispatch<SetStateAction<number | null>>;
@@ -38,4 +38,5 @@ export interface IProps {
   colour: number | null;
   derivativeInfo: GetVehicleDetails_derivativeInfo | null | undefined;
   leaseAdjustParams: GetVehicleDetails_leaseAdjustParams | null | undefined;
+  mileage: number | null | undefined;
 }

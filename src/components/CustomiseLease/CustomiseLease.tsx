@@ -44,6 +44,7 @@ const choices = (
       )}
     </Heading>
     <Choiceboxes
+      className={`-cols-${choicesValues?.length}`}
       choices={choicesValues}
       onSubmit={value => {
         setChoice(value.label);
@@ -95,9 +96,8 @@ const CustomiseLease = ({
   setTerm,
   setTrim,
   data,
-  trim,
   derivativeInfo,
-  leaseAdjustParams,
+  mileage,
 }: IProps) => {
   const quoteByCapId = data?.quoteByCapId;
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
@@ -115,15 +115,16 @@ const CustomiseLease = ({
         </Text>
       </Heading>
       <SlidingInput
-        steps={mileages}
+        value={mileages.indexOf(mileage || 0) + 1}
         onChange={value => {
-          setMileage(leaseAdjustParams?.mileages[value - 1] || 0);
+          setMileage(mileages[value - 1]);
         }}
+        steps={mileages.map((item: number) => `${item / 1000}K`)}
       />
       <div className="-flex-row">
         <Icon color="orange" size="large" icon={<SpeedometerOutline />} />
         <Text color="orange" size="small" className="-b -ml-200">
-          + 1000
+          {`+ ${(quoteByCapId?.mileage || 0) / 10}`}
         </Text>
         <Text color="black" size="small" className="-mt-000 -ml-100">
           Extra Miles FREE
@@ -150,19 +151,15 @@ const CustomiseLease = ({
         derivativeInfo?.colours,
         'Select Paint Holder',
       )}
-      {select(`${trim}`, setTrim, derivativeInfo?.trims, 'Select Interior')}
-      <div
-        style={{
-          position: 'sticky',
-          left: 0,
-          right: 0,
-          bottom: 0,
-          top: 0,
-          height: '100vh',
-          pointerEvents: 'none',
-        }}
-      >
+      {select(
+        `${quoteByCapId?.trim}`,
+        setTrim,
+        derivativeInfo?.trims,
+        'Select Interior',
+      )}
+      <div className="lease-scanner--sticky-wrap">
         <LeaseScanner
+          className="pdp-footer"
           price={quoteByCapId?.nonMaintained?.monthlyRental || 0}
           orderNowClick={() => {}}
           headingText={`PM ${stateVAT}. VAT`}
