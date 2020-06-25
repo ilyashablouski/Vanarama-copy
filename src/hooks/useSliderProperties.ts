@@ -5,7 +5,7 @@ export default function useSliderProperties(
   mediumWidth: number,
   mobileWidth: number,
 ) {
-  const isMediumScreen = useMediaQuery({ minWidth: 1024, maxWidth: 1139 });
+  const isMediumScreen = useMediaQuery({ minWidth: 861, maxWidth: 1139 });
   const isSmallScreen = useMediaQuery({ maxWidth: 860 });
 
   if (isSmallScreen) {
