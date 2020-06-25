@@ -16,25 +16,41 @@ const logo = require('./logo');
 
 const PORT = process.env.PORT || 3000;
 
-// Rewrites
-const rewrites = [{ from: '/:manufacturer-car-leasing.html', to: '/rewrite' }];
+// Rewrites.
+const rewrites = [
+  {
+    from: '/:manufacturer-:vehicleType-leasing.html',
+    to: '/:vehicleType-leasing/:manufacturer',
+  },
+  {
+    from: '/:manufacturer-:vehicleType-leasing/:model.html',
+    to: '/:vehicleType-leasing/:manufacturer/:model',
+  },
+  // E.g.:
+  // {
+  //   from: '/car-leasing/:bodyStyle.html',
+  //   to: '/search/?bodyStyle=:bodyStyle',
+  // },
+];
 // Redirects.
-const redirects = [{ from: '/old-link', to: '/redirect', type: 302 }];
+const redirects = [{ from: '/old-link', to: '/redirect', type: 301 }];
 
 app.prepare().then(() => {
   const server = express();
 
   // Handle rewrites.
-  rewrites.forEach(({ from, to }) => {
-    server.use(rewrite(from, to));
-  });
+  if (rewrites)
+    rewrites.forEach(({ from, to }) => {
+      server.use(rewrite(from, to));
+    });
 
   // Handle redirects.
-  redirects.forEach(({ from, to, type = 301, method = 'get' }) => {
-    server[method](from, (req, res) => {
-      res.redirect(type, to);
+  if (redirects)
+    redirects.forEach(({ from, to, type = 301, method = 'get' }) => {
+      server[method](from, (req, res) => {
+        res.redirect(type, to);
+      });
     });
-  });
 
   // Prerender.
   if (prerender && process.env.PRERENDER_SERVICE_URL) server.use(prerender);
@@ -45,7 +61,13 @@ app.prepare().then(() => {
 
   server.all('*', cors(), (req, res) => {
     res.setHeader('X-Robots-Tag', 'noindex'); // Disable indexing.
-    console.log('environment:', process.env.NODE_ENV);
+
+    // Trailing slash fix on page reload.
+    req.url = req.url.replace(/\/$/, '');
+    if (req.url === '') req.url = '/';
+
+    if (process.env.ENV !== 'production')
+      res.setHeader('X-Robots-Tag', 'noindex'); // Disable indexing.
     return handle(req, res);
   });
 
