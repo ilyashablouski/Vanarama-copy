@@ -11,7 +11,7 @@ interface IProps {
 }
 
 const CarDetailsPage: NextPage<IProps> = () => {
-  const { data, loading, error } = useCarData(84429, VehicleTypeEnum.CAR);
+  const { data, loading, error } = useCarData(89233, VehicleTypeEnum.CAR);
 
   return (
     <DetailsPage

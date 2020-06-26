@@ -26,7 +26,9 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
       <ToastContainer />
       <main
         className={cx(
-          router.asPath === '/cars/car-details' ? 'page:pdp' : 'page:default',
+          router.asPath.match(RegExp(/(\/\w*s\/)\w*(-details)/))
+            ? 'page:pdp'
+            : 'page:default',
         )}
       >
         <Header

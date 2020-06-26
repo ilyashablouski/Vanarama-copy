@@ -11,11 +11,11 @@ interface IProps {
 }
 
 const VanDetailsPage: NextPage<IProps> = () => {
-  const { data, loading, error } = useCarData(84429, VehicleTypeEnum.LCV);
+  const { data, loading, error } = useCarData(41882, VehicleTypeEnum.LCV);
 
   return (
     <DetailsPage
-      capId={84429}
+      capId={41882}
       vans
       data={data}
       loading={loading}
