@@ -6,6 +6,7 @@ import { useCarData } from '../../../gql/carpage';
 import withApollo from '../../../hocs/withApollo';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import DetailsPage from '../../../containers/DetailsPage/DetailsPage';
+import { CAR_CAP_ID } from '../../../models/enum/CarDataCapId';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -13,7 +14,7 @@ interface IProps {
 
 const CarDetailsPage: NextPage<IProps> = () => {
   const router = useRouter();
-  const capId = (router.query.capId as string) ?? '89233';
+  const capId = (router.query.capId as string) ?? CAR_CAP_ID;
 
   const { data, loading, error } = useCarData(
     parseInt(capId, 10),
