@@ -261,7 +261,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
         disabled={true}
         value=""
       >
-        Select Paint Holder
+        Select Paint Colour
       </option>
       <option
         value="13990"

@@ -201,7 +201,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         disabled={true}
         value=""
       >
-        Select Paint Holder
+        Select Paint Colour
       </option>
       <option
         value="13990"
@@ -561,7 +561,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         disabled={true}
         value=""
       >
-        Select Paint Holder
+        Select Paint Colour
       </option>
       <option
         value="13990"
