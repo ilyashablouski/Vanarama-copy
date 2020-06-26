@@ -4,7 +4,7 @@ import CloseSharp from '@vanarama/uibook/lib/assets/icons/CloseSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
-import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import React from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
@@ -58,7 +58,7 @@ const CountryTurnoverFieldArray: React.FC = () => {
 
   return (
     <>
-      <Formgroup
+      <FormGroup
         label="Countries of Trade and % of Turnover"
         error={turnoverError}
       >
@@ -99,7 +99,7 @@ const CountryTurnoverFieldArray: React.FC = () => {
             </React.Fragment>
           ))}
         </div>
-      </Formgroup>
+      </FormGroup>
       <Button
         color="teal"
         fill="solid"
