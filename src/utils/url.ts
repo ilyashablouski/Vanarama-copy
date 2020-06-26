@@ -15,3 +15,11 @@ export type OLAFQueryParams = {
   derivativeId?: string;
   orderId?: string;
 };
+
+/**
+ * A type representing the query parameters shape when on the MyDetails journey
+ */
+export type MyDetailsQueryParams = {
+  partyByUuid?: string;
+  uuid: string;
+};
