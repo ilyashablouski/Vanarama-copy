@@ -14,6 +14,7 @@ function getComponent(props: IProps) {
 describe('<CustomiseLease />', () => {
   it('renders correctly', () => {
     const tree = getComponent({
+      mileage: 6000,
       colour: 13990,
       trim: 112981,
       terms: [
@@ -28,7 +29,7 @@ describe('<CustomiseLease />', () => {
         { label: 'Personal', active: true },
         { label: 'Business', active: false },
       ],
-      mileages: ['6K', '8K', '10K'],
+      mileages: [6000, 8000, 10000],
       setLeaseType: jest.fn(),
       leaseType: LeaseTypeEnum.PERSONAL,
       setMileage: jest.fn(),
@@ -114,7 +115,8 @@ describe('<CustomiseLease />', () => {
         { label: 'Personal', active: false },
         { label: 'Business', active: true },
       ],
-      mileages: ['6K', '8K', '10K'],
+      mileage: 6000,
+      mileages: [6000, 8000, 10000],
       setLeaseType: jest.fn(),
       leaseType: LeaseTypeEnum.PERSONAL,
       setMileage: jest.fn(),
@@ -219,7 +221,8 @@ describe('<CustomiseLease />', () => {
           { label: 'Personal', active: false },
           { label: 'Business', active: true },
         ]}
-        mileages={['6K', '8K', '10K']}
+        mileage={6000}
+        mileages={[6000, 8000, 10000]}
         leaseType={LeaseTypeEnum.PERSONAL}
         data={{
           quoteByCapId: {

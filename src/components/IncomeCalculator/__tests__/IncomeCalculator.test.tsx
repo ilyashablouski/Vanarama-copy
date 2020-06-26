@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
 import IncomeCalculator from '../IncomeCalculator';
-import { inputChange } from './utils';
+import { inputChange } from '../../../utils/testing';
 
 const renderComponent = () => {
   render(<IncomeCalculator expenditure={null} onSubmit={jest.fn()} />);

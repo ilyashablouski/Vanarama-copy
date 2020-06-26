@@ -4,14 +4,14 @@ import CloseSharp from '@vanarama/uibook/lib/assets/icons/CloseSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
-import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import React from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
+import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
+import { GetVatDetailsCountries } from '../../../generated/GetVatDetailsCountries';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
 import { VatDetailsFormValues as FormValues } from './interfaces';
-import { useTotalPercentageValidation, useTurnoverErrorMessage } from './utils';
-import { GetVatDetailsCountries } from '../../../generated/GetVatDetailsCountries';
+import { useCustomValidation, useTurnoverErrorMessage } from './utils';
 
 export const GET_VAT_DETAILS_COUNTRIES = gql`
   query GetVatDetailsCountries {
@@ -26,8 +26,12 @@ export const GET_VAT_DETAILS_COUNTRIES = gql`
 
 const CountryTurnoverFieldArray: React.FC = () => {
   const { control, register } = useFormContext<FormValues>();
-  const { fields, append, remove } = useFieldArray({ control, name: 'trade' });
-  useTotalPercentageValidation();
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'markets',
+  });
+
+  useCustomValidation();
   const turnoverError = useTurnoverErrorMessage();
 
   const { data, loading, error } = useQuery<GetVatDetailsCountries>(
@@ -63,16 +67,17 @@ const CountryTurnoverFieldArray: React.FC = () => {
             <React.Fragment key={_.id}>
               <Select
                 aria-label={`Country ${index + 1}`}
-                id={`trade[${index}].country`}
-                name={`trade[${index}].country`}
+                id={`markets[${index}].country`}
+                name={`markets[${index}].country`}
                 ref={register({ required: true })}
               >
                 <OptionsWithFavourites options={countriesExceptUK} />
               </Select>
-              <TextInput
+              <NumericInput
                 aria-label={`Percentage for country ${index + 1}`}
-                id={`trade[${index}].percentage`}
-                name={`trade[${index}].percentage`}
+                id={`markets[${index}].percentage`}
+                min="0"
+                name={`markets[${index}].percentage`}
                 ref={register({ required: true, min: 1, max: 100 })}
                 suffix="%"
                 type="number"

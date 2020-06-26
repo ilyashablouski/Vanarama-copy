@@ -467,4 +467,114 @@ describe('B2B VAT Details page', () => {
       screen.queryByRole('option', { name: /United Kingdom/i }),
     ).not.toBeInTheDocument();
   });
+
+  it('should show a validation message if the user selects the same country twice', async () => {
+    // ACT
+    render(
+      <MockedProvider addTypename={false} mocks={dropDownData}>
+        <VatDetailsPage />
+      </MockedProvider>,
+    );
+
+    await waitFor(() => screen.findByTestId('vat-details_heading'));
+    fireEvent.click(
+      screen.getByRole('checkbox', {
+        name: /The company trades outside the UK/i,
+      }),
+    );
+
+    // Wait for the countries to load
+    await waitFor(() =>
+      expect(
+        screen.getByRole('combobox', { name: /Country 1/i }),
+      ).toBeInTheDocument(),
+    );
+
+    fireEvent.input(screen.getByRole('combobox', { name: /Country 1/i }), {
+      target: { value: 'Algeria' },
+    });
+
+    fireEvent.input(
+      screen.getByRole('spinbutton', { name: /Percentage for country 1/i }),
+      {
+        target: { value: '80' },
+      },
+    );
+
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: /add country/i,
+      }),
+    );
+
+    await waitFor(() =>
+      expect(
+        screen.getByRole('combobox', { name: /Country 2/i }),
+      ).toBeInTheDocument(),
+    );
+
+    fireEvent.input(screen.getByRole('combobox', { name: /Country 2/i }), {
+      target: { value: 'Algeria' },
+    });
+
+    fireEvent.input(
+      screen.getByRole('spinbutton', { name: /Percentage for country 2/i }),
+      {
+        target: { value: '20' },
+      },
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
+
+    // ASSERT
+    await waitFor(() =>
+      expect(
+        screen.getByText(/You cannot select the same country more than once/i),
+      ).toBeInTheDocument(),
+    );
+  });
+
+  it('should not show the duplicate country validation when the dropdowns are both empty', async () => {
+    // ACT
+    render(
+      <MockedProvider addTypename={false} mocks={dropDownData}>
+        <VatDetailsPage />
+      </MockedProvider>,
+    );
+
+    await waitFor(() => screen.findByTestId('vat-details_heading'));
+    fireEvent.click(
+      screen.getByRole('checkbox', {
+        name: /The company trades outside the UK/i,
+      }),
+    );
+
+    // Wait for the countries to load
+    await waitFor(() =>
+      expect(
+        screen.getByRole('combobox', { name: /Country 1/i }),
+      ).toBeInTheDocument(),
+    );
+
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: /add country/i,
+      }),
+    );
+
+    await waitFor(() =>
+      expect(
+        screen.getByRole('combobox', { name: /Country 2/i }),
+      ).toBeInTheDocument(),
+    );
+
+    // ASSERT
+    await waitFor(() =>
+      expect(
+        screen.queryByText(
+          /You cannot select the same country more than once/i,
+        ),
+      ).not.toBeInTheDocument(),
+    );
+  });
 });
