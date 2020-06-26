@@ -17,8 +17,7 @@ import {
 
 const MOCK_COMPANY_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
 
-jest.mock('../../../../hooks/useMediaQuery');
-jest.mock('../../../../gql/order');
+jest.mock('../../../../layouts/OLAFLayout/OLAFLayout');
 jest.mock('next/router', () => ({
   useRouter: () => ({
     push: jest.fn(),

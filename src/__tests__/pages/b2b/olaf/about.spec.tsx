@@ -13,9 +13,7 @@ import {
   SaveBusinessAboutYouVariables,
 } from '../../../../../generated/SaveBusinessAboutYou';
 
-jest.mock('../../../../hooks/useMediaQuery');
-jest.mock('../../../../gql/order');
-
+jest.mock('../../../../layouts/OLAFLayout/OLAFLayout');
 const mockPush = jest.fn();
 jest.mock('next/router', () => ({
   useRouter() {
