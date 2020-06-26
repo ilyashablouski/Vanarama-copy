@@ -73,7 +73,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
   const independentReview = data?.vehicleDetails?.independentReview;
   const warranty = data?.vehicleDetails?.warranty;
-  const reviews = data?.vehicleDetails?.customerReviews;
+  const reviews = data?.vehicleDetails?.customerReviews?.map(review => ({
+    text: review?.review || '',
+    author: review?.name || '',
+    score: review?.rating || 0,
+  }));
 
   return (
     <>
@@ -122,7 +126,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           <IndependentReview review={independentReview || ''} />
         )}
         <WhyChooseLeasing warranty={warranty || ''} />
-        <CustomerReviews reviews={reviews} />
+        <CustomerReviews reviews={reviews || []} />
       </div>
       <CustomiseLeaseContainer
         capId={capId}
