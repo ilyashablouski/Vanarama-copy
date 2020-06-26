@@ -149,7 +149,7 @@ const CustomiseLease = ({
         `${quoteByCapId?.colour}`,
         setColour,
         derivativeInfo?.colours,
-        'Select Paint Holder',
+        'Select Paint Colour',
       )}
       {select(
         `${quoteByCapId?.trim}`,
