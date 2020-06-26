@@ -4,6 +4,13 @@ import { useCarData } from '../../../gql/carpage';
 import PickupDetailsPage from '../../../pages/pickups/pickup-details';
 
 jest.mock('../../../gql/carpage');
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    query: {
+      capId: '44444',
+    },
+  }),
+}));
 
 describe('<PickupDetailsPage />', () => {
   it('renders correctly with data', async () => {

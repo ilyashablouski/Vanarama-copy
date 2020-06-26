@@ -1,14 +1,16 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { ParsedUrlQuery } from 'querystring';
 import { useCarData } from '../../../gql/carpage';
 import CarDetailsPage from '../../../pages/cars/car-details';
 
-interface IProps {
-  query: ParsedUrlQuery;
-}
-
 jest.mock('../../../gql/carpage');
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    query: {
+      capId: '44444',
+    },
+  }),
+}));
 
 describe('<CarDetailsPage />', () => {
   it('renders correctly with data', async () => {
