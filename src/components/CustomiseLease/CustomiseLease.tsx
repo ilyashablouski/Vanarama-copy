@@ -13,6 +13,7 @@ import Link from '@vanarama/uibook/lib/components/atoms/link';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Modal from '@vanarama/uibook/lib/components/molecules/modal';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
+import OrderSummary from '../OrderSummary/OrderSummary';
 import { IProps, IColour, ITrim, IChoice } from './interfase';
 import {
   GetVehicleDetails_derivativeInfo_trims,
@@ -73,7 +74,7 @@ const select = (
 ) => (
   <Select
     dataTestId={defaultValue}
-    defaultValue={defaultValue || ''}
+    defaultValue={defaultValue || undefined}
     placeholder={placeholder}
     className="-fullwidth"
     onChange={option => {
@@ -106,6 +107,7 @@ const CustomiseLease = ({
   setMaintenance,
   isModalShowing,
   setIsModalShowing,
+  trim,
 }: // mileage,
 IProps) => {
   const quoteByCapId = data?.quoteByCapId;
@@ -194,6 +196,14 @@ IProps) => {
           onChange={() => setMaintenance(false)}
         />
       </Formgroup>
+      <OrderSummary
+        quoteByCapId={quoteByCapId}
+        stateVAT={stateVAT}
+        maintenance={maintenance}
+        colours={derivativeInfo?.colours}
+        trims={derivativeInfo?.trims}
+        trim={trim}
+      />
       <div className="lease-scanner--sticky-wrap">
         <LeaseScanner
           classNameHeading="headingText"
