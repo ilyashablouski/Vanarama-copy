@@ -296,6 +296,28 @@ export const PickupsPage: NextPage = () => {
         )}
       </section>
 
+      <section className="row:manufacturer-grid">
+        <Heading size="large" color="black" className="-a-center -mb-500">
+          Search By Manufacturer
+        </Heading>
+        <div>
+          {[
+            'Mercedez-Benz',
+            'Mitsubishi',
+            'Nissan',
+            'Volkswagen',
+            'Fiat',
+            'Ford',
+            'Toyota',
+            'BMW',
+            'Isuzu',
+            'Porche',
+          ].map(n => (
+            <Button key={n} color="teal" size="large" label={n} />
+          ))}
+        </div>
+      </section>
+
       <section className="row:league">
         <League altText="vanarama national league" />
       </section>
