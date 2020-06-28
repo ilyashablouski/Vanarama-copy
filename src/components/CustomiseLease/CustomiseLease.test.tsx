@@ -42,13 +42,13 @@ describe('<CustomiseLease />', () => {
           colour: '13990',
           leadTime: '14-21 Day Delivery',
           leaseType: LeaseTypeEnum.PERSONAL,
-          maintained: {
+          maintenanceCost: {
             monthlyRental: 61.75,
             initialRental: 61.75,
             excessMileage: 0,
           },
           mileage: 8000,
-          nonMaintained: {
+          leaseCost: {
             monthlyRental: 605.95,
             initialRental: 605.95,
             excessMileage: 14.76,
@@ -129,13 +129,13 @@ describe('<CustomiseLease />', () => {
           colour: '13990',
           leadTime: '14-21 Day Delivery',
           leaseType: LeaseTypeEnum.BUSINESS,
-          maintained: {
+          maintenanceCost: {
             monthlyRental: 61.75,
             initialRental: 61.75,
             excessMileage: 0,
           },
           mileage: 8000,
-          nonMaintained: {
+          leaseCost: {
             monthlyRental: 605.95,
             initialRental: 605.95,
             excessMileage: 14.76,
@@ -229,13 +229,13 @@ describe('<CustomiseLease />', () => {
             colour: '13990',
             leadTime: '14-21 Day Delivery',
             leaseType: LeaseTypeEnum.BUSINESS,
-            maintained: {
+            leaseCost: {
               monthlyRental: 61.75,
               initialRental: 61.75,
               excessMileage: 0,
             },
             mileage: 8000,
-            nonMaintained: {
+            maintenanceCost: {
               monthlyRental: 605.95,
               initialRental: 605.95,
               excessMileage: 14.76,
