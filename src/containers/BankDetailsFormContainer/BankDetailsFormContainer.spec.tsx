@@ -1,5 +1,5 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 import {
   GetBankDetailsPageDataQuery,
@@ -53,51 +53,31 @@ describe('<BankDetailsFormContainer />', () => {
     );
 
     // Wait for the initial query to resolve
-    await waitFor(() => screen.findByTestId('bankDetails'));
-    expect(
-      (screen.getByLabelText(/Name on the Account/) as HTMLInputElement).value,
-    ).toEqual('Mr. A N Other');
+    await screen.findByTestId('bankDetails');
+    expect(screen.getByLabelText(/Name on the Account/)).toHaveValue(
+      'Mr. A N Other',
+    );
 
-    expect(
-      (screen.getByLabelText(/Account Number/) as HTMLInputElement).value,
-    ).toEqual('001122334');
-
+    expect(screen.getByLabelText(/Account Number/)).toHaveValue('001122334');
     expect(screen.getByDisplayValue(/99/)).toBeVisible();
     expect(screen.getByDisplayValue(/88/)).toBeVisible();
     expect(screen.getByDisplayValue(/77/)).toBeVisible();
+    expect(screen.getByLabelText(/Bank Name/)).toHaveValue('Monzo Ltd.');
+    expect(screen.getByTestId(/accountOpenSinceMonth/)).toHaveValue('9');
+    expect(screen.getByTestId(/accountOpenSinceYear/)).toHaveValue('2012');
+    expect(
+      screen.getByLabelText(/I have read and understood the above./),
+    ).toBeChecked();
 
     expect(
-      (screen.getByLabelText(/Bank Name/) as HTMLInputElement).value,
-    ).toEqual('Monzo Ltd.');
-
-    expect(
-      (screen.getByTestId(/accountOpenSinceMonth/) as HTMLInputElement).value,
-    ).toEqual('9');
-
-    expect(
-      (screen.getByTestId(/accountOpenSinceYear/) as HTMLInputElement).value,
-    ).toEqual('2012');
-
-    expect(
-      (screen.getByLabelText(
-        /I have read and understood the above./,
-      ) as HTMLInputElement).checked,
-    ).toEqual(true);
-
-    expect(
-      (screen.getByLabelText(
+      screen.getByLabelText(
         /I can afford the monthly rentals without creating undue financial hardship./,
-      ) as HTMLInputElement).checked,
-    ).toEqual(true);
+      ),
+    ).toBeChecked();
 
+    expect(screen.getByTestId(/checkCreditHistory/)).toBeChecked();
     expect(
-      (screen.getByTestId(/checkCreditHistory/) as HTMLInputElement).checked,
-    ).toEqual(true);
-
-    expect(
-      (screen.getByLabelText(
-        /I agree to the Terms and conditions./,
-      ) as HTMLInputElement).checked,
-    ).toEqual(true);
+      screen.getByLabelText(/I agree to the Terms and conditions./),
+    ).toBeChecked();
   });
 });

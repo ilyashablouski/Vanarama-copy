@@ -31,7 +31,7 @@ describe('<EmploymentFormContainer />', () => {
     );
 
     // Wait for the initial query to resolve
-    await waitFor(() => screen.findByTestId('employment-history-heading'));
+    await screen.findByTestId('employment-history-heading');
 
     const status = screen.getByLabelText('Your Current Employment Status');
     fireEvent.change(status, { target: { value: 'Retired' } });
@@ -69,34 +69,34 @@ describe('<EmploymentFormContainer />', () => {
     );
 
     // Wait for the initial query to resolve
-    await waitFor(() => screen.findByTestId('employment-history-heading'));
+    await screen.findByTestId('employment-history-heading');
 
     // Assert form is pre-filled
     const status = screen.getByLabelText('Your Current Employment Status');
-    expect((status as HTMLInputElement).value).toEqual('Employed');
+    expect(status).toHaveValue('Employed');
 
     const month = screen.getByTestId('history[0].month');
-    expect((month as HTMLInputElement).value).toEqual('1');
+    expect(month).toHaveValue('1');
 
     const year = screen.getByTestId('history[0].year');
-    expect((year as HTMLInputElement).value).toEqual('2002');
+    expect(year).toHaveValue('2002');
 
     const jobTitle = screen.getByLabelText('Job Title');
-    expect((jobTitle as HTMLInputElement).value).toEqual('Senior Developer');
+    expect(jobTitle).toHaveValue('Senior Developer');
 
     const companyName = screen.getByLabelText('Company Name');
-    expect((companyName as HTMLInputElement).value).toEqual('Google');
+    expect(companyName).toHaveValue('Google');
 
     const phoneNumber = screen.getByLabelText('Work Phone Number');
-    expect((phoneNumber as HTMLInputElement).value).toEqual('0777777777777');
+    expect(phoneNumber).toHaveValue('0777777777777');
 
     const address = screen.getByLabelText('Company Postcode or Address');
-    expect((address as HTMLInputElement).value).toEqual(
+    expect(address).toHaveValue(
       '1-13 St Giles High St,, West End, London, WC2H 8AG',
     );
 
     const income = screen.getByLabelText('Gross Annual Income');
-    expect((income as HTMLInputElement).value).toEqual('200000');
+    expect(income).toHaveValue('200000');
 
     fireEvent.click(screen.getByText('Continue'));
 
