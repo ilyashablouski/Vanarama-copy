@@ -1,3 +1,3 @@
-import SearchPage from '../search/index';
+import SearchPage from '../../containers/SearchPageContainer';
 
 export default SearchPage;
