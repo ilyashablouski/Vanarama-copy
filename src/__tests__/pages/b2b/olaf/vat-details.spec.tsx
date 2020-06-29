@@ -436,9 +436,8 @@ describe('B2B VAT Details page', () => {
                 input: {
                   uuid: MOCK_COMPANY_UUID,
                   isVatRegistered: false,
-                  otherCountriesOfActivity: undefined,
+                  turnoverPercentageOutsideUk: undefined,
                   tradesOutsideUk: false,
-                  turnoverOutsideUk: undefined,
                   vatNumber: undefined,
                 },
               } as UpdateVatDetailsMutationVariables,
@@ -481,9 +480,8 @@ describe('B2B VAT Details page', () => {
                 input: {
                   uuid: MOCK_COMPANY_UUID,
                   isVatRegistered: true,
-                  otherCountriesOfActivity: undefined,
+                  turnoverPercentageOutsideUk: undefined,
                   tradesOutsideUk: false,
-                  turnoverOutsideUk: undefined,
                   vatNumber: '012345678',
                 },
               } as UpdateVatDetailsMutationVariables,
@@ -531,9 +529,11 @@ describe('B2B VAT Details page', () => {
                 input: {
                   uuid: MOCK_COMPANY_UUID,
                   isVatRegistered: false,
-                  otherCountriesOfActivity: ['Algeria', 'Andorra'],
+                  turnoverPercentageOutsideUk: [
+                    { country: 'Algeria', percentage: 10 },
+                    { country: 'Andorra', percentage: 12 },
+                  ],
                   tradesOutsideUk: true,
-                  turnoverOutsideUk: 22,
                   vatNumber: undefined,
                 },
               } as UpdateVatDetailsMutationVariables,
