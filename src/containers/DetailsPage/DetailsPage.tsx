@@ -17,6 +17,7 @@ import CustomiseLeaseContainer from '../CustomiseLeaseContainer/CustomiseLeaseCo
 import { GetVehicleDetails } from '../../../generated/GetVehicleDetails';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import WhyChooseLeasing from '../../components/WhyChooseLeasing/WhyChooseLeasing';
+import WhyChooseVanarama from '../../components/WhyChooseVanarama/WhyChooseVanarama';
 
 interface IDetailsPageProps {
   capId: number;
@@ -131,6 +132,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           />
         )}
         <WhyChooseLeasing warranty={warranty || ''} />
+        <WhyChooseVanarama />
       </div>
       <CustomiseLeaseContainer
         capId={capId}

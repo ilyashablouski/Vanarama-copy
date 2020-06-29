@@ -257,7 +257,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     <span
       className="text -b -ml-100 -regular -orange"
     >
-      £0 Per Month exc. VAT
+      £61.75 Per Month exc. VAT
     </span>
   </span>
   <a
@@ -439,7 +439,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
             className="structured-list-td"
             data-testid="trim"
           >
-            
+            -
           </div>
         </div>
         <div
@@ -806,7 +806,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     <span
       className="text -b -ml-100 -regular -orange"
     >
-      £0 Per Month exc. VAT
+      £61.75 Per Month exc. VAT
     </span>
   </span>
   <a
@@ -988,7 +988,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
             className="structured-list-td"
             data-testid="trim"
           >
-            
+            -
           </div>
         </div>
         <div

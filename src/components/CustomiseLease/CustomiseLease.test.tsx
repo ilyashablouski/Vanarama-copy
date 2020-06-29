@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { render, fireEvent, screen, waitFor } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import CustomiseLease from './CustomiseLease';
 import { IProps } from './interfase';
 import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';

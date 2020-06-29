@@ -5,7 +5,7 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Choiceboxes from '@vanarama/uibook/lib/components/atoms/choiceboxes';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
-import SlidingInput from '@vanarama/uibook/lib/components/atoms/sliding-input';
+// import SlidingInput from '@vanarama/uibook/lib/components/atoms/sliding-input';
 import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
 import Radio from '@vanarama/uibook/lib/components/atoms/radio';
 import MileageBooster from '@vanarama/uibook/lib/assets/icons/MileageBooster';
@@ -182,7 +182,7 @@ IProps) => {
       <Heading tag="span" size="regular" color="black">
         Add Maintenance:
         <Text color="orange" className="-b -ml-100">
-          {`£${quoteByCapId?.maintenanceCost?.excessMileage} Per Month ${stateVAT}. VAT`}
+          {`£${quoteByCapId?.maintenanceCost?.monthlyRental} Per Month ${stateVAT}. VAT`}
         </Text>
       </Heading>
       <Link size="small" onClick={() => setIsModalShowing(true)}>
@@ -216,14 +216,10 @@ IProps) => {
           className="pdp-footer"
           priceLabel={
             maintenance
-              ? `+£${quoteByCapId?.maintenanceCost?.excessMileage} Maintenance`
+              ? `+£${quoteByCapId?.maintenanceCost?.monthlyRental} Maintenance`
               : undefined
           }
-          price={
-            (maintenance
-              ? quoteByCapId?.maintenanceCost?.monthlyRental
-              : quoteByCapId?.leaseCost?.monthlyRental) || 0
-          }
+          price={quoteByCapId?.leaseCost?.monthlyRental || 0}
           orderNowClick={() => {}}
           headingText={`PM ${stateVAT}. VAT`}
           phoneNumber="+1313222"

@@ -2,71 +2,104 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { GetVatDetailsCountries } from '../../../../../generated/GetVatDetailsCountries';
+import {
+  UpdateVatDetailsMutation,
+  UpdateVatDetailsMutationVariables,
+} from '../../../../../generated/UpdateVatDetailsMutation';
 import { GET_VAT_DETAILS_COUNTRIES } from '../../../../components/VatDetailsForm/CountryTurnoverFieldArray';
-import { VatDetailsPage } from '../../../../pages/b2b/olaf/vat-details/[companyUuid]';
+import {
+  UPDATE_VAT_DETAILS,
+  VatDetailsPage,
+} from '../../../../pages/b2b/olaf/vat-details/[companyUuid]';
 
-jest.mock('../../../../hooks/useMediaQuery');
-jest.mock('../../../../gql/order');
+const MOCK_COMPANY_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
+
+jest.mock('../../../../layouts/OLAFLayout/OLAFLayout');
 jest.mock('next/router', () => ({
   useRouter: () => ({
     push: jest.fn(),
     pathname: '/b2b/olaf/company-details',
     query: {
-      companyUuid: '39c19729-b980-46bd-8a8e-ed82705b3e01',
+      companyUuid: MOCK_COMPANY_UUID,
     },
   }),
 }));
 
-const dropDownData: MockedResponse[] = [
-  {
-    request: {
-      query: GET_VAT_DETAILS_COUNTRIES,
-    },
-    result: {
-      data: {
-        allDropDowns: {
-          __typename: 'DropDownType',
-          countries: {
-            __typename: 'DropDownDataType',
-            data: [
-              'Afghanistan',
-              'Albania',
-              'Algeria',
-              'American Samoa',
-              'Andorra',
-              'Angola',
-              'Anguilla',
-            ],
-            favourites: ['United Kingdom'],
-          },
-        },
-      } as GetVatDetailsCountries,
-    },
+const dropDownData: MockedResponse = {
+  request: {
+    query: GET_VAT_DETAILS_COUNTRIES,
   },
-];
+  result: {
+    data: {
+      allDropDowns: {
+        __typename: 'DropDownType',
+        countries: {
+          __typename: 'DropDownDataType',
+          data: [
+            'Afghanistan',
+            'Albania',
+            'Algeria',
+            'American Samoa',
+            'Andorra',
+          ],
+          favourites: ['United Kingdom'],
+        },
+      },
+    } as GetVatDetailsCountries,
+  },
+};
+
+function submitForm() {
+  fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
+}
+
+function toggleIsVATRegistered() {
+  fireEvent.click(
+    screen.getByRole('checkbox', { name: /The company is VAT registered/i }),
+  );
+}
+
+function enterVATNumber(value: string) {
+  fireEvent.input(screen.getByRole('textbox', { name: /VAT Number/i }), {
+    target: { value },
+  });
+}
+
+async function setTradesOutsideUK() {
+  fireEvent.click(
+    screen.getByRole('checkbox', {
+      name: /The company trades outside the UK/i,
+    }),
+  );
+
+  await screen.findByRole('combobox', { name: /Country 1/i });
+}
+
+function clickAddCountry() {
+  fireEvent.click(
+    screen.getByRole('button', {
+      name: /add country/i,
+    }),
+  );
+}
 
 describe('B2B VAT Details page', () => {
   it('should only show the "VAT Number" field when checking "The company is VAT registered"', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={dropDownData}>
+      <MockedProvider addTypename={false} mocks={[dropDownData]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
 
-    await waitFor(() => screen.findByTestId('vat-details_heading'));
-
-    // ASSERT
-    // Initally, the VAT Number field should not be shown
+    // Initially, the VAT Number field should not be shown
     expect(
       screen.queryByRole('textbox', { name: /VAT Number/i }),
     ).not.toBeInTheDocument();
 
-    fireEvent.click(
-      screen.getByRole('checkbox', { name: /The company is VAT registered/i }),
-    );
+    toggleIsVATRegistered();
 
-    // It should now be shown
+    // ASSERT
     expect(
       screen.getByRole('textbox', { name: /VAT Number/i }),
     ).toBeInTheDocument();
@@ -75,20 +108,15 @@ describe('B2B VAT Details page', () => {
   it('should validate the "VAT Number" field is not empty when checking "The company is VAT registered"', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={dropDownData}>
+      <MockedProvider addTypename={false} mocks={[dropDownData]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
 
-    await waitFor(() => screen.findByTestId('vat-details_heading'));
+    toggleIsVATRegistered();
+    submitForm();
 
     // ASSERT
-    fireEvent.click(
-      screen.getByRole('checkbox', { name: /The company is VAT registered/i }),
-    );
-
-    fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
-
     await waitFor(() =>
       expect(
         screen.getByText(/Please fill in VAT Number/i),
@@ -99,24 +127,16 @@ describe('B2B VAT Details page', () => {
   it('should validate the "VAT Number" field is 9 digits', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={dropDownData}>
+      <MockedProvider addTypename={false} mocks={[dropDownData]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
 
-    await waitFor(() => screen.findByTestId('vat-details_heading'));
+    toggleIsVATRegistered();
+    enterVATNumber('chickens!🐔');
+    submitForm();
 
     // ASSERT
-    fireEvent.click(
-      screen.getByRole('checkbox', { name: /The company is VAT registered/i }),
-    );
-
-    fireEvent.input(screen.getByRole('textbox', { name: /VAT Number/i }), {
-      target: { value: 'checkenz!🐔' },
-    });
-
-    fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
-
     await waitFor(() =>
       expect(
         screen.getByText(/Your VAT number must be 9 digits long/i),
@@ -127,15 +147,12 @@ describe('B2B VAT Details page', () => {
   it('should only show the "Countries of Trade and % of Turnover" field when checking "The company trades outside the UK"', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={dropDownData}>
+      <MockedProvider addTypename={false} mocks={[dropDownData]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
 
-    await waitFor(() => screen.findByTestId('vat-details_heading'));
-
-    // ASSERT
-    // Initally, the turnover fields should not be shown
+    // Initially, the turnover fields should not be shown
     expect(
       screen.queryByRole('combobox', { name: /Country 1/i }),
     ).not.toBeInTheDocument();
@@ -144,19 +161,9 @@ describe('B2B VAT Details page', () => {
       screen.queryByRole('spinbutton', { name: /Percentage 1/i }),
     ).not.toBeInTheDocument();
 
-    fireEvent.click(
-      screen.getByRole('checkbox', {
-        name: /The company trades outside the UK/i,
-      }),
-    );
+    await setTradesOutsideUK();
 
-    // They should now be shown
-    await waitFor(() =>
-      expect(
-        screen.getByRole('combobox', { name: /Country 1/i }),
-      ).toBeInTheDocument(),
-    );
-
+    // ASSERT
     expect(
       screen.getByRole('spinbutton', { name: /Percentage for country 1/i }),
     ).toBeInTheDocument();
@@ -165,36 +172,21 @@ describe('B2B VAT Details page', () => {
   it('should allow the user to add multiple countries', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={dropDownData}>
+      <MockedProvider addTypename={false} mocks={[dropDownData]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
 
-    await waitFor(() => screen.findByTestId('vat-details_heading'));
-    fireEvent.click(
-      screen.getByRole('checkbox', {
-        name: /The company trades outside the UK/i,
-      }),
-    );
-
-    // ASSERT
-    await waitFor(() =>
-      expect(
-        screen.getByRole('combobox', { name: /Country 1/i }),
-      ).toBeInTheDocument(),
-    );
+    await setTradesOutsideUK();
 
     // Second country should not exist until clicking "add country" button
     expect(
       screen.queryByRole('combobox', { name: /Country 2/i }),
     ).not.toBeInTheDocument();
 
-    fireEvent.click(
-      screen.getByRole('button', {
-        name: /add country/i,
-      }),
-    );
+    clickAddCountry();
 
+    // ASSERT
     await waitFor(() =>
       expect(
         screen.getByRole('combobox', { name: /Country 2/i }),
@@ -205,41 +197,14 @@ describe('B2B VAT Details page', () => {
   it('should allow the user to remove all but one country', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={dropDownData}>
+      <MockedProvider addTypename={false} mocks={[dropDownData]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
 
-    await waitFor(() => screen.findByTestId('vat-details_heading'));
-    fireEvent.click(
-      screen.getByRole('checkbox', {
-        name: /The company trades outside the UK/i,
-      }),
-    );
-
-    // ASSERT
-    await waitFor(() =>
-      expect(
-        screen.getByRole('combobox', { name: /Country 1/i }),
-      ).toBeInTheDocument(),
-    );
-
-    // Second country should not exist until clicking "add country" button
-    expect(
-      screen.queryByRole('combobox', { name: /Country 2/i }),
-    ).not.toBeInTheDocument();
-
-    fireEvent.click(
-      screen.getByRole('button', {
-        name: /add country/i,
-      }),
-    );
-
-    await waitFor(() =>
-      expect(
-        screen.getByRole('combobox', { name: /Country 2/i }),
-      ).toBeInTheDocument(),
-    );
+    await setTradesOutsideUK();
+    clickAddCountry();
+    await screen.findByRole('combobox', { name: /Country 2/i });
 
     fireEvent.click(
       screen.getByRole('button', {
@@ -247,7 +212,8 @@ describe('B2B VAT Details page', () => {
       }),
     );
 
-    // The second entry should dissapear
+    // ASSERT
+    // The second entry should disappear
     await waitFor(() =>
       expect(
         screen.queryByRole('combobox', { name: /Country 2/i }),
@@ -263,26 +229,13 @@ describe('B2B VAT Details page', () => {
   it('should show a validation message if the user does not select a country', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={dropDownData}>
+      <MockedProvider addTypename={false} mocks={[dropDownData]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
 
-    await waitFor(() => screen.findByTestId('vat-details_heading'));
-    fireEvent.click(
-      screen.getByRole('checkbox', {
-        name: /The company trades outside the UK/i,
-      }),
-    );
-
-    // Wait for the countries to load
-    await waitFor(() =>
-      expect(
-        screen.getByRole('combobox', { name: /Country 1/i }),
-      ).toBeInTheDocument(),
-    );
-
-    fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
+    await setTradesOutsideUK();
+    submitForm();
 
     // ASSERT
     await waitFor(() =>
@@ -295,24 +248,12 @@ describe('B2B VAT Details page', () => {
   it('should show a validation message if the user enters a percentage less than 1', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={dropDownData}>
+      <MockedProvider addTypename={false} mocks={[dropDownData]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
 
-    await waitFor(() => screen.findByTestId('vat-details_heading'));
-    fireEvent.click(
-      screen.getByRole('checkbox', {
-        name: /The company trades outside the UK/i,
-      }),
-    );
-
-    // Wait for the countries to load
-    await waitFor(() =>
-      expect(
-        screen.getByRole('combobox', { name: /Country 1/i }),
-      ).toBeInTheDocument(),
-    );
+    await setTradesOutsideUK();
 
     fireEvent.input(screen.getByRole('combobox', { name: /Country 1/i }), {
       target: { value: 'Algeria' },
@@ -320,12 +261,10 @@ describe('B2B VAT Details page', () => {
 
     fireEvent.input(
       screen.getByRole('spinbutton', { name: /Percentage for country 1/i }),
-      {
-        target: { value: '0' },
-      },
+      { target: { value: '0' } },
     );
 
-    fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
+    submitForm();
 
     // ASSERT
     await waitFor(() =>
@@ -338,24 +277,12 @@ describe('B2B VAT Details page', () => {
   it('should show a validation message if the user enters a percentage greater than 100', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={dropDownData}>
+      <MockedProvider addTypename={false} mocks={[dropDownData]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
 
-    await waitFor(() => screen.findByTestId('vat-details_heading'));
-    fireEvent.click(
-      screen.getByRole('checkbox', {
-        name: /The company trades outside the UK/i,
-      }),
-    );
-
-    // Wait for the countries to load
-    await waitFor(() =>
-      expect(
-        screen.getByRole('combobox', { name: /Country 1/i }),
-      ).toBeInTheDocument(),
-    );
+    await setTradesOutsideUK();
 
     fireEvent.input(screen.getByRole('combobox', { name: /Country 1/i }), {
       target: { value: 'Algeria' },
@@ -363,12 +290,10 @@ describe('B2B VAT Details page', () => {
 
     fireEvent.input(
       screen.getByRole('spinbutton', { name: /Percentage for country 1/i }),
-      {
-        target: { value: '101' },
-      },
+      { target: { value: '101' } },
     );
 
-    fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
+    submitForm();
 
     // ASSERT
     await waitFor(() =>
@@ -381,24 +306,12 @@ describe('B2B VAT Details page', () => {
   it('should show a validation message if the total percentage is greater than 100', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={dropDownData}>
+      <MockedProvider addTypename={false} mocks={[dropDownData]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
 
-    await waitFor(() => screen.findByTestId('vat-details_heading'));
-    fireEvent.click(
-      screen.getByRole('checkbox', {
-        name: /The company trades outside the UK/i,
-      }),
-    );
-
-    // Wait for the countries to load
-    await waitFor(() =>
-      expect(
-        screen.getByRole('combobox', { name: /Country 1/i }),
-      ).toBeInTheDocument(),
-    );
+    await setTradesOutsideUK();
 
     fireEvent.input(screen.getByRole('combobox', { name: /Country 1/i }), {
       target: { value: 'Algeria' },
@@ -406,31 +319,18 @@ describe('B2B VAT Details page', () => {
 
     fireEvent.input(
       screen.getByRole('spinbutton', { name: /Percentage for country 1/i }),
-      {
-        target: { value: '80' },
-      },
+      { target: { value: '80' } },
     );
 
-    fireEvent.click(
-      screen.getByRole('button', {
-        name: /add country/i,
-      }),
-    );
-
-    await waitFor(() =>
-      expect(
-        screen.getByRole('combobox', { name: /Country 2/i }),
-      ).toBeInTheDocument(),
-    );
+    clickAddCountry();
+    await screen.findByRole('combobox', { name: /Country 2/i });
 
     fireEvent.input(
       screen.getByRole('spinbutton', { name: /Percentage for country 2/i }),
-      {
-        target: { value: '21' },
-      },
+      { target: { value: '21' } },
     );
 
-    fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
+    submitForm();
 
     // ASSERT
     await waitFor(() =>
@@ -443,24 +343,12 @@ describe('B2B VAT Details page', () => {
   it('should not show an option for the "United Kingdom"', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={dropDownData}>
+      <MockedProvider addTypename={false} mocks={[dropDownData]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
 
-    await waitFor(() => screen.findByTestId('vat-details_heading'));
-    fireEvent.click(
-      screen.getByRole('checkbox', {
-        name: /The company trades outside the UK/i,
-      }),
-    );
-
-    // Wait for the countries to load
-    await waitFor(() =>
-      expect(
-        screen.getByRole('combobox', { name: /Country 1/i }),
-      ).toBeInTheDocument(),
-    );
+    await setTradesOutsideUK();
 
     // ASSERT
     expect(
@@ -471,24 +359,12 @@ describe('B2B VAT Details page', () => {
   it('should show a validation message if the user selects the same country twice', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={dropDownData}>
+      <MockedProvider addTypename={false} mocks={[dropDownData]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
 
-    await waitFor(() => screen.findByTestId('vat-details_heading'));
-    fireEvent.click(
-      screen.getByRole('checkbox', {
-        name: /The company trades outside the UK/i,
-      }),
-    );
-
-    // Wait for the countries to load
-    await waitFor(() =>
-      expect(
-        screen.getByRole('combobox', { name: /Country 1/i }),
-      ).toBeInTheDocument(),
-    );
+    await setTradesOutsideUK();
 
     fireEvent.input(screen.getByRole('combobox', { name: /Country 1/i }), {
       target: { value: 'Algeria' },
@@ -496,22 +372,11 @@ describe('B2B VAT Details page', () => {
 
     fireEvent.input(
       screen.getByRole('spinbutton', { name: /Percentage for country 1/i }),
-      {
-        target: { value: '80' },
-      },
+      { target: { value: '80' } },
     );
 
-    fireEvent.click(
-      screen.getByRole('button', {
-        name: /add country/i,
-      }),
-    );
-
-    await waitFor(() =>
-      expect(
-        screen.getByRole('combobox', { name: /Country 2/i }),
-      ).toBeInTheDocument(),
-    );
+    clickAddCountry();
+    await screen.findByRole('combobox', { name: /Country 2/i });
 
     fireEvent.input(screen.getByRole('combobox', { name: /Country 2/i }), {
       target: { value: 'Algeria' },
@@ -519,12 +384,10 @@ describe('B2B VAT Details page', () => {
 
     fireEvent.input(
       screen.getByRole('spinbutton', { name: /Percentage for country 2/i }),
-      {
-        target: { value: '20' },
-      },
+      { target: { value: '20' } },
     );
 
-    fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
+    submitForm();
 
     // ASSERT
     await waitFor(() =>
@@ -537,36 +400,14 @@ describe('B2B VAT Details page', () => {
   it('should not show the duplicate country validation when the dropdowns are both empty', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={dropDownData}>
+      <MockedProvider addTypename={false} mocks={[dropDownData]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
 
-    await waitFor(() => screen.findByTestId('vat-details_heading'));
-    fireEvent.click(
-      screen.getByRole('checkbox', {
-        name: /The company trades outside the UK/i,
-      }),
-    );
-
-    // Wait for the countries to load
-    await waitFor(() =>
-      expect(
-        screen.getByRole('combobox', { name: /Country 1/i }),
-      ).toBeInTheDocument(),
-    );
-
-    fireEvent.click(
-      screen.getByRole('button', {
-        name: /add country/i,
-      }),
-    );
-
-    await waitFor(() =>
-      expect(
-        screen.getByRole('combobox', { name: /Country 2/i }),
-      ).toBeInTheDocument(),
-    );
+    await setTradesOutsideUK();
+    clickAddCountry();
+    await screen.findByRole('combobox', { name: /Country 2/i });
 
     // ASSERT
     await waitFor(() =>
@@ -575,6 +416,200 @@ describe('B2B VAT Details page', () => {
           /You cannot select the same country more than once/i,
         ),
       ).not.toBeInTheDocument(),
+    );
+  });
+
+  it('should submit successfully to the backend when the company is neither VAT registered nor trades outside of the UK', async () => {
+    // ARRANGE
+    const mockMutation = jest.fn();
+
+    // ACT
+    render(
+      <MockedProvider
+        addTypename={false}
+        mocks={[
+          dropDownData,
+          {
+            request: {
+              query: UPDATE_VAT_DETAILS,
+              variables: {
+                input: {
+                  uuid: MOCK_COMPANY_UUID,
+                  isVatRegistered: false,
+                  otherCountriesOfActivity: undefined,
+                  tradesOutsideUk: false,
+                  turnoverOutsideUk: undefined,
+                  vatNumber: undefined,
+                },
+              } as UpdateVatDetailsMutationVariables,
+            },
+            result: mockMutation.mockImplementation(() => ({
+              data: {
+                updateLimitedCompany: {
+                  uuid: MOCK_COMPANY_UUID,
+                },
+              } as UpdateVatDetailsMutation,
+            })),
+          },
+        ]}
+      >
+        <VatDetailsPage />
+      </MockedProvider>,
+    );
+
+    // Just submit the form straight-away
+    submitForm();
+
+    // ASSERT
+    await waitFor(() => expect(mockMutation).toHaveBeenCalledTimes(1));
+  });
+
+  it('should submit successfully to the backend when the company is VAT registered', async () => {
+    // ARRANGE
+    const mockMutation = jest.fn();
+
+    // ACT
+    render(
+      <MockedProvider
+        addTypename={false}
+        mocks={[
+          dropDownData,
+          {
+            request: {
+              query: UPDATE_VAT_DETAILS,
+              variables: {
+                input: {
+                  uuid: MOCK_COMPANY_UUID,
+                  isVatRegistered: true,
+                  otherCountriesOfActivity: undefined,
+                  tradesOutsideUk: false,
+                  turnoverOutsideUk: undefined,
+                  vatNumber: '012345678',
+                },
+              } as UpdateVatDetailsMutationVariables,
+            },
+            result: mockMutation.mockImplementation(() => ({
+              data: {
+                updateLimitedCompany: {
+                  uuid: MOCK_COMPANY_UUID,
+                },
+              } as UpdateVatDetailsMutation,
+            })),
+          },
+        ]}
+      >
+        <VatDetailsPage />
+      </MockedProvider>,
+    );
+
+    toggleIsVATRegistered();
+
+    fireEvent.input(screen.getByRole('textbox', { name: /VAT Number/i }), {
+      target: { value: '012345678' },
+    });
+
+    submitForm();
+
+    // ASSERT
+    await waitFor(() => expect(mockMutation).toHaveBeenCalledTimes(1));
+  });
+
+  it('should submit successfully to the backend when the company trades outside the UK', async () => {
+    // ARRANGE
+    const mockMutation = jest.fn();
+
+    // ACT
+    render(
+      <MockedProvider
+        addTypename={false}
+        mocks={[
+          dropDownData,
+          {
+            request: {
+              query: UPDATE_VAT_DETAILS,
+              variables: {
+                input: {
+                  uuid: MOCK_COMPANY_UUID,
+                  isVatRegistered: false,
+                  otherCountriesOfActivity: ['Algeria', 'Andorra'],
+                  tradesOutsideUk: true,
+                  turnoverOutsideUk: 22,
+                  vatNumber: undefined,
+                },
+              } as UpdateVatDetailsMutationVariables,
+            },
+            result: mockMutation.mockImplementation(() => ({
+              data: {
+                updateLimitedCompany: {
+                  uuid: MOCK_COMPANY_UUID,
+                },
+              } as UpdateVatDetailsMutation,
+            })),
+          },
+        ]}
+      >
+        <VatDetailsPage />
+      </MockedProvider>,
+    );
+
+    await setTradesOutsideUK();
+
+    fireEvent.input(screen.getByRole('combobox', { name: /Country 1/i }), {
+      target: { value: 'Algeria' },
+    });
+
+    fireEvent.input(
+      screen.getByRole('spinbutton', { name: /Percentage for country 1/i }),
+      { target: { value: '10' } },
+    );
+
+    clickAddCountry();
+    await screen.findByRole('combobox', { name: /Country 2/i });
+
+    fireEvent.input(screen.getByRole('combobox', { name: /Country 2/i }), {
+      target: { value: 'Andorra' },
+    });
+
+    fireEvent.input(
+      screen.getByRole('spinbutton', { name: /Percentage for country 2/i }),
+      { target: { value: '12' } },
+    );
+
+    submitForm();
+
+    // ASSERT
+    await waitFor(() => expect(mockMutation).toHaveBeenCalledTimes(1));
+  });
+
+  it('should show an error message if the countries cannot be loaded', async () => {
+    // ACT
+    render(
+      <MockedProvider
+        addTypename={false}
+        mocks={[
+          {
+            request: {
+              query: GET_VAT_DETAILS_COUNTRIES,
+            },
+            error: new Error('Backend is down!'),
+          },
+        ]}
+      >
+        <VatDetailsPage />
+      </MockedProvider>,
+    );
+
+    fireEvent.click(
+      screen.getByRole('checkbox', {
+        name: /The company trades outside the UK/i,
+      }),
+    );
+
+    // ASSERT
+    await waitFor(() =>
+      expect(
+        screen.getByText('Could not load list of countries'),
+      ).toBeInTheDocument(),
     );
   });
 });

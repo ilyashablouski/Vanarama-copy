@@ -474,7 +474,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
             className="structured-list-td"
             data-testid="trim"
           >
-            
+            -
           </div>
         </div>
         <div

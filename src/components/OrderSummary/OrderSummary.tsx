@@ -69,21 +69,21 @@ const getOrderList = ({
     },
     {
       label: 'Colour:',
-      value: `${colourDescription || ''}`,
+      value: `${colourDescription || '-'}`,
       id: 'colour',
       key: `${colourDescription || ''}`,
       dataTestId: 'colour',
     },
     {
       label: 'Trim / Interior:',
-      value: `${trimDescription || ''}`,
+      value: `${trimDescription || '-'}`,
       id: 'trim',
-      key: `${trimDescription || ''}`,
+      key: `${trimDescription || '-'}`,
       dataTestId: 'trim',
     },
     {
       label: 'Stock:',
-      value: `${quoteByCapId?.stock}`,
+      value: `${quoteByCapId?.stock || '-'}`,
       id: 'stock',
       key: `${quoteByCapId?.stock}`,
       dataTestId: 'stock',
@@ -114,7 +114,7 @@ const OrderSummary: React.FC<IProps> = ({
         trim,
       }),
     );
-  }, [quoteByCapId, stateVAT, maintenance, trim]);
+  }, [quoteByCapId, stateVAT, maintenance, trim, colours, trims]);
 
   return (
     <div className="pdp--order-summary">

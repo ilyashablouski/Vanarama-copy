@@ -50,6 +50,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     } else {
       refetch();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [leaseType, upfront, mileage, colour, term, trim, refetch]);
 
   if (error) {
