@@ -17,6 +17,9 @@ export const toCurrencyDisplay = (value: number) => {
   return `£${value.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
 };
 
+export const toPriceFormat = (price: number | undefined | null): string =>
+  (price || 0).toFixed(2);
+
 export interface IOrderList {
   quoteByCapId: GetQuoteDetails_quoteByCapId | null | undefined;
   stateVAT: string;

@@ -2236,10 +2236,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@5.19.3":
-  version "5.19.3"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.19.3.tgz#6a837944b36cc9748c5c3c1bf763dc151d5c483d"
-  integrity sha512-S1x5bMt1PFha2tukT387OzbQJo/Xkkm5dkSPyuMcQhfe/hDJcykiC9LxYbiKocagPTfMP4QqSdOB2aAfwnL4Hg==
+"@vanarama/uibook@5.19.4":
+  version "5.19.4"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.19.4.tgz#dea630598aedf27bc5566f72d7b6b8e9c7d24f0f"
+  integrity sha512-velVE0EObECB+N8Y4hMMvLmhSyZPOwhNE3j4LuhmmDqkoj4+pS5xZsv5ed7+Pmtf/43m1idS0DCBjbAsMxKUcg==
   dependencies:
     "@egjs/flicking" "^3.4.7"
     "@egjs/react-flicking" "^3.2.1"
@@ -8181,6 +8181,7 @@ object.pick@^1.3.0:
 object.values@^1.0.4, object.values@^1.1.0, object.values@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/object.values/-/object.values-1.1.1.tgz#68a99ecde356b7e9295a3c5e0ce31dc8c953de5e"
+  integrity sha512-WTa54g2K8iu0kmS/us18jEmdv1a4Wi//BZ/DTVYEcH0XhLM5NYdpDHja3gt57VrZLcNAO2WGA+KpWsDBaHt6eA==
   dependencies:
     define-properties "^1.1.3"
     es-abstract "^1.17.0-next.1"
@@ -9016,6 +9017,7 @@ prompts@^2.0.1:
 prop-types-exact@1.2.0, prop-types-exact@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/prop-types-exact/-/prop-types-exact-1.2.0.tgz#825d6be46094663848237e3925a98c6e944e9869"
+  integrity sha512-K+Tk3Kd9V0odiXFP9fwDHUYRyvK3Nun3GVyPapSIs5OBkITAm15W0CPFD/YKTkMUAbc0b9CUwRQp2ybiBIq+eA==
   dependencies:
     has "^1.0.3"
     object.assign "^4.1.0"
