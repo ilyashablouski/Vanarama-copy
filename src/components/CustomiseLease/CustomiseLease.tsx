@@ -182,7 +182,9 @@ IProps) => {
       <Heading tag="span" size="regular" color="black">
         Add Maintenance:
         <Text color="orange" className="-b -ml-100">
-          {`£${quoteByCapId?.maintenanceCost?.monthlyRental} Per Month ${stateVAT}. VAT`}
+          {`£${(quoteByCapId?.maintenanceCost?.monthlyRental || 0).toFixed(
+            2,
+          )} Per Month ${stateVAT}. VAT`}
         </Text>
       </Heading>
       <Link size="small" onClick={() => setIsModalShowing(true)}>
@@ -216,7 +218,9 @@ IProps) => {
           className="pdp-footer"
           priceLabel={
             maintenance
-              ? `+£${quoteByCapId?.maintenanceCost?.monthlyRental} Maintenance`
+              ? `+£${quoteByCapId?.maintenanceCost?.monthlyRental?.toFixed(
+                  2,
+                )} Maintenance`
               : undefined
           }
           price={quoteByCapId?.leaseCost?.monthlyRental || 0}
