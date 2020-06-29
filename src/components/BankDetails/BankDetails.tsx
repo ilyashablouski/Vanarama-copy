@@ -65,12 +65,11 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
         label="Account Number"
         error={errors?.accountNumber?.message?.toString()}
       >
-        <Controller
+        <NumericInput
           id="accountNumber"
           name="accountNumber"
           dataTestId="accountNumber"
-          as={NumericInput}
-          control={control}
+          ref={register}
           width="35ch"
         />
       </FormGroup>

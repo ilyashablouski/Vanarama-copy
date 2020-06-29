@@ -24,6 +24,7 @@ describe('<HomePage />', () => {
         result: {
           data: {
             homePage: {
+              id: '',
               sections: {
                 hero: {
                   title: '',

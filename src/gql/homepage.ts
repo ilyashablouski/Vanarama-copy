@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 const ALL_HOME_CONTENT = gql`
   query HomePageData {
     homePage {
+      id
       sections {
         hero {
           title

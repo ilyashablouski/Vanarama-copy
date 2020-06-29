@@ -3,18 +3,22 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
-import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import React from 'react';
-import { FormContext, useForm } from 'react-hook-form';
+import { FormContext, useForm, OnSubmit } from 'react-hook-form';
 import CountryTurnoverFieldArray from './CountryTurnoverFieldArray';
 import { VatDetailsFormValues } from './interfaces';
 
-const VatDetailsForm: React.FC = () => {
+interface IProps {
+  onSubmit: OnSubmit<VatDetailsFormValues>;
+}
+
+const VatDetailsForm: React.FC<IProps> = ({ onSubmit }) => {
   const methods = useForm<VatDetailsFormValues>({
     mode: 'onBlur',
     defaultValues: {
-      trade: [{ country: '', percentage: '' }],
+      markets: [{ country: '', percentage: '' }],
     },
   });
 
@@ -23,16 +27,11 @@ const VatDetailsForm: React.FC = () => {
   const outsideUK = watch('outsideUK');
 
   return (
-    <Form
-      onSubmit={handleSubmit(values => {
-        // eslint-disable-next-line no-alert
-        alert(JSON.stringify(values, null, 2)); // temporary until BE integration done
-      })}
-    >
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <Heading color="black" dataTestId="vat-details_heading" size="xlarge">
         VAT Details
       </Heading>
-      <Formgroup>
+      <FormGroup>
         <Checkbox
           dataTestId="vat-details_is-registered"
           id="vatRegistered"
@@ -40,9 +39,9 @@ const VatDetailsForm: React.FC = () => {
           name="vatRegistered"
           ref={register}
         />
-      </Formgroup>
+      </FormGroup>
       {vatRegistered && (
-        <Formgroup
+        <FormGroup
           controlId="vatNumber"
           error={errors.vatNumber?.message?.toString()}
           hint="Please enter your VAT number without characters"
@@ -60,9 +59,9 @@ const VatDetailsForm: React.FC = () => {
               },
             })}
           />
-        </Formgroup>
+        </FormGroup>
       )}
-      <Formgroup>
+      <FormGroup>
         <Checkbox
           dataTestId="vat-details_outside-uk"
           id="outsideUK"
@@ -70,7 +69,7 @@ const VatDetailsForm: React.FC = () => {
           name="outsideUK"
           ref={register}
         />
-      </Formgroup>
+      </FormGroup>
       {outsideUK && (
         <FormContext {...methods}>
           <CountryTurnoverFieldArray />

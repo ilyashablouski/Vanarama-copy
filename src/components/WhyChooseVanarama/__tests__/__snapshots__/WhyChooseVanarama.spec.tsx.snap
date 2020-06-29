@@ -1,0 +1,317 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<WhyChooseVanarama /> renders correctly 1`] = `
+<div
+  className="tile--accordion"
+>
+  <p
+    className="heading pdp-section-title -black -lead"
+  >
+    Why Choose Vanarama?
+  </p>
+  <ul
+    className="accordion"
+  >
+    <li
+      className="accordion-item"
+      data-testid="accordion-item"
+    >
+      <button
+        className="accordion--heading"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="icon accordion-item--chevron"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-a
+            </title>
+            <polyline
+              points="184 112 328 256 184 400"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "square",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 48,
+                }
+              }
+            />
+          </svg>
+        </i>
+        <div
+          className="accordion--title"
+        >
+          <span
+            className="text -regular -black"
+          >
+            FREE Nationwide Delivery
+          </span>
+        </div>
+      </button>
+      <div
+        className="accordion--content"
+      >
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur incidunt at officiis quibusdam officia nam delectus doloremque perspiciatis! Accusantium eaque, ipsam harum voluptatibus eveniet necessitatibus.
+      </div>
+    </li>
+    <li
+      className="accordion-item"
+      data-testid="accordion-item"
+    >
+      <button
+        className="accordion--heading"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="icon accordion-item--chevron"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-a
+            </title>
+            <polyline
+              points="184 112 328 256 184 400"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "square",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 48,
+                }
+              }
+            />
+          </svg>
+        </i>
+        <div
+          className="accordion--title"
+        >
+          <span
+            className="text -regular -black"
+          >
+            FREE 30-Day Returns*
+          </span>
+        </div>
+      </button>
+      <div
+        className="accordion--content"
+      >
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur incidunt at officiis quibusdam officia nam delectus doloremque perspiciatis! Accusantium eaque, ipsam harum voluptatibus eveniet necessitatibus.
+      </div>
+    </li>
+    <li
+      className="accordion-item"
+      data-testid="accordion-item"
+    >
+      <button
+        className="accordion--heading"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="icon accordion-item--chevron"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-a
+            </title>
+            <polyline
+              points="184 112 328 256 184 400"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "square",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 48,
+                }
+              }
+            />
+          </svg>
+        </i>
+        <div
+          className="accordion--title"
+        >
+          <span
+            className="text -regular -black"
+          >
+            No Admin Fees
+          </span>
+        </div>
+      </button>
+      <div
+        className="accordion--content"
+      >
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur incidunt at officiis quibusdam officia nam delectus doloremque perspiciatis! Accusantium eaque, ipsam harum voluptatibus eveniet necessitatibus.
+      </div>
+    </li>
+    <li
+      className="accordion-item"
+      data-testid="accordion-item"
+    >
+      <button
+        className="accordion--heading"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="icon accordion-item--chevron"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-a
+            </title>
+            <polyline
+              points="184 112 328 256 184 400"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "square",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 48,
+                }
+              }
+            />
+          </svg>
+        </i>
+        <div
+          className="accordion--title"
+        >
+          <span
+            className="text -regular -black"
+          >
+            Up To £500 Damage Cover*
+          </span>
+        </div>
+      </button>
+      <div
+        className="accordion--content"
+      >
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur incidunt at officiis quibusdam officia nam delectus doloremque perspiciatis! Accusantium eaque, ipsam harum voluptatibus eveniet necessitatibus.
+      </div>
+    </li>
+    <li
+      className="accordion-item"
+      data-testid="accordion-item"
+    >
+      <button
+        className="accordion--heading"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="icon accordion-item--chevron"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-a
+            </title>
+            <polyline
+              points="184 112 328 256 184 400"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "square",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 48,
+                }
+              }
+            />
+          </svg>
+        </i>
+        <div
+          className="accordion--title"
+        >
+          <span
+            className="text -regular -black"
+          >
+            We’ll Cover 10% Mileage Excess*
+          </span>
+        </div>
+      </button>
+      <div
+        className="accordion--content"
+      >
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur incidunt at officiis quibusdam officia nam delectus doloremque perspiciatis! Accusantium eaque, ipsam harum voluptatibus eveniet necessitatibus.
+      </div>
+    </li>
+    <li
+      className="accordion-item"
+      data-testid="accordion-item"
+    >
+      <button
+        className="accordion--heading"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="icon accordion-item--chevron"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-a
+            </title>
+            <polyline
+              points="184 112 328 256 184 400"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "square",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 48,
+                }
+              }
+            />
+          </svg>
+        </i>
+        <div
+          className="accordion--title"
+        >
+          <span
+            className="text -regular -black"
+          >
+            4.5 Trustpilot Score
+          </span>
+        </div>
+      </button>
+      <div
+        className="accordion--content"
+      >
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur incidunt at officiis quibusdam officia nam delectus doloremque perspiciatis! Accusantium eaque, ipsam harum voluptatibus eveniet necessitatibus.
+      </div>
+    </li>
+  </ul>
+</div>
+`;

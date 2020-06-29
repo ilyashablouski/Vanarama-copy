@@ -86,6 +86,7 @@ export interface HomePageData_homePage_sections {
 }
 
 export interface HomePageData_homePage {
+  id: string;
   sections: HomePageData_homePage_sections;
 }
 

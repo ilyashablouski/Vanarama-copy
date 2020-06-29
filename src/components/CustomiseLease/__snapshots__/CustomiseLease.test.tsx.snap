@@ -15,7 +15,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     Lease Type
   </span>
   <div
-    className="choiceboxes -teal"
+    className="choiceboxes -cols-2 -teal"
     style={
       Object {
         "--cols": "2",
@@ -60,11 +60,11 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       style={
         Object {
           "--steps": "3",
-          "--value": "150%",
+          "--value": "0%",
         }
       }
       type="range"
-      value={4}
+      value={1}
     />
     <label
       className="sliding-input__label"
@@ -109,7 +109,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     <span
       className="text -b -ml-200 -small -orange"
     >
-      + 1000
+      + 800
     </span>
     <span
       className="text -mt-000 -ml-100 -small -black"
@@ -128,7 +128,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </span>
   </span>
   <div
-    className="choiceboxes -teal"
+    className="choiceboxes -cols-2 -teal"
     style={
       Object {
         "--cols": "2",
@@ -161,7 +161,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </span>
   </span>
   <div
-    className="choiceboxes -teal"
+    className="choiceboxes -cols-2 -teal"
     style={
       Object {
         "--cols": "2",
@@ -201,7 +201,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         disabled={true}
         value=""
       >
-        Select Paint Holder
+        Select Paint Colour
       </option>
       <option
         value="13990"
@@ -291,17 +291,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </span>
   </div>
   <div
-    style={
-      Object {
-        "bottom": 0,
-        "height": "100vh",
-        "left": 0,
-        "pointerEvents": "none",
-        "position": "sticky",
-        "right": 0,
-        "top": 0,
-      }
-    }
+    className="lease-scanner--sticky-wrap"
   >
     <div
       className="lease-scanner"
@@ -385,7 +375,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     Lease Type
   </span>
   <div
-    className="choiceboxes -teal"
+    className="choiceboxes -cols-2 -teal"
     style={
       Object {
         "--cols": "2",
@@ -430,11 +420,11 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       style={
         Object {
           "--steps": "3",
-          "--value": "150%",
+          "--value": "0%",
         }
       }
       type="range"
-      value={4}
+      value={1}
     />
     <label
       className="sliding-input__label"
@@ -479,7 +469,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     <span
       className="text -b -ml-200 -small -orange"
     >
-      + 1000
+      + 800
     </span>
     <span
       className="text -mt-000 -ml-100 -small -black"
@@ -498,7 +488,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </span>
   </span>
   <div
-    className="choiceboxes -teal"
+    className="choiceboxes -cols-2 -teal"
     style={
       Object {
         "--cols": "2",
@@ -531,7 +521,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </span>
   </span>
   <div
-    className="choiceboxes -teal"
+    className="choiceboxes -cols-2 -teal"
     style={
       Object {
         "--cols": "2",
@@ -571,7 +561,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         disabled={true}
         value=""
       >
-        Select Paint Holder
+        Select Paint Colour
       </option>
       <option
         value="13990"
@@ -661,17 +651,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </span>
   </div>
   <div
-    style={
-      Object {
-        "bottom": 0,
-        "height": "100vh",
-        "left": 0,
-        "pointerEvents": "none",
-        "position": "sticky",
-        "right": 0,
-        "top": 0,
-      }
-    }
+    className="lease-scanner--sticky-wrap"
   >
     <div
       className="lease-scanner"

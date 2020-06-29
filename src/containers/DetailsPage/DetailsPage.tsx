@@ -15,6 +15,8 @@ import VehicleTechDetails from '../VehicleTechDetails/VehicleTechDetails';
 import IndependentReview from '../../components/IndependentReview/IndependentReview';
 import CustomiseLeaseContainer from '../CustomiseLeaseContainer/CustomiseLeaseContainer';
 import { GetVehicleDetails } from '../../../generated/GetVehicleDetails';
+import WhyChooseLeasing from '../../components/WhyChooseLeasing/WhyChooseLeasing';
+import WhyChooseVanarama from '../../components/WhyChooseVanarama/WhyChooseVanarama';
 
 interface IDetailsPageProps {
   capId: number;
@@ -70,6 +72,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const leaseAdjustParams = data?.leaseAdjustParams;
   const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
   const independentReview = data?.vehicleDetails?.independentReview;
+  const warranty = data?.vehicleDetails?.warranty;
 
   return (
     <>
@@ -117,6 +120,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         {(vans || pickups) && (
           <IndependentReview review={independentReview || ''} />
         )}
+        <WhyChooseLeasing warranty={warranty || ''} />
+        <WhyChooseVanarama />
       </div>
       <CustomiseLeaseContainer
         capId={capId}
