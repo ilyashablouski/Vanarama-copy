@@ -175,7 +175,7 @@ export const PickupsPage: NextPage = () => {
           <Heading size="large" color="black">
             {data?.hubPickupPage.sections.featured1?.title}
           </Heading>
-          <Text tag="div" size="regular" color="darker">
+          <Text className="markdown" tag="div" size="regular" color="darker">
             <ReactMarkdown
               source={data?.hubPickupPage.sections.featured1?.body || ''}
             />
@@ -210,16 +210,14 @@ export const PickupsPage: NextPage = () => {
           />
         </div>
         <div className="-inset -middle -col-400">
-          <div>
-            <Heading size="large" color="black">
-              {data?.hubPickupPage.sections.featured2?.title}
-            </Heading>
-            <Text className="markdown" tag="div" size="regular" color="darker">
-              <ReactMarkdown
-                source={data?.hubPickupPage.sections.featured2?.body || ''}
-              />
-            </Text>
-          </div>
+          <Heading size="large" color="black">
+            {data?.hubPickupPage.sections.featured2?.title}
+          </Heading>
+          <Text className="markdown" tag="div" size="regular" color="darker">
+            <ReactMarkdown
+              source={data?.hubPickupPage.sections.featured2?.body || ''}
+            />
+          </Text>
         </div>
       </section>
 
