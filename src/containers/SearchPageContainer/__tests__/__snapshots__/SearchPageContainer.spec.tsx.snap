@@ -310,19 +310,15 @@ Array [
                 >
                   <select
                     className="select--native"
-                    defaultValue=""
                     name="make"
+                    onChange={[Function]}
+                    value=""
                   >
                     <option
                       disabled={true}
                       value=""
                     >
                       Select make
-                    </option>
-                    <option
-                      value="value}"
-                    >
-                      test
                     </option>
                   </select>
                   <span
@@ -373,19 +369,15 @@ Array [
                 >
                   <select
                     className="select--native"
-                    defaultValue=""
                     name="model"
+                    onChange={[Function]}
+                    value=""
                   >
                     <option
                       disabled={true}
                       value=""
                     >
                       Select model
-                    </option>
-                    <option
-                      value="value}"
-                    >
-                      test
                     </option>
                   </select>
                   <span
@@ -487,19 +479,51 @@ Array [
                 >
                   <select
                     className="select--native"
-                    defaultValue=""
-                    name="budgetFrom"
+                    name="from"
+                    onChange={[Function]}
+                    value=""
                   >
                     <option
                       disabled={true}
                       value=""
                     >
-                      Select budgetFrom
+                      Select from
                     </option>
                     <option
-                      value="value}"
+                      disabled={false}
+                      value={0}
                     >
-                      test
+                      £0
+                    </option>
+                    <option
+                      disabled={false}
+                      value={150}
+                    >
+                      £150
+                    </option>
+                    <option
+                      disabled={false}
+                      value={250}
+                    >
+                      £250
+                    </option>
+                    <option
+                      disabled={false}
+                      value={350}
+                    >
+                      £350
+                    </option>
+                    <option
+                      disabled={false}
+                      value={450}
+                    >
+                      £450
+                    </option>
+                    <option
+                      disabled={false}
+                      value={550}
+                    >
+                      £550
                     </option>
                   </select>
                   <span
@@ -550,19 +574,45 @@ Array [
                 >
                   <select
                     className="select--native"
-                    defaultValue=""
-                    name="budgetTo"
+                    name="to"
+                    onChange={[Function]}
+                    value=""
                   >
                     <option
                       disabled={true}
                       value=""
                     >
-                      Select budgetTo
+                      Select to
                     </option>
                     <option
-                      value="value}"
+                      disabled={false}
+                      value={150}
                     >
-                      test
+                      £150
+                    </option>
+                    <option
+                      disabled={false}
+                      value={250}
+                    >
+                      £250
+                    </option>
+                    <option
+                      disabled={false}
+                      value={350}
+                    >
+                      £350
+                    </option>
+                    <option
+                      disabled={false}
+                      value={450}
+                    >
+                      £450
+                    </option>
+                    <option
+                      disabled={false}
+                      value={550}
+                    >
+                      £550
                     </option>
                   </select>
                   <span
@@ -658,29 +708,7 @@ Array [
               </label>
               <div
                 className="formgroup--content"
-              >
-                <div
-                  className="checkbox -teal -outline"
-                >
-                  <input
-                    className="checkbox--native"
-                    id="type"
-                    name="type"
-                    onChange={[Function]}
-                    type="checkbox"
-                  />
-                  <label
-                    className="checkbox--label"
-                    htmlFor="type"
-                  >
-                    <span
-                      className="text -regular -darker"
-                    >
-                      Body Type
-                    </span>
-                  </label>
-                </div>
-              </div>
+              />
             </div>
             <button
               className="button -fullwidth -teal -small -solid"
@@ -743,29 +771,7 @@ Array [
               </label>
               <div
                 className="formgroup--content"
-              >
-                <div
-                  className="checkbox -teal -outline"
-                >
-                  <input
-                    className="checkbox--native"
-                    id="transmission"
-                    name="transmission"
-                    onChange={[Function]}
-                    type="checkbox"
-                  />
-                  <label
-                    className="checkbox--label"
-                    htmlFor="transmission"
-                  >
-                    <span
-                      className="text -regular -darker"
-                    >
-                      Transmission
-                    </span>
-                  </label>
-                </div>
-              </div>
+              />
             </div>
             <button
               className="button -fullwidth -teal -small -solid"
@@ -828,29 +834,7 @@ Array [
               </label>
               <div
                 className="formgroup--content"
-              >
-                <div
-                  className="checkbox -teal -outline"
-                >
-                  <input
-                    className="checkbox--native"
-                    id="fuelType"
-                    name="fuelType"
-                    onChange={[Function]}
-                    type="checkbox"
-                  />
-                  <label
-                    className="checkbox--label"
-                    htmlFor="fuelType"
-                  >
-                    <span
-                      className="text -regular -darker"
-                    >
-                      Fuel Type
-                    </span>
-                  </label>
-                </div>
-              </div>
+              />
             </div>
             <button
               className="button -fullwidth -teal -small -solid"
@@ -862,6 +846,48 @@ Array [
               </div>
             </button>
           </div>
+        </div>
+        <div
+          className="search-filters--tags"
+        >
+          <button
+            className="button -teal -xsmall -outline"
+            id=""
+            onClick={[Function]}
+          >
+            <div
+              className="button--inner"
+            >
+              
+              <i
+                className="icon"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-m
+                  </title>
+                  <polygon
+                    points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"
+                  />
+                </svg>
+              </i>
+            </div>
+          </button>
+          <button
+            className="button -teal -xsmall -solid"
+            id="clearAllButton"
+            onClick={[Function]}
+          >
+            <div
+              className="button--inner"
+            >
+              Clear All
+            </div>
+          </button>
         </div>
       </div>
     </div>
