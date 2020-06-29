@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
+import ReactMarkdown from 'react-markdown/with-html';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
@@ -174,8 +175,10 @@ export const PickupsPage: NextPage = () => {
           <Heading size="large" color="black">
             {data?.hubPickupPage.sections.featured1?.title}
           </Heading>
-          <Text tag="p" size="regular" color="darker">
-            {data?.hubPickupPage.sections.featured1?.body}
+          <Text tag="div" size="regular" color="darker">
+            <ReactMarkdown
+              source={data?.hubPickupPage.sections.featured1?.body || ''}
+            />
           </Text>
           <IconList>
             <IconListItem iconColor="orange">
@@ -211,8 +214,10 @@ export const PickupsPage: NextPage = () => {
             <Heading size="large" color="black">
               {data?.hubPickupPage.sections.featured2?.title}
             </Heading>
-            <Text tag="p" size="regular" color="darker">
-              {data?.hubPickupPage.sections.featured2?.body}
+            <Text className="markdown" tag="div" size="regular" color="darker">
+              <ReactMarkdown
+                source={data?.hubPickupPage.sections.featured2?.body || ''}
+              />
             </Text>
           </div>
         </div>

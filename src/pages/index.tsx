@@ -2,6 +2,7 @@ import { NextPage } from 'next';
 import { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
+import ReactMarkdown from 'react-markdown/with-html';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
@@ -229,7 +230,9 @@ export const HomePage: NextPage = () => {
             {data && data.homePage.sections.featured1?.title}
           </Heading>
           <Text tag="p" size="regular" color="darker">
-            {data && data.homePage.sections.featured1?.body}
+            <ReactMarkdown
+              source={data?.homePage.sections.featured1?.body || ''}
+            />
           </Text>
           <IconList>
             <IconListItem iconColor="orange">
@@ -253,7 +256,9 @@ export const HomePage: NextPage = () => {
             {data && data.homePage.sections.featured2?.title}
           </Heading>
           <Text tag="p" size="regular" color="darker">
-            {data && data.homePage.sections.featured2?.body}
+            <ReactMarkdown
+              source={data?.homePage.sections.featured2?.body || ''}
+            />
           </Text>
         </div>
       </section>

@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
+import ReactMarkdown from 'react-markdown/with-html';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
@@ -421,10 +422,14 @@ const VansPage: NextPage = () => {
         <div className="-inset -middle -col-400">
           <div>
             <Heading size="large" color="black">
-              {data?.hubVanPage.sections.featured2?.title}
+              <ReactMarkdown
+                source={data?.hubVanPage.sections.featured2?.title || ''}
+              />
             </Heading>
             <Text tag="p" size="regular" color="darker">
-              {data?.hubVanPage.sections.featured2?.body}
+              <ReactMarkdown
+                source={data?.hubVanPage.sections.featured2?.body || ''}
+              />
             </Text>
           </div>
         </div>
