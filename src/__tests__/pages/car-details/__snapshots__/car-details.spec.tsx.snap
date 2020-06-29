@@ -750,32 +750,7 @@ Array [
         </div>
       </div>
     </div>
-    <div
-      className="pdp--sidebar"
-      style={
-        Object {
-          "alignItems": "center",
-          "display": "flex",
-          "minHeight": "40rem",
-        }
-      }
-    >
-      <div
-        className="loading -xlarge"
-      >
-        <svg
-          className="loading--svg"
-          viewBox="-75 -75 150 150"
-        >
-          <circle
-            className="loading--stroke"
-            cx="0"
-            cy="0"
-            r="37.5"
-          />
-        </svg>
-      </div>
-    </div>
+    <div />
     <div
       className="pdp--feature-grid -col2"
     >
@@ -1311,6 +1286,9 @@ Array [
         </li>
       </ul>
     </div>
+    <div
+      className="pdp--reviews"
+    />
   </div>,
   <div />,
 ]

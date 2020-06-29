@@ -2,7 +2,7 @@ import React from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Slider from '@vanarama/uibook/lib/components/organisms/carousel';
 import ReviewCard from '@vanarama/uibook/lib/components/molecules/cards/ReviewCard/ReviewCard';
-import useSliderProperties from 'hooks/useSliderProperties';
+import useSliderProperties from '../../hooks/useSliderProperties';
 
 interface IReviewCard {
   text: string;
