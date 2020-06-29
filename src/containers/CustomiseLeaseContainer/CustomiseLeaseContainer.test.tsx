@@ -90,8 +90,6 @@ describe('<CustomiseLeaseContainer />', () => {
 
     expect(screen.getByText('24 Months'));
 
-    expect(screen.getByText('£605.95 inc. VAT'));
-
     fireEvent.click(screen.getByText('Business'));
 
     await waitFor(() => {
