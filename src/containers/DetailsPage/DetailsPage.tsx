@@ -10,6 +10,7 @@ import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import DownloadSharp from '@vanarama/uibook/lib/assets/icons/DownloadSharp';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
 import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-gallery';
+import Price from '@vanarama/uibook/lib/components/atoms/price';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import VehicleTechDetails from '../VehicleTechDetails/VehicleTechDetails';
 import IndependentReview from '../../components/IndependentReview/IndependentReview';
@@ -17,6 +18,7 @@ import CustomiseLeaseContainer from '../CustomiseLeaseContainer/CustomiseLeaseCo
 import { GetVehicleDetails } from '../../../generated/GetVehicleDetails';
 import WhyChooseLeasing from '../../components/WhyChooseLeasing/WhyChooseLeasing';
 import WhyChooseVanarama from '../../components/WhyChooseVanarama/WhyChooseVanarama';
+import GoldrushFormContainer from '../GoldrushFormContainer';
 
 interface IDetailsPageProps {
   capId: number;
@@ -123,12 +125,45 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <WhyChooseLeasing warranty={warranty || ''} />
         <WhyChooseVanarama />
       </div>
-      <CustomiseLeaseContainer
-        capId={capId}
-        vehicleType={cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV}
-        derivativeInfo={derivativeInfo}
-        leaseAdjustParams={leaseAdjustParams}
-      />
+      {false ? (
+        <CustomiseLeaseContainer
+          capId={capId}
+          vehicleType={cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV}
+          derivativeInfo={derivativeInfo}
+          leaseAdjustParams={leaseAdjustParams}
+        />
+      ) : (
+        <div className="pdp--sidebar">
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div>
+              <Heading tag="span" size="small" color="black">
+                FACTORY ORDER
+              </Heading>
+              <Text size="small" color="darker">
+                Availability: 12 Weeks (Avg)
+              </Text>
+            </div>
+            <div>
+              <Price size="xlarge" />
+            </div>
+          </div>
+          <GoldrushFormContainer
+            heading="Get Your Quote Now"
+            isPostcodeVisible={cars}
+            onCompleted={() => {}}
+          />
+          <div className="pdp--sidebar-promise">
+            <Text size="regular" color="black" tag="span">
+              {
+                "Lorem ipsum dolor. We’ll beat any lease quote or we'll give you £100. "
+              }
+            </Text>
+            <Link href="#" color="success" size="small">
+              Terms and Conditions apply.
+            </Link>
+          </div>
+        </div>
+      )}
     </>
   );
 };

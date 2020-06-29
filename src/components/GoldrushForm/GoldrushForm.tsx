@@ -1,4 +1,4 @@
-import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
@@ -13,6 +13,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
   onSubmit,
   isSubmitting,
   isPostcodeVisible,
+  heading,
 }) => {
   const buttonLabel = isSubmitting ? 'Loading...' : 'Get Quote Now';
   const { handleSubmit, errors, register } = useForm<IGoldrushFromValues>({
@@ -26,6 +27,9 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
 
   return (
     <Form dataTestId="goldrush-form" onSubmit={handleSubmit(onSubmit)}>
+      <Heading tag="span" size="lead" color="black">
+        {heading}
+      </Heading>
       <Formgroup
         controlId="goldrush-form_full-name"
         label="Full Name"
@@ -106,33 +110,19 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
       )}
 
       <Text tag="p" color="darker" size="xsmall">
-        {`By creating your account, you agree to our `}
-        <Link
-          dataTestId="terms_and_conditions"
-          href="https://www.motorama.com/terms-conditions"
-          size="xsmall"
-        >
-          Terms and Conditions
+        {'Terms and conditions agreement text and link '}
+        <Link dataTestId="terms_and_conditions" href="#" size="xsmall">
+          link
         </Link>
-        {` and `}
-        <Link
-          dataTestId="privacy_policy"
-          href="https://www.motorama.com/cookie-privacy-policy"
-          size="xsmall"
-        >
-          Privacy Policy
-        </Link>
-        .
       </Text>
       <Button
         dataTestId="goldrush-form_submit"
         type="submit"
         label={buttonLabel}
         disabled={isSubmitting}
-        icon={<ChevronForwardSharp />}
-        iconColor="white"
-        iconPosition="after"
-        color="primary"
+        size="lead"
+        fill="solid"
+        color="teal"
       />
     </Form>
   );

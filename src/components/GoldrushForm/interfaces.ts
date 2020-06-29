@@ -1,7 +1,8 @@
 export interface IGoldrushFormProps {
   onSubmit: (values: IGoldrushFromValues) => void;
-  isSubmitting: boolean;
-  isPostcodeVisible: boolean;
+  isSubmitting?: boolean;
+  isPostcodeVisible?: boolean;
+  heading: string;
 }
 
 export interface IGoldrushFromValues {
