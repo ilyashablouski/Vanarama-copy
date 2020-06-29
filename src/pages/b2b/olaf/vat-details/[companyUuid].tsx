@@ -11,12 +11,18 @@ import {
 import VatDetailsForm from '../../../../components/VatDetailsForm/VatDetailsForm';
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
-import { sum } from '../../../../utils/array';
 
 export const UPDATE_VAT_DETAILS = gql`
   mutation UpdateVatDetailsMutation($input: LimitedCompanyInputObject!) {
     updateLimitedCompany(input: $input) {
       uuid
+      isVatRegistered
+      tradesOutsideUk
+      turnoverPercentageOutsideUk {
+        country
+        percentage
+      }
+      vatNumber
     }
   }
 `;
@@ -39,12 +45,12 @@ export const VatDetailsPage: NextPage = () => {
               input: {
                 uuid: companyUuid,
                 isVatRegistered: vatRegistered,
-                otherCountriesOfActivity: outsideUK
-                  ? markets?.map(_ => _.country)
-                  : undefined,
                 tradesOutsideUk: outsideUK,
-                turnoverOutsideUk: outsideUK
-                  ? sum(markets || [], _ => Number(_.percentage))
+                turnoverPercentageOutsideUk: outsideUK
+                  ? markets.map(_ => ({
+                      country: _.country,
+                      percentage: Number(_.percentage),
+                    }))
                   : undefined,
                 vatNumber,
               },
