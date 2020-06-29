@@ -5,7 +5,7 @@ import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import React from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
 import AddressFormField from '../AddressFormField/AddressFormField';
 import { ICompanyDetailsFormValues, InputMode } from './interfaces';
@@ -21,7 +21,7 @@ interface IProps {
 }
 
 export default function CompanyDetailsFormFields({ inputMode }: IProps) {
-  const { control, formState, errors, register, watch } = useFormContext<
+  const { formState, errors, register, watch } = useFormContext<
     ICompanyDetailsFormValues
   >();
 
@@ -167,14 +167,12 @@ export default function CompanyDetailsFormFields({ inputMode }: IProps) {
         label="Business Telephone Number"
         error={errors.telephone?.message?.toString()}
       >
-        <Controller
+        <NumericInput
           dataTestId="company-details_telephone"
           id="telephone"
           type="tel"
           name="telephone"
-          as={NumericInput}
-          control={control}
-          rules={{
+          ref={register({
             required: 'Please enter the business telephone number',
             minLength: {
               value: 11,
@@ -191,7 +189,7 @@ export default function CompanyDetailsFormFields({ inputMode }: IProps) {
               message:
                 'Please enter telephone number without spaces or hyphens',
             },
-          }}
+          })}
         />
       </Formgroup>
       <Formgroup

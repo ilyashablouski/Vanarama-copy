@@ -5,9 +5,15 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Choiceboxes from '@vanarama/uibook/lib/components/atoms/choiceboxes';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
-import SlidingInput from '@vanarama/uibook/lib/components/atoms/sliding-input';
+// import SlidingInput from '@vanarama/uibook/lib/components/atoms/sliding-input';
 import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
-import SpeedometerOutline from '@vanarama/uibook/lib/assets/icons/SpeedometerSharp';
+import Radio from '@vanarama/uibook/lib/components/atoms/radio';
+import MileageBooster from '@vanarama/uibook/lib/assets/icons/MileageBooster';
+import Link from '@vanarama/uibook/lib/components/atoms/link';
+import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+import Modal from '@vanarama/uibook/lib/components/molecules/modal';
+import Button from '@vanarama/uibook/lib/components/atoms/button';
+import OrderSummary from '../OrderSummary/OrderSummary';
 import { IProps, IColour, ITrim, IChoice } from './interfase';
 import {
   GetVehicleDetails_derivativeInfo_trims,
@@ -44,6 +50,7 @@ const choices = (
       )}
     </Heading>
     <Choiceboxes
+      className={`-cols-${choicesValues?.length}`}
       choices={choicesValues}
       onSubmit={value => {
         setChoice(value.label);
@@ -67,7 +74,12 @@ const select = (
 ) => (
   <Select
     dataTestId={defaultValue}
-    defaultValue={defaultValue || ''}
+    key={
+      items?.some(item => item?.id === defaultValue) ? defaultValue : undefined
+    }
+    defaultValue={
+      items?.some(item => item?.id === defaultValue) ? defaultValue : undefined
+    }
     placeholder={placeholder}
     className="-fullwidth"
     onChange={option => {
@@ -86,19 +98,23 @@ const CustomiseLease = ({
   terms,
   upfronts,
   leaseTypes,
-  mileages,
+  // mileages?,
   setLeaseType,
   leaseType,
-  setMileage,
+  // setMileage,
   setUpfront,
   setColour,
   setTerm,
   setTrim,
   data,
-  trim,
   derivativeInfo,
-  leaseAdjustParams,
-}: IProps) => {
+  maintenance,
+  setMaintenance,
+  isModalShowing,
+  setIsModalShowing,
+  trim,
+}: // mileage,
+IProps) => {
   const quoteByCapId = data?.quoteByCapId;
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
 
@@ -114,16 +130,23 @@ const CustomiseLease = ({
           {`${quoteByCapId?.mileage} Miles`}
         </Text>
       </Heading>
+      {/* 
       <SlidingInput
         steps={mileages}
+        defaultValue={mileages.indexOf(mileage || 0) + 1}
         onChange={value => {
-          setMileage(leaseAdjustParams?.mileages[value - 1] || 0);
+          setMileage(mileages[value - 1]);
         }}
-      />
+      /> */}
       <div className="-flex-row">
-        <Icon color="orange" size="large" icon={<SpeedometerOutline />} />
+        <Icon
+          color="orange"
+          size="xlarge"
+          icon={<MileageBooster />}
+          className="-pt-200"
+        />
         <Text color="orange" size="small" className="-b -ml-200">
-          + 1000
+          {`+ ${(quoteByCapId?.mileage || 0) / 10}`}
         </Text>
         <Text color="black" size="small" className="-mt-000 -ml-100">
           Extra Miles FREE
@@ -139,7 +162,7 @@ const CustomiseLease = ({
         upfronts,
         value => setUpfront(+(value || 0) || null),
         'Initial Payment: ',
-        `£${quoteByCapId?.nonMaintained?.initialRental} ${stateVAT}. VAT`,
+        `£${quoteByCapId?.leaseCost?.initialRental} ${stateVAT}. VAT`,
       )}
       <Heading tag="span" size="regular" color="black">
         Vehicle Options
@@ -148,22 +171,55 @@ const CustomiseLease = ({
         `${quoteByCapId?.colour}`,
         setColour,
         derivativeInfo?.colours,
-        'Select Paint Holder',
+        'Select Paint Colour',
       )}
-      {select(`${trim}`, setTrim, derivativeInfo?.trims, 'Select Interior')}
-      <div
-        style={{
-          position: 'sticky',
-          left: 0,
-          right: 0,
-          bottom: 0,
-          top: 0,
-          height: '100vh',
-          pointerEvents: 'none',
-        }}
-      >
+      {select(
+        `${quoteByCapId?.trim || trim}`,
+        setTrim,
+        derivativeInfo?.trims,
+        'Select Interior',
+      )}
+      <Heading tag="span" size="regular" color="black">
+        Add Maintenance:
+        <Text color="orange" className="-b -ml-100">
+          {`£${quoteByCapId?.maintenanceCost?.monthlyRental} Per Month ${stateVAT}. VAT`}
+        </Text>
+      </Heading>
+      <Link size="small" onClick={() => setIsModalShowing(true)}>
+        See What&apos;s Included
+      </Link>
+      <Formgroup>
+        <Radio
+          name="maintenance"
+          id="maintenanceCost"
+          label="YES, I want peace of mind and to keep things hassle-free"
+          onChange={() => setMaintenance(true)}
+        />
+        <Radio
+          name="maintenance"
+          id="leaseCost"
+          label="NO, I want to worry about sorting the maintenance costs myself"
+          onChange={() => setMaintenance(false)}
+        />
+      </Formgroup>
+      <OrderSummary
+        quoteByCapId={quoteByCapId}
+        stateVAT={stateVAT}
+        maintenance={maintenance}
+        colours={derivativeInfo?.colours}
+        trims={derivativeInfo?.trims}
+        trim={trim}
+      />
+      <div className="lease-scanner--sticky-wrap">
         <LeaseScanner
-          price={quoteByCapId?.nonMaintained?.monthlyRental || 0}
+          classNameHeading="headingText"
+          className="pdp-footer"
+          priceLabel={
+            maintenance
+              ? `+£${quoteByCapId?.maintenanceCost?.monthlyRental} Maintenance`
+              : undefined
+          }
+          price={quoteByCapId?.leaseCost?.monthlyRental || 0}
           orderNowClick={() => {}}
           headingText={`PM ${stateVAT}. VAT`}
           phoneNumber="+1313222"
@@ -171,6 +227,24 @@ const CustomiseLease = ({
           startLoading={false}
         />
       </div>
+      {isModalShowing && (
+        <Modal
+          className="-mt-000"
+          title="The Maintenance Package Covers:"
+          text="Servicing, MOTs, tyres, brakes, wipes and bulbs. All you need to worry about is insurance and fuel!"
+          show={isModalShowing}
+          onRequestClose={() => setIsModalShowing(false)}
+          additionalText="PS: Without the package you’ll have to deal with the MOTs, servicing
+      and replacements for your new vehicle, for the duration of your lease."
+        >
+          <Button
+            className="-mt-200"
+            color="teal"
+            onClick={() => setIsModalShowing(false)}
+            label="Okay"
+          />
+        </Modal>
+      )}
     </div>
   );
 };

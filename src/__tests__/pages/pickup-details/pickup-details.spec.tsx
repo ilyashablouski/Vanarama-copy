@@ -4,8 +4,29 @@ import { useCarData } from '../../../gql/carpage';
 import PickupDetailsPage from '../../../pages/pickups/pickup-details';
 
 jest.mock('../../../gql/carpage');
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    query: {
+      capId: '44444',
+    },
+  }),
+}));
 
 describe('<PickupDetailsPage />', () => {
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: jest.fn().mockImplementation(query => ({
+      matches: true,
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+      matchMedia: jest.fn(),
+    })),
+  });
   it('renders correctly with data', async () => {
     (useCarData as jest.Mock).mockReturnValue({
       loading: false,

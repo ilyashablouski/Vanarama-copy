@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect, useRef } from 'react';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import CustomiseLease from '../../components/CustomiseLease/CustomiseLease';
 import { useQuoteData } from './gql';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import { IProps } from './interfaces';
+import { GetQuoteDetails_quoteByCapId } from '../../../generated/GetQuoteDetails';
 
 // eslint-disable-next-line no-empty-pattern
 const CustomiseLeaseContainer: React.FC<IProps> = ({
@@ -15,42 +17,40 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const isInitialMount = useRef(true);
 
   const [leaseType, setLeaseType] = useState<string | null>('Personal');
+  const [quoteData, setQuoteData] = useState<
+    GetQuoteDetails_quoteByCapId | null | undefined
+  >(null);
   const [mileage, setMileage] = useState<null | number>(null);
-  const [upfront, setUpfront] = useState<number | null>(
-    leaseAdjustParams?.upfronts[0] || null,
-  );
+  const [upfront, setUpfront] = useState<number | null>(null);
   const [colour, setColour] = useState<null | number>(null);
-  const [term, setTerm] = useState<number | null>(
-    leaseAdjustParams?.terms[0] || null,
-  );
+  const [term, setTerm] = useState<number | null>(null);
   const [trim, setTrim] = useState<number | null>(null);
-
-  // set avarage step
-  const defaultMillageNumber = Math.floor(
-    (leaseAdjustParams?.mileages?.length || 0) / 2,
-  );
-  const defaultMillage = leaseAdjustParams?.mileages[defaultMillageNumber - 1];
+  const [maintenance, setMaintenance] = useState<boolean | null>(null);
+  const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
 
   const { data, error, refetch } = useQuoteData({
     capId: `${capId}`,
     vehicleType,
-    mileage: mileage || defaultMillage || null,
-    term,
-    upfront,
+    mileage: mileage || quoteData?.mileage || null,
+    term: term || quoteData?.term || null,
+    upfront: upfront || quoteData?.upfront || null,
     leaseType:
       leaseType === 'Personal'
         ? LeaseTypeEnum.PERSONAL
         : LeaseTypeEnum.BUSINESS,
-    trim: +(trim || 0),
-    colour,
+    trim: trim ? +(trim || 0) || null : +(quoteData?.trim || 0) || null,
+    colour: colour || +(quoteData?.colour || 0) || null,
   });
 
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
+    } else if (!quoteData) {
+      setQuoteData(data?.quoteByCapId);
     } else {
       refetch();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [leaseType, upfront, mileage, colour, term, trim, refetch]);
 
   if (error) {
@@ -75,17 +75,15 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     );
   }
 
-  const terms = leaseAdjustParams?.terms.map(
-    (currentTerm: number, index: number) => ({
-      label: `${currentTerm}`,
-      active: index === 0,
-    }),
-  );
+  const terms = leaseAdjustParams?.terms.map((currentTerm: number) => ({
+    label: `${currentTerm}`,
+    active: data.quoteByCapId?.term === currentTerm,
+  }));
 
   const upfronts = leaseAdjustParams?.upfronts.map(
-    (currentUpfront: number, index: number) => ({
+    (currentUpfront: number) => ({
       label: `${currentUpfront}`,
-      active: index === 0,
+      active: data.quoteByCapId?.upfront === currentUpfront,
     }),
   );
 
@@ -94,17 +92,13 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     { label: 'Business', active: false },
   ];
 
-  const mileages = leaseAdjustParams?.mileages.map((currMileage: number) => {
-    return `${currMileage / 1000}K`;
-  });
-
   return (
     <CustomiseLease
       terms={terms || [{ label: '', active: false }]}
       upfronts={upfronts || [{ label: '', active: false }]}
       leaseType={leaseType}
       leaseTypes={leaseTypes}
-      mileages={mileages || undefined}
+      mileages={leaseAdjustParams?.mileages || []}
       setLeaseType={setLeaseType}
       setMileage={setMileage}
       setUpfront={setUpfront}
@@ -112,10 +106,15 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       setTerm={setTerm}
       setTrim={setTrim}
       data={data}
+      mileage={mileage || data.quoteByCapId?.mileage}
       trim={trim}
       derivativeInfo={derivativeInfo}
       colour={colour}
       leaseAdjustParams={leaseAdjustParams}
+      maintenance={maintenance}
+      setMaintenance={setMaintenance}
+      isModalShowing={isModalShowing}
+      setIsModalShowing={setIsModalShowing}
     />
   );
 };

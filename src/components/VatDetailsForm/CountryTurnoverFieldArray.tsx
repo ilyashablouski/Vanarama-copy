@@ -4,10 +4,10 @@ import CloseSharp from '@vanarama/uibook/lib/assets/icons/CloseSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
-import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
-import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import React from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
+import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import { GetVatDetailsCountries } from '../../../generated/GetVatDetailsCountries';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
 import { VatDetailsFormValues as FormValues } from './interfaces';
@@ -58,7 +58,7 @@ const CountryTurnoverFieldArray: React.FC = () => {
 
   return (
     <>
-      <Formgroup
+      <FormGroup
         label="Countries of Trade and % of Turnover"
         error={turnoverError}
       >
@@ -73,9 +73,10 @@ const CountryTurnoverFieldArray: React.FC = () => {
               >
                 <OptionsWithFavourites options={countriesExceptUK} />
               </Select>
-              <TextInput
+              <NumericInput
                 aria-label={`Percentage for country ${index + 1}`}
                 id={`markets[${index}].percentage`}
+                min="0"
                 name={`markets[${index}].percentage`}
                 ref={register({ required: true, min: 1, max: 100 })}
                 suffix="%"
@@ -98,7 +99,7 @@ const CountryTurnoverFieldArray: React.FC = () => {
             </React.Fragment>
           ))}
         </div>
-      </Formgroup>
+      </FormGroup>
       <Button
         color="teal"
         fill="solid"

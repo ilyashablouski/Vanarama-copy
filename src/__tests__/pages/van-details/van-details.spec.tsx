@@ -1,11 +1,32 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { useCarData } from '../../../gql/carpage';
-import VanDetailsPage from '../../../pages/vans/vans-details';
+import VanDetailsPage from '../../../pages/vans/van-details';
 
 jest.mock('../../../gql/carpage');
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    query: {
+      capId: '44444',
+    },
+  }),
+}));
 
 describe('<VanDetailsPage />', () => {
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: jest.fn().mockImplementation(query => ({
+      matches: true,
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+      matchMedia: jest.fn(),
+    })),
+  });
   it('renders correctly with data', async () => {
     (useCarData as jest.Mock).mockReturnValue({
       loading: false,

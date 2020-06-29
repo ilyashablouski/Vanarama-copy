@@ -1,16 +1,32 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { ParsedUrlQuery } from 'querystring';
 import { useCarData } from '../../../gql/carpage';
 import CarDetailsPage from '../../../pages/cars/car-details';
 
-interface IProps {
-  query: ParsedUrlQuery;
-}
-
 jest.mock('../../../gql/carpage');
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    query: {
+      capId: '44444',
+    },
+  }),
+}));
 
 describe('<CarDetailsPage />', () => {
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: jest.fn().mockImplementation(query => ({
+      matches: true,
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+      matchMedia: jest.fn(),
+    })),
+  });
   it('renders correctly with data', async () => {
     (useCarData as jest.Mock).mockReturnValue({
       loading: false,

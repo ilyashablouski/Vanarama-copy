@@ -14,6 +14,7 @@ function getComponent(props: IProps) {
 describe('<CustomiseLease />', () => {
   it('renders correctly', () => {
     const tree = getComponent({
+      mileage: 6000,
       colour: 13990,
       trim: 112981,
       terms: [
@@ -28,7 +29,7 @@ describe('<CustomiseLease />', () => {
         { label: 'Personal', active: true },
         { label: 'Business', active: false },
       ],
-      mileages: ['6K', '8K', '10K'],
+      mileages: [6000, 8000, 10000],
       setLeaseType: jest.fn(),
       leaseType: LeaseTypeEnum.PERSONAL,
       setMileage: jest.fn(),
@@ -41,13 +42,13 @@ describe('<CustomiseLease />', () => {
           colour: '13990',
           leadTime: '14-21 Day Delivery',
           leaseType: LeaseTypeEnum.PERSONAL,
-          maintained: {
+          maintenanceCost: {
             monthlyRental: 61.75,
             initialRental: 61.75,
             excessMileage: 0,
           },
           mileage: 8000,
-          nonMaintained: {
+          leaseCost: {
             monthlyRental: 605.95,
             initialRental: 605.95,
             excessMileage: 14.76,
@@ -60,6 +61,10 @@ describe('<CustomiseLease />', () => {
           vehicleType: VehicleTypeEnum.CAR,
         },
       },
+      isModalShowing: false,
+      setIsModalShowing: jest.fn(),
+      setMaintenance: jest.fn(),
+      maintenance: false,
       leaseAdjustParams: {
         mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
         terms: [24, 36, 48, 60],
@@ -114,7 +119,12 @@ describe('<CustomiseLease />', () => {
         { label: 'Personal', active: false },
         { label: 'Business', active: true },
       ],
-      mileages: ['6K', '8K', '10K'],
+      isModalShowing: false,
+      setIsModalShowing: jest.fn(),
+      setMaintenance: jest.fn(),
+      maintenance: false,
+      mileage: 6000,
+      mileages: [6000, 8000, 10000],
       setLeaseType: jest.fn(),
       leaseType: LeaseTypeEnum.PERSONAL,
       setMileage: jest.fn(),
@@ -127,13 +137,13 @@ describe('<CustomiseLease />', () => {
           colour: '13990',
           leadTime: '14-21 Day Delivery',
           leaseType: LeaseTypeEnum.BUSINESS,
-          maintained: {
+          maintenanceCost: {
             monthlyRental: 61.75,
             initialRental: 61.75,
             excessMileage: 0,
           },
           mileage: 8000,
-          nonMaintained: {
+          leaseCost: {
             monthlyRental: 605.95,
             initialRental: 605.95,
             excessMileage: 14.76,
@@ -191,6 +201,8 @@ describe('<CustomiseLease />', () => {
       setUpfront: jest.fn(),
       setColour: jest.fn(),
       setTrim: jest.fn(),
+      setMaintenance: jest.fn(),
+      setIsModalShowing: jest.fn(),
     };
   };
 
@@ -219,20 +231,23 @@ describe('<CustomiseLease />', () => {
           { label: 'Personal', active: false },
           { label: 'Business', active: true },
         ]}
-        mileages={['6K', '8K', '10K']}
+        mileage={6000}
+        mileages={[6000, 8000, 10000]}
         leaseType={LeaseTypeEnum.PERSONAL}
+        isModalShowing={false}
+        maintenance={false}
         data={{
           quoteByCapId: {
             colour: '13990',
             leadTime: '14-21 Day Delivery',
             leaseType: LeaseTypeEnum.BUSINESS,
-            maintained: {
+            leaseCost: {
               monthlyRental: 61.75,
               initialRental: 61.75,
               excessMileage: 0,
             },
             mileage: 8000,
-            nonMaintained: {
+            maintenanceCost: {
               monthlyRental: 605.95,
               initialRental: 605.95,
               excessMileage: 14.76,
@@ -303,5 +318,15 @@ describe('<CustomiseLease />', () => {
     fireEvent.change(screen.getByTestId('112981'));
     fireEvent.click(screen.getByText('Leather - Cranberry black'));
     expect(mocks.setTrim).toBeCalled();
+
+    fireEvent.click(
+      screen.getByText(
+        'YES, I want peace of mind and to keep things hassle-free',
+      ),
+    );
+    expect(mocks.setMaintenance).toBeCalled();
+
+    fireEvent.click(screen.getByText("See What's Included"));
+    expect(mocks.setIsModalShowing).toBeCalled();
   });
 });

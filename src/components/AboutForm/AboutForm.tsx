@@ -9,7 +9,7 @@ import TextInput from '@vanarama/uibook/lib/components/atoms/textinput/';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { gql } from '@apollo/client';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { genMonths, genYears } from '../../utils/helpers';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
@@ -26,7 +26,6 @@ const AboutForm: FCWithFragments<IProps> = ({
   const months = genMonths();
   const years = genYears(100);
   const {
-    control,
     errors,
     handleSubmit,
     register,
@@ -108,14 +107,13 @@ const AboutForm: FCWithFragments<IProps> = ({
           label="Mobile"
           error={errors?.mobile?.message?.toString()}
         >
-          <Controller
+          <NumericInput
             id="mobile"
             type="tel"
             name="mobile"
             dataTestId="aboutMobile"
             width="45ch"
-            as={NumericInput}
-            control={control}
+            ref={register}
           />
         </FormGroup>
       </FormGroup>
