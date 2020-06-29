@@ -43,7 +43,7 @@ export function useCustomValidation() {
       return DUPLICATE_ERROR;
     }
 
-    const total = sum(markets, _ => parseInt(_.percentage, 10));
+    const total = sum(markets, _ => Number(_.percentage));
     return total > 100 ? MAX_ERROR : undefined;
   }, [markets]);
 

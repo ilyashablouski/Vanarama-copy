@@ -16,6 +16,7 @@ import IndependentReview from '../../components/IndependentReview/IndependentRev
 import CustomiseLeaseContainer from '../CustomiseLeaseContainer/CustomiseLeaseContainer';
 import { GetVehicleDetails } from '../../../generated/GetVehicleDetails';
 import WhyChooseLeasing from '../../components/WhyChooseLeasing/WhyChooseLeasing';
+import WhyChooseVanarama from '../../components/WhyChooseVanarama/WhyChooseVanarama';
 
 interface IDetailsPageProps {
   capId: number;
@@ -120,6 +121,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           <IndependentReview review={independentReview || ''} />
         )}
         <WhyChooseLeasing warranty={warranty || ''} />
+        <WhyChooseVanarama />
       </div>
       <CustomiseLeaseContainer
         capId={capId}
