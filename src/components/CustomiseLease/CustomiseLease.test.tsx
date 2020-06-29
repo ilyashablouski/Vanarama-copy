@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import CustomiseLease from './CustomiseLease';
 import { IProps } from './interfase';
 import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
@@ -61,6 +61,10 @@ describe('<CustomiseLease />', () => {
           vehicleType: VehicleTypeEnum.CAR,
         },
       },
+      isModalShowing: false,
+      setIsModalShowing: jest.fn(),
+      setMaintenance: jest.fn(),
+      maintenance: false,
       leaseAdjustParams: {
         mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
         terms: [24, 36, 48, 60],
@@ -115,6 +119,10 @@ describe('<CustomiseLease />', () => {
         { label: 'Personal', active: false },
         { label: 'Business', active: true },
       ],
+      isModalShowing: false,
+      setIsModalShowing: jest.fn(),
+      setMaintenance: jest.fn(),
+      maintenance: false,
       mileage: 6000,
       mileages: [6000, 8000, 10000],
       setLeaseType: jest.fn(),
@@ -193,6 +201,8 @@ describe('<CustomiseLease />', () => {
       setUpfront: jest.fn(),
       setColour: jest.fn(),
       setTrim: jest.fn(),
+      setMaintenance: jest.fn(),
+      setIsModalShowing: jest.fn(),
     };
   };
 
@@ -224,6 +234,8 @@ describe('<CustomiseLease />', () => {
         mileage={6000}
         mileages={[6000, 8000, 10000]}
         leaseType={LeaseTypeEnum.PERSONAL}
+        isModalShowing={false}
+        maintenance={false}
         data={{
           quoteByCapId: {
             colour: '13990',
@@ -306,5 +318,15 @@ describe('<CustomiseLease />', () => {
     fireEvent.change(screen.getByTestId('112981'));
     fireEvent.click(screen.getByText('Leather - Cranberry black'));
     expect(mocks.setTrim).toBeCalled();
+
+    fireEvent.click(
+      screen.getByText(
+        'YES, I want peace of mind and to keep things hassle-free',
+      ),
+    );
+    expect(mocks.setMaintenance).toBeCalled();
+
+    fireEvent.click(screen.getByText("See What's Included"));
+    expect(mocks.setIsModalShowing).toBeCalled();
   });
 });

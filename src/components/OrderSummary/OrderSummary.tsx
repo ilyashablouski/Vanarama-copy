@@ -33,48 +33,59 @@ const getOrderList = ({
           ? 'FREE'
           : `£${quoteByCapId?.processingFee}`,
       id: 'processingFee',
+      key:
+        quoteByCapId?.processingFee === 0
+          ? 'FREE'
+          : `£${quoteByCapId?.processingFee}`,
       dataTestId: 'processingFee',
     },
     {
       label: 'Initial Payment:',
       value: `£${quoteByCapId?.leaseCost?.initialRental} (${stateVAT}. VAT)`,
       id: 'initialPayment',
+      key: `${quoteByCapId?.leaseCost?.initialRental} ${stateVAT}`,
       dataTestId: 'initialPayment',
     },
     {
       label: 'Contract Length:',
       value: `${quoteByCapId?.term} months`,
       id: 'contractLengthile',
+      key: `${quoteByCapId?.term}`,
       dataTestId: 'contractLengthile',
     },
     {
       label: 'Annual Mileage:',
       value: `${quoteByCapId?.mileage} miles`,
       id: 'annualMileage',
+      key: `${quoteByCapId?.mileage}`,
       dataTestId: 'annualMileage',
     },
     {
       label: 'Maintenance:',
       value: `${maintenance ? 'Yes' : 'No'}`,
       id: 'maintenance',
+      key: `${maintenance ? 'Yes' : 'No'}`,
       dataTestId: 'maintenance',
     },
     {
       label: 'Colour:',
       value: `${colourDescription || ''}`,
       id: 'colour',
+      key: `${colourDescription || ''}`,
       dataTestId: 'colour',
     },
     {
       label: 'Trim / Interior:',
       value: `${trimDescription || ''}`,
       id: 'trim',
+      key: `${trimDescription || ''}`,
       dataTestId: 'trim',
     },
     {
       label: 'Stock:',
       value: `${quoteByCapId?.stock}`,
       id: 'stock',
+      key: `${quoteByCapId?.stock}`,
       dataTestId: 'stock',
     },
   ];
@@ -89,14 +100,21 @@ const OrderSummary: React.FC<IProps> = ({
   trim,
 }) => {
   const [orderSummaryList, setOrderSummaryList] = useState(
-    getOrderList(quoteByCapId, stateVAT, maintenance, colours, trims, trim),
+    getOrderList({ quoteByCapId, stateVAT, maintenance, colours, trims, trim }),
   );
 
   useEffect(() => {
     setOrderSummaryList(
-      getOrderList(quoteByCapId, stateVAT, maintenance, colours, trims, trim),
+      getOrderList({
+        quoteByCapId,
+        stateVAT,
+        maintenance,
+        colours,
+        trims,
+        trim,
+      }),
     );
-  }, []);
+  }, [quoteByCapId, stateVAT, maintenance, trim]);
 
   return (
     <div className="pdp--order-summary">
@@ -104,9 +122,10 @@ const OrderSummary: React.FC<IProps> = ({
         ORDER SUMMARY
       </Heading>
       <StructuredList
+        key={orderSummaryList.map(item => `${item.key}`).join('')}
         className="-compact"
         editable={false}
-        list={orderSummaryList}
+        list={[...orderSummaryList]}
       />
     </div>
   );

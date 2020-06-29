@@ -5,7 +5,7 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Choiceboxes from '@vanarama/uibook/lib/components/atoms/choiceboxes';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
-// import SlidingInput from '@vanarama/uibook/lib/components/atoms/sliding-input';
+import SlidingInput from '@vanarama/uibook/lib/components/atoms/sliding-input';
 import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
 import Radio from '@vanarama/uibook/lib/components/atoms/radio';
 import MileageBooster from '@vanarama/uibook/lib/assets/icons/MileageBooster';
@@ -74,7 +74,12 @@ const select = (
 ) => (
   <Select
     dataTestId={defaultValue}
-    defaultValue={defaultValue || undefined}
+    key={
+      items?.some(item => item?.id === defaultValue) ? defaultValue : undefined
+    }
+    defaultValue={
+      items?.some(item => item?.id === defaultValue) ? defaultValue : undefined
+    }
     placeholder={placeholder}
     className="-fullwidth"
     onChange={option => {
@@ -125,12 +130,13 @@ IProps) => {
           {`${quoteByCapId?.mileage} Miles`}
         </Text>
       </Heading>
-      {/* <SlidingInput
-        value={mileages.indexOf(mileage || 0) + 1}
+      {/* 
+      <SlidingInput
+        steps={mileages}
+        defaultValue={mileages.indexOf(mileage || 0) + 1}
         onChange={value => {
           setMileage(mileages[value - 1]);
         }}
-        steps={mileages.map((item: number) => `${item / 1000}K`)}
       /> */}
       <div className="-flex-row">
         <Icon
@@ -168,7 +174,7 @@ IProps) => {
         'Select Paint Colour',
       )}
       {select(
-        `${quoteByCapId?.trim}`,
+        `${quoteByCapId?.trim || trim}`,
         setTrim,
         derivativeInfo?.trims,
         'Select Interior',
@@ -187,7 +193,7 @@ IProps) => {
           name="maintenance"
           id="maintenanceCost"
           label="YES, I want peace of mind and to keep things hassle-free"
-          onChange={() => setMaintenance(false)}
+          onChange={() => setMaintenance(true)}
         />
         <Radio
           name="maintenance"
@@ -208,7 +214,7 @@ IProps) => {
         <LeaseScanner
           classNameHeading="headingText"
           className="pdp-footer"
-          nextBestPrice={
+          priceLabel={
             maintenance
               ? `+£${quoteByCapId?.maintenanceCost?.excessMileage} Maintenance`
               : undefined
@@ -225,21 +231,24 @@ IProps) => {
           startLoading={false}
         />
       </div>
-      <Modal
-        title="The Maintenance Package Covers:"
-        text="Servicing, MOTs, tyres, brakes, wipes and bulbs. All you need to worry about is insurance and fuel!"
-        show={isModalShowing}
-        onRequestClose={() => setIsModalShowing(false)}
-        // additionalText="PS: Without the package you’ll have to deal with the MOTs, servicing
-        // and replacements for your new vehicle, for the duration of your lease."
-      >
-        <Button
-          className="-mt-200"
-          color="teal"
-          onClick={() => setIsModalShowing(false)}
-          label="Okay"
-        />
-      </Modal>
+      {isModalShowing && (
+        <Modal
+          className="-mt-000"
+          title="The Maintenance Package Covers:"
+          text="Servicing, MOTs, tyres, brakes, wipes and bulbs. All you need to worry about is insurance and fuel!"
+          show={isModalShowing}
+          onRequestClose={() => setIsModalShowing(false)}
+          additionalText="PS: Without the package you’ll have to deal with the MOTs, servicing
+      and replacements for your new vehicle, for the duration of your lease."
+        >
+          <Button
+            className="-mt-200"
+            color="teal"
+            onClick={() => setIsModalShowing(false)}
+            label="Okay"
+          />
+        </Modal>
+      )}
     </div>
   );
 };
