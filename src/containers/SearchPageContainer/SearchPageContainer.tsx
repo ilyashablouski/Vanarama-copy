@@ -17,7 +17,7 @@ import {
   vehicleList_vehicleList_edges_node_financeProfiles as IFinanceProfile,
   vehicleList_vehicleList_edges as IVehicles,
 } from '../../../generated/vehicleList';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 
 const SearchPage: NextPage = () => {
   const { query } = useRouter();
@@ -78,18 +78,13 @@ const SearchPage: NextPage = () => {
 
   // build price for offers
   const priceBuilder = (financeProfiles: IFinanceProfile[]): number | null => {
-    let price = null;
-    if (isPersonal) {
-      financeProfiles.forEach(el => {
-        if (el.leaseType === 'PERSONAL') price = el.rate;
-      });
-    } else {
-      financeProfiles.forEach(el => {
-        if (el.leaseType === 'BUSINESS') price = el.rate;
-      });
-    }
-
-    return price;
+    const leaseType = isPersonal
+      ? LeaseTypeEnum.PERSONAL
+      : LeaseTypeEnum.BUSINESS;
+    const financeProfile = financeProfiles.find(
+      el => el.leaseType === leaseType,
+    );
+    return financeProfile?.rate || null;
   };
 
   return (
