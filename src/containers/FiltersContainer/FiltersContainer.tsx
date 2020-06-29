@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, RefObject } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import SearchFilters from '@vanarama/uibook/lib/components/organisms/search-filters';
 import SearchFiltersHead from '@vanarama/uibook/lib/components/organisms/search-filters/SearchFiltersHead';
 import SearchFilterTags from '@vanarama/uibook/lib/components/organisms/search-filters/SearchFilterTags';
@@ -20,23 +20,11 @@ import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
 
 interface ISelectedFiltersState {
-  bodyStyles: string[];
-  transmissions: string[];
-  fuelTypes: string[];
-  make: string[];
-  model: string[];
-  from: number[];
-  to: number[];
+  [index: string]: string[];
 }
 
 interface IChoiceBoxesData {
-  bodyStyles: IChoice[];
-  transmissions: IChoice[];
-  fuelTypes: IChoice[];
-  make: IChoice[];
-  model: IChoice[];
-  from: IChoice[];
-  to: IChoice[];
+  [index: string]: IChoice[];
 }
 
 const initialState = {
@@ -73,7 +61,7 @@ const FiltersContainer = ({
   const choiseBoxReference = {} as any;
 
   const getOrCreateRef = (id: keyof typeof choiceBoxesData) => {
-    if (!choiseBoxReference.hasOwnProperty(id)) {
+    if (!Object.prototype.hasOwnProperty.call(choiseBoxReference, id)) {
       choiseBoxReference[id] = React.createRef();
     }
     return choiseBoxReference[id];
@@ -93,6 +81,45 @@ const FiltersContainer = ({
     fuelTypes: filtersData.fuelTypes,
   };
 
+  const buildChoiseBoxData = useCallback(
+    (state = selectedFiltersState) => {
+      const choises = {} as IChoiceBoxesData;
+      for (const [key] of Object.entries(filtersMapper)) {
+        choises[key] =
+          filtersMapper[key as keyof typeof filtersMapper]?.map(value => ({
+            label: value,
+            active: state[key as keyof typeof filtersMapper].includes(value),
+          })) || [];
+      }
+      return choises;
+    },
+    [filtersMapper, selectedFiltersState],
+  );
+
+  const onViewResults = useCallback(() => {
+    onSearch({
+      rate: {
+        min: parseInt(selectedFiltersState.from[0], 10),
+        max: parseInt(selectedFiltersState.to[0], 10),
+      },
+      make: selectedFiltersState.make[0],
+      model: selectedFiltersState.model[0],
+      fuelTypes: selectedFiltersState.fuelTypes,
+      bodyStyles: selectedFiltersState.bodyStyles,
+      transmissions: selectedFiltersState.transmissions,
+    });
+  }, [selectedFiltersState, onSearch]);
+
+  const choiseBoxBuilder = (
+    choises: IChoice[],
+    filterAccessor: keyof typeof filtersMapper,
+    actualState = selectedFiltersState,
+  ) =>
+    choises?.map((value: IChoice) => ({
+      ...value,
+      active: actualState[filterAccessor].includes(value.label),
+    }));
+
   useEffect(() => {
     if (data?.filterList) {
       setFiltersData(data.filterList);
@@ -102,25 +129,27 @@ const FiltersContainer = ({
 
   useEffect(() => {
     if (filtersData.bodyStyles) setChoiceBoxesData(buildChoiseBoxData());
-  }, [filtersData]);
+  }, [filtersData, buildChoiseBoxData]);
 
   useEffect(() => {
     if (selectedFiltersState.make) {
       setModelsData(modelHandler(filtersData, selectedFiltersState.make[0]));
     }
-  }, [selectedFiltersState.make]);
+  }, [selectedFiltersState.make, filtersData]);
 
   useEffect(() => {
     if (tempFilterName === 'all') {
       Object.keys(choiseBoxReference).forEach((e: any) =>
         choiseBoxReference[e]?.current?.updateState(),
       );
+      onViewResults();
       setTempFilterName('');
     } else if (tempFilterName) {
       choiseBoxReference[tempFilterName].current.updateState();
+      onViewResults();
       setTempFilterName('');
     }
-  }, [tempFilterName, setTempFilterName]);
+  }, [tempFilterName, setTempFilterName, choiseBoxReference, onViewResults]);
 
   // toogle personal/bussiness prices
   const toggleHandler = (value: React.ChangeEvent<HTMLInputElement>) =>
@@ -128,10 +157,10 @@ const FiltersContainer = ({
 
   const getValueKey = (value: string) => {
     const arr = Object.entries(selectedFiltersState) || [];
-    return arr.find(filter => filter[1].includes(value))[0] || '';
+    return arr.find(filter => filter[1].includes(value))?.[0] || '';
   };
 
-  const isInvalidBudget = (value: number, type: string) => {
+  const isInvalidBudget = (value: string, type: string) => {
     if (
       (type === 'from' &&
         (value < selectedFiltersState.to[0] || !selectedFiltersState.to[0])) ||
@@ -166,13 +195,13 @@ const FiltersContainer = ({
     // Add.
     if (value.active)
       newSelectedFilters[filterName] = [
-        ...newSelectedFilters[filterName],
+        ...selectedFiltersState[filterName],
         value.label,
       ];
     // Remove.
     else {
-      newSelectedFilters[filterName] = newSelectedFilters[filterName].filter(
-        filter => value.label !== filter,
+      newSelectedFilters[filterName] = selectedFiltersState[filterName].filter(
+        (filter: string | number) => value.label !== filter,
       );
     }
     setSelectedFiltersState({ ...newSelectedFilters });
@@ -193,7 +222,7 @@ const FiltersContainer = ({
   };
 
   const handleRemoveTag = (value: string) => {
-    const filter = getValueKey(value);
+    const filter = getValueKey(value) as keyof typeof filtersMapper;
     const newSelectedFiltersState = {
       ...selectedFiltersState,
       [filter]: selectedFiltersState[filter].filter(
@@ -217,28 +246,7 @@ const FiltersContainer = ({
     }
   };
 
-  const choiseBoxBuilder = (
-    data: IChoice[],
-    filterAccessor: keyof typeof filtersMapper,
-    actualState = selectedFiltersState,
-  ) =>
-    data?.map((value: IChoice) => ({
-      ...value,
-      active: actualState[filterAccessor].includes(value.label),
-    }));
-
-  const buildChoiseBoxData = (state = selectedFiltersState) => {
-    const choises = {} as IChoiceBoxesData;
-    for (const [key] of Object.entries(filtersMapper)) {
-      choises[key] = filtersMapper[key]?.map((value: IChoice) => ({
-        label: value,
-        active: state[key].includes(value),
-      }));
-    }
-    return choises;
-  };
-
-  const clearFilter = (filterName: string) => {
+  const clearFilter = (filterName: keyof typeof filtersMapper) => {
     const newSelectedFiltersState = {
       ...selectedFiltersState,
       [filterName]: [],
@@ -254,10 +262,6 @@ const FiltersContainer = ({
     }));
     setTempFilterName(filterName);
   };
-
-  const onViewResults = () => {
-    onSearch();
-  }
 
   return (
     <SearchFilters>
@@ -290,7 +294,11 @@ const FiltersContainer = ({
                   name={dropdown.accessor}
                   placeholder={`Select ${dropdown.accessor}`}
                   onChange={handleSelect}
-                  value={selectedFiltersState[dropdown.accessor]?.[0]}
+                  value={
+                    selectedFiltersState[
+                      dropdown.accessor as keyof typeof filtersMapper
+                    ]?.[0]
+                  }
                 >
                   {filtersMapper[
                     dropdown.accessor as keyof typeof filtersMapper
@@ -312,15 +320,21 @@ const FiltersContainer = ({
             ))}
           {filter.contentType === 'multiSelect' && (
             <>
-              {selectedFiltersState[filter.accessor]?.length > 0 && (
+              {selectedFiltersState[
+                filter.accessor as keyof typeof filtersMapper
+              ]?.length > 0 && (
                 <div className="dropdown--header">
                   <div className="dropdown--header-text">
                     <span className="dropdown--header-count">{`${
-                      selectedFiltersState[filter.accessor]?.length
+                      selectedFiltersState[
+                        filter.accessor as keyof typeof filtersMapper
+                      ]?.length
                     } Selected`}</span>
                     <div className="dropdown--header-selected">
-                      {selectedFiltersState[filter.accessor].map(value => (
-                        <span>{value},</span>
+                      {selectedFiltersState[
+                        filter.accessor as keyof typeof filtersMapper
+                      ].map(value => (
+                        <span key={value}>{value},</span>
                       ))}
                     </div>
                   </div>
@@ -329,7 +343,9 @@ const FiltersContainer = ({
                     color="teal"
                     fill="outline"
                     label="Clear"
-                    onClick={() => clearFilter(filter.accessor)}
+                    onClick={() =>
+                      clearFilter(filter.accessor as keyof typeof filtersMapper)
+                    }
                   />
                 </div>
               )}
@@ -337,7 +353,12 @@ const FiltersContainer = ({
               <FormGroup label={filter.label}>
                 {choiceBoxesData[filter.accessor]?.length > 0 && (
                   <Choiceboxes
-                    onSubmit={value => handleChecked(value, filter.accessor)}
+                    onSubmit={value =>
+                      handleChecked(
+                        value,
+                        filter.accessor as keyof typeof filtersMapper,
+                      )
+                    }
                     choices={choiceBoxesData[filter.accessor]}
                     className="-cols-1"
                     color="medium"

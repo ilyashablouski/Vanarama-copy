@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
+import { IFilters } from '../FiltersContainer/interfaces';
 import FiltersContainer from '../FiltersContainer';
 import VehicleCard from './VehicleCard';
 import { getVehiclesList } from './gql';
@@ -95,6 +96,23 @@ const SearchPage: NextPage = () => {
     return financeProfile?.rate || null;
   };
 
+  const onSearch = (filters: IFilters) => {
+    getVehicles({
+      variables: {
+        vehicleTypes: isCarSearchType
+          ? [VehicleTypeEnum.CAR]
+          : [VehicleTypeEnum.LCV],
+        onOffer: isSpecialOffers,
+        manufacturerName: filters.make,
+        rangeName: filters.model,
+        rate: filters.rate,
+        bodyStyles: filters.bodyStyles,
+        transmissions: filters.transmissions,
+        fuelTypes: filters.fuelTypes,
+      },
+    });
+  };
+
   return (
     <>
       <div className="row:title">
@@ -120,7 +138,7 @@ const SearchPage: NextPage = () => {
           <FiltersContainer
             isPersonal={isPersonal}
             setType={value => setIsPersonal(value)}
-            onSearch={getVehicles}
+            onSearch={onSearch}
             isCarSearch={isCarSearchType}
           />
         </div>

@@ -3,7 +3,10 @@ import {
   vehicleList,
   vehicleListVariables,
 } from '../../../generated/vehicleList';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import {
+  VehicleTypeEnum,
+  RateInputObject,
+} from '../../../generated/globalTypes';
 
 export const GET_VEHICLE_LIST = gql`
   query vehicleList(
@@ -20,7 +23,10 @@ export const GET_VEHICLE_LIST = gql`
     vehicleList(
       first: 9
       after: $after
-      filter: { vehicleTypes: $vehicleTypes, onOffer: $onOffer, manufacturerName: $manufacturerName
+      filter: {
+        vehicleTypes: $vehicleTypes
+        onOffer: $onOffer
+        manufacturerName: $manufacturerName
         rangeName: $rangeName
         rate: $rate
         bodyStyles: $bodyStyles
@@ -71,7 +77,7 @@ export function getVehiclesList(
   after?: string,
   manufacturerName?: string,
   rangeName?: string,
-  rate?,
+  rate?: RateInputObject,
   bodyStyles?: string[],
   transmissions?: string[],
   fuelTypes?: string[],
