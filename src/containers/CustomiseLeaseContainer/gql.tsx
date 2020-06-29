@@ -36,12 +36,12 @@ export const GET_QUOTE_DATA = gql`
       vehicleType
       leaseType
       processingFee
-      nonMaintained {
+      leaseCost {
         monthlyRental
         initialRental
         excessMileage
       }
-      maintained {
+      maintenanceCost {
         monthlyRental
         initialRental
         excessMileage

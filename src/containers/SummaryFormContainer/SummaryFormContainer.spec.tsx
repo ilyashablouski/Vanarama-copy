@@ -1,5 +1,5 @@
 import { MockedProvider } from '@apollo/client/testing';
-import { render, waitFor, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import SummaryFormContainer from './SummaryFormContainer';
 import createBruceData from './__fixtures__/bruceData';
@@ -28,7 +28,7 @@ describe('<SummaryFormContainer />', () => {
     );
 
     // Wait for the data to load
-    await waitFor(() => screen.findByText('Your Details'));
+    await screen.findByText('Your Details');
 
     // ASSERT
     expect(screen.getByTestId(/summary-email-address/)).toHaveTextContent(
@@ -73,7 +73,7 @@ describe('<SummaryFormContainer />', () => {
     );
 
     // Wait for the data to load
-    await waitFor(() => screen.findByText('Address History'));
+    await screen.findByText('Address History');
 
     // ASSERT
     expect(screen.getByTestId('summary-address[0]')).toHaveTextContent(
@@ -114,7 +114,7 @@ describe('<SummaryFormContainer />', () => {
     );
 
     // Wait for the data to load
-    await waitFor(() => screen.findByText('Employment History'));
+    await screen.findByText('Employment History');
 
     // ASSERT
     expect(
@@ -167,7 +167,7 @@ describe('<SummaryFormContainer />', () => {
     );
 
     // Wait for the data to load
-    await waitFor(() => screen.findByText('Monthly Expenses'));
+    await screen.findByText('Monthly Expenses');
 
     // ASSERT
     expect(
@@ -196,7 +196,7 @@ describe('<SummaryFormContainer />', () => {
     );
 
     // Wait for the data to load
-    await waitFor(() => screen.findByText('Bank Details'));
+    await screen.findByText('Bank Details');
 
     // ASSERT
     expect(screen.getByTestId('summary-bank-name')).toHaveTextContent(
@@ -229,7 +229,7 @@ describe('<SummaryFormContainer />', () => {
     );
 
     // Wait for the data to load
-    await waitFor(() => screen.findByTestId('summary-heading'));
+    await screen.findByTestId('summary-heading');
 
     fireEvent.click(screen.getByText(/Continue/));
 
@@ -251,7 +251,7 @@ describe('<SummaryFormContainer />', () => {
     );
 
     // Wait for the data to load
-    await waitFor(() => screen.findByTestId('summary-heading'));
+    await screen.findByTestId('summary-heading');
 
     fireEvent.click(screen.getByTestId(/edit-your-details/));
 
@@ -276,7 +276,7 @@ describe('<SummaryFormContainer />', () => {
     );
 
     // Wait for the data to load
-    await waitFor(() => screen.findByTestId('summary-heading'));
+    await screen.findByTestId('summary-heading');
 
     fireEvent.click(screen.getByTestId(/edit-employment-history/));
 
@@ -301,7 +301,7 @@ describe('<SummaryFormContainer />', () => {
     );
 
     // Wait for the data to load
-    await waitFor(() => screen.findByTestId('summary-heading'));
+    await screen.findByTestId('summary-heading');
 
     fireEvent.click(screen.getByTestId(/edit-expenses/));
 
@@ -326,7 +326,7 @@ describe('<SummaryFormContainer />', () => {
     );
 
     // Wait for the data to load
-    await waitFor(() => screen.findByTestId('summary-heading'));
+    await screen.findByTestId('summary-heading');
 
     fireEvent.click(screen.getByTestId(/edit-bank-details/));
 

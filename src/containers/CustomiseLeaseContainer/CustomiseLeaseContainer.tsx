@@ -25,6 +25,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [colour, setColour] = useState<null | number>(null);
   const [term, setTerm] = useState<number | null>(null);
   const [trim, setTrim] = useState<number | null>(null);
+  const [maintenance, setMaintenance] = useState<boolean | null>(null);
+  const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
 
   const { data, error, refetch } = useQuoteData({
     capId: `${capId}`,
@@ -48,6 +50,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     } else {
       refetch();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [leaseType, upfront, mileage, colour, term, trim, refetch]);
 
   if (error) {
@@ -108,6 +111,10 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       derivativeInfo={derivativeInfo}
       colour={colour}
       leaseAdjustParams={leaseAdjustParams}
+      maintenance={maintenance}
+      setMaintenance={setMaintenance}
+      isModalShowing={isModalShowing}
+      setIsModalShowing={setIsModalShowing}
     />
   );
 };

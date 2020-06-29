@@ -89,9 +89,7 @@ describe('B2B About You page', () => {
       </MockedProvider>,
     );
 
-    await waitFor(() => {
-      expect(screen.getByTestId('about-you_heading')).toBeInTheDocument();
-    });
+    await screen.findByTestId('about-you_heading');
 
     fireEvent.input(screen.getByRole('combobox', { name: /title/i }), {
       target: { value: 'Mr' },
@@ -194,9 +192,7 @@ describe('B2B About You page', () => {
       </MockedProvider>,
     );
 
-    await waitFor(() => {
-      expect(screen.getByTestId('about-you_heading')).toBeInTheDocument();
-    });
+    await screen.findByTestId('about-you_heading');
 
     fireEvent.input(screen.getByRole('combobox', { name: /title/i }), {
       target: { value: 'Mr' },

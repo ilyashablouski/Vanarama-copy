@@ -3,6 +3,7 @@ import React from 'react';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
 import ThankYouPage from '../../../pages/olaf/thank-you';
 
+jest.mock('../../../layouts/OLAFLayout/OLAFLayout');
 const mockPush = jest.fn();
 jest.mock('next/router', () => ({
   useRouter() {
@@ -13,9 +14,6 @@ jest.mock('next/router', () => ({
     };
   },
 }));
-
-jest.mock('../../../hooks/useMediaQuery');
-jest.mock('../../../gql/order');
 
 describe('<ThankYouPage />', () => {
   it('should redirect to the home page when clicking the "View order" button', async () => {

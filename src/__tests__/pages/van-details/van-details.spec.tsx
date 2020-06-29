@@ -24,6 +24,20 @@ jest.mock(
 );
 
 describe('<VanDetailsPage />', () => {
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: jest.fn().mockImplementation(query => ({
+      matches: true,
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+      matchMedia: jest.fn(),
+    })),
+  });
   it('renders correctly with data', async () => {
     (useCarData as jest.Mock).mockReturnValue({
       loading: false,
