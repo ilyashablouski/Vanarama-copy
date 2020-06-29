@@ -39,7 +39,7 @@ const OrderSummary: React.FC<IProps> = ({
         key={orderSummaryList.map(item => `${item.key}`).join('')}
         className="-compact"
         editable={false}
-        list={[...orderSummaryList]}
+        list={orderSummaryList}
       />
     </div>
   );
