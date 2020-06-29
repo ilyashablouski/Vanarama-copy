@@ -17,7 +17,9 @@ import CustomiseLeaseContainer from '../CustomiseLeaseContainer/CustomiseLeaseCo
 import { GetVehicleDetails } from '../../../generated/GetVehicleDetails';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import WhyChooseLeasing from '../../components/WhyChooseLeasing/WhyChooseLeasing';
+import CustomerReviews from '../../components/CustomerReviews/CustomerReviews';
 import WhyChooseVanarama from '../../components/WhyChooseVanarama/WhyChooseVanarama';
+import { replaceReview } from '../../components/CustomerReviews/helpers';
 
 interface IDetailsPageProps {
   capId: number;
@@ -76,6 +78,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
   const independentReview = data?.vehicleDetails?.independentReview;
   const warranty = data?.vehicleDetails?.warranty;
+  const reviews = data?.vehicleDetails?.customerReviews?.map(review => ({
+    text: review?.review ? replaceReview(review.review) : '',
+    author: review?.name || '',
+    score: review?.rating || 0,
+  }));
 
   return (
     <>
@@ -133,6 +140,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         )}
         <WhyChooseLeasing warranty={warranty || ''} />
         <WhyChooseVanarama />
+        <div className="pdp--reviews">
+          <CustomerReviews reviews={reviews || []} />
+        </div>
       </div>
       <CustomiseLeaseContainer
         capId={capId}
