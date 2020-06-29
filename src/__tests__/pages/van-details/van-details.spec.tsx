@@ -12,6 +12,17 @@ jest.mock('next/router', () => ({
   }),
 }));
 
+/**
+ * NOTE: Mock the CustomiseLeaseContainer as it is out of scope for this test
+ * and is doing state updates after the test has finished.
+ */
+jest.mock(
+  '../../../containers/CustomiseLeaseContainer/CustomiseLeaseContainer',
+  () => () => {
+    return <div />;
+  },
+);
+
 describe('<VanDetailsPage />', () => {
   it('renders correctly with data', async () => {
     (useCarData as jest.Mock).mockReturnValue({
