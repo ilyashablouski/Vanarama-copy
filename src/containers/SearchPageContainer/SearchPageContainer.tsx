@@ -22,12 +22,17 @@ import { VehicleTypeEnum } from '../../../generated/globalTypes';
 const SearchPage: NextPage = () => {
   const { query } = useRouter();
 
+  // check for vehicle type search
+  const isCarSearch = (value = '') => value.indexOf('car') > -1;
+
   const [vehiclesList, setVehicleList] = useState([] as any);
   const [lastCard, setLastCard] = useState('');
   const [isPersonal, setIsPersonal] = useState(true);
   const [isSpecialOffers, setIsSpecialOffers] = useState(true);
   const [totalCount, setTotalCount] = useState(0);
-  const [isCarSearchType, setCarSearchType] = useState(false);
+  const [isCarSearchType, setCarSearchType] = useState(
+    isCarSearch(query.search as string),
+  );
 
   const [getVehicles, { data }] = getVehiclesList(
     isCarSearchType ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
@@ -40,8 +45,6 @@ const SearchPage: NextPage = () => {
     lastCard,
   );
 
-  // check for vehicle type search
-  const isCarSearch = (value = '') => value.indexOf('car') > -1;
   const crumbs = [
     { label: 'Home', href: '/' },
     { label: `${isCarSearchType ? 'Car' : 'Vans'} Search`, href: '/' },
@@ -50,8 +53,13 @@ const SearchPage: NextPage = () => {
   // made a first requeset after render
   useEffect(() => {
     if (query.search) {
-      getVehicles();
       setCarSearchType(isCarSearch(query.search as string));
+    }
+  }, [query.search]);
+
+  useEffect(() => {
+    if (query.search) {
+      getVehicles();
     }
   }, [getVehicles, query.search]);
 
