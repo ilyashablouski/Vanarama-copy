@@ -1,29 +1,54 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React from 'react';
+import { NextRouter } from 'next/router';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import { TIcon } from '@vanarama/uibook/lib/components/molecules/cards/CardIcons';
-import Slider from '@vanarama/uibook/lib/components/organisms/carousel';
+import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import useSliderProperties from '../../hooks/useSliderProperties';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
+import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { useProductCardsData } from './gql';
 
 interface ICustomerAlsoViewedContainerProps {
   capsId: string[];
+  leaseType: string;
+  router: NextRouter;
   vehicleType?: VehicleTypeEnum;
 }
 
 const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> = ({
   capsId,
+  leaseType,
   vehicleType,
+  router,
 }) => {
-  const { itemWidth, slidesToShow } = useSliderProperties(345, 345, 310);
   const { data, loading, error } = useProductCardsData(capsId, vehicleType);
+
+  const offerNewPath = (capId: string) => {
+    if (router.pathname.match('/(capId)/')) {
+      return router.pathname.replace('[capId]', capId);
+    }
+    return `${router.pathname}/${capId}`;
+  };
+
+  const offerPath = () => {
+    if (router.pathname.match('/(capId)/')) {
+      return router.pathname;
+    }
+    return `${router.pathname}/[capId]`;
+  };
+
+  const features = (keyInformation: any[]): TIcon[] => {
+    return keyInformation.map(information => ({
+      icon: <Icon name={information.name.replace(' ', '')} color="dark" />,
+      label: information.name,
+    }));
+  };
 
   if (loading) {
     return (
@@ -47,13 +72,6 @@ const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> =
     );
   }
 
-  const features = (keyInformation: any[]): TIcon[] => {
-    return keyInformation.map(information => ({
-      icon: <Icon name={information.name.replace(' ', '')} color="dark" />,
-      label: information.name,
-    }));
-  };
-
   if (!data?.productCards?.length) {
     return null;
   }
@@ -65,62 +83,75 @@ const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> =
           Customers Also Viewed
         </Heading>
         <div style={{ width: '100%' }}>
-          <Slider className="-mh-auto" gutter={16} slidesToShow={slidesToShow}>
-            {data.productCards.map(
+          <Carousel className="-mh-auto">
+            {data.productCards.slice(0, 6).map(
               product =>
                 product && (
-                  <div
+                  <ProductCard
                     key={product.capId || ''}
-                    style={{ width: itemWidth, textAlign: 'center' }}
+                    header={
+                      product.leadTime || product.isOnOffer
+                        ? {
+                            text: product.leadTime || '',
+                            accentIcon: product.isOnOffer ? (
+                              <Icon icon={<Flame />} color="white" />
+                            ) : (
+                              ''
+                            ),
+                            accentText: product.isOnOffer ? 'Hot Deal' : '',
+                          }
+                        : undefined
+                    }
+                    features={
+                      (!!product.keyInformation?.length &&
+                        features(product.keyInformation)) ||
+                      []
+                    }
+                    imageSrc={product.imageUrl || ''}
+                    onCompare={() => true}
+                    onWishlist={() => true}
+                    title={{
+                      title: '',
+                      link: (
+                        <RouterLink
+                          link={{
+                            href: offerPath(),
+                            label: `${product.manufacturerName} ${product.rangeName}`,
+                          }}
+                          as={offerNewPath(product.capId || '')}
+                          className="heading"
+                          classNames={{ size: 'large', color: 'black' }}
+                        />
+                      ),
+                      description: product.derivativeName || '',
+                      score: product.averageRating || undefined,
+                    }}
                   >
-                    <ProductCard
-                      header={
-                        product.leadTime
-                          ? {
-                              text: product.leadTime || '',
-                            }
-                          : undefined
-                      }
-                      features={features(product.keyInformation || [])}
-                      imageSrc={product.imageUrl || ''}
-                      onCompare={() => true}
-                      onWishlist={() => true}
-                      title={{
-                        title: '',
-                        link: (
-                          <RouterLink
-                            link={{
-                              href: '#',
-                              label: `${product.manufacturerName} ${product.rangeName}`,
-                            }}
-                            className="heading"
-                            classNames={{ size: 'large', color: 'black' }}
-                          />
-                        ),
-                        description: product.derivativeName || '',
-                        score: product.averageRating || undefined,
-                      }}
-                    >
-                      <div className="-flex-h">
-                        <Price
-                          price={product.businessRate || product.personalRate}
-                          size="large"
-                          separator="."
-                          priceDescription="Per Month Exc.VAT"
-                        />
-                        <Button
-                          color="teal"
-                          fill="solid"
-                          label="View Offer"
-                          onClick={() => true}
-                          size="regular"
-                        />
-                      </div>
-                    </ProductCard>
-                  </div>
+                    <div className="-flex-h">
+                      <Price
+                        price={
+                          leaseType === LeaseTypeEnum.BUSINESS
+                            ? product.businessRate
+                            : product.personalRate
+                        }
+                        size="large"
+                        separator="."
+                        priceDescription={`Per Month ${
+                          leaseType === LeaseTypeEnum.PERSONAL ? 'Inc' : 'Ex'
+                        }.VAT`}
+                      />
+                      <Button
+                        color="teal"
+                        fill="solid"
+                        label="View Offer"
+                        onClick={() => {}}
+                        size="regular"
+                      />
+                    </div>
+                  </ProductCard>
                 ),
             )}
-          </Slider>
+          </Carousel>
         </div>
       </div>
     </div>

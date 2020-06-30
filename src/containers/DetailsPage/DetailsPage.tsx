@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { NextRouter } from 'next/router';
 import { ApolloError } from '@apollo/client';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
@@ -22,6 +23,7 @@ import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer/Customer
 
 interface IDetailsPageProps {
   capId: number;
+  router: NextRouter;
   cars?: boolean;
   vans?: boolean;
   pickups?: boolean;
@@ -40,6 +42,7 @@ const PATH = {
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
   capId,
+  router,
   cars,
   vans,
   pickups,
@@ -47,6 +50,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   loading,
   error,
 }) => {
+  const [leaseType, setLeaseType] = useState<string>('Personal');
   const isMobile = useMobileViewport();
 
   if (loading) {
@@ -133,6 +137,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             vehicleType={cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV}
             derivativeInfo={derivativeInfo}
             leaseAdjustParams={leaseAdjustParams}
+            leaseType={leaseType}
+            setLeaseType={setLeaseType}
           />
         )}
         <WhyChooseLeasing warranty={warranty || ''} />
@@ -143,10 +149,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         vehicleType={cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV}
         derivativeInfo={derivativeInfo}
         leaseAdjustParams={leaseAdjustParams}
+        leaseType={leaseType}
+        setLeaseType={setLeaseType}
       />
       <CustomerAlsoViewedContainer
         capsId={capsId || []}
         vehicleType={cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV}
+        leaseType={leaseType.toUpperCase() || ''}
+        router={router}
       />
     </>
   );
