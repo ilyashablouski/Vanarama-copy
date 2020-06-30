@@ -29,6 +29,10 @@ const ALL_HOME_CONTENT = gql`
                 url
               }
             }
+            link {
+              url
+              text
+            }
           }
         }
         featured1 {

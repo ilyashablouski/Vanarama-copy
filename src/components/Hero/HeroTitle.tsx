@@ -1,9 +1,11 @@
+import ReactMarkdown from 'react-markdown';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
+import { IHeroTitleProps } from './interface';
 
-const HeroTitle: React.FC<{}> = ({ children }) => {
+const HeroTitle: React.FC<IHeroTitleProps> = ({ text }) => {
   return (
     <Text tag="p" size="large" color="white">
-      {children}
+      <ReactMarkdown source={text} />
     </Text>
   );
 };

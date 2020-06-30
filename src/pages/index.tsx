@@ -60,9 +60,9 @@ export const HomePage: NextPage = () => {
       <Head />
       <Hero>
         <div className="hero--title">
-          <HeroHeading>{data?.homePage.sections.hero?.title}</HeroHeading>
+          <HeroHeading text={data?.homePage.sections.hero?.title || ''} />
           <br />
-          <HeroTitle>{data?.homePage.sections.hero?.body}</HeroTitle>
+          <HeroTitle text={data?.homePage.sections.hero?.body || ''} />
         </div>
         <Image
           className="hero--image"
@@ -206,7 +206,7 @@ export const HomePage: NextPage = () => {
                 withBtn: true,
                 link: (
                   <RouterLink
-                    link={{ href: '/hub/vans', label: 'Search Vans' }}
+                    link={{ href: c.link.url, label: c.link.text }}
                     className="heading"
                     classNames={{ size: 'lead', color: 'black' }}
                   >
@@ -229,7 +229,7 @@ export const HomePage: NextPage = () => {
           <Heading size="large" color="black">
             {data && data.homePage.sections.featured1?.title}
           </Heading>
-          <Text tag="p" size="regular" color="darker">
+          <Text tag="div" className="markdown" size="regular" color="darker">
             <ReactMarkdown
               source={data?.homePage.sections.featured1?.body || ''}
             />
@@ -255,7 +255,7 @@ export const HomePage: NextPage = () => {
           <Heading size="large" color="black">
             {data && data.homePage.sections.featured2?.title}
           </Heading>
-          <Text tag="p" size="regular" color="darker">
+          <Text className="markdown" tag="div" size="regular" color="darker">
             <ReactMarkdown
               source={data?.homePage.sections.featured2?.body || ''}
             />

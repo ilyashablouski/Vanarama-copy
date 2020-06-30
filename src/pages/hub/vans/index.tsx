@@ -54,9 +54,9 @@ const VansPage: NextPage = () => {
   return (
     <>
       <Hero>
-        <HeroHeading>{data?.hubVanPage.sections.hero?.title}</HeroHeading>
+        <HeroHeading text={data?.hubVanPage.sections.hero?.title || ''} />
         <br />
-        <HeroTitle>{data?.hubVanPage.sections.hero?.body}</HeroTitle>
+        <HeroTitle text={data?.hubVanPage.sections.hero?.body || ''} />
         <Button
           size="lead"
           fill="outline"
@@ -392,8 +392,10 @@ const VansPage: NextPage = () => {
           <Heading size="large" color="black">
             {data?.hubVanPage.sections.featured1?.title}
           </Heading>
-          <Text tag="p" size="regular" color="darker">
-            {data?.hubVanPage.sections.featured1?.body}
+          <Text className="markdown" tag="div" size="regular" color="darker">
+            <ReactMarkdown
+              source={data?.hubVanPage.sections.featured1?.body || ''}
+            />
           </Text>
           <IconList>
             <IconListItem iconColor="orange">
@@ -422,11 +424,9 @@ const VansPage: NextPage = () => {
         <div className="-inset -middle -col-400">
           <div>
             <Heading size="large" color="black">
-              <ReactMarkdown
-                source={data?.hubVanPage.sections.featured2?.title || ''}
-              />
+              {data?.hubVanPage.sections.featured2?.title}
             </Heading>
-            <Text tag="p" size="regular" color="darker">
+            <Text className="markdown" tag="div" size="regular" color="darker">
               <ReactMarkdown
                 source={data?.hubVanPage.sections.featured2?.body || ''}
               />

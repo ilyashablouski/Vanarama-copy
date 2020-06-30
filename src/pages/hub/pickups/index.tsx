@@ -53,9 +53,9 @@ export const PickupsPage: NextPage = () => {
   return (
     <>
       <Hero>
-        <HeroHeading>{data?.hubPickupPage.sections.hero?.title}</HeroHeading>
+        <HeroHeading text={data?.hubPickupPage.sections.hero?.title || ''} />
         <br />
-        <HeroTitle>{data?.hubPickupPage.sections.hero?.body}</HeroTitle>
+        <HeroTitle text={data?.hubPickupPage.sections.hero?.body || ''} />
         <br />
         <Image
           className="hero--image"

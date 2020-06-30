@@ -49,9 +49,9 @@ export const CarsPage: NextPage = () => {
   return (
     <>
       <Hero>
-        <HeroHeading>{data?.hubCarPage.sections.hero?.title}</HeroHeading>
+        <HeroHeading text={data?.hubCarPage.sections.hero?.title || ''} />
         <br />
-        <HeroTitle>{data?.hubCarPage.sections.hero?.body}</HeroTitle>
+        <HeroTitle text={data?.hubCarPage.sections.hero?.body || ''} />
         <br />
         <Image
           className="hero--image"
@@ -199,7 +199,7 @@ export const CarsPage: NextPage = () => {
           <Heading size="large" color="black">
             {data?.hubCarPage.sections.featured1?.title}
           </Heading>
-          <Text tag="p" size="regular" color="darker">
+          <Text className="markdown" tag="div" size="regular" color="darker">
             <ReactMarkdown
               source={data?.hubCarPage.sections.featured1?.body || ''}
             />
@@ -238,7 +238,7 @@ export const CarsPage: NextPage = () => {
             <Heading size="large" color="black">
               {data?.hubCarPage.sections.featured2?.title}
             </Heading>
-            <Text tag="p" size="regular" color="darker">
+            <Text className="markdown" tag="div" size="regular" color="darker">
               <ReactMarkdown
                 source={data?.hubCarPage.sections.featured2?.body || ''}
               />
