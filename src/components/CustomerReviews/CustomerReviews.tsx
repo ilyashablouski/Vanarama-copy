@@ -1,8 +1,7 @@
 import React from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Slider from '@vanarama/uibook/lib/components/organisms/carousel';
+import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import ReviewCard from '@vanarama/uibook/lib/components/molecules/cards/ReviewCard/ReviewCard';
-import useSliderProperties from '../../hooks/useSliderProperties';
 
 interface IReviewCard {
   text: string;
@@ -21,8 +20,6 @@ const CustomerReviews: React.FC<ICustomerReviewsProps> = ({
   headingClassName,
   sliderClassName,
 }) => {
-  const { itemWidth, slidesToShow } = useSliderProperties(340, 204, 288);
-
   if (!reviews.length) {
     return null;
   }
@@ -40,17 +37,11 @@ const CustomerReviews: React.FC<ICustomerReviewsProps> = ({
       {reviews.length === 1 ? (
         <ReviewCard review={{ ...reviews[0] }} />
       ) : (
-        <Slider
-          className={sliderClassName}
-          gutter={16}
-          slidesToShow={slidesToShow}
-        >
+        <Carousel className={sliderClassName}>
           {reviews.slice(0, 6).map((reviewTile, index) => (
-            <div key={index.toString()} style={{ width: itemWidth }}>
-              <ReviewCard review={{ ...reviewTile }} />
-            </div>
+            <ReviewCard key={index.toString()} review={{ ...reviewTile }} />
           ))}
-        </Slider>
+        </Carousel>
       )}
     </>
   );

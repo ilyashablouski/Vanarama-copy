@@ -23,6 +23,13 @@ jest.mock(
   },
 );
 
+jest.mock(
+  '../../../containers/CustomerAlsoViewedContainer/CustomerAlsoViewedContainer',
+  () => () => {
+    return <div />;
+  },
+);
+
 describe('<CarDetailsPage />', () => {
   Object.defineProperty(window, 'matchMedia', {
     writable: true,

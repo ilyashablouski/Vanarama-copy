@@ -13,10 +13,11 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   vehicleType,
   derivativeInfo,
   leaseAdjustParams,
+  leaseType,
+  setLeaseType,
 }) => {
   const isInitialMount = useRef(true);
 
-  const [leaseType, setLeaseType] = useState<string | null>('Personal');
   const [quoteData, setQuoteData] = useState<
     GetQuoteDetails_quoteByCapId | null | undefined
   >(null);

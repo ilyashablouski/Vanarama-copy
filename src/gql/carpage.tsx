@@ -33,6 +33,10 @@ export const GET_CAR_DATA = gql`
       }
       independentReview
       warranty
+      relatedVehicles {
+        capId
+        displayOrder
+      }
       customerReviews {
         rating
         review

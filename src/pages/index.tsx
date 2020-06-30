@@ -23,7 +23,7 @@ import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
 import TabPanels from '@vanarama/uibook/lib/components/molecules/tabs/TabPanels';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
-import Slider from '@vanarama/uibook/lib/components/organisms/carousel';
+import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
@@ -44,7 +44,7 @@ import useSliderProperties from '../hooks/useSliderProperties';
 
 export const HomePage: NextPage = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const { itemWidth, slidesToShow } = useSliderProperties(394, 345, 310);
+  const { slidesToShow } = useSliderProperties(345, 345, 310);
 
   const { data, loading, error } = useQuery<HomePageData>(ALL_HOME_CONTENT);
   if (loading) {
@@ -99,80 +99,72 @@ export const HomePage: NextPage = () => {
           <TabPanels>
             <TabPanel index={0}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <Slider
-                  className="-mh-auto"
-                  gutter={16}
-                  slidesToShow={slidesToShow}
-                >
+                <Carousel className="-mh-auto">
                   {[1, 2, 3, 4, 5].map(k => (
-                    <div key={k.toString()} style={{ width: itemWidth }}>
-                      <ProductCard
-                        header={{
-                          accentIcon:
-                            slidesToShow > 2 ? (
-                              <Icon icon={<Flame />} color="white" />
-                            ) : (
-                              ''
-                            ),
-                          accentText: slidesToShow > 2 ? 'Hot Deal' : '',
-                          text: 'In Stock - 14-21 Days Delivery',
-                        }}
-                        features={[
-                          {
-                            icon: <Icon icon={<SnowSharp />} color="dark" />,
-                            label: 'Aircon',
-                          },
-                          {
-                            icon: (
-                              <Icon icon={<BluetoothSharp />} color="dark" />
-                            ),
-                            label: 'Bluetooth',
-                          },
-                          {
-                            icon: <Icon icon={<CompassSharp />} color="dark" />,
-                            label: 'Navigation',
-                          },
-                          {
-                            icon: <Icon icon={<WifiSharp />} color="dark" />,
-                            label: 'Sensors',
-                          },
-                        ]}
-                        imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
-                        onCompare={() => true}
-                        onWishlist={() => true}
-                        title={{
-                          title: '',
-                          link: (
-                            <RouterLink
-                              link={{ href: '#', label: 'Peugeot 208' }}
-                              className="heading"
-                              classNames={{ size: 'large', color: 'black' }}
-                            />
+                    <ProductCard
+                      key={k.toString()}
+                      header={{
+                        accentIcon:
+                          slidesToShow > 2 ? (
+                            <Icon icon={<Flame />} color="white" />
+                          ) : (
+                            ''
                           ),
-                          description:
-                            '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
-                          score: 4.5,
-                        }}
-                      >
-                        <div className="-flex-h">
-                          <Price
-                            price={209}
-                            size="large"
-                            separator="."
-                            priceDescription="Per Month Exc.VAT"
+                        accentText: slidesToShow > 2 ? 'Hot Deal' : '',
+                        text: 'In Stock - 14-21 Days Delivery',
+                      }}
+                      features={[
+                        {
+                          icon: <Icon icon={<SnowSharp />} color="dark" />,
+                          label: 'Aircon',
+                        },
+                        {
+                          icon: <Icon icon={<BluetoothSharp />} color="dark" />,
+                          label: 'Bluetooth',
+                        },
+                        {
+                          icon: <Icon icon={<CompassSharp />} color="dark" />,
+                          label: 'Navigation',
+                        },
+                        {
+                          icon: <Icon icon={<WifiSharp />} color="dark" />,
+                          label: 'Sensors',
+                        },
+                      ]}
+                      imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
+                      onCompare={() => true}
+                      onWishlist={() => true}
+                      title={{
+                        title: '',
+                        link: (
+                          <RouterLink
+                            link={{ href: '#', label: 'Peugeot 208' }}
+                            className="heading"
+                            classNames={{ size: 'large', color: 'black' }}
                           />
-                          <Button
-                            color="teal"
-                            fill="solid"
-                            label="View Offer"
-                            onClick={() => true}
-                            size="regular"
-                          />
-                        </div>
-                      </ProductCard>
-                    </div>
+                        ),
+                        description: '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
+                        score: 4.5,
+                      }}
+                    >
+                      <div className="-flex-h">
+                        <Price
+                          price={209}
+                          size="large"
+                          separator="."
+                          priceDescription="Per Month Exc.VAT"
+                        />
+                        <Button
+                          color="teal"
+                          fill="solid"
+                          label="View Offer"
+                          onClick={() => true}
+                          size="regular"
+                        />
+                      </div>
+                    </ProductCard>
                   ))}
-                </Slider>
+                </Carousel>
                 <div className="-justify-content-row -pt-500">
                   <Button label="View All Van Offers" color="teal" />
                 </div>
