@@ -7,13 +7,12 @@ import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { useForm } from 'react-hook-form';
 import {
-  EMAIL_REGEX,
-  WORLDWIDE_MOBILE_REGEX,
-  POSTCODE,
-} from '../../utils/regex';
+  postcodeValidator,
+  emailValidator,
+  phoneNumberValidator,
+  fullNameValidator,
+} from '../../utils/inputValidators';
 import { IGoldrushFormProps, IGoldrushFromValues } from './interfaces';
-
-const MAX_EMAIL_LENGTH = 254;
 
 const GoldrushForm: React.FC<IGoldrushFormProps> = ({
   onSubmit,
@@ -45,12 +44,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
           id="goldrush-form_full-name"
           dataTestId="goldrush-form_full-name"
           name="fullName"
-          ref={register({
-            required: {
-              value: true,
-              message: 'Please inter your full name',
-            },
-          })}
+          ref={register(fullNameValidator)}
           type="text"
         />
       </Formgroup>
@@ -63,20 +57,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
           id="goldrush-form_email"
           dataTestId="goldrush-form_email"
           name="email"
-          ref={register({
-            required: {
-              value: true,
-              message: 'Your enter your email address',
-            },
-            maxLength: {
-              value: MAX_EMAIL_LENGTH,
-              message: `Email address should not exceed ${MAX_EMAIL_LENGTH} characters`,
-            },
-            pattern: {
-              value: EMAIL_REGEX,
-              message: 'Oops, this email address is invalid',
-            },
-          })}
+          ref={register(emailValidator)}
           type="text"
         />
       </Formgroup>
@@ -89,27 +70,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
           id="goldrush-form_phone-number"
           dataTestId="goldrush-form_phone-number"
           name="phoneNumber"
-          ref={register({
-            required: {
-              value: true,
-              message: 'Please enter your mobile number',
-            },
-            minLength: {
-              value: 11,
-              message:
-                'Oops, this mobile number is too short. Please inter 11 characters or more',
-            },
-            maxLength: {
-              value: 16,
-              message:
-                'Oops, this mobile number is too long. Please inter 16 characters or less',
-            },
-            pattern: {
-              value: WORLDWIDE_MOBILE_REGEX,
-              message:
-                'Please enter your mobile number without spaces or hyphens',
-            },
-          })}
+          ref={register(phoneNumberValidator)}
           type="text"
         />
       </Formgroup>
@@ -123,24 +84,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
             id="goldrush-form_postcode"
             dataTestId="goldrush-form_postcode"
             name="postcode"
-            ref={register({
-              required: {
-                value: true,
-                message: 'Please enter your postcode',
-              },
-              minLength: {
-                value: 5,
-                message: 'Oops, your postcode looks a little too short',
-              },
-              maxLength: {
-                value: 9,
-                message: 'Oops, your postcode looks a little too long',
-              },
-              pattern: {
-                value: POSTCODE,
-                message: 'Please only use numbers, characters and spaces',
-              },
-            })}
+            ref={register(postcodeValidator)}
             type="text"
           />
         </Formgroup>

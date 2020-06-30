@@ -10,4 +10,4 @@ export const NAME_REGEX = /^^[a-zA-Z'-\s]+$/;
 
 export const COMPANY_REGISTRATION_NUMBER = /^([a-z]|\d){8}$/i;
 
-export const POSTCODE = /^[\w\s]+$/;
+export const POSTCODE_REGEX = /^[\w\s]+$/;
