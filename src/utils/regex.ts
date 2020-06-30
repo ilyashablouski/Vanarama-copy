@@ -9,3 +9,5 @@ export const UK_MOBILE_REGEX = /^((\+44(0|\(0\)|\s0\s|\s)?)|0)7\d{3}(\s)?\d{6}/;
 export const NAME_REGEX = /^^[a-zA-Z'-\s]+$/;
 
 export const COMPANY_REGISTRATION_NUMBER = /^([a-z]|\d){8}$/i;
+
+export const POSTCODE = /^[\w\s]+$/;

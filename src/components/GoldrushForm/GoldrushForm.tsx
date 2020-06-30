@@ -6,8 +6,14 @@ import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { useForm } from 'react-hook-form';
-import { EMAIL_REGEX } from '../../utils/regex';
+import {
+  EMAIL_REGEX,
+  WORLDWIDE_MOBILE_REGEX,
+  POSTCODE,
+} from '../../utils/regex';
 import { IGoldrushFormProps, IGoldrushFromValues } from './interfaces';
+
+const MAX_EMAIL_LENGTH = 254;
 
 const GoldrushForm: React.FC<IGoldrushFormProps> = ({
   onSubmit,
@@ -62,9 +68,13 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
               value: true,
               message: 'Your enter your email address',
             },
+            maxLength: {
+              value: MAX_EMAIL_LENGTH,
+              message: `Email address should not exceed ${MAX_EMAIL_LENGTH} characters`,
+            },
             pattern: {
               value: EMAIL_REGEX,
-              message: 'Invalid email address',
+              message: 'Oops, this email address is invalid',
             },
           })}
           type="text"
@@ -84,7 +94,21 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
               value: true,
               message: 'Please enter your mobile number',
             },
-            maxLength: 16,
+            minLength: {
+              value: 11,
+              message:
+                'Oops, this mobile number is too short. Please inter 11 characters or more',
+            },
+            maxLength: {
+              value: 16,
+              message:
+                'Oops, this mobile number is too long. Please inter 16 characters or less',
+            },
+            pattern: {
+              value: WORLDWIDE_MOBILE_REGEX,
+              message:
+                'Please enter your mobile number without spaces or hyphens',
+            },
           })}
           type="text"
         />
@@ -100,9 +124,22 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
             dataTestId="goldrush-form_postcode"
             name="postcode"
             ref={register({
-              minLength: 5,
-              maxLength: 8,
-              pattern: /asd/,
+              required: {
+                value: true,
+                message: 'Please enter your postcode',
+              },
+              minLength: {
+                value: 5,
+                message: 'Oops, your postcode looks a little too short',
+              },
+              maxLength: {
+                value: 9,
+                message: 'Oops, your postcode looks a little too long',
+              },
+              pattern: {
+                value: POSTCODE,
+                message: 'Please only use numbers, characters and spaces',
+              },
             })}
             type="text"
           />

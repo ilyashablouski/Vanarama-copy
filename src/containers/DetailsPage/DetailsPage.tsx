@@ -125,7 +125,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <WhyChooseLeasing warranty={warranty || ''} />
         <WhyChooseVanarama />
       </div>
-      {false ? (
+      {vehicleConfigurationByCapId?.financeProfile ? (
         <CustomiseLeaseContainer
           capId={capId}
           vehicleType={cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV}
