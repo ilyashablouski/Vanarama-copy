@@ -202,14 +202,12 @@ export const PickupsPage: NextPage = () => {
       </section>
 
       <section className="row:featured-left">
-        <div>
-          <Image
-            src={
-              data?.hubPickupPage.sections.featured2?.image?.file?.url ||
-              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-            }
-          />
-        </div>
+        <Image
+          src={
+            data?.hubPickupPage.sections.featured2?.image?.file?.url ||
+            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+          }
+        />
         <div className="-inset -middle -col-400">
           <Heading size="large" color="black">
             {data?.hubPickupPage.sections.featured2?.title}
