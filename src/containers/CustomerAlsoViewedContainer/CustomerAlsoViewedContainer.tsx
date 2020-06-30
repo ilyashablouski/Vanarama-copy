@@ -30,14 +30,14 @@ const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> =
   const { data, loading, error } = useProductCardsData(capsId, vehicleType);
 
   const offerNewPath = (capId: string) => {
-    if (router.pathname.match('/(capId)/')) {
+    if (router.pathname.match(/(capId)/)) {
       return router.pathname.replace('[capId]', capId);
     }
     return `${router.pathname}/${capId}`;
   };
 
   const offerPath = () => {
-    if (router.pathname.match('/(capId)/')) {
+    if (router.pathname.match(/(capId)/)) {
       return router.pathname;
     }
     return `${router.pathname}/[capId]`;
