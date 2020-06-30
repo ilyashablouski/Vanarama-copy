@@ -5,7 +5,11 @@ import { IHeroTitleProps } from './interface';
 const HeroTitle: React.FC<IHeroTitleProps> = ({ text }) => {
   return (
     <Text tag="p" size="large" color="white">
-      <ReactMarkdown source={text} />
+      <ReactMarkdown
+        source={text}
+        disallowedTypes={['paragraph']}
+        unwrapDisallowed
+      />
     </Text>
   );
 };
