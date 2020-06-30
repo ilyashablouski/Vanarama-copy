@@ -20,6 +20,9 @@ export const GET_CAR_DATA = gql`
       capTrimDescription
       onOffer
       offerRanking
+      financeProfile {
+        leaseType
+      }
     }
     vehicleDetails(capId: $capIdDetails, vehicleType: $vehicleType) {
       averageRating

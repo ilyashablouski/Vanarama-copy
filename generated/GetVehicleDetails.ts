@@ -3,11 +3,15 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { VehicleTypeEnum } from "./globalTypes";
+import { VehicleTypeEnum, LeaseTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetVehicleDetails
 // ====================================================
+
+export interface GetVehicleDetails_vehicleConfigurationByCapId_financeProfile {
+  leaseType: LeaseTypeEnum;
+}
 
 export interface GetVehicleDetails_vehicleConfigurationByCapId {
   uuid: string;
@@ -18,6 +22,7 @@ export interface GetVehicleDetails_vehicleConfigurationByCapId {
   capTrimDescription: string;
   onOffer: boolean | null;
   offerRanking: number | null;
+  financeProfile: GetVehicleDetails_vehicleConfigurationByCapId_financeProfile | null;
 }
 
 export interface GetVehicleDetails_vehicleDetails_keyInformation {

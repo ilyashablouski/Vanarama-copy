@@ -19,6 +19,7 @@ import { useMobileViewport } from '../../hooks/useMediaQuery';
 import WhyChooseLeasing from '../../components/WhyChooseLeasing/WhyChooseLeasing';
 import CustomerReviews from '../../components/CustomerReviews/CustomerReviews';
 import WhyChooseVanarama from '../../components/WhyChooseVanarama/WhyChooseVanarama';
+import GoldrushFormContainer from '../GoldrushFormContainer';
 import { replaceReview } from '../../components/CustomerReviews/helpers';
 
 interface IDetailsPageProps {
@@ -144,12 +145,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           <CustomerReviews reviews={reviews || []} />
         </div>
       </div>
-      <CustomiseLeaseContainer
-        capId={capId}
-        vehicleType={cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV}
-        derivativeInfo={derivativeInfo}
-        leaseAdjustParams={leaseAdjustParams}
-      />
+      {vehicleConfigurationByCapId?.financeProfile ? (
+        <CustomiseLeaseContainer
+          capId={capId}
+          vehicleType={cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV}
+          derivativeInfo={derivativeInfo}
+          leaseAdjustParams={leaseAdjustParams}
+        />
+      ) : (
+        <GoldrushFormContainer isPostcodeVisible={!cars} />
+      )}
     </>
   );
 };
