@@ -2,6 +2,7 @@ import { NextPage } from 'next';
 import Link from 'next/link';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
+import ReactMarkdown from 'react-markdown/with-html';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
@@ -48,9 +49,9 @@ export const CarsPage: NextPage = () => {
   return (
     <>
       <Hero>
-        <HeroHeading>{data?.hubCarPage.sections.hero?.title}</HeroHeading>
+        <HeroHeading text={data?.hubCarPage.sections.hero?.title || ''} />
         <br />
-        <HeroTitle>{data?.hubCarPage.sections.hero?.body}</HeroTitle>
+        <HeroTitle text={data?.hubCarPage.sections.hero?.body || ''} />
         <br />
         <Image
           className="hero--image"
@@ -185,6 +186,7 @@ export const CarsPage: NextPage = () => {
         </Heading>
         {data?.hubCarPage.sections.steps?.steps?.map((step: StepData, idx) => (
           <Step
+            className="-mh-auto"
             key={step.title || idx}
             heading={step.title || ''}
             step={idx + 1}
@@ -198,8 +200,10 @@ export const CarsPage: NextPage = () => {
           <Heading size="large" color="black">
             {data?.hubCarPage.sections.featured1?.title}
           </Heading>
-          <Text tag="p" size="regular" color="darker">
-            {data?.hubCarPage.sections.featured1?.body}
+          <Text className="markdown" tag="div" size="regular" color="darker">
+            <ReactMarkdown
+              source={data?.hubCarPage.sections.featured1?.body || ''}
+            />
           </Text>
           <IconList>
             <IconListItem iconColor="orange">
@@ -222,23 +226,21 @@ export const CarsPage: NextPage = () => {
       </section>
 
       <section className="row:featured-left">
-        <div>
-          <Image
-            src={
-              data?.hubCarPage.sections.featured2?.image?.file?.url ||
-              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-            }
-          />
-        </div>
+        <Image
+          src={
+            data?.hubCarPage.sections.featured2?.image?.file?.url ||
+            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+          }
+        />
         <div className="-inset -middle -col-400">
-          <div>
-            <Heading size="large" color="black">
-              {data?.hubCarPage.sections.featured2?.title}
-            </Heading>
-            <Text tag="p" size="regular" color="darker">
-              {data?.hubCarPage.sections.featured2?.body}
-            </Text>
-          </div>
+          <Heading size="large" color="black">
+            {data?.hubCarPage.sections.featured2?.title}
+          </Heading>
+          <Text className="markdown" tag="div" size="regular" color="darker">
+            <ReactMarkdown
+              source={data?.hubCarPage.sections.featured2?.body || ''}
+            />
+          </Text>
         </div>
       </section>
 

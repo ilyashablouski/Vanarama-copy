@@ -15,6 +15,7 @@ import Modal from '@vanarama/uibook/lib/components/molecules/modal';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import OrderSummary from '../OrderSummary/OrderSummary';
 import { IProps, IColour, ITrim, IChoice } from './interfase';
+import { toPriceFormat } from '../../utils/helpers';
 import {
   GetVehicleDetails_derivativeInfo_trims,
   GetVehicleDetails_derivativeInfo_colours,
@@ -162,7 +163,9 @@ IProps) => {
         upfronts,
         value => setUpfront(+(value || 0) || null),
         'Initial Payment: ',
-        `£${quoteByCapId?.leaseCost?.initialRental} ${stateVAT}. VAT`,
+        `£${toPriceFormat(
+          quoteByCapId?.leaseCost?.initialRental,
+        )} ${stateVAT}. VAT`,
       )}
       <Heading tag="span" size="regular" color="black">
         Vehicle Options
@@ -182,7 +185,9 @@ IProps) => {
       <Heading tag="span" size="regular" color="black">
         Add Maintenance:
         <Text color="orange" className="-b -ml-100">
-          {`£${quoteByCapId?.maintenanceCost?.monthlyRental} Per Month ${stateVAT}. VAT`}
+          {`£${toPriceFormat(
+            quoteByCapId?.maintenanceCost?.monthlyRental,
+          )} Per Month ${stateVAT}. VAT`}
         </Text>
       </Heading>
       <Link size="small" onClick={() => setIsModalShowing(true)}>
@@ -216,10 +221,12 @@ IProps) => {
           className="pdp-footer"
           priceLabel={
             maintenance
-              ? `+£${quoteByCapId?.maintenanceCost?.monthlyRental} Maintenance`
+              ? `+£${toPriceFormat(
+                  quoteByCapId?.maintenanceCost?.monthlyRental,
+                )} Maintenance`
               : undefined
           }
-          price={quoteByCapId?.leaseCost?.monthlyRental || 0}
+          price={+toPriceFormat(quoteByCapId?.leaseCost?.monthlyRental)}
           orderNowClick={() => {}}
           headingText={`PM ${stateVAT}. VAT`}
           phoneNumber="+1313222"

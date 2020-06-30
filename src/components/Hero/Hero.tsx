@@ -1,7 +1,6 @@
 import SearchPodContainer from '../../containers/SearchPodContainer';
-import { IHeroProps } from './interface';
 
-const Hero: React.FC<IHeroProps> = ({ children }) => {
+const Hero: React.FC = ({ children }) => {
   return (
     <div className="row:bg-hero">
       <div className="row:hero">

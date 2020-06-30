@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
+import ReactMarkdown from 'react-markdown/with-html';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
@@ -53,9 +54,9 @@ const VansPage: NextPage = () => {
   return (
     <>
       <Hero>
-        <HeroHeading>{data?.hubVanPage.sections.hero?.title}</HeroHeading>
+        <HeroHeading text={data?.hubVanPage.sections.hero?.title || ''} />
         <br />
-        <HeroTitle>{data?.hubVanPage.sections.hero?.body}</HeroTitle>
+        <HeroTitle text={data?.hubVanPage.sections.hero?.body || ''} />
         <Button
           size="lead"
           fill="outline"
@@ -375,6 +376,7 @@ const VansPage: NextPage = () => {
         </Heading>
         {data?.hubVanPage.sections.steps?.steps?.map((step: StepData, idx) => (
           <Step
+            className="-mh-auto"
             key={step.title || idx}
             heading={step.title || ''}
             step={idx + 1}
@@ -388,8 +390,10 @@ const VansPage: NextPage = () => {
           <Heading size="large" color="black">
             {data?.hubVanPage.sections.featured1?.title}
           </Heading>
-          <Text tag="p" size="regular" color="darker">
-            {data?.hubVanPage.sections.featured1?.body}
+          <Text className="markdown" tag="div" size="regular" color="darker">
+            <ReactMarkdown
+              source={data?.hubVanPage.sections.featured1?.body || ''}
+            />
           </Text>
           <IconList>
             <IconListItem iconColor="orange">
@@ -412,18 +416,16 @@ const VansPage: NextPage = () => {
       </section>
 
       <section className="row:featured-left">
-        <div>
-          <Image src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349" />
-        </div>
+        <Image src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349" />
         <div className="-inset -middle -col-400">
-          <div>
-            <Heading size="large" color="black">
-              {data?.hubVanPage.sections.featured2?.title}
-            </Heading>
-            <Text tag="p" size="regular" color="darker">
-              {data?.hubVanPage.sections.featured2?.body}
-            </Text>
-          </div>
+          <Heading size="large" color="black">
+            {data?.hubVanPage.sections.featured2?.title}
+          </Heading>
+          <Text className="markdown" tag="div" size="regular" color="darker">
+            <ReactMarkdown
+              source={data?.hubVanPage.sections.featured2?.body || ''}
+            />
+          </Text>
         </div>
       </section>
 

@@ -29,6 +29,11 @@ export interface GetVehicleDetails_vehicleDetails_relatedVehicles {
   capId: string | null;
   displayOrder: string | null;
 }
+export interface GetVehicleDetails_vehicleDetails_customerReviews {
+  rating: number | null;
+  review: string | null;
+  name: string | null;
+}
 
 export interface GetVehicleDetails_vehicleDetails {
   averageRating: number | null;
@@ -37,6 +42,7 @@ export interface GetVehicleDetails_vehicleDetails {
   independentReview: string | null;
   warranty: string | null;
   relatedVehicles: (GetVehicleDetails_vehicleDetails_relatedVehicles | null)[] | null;
+  customerReviews: (GetVehicleDetails_vehicleDetails_customerReviews | null)[] | null;
 }
 
 export interface GetVehicleDetails_derivativeInfo_technicals {

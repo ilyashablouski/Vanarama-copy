@@ -2,6 +2,7 @@ import { NextPage } from 'next';
 import { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
+import ReactMarkdown from 'react-markdown/with-html';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
@@ -59,9 +60,9 @@ export const HomePage: NextPage = () => {
       <Head />
       <Hero>
         <div className="hero--title">
-          <HeroHeading>{data?.homePage.sections.hero?.title}</HeroHeading>
+          <HeroHeading text={data?.homePage.sections.hero?.title || ''} />
           <br />
-          <HeroTitle>{data?.homePage.sections.hero?.body}</HeroTitle>
+          <HeroTitle text={data?.homePage.sections.hero?.body || ''} />
         </div>
         <Image
           className="hero--image"
@@ -197,7 +198,10 @@ export const HomePage: NextPage = () => {
                 withBtn: true,
                 link: (
                   <RouterLink
-                    link={{ href: '/hub/vans', label: 'Search Vans' }}
+                    link={{
+                      href: c.link?.url || '',
+                      label: c.link?.text || '',
+                    }}
                     className="heading"
                     classNames={{ size: 'lead', color: 'black' }}
                   >
@@ -220,8 +224,10 @@ export const HomePage: NextPage = () => {
           <Heading size="large" color="black">
             {data && data.homePage.sections.featured1?.title}
           </Heading>
-          <Text tag="p" size="regular" color="darker">
-            {data && data.homePage.sections.featured1?.body}
+          <Text tag="div" className="markdown" size="regular" color="darker">
+            <ReactMarkdown
+              source={data?.homePage.sections.featured1?.body || ''}
+            />
           </Text>
           <IconList>
             <IconListItem iconColor="orange">
@@ -244,8 +250,10 @@ export const HomePage: NextPage = () => {
           <Heading size="large" color="black">
             {data && data.homePage.sections.featured2?.title}
           </Heading>
-          <Text tag="p" size="regular" color="darker">
-            {data && data.homePage.sections.featured2?.body}
+          <Text className="markdown" tag="div" size="regular" color="darker">
+            <ReactMarkdown
+              source={data?.homePage.sections.featured2?.body || ''}
+            />
           </Text>
         </div>
       </section>
