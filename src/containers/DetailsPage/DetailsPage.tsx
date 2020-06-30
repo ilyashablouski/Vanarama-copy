@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ApolloError } from '@apollo/client';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
@@ -10,7 +10,6 @@ import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import DownloadSharp from '@vanarama/uibook/lib/assets/icons/DownloadSharp';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
 import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-gallery';
-import Price from '@vanarama/uibook/lib/components/atoms/price';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import VehicleTechDetails from '../VehicleTechDetails/VehicleTechDetails';
 import IndependentReview from '../../components/IndependentReview/IndependentReview';
@@ -50,7 +49,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   loading,
   error,
 }) => {
-  const [isGratitudeVisible, toggleGratitude] = useState(false);
   const isMobile = useMobileViewport();
 
   if (loading) {
@@ -155,52 +153,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           leaseAdjustParams={leaseAdjustParams}
         />
       ) : (
-        <div className="pdp--sidebar">
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <div>
-              <Heading tag="span" size="small" color="black">
-                FACTORY ORDER
-              </Heading>
-              <Text size="small" color="darker">
-                Availability: 12 Weeks (Avg)
-              </Text>
-            </div>
-            <div>
-              <Price size="xlarge" />
-            </div>
-          </div>
-          {isGratitudeVisible ? (
-            <div>
-              <Heading size="large" color="black">
-                Thank You
-              </Heading>
-              <Text size="regular" color="darker">
-                Et culpa aliquip mollit fugiat sunt irure sunt amet ea pariatur
-                qui exercitation fugiat reprehenderit culpa ipsum dolore
-                incididunt dolor cillum amet officia nulla pariatur consectetur
-                aute et irure et
-              </Text>
-            </div>
-          ) : (
-            <>
-              <GoldrushFormContainer
-                heading="Get Your Quote Now"
-                isPostcodeVisible={!cars}
-                onCompleted={() => toggleGratitude(true)}
-              />
-              <div className="pdp--sidebar-promise">
-                <Text size="regular" color="black" tag="span">
-                  {
-                    "Lorem ipsum dolor. We’ll beat any lease quote or we'll give you £100. "
-                  }
-                </Text>
-                <Link href="#" color="success" size="small">
-                  Terms and Conditions apply.
-                </Link>
-              </div>
-            </>
-          )}
-        </div>
+        <GoldrushFormContainer isPostcodeVisible={!cars} />
       )}
     </>
   );
