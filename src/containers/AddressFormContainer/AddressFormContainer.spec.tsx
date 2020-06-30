@@ -82,7 +82,7 @@ describe('<AddressFormContainer />', () => {
       </MockedProvider>,
     );
 
-    await waitFor(() => screen.findByTestId('address-history-heading'));
+    await screen.findByTestId('address-history-heading');
 
     fireEvent.change(screen.getByTestId('history[0].address'), {
       target: { value: 'GB|001' },
@@ -199,7 +199,7 @@ describe('<AddressFormContainer />', () => {
     );
 
     // Wait for the initial query to resolve
-    await waitFor(() => screen.findByTestId('address-history-heading'));
+    await screen.findByTestId('address-history-heading');
 
     // Don't change anything, just save
     fireEvent.click(screen.getByText('Continue'));
@@ -302,7 +302,7 @@ describe('<AddressFormContainer />', () => {
     );
 
     // Wait for the initial query to resolve
-    await waitFor(() => screen.findByTestId('address-history-heading'));
+    await screen.findByTestId('address-history-heading');
 
     // Don't change anything, just save
     fireEvent.click(screen.getByText('Continue'));
