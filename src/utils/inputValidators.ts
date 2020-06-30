@@ -51,7 +51,7 @@ export const confirmPasswordValidator = (
 export const fullNameValidator = {
   required: {
     value: true,
-    message: 'Please inter your full name',
+    message: 'Please enter your full name',
   },
 };
 
