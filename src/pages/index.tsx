@@ -206,7 +206,10 @@ export const HomePage: NextPage = () => {
                 withBtn: true,
                 link: (
                   <RouterLink
-                    link={{ href: c.link.url, label: c.link.text }}
+                    link={{
+                      href: c.link?.url || '',
+                      label: c.link?.text || '',
+                    }}
                     className="heading"
                     classNames={{ size: 'lead', color: 'black' }}
                   >
