@@ -1312,6 +1312,9 @@ Array [
         </li>
       </ul>
     </div>
+    <div
+      className="pdp--reviews"
+    />
   </div>,
   <div />,
   <div />,
