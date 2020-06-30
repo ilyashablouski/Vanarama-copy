@@ -25,6 +25,7 @@ const SummaryFormEmploymentHistory: FCWithFragments<IProps> = ({
       onEditClicked={onEdit}
       list={items}
       heading="Employment History"
+      headingDataTestId="your_employment_heading_data_testId"
     />
   );
 };
