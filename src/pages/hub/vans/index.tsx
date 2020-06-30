@@ -419,20 +419,16 @@ const VansPage: NextPage = () => {
       </section>
 
       <section className="row:featured-left">
-        <div>
-          <Image src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349" />
-        </div>
+        <Image src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349" />
         <div className="-inset -middle -col-400">
-          <div>
-            <Heading size="large" color="black">
-              {data?.hubVanPage.sections.featured2?.title}
-            </Heading>
-            <Text className="markdown" tag="div" size="regular" color="darker">
-              <ReactMarkdown
-                source={data?.hubVanPage.sections.featured2?.body || ''}
-              />
-            </Text>
-          </div>
+          <Heading size="large" color="black">
+            {data?.hubVanPage.sections.featured2?.title}
+          </Heading>
+          <Text className="markdown" tag="div" size="regular" color="darker">
+            <ReactMarkdown
+              source={data?.hubVanPage.sections.featured2?.body || ''}
+            />
+          </Text>
         </div>
       </section>
 
