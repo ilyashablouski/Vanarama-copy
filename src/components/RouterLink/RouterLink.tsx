@@ -4,6 +4,7 @@
 import * as React from 'react';
 import cx from 'classnames';
 import Link from 'next/link';
+import { UrlObject } from 'url';
 import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
 import { LinkTypes } from '../../models/enum/LinkTypes';
 import { IClassNamesProps } from '../../models/IClassNamesProps';
@@ -15,6 +16,7 @@ interface IAppLinkProps extends IBaseProps {
   onClick?(e: React.MouseEvent): void;
   className?: string;
   classNames?: IClassNamesProps;
+  as?: string | UrlObject | undefined;
 }
 
 const RouterLink: React.FC<IAppLinkProps> = props => {
@@ -26,6 +28,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     onClick,
     classNames,
     dataTestId,
+    as,
   } = props;
 
   const linkClassName = cx('link', className, {
@@ -52,7 +55,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
   }
 
   return (
-    <Link href={link.href} replace={replace}>
+    <Link href={link.href} replace={replace} as={as}>
       <a
         className={linkClassName}
         onClick={e => onClick && onClick(e)}

@@ -1316,6 +1316,187 @@ Array [
       className="pdp--reviews"
     />
   </div>,
+  <div
+    className="pdp--sidebar"
+  >
+    <div
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <div>
+        <span
+          className="heading -black -small"
+        >
+          FACTORY ORDER
+        </span>
+        <span
+          className="text -small -darker"
+        >
+          Availability: 12 Weeks (Avg)
+        </span>
+      </div>
+      <div>
+        <div
+          className="price -xlarge -black"
+        >
+          POA
+        </div>
+      </div>
+    </div>
+    <form
+      className="form"
+      data-testid="goldrush-form"
+      onSubmit={[Function]}
+    >
+      <span
+        className="heading -black -lead"
+      >
+        Get Your Quote Now
+      </span>
+      <div
+        className="formgroup"
+      >
+        <label
+          className="formgroup--legend"
+          htmlFor="goldrush-form_full-name"
+        >
+          Full Name
+        </label>
+        <div
+          className="formgroup--content"
+        >
+          <div
+            className="textinput regular"
+          >
+            <input
+              className="textinput--native regular"
+              data-testid="goldrush-form_full-name"
+              id="goldrush-form_full-name"
+              name="fullName"
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="formgroup"
+      >
+        <label
+          className="formgroup--legend"
+          htmlFor="goldrush-form_email"
+        >
+          Email Address
+        </label>
+        <div
+          className="formgroup--content"
+        >
+          <div
+            className="textinput regular"
+          >
+            <input
+              className="textinput--native regular"
+              data-testid="goldrush-form_email"
+              id="goldrush-form_email"
+              name="email"
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="formgroup"
+      >
+        <label
+          className="formgroup--legend"
+          htmlFor="goldrush-form_phone-number"
+        >
+          Phone Number
+        </label>
+        <div
+          className="formgroup--content"
+        >
+          <div
+            className="textinput regular"
+          >
+            <input
+              className="textinput--native regular"
+              data-testid="goldrush-form_phone-number"
+              id="goldrush-form_phone-number"
+              name="phoneNumber"
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="formgroup"
+      >
+        <label
+          className="formgroup--legend"
+          htmlFor="goldrush-form_postcode"
+        >
+          Postcode
+        </label>
+        <div
+          className="formgroup--content"
+        >
+          <div
+            className="textinput regular"
+          >
+            <input
+              className="textinput--native regular"
+              data-testid="goldrush-form_postcode"
+              id="goldrush-form_postcode"
+              name="postcode"
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+      <p
+        className="text -xsmall -darker"
+      >
+        Terms and conditions agreement text and link 
+        <a
+          className="link -primary -xsmall -plain"
+          data-testid="terms_and_conditions"
+          href="#"
+        >
+          link
+        </a>
+      </p>
+      <button
+        className="button -teal -lead -solid"
+        data-testid="goldrush-form_submit"
+        type="submit"
+      >
+        <div
+          className="button--inner"
+        >
+          Get Quote Now
+        </div>
+      </button>
+    </form>
+    <div
+      className="pdp--sidebar-promise"
+    >
+      <span
+        className="text -regular -black"
+      >
+        Lorem ipsum dolor. We’ll beat any lease quote or we'll give you £100. 
+      </span>
+      <a
+        className="link -success -small -plain"
+        href="#"
+      >
+        Terms and Conditions apply.
+      </a>
+    </div>
+  </div>,
   <div />,
 ]
 `;

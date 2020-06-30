@@ -42,6 +42,8 @@ describe('<CustomiseLeaseContainer />', () => {
       },
       error: undefined,
       refetch: jest.fn(),
+      leaseType: 'Personal',
+      setLeaseType: jest.fn(),
     });
 
     render(
@@ -83,6 +85,8 @@ describe('<CustomiseLeaseContainer />', () => {
             { id: '104562', optionDescription: 'Leather - Cranberry red' },
           ],
         }}
+        leaseType="Business"
+        setLeaseType={jest.fn()}
       />,
     );
 
@@ -102,12 +106,6 @@ describe('<CustomiseLeaseContainer />', () => {
 
     await waitFor(() => {
       expect(screen.getByText('PM exc. VAT'));
-    });
-
-    fireEvent.click(screen.getByText('Personal'));
-
-    await waitFor(() => {
-      expect(screen.getByText('PM inc. VAT'));
     });
   });
 
@@ -178,6 +176,8 @@ describe('<CustomiseLeaseContainer />', () => {
         ],
         trims: [{ id: '104562', optionDescription: 'Leather - Cranberry red' }],
       },
+      leaseType: 'Personal',
+      setLeaseType: jest.fn(),
     });
     expect(tree).toMatchSnapshot();
   });
@@ -226,6 +226,8 @@ describe('<CustomiseLeaseContainer />', () => {
         ],
         trims: [{ id: '104562', optionDescription: 'Leather - Cranberry red' }],
       },
+      leaseType: 'Personal',
+      setLeaseType: jest.fn(),
     });
     expect(tree).toMatchSnapshot();
   });
