@@ -12,6 +12,20 @@ jest.mock('next/router', () => ({
   }),
 }));
 
+jest.mock(
+  '../../../containers/CustomiseLeaseContainer/CustomiseLeaseContainer',
+  () => () => {
+    return <div />;
+  },
+);
+
+jest.mock(
+  '../../../containers/CustomerAlsoViewedContainer/CustomerAlsoViewedContainer',
+  () => () => {
+    return <div />;
+  },
+);
+
 describe('<VanDetailsPage />', () => {
   Object.defineProperty(window, 'matchMedia', {
     writable: true,

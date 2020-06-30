@@ -370,7 +370,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Processing Fee:"
+            data-testid="data_id-Processing Fee: FREE"
           >
             Processing Fee:
           </div>
@@ -386,7 +386,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Initial Payment:"
+            data-testid="data_id-Initial Payment: £undefined (inc. VAT)"
           >
             Initial Payment:
           </div>
@@ -402,7 +402,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Contract Length:"
+            data-testid="data_id-Contract Length: 24 months"
           >
             Contract Length:
           </div>
@@ -418,7 +418,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Annual Mileage:"
+            data-testid="data_id-Annual Mileage: 12000 miles"
           >
             Annual Mileage:
           </div>
@@ -434,7 +434,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Maintenance:"
+            data-testid="data_id-Maintenance: No"
           >
             Maintenance:
           </div>
@@ -450,7 +450,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Colour:"
+            data-testid="data_id-Colour: Solid - Polar white"
           >
             Colour:
           </div>
@@ -466,7 +466,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Trim / Interior:"
+            data-testid="data_id-Trim / Interior: -"
           >
             Trim / Interior:
           </div>
@@ -482,7 +482,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Stock:"
+            data-testid="data_id-Stock: Brand New - "
           >
             Stock:
           </div>

@@ -36,7 +36,7 @@ const LEASING_PROVIDERS = [
 
 const choices = (
   choicesValues: IChoice[],
-  setChoice: Dispatch<SetStateAction<string | null>>,
+  setChoice: Dispatch<SetStateAction<string>>,
   heading: string,
   currentValue?: string,
 ) => (
