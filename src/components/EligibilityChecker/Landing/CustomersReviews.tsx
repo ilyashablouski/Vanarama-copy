@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Slider from '@vanarama/uibook/lib/components/organisms/carousel';
+import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import ReviewCard from '@vanarama/uibook/lib/components/molecules/cards/ReviewCard/ReviewCard';
 
 const REVIEW_TILES = [
@@ -39,13 +39,11 @@ const CustomersReviews: FC = () => (
       <Heading className="-mb-400 -a-center" size="large" color="black">
         Customer Reviews
       </Heading>
-      <Slider className="-mh-000" slidesToShow={3} gutter={16}>
+      <Carousel className="-mh-000">
         {REVIEW_TILES.map((reviewTile, index) => (
-          <div key={index.toString()} style={{ width: 345 }}>
-            <ReviewCard review={{ ...reviewTile }} />
-          </div>
+          <ReviewCard key={index.toString()} review={{ ...reviewTile }} />
         ))}
-      </Slider>
+      </Carousel>
     </div>
   </div>
 );
