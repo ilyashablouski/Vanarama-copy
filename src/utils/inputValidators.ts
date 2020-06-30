@@ -97,12 +97,12 @@ export const phoneNumberValidator = {
   minLength: {
     value: 11,
     message:
-      'Oops, this mobile number is too short. Please inter 11 characters or more',
+      'Oops, this mobile number is too short. Please enter 11 characters or more',
   },
   maxLength: {
     value: 16,
     message:
-      'Oops, this mobile number is too long. Please inter 16 characters or less',
+      'Oops, this mobile number is too long. Please enter 16 characters or less',
   },
   pattern: {
     value: WORLDWIDE_MOBILE_REGEX,

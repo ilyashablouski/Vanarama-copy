@@ -42,7 +42,7 @@ describe('<GoldrushForm />', () => {
       expect(screen.getByText(testHeading)).toBeInTheDocument();
     });
 
-    expect(screen.getByText('Please inter your full name')).toBeInTheDocument();
+    expect(screen.getByText('Please enter your full name')).toBeInTheDocument();
     expect(
       screen.getByText('Your enter your email address'),
     ).toBeInTheDocument();
@@ -171,7 +171,7 @@ describe('<GoldrushForm />', () => {
 
     expect(
       screen.getByText(
-        'Oops, this mobile number is too short. Please inter 11 characters or more',
+        'Oops, this mobile number is too short. Please enter 11 characters or more',
       ),
     ).toBeInTheDocument();
   });
@@ -199,7 +199,7 @@ describe('<GoldrushForm />', () => {
 
     expect(
       screen.getByText(
-        'Oops, this mobile number is too long. Please inter 16 characters or less',
+        'Oops, this mobile number is too long. Please enter 16 characters or less',
       ),
     ).toBeInTheDocument();
   });
