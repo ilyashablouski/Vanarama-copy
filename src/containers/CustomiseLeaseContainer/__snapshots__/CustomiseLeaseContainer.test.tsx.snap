@@ -16,6 +16,11 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
   </span>
   <div
     className="choiceboxes -cols-2 -teal"
+    style={
+      Object {
+        "--cols": "2",
+      }
+    }
   >
     <button
       className="choicebox -active"
@@ -99,6 +104,11 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
   </span>
   <div
     className="choiceboxes -cols-4 -teal"
+    style={
+      Object {
+        "--cols": "4",
+      }
+    }
   >
     <button
       className="choicebox -active"
@@ -141,6 +151,11 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
   </span>
   <div
     className="choiceboxes -cols-5 -teal"
+    style={
+      Object {
+        "--cols": "5",
+      }
+    }
   >
     <button
       className="choicebox -active"
@@ -507,31 +522,19 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
         }
       }
     >
-      <div
-        style={
-          Object {
-            "height": "2rem",
-          }
-        }
-      >
+      <div>
         <div
           className="price -xlarge -black"
         >
           POA
         </div>
         <div
-          className="heading headingText -pt-100 -darker -small"
+          className="heading -darker -xsmall"
         >
           PM inc. VAT
         </div>
       </div>
-      <div
-        style={
-          Object {
-            "height": "5.5rem",
-          }
-        }
-      >
+      <div>
         <button
           className="button -fullwidth -teal -regular -solid"
           onClick={[Function]}
@@ -544,13 +547,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
         </button>
       </div>
       <div />
-      <div
-        style={
-          Object {
-            "height": "1rem",
-          }
-        }
-      >
+      <div>
         <div
           className="text -regular -darker"
         >
