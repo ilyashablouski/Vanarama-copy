@@ -442,12 +442,8 @@ describe('B2B Company Details page', () => {
     // Click the inactive company result
     fireEvent.click(screen.getByText(/INACTIVE LTD/i));
 
-    await waitFor(() =>
-      expect(
-        screen.getByText(
-          /This company seems not to be trading actively. Please try a new search/i,
-        ),
-      ).toBeInTheDocument(),
+    await screen.findByText(
+      /This company seems not to be trading actively. Please try a new search/i,
     );
 
     // Search again

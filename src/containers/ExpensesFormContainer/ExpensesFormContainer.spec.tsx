@@ -1,5 +1,5 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 import {
   GetExpensesPageDataQuery,
@@ -60,76 +60,33 @@ describe('<ExpensesFormContainer />', () => {
     );
 
     // Wait for the initial query to resolve
-    await waitFor(() => screen.findByTestId('expenses'));
-    expect(
-      (screen.getByLabelText(/Average Monthly Income/) as HTMLInputElement)
-        .value,
-    ).toEqual('6000');
-
-    expect(
-      (screen.getByLabelText(/Monthly Household Income/) as HTMLInputElement)
-        .value,
-    ).toEqual('8000');
-
-    expect(
-      (screen.getByLabelText(
-        /Do You Anticipate Your Monthly Income Will Change/,
-      ) as HTMLInputElement).checked,
-    ).toEqual(true);
-
-    expect(
-      (screen.getByLabelText(/Future Monthly Income/) as HTMLInputElement)
-        .value,
-    ).toEqual('7500');
-
-    expect(
-      (screen.getByLabelText(/Mortgage or Rent/) as HTMLInputElement).value,
-    ).toEqual('1195');
-
-    expect(
-      (screen.getByLabelText(/Phone and Internet/) as HTMLInputElement).value,
-    ).toEqual('49.99');
-
-    expect(
-      (screen.getByLabelText(/Credit Card Payments/) as HTMLInputElement).value,
-    ).toEqual('120');
-
-    expect(
-      (screen.getByLabelText(/Utilities/) as HTMLInputElement).value,
-    ).toEqual('99');
-
-    expect(
-      (screen.getByLabelText(/Insurance/) as HTMLInputElement).value,
-    ).toEqual('15');
-
-    expect(
-      (screen.getByLabelText(/Car Finance/) as HTMLInputElement).value,
-    ).toEqual('450');
-
-    expect(
-      (screen.getByLabelText(/Food and Clothes/) as HTMLInputElement).value,
-    ).toEqual('180');
-
-    expect((screen.getByLabelText(/Fuel/) as HTMLInputElement).value).toEqual(
-      '90',
+    await screen.findByTestId('expenses');
+    expect(screen.getByLabelText(/Average Monthly Income/)).toHaveValue('6000');
+    expect(screen.getByLabelText(/Monthly Household Income/)).toHaveValue(
+      '8000',
     );
 
     expect(
-      (screen.getByLabelText(/Student Loan/) as HTMLInputElement).value,
-    ).toEqual('435');
+      screen.getByLabelText(
+        /Do You Anticipate Your Monthly Income Will Change/,
+      ),
+    ).toBeChecked();
 
-    expect(
-      (screen.getByLabelText(/Other Credit/) as HTMLInputElement).value,
-    ).toEqual('0');
+    expect(screen.getByLabelText(/Future Monthly Income/)).toHaveValue('7500');
+    expect(screen.getByLabelText(/Mortgage or Rent/)).toHaveValue('1195');
+    expect(screen.getByLabelText(/Phone and Internet/)).toHaveValue('49.99');
+    expect(screen.getByLabelText(/Credit Card Payments/)).toHaveValue('120');
+    expect(screen.getByLabelText(/Utilities/)).toHaveValue('99');
+    expect(screen.getByLabelText(/Insurance/)).toHaveValue('15');
+    expect(screen.getByLabelText(/Car Finance/)).toHaveValue('450');
+    expect(screen.getByLabelText(/Food and Clothes/)).toHaveValue('180');
+    expect(screen.getByLabelText(/Fuel/)).toHaveValue('90');
+    expect(screen.getByLabelText(/Student Loan/)).toHaveValue('435');
+    expect(screen.getByLabelText(/Other Credit/)).toHaveValue('0');
+    expect(screen.getByLabelText(/Total Monthly Expenses/)).toHaveValue(
+      2633.99,
+    );
 
-    expect(
-      (screen.getByLabelText(/Total Monthly Expenses/) as HTMLInputElement)
-        .value,
-    ).toEqual('2633.99');
-
-    expect(
-      (screen.getByLabelText(/Net Disposable Income/) as HTMLInputElement)
-        .value,
-    ).toEqual('3366.01');
+    expect(screen.getByLabelText(/Net Disposable Income/)).toHaveValue(3366.01);
   });
 });

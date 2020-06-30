@@ -15,8 +15,11 @@ import VehicleTechDetails from '../VehicleTechDetails/VehicleTechDetails';
 import IndependentReview from '../../components/IndependentReview/IndependentReview';
 import CustomiseLeaseContainer from '../CustomiseLeaseContainer/CustomiseLeaseContainer';
 import { GetVehicleDetails } from '../../../generated/GetVehicleDetails';
+import { useMobileViewport } from '../../hooks/useMediaQuery';
 import WhyChooseLeasing from '../../components/WhyChooseLeasing/WhyChooseLeasing';
+import CustomerReviews from '../../components/CustomerReviews/CustomerReviews';
 import WhyChooseVanarama from '../../components/WhyChooseVanarama/WhyChooseVanarama';
+import { replaceReview } from '../../components/CustomerReviews/helpers';
 
 interface IDetailsPageProps {
   capId: number;
@@ -45,6 +48,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   loading,
   error,
 }) => {
+  const isMobile = useMobileViewport();
+
   if (loading) {
     return (
       <div
@@ -73,6 +78,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
   const independentReview = data?.vehicleDetails?.independentReview;
   const warranty = data?.vehicleDetails?.warranty;
+  const reviews = data?.vehicleDetails?.customerReviews?.map(review => ({
+    text: review?.review ? replaceReview(review.review) : '',
+    author: review?.name || '',
+    score: review?.rating || 0,
+  }));
 
   return (
     <>
@@ -120,8 +130,19 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         {(vans || pickups) && (
           <IndependentReview review={independentReview || ''} />
         )}
+        {isMobile && (
+          <CustomiseLeaseContainer
+            capId={capId}
+            vehicleType={cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV}
+            derivativeInfo={derivativeInfo}
+            leaseAdjustParams={leaseAdjustParams}
+          />
+        )}
         <WhyChooseLeasing warranty={warranty || ''} />
         <WhyChooseVanarama />
+        <div className="pdp--reviews">
+          <CustomerReviews reviews={reviews || []} />
+        </div>
       </div>
       <CustomiseLeaseContainer
         capId={capId}

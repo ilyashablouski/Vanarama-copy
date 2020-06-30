@@ -12,7 +12,32 @@ jest.mock('next/router', () => ({
   }),
 }));
 
+/**
+ * NOTE: Mock the CustomiseLeaseContainer as it is out of scope for this test
+ * and is doing state updates after the test has finished.
+ */
+jest.mock(
+  '../../../containers/CustomiseLeaseContainer/CustomiseLeaseContainer',
+  () => () => {
+    return <div />;
+  },
+);
+
 describe('<CarDetailsPage />', () => {
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: jest.fn().mockImplementation(query => ({
+      matches: true,
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+      matchMedia: jest.fn(),
+    })),
+  });
   it('renders correctly with data', async () => {
     (useCarData as jest.Mock).mockReturnValue({
       loading: false,

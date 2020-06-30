@@ -161,6 +161,7 @@ export const PickupsPage: NextPage = () => {
         {data?.hubPickupPage.sections.steps?.steps?.map(
           (step: StepData, idx: number) => (
             <Step
+              className="-mh-auto"
               key={step.title || idx}
               heading={step.title || ''}
               step={idx + 1}

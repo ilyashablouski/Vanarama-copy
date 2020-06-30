@@ -32,6 +32,7 @@ export interface IProps {
   setColour: Dispatch<SetStateAction<number | null>>;
   setTerm: Dispatch<SetStateAction<number | null>>;
   setTrim: Dispatch<SetStateAction<number | null>>;
+  setMaintenance: Dispatch<SetStateAction<boolean | null>>;
   data: GetQuoteDetails;
   leaseType: string | null;
   trim: number | null;
@@ -39,4 +40,7 @@ export interface IProps {
   derivativeInfo: GetVehicleDetails_derivativeInfo | null | undefined;
   leaseAdjustParams: GetVehicleDetails_leaseAdjustParams | null | undefined;
   mileage: number | null | undefined;
+  maintenance: boolean | null;
+  setIsModalShowing: Dispatch<SetStateAction<boolean>>;
+  isModalShowing: boolean;
 }

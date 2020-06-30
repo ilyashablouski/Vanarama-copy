@@ -207,6 +207,7 @@ export interface LimitedCompanyInputObject {
   tradingName?: string | null;
   tradingSince?: any | null;
   turnoverOutsideUk?: number | null;
+  turnoverPercentageOutsideUk?: TurnoverPercentageOutsideUkInputObject[] | null;
   uuid?: string | null;
   vatNumber?: string | null;
   withTradingAddress?: boolean | null;
@@ -228,6 +229,7 @@ export interface MyAccountInputObject {
  */
 export interface PersonInputObject {
   about?: string | null;
+  cognitoSub?: string | null;
   company?: CompanyInputObject | null;
   countryOfBirth?: string | null;
   dateOfBirth?: any | null;
@@ -288,6 +290,14 @@ export interface TelephoneNumberInputObject {
   primary?: boolean | null;
   uuid?: string | null;
   value: string;
+}
+
+/**
+ * Input object for turnover percentage outside UK
+ */
+export interface TurnoverPercentageOutsideUkInputObject {
+  country: string;
+  percentage: number;
 }
 
 //==============================================================

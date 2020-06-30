@@ -379,6 +379,7 @@ const VansPage: NextPage = () => {
         </Heading>
         {data?.hubVanPage.sections.steps?.steps?.map((step: StepData, idx) => (
           <Step
+            className="-mh-auto"
             key={step.title || idx}
             heading={step.title || ''}
             step={idx + 1}
