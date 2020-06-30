@@ -18,6 +18,7 @@ import { GetVehicleDetails } from '../../../generated/GetVehicleDetails';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import WhyChooseLeasing from '../../components/WhyChooseLeasing/WhyChooseLeasing';
 import WhyChooseVanarama from '../../components/WhyChooseVanarama/WhyChooseVanarama';
+import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer';
 
 interface IDetailsPageProps {
   capId: number;
@@ -76,6 +77,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
   const independentReview = data?.vehicleDetails?.independentReview;
   const warranty = data?.vehicleDetails?.warranty;
+  const capsId = data?.vehicleDetails?.relatedVehicles?.map(
+    el => el?.capId || '',
+  );
 
   return (
     <>
@@ -139,6 +143,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         vehicleType={cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV}
         derivativeInfo={derivativeInfo}
         leaseAdjustParams={leaseAdjustParams}
+      />
+      <CustomerAlsoViewedContainer
+        capsId={capsId || []}
+        vehicleType={cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV}
       />
     </>
   );
