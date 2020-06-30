@@ -175,7 +175,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
                 Thank You
               </Heading>
               <Text size="regular" color="darker">
-                Et culpa aliquip mollit fugiat sunt irure sunt amet ea pariatur qui exercitation fugiat reprehenderit culpa ipsum dolore incididunt dolor cillum amet officia nulla pariatur consectetur aute et irure et
+                Et culpa aliquip mollit fugiat sunt irure sunt amet ea pariatur
+                qui exercitation fugiat reprehenderit culpa ipsum dolore
+                incididunt dolor cillum amet officia nulla pariatur consectetur
+                aute et irure et
               </Text>
             </div>
           ) : (
