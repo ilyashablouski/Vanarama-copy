@@ -69,6 +69,7 @@ const SummaryFormDetailsSection: FCWithFragments<IProps> = ({
       },
     ]}
     heading="Your Details"
+    headingDataTestId="your_details_heading_data_testId"
   />
 );
 

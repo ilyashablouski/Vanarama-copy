@@ -43,6 +43,7 @@ const SummaryFormBankDetailsSection: FCWithFragments<IProps> = ({
       },
     ]}
     heading="Bank Details"
+    headingDataTestId="bank_details_heading_data_testId"
   />
 );
 

@@ -20,10 +20,12 @@ const SummaryFormAddressHistory: FCWithFragments<IProps> = ({
   return (
     <StructuredList
       editable
-      editDataTestId="edit-address-history"
+      editDataTestId="ed1it-address-history"
       onEditClicked={onEdit}
       list={items}
       heading="Address History"
+      headingDataTestId="address_history_data_testId"
+      dataTestId="address_history_heading"
     />
   );
 };
