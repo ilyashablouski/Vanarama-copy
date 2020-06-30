@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { HeroHeading } from '../../components/Hero';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Lease from '../../components/EligibilityChecker/Landing/Lease';
 import WhyEligibilityChecker from '../../components/EligibilityChecker/Landing/WhyEligibilityChecker';
 import CustomersReviews from '../../components/EligibilityChecker/Landing/CustomersReviews';
@@ -8,7 +8,9 @@ import CustomerThink from '../../components/EligibilityChecker/Landing/CustomerT
 const EligibilityChecker: NextPage = () => (
   <>
     <div className="row:title">
-      <HeroHeading>Your Result</HeroHeading>
+      <Heading size="xlarge" color="white">
+        Your Result
+      </Heading>
     </div>
     <Lease />
     <WhyEligibilityChecker />
