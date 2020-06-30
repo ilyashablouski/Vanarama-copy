@@ -98,7 +98,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       <div className="pdp--content">
         <Breadcrumb items={PATH.items} />
         <Heading className="-pt-100" tag="span" size="xlarge" color="black">
-          {vehicleConfigurationByCapId?.capManufacturerDescription}
+          {vehicleConfigurationByCapId?.capManufacturerDescription}{' '}
+          {vehicleConfigurationByCapId?.capRangeDescription}
         </Heading>
         <Text tag="span" size="lead" color="darker">
           {vehicleConfigurationByCapId?.capDerivativeDescription}

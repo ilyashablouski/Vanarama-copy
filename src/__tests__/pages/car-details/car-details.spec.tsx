@@ -52,6 +52,7 @@ describe('<CarDetailsPage />', () => {
         vehicleConfigurationByCapId: {
           capDerivativeDescription: 'C200 Amg Line Premium 2 Doors 9g-Tronic',
           capManufacturerDescription: 'Mercedes-Benz',
+          capRangeDescription: 'C Class',
           capModelDescription: 'C Class Coupe',
           capPaintDescription: 'Solid - Polar white',
           capTrimDescription:

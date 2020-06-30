@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { VehicleTypeEnum, LeaseTypeEnum } from "./globalTypes";
+import { VehicleTypeEnum, LeaseTypeEnum } from './globalTypes';
 
 // ====================================================
 // GraphQL query operation: GetVehicleDetails
@@ -16,6 +16,7 @@ export interface GetVehicleDetails_vehicleConfigurationByCapId_financeProfile {
 export interface GetVehicleDetails_vehicleConfigurationByCapId {
   uuid: string;
   capManufacturerDescription: string;
+  capRangeDescription: string;
   capModelDescription: string;
   capDerivativeDescription: string;
   capPaintDescription: string;
@@ -43,11 +44,17 @@ export interface GetVehicleDetails_vehicleDetails_customerReviews {
 export interface GetVehicleDetails_vehicleDetails {
   averageRating: number | null;
   brochureUrl: string | null;
-  keyInformation: (GetVehicleDetails_vehicleDetails_keyInformation | null)[] | null;
+  keyInformation:
+    | (GetVehicleDetails_vehicleDetails_keyInformation | null)[]
+    | null;
   independentReview: string | null;
   warranty: string | null;
-  relatedVehicles: (GetVehicleDetails_vehicleDetails_relatedVehicles | null)[] | null;
-  customerReviews: (GetVehicleDetails_vehicleDetails_customerReviews | null)[] | null;
+  relatedVehicles:
+    | (GetVehicleDetails_vehicleDetails_relatedVehicles | null)[]
+    | null;
+  customerReviews:
+    | (GetVehicleDetails_vehicleDetails_customerReviews | null)[]
+    | null;
 }
 
 export interface GetVehicleDetails_derivativeInfo_technicals {
