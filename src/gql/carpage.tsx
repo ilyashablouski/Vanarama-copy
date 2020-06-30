@@ -30,6 +30,10 @@ export const GET_CAR_DATA = gql`
       }
       independentReview
       warranty
+      relatedVehicles {
+        capId
+        displayOrder
+      }
     }
     derivativeInfo(id: $capIdDetails, vehicleType: $vehicleType) {
       technicals {
