@@ -1,8 +1,9 @@
-import { render, waitFor, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import React from 'react';
-import { act } from 'react-dom/test-utils';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
+import { create } from 'react-test-renderer';
 import FiltersContainer from '../FiltersContainer';
+
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
 
 // ARRANGE
@@ -12,8 +13,8 @@ const resetMocks = () => {
     setType: jest.fn(),
     isCarSearch: true,
     onSearch: jest.fn(),
-    updateCount: jest.fn(),
     preSearchVehicleCount: 10,
+    isSpecialOffers: true,
   };
 };
 
@@ -54,7 +55,6 @@ const mocksResponse: MockedResponse[] = [
 ];
 
 const mocks = resetMocks();
-
 describe('<FiltersContainer />', () => {
   afterEach(() => {
     jest.clearAllMocks();
@@ -64,39 +64,52 @@ describe('<FiltersContainer />', () => {
   it('should make a server request after render', async () => {
     // ACT
 
-    act(() => {
-      render(
-        <MockedProvider mocks={mocksResponse} addTypename={false}>
-          <FiltersContainer {...mocks} />
-        </MockedProvider>,
-      );
-    });
+    render(
+      <MockedProvider mocks={mocksResponse} addTypename={false}>
+        <FiltersContainer {...mocks} />
+      </MockedProvider>,
+    );
     // ASSERT
     await waitFor(() => expect(mockCalled).toBeTruthy());
   });
   it('should start new search after change any filter', async () => {
     // ACT
-    act(() => {
-      render(
-        <MockedProvider addTypename={false} mocks={mocksResponse}>
-          <FiltersContainer {...mocks} />
-        </MockedProvider>,
-      );
+    render(
+      <MockedProvider addTypename={false} mocks={mocksResponse}>
+        <FiltersContainer {...mocks} />
+      </MockedProvider>,
+    );
+    fireEvent.click(screen.getByTestId('Fuel Type'));
+    await waitFor(() => {
+      expect(screen.getByText('diesel')).toBeInTheDocument();
     });
-    await waitFor(() => fireEvent.click(screen.getByTestId('Body Type')));
-    fireEvent.click(screen.getByTestId('Body Typebtn'));
-    expect(mocks.onSearch).toBeCalled();
+    fireEvent.click(screen.getByText('diesel'));
+    expect(mocks.onSearch).toHaveBeenCalled();
   });
   it('should start new search after clear all filters', async () => {
     // ACT
-    act(() => {
-      render(
-        <MockedProvider mocks={mocksResponse} addTypename={false}>
-          <FiltersContainer {...mocks} />
-        </MockedProvider>,
-      );
+    render(
+      <MockedProvider mocks={mocksResponse} addTypename={false}>
+        <FiltersContainer {...mocks} />
+      </MockedProvider>,
+    );
+    await waitFor(() => {
+      fireEvent.click(screen.getByText('Clear All'));
+      expect(mocks.onSearch).toBeCalled();
     });
-    await waitFor(() => fireEvent.click(screen.getByText('Clear All')));
-    expect(mocks.onSearch).toBeCalled();
+  });
+  it('should render with data', async () => {
+    // ACT
+    const getComponent = create(
+      <MockedProvider mocks={mocksResponse} addTypename={false}>
+        <FiltersContainer {...mocks} />
+      </MockedProvider>,
+    );
+
+    await waitFor(() => {
+      expect(mockCalled).toBeTruthy();
+    });
+    const tree = getComponent.toJSON();
+    expect(tree).toMatchSnapshot();
   });
 });

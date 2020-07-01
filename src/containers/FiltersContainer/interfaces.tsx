@@ -5,8 +5,8 @@ export interface IFilterContainerProps {
   setType: (value: boolean) => void;
   isCarSearch: boolean;
   onSearch: (filters: IFilters) => void;
-  updateCount: (filters: IFilters) => void;
   preSearchVehicleCount: number;
+  isSpecialOffers: boolean;
 }
 
 export interface IFilters {

@@ -1,0 +1,752 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FiltersContainer /> should render with data 1`] = `
+<div
+  className="search-filters"
+>
+  <div
+    className="search-filters--header"
+  >
+    <span
+      className="heading -primary -lead"
+    >
+      <i
+        className="icon dropdown--icon dropdown--icon-closed"
+      >
+        <svg
+          height="1em"
+          viewBox="0 0 512 512"
+          width="1em"
+        >
+          <title>
+            ionicons-v5-i
+          </title>
+          <path
+            d="M64,144H290.75a48,48,0,0,0,90.5,0H448a16,16,0,0,0,0-32H381.25a48,48,0,0,0-90.5,0H64a16,16,0,0,0,0,32Z"
+          />
+          <path
+            d="M448,368H381.25a48,48,0,0,0-90.5,0H64a16,16,0,0,0,0,32H290.75a48,48,0,0,0,90.5,0H448a16,16,0,0,0,0-32Z"
+          />
+          <path
+            d="M448,240H221.25a48,48,0,0,0-90.5,0H64a16,16,0,0,0,0,32h66.75a48,48,0,0,0,90.5,0H448a16,16,0,0,0,0-32Z"
+          />
+        </svg>
+      </i>
+        Filters
+    </span>
+    <div
+      className="toggle--wrapper"
+    >
+      <input
+        checked={true}
+        className="toggle toggle--input"
+        id="contractType"
+        onChange={[Function]}
+        type="checkbox"
+      />
+      <label
+        className="toggle--input-label -orange"
+        htmlFor="contractType"
+      >
+        <span
+          className="toggle--switch"
+        >
+          <span
+            className="toggle--off"
+          >
+            Personal
+          </span>
+          <span
+            className="toggle--on"
+          >
+            Business
+          </span>
+        </span>
+      </label>
+    </div>
+  </div>
+  <div
+    className="dropdown search-filters--dropdown"
+  >
+    <button
+      className="dropdown--toggle"
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        Make & Model
+      </span>
+      <i
+        className="icon -dark"
+      >
+        <svg
+          height="1em"
+          viewBox="0 0 512 512"
+          width="1em"
+        >
+          <title>
+            ionicons-v5-a
+          </title>
+          <polyline
+            points="112 184 256 328 400 184"
+            style={
+              Object {
+                "fill": "none",
+                "stroke": "var(--class-color)",
+                "strokeLinecap": "square",
+                "strokeMiterlimit": 10,
+                "strokeWidth": 48,
+              }
+            }
+          />
+        </svg>
+      </i>
+    </button>
+    <div
+      className="dropdown--content"
+    >
+      <div
+        className="formgroup"
+      >
+        <label
+          className="formgroup--legend"
+        >
+          Make
+        </label>
+        <div
+          className="formgroup--content"
+        >
+          <div
+            className="select"
+          >
+            <select
+              className="select--native"
+              name="make"
+              onChange={[Function]}
+              value=""
+            >
+              <option
+                disabled={true}
+                value=""
+              >
+                Select make
+              </option>
+              <option
+                value="Citroën"
+              >
+                Citroën
+              </option>
+              <option
+                value="Dacia"
+              >
+                Dacia
+              </option>
+            </select>
+            <span
+              className="icon select--chevron"
+            >
+              <i
+                className="icon -stroke -dark"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-a
+                  </title>
+                  <polyline
+                    points="112 184 256 328 400 184"
+                    style={
+                      Object {
+                        "fill": "none",
+                        "stroke": "var(--class-color)",
+                        "strokeLinecap": "round",
+                        "strokeLinejoin": "round",
+                        "strokeWidth": 48,
+                      }
+                    }
+                  />
+                </svg>
+              </i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="formgroup"
+      >
+        <label
+          className="formgroup--legend"
+        >
+          Model
+        </label>
+        <div
+          className="formgroup--content"
+        >
+          <div
+            className="select"
+          >
+            <select
+              className="select--native"
+              name="model"
+              onChange={[Function]}
+              value=""
+            >
+              <option
+                disabled={true}
+                value=""
+              >
+                Select model
+              </option>
+            </select>
+            <span
+              className="icon select--chevron"
+            >
+              <i
+                className="icon -stroke -dark"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-a
+                  </title>
+                  <polyline
+                    points="112 184 256 328 400 184"
+                    style={
+                      Object {
+                        "fill": "none",
+                        "stroke": "var(--class-color)",
+                        "strokeLinecap": "round",
+                        "strokeLinejoin": "round",
+                        "strokeWidth": 48,
+                      }
+                    }
+                  />
+                </svg>
+              </i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <button
+        className="button -fullwidth -teal -small -solid"
+        data-testid="Make & Modelbtn"
+      >
+        <div
+          className="button--inner"
+        >
+          View 10 Results
+        </div>
+      </button>
+    </div>
+  </div>
+  <div
+    className="dropdown search-filters--dropdown"
+  >
+    <button
+      className="dropdown--toggle"
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        Budget
+      </span>
+      <i
+        className="icon -dark"
+      >
+        <svg
+          height="1em"
+          viewBox="0 0 512 512"
+          width="1em"
+        >
+          <title>
+            ionicons-v5-a
+          </title>
+          <polyline
+            points="112 184 256 328 400 184"
+            style={
+              Object {
+                "fill": "none",
+                "stroke": "var(--class-color)",
+                "strokeLinecap": "square",
+                "strokeMiterlimit": 10,
+                "strokeWidth": 48,
+              }
+            }
+          />
+        </svg>
+      </i>
+    </button>
+    <div
+      className="dropdown--content"
+    >
+      <div
+        className="formgroup"
+      >
+        <label
+          className="formgroup--legend"
+        >
+          Price From
+        </label>
+        <div
+          className="formgroup--content"
+        >
+          <div
+            className="select"
+          >
+            <select
+              className="select--native"
+              name="from"
+              onChange={[Function]}
+              value=""
+            >
+              <option
+                disabled={true}
+                value=""
+              >
+                Select from
+              </option>
+              <option
+                disabled={false}
+                value="0"
+              >
+                £0
+              </option>
+              <option
+                disabled={false}
+                value="150"
+              >
+                £150
+              </option>
+              <option
+                disabled={false}
+                value="250"
+              >
+                £250
+              </option>
+              <option
+                disabled={false}
+                value="350"
+              >
+                £350
+              </option>
+              <option
+                disabled={false}
+                value="450"
+              >
+                £450
+              </option>
+              <option
+                disabled={false}
+                value="550"
+              >
+                £550
+              </option>
+            </select>
+            <span
+              className="icon select--chevron"
+            >
+              <i
+                className="icon -stroke -dark"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-a
+                  </title>
+                  <polyline
+                    points="112 184 256 328 400 184"
+                    style={
+                      Object {
+                        "fill": "none",
+                        "stroke": "var(--class-color)",
+                        "strokeLinecap": "round",
+                        "strokeLinejoin": "round",
+                        "strokeWidth": 48,
+                      }
+                    }
+                  />
+                </svg>
+              </i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        className="formgroup"
+      >
+        <label
+          className="formgroup--legend"
+        >
+          Price To
+        </label>
+        <div
+          className="formgroup--content"
+        >
+          <div
+            className="select"
+          >
+            <select
+              className="select--native"
+              name="to"
+              onChange={[Function]}
+              value=""
+            >
+              <option
+                disabled={true}
+                value=""
+              >
+                Select to
+              </option>
+              <option
+                disabled={false}
+                value="150"
+              >
+                £150
+              </option>
+              <option
+                disabled={false}
+                value="250"
+              >
+                £250
+              </option>
+              <option
+                disabled={false}
+                value="350"
+              >
+                £350
+              </option>
+              <option
+                disabled={false}
+                value="450"
+              >
+                £450
+              </option>
+              <option
+                disabled={false}
+                value="550"
+              >
+                £550
+              </option>
+            </select>
+            <span
+              className="icon select--chevron"
+            >
+              <i
+                className="icon -stroke -dark"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-a
+                  </title>
+                  <polyline
+                    points="112 184 256 328 400 184"
+                    style={
+                      Object {
+                        "fill": "none",
+                        "stroke": "var(--class-color)",
+                        "strokeLinecap": "round",
+                        "strokeLinejoin": "round",
+                        "strokeWidth": 48,
+                      }
+                    }
+                  />
+                </svg>
+              </i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <button
+        className="button -fullwidth -teal -small -solid"
+        data-testid="Budgetbtn"
+      >
+        <div
+          className="button--inner"
+        >
+          View 10 Results
+        </div>
+      </button>
+    </div>
+  </div>
+  <div
+    className="dropdown search-filters--dropdown"
+  >
+    <button
+      className="dropdown--toggle"
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        Body Type
+      </span>
+      <i
+        className="icon -dark"
+      >
+        <svg
+          height="1em"
+          viewBox="0 0 512 512"
+          width="1em"
+        >
+          <title>
+            ionicons-v5-a
+          </title>
+          <polyline
+            points="112 184 256 328 400 184"
+            style={
+              Object {
+                "fill": "none",
+                "stroke": "var(--class-color)",
+                "strokeLinecap": "square",
+                "strokeMiterlimit": 10,
+                "strokeWidth": 48,
+              }
+            }
+          />
+        </svg>
+      </i>
+    </button>
+    <div
+      className="dropdown--content"
+    >
+      <div
+        className="formgroup"
+        data-testid="Body Type"
+      >
+        <label
+          className="formgroup--legend"
+        >
+          Body Type
+        </label>
+        <div
+          className="formgroup--content"
+        >
+          <div
+            className="choiceboxes -cols-1 -medium"
+          >
+            <button
+              className="choicebox"
+              onClick={[Function]}
+              type="button"
+            >
+              Dropside Tipper
+            </button>
+            <button
+              className="choicebox"
+              onClick={[Function]}
+              type="button"
+            >
+              Large Van
+            </button>
+          </div>
+        </div>
+      </div>
+      <button
+        className="button -fullwidth -teal -small -solid"
+        data-testid="Body Typebtn"
+      >
+        <div
+          className="button--inner"
+        >
+          View 10 Results
+        </div>
+      </button>
+    </div>
+  </div>
+  <div
+    className="dropdown search-filters--dropdown"
+  >
+    <button
+      className="dropdown--toggle"
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        Transmission
+      </span>
+      <i
+        className="icon -dark"
+      >
+        <svg
+          height="1em"
+          viewBox="0 0 512 512"
+          width="1em"
+        >
+          <title>
+            ionicons-v5-a
+          </title>
+          <polyline
+            points="112 184 256 328 400 184"
+            style={
+              Object {
+                "fill": "none",
+                "stroke": "var(--class-color)",
+                "strokeLinecap": "square",
+                "strokeMiterlimit": 10,
+                "strokeWidth": 48,
+              }
+            }
+          />
+        </svg>
+      </i>
+    </button>
+    <div
+      className="dropdown--content"
+    >
+      <div
+        className="formgroup"
+        data-testid="Transmission"
+      >
+        <label
+          className="formgroup--legend"
+        >
+          Transmission
+        </label>
+        <div
+          className="formgroup--content"
+        >
+          <div
+            className="choiceboxes -cols-1 -medium"
+          >
+            <button
+              className="choicebox"
+              onClick={[Function]}
+              type="button"
+            >
+              Automatic
+            </button>
+            <button
+              className="choicebox"
+              onClick={[Function]}
+              type="button"
+            >
+              Manual
+            </button>
+          </div>
+        </div>
+      </div>
+      <button
+        className="button -fullwidth -teal -small -solid"
+        data-testid="Transmissionbtn"
+      >
+        <div
+          className="button--inner"
+        >
+          View 10 Results
+        </div>
+      </button>
+    </div>
+  </div>
+  <div
+    className="dropdown search-filters--dropdown"
+  >
+    <button
+      className="dropdown--toggle"
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        Fuel Type
+      </span>
+      <i
+        className="icon -dark"
+      >
+        <svg
+          height="1em"
+          viewBox="0 0 512 512"
+          width="1em"
+        >
+          <title>
+            ionicons-v5-a
+          </title>
+          <polyline
+            points="112 184 256 328 400 184"
+            style={
+              Object {
+                "fill": "none",
+                "stroke": "var(--class-color)",
+                "strokeLinecap": "square",
+                "strokeMiterlimit": 10,
+                "strokeWidth": 48,
+              }
+            }
+          />
+        </svg>
+      </i>
+    </button>
+    <div
+      className="dropdown--content"
+    >
+      <div
+        className="formgroup"
+        data-testid="Fuel Type"
+      >
+        <label
+          className="formgroup--legend"
+        >
+          Fuel Type
+        </label>
+        <div
+          className="formgroup--content"
+        >
+          <div
+            className="choiceboxes -cols-1 -medium"
+          >
+            <button
+              className="choicebox"
+              onClick={[Function]}
+              type="button"
+            >
+              diesel
+            </button>
+            <button
+              className="choicebox"
+              onClick={[Function]}
+              type="button"
+            >
+              iii
+            </button>
+          </div>
+        </div>
+      </div>
+      <button
+        className="button -fullwidth -teal -small -solid"
+        data-testid="Fuel Typebtn"
+      >
+        <div
+          className="button--inner"
+        >
+          View 10 Results
+        </div>
+      </button>
+    </div>
+  </div>
+  <div
+    className="search-filters--tags"
+  >
+    <button
+      className="button -teal -xsmall -solid"
+      id="clearAllButton"
+      onClick={[Function]}
+    >
+      <div
+        className="button--inner"
+      >
+        Clear All
+      </div>
+    </button>
+  </div>
+</div>
+`;

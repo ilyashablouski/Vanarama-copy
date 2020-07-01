@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import SearchFilters from '@vanarama/uibook/lib/components/organisms/search-filters';
 import SearchFiltersHead from '@vanarama/uibook/lib/components/organisms/search-filters/SearchFiltersHead';
 import SearchFilterTags from '@vanarama/uibook/lib/components/organisms/search-filters/SearchFilterTags';
@@ -43,7 +43,7 @@ const FiltersContainer = ({
   isCarSearch,
   onSearch,
   preSearchVehicleCount,
-  updateCount,
+  isSpecialOffers,
 }: IFilterContainerProps) => {
   const [filtersData, setFiltersData] = useState({} as IFilterList);
   const [makeData, setMakeData] = useState([] as string[]);
@@ -58,7 +58,8 @@ const FiltersContainer = ({
   const [selectedFiltersState, setSelectedFiltersState] = useState<
     ISelectedFiltersState
   >(initialState);
-  const [selectedFilterTags, setSelectedFilterTags] = useState(['']);
+  const [selectedFilterTags, setSelectedFilterTags] = useState([]);
+  const [isInitialLoad, setInitialLoad] = useState(true);
 
   const choiseBoxReference = {} as any;
 
@@ -105,8 +106,8 @@ const FiltersContainer = ({
     [filtersData, selectedFiltersState],
   );
 
-  /** start new search */
-  const filtersObject = useCallback(
+  /** memo object for search filter */
+  const filtersObject = useMemo(
     () => ({
       rate: {
         min: parseInt(selectedFiltersState.from[0], 10),
@@ -123,12 +124,8 @@ const FiltersContainer = ({
 
   /** start new search */
   const onViewResults = useCallback(() => {
-    onSearch(filtersObject());
-  }, [onSearch ]);
-
-  const onCount = useCallback(() => {
-    updateCount(filtersObject());
-  }, [updateCount]);
+    onSearch(filtersObject);
+  }, [onSearch, filtersObject]);
 
   /** changing data for choiseboxes component */
   const choiseBoxBuilder = (
@@ -154,8 +151,11 @@ const FiltersContainer = ({
   }, [filtersData, buildChoiseBoxData]);
 
   useEffect(() => {
-    onCount();
-  }, [selectedFilterTags, onCount]);
+    // don't call onSearch already after render
+    if (!isInitialLoad) onViewResults();
+    if (selectedFilterTags[0] && isInitialLoad) setInitialLoad(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedFilterTags, isSpecialOffers, isInitialLoad]);
 
   // set actual models after make changing
   useEffect(() => {
@@ -170,14 +170,12 @@ const FiltersContainer = ({
       Object.keys(choiseBoxReference).forEach((e: any) =>
         choiseBoxReference[e]?.current?.updateState(),
       );
-      onViewResults();
       setTempFilterName('');
     } else if (tempFilterName) {
       choiseBoxReference[tempFilterName].current.updateState();
-      onViewResults();
       setTempFilterName('');
     }
-  }, [tempFilterName, setTempFilterName, choiseBoxReference, onViewResults]);
+  }, [tempFilterName, setTempFilterName, choiseBoxReference]);
 
   // toogle personal/bussiness prices
   const toggleHandler = (value: React.ChangeEvent<HTMLInputElement>) =>
@@ -418,7 +416,6 @@ const FiltersContainer = ({
             className="-fullwidth"
             label={`View ${preSearchVehicleCount} Results`}
             dataTestId={`${filter.label}btn`}
-            onClick={onViewResults}
           />
         </Dropdown>
       ))}

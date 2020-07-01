@@ -1,4 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useLayoutEffect,
+} from 'react';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
@@ -8,9 +13,10 @@ import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import { IFilters } from '../FiltersContainer/interfaces';
+import { getBudgetForQuery } from '../SearchPodContainer/helpers';
 import FiltersContainer from '../FiltersContainer';
 import VehicleCard from './VehicleCard';
-import { getVehiclesList, getVehiclesCount } from './gql';
+import { getVehiclesList } from './gql';
 import {
   vehicleList_vehicleList_edges_node_financeProfiles as IFinanceProfile,
   vehicleList_vehicleList_edges as IVehicles,
@@ -59,15 +65,46 @@ const SearchPageContainer: React.FC<IProps> = ({
     lastCard,
   );
 
-  const [getCount, { data: count }] = getVehiclesCount(
-    isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-    isSpecialOffers,
-  );
-
   const crumbs = [
     { label: 'Home', href: '/' },
     { label: `${isCarSearch ? 'Car' : 'Vans'} Search`, href: '/' },
   ];
+
+  const buildRewriteRoute = ({
+    transmissions,
+    bodyStyles,
+    range,
+    manufacturerName,
+    rate,
+    fuelTypes,
+  }: IFilters) => {
+    const searchType = isCarSearch ? 'car-leasing' : 'van-leasing';
+    let routerUrl = `/${searchType}`;
+    // make
+    if (manufacturerName) {
+      routerUrl += `/${manufacturerName.replace(' ', '-')}`;
+      // adding type only for cars search if we have model
+      if (range) {
+        routerUrl += `/${range.replace(' ', '-')}`;
+      }
+    }
+    const searchParams = new URLSearchParams(window.location.search);
+    Object.entries({ transmissions, bodyStyles, fuelTypes }).forEach(filter => {
+      if (filter[1].length) {
+        searchParams.set(filter[0], filter[1].join());
+      }
+    });
+    if (rate.max || rate.min) {
+      searchParams.set(
+        'rate',
+        getBudgetForQuery(`${rate.min || '0'}-${rate.max || ''}`),
+      );
+    }
+    return decodeURIComponent(
+      routerUrl +
+        (searchParams.toString() ? `?${searchParams.toString()}` : ''),
+    );
+  };
 
   // new search with new filters
   const onSearch = (filters = filtersData) => {
@@ -82,13 +119,15 @@ const SearchPageContainer: React.FC<IProps> = ({
         ...filters,
       },
     });
+    // router.replace(buildRewriteRoute(filters as IFilters), undefined, {shallow: true});
+    window.history.pushState({}, '', buildRewriteRoute(filters as IFilters));
   };
 
   useEffect(() => {
     getVehicles();
   }, [getVehicles]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isServer) setIsSpecialOffers(getValueFromStorage() ?? true);
   }, [isServer, getValueFromStorage]);
 
@@ -138,19 +177,6 @@ const SearchPageContainer: React.FC<IProps> = ({
   const onSaveSpecialOffersStatus = (value: boolean) => {
     setIsSpecialOffers(value);
     sessionStorage.setItem(isCarSearch ? 'Car' : 'Vans', JSON.stringify(value));
-    onSearch();
-  };
-
-  const updateVehicleCount = (filters: IFilters) => {
-    getCount({
-      variables: {
-        vehicleTypes: isCarSearch
-          ? [VehicleTypeEnum.CAR]
-          : [VehicleTypeEnum.LCV],
-        onOffer: isSpecialOffers,
-        ...filters,
-      },
-    });
   };
 
   return (
@@ -180,8 +206,8 @@ const SearchPageContainer: React.FC<IProps> = ({
             setType={value => setIsPersonal(value)}
             onSearch={onSearch}
             isCarSearch={isCarSearch}
-            updateCount={updateVehicleCount}
-            preSearchVehicleCount={count?.vehicleList.totalCount || totalCount}
+            preSearchVehicleCount={totalCount}
+            isSpecialOffers={isSpecialOffers}
           />
         </div>
       </div>
@@ -229,6 +255,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                 label="Load More"
                 onClick={onLoadMore}
                 size="regular"
+                dataTestId="LoadMore"
               />
             )}
           </div>

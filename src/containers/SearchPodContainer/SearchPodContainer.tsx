@@ -4,7 +4,12 @@ import { useRouter } from 'next/router';
 import SearchPod from '../../components/SearchPod';
 import { tabsFields, budget } from './config';
 import { filterListByTypes, filterTypeAndBudget } from './gql';
-import { makeHandler, modelHandler, budgetBetween } from './helpers';
+import {
+  makeHandler,
+  modelHandler,
+  budgetBetween,
+  getBudgetForQuery,
+} from './helpers';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
 
 enum Tabs {
@@ -199,17 +204,6 @@ const SearchPodContainer = () => {
   // get options list
   const getOptions = (field: keyof typeof fieldsMapper) => fieldsMapper[field];
 
-  // build budget query
-  const getBudgetForQuery = (range: string) => {
-    if (range) {
-      return range
-        .split('£')
-        .join('')
-        .replace('-', '|');
-    }
-    return '';
-  };
-
   // search url generation
   const onSearch = (tabType: string) => {
     const isCarTab = tabType === 'Cars';
@@ -236,13 +230,13 @@ const SearchPodContainer = () => {
     if (values[`type${tabType}`] || values[`budget${tabType}`]) {
       queryPart = '?';
       if (values[`type${tabType}`]) {
-        queryTypePart = `bodyType=${values[`type${tabType}`]
+        queryTypePart = `bodyStyles=${values[`type${tabType}`]
           .split(' ')
           .join('')}`;
         queryPart += `${queryTypePart}${values[`type${tabType}`] &&
           values[`budget${tabType}`] &&
           '&'}`;
-        query.bodyType = values[`type${tabType}`];
+        query.bodyStyles = values[`type${tabType}`];
       }
       if (values[`budget${tabType}`]) {
         queryBudgetPart = `pricePerMonth=${getBudgetForQuery(

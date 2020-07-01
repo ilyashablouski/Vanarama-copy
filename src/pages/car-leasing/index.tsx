@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import { getDataFromTree } from '@apollo/react-ssr';
 import withApollo from '../../hocs/withApollo';
 import SearchPageContainer from '../../containers/SearchPageContainer';
 
@@ -13,4 +14,4 @@ Page.getInitialProps = ({ query, req }) => {
   return { query, isServer: !!req };
 };
 
-export default withApollo(Page);
+export default withApollo(Page, { getDataFromTree });
