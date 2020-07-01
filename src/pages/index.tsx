@@ -99,7 +99,7 @@ export const HomePage: NextPage = () => {
           <TabPanels>
             <TabPanel index={0}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <Carousel className="-mh-auto">
+                <Carousel className="-mh-auto" countItems={5}>
                   {[1, 2, 3, 4, 5].map(k => (
                     <ProductCard
                       key={k.toString()}

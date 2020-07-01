@@ -45,7 +45,7 @@ const BlogPage: NextPage = () => (
       <Heading className="-a-center" tag="h3" size="large" color="black">
         Top Articles
       </Heading>
-      <Carousel className="-mh-auto">
+      <Carousel className="-mh-auto" countItems={5}>
         {[1, 2, 3, 4, 5].map(k => (
           <Card
             key={k.toString()}
