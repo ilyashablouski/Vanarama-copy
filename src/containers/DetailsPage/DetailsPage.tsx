@@ -77,7 +77,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       </div>
     );
   }
-  console.log({ data })
+
   const vehicleDetails = data?.vehicleDetails;
   const derivativeInfo = data?.derivativeInfo;
   const leaseAdjustParams = data?.leaseAdjustParams;
