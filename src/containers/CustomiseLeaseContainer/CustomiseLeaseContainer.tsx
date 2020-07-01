@@ -45,7 +45,6 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   });
 
   useEffect(() => {
-    setTrim(trim || +(data?.quoteByCapId?.trim || 0));
     setLeadTime(data?.quoteByCapId?.leadTime || '');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
