@@ -37,7 +37,7 @@ const CustomerReviews: React.FC<ICustomerReviewsProps> = ({
       {reviews.length === 1 ? (
         <ReviewCard review={{ ...reviews[0] }} />
       ) : (
-        <Carousel className={sliderClassName}>
+        <Carousel className={sliderClassName} countItems={reviews.length}>
           {reviews.slice(0, 6).map((reviewTile, index) => (
             <ReviewCard key={index.toString()} review={{ ...reviewTile }} />
           ))}

@@ -97,7 +97,7 @@ const CreditChecker: NextPage = () => {
               Top Offers
             </span>
           </Heading>
-          <Carousel className="-mh-auto">
+          <Carousel className="-mh-auto" countItems={5}>
             {[1, 2, 3, 4, 5].map(k => (
               <ProductCard
                 key={k.toString()}
