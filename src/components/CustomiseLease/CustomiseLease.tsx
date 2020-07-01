@@ -5,7 +5,7 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Choiceboxes from '@vanarama/uibook/lib/components/atoms/choiceboxes';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
-// import SlidingInput from '@vanarama/uibook/lib/components/atoms/sliding-input';
+import SlidingInput from '@vanarama/uibook/lib/components/atoms/sliding-input';
 import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
 import Radio from '@vanarama/uibook/lib/components/atoms/radio';
 import MileageBooster from '@vanarama/uibook/lib/assets/icons/MileageBooster';
@@ -99,10 +99,10 @@ const CustomiseLease = ({
   terms,
   upfronts,
   leaseTypes,
-  // mileages?,
+  mileages,
   setLeaseType,
   leaseType,
-  // setMileage,
+  setMileage,
   setUpfront,
   setColour,
   setTerm,
@@ -114,8 +114,8 @@ const CustomiseLease = ({
   isModalShowing,
   setIsModalShowing,
   trim,
-}: // mileage,
-IProps) => {
+  mileage,
+}: IProps) => {
   const quoteByCapId = data?.quoteByCapId;
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
 
@@ -131,14 +131,13 @@ IProps) => {
           {`${quoteByCapId?.mileage} Miles`}
         </Text>
       </Heading>
-      {/* 
       <SlidingInput
         steps={mileages}
         defaultValue={mileages.indexOf(mileage || 0) + 1}
         onChange={value => {
           setMileage(mileages[value - 1]);
         }}
-      /> */}
+      />
       <div className="-flex-row">
         <Icon
           color="orange"
