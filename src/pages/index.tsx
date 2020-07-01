@@ -226,6 +226,7 @@ export const HomePage: NextPage = () => {
           </Heading>
           <Text tag="div" className="markdown" size="regular" color="darker">
             <ReactMarkdown
+              escapeHtml={false}
               source={data?.homePage.sections.featured1?.body || ''}
             />
           </Text>
@@ -252,6 +253,7 @@ export const HomePage: NextPage = () => {
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
             <ReactMarkdown
+              escapeHtml={false}
               source={data?.homePage.sections.featured2?.body || ''}
             />
           </Text>
