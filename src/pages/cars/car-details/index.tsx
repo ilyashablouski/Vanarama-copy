@@ -14,20 +14,18 @@ interface IProps {
 
 const CarDetailsPage: NextPage<IProps> = () => {
   const router = useRouter();
-  const capId = (router.query.capId as string) ?? CAR_CAP_ID;
+  const capId = parseInt((router.query.capId as string) ?? CAR_CAP_ID, 10);
 
-  const { data, loading, error } = useCarData(
-    parseInt(capId, 10),
-    VehicleTypeEnum.CAR,
-  );
+  const { data, loading, error } = useCarData(capId, VehicleTypeEnum.CAR);
 
   return (
     <DetailsPage
-      capId={84429}
+      capId={capId}
       cars
       data={data}
       loading={loading}
       error={error}
+      router={router}
     />
   );
 };
