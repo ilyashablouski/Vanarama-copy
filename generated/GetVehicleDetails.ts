@@ -34,6 +34,7 @@ export interface GetVehicleDetails_vehicleDetails_relatedVehicles {
   capId: string | null;
   displayOrder: string | null;
 }
+
 export interface GetVehicleDetails_vehicleDetails_customerReviews {
   rating: number | null;
   review: string | null;

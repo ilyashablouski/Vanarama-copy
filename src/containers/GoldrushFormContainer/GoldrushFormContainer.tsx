@@ -1,15 +1,72 @@
 import React, { useState } from 'react';
+import { gql, useMutation } from '@apollo/client';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
+import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import GoldrushForm from '../../components/GoldrushForm';
+import {
+  CreateOpportunity as Mutation,
+  CreateOpportunityVariables as MutationVariables,
+} from '../../../generated/CreateOpportunity';
 import { GoldrushFormContainerProps } from './interfaces';
+
+const handleNetworkError = () =>
+  toast.error(
+    'Sorry there seems to be an issue with your request. Pleaser try again in a few moments',
+    'Dolor ut tempor eiusmod enim consequat laboris dolore ut pariatur labore sunt incididunt dolore veniam mollit excepteur dolor aliqua minim nostrud adipisicing culpa aliquip ex',
+  );
+
+export const CREATE_OPPORTUNITY_MUTATION = gql`
+  mutation CreateOpportunity(
+    $capId: Int
+    $email: String!
+    $fullName: String!
+    $marketingPreference: Boolean
+    $kind: String!
+    $phoneNumber: String!
+    $postcode: String!
+    $termsAndConditions: Boolean
+    $vehicleType: String
+  ) {
+    createOpportunity(
+      input: {
+        capId: $capId
+        communicationsConsent: $marketingPreference
+        email: $email
+        fullName: $fullName
+        kind: $kind
+        phoneNumber: $phoneNumber
+        postcode: $postcode
+        termsAndConditions: $termsAndConditions
+        vehicleType: $vehicleType
+      }
+    ) {
+      uuid
+    }
+  }
+`;
 
 const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
   isPostcodeVisible,
+  capId,
+  kind,
+  termsAndConditions,
+  vehicleType,
 }) => {
   const [isGratitudeVisible, toggleGratitude] = useState(false);
+  const [createOppurtunity, { loading }] = useMutation<
+    Mutation,
+    MutationVariables
+  >(CREATE_OPPORTUNITY_MUTATION, {
+    onCompleted: () => toggleGratitude(true),
+    onError: error => {
+      if (error?.networkError) {
+        handleNetworkError();
+      }
+    },
+  });
 
   return (
     <div className="pdp--sidebar">
@@ -32,18 +89,30 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
             Thank You
           </Heading>
           <Text size="regular" color="darker">
-            Et culpa aliquip mollit fugiat sunt irure sunt amet ea pariatur
-            exercitation fugiat reprehenderit culpa ipsum dolore incididunt
-            incididunt dolor cillum amet officia nulla pariatur consectetur aute
-            aute et irure et
+            We will be in touch shortly
           </Text>
         </div>
       ) : (
         <>
           <GoldrushForm
+            isSubmitting={loading}
             heading="Get Your Quote Now"
             isPostcodeVisible={isPostcodeVisible}
-            onSubmit={() => toggleGratitude(true)}
+            onSubmit={values => {
+              createOppurtunity({
+                variables: {
+                  email: values.email,
+                  phoneNumber: values.phoneNumber,
+                  fullName: values.fullName,
+                  postcode: values.postcode || '',
+                  marketingPreference: Boolean(values.marketingPreference),
+                  capId,
+                  kind,
+                  vehicleType,
+                  termsAndConditions,
+                },
+              });
+            }}
           />
           <div className="pdp--sidebar-promise">
             <Text size="regular" color="black" tag="span">
