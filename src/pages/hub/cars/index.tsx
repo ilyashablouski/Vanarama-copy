@@ -202,6 +202,7 @@ export const CarsPage: NextPage = () => {
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
             <ReactMarkdown
+              escapeHtml={false}
               source={data?.hubCarPage.sections.featured1?.body || ''}
             />
           </Text>
@@ -238,6 +239,7 @@ export const CarsPage: NextPage = () => {
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
             <ReactMarkdown
+              escapeHtml={false}
               source={data?.hubCarPage.sections.featured2?.body || ''}
             />
           </Text>

@@ -137,7 +137,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           vehicleDetails={vehicleDetails}
           derivativeInfo={derivativeInfo}
         />
-        {(vans || pickups) && (
+        {(vans || pickups) && !!independentReview && (
           <IndependentReview review={independentReview || ''} />
         )}
         {isMobile && (
