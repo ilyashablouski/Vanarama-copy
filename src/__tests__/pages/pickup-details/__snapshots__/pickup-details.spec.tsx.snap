@@ -1457,6 +1457,40 @@ Array [
           </div>
         </div>
       </div>
+      <div
+        className="formgroup"
+      >
+        <label
+          className="formgroup--legend"
+        >
+          Please Confirm
+        </label>
+        <div
+          className="formgroup--content"
+        >
+          <div
+            className="checkbox -teal"
+          >
+            <input
+              className="checkbox--native"
+              data-testid="goldrush-form_marketing-preference"
+              id="goldrush-form_marketing-preference"
+              name="marketingPreference"
+              type="checkbox"
+            />
+            <label
+              className="checkbox--label"
+              htmlFor="goldrush-form_marketing-preference"
+            >
+              <span
+                className="text -regular -darker"
+              >
+                I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions.
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
       <p
         className="text -xsmall -darker"
       >
@@ -1472,6 +1506,7 @@ Array [
       <button
         className="button -teal -lead -solid"
         data-testid="goldrush-form_submit"
+        disabled={false}
         type="submit"
       >
         <div
