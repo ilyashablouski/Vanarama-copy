@@ -447,7 +447,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Stock: Brand New - "
+            data-testid="data_id-Stock: Brand New - Free, Fast Delivery"
           >
             Stock:
           </div>
@@ -455,7 +455,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
             className="structured-list-td"
             data-testid="stock"
           >
-            Brand New - 
+            Brand New - Free, Fast Delivery
           </div>
         </div>
       </div>
@@ -996,7 +996,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Stock: Brand New - "
+            data-testid="data_id-Stock: Brand New - Free, Fast Delivery"
           >
             Stock:
           </div>
@@ -1004,7 +1004,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
             className="structured-list-td"
             data-testid="stock"
           >
-            Brand New - 
+            Brand New - Free, Fast Delivery
           </div>
         </div>
       </div>
