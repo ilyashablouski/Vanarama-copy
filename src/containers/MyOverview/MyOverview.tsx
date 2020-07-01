@@ -51,8 +51,8 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   // call query for get Orders
   const { data, loading } = useOrdersByPartyUuidData(
     partyByUuid,
-    quote ? ['quote'] : status || [],
-    !quote ? ['quote'] : [],
+    quote ? ['quote', 'new'] : status || [],
+    !quote ? ['quote', 'expired'] : ['expired'],
   );
 
   // collect everything capId from orders
@@ -73,8 +73,8 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     !!data?.ordersByPartyUuid.find(
       el =>
         el.status === 'credit' &&
-        el.lineItems[0].creditApplications &&
-        el.lineItems[0].creditApplications[0]?.status !== 'draft',
+        el.lineItems[0].creditApplications?.length &&
+        el.lineItems[0].creditApplications[0].status !== 'draft',
     );
 
   // check what we have 'credit' order and this order credit in status 'draft'
@@ -82,8 +82,8 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     !!data?.ordersByPartyUuid.find(
       el =>
         el.status === 'credit' &&
-        el.lineItems[0].creditApplications &&
-        el.lineItems[0].creditApplications[0]?.status === 'draft',
+        el.lineItems[0].creditApplications?.length &&
+        el.lineItems[0].creditApplications[0].status === 'draft',
     );
 
   // calculate how many pages we have for pagination
@@ -163,8 +163,9 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
       );
       // we get offers credit state
       const creditState =
-        (order.lineItems[0].creditApplications &&
-          order.lineItems[0].creditApplications[0]?.status) ||
+        (order.status === 'credit' &&
+          order.lineItems[0].creditApplications?.length &&
+          order.lineItems[0].creditApplications[0].status) ||
         '';
       return (
         <OrderCard
