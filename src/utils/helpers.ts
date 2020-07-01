@@ -107,7 +107,9 @@ export const getOrderList = ({
     },
     {
       label: 'Stock:',
-      value: `${quoteByCapId?.stock || '-'}`,
+      value: quoteByCapId?.stock
+        ? `${quoteByCapId?.stock}Free, Fast Delivery`
+        : '-',
       id: 'stock',
       key: `${quoteByCapId?.stock}`,
       dataTestId: 'stock',
