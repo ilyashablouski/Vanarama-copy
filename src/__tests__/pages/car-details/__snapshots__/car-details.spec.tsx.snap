@@ -158,6 +158,8 @@ Array [
       className="heading -pt-100 -black -xlarge"
     >
       Mercedes-Benz
+       
+      C Class
     </span>
     <span
       className="text -lead -darker"
