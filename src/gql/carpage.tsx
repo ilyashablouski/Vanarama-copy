@@ -14,6 +14,7 @@ export const GET_CAR_DATA = gql`
     vehicleConfigurationByCapId(capId: $capId, vehicleType: $vehicleType) {
       uuid
       capManufacturerDescription
+      capRangeDescription
       capModelDescription
       capDerivativeDescription
       capPaintDescription
