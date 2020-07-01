@@ -3,8 +3,9 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
-import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
+import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox';
 import { useForm } from 'react-hook-form';
 import {
   postcodeValidator,
@@ -35,7 +36,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
       <Heading tag="span" size="lead" color="black">
         {heading}
       </Heading>
-      <Formgroup
+      <FormGroup
         controlId="goldrush-form_full-name"
         label="Full Name"
         error={errors.fullName?.message?.toString()}
@@ -47,8 +48,8 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
           ref={register(fullNameValidator)}
           type="text"
         />
-      </Formgroup>
-      <Formgroup
+      </FormGroup>
+      <FormGroup
         controlId="goldrush-form_email"
         label="Email Address"
         error={errors.email?.message?.toString()}
@@ -60,8 +61,8 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
           ref={register(emailValidator)}
           type="text"
         />
-      </Formgroup>
-      <Formgroup
+      </FormGroup>
+      <FormGroup
         controlId="goldrush-form_phone-number"
         label="Phone Number"
         error={errors.phoneNumber?.message?.toString()}
@@ -73,9 +74,9 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
           ref={register(phoneNumberValidator)}
           type="text"
         />
-      </Formgroup>
+      </FormGroup>
       {isPostcodeVisible && (
-        <Formgroup
+        <FormGroup
           controlId="goldrush-form_postcode"
           label="Postcode"
           error={errors.postcode?.message?.toString()}
@@ -87,8 +88,17 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
             ref={register(postcodeValidator)}
             type="text"
           />
-        </Formgroup>
+        </FormGroup>
       )}
+      <FormGroup label="Please Confirm">
+        <CheckBox
+          id="goldrush-form_marketing-preference"
+          dataTestId="goldrush-form_marketing-preference"
+          name="marketingPreference"
+          label="I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions."
+          ref={register}
+        />
+      </FormGroup>
 
       <Text tag="p" color="darker" size="xsmall">
         {'Terms and conditions agreement text and link '}

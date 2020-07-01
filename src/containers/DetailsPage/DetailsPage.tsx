@@ -93,6 +93,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     score: review?.rating || 0,
   }));
 
+  const vehicleType = cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV;
+
   return (
     <>
       <div className="pdp--content">
@@ -143,7 +145,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         {isMobile && (
           <CustomiseLeaseContainer
             capId={capId}
-            vehicleType={cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV}
+            vehicleType={vehicleType}
             derivativeInfo={derivativeInfo}
             leaseAdjustParams={leaseAdjustParams}
             leaseType={leaseType}
@@ -159,18 +161,24 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       {vehicleConfigurationByCapId?.financeProfile ? (
         <CustomiseLeaseContainer
           capId={capId}
-          vehicleType={cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV}
+          vehicleType={vehicleType}
           derivativeInfo={derivativeInfo}
           leaseAdjustParams={leaseAdjustParams}
           leaseType={leaseType}
           setLeaseType={setLeaseType}
         />
       ) : (
-        <GoldrushFormContainer isPostcodeVisible={!cars} />
+        <GoldrushFormContainer
+          termsAndConditions
+          isPostcodeVisible={!cars}
+          capId={capId}
+          kind="quote"
+          vehicleType={vehicleType}
+        />
       )}
       <CustomerAlsoViewedContainer
         capsId={capsId || []}
-        vehicleType={cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV}
+        vehicleType={vehicleType}
         leaseType={leaseType.toUpperCase() || ''}
         router={router}
       />

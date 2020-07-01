@@ -86,6 +86,7 @@ describe('<GoldrushForm />', () => {
     });
 
     expect(onSubmitMock.mock.calls[0][0]).toEqual({
+      marketingPreference: false,
       fullName: testFullName,
       email: testEmail,
       phoneNumber: testPhoneNumber,
