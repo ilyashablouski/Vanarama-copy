@@ -54,6 +54,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   error,
 }) => {
   const [leaseType, setLeaseType] = useState<string>('Personal');
+  const [leadTime, setLeadTime] = useState<string>('');
   const isMobile = useMobileViewport();
 
   if (loading) {
@@ -122,7 +123,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           flag={{
             accentIcon: <Icon icon={<Flame />} color="white" />,
             accentText: 'Hot Deal',
-            text: '14 - 21 Days Delivery',
+            text: leadTime,
             incomplete: true,
           }}
           images={[
@@ -150,6 +151,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             leaseAdjustParams={leaseAdjustParams}
             leaseType={leaseType}
             setLeaseType={setLeaseType}
+            setLeadTime={setLeadTime}
           />
         )}
         <WhyChooseLeasing warranty={warranty || ''} />
@@ -166,6 +168,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           leaseAdjustParams={leaseAdjustParams}
           leaseType={leaseType}
           setLeaseType={setLeaseType}
+          setLeadTime={setLeadTime}
         />
       ) : (
         <GoldrushFormContainer
