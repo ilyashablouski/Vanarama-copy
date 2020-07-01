@@ -74,7 +74,7 @@ function useRegisterCompanySearchField() {
   useEffect(() => {
     const validate = (result?: SearchResult) =>
       result && result.companyStatus !== 'active'
-        ? 'This company seems to be dissolved. Please try a new search'
+        ? 'This company seems not to be trading actively. Please try a new search'
         : undefined;
 
     register('companySearchResult', { validate });

@@ -17,8 +17,7 @@ import {
 
 const MOCK_COMPANY_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
 
-jest.mock('../../../../hooks/useMediaQuery');
-jest.mock('../../../../gql/order');
+jest.mock('../../../../layouts/OLAFLayout/OLAFLayout');
 jest.mock('next/router', () => ({
   useRouter: () => ({
     push: jest.fn(),
@@ -443,12 +442,8 @@ describe('B2B Company Details page', () => {
     // Click the inactive company result
     fireEvent.click(screen.getByText(/INACTIVE LTD/i));
 
-    await waitFor(() =>
-      expect(
-        screen.getByText(
-          /This company seems to be dissolved. Please try a new search/i,
-        ),
-      ).toBeInTheDocument(),
+    await screen.findByText(
+      /This company seems not to be trading actively. Please try a new search/i,
     );
 
     // Search again
@@ -464,7 +459,7 @@ describe('B2B Company Details page', () => {
     await waitFor(() =>
       expect(
         screen.queryByText(
-          /This company seems to be dissolved. Please try a new search/i,
+          /This company seems not to be trading actively. Please try a new search/i,
         ),
       ).not.toBeInTheDocument(),
     );

@@ -10,7 +10,7 @@ import { LeaseTypeEnum } from "./globalTypes";
 // ====================================================
 
 export interface GetOrderByUuid_orderByUuid_lineItems_creditApplications {
-  aasmState: string;
+  status: string;
   uuid: string;
 }
 
@@ -36,7 +36,7 @@ export interface GetOrderByUuid_orderByUuid_lineItems {
   productId: string;
   productType: string;
   quantity: number;
-  state: string | null;
+  status: string | null;
   updatedAt: any | null;
   uuid: string;
   creditApplications: GetOrderByUuid_orderByUuid_lineItems_creditApplications[] | null;
@@ -48,7 +48,7 @@ export interface GetOrderByUuid_orderByUuid {
   id: string;
   leaseType: LeaseTypeEnum;
   partyUuid: string;
-  aasmState: string;
+  status: string;
   createdAt: any | null;
   updatedAt: any | null;
   lineItems: GetOrderByUuid_orderByUuid_lineItems[];

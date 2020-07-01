@@ -11,6 +11,7 @@ import withApollo from '../../../hocs/withApollo';
 import PasswordChangeContainer from '../../../containers/PasswordChangeContainer';
 import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
 import OrderInformationContainer from '../../../containers/OrdersInformation/OrderInformationContainer';
+import { MyDetailsQueryParams } from '../../../utils/url';
 
 const personUuid = 'aa08cca2-5f8d-4b8c-9506-193d9c32e05f'; // for test
 
@@ -27,15 +28,14 @@ const PATH = {
 
 const handleNetworkError = () =>
   toast.error(
-    'Sorry there seems to be an issue for your password reset request. Pleaser try again in a few moments',
+    'Sorry there seems to be an issue with your password reset request. Pleaser try again in a few moments',
     'Dolor ut tempor eiusmod enim consequat laboris dolore ut pariatur labore sunt incididunt dolore veniam mollit excepteur dolor aliqua minim nostrud adipisicing culpa aliquip ex',
   );
 
 const MyDetailsPage: NextPage<IProps> = () => {
   const router = useRouter();
-  const uuid = router.query.uuid as string;
+  const { partyByUuid, uuid } = router.query as MyDetailsQueryParams;
 
-  const partyByUuid = '';
   const [resetPassword, setResetPassword] = useState(false);
 
   return (
@@ -51,7 +51,7 @@ const MyDetailsPage: NextPage<IProps> = () => {
           My Details
         </Heading>
       </div>
-      <OrderInformationContainer uuid={uuid} partyByUuid={partyByUuid} />
+      <OrderInformationContainer uuid={uuid} partyByUuid={partyByUuid || ''} />
       <div className="row:my-details">
         <div className="my-details--form">
           <PersonalInformationFormContainer personUuid={uuid || personUuid} />

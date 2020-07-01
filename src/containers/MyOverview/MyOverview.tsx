@@ -72,18 +72,18 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   const hasCreditCompleteOrder = () =>
     !!data?.ordersByPartyUuid.find(
       el =>
-        el.aasmState === 'credit' &&
+        el.status === 'credit' &&
         el.lineItems[0].creditApplications &&
-        el.lineItems[0].creditApplications[0]?.aasmState !== 'draft',
+        el.lineItems[0].creditApplications[0]?.status !== 'draft',
     );
 
   // check what we have 'credit' order and this order credit in status 'draft'
   const hasCreditIncompleteOrder = () =>
     !!data?.ordersByPartyUuid.find(
       el =>
-        el.aasmState === 'credit' &&
+        el.status === 'credit' &&
         el.lineItems[0].creditApplications &&
-        el.lineItems[0].creditApplications[0]?.aasmState === 'draft',
+        el.lineItems[0].creditApplications[0]?.status === 'draft',
     );
 
   // calculate how many pages we have for pagination
@@ -164,7 +164,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
       // we get offers credit state
       const creditState =
         (order.lineItems[0].creditApplications &&
-          order.lineItems[0].creditApplications[0]?.aasmState) ||
+          order.lineItems[0].creditApplications[0]?.status) ||
         '';
       return (
         <OrderCard

@@ -13,9 +13,7 @@ import {
   SaveBusinessAboutYouVariables,
 } from '../../../../../generated/SaveBusinessAboutYou';
 
-jest.mock('../../../../hooks/useMediaQuery');
-jest.mock('../../../../gql/order');
-
+jest.mock('../../../../layouts/OLAFLayout/OLAFLayout');
 const mockPush = jest.fn();
 jest.mock('next/router', () => ({
   useRouter() {
@@ -91,9 +89,7 @@ describe('B2B About You page', () => {
       </MockedProvider>,
     );
 
-    await waitFor(() => {
-      expect(screen.getByTestId('about-you_heading')).toBeInTheDocument();
-    });
+    await screen.findByTestId('about-you_heading');
 
     fireEvent.input(screen.getByRole('combobox', { name: /title/i }), {
       target: { value: 'Mr' },
@@ -196,9 +192,7 @@ describe('B2B About You page', () => {
       </MockedProvider>,
     );
 
-    await waitFor(() => {
-      expect(screen.getByTestId('about-you_heading')).toBeInTheDocument();
-    });
+    await screen.findByTestId('about-you_heading');
 
     fireEvent.input(screen.getByRole('combobox', { name: /title/i }), {
       target: { value: 'Mr' },

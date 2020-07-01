@@ -2,6 +2,7 @@ import { NextPage } from 'next';
 import { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
+import ReactMarkdown from 'react-markdown/with-html';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
@@ -22,7 +23,7 @@ import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
 import TabPanels from '@vanarama/uibook/lib/components/molecules/tabs/TabPanels';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
-import Slider from '@vanarama/uibook/lib/components/organisms/carousel';
+import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
@@ -39,9 +40,12 @@ import {
 import Hero, { HeroHeading, HeroTitle } from '../components/Hero';
 import { ALL_HOME_CONTENT } from '../gql/homepage';
 import withApollo from '../hocs/withApollo';
+import useSliderProperties from '../hooks/useSliderProperties';
 
 export const HomePage: NextPage = () => {
   const [activeTab, setActiveTab] = useState(0);
+  const { slidesToShow } = useSliderProperties(345, 345, 310);
+
   const { data, loading, error } = useQuery<HomePageData>(ALL_HOME_CONTENT);
   if (loading) {
     return <Loading size="large" />;
@@ -56,9 +60,9 @@ export const HomePage: NextPage = () => {
       <Head />
       <Hero>
         <div className="hero--title">
-          <HeroHeading>{data?.homePage.sections.hero?.title}</HeroHeading>
+          <HeroHeading text={data?.homePage.sections.hero?.title || ''} />
           <br />
-          <HeroTitle>{data?.homePage.sections.hero?.body}</HeroTitle>
+          <HeroTitle text={data?.homePage.sections.hero?.body || ''} />
         </div>
         <Image
           className="hero--image"
@@ -95,71 +99,72 @@ export const HomePage: NextPage = () => {
           <TabPanels>
             <TabPanel index={0}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <Slider className="-mh-auto" gutter={16}>
+                <Carousel className="-mh-auto">
                   {[1, 2, 3, 4, 5].map(k => (
-                    <div key={k.toString()} style={{ width: 345 }}>
-                      <ProductCard
-                        header={{
-                          accentIcon: <Icon icon={<Flame />} color="white" />,
-                          accentText: 'Hot Deal',
-                          text: 'In Stock - 14-21 Days Delivery',
-                        }}
-                        features={[
-                          {
-                            icon: <Icon icon={<SnowSharp />} color="dark" />,
-                            label: 'Aircon',
-                          },
-                          {
-                            icon: (
-                              <Icon icon={<BluetoothSharp />} color="dark" />
-                            ),
-                            label: 'Bluetooth',
-                          },
-                          {
-                            icon: <Icon icon={<CompassSharp />} color="dark" />,
-                            label: 'Navigation',
-                          },
-                          {
-                            icon: <Icon icon={<WifiSharp />} color="dark" />,
-                            label: 'Sensors',
-                          },
-                        ]}
-                        imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
-                        onCompare={() => true}
-                        onWishlist={() => true}
-                        title={{
-                          title: '',
-                          link: (
-                            <RouterLink
-                              link={{ href: '#', label: 'Peugeot 208' }}
-                              className="heading"
-                              classNames={{ size: 'large', color: 'black' }}
-                            />
+                    <ProductCard
+                      key={k.toString()}
+                      header={{
+                        accentIcon:
+                          slidesToShow > 2 ? (
+                            <Icon icon={<Flame />} color="white" />
+                          ) : (
+                            ''
                           ),
-                          description:
-                            '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
-                          score: 4.5,
-                        }}
-                      >
-                        <div className="-flex-h">
-                          <Price
-                            price={209}
-                            size="large"
-                            separator="."
-                            priceDescription="Per Month Exc.VAT"
+                        accentText: slidesToShow > 2 ? 'Hot Deal' : '',
+                        text: 'In Stock - 14-21 Days Delivery',
+                      }}
+                      features={[
+                        {
+                          icon: <Icon icon={<SnowSharp />} color="dark" />,
+                          label: 'Aircon',
+                        },
+                        {
+                          icon: <Icon icon={<BluetoothSharp />} color="dark" />,
+                          label: 'Bluetooth',
+                        },
+                        {
+                          icon: <Icon icon={<CompassSharp />} color="dark" />,
+                          label: 'Navigation',
+                        },
+                        {
+                          icon: <Icon icon={<WifiSharp />} color="dark" />,
+                          label: 'Sensors',
+                        },
+                      ]}
+                      imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
+                      onCompare={() => true}
+                      onWishlist={() => true}
+                      title={{
+                        title: '',
+                        link: (
+                          <RouterLink
+                            link={{ href: '#', label: 'Peugeot 208' }}
+                            className="heading"
+                            classNames={{ size: 'large', color: 'black' }}
                           />
-                          <Button
-                            color="teal"
-                            fill="solid"
-                            label="View Offer"
-                            onClick={() => true}
-                            size="regular"
-                          />
-                        </div>
-                      </ProductCard>
-                    </div>
+                        ),
+                        description: '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
+                        score: 4.5,
+                      }}
+                    >
+                      <div className="-flex-h">
+                        <Price
+                          price={209}
+                          size="large"
+                          separator="."
+                          priceDescription="Per Month Exc.VAT"
+                        />
+                        <Button
+                          color="teal"
+                          fill="solid"
+                          label="View Offer"
+                          onClick={() => true}
+                          size="regular"
+                        />
+                      </div>
+                    </ProductCard>
                   ))}
-                </Slider>
+                </Carousel>
                 <div className="-justify-content-row -pt-500">
                   <Button label="View All Van Offers" color="teal" />
                 </div>
@@ -193,7 +198,10 @@ export const HomePage: NextPage = () => {
                 withBtn: true,
                 link: (
                   <RouterLink
-                    link={{ href: '/hub/vans', label: 'Search Vans' }}
+                    link={{
+                      href: c.link?.url || '',
+                      label: c.link?.text || '',
+                    }}
                     className="heading"
                     classNames={{ size: 'lead', color: 'black' }}
                   >
@@ -216,8 +224,11 @@ export const HomePage: NextPage = () => {
           <Heading size="large" color="black">
             {data && data.homePage.sections.featured1?.title}
           </Heading>
-          <Text tag="p" size="regular" color="darker">
-            {data && data.homePage.sections.featured1?.body}
+          <Text tag="div" className="markdown" size="regular" color="darker">
+            <ReactMarkdown
+              escapeHtml={false}
+              source={data?.homePage.sections.featured1?.body || ''}
+            />
           </Text>
           <IconList>
             <IconListItem iconColor="orange">
@@ -240,8 +251,11 @@ export const HomePage: NextPage = () => {
           <Heading size="large" color="black">
             {data && data.homePage.sections.featured2?.title}
           </Heading>
-          <Text tag="p" size="regular" color="darker">
-            {data && data.homePage.sections.featured2?.body}
+          <Text className="markdown" tag="div" size="regular" color="darker">
+            <ReactMarkdown
+              escapeHtml={false}
+              source={data?.homePage.sections.featured2?.body || ''}
+            />
           </Text>
         </div>
       </section>

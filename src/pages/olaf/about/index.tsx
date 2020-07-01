@@ -9,20 +9,19 @@ import AboutFormContainer from '../../../containers/AboutFormContainer/AboutForm
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
-import { getUrlParam } from '../../../utils/url';
+import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
+
+type QueryParams = OLAFQueryParams & {
+  uuid: string;
+};
 
 const AboutYouPage: NextPage = () => {
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const router = useRouter();
-  const {
-    query: { uuid, derivativeId, orderId },
-  } = router;
+  const { derivativeId, orderId, uuid } = router.query as QueryParams;
 
   return (
-    <OLAFLayout
-      orderId={orderId as string}
-      derivativeId={derivativeId as string}
-    >
+    <OLAFLayout>
       <Heading color="black" size="xlarge" dataTestId="aboutHeading">
         About You
       </Heading>
@@ -41,38 +40,20 @@ const AboutYouPage: NextPage = () => {
               />
             </div>
           </div>
-          {isLogInVisible && (
-            <LoginFormContainer
-              onCompleted={data => {
-                if (data.login !== null) {
-                  // const decodedData = jwt.decode(data.login, { json: true });
-                  // const currentUrl = '/olaf/about/[uuid]';
-                  // const redirectUrl = currentUrl.replace(
-                  //   '/[uuid]',
-                  //   decodedData?.username ? `/${decodedData.username}` : '',
-                  // );
-                  // // reddirect on the same page,
-                  // // if login is successfull query params will contain uuid
-                  // router.push(currentUrl, redirectUrl, { shallow: true });
-                }
-              }}
-            />
-          )}
+          {isLogInVisible && <LoginFormContainer />}
         </>
       )}
       <AboutFormContainer
         onCompleted={({ createUpdatePerson }) => {
+          const params = getUrlParam({ derivativeId, orderId });
           const url =
             router.query.redirect === 'summary'
-              ? `/olaf/summary/[uuid]${getUrlParam({ orderId, derivativeId })}`
-              : `/olaf/address-history/[uuid]${getUrlParam({
-                  orderId,
-                  derivativeId,
-                })}`;
+              ? `/olaf/summary/[uuid]${params}`
+              : `/olaf/address-history/[uuid]${params}`;
 
           router.push(url, url.replace('[uuid]', createUpdatePerson!.uuid));
         }}
-        personUuid={uuid as string}
+        personUuid={uuid}
       />
     </OLAFLayout>
   );

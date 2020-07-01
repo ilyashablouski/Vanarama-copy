@@ -35,10 +35,16 @@ export interface HomePageData_homePage_sections_cards_cards_image {
   file: HomePageData_homePage_sections_cards_cards_image_file | null;
 }
 
+export interface HomePageData_homePage_sections_cards_cards_link {
+  url: string;
+  text: string | null;
+}
+
 export interface HomePageData_homePage_sections_cards_cards {
   title: string | null;
   body: string | null;
   image: HomePageData_homePage_sections_cards_cards_image | null;
+  link: HomePageData_homePage_sections_cards_cards_link | null;
 }
 
 export interface HomePageData_homePage_sections_cards {
@@ -86,6 +92,7 @@ export interface HomePageData_homePage_sections {
 }
 
 export interface HomePageData_homePage {
+  id: string;
   sections: HomePageData_homePage_sections;
 }
 

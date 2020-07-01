@@ -196,16 +196,19 @@ export interface LimitedCompanyInputObject {
   bankAccount?: BankAccountInputObject | null;
   companyNature?: string | null;
   companyNumber?: string | null;
+  companyType?: string | null;
   emailAddress?: EmailAddressInputObject | null;
   isVatRegistered?: boolean | null;
-  legalName: string;
+  legalName?: string | null;
   otherCountriesOfActivity?: string[] | null;
+  person?: PersonInputObject | null;
   telephoneNumbers?: TelephoneNumberInputObject[] | null;
   tradesOutsideUk?: boolean | null;
   tradingName?: string | null;
   tradingSince?: any | null;
   turnoverOutsideUk?: number | null;
-  uuid: string;
+  turnoverPercentageOutsideUk?: TurnoverPercentageOutsideUkInputObject[] | null;
+  uuid?: string | null;
   vatNumber?: string | null;
   withTradingAddress?: boolean | null;
 }
@@ -226,6 +229,7 @@ export interface MyAccountInputObject {
  */
 export interface PersonInputObject {
   about?: string | null;
+  cognitoSub?: string | null;
   company?: CompanyInputObject | null;
   countryOfBirth?: string | null;
   dateOfBirth?: any | null;
@@ -233,12 +237,12 @@ export interface PersonInputObject {
   disabilityRegistered?: boolean | null;
   emailAddress?: EmailAddressInputObject | null;
   emailConsent?: boolean | null;
-  firstName: string;
+  firstName?: string | null;
   gender?: string | null;
   isApplicant?: boolean | null;
   isDirector?: boolean | null;
   jobTitle?: string | null;
-  lastName: string;
+  lastName?: string | null;
   leadManagerId?: string | null;
   maritalStatus?: string | null;
   middleName?: string | null;
@@ -286,6 +290,14 @@ export interface TelephoneNumberInputObject {
   primary?: boolean | null;
   uuid?: string | null;
   value: string;
+}
+
+/**
+ * Input object for turnover percentage outside UK
+ */
+export interface TurnoverPercentageOutsideUkInputObject {
+  country: string;
+  percentage: number;
 }
 
 //==============================================================

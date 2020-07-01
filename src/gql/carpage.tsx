@@ -14,12 +14,16 @@ export const GET_CAR_DATA = gql`
     vehicleConfigurationByCapId(capId: $capId, vehicleType: $vehicleType) {
       uuid
       capManufacturerDescription
+      capRangeDescription
       capModelDescription
       capDerivativeDescription
       capPaintDescription
       capTrimDescription
       onOffer
       offerRanking
+      financeProfile {
+        leaseType
+      }
     }
     vehicleDetails(capId: $capIdDetails, vehicleType: $vehicleType) {
       averageRating
@@ -29,6 +33,16 @@ export const GET_CAR_DATA = gql`
         value
       }
       independentReview
+      warranty
+      relatedVehicles {
+        capId
+        displayOrder
+      }
+      customerReviews {
+        rating
+        review
+        name
+      }
     }
     derivativeInfo(id: $capIdDetails, vehicleType: $vehicleType) {
       technicals {
@@ -51,6 +65,19 @@ export const GET_CAR_DATA = gql`
         effectiveFrom
         effectiveTo
       }
+      colours {
+        id
+        optionDescription
+      }
+      trims {
+        id
+        optionDescription
+      }
+    }
+    leaseAdjustParams {
+      mileages
+      terms
+      upfronts
     }
   }
 `;

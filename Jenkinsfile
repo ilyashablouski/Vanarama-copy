@@ -22,7 +22,8 @@ def app_environment = [
         state_bucket: 'autorama-terraform-state',
         backendConfigDynamoDbTable: 'autorama-terraform-state-lock',
         jenkinsAgent: 'grid-dev-jenkins-agent',
-        dockerRepoName: "000379120260.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}"
+        dockerRepoName: "000379120260.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}",
+        NODE_ENV: 'development'
     ],
     "master": [
         clusterName: 'grid-test',
@@ -39,7 +40,8 @@ def app_environment = [
         state_bucket: 'grid-terraform-state-1',
         backendConfigDynamoDbTable: 'test-grid-terraform-state-lock',
         jenkinsAgent: 'grid-test-jenkins-agent',
-        dockerRepoName: "126764662304.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}"
+        dockerRepoName: "126764662304.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}",
+        NODE_ENV: 'development'
     ]
 ]
 
@@ -111,8 +113,12 @@ pipeline {
                     sh "yarn test --coverage"
                     sh "yarn lint"
                     sh "yarn typecheck"
+                    sh "yarn build"
                     stash includes: 'next-storefront.tar.gz', name: 'package'
               }
+                sh "cp .coverage/lcov.info lcov.info"
+                stash includes: 'lcov.info', name: 'lcov'
+                stash includes: 'test-report.xml', name: 'test-report'
             }
         }
 
@@ -125,7 +131,15 @@ pipeline {
                   script {
                       def scannerHome = tool 'SonarQubeScanner';
                       withSonarQubeEnv('My SonarQube Server') {
-                          sh "${scannerHome}/bin/sonar-scanner"
+                            unstash 'lcov'
+                            unstash 'test-report'
+                            sh "${scannerHome}/bin/sonar-scanner"
+                        }
+                        timeout(time: 40, unit: 'MINUTES') {
+                            def qGate = waitForQualityGate()
+                            if (qGate.status != 'OK') {
+                                error "Pipeline aborted due to quality gate failure: ${qGate.status}"
+                            }
                         }
                     }
                 }
@@ -154,6 +168,7 @@ pipeline {
                 def dockerRepoName = app_environment["${env.BRANCH_NAME}"].dockerRepoName
                 def envs = app_environment["${BRANCH_NAME}"].env
                 def stack = app_environment["${BRANCH_NAME}"].stack
+                def NODE_ENV = app_environment["${BRANCH_NAME}"].NODE_ENV
                 currentCommit = env.GIT_COMMIT
                     //TO DO - Paramaterise the source function with env variable
                     withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
@@ -161,7 +176,7 @@ pipeline {
                     sh """
                       source ./setup.sh ${envs} ${stack} ${serviceName} ${ecrRegion} ${BRANCH_NAME}
                       docker pull $dockerRepoName:latest || true
-                      docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg API_KEY=\${API_KEY} --build-arg API_URL=\${API_URL} --build-arg LOQATE_KEY=\${LOQATE_KEY} --cache-from $dockerRepoName:latest .
+                      docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg API_KEY=\${API_KEY} --build-arg API_URL=\${API_URL} --build-arg LOQATE_KEY=\${LOQATE_KEY} --build-arg NODE_ENV=\${NODE_ENV}  --cache-from $dockerRepoName:latest .
                       docker push $dockerRepoName:${env.GIT_COMMIT}
                       docker tag $dockerRepoName:${env.GIT_COMMIT} $dockerRepoName:latest
                       docker push $dockerRepoName:latest

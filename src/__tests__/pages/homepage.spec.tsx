@@ -6,7 +6,13 @@ import { ALL_HOME_CONTENT } from '../../gql/homepage';
 import { HomePage } from '../../pages';
 import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
 
-require('dotenv').config();
+/**
+ * NOTE: Mock the SearchPodContainer as it is out of scope for this test and is doing state
+ * updates after the test has finished.
+ */
+jest.mock('../../containers/SearchPodContainer', () => () => {
+  return <div />;
+});
 
 describe('<HomePage />', () => {
   it('should successfully query contentful data', async () => {
@@ -18,6 +24,7 @@ describe('<HomePage />', () => {
         result: {
           data: {
             homePage: {
+              id: '',
               sections: {
                 hero: {
                   title: '',

@@ -13,9 +13,14 @@ interface IProps {
   }[];
 }
 
+type QueryParams = {
+  redirect?: string;
+  uuid: string;
+};
+
 const ContextualProgressIndicator: React.FC<IProps> = ({ steps }) => {
   const { pathname, query } = useRouter();
-  const { redirect, uuid } = query as { [key: string]: string };
+  const { redirect, uuid } = query as QueryParams;
 
   // Work out the current step based on the URL
   const currentStep = steps.find(x => x.href === pathname)?.step;

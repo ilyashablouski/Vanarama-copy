@@ -24,6 +24,7 @@ const SummaryFormAddressHistory: FCWithFragments<IProps> = ({
       onEditClicked={onEdit}
       list={items}
       heading="Address History"
+      headingDataTestId="address_history_data_testId"
     />
   );
 };

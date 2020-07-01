@@ -7,7 +7,7 @@ import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Slider from '@vanarama/uibook/lib/components/organisms/carousel';
+import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
 import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
@@ -17,11 +17,13 @@ import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
 import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import useSliderProperties from '../../hooks/useSliderProperties';
 
 const CreditChecker: NextPage = () => {
   const router = useRouter();
   const scoreParam = router.query.score as string;
   const score = parseInt(scoreParam, 10) || 0;
+  const { slidesToShow } = useSliderProperties(345, 345, 310);
 
   const breadcrumbProps = {
     items: [
@@ -85,17 +87,28 @@ const CreditChecker: NextPage = () => {
         </div>
       </div>
 
-      <div className="row:bg-lighter -col-300">
-        <Heading className="-a-center" tag="h3" size="large" color="black">
-          Top Offers
-        </Heading>
-        <Slider className="-mh-auto" slidesToShow={3} gutter={16}>
-          {[1, 2, 3, 4, 5].map(k => (
-            <div key={k.toString()} style={{ width: 394 }}>
+      <div className="row:bg-lighter">
+        <div>
+          <Heading size="large" color="black">
+            <span
+              style={{ textAlign: 'center', display: 'block' }}
+              className="-mb-400"
+            >
+              Top Offers
+            </span>
+          </Heading>
+          <Carousel className="-mh-auto">
+            {[1, 2, 3, 4, 5].map(k => (
               <ProductCard
+                key={k.toString()}
                 header={{
-                  accentIcon: <Icon icon={<Flame />} color="white" />,
-                  accentText: 'Hot Deal',
+                  accentIcon:
+                    slidesToShow > 2 ? (
+                      <Icon icon={<Flame />} color="white" />
+                    ) : (
+                      ''
+                    ),
+                  accentText: slidesToShow > 2 ? 'Hot Deal' : '',
                   text: 'In Stock - 14-21 Days Delivery',
                 }}
                 features={[
@@ -148,11 +161,11 @@ const CreditChecker: NextPage = () => {
                   />
                 </div>
               </ProductCard>
-            </div>
-          ))}
-        </Slider>
-        <div className="-justify-content-row -pt-500">
-          <Button label="View All Top Offers" color="teal" />
+            ))}
+          </Carousel>
+          <div className="-justify-content-row -pt-500">
+            <Button label="View All Vans" color="teal" />
+          </div>
         </div>
       </div>
     </>

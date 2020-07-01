@@ -1,5 +1,5 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 import {
   GetAboutYouDataQuery,
@@ -108,68 +108,29 @@ describe('<AboutFormContainer />', () => {
     );
 
     // Wait for the initial query to resolve
-    await waitFor(() => screen.findByTestId('aboutHeading'));
+    await screen.findByTestId('aboutHeading');
 
     // ASSERT
-    expect((screen.getByLabelText(/Title/) as HTMLInputElement).value).toEqual(
-      'Professor',
+    expect(screen.getByLabelText(/Title/)).toHaveValue('Professor');
+    expect(screen.getByLabelText(/First Name/)).toHaveValue('Bob');
+    expect(screen.getByLabelText(/Last Name/)).toHaveValue('Smith');
+    expect(screen.getByLabelText(/Email/)).toHaveValue('bob.smith90@gmail.com');
+    expect(screen.getByLabelText(/Mobile/)).toHaveValue('077799900022');
+    expect(screen.getByTestId(/aboutSelectDOB/)).toHaveValue('25');
+    expect(screen.getByTestId(/aboutSelectMOB/)).toHaveValue('12');
+    expect(screen.getByTestId(/aboutSelectYOB/)).toHaveValue('1990');
+    expect(screen.getByLabelText(/Country of Birth/)).toHaveValue(
+      'United Kingdom',
     );
 
-    expect(
-      (screen.getByLabelText(/First Name/) as HTMLInputElement).value,
-    ).toEqual('Bob');
-
-    expect(
-      (screen.getByLabelText(/Last Name/) as HTMLInputElement).value,
-    ).toEqual('Smith');
-
-    expect((screen.getByLabelText(/Email/) as HTMLInputElement).value).toEqual(
-      'bob.smith90@gmail.com',
+    expect(screen.getByLabelText(/Nationality/)).toHaveValue('Irish');
+    expect(screen.getByLabelText(/Marital Status/)).toHaveValue('Married');
+    expect(screen.getByLabelText(/No. of Dependants/)).toHaveValue('None');
+    expect(screen.getByLabelText(/No. of Adults in Household/)).toHaveValue(
+      '1',
     );
 
-    expect((screen.getByLabelText(/Mobile/) as HTMLInputElement).value).toEqual(
-      '077799900022',
-    );
-
-    expect(
-      (screen.getByTestId(/aboutSelectDOB/) as HTMLInputElement).value,
-    ).toEqual('25');
-
-    expect(
-      (screen.getByTestId(/aboutSelectMOB/) as HTMLInputElement).value,
-    ).toEqual('12');
-
-    expect(
-      (screen.getByTestId(/aboutSelectYOB/) as HTMLInputElement).value,
-    ).toEqual('1990');
-
-    expect(
-      (screen.getByLabelText(/Country of Birth/) as HTMLInputElement).value,
-    ).toEqual('United Kingdom');
-
-    expect(
-      (screen.getByLabelText(/Nationality/) as HTMLInputElement).value,
-    ).toEqual('Irish');
-
-    expect(
-      (screen.getByLabelText(/Marital Status/) as HTMLInputElement).value,
-    ).toEqual('Married');
-
-    expect(
-      (screen.getByLabelText(/No. of Dependants/) as HTMLInputElement).value,
-    ).toEqual('None');
-
-    expect(
-      (screen.getByLabelText(/No. of Adults in Household/) as HTMLInputElement)
-        .value,
-    ).toEqual('1');
-
-    expect(
-      (screen.getByTestId(/aboutConsent/) as HTMLInputElement).checked,
-    ).toEqual(true);
-
-    expect(
-      (screen.getByTestId(/aboutTermsAndCons/) as HTMLInputElement).checked,
-    ).toEqual(true);
+    expect(screen.getByTestId(/aboutConsent/)).toBeChecked();
+    expect(screen.getByTestId(/aboutTermsAndCons/)).toBeChecked();
   });
 });

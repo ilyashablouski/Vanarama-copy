@@ -55,6 +55,12 @@ export interface HubVanPageData_hubVanPage_sections_featured2 {
   image: HubVanPageData_hubVanPage_sections_featured2_image | null;
 }
 
+export interface HubVanPageData_hubVanPage_sections_rowText {
+  heading: string | null;
+  subHeading: string | null;
+  body: string | null;
+}
+
 export interface HubVanPageData_hubVanPage_sections_cards_cards_image_file {
   url: string;
 }
@@ -71,6 +77,7 @@ export interface HubVanPageData_hubVanPage_sections_cards_cards {
 
 export interface HubVanPageData_hubVanPage_sections_cards {
   name: string | null;
+  description: string | null;
   cards: HubVanPageData_hubVanPage_sections_cards_cards[] | null;
 }
 
@@ -109,12 +116,14 @@ export interface HubVanPageData_hubVanPage_sections {
   leadText: HubVanPageData_hubVanPage_sections_leadText | null;
   featured1: HubVanPageData_hubVanPage_sections_featured1 | null;
   featured2: HubVanPageData_hubVanPage_sections_featured2 | null;
+  rowText: HubVanPageData_hubVanPage_sections_rowText | null;
   cards: HubVanPageData_hubVanPage_sections_cards | null;
   steps: HubVanPageData_hubVanPage_sections_steps | null;
   tiles: HubVanPageData_hubVanPage_sections_tiles | null;
 }
 
 export interface HubVanPageData_hubVanPage {
+  id: string;
   sections: HubVanPageData_hubVanPage_sections;
 }
 
