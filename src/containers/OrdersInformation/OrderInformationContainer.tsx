@@ -11,13 +11,15 @@ const OrderInformationContainer: React.FC<IProps> = ({ partyByUuid }) => {
   const orders = useOrdersByPartyUuidData(
     partyByUuid || PARTY_BY_UUID,
     [],
-    ['quote'],
+    ['quote', 'expired'],
   );
   const haveOrders = !!orders.data?.ordersByPartyUuid.length;
 
-  const quotes = useOrdersByPartyUuidData(partyByUuid || PARTY_BY_UUID, [
-    'quote',
-  ]);
+  const quotes = useOrdersByPartyUuidData(
+    partyByUuid || PARTY_BY_UUID,
+    ['quote', 'new'],
+    ['expired'],
+  );
   const haveQuotes = !!quotes.data?.ordersByPartyUuid.length;
 
   return (
