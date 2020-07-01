@@ -1,9 +1,10 @@
-import { render, waitFor } from '@testing-library/react';
+import { render, waitFor, screen } from '@testing-library/react';
 import React from 'react';
-import { act } from 'react-dom/test-utils';
 import renderer from 'react-test-renderer';
+import { MockedProvider } from '@apollo/client/testing';
 import SearchPageContainer from '../SearchPageContainer';
-import { getVehiclesList } from '../gql';
+import { getVehiclesList, getVehiclesCount } from '../gql';
+import { filterListByTypes } from '../../SearchPodContainer/gql';
 
 jest.mock('next/router', () => ({
   useRouter() {
@@ -17,6 +18,11 @@ jest.mock('next/router', () => ({
 
 jest.mock('../gql', () => ({
   getVehiclesList: jest.fn(),
+  getVehiclesCount: jest.fn(),
+}));
+
+jest.mock('../../SearchPodContainer/gql', () => ({
+  filterListByTypes: jest.fn(),
 }));
 
 // ARRANGE
@@ -79,6 +85,44 @@ let mockCalled = false;
   },
 ]);
 
+(getVehiclesCount as jest.Mock).mockReturnValue([
+  () => {
+    mockCalled = true;
+  },
+  {
+    data: {
+      vehicleList: {
+        totalCount: 91,
+      },
+    },
+  },
+]);
+
+(filterListByTypes as jest.Mock).mockReturnValue([
+  () => {
+    mockCalled = true;
+  },
+  {
+    data: {
+      filterList: {
+        vehicleTypes: ['CAR'],
+        groupedRanges: [
+          {
+            parent: 'Citroën',
+            children: ['Berlingo', 'Dispatch', 'Relay'],
+          },
+          {
+            parent: 'Dacia',
+            children: ['Duster'],
+          },
+        ],
+        bodyStyles: ['Dropside Tipper', 'Large Van'],
+        transmissions: ['Automatic', 'Manual'],
+        fuelTypes: ['diesel', 'iii'],
+      },
+    },
+  },
+]);
 describe('<SearchPageContainer />', () => {
   afterEach(() => {
     jest.clearAllMocks();
@@ -87,17 +131,35 @@ describe('<SearchPageContainer />', () => {
 
   it('should make a server request after render', async () => {
     // ACT
-    act(() => {
-      render(<SearchPageContainer />);
-    });
+    render(
+      <MockedProvider addTypename={false}>
+        <SearchPageContainer isCarSearch isServer={false} />
+      </MockedProvider>,
+    );
 
     // ASSERT
     await waitFor(() => expect(mockCalled).toBeTruthy());
   });
+
+  it('should be render Show more button if all data loaded', async () => {
+    // ACT
+    render(
+      <MockedProvider addTypename={false}>
+        <SearchPageContainer isCarSearch isServer={false} />
+      </MockedProvider>,
+    );
+
+    // ASSERT
+    await waitFor(() =>
+      expect(screen.getByText('Load More')).toBeInTheDocument(),
+    );
+  });
   it('should be render correctly', async () => {
     // ACT
     const getComponent = () => {
-      return renderer.create(<SearchPageContainer />).toJSON();
+      return renderer
+        .create(<SearchPageContainer isCarSearch isServer={false} />)
+        .toJSON();
     };
     // ASSERT
     const tree = getComponent();

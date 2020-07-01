@@ -5,11 +5,13 @@ export interface IFilterContainerProps {
   setType: (value: boolean) => void;
   isCarSearch: boolean;
   onSearch: (filters: IFilters) => void;
+  updateCount: (filters: IFilters) => void;
+  preSearchVehicleCount: number;
 }
 
 export interface IFilters {
-  make: string;
-  model: string;
+  manufacturerName: string;
+  range: string;
   rate: RateInputObject;
   bodyStyles: string[];
   transmissions: string[];

@@ -82,7 +82,7 @@ Array [
           <span
             className="text breadcrumb-item--child -small -darker"
           >
-            Vans Search
+            Car Search
           </span>
         </li>
       </ol>
@@ -414,11 +414,13 @@ Array [
             </div>
             <button
               className="button -fullwidth -teal -small -solid"
+              data-testid="Make & Modelbtn"
+              onClick={[Function]}
             >
               <div
                 className="button--inner"
               >
-                View 277 Results
+                View 91 Results
               </div>
             </button>
           </div>
@@ -491,37 +493,37 @@ Array [
                     </option>
                     <option
                       disabled={false}
-                      value={0}
+                      value="0"
                     >
                       £0
                     </option>
                     <option
                       disabled={false}
-                      value={150}
+                      value="150"
                     >
                       £150
                     </option>
                     <option
                       disabled={false}
-                      value={250}
+                      value="250"
                     >
                       £250
                     </option>
                     <option
                       disabled={false}
-                      value={350}
+                      value="350"
                     >
                       £350
                     </option>
                     <option
                       disabled={false}
-                      value={450}
+                      value="450"
                     >
                       £450
                     </option>
                     <option
                       disabled={false}
-                      value={550}
+                      value="550"
                     >
                       £550
                     </option>
@@ -586,31 +588,31 @@ Array [
                     </option>
                     <option
                       disabled={false}
-                      value={150}
+                      value="150"
                     >
                       £150
                     </option>
                     <option
                       disabled={false}
-                      value={250}
+                      value="250"
                     >
                       £250
                     </option>
                     <option
                       disabled={false}
-                      value={350}
+                      value="350"
                     >
                       £350
                     </option>
                     <option
                       disabled={false}
-                      value={450}
+                      value="450"
                     >
                       £450
                     </option>
                     <option
                       disabled={false}
-                      value={550}
+                      value="550"
                     >
                       £550
                     </option>
@@ -649,11 +651,13 @@ Array [
             </div>
             <button
               className="button -fullwidth -teal -small -solid"
+              data-testid="Budgetbtn"
+              onClick={[Function]}
             >
               <div
                 className="button--inner"
               >
-                View 277 Results
+                View 91 Results
               </div>
             </button>
           </div>
@@ -700,6 +704,7 @@ Array [
           >
             <div
               className="formgroup"
+              data-testid="Body Type"
             >
               <label
                 className="formgroup--legend"
@@ -712,11 +717,13 @@ Array [
             </div>
             <button
               className="button -fullwidth -teal -small -solid"
+              data-testid="Body Typebtn"
+              onClick={[Function]}
             >
               <div
                 className="button--inner"
               >
-                View 277 Results
+                View 91 Results
               </div>
             </button>
           </div>
@@ -763,6 +770,7 @@ Array [
           >
             <div
               className="formgroup"
+              data-testid="Transmission"
             >
               <label
                 className="formgroup--legend"
@@ -775,11 +783,13 @@ Array [
             </div>
             <button
               className="button -fullwidth -teal -small -solid"
+              data-testid="Transmissionbtn"
+              onClick={[Function]}
             >
               <div
                 className="button--inner"
               >
-                View 277 Results
+                View 91 Results
               </div>
             </button>
           </div>
@@ -826,6 +836,7 @@ Array [
           >
             <div
               className="formgroup"
+              data-testid="Fuel Type"
             >
               <label
                 className="formgroup--legend"
@@ -838,11 +849,13 @@ Array [
             </div>
             <button
               className="button -fullwidth -teal -small -solid"
+              data-testid="Fuel Typebtn"
+              onClick={[Function]}
             >
               <div
                 className="button--inner"
               >
-                View 277 Results
+                View 91 Results
               </div>
             </button>
           </div>

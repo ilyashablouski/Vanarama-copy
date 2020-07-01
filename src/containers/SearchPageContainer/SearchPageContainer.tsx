@@ -1,68 +1,96 @@
-import React, { useState, useEffect } from 'react';
-import { NextPage } from 'next';
+import React, { useState, useEffect, useCallback } from 'react';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Search from '@vanarama/uibook/lib/components/atoms/search';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
-import { useRouter } from 'next/router';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import { IFilters } from '../FiltersContainer/interfaces';
 import FiltersContainer from '../FiltersContainer';
 import VehicleCard from './VehicleCard';
-import { getVehiclesList } from './gql';
-import withApollo from '../../hocs/withApollo';
+import { getVehiclesList, getVehiclesCount } from './gql';
 import {
   vehicleList_vehicleList_edges_node_financeProfiles as IFinanceProfile,
   vehicleList_vehicleList_edges as IVehicles,
 } from '../../../generated/vehicleList';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 
-const SearchPage: NextPage = () => {
-  const { query } = useRouter();
+interface IProps {
+  isServer: boolean;
+  isCarSearch: boolean;
+}
 
-  // check for vehicle type search
-  const isCarSearch = (value = '') => value.indexOf('car') > -1;
+const SearchPageContainer: React.FC<IProps> = ({
+  isServer,
+  isCarSearch,
+}: IProps) => {
+  /** we storing the last value of special offers checkbox in Session storage */
+  const getValueFromStorage = useCallback(
+    (isServerCheck = false) => {
+      // should check for server rendering, because it haven't Session storage
+      const value = isServerCheck
+        ? undefined
+        : sessionStorage.getItem(isCarSearch ? 'Car' : 'Vans');
+      return value ? JSON.parse(value) : undefined;
+    },
+    [isCarSearch],
+  );
 
   const [vehiclesList, setVehicleList] = useState([] as any);
   const [lastCard, setLastCard] = useState('');
   const [isPersonal, setIsPersonal] = useState(true);
-  const [isSpecialOffers, setIsSpecialOffers] = useState(true);
-  const [totalCount, setTotalCount] = useState(0);
-  const [isCarSearchType, setCarSearchType] = useState(
-    isCarSearch(query.search as string),
+  const [isSpecialOffers, setIsSpecialOffers] = useState(
+    getValueFromStorage(isServer) ?? true,
   );
+  const [totalCount, setTotalCount] = useState(0);
+
+  const [filtersData, setFiltersData] = useState({});
 
   const [getVehicles, { data }] = getVehiclesList(
-    isCarSearchType ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
+    isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
     isSpecialOffers,
   );
   // using for cache request
   const [getVehiclesCache, { data: cacheData }] = getVehiclesList(
-    isCarSearchType ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
+    isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
     isSpecialOffers,
     lastCard,
   );
 
+  const [getCount, { data: count }] = getVehiclesCount(
+    isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
+    isSpecialOffers,
+  );
+
   const crumbs = [
     { label: 'Home', href: '/' },
-    { label: `${isCarSearchType ? 'Car' : 'Vans'} Search`, href: '/' },
+    { label: `${isCarSearch ? 'Car' : 'Vans'} Search`, href: '/' },
   ];
 
-  // made a first requeset after render
-  useEffect(() => {
-    if (query.search) {
-      setCarSearchType(isCarSearch(query.search as string));
-    }
-  }, [query.search]);
+  // new search with new filters
+  const onSearch = (filters = filtersData) => {
+    // set search filters data
+    setFiltersData(filters);
+    getVehicles({
+      variables: {
+        vehicleTypes: isCarSearch
+          ? [VehicleTypeEnum.CAR]
+          : [VehicleTypeEnum.LCV],
+        onOffer: isSpecialOffers,
+        ...filters,
+      },
+    });
+  };
 
   useEffect(() => {
-    if (query.search) {
-      getVehicles();
-    }
-  }, [getVehicles, query.search]);
+    getVehicles();
+  }, [getVehicles]);
+
+  useEffect(() => {
+    if (isServer) setIsSpecialOffers(getValueFromStorage() ?? true);
+  }, [isServer, getValueFromStorage]);
 
   // initial set offers
   useEffect(() => {
@@ -75,8 +103,18 @@ const SearchPage: NextPage = () => {
 
   // get vehicles to cache
   useEffect(() => {
-    if (lastCard) getVehiclesCache();
-  }, [lastCard, getVehiclesCache]);
+    if (lastCard)
+      getVehiclesCache({
+        variables: {
+          vehicleTypes: isCarSearch
+            ? [VehicleTypeEnum.CAR]
+            : [VehicleTypeEnum.LCV],
+          onOffer: isSpecialOffers,
+          after: lastCard,
+          ...filtersData,
+        },
+      });
+  }, [lastCard, getVehiclesCache, filtersData, isCarSearch, isSpecialOffers]);
 
   // load more offers
   const onLoadMore = () => {
@@ -96,19 +134,21 @@ const SearchPage: NextPage = () => {
     return financeProfile?.rate || null;
   };
 
-  const onSearch = (filters: IFilters) => {
-    getVehicles({
+  /** save to sessions storage special offers status */
+  const onSaveSpecialOffersStatus = (value: boolean) => {
+    setIsSpecialOffers(value);
+    sessionStorage.setItem(isCarSearch ? 'Car' : 'Vans', JSON.stringify(value));
+    onSearch();
+  };
+
+  const updateVehicleCount = (filters: IFilters) => {
+    getCount({
       variables: {
-        vehicleTypes: isCarSearchType
+        vehicleTypes: isCarSearch
           ? [VehicleTypeEnum.CAR]
           : [VehicleTypeEnum.LCV],
         onOffer: isSpecialOffers,
-        manufacturerName: filters.make,
-        rangeName: filters.model,
-        rate: filters.rate,
-        bodyStyles: filters.bodyStyles,
-        transmissions: filters.transmissions,
-        fuelTypes: filters.fuelTypes,
+        ...filters,
       },
     });
   };
@@ -130,7 +170,7 @@ const SearchPage: NextPage = () => {
           id="specialOffer"
           label="View Special Offers Only"
           checked={isSpecialOffers}
-          onChange={e => setIsSpecialOffers(e.target.checked)}
+          onChange={e => onSaveSpecialOffersStatus(e.target.checked)}
         />
       </div>
       <div className="row:bg-light -xthin">
@@ -139,7 +179,9 @@ const SearchPage: NextPage = () => {
             isPersonal={isPersonal}
             setType={value => setIsPersonal(value)}
             onSearch={onSearch}
-            isCarSearch={isCarSearchType}
+            isCarSearch={isCarSearch}
+            updateCount={updateVehicleCount}
+            preSearchVehicleCount={count?.vehicleList.totalCount || totalCount}
           />
         </div>
       </div>
@@ -201,4 +243,4 @@ const SearchPage: NextPage = () => {
   );
 };
 
-export default withApollo(SearchPage);
+export default SearchPageContainer;

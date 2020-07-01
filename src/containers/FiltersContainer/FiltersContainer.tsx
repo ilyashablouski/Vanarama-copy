@@ -42,6 +42,8 @@ const FiltersContainer = ({
   setType,
   isCarSearch,
   onSearch,
+  preSearchVehicleCount,
+  updateCount,
 }: IFilterContainerProps) => {
   const [filtersData, setFiltersData] = useState({} as IFilterList);
   const [makeData, setMakeData] = useState([] as string[]);
@@ -60,6 +62,7 @@ const FiltersContainer = ({
 
   const choiseBoxReference = {} as any;
 
+  /** create ref object for every multiselect dropdown. For call Choiseboxes component update method */
   const getOrCreateRef = (id: keyof typeof choiceBoxesData) => {
     if (!Object.prototype.hasOwnProperty.call(choiseBoxReference, id)) {
       choiseBoxReference[id] = React.createRef();
@@ -81,35 +84,53 @@ const FiltersContainer = ({
     fuelTypes: filtersData.fuelTypes,
   };
 
+  /** build correct data for choiseboxes component */
   const buildChoiseBoxData = useCallback(
     (state = selectedFiltersState) => {
-      const choises = {} as IChoiceBoxesData;
-      for (const [key] of Object.entries(filtersMapper)) {
-        choises[key] =
-          filtersMapper[key as keyof typeof filtersMapper]?.map(value => ({
+      const filters = {
+        bodyStyles: filtersData.bodyStyles,
+        transmissions: filtersData.transmissions,
+        fuelTypes: filtersData.fuelTypes,
+      };
+      const choisesObject = {} as IChoiceBoxesData;
+      Object.keys(filters).forEach(key => {
+        choisesObject[key] =
+          filters[key as keyof typeof filters]?.map(value => ({
             label: value,
-            active: state[key as keyof typeof filtersMapper].includes(value),
+            active: state[key].includes(value),
           })) || [];
-      }
-      return choises;
+      });
+      return choisesObject;
     },
-    [filtersMapper, selectedFiltersState],
+    [filtersData, selectedFiltersState],
   );
 
-  const onViewResults = useCallback(() => {
-    onSearch({
+  /** start new search */
+  const filtersObject = useCallback(
+    () => ({
       rate: {
         min: parseInt(selectedFiltersState.from[0], 10),
         max: parseInt(selectedFiltersState.to[0], 10),
       },
-      make: selectedFiltersState.make[0],
-      model: selectedFiltersState.model[0],
+      manufacturerName: selectedFiltersState.make[0],
+      range: selectedFiltersState.model[0],
       fuelTypes: selectedFiltersState.fuelTypes,
       bodyStyles: selectedFiltersState.bodyStyles,
       transmissions: selectedFiltersState.transmissions,
-    });
-  }, [selectedFiltersState, onSearch]);
+    }),
+    [selectedFiltersState],
+  );
 
+  /** start new search */
+  const onViewResults = useCallback(() => {
+    onSearch(filtersObject());
+  }, [onSearch ]);
+
+  const onCount = useCallback(() => {
+    updateCount(filtersObject());
+  }, [updateCount]);
+
+  /** changing data for choiseboxes component */
   const choiseBoxBuilder = (
     choises: IChoice[],
     filterAccessor: keyof typeof filtersMapper,
@@ -120,6 +141,7 @@ const FiltersContainer = ({
       active: actualState[filterAccessor].includes(value.label),
     }));
 
+  // set data to filters
   useEffect(() => {
     if (data?.filterList) {
       setFiltersData(data.filterList);
@@ -132,11 +154,17 @@ const FiltersContainer = ({
   }, [filtersData, buildChoiseBoxData]);
 
   useEffect(() => {
+    onCount();
+  }, [selectedFilterTags, onCount]);
+
+  // set actual models after make changing
+  useEffect(() => {
     if (selectedFiltersState.make) {
       setModelsData(modelHandler(filtersData, selectedFiltersState.make[0]));
     }
   }, [selectedFiltersState.make, filtersData]);
 
+  // hack for subscribe multiselects changes and update Choiceboxes state
   useEffect(() => {
     if (tempFilterName === 'all') {
       Object.keys(choiseBoxReference).forEach((e: any) =>
@@ -155,11 +183,13 @@ const FiltersContainer = ({
   const toggleHandler = (value: React.ChangeEvent<HTMLInputElement>) =>
     setType(value.target.checked);
 
+  /** get parent filter name after deleting a tag */
   const getValueKey = (value: string) => {
     const arr = Object.entries(selectedFiltersState) || [];
     return arr.find(filter => filter[1].includes(value))?.[0] || '';
   };
 
+  /** check budget rules for valid value */
   const isInvalidBudget = (value: string, type: string) => {
     if (
       (type === 'from' &&
@@ -172,19 +202,22 @@ const FiltersContainer = ({
     return true;
   };
 
+  // subscribe for change applied filters value for manage tags state
   useEffect(() => {
     const selected: string[] = Object.entries(selectedFiltersState)
-      ?.map(entry => entry[1])
+      .map(entry => entry[1])
       .flat()
       .filter(Boolean);
     setSelectedFilterTags(selected);
   }, [selectedFiltersState]);
 
+  /** handle for dropdowns */
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value, name } = e.target;
     setSelectedFiltersState({ ...selectedFiltersState, [name]: [value] });
   };
 
+  /** handler for multiselect */
   const handleChecked = (
     value: IChoice,
     filterName: keyof typeof initialState,
@@ -215,12 +248,18 @@ const FiltersContainer = ({
     });
   };
 
+  /**
+   * clear all filters
+   */
   const handleClearAll = () => {
     setSelectedFiltersState(initialState);
     setChoiceBoxesData(buildChoiseBoxData(initialState));
     setTempFilterName('all');
   };
 
+  /**
+   * remove value from filter after deleting tag
+   */
   const handleRemoveTag = (value: string) => {
     const filter = getValueKey(value) as keyof typeof filtersMapper;
     const newSelectedFiltersState = {
@@ -246,6 +285,9 @@ const FiltersContainer = ({
     }
   };
 
+  /**
+   * clear opened filter
+   */
   const clearFilter = (filterName: keyof typeof filtersMapper) => {
     const newSelectedFiltersState = {
       ...selectedFiltersState,
@@ -350,7 +392,7 @@ const FiltersContainer = ({
                 </div>
               )}
 
-              <FormGroup label={filter.label}>
+              <FormGroup label={filter.label} dataTestId={filter.label}>
                 {choiceBoxesData[filter.accessor]?.length > 0 && (
                   <Choiceboxes
                     onSubmit={value =>
@@ -374,7 +416,8 @@ const FiltersContainer = ({
             color="teal"
             fill="solid"
             className="-fullwidth"
-            label="View 277 Results"
+            label={`View ${preSearchVehicleCount} Results`}
+            dataTestId={`${filter.label}btn`}
             onClick={onViewResults}
           />
         </Dropdown>
