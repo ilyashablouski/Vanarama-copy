@@ -178,6 +178,7 @@ export const PickupsPage: NextPage = () => {
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
             <ReactMarkdown
+              escapeHtml={false}
               source={data?.hubPickupPage.sections.featured1?.body || ''}
             />
           </Text>
@@ -214,6 +215,7 @@ export const PickupsPage: NextPage = () => {
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
             <ReactMarkdown
+              escapeHtml={false}
               source={data?.hubPickupPage.sections.featured2?.body || ''}
             />
           </Text>

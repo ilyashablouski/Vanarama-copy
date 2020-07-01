@@ -395,6 +395,7 @@ const VansPage: NextPage = () => {
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
             <ReactMarkdown
+              escapeHtml={false}
               source={data?.hubVanPage.sections.featured1?.body || ''}
             />
           </Text>
@@ -426,6 +427,7 @@ const VansPage: NextPage = () => {
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
             <ReactMarkdown
+              escapeHtml={false}
               source={data?.hubVanPage.sections.featured2?.body || ''}
             />
           </Text>
