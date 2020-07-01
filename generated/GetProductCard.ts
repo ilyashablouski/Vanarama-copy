@@ -6,15 +6,15 @@
 import { VehicleTypeEnum } from "./globalTypes";
 
 // ====================================================
-// GraphQL query operation: GetProductCards
+// GraphQL query operation: GetProductCard
 // ====================================================
 
-export interface GetProductCards_productCards_keyInformation {
+export interface GetProductCard_productCard_keyInformation {
   name: string | null;
   value: string | null;
 }
 
-export interface GetProductCards_productCards {
+export interface GetProductCard_productCard {
   vehicleType: VehicleTypeEnum | null;
   capId: string | null;
   manufacturerName: string | null;
@@ -25,16 +25,16 @@ export interface GetProductCards_productCards {
   offerPosition: number | null;
   leadTime: string | null;
   imageUrl: string | null;
-  keyInformation: (GetProductCards_productCards_keyInformation | null)[] | null;
+  keyInformation: (GetProductCard_productCard_keyInformation | null)[] | null;
   businessRate: number | null;
   personalRate: number | null;
 }
 
-export interface GetProductCards {
-  productCards: (GetProductCards_productCards | null)[] | null;
+export interface GetProductCard {
+  productCard: (GetProductCard_productCard | null)[] | null;
 }
 
-export interface GetProductCardsVariables {
+export interface GetProductCardVariables {
   capIds?: string[] | null;
   vehicleType?: VehicleTypeEnum | null;
 }

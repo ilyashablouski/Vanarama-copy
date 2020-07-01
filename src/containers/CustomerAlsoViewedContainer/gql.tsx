@@ -1,13 +1,13 @@
 import { useQuery, gql } from '@apollo/client';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import {
-  GetProductCards,
-  GetProductCardsVariables,
-} from '../../../generated/GetProductCards';
+  GetProductCard,
+  GetProductCardVariables,
+} from '../../../generated/GetProductCard';
 
 export const GET_PRODUCT_CARDS_DATA = gql`
-  query GetProductCards($capIds: [ID!], $vehicleType: VehicleTypeEnum) {
-    productCards(capIds: $capIds, vehicleType: $vehicleType) {
+  query GetProductCard($capIds: [ID!], $vehicleType: VehicleTypeEnum) {
+    productCard(capIds: $capIds, vehicleType: $vehicleType) {
       vehicleType
       capId
       manufacturerName
@@ -32,11 +32,11 @@ export const GET_PRODUCT_CARDS_DATA = gql`
  *  @props capIdArray - string array with capId from relatedVehicles in vehicleDetails
  *  @props vehicleType - VehicleTypeEnum
  */
-export function useProductCardsData(
+export function useProductCardData(
   capIds?: string[],
   vehicleType?: VehicleTypeEnum,
 ) {
-  return useQuery<GetProductCards, GetProductCardsVariables>(
+  return useQuery<GetProductCard, GetProductCardVariables>(
     GET_PRODUCT_CARDS_DATA,
     {
       variables: {

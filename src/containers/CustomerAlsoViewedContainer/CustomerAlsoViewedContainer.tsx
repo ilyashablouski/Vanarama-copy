@@ -12,7 +12,7 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import { useProductCardsData } from './gql';
+import { useProductCardData } from './gql';
 
 interface ICustomerAlsoViewedContainerProps {
   capsId: string[];
@@ -27,7 +27,7 @@ const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> =
   vehicleType,
   router,
 }) => {
-  const { data, loading, error } = useProductCardsData(capsId, vehicleType);
+  const { data, loading, error } = useProductCardData(capsId, vehicleType);
 
   const offerNewPath = (capId: string) => {
     if (router.pathname.match(/(capId)/)) {
@@ -72,7 +72,7 @@ const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> =
     );
   }
 
-  if (!data?.productCards?.length) {
+  if (!data?.productCard?.length) {
     return null;
   }
 
@@ -84,7 +84,7 @@ const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> =
         </Heading>
         <div style={{ width: '100%' }}>
           <Carousel className="-mh-auto">
-            {data.productCards.slice(0, 6).map(
+            {data.productCard.slice(0, 6).map(
               product =>
                 product && (
                   <ProductCard
