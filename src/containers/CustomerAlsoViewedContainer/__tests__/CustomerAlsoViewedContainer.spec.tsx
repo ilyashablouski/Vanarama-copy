@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer';
-import { useProductCardsData } from '../gql';
+import { useProductCardData } from '../gql';
 
 jest.mock('../gql');
 const router = { pathname: 'pathname', push: jest.fn() };
@@ -9,7 +9,7 @@ const router = { pathname: 'pathname', push: jest.fn() };
 const mockData = {
   loading: false,
   data: {
-    productCards: [
+    productCard: [
       {
         vehicleType: 'CAR',
         capId: 'capId1',
@@ -84,7 +84,7 @@ jest.mock('@vanarama/uibook/lib/components/organisms/carousel', () => ({
 
 describe('<CustomerAlsoViewedContainer />', () => {
   it('renders correctly with loading', () => {
-    (useProductCardsData as jest.Mock).mockReturnValue({
+    (useProductCardData as jest.Mock).mockReturnValue({
       loading: true,
       data: undefined,
       error: undefined,
@@ -107,7 +107,7 @@ describe('<CustomerAlsoViewedContainer />', () => {
   });
 
   it('renders correctly with error', () => {
-    (useProductCardsData as jest.Mock).mockReturnValue({
+    (useProductCardData as jest.Mock).mockReturnValue({
       loading: false,
       data: undefined,
       error: { message: 'message' },
@@ -130,7 +130,7 @@ describe('<CustomerAlsoViewedContainer />', () => {
   });
 
   it('renders correctly with empty data', () => {
-    (useProductCardsData as jest.Mock).mockReturnValue({
+    (useProductCardData as jest.Mock).mockReturnValue({
       loading: false,
       data: { productCards: [] },
       error: undefined,
@@ -153,7 +153,7 @@ describe('<CustomerAlsoViewedContainer />', () => {
   });
 
   it('renders correctly with data', () => {
-    (useProductCardsData as jest.Mock).mockReturnValue(mockData);
+    (useProductCardData as jest.Mock).mockReturnValue(mockData);
 
     const getComponent = () => {
       return renderer

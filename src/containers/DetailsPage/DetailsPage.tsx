@@ -93,12 +93,15 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     score: review?.rating || 0,
   }));
 
+  const vehicleType = cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV;
+
   return (
     <>
       <div className="pdp--content">
         <Breadcrumb items={PATH.items} />
         <Heading className="-pt-100" tag="span" size="xlarge" color="black">
-          {vehicleConfigurationByCapId?.capManufacturerDescription}
+          {vehicleConfigurationByCapId?.capManufacturerDescription}{' '}
+          {vehicleConfigurationByCapId?.capRangeDescription}
         </Heading>
         <Text tag="span" size="lead" color="darker">
           {vehicleConfigurationByCapId?.capDerivativeDescription}
@@ -142,7 +145,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         {isMobile && (
           <CustomiseLeaseContainer
             capId={capId}
-            vehicleType={cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV}
+            vehicleType={vehicleType}
             derivativeInfo={derivativeInfo}
             leaseAdjustParams={leaseAdjustParams}
             leaseType={leaseType}
@@ -158,18 +161,24 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       {vehicleConfigurationByCapId?.financeProfile ? (
         <CustomiseLeaseContainer
           capId={capId}
-          vehicleType={cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV}
+          vehicleType={vehicleType}
           derivativeInfo={derivativeInfo}
           leaseAdjustParams={leaseAdjustParams}
           leaseType={leaseType}
           setLeaseType={setLeaseType}
         />
       ) : (
-        <GoldrushFormContainer isPostcodeVisible={!cars} />
+        <GoldrushFormContainer
+          termsAndConditions
+          isPostcodeVisible={!cars}
+          capId={capId}
+          kind="quote"
+          vehicleType={vehicleType}
+        />
       )}
       <CustomerAlsoViewedContainer
         capsId={capsId || []}
-        vehicleType={cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV}
+        vehicleType={vehicleType}
         leaseType={leaseType.toUpperCase() || ''}
         router={router}
       />

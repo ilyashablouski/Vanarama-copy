@@ -10,4 +10,5 @@ export interface IGoldrushFromValues {
   email: string;
   phoneNumber: string;
   postcode?: string;
+  marketingPreference?: Boolean;
 }
