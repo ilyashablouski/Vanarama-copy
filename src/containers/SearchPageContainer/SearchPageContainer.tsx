@@ -13,7 +13,6 @@ import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import { IFilters } from '../FiltersContainer/interfaces';
-import { getBudgetForQuery } from '../SearchPodContainer/helpers';
 import FiltersContainer from '../FiltersContainer';
 import VehicleCard from './VehicleCard';
 import { getVehiclesList } from './gql';
@@ -22,6 +21,7 @@ import {
   vehicleList_vehicleList_edges as IVehicles,
 } from '../../../generated/vehicleList';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
+import buildRewriteRoute from './helpers';
 
 interface IProps {
   isServer: boolean;
@@ -70,42 +70,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     { label: `${isCarSearch ? 'Car' : 'Vans'} Search`, href: '/' },
   ];
 
-  const buildRewriteRoute = ({
-    transmissions,
-    bodyStyles,
-    range,
-    manufacturerName,
-    rate,
-    fuelTypes,
-  }: IFilters) => {
-    const searchType = isCarSearch ? 'car-leasing' : 'van-leasing';
-    let routerUrl = `/${searchType}`;
-    // make
-    if (manufacturerName) {
-      routerUrl += `/${manufacturerName.replace(' ', '-')}`;
-      // adding type only for cars search if we have model
-      if (range) {
-        routerUrl += `/${range.replace(' ', '-')}`;
-      }
-    }
-    const searchParams = new URLSearchParams(window.location.search);
-    Object.entries({ transmissions, bodyStyles, fuelTypes }).forEach(filter => {
-      if (filter[1].length) {
-        searchParams.set(filter[0], filter[1].join());
-      }
-    });
-    if (rate.max || rate.min) {
-      searchParams.set(
-        'rate',
-        getBudgetForQuery(`${rate.min || '0'}-${rate.max || ''}`),
-      );
-    }
-    return decodeURIComponent(
-      routerUrl +
-        (searchParams.toString() ? `?${searchParams.toString()}` : ''),
-    );
-  };
-
   // new search with new filters
   const onSearch = (filters = filtersData) => {
     // set search filters data
@@ -119,8 +83,11 @@ const SearchPageContainer: React.FC<IProps> = ({
         ...filters,
       },
     });
-    // router.replace(buildRewriteRoute(filters as IFilters), undefined, {shallow: true});
-    window.history.pushState({}, '', buildRewriteRoute(filters as IFilters));
+    window.history.pushState(
+      {},
+      '',
+      buildRewriteRoute(filters as IFilters, isCarSearch),
+    );
   };
 
   useEffect(() => {
