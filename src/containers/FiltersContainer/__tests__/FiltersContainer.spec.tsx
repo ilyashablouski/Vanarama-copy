@@ -1,7 +1,6 @@
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
-import { create } from 'react-test-renderer';
 import FiltersContainer from '../FiltersContainer';
 
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
@@ -86,21 +85,10 @@ describe('<FiltersContainer />', () => {
     fireEvent.click(screen.getByText('diesel'));
     expect(mocks.onSearch).toHaveBeenCalled();
   });
-  it('should start new search after clear all filters', async () => {
-    // ACT
-    render(
-      <MockedProvider mocks={mocksResponse} addTypename={false}>
-        <FiltersContainer {...mocks} />
-      </MockedProvider>,
-    );
-    await waitFor(() => {
-      fireEvent.click(screen.getByText('Clear All'));
-      expect(mocks.onSearch).toBeCalled();
-    });
-  });
+
   it('should render with data', async () => {
     // ACT
-    const getComponent = create(
+    const getComponent = render(
       <MockedProvider mocks={mocksResponse} addTypename={false}>
         <FiltersContainer {...mocks} />
       </MockedProvider>,
@@ -108,8 +96,8 @@ describe('<FiltersContainer />', () => {
 
     await waitFor(() => {
       expect(mockCalled).toBeTruthy();
+      const tree = getComponent.baseElement;
+      expect(tree).toMatchSnapshot();
     });
-    const tree = getComponent.toJSON();
-    expect(tree).toMatchSnapshot();
   });
 });

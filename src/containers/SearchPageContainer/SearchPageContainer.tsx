@@ -85,11 +85,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     });
     // we should make 2 call for clear all queries
     // because it's easy way for remove params
-    window.history.replaceState(
-      {},
-      '',
-      '/',
-    );
+    window.history.replaceState({}, '', '/');
     window.history.replaceState(
       {},
       '',

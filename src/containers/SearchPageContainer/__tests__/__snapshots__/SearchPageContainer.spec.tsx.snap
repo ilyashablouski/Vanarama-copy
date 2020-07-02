@@ -173,67 +173,83 @@ exports[`<SearchPageContainer /> should be render correctly 1`] = `
         class="row:search-filters"
       >
         <div
-          class="search-filters"
+          class="search-filters -open"
+          role="search"
         >
           <div
-            class="search-filters--header"
+            class="search-filters--title"
           >
-            <span
-              class="heading -primary -lead"
+            <i
+              class="icon search-filters--title-icon"
             >
-              <i
-                class="icon dropdown--icon dropdown--icon-closed"
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
               >
-                <svg
-                  height="1em"
-                  viewBox="0 0 512 512"
-                  width="1em"
-                >
-                  <title>
-                    ionicons-v5-i
-                  </title>
-                  <path
-                    d="M64,144H290.75a48,48,0,0,0,90.5,0H448a16,16,0,0,0,0-32H381.25a48,48,0,0,0-90.5,0H64a16,16,0,0,0,0,32Z"
-                  />
-                  <path
-                    d="M448,368H381.25a48,48,0,0,0-90.5,0H64a16,16,0,0,0,0,32H290.75a48,48,0,0,0,90.5,0H448a16,16,0,0,0,0-32Z"
-                  />
-                  <path
-                    d="M448,240H221.25a48,48,0,0,0-90.5,0H64a16,16,0,0,0,0,32h66.75a48,48,0,0,0,90.5,0H448a16,16,0,0,0,0-32Z"
-                  />
-                </svg>
-              </i>
-                Filters
+                <title>
+                  ionicons-v5-i
+                </title>
+                <path
+                  d="M64,144H290.75a48,48,0,0,0,90.5,0H448a16,16,0,0,0,0-32H381.25a48,48,0,0,0-90.5,0H64a16,16,0,0,0,0,32Z"
+                />
+                <path
+                  d="M448,368H381.25a48,48,0,0,0-90.5,0H64a16,16,0,0,0,0,32H290.75a48,48,0,0,0,90.5,0H448a16,16,0,0,0,0-32Z"
+                />
+                <path
+                  d="M448,240H221.25a48,48,0,0,0-90.5,0H64a16,16,0,0,0,0,32h66.75a48,48,0,0,0,90.5,0H448a16,16,0,0,0,0-32Z"
+                />
+              </svg>
+            </i>
+            <span>
+              Filters
             </span>
-            <div
-              class="toggle--wrapper"
+            <i
+              class="icon search-filters--title-icon"
             >
-              <input
-                checked=""
-                class="toggle toggle--input"
-                id="contractType"
-                type="checkbox"
-              />
-              <label
-                class="toggle--input-label -orange"
-                for="contractType"
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="112 328 256 184 400 328"
+                  style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                />
+              </svg>
+            </i>
+          </div>
+          <div
+            class="toggle--wrapper search-filters--toggle"
+          >
+            <input
+              checked=""
+              class="toggle toggle--input"
+              id="contractType"
+              type="checkbox"
+            />
+            <label
+              class="toggle--input-label -orange"
+              for="contractType"
+            >
+              <span
+                class="toggle--switch"
               >
                 <span
-                  class="toggle--switch"
+                  class="toggle--off"
                 >
-                  <span
-                    class="toggle--off"
-                  >
-                    Personal
-                  </span>
-                  <span
-                    class="toggle--on"
-                  >
-                    Business
-                  </span>
+                  Personal
                 </span>
-              </label>
-            </div>
+                <span
+                  class="toggle--on"
+                >
+                  Business
+                </span>
+              </span>
+            </label>
           </div>
           <div
             class="dropdown search-filters--dropdown"
