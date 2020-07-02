@@ -62,5 +62,26 @@ const HUB_CAR_CONTENT = gql`
   }
 `;
 
-// eslint-disable-next-line import/prefer-default-export
-export { HUB_CAR_CONTENT };
+const HUB_PRODUCT_CARDS = gql`
+  query HubCarProductCards {
+    productCarousel(vehicleType: CAR, pageSize: 9, onOffer: true) {
+      capId
+      isOnOffer
+      manufacturerName
+      derivativeName
+      rangeName
+      imageUrl
+      leadTime
+      averageRating
+      businessRate
+      personalRate
+      offerPosition
+      keyInformation {
+        name
+        value
+      }
+    }
+  }
+`;
+
+export { HUB_CAR_CONTENT, HUB_PRODUCT_CARDS };
