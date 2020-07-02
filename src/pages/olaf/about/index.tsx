@@ -80,7 +80,6 @@ const AboutYouPage: NextPage = () => {
           {isLogInVisible && (
             <LoginFormContainer
               onCompleted={data => {
-                console.log({ dataLogin: data });
                 // request person account after login
                 if (data.login !== null) {
                   getPersonByToken({

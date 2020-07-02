@@ -6,20 +6,51 @@ import Select from '@vanarama/uibook/lib/components/atoms/select/';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput/';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
 import { gql } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { genMonths, genYears } from '../../utils/helpers';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
+import RouterLink from '../RouterLink/RouterLink';
 import validationSchema from './AboutForm.validation';
 import { IAboutFormValues, IProps } from './interface';
 import { responseToInitialFormValues } from './mappers';
 import useDateOfBirthValidation from './useDateOfBirthValidation';
 
+const logInLink = {
+  href: '',
+  label: 'login',
+};
+
+const logInLinkClassNames = {
+  color: 'teal',
+};
+
+const EMAIL_ALREADY_EXISTS = 'EMAIL_ALREADY_EXISTS';
+
+const mapEmailMessage = (onCLick?: () => void, message?: string) =>
+  message !== EMAIL_ALREADY_EXISTS ? (
+    message
+  ) : (
+    <Text tag="p" color="danger" size="xsmall">
+      {'Your email address already exists. Do you wish to '}
+      <RouterLink
+        link={logInLink}
+        onClick={onCLick}
+        size="xsmall"
+        classNames={logInLinkClassNames}
+      />
+      {' using this email?'}
+    </Text>
+  );
+
 const AboutForm: FCWithFragments<IProps> = ({
   dropdownData,
   person,
   submit,
+  onEmailExistenceCheck,
+  onLogInClick,
 }) => {
   const months = genMonths();
   const years = genYears(100);
@@ -30,6 +61,8 @@ const AboutForm: FCWithFragments<IProps> = ({
     triggerValidation,
     watch,
     formState,
+    setError,
+    getValues,
   } = useForm<IAboutFormValues>({
     mode: 'onBlur',
     validationSchema,
@@ -82,7 +115,10 @@ const AboutForm: FCWithFragments<IProps> = ({
       <FormGroup
         controlId="email"
         label="Email"
-        error={errors?.email?.message?.toString()}
+        error={mapEmailMessage(
+          onLogInClick,
+          errors?.email?.message?.toString(),
+        )}
       >
         <TextInput
           id="email"
@@ -91,6 +127,15 @@ const AboutForm: FCWithFragments<IProps> = ({
           dataTestId="aboutEmail"
           ref={register}
           width="35ch"
+          onBlur={async () => {
+            const isEmailExists = await onEmailExistenceCheck(
+              getValues('email'),
+            );
+
+            if (isEmailExists) {
+              setError('email', 'required', EMAIL_ALREADY_EXISTS);
+            }
+          }}
         />
       </FormGroup>
       <FormGroup>

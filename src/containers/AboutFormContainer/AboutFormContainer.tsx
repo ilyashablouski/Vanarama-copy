@@ -1,13 +1,20 @@
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React from 'react';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import AboutForm from '../../components/AboutForm';
+import { useEmailCheck } from '../RegisterFormContainer/gql';
 import { useCreatePerson, useAboutYouData } from './gql';
 import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
 
-const AboutFormContainer: React.FC<IProps> = ({ onCompleted, personUuid }) => {
+const AboutFormContainer: React.FC<IProps> = ({
+  onCompleted,
+  personUuid,
+  onLogInClick,
+}) => {
   const [createDetailsHandle] = useCreatePerson(onCompleted);
   const { data, loading, error } = useAboutYouData(personUuid);
+  const [emailAlreadyExists] = useEmailCheck();
+
   if (loading) {
     return <Loading size="large" />;
   }
@@ -24,6 +31,14 @@ const AboutFormContainer: React.FC<IProps> = ({ onCompleted, personUuid }) => {
     <AboutForm
       dropdownData={data.allDropDowns}
       person={data.personByUuid}
+      onEmailExistenceCheck={async email => {
+        const results = await emailAlreadyExists({
+          variables: { email },
+        });
+
+        return Boolean(results?.data?.emailAlreadyExists);
+      }}
+      onLogInClick={onLogInClick}
       submit={values =>
         createDetailsHandle({
           variables: {
@@ -36,3 +51,5 @@ const AboutFormContainer: React.FC<IProps> = ({ onCompleted, personUuid }) => {
 };
 
 export default AboutFormContainer;
+
+
