@@ -83,7 +83,14 @@ const SearchPageContainer: React.FC<IProps> = ({
         ...filters,
       },
     });
-    window.history.pushState(
+    // we should make 2 call for clear all queries
+    // because it's easy way for remove params
+    window.history.replaceState(
+      {},
+      '',
+      '/',
+    );
+    window.history.replaceState(
       {},
       '',
       buildRewriteRoute(filters as IFilters, isCarSearch),

@@ -10,8 +10,8 @@ import Choiceboxes from '@vanarama/uibook/lib/components/atoms/choiceboxes';
 import { IChoice } from '@vanarama/uibook/lib/components/atoms/choiceboxes/interfaces';
 import Toggle from '@vanarama/uibook/lib/components/atoms/toggle';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import OptionsIcon from '@vanarama/uibook/lib/assets/icons/Options';
+import ChevronUpSharp from '@vanarama/uibook/lib/assets/icons/ChevronUpSharp';
 import { filterListByTypes } from '../SearchPodContainer/gql';
 import { makeHandler, modelHandler } from '../SearchPodContainer/helpers';
 import { filtersConfig, budgets } from './config';
@@ -58,7 +58,7 @@ const FiltersContainer = ({
   const [selectedFiltersState, setSelectedFiltersState] = useState<
     ISelectedFiltersState
   >(initialState);
-  const [selectedFilterTags, setSelectedFilterTags] = useState([]);
+  const [selectedFilterTags, setSelectedFilterTags] = useState(['']);
   const [isInitialLoad, setInitialLoad] = useState(true);
 
   const choiseBoxReference = {} as any;
@@ -306,117 +306,128 @@ const FiltersContainer = ({
   return (
     <SearchFilters>
       <SearchFiltersHead>
-        <Heading tag="span" size="lead">
-          <Icon
-            icon={<OptionsIcon />}
-            className="dropdown--icon dropdown--icon-closed"
-          />
-          &nbsp; Filters
-        </Heading>
-        <Toggle
-          offLabel="Business"
-          onLabel="Personal"
-          id="contractType"
-          onChange={toggleHandler}
-          checked={isPersonal}
+        <Icon icon={<OptionsIcon />} className="search-filters--title-icon" />
+        <span>Filters</span>
+        <Icon
+          icon={<ChevronUpSharp />}
+          className="search-filters--title-icon"
         />
       </SearchFiltersHead>
+      <Toggle
+        offLabel="Business"
+        onLabel="Personal"
+        id="contractType"
+        onChange={toggleHandler}
+        checked={isPersonal}
+        className="search-filters--toggle"
+      />
       {filtersConfig.map(filter => (
         <Dropdown
           label={filter.label}
           className="search-filters--dropdown"
           key={filter.label}
+          renderProps
         >
-          {filter.contentType === 'dropdowns' &&
-            filter.dropdowns?.map(dropdown => (
-              <FormGroup label={dropdown.label} key={dropdown.label}>
-                <Select
-                  name={dropdown.accessor}
-                  placeholder={`Select ${dropdown.accessor}`}
-                  onChange={handleSelect}
-                  value={
-                    selectedFiltersState[
-                      dropdown.accessor as keyof typeof filtersMapper
-                    ]?.[0]
-                  }
-                >
-                  {filtersMapper[
-                    dropdown.accessor as keyof typeof filtersMapper
-                  ]?.map(option =>
-                    filter.accessor === 'budget' ? (
-                      <option
-                        value={option}
-                        key={option}
-                        disabled={isInvalidBudget(option, dropdown.accessor)}
-                      >{`£${option}`}</option>
-                    ) : (
-                      <option value={option} key={option}>
-                        {option}
-                      </option>
-                    ),
-                  )}
-                </Select>
-              </FormGroup>
-            ))}
-          {filter.contentType === 'multiSelect' && (
+          {toggle => (
             <>
-              {selectedFiltersState[
-                filter.accessor as keyof typeof filtersMapper
-              ]?.length > 0 && (
-                <div className="dropdown--header">
-                  <div className="dropdown--header-text">
-                    <span className="dropdown--header-count">{`${
-                      selectedFiltersState[
-                        filter.accessor as keyof typeof filtersMapper
-                      ]?.length
-                    } Selected`}</span>
-                    <div className="dropdown--header-selected">
-                      {selectedFiltersState[
-                        filter.accessor as keyof typeof filtersMapper
-                      ].map(value => (
-                        <span key={value}>{value},</span>
-                      ))}
+              {filter.contentType === 'dropdowns' &&
+                filter.dropdowns?.map(dropdown => (
+                  <FormGroup label={dropdown.label} key={dropdown.label}>
+                    <Select
+                      name={dropdown.accessor}
+                      placeholder={`Select ${dropdown.accessor}`}
+                      onChange={handleSelect}
+                      value={
+                        selectedFiltersState[
+                          dropdown.accessor as keyof typeof filtersMapper
+                        ]?.[0]
+                      }
+                    >
+                      {filtersMapper[
+                        dropdown.accessor as keyof typeof filtersMapper
+                      ]?.map(option =>
+                        filter.accessor === 'budget' ? (
+                          <option
+                            value={option}
+                            key={option}
+                            disabled={isInvalidBudget(
+                              option,
+                              dropdown.accessor,
+                            )}
+                          >{`£${option}`}</option>
+                        ) : (
+                          <option value={option} key={option}>
+                            {option}
+                          </option>
+                        ),
+                      )}
+                    </Select>
+                  </FormGroup>
+                ))}
+              {filter.contentType === 'multiSelect' && (
+                <>
+                  {selectedFiltersState[
+                    filter.accessor as keyof typeof filtersMapper
+                  ]?.length > 0 && (
+                    <div className="dropdown--header">
+                      <div className="dropdown--header-text">
+                        <span className="dropdown--header-count">{`${
+                          selectedFiltersState[
+                            filter.accessor as keyof typeof filtersMapper
+                          ]?.length
+                        } Selected`}</span>
+                        <div className="dropdown--header-selected">
+                          {selectedFiltersState[
+                            filter.accessor as keyof typeof filtersMapper
+                          ].map(value => (
+                            <span key={value}>{value},</span>
+                          ))}
+                        </div>
+                      </div>
+                      <Button
+                        size="small"
+                        color="teal"
+                        fill="outline"
+                        label="Clear"
+                        onClick={() =>
+                          clearFilter(
+                            filter.accessor as keyof typeof filtersMapper,
+                          )
+                        }
+                      />
                     </div>
-                  </div>
-                  <Button
-                    size="small"
-                    color="teal"
-                    fill="outline"
-                    label="Clear"
-                    onClick={() =>
-                      clearFilter(filter.accessor as keyof typeof filtersMapper)
-                    }
-                  />
-                </div>
-              )}
+                  )}
 
-              <FormGroup label={filter.label} dataTestId={filter.label}>
-                {choiceBoxesData[filter.accessor]?.length > 0 && (
-                  <Choiceboxes
-                    onSubmit={value =>
-                      handleChecked(
-                        value,
-                        filter.accessor as keyof typeof filtersMapper,
-                      )
-                    }
-                    choices={choiceBoxesData[filter.accessor]}
-                    className="-cols-1"
-                    color="medium"
-                    multiSelect
-                    ref={getOrCreateRef(filter.accessor)}
-                  />
-                )}
-              </FormGroup>
+                  <FormGroup label={filter.label} dataTestId={filter.label}>
+                    {choiceBoxesData[filter.accessor]?.length > 0 && (
+                      <Choiceboxes
+                        onSubmit={value =>
+                          handleChecked(
+                            value,
+                            filter.accessor as keyof typeof filtersMapper,
+                          )
+                        }
+                        choices={choiceBoxesData[filter.accessor]}
+                        className="-cols-1"
+                        color="medium"
+                        multiSelect
+                        ref={getOrCreateRef(filter.accessor)}
+                      />
+                    )}
+                  </FormGroup>
+                </>
+              )}
+              <Button
+                size="small"
+                color="teal"
+                fill="solid"
+                className="-fullwidth"
+                label={`View ${preSearchVehicleCount} Results`}
+                dataTestId={`${filter.label}btn`}
+                onClick={toggle}
+              />
             </>
           )}
-          <Button
-            size="small"
-            color="teal"
-            fill="solid"
-            className="-fullwidth"
-            label={`View ${preSearchVehicleCount} Results`}
-            dataTestId={`${filter.label}btn`}
-          />
         </Dropdown>
       ))}
       <SearchFilterTags
