@@ -218,6 +218,11 @@ const CustomiseLease = ({
         <LeaseScanner
           classNameHeading="headingText"
           className="pdp-footer"
+          // nextBestPrice={
+          //   maintenance
+          //     ? +(quoteByCapId?.nextBestPrice?.maintained || 0)
+          //     : +quoteByCapId?.nextBestPrice?.nonMaintained
+          // }
           priceLabel={
             maintenance
               ? `+£${toPriceFormat(
