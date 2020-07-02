@@ -10,6 +10,9 @@ export interface IProps {
   vehicleType: VehicleTypeEnum;
   derivativeInfo: GetVehicleDetails_derivativeInfo | null | undefined;
   leaseAdjustParams: GetVehicleDetails_leaseAdjustParams | null | undefined;
+  leaseType: string;
+  setLeaseType: React.Dispatch<React.SetStateAction<string>>;
+  setLeadTime: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface IQuoteDataInputs {

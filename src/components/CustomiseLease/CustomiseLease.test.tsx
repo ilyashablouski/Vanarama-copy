@@ -203,6 +203,7 @@ describe('<CustomiseLease />', () => {
       setTrim: jest.fn(),
       setMaintenance: jest.fn(),
       setIsModalShowing: jest.fn(),
+      setLeadTime: jest.fn(),
     };
   };
 

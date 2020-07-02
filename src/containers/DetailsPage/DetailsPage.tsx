@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { NextRouter } from 'next/router';
 import { ApolloError } from '@apollo/client';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
@@ -17,10 +18,15 @@ import CustomiseLeaseContainer from '../CustomiseLeaseContainer/CustomiseLeaseCo
 import { GetVehicleDetails } from '../../../generated/GetVehicleDetails';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import WhyChooseLeasing from '../../components/WhyChooseLeasing/WhyChooseLeasing';
+import CustomerReviews from '../../components/CustomerReviews/CustomerReviews';
 import WhyChooseVanarama from '../../components/WhyChooseVanarama/WhyChooseVanarama';
+import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer';
+import GoldrushFormContainer from '../GoldrushFormContainer';
+import { replaceReview } from '../../components/CustomerReviews/helpers';
 
 interface IDetailsPageProps {
   capId: number;
+  router: NextRouter;
   cars?: boolean;
   vans?: boolean;
   pickups?: boolean;
@@ -39,6 +45,7 @@ const PATH = {
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
   capId,
+  router,
   cars,
   vans,
   pickups,
@@ -46,6 +53,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   loading,
   error,
 }) => {
+  const [leaseType, setLeaseType] = useState<string>('Personal');
+  const [leadTime, setLeadTime] = useState<string>('');
   const isMobile = useMobileViewport();
 
   if (loading) {
@@ -76,13 +85,24 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
   const independentReview = data?.vehicleDetails?.independentReview;
   const warranty = data?.vehicleDetails?.warranty;
+  const capsId = data?.vehicleDetails?.relatedVehicles?.map(
+    el => el?.capId || '',
+  );
+  const reviews = data?.vehicleDetails?.customerReviews?.map(review => ({
+    text: review?.review ? replaceReview(review.review) : '',
+    author: review?.name || '',
+    score: review?.rating || 0,
+  }));
+
+  const vehicleType = cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV;
 
   return (
     <>
       <div className="pdp--content">
         <Breadcrumb items={PATH.items} />
         <Heading className="-pt-100" tag="span" size="xlarge" color="black">
-          {vehicleConfigurationByCapId?.capManufacturerDescription}
+          {vehicleConfigurationByCapId?.capManufacturerDescription}{' '}
+          {vehicleConfigurationByCapId?.capRangeDescription}
         </Heading>
         <Text tag="span" size="lead" color="darker">
           {vehicleConfigurationByCapId?.capDerivativeDescription}
@@ -103,7 +123,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           flag={{
             accentIcon: <Icon icon={<Flame />} color="white" />,
             accentText: 'Hot Deal',
-            text: '14 - 21 Days Delivery',
+            text: leadTime,
             incomplete: true,
           }}
           images={[
@@ -120,25 +140,50 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           vehicleDetails={vehicleDetails}
           derivativeInfo={derivativeInfo}
         />
-        {(vans || pickups) && (
+        {(vans || pickups) && !!independentReview && (
           <IndependentReview review={independentReview || ''} />
         )}
         {isMobile && (
           <CustomiseLeaseContainer
             capId={capId}
-            vehicleType={cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV}
+            vehicleType={vehicleType}
             derivativeInfo={derivativeInfo}
             leaseAdjustParams={leaseAdjustParams}
+            leaseType={leaseType}
+            setLeaseType={setLeaseType}
+            setLeadTime={setLeadTime}
           />
         )}
         <WhyChooseLeasing warranty={warranty || ''} />
         <WhyChooseVanarama />
+        <div className="pdp--reviews">
+          <CustomerReviews reviews={reviews || []} />
+        </div>
       </div>
-      <CustomiseLeaseContainer
-        capId={capId}
-        vehicleType={cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV}
-        derivativeInfo={derivativeInfo}
-        leaseAdjustParams={leaseAdjustParams}
+      {vehicleConfigurationByCapId?.financeProfile ? (
+        <CustomiseLeaseContainer
+          capId={capId}
+          vehicleType={vehicleType}
+          derivativeInfo={derivativeInfo}
+          leaseAdjustParams={leaseAdjustParams}
+          leaseType={leaseType}
+          setLeaseType={setLeaseType}
+          setLeadTime={setLeadTime}
+        />
+      ) : (
+        <GoldrushFormContainer
+          termsAndConditions
+          isPostcodeVisible={!cars}
+          capId={capId}
+          kind="quote"
+          vehicleType={vehicleType}
+        />
+      )}
+      <CustomerAlsoViewedContainer
+        capsId={capsId || []}
+        vehicleType={vehicleType}
+        leaseType={leaseType.toUpperCase() || ''}
+        router={router}
       />
     </>
   );

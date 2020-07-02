@@ -17,6 +17,9 @@ export const toCurrencyDisplay = (value: number) => {
   return `£${value.toLocaleString(undefined, { minimumFractionDigits: 2 })}`;
 };
 
+export const toPriceFormat = (price: number | undefined | null): string =>
+  (price || 0).toFixed(2);
+
 export interface IOrderList {
   quoteByCapId: GetQuoteDetails_quoteByCapId | null | undefined;
   stateVAT: string;
@@ -104,7 +107,9 @@ export const getOrderList = ({
     },
     {
       label: 'Stock:',
-      value: `${quoteByCapId?.stock || '-'}`,
+      value: quoteByCapId?.stock
+        ? `${quoteByCapId?.stock}Free, Fast Delivery`
+        : '-',
       id: 'stock',
       key: `${quoteByCapId?.stock}`,
       dataTestId: 'stock',

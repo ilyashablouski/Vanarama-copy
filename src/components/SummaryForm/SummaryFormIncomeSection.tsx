@@ -36,6 +36,7 @@ const SummaryFormIncomeSection: FCWithFragments<IProps> = ({
       },
     ]}
     heading="Monthly Expenses"
+    headingDataTestId="monthly_expenses_data_testId"
   />
 );
 

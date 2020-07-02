@@ -3,7 +3,7 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Slider from '@vanarama/uibook/lib/components/organisms/carousel';
+import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import BreadCrumbs from '../../containers/BreadCrumbContainer/BreadCrumbContainer';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -45,35 +45,34 @@ const BlogPage: NextPage = () => (
       <Heading className="-a-center" tag="h3" size="large" color="black">
         Top Articles
       </Heading>
-      <Slider className="-mh-auto" slidesToShow={3} gutter={16}>
+      <Carousel className="-mh-auto" countItems={5}>
         {[1, 2, 3, 4, 5].map(k => (
-          <div key={k.toString()} style={{ width: 394 }}>
-            <Card
-              className="card__article"
-              imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg"
-              title={{
-                title: '',
-                link: (
-                  <RouterLink
-                    link={{ href: '#', label: 'Article Name' }}
-                    className="card--link"
-                    classNames={{ color: 'black', size: 'regular' }}
-                  />
-                ),
-              }}
-              description="Lorem ipsum dolor sit amet adipisicing elit. Iste, quaerat consequatur sapiente sed."
-            >
-              <Button
-                label="Read More"
-                color="teal"
-                size="small"
-                fill="solid"
-                className="-mt-400"
-              />
-            </Card>
-          </div>
+          <Card
+            key={k.toString()}
+            className="card__article"
+            imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg"
+            title={{
+              title: '',
+              link: (
+                <RouterLink
+                  link={{ href: '#', label: 'Article Name' }}
+                  className="card--link"
+                  classNames={{ color: 'black', size: 'regular' }}
+                />
+              ),
+            }}
+            description="Lorem ipsum dolor sit amet adipisicing elit. Iste, quaerat consequatur sapiente sed."
+          >
+            <Button
+              label="Read More"
+              color="teal"
+              size="small"
+              fill="solid"
+              className="-mt-400"
+            />
+          </Card>
         ))}
-      </Slider>
+      </Carousel>
     </div>
     <div className="row:bg-lighter">
       <div className="row:cards-3col">

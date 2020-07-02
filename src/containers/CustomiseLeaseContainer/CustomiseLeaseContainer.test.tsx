@@ -42,12 +42,15 @@ describe('<CustomiseLeaseContainer />', () => {
       },
       error: undefined,
       refetch: jest.fn(),
+      leaseType: 'Personal',
+      setLeaseType: jest.fn(),
     });
 
     render(
       <CustomiseLeaseContainer
         capId={84429}
         vehicleType={VehicleTypeEnum.CAR}
+        setLeadTime={jest.fn()}
         leaseAdjustParams={{
           mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
           terms: [24, 36, 48, 60],
@@ -83,6 +86,8 @@ describe('<CustomiseLeaseContainer />', () => {
             { id: '104562', optionDescription: 'Leather - Cranberry red' },
           ],
         }}
+        leaseType="Business"
+        setLeaseType={jest.fn()}
       />,
     );
 
@@ -102,12 +107,6 @@ describe('<CustomiseLeaseContainer />', () => {
 
     await waitFor(() => {
       expect(screen.getByText('PM exc. VAT'));
-    });
-
-    fireEvent.click(screen.getByText('Personal'));
-
-    await waitFor(() => {
-      expect(screen.getByText('PM inc. VAT'));
     });
   });
 
@@ -145,6 +144,7 @@ describe('<CustomiseLeaseContainer />', () => {
     const tree = getComponent({
       capId: 84429,
       vehicleType: VehicleTypeEnum.CAR,
+      setLeadTime: jest.fn(),
       leaseAdjustParams: {
         mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
         terms: [24, 36, 48, 60],
@@ -178,6 +178,8 @@ describe('<CustomiseLeaseContainer />', () => {
         ],
         trims: [{ id: '104562', optionDescription: 'Leather - Cranberry red' }],
       },
+      leaseType: 'Personal',
+      setLeaseType: jest.fn(),
     });
     expect(tree).toMatchSnapshot();
   });
@@ -193,6 +195,7 @@ describe('<CustomiseLeaseContainer />', () => {
     const tree = getComponent({
       capId: 84429,
       vehicleType: VehicleTypeEnum.CAR,
+      setLeadTime: jest.fn(),
       leaseAdjustParams: {
         mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
         terms: [24, 36, 48, 60],
@@ -226,6 +229,8 @@ describe('<CustomiseLeaseContainer />', () => {
         ],
         trims: [{ id: '104562', optionDescription: 'Leather - Cranberry red' }],
       },
+      leaseType: 'Personal',
+      setLeaseType: jest.fn(),
     });
     expect(tree).toMatchSnapshot();
   });

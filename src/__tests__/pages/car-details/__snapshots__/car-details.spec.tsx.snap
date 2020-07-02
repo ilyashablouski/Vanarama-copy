@@ -158,6 +158,8 @@ Array [
       className="heading -pt-100 -black -xlarge"
     >
       Mercedes-Benz
+       
+      C Class
     </span>
     <span
       className="text -lead -darker"
@@ -278,7 +280,7 @@ Array [
     >
       <div>
         <span>
-          14 - 21 Days Delivery
+          
         </span>
       </div>
       <div>
@@ -750,32 +752,7 @@ Array [
         </div>
       </div>
     </div>
-    <div
-      className="pdp--sidebar"
-      style={
-        Object {
-          "alignItems": "center",
-          "display": "flex",
-          "minHeight": "40rem",
-        }
-      }
-    >
-      <div
-        className="loading -xlarge"
-      >
-        <svg
-          className="loading--svg"
-          viewBox="-75 -75 150 150"
-        >
-          <circle
-            className="loading--stroke"
-            cx="0"
-            cy="0"
-            r="37.5"
-          />
-        </svg>
-      </div>
-    </div>
+    <div />
     <div
       className="pdp--feature-grid -col2"
     >
@@ -1311,33 +1288,202 @@ Array [
         </li>
       </ul>
     </div>
+    <div
+      className="pdp--reviews"
+    />
   </div>,
   <div
     className="pdp--sidebar"
-    style={
-      Object {
-        "alignItems": "center",
-        "display": "flex",
-        "minHeight": "40rem",
-      }
-    }
   >
     <div
-      className="loading -xlarge"
+      style={
+        Object {
+          "display": "flex",
+          "justifyContent": "space-between",
+        }
+      }
     >
-      <svg
-        className="loading--svg"
-        viewBox="-75 -75 150 150"
+      <div>
+        <span
+          className="heading -black -small"
+        >
+          FACTORY ORDER
+        </span>
+        <span
+          className="text -small -darker"
+        >
+          Availability: 12 Weeks (Avg)
+        </span>
+      </div>
+      <div>
+        <div
+          className="price -xlarge -black"
+        >
+          POA
+        </div>
+      </div>
+    </div>
+    <form
+      className="form"
+      data-testid="goldrush-form"
+      onSubmit={[Function]}
+    >
+      <span
+        className="heading -black -lead"
       >
-        <circle
-          className="loading--stroke"
-          cx="0"
-          cy="0"
-          r="37.5"
-        />
-      </svg>
+        Get Your Quote Now
+      </span>
+      <div
+        className="formgroup"
+      >
+        <label
+          className="formgroup--legend"
+          htmlFor="goldrush-form_full-name"
+        >
+          Full Name
+        </label>
+        <div
+          className="formgroup--content"
+        >
+          <div
+            className="textinput regular"
+          >
+            <input
+              className="textinput--native regular"
+              data-testid="goldrush-form_full-name"
+              id="goldrush-form_full-name"
+              name="fullName"
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="formgroup"
+      >
+        <label
+          className="formgroup--legend"
+          htmlFor="goldrush-form_email"
+        >
+          Email Address
+        </label>
+        <div
+          className="formgroup--content"
+        >
+          <div
+            className="textinput regular"
+          >
+            <input
+              className="textinput--native regular"
+              data-testid="goldrush-form_email"
+              id="goldrush-form_email"
+              name="email"
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="formgroup"
+      >
+        <label
+          className="formgroup--legend"
+          htmlFor="goldrush-form_phone-number"
+        >
+          Phone Number
+        </label>
+        <div
+          className="formgroup--content"
+        >
+          <div
+            className="textinput regular"
+          >
+            <input
+              className="textinput--native regular"
+              data-testid="goldrush-form_phone-number"
+              id="goldrush-form_phone-number"
+              name="phoneNumber"
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="formgroup"
+      >
+        <label
+          className="formgroup--legend"
+        >
+          Please Confirm
+        </label>
+        <div
+          className="formgroup--content"
+        >
+          <div
+            className="checkbox -teal"
+          >
+            <input
+              className="checkbox--native"
+              data-testid="goldrush-form_marketing-preference"
+              id="goldrush-form_marketing-preference"
+              name="marketingPreference"
+              type="checkbox"
+            />
+            <label
+              className="checkbox--label"
+              htmlFor="goldrush-form_marketing-preference"
+            >
+              <span
+                className="text -regular -darker"
+              >
+                I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions.
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <p
+        className="text -xsmall -darker"
+      >
+        Terms and conditions agreement text and 
+        <a
+          className="link -primary -xsmall -plain"
+          data-testid="terms_and_conditions"
+          href="#"
+        >
+          link
+        </a>
+      </p>
+      <button
+        className="button -teal -lead -solid"
+        data-testid="goldrush-form_submit"
+        disabled={false}
+        type="submit"
+      >
+        <div
+          className="button--inner"
+        >
+          Get Quote Now
+        </div>
+      </button>
+    </form>
+    <div
+      className="pdp--sidebar-promise"
+    >
+      <span
+        className="text -regular -black"
+      >
+        Lorem ipsum dolor. We’ll beat any lease quote or we'll give you £100. 
+      </span>
+      <a
+        className="link -success -small -plain"
+        href="#"
+      >
+        Terms and Conditions apply.
+      </a>
     </div>
   </div>,
+  <div />,
 ]
 `;
 
