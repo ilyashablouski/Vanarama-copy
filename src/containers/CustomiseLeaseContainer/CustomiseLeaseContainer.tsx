@@ -15,6 +15,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   leaseAdjustParams,
   leaseType,
   setLeaseType,
+  setLeadTime,
 }) => {
   const isInitialMount = useRef(true);
 
@@ -42,6 +43,11 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     trim: trim ? +(trim || 0) || null : +(quoteData?.trim || 0) || null,
     colour: colour || +(quoteData?.colour || 0) || null,
   });
+
+  useEffect(() => {
+    setLeadTime(data?.quoteByCapId?.leadTime || '');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   useEffect(() => {
     if (isInitialMount.current) {
