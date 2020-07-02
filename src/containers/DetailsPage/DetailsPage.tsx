@@ -23,6 +23,7 @@ import WhyChooseVanarama from '../../components/WhyChooseVanarama/WhyChooseVanar
 import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer';
 import GoldrushFormContainer from '../GoldrushFormContainer';
 import { replaceReview } from '../../components/CustomerReviews/helpers';
+import FrequentlyAskedQuestions from '../../components/FrequentlyAskedQuestions/FrequentlyAskedQuestions';
 
 interface IDetailsPageProps {
   capId: number;
@@ -94,14 +95,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   }));
 
   const vehicleType = cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV;
+  const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capRangeDescription}`;
 
   return (
     <>
       <div className="pdp--content">
         <Breadcrumb items={PATH.items} />
         <Heading className="-pt-100" tag="span" size="xlarge" color="black">
-          {vehicleConfigurationByCapId?.capManufacturerDescription}{' '}
-          {vehicleConfigurationByCapId?.capRangeDescription}
+          {pageTitle}
         </Heading>
         <Text tag="span" size="lead" color="darker">
           {vehicleConfigurationByCapId?.capDerivativeDescription}
@@ -157,6 +158,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <div className="pdp--reviews">
           <CustomerReviews reviews={reviews || []} />
         </div>
+        <FrequentlyAskedQuestions rangeFAQ={[]} rangeFAQTitle={pageTitle} />
       </div>
       {vehicleConfigurationByCapId?.financeProfile ? (
         <CustomiseLeaseContainer
