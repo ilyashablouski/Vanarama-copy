@@ -83,7 +83,7 @@ const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> =
           Customers Also Viewed
         </Heading>
         <div style={{ width: '100%' }}>
-          <Carousel className="-mh-auto">
+          <Carousel className="-mh-auto" countItems={data.productCard.length}>
             {data.productCard.slice(0, 6).map(
               product =>
                 product && (

@@ -279,7 +279,7 @@ Array [
     >
       <div>
         <span>
-          14 - 21 Days Delivery
+          
         </span>
       </div>
       <div>
@@ -1469,7 +1469,7 @@ Array [
       <p
         className="text -xsmall -darker"
       >
-        Terms and conditions agreement text and link 
+        Terms and conditions agreement text and 
         <a
           className="link -primary -xsmall -plain"
           data-testid="terms_and_conditions"
