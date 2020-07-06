@@ -6,6 +6,8 @@ import {
 } from '../../generated/GetVehicleDetails';
 import { GetQuoteDetails_quoteByCapId } from '../../generated/GetQuoteDetails';
 
+export const genDays = () => [...Array(31)].map((_, i) => i + 1);
+
 export const genMonths = moment.months;
 
 export const genYears = (back: number) => {

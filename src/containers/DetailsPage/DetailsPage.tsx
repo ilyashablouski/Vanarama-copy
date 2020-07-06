@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NextRouter } from 'next/router';
-import { ApolloError } from '@apollo/client';
+import { ApolloError, gql, useApolloClient } from '@apollo/client';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -11,7 +11,11 @@ import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import DownloadSharp from '@vanarama/uibook/lib/assets/icons/DownloadSharp';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
 import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-gallery';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import {
+  VehicleTypeEnum,
+  LeaseTypeEnum,
+  OrderInputObject,
+} from '../../../generated/globalTypes';
 import VehicleTechDetails from '../VehicleTechDetails/VehicleTechDetails';
 import IndependentReview from '../../components/IndependentReview/IndependentReview';
 import CustomiseLeaseContainer from '../CustomiseLeaseContainer/CustomiseLeaseContainer';
@@ -22,6 +26,8 @@ import CustomerReviews from '../../components/CustomerReviews/CustomerReviews';
 import WhyChooseVanarama from '../../components/WhyChooseVanarama/WhyChooseVanarama';
 import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer';
 import { replaceReview } from '../../components/CustomerReviews/helpers';
+import { useCreateOrder } from '../../gql/order';
+import { GetCachedOrderInformation } from '../../../generated/GetCachedOrderInformation';
 
 interface IDetailsPageProps {
   capId: number;
@@ -52,9 +58,43 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   loading,
   error,
 }) => {
+  const client = useApolloClient();
   const [leaseType, setLeaseType] = useState<string>('Personal');
   const [leadTime, setLeadTime] = useState<string>('');
   const isMobile = useMobileViewport();
+
+  const onCompleted = () => {
+    const url =
+      leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
+        ? `/olaf/about`
+        : `/b2b/olaf/about`;
+
+    router.push(url);
+  };
+
+  const [createOrderHandle] = useCreateOrder(onCompleted);
+
+  const onSubmitClick = (values: OrderInputObject) => {
+    return createOrderHandle({
+      variables: {
+        input: values,
+      },
+    }).then(response => {
+      // we need write data to apollo client cache with orderCapId
+      client.writeQuery<GetCachedOrderInformation>({
+        query: gql`
+          query GetCachedOrderInformation {
+            selectedOrderUuid
+            selectedDerivativeId
+          }
+        `,
+        data: {
+          selectedOrderUuid: response.data?.createOrder?.uuid || null,
+          selectedDerivativeId: capId.toString(),
+        },
+      });
+    });
+  };
 
   if (loading) {
     return (
@@ -151,6 +191,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             leaseType={leaseType}
             setLeaseType={setLeaseType}
             setLeadTime={setLeadTime}
+            onCompleted={values => onSubmitClick(values)}
           />
         )}
         <WhyChooseLeasing warranty={warranty || ''} />
