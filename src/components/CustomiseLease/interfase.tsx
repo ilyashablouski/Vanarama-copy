@@ -5,7 +5,10 @@ import {
   GetVehicleDetails_derivativeInfo,
   GetVehicleDetails_leaseAdjustParams,
 } from '../../../generated/GetVehicleDetails';
-import { OrderInputObject, VehicleTypeEnum, LineItemInputObject } from '../../../generated/globalTypes';
+import {
+  OrderInputObject,
+  LineItemInputObject,
+} from '../../../generated/globalTypes';
 
 export interface IChoice {
   label: string;
