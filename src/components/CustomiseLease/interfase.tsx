@@ -5,6 +5,10 @@ import {
   GetVehicleDetails_derivativeInfo,
   GetVehicleDetails_leaseAdjustParams,
 } from '../../../generated/GetVehicleDetails';
+import {
+  OrderInputObject,
+  LineItemInputObject,
+} from '../../../generated/globalTypes';
 
 export interface IChoice {
   label: string;
@@ -46,4 +50,6 @@ export interface IProps {
   isDisabled: boolean;
   setIsInitialLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  onSubmit: (values: OrderInputObject) => Promise<any>;
+  lineItem: LineItemInputObject;
 }

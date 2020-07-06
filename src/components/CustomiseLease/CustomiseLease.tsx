@@ -20,6 +20,7 @@ import {
   GetVehicleDetails_derivativeInfo_trims,
   GetVehicleDetails_derivativeInfo_colours,
 } from '../../../generated/GetVehicleDetails';
+import { LeaseTypeEnum } from '../../../generated/globalTypes';
 
 const LEASING_PROVIDERS = [
   'LeasePlan',
@@ -122,6 +123,8 @@ const CustomiseLease = ({
   isDisabled,
   setIsDisabled,
   setIsInitialLoading,
+  lineItem,
+  onSubmit,
 }: IProps) => {
   const quoteByCapId = data?.quoteByCapId;
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
@@ -249,7 +252,12 @@ const CustomiseLease = ({
               : undefined
           }
           price={+toPriceFormat(quoteByCapId?.leaseCost?.monthlyRental)}
-          orderNowClick={() => {}}
+          orderNowClick={() =>
+            onSubmit({
+              leaseType: leaseType.toUpperCase() as LeaseTypeEnum,
+              lineItems: [lineItem],
+            })
+          }
           headingText={`PM ${stateVAT}. VAT`}
           phoneNumber="+1313222"
           leasingProviders={LEASING_PROVIDERS}

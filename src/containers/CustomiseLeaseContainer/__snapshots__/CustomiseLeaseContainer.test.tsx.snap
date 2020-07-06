@@ -674,7 +674,16 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
         <div
           className="price -xlarge -black"
         >
-          POA
+          <span
+            className="price--sub"
+          >
+            £
+          </span>
+          <span
+            className="price--pounds"
+          >
+            POA
+          </span>
         </div>
         <div
           className="heading headingText -pt-100 -darker -small"

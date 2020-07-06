@@ -6,6 +6,10 @@ import { useQuoteData } from './gql';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import { IProps } from './interfaces';
 import { GetQuoteDetails_quoteByCapId } from '../../../generated/GetQuoteDetails';
+import {
+  GetVehicleDetails_derivativeInfo_colours,
+  GetVehicleDetails_derivativeInfo_trims,
+} from '../../../generated/GetVehicleDetails';
 
 // eslint-disable-next-line no-empty-pattern
 const CustomiseLeaseContainer: React.FC<IProps> = ({
@@ -16,6 +20,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   leaseType,
   setLeaseType,
   setLeadTime,
+  onCompleted,
 }) => {
   const isInitialMount = useRef(true);
 
@@ -64,7 +69,9 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     } else if (!quoteData) {
       setQuoteData(data?.quoteByCapId);
     } else {
-      setIsDisabled(true);
+      if (!isInitialLoading) {
+        setIsDisabled(true);
+      }
       refetch();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -109,6 +116,33 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     { label: 'Business', active: leaseType === 'Business' },
   ];
 
+  const lineItem = () => {
+    const colourDescription = derivativeInfo?.colours?.find(
+      (item: GetVehicleDetails_derivativeInfo_colours | null) =>
+        item?.id === data?.quoteByCapId?.colour,
+    )?.optionDescription;
+    const trimDescription = derivativeInfo?.trims?.find(
+      (item: GetVehicleDetails_derivativeInfo_trims | null) =>
+        item?.id === data?.quoteByCapId?.trim || item?.id === `${trim}`,
+    )?.optionDescription;
+
+    return {
+      vehicleProduct: {
+        vehicleType,
+        derivativeCapId: capId.toString(),
+        colour: colourDescription,
+        trim: trimDescription,
+        term: data?.quoteByCapId?.term || term || null,
+        annualMileage: data?.quoteByCapId?.mileage || mileage,
+        depositMonths: data?.quoteByCapId?.upfront || upfront || null,
+        depositPayment: data?.quoteByCapId?.leaseCost?.initialRental || null,
+        monthlyPayment: data?.quoteByCapId?.leaseCost?.monthlyRental || null,
+        maintenance,
+      },
+      quantity: 1,
+    };
+  };
+
   return (
     <CustomiseLease
       terms={terms || [{ label: '', active: false }]}
@@ -135,6 +169,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       isModalShowing={isModalShowing}
       setIsModalShowing={setIsModalShowing}
       setIsInitialLoading={setIsInitialLoading}
+      lineItem={lineItem()}
+      onSubmit={values => onCompleted(values)}
     />
   );
 };

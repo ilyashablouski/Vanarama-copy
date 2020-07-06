@@ -105,6 +105,8 @@ describe('<CustomiseLease />', () => {
       isDisabled: false,
       setIsInitialLoading: jest.fn(),
       setIsDisabled: jest.fn(),
+      onSubmit: jest.fn(),
+      lineItem: {} as any,
     });
 
     expect(tree).toMatchSnapshot();
@@ -203,6 +205,8 @@ describe('<CustomiseLease />', () => {
           },
         ],
       },
+      onSubmit: jest.fn(),
+      lineItem: {} as any,
     });
     expect(tree).toMatchSnapshot();
   });
@@ -321,6 +325,8 @@ describe('<CustomiseLease />', () => {
             },
           ],
         }}
+        onSubmit={jest.fn()}
+        lineItem={{} as any}
       />,
     );
 
