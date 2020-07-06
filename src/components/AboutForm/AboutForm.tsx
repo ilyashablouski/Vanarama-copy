@@ -19,13 +19,13 @@ import { responseToInitialFormValues } from './mappers';
 import useDateOfBirthValidation from './useDateOfBirthValidation';
 
 const logInLink = {
-  href: '#',
+  href: '',
   label: 'login',
 };
 
 const EMAIL_ALREADY_EXISTS = 'EMAIL_ALREADY_EXISTS';
 
-const mapEmailMessage = (message?: string) =>
+const mapEmailMessage = (onClick?: () => void, message?: string) =>
   message !== EMAIL_ALREADY_EXISTS ? (
     message
   ) : (
@@ -33,6 +33,7 @@ const mapEmailMessage = (message?: string) =>
       {'Your email address already exists. Do you wish to '}
       <RouterLink
         link={logInLink}
+        onClick={onClick}
         classNames={{
           color: 'teal',
           size: 'xsmall',
@@ -47,6 +48,7 @@ const AboutForm: FCWithFragments<IProps> = ({
   person,
   submit,
   onEmailExistenceCheck,
+  onLogInClick,
 }) => {
   const months = genMonths();
   const years = genYears(100);
@@ -111,7 +113,10 @@ const AboutForm: FCWithFragments<IProps> = ({
       <FormGroup
         controlId="email"
         label="Email"
-        error={mapEmailMessage(errors?.email?.message?.toString())}
+        error={mapEmailMessage(
+          onLogInClick,
+          errors?.email?.message?.toString(),
+        )}
       >
         <TextInput
           id="email"

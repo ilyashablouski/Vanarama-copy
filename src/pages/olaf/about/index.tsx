@@ -101,6 +101,7 @@ const AboutYouPage: NextPage = () => {
 
           router.push(url, url.replace('[uuid]', createUpdatePerson!.uuid));
         }}
+        onLogInClick={() => toggleLogInVisibility(true)}
         personUuid={uuid}
       />
     </OLAFLayout>
