@@ -19,7 +19,7 @@ import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
-import iconMap from '../../../utils/cardIconMap';
+import getIconMap from '../../../utils/getIconMap';
 import truncateString from '../../../utils/truncateString';
 
 import {
@@ -125,6 +125,7 @@ export const CarsPage: NextPage = () => {
       <div className="row:bg-lighter">
         <section className="row:cards-3col">
           {products?.productCarousel?.map((item, idx) => {
+            const iconMap = getIconMap(item?.keyInformation || []);
             return (
               <ProductCard
                 key={item?.capId || idx}
