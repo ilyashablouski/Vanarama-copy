@@ -3,9 +3,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import CustomiseLease from '../../components/CustomiseLease/CustomiseLease';
 import { useQuoteData } from './gql';
-import { LeaseTypeEnum } from '../../../generated/globalTypes';
+import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
 import { IProps } from './interfaces';
 import { GetQuoteDetails_quoteByCapId } from '../../../generated/GetQuoteDetails';
+import GoldrushFormContainer from '../GoldrushFormContainer';
 
 // eslint-disable-next-line no-empty-pattern
 const CustomiseLeaseContainer: React.FC<IProps> = ({
@@ -99,7 +100,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     { label: 'Business', active: leaseType === 'Business' },
   ];
 
-  return (
+  return data.quoteByCapId?.leaseCost?.monthlyRental ? (
     <CustomiseLease
       terms={terms || [{ label: '', active: false }]}
       upfronts={upfronts || [{ label: '', active: false }]}
@@ -122,6 +123,14 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       setMaintenance={setMaintenance}
       isModalShowing={isModalShowing}
       setIsModalShowing={setIsModalShowing}
+    />
+  ) : (
+    <GoldrushFormContainer
+      termsAndConditions
+      isPostcodeVisible={vehicleType !== VehicleTypeEnum.CAR}
+      capId={capId}
+      kind="quote"
+      vehicleType={vehicleType}
     />
   );
 };

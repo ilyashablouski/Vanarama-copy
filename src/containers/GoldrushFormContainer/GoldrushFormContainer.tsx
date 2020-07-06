@@ -4,6 +4,9 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
+import IconList, {
+  IconListItem,
+} from '@vanarama/uibook/lib/components/organisms/icon-list';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import GoldrushForm from '../../components/GoldrushForm';
 import {
@@ -11,6 +14,8 @@ import {
   CreateOpportunityVariables as MutationVariables,
 } from '../../../generated/CreateOpportunity';
 import { GoldrushFormContainerProps } from './interfaces';
+
+const DEFAULT_POSTCODE = 'HP27DE';
 
 const handleNetworkError = () =>
   toast.error(
@@ -86,10 +91,30 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
       {isGratitudeVisible ? (
         <div>
           <Heading size="large" color="black">
-            Thank you for submitting the form
+            Thanks, We’ll Be In Touch
           </Heading>
           <Text size="regular" color="darker">
-            We will be in touch shortly
+            One of our vehicle experts will give you a call shortly to talk
+            through your options.
+          </Text>
+          <div className="-mb-500 -mt-500">
+            <Heading size="large" color="lead">
+              Why Vanarama?
+            </Heading>
+            <IconList>
+              <IconListItem iconColor="orange">
+                The best deal guaranteed by our Price Promise
+              </IconListItem>
+              <IconListItem iconColor="orange">
+                Redundancy &amp; life event cover included
+              </IconListItem>
+              <IconListItem iconColor="orange">
+                Free, safe &amp; contactless delivery
+              </IconListItem>
+            </IconList>
+          </div>
+          <Text size="regular" color="darker">
+            We look forward to having a chat.
           </Text>
         </div>
       ) : (
@@ -104,7 +129,7 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
                   email: values.email,
                   phoneNumber: values.phoneNumber,
                   fullName: values.fullName,
-                  postcode: values.postcode || '',
+                  postcode: values.postcode || DEFAULT_POSTCODE,
                   marketingPreference: Boolean(values.marketingPreference),
                   capId,
                   kind,
@@ -116,9 +141,7 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
           />
           <div className="pdp--sidebar-promise">
             <Text size="regular" color="black" tag="span">
-              {
-                "Lorem ipsum dolor. We’ll beat any lease quote or we'll give you £100. "
-              }
+              {"We’ll beat any lease quote or we'll give you £100. "}
             </Text>
             <Link href="#" color="success" size="small">
               Terms and Conditions apply.
