@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
+import { VehicleTypeEnum, LeaseTypeEnum, OrderInputObject } from '../../../generated/globalTypes';
 import {
   GetVehicleDetails_derivativeInfo,
   GetVehicleDetails_leaseAdjustParams,
 } from '../../../generated/GetVehicleDetails';
+import { CreateOrder } from '../../../generated/CreateOrder';
 
 export interface IProps {
   capId: number;
@@ -13,6 +14,7 @@ export interface IProps {
   leaseType: string;
   setLeaseType: React.Dispatch<React.SetStateAction<string>>;
   setLeadTime: React.Dispatch<React.SetStateAction<string>>;
+  onCompleted: (values: OrderInputObject) => Promise<any>;
 }
 
 export interface IQuoteDataInputs {
