@@ -29,7 +29,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [trim, setTrim] = useState<number | null>(null);
   const [maintenance, setMaintenance] = useState<boolean | null>(null);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
-
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const { data, error, loading, refetch } = useQuoteData({
     capId: `${capId}`,
     vehicleType,
@@ -56,6 +56,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     } else if (!quoteData) {
       setQuoteData(data?.quoteByCapId);
     } else {
+      setIsDisabled(true);
       refetch();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -119,6 +120,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       trim={trim}
       derivativeInfo={derivativeInfo}
       colour={colour}
+      isDisabled={isDisabled}
+      setIsDisabled={setIsDisabled}
       leaseAdjustParams={leaseAdjustParams}
       maintenance={maintenance}
       setMaintenance={setMaintenance}

@@ -39,8 +39,8 @@ const choices = (
   choicesValues: IChoice[],
   setChoice: Dispatch<SetStateAction<string>>,
   heading: string,
-  currentValue?: string,
   isDisabled: boolean,
+  currentValue?: string,
 ) => (
   <>
     <Heading tag="span" size="regular" color="black">
@@ -127,11 +127,11 @@ const CustomiseLease = ({
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
 
   return (
-    <div className={`pdp--sidebar ${isDisabled ? 'disabled' : ''}`}>
+    <div className={`pdp--sidebar ${isDisabled || loading ? 'disabled' : ''}`}>
       <Heading tag="span" size="xlarge" color="black">
         Customise Your Lease
       </Heading>
-      {choices(leaseTypes, setLeaseType, 'Lease Type', isDisabled)}
+      {choices(leaseTypes, setLeaseType, 'Lease Type', isDisabled || loading)}
       <Heading tag="span" size="regular" color="black">
         Annual Mileage:
         <Text color="orange" className="-b -ml-100">
@@ -140,7 +140,7 @@ const CustomiseLease = ({
       </Heading>
       <SlidingInput
         steps={mileages}
-        disabled={isDisabled}
+        disabled={isDisabled || loading}
         defaultValue={mileages.indexOf(mileage || 0) + 1}
         onChange={value => {
           setMileage(mileages[value - 1]);
@@ -164,17 +164,17 @@ const CustomiseLease = ({
         terms,
         value => setTerm(+(value || 0) || null),
         'Length Of Lease:',
+        isDisabled || loading,
         `${quoteByCapId?.term} Months`,
-        isDisabled,
       )}
       {choices(
         upfronts,
         value => setUpfront(+(value || 0) || null),
         'Initial Payment: ',
+        isDisabled || loading,
         `£${toPriceFormat(
           quoteByCapId?.leaseCost?.initialRental,
         )} ${stateVAT}. VAT`,
-        isDisabled,
       )}
       <Heading tag="span" size="regular" color="black">
         Vehicle Options
@@ -184,14 +184,14 @@ const CustomiseLease = ({
         setColour,
         derivativeInfo?.colours,
         'Select Paint Colour',
-        isDisabled,
+        isDisabled || loading,
       )}
       {select(
         `${quoteByCapId?.trim || trim}`,
         setTrim,
         derivativeInfo?.trims,
         'Select Interior',
-        isDisabled,
+        isDisabled || loading,
       )}
       <Heading tag="span" size="regular" color="black">
         Add Maintenance:
@@ -234,8 +234,12 @@ const CustomiseLease = ({
           className="pdp-footer"
           nextBestPrice={
             maintenance
-              ? toPriceFormat(quoteByCapId?.nextBestPrice?.maintained)
-              : toPriceFormat(quoteByCapId?.nextBestPrice?.nonMaintained)
+              ? `£${toPriceFormat(
+                  quoteByCapId?.nextBestPrice?.maintained,
+                )} PM ${stateVAT}. VAT`
+              : `£${toPriceFormat(
+                  quoteByCapId?.nextBestPrice?.nonMaintained,
+                )} PM ${stateVAT}. VAT`
           }
           priceLabel={
             maintenance
@@ -249,8 +253,10 @@ const CustomiseLease = ({
           headingText={`PM ${stateVAT}. VAT`}
           phoneNumber="+1313222"
           leasingProviders={LEASING_PROVIDERS}
-          startLoading={loading}
-          endAnimation={() => {}}
+          startLoading={isDisabled}
+          endAnimation={() => {
+            setIsDisabled(false);
+          }}
         />
       </div>
       {isModalShowing && (
