@@ -86,7 +86,7 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
       {isGratitudeVisible ? (
         <div>
           <Heading size="large" color="black">
-            Thank You
+            Thank you for submitting the form
           </Heading>
           <Text size="regular" color="darker">
             We will be in touch shortly

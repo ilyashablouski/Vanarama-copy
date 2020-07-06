@@ -100,8 +100,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   );
 
   const leaseTypes = [
-    { label: 'Personal', active: true },
-    { label: 'Business', active: false },
+    { label: 'Personal', active: leaseType === 'Personal' },
+    { label: 'Business', active: leaseType === 'Business' },
   ];
 
   const lineItem = () => {
