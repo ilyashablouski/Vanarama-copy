@@ -115,6 +115,7 @@ const CustomiseLease = ({
   setIsModalShowing,
   trim,
   mileage,
+  loading,
 }: IProps) => {
   const quoteByCapId = data?.quoteByCapId;
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
@@ -218,11 +219,11 @@ const CustomiseLease = ({
         <LeaseScanner
           classNameHeading="headingText"
           className="pdp-footer"
-          // nextBestPrice={
-          //   maintenance
-          //     ? +(quoteByCapId?.nextBestPrice?.maintained || 0)
-          //     : +quoteByCapId?.nextBestPrice?.nonMaintained
-          // }
+          nextBestPrice={
+            maintenance
+              ? toPriceFormat(quoteByCapId?.nextBestPrice?.maintained)
+              : toPriceFormat(quoteByCapId?.nextBestPrice?.nonMaintained)
+          }
           priceLabel={
             maintenance
               ? `+£${toPriceFormat(
@@ -235,7 +236,8 @@ const CustomiseLease = ({
           headingText={`PM ${stateVAT}. VAT`}
           phoneNumber="+1313222"
           leasingProviders={LEASING_PROVIDERS}
-          startLoading={false}
+          startLoading={loading}
+          endAnimation={() => {}}
         />
       </div>
       {isModalShowing && (

@@ -35,6 +35,7 @@ export interface IProps {
   setMaintenance: Dispatch<SetStateAction<boolean | null>>;
   data: GetQuoteDetails;
   leaseType: string;
+  loading: boolean;
   trim: number | null;
   colour: number | null;
   derivativeInfo: GetVehicleDetails_derivativeInfo | null | undefined;

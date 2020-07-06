@@ -30,7 +30,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [maintenance, setMaintenance] = useState<boolean | null>(null);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
 
-  const { data, error, refetch } = useQuoteData({
+  const { data, error, loading, refetch } = useQuoteData({
     capId: `${capId}`,
     vehicleType,
     mileage: mileage || quoteData?.mileage || null,
@@ -114,6 +114,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       setTerm={setTerm}
       setTrim={setTrim}
       data={data}
+      loading={loading}
       mileage={mileage || data.quoteByCapId?.mileage}
       trim={trim}
       derivativeInfo={derivativeInfo}
