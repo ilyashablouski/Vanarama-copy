@@ -10,7 +10,7 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import { gql } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
-import { genMonths, genYears } from '../../utils/helpers';
+import { genMonths, genYears, genDays } from '../../utils/helpers';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
 import RouterLink from '../RouterLink/RouterLink';
 import validationSchema from './AboutForm.validation';
@@ -169,13 +169,11 @@ const AboutForm: FCWithFragments<IProps> = ({
           ref={register}
           placeholder="Day"
         >
-          {[...Array(31)]
-            .map((_, i) => i + 1)
-            .map(value => (
-              <option key={value} value={value}>
-                {value}
-              </option>
-            ))}
+          {genDays().map(value => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
         </Select>
         <Select
           dataTestId="aboutSelectMOB"

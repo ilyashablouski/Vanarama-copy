@@ -4,7 +4,12 @@ import { useRouter } from 'next/router';
 import SearchPod from '../../components/SearchPod';
 import { tabsFields, budget } from './config';
 import { filterListByTypes, filterTypeAndBudget } from './gql';
-import { makeHandler, modelHandler, budgetBetween } from './helpers';
+import {
+  makeHandler,
+  modelHandler,
+  budgetBetween,
+  getBudgetForQuery,
+} from './helpers';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
 
 enum Tabs {
@@ -199,61 +204,39 @@ const SearchPodContainer = () => {
   // get options list
   const getOptions = (field: keyof typeof fieldsMapper) => fieldsMapper[field];
 
-  // build budget query
-  const getBudgetForQuery = (range: string) => {
-    if (range) {
-      return range
-        .split('£')
-        .join('')
-        .replace('-', '|');
-    }
-    return '';
-  };
-
   // search url generation
   const onSearch = (tabType: string) => {
     const isCarTab = tabType === 'Cars';
-    let routerUrl = '/[search]';
     const values = getValues();
     const searchType = isCarTab ? 'car-leasing' : 'van-leasing';
-    const mainPart = values[`make${tabType}`]
-      ? `${values[`make${tabType}`].replace(' ', '-')}-${searchType}`
-      : `${isCarTab ? 'car-leasing-' : ''}search`;
+    let routerUrl = `/${searchType}`;
+    const mainPart = searchType;
     let additionalPart = '';
     let queryPart = '';
     let queryTypePart = '';
     let queryBudgetPart = '';
     const query = {} as any;
-    // make + model
-    if (values[`make${tabType}`] && values[`model${tabType}`]) {
-      additionalPart = `/${values[`model${tabType}`].replace(' ', '-')}`;
-      routerUrl += '/[model]';
+    // make
+    if (values[`make${tabType}`]) {
+      additionalPart = `/${values[`make${tabType}`].replace(' ', '-')}`;
+      routerUrl += '/[manufacturer]';
       // adding type only for cars search if we have model
-      if (isCarTab && values[`type${tabType}`]) {
-        additionalPart += `/${values[`type${tabType}`]}`;
-        routerUrl += '/[type]';
+      if (values[`model${tabType}`]) {
+        additionalPart += `/${values[`model${tabType}`].replace(' ', '-')}`;
+        routerUrl += '/[model]';
       }
     }
     // adding budget and types
-    if (
-      (!isCarTab ||
-        !values[`model${tabType}`] ||
-        (isCarTab && values[`budget${tabType}`])) &&
-      (values[`type${tabType}`] || values[`budget${tabType}`])
-    ) {
+    if (values[`type${tabType}`] || values[`budget${tabType}`]) {
       queryPart = '?';
-      if (
-        values[`type${tabType}`] &&
-        !(isCarTab && values[`model${tabType}`])
-      ) {
-        queryTypePart = `bodyType=${values[`type${tabType}`]
+      if (values[`type${tabType}`]) {
+        queryTypePart = `bodyStyles=${values[`type${tabType}`]
           .split(' ')
           .join('')}`;
         queryPart += `${queryTypePart}${values[`type${tabType}`] &&
           values[`budget${tabType}`] &&
-          (!(isCarTab && values[`model${tabType}`]) || '') &&
           '&'}`;
-        query.bodyType = values[`type${tabType}`];
+        query.bodyStyles = values[`type${tabType}`];
       }
       if (values[`budget${tabType}`]) {
         queryBudgetPart = `pricePerMonth=${getBudgetForQuery(

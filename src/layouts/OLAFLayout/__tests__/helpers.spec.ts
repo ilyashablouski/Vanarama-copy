@@ -16,6 +16,7 @@ describe('helpers', () => {
         description: 'description',
         annualMileageBooster: 'annualMileageBooster',
         damageCover: 'damageCover',
+        term: 100,
       } as any;
       const derivative = {
         fuelTypeName: 'fuelTypeName',

@@ -1,4 +1,4 @@
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, gql, useMutation } from '@apollo/client';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
 import {
   GetDerivative,
@@ -9,6 +9,7 @@ import {
   GetOrderByUuid,
   GetOrderByUuidVariables,
 } from '../../generated/GetOrderByUuid';
+import { CreateOrder, CreateOrderVariables } from '../../generated/CreateOrder';
 
 export const GET_ORDER_BY_UUID_DATA = gql`
   query GetOrderByUuid($uuid: ID!) {
@@ -16,7 +17,6 @@ export const GET_ORDER_BY_UUID_DATA = gql`
       uuid
       id
       leaseType
-      partyUuid
       status
       createdAt
       updatedAt
@@ -109,7 +109,6 @@ export const GET_OLAF_DATA = gql`
       uuid
       id
       leaseType
-      partyUuid
       status
       createdAt
       updatedAt
@@ -180,5 +179,39 @@ export function useOlafData(
       vehicleType,
     },
     skip: [uuid, id, vehicleType].some(item => !item),
+  });
+}
+
+export const CREATE_ORDER_MUTATION = gql`
+  mutation CreateOrder($input: OrderInputObject!) {
+    createOrder(input: $input) {
+      uuid
+      createdAt
+      salesChannel
+      status
+      lineItems {
+        uuid
+        quantity
+        status
+        productId
+        productType
+        vehicleProduct {
+          derivativeCapId
+          description
+          vsku
+          term
+          annualMileage
+          monthlyPayment
+          depositMonths
+          funder
+        }
+      }
+    }
+  }
+`;
+
+export function useCreateOrder(onCompleted: (data: CreateOrder) => void) {
+  return useMutation<CreateOrder, CreateOrderVariables>(CREATE_ORDER_MUTATION, {
+    onCompleted,
   });
 }

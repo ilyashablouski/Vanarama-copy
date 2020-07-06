@@ -19,3 +19,14 @@ export const budgetBetween = (range: string, price: number) => {
     .map(value => parseFloat(value.replace('£', '')));
   return price >= rangeArray[0] && price <= rangeArray[1];
 };
+
+// build budget query
+export const getBudgetForQuery = (range: string) => {
+  if (range) {
+    return range
+      .split('£')
+      .join('')
+      .replace('-', '|');
+  }
+  return '';
+};

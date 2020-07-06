@@ -105,8 +105,8 @@ describe('<SearchPodContainer />', () => {
     await waitFor(() => {
       expect(pushMock).toHaveBeenCalledTimes(1);
       expect(pushMock).toHaveBeenCalledWith(
-        { pathname: '/[search]', query: {} },
-        '/search',
+        { pathname: '/van-leasing', query: {} },
+        '/van-leasing',
       );
     });
   });
@@ -132,8 +132,8 @@ describe('<SearchPodContainer />', () => {
     await waitFor(() => {
       expect(pushMock).toHaveBeenCalledTimes(1);
       expect(pushMock).toHaveBeenCalledWith(
-        { pathname: '/[search]', query: {} },
-        '/car-leasing-search',
+        { pathname: '/car-leasing', query: {} },
+        '/car-leasing',
       );
     });
   });
