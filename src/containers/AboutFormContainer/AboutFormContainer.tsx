@@ -6,11 +6,7 @@ import { useCreatePerson, useAboutYouData } from './gql';
 import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
 
-const AboutFormContainer: React.FC<IProps> = ({
-  onCompleted,
-  personUuid,
-  onLogInClick,
-}) => {
+const AboutFormContainer: React.FC<IProps> = ({ onCompleted, personUuid }) => {
   const [createDetailsHandle] = useCreatePerson(onCompleted);
   const { data, loading, error } = useAboutYouData(personUuid);
   const [emailAlreadyExists] = useEmailCheck();
@@ -38,7 +34,6 @@ const AboutFormContainer: React.FC<IProps> = ({
 
         return Boolean(results?.data?.emailAlreadyExists);
       }}
-      onLogInClick={onLogInClick}
       submit={values =>
         createDetailsHandle({
           variables: {

@@ -67,15 +67,13 @@ const AboutYouPage: NextPage = () => {
         about you and your company. This will be used for your credit check.
       </Text>
       {!uuid && (
-        <>
-          <div className="form">
-            <div className="-pt-300 -pb-300">
-              <Button
-                label="Login For A Speedy Checkout"
-                color="teal"
-                onClick={() => toggleLogInVisibility(!isLogInVisible)}
-              />
-            </div>
+        <div className="-mb-500">
+          <div className="-pt-300 -pb-300">
+            <Button
+              label="Login For A Speedy Checkout"
+              color="teal"
+              onClick={() => toggleLogInVisibility(!isLogInVisible)}
+            />
           </div>
           {isLogInVisible && (
             <LoginFormContainer
@@ -91,7 +89,7 @@ const AboutYouPage: NextPage = () => {
               }}
             />
           )}
-        </>
+        </div>
       )}
       <AboutFormContainer
         onCompleted={({ createUpdatePerson }) => {
