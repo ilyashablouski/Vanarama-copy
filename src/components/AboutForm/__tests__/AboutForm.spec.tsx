@@ -5,10 +5,12 @@ import AboutForm from '..';
 describe('<AboutForm />', () => {
   const submit = jest.fn();
   const emailExistenceCheckMock = jest.fn();
+  const onLogInClickMock = jest.fn();
 
   beforeEach(() => {
     render(
       <AboutForm
+        onLogInClick={onLogInClickMock}
         onEmailExistenceCheck={emailExistenceCheckMock}
         submit={submit}
         dropdownData={{

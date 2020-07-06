@@ -24,5 +24,5 @@ export interface IProps {
   person?: AboutFormPerson | null;
   submit: (values: IAboutFormValues) => Promise<any>;
   onEmailExistenceCheck: (value: string) => Promise<boolean>;
-  onLogInClick: () => void;
+  onLogInClick?: () => void;
 }
