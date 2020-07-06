@@ -1,4 +1,5 @@
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import { gql } from '@apollo/client';
 import { FieldArrayRenderProps } from 'formik';
 import React from 'react';
@@ -15,15 +16,19 @@ import { EMPTY_ADDRESS_ENTRY, IAddressFormValues } from './interfaces';
 interface IProps {
   arrayHelpers: FieldArrayRenderProps;
   dropDownData: AddressFormFieldArrayDownData;
+  idPrefix?: string;
+  requiredMonths?: number;
   values: IAddressFormValues;
 }
 
 const AddressFormFieldArray: FCWithFragments<IProps> = ({
   arrayHelpers,
   dropDownData,
+  idPrefix,
+  requiredMonths = 36,
   values,
 }) => {
-  const { remainingMonths } = useHistory(values.history, 36, {
+  const { remainingMonths } = useHistory(values.history, requiredMonths, {
     onAppend: () => {
       arrayHelpers.push(EMPTY_ADDRESS_ENTRY);
     },
@@ -33,37 +38,48 @@ const AddressFormFieldArray: FCWithFragments<IProps> = ({
 
   return (
     <>
-      {values.history.map((_, index) => (
-        <RemainingMonthsMessage
-          // eslint-disable-next-line react/no-array-index-key
-          key={index}
-          entries={values.history}
-          formatString="We need another %s of address history."
-          index={index}
-          remainingMonths={remainingMonths}
-        >
-          <Tile>
-            <FormikAddressField
-              name={`history[${index}].address`}
-              label="Your Postcode or Address"
-            />
-            <FormikSelectField
-              name={`history[${index}].status`}
-              label="Your Property Status"
-            >
-              <OptionsWithFavourites options={dropDownData.propertyStatuses} />
-            </FormikSelectField>
-            <FormikMonthField
-              label="Date Moved In"
-              monthName={`history[${index}].month`}
-              yearName={`history[${index}].year`}
-            />
-          </Tile>
-        </RemainingMonthsMessage>
-      ))}
+      {values.history.map((_, index) => {
+        const nameGenerator = createNameGenerator(index, idPrefix);
+        return (
+          <RemainingMonthsMessage
+            key={index} // eslint-disable-line react/no-array-index-key
+            entries={values.history}
+            formatString="We need another %s of address history."
+            index={index}
+            remainingMonths={remainingMonths}
+          >
+            <Tile>
+              <Heading color="dark" size="small">
+                {index === 0 ? 'Current' : 'Past'} Address
+              </Heading>
+              <FormikAddressField
+                name={nameGenerator('address')}
+                label="Your Postcode or Address"
+              />
+              <FormikSelectField
+                name={nameGenerator('status')}
+                label="Your Property Status"
+              >
+                <OptionsWithFavourites
+                  options={dropDownData.propertyStatuses}
+                />
+              </FormikSelectField>
+              <FormikMonthField
+                label="Date Moved In"
+                monthName={nameGenerator('month')}
+                yearName={nameGenerator('year')}
+              />
+            </Tile>
+          </RemainingMonthsMessage>
+        );
+      })}
     </>
   );
 };
+
+function createNameGenerator(index: number, prefix: string = '') {
+  return (field: string) => `${prefix}history[${index}].${field}`;
+}
 
 AddressFormFieldArray.fragments = {
   dropDownData: gql`

@@ -1,5 +1,9 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
+import {
+  VehicleTypeEnum,
+  LeaseTypeEnum,
+  OrderInputObject,
+} from '../../../generated/globalTypes';
 import {
   GetVehicleDetails_derivativeInfo,
   GetVehicleDetails_leaseAdjustParams,
@@ -13,6 +17,7 @@ export interface IProps {
   leaseType: string;
   setLeaseType: React.Dispatch<React.SetStateAction<string>>;
   setLeadTime: React.Dispatch<React.SetStateAction<string>>;
+  onCompleted: (values: OrderInputObject) => Promise<void>;
 }
 
 export interface IQuoteDataInputs {
