@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
@@ -9,11 +8,8 @@ import IconList, {
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import GoldrushForm from '../../components/GoldrushForm';
-import {
-  CreateOpportunity as Mutation,
-  CreateOpportunityVariables as MutationVariables,
-} from '../../../generated/CreateOpportunity';
 import { GoldrushFormContainerProps } from './interfaces';
+import { useOpportunityCreation } from './gql';
 
 const DEFAULT_POSTCODE = 'HP27DE';
 
@@ -23,36 +19,6 @@ const handleNetworkError = () =>
     'Dolor ut tempor eiusmod enim consequat laboris dolore ut pariatur labore sunt incididunt dolore veniam mollit excepteur dolor aliqua minim nostrud adipisicing culpa aliquip ex',
   );
 
-export const CREATE_OPPORTUNITY_MUTATION = gql`
-  mutation CreateOpportunity(
-    $capId: Int
-    $email: String!
-    $fullName: String!
-    $marketingPreference: Boolean
-    $kind: String!
-    $phoneNumber: String!
-    $postcode: String!
-    $termsAndConditions: Boolean
-    $vehicleType: String
-  ) {
-    createOpportunity(
-      input: {
-        capId: $capId
-        communicationsConsent: $marketingPreference
-        email: $email
-        fullName: $fullName
-        kind: $kind
-        phoneNumber: $phoneNumber
-        postcode: $postcode
-        termsAndConditions: $termsAndConditions
-        vehicleType: $vehicleType
-      }
-    ) {
-      uuid
-    }
-  }
-`;
-
 const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
   isPostcodeVisible,
   capId,
@@ -61,17 +27,14 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
   vehicleType,
 }) => {
   const [isGratitudeVisible, toggleGratitude] = useState(false);
-  const [createOppurtunity, { loading }] = useMutation<
-    Mutation,
-    MutationVariables
-  >(CREATE_OPPORTUNITY_MUTATION, {
-    onCompleted: () => toggleGratitude(true),
-    onError: error => {
+  const [createOppurtunity, { loading }] = useOpportunityCreation(
+    () => toggleGratitude(true),
+    error => {
       if (error?.networkError) {
         handleNetworkError();
       }
     },
-  });
+  );
 
   return (
     <div className="pdp--sidebar">
@@ -98,7 +61,7 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
             through your options.
           </Text>
           <div className="-mb-500 -mt-500">
-            <Heading size="large" color="lead">
+            <Heading size="large" color="black">
               Why Vanarama?
             </Heading>
             <IconList>
@@ -130,7 +93,7 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
                   phoneNumber: values.phoneNumber,
                   fullName: values.fullName,
                   postcode: values.postcode || DEFAULT_POSTCODE,
-                  marketingPreference: Boolean(values.marketingPreference),
+                  marketingPreference: Boolean(values.termsAndCons),
                   capId,
                   kind,
                   vehicleType,

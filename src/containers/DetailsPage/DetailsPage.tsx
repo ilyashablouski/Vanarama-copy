@@ -208,6 +208,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         leaseType={leaseType}
         setLeaseType={setLeaseType}
         setLeadTime={setLeadTime}
+        onCompleted={values => onSubmitClick(values)}
       />
       <CustomerAlsoViewedContainer
         capsId={capsId || []}

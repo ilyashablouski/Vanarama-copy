@@ -5,14 +5,21 @@ import CustomiseLeaseContainer from './CustomiseLeaseContainer';
 import { useQuoteData } from './gql';
 import { IProps } from './interfaces';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import { useOpportunityCreation } from '../GoldrushFormContainer/gql';
 
 jest.mock('./gql');
+jest.mock('../GoldrushFormContainer/gql');
 
 const getComponent = (props: IProps) => {
   return renderer.create(<CustomiseLeaseContainer {...props} />).toJSON();
 };
 
 describe('<CustomiseLeaseContainer />', () => {
+  (useOpportunityCreation as jest.Mock).mockReturnValue([
+    () => {},
+    { loading: false },
+  ]);
+
   it('should show data correctly', async () => {
     (useQuoteData as jest.Mock).mockReturnValue({
       loading: false,
@@ -31,6 +38,9 @@ describe('<CustomiseLeaseContainer />', () => {
             monthlyRental: 605.95,
             initialRental: 605.95,
             excessMileage: 14.76,
+          },
+          leaseCost: {
+            monthlyRental: 123,
           },
           processingFee: 0,
           stock: 'Brand New - ',
