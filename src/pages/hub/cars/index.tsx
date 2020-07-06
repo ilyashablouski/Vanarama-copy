@@ -3,11 +3,7 @@ import Link from 'next/link';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import ReactMarkdown from 'react-markdown/with-html';
-import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
-import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
-import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
-import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -23,6 +19,8 @@ import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
+import iconMap from '../../../utils/cardIconMap';
+import truncateString from '../../../utils/truncateString';
 
 import {
   HubCarPageData,
@@ -126,68 +124,58 @@ export const CarsPage: NextPage = () => {
 
       <div className="row:bg-lighter">
         <section className="row:cards-3col">
-          {products?.productCarousel?.map((item, idx) => (
-            <ProductCard
-              key={item?.capId || idx}
-              header={{
-                accentIcon: <Icon icon={<Flame />} color="white" />,
-                accentText: 'Hot Deal',
-                text: 'In Stock - 14-21 Days Delivery',
-              }}
-              features={[
-                {
-                  icon: <Icon icon={<SnowSharp />} color="dark" />,
-                  label: 'Aircon',
-                },
-                {
-                  icon: <Icon icon={<BluetoothSharp />} color="dark" />,
-                  label: 'Bluetooth',
-                },
-                {
-                  icon: <Icon icon={<CompassSharp />} color="dark" />,
-                  label: 'Navigation',
-                },
-                {
-                  icon: <Icon icon={<WifiSharp />} color="dark" />,
-                  label: 'Sensors',
-                },
-              ]}
-              imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
-              onCompare={() => true}
-              onWishlist={() => true}
-              title={{
-                title: '',
-                link: (
-                  <RouterLink
-                    link={{
-                      href: '#',
-                      label: `${item?.manufacturerName} ${item?.rangeName}`,
-                    }}
-                    className="heading"
-                    classNames={{ size: 'large', color: 'black' }}
+          {products?.productCarousel?.map((item, idx) => {
+            return (
+              <ProductCard
+                key={item?.capId || idx}
+                header={{
+                  accentIcon: <Icon icon={<Flame />} color="white" />,
+                  accentText: 'Hot Deal',
+                  text: 'In Stock - 14-21 Days Delivery',
+                }}
+                features={item?.keyInformation?.map(info => ({
+                  icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
+                  label: info?.value || '',
+                }))}
+                imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
+                onCompare={() => true}
+                onWishlist={() => true}
+                title={{
+                  title: '',
+                  link: (
+                    <RouterLink
+                      link={{
+                        href: '#',
+                        label: truncateString(
+                          `${item?.manufacturerName} ${item?.rangeName}`,
+                        ),
+                      }}
+                      className="heading"
+                      classNames={{ size: 'large', color: 'black' }}
+                    />
+                  ),
+                  description: item?.derivativeName || '',
+                  score: item?.averageRating || 0,
+                }}
+              >
+                <div className="-flex-h">
+                  <Price
+                    price={item?.businessRate}
+                    size="large"
+                    separator="."
+                    priceDescription="Per Month Exc.VAT"
                   />
-                ),
-                description: item?.derivativeName || '',
-                score: item?.averageRating || 0,
-              }}
-            >
-              <div className="-flex-h">
-                <Price
-                  price={item?.businessRate}
-                  size="large"
-                  separator="."
-                  priceDescription="Per Month Exc.VAT"
-                />
-                <Button
-                  color="teal"
-                  fill="solid"
-                  label="View Offer"
-                  onClick={() => true}
-                  size="regular"
-                />
-              </div>
-            </ProductCard>
-          ))}
+                  <Button
+                    color="teal"
+                    fill="solid"
+                    label="View Offer"
+                    onClick={() => true}
+                    size="regular"
+                  />
+                </div>
+              </ProductCard>
+            );
+          })}
 
           <Button label="View All Cars" size="large" color="teal" />
         </section>
