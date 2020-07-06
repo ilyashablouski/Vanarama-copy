@@ -121,17 +121,17 @@ const CustomiseLease = ({
   mileage,
   isDisabled,
   setIsDisabled,
-  loading,
+  setIsInitialLoading,
 }: IProps) => {
   const quoteByCapId = data?.quoteByCapId;
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
 
   return (
-    <div className={`pdp--sidebar ${isDisabled || loading ? 'disabled' : ''}`}>
+    <div className={`pdp--sidebar ${isDisabled ? 'disabled' : ''}`}>
       <Heading tag="span" size="xlarge" color="black">
         Customise Your Lease
       </Heading>
-      {choices(leaseTypes, setLeaseType, 'Lease Type', isDisabled || loading)}
+      {choices(leaseTypes, setLeaseType, 'Lease Type', isDisabled)}
       <Heading tag="span" size="regular" color="black">
         Annual Mileage:
         <Text color="orange" className="-b -ml-100">
@@ -140,7 +140,7 @@ const CustomiseLease = ({
       </Heading>
       <SlidingInput
         steps={mileages}
-        disabled={isDisabled || loading}
+        disabled={isDisabled}
         defaultValue={mileages.indexOf(mileage || 0) + 1}
         onChange={value => {
           setMileage(mileages[value - 1]);
@@ -164,14 +164,14 @@ const CustomiseLease = ({
         terms,
         value => setTerm(+(value || 0) || null),
         'Length Of Lease:',
-        isDisabled || loading,
+        isDisabled,
         `${quoteByCapId?.term} Months`,
       )}
       {choices(
         upfronts,
         value => setUpfront(+(value || 0) || null),
         'Initial Payment: ',
-        isDisabled || loading,
+        isDisabled,
         `£${toPriceFormat(
           quoteByCapId?.leaseCost?.initialRental,
         )} ${stateVAT}. VAT`,
@@ -184,14 +184,14 @@ const CustomiseLease = ({
         setColour,
         derivativeInfo?.colours,
         'Select Paint Colour',
-        isDisabled || loading,
+        isDisabled,
       )}
       {select(
         `${quoteByCapId?.trim || trim}`,
         setTrim,
         derivativeInfo?.trims,
         'Select Interior',
-        isDisabled || loading,
+        isDisabled,
       )}
       <Heading tag="span" size="regular" color="black">
         Add Maintenance:
@@ -255,6 +255,7 @@ const CustomiseLease = ({
           leasingProviders={LEASING_PROVIDERS}
           startLoading={isDisabled}
           endAnimation={() => {
+            setIsInitialLoading(true);
             setIsDisabled(false);
           }}
         />

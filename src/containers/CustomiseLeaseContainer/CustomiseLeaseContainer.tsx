@@ -30,6 +30,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [maintenance, setMaintenance] = useState<boolean | null>(null);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const [isInitialLoading, setIsInitialLoading] = useState<boolean>(false);
   const { data, error, loading, refetch } = useQuoteData({
     capId: `${capId}`,
     vehicleType,
@@ -49,6 +50,13 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     setTrim(trim || +(data?.quoteByCapId?.trim || 0));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
+
+  useEffect(() => {
+    if (isInitialLoading) {
+      setIsDisabled(loading);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading]);
 
   useEffect(() => {
     if (isInitialMount.current) {
@@ -127,6 +135,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       setMaintenance={setMaintenance}
       isModalShowing={isModalShowing}
       setIsModalShowing={setIsModalShowing}
+      setIsInitialLoading={setIsInitialLoading}
     />
   );
 };
