@@ -15,9 +15,10 @@ import {
 const MOCK_COMPANY_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
 
 jest.mock('../../../../layouts/OLAFLayout/OLAFLayout');
+const mockPush = jest.fn();
 jest.mock('next/router', () => ({
   useRouter: () => ({
-    push: jest.fn(),
+    push: mockPush,
     pathname: '/b2b/olaf/company-details',
     query: {
       companyUuid: MOCK_COMPANY_UUID,
@@ -610,6 +611,55 @@ describe('B2B VAT Details page', () => {
       expect(
         screen.getByText('Could not load list of countries'),
       ).toBeInTheDocument(),
+    );
+  });
+
+  it('should redirect to the "Director Details" page upon successful form submission', async () => {
+    // ARRANGE
+    const mockMutation = jest.fn();
+
+    // ACT
+    render(
+      <MockedProvider
+        addTypename={false}
+        mocks={[
+          dropDownData,
+          {
+            request: {
+              query: UPDATE_VAT_DETAILS,
+              variables: {
+                input: {
+                  uuid: MOCK_COMPANY_UUID,
+                  isVatRegistered: false,
+                  turnoverPercentageOutsideUk: undefined,
+                  tradesOutsideUk: false,
+                  vatNumber: undefined,
+                },
+              } as UpdateVatDetailsMutationVariables,
+            },
+            result: mockMutation.mockImplementation(() => ({
+              data: {
+                updateLimitedCompany: {
+                  uuid: MOCK_COMPANY_UUID,
+                },
+              } as UpdateVatDetailsMutation,
+            })),
+          },
+        ]}
+      >
+        <VatDetailsPage />
+      </MockedProvider>,
+    );
+
+    // Just submit the form straight-away
+    submitForm();
+
+    // ASSERT
+    await waitFor(() => expect(mockMutation).toHaveBeenCalledTimes(1));
+    expect(mockPush).toHaveBeenCalledTimes(1);
+    expect(mockPush).toHaveBeenCalledWith(
+      '/b2b/olaf/director-details/[companyUuid]',
+      `/b2b/olaf/director-details/${MOCK_COMPANY_UUID}`,
     );
   });
 });

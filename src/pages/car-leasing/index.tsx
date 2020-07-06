@@ -1,15 +1,17 @@
 import { NextPage } from 'next';
+import { getDataFromTree } from '@apollo/react-ssr';
+import withApollo from '../../hocs/withApollo';
+import SearchPageContainer from '../../containers/SearchPageContainer';
 
-const Page: NextPage = () => {
-  return (
-    <>
-      <p>Car Leasing</p>
-    </>
-  );
+interface IProps {
+  isServer: boolean;
+}
+
+const Page: NextPage<IProps> = ({ isServer }) => {
+  return <SearchPageContainer isServer={isServer} isCarSearch />;
+};
+Page.getInitialProps = ({ query, req }) => {
+  return { query, isServer: !!req };
 };
 
-Page.getInitialProps = ({ query }) => {
-  return { query };
-};
-
-export default Page;
+export default withApollo(Page, { getDataFromTree });

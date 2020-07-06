@@ -6,7 +6,7 @@ import {
 } from '../../../generated/GetProductCard';
 
 export const GET_PRODUCT_CARDS_DATA = gql`
-  query GetProductCard($capIds: [ID!], $vehicleType: VehicleTypeEnum) {
+  query GetProductCard($capIds: [ID!]!, $vehicleType: VehicleTypeEnum) {
     productCard(capIds: $capIds, vehicleType: $vehicleType) {
       vehicleType
       capId
@@ -33,7 +33,7 @@ export const GET_PRODUCT_CARDS_DATA = gql`
  *  @props vehicleType - VehicleTypeEnum
  */
 export function useProductCardData(
-  capIds?: string[],
+  capIds: string[],
   vehicleType?: VehicleTypeEnum,
 ) {
   return useQuery<GetProductCard, GetProductCardVariables>(

@@ -88,6 +88,7 @@ describe('<CustomiseLeaseContainer />', () => {
         }}
         leaseType="Business"
         setLeaseType={jest.fn()}
+        onCompleted={jest.fn()}
       />,
     );
 
@@ -180,6 +181,7 @@ describe('<CustomiseLeaseContainer />', () => {
       },
       leaseType: 'Personal',
       setLeaseType: jest.fn(),
+      onCompleted: jest.fn(),
     });
     expect(tree).toMatchSnapshot();
   });
@@ -231,6 +233,7 @@ describe('<CustomiseLeaseContainer />', () => {
       },
       leaseType: 'Personal',
       setLeaseType: jest.fn(),
+      onCompleted: jest.fn(),
     });
     expect(tree).toMatchSnapshot();
   });
