@@ -17,7 +17,7 @@ export interface IProps {
   leaseType: string;
   setLeaseType: React.Dispatch<React.SetStateAction<string>>;
   setLeadTime: React.Dispatch<React.SetStateAction<string>>;
-  onCompleted: (values: OrderInputObject) => Promise<any>;
+  onCompleted: (values: OrderInputObject) => Promise<void>;
 }
 
 export interface IQuoteDataInputs {

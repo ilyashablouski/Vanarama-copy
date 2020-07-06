@@ -20,6 +20,7 @@ import {
   GetVehicleDetails_derivativeInfo_trims,
   GetVehicleDetails_derivativeInfo_colours,
 } from '../../../generated/GetVehicleDetails';
+import { LeaseTypeEnum } from '../../../generated/globalTypes';
 
 const LEASING_PROVIDERS = [
   'LeasePlan',
@@ -230,7 +231,7 @@ const CustomiseLease = ({
           price={+toPriceFormat(quoteByCapId?.leaseCost?.monthlyRental)}
           orderNowClick={() =>
             onSubmit({
-              leaseType: leaseType.toUpperCase() as any,
+              leaseType: leaseType.toUpperCase() as LeaseTypeEnum,
               lineItems: [lineItem],
             })
           }
