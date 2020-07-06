@@ -506,6 +506,12 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
           className="structured-list-row "
         >
           <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-undefined"
+          >
+            Processing Fee:
+          </div>
+          <div
             className="structured-list-td"
             data-testid="processingFee"
           >
@@ -515,6 +521,12 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
         <div
           className="structured-list-row "
         >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-undefined"
+          >
+            Initial Payment:
+          </div>
           <div
             className="structured-list-td"
             data-testid="initialPayment"
@@ -526,6 +538,12 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
           className="structured-list-row "
         >
           <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-undefined"
+          >
+            Contract Length:
+          </div>
+          <div
             className="structured-list-td"
             data-testid="contractLengthile"
           >
@@ -535,6 +553,12 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
         <div
           className="structured-list-row "
         >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-undefined"
+          >
+            Annual Mileage:
+          </div>
           <div
             className="structured-list-td"
             data-testid="annualMileage"
@@ -546,6 +570,12 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
           className="structured-list-row "
         >
           <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-undefined"
+          >
+            Maintenance:
+          </div>
+          <div
             className="structured-list-td"
             data-testid="maintenance"
           >
@@ -555,6 +585,12 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
         <div
           className="structured-list-row "
         >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-undefined"
+          >
+            Colour:
+          </div>
           <div
             className="structured-list-td"
             data-testid="colour"
@@ -566,6 +602,12 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
           className="structured-list-row "
         >
           <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-undefined"
+          >
+            Trim / Interior:
+          </div>
+          <div
             className="structured-list-td"
             data-testid="trim"
           >
@@ -575,6 +617,12 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
         <div
           className="structured-list-row "
         >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-undefined"
+          >
+            Stock:
+          </div>
           <div
             className="structured-list-td"
             data-testid="stock"
@@ -606,7 +654,16 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
         <div
           className="price -xlarge -black"
         >
-          POA
+          <span
+            className="price--sub"
+          >
+            £
+          </span>
+          <span
+            className="price--pounds"
+          >
+            POA
+          </span>
         </div>
         <div
           className="heading headingText -pt-100 -darker -small"
