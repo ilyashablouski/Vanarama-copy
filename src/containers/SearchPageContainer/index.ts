@@ -1,3 +1,3 @@
-import SearchPage from './SearchPageContainer';
+import SearchPageContainer from './SearchPageContainer';
 
-export default SearchPage;
+export default SearchPageContainer;

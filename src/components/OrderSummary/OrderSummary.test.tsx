@@ -18,6 +18,10 @@ describe('<CustomiseLease />', () => {
             initialRental: 61.75,
             excessMileage: 0,
           },
+          nextBestPrice: {
+            maintained: 70,
+            nonMaintained: 60,
+          },
           mileage: 8000,
           leaseCost: {
             monthlyRental: 605.95,

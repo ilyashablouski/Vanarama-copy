@@ -271,6 +271,14 @@ export interface QuickCreditCheckerInputObject {
 }
 
 /**
+ * Rate filter
+ */
+export interface RateInputObject {
+  max?: number | null;
+  min?: number | null;
+}
+
+/**
  * Input object to create and add a Role
  */
 export interface RoleInputObject {

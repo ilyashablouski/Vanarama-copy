@@ -2,7 +2,7 @@
 
 exports[`<CustomiseLease /> renders correctly 1`] = `
 <div
-  className="pdp--sidebar"
+  className="pdp--sidebar "
 >
   <span
     className="heading -black -xlarge"
@@ -19,6 +19,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   >
     <button
       className="choicebox -active"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -26,6 +27,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </button>
     <button
       className="choicebox"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -179,6 +181,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   >
     <button
       className="choicebox -active"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -186,6 +189,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </button>
     <button
       className="choicebox"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -207,6 +211,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   >
     <button
       className="choicebox -active"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -214,6 +219,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </button>
     <button
       className="choicebox"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -232,6 +238,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       className="select--native"
       data-testid="13990"
       defaultValue="13990"
+      disabled={false}
       onChange={[Function]}
     >
       <option
@@ -282,6 +289,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     <select
       className="select--native"
       data-testid="112981"
+      disabled={false}
       onChange={[Function]}
       value=""
     >
@@ -354,6 +362,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       >
         <input
           className="radio--native"
+          disabled={false}
           id="maintenanceCost"
           name="maintenance"
           onChange={[Function]}
@@ -375,6 +384,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       >
         <input
           className="radio--native"
+          disabled={false}
           id="leaseCost"
           name="maintenance"
           onChange={[Function]}
@@ -412,7 +422,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Processing Fee: FREE"
+            data-testid="data_id-undefined"
           >
             Processing Fee:
           </div>
@@ -428,7 +438,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Initial Payment: £605.95 (exc. VAT)"
+            data-testid="data_id-undefined"
           >
             Initial Payment:
           </div>
@@ -444,7 +454,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Contract Length: 24 months"
+            data-testid="data_id-undefined"
           >
             Contract Length:
           </div>
@@ -460,7 +470,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Annual Mileage: 8000 miles"
+            data-testid="data_id-undefined"
           >
             Annual Mileage:
           </div>
@@ -476,7 +486,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Maintenance: No"
+            data-testid="data_id-undefined"
           >
             Maintenance:
           </div>
@@ -492,7 +502,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Colour: Solid - Polar white"
+            data-testid="data_id-undefined"
           >
             Colour:
           </div>
@@ -508,7 +518,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Trim / Interior: -"
+            data-testid="data_id-undefined"
           >
             Trim / Interior:
           </div>
@@ -524,7 +534,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Stock: Brand New - Free, Fast Delivery"
+            data-testid="data_id-undefined"
           >
             Stock:
           </div>
@@ -540,6 +550,11 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   </div>
   <div
     className="lease-scanner--sticky-wrap"
+    style={
+      Object {
+        "opacity": "1",
+      }
+    }
   >
     <div
       className="lease-scanner"
@@ -628,7 +643,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
 
 exports[`<CustomiseLease /> renders correctly 2`] = `
 <div
-  className="pdp--sidebar"
+  className="pdp--sidebar "
 >
   <span
     className="heading -black -xlarge"
@@ -645,6 +660,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   >
     <button
       className="choicebox"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -652,6 +668,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </button>
     <button
       className="choicebox -active"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -805,6 +822,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   >
     <button
       className="choicebox"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -812,6 +830,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </button>
     <button
       className="choicebox -active"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -833,6 +852,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   >
     <button
       className="choicebox"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -840,6 +860,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </button>
     <button
       className="choicebox -active"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -858,6 +879,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       className="select--native"
       data-testid="13990"
       defaultValue="13990"
+      disabled={false}
       onChange={[Function]}
     >
       <option
@@ -908,6 +930,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     <select
       className="select--native"
       data-testid="112981"
+      disabled={false}
       onChange={[Function]}
       value=""
     >
@@ -980,6 +1003,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       >
         <input
           className="radio--native"
+          disabled={false}
           id="maintenanceCost"
           name="maintenance"
           onChange={[Function]}
@@ -1001,6 +1025,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       >
         <input
           className="radio--native"
+          disabled={false}
           id="leaseCost"
           name="maintenance"
           onChange={[Function]}
@@ -1038,7 +1063,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Processing Fee: FREE"
+            data-testid="data_id-undefined"
           >
             Processing Fee:
           </div>
@@ -1054,7 +1079,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Initial Payment: £605.95 (exc. VAT)"
+            data-testid="data_id-undefined"
           >
             Initial Payment:
           </div>
@@ -1070,7 +1095,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Contract Length: 24 months"
+            data-testid="data_id-undefined"
           >
             Contract Length:
           </div>
@@ -1086,7 +1111,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Annual Mileage: 8000 miles"
+            data-testid="data_id-undefined"
           >
             Annual Mileage:
           </div>
@@ -1102,7 +1127,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Maintenance: No"
+            data-testid="data_id-undefined"
           >
             Maintenance:
           </div>
@@ -1118,7 +1143,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Colour: Solid - Polar white"
+            data-testid="data_id-undefined"
           >
             Colour:
           </div>
@@ -1134,7 +1159,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Trim / Interior: -"
+            data-testid="data_id-undefined"
           >
             Trim / Interior:
           </div>
@@ -1150,7 +1175,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-Stock: Brand New - Free, Fast Delivery"
+            data-testid="data_id-undefined"
           >
             Stock:
           </div>
@@ -1166,6 +1191,11 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   </div>
   <div
     className="lease-scanner--sticky-wrap"
+    style={
+      Object {
+        "opacity": "1",
+      }
+    }
   >
     <div
       className="lease-scanner"

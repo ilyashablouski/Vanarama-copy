@@ -123,7 +123,6 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       setTerm={setTerm}
       setTrim={setTrim}
       data={data}
-      loading={loading}
       mileage={mileage || data.quoteByCapId?.mileage}
       trim={trim}
       derivativeInfo={derivativeInfo}

@@ -9,6 +9,8 @@ export const GET_SEARCH_POD_DATA = gql`
         children
       }
       bodyStyles
+      transmissions
+      fuelTypes
     }
   }
 `;
