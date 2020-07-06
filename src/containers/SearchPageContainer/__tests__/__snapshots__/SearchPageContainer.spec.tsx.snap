@@ -174,10 +174,10 @@ exports[`<SearchPageContainer /> should be render correctly 1`] = `
       >
         <div
           class="search-filters -open"
-          role="search"
         >
           <div
             class="search-filters--title"
+            role="heading"
           >
             <i
               class="icon search-filters--title-icon"

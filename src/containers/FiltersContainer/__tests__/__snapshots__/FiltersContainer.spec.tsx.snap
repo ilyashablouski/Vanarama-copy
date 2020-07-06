@@ -5,10 +5,10 @@ exports[`<FiltersContainer /> should render with data 1`] = `
   <div>
     <div
       class="search-filters -open"
-      role="search"
     >
       <div
         class="search-filters--title"
+        role="heading"
       >
         <i
           class="icon search-filters--title-icon"

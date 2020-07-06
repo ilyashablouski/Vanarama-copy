@@ -12,6 +12,7 @@ import Toggle from '@vanarama/uibook/lib/components/atoms/toggle';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import OptionsIcon from '@vanarama/uibook/lib/assets/icons/Options';
 import ChevronUpSharp from '@vanarama/uibook/lib/assets/icons/ChevronUpSharp';
+import { useMediaQuery } from 'react-responsive';
 import { filterListByTypes } from '../SearchPodContainer/gql';
 import { makeHandler, modelHandler } from '../SearchPodContainer/helpers';
 import { filtersConfig, budgets } from './config';
@@ -51,9 +52,12 @@ const FiltersContainer = ({
   const [tempFilterName, setTempFilterName] = useState('');
   const [fromBudget] = useState(budgets);
   const [toBudget] = useState(budgets.slice(1));
+  const [isOpenFilter, setFilterExpandStatus] = useState(true);
   const [choiceBoxesData, setChoiceBoxesData] = useState(
     {} as IChoiceBoxesData,
   );
+
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1216px)' });
 
   const [selectedFiltersState, setSelectedFiltersState] = useState<
     ISelectedFiltersState
@@ -149,6 +153,10 @@ const FiltersContainer = ({
   useEffect(() => {
     if (filtersData.bodyStyles) setChoiceBoxesData(buildChoiseBoxData());
   }, [filtersData, buildChoiseBoxData]);
+
+  useEffect(() => {
+    if (!isTabletOrMobile) setFilterExpandStatus(true);
+  }, [isTabletOrMobile]);
 
   useEffect(() => {
     // don't call onSearch already after render
@@ -303,9 +311,14 @@ const FiltersContainer = ({
     setTempFilterName(filterName);
   };
 
+  /** handle filter expand status */
+  const handleFilterExpand = () => {
+    if (isTabletOrMobile) setFilterExpandStatus(prevValue => !prevValue);
+  };
+
   return (
-    <SearchFilters>
-      <SearchFiltersHead>
+    <SearchFilters isOpen={isOpenFilter}>
+      <SearchFiltersHead onClick={handleFilterExpand}>
         <Icon icon={<OptionsIcon />} className="search-filters--title-icon" />
         <span>Filters</span>
         <Icon
