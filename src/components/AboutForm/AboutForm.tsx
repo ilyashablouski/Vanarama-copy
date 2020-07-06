@@ -25,7 +25,7 @@ const logInLink = {
 
 const EMAIL_ALREADY_EXISTS = 'EMAIL_ALREADY_EXISTS';
 
-const mapEmailMessage = (onClick?: () => void, message?: string) =>
+const mapEmailErrorMessage = (onClick?: () => void, message?: string) =>
   message !== EMAIL_ALREADY_EXISTS ? (
     message
   ) : (
@@ -113,7 +113,7 @@ const AboutForm: FCWithFragments<IProps> = ({
       <FormGroup
         controlId="email"
         label="Email"
-        error={mapEmailMessage(
+        error={mapEmailErrorMessage(
           onLogInClick,
           errors?.email?.message?.toString(),
         )}
