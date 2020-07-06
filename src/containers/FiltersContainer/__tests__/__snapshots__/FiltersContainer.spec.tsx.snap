@@ -4,11 +4,10 @@ exports[`<FiltersContainer /> should render with data 1`] = `
 <body>
   <div>
     <div
-      class="search-filters -open"
+      class="search-filters"
     >
       <div
-        class="search-filters--title"
-        role="heading"
+        class="search-filters--header"
       >
         <i
           class="icon search-filters--title-icon"
@@ -112,126 +111,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
         </button>
         <div
           class="dropdown--content"
-        >
-          <div
-            class="formgroup"
-          >
-            <label
-              class="formgroup--legend"
-            >
-              Make
-            </label>
-            <div
-              class="formgroup--content"
-            >
-              <div
-                class="select"
-              >
-                <select
-                  class="select--native"
-                  name="make"
-                >
-                  <option
-                    disabled=""
-                    value=""
-                  >
-                    Select make
-                  </option>
-                  <option
-                    value="Citroën"
-                  >
-                    Citroën
-                  </option>
-                  <option
-                    value="Dacia"
-                  >
-                    Dacia
-                  </option>
-                </select>
-                <span
-                  class="icon select--chevron"
-                >
-                  <i
-                    class="icon -stroke -dark"
-                  >
-                    <svg
-                      height="1em"
-                      viewBox="0 0 512 512"
-                      width="1em"
-                    >
-                      <title>
-                        ionicons-v5-a
-                      </title>
-                      <polyline
-                        points="112 184 256 328 400 184"
-                        style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
-                      />
-                    </svg>
-                  </i>
-                </span>
-              </div>
-            </div>
-          </div>
-          <div
-            class="formgroup"
-          >
-            <label
-              class="formgroup--legend"
-            >
-              Model
-            </label>
-            <div
-              class="formgroup--content"
-            >
-              <div
-                class="select"
-              >
-                <select
-                  class="select--native"
-                  name="model"
-                >
-                  <option
-                    disabled=""
-                    value=""
-                  >
-                    Select model
-                  </option>
-                </select>
-                <span
-                  class="icon select--chevron"
-                >
-                  <i
-                    class="icon -stroke -dark"
-                  >
-                    <svg
-                      height="1em"
-                      viewBox="0 0 512 512"
-                      width="1em"
-                    >
-                      <title>
-                        ionicons-v5-a
-                      </title>
-                      <polyline
-                        points="112 184 256 328 400 184"
-                        style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
-                      />
-                    </svg>
-                  </i>
-                </span>
-              </div>
-            </div>
-          </div>
-          <button
-            class="button -fullwidth -teal -small -solid"
-            data-testid="Make & Modelbtn"
-          >
-            <div
-              class="button--inner"
-            >
-              View 10 Results
-            </div>
-          </button>
-        </div>
+        />
       </div>
       <div
         class="dropdown search-filters--dropdown"
@@ -263,171 +143,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
         </button>
         <div
           class="dropdown--content"
-        >
-          <div
-            class="formgroup"
-          >
-            <label
-              class="formgroup--legend"
-            >
-              Price From
-            </label>
-            <div
-              class="formgroup--content"
-            >
-              <div
-                class="select"
-              >
-                <select
-                  class="select--native"
-                  name="from"
-                >
-                  <option
-                    disabled=""
-                    value=""
-                  >
-                    Select from
-                  </option>
-                  <option
-                    value="0"
-                  >
-                    £0
-                  </option>
-                  <option
-                    value="150"
-                  >
-                    £150
-                  </option>
-                  <option
-                    value="250"
-                  >
-                    £250
-                  </option>
-                  <option
-                    value="350"
-                  >
-                    £350
-                  </option>
-                  <option
-                    value="450"
-                  >
-                    £450
-                  </option>
-                  <option
-                    value="550"
-                  >
-                    £550
-                  </option>
-                </select>
-                <span
-                  class="icon select--chevron"
-                >
-                  <i
-                    class="icon -stroke -dark"
-                  >
-                    <svg
-                      height="1em"
-                      viewBox="0 0 512 512"
-                      width="1em"
-                    >
-                      <title>
-                        ionicons-v5-a
-                      </title>
-                      <polyline
-                        points="112 184 256 328 400 184"
-                        style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
-                      />
-                    </svg>
-                  </i>
-                </span>
-              </div>
-            </div>
-          </div>
-          <div
-            class="formgroup"
-          >
-            <label
-              class="formgroup--legend"
-            >
-              Price To
-            </label>
-            <div
-              class="formgroup--content"
-            >
-              <div
-                class="select"
-              >
-                <select
-                  class="select--native"
-                  name="to"
-                >
-                  <option
-                    disabled=""
-                    value=""
-                  >
-                    Select to
-                  </option>
-                  <option
-                    value="150"
-                  >
-                    £150
-                  </option>
-                  <option
-                    value="250"
-                  >
-                    £250
-                  </option>
-                  <option
-                    value="350"
-                  >
-                    £350
-                  </option>
-                  <option
-                    value="450"
-                  >
-                    £450
-                  </option>
-                  <option
-                    value="550"
-                  >
-                    £550
-                  </option>
-                </select>
-                <span
-                  class="icon select--chevron"
-                >
-                  <i
-                    class="icon -stroke -dark"
-                  >
-                    <svg
-                      height="1em"
-                      viewBox="0 0 512 512"
-                      width="1em"
-                    >
-                      <title>
-                        ionicons-v5-a
-                      </title>
-                      <polyline
-                        points="112 184 256 328 400 184"
-                        style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
-                      />
-                    </svg>
-                  </i>
-                </span>
-              </div>
-            </div>
-          </div>
-          <button
-            class="button -fullwidth -teal -small -solid"
-            data-testid="Budgetbtn"
-          >
-            <div
-              class="button--inner"
-            >
-              View 10 Results
-            </div>
-          </button>
-        </div>
+        />
       </div>
       <div
         class="dropdown search-filters--dropdown"
@@ -459,48 +175,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
         </button>
         <div
           class="dropdown--content"
-        >
-          <div
-            class="formgroup"
-            data-testid="Body Type"
-          >
-            <label
-              class="formgroup--legend"
-            >
-              Body Type
-            </label>
-            <div
-              class="formgroup--content"
-            >
-              <div
-                class="choiceboxes -cols-1 -medium"
-              >
-                <button
-                  class="choicebox"
-                  type="button"
-                >
-                  Dropside Tipper
-                </button>
-                <button
-                  class="choicebox"
-                  type="button"
-                >
-                  Large Van
-                </button>
-              </div>
-            </div>
-          </div>
-          <button
-            class="button -fullwidth -teal -small -solid"
-            data-testid="Body Typebtn"
-          >
-            <div
-              class="button--inner"
-            >
-              View 10 Results
-            </div>
-          </button>
-        </div>
+        />
       </div>
       <div
         class="dropdown search-filters--dropdown"
@@ -532,48 +207,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
         </button>
         <div
           class="dropdown--content"
-        >
-          <div
-            class="formgroup"
-            data-testid="Transmission"
-          >
-            <label
-              class="formgroup--legend"
-            >
-              Transmission
-            </label>
-            <div
-              class="formgroup--content"
-            >
-              <div
-                class="choiceboxes -cols-1 -medium"
-              >
-                <button
-                  class="choicebox"
-                  type="button"
-                >
-                  Automatic
-                </button>
-                <button
-                  class="choicebox"
-                  type="button"
-                >
-                  Manual
-                </button>
-              </div>
-            </div>
-          </div>
-          <button
-            class="button -fullwidth -teal -small -solid"
-            data-testid="Transmissionbtn"
-          >
-            <div
-              class="button--inner"
-            >
-              View 10 Results
-            </div>
-          </button>
-        </div>
+        />
       </div>
       <div
         class="dropdown search-filters--dropdown"
@@ -605,48 +239,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
         </button>
         <div
           class="dropdown--content"
-        >
-          <div
-            class="formgroup"
-            data-testid="Fuel Type"
-          >
-            <label
-              class="formgroup--legend"
-            >
-              Fuel Type
-            </label>
-            <div
-              class="formgroup--content"
-            >
-              <div
-                class="choiceboxes -cols-1 -medium"
-              >
-                <button
-                  class="choicebox"
-                  type="button"
-                >
-                  diesel
-                </button>
-                <button
-                  class="choicebox"
-                  type="button"
-                >
-                  iii
-                </button>
-              </div>
-            </div>
-          </div>
-          <button
-            class="button -fullwidth -teal -small -solid"
-            data-testid="Fuel Typebtn"
-          >
-            <div
-              class="button--inner"
-            >
-              View 10 Results
-            </div>
-          </button>
-        </div>
+        />
       </div>
       <div
         class="search-filters--tags"

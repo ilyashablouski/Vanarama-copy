@@ -17,7 +17,6 @@ export const GET_ORDER_BY_UUID_DATA = gql`
       uuid
       id
       leaseType
-      partyUuid
       status
       createdAt
       updatedAt
@@ -110,7 +109,6 @@ export const GET_OLAF_DATA = gql`
       uuid
       id
       leaseType
-      partyUuid
       status
       createdAt
       updatedAt
@@ -187,9 +185,7 @@ export const CREATE_ORDER_MUTATION = gql`
   mutation CreateOrder($input: OrderInputObject!) {
     createOrder(input: $input) {
       uuid
-      partyUuid
       createdAt
-      referenceNumber
       salesChannel
       status
       lineItems {

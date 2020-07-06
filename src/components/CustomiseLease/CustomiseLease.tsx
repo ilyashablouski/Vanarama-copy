@@ -20,7 +20,6 @@ import {
   GetVehicleDetails_derivativeInfo_trims,
   GetVehicleDetails_derivativeInfo_colours,
 } from '../../../generated/GetVehicleDetails';
-import { PARTY_BY_UUID } from '../../containers/OrdersInformation/OrderInformationContainer';
 
 const LEASING_PROVIDERS = [
   'LeasePlan',
@@ -231,18 +230,14 @@ const CustomiseLease = ({
           price={+toPriceFormat(quoteByCapId?.leaseCost?.monthlyRental)}
           orderNowClick={() =>
             onSubmit({
-              partyUuid: PARTY_BY_UUID,
               leaseType: leaseType.toUpperCase() as any,
               lineItems: [lineItem],
-              salesChannel: 'motorama',
-              referenceNumber: '',
             })
           }
           headingText={`PM ${stateVAT}. VAT`}
           phoneNumber="+1313222"
           leasingProviders={LEASING_PROVIDERS}
           startLoading={false}
-          endAnimation={() => {}}
         />
       </div>
       {isModalShowing && (
