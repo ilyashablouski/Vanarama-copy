@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { VehicleTypeEnum, LeaseTypeEnum } from "./globalTypes";
+import { VehicleTypeEnum, RateInputObject, LeaseTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: vehicleList
@@ -87,4 +87,10 @@ export interface vehicleListVariables {
   vehicleTypes?: VehicleTypeEnum[] | null;
   onOffer?: boolean | null;
   after?: string | null;
+  manufacturerName?: string | null;
+  rangeName?: string | null;
+  rate?: RateInputObject | null;
+  bodyStyles?: string[] | null;
+  transmissions?: string[] | null;
+  fuelTypes?: string[] | null;
 }
