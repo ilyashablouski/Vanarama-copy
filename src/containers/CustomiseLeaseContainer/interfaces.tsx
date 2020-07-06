@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { VehicleTypeEnum, LeaseTypeEnum, OrderInputObject } from '../../../generated/globalTypes';
+import {
+  VehicleTypeEnum,
+  LeaseTypeEnum,
+  OrderInputObject,
+} from '../../../generated/globalTypes';
 import {
   GetVehicleDetails_derivativeInfo,
   GetVehicleDetails_leaseAdjustParams,
 } from '../../../generated/GetVehicleDetails';
-import { CreateOrder } from '../../../generated/CreateOrder';
 
 export interface IProps {
   capId: number;

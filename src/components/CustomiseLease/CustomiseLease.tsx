@@ -238,6 +238,7 @@ const CustomiseLease = ({
           phoneNumber="+1313222"
           leasingProviders={LEASING_PROVIDERS}
           startLoading={false}
+          endAnimation={() => {}}
         />
       </div>
       {isModalShowing && (
