@@ -51,5 +51,3 @@ const AboutFormContainer: React.FC<IProps> = ({
 };
 
 export default AboutFormContainer;
-
-
