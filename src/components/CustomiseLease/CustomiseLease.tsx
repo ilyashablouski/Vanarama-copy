@@ -40,6 +40,7 @@ const choices = (
   setChoice: Dispatch<SetStateAction<string>>,
   heading: string,
   currentValue?: string,
+  isDisabled: boolean,
 ) => (
   <>
     <Heading tag="span" size="regular" color="black">
@@ -51,6 +52,7 @@ const choices = (
       )}
     </Heading>
     <Choiceboxes
+      disabled={isDisabled}
       className={`-cols-${choicesValues?.length}`}
       choices={choicesValues}
       onSubmit={value => {
@@ -72,8 +74,10 @@ const select = (
     | undefined
     | null,
   placeholder: string,
+  isDisabled: boolean,
 ) => (
   <Select
+    disabled={isDisabled}
     dataTestId={defaultValue}
     key={
       items?.some(item => item?.id === defaultValue) ? defaultValue : undefined
@@ -115,17 +119,19 @@ const CustomiseLease = ({
   setIsModalShowing,
   trim,
   mileage,
+  isDisabled,
+  setIsDisabled,
   loading,
 }: IProps) => {
   const quoteByCapId = data?.quoteByCapId;
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
 
   return (
-    <div className="pdp--sidebar">
+    <div className={`pdp--sidebar ${isDisabled ? 'disabled' : ''}`}>
       <Heading tag="span" size="xlarge" color="black">
         Customise Your Lease
       </Heading>
-      {choices(leaseTypes, setLeaseType, 'Lease Type')}
+      {choices(leaseTypes, setLeaseType, 'Lease Type', isDisabled)}
       <Heading tag="span" size="regular" color="black">
         Annual Mileage:
         <Text color="orange" className="-b -ml-100">
@@ -134,6 +140,7 @@ const CustomiseLease = ({
       </Heading>
       <SlidingInput
         steps={mileages}
+        disabled={isDisabled}
         defaultValue={mileages.indexOf(mileage || 0) + 1}
         onChange={value => {
           setMileage(mileages[value - 1]);
@@ -158,6 +165,7 @@ const CustomiseLease = ({
         value => setTerm(+(value || 0) || null),
         'Length Of Lease:',
         `${quoteByCapId?.term} Months`,
+        isDisabled,
       )}
       {choices(
         upfronts,
@@ -166,6 +174,7 @@ const CustomiseLease = ({
         `£${toPriceFormat(
           quoteByCapId?.leaseCost?.initialRental,
         )} ${stateVAT}. VAT`,
+        isDisabled,
       )}
       <Heading tag="span" size="regular" color="black">
         Vehicle Options
@@ -175,12 +184,14 @@ const CustomiseLease = ({
         setColour,
         derivativeInfo?.colours,
         'Select Paint Colour',
+        isDisabled,
       )}
       {select(
         `${quoteByCapId?.trim || trim}`,
         setTrim,
         derivativeInfo?.trims,
         'Select Interior',
+        isDisabled,
       )}
       <Heading tag="span" size="regular" color="black">
         Add Maintenance:
@@ -199,12 +210,14 @@ const CustomiseLease = ({
           id="maintenanceCost"
           label="YES, I want peace of mind and to keep things hassle-free"
           onChange={() => setMaintenance(true)}
+          disabled={isDisabled}
         />
         <Radio
           name="maintenance"
           id="leaseCost"
           label="NO, I want to worry about sorting the maintenance costs myself"
           onChange={() => setMaintenance(false)}
+          disabled={isDisabled}
         />
       </Formgroup>
       <OrderSummary
@@ -215,7 +228,7 @@ const CustomiseLease = ({
         trims={derivativeInfo?.trims}
         trim={trim}
       />
-      <div className="lease-scanner--sticky-wrap">
+      <div className="lease-scanner--sticky-wrap" style={{ opacity: '1' }}>
         <LeaseScanner
           classNameHeading="headingText"
           className="pdp-footer"

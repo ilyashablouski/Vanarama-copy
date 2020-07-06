@@ -13,6 +13,8 @@ export interface IProps {
   leaseType: string;
   setLeaseType: React.Dispatch<React.SetStateAction<string>>;
   setLeadTime: React.Dispatch<React.SetStateAction<string>>;
+  isDisabled: boolean;
+  setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface IQuoteDataInputs {

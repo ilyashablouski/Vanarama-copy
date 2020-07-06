@@ -44,4 +44,6 @@ export interface IProps {
   maintenance: boolean | null;
   setIsModalShowing: Dispatch<SetStateAction<boolean>>;
   isModalShowing: boolean;
+  isDisabled: boolean;
+  setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
