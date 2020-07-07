@@ -346,7 +346,7 @@ export interface VehicleProductInputObject {
   monthlyPayment?: number | null;
   term?: number | null;
   trim?: string | null;
-  vehicleType: string;
+  vehicleType: VehicleTypeEnum;
   vsku?: string | null;
 }
 

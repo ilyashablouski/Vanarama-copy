@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: GetCachedOrderInformation
+// GraphQL query operation: WriteCachedOrderInformation
 // ====================================================
 
-export interface GetCachedOrderInformation {
+export interface WriteCachedOrderInformation {
   selectedOrderUuid: string | null;
   selectedDerivativeId: string | null;
 }

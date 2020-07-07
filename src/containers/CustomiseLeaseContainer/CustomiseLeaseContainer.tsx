@@ -59,14 +59,12 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
 
   useEffect(() => {
     if (isInitialLoading) {
-      if (loading) {
-        setIsDisabled(loading);
-      } else {
-        setTimeout(() => setIsDisabled(loading), 1500);
+      if (isDisabled && !loading) {
+        setTimeout(() => setIsDisabled(false), 1000);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading]);
+  }, [isDisabled, loading]);
 
   useEffect(() => {
     if (isInitialMount.current) {
@@ -74,9 +72,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     } else if (!quoteData) {
       setQuoteData(data?.quoteByCapId);
     } else {
-      if (!isInitialLoading) {
-        setIsDisabled(true);
-      }
+      setIsDisabled(true);
       refetch();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

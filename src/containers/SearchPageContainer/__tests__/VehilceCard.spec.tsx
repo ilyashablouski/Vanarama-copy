@@ -1,19 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import VehicleCard from '../VehicleCard';
+import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 
-describe('<SearchPageContainer />', () => {
+describe('<VehicleCard />', () => {
   const resetMocks = () => {
     return {
-      header: {
-        accentIcon: (
-          <Icon icon={<Flame />} color="white" className="md hydrated" />
-        ),
-        accentText: 'Hot Deal',
-        text: 'In Stock - 14-21 Days Delivery',
-      },
       title: {
         title: '',
         link: (
@@ -25,6 +17,22 @@ describe('<SearchPageContainer />', () => {
         score: 4.5,
       },
       price: null,
+      data: {
+        averageRating: 0,
+        businessRate: 138.91,
+        capId: '86343',
+        derivativeName: '1.2 [83] Elite Nav 5dr',
+        imageUrl:
+          'https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg',
+        isOnOffer: false,
+        keyInformation: [{ name: 'Transmission', value: 'Manual' }],
+        leadTime: 'Factory Order',
+        manufacturerName: 'Vauxhall',
+        offerPosition: null,
+        personalRate: 189.97,
+        rangeName: 'Crossland X',
+        vehicleType: VehicleTypeEnum.CAR,
+      },
     };
   };
 
