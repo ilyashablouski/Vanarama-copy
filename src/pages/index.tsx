@@ -3,11 +3,7 @@ import { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import ReactMarkdown from 'react-markdown/with-html';
-import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
-import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
-import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
-import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -41,12 +37,32 @@ import Hero, { HeroHeading, HeroTitle } from '../components/Hero';
 import { ALL_HOME_CONTENT } from '../gql/homepage';
 import withApollo from '../hocs/withApollo';
 import useSliderProperties from '../hooks/useSliderProperties';
+import getIconMap from '../utils/getIconMap';
 
 export const HomePage: NextPage = () => {
   const [activeTab, setActiveTab] = useState(0);
   const { slidesToShow } = useSliderProperties(345, 345, 310);
 
   const { data, loading, error } = useQuery<HomePageData>(ALL_HOME_CONTENT);
+
+  const { data: productsCar, error: productsErrorCar } = useQuery<
+    HubCarProductCards
+  >(PRODUCT_CARD_CONTENT, {
+    variables: { type: 'Car', size: 9, offer: true },
+  });
+
+  const { data: productsVan, error: productsErrorVan } = useQuery<
+    HubCarProductCards
+  >(PRODUCT_CARD_CONTENT, {
+    variables: { type: 'Van', size: 9, offer: true },
+  });
+
+  const { data: productsPickUp, error: productsErrorPickup } = useQuery<
+    HubCarProductCards
+  >(PRODUCT_CARD_CONTENT, {
+    variables: { type: 'Pickups', size: 9, offer: true },
+  });
+
   if (loading) {
     return <Loading size="large" />;
   }
@@ -99,71 +115,68 @@ export const HomePage: NextPage = () => {
           <TabPanels>
             <TabPanel index={0}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <Carousel className="-mh-auto" countItems={5}>
-                  {[1, 2, 3, 4, 5].map(k => (
-                    <ProductCard
-                      key={k.toString()}
-                      header={{
-                        accentIcon:
-                          slidesToShow > 2 ? (
-                            <Icon icon={<Flame />} color="white" />
-                          ) : (
-                            ''
+                <Carousel
+                  className="-mh-auto"
+                  countItems={productsVan?.productCarousel?.length || 6}
+                >
+                  {productsVan?.productCarousel?.map((item, idx) => {
+                    const iconMap = getIconMap(item?.keyInformation || []);
+                    return (
+                      <ProductCard
+                        key={item?.capId || idx}
+                        header={{
+                          accentIcon:
+                            slidesToShow > 2 ? (
+                              <Icon icon={<Flame />} color="white" />
+                            ) : (
+                              ''
+                            ),
+                          accentText: slidesToShow > 2 ? 'Hot Deal' : '',
+                          text: 'In Stock - 14-21 Days Delivery',
+                        }}
+                        features={item?.keyInformation?.map(info => ({
+                          icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
+                          label: info?.value || '',
+                        }))}
+                        imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
+                        onCompare={() => true}
+                        onWishlist={() => true}
+                        title={{
+                          title: '',
+                          link: (
+                            <RouterLink
+                              link={{
+                                href: '#',
+                                label: truncateString(
+                                  `${item?.manufacturerName} ${item?.rangeName}`,
+                                ),
+                              }}
+                              className="heading"
+                              classNames={{ size: 'large', color: 'black' }}
+                            />
                           ),
-                        accentText: slidesToShow > 2 ? 'Hot Deal' : '',
-                        text: 'In Stock - 14-21 Days Delivery',
-                      }}
-                      features={[
-                        {
-                          icon: <Icon icon={<SnowSharp />} color="dark" />,
-                          label: 'Aircon',
-                        },
-                        {
-                          icon: <Icon icon={<BluetoothSharp />} color="dark" />,
-                          label: 'Bluetooth',
-                        },
-                        {
-                          icon: <Icon icon={<CompassSharp />} color="dark" />,
-                          label: 'Navigation',
-                        },
-                        {
-                          icon: <Icon icon={<WifiSharp />} color="dark" />,
-                          label: 'Sensors',
-                        },
-                      ]}
-                      imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
-                      onCompare={() => true}
-                      onWishlist={() => true}
-                      title={{
-                        title: '',
-                        link: (
-                          <RouterLink
-                            link={{ href: '#', label: 'Peugeot 208' }}
-                            className="heading"
-                            classNames={{ size: 'large', color: 'black' }}
+                          description: item?.derivativeName || '',
+                          score: item?.averageRating || 0,
+                        }}
+                      >
+                        <div className="-flex-h">
+                          <Price
+                            price={item?.businessRate}
+                            size="large"
+                            separator="."
+                            priceDescription="Per Month Exc.VAT"
                           />
-                        ),
-                        description: '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
-                        score: 4.5,
-                      }}
-                    >
-                      <div className="-flex-h">
-                        <Price
-                          price={209}
-                          size="large"
-                          separator="."
-                          priceDescription="Per Month Exc.VAT"
-                        />
-                        <Button
-                          color="teal"
-                          fill="solid"
-                          label="View Offer"
-                          onClick={() => true}
-                          size="regular"
-                        />
-                      </div>
-                    </ProductCard>
-                  ))}
+                          <Button
+                            color="teal"
+                            fill="solid"
+                            label="View Offer"
+                            onClick={() => true}
+                            size="regular"
+                          />
+                        </div>
+                      </ProductCard>
+                    );
+                  })}
                 </Carousel>
                 <div className="-justify-content-row -pt-500">
                   <Button label="View All Van Offers" color="teal" />
