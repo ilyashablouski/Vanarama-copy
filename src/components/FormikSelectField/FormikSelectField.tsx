@@ -6,7 +6,7 @@ import React from 'react';
 
 interface IProps extends ISelectProps {
   name: string;
-  label: string;
+  label?: string;
 }
 
 const FormikSelectField: React.FC<IProps> = ({

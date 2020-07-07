@@ -50,6 +50,11 @@ function generateSteps() {
       label: 'VAT Details',
       step: 3,
     },
+    {
+      href: '/b2b/olaf/director-details/[companyUuid]',
+      label: 'Director Details',
+      step: 4,
+    },
   ];
 }
 

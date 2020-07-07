@@ -3,9 +3,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import CustomiseLease from '../../components/CustomiseLease/CustomiseLease';
 import { useQuoteData } from './gql';
-import { LeaseTypeEnum } from '../../../generated/globalTypes';
+import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
 import { IProps } from './interfaces';
 import { GetQuoteDetails_quoteByCapId } from '../../../generated/GetQuoteDetails';
+import GoldrushFormContainer from '../GoldrushFormContainer';
+import {
+  GetVehicleDetails_derivativeInfo_colours,
+  GetVehicleDetails_derivativeInfo_trims,
+} from '../../../generated/GetVehicleDetails';
 
 // eslint-disable-next-line no-empty-pattern
 const CustomiseLeaseContainer: React.FC<IProps> = ({
@@ -16,6 +21,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   leaseType,
   setLeaseType,
   setLeadTime,
+  onCompleted,
 }) => {
   const isInitialMount = useRef(true);
 
@@ -29,8 +35,9 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [trim, setTrim] = useState<number | null>(null);
   const [maintenance, setMaintenance] = useState<boolean | null>(null);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
-
-  const { data, error, refetch } = useQuoteData({
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const [isInitialLoading, setIsInitialLoading] = useState<boolean>(false);
+  const { data, error, loading, refetch } = useQuoteData({
     capId: `${capId}`,
     vehicleType,
     mileage: mileage || quoteData?.mileage || null,
@@ -46,8 +53,20 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
 
   useEffect(() => {
     setLeadTime(data?.quoteByCapId?.leadTime || '');
+    setTrim(trim || +(data?.quoteByCapId?.trim || 0));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
+
+  useEffect(() => {
+    if (isInitialLoading) {
+      if (loading) {
+        setIsDisabled(loading);
+      } else {
+        setTimeout(() => setIsDisabled(loading), 1500);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loading]);
 
   useEffect(() => {
     if (isInitialMount.current) {
@@ -55,6 +74,9 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     } else if (!quoteData) {
       setQuoteData(data?.quoteByCapId);
     } else {
+      if (!isInitialLoading) {
+        setIsDisabled(true);
+      }
       refetch();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -99,7 +121,34 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     { label: 'Business', active: leaseType === 'Business' },
   ];
 
-  return (
+  const lineItem = () => {
+    const colourDescription = derivativeInfo?.colours?.find(
+      (item: GetVehicleDetails_derivativeInfo_colours | null) =>
+        item?.id === data?.quoteByCapId?.colour,
+    )?.optionDescription;
+    const trimDescription = derivativeInfo?.trims?.find(
+      (item: GetVehicleDetails_derivativeInfo_trims | null) =>
+        item?.id === data?.quoteByCapId?.trim || item?.id === `${trim}`,
+    )?.optionDescription;
+
+    return {
+      vehicleProduct: {
+        vehicleType,
+        derivativeCapId: capId.toString(),
+        colour: colourDescription,
+        trim: trimDescription,
+        term: data?.quoteByCapId?.term || term || null,
+        annualMileage: data?.quoteByCapId?.mileage || mileage,
+        depositMonths: data?.quoteByCapId?.upfront || upfront || null,
+        depositPayment: data?.quoteByCapId?.leaseCost?.initialRental || null,
+        monthlyPayment: data?.quoteByCapId?.leaseCost?.monthlyRental || null,
+        maintenance,
+      },
+      quantity: 1,
+    };
+  };
+
+  return data.quoteByCapId?.leaseCost?.monthlyRental ? (
     <CustomiseLease
       terms={terms || [{ label: '', active: false }]}
       upfronts={upfronts || [{ label: '', active: false }]}
@@ -117,11 +166,24 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       trim={trim}
       derivativeInfo={derivativeInfo}
       colour={colour}
+      isDisabled={isDisabled}
+      setIsDisabled={setIsDisabled}
       leaseAdjustParams={leaseAdjustParams}
       maintenance={maintenance}
       setMaintenance={setMaintenance}
       isModalShowing={isModalShowing}
       setIsModalShowing={setIsModalShowing}
+      setIsInitialLoading={setIsInitialLoading}
+      lineItem={lineItem()}
+      onSubmit={values => onCompleted(values)}
+    />
+  ) : (
+    <GoldrushFormContainer
+      termsAndConditions
+      isPostcodeVisible={vehicleType !== VehicleTypeEnum.CAR}
+      capId={capId}
+      kind="quote"
+      vehicleType={vehicleType}
     />
   );
 };

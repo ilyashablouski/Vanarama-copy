@@ -1,27 +1,31 @@
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button/';
 import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import Select from '@vanarama/uibook/lib/components/atoms/select/';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput/';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { gql } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
-import { genMonths, genYears } from '../../utils/helpers';
+import { genMonths, genYears, genDays } from '../../utils/helpers';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
 import validationSchema from './AboutForm.validation';
 import { IAboutFormValues, IProps } from './interface';
 import { responseToInitialFormValues } from './mappers';
 import useDateOfBirthValidation from './useDateOfBirthValidation';
+import {
+  mapEmailErrorMessage,
+  EMAIL_ALREADY_EXISTS,
+} from './mapEmailErrorMessage';
 
 const AboutForm: FCWithFragments<IProps> = ({
   dropdownData,
   person,
   submit,
+  onEmailExistenceCheck,
+  onLogInClick,
 }) => {
   const months = genMonths();
   const years = genYears(100);
@@ -32,6 +36,8 @@ const AboutForm: FCWithFragments<IProps> = ({
     triggerValidation,
     watch,
     formState,
+    setError,
+    getValues,
   } = useForm<IAboutFormValues>({
     mode: 'onBlur',
     validationSchema,
@@ -42,12 +48,6 @@ const AboutForm: FCWithFragments<IProps> = ({
 
   return (
     <Form onSubmit={handleSubmit(submit)}>
-      <Heading color="black" size="xlarge" dataTestId="aboutHeading">
-        About You
-      </Heading>
-      <Text color="darker" size="lead">
-        We just need some initial details for your credit check.
-      </Text>
       <FormGroup
         controlId="title"
         label="Title"
@@ -90,7 +90,10 @@ const AboutForm: FCWithFragments<IProps> = ({
       <FormGroup
         controlId="email"
         label="Email"
-        error={errors?.email?.message?.toString()}
+        error={mapEmailErrorMessage(
+          onLogInClick,
+          errors?.email?.message?.toString(),
+        )}
       >
         <TextInput
           id="email"
@@ -99,6 +102,15 @@ const AboutForm: FCWithFragments<IProps> = ({
           dataTestId="aboutEmail"
           ref={register}
           width="35ch"
+          onBlur={async () => {
+            const isEmailExists = await onEmailExistenceCheck(
+              getValues('email'),
+            );
+
+            if (isEmailExists) {
+              setError('email', 'required', EMAIL_ALREADY_EXISTS);
+            }
+          }}
         />
       </FormGroup>
       <FormGroup>
@@ -134,13 +146,11 @@ const AboutForm: FCWithFragments<IProps> = ({
           ref={register}
           placeholder="Day"
         >
-          {[...Array(31)]
-            .map((_, i) => i + 1)
-            .map(value => (
-              <option key={value} value={value}>
-                {value}
-              </option>
-            ))}
+          {genDays().map(value => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
         </Select>
         <Select
           dataTestId="aboutSelectMOB"

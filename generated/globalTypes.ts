@@ -214,6 +214,16 @@ export interface LimitedCompanyInputObject {
 }
 
 /**
+ * Input object to create line item
+ */
+export interface LineItemInputObject {
+  leadManagerQuoteId?: string | null;
+  orderId?: string | null;
+  quantity: number;
+  vehicleProduct?: VehicleProductInputObject | null;
+}
+
+/**
  * Input object to update my account section
  */
 export interface MyAccountInputObject {
@@ -222,6 +232,17 @@ export interface MyAccountInputObject {
   personUuid: string;
   serviceId?: string | null;
   telephoneNumber?: string | null;
+}
+
+/**
+ * Input object to create an order
+ */
+export interface OrderInputObject {
+  leaseType: LeaseTypeEnum;
+  lineItems: LineItemInputObject[];
+  partyUuid?: string | null;
+  referenceNumber?: string | null;
+  salesChannel?: string | null;
 }
 
 /**
@@ -306,6 +327,27 @@ export interface TelephoneNumberInputObject {
 export interface TurnoverPercentageOutsideUkInputObject {
   country: string;
   percentage: number;
+}
+
+/**
+ * Input object for vehicle product, eg: quote
+ */
+export interface VehicleProductInputObject {
+  annualMileage?: number | null;
+  colour?: string | null;
+  depositMonths?: number | null;
+  depositPayment?: number | null;
+  derivativeCapId: string;
+  description?: string | null;
+  finalPayment?: number | null;
+  financeType?: string | null;
+  funder?: string | null;
+  maintenance?: boolean | null;
+  monthlyPayment?: number | null;
+  term?: number | null;
+  trim?: string | null;
+  vehicleType: string;
+  vsku?: string | null;
 }
 
 //==============================================================
