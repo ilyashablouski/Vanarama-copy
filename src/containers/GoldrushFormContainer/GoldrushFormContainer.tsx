@@ -1,52 +1,23 @@
 import React, { useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
+import IconList, {
+  IconListItem,
+} from '@vanarama/uibook/lib/components/organisms/icon-list';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import GoldrushForm from '../../components/GoldrushForm';
-import {
-  CreateOpportunity as Mutation,
-  CreateOpportunityVariables as MutationVariables,
-} from '../../../generated/CreateOpportunity';
 import { GoldrushFormContainerProps } from './interfaces';
+import { useOpportunityCreation } from './gql';
+
+const DEFAULT_POSTCODE = 'HP27DE';
 
 const handleNetworkError = () =>
   toast.error(
     'Sorry there seems to be an issue with your request. Pleaser try again in a few moments',
     'Dolor ut tempor eiusmod enim consequat laboris dolore ut pariatur labore sunt incididunt dolore veniam mollit excepteur dolor aliqua minim nostrud adipisicing culpa aliquip ex',
   );
-
-export const CREATE_OPPORTUNITY_MUTATION = gql`
-  mutation CreateOpportunity(
-    $capId: Int
-    $email: String!
-    $fullName: String!
-    $marketingPreference: Boolean
-    $kind: String!
-    $phoneNumber: String!
-    $postcode: String!
-    $termsAndConditions: Boolean
-    $vehicleType: String
-  ) {
-    createOpportunity(
-      input: {
-        capId: $capId
-        communicationsConsent: $marketingPreference
-        email: $email
-        fullName: $fullName
-        kind: $kind
-        phoneNumber: $phoneNumber
-        postcode: $postcode
-        termsAndConditions: $termsAndConditions
-        vehicleType: $vehicleType
-      }
-    ) {
-      uuid
-    }
-  }
-`;
 
 const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
   isPostcodeVisible,
@@ -56,17 +27,14 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
   vehicleType,
 }) => {
   const [isGratitudeVisible, toggleGratitude] = useState(false);
-  const [createOppurtunity, { loading }] = useMutation<
-    Mutation,
-    MutationVariables
-  >(CREATE_OPPORTUNITY_MUTATION, {
-    onCompleted: () => toggleGratitude(true),
-    onError: error => {
+  const [createOppurtunity, { loading }] = useOpportunityCreation(
+    () => toggleGratitude(true),
+    error => {
       if (error?.networkError) {
         handleNetworkError();
       }
     },
-  });
+  );
 
   return (
     <div className="pdp--sidebar">
@@ -86,10 +54,30 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
       {isGratitudeVisible ? (
         <div>
           <Heading size="large" color="black">
-            Thank you for submitting the form
+            Thanks, We’ll Be In Touch
           </Heading>
           <Text size="regular" color="darker">
-            We will be in touch shortly
+            One of our vehicle experts will give you a call shortly to talk
+            through your options.
+          </Text>
+          <div className="-mb-500 -mt-500">
+            <Heading size="large" color="black">
+              Why Vanarama?
+            </Heading>
+            <IconList>
+              <IconListItem iconColor="orange">
+                The best deal guaranteed by our Price Promise
+              </IconListItem>
+              <IconListItem iconColor="orange">
+                Redundancy &amp; life event cover included
+              </IconListItem>
+              <IconListItem iconColor="orange">
+                Free, safe &amp; contactless delivery
+              </IconListItem>
+            </IconList>
+          </div>
+          <Text size="regular" color="darker">
+            We look forward to having a chat.
           </Text>
         </div>
       ) : (
@@ -104,8 +92,8 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
                   email: values.email,
                   phoneNumber: values.phoneNumber,
                   fullName: values.fullName,
-                  postcode: values.postcode || '',
-                  marketingPreference: Boolean(values.marketingPreference),
+                  postcode: values.postcode || DEFAULT_POSTCODE,
+                  marketingPreference: Boolean(values.termsAndCons),
                   capId,
                   kind,
                   vehicleType,
@@ -116,9 +104,7 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
           />
           <div className="pdp--sidebar-promise">
             <Text size="regular" color="black" tag="span">
-              {
-                "Lorem ipsum dolor. We’ll beat any lease quote or we'll give you £100. "
-              }
+              {"We’ll beat any lease quote or we'll give you £100. "}
             </Text>
             <Link href="#" color="success" size="small">
               Terms and Conditions apply.

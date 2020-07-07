@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useState } from 'react';
 import { NextRouter } from 'next/router';
-import { ApolloError, gql, useApolloClient } from '@apollo/client';
+import { ApolloError, useApolloClient } from '@apollo/client';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -29,10 +29,10 @@ import WhyChooseLeasing from '../../components/WhyChooseLeasing/WhyChooseLeasing
 import CustomerReviews from '../../components/CustomerReviews/CustomerReviews';
 import WhyChooseVanarama from '../../components/WhyChooseVanarama/WhyChooseVanarama';
 import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer';
-import GoldrushFormContainer from '../GoldrushFormContainer';
 import { replaceReview } from '../../components/CustomerReviews/helpers';
 import FrequentlyAskedQuestions from '../../components/FrequentlyAskedQuestions/FrequentlyAskedQuestions';
 import { useCreateOrder } from '../../gql/order';
+import { writeCachedOrderInformation } from './gql';
 
 interface IDetailsPageProps {
   capId: number;
@@ -86,20 +86,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       },
     }).then(response => {
       // we need write data to apollo client cache with orderCapId
-      client.writeQuery({
-        query: gql`
-          query PutCachedOrderInformation {
-            selectedOrderUuid
-            selectedDerivativeId
-            selectedVehicleType
-          }
-        `,
-        data: {
-          selectedOrderUuid: response.data?.createOrder?.uuid || null,
-          selectedDerivativeId: capId.toString(),
-          selectedVehicleType: cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-        },
-      });
+      writeCachedOrderInformation(
+        client,
+        response.data?.createOrder?.uuid || null,
+        capId.toString(),
+        cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+      );
     });
   };
 
@@ -213,26 +205,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           rangeFAQTitle={pageTitle}
         />
       </div>
-      {vehicleConfigurationByCapId?.financeProfile ? (
-        <CustomiseLeaseContainer
-          capId={capId}
-          vehicleType={vehicleType}
-          derivativeInfo={derivativeInfo}
-          leaseAdjustParams={leaseAdjustParams}
-          leaseType={leaseType}
-          setLeaseType={setLeaseType}
-          setLeadTime={setLeadTime}
-          onCompleted={values => onSubmitClick(values)}
-        />
-      ) : (
-        <GoldrushFormContainer
-          termsAndConditions
-          isPostcodeVisible={!cars}
-          capId={capId}
-          kind="quote"
-          vehicleType={vehicleType}
-        />
-      )}
+      <CustomiseLeaseContainer
+        capId={capId}
+        vehicleType={vehicleType}
+        derivativeInfo={derivativeInfo}
+        leaseAdjustParams={leaseAdjustParams}
+        leaseType={leaseType}
+        setLeaseType={setLeaseType}
+        setLeadTime={setLeadTime}
+        onCompleted={values => onSubmitClick(values)}
+      />
       <CustomerAlsoViewedContainer
         capsId={capsId || []}
         vehicleType={vehicleType}
