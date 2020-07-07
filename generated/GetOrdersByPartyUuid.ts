@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { LeaseTypeEnum, VehicleTypeEnum } from './globalTypes';
+import { LeaseTypeEnum, VehicleTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetOrdersByPartyUuid
@@ -40,9 +40,7 @@ export interface GetOrdersByPartyUuid_ordersByPartyUuid_lineItems {
   status: string | null;
   updatedAt: any | null;
   uuid: string;
-  creditApplications:
-    | GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_creditApplications[]
-    | null;
+  creditApplications: GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_creditApplications[] | null;
   vehicleProduct: GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct | null;
 }
 
