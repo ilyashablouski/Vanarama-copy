@@ -102,6 +102,8 @@ const SearchPageContainer: React.FC<IProps> = ({
     { label: `${isCarSearch ? 'Car' : 'Vans'} Search`, href: '/' },
   ];
 
+  const sortField = isSpecialOffers ? SortField.offerRanking : SortField.rate;
+
   // new search with new filters
   const onSearch = (filters = filtersData) => {
     // set search filters data
@@ -113,7 +115,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           : [VehicleTypeEnum.LCV],
         onOffer: isSpecialOffers,
         ...filters,
-        sortField: isSpecialOffers ? SortField.offerRanking : SortField.rate,
+        sortField,
       },
     });
     // we should make 2 call for clear all queries
@@ -159,10 +161,17 @@ const SearchPageContainer: React.FC<IProps> = ({
           onOffer: isSpecialOffers,
           after: lastCard,
           ...filtersData,
-          sortField: isSpecialOffers ? SortField.offerRanking : SortField.rate,
+          sortField,
         },
       });
-  }, [lastCard, getVehiclesCache, filtersData, isCarSearch, isSpecialOffers]);
+  }, [
+    lastCard,
+    getVehiclesCache,
+    filtersData,
+    isCarSearch,
+    isSpecialOffers,
+    sortField,
+  ]);
 
   // get vehicles to cache
   useEffect(() => {
