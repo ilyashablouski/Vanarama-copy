@@ -1,3 +1,3 @@
-import BankDetails from './BankDetails';
+import CompanyBankDetails from './CompanyBankDetails';
 
-export default BankDetails;
+export default CompanyBankDetails;
