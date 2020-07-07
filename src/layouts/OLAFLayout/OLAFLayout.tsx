@@ -91,6 +91,8 @@ const OLAFLayout: React.FC = ({ children }) => {
                 description: derivative?.name || '',
                 score: 4.5,
                 dataTestId: 'olaf_about_title_derivative',
+                size: 'large',
+                ratingSize: 'lead',
               }}
             />
           </div>
