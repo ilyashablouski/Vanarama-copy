@@ -8,7 +8,7 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import React, { useState, CSSProperties } from 'react';
 import cx from 'classnames';
 import { NextRouter } from 'next/router';
-import { useApolloClient, gql } from '@apollo/client';
+import { useApolloClient } from '@apollo/client';
 import {
   useOrdersByPartyUuidData,
   useCarDerivativesData,
@@ -16,7 +16,7 @@ import {
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import { GetOrdersByPartyUuid_ordersByPartyUuid } from '../../../generated/GetOrdersByPartyUuid';
 import { createOffersObject } from './helpers';
-import { GetCachedOrderInformation } from '../../../generated/GetCachedOrderInformation';
+import { writeCachedOrderInformation } from '../DetailsPage/gql';
 
 interface IMyOverviewProps {
   partyByUuid: string;
@@ -117,15 +117,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     leaseType: LeaseTypeEnum,
   ) => {
     // when we click 'Order' btn, need write data to apollo client cache with orderUuid and orderCapId
-    client.writeQuery<GetCachedOrderInformation>({
-      query: gql`
-        query GetCachedOrderInformation {
-          selectedOrderUuid
-          selectedDerivativeId
-        }
-      `,
-      data: { selectedOrderUuid: orderUuid, selectedDerivativeId: orderCapId },
-    });
+    writeCachedOrderInformation(client, orderUuid, orderCapId);
     // change current page to '/olaf/about' or '/b2b/olaf/about'
     router.push(
       leaseType === LeaseTypeEnum.PERSONAL ? '/olaf/about' : '/b2b/olaf/about',
