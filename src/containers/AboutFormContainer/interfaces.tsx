@@ -2,5 +2,6 @@ import { CreateUpdatePersonMutation as Mutation } from '../../../generated/Creat
 
 export interface IProps {
   onCompleted: (data: Mutation) => void;
+  onLogInClick?: () => void;
   personUuid?: string;
 }

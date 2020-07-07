@@ -7,16 +7,12 @@ import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
 import {
-  EmailAlreadyExistsMutation as EMutation,
-  EmailAlreadyExistsMutationVariables as EMutationVariables,
-} from '../../../../generated/EmailAlreadyExistsMutation';
-import {
   PasswordRequestMutation as Mutation,
   PasswordRequestMutationVariables as MutationVariables,
 } from '../../../../generated/PasswordRequestMutation';
 import RequestPasswordForm from '../../../components/RequestPasswordForm';
 import { IRequestPasswordFormValues } from '../../../components/RequestPasswordForm/interfaces';
-import { EMAIL_ALREADY_EXISTS } from '../../../containers/RegisterFormContainer/RegisterFormContainer';
+import { useEmailCheck } from '../../../containers/RegisterFormContainer/gql';
 import Message from '../../../core/components/Message';
 import withApollo from '../../../hocs/withApollo';
 
@@ -43,10 +39,7 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
     },
   });
 
-  const [checkEmail, { loading: emailLoading }] = useMutation<
-    EMutation,
-    EMutationVariables
-  >(EMAIL_ALREADY_EXISTS);
+  const [checkEmail, { loading: emailLoading }] = useEmailCheck();
 
   const onSubmit = async (values: IRequestPasswordFormValues) => {
     setRequestStatus(false);

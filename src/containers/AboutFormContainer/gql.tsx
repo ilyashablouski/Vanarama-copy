@@ -44,6 +44,7 @@ export function useAboutYouData(personByUuid?: string) {
         uuid: personByUuid || '🐔',
         includePerson: Boolean(personByUuid),
       },
+      fetchPolicy: 'no-cache',
     },
   );
 }
