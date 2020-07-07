@@ -4,23 +4,7 @@ import {
   CreateUpdateBankAccountMutation as Mutation,
   CreateUpdateBankAccountMutationVariables as MutationVariables,
 } from '../../../generated/CreateUpdateBankAccountMutation';
-// import {
-//   GetBankDetailsPageDataQuery as Query,
-//   GetBankDetailsPageDataQueryVariables as QueryVariables,
-// } from '../../../generated/GetBankDetailsPageDataQuery';
-// import CompanyBankDetails from '../../components/CompanyBankDetails';
-// import CompanyBankDetailsFormContainer from '../../../../containers/CompanyBankDetailsFormContainer/CompanyBankDetailsFormContainer';
-
-// import { getDataFromTree } from '@apollo/react-ssr';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
-// import { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import { getUrlParam, OLAFQueryParams } from 'utils/url';
-// import React from 'react';
-
-// import withApollo from '../../../../hocs/withApollo';
-// import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
-
 
 export const UPDATE_BANK_DETAILS = gql`
   mutation UpdateBankDetailsMutation($input: LimitedCompanyInputObject!) {
@@ -36,13 +20,16 @@ export const UPDATE_BANK_DETAILS = gql`
   }
 `;
 
-type QueryParams = OLAFQueryParams & {
-  companyUuid: string;
-};
+// type QueryParams = OLAFQueryParams & {
+//   companyUuid: string;
+// };
 
-export function useUpdateBankDetails() {
-  const router = useRouter();
-  const { companyUuid, derivativeId, orderId } = router.query as QueryParams;
+export function useUpdateBankDetails(
+  companyUuid: string,
+  onCompleted: () => void,
+) {
+  // const router = useRouter();
+  // const { companyUuid, derivativeId, orderId } = router.query as QueryParams;
   const [updateBankDetails] = useMutation<Mutation, MutationVariables>(
     UPDATE_BANK_DETAILS,
     {
@@ -51,11 +38,7 @@ export function useUpdateBankDetails() {
           'Oops, an unexpected error occurred',
           'Your details could not be saved. Please try submitting the form again.',
         ),
-      onCompleted: () => {
-        const params = getUrlParam({ derivativeId, orderId });
-        const url = `/b2b/olaf/summary/[companyUuid]${params}`;
-        router.push(url, url.replace('[companyUuid]', companyUuid));
-      },
+      onCompleted
     },
   );
 
