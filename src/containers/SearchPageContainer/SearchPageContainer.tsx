@@ -247,7 +247,11 @@ const SearchPageContainer: React.FC<IProps> = ({
               vehiclesList?.map((vehicle: IVehicles) => (
                 <VehicleCard
                   key={vehicle?.node?.derivativeId || ''}
-                  data={getCardData(vehicle.node?.derivativeId || '') as IProductCard}
+                  data={
+                    getCardData(
+                      vehicle.node?.derivativeId || '',
+                    ) as IProductCard
+                  }
                   title={{
                     title: '',
                     link: (

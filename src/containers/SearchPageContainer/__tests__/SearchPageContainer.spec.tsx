@@ -4,7 +4,7 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import SearchPageContainer from '../SearchPageContainer';
 import { getVehiclesList } from '../gql';
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
-import { GET_PRODUCT_CARDS_DATA } from '../../../containers/CustomerAlsoViewedContainer/gql';
+import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
 
 jest.mock('next/router', () => ({
   useRouter() {
@@ -135,7 +135,7 @@ const mocksResponse: MockedResponse[] = [
             offerPosition: 5,
             leadTime: '',
             imageUrl: '',
-            keyInformation: [{name: "Transmission", value: "Manual"}],
+            keyInformation: [{ name: 'Transmission', value: 'Manual' }],
             businessRate: 55,
             personalRate: 55,
           },
@@ -155,8 +155,7 @@ const mocksResponse: MockedResponse[] = [
     result: () => {
       return {
         data: {
-          productCard: {
-          },
+          productCard: {},
         },
         refetch: jest.fn(),
       };

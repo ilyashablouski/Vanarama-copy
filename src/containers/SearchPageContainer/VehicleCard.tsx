@@ -6,9 +6,7 @@ import Price from '@vanarama/uibook/lib/components/atoms/price';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
-import {
-  GetProductCard_productCard as ICard,
-} from '../../../generated/GetProductCard';
+import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
 
 interface IVehicleCardProps {
   title: ICardTitleProps;
