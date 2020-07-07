@@ -2221,7 +2221,7 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@5.21.7":
+"@vanarama/uibook@5.21.6":
   version "5.21.6"
   resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.21.6.tgz#b73cb7f0508588380f5a2f61a601f7ba189f31f8"
   integrity sha512-UAmKYCyxo/feGackwx7DlB/PlXFkMd710Sbxry8dv86z9spSuh9YHZ7qEqewf0UBQPXnWN99HLCa0AQaNG3vtA==
