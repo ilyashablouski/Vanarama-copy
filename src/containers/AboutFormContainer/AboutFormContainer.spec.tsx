@@ -108,7 +108,7 @@ describe('<AboutFormContainer />', () => {
     );
 
     // Wait for the initial query to resolve
-    await screen.findByTestId('aboutHeading');
+    await screen.findByLabelText(/Title/);
 
     // ASSERT
     expect(screen.getByLabelText(/Title/)).toHaveValue('Professor');

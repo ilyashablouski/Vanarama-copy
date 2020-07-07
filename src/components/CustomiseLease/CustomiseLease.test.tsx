@@ -53,6 +53,10 @@ describe('<CustomiseLease />', () => {
             initialRental: 605.95,
             excessMileage: 14.76,
           },
+          nextBestPrice: {
+            maintained: 70,
+            nonMaintained: 60,
+          },
           processingFee: 0,
           stock: 'Brand New - ',
           term: 24,
@@ -98,6 +102,11 @@ describe('<CustomiseLease />', () => {
           },
         ],
       },
+      isDisabled: false,
+      setIsInitialLoading: jest.fn(),
+      setIsDisabled: jest.fn(),
+      onSubmit: jest.fn(),
+      lineItem: {} as any,
     });
 
     expect(tree).toMatchSnapshot();
@@ -132,6 +141,9 @@ describe('<CustomiseLease />', () => {
       setColour: jest.fn(),
       setTerm: jest.fn(),
       setTrim: jest.fn(),
+      isDisabled: false,
+      setIsInitialLoading: jest.fn(),
+      setIsDisabled: jest.fn(),
       data: {
         quoteByCapId: {
           colour: '13990',
@@ -141,6 +153,10 @@ describe('<CustomiseLease />', () => {
             monthlyRental: 61.75,
             initialRental: 61.75,
             excessMileage: 0,
+          },
+          nextBestPrice: {
+            maintained: 70,
+            nonMaintained: 60,
           },
           mileage: 8000,
           leaseCost: {
@@ -189,6 +205,8 @@ describe('<CustomiseLease />', () => {
           },
         ],
       },
+      onSubmit: jest.fn(),
+      lineItem: {} as any,
     });
     expect(tree).toMatchSnapshot();
   });
@@ -204,6 +222,8 @@ describe('<CustomiseLease />', () => {
       setMaintenance: jest.fn(),
       setIsModalShowing: jest.fn(),
       setLeadTime: jest.fn(),
+      setIsInitialLoading: jest.fn(),
+      setIsDisabled: jest.fn(),
     };
   };
 
@@ -218,6 +238,7 @@ describe('<CustomiseLease />', () => {
         {...mocks}
         trim={112981}
         colour={13990}
+        isDisabled={false}
         terms={[
           { label: '24', active: false },
           { label: '36', active: true },
@@ -242,6 +263,10 @@ describe('<CustomiseLease />', () => {
             colour: '13990',
             leadTime: '14-21 Day Delivery',
             leaseType: LeaseTypeEnum.BUSINESS,
+            nextBestPrice: {
+              maintained: 70,
+              nonMaintained: 60,
+            },
             leaseCost: {
               monthlyRental: 61.75,
               initialRental: 61.75,
@@ -300,6 +325,8 @@ describe('<CustomiseLease />', () => {
             },
           ],
         }}
+        onSubmit={jest.fn()}
+        lineItem={{} as any}
       />,
     );
 
