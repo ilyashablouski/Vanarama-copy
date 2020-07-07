@@ -13,10 +13,6 @@ import League from '@vanarama/uibook/lib/components/organisms/league';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
 import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
-import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
-import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
-import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
-import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
 import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import Step from '@vanarama/uibook/lib/components/molecules/step';
@@ -32,17 +28,29 @@ import {
   HubVanPageData_hubVanPage_sections_cards_cards as CardData,
   HubVanPageData_hubVanPage_sections_steps_steps as StepData,
 } from '../../../../generated/HubVanPageData';
+import { ProductCardData } from '../../../../generated/ProductCardData';
+
 import { HUB_VAN_CONTENT } from '../../../gql/hubVanPage';
+import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import withApollo from '../../../hocs/withApollo';
 
 import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 import DealOfMonth from '../../../components/DealOfMonth';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import useSliderProperties from '../../../hooks/useSliderProperties';
+import getIconMap from '../../../utils/getIconMap';
+import truncateString from '../../../utils/truncateString';
 
 const VansPage: NextPage = () => {
   const { slidesToShow } = useSliderProperties(345, 345, 310);
   const { data, loading, error } = useQuery<HubVanPageData>(HUB_VAN_CONTENT);
+
+  const { data: productsVan } = useQuery<ProductCardData>(
+    PRODUCT_CARD_CONTENT,
+    {
+      variables: { type: 'LCV', subType: 'VAN', size: 9, offer: true },
+    },
+  );
 
   if (loading) {
     return <Loading size="large" />;
@@ -102,71 +110,68 @@ const VansPage: NextPage = () => {
               Small Vans
             </span>
           </Heading>
-          <Carousel className="-mh-auto" countItems={5}>
-            {[1, 2, 3, 4, 5].map(k => (
-              <ProductCard
-                key={k.toString()}
-                header={{
-                  accentIcon:
-                    slidesToShow > 2 ? (
-                      <Icon icon={<Flame />} color="white" />
-                    ) : (
-                      ''
+          <Carousel
+            className="-mh-auto"
+            countItems={productsVan?.productCarousel?.length || 6}
+          >
+            {productsVan?.productCarousel?.map((item, idx) => {
+              const iconMap = getIconMap(item?.keyInformation || []);
+              return (
+                <ProductCard
+                  key={item?.capId || idx}
+                  header={{
+                    accentIcon:
+                      slidesToShow > 2 ? (
+                        <Icon icon={<Flame />} color="white" />
+                      ) : (
+                        ''
+                      ),
+                    accentText: slidesToShow > 2 ? 'Hot Deal' : '',
+                    text: 'In Stock - 14-21 Days Delivery',
+                  }}
+                  features={item?.keyInformation?.map(info => ({
+                    icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
+                    label: info?.value || '',
+                  }))}
+                  imageSrc={item?.imageUrl || ''}
+                  onCompare={() => true}
+                  onWishlist={() => true}
+                  title={{
+                    title: '',
+                    link: (
+                      <RouterLink
+                        link={{
+                          href: '#',
+                          label: truncateString(
+                            `${item?.manufacturerName} ${item?.rangeName}`,
+                          ),
+                        }}
+                        className="heading"
+                        classNames={{ size: 'large', color: 'black' }}
+                      />
                     ),
-                  accentText: slidesToShow > 2 ? 'Hot Deal' : '',
-                  text: 'In Stock - 14-21 Days Delivery',
-                }}
-                features={[
-                  {
-                    icon: <Icon icon={<SnowSharp />} color="dark" />,
-                    label: 'Aircon',
-                  },
-                  {
-                    icon: <Icon icon={<BluetoothSharp />} color="dark" />,
-                    label: 'Bluetooth',
-                  },
-                  {
-                    icon: <Icon icon={<CompassSharp />} color="dark" />,
-                    label: 'Navigation',
-                  },
-                  {
-                    icon: <Icon icon={<WifiSharp />} color="dark" />,
-                    label: 'Sensors',
-                  },
-                ]}
-                imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
-                onCompare={() => true}
-                onWishlist={() => true}
-                title={{
-                  title: '',
-                  link: (
-                    <RouterLink
-                      link={{ href: '#', label: 'Peugeot 208' }}
-                      className="heading"
-                      classNames={{ size: 'large', color: 'black' }}
+                    description: item?.derivativeName || '',
+                    score: item?.averageRating || 0,
+                  }}
+                >
+                  <div className="-flex-h">
+                    <Price
+                      price={item?.businessRate}
+                      size="large"
+                      separator="."
+                      priceDescription="Per Month Exc.VAT"
                     />
-                  ),
-                  description: '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
-                  score: 4.5,
-                }}
-              >
-                <div className="-flex-h">
-                  <Price
-                    price={209}
-                    size="large"
-                    separator="."
-                    priceDescription="Per Month Exc.VAT"
-                  />
-                  <Button
-                    color="teal"
-                    fill="solid"
-                    label="View Offer"
-                    onClick={() => true}
-                    size="regular"
-                  />
-                </div>
-              </ProductCard>
-            ))}
+                    <Button
+                      color="teal"
+                      fill="solid"
+                      label="View Offer"
+                      onClick={() => true}
+                      size="regular"
+                    />
+                  </div>
+                </ProductCard>
+              );
+            })}
           </Carousel>
           <div className="-justify-content-row -pt-500">
             <Button label="View All Vans" color="teal" />
@@ -183,69 +188,68 @@ const VansPage: NextPage = () => {
               Medium Vans
             </span>
           </Heading>
-          <Carousel className="-mh-auto" countItems={5}>
-            {[1, 2, 3, 4, 5].map(k => (
-              <ProductCard
-                key={k.toString()}
-                header={{
-                  accentIcon:
-                    slidesToShow > 2 ? (
-                      <Icon icon={<Flame />} color="white" />
-                    ) : (
-                      ''
+          <Carousel
+            className="-mh-auto"
+            countItems={productsVan?.productCarousel?.length || 6}
+          >
+            {productsVan?.productCarousel?.map((item, idx) => {
+              const iconMap = getIconMap(item?.keyInformation || []);
+              return (
+                <ProductCard
+                  key={item?.capId || idx}
+                  header={{
+                    accentIcon:
+                      slidesToShow > 2 ? (
+                        <Icon icon={<Flame />} color="white" />
+                      ) : (
+                        ''
+                      ),
+                    accentText: slidesToShow > 2 ? 'Hot Deal' : '',
+                    text: 'In Stock - 14-21 Days Delivery',
+                  }}
+                  features={item?.keyInformation?.map(info => ({
+                    icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
+                    label: info?.value || '',
+                  }))}
+                  imageSrc={item?.imageUrl || ''}
+                  onCompare={() => true}
+                  onWishlist={() => true}
+                  title={{
+                    title: '',
+                    link: (
+                      <RouterLink
+                        link={{
+                          href: '#',
+                          label: truncateString(
+                            `${item?.manufacturerName} ${item?.rangeName}`,
+                          ),
+                        }}
+                        className="heading"
+                        classNames={{ size: 'large', color: 'black' }}
+                      />
                     ),
-                  accentText: slidesToShow > 2 ? 'Hot Deal' : '',
-                  text: 'In Stock - 14-21 Days Delivery',
-                }}
-                imageSrc="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
-                features={[
-                  {
-                    icon: <Icon icon={<SnowSharp />} color="dark" />,
-                    label: 'Aircon',
-                  },
-                  {
-                    icon: <Icon icon={<BluetoothSharp />} color="dark" />,
-                    label: 'Bluetooth',
-                  },
-                  {
-                    icon: <Icon icon={<CompassSharp />} color="dark" />,
-                    label: 'Navigation',
-                  },
-                  {
-                    icon: <Icon icon={<WifiSharp />} color="dark" />,
-                    label: 'Sensors',
-                  },
-                ]}
-                onCompare={() => true}
-                onWishlist={() => true}
-                title={{
-                  title: '',
-                  link: (
-                    <a href="/#" className="heading -large -black">
-                      Peugeot 208
-                    </a>
-                  ),
-                  description: '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
-                  score: 4.5,
-                }}
-              >
-                <div className="-flex-h">
-                  <Price
-                    price={233.95}
-                    size="large"
-                    separator="."
-                    priceDescription="Per Month Exc.VAT"
-                  />
-                  <Button
-                    color="teal"
-                    fill="solid"
-                    label="View Offer"
-                    onClick={() => true}
-                    size="regular"
-                  />
-                </div>
-              </ProductCard>
-            ))}
+                    description: item?.derivativeName || '',
+                    score: item?.averageRating || 0,
+                  }}
+                >
+                  <div className="-flex-h">
+                    <Price
+                      price={item?.businessRate}
+                      size="large"
+                      separator="."
+                      priceDescription="Per Month Exc.VAT"
+                    />
+                    <Button
+                      color="teal"
+                      fill="solid"
+                      label="View Offer"
+                      onClick={() => true}
+                      size="regular"
+                    />
+                  </div>
+                </ProductCard>
+              );
+            })}
           </Carousel>
           <div className="-justify-content-row -pt-500">
             <Button label="View All Vans" color="teal" />
@@ -262,69 +266,68 @@ const VansPage: NextPage = () => {
               Large Vans
             </span>
           </Heading>
-          <Carousel className="-mh-auto" countItems={5}>
-            {[1, 2, 3, 4, 5].map(k => (
-              <ProductCard
-                key={k.toString()}
-                header={{
-                  accentIcon:
-                    slidesToShow > 2 ? (
-                      <Icon icon={<Flame />} color="white" />
-                    ) : (
-                      ''
+          <Carousel
+            className="-mh-auto"
+            countItems={productsVan?.productCarousel?.length || 6}
+          >
+            {productsVan?.productCarousel?.map((item, idx) => {
+              const iconMap = getIconMap(item?.keyInformation || []);
+              return (
+                <ProductCard
+                  key={item?.capId || idx}
+                  header={{
+                    accentIcon:
+                      slidesToShow > 2 ? (
+                        <Icon icon={<Flame />} color="white" />
+                      ) : (
+                        ''
+                      ),
+                    accentText: slidesToShow > 2 ? 'Hot Deal' : '',
+                    text: 'In Stock - 14-21 Days Delivery',
+                  }}
+                  features={item?.keyInformation?.map(info => ({
+                    icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
+                    label: info?.value || '',
+                  }))}
+                  imageSrc={item?.imageUrl || ''}
+                  onCompare={() => true}
+                  onWishlist={() => true}
+                  title={{
+                    title: '',
+                    link: (
+                      <RouterLink
+                        link={{
+                          href: '#',
+                          label: truncateString(
+                            `${item?.manufacturerName} ${item?.rangeName}`,
+                          ),
+                        }}
+                        className="heading"
+                        classNames={{ size: 'large', color: 'black' }}
+                      />
                     ),
-                  accentText: slidesToShow > 2 ? 'Hot Deal' : '',
-                  text: 'In Stock - 14-21 Days Delivery',
-                }}
-                imageSrc="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
-                features={[
-                  {
-                    icon: <Icon icon={<SnowSharp />} color="dark" />,
-                    label: 'Aircon',
-                  },
-                  {
-                    icon: <Icon icon={<BluetoothSharp />} color="dark" />,
-                    label: 'Bluetooth',
-                  },
-                  {
-                    icon: <Icon icon={<CompassSharp />} color="dark" />,
-                    label: 'Navigation',
-                  },
-                  {
-                    icon: <Icon icon={<WifiSharp />} color="dark" />,
-                    label: 'Sensors',
-                  },
-                ]}
-                onCompare={() => true}
-                onWishlist={() => true}
-                title={{
-                  title: '',
-                  link: (
-                    <a href="/#" className="heading -large -black">
-                      Peugeot 208
-                    </a>
-                  ),
-                  description: '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
-                  score: 4.5,
-                }}
-              >
-                <div className="-flex-h">
-                  <Price
-                    price={233.95}
-                    size="large"
-                    separator="."
-                    priceDescription="Per Month Exc.VAT"
-                  />
-                  <Button
-                    color="teal"
-                    fill="solid"
-                    label="View Offer"
-                    onClick={() => true}
-                    size="regular"
-                  />
-                </div>
-              </ProductCard>
-            ))}
+                    description: item?.derivativeName || '',
+                    score: item?.averageRating || 0,
+                  }}
+                >
+                  <div className="-flex-h">
+                    <Price
+                      price={item?.businessRate}
+                      size="large"
+                      separator="."
+                      priceDescription="Per Month Exc.VAT"
+                    />
+                    <Button
+                      color="teal"
+                      fill="solid"
+                      label="View Offer"
+                      onClick={() => true}
+                      size="regular"
+                    />
+                  </div>
+                </ProductCard>
+              );
+            })}
           </Carousel>
           <div className="-justify-content-row -pt-500">
             <Button label="View All Vans" color="teal" />

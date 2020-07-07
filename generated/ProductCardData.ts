@@ -3,16 +3,18 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { VehicleTypeEnum, SubVehicleTypeEnum } from "./globalTypes";
+
 // ====================================================
-// GraphQL query operation: HubCarProductCards
+// GraphQL query operation: ProductCardData
 // ====================================================
 
-export interface HubCarProductCards_productCarousel_keyInformation {
+export interface ProductCardData_productCarousel_keyInformation {
   name: string | null;
   value: string | null;
 }
 
-export interface HubCarProductCards_productCarousel {
+export interface ProductCardData_productCarousel {
   capId: string | null;
   isOnOffer: boolean | null;
   manufacturerName: string | null;
@@ -24,9 +26,16 @@ export interface HubCarProductCards_productCarousel {
   businessRate: number | null;
   personalRate: number | null;
   offerPosition: number | null;
-  keyInformation: (HubCarProductCards_productCarousel_keyInformation | null)[] | null;
+  keyInformation: (ProductCardData_productCarousel_keyInformation | null)[] | null;
 }
 
-export interface HubCarProductCards {
-  productCarousel: (HubCarProductCards_productCarousel | null)[] | null;
+export interface ProductCardData {
+  productCarousel: (ProductCardData_productCarousel | null)[] | null;
+}
+
+export interface ProductCardDataVariables {
+  type: VehicleTypeEnum;
+  subType: SubVehicleTypeEnum;
+  size: number;
+  offer: boolean;
 }

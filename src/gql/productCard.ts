@@ -3,9 +3,9 @@ import { gql } from '@apollo/client';
 const PRODUCT_CARD_CONTENT = gql`
   query ProductCardData(
     $type: VehicleTypeEnum!
-    $subType: SubVehicleTypeEnum!
-    $size: Int!
-    $offer: Boolean!
+    $subType: SubVehicleTypeEnum
+    $size: Int
+    $offer: Boolean
   ) {
     productCarousel(
       vehicleType: $type

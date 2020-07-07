@@ -19,21 +19,21 @@ import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
-import getIconMap from '../../../utils/getIconMap';
-import truncateString from '../../../utils/truncateString';
 
 import {
   HubCarPageData,
   HubCarPageData_hubCarPage_sections_tiles_tiles as TileData,
   HubCarPageData_hubCarPage_sections_steps_steps as StepData,
 } from '../../../../generated/HubCarPageData';
-import { HubCarProductCards } from '../../../../generated/HubCarProductCards';
+import { ProductCardData } from '../../../../generated/ProductCardData';
 import { HUB_CAR_CONTENT } from '../../../gql/hubCarPage';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import withApollo from '../../../hocs/withApollo';
 
 import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 import RouterLink from '../../../components/RouterLink/RouterLink';
+import getIconMap from '../../../utils/getIconMap';
+import truncateString from '../../../utils/truncateString';
 
 export const CarsPage: NextPage = () => {
   const {
@@ -42,7 +42,7 @@ export const CarsPage: NextPage = () => {
     error: contentError,
   } = useQuery<HubCarPageData>(HUB_CAR_CONTENT);
 
-  const { data: products, error: productsError } = useQuery<HubCarProductCards>(
+  const { data: products, error: productsError } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
       variables: { type: 'CAR', size: 9, offer: true },

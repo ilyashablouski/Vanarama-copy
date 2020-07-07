@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { HubCarProductCards_productCarousel_keyInformation as IKeyInfo } from '../../generated/HubCarProductCards';
+import { ProductCardData_productCarousel_keyInformation as IKeyInfo } from '../../generated/ProductCardData';
 
 function getIconMap(keyInfo: (IKeyInfo | null)[]) {
   const iconMap = new Map();

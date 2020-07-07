@@ -33,7 +33,7 @@ import {
   HomePageData_homePage_sections_tiles_tiles as TileData,
   HomePageData_homePage_sections_cards_cards as CardData,
 } from '../../generated/HomePageData';
-import { HubCarProductCards } from '../../generated/HubCarProductCards';
+import { ProductCardData } from '../../generated/ProductCardData';
 import Hero, { HeroHeading, HeroTitle } from '../components/Hero';
 import { ALL_HOME_CONTENT } from '../gql/homepage';
 import { PRODUCT_CARD_CONTENT } from '../gql/productCard';
@@ -48,21 +48,21 @@ export const HomePage: NextPage = () => {
 
   const { data, loading, error } = useQuery<HomePageData>(ALL_HOME_CONTENT);
 
-  const { data: productsVan } = useQuery<HubCarProductCards>(
+  const { data: productsVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
       variables: { type: 'LCV', subType: 'VAN', size: 9, offer: true },
     },
   );
 
-  const { data: productsCar } = useQuery<HubCarProductCards>(
+  const { data: productsCar } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
       variables: { type: 'CAR', size: 9, offer: true },
     },
   );
 
-  const { data: productsPickUp } = useQuery<HubCarProductCards>(
+  const { data: productsPickUp } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
       variables: { type: 'LCV', subType: 'PICKUP', size: 9, offer: true },
@@ -190,7 +190,7 @@ export const HomePage: NextPage = () => {
               </div>
             </TabPanel>
             <TabPanel index={1}>
-              <div style={{ maxWidth: 1216 }}>
+              <div style={{ maxWidth: 1216 }} className="-mh-auto">
                 <Carousel
                   className="-mh-auto"
                   countItems={productsPickUp?.productCarousel?.length || 6}
@@ -254,7 +254,7 @@ export const HomePage: NextPage = () => {
                     );
                   })}
                 </Carousel>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <div className="-justify-content-row -pt-500">
                   <Button label="View All Pickup Offers" color="teal" />
                 </div>
               </div>
@@ -324,7 +324,7 @@ export const HomePage: NextPage = () => {
                     );
                   })}
                 </Carousel>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <div className="-justify-content-row -pt-500">
                   <Button label="View All Car Offers" color="teal" />
                 </div>
               </div>

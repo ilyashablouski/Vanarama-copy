@@ -2,11 +2,7 @@ import { NextPage } from 'next';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import ReactMarkdown from 'react-markdown/with-html';
-import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
-import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
-import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
-import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
 import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
@@ -30,17 +26,25 @@ import {
   HubPickupPageData_hubPickupPage_sections_steps_steps as StepData,
   HubPickupPageData_hubPickupPage_sections_accessories_accessories as AccessoryData,
 } from '../../../../generated/HubPickupPageData';
+import { ProductCardData } from '../../../../generated/ProductCardData';
 import { HUB_PICKUP_CONTENT } from '../../../gql/hubPickupPage';
+import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import withApollo from '../../../hocs/withApollo';
 
 import DealOfMonth from '../../../components/DealOfMonth';
 import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 import RouterLink from '../../../components/RouterLink/RouterLink';
+import getIconMap from '../../../utils/getIconMap';
+import truncateString from '../../../utils/truncateString';
 
 export const PickupsPage: NextPage = () => {
   const { data, loading, error } = useQuery<HubPickupPageData>(
     HUB_PICKUP_CONTENT,
   );
+
+  const { data: products } = useQuery<ProductCardData>(PRODUCT_CARD_CONTENT, {
+    variables: { type: 'LCV', subType: 'PICKUP', size: 9, offer: true },
+  });
 
   if (loading) {
     return <Loading size="large" />;
@@ -90,65 +94,59 @@ export const PickupsPage: NextPage = () => {
 
       <div className="row:bg-lighter">
         <section className="row:cards-3col">
-          {Array.from(Array(9).keys()).map(val => (
-            <ProductCard
-              key={val}
-              header={{
-                accentIcon: <Icon icon={<Flame />} color="white" />,
-                accentText: 'Hot Deal',
-                text: 'In Stock - 14-21 Days Delivery',
-              }}
-              features={[
-                {
-                  icon: <Icon icon={<SnowSharp />} color="dark" />,
-                  label: 'Aircon',
-                },
-                {
-                  icon: <Icon icon={<BluetoothSharp />} color="dark" />,
-                  label: 'Bluetooth',
-                },
-                {
-                  icon: <Icon icon={<CompassSharp />} color="dark" />,
-                  label: 'Navigation',
-                },
-                {
-                  icon: <Icon icon={<WifiSharp />} color="dark" />,
-                  label: 'Sensors',
-                },
-              ]}
-              imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
-              onCompare={() => true}
-              onWishlist={() => true}
-              title={{
-                title: '',
-                link: (
-                  <RouterLink
-                    link={{ href: '#', label: 'Peugeot 208' }}
-                    className="heading"
-                    classNames={{ size: 'large', color: 'black' }}
+          {products?.productCarousel?.map((item, idx) => {
+            const iconMap = getIconMap(item?.keyInformation || []);
+            return (
+              <ProductCard
+                key={item?.capId || idx}
+                header={{
+                  accentIcon: <Icon icon={<Flame />} color="white" />,
+                  accentText: 'Hot Deal',
+                  text: 'In Stock - 14-21 Days Delivery',
+                }}
+                features={item?.keyInformation?.map(info => ({
+                  icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
+                  label: info?.value || '',
+                }))}
+                imageSrc={item?.imageUrl || ''}
+                onCompare={() => true}
+                onWishlist={() => true}
+                title={{
+                  title: '',
+                  link: (
+                    <RouterLink
+                      link={{
+                        href: '#',
+                        label: truncateString(
+                          `${item?.manufacturerName} ${item?.rangeName}`,
+                        ),
+                      }}
+                      className="heading"
+                      classNames={{ size: 'large', color: 'black' }}
+                    />
+                  ),
+                  description: item?.derivativeName || '',
+                  score: item?.averageRating || 0,
+                }}
+              >
+                <div className="-flex-h">
+                  <Price
+                    price={item?.businessRate}
+                    size="large"
+                    separator="."
+                    priceDescription="Per Month Exc.VAT"
                   />
-                ),
-                description: '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
-                score: 4.5,
-              }}
-            >
-              <div className="-flex-h">
-                <Price
-                  price={209}
-                  size="large"
-                  separator="."
-                  priceDescription="Per Month Exc.VAT"
-                />
-                <Button
-                  color="teal"
-                  fill="solid"
-                  label="View Offer"
-                  onClick={() => true}
-                  size="regular"
-                />
-              </div>
-            </ProductCard>
-          ))}
+                  <Button
+                    color="teal"
+                    fill="solid"
+                    label="View Offer"
+                    onClick={() => true}
+                    size="regular"
+                  />
+                </div>
+              </ProductCard>
+            );
+          })}
 
           <Button label="View All Pickups" size="large" color="teal" />
         </section>
