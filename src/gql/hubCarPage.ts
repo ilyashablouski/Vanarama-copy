@@ -59,11 +59,6 @@ const HUB_CAR_CONTENT = gql`
         }
       }
     }
-  }
-`;
-
-const HUB_PRODUCT_CARDS = gql`
-  query HubCarProductCards {
     productCarousel(vehicleType: CAR, pageSize: 9, onOffer: true) {
       capId
       isOnOffer
@@ -84,4 +79,5 @@ const HUB_PRODUCT_CARDS = gql`
   }
 `;
 
-export { HUB_CAR_CONTENT, HUB_PRODUCT_CARDS };
+// eslint-disable-next-line import/prefer-default-export
+export { HUB_CAR_CONTENT };
