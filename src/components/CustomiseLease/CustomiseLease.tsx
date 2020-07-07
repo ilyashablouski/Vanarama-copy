@@ -13,6 +13,7 @@ import Link from '@vanarama/uibook/lib/components/atoms/link';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Modal from '@vanarama/uibook/lib/components/molecules/modal';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
+import cx from 'classnames';
 import OrderSummary from '../OrderSummary/OrderSummary';
 import { IProps, IColour, ITrim, IChoice } from './interfase';
 import { toPriceFormat } from '../../utils/helpers';
@@ -130,7 +131,7 @@ const CustomiseLease = ({
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
 
   return (
-    <div className={`pdp--sidebar ${isDisabled ? 'disabled' : ''}`}>
+    <div className={cx('pdp--sidebar', isDisabled ? 'disabled' : '')}>
       <Heading tag="span" size="xlarge" color="black">
         Customise Your Lease
       </Heading>
