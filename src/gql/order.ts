@@ -178,6 +178,7 @@ export function useOlafData(
       id,
       vehicleType,
     },
+    skip: [uuid, id, vehicleType].some(item => !item),
   });
 }
 

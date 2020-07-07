@@ -1,6 +1,5 @@
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Link from '@vanarama/uibook/lib/components/atoms/link';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
@@ -90,21 +89,32 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
           />
         </FormGroup>
       )}
-      <FormGroup label="Please Confirm">
+      <FormGroup
+        label="Please Confirm"
+        error={errors?.termsAndCons?.message?.toString()}
+      >
         <CheckBox
-          id="goldrush-form_marketing-preference"
-          dataTestId="goldrush-form_marketing-preference"
-          name="marketingPreference"
+          id="consent"
+          dataTestId="aboutConsent"
+          name="consent"
           label="I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions."
+          ref={register}
+        />
+        <CheckBox
+          id="termsAndCons"
+          dataTestId="aboutTermsAndCons"
+          name="termsAndCons"
+          label="I agree to the terms and conditions."
           ref={register}
         />
       </FormGroup>
 
       <Text tag="p" color="darker" size="xsmall">
-        {'Terms and conditions agreement text and '}
-        <Link dataTestId="terms_and_conditions" href="#" size="xsmall">
-          link
-        </Link>
+        Vanarama collects the contact information you provide to us to contact
+        you about our products and services. You may unsubscribe from these
+        communications at any time. For information on how to unsubscribe, as
+        well as our privacy practices and commitment to protecting your privacy,
+        please check out our Privacy Policy.
       </Text>
       <Button
         dataTestId="goldrush-form_submit"

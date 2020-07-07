@@ -25,7 +25,6 @@ import WhyChooseLeasing from '../../components/WhyChooseLeasing/WhyChooseLeasing
 import CustomerReviews from '../../components/CustomerReviews/CustomerReviews';
 import WhyChooseVanarama from '../../components/WhyChooseVanarama/WhyChooseVanarama';
 import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer';
-import GoldrushFormContainer from '../GoldrushFormContainer';
 import { replaceReview } from '../../components/CustomerReviews/helpers';
 import { useCreateOrder } from '../../gql/order';
 import { GetCachedOrderInformation } from '../../../generated/GetCachedOrderInformation';
@@ -201,26 +200,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           <CustomerReviews reviews={reviews || []} />
         </div>
       </div>
-      {vehicleConfigurationByCapId?.financeProfile ? (
-        <CustomiseLeaseContainer
-          capId={capId}
-          vehicleType={vehicleType}
-          derivativeInfo={derivativeInfo}
-          leaseAdjustParams={leaseAdjustParams}
-          leaseType={leaseType}
-          setLeaseType={setLeaseType}
-          setLeadTime={setLeadTime}
-          onCompleted={values => onSubmitClick(values)}
-        />
-      ) : (
-        <GoldrushFormContainer
-          termsAndConditions
-          isPostcodeVisible={!cars}
-          capId={capId}
-          kind="quote"
-          vehicleType={vehicleType}
-        />
-      )}
+      <CustomiseLeaseContainer
+        capId={capId}
+        vehicleType={vehicleType}
+        derivativeInfo={derivativeInfo}
+        leaseAdjustParams={leaseAdjustParams}
+        leaseType={leaseType}
+        setLeaseType={setLeaseType}
+        setLeadTime={setLeadTime}
+        onCompleted={values => onSubmitClick(values)}
+      />
       <CustomerAlsoViewedContainer
         capsId={capsId || []}
         vehicleType={vehicleType}

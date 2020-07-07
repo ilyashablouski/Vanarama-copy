@@ -13,6 +13,7 @@ import Link from '@vanarama/uibook/lib/components/atoms/link';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Modal from '@vanarama/uibook/lib/components/molecules/modal';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
+import cx from 'classnames';
 import OrderSummary from '../OrderSummary/OrderSummary';
 import { IProps, IColour, ITrim, IChoice } from './interfase';
 import { toPriceFormat } from '../../utils/helpers';
@@ -40,6 +41,7 @@ const choices = (
   choicesValues: IChoice[],
   setChoice: Dispatch<SetStateAction<string>>,
   heading: string,
+  isDisabled: boolean,
   currentValue?: string,
 ) => (
   <>
@@ -52,6 +54,7 @@ const choices = (
       )}
     </Heading>
     <Choiceboxes
+      disabled={isDisabled}
       className={`-cols-${choicesValues?.length}`}
       choices={choicesValues}
       onSubmit={value => {
@@ -73,8 +76,10 @@ const select = (
     | undefined
     | null,
   placeholder: string,
+  isDisabled: boolean,
 ) => (
   <Select
+    disabled={isDisabled}
     dataTestId={defaultValue}
     key={
       items?.some(item => item?.id === defaultValue) ? defaultValue : undefined
@@ -116,6 +121,9 @@ const CustomiseLease = ({
   setIsModalShowing,
   trim,
   mileage,
+  isDisabled,
+  setIsDisabled,
+  setIsInitialLoading,
   lineItem,
   onSubmit,
 }: IProps) => {
@@ -123,11 +131,11 @@ const CustomiseLease = ({
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
 
   return (
-    <div className="pdp--sidebar">
+    <div className={cx('pdp--sidebar', isDisabled ? 'disabled' : '')}>
       <Heading tag="span" size="xlarge" color="black">
         Customise Your Lease
       </Heading>
-      {choices(leaseTypes, setLeaseType, 'Lease Type')}
+      {choices(leaseTypes, setLeaseType, 'Lease Type', isDisabled)}
       <Heading tag="span" size="regular" color="black">
         Annual Mileage:
         <Text color="orange" className="-b -ml-100">
@@ -136,6 +144,7 @@ const CustomiseLease = ({
       </Heading>
       <SlidingInput
         steps={mileages}
+        disabled={isDisabled}
         defaultValue={mileages.indexOf(mileage || 0) + 1}
         onChange={value => {
           setMileage(mileages[value - 1]);
@@ -159,12 +168,14 @@ const CustomiseLease = ({
         terms,
         value => setTerm(+(value || 0) || null),
         'Length Of Lease:',
+        isDisabled,
         `${quoteByCapId?.term} Months`,
       )}
       {choices(
         upfronts,
         value => setUpfront(+(value || 0) || null),
         'Initial Payment: ',
+        isDisabled,
         `£${toPriceFormat(
           quoteByCapId?.leaseCost?.initialRental,
         )} ${stateVAT}. VAT`,
@@ -177,12 +188,14 @@ const CustomiseLease = ({
         setColour,
         derivativeInfo?.colours,
         'Select Paint Colour',
+        isDisabled,
       )}
       {select(
         `${quoteByCapId?.trim || trim}`,
         setTrim,
         derivativeInfo?.trims,
         'Select Interior',
+        isDisabled,
       )}
       <Heading tag="span" size="regular" color="black">
         Add Maintenance:
@@ -201,12 +214,14 @@ const CustomiseLease = ({
           id="maintenanceCost"
           label="YES, I want peace of mind and to keep things hassle-free"
           onChange={() => setMaintenance(true)}
+          disabled={isDisabled}
         />
         <Radio
           name="maintenance"
           id="leaseCost"
           label="NO, I want to worry about sorting the maintenance costs myself"
           onChange={() => setMaintenance(false)}
+          disabled={isDisabled}
         />
       </Formgroup>
       <OrderSummary
@@ -217,10 +232,19 @@ const CustomiseLease = ({
         trims={derivativeInfo?.trims}
         trim={trim}
       />
-      <div className="lease-scanner--sticky-wrap">
+      <div className="lease-scanner--sticky-wrap" style={{ opacity: '1' }}>
         <LeaseScanner
           classNameHeading="headingText"
           className="pdp-footer"
+          nextBestPrice={
+            maintenance
+              ? `£${toPriceFormat(
+                  quoteByCapId?.nextBestPrice?.maintained,
+                )} PM ${stateVAT}. VAT`
+              : `£${toPriceFormat(
+                  quoteByCapId?.nextBestPrice?.nonMaintained,
+                )} PM ${stateVAT}. VAT`
+          }
           priceLabel={
             maintenance
               ? `+£${toPriceFormat(
@@ -238,8 +262,11 @@ const CustomiseLease = ({
           headingText={`PM ${stateVAT}. VAT`}
           phoneNumber="+1313222"
           leasingProviders={LEASING_PROVIDERS}
-          startLoading={false}
-          endAnimation={() => {}}
+          startLoading={isDisabled}
+          endAnimation={() => {
+            setIsInitialLoading(true);
+            setIsDisabled(false);
+          }}
         />
       </div>
       {isModalShowing && (

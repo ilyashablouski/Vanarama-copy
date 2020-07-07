@@ -9,6 +9,11 @@ import { VehicleTypeEnum, LeaseTypeEnum } from "./globalTypes";
 // GraphQL query operation: GetQuoteDetails
 // ====================================================
 
+export interface GetQuoteDetails_quoteByCapId_nextBestPrice {
+  maintained: number | null;
+  nonMaintained: number | null;
+}
+
 export interface GetQuoteDetails_quoteByCapId_leaseCost {
   monthlyRental: number | null;
   initialRental: number | null;
@@ -32,6 +37,7 @@ export interface GetQuoteDetails_quoteByCapId {
   vehicleType: VehicleTypeEnum | null;
   leaseType: LeaseTypeEnum | null;
   processingFee: number | null;
+  nextBestPrice: GetQuoteDetails_quoteByCapId_nextBestPrice | null;
   leaseCost: GetQuoteDetails_quoteByCapId_leaseCost | null;
   maintenanceCost: GetQuoteDetails_quoteByCapId_maintenanceCost | null;
 }
