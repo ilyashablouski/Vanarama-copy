@@ -55,6 +55,11 @@ function generateSteps() {
       label: 'Director Details',
       step: 4,
     },
+    {
+      href: '/b2b/olaf/company-bank-details/[companyUuid]',
+      label: 'Company Bank Details',
+      step: 5,
+    },
   ];
 }
 
