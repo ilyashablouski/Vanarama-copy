@@ -122,7 +122,16 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
     <div
       className="price -large -black"
     >
-      POA
+      <span
+        className="price--sub"
+      >
+        £
+      </span>
+      <span
+        className="price--pounds"
+      >
+        POA
+      </span>
     </div>
     <button
       className="button -teal -regular -solid"
