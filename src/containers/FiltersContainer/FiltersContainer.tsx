@@ -50,7 +50,7 @@ const FiltersContainer = ({
   const [makeData, setMakeData] = useState([] as string[]);
   const [modelsData, setModelsData] = useState([] as string[]);
   const [tempFilterName, setTempFilterName] = useState('');
-  const [fromBudget] = useState(budgets);
+  const [fromBudget] = useState(budgets.slice(0, budgets.length - 1));
   const [toBudget] = useState(budgets.slice(1));
   const [isOpenFilter, setFilterExpandStatus] = useState(true);
   const [choiceBoxesData, setChoiceBoxesData] = useState(
@@ -115,10 +115,13 @@ const FiltersContainer = ({
     () => ({
       rate: {
         min: parseInt(selectedFiltersState.from[0], 10),
-        max: parseInt(selectedFiltersState.to[0], 10),
+        max:
+          selectedFiltersState.to[0] === '550+'
+            ? null
+            : parseInt(selectedFiltersState.to[0], 10),
       },
       manufacturerName: selectedFiltersState.make[0],
-      range: selectedFiltersState.model[0],
+      rangeName: selectedFiltersState.model[0],
       fuelTypes: selectedFiltersState.fuelTypes,
       bodyStyles: selectedFiltersState.bodyStyles,
       transmissions: selectedFiltersState.transmissions,
@@ -168,6 +171,7 @@ const FiltersContainer = ({
   // set actual models after make changing
   useEffect(() => {
     if (selectedFiltersState.make) {
+      setSelectedFiltersState(prevState => ({ ...prevState, model: [] }));
       setModelsData(modelHandler(filtersData, selectedFiltersState.make[0]));
     }
   }, [selectedFiltersState.make, filtersData]);

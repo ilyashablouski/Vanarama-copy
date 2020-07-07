@@ -16,6 +16,15 @@ export enum LeaseTypeEnum {
 }
 
 /**
+ * Sort field
+ */
+export enum SortField {
+  manufacturer = "manufacturer",
+  offerRanking = "offerRanking",
+  rate = "rate",
+}
+
+/**
  * Vehicle type enum
  */
 export enum VehicleTypeEnum {

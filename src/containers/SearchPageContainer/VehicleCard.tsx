@@ -10,52 +10,63 @@ import { GetProductCard_productCard as ICard } from '../../../generated/GetProdu
 
 interface IVehicleCardProps {
   title: ICardTitleProps;
-  price: number | null;
+  isPersonalPrice: boolean;
   data: ICard;
 }
 
-const VehicleCard = memo(({ title, price, data }: IVehicleCardProps) => {
-  const features = (keyInformation: any[]): TIcon[] => {
-    return keyInformation.map(information => ({
-      icon: <Icon name={information.name.replace(' ', '')} color="dark" />,
-      label: information.value,
-    }));
-  };
-  return (
-    <Card
-      header={{
-        accentIcon: data?.isOnOffer ? (
-          <Icon icon={<Flame />} color="white" className="md hydrated" />
-        ) : null,
-        accentText: data?.isOnOffer ? 'Hot Deal' : '',
-        text: data?.leadTime || '',
-      }}
-      features={
-        (!!data.keyInformation?.length && features(data.keyInformation)) || []
-      }
-      description="Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id"
-      imageSrc={data?.imageUrl || undefined}
-      onCompare={() => {}}
-      onWishlist={() => {}}
-      title={{ ...title, score: data?.averageRating || undefined }}
-    >
-      <div className="-flex-h">
-        <Price
-          price={price || null}
-          size="large"
-          separator="."
-          priceDescription="Per Month Exc.VAT"
-        />
-        <Button
-          color="teal"
-          fill="solid"
-          label="View Offer"
-          onClick={() => {}}
-          size="regular"
-        />
-      </div>
-    </Card>
-  );
-});
+const VehicleCard = memo(
+  ({ title, isPersonalPrice, data }: IVehicleCardProps) => {
+    const features = (keyInformation: any[]): TIcon[] => {
+      return keyInformation.map(information => ({
+        icon: <Icon name={information.name.replace(' ', '')} color="dark" />,
+        label: information.value,
+      }));
+    };
+    return (
+      <Card
+        header={{
+          accentIcon: data?.isOnOffer ? (
+            <Icon icon={<Flame />} color="white" className="md hydrated" />
+          ) : null,
+          accentText: data?.isOnOffer ? 'Hot Deal' : '',
+          text: data?.leadTime || '',
+        }}
+        features={
+          (!!data?.keyInformation?.length && features(data.keyInformation)) ||
+          []
+        }
+        description="Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id"
+        imageSrc={data?.imageUrl || undefined}
+        onCompare={() => {}}
+        onWishlist={() => {}}
+        title={{
+          ...title,
+          score: data?.averageRating || undefined,
+          link: (
+            <a href="/" className="heading -large -black">
+              {`${data?.manufacturerName} ${data?.rangeName}`}
+            </a>
+          ),
+        }}
+      >
+        <div className="-flex-h">
+          <Price
+            price={isPersonalPrice ? data.personalRate : data.businessRate}
+            size="large"
+            separator="."
+            priceDescription="Per Month Exc.VAT"
+          />
+          <Button
+            color="teal"
+            fill="solid"
+            label="View Offer"
+            onClick={() => {}}
+            size="regular"
+          />
+        </div>
+      </Card>
+    );
+  },
+);
 
 export default VehicleCard;

@@ -15,11 +15,8 @@ import { IFilters } from '../FiltersContainer/interfaces';
 import FiltersContainer from '../FiltersContainer';
 import VehicleCard from './VehicleCard';
 import { getVehiclesList } from './gql';
-import {
-  vehicleList_vehicleList_edges_node_financeProfiles as IFinanceProfile,
-  vehicleList_vehicleList_edges as IVehicles,
-} from '../../../generated/vehicleList';
-import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
+import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
+import { VehicleTypeEnum, SortField } from '../../../generated/globalTypes';
 import buildRewriteRoute from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 
@@ -116,6 +113,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           : [VehicleTypeEnum.LCV],
         onOffer: isSpecialOffers,
         ...filters,
+        sortField: isSpecialOffers ? SortField.offerRanking : SortField.rate,
       },
     });
     // we should make 2 call for clear all queries
@@ -161,6 +159,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           onOffer: isSpecialOffers,
           after: lastCard,
           ...filtersData,
+          sortField: isSpecialOffers ? SortField.offerRanking : SortField.rate,
         },
       });
   }, [lastCard, getVehiclesCache, filtersData, isCarSearch, isSpecialOffers]);
@@ -182,17 +181,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     setCardsData(prevState => [...prevState, ...cardsDataCache]);
     if (vehiclesList.length < totalCount)
       setLastCard(cacheData?.vehicleList.pageInfo.endCursor || '');
-  };
-
-  // build price for offers
-  const priceBuilder = (financeProfiles: IFinanceProfile[]): number | null => {
-    const leaseType = isPersonal
-      ? LeaseTypeEnum.PERSONAL
-      : LeaseTypeEnum.BUSINESS;
-    const financeProfile = financeProfiles.find(
-      el => el.leaseType === leaseType,
-    );
-    return financeProfile?.rate || null;
   };
 
   /** save to sessions storage special offers status */
@@ -254,19 +242,13 @@ const SearchPageContainer: React.FC<IProps> = ({
                   }
                   title={{
                     title: '',
-                    link: (
-                      <a href="/" className="heading -large -black">
-                        {`${vehicle.node?.manufacturerName} ${vehicle.node?.modelName}`}
-                      </a>
-                    ),
+
                     description: vehicle.node?.derivativeName || '',
                   }}
-                  price={priceBuilder(
-                    vehicle.node?.financeProfiles as IFinanceProfile[],
-                  )}
+                  isPersonalPrice={isPersonal}
                 />
               )),
-              [cardsData],
+              [cardsData, isPersonal],
             )}
           </div>
           <div className="pagination">
