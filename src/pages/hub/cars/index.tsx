@@ -45,7 +45,7 @@ export const CarsPage: NextPage = () => {
   const { data: products, error: productsError } = useQuery<HubCarProductCards>(
     PRODUCT_CARD_CONTENT,
     {
-      variables: { type: 'Car', size: 9, offer: true },
+      variables: { type: 'CAR', size: 9, offer: true },
     },
   );
 
@@ -142,7 +142,7 @@ export const CarsPage: NextPage = () => {
                   icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
                   label: info?.value || '',
                 }))}
-                imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
+                imageSrc={item?.imageUrl || ''}
                 onCompare={() => true}
                 onWishlist={() => true}
                 title={{

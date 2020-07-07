@@ -33,11 +33,14 @@ import {
   HomePageData_homePage_sections_tiles_tiles as TileData,
   HomePageData_homePage_sections_cards_cards as CardData,
 } from '../../generated/HomePageData';
+import { HubCarProductCards } from '../../generated/HubCarProductCards';
 import Hero, { HeroHeading, HeroTitle } from '../components/Hero';
 import { ALL_HOME_CONTENT } from '../gql/homepage';
+import { PRODUCT_CARD_CONTENT } from '../gql/productCard';
 import withApollo from '../hocs/withApollo';
 import useSliderProperties from '../hooks/useSliderProperties';
 import getIconMap from '../utils/getIconMap';
+import truncateString from '../utils/truncateString';
 
 export const HomePage: NextPage = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -45,23 +48,26 @@ export const HomePage: NextPage = () => {
 
   const { data, loading, error } = useQuery<HomePageData>(ALL_HOME_CONTENT);
 
-  const { data: productsCar, error: productsErrorCar } = useQuery<
-    HubCarProductCards
-  >(PRODUCT_CARD_CONTENT, {
-    variables: { type: 'Car', size: 9, offer: true },
-  });
+  const { data: productsVan } = useQuery<HubCarProductCards>(
+    PRODUCT_CARD_CONTENT,
+    {
+      variables: { type: 'LCV', size: 9, offer: true },
+    },
+  );
 
-  const { data: productsVan, error: productsErrorVan } = useQuery<
-    HubCarProductCards
-  >(PRODUCT_CARD_CONTENT, {
-    variables: { type: 'Van', size: 9, offer: true },
-  });
+  const { data: productsCar } = useQuery<HubCarProductCards>(
+    PRODUCT_CARD_CONTENT,
+    {
+      variables: { type: 'CAR', size: 9, offer: true },
+    },
+  );
 
+  /*  
   const { data: productsPickUp, error: productsErrorPickup } = useQuery<
     HubCarProductCards
   >(PRODUCT_CARD_CONTENT, {
     variables: { type: 'Pickups', size: 9, offer: true },
-  });
+  }); */
 
   if (loading) {
     return <Loading size="large" />;
@@ -138,7 +144,7 @@ export const HomePage: NextPage = () => {
                           icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
                           label: info?.value || '',
                         }))}
-                        imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
+                        imageSrc={item?.imageUrl || ''}
                         onCompare={() => true}
                         onWishlist={() => true}
                         title={{
@@ -191,7 +197,70 @@ export const HomePage: NextPage = () => {
               </div>
             </TabPanel>
             <TabPanel index={2}>
-              <div>
+              <div style={{ maxWidth: 1216 }} className="-mh-auto">
+                <Carousel
+                  className="-mh-auto"
+                  countItems={productsCar?.productCarousel?.length || 6}
+                >
+                  {productsCar?.productCarousel?.map((item, idx) => {
+                    const iconMap = getIconMap(item?.keyInformation || []);
+                    return (
+                      <ProductCard
+                        key={item?.capId || idx}
+                        header={{
+                          accentIcon:
+                            slidesToShow > 2 ? (
+                              <Icon icon={<Flame />} color="white" />
+                            ) : (
+                              ''
+                            ),
+                          accentText: slidesToShow > 2 ? 'Hot Deal' : '',
+                          text: 'In Stock - 14-21 Days Delivery',
+                        }}
+                        features={item?.keyInformation?.map(info => ({
+                          icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
+                          label: info?.value || '',
+                        }))}
+                        imageSrc={item?.imageUrl || ''}
+                        onCompare={() => true}
+                        onWishlist={() => true}
+                        title={{
+                          title: '',
+                          link: (
+                            <RouterLink
+                              link={{
+                                href: '#',
+                                label: truncateString(
+                                  `${item?.manufacturerName} ${item?.rangeName}`,
+                                ),
+                              }}
+                              className="heading"
+                              classNames={{ size: 'large', color: 'black' }}
+                            />
+                          ),
+                          description: item?.derivativeName || '',
+                          score: item?.averageRating || 0,
+                        }}
+                      >
+                        <div className="-flex-h">
+                          <Price
+                            price={item?.businessRate}
+                            size="large"
+                            separator="."
+                            priceDescription="Per Month Exc.VAT"
+                          />
+                          <Button
+                            color="teal"
+                            fill="solid"
+                            label="View Offer"
+                            onClick={() => true}
+                            size="regular"
+                          />
+                        </div>
+                      </ProductCard>
+                    );
+                  })}
+                </Carousel>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                   <Button label="View All Car Offers" color="teal" />
                 </div>
