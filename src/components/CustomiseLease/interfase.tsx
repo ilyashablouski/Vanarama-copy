@@ -47,6 +47,9 @@ export interface IProps {
   maintenance: boolean | null;
   setIsModalShowing: Dispatch<SetStateAction<boolean>>;
   isModalShowing: boolean;
+  isDisabled: boolean;
+  setIsInitialLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit: (values: OrderInputObject) => Promise<any>;
   lineItem: LineItemInputObject;
 }

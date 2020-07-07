@@ -36,6 +36,10 @@ export const GET_QUOTE_DATA = gql`
       vehicleType
       leaseType
       processingFee
+      nextBestPrice {
+        maintained
+        nonMaintained
+      }
       leaseCost {
         monthlyRental
         initialRental

@@ -19,6 +19,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   >
     <button
       className="choicebox -active"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -26,6 +27,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </button>
     <button
       className="choicebox"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -179,6 +181,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   >
     <button
       className="choicebox -active"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -186,6 +189,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </button>
     <button
       className="choicebox"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -207,6 +211,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   >
     <button
       className="choicebox -active"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -214,6 +219,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </button>
     <button
       className="choicebox"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -232,6 +238,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       className="select--native"
       data-testid="13990"
       defaultValue="13990"
+      disabled={false}
       onChange={[Function]}
     >
       <option
@@ -282,6 +289,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     <select
       className="select--native"
       data-testid="112981"
+      disabled={false}
       onChange={[Function]}
       value=""
     >
@@ -354,6 +362,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       >
         <input
           className="radio--native"
+          disabled={false}
           id="maintenanceCost"
           name="maintenance"
           onChange={[Function]}
@@ -375,6 +384,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       >
         <input
           className="radio--native"
+          disabled={false}
           id="leaseCost"
           name="maintenance"
           onChange={[Function]}
@@ -540,6 +550,11 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   </div>
   <div
     className="lease-scanner--sticky-wrap"
+    style={
+      Object {
+        "opacity": "1",
+      }
+    }
   >
     <div
       className="lease-scanner"
@@ -645,6 +660,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   >
     <button
       className="choicebox"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -652,6 +668,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </button>
     <button
       className="choicebox -active"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -805,6 +822,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   >
     <button
       className="choicebox"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -812,6 +830,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </button>
     <button
       className="choicebox -active"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -833,6 +852,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   >
     <button
       className="choicebox"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -840,6 +860,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </button>
     <button
       className="choicebox -active"
+      disabled={false}
       onClick={[Function]}
       type="button"
     >
@@ -858,6 +879,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       className="select--native"
       data-testid="13990"
       defaultValue="13990"
+      disabled={false}
       onChange={[Function]}
     >
       <option
@@ -908,6 +930,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     <select
       className="select--native"
       data-testid="112981"
+      disabled={false}
       onChange={[Function]}
       value=""
     >
@@ -980,6 +1003,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       >
         <input
           className="radio--native"
+          disabled={false}
           id="maintenanceCost"
           name="maintenance"
           onChange={[Function]}
@@ -1001,6 +1025,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       >
         <input
           className="radio--native"
+          disabled={false}
           id="leaseCost"
           name="maintenance"
           onChange={[Function]}
@@ -1166,6 +1191,11 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   </div>
   <div
     className="lease-scanner--sticky-wrap"
+    style={
+      Object {
+        "opacity": "1",
+      }
+    }
   >
     <div
       className="lease-scanner"
