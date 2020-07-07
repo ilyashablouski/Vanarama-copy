@@ -1,50 +1,43 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Card from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
 import { ICardTitleProps } from '@vanarama/uibook/lib/components/molecules/cards/CardTitle';
-import { ICardHeaderProps } from '@vanarama/uibook/lib/components/molecules/cards/CardHeader';
+import { TIcon } from '@vanarama/uibook/lib/components/molecules/cards/CardIcons';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
-import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
-import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
-import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
-
-const FEATURES = [
-  {
-    icon: <Icon icon={<SnowSharp />} color="dark" />,
-    label: 'Aircon',
-  },
-  {
-    icon: <Icon icon={<BluetoothSharp />} color="dark" />,
-    label: 'Bluetooth',
-  },
-  {
-    icon: <Icon icon={<CompassSharp />} color="dark" />,
-    label: 'Navigation',
-  },
-  {
-    icon: <Icon icon={<WifiSharp />} color="dark" />,
-    label: 'Sensors',
-  },
-];
+import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
+import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
 
 interface IVehicleCardProps {
-  header: ICardHeaderProps;
   title: ICardTitleProps;
   price: number | null;
+  data: ICard;
 }
 
-const VehicleCard = ({ header, title, price }: IVehicleCardProps) => {
+const VehicleCard = memo(({ title, price, data }: IVehicleCardProps) => {
+  const features = (keyInformation: any[]): TIcon[] => {
+    return keyInformation.map(information => ({
+      icon: <Icon name={information.name.replace(' ', '')} color="dark" />,
+      label: information.value,
+    }));
+  };
   return (
     <Card
-      header={header}
-      features={FEATURES}
+      header={{
+        accentIcon: data?.isOnOffer ? (
+          <Icon icon={<Flame />} color="white" className="md hydrated" />
+        ) : null,
+        accentText: data?.isOnOffer ? 'Hot Deal' : '',
+        text: data?.leadTime || '',
+      }}
+      features={
+        (!!data.keyInformation?.length && features(data.keyInformation)) || []
+      }
       description="Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id"
-      imageSrc="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
+      imageSrc={data?.imageUrl || undefined}
       onCompare={() => {}}
       onWishlist={() => {}}
-      title={title}
+      title={{ ...title, score: data?.averageRating || undefined }}
     >
       <div className="-flex-h">
         <Price
@@ -63,6 +56,6 @@ const VehicleCard = ({ header, title, price }: IVehicleCardProps) => {
       </div>
     </Card>
   );
-};
+});
 
 export default VehicleCard;
