@@ -3,9 +3,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import CustomiseLease from '../../components/CustomiseLease/CustomiseLease';
 import { useQuoteData } from './gql';
-import { LeaseTypeEnum } from '../../../generated/globalTypes';
+import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
 import { IProps } from './interfaces';
 import { GetQuoteDetails_quoteByCapId } from '../../../generated/GetQuoteDetails';
+import GoldrushFormContainer from '../GoldrushFormContainer';
 import {
   GetVehicleDetails_derivativeInfo_colours,
   GetVehicleDetails_derivativeInfo_trims,
@@ -131,7 +132,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     };
   };
 
-  return (
+  return data.quoteByCapId?.leaseCost?.monthlyRental ? (
     <CustomiseLease
       terms={terms || [{ label: '', active: false }]}
       upfronts={upfronts || [{ label: '', active: false }]}
@@ -156,6 +157,14 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       setIsModalShowing={setIsModalShowing}
       lineItem={lineItem()}
       onSubmit={values => onCompleted(values)}
+    />
+  ) : (
+    <GoldrushFormContainer
+      termsAndConditions
+      isPostcodeVisible={vehicleType !== VehicleTypeEnum.CAR}
+      capId={capId}
+      kind="quote"
+      vehicleType={vehicleType}
     />
   );
 };
