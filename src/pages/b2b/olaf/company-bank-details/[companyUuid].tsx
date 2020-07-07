@@ -1,10 +1,14 @@
+import CompanyBankDetailsFormContainer from '../../../../containers/CompanyBankDetailsFormContainer/CompanyBankDetailsFormContainer';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import CompanyBankDetailsFormContainer from '../../../../containers/CompanyBankDetailsFormContainer/CompanyBankDetailsFormContainer';
-import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
+import React from 'react';
+import { OLAFQueryParams, getUrlParam } from '../../../../utils/url';
+
 import withApollo from '../../../../hocs/withApollo';
-import { getUrlParam, OLAFQueryParams } from '../../../../utils/url';
+import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
+
+
 
 type QueryParams = OLAFQueryParams & {
   companyUuid: string;
@@ -18,7 +22,7 @@ const CompanyBankDetailsPage: NextPage = () => {
       <CompanyBankDetailsFormContainer
         onCompleted={() => {
           const params = getUrlParam({ derivativeId, orderId });
-          const url = `/olaf/summary/[companyUuid]${params}`;
+          const url = `/b2b/olaf/summary/[companyUuid]${params}`;
           router.push(url, url.replace('[companyUuid]', companyUuid));
         }}
         companyUuid={companyUuid}

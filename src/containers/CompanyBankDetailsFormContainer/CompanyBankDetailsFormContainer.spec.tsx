@@ -6,45 +6,45 @@ import {
   GetBankDetailsPageDataQueryVariables,
 } from '../../../generated/GetBankDetailsPageDataQuery';
 import CompanyBankDetailsFormContainer from './CompanyBankDetailsFormContainer';
-import { GET_BANK_DETAILS_PAGE_DATA } from './gql';
+import { UPDATE_BANK_DETAILS } from './gql';
 
 describe('<CompanyBankDetailsFormContainer />', () => {
   it('should prepopulate the form with existing data', async () => {
     // ARRANGE
     const personUuid = '1927e308-18f8-4d95-aef3-57cc46459930';
-    const mocks: MockedResponse[] = [
-      {
-        request: {
-          query: GET_BANK_DETAILS_PAGE_DATA,
-          variables: {
-            uuid: personUuid,
-          } as GetBankDetailsPageDataQueryVariables,
-        },
-        result: {
-          data: {
-            personByUuid: {
-              uuid: personUuid,
-              partyId: '1',
-              bankAccounts: [
-                {
-                  __typename: 'BankAccountType',
-                  uuid: '81afa3b3-54ef-4d2a-9bd0-dbb9b97ddb55',
-                  accountName: 'Mr. A N Other',
-                  accountNumber: '001122334',
-                  bankName: 'Monzo Ltd.',
-                  joinedAt: '2012-09-01',
-                  sortCode: '998877',
-                },
-              ],
-            },
-          } as GetBankDetailsPageDataQuery,
-        },
-      },
-    ];
+    // const mocks: MockedResponse[] = [
+    //   {
+    //     request: {
+    //       query: GET_BANK_DETAILS_PAGE_DATA,
+    //       variables: {
+    //         uuid: personUuid,
+    //       } as GetBankDetailsPageDataQueryVariables,
+    //     },
+    //     result: {
+    //       data: {
+    //         personByUuid: {
+    //           uuid: personUuid,
+    //           partyId: '1',
+    //           bankAccounts: [
+    //             {
+    //               __typename: 'BankAccountType',
+    //               uuid: '81afa3b3-54ef-4d2a-9bd0-dbb9b97ddb55',
+    //               accountName: 'Mr. A N Other',
+    //               accountNumber: '001122334',
+    //               bankName: 'Monzo Ltd.',
+    //               joinedAt: '2012-09-01',
+    //               sortCode: '998877',
+    //             },
+    //           ],
+    //         },
+    //       } as GetBankDetailsPageDataQuery,
+    //     },
+    //   },
+    // ];
 
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={mocks}>
+      <MockedProvider addTypename={false} mocks={[]}>
         <CompanyBankDetailsFormContainer
           companyUuid={personUuid}
           onCompleted={jest.fn()}

@@ -16,19 +16,19 @@ import { Controller, FieldError, useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { genMonths, genYears } from '../../utils/helpers';
 import validationSchema from './CompanyBankDetails.validation';
-import { ICompanyBankDetails, ICompanyBankDetailsProps } from './interfaces';
+import { ICompanyBankDetailsProps } from './interfaces';
 import { responseToInitialFormValues } from './mappers';
+import { BankAccountInputObject } from '../../../generated/globalTypes';
 
-const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
-  account,
+const CompanyBankDetails: React.FC<ICompanyBankDetailsProps> = ({
   onSubmit,
 }) => {
   const { handleSubmit, register, control, errors, formState } = useForm<
-    ICompanyBankDetails
+  BankAccountInputObject
   >({
     mode: 'onBlur',
     validationSchema,
-    defaultValues: responseToInitialFormValues(account),
+    // defaultValues: responseToInitialFormValues(account),
   });
 
   const months = genMonths();
@@ -49,7 +49,7 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
         controlId="bankAccountName"
         label="Bank Account Name"
         //TODO
-        error={errors?.nameOnTheAccount?.message?.toString()}
+        error={errors?.accountName?.message?.toString()}
       >
         <TextInput
           id="bankAccountName"
@@ -110,8 +110,8 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
         controlId="timeAtBank"
         label="Time at Bank"
         error={
-          errors?.openingMonth?.message?.toString() ||
-          errors?.openingYear?.message?.toString()
+          errors?.joinedAt?.message?.toString() ||
+          errors?.joinedAt?.message?.toString()
         }
         inline
       >
@@ -155,18 +155,18 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
   );
 };
 
-CompanyBankDetails.fragments = {
-  account: gql`
-    fragment CompanyBankDetailsAccount on BankAccountType {
-      __typename
-      uuid
-      accountName
-      accountNumber
-      bankName
-      joinedAt
-      sortCode
-    }
-  `,
-};
+// CompanyBankDetails.fragments = {
+//   account: gql`
+//     fragment CompanyBankDetailsAccount on BankAccountType {
+//       __typename
+//       uuid
+//       accountName
+//       accountNumber
+//       bankName
+//       joinedAt
+//       sortCode
+//     }
+//   `,
+// };
 
 export default CompanyBankDetails;
