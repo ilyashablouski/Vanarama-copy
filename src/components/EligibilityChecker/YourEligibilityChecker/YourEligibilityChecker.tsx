@@ -10,7 +10,7 @@ import Form from '@vanarama/uibook/lib/components/organisms/form';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
 import LockClosed from '@vanarama/uibook/lib/assets/icons/LockClosed';
 import AddressFinder from '@vanarama/uibook/lib/components/molecules/address-finder';
-import { genMonths, genYears } from '../../../utils/helpers';
+import { genMonths, genYears, genDays } from '../../../utils/helpers';
 import validationSchema from './YourEligibilityChecker.validation';
 import { IYourEligiblityCheckerValues, IProps } from './interface';
 import useDateOfBirthValidation from './useDateOfBirthValidation';
@@ -115,13 +115,11 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
           ref={register}
           placeholder="Day"
         >
-          {[...Array(31)]
-            .map((_, i) => i + 1)
-            .map(value => (
-              <option key={value} value={value}>
-                {value}
-              </option>
-            ))}
+          {genDays().map(value => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
         </Select>
         <Select
           dataTestId="eligibilityCheckerSelectMOB"

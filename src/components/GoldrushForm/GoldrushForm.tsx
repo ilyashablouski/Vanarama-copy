@@ -101,7 +101,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
       </FormGroup>
 
       <Text tag="p" color="darker" size="xsmall">
-        {'Terms and conditions agreement text and link '}
+        {'Terms and conditions agreement text and '}
         <Link dataTestId="terms_and_conditions" href="#" size="xsmall">
           link
         </Link>

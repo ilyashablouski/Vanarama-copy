@@ -1603,7 +1603,7 @@ Array [
       <p
         className="text -xsmall -darker"
       >
-        Terms and conditions agreement text and link 
+        Terms and conditions agreement text and 
         <a
           className="link -primary -xsmall -plain"
           data-testid="terms_and_conditions"

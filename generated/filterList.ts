@@ -18,6 +18,8 @@ export interface filterList_filterList {
   vehicleTypes: VehicleTypeEnum[] | null;
   groupedRanges: filterList_filterList_groupedRanges[] | null;
   bodyStyles: string[] | null;
+  transmissions: string[] | null;
+  fuelTypes: string[] | null;
 }
 
 export interface filterList {

@@ -35,6 +35,6 @@ export interface GetProductCard {
 }
 
 export interface GetProductCardVariables {
-  capIds?: string[] | null;
+  capIds: string[];
   vehicleType?: VehicleTypeEnum | null;
 }

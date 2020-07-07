@@ -5,6 +5,10 @@ import {
   GetVehicleDetails_derivativeInfo,
   GetVehicleDetails_leaseAdjustParams,
 } from '../../../generated/GetVehicleDetails';
+import {
+  OrderInputObject,
+  LineItemInputObject,
+} from '../../../generated/globalTypes';
 
 export interface IChoice {
   label: string;
@@ -43,4 +47,6 @@ export interface IProps {
   maintenance: boolean | null;
   setIsModalShowing: Dispatch<SetStateAction<boolean>>;
   isModalShowing: boolean;
+  onSubmit: (values: OrderInputObject) => Promise<any>;
+  lineItem: LineItemInputObject;
 }
