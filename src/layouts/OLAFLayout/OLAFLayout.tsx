@@ -18,12 +18,13 @@ export const GET_ORDER_INFORMATION = gql`
   query GetOrderInformation {
     selectedOrderUuid @client
     selectedDerivativeId @client
+    selectedVehicleType @client
   }
 `;
 
 const OLAFLayout: React.FC = ({ children }) => {
   const router = useRouter();
-  const { derivativeId, orderId } = router.query as OLAFQueryParams;
+  const { derivativeId, orderId, type } = router.query as OLAFQueryParams;
 
   const isMobile = useMobileViewport();
   const [asideOpen, setAsideOpen] = useState(false);
@@ -31,19 +32,25 @@ const OLAFLayout: React.FC = ({ children }) => {
 
   let selectedOrderUuid = orderId || '';
   let selectedDerivativeId = derivativeId || '';
+  let selectedVehicleType = type || '';
 
   // get order information from apollo client cache
   const { data } = useQuery<GetOrderInformation>(GET_ORDER_INFORMATION);
-  if (data?.selectedOrderUuid && data?.selectedDerivativeId) {
+  if (
+    data?.selectedOrderUuid &&
+    data?.selectedDerivativeId &&
+    data?.selectedVehicleType
+  ) {
     selectedOrderUuid = data.selectedOrderUuid;
     selectedDerivativeId = data.selectedDerivativeId;
+    selectedVehicleType = data.selectedVehicleType;
   }
 
   // get Order data and Derivative data for order car
   const olafData = useOlafData(
     selectedOrderUuid,
     selectedDerivativeId,
-    VehicleTypeEnum.CAR,
+    selectedVehicleType.toUpperCase() as VehicleTypeEnum,
   );
   const orderByUuid = olafData && olafData.data?.orderByUuid;
   const derivative = olafData && olafData.data?.derivative;

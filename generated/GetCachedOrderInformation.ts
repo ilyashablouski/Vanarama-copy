@@ -10,4 +10,5 @@
 export interface GetCachedOrderInformation {
   selectedOrderUuid: string | null;
   selectedDerivativeId: string | null;
+  selectedVehicleType: string | null;
 }

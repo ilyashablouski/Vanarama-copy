@@ -43,6 +43,10 @@ export const GET_CAR_DATA = gql`
         review
         name
       }
+      rangeFaqs {
+        question
+        answer
+      }
     }
     derivativeInfo(id: $capIdDetails, vehicleType: $vehicleType) {
       technicals {

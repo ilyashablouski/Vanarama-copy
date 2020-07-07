@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { useState } from 'react';
 import { NextRouter } from 'next/router';
 import { ApolloError, gql, useApolloClient } from '@apollo/client';
@@ -19,7 +20,10 @@ import {
 import VehicleTechDetails from '../VehicleTechDetails/VehicleTechDetails';
 import IndependentReview from '../../components/IndependentReview/IndependentReview';
 import CustomiseLeaseContainer from '../CustomiseLeaseContainer/CustomiseLeaseContainer';
-import { GetVehicleDetails } from '../../../generated/GetVehicleDetails';
+import {
+  GetVehicleDetails,
+  GetVehicleDetails_vehicleDetails_rangeFaqs,
+} from '../../../generated/GetVehicleDetails';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import WhyChooseLeasing from '../../components/WhyChooseLeasing/WhyChooseLeasing';
 import CustomerReviews from '../../components/CustomerReviews/CustomerReviews';
@@ -29,7 +33,6 @@ import GoldrushFormContainer from '../GoldrushFormContainer';
 import { replaceReview } from '../../components/CustomerReviews/helpers';
 import FrequentlyAskedQuestions from '../../components/FrequentlyAskedQuestions/FrequentlyAskedQuestions';
 import { useCreateOrder } from '../../gql/order';
-import { GetCachedOrderInformation } from '../../../generated/GetCachedOrderInformation';
 
 interface IDetailsPageProps {
   capId: number;
@@ -83,16 +86,18 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       },
     }).then(response => {
       // we need write data to apollo client cache with orderCapId
-      client.writeQuery<GetCachedOrderInformation>({
+      client.writeQuery({
         query: gql`
-          query GetCachedOrderInformation {
+          query PutCachedOrderInformation {
             selectedOrderUuid
             selectedDerivativeId
+            selectedVehicleType
           }
         `,
         data: {
           selectedOrderUuid: response.data?.createOrder?.uuid || null,
           selectedDerivativeId: capId.toString(),
+          selectedVehicleType: cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
         },
       });
     });
@@ -134,6 +139,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     author: review?.name || '',
     score: review?.rating || 0,
   }));
+  const rangeFAQs = data?.vehicleDetails
+    ?.rangeFaqs as GetVehicleDetails_vehicleDetails_rangeFaqs[];
 
   const vehicleType = cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV;
   const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capRangeDescription}`;
@@ -201,7 +208,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <div className="pdp--reviews">
           <CustomerReviews reviews={reviews || []} />
         </div>
-        <FrequentlyAskedQuestions rangeFAQ={[]} rangeFAQTitle={pageTitle} />
+        <FrequentlyAskedQuestions
+          rangeFAQ={rangeFAQs || []}
+          rangeFAQTitle={pageTitle}
+        />
       </div>
       {vehicleConfigurationByCapId?.financeProfile ? (
         <CustomiseLeaseContainer
