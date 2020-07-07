@@ -23,7 +23,6 @@ describe('<FrequentlyAskedQuestions />', () => {
               {
                 answer: 'text',
                 question: 'author',
-                id: 4,
               },
             ]}
             rangeFAQTitle="Nissan Navara"
