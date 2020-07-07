@@ -6,7 +6,7 @@ import {
 } from '../../../generated/GetProductCard';
 
 export const GET_PRODUCT_CARDS_DATA = gql`
-  query GetProductCard($capIds: [ID!], $vehicleType: VehicleTypeEnum) {
+  query GetProductCard($capIds: [ID!]!, $vehicleType: VehicleTypeEnum) {
     productCard(capIds: $capIds, vehicleType: $vehicleType) {
       vehicleType
       capId
