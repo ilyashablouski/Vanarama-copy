@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NextRouter } from 'next/router';
-import { ApolloError, gql, useApolloClient } from '@apollo/client';
+import { ApolloError, useApolloClient } from '@apollo/client';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -27,7 +27,7 @@ import WhyChooseVanarama from '../../components/WhyChooseVanarama/WhyChooseVanar
 import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer';
 import { replaceReview } from '../../components/CustomerReviews/helpers';
 import { useCreateOrder } from '../../gql/order';
-import { GetCachedOrderInformation } from '../../../generated/GetCachedOrderInformation';
+import { writeCachedOrderInformation } from './gql';
 
 interface IDetailsPageProps {
   capId: number;
@@ -81,18 +81,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       },
     }).then(response => {
       // we need write data to apollo client cache with orderCapId
-      client.writeQuery<GetCachedOrderInformation>({
-        query: gql`
-          query GetCachedOrderInformation {
-            selectedOrderUuid
-            selectedDerivativeId
-          }
-        `,
-        data: {
-          selectedOrderUuid: response.data?.createOrder?.uuid || null,
-          selectedDerivativeId: capId.toString(),
-        },
-      });
+      writeCachedOrderInformation(
+        client,
+        response.data?.createOrder?.uuid || null,
+        capId.toString(),
+      );
     });
   };
 

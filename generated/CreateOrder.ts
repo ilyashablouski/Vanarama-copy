@@ -31,9 +31,7 @@ export interface CreateOrder_createOrder_lineItems {
 
 export interface CreateOrder_createOrder {
   uuid: string;
-  partyUuid: string;
   createdAt: any | null;
-  referenceNumber: string;
   salesChannel: string;
   status: string;
   lineItems: CreateOrder_createOrder_lineItems[];

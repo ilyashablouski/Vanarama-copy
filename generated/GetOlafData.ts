@@ -47,7 +47,6 @@ export interface GetOlafData_orderByUuid {
   uuid: string;
   id: string;
   leaseType: LeaseTypeEnum;
-  partyUuid: string;
   status: string;
   createdAt: any | null;
   updatedAt: any | null;
