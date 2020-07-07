@@ -11,7 +11,7 @@ export interface IFilterContainerProps {
 
 export interface IFilters {
   manufacturerName: string;
-  range: string;
+  rangeName: string;
   rate: RateInputObject;
   bodyStyles: string[];
   transmissions: string[];
