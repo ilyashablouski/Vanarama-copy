@@ -6,42 +6,19 @@ import Select from '@vanarama/uibook/lib/components/atoms/select/';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput/';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import { gql } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { genMonths, genYears, genDays } from '../../utils/helpers';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
-import RouterLink from '../RouterLink/RouterLink';
 import validationSchema from './AboutForm.validation';
 import { IAboutFormValues, IProps } from './interface';
 import { responseToInitialFormValues } from './mappers';
 import useDateOfBirthValidation from './useDateOfBirthValidation';
-
-const logInLink = {
-  href: '',
-  label: 'login',
-};
-
-const EMAIL_ALREADY_EXISTS = 'EMAIL_ALREADY_EXISTS';
-
-const mapEmailErrorMessage = (onClick?: () => void, message?: string) =>
-  message !== EMAIL_ALREADY_EXISTS ? (
-    message
-  ) : (
-    <Text tag="p" color="danger" size="xsmall">
-      {'Your email address already exists. Do you wish to '}
-      <RouterLink
-        link={logInLink}
-        onClick={onClick}
-        classNames={{
-          color: 'teal',
-          size: 'xsmall',
-        }}
-      />
-      {' using this email?'}
-    </Text>
-  );
+import {
+  mapEmailErrorMessage,
+  EMAIL_ALREADY_EXISTS,
+} from './mapEmailErrorMessage';
 
 const AboutForm: FCWithFragments<IProps> = ({
   dropdownData,
