@@ -27,23 +27,35 @@ import {
   HubCarPageData_hubCarPage_sections_tiles_tiles as TileData,
   HubCarPageData_hubCarPage_sections_steps_steps as StepData,
 } from '../../../../generated/HubCarPageData';
+import { HubCarProductCards } from '../../../../generated/HubCarProductCards';
 import { HUB_CAR_CONTENT } from '../../../gql/hubCarPage';
+import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import withApollo from '../../../hocs/withApollo';
 
 import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 
 export const CarsPage: NextPage = () => {
-  const { data: content, loading, error } = useQuery<HubCarPageData>(
-    HUB_CAR_CONTENT,
+  const {
+    data: content,
+    loading: contentLoading,
+    error: contentError,
+  } = useQuery<HubCarPageData>(HUB_CAR_CONTENT);
+
+  const { data: products, error: productsError } = useQuery<HubCarProductCards>(
+    PRODUCT_CARD_CONTENT,
+    {
+      variables: { type: 'Car', size: 9, offer: true },
+    },
   );
 
-  if (loading) {
+  if (contentLoading) {
     return <Loading size="large" />;
   }
 
-  if (error) {
-    return <p>Error: {error.message}</p>;
+  if (contentError || productsError) {
+    const err = contentError || productsError;
+    return <p>Error: {err?.message}</p>;
   }
 
   return (
@@ -116,7 +128,7 @@ export const CarsPage: NextPage = () => {
 
       <div className="row:bg-lighter">
         <section className="row:cards-3col">
-          {content?.productCarousel?.map((item, idx) => {
+          {products?.productCarousel?.map((item, idx) => {
             const iconMap = getIconMap(item?.keyInformation || []);
             return (
               <ProductCard

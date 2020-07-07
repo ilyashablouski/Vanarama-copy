@@ -59,23 +59,6 @@ const HUB_CAR_CONTENT = gql`
         }
       }
     }
-    productCarousel(vehicleType: CAR, pageSize: 9, onOffer: true) {
-      capId
-      isOnOffer
-      manufacturerName
-      derivativeName
-      rangeName
-      imageUrl
-      leadTime
-      averageRating
-      businessRate
-      personalRate
-      offerPosition
-      keyInformation {
-        name
-        value
-      }
-    }
   }
 `;
 
