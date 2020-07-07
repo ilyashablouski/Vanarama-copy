@@ -59,7 +59,11 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
 
   useEffect(() => {
     if (isInitialLoading) {
-      setIsDisabled(loading);
+      if (loading) {
+        setIsDisabled(loading);
+      } else {
+        setTimeout(() => setIsDisabled(loading), 1500);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loading]);
