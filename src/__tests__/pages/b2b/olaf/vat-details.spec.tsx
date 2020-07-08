@@ -125,7 +125,7 @@ describe('B2B VAT Details page', () => {
     );
   });
 
-  it('should validate the "VAT Number" field is 9 digits', async () => {
+  it('should validate the "VAT Number" field does not contain characters', async () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={[dropDownData]}>
@@ -135,6 +135,26 @@ describe('B2B VAT Details page', () => {
 
     toggleIsVATRegistered();
     enterVATNumber('chickens!🐔');
+    submitForm();
+
+    // ASSERT
+    await waitFor(() =>
+      expect(
+        screen.getByText(/Your VAT number must be 9 digits long/i),
+      ).toBeInTheDocument(),
+    );
+  });
+
+  it('should validate the "VAT Number" field is 9 digits', async () => {
+    // ACT
+    render(
+      <MockedProvider addTypename={false} mocks={[dropDownData]}>
+        <VatDetailsPage />
+      </MockedProvider>,
+    );
+
+    toggleIsVATRegistered();
+    enterVATNumber('0000000000');
     submitForm();
 
     // ASSERT
