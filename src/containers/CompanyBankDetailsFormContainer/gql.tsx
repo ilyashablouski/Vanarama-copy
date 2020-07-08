@@ -2,9 +2,7 @@ import { useMutation, useQuery, gql } from '@apollo/client';
 
 import {
   CreateUpdateBankAccountMutation as Mutation,
-  CreateUpdateBankAccountMutationVariables as MutationVariables,
-} from '../../../generated/CreateUpdateBankAccountMutation';
-import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
+  UpdateBankDetailsMutationVariables as MutationVariables,
 
 export const UPDATE_BANK_DETAILS = gql`
   mutation UpdateBankDetailsMutation($input: LimitedCompanyInputObject!) {
