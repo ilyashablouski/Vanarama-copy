@@ -3,12 +3,12 @@ import { ICompanyBankDetails } from 'components/CompanyBankDetails/interfaces';
 import {
   UpdateBankDetailsMutation_updateLimitedCompany,
 } from '../../../generated/UpdateBankDetailsMutation';
+import { BankAccountInputObject, LimitedCompanyInputObject } from '../../../generated/globalTypes';
 
-// eslint-disable-next-line import/prefer-default-export
 export const formValuesToInput = (
   uuid: string,
   values: ICompanyBankDetails,
-): UpdateBankDetailsMutation_updateLimitedCompany => {
+): LimitedCompanyInputObject => {
   const joiningDate = `${values.joinedAtMonth}-${values.joinedAtYear}`;
   const joiningDateFormatted = moment(joiningDate, 'MM-YYYY').format(
     'YYYY-MM-DD',
@@ -16,13 +16,11 @@ export const formValuesToInput = (
 
   return {
     uuid,
-    bankAccounts: [
-      {
-        accountName: values.accountName || null,
-        accountNumber: values.accountNumber ? values.accountNumber : null,
-        sortCode: values.sortCode?.join('') || null,
-        joinedAt: joiningDateFormatted,
-      },
-    ],
+    bankAccount: {
+      accountName: values.accountName || null,
+      accountNumber: values.accountNumber || null,
+      sortCode: values.sortCode?.join('') || null,
+      joinedAt: joiningDateFormatted,
+    },
   };
 };
