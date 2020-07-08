@@ -1,9 +1,10 @@
 import moment from 'moment';
 import { ICompanyBankDetails } from 'components/CompanyBankDetails/interfaces';
+import { UpdateBankDetailsMutation_updateLimitedCompany } from '../../../generated/UpdateBankDetailsMutation';
 import {
-  UpdateBankDetailsMutation_updateLimitedCompany,
-} from '../../../generated/UpdateBankDetailsMutation';
-import { BankAccountInputObject, LimitedCompanyInputObject } from '../../../generated/globalTypes';
+  BankAccountInputObject,
+  LimitedCompanyInputObject,
+} from '../../../generated/globalTypes';
 
 export const formValuesToInput = (
   uuid: string,

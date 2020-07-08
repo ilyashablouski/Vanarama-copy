@@ -16,8 +16,8 @@ const ValidationSchema = yup.object().shape({
         .min(2, 'Please enter sort code'),
     )
     .required('Please enter sort code'),
-  // joinedAtMonth: yup.string().required('Please select account opening date'),
-  // joinedAtYear: yup.string().required('Please select account opening date'),
+  joinedAtMonth: yup.string().required('Please select account opening date'),
+  joinedAtYear: yup.string().required('Please select account opening date'),
 });
 
 export default ValidationSchema;

@@ -10,12 +10,12 @@ import SortCode from '@vanarama/uibook/lib/components/molecules/sortcode';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import React from 'react';
 import { Controller, FieldError, useForm } from 'react-hook-form';
+import FCWithFragments from '../../utils/FCWithFragments';
+import { gql } from '@apollo/client';
 import { genMonths, genYears } from '../../utils/helpers';
 import validationSchema from './CompanyBankDetails.validation';
 import { ICompanyBankDetailsProps, ICompanyBankDetails } from './interfaces';
-import FCWithFragments from 'utils/FCWithFragments';
 import { responseToInitialFormValues } from './mappers';
-import { gql } from '@apollo/client';
 
 const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
   account,
@@ -92,10 +92,10 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
       <FormGroup
         controlId="joinedAt"
         label="Time at Bank"
-        // error={
-        //   errors?.joinedAt?.message?.toString() ||
-        //   errors?.joinedAt?.message?.toString()
-        // }
+        error={
+          errors?.joinedAtMonth?.message?.toString() ||
+          errors?.joinedAtYear?.message?.toString()
+        }
         inline
       >
         <Select

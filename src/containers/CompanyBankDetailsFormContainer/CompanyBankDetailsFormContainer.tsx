@@ -4,6 +4,7 @@ import CompanyBankDetails from '../../components/CompanyBankDetails';
 import { useUpdateBankDetails, useBankDetails } from './gql';
 import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
+import { CompanyBankDetailsAccount } from '../../../generated/CompanyBankDetailsAccount';
 
 const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   companyUuid,
@@ -24,7 +25,7 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   }
 
   const { bankAccounts } = data.companyByUuid;
-  const firstAccount = bankAccounts?.[0];
+  const firstAccount = bankAccounts?.[0] as CompanyBankDetailsAccount;
   return (
     <CompanyBankDetails
       account={firstAccount}

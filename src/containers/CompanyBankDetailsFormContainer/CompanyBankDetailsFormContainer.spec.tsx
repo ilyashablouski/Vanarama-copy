@@ -6,7 +6,7 @@ import {
   GetCompanyBankDetailsPageDataQueryVariables,
 } from '../../../generated/GetCompanyBankDetailsPageDataQuery';
 import CompanyBankDetailsFormContainer from './CompanyBankDetailsFormContainer';
-import { GET_COMPANY_BANK_DETAILS,/* UPDATE_BANK_DETAILS */ } from './gql';
+import { GET_COMPANY_BANK_DETAILS /* UPDATE_BANK_DETAILS */ } from './gql';
 
 describe('<CompanyBankDetailsFormContainer />', () => {
   it('should prepopulate the form with existing data', async () => {
@@ -23,17 +23,17 @@ describe('<CompanyBankDetailsFormContainer />', () => {
         result: {
           data: {
             companyByUuid: {
-              uuid: "7f5a4ed2-24a5-42ff-9acd-208db847d678",
+              uuid: '7f5a4ed2-24a5-42ff-9acd-208db847d678',
               bankAccounts: [
                 {
-                  uuid: "0b5847cc-d9aa-4588-8a5b-aef64307caff",
-                  accountName: "Eternal account",
-                  accountNumber: "27272829",
-                  joinedAt: "2019-01-22",
-                  sortCode: "029387"
-                }
-              ]
-            }
+                  uuid: '0b5847cc-d9aa-4588-8a5b-aef64307caff',
+                  accountName: 'Eternal account',
+                  accountNumber: '27272829',
+                  joinedAt: '2019-01-22',
+                  sortCode: '029387',
+                },
+              ],
+            },
           } as GetCompanyBankDetailsPageDataQuery,
         },
       },
@@ -55,11 +55,13 @@ describe('<CompanyBankDetailsFormContainer />', () => {
       'Eternal account',
     );
 
-    expect(screen.getByLabelText(/Bank Account Number/)).toHaveValue('27272829');
+    expect(screen.getByLabelText(/Bank Account Number/)).toHaveValue(
+      '27272829',
+    );
     expect(screen.getByDisplayValue(/02/)).toBeVisible();
     expect(screen.getByDisplayValue(/93/)).toBeVisible();
     expect(screen.getByDisplayValue(/87/)).toBeVisible();
     expect(screen.getByTestId(/joinedAtMonth/)).toHaveValue('1');
     expect(screen.getByTestId(/joinedAtYear/)).toHaveValue('2019');
   });
-})
+});

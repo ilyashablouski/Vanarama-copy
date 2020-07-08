@@ -1,10 +1,10 @@
 import { useMutation, gql, useQuery } from '@apollo/client';
 
+import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import {
   UpdateBankDetailsMutation as Mutation,
   UpdateBankDetailsMutationVariables as MutationVariables,
 } from '../../../generated/UpdateBankDetailsMutation';
-import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import CompanyBankDetails from '../../components/CompanyBankDetails';
 import {
   GetCompanyBankDetailsPageDataQuery as Query,
@@ -15,7 +15,7 @@ export const UPDATE_COMPANY_BANK_DETAILS = gql`
   mutation UpdateBankDetailsMutation($input: LimitedCompanyInputObject!) {
     updateLimitedCompany(input: $input) {
       uuid
-      bankAccounts{
+      bankAccounts {
         accountName
         accountNumber
         sortCode
@@ -28,7 +28,7 @@ export const UPDATE_COMPANY_BANK_DETAILS = gql`
 export const GET_COMPANY_BANK_DETAILS = gql`
   query GetCompanyBankDetailsPageDataQuery($uuid: ID!) {
     companyByUuid(uuid: $uuid) {
-      uuid,
+      uuid
       bankAccounts {
         uuid
         accountName
@@ -53,35 +53,34 @@ export function useUpdateBankDetails(
   return useMutation<Mutation, MutationVariables>(UPDATE_COMPANY_BANK_DETAILS, {
     onCompleted,
     update: (store, result) => {
-      // Read the data from our cache for this query.
-      const data = store.readQuery<Query, QueryVariables>({
-        query: UPDATE_COMPANY_BANK_DETAILS,
-        variables: { uuid: companyUuid },
-      });
+      // // Read the data from our cache for this query.
+      // const data = store.readQuery<Query, QueryVariables>({
+      //   query: GET_COMPANY_BANK_DETAILS,
+      //   variables: { uuid: companyUuid },
+      // });
 
-      // Update the person's bank details.
-      if (data?.companyByUuid) {
-        const bankAccounts = result.data?.updateLimitedCompany
-          ? [result.data?.updateLimitedCompany]
-          : null;
+      // // Update the person's bank details.
+      // if (data?.companyByUuid) {
+      //   const bankAccounts = result.data?.updateLimitedCompany
+      //     ? [result.data?.updateLimitedCompany]
+      //     : null;
 
-        // Write our data back to the cache.
-        store.writeQuery<Query, QueryVariables>({
-          query: GET_COMPANY_BANK_DETAILS,
-          variables: { uuid: companyUuid },
-          data: {
-            ...data,
-            // companyByUuid: {
-            //   ...data.companyByUuid,
-            //   // bankAccounts,
-            // },
-          },
-        });
-      }
+      //   // Write our data back to the cache.
+      //   store.writeQuery<Query, QueryVariables>({
+      //     query: GET_COMPANY_BANK_DETAILS,
+      //     variables: { uuid: companyUuid },
+      //     data: {
+      //       ...data,
+      //       // companyByUuid: {
+      //       //   ...data.companyByUuid,
+      //       //   // bankAccounts,
+      //       // },
+      //     },
+      //   });
+      // }
     },
   });
 }
-
 
 export function useUpdateBankDetails1(
   companyUuid: string,
@@ -98,7 +97,8 @@ export function useUpdateBankDetails1(
 
       // Update the company's bank details.
       if (data?.companyByUuid) {
-        const bankAccounts = result.data?.updateLimitedCompany?.bankAccounts?.length
+        const bankAccounts = result.data?.updateLimitedCompany?.bankAccounts
+          ?.length
           ? [result.data?.updateLimitedCompany.bankAccounts[0]]
           : null;
 
@@ -106,7 +106,7 @@ export function useUpdateBankDetails1(
         store.writeQuery<Query, QueryVariables>({
           query: UPDATE_COMPANY_BANK_DETAILS,
           variables: { uuid: companyUuid },
-          data
+          data,
           // data: {
           //   ...data,
           //   companyByUuid: {
@@ -118,21 +118,4 @@ export function useUpdateBankDetails1(
       }
     },
   });
-}/* {
-  const [updateBankDetails] = useMutation<Mutation, MutationVariables>(
-    UPDATE_COMPANY_BANK_DETAILS,
-    {
-      onError: () =>
-        toast.error(
-          'Oops, an unexpected error occurred',
-          'Your details could not be saved. Please try submitting the form again.',
-        ),
-      onCompleted: ()=> {
-        console.log('updated');
-        onCompleted();
-      }
-    },
-  );
-
-  return updateBankDetails;
-} */
+} 

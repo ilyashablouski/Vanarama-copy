@@ -15,7 +15,9 @@ describe('<CompanyBankDetails />', () => {
 
     expect(screen.getByText('Please enter account number')).toBeVisible();
     expect(screen.getByText('Please enter sort code')).toBeVisible();
-    expect(screen.getByText('Please select account opening date')).toBeVisible();
+    expect(
+      screen.getByText('Please select account opening date'),
+    ).toBeVisible();
   });
 
   // TODO- fix after css issue is fixed

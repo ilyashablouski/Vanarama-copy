@@ -1,9 +1,9 @@
 import { ICompanyBankDetails } from './interfaces';
-import { UpdateBankDetailsMutation_updateLimitedCompany_bankAccounts } from '../../../generated/UpdateBankDetailsMutation';
+import { CompanyBankDetailsAccount } from '../../../generated/CompanyBankDetailsAccount';
 
 // eslint-disable-next-line import/prefer-default-export
 export const responseToInitialFormValues = (
-  account?: UpdateBankDetailsMutation_updateLimitedCompany_bankAccounts,
+  account?: CompanyBankDetailsAccount,
 ): ICompanyBankDetails => {
   const joinedDate = account?.joinedAt ? new Date(account.joinedAt) : undefined;
   return {
