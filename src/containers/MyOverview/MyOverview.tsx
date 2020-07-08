@@ -115,9 +115,10 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     orderUuid: string,
     orderCapId: string,
     leaseType: LeaseTypeEnum,
+    vehicleType: VehicleTypeEnum,
   ) => {
     // when we click 'Order' btn, need write data to apollo client cache with orderUuid and orderCapId
-    writeCachedOrderInformation(client, orderUuid, orderCapId);
+    writeCachedOrderInformation(client, orderUuid, orderCapId, vehicleType);
     // change current page to '/olaf/about' or '/b2b/olaf/about'
     router.push(
       leaseType === LeaseTypeEnum.PERSONAL ? '/olaf/about' : '/b2b/olaf/about',
@@ -185,6 +186,8 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
                   order.uuid,
                   derivative?.id || '',
                   order.leaseType,
+                  order.lineItems[0]?.vehicleProduct
+                    ?.vehicleType as VehicleTypeEnum,
                 )
               }
             />,

@@ -28,6 +28,7 @@ export interface GetOlafData_orderByUuid_lineItems_vehicleProduct {
   colour: string | null;
   trim: string | null;
   maintenance: boolean | null;
+  vehicleType: VehicleTypeEnum;
 }
 
 export interface GetOlafData_orderByUuid_lineItems {
