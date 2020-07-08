@@ -22,24 +22,17 @@ interface IMyOverviewProps {
   partyByUuid: string;
   quote: boolean;
   router: NextRouter;
-  activeTab?: number;
-  setActiveTab?: React.Dispatch<React.SetStateAction<number>>;
-  status?: string[];
-  changeStatus?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const MyOverview: React.FC<IMyOverviewProps> = props => {
-  const {
-    partyByUuid,
-    quote,
-    router,
-    activeTab,
-    setActiveTab,
-    status,
-    changeStatus,
-  } = props;
+  const { partyByUuid, quote, router } = props;
   const client = useApolloClient();
   const [activePage, setActivePage] = useState(1);
+  const [activeTab, setActiveTab] = useState(0);
+  const [status, changeStatus] = useState<string[]>([]);
+  const [statusesCA, changeStatusesCA] = useState<string[]>([]);
+  const [exStatusesCA, changeExlStatusesCA] = useState<string[]>([]);
+
   const PATH = {
     items: [
       { label: 'Home', href: '/' },
@@ -52,7 +45,9 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   const { data, loading } = useOrdersByPartyUuidData(
     partyByUuid,
     quote ? ['quote', 'new'] : status || [],
-    !quote ? ['quote', 'expired'] : ['expired'],
+    !quote ? ['quote', 'expired', 'new'] : ['expired'],
+    (!quote && statusesCA) || [],
+    (!quote && exStatusesCA) || [],
   );
 
   // collect everything capId from orders
@@ -98,15 +93,21 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     switch (value) {
       case 1:
         // when we click 'Complete' btn, change statuses for call useOrdersByPartyUuidData
-        changeStatus!(['credit']);
+        changeStatus(['credit']);
+        changeStatusesCA([]);
+        changeExlStatusesCA(['draft']);
         break;
       case 2:
         // when we click 'Incomplete' btn, change statuses for call useOrdersByPartyUuidData
-        changeStatus!(['credit', 'draft']);
+        changeStatus(['credit']);
+        changeStatusesCA(['draft']);
+        changeExlStatusesCA([]);
         break;
       default:
         // when we click 'All Orders' btn, change statuses for call useOrdersByPartyUuidData
-        changeStatus!([]);
+        changeStatus([]);
+        changeStatusesCA([]);
+        changeExlStatusesCA([]);
         break;
     }
   };

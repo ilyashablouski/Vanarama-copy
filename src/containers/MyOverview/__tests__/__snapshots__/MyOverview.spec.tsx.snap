@@ -539,7 +539,7 @@ Array [
         className="choiceboxes -teal"
       >
         <button
-          className="choicebox"
+          className="choicebox -active"
           onClick={[Function]}
           type="button"
         >
