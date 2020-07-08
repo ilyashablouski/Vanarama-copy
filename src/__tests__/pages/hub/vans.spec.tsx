@@ -2,19 +2,19 @@ import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor } from '@testing-library/react';
-import { HomePageData } from '../../../generated/HomePageData';
-import { ALL_HOME_CONTENT } from '../../gql/homepage';
-import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
-import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
-import { HomePage } from '../../pages';
-import { mockSearchPodResponse } from '../../../__mocks__/searchpod';
-import { ProductCardData } from '../../../generated/ProductCardData';
+import { HomePageData } from '../../../../generated/HomePageData';
+import { ALL_HOME_CONTENT } from '../../../gql/homepage';
+import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
+import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
+import { HomePage } from '../../../pages';
+import { mockSearchPodResponse } from '../../../../__mocks__/searchpod';
+import { ProductCardData } from '../../../../generated/ProductCardData';
 
 /**
  * NOTE: Mock the SearchPodContainer as it is out of scope for this test and is doing state
  * updates after the test has finished.
  */
-jest.mock('../../containers/SearchPodContainer', () => () => {
+jest.mock('../../../containers/SearchPodContainer', () => () => {
   return <div />;
 });
 

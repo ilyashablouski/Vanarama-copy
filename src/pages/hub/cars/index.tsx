@@ -36,11 +36,7 @@ import getIconMap from '../../../utils/getIconMap';
 import truncateString from '../../../utils/truncateString';
 
 export const CarsPage: NextPage = () => {
-  const {
-    data: content,
-    loading: contentLoading,
-    error: contentError,
-  } = useQuery<HubCarPageData>(HUB_CAR_CONTENT);
+  const { data, loading, error } = useQuery<HubCarPageData>(HUB_CAR_CONTENT);
 
   const { data: products, error: productsError } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
@@ -49,28 +45,28 @@ export const CarsPage: NextPage = () => {
     },
   );
 
-  if (contentLoading) {
+  if (loading) {
     return <Loading size="large" />;
   }
 
-  if (contentError || productsError) {
-    const err = contentError || productsError;
+  if (error || productsError) {
+    const err = error || productsError;
     return <p>Error: {err?.message}</p>;
   }
 
   return (
     <>
       <Hero>
-        <HeroHeading text={content?.hubCarPage.sections.hero?.title || ''} />
+        <HeroHeading text={data?.hubCarPage.sections.hero?.title || ''} />
         <br />
-        <HeroTitle text={content?.hubCarPage.sections.hero?.body || ''} />
+        <HeroTitle text={data?.hubCarPage.sections.hero?.body || ''} />
         <br />
         <Image
           className="hero--image"
           plain
           size="expand"
           src={
-            content?.hubCarPage.sections.hero?.image?.file?.url ||
+            data?.hubCarPage.sections.hero?.image?.file?.url ||
             'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
           }
         />
@@ -78,10 +74,10 @@ export const CarsPage: NextPage = () => {
 
       <section className="row:lead-text">
         <Heading size="xlarge" color="black">
-          {content?.hubCarPage.sections.leadText?.heading}
+          {data?.hubCarPage.sections.leadText?.heading}
         </Heading>
         <Text tag="span" size="lead" color="darker">
-          {content?.hubCarPage.sections.leadText?.description}
+          {data?.hubCarPage.sections.leadText?.description}
         </Text>
       </section>
 
@@ -188,30 +184,28 @@ export const CarsPage: NextPage = () => {
 
       <section className="row:steps-4col">
         <Heading className="-a-center -mb-400" size="large" color="black">
-          {content?.hubCarPage.sections.steps?.heading}
+          {data?.hubCarPage.sections.steps?.heading}
         </Heading>
-        {content?.hubCarPage.sections.steps?.steps?.map(
-          (step: StepData, idx) => (
-            <Step
-              className="-mh-auto"
-              key={step.title || idx}
-              heading={step.title || ''}
-              step={idx + 1}
-              text={step.body || ''}
-            />
-          ),
-        )}
+        {data?.hubCarPage.sections.steps?.steps?.map((step: StepData, idx) => (
+          <Step
+            className="-mh-auto"
+            key={step.title || idx}
+            heading={step.title || ''}
+            step={idx + 1}
+            text={step.body || ''}
+          />
+        ))}
       </section>
 
       <section className="row:featured-right">
         <div style={{ padding: '1rem' }}>
           <Heading size="large" color="black">
-            {content?.hubCarPage.sections.featured1?.title}
+            {data?.hubCarPage.sections.featured1?.title}
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
             <ReactMarkdown
               escapeHtml={false}
-              source={content?.hubCarPage.sections.featured1?.body || ''}
+              source={data?.hubCarPage.sections.featured1?.body || ''}
             />
           </Text>
           <IconList>
@@ -228,7 +222,7 @@ export const CarsPage: NextPage = () => {
         </div>
         <Image
           src={
-            content?.hubCarPage.sections.featured1?.image?.file?.url ||
+            data?.hubCarPage.sections.featured1?.image?.file?.url ||
             'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
           }
         />
@@ -237,49 +231,47 @@ export const CarsPage: NextPage = () => {
       <section className="row:featured-left">
         <Image
           src={
-            content?.hubCarPage.sections.featured2?.image?.file?.url ||
+            data?.hubCarPage.sections.featured2?.image?.file?.url ||
             'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
           }
         />
         <div className="-inset -middle -col-400">
           <Heading size="large" color="black">
-            {content?.hubCarPage.sections.featured2?.title}
+            {data?.hubCarPage.sections.featured2?.title}
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
             <ReactMarkdown
               escapeHtml={false}
-              source={content?.hubCarPage.sections.featured2?.body || ''}
+              source={data?.hubCarPage.sections.featured2?.body || ''}
             />
           </Text>
         </div>
       </section>
 
       <section className="row:features-4col">
-        {content?.hubCarPage.sections.tiles?.tiles?.map(
-          (tile: TileData, idx) => (
-            <div key={tile.title || idx}>
-              <Tile className="-plain -button -align-center" plain>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Image
-                    inline
-                    round
-                    size="large"
-                    src={
-                      tile.image?.file?.url ||
-                      'https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
-                    }
-                  />
-                </div>
-                <a className="tile--link" href="##">
-                  <Heading tag="span" size="regular" color="black">
-                    {tile.title}
-                  </Heading>
-                </a>
-                <Text tag="p">{tile.body}</Text>
-              </Tile>
-            </div>
-          ),
-        )}
+        {data?.hubCarPage.sections.tiles?.tiles?.map((tile: TileData, idx) => (
+          <div key={tile.title || idx}>
+            <Tile className="-plain -button -align-center" plain>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Image
+                  inline
+                  round
+                  size="large"
+                  src={
+                    tile.image?.file?.url ||
+                    'https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
+                  }
+                />
+              </div>
+              <a className="tile--link" href="##">
+                <Heading tag="span" size="regular" color="black">
+                  {tile.title}
+                </Heading>
+              </a>
+              <Text tag="p">{tile.body}</Text>
+            </Tile>
+          </div>
+        ))}
       </section>
 
       <section className="row:league">
