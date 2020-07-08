@@ -2,9 +2,9 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import {
-  GetBankDetailsPageDataQuery,
-  GetBankDetailsPageDataQueryVariables,
-} from '../../../generated/GetBankDetailsPageDataQuery';
+  GetCompanyBankDetailsPageDataQuery,
+  GetCompanyBankDetailsPageDataQueryVariables,
+} from '../../../generated/GetCompanyBankDetailsPageDataQuery';
 import CompanyBankDetailsFormContainer from './CompanyBankDetailsFormContainer';
 import { GET_COMPANY_BANK_DETAILS,/* UPDATE_BANK_DETAILS */ } from './gql';
 
@@ -18,7 +18,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
           query: GET_COMPANY_BANK_DETAILS,
           variables: {
             uuid: personUuid,
-          } as GetBankDetailsPageDataQueryVariables,
+          } as GetCompanyBankDetailsPageDataQueryVariables,
         },
         result: {
           data: {
@@ -34,7 +34,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
                 }
               ]
             }
-          } //as GetBankDetailsPageDataQuery,
+          } as GetCompanyBankDetailsPageDataQuery,
         },
       },
     ];
@@ -50,31 +50,16 @@ describe('<CompanyBankDetailsFormContainer />', () => {
     );
 
     // Wait for the initial query to resolve
-    await screen.findByTestId('bankDetails');
-    expect(screen.getByLabelText(/Name on the Account/)).toHaveValue(
-      'Mr. A N Other',
+    await screen.findByTestId('companyBankDetails');
+    expect(screen.getByLabelText(/Bank Account Name/)).toHaveValue(
+      'Eternal account',
     );
 
-    expect(screen.getByLabelText(/Account Number/)).toHaveValue('001122334');
-    expect(screen.getByDisplayValue(/99/)).toBeVisible();
-    expect(screen.getByDisplayValue(/88/)).toBeVisible();
-    expect(screen.getByDisplayValue(/77/)).toBeVisible();
-    expect(screen.getByLabelText(/Bank Name/)).toHaveValue('Monzo Ltd.');
-    expect(screen.getByTestId(/accountOpenSinceMonth/)).toHaveValue('9');
-    expect(screen.getByTestId(/accountOpenSinceYear/)).toHaveValue('2012');
-    expect(
-      screen.getByLabelText(/I have read and understood the above./),
-    ).toBeChecked();
-
-    expect(
-      screen.getByLabelText(
-        /I can afford the monthly rentals without creating undue financial hardship./,
-      ),
-    ).toBeChecked();
-
-    expect(screen.getByTestId(/checkCreditHistory/)).toBeChecked();
-    expect(
-      screen.getByLabelText(/I agree to the Terms and conditions./),
-    ).toBeChecked();
+    expect(screen.getByLabelText(/Bank Account Number/)).toHaveValue('27272829');
+    expect(screen.getByDisplayValue(/02/)).toBeVisible();
+    expect(screen.getByDisplayValue(/93/)).toBeVisible();
+    expect(screen.getByDisplayValue(/87/)).toBeVisible();
+    expect(screen.getByTestId(/joinedAtMonth/)).toHaveValue('1');
+    expect(screen.getByTestId(/joinedAtYear/)).toHaveValue('2019');
   });
 });
