@@ -1,11 +1,8 @@
 import moment from 'moment';
-import { ICompanyBankDetails } from 'components/CompanyBankDetails/interfaces';
-import { UpdateBankDetailsMutation_updateLimitedCompany } from '../../../generated/UpdateBankDetailsMutation';
-import {
-  BankAccountInputObject,
-  LimitedCompanyInputObject,
-} from '../../../generated/globalTypes';
+import { ICompanyBankDetails } from '../../components/CompanyBankDetails/interfaces';
+import { LimitedCompanyInputObject } from '../../../generated/globalTypes';
 
+// eslint-disable-next-line import/prefer-default-export
 export const formValuesToInput = (
   uuid: string,
   values: ICompanyBankDetails,

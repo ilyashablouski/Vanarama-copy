@@ -10,8 +10,8 @@ import SortCode from '@vanarama/uibook/lib/components/molecules/sortcode';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import React from 'react';
 import { Controller, FieldError, useForm } from 'react-hook-form';
-import FCWithFragments from '../../utils/FCWithFragments';
 import { gql } from '@apollo/client';
+import FCWithFragments from '../../utils/FCWithFragments';
 import { genMonths, genYears } from '../../utils/helpers';
 import validationSchema from './CompanyBankDetails.validation';
 import { ICompanyBankDetailsProps, ICompanyBankDetails } from './interfaces';
@@ -81,7 +81,7 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
       >
         <Controller
           name="sortCode"
-          firstInputProps={{ 'aria-label': 'Sort code first two digits' }}
+          firstInputProps={{ 'aria-label': 'Sort code first two digits'}}
           middleInputProps={{ 'aria-label': 'Sort code middle two digits' }}
           lastInputProps={{ 'aria-label': 'Sort code last two digits' }}
           as={SortCode}

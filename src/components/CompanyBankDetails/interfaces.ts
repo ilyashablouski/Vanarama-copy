@@ -1,8 +1,5 @@
 import { SortCodeValue } from '@vanarama/uibook/lib/components/molecules/sortcode/interfaces';
 import { CompanyBankDetailsAccount } from '../../../generated/CompanyBankDetailsAccount';
-import {
-  GetCompanyBankDetailsPageDataQuery_companyByUuid_bankAccounts as BankAccountFromGetQuery,
-} from '../../../generated/GetCompanyBankDetailsPageDataQuery';
 
 export interface ICompanyBankDetails {
   accountName?: string;

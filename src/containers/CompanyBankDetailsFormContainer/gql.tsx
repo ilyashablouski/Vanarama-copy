@@ -1,11 +1,9 @@
 import { useMutation, gql, useQuery } from '@apollo/client';
 
-import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import {
   UpdateBankDetailsMutation as Mutation,
   UpdateBankDetailsMutationVariables as MutationVariables,
 } from '../../../generated/UpdateBankDetailsMutation';
-import CompanyBankDetails from '../../components/CompanyBankDetails';
 import {
   GetCompanyBankDetailsPageDataQuery as Query,
   GetCompanyBankDetailsPageDataQueryVariables as QueryVariables,
@@ -52,70 +50,5 @@ export function useUpdateBankDetails(
 ) {
   return useMutation<Mutation, MutationVariables>(UPDATE_COMPANY_BANK_DETAILS, {
     onCompleted,
-    update: (store, result) => {
-      // // Read the data from our cache for this query.
-      // const data = store.readQuery<Query, QueryVariables>({
-      //   query: GET_COMPANY_BANK_DETAILS,
-      //   variables: { uuid: companyUuid },
-      // });
-
-      // // Update the person's bank details.
-      // if (data?.companyByUuid) {
-      //   const bankAccounts = result.data?.updateLimitedCompany
-      //     ? [result.data?.updateLimitedCompany]
-      //     : null;
-
-      //   // Write our data back to the cache.
-      //   store.writeQuery<Query, QueryVariables>({
-      //     query: GET_COMPANY_BANK_DETAILS,
-      //     variables: { uuid: companyUuid },
-      //     data: {
-      //       ...data,
-      //       // companyByUuid: {
-      //       //   ...data.companyByUuid,
-      //       //   // bankAccounts,
-      //       // },
-      //     },
-      //   });
-      // }
-    },
   });
 }
-
-export function useUpdateBankDetails1(
-  companyUuid: string,
-  onCompleted: () => void,
-) {
-  return useMutation<Mutation, MutationVariables>(UPDATE_COMPANY_BANK_DETAILS, {
-    onCompleted,
-    update: (store, result) => {
-      // Read the data from our cache for this query.
-      const data = store.readQuery<Query, QueryVariables>({
-        query: GET_COMPANY_BANK_DETAILS,
-        variables: { uuid: companyUuid },
-      });
-
-      // Update the company's bank details.
-      if (data?.companyByUuid) {
-        const bankAccounts = result.data?.updateLimitedCompany?.bankAccounts
-          ?.length
-          ? [result.data?.updateLimitedCompany.bankAccounts[0]]
-          : null;
-
-        // Write our data back to the cache.
-        store.writeQuery<Query, QueryVariables>({
-          query: UPDATE_COMPANY_BANK_DETAILS,
-          variables: { uuid: companyUuid },
-          data,
-          // data: {
-          //   ...data,
-          //   companyByUuid: {
-          //     ...data.companyByUuid,
-          //     bankAccounts,
-          //   },
-          // },
-        });
-      }
-    },
-  });
-} 
