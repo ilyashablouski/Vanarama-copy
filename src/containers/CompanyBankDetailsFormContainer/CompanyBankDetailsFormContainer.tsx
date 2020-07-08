@@ -14,7 +14,7 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   console.log('error:', error);
   console.log('data:', data);
   // const [updateBankDetails] = useUpdateBankDetails(personUuid, onCompleted);
-  const updateBankDetails = useUpdateBankDetails(companyUuid, onCompleted);
+  const updateBankDetails = useUpdateBankDetails(onCompleted);
   if (loading) {
     return <Loading size="large" />;
   }
@@ -23,7 +23,7 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
     return <p>Error: {error.message}</p>;
   }
 
-  if (!data || !data.) {
+  if (!data || !data.companyByUuid) {
     return null;
   }
 

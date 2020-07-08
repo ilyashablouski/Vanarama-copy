@@ -7,9 +7,9 @@ import {
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import CompanyBankDetails from '../../components/CompanyBankDetails';
 import {
-  GetCompanyDirectorDetailsQuery as Query,
-  GetCompanyDirectorDetailsQueryVariables as QueryVariables,
-} from '../../../generated/GetCompanyDirectorDetailsQuery';
+  GetCompanyBankDetailsPageDataQuery as Query,
+  GetCompanyBankDetailsPageDataQueryVariables as QueryVariables,
+} from '../../../generated/GetCompanyBankDetailsPageDataQuery';
 
 export const UPDATE_COMPANY_BANK_DETAILS = gql`
   mutation UpdateBankDetailsMutation($input: LimitedCompanyInputObject!) {
@@ -47,7 +47,6 @@ export function useBankDetails(companyUuid: string) {
 }
 
 export function useUpdateBankDetails(
-  companyUuid: string,
   onCompleted: () => void,
 ) {
   const [updateBankDetails] = useMutation<Mutation, MutationVariables>(
