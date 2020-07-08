@@ -1,6 +1,5 @@
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
@@ -8,28 +7,27 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import SortCode from '@vanarama/uibook/lib/components/molecules/sortcode';
-import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import { gql } from '@apollo/client';
 import React from 'react';
 import { Controller, FieldError, useForm } from 'react-hook-form';
-import FCWithFragments from '../../utils/FCWithFragments';
 import { genMonths, genYears } from '../../utils/helpers';
 import validationSchema from './CompanyBankDetails.validation';
-import { ICompanyBankDetailsProps } from './interfaces';
+import { ICompanyBankDetailsProps, ICompanyBankDetails } from './interfaces';
+import FCWithFragments from 'utils/FCWithFragments';
 import { responseToInitialFormValues } from './mappers';
-import { BankAccountInputObject } from '../../../generated/globalTypes';
+import { gql } from '@apollo/client';
 
-const CompanyBankDetails: React.FC<ICompanyBankDetailsProps> = ({
+const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
+  account,
   onSubmit,
 }) => {
   const { handleSubmit, register, control, errors, formState } = useForm<
-  BankAccountInputObject
+  ICompanyBankDetails
   >({
     mode: 'onBlur',
     validationSchema,
-    // defaultValues: responseToInitialFormValues(account),
-  });
+    defaultValues: responseToInitialFormValues(account),
+   });
 
   const months = genMonths();
   const years = genYears(100);
@@ -43,33 +41,32 @@ const CompanyBankDetails: React.FC<ICompanyBankDetailsProps> = ({
         Company Bank Details
       </Heading>
       <Text color="darker" size="lead">
-        Don’t worry, no money will be taken at this stage. We just need these details so we can set up the direct debit for your monthly payments.
+        Don’t worry, no money will be taken at this stage. We just need these
+        details so we can set up the direct debit for your monthly payments.
       </Text>
       <FormGroup
-        controlId="bankAccountName"
+        controlId="accountName"
         label="Bank Account Name"
-        //TODO
         error={errors?.accountName?.message?.toString()}
       >
         <TextInput
-          id="bankAccountName"
+          id="accountName"
           type="text"
-          name="bankAccountName"
-          dataTestId="bankAccountName"
+          name="accountName"
+          dataTestId="accountName"
           ref={register}
           width="35ch"
         />
       </FormGroup>
       <FormGroup
-        controlId="bankAccountNumber"
+        controlId="accountNumber"
         label="Bank Account Number"
-        //TODO
         error={errors?.accountNumber?.message?.toString()}
       >
         <NumericInput
-          id="bankAccountNumber"
-          name="bankAccountNumber"
-          dataTestId="bankAccountNumber"
+          id="accountNumber"
+          name="accountNumber"
+          dataTestId="accountNumber"
           ref={register}
           width="35ch"
         />
@@ -83,7 +80,7 @@ const CompanyBankDetails: React.FC<ICompanyBankDetailsProps> = ({
         }
       >
         <Controller
-          name="bankSortCode"
+          name="sortCode"
           firstInputProps={{ 'aria-label': 'Sort code first two digits' }}
           middleInputProps={{ 'aria-label': 'Sort code middle two digits' }}
           lastInputProps={{ 'aria-label': 'Sort code last two digits' }}
@@ -92,33 +89,19 @@ const CompanyBankDetails: React.FC<ICompanyBankDetailsProps> = ({
           onChange={([, parts]) => parts}
         />
       </FormGroup>
-      {/* <FormGroup
-        controlId="bankName"
-        label="Bank Name"
-        error={errors?.bankName?.message?.toString()}
-      >
-        <TextInput
-          id="bankName"
-          type="text"
-          name="bankName"
-          dataTestId="bankName"
-          ref={register}
-          width="45ch"
-        />
-      </FormGroup> */}
       <FormGroup
-        controlId="timeAtBank"
+        controlId="joinedAt"
         label="Time at Bank"
-        error={
-          errors?.joinedAt?.message?.toString() ||
-          errors?.joinedAt?.message?.toString()
-        }
+        // error={
+        //   errors?.joinedAt?.message?.toString() ||
+        //   errors?.joinedAt?.message?.toString()
+        // }
         inline
       >
         <Select
-          id="timeAtBankMonth"
-          dataTestId="timeAtBankMonth"
-          name="timeAtBankMonth"
+          id="joinedAtMonth"
+          dataTestId="joinedAtMonth"
+          name="joinedAtMonth"
           ref={register}
           placeholder="Month"
         >
@@ -129,8 +112,8 @@ const CompanyBankDetails: React.FC<ICompanyBankDetailsProps> = ({
           ))}
         </Select>
         <Select
-          dataTestId="timeAtBankYear"
-          name="timeAtBankYear"
+          dataTestId="joinedAtYear"
+          name="joinedAtYear"
           ref={register}
           placeholder="Year"
         >
@@ -155,18 +138,17 @@ const CompanyBankDetails: React.FC<ICompanyBankDetailsProps> = ({
   );
 };
 
-// CompanyBankDetails.fragments = {
-//   account: gql`
-//     fragment CompanyBankDetailsAccount on BankAccountType {
-//       __typename
-//       uuid
-//       accountName
-//       accountNumber
-//       bankName
-//       joinedAt
-//       sortCode
-//     }
-//   `,
-// };
+CompanyBankDetails.fragments = {
+  account: gql`
+    fragment CompanyBankDetailsAccount on BankAccountType {
+      __typename
+      uuid
+      accountName
+      accountNumber
+      joinedAt
+      sortCode
+    }
+  `,
+};
 
 export default CompanyBankDetails;

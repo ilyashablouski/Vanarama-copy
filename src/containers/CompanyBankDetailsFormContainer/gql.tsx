@@ -1,10 +1,17 @@
-import { useMutation, useQuery, gql } from '@apollo/client';
+import { useMutation, gql, useQuery } from '@apollo/client';
 
 import {
-  CreateUpdateBankAccountMutation as Mutation,
+  UpdateBankDetailsMutation as Mutation,
   UpdateBankDetailsMutationVariables as MutationVariables,
+} from '../../../generated/UpdateBankDetailsMutation';
+import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
+import CompanyBankDetails from '../../components/CompanyBankDetails';
+import {
+  GetCompanyDirectorDetailsQuery as Query,
+  GetCompanyDirectorDetailsQueryVariables as QueryVariables,
+} from '../../../generated/GetCompanyDirectorDetailsQuery';
 
-export const UPDATE_BANK_DETAILS = gql`
+export const UPDATE_COMPANY_BANK_DETAILS = gql`
   mutation UpdateBankDetailsMutation($input: LimitedCompanyInputObject!) {
     updateLimitedCompany(input: $input) {
       uuid
@@ -18,18 +25,33 @@ export const UPDATE_BANK_DETAILS = gql`
   }
 `;
 
-// type QueryParams = OLAFQueryParams & {
-//   companyUuid: string;
-// };
+export const GET_COMPANY_BANK_DETAILS = gql`
+query GetCompanyBankDetailsPageDataQuery($uuid: ID!) {
+  companyByUuid(uuid: $uuid) {
+    uuid,
+    bankAccounts {
+      uuid
+      accountName
+      accountNumber
+      joinedAt
+      sortCode
+    }
+  }
+}
+`;
+
+export function useBankDetails(companyUuid: string) {
+  return useQuery<Query, QueryVariables>(GET_COMPANY_BANK_DETAILS, {
+    variables: { uuid: companyUuid },
+  });
+}
 
 export function useUpdateBankDetails(
   companyUuid: string,
   onCompleted: () => void,
 ) {
-  // const router = useRouter();
-  // const { companyUuid, derivativeId, orderId } = router.query as QueryParams;
   const [updateBankDetails] = useMutation<Mutation, MutationVariables>(
-    UPDATE_BANK_DETAILS,
+    UPDATE_COMPANY_BANK_DETAILS,
     {
       onError: () =>
         toast.error(
@@ -42,67 +64,3 @@ export function useUpdateBankDetails(
 
   return updateBankDetails;
 }
-
-// export const GET_BANK_DETAILS_PAGE_DATA = gql`
-//   query GetCompanyBankDetailsPageDataQuery($uuid: ID!) {
-//     personByUuid(uuid: $uuid) {
-//       uuid
-//       partyId
-//       bankAccounts {
-//         ...BankDetailsAccount
-//       }
-//     }
-//   }
-//   ${CompanyBankDetails.fragments.account}
-// `;
-
-// export const CREATE_UPDATE_BANK_ACCOUNT = gql`
-//   mutation CreateCompanyUpdateBankAccountMutation($input: BankAccountInputObject) {
-//     createUpdateBankAccount(input: $input) {
-//       ...BankDetailsAccount
-//     }
-//   }
-//   ${CompanyBankDetails.fragments.account}
-// `;
-
-// export function useBankDetails(personUuid: string) {
-//   return useQuery<Query, QueryVariables>(GET_BANK_DETAILS_PAGE_DATA, {
-//     variables: { uuid: personUuid },
-//   });
-// }
-
-// export function useUpdateBankDetails(
-//   personUuid: string,
-//   onCompleted: () => void,
-// ) {
-//   return useMutation<Mutation, MutationVariables>(CREATE_UPDATE_BANK_ACCOUNT, {
-//     onCompleted,
-//     update: (store, result) => {
-//       // Read the data from our cache for this query.
-//       const data = store.readQuery<Query, QueryVariables>({
-//         query: GET_BANK_DETAILS_PAGE_DATA,
-//         variables: { uuid: personUuid },
-//       });
-
-//       // Update the person's bank details.
-//       if (data?.personByUuid) {
-//         const bankAccounts = result.data?.createUpdateBankAccount
-//           ? [result.data?.createUpdateBankAccount]
-//           : null;
-
-//         // Write our data back to the cache.
-//         store.writeQuery<Query, QueryVariables>({
-//           query: GET_BANK_DETAILS_PAGE_DATA,
-//           variables: { uuid: personUuid },
-//           data: {
-//             ...data,
-//             personByUuid: {
-//               ...data.personByUuid,
-//               bankAccounts,
-//             },
-//           },
-//         });
-//       }
-//     },
-//   });
-// }

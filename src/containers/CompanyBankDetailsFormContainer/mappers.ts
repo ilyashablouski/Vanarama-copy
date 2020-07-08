@@ -1,23 +1,28 @@
 import moment from 'moment';
-import { IBankDetails } from '../../components/BankDetails/interfaces';
-import { BankAccountInputObject } from '../../../generated/globalTypes';
+import { ICompanyBankDetails } from 'components/CompanyBankDetails/interfaces';
+import {
+  UpdateBankDetailsMutation_updateLimitedCompany,
+} from '../../../generated/UpdateBankDetailsMutation';
 
 // eslint-disable-next-line import/prefer-default-export
 export const formValuesToInput = (
-  partyId: string,
-  values: IBankDetails,
-): BankAccountInputObject => {
-  const joiningDate = `${values.openingMonth}-${values.openingYear}`;
+  uuid: string,
+  values: ICompanyBankDetails,
+): UpdateBankDetailsMutation_updateLimitedCompany => {
+  const joiningDate = `${values.joinedAtMonth}-${values.joinedAtYear}`;
   const joiningDateFormatted = moment(joiningDate, 'MM-YYYY').format(
     'YYYY-MM-DD',
   );
 
   return {
-    partyId,
-    accountName: values.nameOnTheAccount,
-    accountNumber: values.accountNumber,
-    sortCode: values.sortCode?.join(''),
-    bankName: values.bankName,
-    joinedAt: joiningDateFormatted,
+    uuid,
+    bankAccounts: [
+      {
+        accountName: values.accountName || null,
+        accountNumber: values.accountNumber ? values.accountNumber : null,
+        sortCode: values.sortCode?.join('') || null,
+        joinedAt: joiningDateFormatted,
+      },
+    ],
   };
 };
