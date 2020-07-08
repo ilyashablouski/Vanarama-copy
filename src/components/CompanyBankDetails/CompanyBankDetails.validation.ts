@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 const ValidationSchema = yup.object().shape({
-  accountName: yup.string().required('Please enter name on account'),
+  accountName: yup.string().required('Please enter bank account name'),
   accountNumber: yup
     .string()
     .required('Please enter account number')
@@ -16,9 +16,8 @@ const ValidationSchema = yup.object().shape({
         .min(2, 'Please enter sort code'),
     )
     .required('Please enter sort code'),
-  bankName: yup.string().required('Please enter bank name'),
-  joinedAtMonth: yup.string().required('Please select account opening date'),
-  joinedAtYear: yup.string().required('Please select account opening date'),
+  // joinedAtMonth: yup.string().required('Please select account opening date'),
+  // joinedAtYear: yup.string().required('Please select account opening date'),
 });
 
 export default ValidationSchema;

@@ -1,30 +1,21 @@
 import React from 'react';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
-import BankDetails from '..';
+import CompanyBankDetails from '..';
 
-describe('<BankDetails />', () => {
+describe('<CompanyBankDetails />', () => {
   it('should show required form field validation messages', async () => {
     // ACT
-    render(<BankDetails onSubmit={jest.fn()} />);
+    render(<CompanyBankDetails onSubmit={jest.fn()} />);
     fireEvent.click(screen.getByText('Continue'));
 
     // ASSERT
     await waitFor(() =>
-      expect(screen.getByText('Please enter name on account')).toBeVisible(),
+      expect(screen.getByText('Please enter bank account name')).toBeVisible(),
     );
 
     expect(screen.getByText('Please enter account number')).toBeVisible();
     expect(screen.getByText('Please enter sort code')).toBeVisible();
-    expect(screen.getByText('Please enter bank name')).toBeVisible();
-    expect(
-      screen.getByText('Please select account opening date'),
-    ).toBeVisible();
-    expect(
-      screen.getByText('The understanding must be accepted'),
-    ).toBeVisible();
-    expect(
-      screen.getByText('The terms and conditions must be accepted'),
-    ).toBeVisible();
+    expect(screen.getByText('Please select account opening date')).toBeVisible();
   });
 
   // TODO- fix after css issue is fixed

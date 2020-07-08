@@ -22,12 +22,12 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
   onSubmit,
 }) => {
   const { handleSubmit, register, control, errors, formState } = useForm<
-  ICompanyBankDetails
+    ICompanyBankDetails
   >({
     mode: 'onBlur',
     validationSchema,
     defaultValues: responseToInitialFormValues(account),
-   });
+  });
 
   const months = genMonths();
   const years = genYears(100);
@@ -112,6 +112,7 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
           ))}
         </Select>
         <Select
+          id="joinedAtYear"
           dataTestId="joinedAtYear"
           name="joinedAtYear"
           ref={register}

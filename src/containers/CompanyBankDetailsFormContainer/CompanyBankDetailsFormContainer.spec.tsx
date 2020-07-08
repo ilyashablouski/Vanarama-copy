@@ -62,4 +62,4 @@ describe('<CompanyBankDetailsFormContainer />', () => {
     expect(screen.getByTestId(/joinedAtMonth/)).toHaveValue('1');
     expect(screen.getByTestId(/joinedAtYear/)).toHaveValue('2019');
   });
-});
+})
