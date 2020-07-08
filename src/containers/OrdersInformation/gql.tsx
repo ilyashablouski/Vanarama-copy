@@ -116,6 +116,11 @@ export const GET_CAR_DERIVATIVES = gql`
       }
       transmissionName
     }
+    vehicleImages(capIds: $ids, vehicleType: $vehicleType) {
+      vehicleType
+      capId
+      mainImageUrl
+    }
   }
 `;
 

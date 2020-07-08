@@ -5,7 +5,7 @@ import OrderCard from '@vanarama/uibook/lib/components/molecules/cards/OrderCard
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Pagination from '@vanarama/uibook/lib/components/atoms/pagination';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import React, { useState, CSSProperties } from 'react';
+import React, { useState, CSSProperties, useEffect } from 'react';
 import cx from 'classnames';
 import { NextRouter } from 'next/router';
 import { useApolloClient } from '@apollo/client';
@@ -14,7 +14,10 @@ import {
   useCarDerivativesData,
 } from '../OrdersInformation/gql';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
-import { GetOrdersByPartyUuid_ordersByPartyUuid } from '../../../generated/GetOrdersByPartyUuid';
+import {
+  GetOrdersByPartyUuid_ordersByPartyUuid,
+  GetOrdersByPartyUuid,
+} from '../../../generated/GetOrdersByPartyUuid';
 import { createOffersObject } from './helpers';
 import { writeCachedOrderInformation } from '../DetailsPage/gql';
 
@@ -32,6 +35,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   const [status, changeStatus] = useState<string[]>([]);
   const [statusesCA, changeStatusesCA] = useState<string[]>([]);
   const [exStatusesCA, changeExlStatusesCA] = useState<string[]>([]);
+  const [initData, setInitData] = useState<GetOrdersByPartyUuid>();
 
   const PATH = {
     items: [
@@ -63,9 +67,15 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   // call query for get DerivativesData
   const dataCars = useCarDerivativesData(capIdArray, VehicleTypeEnum.CAR);
 
+  useEffect(() => {
+    if (data && !initData) {
+      setInitData(data);
+    }
+  }, [data, initData]);
+
   // check what we have 'credit' order and this order credit not in status 'draft'
   const hasCreditCompleteOrder = () =>
-    !!data?.ordersByPartyUuid.find(
+    !!(initData?.ordersByPartyUuid as GetOrdersByPartyUuid_ordersByPartyUuid[])?.find(
       el =>
         el.status === 'credit' &&
         el.lineItems[0].creditApplications?.length &&
@@ -74,7 +84,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
 
   // check what we have 'credit' order and this order credit in status 'draft'
   const hasCreditIncompleteOrder = () =>
-    !!data?.ordersByPartyUuid.find(
+    !!(initData?.ordersByPartyUuid as GetOrdersByPartyUuid_ordersByPartyUuid[])?.find(
       el =>
         el.status === 'credit' &&
         el.lineItems[0].creditApplications?.length &&
@@ -155,6 +165,11 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
         (der: { id: string }) =>
           der.id === order.lineItems[0].vehicleProduct?.derivativeCapId,
       );
+      const imageSrc = dataCars?.data?.vehicleImages?.find(
+        el =>
+          el?.capId?.toString() ===
+          order.lineItems[0].vehicleProduct?.derivativeCapId,
+      );
       // we get offers credit state
       const creditState =
         (order.status === 'credit' &&
@@ -165,7 +180,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
         <OrderCard
           style={{ '--img-w': '300px' } as CSSProperties}
           inline
-          imageSrc="https://source.unsplash.com/collection/2102317/1000x650?sig=40344"
+          imageSrc={imageSrc?.mainImageUrl || ''}
           key={order.id}
           title={{
             title: `${derivative?.manufacturerName ||
@@ -232,7 +247,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
         <div className="row:bg-lighter -thin">
           <div className="row:results">
             {!quote && (
-              <div className="choiceboxes -teal">
+              <div className="choiceboxes -cols-3 -teal">
                 {renderChoiceBtn(0, 'All Orders')}
                 {hasCreditCompleteOrder() && renderChoiceBtn(1, 'Complete')}
                 {hasCreditIncompleteOrder() && renderChoiceBtn(2, 'Incomplete')}
