@@ -2,10 +2,8 @@ import { gql } from '@apollo/client';
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
@@ -37,13 +35,6 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <Heading color="black" dataTestId="about-you_heading" size="xlarge">
-        About You
-      </Heading>
-      <Text color="darker" size="lead">
-        To get you your brand new vehicle, firstly we’ll just need some details
-        about you and your company.
-      </Text>
       <Formgroup
         controlId="title"
         label="Title"
