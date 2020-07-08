@@ -19,6 +19,7 @@ import { filtersConfig, budgets } from './config';
 import { IFilterContainerProps } from './interfaces';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
+import { useRouter } from 'next/router';
 
 interface ISelectedFiltersState {
   [index: string]: string[];
@@ -46,6 +47,7 @@ const FiltersContainer = ({
   preSearchVehicleCount,
   isSpecialOffers,
 }: IFilterContainerProps) => {
+  const router = useRouter();
   const [filtersData, setFiltersData] = useState({} as IFilterList);
   const [makeData, setMakeData] = useState([] as string[]);
   const [modelsData, setModelsData] = useState([] as string[]);
@@ -56,7 +58,6 @@ const FiltersContainer = ({
   const [choiceBoxesData, setChoiceBoxesData] = useState(
     {} as IChoiceBoxesData,
   );
-
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1216px)' });
 
   const [selectedFiltersState, setSelectedFiltersState] = useState<
@@ -144,6 +145,17 @@ const FiltersContainer = ({
       ...value,
       active: actualState[filterAccessor].includes(value.label),
     }));
+
+  useEffect(() => {
+    if(Object.keys(router.query).length) {
+      let presetFilters = {};
+      Object.entries(router.query).forEach(entry => {
+      presetFilters[entry[0]] = Array.isArray(entry[1]) ? entry[1] : [entry[1]];
+      setSelectedFiltersState(prevState => ({...prevState, ...presetFilters}));
+    });
+    }
+
+  }, []);
 
   // set data to filters
   useEffect(() => {

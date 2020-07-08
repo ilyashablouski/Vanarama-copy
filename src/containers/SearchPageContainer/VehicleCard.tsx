@@ -36,7 +36,7 @@ const VehicleCard = memo(
           []
         }
         description="Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id"
-        imageSrc={data?.imageUrl || undefined}
+        imageSrc={data?.imageUrl || ''}
         onCompare={() => {}}
         onWishlist={() => {}}
         title={{
@@ -51,7 +51,7 @@ const VehicleCard = memo(
       >
         <div className="-flex-h">
           <Price
-            price={isPersonalPrice ? data.personalRate : data.businessRate}
+            price={isPersonalPrice ? data?.personalRate : data?.businessRate}
             size="large"
             separator="."
             priceDescription="Per Month Exc.VAT"
