@@ -2,6 +2,7 @@ import Select from '@vanarama/uibook/lib/components/atoms/select';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import { FieldArray, FieldArrayRenderProps, useFormikContext } from 'formik';
 import React from 'react';
+import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import { DirectorFieldsDropDownData } from '../../../generated/DirectorFieldsDropDownData';
 import { GetDirectorDetailsQuery_companyOfficers_nodes as DirectorFieldsOfficer } from '../../../generated/GetDirectorDetailsQuery';
 import DirectorFields from './DirectorFields';
@@ -13,7 +14,7 @@ type Props = {
 };
 
 export default function DirectorFieldArray({ dropdownData, officers }: Props) {
-  const { errors, touched, values } = useFormikContext<
+  const { errors, touched, values, submitCount } = useFormikContext<
     DirectorDetailsFormValues
   >();
 
@@ -50,23 +51,31 @@ export default function DirectorFieldArray({ dropdownData, officers }: Props) {
             </Text>
           )}
           {showDirectorDropdown && (
-            <Select
-              aria-label="Select director"
-              placeholder="Select Director..."
-              onChange={e =>
-                handleDirectorSelected(e.target.value, arrayHelpers)
+            <Formgroup
+              error={
+                submitCount > 0 &&
+                showMinimumPercentageMessage &&
+                'Please select a director'
               }
             >
-              {officers.map(_ => (
-                <option
-                  key={_.name}
-                  value={_.name}
-                  disabled={selectedDirectors.includes(_.name)}
-                >
-                  {_.name}
-                </option>
-              ))}
-            </Select>
+              <Select
+                aria-label="Select director"
+                placeholder="Select Director..."
+                onChange={e =>
+                  handleDirectorSelected(e.target.value, arrayHelpers)
+                }
+              >
+                {officers.map(_ => (
+                  <option
+                    key={_.name}
+                    value={_.name}
+                    disabled={selectedDirectors.includes(_.name)}
+                  >
+                    {_.name}
+                  </option>
+                ))}
+              </Select>
+            </Formgroup>
           )}
         </>
       )}
