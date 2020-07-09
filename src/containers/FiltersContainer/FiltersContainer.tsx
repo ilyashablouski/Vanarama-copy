@@ -13,13 +13,14 @@ import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import OptionsIcon from '@vanarama/uibook/lib/assets/icons/Options';
 import ChevronUpSharp from '@vanarama/uibook/lib/assets/icons/ChevronUpSharp';
 import { useMediaQuery } from 'react-responsive';
+import { useRouter } from 'next/router';
 import { filterListByTypes } from '../SearchPodContainer/gql';
 import { makeHandler, modelHandler } from '../SearchPodContainer/helpers';
 import { filtersConfig, budgets } from './config';
 import { IFilterContainerProps } from './interfaces';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
-import { useRouter } from 'next/router';
+import { findPreselectFilterValue } from './helpers';
 
 interface ISelectedFiltersState {
   [index: string]: string[];
@@ -52,6 +53,7 @@ const FiltersContainer = ({
   const [makeData, setMakeData] = useState([] as string[]);
   const [modelsData, setModelsData] = useState([] as string[]);
   const [tempFilterName, setTempFilterName] = useState('');
+  const [tempModelName, setTempModelName] = useState('');
   const [fromBudget] = useState(budgets.slice(0, budgets.length - 1));
   const [toBudget] = useState(budgets.slice(1));
   const [isOpenFilter, setFilterExpandStatus] = useState(true);
@@ -147,15 +149,54 @@ const FiltersContainer = ({
     }));
 
   useEffect(() => {
-    if(Object.keys(router.query).length) {
-      let presetFilters = {};
+    // if we have query parameters filters should be preselected
+    if (Object.keys(router.query).length && makeData.length) {
+      const presetFilters = {} as ISelectedFiltersState;
       Object.entries(router.query).forEach(entry => {
-      presetFilters[entry[0]] = [filtersMapper[entry[0]].find(element => element.toLowerCase() === entry[1].toLowerCase())];
-    });
-    setSelectedFiltersState(prevState => ({...prevState, ...presetFilters}));
+        const [key, values] = entry;
+        if (key === 'model') {
+          filtersData.groupedRanges?.forEach(element => {
+            const value = findPreselectFilterValue(
+              Array.isArray(values) ? values[0] : values,
+              element.children,
+            );
+            // saving model to temp because after set makes model will be removed
+            if (value) setTempModelName(value);
+          });
+        } else if (key !== 'budget') {
+          let query: string | string[];
+          // transformation the query value to expected type
+          if (!Array.isArray(values)) {
+            query = values.split(',').length > 1 ? values.split(',') : values;
+          } else {
+            query = values;
+          }
+          presetFilters[key] = Array.isArray(query)
+            ? query.map(value =>
+                findPreselectFilterValue(
+                  value,
+                  filtersMapper[key as keyof typeof filtersMapper],
+                ),
+              )
+            : [
+                findPreselectFilterValue(
+                  query,
+                  filtersMapper[key as keyof typeof filtersMapper],
+                ),
+              ];
+        } else {
+          const rate = (values as string).split('|');
+          presetFilters.from = [rate[0]] || null;
+          presetFilters.to = [rate[1]] || null;
+        }
+      });
+      setSelectedFiltersState(prevState => ({
+        ...prevState,
+        ...presetFilters,
+      }));
     }
-
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [makeData]);
 
   // set data to filters
   useEffect(() => {
@@ -183,9 +224,15 @@ const FiltersContainer = ({
   // set actual models after make changing
   useEffect(() => {
     if (selectedFiltersState.make) {
-      setSelectedFiltersState(prevState => ({ ...prevState, model: [] }));
+      setSelectedFiltersState(prevState => ({
+        ...prevState,
+        model: tempModelName ? [tempModelName] : [],
+      }));
       setModelsData(modelHandler(filtersData, selectedFiltersState.make[0]));
+      // clear temp model value
+      if (tempModelName) setTempModelName('');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFiltersState.make, filtersData]);
 
   // hack for subscribe multiselects changes and update Choiceboxes state
