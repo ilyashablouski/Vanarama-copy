@@ -132,7 +132,7 @@ export const PickupsPage: NextPage = () => {
                   link: (
                     <RouterLink
                       link={{
-                        href: '#',
+                        href: `/pickups/pickup-details/${item?.capId}`,
                         label: truncateString(
                           `${item?.manufacturerName} ${item?.rangeName}`,
                         ),

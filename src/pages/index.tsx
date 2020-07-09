@@ -153,7 +153,7 @@ export const HomePage: NextPage = () => {
                           link: (
                             <RouterLink
                               link={{
-                                href: '#',
+                                href: `/vans/van-details/${item?.capId}`,
                                 label: truncateString(
                                   `${item?.manufacturerName} ${item?.rangeName}`,
                                 ),
@@ -225,7 +225,7 @@ export const HomePage: NextPage = () => {
                           link: (
                             <RouterLink
                               link={{
-                                href: '#',
+                                href: `/pickups/pickup-details/${item?.capId}`,
                                 label: truncateString(
                                   `${item?.manufacturerName} ${item?.rangeName}`,
                                 ),
@@ -299,7 +299,7 @@ export const HomePage: NextPage = () => {
                           link: (
                             <RouterLink
                               link={{
-                                href: '#',
+                                href: `/cars/car-details/${item?.capId}`,
                                 label: truncateString(
                                   `${item?.manufacturerName} ${item?.rangeName}`,
                                 ),

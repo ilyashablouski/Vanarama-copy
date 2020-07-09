@@ -147,7 +147,7 @@ export const CarsPage: NextPage = () => {
                   link: (
                     <RouterLink
                       link={{
-                        href: '#',
+                        href: `/cars/car-details/${item?.capId}`,
                         label: truncateString(
                           `${item?.manufacturerName} ${item?.rangeName}`,
                         ),
