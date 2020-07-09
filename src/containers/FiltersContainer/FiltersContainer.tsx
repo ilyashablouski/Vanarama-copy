@@ -150,9 +150,9 @@ const FiltersContainer = ({
     if(Object.keys(router.query).length) {
       let presetFilters = {};
       Object.entries(router.query).forEach(entry => {
-      presetFilters[entry[0]] = Array.isArray(entry[1]) ? entry[1] : [entry[1]];
-      setSelectedFiltersState(prevState => ({...prevState, ...presetFilters}));
+      presetFilters[entry[0]] = [filtersMapper[entry[0]].find(element => element.toLowerCase() === entry[1].toLowerCase())];
     });
+    setSelectedFiltersState(prevState => ({...prevState, ...presetFilters}));
     }
 
   }, []);
