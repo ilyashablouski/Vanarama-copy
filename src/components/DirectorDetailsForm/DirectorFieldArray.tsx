@@ -3,7 +3,7 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import { FieldArray, FieldArrayRenderProps, useFormikContext } from 'formik';
 import React from 'react';
 import { DirectorFieldsDropDownData } from '../../../generated/DirectorFieldsDropDownData';
-import { DirectorFieldsOfficer } from '../../../generated/DirectorFieldsOfficer';
+import { GetDirectorDetailsQuery_companyOfficers_nodes as DirectorFieldsOfficer } from '../../../generated/GetDirectorDetailsQuery';
 import DirectorFields from './DirectorFields';
 import { DirectorDetailsFormValues } from './interfaces';
 

@@ -558,7 +558,13 @@ Array [
             }
           }
         >
-          
+          <img
+            alt="img"
+            className="card-image"
+            data-testid="card-image"
+            onError={[Function]}
+            src="https://source.unsplash.com/collection/2102317/1000x650?sig=40344"
+          />
           <div
             className="title"
           >
@@ -867,7 +873,13 @@ Array [
             }
           }
         >
-          
+          <img
+            alt="img"
+            className="card-image"
+            data-testid="card-image"
+            onError={[Function]}
+            src="https://source.unsplash.com/collection/2102317/1000x650?sig=40344"
+          />
           <div
             className="title"
           >

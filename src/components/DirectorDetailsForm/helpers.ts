@@ -1,6 +1,6 @@
 import { FormikErrors } from 'formik';
 import * as Yup from 'yup';
-import { DirectorFieldsOfficer } from '../../../generated/DirectorFieldsOfficer';
+import { GetDirectorDetailsQuery_companyOfficers_nodes as DirectorFieldsOfficer } from '../../../generated/GetDirectorDetailsQuery';
 import { sum } from '../../utils/array';
 import { checkFuture } from '../../utils/validation';
 import { DirectorDetailsFormValues, DirectorFormValues } from './interfaces';

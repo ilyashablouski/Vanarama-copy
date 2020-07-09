@@ -557,47 +557,14 @@ Array [
           role="tabpanel"
         >
           <div
-            className="media"
+            className="media media-player"
           >
             <div
-              className=""
+              className="media-player--embed"
               src="https://player.vimeo.com/video/263419265"
               style={
                 Object {
-                  "height": "360px",
-                  "width": "100%",
-                }
-              }
-            >
-              <div
-                style={
-                  Object {
-                    "display": undefined,
-                    "height": "100%",
-                    "overflow": "hidden",
-                    "width": "100%",
-                  }
-                }
-              />
-            </div>
-          </div>
-        </div>
-        <div
-          aria-labelledby="tab:1-3"
-          className=""
-          hidden={true}
-          id="panel:1-3"
-          role="tabpanel"
-        >
-          <div
-            className="media"
-          >
-            <div
-              className=""
-              src="https://player.vimeo.com/video/263419265"
-              style={
-                Object {
-                  "height": "360px",
+                  "height": "100%",
                   "width": "100%",
                 }
               }
@@ -647,17 +614,6 @@ Array [
               type="button"
             >
               Videos
-            </button>
-            <button
-              aria-controls="panel:1-3"
-              aria-selected={false}
-              className=""
-              id="tab:1-3"
-              onClick={[Function]}
-              role="tab"
-              type="button"
-            >
-              360° View
             </button>
           </div>
         </div>
