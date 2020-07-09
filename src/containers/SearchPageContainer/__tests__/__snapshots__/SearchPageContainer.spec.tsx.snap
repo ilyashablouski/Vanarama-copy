@@ -826,32 +826,6 @@ exports[`<SearchPageContainer /> should be render correctly 1`] = `
             class="search-filters--tags"
           >
             <button
-              class="button -teal -xsmall -outline"
-              id="car-leasing"
-            >
-              <div
-                class="button--inner"
-              >
-                car-leasing
-                <i
-                  class="icon"
-                >
-                  <svg
-                    height="1em"
-                    viewBox="0 0 512 512"
-                    width="1em"
-                  >
-                    <title>
-                      ionicons-v5-m
-                    </title>
-                    <polygon
-                      points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"
-                    />
-                  </svg>
-                </i>
-              </div>
-            </button>
-            <button
               class="button -teal -xsmall -solid"
               id="clearAllButton"
             >

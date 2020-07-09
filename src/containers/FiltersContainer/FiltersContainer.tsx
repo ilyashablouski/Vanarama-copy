@@ -150,7 +150,7 @@ const FiltersContainer = ({
 
   useEffect(() => {
     // if we have query parameters filters should be preselected
-    if (Object.keys(router.query).length && makeData.length) {
+    if (Object.keys(router?.query || {}).length && makeData.length) {
       const presetFilters = {} as ISelectedFiltersState;
       Object.entries(router.query).forEach(entry => {
         const [key, values] = entry;
