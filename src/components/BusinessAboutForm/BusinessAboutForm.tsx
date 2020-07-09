@@ -7,7 +7,7 @@ import Select from '@vanarama/uibook/lib/components/atoms/select';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { EMAIL_REGEX, WORLDWIDE_MOBILE_REGEX } from '../../utils/regex';
@@ -26,12 +26,16 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
   onEmailExistenceCheck,
   onLogInCLick,
 }) => {
-  const { formState, handleSubmit, errors, register } = useForm<
+  const defaultValues = responseToInitialFormValues(person);
+  const { formState, handleSubmit, errors, register, reset } = useForm<
     IBusinessAboutFormValues
   >({
-    defaultValues: responseToInitialFormValues(person),
+    defaultValues,
     mode: 'onBlur',
   });
+  useEffect(() => {
+    reset(defaultValues);
+  }, [person]);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
