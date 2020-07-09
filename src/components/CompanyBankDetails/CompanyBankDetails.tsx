@@ -81,7 +81,7 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
       >
         <Controller
           name="sortCode"
-          firstInputProps={{ 'aria-label': 'Sort code first two digits'}}
+          firstInputProps={{ 'aria-label': 'Sort code first two digits' }}
           middleInputProps={{ 'aria-label': 'Sort code middle two digits' }}
           lastInputProps={{ 'aria-label': 'Sort code last two digits' }}
           as={SortCode}

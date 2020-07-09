@@ -7,10 +7,7 @@ import {
 } from '../../../../generated/GetCompanyBankDetailsPageDataQuery';
 import CompanyBankDetailsFormContainer from '../CompanyBankDetailsFormContainer';
 import { GET_COMPANY_BANK_DETAILS, UPDATE_COMPANY_BANK_DETAILS } from '../gql';
-import {
-  UpdateBankDetailsMutation as Mutation,
-  UpdateBankDetailsMutationVariables as MutationVariables,
-} from '../../../../generated/UpdateBankDetailsMutation';
+import { UpdateBankDetailsMutationVariables as MutationVariables } from '../../../../generated/UpdateBankDetailsMutation';
 import { LimitedCompanyInputObject } from '../../../../generated/globalTypes';
 
 let prepopulatedMockCalled = false;
@@ -41,7 +38,7 @@ const mocks: MockedResponse[] = [
             ],
           },
         } as GetCompanyBankDetailsPageDataQuery,
-      }
+      };
     },
   },
 ];
@@ -102,8 +99,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
           variables: {
             input: {
               uuid: 'ebdec701-6bc3-4f23-a636-cb4fbe419414',
-              bankAccount:
-              {
+              bankAccount: {
                 accountName: 'Test',
                 accountNumber: '27272829',
                 sortCode: '029387',
@@ -116,17 +112,15 @@ describe('<CompanyBankDetailsFormContainer />', () => {
           mutationCalled = true;
           return {
             data: {
-              updateLimitedCompany:
-                {
-                  uuid: '7f5a4ed2-24a5-42ff-9acd-208db847d678',
-                  bankAccount:
-                  {
-                    accountName: 'Test',
-                    accountNumber: '27272829',
-                    sortCode: '029387',
-                    joinedAt: '2019-01-22',
-                  },
-                } as LimitedCompanyInputObject,
+              updateLimitedCompany: {
+                uuid: '7f5a4ed2-24a5-42ff-9acd-208db847d678',
+                bankAccount: {
+                  accountName: 'Test',
+                  accountNumber: '27272829',
+                  sortCode: '029387',
+                  joinedAt: '2019-01-01',
+                },
+              } as LimitedCompanyInputObject,
             },
           };
         },
@@ -135,7 +129,10 @@ describe('<CompanyBankDetailsFormContainer />', () => {
 
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={mocks.concat(...mutationMocks)}>
+      <MockedProvider
+        addTypename={false}
+        mocks={mocks.concat(...mutationMocks)}
+      >
         <CompanyBankDetailsFormContainer
           companyUuid={personUuid}
           onCompleted={onCompletedMock}
