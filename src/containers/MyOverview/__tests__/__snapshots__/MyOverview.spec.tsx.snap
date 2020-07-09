@@ -562,6 +562,7 @@ Array [
             alt="img"
             className="card-image"
             data-testid="card-image"
+            onError={[Function]}
             src="https://source.unsplash.com/collection/2102317/1000x650?sig=40344"
           />
           <div
@@ -876,6 +877,7 @@ Array [
             alt="img"
             className="card-image"
             data-testid="card-image"
+            onError={[Function]}
             src="https://source.unsplash.com/collection/2102317/1000x650?sig=40344"
           />
           <div
