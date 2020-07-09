@@ -150,7 +150,7 @@ const CustomiseLease = ({
           setMileage(mileages[value - 1]);
         }}
       />
-      <div className="-flex-row">
+      <div className="-flex-row -mt-200">
         <Icon
           color="orange"
           size="xlarge"
