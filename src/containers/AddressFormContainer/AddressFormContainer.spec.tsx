@@ -19,7 +19,7 @@ describe('<AddressFormContainer />', () => {
   it('should post data to the server correctly', async () => {
     // ARRANGE
     let mutationCalled = false;
-    const personUuid = '1337';
+    const personUuid = 'ebdec701-6bc3-4f23-a636-cb4fbe419414';
     const onCompletedMock = jest.fn();
     const mocks: MockedResponse[] = [
       {
@@ -110,7 +110,7 @@ describe('<AddressFormContainer />', () => {
   it('should prefill data from the server', async () => {
     // ARRANGE
     let mutationCalled = false;
-    const personUuid = '1337';
+    const personUuid = 'ebdec701-6bc3-4f23-a636-cb4fbe419414';
 
     const now = new Date();
     const lastYear = String(now.getFullYear() - 1);
@@ -140,11 +140,11 @@ describe('<AddressFormContainer />', () => {
             input: {
               partyId: '911',
               addresses: [
-                {
-                  serviceId: 'GB|1337',
-                  propertyStatus: 'Rented',
-                  startedOn: asDateString,
-                },
+                // {
+                //   serviceId: 'GB|1337',
+                //   propertyStatus: 'Rented',
+                //   startedOn: asDateString,
+                // },
                 {
                   serviceId: 'GB|002',
                   propertyStatus: 'Mortgage',
@@ -159,17 +159,6 @@ describe('<AddressFormContainer />', () => {
           return {
             data: {
               createUpdateAddress: [
-                {
-                  __typename: 'AddressType',
-                  uuid: 'a1e79c5d-4e69-4098-aede-e55ac8394123',
-                  city: '',
-                  lineOne: '',
-                  serviceId: 'GB|1337',
-                  lineTwo: null,
-                  postcode: '',
-                  propertyStatus: 'Rented',
-                  startedOn: asDateString,
-                },
                 {
                   __typename: 'AddressType',
                   uuid: '88924d6c-ddb5-4067-97c4-081dbed0318a',
@@ -213,7 +202,7 @@ describe('<AddressFormContainer />', () => {
   it('should not remove valid address entries when recieving data from the server in the wrong order', async () => {
     // ARRANGE
     let mutationCalled = false;
-    const personUuid = '1337';
+    const personUuid = 'ebdec701-6bc3-4f23-a636-cb4fbe419414';
 
     const now = new Date();
     const lastYear = String(now.getFullYear() - 1);

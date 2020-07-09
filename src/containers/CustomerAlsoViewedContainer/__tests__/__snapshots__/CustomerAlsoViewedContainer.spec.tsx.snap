@@ -26,12 +26,7 @@ exports[`<CustomerAlsoViewedContainer /> renders correctly with data 1`] = `
           className="card"
           data-testid="card"
         >
-          <img
-            alt="img"
-            className="card-image"
-            data-testid="card-image"
-            onError={[Function]}
-          />
+          
           <div
             className="title"
           >
@@ -250,12 +245,7 @@ exports[`<CustomerAlsoViewedContainer /> renders correctly with data 1`] = `
           className="card"
           data-testid="card"
         >
-          <img
-            alt="img"
-            className="card-image"
-            data-testid="card-image"
-            onError={[Function]}
-          />
+          
           <div
             className="title"
           >
@@ -549,12 +539,7 @@ exports[`<CustomerAlsoViewedContainer /> renders correctly with data 1`] = `
           className="card"
           data-testid="card"
         >
-          <img
-            alt="img"
-            className="card-image"
-            data-testid="card-image"
-            onError={[Function]}
-          />
+          
           <div
             className="title"
           >
@@ -848,12 +833,7 @@ exports[`<CustomerAlsoViewedContainer /> renders correctly with data 1`] = `
           className="card"
           data-testid="card"
         >
-          <img
-            alt="img"
-            className="card-image"
-            data-testid="card-image"
-            onError={[Function]}
-          />
+          
           <div
             className="title"
           >
