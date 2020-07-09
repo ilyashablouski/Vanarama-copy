@@ -4,6 +4,7 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import {
   DirectorDetailsPage,
   GET_COMPANY_DIRECTOR_DETAILS,
+  SAVE_DIRECTOR_DETAILS,
 } from '../../../../pages/b2b/olaf/director-details/[companyUuid]';
 import {
   GetCompanyDirectorDetailsQueryVariables,
@@ -14,6 +15,10 @@ import {
   GetDirectorDetailsQuery,
 } from '../../../../../generated/GetDirectorDetailsQuery';
 import { GET_DIRECTOR_DETAILS } from '../../../../components/DirectorDetailsForm/DirectorDetailsForm';
+import {
+  SaveDirectorDetailsMutationVariables,
+  SaveDirectorDetailsMutation,
+} from '../../../../../generated/SaveDirectorDetailsMutation';
 
 const MOCK_COMPANY_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
 const MOCK_COMPANY_NUMBER = '000000000';
@@ -75,9 +80,9 @@ const multiDirectorMock: MockedResponse = {
       },
       companyOfficers: {
         nodes: [
-          { __typename: 'CompanyOfficersDataType', name: 'FORSYTH, Bruce' },
-          { __typename: 'CompanyOfficersDataType', name: 'CHUCKLE, Barry' },
-          { __typename: 'CompanyOfficersDataType', name: 'CHUCKLE, Paul' },
+          { name: 'FORSYTH, Bruce' },
+          { name: 'CHUCKLE, Barry' },
+          { name: 'CHUCKLE, Paul' },
         ],
       },
     } as GetDirectorDetailsQuery,
@@ -112,9 +117,7 @@ const singleDirectorMock: MockedResponse = {
         },
       },
       companyOfficers: {
-        nodes: [
-          { __typename: 'CompanyOfficersDataType', name: 'FORSYTH, Bruce' },
-        ],
+        nodes: [{ name: 'FORSYTH, Bruce' }],
       },
     } as GetDirectorDetailsQuery,
   },
@@ -530,5 +533,122 @@ describe('B2B Director Details page', () => {
         ),
       ).toHaveLength(2),
     );
+  });
+
+  it('should submit valid data to the backend', async () => {
+    const mockMutation = jest.fn();
+    const mocks: MockedResponse[] = [
+      getCompanyMock,
+      // NOTE: This mock is declared twice in this test because it is set to 'no-cache' and is
+      // indeed called twice
+      multiDirectorMock,
+      multiDirectorMock,
+      {
+        request: {
+          query: SAVE_DIRECTOR_DETAILS,
+          variables: {
+            input: {
+              uuid: MOCK_COMPANY_UUID,
+              associates: [
+                {
+                  firstName: 'Barry',
+                  lastName: 'CHUCKLE',
+                  businessShare: 30,
+                  addresses: [
+                    {
+                      serviceId: 'GB|001',
+                      propertyStatus: 'Owned',
+                      startedOn: '2005-01-01',
+                    },
+                  ],
+                  gender: 'Male',
+                  title: 'Mr',
+                  dateOfBirth: '1987-06-01',
+                  role: { position: 'director' },
+                },
+              ],
+            },
+          } as SaveDirectorDetailsMutationVariables,
+        },
+        result: mockMutation.mockImplementation(() => ({
+          data: {
+            createUpdateCompanyDirector: {
+              uuid: MOCK_COMPANY_UUID,
+            },
+          } as SaveDirectorDetailsMutation,
+        })),
+      },
+    ];
+
+    render(
+      <MockedProvider addTypename={false} mocks={mocks}>
+        <DirectorDetailsPage />
+      </MockedProvider>,
+    );
+
+    // Wait for data to load
+    await screen.findByRole('combobox', { name: /Select director/i });
+
+    // Choose a director
+    fireEvent.change(
+      screen.getByRole('combobox', { name: /Select director/i }),
+      { target: { value: 'CHUCKLE, Barry' } },
+    );
+
+    // Wait for form to load
+    await screen.findByRole('combobox', { name: /Title/i });
+
+    // Fill in the rest of the form
+    fireEvent.change(screen.getByRole('combobox', { name: /Title/i }), {
+      target: { value: 'Mr' },
+    });
+
+    fireEvent.change(screen.getByRole('combobox', { name: /Gender/i }), {
+      target: { value: 'Male' },
+    });
+
+    fireEvent.change(screen.getByTestId('directors[0].dayOfBirth'), {
+      target: { value: '1' },
+    });
+
+    fireEvent.change(screen.getByTestId('directors[0].monthOfBirth'), {
+      target: { value: '6' },
+    });
+
+    fireEvent.change(screen.getByTestId('directors[0].yearOfBirth'), {
+      target: { value: '1987' },
+    });
+
+    fireEvent.change(
+      screen.getByRole('combobox', { name: /Number of Dependants/i }),
+      { target: { value: 'One' } },
+    );
+
+    fireEvent.change(
+      screen.getByRole('spinbutton', { name: /% Shareholder of Business/i }),
+      { target: { value: '30' } },
+    );
+
+    fireEvent.change(screen.getByTestId('directors[0].history[0].address'), {
+      target: { value: 'GB|001' },
+    });
+
+    fireEvent.change(
+      screen.getByRole('combobox', { name: /Your Property Status/i }),
+      { target: { value: 'Owned' } },
+    );
+
+    fireEvent.change(screen.getByTestId('directors[0].history[0].month'), {
+      target: { value: '1' },
+    });
+
+    fireEvent.change(screen.getByTestId('directors[0].history[0].year'), {
+      target: { value: '2005' },
+    });
+
+    // Submit the form
+    fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
+
+    await waitFor(() => expect(mockMutation).toHaveBeenCalledTimes(1));
   });
 });
