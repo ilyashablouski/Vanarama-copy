@@ -1,4 +1,5 @@
 import React from 'react';
+// @ts-ignore
 import preloadAll from 'jest-next-dynamic';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor } from '@testing-library/react';
@@ -262,6 +263,9 @@ describe('<HomePage />', () => {
     );
 
     await waitFor(() => {
+      expect(
+        screen.getByText('The Vehicle Leasing Experts'),
+      ).toBeInTheDocument();
       expect(screen.getByText('Why Leasing?')).toBeInTheDocument();
     });
   });

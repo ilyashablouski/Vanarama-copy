@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import Router from 'next/router';
 import Link from 'next/link';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
@@ -138,7 +139,7 @@ export const CarsPage: NextPage = () => {
                   icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
                   label: info?.value || '',
                 }))}
-                imageSrc={item?.imageUrl || ''}
+                imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
                 onCompare={() => true}
                 onWishlist={() => true}
                 title={{
@@ -170,7 +171,9 @@ export const CarsPage: NextPage = () => {
                     color="teal"
                     fill="solid"
                     label="View Offer"
-                    onClick={() => true}
+                    onClick={() =>
+                      Router.push(`/cars/car-details/${item?.capId}`)
+                    }
                     size="regular"
                   />
                 </div>

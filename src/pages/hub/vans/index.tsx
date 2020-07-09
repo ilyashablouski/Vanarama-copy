@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import Router from 'next/router';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import ReactMarkdown from 'react-markdown/with-html';
@@ -22,13 +23,17 @@ import IconList, {
 import Price from '@vanarama/uibook/lib/components/atoms/price';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 
+import { useState } from 'react';
 import {
   HubVanPageData,
   HubVanPageData_hubVanPage_sections_tiles_tiles as TileData,
   HubVanPageData_hubVanPage_sections_cards_cards as CardData,
   HubVanPageData_hubVanPage_sections_steps_steps as StepData,
 } from '../../../../generated/HubVanPageData';
-import { ProductCardData } from '../../../../generated/ProductCardData';
+import {
+  ProductCardData,
+  ProductCardData_productCarousel as ProdCardData,
+} from '../../../../generated/ProductCardData';
 
 import { HUB_VAN_CONTENT } from '../../../gql/hubVanPage';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
@@ -41,14 +46,20 @@ import useSliderProperties from '../../../hooks/useSliderProperties';
 import getIconMap from '../../../utils/getIconMap';
 import truncateString from '../../../utils/truncateString';
 
-const VansPage: NextPage = () => {
-  const { slidesToShow } = useSliderProperties(345, 345, 310);
+export const VansPage: NextPage = () => {
+  const [offer, setOffer] = useState<ProdCardData>();
+  const { slidesToShow } = useSliderProperties();
   const { data, loading, error } = useQuery<HubVanPageData>(HUB_VAN_CONTENT);
-
   const { data: productsVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
       variables: { type: 'LCV', subType: 'VAN', size: 9, offer: true },
+      onCompleted: prods => {
+        const topProduct = prods?.productCarousel?.find(
+          p => p?.isOnOffer === true,
+        );
+        if (topProduct) setOffer(topProduct);
+      },
     },
   );
 
@@ -59,6 +70,7 @@ const VansPage: NextPage = () => {
   if (error) {
     return <p>Error: {error.message}</p>;
   }
+
   return (
     <>
       <Hero>
@@ -93,11 +105,15 @@ const VansPage: NextPage = () => {
       <hr className="-fullwidth" />
       <div className="row:featured-product">
         <DealOfMonth
-          imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg"
-          vehicle="Ford Ranger"
-          specification="Pick Up Double Cab Wildtrak 3.2 EcoBlue 200 Auto"
-          price={180}
-          rating={4.5}
+          imageSrc={
+            offer?.imageUrl ||
+            'https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg'
+          }
+          vehicle={`${offer?.manufacturerName} ${offer?.rangeName}`}
+          specification={offer?.derivativeName || ''}
+          price={offer?.businessRate || 0}
+          rating={offer?.averageRating || 3}
+          capIdPath={`/vans/van-details/${offer?.capId}`}
         />
       </div>
       <div className="row:bg-lighter">
@@ -133,7 +149,7 @@ const VansPage: NextPage = () => {
                     icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
                     label: info?.value || '',
                   }))}
-                  imageSrc={item?.imageUrl || ''}
+                  imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
                   onCompare={() => true}
                   onWishlist={() => true}
                   title={{
@@ -165,7 +181,9 @@ const VansPage: NextPage = () => {
                       color="teal"
                       fill="solid"
                       label="View Offer"
-                      onClick={() => true}
+                      onClick={() =>
+                        Router.push(`/vans/van-details/${offer?.capId}`)
+                      }
                       size="regular"
                     />
                   </div>
@@ -211,7 +229,7 @@ const VansPage: NextPage = () => {
                     icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
                     label: info?.value || '',
                   }))}
-                  imageSrc={item?.imageUrl || ''}
+                  imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
                   onCompare={() => true}
                   onWishlist={() => true}
                   title={{
@@ -243,7 +261,9 @@ const VansPage: NextPage = () => {
                       color="teal"
                       fill="solid"
                       label="View Offer"
-                      onClick={() => true}
+                      onClick={() =>
+                        Router.push(`/vans/van-details/${offer?.capId}`)
+                      }
                       size="regular"
                     />
                   </div>
@@ -289,7 +309,7 @@ const VansPage: NextPage = () => {
                     icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
                     label: info?.value || '',
                   }))}
-                  imageSrc={item?.imageUrl || ''}
+                  imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
                   onCompare={() => true}
                   onWishlist={() => true}
                   title={{
@@ -321,7 +341,9 @@ const VansPage: NextPage = () => {
                       color="teal"
                       fill="solid"
                       label="View Offer"
-                      onClick={() => true}
+                      onClick={() =>
+                        Router.push(`/vans/van-details/${offer?.capId}`)
+                      }
                       size="regular"
                     />
                   </div>

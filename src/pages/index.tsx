@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
 import { useState } from 'react';
+import Router from 'next/router';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import ReactMarkdown from 'react-markdown/with-html';
@@ -44,7 +45,7 @@ import truncateString from '../utils/truncateString';
 
 export const HomePage: NextPage = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const { slidesToShow } = useSliderProperties(345, 345, 310);
+  const { slidesToShow } = useSliderProperties();
 
   const { data, loading, error } = useQuery<HomePageData>(ALL_HOME_CONTENT);
 
@@ -144,7 +145,7 @@ export const HomePage: NextPage = () => {
                           icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
                           label: info?.value || '',
                         }))}
-                        imageSrc={item?.imageUrl || ''}
+                        imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
                         onCompare={() => true}
                         onWishlist={() => true}
                         title={{
@@ -176,7 +177,9 @@ export const HomePage: NextPage = () => {
                             color="teal"
                             fill="solid"
                             label="View Offer"
-                            onClick={() => true}
+                            onClick={() =>
+                              Router.push(`/vans/van-details/${item?.capId}`)
+                            }
                             size="regular"
                           />
                         </div>
@@ -214,7 +217,7 @@ export const HomePage: NextPage = () => {
                           icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
                           label: info?.value || '',
                         }))}
-                        imageSrc={item?.imageUrl || ''}
+                        imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
                         onCompare={() => true}
                         onWishlist={() => true}
                         title={{
@@ -246,7 +249,11 @@ export const HomePage: NextPage = () => {
                             color="teal"
                             fill="solid"
                             label="View Offer"
-                            onClick={() => true}
+                            onClick={() =>
+                              Router.push(
+                                `/pickups/pickup-details/${item?.capId}`,
+                              )
+                            }
                             size="regular"
                           />
                         </div>
@@ -284,7 +291,7 @@ export const HomePage: NextPage = () => {
                           icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
                           label: info?.value || '',
                         }))}
-                        imageSrc={item?.imageUrl || ''}
+                        imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
                         onCompare={() => true}
                         onWishlist={() => true}
                         title={{
@@ -316,7 +323,9 @@ export const HomePage: NextPage = () => {
                             color="teal"
                             fill="solid"
                             label="View Offer"
-                            onClick={() => true}
+                            onClick={() =>
+                              Router.push(`/cars/car-details/${item?.capId}`)
+                            }
                             size="regular"
                           />
                         </div>

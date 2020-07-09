@@ -1,12 +1,13 @@
 import React from 'react';
+// @ts-ignore
 import preloadAll from 'jest-next-dynamic';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor } from '@testing-library/react';
-import { HomePageData } from '../../../../generated/HomePageData';
-import { ALL_HOME_CONTENT } from '../../../gql/homepage';
+import { HubCarPageData } from '../../../../generated/HubCarPageData';
+import { HUB_CAR_CONTENT } from '../../../gql/hubCarPage';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
-import { HomePage } from '../../../pages';
+import { CarsPage } from '../../../pages/hub/cars';
 import { mockSearchPodResponse } from '../../../../__mocks__/searchpod';
 import { ProductCardData } from '../../../../generated/ProductCardData';
 
@@ -18,55 +19,66 @@ jest.mock('../../../containers/SearchPodContainer', () => () => {
   return <div />;
 });
 
-describe('<HomePage />', () => {
-  it('should successfully query all homepage data', async () => {
+describe('<CarPage />', () => {
+  it('should successfully query all hub CarsPage data', async () => {
     const mocked: MockedResponse[] = [
       {
         request: {
-          query: ALL_HOME_CONTENT,
+          query: HUB_CAR_CONTENT,
         },
         result: {
           data: {
-            homePage: {
-              id: '42LjdTY9hSi2YdVi4aEsuO',
+            hubCarPage: {
+              id: '6lae4EttQxsYLqZpTIh2kS',
               sections: {
                 hero: {
-                  title: 'The Vehicle Leasing Experts',
+                  title: 'Best Car Lease Deals',
                   body:
                     'Brand New Cars, In Stock Delivered Fast and Free __From Just £115pm__',
                   image: null,
                 },
                 leadText: {
-                  heading: 'Large Sales Heading!',
+                  heading: 'Large Sales Heading',
                   description:
-                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio aspernatur fugiat. Lorem ipsum dolor sit amet consectetur adipisicing elit.',
-                },
-                cards: {
-                  name: 'Product Categories',
-                  cards: [
-                    {
-                      title: null,
-                      body: null,
-                      image: {
-                        file: {
-                          url:
-                            '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
-                        },
-                      },
-                      link: {
-                        url: '#',
-                        text: 'Search Vans',
-                      },
-                    },
-                  ],
+                    'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio aspernatur fugiat.',
                 },
                 featured1: {
-                  title: 'Why Leasing?',
-                  body: "If you're looking to drive a brand new car..",
+                  title: 'Car Leasing with Vanarama?',
+                  body:
+                    'Leasing your brand new car with Vanarama means you can drive the car of your dreams at a price you can afford',
+                  image: null,
                 },
                 featured2: {
-                  title: 'What Makes Us The Lease Experts?',
-                  body: 'Vanarama is more than just..',
+                  title: 'How Does Car Leasing Work?',
+                  body:
+                    'Personal car leasing works very much like renting, but for a longer time period.',
+                  image: null,
+                },
+                steps: {
+                  heading:
+                    'Leasing - The Simple Way To Get Your Brand New Vehicle',
+                  steps: [
+                    {
+                      title: 'Check',
+                      body:
+                        'See if you’re eligible to lease without affecting your credit score by using our quick & easy Eligibility Checker.',
+                    },
+                    {
+                      title: 'Choose',
+                      body:
+                        'Get the car you want from our range of manufacturers - from something sporty to something for all the family.',
+                    },
+                    {
+                      title: 'Apply',
+                      body:
+                        "To lease your new car, we'll just need a few details to apply for finance from one of our funding partners.",
+                    },
+                    {
+                      title: 'Drive',
+                      body:
+                        'And that’s it - once you’ve been approved, your brand new car will be delivered direct to your door.',
+                    },
+                  ],
                 },
                 tiles: {
                   name: 'Tiles',
@@ -77,11 +89,29 @@ describe('<HomePage />', () => {
                         'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
                       image: null,
                     },
+                    {
+                      title: 'Customer Reviews',
+                      body:
+                        'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
+                      image: null,
+                    },
+                    {
+                      title: 'Quote Online',
+                      body:
+                        'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
+                      image: null,
+                    },
+                    {
+                      title: 'Confused About Leasing?',
+                      body:
+                        'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
+                      image: null,
+                    },
                   ],
                 },
               },
             },
-          } as HomePageData,
+          } as HubCarPageData,
         },
       },
       {
@@ -96,57 +126,6 @@ describe('<HomePage />', () => {
             data: {
               ...mockSearchPodResponse,
             },
-          };
-        },
-      },
-      {
-        request: {
-          query: PRODUCT_CARD_CONTENT,
-          variables: {
-            type: 'LCV',
-            subType: 'VAN',
-            size: 9,
-            offer: true,
-          },
-        },
-        result: () => {
-          return {
-            data: {
-              productCarousel: [
-                {
-                  capId: '44514',
-                  isOnOffer: true,
-                  manufacturerName: 'Citroen',
-                  derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
-                  rangeName: 'Berlingo',
-                  imageUrl:
-                    'https://images.autorama.co.uk/Photos/Cap/Vehicles/161237/cap-44514-161237.jpg',
-                  leadTime: 'Factory Order',
-                  averageRating: 4.7,
-                  businessRate: 139,
-                  personalRate: 186.98,
-                  offerPosition: null,
-                  keyInformation: [
-                    {
-                      name: 'Transmission',
-                      value: 'Manual',
-                    },
-                    {
-                      name: 'Fuel Type',
-                      value: 'Diesel',
-                    },
-                    {
-                      name: 'Emissions',
-                      value: '111',
-                    },
-                    {
-                      name: 'Fuel Economy',
-                      value: '67.2',
-                    },
-                  ],
-                },
-              ],
-            } as ProductCardData,
           };
         },
       },
@@ -200,69 +179,20 @@ describe('<HomePage />', () => {
           };
         },
       },
-      {
-        request: {
-          query: PRODUCT_CARD_CONTENT,
-          variables: {
-            type: 'LCV',
-            subType: 'PICKUP',
-            size: 9,
-            offer: true,
-          },
-        },
-        result: () => {
-          return {
-            data: {
-              productCarousel: [
-                {
-                  capId: '44514',
-                  isOnOffer: true,
-                  manufacturerName: 'Citroen',
-                  derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
-                  rangeName: 'Berlingo',
-                  imageUrl:
-                    'https://images.autorama.co.uk/Photos/Cap/Vehicles/161237/cap-44514-161237.jpg',
-                  leadTime: 'Factory Order',
-                  averageRating: 4.7,
-                  businessRate: 139,
-                  personalRate: 186.98,
-                  offerPosition: null,
-                  keyInformation: [
-                    {
-                      name: 'Transmission',
-                      value: 'Manual',
-                    },
-                    {
-                      name: 'Fuel Type',
-                      value: 'Diesel',
-                    },
-                    {
-                      name: 'Emissions',
-                      value: '111',
-                    },
-                    {
-                      name: 'Fuel Economy',
-                      value: '67.2',
-                    },
-                  ],
-                },
-              ],
-            } as ProductCardData,
-          };
-        },
-      },
     ];
 
     await preloadAll();
 
     render(
       <MockedProvider addTypename={false} mocks={mocked}>
-        <HomePage />
+        <CarsPage />
       </MockedProvider>,
     );
 
     await waitFor(() => {
-      expect(screen.getByText('Why Leasing?')).toBeInTheDocument();
+      expect(
+        screen.getByText('Car Leasing with Vanarama?'),
+      ).toBeInTheDocument();
     });
   });
 });

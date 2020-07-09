@@ -1,5 +1,7 @@
 import { NextPage } from 'next';
+import Router from 'next/router';
 import { useQuery } from '@apollo/client';
+import { useState } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
 import ReactMarkdown from 'react-markdown/with-html';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
@@ -26,7 +28,10 @@ import {
   HubPickupPageData_hubPickupPage_sections_steps_steps as StepData,
   HubPickupPageData_hubPickupPage_sections_accessories_accessories as AccessoryData,
 } from '../../../../generated/HubPickupPageData';
-import { ProductCardData } from '../../../../generated/ProductCardData';
+import {
+  ProductCardData,
+  ProductCardData_productCarousel as ProdData,
+} from '../../../../generated/ProductCardData';
 import { HUB_PICKUP_CONTENT } from '../../../gql/hubPickupPage';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import withApollo from '../../../hocs/withApollo';
@@ -38,12 +43,19 @@ import getIconMap from '../../../utils/getIconMap';
 import truncateString from '../../../utils/truncateString';
 
 export const PickupsPage: NextPage = () => {
+  const [offer, setOffer] = useState<ProdData>();
   const { data, loading, error } = useQuery<HubPickupPageData>(
     HUB_PICKUP_CONTENT,
   );
 
   const { data: products } = useQuery<ProductCardData>(PRODUCT_CARD_CONTENT, {
     variables: { type: 'LCV', subType: 'PICKUP', size: 9, offer: true },
+    onCompleted: prods => {
+      const topProduct = prods?.productCarousel?.find(
+        p => p?.isOnOffer === true,
+      );
+      if (topProduct) setOffer(topProduct);
+    },
   });
 
   if (loading) {
@@ -84,11 +96,15 @@ export const PickupsPage: NextPage = () => {
 
       <div className="row:featured-product">
         <DealOfMonth
-          imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg"
-          vehicle="Ford Ranger"
-          specification="Pick Up Double Cab Wildtrak 3.2 EcoBlue 200 Auto"
-          price={180}
-          rating={4.5}
+          imageSrc={
+            offer?.imageUrl ||
+            'https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg'
+          }
+          vehicle={`${offer?.manufacturerName} ${offer?.rangeName}`}
+          specification={offer?.derivativeName || ''}
+          price={offer?.businessRate || 0}
+          rating={offer?.averageRating || 3}
+          capIdPath={`/pickups/pickup-details/${offer?.capId}`}
         />
       </div>
 
@@ -108,7 +124,7 @@ export const PickupsPage: NextPage = () => {
                   icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
                   label: info?.value || '',
                 }))}
-                imageSrc={item?.imageUrl || ''}
+                imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
                 onCompare={() => true}
                 onWishlist={() => true}
                 title={{
@@ -140,7 +156,9 @@ export const PickupsPage: NextPage = () => {
                     color="teal"
                     fill="solid"
                     label="View Offer"
-                    onClick={() => true}
+                    onClick={() =>
+                      Router.push(`/pickups/pickup-details/${item?.capId}`)
+                    }
                     size="regular"
                   />
                 </div>

@@ -1,12 +1,13 @@
 import React from 'react';
+// @ts-ignore
 import preloadAll from 'jest-next-dynamic';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor } from '@testing-library/react';
-import { HomePageData } from '../../../../generated/HomePageData';
-import { ALL_HOME_CONTENT } from '../../../gql/homepage';
+import { HubPickupPageData } from '../../../../generated/HubPickupPageData';
+import { HUB_PICKUP_CONTENT } from '../../../gql/hubPickupPage';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
-import { HomePage } from '../../../pages';
+import { PickupsPage } from '../../../pages/hub/pickups';
 import { mockSearchPodResponse } from '../../../../__mocks__/searchpod';
 import { ProductCardData } from '../../../../generated/ProductCardData';
 
@@ -18,55 +19,101 @@ jest.mock('../../../containers/SearchPodContainer', () => () => {
   return <div />;
 });
 
-describe('<HomePage />', () => {
-  it('should successfully query all homepage data', async () => {
+describe('<PickupsPage />', () => {
+  it('should successfully query all hub PickupsPage data', async () => {
     const mocked: MockedResponse[] = [
       {
         request: {
-          query: ALL_HOME_CONTENT,
+          query: HUB_PICKUP_CONTENT,
         },
         result: {
           data: {
-            homePage: {
-              id: '42LjdTY9hSi2YdVi4aEsuO',
+            hubPickupPage: {
+              id: '52KVGyEpzhiH8tqLIEK5Tz',
               sections: {
                 hero: {
-                  title: 'The Vehicle Leasing Experts',
+                  title: 'Pickup Truck Leasing Deals',
                   body:
-                    'Brand New Cars, In Stock Delivered Fast and Free __From Just £115pm__',
+                    'Brand New Pickups, In Stock Delivered Fast And Free __From Just £195pm__',
                   image: null,
                 },
                 leadText: {
-                  heading: 'Large Sales Heading!',
+                  heading: 'Large Sales Heading',
                   description:
                     'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio aspernatur fugiat. Lorem ipsum dolor sit amet consectetur adipisicing elit.',
                 },
-                cards: {
-                  name: 'Product Categories',
-                  cards: [
+                featured1: {
+                  title: 'Pickup Truck Leasing Deals UK',
+                  body:
+                    "If you're looking to drive a brand new car, van or truck without any of the hassle",
+                  image: null,
+                },
+                featured2: {
+                  title: 'Why Choose Vanarama For Your Pickup?',
+                  body:
+                    'Vanarama is more than just a broker or leasing company,',
+                  image: null,
+                },
+                rowText: {
+                  heading: 'Not Sure How Pickup Leasing Works?',
+                  subHeading:
+                    'Everything you need to know is a click away in our easy to understand guide',
+                  body: 'Leasing a pickup is really simple.',
+                },
+                steps: {
+                  heading:
+                    'Leasing - The Simple Way To Get Your Brand New Vehicle',
+                  steps: [
                     {
-                      title: null,
-                      body: null,
-                      image: {
-                        file: {
-                          url:
-                            '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
-                        },
-                      },
-                      link: {
-                        url: '#',
-                        text: 'Search Vans',
-                      },
+                      title: 'Check',
+                      body:
+                        'See if you’re eligible to lease without affecting your credit score by using our quick & easy Eligibility Checker.',
+                    },
+                    {
+                      title: 'Choose',
+                      body:
+                        'Get the car you want from our range of manufacturers - from something sporty to something for all the family.',
+                    },
+                    {
+                      title: 'Apply',
+                      body:
+                        "To lease your new car, we'll just need a few details to apply for finance from one of our funding partners.",
+                    },
+                    {
+                      title: 'Drive',
+                      body:
+                        'And that’s it - once you’ve been approved, your brand new car will be delivered direct to your door.',
                     },
                   ],
                 },
-                featured1: {
-                  title: 'Why Leasing?',
-                  body: "If you're looking to drive a brand new car..",
-                },
-                featured2: {
-                  title: 'What Makes Us The Lease Experts?',
-                  body: 'Vanarama is more than just..',
+                accessories: {
+                  name: 'Wide Range of Optional Accessories',
+                  accessories: [
+                    {
+                      title: 'Hardtops',
+                      body:
+                        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas mollitia, ut deleniti consequuntur ad beatae perferendis.',
+                      image: null,
+                    },
+                    {
+                      title: 'Bed Liners',
+                      body:
+                        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas mollitia, ut deleniti consequuntur ad beatae perferendis.',
+                      image: null,
+                    },
+                    {
+                      title: 'Storage Systems',
+                      body:
+                        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas mollitia, ut deleniti consequuntur ad beatae perferendis.',
+                      image: null,
+                    },
+                    {
+                      title: 'Roller Covers',
+                      body:
+                        'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas mollitia, ut deleniti consequuntur ad beatae perferendis.',
+                      image: null,
+                    },
+                  ],
                 },
                 tiles: {
                   name: 'Tiles',
@@ -77,11 +124,29 @@ describe('<HomePage />', () => {
                         'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
                       image: null,
                     },
+                    {
+                      title: 'Customer Reviews',
+                      body:
+                        'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
+                      image: null,
+                    },
+                    {
+                      title: 'Quote Online',
+                      body:
+                        'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
+                      image: null,
+                    },
+                    {
+                      title: 'Confused About Leasing?',
+                      body:
+                        'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
+                      image: null,
+                    },
                   ],
                 },
               },
             },
-          } as HomePageData,
+          } as HubPickupPageData,
         },
       },
       {
@@ -96,107 +161,6 @@ describe('<HomePage />', () => {
             data: {
               ...mockSearchPodResponse,
             },
-          };
-        },
-      },
-      {
-        request: {
-          query: PRODUCT_CARD_CONTENT,
-          variables: {
-            type: 'LCV',
-            subType: 'VAN',
-            size: 9,
-            offer: true,
-          },
-        },
-        result: () => {
-          return {
-            data: {
-              productCarousel: [
-                {
-                  capId: '44514',
-                  isOnOffer: true,
-                  manufacturerName: 'Citroen',
-                  derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
-                  rangeName: 'Berlingo',
-                  imageUrl:
-                    'https://images.autorama.co.uk/Photos/Cap/Vehicles/161237/cap-44514-161237.jpg',
-                  leadTime: 'Factory Order',
-                  averageRating: 4.7,
-                  businessRate: 139,
-                  personalRate: 186.98,
-                  offerPosition: null,
-                  keyInformation: [
-                    {
-                      name: 'Transmission',
-                      value: 'Manual',
-                    },
-                    {
-                      name: 'Fuel Type',
-                      value: 'Diesel',
-                    },
-                    {
-                      name: 'Emissions',
-                      value: '111',
-                    },
-                    {
-                      name: 'Fuel Economy',
-                      value: '67.2',
-                    },
-                  ],
-                },
-              ],
-            } as ProductCardData,
-          };
-        },
-      },
-      {
-        request: {
-          query: PRODUCT_CARD_CONTENT,
-          variables: {
-            type: 'CAR',
-            offer: true,
-            size: 9,
-          },
-        },
-        result: () => {
-          return {
-            data: {
-              productCarousel: [
-                {
-                  capId: '83615',
-                  isOnOffer: true,
-                  manufacturerName: 'Ford',
-                  derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
-                  rangeName: 'Focus',
-                  imageUrl:
-                    'https://images.autorama.co.uk/Photos/Vehicles/155485/im_3411.jpg',
-                  leadTime: '14-21 Day Delivery',
-                  averageRating: 4.8,
-                  businessRate: 175.96,
-                  personalRate: 210.96,
-                  offerPosition: 1,
-                  keyInformation: [
-                    {
-                      name: 'Transmission',
-                      value: 'Manual',
-                    },
-                    {
-                      name: 'Fuel Type',
-                      value: 'Petrol',
-                    },
-                    {
-                      name: 'Emissions',
-                      value: '97',
-                    },
-                    {
-                      name: 'Fuel Economy',
-                      value: '67.3',
-                    },
-                  ],
-                },
-              ],
-            } as ProductCardData,
           };
         },
       },
@@ -257,12 +221,14 @@ describe('<HomePage />', () => {
 
     render(
       <MockedProvider addTypename={false} mocks={mocked}>
-        <HomePage />
+        <PickupsPage />
       </MockedProvider>,
     );
 
     await waitFor(() => {
-      expect(screen.getByText('Why Leasing?')).toBeInTheDocument();
+      expect(
+        screen.getByText('Why Choose Vanarama For Your Pickup?'),
+      ).toBeInTheDocument();
     });
   });
 });
