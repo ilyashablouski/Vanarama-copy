@@ -103,6 +103,21 @@ export interface GetVehicleDetails_leaseAdjustParams {
   upfronts: number[];
 }
 
+export interface GetVehicleDetails_vehicleImages_colourImages {
+  colourName: string | null;
+  imageUrls: (string | null)[] | null;
+}
+
+export interface GetVehicleDetails_vehicleImages {
+  vehicleType: VehicleTypeEnum | null;
+  capId: number | null;
+  mainImageUrl: string | null;
+  imageUrls: (string | null)[] | null;
+  colourImages: (GetVehicleDetails_vehicleImages_colourImages | null)[] | null;
+  videoUrl: string | null;
+  threeSixtyVideoUrl: string | null;
+}
+
 export interface GetVehicleDetails {
   /**
    * Find vehicle configuration by cap id
@@ -114,6 +129,7 @@ export interface GetVehicleDetails {
    * Retrieve all params for lease adjust
    */
   leaseAdjustParams: GetVehicleDetails_leaseAdjustParams | null;
+  vehicleImages: (GetVehicleDetails_vehicleImages | null)[] | null;
 }
 
 export interface GetVehicleDetailsVariables {
