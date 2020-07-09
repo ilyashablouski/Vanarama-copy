@@ -1,13 +1,13 @@
 import { useMutation, useQuery, gql } from '@apollo/client';
-
 import {
-  CreateUpdatePersonMutation as Mutation,
-  CreateUpdatePersonMutationVariables as MutationVariables,
+  CreateUpdatePersonMutation,
+  CreateUpdatePersonMutationVariables,
 } from '../../../generated/CreateUpdatePersonMutation';
 import {
   GetAboutYouDataQuery,
   GetAboutYouDataQueryVariables,
 } from '../../../generated/GetAboutYouDataQuery';
+import { AboutFormDropdownData } from '../../../generated/AboutFormDropdownData';
 import AboutForm from '../../components/AboutForm';
 
 export const CREATE_UPDATE_PERSON = gql`
@@ -20,17 +20,28 @@ export const CREATE_UPDATE_PERSON = gql`
 `;
 
 export const GET_ABOUT_YOU_DATA = gql`
-  query GetAboutYouDataQuery($uuid: ID!, $includePerson: Boolean!) {
-    allDropDowns {
-      ...AboutFormDropdownData
-    }
-    personByUuid(uuid: $uuid) @include(if: $includePerson) {
+  query GetAboutYouDataQuery($uuid: ID!) {
+    personByUuid(uuid: $uuid) {
       ...AboutFormPerson
     }
   }
-  ${AboutForm.fragments.dropdownData}
   ${AboutForm.fragments.person}
 `;
+
+export const GET_ABOUT_YOU_PAGE_DATA = gql`
+  query GetAboutYouPageQuery {
+    allDropDowns {
+      ...AboutFormDropdownData
+    }
+  }
+  ${AboutForm.fragments.dropdownData}
+`;
+
+export function useAboutPageDataQuery() {
+  return useQuery<AboutFormDropdownData>(GET_ABOUT_YOU_PAGE_DATA, {
+    fetchPolicy: 'no-cache',
+  });
+}
 
 export function useAboutYouData(personByUuid?: string) {
   return useQuery<GetAboutYouDataQuery, GetAboutYouDataQueryVariables>(
@@ -42,15 +53,19 @@ export function useAboutYouData(personByUuid?: string) {
          * as it will be excluded from the query anyway
          */
         uuid: personByUuid || '🐔',
-        includePerson: Boolean(personByUuid),
       },
       fetchPolicy: 'no-cache',
     },
   );
 }
 
-export function useCreatePerson(onCompleted: (data: Mutation) => void) {
-  return useMutation<Mutation, MutationVariables>(CREATE_UPDATE_PERSON, {
+export function useCreatePerson(
+  onCompleted: (data: CreateUpdatePersonMutation) => void,
+) {
+  return useMutation<
+    CreateUpdatePersonMutation,
+    CreateUpdatePersonMutationVariables
+  >(CREATE_UPDATE_PERSON, {
     onCompleted,
   });
 }

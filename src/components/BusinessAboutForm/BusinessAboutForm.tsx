@@ -8,29 +8,29 @@ import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import React from 'react';
-import { OnSubmit, useForm } from 'react-hook-form';
-import { BusinessAboutFormDropDownData } from '../../../generated/BusinessAboutFormDropDownData';
+import { useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { EMAIL_REGEX, WORLDWIDE_MOBILE_REGEX } from '../../utils/regex';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
-import { IBusinessAboutFormValues } from './interfaces';
-
-interface IProps {
-  dropDownData: BusinessAboutFormDropDownData;
-  onSubmit: OnSubmit<IBusinessAboutFormValues>;
-}
+import { IBusinessAboutFormValues, IProps } from './interfaces';
+import { responseToInitialFormValues } from '../AboutForm/mappers';
+import {
+  mapEmailErrorMessage,
+  EMAIL_ALREADY_EXISTS,
+} from '../AboutForm/mapEmailErrorMessage';
 
 const BusinessAboutForm: FCWithFragments<IProps> = ({
   dropDownData,
   onSubmit,
+  person,
+  onEmailExistenceCheck,
+  onLogInCLick,
 }) => {
   const { formState, handleSubmit, errors, register } = useForm<
     IBusinessAboutFormValues
   >({
+    defaultValues: responseToInitialFormValues(person),
     mode: 'onBlur',
-    defaultValues: {
-      telephone: '',
-    },
   });
 
   return (
@@ -141,7 +141,10 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
         controlId="email"
         hint="Please provide your email address"
         label="Email Address"
-        error={errors.email?.message?.toString()}
+        error={mapEmailErrorMessage(
+          onLogInCLick,
+          errors.email?.message?.toString(),
+        )}
       >
         <TextInput
           id="email"
@@ -158,6 +161,10 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
               message:
                 'Oops, this email is too long. Please keep it to 254 characters',
             },
+            validate: async email =>
+              (await onEmailExistenceCheck?.(email))
+                ? EMAIL_ALREADY_EXISTS
+                : undefined,
           })}
         />
       </Formgroup>

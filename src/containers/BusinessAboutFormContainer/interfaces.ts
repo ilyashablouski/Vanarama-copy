@@ -4,4 +4,6 @@ import { SaveBusinessAboutYou } from '../../../generated/SaveBusinessAboutYou';
 export interface IBusinessAboutFormContainerProps {
   onCompleted?: (data: SaveBusinessAboutYou) => void;
   onError?: (error: ApolloError) => void;
+  personUuid?: string;
+  onLogInCLick?: () => void;
 }
