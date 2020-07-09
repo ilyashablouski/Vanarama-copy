@@ -10,4 +10,5 @@
 export interface GetOrderInformation {
   selectedOrderUuid: string | null;
   selectedDerivativeId: string | null;
+  selectedVehicleType: string | null;
 }

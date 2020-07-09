@@ -16,7 +16,7 @@ describe('<VehicleCard />', () => {
         description: 'test',
         score: 4.5,
       },
-      price: null,
+      isPersonalPrice: true,
       data: {
         averageRating: 0,
         businessRate: 138.91,

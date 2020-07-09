@@ -1,39 +1,22 @@
+import { FormikErrors } from 'formik';
 import * as Yup from 'yup';
-import { useFormikContext, FormikErrors } from 'formik';
-import { useCallback, useEffect } from 'react';
-import { DirectorFormValues, DirectorDetailsFormValues } from './interfaces';
-import { checkFuture } from '../../utils/validation';
-import { DirectorFieldsOfficer } from '../../../generated/DirectorFieldsOfficer';
+import { GetDirectorDetailsQuery_companyOfficers_nodes as DirectorFieldsOfficer } from '../../../generated/GetDirectorDetailsQuery';
 import { sum } from '../../utils/array';
+import { checkFuture } from '../../utils/validation';
+import { DirectorDetailsFormValues, DirectorFormValues } from './interfaces';
 
-export const initialValues: DirectorDetailsFormValues = {
-  totalPercentage: 0,
-  directors: [
-    {
-      fullname: '',
-      title: '',
-      firstName: '',
-      lastName: '',
-      gender: '',
-      shareOfBusiness: '',
-      dayOfBirth: '',
-      monthOfBirth: '',
-      yearOfBirth: '',
-      numberOfDependants: '',
-      history: [],
-    },
-  ],
-};
-
-export const initialValuesWithSingleDirector = (
-  director: DirectorFieldsOfficer,
+export const initialFormValues = (
+  directors: DirectorFieldsOfficer[],
 ): DirectorDetailsFormValues => {
-  const [lastName, firstName] = director.name.split(', ');
+  if (directors.length > 1) {
+    return { totalPercentage: 0, directors: [] };
+  }
+
+  const [lastName, firstName] = directors[0].name.split(', ');
   return {
     totalPercentage: 0,
     directors: [
       {
-        fullname: '',
         title: '',
         firstName,
         lastName,
@@ -52,10 +35,16 @@ export const initialValuesWithSingleDirector = (
 export const validate = (
   values: DirectorDetailsFormValues,
 ): FormikErrors<DirectorDetailsFormValues> => {
+  const errors: FormikErrors<DirectorDetailsFormValues> = {};
+
   const totalPercentage = sum(values.directors, _ => Number(_.shareOfBusiness));
-  return {
-    totalPercentage: totalPercentage < 25 ? 'Too low baby!' : undefined,
-  };
+  if (totalPercentage < 25) {
+    errors.totalPercentage = 'TOO_LOW';
+  } else if (totalPercentage > 100) {
+    errors.totalPercentage = 'TOO_HIGH';
+  }
+
+  return errors;
 };
 
 export const validationSchema = Yup.object().shape({
@@ -106,20 +95,4 @@ export const validationSchema = Yup.object().shape({
 
 export function createKeyGenerator(index: number) {
   return (field: keyof DirectorFormValues) => `directors[${index}].${field}`;
-}
-
-export function usePrepopulateName(
-  selectedDirectorFullname: string,
-  index: number,
-) {
-  const { setFieldValue } = useFormikContext<DirectorDetailsFormValues>();
-  const generateFieldKey = useCallback(createKeyGenerator(index), [index]);
-
-  useEffect(() => {
-    if (selectedDirectorFullname) {
-      const [lastName, firstName] = selectedDirectorFullname.split(', ');
-      setFieldValue(generateFieldKey('firstName'), firstName);
-      setFieldValue(generateFieldKey('lastName'), lastName);
-    }
-  }, [selectedDirectorFullname, generateFieldKey, setFieldValue]);
 }

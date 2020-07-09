@@ -4,6 +4,7 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import {
   DirectorDetailsPage,
   GET_COMPANY_DIRECTOR_DETAILS,
+  SAVE_DIRECTOR_DETAILS,
 } from '../../../../pages/b2b/olaf/director-details/[companyUuid]';
 import {
   GetCompanyDirectorDetailsQueryVariables,
@@ -14,6 +15,10 @@ import {
   GetDirectorDetailsQuery,
 } from '../../../../../generated/GetDirectorDetailsQuery';
 import { GET_DIRECTOR_DETAILS } from '../../../../components/DirectorDetailsForm/DirectorDetailsForm';
+import {
+  SaveDirectorDetailsMutationVariables,
+  SaveDirectorDetailsMutation,
+} from '../../../../../generated/SaveDirectorDetailsMutation';
 
 const MOCK_COMPANY_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
 const MOCK_COMPANY_NUMBER = '000000000';
@@ -75,9 +80,9 @@ const multiDirectorMock: MockedResponse = {
       },
       companyOfficers: {
         nodes: [
-          { __typename: 'CompanyOfficersDataType', name: 'FORSYTH, Bruce' },
-          { __typename: 'CompanyOfficersDataType', name: 'CHUCKLE, Barry' },
-          { __typename: 'CompanyOfficersDataType', name: 'CHUCKLE, Paul' },
+          { name: 'FORSYTH, Bruce' },
+          { name: 'CHUCKLE, Barry' },
+          { name: 'CHUCKLE, Paul' },
         ],
       },
     } as GetDirectorDetailsQuery,
@@ -112,9 +117,7 @@ const singleDirectorMock: MockedResponse = {
         },
       },
       companyOfficers: {
-        nodes: [
-          { __typename: 'CompanyOfficersDataType', name: 'FORSYTH, Bruce' },
-        ],
+        nodes: [{ name: 'FORSYTH, Bruce' }],
       },
     } as GetDirectorDetailsQuery,
   },
@@ -130,7 +133,7 @@ describe('B2B Director Details page', () => {
     );
 
     // Wait for the data to load
-    await screen.findByRole('combobox', { name: /Select director 1/i });
+    await screen.findByRole('combobox', { name: /Select director/i });
 
     expect(
       screen.getByRole('option', { name: /FORSYTH, Bruce/i }),
@@ -154,7 +157,7 @@ describe('B2B Director Details page', () => {
     );
 
     // Wait for dropdown to be on the page
-    await screen.findByRole('combobox', { name: /Select director 1/i });
+    await screen.findByRole('combobox', { name: /Select director/i });
 
     // Ensure that the fields are not shown until selecting a director
     expect(
@@ -163,7 +166,7 @@ describe('B2B Director Details page', () => {
 
     // Choose a director
     fireEvent.change(
-      screen.getByRole('combobox', { name: /Select director 1/i }),
+      screen.getByRole('combobox', { name: /Select director/i }),
       { target: { value: 'CHUCKLE, Barry' } },
     );
 
@@ -191,7 +194,7 @@ describe('B2B Director Details page', () => {
     await screen.findByRole('textbox', { name: /First Name/i });
 
     expect(
-      screen.queryByRole('combobox', { name: /Select director 1/i }),
+      screen.queryByRole('combobox', { name: /Select director/i }),
     ).not.toBeInTheDocument();
 
     // Should be pre-filled
@@ -213,11 +216,11 @@ describe('B2B Director Details page', () => {
     );
 
     // Wait for data to load
-    await screen.findByRole('combobox', { name: /Select director 1/i });
+    await screen.findByRole('combobox', { name: /Select director/i });
 
     // Choose a director
     fireEvent.change(
-      screen.getByRole('combobox', { name: /Select director 1/i }),
+      screen.getByRole('combobox', { name: /Select director/i }),
       { target: { value: 'CHUCKLE, Barry' } },
     );
 
@@ -257,11 +260,11 @@ describe('B2B Director Details page', () => {
     );
 
     // Wait for data to load
-    await screen.findByRole('combobox', { name: /Select director 1/i });
+    await screen.findByRole('combobox', { name: /Select director/i });
 
     // Choose a director
     fireEvent.change(
-      screen.getByRole('combobox', { name: /Select director 1/i }),
+      screen.getByRole('combobox', { name: /Select director/i }),
       { target: { value: 'CHUCKLE, Barry' } },
     );
 
@@ -296,11 +299,11 @@ describe('B2B Director Details page', () => {
     );
 
     // Wait for data to load
-    await screen.findByRole('combobox', { name: /Select director 1/i });
+    await screen.findByRole('combobox', { name: /Select director/i });
 
     // Choose a director
     fireEvent.change(
-      screen.getByRole('combobox', { name: /Select director 1/i }),
+      screen.getByRole('combobox', { name: /Select director/i }),
       { target: { value: 'CHUCKLE, Barry' } },
     );
 
@@ -336,5 +339,316 @@ describe('B2B Director Details page', () => {
         ),
       ).not.toBeInTheDocument(),
     );
+  });
+
+  it('should prompt to add another director when the total shareholding is less than 25%', async () => {
+    const mocks = [getCompanyMock, multiDirectorMock];
+    render(
+      <MockedProvider addTypename={false} mocks={mocks}>
+        <DirectorDetailsPage />
+      </MockedProvider>,
+    );
+
+    // Wait for data to load
+    await screen.findByRole('combobox', { name: /Select director/i });
+
+    // Choose a director
+    fireEvent.change(
+      screen.getByRole('combobox', { name: /Select director/i }),
+      { target: { value: 'CHUCKLE, Barry' } },
+    );
+
+    // Enter a value lower than 25%
+    fireEvent.change(
+      screen.getByRole('spinbutton', { name: /% Shareholder of Business/i }),
+      { target: { value: '15' } },
+    );
+
+    // Submit the form
+    fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
+
+    // Validation message should be shown
+    await waitFor(() =>
+      expect(
+        screen.getByText(
+          'We require details of a director(s) with a combined shareholding of over 25%. Please add another director.',
+        ),
+      ).toBeInTheDocument(),
+    );
+
+    // Choose another director
+    fireEvent.change(
+      screen.getByRole('combobox', { name: /Select director/i }),
+      { target: { value: 'CHUCKLE, Paul' } },
+    );
+
+    // Enter a value greater than or equal to 25%
+    fireEvent.change(
+      screen.getAllByRole('spinbutton', {
+        name: /% Shareholder of Business/i,
+      })[1],
+      { target: { value: '11' } },
+    );
+
+    // The validation message should disappear
+    await waitFor(() =>
+      expect(
+        screen.queryByText(
+          'We require details of a director(s) with a combined shareholding of over 25%. Please add another director.',
+        ),
+      ).not.toBeInTheDocument(),
+    );
+  });
+
+  it('should disable directors that are already selected', async () => {
+    const mocks = [getCompanyMock, multiDirectorMock];
+    render(
+      <MockedProvider addTypename={false} mocks={mocks}>
+        <DirectorDetailsPage />
+      </MockedProvider>,
+    );
+
+    // Wait for data to load
+    await screen.findByRole('combobox', { name: /Select director/i });
+
+    // Choose a director
+    fireEvent.change(
+      screen.getByRole('combobox', { name: /Select director/i }),
+      { target: { value: 'CHUCKLE, Barry' } },
+    );
+
+    // Enter a value lower than 25%
+    fireEvent.change(
+      screen.getByRole('spinbutton', { name: /% Shareholder of Business/i }),
+      { target: { value: '15' } },
+    );
+
+    // Submit the form
+    fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
+
+    // Validation message should be shown
+    await waitFor(() =>
+      expect(
+        screen.getByText(
+          'We require details of a director(s) with a combined shareholding of over 25%. Please add another director.',
+        ),
+      ).toBeInTheDocument(),
+    );
+
+    // Barry Chuckle should now be disabled
+    expect(
+      screen.getByRole('option', { name: /CHUCKLE, Barry/i }),
+    ).toBeDisabled();
+  });
+
+  it('should allow directors to be deleted', async () => {
+    const mocks = [getCompanyMock, multiDirectorMock];
+    render(
+      <MockedProvider addTypename={false} mocks={mocks}>
+        <DirectorDetailsPage />
+      </MockedProvider>,
+    );
+
+    // Wait for data to load
+    await screen.findByRole('combobox', { name: /Select director/i });
+
+    // Choose a director
+    fireEvent.change(
+      screen.getByRole('combobox', { name: /Select director/i }),
+      { target: { value: 'CHUCKLE, Barry' } },
+    );
+
+    // The field should show and be pre-filled
+    await waitFor(() =>
+      expect(screen.getByRole('textbox', { name: /First Name/i })).toHaveValue(
+        'Barry',
+      ),
+    );
+
+    // Now remove that director
+    fireEvent.click(screen.getByRole('button', { name: /Remove director 1/i }));
+
+    // The director should have been removed
+    await waitFor(() =>
+      expect(
+        screen.queryByRole('textbox', { name: /First Name/i }),
+      ).not.toBeInTheDocument(),
+    );
+  });
+
+  it('should show a validation message against each director if the total percentage is over 100%', async () => {
+    const mocks = [getCompanyMock, multiDirectorMock];
+    render(
+      <MockedProvider addTypename={false} mocks={mocks}>
+        <DirectorDetailsPage />
+      </MockedProvider>,
+    );
+
+    // Wait for data to load
+    await screen.findByRole('combobox', { name: /Select director/i });
+
+    // Choose a director
+    fireEvent.change(
+      screen.getByRole('combobox', { name: /Select director/i }),
+      { target: { value: 'CHUCKLE, Barry' } },
+    );
+
+    // Enter a value lower than 24 so another director is needed
+    fireEvent.change(
+      screen.getByRole('spinbutton', { name: /% Shareholder of Business/i }),
+      { target: { value: '24' } },
+    );
+
+    // Try submit the form
+    fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
+
+    // Validation message should be shown
+    await waitFor(() =>
+      expect(
+        screen.getByText(
+          'We require details of a director(s) with a combined shareholding of over 25%. Please add another director.',
+        ),
+      ).toBeInTheDocument(),
+    );
+
+    // Choose another director
+    fireEvent.change(
+      screen.getByRole('combobox', { name: /Select director/i }),
+      { target: { value: 'CHUCKLE, Paul' } },
+    );
+
+    // Enter a value that combined with the other director is more than 100
+    fireEvent.change(
+      screen.getAllByRole('spinbutton', {
+        name: /% Shareholder of Business/i,
+      })[1],
+      { target: { value: '77' } },
+    );
+
+    // Validation message should be shown against each director
+    await waitFor(() =>
+      expect(
+        screen.getAllByText(
+          /Combined shareholding is over 100%. Please review/i,
+        ),
+      ).toHaveLength(2),
+    );
+  });
+
+  it('should submit valid data to the backend', async () => {
+    const mockMutation = jest.fn();
+    const mocks: MockedResponse[] = [
+      getCompanyMock,
+      // NOTE: This mock is declared twice in this test because it is set to 'no-cache' and is
+      // indeed called twice
+      multiDirectorMock,
+      multiDirectorMock,
+      {
+        request: {
+          query: SAVE_DIRECTOR_DETAILS,
+          variables: {
+            input: {
+              uuid: MOCK_COMPANY_UUID,
+              associates: [
+                {
+                  firstName: 'Barry',
+                  lastName: 'CHUCKLE',
+                  businessShare: 30,
+                  addresses: [
+                    {
+                      serviceId: 'GB|001',
+                      propertyStatus: 'Owned',
+                      startedOn: '2005-01-01',
+                    },
+                  ],
+                  gender: 'Male',
+                  title: 'Mr',
+                  dateOfBirth: '1987-06-01',
+                  role: { position: 'director' },
+                },
+              ],
+            },
+          } as SaveDirectorDetailsMutationVariables,
+        },
+        result: mockMutation.mockImplementation(() => ({
+          data: {
+            createUpdateCompanyDirector: {
+              uuid: MOCK_COMPANY_UUID,
+            },
+          } as SaveDirectorDetailsMutation,
+        })),
+      },
+    ];
+
+    render(
+      <MockedProvider addTypename={false} mocks={mocks}>
+        <DirectorDetailsPage />
+      </MockedProvider>,
+    );
+
+    // Wait for data to load
+    await screen.findByRole('combobox', { name: /Select director/i });
+
+    // Choose a director
+    fireEvent.change(
+      screen.getByRole('combobox', { name: /Select director/i }),
+      { target: { value: 'CHUCKLE, Barry' } },
+    );
+
+    // Wait for form to load
+    await screen.findByRole('combobox', { name: /Title/i });
+
+    // Fill in the rest of the form
+    fireEvent.change(screen.getByRole('combobox', { name: /Title/i }), {
+      target: { value: 'Mr' },
+    });
+
+    fireEvent.change(screen.getByRole('combobox', { name: /Gender/i }), {
+      target: { value: 'Male' },
+    });
+
+    fireEvent.change(screen.getByTestId('directors[0].dayOfBirth'), {
+      target: { value: '1' },
+    });
+
+    fireEvent.change(screen.getByTestId('directors[0].monthOfBirth'), {
+      target: { value: '6' },
+    });
+
+    fireEvent.change(screen.getByTestId('directors[0].yearOfBirth'), {
+      target: { value: '1987' },
+    });
+
+    fireEvent.change(
+      screen.getByRole('combobox', { name: /Number of Dependants/i }),
+      { target: { value: 'One' } },
+    );
+
+    fireEvent.change(
+      screen.getByRole('spinbutton', { name: /% Shareholder of Business/i }),
+      { target: { value: '30' } },
+    );
+
+    fireEvent.change(screen.getByTestId('directors[0].history[0].address'), {
+      target: { value: 'GB|001' },
+    });
+
+    fireEvent.change(
+      screen.getByRole('combobox', { name: /Your Property Status/i }),
+      { target: { value: 'Owned' } },
+    );
+
+    fireEvent.change(screen.getByTestId('directors[0].history[0].month'), {
+      target: { value: '1' },
+    });
+
+    fireEvent.change(screen.getByTestId('directors[0].history[0].year'), {
+      target: { value: '2005' },
+    });
+
+    // Submit the form
+    fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
+
+    await waitFor(() => expect(mockMutation).toHaveBeenCalledTimes(1));
   });
 });

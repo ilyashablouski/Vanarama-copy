@@ -54,6 +54,7 @@ export const GET_ORDERS_BY_PARTY_UUID_DATA = gql`
           colour
           trim
           maintenance
+          vehicleType
         }
       }
     }

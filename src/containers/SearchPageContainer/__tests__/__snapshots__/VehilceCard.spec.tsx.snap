@@ -26,7 +26,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
       className="heading -large -black"
       href="/"
     >
-      test
+      Vauxhall Crossland X
     </a>
     <span
       className="heading -dark -small"
@@ -122,7 +122,27 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
     <div
       className="price -large -black"
     >
-      POA
+      <span
+        className="price--sub"
+      >
+        £
+      </span>
+      <span
+        className="price--pounds"
+      >
+        189
+      </span>
+      <span
+        className="price--sub"
+      >
+        .
+        97
+      </span>
+      <div
+        className="price--label"
+      >
+        Per Month Exc.VAT
+      </div>
     </div>
     <button
       className="button -teal -regular -solid"

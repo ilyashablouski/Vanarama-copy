@@ -6,7 +6,6 @@ export type DirectorDetailsFormValues = {
 };
 
 export type DirectorFormValues = {
-  fullname: string;
   title: string;
   firstName: string;
   lastName: string;

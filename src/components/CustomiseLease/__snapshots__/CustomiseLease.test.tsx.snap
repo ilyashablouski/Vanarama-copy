@@ -421,6 +421,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           className="structured-list-row "
         >
           <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-0"
+          >
+            Processing Fee:
+          </div>
+          <div
             className="structured-list-td"
             data-testid="processingFee"
           >
@@ -430,6 +436,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         <div
           className="structured-list-row "
         >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-1"
+          >
+            Initial Payment:
+          </div>
           <div
             className="structured-list-td"
             data-testid="initialPayment"
@@ -441,6 +453,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           className="structured-list-row "
         >
           <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-2"
+          >
+            Contract Length:
+          </div>
+          <div
             className="structured-list-td"
             data-testid="contractLengthile"
           >
@@ -450,6 +468,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         <div
           className="structured-list-row "
         >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-3"
+          >
+            Annual Mileage:
+          </div>
           <div
             className="structured-list-td"
             data-testid="annualMileage"
@@ -461,6 +485,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           className="structured-list-row "
         >
           <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-4"
+          >
+            Maintenance:
+          </div>
+          <div
             className="structured-list-td"
             data-testid="maintenance"
           >
@@ -470,6 +500,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         <div
           className="structured-list-row "
         >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-5"
+          >
+            Colour:
+          </div>
           <div
             className="structured-list-td"
             data-testid="colour"
@@ -481,6 +517,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           className="structured-list-row "
         >
           <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-6"
+          >
+            Trim / Interior:
+          </div>
+          <div
             className="structured-list-td"
             data-testid="trim"
           >
@@ -490,6 +532,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         <div
           className="structured-list-row "
         >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-7"
+          >
+            Stock:
+          </div>
           <div
             className="structured-list-td"
             data-testid="stock"
@@ -1024,6 +1072,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           className="structured-list-row "
         >
           <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-0"
+          >
+            Processing Fee:
+          </div>
+          <div
             className="structured-list-td"
             data-testid="processingFee"
           >
@@ -1033,6 +1087,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         <div
           className="structured-list-row "
         >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-1"
+          >
+            Initial Payment:
+          </div>
           <div
             className="structured-list-td"
             data-testid="initialPayment"
@@ -1044,6 +1104,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           className="structured-list-row "
         >
           <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-2"
+          >
+            Contract Length:
+          </div>
+          <div
             className="structured-list-td"
             data-testid="contractLengthile"
           >
@@ -1053,6 +1119,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         <div
           className="structured-list-row "
         >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-3"
+          >
+            Annual Mileage:
+          </div>
           <div
             className="structured-list-td"
             data-testid="annualMileage"
@@ -1064,6 +1136,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           className="structured-list-row "
         >
           <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-4"
+          >
+            Maintenance:
+          </div>
+          <div
             className="structured-list-td"
             data-testid="maintenance"
           >
@@ -1073,6 +1151,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         <div
           className="structured-list-row "
         >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-5"
+          >
+            Colour:
+          </div>
           <div
             className="structured-list-td"
             data-testid="colour"
@@ -1084,6 +1168,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           className="structured-list-row "
         >
           <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-6"
+          >
+            Trim / Interior:
+          </div>
+          <div
             className="structured-list-td"
             data-testid="trim"
           >
@@ -1093,6 +1183,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         <div
           className="structured-list-row "
         >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-7"
+          >
+            Stock:
+          </div>
           <div
             className="structured-list-td"
             data-testid="stock"
