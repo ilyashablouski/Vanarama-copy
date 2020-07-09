@@ -61,7 +61,6 @@ describe('B2B About You page', () => {
               emailConsent: false,
               smsConsent: false,
               termsAndConditions: true,
-              role: { position: 'Account owner', primaryContact: true },
             },
           } as SaveBusinessAboutYouVariables,
         },
@@ -71,11 +70,6 @@ describe('B2B About You page', () => {
             data: {
               createUpdateBusinessPerson: {
                 uuid: 'f16564ce-b076-4a8d-aa6c-b4c394f090c9',
-                companies: [
-                  {
-                    uuid: '6b4b95b3-8fa4-47e8-8846-ce478ef85169',
-                  },
-                ],
               },
             } as SaveBusinessAboutYou,
           };
@@ -136,8 +130,8 @@ describe('B2B About You page', () => {
     await waitFor(() => expect(mutationCalled).toBeTruthy());
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
-      '/b2b/olaf/company-details/[companyUuid]',
-      '/b2b/olaf/company-details/6b4b95b3-8fa4-47e8-8846-ce478ef85169',
+      '/b2b/olaf/company-details/[personUuid]',
+      '/b2b/olaf/company-details/f16564ce-b076-4a8d-aa6c-b4c394f090c9',
     );
   });
 
@@ -175,7 +169,6 @@ describe('B2B About You page', () => {
               emailConsent: false,
               smsConsent: false,
               termsAndConditions: true,
-              role: { position: 'Account owner', primaryContact: true },
             },
           } as SaveBusinessAboutYouVariables,
         },
