@@ -421,12 +421,6 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           className="structured-list-row "
         >
           <div
-            className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-undefined"
-          >
-            Processing Fee:
-          </div>
-          <div
             className="structured-list-td"
             data-testid="processingFee"
           >
@@ -436,12 +430,6 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         <div
           className="structured-list-row "
         >
-          <div
-            className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-undefined"
-          >
-            Initial Payment:
-          </div>
           <div
             className="structured-list-td"
             data-testid="initialPayment"
@@ -453,12 +441,6 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           className="structured-list-row "
         >
           <div
-            className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-undefined"
-          >
-            Contract Length:
-          </div>
-          <div
             className="structured-list-td"
             data-testid="contractLengthile"
           >
@@ -468,12 +450,6 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         <div
           className="structured-list-row "
         >
-          <div
-            className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-undefined"
-          >
-            Annual Mileage:
-          </div>
           <div
             className="structured-list-td"
             data-testid="annualMileage"
@@ -485,12 +461,6 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           className="structured-list-row "
         >
           <div
-            className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-undefined"
-          >
-            Maintenance:
-          </div>
-          <div
             className="structured-list-td"
             data-testid="maintenance"
           >
@@ -500,12 +470,6 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         <div
           className="structured-list-row "
         >
-          <div
-            className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-undefined"
-          >
-            Colour:
-          </div>
           <div
             className="structured-list-td"
             data-testid="colour"
@@ -517,12 +481,6 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           className="structured-list-row "
         >
           <div
-            className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-undefined"
-          >
-            Trim / Interior:
-          </div>
-          <div
             className="structured-list-td"
             data-testid="trim"
           >
@@ -532,12 +490,6 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         <div
           className="structured-list-row "
         >
-          <div
-            className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-undefined"
-          >
-            Stock:
-          </div>
           <div
             className="structured-list-td"
             data-testid="stock"
@@ -556,6 +508,16 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       }
     }
   >
+    <div
+      className="card-header lease-card-header"
+    >
+      <span
+        className="text -small -darker"
+      >
+        Next Best Price 
+        £60.00 PM exc. VAT
+      </span>
+    </div>
     <div
       className="lease-scanner"
       style={
@@ -1062,12 +1024,6 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           className="structured-list-row "
         >
           <div
-            className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-undefined"
-          >
-            Processing Fee:
-          </div>
-          <div
             className="structured-list-td"
             data-testid="processingFee"
           >
@@ -1077,12 +1033,6 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         <div
           className="structured-list-row "
         >
-          <div
-            className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-undefined"
-          >
-            Initial Payment:
-          </div>
           <div
             className="structured-list-td"
             data-testid="initialPayment"
@@ -1094,12 +1044,6 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           className="structured-list-row "
         >
           <div
-            className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-undefined"
-          >
-            Contract Length:
-          </div>
-          <div
             className="structured-list-td"
             data-testid="contractLengthile"
           >
@@ -1109,12 +1053,6 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         <div
           className="structured-list-row "
         >
-          <div
-            className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-undefined"
-          >
-            Annual Mileage:
-          </div>
           <div
             className="structured-list-td"
             data-testid="annualMileage"
@@ -1126,12 +1064,6 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           className="structured-list-row "
         >
           <div
-            className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-undefined"
-          >
-            Maintenance:
-          </div>
-          <div
             className="structured-list-td"
             data-testid="maintenance"
           >
@@ -1141,12 +1073,6 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         <div
           className="structured-list-row "
         >
-          <div
-            className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-undefined"
-          >
-            Colour:
-          </div>
           <div
             className="structured-list-td"
             data-testid="colour"
@@ -1158,12 +1084,6 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           className="structured-list-row "
         >
           <div
-            className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-undefined"
-          >
-            Trim / Interior:
-          </div>
-          <div
             className="structured-list-td"
             data-testid="trim"
           >
@@ -1173,12 +1093,6 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         <div
           className="structured-list-row "
         >
-          <div
-            className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-undefined"
-          >
-            Stock:
-          </div>
           <div
             className="structured-list-td"
             data-testid="stock"
@@ -1197,6 +1111,16 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       }
     }
   >
+    <div
+      className="card-header lease-card-header"
+    >
+      <span
+        className="text -small -darker"
+      >
+        Next Best Price 
+        £60.00 PM exc. VAT
+      </span>
+    </div>
     <div
       className="lease-scanner"
       style={
