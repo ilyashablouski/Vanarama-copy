@@ -5,6 +5,9 @@ export interface THistoryEntry {
   month: string;
 }
 
+export const parseDate = (day: string, month: string, year: string) =>
+  moment(`${day}-${month}-${year}`, 'DD-MM-YYYY');
+
 export const historyToMoment = <T extends THistoryEntry>(history: T) =>
   // NOTE: Default to the first of the month because we don't capture the day
   moment(`1-${history.month}-${history.year}`, 'D-M-YYYY');

@@ -33,7 +33,6 @@ export interface GetDirectorDetailsQuery_allDropDowns {
 }
 
 export interface GetDirectorDetailsQuery_companyOfficers_nodes {
-  __typename: "CompanyOfficersDataType";
   name: string;
 }
 
