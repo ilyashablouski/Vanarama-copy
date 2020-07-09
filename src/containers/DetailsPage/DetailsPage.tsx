@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { useState } from 'react';
 import { NextRouter } from 'next/router';
 import { ApolloError, useApolloClient } from '@apollo/client';
@@ -19,13 +20,17 @@ import {
 import VehicleTechDetails from '../VehicleTechDetails/VehicleTechDetails';
 import IndependentReview from '../../components/IndependentReview/IndependentReview';
 import CustomiseLeaseContainer from '../CustomiseLeaseContainer/CustomiseLeaseContainer';
-import { GetVehicleDetails } from '../../../generated/GetVehicleDetails';
+import {
+  GetVehicleDetails,
+  GetVehicleDetails_vehicleDetails_rangeFaqs,
+} from '../../../generated/GetVehicleDetails';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import WhyChooseLeasing from '../../components/WhyChooseLeasing/WhyChooseLeasing';
 import CustomerReviews from '../../components/CustomerReviews/CustomerReviews';
 import WhyChooseVanarama from '../../components/WhyChooseVanarama/WhyChooseVanarama';
 import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer';
 import { replaceReview } from '../../components/CustomerReviews/helpers';
+import FrequentlyAskedQuestions from '../../components/FrequentlyAskedQuestions/FrequentlyAskedQuestions';
 import { useCreateOrder } from '../../gql/order';
 import { writeCachedOrderInformation } from './gql';
 
@@ -85,6 +90,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         client,
         response.data?.createOrder?.uuid || null,
         capId.toString(),
+        cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
       );
     });
   };
@@ -125,16 +131,18 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     author: review?.name || '',
     score: review?.rating || 0,
   }));
+  const rangeFAQs = data?.vehicleDetails
+    ?.rangeFaqs as GetVehicleDetails_vehicleDetails_rangeFaqs[];
 
   const vehicleType = cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV;
+  const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capRangeDescription}`;
 
   return (
     <>
       <div className="pdp--content">
         <Breadcrumb items={PATH.items} />
         <Heading className="-pt-100" tag="span" size="xlarge" color="black">
-          {vehicleConfigurationByCapId?.capManufacturerDescription}{' '}
-          {vehicleConfigurationByCapId?.capRangeDescription}
+          {pageTitle}
         </Heading>
         <Text tag="span" size="lead" color="darker">
           {vehicleConfigurationByCapId?.capDerivativeDescription}
@@ -192,6 +200,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <div className="pdp--reviews">
           <CustomerReviews reviews={reviews || []} />
         </div>
+        <FrequentlyAskedQuestions
+          rangeFAQ={rangeFAQs || []}
+          rangeFAQTitle={pageTitle}
+        />
       </div>
       <CustomiseLeaseContainer
         capId={capId}

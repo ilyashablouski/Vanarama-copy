@@ -14,6 +14,7 @@ export const getUrlParam = (urlParams: UrlParams, notReplace?: boolean) => {
 export type OLAFQueryParams = {
   derivativeId?: string;
   orderId?: string;
+  type?: string;
 };
 
 /**

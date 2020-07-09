@@ -392,6 +392,11 @@ exports[`<FiltersContainer /> should render with data 1`] = `
                   >
                     £550
                   </option>
+                  <option
+                    value="550+"
+                  >
+                    £550+
+                  </option>
                 </select>
                 <span
                   class="icon select--chevron"

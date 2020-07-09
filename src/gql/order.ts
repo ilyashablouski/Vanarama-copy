@@ -139,6 +139,7 @@ export const GET_OLAF_DATA = gql`
           colour
           trim
           maintenance
+          vehicleType
         }
       }
     }

@@ -42,6 +42,11 @@ export interface GetVehicleDetails_vehicleDetails_customerReviews {
   name: string | null;
 }
 
+export interface GetVehicleDetails_vehicleDetails_rangeFaqs {
+  question: string | null;
+  answer: string | null;
+}
+
 export interface GetVehicleDetails_vehicleDetails {
   averageRating: number | null;
   brochureUrl: string | null;
@@ -50,6 +55,7 @@ export interface GetVehicleDetails_vehicleDetails {
   warranty: string | null;
   relatedVehicles: (GetVehicleDetails_vehicleDetails_relatedVehicles | null)[] | null;
   customerReviews: (GetVehicleDetails_vehicleDetails_customerReviews | null)[] | null;
+  rangeFaqs: (GetVehicleDetails_vehicleDetails_rangeFaqs | null)[] | null;
 }
 
 export interface GetVehicleDetails_derivativeInfo_technicals {

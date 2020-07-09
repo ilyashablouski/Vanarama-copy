@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { LeaseTypeEnum } from "./globalTypes";
+import { LeaseTypeEnum, VehicleTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetOrdersByPartyUuid
@@ -28,6 +28,7 @@ export interface GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct
   colour: string | null;
   trim: string | null;
   maintenance: boolean | null;
+  vehicleType: VehicleTypeEnum;
 }
 
 export interface GetOrdersByPartyUuid_ordersByPartyUuid_lineItems {

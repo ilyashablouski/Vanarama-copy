@@ -5,7 +5,7 @@ const buildRewriteRoute = (
   {
     transmissions,
     bodyStyles,
-    range,
+    rangeName,
     manufacturerName,
     rate,
     fuelTypes,
@@ -18,8 +18,8 @@ const buildRewriteRoute = (
   if (manufacturerName) {
     routerUrl += `/${manufacturerName.replace(' ', '-')}`;
     // adding type only for cars search if we have model
-    if (range) {
-      routerUrl += `/${range.replace(' ', '-')}`;
+    if (rangeName) {
+      routerUrl += `/${rangeName.replace(' ', '-')}`;
     }
   }
   const searchParams = new URLSearchParams(window.location.search);
