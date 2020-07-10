@@ -16,7 +16,7 @@ const FormikDateField: React.FC<Props> = ({ label, fieldNames }) => {
   const [monthField, monthMeta] = useField(monthId);
   const [yearField, yearMeta] = useField(yearId);
 
-  const touched = dayMeta.touched || monthMeta.touched || yearMeta.touched;
+  const touched = dayMeta.touched && monthMeta.touched && yearMeta.touched;
   const error = dayMeta.error || monthMeta.error || yearMeta.error;
   return (
     <Formgroup label={label} inline error={(touched && error) || undefined}>
