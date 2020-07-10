@@ -848,4 +848,50 @@ describe('B2B Director Details page', () => {
       ).not.toBeInTheDocument(),
     );
   });
+
+  it('should show a validation message for the director dropdown when another is required', async () => {
+    render(
+      <MockedProvider
+        addTypename={false}
+        mocks={[getCompanyMock, multiDirectorMock]}
+      >
+        <DirectorDetailsPage />
+      </MockedProvider>,
+    );
+
+    // Wait for data to load
+    await screen.findByRole('combobox', { name: /Select director/i });
+
+    // Choose a director
+    fireEvent.change(
+      screen.getByRole('combobox', { name: /Select director/i }),
+      { target: { value: 'CHUCKLE, Barry' } },
+    );
+
+    // Wait for form to load
+    await screen.findByRole('combobox', { name: /Title/i });
+
+    // Choose a percentage below 25%
+    fireEvent.change(
+      screen.getByRole('spinbutton', { name: /% Shareholding of Business/i }),
+      {
+        target: { value: '20' },
+      },
+    );
+
+    // There should not be a validation message until after submission of the form
+    await waitFor(() =>
+      expect(
+        screen.queryByText('Please select a director'),
+      ).not.toBeInTheDocument(),
+    );
+
+    // Submit the form
+    fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
+
+    // There should be a validation message
+    await waitFor(() =>
+      expect(screen.getByText('Please select a director')).toBeInTheDocument(),
+    );
+  });
 });
