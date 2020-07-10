@@ -19,7 +19,7 @@ describe('<AddressFormContainer />', () => {
   it('should post data to the server correctly', async () => {
     // ARRANGE
     let mutationCalled = false;
-    const personUuid = '6f6ed68c-0ccf-4799-b328-f9e0c7df5203';
+    const personUuid = '1337';
     const onCompletedMock = jest.fn();
     const mocks: MockedResponse[] = [
       {
@@ -38,13 +38,13 @@ describe('<AddressFormContainer />', () => {
           query: SAVE_ADDRESS_HISTORY,
           variables: {
             input: {
-              partyId: '1057',
+              partyId: '911',
               addresses: [
                 {
-                  serviceId: "GB|001",
-                  propertyStatus: "Owned with mortgage",
-                  startedOn: "1990-01-01",
-                }
+                  serviceId: 'GB|001',
+                  propertyStatus: 'Mortgage',
+                  startedOn: '1990-01-01',
+                },
               ],
             },
           } as MutationVariables,
@@ -56,15 +56,15 @@ describe('<AddressFormContainer />', () => {
               createUpdateAddress: [
                 {
                   __typename: 'AddressType',
-                  uuid: '2d56fa36-18e3-4f88-89df-9a2895f7e0dd',
-                  city: 'Aberdeen',
-                  lineOne: 'Marischal College',
+                  uuid: '24fee0a6-8953-11ea-bc55-0242ac130003',
+                  city: '',
+                  lineOne: '',
                   serviceId: 'GB|001',
-                  lineTwo: 'Broad Street',
-                  postcode: 'AB10 1AF',
-                  propertyStatus: 'Owned with mortgage',
+                  lineTwo: null,
+                  postcode: '',
+                  propertyStatus: 'Mortgage',
                   startedOn: '1990-01-01',
-                }
+                },
               ],
             } as Mutation,
           };
@@ -89,7 +89,7 @@ describe('<AddressFormContainer />', () => {
     });
 
     fireEvent.change(screen.getByTestId('history[0].status'), {
-      target: { value: 'Owned with mortgage' },
+      target: { value: 'Mortgage' },
     });
 
     fireEvent.change(screen.getByTestId('history[0].month'), {
@@ -110,7 +110,7 @@ describe('<AddressFormContainer />', () => {
   it('should prefill data from the server', async () => {
     // ARRANGE
     let mutationCalled = false;
-    const personUuid = '6f6ed68c-0ccf-4799-b328-f9e0c7df5203';
+    const personUuid = '1337';
 
     const now = new Date();
     const lastYear = String(now.getFullYear() - 1);
@@ -138,11 +138,16 @@ describe('<AddressFormContainer />', () => {
           query: SAVE_ADDRESS_HISTORY,
           variables: {
             input: {
-              partyId: '1057',
+              partyId: '911',
               addresses: [
                 {
+                  serviceId: 'GB|1337',
+                  propertyStatus: 'Rented',
+                  startedOn: asDateString,
+                },
+                {
                   serviceId: 'GB|002',
-                  propertyStatus: 'Owned with mortgage',
+                  propertyStatus: 'Mortgage',
                   startedOn: '1990-01-01',
                 },
               ],
@@ -156,24 +161,24 @@ describe('<AddressFormContainer />', () => {
               createUpdateAddress: [
                 {
                   __typename: 'AddressType',
-                  serviceId: 'GB|002',
-                  uuid: 'a829bc09-bfd9-4b60-98a9-b60f6622d9ad',
-                  lineOne: 'Marischal College',
-                  lineTwo: 'Broad Street',
-                  city: 'Aberdeen',
-                  postcode: 'AB10 1AG',
-                  propertyStatus: 'Owned with mortgage',
-                  startedOn: '1990-01-01',
+                  uuid: 'a1e79c5d-4e69-4098-aede-e55ac8394123',
+                  city: '',
+                  lineOne: '',
+                  serviceId: 'GB|1337',
+                  lineTwo: null,
+                  postcode: '',
+                  propertyStatus: 'Rented',
+                  startedOn: asDateString,
                 },
                 {
                   __typename: 'AddressType',
-                  serviceId: 'GB|1337',
-                  uuid: 'dc3fc904-ed63-4b5d-b203-c5088c3a5047',
-                  lineOne: '432 Union Street',
-                  lineTwo: '',
-                  city: 'Aberdeen',
-                  postcode: 'AB10 1TR',
-                  propertyStatus: 'Rented',
+                  uuid: '88924d6c-ddb5-4067-97c4-081dbed0318a',
+                  city: '',
+                  lineOne: '',
+                  serviceId: 'GB|002',
+                  lineTwo: null,
+                  postcode: '',
+                  propertyStatus: 'Motgage',
                   startedOn: '1990-01-01',
                 },
               ],
@@ -197,7 +202,7 @@ describe('<AddressFormContainer />', () => {
     await screen.findByTestId('address-history-heading');
 
     // Don't change anything, just save
-    fireEvent.click(screen.getByTestId('address-history-submit'));
+    fireEvent.click(screen.getByText('Continue'));
 
     // ASSERT
     // Mutation should be called because data was pre-filled
@@ -208,7 +213,7 @@ describe('<AddressFormContainer />', () => {
   it('should not remove valid address entries when recieving data from the server in the wrong order', async () => {
     // ARRANGE
     let mutationCalled = false;
-    const personUuid = 'ebdec701-6bc3-4f23-a636-cb4fbe419414';
+    const personUuid = '1337';
 
     const now = new Date();
     const lastYear = String(now.getFullYear() - 1);
@@ -236,7 +241,7 @@ describe('<AddressFormContainer />', () => {
           query: SAVE_ADDRESS_HISTORY,
           variables: {
             input: {
-              partyId: '1057',
+              partyId: '911',
               addresses: [
                 {
                   serviceId: 'GB|1337',
