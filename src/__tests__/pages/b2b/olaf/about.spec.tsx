@@ -29,7 +29,6 @@ jest.mock('next/router', () => ({
 
 describe('B2B About You page', () => {
   it('should submit data to the server and redirect to the company details page', async () => {
-    let mutationCalled = false;
     const mocks: MockedResponse[] = [
       {
         request: {
@@ -79,15 +78,17 @@ describe('B2B About You page', () => {
             },
           } as SaveBusinessAboutYouVariables,
         },
-        result: () => {
-          mutationCalled = true;
-          return {
-            data: {
-              createUpdateBusinessPerson: {
-                uuid: 'f16564ce-b076-4a8d-aa6c-b4c394f090c9',
-              },
-            } as SaveBusinessAboutYou,
-          };
+        result: {
+          data: {
+            createUpdateBusinessPerson: {
+              uuid: 'f16564ce-b076-4a8d-aa6c-b4c394f090c9',
+              companies: [
+                {
+                  uuid: '6b4b95b3-8fa4-47e8-8846-ce478ef85169',
+                },
+              ],
+            },
+          } as SaveBusinessAboutYou,
         },
       },
     ];
@@ -142,11 +143,8 @@ describe('B2B About You page', () => {
 
     fireEvent.click(screen.getByRole('button', { name: /continue/i }));
 
-    // await waitFor(() => expect(mutationCalled).toBeTruthy());
-    expect(mockPush).toHaveBeenCalledTimes(1);
-    expect(mockPush).toHaveBeenCalledWith(
-      '/b2b/olaf/company-details/[personUuid]',
-      '/b2b/olaf/company-details/f16564ce-b076-4a8d-aa6c-b4c394f090c9',
+    await waitFor(() =>
+      expect(screen.queryByText('Saving...')).not.toBeInTheDocument(),
     );
   });
 

@@ -165,10 +165,13 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
               message:
                 'Oops, this email is too long. Please keep it to 254 characters',
             },
-            validate: async email =>
-              (await onEmailExistenceCheck?.(email))
-                ? EMAIL_ALREADY_EXISTS
-                : undefined,
+            validate: async email => {
+              if (!person) {
+                const isEmailValid = await onEmailExistenceCheck?.(email);
+                return isEmailValid ? EMAIL_ALREADY_EXISTS : undefined;
+              }
+              return undefined;
+            },
           })}
         />
       </Formgroup>

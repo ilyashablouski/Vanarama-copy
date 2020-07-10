@@ -24,7 +24,7 @@ const AboutFormContainer: React.FC<IProps> = ({
     return <p>Error: {aboutPageDataQuery.error.message}</p>;
   }
 
-  if (!aboutPageDataQuery.data || !aboutPageDataQuery.data?.allDropDowns) {
+  if (!aboutPageDataQuery.data) {
     return null;
   }
 
