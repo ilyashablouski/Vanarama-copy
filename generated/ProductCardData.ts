@@ -35,7 +35,7 @@ export interface ProductCardData {
 
 export interface ProductCardDataVariables {
   type: VehicleTypeEnum;
-  subType: SubVehicleTypeEnum;
-  size: number;
-  offer: boolean;
+  subType?: SubVehicleTypeEnum | null;
+  size?: number | null;
+  offer?: boolean | null;
 }

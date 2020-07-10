@@ -24,13 +24,16 @@ const AboutFormContainer: React.FC<IProps> = ({
     return <p>Error: {aboutPageDataQuery.error.message}</p>;
   }
 
-  if (!aboutPageDataQuery.data) {
+  if (
+    !aboutPageDataQuery.data?.allDropDowns ||
+    aboutPageDataQuery.data?.allDropDowns === null
+  ) {
     return null;
   }
 
   return (
     <AboutForm
-      dropdownData={aboutPageDataQuery.data?.allDropDowns}
+      dropdownData={aboutPageDataQuery.data!.allDropDowns}
       person={aboutYouData.data?.personByUuid}
       onEmailExistenceCheck={async email => {
         const results = await emailAlreadyExists({

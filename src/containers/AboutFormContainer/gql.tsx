@@ -7,7 +7,7 @@ import {
   GetAboutYouDataQuery,
   GetAboutYouDataQueryVariables,
 } from '../../../generated/GetAboutYouDataQuery';
-import { AboutFormDropdownData } from '../../../generated/AboutFormDropdownData';
+import { GetAboutYouPageQuery } from '../../../generated/GetAboutYouPageQuery';
 import AboutForm from '../../components/AboutForm';
 
 export const CREATE_UPDATE_PERSON = gql`
@@ -38,7 +38,7 @@ export const GET_ABOUT_YOU_PAGE_DATA = gql`
 `;
 
 export function useAboutPageDataQuery() {
-  return useQuery<AboutFormDropdownData>(GET_ABOUT_YOU_PAGE_DATA, {
+  return useQuery<GetAboutYouPageQuery>(GET_ABOUT_YOU_PAGE_DATA, {
     fetchPolicy: 'no-cache',
   });
 }
