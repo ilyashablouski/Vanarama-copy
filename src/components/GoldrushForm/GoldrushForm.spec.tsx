@@ -44,7 +44,7 @@ describe('<GoldrushForm />', () => {
 
     expect(screen.getByText('Please enter your full name')).toBeInTheDocument();
     expect(
-      screen.getByText('Your enter your email address'),
+      screen.getByText('Please enter your email address'),
     ).toBeInTheDocument();
     expect(
       screen.getByText('Please enter your mobile number'),
@@ -310,5 +310,50 @@ describe('<GoldrushForm />', () => {
     expect(
       screen.getByText('Please only use numbers, characters and spaces'),
     ).toBeInTheDocument();
+  });
+
+  it('should show form for call back', async () => {
+    // ACT
+    render(
+      <GoldrushForm
+        callBack
+        heading={testHeading}
+        onSubmit={onSubmitMock}
+        isPostcodeVisible
+      />,
+    );
+
+    await waitFor(() => {
+      expect(
+        screen.getByText('Terms & Conditions and Privacy Policy'),
+      ).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(
+          'Subscribe to get updates, exclusive offers and amazing deals',
+        ),
+      ).toBeInTheDocument();
+    });
+  });
+
+  it('should show form for call back with correct text', async () => {
+    const text = 'We’ll be in touch within 1-2 business hours';
+
+    // ACT
+    render(
+      <GoldrushForm
+        callBack
+        heading={testHeading}
+        onSubmit={onSubmitMock}
+        isPostcodeVisible
+        text={text}
+      />,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText(text)).toBeInTheDocument();
+    });
   });
 });
