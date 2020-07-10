@@ -166,7 +166,12 @@ export const PickupsPage: NextPage = () => {
             );
           })}
 
-          <Button label="View All Pickups" size="large" color="teal" />
+          <Button
+            label="View All Pickups"
+            size="large"
+            color="teal"
+            onClick={() => Router.push('/van-leasing')}
+          />
         </section>
       </div>
 
@@ -277,7 +282,7 @@ export const PickupsPage: NextPage = () => {
           </Heading>
           <Button
             className="-pt-200"
-            label="Veiw Leasing Guides"
+            label="View Leasing Guides"
             color="teal"
             fill="clear"
             size="regular"

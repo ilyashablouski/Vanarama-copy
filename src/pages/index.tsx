@@ -177,6 +177,7 @@ export const HomePage: NextPage = () => {
                             color="teal"
                             fill="solid"
                             label="View Offer"
+                            dataTestId="van-view-offer"
                             onClick={() =>
                               Router.push(`/vans/van-details/${item?.capId}`)
                             }
@@ -188,7 +189,12 @@ export const HomePage: NextPage = () => {
                   })}
                 </Carousel>
                 <div className="-justify-content-row -pt-500">
-                  <Button label="View All Van Offers" color="teal" />
+                  <Button
+                    label="View All Van Offers"
+                    color="teal"
+                    onClick={() => Router.push('/van-leasing')}
+                    dataTestId="view-all-vans"
+                  />
                 </div>
               </div>
             </TabPanel>
@@ -249,6 +255,7 @@ export const HomePage: NextPage = () => {
                             color="teal"
                             fill="solid"
                             label="View Offer"
+                            dataTestId="pickup-view-offer"
                             onClick={() =>
                               Router.push(
                                 `/pickups/pickup-details/${item?.capId}`,
@@ -262,7 +269,12 @@ export const HomePage: NextPage = () => {
                   })}
                 </Carousel>
                 <div className="-justify-content-row -pt-500">
-                  <Button label="View All Pickup Offers" color="teal" />
+                  <Button
+                    label="View All Pickup Offers"
+                    color="teal"
+                    onClick={() => Router.push('/van-leasing')}
+                    dataTestId="view-all-pickups"
+                  />
                 </div>
               </div>
             </TabPanel>
@@ -323,6 +335,7 @@ export const HomePage: NextPage = () => {
                             color="teal"
                             fill="solid"
                             label="View Offer"
+                            dataTestId="car-view-offer"
                             onClick={() =>
                               Router.push(`/cars/car-details/${item?.capId}`)
                             }
@@ -334,7 +347,12 @@ export const HomePage: NextPage = () => {
                   })}
                 </Carousel>
                 <div className="-justify-content-row -pt-500">
-                  <Button label="View All Car Offers" color="teal" />
+                  <Button
+                    label="View All Car Offers"
+                    color="teal"
+                    onClick={() => Router.push('/car-leasing')}
+                    dataTestId="view-all-cars"
+                  />
                 </div>
               </div>
             </TabPanel>

@@ -181,7 +181,12 @@ export const CarsPage: NextPage = () => {
             );
           })}
 
-          <Button label="View All Cars" size="large" color="teal" />
+          <Button
+            label="View All Cars"
+            size="large"
+            color="teal"
+            onClick={() => Router.push('/van-leasing')}
+          />
         </section>
       </div>
 

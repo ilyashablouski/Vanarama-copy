@@ -192,7 +192,11 @@ export const VansPage: NextPage = () => {
             })}
           </Carousel>
           <div className="-justify-content-row -pt-500">
-            <Button label="View All Vans" color="teal" />
+            <Button
+              label="View All Vans"
+              color="teal"
+              onClick={() => Router.push('/van-leasing')}
+            />
           </div>
         </div>
       </div>
@@ -272,7 +276,11 @@ export const VansPage: NextPage = () => {
             })}
           </Carousel>
           <div className="-justify-content-row -pt-500">
-            <Button label="View All Vans" color="teal" />
+            <Button
+              label="View All Vans"
+              color="teal"
+              onClick={() => Router.push('/van-leasing')}
+            />
           </div>
         </div>
       </div>
@@ -352,7 +360,11 @@ export const VansPage: NextPage = () => {
             })}
           </Carousel>
           <div className="-justify-content-row -pt-500">
-            <Button label="View All Vans" color="teal" />
+            <Button
+              label="View All Vans"
+              color="teal"
+              onClick={() => Router.push('/van-leasing')}
+            />
           </div>
         </div>
       </div>

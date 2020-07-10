@@ -69,11 +69,12 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
         <br />
         <Button
           color="teal"
-          label="Veiw Offer"
+          label="View Offer"
           icon={<ArrowForwardSharp />}
           iconPosition="after"
           iconColor="white"
           onClick={() => Router.push(capIdPath)}
+          dataTestId="deal-of-month__view-offer"
         />
       </div>
     </div>
