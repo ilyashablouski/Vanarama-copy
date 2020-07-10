@@ -558,12 +558,7 @@ Array [
             }
           }
         >
-          <img
-            alt="img"
-            className="card-image"
-            data-testid="card-image"
-            onError={[Function]}
-          />
+          
           <div
             className="title"
           >
@@ -872,12 +867,7 @@ Array [
             }
           }
         >
-          <img
-            alt="img"
-            className="card-image"
-            data-testid="card-image"
-            onError={[Function]}
-          />
+          
           <div
             className="title"
           >

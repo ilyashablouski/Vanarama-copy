@@ -1,16 +1,19 @@
 import * as yup from 'yup';
 import moment from 'moment';
+import { ICompanyBankDetails } from './interfaces';
 
 function isInFuture({
   joinedAtYear,
   joinedAtMonth
-}) {
-  return joinedAtMonth > new Date().getMonth()+1 ? 'In future': null;
+}: ICompanyBankDetails) {
+  const joiningMoment = moment(`${joinedAtMonth}-${joinedAtYear}`, 'MM-YYYY')
+  const inPast = moment().diff(joiningMoment, 'months') >= 0;
+  return inPast ? null : 'In future';
 }
 
 function timeValidator(this: yup.TestContext) {
   const { createError, path, parent } = this;
-  const error = parent.joinedAtMonth > new Date().getMonth()+1 ? 'In future': null;
+  const error = isInFuture(parent);
   return error ? createError({ message: error, path }) : true;
 }
 
@@ -35,22 +38,8 @@ const ValidationSchema = yup.object().shape({
     .required('Please select account opening date')
     .when('joinedAtYear', {
       is: new Date().getFullYear().toString(),
-      then: yup.string().test('not-in-future', 'In future', timeValidator),
+      then: yup.string().test('not-in-future', 'Oops, this date seems to be in the future', timeValidator),
     }),
-  // .when('joinedAtYear', {
-  //   is: (val) => val == "2020",//new Date().getFullYear().toString(),
-  //   // is: new Date().getFullYear().toString(),
-  //   otherwise: yup.number().max(7),
-  //   then: yup.number().max(7),
-  //   // then: yup.string()
-  //   //   .test(
-  //   //     'not-in-future',
-  //   //     'In future',
-  //   //     value => true/* {
-  //   //       console.log(value);
-  //   //       return true;
-  //   //     } */)
-  // }),
 });
 
 export default ValidationSchema;

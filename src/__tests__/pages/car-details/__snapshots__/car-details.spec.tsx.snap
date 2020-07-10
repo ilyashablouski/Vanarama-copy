@@ -391,6 +391,48 @@ Array [
             </div>
           </div>
         </div>
+        <div
+          aria-labelledby="tab:1-2"
+          className=""
+          hidden={true}
+          id="panel:1-2"
+          role="tabpanel"
+        >
+          <div
+            className="media"
+          >
+            <div
+              className=""
+              style={
+                Object {
+                  "height": "360px",
+                  "width": "100%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          aria-labelledby="tab:1-3"
+          className=""
+          hidden={true}
+          id="panel:1-3"
+          role="tabpanel"
+        >
+          <div
+            className="media"
+          >
+            <div
+              className=""
+              style={
+                Object {
+                  "height": "360px",
+                  "width": "100%",
+                }
+              }
+            />
+          </div>
+        </div>
       </div>
       <nav
         className="tabs -content-end -regular"
@@ -412,6 +454,28 @@ Array [
               type="button"
             >
               Photos
+            </button>
+            <button
+              aria-controls="panel:1-2"
+              aria-selected={false}
+              className=""
+              id="tab:1-2"
+              onClick={[Function]}
+              role="tab"
+              type="button"
+            >
+              Videos
+            </button>
+            <button
+              aria-controls="panel:1-3"
+              aria-selected={false}
+              className=""
+              id="tab:1-3"
+              onClick={[Function]}
+              role="tab"
+              type="button"
+            >
+              360° View
             </button>
           </div>
         </div>
