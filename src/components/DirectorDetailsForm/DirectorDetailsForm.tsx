@@ -34,9 +34,13 @@ export const GET_DIRECTOR_DETAILS = gql`
 
 type Props = {
   companyNumber: string;
+  onSubmit: (values: DirectorDetailsFormValues) => Promise<void>;
 };
 
-export default function DirectorDetailsForm({ companyNumber }: Props) {
+export default function DirectorDetailsForm({
+  companyNumber,
+  onSubmit,
+}: Props) {
   const { data, loading, error } = useCompanyOfficers(companyNumber);
   if (loading) {
     return <Loading />;
@@ -53,7 +57,7 @@ export default function DirectorDetailsForm({ companyNumber }: Props) {
       initialValues={initialFormValues(officers)}
       validationSchema={validationSchema}
       validate={validate}
-      onSubmit={console.log} // eslint-disable-line no-console
+      onSubmit={onSubmit}
     >
       {({ handleSubmit, isSubmitting }) => (
         <Form onSubmit={handleSubmit}>

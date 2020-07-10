@@ -13,9 +13,9 @@ import { SEARCH_COMPANIES } from '../../../../components/CompanyDetailsForm/useS
 import {
   CompanyDetailsPage,
   SAVE_COMPANY_DETAILS,
-} from '../../../../pages/b2b/olaf/company-details/[companyUuid]';
+} from '../../../../pages/b2b/olaf/company-details/[personUuid]';
 
-const MOCK_COMPANY_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
+const MOCK_PERSON_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
 
 jest.mock('../../../../layouts/OLAFLayout/OLAFLayout');
 jest.mock('next/router', () => ({
@@ -23,7 +23,7 @@ jest.mock('next/router', () => ({
     push: jest.fn(),
     pathname: '/b2b/olaf/company-details',
     query: {
-      companyUuid: MOCK_COMPANY_UUID,
+      personUuid: MOCK_PERSON_UUID,
     },
   }),
 }));
@@ -75,7 +75,10 @@ describe('B2B Company Details page', () => {
           query: SAVE_COMPANY_DETAILS,
           variables: {
             input: {
-              uuid: MOCK_COMPANY_UUID,
+              person: {
+                uuid: MOCK_PERSON_UUID,
+              },
+              companyType: 'Limited',
               legalName: 'AUTORAMA UK LTD',
               companyNumber: '05137709',
               tradingSince: '01-05-2004',
@@ -98,8 +101,8 @@ describe('B2B Company Details page', () => {
         },
         result: mutationMock.mockImplementation(() => ({
           data: {
-            updateLimitedCompany: {
-              uuid: MOCK_COMPANY_UUID,
+            createUpdateLimitedCompany: {
+              uuid: MOCK_PERSON_UUID,
             },
           } as SaveCompanyDetailsMutation,
         })),
@@ -158,7 +161,10 @@ describe('B2B Company Details page', () => {
           query: SAVE_COMPANY_DETAILS,
           variables: {
             input: {
-              uuid: MOCK_COMPANY_UUID,
+              person: {
+                uuid: MOCK_PERSON_UUID,
+              },
+              companyType: 'Limited',
               legalName: 'AUTORAMA UK LTD',
               companyNumber: '05137709',
               tradingSince: '01-05-2004',
@@ -181,8 +187,8 @@ describe('B2B Company Details page', () => {
         },
         result: mutationMock.mockImplementation(() => ({
           data: {
-            updateLimitedCompany: {
-              uuid: MOCK_COMPANY_UUID,
+            createUpdateLimitedCompany: {
+              uuid: MOCK_PERSON_UUID,
             },
           } as SaveCompanyDetailsMutation,
         })),
@@ -286,7 +292,10 @@ describe('B2B Company Details page', () => {
           query: SAVE_COMPANY_DETAILS,
           variables: {
             input: {
-              uuid: MOCK_COMPANY_UUID,
+              person: {
+                uuid: MOCK_PERSON_UUID,
+              },
+              companyType: 'Limited',
               legalName: 'AUTORAMA UK LTD',
               companyNumber: '05137709',
               tradingSince: '01-05-2004',
@@ -313,8 +322,8 @@ describe('B2B Company Details page', () => {
         },
         result: mutationMock.mockImplementation(() => ({
           data: {
-            updateLimitedCompany: {
-              uuid: MOCK_COMPANY_UUID,
+            createUpdateLimitedCompany: {
+              uuid: MOCK_PERSON_UUID,
             },
           } as SaveCompanyDetailsMutation,
         })),

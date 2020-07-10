@@ -16,25 +16,30 @@ const FormikDateField: React.FC<Props> = ({ label, fieldNames }) => {
   const [monthField, monthMeta] = useField(monthId);
   const [yearField, yearMeta] = useField(yearId);
 
-  const touched = dayMeta.touched || monthMeta.touched || yearMeta.touched;
+  const touched = dayMeta.touched && monthMeta.touched && yearMeta.touched;
   const error = dayMeta.error || monthMeta.error || yearMeta.error;
   return (
     <Formgroup label={label} inline error={(touched && error) || undefined}>
-      <Select id={dayId} {...dayField} placeholder="Day">
+      <Select id={dayId} dataTestId={dayId} placeholder="Day" {...dayField}>
         {genDays().map(value => (
           <option key={value} value={value}>
             {value}
           </option>
         ))}
       </Select>
-      <Select id={monthId} {...monthField} placeholder="Month">
+      <Select
+        id={monthId}
+        dataTestId={monthId}
+        placeholder="Month"
+        {...monthField}
+      >
         {genMonths().map((month, i) => (
           <option key={month} value={i + 1}>
             {month}
           </option>
         ))}
       </Select>
-      <Select id={yearId} {...yearField} placeholder="Year">
+      <Select id={yearId} dataTestId={yearId} placeholder="Year" {...yearField}>
         {genYears(100).map(year => (
           <option key={year} value={year}>
             {year}

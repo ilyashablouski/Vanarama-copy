@@ -41,7 +41,7 @@ function generateSteps() {
       step: 1,
     },
     {
-      href: '/b2b/olaf/company-details/[companyUuid]',
+      href: '/b2b/olaf/company-details/[personUuid]',
       label: 'Company Details',
       step: 2,
     },
