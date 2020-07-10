@@ -15,6 +15,11 @@ export enum LeaseTypeEnum {
   PERSONAL = "PERSONAL",
 }
 
+export enum SubVehicleTypeEnum {
+  PICKUP = "PICKUP",
+  VAN = "VAN",
+}
+
 /**
  * Sort field
  */
