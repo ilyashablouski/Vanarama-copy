@@ -23,7 +23,7 @@ const CreditChecker: NextPage = () => {
   const router = useRouter();
   const scoreParam = router.query.score as string;
   const score = parseInt(scoreParam, 10) || 0;
-  const { slidesToShow } = useSliderProperties(345, 345, 310);
+  const { slidesToShow } = useSliderProperties();
 
   const breadcrumbProps = {
     items: [
