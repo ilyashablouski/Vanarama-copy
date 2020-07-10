@@ -5,7 +5,7 @@ import OrderCard from '@vanarama/uibook/lib/components/molecules/cards/OrderCard
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Pagination from '@vanarama/uibook/lib/components/atoms/pagination';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import React, { useState, CSSProperties } from 'react';
+import React, { useState, CSSProperties, useEffect } from 'react';
 import cx from 'classnames';
 import { NextRouter } from 'next/router';
 import { useApolloClient } from '@apollo/client';
@@ -14,7 +14,10 @@ import {
   useCarDerivativesData,
 } from '../OrdersInformation/gql';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
-import { GetOrdersByPartyUuid_ordersByPartyUuid } from '../../../generated/GetOrdersByPartyUuid';
+import {
+  GetOrdersByPartyUuid_ordersByPartyUuid,
+  GetOrdersByPartyUuid,
+} from '../../../generated/GetOrdersByPartyUuid';
 import { createOffersObject } from './helpers';
 import { writeCachedOrderInformation } from '../DetailsPage/gql';
 
@@ -22,24 +25,18 @@ interface IMyOverviewProps {
   partyByUuid: string;
   quote: boolean;
   router: NextRouter;
-  activeTab?: number;
-  setActiveTab?: React.Dispatch<React.SetStateAction<number>>;
-  status?: string[];
-  changeStatus?: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const MyOverview: React.FC<IMyOverviewProps> = props => {
-  const {
-    partyByUuid,
-    quote,
-    router,
-    activeTab,
-    setActiveTab,
-    status,
-    changeStatus,
-  } = props;
+  const { partyByUuid, quote, router } = props;
   const client = useApolloClient();
   const [activePage, setActivePage] = useState(1);
+  const [activeTab, setActiveTab] = useState(0);
+  const [status, changeStatus] = useState<string[]>([]);
+  const [statusesCA, changeStatusesCA] = useState<string[]>([]);
+  const [exStatusesCA, changeExlStatusesCA] = useState<string[]>([]);
+  const [initData, setInitData] = useState<GetOrdersByPartyUuid>();
+
   const PATH = {
     items: [
       { label: 'Home', href: '/' },
@@ -52,7 +49,9 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   const { data, loading } = useOrdersByPartyUuidData(
     partyByUuid,
     quote ? ['quote', 'new'] : status || [],
-    !quote ? ['quote', 'expired'] : ['expired'],
+    !quote ? ['quote', 'expired', 'new'] : ['expired'],
+    (!quote && statusesCA) || [],
+    (!quote && exStatusesCA) || [],
   );
 
   // collect everything capId from orders
@@ -68,9 +67,15 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   // call query for get DerivativesData
   const dataCars = useCarDerivativesData(capIdArray, VehicleTypeEnum.CAR);
 
+  useEffect(() => {
+    if (data && !initData) {
+      setInitData(data);
+    }
+  }, [data, initData]);
+
   // check what we have 'credit' order and this order credit not in status 'draft'
   const hasCreditCompleteOrder = () =>
-    !!data?.ordersByPartyUuid.find(
+    !!(initData?.ordersByPartyUuid as GetOrdersByPartyUuid_ordersByPartyUuid[])?.find(
       el =>
         el.status === 'credit' &&
         el.lineItems[0].creditApplications?.length &&
@@ -79,7 +84,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
 
   // check what we have 'credit' order and this order credit in status 'draft'
   const hasCreditIncompleteOrder = () =>
-    !!data?.ordersByPartyUuid.find(
+    !!(initData?.ordersByPartyUuid as GetOrdersByPartyUuid_ordersByPartyUuid[])?.find(
       el =>
         el.status === 'credit' &&
         el.lineItems[0].creditApplications?.length &&
@@ -98,15 +103,21 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     switch (value) {
       case 1:
         // when we click 'Complete' btn, change statuses for call useOrdersByPartyUuidData
-        changeStatus!(['credit']);
+        changeStatus(['credit']);
+        changeStatusesCA([]);
+        changeExlStatusesCA(['draft']);
         break;
       case 2:
         // when we click 'Incomplete' btn, change statuses for call useOrdersByPartyUuidData
-        changeStatus!(['credit', 'draft']);
+        changeStatus(['credit']);
+        changeStatusesCA(['draft']);
+        changeExlStatusesCA([]);
         break;
       default:
         // when we click 'All Orders' btn, change statuses for call useOrdersByPartyUuidData
-        changeStatus!([]);
+        changeStatus([]);
+        changeStatusesCA([]);
+        changeExlStatusesCA([]);
         break;
     }
   };
@@ -154,6 +165,11 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
         (der: { id: string }) =>
           der.id === order.lineItems[0].vehicleProduct?.derivativeCapId,
       );
+      const imageSrc = dataCars?.data?.vehicleImages?.find(
+        el =>
+          el?.capId?.toString() ===
+          order.lineItems[0].vehicleProduct?.derivativeCapId,
+      );
       // we get offers credit state
       const creditState =
         (order.status === 'credit' &&
@@ -164,7 +180,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
         <OrderCard
           style={{ '--img-w': '300px' } as CSSProperties}
           inline
-          imageSrc="https://source.unsplash.com/collection/2102317/1000x650?sig=40344"
+          imageSrc={imageSrc?.mainImageUrl || ''}
           key={order.id}
           title={{
             title: `${derivative?.manufacturerName ||
@@ -231,7 +247,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
         <div className="row:bg-lighter -thin">
           <div className="row:results">
             {!quote && (
-              <div className="choiceboxes -teal">
+              <div className="choiceboxes -cols-3 -teal">
                 {renderChoiceBtn(0, 'All Orders')}
                 {hasCreditCompleteOrder() && renderChoiceBtn(1, 'Complete')}
                 {hasCreditIncompleteOrder() && renderChoiceBtn(2, 'Incomplete')}

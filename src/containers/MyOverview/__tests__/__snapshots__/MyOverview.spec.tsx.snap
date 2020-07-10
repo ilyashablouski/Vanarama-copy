@@ -536,10 +536,10 @@ Array [
       className="row:results"
     >
       <div
-        className="choiceboxes -teal"
+        className="choiceboxes -cols-3 -teal"
       >
         <button
-          className="choicebox"
+          className="choicebox -active"
           onClick={[Function]}
           type="button"
         >
@@ -563,7 +563,6 @@ Array [
             className="card-image"
             data-testid="card-image"
             onError={[Function]}
-            src="https://source.unsplash.com/collection/2102317/1000x650?sig=40344"
           />
           <div
             className="title"
@@ -878,7 +877,6 @@ Array [
             className="card-image"
             data-testid="card-image"
             onError={[Function]}
-            src="https://source.unsplash.com/collection/2102317/1000x650?sig=40344"
           />
           <div
             className="title"

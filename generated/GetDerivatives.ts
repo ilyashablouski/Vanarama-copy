@@ -40,8 +40,15 @@ export interface GetDerivatives_derivatives {
   transmissionName: string;
 }
 
+export interface GetDerivatives_vehicleImages {
+  vehicleType: VehicleTypeEnum | null;
+  capId: number | null;
+  mainImageUrl: string | null;
+}
+
 export interface GetDerivatives {
   derivatives: GetDerivatives_derivatives[] | null;
+  vehicleImages: (GetDerivatives_vehicleImages | null)[] | null;
 }
 
 export interface GetDerivativesVariables {
