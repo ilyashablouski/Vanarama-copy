@@ -23,6 +23,7 @@ import CustomiseLeaseContainer from '../CustomiseLeaseContainer/CustomiseLeaseCo
 import {
   GetVehicleDetails,
   GetVehicleDetails_vehicleDetails_rangeFaqs,
+  GetVehicleDetails_vehicleImages,
 } from '../../../generated/GetVehicleDetails';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import WhyChooseLeasing from '../../components/WhyChooseLeasing/WhyChooseLeasing';
@@ -134,6 +135,23 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const rangeFAQs = data?.vehicleDetails
     ?.rangeFaqs as GetVehicleDetails_vehicleDetails_rangeFaqs[];
 
+  const vehicleImages =
+    (data?.vehicleImages?.length &&
+      ((data?.vehicleImages as GetVehicleDetails_vehicleImages[])[0]
+        .imageUrls as string[])) ||
+    [];
+
+  const video =
+    (data?.vehicleImages?.length &&
+      (data?.vehicleImages as GetVehicleDetails_vehicleImages[])[0].videoUrl) ||
+    undefined;
+
+  const threeSixtyVideo =
+    (data?.vehicleImages?.length &&
+      (data?.vehicleImages as GetVehicleDetails_vehicleImages[])[0]
+        .threeSixtyVideoUrl) ||
+    undefined;
+
   const vehicleType = cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV;
   const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capRangeDescription}`;
 
@@ -166,15 +184,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             text: leadTime,
             incomplete: true,
           }}
-          images={[
-            'https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg',
-            'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
-            'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
-            'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
-            'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
-            'https://source.unsplash.com/collection/2102317/1000x650?sig=403425',
-          ]}
-          videoSrc="https://player.vimeo.com/video/263419265"
+          images={vehicleImages}
+          videoSrc={video}
+          threeSixtyVideoSrc={threeSixtyVideo}
         />
         <VehicleTechDetails
           vehicleDetails={vehicleDetails}

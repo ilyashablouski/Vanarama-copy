@@ -309,7 +309,7 @@ describe('B2B Director Details page', () => {
 
     // Enter a value lower than 25%
     fireEvent.change(
-      screen.getByRole('spinbutton', { name: /% Shareholder of Business/i }),
+      screen.getByRole('spinbutton', { name: /% Shareholding of Business/i }),
       { target: { value: '24' } },
     );
 
@@ -327,7 +327,7 @@ describe('B2B Director Details page', () => {
 
     // Enter a value greater than or equal to 25%
     fireEvent.change(
-      screen.getByRole('spinbutton', { name: /% Shareholder of Business/i }),
+      screen.getByRole('spinbutton', { name: /% Shareholding of Business/i }),
       { target: { value: '25' } },
     );
 
@@ -360,7 +360,7 @@ describe('B2B Director Details page', () => {
 
     // Enter a value lower than 25%
     fireEvent.change(
-      screen.getByRole('spinbutton', { name: /% Shareholder of Business/i }),
+      screen.getByRole('spinbutton', { name: /% Shareholding of Business/i }),
       { target: { value: '15' } },
     );
 
@@ -385,7 +385,7 @@ describe('B2B Director Details page', () => {
     // Enter a value greater than or equal to 25%
     fireEvent.change(
       screen.getAllByRole('spinbutton', {
-        name: /% Shareholder of Business/i,
+        name: /% Shareholding of Business/i,
       })[1],
       { target: { value: '11' } },
     );
@@ -419,7 +419,7 @@ describe('B2B Director Details page', () => {
 
     // Enter a value lower than 25%
     fireEvent.change(
-      screen.getByRole('spinbutton', { name: /% Shareholder of Business/i }),
+      screen.getByRole('spinbutton', { name: /% Shareholding of Business/i }),
       { target: { value: '15' } },
     );
 
@@ -495,7 +495,7 @@ describe('B2B Director Details page', () => {
 
     // Enter a value lower than 24 so another director is needed
     fireEvent.change(
-      screen.getByRole('spinbutton', { name: /% Shareholder of Business/i }),
+      screen.getByRole('spinbutton', { name: /% Shareholding of Business/i }),
       { target: { value: '24' } },
     );
 
@@ -520,7 +520,7 @@ describe('B2B Director Details page', () => {
     // Enter a value that combined with the other director is more than 100
     fireEvent.change(
       screen.getAllByRole('spinbutton', {
-        name: /% Shareholder of Business/i,
+        name: /% Shareholding of Business/i,
       })[1],
       { target: { value: '77' } },
     );
@@ -565,6 +565,7 @@ describe('B2B Director Details page', () => {
                   title: 'Mr',
                   dateOfBirth: '1987-06-01',
                   role: { position: 'director' },
+                  noOfDependants: 'One',
                 },
               ],
             },
@@ -625,7 +626,7 @@ describe('B2B Director Details page', () => {
     );
 
     fireEvent.change(
-      screen.getByRole('spinbutton', { name: /% Shareholder of Business/i }),
+      screen.getByRole('spinbutton', { name: /% Shareholding of Business/i }),
       { target: { value: '30' } },
     );
 
@@ -650,5 +651,247 @@ describe('B2B Director Details page', () => {
     fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
 
     await waitFor(() => expect(mockMutation).toHaveBeenCalledTimes(1));
+  });
+
+  it("should show the correct validation message if the director's date of birth is invalid (e.g. 31st Feb)", async () => {
+    render(
+      <MockedProvider
+        addTypename={false}
+        mocks={[getCompanyMock, multiDirectorMock]}
+      >
+        <DirectorDetailsPage />
+      </MockedProvider>,
+    );
+
+    // Wait for data to load
+    await screen.findByRole('combobox', { name: /Select director/i });
+
+    // Choose a director
+    fireEvent.change(
+      screen.getByRole('combobox', { name: /Select director/i }),
+      { target: { value: 'CHUCKLE, Barry' } },
+    );
+
+    // Wait for form to load
+    await screen.findByRole('combobox', { name: /Title/i });
+
+    // Choose an invalid date
+    fireEvent.change(screen.getByTestId('directors[0].dayOfBirth'), {
+      target: { value: '31' },
+    });
+
+    fireEvent.change(screen.getByTestId('directors[0].monthOfBirth'), {
+      target: { value: '2' },
+    });
+
+    fireEvent.change(screen.getByTestId('directors[0].yearOfBirth'), {
+      target: { value: '1987' },
+    });
+
+    // Submit the form
+    fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
+    await waitFor(() =>
+      expect(
+        screen.getByText('Oops, is your age correct?'),
+      ).toBeInTheDocument(),
+    );
+  });
+
+  it('should show the correct validation message if the director is too young', async () => {
+    render(
+      <MockedProvider
+        addTypename={false}
+        mocks={[getCompanyMock, multiDirectorMock]}
+      >
+        <DirectorDetailsPage />
+      </MockedProvider>,
+    );
+
+    // Wait for data to load
+    await screen.findByRole('combobox', { name: /Select director/i });
+
+    // Choose a director
+    fireEvent.change(
+      screen.getByRole('combobox', { name: /Select director/i }),
+      { target: { value: 'CHUCKLE, Barry' } },
+    );
+
+    // Wait for form to load
+    await screen.findByRole('combobox', { name: /Title/i });
+
+    // Choose an invalid date
+    fireEvent.change(screen.getByTestId('directors[0].dayOfBirth'), {
+      target: { value: '1' },
+    });
+
+    fireEvent.change(screen.getByTestId('directors[0].monthOfBirth'), {
+      target: { value: '1' },
+    });
+
+    fireEvent.change(screen.getByTestId('directors[0].yearOfBirth'), {
+      target: { value: String(new Date().getFullYear() - 10) }, // 10 years ago
+    });
+
+    // Submit the form
+    fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
+    await waitFor(() =>
+      expect(screen.getByText('Oops, you’re too young.')).toBeInTheDocument(),
+    );
+  });
+
+  it("should show the correct validation message if the director's first name is too short", async () => {
+    render(
+      <MockedProvider
+        addTypename={false}
+        mocks={[getCompanyMock, multiDirectorMock]}
+      >
+        <DirectorDetailsPage />
+      </MockedProvider>,
+    );
+
+    // Wait for data to load
+    await screen.findByRole('combobox', { name: /Select director/i });
+
+    // Choose a director
+    fireEvent.change(
+      screen.getByRole('combobox', { name: /Select director/i }),
+      { target: { value: 'CHUCKLE, Barry' } },
+    );
+
+    // Wait for form to load
+    await screen.findByRole('combobox', { name: /Title/i });
+
+    // Change the first name
+    fireEvent.change(screen.getByRole('textbox', { name: /First Name/i }), {
+      target: { value: 'M' },
+    });
+
+    // Submit the form
+    fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
+    await waitFor(() =>
+      expect(
+        screen.getByText(
+          'Oops, this name’s too short. Please make it 2 characters or more.',
+        ),
+      ).toBeInTheDocument(),
+    );
+  });
+
+  it("should show the correct validation message if the director's first name is too long", async () => {
+    render(
+      <MockedProvider
+        addTypename={false}
+        mocks={[getCompanyMock, multiDirectorMock]}
+      >
+        <DirectorDetailsPage />
+      </MockedProvider>,
+    );
+
+    // Wait for data to load
+    await screen.findByRole('combobox', { name: /Select director/i });
+
+    // Choose a director
+    fireEvent.change(
+      screen.getByRole('combobox', { name: /Select director/i }),
+      { target: { value: 'CHUCKLE, Barry' } },
+    );
+
+    // Wait for form to load
+    await screen.findByRole('combobox', { name: /Title/i });
+
+    // Change the first name
+    fireEvent.change(screen.getByRole('textbox', { name: /First Name/i }), {
+      target: { value: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' },
+    });
+
+    // Submit the form
+    fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
+    await waitFor(() =>
+      expect(
+        screen.getByText(
+          'Oops, this name’s too long. Please keep it to 50 characters or less.',
+        ),
+      ).toBeInTheDocument(),
+    );
+  });
+
+  it('should not show the date of birth validation message until the day, month and year have all been filled out', async () => {
+    render(
+      <MockedProvider
+        addTypename={false}
+        mocks={[getCompanyMock, multiDirectorMock]}
+      >
+        <DirectorDetailsPage />
+      </MockedProvider>,
+    );
+
+    // Wait for data to load
+    await screen.findByRole('combobox', { name: /Select director/i });
+
+    // Choose a director
+    fireEvent.change(
+      screen.getByRole('combobox', { name: /Select director/i }),
+      { target: { value: 'CHUCKLE, Barry' } },
+    );
+
+    // Wait for form to load
+    await screen.findByRole('combobox', { name: /Title/i });
+
+    // Enter only the day
+    fireEvent.change(screen.getByTestId('directors[0].dayOfBirth'), {
+      target: { value: '1' },
+    });
+
+    await waitFor(() =>
+      expect(
+        screen.queryByText('Please select a date of birth'),
+      ).not.toBeInTheDocument(),
+    );
+  });
+
+  it('should show a validation message for the director dropdown when another is required', async () => {
+    render(
+      <MockedProvider
+        addTypename={false}
+        mocks={[getCompanyMock, multiDirectorMock]}
+      >
+        <DirectorDetailsPage />
+      </MockedProvider>,
+    );
+
+    // Wait for data to load
+    await screen.findByRole('combobox', { name: /Select director/i });
+
+    // Choose a director
+    fireEvent.change(
+      screen.getByRole('combobox', { name: /Select director/i }),
+      { target: { value: 'CHUCKLE, Barry' } },
+    );
+
+    // Wait for form to load
+    await screen.findByRole('combobox', { name: /Title/i });
+
+    // Choose a percentage below 25%
+    fireEvent.change(
+      screen.getByRole('spinbutton', { name: /% Shareholding of Business/i }),
+      {
+        target: { value: '20' },
+      },
+    );
+
+    // There should not be a validation message until after submission of the form
+    await waitFor(() =>
+      expect(
+        screen.queryByText('Please select a director'),
+      ).not.toBeInTheDocument(),
+    );
+
+    // Submit the form
+    fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
+
+    // There should be a validation message
+    await waitFor(() =>
+      expect(screen.getByText('Please select a director')).toBeInTheDocument(),
+    );
   });
 });
