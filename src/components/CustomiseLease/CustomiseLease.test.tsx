@@ -106,6 +106,7 @@ describe('<CustomiseLease />', () => {
       setIsInitialLoading: jest.fn(),
       setIsDisabled: jest.fn(),
       onSubmit: jest.fn(),
+      showCallBackForm: jest.fn(),
       lineItem: {} as any,
     });
 
@@ -141,6 +142,7 @@ describe('<CustomiseLease />', () => {
       setColour: jest.fn(),
       setTerm: jest.fn(),
       setTrim: jest.fn(),
+      showCallBackForm: jest.fn(),
       isDisabled: false,
       setIsInitialLoading: jest.fn(),
       setIsDisabled: jest.fn(),
@@ -326,6 +328,7 @@ describe('<CustomiseLease />', () => {
           ],
         }}
         onSubmit={jest.fn()}
+        showCallBackForm={jest.fn()}
         lineItem={{} as any}
       />,
     );

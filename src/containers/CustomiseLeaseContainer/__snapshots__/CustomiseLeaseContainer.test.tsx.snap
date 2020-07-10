@@ -51,6 +51,11 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
     >
       Get Your Quote Now
     </span>
+    <span
+      className="text -mb-400 -regular -darker"
+    >
+      We’ll be in touch within 1-2 business hours
+    </span>
     <div
       className="formgroup"
     >
