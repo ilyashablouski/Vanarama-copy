@@ -45,80 +45,44 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </span>
   </span>
   <div
-    className="rheostat rheostat_1"
+    className="sliding-input"
     onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseMove={[Function]}
+    onMouseUp={[Function]}
+    role="button"
+    style={
+      Object {
+        "--length": 3,
+        "--value": 1,
+      }
+    }
   >
     <div
-      className="DefaultBackground DefaultBackground_1 DefaultBackground_background__horizontal DefaultBackground_background__horizontal_2"
-    />
-    <div
-      className="handleContainer handleContainer_1"
+      className="sliding-input-fill"
     >
-      <button
-        aria-disabled={false}
-        aria-valuemax={3}
-        aria-valuemin={1}
-        aria-valuenow={1}
-        className="DefaultHandle_handle DefaultHandle_handle_1 DefaultHandle_handle__horizontal DefaultHandle_handle__horizontal_2"
-        data-handle-key={0}
-        onKeyDown={[Function]}
-        onMouseDown={[Function]}
-        onTouchStart={[Function]}
-        role="slider"
-        style={
-          Object {
-            "left": "0%",
-            "position": "absolute",
-          }
-        }
-        tabIndex={0}
-        type="button"
+      <div
+        className="sliding-input-value"
       />
     </div>
     <div
-      className="DefaultProgressBar_progressBar DefaultProgressBar_progressBar_1 DefaultProgressBar_background__horizontal DefaultProgressBar_background__horizontal_2"
-      style={
-        Object {
-          "left": 0,
-          "width": "0%",
-        }
-      }
+      className="sliding-input-handle"
     />
     <div
-      style={
-        Object {
-          "left": "0%",
-          "position": "absolute",
-        }
-      }
+      className="sliding-input-step"
     >
-      <p>
-        6K
-      </p>
+      6K
     </div>
     <div
-      style={
-        Object {
-          "left": "50%",
-          "position": "absolute",
-        }
-      }
+      className="sliding-input-step"
     >
-      <p>
-        8K
-      </p>
+      8K
     </div>
     <div
-      style={
-        Object {
-          "left": "100%",
-          "position": "absolute",
-        }
-      }
+      className="sliding-input-step"
     >
-      <p>
-        10K
-      </p>
+      10K
     </div>
   </div>
   <div
@@ -421,6 +385,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           className="structured-list-row "
         >
           <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-0"
+          >
+            Processing Fee:
+          </div>
+          <div
             className="structured-list-td"
             data-testid="processingFee"
           >
@@ -430,6 +400,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         <div
           className="structured-list-row "
         >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-1"
+          >
+            Initial Payment:
+          </div>
           <div
             className="structured-list-td"
             data-testid="initialPayment"
@@ -441,6 +417,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           className="structured-list-row "
         >
           <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-2"
+          >
+            Contract Length:
+          </div>
+          <div
             className="structured-list-td"
             data-testid="contractLengthile"
           >
@@ -450,6 +432,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         <div
           className="structured-list-row "
         >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-3"
+          >
+            Annual Mileage:
+          </div>
           <div
             className="structured-list-td"
             data-testid="annualMileage"
@@ -461,6 +449,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           className="structured-list-row "
         >
           <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-4"
+          >
+            Maintenance:
+          </div>
+          <div
             className="structured-list-td"
             data-testid="maintenance"
           >
@@ -470,6 +464,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         <div
           className="structured-list-row "
         >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-5"
+          >
+            Colour:
+          </div>
           <div
             className="structured-list-td"
             data-testid="colour"
@@ -481,6 +481,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           className="structured-list-row "
         >
           <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-6"
+          >
+            Trim / Interior:
+          </div>
+          <div
             className="structured-list-td"
             data-testid="trim"
           >
@@ -490,6 +496,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         <div
           className="structured-list-row "
         >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-7"
+          >
+            Stock:
+          </div>
           <div
             className="structured-list-td"
             data-testid="stock"
@@ -508,16 +520,6 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       }
     }
   >
-    <div
-      className="card-header lease-card-header"
-    >
-      <span
-        className="text -small -darker"
-      >
-        Next Best Price 
-        £60.00 PM exc. VAT
-      </span>
-    </div>
     <div
       className="lease-scanner"
       style={
@@ -648,80 +650,44 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </span>
   </span>
   <div
-    className="rheostat rheostat_1"
+    className="sliding-input"
     onClick={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseMove={[Function]}
+    onMouseUp={[Function]}
+    role="button"
+    style={
+      Object {
+        "--length": 3,
+        "--value": 1,
+      }
+    }
   >
     <div
-      className="DefaultBackground DefaultBackground_1 DefaultBackground_background__horizontal DefaultBackground_background__horizontal_2"
-    />
-    <div
-      className="handleContainer handleContainer_1"
+      className="sliding-input-fill"
     >
-      <button
-        aria-disabled={false}
-        aria-valuemax={3}
-        aria-valuemin={1}
-        aria-valuenow={1}
-        className="DefaultHandle_handle DefaultHandle_handle_1 DefaultHandle_handle__horizontal DefaultHandle_handle__horizontal_2"
-        data-handle-key={0}
-        onKeyDown={[Function]}
-        onMouseDown={[Function]}
-        onTouchStart={[Function]}
-        role="slider"
-        style={
-          Object {
-            "left": "0%",
-            "position": "absolute",
-          }
-        }
-        tabIndex={0}
-        type="button"
+      <div
+        className="sliding-input-value"
       />
     </div>
     <div
-      className="DefaultProgressBar_progressBar DefaultProgressBar_progressBar_1 DefaultProgressBar_background__horizontal DefaultProgressBar_background__horizontal_2"
-      style={
-        Object {
-          "left": 0,
-          "width": "0%",
-        }
-      }
+      className="sliding-input-handle"
     />
     <div
-      style={
-        Object {
-          "left": "0%",
-          "position": "absolute",
-        }
-      }
+      className="sliding-input-step"
     >
-      <p>
-        6K
-      </p>
+      6K
     </div>
     <div
-      style={
-        Object {
-          "left": "50%",
-          "position": "absolute",
-        }
-      }
+      className="sliding-input-step"
     >
-      <p>
-        8K
-      </p>
+      8K
     </div>
     <div
-      style={
-        Object {
-          "left": "100%",
-          "position": "absolute",
-        }
-      }
+      className="sliding-input-step"
     >
-      <p>
-        10K
-      </p>
+      10K
     </div>
   </div>
   <div
@@ -1024,6 +990,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           className="structured-list-row "
         >
           <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-0"
+          >
+            Processing Fee:
+          </div>
+          <div
             className="structured-list-td"
             data-testid="processingFee"
           >
@@ -1033,6 +1005,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         <div
           className="structured-list-row "
         >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-1"
+          >
+            Initial Payment:
+          </div>
           <div
             className="structured-list-td"
             data-testid="initialPayment"
@@ -1044,6 +1022,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           className="structured-list-row "
         >
           <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-2"
+          >
+            Contract Length:
+          </div>
+          <div
             className="structured-list-td"
             data-testid="contractLengthile"
           >
@@ -1053,6 +1037,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         <div
           className="structured-list-row "
         >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-3"
+          >
+            Annual Mileage:
+          </div>
           <div
             className="structured-list-td"
             data-testid="annualMileage"
@@ -1064,6 +1054,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           className="structured-list-row "
         >
           <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-4"
+          >
+            Maintenance:
+          </div>
+          <div
             className="structured-list-td"
             data-testid="maintenance"
           >
@@ -1073,6 +1069,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         <div
           className="structured-list-row "
         >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-5"
+          >
+            Colour:
+          </div>
           <div
             className="structured-list-td"
             data-testid="colour"
@@ -1084,6 +1086,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           className="structured-list-row "
         >
           <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-6"
+          >
+            Trim / Interior:
+          </div>
+          <div
             className="structured-list-td"
             data-testid="trim"
           >
@@ -1093,6 +1101,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         <div
           className="structured-list-row "
         >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-7"
+          >
+            Stock:
+          </div>
           <div
             className="structured-list-td"
             data-testid="stock"
@@ -1111,16 +1125,6 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       }
     }
   >
-    <div
-      className="card-header lease-card-header"
-    >
-      <span
-        className="text -small -darker"
-      >
-        Next Best Price 
-        £60.00 PM exc. VAT
-      </span>
-    </div>
     <div
       className="lease-scanner"
       style={
