@@ -98,15 +98,7 @@ describe('<MyOverview />', () => {
     const getComponent = () => {
       return renderer
         .create(
-          <MyOverview
-            partyByUuid=""
-            quote={false}
-            router={router as any}
-            activeTab={1}
-            setActiveTab={jest.fn()}
-            status={null as any}
-            changeStatus={jest.fn()}
-          />,
+          <MyOverview partyByUuid="" quote={false} router={router as any} />,
         )
         .toJSON();
     };

@@ -83,6 +83,18 @@ export const GET_CAR_DATA = gql`
       terms
       upfronts
     }
+    vehicleImages(capIds: [$capIdDetails]) {
+      vehicleType
+      capId
+      mainImageUrl
+      imageUrls
+      colourImages {
+        colourName
+        imageUrls
+      }
+      videoUrl
+      threeSixtyVideoUrl
+    }
   }
 `;
 

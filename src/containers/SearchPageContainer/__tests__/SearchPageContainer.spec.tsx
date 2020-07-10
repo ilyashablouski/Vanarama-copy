@@ -10,8 +10,7 @@ jest.mock('next/router', () => ({
   useRouter() {
     return {
       push: jest.fn(),
-      pathname: '/[search]',
-      query: { search: 'car-leasing' },
+      query: {},
     };
   },
 }));
