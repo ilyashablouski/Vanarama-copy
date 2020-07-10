@@ -40,13 +40,14 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
       <Heading color="black" size="xlarge" dataTestId="companyBankDetails">
         Company Bank Details
       </Heading>
-      <Text color="darker" size="lead">
+      <Text color="black" size="regular">
         Don’t worry, no money will be taken at this stage. We just need these
         details so we can set up the direct debit for your monthly payments.
       </Text>
+      <br />
       <FormGroup
         controlId="accountName"
-        label="Bank Account Name"
+        label="Account Name"
         error={errors?.accountName?.message?.toString()}
       >
         <TextInput
@@ -91,7 +92,7 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
       </FormGroup>
       <FormGroup
         controlId="joinedAt"
-        label="Time at Bank"
+        label="Account Open Since"
         error={
           errors?.joinedAtMonth?.message?.toString() ||
           errors?.joinedAtYear?.message?.toString()
@@ -129,7 +130,9 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
         type="submit"
         label={formState.isSubmitting ? 'Saving...' : 'Continue'}
         disabled={formState.isSubmitting}
+        className="-mt-400"
         color="primary"
+        size="large"
         icon={<ChevronForwardSharp />}
         iconColor="white"
         iconPosition="after"

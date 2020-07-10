@@ -3,19 +3,34 @@ import moment from 'moment';
 import { ICompanyBankDetails } from './interfaces';
 
 function isInFuture({ joinedAtYear, joinedAtMonth }: ICompanyBankDetails) {
-  const joiningMoment = moment(`${joinedAtMonth}-${joinedAtYear}`, 'MM-YYYY');
-  const inPast = moment().diff(joiningMoment, 'months') >= 0;
-  return inPast ? null : 'In future';
+  // const joiningMoment = moment(`${joinedAtMonth}-${joinedAtYear}`, 'MM-YYYY');
+  // console.log(joiningMoment, moment(`${joinedAtMonth}-${joinedAtYear}`, 'MM-YYYY').diff());
+  const inPast =
+    moment(`${joinedAtMonth}-${joinedAtYear}`, 'MM-YYYY').diff() <= 0;
+  return inPast ? null : 'Oops, this date seems to be in the future';
 }
 
 function timeValidator(this: yup.TestContext) {
   const { createError, path, parent } = this;
   const error = isInFuture(parent);
-  return error ? createError({ message: error, path }) : true;
+  return error
+    ? createError({ message: error, path })
+    : createError({ message: undefined, path });
 }
 
 const ValidationSchema = yup.object().shape({
-  accountName: yup.string().required('Please enter bank account name'),
+  accountName: yup
+    .string()
+    .required('Please enter bank account name')
+    .matches(
+      /^^[a-zA-Z'-\s]+$/,
+      'Please use only letters, apostrophes and dashes',
+    )
+    .min(
+      2,
+      'Oops, this name’s too short. Please make it 2 characters or longer',
+    )
+    .max(100, 'Oops, this name’s too long. Please keep it to 100 characters'),
   accountNumber: yup
     .string()
     .required('Please enter account number')
@@ -30,20 +45,14 @@ const ValidationSchema = yup.object().shape({
         .min(2, 'Please enter sort code'),
     )
     .required('Please enter sort code'),
-  joinedAtYear: yup.string().required('Please select account opening date'),
+  joinedAtYear: yup
+    .string()
+    .required('Please select account opening date')
+    .test('not-in-future', '', timeValidator),
   joinedAtMonth: yup
     .string()
     .required('Please select account opening date')
-    .when('joinedAtYear', {
-      is: new Date().getFullYear().toString(),
-      then: yup
-        .string()
-        .test(
-          'not-in-future',
-          'Oops, this date seems to be in the future',
-          timeValidator,
-        ),
-    }),
+    .test('not-in-future', '', timeValidator),
 });
 
 export default ValidationSchema;
