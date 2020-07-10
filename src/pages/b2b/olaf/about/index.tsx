@@ -29,9 +29,6 @@ export const SAVE_BUSINESS_ABOUT_YOU = gql`
   mutation SaveBusinessAboutYou($input: PersonInputObject!) {
     createUpdateBusinessPerson(input: $input) {
       uuid
-      companies {
-        uuid
-      }
     }
   }
 `;
@@ -49,10 +46,10 @@ export const BusinessAboutPage: NextPage = () => {
     SaveBusinessAboutYouVariables
   >(SAVE_BUSINESS_ABOUT_YOU, {
     onCompleted: ({ createUpdateBusinessPerson }) => {
-      const companyUuid = createUpdateBusinessPerson!.companies?.[0].uuid!;
+      const personUuid = createUpdateBusinessPerson!.uuid!;
       const params = getUrlParam({ derivativeId, orderId });
-      const url = `/b2b/olaf/company-details/[companyUuid]${params}`;
-      router.push(url, url.replace('[companyUuid]', companyUuid));
+      const url = `/b2b/olaf/company-details/[personUuid]${params}`;
+      router.push(url, url.replace('[personUuid]', personUuid));
     },
     onError: () => {
       toast.error(
@@ -96,10 +93,6 @@ export const BusinessAboutPage: NextPage = () => {
                   emailConsent: values.marketing,
                   smsConsent: values.marketing,
                   termsAndConditions: values.termsAndConditions,
-                  role: {
-                    position: 'Account owner',
-                    primaryContact: true,
-                  },
                 },
               },
             });

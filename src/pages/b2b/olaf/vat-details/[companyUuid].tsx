@@ -15,7 +15,7 @@ import { OLAFQueryParams, getUrlParam } from '../../../../utils/url';
 
 export const UPDATE_VAT_DETAILS = gql`
   mutation UpdateVatDetailsMutation($input: LimitedCompanyInputObject!) {
-    updateLimitedCompany(input: $input) {
+    createUpdateLimitedCompany(input: $input) {
       uuid
       isVatRegistered
       tradesOutsideUk

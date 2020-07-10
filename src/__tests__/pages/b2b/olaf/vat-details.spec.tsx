@@ -465,7 +465,7 @@ describe('B2B VAT Details page', () => {
             },
             result: mockMutation.mockImplementation(() => ({
               data: {
-                updateLimitedCompany: {
+                createUpdateLimitedCompany: {
                   uuid: MOCK_COMPANY_UUID,
                 },
               } as UpdateVatDetailsMutation,
@@ -509,7 +509,7 @@ describe('B2B VAT Details page', () => {
             },
             result: mockMutation.mockImplementation(() => ({
               data: {
-                updateLimitedCompany: {
+                createUpdateLimitedCompany: {
                   uuid: MOCK_COMPANY_UUID,
                 },
               } as UpdateVatDetailsMutation,
@@ -561,7 +561,7 @@ describe('B2B VAT Details page', () => {
             },
             result: mockMutation.mockImplementation(() => ({
               data: {
-                updateLimitedCompany: {
+                createUpdateLimitedCompany: {
                   uuid: MOCK_COMPANY_UUID,
                 },
               } as UpdateVatDetailsMutation,
@@ -659,7 +659,7 @@ describe('B2B VAT Details page', () => {
             },
             result: mockMutation.mockImplementation(() => ({
               data: {
-                updateLimitedCompany: {
+                createUpdateLimitedCompany: {
                   uuid: MOCK_COMPANY_UUID,
                 },
               } as UpdateVatDetailsMutation,
