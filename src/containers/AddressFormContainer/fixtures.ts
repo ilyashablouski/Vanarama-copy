@@ -98,19 +98,3 @@ export const withSavedAddresses = (
     },
   },
 });
-
-// data: {
-//   createUpdateAddress: [
-//     {
-//       __typename: 'AddressType',
-//       uuid: '2d56fa36-18e3-4f88-89df-9a2895f7e0dd',
-//       city: 'Aberdeen',
-//       lineOne: 'Marischal College',
-//       serviceId: 'GB|001',
-//       lineTwo: 'Broad Street',
-//       postcode: 'AB10 1AF',
-//       propertyStatus: 'Owned with mortgage',
-//       startedOn: '1990-01-01',
-//     },
-//   ],
-// } as Mutation,
