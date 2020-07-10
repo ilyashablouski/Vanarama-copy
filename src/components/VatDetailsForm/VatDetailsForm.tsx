@@ -54,7 +54,7 @@ const VatDetailsForm: React.FC<IProps> = ({ onSubmit }) => {
             ref={register({
               required: 'Please fill in VAT Number',
               pattern: {
-                value: /\d{9}/,
+                value: /^\d{9}$/,
                 message: 'Your VAT number must be 9 digits long',
               },
             })}

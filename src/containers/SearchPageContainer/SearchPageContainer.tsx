@@ -9,19 +9,16 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Search from '@vanarama/uibook/lib/components/atoms/search';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
+import { useProductCardData } from '../CustomerAlsoViewedContainer/gql';
 import { IFilters } from '../FiltersContainer/interfaces';
 import FiltersContainer from '../FiltersContainer';
 import VehicleCard from './VehicleCard';
 import { getVehiclesList } from './gql';
-import {
-  vehicleList_vehicleList_edges_node_financeProfiles as IFinanceProfile,
-  vehicleList_vehicleList_edges as IVehicles,
-} from '../../../generated/vehicleList';
-import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
+import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
+import { VehicleTypeEnum, SortField } from '../../../generated/globalTypes';
 import buildRewriteRoute from './helpers';
+import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 
 interface IProps {
   isServer: boolean;
@@ -45,6 +42,11 @@ const SearchPageContainer: React.FC<IProps> = ({
   );
 
   const [vehiclesList, setVehicleList] = useState([] as any);
+  const [capIds, setCapsIds] = useState([] as string[]);
+  const [cardsDataCache, setCardsDataCache] = useState(
+    [] as (IProductCard | null)[],
+  );
+  const [cardsData, setCardsData] = useState([] as (IProductCard | null)[]);
   const [lastCard, setLastCard] = useState('');
   const [isPersonal, setIsPersonal] = useState(true);
   const [isSpecialOffers, setIsSpecialOffers] = useState(
@@ -54,14 +56,44 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   const [filtersData, setFiltersData] = useState({});
 
+  const { refetch } = useProductCardData(
+    capIds,
+    isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+  );
+
+  // get Caps ids for prodect card request
+  const getCapsIds = (data: (IVehicles | null)[]) =>
+    data.map(vehicle => vehicle?.node?.derivativeId || '') || [];
+
+  // using onCompleted callback for request card data after vehicle list was loaded
   const [getVehicles, { data }] = getVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
     isSpecialOffers,
+    async vehicles => {
+      try {
+        return await refetch({
+          capIds: getCapsIds(vehicles.vehicleList?.edges || []),
+          vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+        }).then(resp => setCardsData(resp.data?.productCard || []));
+      } catch {
+        return false;
+      }
+    },
   );
   // using for cache request
   const [getVehiclesCache, { data: cacheData }] = getVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
     isSpecialOffers,
+    async vehicles => {
+      try {
+        return await refetch({
+          capIds: getCapsIds(vehicles.vehicleList?.edges || []),
+          vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+        }).then(resp => setCardsDataCache(resp.data?.productCard || []));
+      } catch {
+        return false;
+      }
+    },
     lastCard,
   );
 
@@ -69,6 +101,8 @@ const SearchPageContainer: React.FC<IProps> = ({
     { label: 'Home', href: '/' },
     { label: `${isCarSearch ? 'Car' : 'Vans'} Search`, href: '/' },
   ];
+
+  const sortField = isSpecialOffers ? SortField.offerRanking : SortField.rate;
 
   // new search with new filters
   const onSearch = (filters = filtersData) => {
@@ -81,6 +115,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           : [VehicleTypeEnum.LCV],
         onOffer: isSpecialOffers,
         ...filters,
+        sortField,
       },
     });
     // we should make 2 call for clear all queries
@@ -107,8 +142,13 @@ const SearchPageContainer: React.FC<IProps> = ({
       setVehicleList(data.vehicleList?.edges || []);
       setLastCard(data.vehicleList.pageInfo.endCursor || '');
       setTotalCount(data.vehicleList.totalCount);
+      setCapsIds(
+        data.vehicleList?.edges?.map(
+          vehicle => vehicle?.node?.derivativeId || '',
+        ) || [],
+      );
     }
-  }, [data, setVehicleList, setLastCard, setTotalCount]);
+  }, [data, setVehicleList, setLastCard, setTotalCount, setCapsIds]);
 
   // get vehicles to cache
   useEffect(() => {
@@ -121,32 +161,45 @@ const SearchPageContainer: React.FC<IProps> = ({
           onOffer: isSpecialOffers,
           after: lastCard,
           ...filtersData,
+          sortField,
         },
       });
-  }, [lastCard, getVehiclesCache, filtersData, isCarSearch, isSpecialOffers]);
+  }, [
+    lastCard,
+    getVehiclesCache,
+    filtersData,
+    isCarSearch,
+    isSpecialOffers,
+    sortField,
+  ]);
+
+  // get vehicles to cache
+  useEffect(() => {
+    if (cacheData?.vehicleList.edges?.length) {
+      setCapsIds(
+        cacheData.vehicleList?.edges?.map(
+          vehicle => vehicle?.node?.derivativeId || '',
+        ) || [],
+      );
+    }
+  }, [cacheData, setCapsIds, isCarSearch]);
 
   // load more offers
   const onLoadMore = () => {
     setVehicleList([...vehiclesList, ...(cacheData?.vehicleList.edges || [])]);
+    setCardsData(prevState => [...prevState, ...cardsDataCache]);
     if (vehiclesList.length < totalCount)
       setLastCard(cacheData?.vehicleList.pageInfo.endCursor || '');
-  };
-
-  // build price for offers
-  const priceBuilder = (financeProfiles: IFinanceProfile[]): number | null => {
-    const leaseType = isPersonal
-      ? LeaseTypeEnum.PERSONAL
-      : LeaseTypeEnum.BUSINESS;
-    const financeProfile = financeProfiles.find(
-      el => el.leaseType === leaseType,
-    );
-    return financeProfile?.rate || null;
   };
 
   /** save to sessions storage special offers status */
   const onSaveSpecialOffersStatus = (value: boolean) => {
     setIsSpecialOffers(value);
     sessionStorage.setItem(isCarSearch ? 'Car' : 'Vans', JSON.stringify(value));
+  };
+
+  const getCardData = (capId: string) => {
+    return cardsData?.filter(card => card?.capId === capId)[0];
   };
 
   return (
@@ -187,35 +240,25 @@ const SearchPageContainer: React.FC<IProps> = ({
             {`Showing ${totalCount} Results`}
           </Text>
           <div className="row:cards-3col">
-            {vehiclesList?.map((vehicle: IVehicles) => (
-              <VehicleCard
-                key={vehicle?.node?.capCode || ''}
-                header={{
-                  accentIcon: (
-                    <Icon
-                      icon={<Flame />}
-                      color="white"
-                      className="md hydrated"
-                    />
-                  ),
-                  accentText: 'Hot Deal',
-                  text: 'In Stock - 14-21 Days Delivery',
-                }}
-                title={{
-                  title: '',
-                  link: (
-                    <a href="/" className="heading -large -black">
-                      {`${vehicle.node?.manufacturerName} ${vehicle.node?.modelName}`}
-                    </a>
-                  ),
-                  description: vehicle.node?.derivativeName || '',
-                  score: 4.5,
-                }}
-                price={priceBuilder(
-                  vehicle.node?.financeProfiles as IFinanceProfile[],
-                )}
-              />
-            ))}
+            {useCallback(
+              vehiclesList?.map((vehicle: IVehicles) => (
+                <VehicleCard
+                  key={vehicle?.node?.derivativeId || ''}
+                  data={
+                    getCardData(
+                      vehicle.node?.derivativeId || '',
+                    ) as IProductCard
+                  }
+                  title={{
+                    title: '',
+
+                    description: vehicle.node?.derivativeName || '',
+                  }}
+                  isPersonalPrice={isPersonal}
+                />
+              )),
+              [cardsData, isPersonal],
+            )}
           </div>
           <div className="pagination">
             {totalCount > vehiclesList?.length && (

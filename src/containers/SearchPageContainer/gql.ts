@@ -6,6 +6,7 @@ import {
 import {
   VehicleTypeEnum,
   RateInputObject,
+  SortField,
 } from '../../../generated/globalTypes';
 
 export const GET_VEHICLE_LIST = gql`
@@ -19,6 +20,7 @@ export const GET_VEHICLE_LIST = gql`
     $bodyStyles: [String!]
     $transmissions: [String!]
     $fuelTypes: [String!]
+    $sortField: SortField!
   ) {
     vehicleList(
       first: 9
@@ -33,7 +35,7 @@ export const GET_VEHICLE_LIST = gql`
         transmissions: $transmissions
         fuelTypes: $fuelTypes
       }
-      sort: { field: offerRanking, direction: ASC }
+      sort: { field: $sortField, direction: ASC }
     ) {
       totalCount
       pageInfo {
@@ -74,6 +76,7 @@ export const GET_VEHICLE_LIST = gql`
 export function getVehiclesList(
   vehicleTypes: VehicleTypeEnum[],
   onOffer = false,
+  onCompleted?: (data: vehicleList) => void,
   after?: string,
   manufacturerName?: string,
   rangeName?: string,
@@ -84,6 +87,7 @@ export function getVehiclesList(
 ) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   return useLazyQuery<vehicleList, vehicleListVariables>(GET_VEHICLE_LIST, {
+    onCompleted,
     variables: {
       vehicleTypes,
       onOffer,
@@ -94,6 +98,7 @@ export function getVehiclesList(
       bodyStyles,
       transmissions,
       fuelTypes,
+      sortField: onOffer ? SortField.offerRanking : SortField.rate,
     },
   });
 }

@@ -9,15 +9,15 @@ import { LimitedCompanyInputObject } from "./globalTypes";
 // GraphQL mutation operation: SaveCompanyDetailsMutation
 // ====================================================
 
-export interface SaveCompanyDetailsMutation_updateLimitedCompany {
+export interface SaveCompanyDetailsMutation_createUpdateLimitedCompany {
   uuid: string;
 }
 
 export interface SaveCompanyDetailsMutation {
   /**
-   * Update Ltd. Company
+   * Create or update Ltd. Company
    */
-  updateLimitedCompany: SaveCompanyDetailsMutation_updateLimitedCompany | null;
+  createUpdateLimitedCompany: SaveCompanyDetailsMutation_createUpdateLimitedCompany | null;
 }
 
 export interface SaveCompanyDetailsMutationVariables {

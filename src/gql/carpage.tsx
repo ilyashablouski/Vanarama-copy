@@ -43,6 +43,10 @@ export const GET_CAR_DATA = gql`
         review
         name
       }
+      rangeFaqs {
+        question
+        answer
+      }
     }
     derivativeInfo(id: $capIdDetails, vehicleType: $vehicleType) {
       technicals {
@@ -78,6 +82,18 @@ export const GET_CAR_DATA = gql`
       mileages
       terms
       upfronts
+    }
+    vehicleImages(capIds: [$capIdDetails]) {
+      vehicleType
+      capId
+      mainImageUrl
+      imageUrls
+      colourImages {
+        colourName
+        imageUrls
+      }
+      videoUrl
+      threeSixtyVideoUrl
     }
   }
 `;

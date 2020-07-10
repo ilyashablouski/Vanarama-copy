@@ -147,6 +147,11 @@ exports[`<FiltersContainer /> should render with data 1`] = `
                   >
                     Dacia
                   </option>
+                  <option
+                    value="BMW"
+                  >
+                    BMW
+                  </option>
                 </select>
                 <span
                   class="icon select--chevron"
@@ -391,6 +396,11 @@ exports[`<FiltersContainer /> should render with data 1`] = `
                     value="550"
                   >
                     £550
+                  </option>
+                  <option
+                    value="550+"
+                  >
+                    £550+
                   </option>
                 </select>
                 <span

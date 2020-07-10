@@ -17,27 +17,30 @@ import { getUrlParam, OLAFQueryParams } from '../../../../utils/url';
 
 export const SAVE_COMPANY_DETAILS = gql`
   mutation SaveCompanyDetailsMutation($input: LimitedCompanyInputObject!) {
-    updateLimitedCompany(input: $input) {
+    createUpdateLimitedCompany(input: $input) {
       uuid
     }
   }
 `;
 
 type QueryParams = OLAFQueryParams & {
-  companyUuid: string;
+  personUuid: string;
 };
 
 export const CompanyDetailsPage: NextPage = () => {
   const router = useRouter();
-  const { companyUuid, derivativeId, orderId } = router.query as QueryParams;
+  const { personUuid, derivativeId, orderId } = router.query as QueryParams;
 
   const [saveCompanyDetails] = useMutation<Mutation, MutationVariables>(
     SAVE_COMPANY_DETAILS,
     {
-      onCompleted: () => {
+      onCompleted: result => {
         const params = getUrlParam({ derivativeId, orderId });
         const url = `/b2b/olaf/vat-details/[companyUuid]${params}`;
-        router.push(url, url.replace('[companyUuid]', companyUuid));
+        router.push(
+          url,
+          url.replace('[companyUuid]', result.createUpdateLimitedCompany!.uuid),
+        );
       },
       onError: () => {
         toast.error(
@@ -59,7 +62,8 @@ export const CompanyDetailsPage: NextPage = () => {
           await saveCompanyDetails({
             variables: {
               input: {
-                uuid: companyUuid,
+                person: { uuid: personUuid },
+                companyType: 'Limited',
                 legalName: searchResult
                   ? searchResult.title
                   : values.companyName,

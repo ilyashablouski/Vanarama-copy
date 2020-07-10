@@ -10,4 +10,5 @@
 export interface WriteCachedOrderInformation {
   selectedOrderUuid: string | null;
   selectedDerivativeId: string | null;
+  selectedVehicleType: string | null;
 }

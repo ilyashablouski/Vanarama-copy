@@ -14,6 +14,8 @@ export const GET_ORDERS_BY_PARTY_UUID_DATA = gql`
     $partyUuid: ID!
     $statuses: [String!]
     $excludeStatuses: [String!]
+    $statusesCA: [String!]
+    $exStatusesCA: [String!]
   ) {
     ordersByPartyUuid(
       partyUuid: $partyUuid
@@ -36,7 +38,10 @@ export const GET_ORDERS_BY_PARTY_UUID_DATA = gql`
         status
         updatedAt
         uuid
-        creditApplications {
+        creditApplications(
+          statuses: $statusesCA
+          excludeStatuses: $exStatusesCA
+        ) {
           status
           uuid
         }
@@ -54,6 +59,7 @@ export const GET_ORDERS_BY_PARTY_UUID_DATA = gql`
           colour
           trim
           maintenance
+          vehicleType
         }
       }
     }
@@ -69,6 +75,8 @@ export function useOrdersByPartyUuidData(
   partyByUuid: string,
   statuses?: string[],
   excludeStatuses?: string[],
+  statusesCA?: string[],
+  exStatusesCA?: string[],
 ) {
   return useQuery<GetOrdersByPartyUuid, GetOrdersByPartyUuidVariables>(
     GET_ORDERS_BY_PARTY_UUID_DATA,
@@ -77,6 +85,8 @@ export function useOrdersByPartyUuidData(
         partyUuid: partyByUuid,
         statuses: statuses || null,
         excludeStatuses: excludeStatuses || null,
+        statusesCA: statusesCA || null,
+        exStatusesCA: exStatusesCA || null,
       },
     },
   );
@@ -105,6 +115,11 @@ export const GET_CAR_DERIVATIVES = gql`
         name
       }
       transmissionName
+    }
+    vehicleImages(capIds: $ids, vehicleType: $vehicleType) {
+      vehicleType
+      capId
+      mainImageUrl
     }
   }
 `;

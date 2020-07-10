@@ -26,4 +26,4 @@ export const filtersConfig = [
   { label: 'Fuel Type', accessor: 'fuelTypes', contentType: 'multiSelect' },
 ];
 
-export const budgets = ['0', '150', '250', '350', '450', '550'];
+export const budgets = ['0', '150', '250', '350', '450', '550', '550+'];

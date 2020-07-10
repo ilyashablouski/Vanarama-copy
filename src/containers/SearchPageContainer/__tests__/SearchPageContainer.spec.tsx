@@ -4,13 +4,13 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import SearchPageContainer from '../SearchPageContainer';
 import { getVehiclesList } from '../gql';
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
+import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
 
 jest.mock('next/router', () => ({
   useRouter() {
     return {
       push: jest.fn(),
-      pathname: '/[search]',
-      query: { search: 'car-leasing' },
+      query: {},
     };
   },
 }));
@@ -109,6 +109,54 @@ const mocksResponse: MockedResponse[] = [
             fuelTypes: ['diesel', 'iii'],
           },
         },
+      };
+    },
+  },
+  {
+    request: {
+      query: GET_PRODUCT_CARDS_DATA,
+      variables: {
+        capIds: ['83615'],
+        vehicleType: 'CAR',
+      },
+    },
+    result: () => {
+      return {
+        data: {
+          productCard: {
+            vehicleType: 'CAR',
+            capId: '83615',
+            manufacturerName: 'manufacturerName',
+            rangeName: 'rangeName',
+            derivativeName: 'derivativeName',
+            averageRating: 4.5,
+            isOnOffer: false,
+            offerPosition: 5,
+            leadTime: '',
+            imageUrl: '',
+            keyInformation: [{ name: 'Transmission', value: 'Manual' }],
+            businessRate: 55,
+            personalRate: 55,
+          },
+        },
+        refetch: jest.fn(),
+      };
+    },
+  },
+  {
+    request: {
+      query: GET_PRODUCT_CARDS_DATA,
+      variables: {
+        capIds: [],
+        vehicleType: 'CAR',
+      },
+    },
+    result: () => {
+      return {
+        data: {
+          productCard: {},
+        },
+        refetch: jest.fn(),
       };
     },
   },

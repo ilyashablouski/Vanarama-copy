@@ -21,6 +21,15 @@ export enum SubVehicleTypeEnum {
 }
 
 /**
+ * Sort field
+ */
+export enum SortField {
+  manufacturer = "manufacturer",
+  offerRanking = "offerRanking",
+  rate = "rate",
+}
+
+/**
  * Vehicle type enum
  */
 export enum VehicleTypeEnum {

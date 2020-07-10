@@ -1,126 +1,131 @@
 import { gql } from '@apollo/client';
-import Tile from '@vanarama/uibook/lib/components/molecules/tile';
-import { useFormikContext, FieldArray } from 'formik';
-import React from 'react';
+import CloseSharp from '@vanarama/uibook/lib/assets/icons/CloseSharp';
+import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
+import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+import Tile from '@vanarama/uibook/lib/components/molecules/tile';
+import { FieldArray, useField, useFormikContext } from 'formik';
+import React from 'react';
 import { DirectorFieldsDropDownData } from '../../../generated/DirectorFieldsDropDownData';
-import { DirectorFieldsOfficer } from '../../../generated/DirectorFieldsOfficer';
 import FCWithFragments from '../../utils/FCWithFragments';
+import AddressFormFieldArray from '../AddressForm/AddressFormFieldArray';
 import FormikDateField from '../FormikDateField/FormikDateField';
-import FormikNumericField from '../FormikNumericField/FormikNumericField';
 import FormikSelectField from '../FormikSelectField/FormikSelectField';
 import FormikTextField from '../FormikTextField/FormikTextField';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
-import { createKeyGenerator, usePrepopulateName } from './helpers';
+import { createKeyGenerator } from './helpers';
 import { DirectorDetailsFormValues } from './interfaces';
-import AddressFormFieldArray from '../AddressForm/AddressFormFieldArray';
 
 type Props = {
-  allOfficers: DirectorFieldsOfficer[];
+  canBeRemoved: boolean;
   dropDownData: DirectorFieldsDropDownData;
-  hideSelection?: boolean;
   index: number;
+  onRemoveClick: () => void;
 };
 
 const DirectorFields: FCWithFragments<Props> = ({
-  allOfficers,
+  canBeRemoved,
   dropDownData,
-  hideSelection,
   index,
+  onRemoveClick,
 }) => {
-  const { values } = useFormikContext<DirectorDetailsFormValues>();
-  const selectedDirector = values.directors[index];
-  usePrepopulateName(selectedDirector.fullname, index);
-
+  const { values, errors } = useFormikContext<DirectorDetailsFormValues>();
+  const currentDirector = values.directors[index];
   const generateFieldKey = createKeyGenerator(index);
+
+  // Manually reguster the shareOfBusiness field because it has validation rules
+  // based on itself and the total percentage
+  const shareFieldName = generateFieldKey('shareOfBusiness');
+  const [shareField, shareMeta] = useField(shareFieldName);
+  const shareError =
+    (shareMeta.touched && shareMeta.error) ||
+    (errors.totalPercentage === 'TOO_HIGH'
+      ? 'Combined shareholding is over 100%. Please review'
+      : undefined);
+
   return (
-    <>
-      {!hideSelection && (
-        <FormikSelectField
-          aria-label={`Select director ${index + 1}`}
-          name={generateFieldKey('fullname')}
-          placeholder="Select Director..."
-        >
-          {allOfficers.map(_ => (
-            <option key={_?.name} value={_?.name}>
-              {_?.name}
-            </option>
-          ))}
-        </FormikSelectField>
+    <Tile className="tilebox -p-300">
+      {canBeRemoved && (
+        <Button
+          aria-label={`Remove director ${index + 1}`}
+          className="tilebox--button"
+          color="teal"
+          fill="clear"
+          icon={<CloseSharp />}
+          iconColor="teal"
+          iconPosition="after"
+          onClick={onRemoveClick}
+          round
+          size="regular"
+          type="button"
+        />
       )}
-      {(selectedDirector.fullname || hideSelection) && (
-        <Tile className="-p-300">
-          <FormikSelectField name={generateFieldKey('title')} label="Title">
-            <OptionsWithFavourites options={dropDownData.titles} />
-          </FormikSelectField>
-          <FormikTextField
-            name={generateFieldKey('firstName')}
-            label="First Name"
+      <FormikSelectField name={generateFieldKey('title')} label="Title">
+        <OptionsWithFavourites options={dropDownData.titles} />
+      </FormikSelectField>
+      <FormikTextField
+        name={generateFieldKey('firstName')}
+        label="First Name"
+      />
+      <FormikTextField name={generateFieldKey('lastName')} label="Last Name" />
+      <FormikSelectField name={generateFieldKey('gender')} label="Gender">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Prefer Not To Say">Prefer Not To Say</option>
+      </FormikSelectField>
+      <FormikDateField
+        label="Date Of Birth"
+        fieldNames={[
+          generateFieldKey('dayOfBirth'),
+          generateFieldKey('monthOfBirth'),
+          generateFieldKey('yearOfBirth'),
+        ]}
+      />
+      <FormikSelectField
+        name={generateFieldKey('numberOfDependants')}
+        label="Number of Dependants"
+      >
+        <OptionsWithFavourites options={dropDownData.noOfDependants} />
+      </FormikSelectField>
+      <Formgroup
+        controlId={shareFieldName}
+        label="% Shareholding of Business"
+        error={shareError}
+      >
+        <NumericInput
+          id={shareFieldName}
+          min="1"
+          suffix="%"
+          type="number"
+          width="9ch"
+          {...shareField}
+        />
+      </Formgroup>
+      <hr className="mv-400" />
+      <Heading color="dark" size="small">
+        Address History
+      </Heading>
+      <Text color="dark" size="small">
+        Please provide your personal address history for the past five years.
+      </Text>
+      <FieldArray name={generateFieldKey('history')}>
+        {arrayHelpers => (
+          <AddressFormFieldArray
+            arrayHelpers={arrayHelpers}
+            dropDownData={dropDownData}
+            idPrefix={`directors[${index}].`}
+            requiredMonths={60}
+            values={currentDirector}
           />
-          <FormikTextField
-            name={generateFieldKey('lastName')}
-            label="Last Name"
-          />
-          <FormikSelectField name={generateFieldKey('gender')} label="Gender">
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Prefer Not To Say">Prefer Not To Say</option>
-          </FormikSelectField>
-          <FormikDateField
-            label="Date Of Birth"
-            fieldNames={[
-              generateFieldKey('dayOfBirth'),
-              generateFieldKey('monthOfBirth'),
-              generateFieldKey('yearOfBirth'),
-            ]}
-          />
-          <FormikSelectField
-            name={generateFieldKey('numberOfDependants')}
-            label="Number of Dependants"
-          >
-            <OptionsWithFavourites options={dropDownData.noOfDependants} />
-          </FormikSelectField>
-          <FormikNumericField
-            label="% Shareholder of Business"
-            min="1"
-            name={generateFieldKey('shareOfBusiness')}
-            suffix="%"
-            type="number"
-            width="9ch"
-          />
-          <hr className="mv-400" />
-          <Heading color="dark" size="small">
-            Address History
-          </Heading>
-          <Text color="dark" size="small">
-            Please provide your personal address history for the past five
-            years.
-          </Text>
-          <FieldArray name={generateFieldKey('history')}>
-            {arrayHelpers => (
-              <AddressFormFieldArray
-                arrayHelpers={arrayHelpers}
-                dropDownData={dropDownData}
-                idPrefix={`directors[${index}].`}
-                requiredMonths={60}
-                values={selectedDirector}
-              />
-            )}
-          </FieldArray>
-        </Tile>
-      )}
-    </>
+        )}
+      </FieldArray>
+    </Tile>
   );
 };
 
 DirectorFields.fragments = {
-  allOfficers: gql`
-    fragment DirectorFieldsOfficer on CompanyOfficersDataType {
-      __typename
-      name
-    }
-  `,
   dropDownData: gql`
     fragment DirectorFieldsDropDownData on DropDownType {
       __typename

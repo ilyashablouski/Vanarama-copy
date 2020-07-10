@@ -9,13 +9,8 @@ import { PersonInputObject } from "./globalTypes";
 // GraphQL mutation operation: SaveBusinessAboutYou
 // ====================================================
 
-export interface SaveBusinessAboutYou_createUpdateBusinessPerson_companies {
-  uuid: string;
-}
-
 export interface SaveBusinessAboutYou_createUpdateBusinessPerson {
   uuid: string;
-  companies: SaveBusinessAboutYou_createUpdateBusinessPerson_companies[] | null;
 }
 
 export interface SaveBusinessAboutYou {
