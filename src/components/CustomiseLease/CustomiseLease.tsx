@@ -126,6 +126,7 @@ const CustomiseLease = ({
   setIsInitialLoading,
   lineItem,
   onSubmit,
+  showCallBackForm,
 }: IProps) => {
   const quoteByCapId = data?.quoteByCapId;
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
@@ -150,7 +151,7 @@ const CustomiseLease = ({
           setMileage(mileages[value - 1]);
         }}
       />
-      <div className="-flex-row -mt-200">
+      <div className="-flex-row">
         <Icon
           color="orange"
           size="xlarge"
@@ -260,12 +261,14 @@ const CustomiseLease = ({
             })
           }
           headingText={`PM ${stateVAT}. VAT`}
-          phoneNumber="+1313222"
           leasingProviders={LEASING_PROVIDERS}
           startLoading={isDisabled}
           endAnimation={() => {
             setIsInitialLoading(true);
             setIsDisabled(false);
+          }}
+          requestCallBack={() => {
+            showCallBackForm(true);
           }}
         />
       </div>
