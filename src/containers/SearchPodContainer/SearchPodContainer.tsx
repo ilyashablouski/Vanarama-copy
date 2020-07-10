@@ -219,7 +219,7 @@ const SearchPodContainer = () => {
     // make
     if (values[`make${tabType}`]) {
       additionalPart = `/${values[`make${tabType}`].replace(' ', '-')}`;
-      routerUrl += '/[manufacturer]';
+      routerUrl += '/[make]';
       // adding type only for cars search if we have model
       if (values[`model${tabType}`]) {
         additionalPart += `/${values[`model${tabType}`].replace(' ', '-')}`;

@@ -30,7 +30,7 @@ const buildRewriteRoute = (
   });
   if (rate.max || rate.min) {
     searchParams.set(
-      'rate',
+      'pricePerMonth',
       getBudgetForQuery(`${rate.min || '0'}-${rate.max || ''}`),
     );
   }
