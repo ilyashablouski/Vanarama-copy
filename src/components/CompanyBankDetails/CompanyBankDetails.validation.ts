@@ -2,11 +2,8 @@ import * as yup from 'yup';
 import moment from 'moment';
 import { ICompanyBankDetails } from './interfaces';
 
-function isInFuture({
-  joinedAtYear,
-  joinedAtMonth
-}: ICompanyBankDetails) {
-  const joiningMoment = moment(`${joinedAtMonth}-${joinedAtYear}`, 'MM-YYYY')
+function isInFuture({ joinedAtYear, joinedAtMonth }: ICompanyBankDetails) {
+  const joiningMoment = moment(`${joinedAtMonth}-${joinedAtYear}`, 'MM-YYYY');
   const inPast = moment().diff(joiningMoment, 'months') >= 0;
   return inPast ? null : 'In future';
 }
@@ -34,11 +31,18 @@ const ValidationSchema = yup.object().shape({
     )
     .required('Please enter sort code'),
   joinedAtYear: yup.string().required('Please select account opening date'),
-  joinedAtMonth: yup.string()
+  joinedAtMonth: yup
+    .string()
     .required('Please select account opening date')
     .when('joinedAtYear', {
       is: new Date().getFullYear().toString(),
-      then: yup.string().test('not-in-future', 'Oops, this date seems to be in the future', timeValidator),
+      then: yup
+        .string()
+        .test(
+          'not-in-future',
+          'Oops, this date seems to be in the future',
+          timeValidator,
+        ),
     }),
 });
 
