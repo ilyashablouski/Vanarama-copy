@@ -146,7 +146,19 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     };
   };
 
-  return data.quoteByCapId?.leaseCost?.monthlyRental ? (
+  if (!data.quoteByCapId?.leaseCost?.monthlyRental) {
+    return (
+      <GoldrushFormContainer
+        termsAndConditions
+        isPostcodeVisible={vehicleType !== VehicleTypeEnum.CAR}
+        capId={capId}
+        kind="quote"
+        vehicleType={vehicleType}
+      />
+    );
+  }
+
+  return (
     <>
       <CustomiseLease
         terms={terms || [{ label: '', active: false }]}
@@ -190,14 +202,6 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         </Modal>
       )}
     </>
-  ) : (
-    <GoldrushFormContainer
-      termsAndConditions
-      isPostcodeVisible={vehicleType !== VehicleTypeEnum.CAR}
-      capId={capId}
-      kind="quote"
-      vehicleType={vehicleType}
-    />
   );
 };
 
