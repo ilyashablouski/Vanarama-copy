@@ -117,6 +117,7 @@ export const DirectorDetailsPage: NextPage = () => {
                 director.yearOfBirth,
               ).format('YYYY-MM-DD'),
               role: { position: 'director' },
+              noOfDependants: director.numberOfDependants,
             })),
           };
 

@@ -91,7 +91,7 @@ const DirectorFields: FCWithFragments<Props> = ({
       </FormikSelectField>
       <Formgroup
         controlId={shareFieldName}
-        label="% Shareholder of Business"
+        label="% Shareholding of Business"
         error={shareError}
       >
         <NumericInput
