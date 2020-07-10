@@ -1,13 +1,10 @@
 import { NextPage } from 'next';
+import Router from 'next/router';
 import Link from 'next/link';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import ReactMarkdown from 'react-markdown/with-html';
-import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
-import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
-import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
-import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -29,21 +26,33 @@ import {
   HubCarPageData_hubCarPage_sections_tiles_tiles as TileData,
   HubCarPageData_hubCarPage_sections_steps_steps as StepData,
 } from '../../../../generated/HubCarPageData';
+import { ProductCardData } from '../../../../generated/ProductCardData';
 import { HUB_CAR_CONTENT } from '../../../gql/hubCarPage';
+import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import withApollo from '../../../hocs/withApollo';
 
 import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 import RouterLink from '../../../components/RouterLink/RouterLink';
+import getIconMap from '../../../utils/getIconMap';
+import truncateString from '../../../utils/truncateString';
 
 export const CarsPage: NextPage = () => {
   const { data, loading, error } = useQuery<HubCarPageData>(HUB_CAR_CONTENT);
+
+  const { data: products, error: productsError } = useQuery<ProductCardData>(
+    PRODUCT_CARD_CONTENT,
+    {
+      variables: { type: 'CAR', size: 9, offer: true },
+    },
+  );
 
   if (loading) {
     return <Loading size="large" />;
   }
 
-  if (error) {
-    return <p>Error: {error.message}</p>;
+  if (error || productsError) {
+    const err = error || productsError;
+    return <p>Error: {err?.message}</p>;
   }
 
   return (
@@ -116,67 +125,68 @@ export const CarsPage: NextPage = () => {
 
       <div className="row:bg-lighter">
         <section className="row:cards-3col">
-          {Array.from(Array(9).keys()).map(val => (
-            <ProductCard
-              key={val}
-              header={{
-                accentIcon: <Icon icon={<Flame />} color="white" />,
-                accentText: 'Hot Deal',
-                text: 'In Stock - 14-21 Days Delivery',
-              }}
-              features={[
-                {
-                  icon: <Icon icon={<SnowSharp />} color="dark" />,
-                  label: 'Aircon',
-                },
-                {
-                  icon: <Icon icon={<BluetoothSharp />} color="dark" />,
-                  label: 'Bluetooth',
-                },
-                {
-                  icon: <Icon icon={<CompassSharp />} color="dark" />,
-                  label: 'Navigation',
-                },
-                {
-                  icon: <Icon icon={<WifiSharp />} color="dark" />,
-                  label: 'Sensors',
-                },
-              ]}
-              imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
-              onCompare={() => true}
-              onWishlist={() => true}
-              title={{
-                title: '',
-                link: (
-                  <RouterLink
-                    link={{ href: '#', label: 'Peugeot 208' }}
-                    className="heading"
-                    classNames={{ size: 'large', color: 'black' }}
+          {products?.productCarousel?.map((item, idx) => {
+            const iconMap = getIconMap(item?.keyInformation || []);
+            return (
+              <ProductCard
+                key={item?.capId || idx}
+                header={{
+                  accentIcon: <Icon icon={<Flame />} color="white" />,
+                  accentText: 'Hot Deal',
+                  text: 'In Stock - 14-21 Days Delivery',
+                }}
+                features={item?.keyInformation?.map(info => ({
+                  icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
+                  label: info?.value || '',
+                }))}
+                imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
+                onCompare={() => true}
+                onWishlist={() => true}
+                title={{
+                  title: '',
+                  link: (
+                    <RouterLink
+                      link={{
+                        href: `/cars/car-details/${item?.capId}`,
+                        label: truncateString(
+                          `${item?.manufacturerName} ${item?.rangeName}`,
+                        ),
+                      }}
+                      className="heading"
+                      classNames={{ size: 'large', color: 'black' }}
+                    />
+                  ),
+                  description: item?.derivativeName || '',
+                  score: item?.averageRating || 0,
+                }}
+              >
+                <div className="-flex-h">
+                  <Price
+                    price={item?.businessRate}
+                    size="large"
+                    separator="."
+                    priceDescription="Per Month Exc.VAT"
                   />
-                ),
-                description: '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
-                score: 4.5,
-              }}
-            >
-              <div className="-flex-h">
-                <Price
-                  price={209}
-                  size="large"
-                  separator="."
-                  priceDescription="Per Month Exc.VAT"
-                />
-                <Button
-                  color="teal"
-                  fill="solid"
-                  label="View Offer"
-                  onClick={() => true}
-                  size="regular"
-                />
-              </div>
-            </ProductCard>
-          ))}
+                  <Button
+                    color="teal"
+                    fill="solid"
+                    label="View Offer"
+                    onClick={() =>
+                      Router.push(`/cars/car-details/${item?.capId}`)
+                    }
+                    size="regular"
+                  />
+                </div>
+              </ProductCard>
+            );
+          })}
 
-          <Button label="View All Cars" size="large" color="teal" />
+          <Button
+            label="View All Cars"
+            size="large"
+            color="teal"
+            onClick={() => Router.push('/van-leasing')}
+          />
         </section>
       </div>
 
