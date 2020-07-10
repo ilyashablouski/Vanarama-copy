@@ -17,7 +17,7 @@ export interface IBusinessAboutFormValues {
 export interface IProps {
   dropDownData: BusinessAboutFormDropDownData;
   onSubmit: OnSubmit<IBusinessAboutFormValues>;
-  person?: AboutFormPerson;
+  person?: AboutFormPerson | null;
   onLogInCLick?: () => void;
   onEmailExistenceCheck?: (email: string) => Promise<boolean>;
 }

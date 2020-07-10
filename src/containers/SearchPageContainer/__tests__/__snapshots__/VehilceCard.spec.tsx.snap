@@ -17,7 +17,6 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
     alt="img"
     className="card-image"
     data-testid="card-image"
-    onError={[Function]}
     src="https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg"
   />
   <div
