@@ -63,9 +63,9 @@ const MyDetailsPage: NextPage<IProps> = () => {
           {!resetPassword ? (
             <div className="form">
               <Text>
-                Excepteur fugiat pariatur officia aliquip ex enim culpa
-                voluptate eu deserunt labore sit dolore sit proident velit esse
-                adipisicing deserunt velit elit sunt mollit Lorem
+                It’s important that you choose a strong password for your
+                account and don&#39;t re-use it for other accounts. If you need
+                to change your password, simply hit the button below.
               </Text>
               <div className="-pt-300 -pb-300">
                 <Button
