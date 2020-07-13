@@ -7,6 +7,7 @@ import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
+import Button from '@vanarama/uibook/lib/components/atoms/button';
 import GoldrushForm from '../../components/GoldrushForm';
 import { GoldrushFormContainerProps } from './interfaces';
 import { useOpportunityCreation } from './gql';
@@ -23,8 +24,10 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
   isPostcodeVisible,
   capId,
   kind,
-  termsAndConditions,
   vehicleType,
+  callBack,
+  termsAndConditions,
+  onCompleted,
 }) => {
   const [isGratitudeVisible, toggleGratitude] = useState(false);
   const [createOppurtunity, { loading }] = useOpportunityCreation(
@@ -35,6 +38,57 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
       }
     },
   );
+
+  const goldrushForm = () => (
+    <GoldrushForm
+      callBack={callBack}
+      isSubmitting={loading}
+      heading={callBack ? 'Please Fill In Your Details' : 'Get Your Quote Now'}
+      text="We’ll be in touch within 1-2 business hours"
+      isPostcodeVisible={isPostcodeVisible}
+      onSubmit={values => {
+        createOppurtunity({
+          variables: {
+            email: values.email,
+            phoneNumber: values.phoneNumber,
+            fullName: values.fullName,
+            postcode: values.postcode || DEFAULT_POSTCODE,
+            marketingPreference: Boolean(values.consent),
+            capId,
+            kind,
+            vehicleType,
+            termsAndConditions:
+              termsAndConditions || Boolean(values.termsAndCons),
+          },
+        });
+      }}
+    />
+  );
+
+  if (callBack) {
+    return (
+      <div className="-pt-000">
+        {isGratitudeVisible ? (
+          <>
+            <Heading size="regular" color="black">
+              Thank you for submitting the form. We will be in touch shortly.
+            </Heading>
+            <Button
+              className="-mt-600"
+              dataTestId="goldrush-button_close"
+              label="Close"
+              size="lead"
+              fill="solid"
+              color="teal"
+              onClick={onCompleted}
+            />
+          </>
+        ) : (
+          <div>{goldrushForm()}</div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="pdp--sidebar">
@@ -82,26 +136,7 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
         </div>
       ) : (
         <>
-          <GoldrushForm
-            isSubmitting={loading}
-            heading="Get Your Quote Now"
-            isPostcodeVisible={isPostcodeVisible}
-            onSubmit={values => {
-              createOppurtunity({
-                variables: {
-                  email: values.email,
-                  phoneNumber: values.phoneNumber,
-                  fullName: values.fullName,
-                  postcode: values.postcode || DEFAULT_POSTCODE,
-                  marketingPreference: Boolean(values.termsAndCons),
-                  capId,
-                  kind,
-                  vehicleType,
-                  termsAndConditions,
-                },
-              });
-            }}
-          />
+          {goldrushForm()}
           <div className="pdp--sidebar-promise">
             <Text size="regular" color="black" tag="span">
               {"We’ll beat any lease quote or we'll give you £100. "}

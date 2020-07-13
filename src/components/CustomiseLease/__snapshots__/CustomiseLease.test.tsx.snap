@@ -86,7 +86,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </div>
   </div>
   <div
-    className="-flex-row -mt-200"
+    className="-flex-row"
   >
     <i
       className="icon -pt-200 -orange -xlarge"
@@ -594,7 +594,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
            
           <a
             className="link -primary -regular -plain"
-            href="tel:+1313222"
+            onClick={[Function]}
           >
             Request a Call Back
           </a>
@@ -691,7 +691,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </div>
   </div>
   <div
-    className="-flex-row -mt-200"
+    className="-flex-row"
   >
     <i
       className="icon -pt-200 -orange -xlarge"
@@ -1199,7 +1199,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
            
           <a
             className="link -primary -regular -plain"
-            href="tel:+1313222"
+            onClick={[Function]}
           >
             Request a Call Back
           </a>
