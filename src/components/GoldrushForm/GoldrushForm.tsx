@@ -11,6 +11,7 @@ import {
   emailValidator,
   phoneNumberValidator,
   fullNameValidator,
+  termsAndCons,
 } from '../../utils/inputValidators';
 import { IGoldrushFormProps, IGoldrushFromValues } from './interfaces';
 
@@ -33,7 +34,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
     },
   });
 
-  const termsAndCons = () => (
+  const termsAndConditions = () => (
     <CheckBox
       id="termsAndCons"
       dataTestId="aboutTermsAndCons"
@@ -43,7 +44,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
           ? 'Terms & Conditions and Privacy Policy'
           : 'I agree to the terms and conditions.'
       }
-      ref={register}
+      ref={register(termsAndCons)}
     />
   );
 
@@ -132,7 +133,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
           label="Agree To:"
           error={errors?.termsAndCons?.message?.toString()}
         >
-          {termsAndCons()}
+          {termsAndConditions()}
           {consent()}
         </FormGroup>
       ) : (
@@ -141,7 +142,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
           error={errors?.termsAndCons?.message?.toString()}
         >
           {consent()}
-          {termsAndCons()}
+          {termsAndConditions()}
         </FormGroup>
       )}
       <Text tag="p" color={callBack ? 'dark' : 'darker'} size="xsmall">
