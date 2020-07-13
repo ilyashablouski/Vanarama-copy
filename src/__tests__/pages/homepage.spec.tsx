@@ -286,7 +286,9 @@ describe('<HomePage />', () => {
     await screen.findByTestId('view-all-pickups');
     fireEvent.click(screen.getByTestId('view-all-pickups'));
     await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/van-leasing'),
+      expect(Router.push).toHaveBeenCalledWith(
+        '/van-leasing?bodyStyles=Pickup',
+      ),
     );
   });
 

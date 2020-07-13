@@ -170,7 +170,7 @@ export const PickupsPage: NextPage = () => {
             label="View All Pickups"
             size="large"
             color="teal"
-            onClick={() => Router.push('/van-leasing')}
+            onClick={() => Router.push('/van-leasing?bodyStyles=Pickup')}
           />
         </section>
       </div>
@@ -337,8 +337,16 @@ export const PickupsPage: NextPage = () => {
             'BMW',
             'Isuzu',
             'Porche',
-          ].map(n => (
-            <Button key={n} color="teal" size="large" label={n} />
+          ].map(man => (
+            <Button
+              key={man}
+              color="teal"
+              size="large"
+              label={man}
+              onClick={() =>
+                Router.push(`/van-leasing/${man}?bodyStyles=Pickup `)
+              }
+            />
           ))}
         </div>
       </section>

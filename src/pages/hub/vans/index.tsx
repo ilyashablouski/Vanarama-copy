@@ -51,20 +51,16 @@ export const VansPage: NextPage = () => {
   const { slidesToShow } = useSliderProperties();
   const { data, loading, error } = useQuery<HubVanPageData>(HUB_VAN_CONTENT);
 
-  useQuery<ProductCardData>(PRODUCT_CARD_CONTENT, {
-    variables: { type: 'LCV', subType: 'SMALLVAN', size: 9, offer: true },
-    onCompleted: prods => {
-      const topProduct = prods?.productCarousel?.find(
-        p => p?.isOnOffer === true,
-      );
-      if (topProduct) setOffer(topProduct);
-    },
-  });
-
   const { data: productSmallVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
       variables: { type: 'LCV', subType: 'SMALLVAN', size: 9, offer: true },
+      onCompleted: prods => {
+        const topProduct = prods?.productCarousel?.find(
+          p => p?.isOnOffer === true,
+        );
+        if (topProduct) setOffer(topProduct);
+      },
     },
   );
   const { data: productMediumVan } = useQuery<ProductCardData>(
@@ -210,9 +206,9 @@ export const VansPage: NextPage = () => {
           </Carousel>
           <div className="-justify-content-row -pt-500">
             <Button
-              label="View All Vans"
+              label="View Small Vans"
               color="teal"
-              onClick={() => Router.push('/van-leasing?bodyStyles=small+Van')}
+              onClick={() => Router.push('/van-leasing?bodyStyles=Small+Van')}
             />
           </div>
         </div>
@@ -294,9 +290,9 @@ export const VansPage: NextPage = () => {
           </Carousel>
           <div className="-justify-content-row -pt-500">
             <Button
-              label="View All Vans"
+              label="View Medium Vans"
               color="teal"
-              onClick={() => Router.push('/van-leasing/bodyStyles=Medium+Van')}
+              onClick={() => Router.push('/van-leasing?bodyStyles=Medium+Van')}
             />
           </div>
         </div>
@@ -378,7 +374,7 @@ export const VansPage: NextPage = () => {
           </Carousel>
           <div className="-justify-content-row -pt-500">
             <Button
-              label="View All Vans"
+              label="View Large Vans"
               color="teal"
               onClick={() => Router.push('/van-leasing?bodyStyles=Large+Van')}
             />

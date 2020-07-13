@@ -272,7 +272,9 @@ export const HomePage: NextPage = () => {
                   <Button
                     label="View All Pickup Offers"
                     color="teal"
-                    onClick={() => Router.push('/van-leasing')}
+                    onClick={() =>
+                      Router.push('/van-leasing?bodyStyles=Pickup')
+                    }
                     dataTestId="view-all-pickups"
                   />
                 </div>
