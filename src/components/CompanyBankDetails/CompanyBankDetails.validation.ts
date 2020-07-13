@@ -3,19 +3,13 @@ import moment from 'moment';
 import { ICompanyBankDetails } from './interfaces';
 
 function isInFuture({ joinedAtYear, joinedAtMonth }: ICompanyBankDetails) {
-  // const joiningMoment = moment(`${joinedAtMonth}-${joinedAtYear}`, 'MM-YYYY');
-  // console.log(joiningMoment, moment(`${joinedAtMonth}-${joinedAtYear}`, 'MM-YYYY').diff());
   const inPast =
     moment(`${joinedAtMonth}-${joinedAtYear}`, 'MM-YYYY').diff() <= 0;
-  return inPast ? null : 'Oops, this date seems to be in the future';
+  return inPast;
 }
 
 function timeValidator(this: yup.TestContext) {
-  const { createError, path, parent } = this;
-  const error = isInFuture(parent);
-  return error
-    ? createError({ message: error, path })
-    : createError({ message: undefined, path });
+  return isInFuture(this.parent);
 }
 
 const ValidationSchema = yup.object().shape({
@@ -48,11 +42,11 @@ const ValidationSchema = yup.object().shape({
   joinedAtYear: yup
     .string()
     .required('Please select account opening date')
-    .test('not-in-future', '', timeValidator),
+    .test('not-in-future', 'Oops, this date seems to be in the future', timeValidator),
   joinedAtMonth: yup
     .string()
     .required('Please select account opening date')
-    .test('not-in-future', '', timeValidator),
+    .test('not-in-future', 'Oops, this date seems to be in the future', timeValidator),
 });
 
 export default ValidationSchema;

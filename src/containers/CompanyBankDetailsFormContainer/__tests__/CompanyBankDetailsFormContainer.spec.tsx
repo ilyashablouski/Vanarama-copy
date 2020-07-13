@@ -56,11 +56,11 @@ describe('<CompanyBankDetailsFormContainer />', () => {
 
     // Wait for the initial query to resolve
     await screen.findByTestId('companyBankDetails');
-    expect(screen.getByLabelText(/Bank Account Name/)).toHaveValue(
+    expect(screen.getByTestId(/accountName/)).toHaveValue(
       'Eternal account',
     );
 
-    expect(screen.getByLabelText(/Bank Account Number/)).toHaveValue(
+    expect(screen.getByTestId(/accountNumber/)).toHaveValue(
       '27272829',
     );
     expect(screen.getByDisplayValue(/02/)).toBeVisible();

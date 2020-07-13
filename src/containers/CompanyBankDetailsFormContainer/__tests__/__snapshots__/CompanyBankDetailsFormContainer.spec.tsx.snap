@@ -13,10 +13,11 @@ exports[`<CompanyBankDetailsFormContainer /> should be render correctly 1`] = `
         Company Bank Details
       </p>
       <span
-        class="text -lead -darker"
+        class="text -regular -black"
       >
         Don’t worry, no money will be taken at this stage. We just need these details so we can set up the direct debit for your monthly payments.
       </span>
+      <br />
       <div
         class="formgroup"
       >
@@ -24,7 +25,7 @@ exports[`<CompanyBankDetailsFormContainer /> should be render correctly 1`] = `
           class="formgroup--legend"
           for="accountName"
         >
-          Bank Account Name
+          Account Name
         </label>
         <div
           class="formgroup--content"
@@ -126,7 +127,7 @@ exports[`<CompanyBankDetailsFormContainer /> should be render correctly 1`] = `
           class="formgroup--legend"
           for="joinedAt"
         >
-          Time at Bank
+          Account Open Since
         </label>
         <div
           class="formgroup--content"
@@ -772,7 +773,7 @@ exports[`<CompanyBankDetailsFormContainer /> should be render correctly 1`] = `
         </div>
       </div>
       <button
-        class="button -primary -regular -solid"
+        class="button -mt-400 -primary -large -solid"
         data-testid="continue"
         type="submit"
       >
