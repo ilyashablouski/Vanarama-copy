@@ -327,7 +327,7 @@ export const PickupsPage: NextPage = () => {
         </Heading>
         <div>
           {[
-            'Mercedez-Benz',
+            'Mercedes-Benz',
             'Mitsubishi',
             'Nissan',
             'Volkswagen',
