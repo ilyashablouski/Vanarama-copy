@@ -192,7 +192,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       {showCallBackForm && (
         <Modal show onRequestClose={() => setShowCallBackForm(false)}>
           <GoldrushFormContainer
-            isPostcodeVisible
+            isPostcodeVisible={vehicleType !== VehicleTypeEnum.CAR}
             capId={capId}
             callBack
             kind="quote"
