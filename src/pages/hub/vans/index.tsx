@@ -558,7 +558,7 @@ export const VansPage: NextPage = () => {
         </Heading>
         <div>
           {[
-            'Mercedez-Benz',
+            'Mercedes-Benz',
             'Mitsubishi',
             'Nissan',
             'Volkswagen',
