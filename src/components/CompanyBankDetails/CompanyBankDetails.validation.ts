@@ -42,11 +42,19 @@ const ValidationSchema = yup.object().shape({
   joinedAtYear: yup
     .string()
     .required('Please select account opening date')
-    .test('not-in-future', 'Oops, this date seems to be in the future', timeValidator),
+    .test(
+      'not-in-future',
+      'Oops, this date seems to be in the future',
+      timeValidator,
+    ),
   joinedAtMonth: yup
     .string()
     .required('Please select account opening date')
-    .test('not-in-future', 'Oops, this date seems to be in the future', timeValidator),
+    .test(
+      'not-in-future',
+      'Oops, this date seems to be in the future',
+      timeValidator,
+    ),
 });
 
 export default ValidationSchema;
