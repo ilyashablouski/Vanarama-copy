@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect, useRef } from 'react';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import Modal from '@vanarama/uibook/lib/components/molecules/modal';
 import CustomiseLease from '../../components/CustomiseLease/CustomiseLease';
 import { useQuoteData } from './gql';
 import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
@@ -37,6 +38,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [isInitialLoading, setIsInitialLoading] = useState<boolean>(false);
+  const [showCallBackForm, setShowCallBackForm] = useState<boolean>(false);
   const { data, error, loading, refetch } = useQuoteData({
     capId: `${capId}`,
     vehicleType,
@@ -144,43 +146,62 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     };
   };
 
-  return data.quoteByCapId?.leaseCost?.monthlyRental ? (
-    <CustomiseLease
-      terms={terms || [{ label: '', active: false }]}
-      upfronts={upfronts || [{ label: '', active: false }]}
-      leaseType={leaseType}
-      leaseTypes={leaseTypes}
-      mileages={leaseAdjustParams?.mileages || []}
-      setLeaseType={setLeaseType}
-      setMileage={setMileage}
-      setUpfront={setUpfront}
-      setColour={setColour}
-      setTerm={setTerm}
-      setTrim={setTrim}
-      data={data}
-      mileage={mileage || data.quoteByCapId?.mileage}
-      trim={trim}
-      derivativeInfo={derivativeInfo}
-      colour={colour}
-      isDisabled={isDisabled}
-      setIsDisabled={setIsDisabled}
-      leaseAdjustParams={leaseAdjustParams}
-      maintenance={maintenance}
-      setMaintenance={setMaintenance}
-      isModalShowing={isModalShowing}
-      setIsModalShowing={setIsModalShowing}
-      setIsInitialLoading={setIsInitialLoading}
-      lineItem={lineItem()}
-      onSubmit={values => onCompleted(values)}
-    />
-  ) : (
-    <GoldrushFormContainer
-      termsAndConditions
-      isPostcodeVisible={vehicleType !== VehicleTypeEnum.CAR}
-      capId={capId}
-      kind="quote"
-      vehicleType={vehicleType}
-    />
+  if (!data.quoteByCapId?.leaseCost?.monthlyRental) {
+    return (
+      <GoldrushFormContainer
+        termsAndConditions
+        isPostcodeVisible={vehicleType !== VehicleTypeEnum.CAR}
+        capId={capId}
+        kind="quote"
+        vehicleType={vehicleType}
+      />
+    );
+  }
+
+  return (
+    <>
+      <CustomiseLease
+        terms={terms || [{ label: '', active: false }]}
+        upfronts={upfronts || [{ label: '', active: false }]}
+        leaseType={leaseType}
+        leaseTypes={leaseTypes}
+        mileages={leaseAdjustParams?.mileages || []}
+        setLeaseType={setLeaseType}
+        setMileage={setMileage}
+        setUpfront={setUpfront}
+        setColour={setColour}
+        setTerm={setTerm}
+        setTrim={setTrim}
+        data={data}
+        mileage={mileage || data.quoteByCapId?.mileage}
+        trim={trim}
+        derivativeInfo={derivativeInfo}
+        colour={colour}
+        isDisabled={isDisabled}
+        setIsDisabled={setIsDisabled}
+        leaseAdjustParams={leaseAdjustParams}
+        maintenance={maintenance}
+        setMaintenance={setMaintenance}
+        isModalShowing={isModalShowing}
+        setIsModalShowing={setIsModalShowing}
+        setIsInitialLoading={setIsInitialLoading}
+        lineItem={lineItem()}
+        onSubmit={values => onCompleted(values)}
+        showCallBackForm={() => setShowCallBackForm(true)}
+      />
+      {showCallBackForm && (
+        <Modal show onRequestClose={() => setShowCallBackForm(false)}>
+          <GoldrushFormContainer
+            isPostcodeVisible
+            capId={capId}
+            callBack
+            kind="quote"
+            vehicleType={vehicleType}
+            onCompleted={() => setShowCallBackForm(false)}
+          />
+        </Modal>
+      )}
+    </>
   );
 };
 

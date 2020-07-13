@@ -77,7 +77,7 @@ export const postcodeValidator = {
 export const emailValidator = {
   required: {
     value: true,
-    message: 'Your enter your email address',
+    message: 'Please enter your email address',
   },
   maxLength: {
     value: MAX_EMAIL_LENGTH,
