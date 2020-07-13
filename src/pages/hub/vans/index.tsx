@@ -187,7 +187,7 @@ export const VansPage: NextPage = () => {
                     link: (
                       <RouterLink
                         link={{
-                          href: '#',
+                          href: `/vans/van-details/${offer?.capId}`,
                           label: truncateString(
                             `${item?.manufacturerName} ${item?.rangeName}`,
                           ),
@@ -271,7 +271,7 @@ export const VansPage: NextPage = () => {
                     link: (
                       <RouterLink
                         link={{
-                          href: '#',
+                          href: `/vans/van-details/${offer?.capId}`,
                           label: truncateString(
                             `${item?.manufacturerName} ${item?.rangeName}`,
                           ),
@@ -355,7 +355,7 @@ export const VansPage: NextPage = () => {
                     link: (
                       <RouterLink
                         link={{
-                          href: '#',
+                          href: `/vans/van-details/${offer?.capId}`,
                           label: truncateString(
                             `${item?.manufacturerName} ${item?.rangeName}`,
                           ),
