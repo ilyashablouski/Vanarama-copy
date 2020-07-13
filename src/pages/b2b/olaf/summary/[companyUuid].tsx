@@ -2,7 +2,7 @@ import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
-import SummaryFormContainer from '../../../../containers/B2BSummaryFormContainer/SummaryFormContainer';
+import SummaryFormContainer from '../../../../containers/SummaryFormContainer/SummaryFormContainer';
 import withApollo from '../../../../hocs/withApollo';
 
 type QueryParams = {
