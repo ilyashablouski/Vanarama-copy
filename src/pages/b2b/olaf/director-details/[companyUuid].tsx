@@ -18,7 +18,7 @@ import {
 } from '../../../../../generated/SaveDirectorDetailsMutation';
 import { historyToMoment, parseDate } from '../../../../utils/dates';
 import { LimitedCompanyInputObject } from '../../../../../generated/globalTypes';
-import { getUrlParam, OLAFQueryParams } from 'utils/url';
+import { getUrlParam, OLAFQueryParams } from '../../../../utils/url';
 
 type QueryParams = OLAFQueryParams & {
   companyUuid: string;
@@ -68,10 +68,10 @@ export const DirectorDetailsPage: NextPage = () => {
     SAVE_DIRECTOR_DETAILS,
     {
       onCompleted: () => {
-          const params = getUrlParam({ derivativeId, orderId });
-          const url = `/b2b/olaf/company-bank-details/[companyUuid]${params}`;
-          router.push(url, url.replace('[companyUuid]', companyUuid));
-        },
+        const params = getUrlParam({ derivativeId, orderId });
+        const url = `/b2b/olaf/company-bank-details/[companyUuid]${params}`;
+        router.push(url, url.replace('[companyUuid]', companyUuid));
+      },
       onError: () => {
         toast.error(
           'Oops, an unexpected error occurred',
