@@ -53,7 +53,7 @@ export const VansPage: NextPage = () => {
   const { slidesToShow } = useSliderProperties();
   const { data, loading, error } = useQuery<HubVanPageData>(HUB_VAN_CONTENT);
 
-  // pluck random offer untill offer postion available
+  // pluck random offer until offer postion available
   const offer: ProdCardData = offers[Math.floor(Math.random() * offers.length)];
 
   const { data: productSmallVan } = useQuery<ProductCardData>(
