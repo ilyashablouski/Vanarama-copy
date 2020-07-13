@@ -75,6 +75,10 @@ const mocked: MockedResponse[] = [
                         '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
                     },
                   },
+                  link: {
+                    url: '',
+                    text: '',
+                  },
                 },
               ],
             },
@@ -157,7 +161,58 @@ const mocked: MockedResponse[] = [
       query: PRODUCT_CARD_CONTENT,
       variables: {
         type: 'LCV',
-        subType: 'VAN',
+        subType: 'SMALLVAN',
+        size: 9,
+        offer: true,
+      },
+    },
+    result: () => {
+      return {
+        data: {
+          productCarousel: [
+            {
+              capId: '44514',
+              isOnOffer: true,
+              manufacturerName: 'Volkswagen',
+              derivativeName: '2.0 TDI BMT 102 Highline Kombi Van Euro 6',
+              rangeName: 'Transporter',
+              imageUrl:
+                'https://images.autorama.co.uk/Photos/Cap/Vehicles/129783/cap-35088-129783.jpg',
+              leadTime: 'Factory Order',
+              averageRating: 4.8,
+              businessRate: 219,
+              personalRate: 278.98,
+              offerPosition: null,
+              keyInformation: [
+                {
+                  name: 'Transmission',
+                  value: 'Manual',
+                },
+                {
+                  name: 'Fuel Type',
+                  value: 'Diesel',
+                },
+                {
+                  name: 'Emissions',
+                  value: '189',
+                },
+                {
+                  name: 'Fuel Economy',
+                  value: '39.2',
+                },
+              ],
+            },
+          ],
+        } as ProductCardData,
+      };
+    },
+  },
+  {
+    request: {
+      query: PRODUCT_CARD_CONTENT,
+      variables: {
+        type: 'LCV',
+        subType: 'MEDIUMVAN',
         size: 9,
         offer: true,
       },
@@ -203,6 +258,57 @@ const mocked: MockedResponse[] = [
       };
     },
   },
+  {
+    request: {
+      query: PRODUCT_CARD_CONTENT,
+      variables: {
+        type: 'LCV',
+        subType: 'LARGEVAN',
+        size: 9,
+        offer: true,
+      },
+    },
+    result: () => {
+      return {
+        data: {
+          productCarousel: [
+            {
+              capId: '44514',
+              isOnOffer: true,
+              manufacturerName: 'Citroen',
+              derivativeName: '2.2 BlueHDi H2 Van 140ps Enterprise',
+              rangeName: 'Relay',
+              imageUrl:
+                'https://images.autorama.co.uk/Photos/Cap/Vehicles/162520/cap-44275-162520.jpg',
+              leadTime: 'Factory Order',
+              averageRating: 4.5,
+              businessRate: 216.97,
+              personalRate: 260.97,
+              offerPosition: null,
+              keyInformation: [
+                {
+                  name: 'Transmission',
+                  value: 'Manual',
+                },
+                {
+                  name: 'Fuel Type',
+                  value: 'Diesel',
+                },
+                {
+                  name: 'Emissions',
+                  value: '162',
+                },
+                {
+                  name: 'Load Height',
+                  value: '1932',
+                },
+              ],
+            },
+          ],
+        } as ProductCardData,
+      };
+    },
+  },
 ];
 
 describe('<VansPage />', () => {
@@ -232,11 +338,33 @@ describe('<VansPage />', () => {
     );
   });
 
-  it('should trigger route push when clicking View All Vans', async () => {
-    await screen.findAllByText('View All Vans');
-    fireEvent.click(screen.getAllByText('View All Vans')[0]);
+  it('should trigger route push when clicking View Small Vans', async () => {
+    await screen.findAllByText('View Small Vans');
+    fireEvent.click(screen.getAllByText('View Small Vans')[0]);
     await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/van-leasing'),
+      expect(Router.push).toHaveBeenCalledWith(
+        '/van-leasing?bodyStyles=Small+Van',
+      ),
+    );
+  });
+
+  it('should trigger route push when clicking View Medium Vans', async () => {
+    await screen.findAllByText('View Small Vans');
+    fireEvent.click(screen.getAllByText('View Medium Vans')[0]);
+    await waitFor(() =>
+      expect(Router.push).toHaveBeenCalledWith(
+        '/van-leasing?bodyStyles=Medium+Van',
+      ),
+    );
+  });
+
+  it('should trigger route push when clicking View Large Vans', async () => {
+    await screen.findAllByText('View Small Vans');
+    fireEvent.click(screen.getAllByText('View Large Vans')[0]);
+    await waitFor(() =>
+      expect(Router.push).toHaveBeenCalledWith(
+        '/van-leasing?bodyStyles=Large+Van',
+      ),
     );
   });
 });
