@@ -2,7 +2,7 @@ import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
-import SummaryFormContainer from '../../../../containers/SummaryFormContainer/SummaryFormContainer';
+import SummaryFormContainer from '../../../../containers/BusinessSummaryFormContainer/BusinessSummaryFormContainer';
 import withApollo from '../../../../hocs/withApollo';
 
 type QueryParams = {
@@ -14,7 +14,7 @@ const SummaryPage: NextPage = () => {
   const { uuid } = router.query as QueryParams;
   return (
     <OLAFLayout>
-      <SummaryFormContainer personUuid={uuid} />
+      <SummaryFormContainer companyUuid={uuid} />
     </OLAFLayout>
   );
 };

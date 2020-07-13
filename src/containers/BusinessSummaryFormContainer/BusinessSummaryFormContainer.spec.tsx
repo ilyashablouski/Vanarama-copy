@@ -1,7 +1,7 @@
 import { MockedProvider } from '@apollo/client/testing';
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
-import SummaryFormContainer from './SummaryFormContainer';
+import BusinessSummaryFormContainer from './BusinessSummaryFormContainer';
 import createBruceData from './__fixtures__/bruceData';
 
 const mockPush = jest.fn();
@@ -14,7 +14,7 @@ jest.mock('next/router', () => ({
   },
 }));
 
-describe('<SummaryFormContainer />', () => {
+describe('<BusinessSummaryFormContainer />', () => {
   it('should render personal details correctly', async () => {
     // ARRANGE
     const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
@@ -23,7 +23,7 @@ describe('<SummaryFormContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
-        <SummaryFormContainer personUuid={uuid} />
+        <BusinessSummaryFormContainer companyUuid={uuid} />
       </MockedProvider>,
     );
 
@@ -68,7 +68,7 @@ describe('<SummaryFormContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
-        <SummaryFormContainer personUuid={uuid} />
+        <BusinessSummaryFormContainer companyUuid={uuid} />
       </MockedProvider>,
     );
 
@@ -109,7 +109,7 @@ describe('<SummaryFormContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
-        <SummaryFormContainer personUuid={uuid} />
+        <BusinessSummaryFormContainer companyUuid={uuid} />
       </MockedProvider>,
     );
 
@@ -162,7 +162,7 @@ describe('<SummaryFormContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
-        <SummaryFormContainer personUuid={uuid} />
+        <BusinessSummaryFormContainer companyUuid={uuid} />
       </MockedProvider>,
     );
 
@@ -191,7 +191,7 @@ describe('<SummaryFormContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
-        <SummaryFormContainer personUuid={uuid} />
+        <BusinessSummaryFormContainer companyUuid={uuid} />
       </MockedProvider>,
     );
 
@@ -224,7 +224,7 @@ describe('<SummaryFormContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
-        <SummaryFormContainer personUuid={uuid} />
+        <BusinessSummaryFormContainer companyUuid={uuid} />
       </MockedProvider>,
     );
 
@@ -246,7 +246,7 @@ describe('<SummaryFormContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
-        <SummaryFormContainer personUuid={uuid} />
+        <BusinessSummaryFormContainer companyUuid={uuid} />
       </MockedProvider>,
     );
 
@@ -271,7 +271,7 @@ describe('<SummaryFormContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
-        <SummaryFormContainer personUuid={uuid} />
+        <BusinessSummaryFormContainer companyUuid={uuid} />
       </MockedProvider>,
     );
 
@@ -296,7 +296,7 @@ describe('<SummaryFormContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
-        <SummaryFormContainer personUuid={uuid} />
+        <BusinessSummaryFormContainer companyUuid={uuid} />
       </MockedProvider>,
     );
 
@@ -321,7 +321,7 @@ describe('<SummaryFormContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
-        <SummaryFormContainer personUuid={uuid} />
+        <BusinessSummaryFormContainer companyUuid={uuid} />
       </MockedProvider>,
     );
 

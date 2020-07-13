@@ -60,6 +60,11 @@ function generateSteps() {
       label: 'Company Bank Details',
       step: 5,
     },
+    {
+      href: '/b2b/olaf/summary/[companyUuid]',
+      label: 'Summary',
+      step: 6,
+    },
   ];
 }
 

@@ -1,0 +1,143 @@
+import Button from '@vanarama/uibook/lib/components/atoms/button';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
+import Form from '@vanarama/uibook/lib/components/organisms/form';
+import { gql } from '@apollo/client';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { SummaryFormPerson } from '../../../generated/SummaryFormPerson';
+import FCWithFragments from '../../utils/FCWithFragments';
+import BusinessSummaryFormAddressHistory from './BusinessSummaryFormAddressHistory';
+import BusinessSummaryFormBankDetailsSection from './BusinessSummaryFormBankDetailsSection';
+import BusinessSummaryFormDetailsSection from './BusinessSummaryFormDetailsSection';
+import BusinessSummaryFormEmploymentHistory from './BusinessSummaryFormEmploymentHistory';
+import BusinessSummaryFormIncomeSection from './BusinessSummaryFormIncomeSection';
+import { getUrlParam } from '../../utils/url';
+import { LimitedCompanyInputObject } from '../../../generated/globalTypes';
+import { GetCompanyBankDetailsPageDataQuery_companyByUuid } from '../../../generated/GetCompanyBankDetailsPageDataQuery';
+
+interface IProps {
+  //TODO ask Vitali to add a type for the summary
+  company: any;
+  orderId?: string;
+  derivativeId?: string;
+}
+
+const BusinessSummaryForm: FCWithFragments<IProps> = ({
+  company,
+  orderId,
+  derivativeId,
+}) => {
+  const router = useRouter();
+  // NOTE: Many are returned so just take the first one?
+  const primaryBankAccount = company.bankAccounts?.[0];
+
+  const handleEdit = (url: string) => () => {
+    const href = `${url}?redirect=summary${getUrlParam(
+      {
+        orderId,
+        derivativeId,
+      },
+      true,
+    )}`;
+    router.push(href, href.replace('[uuid]', company.uuid));
+  };
+
+  return (
+    <Form>
+      <Heading color="black" size="xlarge" dataTestId="summary-heading">
+        Summary
+      </Heading>
+      {/* <Text color="darker" size="lead" dataTestId="olaf_summary_text">
+        Here’s a summary of all the details you’ve entered. Have a look below to
+        check everything is correct. If you do spot a mistake, simply edit to
+        make a change.
+      </Text>
+      <BusinessSummaryFormDetailsSection
+        person={person}
+        onEdit={handleEdit('/olaf/about/[uuid]')}
+      />
+      <BusinessSummaryFormAddressHistory
+        addresses={person.addresses || []}
+        onEdit={handleEdit('/olaf/address-history/[uuid]')}
+      />
+      <BusinessSummaryFormEmploymentHistory
+        employments={person.employmentHistories || []}
+        onEdit={handleEdit('/olaf/employment-history/[uuid]')}
+      />
+      {person.incomeAndExpense && (
+        <BusinessSummaryFormIncomeSection
+          income={person.incomeAndExpense}
+          onEdit={handleEdit('/olaf/expenses/[uuid]')}
+        />
+      )}
+      {primaryBankAccount && (
+        <BusinessSummaryFormBankDetailsSection
+          account={primaryBankAccount}
+          onEdit={handleEdit('/olaf/bank-details/[uuid]')}
+        />
+      )}
+      <Button
+        type="button"
+        color="teal"
+        label="Continue"
+        dataTestId="olaf_summary_continue_buttton"
+        onClick={() => {
+          router.push(
+            `/olaf/thank-you${getUrlParam({ orderId, derivativeId })}`,
+          );
+        }}
+      /> */}
+    </Form>
+  );
+};
+
+// BusinessSummaryForm.fragments = {
+//   company: gql`
+//     fragment SummaryFormCompany on BankAccountType {
+//       about
+//   addresses
+//   annualExpenses?: 
+//   annualSales?: 
+//   annualTurnover?: 
+//   companyNature?: 
+//   companyNumber?: string | null;
+//   companyType?: string | null;
+//   deletedAt?: any | null;
+//   emailAddresses?: EmailAddressInputObject[] | null;
+//   leadManagerId?: string | null;
+//   legalName?: string | null;
+//   monthlyAmountBeingReplaced?: string | null;
+//   otherCountriesOfActivity?: string | null;
+//   pictureUrl?: string | null;
+//   replaceExistingVehicleFinance?: boolean | null;
+//   sicCode?: string | null;
+//   sicIndustry?: string | null;
+//   telephoneNumber?: TelephoneNumberInputObject | null;
+//   tradesOutsideUk?: boolean | null;
+//   tradingName?: string | null;
+//   tradingSince?: any | null;
+//   turnoverOutsideUk?: number | null;
+//   uuid?: string | null;
+//   vatNumber?: string | null;
+//   withTradingAddress?: boolean | null;
+//     }
+//   `,
+// };
+
+BusinessSummaryForm.fragments = {
+  company: gql`
+    fragment SummaryFormCompany on CompanyType {
+      addresses {
+        ...SummaryFormAddressHistoryAddress
+      }
+      bankAccounts {
+        ...SummaryFormBankDetailsSectionAccount
+      }
+    }
+    ${BusinessSummaryFormAddressHistory.fragments.addresses}
+    ${BusinessSummaryFormBankDetailsSection.fragments.account}
+  `,
+};
+
+export default BusinessSummaryForm;

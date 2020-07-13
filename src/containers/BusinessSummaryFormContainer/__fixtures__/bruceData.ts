@@ -4,12 +4,12 @@ import {
   GetPersonSummaryQuery,
   GetPersonSummaryQueryVariables,
 } from '../../../../generated/GetPersonSummaryQuery';
-import { GET_PERSON_SUMMARY } from '../SummaryFormContainer';
+import { GET_COMPANY_SUMMARY } from '../BusinessSummaryFormContainer';
 
 export default (uuid: string) =>
   ({
     request: {
-      query: GET_PERSON_SUMMARY,
+      query: GET_COMPANY_SUMMARY,
       variables: {
         uuid,
       } as GetPersonSummaryQueryVariables,
