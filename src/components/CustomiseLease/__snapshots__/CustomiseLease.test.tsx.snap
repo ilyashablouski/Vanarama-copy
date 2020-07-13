@@ -594,7 +594,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
            
           <a
             className="link -primary -regular -plain"
-            href="tel:undefined"
+            onClick={[Function]}
           >
             Request a Call Back
           </a>
@@ -1199,7 +1199,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
            
           <a
             className="link -primary -regular -plain"
-            href="tel:undefined"
+            onClick={[Function]}
           >
             Request a Call Back
           </a>
