@@ -327,16 +327,13 @@ export const PickupsPage: NextPage = () => {
         </Heading>
         <div>
           {[
-            'Mercedes-Benz',
-            'Mitsubishi',
             'Nissan',
-            'Volkswagen',
-            'Fiat',
-            'Ford',
             'Toyota',
-            'BMW',
             'Isuzu',
-            'Porche',
+            'Ford',
+            'Volkswagen',
+            'Mitsubishi',
+            'Mercedes-Benz',
           ].map(man => (
             <Button
               key={man}
