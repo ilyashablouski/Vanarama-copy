@@ -46,10 +46,15 @@ import useSliderProperties from '../../../hooks/useSliderProperties';
 import getIconMap from '../../../utils/getIconMap';
 import truncateString from '../../../utils/truncateString';
 
+type ProdCards = ProdCardData[];
+
 export const VansPage: NextPage = () => {
-  const [offer, setOffer] = useState<ProdCardData>();
+  const [offers, setOffers] = useState<ProdCards>([]);
   const { slidesToShow } = useSliderProperties();
   const { data, loading, error } = useQuery<HubVanPageData>(HUB_VAN_CONTENT);
+
+  // pluck random offer untill offer postion available
+  const offer: ProdCardData = offers[Math.floor(Math.random() * offers.length)];
 
   const { data: productSmallVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
@@ -59,7 +64,7 @@ export const VansPage: NextPage = () => {
         const topProduct = prods?.productCarousel?.find(
           p => p?.isOnOffer === true,
         );
-        if (topProduct) setOffer(topProduct);
+        if (topProduct) setOffers([...offers, topProduct]);
       },
     },
   );
@@ -67,12 +72,24 @@ export const VansPage: NextPage = () => {
     PRODUCT_CARD_CONTENT,
     {
       variables: { type: 'LCV', subType: 'MEDIUMVAN', size: 9, offer: true },
+      onCompleted: prods => {
+        const topProduct = prods?.productCarousel?.find(
+          p => p?.isOnOffer === true,
+        );
+        if (topProduct) setOffers([...offers, topProduct]);
+      },
     },
   );
   const { data: productLargeVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
       variables: { type: 'LCV', subType: 'LARGEVAN', size: 9, offer: true },
+      onCompleted: prods => {
+        const topProduct = prods?.productCarousel?.find(
+          p => p?.isOnOffer === true,
+        );
+        if (topProduct) setOffers([...offers, topProduct]);
+      },
     },
   );
 
