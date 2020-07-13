@@ -50,16 +50,33 @@ export const VansPage: NextPage = () => {
   const [offer, setOffer] = useState<ProdCardData>();
   const { slidesToShow } = useSliderProperties();
   const { data, loading, error } = useQuery<HubVanPageData>(HUB_VAN_CONTENT);
-  const { data: productsVan } = useQuery<ProductCardData>(
+
+  useQuery<ProductCardData>(PRODUCT_CARD_CONTENT, {
+    variables: { type: 'LCV', subType: 'SMALLVAN', size: 9, offer: true },
+    onCompleted: prods => {
+      const topProduct = prods?.productCarousel?.find(
+        p => p?.isOnOffer === true,
+      );
+      if (topProduct) setOffer(topProduct);
+    },
+  });
+
+  const { data: productSmallVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
-      variables: { type: 'LCV', subType: 'VAN', size: 9, offer: true },
-      onCompleted: prods => {
-        const topProduct = prods?.productCarousel?.find(
-          p => p?.isOnOffer === true,
-        );
-        if (topProduct) setOffer(topProduct);
-      },
+      variables: { type: 'LCV', subType: 'SMALLVAN', size: 9, offer: true },
+    },
+  );
+  const { data: productMediumVan } = useQuery<ProductCardData>(
+    PRODUCT_CARD_CONTENT,
+    {
+      variables: { type: 'LCV', subType: 'MEDIUMVAN', size: 9, offer: true },
+    },
+  );
+  const { data: productLargeVan } = useQuery<ProductCardData>(
+    PRODUCT_CARD_CONTENT,
+    {
+      variables: { type: 'LCV', subType: 'LARGEVAN', size: 9, offer: true },
     },
   );
 
@@ -128,9 +145,9 @@ export const VansPage: NextPage = () => {
           </Heading>
           <Carousel
             className="-mh-auto"
-            countItems={productsVan?.productCarousel?.length || 6}
+            countItems={productSmallVan?.productCarousel?.length || 6}
           >
-            {productsVan?.productCarousel?.map((item, idx) => {
+            {productSmallVan?.productCarousel?.map((item, idx) => {
               const iconMap = getIconMap(item?.keyInformation || []);
               return (
                 <ProductCard
@@ -195,7 +212,7 @@ export const VansPage: NextPage = () => {
             <Button
               label="View All Vans"
               color="teal"
-              onClick={() => Router.push('/van-leasing')}
+              onClick={() => Router.push('/van-leasing?bodyStyles=small+Van')}
             />
           </div>
         </div>
@@ -212,9 +229,9 @@ export const VansPage: NextPage = () => {
           </Heading>
           <Carousel
             className="-mh-auto"
-            countItems={productsVan?.productCarousel?.length || 6}
+            countItems={productMediumVan?.productCarousel?.length || 6}
           >
-            {productsVan?.productCarousel?.map((item, idx) => {
+            {productMediumVan?.productCarousel?.map((item, idx) => {
               const iconMap = getIconMap(item?.keyInformation || []);
               return (
                 <ProductCard
@@ -279,7 +296,7 @@ export const VansPage: NextPage = () => {
             <Button
               label="View All Vans"
               color="teal"
-              onClick={() => Router.push('/van-leasing')}
+              onClick={() => Router.push('/van-leasing/bodyStyles=Medium+Van')}
             />
           </div>
         </div>
@@ -296,9 +313,9 @@ export const VansPage: NextPage = () => {
           </Heading>
           <Carousel
             className="-mh-auto"
-            countItems={productsVan?.productCarousel?.length || 6}
+            countItems={productLargeVan?.productCarousel?.length || 6}
           >
-            {productsVan?.productCarousel?.map((item, idx) => {
+            {productLargeVan?.productCarousel?.map((item, idx) => {
               const iconMap = getIconMap(item?.keyInformation || []);
               return (
                 <ProductCard
@@ -363,7 +380,7 @@ export const VansPage: NextPage = () => {
             <Button
               label="View All Vans"
               color="teal"
-              onClick={() => Router.push('/van-leasing')}
+              onClick={() => Router.push('/van-leasing?bodyStyles=Large+Van')}
             />
           </div>
         </div>
@@ -391,7 +408,10 @@ export const VansPage: NextPage = () => {
                   withBtn: true,
                   link: (
                     <RouterLink
-                      link={{ href: '#', label: card.title || '' }}
+                      link={{
+                        href: card.link?.url || '#',
+                        label: card.title || '',
+                      }}
                       className="heading"
                       classNames={{ size: 'lead', color: 'black' }}
                     >
@@ -535,8 +555,14 @@ export const VansPage: NextPage = () => {
             'BMW',
             'Isuzu',
             'Porche',
-          ].map(n => (
-            <Button key={n} color="teal" size="large" label={n} />
+          ].map(man => (
+            <Button
+              key={man}
+              color="teal"
+              size="large"
+              label={man}
+              onClick={() => Router.push(`/van-leasing/${man} `)}
+            />
           ))}
         </div>
       </section>
