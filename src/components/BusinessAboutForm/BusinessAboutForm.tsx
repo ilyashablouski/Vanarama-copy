@@ -2,48 +2,43 @@ import { gql } from '@apollo/client';
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import React from 'react';
-import { OnSubmit, useForm } from 'react-hook-form';
-import { BusinessAboutFormDropDownData } from '../../../generated/BusinessAboutFormDropDownData';
+import React, { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { EMAIL_REGEX, WORLDWIDE_MOBILE_REGEX } from '../../utils/regex';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
-import { IBusinessAboutFormValues } from './interfaces';
-
-interface IProps {
-  dropDownData: BusinessAboutFormDropDownData;
-  onSubmit: OnSubmit<IBusinessAboutFormValues>;
-}
+import { IBusinessAboutFormValues, IProps } from './interfaces';
+import { responseToInitialFormValues } from '../AboutForm/mappers';
+import {
+  mapEmailErrorMessage,
+  EMAIL_ALREADY_EXISTS,
+} from '../AboutForm/mapEmailErrorMessage';
 
 const BusinessAboutForm: FCWithFragments<IProps> = ({
   dropDownData,
   onSubmit,
+  person,
+  onEmailExistenceCheck,
+  onLogInCLick,
 }) => {
-  const { formState, handleSubmit, errors, register } = useForm<
+  const defaultValues = responseToInitialFormValues(person);
+  const { formState, handleSubmit, errors, register, reset } = useForm<
     IBusinessAboutFormValues
   >({
+    defaultValues,
     mode: 'onBlur',
-    defaultValues: {
-      telephone: '',
-    },
   });
+  useEffect(() => {
+    reset(defaultValues);
+  }, [person]);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <Heading color="black" dataTestId="about-you_heading" size="xlarge">
-        About You
-      </Heading>
-      <Text color="darker" size="lead">
-        To get you your brand new vehicle, firstly we’ll just need some details
-        about you and your company.
-      </Text>
       <Formgroup
         controlId="title"
         label="Title"
@@ -150,7 +145,10 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
         controlId="email"
         hint="Please provide your email address"
         label="Email Address"
-        error={errors.email?.message?.toString()}
+        error={mapEmailErrorMessage(
+          onLogInCLick,
+          errors.email?.message?.toString(),
+        )}
       >
         <TextInput
           id="email"
@@ -166,6 +164,13 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
               value: 254,
               message:
                 'Oops, this email is too long. Please keep it to 254 characters',
+            },
+            validate: async email => {
+              if (!person) {
+                const isEmailValid = await onEmailExistenceCheck?.(email);
+                return isEmailValid ? EMAIL_ALREADY_EXISTS : undefined;
+              }
+              return undefined;
             },
           })}
         />
