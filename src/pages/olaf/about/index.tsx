@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
-import { gql, useLazyQuery } from '@apollo/client';
+import { gql, useLazyQuery, ApolloError } from '@apollo/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
@@ -25,6 +25,16 @@ const PERSON_BY_TOKEN_QUERY = gql`
   }
 `;
 
+export function usePersonByTokenLazyQuery(
+  onCompleted: (data: PersonByToken) => void,
+  onError: (error: ApolloError) => void,
+) {
+  return useLazyQuery<PersonByToken, PersonByTokenVariables>(
+    PERSON_BY_TOKEN_QUERY,
+    { onCompleted, onError },
+  );
+}
+
 const handleAccountFetchError = () =>
   toast.error(
     'Sorry there seems to be an issue with your request. Pleaser try again in a few moments',
@@ -39,23 +49,14 @@ const AboutYouPage: NextPage = () => {
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const router = useRouter();
   const { derivativeId, orderId, uuid } = router.query as QueryParams;
-  const [getPersonByToken] = useLazyQuery<
-    PersonByToken,
-    PersonByTokenVariables
-  >(PERSON_BY_TOKEN_QUERY, {
-    onCompleted: data => {
-      if (data?.personByToken?.uuid) {
-        const currentUrl = '/olaf/about/[uuid]';
-        const redirectUrl = currentUrl.replace(
-          '[uuid]',
-          data.personByToken.uuid,
-        );
-        // reddirect on the same page, with users uuid
-        router.push(currentUrl, redirectUrl, { shallow: true });
-      }
-    },
-    onError: handleAccountFetchError,
-  });
+  const [getPersonByToken] = usePersonByTokenLazyQuery(data => {
+    if (data?.personByToken?.uuid) {
+      const currentUrl = '/olaf/about/[uuid]';
+      const redirectUrl = currentUrl.replace('[uuid]', data.personByToken.uuid);
+      // reddirect on the same page, with users uuid
+      router.push(currentUrl, redirectUrl, { shallow: true });
+    }
+  }, handleAccountFetchError);
 
   return (
     <OLAFLayout>
