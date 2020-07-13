@@ -18,12 +18,11 @@ import {
   newPasswordValidator,
 } from '../../utils/inputValidators';
 import PasswordRequirements from '../../core/components/PasswordRequirements';
-import RouterLink from '../RouterLink/RouterLink';
-
-const resetPasswordLink = {
-  href: '/account/password-request',
-  label: '',
-};
+import {
+  mapOldPasswordErrorMessage,
+  wrongPasswordError,
+  WRONG_PASSWORD,
+} from './mapOldPasswordErrorMessage';
 
 const PasswordResetContainer = ({
   hasError: error,
@@ -84,18 +83,13 @@ const PasswordResetContainer = ({
         <>
           {error && (
             <FormError dataTestId="login-form_error">
-              {'Your old password seems incorrect. '}
-              <RouterLink dataTestId="forgot-password" link={resetPasswordLink}>
-                <Text tag="span" color="teal" size="small">
-                  Reset your password here
-                </Text>
-              </RouterLink>
+              {wrongPasswordError}
             </FormError>
           )}
           <Formgroup
             controlId="password-reset-form_code"
             label="Old Password"
-            error={errors.code?.message?.toString()}
+            error={mapOldPasswordErrorMessage(errors.code?.message?.toString())}
           >
             <TextInput
               id="password-reset-form_code"
@@ -106,7 +100,7 @@ const PasswordResetContainer = ({
                 ...requiredField('Please fill in your old password'),
                 validate: async value =>
                   (await onPasswordValidation?.(value))
-                    ? 'Your old password seems incorrect.'
+                    ? WRONG_PASSWORD
                     : undefined,
               })}
             />
