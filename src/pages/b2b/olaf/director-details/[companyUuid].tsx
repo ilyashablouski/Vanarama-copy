@@ -18,8 +18,9 @@ import {
 } from '../../../../../generated/SaveDirectorDetailsMutation';
 import { historyToMoment, parseDate } from '../../../../utils/dates';
 import { LimitedCompanyInputObject } from '../../../../../generated/globalTypes';
+import { getUrlParam, OLAFQueryParams } from 'utils/url';
 
-type QueryParams = {
+type QueryParams = OLAFQueryParams & {
   companyUuid: string;
 };
 
@@ -61,11 +62,16 @@ export const SAVE_DIRECTOR_DETAILS = gql`
 
 export const DirectorDetailsPage: NextPage = () => {
   const router = useRouter();
-  const { companyUuid } = router.query as QueryParams;
+  const { companyUuid, derivativeId, orderId } = router.query as QueryParams;
 
   const [saveDirectorDetails] = useMutation<Mutation, MutationVariables>(
     SAVE_DIRECTOR_DETAILS,
     {
+      onCompleted: () => {
+          const params = getUrlParam({ derivativeId, orderId });
+          const url = `/b2b/olaf/company-bank-details/[companyUuid]${params}`;
+          router.push(url, url.replace('[companyUuid]', companyUuid));
+        },
       onError: () => {
         toast.error(
           'Oops, an unexpected error occurred',
