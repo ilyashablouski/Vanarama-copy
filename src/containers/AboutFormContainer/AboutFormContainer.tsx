@@ -2,7 +2,7 @@ import React from 'react';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import AboutForm from '../../components/AboutForm';
 import { useEmailCheck } from '../RegisterFormContainer/gql';
-import { useCreatePerson, useAboutYouData } from './gql';
+import { useCreatePerson, useAboutYouData, useAboutPageDataQuery } from './gql';
 import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
 
@@ -11,26 +11,30 @@ const AboutFormContainer: React.FC<IProps> = ({
   personUuid,
   onLogInClick,
 }) => {
+  const aboutPageDataQuery = useAboutPageDataQuery();
   const [createDetailsHandle] = useCreatePerson(onCompleted);
-  const { data, loading, error } = useAboutYouData(personUuid);
+  const aboutYouData = useAboutYouData(personUuid);
   const [emailAlreadyExists] = useEmailCheck();
 
-  if (loading) {
+  if (aboutPageDataQuery.loading) {
     return <Loading size="large" />;
   }
 
-  if (error) {
-    return <p>Error: {error.message}</p>;
+  if (aboutPageDataQuery.error) {
+    return <p>Error: {aboutPageDataQuery.error.message}</p>;
   }
 
-  if (!data || !data.allDropDowns) {
+  if (
+    !aboutPageDataQuery.data?.allDropDowns ||
+    aboutPageDataQuery.data?.allDropDowns === null
+  ) {
     return null;
   }
 
   return (
     <AboutForm
-      dropdownData={data.allDropDowns}
-      person={data.personByUuid}
+      dropdownData={aboutPageDataQuery.data!.allDropDowns}
+      person={aboutYouData.data?.personByUuid}
       onEmailExistenceCheck={async email => {
         const results = await emailAlreadyExists({
           variables: { email },

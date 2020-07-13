@@ -2,7 +2,9 @@ export interface IGoldrushFormProps {
   onSubmit: (values: IGoldrushFromValues) => void;
   isSubmitting?: boolean;
   isPostcodeVisible?: boolean;
-  heading: string;
+  heading?: string;
+  callBack?: boolean;
+  text?: string;
 }
 
 export interface IGoldrushFromValues {
