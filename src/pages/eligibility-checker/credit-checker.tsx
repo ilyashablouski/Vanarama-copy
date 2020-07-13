@@ -36,22 +36,25 @@ const CreditChecker: NextPage = () => {
   const setText = () => {
     // Average.
     let text = {
-      heading: 'Congratulations',
-      body: `Great news - scoring ${score} means you’re likely to be accepted for credit to lease your brand new vehicle. So what are you waiting for? It’s time to get started.`,
+      heading: 'Congratulations!',
+      body: `This means you’re likely to be accepted for credit to lease with us. So, what are you waiting for? Take a look at the latest deals on brand-new vehicles now.`,
+      buttonLabel: 'Choose Your Vehicle',
     };
     // Poor.
     if (score <= 50)
       text = {
-        heading: 'Your Score Is Less Than 50%',
+        heading: 'Don’t worry!',
         body:
-          'Don’t worry, scoring less than 50% doesn’t necessarily mean you won’t be accepted for credit. Get in touch and we’ll look into this for you and see what we can do. In the meantime, why not have a browse at our range of cars?',
+          'Your score doesn’t necessarily mean you won’t be accepted for credit to lease a vehicle. Get in touch and we’ll look into this for you and see what we can do.',
+        buttonLabel: 'Get In Touch',
       };
     // Good.
-    if (score >= 80)
+    if (score >= 90)
       text = {
-        heading: 'Congratulations',
+        heading: 'Congratulations!',
         body:
-          'Scoring more than 80% means you’re extremely likely to be accepted for credit to lease your brand new vehicle. So what are you waiting for? It’s time to get started.',
+          'This means you’re extremely likely to be accepted for credit to lease with us. So, what are you waiting for? Take a look at the latest deals on brand-new vehicles now.',
+        buttonLabel: 'Choose Your Vehicle',
       };
 
     return text;
@@ -78,7 +81,7 @@ const CreditChecker: NextPage = () => {
             color="teal"
             size="regular"
             fill="solid"
-            label="Choose Your Vehicle"
+            label={setText().buttonLabel}
             role="button"
           />
           <Text tag="p">
