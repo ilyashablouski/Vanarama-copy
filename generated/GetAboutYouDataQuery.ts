@@ -7,49 +7,6 @@
 // GraphQL query operation: GetAboutYouDataQuery
 // ====================================================
 
-export interface GetAboutYouDataQuery_allDropDowns_titles {
-  __typename: "DropDownDataType";
-  data: string[];
-  favourites: string[];
-}
-
-export interface GetAboutYouDataQuery_allDropDowns_countries {
-  __typename: "DropDownDataType";
-  data: string[];
-  favourites: string[];
-}
-
-export interface GetAboutYouDataQuery_allDropDowns_nationalities {
-  __typename: "DropDownDataType";
-  data: string[];
-  favourites: string[];
-}
-
-export interface GetAboutYouDataQuery_allDropDowns_maritalStatuses {
-  __typename: "DropDownDataType";
-  data: string[];
-}
-
-export interface GetAboutYouDataQuery_allDropDowns_noOfDependants {
-  __typename: "DropDownDataType";
-  data: string[];
-}
-
-export interface GetAboutYouDataQuery_allDropDowns_noOfAdultsInHousehold {
-  __typename: "DropDownDataType";
-  data: string[];
-}
-
-export interface GetAboutYouDataQuery_allDropDowns {
-  __typename: "DropDownType";
-  titles: GetAboutYouDataQuery_allDropDowns_titles;
-  countries: GetAboutYouDataQuery_allDropDowns_countries;
-  nationalities: GetAboutYouDataQuery_allDropDowns_nationalities;
-  maritalStatuses: GetAboutYouDataQuery_allDropDowns_maritalStatuses;
-  noOfDependants: GetAboutYouDataQuery_allDropDowns_noOfDependants;
-  noOfAdultsInHousehold: GetAboutYouDataQuery_allDropDowns_noOfAdultsInHousehold;
-}
-
 export interface GetAboutYouDataQuery_personByUuid_emailAddresses {
   __typename: "EmailAddressType";
   uuid: string;
@@ -83,10 +40,6 @@ export interface GetAboutYouDataQuery_personByUuid {
 
 export interface GetAboutYouDataQuery {
   /**
-   * get all drop downs
-   */
-  allDropDowns: GetAboutYouDataQuery_allDropDowns | null;
-  /**
    * Find Person by Uuid
    */
   personByUuid: GetAboutYouDataQuery_personByUuid | null;
@@ -94,5 +47,4 @@ export interface GetAboutYouDataQuery {
 
 export interface GetAboutYouDataQueryVariables {
   uuid: string;
-  includePerson: boolean;
 }

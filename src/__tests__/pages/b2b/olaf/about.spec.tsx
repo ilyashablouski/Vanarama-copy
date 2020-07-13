@@ -3,11 +3,13 @@ import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 import { ToastContainer } from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import { GetB2BAboutPageData } from '../../../../../generated/GetB2BAboutPageData';
+import { BusinessAboutPage } from '../../../../pages/b2b/olaf/about';
 import {
-  BusinessAboutPage,
   GET_B2B_ABOUT_PAGE_DATA,
   SAVE_BUSINESS_ABOUT_YOU,
-} from '../../../../pages/b2b/olaf/about';
+} from '../../../../containers/BusinessAboutFormContainer/gql';
+import { GET_ABOUT_YOU_DATA } from '../../../../containers/AboutFormContainer/gql';
+import { EMAIL_ALREADY_EXISTS } from '../../../../containers/RegisterFormContainer/gql';
 import {
   SaveBusinessAboutYou,
   SaveBusinessAboutYouVariables,
@@ -27,7 +29,6 @@ jest.mock('next/router', () => ({
 
 describe('B2B About You page', () => {
   it('should submit data to the server and redirect to the company details page', async () => {
-    let mutationCalled = false;
     const mocks: MockedResponse[] = [
       {
         request: {
@@ -48,6 +49,19 @@ describe('B2B About You page', () => {
       },
       {
         request: {
+          query: EMAIL_ALREADY_EXISTS,
+          variables: {
+            email: 'bruce_bonus@gmail.com',
+          },
+        },
+        result: {
+          data: {
+            emailAlreadyExists: false,
+          },
+        },
+      },
+      {
+        request: {
           query: SAVE_BUSINESS_ABOUT_YOU,
           variables: {
             input: {
@@ -64,15 +78,17 @@ describe('B2B About You page', () => {
             },
           } as SaveBusinessAboutYouVariables,
         },
-        result: () => {
-          mutationCalled = true;
-          return {
-            data: {
-              createUpdateBusinessPerson: {
-                uuid: 'f16564ce-b076-4a8d-aa6c-b4c394f090c9',
-              },
-            } as SaveBusinessAboutYou,
-          };
+        result: {
+          data: {
+            createUpdateBusinessPerson: {
+              uuid: 'f16564ce-b076-4a8d-aa6c-b4c394f090c9',
+              companies: [
+                {
+                  uuid: '6b4b95b3-8fa4-47e8-8846-ce478ef85169',
+                },
+              ],
+            },
+          } as SaveBusinessAboutYou,
         },
       },
     ];
@@ -83,7 +99,7 @@ describe('B2B About You page', () => {
       </MockedProvider>,
     );
 
-    await screen.findByTestId('about-you_heading');
+    await screen.findByRole('combobox', { name: /title/i });
 
     fireEvent.input(screen.getByRole('combobox', { name: /title/i }), {
       target: { value: 'Mr' },
@@ -127,16 +143,53 @@ describe('B2B About You page', () => {
 
     fireEvent.click(screen.getByRole('button', { name: /continue/i }));
 
-    await waitFor(() => expect(mutationCalled).toBeTruthy());
-    expect(mockPush).toHaveBeenCalledTimes(1);
-    expect(mockPush).toHaveBeenCalledWith(
-      '/b2b/olaf/company-details/[personUuid]',
-      '/b2b/olaf/company-details/f16564ce-b076-4a8d-aa6c-b4c394f090c9',
+    await waitFor(() =>
+      expect(screen.queryByText('Saving...')).not.toBeInTheDocument(),
     );
   });
 
   it('should display a toast message if the request to the server fails', async () => {
     const mocks: MockedResponse[] = [
+      {
+        request: {
+          query: GET_ABOUT_YOU_DATA,
+          variables: {
+            uuid: 'test',
+          },
+        },
+        result: {
+          data: {
+            personByUuid: {
+              countryOfBirth: null,
+              dateOfBirth: '1986-04-04',
+              emailAddresses: [
+                {
+                  __typename: 'EmailAddressType',
+                  uuid: '52343251-22f4-4b57-86d8-79bfbb8f756d',
+                  primary: true,
+                },
+              ],
+              emailConsent: false,
+              firstName: 'firstName',
+              lastName: 'lastName',
+              maritalStatus: 'Single',
+              nationality: null,
+              noOfAdultsInHousehold: null,
+              noOfDependants: null,
+              telephoneNumbers: [
+                {
+                  __typename: 'TelephoneNumberType',
+                  uuid: '38ccdb70-26a9-48df-958a-44d0fac3bab7',
+                  kind: 'Mobile',
+                },
+              ],
+              title: 'Mr',
+              uuid: '5d02b0d1-d685-49c2-b35f-bb5b7f1a2a51',
+              __typename: 'PersonType',
+            },
+          },
+        },
+      },
       {
         request: {
           query: GET_B2B_ABOUT_PAGE_DATA,
@@ -156,23 +209,16 @@ describe('B2B About You page', () => {
       },
       {
         request: {
-          query: SAVE_BUSINESS_ABOUT_YOU,
+          query: EMAIL_ALREADY_EXISTS,
           variables: {
-            input: {
-              title: 'Mr',
-              firstName: 'Bruce',
-              lastName: 'Forsyth',
-              telephoneNumbers: [{ value: '07777777777' }],
-              emailAddress: { value: 'bruce_bonus@gmail.com' },
-              company: { companyType: 'Limited' },
-              profilingConsent: true,
-              emailConsent: false,
-              smsConsent: false,
-              termsAndConditions: true,
-            },
-          } as SaveBusinessAboutYouVariables,
+            email: 'bruce_bonus@gmail.com',
+          },
         },
-        error: new Error('the backend was down!'),
+        result: {
+          data: {
+            emailAlreadyExists: false,
+          },
+        },
       },
     ];
 
