@@ -558,16 +558,13 @@ export const VansPage: NextPage = () => {
         </Heading>
         <div>
           {[
-            'Mercedes-Benz',
-            'Mitsubishi',
             'Nissan',
-            'Volkswagen',
-            'Fiat',
             'Ford',
             'Toyota',
-            'BMW',
             'Isuzu',
-            'Porche',
+            'Volkswagen',
+            'Mitsubishi',
+            'Mercedes-Benz',
           ].map(man => (
             <Button
               key={man}
