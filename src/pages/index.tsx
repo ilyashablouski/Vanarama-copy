@@ -373,7 +373,7 @@ export const HomePage: NextPage = () => {
                 link: (
                   <RouterLink
                     link={{
-                      href: c.link?.url || '',
+                      href: c.link?.url || '#',
                       label: c.link?.text || '',
                     }}
                     className="heading"
