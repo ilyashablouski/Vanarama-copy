@@ -559,9 +559,9 @@ export const VansPage: NextPage = () => {
         <div>
           {[
             'Nissan',
+            'Ford',
             'Toyota',
             'Isuzu',
-            'Ford',
             'Volkswagen',
             'Mitsubishi',
             'Mercedes-Benz',
