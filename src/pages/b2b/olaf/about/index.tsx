@@ -1,104 +1,94 @@
-import { gql, useMutation, useQuery } from '@apollo/client';
+import React, { useState } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import React from 'react';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
-import { GetB2BAboutPageData } from '../../../../../generated/GetB2BAboutPageData';
-import {
-  SaveBusinessAboutYou,
-  SaveBusinessAboutYouVariables,
-} from '../../../../../generated/SaveBusinessAboutYou';
-import BusinessAboutForm from '../../../../components/BusinessAboutForm/BusinessAboutForm';
+import Button from '@vanarama/uibook/lib/components/atoms/button';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { getUrlParam, OLAFQueryParams } from '../../../../utils/url';
+import LoginFormContainer from '../../../../containers/LoginFormContainer/LoginFormContainer';
+import BusinessAboutFormContainer from '../../../../containers/BusinessAboutFormContainer';
+import { usePersonByTokenLazyQuery } from '../../../olaf/about';
 
-export const GET_B2B_ABOUT_PAGE_DATA = gql`
-  query GetB2BAboutPageData {
-    allDropDowns {
-      ...BusinessAboutFormDropDownData
-    }
-  }
-  ${BusinessAboutForm.fragments.dropDownData}
-`;
+const handleCreateUpdateBusinessPersonError = () =>
+  toast.error(
+    'Oops, an unexpected error occurred',
+    'Your details could not be saved. Please try submitting the form again.',
+    { dataTestId: 'about-you-error' },
+  );
 
-export const SAVE_BUSINESS_ABOUT_YOU = gql`
-  mutation SaveBusinessAboutYou($input: PersonInputObject!) {
-    createUpdateBusinessPerson(input: $input) {
-      uuid
-    }
-  }
-`;
+const handleAccountFetchError = () =>
+  toast.error(
+    'Sorry there seems to be an issue with your request. Pleaser try again in a few moments',
+    'Dolor ut tempor eiusmod enim consequat laboris dolore ut pariatur labore sunt incididunt dolore veniam mollit excepteur dolor aliqua minim nostrud adipisicing culpa aliquip ex',
+  );
+
+type QueryParams = OLAFQueryParams & {
+  uuid: string;
+};
 
 export const BusinessAboutPage: NextPage = () => {
   const router = useRouter();
-  const { derivativeId, orderId } = router.query as OLAFQueryParams;
+  const [isLogInVisible, toggleLogInVisibility] = useState(false);
+  const { derivativeId, orderId, uuid } = router.query as QueryParams;
 
-  const { data, loading, error } = useQuery<GetB2BAboutPageData>(
-    GET_B2B_ABOUT_PAGE_DATA,
-  );
-
-  const [saveDetails] = useMutation<
-    SaveBusinessAboutYou,
-    SaveBusinessAboutYouVariables
-  >(SAVE_BUSINESS_ABOUT_YOU, {
-    onCompleted: ({ createUpdateBusinessPerson }) => {
-      const personUuid = createUpdateBusinessPerson!.uuid!;
-      const params = getUrlParam({ derivativeId, orderId });
-      const url = `/b2b/olaf/company-details/[personUuid]${params}`;
-      router.push(url, url.replace('[personUuid]', personUuid));
-    },
-    onError: () => {
-      toast.error(
-        'Oops, an unexpected error occurred',
-        'Your details could not be saved. Please try submitting the form again.',
-        { dataTestId: 'about-you-error' },
-      );
-    },
-  });
+  const [getPersonByToken] = usePersonByTokenLazyQuery(data => {
+    if (data?.personByToken?.uuid) {
+      const currentUrl = '/b2b/olaf/about/[uuid]';
+      const redirectUrl = currentUrl.replace('[uuid]', data.personByToken.uuid);
+      // reddirect on the same page, with users uuid
+      router.push(currentUrl, redirectUrl, { shallow: true });
+    }
+  }, handleAccountFetchError);
 
   return (
     <OLAFLayout>
-      {error && (
-        <Text tag="p" color="danger" size="lead">
-          Sorry, an unexpected error occurred. Please try again!
-        </Text>
-      )}
-      {loading && <Loading size="large" />}
-      {data && data.allDropDowns && (
-        <BusinessAboutForm
-          dropDownData={data.allDropDowns}
-          onSubmit={async values => {
-            await saveDetails({
-              variables: {
-                input: {
-                  title: values.title,
-                  firstName: values.firstName,
-                  lastName: values.lastName,
-                  telephoneNumbers: [
-                    {
-                      value: values.telephone,
+      <Heading color="black" dataTestId="about-you_heading" size="xlarge">
+        About You
+      </Heading>
+      <Text color="darker" size="lead">
+        To get you your brand new vehicle, firstly we’ll just need some details
+        about you and your company.
+      </Text>
+      {!uuid && (
+        <div className="-mb-500">
+          <div className="-pt-300 -pb-300">
+            <Button
+              label="Login For A Speedy Checkout"
+              color="teal"
+              onClick={() => toggleLogInVisibility(!isLogInVisible)}
+            />
+          </div>
+          {isLogInVisible && (
+            <LoginFormContainer
+              onCompleted={data => {
+                // request person account after login
+                if (data.login !== null) {
+                  getPersonByToken({
+                    variables: {
+                      token: data.login,
                     },
-                  ],
-                  emailAddress: {
-                    value: values.email,
-                  },
-                  company: {
-                    companyType: values.companyType,
-                  },
-                  profilingConsent: values.consent,
-                  emailConsent: values.marketing,
-                  smsConsent: values.marketing,
-                  termsAndConditions: values.termsAndConditions,
-                },
-              },
-            });
-          }}
-        />
+                  });
+                }
+              }}
+            />
+          )}
+        </div>
       )}
+      <BusinessAboutFormContainer
+        onCompleted={({ createUpdateBusinessPerson }) => {
+          const companyUuid = createUpdateBusinessPerson!.companies?.[0].uuid!;
+          const params = getUrlParam({ derivativeId, orderId });
+          const url = `/b2b/olaf/company-details/[companyUuid]${params}`;
+          router.push(url, url.replace('[companyUuid]', companyUuid));
+        }}
+        onError={handleCreateUpdateBusinessPersonError}
+        personUuid={uuid}
+        onLogInCLick={() => toggleLogInVisibility(true)}
+      />
     </OLAFLayout>
   );
 };
