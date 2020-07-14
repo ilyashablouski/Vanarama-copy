@@ -187,7 +187,7 @@ export const VansPage: NextPage = () => {
                     link: (
                       <RouterLink
                         link={{
-                          href: `/vans/van-details/${offer?.capId}`,
+                          href: `/vans/van-details/${item?.capId}`,
                           label: truncateString(
                             `${item?.manufacturerName} ${item?.rangeName}`,
                           ),
@@ -212,7 +212,7 @@ export const VansPage: NextPage = () => {
                       fill="solid"
                       label="View Offer"
                       onClick={() =>
-                        Router.push(`/vans/van-details/${offer?.capId}`)
+                        Router.push(`/vans/van-details/${item?.capId}`)
                       }
                       size="regular"
                     />
@@ -271,7 +271,7 @@ export const VansPage: NextPage = () => {
                     link: (
                       <RouterLink
                         link={{
-                          href: `/vans/van-details/${offer?.capId}`,
+                          href: `/vans/van-details/${item?.capId}`,
                           label: truncateString(
                             `${item?.manufacturerName} ${item?.rangeName}`,
                           ),
@@ -296,7 +296,7 @@ export const VansPage: NextPage = () => {
                       fill="solid"
                       label="View Offer"
                       onClick={() =>
-                        Router.push(`/vans/van-details/${offer?.capId}`)
+                        Router.push(`/vans/van-details/${item?.capId}`)
                       }
                       size="regular"
                     />
@@ -355,7 +355,7 @@ export const VansPage: NextPage = () => {
                     link: (
                       <RouterLink
                         link={{
-                          href: `/vans/van-details/${offer?.capId}`,
+                          href: `/vans/van-details/${item?.capId}`,
                           label: truncateString(
                             `${item?.manufacturerName} ${item?.rangeName}`,
                           ),
@@ -380,7 +380,7 @@ export const VansPage: NextPage = () => {
                       fill="solid"
                       label="View Offer"
                       onClick={() =>
-                        Router.push(`/vans/van-details/${offer?.capId}`)
+                        Router.push(`/vans/van-details/${item?.capId}`)
                       }
                       size="regular"
                     />
