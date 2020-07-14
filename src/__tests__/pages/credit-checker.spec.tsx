@@ -9,7 +9,7 @@ jest.mock('next/router', () => ({
       prefetch: () => null,
       push: mockPush,
       query: {
-        score: 50,
+        score: 75,
       },
     };
   },
@@ -29,6 +29,6 @@ describe('<CreditChecker />', () => {
     render(<CreditChecker />);
 
     // ASSERT
-    expect(screen.getByRole('button', { name: /choose your vehicle/i }));
+    expect(screen.getByText('Choose Your Vehicle'));
   });
 });
