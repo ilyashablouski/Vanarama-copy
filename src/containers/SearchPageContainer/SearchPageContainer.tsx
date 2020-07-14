@@ -303,7 +303,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       </div>
       <div className="row:text">
         <Text color="darker" size="regular" tag="span">
-          We just need some initial details for your credit check.
+          Photos and videos are for illustration purposes only.
         </Text>
       </div>
     </>
