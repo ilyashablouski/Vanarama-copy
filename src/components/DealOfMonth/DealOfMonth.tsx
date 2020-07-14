@@ -1,3 +1,4 @@
+import Router from 'next/router';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -15,6 +16,7 @@ interface IDealOfMonthProps {
   price: number;
   imageSrc: string;
   flagText?: string;
+  capIdPath: string;
 }
 
 const DealOfMonth: React.FC<IDealOfMonthProps> = ({
@@ -22,6 +24,7 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
   specification,
   rating,
   price,
+  capIdPath,
   imageSrc,
   flagText = 'DEAL OF THE MONTH',
 }) => (
@@ -66,10 +69,12 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
         <br />
         <Button
           color="teal"
-          label="Veiw Offer"
+          label="View Offer"
           icon={<ArrowForwardSharp />}
           iconPosition="after"
           iconColor="white"
+          onClick={() => Router.push(capIdPath)}
+          dataTestId="deal-of-month__view-offer"
         />
       </div>
     </div>

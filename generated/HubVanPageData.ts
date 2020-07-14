@@ -69,10 +69,16 @@ export interface HubVanPageData_hubVanPage_sections_cards_cards_image {
   file: HubVanPageData_hubVanPage_sections_cards_cards_image_file | null;
 }
 
+export interface HubVanPageData_hubVanPage_sections_cards_cards_link {
+  url: string | null;
+  text: string | null;
+}
+
 export interface HubVanPageData_hubVanPage_sections_cards_cards {
   title: string | null;
   body: string | null;
   image: HubVanPageData_hubVanPage_sections_cards_cards_image | null;
+  link: HubVanPageData_hubVanPage_sections_cards_cards_link | null;
 }
 
 export interface HubVanPageData_hubVanPage_sections_cards {

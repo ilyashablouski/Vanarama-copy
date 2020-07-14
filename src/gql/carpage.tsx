@@ -83,7 +83,11 @@ export const GET_CAR_DATA = gql`
       terms
       upfronts
     }
-    vehicleImages(capIds: [$capIdDetails]) {
+    vehicleImages(
+      capIds: [$capIdDetails]
+      all: true
+      vehicleType: $vehicleType
+    ) {
       vehicleType
       capId
       mainImageUrl

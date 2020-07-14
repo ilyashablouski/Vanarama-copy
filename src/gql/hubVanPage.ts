@@ -53,6 +53,10 @@ const HUB_VAN_CONTENT = gql`
                 url
               }
             }
+            link {
+              url
+              text
+            }
           }
         }
         steps {

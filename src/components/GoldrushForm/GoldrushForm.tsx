@@ -11,6 +11,7 @@ import {
   emailValidator,
   phoneNumberValidator,
   fullNameValidator,
+  termsAndCons,
 } from '../../utils/inputValidators';
 import { IGoldrushFormProps, IGoldrushFromValues } from './interfaces';
 
@@ -19,8 +20,11 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
   isSubmitting,
   isPostcodeVisible,
   heading,
+  callBack,
+  text,
 }) => {
-  const buttonLabel = isSubmitting ? 'Loading...' : 'Get Quote Now';
+  const buttonLabelText = callBack ? 'Call Me Back' : 'Get Quote Now';
+  const buttonLabel = isSubmitting ? 'Loading...' : buttonLabelText;
   const { handleSubmit, errors, register } = useForm<IGoldrushFromValues>({
     mode: 'onBlur',
     defaultValues: {
@@ -30,11 +34,46 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
     },
   });
 
+  const termsAndConditions = () => (
+    <CheckBox
+      id="termsAndCons"
+      dataTestId="aboutTermsAndCons"
+      name="termsAndCons"
+      label={
+        callBack
+          ? 'Terms & Conditions and Privacy Policy'
+          : 'I agree to the terms and conditions.'
+      }
+      ref={register(termsAndCons)}
+    />
+  );
+
+  const consent = () => (
+    <CheckBox
+      id="consent"
+      dataTestId="aboutConsent"
+      name="consent"
+      label={
+        callBack
+          ? 'Subscribe to get updates, exclusive offers and amazing deals'
+          : 'I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions.'
+      }
+      ref={register}
+    />
+  );
+
   return (
     <Form dataTestId="goldrush-form" onSubmit={handleSubmit(onSubmit)}>
-      <Heading tag="span" size="lead" color="black">
-        {heading}
-      </Heading>
+      {heading && (
+        <Heading tag="span" size={callBack ? 'large' : 'lead'} color="black">
+          {heading}
+        </Heading>
+      )}
+      {text && (
+        <Text tag="span" size="regular" color="darker" className="-mb-400">
+          {text}
+        </Text>
+      )}
       <FormGroup
         controlId="goldrush-form_full-name"
         label="Full Name"
@@ -89,27 +128,24 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
           />
         </FormGroup>
       )}
-      <FormGroup
-        label="Please Confirm"
-        error={errors?.termsAndCons?.message?.toString()}
-      >
-        <CheckBox
-          id="consent"
-          dataTestId="aboutConsent"
-          name="consent"
-          label="I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions."
-          ref={register}
-        />
-        <CheckBox
-          id="termsAndCons"
-          dataTestId="aboutTermsAndCons"
-          name="termsAndCons"
-          label="I agree to the terms and conditions."
-          ref={register}
-        />
-      </FormGroup>
-
-      <Text tag="p" color="darker" size="xsmall">
+      {callBack ? (
+        <FormGroup
+          label="Agree To:"
+          error={errors?.termsAndCons?.message?.toString()}
+        >
+          {termsAndConditions()}
+          {consent()}
+        </FormGroup>
+      ) : (
+        <FormGroup
+          label="Please Confirm"
+          error={errors?.termsAndCons?.message?.toString()}
+        >
+          {consent()}
+          {termsAndConditions()}
+        </FormGroup>
+      )}
+      <Text tag="p" color={callBack ? 'dark' : 'darker'} size="xsmall">
         Vanarama collects the contact information you provide to us to contact
         you about our products and services. You may unsubscribe from these
         communications at any time. For information on how to unsubscribe, as

@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button/';
 import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
@@ -29,6 +30,7 @@ const AboutForm: FCWithFragments<IProps> = ({
 }) => {
   const months = genMonths();
   const years = genYears(100);
+  const defaultValues = responseToInitialFormValues(person);
   const {
     errors,
     handleSubmit,
@@ -38,13 +40,17 @@ const AboutForm: FCWithFragments<IProps> = ({
     formState,
     setError,
     getValues,
+    reset,
   } = useForm<IAboutFormValues>({
     mode: 'onBlur',
     validationSchema,
-    defaultValues: responseToInitialFormValues(person),
+    defaultValues,
   });
 
   useDateOfBirthValidation(watch, triggerValidation);
+  useEffect(() => {
+    reset(defaultValues);
+  }, [person]);
 
   return (
     <Form onSubmit={handleSubmit(submit)}>

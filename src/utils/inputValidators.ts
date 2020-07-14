@@ -60,13 +60,14 @@ export const postcodeValidator = {
     value: true,
     message: 'Please enter your postcode',
   },
-  minLength: {
-    value: 5,
-    message: 'Oops, your postcode looks a little too short',
-  },
-  maxLength: {
-    value: 9,
-    message: 'Oops, your postcode looks a little too long',
+  validate: (postcode: string) => {
+    if (postcode.replace(' ', '').length < 5) {
+      return 'Oops, your postcode looks a little too short';
+    }
+    if (postcode.replace(' ', '').length > 7) {
+      return 'Oops, your postcode looks a little too long';
+    }
+    return undefined;
   },
   pattern: {
     value: POSTCODE_REGEX,
@@ -77,7 +78,7 @@ export const postcodeValidator = {
 export const emailValidator = {
   required: {
     value: true,
-    message: 'Your enter your email address',
+    message: 'Please enter your email address',
   },
   maxLength: {
     value: MAX_EMAIL_LENGTH,
@@ -107,5 +108,12 @@ export const phoneNumberValidator = {
   pattern: {
     value: WORLDWIDE_MOBILE_REGEX,
     message: 'Please enter your mobile number without spaces or hyphens',
+  },
+};
+
+export const termsAndCons = {
+  required: {
+    value: true,
+    message: 'The terms and conditions must be accepted',
   },
 };
