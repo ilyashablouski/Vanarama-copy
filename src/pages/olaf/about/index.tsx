@@ -54,11 +54,12 @@ const handleAccountFetchError = () =>
   );
 
 const AboutYouPage: NextPage = () => {
-  const [isLogInVisible, toggleLogInVisibility] = useState(false);
-  const [personUuid, setPersonUuid] = useState<string | undefined>();
   const router = useRouter();
   const client = useApolloClient();
   const { orderId } = router.query as OLAFQueryParams;
+
+  const [isLogInVisible, toggleLogInVisibility] = useState(false);
+  const [personUuid, setPersonUuid] = useState<string | undefined>();
 
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
   const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
