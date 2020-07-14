@@ -4,56 +4,30 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import OlafCard from '@vanarama/uibook/lib/components/molecules/cards/OlafCard/OlafCard';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { gql, useQuery } from '@apollo/client';
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
-import { useOlafData } from '../../gql/order';
+import { useOlafData, useCarDerivativesData } from '../../gql/order';
 import { createOlafDetails } from './helpers';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import { GetOrderInformation } from '../../../generated/GetOrderInformation';
 import { OLAFQueryParams } from '../../utils/url';
-
-export const GET_ORDER_INFORMATION = gql`
-  query GetOrderInformation {
-    selectedOrderUuid @client
-    selectedDerivativeId @client
-    selectedVehicleType @client
-  }
-`;
 
 const OLAFLayout: React.FC = ({ children }) => {
   const router = useRouter();
-  const { derivativeId, orderId, type } = router.query as OLAFQueryParams;
+  const { orderId } = router.query as OLAFQueryParams;
 
   const isMobile = useMobileViewport();
   const [asideOpen, setAsideOpen] = useState(false);
   const showAside = !isMobile || asideOpen;
 
-  let selectedOrderUuid = orderId || '';
-  let selectedDerivativeId = derivativeId || '';
-  let selectedVehicleType = type || '';
-
-  // get order information from apollo client cache
-  const { data } = useQuery<GetOrderInformation>(GET_ORDER_INFORMATION);
-  if (
-    data?.selectedOrderUuid &&
-    data?.selectedDerivativeId &&
-    data?.selectedVehicleType
-  ) {
-    selectedOrderUuid = data.selectedOrderUuid;
-    selectedDerivativeId = data.selectedDerivativeId;
-    selectedVehicleType = data.selectedVehicleType;
-  }
-
   // get Order data and Derivative data for order car
-  const olafData = useOlafData(
-    selectedOrderUuid,
-    selectedDerivativeId,
-    selectedVehicleType.toUpperCase() as VehicleTypeEnum,
-  );
+  const olafData = useOlafData(orderId);
   const orderByUuid = olafData && olafData.data?.orderByUuid;
-  const derivative = olafData && olafData.data?.derivative;
+
+  const derivativeData = useCarDerivativesData(
+    orderByUuid?.lineItems[0].vehicleProduct?.derivativeCapId as string,
+    orderByUuid?.lineItems[0].vehicleProduct?.vehicleType,
+  );
+  const derivative = derivativeData && derivativeData.data?.derivative;
 
   return (
     <>

@@ -1,4 +1,6 @@
+import { CreateExpenseMutation as Mutation } from '../../../generated/CreateExpenseMutation';
+
 export interface IProps {
   personUuid: string;
-  onCompleted: () => void;
+  onCompleted: (data: Mutation) => void;
 }

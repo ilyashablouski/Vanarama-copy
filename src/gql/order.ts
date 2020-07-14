@@ -104,7 +104,7 @@ export function useCarDerivativesData(
 }
 
 export const GET_OLAF_DATA = gql`
-  query GetOlafData($uuid: ID!, $id: ID!, $vehicleType: VehicleTypeEnum) {
+  query GetOlafData($uuid: ID!) {
     orderByUuid(uuid: $uuid) {
       uuid
       id
@@ -143,43 +143,15 @@ export const GET_OLAF_DATA = gql`
         }
       }
     }
-    derivative(id: $id, vehicleType: $vehicleType) {
-      id
-      capCode
-      name
-      slug
-      manufacturer {
-        name
-      }
-      manufacturerName
-      model {
-        name
-      }
-      modelName
-      fuelType {
-        name
-      }
-      fuelTypeName
-      transmission {
-        name
-      }
-      transmissionName
-    }
   }
 `;
 
-export function useOlafData(
-  uuid: string,
-  id: string,
-  vehicleType?: VehicleTypeEnum,
-) {
+export function useOlafData(uuid: string) {
   return useQuery<GetOlafData, GetOlafDataVariables>(GET_OLAF_DATA, {
     variables: {
       uuid,
-      id,
-      vehicleType,
     },
-    skip: [uuid, id, vehicleType].some(item => !item),
+    skip: [uuid].some(item => !item),
   });
 }
 

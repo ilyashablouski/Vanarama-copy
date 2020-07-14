@@ -1,4 +1,6 @@
+import { SaveEmploymentHistoryMutation as Mutation } from '../../../generated/SaveEmploymentHistoryMutation';
+
 export interface IEmploymentFormContainerProps {
-  onCompleted: () => void;
+  onCompleted: (data: Mutation) => void;
   personUuid: string;
 }

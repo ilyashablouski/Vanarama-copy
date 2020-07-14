@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { VehicleTypeEnum, LeaseTypeEnum } from "./globalTypes";
+import { LeaseTypeEnum, VehicleTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetOlafData
@@ -54,47 +54,13 @@ export interface GetOlafData_orderByUuid {
   lineItems: GetOlafData_orderByUuid_lineItems[];
 }
 
-export interface GetOlafData_derivative_manufacturer {
-  name: string;
-}
-
-export interface GetOlafData_derivative_model {
-  name: string;
-}
-
-export interface GetOlafData_derivative_fuelType {
-  name: string;
-}
-
-export interface GetOlafData_derivative_transmission {
-  name: string;
-}
-
-export interface GetOlafData_derivative {
-  id: string;
-  capCode: string;
-  name: string;
-  slug: string;
-  manufacturer: GetOlafData_derivative_manufacturer;
-  manufacturerName: string;
-  model: GetOlafData_derivative_model;
-  modelName: string;
-  fuelType: GetOlafData_derivative_fuelType;
-  fuelTypeName: string;
-  transmission: GetOlafData_derivative_transmission;
-  transmissionName: string;
-}
-
 export interface GetOlafData {
   /**
    * Gets an order by uuid
    */
   orderByUuid: GetOlafData_orderByUuid | null;
-  derivative: GetOlafData_derivative | null;
 }
 
 export interface GetOlafDataVariables {
   uuid: string;
-  id: string;
-  vehicleType?: VehicleTypeEnum | null;
 }

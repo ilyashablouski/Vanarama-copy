@@ -40,7 +40,7 @@ export function useBankDetails(personUuid: string) {
 
 export function useUpdateBankDetails(
   personUuid: string,
-  onCompleted: () => void,
+  onCompleted: (data: Mutation) => void,
 ) {
   return useMutation<Mutation, MutationVariables>(CREATE_UPDATE_BANK_ACCOUNT, {
     onCompleted,
