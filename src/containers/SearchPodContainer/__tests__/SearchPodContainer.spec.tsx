@@ -104,10 +104,10 @@ describe('<SearchPodContainer />', () => {
     // ASSERT
     await waitFor(() => {
       expect(pushMock).toHaveBeenCalledTimes(1);
-      expect(pushMock).toHaveBeenCalledWith(
-        { pathname: '/van-leasing', query: {} },
-        '/van-leasing',
-      );
+      expect(pushMock).toHaveBeenCalledWith({
+        pathname: '/van-leasing',
+        query: {},
+      });
     });
   });
   it('should be have uniq search url for cars', async () => {
@@ -131,10 +131,10 @@ describe('<SearchPodContainer />', () => {
     // ASSERT
     await waitFor(() => {
       expect(pushMock).toHaveBeenCalledTimes(1);
-      expect(pushMock).toHaveBeenCalledWith(
-        { pathname: '/car-leasing', query: {} },
-        '/car-leasing',
-      );
+      expect(pushMock).toHaveBeenCalledWith({
+        pathname: '/car-leasing',
+        query: {},
+      });
     });
   });
 });

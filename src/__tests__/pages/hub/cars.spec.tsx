@@ -204,7 +204,7 @@ describe('<CarPage />', () => {
     await screen.findByText('View All Cars');
     fireEvent.click(screen.getByText('View All Cars'));
     await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/van-leasing'),
+      expect(Router.push).toHaveBeenCalledWith('/car-leasing'),
     );
   });
 
