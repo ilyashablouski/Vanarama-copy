@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { useQuery } from '@apollo/client';
+import Rating from '@vanarama/uibook/lib/components/atoms/rating';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
@@ -12,6 +13,7 @@ import {
   TestimonialsData,
   TestimonialsData_testimonials as TestimonialData,
 } from '../../../../generated/TestimonialsData';
+import BreadCrumbs from '../../../containers/BreadCrumbContainer';
 
 export const CustomerTestimonialPage: NextPage = () => {
   const { data, loading, error } = useQuery<TestimonialsData>(
@@ -29,16 +31,83 @@ export const CustomerTestimonialPage: NextPage = () => {
     return <p>Error: {error.message}</p>;
   }
   return (
-    <div className="page:testimonials">
+    <>
       <div className="testimonials--content">
+        <BreadCrumbs />
         <Heading size="xlarge" color="black">
           Testimonials Hub
         </Heading>
-        {data?.testimonials?.map((item: TestimonialData | null) =>
-          JSON.stringify(item),
-        )}
+        {data?.testimonials?.map((item: TestimonialData | null) => (
+          <div className="review" key={item?.name}>
+            <Image
+              size="expand"
+              round
+              src="https://eu.ui-avatars.com/api/?name=name=John+Doe&color=ffffff&background=0A0D10&format=svg&rounded=true"
+            />
+            <Heading size="regular" color="black">
+              {item?.whyLease}
+            </Heading>
+            <Rating score={item?.overallRating || 4} />
+            <Text size="regular" color="darker" className="review--content">
+              {item?.comments}
+            </Text>
+            <Text size="xsmall" color="black" className="review--meta">
+              <span>{item?.name}</span>
+              <span>{item?.date}</span>
+            </Text>
+          </div>
+        ))}
       </div>
-      <div className="testimonials--sidebar">...</div>
+      <div className="testimonials--sidebar">
+        <div className="testimonials--sidebar--service tilebox">
+          <Image
+            src="https://source.unsplash.com/collection/2102317/400x400?sig=403432"
+            size="expand"
+            round
+          />
+          <div>
+            <Heading size="regular" color="black">
+              Our Price Promise
+            </Heading>
+            <Text size="small" color="darker">
+              Lorem ullamco laborum enim id aliqua ipsum sunt reprehenderit
+              consectetur et ipsum incidid...
+            </Text>
+          </div>
+        </div>
+        <div className="testimonials--sidebar--service tilebox">
+          <Image
+            src="https://source.unsplash.com/collection/2102317/400x400?sig=403432"
+            size="expand"
+            round
+          />
+          <div>
+            <Heading size="regular" color="black">
+              Fixed Monthly Costs
+            </Heading>
+            <Text size="small" color="darker">
+              Lorem ullamco laborum enim id aliqua ipsum sunt reprehenderit
+              consectetur et ipsum incidid...
+            </Text>
+          </div>
+        </div>
+        <div className="testimonials--sidebar--service tilebox">
+          <Image
+            src="https://source.unsplash.com/collection/2102317/400x400?sig=403432"
+            size="expand"
+            round
+          />
+          <div>
+            <Heading size="regular" color="black">
+              5 Star Customer Service
+            </Heading>
+            <Text size="small" color="darker">
+              Lorem ullamco laborum enim id aliqua ipsum sunt reprehenderit
+              consectetur et ipsum incidid...
+            </Text>
+          </div>
+        </div>
+      </div>
       <div className="row:bg-lighter">
         <div className="row:features-4col">
           <Heading size="large" color="black">
@@ -68,8 +137,30 @@ export const CustomerTestimonialPage: NextPage = () => {
           ))}
         </div>
       </div>
-      <div className="row:text">...</div>
-    </div>
+      <div className="row:text">
+        <Heading color="black" size="large">
+          Company History
+        </Heading>
+        <div>
+          <Text size="regular" color="darker">
+            At Vanarama, we have a range of funders offering new van finance
+            including contract hire with various options to suit you and your
+            business needs, including Contract Hire, Finance Lease and Contract
+            Purchase. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Hic nisi ab odio perspiciatis, veritatis nulla eaque tempore.
+          </Text>
+
+          <Text size="regular" color="darker">
+            Repellendus, rem! Minima voluptatibus obcaecati incidunt expedita
+            dignissimos? Vanarama can also arrange personal van finance if
+            that&apos;s what you require. We understand the importance of your
+            new van purchase and we want to make sure the process of arranging
+            finance for your new vehicle is as simple and seamless as possible
+            for you.
+          </Text>
+        </div>
+      </div>
+    </>
   );
 };
 
