@@ -875,7 +875,7 @@ exports[`<SearchPageContainer /> should be render correctly 1`] = `
       <span
         class="text -regular -darker"
       >
-        We just need some initial details for your credit check.
+        Photos and videos are for illustration purposes only.
       </span>
     </div>
   </div>

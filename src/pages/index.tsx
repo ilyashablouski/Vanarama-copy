@@ -1,13 +1,10 @@
 import { NextPage } from 'next';
 import { useState } from 'react';
+import Router from 'next/router';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import ReactMarkdown from 'react-markdown/with-html';
-import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
-import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
-import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
-import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -37,16 +34,42 @@ import {
   HomePageData_homePage_sections_tiles_tiles as TileData,
   HomePageData_homePage_sections_cards_cards as CardData,
 } from '../../generated/HomePageData';
+import { ProductCardData } from '../../generated/ProductCardData';
 import Hero, { HeroHeading, HeroTitle } from '../components/Hero';
 import { ALL_HOME_CONTENT } from '../gql/homepage';
+import { PRODUCT_CARD_CONTENT } from '../gql/productCard';
 import withApollo from '../hocs/withApollo';
 import useSliderProperties from '../hooks/useSliderProperties';
+import getIconMap from '../utils/getIconMap';
+import truncateString from '../utils/truncateString';
 
 export const HomePage: NextPage = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const { slidesToShow } = useSliderProperties(345, 345, 310);
+  const { slidesToShow } = useSliderProperties();
 
   const { data, loading, error } = useQuery<HomePageData>(ALL_HOME_CONTENT);
+
+  const { data: productsVan } = useQuery<ProductCardData>(
+    PRODUCT_CARD_CONTENT,
+    {
+      variables: { type: 'LCV', subType: 'VAN', size: 9, offer: true },
+    },
+  );
+
+  const { data: productsCar } = useQuery<ProductCardData>(
+    PRODUCT_CARD_CONTENT,
+    {
+      variables: { type: 'CAR', size: 9, offer: true },
+    },
+  );
+
+  const { data: productsPickUp } = useQuery<ProductCardData>(
+    PRODUCT_CARD_CONTENT,
+    {
+      variables: { type: 'LCV', subType: 'PICKUP', size: 9, offer: true },
+    },
+  );
+
   if (loading) {
     return <Loading size="large" />;
   }
@@ -99,88 +122,239 @@ export const HomePage: NextPage = () => {
           <TabPanels>
             <TabPanel index={0}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <Carousel className="-mh-auto" countItems={5}>
-                  {[1, 2, 3, 4, 5].map(k => (
-                    <ProductCard
-                      key={k.toString()}
-                      header={{
-                        accentIcon:
-                          slidesToShow > 2 ? (
-                            <Icon icon={<Flame />} color="white" />
-                          ) : (
-                            ''
+                <Carousel
+                  className="-mh-auto"
+                  countItems={productsVan?.productCarousel?.length || 6}
+                >
+                  {productsVan?.productCarousel?.map((item, idx) => {
+                    const iconMap = getIconMap(item?.keyInformation || []);
+                    return (
+                      <ProductCard
+                        key={item?.capId || idx}
+                        header={{
+                          accentIcon:
+                            slidesToShow > 2 ? (
+                              <Icon icon={<Flame />} color="white" />
+                            ) : (
+                              ''
+                            ),
+                          accentText: slidesToShow > 2 ? 'Hot Deal' : '',
+                          text: 'In Stock - 14-21 Days Delivery',
+                        }}
+                        features={item?.keyInformation?.map(info => ({
+                          icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
+                          label: info?.value || '',
+                        }))}
+                        imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
+                        onCompare={() => true}
+                        onWishlist={() => true}
+                        title={{
+                          title: '',
+                          link: (
+                            <RouterLink
+                              link={{
+                                href: `/vans/van-details/${item?.capId}`,
+                                label: truncateString(
+                                  `${item?.manufacturerName} ${item?.rangeName}`,
+                                ),
+                              }}
+                              className="heading"
+                              classNames={{ size: 'large', color: 'black' }}
+                            />
                           ),
-                        accentText: slidesToShow > 2 ? 'Hot Deal' : '',
-                        text: 'In Stock - 14-21 Days Delivery',
-                      }}
-                      features={[
-                        {
-                          icon: <Icon icon={<SnowSharp />} color="dark" />,
-                          label: 'Aircon',
-                        },
-                        {
-                          icon: <Icon icon={<BluetoothSharp />} color="dark" />,
-                          label: 'Bluetooth',
-                        },
-                        {
-                          icon: <Icon icon={<CompassSharp />} color="dark" />,
-                          label: 'Navigation',
-                        },
-                        {
-                          icon: <Icon icon={<WifiSharp />} color="dark" />,
-                          label: 'Sensors',
-                        },
-                      ]}
-                      imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
-                      onCompare={() => true}
-                      onWishlist={() => true}
-                      title={{
-                        title: '',
-                        link: (
-                          <RouterLink
-                            link={{ href: '#', label: 'Peugeot 208' }}
-                            className="heading"
-                            classNames={{ size: 'large', color: 'black' }}
+                          description: item?.derivativeName || '',
+                          score: item?.averageRating || 0,
+                        }}
+                      >
+                        <div className="-flex-h">
+                          <Price
+                            price={item?.businessRate}
+                            size="large"
+                            separator="."
+                            priceDescription="Per Month Exc.VAT"
                           />
-                        ),
-                        description: '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
-                        score: 4.5,
-                      }}
-                    >
-                      <div className="-flex-h">
-                        <Price
-                          price={209}
-                          size="large"
-                          separator="."
-                          priceDescription="Per Month Exc.VAT"
-                        />
-                        <Button
-                          color="teal"
-                          fill="solid"
-                          label="View Offer"
-                          onClick={() => true}
-                          size="regular"
-                        />
-                      </div>
-                    </ProductCard>
-                  ))}
+                          <Button
+                            color="teal"
+                            fill="solid"
+                            label="View Offer"
+                            dataTestId="van-view-offer"
+                            onClick={() =>
+                              Router.push(`/vans/van-details/${item?.capId}`)
+                            }
+                            size="regular"
+                          />
+                        </div>
+                      </ProductCard>
+                    );
+                  })}
                 </Carousel>
                 <div className="-justify-content-row -pt-500">
-                  <Button label="View All Van Offers" color="teal" />
+                  <Button
+                    label="View All Van Offers"
+                    color="teal"
+                    onClick={() => Router.push('/van-leasing')}
+                    dataTestId="view-all-vans"
+                  />
                 </div>
               </div>
             </TabPanel>
             <TabPanel index={1}>
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Button label="View All Pickup Offers" color="teal" />
+              <div style={{ maxWidth: 1216 }} className="-mh-auto">
+                <Carousel
+                  className="-mh-auto"
+                  countItems={productsPickUp?.productCarousel?.length || 6}
+                >
+                  {productsPickUp?.productCarousel?.map((item, idx) => {
+                    const iconMap = getIconMap(item?.keyInformation || []);
+                    return (
+                      <ProductCard
+                        key={item?.capId || idx}
+                        header={{
+                          accentIcon:
+                            slidesToShow > 2 ? (
+                              <Icon icon={<Flame />} color="white" />
+                            ) : (
+                              ''
+                            ),
+                          accentText: slidesToShow > 2 ? 'Hot Deal' : '',
+                          text: 'In Stock - 14-21 Days Delivery',
+                        }}
+                        features={item?.keyInformation?.map(info => ({
+                          icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
+                          label: info?.value || '',
+                        }))}
+                        imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
+                        onCompare={() => true}
+                        onWishlist={() => true}
+                        title={{
+                          title: '',
+                          link: (
+                            <RouterLink
+                              link={{
+                                href: `/pickups/pickup-details/${item?.capId}`,
+                                label: truncateString(
+                                  `${item?.manufacturerName} ${item?.rangeName}`,
+                                ),
+                              }}
+                              className="heading"
+                              classNames={{ size: 'large', color: 'black' }}
+                            />
+                          ),
+                          description: item?.derivativeName || '',
+                          score: item?.averageRating || 0,
+                        }}
+                      >
+                        <div className="-flex-h">
+                          <Price
+                            price={item?.businessRate}
+                            size="large"
+                            separator="."
+                            priceDescription="Per Month Exc.VAT"
+                          />
+                          <Button
+                            color="teal"
+                            fill="solid"
+                            label="View Offer"
+                            dataTestId="pickup-view-offer"
+                            onClick={() =>
+                              Router.push(
+                                `/pickups/pickup-details/${item?.capId}`,
+                              )
+                            }
+                            size="regular"
+                          />
+                        </div>
+                      </ProductCard>
+                    );
+                  })}
+                </Carousel>
+                <div className="-justify-content-row -pt-500">
+                  <Button
+                    label="View All Pickup Offers"
+                    color="teal"
+                    onClick={() =>
+                      Router.push('/van-leasing?bodyStyles=Pickup')
+                    }
+                    dataTestId="view-all-pickups"
+                  />
                 </div>
               </div>
             </TabPanel>
             <TabPanel index={2}>
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Button label="View All Car Offers" color="teal" />
+              <div style={{ maxWidth: 1216 }} className="-mh-auto">
+                <Carousel
+                  className="-mh-auto"
+                  countItems={productsCar?.productCarousel?.length || 6}
+                >
+                  {productsCar?.productCarousel?.map((item, idx) => {
+                    const iconMap = getIconMap(item?.keyInformation || []);
+                    return (
+                      <ProductCard
+                        key={item?.capId || idx}
+                        header={{
+                          accentIcon:
+                            slidesToShow > 2 ? (
+                              <Icon icon={<Flame />} color="white" />
+                            ) : (
+                              ''
+                            ),
+                          accentText: slidesToShow > 2 ? 'Hot Deal' : '',
+                          text: 'In Stock - 14-21 Days Delivery',
+                        }}
+                        features={item?.keyInformation?.map(info => ({
+                          icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
+                          label: info?.value || '',
+                        }))}
+                        imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
+                        onCompare={() => true}
+                        onWishlist={() => true}
+                        title={{
+                          title: '',
+                          link: (
+                            <RouterLink
+                              link={{
+                                href: `/cars/car-details/${item?.capId}`,
+                                label: truncateString(
+                                  `${item?.manufacturerName} ${item?.rangeName}`,
+                                ),
+                              }}
+                              className="heading"
+                              classNames={{ size: 'large', color: 'black' }}
+                            />
+                          ),
+                          description: item?.derivativeName || '',
+                          score: item?.averageRating || 0,
+                        }}
+                      >
+                        <div className="-flex-h">
+                          <Price
+                            price={item?.businessRate}
+                            size="large"
+                            separator="."
+                            priceDescription="Per Month Exc.VAT"
+                          />
+                          <Button
+                            color="teal"
+                            fill="solid"
+                            label="View Offer"
+                            dataTestId="car-view-offer"
+                            onClick={() =>
+                              Router.push(`/cars/car-details/${item?.capId}`)
+                            }
+                            size="regular"
+                          />
+                        </div>
+                      </ProductCard>
+                    );
+                  })}
+                </Carousel>
+                <div className="-justify-content-row -pt-500">
+                  <Button
+                    label="View All Car Offers"
+                    color="teal"
+                    onClick={() => Router.push('/car-leasing')}
+                    dataTestId="view-all-cars"
+                  />
                 </div>
               </div>
             </TabPanel>
@@ -199,7 +373,7 @@ export const HomePage: NextPage = () => {
                 link: (
                   <RouterLink
                     link={{
-                      href: c.link?.url || '',
+                      href: c.link?.url || '#',
                       label: c.link?.text || '',
                     }}
                     className="heading"

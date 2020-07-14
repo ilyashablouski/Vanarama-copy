@@ -24,6 +24,14 @@ export enum SortField {
   rate = "rate",
 }
 
+export enum SubVehicleTypeEnum {
+  LARGEVAN = "LARGEVAN",
+  MEDIUMVAN = "MEDIUMVAN",
+  PICKUP = "PICKUP",
+  SMALLVAN = "SMALLVAN",
+  VAN = "VAN",
+}
+
 /**
  * Vehicle type enum
  */

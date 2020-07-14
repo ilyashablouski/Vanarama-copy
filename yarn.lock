@@ -644,7 +644,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.10.1"
 
-"@babel/plugin-syntax-dynamic-import@7.8.3", "@babel/plugin-syntax-dynamic-import@^7.8.0":
+"@babel/plugin-syntax-dynamic-import@7.8.3", "@babel/plugin-syntax-dynamic-import@^7.0.0", "@babel/plugin-syntax-dynamic-import@^7.8.0":
   version "7.8.3"
   resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-dynamic-import/-/plugin-syntax-dynamic-import-7.8.3.tgz#62bf98b2da3cd21d626154fc96ee5b3cb68eacb3"
   dependencies:
@@ -2221,10 +2221,9 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@5.22.6":
-  version "5.22.6"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.22.6.tgz#0ffb4be949f3f0d0568be4cf2821ad61a60f0d03"
-  integrity sha512-BwJNdYoQl8NXJs90uQqIhcPyFgmkayuXd+QmOQlbXd4/B7uBTaimNpJhoHzzhpR0k/Dfh/gNonjeWGinoih4NA==
+"@vanarama/uibook@5.22.11":
+  version "5.22.11"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.22.11.tgz#869b10fda289fb1377b12636ba4a48a0120049d4"
   dependencies:
     "@egjs/flicking" "^3.4.7"
     "@reach/auto-id" "^0.10.3"
@@ -3094,6 +3093,12 @@ babel-plugin-transform-define@2.0.0:
   dependencies:
     lodash "^4.17.11"
     traverse "0.6.6"
+
+babel-plugin-transform-dynamic-import@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-dynamic-import/-/babel-plugin-transform-dynamic-import-2.1.0.tgz#3ce618dd983c072b6e2135f527d46092fb45d80e"
+  dependencies:
+    "@babel/plugin-syntax-dynamic-import" "^7.0.0"
 
 babel-plugin-transform-react-remove-prop-types@0.4.24:
   version "0.4.24"
@@ -6764,6 +6769,10 @@ jest-mock@^26.0.1:
   resolved "https://registry.npmjs.org/jest-mock/-/jest-mock-26.0.1.tgz#7fd1517ed4955397cf1620a771dc2d61fad8fd40"
   dependencies:
     "@jest/types" "^26.0.1"
+
+jest-next-dynamic@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/jest-next-dynamic/-/jest-next-dynamic-1.0.1.tgz#b8af62babeda3cff0cf0a6e0af6de3a9dfc8d6cd"
 
 jest-pnp-resolver@^1.2.1:
   version "1.2.1"

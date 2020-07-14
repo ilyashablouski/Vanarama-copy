@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { useState } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
-import { gql, useLazyQuery, useApolloClient } from '@apollo/client';
+import {
+  gql,
+  useLazyQuery,
+  useApolloClient,
+  ApolloError,
+} from '@apollo/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
@@ -32,6 +37,16 @@ const PERSON_BY_TOKEN_QUERY = gql`
   }
 `;
 
+export function usePersonByTokenLazyQuery(
+  onCompleted: (data: PersonByToken) => void,
+  onError: (error: ApolloError) => void,
+) {
+  return useLazyQuery<PersonByToken, PersonByTokenVariables>(
+    PERSON_BY_TOKEN_QUERY,
+    { onCompleted, onError },
+  );
+}
+
 const handleAccountFetchError = () =>
   toast.error(
     'Sorry there seems to be an issue with your request. Pleaser try again in a few moments',
@@ -51,21 +66,15 @@ const AboutYouPage: NextPage = () => {
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
   const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
 
-  const [getPersonByToken] = useLazyQuery<
-    PersonByToken,
-    PersonByTokenVariables
-  >(PERSON_BY_TOKEN_QUERY, {
-    onCompleted: response => {
-      if (response?.personByToken?.uuid) {
-        const currentUrl = '/olaf/about/[orderId]';
-        const redirectUrl =
-          currentUrl + getUrlParam({ uuid: response.personByToken.uuid });
-        // reddirect on the same page, with users uuid
-        router.push(currentUrl, redirectUrl, { shallow: true });
-      }
-    },
-    onError: handleAccountFetchError,
-  });
+  const [getPersonByToken] = usePersonByTokenLazyQuery(data => {
+    if (data?.personByToken?.uuid) {
+      const currentUrl = '/olaf/about/[orderId]';
+      const redirectUrl =
+        currentUrl + getUrlParam({ uuid: data.personByToken.uuid });
+      // reddirect on the same page, with users uuid
+      router.push(currentUrl, redirectUrl, { shallow: true });
+    }
+  }, handleAccountFetchError);
 
   const clickOnComplete = (
     createUpdatePerson: CreateUpdatePersonMutation_createUpdatePerson,

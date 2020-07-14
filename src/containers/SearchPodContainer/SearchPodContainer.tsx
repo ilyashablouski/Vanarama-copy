@@ -209,52 +209,25 @@ const SearchPodContainer = () => {
     const isCarTab = tabType === 'Cars';
     const values = getValues();
     const searchType = isCarTab ? 'car-leasing' : 'van-leasing';
-    let routerUrl = `/${searchType}`;
-    const mainPart = searchType;
-    let additionalPart = '';
-    let queryPart = '';
-    let queryTypePart = '';
-    let queryBudgetPart = '';
+    const routerUrl = `/${searchType}`;
     const query = {} as any;
     // make
     if (values[`make${tabType}`]) {
-      additionalPart = `/${values[`make${tabType}`].replace(' ', '-')}`;
-      routerUrl += '/[make]';
-      // adding type only for cars search if we have model
-      if (values[`model${tabType}`]) {
-        additionalPart += `/${values[`model${tabType}`].replace(' ', '-')}`;
-        routerUrl += '/[model]';
-      }
+      query.make = values[`make${tabType}`];
     }
-    // adding budget and types
-    if (values[`type${tabType}`] || values[`budget${tabType}`]) {
-      queryPart = '?';
-      if (values[`type${tabType}`]) {
-        queryTypePart = `bodyStyles=${values[`type${tabType}`]
-          .split(' ')
-          .join('')}`;
-        queryPart += `${queryTypePart}${values[`type${tabType}`] &&
-          values[`budget${tabType}`] &&
-          '&'}`;
-        query.bodyStyles = values[`type${tabType}`];
-      }
-      if (values[`budget${tabType}`]) {
-        queryBudgetPart = `pricePerMonth=${getBudgetForQuery(
-          values[`budget${tabType}`],
-        )}`;
-        queryPart += queryBudgetPart;
-        query.budget = getBudgetForQuery(values[`budget${tabType}`]);
-      }
+    if (values[`model${tabType}`]) {
+      query.rangeName = values[`model${tabType}`];
     }
-    router.push(
-      {
-        pathname: routerUrl,
-        query: {
-          ...query,
-        },
-      },
-      `/${mainPart.toLowerCase()}${additionalPart.toLowerCase()}${queryPart}`,
-    );
+    if (values[`type${tabType}`]) {
+      query.bodyStyles = values[`type${tabType}`];
+    }
+    if (values[`budget${tabType}`]) {
+      query.pricePerMonth = getBudgetForQuery(values[`budget${tabType}`]);
+    }
+    router.push({
+      pathname: routerUrl,
+      query,
+    });
   };
 
   return (
