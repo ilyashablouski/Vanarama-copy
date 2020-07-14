@@ -12,9 +12,9 @@ export const getUrlParam = (urlParams: UrlParams, notReplace?: boolean) => {
  * A type representing the query parameters shape when on the OLAF journey
  */
 export type OLAFQueryParams = {
-  derivativeId?: string;
-  orderId?: string;
-  type?: string;
+  orderId: string;
+  personUuid: string;
+  derivativeId: string;
 };
 
 /**
