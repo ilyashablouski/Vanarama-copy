@@ -8,7 +8,6 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import React, { useState, CSSProperties, useEffect } from 'react';
 import cx from 'classnames';
 import { NextRouter } from 'next/router';
-import { useApolloClient } from '@apollo/client';
 import {
   useOrdersByPartyUuidData,
   useCarDerivativesData,
@@ -19,7 +18,6 @@ import {
   GetOrdersByPartyUuid,
 } from '../../../generated/GetOrdersByPartyUuid';
 import { createOffersObject } from './helpers';
-import { writeCachedOrderInformation } from '../DetailsPage/gql';
 
 interface IMyOverviewProps {
   partyByUuid: string;
@@ -29,7 +27,6 @@ interface IMyOverviewProps {
 
 const MyOverview: React.FC<IMyOverviewProps> = props => {
   const { partyByUuid, quote, router } = props;
-  const client = useApolloClient();
   const [activePage, setActivePage] = useState(1);
   const [activeTab, setActiveTab] = useState(0);
   const [status, changeStatus] = useState<string[]>([]);
@@ -122,17 +119,12 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     }
   };
 
-  const onClickOrderBtn = (
-    orderUuid: string,
-    orderCapId: string,
-    leaseType: LeaseTypeEnum,
-    vehicleType: VehicleTypeEnum,
-  ) => {
-    // when we click 'Order' btn, need write data to apollo client cache with orderUuid and orderCapId
-    writeCachedOrderInformation(client, orderUuid, orderCapId, vehicleType);
+  const onClickOrderBtn = (orderUuid: string, leaseType: LeaseTypeEnum) => {
     // change current page to '/olaf/about' or '/b2b/olaf/about'
     router.push(
-      leaseType === LeaseTypeEnum.PERSONAL ? '/olaf/about' : '/b2b/olaf/about',
+      leaseType === LeaseTypeEnum.PERSONAL
+        ? `/olaf/about/${orderUuid}`
+        : `/b2b/olaf/about/${orderUuid}`,
     );
   };
 
@@ -197,15 +189,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
             <Button
               color="teal"
               label={quote ? 'Continue To Order' : 'Order Now'}
-              onClick={() =>
-                onClickOrderBtn(
-                  order.uuid,
-                  derivative?.id || '',
-                  order.leaseType,
-                  order.lineItems[0]?.vehicleProduct
-                    ?.vehicleType as VehicleTypeEnum,
-                )
-              }
+              onClick={() => onClickOrderBtn(order.uuid, order.leaseType)}
             />,
             quote,
           )}

@@ -4,11 +4,9 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: WriteCachedOrderInformation
+// GraphQL query operation: WriteCachedPersonInformation
 // ====================================================
 
-export interface WriteCachedOrderInformation {
-  selectedOrderUuid: string | null;
-  selectedDerivativeId: string | null;
-  selectedVehicleType: string | null;
+export interface WriteCachedPersonInformation {
+  uuid: string | null;
 }
