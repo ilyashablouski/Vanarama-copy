@@ -80,6 +80,8 @@ describe('<GoldrushForm />', () => {
 
     fireEvent.click(screen.getByTestId('goldrush-form_submit'));
 
+    fireEvent.click(screen.getByTestId('aboutTermsAndCons'));
+
     // ASSERT
     await waitFor(() => {
       expect(screen.getByText(testHeading)).toBeInTheDocument();
