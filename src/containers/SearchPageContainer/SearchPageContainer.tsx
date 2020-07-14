@@ -265,7 +265,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                 vehiclesList?.map((vehicle: IVehicles) => (
                   <VehicleCard
                     viewOffer={viewOffer}
-                    key={vehicle?.node?.derivativeId + vehicle.cursor || ''}
+                    key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
                     data={
                       getCardData(
                         vehicle.node?.derivativeId || '',
