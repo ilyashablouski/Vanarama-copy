@@ -17,7 +17,7 @@ import { getUrlParam } from '../../utils/url';
 interface IProps {
   person: SummaryFormPerson;
   orderId?: string;
-  derivativeId?: string;
+  derivativeId?: string; 
 }
 
 const SummaryForm: FCWithFragments<IProps> = ({

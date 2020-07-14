@@ -7,6 +7,11 @@
 // GraphQL query operation: GetCompanySummaryQuery
 // ====================================================
 
+export interface GetCompanySummaryQuery_companyByUuid_turnoverPercentageOutsideUk {
+  country: string;
+  percentage: string;
+}
+
 export interface GetCompanySummaryQuery_companyByUuid_addresses {
   __typename: "AddressType";
   uuid: string;
@@ -18,17 +23,39 @@ export interface GetCompanySummaryQuery_companyByUuid_addresses {
   startedOn: any | null;
 }
 
+export interface GetCompanySummaryQuery_companyByUuid_emailAddresses {
+  uuid: string;
+  kind: string | null;
+  value: string;
+  primary: boolean;
+}
+
+export interface GetCompanySummaryQuery_companyByUuid_telephoneNumbers {
+  uuid: string;
+  kind: string | null;
+  value: string;
+  primary: boolean;
+}
+
 export interface GetCompanySummaryQuery_companyByUuid_bankAccounts {
   __typename: "BankAccountType";
   uuid: string;
-  bankName: string | null;
   accountName: string | null;
-  sortCode: string | null;
   accountNumber: string | null;
+  joinedAt: any | null;
+  sortCode: string | null;
 }
 
 export interface GetCompanySummaryQuery_companyByUuid {
+  uuid: string;
+  legalName: string | null;
+  companyNumber: string | null;
+  tradingSince: any | null;
+  tradesOutsideUk: boolean | null;
+  turnoverPercentageOutsideUk: GetCompanySummaryQuery_companyByUuid_turnoverPercentageOutsideUk[] | null;
   addresses: GetCompanySummaryQuery_companyByUuid_addresses[] | null;
+  emailAddresses: GetCompanySummaryQuery_companyByUuid_emailAddresses[];
+  telephoneNumbers: GetCompanySummaryQuery_companyByUuid_telephoneNumbers[] | null;
   bankAccounts: GetCompanySummaryQuery_companyByUuid_bankAccounts[] | null;
 }
 

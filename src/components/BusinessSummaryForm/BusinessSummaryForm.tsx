@@ -5,7 +5,6 @@ import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { gql } from '@apollo/client';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { SummaryFormPerson } from '../../../generated/SummaryFormPerson';
 import FCWithFragments from '../../utils/FCWithFragments';
 import BusinessSummaryFormAddressHistory from './BusinessSummaryFormAddressHistory';
 import BusinessSummaryFormBankDetailsSection from './BusinessSummaryFormBankDetailsSection';
@@ -15,10 +14,11 @@ import BusinessSummaryFormIncomeSection from './BusinessSummaryFormIncomeSection
 import { getUrlParam } from '../../utils/url';
 import { LimitedCompanyInputObject } from '../../../generated/globalTypes';
 import { GetCompanyBankDetailsPageDataQuery_companyByUuid } from '../../../generated/GetCompanyBankDetailsPageDataQuery';
+import { SummaryFormCompany } from '../../../generated/SummaryFormCompany';
 
 interface IProps {
   //TODO ask Vitali to add a type for the summary
-  company: any;
+  company: SummaryFormCompany;
   orderId?: string;
   derivativeId?: string;
 }
@@ -48,12 +48,18 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
       <Heading color="black" size="xlarge" dataTestId="summary-heading">
         Summary
       </Heading>
-      {/* <Text color="darker" size="lead" dataTestId="olaf_summary_text">
+      <Text color="darker" size="lead" dataTestId="olaf_summary_text">
         Here’s a summary of all the details you’ve entered. Have a look below to
         check everything is correct. If you do spot a mistake, simply edit to
         make a change.
       </Text>
-      <BusinessSummaryFormDetailsSection
+      {primaryBankAccount && (
+        <BusinessSummaryFormBankDetailsSection
+          account={primaryBankAccount}
+          onEdit={handleEdit('/olaf/bank-details/[uuid]')}
+        />
+      )}
+     {/*} <BusinessSummaryFormDetailsSection
         person={person}
         onEdit={handleEdit('/olaf/about/[uuid]')}
       />
@@ -92,47 +98,35 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
   );
 };
 
-// BusinessSummaryForm.fragments = {
-//   company: gql`
-//     fragment SummaryFormCompany on BankAccountType {
-//       about
-//   addresses
-//   annualExpenses?: 
-//   annualSales?: 
-//   annualTurnover?: 
-//   companyNature?: 
-//   companyNumber?: string | null;
-//   companyType?: string | null;
-//   deletedAt?: any | null;
-//   emailAddresses?: EmailAddressInputObject[] | null;
-//   leadManagerId?: string | null;
-//   legalName?: string | null;
-//   monthlyAmountBeingReplaced?: string | null;
-//   otherCountriesOfActivity?: string | null;
-//   pictureUrl?: string | null;
-//   replaceExistingVehicleFinance?: boolean | null;
-//   sicCode?: string | null;
-//   sicIndustry?: string | null;
-//   telephoneNumber?: TelephoneNumberInputObject | null;
-//   tradesOutsideUk?: boolean | null;
-//   tradingName?: string | null;
-//   tradingSince?: any | null;
-//   turnoverOutsideUk?: number | null;
-//   uuid?: string | null;
-//   vatNumber?: string | null;
-//   withTradingAddress?: boolean | null;
-//     }
-//   `,
-// };
-
 BusinessSummaryForm.fragments = {
   company: gql`
     fragment SummaryFormCompany on CompanyType {
+      uuid
+      legalName
+      companyNumber
+      tradingSince
+      tradesOutsideUk
+      turnoverPercentageOutsideUk {
+        country
+        percentage
+      }
       addresses {
-        ...SummaryFormAddressHistoryAddress
+        ...BusinessSummaryFormAddress
+      }
+      emailAddresses {
+        uuid
+        kind
+        value
+        primary
+      }
+      telephoneNumbers {
+        uuid
+        kind
+        value
+        primary
       }
       bankAccounts {
-        ...SummaryFormBankDetailsSectionAccount
+        ...CompanyBankDetailsAccount
       }
     }
     ${BusinessSummaryFormAddressHistory.fragments.addresses}

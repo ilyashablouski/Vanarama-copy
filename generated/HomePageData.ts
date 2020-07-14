@@ -36,7 +36,7 @@ export interface HomePageData_homePage_sections_cards_cards_image {
 }
 
 export interface HomePageData_homePage_sections_cards_cards_link {
-  url: string;
+  url: string | null;
   text: string | null;
 }
 

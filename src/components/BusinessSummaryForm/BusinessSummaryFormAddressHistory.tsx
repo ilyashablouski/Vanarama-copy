@@ -62,7 +62,7 @@ function reduceToItems(addresses: SummaryFormAddressHistoryAddress[]) {
 
 SummaryFormAddressHistory.fragments = {
   addresses: gql`
-    fragment SummaryFormAddressHistoryAddress on AddressType {
+    fragment BusinessSummaryFormAddress on AddressType {
       __typename
       uuid
       lineOne

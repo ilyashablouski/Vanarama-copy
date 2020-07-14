@@ -75,30 +75,12 @@ const SummaryFormDetailsSection: FCWithFragments<IProps> = ({
 
 SummaryFormDetailsSection.fragments = {
   person: gql`
-    fragment SummaryFormDetailsSectionPerson on PersonType {
+    fragment SummaryFormDetailsSectionCompany on CompanyType {
       __typename
       uuid
-      emailAddresses {
-        __typename
-        uuid
-        primary
-        value
+      bankAccounts {
+        ...CompanyBankDetailsAccount
       }
-      telephoneNumbers {
-        __typename
-        uuid
-        kind
-        value
-      }
-      title
-      firstName
-      lastName
-      dateOfBirth
-      countryOfBirth
-      nationality
-      maritalStatus
-      noOfDependants
-      noOfAdultsInHousehold
     }
   `,
 };

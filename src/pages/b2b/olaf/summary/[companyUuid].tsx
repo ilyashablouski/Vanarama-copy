@@ -2,21 +2,21 @@ import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
-import SummaryFormContainer from '../../../../containers/BusinessSummaryFormContainer/BusinessSummaryFormContainer';
+import BusinessSummaryFormContainer from '../../../../containers/BusinessSummaryFormContainer/BusinessSummaryFormContainer';
 import withApollo from '../../../../hocs/withApollo';
 
 type QueryParams = {
-  uuid: string;
+  companyUuid: string;
 };
 
-const SummaryPage: NextPage = () => {
+const BusinessSummaryPage: NextPage = () => {
   const router = useRouter();
-  const { uuid } = router.query as QueryParams;
+  const { companyUuid } = router.query as QueryParams;
   return (
     <OLAFLayout>
-      <SummaryFormContainer companyUuid={uuid} />
+      <BusinessSummaryFormContainer companyUuid={companyUuid} />
     </OLAFLayout>
   );
 };
 
-export default withApollo(SummaryPage, { getDataFromTree });
+export default withApollo(BusinessSummaryPage, { getDataFromTree });
