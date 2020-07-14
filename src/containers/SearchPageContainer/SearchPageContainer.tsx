@@ -231,9 +231,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         <Heading tag="h1" size="xlarge" color="black">
           Lorem Ips
         </Heading>
-        <Text color="darker" size="lead">
-          We just need some initial details for your credit check.
-        </Text>
+        <Text color="darker" size="lead" />
       </div>
       <div className="-mv-400 -stretch-left">
         <Search />
