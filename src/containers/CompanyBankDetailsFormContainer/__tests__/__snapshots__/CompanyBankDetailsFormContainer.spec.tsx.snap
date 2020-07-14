@@ -86,6 +86,7 @@ exports[`<CompanyBankDetailsFormContainer /> should be render correctly 1`] = `
           >
             <div
               class="textinput regular"
+              style="width: 4.25px;"
             >
               <input
                 aria-label="Sort code first two digits"
@@ -96,6 +97,7 @@ exports[`<CompanyBankDetailsFormContainer /> should be render correctly 1`] = `
             </div>
             <div
               class="textinput regular"
+              style="width: 4.25px;"
             >
               <input
                 aria-label="Sort code middle two digits"
@@ -106,6 +108,7 @@ exports[`<CompanyBankDetailsFormContainer /> should be render correctly 1`] = `
             </div>
             <div
               class="textinput regular"
+              style="width: 4.25px;"
             >
               <input
                 aria-label="Sort code last two digits"
