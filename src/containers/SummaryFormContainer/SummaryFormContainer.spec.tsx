@@ -14,6 +14,8 @@ jest.mock('next/router', () => ({
   },
 }));
 
+const ORDER_ID = '17596f47-adf5-4e63-b250-238102cb831c';
+
 describe('<SummaryFormContainer />', () => {
   it('should render personal details correctly', async () => {
     // ARRANGE
@@ -23,7 +25,7 @@ describe('<SummaryFormContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
-        <SummaryFormContainer personUuid={uuid} />
+        <SummaryFormContainer personUuid={uuid} orderId={ORDER_ID} />
       </MockedProvider>,
     );
 
@@ -68,7 +70,7 @@ describe('<SummaryFormContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
-        <SummaryFormContainer personUuid={uuid} />
+        <SummaryFormContainer personUuid={uuid} orderId={ORDER_ID} />
       </MockedProvider>,
     );
 
@@ -109,7 +111,7 @@ describe('<SummaryFormContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
-        <SummaryFormContainer personUuid={uuid} />
+        <SummaryFormContainer personUuid={uuid} orderId={ORDER_ID} />
       </MockedProvider>,
     );
 
@@ -162,7 +164,7 @@ describe('<SummaryFormContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
-        <SummaryFormContainer personUuid={uuid} />
+        <SummaryFormContainer personUuid={uuid} orderId={ORDER_ID} />
       </MockedProvider>,
     );
 
@@ -191,7 +193,7 @@ describe('<SummaryFormContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
-        <SummaryFormContainer personUuid={uuid} />
+        <SummaryFormContainer personUuid={uuid} orderId={ORDER_ID} />
       </MockedProvider>,
     );
 
@@ -224,7 +226,7 @@ describe('<SummaryFormContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
-        <SummaryFormContainer personUuid={uuid} />
+        <SummaryFormContainer personUuid={uuid} orderId={ORDER_ID} />
       </MockedProvider>,
     );
 
@@ -246,7 +248,7 @@ describe('<SummaryFormContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
-        <SummaryFormContainer personUuid={uuid} />
+        <SummaryFormContainer personUuid={uuid} orderId={ORDER_ID} />
       </MockedProvider>,
     );
 
@@ -258,8 +260,8 @@ describe('<SummaryFormContainer />', () => {
     // ASSERT
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
-      '/olaf/about/[uuid]?redirect=summary',
-      '/olaf/about/fd2333b8-6da1-47d2-837d-bc69849e0764?redirect=summary',
+      '/olaf/about/[orderId]?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
+      '/olaf/about/17596f47-adf5-4e63-b250-238102cb831c?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
     );
   });
 
@@ -271,7 +273,7 @@ describe('<SummaryFormContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
-        <SummaryFormContainer personUuid={uuid} />
+        <SummaryFormContainer personUuid={uuid} orderId={ORDER_ID} />
       </MockedProvider>,
     );
 
@@ -283,8 +285,8 @@ describe('<SummaryFormContainer />', () => {
     // ASSERT
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
-      '/olaf/employment-history/[uuid]?redirect=summary',
-      '/olaf/employment-history/fd2333b8-6da1-47d2-837d-bc69849e0764?redirect=summary',
+      '/olaf/employment-history/[orderId]?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
+      '/olaf/employment-history/17596f47-adf5-4e63-b250-238102cb831c?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
     );
   });
 
@@ -296,7 +298,7 @@ describe('<SummaryFormContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
-        <SummaryFormContainer personUuid={uuid} />
+        <SummaryFormContainer personUuid={uuid} orderId={ORDER_ID} />
       </MockedProvider>,
     );
 
@@ -308,8 +310,8 @@ describe('<SummaryFormContainer />', () => {
     // ASSERT
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
-      '/olaf/expenses/[uuid]?redirect=summary',
-      '/olaf/expenses/fd2333b8-6da1-47d2-837d-bc69849e0764?redirect=summary',
+      '/olaf/expenses/[orderId]?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
+      '/olaf/expenses/17596f47-adf5-4e63-b250-238102cb831c?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
     );
   });
 
@@ -321,7 +323,7 @@ describe('<SummaryFormContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
-        <SummaryFormContainer personUuid={uuid} />
+        <SummaryFormContainer personUuid={uuid} orderId={ORDER_ID} />
       </MockedProvider>,
     );
 
@@ -333,8 +335,8 @@ describe('<SummaryFormContainer />', () => {
     // ASSERT
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
-      '/olaf/bank-details/[uuid]?redirect=summary',
-      '/olaf/bank-details/fd2333b8-6da1-47d2-837d-bc69849e0764?redirect=summary',
+      '/olaf/bank-details/[orderId]?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
+      '/olaf/bank-details/17596f47-adf5-4e63-b250-238102cb831c?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
     );
   });
 });

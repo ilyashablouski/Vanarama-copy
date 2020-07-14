@@ -1,4 +1,6 @@
+import { SaveAddressHistoryMutation as Mutation } from '../../../generated/SaveAddressHistoryMutation';
+
 export interface IAddressFormContainerProps {
   personUuid: string;
-  onCompleted: () => void;
+  onCompleted: (data: Mutation) => void;
 }

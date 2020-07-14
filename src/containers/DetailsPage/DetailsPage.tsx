@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useState } from 'react';
 import { NextRouter } from 'next/router';
-import { ApolloError, useApolloClient } from '@apollo/client';
+import { ApolloError } from '@apollo/client';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -33,7 +33,6 @@ import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer/Customer
 import { replaceReview } from '../../components/CustomerReviews/helpers';
 import FrequentlyAskedQuestions from '../../components/FrequentlyAskedQuestions/FrequentlyAskedQuestions';
 import { useCreateOrder } from '../../gql/order';
-import { writeCachedOrderInformation } from './gql';
 
 interface IDetailsPageProps {
   capId: number;
@@ -64,21 +63,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   loading,
   error,
 }) => {
-  const client = useApolloClient();
   const [leaseType, setLeaseType] = useState<string>('Personal');
   const [leadTime, setLeadTime] = useState<string>('');
   const isMobile = useMobileViewport();
 
-  const onCompleted = () => {
-    const url =
-      leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
-        ? `/olaf/about`
-        : `/b2b/olaf/about`;
-
-    router.push(url);
-  };
-
-  const [createOrderHandle] = useCreateOrder(onCompleted);
+  const [createOrderHandle] = useCreateOrder(() => {});
 
   const onSubmitClick = (values: OrderInputObject) => {
     return createOrderHandle({
@@ -86,12 +75,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         input: values,
       },
     }).then(response => {
-      // we need write data to apollo client cache with orderCapId
-      writeCachedOrderInformation(
-        client,
-        response.data?.createOrder?.uuid || null,
-        capId.toString(),
-        cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+      const url =
+        leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
+          ? '/olaf/about/[orderId]'
+          : '/b2b/olaf/about/[orderId]';
+
+      router.push(
+        url,
+        url.replace('[orderId]', response.data?.createOrder?.uuid || ''),
       );
     });
   };
