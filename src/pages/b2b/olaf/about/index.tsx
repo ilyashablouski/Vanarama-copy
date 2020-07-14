@@ -29,7 +29,7 @@ const handleAccountFetchError = () =>
 export const BusinessAboutPage: NextPage = () => {
   const router = useRouter();
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
-  const [personUuid, setPersonUuid] = useState<string | null>(null);
+  const [personUuid, setPersonUuid] = useState<string | undefined>();
   const { derivativeId, orderId } = router.query as OLAFQueryParams;
 
   const [getPersonByToken] = usePersonByTokenLazyQuery(
