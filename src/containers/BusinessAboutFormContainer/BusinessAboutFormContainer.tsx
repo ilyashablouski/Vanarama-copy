@@ -58,17 +58,10 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
               emailAddress: {
                 value: values.email,
               },
-              company: {
-                companyType: values.companyType,
-              },
               profilingConsent: values.consent,
               emailConsent: values.marketing,
               smsConsent: values.marketing,
               termsAndConditions: values.termsAndConditions,
-              role: {
-                position: 'Account owner',
-                primaryContact: true,
-              },
             },
           },
         });
