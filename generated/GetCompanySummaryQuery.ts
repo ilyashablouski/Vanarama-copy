@@ -13,14 +13,13 @@ export interface GetCompanySummaryQuery_companyByUuid_turnoverPercentageOutsideU
 }
 
 export interface GetCompanySummaryQuery_companyByUuid_addresses {
-  __typename: "AddressType";
   uuid: string;
+  kind: string | null;
   lineOne: string;
   lineTwo: string | null;
+  country: string;
   city: string;
   postcode: string;
-  propertyStatus: string | null;
-  startedOn: any | null;
 }
 
 export interface GetCompanySummaryQuery_companyByUuid_emailAddresses {
@@ -47,16 +46,20 @@ export interface GetCompanySummaryQuery_companyByUuid_bankAccounts {
 }
 
 export interface GetCompanySummaryQuery_companyByUuid {
+  __typename: "CompanyType";
   uuid: string;
   legalName: string | null;
   companyNumber: string | null;
-  tradingSince: any | null;
+  companyNature: string | null;
   tradesOutsideUk: boolean | null;
+  tradingSince: any | null;
   turnoverPercentageOutsideUk: GetCompanySummaryQuery_companyByUuid_turnoverPercentageOutsideUk[] | null;
   addresses: GetCompanySummaryQuery_companyByUuid_addresses[] | null;
   emailAddresses: GetCompanySummaryQuery_companyByUuid_emailAddresses[];
   telephoneNumbers: GetCompanySummaryQuery_companyByUuid_telephoneNumbers[] | null;
   bankAccounts: GetCompanySummaryQuery_companyByUuid_bankAccounts[] | null;
+  isVatRegistered: boolean | null;
+  vatNumber: string | null;
 }
 
 export interface GetCompanySummaryQuery {

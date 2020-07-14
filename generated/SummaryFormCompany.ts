@@ -13,14 +13,13 @@ export interface SummaryFormCompany_turnoverPercentageOutsideUk {
 }
 
 export interface SummaryFormCompany_addresses {
-  __typename: "AddressType";
   uuid: string;
+  kind: string | null;
   lineOne: string;
   lineTwo: string | null;
+  country: string;
   city: string;
   postcode: string;
-  propertyStatus: string | null;
-  startedOn: any | null;
 }
 
 export interface SummaryFormCompany_emailAddresses {
@@ -47,14 +46,18 @@ export interface SummaryFormCompany_bankAccounts {
 }
 
 export interface SummaryFormCompany {
+  __typename: "CompanyType";
   uuid: string;
   legalName: string | null;
   companyNumber: string | null;
-  tradingSince: any | null;
+  companyNature: string | null;
   tradesOutsideUk: boolean | null;
+  tradingSince: any | null;
   turnoverPercentageOutsideUk: SummaryFormCompany_turnoverPercentageOutsideUk[] | null;
   addresses: SummaryFormCompany_addresses[] | null;
   emailAddresses: SummaryFormCompany_emailAddresses[];
   telephoneNumbers: SummaryFormCompany_telephoneNumbers[] | null;
   bankAccounts: SummaryFormCompany_bankAccounts[] | null;
+  isVatRegistered: boolean | null;
+  vatNumber: string | null;
 }

@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import BusinessSummaryFormContainer from '../../../../containers/BusinessSummaryFormContainer/BusinessSummaryFormContainer';
 import withApollo from '../../../../hocs/withApollo';
+import { SummaryFormDetailsSectionCompany } from '../../../../../generated/SummaryFormDetailsSectionCompany';
 
 type QueryParams = {
   companyUuid: string;

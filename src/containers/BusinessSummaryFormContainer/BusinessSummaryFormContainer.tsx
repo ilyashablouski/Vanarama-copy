@@ -44,13 +44,13 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
     return <p>Error occurred: {error.message}</p>;
   }
 
-  if (!data || !data.personByUuid) {
+  if (!data || !data.companyByUuid) {
     return null;
   }
 
   return (
     <BusinessSummaryForm
-      company={data.personByUuid}
+      company={data.companyByUuid}
       orderId={orderId}
       derivativeId={derivativeId}
     />

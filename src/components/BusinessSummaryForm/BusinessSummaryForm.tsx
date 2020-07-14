@@ -6,7 +6,6 @@ import { gql } from '@apollo/client';
 import { useRouter } from 'next/router';
 import React from 'react';
 import FCWithFragments from '../../utils/FCWithFragments';
-import BusinessSummaryFormAddressHistory from './BusinessSummaryFormAddressHistory';
 import BusinessSummaryFormBankDetailsSection from './BusinessSummaryFormBankDetailsSection';
 import BusinessSummaryFormDetailsSection from './BusinessSummaryFormDetailsSection';
 import BusinessSummaryFormEmploymentHistory from './BusinessSummaryFormEmploymentHistory';
@@ -15,6 +14,7 @@ import { getUrlParam } from '../../utils/url';
 import { LimitedCompanyInputObject } from '../../../generated/globalTypes';
 import { GetCompanyBankDetailsPageDataQuery_companyByUuid } from '../../../generated/GetCompanyBankDetailsPageDataQuery';
 import { SummaryFormCompany } from '../../../generated/SummaryFormCompany';
+import BusinessSummaryFormVATDetailsSection from './BusinessSummaryFormVATDetailsSection';
 
 interface IProps {
   //TODO ask Vitali to add a type for the summary
@@ -29,6 +29,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
   derivativeId,
 }) => {
   const router = useRouter();
+  
   // NOTE: Many are returned so just take the first one?
   const primaryBankAccount = company.bankAccounts?.[0];
 
@@ -48,29 +49,21 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
       <Heading color="black" size="xlarge" dataTestId="summary-heading">
         Summary
       </Heading>
-      <Text color="darker" size="lead" dataTestId="olaf_summary_text">
-        Here’s a summary of all the details you’ve entered. Have a look below to
-        check everything is correct. If you do spot a mistake, simply edit to
-        make a change.
-      </Text>
+      <BusinessSummaryFormDetailsSection
+        company={company}
+        onEdit={handleEdit('/b2b/olaf/about/[uuid]')}
+      />
+      {company.isVatRegistered && <BusinessSummaryFormVATDetailsSection
+        vatDetails={company}
+        onEdit={handleEdit('/olaf/employment-history/[uuid]')}
+      />}
       {primaryBankAccount && (
         <BusinessSummaryFormBankDetailsSection
           account={primaryBankAccount}
-          onEdit={handleEdit('/olaf/bank-details/[uuid]')}
+          onEdit={handleEdit('/b2b/olaf/company-bank-details/[uuid]')}
         />
       )}
-     {/*} <BusinessSummaryFormDetailsSection
-        person={person}
-        onEdit={handleEdit('/olaf/about/[uuid]')}
-      />
-      <BusinessSummaryFormAddressHistory
-        addresses={person.addresses || []}
-        onEdit={handleEdit('/olaf/address-history/[uuid]')}
-      />
-      <BusinessSummaryFormEmploymentHistory
-        employments={person.employmentHistories || []}
-        onEdit={handleEdit('/olaf/employment-history/[uuid]')}
-      />
+      {/*
       {person.incomeAndExpense && (
         <BusinessSummaryFormIncomeSection
           income={person.incomeAndExpense}
@@ -101,35 +94,14 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
 BusinessSummaryForm.fragments = {
   company: gql`
     fragment SummaryFormCompany on CompanyType {
-      uuid
-      legalName
-      companyNumber
-      tradingSince
-      tradesOutsideUk
-      turnoverPercentageOutsideUk {
-        country
-        percentage
-      }
-      addresses {
-        ...BusinessSummaryFormAddress
-      }
-      emailAddresses {
-        uuid
-        kind
-        value
-        primary
-      }
-      telephoneNumbers {
-        uuid
-        kind
-        value
-        primary
-      }
+      ...SummaryFormDetailsSectionCompany
+      ...VatDetails
       bankAccounts {
         ...CompanyBankDetailsAccount
       }
     }
-    ${BusinessSummaryFormAddressHistory.fragments.addresses}
+    ${BusinessSummaryFormDetailsSection.fragments.company}
+    ${BusinessSummaryFormVATDetailsSection.fragments.vatDetails}
     ${BusinessSummaryFormBankDetailsSection.fragments.account}
   `,
 };

@@ -49,9 +49,9 @@ export const VatDetailsPage: NextPage = () => {
                 tradesOutsideUk: outsideUK,
                 turnoverPercentageOutsideUk: outsideUK
                   ? markets.map(_ => ({
-                      country: _.country,
-                      percentage: Number(_.percentage),
-                    }))
+                    country: _.country,
+                    percentage: Number(_.percentage),
+                  }))
                   : undefined,
                 vatNumber,
               },

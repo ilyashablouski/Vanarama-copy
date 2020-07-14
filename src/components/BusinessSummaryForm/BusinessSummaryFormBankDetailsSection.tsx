@@ -1,12 +1,12 @@
 import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
 import { gql } from '@apollo/client';
 import React from 'react';
-import { SummaryFormBankDetailsSectionAccount } from '../../../generated/SummaryFormBankDetailsSectionAccount';
 import FCWithFragments from '../../utils/FCWithFragments';
 import CompanyBankDetails from 'components/CompanyBankDetails';
+import { CompanyBankDetailsAccount } from '../../../generated/CompanyBankDetailsAccount';
 
 interface IProps {
-  account: SummaryFormBankDetailsSectionAccount;
+  account: CompanyBankDetailsAccount;
   onEdit: () => any;
 }
 
@@ -19,11 +19,6 @@ const SummaryFormBankDetailsSection: FCWithFragments<IProps> = ({
       editDataTestId="edit-bank-details"
       onEditClicked={onEdit}
       list={[
-        {
-          label: 'Bank',
-          value: account.bankName || '',
-          dataTestId: 'summary-bank-name',
-        },
         {
           label: 'Name on Card',
           value: account.accountName || '',
@@ -43,8 +38,10 @@ const SummaryFormBankDetailsSection: FCWithFragments<IProps> = ({
           dataTestId: 'summary-account-number',
         },
       ]}
-      heading="Bank Details"
+      heading="Company Bank Details"
       headingDataTestId="bank_details_heading_data_testId"
+      headingSize="large"
+      className="-styled-headers"
     />
   );
 
