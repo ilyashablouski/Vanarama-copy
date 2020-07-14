@@ -60,6 +60,8 @@ const CreditChecker: NextPage = () => {
     return text;
   };
 
+  const contentForCurrentScore = setText();
+
   return (
     <>
       <div className="row:title">
@@ -72,16 +74,16 @@ const CreditChecker: NextPage = () => {
         <Score score={score} />
         <div>
           <Heading tag="span" size="large">
-            {setText().heading}
+            {contentForCurrentScore.heading}
           </Heading>
           <Text tag="p" size="regular" color="darker">
-            {setText().body}
+            {contentForCurrentScore.body}
           </Text>
           <Button
             color="teal"
             size="regular"
             fill="solid"
-            label={setText().buttonLabel}
+            label={contentForCurrentScore.buttonLabel}
             role="button"
           />
           <Text tag="p">
