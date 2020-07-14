@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import { useState, useEffect } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { useQuery } from '@apollo/client';
 import Rating from '@vanarama/uibook/lib/components/atoms/rating';
@@ -7,6 +8,7 @@ import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
+import Button from '@vanarama/uibook/lib/components/atoms/button';
 import withApollo from '../../../hocs/withApollo';
 import { TESTIMONIALS_DATA } from '../../../gql/testimonials';
 import {
@@ -16,12 +18,38 @@ import {
 import BreadCrumbs from '../../../containers/BreadCrumbContainer';
 
 export const CustomerTestimonialPage: NextPage = () => {
-  const { data, loading, error } = useQuery<TestimonialsData>(
+  const [page, setPage] = useState(1);
+  const { data, loading, error, fetchMore } = useQuery<TestimonialsData>(
     TESTIMONIALS_DATA,
     {
-      variables: { size: 4, page: 1 },
+      variables: { size: 4, page },
+      notifyOnNetworkStatusChange: true,
     },
   );
+
+  useEffect(() => {
+    if (fetchMore) {
+      fetchMore({
+        variables: {
+          page,
+        },
+        updateQuery: (prev, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return prev;
+          return {
+            ...fetchMoreResult,
+            testimonials: [
+              ...prev.testimonials,
+              ...fetchMoreResult.testimonials,
+            ],
+          };
+        },
+      });
+    }
+  }, [page, fetchMore]);
+
+  const onFetchMore = () => {
+    setPage(page + 1);
+  };
 
   if (loading) {
     return <Loading size="large" />;
@@ -30,6 +58,7 @@ export const CustomerTestimonialPage: NextPage = () => {
   if (error) {
     return <p>Error: {error.message}</p>;
   }
+
   return (
     <>
       <div className="testimonials--content">
@@ -37,8 +66,8 @@ export const CustomerTestimonialPage: NextPage = () => {
         <Heading size="xlarge" color="black">
           Testimonials Hub
         </Heading>
-        {data?.testimonials?.map((item: TestimonialData | null) => (
-          <div className="review" key={item?.name}>
+        {data?.testimonials?.map((item: TestimonialData | null, idx) => (
+          <div className="review" key={idx}>
             <Image
               size="expand"
               round
@@ -57,6 +86,15 @@ export const CustomerTestimonialPage: NextPage = () => {
             </Text>
           </div>
         ))}
+        <div className="button-group">
+          <Button
+            color="teal"
+            size="regular"
+            fill="outline"
+            label="View More Reviews"
+            onClick={() => onFetchMore()}
+          />
+        </div>
       </div>
       <div className="testimonials--sidebar">
         <div className="testimonials--sidebar--service tilebox">
