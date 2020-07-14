@@ -1,4 +1,6 @@
+import { CreateUpdateBankAccountMutation as Mutation } from '../../../generated/CreateUpdateBankAccountMutation';
+
 export interface IProps {
   personUuid: string;
-  onCompleted: () => void;
+  onCompleted: (data: Mutation) => void;
 }

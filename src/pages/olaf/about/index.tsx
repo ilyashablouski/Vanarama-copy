@@ -1,6 +1,12 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { useState } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
-import { gql, useLazyQuery, ApolloError } from '@apollo/client';
+import {
+  gql,
+  useLazyQuery,
+  useApolloClient,
+  ApolloError,
+} from '@apollo/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
@@ -16,6 +22,12 @@ import {
   PersonByToken,
   PersonByTokenVariables,
 } from '../../../../generated/PersonByToken';
+import { CreateUpdatePersonMutation_createUpdatePerson } from '../../../../generated/CreateUpdatePersonMutation';
+import {
+  useCreateUpdateCreditApplication,
+  useGetCreditApplicationByOrderUuid,
+} from '../../../gql/creditApplication';
+import { formValuesToInputCreditApplication } from '../../../mappers/mappersCreditApplication';
 
 const PERSON_BY_TOKEN_QUERY = gql`
   query PersonByToken($token: String!) {
@@ -42,21 +54,60 @@ const handleAccountFetchError = () =>
   );
 
 type QueryParams = OLAFQueryParams & {
-  uuid: string;
+  uuid?: string;
 };
 
 const AboutYouPage: NextPage = () => {
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const router = useRouter();
-  const { derivativeId, orderId, uuid } = router.query as QueryParams;
+  const client = useApolloClient();
+  const { orderId, uuid } = router.query as QueryParams;
+
+  const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
+  const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
+
   const [getPersonByToken] = usePersonByTokenLazyQuery(data => {
     if (data?.personByToken?.uuid) {
-      const currentUrl = '/olaf/about/[uuid]';
-      const redirectUrl = currentUrl.replace('[uuid]', data.personByToken.uuid);
+      const currentUrl = '/olaf/about/[orderId]';
+      const redirectUrl =
+        currentUrl + getUrlParam({ uuid: data.personByToken.uuid });
       // reddirect on the same page, with users uuid
       router.push(currentUrl, redirectUrl, { shallow: true });
     }
   }, handleAccountFetchError);
+
+  const clickOnComplete = (
+    createUpdatePerson: CreateUpdatePersonMutation_createUpdatePerson,
+  ) => {
+    createUpdateCA({
+      variables: {
+        input: formValuesToInputCreditApplication({
+          ...creditApplication.data?.creditApplicationByOrderUuid,
+          orderUuid: orderId,
+          emailAddresses: createUpdatePerson.emailAddresses?.slice(-1)[0],
+          telephoneNumbers: createUpdatePerson.telephoneNumbers?.slice(-1)[0],
+        }),
+      },
+    });
+
+    client.writeQuery({
+      query: gql`
+        query WriteCachedPersonInformation {
+          uuid
+        }
+      `,
+      data: {
+        uuid,
+      },
+    });
+    const params = getUrlParam({ uuid: createUpdatePerson.uuid });
+    const url =
+      router.query.redirect === 'summary'
+        ? `/olaf/summary/[orderId]${params}`
+        : `/olaf/address-history/[orderId]${params}`;
+
+    router.push(url, url.replace('[orderId]', orderId));
+  };
 
   return (
     <OLAFLayout>
@@ -78,12 +129,12 @@ const AboutYouPage: NextPage = () => {
           </div>
           {isLogInVisible && (
             <LoginFormContainer
-              onCompleted={data => {
+              onCompleted={response => {
                 // request person account after login
-                if (data.login !== null) {
+                if (response.login !== null) {
                   getPersonByToken({
                     variables: {
-                      token: data.login,
+                      token: response.login,
                     },
                   });
                 }
@@ -93,15 +144,9 @@ const AboutYouPage: NextPage = () => {
         </div>
       )}
       <AboutFormContainer
-        onCompleted={({ createUpdatePerson }) => {
-          const params = getUrlParam({ derivativeId, orderId });
-          const url =
-            router.query.redirect === 'summary'
-              ? `/olaf/summary/[uuid]${params}`
-              : `/olaf/address-history/[uuid]${params}`;
-
-          router.push(url, url.replace('[uuid]', createUpdatePerson!.uuid));
-        }}
+        onCompleted={({ createUpdatePerson }) =>
+          clickOnComplete(createUpdatePerson!)
+        }
         onLogInClick={() => toggleLogInVisibility(true)}
         personUuid={uuid}
       />
