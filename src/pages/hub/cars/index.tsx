@@ -185,7 +185,7 @@ export const CarsPage: NextPage = () => {
             label="View All Cars"
             size="large"
             color="teal"
-            onClick={() => Router.push('/van-leasing')}
+            onClick={() => Router.push('/car-leasing')}
           />
         </section>
       </div>

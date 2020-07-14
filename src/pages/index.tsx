@@ -272,7 +272,9 @@ export const HomePage: NextPage = () => {
                   <Button
                     label="View All Pickup Offers"
                     color="teal"
-                    onClick={() => Router.push('/van-leasing')}
+                    onClick={() =>
+                      Router.push('/van-leasing?bodyStyles=Pickup')
+                    }
                     dataTestId="view-all-pickups"
                   />
                 </div>
@@ -371,7 +373,7 @@ export const HomePage: NextPage = () => {
                 link: (
                   <RouterLink
                     link={{
-                      href: c.link?.url || '',
+                      href: c.link?.url || '#',
                       label: c.link?.text || '',
                     }}
                     className="heading"
