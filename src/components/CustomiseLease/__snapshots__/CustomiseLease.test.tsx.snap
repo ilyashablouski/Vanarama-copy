@@ -51,8 +51,6 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     onMouseLeave={[Function]}
     onMouseMove={[Function]}
     onMouseUp={[Function]}
-    onTouchEnd={[Function]}
-    onTouchMove={[Function]}
     role="button"
     style={
       Object {
@@ -658,8 +656,6 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     onMouseLeave={[Function]}
     onMouseMove={[Function]}
     onMouseUp={[Function]}
-    onTouchEnd={[Function]}
-    onTouchMove={[Function]}
     role="button"
     style={
       Object {
