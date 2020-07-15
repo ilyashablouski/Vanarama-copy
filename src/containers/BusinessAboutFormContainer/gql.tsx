@@ -19,9 +19,6 @@ export const SAVE_BUSINESS_ABOUT_YOU = gql`
   mutation SaveBusinessAboutYou($input: PersonInputObject!) {
     createUpdateBusinessPerson(input: $input) {
       uuid
-      companies {
-        uuid
-      }
     }
   }
 `;

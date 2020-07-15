@@ -53,28 +53,21 @@ const handleAccountFetchError = () =>
     'Dolor ut tempor eiusmod enim consequat laboris dolore ut pariatur labore sunt incididunt dolore veniam mollit excepteur dolor aliqua minim nostrud adipisicing culpa aliquip ex',
   );
 
-type QueryParams = OLAFQueryParams & {
-  uuid?: string;
-};
-
 const AboutYouPage: NextPage = () => {
-  const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const router = useRouter();
   const client = useApolloClient();
-  const { orderId, uuid } = router.query as QueryParams;
+  const { orderId } = router.query as OLAFQueryParams;
+
+  const [isLogInVisible, toggleLogInVisibility] = useState(false);
+  const [personUuid, setPersonUuid] = useState<string | undefined>();
 
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
   const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
 
-  const [getPersonByToken] = usePersonByTokenLazyQuery(data => {
-    if (data?.personByToken?.uuid) {
-      const currentUrl = '/olaf/about/[orderId]';
-      const redirectUrl =
-        currentUrl + getUrlParam({ uuid: data.personByToken.uuid });
-      // reddirect on the same page, with users uuid
-      router.push(currentUrl, redirectUrl, { shallow: true });
-    }
-  }, handleAccountFetchError);
+  const [getPersonByToken] = usePersonByTokenLazyQuery(
+    data => setPersonUuid(data?.personByToken?.uuid),
+    handleAccountFetchError,
+  );
 
   const clickOnComplete = (
     createUpdatePerson: CreateUpdatePersonMutation_createUpdatePerson,
@@ -97,7 +90,7 @@ const AboutYouPage: NextPage = () => {
         }
       `,
       data: {
-        uuid,
+        uuid: personUuid,
       },
     });
     const params = getUrlParam({ uuid: createUpdatePerson.uuid });
@@ -118,7 +111,7 @@ const AboutYouPage: NextPage = () => {
         To get you your brand new vehicle, firstly we’ll just need some details
         about you and your company. This will be used for your credit check.
       </Text>
-      {!uuid && (
+      {!personUuid && (
         <div className="-mb-500">
           <div className="-pt-300 -pb-300">
             <Button
@@ -148,7 +141,7 @@ const AboutYouPage: NextPage = () => {
           clickOnComplete(createUpdatePerson!)
         }
         onLogInClick={() => toggleLogInVisibility(true)}
-        personUuid={uuid}
+        personUuid={personUuid}
       />
     </OLAFLayout>
   );
