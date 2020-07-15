@@ -74,7 +74,7 @@ export const BusinessAboutPage: NextPage = () => {
       )}
       <BusinessAboutFormContainer
         onCompleted={({ createUpdateBusinessPerson }) => {
-          const companyUuid = createUpdateBusinessPerson!.companies?.[0].uuid!;
+          const companyUuid = createUpdateBusinessPerson!.uuid!;
           const params = getUrlParam({ derivativeId, orderId });
           const url = `/b2b/olaf/company-details/[companyUuid]${params}`;
           router.push(url, url.replace('[companyUuid]', companyUuid));

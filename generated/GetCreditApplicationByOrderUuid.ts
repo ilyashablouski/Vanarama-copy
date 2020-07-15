@@ -30,12 +30,12 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_li
 export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid {
   addresses: any | null;
   bankAccounts: any | null;
-  createdAt: any | null;
-  emailAddresses: any | null;
   employmentHistories: any | null;
   incomeAndExpenses: any | null;
-  leadManagerProposalId: string | null;
   lineItem: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_lineItem | null;
+  leadManagerProposalId: string | null;
+  createdAt: any | null;
+  emailAddresses: any | null;
   partyDetails: any | null;
   status: string;
   telephoneNumbers: any | null;

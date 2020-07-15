@@ -32,12 +32,12 @@ export interface CreateUpdateCreditApplication_createUpdateCreditApplication_lin
 export interface CreateUpdateCreditApplication_createUpdateCreditApplication {
   addresses: any | null;
   bankAccounts: any | null;
-  createdAt: any | null;
-  emailAddresses: any | null;
   employmentHistories: any | null;
   incomeAndExpenses: any | null;
-  leadManagerProposalId: string | null;
   lineItem: CreateUpdateCreditApplication_createUpdateCreditApplication_lineItem | null;
+  leadManagerProposalId: string | null;
+  createdAt: any | null;
+  emailAddresses: any | null;
   partyDetails: any | null;
   status: string;
   telephoneNumbers: any | null;
