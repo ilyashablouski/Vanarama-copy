@@ -19,6 +19,21 @@ import {
   EMAIL_ALREADY_EXISTS,
 } from '../AboutForm/mapEmailErrorMessage';
 
+const COMPANY_TYPES = [
+  {
+    label: 'Sole trader',
+    value: 'Sole trader',
+  },
+  {
+    label: 'Limited liability partnership',
+    value: 'Limited liability partnership',
+  },
+  {
+    label: 'Limited company',
+    value: 'Limited company',
+  },
+];
+
 const BusinessAboutForm: FCWithFragments<IProps> = ({
   dropDownData,
   onSubmit,
@@ -187,7 +202,11 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
           dataTestId="about-you_company-type"
           ref={register({ required: 'Please select a type of company' })}
         >
-          <option value="Limited">Limited</option>
+          {COMPANY_TYPES.map(companyType => (
+            <option value={companyType.value} key={companyType.value}>
+              {companyType.label}
+            </option>
+          ))}
         </Select>
       </Formgroup>
       <hr className="-mv-400" />
