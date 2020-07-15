@@ -50,6 +50,10 @@ const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> =
     }));
   };
 
+  if (!capsId.length) {
+    return null;
+  }
+
   if (loading) {
     return (
       <div
@@ -144,7 +148,12 @@ const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> =
                         color="teal"
                         fill="solid"
                         label="View Offer"
-                        onClick={() => {}}
+                        onClick={() => {
+                          router.push(
+                            offerPath(),
+                            offerNewPath(product.capId || ''),
+                          );
+                        }}
                         size="regular"
                       />
                     </div>
