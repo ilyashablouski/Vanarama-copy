@@ -15,6 +15,10 @@ export interface GetCompanyDirectorDetailsQuery_companyByUuid_associates_address
   serviceId: string | null;
   propertyStatus: string | null;
   startedOn: any | null;
+  city: string;
+  lineOne: string;
+  lineTwo: string | null;
+  postcode: string;
 }
 
 export interface GetCompanyDirectorDetailsQuery_companyByUuid_associates {

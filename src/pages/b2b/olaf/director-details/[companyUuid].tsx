@@ -50,7 +50,7 @@ export const GET_COMPANY_DIRECTOR_DETAILS = gql`
       uuid
       companyNumber
       associates {        
-        ...CompanyAssociates
+        ...CompanyAssociate
       }
     }
   }
@@ -115,6 +115,7 @@ export const DirectorDetailsPage: NextPage = () => {
           const input: LimitedCompanyInputObject = {
             uuid: companyUuid,
             associates: values.directors.map(director => ({
+              uuid: director.uuid || '',
               firstName: director.firstName,
               lastName: director.lastName,
               businessShare: parseInt(director.shareOfBusiness, 10),

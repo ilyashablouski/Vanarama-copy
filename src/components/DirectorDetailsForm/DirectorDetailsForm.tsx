@@ -15,10 +15,10 @@ import { isTruthy } from '../../utils/array';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import DirectorFieldArray from './DirectorFieldArray';
 import DirectorFields from './DirectorFields';
-import { initialFormValues, validate, validationSchema } from './helpers';
+import { initialFormValues, validate, validationSchema, combineDirectorsData } from './helpers';
 import { DirectorDetailsFormValues } from './interfaces';
 import FCWithFragments from '../../utils/FCWithFragments';
-import { CompanyAssociates } from '../../../generated/CompanyAssociates';
+import { CompanyAssociate } from '../../../generated/CompanyAssociate';
 
 export const GET_DIRECTOR_DETAILS = gql`
   query GetDirectorDetailsQuery($companyNumber: String!) {
@@ -35,12 +35,13 @@ export const GET_DIRECTOR_DETAILS = gql`
 `;
 
 type IDirectorDetailsFormProps = {
-  associates: CompanyAssociates[];
+  associates: CompanyAssociate[];
   companyNumber: string;
   onSubmit: (values: DirectorDetailsFormValues) => Promise<void>;
 };
 
 const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
+  associates,
   companyNumber,
   onSubmit,
 }) => {
@@ -71,7 +72,9 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
             Select Directors that combined represent at least 25% of company
             ownership:
           </Text>
-          <DirectorFieldArray dropdownData={dropdownData} officers={officers} />
+          <DirectorFieldArray
+            directors={combineDirectorsData(officers, associates)}
+            dropdownData={dropdownData} />
           <Button
             color="primary"
             dataTestId="vat-details_continue"
@@ -90,7 +93,7 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
 }
 DirectorDetailsForm.fragments = {
   associates: gql`
-    fragment CompanyAssociates on PersonType {
+    fragment CompanyAssociate on PersonType {
       uuid
       title
       firstName
@@ -106,6 +109,10 @@ DirectorDetailsForm.fragments = {
         serviceId
         propertyStatus
         startedOn
+        city
+        lineOne
+        lineTwo
+        postcode
       }
     }
 `,

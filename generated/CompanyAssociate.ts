@@ -4,20 +4,24 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL fragment: CompanyAssociates
+// GraphQL fragment: CompanyAssociate
 // ====================================================
 
-export interface CompanyAssociates_roles {
+export interface CompanyAssociate_roles {
   position: string | null;
 }
 
-export interface CompanyAssociates_addresses {
+export interface CompanyAssociate_addresses {
   serviceId: string | null;
   propertyStatus: string | null;
   startedOn: any | null;
+  city: string;
+  lineOne: string;
+  lineTwo: string | null;
+  postcode: string;
 }
 
-export interface CompanyAssociates {
+export interface CompanyAssociate {
   uuid: string;
   title: string | null;
   firstName: string;
@@ -26,6 +30,6 @@ export interface CompanyAssociates {
   dateOfBirth: any | null;
   noOfDependants: string | null;
   businessShare: number | null;
-  roles: CompanyAssociates_roles[] | null;
-  addresses: CompanyAssociates_addresses[] | null;
+  roles: CompanyAssociate_roles[] | null;
+  addresses: CompanyAssociate_addresses[] | null;
 }
