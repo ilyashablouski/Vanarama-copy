@@ -66,7 +66,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [leaseType, setLeaseType] = useState<string>('Personal');
   const [leadTime, setLeadTime] = useState<string>('');
   const isMobile = useMobileViewport();
-
   const [createOrderHandle] = useCreateOrder(() => {});
 
   const onSubmitClick = (values: OrderInputObject) => {
