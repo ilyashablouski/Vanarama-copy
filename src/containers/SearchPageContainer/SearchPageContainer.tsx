@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, {
   useState,
   useEffect,
@@ -20,6 +21,8 @@ import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/v
 import { VehicleTypeEnum, SortField } from '../../../generated/globalTypes';
 import buildRewriteRoute from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
+import { useCarDerivativesData } from '../OrdersInformation/gql';
+import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 
 interface IProps {
   isServer: boolean;
@@ -49,6 +52,12 @@ const SearchPageContainer: React.FC<IProps> = ({
     [] as (IProductCard | null)[],
   );
   const [cardsData, setCardsData] = useState([] as (IProductCard | null)[]);
+  const [carDerivativesCache, setCarDerivativesCache] = useState(
+    [] as (GetDerivatives_derivatives | null)[],
+  );
+  const [carDer, setCarDerivatives] = useState(
+    [] as (GetDerivatives_derivatives | null)[],
+  );
   const [lastCard, setLastCard] = useState('');
   const [isPersonal, setIsPersonal] = useState(true);
   const [isSpecialOffers, setIsSpecialOffers] = useState(
@@ -59,6 +68,10 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [filtersData, setFiltersData] = useState({});
 
   const { refetch, loading } = useProductCardData(
+    capIds,
+    isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+  );
+  const carDerivatives = useCarDerivativesData(
     capIds,
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
   );
@@ -73,6 +86,14 @@ const SearchPageContainer: React.FC<IProps> = ({
     isSpecialOffers,
     async vehicles => {
       try {
+        await carDerivatives
+          .refetch({
+            ids: getCapsIds(vehicles.vehicleList?.edges || []),
+            vehicleType: isCarSearch
+              ? VehicleTypeEnum.CAR
+              : VehicleTypeEnum.LCV,
+          })
+          .then(resp => setCarDerivatives(resp.data?.derivatives || []));
         return await refetch({
           capIds: getCapsIds(vehicles.vehicleList?.edges || []),
           vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
@@ -88,6 +109,14 @@ const SearchPageContainer: React.FC<IProps> = ({
     isSpecialOffers,
     async vehicles => {
       try {
+        await carDerivatives
+          .refetch({
+            ids: getCapsIds(vehicles.vehicleList?.edges || []),
+            vehicleType: isCarSearch
+              ? VehicleTypeEnum.CAR
+              : VehicleTypeEnum.LCV,
+          })
+          .then(resp => setCarDerivativesCache(resp.data?.derivatives || []));
         return await refetch({
           capIds: getCapsIds(vehicles.vehicleList?.edges || []),
           vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
@@ -139,6 +168,12 @@ const SearchPageContainer: React.FC<IProps> = ({
   // prevent case when we navigate use back/forward button and useCallback return empty result list
   useEffect(() => {
     if (data && !cardsData.length && loading) {
+      carDerivatives
+        .refetch({
+          ids: getCapsIds(data.vehicleList.edges || []),
+          vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+        })
+        .then(resp => setCarDerivatives(resp.data?.derivatives || []));
       refetch({
         capIds: getCapsIds(data.vehicleList.edges || []),
         vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
@@ -203,6 +238,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   const onLoadMore = () => {
     setVehicleList([...vehiclesList, ...(cacheData?.vehicleList.edges || [])]);
     setCardsData(prevState => [...prevState, ...cardsDataCache]);
+    setCarDerivatives(prevState => [...prevState, ...carDerivativesCache]);
     if (vehiclesList.length < totalCount)
       setLastCard(cacheData?.vehicleList.pageInfo.endCursor || '');
   };
@@ -214,7 +250,10 @@ const SearchPageContainer: React.FC<IProps> = ({
   };
 
   const getCardData = (capId: string) => {
-    return cardsData?.filter(card => card?.capId === capId)[0];
+    return {
+      ...cardsData?.filter(card => card?.capId === capId)[0],
+      ...carDer?.filter(derivatives => derivatives?.id === capId)[0],
+    };
   };
 
   const viewOffer = (capId: string) => {

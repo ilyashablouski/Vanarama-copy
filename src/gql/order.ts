@@ -87,6 +87,14 @@ export const GET_CAR_DERIVATIVE = gql`
         name
       }
       transmissionName
+      bodyStyle {
+        name
+      }
+      bodyStyleName
+      range {
+        name
+      }
+      rangeName
     }
   }
 `;

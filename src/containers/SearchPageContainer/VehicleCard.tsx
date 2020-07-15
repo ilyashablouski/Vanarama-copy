@@ -8,6 +8,7 @@ import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
 interface IVehicleCardProps {
   title: ICardTitleProps;
@@ -24,6 +25,26 @@ const VehicleCard = memo(
         label: information.value,
       }));
     };
+
+    const productPageUrl = () => {
+      const leasing =
+        data.vehicleType === VehicleTypeEnum.CAR
+          ? 'car-leasing'
+          : 'van-leasing';
+      const manufacturer =
+        data.manufacturerName?.toLocaleLowerCase().replace(' ', '-') || '';
+      const range = data.rangeName?.toLocaleLowerCase().replace(' ', '-') || '';
+      const bodystyle =
+        data.bodyStyleName?.toLocaleLowerCase().replace(' ', '-') || '';
+      const derivative =
+        data.derivativeName?.toLocaleLowerCase().replace(' ', '-') || '';
+
+      return data.vehicleType === VehicleTypeEnum.CAR
+        ? `${leasing}/${manufacturer}/${range}/${bodystyle}/${derivative}`
+        : `${leasing}/${manufacturer}/${range}/${derivative}`;
+    };
+
+    console.log(productPageUrl());
 
     return (
       <Card
