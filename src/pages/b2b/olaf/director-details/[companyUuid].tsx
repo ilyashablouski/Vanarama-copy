@@ -43,13 +43,18 @@ type QueryParams = OLAFQueryParams & {
  *      }
  *    }
  */
+
 export const GET_COMPANY_DIRECTOR_DETAILS = gql`
   query GetCompanyDirectorDetailsQuery($uuid: ID!) {
     companyByUuid(uuid: $uuid) {
       uuid
       companyNumber
+      associates {        
+        ...CompanyAssociates
+      }
     }
   }
+  ${DirectorDetailsForm.fragments.associates}
 `;
 
 export const SAVE_DIRECTOR_DETAILS = gql`
@@ -90,6 +95,8 @@ export const DirectorDetailsPage: NextPage = () => {
     return <Loading size="xlarge" />;
   }
 
+  console.log(data);
+
   if (
     error ||
     !data ||
@@ -102,6 +109,7 @@ export const DirectorDetailsPage: NextPage = () => {
   return (
     <OLAFLayout>
       <DirectorDetailsForm
+        associates={data.companyByUuid.associates || []}
         companyNumber={data.companyByUuid.companyNumber}
         onSubmit={async values => {
           const input: LimitedCompanyInputObject = {

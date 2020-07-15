@@ -17,6 +17,8 @@ import DirectorFieldArray from './DirectorFieldArray';
 import DirectorFields from './DirectorFields';
 import { initialFormValues, validate, validationSchema } from './helpers';
 import { DirectorDetailsFormValues } from './interfaces';
+import FCWithFragments from '../../utils/FCWithFragments';
+import { CompanyAssociates } from '../../../generated/CompanyAssociates';
 
 export const GET_DIRECTOR_DETAILS = gql`
   query GetDirectorDetailsQuery($companyNumber: String!) {
@@ -32,15 +34,16 @@ export const GET_DIRECTOR_DETAILS = gql`
   ${DirectorFields.fragments.dropDownData}
 `;
 
-type Props = {
+type IDirectorDetailsFormProps = {
+  associates: CompanyAssociates[];
   companyNumber: string;
   onSubmit: (values: DirectorDetailsFormValues) => Promise<void>;
 };
 
-export default function DirectorDetailsForm({
+const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
   companyNumber,
   onSubmit,
-}: Props) {
+}) => {
   const { data, loading, error } = useCompanyOfficers(companyNumber);
   if (loading) {
     return <Loading />;
@@ -85,6 +88,28 @@ export default function DirectorDetailsForm({
     </Formik>
   );
 }
+DirectorDetailsForm.fragments = {
+  associates: gql`
+    fragment CompanyAssociates on PersonType {
+      uuid
+      title
+      firstName
+      lastName
+      gender
+      dateOfBirth
+      noOfDependants
+      businessShare
+      roles {
+        position
+      }
+      addresses {
+        serviceId
+        propertyStatus
+        startedOn
+      }
+    }
+`,
+};
 
 function useCompanyOfficers(companyNumber: string) {
   return useQuery<GetDirectorDetailsQuery, GetDirectorDetailsQueryVariables>(
@@ -97,3 +122,5 @@ function useCompanyOfficers(companyNumber: string) {
     },
   );
 }
+
+export default DirectorDetailsForm;
