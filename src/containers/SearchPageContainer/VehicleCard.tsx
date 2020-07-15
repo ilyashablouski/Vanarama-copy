@@ -10,10 +10,14 @@ import { GetProductCard_productCard as ICard } from '../../../generated/GetProdu
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
+type ICardData = ICard & {
+  bodyStyleName: string;
+};
+
 interface IVehicleCardProps {
   title: ICardTitleProps;
   isPersonalPrice: boolean;
-  data: ICard;
+  data: ICardData;
   viewOffer: (capId: string) => void;
 }
 
