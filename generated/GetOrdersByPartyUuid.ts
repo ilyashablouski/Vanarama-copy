@@ -48,7 +48,7 @@ export interface GetOrdersByPartyUuid_ordersByPartyUuid {
   uuid: string;
   id: string;
   leaseType: LeaseTypeEnum;
-  partyUuid: string;
+  partyUuid: string | null;
   status: string;
   createdAt: any | null;
   updatedAt: any | null;
