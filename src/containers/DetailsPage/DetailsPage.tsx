@@ -178,6 +178,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           images={vehicleImages}
           videoSrc={video}
           threeSixtyVideoSrc={threeSixtyVideo}
+          videoIframe
         />
         <VehicleTechDetails
           vehicleDetails={vehicleDetails}
