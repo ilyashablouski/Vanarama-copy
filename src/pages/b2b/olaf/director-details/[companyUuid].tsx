@@ -95,8 +95,6 @@ export const DirectorDetailsPage: NextPage = () => {
     return <Loading size="xlarge" />;
   }
 
-  console.log(data);
-
   if (
     error ||
     !data ||
