@@ -1,8 +1,24 @@
 import { useQuery, gql, useLazyQuery } from '@apollo/client';
 
 export const GET_SEARCH_POD_DATA = gql`
-  query filterList($vehicleTypes: [VehicleTypeEnum!]) {
-    filterList(filter: { vehicleTypes: $vehicleTypes }) {
+  query filterList(
+    $vehicleTypes: [VehicleTypeEnum!]
+    $onOffer: Boolean
+    $manufacturerName: String
+    $rangeName: String
+    $bodyStyles: [String!]
+    $transmissions: [String!]
+    $fuelTypes: [String!]
+  ) {
+    filterList(filter: { 
+      vehicleTypes: $vehicleTypes
+      onOffer: $onOffer
+      manufacturerName: $manufacturerName
+      rangeName: $rangeName
+      bodyStyles: $bodyStyles
+      transmissions: $transmissions
+      fuelTypes: $fuelTypes
+     }) {
       vehicleTypes
       groupedRanges {
         parent
@@ -15,11 +31,17 @@ export const GET_SEARCH_POD_DATA = gql`
   }
 `;
 
-export function filterListByTypes(vehicleTypes: string[]) {
+export function filterList(
+  vehicleTypes: string[],
+  onOffer = false,
+  filters = {},
+  ) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   return useQuery(GET_SEARCH_POD_DATA, {
     variables: {
       vehicleTypes,
+      onOffer,
+      ...filters,
     },
   });
 }

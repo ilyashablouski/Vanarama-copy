@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import SearchPod from '../../components/SearchPod';
 import { tabsFields, budget } from './config';
-import { filterListByTypes, filterTypeAndBudget } from './gql';
+import { filterList, filterTypeAndBudget } from './gql';
 import {
   makeHandler,
   modelHandler,
@@ -57,7 +57,7 @@ const SearchPodContainer = () => {
   const selectModelVans = watch('modelVans');
   const selectModelCars = watch('modelCars');
 
-  const { data, refetch } = filterListByTypes([Tabs[activeIndex]]);
+  const { data, refetch } = filterList([Tabs[activeIndex]]);
   const [getVehicleData, { data: actualVehicleData }] = filterTypeAndBudget(
     [Tabs[activeIndex]],
     activeIndex === 1 ? selectMakeVans : selectMakeCars,

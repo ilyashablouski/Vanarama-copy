@@ -14,7 +14,7 @@ import OptionsIcon from '@vanarama/uibook/lib/assets/icons/Options';
 import ChevronUpSharp from '@vanarama/uibook/lib/assets/icons/ChevronUpSharp';
 import { useMediaQuery } from 'react-responsive';
 import { useRouter } from 'next/router';
-import { filterListByTypes } from '../SearchPodContainer/gql';
+import { filterList } from '../SearchPodContainer/gql';
 import { makeHandler, modelHandler } from '../SearchPodContainer/helpers';
 import { filtersConfig, budgets } from './config';
 import { IFilterContainerProps } from './interfaces';
@@ -78,8 +78,9 @@ const FiltersContainer = ({
     return choiseBoxReference[id];
   };
 
-  const { data } = filterListByTypes(
+  const { data, refetch } = filterList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
+    isSpecialOffers,
   );
 
   const filtersMapper = {
@@ -135,6 +136,13 @@ const FiltersContainer = ({
   /** start new search */
   const onViewResults = useCallback(() => {
     onSearch(filtersObject);
+    const filtersObjectForFilters = {...filtersObject};
+    delete filtersObjectForFilters['rate'];
+    refetch({
+      vehicleTypes: isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
+      onOffer: isSpecialOffers,
+      ...filtersObjectForFilters,
+    });
   }, [onSearch, filtersObject]);
 
   /** changing data for choiseboxes component */

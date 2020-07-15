@@ -286,7 +286,7 @@ const SearchPageContainer: React.FC<IProps> = ({
               ) : (
                 <></>
               ),
-              [cardsData, isPersonal],
+              [cardsData, isPersonal, totalCount],
             )}
           </div>
           <div className="pagination">
