@@ -50,6 +50,7 @@ const AboutForm: FCWithFragments<IProps> = ({
   useDateOfBirthValidation(watch, triggerValidation);
   useEffect(() => {
     reset(defaultValues);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [person]);
 
   return (

@@ -35,6 +35,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
   });
   useEffect(() => {
     reset(defaultValues);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [person]);
 
   return (
