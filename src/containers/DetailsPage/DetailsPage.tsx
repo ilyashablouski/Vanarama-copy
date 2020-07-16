@@ -32,7 +32,7 @@ import WhyChooseVanarama from '../../components/WhyChooseVanarama/WhyChooseVanar
 import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer';
 import { replaceReview } from '../../components/CustomerReviews/helpers';
 import FrequentlyAskedQuestions from '../../components/FrequentlyAskedQuestions/FrequentlyAskedQuestions';
-import { useCreateOrder } from '../../gql/order';
+import { useCreateUpdateOrder } from '../../gql/order';
 
 interface IDetailsPageProps {
   capId: number;
@@ -67,7 +67,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [leadTime, setLeadTime] = useState<string>('');
   const isMobile = useMobileViewport();
 
-  const [createOrderHandle] = useCreateOrder(() => {});
+  const [createOrderHandle] = useCreateUpdateOrder(() => {});
 
   const onSubmitClick = (values: OrderInputObject) => {
     return createOrderHandle({
@@ -82,7 +82,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
       router.push(
         url,
-        url.replace('[orderId]', response.data?.createOrder?.uuid || ''),
+        url.replace('[orderId]', response.data?.createUpdateOrder?.uuid || ''),
       );
     });
   };

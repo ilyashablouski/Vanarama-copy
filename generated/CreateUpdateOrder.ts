@@ -6,10 +6,10 @@
 import { OrderInputObject } from "./globalTypes";
 
 // ====================================================
-// GraphQL mutation operation: CreateOrder
+// GraphQL mutation operation: CreateUpdateOrder
 // ====================================================
 
-export interface CreateOrder_createOrder_lineItems_vehicleProduct {
+export interface CreateUpdateOrder_createUpdateOrder_lineItems_vehicleProduct {
   derivativeCapId: string;
   description: string | null;
   vsku: string | null;
@@ -20,30 +20,30 @@ export interface CreateOrder_createOrder_lineItems_vehicleProduct {
   funder: string | null;
 }
 
-export interface CreateOrder_createOrder_lineItems {
+export interface CreateUpdateOrder_createUpdateOrder_lineItems {
   uuid: string;
   quantity: number;
   status: string | null;
   productId: string;
   productType: string;
-  vehicleProduct: CreateOrder_createOrder_lineItems_vehicleProduct | null;
+  vehicleProduct: CreateUpdateOrder_createUpdateOrder_lineItems_vehicleProduct | null;
 }
 
-export interface CreateOrder_createOrder {
+export interface CreateUpdateOrder_createUpdateOrder {
   uuid: string;
   createdAt: any | null;
   salesChannel: string;
   status: string;
-  lineItems: CreateOrder_createOrder_lineItems[];
+  lineItems: CreateUpdateOrder_createUpdateOrder_lineItems[];
 }
 
-export interface CreateOrder {
+export interface CreateUpdateOrder {
   /**
    * Create order or update an existing one
    */
-  createOrder: CreateOrder_createOrder | null;
+  createUpdateOrder: CreateUpdateOrder_createUpdateOrder | null;
 }
 
-export interface CreateOrderVariables {
+export interface CreateUpdateOrderVariables {
   input: OrderInputObject;
 }

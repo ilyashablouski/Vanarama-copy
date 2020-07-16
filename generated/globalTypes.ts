@@ -276,6 +276,7 @@ export interface OrderInputObject {
   partyUuid?: string | null;
   referenceNumber?: string | null;
   salesChannel?: string | null;
+  uuid?: string | null;
 }
 
 /**
