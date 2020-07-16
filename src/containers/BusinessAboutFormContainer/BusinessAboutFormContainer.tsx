@@ -16,7 +16,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
 }) => {
   const aboutPageDataQuery = useAboutPageDataQuery();
   const aboutYouData = useAboutYouData(personUuid);
-  const [saveDetails] = useSaveAboutYouMutation(undefined, onError);
+  const [saveDetails] = useSaveAboutYouMutation();
   const [emailAlreadyExists] = useEmailCheck();
 
   if (aboutPageDataQuery?.loading) {
@@ -64,13 +64,15 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
               termsAndConditions: values.termsAndConditions,
             },
           },
-        }).then(data => {
-          const result = {
-            ...data,
-            companyType: values.companyType,
-          } as SubmitResult;
-          onCompleted?.(result);
-        });
+        })
+          .then(data => {
+            const result = {
+              ...data,
+              companyType: values.companyType,
+            } as SubmitResult;
+            onCompleted?.(result);
+          })
+          .catch(onError);
       }}
     />
   );
