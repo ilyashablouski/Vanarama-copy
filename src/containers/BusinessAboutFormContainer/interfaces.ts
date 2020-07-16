@@ -1,7 +1,10 @@
 import { ApolloError } from '@apollo/client';
 import { SaveBusinessAboutYou } from '../../../generated/SaveBusinessAboutYou';
 
-export type SubmitResult = SaveBusinessAboutYou & { companyType: string };
+export type SubmitResult = {
+  data: SaveBusinessAboutYou;
+  companyType: string;
+};
 
 export interface IBusinessAboutFormContainerProps {
   onCompleted?: (data: SubmitResult) => void;
