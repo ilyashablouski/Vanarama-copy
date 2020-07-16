@@ -8,13 +8,13 @@ import React from 'react';
 import FCWithFragments from '../../utils/FCWithFragments';
 import BusinessSummaryFormBankDetailsSection from './BusinessSummaryFormBankDetailsSection';
 import BusinessSummaryFormDetailsSection from './BusinessSummaryFormDetailsSection';
-import BusinessSummaryFormEmploymentHistory from './BusinessSummaryFormEmploymentHistory';
-import BusinessSummaryFormIncomeSection from './BusinessSummaryFormIncomeSection';
 import { getUrlParam } from '../../utils/url';
 import { LimitedCompanyInputObject } from '../../../generated/globalTypes';
 import { GetCompanyBankDetailsPageDataQuery_companyByUuid } from '../../../generated/GetCompanyBankDetailsPageDataQuery';
 import { SummaryFormCompany } from '../../../generated/SummaryFormCompany';
 import BusinessSummaryFormVATDetailsSection from './BusinessSummaryFormVATDetailsSection';
+import BusinessSummaryFormDirectorDetailsSection from './BusinessSummaryFormDirectorDetailsSection';
+import BusinessSummaryFormDirectorDetailsItem from './BusinessSummaryFormDirectorDetailsItem';
 
 interface IProps {
   //TODO ask Vitali to add a type for the summary
@@ -29,9 +29,9 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
   derivativeId,
 }) => {
   const router = useRouter();
-  
+
   // NOTE: Many are returned so just take the first one?
-  const primaryBankAccount = company.bankAccounts?.[0];
+  const primaryBankAccount = company.bankAccounts && company.bankAccounts.length && company.bankAccounts[company.bankAccounts.length - 1];
 
   const handleEdit = (url: string) => () => {
     const href = `${url}?redirect=summary${getUrlParam(
@@ -63,20 +63,15 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
           onEdit={handleEdit('/b2b/olaf/company-bank-details/[uuid]')}
         />
       )}
-      {/*
-      {person.incomeAndExpense && (
-        <BusinessSummaryFormIncomeSection
-          income={person.incomeAndExpense}
-          onEdit={handleEdit('/olaf/expenses/[uuid]')}
-        />
-      )}
-      {primaryBankAccount && (
-        <BusinessSummaryFormBankDetailsSection
-          account={primaryBankAccount}
-          onEdit={handleEdit('/olaf/bank-details/[uuid]')}
+      {company.associates && (
+        <BusinessSummaryFormDirectorDetailsSection
+          directors={company.associates}
+          onEdit={handleEdit('/b2b/olaf/director-details/[uuid]')}
         />
       )}
       <Button
+        size="large"
+        className="-mt-400"
         type="button"
         color="teal"
         label="Continue"
@@ -86,7 +81,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
             `/olaf/thank-you${getUrlParam({ orderId, derivativeId })}`,
           );
         }}
-      /> */}
+      />
     </Form>
   );
 };
@@ -99,10 +94,14 @@ BusinessSummaryForm.fragments = {
       bankAccounts {
         ...CompanyBankDetailsAccount
       }
+      associates {
+        ...CompanyAssociate
+      }
     }
     ${BusinessSummaryFormDetailsSection.fragments.company}
     ${BusinessSummaryFormVATDetailsSection.fragments.vatDetails}
     ${BusinessSummaryFormBankDetailsSection.fragments.account}
+    ${BusinessSummaryFormDirectorDetailsItem.fragments.director}
   `,
 };
 

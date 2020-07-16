@@ -38,11 +38,38 @@ export interface GetCompanySummaryQuery_companyByUuid_telephoneNumbers {
 
 export interface GetCompanySummaryQuery_companyByUuid_bankAccounts {
   __typename: "BankAccountType";
-  uuid: string;
   accountName: string | null;
   accountNumber: string | null;
   joinedAt: any | null;
   sortCode: string | null;
+  updatedAt: any | null;
+}
+
+export interface GetCompanySummaryQuery_companyByUuid_associates_roles {
+  position: string | null;
+}
+
+export interface GetCompanySummaryQuery_companyByUuid_associates_addresses {
+  serviceId: string | null;
+  propertyStatus: string | null;
+  startedOn: any | null;
+  city: string;
+  lineOne: string;
+  lineTwo: string | null;
+  postcode: string;
+}
+
+export interface GetCompanySummaryQuery_companyByUuid_associates {
+  uuid: string;
+  title: string | null;
+  firstName: string;
+  lastName: string;
+  gender: string | null;
+  dateOfBirth: any | null;
+  noOfDependants: string | null;
+  businessShare: number | null;
+  roles: GetCompanySummaryQuery_companyByUuid_associates_roles[] | null;
+  addresses: GetCompanySummaryQuery_companyByUuid_associates_addresses[] | null;
 }
 
 export interface GetCompanySummaryQuery_companyByUuid {
@@ -60,6 +87,7 @@ export interface GetCompanySummaryQuery_companyByUuid {
   bankAccounts: GetCompanySummaryQuery_companyByUuid_bankAccounts[] | null;
   isVatRegistered: boolean | null;
   vatNumber: string | null;
+  associates: GetCompanySummaryQuery_companyByUuid_associates[] | null;
 }
 
 export interface GetCompanySummaryQuery {

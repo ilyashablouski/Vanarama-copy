@@ -8,11 +8,12 @@
 // ====================================================
 
 export interface GetCompanyBankDetailsPageDataQuery_companyByUuid_bankAccounts {
-  uuid: string;
+  __typename: "BankAccountType";
   accountName: string | null;
   accountNumber: string | null;
-  sortCode: string | null;
   joinedAt: any | null;
+  sortCode: string | null;
+  updatedAt: any | null;
 }
 
 export interface GetCompanyBankDetailsPageDataQuery_companyByUuid {

@@ -146,11 +146,11 @@ CompanyBankDetails.fragments = {
   account: gql`
     fragment CompanyBankDetailsAccount on BankAccountType {
       __typename
-      uuid
       accountName
       accountNumber
       joinedAt
       sortCode
+      updatedAt
     }
   `,
 };

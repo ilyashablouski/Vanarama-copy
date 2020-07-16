@@ -38,11 +38,38 @@ export interface SummaryFormCompany_telephoneNumbers {
 
 export interface SummaryFormCompany_bankAccounts {
   __typename: "BankAccountType";
-  uuid: string;
   accountName: string | null;
   accountNumber: string | null;
   joinedAt: any | null;
   sortCode: string | null;
+  updatedAt: any | null;
+}
+
+export interface SummaryFormCompany_associates_roles {
+  position: string | null;
+}
+
+export interface SummaryFormCompany_associates_addresses {
+  serviceId: string | null;
+  propertyStatus: string | null;
+  startedOn: any | null;
+  city: string;
+  lineOne: string;
+  lineTwo: string | null;
+  postcode: string;
+}
+
+export interface SummaryFormCompany_associates {
+  uuid: string;
+  title: string | null;
+  firstName: string;
+  lastName: string;
+  gender: string | null;
+  dateOfBirth: any | null;
+  noOfDependants: string | null;
+  businessShare: number | null;
+  roles: SummaryFormCompany_associates_roles[] | null;
+  addresses: SummaryFormCompany_associates_addresses[] | null;
 }
 
 export interface SummaryFormCompany {
@@ -60,4 +87,5 @@ export interface SummaryFormCompany {
   bankAccounts: SummaryFormCompany_bankAccounts[] | null;
   isVatRegistered: boolean | null;
   vatNumber: string | null;
+  associates: SummaryFormCompany_associates[] | null;
 }

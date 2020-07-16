@@ -8,19 +8,18 @@ import {
   GetCompanyBankDetailsPageDataQuery as Query,
   GetCompanyBankDetailsPageDataQueryVariables as QueryVariables,
 } from '../../../generated/GetCompanyBankDetailsPageDataQuery';
+import CompanyBankDetails from 'components/CompanyBankDetails';
 
 export const UPDATE_COMPANY_BANK_DETAILS = gql`
   mutation UpdateBankDetailsMutation($input: LimitedCompanyInputObject!) {
-    updateLimitedCompany(input: $input) {
+    createUpdateLimitedCompany(input: $input) {
       uuid
       bankAccounts {
-        accountName
-        accountNumber
-        sortCode
-        joinedAt
+        ...CompanyBankDetailsAccount
       }
     }
   }
+  ${CompanyBankDetails.fragments.account}
 `;
 
 export const GET_COMPANY_BANK_DETAILS = gql`
@@ -28,14 +27,11 @@ export const GET_COMPANY_BANK_DETAILS = gql`
     companyByUuid(uuid: $uuid) {
       uuid
       bankAccounts {
-        uuid
-        accountName
-        accountNumber
-        sortCode
-        joinedAt
+        ...CompanyBankDetailsAccount
       }
     }
   }
+  ${CompanyBankDetails.fragments.account}
 `;
 
 export function useBankDetails(companyUuid: string) {

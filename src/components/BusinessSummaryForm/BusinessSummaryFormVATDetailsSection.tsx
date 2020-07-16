@@ -23,6 +23,7 @@ const BusinessSummaryFormVATDetailsSection: FCWithFragments<IProps> = ({
       percentage: '0',
       country: ''
     });
+    
   return <StructuredList
     editable
     editDataTestId="edit-your-details"

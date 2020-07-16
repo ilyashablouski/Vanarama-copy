@@ -25,12 +25,14 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   }
 
   const { bankAccounts } = data.companyByUuid;
-  const firstAccount = bankAccounts?.[0] as CompanyBankDetailsAccount;
+  const currentAccount = bankAccounts && bankAccounts.reduce(function (prev, current) {
+    return (new Date(prev.updatedAt).getTime() > new Date(current.updatedAt).getTime()) ? prev : current
+  }) || undefined;
   return (
     <CompanyBankDetails
-      account={firstAccount}
-      onSubmit={values =>
-        updateBankDetails({
+      account={currentAccount}
+      onSubmit={async values =>
+        await updateBankDetails({
           variables: {
             input: formValuesToInput(companyUuid, values),
           },

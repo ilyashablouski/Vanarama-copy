@@ -9,9 +9,9 @@
 
 export interface CompanyBankDetailsAccount {
   __typename: "BankAccountType";
-  uuid: string;
   accountName: string | null;
   accountNumber: string | null;
   joinedAt: any | null;
   sortCode: string | null;
+  updatedAt: any | null;
 }
