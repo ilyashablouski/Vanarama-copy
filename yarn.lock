@@ -2221,10 +2221,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@5.22.10":
-  version "5.22.10"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.22.10.tgz#d61869dca0284e57950bf5d5dcd3d4d923e84d6e"
-  integrity sha512-Xq4T/UPldfC2G4JFaIj7uR+13ZxiCIH7DHwU96JifMqK2StVhDqPg2nD70fV5fyNhsQlBpi+C5onIiSI7WNZsA==
+"@vanarama/uibook@5.23.1":
+  version "5.23.1"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.23.1.tgz#5307a847d262cc198b3867d344dfd78616945ed6"
+  integrity sha512-nJjeWajH9Ot443lGEp45CE4rmnWBELi3+dy/p4J1QxrXQy9jYnss+q5OBLASNIlD1TliTcvLE7gLKtxeHvvlyg==
   dependencies:
     "@egjs/flicking" "^3.4.7"
     "@reach/auto-id" "^0.10.3"
@@ -3098,7 +3098,6 @@ babel-plugin-transform-define@2.0.0:
 babel-plugin-transform-dynamic-import@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-dynamic-import/-/babel-plugin-transform-dynamic-import-2.1.0.tgz#3ce618dd983c072b6e2135f527d46092fb45d80e"
-  integrity sha512-ja4NWc37+7bV6/uJKCERJEGHEyK1DXgXp8teHvjKC4Jsj3Ib484dJdamFIBtSb40JFniyWZo6ML46usVvfdsSg==
   dependencies:
     "@babel/plugin-syntax-dynamic-import" "^7.0.0"
 
@@ -6775,7 +6774,6 @@ jest-mock@^26.0.1:
 jest-next-dynamic@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/jest-next-dynamic/-/jest-next-dynamic-1.0.1.tgz#b8af62babeda3cff0cf0a6e0af6de3a9dfc8d6cd"
-  integrity sha512-peo9yRvUn8u6PZro9AzzjxpgUc+1NZhZMan+1xzk7Bz1vA0d5IC2Iw8E7bkC2cwl9AG3XxTaqPVAXbC3aMbVkw==
 
 jest-pnp-resolver@^1.2.1:
   version "1.2.1"

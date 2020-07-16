@@ -10,6 +10,7 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Search from '@vanarama/uibook/lib/components/atoms/search';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
+import { useRouter } from 'next/router';
 import { useProductCardData } from '../CustomerAlsoViewedContainer/gql';
 import { IFilters } from '../FiltersContainer/interfaces';
 import FiltersContainer from '../FiltersContainer';
@@ -29,6 +30,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   isServer,
   isCarSearch,
 }: IProps) => {
+  const router = useRouter();
   /** we storing the last value of special offers checkbox in Session storage */
   const getValueFromStorage = useCallback(
     (isServerCheck = false) => {
@@ -56,7 +58,7 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   const [filtersData, setFiltersData] = useState({});
 
-  const { refetch } = useProductCardData(
+  const { refetch, loading } = useProductCardData(
     capIds,
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
   );
@@ -71,8 +73,10 @@ const SearchPageContainer: React.FC<IProps> = ({
     isSpecialOffers,
     async vehicles => {
       try {
+        const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
+        setCapsIds(responseCapIds);
         return await refetch({
-          capIds: getCapsIds(vehicles.vehicleList?.edges || []),
+          capIds: responseCapIds,
           vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
         }).then(resp => setCardsData(resp.data?.productCard || []));
       } catch {
@@ -86,8 +90,10 @@ const SearchPageContainer: React.FC<IProps> = ({
     isSpecialOffers,
     async vehicles => {
       try {
+        const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
+        setCapsIds(responseCapIds);
         return await refetch({
-          capIds: getCapsIds(vehicles.vehicleList?.edges || []),
+          capIds: responseCapIds,
           vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
         }).then(resp => setCardsDataCache(resp.data?.productCard || []));
       } catch {
@@ -118,19 +124,32 @@ const SearchPageContainer: React.FC<IProps> = ({
         sortField,
       },
     });
-    // we should make 2 call for clear all queries
-    // because it's easy way for remove params
-    window.history.replaceState({}, '', '/');
-    window.history.replaceState(
-      {},
-      '',
-      buildRewriteRoute(filters as IFilters, isCarSearch),
+    const pathname = isCarSearch ? '/car-leasing' : '/van-leasing';
+    // changing url dynamically
+    router.replace(
+      {
+        query: buildRewriteRoute(filters as IFilters),
+        pathname,
+      },
+      undefined,
+      { shallow: true },
     );
   };
 
   useEffect(() => {
     getVehicles();
   }, [getVehicles]);
+
+  // prevent case when we navigate use back/forward button and useCallback return empty result list
+  useEffect(() => {
+    if (data && !cardsData.length && loading) {
+      refetch({
+        capIds: getCapsIds(data.vehicleList.edges || []),
+        vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+      }).then(resp => setCardsData(resp.data?.productCard || []));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
   useLayoutEffect(() => {
     if (isServer) setIsSpecialOffers(getValueFromStorage() ?? true);
@@ -173,7 +192,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     sortField,
   ]);
 
-  // get vehicles to cache
+  // set capsIds for cached data
   useEffect(() => {
     if (cacheData?.vehicleList.edges?.length) {
       setCapsIds(
@@ -202,6 +221,13 @@ const SearchPageContainer: React.FC<IProps> = ({
     return cardsData?.filter(card => card?.capId === capId)[0];
   };
 
+  const viewOffer = (capId: string) => {
+    const href = `${
+      isCarSearch ? '/cars/car-details/' : '/vans/van-details/'
+    }[capId]`;
+    router.push(href, href.replace('[capId]', capId));
+  };
+
   return (
     <>
       <div className="row:title">
@@ -209,9 +235,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         <Heading tag="h1" size="xlarge" color="black">
           Lorem Ips
         </Heading>
-        <Text color="darker" size="lead">
-          We just need some initial details for your credit check.
-        </Text>
+        <Text color="darker" size="lead" />
       </div>
       <div className="-mv-400 -stretch-left">
         <Search />
@@ -241,22 +265,27 @@ const SearchPageContainer: React.FC<IProps> = ({
           </Text>
           <div className="row:cards-3col">
             {useCallback(
-              vehiclesList?.map((vehicle: IVehicles) => (
-                <VehicleCard
-                  key={vehicle?.node?.derivativeId || ''}
-                  data={
-                    getCardData(
-                      vehicle.node?.derivativeId || '',
-                    ) as IProductCard
-                  }
-                  title={{
-                    title: '',
+              cardsData.length ? (
+                vehiclesList?.map((vehicle: IVehicles) => (
+                  <VehicleCard
+                    viewOffer={viewOffer}
+                    key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
+                    data={
+                      getCardData(
+                        vehicle.node?.derivativeId || '',
+                      ) as IProductCard
+                    }
+                    title={{
+                      title: '',
 
-                    description: vehicle.node?.derivativeName || '',
-                  }}
-                  isPersonalPrice={isPersonal}
-                />
-              )),
+                      description: vehicle.node?.derivativeName || '',
+                    }}
+                    isPersonalPrice={isPersonal}
+                  />
+                ))
+              ) : (
+                <></>
+              ),
               [cardsData, isPersonal],
             )}
           </div>
@@ -276,7 +305,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       </div>
       <div className="row:text">
         <Text color="darker" size="regular" tag="span">
-          We just need some initial details for your credit check.
+          Photos and videos are for illustration purposes only.
         </Text>
       </div>
     </>

@@ -24,8 +24,11 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
     className="title"
   >
     <a
-      className="heading -large -black"
-      href="/"
+      className="link heading -black -large"
+      data-testid="router-link"
+      href="/cars/car-details/86343"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
     >
       Vauxhall Crossland X
     </a>

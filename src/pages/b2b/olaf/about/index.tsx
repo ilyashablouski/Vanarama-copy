@@ -26,23 +26,17 @@ const handleAccountFetchError = () =>
     'Dolor ut tempor eiusmod enim consequat laboris dolore ut pariatur labore sunt incididunt dolore veniam mollit excepteur dolor aliqua minim nostrud adipisicing culpa aliquip ex',
   );
 
-type QueryParams = OLAFQueryParams & {
-  uuid: string;
-};
-
 export const BusinessAboutPage: NextPage = () => {
   const router = useRouter();
-  const [isLogInVisible, toggleLogInVisibility] = useState(false);
-  const { derivativeId, orderId, uuid } = router.query as QueryParams;
+  const { derivativeId, orderId } = router.query as OLAFQueryParams;
 
-  const [getPersonByToken] = usePersonByTokenLazyQuery(data => {
-    if (data?.personByToken?.uuid) {
-      const currentUrl = '/b2b/olaf/about/[uuid]';
-      const redirectUrl = currentUrl.replace('[uuid]', data.personByToken.uuid);
-      // reddirect on the same page, with users uuid
-      router.push(currentUrl, redirectUrl, { shallow: true });
-    }
-  }, handleAccountFetchError);
+  const [isLogInVisible, toggleLogInVisibility] = useState(false);
+  const [personUuid, setPersonUuid] = useState<string | undefined>();
+
+  const [getPersonByToken] = usePersonByTokenLazyQuery(
+    data => setPersonUuid(data?.personByToken?.uuid),
+    handleAccountFetchError,
+  );
 
   return (
     <OLAFLayout>
@@ -53,7 +47,7 @@ export const BusinessAboutPage: NextPage = () => {
         To get you your brand new vehicle, firstly we’ll just need some details
         about you and your company.
       </Text>
-      {!uuid && (
+      {!personUuid && (
         <div className="-mb-500">
           <div className="-pt-300 -pb-300">
             <Button
@@ -80,13 +74,13 @@ export const BusinessAboutPage: NextPage = () => {
       )}
       <BusinessAboutFormContainer
         onCompleted={({ createUpdateBusinessPerson }) => {
-          const companyUuid = createUpdateBusinessPerson!.companies?.[0].uuid!;
+          const companyUuid = createUpdateBusinessPerson!.uuid!;
           const params = getUrlParam({ derivativeId, orderId });
           const url = `/b2b/olaf/company-details/[companyUuid]${params}`;
           router.push(url, url.replace('[companyUuid]', companyUuid));
         }}
         onError={handleCreateUpdateBusinessPersonError}
-        personUuid={uuid}
+        personUuid={personUuid}
         onLogInCLick={() => toggleLogInVisibility(true)}
       />
     </OLAFLayout>

@@ -140,6 +140,22 @@ export interface CompanyInputObject {
 }
 
 /**
+ * Input object to create and add a Credit Application
+ */
+export interface CreditApplicationInputObject {
+  addresses?: any | null;
+  bankAccounts?: any | null;
+  emailAddresses?: any | null;
+  employmentHistories?: any | null;
+  incomeAndExpenses?: any | null;
+  leadManagerProposalId?: string | null;
+  orderUuid: string;
+  partyDetails?: any | null;
+  status?: string | null;
+  telephoneNumbers?: any | null;
+}
+
+/**
  * Input object to create and add an Email Address
  */
 export interface EmailAddressInputObject {
@@ -260,6 +276,7 @@ export interface OrderInputObject {
   partyUuid?: string | null;
   referenceNumber?: string | null;
   salesChannel?: string | null;
+  uuid?: string | null;
 }
 
 /**

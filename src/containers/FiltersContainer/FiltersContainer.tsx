@@ -148,13 +148,25 @@ const FiltersContainer = ({
       active: actualState[filterAccessor].includes(value.label),
     }));
 
+  // set data to filters
+  useEffect(() => {
+    if (data?.filterList) {
+      setFiltersData(data.filterList);
+      setMakeData(makeHandler(data.filterList));
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (filtersData.bodyStyles) setChoiceBoxesData(buildChoiseBoxData());
+  }, [filtersData, buildChoiseBoxData]);
+
   useEffect(() => {
     // if we have query parameters filters should be preselected
     if (Object.keys(router?.query || {}).length && makeData.length) {
       const presetFilters = {} as ISelectedFiltersState;
       Object.entries(router.query).forEach(entry => {
         const [key, values] = entry;
-        if (key === 'model') {
+        if (key === 'rangeName') {
           filtersData.groupedRanges?.forEach(element => {
             const value = findPreselectFilterValue(
               Array.isArray(values) ? values[0] : values,
@@ -163,7 +175,7 @@ const FiltersContainer = ({
             // saving model to temp because after set makes model will be removed
             if (value) setTempModelName(value);
           });
-        } else if (key !== 'budget') {
+        } else if (key !== 'pricePerMonth') {
           let query: string | string[];
           // transformation the query value to expected type
           if (!Array.isArray(values)) {
@@ -194,21 +206,12 @@ const FiltersContainer = ({
         ...prevState,
         ...presetFilters,
       }));
+      Object.keys(presetFilters).forEach((e: any) =>
+        choiseBoxReference[e]?.current?.updateState(),
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [makeData]);
-
-  // set data to filters
-  useEffect(() => {
-    if (data?.filterList) {
-      setFiltersData(data.filterList);
-      setMakeData(makeHandler(data.filterList));
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (filtersData.bodyStyles) setChoiceBoxesData(buildChoiseBoxData());
-  }, [filtersData, buildChoiseBoxData]);
+  }, [makeData, preSearchVehicleCount]);
 
   useEffect(() => {
     if (!isTabletOrMobile) setFilterExpandStatus(true);

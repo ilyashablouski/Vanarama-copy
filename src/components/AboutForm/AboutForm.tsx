@@ -50,6 +50,7 @@ const AboutForm: FCWithFragments<IProps> = ({
   useDateOfBirthValidation(watch, triggerValidation);
   useEffect(() => {
     reset(defaultValues);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [person]);
 
   return (
@@ -109,7 +110,7 @@ const AboutForm: FCWithFragments<IProps> = ({
           ref={register}
           width="35ch"
           onBlur={async () => {
-            const isEmailExists = await onEmailExistenceCheck(
+            const isEmailExists = await onEmailExistenceCheck?.(
               getValues('email'),
             );
 

@@ -7,21 +7,24 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
+import RouterLink from '../../components/RouterLink/RouterLink';
 
 interface IVehicleCardProps {
   title: ICardTitleProps;
   isPersonalPrice: boolean;
   data: ICard;
+  viewOffer: (capId: string) => void;
 }
 
 const VehicleCard = memo(
-  ({ title, isPersonalPrice, data }: IVehicleCardProps) => {
+  ({ title, isPersonalPrice, data, viewOffer }: IVehicleCardProps) => {
     const features = (keyInformation: any[]): TIcon[] => {
       return keyInformation.map(information => ({
         icon: <Icon name={information.name.replace(' ', '')} color="dark" />,
         label: information.value,
       }));
     };
+
     return (
       <Card
         header={{
@@ -43,9 +46,16 @@ const VehicleCard = memo(
           ...title,
           score: data?.averageRating || undefined,
           link: (
-            <a href="/" className="heading -large -black">
-              {`${data?.manufacturerName} ${data?.rangeName}`}
-            </a>
+            <RouterLink
+              link={{
+                href: `${
+                  data?.vehicleType === 'CAR' ? '/cars/car-' : '/vans/van-'
+                }details/${data?.capId}`,
+                label: `${data?.manufacturerName} ${data?.rangeName}`,
+              }}
+              className="heading"
+              classNames={{ size: 'large', color: 'black' }}
+            />
           ),
         }}
       >
@@ -60,7 +70,7 @@ const VehicleCard = memo(
             color="teal"
             fill="solid"
             label="View Offer"
-            onClick={() => {}}
+            onClick={() => viewOffer(data.capId || '')}
             size="regular"
           />
         </div>
