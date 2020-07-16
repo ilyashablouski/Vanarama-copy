@@ -13,36 +13,38 @@ interface IProps {
 const SummaryFormBankDetailsSection: FCWithFragments<IProps> = ({
   account,
   onEdit,
-}) => (
-    <StructuredList
-      editable
-      editDataTestId="edit-bank-details"
-      onEditClicked={onEdit}
-      list={[
-        {
-          label: 'Name on Card',
-          value: account.accountName || '',
-          dataTestId: 'summary-name-on-card',
-        },
-        {
-          label: 'Sort Code',
-          value: (account.sortCode || '').replace(
-            /(\d{2})(\d{2})(\d{2})/,
-            '$1-$2-$3',
-          ),
-          dataTestId: 'summary-sort-code',
-        },
-        {
-          label: 'Account Number',
-          value: account.accountNumber || '',
-          dataTestId: 'summary-account-number',
-        },
-      ]}
-      heading="Company Bank Details"
-      headingDataTestId="bank_details_heading_data_testId"
-      headingSize="large"
-      className="olaf--summary-title"
-    />
+}) => (<React.Fragment>
+  <StructuredList
+    editable
+    editDataTestId="edit-bank-details"
+    onEditClicked={onEdit}
+    list={[
+      {
+        label: 'Name on Card',
+        value: account.accountName || '',
+        dataTestId: 'summary-name-on-card',
+      },
+      {
+        label: 'Sort Code',
+        value: (account.sortCode || '').replace(
+          /(\d{2})(\d{2})(\d{2})/,
+          '$1-$2-$3',
+        ),
+        dataTestId: 'summary-sort-code',
+      },
+      {
+        label: 'Account Number',
+        value: account.accountNumber || '',
+        dataTestId: 'summary-account-number',
+      },
+    ]}
+    heading="Company Bank Details"
+    headingDataTestId="bank_details_heading_data_testId"
+    headingSize="large"
+    className="olaf--summary-title"
+  />
+  <br />
+</React.Fragment>
   );
 
 SummaryFormBankDetailsSection.fragments = {

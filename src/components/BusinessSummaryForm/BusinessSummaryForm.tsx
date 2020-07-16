@@ -9,15 +9,11 @@ import FCWithFragments from '../../utils/FCWithFragments';
 import BusinessSummaryFormBankDetailsSection from './BusinessSummaryFormBankDetailsSection';
 import BusinessSummaryFormDetailsSection from './BusinessSummaryFormDetailsSection';
 import { getUrlParam } from '../../utils/url';
-import { LimitedCompanyInputObject } from '../../../generated/globalTypes';
-import { GetCompanyBankDetailsPageDataQuery_companyByUuid } from '../../../generated/GetCompanyBankDetailsPageDataQuery';
 import { SummaryFormCompany } from '../../../generated/SummaryFormCompany';
 import BusinessSummaryFormVATDetailsSection from './BusinessSummaryFormVATDetailsSection';
 import BusinessSummaryFormDirectorDetailsSection from './BusinessSummaryFormDirectorDetailsSection';
-import BusinessSummaryFormDirectorDetailsItem from './BusinessSummaryFormDirectorDetailsItem';
 
 interface IProps {
-  //TODO ask Vitali to add a type for the summary
   company: SummaryFormCompany;
   orderId?: string;
   derivativeId?: string;
@@ -30,7 +26,6 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
 }) => {
   const router = useRouter();
 
-  // NOTE: Many are returned so just take the first one?
   const primaryBankAccount = company.bankAccounts && company.bankAccounts.length && company.bankAccounts[company.bankAccounts.length - 1];
 
   const handleEdit = (url: string) => () => {
@@ -45,7 +40,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
   };
 
   return (
-    <Form>
+    <Form className="olaf--summary">
       <Heading color="black" size="xlarge" dataTestId="summary-heading">
         Summary
       </Heading>
@@ -63,12 +58,15 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
           onEdit={handleEdit('/b2b/olaf/company-bank-details/[uuid]')}
         />
       )}
-      {company.associates && (
-        <BusinessSummaryFormDirectorDetailsSection
-          directors={company.associates}
-          onEdit={handleEdit('/b2b/olaf/director-details/[uuid]')}
-        />
-      )}
+      <Heading color="black" size="large" dataTestId="directors-section-heading" className="olaf--summary-title">
+        Director Details
+      </Heading>
+      <hr />
+      {company.associates && company.associates.map(d => <BusinessSummaryFormDirectorDetailsSection
+        director={d}
+        onEdit={handleEdit('/b2b/olaf/director-details/[uuid]')}
+        key={d.uuid || d.firstName + d.lastName}
+      />)}
       <Button
         size="large"
         className="-mt-400"
@@ -101,7 +99,7 @@ BusinessSummaryForm.fragments = {
     ${BusinessSummaryFormDetailsSection.fragments.company}
     ${BusinessSummaryFormVATDetailsSection.fragments.vatDetails}
     ${BusinessSummaryFormBankDetailsSection.fragments.account}
-    ${BusinessSummaryFormDirectorDetailsItem.fragments.director}
+    ${BusinessSummaryFormDirectorDetailsSection.fragments.director}
   `,
 };
 

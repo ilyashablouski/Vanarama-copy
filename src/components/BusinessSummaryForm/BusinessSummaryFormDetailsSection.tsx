@@ -24,57 +24,59 @@ const SummaryFormDetailsSection: FCWithFragments<IProps> = ({
     company.emailAddresses[0].value :
     company.emailAddresses.find(_ => _.primary)?.value || '';
 
-  return <StructuredList
-    editable
-    editDataTestId="edit-your-details"
-    onEditClicked={onEdit}
-    list={[
-      {
-        label: 'Business Name',
-        value: company.legalName || '',
-        dataTestId: 'summary-business-name',
-      },
-      {
-        label: 'Business Registration Number',
-        value: company.companyNumber || '',
-        dataTestId: 'summary-company-number',
-      },
-      {
-        label: 'Nature of Business',
-        value: company.companyNature || '',
-        dataTestId: 'summary-business-nature',
-      },
-      {
-        label: 'Registered Address',
-        value: registratedAddress,
-        dataTestId: 'summary-registered-address',
-      },
-      {
-        label: 'Trading Address',
-        value: tradingAddress,
-        dataTestId: 'summary-trading-address',
-      },
-      {
-        label: 'Trading Since',
-        value: company.tradingSince || '',
-        dataTestId: 'summary-trading-since',
-      },
-      {
-        label: 'Business Telephone Number',
-        value: company.telephoneNumbers?.length && company.telephoneNumbers[0].value || '',
-        dataTestId: 'summary-telephone-number',
-      },
-      {
-        label: 'Email',
-        value: companyEmail,
-        dataTestId: 'summary-email-address',
-      },
-    ]}
-    heading="Company Details"
-    headingDataTestId="company_details_heading_data_testId"
-    headingSize="large"
-    className="-styled-headers"
-  />
+  return <React.Fragment>
+    <StructuredList
+      editable
+      editDataTestId="edit-your-details"
+      onEditClicked={onEdit}
+      list={[
+        {
+          label: 'Business Name',
+          value: company.legalName || '',
+          dataTestId: 'summary-business-name',
+        },
+        {
+          label: 'Business Registration Number',
+          value: company.companyNumber || '',
+          dataTestId: 'summary-company-number',
+        },
+        {
+          label: 'Nature of Business',
+          value: company.companyNature || '',
+          dataTestId: 'summary-business-nature',
+        },
+        {
+          label: 'Registered Address',
+          value: registratedAddress,
+          dataTestId: 'summary-registered-address',
+        },
+        {
+          label: 'Trading Address',
+          value: tradingAddress,
+          dataTestId: 'summary-trading-address',
+        },
+        {
+          label: 'Trading Since',
+          value: company.tradingSince || '',
+          dataTestId: 'summary-trading-since',
+        },
+        {
+          label: 'Business Telephone Number',
+          value: company.telephoneNumbers?.length && company.telephoneNumbers[0].value || '',
+          dataTestId: 'summary-telephone-number',
+        },
+        {
+          label: 'Email',
+          value: companyEmail,
+          dataTestId: 'summary-email-address',
+        },
+      ]}
+      heading="Company Details"
+      headingDataTestId="company_details_heading_data_testId"
+      headingSize="large"
+    />
+    <br />
+  </React.Fragment>
 }
 
 SummaryFormDetailsSection.fragments = {
