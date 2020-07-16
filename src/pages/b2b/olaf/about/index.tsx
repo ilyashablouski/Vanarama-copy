@@ -12,6 +12,7 @@ import { getUrlParam, OLAFQueryParams } from '../../../../utils/url';
 import LoginFormContainer from '../../../../containers/LoginFormContainer/LoginFormContainer';
 import BusinessAboutFormContainer from '../../../../containers/BusinessAboutFormContainer';
 import { usePersonByTokenLazyQuery } from '../../../olaf/about';
+import { CompanyTypes } from '../../../../models/enum/CompanyTypes';
 
 const handleCreateUpdateBusinessPersonError = () =>
   toast.error(
@@ -73,11 +74,15 @@ export const BusinessAboutPage: NextPage = () => {
         </div>
       )}
       <BusinessAboutFormContainer
-        onCompleted={({ createUpdateBusinessPerson }) => {
-          const companyUuid = createUpdateBusinessPerson!.uuid!;
-          const params = getUrlParam({ derivativeId, orderId });
-          const url = `/b2b/olaf/company-details/[companyUuid]${params}`;
-          router.push(url, url.replace('[companyUuid]', companyUuid));
+        onCompleted={({ data, companyType }) => {
+          if (companyType === CompanyTypes.limited) {
+            const companyUuid = data.createUpdateBusinessPerson!.uuid!;
+            const params = getUrlParam({ derivativeId, orderId });
+            const url = `/b2b/olaf/company-details/[companyUuid]${params}`;
+            router.push(url, url.replace('[companyUuid]', companyUuid));
+          } else {
+            router.push('/b2b/olaf/soletrader/company-details');
+          }
         }}
         onError={handleCreateUpdateBusinessPersonError}
         personUuid={personUuid}

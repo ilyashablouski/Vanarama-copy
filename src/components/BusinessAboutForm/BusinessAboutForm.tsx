@@ -18,21 +18,7 @@ import {
   mapEmailErrorMessage,
   EMAIL_ALREADY_EXISTS,
 } from '../AboutForm/mapEmailErrorMessage';
-
-const COMPANY_TYPES = [
-  {
-    label: 'Sole trader',
-    value: 'Sole trader',
-  },
-  {
-    label: 'Limited liability partnership',
-    value: 'Limited liability partnership',
-  },
-  {
-    label: 'Limited company',
-    value: 'Limited company',
-  },
-];
+import { companyTypesList } from '../../models/enum/CompanyTypes';
 
 const BusinessAboutForm: FCWithFragments<IProps> = ({
   dropDownData,
@@ -202,8 +188,8 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
           dataTestId="about-you_company-type"
           ref={register({ required: 'Please select a type of company' })}
         >
-          {COMPANY_TYPES.map(companyType => (
-            <option value={companyType.value} key={companyType.value}>
+          {companyTypesList.map(companyType => (
+            <option value={companyType.value} key={companyType.label}>
               {companyType.label}
             </option>
           ))}
