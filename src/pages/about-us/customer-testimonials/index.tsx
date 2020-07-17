@@ -8,6 +8,7 @@ import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
+import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import withApollo from '../../../hocs/withApollo';
 import { TESTIMONIALS_DATA } from '../../../gql/testimonials';
@@ -39,7 +40,9 @@ export const CustomerTestimonialPage: NextPage = () => {
             ...fetchMoreResult,
             testimonials: [
               ...prev.testimonials,
-              ...fetchMoreResult.testimonials,
+              ...fetchMoreResult.testimonials?.filter(
+                n => !prev.testimonials?.some(p => p?.name === n?.name),
+              ),
             ],
           };
         },
@@ -97,6 +100,11 @@ export const CustomerTestimonialPage: NextPage = () => {
         </div>
       </div>
       <div className="testimonials--sidebar">
+        <TrustPilot
+          templateId="5613c9cde69ddc09340c6beb"
+          height="100%"
+          dataStyleHeight="100%"
+        />
         <div className="testimonials--sidebar--service tilebox">
           <Image
             src="https://source.unsplash.com/collection/2102317/400x400?sig=403432"
