@@ -13,6 +13,12 @@ export interface GetAboutUsPageData_aboutUsLandingPage_metaData {
   body: string | null;
 }
 
+export interface GetAboutUsPageData_aboutUsLandingPage_sections_rowText {
+  heading: string | null;
+  subHeading: string | null;
+  body: string | null;
+}
+
 export interface GetAboutUsPageData_aboutUsLandingPage_sections_cards_cards {
   name: string | null;
   title: string | null;
@@ -36,6 +42,7 @@ export interface GetAboutUsPageData_aboutUsLandingPage_sections_carousel {
 }
 
 export interface GetAboutUsPageData_aboutUsLandingPage_sections {
+  rowText: GetAboutUsPageData_aboutUsLandingPage_sections_rowText | null;
   cards: GetAboutUsPageData_aboutUsLandingPage_sections_cards | null;
   carousel: GetAboutUsPageData_aboutUsLandingPage_sections_carousel | null;
 }

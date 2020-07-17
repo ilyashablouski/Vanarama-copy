@@ -11,6 +11,7 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import { ILink } from "@vanarama/uibook/lib/interfaces/link";
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import TrophySharp from '@vanarama/uibook/lib/assets/icons/TrophySharp';
+import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 
 import { useAboutUsPageData } from "./gql";
 import { ABOUT_US_NAV_ITEM, ABOUT_US_MEET_SECTION_NAMES, ABOUT_US_STRINGS } from "./config";
@@ -20,12 +21,13 @@ import Link from "@vanarama/uibook/lib/components/atoms/link";
 
 const AboutUs: React.FC = () => {
     const renderCarouselCards = () => sections.carousel?.cards?.map((card: ICard | null) => (
-            card/* ?.title && card.body */ ? <div className="card">
-                <div className="title">
-                    <Heading size="lead" color="black"><Icon icon={<TrophySharp />} color="black" /> {card.title || 'TODO: Award title'}</Heading>
-                </div>
-                <Text size="regular" color="dark">{card.body || 'TODO: add text instead Award description Award description Award description Award description Award description Award description Award description'}</Text>
-            </div> : null));
+        //TODO: uncomment when actual data arrives
+        card/* ?.title && card.body */ ? <div className="card">
+            <div className="title">
+                <Heading size="lead" color="black"><Icon icon={<TrophySharp />} color="black" /> {card.title || 'TODO: Award title'}</Heading>
+            </div>
+            <Text size="regular" color="dark">{card.body || 'TODO: add text instead Award description Award description Award description Award description Award description Award description Award description'}</Text>
+        </div> : null));
 
     const renderMeetCard = (card: ICard | null) => card?.title
         && card.body
@@ -91,6 +93,21 @@ const AboutUs: React.FC = () => {
         <div className="row:cards-2col">
             {renderMeetCard(directorsCard)}
             {renderMeetCard(teamCard)}
+        </div>
+        <div className="row:centered">
+            <Heading size="lead" color="black">{sections.rowText?.heading || ''}</Heading>
+            <Link
+                size="regular"
+                color="primary"
+                plain
+                href="#">
+                <ReactMarkdown
+                    source={sections.rowText?.body || ''}
+                    renderers={{
+                        "paragraph": props => <Text {...props} color="inherit" />
+                    }} />
+                <ArrowForwardSharp />
+            </Link>
         </div>
     </React.Fragment>
 }

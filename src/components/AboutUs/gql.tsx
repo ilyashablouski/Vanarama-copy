@@ -12,6 +12,11 @@ query GetAboutUsPageData {
       body
     }
     sections {
+      rowText {
+        heading
+        subHeading
+        body
+      }
       cards {
         name
         cards {
