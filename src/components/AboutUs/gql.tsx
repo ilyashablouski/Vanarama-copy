@@ -8,6 +8,7 @@ query GetAboutUsPageData {
   aboutUsLandingPage {
     metaData {
       name
+      schema
       body
     }
     sections {

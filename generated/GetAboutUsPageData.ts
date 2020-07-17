@@ -9,6 +9,7 @@
 
 export interface GetAboutUsPageData_aboutUsLandingPage_metaData {
   name: string | null;
+  schema: any | null;
   body: string | null;
 }
 
