@@ -20,11 +20,19 @@ import BreadCrumbs from '../../../containers/BreadCrumbContainer';
 
 export const CustomerTestimonialPage: NextPage = () => {
   const [page, setPage] = useState(1);
-  const { data, loading, error, fetchMore } = useQuery<TestimonialsData>(
+  const [data, setTestimonialsData] = useState<TestimonialsData>();
+  const { loading, error, fetchMore } = useQuery<TestimonialsData>(
     TESTIMONIALS_DATA,
     {
       variables: { size: 4, page },
       notifyOnNetworkStatusChange: true,
+      onCompleted: d => {
+        const prev = data?.testimonials || [];
+        setTestimonialsData({
+          ...d,
+          testimonials: [...d.testimonials, ...prev],
+        });
+      },
     },
   );
 
