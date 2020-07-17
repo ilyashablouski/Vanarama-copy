@@ -13,6 +13,11 @@ import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import { ISearchPodProps } from './interfaces';
 import { filterList_filterList_groupedRanges as IRanges } from '../../../generated/filterList';
 
+enum typeToIndex {
+  'Vans' = 1,
+  'Cars',
+}
+
 const SearchPod = ({
   activeTab,
   onChangeTab,
@@ -23,6 +28,8 @@ const SearchPod = ({
   hasCarMakeSelected,
   hasVansMakeSelected,
   vansCachedData,
+  isHomePage,
+  headingText,
 }: ISearchPodProps) => {
   return (
     <Card className="hero-card">
@@ -34,26 +41,31 @@ const SearchPod = ({
         }}
       >
         <TabList dataTestId="tablist">
-          {config.map((tab, index) => (
-            <Tab
-              index={index + 1}
-              key={`${tab.tabName}-tab`}
-              dataTestId={`${tab.tabName}tab`}
-            >
-              {tab.tabName}
-            </Tab>
-          ))}
+          {isHomePage &&
+            config.map(({ tabName, type }) => (
+              <Tab
+                index={parseInt(typeToIndex[type as any], 10)}
+                key={`${tabName}-tab`}
+                dataTestId={`${tabName}tab`}
+              >
+                {tabName}
+              </Tab>
+            ))}
         </TabList>
         <TabPanels dataTestId="tabPanels">
-          {config.map((tab, index) => (
+          {config.map(tab => (
             <TabPanel
-              index={index + 1}
+              index={parseInt(typeToIndex[tab.type as any], 10)}
               className="hero-card--inner"
               key={`${tab.tabName}-panels`}
               dataTestId={`${tab.tabName}-panel`}
             >
-              <Heading size="small" color="dark" tag="span">
-                Search vehicles
+              <Heading
+                size={isHomePage ? 'small' : 'lead'}
+                color={isHomePage ? 'dark' : 'black'}
+                tag="span"
+              >
+                {headingText}
               </Heading>
               <Form>
                 {tab.dropdowns.map(({ accessor, label }) => (
@@ -114,7 +126,7 @@ const SearchPod = ({
                 color="teal"
                 fill="solid"
                 className="-fullwidth"
-                label={tab.buttonText}
+                label={isHomePage ? tab.buttonText : 'Search Vehicles'}
                 dataTestId={`${tab.type}searchBtn`}
                 onClick={() => onSearch(tab.type)}
               />

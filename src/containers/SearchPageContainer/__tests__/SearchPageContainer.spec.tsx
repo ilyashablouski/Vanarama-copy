@@ -1,18 +1,52 @@
-import { render, waitFor, screen, act } from '@testing-library/react';
+import {
+  render,
+  waitFor,
+  screen,
+  act,
+  fireEvent,
+} from '@testing-library/react';
 import React from 'react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import { useRouter } from 'next/router';
 import SearchPageContainer from '../SearchPageContainer';
 import { getVehiclesList } from '../gql';
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
 
-jest.mock('next/router', () => ({
-  useRouter() {
-    return {
-      push: jest.fn(),
-      query: {},
-    };
+const mockData = {
+  loading: false,
+  refetch() {
+    return this.data;
   },
+  data: {
+    productCard: [
+      {
+        vehicleType: 'CAR',
+        capId: '83615',
+        manufacturerName: 'manufacturerName',
+        rangeName: 'rangeName',
+        derivativeName: 'derivativeName',
+        averageRating: 4.5,
+        isOnOffer: false,
+        offerPosition: 5,
+        leadTime: '',
+        imageUrl: '',
+        keyInformation: [],
+        businessRate: 55,
+        personalRate: 55,
+      },
+    ],
+  },
+  error: undefined,
+};
+
+jest.mock('next/router', () => ({
+  useRouter: jest.fn().mockReturnValue({
+    push: jest.fn(),
+    rewrite: jest.fn(),
+    pathname: '/car-leasing',
+    query: {},
+  }),
 }));
 
 jest.mock('../gql', () => ({
@@ -160,9 +194,26 @@ const mocksResponse: MockedResponse[] = [
       };
     },
   },
+  {
+    request: {
+      query: GET_PRODUCT_CARDS_DATA,
+      variables: {
+        capIds: [83615],
+        vehicleType: 'CAR',
+      },
+    },
+    result: () => {
+      return {
+        data: {
+          productCard: mockData.data.productCard,
+        },
+        refetch: jest.fn(),
+      };
+    },
+  },
 ];
 describe('<SearchPageContainer />', () => {
-  afterEach(() => {
+  beforeEach(() => {
     jest.clearAllMocks();
     filterMockCalled = false;
     vehicleMockCalled = false;
@@ -203,6 +254,43 @@ describe('<SearchPageContainer />', () => {
       expect(screen.getByText('Showing 91 Results')).toBeTruthy();
     });
   });
+  it('should be start new search', async () => {
+    // ACT
+    const replaceMock = jest.fn();
+    (useRouter as jest.Mock).mockReturnValue({
+      replace: replaceMock,
+      push: jest.fn(),
+      query: {},
+    });
+    act(() => {
+      render(
+        <MockedProvider mocks={mocksResponse} addTypename={false}>
+          <SearchPageContainer isCarSearch isServer={false} />
+        </MockedProvider>,
+      );
+    });
+    fireEvent.click(screen.getByText('Transmission', { selector: 'span' }));
+
+    // ASSERT
+    await waitFor(() => {
+      expect(filterMockCalled).toBeTruthy();
+      expect(vehicleMockCalled).toBeTruthy();
+    });
+
+    fireEvent.click(screen.getByText('Automatic'));
+    expect(replaceMock).toHaveBeenCalledTimes(1);
+    expect(replaceMock).toHaveBeenCalledWith(
+      {
+        pathname: '/car-leasing',
+        query: {
+          transmissions: ['Automatic'],
+        },
+      },
+      undefined,
+      { shallow: true },
+    );
+  });
+
   it('should be render correctly', async () => {
     // ACT
     const getComponent = render(
