@@ -6,7 +6,7 @@ import { useEmailCheck } from '../RegisterFormContainer/gql';
 import { useAboutYouData } from '../AboutFormContainer/gql';
 
 import { useAboutPageDataQuery, useSaveAboutYouMutation } from './gql';
-import { IBusinessAboutFormContainerProps } from './interfaces';
+import { IBusinessAboutFormContainerProps, SubmitResult } from './interfaces';
 
 export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerProps> = ({
   onCompleted,
@@ -16,7 +16,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
 }) => {
   const aboutPageDataQuery = useAboutPageDataQuery();
   const aboutYouData = useAboutYouData(personUuid);
-  const [saveDetails] = useSaveAboutYouMutation(onCompleted, onError);
+  const [saveDetails] = useSaveAboutYouMutation();
   const [emailAlreadyExists] = useEmailCheck();
 
   if (aboutPageDataQuery?.loading) {
@@ -58,20 +58,21 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
               emailAddress: {
                 value: values.email,
               },
-              company: {
-                companyType: values.companyType,
-              },
               profilingConsent: values.consent,
               emailConsent: values.marketing,
               smsConsent: values.marketing,
               termsAndConditions: values.termsAndConditions,
-              role: {
-                position: 'Account owner',
-                primaryContact: true,
-              },
             },
           },
-        });
+        })
+          .then(data => {
+            const result = {
+              ...data,
+              companyType: values.companyType,
+            } as SubmitResult;
+            onCompleted?.(result);
+          })
+          .catch(onError);
       }}
     />
   );

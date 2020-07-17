@@ -18,6 +18,7 @@ import {
   mapEmailErrorMessage,
   EMAIL_ALREADY_EXISTS,
 } from '../AboutForm/mapEmailErrorMessage';
+import { companyTypesList } from '../../models/enum/CompanyTypes';
 
 const BusinessAboutForm: FCWithFragments<IProps> = ({
   dropDownData,
@@ -35,6 +36,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
   });
   useEffect(() => {
     reset(defaultValues);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [person]);
 
   return (
@@ -186,7 +188,11 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
           dataTestId="about-you_company-type"
           ref={register({ required: 'Please select a type of company' })}
         >
-          <option value="Limited">Limited</option>
+          {companyTypesList.map(companyType => (
+            <option value={companyType.value} key={companyType.label}>
+              {companyType.label}
+            </option>
+          ))}
         </Select>
       </Formgroup>
       <hr className="-mv-400" />

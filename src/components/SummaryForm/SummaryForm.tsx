@@ -16,28 +16,18 @@ import { getUrlParam } from '../../utils/url';
 
 interface IProps {
   person: SummaryFormPerson;
-  orderId?: string;
-  derivativeId?: string;
+  orderId: string;
 }
 
-const SummaryForm: FCWithFragments<IProps> = ({
-  person,
-  orderId,
-  derivativeId,
-}) => {
+const SummaryForm: FCWithFragments<IProps> = ({ person, orderId }) => {
   const router = useRouter();
   // NOTE: Many are returned so just take the first one?
   const primaryBankAccount = person.bankAccounts?.[0];
 
   const handleEdit = (url: string) => () => {
-    const href = `${url}?redirect=summary${getUrlParam(
-      {
-        orderId,
-        derivativeId,
-      },
-      true,
-    )}`;
-    router.push(href, href.replace('[uuid]', person.uuid));
+    const params = getUrlParam({ uuid: person.uuid, redirect: 'summary' });
+    const href = `${url}${params}`;
+    router.push(href, href.replace('[orderId]', orderId));
   };
 
   return (
@@ -52,26 +42,26 @@ const SummaryForm: FCWithFragments<IProps> = ({
       </Text>
       <SummaryFormDetailsSection
         person={person}
-        onEdit={handleEdit('/olaf/about/[uuid]')}
+        onEdit={handleEdit('/olaf/about/[orderId]')}
       />
       <SummaryFormAddressHistory
         addresses={person.addresses || []}
-        onEdit={handleEdit('/olaf/address-history/[uuid]')}
+        onEdit={handleEdit('/olaf/address-history/[orderId]')}
       />
       <SummaryFormEmploymentHistory
         employments={person.employmentHistories || []}
-        onEdit={handleEdit('/olaf/employment-history/[uuid]')}
+        onEdit={handleEdit('/olaf/employment-history/[orderId]')}
       />
       {person.incomeAndExpense && (
         <SummaryFormIncomeSection
           income={person.incomeAndExpense}
-          onEdit={handleEdit('/olaf/expenses/[uuid]')}
+          onEdit={handleEdit('/olaf/expenses/[orderId]')}
         />
       )}
       {primaryBankAccount && (
         <SummaryFormBankDetailsSection
           account={primaryBankAccount}
-          onEdit={handleEdit('/olaf/bank-details/[uuid]')}
+          onEdit={handleEdit('/olaf/bank-details/[orderId]')}
         />
       )}
       <Button
@@ -80,9 +70,7 @@ const SummaryForm: FCWithFragments<IProps> = ({
         label="Continue"
         dataTestId="olaf_summary_continue_buttton"
         onClick={() => {
-          router.push(
-            `/olaf/thank-you${getUrlParam({ orderId, derivativeId })}`,
-          );
+          router.push('/olaf/thank-you');
         }}
       />
     </Form>

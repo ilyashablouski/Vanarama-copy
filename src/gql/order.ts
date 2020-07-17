@@ -9,7 +9,10 @@ import {
   GetOrderByUuid,
   GetOrderByUuidVariables,
 } from '../../generated/GetOrderByUuid';
-import { CreateOrder, CreateOrderVariables } from '../../generated/CreateOrder';
+import {
+  CreateUpdateOrder,
+  CreateUpdateOrderVariables,
+} from '../../generated/CreateUpdateOrder';
 
 export const GET_ORDER_BY_UUID_DATA = gql`
   query GetOrderByUuid($uuid: ID!) {
@@ -104,7 +107,7 @@ export function useCarDerivativesData(
 }
 
 export const GET_OLAF_DATA = gql`
-  query GetOlafData($uuid: ID!, $id: ID!, $vehicleType: VehicleTypeEnum) {
+  query GetOlafData($uuid: ID!) {
     orderByUuid(uuid: $uuid) {
       uuid
       id
@@ -143,49 +146,21 @@ export const GET_OLAF_DATA = gql`
         }
       }
     }
-    derivative(id: $id, vehicleType: $vehicleType) {
-      id
-      capCode
-      name
-      slug
-      manufacturer {
-        name
-      }
-      manufacturerName
-      model {
-        name
-      }
-      modelName
-      fuelType {
-        name
-      }
-      fuelTypeName
-      transmission {
-        name
-      }
-      transmissionName
-    }
   }
 `;
 
-export function useOlafData(
-  uuid: string,
-  id: string,
-  vehicleType?: VehicleTypeEnum,
-) {
+export function useOlafData(uuid: string) {
   return useQuery<GetOlafData, GetOlafDataVariables>(GET_OLAF_DATA, {
     variables: {
       uuid,
-      id,
-      vehicleType,
     },
-    skip: [uuid, id, vehicleType].some(item => !item),
+    skip: [uuid].some(item => !item),
   });
 }
 
-export const CREATE_ORDER_MUTATION = gql`
-  mutation CreateOrder($input: OrderInputObject!) {
-    createOrder(input: $input) {
+export const CREATE_UPDATE_ORDER_MUTATION = gql`
+  mutation CreateUpdateOrder($input: OrderInputObject!) {
+    createUpdateOrder(input: $input) {
       uuid
       createdAt
       salesChannel
@@ -211,8 +186,13 @@ export const CREATE_ORDER_MUTATION = gql`
   }
 `;
 
-export function useCreateOrder(onCompleted: (data: CreateOrder) => void) {
-  return useMutation<CreateOrder, CreateOrderVariables>(CREATE_ORDER_MUTATION, {
-    onCompleted,
-  });
+export function useCreateUpdateOrder(
+  onCompleted: (data: CreateUpdateOrder) => void,
+) {
+  return useMutation<CreateUpdateOrder, CreateUpdateOrderVariables>(
+    CREATE_UPDATE_ORDER_MUTATION,
+    {
+      onCompleted,
+    },
+  );
 }

@@ -16,6 +16,7 @@ describe('<VehicleCard />', () => {
         description: 'test',
         score: 4.5,
       },
+      viewOffer: jest.fn(),
       isPersonalPrice: true,
       data: {
         averageRating: 0,
