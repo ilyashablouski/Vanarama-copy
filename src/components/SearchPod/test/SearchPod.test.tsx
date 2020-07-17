@@ -8,6 +8,8 @@ describe('<SearchPod />', () => {
   const resetMocks = () => {
     return {
       activeTab: 1,
+      headingText: 'Search',
+      isHomePage: true,
       onChangeTab: jest.fn(),
       config: tabsFields,
       onSearch: jest.fn(),
