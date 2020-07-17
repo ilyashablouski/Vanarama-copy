@@ -86,16 +86,18 @@ const SearchPageContainer: React.FC<IProps> = ({
     isSpecialOffers,
     async vehicles => {
       try {
+        const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
         await carDerivatives
           .refetch({
-            ids: getCapsIds(vehicles.vehicleList?.edges || []),
+            ids: responseCapIds,
             vehicleType: isCarSearch
               ? VehicleTypeEnum.CAR
               : VehicleTypeEnum.LCV,
           })
           .then(resp => setCarDerivatives(resp.data?.derivatives || []));
+        setCapsIds(responseCapIds);
         return await refetch({
-          capIds: getCapsIds(vehicles.vehicleList?.edges || []),
+          capIds: responseCapIds,
           vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
         }).then(resp => setCardsData(resp.data?.productCard || []));
       } catch {
@@ -109,16 +111,18 @@ const SearchPageContainer: React.FC<IProps> = ({
     isSpecialOffers,
     async vehicles => {
       try {
+        const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
         await carDerivatives
           .refetch({
-            ids: getCapsIds(vehicles.vehicleList?.edges || []),
+            ids: responseCapIds,
             vehicleType: isCarSearch
               ? VehicleTypeEnum.CAR
               : VehicleTypeEnum.LCV,
           })
           .then(resp => setCarDerivativesCache(resp.data?.derivatives || []));
+        setCapsIds(responseCapIds);
         return await refetch({
-          capIds: getCapsIds(vehicles.vehicleList?.edges || []),
+          capIds: responseCapIds,
           vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
         }).then(resp => setCardsDataCache(resp.data?.productCard || []));
       } catch {
@@ -223,7 +227,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     sortField,
   ]);
 
-  // get vehicles to cache
+  // set capsIds for cached data
   useEffect(() => {
     if (cacheData?.vehicleList.edges?.length) {
       setCapsIds(
@@ -304,7 +308,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                 vehiclesList?.map((vehicle: IVehicles) => (
                   <VehicleCard
                     viewOffer={viewOffer}
-                    key={vehicle?.node?.derivativeId || ''}
+                    key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
                     data={
                       getCardData(
                         vehicle.node?.derivativeId || '',

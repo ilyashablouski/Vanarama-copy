@@ -9,7 +9,10 @@ import {
   GetOrderByUuid,
   GetOrderByUuidVariables,
 } from '../../generated/GetOrderByUuid';
-import { CreateOrder, CreateOrderVariables } from '../../generated/CreateOrder';
+import {
+  CreateUpdateOrder,
+  CreateUpdateOrderVariables,
+} from '../../generated/CreateUpdateOrder';
 
 export const GET_ORDER_BY_UUID_DATA = gql`
   query GetOrderByUuid($uuid: ID!) {
@@ -163,9 +166,9 @@ export function useOlafData(uuid: string) {
   });
 }
 
-export const CREATE_ORDER_MUTATION = gql`
-  mutation CreateOrder($input: OrderInputObject!) {
-    createOrder(input: $input) {
+export const CREATE_UPDATE_ORDER_MUTATION = gql`
+  mutation CreateUpdateOrder($input: OrderInputObject!) {
+    createUpdateOrder(input: $input) {
       uuid
       createdAt
       salesChannel
@@ -191,8 +194,13 @@ export const CREATE_ORDER_MUTATION = gql`
   }
 `;
 
-export function useCreateOrder(onCompleted: (data: CreateOrder) => void) {
-  return useMutation<CreateOrder, CreateOrderVariables>(CREATE_ORDER_MUTATION, {
-    onCompleted,
-  });
+export function useCreateUpdateOrder(
+  onCompleted: (data: CreateUpdateOrder) => void,
+) {
+  return useMutation<CreateUpdateOrder, CreateUpdateOrderVariables>(
+    CREATE_UPDATE_ORDER_MUTATION,
+    {
+      onCompleted,
+    },
+  );
 }

@@ -16,6 +16,14 @@ const AboutFormContainer: React.FC<IProps> = ({
   const aboutYouData = useAboutYouData(personUuid);
   const [emailAlreadyExists] = useEmailCheck();
 
+  const onEmailCheck = async (email: string) => {
+    const results = await emailAlreadyExists({
+      variables: { email },
+    });
+
+    return Boolean(results?.data?.emailAlreadyExists);
+  };
+
   if (aboutPageDataQuery.loading) {
     return <Loading size="large" />;
   }
@@ -35,13 +43,9 @@ const AboutFormContainer: React.FC<IProps> = ({
     <AboutForm
       dropdownData={aboutPageDataQuery.data!.allDropDowns}
       person={aboutYouData.data?.personByUuid}
-      onEmailExistenceCheck={async email => {
-        const results = await emailAlreadyExists({
-          variables: { email },
-        });
-
-        return Boolean(results?.data?.emailAlreadyExists);
-      }}
+      onEmailExistenceCheck={
+        aboutYouData.data?.personByUuid ? undefined : onEmailCheck
+      }
       onLogInClick={onLogInClick}
       submit={values =>
         createDetailsHandle({
