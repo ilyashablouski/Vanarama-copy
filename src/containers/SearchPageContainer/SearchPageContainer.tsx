@@ -15,7 +15,7 @@ import { useRouter } from 'next/router';
 import { useProductCardData } from '../CustomerAlsoViewedContainer/gql';
 import { IFilters } from '../FiltersContainer/interfaces';
 import FiltersContainer from '../FiltersContainer';
-import VehicleCard from './VehicleCard';
+import VehicleCard, { IProductPageUrl } from './VehicleCard';
 import { getVehiclesList } from './gql';
 import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
 import { VehicleTypeEnum, SortField } from '../../../generated/globalTypes';
@@ -23,6 +23,7 @@ import buildRewriteRoute from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import { useCarDerivativesData } from '../OrdersInformation/gql';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
+import { getUrlParam } from 'utils/url';
 
 interface IProps {
   isServer: boolean;
@@ -260,11 +261,30 @@ const SearchPageContainer: React.FC<IProps> = ({
     };
   };
 
-  const viewOffer = (capId: string) => {
+  const viewOffer = (productPageUrl: IProductPageUrl) => {
+    sessionStorage.setItem('capId', productPageUrl.capId);
+
+    const params = isCarSearch
+      ? getUrlParam({
+          range: productPageUrl.range,
+          bodyStyle: productPageUrl.bodyStyle,
+          derivative: productPageUrl.derivative,
+        })
+      : getUrlParam({
+          range: productPageUrl.range,
+          derivative: productPageUrl.derivative,
+        });
     const href = `${
-      isCarSearch ? '/cars/car-details/' : '/vans/van-details/'
-    }[capId]`;
-    router.push(href, href.replace('[capId]', capId));
+      isCarSearch ? '/car-leasing/' : '/vans-leasing/'
+    }[manufacturer]${params}`;
+    // const url = isCarSearch
+    //   ? `${productPageUrl.manufacturer}/${productPageUrl.range}/${productPageUrl.bodyStyle}/${productPageUrl.derivative}`
+    //   : `${productPageUrl.manufacturer}/${productPageUrl.range}/${productPageUrl.derivative}`;
+
+    router.push(
+      href,
+      href.replace('[manufacturer]', productPageUrl.manufacturer),
+    );
   };
 
   return (
@@ -309,11 +329,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                   <VehicleCard
                     viewOffer={viewOffer}
                     key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
-                    data={
-                      getCardData(
-                        vehicle.node?.derivativeId || '',
-                      ) as IProductCard
-                    }
+                    data={getCardData(vehicle.node?.derivativeId || '') as any}
                     title={{
                       title: '',
 

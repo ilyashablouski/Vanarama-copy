@@ -12,13 +12,23 @@ import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
 type ICardData = ICard & {
   bodyStyleName: string;
+  slug: string;
 };
+
+export interface IProductPageUrl {
+  url: string;
+  manufacturer: string;
+  range: string;
+  bodyStyle?: string;
+  derivative: string;
+  capId: string;
+}
 
 interface IVehicleCardProps {
   title: ICardTitleProps;
   isPersonalPrice: boolean;
   data: ICardData;
-  viewOffer: (capId: string) => void;
+  viewOffer: (productPageUrl: IProductPageUrl) => void;
 }
 
 const VehicleCard = memo(
@@ -36,19 +46,39 @@ const VehicleCard = memo(
           ? 'car-leasing'
           : 'van-leasing';
       const manufacturer =
-        data.manufacturerName?.toLocaleLowerCase().replace(' ', '-') || '';
-      const range = data.rangeName?.toLocaleLowerCase().replace(' ', '-') || '';
-      const bodystyle =
-        data.bodyStyleName?.toLocaleLowerCase().replace(' ', '-') || '';
-      const derivative =
-        data.derivativeName?.toLocaleLowerCase().replace(' ', '-') || '';
+        data.manufacturerName
+          ?.toLocaleLowerCase()
+          .split(' ')
+          .join('-') || '';
+      const range =
+        data.rangeName
+          ?.toLocaleLowerCase()
+          .split(' ')
+          .join('-') || '';
+      const bodyStyle =
+        data.bodyStyleName
+          ?.toLocaleLowerCase()
+          .split(' ')
+          .join('-') || '';
+      const derivative = data.slug || '';
 
       return data.vehicleType === VehicleTypeEnum.CAR
-        ? `${leasing}/${manufacturer}/${range}/${bodystyle}/${derivative}`
-        : `${leasing}/${manufacturer}/${range}/${derivative}`;
+        ? {
+            url: `${leasing}/${manufacturer}/${range}/${bodyStyle}/${derivative}`,
+            manufacturer,
+            range,
+            bodyStyle,
+            derivative,
+            capId: data.capId as string,
+          }
+        : {
+            url: `${leasing}/${manufacturer}/${range}/${derivative}`,
+            manufacturer,
+            range,
+            derivative,
+            capId: data.capId as string,
+          };
     };
-
-    console.log(productPageUrl());
 
     return (
       <Card
@@ -73,9 +103,7 @@ const VehicleCard = memo(
           link: (
             <RouterLink
               link={{
-                href: `${
-                  data?.vehicleType === 'CAR' ? '/cars/car-' : '/vans/van-'
-                }details/${data?.capId}`,
+                href: productPageUrl().url,
                 label: `${data?.manufacturerName} ${data?.rangeName}`,
               }}
               className="heading"
@@ -95,7 +123,7 @@ const VehicleCard = memo(
             color="teal"
             fill="solid"
             label="View Offer"
-            onClick={() => viewOffer(data.capId || '')}
+            onClick={() => viewOffer(productPageUrl())}
             size="regular"
           />
         </div>
