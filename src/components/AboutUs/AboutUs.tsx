@@ -8,13 +8,8 @@ import ReactMarkdown from "react-markdown";
 import Breadcrumb from "@vanarama/uibook/lib/components/atoms/breadcrumb";
 import Carousel from "@vanarama/uibook/lib/components/organisms/carousel";
 import Card from "@vanarama/uibook/lib/components/molecules/cards";
+import { ABOUT_US_NAV, ABOUT_US_MEET_SECTION_NAMES } from "./consts";
 
-const PATH = {
-    items: [
-        { label: 'Home', href: '/' },
-        { label: 'About us', href: '/' },
-    ],
-};
 
 const AboutUs: React.FC = () => {
     const { data, error, loading } = useAboutUsPageData();
@@ -32,12 +27,14 @@ const AboutUs: React.FC = () => {
     }
 
     console.log(data);
+    const directorsCard = data.aboutUsLandingPage.sections.cards?.cards?.find(card => card.name === ABOUT_US_MEET_SECTION_NAMES.directors);
+    const teamCard = data.aboutUsLandingPage.sections.cards?.cards?.find(card => card.name === ABOUT_US_MEET_SECTION_NAMES.team);
 
     return <React.Fragment>
         <div className="row:title">
             <nav>
                 <Breadcrumb
-                    items={PATH.items} />
+                    items={ABOUT_US_NAV.items} />
             </nav>
             <Heading size="xlarge" color="black">
                 {data.aboutUsLandingPage.metaData.name}
@@ -64,6 +61,14 @@ const AboutUs: React.FC = () => {
                     </Carousel>
                 </div>
             </div>
+        </div>
+        <div className="row:cards-2col">
+            {directorsCard?.title
+                && directorsCard.body
+                && <Card title={{ title: directorsCard.title }}><ReactMarkdown source={directorsCard.body} /></Card>}
+            {teamCard?.title
+                && teamCard.body
+                && <Card title={{ title: teamCard.title }}><ReactMarkdown source={teamCard.body} /></Card>}
         </div>
     </React.Fragment>
 }
