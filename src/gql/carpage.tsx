@@ -23,6 +23,9 @@ export const GET_CAR_DATA = gql`
       offerRanking
       financeProfile {
         leaseType
+        term
+        mileage
+        upfront
       }
     }
     vehicleDetails(capId: $capIdDetails, vehicleType: $vehicleType) {
