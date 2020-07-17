@@ -1220,7 +1220,21 @@ exports[`<PickupDetailsPage /> renders correctly with error 1`] = `
     }
   }
 >
-  Error
+  <div
+    className="loading -xlarge"
+  >
+    <svg
+      className="loading--svg"
+      viewBox="-75 -75 150 150"
+    >
+      <circle
+        className="loading--stroke"
+        cx="0"
+        cy="0"
+        r="37.5"
+      />
+    </svg>
+  </div>
 </div>
 `;
 
