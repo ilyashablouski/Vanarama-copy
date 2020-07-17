@@ -11,15 +11,6 @@ query GetAboutUsPageData {
       body
     }
     sections {
-      accessories {
-        name
-        accessories {
-          body
-          image {
-            title
-          }
-        }
-      }
       cards {
         name
         cards {

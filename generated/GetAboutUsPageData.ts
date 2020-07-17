@@ -9,20 +9,7 @@
 
 export interface GetAboutUsPageData_aboutUsLandingPage_metaData {
   name: string | null;
-}
-
-export interface GetAboutUsPageData_aboutUsLandingPage_sections_accessories_accessories_image {
-  title: string | null;
-}
-
-export interface GetAboutUsPageData_aboutUsLandingPage_sections_accessories_accessories {
   body: string | null;
-  image: GetAboutUsPageData_aboutUsLandingPage_sections_accessories_accessories_image | null;
-}
-
-export interface GetAboutUsPageData_aboutUsLandingPage_sections_accessories {
-  name: string;
-  accessories: GetAboutUsPageData_aboutUsLandingPage_sections_accessories_accessories[] | null;
 }
 
 export interface GetAboutUsPageData_aboutUsLandingPage_sections_cards_cards {
@@ -48,7 +35,6 @@ export interface GetAboutUsPageData_aboutUsLandingPage_sections_carousel {
 }
 
 export interface GetAboutUsPageData_aboutUsLandingPage_sections {
-  accessories: GetAboutUsPageData_aboutUsLandingPage_sections_accessories | null;
   cards: GetAboutUsPageData_aboutUsLandingPage_sections_cards | null;
   carousel: GetAboutUsPageData_aboutUsLandingPage_sections_carousel | null;
 }
