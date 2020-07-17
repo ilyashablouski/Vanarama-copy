@@ -8,6 +8,8 @@ export interface ISearchPodProps {
   hasCarMakeSelected: boolean;
   hasVansMakeSelected: boolean;
   vansCachedData: any;
+  isHomePage?: boolean;
+  headingText: string;
 }
 
 export interface ITabsConfig {
