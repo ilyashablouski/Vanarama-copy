@@ -11,6 +11,9 @@ import { VehicleTypeEnum, LeaseTypeEnum } from "./globalTypes";
 
 export interface GetVehicleDetails_vehicleConfigurationByCapId_financeProfile {
   leaseType: LeaseTypeEnum;
+  term: number;
+  mileage: number;
+  upfront: number;
 }
 
 export interface GetVehicleDetails_vehicleConfigurationByCapId {

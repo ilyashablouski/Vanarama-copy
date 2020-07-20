@@ -1,4 +1,4 @@
-import { useQuery, gql } from '@apollo/client';
+import { gql, useLazyQuery } from '@apollo/client';
 import {
   GetVehicleDetails,
   GetVehicleDetailsVariables,
@@ -23,6 +23,9 @@ export const GET_CAR_DATA = gql`
       offerRanking
       financeProfile {
         leaseType
+        term
+        mileage
+        upfront
       }
     }
     vehicleDetails(capId: $capIdDetails, vehicleType: $vehicleType) {
@@ -103,11 +106,14 @@ export const GET_CAR_DATA = gql`
 `;
 
 export function useCarData(capId: number, vehicleType: VehicleTypeEnum) {
-  return useQuery<GetVehicleDetails, GetVehicleDetailsVariables>(GET_CAR_DATA, {
-    variables: {
-      capId,
-      capIdDetails: `${capId}`,
-      vehicleType,
+  return useLazyQuery<GetVehicleDetails, GetVehicleDetailsVariables>(
+    GET_CAR_DATA,
+    {
+      variables: {
+        capId,
+        capIdDetails: `${capId}`,
+        vehicleType,
+      },
     },
-  });
+  );
 }
