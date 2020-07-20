@@ -280,7 +280,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           </Text>
           <div className="row:cards-3col">
             {useCallback(
-              cardsData.length ? (
+              cardsData.length && carDer.length ? (
                 vehiclesList?.map((vehicle: IVehicles) => (
                   <VehicleCard
                     viewOffer={viewOffer}
@@ -298,7 +298,7 @@ const SearchPageContainer: React.FC<IProps> = ({
               ) : (
                 <></>
               ),
-              [cardsData, isPersonal],
+              [cardsData, carDer, isPersonal],
             )}
           </div>
           <div className="pagination">
