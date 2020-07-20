@@ -1,6 +1,6 @@
 import React from 'react';
 import { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import Score from '@vanarama/uibook/lib/components/atoms/score';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
@@ -8,14 +8,15 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
-import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
-import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
-import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
-import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
 import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import withApollo from '../../hocs/withApollo';
+import truncateString from '../../utils/truncateString';
+import getIconMap from '../../utils/getIconMap';
+import { useProductCard } from '../../gql/productCard';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import useSliderProperties from '../../hooks/useSliderProperties';
 
@@ -24,6 +25,8 @@ const CreditChecker: NextPage = () => {
   const scoreParam = router.query.score as string;
   const score = parseInt(scoreParam, 10) || 0;
   const { slidesToShow } = useSliderProperties();
+
+  const { data: productsCar, loading, error } = useProductCard('CAR', 9, true);
 
   const breadcrumbProps = {
     items: [
@@ -83,6 +86,15 @@ const CreditChecker: NextPage = () => {
             color="teal"
             size="regular"
             fill="solid"
+            onClick={() => {
+              if (
+                contentForCurrentScore.buttonLabel === 'Choose Your Vehicle'
+              ) {
+                Router.push('/car-leasing/');
+              } else {
+                Router.push('/contact-us/');
+              }
+            }}
             label={contentForCurrentScore.buttonLabel}
             role="button"
           />
@@ -102,79 +114,93 @@ const CreditChecker: NextPage = () => {
               Top Offers
             </span>
           </Heading>
-          <Carousel className="-mh-auto" countItems={5}>
-            {[1, 2, 3, 4, 5].map(k => (
-              <ProductCard
-                key={k.toString()}
-                header={{
-                  accentIcon:
-                    slidesToShow > 2 ? (
-                      <Icon icon={<Flame />} color="white" />
-                    ) : (
-                      ''
-                    ),
-                  accentText: slidesToShow > 2 ? 'Hot Deal' : '',
-                  text: 'In Stock - 14-21 Days Delivery',
-                }}
-                features={[
-                  {
-                    icon: <Icon icon={<SnowSharp />} color="dark" />,
-                    label: 'Aircon',
-                  },
-                  {
-                    icon: <Icon icon={<BluetoothSharp />} color="dark" />,
-                    label: 'Bluetooth',
-                  },
-                  {
-                    icon: <Icon icon={<CompassSharp />} color="dark" />,
-                    label: 'Navigation',
-                  },
-                  {
-                    icon: <Icon icon={<WifiSharp />} color="dark" />,
-                    label: 'Sensors',
-                  },
-                ]}
-                imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg"
-                onCompare={() => true}
-                onWishlist={() => true}
-                title={{
-                  title: '',
-                  link: (
-                    <RouterLink
-                      link={{ href: '#', label: 'Peugeot 208' }}
-                      className="heading"
-                      classNames={{ size: 'large', color: 'black' }}
-                    />
-                  ),
-                  description: '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
-                  score: 4.5,
-                }}
-              >
-                <div className="-flex-h">
-                  <Price
-                    price={209}
-                    size="large"
-                    separator="."
-                    priceDescription="Per Month Exc.VAT"
-                  />
+          {error ? (
+            <div>{error.message}</div>
+          ) : (
+            (loading && <Loading size="xlarge" />) || (
+              <>
+                <Carousel
+                  className="-mh-auto"
+                  countItems={productsCar?.productCarousel?.length || 6}
+                >
+                  {productsCar?.productCarousel?.map((item, idx) => {
+                    const iconMap = getIconMap(item?.keyInformation || []);
+                    return (
+                      <ProductCard
+                        key={item?.capId || idx}
+                        header={{
+                          accentIcon:
+                            slidesToShow > 2 ? (
+                              <Icon icon={<Flame />} color="white" />
+                            ) : (
+                              ''
+                            ),
+                          accentText: slidesToShow > 2 ? 'Hot Deal' : '',
+                          text: 'In Stock - 14-21 Days Delivery',
+                        }}
+                        features={item?.keyInformation?.map(info => ({
+                          icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
+                          label: info?.value || '',
+                        }))}
+                        imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
+                        onCompare={() => true}
+                        onWishlist={() => true}
+                        title={{
+                          title: '',
+                          link: (
+                            <RouterLink
+                              link={{
+                                href: `/cars/car-details/${item?.capId}`,
+                                label: truncateString(
+                                  `${item?.manufacturerName} ${item?.rangeName}`,
+                                ),
+                              }}
+                              className="heading"
+                              classNames={{ size: 'large', color: 'black' }}
+                            />
+                          ),
+                          description: item?.derivativeName || '',
+                          score: item?.averageRating || 0,
+                        }}
+                      >
+                        <div className="-flex-h">
+                          <Price
+                            price={item?.businessRate}
+                            size="large"
+                            separator="."
+                            priceDescription="Per Month Exc.VAT"
+                          />
+                          <Button
+                            color="teal"
+                            fill="solid"
+                            label="View Offer"
+                            dataTestId="car-view-offer"
+                            onClick={() =>
+                              Router.push(`/cars/car-details/${item?.capId}`)
+                            }
+                            size="regular"
+                          />
+                        </div>
+                      </ProductCard>
+                    );
+                  })}
+                </Carousel>
+                <div className="-justify-content-row -pt-500">
                   <Button
+                    label="View All Cars"
                     color="teal"
-                    fill="solid"
-                    label="View Offer"
-                    onClick={() => true}
-                    size="regular"
+                    onClick={() => {
+                      Router.push(`/car-leasing`);
+                    }}
                   />
                 </div>
-              </ProductCard>
-            ))}
-          </Carousel>
-          <div className="-justify-content-row -pt-500">
-            <Button label="View All Vans" color="teal" />
-          </div>
+              </>
+            )
+          )}
         </div>
       </div>
     </>
   );
 };
 
-export default CreditChecker;
+export default withApollo(CreditChecker);
