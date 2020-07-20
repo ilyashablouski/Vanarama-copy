@@ -1,7 +1,6 @@
 import React from 'react';
 import Router from 'next/router';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
-import renderer from 'react-test-renderer';
 import ProductCarousel from '../ProductCarousel';
 import {
   LeaseTypeEnum,
