@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { ParsedUrlQuery } from 'querystring';
@@ -14,10 +14,7 @@ interface IProps {
 
 const VanDetailsPage: NextPage<IProps> = () => {
   const router = useRouter();
-  const capId = parseInt(
-    sessionStorage.getItem('capId') ?? (router.query.capId as string) ?? '',
-    10,
-  );
+  const [capId, setCapId] = useState(0);
 
   const [getCarData, { data, loading, error }] = useCarData(
     capId,
@@ -27,8 +24,17 @@ const VanDetailsPage: NextPage<IProps> = () => {
   useEffect(() => {
     if (capId) {
       getCarData();
+    } else if (sessionStorage) {
+      setCapId(
+        parseInt(
+          sessionStorage.getItem('capId') ??
+            (router.query.capId as string) ??
+            '',
+          10,
+        ),
+      );
     }
-  }, [capId, getCarData]);
+  }, [capId, getCarData, router.query.capId]);
 
   if (!data) {
     return (
