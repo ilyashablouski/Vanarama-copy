@@ -859,7 +859,7 @@ exports[`<CustomerAlsoViewedContainer /> renders correctly with data 1`] = `
             <a
               className="link heading -black -large"
               data-testid="router-link"
-              href="/car-leasing////"
+              href="/car-leasing/ford/focus/hatchback/10-ecoBoost-125-st-line-nav-5dr"
               onClick={[Function]}
               onMouseEnter={[Function]}
             >

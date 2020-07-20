@@ -2,6 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer';
 import { useProductCardData } from '../gql';
+import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 
 jest.mock('../gql');
 
@@ -10,7 +11,7 @@ const mockData = {
   data: {
     productCard: [
       {
-        vehicleType: 'CAR',
+        vehicleType: VehicleTypeEnum.CAR,
         capId: 'capId1',
         manufacturerName: 'manufacturerName',
         rangeName: 'rangeName',
@@ -25,7 +26,7 @@ const mockData = {
         personalRate: 55,
       },
       {
-        vehicleType: 'CAR',
+        vehicleType: VehicleTypeEnum.CAR,
         capId: 'capId2',
         manufacturerName: 'manufacturerName',
         rangeName: 'rangeName',
@@ -40,7 +41,7 @@ const mockData = {
         personalRate: 55,
       },
       {
-        vehicleType: 'CAR',
+        vehicleType: VehicleTypeEnum.CAR,
         capId: 'capId3',
         manufacturerName: 'manufacturerName',
         rangeName: 'rangeName',
@@ -55,8 +56,8 @@ const mockData = {
         personalRate: 55,
       },
       {
-        vehicleType: 'CAR',
-        capId: 'capId4',
+        vehicleType: VehicleTypeEnum.CAR,
+        capId: '44514',
         manufacturerName: 'manufacturerName',
         rangeName: 'rangeName',
         derivativeName: 'derivativeName',
@@ -68,6 +69,47 @@ const mockData = {
         keyInformation: [{ name: 'name' }],
         businessRate: 55,
         personalRate: 55,
+      },
+    ],
+    derivatives: [
+      {
+        id: '44514',
+        manufacturerName: 'Ford',
+        derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
+        rangeName: 'Focus',
+        bodyStyleName: 'Hatchback',
+        slug: '10-ecoBoost-125-st-line-nav-5dr',
+        capCode: 'capCode',
+        name: 'name',
+        modelName: 'modelName',
+        manufacturer: {
+          name: 'name',
+        },
+        model: {
+          name: 'name',
+        },
+        fuelType: {
+          name: 'name',
+        },
+        fuelTypeName: 'fuelTypeName',
+        transmission: {
+          name: 'name',
+        },
+        transmissionName: 'transmissionName',
+        bodyStyle: {
+          name: 'name',
+        },
+        range: {
+          name: 'name',
+        },
+        __typename: 'derivative',
+      },
+    ],
+    vehicleImages: [
+      {
+        vehicleType: VehicleTypeEnum.CAR,
+        capId: 1212,
+        mainImageUrl: 'mainImageUrl',
       },
     ],
   },
@@ -145,7 +187,7 @@ describe('<CustomerAlsoViewedContainer />', () => {
     const getComponent = () => {
       return renderer
         .create(
-          <CustomerAlsoViewedContainer capsId={['']} leaseType="PERSONAL" />,
+          <CustomerAlsoViewedContainer capsId={['123']} leaseType="PERSONAL" />,
         )
         .toJSON();
     };
