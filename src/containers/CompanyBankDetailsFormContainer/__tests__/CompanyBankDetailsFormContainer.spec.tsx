@@ -13,7 +13,7 @@ import { LimitedCompanyInputObject } from '../../../../generated/globalTypes';
 let prepopulatedMockCalled = false;
 
 const personUuid = 'ebdec701-6bc3-4f23-a636-cb4fbe419414';
-const mocks: MockedResponse[] = [ 
+const mocks: MockedResponse[] = [
   {
     request: {
       query: GET_COMPANY_BANK_DETAILS,

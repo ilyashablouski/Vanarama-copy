@@ -332,7 +332,7 @@ Array [
       Start Your Journey with Us Here
        
       <i
-        className="icon md hydrated"
+        className="icon md hydrated -small"
       >
         <svg
           height="1em"

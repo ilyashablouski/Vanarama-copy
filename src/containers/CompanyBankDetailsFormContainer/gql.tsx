@@ -42,7 +42,7 @@ export function useBankDetails(companyUuid: string) {
   return useQuery<Query, QueryVariables>(GET_COMPANY_BANK_DETAILS, {
     variables: { uuid: companyUuid },
   });
-} 
+}
 
 export function useUpdateBankDetails(
   companyUuid: string,
