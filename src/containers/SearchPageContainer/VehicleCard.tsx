@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { memo } from 'react';
 import Card from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
 import { ICardTitleProps } from '@vanarama/uibook/lib/components/molecules/cards/CardTitle';
@@ -8,31 +9,31 @@ import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
-
-type ICardData = ICard & {
-  bodyStyleName: string;
-  slug: string;
-};
+import { getProductPageUrl } from '../../utils/url';
+import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 
 export interface IProductPageUrl {
   url: string;
-  manufacturer: string;
-  range: string;
-  bodyStyle?: string;
-  derivative: string;
+  href: string;
   capId: string;
 }
 
 interface IVehicleCardProps {
   title: ICardTitleProps;
   isPersonalPrice: boolean;
-  data: ICardData;
+  data: ICard;
   viewOffer: (productPageUrl: IProductPageUrl) => void;
+  dataDerivatives: (GetDerivatives_derivatives | null)[];
 }
 
 const VehicleCard = memo(
-  ({ title, isPersonalPrice, data, viewOffer }: IVehicleCardProps) => {
+  ({
+    title,
+    isPersonalPrice,
+    data,
+    dataDerivatives,
+    viewOffer,
+  }: IVehicleCardProps) => {
     const features = (keyInformation: any[]): TIcon[] => {
       return keyInformation.map(information => ({
         icon: <Icon name={information.name.replace(' ', '')} color="dark" />,
@@ -40,45 +41,10 @@ const VehicleCard = memo(
       }));
     };
 
-    const productPageUrl = () => {
-      const leasing =
-        data.vehicleType === VehicleTypeEnum.CAR
-          ? 'car-leasing'
-          : 'van-leasing';
-      const manufacturer =
-        data.manufacturerName
-          ?.toLocaleLowerCase()
-          .split(' ')
-          .join('-') || '';
-      const range =
-        data.rangeName
-          ?.toLocaleLowerCase()
-          .split(' ')
-          .join('-') || '';
-      const bodyStyle =
-        data.bodyStyleName
-          ?.toLocaleLowerCase()
-          .split(' ')
-          .join('-') || '';
-      const derivative = data.slug || '';
-
-      return data.vehicleType === VehicleTypeEnum.CAR
-        ? {
-            url: `${leasing}/${manufacturer}/${range}/${bodyStyle}/${derivative}`,
-            manufacturer,
-            range,
-            bodyStyle,
-            derivative,
-            capId: data.capId as string,
-          }
-        : {
-            url: `${leasing}/${manufacturer}/${range}/${derivative}`,
-            manufacturer,
-            range,
-            derivative,
-            capId: data.capId as string,
-          };
-    };
+    const productPageUrl = getProductPageUrl(
+      data,
+      dataDerivatives as GetDerivatives_derivatives[],
+    );
 
     return (
       <Card
@@ -103,8 +69,12 @@ const VehicleCard = memo(
           link: (
             <RouterLink
               link={{
-                href: productPageUrl().url,
+                href: productPageUrl.href,
                 label: `${data?.manufacturerName} ${data?.rangeName}`,
+              }}
+              as={productPageUrl.url}
+              onClick={() => {
+                sessionStorage.setItem('capId', data.capId || '');
               }}
               className="heading"
               classNames={{ size: 'large', color: 'black' }}
@@ -123,7 +93,7 @@ const VehicleCard = memo(
             color="teal"
             fill="solid"
             label="View Offer"
-            onClick={() => viewOffer(productPageUrl())}
+            onClick={() => viewOffer(productPageUrl)}
             size="regular"
           />
         </div>

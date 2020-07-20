@@ -1,6 +1,5 @@
 import { NextPage } from 'next';
 import React, { useEffect } from 'react';
-import { ParsedUrlQuery } from 'querystring';
 import { useRouter } from 'next/router';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useCarData } from '../../../gql/carpage';
@@ -8,17 +7,15 @@ import withApollo from '../../../hocs/withApollo';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import DetailsPage from '../../../containers/DetailsPage/DetailsPage';
 
-interface IProps {
-  query: ParsedUrlQuery;
-}
+interface IProps {}
 
-const CarDetailsPage: NextPage<IProps> = () => {
+const VanDetailsPage: NextPage<IProps> = () => {
   const router = useRouter();
   const capId = parseInt(sessionStorage.getItem('capId') ?? '', 10);
 
   const [getCarData, { data, loading, error }] = useCarData(
     capId,
-    VehicleTypeEnum.CAR,
+    VehicleTypeEnum.LCV,
   );
 
   useEffect(() => {
@@ -37,11 +34,10 @@ const CarDetailsPage: NextPage<IProps> = () => {
       </div>
     );
   }
-
   return (
     <DetailsPage
       capId={capId}
-      cars
+      vans
       data={data}
       loading={loading}
       error={error}
@@ -50,4 +46,4 @@ const CarDetailsPage: NextPage<IProps> = () => {
   );
 };
 
-export default withApollo(CarDetailsPage);
+export default withApollo(VanDetailsPage);

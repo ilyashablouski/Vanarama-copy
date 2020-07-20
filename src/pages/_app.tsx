@@ -28,7 +28,10 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
       return `-${slug}` === pathSlug;
     };
 
-    if (isTrailingSlug('details')) {
+    if (
+      isTrailingSlug('details') ||
+      router.pathname.includes('[...manufacturer]')
+    ) {
       return 'page:pdp';
     }
     if (isTrailingSlug('testimonials')) {

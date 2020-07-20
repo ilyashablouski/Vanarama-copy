@@ -28,6 +28,7 @@ const PRODUCT_CARD_CONTENT = gql`
         name
         value
       }
+      vehicleType
     }
   }
 `;

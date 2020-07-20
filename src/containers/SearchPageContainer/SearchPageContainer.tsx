@@ -21,9 +21,7 @@ import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/v
 import { VehicleTypeEnum, SortField } from '../../../generated/globalTypes';
 import buildRewriteRoute from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
-import { useCarDerivativesData } from '../OrdersInformation/gql';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
-import { getUrlParam } from 'utils/url';
 
 interface IProps {
   isServer: boolean;
@@ -72,10 +70,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     capIds,
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
   );
-  const carDerivatives = useCarDerivativesData(
-    capIds,
-    isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-  );
 
   // get Caps ids for prodect card request
   const getCapsIds = (data: (IVehicles | null)[]) =>
@@ -88,19 +82,14 @@ const SearchPageContainer: React.FC<IProps> = ({
     async vehicles => {
       try {
         const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
-        await carDerivatives
-          .refetch({
-            ids: responseCapIds,
-            vehicleType: isCarSearch
-              ? VehicleTypeEnum.CAR
-              : VehicleTypeEnum.LCV,
-          })
-          .then(resp => setCarDerivatives(resp.data?.derivatives || []));
         setCapsIds(responseCapIds);
         return await refetch({
           capIds: responseCapIds,
           vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-        }).then(resp => setCardsData(resp.data?.productCard || []));
+        }).then(resp => {
+          setCardsData(resp.data?.productCard || []);
+          setCarDerivatives(resp.data?.derivatives || []);
+        });
       } catch {
         return false;
       }
@@ -113,19 +102,14 @@ const SearchPageContainer: React.FC<IProps> = ({
     async vehicles => {
       try {
         const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
-        await carDerivatives
-          .refetch({
-            ids: responseCapIds,
-            vehicleType: isCarSearch
-              ? VehicleTypeEnum.CAR
-              : VehicleTypeEnum.LCV,
-          })
-          .then(resp => setCarDerivativesCache(resp.data?.derivatives || []));
         setCapsIds(responseCapIds);
         return await refetch({
           capIds: responseCapIds,
           vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-        }).then(resp => setCardsDataCache(resp.data?.productCard || []));
+        }).then(resp => {
+          setCardsDataCache(resp.data?.productCard || []);
+          setCarDerivativesCache(resp.data?.derivatives || []);
+        });
       } catch {
         return false;
       }
@@ -173,16 +157,13 @@ const SearchPageContainer: React.FC<IProps> = ({
   // prevent case when we navigate use back/forward button and useCallback return empty result list
   useEffect(() => {
     if (data && !cardsData.length && loading) {
-      carDerivatives
-        .refetch({
-          ids: getCapsIds(data.vehicleList.edges || []),
-          vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-        })
-        .then(resp => setCarDerivatives(resp.data?.derivatives || []));
       refetch({
         capIds: getCapsIds(data.vehicleList.edges || []),
         vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-      }).then(resp => setCardsData(resp.data?.productCard || []));
+      }).then(resp => {
+        setCardsData(resp.data?.productCard || []);
+        setCarDerivatives(resp.data?.derivatives || []);
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
@@ -254,37 +235,12 @@ const SearchPageContainer: React.FC<IProps> = ({
     sessionStorage.setItem(isCarSearch ? 'Car' : 'Vans', JSON.stringify(value));
   };
 
-  const getCardData = (capId: string) => {
-    return {
-      ...cardsData?.filter(card => card?.capId === capId)[0],
-      ...carDer?.filter(derivatives => derivatives?.id === capId)[0],
-    };
-  };
+  const getCardData = (capId: string) =>
+    cardsData?.filter(card => card?.capId === capId)[0];
 
   const viewOffer = (productPageUrl: IProductPageUrl) => {
     sessionStorage.setItem('capId', productPageUrl.capId);
-
-    const params = isCarSearch
-      ? getUrlParam({
-          range: productPageUrl.range,
-          bodyStyle: productPageUrl.bodyStyle,
-          derivative: productPageUrl.derivative,
-        })
-      : getUrlParam({
-          range: productPageUrl.range,
-          derivative: productPageUrl.derivative,
-        });
-    const href = `${
-      isCarSearch ? '/car-leasing/' : '/vans-leasing/'
-    }[manufacturer]${params}`;
-    // const url = isCarSearch
-    //   ? `${productPageUrl.manufacturer}/${productPageUrl.range}/${productPageUrl.bodyStyle}/${productPageUrl.derivative}`
-    //   : `${productPageUrl.manufacturer}/${productPageUrl.range}/${productPageUrl.derivative}`;
-
-    router.push(
-      href,
-      href.replace('[manufacturer]', productPageUrl.manufacturer),
-    );
+    router.push(productPageUrl.href, productPageUrl.url, { shallow: true });
   };
 
   return (
@@ -330,6 +286,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                     viewOffer={viewOffer}
                     key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
                     data={getCardData(vehicle.node?.derivativeId || '') as any}
+                    dataDerivatives={carDer}
                     title={{
                       title: '',
 
