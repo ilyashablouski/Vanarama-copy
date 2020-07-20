@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { memo } from 'react';
 import Card from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
 import { ICardTitleProps } from '@vanarama/uibook/lib/components/molecules/cards/CardTitle';
@@ -8,22 +9,42 @@ import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import { getProductPageUrl } from '../../utils/url';
+import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
+
+export interface IProductPageUrl {
+  url: string;
+  href: string;
+  capId: string;
+}
 
 interface IVehicleCardProps {
   title: ICardTitleProps;
   isPersonalPrice: boolean;
   data: ICard;
-  viewOffer: (capId: string) => void;
+  viewOffer: (productPageUrl: IProductPageUrl) => void;
+  dataDerivatives: (GetDerivatives_derivatives | null)[];
 }
 
 const VehicleCard = memo(
-  ({ title, isPersonalPrice, data, viewOffer }: IVehicleCardProps) => {
+  ({
+    title,
+    isPersonalPrice,
+    data,
+    dataDerivatives,
+    viewOffer,
+  }: IVehicleCardProps) => {
     const features = (keyInformation: any[]): TIcon[] => {
       return keyInformation.map(information => ({
         icon: <Icon name={information.name.replace(' ', '')} color="dark" />,
         label: information.value,
       }));
     };
+
+    const productPageUrl = getProductPageUrl(
+      data,
+      dataDerivatives as GetDerivatives_derivatives[],
+    );
 
     return (
       <Card
@@ -48,10 +69,12 @@ const VehicleCard = memo(
           link: (
             <RouterLink
               link={{
-                href: `${
-                  data?.vehicleType === 'CAR' ? '/cars/car-' : '/vans/van-'
-                }details/${data?.capId}`,
+                href: productPageUrl.href,
                 label: `${data?.manufacturerName} ${data?.rangeName}`,
+              }}
+              as={productPageUrl.url}
+              onClick={() => {
+                sessionStorage.setItem('capId', data.capId || '');
               }}
               className="heading"
               classNames={{ size: 'large', color: 'black' }}
@@ -70,7 +93,7 @@ const VehicleCard = memo(
             color="teal"
             fill="solid"
             label="View Offer"
-            onClick={() => viewOffer(data.capId || '')}
+            onClick={() => viewOffer(productPageUrl)}
             size="regular"
           />
         </div>

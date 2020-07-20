@@ -30,8 +30,52 @@ export interface GetProductCard_productCard {
   personalRate: number | null;
 }
 
+export interface GetProductCard_derivatives_manufacturer {
+  name: string;
+}
+
+export interface GetProductCard_derivatives_model {
+  name: string;
+}
+
+export interface GetProductCard_derivatives_fuelType {
+  name: string;
+}
+
+export interface GetProductCard_derivatives_transmission {
+  name: string;
+}
+
+export interface GetProductCard_derivatives_bodyStyle {
+  name: string | null;
+}
+
+export interface GetProductCard_derivatives_range {
+  name: string;
+}
+
+export interface GetProductCard_derivatives {
+  id: string;
+  capCode: string;
+  name: string;
+  slug: string;
+  manufacturer: GetProductCard_derivatives_manufacturer;
+  manufacturerName: string;
+  model: GetProductCard_derivatives_model;
+  modelName: string;
+  fuelType: GetProductCard_derivatives_fuelType;
+  fuelTypeName: string;
+  transmission: GetProductCard_derivatives_transmission;
+  transmissionName: string;
+  bodyStyle: GetProductCard_derivatives_bodyStyle | null;
+  bodyStyleName: string | null;
+  range: GetProductCard_derivatives_range;
+  rangeName: string;
+}
+
 export interface GetProductCard {
   productCard: (GetProductCard_productCard | null)[] | null;
+  derivatives: GetProductCard_derivatives[] | null;
 }
 
 export interface GetProductCardVariables {

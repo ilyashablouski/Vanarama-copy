@@ -12,6 +12,7 @@ import SearchPageContainer from '../SearchPageContainer';
 import { getVehiclesList } from '../gql';
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
+import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 
 const mockData = {
   loading: false,
@@ -21,7 +22,7 @@ const mockData = {
   data: {
     productCard: [
       {
-        vehicleType: 'CAR',
+        vehicleType: VehicleTypeEnum.CAR,
         capId: '83615',
         manufacturerName: 'manufacturerName',
         rangeName: 'rangeName',
@@ -34,6 +35,40 @@ const mockData = {
         keyInformation: [],
         businessRate: 55,
         personalRate: 55,
+      },
+    ],
+    derivatives: [
+      {
+        id: '83615',
+        manufacturerName: 'Ford',
+        derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
+        rangeName: 'Focus',
+        bodyStyleName: 'Hatchback',
+        slug: '10-ecoBoost-125-st-line-nav-5dr',
+        capCode: 'capCode',
+        name: 'name',
+        modelName: 'modelName',
+        manufacturer: {
+          name: 'name',
+        },
+        model: {
+          name: 'name',
+        },
+        fuelType: {
+          name: 'name',
+        },
+        fuelTypeName: 'fuelTypeName',
+        transmission: {
+          name: 'name',
+        },
+        transmissionName: 'transmissionName',
+        bodyStyle: {
+          name: 'name',
+        },
+        range: {
+          name: 'name',
+        },
+        __typename: 'derivative',
       },
     ],
   },
@@ -75,7 +110,7 @@ let vehicleMockCalled = false;
           {
             cursor: 'MQ',
             node: {
-              vehicleType: 'CAR',
+              vehicleType: VehicleTypeEnum.CAR,
               offerRanking: 1,
               onOffer: true,
               derivativeId: '83615',
@@ -119,7 +154,7 @@ const mocksResponse: MockedResponse[] = [
     request: {
       query: GET_SEARCH_POD_DATA,
       variables: {
-        vehicleTypes: ['CAR'],
+        vehicleTypes: [VehicleTypeEnum.CAR],
       },
     },
     result: () => {
@@ -127,7 +162,7 @@ const mocksResponse: MockedResponse[] = [
       return {
         data: {
           filterList: {
-            vehicleTypes: ['CAR'],
+            vehicleTypes: [VehicleTypeEnum.CAR],
             groupedRanges: [
               {
                 parent: 'Citroën',
@@ -151,14 +186,14 @@ const mocksResponse: MockedResponse[] = [
       query: GET_PRODUCT_CARDS_DATA,
       variables: {
         capIds: ['83615'],
-        vehicleType: 'CAR',
+        vehicleType: VehicleTypeEnum.CAR,
       },
     },
     result: () => {
       return {
         data: {
           productCard: {
-            vehicleType: 'CAR',
+            vehicleType: VehicleTypeEnum.CAR,
             capId: '83615',
             manufacturerName: 'manufacturerName',
             rangeName: 'rangeName',
@@ -172,6 +207,7 @@ const mocksResponse: MockedResponse[] = [
             businessRate: 55,
             personalRate: 55,
           },
+          derivatives: mockData.data.derivatives,
         },
         refetch: jest.fn(),
       };
@@ -182,13 +218,14 @@ const mocksResponse: MockedResponse[] = [
       query: GET_PRODUCT_CARDS_DATA,
       variables: {
         capIds: [],
-        vehicleType: 'CAR',
+        vehicleType: VehicleTypeEnum.CAR,
       },
     },
     result: () => {
       return {
         data: {
           productCard: {},
+          derivatives: [],
         },
         refetch: jest.fn(),
       };
@@ -199,13 +236,14 @@ const mocksResponse: MockedResponse[] = [
       query: GET_PRODUCT_CARDS_DATA,
       variables: {
         capIds: [83615],
-        vehicleType: 'CAR',
+        vehicleType: VehicleTypeEnum.CAR,
       },
     },
     result: () => {
       return {
         data: {
           productCard: mockData.data.productCard,
+          derivatives: mockData.data.derivatives,
         },
         refetch: jest.fn(),
       };

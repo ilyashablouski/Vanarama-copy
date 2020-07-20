@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, {
   useState,
   useEffect,
@@ -14,12 +15,13 @@ import { useRouter } from 'next/router';
 import { useProductCardData } from '../CustomerAlsoViewedContainer/gql';
 import { IFilters } from '../FiltersContainer/interfaces';
 import FiltersContainer from '../FiltersContainer';
-import VehicleCard from './VehicleCard';
+import VehicleCard, { IProductPageUrl } from './VehicleCard';
 import { getVehiclesList } from './gql';
 import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
 import { VehicleTypeEnum, SortField } from '../../../generated/globalTypes';
 import buildRewriteRoute from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
+import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 
 interface IProps {
   isServer: boolean;
@@ -49,6 +51,12 @@ const SearchPageContainer: React.FC<IProps> = ({
     [] as (IProductCard | null)[],
   );
   const [cardsData, setCardsData] = useState([] as (IProductCard | null)[]);
+  const [carDerivativesCache, setCarDerivativesCache] = useState(
+    [] as (GetDerivatives_derivatives | null)[],
+  );
+  const [carDer, setCarDerivatives] = useState(
+    [] as (GetDerivatives_derivatives | null)[],
+  );
   const [lastCard, setLastCard] = useState('');
   const [isPersonal, setIsPersonal] = useState(true);
   const [isSpecialOffers, setIsSpecialOffers] = useState(
@@ -78,7 +86,10 @@ const SearchPageContainer: React.FC<IProps> = ({
         return await refetch({
           capIds: responseCapIds,
           vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-        }).then(resp => setCardsData(resp.data?.productCard || []));
+        }).then(resp => {
+          setCardsData(resp.data?.productCard || []);
+          setCarDerivatives(resp.data?.derivatives || []);
+        });
       } catch {
         return false;
       }
@@ -95,7 +106,10 @@ const SearchPageContainer: React.FC<IProps> = ({
         return await refetch({
           capIds: responseCapIds,
           vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-        }).then(resp => setCardsDataCache(resp.data?.productCard || []));
+        }).then(resp => {
+          setCardsDataCache(resp.data?.productCard || []);
+          setCarDerivativesCache(resp.data?.derivatives || []);
+        });
       } catch {
         return false;
       }
@@ -146,7 +160,10 @@ const SearchPageContainer: React.FC<IProps> = ({
       refetch({
         capIds: getCapsIds(data.vehicleList.edges || []),
         vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-      }).then(resp => setCardsData(resp.data?.productCard || []));
+      }).then(resp => {
+        setCardsData(resp.data?.productCard || []);
+        setCarDerivatives(resp.data?.derivatives || []);
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
@@ -207,6 +224,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   const onLoadMore = () => {
     setVehicleList([...vehiclesList, ...(cacheData?.vehicleList.edges || [])]);
     setCardsData(prevState => [...prevState, ...cardsDataCache]);
+    setCarDerivatives(prevState => [...prevState, ...carDerivativesCache]);
     if (vehiclesList.length < totalCount)
       setLastCard(cacheData?.vehicleList.pageInfo.endCursor || '');
   };
@@ -217,15 +235,12 @@ const SearchPageContainer: React.FC<IProps> = ({
     sessionStorage.setItem(isCarSearch ? 'Car' : 'Vans', JSON.stringify(value));
   };
 
-  const getCardData = (capId: string) => {
-    return cardsData?.filter(card => card?.capId === capId)[0];
-  };
+  const getCardData = (capId: string) =>
+    cardsData?.filter(card => card?.capId === capId)[0];
 
-  const viewOffer = (capId: string) => {
-    const href = `${
-      isCarSearch ? '/cars/car-details/' : '/vans/van-details/'
-    }[capId]`;
-    router.push(href, href.replace('[capId]', capId));
+  const viewOffer = (productPageUrl: IProductPageUrl) => {
+    sessionStorage.setItem('capId', productPageUrl.capId);
+    router.push(productPageUrl.href, productPageUrl.url, { shallow: true });
   };
 
   return (
@@ -265,16 +280,13 @@ const SearchPageContainer: React.FC<IProps> = ({
           </Text>
           <div className="row:cards-3col">
             {useCallback(
-              cardsData.length ? (
+              cardsData.length && carDer.length ? (
                 vehiclesList?.map((vehicle: IVehicles) => (
                   <VehicleCard
                     viewOffer={viewOffer}
                     key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
-                    data={
-                      getCardData(
-                        vehicle.node?.derivativeId || '',
-                      ) as IProductCard
-                    }
+                    data={getCardData(vehicle.node?.derivativeId || '') as any}
+                    dataDerivatives={carDer}
                     title={{
                       title: '',
 
@@ -286,7 +298,7 @@ const SearchPageContainer: React.FC<IProps> = ({
               ) : (
                 <></>
               ),
-              [cardsData, isPersonal],
+              [cardsData, carDer, isPersonal],
             )}
           </div>
           <div className="pagination">
