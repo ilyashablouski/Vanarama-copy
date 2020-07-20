@@ -1,0 +1,402 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AboutUs /> renders correctly with data 1`] = `
+Array [
+  <div
+    className="row:title"
+  >
+    <nav>
+      <nav
+        data-testid="about-us-nav"
+      >
+        <ol
+          className="breadcrumb"
+        >
+          <li
+            className="breadcrumb-item -parent"
+          >
+            <a
+              className="link breadcrumb-item--backlink -teal -small -plain"
+              href="https://www.vanarama.com/"
+            >
+              Back to 
+              Home
+              <i
+                className="icon -medium -xsmall"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-a
+                  </title>
+                  <polyline
+                    points="328 112 184 256 328 400"
+                    style={
+                      Object {
+                        "fill": "none",
+                        "stroke": "var(--class-color)",
+                        "strokeLinecap": "round",
+                        "strokeLinejoin": "round",
+                        "strokeWidth": 48,
+                      }
+                    }
+                  />
+                </svg>
+              </i>
+            </a>
+            <a
+              className="link breadcrumb-item--parent -teal -small -plain"
+              href="https://www.vanarama.com/"
+            >
+              Home
+            </a>
+            <i
+              className="icon -medium -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="184 112 328 256 184 400"
+                  style={
+                    Object {
+                      "fill": "none",
+                      "stroke": "var(--class-color)",
+                      "strokeLinecap": "round",
+                      "strokeLinejoin": "round",
+                      "strokeWidth": 48,
+                    }
+                  }
+                />
+              </svg>
+            </i>
+          </li>
+          <li
+            className="breadcrumb-item -child"
+          >
+            <span
+              className="text breadcrumb-item--child -small -darker"
+            >
+              About Us
+            </span>
+          </li>
+        </ol>
+      </nav>
+    </nav>
+    <p
+      className="heading -black -xlarge"
+    >
+      About Us
+    </p>
+  </div>,
+  <div
+    className="row:bg-black -compact"
+  >
+    <div
+      className="row:featured-image"
+    >
+      <div
+        className="image -expand"
+      >
+        <img
+          className="image--native"
+          src="https://source.unsplash.com/collection/2102317/1800x800?sig=40341"
+        />
+      </div>
+      <span
+        className="text -caption -regular -inherit"
+      >
+        Photo credit — TODO: get name and image from contentful
+      </span>
+    </div>
+  </div>,
+  <div
+    className="row:article"
+  >
+    <article
+      className="markdown"
+    >
+      <p>
+        Vanarama is an award-winning personal and commercial vehicle leasing company. Whether you're looking for your dream 
+        <a
+          href="https://beta.vanarama.com/car-leasing.html"
+        >
+          car
+        </a>
+        , a 
+        <a
+          href="/van-leasing.html"
+        >
+          new van
+        </a>
+         for your business or a 
+        <a
+          href="https://beta.vanarama.com/pickup-truck-leasing.html"
+        >
+          pick-up truck
+        </a>
+        ... we've got you covered.
+      </p>
+      <p>
+        Big things have small beginnings, and some days it's hard to believe that Vanarama started its journey in 2004 with a team of just 3 people in a porta cabin. Today, we employ around 230 people and Vanarama is the ultimate destination for your next vehicle.
+      </p>
+      <h2>
+        What We Do
+      </h2>
+      <p>
+        We all want the latest technology with the option to regularly upgrade - just like a mobile phone. At Vanarama we understand that your vehicle is a statement about you and we want to make it as easy to upgrade as you would your phone! Our aim is to get you moving in the most cost-effective, simple way possible, so we'll be there every step of the way - from choosing your new vehicle to delivery straight to your door.
+      </p>
+      <p>
+        With the largest panel of funders, Vanarama has the largest buying power around and this enables us to offer you the best leasing deals for whatever your needs. And as well as a huge range of vehicles, we also provide a range of van leasing finance, 
+        <a
+          href="https://beta.vanarama.com/van-insurance.html"
+        >
+          van insurance
+        </a>
+         and maintenance packages.
+      </p>
+      <h2>
+        Customer Support
+      </h2>
+      <p>
+        Our dedicated customer support team is always on-hand to help, keeping you up to date all the way from order through to delivery. We're here to answer any queries you have as quickly as possible and even if you found us online, you can always come and visit us at our head office!
+      </p>
+      <p>
+        To further enhance your customer service experience, Vanarama is a member of the Institute of Customer Service (ICS). We like to think that this investment and commitment in our staff is one of the reasons that 95% of our customers would not only recommend us, but also use us again.
+      </p>
+      <h2>
+        Our Opening Hours
+      </h2>
+      <ul>
+        <li>
+          <p>
+            <strong>
+              Monday-Friday
+            </strong>
+             9am-9pm
+          </p>
+        </li>
+        <li>
+          <p>
+            <strong>
+              Saturday & Sunday
+            </strong>
+             11am-9pm
+          </p>
+        </li>
+      </ul>
+      <h2>
+        Our Awards
+      </h2>
+      <p>
+        Vanarama has been confirmed as a Sunday Times 100 Best Small Company To Work For in the UK in 2016, 
+        <a
+          href="https://beta.vanarama.com/latest-news/the-sunday-times-100-best-small-companies-to-work-for.html"
+        >
+          2017
+        </a>
+         and 2018, with Andy Alderson (CEO) being named 
+        <a
+          href="https://beta.vanarama.com/latest-news/the-sunday-times-100-best-small-companies-to-work-for.html"
+        >
+          Best Leader at the 2017 awards ceremony
+        </a>
+        .We're delighted to have been recognised by The Sunday Times as one of the 
+        <a
+          href="https://beta.vanarama.com/latest-news/the-sunday-times-100-best-small-companies-to-work-for.html"
+        >
+          Best Small Companies To Work For in the UK
+        </a>
+        .
+      </p>
+      <p>
+        <strong>
+          <img
+            alt="Sunday Time Best Small Companies to work for award 2018"
+            src="/assets/careers/sunday-times-best-small-companies-to-work-for-award-2018.jpg"
+          />
+        </strong>
+        The company provides industry-leading customer service and has found investing in that service, and the staff that provide it, to be a successful formula for success. From sector awards to national awards you will be dealing with a business that has had scrutiny at the highest level in industry. In 2015, Vanarama won the highly prestigious Lloyds National Business Award for Best Small to Medium Sized Business 2015, an accolade that recognised our commitment to training, customer service and innovation. Read our 
+        <a
+          href="https://beta.vanarama.com/about-us/customer-testimonials.html"
+        >
+          latest customer reviews
+        </a>
+        .
+      </p>
+      <p>
+        We also sponsor The Vanarama National League and through a charity partnership with Prostate Cancer UK, we won the BT Sport Industry Sponsorship Campaign Of The Year 2019, Business Charity Awards - Campaign Of The Year 2019 and Football Business Awards - Silver For Sponsorship Of The Year and Gold for Brand Activation for the Manarama campaign which saw us rename the League to support the charity and raise £150k.
+      </p>
+      <h2>
+        One Of The Best Companies To Work For
+      </h2>
+      <p>
+        Interested in working at Vanarama? Check out our 
+        <a
+          href="https://beta.vanarama.com/careers.html"
+        >
+          Careers page
+        </a>
+        .
+      </p>
+      <p>
+        <em>
+          Vanarama is regulated by the British Vehicle Rental Leasing Association (BVRLA) and the Financial Conduct Authority (FCA), as well as being a member of the Institute of Customer Service with a distinction grading.
+        </em>
+      </p>
+    </article>
+    <div>
+      <div
+        className="-pb-400"
+      >
+        <div />
+      </div>
+    </div>
+  </div>,
+  <div
+    className="row:cards-2col"
+  >
+    <div
+      className="card"
+      data-testid="card"
+    >
+      <div
+        className="title"
+      >
+        <span
+          className="heading -black -lead"
+          data-testid="card-heading"
+        >
+          Meet The Directors
+        </span>
+      </div>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+      </p>
+      <p>
+        <a
+          className="link -primary -regular -plain"
+          href="https://beta.vanarama.com/about-us/meet-the-directors.html"
+        >
+          Learn More
+        </a>
+      </p>
+    </div>
+    <div
+      className="card"
+      data-testid="card"
+    >
+      <div
+        className="title"
+      >
+        <span
+          className="heading -black -lead"
+          data-testid="card-heading"
+        >
+          Meet The Team
+        </span>
+      </div>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+      </p>
+      <p>
+        <a
+          className="link -primary -regular -plain"
+          href="https://www.vanarama.com/about-us/meet-your-support-team.html"
+        >
+          Learn More
+        </a>
+      </p>
+    </div>
+  </div>,
+  <div
+    className="row:centered"
+  >
+    <p
+      className="heading -black -lead"
+    >
+      Want To Be Part Of The Vanarama Team?
+    </p>
+    <a
+      className="link -teal -regular -plain"
+      href="#"
+    >
+      Start Your Journey with Us Here
+       
+      <i
+        className="icon md hydrated"
+      >
+        <svg
+          height="1em"
+          viewBox="0 0 512 512"
+          width="1em"
+        >
+          <title>
+            ionicons-v5-a
+          </title>
+          <polyline
+            points="268 112 412 256 268 400"
+            style={
+              Object {
+                "fill": "none",
+                "stroke": "var(--class-color)",
+                "strokeLinecap": "square",
+                "strokeMiterlimit": 10,
+                "strokeWidth": 48,
+              }
+            }
+          />
+          <line
+            style={
+              Object {
+                "fill": "none",
+                "stroke": "var(--class-color)",
+                "strokeLinecap": "square",
+                "strokeMiterlimit": 10,
+                "strokeWidth": 48,
+              }
+            }
+            x1={392}
+            x2={100}
+            y1={256}
+            y2={256}
+          />
+        </svg>
+      </i>
+    </a>
+  </div>,
+]
+`;
+
+exports[`<AboutUs /> renders correctly with error 1`] = `
+<p>
+  Error: 
+  Error
+</p>
+`;
+
+exports[`<AboutUs /> renders correctly with loading 1`] = `
+<div
+  className="loading -large"
+>
+  <svg
+    className="loading--svg"
+    viewBox="-75 -75 150 150"
+  >
+    <circle
+      className="loading--stroke"
+      cx="0"
+      cy="0"
+      r="37.5"
+    />
+  </svg>
+</div>
+`;

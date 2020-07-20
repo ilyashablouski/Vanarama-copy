@@ -20,14 +20,24 @@ import Link from "@vanarama/uibook/lib/components/atoms/link";
 
 
 const AboutUs: React.FC = () => {
-    const renderCarouselCards = () => sections.carousel?.cards?.map((card: ICard | null) => (
-        //TODO: uncomment when actual data arrives
-        card/* ?.title && card.body */ ? <div className="card">
-            <div className="title">
-                <Heading size="lead" color="black"><Icon icon={<TrophySharp />} color="black" /> {card.title || 'TODO: Award title'}</Heading>
-            </div>
-            <Text size="regular" color="dark">{card.body || 'TODO: add text instead Award description Award description Award description Award description Award description Award description Award description'}</Text>
-        </div> : null));
+    const renderCarouselCards = () => sections.carousel?.cards?.map((card: ICard | null, i) => (
+        //TODO: uncomment and remove placeholders when actual data arrives
+        card/* ?.title && card.body */ ? (
+            <Card
+                // style={{ width: "362px" }}
+                key={i}
+                title={{
+                    title: card.title || 'Award title',
+                    link: (
+                        <Heading size="lead" color="black">
+                            <Icon
+                                icon={<TrophySharp />}
+                                color="black" /> {card.title || 'TODO: Award title'}
+                        </Heading>)
+                }}
+                description={card.body || 'TODO: add text instead of Award description Award description Award description Award description Award description Award description Award description'}
+            />
+        ) : null));
 
     const renderMeetCard = (card: ICard | null) => card?.title
         && card.body
@@ -48,7 +58,7 @@ const AboutUs: React.FC = () => {
     }
 
     if (!data) {
-        return null;
+        return <></>;
     }
 
     const { metaData, sections } = data.aboutUsLandingPage;
@@ -61,10 +71,11 @@ const AboutUs: React.FC = () => {
     const directorsCard = sections.cards?.cards?.find(card => card.name === ABOUT_US_MEET_SECTION_NAMES.directors) || null;
     const teamCard = sections.cards?.cards?.find(card => card.name === ABOUT_US_MEET_SECTION_NAMES.team) || null;
 
-    return <React.Fragment>
+    return (<React.Fragment>
         <div className="row:title">
             <nav>
                 <Breadcrumb
+                    dataTestId="about-us-nav"
                     items={navigation.concat(ABOUT_US_NAV_ITEM)} />
             </nav>
             <Heading size="xlarge" color="black">
@@ -86,7 +97,7 @@ const AboutUs: React.FC = () => {
             <article className="markdown"><ReactMarkdown source={metaData.body || ''} /></article>
             <div>
                 <div className="-pb-400">
-                    <Carousel className="carousel -col1" countItems={1}>{renderCarouselCards()}</Carousel>
+                    <Carousel countItems={1} >{renderCarouselCards()}</Carousel>
                 </div>
             </div>
         </div>
@@ -97,19 +108,20 @@ const AboutUs: React.FC = () => {
         <div className="row:centered">
             <Heading size="lead" color="black">{sections.rowText?.heading || ''}</Heading>
             <Link
-                size="regular"
-                color="primary"
-                plain
+                color="teal"
                 href="#">
                 <ReactMarkdown
                     source={sections.rowText?.body || ''}
                     renderers={{
-                        "paragraph": props => <Text {...props} color="inherit" />
-                    }} />
-                <ArrowForwardSharp />
+                        "paragraph": props => <React.Fragment {...props}></React.Fragment >
+                    }} /> <Icon
+                    icon={<ArrowForwardSharp/>}
+                    className="md hydrated"
+                    size="small"
+                />
             </Link>
         </div>
-    </React.Fragment>
+    </React.Fragment>)
 }
 
 export default AboutUs
