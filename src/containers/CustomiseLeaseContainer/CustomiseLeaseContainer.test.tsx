@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer';
 import CustomiseLeaseContainer from './CustomiseLeaseContainer';
 import { useQuoteData } from './gql';
 import { IProps } from './interfaces';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import { useOpportunityCreation } from '../GoldrushFormContainer/gql';
 
 jest.mock('./gql');
@@ -65,6 +65,12 @@ describe('<CustomiseLeaseContainer />', () => {
           mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
           terms: [24, 36, 48, 60],
           upfronts: [1, 3, 6, 9, 12],
+        }}
+        financeProfile={{
+          leaseType: LeaseTypeEnum.PERSONAL,
+          mileage: 1321,
+          upfront: 123123,
+          term: 1231,
         }}
         derivativeInfo={{
           colours: [{ id: '13990', optionDescription: 'Solid - Polar white' }],
@@ -161,6 +167,12 @@ describe('<CustomiseLeaseContainer />', () => {
         terms: [24, 36, 48, 60],
         upfronts: [1, 3, 6, 9, 12],
       },
+      financeProfile: {
+        leaseType: LeaseTypeEnum.PERSONAL,
+        mileage: 1321,
+        upfront: 123123,
+        term: 1231,
+      },
       derivativeInfo: {
         colours: [{ id: '13990', optionDescription: 'Solid - Polar white' }],
         technicals: [
@@ -212,6 +224,12 @@ describe('<CustomiseLeaseContainer />', () => {
         mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
         terms: [24, 36, 48, 60],
         upfronts: [1, 3, 6, 9, 12],
+      },
+      financeProfile: {
+        leaseType: LeaseTypeEnum.PERSONAL,
+        mileage: 1321,
+        upfront: 123123,
+        term: 1231,
       },
       derivativeInfo: {
         colours: [{ id: '13990', optionDescription: 'Solid - Polar white' }],
@@ -289,6 +307,12 @@ describe('<CustomiseLeaseContainer />', () => {
         capId={84429}
         vehicleType={VehicleTypeEnum.CAR}
         setLeadTime={jest.fn()}
+        financeProfile={{
+          leaseType: LeaseTypeEnum.PERSONAL,
+          mileage: 1321,
+          upfront: 123123,
+          term: 1231,
+        }}
         leaseAdjustParams={{
           mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
           terms: [24, 36, 48, 60],
