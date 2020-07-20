@@ -48,7 +48,6 @@ const CarDetailsPage: NextPage<IProps> = () => {
       data={data}
       loading={loading}
       error={error}
-      router={router}
     />
   );
 };

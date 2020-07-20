@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React from 'react';
-import { NextRouter } from 'next/router';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
@@ -10,7 +9,6 @@ import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 interface ICustomerAlsoViewedContainerProps {
   capsId: string[];
   leaseType: string;
-  router: NextRouter;
   vehicleType?: VehicleTypeEnum;
 }
 
@@ -18,7 +16,6 @@ const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> =
   capsId,
   leaseType,
   vehicleType,
-  router,
 }) => {
   const { data, loading, error } = useProductCardData(capsId, vehicleType);
 
@@ -59,7 +56,11 @@ const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> =
           Customers Also Viewed
         </Heading>
         <div style={{ width: '100%' }}>
-          <ProductCarousel leaseType={leaseType} router={router} data={data} />
+          <ProductCarousel
+            leaseType={leaseType}
+            data={data}
+            dataTestIdBtn="customer-also-view"
+          />
         </div>
       </div>
     </div>

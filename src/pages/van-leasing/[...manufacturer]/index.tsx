@@ -47,7 +47,6 @@ const VanDetailsPage: NextPage<IProps> = () => {
       data={data}
       loading={loading}
       error={error}
-      router={router}
     />
   );
 };

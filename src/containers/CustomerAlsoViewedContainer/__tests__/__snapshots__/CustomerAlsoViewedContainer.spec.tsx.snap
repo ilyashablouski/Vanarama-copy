@@ -181,6 +181,7 @@ exports[`<CustomerAlsoViewedContainer /> renders correctly with data 1`] = `
             </div>
             <button
               className="button -teal -regular -solid"
+              data-testid="customer-also-view"
               onClick={[Function]}
             >
               <div
@@ -477,6 +478,7 @@ exports[`<CustomerAlsoViewedContainer /> renders correctly with data 1`] = `
             </div>
             <button
               className="button -teal -regular -solid"
+              data-testid="customer-also-view"
               onClick={[Function]}
             >
               <div
@@ -773,6 +775,7 @@ exports[`<CustomerAlsoViewedContainer /> renders correctly with data 1`] = `
             </div>
             <button
               className="button -teal -regular -solid"
+              data-testid="customer-also-view"
               onClick={[Function]}
             >
               <div
@@ -1069,6 +1072,7 @@ exports[`<CustomerAlsoViewedContainer /> renders correctly with data 1`] = `
             </div>
             <button
               className="button -teal -regular -solid"
+              data-testid="customer-also-view"
               onClick={[Function]}
             >
               <div

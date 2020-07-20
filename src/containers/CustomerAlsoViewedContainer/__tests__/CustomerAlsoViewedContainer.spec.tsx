@@ -4,7 +4,6 @@ import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer';
 import { useProductCardData } from '../gql';
 
 jest.mock('../gql');
-const router = { pathname: 'pathname', push: jest.fn() };
 
 const mockData = {
   loading: false,
@@ -93,11 +92,7 @@ describe('<CustomerAlsoViewedContainer />', () => {
     const getComponent = () => {
       return renderer
         .create(
-          <CustomerAlsoViewedContainer
-            capsId={['']}
-            leaseType="PERSONAL"
-            router={router as any}
-          />,
+          <CustomerAlsoViewedContainer capsId={['']} leaseType="PERSONAL" />,
         )
         .toJSON();
     };
@@ -116,11 +111,7 @@ describe('<CustomerAlsoViewedContainer />', () => {
     const getComponent = () => {
       return renderer
         .create(
-          <CustomerAlsoViewedContainer
-            capsId={['']}
-            leaseType="PERSONAL"
-            router={router as any}
-          />,
+          <CustomerAlsoViewedContainer capsId={['']} leaseType="PERSONAL" />,
         )
         .toJSON();
     };
@@ -139,11 +130,7 @@ describe('<CustomerAlsoViewedContainer />', () => {
     const getComponent = () => {
       return renderer
         .create(
-          <CustomerAlsoViewedContainer
-            capsId={['']}
-            leaseType="PERSONAL"
-            router={router as any}
-          />,
+          <CustomerAlsoViewedContainer capsId={['']} leaseType="PERSONAL" />,
         )
         .toJSON();
     };
@@ -158,11 +145,7 @@ describe('<CustomerAlsoViewedContainer />', () => {
     const getComponent = () => {
       return renderer
         .create(
-          <CustomerAlsoViewedContainer
-            capsId={['']}
-            leaseType="PERSONAL"
-            router={router as any}
-          />,
+          <CustomerAlsoViewedContainer capsId={['']} leaseType="PERSONAL" />,
         )
         .toJSON();
     };
