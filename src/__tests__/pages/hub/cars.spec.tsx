@@ -11,6 +11,8 @@ import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql'
 import { CarsPage } from '../../../pages/hub/cars';
 import { mockSearchPodResponse } from '../../../../__mocks__/searchpod';
 import { ProductCardData } from '../../../../generated/ProductCardData';
+import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
+import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 
 /**
  * NOTE: Mock the SearchPodContainer as it is out of scope for this test and is doing state
@@ -19,6 +21,7 @@ import { ProductCardData } from '../../../../generated/ProductCardData';
 jest.mock('../../../containers/SearchPodContainer', () => () => {
   return <div />;
 });
+jest.mock('../../../containers/OrdersInformation/gql');
 
 jest.mock('next/router', () => ({ push: jest.fn() }));
 
@@ -133,7 +136,7 @@ const mocked: MockedResponse[] = [
     request: {
       query: PRODUCT_CARD_CONTENT,
       variables: {
-        type: 'CAR',
+        type: VehicleTypeEnum.CAR,
         offer: true,
         size: 9,
       },
@@ -173,6 +176,7 @@ const mocked: MockedResponse[] = [
                   value: '67.3',
                 },
               ],
+              vehicleType: VehicleTypeEnum.CAR,
             },
           ],
         } as ProductCardData,
@@ -183,6 +187,53 @@ const mocked: MockedResponse[] = [
 
 describe('<CarPage />', () => {
   beforeEach(async () => {
+    (useCarDerivativesData as jest.Mock).mockReturnValue({
+      loading: false,
+      data: {
+        derivatives: [
+          {
+            id: '83615',
+            manufacturerName: 'Ford',
+            derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
+            rangeName: 'Focus',
+            bodyStyleName: 'Hatchback',
+            slug: '10-ecoBoost-125-st-line-nav-5dr',
+            capCode: 'capCode',
+            name: 'name',
+            modelName: 'modelName',
+            manufacturer: {
+              name: 'name',
+            },
+            model: {
+              name: 'name',
+            },
+            fuelType: {
+              name: 'name',
+            },
+            fuelTypeName: 'fuelTypeName',
+            transmission: {
+              name: 'name',
+            },
+            transmissionName: 'transmissionName',
+            bodyStyle: {
+              name: 'name',
+            },
+            range: {
+              name: 'name',
+            },
+            __typename: 'derivative',
+          },
+        ],
+        vehicleImages: [
+          {
+            vehicleType: VehicleTypeEnum.CAR,
+            capId: 1212,
+            mainImageUrl: 'mainImageUrl',
+          },
+        ],
+      },
+      error: undefined,
+    });
     await preloadAll();
 
     render(
@@ -212,7 +263,10 @@ describe('<CarPage />', () => {
     await screen.findAllByText('View Offer');
     fireEvent.click(screen.getAllByText('View Offer')[0]);
     await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/cars/car-details/83615'),
+      expect(Router.push).toHaveBeenCalledWith(
+        '/car-leasing/[...manufacturer]',
+        '/car-leasing/ford/focus/hatchback/10-ecoBoost-125-st-line-nav-5dr',
+      ),
     );
   });
 });

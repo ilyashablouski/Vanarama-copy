@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import { useState } from 'react';
-import Router, { useRouter } from 'next/router';
+import Router from 'next/router';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import ReactMarkdown from 'react-markdown/with-html';
@@ -39,7 +39,6 @@ import ProductCarousel from '../components/ProductCarousel/ProductCarousel';
 import { useCarDerivativesData } from '../containers/OrdersInformation/gql';
 
 export const HomePage: NextPage = () => {
-  const router = useRouter();
   const [activeTab, setActiveTab] = useState(0);
 
   const { data, loading, error } = useQuery<HomePageData>(ALL_HOME_CONTENT);
@@ -144,12 +143,12 @@ export const HomePage: NextPage = () => {
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
                 <ProductCarousel
                   leaseType={LeaseTypeEnum.PERSONAL}
-                  router={router}
                   data={{
                     derivatives: productsVanDerivatives?.derivatives || null,
                     productCard: productsVan?.productCarousel || null,
                   }}
                   countItems={productsVan?.productCarousel?.length || 6}
+                  dataTestIdBtn="van-view-offer"
                 />
                 <div className="-justify-content-row -pt-500">
                   <Button
@@ -165,12 +164,12 @@ export const HomePage: NextPage = () => {
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
                 <ProductCarousel
                   leaseType={LeaseTypeEnum.PERSONAL}
-                  router={router}
                   data={{
                     derivatives: productsPickUpDerivatives?.derivatives || null,
                     productCard: productsPickUp?.productCarousel || null,
                   }}
                   countItems={productsPickUp?.productCarousel?.length || 6}
+                  dataTestIdBtn="pickup-view-offer"
                 />
                 <div className="-justify-content-row -pt-500">
                   <Button
@@ -188,12 +187,12 @@ export const HomePage: NextPage = () => {
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
                 <ProductCarousel
                   leaseType={LeaseTypeEnum.PERSONAL}
-                  router={router}
                   data={{
                     derivatives: productsCarDerivatives?.derivatives || null,
                     productCard: productsCar?.productCarousel || null,
                   }}
                   countItems={productsCar?.productCarousel?.length || 6}
+                  dataTestIdBtn="car-view-offer"
                 />
                 <div className="-justify-content-row -pt-500">
                   <Button

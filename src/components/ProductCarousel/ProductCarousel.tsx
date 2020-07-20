@@ -1,5 +1,5 @@
 import React from 'react';
-import { NextRouter } from 'next/router';
+import Router from 'next/router';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
@@ -16,16 +16,16 @@ import useSliderProperties from '../../hooks/useSliderProperties';
 
 interface IProductCarouselProps {
   leaseType: string;
-  router: NextRouter;
   countItems?: number;
   data: GetProductCard;
+  dataTestIdBtn: string;
 }
 
 const ProductCarousel: React.FC<IProductCarouselProps> = ({
   leaseType,
-  router,
   countItems,
   data,
+  dataTestIdBtn,
 }) => {
   const { slidesToShow } = useSliderProperties();
 
@@ -99,10 +99,10 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                   color="teal"
                   fill="solid"
                   label="View Offer"
-                  dataTestId="pickup-view-offer"
+                  dataTestId={dataTestIdBtn}
                   onClick={() => {
                     sessionStorage.setItem('capId', product.capId || '');
-                    router.push(
+                    Router.push(
                       getProductPageUrl(product, data?.derivatives).href,
                       getProductPageUrl(product, data?.derivatives).url,
                     );

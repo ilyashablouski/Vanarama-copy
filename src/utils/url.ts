@@ -16,22 +16,22 @@ export const getUrlParam = (urlParams: UrlParams, notReplace?: boolean) => {
 };
 
 const productPageUrlData = (
-  productCard: GetProductCard_productCard,
+  productCard: GetProductCard_productCard | null,
   derivatives: GetProductCard_derivatives[] | null,
 ): productPageUrlData => {
-  const derivativeData = derivatives?.find(el => el.id === productCard.capId);
+  const derivativeData = derivatives?.find(el => el.id === productCard?.capId);
   return {
     manufacturerName: derivativeData?.manufacturerName || null,
     rangeName: derivativeData?.rangeName || null,
     slug: derivativeData?.slug || null,
     capId: derivativeData?.id || null,
-    vehicleType: productCard.vehicleType,
+    vehicleType: productCard?.vehicleType || null,
     bodyStyleName: derivativeData?.bodyStyleName || null,
   };
 };
 
 export const getProductPageUrl = (
-  productCard: GetProductCard_productCard,
+  productCard: GetProductCard_productCard | null,
   derivatives: GetProductCard_derivatives[] | null,
 ) => {
   const data = productPageUrlData(productCard, derivatives);

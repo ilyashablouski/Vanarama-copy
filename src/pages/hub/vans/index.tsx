@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { NextPage } from 'next';
 import Router from 'next/router';
 import { useQuery } from '@apollo/client';
@@ -44,6 +45,7 @@ import {
 } from '../../../../generated/globalTypes';
 import ProductCarousel from '../../../components/ProductCarousel/ProductCarousel';
 import { getProductPageUrl } from '../../../utils/url';
+import { GetDerivatives_derivatives } from '../../../../generated/GetDerivatives';
 
 type ProdCards = ProdCardData[];
 
@@ -130,11 +132,15 @@ export const VansPage: NextPage = () => {
   if (error) {
     return <p>Error: {error.message}</p>;
   }
-  const dealOfMonthUrl = getProductPageUrl(offer!, [
-    ...productLargeVanDerivatives?.derivatives,
-    ...productMediumVanDerivatives?.derivatives,
-    ...productSmallVanDerivatives?.derivatives,
-  ]);
+  const dealOfMonthUrl = getProductPageUrl(
+    offer!,
+    (productLargeVanDerivatives?.derivatives as GetDerivatives_derivatives[])?.concat(
+      (productMediumVanDerivatives?.derivatives as GetDerivatives_derivatives[]) ||
+        [],
+      (productSmallVanDerivatives?.derivatives as GetDerivatives_derivatives[]) ||
+        [],
+    ),
+  );
 
   return (
     <>
@@ -196,12 +202,12 @@ export const VansPage: NextPage = () => {
           </Heading>
           <ProductCarousel
             leaseType={LeaseTypeEnum.PERSONAL}
-            router={Router}
             data={{
               derivatives: productSmallVanDerivatives?.derivatives || null,
               productCard: productSmallVan?.productCarousel || null,
             }}
             countItems={productSmallVan?.productCarousel?.length || 6}
+            dataTestIdBtn="van-view-offer"
           />
           <div className="-justify-content-row -pt-500">
             <Button
@@ -224,12 +230,12 @@ export const VansPage: NextPage = () => {
           </Heading>
           <ProductCarousel
             leaseType={LeaseTypeEnum.PERSONAL}
-            router={Router}
             data={{
               derivatives: productMediumVanDerivatives?.derivatives || null,
               productCard: productMediumVan?.productCarousel || null,
             }}
             countItems={productMediumVan?.productCarousel?.length || 6}
+            dataTestIdBtn="van-view-offer"
           />
           <div className="-justify-content-row -pt-500">
             <Button
@@ -252,12 +258,12 @@ export const VansPage: NextPage = () => {
           </Heading>
           <ProductCarousel
             leaseType={LeaseTypeEnum.PERSONAL}
-            router={Router}
             data={{
               derivatives: productLargeVanDerivatives?.derivatives || null,
               productCard: productLargeVan?.productCarousel || null,
             }}
             countItems={productLargeVan?.productCarousel?.length || 6}
+            dataTestIdBtn="van-view-offer"
           />
           <div className="-justify-content-row -pt-500">
             <Button
