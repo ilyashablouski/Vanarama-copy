@@ -113,6 +113,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const derivativeInfo = data?.derivativeInfo;
   const leaseAdjustParams = data?.leaseAdjustParams;
   const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
+  const financeProfile = data?.vehicleConfigurationByCapId?.financeProfile;
   const independentReview = data?.vehicleDetails?.independentReview;
   const warranty = data?.vehicleDetails?.warranty;
   const capsId = data?.vehicleDetails?.relatedVehicles?.map(
@@ -190,6 +191,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         {isMobile && (
           <CustomiseLeaseContainer
             capId={capId}
+            financeProfile={financeProfile}
             vehicleType={vehicleType}
             derivativeInfo={derivativeInfo}
             leaseAdjustParams={leaseAdjustParams}
@@ -211,6 +213,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       </div>
       <CustomiseLeaseContainer
         capId={capId}
+        financeProfile={financeProfile}
         vehicleType={vehicleType}
         derivativeInfo={derivativeInfo}
         leaseAdjustParams={leaseAdjustParams}
