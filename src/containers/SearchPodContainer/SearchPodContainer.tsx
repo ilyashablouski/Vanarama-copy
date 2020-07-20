@@ -2,7 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import SearchPod from '../../components/SearchPod';
-import { tabsFields, budget } from './config';
+import {
+  tabsFields,
+  budget,
+  carPageTabFields,
+  vanPageTabFields,
+} from './config';
 import { filterListByTypes, filterTypeAndBudget } from './gql';
 import {
   makeHandler,
@@ -24,6 +29,11 @@ const SearchPodContainer = () => {
 
   const [vansDataCache, setVansDataCache] = useState({} as IFilterList);
   const [carsDataCache, setCarsDataCache] = useState({} as IFilterList);
+
+  const [config, setConfig] = useState([] as any);
+  const [headingText, setHeadingText] = useState('Search vehicles');
+  // set it to true if we need preselect some data
+  const [isShouldPreselectTypes, setIsShouldPreselectTypes] = useState(false);
 
   const [budgetVans, setBudgetVans] = useState(budget);
   const [budgetCars, setBudgetCars] = useState(budget);
@@ -77,6 +87,22 @@ const SearchPodContainer = () => {
     setModelsCars([]);
   };
 
+  // use effect for handle hub pages
+  useEffect(() => {
+    if (router.pathname.indexOf('cars') > -1) {
+      setConfig(carPageTabFields);
+      setHeadingText('Vehicle Search');
+      setActiveIndex(2);
+    } else if (router.pathname.indexOf('vans') > -1) {
+      setHeadingText('Search Van Leasing');
+      setConfig(vanPageTabFields);
+    } else if (router.pathname.indexOf('pickups') > -1) {
+      setHeadingText('Search Pickup Leasing');
+      setIsShouldPreselectTypes(true);
+      setConfig(vanPageTabFields);
+    } else setConfig(tabsFields);
+  }, [router.pathname]);
+
   // get a data for dropdowns
   useEffect(() => {
     if (data?.filterList) {
@@ -87,6 +113,14 @@ const SearchPodContainer = () => {
       }
     }
   }, [data]);
+
+  // using for preselect data after first reqest to filterslist
+  useEffect(() => {
+    if (typeVans.length && isShouldPreselectTypes) {
+      setValue('typeVans', 'Pickup');
+      setIsShouldPreselectTypes(false);
+    }
+  }, [typeVans, isShouldPreselectTypes, setValue]);
 
   // call for fetch data if tab was changed, should call once for every tab
   useEffect(() => {
@@ -234,13 +268,15 @@ const SearchPodContainer = () => {
     <SearchPod
       activeTab={activeIndex}
       onChangeTab={(index: number) => setActiveIndex(index)}
-      config={tabsFields}
+      config={config}
       onSearch={onSearch}
       getOptions={field => getOptions(field)}
       registerDropdown={register}
       hasCarMakeSelected={!!selectMakeCars}
       hasVansMakeSelected={!!selectMakeVans}
       vansCachedData={vansDataCache}
+      isHomePage={config.length > 1}
+      headingText={headingText}
     />
   );
 };

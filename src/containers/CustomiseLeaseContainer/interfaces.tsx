@@ -7,6 +7,7 @@ import {
 import {
   GetVehicleDetails_derivativeInfo,
   GetVehicleDetails_leaseAdjustParams,
+  GetVehicleDetails_vehicleConfigurationByCapId_financeProfile,
 } from '../../../generated/GetVehicleDetails';
 
 export interface IProps {
@@ -15,6 +16,10 @@ export interface IProps {
   derivativeInfo: GetVehicleDetails_derivativeInfo | null | undefined;
   leaseAdjustParams: GetVehicleDetails_leaseAdjustParams | null | undefined;
   leaseType: string;
+  financeProfile:
+    | GetVehicleDetails_vehicleConfigurationByCapId_financeProfile
+    | null
+    | undefined;
   setLeaseType: React.Dispatch<React.SetStateAction<string>>;
   setLeadTime: React.Dispatch<React.SetStateAction<string>>;
   onCompleted: (values: OrderInputObject) => Promise<void>;

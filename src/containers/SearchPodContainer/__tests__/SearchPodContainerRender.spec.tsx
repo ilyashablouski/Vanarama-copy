@@ -8,6 +8,13 @@ jest.mock('../gql', () => ({
   filterListByTypes: jest.fn(),
 }));
 
+jest.mock('next/router', () => ({
+  useRouter: jest.fn().mockReturnValue({
+    push: jest.fn(),
+    pathname: '/',
+  }),
+}));
+
 describe('<SearchPodContainer />', () => {
   afterEach(() => {
     jest.clearAllMocks();
