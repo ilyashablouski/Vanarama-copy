@@ -38,6 +38,7 @@ export interface SummaryFormDetailsSectionCompany_telephoneNumbers {
 
 export interface SummaryFormDetailsSectionCompany_bankAccounts {
   __typename: "BankAccountType";
+  uuid: string;
   accountName: string | null;
   accountNumber: string | null;
   joinedAt: any | null;

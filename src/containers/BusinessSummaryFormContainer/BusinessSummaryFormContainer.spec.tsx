@@ -2,7 +2,7 @@ import { MockedProvider } from '@apollo/client/testing';
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import BusinessSummaryFormContainer from './BusinessSummaryFormContainer';
-import createBruceData from './__fixtures__/bruceData';
+import createCompanyData from './__fixtures__/testCompanyData';
 
 const mockPush = jest.fn();
 jest.mock('next/router', () => ({
@@ -15,10 +15,10 @@ jest.mock('next/router', () => ({
 }));
 
 describe('<BusinessSummaryFormContainer />', () => {
-  it('should render personal details correctly', async () => {
+  it('should render company details correctly', async () => {
     // ARRANGE
     const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
-    const mocks = [createBruceData(uuid)];
+    const mocks = [createCompanyData(uuid)];
 
     // ACT
     render(

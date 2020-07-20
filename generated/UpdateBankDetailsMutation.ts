@@ -11,6 +11,7 @@ import { LimitedCompanyInputObject } from "./globalTypes";
 
 export interface UpdateBankDetailsMutation_createUpdateLimitedCompany_bankAccounts {
   __typename: "BankAccountType";
+  uuid: string;
   accountName: string | null;
   accountNumber: string | null;
   joinedAt: any | null;

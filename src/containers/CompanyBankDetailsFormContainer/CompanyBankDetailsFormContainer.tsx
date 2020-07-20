@@ -34,7 +34,7 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
       onSubmit={async values =>
         await updateBankDetails({
           variables: {
-            input: formValuesToInput(companyUuid, values),
+            input: formValuesToInput(companyUuid, values, currentAccount?.uuid),
           },
         })
       }

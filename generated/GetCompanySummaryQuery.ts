@@ -38,6 +38,7 @@ export interface GetCompanySummaryQuery_companyByUuid_telephoneNumbers {
 
 export interface GetCompanySummaryQuery_companyByUuid_bankAccounts {
   __typename: "BankAccountType";
+  uuid: string;
   accountName: string | null;
   accountNumber: string | null;
   joinedAt: any | null;

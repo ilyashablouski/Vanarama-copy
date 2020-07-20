@@ -9,6 +9,7 @@
 
 export interface GetCompanyBankDetailsPageDataQuery_companyByUuid_bankAccounts {
   __typename: "BankAccountType";
+  uuid: string;
   accountName: string | null;
   accountNumber: string | null;
   joinedAt: any | null;

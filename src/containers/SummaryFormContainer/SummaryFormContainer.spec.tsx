@@ -17,7 +17,7 @@ jest.mock('next/router', () => ({
 const ORDER_ID = '17596f47-adf5-4e63-b250-238102cb831c';
 
 describe('<SummaryFormContainer />', () => {
-  it('should render personal details correctly', async () => {
+  it('should render company details correctly', async () => {
     // ARRANGE
     const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
     const mocks = [createBruceData(uuid)];

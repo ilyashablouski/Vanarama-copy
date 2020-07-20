@@ -1,10 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React from 'react';
-// import {
-//   GetPersonSummaryQuery as Query,
-//   GetPersonSummaryQueryVariables as QueryVariables,
-// } from '../../../generated/GetPersonSummaryQuery';
 import BusinessSummaryForm from '../../components/BusinessSummaryForm/BusinessSummaryForm';
 
 interface IProps {
