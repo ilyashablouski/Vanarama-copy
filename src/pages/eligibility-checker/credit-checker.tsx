@@ -1,12 +1,10 @@
 import React from 'react';
 import { NextPage } from 'next';
 import Router, { useRouter } from 'next/router';
-import { useQuery } from '@apollo/client';
 import Score from '@vanarama/uibook/lib/components/atoms/score';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
-import { getDataFromTree } from '@apollo/react-ssr';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
@@ -18,10 +16,9 @@ import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import withApollo from '../../hocs/withApollo';
 import truncateString from '../../utils/truncateString';
 import getIconMap from '../../utils/getIconMap';
-import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
+import { useProductCard } from '../../gql/productCard';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import useSliderProperties from '../../hooks/useSliderProperties';
-import { ProductCardData } from '../../../generated/ProductCardData';
 
 const CreditChecker: NextPage = () => {
   const router = useRouter();
@@ -29,12 +26,7 @@ const CreditChecker: NextPage = () => {
   const score = parseInt(scoreParam, 10) || 0;
   const { slidesToShow } = useSliderProperties();
 
-  const { data: productsCar, loading, error } = useQuery<ProductCardData>(
-    PRODUCT_CARD_CONTENT,
-    {
-      variables: { type: 'CAR', size: 9, offer: true },
-    },
-  );
+  const { data: productsCar, loading, error } = useProductCard('CAR', 9, true);
 
   const breadcrumbProps = {
     items: [
@@ -211,4 +203,4 @@ const CreditChecker: NextPage = () => {
   );
 };
 
-export default withApollo(CreditChecker, { getDataFromTree });
+export default withApollo(CreditChecker);

@@ -1,13 +1,10 @@
 import React from 'react';
-// @ts-ignore
-import preloadAll from 'jest-next-dynamic';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import Router from 'next/router';
-import renderer from 'react-test-renderer';
 import CreditChecker from '../../../pages/eligibility-checker/credit-checker';
-import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
-import { ProductCardData } from '../../../../generated/ProductCardData';
+import { useProductCard } from '../../../gql/productCard';
+
+jest.mock('../../../gql/productCard');
 
 jest.mock('../../../containers/SearchPodContainer', () => () => {
   return <div />;
@@ -25,13 +22,10 @@ jest.mock('next/router', () => ({
   push: jest.fn(),
 }));
 
-const mocks: MockedResponse[] = [
-  {
-    request: {
-      query: PRODUCT_CARD_CONTENT,
-      variables: { type: 'CAR', size: 9, offer: true },
-    },
-    result: {
+describe('<CreditChecker />', () => {
+  beforeEach(async () => {
+    (useProductCard as jest.Mock).mockReturnValue({
+      loading: false,
       data: {
         productCarousel: [
           {
@@ -42,24 +36,7 @@ const mocks: MockedResponse[] = [
             imageUrl:
               'https://images.autorama.co.uk/Photos/Vehicles/155485/im_3411.jpg',
             isOnOffer: true,
-            keyInformation: [
-              {
-                name: 'Transmission',
-                value: 'Manual',
-              },
-              {
-                name: 'Fuel Type',
-                value: 'Petrol',
-              },
-              {
-                name: 'Emissions',
-                value: '97',
-              },
-              {
-                name: 'Fuel Economy',
-                value: '67.3',
-              },
-            ],
+            keyInformation: [],
             leadTime: '10-14 Day Delivery',
             manufacturerName: 'Ford',
             offerPosition: 1,
@@ -67,35 +44,47 @@ const mocks: MockedResponse[] = [
             rangeName: 'Focus',
           },
         ],
-      } as ProductCardData,
-    },
-  },
-];
+      },
+      error: undefined,
+    });
+    render(<CreditChecker />);
+  });
 
-describe('<CreditChecker />', () => {
   it('should render title, link and text correctly', async () => {
-    render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <CreditChecker />
-      </MockedProvider>,
-    );
-
-    await waitFor(() => expect(screen.getByText('Choose Your Vehicle')));
+    expect(screen.getByText('Choose Your Vehicle'));
     expect(screen.getByText('Not sure? We can')).toBeInTheDocument();
     expect(screen.getByText('help you choose')).toBeInTheDocument();
   });
 
   it('should trigger route push when clicking car Choose Your Vehicle', async () => {
-    render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <CreditChecker />
-      </MockedProvider>,
-    );
-
-    await waitFor(() => expect(screen.getByText('Choose Your Vehicle')));
     fireEvent.click(screen.getByText('Choose Your Vehicle'));
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith('/car-leasing/'),
     );
+  });
+
+  it('should trigger route push when clicking View All Cars', async () => {
+    fireEvent.click(screen.getByText('View All Cars'));
+    await waitFor(() =>
+      expect(Router.push).toHaveBeenCalledWith('/car-leasing'),
+    );
+  });
+
+  it('should trigger route push when clicking View Offer', async () => {
+    fireEvent.click(screen.getByText('View Offer'));
+    await waitFor(() =>
+      expect(Router.push).toHaveBeenCalledWith('/cars/car-details/83615'),
+    );
+  });
+
+  it('should render Error', async () => {
+    (useProductCard as jest.Mock).mockReturnValue({
+      loading: false,
+      data: undefined,
+      error: { message: 'error' },
+    });
+    render(<CreditChecker />);
+
+    expect(screen.getByText('error'));
   });
 });
