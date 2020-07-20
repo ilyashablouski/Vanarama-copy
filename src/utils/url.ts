@@ -86,6 +86,14 @@ export type OLAFQueryParams = {
 };
 
 /**
+ * A type representing the query parameters shape when on the B2C OLAF journey
+ */
+export type OLAFB2CQueryParams = {
+  orderId: string;
+  uuid: string;
+};
+
+/**
  * A type representing the query parameters shape when on the MyDetails journey
  */
 export type MyDetailsQueryParams = {
