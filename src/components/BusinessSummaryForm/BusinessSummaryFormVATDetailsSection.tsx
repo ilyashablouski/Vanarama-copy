@@ -17,7 +17,7 @@ const BusinessSummaryFormVATDetailsSection: FCWithFragments<IProps> = ({
   const formattedPercentageData = vatDetails.turnoverPercentageOutsideUk?.reduce((prev, curr) =>
     ({
       percentage: `${parseInt(curr.percentage) + parseInt(prev.percentage)}`,
-      country: prev.country.concat('\n', curr.country)
+      country: prev.country.concat('\n\n', curr.country)
     }),
     {
       percentage: '0',
@@ -26,7 +26,7 @@ const BusinessSummaryFormVATDetailsSection: FCWithFragments<IProps> = ({
     
   return <StructuredList
     editable
-    editDataTestId="edit-your-details"
+    editDataTestId="edit-vat-details"
     onEditClicked={onEdit}
     list={[
       {
@@ -40,7 +40,7 @@ const BusinessSummaryFormVATDetailsSection: FCWithFragments<IProps> = ({
       }, {
         label: 'Percentage Of Company Turnover Outside The UK',
         value: formattedPercentageData && formattedPercentageData.percentage + '%' || '0%',
-        dataTestId: 'summary-email-address',
+        dataTestId: 'summary-turnover-percentage',
       },
     ]}
     heading="VAT Details"

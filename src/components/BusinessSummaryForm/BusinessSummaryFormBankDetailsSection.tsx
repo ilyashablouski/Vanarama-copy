@@ -2,7 +2,7 @@ import StructuredList from '@vanarama/uibook/lib/components/organisms/structured
 import { gql } from '@apollo/client';
 import React from 'react';
 import FCWithFragments from '../../utils/FCWithFragments';
-import CompanyBankDetails from 'components/CompanyBankDetails';
+import CompanyBankDetails from '../../components/CompanyBankDetails';
 import { CompanyBankDetailsAccount } from '../../../generated/CompanyBankDetailsAccount';
 
 interface IProps {

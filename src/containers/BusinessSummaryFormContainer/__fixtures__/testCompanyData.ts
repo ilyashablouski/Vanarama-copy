@@ -1,10 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { MockedResponse } from '@apollo/client/testing';
-import {
-  GetPersonSummaryQuery,
-  GetPersonSummaryQueryVariables,
-} from '../../../../generated/GetPersonSummaryQuery';
 import { GET_COMPANY_SUMMARY } from '../BusinessSummaryFormContainer';
+import { GetCompanySummaryQueryVariables, GetCompanySummaryQuery } from '../../../../generated/GetCompanySummaryQuery';
 
 export default (uuid: string) =>
   ({
@@ -12,120 +9,135 @@ export default (uuid: string) =>
       query: GET_COMPANY_SUMMARY,
       variables: {
         uuid,
-      } as GetPersonSummaryQueryVariables,
+      } as GetCompanySummaryQueryVariables,
     },
     result: {
       data: {
-        personByUuid: {
-          __typename: 'PersonType',
-          uuid,
-          addresses: [
+        companyByUuid: {
+          "__typename": "CompanyType",
+          "uuid": "ad0f772b-eded-483a-96be-18ea4e67948d",
+          "legalName": "Nastia Test2",
+          "companyNumber": "09876546",
+          "companyNature": "Fairy tale",
+          "tradingSince": "2005-02-01",
+          "tradesOutsideUk": true,
+          "isVatRegistered": true,
+          "vatNumber": "123456789",
+          "turnoverPercentageOutsideUk": [
             {
-              __typename: 'AddressType',
-              uuid: '5dbf59ab-f20e-4576-9128-0401142dee54',
-              city: 'London',
-              lineOne: 'Buckingham Palace',
-              lineTwo: 'Westminster',
-              postcode: 'SW1A 1AA',
-              propertyStatus: 'Rented',
-              startedOn: '2009-11-01',
+              "country": "Belarus",
+              "percentage": "30"
             },
             {
-              __typename: 'AddressType',
-              uuid: '5dbf59ab-f20e-4576-9128-02837a3e7d2',
-              city: 'London',
-              lineOne: 'Tower of London',
-              lineTwo: 'Westminster',
-              postcode: 'SW1A 1AA',
-              propertyStatus: 'Owned',
-              startedOn: '2012-11-01',
-            },
+              "country": "Vanuatu",
+              "percentage": "10"
+            }
           ],
-          bankAccounts: [
+          "associates": [
             {
-              __typename: 'BankAccountType',
-              uuid: '587a021e-2edc-44c3-a2d1-eadf70ec0a02',
-              accountName: "Mr Brucey 'Bonus' Forsyth",
-              accountNumber: '12345678',
-              bankName: 'Bank of Merica!',
-              sortCode: '001122',
+              "uuid": "fb9cd864-9667-4a71-9808-98709cda5875",
+              "title": "Mr",
+              "firstName": "Codrut Constantin",
+              "lastName": "ABAZA",
+              "gender": "Male",
+              "dateOfBirth": "1981-09-16",
+              "noOfDependants": "None",
+              "businessShare": 30,
+              "roles": [
+                {
+                  "position": "director"
+                }
+              ],
+              "addresses": [
+                {
+                  "serviceId": "GB|RM|A|17306875",
+                  "propertyStatus": "Rented",
+                  "startedOn": "2004-10-01",
+                  "city": "Norwich",
+                  "lineOne": "Flat 3",
+                  "lineTwo": "Ivory House",
+                  "postcode": "NR1 3NB"
+                }
+              ]
             },
+            {
+              "uuid": "895f87bc-14bf-407b-91c1-42ae3ebfb9e2",
+              "title": "Miss",
+              "firstName": "Anastasiya",
+              "lastName": "Harbuz",
+              "gender": "Female",
+              "dateOfBirth": "1999-02-17",
+              "noOfDependants": "None",
+              "businessShare": 40,
+              "roles": [
+                {
+                  "position": null
+                },
+                {
+                  "position": "director"
+                }
+              ],
+              "addresses": [
+                {
+                  "serviceId": "GB|RM|A|27452128|A1",
+                  "propertyStatus": "Owned with mortgage",
+                  "startedOn": "2007-02-01",
+                  "city": "York",
+                  "lineOne": "Sky View",
+                  "lineTwo": "5 Harrogate Road",
+                  "postcode": "YO51 9JD"
+                }
+              ]
+            }
           ],
-          countryOfBirth: 'United Kingdom',
-          dateOfBirth: '1928-02-22',
-          emailAddresses: [
+          "addresses": [
             {
-              __typename: 'EmailAddressType',
-              uuid: 'b3869c45-75ce-412f-941b-e63b4b6d9c54',
-              primary: false,
-              value: 'brucey-secondary@forsyth.com',
+              "uuid": "d3bbe72e-c785-45a0-a282-dbbc06efdea3",
+              "kind": "trading",
+              "lineOne": "Sadlers Farm",
+              "lineTwo": "Lower Pennington Lane",
+              "country": "GB",
+              "city": "Lymington",
+              "postcode": "SO41 8AL",
             },
             {
-              __typename: 'EmailAddressType',
-              uuid: '0a321df7-5b02-438d-a27d-83cc402a39ca',
-              primary: true,
-              value: 'brucey-bonus@forsyth.com',
-            },
+              "uuid": "7826b870-dd25-4d43-a312-9f323e678638",
+              "kind": "registered",
+              "lineOne": "Desafinado",
+              "lineTwo": "15 Mill Bridge Close",
+              "country": "GB",
+              "city": "Crewe",
+              "postcode": "CW1 5DZ",
+            }
           ],
-          employmentHistories: [
+          "emailAddresses": [
             {
-              __typename: 'EmploymentHistoryType',
-              uuid: '0c3ffa34-e744-4b70-9d3c-cc1256a1b783',
-              companyAddressCity: 'London',
-              companyAddressLineOne: '1 Television Centre',
-              companyAddressLineTwo: '101 Wood Lane',
-              companyAddressPostcode: 'W12 7FA',
-              companyName: 'BBC Studios',
-              employedSinceDate: '1950-12-17',
-              employmentStatus: 'Employed',
-              grossAnnualIncome: 600000,
-              jobTitle: 'TV Presenter',
-              workPhoneNumber: '02084332000',
-            },
-            {
-              __typename: 'EmploymentHistoryType',
-              uuid: '0c3ffa34-e744-4b70-9d3c-cc1256a1b8aa',
-              companyAddressCity: null,
-              companyAddressLineOne: null,
-              companyAddressLineTwo: null,
-              companyAddressPostcode: null,
-              companyName: null,
-              employedSinceDate: '2015-01-01',
-              employmentStatus: 'Retired',
-              grossAnnualIncome: null,
-              jobTitle: null,
-              workPhoneNumber: null,
-            },
+              "uuid": "a1ba04ed-222b-4005-845f-c0a421b9f8ae",
+              "kind": "Home",
+              "value": "a.harbuz81@reply.com",
+              "primary": false
+            }
           ],
-          firstName: 'Bruce',
-          incomeAndExpense: {
-            __typename: 'IncomeAndExpenseType',
-            uuid: 'e610318f-99fe-4e5c-9f60-888198bcd000',
-            averageMonthlyIncome: 25000,
-            netDisposableIncome: 10000,
-            totalMonthlyExpenses: 14567.11,
-          },
-          lastName: 'Forsyth',
-          maritalStatus: 'Married',
-          nationality: 'British',
-          noOfAdultsInHousehold: '2',
-          noOfDependants: 'None',
-          telephoneNumbers: [
+          "telephoneNumbers": [
             {
-              __typename: 'TelephoneNumberType',
-              uuid: '714e1bda-4b3d-420c-9cf5-a0fa8d91401b',
-              kind: 'Home',
-              value: '02001111111',
-            },
-            {
-              __typename: 'TelephoneNumberType',
-              uuid: '75ad1e9a-9392-4f6c-8d7d-47662939b2b2',
-              kind: 'Mobile',
-              value: '07733311122',
-            },
+              "uuid": "c803bf5b-4bf2-4164-bd9e-e892a933111d",
+              "kind": "Mobile",
+              "value": "09876543211",
+              "primary": true
+            }
           ],
-          title: 'Mr.',
-        },
-      } as GetPersonSummaryQuery,
+          "bankAccounts": [
+            {
+              "__typename": "BankAccountType",
+              "uuid": "aeabbbeb-007c-4b3c-b56f-2a02da347e7f",
+              "accountName": "Nastia",
+              "accountNumber": "12345678",
+              "joinedAt": "2006-03-01",
+              "sortCode": "112233",
+              "updatedAt": "2020-07-20T14:14:25.317+00:00",
+            }
+          ]
+        }
+      } as GetCompanySummaryQuery,
     },
   } as MockedResponse);

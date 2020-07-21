@@ -39,6 +39,19 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
     router.push(href, href.replace('[uuid]', company.uuid));
   };
 
+  const directors = company.associates
+    && company.associates.length
+    && company.associates
+      .slice()
+      .sort((a, b) => (b.businessShare || 0) - (a.businessShare || 0))
+      .map((d, i) => <BusinessSummaryFormDirectorDetailsSection
+        director={d}
+        orderBySharehold={i}
+        onEdit={handleEdit('/b2b/olaf/director-details/[uuid]')}
+        key={d.uuid || d.firstName + '-' + d.lastName}
+      />)
+    || null;
+
   return (
     <Form className="olaf--summary">
       <Heading color="black" size="xlarge" dataTestId="summary-heading">
@@ -46,11 +59,11 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
       </Heading>
       <BusinessSummaryFormDetailsSection
         company={company}
-        onEdit={handleEdit('/b2b/olaf/about/[uuid]')}
+        onEdit={handleEdit('/b2b/olaf/company-details/[uuid]')}
       />
       {company.isVatRegistered && <BusinessSummaryFormVATDetailsSection
         vatDetails={company}
-        onEdit={handleEdit('/olaf/employment-history/[uuid]')}
+        onEdit={handleEdit('/b2b/olaf/vat-details/[uuid]')}
       />}
       {primaryBankAccount && (
         <BusinessSummaryFormBankDetailsSection
@@ -62,11 +75,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
         Director Details
       </Heading>
       <hr />
-      {company.associates && company.associates.map(d => <BusinessSummaryFormDirectorDetailsSection
-        director={d}
-        onEdit={handleEdit('/b2b/olaf/director-details/[uuid]')}
-        key={d.uuid || d.firstName + d.lastName}
-      />)}
+      {directors}
       <Button
         size="large"
         className="-mt-400"

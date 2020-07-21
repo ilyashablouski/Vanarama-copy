@@ -6,81 +6,86 @@ import FCWithFragments from '../../utils/FCWithFragments';
 import { VatDetails } from '../../../generated/VatDetails';
 
 import { CompanyAssociate } from '../../../generated/CompanyAssociate';
-import DirectorDetailsForm from 'components/DirectorDetailsForm/DirectorDetailsForm';
+import DirectorDetailsForm from '../../components/DirectorDetailsForm/DirectorDetailsForm';
+import { addressToDisplay } from '../../utils/address';
 
 interface IBusinessSummaryFormDirectorDetailsSectionProps {
   director: CompanyAssociate;
+  orderBySharehold: number;
   onEdit: () => any;
 }
 
 const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummaryFormDirectorDetailsSectionProps> = ({
   onEdit,
   director,
+  orderBySharehold,
 }) => {
-
+  const sortedAddresses = director.addresses?.length && director.addresses.slice().sort((a, b) => new Date(a.startedOn).getTime() - new Date(b.startedOn).getTime())
+  const currentAddress = sortedAddresses && sortedAddresses[0] || null;
+  const previousAddress = sortedAddresses && sortedAddresses[1] || null;
   return <StructuredList
     editable
-    editDataTestId="edit-director-details"
+    editDataTestId={`edit-director-details[${orderBySharehold}]`}
     onEditClicked={onEdit}
     list={[
       {
         label: 'Title',
         value: director.title || '',
-        dataTestId: 'summary-director-title',
+        dataTestId: `summary-director[${orderBySharehold}]-title`,
       },
       {
         label: 'Gender',
         value: director.gender || '',
-        dataTestId: 'summary-director-gender',
+        dataTestId: `summary-director[${orderBySharehold}]-gender`,
       },
       {
         label: 'Date Of Birth',
-        value: director.dateOfBirth || '',
-        dataTestId: 'summary-director-birth-date',
+        value: moment(director.dateOfBirth).format('DD MMMM YYYY') || '',
+        dataTestId: `summary-director[${orderBySharehold}]-birth-date`,
       },
       {
         label: '% Shareholder Of Business',
         value: director.businessShare && `${director.businessShare}%` || '',
-        dataTestId: 'summary-director-business-share',
+        dataTestId: `summary-director[${orderBySharehold}]-business-share`,
       },
       {
         label: 'Number of Dependants',
         value: director.noOfDependants || '',
-        dataTestId: 'summary-director-noOfDependants',
+        dataTestId: `summary-director[${orderBySharehold}]-noOfDependants`,
       },
       {
         label: 'Current Address',
-        value: director.addresses && director.addresses[0] && director.addresses[0].postcode || '',
-        dataTestId: 'summary-director-curr-address',
+        value: currentAddress && addressToDisplay(currentAddress) || '',
+        dataTestId: `summary-director[${orderBySharehold}]-curr-address`,
       },
       {
         label: 'Date Moved In',
-        value: director.addresses && director.addresses[0] && director.addresses[0].startedOn || '',
-        dataTestId: 'summary-director-curr-moved-in',
+        value: currentAddress && moment(currentAddress.startedOn).format('MMMM YYYY') || '',
+        dataTestId: `summary-director[${orderBySharehold}]-curr-moved-in`,
       },
       {
         label: 'Property Status',
-        value: director.addresses && director.addresses[0] && director.addresses[0].propertyStatus || '',
-        dataTestId: 'summary-director-curr-prop-status',
+        value: currentAddress && currentAddress.propertyStatus || '',
+        dataTestId: `summary-director[${orderBySharehold}]-curr-prop-status`,
       },
       {
         label: 'Past Address',
-        value: director.addresses && director.addresses[1] && director.addresses[1].postcode || '',
-        dataTestId: 'summary-director-past-address',
+        value: previousAddress && addressToDisplay(previousAddress) || '',
+        dataTestId: `summary-director-past-address[${orderBySharehold}]`,
       },
       {
         label: 'Date Moved In',
-        value: director.addresses && director.addresses[1] && director.addresses[1].startedOn || '',
-        dataTestId: 'summary-director-past-moved-in',
+        value: previousAddress &&  moment(previousAddress.startedOn).format('MMMM YYYY') || '',
+        dataTestId: `summary-director-past-moved-in[${orderBySharehold}]`,
       },
       {
         label: 'Property Status',
-        value: director.addresses && director.addresses[1] && director.addresses[1].propertyStatus || '',
-        dataTestId: 'summary-director-past-prop-status',
+        value: previousAddress && previousAddress.propertyStatus || '',
+        dataTestId: `summary-director-past-prop-status[${orderBySharehold}]`,
       },
     ]}
     heading={`${director.firstName} ${director.lastName}`}
-    headingDataTestId="company_director_details_heading_data_testId"
+    headingDataTestId={`company_director_details_heading_[${orderBySharehold}]`}
     className="-styled-headers"
     headingSize="lead"
   />

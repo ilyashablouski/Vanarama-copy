@@ -1,8 +1,9 @@
-import { MockedProvider } from '@apollo/client/testing';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { MockedProvider } from '@apollo/client/testing'; 
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import BusinessSummaryFormContainer from './BusinessSummaryFormContainer';
 import createCompanyData from './__fixtures__/testCompanyData';
+import g from '../../components/BusinessSummaryForm/BusinessSummaryFormDirectorDetailsSection'
 
 const mockPush = jest.fn();
 jest.mock('next/router', () => ({
@@ -17,7 +18,7 @@ jest.mock('next/router', () => ({
 describe('<BusinessSummaryFormContainer />', () => {
   it('should render company details correctly', async () => {
     // ARRANGE
-    const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
+    const uuid = 'ad0f772b-eded-483a-96be-18ea4e67948d';
     const mocks = [createCompanyData(uuid)];
 
     // ACT
@@ -28,42 +29,43 @@ describe('<BusinessSummaryFormContainer />', () => {
     );
 
     // Wait for the data to load
-    await screen.findByText('Your Details');
+    await screen.findByText('Company Details');
 
     // ASSERT
-    expect(screen.getByTestId(/summary-email-address/)).toHaveTextContent(
-      'brucey-bonus@forsyth.com',
+    expect(screen.getByTestId(/summary-business-name/)).toHaveTextContent(
+      'Nastia Test2',
     );
 
-    expect(screen.getByTestId(/summary-fullname/)).toHaveTextContent(
-      'Mr. Bruce Forsyth',
+    expect(screen.getByTestId(/summary-company-number/)).toHaveTextContent(
+      '09876546',
     );
 
-    expect(screen.getByTestId(/summary-mobile/)).toHaveTextContent(
-      '07733311122',
+    expect(screen.getByTestId(/summary-business-nature/)).toHaveTextContent(
+      'Fairy tale',
     );
 
-    expect(screen.getByTestId(/summary-dob/)).toHaveTextContent('22/02/1928');
-    expect(screen.getByTestId(/summary-country/)).toHaveTextContent(
-      'United Kingdom',
+    expect(screen.getByTestId(/summary-registered-address/)).toHaveTextContent(
+      'Desafinado, 15 Mill Bridge Close, Crewe, CW1 5DZ'
+      );
+    expect(screen.getByTestId(/summary-trading-address/)).toHaveTextContent(
+      'Sadlers Farm, Lower Pennington Lane, Lymington, SO41 8AL',
     );
 
-    expect(screen.getByTestId(/summary-nationality/)).toHaveTextContent(
-      'British',
+    expect(screen.getByTestId(/summary-trading-since/)).toHaveTextContent(
+      'February 2005',
     );
 
-    expect(screen.getByTestId(/summary-marital-status/)).toHaveTextContent(
-      'Married',
+    expect(screen.getByTestId(/summary-telephone-number/)).toHaveTextContent(
+      '09876 543211',
     );
 
-    expect(screen.getByTestId(/summary-dependants/)).toHaveTextContent('None');
-    expect(screen.getByTestId(/summary-adults/)).toHaveTextContent('2');
+    expect(screen.getByTestId(/summary-email-address/)).toHaveTextContent('a.harbuz81@reply.com');
   });
 
-  it('should render addresses correctly and in chronological order', async () => {
+  it('should render VAT details correctly', async () => {
     // ARRANGE
-    const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
-    const mocks = [createBruceData(uuid)];
+    const uuid = 'ad0f772b-eded-483a-96be-18ea4e67948d';
+    const mocks = [createCompanyData(uuid)];
 
     // ACT
     render(
@@ -73,38 +75,26 @@ describe('<BusinessSummaryFormContainer />', () => {
     );
 
     // Wait for the data to load
-    await screen.findByText('Address History');
+    await screen.findByText('VAT Details');
 
     // ASSERT
-    expect(screen.getByTestId('summary-address[0]')).toHaveTextContent(
-      'Tower of London, Westminster, London, SW1A 1AA',
+    expect(screen.getByTestId('summary-vat-details')).toHaveTextContent(
+      '123456789',
     );
 
-    expect(screen.getByTestId('summary-address[0].status')).toHaveTextContent(
-      'Owned',
+    expect(screen.getByTestId('summary-vat-countries')).toHaveTextContent(
+      'Belarus Vanuatu',
     );
 
-    expect(screen.getByTestId('summary-address[0].moved-in')).toHaveTextContent(
-      '01/11/2012',
-    );
-
-    expect(screen.getByTestId('summary-address[1]')).toHaveTextContent(
-      'Buckingham Palace, Westminster, London, SW1A 1AA',
-    );
-
-    expect(screen.getByTestId('summary-address[1].status')).toHaveTextContent(
-      'Rented',
-    );
-
-    expect(screen.getByTestId('summary-address[1].moved-in')).toHaveTextContent(
-      '01/11/2009',
+    expect(screen.getByTestId('summary-turnover-percentage')).toHaveTextContent(
+      '40%',
     );
   });
 
-  it('should render employments correctly and in chronological order', async () => {
+  it('should render company bank details correctly', async () => {
     // ARRANGE
-    const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
-    const mocks = [createBruceData(uuid)];
+    const uuid = 'ad0f772b-eded-483a-96be-18ea4e67948d';
+    const mocks = [createCompanyData(uuid)];
 
     // ACT
     render(
@@ -114,101 +104,15 @@ describe('<BusinessSummaryFormContainer />', () => {
     );
 
     // Wait for the data to load
-    await screen.findByText('Employment History');
+    await screen.findByText('Company Bank Details');
 
     // ASSERT
-    expect(
-      screen.getByTestId('summary-employment[0].status'),
-    ).toHaveTextContent('Retired');
-
-    expect(screen.getByTestId('summary-employment[0].since')).toHaveTextContent(
-      '01/01/2015',
-    );
-
-    expect(
-      screen.getByTestId('summary-employment[1].status'),
-    ).toHaveTextContent('Employed');
-
-    expect(screen.getByTestId('summary-employment[1].title')).toHaveTextContent(
-      'TV Presenter',
-    );
-
-    expect(
-      screen.getByTestId('summary-employment[1].company'),
-    ).toHaveTextContent('BBC Studios');
-
-    expect(screen.getByTestId('summary-employment[1].phone')).toHaveTextContent(
-      '02084332000',
-    );
-
-    expect(
-      screen.getByTestId('summary-employment[1].address'),
-    ).toHaveTextContent('1 Television Centre, 101 Wood Lane, London, W12 7FA');
-
-    expect(
-      screen.getByTestId('summary-employment[1].income'),
-    ).toHaveTextContent('£600,000.00');
-
-    expect(screen.getByTestId('summary-employment[1].since')).toHaveTextContent(
-      '17/12/1950',
-    );
-  });
-
-  it('should render monthly expenses correctly', async () => {
-    // ARRANGE
-    const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
-    const mocks = [createBruceData(uuid)];
-
-    // ACT
-    render(
-      <MockedProvider addTypename={false} mocks={mocks}>
-        <BusinessSummaryFormContainer companyUuid={uuid} />
-      </MockedProvider>,
-    );
-
-    // Wait for the data to load
-    await screen.findByText('Monthly Expenses');
-
-    // ASSERT
-    expect(
-      screen.getByTestId('summary-average-monthly-income'),
-    ).toHaveTextContent('£25,000.00');
-
-    expect(screen.getByTestId('summary-total-expenses')).toHaveTextContent(
-      '£14,567.11',
-    );
-
-    expect(screen.getByTestId('summary-net-disposable')).toHaveTextContent(
-      '£10,000.00',
-    );
-  });
-
-  it('should render bank details correctly', async () => {
-    // ARRANGE
-    const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
-    const mocks = [createBruceData(uuid)];
-
-    // ACT
-    render(
-      <MockedProvider addTypename={false} mocks={mocks}>
-        <BusinessSummaryFormContainer companyUuid={uuid} />
-      </MockedProvider>,
-    );
-
-    // Wait for the data to load
-    await screen.findByText('Bank Details');
-
-    // ASSERT
-    expect(screen.getByTestId('summary-bank-name')).toHaveTextContent(
-      'Bank of Merica!',
-    );
-
     expect(screen.getByTestId('summary-name-on-card')).toHaveTextContent(
-      "Mr Brucey 'Bonus' Forsyth",
+      'Nastia',
     );
 
     expect(screen.getByTestId('summary-sort-code')).toHaveTextContent(
-      '00-11-22',
+      '11-22-33',
     );
 
     expect(screen.getByTestId('summary-account-number')).toHaveTextContent(
@@ -216,10 +120,71 @@ describe('<BusinessSummaryFormContainer />', () => {
     );
   });
 
+  it('should render directors correctly and sorted by sharehold percentage desc', async () => {
+    // ARRANGE
+    const uuid = 'ad0f772b-eded-483a-96be-18ea4e67948d';
+    const mocks = [createCompanyData(uuid)];
+
+    console.log('/////////////////////');
+    console.log((mocks[0].result as any).data.companyByUuid.associates);
+
+    // ACT
+    render(
+      <MockedProvider addTypename={false} mocks={mocks}>
+        <BusinessSummaryFormContainer companyUuid={uuid} />
+      </MockedProvider>,
+    );
+
+    // Wait for the data to load
+    await waitFor(() => {
+      expect(screen.getByText('Female')).toBeInTheDocument();
+    });
+    // await screen.findByText('Director Details');
+    // console.log('//////////////////////////////////////');
+    // console.log(screen.getByTestId('company_director_details_heading_[0]'));
+
+    // ASSERT
+    expect(
+      screen.getByTestId('company_director_details_heading_[0]'),
+    ).toHaveTextContent('Anastasiya Harbuz');
+
+    expect(screen.getByTestId('summary-director[0]-title')).toHaveTextContent(
+      'Miss',
+    );
+
+    expect(
+      screen.getByTestId('summary-director[0]-gender'),
+    ).toHaveTextContent('Female');
+
+    expect(screen.getByTestId('summary-director[0]-birth-date')).toHaveTextContent(
+      '17 February 1999',
+    );
+
+    expect(
+      screen.getByTestId('summary-director[0]-business-share'),
+    ).toHaveTextContent('40%');
+
+    expect(screen.getByTestId('summary-director[0]-noOfDependants')).toHaveTextContent(
+      'None',
+    );
+
+    expect(
+      screen.getByTestId('summary-director[0]-curr-address'),
+    ).toHaveTextContent('Sky View, 5 Harrogate Road, York, YO51 9JD');
+
+    expect(
+      screen.getByTestId('summary-director[0]-curr-moved-in'),
+    ).toHaveTextContent('February 2007');
+
+    expect(screen.getByTestId('summary-director[0]-curr-prop-status')).toHaveTextContent(
+      'Owned with mortgage',
+    );
+  });
+
   it('should redirect to the thank you page when clicking "Continue"', async () => {
     // ARRANGE
-    const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
-    const mocks = [createBruceData(uuid)];
+    const uuid = 'ad0f772b-eded-483a-96be-18ea4e67948d';
+    const mocks = [createCompanyData(uuid)];
 
     // ACT
     render(

@@ -27,7 +27,7 @@ const SummaryFormDetailsSection: FCWithFragments<IProps> = ({
   return <React.Fragment>
     <StructuredList
       editable
-      editDataTestId="edit-your-details"
+      editDataTestId="edit-company-details"
       onEditClicked={onEdit}
       list={[
         {
@@ -57,17 +57,23 @@ const SummaryFormDetailsSection: FCWithFragments<IProps> = ({
         },
         {
           label: 'Trading Since',
-          value: company.tradingSince || '',
+          value: moment(company.tradingSince)
+            .format('MMMM YYYY')
+            || '',
           dataTestId: 'summary-trading-since',
         },
         {
           label: 'Business Telephone Number',
-          value: company.telephoneNumbers?.length && company.telephoneNumbers[0].value || '',
+          value: company.telephoneNumbers?.length
+            && company.telephoneNumbers[0].value
+            && `${company.telephoneNumbers[0].value.slice(0,5)} ${company.telephoneNumbers[0].value.slice(5)}`
+            || '',
           dataTestId: 'summary-telephone-number',
         },
         {
           label: 'Email',
           value: companyEmail,
+          name: 'summary-email-address',
           dataTestId: 'summary-email-address',
         },
       ]}

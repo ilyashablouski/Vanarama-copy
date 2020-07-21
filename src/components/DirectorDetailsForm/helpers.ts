@@ -6,7 +6,7 @@ import { dateOfBirthValidator, checkFuture } from '../../utils/validation';
 import { DirectorDetailsFormValues, DirectorFormValues } from './interfaces';
 import { CompanyAssociate } from '../../../generated/CompanyAssociate';
 import { TAddressEntry } from 'components/AddressForm/interfaces';
-import { addressToDisplay } from 'utils/address';
+import { addressToDisplay } from '../../utils/address';
 import moment from 'moment';
 
 export const initialFormValues = (
