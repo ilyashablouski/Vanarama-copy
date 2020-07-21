@@ -3,7 +3,9 @@ import moment from 'moment';
 import { ICompanyBankDetails } from './interfaces';
 
 function isInPast({ joinedAtYear, joinedAtMonth }: ICompanyBankDetails) {
-  if (!joinedAtYear || !joinedAtMonth) { return ''; }
+  if (!joinedAtYear || !joinedAtMonth) {
+    return '';
+  }
   const inPast =
     moment(`${joinedAtMonth}-${joinedAtYear}`, 'MM-YYYY').diff() <= 0;
   return inPast ? '' : 'Oops, this date seems to be in the future';
@@ -13,7 +15,7 @@ function timeValidator(this: yup.TestContext) {
   const { createError, path, parent } = this;
   const error = isInPast(parent);
 
-  return createError({ message: error, path });
+  return error ? createError({ message: error, path }) : true;
 }
 
 const ValidationSchema = yup.object().shape({
