@@ -1,0 +1,758 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BusinessSummaryFormContainer /> should render company bank details correctly 1`] = `
+<body>
+  <div>
+    <form
+      class="form olaf--summary"
+    >
+      <p
+        class="heading -black -xlarge"
+        data-testid="summary-heading"
+      >
+        Summary
+      </p>
+      <section
+        class="structured-list"
+      >
+        <div
+          class="structured-list-thead"
+        >
+          <div
+            class="structured-list-row structured-list-row--header-row"
+          >
+            <div
+              class="structured-list-th"
+            >
+              <p
+                class="text -large -darker"
+                data-testid="company_details_heading_data_testId"
+              >
+                Company Details
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="structured-list-tbody"
+        >
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-0-Business Name"
+            >
+              Business Name
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-business-name"
+            >
+              Nastia Test2
+            </div>
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-1-Business Registration Number"
+            >
+              Business Registration Number
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-company-number"
+            >
+              09876546
+            </div>
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-2-Nature of Business"
+            >
+              Nature of Business
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-business-nature"
+            >
+              Fairy tale
+            </div>
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-3-Registered Address"
+            >
+              Registered Address
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-registered-address"
+            >
+              Desafinado, 15 Mill Bridge Close, Crewe, CW1 5DZ
+            </div>
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-4-Trading Address"
+            >
+              Trading Address
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-trading-address"
+            >
+              Sadlers Farm, Lower Pennington Lane, Lymington, SO41 8AL
+            </div>
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-5-Trading Since"
+            >
+              Trading Since
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-trading-since"
+            >
+              February 2005
+            </div>
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-6-Business Telephone Number"
+            >
+              Business Telephone Number
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-telephone-number"
+            >
+              09876 543211
+            </div>
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-7-Email"
+            >
+              Email
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-email-address"
+            >
+              a.harbuz81@reply.com
+            </div>
+          </div>
+        </div>
+        <div
+          class="structured-list--edit"
+        >
+          <a
+            class="link -teal -regular -plain"
+            data-testid="edit-company-details"
+          >
+            Edit
+          </a>
+        </div>
+      </section>
+      <br />
+      <section
+        class="structured-list"
+      >
+        <div
+          class="structured-list-thead"
+        >
+          <div
+            class="structured-list-row structured-list-row--header-row"
+          >
+            <div
+              class="structured-list-th"
+            >
+              <p
+                class="text -large -darker"
+                data-testid="company_vat_details_heading_data_testId"
+              >
+                VAT Details
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="structured-list-tbody"
+        >
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-0-VAT Number"
+            >
+              VAT Number
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-vat-details"
+            >
+              123456789
+            </div>
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-1-Countries You Trade In"
+            >
+              Countries You Trade In
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-vat-countries"
+            >
+              
+
+Belarus
+
+Vanuatu
+            </div>
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-2-Percentage Of Company Turnover Outside The UK"
+            >
+              Percentage Of Company Turnover Outside The UK
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-turnover-percentage"
+            >
+              40%
+            </div>
+          </div>
+        </div>
+        <div
+          class="structured-list--edit"
+        >
+          <a
+            class="link -teal -regular -plain"
+            data-testid="edit-vat-details"
+          >
+            Edit
+          </a>
+        </div>
+      </section>
+      <section
+        class="structured-list olaf--summary-title"
+      >
+        <div
+          class="structured-list-thead"
+        >
+          <div
+            class="structured-list-row structured-list-row--header-row"
+          >
+            <div
+              class="structured-list-th"
+            >
+              <p
+                class="text -large -darker"
+                data-testid="bank_details_heading_data_testId"
+              >
+                Company Bank Details
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="structured-list-tbody"
+        >
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-0-Name on Card"
+            >
+              Name on Card
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-name-on-card"
+            >
+              Nastia
+            </div>
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-1-Sort Code"
+            >
+              Sort Code
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-sort-code"
+            >
+              11-22-33
+            </div>
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-2-Account Number"
+            >
+              Account Number
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-account-number"
+            >
+              12345678
+            </div>
+          </div>
+        </div>
+        <div
+          class="structured-list--edit"
+        >
+          <a
+            class="link -teal -regular -plain"
+            data-testid="edit-bank-details"
+          >
+            Edit
+          </a>
+        </div>
+      </section>
+      <br />
+      <p
+        class="heading olaf--summary-title -black -large"
+        data-testid="directors-section-heading"
+      >
+        Director Details
+      </p>
+      <hr />
+      <section
+        class="structured-list -styled-headers"
+      >
+        <div
+          class="structured-list-thead"
+        >
+          <div
+            class="structured-list-row structured-list-row--header-row"
+          >
+            <div
+              class="structured-list-th"
+            >
+              <p
+                class="text -lead -darker"
+                data-testid="company_director_details_heading_[0]"
+              >
+                undefined undefined
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="structured-list-tbody"
+        >
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-0-Title"
+            >
+              Title
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-director[0]-title"
+            />
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-1-Gender"
+            >
+              Gender
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-director[0]-gender"
+            />
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-2-Date Of Birth"
+            >
+              Date Of Birth
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-director[0]-birth-date"
+            >
+              20 July 2020
+            </div>
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-3-% Shareholder Of Business"
+            >
+              % Shareholder Of Business
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-director[0]-business-share"
+            />
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-4-Number of Dependants"
+            >
+              Number of Dependants
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-director[0]-noOfDependants"
+            />
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-5-Current Address"
+            >
+              Current Address
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-director[0]-curr-address"
+            />
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-6-Date Moved In"
+            >
+              Date Moved In
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-director[0]-curr-moved-in"
+            />
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-7-Property Status"
+            >
+              Property Status
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-director-curr-prop-status[0]"
+            />
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-8-Past Address"
+            >
+              Past Address
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-director-past-address[0]"
+            />
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-9-Date Moved In"
+            >
+              Date Moved In
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-director-past-moved-in[0]"
+            />
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-10-Property Status"
+            >
+              Property Status
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-director-past-prop-status[0]"
+            />
+          </div>
+        </div>
+        <div
+          class="structured-list--edit"
+        >
+          <a
+            class="link -teal -regular -plain"
+            data-testid="edit-director-details[0]"
+          >
+            Edit
+          </a>
+        </div>
+      </section>
+      <section
+        class="structured-list -styled-headers"
+      >
+        <div
+          class="structured-list-thead"
+        >
+          <div
+            class="structured-list-row structured-list-row--header-row"
+          >
+            <div
+              class="structured-list-th"
+            >
+              <p
+                class="text -lead -darker"
+                data-testid="company_director_details_heading_[1]"
+              >
+                undefined undefined
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="structured-list-tbody"
+        >
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-0-Title"
+            >
+              Title
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-director[1]-title"
+            />
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-1-Gender"
+            >
+              Gender
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-director[1]-gender"
+            />
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-2-Date Of Birth"
+            >
+              Date Of Birth
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-director[1]-birth-date"
+            >
+              20 July 2020
+            </div>
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-3-% Shareholder Of Business"
+            >
+              % Shareholder Of Business
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-director[1]-business-share"
+            />
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-4-Number of Dependants"
+            >
+              Number of Dependants
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-director[1]-noOfDependants"
+            />
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-5-Current Address"
+            >
+              Current Address
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-director[1]-curr-address"
+            />
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-6-Date Moved In"
+            >
+              Date Moved In
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-director[1]-curr-moved-in"
+            />
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-7-Property Status"
+            >
+              Property Status
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-director-curr-prop-status[1]"
+            />
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-8-Past Address"
+            >
+              Past Address
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-director-past-address[1]"
+            />
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-9-Date Moved In"
+            >
+              Date Moved In
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-director-past-moved-in[1]"
+            />
+          </div>
+          <div
+            class="structured-list-row "
+          >
+            <div
+              class="structured-list-td structured-list-content--nowrap"
+              data-testid="data_id-10-Property Status"
+            >
+              Property Status
+            </div>
+            <div
+              class="structured-list-td"
+              data-testid="summary-director-past-prop-status[1]"
+            />
+          </div>
+        </div>
+        <div
+          class="structured-list--edit"
+        >
+          <a
+            class="link -teal -regular -plain"
+            data-testid="edit-director-details[1]"
+          >
+            Edit
+          </a>
+        </div>
+      </section>
+      <button
+        class="button -mt-400 -teal -large -solid"
+        data-testid="olaf_summary_continue_buttton"
+        type="button"
+      >
+        <div
+          class="button--inner"
+        >
+          Continue
+        </div>
+      </button>
+    </form>
+  </div>
+</body>
+`;
