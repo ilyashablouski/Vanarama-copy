@@ -4,7 +4,6 @@ import CompanyBankDetails from '../../components/CompanyBankDetails';
 import { useUpdateBankDetails, useBankDetails } from './gql';
 import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
-import { CompanyBankDetailsAccount } from '../../../generated/CompanyBankDetailsAccount';
 
 const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   companyUuid,
@@ -25,15 +24,21 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   }
 
   const { bankAccounts } = data.companyByUuid;
-  const currentAccount = bankAccounts && bankAccounts.reduce(function (prev, current) {
-    return (new Date(prev.updatedAt).getTime() > new Date(current.updatedAt).getTime()) ? prev : current
-  }) || undefined;
+  const currentAccount =
+    (bankAccounts &&
+      bankAccounts.reduce((prev, current) => {
+        return new Date(prev.updatedAt).getTime() >
+          new Date(current.updatedAt).getTime()
+          ? prev
+          : current;
+      })) ||
+    undefined;
 
   return (
     <CompanyBankDetails
       account={currentAccount}
       onSubmit={async values =>
-        await updateBankDetails({
+        updateBankDetails({
           variables: {
             input: formValuesToInput(companyUuid, values, currentAccount?.uuid),
           },
