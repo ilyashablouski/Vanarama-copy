@@ -103,7 +103,7 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
           id="joinedAtMonth"
           dataTestId="joinedAtMonth"
           name="joinedAtMonth"
-          ref={register()}
+          ref={register}
           // Error for the joinedAt form group is 2 separate errors, it's shown if any of them exists
           // we need to remove outdated errors
           // example (joined at date must be in the past): user selects current year => user selects month in future => an error for the month field appears =>
@@ -161,6 +161,7 @@ CompanyBankDetails.fragments = {
       accountNumber
       joinedAt
       sortCode
+      updatedAt
     }
   `,
 };
