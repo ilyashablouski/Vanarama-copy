@@ -107,15 +107,11 @@ Array [
         className="image -expand"
       >
         <img
+          alt="Featured image"
           className="image--native"
-          src="https://source.unsplash.com/collection/2102317/1800x800?sig=40341"
+          src="//images.ctfassets.net/3xid768u5joa/6mKMr9Jbqv83lDZhAuMJ3e/4558e98fc3bdbbb2734ccdfdc68cf2e5/about-us-dummy.jpg"
         />
       </div>
-      <span
-        className="text -caption -regular -inherit"
-      >
-        Photo credit — TODO: get name and image from contentful
-      </span>
     </div>
   </div>,
   <div
@@ -332,7 +328,7 @@ Array [
       Start Your Journey with Us Here
        
       <i
-        className="icon md hydrated -small"
+        className="icon md hydrated -xsmall"
       >
         <svg
           height="1em"

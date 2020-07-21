@@ -4,10 +4,16 @@ import { GetAboutUsPageData as Query } from '../../../generated/GetAboutUsPageDa
 export const GET_ABOUT_US_PAGE_DATA = gql`
   query GetAboutUsPageData {
     aboutUsLandingPage {
+      id
+      body
+      featuredImage {
+        file {
+          url
+        }
+      }
       metaData {
         name
         schema
-        body
       }
       sections {
         rowText {

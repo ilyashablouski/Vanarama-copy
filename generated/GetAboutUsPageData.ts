@@ -35,6 +35,13 @@ export interface GetAboutUsPageData_aboutUsLandingPage_sections_carousel_cards {
   title: string | null;
   body: string | null;
 }
+export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage_file {
+  url: string | null;
+}
+
+export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage {
+  file: GetAboutUsPageData_aboutUsLandingPage_featuredImage_file;
+}
 
 export interface GetAboutUsPageData_aboutUsLandingPage_sections_carousel {
   name: string | null;
@@ -48,6 +55,9 @@ export interface GetAboutUsPageData_aboutUsLandingPage_sections {
 }
 
 export interface GetAboutUsPageData_aboutUsLandingPage {
+  id: string | null;
+  body: string | null;
+  featuredImage: GetAboutUsPageData_aboutUsLandingPage_featuredImage;
   metaData: GetAboutUsPageData_aboutUsLandingPage_metaData;
   sections: GetAboutUsPageData_aboutUsLandingPage_sections;
 }
