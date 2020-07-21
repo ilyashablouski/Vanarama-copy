@@ -47,6 +47,7 @@ const FiltersContainer = ({
   onSearch,
   preSearchVehicleCount,
   isSpecialOffers,
+  isMakePage,
 }: IFilterContainerProps) => {
   const router = useRouter();
   const [filtersData, setFiltersData] = useState({} as IFilterList);
@@ -220,9 +221,13 @@ const FiltersContainer = ({
   useEffect(() => {
     // don't call onSearch already after render
     if (!isInitialLoad) onViewResults();
-    if (selectedFilterTags[0] && isInitialLoad) setInitialLoad(false);
+    if (
+      (selectedFilterTags[0] && isInitialLoad) ||
+      (isInitialLoad && isMakePage)
+    )
+      setInitialLoad(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedFilterTags, isSpecialOffers, isInitialLoad]);
+  }, [selectedFilterTags, isSpecialOffers, isInitialLoad, isPersonal]);
 
   // set actual models after make changing
   useEffect(() => {
@@ -277,11 +282,14 @@ const FiltersContainer = ({
   // subscribe for change applied filters value for manage tags state
   useEffect(() => {
     const selected: string[] = Object.entries(selectedFiltersState)
-      .map(entry => entry[1])
+      // makes in make page should not to be added
+      .map(entry => {
+        return isMakePage && entry[0] === 'make' ? '' : entry[1];
+      })
       .flat()
       .filter(Boolean);
     setSelectedFilterTags(selected);
-  }, [selectedFiltersState]);
+  }, [selectedFiltersState, isMakePage]);
 
   /** handle for dropdowns */
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -413,6 +421,7 @@ const FiltersContainer = ({
                 filter.dropdowns?.map(dropdown => (
                   <FormGroup label={dropdown.label} key={dropdown.label}>
                     <Select
+                      disabled={isMakePage && dropdown.accessor === 'make'}
                       name={dropdown.accessor}
                       placeholder={`Select ${dropdown.accessor}`}
                       onChange={handleSelect}

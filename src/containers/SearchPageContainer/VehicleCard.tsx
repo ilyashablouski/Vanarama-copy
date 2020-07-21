@@ -27,6 +27,8 @@ const VehicleCard = memo(
 
     return (
       <Card
+        description="Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id"
+        imageSrc={data?.imageUrl || ''}
         header={{
           accentIcon: data?.isOnOffer ? (
             <Icon icon={<Flame />} color="white" className="md hydrated" />
@@ -34,14 +36,9 @@ const VehicleCard = memo(
           accentText: data?.isOnOffer ? 'Hot Deal' : '',
           text: data?.leadTime || '',
         }}
-        features={
-          (!!data?.keyInformation?.length && features(data.keyInformation)) ||
-          []
-        }
-        description="Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id"
-        imageSrc={data?.imageUrl || ''}
         onCompare={() => {}}
         onWishlist={() => {}}
+        features={features(data?.keyInformation || [])}
         title={{
           ...title,
           score: data?.averageRating || undefined,
@@ -64,7 +61,9 @@ const VehicleCard = memo(
             price={isPersonalPrice ? data?.personalRate : data?.businessRate}
             size="large"
             separator="."
-            priceDescription="Per Month Exc.VAT"
+            priceDescription={`Per Month ${
+              isPersonalPrice ? 'Inc' : 'Exc'
+            }.VAT`}
           />
           <Button
             color="teal"
