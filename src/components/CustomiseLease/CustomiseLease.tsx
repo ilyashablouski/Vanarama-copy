@@ -2,13 +2,11 @@
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import { Dispatch, SetStateAction } from 'react';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Choiceboxes from '@vanarama/uibook/lib/components/atoms/choiceboxes';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
 import SlidingInput from '@vanarama/uibook/lib/components/atoms/sliding-input';
 import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
 import Radio from '@vanarama/uibook/lib/components/atoms/radio';
-import MileageBooster from '@vanarama/uibook/lib/assets/icons/MileageBooster';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Modal from '@vanarama/uibook/lib/components/molecules/modal';
