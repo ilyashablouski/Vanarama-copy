@@ -34,6 +34,15 @@ describe('<VehicleCard />', () => {
         rangeName: 'Crossland X',
         vehicleType: VehicleTypeEnum.CAR,
       },
+      dataDerivatives: [
+        {
+          bodyStyleName: 'bodyStyleName',
+          slug: 'slug',
+          manufacturerName: 'Vauxhall',
+          rangeName: 'Crossland X',
+          id: '86343',
+        } as any,
+      ],
     };
   };
 

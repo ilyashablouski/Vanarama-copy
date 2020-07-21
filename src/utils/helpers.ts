@@ -116,5 +116,12 @@ export const getOrderList = ({
       key: `${quoteByCapId?.stock}`,
       dataTestId: 'stock',
     },
+    {
+      label: 'Redundancy & Life Cover:',
+      value: 'Included',
+      id: 'redundancy',
+      key: 'redundancy',
+      dataTestId: 'redundancy',
+    },
   ];
 };

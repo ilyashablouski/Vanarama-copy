@@ -25,6 +25,14 @@ export interface GetDerivative_derivative_transmission {
   name: string;
 }
 
+export interface GetDerivative_derivative_bodyStyle {
+  name: string | null;
+}
+
+export interface GetDerivative_derivative_range {
+  name: string;
+}
+
 export interface GetDerivative_derivative {
   id: string;
   capCode: string;
@@ -38,6 +46,10 @@ export interface GetDerivative_derivative {
   fuelTypeName: string;
   transmission: GetDerivative_derivative_transmission;
   transmissionName: string;
+  bodyStyle: GetDerivative_derivative_bodyStyle | null;
+  bodyStyleName: string | null;
+  range: GetDerivative_derivative_range;
+  rangeName: string;
 }
 
 export interface GetDerivative {

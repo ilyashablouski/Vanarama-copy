@@ -77,26 +77,29 @@ export const CustomerTestimonialPage: NextPage = () => {
         <Heading size="xlarge" color="black">
           Testimonials Hub
         </Heading>
-        {data?.testimonials?.map((item: TestimonialData | null, idx) => (
-          <div className="review" key={idx}>
-            <Image
-              size="expand"
-              round
-              src="https://eu.ui-avatars.com/api/?name=name=John+Doe&color=ffffff&background=0A0D10&format=svg&rounded=true"
-            />
-            <Heading size="regular" color="black">
-              {item?.whyLease}
-            </Heading>
-            <Rating score={item?.overallRating || 4} />
-            <Text size="regular" color="darker" className="review--content">
-              {item?.comments}
-            </Text>
-            <Text size="xsmall" color="black" className="review--meta">
-              <span>{item?.name}</span>
-              <span>{item?.date}</span>
-            </Text>
-          </div>
-        ))}
+        <br />
+        {data?.testimonials
+          ?.sort((a, b) => Date.parse(b?.date) - Date.parse(a?.date))
+          .map((item: TestimonialData | null, idx) => (
+            <div className="review" key={idx}>
+              <Image
+                size="expand"
+                round
+                src="https://eu.ui-avatars.com/api/?name=name=John+Doe&color=ffffff&background=0A0D10&format=svg&rounded=true"
+              />
+              <Heading size="regular" color="black">
+                {item?.whyLease}
+              </Heading>
+              <Rating score={item?.overallRating || 4} />
+              <Text size="regular" color="darker" className="review--content">
+                {item?.comments}
+              </Text>
+              <Text size="xsmall" color="black" className="review--meta">
+                <span>{item?.name}</span>
+                <span>{item?.date}</span>
+              </Text>
+            </div>
+          ))}
         <div className="button-group">
           <Button
             color="teal"

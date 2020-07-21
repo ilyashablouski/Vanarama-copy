@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useState } from 'react';
-import { NextRouter } from 'next/router';
+import Router from 'next/router';
 import { ApolloError } from '@apollo/client';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
@@ -27,6 +27,7 @@ import {
 } from '../../../generated/GetVehicleDetails';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import WhyChooseLeasing from '../../components/WhyChooseLeasing/WhyChooseLeasing';
+import Banner from '../../components/Banner/Banner';
 import CustomerReviews from '../../components/CustomerReviews/CustomerReviews';
 import WhyChooseVanarama from '../../components/WhyChooseVanarama/WhyChooseVanarama';
 import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer';
@@ -36,7 +37,6 @@ import { useCreateUpdateOrder } from '../../gql/order';
 
 interface IDetailsPageProps {
   capId: number;
-  router: NextRouter;
   cars?: boolean;
   vans?: boolean;
   pickups?: boolean;
@@ -55,7 +55,6 @@ const PATH = {
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
   capId,
-  router,
   cars,
   vans,
   pickups,
@@ -80,7 +79,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           ? '/olaf/about/[orderId]'
           : '/b2b/olaf/about/[orderId]';
 
-      router.push(
+      Router.push(
         url,
         url.replace('[orderId]', response.data?.createUpdateOrder?.uuid || ''),
       );
@@ -185,6 +184,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           vehicleDetails={vehicleDetails}
           derivativeInfo={derivativeInfo}
         />
+        <Banner />
         {(vans || pickups) && !!independentReview && (
           <IndependentReview review={independentReview || ''} />
         )}
@@ -226,7 +226,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         capsId={capsId || []}
         vehicleType={vehicleType}
         leaseType={leaseType.toUpperCase() || ''}
-        router={router}
       />
     </>
   );
