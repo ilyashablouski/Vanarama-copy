@@ -151,20 +151,6 @@ const CustomiseLease = ({
           setMileage(mileages[value - 1]);
         }}
       />
-      <div className="-flex-row">
-        <Icon
-          color="orange"
-          size="xlarge"
-          icon={<MileageBooster />}
-          className="-pt-200"
-        />
-        <Text color="orange" size="small" className="-b -ml-200">
-          {`+ ${(quoteByCapId?.mileage || 0) / 10}`}
-        </Text>
-        <Text color="black" size="small" className="-mt-000 -ml-100">
-          Extra Miles FREE
-        </Text>
-      </div>
       {choices(
         terms,
         value => setTerm(+(value || 0) || null),
@@ -233,7 +219,10 @@ const CustomiseLease = ({
         trims={derivativeInfo?.trims}
         trim={trim}
       />
-      <div className="lease-scanner--sticky-wrap" style={{ opacity: '1' }}>
+      <div
+        className="lease-scanner--sticky-wrap"
+        style={{ opacity: '1', zIndex: 20 }}
+      >
         <LeaseScanner
           classNameHeading="headingText"
           className="pdp-footer"
