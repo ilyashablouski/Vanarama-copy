@@ -312,8 +312,11 @@ exports[`BusinessAboutForm should show required field validation messages if the
       If the worst happens, return your vehicle, no charge.
     </span>
     <a
-      className="link -white -small -plain"
+      className="link -white -small"
+      data-testid="router-link"
       href=""
+      onClick={[Function]}
+      onMouseEnter={[Function]}
     >
       <b>
         Find Out More

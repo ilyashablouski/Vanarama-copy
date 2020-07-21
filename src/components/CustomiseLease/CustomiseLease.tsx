@@ -217,10 +217,7 @@ const CustomiseLease = ({
         trims={derivativeInfo?.trims}
         trim={trim}
       />
-      <div
-        className="lease-scanner--sticky-wrap"
-        style={{ opacity: '1', zIndex: 20 }}
-      >
+      <div className="lease-scanner--sticky-wrap" style={{ opacity: '1' }}>
         <LeaseScanner
           classNameHeading="headingText"
           className="pdp-footer"

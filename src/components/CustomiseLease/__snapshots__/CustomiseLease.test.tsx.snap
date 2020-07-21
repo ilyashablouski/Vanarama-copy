@@ -489,8 +489,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     className="lease-scanner--sticky-wrap"
     style={
       Object {
-        "opacity": "1",
-        "zIndex": 20,
+        "opacity": 1,
       }
     }
   >
@@ -1068,8 +1067,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     className="lease-scanner--sticky-wrap"
     style={
       Object {
-        "opacity": "1",
-        "zIndex": 20,
+        "opacity": 1,
       }
     }
   >

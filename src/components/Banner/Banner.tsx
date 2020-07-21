@@ -1,8 +1,8 @@
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Link from '@vanarama/uibook/lib/components/atoms/link';
 import Redundancy from '@vanarama/uibook/lib/assets/icons/Redundancy';
+import RouterLink from '../RouterLink/RouterLink';
 
 const Banner: React.FC = () => {
   return (
@@ -20,9 +20,18 @@ const Banner: React.FC = () => {
         <Text className="-pr-100" color="white" size="small">
           If the worst happens, return your vehicle, no charge.
         </Text>
-        <Link color="white" size="small" href="">
+        <RouterLink
+          link={{
+            href: '',
+            label: '',
+          }}
+          classNames={{
+            color: 'white',
+            size: 'small',
+          }}
+        >
           <b>Find Out More</b>
-        </Link>
+        </RouterLink>
       </div>
     </div>
   );
