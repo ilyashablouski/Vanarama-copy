@@ -223,7 +223,7 @@ const FiltersContainer = ({
     if (!isInitialLoad) onViewResults();
     if (
       (selectedFilterTags[0] && isInitialLoad) ||
-      (isInitialLoad && isMakePage)
+      (isInitialLoad && isMakePage && selectedFiltersState.make[0])
     )
       setInitialLoad(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps

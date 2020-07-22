@@ -389,7 +389,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           <div className="row:cards-3col">
             {useCallback(
               isMakePage
-                ? ranges?.rangeList && ranges?.rangeList?.length > 3 &&
+                ? ranges?.rangeList && ranges?.rangeList?.length > 0 &&
                     ranges?.rangeList?.map((range, index) => (
                       <RangeCard
                         viewRange={viewRange}
@@ -418,7 +418,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                         isPersonalPrice={isPersonal}
                       />
                     )),
-              [cardsData, isPersonal, ranges, carDer],
+              [cardsData, isPersonal, ranges?.rangeList, carDer],
             )}
           </div>
           {!isMakePage ? (
