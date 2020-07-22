@@ -17,7 +17,10 @@ import { useAboutUsPageData } from './gql';
 import { ABOUT_US_NAV_ITEM, ABOUT_US_MEET_SECTION_NAMES } from './config';
 import { GetAboutUsPageData_aboutUsLandingPage_sections_carousel_cards as ICard } from '../../../generated/GetAboutUsPageData';
 
-const prepareTagName = (possibleTag: string | null) => (possibleTag && Heading.defaultProps?.tag?.indexOf(possibleTag) !== -1) ? possibleTag : undefined;
+const prepareTagName = (possibleTag: string | null) =>
+  possibleTag && Heading.defaultProps?.tag?.indexOf(possibleTag) !== -1
+    ? possibleTag
+    : undefined;
 
 const renderCarouselCards = (cards: (ICard | null)[]) =>
   cards.map(card =>
@@ -30,7 +33,11 @@ const renderCarouselCards = (cards: (ICard | null)[]) =>
         title={{
           title: card.title,
           link: (
-            <Heading size="lead" color="black" tag={prepareTagName(card.titleTag) as any}>
+            <Heading
+              size="lead"
+              color="black"
+              tag={prepareTagName(card.titleTag) as any}
+            >
               <Icon icon={<TrophySharp />} color="black" size="regular" />
               {` ${card.title}`}
             </Heading>
@@ -43,10 +50,20 @@ const renderCarouselCards = (cards: (ICard | null)[]) =>
 
 const renderMeetCard = (card: ICard | undefined) =>
   (card?.title && card.body && (
-    <Card title={{
-      title:card.title,
-      link: <Heading size="lead" color="black" tag={prepareTagName(card.titleTag) as any} >{card.title}</Heading>
-    }}>
+    <Card
+      title={{
+        title: card.title,
+        link: (
+          <Heading
+            size="lead"
+            color="black"
+            tag={prepareTagName(card.titleTag) as any}
+          >
+            {card.title}
+          </Heading>
+        ),
+      }}
+    >
       <ReactMarkdown
         source={card.body}
         renderers={{ link: props => <Link {...props} /> }}
@@ -79,14 +96,12 @@ const AboutUs: React.FC = () => {
     }),
   );
 
-  const directorsCard =
-    sections.cards?.cards?.find(
-      card => card.name === ABOUT_US_MEET_SECTION_NAMES.directors,
-    );
-  const teamCard =
-    sections.cards?.cards?.find(
-      card => card.name === ABOUT_US_MEET_SECTION_NAMES.team,
-    );
+  const directorsCard = sections.cards?.cards?.find(
+    card => card.name === ABOUT_US_MEET_SECTION_NAMES.directors,
+  );
+  const teamCard = sections.cards?.cards?.find(
+    card => card.name === ABOUT_US_MEET_SECTION_NAMES.team,
+  );
 
   return (
     <>
