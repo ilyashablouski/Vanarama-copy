@@ -23,6 +23,7 @@ export interface GetAboutUsPageData_aboutUsLandingPage_sections_cards_cards {
   name: string | null;
   title: string | null;
   body: string | null;
+  titleTag: string | null;
 }
 
 export interface GetAboutUsPageData_aboutUsLandingPage_sections_cards {
@@ -34,6 +35,7 @@ export interface GetAboutUsPageData_aboutUsLandingPage_sections_carousel_cards {
   name: string | null;
   title: string | null;
   body: string | null;
+  titleTag: string | null;
 }
 export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage_file {
   url: string | null;

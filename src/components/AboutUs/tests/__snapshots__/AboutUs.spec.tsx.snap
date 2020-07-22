@@ -267,12 +267,11 @@ Array [
       <div
         className="title"
       >
-        <span
+        <p
           className="heading -black -lead"
-          data-testid="card-heading"
         >
           Meet The Directors
-        </span>
+        </p>
       </div>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -293,12 +292,11 @@ Array [
       <div
         className="title"
       >
-        <span
+        <p
           className="heading -black -lead"
-          data-testid="card-heading"
         >
           Meet The Team
-        </span>
+        </p>
       </div>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 

@@ -24,6 +24,7 @@ export const GET_ABOUT_US_PAGE_DATA = gql`
         cards {
           name
           cards {
+            titleTag
             name
             title
             body
@@ -32,6 +33,7 @@ export const GET_ABOUT_US_PAGE_DATA = gql`
         carousel {
           name
           cards {
+            titleTag
             name
             title
             body
