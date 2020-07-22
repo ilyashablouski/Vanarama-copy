@@ -6,6 +6,7 @@ import { LimitedCompanyInputObject } from '../../../generated/globalTypes';
 export const formValuesToInput = (
   uuid: string,
   values: ICompanyBankDetails,
+  accountUuid?: string,
 ): LimitedCompanyInputObject => {
   const joiningDate = `${values.joinedAtMonth}-${values.joinedAtYear}`;
   const joiningDateFormatted = moment(joiningDate, 'MM-YYYY').format(
@@ -15,6 +16,7 @@ export const formValuesToInput = (
   return {
     uuid,
     bankAccount: {
+      uuid: accountUuid || null,
       accountName: values.accountName || null,
       accountNumber: values.accountNumber || null,
       sortCode: values.sortCode?.join('') || null,

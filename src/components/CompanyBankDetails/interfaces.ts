@@ -2,6 +2,7 @@ import { SortCodeValue } from '@vanarama/uibook/lib/components/molecules/sortcod
 import { CompanyBankDetailsAccount } from '../../../generated/CompanyBankDetailsAccount';
 
 export interface ICompanyBankDetails {
+  uuid?: string;
   accountName?: string;
   accountNumber?: string;
   sortCode?: SortCodeValue;
