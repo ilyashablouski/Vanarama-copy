@@ -11,6 +11,8 @@ import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
 import { HomePage } from '../../pages';
 import { mockSearchPodResponse } from '../../../__mocks__/searchpod';
 import { ProductCardData } from '../../../generated/ProductCardData';
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
 
 /**
  * NOTE: Mock the SearchPodContainer as it is out of scope for this test and is doing state
@@ -19,6 +21,7 @@ import { ProductCardData } from '../../../generated/ProductCardData';
 jest.mock('../../containers/SearchPodContainer', () => () => {
   return <div />;
 });
+jest.mock('../../containers/OrdersInformation/gql');
 
 jest.mock('next/router', () => ({ push: jest.fn() }));
 
@@ -90,7 +93,7 @@ const mocked: MockedResponse[] = [
     request: {
       query: GET_SEARCH_POD_DATA,
       variables: {
-        vehicleTypes: ['LCV'],
+        vehicleTypes: [VehicleTypeEnum.LCV],
       },
     },
     result: () => {
@@ -105,7 +108,7 @@ const mocked: MockedResponse[] = [
     request: {
       query: PRODUCT_CARD_CONTENT,
       variables: {
-        type: 'LCV',
+        type: VehicleTypeEnum.LCV,
         subType: 'VAN',
         size: 9,
         offer: true,
@@ -146,6 +149,7 @@ const mocked: MockedResponse[] = [
                   value: '67.2',
                 },
               ],
+              vehicleType: VehicleTypeEnum.LCV,
             },
           ],
         } as ProductCardData,
@@ -156,7 +160,7 @@ const mocked: MockedResponse[] = [
     request: {
       query: PRODUCT_CARD_CONTENT,
       variables: {
-        type: 'CAR',
+        type: VehicleTypeEnum.CAR,
         offer: true,
         size: 9,
       },
@@ -196,6 +200,7 @@ const mocked: MockedResponse[] = [
                   value: '67.3',
                 },
               ],
+              vehicleType: VehicleTypeEnum.CAR,
             },
           ],
         } as ProductCardData,
@@ -206,7 +211,7 @@ const mocked: MockedResponse[] = [
     request: {
       query: PRODUCT_CARD_CONTENT,
       variables: {
-        type: 'LCV',
+        type: VehicleTypeEnum.LCV,
         subType: 'PICKUP',
         size: 9,
         offer: true,
@@ -247,6 +252,7 @@ const mocked: MockedResponse[] = [
                   value: '67.2',
                 },
               ],
+              vehicleType: VehicleTypeEnum.LCV,
             },
           ],
         } as ProductCardData,
@@ -257,6 +263,54 @@ const mocked: MockedResponse[] = [
 
 describe('<HomePage />', () => {
   beforeEach(async () => {
+    (useCarDerivativesData as jest.Mock).mockReturnValue({
+      loading: false,
+      data: {
+        derivatives: [
+          {
+            id: '44514',
+            manufacturerName: 'Ford',
+            derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
+            rangeName: 'Focus',
+            bodyStyleName: 'Hatchback',
+            slug: '10-ecoBoost-125-st-line-nav-5dr',
+            capCode: 'capCode',
+            name: 'name',
+            modelName: 'modelName',
+            manufacturer: {
+              name: 'name',
+            },
+            model: {
+              name: 'name',
+            },
+            fuelType: {
+              name: 'name',
+            },
+            fuelTypeName: 'fuelTypeName',
+            transmission: {
+              name: 'name',
+            },
+            transmissionName: 'transmissionName',
+            bodyStyle: {
+              name: 'name',
+            },
+            range: {
+              name: 'name',
+            },
+            __typename: 'derivative',
+          },
+        ],
+        vehicleImages: [
+          {
+            vehicleType: VehicleTypeEnum.LCV,
+            capId: 1212,
+            mainImageUrl: 'mainImageUrl',
+          },
+        ],
+      },
+      error: undefined,
+    });
+
     await preloadAll();
     render(
       <MockedProvider addTypename={false} mocks={mocked}>
@@ -297,30 +351,6 @@ describe('<HomePage />', () => {
     fireEvent.click(screen.getByTestId('view-all-cars'));
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith('/car-leasing'),
-    );
-  });
-
-  it('should trigger route push when clicking van View Offer', async () => {
-    await screen.findByTestId('van-view-offer');
-    fireEvent.click(screen.getByTestId('van-view-offer'));
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/vans/van-details/44514'),
-    );
-  });
-
-  it('should trigger route push when clicking pickup View Offer', async () => {
-    await screen.findByTestId('pickup-view-offer');
-    fireEvent.click(screen.getByTestId('pickup-view-offer'));
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/pickups/pickup-details/44514'),
-    );
-  });
-
-  it('should trigger route push when clicking car View Offer', async () => {
-    await screen.findByTestId('car-view-offer');
-    fireEvent.click(screen.getByTestId('car-view-offer'));
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/cars/car-details/83615'),
     );
   });
 });

@@ -1,31 +1,40 @@
 import { NextPage } from 'next';
-import React, { useEffect } from 'react';
-import { ParsedUrlQuery } from 'querystring';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import { ParsedUrlQuery } from 'querystring';
 import { useCarData } from '../../../gql/carpage';
 import withApollo from '../../../hocs/withApollo';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import DetailsPage from '../../../containers/DetailsPage/DetailsPage';
 
 interface IProps {
-  query: ParsedUrlQuery;
+  query?: ParsedUrlQuery;
 }
 
-const PickupDetailsPage: NextPage<IProps> = () => {
+const CarDetailsPage: NextPage<IProps> = () => {
   const router = useRouter();
-  const capId = parseInt((router.query.capId as string) ?? '', 10);
+  const [capId, setCapId] = useState(0);
 
   const [getCarData, { data, loading, error }] = useCarData(
     capId,
-    VehicleTypeEnum.LCV,
+    VehicleTypeEnum.CAR,
   );
 
   useEffect(() => {
     if (capId) {
       getCarData();
+    } else if (sessionStorage) {
+      setCapId(
+        parseInt(
+          sessionStorage.getItem('capId') ??
+            (router.query.capId as string) ??
+            '',
+          10,
+        ),
+      );
     }
-  }, [capId, getCarData]);
+  }, [capId, getCarData, router.query.capId]);
 
   if (!data) {
     return (
@@ -37,16 +46,16 @@ const PickupDetailsPage: NextPage<IProps> = () => {
       </div>
     );
   }
+
   return (
     <DetailsPage
       capId={capId}
-      pickups
+      cars
       data={data}
       loading={loading}
       error={error}
-      router={router}
     />
   );
 };
 
-export default withApollo(PickupDetailsPage);
+export default withApollo(CarDetailsPage);

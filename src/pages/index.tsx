@@ -4,15 +4,12 @@ import Router from 'next/router';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import ReactMarkdown from 'react-markdown/with-html';
-import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
 import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
 import Tab from '@vanarama/uibook/lib/components/molecules/tabs/Tab';
 import TabList from '@vanarama/uibook/lib/components/molecules/tabs/TabList';
@@ -20,12 +17,10 @@ import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
 import TabPanels from '@vanarama/uibook/lib/components/molecules/tabs/TabPanels';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
-import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
-import Price from '@vanarama/uibook/lib/components/atoms/price';
 import Head from '../components/Head/Head';
 
 import RouterLink from '../components/RouterLink/RouterLink';
@@ -39,35 +34,59 @@ import Hero, { HeroHeading, HeroTitle } from '../components/Hero';
 import { ALL_HOME_CONTENT } from '../gql/homepage';
 import { PRODUCT_CARD_CONTENT } from '../gql/productCard';
 import withApollo from '../hocs/withApollo';
-import useSliderProperties from '../hooks/useSliderProperties';
-import getIconMap from '../utils/getIconMap';
-import truncateString from '../utils/truncateString';
+import { LeaseTypeEnum, VehicleTypeEnum } from '../../generated/globalTypes';
+import ProductCarousel from '../components/ProductCarousel/ProductCarousel';
+import { useCarDerivativesData } from '../containers/OrdersInformation/gql';
 
 export const HomePage: NextPage = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const { slidesToShow } = useSliderProperties();
 
   const { data, loading, error } = useQuery<HomePageData>(ALL_HOME_CONTENT);
 
   const { data: productsVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
-      variables: { type: 'LCV', subType: 'VAN', size: 9, offer: true },
+      variables: {
+        type: VehicleTypeEnum.LCV,
+        subType: 'VAN',
+        size: 9,
+        offer: true,
+      },
     },
+  );
+
+  const { data: productsVanDerivatives } = useCarDerivativesData(
+    productsVan?.productCarousel?.map(el => el?.capId || '') || [''],
+    VehicleTypeEnum.LCV,
   );
 
   const { data: productsCar } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
-      variables: { type: 'CAR', size: 9, offer: true },
+      variables: { type: VehicleTypeEnum.CAR, size: 9, offer: true },
     },
+  );
+
+  const { data: productsCarDerivatives } = useCarDerivativesData(
+    productsCar?.productCarousel?.map(el => el?.capId || '') || [''],
+    VehicleTypeEnum.CAR,
   );
 
   const { data: productsPickUp } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
-      variables: { type: 'LCV', subType: 'PICKUP', size: 9, offer: true },
+      variables: {
+        type: VehicleTypeEnum.LCV,
+        subType: 'PICKUP',
+        size: 9,
+        offer: true,
+      },
     },
+  );
+
+  const { data: productsPickUpDerivatives } = useCarDerivativesData(
+    productsPickUp?.productCarousel?.map(el => el?.capId || '') || [''],
+    VehicleTypeEnum.LCV,
   );
 
   if (loading) {
@@ -122,72 +141,15 @@ export const HomePage: NextPage = () => {
           <TabPanels>
             <TabPanel index={0}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <Carousel
-                  className="-mh-auto"
+                <ProductCarousel
+                  leaseType={LeaseTypeEnum.PERSONAL}
+                  data={{
+                    derivatives: productsVanDerivatives?.derivatives || null,
+                    productCard: productsVan?.productCarousel || null,
+                  }}
                   countItems={productsVan?.productCarousel?.length || 6}
-                >
-                  {productsVan?.productCarousel?.map((item, idx) => {
-                    const iconMap = getIconMap(item?.keyInformation || []);
-                    return (
-                      <ProductCard
-                        key={item?.capId || idx}
-                        header={{
-                          accentIcon:
-                            slidesToShow > 2 ? (
-                              <Icon icon={<Flame />} color="white" />
-                            ) : (
-                              ''
-                            ),
-                          accentText: slidesToShow > 2 ? 'Hot Deal' : '',
-                          text: 'In Stock - 14-21 Days Delivery',
-                        }}
-                        features={item?.keyInformation?.map(info => ({
-                          icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
-                          label: info?.value || '',
-                        }))}
-                        imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
-                        onCompare={() => true}
-                        onWishlist={() => true}
-                        title={{
-                          title: '',
-                          link: (
-                            <RouterLink
-                              link={{
-                                href: `/vans/van-details/${item?.capId}`,
-                                label: truncateString(
-                                  `${item?.manufacturerName} ${item?.rangeName}`,
-                                ),
-                              }}
-                              className="heading"
-                              classNames={{ size: 'large', color: 'black' }}
-                            />
-                          ),
-                          description: item?.derivativeName || '',
-                          score: item?.averageRating || 0,
-                        }}
-                      >
-                        <div className="-flex-h">
-                          <Price
-                            price={item?.businessRate}
-                            size="large"
-                            separator="."
-                            priceDescription="Per Month Exc.VAT"
-                          />
-                          <Button
-                            color="teal"
-                            fill="solid"
-                            label="View Offer"
-                            dataTestId="van-view-offer"
-                            onClick={() =>
-                              Router.push(`/vans/van-details/${item?.capId}`)
-                            }
-                            size="regular"
-                          />
-                        </div>
-                      </ProductCard>
-                    );
-                  })}
-                </Carousel>
+                  dataTestIdBtn="van-view-offer"
+                />
                 <div className="-justify-content-row -pt-500">
                   <Button
                     label="View All Van Offers"
@@ -200,74 +162,15 @@ export const HomePage: NextPage = () => {
             </TabPanel>
             <TabPanel index={1}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <Carousel
-                  className="-mh-auto"
+                <ProductCarousel
+                  leaseType={LeaseTypeEnum.PERSONAL}
+                  data={{
+                    derivatives: productsPickUpDerivatives?.derivatives || null,
+                    productCard: productsPickUp?.productCarousel || null,
+                  }}
                   countItems={productsPickUp?.productCarousel?.length || 6}
-                >
-                  {productsPickUp?.productCarousel?.map((item, idx) => {
-                    const iconMap = getIconMap(item?.keyInformation || []);
-                    return (
-                      <ProductCard
-                        key={item?.capId || idx}
-                        header={{
-                          accentIcon:
-                            slidesToShow > 2 ? (
-                              <Icon icon={<Flame />} color="white" />
-                            ) : (
-                              ''
-                            ),
-                          accentText: slidesToShow > 2 ? 'Hot Deal' : '',
-                          text: 'In Stock - 14-21 Days Delivery',
-                        }}
-                        features={item?.keyInformation?.map(info => ({
-                          icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
-                          label: info?.value || '',
-                        }))}
-                        imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
-                        onCompare={() => true}
-                        onWishlist={() => true}
-                        title={{
-                          title: '',
-                          link: (
-                            <RouterLink
-                              link={{
-                                href: `/pickups/pickup-details/${item?.capId}`,
-                                label: truncateString(
-                                  `${item?.manufacturerName} ${item?.rangeName}`,
-                                ),
-                              }}
-                              className="heading"
-                              classNames={{ size: 'large', color: 'black' }}
-                            />
-                          ),
-                          description: item?.derivativeName || '',
-                          score: item?.averageRating || 0,
-                        }}
-                      >
-                        <div className="-flex-h">
-                          <Price
-                            price={item?.businessRate}
-                            size="large"
-                            separator="."
-                            priceDescription="Per Month Exc.VAT"
-                          />
-                          <Button
-                            color="teal"
-                            fill="solid"
-                            label="View Offer"
-                            dataTestId="pickup-view-offer"
-                            onClick={() =>
-                              Router.push(
-                                `/pickups/pickup-details/${item?.capId}`,
-                              )
-                            }
-                            size="regular"
-                          />
-                        </div>
-                      </ProductCard>
-                    );
-                  })}
-                </Carousel>
+                  dataTestIdBtn="pickup-view-offer"
+                />
                 <div className="-justify-content-row -pt-500">
                   <Button
                     label="View All Pickup Offers"
@@ -282,72 +185,15 @@ export const HomePage: NextPage = () => {
             </TabPanel>
             <TabPanel index={2}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <Carousel
-                  className="-mh-auto"
+                <ProductCarousel
+                  leaseType={LeaseTypeEnum.PERSONAL}
+                  data={{
+                    derivatives: productsCarDerivatives?.derivatives || null,
+                    productCard: productsCar?.productCarousel || null,
+                  }}
                   countItems={productsCar?.productCarousel?.length || 6}
-                >
-                  {productsCar?.productCarousel?.map((item, idx) => {
-                    const iconMap = getIconMap(item?.keyInformation || []);
-                    return (
-                      <ProductCard
-                        key={item?.capId || idx}
-                        header={{
-                          accentIcon:
-                            slidesToShow > 2 ? (
-                              <Icon icon={<Flame />} color="white" />
-                            ) : (
-                              ''
-                            ),
-                          accentText: slidesToShow > 2 ? 'Hot Deal' : '',
-                          text: 'In Stock - 14-21 Days Delivery',
-                        }}
-                        features={item?.keyInformation?.map(info => ({
-                          icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
-                          label: info?.value || '',
-                        }))}
-                        imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
-                        onCompare={() => true}
-                        onWishlist={() => true}
-                        title={{
-                          title: '',
-                          link: (
-                            <RouterLink
-                              link={{
-                                href: `/cars/car-details/${item?.capId}`,
-                                label: truncateString(
-                                  `${item?.manufacturerName} ${item?.rangeName}`,
-                                ),
-                              }}
-                              className="heading"
-                              classNames={{ size: 'large', color: 'black' }}
-                            />
-                          ),
-                          description: item?.derivativeName || '',
-                          score: item?.averageRating || 0,
-                        }}
-                      >
-                        <div className="-flex-h">
-                          <Price
-                            price={item?.businessRate}
-                            size="large"
-                            separator="."
-                            priceDescription="Per Month Exc.VAT"
-                          />
-                          <Button
-                            color="teal"
-                            fill="solid"
-                            label="View Offer"
-                            dataTestId="car-view-offer"
-                            onClick={() =>
-                              Router.push(`/cars/car-details/${item?.capId}`)
-                            }
-                            size="regular"
-                          />
-                        </div>
-                      </ProductCard>
-                    );
-                  })}
-                </Carousel>
+                  dataTestIdBtn="car-view-offer"
+                />
                 <div className="-justify-content-row -pt-500">
                   <Button
                     label="View All Car Offers"

@@ -17,7 +17,7 @@ import AboutFormContainer from '../../../containers/AboutFormContainer/AboutForm
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
-import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
+import { getUrlParam, OLAFB2CQueryParams } from '../../../utils/url';
 import {
   PersonByToken,
   PersonByTokenVariables,
@@ -28,6 +28,9 @@ import {
   useGetCreditApplicationByOrderUuid,
 } from '../../../gql/creditApplication';
 import { formValuesToInputCreditApplication } from '../../../mappers/mappersCreditApplication';
+import { usePersonByUuidData } from '../../../gql/person';
+import { useCreateUpdateOrder } from '../../../gql/order';
+import { LeaseTypeEnum } from '../../../../generated/globalTypes';
 
 const PERSON_BY_TOKEN_QUERY = gql`
   query PersonByToken($token: String!) {
@@ -56,22 +59,41 @@ const handleAccountFetchError = () =>
 const AboutYouPage: NextPage = () => {
   const router = useRouter();
   const client = useApolloClient();
-  const { orderId } = router.query as OLAFQueryParams;
+  const { orderId, uuid } = router.query as OLAFB2CQueryParams;
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [personUuid, setPersonUuid] = useState<string | undefined>();
 
+  const { refetch } = usePersonByUuidData(personUuid || uuid || '');
+  const [updateOrderHandle] = useCreateUpdateOrder(() => {});
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
   const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
-
   const [getPersonByToken] = usePersonByTokenLazyQuery(
     data => setPersonUuid(data?.personByToken?.uuid),
     handleAccountFetchError,
   );
 
-  const clickOnComplete = (
+  const clickOnComplete = async (
     createUpdatePerson: CreateUpdatePersonMutation_createUpdatePerson,
   ) => {
+    await refetch({
+      uuid: createUpdatePerson.uuid,
+    }).then(resp => {
+      const partyUuidDate = resp.data?.personByUuid?.partyUuid;
+      updateOrderHandle({
+        variables: {
+          input: {
+            leaseType: LeaseTypeEnum.PERSONAL,
+            lineItems: [
+              {
+                quantity: 1,
+              },
+            ],
+            partyUuid: partyUuidDate,
+          },
+        },
+      });
+    });
     createUpdateCA({
       variables: {
         input: formValuesToInputCreditApplication({
