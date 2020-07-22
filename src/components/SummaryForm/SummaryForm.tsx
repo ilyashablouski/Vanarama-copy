@@ -70,7 +70,10 @@ const SummaryForm: FCWithFragments<IProps> = ({ person, orderId }) => {
         label="Continue"
         dataTestId="olaf_summary_continue_buttton"
         onClick={() => {
-          router.push('/olaf/thank-you');
+          router.push(
+            '/olaf/thank-you/[orderId]',
+            '/olaf/thank-you/[orderId]'.replace('[orderId]', orderId),
+          );
         }}
       />
     </Form>
