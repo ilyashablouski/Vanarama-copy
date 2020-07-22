@@ -1,5 +1,3 @@
-export interface ISoleTraderCompanyDetailsFormProps {}
-
 export interface ISoleTraderCompanyDetailsFormValues {
   tradingName: string;
   tradingAddress: string;
@@ -13,4 +11,8 @@ export interface ISoleTraderCompanyDetailsFormValues {
   annualExpenses: string;
   vehicleRegistrationNumber: string;
   monthlyAmountBeingReplaced: string;
+}
+
+export interface ISoleTraderCompanyDetailsFormProps {
+  onSubmit: (values: ISoleTraderCompanyDetailsFormValues) => Promise<any>;
 }

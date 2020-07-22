@@ -13,7 +13,7 @@ type QueryParams = OLAFQueryParams & {
 export const CompanyDetailsPage: NextPage = () => {
   return (
     <OLAFLayout>
-      <CompanyDetailsForm />
+      <CompanyDetailsForm onSubmit={() => Promise.resolve()} />
     </OLAFLayout>
   );
 };
