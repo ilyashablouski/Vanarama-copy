@@ -1,14 +1,14 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
-import ThankYouPage from '../../../pages/olaf/thank-you';
+import ThankYouPage from '../../../pages/olaf/thank-you/[orderId]';
 
 jest.mock('../../../layouts/OLAFLayout/OLAFLayout');
 const mockPush = jest.fn();
 jest.mock('next/router', () => ({
   useRouter() {
     return {
-      pathname: '/olaf/thank-you',
+      pathname: '/olaf/thank-you/[orderId]',
       push: mockPush,
       query: {},
     };
