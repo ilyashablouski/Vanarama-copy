@@ -1,180 +1,86 @@
+/* eslint-disable import/no-cycle */
 import React, { FC, memo } from 'react';
-// import cx from 'classnames';
+import cx from 'classnames';
 import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
-// import Button from '@vanarama/uibook/lib/components/atoms/button';
-// import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-// import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-// import Text from '@vanarama/uibook/lib/components/atoms/text';
-// import Logo from '@vanarama/uibook/lib/components/atoms/logo';
-// import IvanCta from '@vanarama/uibook/lib/components/molecules/ivan-cta';
+import Button from '@vanarama/uibook/lib/components/atoms/button';
+import Logo from '@vanarama/uibook/lib/components/atoms/logo';
+import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 
-// import Call from '@vanarama/uibook/lib/assets/icons/Call';
 // import Menu from '@vanarama/uibook/lib/assets/icons/Menu';
-// import ChevronDown from '@vanarama/uibook/lib/assets/icons/ChevronDown';
 
 import { ILinkProps } from '../RouterLink/interface';
-// import RouterLink from '../RouterLink/RouterLink';
+import RouterLink from '../RouterLink/RouterLink';
+import HeaderMenu from './HeaderMenu';
 
-export interface IHeaderProps extends IBaseProps {
-  topBarLinks: ILinkProps[];
-  loginLink: ILinkProps;
-  phoneNumberLink: ILinkProps;
-  showIvan?: boolean;
-  message?: string;
+export interface IHeaderLink extends ILinkProps {
+  highlight?: boolean;
 }
 
-const Header: FC<IHeaderProps> = memo(() => {
-  // const {
-  //   className,
-  //   topBarLinks,
-  //   loginLink,
-  //   showIvan,
-  //   message,
-  //   phoneNumberLink,
-  // } = props;
+export interface IHeaderProps extends IBaseProps {
+  topBarLinks: IHeaderLink[];
+  loginLink: ILinkProps;
+  phoneNumberLink: ILinkProps;
+}
 
-  // const renderChildrenMenu = (childrenLinks: ILinkProps[]) => {
+const Header: FC<IHeaderProps> = memo(props => {
+  const { className, topBarLinks, loginLink, phoneNumberLink } = props;
+
+  // const renderChildrenMenu = (
+  //   childrenLinks: IHeaderLink[],
+  //   title: string,
+  //   open?: boolean,
+  // ) => {
   //   return (
-  //     <nav data-testid="header--menu-children">
-  //       <ul>
-  //         {childrenLinks.map((link: ILinkProps) => (
-  //           <li key={link.label}>
-  //             <RouterLink
-  //               link={link}
-  //               classNames={{
-  //                 size: 'large',
-  //                 color: 'black',
-  //               }}
-  //               className="button -clear"
-  //             >
-  //               {link.label}
-  //             </RouterLink>
-  //           </li>
-  //         ))}
-  //       </ul>
-  //     </nav>
+  //     <ul className={cx('menu-tertiary', { '-open': open })}>
+  //       <li className={linkClassName({ title: true })}>{title}</li>
+  //       {childrenLinks.map((linkSecondary: IHeaderLink) => (
+  //         <li
+  //           key={linkSecondary.label}
+  //           className={linkClassName({
+  //             highlight: linkSecondary.highlight,
+  //             half: true,
+  //           })}
+  //         >
+  //           <RouterLink link={linkSecondary}>{linkSecondary.label}</RouterLink>
+  //         </li>
+  //       ))}
+  //     </ul>
   //   );
   // };
-
-  // const renderMenu = () => {
-  //   return (
-  //     <div className="header--menu" data-testid="header--menu">
-  //       <nav className="header--menu-nav">
-  //         {!!topBarLinks.length &&
-  //           topBarLinks.map(entry => (
-  //             <Button
-  //               key={entry.label}
-  //               className="-multiple"
-  //               fill="clear"
-  //               color="inherit"
-  //               label={
-  //                 <>
-  //                   <RouterLink link={entry}>
-  //                     <Heading size="lead" color="inherit">
-  //                       {entry.label}
-  //                     </Heading>
-  //                     {!!entry.childrenLinks?.length && (
-  //                       <Icon color="dark" icon={<ChevronDown />} />
-  //                     )}
-  //                   </RouterLink>
-  //                   {!!entry.childrenLinks?.length &&
-  //                     renderChildrenMenu(entry.childrenLinks)}
-  //                 </>
-  //               }
-  //             />
-  //           ))}
-  //         {loginLink && (
-  //           <>
-  //             <span className="header--vertical-rule" />
-  //             <Button
-  //               key={loginLink.label}
-  //               color="inherit"
-  //               fill="clear"
-  //               label={
-  //                 <Text size="lead" color="inherit">
-  //                   <RouterLink
-  //                     link={loginLink}
-  //                     className="button -clear"
-  //                     classNames={{ size: 'large', color: 'inherit' }}
-  //                   >
-  //                     {loginLink.label}
-  //                   </RouterLink>
-  //                 </Text>
-  //               }
-  //             />
-  //           </>
-  //         )}
-  //       </nav>
-  //     </div>
-  //   );
-  // };
-
-  // const renderCta = () => {
-  //   if (showIvan) {
-  //     return <IvanCta isCompact />;
-  //   }
-  //   return (
-  //     <RouterLink
-  //       link={phoneNumberLink}
-  //       className="button -clear"
-  //       classNames={{ size: 'large', color: 'inherit' }}
-  //     >
-  //       01442 838195
-  //     </RouterLink>
-  //   );
-  // };
-
-  // const renderMessage = () => (
-  //   <div className="header--notice" data-testid="header--notice">
-  //     <Text tag="p" color="darker">
-  //       {message}
-  //     </Text>
-  //   </div>
-  // );
 
   return (
-    <header />
-    // ToDo: uncomment it when header will be fixed
-    // <header className={cx('header', className)} data-testid="header">
-    //   <div className="header--logo" data-testid="header--logo">
-    //     <RouterLink
-    //       link={{ href: '/', label: '' }}
-    //       classNames={{ color: 'orange', plain: true }}
-    //     >
-    //       <Logo asset="vanarama" />
-    //     </RouterLink>
-    //   </div>
-    //   {renderMenu()}
-    //   <div className="header--compact-menu" data-testid="header--compact-menu">
-    //     <Button
-    //       className="header--responsive-icon"
-    //       color="orange"
-    //       fill="clear"
-    //       dataTestId="call-btn"
-    //       label={
-    //         <RouterLink
-    //           className="-clear"
-    //           classNames={{ size: 'large', color: 'inherit' }}
-    //           link={phoneNumberLink}
-    //         >
-    //           <Icon icon={<Call />} size="small" name="call-sharp" />
-    //         </RouterLink>
-    //       }
-    //     />
-    //     <Button
-    //       className="header--responsive-icon"
-    //       color="orange"
-    //       fill="clear"
-    //       iconPosition="before"
-    //       dataTestId="menu-btn"
-    //       label={<Icon icon={<Menu />} size="small" />}
-    //     />
-    //   </div>
-    //   <div className="header--cta" data-testid="header--cta">
-    //     {renderCta()}
-    //     {!!message && renderMessage()}
-    //   </div>
-    // </header>
+    <header className={cx('header', className)} data-testid="header">
+      <div className="header-content">
+        <RouterLink
+          link={{ href: '/', label: '' }}
+          className="logo header-logo"
+          classNames={{ color: 'orange', plain: true }}
+        >
+          <Logo asset="vanarama" />
+        </RouterLink>
+        <label className="header-search" htmlFor="search">
+          <input
+            className="header-search--input"
+            id="search"
+            type="text"
+            placeholder="Search for Vehicles…"
+          />
+          {/* <div className="header-search--results -is-hidden" /> */}
+        </label>
+        <RouterLink link={phoneNumberLink} className="header-tel">
+          {/* <Icon name="Call" size="xsmall" /> */}
+          01442 838195
+        </RouterLink>
+        <div className="header-account">
+          <Button
+            className="header-account--toggle"
+            fill="outline"
+            label={<RouterLink link={loginLink}>Login</RouterLink>}
+          />
+        </div>
+        <HeaderMenu menuLinks={topBarLinks} />
+      </div>
+    </header>
   );
 });
 
