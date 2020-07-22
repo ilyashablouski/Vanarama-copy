@@ -27,6 +27,7 @@ import {
 } from '../../../generated/GetVehicleDetails';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import WhyChooseLeasing from '../../components/WhyChooseLeasing/WhyChooseLeasing';
+import Banner from '../../components/Banner/Banner';
 import CustomerReviews from '../../components/CustomerReviews/CustomerReviews';
 import WhyChooseVanarama from '../../components/WhyChooseVanarama/WhyChooseVanarama';
 import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer';
@@ -183,6 +184,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           vehicleDetails={vehicleDetails}
           derivativeInfo={derivativeInfo}
         />
+        <Banner />
         {(vans || pickups) && !!independentReview && (
           <IndependentReview review={independentReview || ''} />
         )}

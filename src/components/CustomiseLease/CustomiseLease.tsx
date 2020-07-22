@@ -2,13 +2,11 @@
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import { Dispatch, SetStateAction } from 'react';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Choiceboxes from '@vanarama/uibook/lib/components/atoms/choiceboxes';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
 import SlidingInput from '@vanarama/uibook/lib/components/atoms/sliding-input';
 import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
 import Radio from '@vanarama/uibook/lib/components/atoms/radio';
-import MileageBooster from '@vanarama/uibook/lib/assets/icons/MileageBooster';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Modal from '@vanarama/uibook/lib/components/molecules/modal';
@@ -151,20 +149,6 @@ const CustomiseLease = ({
           setMileage(mileages[value - 1]);
         }}
       />
-      <div className="-flex-row">
-        <Icon
-          color="orange"
-          size="xlarge"
-          icon={<MileageBooster />}
-          className="-pt-200"
-        />
-        <Text color="orange" size="small" className="-b -ml-200">
-          {`+ ${(quoteByCapId?.mileage || 0) / 10}`}
-        </Text>
-        <Text color="black" size="small" className="-mt-000 -ml-100">
-          Extra Miles FREE
-        </Text>
-      </div>
       {choices(
         terms,
         value => setTerm(+(value || 0) || null),
