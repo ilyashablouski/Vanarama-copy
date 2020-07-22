@@ -8,6 +8,7 @@ export const responseToInitialFormValues = (
   const joinedDate = account?.joinedAt ? new Date(account.joinedAt) : undefined;
   return {
     accountNumber: account?.accountNumber || '',
+    uuid: account?.uuid,
     accountName: account?.accountName || '',
     joinedAtMonth: joinedDate ? String(joinedDate.getMonth() + 1) : '',
     joinedAtYear: joinedDate ? String(joinedDate.getFullYear()) : '',
