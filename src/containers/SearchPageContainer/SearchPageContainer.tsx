@@ -373,7 +373,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           <div className="row:cards-3col">
             {useCallback(
               isMakePage
-                ? ranges?.rangeList?.length > 0 &&
+                ? ranges?.rangeList?.length > 3 &&
                     ranges?.rangeList?.map((range, index) => (
                       <RangeCard
                         viewRange={viewRange}
