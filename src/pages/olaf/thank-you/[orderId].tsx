@@ -7,8 +7,8 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
-import OLAFLayout from '../../layouts/OLAFLayout/OLAFLayout';
-import withApollo from '../../hocs/withApollo';
+import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
+import withApollo from '../../../hocs/withApollo';
 
 const ThankYouPage: NextPage = () => {
   const router = useRouter();

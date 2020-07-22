@@ -3,7 +3,7 @@ import ChevronUpSharp from '@vanarama/uibook/lib/assets/icons/ChevronUpSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import OlafCard from '@vanarama/uibook/lib/components/molecules/cards/OlafCard/OlafCard';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
@@ -23,11 +23,17 @@ const OLAFLayout: React.FC = ({ children }) => {
   const olafData = useOlafData(orderId);
   const orderByUuid = olafData && olafData.data?.orderByUuid;
 
-  const derivativeData = useCarDerivativesData(
+  const [getDerivativeData, derivativeData] = useCarDerivativesData(
     orderByUuid?.lineItems[0].vehicleProduct?.derivativeCapId as string,
     orderByUuid?.lineItems[0].vehicleProduct?.vehicleType,
   );
   const derivative = derivativeData && derivativeData.data?.derivative;
+
+  useEffect(() => {
+    if (orderByUuid) {
+      getDerivativeData();
+    }
+  }, [orderByUuid, getDerivativeData]);
 
   return (
     <>
@@ -85,7 +91,7 @@ const OLAFLayout: React.FC = ({ children }) => {
 
 function ProgressSection() {
   const { pathname } = useRouter();
-  const hideProgress = pathname === '/olaf/thank-you';
+  const hideProgress = pathname === '/olaf/thank-you/[orderId]';
   if (hideProgress) {
     return null;
   }
