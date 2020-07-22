@@ -327,7 +327,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         </Heading>
         <Text color="darker" size="lead" />
       </div>
-      {isMakePage && vehiclesList.length > 0 && (
+      {isMakePage && vehiclesList.length > 3 && carDer.length > 0 && (
         <div className="row:bg-lighter">
           <div className="row:carousel">
             <Heading size="large" color="black" tag="h3">
@@ -336,6 +336,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             <SalesCarousel length={vehiclesList.length || 0}>
               {vehiclesList?.map((vehicle: IVehicles) => (
                 <VehicleCard
+                  dataDerivatives={carDer}
                   viewOffer={viewOffer}
                   key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
                   data={
@@ -388,7 +389,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           <div className="row:cards-3col">
             {useCallback(
               isMakePage
-                ? ranges?.rangeList?.length > 3 &&
+                ? ranges?.rangeList && ranges?.rangeList?.length > 3 &&
                     ranges?.rangeList?.map((range, index) => (
                       <RangeCard
                         viewRange={viewRange}
@@ -401,6 +402,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                     vehiclesList?.map((vehicle: IVehicles) => (
                       <VehicleCard
                         viewOffer={viewOffer}
+                        dataDerivatives={carDer}
                         key={
                           vehicle?.node?.derivativeId + vehicle?.cursor || ''
                         }
