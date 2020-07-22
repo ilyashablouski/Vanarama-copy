@@ -54,7 +54,7 @@ export const PickupsPage: NextPage = () => {
   const { data: products } = useQuery<ProductCardData>(PRODUCT_CARD_CONTENT, {
     variables: {
       type: VehicleTypeEnum.LCV,
-      subType: 'PICKUP',
+      bodyType: 'Pickup',
       size: 9,
       offer: true,
     },
