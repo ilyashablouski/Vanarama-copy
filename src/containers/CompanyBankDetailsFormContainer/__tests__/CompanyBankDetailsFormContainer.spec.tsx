@@ -12,13 +12,13 @@ import { LimitedCompanyInputObject } from '../../../../generated/globalTypes';
 
 let prepopulatedMockCalled = false;
 
-const personUuid = 'ebdec701-6bc3-4f23-a636-cb4fbe419414';
+const companyUuid = '7f5a4ed2-24a5-42ff-9acd-208db847d678';
 const mocks: MockedResponse[] = [
   {
     request: {
       query: GET_COMPANY_BANK_DETAILS,
       variables: {
-        uuid: personUuid,
+        uuid: companyUuid,
       } as GetCompanyBankDetailsPageDataQueryVariables,
     },
     result: () => {
@@ -29,11 +29,67 @@ const mocks: MockedResponse[] = [
             uuid: '7f5a4ed2-24a5-42ff-9acd-208db847d678',
             bankAccounts: [
               {
+                __typename: 'BankAccountType',
                 uuid: '0b5847cc-d9aa-4588-8a5b-aef64307caff',
-                accountName: 'Eternal account',
+                accountName: 'Eternal account1',
                 accountNumber: '27272829',
                 joinedAt: '2019-01-22',
                 sortCode: '029387',
+                updatedAt: '2020-07-16T10:38:26.416+00:00',
+              },
+              {
+                __typename: 'BankAccountType',
+                uuid: '3f461056-5eb1-44e6-a953-13975b74adea',
+                accountName: 'Eternal account',
+                accountNumber: '27272829',
+                joinedAt: '2019-01-01',
+                sortCode: '029387',
+                updatedAt: '2020-07-20T12:14:59.326+00:00',
+              },
+              {
+                __typename: 'BankAccountType',
+                uuid: 'e0805856-fc03-4487-a457-f577ca6ff78a',
+                accountName: 'Eternal account',
+                accountNumber: '27272820',
+                joinedAt: '2019-01-01',
+                sortCode: '029387',
+                updatedAt: '2020-07-20T12:19:11.456+00:00',
+              },
+              {
+                __typename: 'BankAccountType',
+                uuid: 'c192b4ba-5426-4f26-a998-b2fc50f804cd',
+                accountName: 'Eternal account',
+                accountNumber: '07272820',
+                joinedAt: '2019-01-01',
+                sortCode: '029387',
+                updatedAt: '2020-07-20T12:23:21.238+00:00',
+              },
+              {
+                __typename: 'BankAccountType',
+                uuid: '0aa553d4-c7cc-47b7-ad6f-45f3ce6c1f61',
+                accountName: 'Eternal account',
+                accountNumber: '17272820',
+                joinedAt: '2019-01-01',
+                sortCode: '029387',
+                updatedAt: '2020-07-20T12:29:03.972+00:00',
+              },
+              {
+                __typename: 'BankAccountType',
+                uuid: 'fa7e2a1a-f623-43c7-8ce4-eb2f5d511a51',
+                accountName: 'Eternal account',
+                accountNumber: '37272820',
+                joinedAt: '2019-01-01',
+                sortCode: '029387',
+                updatedAt: '2020-07-20T12:30:55.825+00:00',
+              },
+              {
+                __typename: 'BankAccountType',
+                uuid: '1ab66023-7566-42c1-8e6b-011ed4000ed0',
+                accountName: 'Eternal account',
+                accountNumber: '67272820',
+                joinedAt: '2020-01-01',
+                sortCode: '019387',
+                updatedAt: '2020-07-21T14:29:09.623+00:00',
               },
             ],
           },
@@ -48,7 +104,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
         <CompanyBankDetailsFormContainer
-          companyUuid={personUuid}
+          companyUuid={companyUuid}
           onCompleted={jest.fn()}
         />
       </MockedProvider>,
@@ -57,13 +113,12 @@ describe('<CompanyBankDetailsFormContainer />', () => {
     // Wait for the initial query to resolve
     await screen.findByTestId('companyBankDetails');
     expect(screen.getByTestId(/accountName/)).toHaveValue('Eternal account');
-
-    expect(screen.getByTestId(/accountNumber/)).toHaveValue('27272829');
-    expect(screen.getByDisplayValue(/02/)).toBeVisible();
+    expect(screen.getByTestId(/accountNumber/)).toHaveValue('67272820');
+    expect(screen.getByDisplayValue(/01/)).toBeVisible();
     expect(screen.getByDisplayValue(/93/)).toBeVisible();
     expect(screen.getByDisplayValue(/87/)).toBeVisible();
     expect(screen.getByTestId(/joinedAtMonth/)).toHaveValue('1');
-    expect(screen.getByTestId(/joinedAtYear/)).toHaveValue('2019');
+    expect(screen.getByTestId(/joinedAtYear/)).toHaveValue('2020');
   });
 
   it('should be render correctly', async () => {
@@ -71,7 +126,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
     const getComponent = render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <CompanyBankDetailsFormContainer
-          companyUuid={personUuid}
+          companyUuid={companyUuid}
           onCompleted={jest.fn()}
         />
       </MockedProvider>,
@@ -94,11 +149,12 @@ describe('<CompanyBankDetailsFormContainer />', () => {
           query: UPDATE_COMPANY_BANK_DETAILS,
           variables: {
             input: {
-              uuid: 'ebdec701-6bc3-4f23-a636-cb4fbe419414',
+              uuid: '7f5a4ed2-24a5-42ff-9acd-208db847d678',
               bankAccount: {
+                uuid: '1ab66023-7566-42c1-8e6b-011ed4000ed0',
                 accountName: 'Test',
                 accountNumber: '27272829',
-                sortCode: '029387',
+                sortCode: '019387',
                 joinedAt: '2019-01-01',
               },
             },
@@ -108,12 +164,13 @@ describe('<CompanyBankDetailsFormContainer />', () => {
           mutationCalled = true;
           return {
             data: {
-              updateLimitedCompany: {
+              createUpdateLimitedCompany: {
                 uuid: '7f5a4ed2-24a5-42ff-9acd-208db847d678',
                 bankAccount: {
+                  uuid: '1ab66023-7566-42c1-8e6b-011ed4000ed0',
                   accountName: 'Test',
                   accountNumber: '27272829',
-                  sortCode: '029387',
+                  sortCode: '019387',
                   joinedAt: '2019-01-01',
                 },
               } as LimitedCompanyInputObject,
@@ -130,7 +187,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
         mocks={mocks.concat(...mutationMocks)}
       >
         <CompanyBankDetailsFormContainer
-          companyUuid={personUuid}
+          companyUuid={companyUuid}
           onCompleted={onCompletedMock}
         />
       </MockedProvider>,
@@ -147,7 +204,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
     });
 
     fireEvent.change(screen.getByLabelText('Sort code first two digits'), {
-      target: { value: '02' },
+      target: { value: '01' },
     });
 
     fireEvent.change(screen.getByLabelText('Sort code middle two digits'), {

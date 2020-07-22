@@ -2,14 +2,20 @@ import * as yup from 'yup';
 import moment from 'moment';
 import { ICompanyBankDetails } from './interfaces';
 
-function isInFuture({ joinedAtYear, joinedAtMonth }: ICompanyBankDetails) {
+function isInPast({ joinedAtYear, joinedAtMonth }: ICompanyBankDetails) {
+  if (!joinedAtYear || !joinedAtMonth) {
+    return '';
+  }
   const inPast =
     moment(`${joinedAtMonth}-${joinedAtYear}`, 'MM-YYYY').diff() <= 0;
-  return inPast;
+  return inPast ? '' : 'Oops, this date seems to be in the future';
 }
 
 function timeValidator(this: yup.TestContext) {
-  return isInFuture(this.parent);
+  const { createError, path, parent } = this;
+  const error = isInPast(parent);
+
+  return error ? createError({ message: error, path }) : true;
 }
 
 const ValidationSchema = yup.object().shape({
@@ -42,6 +48,7 @@ const ValidationSchema = yup.object().shape({
   joinedAtYear: yup
     .string()
     .required('Please select account opening date')
+
     .test(
       'not-in-future',
       'Oops, this date seems to be in the future',

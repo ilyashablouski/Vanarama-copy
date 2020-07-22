@@ -1,4 +1,4 @@
-import { useQuery, gql, useMutation } from '@apollo/client';
+import { useQuery, gql, useMutation, useLazyQuery } from '@apollo/client';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
 import {
   GetDerivative,
@@ -106,12 +106,15 @@ export function useCarDerivativesData(
   id: string,
   vehicleType?: VehicleTypeEnum,
 ) {
-  return useQuery<GetDerivative, GetDerivativeVariables>(GET_CAR_DERIVATIVE, {
-    variables: {
-      id,
-      vehicleType,
+  return useLazyQuery<GetDerivative, GetDerivativeVariables>(
+    GET_CAR_DERIVATIVE,
+    {
+      variables: {
+        id,
+        vehicleType,
+      },
     },
-  });
+  );
 }
 
 export const GET_OLAF_DATA = gql`

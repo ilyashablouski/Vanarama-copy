@@ -64,14 +64,14 @@ const AboutYouPage: NextPage = () => {
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [personUuid, setPersonUuid] = useState<string | undefined>();
 
-  const { refetch } = usePersonByUuidData(personUuid || uuid || '');
   const [updateOrderHandle] = useCreateUpdateOrder(() => {});
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
-  const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
   const [getPersonByToken] = usePersonByTokenLazyQuery(
     data => setPersonUuid(data?.personByToken?.uuid),
     handleAccountFetchError,
   );
+  const { refetch } = usePersonByUuidData(personUuid || uuid || '');
+  const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
 
   const clickOnComplete = async (
     createUpdatePerson: CreateUpdatePersonMutation_createUpdatePerson,

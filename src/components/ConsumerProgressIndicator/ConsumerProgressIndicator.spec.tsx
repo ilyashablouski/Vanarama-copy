@@ -10,10 +10,11 @@ describe('<ConsumerProgressIndicator />', () => {
     // ARRANGE
     // Mock that the user is on the address history page
     (useRouter as jest.Mock).mockReturnValue({
-      pathname: '/olaf/address-history/[uuid]',
+      pathname: '/olaf/address-history/[orderId]',
       query: {
         redirect: '',
         uuid: '602093f8-4d53-44aa-b54b-cfebfaef24d9',
+        orderId: '9d9fd2e0-ecbb-41fb-aa04-1b2b87258467',
       },
     });
 
@@ -50,10 +51,11 @@ describe('<ConsumerProgressIndicator />', () => {
     // ARRANGE
     // Mock that the user is on the bank details page
     (useRouter as jest.Mock).mockReturnValue({
-      pathname: '/olaf/bank-details/[uuid]',
+      pathname: '/olaf/bank-details/[orderId]',
       query: {
         redirect: '',
         uuid: '602093f8-4d53-44aa-b54b-cfebfaef24d9',
+        orderId: '9d9fd2e0-ecbb-41fb-aa04-1b2b87258467',
       },
     });
 
@@ -70,10 +72,11 @@ describe('<ConsumerProgressIndicator />', () => {
     // ARRANGE
     // Mock that the user is on the expenses page
     (useRouter as jest.Mock).mockReturnValue({
-      pathname: '/olaf/expenses/[uuid]',
+      pathname: '/olaf/expenses/[orderId]',
       query: {
         redirect: '',
         uuid: '602093f8-4d53-44aa-b54b-cfebfaef24d9',
+        orderId: '9d9fd2e0-ecbb-41fb-aa04-1b2b87258467',
       },
     });
 
@@ -85,21 +88,21 @@ describe('<ConsumerProgressIndicator />', () => {
       screen.getByRole('link', { name: /About You - complete/ }),
     ).toHaveAttribute(
       'href',
-      '/olaf/about/602093f8-4d53-44aa-b54b-cfebfaef24d9',
+      '/olaf/about/9d9fd2e0-ecbb-41fb-aa04-1b2b87258467?uuid=602093f8-4d53-44aa-b54b-cfebfaef24d9',
     );
 
     expect(
       screen.getByRole('link', { name: /Address History - complete/ }),
     ).toHaveAttribute(
       'href',
-      '/olaf/address-history/602093f8-4d53-44aa-b54b-cfebfaef24d9',
+      '/olaf/address-history/9d9fd2e0-ecbb-41fb-aa04-1b2b87258467?uuid=602093f8-4d53-44aa-b54b-cfebfaef24d9',
     );
 
     expect(
       screen.getByRole('link', { name: /Employment History - complete/ }),
     ).toHaveAttribute(
       'href',
-      '/olaf/employment-history/602093f8-4d53-44aa-b54b-cfebfaef24d9',
+      '/olaf/employment-history/9d9fd2e0-ecbb-41fb-aa04-1b2b87258467?uuid=602093f8-4d53-44aa-b54b-cfebfaef24d9',
     );
   });
 
@@ -107,10 +110,11 @@ describe('<ConsumerProgressIndicator />', () => {
     // ARRANGE
     // Mock that the user is on the expenses page
     (useRouter as jest.Mock).mockReturnValue({
-      pathname: '/olaf/expenses/[uuid]',
+      pathname: '/olaf/expenses/[orderId]',
       query: {
         redirect: '',
         uuid: '602093f8-4d53-44aa-b54b-cfebfaef24d9',
+        orderId: '9d9fd2e0-ecbb-41fb-aa04-1b2b87258467',
       },
     });
 
