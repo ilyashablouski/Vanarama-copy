@@ -36,4 +36,5 @@ const BenefitsSection = (props: IBenefitsSection) => (
             </Tile>))}
     </div>
 );
+
 export default BenefitsSection;

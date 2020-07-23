@@ -13,4 +13,5 @@ const LeadTextSection = (props: ILeadText) => (
         </Text>
     </div>
 );
+
 export default LeadTextSection;

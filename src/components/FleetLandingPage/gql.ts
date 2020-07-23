@@ -53,6 +53,20 @@ query GetFleetLandingPage {
           video
           layout
         }
+
+        featured4 {
+          title
+          titleTag
+          body
+          image {
+            title
+            file {
+              url
+            }
+          }
+          video
+          layout
+        }
         
         leadText {
           heading

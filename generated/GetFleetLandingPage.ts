@@ -61,6 +61,24 @@ export interface GetFleetLandingPage_fleetLandingPage_sections_featured3 {
   layout: string[] | null;
 }
 
+export interface GetFleetLandingPage_fleetLandingPage_sections_featured4_image_file {
+  url: string;
+}
+
+export interface GetFleetLandingPage_fleetLandingPage_sections_featured4_image {
+  title: string | null;
+  file: GetFleetLandingPage_fleetLandingPage_sections_featured4_image_file | null;
+}
+
+export interface GetFleetLandingPage_fleetLandingPage_sections_featured4 {
+  title: string | null;
+  titleTag: string | null;
+  body: string | null;
+  image: GetFleetLandingPage_fleetLandingPage_sections_featured4_image | null;
+  video: string | null;
+  layout: string[] | null;
+}
+
 export interface GetFleetLandingPage_fleetLandingPage_sections_leadText {
   heading: string | null;
   titleTag: string | null;

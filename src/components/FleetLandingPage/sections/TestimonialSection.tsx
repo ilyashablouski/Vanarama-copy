@@ -39,6 +39,6 @@ const TestimonialSection = (props: ISideText) => {
             }} />
         }
     </div >
-}
+};
 
 export default TestimonialSection;

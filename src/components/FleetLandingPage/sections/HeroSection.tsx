@@ -15,5 +15,6 @@ const HeroSection = (props: IHeroData) => (
             plain
             className="hero--image" />
     </Hero>
-)
+);
+
 export default HeroSection;
