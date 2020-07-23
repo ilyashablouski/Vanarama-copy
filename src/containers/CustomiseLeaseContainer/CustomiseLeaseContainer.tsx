@@ -196,7 +196,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       />
       {showCallBackForm && (
         <Modal
-          className="-mt-000"
+          className="-mt-000 callBack"
           show
           onRequestClose={() => setShowCallBackForm(false)}
         >

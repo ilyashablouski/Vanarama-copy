@@ -94,4 +94,5 @@ export interface vehicleListVariables {
   transmissions?: string[] | null;
   fuelTypes?: string[] | null;
   sortField: SortField;
+  first?: number | null;
 }
