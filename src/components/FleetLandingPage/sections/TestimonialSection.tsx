@@ -7,6 +7,12 @@ import Heading from "@vanarama/uibook/lib/components/atoms/heading";
 import Text from "@vanarama/uibook/lib/components/atoms/text";
 import ReactMarkdown from "react-markdown";
 import { getTitleTag } from "utils/getTitleTag";
+import Button from "@vanarama/uibook/lib/components/atoms/button";
+import config from "../config";
+
+const goToTop = () => {
+    window.scrollTo(0, 0);
+};
 
 const TestimonialSection = (props: ISideText) => {
     // const [review, setReview] = useState<TestimonialData | null>(null);
@@ -20,20 +26,22 @@ const TestimonialSection = (props: ISideText) => {
 
     const { testimonials } = data;
 
+
     return <div className="row:featured-right">
         <div>
-            <Heading size="large" color="black" tag={getTitleTag(props.titleTag) as any}></Heading>
-            <Text>
-                <ReactMarkdown
-                    source={props.body || ''}
-                    disallowedTypes={['paragraph']}
-                    unwrapDisallowed
-                />
+            <Heading size="large" color="black" tag={getTitleTag(props.titleTag) as any}>{props.title}</Heading>
+            <Text tag="p">
+                <ReactMarkdown source={props.body || ''} />
             </Text>
+            <Button
+                color="primary"
+                size="regular"
+                label={config.requestCallBackForm.requestCallBackButton}
+                onClick={goToTop} />
         </div>
         {
             testimonials && testimonials[0] && <ReviewCard review={{
-                text: testimonials[0].comments || testimonials[0].whyLease || '',
+                text: testimonials[0].comments || '',
                 author: testimonials[0].name,
                 score: testimonials[0].overallRating
             }} />

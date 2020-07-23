@@ -16,13 +16,6 @@ query GetFleetLandingPage {
           title
           titleTag
           body
-          image {
-            title
-            file {
-              url
-            }
-          }
-          video
           layout
         }
         
@@ -36,7 +29,6 @@ query GetFleetLandingPage {
               url
             }
           }
-          video
           layout
         }
         
@@ -50,7 +42,6 @@ query GetFleetLandingPage {
               url
             }
           }
-          video
           layout
         }
 
@@ -64,7 +55,6 @@ query GetFleetLandingPage {
               url
             }
           }
-          video
           layout
         }
         
