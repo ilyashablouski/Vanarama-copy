@@ -1,8 +1,10 @@
-import { GetFleetLandingPage_fleetLandingPage_sections_featured2 as ILeftMediaFeature } from "../../../generated/GetFleetLandingPage";
+import { GetFleetLandingPage_fleetLandingPage_sections_featured2 as ILeftMediaFeature } from "../../../../generated/GetFleetLandingPage";
 import Image from "@vanarama/uibook/lib/components/atoms/image";
 import Heading from "@vanarama/uibook/lib/components/atoms/heading";
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import ReactMarkdown from "react-markdown";
+import { useCallback } from "react";
+import { prepareTagName } from "../utils";
 
 export enum Side {
     left = "left",
@@ -14,15 +16,15 @@ export interface ISideMediaFeatureProps extends ILeftMediaFeature {
 }
 
 const SideMediaFeature = (props: ISideMediaFeatureProps) => {
-    const renderImage = () => props.image?.file?.url ? <Image
+    const renderImage = useCallback(() => props.image?.file?.url ? <Image
         src={props.image.file.url}
-        alt={props.image?.title || ''} /> : null;
-        
+        alt={props.image?.title || ''} /> : null, []);
+
     return (
         <div className={`row:featured-${props.side.toString()}`}>
             {props.side === Side.left && renderImage()}
             <div>
-                <Heading size="large" color="black">{props.title}</Heading>
+                <Heading size="large" color="black" tag={prepareTagName(props.titleTag) as any}>{props.title}</Heading>
                 <Text tag="p" size="regular" color="darker">
                     <ReactMarkdown source={props.body || ''} />
                 </Text>
