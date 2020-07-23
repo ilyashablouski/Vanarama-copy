@@ -6,7 +6,7 @@ import Image from "@vanarama/uibook/lib/components/atoms/image";
 import config from "../../config";
 
 const HeroSection = (props: IHeroData) => (
-    <Hero>
+    <Hero withRequestCallbackform>
         <HeroHeading text={props.title || ''} />
         <HeroTitle text={props.body || ''} />
         <Image
