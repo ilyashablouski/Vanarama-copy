@@ -84,7 +84,7 @@ export const VansPage: NextPage = () => {
     {
       variables: {
         type: VehicleTypeEnum.LCV,
-        bodyType: 'mediumVan',
+        bodyType: 'MediumVan',
         size: 9,
         offer: true,
       },

@@ -2,7 +2,7 @@
 import { NextPage } from 'next';
 import Router from 'next/router';
 import { useQuery } from '@apollo/client';
-import { useState } from 'react';
+// import { useState } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
@@ -12,10 +12,7 @@ import IconList, {
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import BreadCrumbs from '../../../containers/BreadCrumbContainer';
 
-import {
-  ProductCardData,
-  ProductCardData_productCarousel as ProdCardData,
-} from '../../../../generated/ProductCardData';
+import { ProductCardData } from '../../../../generated/ProductCardData';
 
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import withApollo from '../../../hocs/withApollo';
@@ -26,11 +23,7 @@ import {
 } from '../../../../generated/globalTypes';
 import ProductCarousel from '../../../components/ProductCarousel/ProductCarousel';
 
-type ProdCards = ProdCardData[];
-
-export const VansPage: NextPage = () => {
-  const [offers, setOffers] = useState<ProdCards>([]);
-
+export const VanOffers: NextPage = () => {
   const { data: productSmallVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
@@ -39,12 +32,6 @@ export const VansPage: NextPage = () => {
         bodyType: 'SmallVan',
         size: 9,
         offer: true,
-      },
-      onCompleted: prods => {
-        const topProduct = prods?.productCarousel?.find(
-          p => p?.isOnOffer === true,
-        );
-        if (topProduct) setOffers([...offers, topProduct]);
       },
     },
   );
@@ -63,12 +50,6 @@ export const VansPage: NextPage = () => {
         size: 9,
         offer: true,
       },
-      onCompleted: prods => {
-        const topProduct = prods?.productCarousel?.find(
-          p => p?.isOnOffer === true,
-        );
-        if (topProduct) setOffers([...offers, topProduct]);
-      },
     },
   );
 
@@ -85,12 +66,6 @@ export const VansPage: NextPage = () => {
         bodyType: 'LargeVan',
         size: 9,
         offer: true,
-      },
-      onCompleted: prods => {
-        const topProduct = prods?.productCarousel?.find(
-          p => p?.isOnOffer === true,
-        );
-        if (topProduct) setOffers([...offers, topProduct]);
       },
     },
   );
@@ -109,12 +84,6 @@ export const VansPage: NextPage = () => {
         size: 9,
         offer: true,
       },
-      onCompleted: prods => {
-        const topProduct = prods?.productCarousel?.find(
-          p => p?.isOnOffer === true,
-        );
-        if (topProduct) setOffers([...offers, topProduct]);
-      },
     },
   );
 
@@ -127,12 +96,6 @@ export const VansPage: NextPage = () => {
         size: 9,
         offer: true,
       },
-      onCompleted: prods => {
-        const topProduct = prods?.productCarousel?.find(
-          p => p?.isOnOffer === true,
-        );
-        if (topProduct) setOffers([...offers, topProduct]);
-      },
     },
   );
 
@@ -144,12 +107,6 @@ export const VansPage: NextPage = () => {
         bodyType: 'DropsideTipper',
         size: 9,
         offer: true,
-      },
-      onCompleted: prods => {
-        const topProduct = prods?.productCarousel?.find(
-          p => p?.isOnOffer === true,
-        );
-        if (topProduct) setOffers([...offers, topProduct]);
       },
     },
   );
@@ -333,7 +290,7 @@ export const VansPage: NextPage = () => {
           />
           <div className="-justify-content-row -pt-500">
             <Button
-              label="See All Sepcialist Vans"
+              label="See All Specialist Vans"
               color="teal"
               onClick={() => Router.push('/van-leasing?bodyStyles=Specialist')}
             />
@@ -415,4 +372,4 @@ export const VansPage: NextPage = () => {
   );
 };
 
-export default withApollo(VansPage, { getDataFromTree });
+export default withApollo(VanOffers, { getDataFromTree });
