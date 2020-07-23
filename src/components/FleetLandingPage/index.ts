@@ -1,3 +1,3 @@
-import FleetLandingPage from './FleetLandingPage'
+import FleetLandingPage from './FleetLandingPage';
 
 export default FleetLandingPage;

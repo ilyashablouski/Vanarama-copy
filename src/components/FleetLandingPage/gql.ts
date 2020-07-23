@@ -1,14 +1,12 @@
-import { useMutation, useQuery, gql } from '@apollo/client';
+import { useQuery, gql } from '@apollo/client';
 import { GetFleetLandingPage } from '../../../generated/GetFleetLandingPage';
 import {
   TestimonialsData,
-  TestimonialsData_testimonials as TestimonialData,
-  TestimonialsDataVariables,
 } from '../../../generated/TestimonialsData';
 import { TESTIMONIALS_DATA } from '../../gql/testimonials';
 
 export const GET_FLEET_PAGE_CONTENT = gql`
-query GetFleetLandingPage {
+  query GetFleetLandingPage {
     fleetLandingPage {
       id
       sections {
@@ -18,7 +16,7 @@ query GetFleetLandingPage {
           body
           layout
         }
-        
+
         featured2 {
           title
           titleTag
@@ -31,7 +29,7 @@ query GetFleetLandingPage {
           }
           layout
         }
-        
+
         featured3 {
           title
           titleTag
@@ -57,13 +55,13 @@ query GetFleetLandingPage {
           }
           layout
         }
-        
+
         leadText {
           heading
           titleTag
           description
         }
-        
+
         hero {
           flag
           title
@@ -76,7 +74,7 @@ query GetFleetLandingPage {
             }
           }
         }
-        
+
         tiles {
           name
           tiles {
@@ -92,21 +90,16 @@ query GetFleetLandingPage {
         }
       }
     }
-  }  
+  }
 `;
-
-
 
 export function useFleetLandingPage() {
   return useQuery<GetFleetLandingPage, {}>(GET_FLEET_PAGE_CONTENT);
 }
 
 export function useTestimonialsData() {
-  return useQuery<TestimonialsData>(
-    TESTIMONIALS_DATA,
-    {
-      variables: { size: 1, page: 1 },
-      // notifyOnNetworkStatusChange: true,
-    },
-  );
+  return useQuery<TestimonialsData>(TESTIMONIALS_DATA, {
+    variables: { size: 1, page: 1 },
+    // notifyOnNetworkStatusChange: true,
+  });
 }

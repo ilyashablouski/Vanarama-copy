@@ -1,15 +1,19 @@
-import Heading from "@vanarama/uibook/lib/components/atoms/heading";
-import Text from "@vanarama/uibook/lib/components/atoms/text";
-import { GetFleetLandingPage_fleetLandingPage_sections_leadText as ILeadText } from "../../../../generated/GetFleetLandingPage";
-import { getTitleTag } from "utils/getTitleTag";
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
+import getTitleTag from '../../../utils/getTitleTag';
+import { GetFleetLandingPage_fleetLandingPage_sections_leadText as ILeadText } from '../../../../generated/GetFleetLandingPage';
 
-const LeadTextSection = (props: ILeadText) => (
+const LeadTextSection = ({ titleTag, heading, description }: ILeadText) => (
     <div className="row:lead-text">
-        <Heading size="xlarge" color="black" tag={getTitleTag(props.titleTag) as any}>
-            {props.heading}
+        <Heading
+            size="xlarge"
+            color="black"
+            tag={getTitleTag(titleTag) as any}
+        >
+            {heading}
         </Heading>
         <Text size="lead" color="darker">
-            {props.description}
+            {description}
         </Text>
     </div>
 );

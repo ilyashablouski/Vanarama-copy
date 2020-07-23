@@ -1,10 +1,10 @@
 import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
-import withApollo from '../../hocs/withApollo';
 import FleetLandingPage from 'components/FleetLandingPage';
+import withApollo from '../../hocs/withApollo';
 
 const Page: NextPage<{}> = () => {
-    return <FleetLandingPage />;
+  return <FleetLandingPage />;
 };
 // FleetPage.getInitialProps = ({ query, req }) => {
 //   return { query, isServer: !!req };
