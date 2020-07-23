@@ -1,12 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { render, screen, fireEvent } from '@testing-library/react';
 import VehicleCard from '../VehicleCard';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
-import {
-  render,
-  screen,
-  fireEvent,
-} from '@testing-library/react';
+
 describe('<VehicleCard />', () => {
   const resetMocks = () => {
     return {
@@ -67,21 +64,21 @@ describe('<VehicleCard />', () => {
   });
   it('should be render bussiness price', async () => {
     // ACT
-      render(
-        <VehicleCard {...mocks} isPersonalPrice={false}/>,
-      );
+    render(<VehicleCard {...mocks} isPersonalPrice={false} />);
 
     // ASSERT
-      expect(screen.getByText('Per Month Exc.VAT')).toBeInTheDocument();
+    expect(screen.getByText('Per Month Exc.VAT')).toBeInTheDocument();
   });
   it('should be open car page', async () => {
     // ACT
-      render(
-        <VehicleCard {...mocks} isPersonalPrice={false}/>,
-      );
+    render(<VehicleCard {...mocks} isPersonalPrice={false} />);
 
     // ASSERT
     fireEvent.click(screen.getByText('View Offer'));
-    expect(mocks.viewOffer).toBeCalledWith({capId: "86343", href: "/car-leasing/[...manufacturer]", url: "/car-leasing/vauxhall/crossland-x/bodystylename/slug"});
+    expect(mocks.viewOffer).toBeCalledWith({
+      capId: '86343',
+      href: '/car-leasing/[...manufacturer]',
+      url: '/car-leasing/vauxhall/crossland-x/bodystylename/slug',
+    });
   });
 });

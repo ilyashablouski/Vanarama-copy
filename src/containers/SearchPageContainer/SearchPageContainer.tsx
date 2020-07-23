@@ -193,7 +193,8 @@ const SearchPageContainer: React.FC<IProps> = ({
   // first API call after mount
   useEffect(() => {
     // prevent request with empty filters
-    if (!Object.keys(router?.query || {}).length) getVehicles();
+    const queryLenght = Object.keys(router?.query || {}).length;
+    if (!queryLenght) getVehicles();
     if (isMakePage) {
       getVehicles({
         variables: {
@@ -205,9 +206,13 @@ const SearchPageContainer: React.FC<IProps> = ({
           manufacturerName: router.query?.make as string,
         },
       });
-      getRanges();
+      // if page mount without additional search params in query we made request
+      // else request will be made after filters preselected
+      if (queryLenght < 2) getRanges();
     }
-  }, [getVehicles, getRanges, isCarSearch, isMakePage, router]);
+    // router can't be in deps, because it will change after every url replace
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getVehicles, getRanges, isCarSearch, isMakePage]);
 
   // prevent case when we navigate use back/forward button and useCallback return empty result list
   useEffect(() => {
@@ -389,7 +394,8 @@ const SearchPageContainer: React.FC<IProps> = ({
           <div className="row:cards-3col">
             {useCallback(
               isMakePage
-                ? ranges?.rangeList && ranges?.rangeList?.length > 0 &&
+                ? ranges?.rangeList &&
+                    ranges?.rangeList?.length > 0 &&
                     ranges?.rangeList?.map((range, index) => (
                       <RangeCard
                         viewRange={viewRange}
@@ -398,7 +404,8 @@ const SearchPageContainer: React.FC<IProps> = ({
                         isPersonalPrice={isPersonal}
                       />
                     ))
-                : cardsData.length > 0 && carDer.length > 0 &&
+                : cardsData.length > 0 &&
+                    carDer.length > 0 &&
                     vehiclesList?.map((vehicle: IVehicles) => (
                       <VehicleCard
                         viewOffer={viewOffer}
@@ -418,7 +425,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                         isPersonalPrice={isPersonal}
                       />
                     )),
-              [cardsData, isPersonal, ranges?.rangeList, carDer],
+              [cardsData, isPersonal, ranges, carDer],
             )}
           </div>
           {!isMakePage ? (
