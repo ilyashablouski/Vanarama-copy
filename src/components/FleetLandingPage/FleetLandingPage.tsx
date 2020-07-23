@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { useFleetLandingPage } from './gql';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import HeroSection from './sections/HeroSection';
+import HeroSection from './sections/Hero/HeroSection';
 import Hero, { HeroHeading, HeroTitle } from 'components/Hero';
 import LeadTextSection from './sections/LeadTextSection';
 import TestimonialSection from './sections/TestimonialSection';

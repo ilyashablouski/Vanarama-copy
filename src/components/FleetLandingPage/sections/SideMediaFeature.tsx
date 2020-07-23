@@ -4,7 +4,7 @@ import Heading from "@vanarama/uibook/lib/components/atoms/heading";
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import ReactMarkdown from "react-markdown";
 import { useCallback } from "react";
-import { prepareTagName } from "../utils";
+import { getTitleTag } from "utils/getTitleTag";
 
 export enum Side {
     left = "left",
@@ -24,7 +24,7 @@ const SideMediaFeature = (props: ISideMediaFeatureProps) => {
         <div className={`row:featured-${props.side.toString()}`}>
             {props.side === Side.left && renderImage()}
             <div>
-                <Heading size="large" color="black" tag={prepareTagName(props.titleTag) as any}>{props.title}</Heading>
+                <Heading size="large" color="black" tag={getTitleTag(props.titleTag) as any}>{props.title}</Heading>
                 <Text tag="p" size="regular" color="darker">
                     <ReactMarkdown source={props.body || ''} />
                 </Text>
