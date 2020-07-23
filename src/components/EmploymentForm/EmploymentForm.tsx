@@ -26,7 +26,7 @@ const EmploymentForm: FCWithFragments<IEmploymentFormProps> = ({
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
-      {formikProps => ( 
+      {formikProps => (
         <Form onSubmit={formikProps.handleSubmit}>
           <Heading
             dataTestId="employment-history-heading"
