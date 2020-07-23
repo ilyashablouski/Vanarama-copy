@@ -29,6 +29,7 @@ const SearchPodContainer = () => {
 
   const [vansDataCache, setVansDataCache] = useState({} as IFilterList);
   const [carsDataCache, setCarsDataCache] = useState({} as IFilterList);
+  const [pickupMakes, setPickupMakes] = useState([] as string[]);
 
   const [config, setConfig] = useState([] as any);
   const [headingText, setHeadingText] = useState('Search vehicles');
@@ -66,12 +67,23 @@ const SearchPodContainer = () => {
   const selectMakeVans = watch('makeVans');
   const selectModelVans = watch('modelVans');
   const selectModelCars = watch('modelCars');
+  const selectTypeVans = watch('typeVans');
+  const selectTypeCars = watch('typeCars');
 
   const { data, refetch } = filterListByTypes([Tabs[activeIndex]]);
   const [getVehicleData, { data: actualVehicleData }] = filterTypeAndBudget(
     [Tabs[activeIndex]],
     activeIndex === 1 ? selectMakeVans : selectMakeCars,
     activeIndex === 1 ? selectModelVans : selectModelCars,
+    activeIndex === 1 ? [selectTypeVans] : [selectTypeCars],
+    resp => {
+      if (
+        selectTypeVans === 'Pickup' &&
+        activeIndex === 1 &&
+        !pickupMakes.length
+      )
+        setPickupMakes(makeHandler(resp?.filterList || []));
+    },
   );
 
   const setAllDataForVans = (filtersData: IFilterList) => {
@@ -119,13 +131,31 @@ const SearchPodContainer = () => {
     if (typeVans.length && isShouldPreselectTypes) {
       setValue('typeVans', 'Pickup');
       setIsShouldPreselectTypes(false);
+      getVehicleData();
     }
-  }, [typeVans, isShouldPreselectTypes, setValue]);
+  }, [typeVans, isShouldPreselectTypes, setValue, getVehicleData]);
 
   // call for fetch data if tab was changed, should call once for every tab
   useEffect(() => {
     if (!vansDataCache || !carsDataCache) refetch();
   }, [activeIndex, vansDataCache, carsDataCache, refetch]);
+
+  // using for set actual makes for pickups and return back all makes for other types
+  useEffect(() => {
+    const makes = makeHandler(vansDataCache);
+    // compare current state with new and update
+    const shouldUpdateState =
+      makes.length === makeVans.length &&
+      makes.sort().every((value, index) => value === makeVans.sort()[index]);
+    if (selectTypeVans !== 'Pickup' && activeIndex === 1 && !shouldUpdateState)
+      setMakesVans(makes);
+    else if (
+      selectTypeVans === 'Pickup' &&
+      activeIndex === 1 &&
+      !!pickupMakes.length
+    )
+      setMakesVans(pickupMakes);
+  }, [selectTypeVans, pickupMakes, activeIndex, makeVans, vansDataCache]);
 
   // set actual models value for a specific manufacturer
   useEffect(() => {
@@ -182,6 +212,7 @@ const SearchPodContainer = () => {
   }, [
     selectMakeVans,
     selectMakeCars,
+    selectTypeVans,
     modelVansTemp,
     activeIndex,
     carsDataCache.bodyStyles,
