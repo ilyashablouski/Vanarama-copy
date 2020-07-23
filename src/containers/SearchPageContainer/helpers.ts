@@ -1,14 +1,17 @@
 import { getBudgetForQuery } from '../SearchPodContainer/helpers';
 import { IFilters } from '../FiltersContainer/interfaces';
 
-const buildRewriteRoute = ({
-  transmissions,
-  bodyStyles,
-  rangeName,
-  manufacturerName: make,
-  rate,
-  fuelTypes,
-}: IFilters) => {
+const buildRewriteRoute = (
+  {
+    transmissions,
+    bodyStyles,
+    rangeName,
+    manufacturerName: make,
+    rate,
+    fuelTypes,
+  }: IFilters,
+  isMakePage?: boolean,
+) => {
   const queries = {} as any;
   Object.entries({
     transmissions,
@@ -18,7 +21,7 @@ const buildRewriteRoute = ({
     make,
   }).forEach(filter => {
     const [key, value] = filter;
-    if (value?.length) {
+    if (value?.length && !(isMakePage && key === 'make')) {
       queries[key] = value;
     }
   });
