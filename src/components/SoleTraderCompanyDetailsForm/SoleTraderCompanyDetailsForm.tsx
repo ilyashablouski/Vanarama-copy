@@ -23,6 +23,18 @@ import {
   ISoleTraderCompanyDetailsFormProps,
 } from './interfaces';
 
+const isMonthInFuture = (month: string, year: string) => {
+  const selectedMonth = parseInt(month, 10);
+  const selectedYear = parseInt(year, 10);
+  const currentDate = new Date();
+
+  const result =
+    selectedYear >= currentDate.getFullYear() &&
+    selectedMonth > currentDate.getMonth() + 1;
+
+  return result;
+};
+
 const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps> = ({
   onSubmit,
 }) => {
@@ -31,6 +43,8 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
   });
   const { formState, errors, register, watch } = methods;
   const existingVehicle = watch('existingVehicle');
+  const tradingSinceYear = watch('tradingSinceYear');
+  const tradingSinceMonth = watch('tradingSinceMonth');
 
   return (
     <Form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -59,7 +73,7 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
       <FormContext {...methods}>
         <AddressFormField
           dataTestId="sole-trader-company-details_trading-address"
-          id="trading-address"
+          id="tradingAddress"
           label="Trading Address"
           rules={{
             required: 'Please enter the registered business address',
@@ -96,10 +110,18 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
           placeholder="Month"
           ref={register({
             required: 'Please enter the trading since date',
+            validate: month =>
+              tradingSinceYear && isMonthInFuture(month, tradingSinceYear)
+                ? 'Please enter valid the trading since date'
+                : undefined,
           })}
         >
           {genMonths().map((month, i) => (
-            <option key={month} value={i + 1}>
+            <option
+              key={month}
+              value={i + 1}
+              disabled={isMonthInFuture((i + 1).toString(), tradingSinceYear)}
+            >
               {month}
             </option>
           ))}
@@ -111,6 +133,10 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
           placeholder="Year"
           ref={register({
             required: 'Please enter the trading since date',
+            validate: year =>
+              isMonthInFuture(tradingSinceMonth, year)
+                ? 'Please enter valid the trading since date'
+                : undefined,
           })}
         >
           {genYears(100).map(year => (
@@ -209,7 +235,7 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
             error={errors.vehicleRegistrationNumber?.message?.toString()}
           >
             <NumericInput
-              dataTestId="sole-trader-company-details_vehicle-egistration-umber"
+              dataTestId="sole-trader-company-details_vehicle-egistration-number"
               id="vehicle-registration-number"
               type="tel"
               name="vehicleRegistrationNumber"

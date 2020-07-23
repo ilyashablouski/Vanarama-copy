@@ -20,7 +20,7 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
   const steps = useMemo(
     () =>
       isSoleTraderJouney ? generateSoleTraderSteps() : generateLimitedSteps(),
-    [],
+    [isSoleTraderJouney],
   );
 
   // Work out the current step based on the URL
