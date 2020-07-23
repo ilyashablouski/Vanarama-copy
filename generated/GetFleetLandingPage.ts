@@ -126,6 +126,7 @@ export interface GetFleetLandingPage_fleetLandingPage_sections {
   featured1: GetFleetLandingPage_fleetLandingPage_sections_featured1 | null;
   featured2: GetFleetLandingPage_fleetLandingPage_sections_featured2 | null;
   featured3: GetFleetLandingPage_fleetLandingPage_sections_featured3 | null;
+  featured4: GetFleetLandingPage_fleetLandingPage_sections_featured4 | null;
   leadText: GetFleetLandingPage_fleetLandingPage_sections_leadText | null;
   hero: GetFleetLandingPage_fleetLandingPage_sections_hero | null;
   tiles: GetFleetLandingPage_fleetLandingPage_sections_tiles | null;

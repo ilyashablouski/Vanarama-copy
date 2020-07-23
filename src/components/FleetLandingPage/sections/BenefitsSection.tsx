@@ -18,11 +18,11 @@ const BenefitsSection = (props: IBenefitsSection) => (
                 scrollable
                 plain >
                 <span>
-                    <Image
-                        src={tile.image?.file?.url || "https://source.unsplash.com/collection/2102317/500x325?sig=403450"}
+                    {tile.image?.file?.url && <Image
+                        src={tile.image.file.url}
                         size="large"
                         inline
-                        round />
+                        round />}
                 </span>
                 <a href="#" className="tile--link">
                     <Heading size="regular" color="black">{tile.title}</Heading>

@@ -25,7 +25,7 @@ const FleetLandingPage = () => {
         return <></>;
     }
 
-    const { hero, leadText, featured1, featured2, featured3, tiles } = data.fleetLandingPage.sections;
+    const { hero, leadText, featured1, featured2, featured3, featured4, tiles } = data.fleetLandingPage.sections;
 
     return <>
         {hero && <HeroSection {...hero} />}
@@ -33,6 +33,7 @@ const FleetLandingPage = () => {
         {featured1 && <TestimonialSection {...featured1} />}
         {featured2 && <SideMediaFeature {...featured2} side={Side.left} />}
         {featured3 && <SideMediaFeature {...featured3} side={Side.right} />}
+        {featured4 && <SideMediaFeature {...featured4} side={Side.left} />}
         <hr className="-fullwidth" />
         {tiles && <BenefitsSection {...tiles} />}
     </>
