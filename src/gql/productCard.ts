@@ -4,13 +4,15 @@ import { ProductCardData } from '../../generated/ProductCardData';
 const PRODUCT_CARD_CONTENT = gql`
   query ProductCardData(
     $type: VehicleTypeEnum!
-    $subType: SubVehicleTypeEnum
+    $bodyType: String
+    $excludeBodyType: String
     $size: Int
     $offer: Boolean
   ) {
     productCarousel(
       vehicleType: $type
-      subVehicleType: $subType
+      bodyType: $bodyType
+      excludeBodyType: $excludeBodyType
       pageSize: $size
       onOffer: $offer
     ) {

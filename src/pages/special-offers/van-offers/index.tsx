@@ -2,6 +2,7 @@
 import { NextPage } from 'next';
 import Router from 'next/router';
 import { useQuery } from '@apollo/client';
+import { useState } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
@@ -9,9 +10,7 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
-// import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-
-import { useState } from 'react';
+import BreadCrumbs from '../../../containers/BreadCrumbContainer';
 
 import {
   ProductCardData,
@@ -106,7 +105,7 @@ export const VansPage: NextPage = () => {
     {
       variables: {
         type: VehicleTypeEnum.LCV,
-        bodyType: 'Pickups',
+        bodyType: 'Pickup',
         size: 9,
         offer: true,
       },
@@ -119,12 +118,12 @@ export const VansPage: NextPage = () => {
     },
   );
 
-  const { data: productSpecialistVans } = useQuery<ProductCardData>(
+  const { data: productSpecialistVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
       variables: {
         type: VehicleTypeEnum.LCV,
-        bodyType: 'Pickups',
+        bodyType: 'Specialist',
         size: 9,
         offer: true,
       },
@@ -142,7 +141,7 @@ export const VansPage: NextPage = () => {
     {
       variables: {
         type: VehicleTypeEnum.LCV,
-        bodyType: 'DropsideTippers',
+        bodyType: 'DropsideTipper',
         size: 9,
         offer: true,
       },
@@ -165,6 +164,12 @@ export const VansPage: NextPage = () => {
 
   return (
     <>
+      <div className="row:title">
+        <BreadCrumbs />
+        <Heading color="black" size="xlarge">
+          Van Offers
+        </Heading>
+      </div>
       <div className="row:bg-lighter">
         <div>
           <Heading size="large" color="black">
@@ -172,7 +177,7 @@ export const VansPage: NextPage = () => {
               style={{ textAlign: 'center', display: 'block' }}
               className="-mb-400"
             >
-              Small Vans
+              Best Small Van Lease Offers
             </span>
           </Heading>
           <ProductCarousel
@@ -186,7 +191,7 @@ export const VansPage: NextPage = () => {
           />
           <div className="-justify-content-row -pt-500">
             <Button
-              label="View Small Vans"
+              label="See All Small Vans"
               color="teal"
               onClick={() => Router.push('/van-leasing?bodyStyles=Small+Van')}
             />
@@ -200,7 +205,7 @@ export const VansPage: NextPage = () => {
               style={{ textAlign: 'center', display: 'block' }}
               className="-mb-400"
             >
-              Medium Vans
+              Best Medium Van Lease Offers
             </span>
           </Heading>
           <ProductCarousel
@@ -214,7 +219,7 @@ export const VansPage: NextPage = () => {
           />
           <div className="-justify-content-row -pt-500">
             <Button
-              label="View Medium Vans"
+              label="See All Medium Vans"
               color="teal"
               onClick={() => Router.push('/van-leasing?bodyStyles=Medium+Van')}
             />
@@ -228,7 +233,7 @@ export const VansPage: NextPage = () => {
               style={{ textAlign: 'center', display: 'block' }}
               className="-mb-400"
             >
-              Large Vans
+              Best Large Van Lease Offers
             </span>
           </Heading>
           <ProductCarousel
@@ -242,12 +247,169 @@ export const VansPage: NextPage = () => {
           />
           <div className="-justify-content-row -pt-500">
             <Button
-              label="View Large Vans"
+              label="See All Large Vans"
               color="teal"
               onClick={() => Router.push('/van-leasing?bodyStyles=Large+Van')}
             />
           </div>
         </div>
+      </div>
+      <div className="row:bg-lighter">
+        <div>
+          <Heading size="large" color="black">
+            <span
+              style={{ textAlign: 'center', display: 'block' }}
+              className="-mb-400"
+            >
+              Best Pickup Truck Lease Offers
+            </span>
+          </Heading>
+          <ProductCarousel
+            leaseType={LeaseTypeEnum.PERSONAL}
+            data={{
+              derivatives: null,
+              productCard: productPickups?.productCarousel || null,
+            }}
+            countItems={productPickups?.productCarousel?.length || 6}
+            dataTestIdBtn="van-view-offer"
+          />
+          <div className="-justify-content-row -pt-500">
+            <Button
+              label="See All Pickup Trucks"
+              color="teal"
+              onClick={() => Router.push('/van-leasing?bodyStyles=Pickup')}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="row:bg-lighter">
+        <div>
+          <Heading size="large" color="black">
+            <span
+              style={{ textAlign: 'center', display: 'block' }}
+              className="-mb-400"
+            >
+              Best Dropside Tipper Offers
+            </span>
+          </Heading>
+          <ProductCarousel
+            leaseType={LeaseTypeEnum.PERSONAL}
+            data={{
+              derivatives: null,
+              productCard: productTippers?.productCarousel || null,
+            }}
+            countItems={productTippers?.productCarousel?.length || 6}
+            dataTestIdBtn="van-view-offer"
+          />
+          <div className="-justify-content-row -pt-500">
+            <Button
+              label="See All Dropside Tippers"
+              color="teal"
+              onClick={() =>
+                Router.push('/van-leasing?bodyStyles=Dropside+Tipper')
+              }
+            />
+          </div>
+        </div>
+      </div>
+      <div className="row:bg-lighter">
+        <div>
+          <Heading size="large" color="black">
+            <span
+              style={{ textAlign: 'center', display: 'block' }}
+              className="-mb-400"
+            >
+              Specialist Van Lease Offers
+            </span>
+          </Heading>
+          <ProductCarousel
+            leaseType={LeaseTypeEnum.PERSONAL}
+            data={{
+              derivatives: null,
+              productCard: productSpecialistVan?.productCarousel || null,
+            }}
+            countItems={productSpecialistVan?.productCarousel?.length || 6}
+            dataTestIdBtn="van-view-offer"
+          />
+          <div className="-justify-content-row -pt-500">
+            <Button
+              label="See All Sepcialist Vans"
+              color="teal"
+              onClick={() => Router.push('/van-leasing?bodyStyles=Specialist')}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="row:text">
+        <Text tag="span" size="regular" color="darker">
+          Ipsum pariatur cupidatat adipisicing sint nisi in proident non ipsum
+          reprehenderit nostrud amet ea deserunt excepteur cillum nisi ipsum non
+          occaecat cillum tempor excepteur fugiat commodo sit irure commodo
+          adipisicing
+        </Text>
+      </div>
+      <div className="row:icon-list">
+        <Heading tag="span" size="lead" color="black">
+          Best New Van Deals
+        </Heading>
+        <hr />
+        <IconList>
+          <IconListItem>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt.
+          </IconListItem>
+          <IconListItem>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt.
+          </IconListItem>
+          <IconListItem>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt.
+          </IconListItem>
+          <IconListItem>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt.
+          </IconListItem>
+          <IconListItem>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt.
+          </IconListItem>
+          <IconListItem>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt.
+          </IconListItem>
+          <IconListItem>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt.
+          </IconListItem>
+        </IconList>
+      </div>
+      <div className="row:text">
+        <Heading size="large" color="black">
+          Text Row Heading
+        </Heading>
+        <div>
+          <Text tag="p" size="regular" color="darker">
+            At Vanarama, we have a range of funders offering new van finance
+            including contract hire with various options to suit you and your
+            business needs, including Contract Hire, Finance Lease and Contract
+            Purchase. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Hic nisi ab odio perspiciatis, veritatis nulla eaque tempore.
+          </Text>
+          <Text tag="p" size="regular" color="darker">
+            Repellendus, rem! Minima voluptatibus obcaecati incidunt expedita
+            dignissimos? Vanarama can also arrange personal van finance if
+            that&apos;s what you require. We understand the importance of your
+            new van purchase and we want to make sure the process of arranging
+            finance for your new vehicle is as simple and seamless as possible
+            for you.
+          </Text>
+        </div>
+      </div>
+      <div className="row:text">
+        <Text size="regular" color="dark">
+          Photos and videos are for illustration purposes only.
+        </Text>
       </div>
     </>
   );

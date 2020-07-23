@@ -7,10 +7,17 @@
 // GraphQL query operation: GetAboutUsPageData
 // ====================================================
 
+export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage_file {
+  url: string;
+}
+
+export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage {
+  file: GetAboutUsPageData_aboutUsLandingPage_featuredImage_file | null;
+}
+
 export interface GetAboutUsPageData_aboutUsLandingPage_metaData {
   name: string | null;
   schema: any | null;
-  body: string | null;
 }
 
 export interface GetAboutUsPageData_aboutUsLandingPage_sections_rowText {
@@ -20,10 +27,10 @@ export interface GetAboutUsPageData_aboutUsLandingPage_sections_rowText {
 }
 
 export interface GetAboutUsPageData_aboutUsLandingPage_sections_cards_cards {
+  titleTag: string | null;
   name: string | null;
   title: string | null;
   body: string | null;
-  titleTag: string | null;
 }
 
 export interface GetAboutUsPageData_aboutUsLandingPage_sections_cards {
@@ -32,17 +39,10 @@ export interface GetAboutUsPageData_aboutUsLandingPage_sections_cards {
 }
 
 export interface GetAboutUsPageData_aboutUsLandingPage_sections_carousel_cards {
+  titleTag: string | null;
   name: string | null;
   title: string | null;
   body: string | null;
-  titleTag: string | null;
-}
-export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage_file {
-  url: string | null;
-}
-
-export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage {
-  file: GetAboutUsPageData_aboutUsLandingPage_featuredImage_file;
 }
 
 export interface GetAboutUsPageData_aboutUsLandingPage_sections_carousel {
@@ -57,9 +57,9 @@ export interface GetAboutUsPageData_aboutUsLandingPage_sections {
 }
 
 export interface GetAboutUsPageData_aboutUsLandingPage {
-  id: string | null;
+  id: string;
   body: string | null;
-  featuredImage: GetAboutUsPageData_aboutUsLandingPage_featuredImage;
+  featuredImage: GetAboutUsPageData_aboutUsLandingPage_featuredImage | null;
   metaData: GetAboutUsPageData_aboutUsLandingPage_metaData;
   sections: GetAboutUsPageData_aboutUsLandingPage_sections;
 }
