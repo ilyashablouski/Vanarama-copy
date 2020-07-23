@@ -9,6 +9,7 @@ import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Search from '@vanarama/uibook/lib/components/atoms/search';
+import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import { useRouter } from 'next/router';
@@ -25,7 +26,6 @@ import {
 } from '../../../generated/globalTypes';
 import buildRewriteRoute from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
-import SalesCarousel from './SalesCarousel';
 import RangeCard from './RangeCard';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 
@@ -332,13 +332,16 @@ const SearchPageContainer: React.FC<IProps> = ({
         </Heading>
         <Text color="darker" size="lead" />
       </div>
-      {isMakePage && vehiclesList.length > 3 && carDer.length > 0 && (
+      {isMakePage && vehiclesList.length > 3 && !!carDer.length && (
         <div className="row:bg-lighter">
           <div className="row:carousel">
             <Heading size="large" color="black" tag="h3">
               Top Offers
             </Heading>
-            <SalesCarousel length={vehiclesList.length || 0}>
+            <Carousel
+              className="-mh-auto"
+              countItems={vehiclesList.length || 0}
+            >
               {vehiclesList?.map((vehicle: IVehicles) => (
                 <VehicleCard
                   dataDerivatives={carDer}
@@ -356,7 +359,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                   isPersonalPrice={isPersonal}
                 />
               ))}
-            </SalesCarousel>
+            </Carousel>
           </div>
         </div>
       )}
@@ -394,8 +397,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           <div className="row:cards-3col">
             {useCallback(
               isMakePage
-                ? ranges?.rangeList &&
-                    ranges?.rangeList?.length > 0 &&
+                ? !!ranges?.rangeList?.length &&
                     ranges?.rangeList?.map((range, index) => (
                       <RangeCard
                         viewRange={viewRange}
@@ -404,8 +406,8 @@ const SearchPageContainer: React.FC<IProps> = ({
                         isPersonalPrice={isPersonal}
                       />
                     ))
-                : cardsData.length > 0 &&
-                    carDer.length > 0 &&
+                : !!cardsData.length &&
+                    !!carDer.length &&
                     vehiclesList?.map((vehicle: IVehicles) => (
                       <VehicleCard
                         viewOffer={viewOffer}

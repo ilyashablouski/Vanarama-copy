@@ -16,7 +16,7 @@ import { useMediaQuery } from 'react-responsive';
 import { useRouter } from 'next/router';
 import { filterListByTypes } from '../SearchPodContainer/gql';
 import { makeHandler, modelHandler } from '../SearchPodContainer/helpers';
-import { filtersConfig, budgets } from './config';
+import { filtersConfig, budgets, filterFields } from './config';
 import { IFilterContainerProps } from './interfaces';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
@@ -284,7 +284,7 @@ const FiltersContainer = ({
     const selected: string[] = Object.entries(selectedFiltersState)
       // makes in make page should not to be added
       .map(entry => {
-        return isMakePage && entry[0] === 'make' ? '' : entry[1];
+        return isMakePage && entry[0] === filterFields.make ? '' : entry[1];
       })
       .flat()
       .filter(Boolean);
@@ -421,7 +421,9 @@ const FiltersContainer = ({
                 filter.dropdowns?.map(dropdown => (
                   <FormGroup label={dropdown.label} key={dropdown.label}>
                     <Select
-                      disabled={isMakePage && dropdown.accessor === 'make'}
+                      disabled={
+                        isMakePage && dropdown.accessor === filterFields.make
+                      }
                       name={dropdown.accessor}
                       placeholder={`Select ${dropdown.accessor}`}
                       onChange={handleSelect}
