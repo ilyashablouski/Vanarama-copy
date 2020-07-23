@@ -62,7 +62,7 @@ export const CustomerTestimonialPage: NextPage = () => {
     setPage(page + 1);
   };
 
-  if (loading) {
+  if (loading && page === 1) {
     return <Loading size="large" />;
   }
 
