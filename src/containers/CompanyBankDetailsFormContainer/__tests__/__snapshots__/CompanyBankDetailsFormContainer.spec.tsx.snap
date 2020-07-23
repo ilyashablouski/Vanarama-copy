@@ -91,7 +91,7 @@ exports[`<CompanyBankDetailsFormContainer /> should be render correctly 1`] = `
                 aria-label="Sort code first two digits"
                 class="textinput--native regular"
                 type="text"
-                value="02"
+                value="01"
               />
             </div>
             <div
