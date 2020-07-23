@@ -44,14 +44,14 @@ export const BusinessAboutPage: NextPage = () => {
     data,
     companyType,
   }: SubmitResult) => {
-    if (companyType === CompanyTypes.limited) {
-      const companyUuid = data.createUpdateBusinessPerson!.uuid!;
-      const params = getUrlParam({ derivativeId, orderId });
-      const url = `/b2b/olaf/company-details/[companyUuid]${params}`;
-      router.push(url, url.replace('[companyUuid]', companyUuid));
-    } else {
-      router.push('/b2b/olaf/soletrader/company-details');
-    }
+    const companyUuid = data.createUpdateBusinessPerson!.uuid!;
+    const params = getUrlParam({ derivativeId, orderId });
+    const journeyUrl =
+      companyType === CompanyTypes.limited
+        ? 'company-details'
+        : 'sole-trader/company-details';
+    const url = `/b2b/olaf/${journeyUrl}/[companyUuid]${params}`;
+    router.push(url, url.replace('[companyUuid]', companyUuid));
   };
 
   return (
