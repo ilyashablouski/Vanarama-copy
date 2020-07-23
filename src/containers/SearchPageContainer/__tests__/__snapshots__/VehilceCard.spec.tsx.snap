@@ -145,7 +145,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
       <div
         className="price--label"
       >
-        Per Month Exc.VAT
+        Per Month Inc.VAT
       </div>
     </div>
     <button
