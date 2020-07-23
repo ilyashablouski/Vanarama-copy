@@ -118,7 +118,7 @@ const AboutUs: React.FC = () => {
       </div>
       <div className="row:bg-black -compact">
         <div className="row:featured-image">
-          {featuredImage.file.url && (
+          {featuredImage?.file?.url && (
             <Image src={featuredImage.file.url} alt="Featured image" />
           )}
         </div>

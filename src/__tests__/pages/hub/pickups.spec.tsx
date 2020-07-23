@@ -88,9 +88,9 @@ const mocked: MockedResponse[] = [
                 },
               ],
             },
-            accessories: {
+            tiles1: {
               name: 'Wide Range of Optional Accessories',
-              accessories: [
+              tiles: [
                 {
                   title: 'Hardtops',
                   body: 'Lorem ipsum.',
@@ -113,7 +113,7 @@ const mocked: MockedResponse[] = [
                 },
               ],
             },
-            tiles: {
+            tiles2: {
               name: 'Tiles',
               tiles: [
                 {
@@ -167,7 +167,7 @@ const mocked: MockedResponse[] = [
       query: PRODUCT_CARD_CONTENT,
       variables: {
         type: VehicleTypeEnum.LCV,
-        subType: 'PICKUP',
+        bodyType: 'Pickup',
         size: 9,
         offer: true,
       },

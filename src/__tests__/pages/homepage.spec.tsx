@@ -109,7 +109,7 @@ const mocked: MockedResponse[] = [
       query: PRODUCT_CARD_CONTENT,
       variables: {
         type: VehicleTypeEnum.LCV,
-        subType: 'VAN',
+        excludeBodyType: 'Pickup',
         size: 9,
         offer: true,
       },
@@ -212,7 +212,7 @@ const mocked: MockedResponse[] = [
       query: PRODUCT_CARD_CONTENT,
       variables: {
         type: VehicleTypeEnum.LCV,
-        subType: 'PICKUP',
+        bodyType: 'Pickup',
         size: 9,
         offer: true,
       },
