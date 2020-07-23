@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
-import SoleTraderProgressIndicator from '../../components/SoleTraderProgressIndicator/SoleTraderProgressIndicator';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { useOlafData, useCarDerivativesData } from '../../gql/order';
 import { createOlafDetails } from './helpers';
@@ -90,13 +89,16 @@ function ProgressSection() {
   if (hideProgress) {
     return null;
   }
-  const isSoleTraderJourney = pathname.match(/^\/b2b\/olaf\/sole-trader\/.+/);
+  const soleTraderPathMatchResult = pathname.match(
+    /^\/b2b\/olaf\/sole-trader\/.+/,
+  );
+  const isSoleTraderJourney = (soleTraderPathMatchResult || []).length > 0;
   const isB2BJourney = pathname.match(/^\/b2b\/.+/);
 
   return (
     <div className="row:progress">
       {isB2BJourney ? (
-        <BusinessProgressIndicator />
+        <BusinessProgressIndicator isSoleTraderJouney={isSoleTraderJourney} />
       ) : (
         <ConsumerProgressIndicator />
       )}
