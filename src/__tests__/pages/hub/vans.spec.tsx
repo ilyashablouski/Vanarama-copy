@@ -164,7 +164,7 @@ const mocked: MockedResponse[] = [
       query: PRODUCT_CARD_CONTENT,
       variables: {
         type: VehicleTypeEnum.LCV,
-        subType: 'SMALLVAN',
+        bodyType: 'SmallVan',
         size: 9,
         offer: true,
       },
@@ -216,7 +216,7 @@ const mocked: MockedResponse[] = [
       query: PRODUCT_CARD_CONTENT,
       variables: {
         type: VehicleTypeEnum.LCV,
-        subType: 'MEDIUMVAN',
+        bodyType: 'MediumVan',
         size: 9,
         offer: true,
       },
@@ -268,7 +268,7 @@ const mocked: MockedResponse[] = [
       query: PRODUCT_CARD_CONTENT,
       variables: {
         type: VehicleTypeEnum.LCV,
-        subType: 'LARGEVAN',
+        bodyType: 'LargeVan',
         size: 9,
         offer: true,
       },
@@ -406,7 +406,7 @@ describe('<VansPage />', () => {
   });
 
   it('should trigger route push when clicking View Medium Vans', async () => {
-    await screen.findAllByText('View Small Vans');
+    await screen.findAllByText('View Medium Vans');
     fireEvent.click(screen.getAllByText('View Medium Vans')[0]);
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith(
@@ -416,7 +416,7 @@ describe('<VansPage />', () => {
   });
 
   it('should trigger route push when clicking View Large Vans', async () => {
-    await screen.findAllByText('View Small Vans');
+    await screen.findAllByText('View Large Vans');
     fireEvent.click(screen.getAllByText('View Large Vans')[0]);
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith(

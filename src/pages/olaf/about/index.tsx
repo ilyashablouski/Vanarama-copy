@@ -108,7 +108,7 @@ const AboutYouPage: NextPage = () => {
     client.writeQuery({
       query: gql`
         query WriteCachedPersonInformation {
-          uuid
+          uuid @client
         }
       `,
       data: {
