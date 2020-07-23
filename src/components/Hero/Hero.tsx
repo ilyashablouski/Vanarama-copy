@@ -1,4 +1,4 @@
-import RequestCallBackForm from '../../components/FleetLandingPage/sections/Hero/RequestCallBackForm';
+import RequestCallBackForm from '../FleetLandingPage/sections/Hero/RequestCallBackForm';
 import SearchPodContainer from '../../containers/SearchPodContainer';
 import { IHeroProps } from './interface';
 
@@ -11,8 +11,8 @@ const Hero: React.FC<IHeroProps> = ({ children, withRequestCallbackform }) => {
           {withRequestCallbackform ? (
             <RequestCallBackForm />
           ) : (
-              <SearchPodContainer />
-            )}
+            <SearchPodContainer />
+          )}
         </div>
         <div className="hero--decals">
           <svg

@@ -1,8 +1,6 @@
 import { useQuery, gql } from '@apollo/client';
 import { GetFleetLandingPage } from '../../../generated/GetFleetLandingPage';
-import {
-  TestimonialsData,
-} from '../../../generated/TestimonialsData';
+import { TestimonialsData } from '../../../generated/TestimonialsData';
 import { TESTIMONIALS_DATA } from '../../gql/testimonials';
 
 export const GET_FLEET_PAGE_CONTENT = gql`
