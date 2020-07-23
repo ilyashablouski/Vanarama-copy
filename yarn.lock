@@ -2221,10 +2221,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@5.24.5":
-  version "5.24.5"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.24.5.tgz#cee47d5e6716ee4999e01f552afc0fd6dc8d6d57"
-  integrity sha512-plI28yeZduzFo/cROyJpbDCplf2+gFg46rK1ZROXaRwonhmL+6vPcPk5vKn/qg6rYhnfwDapSoc7Y8GY7OYI9g==
+"@vanarama/uibook@5.24.10":
+  version "5.24.10"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.24.10.tgz#d7e5a7de139fe762a10ae38bda802fc531b31154"
+  integrity sha512-n3PKhTrpBsjwFVopwp2WT25glI7j7y57rAaUylIUcgPRBEhMt5W+Dazx4WemS41SW34IeYPVLWgzfP1FoEzQsg==
   dependencies:
     "@egjs/flicking" "^3.4.7"
     "@reach/auto-id" "^0.10.3"
