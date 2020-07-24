@@ -80,7 +80,8 @@ const SearchPodContainer = () => {
       if (
         selectTypeVans === 'Pickup' &&
         activeIndex === 1 &&
-        !pickupMakes.length && resp?.filterList
+        !pickupMakes.length &&
+        resp?.filterList
       )
         setPickupMakes(makeHandler(resp?.filterList));
     },

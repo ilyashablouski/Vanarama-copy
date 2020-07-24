@@ -92,7 +92,7 @@ const mocks: MockedResponse[] = [
         vehicleTypes: ['LCV'],
         manufacturerName: '',
         rangeName: '',
-        bodyStyles:['']
+        bodyStyles: [''],
       },
     },
     result: () => {
