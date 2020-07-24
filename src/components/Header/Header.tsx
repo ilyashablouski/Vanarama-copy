@@ -1,18 +1,24 @@
 /* eslint-disable import/no-cycle */
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useState } from 'react';
 import cx from 'classnames';
 import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Logo from '@vanarama/uibook/lib/components/atoms/logo';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 
-// import Menu from '@vanarama/uibook/lib/assets/icons/Menu';
+import SearchCircle from '@vanarama/uibook/lib/assets/icons/SearchOutline';
+import LogIn from '@vanarama/uibook/lib/assets/icons/LogInOutline';
+import Menu from '@vanarama/uibook/lib/assets/icons/Menu';
+import Close from '@vanarama/uibook/lib/assets/icons/Close';
+import Call from '@vanarama/uibook/lib/assets/icons/Call';
 
 import { ILinkProps } from '../RouterLink/interface';
 import RouterLink from '../RouterLink/RouterLink';
 import HeaderMenu from './HeaderMenu';
 
 export interface IHeaderLink extends ILinkProps {
+  id?: string;
+  as?: string;
   highlight?: boolean;
 }
 
@@ -25,28 +31,7 @@ export interface IHeaderProps extends IBaseProps {
 const Header: FC<IHeaderProps> = memo(props => {
   const { className, topBarLinks, loginLink, phoneNumberLink } = props;
 
-  // const renderChildrenMenu = (
-  //   childrenLinks: IHeaderLink[],
-  //   title: string,
-  //   open?: boolean,
-  // ) => {
-  //   return (
-  //     <ul className={cx('menu-tertiary', { '-open': open })}>
-  //       <li className={linkClassName({ title: true })}>{title}</li>
-  //       {childrenLinks.map((linkSecondary: IHeaderLink) => (
-  //         <li
-  //           key={linkSecondary.label}
-  //           className={linkClassName({
-  //             highlight: linkSecondary.highlight,
-  //             half: true,
-  //           })}
-  //         >
-  //           <RouterLink link={linkSecondary}>{linkSecondary.label}</RouterLink>
-  //         </li>
-  //       ))}
-  //     </ul>
-  //   );
-  // };
+  const [isMenuOpen, setOpenMenu] = useState(false);
 
   return (
     <header className={cx('header', className)} data-testid="header">
@@ -59,6 +44,7 @@ const Header: FC<IHeaderProps> = memo(props => {
           <Logo asset="vanarama" />
         </RouterLink>
         <label className="header-search" htmlFor="search">
+          <Icon icon={<SearchCircle />} color="darker" />
           <input
             className="header-search--input"
             id="search"
@@ -68,17 +54,40 @@ const Header: FC<IHeaderProps> = memo(props => {
           {/* <div className="header-search--results -is-hidden" /> */}
         </label>
         <RouterLink link={phoneNumberLink} className="header-tel">
-          {/* <Icon name="Call" size="xsmall" /> */}
-          01442 838195
+          <Icon icon={<Call />} size="xsmall" />
+          <span>01442 838195</span>
         </RouterLink>
         <div className="header-account">
           <Button
             className="header-account--toggle"
-            fill="outline"
-            label={<RouterLink link={loginLink}>Login</RouterLink>}
+            fill="clear"
+            label={
+              <RouterLink link={loginLink}>
+                <Icon icon={<LogIn />} />
+                <span>Login</span>
+              </RouterLink>
+            }
           />
         </div>
-        <HeaderMenu menuLinks={topBarLinks} />
+        <HeaderMenu
+          menuLinks={topBarLinks}
+          open={isMenuOpen}
+          onClickMenu={() => setOpenMenu(false)}
+        />
+        <Button
+          className={cx('header-navtoggle', { '-open': isMenuOpen })}
+          onClick={() => setOpenMenu(!isMenuOpen)}
+          withoutDefaultClass
+          label={
+            <>
+              <Icon icon={<Menu />} color="darker" />
+              <Icon icon={<Close />} color="darker" />
+            </>
+          }
+          size="expand"
+          color="inherit"
+          fill="clear"
+        />
       </div>
     </header>
   );
