@@ -8,13 +8,7 @@ import {
   GetFleetLandingPage_fleetLandingPage_sections_featured2 as IMediaFeature,
   GetFleetLandingPage_fleetLandingPage_sections_featured2_image as ISideMediaImage,
 } from '../../../../generated/GetFleetLandingPage';
-
-export enum Side {
-  left = 'Media Left',
-  right = 'Media Right',
-  full = 'Media Full',
-  featuredProduct = 'Featured Product',
-}
+import { LayoutTypes } from '../../../models/enum/LayoutTypes';
 
 const MediaFeatureSection = ({
   image,
@@ -34,15 +28,15 @@ const MediaFeatureSection = ({
   const selectedLayout = (layout && layout[0]) || '';
   let className = '';
   switch (selectedLayout) {
-    case Side.right: {
+    case LayoutTypes.right: {
       className = 'right';
       break;
     }
-    case Side.full: {
+    case LayoutTypes.full: {
       className = 'full';
       break;
     }
-    case Side.featuredProduct: {
+    case LayoutTypes.featuredProduct: {
       className = 'product';
       break;
     }
@@ -53,7 +47,7 @@ const MediaFeatureSection = ({
 
   return (
     <div className={`row:featured-${className}`}>
-      {selectedLayout !== Side.right && renderImage(image)}
+      {selectedLayout !== LayoutTypes.right && renderImage(image)}
       <div>
         <Heading size="large" color="black" tag={getTitleTag(titleTag) as any}>
           {title}
@@ -66,7 +60,7 @@ const MediaFeatureSection = ({
           }}
         />
       </div>
-      {selectedLayout === Side.right && renderImage(image)}
+      {selectedLayout === LayoutTypes.right && renderImage(image)}
     </div>
   );
 };
