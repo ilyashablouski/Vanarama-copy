@@ -422,7 +422,9 @@ const FiltersContainer = ({
                   <FormGroup label={dropdown.label} key={dropdown.label}>
                     <Select
                       disabled={
-                        isMakePage && dropdown.accessor === filterFields.make
+                        isMakePage &&
+                        (dropdown.accessor === filterFields.make ||
+                          dropdown.accessor === filterFields.model)
                       }
                       name={dropdown.accessor}
                       placeholder={`Select ${dropdown.accessor}`}
