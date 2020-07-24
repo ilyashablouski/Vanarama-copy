@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FleetLandingPage /> renders correctly with error 1`] = `
+<p>
+  Error: 
+  Error
+</p>
+`;

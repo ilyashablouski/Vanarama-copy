@@ -1,7 +1,4 @@
-import { useQuery, gql } from '@apollo/client';
-import { GetFleetLandingPage } from '../../../generated/GetFleetLandingPage';
-import { TestimonialsData } from '../../../generated/TestimonialsData';
-import { TESTIMONIALS_DATA } from '../../gql/testimonials';
+import { gql } from '@apollo/client';
 
 export const GET_FLEET_PAGE_CONTENT = gql`
   query GetFleetLandingPage {
@@ -61,7 +58,6 @@ export const GET_FLEET_PAGE_CONTENT = gql`
         }
 
         hero {
-          flag
           title
           body
           image {
@@ -90,14 +86,3 @@ export const GET_FLEET_PAGE_CONTENT = gql`
     }
   }
 `;
-
-export function useFleetLandingPage() {
-  return useQuery<GetFleetLandingPage, {}>(GET_FLEET_PAGE_CONTENT);
-}
-
-export function useTestimonialsData() {
-  return useQuery<TestimonialsData>(TESTIMONIALS_DATA, {
-    variables: { size: 1, page: 1 },
-    // notifyOnNetworkStatusChange: true,
-  });
-}

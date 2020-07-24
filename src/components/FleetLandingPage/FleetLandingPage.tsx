@@ -1,14 +1,16 @@
 import React from 'react';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import { useFleetLandingPage } from './gql';
+import { GET_FLEET_PAGE_CONTENT } from './gql';
 import HeroSection from './sections/Hero/HeroSection';
 import LeadTextSection from './sections/LeadTextSection';
 import TestimonialSection from './sections/TestimonialSection';
-import SideMediaFeature, { Side } from './sections/SideMediaFeature';
+import MediaFeatureSection from './sections/MediaFeatureSection';
 import BenefitsSection from './sections/BenefitsSection';
+import { useQuery } from '@apollo/client';
+import { GetFleetLandingPage } from '../../../generated/GetFleetLandingPage';
 
 const FleetLandingPage = () => {
-  const { data, error, loading } = useFleetLandingPage();
+  const { data, error, loading } = useQuery<GetFleetLandingPage, {}>(GET_FLEET_PAGE_CONTENT);
 
   if (loading) {
     return <Loading size="large" />;
@@ -34,14 +36,14 @@ const FleetLandingPage = () => {
 
   return (
     <>
-      {hero && <HeroSection {...hero} />}
+      {/* {hero && <HeroSection {...hero} />}
       {leadText && <LeadTextSection {...leadText} />}
       {featured1 && <TestimonialSection {...featured1} />}
-      {featured2 && <SideMediaFeature {...featured2} side={Side.left} />}
-      {featured3 && <SideMediaFeature {...featured3} side={Side.right} />}
-      {featured4 && <SideMediaFeature {...featured4} side={Side.left} />}
+      {featured2 && <MediaFeatureSection {...featured2} />}
+      {featured3 && <MediaFeatureSection {...featured3} />}
+      {featured4 && <MediaFeatureSection {...featured4} />} */}
       <hr className="-fullwidth" />
-      {tiles && <BenefitsSection {...tiles} />}
+      {/* {tiles && <BenefitsSection {...tiles} />} */}
     </>
   );
 };
