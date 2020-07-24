@@ -8,7 +8,7 @@ import {
   GetFleetLandingPage_fleetLandingPage_sections_featured2 as IMediaFeature,
   GetFleetLandingPage_fleetLandingPage_sections_featured2_image as ISideMediaImage,
 } from '../../../../generated/GetFleetLandingPage';
-import { LayoutTypes } from '../../../models/enum/LayoutTypes';
+import LayoutTypes from '../../../models/enum/LayoutTypes';
 
 const MediaFeatureSection = ({
   image,

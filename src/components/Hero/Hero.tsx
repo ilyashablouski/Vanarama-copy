@@ -1,4 +1,4 @@
-import RequestCallBackForm from '../FleetLandingPage/sections/Hero/RequestCallBackForm';
+import RequestCallBackForm from '../RequestCallBackForm';
 import SearchPodContainer from '../../containers/SearchPodContainer';
 import { IHeroProps } from './interface';
 
