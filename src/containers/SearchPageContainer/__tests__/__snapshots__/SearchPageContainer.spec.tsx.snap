@@ -1262,6 +1262,7 @@ exports[`<SearchPageContainer /> should be manufacturer page render correctly 1`
                   >
                     <select
                       class="select--native"
+                      disabled=""
                       name="model"
                     >
                       <option
