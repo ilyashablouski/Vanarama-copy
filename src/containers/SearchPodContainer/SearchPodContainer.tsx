@@ -8,7 +8,7 @@ import {
   carPageTabFields,
   vanPageTabFields,
 } from './config';
-import { filterListByTypes, filterTypeAndBudget } from './gql';
+import { filterList, filterTypeAndBudget } from './gql';
 import {
   makeHandler,
   modelHandler,

@@ -385,7 +385,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             onSearch={onSearch}
             isCarSearch={isCarSearch}
             preSearchVehicleCount={totalCount}
-            isSpecialOffers={isSpecialOffers}
+            isSpecialOffers={isSpecialOffers || null}
           />
         </div>
       </div>
