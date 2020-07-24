@@ -8,6 +8,7 @@ const HeroSection = ({ title, body }: IHeroData) => (
     <HeroHeading text={title || ''} />
     <HeroTitle text={body || ''} />
     <Image
+      dataTestId="fleet_hero-image"
       size="expand"
       src={config.heroImage.src}
       plain

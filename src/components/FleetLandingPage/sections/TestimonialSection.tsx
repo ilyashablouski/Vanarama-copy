@@ -27,10 +27,11 @@ const TestimonialSection = ({ titleTag, title, body }: ISideText) => {
         <Heading size="large" color="black" tag={getTitleTag(titleTag) as any}>
           {title}
         </Heading>
-        <Text tag="p">
+        <Text tag="div">
           <ReactMarkdown source={body || ''} />
         </Text>
         <Button
+          dataTestId="fleet_testimonial-section_request-button"
           color="primary"
           size="regular"
           label={config.requestCallBackForm.requestCallBackButton}

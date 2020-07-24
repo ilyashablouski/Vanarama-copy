@@ -10,7 +10,7 @@ import { useQuery } from '@apollo/client';
 import { GetFleetLandingPage } from '../../../generated/GetFleetLandingPage';
 
 const FleetLandingPage = () => {
-  const { data, error, loading } = useQuery<GetFleetLandingPage, {}>(GET_FLEET_PAGE_CONTENT);
+  const { data, error, loading } = useQuery<GetFleetLandingPage>(GET_FLEET_PAGE_CONTENT);
 
   if (loading) {
     return <Loading size="large" />;
@@ -36,14 +36,14 @@ const FleetLandingPage = () => {
 
   return (
     <>
-      {/* {hero && <HeroSection {...hero} />}
+      {hero && <HeroSection {...hero} />}
       {leadText && <LeadTextSection {...leadText} />}
       {featured1 && <TestimonialSection {...featured1} />}
       {featured2 && <MediaFeatureSection {...featured2} />}
       {featured3 && <MediaFeatureSection {...featured3} />}
-      {featured4 && <MediaFeatureSection {...featured4} />} */}
+      {featured4 && <MediaFeatureSection {...featured4} />}
       <hr className="-fullwidth" />
-      {/* {tiles && <BenefitsSection {...tiles} />} */}
+      {tiles && <BenefitsSection {...tiles} />}
     </>
   );
 };

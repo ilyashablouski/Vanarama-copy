@@ -9,7 +9,9 @@ const RequestCallBackForm = () => (
   <Card className="hero-card">
     <div className="hero-card--inner">
       <Heading size="lead">{config.requestCallBackForm.title}</Heading>
-      <Form id="fleet-request-call-back-form">
+      <Form
+        dataTestId="fleet-request-call-back-form"
+        id="fleet-request-call-back-form">
         <RequestCallBackFormFields />
         <Button
           color="primary"

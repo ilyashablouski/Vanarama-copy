@@ -10,7 +10,10 @@ const RequestCallBackFormFields = () => (
       controlId="full-name"
       label={config.requestCallBackForm.fullname}
     >
-      <TextInput id="full-name" name="full-name" dataTestId="fleet_full-name" />
+      <TextInput 
+      id="full-name" 
+      name="full-name" 
+      dataTestId="fleet_full-name" />
     </Formgroup>
 
     <Formgroup
