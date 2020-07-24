@@ -3,20 +3,18 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import ReactMarkdown from 'react-markdown';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
+import { useQuery } from '@apollo/client';
 import getTitleTag from '../../../utils/getTitleTag';
 import { GetFleetLandingPage_fleetLandingPage_sections_featured1 as ISideText } from '../../../../generated/GetFleetLandingPage';
 import config from '../config';
-import { useQuery } from '@apollo/client';
 import { TestimonialsData } from '../../../../generated/TestimonialsData';
 import { TESTIMONIALS_DATA } from '../../../gql/testimonials';
 
-const goToTop = () => {
-  window.scrollTo(0, 0);
-};
+const goToTop = () => window.scrollTo(0, 0);
 
 const TestimonialSection = ({ titleTag, title, body }: ISideText) => {
   const { data } = useQuery<TestimonialsData>(TESTIMONIALS_DATA, {
-    variables: { size: 1, page: 1 }
+    variables: { size: 1, page: 1 },
   });
 
   const testimonials = data?.testimonials || null;

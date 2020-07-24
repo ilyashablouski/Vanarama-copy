@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const GET_FLEET_PAGE_CONTENT = gql`
+const GET_FLEET_PAGE_CONTENT = gql`
   query GetFleetLandingPage {
     fleetLandingPage {
       id
@@ -86,3 +86,5 @@ export const GET_FLEET_PAGE_CONTENT = gql`
     }
   }
 `;
+
+export default GET_FLEET_PAGE_CONTENT;

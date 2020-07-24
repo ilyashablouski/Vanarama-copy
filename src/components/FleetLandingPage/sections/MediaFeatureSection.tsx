@@ -12,8 +12,8 @@ import {
 export enum Side {
   left = 'Media Left',
   right = 'Media Right',
-  full = "Media Full",
-  featuredProduct = "Featured Product"
+  full = 'Media Full',
+  featuredProduct = 'Featured Product',
 }
 
 const MediaFeatureSection = ({
@@ -21,7 +21,7 @@ const MediaFeatureSection = ({
   titleTag,
   title,
   body,
-  layout
+  layout,
 }: IMediaFeature) => {
   const renderImage = useCallback(
     (media: ISideMediaImage | null) =>
@@ -31,23 +31,23 @@ const MediaFeatureSection = ({
     [],
   );
 
-  const selectedLayout = layout && layout[0] || '';
+  const selectedLayout = (layout && layout[0]) || '';
   let className = '';
   switch (selectedLayout) {
     case Side.right: {
-      className = "right";
+      className = 'right';
       break;
     }
     case Side.full: {
-      className = "full";
+      className = 'full';
       break;
     }
     case Side.featuredProduct: {
-      className = "product";
+      className = 'product';
       break;
     }
     default: {
-      className = "left";
+      className = 'left';
     }
   }
 
@@ -61,9 +61,10 @@ const MediaFeatureSection = ({
         <ReactMarkdown
           source={body || ''}
           renderers={{
-            heading: (props) => <Heading {...props} tag="h3" />,
-            paragraph: (props) => <Text {...props} tag="p" color="darker" />
-          }} />
+            heading: props => <Heading {...props} tag="h3" />,
+            paragraph: props => <Text {...props} tag="p" color="darker" />,
+          }}
+        />
       </div>
       {selectedLayout === Side.right && renderImage(image)}
     </div>

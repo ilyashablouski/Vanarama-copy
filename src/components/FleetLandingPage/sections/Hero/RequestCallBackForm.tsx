@@ -11,7 +11,8 @@ const RequestCallBackForm = () => (
       <Heading size="lead">{config.requestCallBackForm.title}</Heading>
       <Form
         dataTestId="fleet-request-call-back-form"
-        id="fleet-request-call-back-form">
+        id="fleet-request-call-back-form"
+      >
         <RequestCallBackFormFields />
         <Button
           color="primary"

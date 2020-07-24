@@ -14,12 +14,7 @@ const BenefitsSection = ({ name, tiles }: IBenefitsSection) => (
       {name}
     </Heading>
     {tiles?.map(tile => (
-      <Tile
-        key={tile.title || undefined}
-        className="-button"
-        centered
-        plain
-      >
+      <Tile key={tile.title || undefined} className="-button" centered plain>
         <span>
           {tile.image?.file?.url && (
             <Image src={tile.image.file.url} size="large" inline round />
