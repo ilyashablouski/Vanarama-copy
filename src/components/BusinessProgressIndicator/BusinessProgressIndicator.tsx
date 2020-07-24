@@ -4,15 +4,24 @@ import StepLink from '@vanarama/uibook/lib/components/molecules/progress-indicat
 import React, { useMemo } from 'react';
 import NextJsLink from 'next/link';
 import { useRouter } from 'next/router';
+import generateLimitedSteps from './generateLimitedSteps';
+import generateSoleTraderSteps from './generateSoleTraderSteps';
+import { IBusinessProgressIndicatorProps } from './interfaces';
 
 type QueryParams = {
   companyUuid: string;
 };
 
-const BusinessProgressIndicator: React.FC = () => {
+const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
+  isSoleTraderJouney,
+}) => {
   const { pathname, query } = useRouter();
   const { companyUuid } = query as QueryParams;
-  const steps = useMemo(() => generateSteps(), []);
+  const steps = useMemo(
+    () =>
+      isSoleTraderJouney ? generateSoleTraderSteps() : generateLimitedSteps(),
+    [isSoleTraderJouney],
+  );
 
   // Work out the current step based on the URL
   const currentStep = steps.find(x => x.href === pathname)?.step;
@@ -32,35 +41,5 @@ const BusinessProgressIndicator: React.FC = () => {
     </ProgressIndicator>
   );
 };
-
-function generateSteps() {
-  return [
-    {
-      href: '/b2b/olaf/about',
-      label: 'About You',
-      step: 1,
-    },
-    {
-      href: '/b2b/olaf/company-details/[personUuid]',
-      label: 'Company Details',
-      step: 2,
-    },
-    {
-      href: '/b2b/olaf/vat-details/[companyUuid]',
-      label: 'VAT Details',
-      step: 3,
-    },
-    {
-      href: '/b2b/olaf/director-details/[companyUuid]',
-      label: 'Director Details',
-      step: 4,
-    },
-    {
-      href: '/b2b/olaf/company-bank-details/[companyUuid]',
-      label: 'Company Bank Details',
-      step: 5,
-    },
-  ];
-}
 
 export default BusinessProgressIndicator;
