@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { VehicleTypeEnum, SubVehicleTypeEnum } from "./globalTypes";
+import { VehicleTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: ProductCardData
@@ -36,7 +36,8 @@ export interface ProductCardData {
 
 export interface ProductCardDataVariables {
   type: VehicleTypeEnum;
-  subType?: SubVehicleTypeEnum | null;
+  bodyType?: string | null;
+  excludeBodyType?: string | null;
   size?: number | null;
   offer?: boolean | null;
 }

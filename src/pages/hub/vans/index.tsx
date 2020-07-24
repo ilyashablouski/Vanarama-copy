@@ -61,7 +61,7 @@ export const VansPage: NextPage = () => {
     {
       variables: {
         type: VehicleTypeEnum.LCV,
-        subType: 'SMALLVAN',
+        bodyType: 'SmallVan',
         size: 9,
         offer: true,
       },
@@ -84,7 +84,7 @@ export const VansPage: NextPage = () => {
     {
       variables: {
         type: VehicleTypeEnum.LCV,
-        subType: 'MEDIUMVAN',
+        bodyType: 'MediumVan',
         size: 9,
         offer: true,
       },
@@ -107,7 +107,7 @@ export const VansPage: NextPage = () => {
     {
       variables: {
         type: VehicleTypeEnum.LCV,
-        subType: 'LARGEVAN',
+        bodyType: 'LargeVan',
         size: 9,
         offer: true,
       },

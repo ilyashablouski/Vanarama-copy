@@ -49,9 +49,9 @@ const HUB_PICKUP_CONTENT = gql`
             body
           }
         }
-        accessories {
+        tiles1 {
           name
-          accessories {
+          tiles {
             title
             body
             image {
@@ -61,7 +61,7 @@ const HUB_PICKUP_CONTENT = gql`
             }
           }
         }
-        tiles {
+        tiles2 {
           name
           tiles {
             title
