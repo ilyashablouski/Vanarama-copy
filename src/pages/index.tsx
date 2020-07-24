@@ -48,7 +48,7 @@ export const HomePage: NextPage = () => {
     {
       variables: {
         type: VehicleTypeEnum.LCV,
-        subType: 'VAN',
+        excludeBodyType: 'Pickup',
         size: 9,
         offer: true,
       },
@@ -77,7 +77,7 @@ export const HomePage: NextPage = () => {
     {
       variables: {
         type: VehicleTypeEnum.LCV,
-        subType: 'PICKUP',
+        bodyType: 'Pickup',
         size: 9,
         offer: true,
       },
