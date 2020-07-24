@@ -1,5 +1,6 @@
 import { useQuery, gql, useLazyQuery } from '@apollo/client';
 import { filterTypeAndBudget as IFilterTypeAndBudget } from '../../../generated/filterTypeAndBudget';
+import { filterList } from '../../../generated/filterList';
 
 export const GET_SEARCH_POD_DATA = gql`
   query filterList($vehicleTypes: [VehicleTypeEnum!]) {

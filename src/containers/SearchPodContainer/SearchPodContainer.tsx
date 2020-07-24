@@ -80,9 +80,9 @@ const SearchPodContainer = () => {
       if (
         selectTypeVans === 'Pickup' &&
         activeIndex === 1 &&
-        !pickupMakes.length
+        !pickupMakes.length && resp?.filterList
       )
-        setPickupMakes(makeHandler(resp?.filterList || []));
+        setPickupMakes(makeHandler(resp?.filterList));
     },
   );
 
@@ -212,7 +212,6 @@ const SearchPodContainer = () => {
   }, [
     selectMakeVans,
     selectMakeCars,
-    selectTypeVans,
     modelVansTemp,
     activeIndex,
     carsDataCache.bodyStyles,
@@ -231,7 +230,7 @@ const SearchPodContainer = () => {
           if (
             budgetBetween(
               range,
-              actualVehicleData?.filterList.financeProfilesRateMin,
+              actualVehicleData?.filterList?.financeProfilesRateMin || 0,
             )
           ) {
             array.push(index);
@@ -239,7 +238,7 @@ const SearchPodContainer = () => {
           if (
             budgetBetween(
               range,
-              actualVehicleData?.filterList.financeProfilesRateMax,
+              actualVehicleData?.filterList?.financeProfilesRateMax || 551,
             )
           ) {
             array.push(index > -1 ? index + 1 : array.length);
@@ -249,14 +248,14 @@ const SearchPodContainer = () => {
         [] as number[],
       );
       if (activeIndex === 1) {
-        setTypesVans(actualVehicleData?.filterList.bodyStyles);
+        setTypesVans(actualVehicleData?.filterList.bodyStyles || []);
         setBudgetVans(
           minBudgetIndex >= 0
             ? budget.slice(minBudgetIndex, maxBudgetIndex)
             : budget,
         );
       } else {
-        setTypesCars(actualVehicleData?.filterList.bodyStyles);
+        setTypesCars(actualVehicleData?.filterList.bodyStyles || []);
         setBudgetCars(
           minBudgetIndex >= 0
             ? budget.slice(minBudgetIndex, maxBudgetIndex)
