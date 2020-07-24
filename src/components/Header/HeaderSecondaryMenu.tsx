@@ -6,7 +6,6 @@ import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import FlameSharp from '@vanarama/uibook/lib/assets/icons/FlameSharp';
 import RouterLink from '../RouterLink/RouterLink';
 import { IHeaderLink } from './Header';
-import Router from 'next/router';
 
 export interface IHeaderSecondaryMenuProps extends IBaseProps {
   links: IHeaderLink[];
@@ -58,6 +57,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
             <RouterLink
               link={{ label: '', href: '' }}
               onClick={() => onClickTitle()}
+              dataTestId="menu-title"
             >
               <span>{title}</span>
             </RouterLink>
@@ -86,6 +86,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                     }
                   : undefined
               }
+              data-testid={link.label}
             >
               <RouterLink
                 link={link}

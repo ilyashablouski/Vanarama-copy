@@ -254,7 +254,7 @@ exports[`<Header /> renders correctly 1`] = `
           <a
             className="link"
             data-menu={null}
-            data-testid="router-link"
+            data-testid="menu-title"
             href=""
             onClick={[Function]}
             onMouseEnter={[Function]}
@@ -325,7 +325,7 @@ exports[`<Header /> renders correctly 1`] = `
                   <a
                     className="link"
                     data-menu={null}
-                    data-testid="router-link"
+                    data-testid="menu-title"
                     href=""
                     onClick={[Function]}
                     onMouseEnter={[Function]}
@@ -337,6 +337,7 @@ exports[`<Header /> renders correctly 1`] = `
                 </li>
                 <li
                   className="menu-li -highlight"
+                  data-testid="VANS Special Offers"
                 >
                   <a
                     className="link -white"
@@ -369,6 +370,7 @@ exports[`<Header /> renders correctly 1`] = `
                 </li>
                 <li
                   className="menu-li -with-children"
+                  data-testid="Vans By Manufacturer"
                   onFocus={[Function]}
                   onMouseOver={[Function]}
                 >
@@ -387,6 +389,7 @@ exports[`<Header /> renders correctly 1`] = `
                 </li>
                 <li
                   className="menu-li -with-children"
+                  data-testid="Vans By Size"
                   onFocus={[Function]}
                   onMouseOver={[Function]}
                 >
@@ -405,6 +408,7 @@ exports[`<Header /> renders correctly 1`] = `
                 </li>
                 <li
                   className="menu-li -with-children"
+                  data-testid="Vans By Type"
                   onFocus={[Function]}
                   onMouseOver={[Function]}
                 >
@@ -681,7 +685,7 @@ exports[`<Header /> renders correctly 1`] = `
                   <a
                     className="link"
                     data-menu={null}
-                    data-testid="router-link"
+                    data-testid="menu-title"
                     href=""
                     onClick={[Function]}
                     onMouseEnter={[Function]}
@@ -693,6 +697,7 @@ exports[`<Header /> renders correctly 1`] = `
                 </li>
                 <li
                   className="menu-li -highlight"
+                  data-testid="Pickups Special offers"
                 >
                   <a
                     className="link -white"
@@ -725,6 +730,7 @@ exports[`<Header /> renders correctly 1`] = `
                 </li>
                 <li
                   className="menu-li -with-children"
+                  data-testid="Pickups By Manufacturer"
                   onFocus={[Function]}
                   onMouseOver={[Function]}
                 >
@@ -743,6 +749,7 @@ exports[`<Header /> renders correctly 1`] = `
                 </li>
                 <li
                   className="menu-li -with-children"
+                  data-testid="Best Selling"
                   onFocus={[Function]}
                   onMouseOver={[Function]}
                 >
@@ -1019,7 +1026,7 @@ exports[`<Header /> renders correctly 1`] = `
                   <a
                     className="link"
                     data-menu={null}
-                    data-testid="router-link"
+                    data-testid="menu-title"
                     href=""
                     onClick={[Function]}
                     onMouseEnter={[Function]}
@@ -1031,6 +1038,7 @@ exports[`<Header /> renders correctly 1`] = `
                 </li>
                 <li
                   className="menu-li -highlight"
+                  data-testid="Car Special Offers"
                 >
                   <a
                     className="link -white"
@@ -1063,6 +1071,7 @@ exports[`<Header /> renders correctly 1`] = `
                 </li>
                 <li
                   className="menu-li -with-children"
+                  data-testid="Cars By Manufacturer"
                   onFocus={[Function]}
                   onMouseOver={[Function]}
                 >
@@ -1081,6 +1090,7 @@ exports[`<Header /> renders correctly 1`] = `
                 </li>
                 <li
                   className="menu-li -with-children"
+                  data-testid="Cars By BodyStyle"
                   onFocus={[Function]}
                   onMouseOver={[Function]}
                 >
@@ -1485,7 +1495,7 @@ exports[`<Header /> renders correctly 1`] = `
                   <a
                     className="link"
                     data-menu={null}
-                    data-testid="router-link"
+                    data-testid="menu-title"
                     href=""
                     onClick={[Function]}
                     onMouseEnter={[Function]}
@@ -1497,6 +1507,7 @@ exports[`<Header /> renders correctly 1`] = `
                 </li>
                 <li
                   className="menu-li"
+                  data-testid="Multi-Year Insurance"
                 >
                   <a
                     className="link -inherit"
@@ -1513,6 +1524,7 @@ exports[`<Header /> renders correctly 1`] = `
                 </li>
                 <li
                   className="menu-li"
+                  data-testid="Finance GAP Insurance"
                 >
                   <a
                     className="link -inherit"
@@ -1529,6 +1541,7 @@ exports[`<Header /> renders correctly 1`] = `
                 </li>
                 <li
                   className="menu-li"
+                  data-testid="Tools in Transit Insurance"
                 >
                   <a
                     className="link -inherit"
@@ -1545,6 +1558,7 @@ exports[`<Header /> renders correctly 1`] = `
                 </li>
                 <li
                   className="menu-li"
+                  data-testid="7-Day Free Insurance"
                 >
                   <a
                     className="link -inherit"
@@ -1561,6 +1575,7 @@ exports[`<Header /> renders correctly 1`] = `
                 </li>
                 <li
                   className="menu-li"
+                  data-testid="Short-Term Insurance"
                 >
                   <a
                     className="link -inherit"
@@ -1577,6 +1592,7 @@ exports[`<Header /> renders correctly 1`] = `
                 </li>
                 <li
                   className="menu-li"
+                  data-testid="Frequently Asked Questions"
                 >
                   <a
                     className="link -inherit"

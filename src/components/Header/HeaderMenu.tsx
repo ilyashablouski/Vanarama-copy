@@ -27,6 +27,7 @@ const HeaderMenu: FC<IHeaderMenuProps> = memo(props => {
           <RouterLink
             link={{ label: '', href: '' }}
             onClick={() => onClickMenu()}
+            dataTestId="menu-title"
           >
             Menu
           </RouterLink>
