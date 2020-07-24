@@ -20,6 +20,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   derivativeInfo,
   leaseAdjustParams,
   leaseType,
+  financeProfile,
   setLeaseType,
   setLeadTime,
   onCompleted,
@@ -29,10 +30,14 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [quoteData, setQuoteData] = useState<
     GetQuoteDetails_quoteByCapId | null | undefined
   >(null);
-  const [mileage, setMileage] = useState<null | number>(null);
-  const [upfront, setUpfront] = useState<number | null>(null);
+  const [mileage, setMileage] = useState<null | number>(
+    financeProfile?.mileage || null,
+  );
+  const [upfront, setUpfront] = useState<number | null>(
+    financeProfile?.upfront || null,
+  );
   const [colour, setColour] = useState<null | number>(null);
-  const [term, setTerm] = useState<number | null>(null);
+  const [term, setTerm] = useState<number | null>(financeProfile?.term || null);
   const [trim, setTrim] = useState<number | null>(null);
   const [maintenance, setMaintenance] = useState<boolean | null>(null);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
@@ -42,9 +47,9 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const { data, error, loading, refetch } = useQuoteData({
     capId: `${capId}`,
     vehicleType,
-    mileage: mileage || quoteData?.mileage || null,
-    term: term || quoteData?.term || null,
-    upfront: upfront || quoteData?.upfront || null,
+    mileage,
+    term,
+    upfront,
     leaseType:
       leaseType === 'Personal'
         ? LeaseTypeEnum.PERSONAL
@@ -190,7 +195,11 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         showCallBackForm={() => setShowCallBackForm(true)}
       />
       {showCallBackForm && (
-        <Modal show onRequestClose={() => setShowCallBackForm(false)}>
+        <Modal
+          className="-mt-000 callBack"
+          show
+          onRequestClose={() => setShowCallBackForm(false)}
+        >
           <GoldrushFormContainer
             isPostcodeVisible={vehicleType !== VehicleTypeEnum.CAR}
             capId={capId}

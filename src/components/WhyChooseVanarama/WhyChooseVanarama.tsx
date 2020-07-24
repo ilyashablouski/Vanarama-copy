@@ -5,39 +5,39 @@ import Accordion from '@vanarama/uibook/lib/components/molecules/accordion/Accor
 const ACCORDION_ITEMS = [
   {
     id: 1,
-    title: 'FREE Nationwide Delivery',
+    title: 'Price Promise',
     children:
-      'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur incidunt at officiis quibusdam officia nam delectus doloremque perspiciatis! Accusantium eaque, ipsam harum voluptatibus eveniet necessitatibus.',
+      'Our unique Price Promise means we’ll find you the very best deal on your chosen vehicle. And if you do find a competitors’ quote we can’t beat, we’ll give you £100*!',
   },
   {
     id: 2,
-    title: 'FREE 30-Day Returns*',
+    title: 'Redundancy & Life Event Cover',
     children:
-      'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur incidunt at officiis quibusdam officia nam delectus doloremque perspiciatis! Accusantium eaque, ipsam harum voluptatibus eveniet necessitatibus.',
+      'If something changes unexpectedly with your personal circumstances, the last thing you want to be worrying about is your vehicle. That’s why with Vanarama, if the worst happens, you can return it, hassle-free*.',
   },
   {
     id: 3,
-    title: 'No Admin Fees',
+    title: 'FREE 30-Day Returns',
     children:
-      'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur incidunt at officiis quibusdam officia nam delectus doloremque perspiciatis! Accusantium eaque, ipsam harum voluptatibus eveniet necessitatibus.',
+      'If you change your mind up to 30 days after your vehicle has been delivered, you don’t have to worry! We’ll collect it from wherever you are, free of charge.',
   },
   {
     id: 4,
-    title: 'Up To £500 Damage Cover*',
+    title: 'No Admin Fees',
     children:
-      'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur incidunt at officiis quibusdam officia nam delectus doloremque perspiciatis! Accusantium eaque, ipsam harum voluptatibus eveniet necessitatibus.',
+      "Unlike many of our competitors, we won’t charge you anything to arrange your lease. You simply pay your initial payment and monthly rentals and we'll cover the rest.",
   },
   {
     id: 5,
-    title: 'We’ll Cover 10% Mileage Excess*',
+    title: 'Our Trust Pilot Score',
     children:
-      'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur incidunt at officiis quibusdam officia nam delectus doloremque perspiciatis! Accusantium eaque, ipsam harum voluptatibus eveniet necessitatibus.',
+      'Delivering a 5-star service to you is at the heart of everything we do. That’s why we’re rated excellent on Trust Pilot for our customer service.',
   },
   {
     id: 6,
-    title: '4.5 Trustpilot Score',
+    title: 'FREE, Safe & Contactless Delivery',
     children:
-      'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur incidunt at officiis quibusdam officia nam delectus doloremque perspiciatis! Accusantium eaque, ipsam harum voluptatibus eveniet necessitatibus.',
+      "There's no need to worry about the hassle of collecting your vehicle. Once it's ready, we’ll get it delivered straight to your door, drama-free.",
   },
 ];
 

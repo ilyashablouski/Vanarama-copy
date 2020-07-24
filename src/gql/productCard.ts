@@ -1,15 +1,18 @@
-import { gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
+import { ProductCardData } from '../../generated/ProductCardData';
 
 const PRODUCT_CARD_CONTENT = gql`
   query ProductCardData(
     $type: VehicleTypeEnum!
-    $subType: SubVehicleTypeEnum
+    $bodyType: String
+    $excludeBodyType: String
     $size: Int
     $offer: Boolean
   ) {
     productCarousel(
       vehicleType: $type
-      subVehicleType: $subType
+      bodyType: $bodyType
+      excludeBodyType: $excludeBodyType
       pageSize: $size
       onOffer: $offer
     ) {
@@ -28,9 +31,20 @@ const PRODUCT_CARD_CONTENT = gql`
         name
         value
       }
+      vehicleType
     }
   }
 `;
 
 // eslint-disable-next-line import/prefer-default-export
 export { PRODUCT_CARD_CONTENT };
+
+export function useProductCard(type: string, size: number, offer: boolean) {
+  return useQuery<ProductCardData>(PRODUCT_CARD_CONTENT, {
+    variables: {
+      type,
+      size,
+      offer,
+    },
+  });
+}

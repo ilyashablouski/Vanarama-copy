@@ -11,7 +11,9 @@ import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { getUrlParam, OLAFQueryParams } from '../../../../utils/url';
 import LoginFormContainer from '../../../../containers/LoginFormContainer/LoginFormContainer';
 import BusinessAboutFormContainer from '../../../../containers/BusinessAboutFormContainer';
+import { SubmitResult } from '../../../../containers/BusinessAboutFormContainer/interfaces';
 import { usePersonByTokenLazyQuery } from '../../../olaf/about';
+import { CompanyTypes } from '../../../../models/enum/CompanyTypes';
 
 const handleCreateUpdateBusinessPersonError = () =>
   toast.error(
@@ -37,6 +39,20 @@ export const BusinessAboutPage: NextPage = () => {
     data => setPersonUuid(data?.personByToken?.uuid),
     handleAccountFetchError,
   );
+
+  const handleCreateUpdateBusinessPersonCompletion = ({
+    data,
+    companyType,
+  }: SubmitResult) => {
+    const companyUuid = data.createUpdateBusinessPerson!.uuid!;
+    const params = getUrlParam({ derivativeId, orderId });
+    const journeyUrl =
+      companyType === CompanyTypes.limited
+        ? 'company-details'
+        : 'sole-trader/company-details';
+    const url = `/b2b/olaf/${journeyUrl}/[companyUuid]${params}`;
+    router.push(url, url.replace('[companyUuid]', companyUuid));
+  };
 
   return (
     <OLAFLayout>
@@ -73,12 +89,7 @@ export const BusinessAboutPage: NextPage = () => {
         </div>
       )}
       <BusinessAboutFormContainer
-        onCompleted={({ createUpdateBusinessPerson }) => {
-          const companyUuid = createUpdateBusinessPerson!.uuid!;
-          const params = getUrlParam({ derivativeId, orderId });
-          const url = `/b2b/olaf/company-details/[companyUuid]${params}`;
-          router.push(url, url.replace('[companyUuid]', companyUuid));
-        }}
+        onCompleted={handleCreateUpdateBusinessPersonCompletion}
         onError={handleCreateUpdateBusinessPersonError}
         personUuid={personUuid}
         onLogInCLick={() => toggleLogInVisibility(true)}

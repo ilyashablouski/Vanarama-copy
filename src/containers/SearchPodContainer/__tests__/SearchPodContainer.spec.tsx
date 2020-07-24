@@ -8,6 +8,7 @@ import { GET_SEARCH_POD_DATA, GET_TYPE_AND_BUDGET_DATA } from '../gql';
 jest.mock('next/router', () => ({
   useRouter: jest.fn().mockReturnValue({
     push: jest.fn(),
+    pathname: '/',
   }),
 }));
 
@@ -36,8 +37,49 @@ const mocks: MockedResponse[] = [
                 parent: 'Dacia',
                 children: ['Duster'],
               },
+              {
+                parent: 'BMW',
+                children: ['3 series', '4 series'],
+              },
             ],
             bodyStyles: ['Dropside Tipper', 'Large Van'],
+            transmissions: ['Automatic', 'Manual'],
+            fuelTypes: ['diesel', 'iii'],
+          },
+        },
+      };
+    },
+  },
+  {
+    request: {
+      query: GET_SEARCH_POD_DATA,
+      variables: {
+        vehicleTypes: ['CAR'],
+      },
+    },
+    result: () => {
+      mockCalled = true;
+      return {
+        data: {
+          filterList: {
+            vehicleTypes: ['CAR'],
+            groupedRanges: [
+              {
+                parent: 'Citroën',
+                children: ['Berlingo', 'Dispatch', 'Relay'],
+              },
+              {
+                parent: 'Dacia',
+                children: ['Duster'],
+              },
+              {
+                parent: 'BMW',
+                children: ['3 series', '4 series'],
+              },
+            ],
+            bodyStyles: ['Dropside Tipper', 'Large Van'],
+            transmissions: ['Automatic', 'Manual'],
+            fuelTypes: ['diesel', 'iii'],
           },
         },
       };
@@ -50,6 +92,7 @@ const mocks: MockedResponse[] = [
         vehicleTypes: ['LCV'],
         manufacturerName: '',
         rangeName: '',
+        bodyStyles: [''],
       },
     },
     result: () => {
@@ -60,6 +103,20 @@ const mocks: MockedResponse[] = [
             bodyStyles: ['Dropside Tipper', 'Pickup'],
             financeProfilesRateMax: 597.98,
             financeProfilesRateMin: 194.95,
+            groupedRanges: [
+              {
+                parent: 'Citroën',
+                children: ['Berlingo', 'Dispatch', 'Relay'],
+              },
+              {
+                parent: 'Dacia',
+                children: ['Duster'],
+              },
+              {
+                parent: 'BMW',
+                children: ['3 series', '4 series'],
+              },
+            ],
           },
         },
       };
@@ -68,8 +125,9 @@ const mocks: MockedResponse[] = [
 ];
 
 describe('<SearchPodContainer />', () => {
-  afterEach(() => {
+  beforeEach(() => {
     jest.clearAllMocks();
+    mockCalled = false;
   });
   it('should make a server request for get data for dropdowns', async () => {
     // ACT
@@ -82,11 +140,100 @@ describe('<SearchPodContainer />', () => {
     // ASSERT
     await waitFor(() => expect(mockCalled).toBeTruthy());
   });
+  it('should select make by model for vans', async () => {
+    // ACT
+    render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <SearchPodContainer />
+      </MockedProvider>,
+    );
+
+    // ASSERT
+    await waitFor(() => {
+      expect(mockCalled).toBeTruthy();
+    });
+    fireEvent.click(screen.getByTestId('modelVans'));
+
+    fireEvent.click(screen.getByText('Duster'));
+    expect(screen.getByText('Dacia')).toBeInTheDocument();
+  });
+
+  it('should be render search pod for only for vans', async () => {
+    // ACT
+    const pushMock = jest.fn();
+    (useRouter as jest.Mock).mockReturnValue({
+      push: pushMock,
+      pathname: '/hub/vans',
+      query: {
+        redirect: null,
+      },
+    });
+
+    render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <SearchPodContainer />
+      </MockedProvider>,
+    );
+
+    // ASSERT
+    await waitFor(() => {
+      expect(mockCalled).toBeTruthy();
+    });
+    expect(screen.getByText('Search Van Leasing')).toBeInTheDocument();
+  });
+  it('should be render search pod for only for pickups', async () => {
+    // ACT
+    const pushMock = jest.fn();
+    (useRouter as jest.Mock).mockReturnValue({
+      push: pushMock,
+      pathname: '/hub/pickups',
+      query: {
+        redirect: null,
+      },
+    });
+
+    render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <SearchPodContainer />
+      </MockedProvider>,
+    );
+
+    // ASSERT
+    await waitFor(() => {
+      expect(mockCalled).toBeTruthy();
+    });
+    expect(screen.getByText('Search Pickup Leasing')).toBeInTheDocument();
+  });
+  it('should be render search pod for only for cars', async () => {
+    // ACT
+    const pushMock = jest.fn();
+    (useRouter as jest.Mock).mockReturnValue({
+      push: pushMock,
+      pathname: '/hub/cars',
+      query: {
+        redirect: null,
+      },
+    });
+
+    render(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <SearchPodContainer />
+      </MockedProvider>,
+    );
+
+    // ASSERT
+    await waitFor(() => {
+      expect(mockCalled).toBeTruthy();
+      expect(screen.getByText('Vehicle Search')).toBeInTheDocument();
+    });
+  });
+
   it('should be have uniq search url for vans', async () => {
     // Override the router mock for this test
     const pushMock = jest.fn();
     (useRouter as jest.Mock).mockReturnValue({
       push: pushMock,
+      pathname: '/',
       query: {
         redirect: null,
       },
@@ -115,6 +262,7 @@ describe('<SearchPodContainer />', () => {
     const pushMock = jest.fn();
     (useRouter as jest.Mock).mockReturnValue({
       push: pushMock,
+      pathname: '/',
       query: {
         redirect: null,
       },

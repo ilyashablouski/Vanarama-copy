@@ -110,7 +110,7 @@ const AboutForm: FCWithFragments<IProps> = ({
           ref={register}
           width="35ch"
           onBlur={async () => {
-            const isEmailExists = await onEmailExistenceCheck(
+            const isEmailExists = await onEmailExistenceCheck?.(
               getValues('email'),
             );
 

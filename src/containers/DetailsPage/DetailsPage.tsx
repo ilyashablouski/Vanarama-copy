@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useState } from 'react';
-import { NextRouter } from 'next/router';
+import Router from 'next/router';
 import { ApolloError } from '@apollo/client';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
@@ -27,16 +27,16 @@ import {
 } from '../../../generated/GetVehicleDetails';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import WhyChooseLeasing from '../../components/WhyChooseLeasing/WhyChooseLeasing';
+import Banner from '../../components/Banner/Banner';
 import CustomerReviews from '../../components/CustomerReviews/CustomerReviews';
 import WhyChooseVanarama from '../../components/WhyChooseVanarama/WhyChooseVanarama';
 import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer';
 import { replaceReview } from '../../components/CustomerReviews/helpers';
 import FrequentlyAskedQuestions from '../../components/FrequentlyAskedQuestions/FrequentlyAskedQuestions';
-import { useCreateOrder } from '../../gql/order';
+import { useCreateUpdateOrder } from '../../gql/order';
 
 interface IDetailsPageProps {
   capId: number;
-  router: NextRouter;
   cars?: boolean;
   vans?: boolean;
   pickups?: boolean;
@@ -55,7 +55,6 @@ const PATH = {
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
   capId,
-  router,
   cars,
   vans,
   pickups,
@@ -67,7 +66,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [leadTime, setLeadTime] = useState<string>('');
   const isMobile = useMobileViewport();
 
-  const [createOrderHandle] = useCreateOrder(() => {});
+  const [createOrderHandle] = useCreateUpdateOrder(() => {});
 
   const onSubmitClick = (values: OrderInputObject) => {
     return createOrderHandle({
@@ -80,9 +79,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           ? '/olaf/about/[orderId]'
           : '/b2b/olaf/about/[orderId]';
 
-      router.push(
+      Router.push(
         url,
-        url.replace('[orderId]', response.data?.createOrder?.uuid || ''),
+        url.replace('[orderId]', response.data?.createUpdateOrder?.uuid || ''),
       );
     });
   };
@@ -113,6 +112,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const derivativeInfo = data?.derivativeInfo;
   const leaseAdjustParams = data?.leaseAdjustParams;
   const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
+  const financeProfile = data?.vehicleConfigurationByCapId?.financeProfile;
   const independentReview = data?.vehicleDetails?.independentReview;
   const warranty = data?.vehicleDetails?.warranty;
   const capsId = data?.vehicleDetails?.relatedVehicles?.map(
@@ -178,17 +178,20 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           images={vehicleImages}
           videoSrc={video}
           threeSixtyVideoSrc={threeSixtyVideo}
+          videoIframe
         />
         <VehicleTechDetails
           vehicleDetails={vehicleDetails}
           derivativeInfo={derivativeInfo}
         />
+        <Banner />
         {(vans || pickups) && !!independentReview && (
           <IndependentReview review={independentReview || ''} />
         )}
         {isMobile && (
           <CustomiseLeaseContainer
             capId={capId}
+            financeProfile={financeProfile}
             vehicleType={vehicleType}
             derivativeInfo={derivativeInfo}
             leaseAdjustParams={leaseAdjustParams}
@@ -210,6 +213,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       </div>
       <CustomiseLeaseContainer
         capId={capId}
+        financeProfile={financeProfile}
         vehicleType={vehicleType}
         derivativeInfo={derivativeInfo}
         leaseAdjustParams={leaseAdjustParams}
@@ -222,7 +226,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         capsId={capsId || []}
         vehicleType={vehicleType}
         leaseType={leaseType.toUpperCase() || ''}
-        router={router}
       />
     </>
   );

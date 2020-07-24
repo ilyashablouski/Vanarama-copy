@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RangeCard /> should be render correctly 1`] = `
+<body>
+  <div>
+    <div
+      class="card"
+      data-testid="card"
+    >
+      <img
+        alt="img"
+        class="card-image"
+        data-testid="card-image"
+        src="https://images.autorama.co.uk/Photos/Cap/Vehicles/126268/cap-68051-126268.jpg"
+      />
+      <div
+        class="title"
+      >
+        <a
+          class="link heading -black -large"
+          data-testid="router-link"
+          href=""
+        >
+          2 Series
+        </a>
+      </div>
+      <span
+        class="text -regular -dark"
+        data-testid="card-description"
+      >
+        Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id
+      </span>
+      <div
+        class="-flex-h"
+      >
+        <div
+          class="price -large -black"
+        >
+          <div
+            class="price--label"
+          >
+            from
+          </div>
+          <span
+            class="price--sub"
+          >
+            £
+          </span>
+          <span
+            class="price--pounds"
+          >
+            191
+          </span>
+          <span
+            class="price--sub"
+          >
+            .
+            91
+          </span>
+          <div
+            class="price--label"
+          >
+            Per Month Inc.VAT
+          </div>
+        </div>
+        <button
+          class="button -teal -regular -solid"
+        >
+          <div
+            class="button--inner"
+          >
+            View All
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+`;

@@ -21,16 +21,29 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     });
   }, []);
 
+  const resolveMainClass = () => {
+    const isTrailingSlug = (slug: string) => {
+      const index = router.asPath.lastIndexOf('-');
+      const pathSlug = router.asPath.substr(index);
+      return `-${slug}` === pathSlug;
+    };
+
+    if (
+      isTrailingSlug('details') ||
+      router.pathname.includes('[...manufacturer]')
+    ) {
+      return 'page:pdp';
+    }
+    if (isTrailingSlug('testimonials')) {
+      return 'page:testimonials';
+    }
+    return 'page:default';
+  };
+
   return (
     <>
       <ToastContainer />
-      <main
-        className={cx(
-          router.asPath.match(RegExp(/(\/\w*s\/)\w*(-details)/))
-            ? 'page:pdp'
-            : 'page:default',
-        )}
-      >
+      <main className={cx(resolveMainClass())}>
         <Header
           loginLink={LOGIN_LINK}
           phoneNumberLink={PHONE_NUMBER_LINK}

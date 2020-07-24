@@ -8,6 +8,13 @@ jest.mock('../gql', () => ({
   filterListByTypes: jest.fn(),
 }));
 
+jest.mock('next/router', () => ({
+  useRouter: jest.fn().mockReturnValue({
+    push: jest.fn(),
+    pathname: '/',
+  }),
+}));
+
 describe('<SearchPodContainer />', () => {
   afterEach(() => {
     jest.clearAllMocks();
@@ -22,6 +29,20 @@ describe('<SearchPodContainer />', () => {
             bodyStyles: ['Dropside Tipper', 'Pickup'],
             financeProfilesRateMax: 597.98,
             financeProfilesRateMin: 124.95,
+            groupedRanges: [
+              {
+                parent: 'Citroën',
+                children: ['Berlingo', 'Dispatch', 'Relay'],
+              },
+              {
+                parent: 'Dacia',
+                children: ['Duster'],
+              },
+              {
+                parent: 'BMW',
+                children: ['3 series', '4 series'],
+              },
+            ],
           },
         },
       },

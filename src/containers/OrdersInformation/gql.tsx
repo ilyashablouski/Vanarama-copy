@@ -115,6 +115,14 @@ export const GET_CAR_DERIVATIVES = gql`
         name
       }
       transmissionName
+      bodyStyle {
+        name
+      }
+      bodyStyleName
+      range {
+        name
+      }
+      rangeName
     }
     vehicleImages(capIds: $ids, vehicleType: $vehicleType) {
       vehicleType

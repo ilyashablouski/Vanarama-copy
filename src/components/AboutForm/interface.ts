@@ -23,6 +23,6 @@ export interface IProps {
   dropdownData: AboutFormDropdownData;
   person?: AboutFormPerson | null;
   submit: (values: IAboutFormValues) => Promise<any>;
-  onEmailExistenceCheck: (value: string) => Promise<boolean>;
+  onEmailExistenceCheck?: (value: string) => Promise<boolean>;
   onLogInClick?: () => void;
 }

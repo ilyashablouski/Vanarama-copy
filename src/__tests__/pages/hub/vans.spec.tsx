@@ -11,6 +11,8 @@ import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql'
 import { VansPage } from '../../../pages/hub/vans';
 import { mockSearchPodResponse } from '../../../../__mocks__/searchpod';
 import { ProductCardData } from '../../../../generated/ProductCardData';
+import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
+import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 
 /**
  * NOTE: Mock the SearchPodContainer as it is out of scope for this test and is doing state
@@ -19,6 +21,7 @@ import { ProductCardData } from '../../../../generated/ProductCardData';
 jest.mock('../../../containers/SearchPodContainer', () => () => {
   return <div />;
 });
+jest.mock('../../../containers/OrdersInformation/gql');
 
 jest.mock('next/router', () => ({ push: jest.fn() }));
 
@@ -145,7 +148,7 @@ const mocked: MockedResponse[] = [
     request: {
       query: GET_SEARCH_POD_DATA,
       variables: {
-        vehicleTypes: ['LCV'],
+        vehicleTypes: [VehicleTypeEnum.LCV],
       },
     },
     result: () => {
@@ -160,8 +163,8 @@ const mocked: MockedResponse[] = [
     request: {
       query: PRODUCT_CARD_CONTENT,
       variables: {
-        type: 'LCV',
-        subType: 'SMALLVAN',
+        type: VehicleTypeEnum.LCV,
+        bodyType: 'SmallVan',
         size: 9,
         offer: true,
       },
@@ -201,6 +204,7 @@ const mocked: MockedResponse[] = [
                   value: '39.2',
                 },
               ],
+              vehicleType: VehicleTypeEnum.LCV,
             },
           ],
         } as ProductCardData,
@@ -211,8 +215,8 @@ const mocked: MockedResponse[] = [
     request: {
       query: PRODUCT_CARD_CONTENT,
       variables: {
-        type: 'LCV',
-        subType: 'MEDIUMVAN',
+        type: VehicleTypeEnum.LCV,
+        bodyType: 'MediumVan',
         size: 9,
         offer: true,
       },
@@ -252,6 +256,7 @@ const mocked: MockedResponse[] = [
                   value: '67.2',
                 },
               ],
+              vehicleType: VehicleTypeEnum.LCV,
             },
           ],
         } as ProductCardData,
@@ -262,8 +267,8 @@ const mocked: MockedResponse[] = [
     request: {
       query: PRODUCT_CARD_CONTENT,
       variables: {
-        type: 'LCV',
-        subType: 'LARGEVAN',
+        type: VehicleTypeEnum.LCV,
+        bodyType: 'LargeVan',
         size: 9,
         offer: true,
       },
@@ -303,6 +308,7 @@ const mocked: MockedResponse[] = [
                   value: '1932',
                 },
               ],
+              vehicleType: VehicleTypeEnum.LCV,
             },
           ],
         } as ProductCardData,
@@ -313,6 +319,54 @@ const mocked: MockedResponse[] = [
 
 describe('<VansPage />', () => {
   beforeEach(async () => {
+    (useCarDerivativesData as jest.Mock).mockReturnValue({
+      loading: false,
+      data: {
+        derivatives: [
+          {
+            id: '44514',
+            manufacturerName: 'Ford',
+            derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
+            rangeName: 'Focus',
+            bodyStyleName: 'Hatchback',
+            slug: '10-ecoBoost-125-st-line-nav-5dr',
+            capCode: 'capCode',
+            name: 'name',
+            modelName: 'modelName',
+            manufacturer: {
+              name: 'name',
+            },
+            model: {
+              name: 'name',
+            },
+            fuelType: {
+              name: 'name',
+            },
+            fuelTypeName: 'fuelTypeName',
+            transmission: {
+              name: 'name',
+            },
+            transmissionName: 'transmissionName',
+            bodyStyle: {
+              name: 'name',
+            },
+            range: {
+              name: 'name',
+            },
+            __typename: 'derivative',
+          },
+        ],
+        vehicleImages: [
+          {
+            vehicleType: VehicleTypeEnum.LCV,
+            capId: 1212,
+            mainImageUrl: 'mainImageUrl',
+          },
+        ],
+      },
+      error: undefined,
+    });
+
     await preloadAll();
 
     render(
@@ -334,7 +388,10 @@ describe('<VansPage />', () => {
     await screen.findByTestId('deal-of-month__view-offer');
     fireEvent.click(screen.getByTestId('deal-of-month__view-offer'));
     await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/vans/van-details/44514'),
+      expect(Router.push).toHaveBeenCalledWith(
+        '/van-leasing/[...manufacturer]',
+        '/van-leasing/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
+      ),
     );
   });
 
@@ -349,7 +406,7 @@ describe('<VansPage />', () => {
   });
 
   it('should trigger route push when clicking View Medium Vans', async () => {
-    await screen.findAllByText('View Small Vans');
+    await screen.findAllByText('View Medium Vans');
     fireEvent.click(screen.getAllByText('View Medium Vans')[0]);
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith(
@@ -359,7 +416,7 @@ describe('<VansPage />', () => {
   });
 
   it('should trigger route push when clicking View Large Vans', async () => {
-    await screen.findAllByText('View Small Vans');
+    await screen.findAllByText('View Large Vans');
     fireEvent.click(screen.getAllByText('View Large Vans')[0]);
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith(

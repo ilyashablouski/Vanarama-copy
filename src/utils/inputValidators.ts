@@ -4,6 +4,8 @@ import {
   POSTCODE_REGEX,
   EMAIL_REGEX,
   WORLDWIDE_MOBILE_REGEX,
+  NUMBERS_REGEX,
+  LETTERS_AND_NUMBERS,
 } from './regex';
 
 const MAX_EMAIL_LENGTH = 254;
@@ -115,5 +117,61 @@ export const termsAndCons = {
   required: {
     value: true,
     message: 'The terms and conditions must be accepted',
+  },
+};
+
+export const annualValidator = (message: string) => ({
+  required: {
+    value: true,
+    message,
+  },
+  maxLength: {
+    value: 50,
+    message:
+      'Oops, this seems too long. Please keep it to 50 characters or less.',
+  },
+  pattern: {
+    value: NUMBERS_REGEX,
+    message: 'Please only use numbers',
+  },
+});
+
+export const requiredTextFieldValidator = (
+  message: string,
+  maxLength: number,
+) => ({
+  required: {
+    value: true,
+    message,
+  },
+  minLength: {
+    value: 2,
+    message:
+      'Oops, this name’s too short. Please make it 2 characters or longer',
+  },
+  maxLength: {
+    value: maxLength,
+    message: `Oops, this name's too long. Please make it ${maxLength} characters or shorter`,
+  },
+});
+
+export const vehicleRegistrationNumberValidator = {
+  required: {
+    value: true,
+    message: 'Please enter vehicle registration number',
+  },
+  minLength: {
+    value: 4,
+    message:
+      'Oops, that’s a short registration number. Please make it at least 4 characters long',
+  },
+  maxLength: {
+    value: 7,
+    message:
+      'Oops, that’s a long registration number. Please make it not longer than 7 characters long',
+  },
+  pattern: {
+    value: LETTERS_AND_NUMBERS,
+    message: 'Please only use letters and numbers',
   },
 };

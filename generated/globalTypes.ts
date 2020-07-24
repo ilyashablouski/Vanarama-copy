@@ -24,14 +24,6 @@ export enum SortField {
   rate = "rate",
 }
 
-export enum SubVehicleTypeEnum {
-  LARGEVAN = "LARGEVAN",
-  MEDIUMVAN = "MEDIUMVAN",
-  PICKUP = "PICKUP",
-  SMALLVAN = "SMALLVAN",
-  VAN = "VAN",
-}
-
 /**
  * Vehicle type enum
  */
@@ -276,6 +268,7 @@ export interface OrderInputObject {
   partyUuid?: string | null;
   referenceNumber?: string | null;
   salesChannel?: string | null;
+  uuid?: string | null;
 }
 
 /**

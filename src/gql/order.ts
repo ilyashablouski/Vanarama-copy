@@ -1,4 +1,4 @@
-import { useQuery, gql, useMutation } from '@apollo/client';
+import { useQuery, gql, useMutation, useLazyQuery } from '@apollo/client';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
 import {
   GetDerivative,
@@ -9,7 +9,10 @@ import {
   GetOrderByUuid,
   GetOrderByUuidVariables,
 } from '../../generated/GetOrderByUuid';
-import { CreateOrder, CreateOrderVariables } from '../../generated/CreateOrder';
+import {
+  CreateUpdateOrder,
+  CreateUpdateOrderVariables,
+} from '../../generated/CreateUpdateOrder';
 
 export const GET_ORDER_BY_UUID_DATA = gql`
   query GetOrderByUuid($uuid: ID!) {
@@ -87,6 +90,14 @@ export const GET_CAR_DERIVATIVE = gql`
         name
       }
       transmissionName
+      bodyStyle {
+        name
+      }
+      bodyStyleName
+      range {
+        name
+      }
+      rangeName
     }
   }
 `;
@@ -95,12 +106,15 @@ export function useCarDerivativesData(
   id: string,
   vehicleType?: VehicleTypeEnum,
 ) {
-  return useQuery<GetDerivative, GetDerivativeVariables>(GET_CAR_DERIVATIVE, {
-    variables: {
-      id,
-      vehicleType,
+  return useLazyQuery<GetDerivative, GetDerivativeVariables>(
+    GET_CAR_DERIVATIVE,
+    {
+      variables: {
+        id,
+        vehicleType,
+      },
     },
-  });
+  );
 }
 
 export const GET_OLAF_DATA = gql`
@@ -155,9 +169,9 @@ export function useOlafData(uuid: string) {
   });
 }
 
-export const CREATE_ORDER_MUTATION = gql`
-  mutation CreateOrder($input: OrderInputObject!) {
-    createOrder(input: $input) {
+export const CREATE_UPDATE_ORDER_MUTATION = gql`
+  mutation CreateUpdateOrder($input: OrderInputObject!) {
+    createUpdateOrder(input: $input) {
       uuid
       createdAt
       salesChannel
@@ -183,8 +197,13 @@ export const CREATE_ORDER_MUTATION = gql`
   }
 `;
 
-export function useCreateOrder(onCompleted: (data: CreateOrder) => void) {
-  return useMutation<CreateOrder, CreateOrderVariables>(CREATE_ORDER_MUTATION, {
-    onCompleted,
-  });
+export function useCreateUpdateOrder(
+  onCompleted: (data: CreateUpdateOrder) => void,
+) {
+  return useMutation<CreateUpdateOrder, CreateUpdateOrderVariables>(
+    CREATE_UPDATE_ORDER_MUTATION,
+    {
+      onCompleted,
+    },
+  );
 }
