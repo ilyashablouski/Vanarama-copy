@@ -103,15 +103,7 @@ Array [
     <div
       className="row:featured-image"
     >
-      <div
-        className="image -expand"
-      >
-        <img
-          alt="Featured image"
-          className="image--native"
-          src="//images.ctfassets.net/3xid768u5joa/6mKMr9Jbqv83lDZhAuMJ3e/4558e98fc3bdbbb2734ccdfdc68cf2e5/about-us-dummy.jpg"
-        />
-      </div>
+      
     </div>
   </div>,
   <div
