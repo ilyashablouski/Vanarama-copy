@@ -252,13 +252,13 @@ export const HomePage: NextPage = () => {
           </Text>
           <IconList>
             <IconListItem iconColor="orange">
-              &nbsp;&nbsp;Choose your contract length &amp; agreed mileage
+              Choose your contract length &amp; agreed mileage
             </IconListItem>
             <IconListItem iconColor="orange">
-              &nbsp;&nbsp;Pay an initial payment
+              Pay an initial payment
             </IconListItem>
             <IconListItem iconColor="orange">
-              &nbsp;&nbsp;Set up your agreed fixed monthly rental
+              Set up your agreed fixed monthly rental
             </IconListItem>
           </IconList>
         </div>
