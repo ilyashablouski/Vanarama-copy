@@ -24,7 +24,7 @@ import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 
 type ProdCards = ProdCardData[];
 
-export const VansPage: NextPage = () => {
+export const OffersPage: NextPage = () => {
   const { data: productsVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
@@ -171,7 +171,7 @@ export const VansPage: NextPage = () => {
             <Button
               label="View All Van Offers"
               color="teal"
-              onClick={() => Router.push('/van-leasing?bodyStyles=Van')}
+              onClick={() => Router.push('/van-leasing')}
             />
           </div>
         </div>
@@ -236,4 +236,4 @@ export const VansPage: NextPage = () => {
   );
 };
 
-export default withApollo(VansPage, { getDataFromTree });
+export default withApollo(OffersPage, { getDataFromTree });
