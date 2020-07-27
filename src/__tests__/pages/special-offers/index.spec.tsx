@@ -10,7 +10,6 @@ import { ProductCardData } from '../../../../generated/ProductCardData';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 
-
 jest.mock('../../containers/OrdersInformation/gql');
 
 jest.mock('next/router', () => ({ push: jest.fn() }));
