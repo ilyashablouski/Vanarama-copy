@@ -215,6 +215,13 @@ const FiltersContainer = ({
   }, [makeData, preSearchVehicleCount]);
 
   useEffect(() => {
+    const queryLength = Object.keys(router?.query || {}).length;
+    if (!queryLength) {
+      setSelectedFiltersState(initialState);
+    }
+  }, [setSelectedFiltersState, router]);
+
+  useEffect(() => {
     if (!isTabletOrMobile) setFilterExpandStatus(true);
   }, [isTabletOrMobile]);
 
