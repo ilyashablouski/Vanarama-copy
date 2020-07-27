@@ -1,6 +1,7 @@
 export interface IHeroProps {
   flagText?: string;
-  withRequestCallbackform?: boolean;
+  withRequestCallbackForm?: boolean;
+  withWorkingHours?: boolean;
 }
 
 export interface IHeroTitleProps {

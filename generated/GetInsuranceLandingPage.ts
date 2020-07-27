@@ -40,6 +40,7 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections_cards_car
 
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_cards {
   name: string | null;
+  description: string | null;
   cards: GetInsuranceLandingPage_insuranceLandingPage_sections_cards_cards[] | null;
 }
 
@@ -61,20 +62,10 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections_leadText 
   description: string | null;
 }
 
-export interface GetInsuranceLandingPage_insuranceLandingPage_sections_hero_image_file {
-  url: string;
-}
-
-export interface GetInsuranceLandingPage_insuranceLandingPage_sections_hero_image {
-  title: string | null;
-  description: string | null;
-  file: GetInsuranceLandingPage_insuranceLandingPage_sections_hero_image_file | null;
-}
-
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_hero {
   title: string | null;
   body: string | null;
-  image: GetInsuranceLandingPage_insuranceLandingPage_sections_hero_image | null;
+  flag: string | null;
 }
 
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections {

@@ -1,18 +1,21 @@
-import RequestCallBackForm from '../RequestCallBackForm';
 import SearchPodContainer from '../../containers/SearchPodContainer';
 import { IHeroProps } from './interface';
+import RequestCallBackForm from '../../components/RequestCallBackForm';
+import WorkingHoursTable from '../../containers/InsurancePageContainer/WorkingHoursTable';
 
-const Hero: React.FC<IHeroProps> = ({ children, withRequestCallbackform }) => {
+const renderHeroRight = (withRequestCallbackForm: boolean | undefined, withWorkingHours: boolean | undefined) => {
+  if (withRequestCallbackForm) { return <RequestCallBackForm />; }
+  if (withWorkingHours) { return <WorkingHoursTable />; }
+  return <SearchPodContainer />;
+}
+
+const Hero: React.FC<IHeroProps> = ({ children, withRequestCallbackForm, withWorkingHours }) => {
   return (
     <div className="row:bg-hero">
       <div className="row:hero">
         <div className="hero--left">{children}</div>
         <div className="hero--right">
-          {withRequestCallbackform ? (
-            <RequestCallBackForm />
-          ) : (
-            <SearchPodContainer />
-          )}
+          {renderHeroRight(withRequestCallbackForm, withWorkingHours)}
         </div>
         <div className="hero--decals">
           <svg

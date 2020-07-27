@@ -28,13 +28,25 @@ query GetInsuranceLandingPage {
   
         cards {
           name
+          description
           cards {
             titleTag
             name
             title
             body
+            link {
+                text
+                url
+              }
+            image {
+                title
+                file {
+                  url
+                }
+              }
           }
         }
+        
         carousel {
           name
           cards {
@@ -54,13 +66,7 @@ query GetInsuranceLandingPage {
         hero {
           title
           body
-          image {
-            title
-            description
-            file {
-              url
-            }
-          }
+          flag
         }
       }
     }
