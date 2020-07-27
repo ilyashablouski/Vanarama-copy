@@ -28,6 +28,7 @@ exports[`<OrderInformationContainer /> renders correctly with data 1`] = `
       </span>
       <a
         className="link -teal"
+        data-menu={null}
         data-testid="orders-link"
         href="/account/my-orders"
         onClick={[Function]}
@@ -57,6 +58,7 @@ exports[`<OrderInformationContainer /> renders correctly with data 1`] = `
       </span>
       <a
         className="link -teal"
+        data-menu={null}
         data-testid="quotes-link"
         href="/account/my-quotes"
         onClick={[Function]}
@@ -97,6 +99,7 @@ exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
       </span>
       <a
         className="link -teal"
+        data-menu={null}
         data-testid="orders-link"
         href="/account/my-orders"
         onClick={[Function]}
@@ -126,6 +129,7 @@ exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
       </span>
       <a
         className="link -teal"
+        data-menu={null}
         data-testid="quotes-link"
         href="/account/my-quotes"
         onClick={[Function]}
