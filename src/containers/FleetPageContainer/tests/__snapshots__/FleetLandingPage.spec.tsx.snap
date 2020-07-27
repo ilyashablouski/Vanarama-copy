@@ -72,7 +72,6 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                       <input
                         class="textinput--native regular"
                         data-testid="fleet_full-name"
-                        id="full-name"
                         name="full-name"
                         type="text"
                       />
@@ -97,7 +96,6 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                       <input
                         class="textinput--native regular"
                         data-testid="fleet_company-name"
-                        id="company-name"
                         name="company-name"
                         type="text"
                       />
@@ -122,7 +120,6 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                       <input
                         class="textinput--native regular"
                         data-testid="fleet_fleet-size"
-                        id="fleet-size"
                         name="fleet-size"
                         type="number"
                       />
@@ -147,7 +144,6 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                       <input
                         class="textinput--native regular"
                         data-testid="fleet_email-address"
-                        id="email-address"
                         name="email-address"
                         type="text"
                       />
@@ -172,7 +168,6 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                       <input
                         class="textinput--native regular"
                         data-testid="fleet_phone-number"
-                        id="phone-number"
                         name="phone-number"
                         type="text"
                       />
