@@ -227,7 +227,24 @@ const SearchPageContainer: React.FC<IProps> = ({
     }
     // router can't be in deps, because it will change after every url replace
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getVehicles, getRanges, isCarSearch, isMakePage, router]);
+  }, [getVehicles, getRanges, isCarSearch, isMakePage]);
+
+  // API call after load new pages
+  useEffect(() => {
+    if (router.query?.bodyStyles || isMakePage) {
+      getVehicles({
+        variables: {
+          vehicleTypes: isCarSearch
+            ? [VehicleTypeEnum.CAR]
+            : [VehicleTypeEnum.LCV],
+          onOffer: true,
+          sortField: SortField.offerRanking,
+          manufacturerName: isMakePage ? (router.query?.make as string) : null,
+          bodyStyles: router.query?.bodyStyles as string[],
+        },
+      });
+    }
+  }, [getVehicles, isCarSearch, isMakePage, router]);
 
   // prevent case when we navigate use back/forward button and useCallback return empty result list
   useEffect(() => {
