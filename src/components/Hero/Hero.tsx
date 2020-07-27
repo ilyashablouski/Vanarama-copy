@@ -1,12 +1,18 @@
+import RequestCallBackForm from '../RequestCallBackForm';
 import SearchPodContainer from '../../containers/SearchPodContainer';
+import { IHeroProps } from './interface';
 
-const Hero: React.FC = ({ children }) => {
+const Hero: React.FC<IHeroProps> = ({ children, withRequestCallbackform }) => {
   return (
     <div className="row:bg-hero">
       <div className="row:hero">
         <div className="hero--left">{children}</div>
         <div className="hero--right">
-          <SearchPodContainer />
+          {withRequestCallbackform ? (
+            <RequestCallBackForm />
+          ) : (
+            <SearchPodContainer />
+          )}
         </div>
         <div className="hero--decals">
           <svg
