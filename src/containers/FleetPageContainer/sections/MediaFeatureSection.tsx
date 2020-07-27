@@ -2,12 +2,8 @@ import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import ReactMarkdown from 'react-markdown';
-import { useCallback } from 'react';
 import getTitleTag from '../../../utils/getTitleTag';
-import {
-  GetFleetLandingPage_fleetLandingPage_sections_featured2 as IMediaFeature,
-  GetFleetLandingPage_fleetLandingPage_sections_featured2_image as ISideMediaImage,
-} from '../../../../generated/GetFleetLandingPage';
+import { GetFleetLandingPage_fleetLandingPage_sections_featured2 as IMediaFeature } from '../../../../generated/GetFleetLandingPage';
 import LayoutTypes from '../../../models/enum/LayoutTypes';
 
 const MediaFeatureSection = ({
@@ -17,14 +13,6 @@ const MediaFeatureSection = ({
   body,
   layout,
 }: IMediaFeature) => {
-  const renderImage = useCallback(
-    (media: ISideMediaImage | null) =>
-      media?.file?.url ? (
-        <Image src={media.file.url} alt={media?.title || ''} />
-      ) : null,
-    [],
-  );
-
   const selectedLayout = (layout && layout[0]) || '';
   let className = '';
   switch (selectedLayout) {
@@ -47,7 +35,9 @@ const MediaFeatureSection = ({
 
   return (
     <div className={`row:featured-${className}`}>
-      {selectedLayout !== LayoutTypes.right && renderImage(image)}
+      {selectedLayout !== LayoutTypes.right && image?.file?.url ? (
+        <Image src={image.file.url} alt={image?.title || ''} />
+      ) : null}
       <div>
         <Heading size="large" color="black" tag={getTitleTag(titleTag) as any}>
           {title}
@@ -60,7 +50,9 @@ const MediaFeatureSection = ({
           }}
         />
       </div>
-      {selectedLayout === LayoutTypes.right && renderImage(image)}
+      {selectedLayout === LayoutTypes.right && image?.file?.url ? (
+        <Image src={image.file.url} alt={image?.title || ''} />
+      ) : null}
     </div>
   );
 };

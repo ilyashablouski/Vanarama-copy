@@ -8,10 +8,11 @@ const Hero: React.FC<IHeroProps> = ({ children, withRequestCallbackform }) => {
       <div className="row:hero">
         <div className="hero--left">{children}</div>
         <div className="hero--right">
-          {withRequestCallbackform ?
+          {withRequestCallbackform ? (
             <RequestCallBackForm />
-            :
-            <SearchPodContainer />}
+          ) : (
+            <SearchPodContainer />
+          )}
         </div>
         <div className="hero--decals">
           <svg

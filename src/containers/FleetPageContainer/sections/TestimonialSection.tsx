@@ -6,7 +6,7 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import { useQuery } from '@apollo/client';
 import getTitleTag from '../../../utils/getTitleTag';
 import { GetFleetLandingPage_fleetLandingPage_sections_featured1 as ISideText } from '../../../../generated/GetFleetLandingPage';
-import config from '../../../containers/FleetPageContainer/config';
+import config from '../config';
 import { TestimonialsData } from '../../../../generated/TestimonialsData';
 import { TESTIMONIALS_DATA } from '../../../gql/testimonials';
 
