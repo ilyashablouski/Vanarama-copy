@@ -193,8 +193,8 @@ const SearchPageContainer: React.FC<IProps> = ({
   // first API call after mount
   useEffect(() => {
     // prevent request with empty filters
-    const queryLenght = Object.keys(router?.query || {}).length;
-    if (!queryLenght) getVehicles();
+    const queryLength = Object.keys(router?.query || {}).length;
+    if (!queryLength) getVehicles();
     if (isMakePage) {
       getVehicles({
         variables: {
@@ -208,7 +208,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       });
       // if page mount without additional search params in query we made request
       // else request will be made after filters preselected
-      if (queryLenght < 2) getRanges();
+      if (queryLength < 2) getRanges();
     }
     // router can't be in deps, because it will change after every url replace
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -216,9 +216,13 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   // API call after load new pages
   useEffect(() => {
-    if (router.query?.bodyStyles || isMakePage) {
+    const queryLength = Object.keys(router?.query || {}).length;
+    if (!queryLength) {
+      getVehicles();
+    } else if (router.query?.bodyStyles || isMakePage) {
       getVehicles({
         variables: {
+          ...filtersData,
           vehicleTypes: isCarSearch
             ? [VehicleTypeEnum.CAR]
             : [VehicleTypeEnum.LCV],
@@ -233,8 +237,9 @@ const SearchPageContainer: React.FC<IProps> = ({
     getVehicles,
     isCarSearch,
     isMakePage,
-    router.query,
-    router.query.bodyStyles,
+    router,
+    setFiltersData,
+    filtersData,
   ]);
 
   // prevent case when we navigate use back/forward button and useCallback return empty result list
