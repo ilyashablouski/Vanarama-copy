@@ -17,6 +17,7 @@ interface IAppLinkProps extends IBaseProps {
   className?: string;
   classNames?: IClassNamesProps;
   as?: string | UrlObject | undefined;
+  dataMenu?: string;
 }
 
 const RouterLink: React.FC<IAppLinkProps> = props => {
@@ -28,6 +29,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     onClick,
     classNames,
     dataTestId,
+    dataMenu,
     as,
   } = props;
 
@@ -55,11 +57,12 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
   }
 
   return (
-    <Link href={link.href} replace={replace} as={as}>
+    <Link href={link.href} replace={replace} as={as} shallow={!!as}>
       <a
         className={linkClassName}
         onClick={e => onClick && onClick(e)}
         data-testid={dataTestId ?? 'router-link'}
+        data-menu={dataMenu ?? null}
       >
         {children || link.label}
       </a>
