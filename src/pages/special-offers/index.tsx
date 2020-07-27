@@ -102,7 +102,7 @@ export const OffersPage: NextPage = () => {
               icon={<Arrow />}
               iconColor="white"
               iconPosition="after"
-              onClick={() => Router.push('/van-leasing?bodyStyles=Van')}
+              onClick={() => Router.push('/van-leasing')}
             />
             <Button
               size="large"
@@ -112,7 +112,7 @@ export const OffersPage: NextPage = () => {
               icon={<Arrow />}
               iconColor="white"
               iconPosition="after"
-              onClick={() => Router.push('#')}
+              onClick={() => Router.push('/van-leasing?bodyStyles=Pickup')}
             />
             <Button
               size="large"
@@ -122,7 +122,7 @@ export const OffersPage: NextPage = () => {
               icon={<Arrow />}
               iconColor="white"
               iconPosition="after"
-              onClick={() => Router.push('#')}
+              onClick={() => Router.push('/car-leasing')}
             />
           </div>
         </div>
