@@ -2,7 +2,7 @@ import React from 'react';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useQuery } from '@apollo/client';
 import GET_FLEET_PAGE_CONTENT from './gql';
-import HeroSection from './sections/Hero/HeroSection';
+import HeroSection from './sections/HeroSection';
 import LeadTextSection from './sections/LeadTextSection';
 import TestimonialSection from './sections/TestimonialSection';
 import MediaFeatureSection from './sections/MediaFeatureSection';

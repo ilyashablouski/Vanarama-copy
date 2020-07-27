@@ -1,7 +1,7 @@
 import Image from '@vanarama/uibook/lib/components/atoms/image';
-import Hero, { HeroHeading, HeroTitle } from '../../../../components/Hero';
-import { GetFleetLandingPage_fleetLandingPage_sections_hero as IHeroData } from '../../../../../generated/GetFleetLandingPage';
-import config from '../../config';
+import Hero, { HeroHeading, HeroTitle } from '../../../components/Hero';
+import { GetFleetLandingPage_fleetLandingPage_sections_hero as IHeroData } from '../../../../generated/GetFleetLandingPage';
+import config from '../config';
 
 const HeroSection = ({ title, body }: IHeroData) => (
   <Hero withRequestCallbackform>

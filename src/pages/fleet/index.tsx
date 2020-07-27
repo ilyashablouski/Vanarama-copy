@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
-import FleetLandingPage from './FleetLandingPage';
 import withApollo from '../../hocs/withApollo';
+import FleetLandingPage from '../../containers/FleetPageContainer';
 
 const Page: NextPage<{}> = () => {
   return <FleetLandingPage />;
