@@ -61,7 +61,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
         className="link"
         data-menu={null}
         data-testid="router-link"
-        href="/van-leasing/"
+        href="/hub/vans"
         onClick={[Function]}
         onMouseEnter={[Function]}
       >
@@ -421,7 +421,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
         className="link"
         data-menu={null}
         data-testid="router-link"
-        href="/van-leasing?bodyStyles=Pickup"
+        href="/hub/pickups"
         onClick={[Function]}
         onMouseEnter={[Function]}
       >
@@ -762,7 +762,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
         className="link"
         data-menu={null}
         data-testid="router-link"
-        href="/car-leasing/"
+        href="/hub/cars"
         onClick={[Function]}
         onMouseEnter={[Function]}
       >
@@ -1481,7 +1481,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
         className="link"
         data-menu={null}
         data-testid="router-link"
-        href="/van-leasing/"
+        href="/hub/vans"
         onClick={[Function]}
         onMouseEnter={[Function]}
       >
@@ -1841,7 +1841,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
         className="link"
         data-menu={null}
         data-testid="router-link"
-        href="/van-leasing?bodyStyles=Pickup"
+        href="/hub/pickups"
         onClick={[Function]}
         onMouseEnter={[Function]}
       >
@@ -2182,7 +2182,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
         className="link"
         data-menu={null}
         data-testid="router-link"
-        href="/car-leasing/"
+        href="/hub/cars"
         onClick={[Function]}
         onMouseEnter={[Function]}
       >
