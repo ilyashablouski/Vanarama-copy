@@ -15,7 +15,7 @@ export const TOP_BAR_LINKS = [
   },
   {
     label: 'Vans',
-    href: '/van-leasing/',
+    href: '/hub/vans',
     children: [
       {
         label: 'VANS Special Offers',
@@ -137,7 +137,7 @@ export const TOP_BAR_LINKS = [
   },
   {
     label: 'Pickups',
-    href: '/van-leasing?bodyStyles=Pickup',
+    href: '/hub/pickups',
     children: [
       {
         label: 'Pickups Special offers',
@@ -244,7 +244,7 @@ export const TOP_BAR_LINKS = [
   },
   {
     label: 'Cars',
-    href: '/car-leasing/',
+    href: '/hub/cars',
     children: [
       {
         label: 'Car Special Offers',
