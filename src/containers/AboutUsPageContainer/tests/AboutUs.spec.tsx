@@ -20,7 +20,7 @@ describe('<AboutUs />', () => {
           featuredImage: {
             file: {
               url:
-                '//images.ctfassets.net/3xid768u5joa/6mKMr9Jbqv83lDZhAuMJ3e/4558e98fc3bdbbb2734ccdfdc68cf2e5/about-us-dummy.jpg',
+                '',
             },
           },
           metaData: {
