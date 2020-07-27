@@ -10,9 +10,8 @@ import { ProductCardData } from '../../../../generated/ProductCardData';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 
-jest.mock('../../containers/OrdersInformation/gql');
-
 jest.mock('next/router', () => ({ push: jest.fn() }));
+jest.mock('../../../containers/OrdersInformation/gql');
 
 const mocked: MockedResponse[] = [
   {
@@ -35,6 +34,58 @@ const mocked: MockedResponse[] = [
               manufacturerName: 'Citroen',
               derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
               rangeName: 'Berlingo',
+              imageUrl:
+                'https://images.autorama.co.uk/Photos/Cap/Vehicles/161237/cap-44514-161237.jpg',
+              leadTime: 'Factory Order',
+              averageRating: 4.7,
+              businessRate: 139,
+              personalRate: 186.98,
+              offerPosition: null,
+              keyInformation: [
+                {
+                  name: 'Transmission',
+                  value: 'Manual',
+                },
+                {
+                  name: 'Fuel Type',
+                  value: 'Diesel',
+                },
+                {
+                  name: 'Emissions',
+                  value: '111',
+                },
+                {
+                  name: 'Fuel Economy',
+                  value: '67.2',
+                },
+              ],
+              vehicleType: VehicleTypeEnum.LCV,
+            },
+          ],
+        } as ProductCardData,
+      };
+    },
+  },
+  {
+    request: {
+      query: PRODUCT_CARD_CONTENT,
+      variables: {
+        type: VehicleTypeEnum.LCV,
+        bodyType: 'Pickup',
+        size: 9,
+        offer: true,
+      },
+    },
+    result: () => {
+      return {
+        data: {
+          productCarousel: [
+            {
+              capId: '44514',
+              isOnOffer: true,
+              manufacturerName: 'Mitsubishi',
+              derivativeName: 'Double Cab DI-D 150 Warrior 4WD',
+              rangeName: 'L200',
               imageUrl:
                 'https://images.autorama.co.uk/Photos/Cap/Vehicles/161237/cap-44514-161237.jpg',
               leadTime: 'Factory Order',
@@ -112,58 +163,6 @@ const mocked: MockedResponse[] = [
                 },
               ],
               vehicleType: VehicleTypeEnum.CAR,
-            },
-          ],
-        } as ProductCardData,
-      };
-    },
-  },
-  {
-    request: {
-      query: PRODUCT_CARD_CONTENT,
-      variables: {
-        type: VehicleTypeEnum.LCV,
-        bodyType: 'Pickup',
-        size: 9,
-        offer: true,
-      },
-    },
-    result: () => {
-      return {
-        data: {
-          productCarousel: [
-            {
-              capId: '44514',
-              isOnOffer: true,
-              manufacturerName: 'Mitsubishi',
-              derivativeName: 'Double Cab DI-D 150 Warrior 4WD',
-              rangeName: 'L200',
-              imageUrl:
-                'https://images.autorama.co.uk/Photos/Cap/Vehicles/161237/cap-44514-161237.jpg',
-              leadTime: 'Factory Order',
-              averageRating: 4.7,
-              businessRate: 139,
-              personalRate: 186.98,
-              offerPosition: null,
-              keyInformation: [
-                {
-                  name: 'Transmission',
-                  value: 'Manual',
-                },
-                {
-                  name: 'Fuel Type',
-                  value: 'Diesel',
-                },
-                {
-                  name: 'Emissions',
-                  value: '111',
-                },
-                {
-                  name: 'Fuel Economy',
-                  value: '67.2',
-                },
-              ],
-              vehicleType: VehicleTypeEnum.LCV,
             },
           ],
         } as ProductCardData,
@@ -254,17 +253,17 @@ describe('<OffersPage />', () => {
     });
   });
 
-  it('should trigger router push to with correct van details path  ', async () => {
-    await screen.findByTestId('van-view-offer');
-    fireEvent.click(screen.getByTestId('van-view-offer'));
+  it('should trigger router push to with correct van offers path  ', async () => {
+    await screen.findAllByText('View All Van Offers');
+    fireEvent.click(screen.getAllByText('View All Van Offers')[0]);
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith('/van-leasing'),
     );
   });
 
-  it('should trigger router push to with correct pickup details path  ', async () => {
-    await screen.findByTestId('pickup-view-offer');
-    fireEvent.click(screen.getByTestId('pickup-view-offer'));
+  it('should trigger router push to with correct pickup offers path  ', async () => {
+    await screen.findAllByText('View All Truck Offers');
+    fireEvent.click(screen.getAllByText('View All Truck Offers')[0]);
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith(
         '/van-leasing?bodyStyles=Pickup',
@@ -272,9 +271,9 @@ describe('<OffersPage />', () => {
     );
   });
 
-  it('should trigger router push to with correct car details path  ', async () => {
-    await screen.findByTestId('car-view-offer');
-    fireEvent.click(screen.getByTestId('car-view-offer'));
+  it('should trigger router push to with correct car offers path  ', async () => {
+    await screen.findAllByText('View All Car Offers');
+    fireEvent.click(screen.getAllByText('View All Car Offers')[0]);
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith('/car-leasing'),
     );

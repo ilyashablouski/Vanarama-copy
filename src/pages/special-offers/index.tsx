@@ -30,7 +30,7 @@ export const OffersPage: NextPage = () => {
     {
       variables: {
         type: VehicleTypeEnum.LCV,
-        excludeType: 'Pickup',
+        excludeBodyType: 'Pickup',
         size: 9,
         offer: true,
       },
@@ -72,7 +72,7 @@ export const OffersPage: NextPage = () => {
 
   const { data: productCarDerivatives } = useCarDerivativesData(
     productsCar?.productCarousel?.map(el => el?.capId || '') || [''],
-    VehicleTypeEnum.LCV,
+    VehicleTypeEnum.CAR,
   );
 
   /* if (loading) {
@@ -112,7 +112,7 @@ export const OffersPage: NextPage = () => {
               icon={<Arrow />}
               iconColor="white"
               iconPosition="after"
-              onClick={() => Router.push('/van-leasing?bodyStyles=Pickup')}
+              onClick={() => Router.push('#')}
             />
             <Button
               size="large"
@@ -122,7 +122,7 @@ export const OffersPage: NextPage = () => {
               icon={<Arrow />}
               iconColor="white"
               iconPosition="after"
-              onClick={() => Router.push('/car-leasing')}
+              onClick={() => Router.push('#')}
             />
           </div>
         </div>
