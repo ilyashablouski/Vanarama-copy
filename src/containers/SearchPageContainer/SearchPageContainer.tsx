@@ -210,21 +210,6 @@ const SearchPageContainer: React.FC<IProps> = ({
       // else request will be made after filters preselected
       if (queryLenght < 2) getRanges();
     }
-
-    if (router.query?.bodyStyles) {
-      getVehicles({
-        variables: {
-          vehicleTypes: isCarSearch
-            ? [VehicleTypeEnum.CAR]
-            : [VehicleTypeEnum.LCV],
-          onOffer: true,
-          sortField: SortField.offerRanking,
-          manufacturerName: isMakePage ? (router.query?.make as string) : null,
-          bodyStyles: router.query?.bodyStyles as string[],
-        },
-      });
-      if (queryLenght < 2) getRanges();
-    }
     // router can't be in deps, because it will change after every url replace
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getVehicles, getRanges, isCarSearch, isMakePage]);
@@ -244,7 +229,13 @@ const SearchPageContainer: React.FC<IProps> = ({
         },
       });
     }
-  }, [getVehicles, isCarSearch, isMakePage, router]);
+  }, [
+    getVehicles,
+    isCarSearch,
+    isMakePage,
+    router.query,
+    router.query.bodyStyles,
+  ]);
 
   // prevent case when we navigate use back/forward button and useCallback return empty result list
   useEffect(() => {

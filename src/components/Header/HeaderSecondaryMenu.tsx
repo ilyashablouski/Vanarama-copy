@@ -139,7 +139,6 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                   <RouterLink
                     link={linkSecondary}
                     as={linkSecondary.as}
-                    replace
                   >
                     <span>{linkSecondary.label}</span>
                   </RouterLink>
