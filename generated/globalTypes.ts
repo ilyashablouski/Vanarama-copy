@@ -16,6 +16,16 @@ export enum LeaseTypeEnum {
 }
 
 /**
+ * Opportunity type enum
+ */
+export enum OpportunityTypeEnum {
+  CALLBACK = "CALLBACK",
+  FLEET = "FLEET",
+  INSURANCE = "INSURANCE",
+  QUOTE = "QUOTE",
+}
+
+/**
  * Sort field
  */
 export enum SortField {
