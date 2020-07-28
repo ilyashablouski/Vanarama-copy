@@ -8,6 +8,7 @@ import InsuranceTypesSection from "./sections/InsuranceTypesSection";
 import MediaFeatureSection from "../../containers/FleetPageContainer/sections/MediaFeatureSection";
 import MediaFeatureText from "./sections/MediaFeatureText";
 import InsuranceFAQSection from "./sections/InsuranceFAQSection";
+import InsuranceNewsSection from "./sections/InsuranceNewsSection";
 
 const InsurancePageContainer = () => {
     const { data, error, loading } = useQuery<GetInsuranceLandingPage>(
@@ -31,7 +32,8 @@ const InsurancePageContainer = () => {
         leadText,
         featured1,
         featured2,
-        cards
+        cards,
+        carousel
     } = data.insuranceLandingPage.sections;
 
     return (
@@ -44,6 +46,7 @@ const InsurancePageContainer = () => {
                 </MediaFeatureSection>)}
             <hr className="-fullwidth" />
             {featured2 && <InsuranceFAQSection {...featured2} />}
+            {carousel && <InsuranceNewsSection {...carousel} />}
         </>
     )
 };

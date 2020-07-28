@@ -11,7 +11,7 @@ const InsuranceHeroSection = ({ title, body, heroCard }: IHero) => (
     <Hero workingHoursCard={heroCard && heroCard[0] || undefined}>
         <HeroHeading text={title || ''} />
         <ReactMarkdown
-            source={body}
+            source={body || ''}
             renderers={{
                 heading: props => <Text
                     {...props}

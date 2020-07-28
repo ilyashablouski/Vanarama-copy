@@ -70,11 +70,21 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections_cards {
   cards: GetInsuranceLandingPage_insuranceLandingPage_sections_cards_cards[] | null;
 }
 
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_carousel_cards_image_file {
+  url: string;
+}
+
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_carousel_cards_image {
+  title: string | null;
+  file: GetInsuranceLandingPage_insuranceLandingPage_sections_carousel_cards_image_file | null;
+}
+
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_carousel_cards {
   titleTag: string | null;
   name: string | null;
   title: string | null;
   body: string | null;
+  image: GetInsuranceLandingPage_insuranceLandingPage_sections_carousel_cards_image | null;
 }
 
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_carousel {

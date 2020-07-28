@@ -5,8 +5,6 @@ import ReactMarkdown from 'react-markdown';
 import getTitleTag from '../../../utils/getTitleTag';
 import { GetFleetLandingPage_fleetLandingPage_sections_featured2 as IMediaFeature } from '../../../../generated/GetFleetLandingPage';
 import LayoutTypes from '../../../models/enum/LayoutTypes';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import { useState } from 'react';
 
 export interface IMediaFeatureProps extends IMediaFeature {
   imageOnly?: boolean;

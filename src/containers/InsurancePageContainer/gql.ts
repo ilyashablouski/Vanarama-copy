@@ -60,6 +60,11 @@ query GetInsuranceLandingPage {
             name
             title
             body
+            image {
+              file {
+                url
+              }
+            }
           }
         }
   
