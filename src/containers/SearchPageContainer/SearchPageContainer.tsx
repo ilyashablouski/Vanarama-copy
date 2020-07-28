@@ -102,7 +102,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         return false;
       }
     },
-    6,
+    isMakePage ? 6 : 9,
   );
   // using for cache request
   const [getVehiclesCache, { data: cacheData }] = getVehiclesList(
