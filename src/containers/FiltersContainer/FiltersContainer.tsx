@@ -266,7 +266,7 @@ const FiltersContainer = ({
 
   // set actual models after make changing
   useEffect(() => {
-    if (selectedFiltersState.make && !isMakePage) {
+    if (selectedFiltersState.make.length && !isMakePage) {
       setSelectedFiltersState(prevState => ({
         ...prevState,
         model: tempModelName ? [tempModelName] : [],
