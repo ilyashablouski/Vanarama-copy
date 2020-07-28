@@ -119,7 +119,7 @@ const SearchPodContainer = () => {
   // get a data for dropdowns
   useEffect(() => {
     if (data?.filterList) {
-      if (data.filterList.vehicleTypes[0] === 'LCV') {
+      if (data.filterList?.vehicleTypes?.[0] === 'LCV') {
         setAllDataForVans(data.filterList);
       } else {
         setAllDataForCars(data.filterList);

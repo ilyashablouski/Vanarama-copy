@@ -6,11 +6,13 @@ import {
   fireEvent,
 } from '@testing-library/react';
 import React from 'react';
+// @ts-ignore
+import preloadAll from 'jest-next-dynamic';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { useRouter } from 'next/router';
 import SearchPageContainer from '../SearchPageContainer';
 import { getVehiclesList, getRangesList } from '../gql';
-import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
+import { GET_SEARCH_POD_DATA, filterList } from '../../SearchPodContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 
@@ -75,6 +77,23 @@ const mockData = {
   error: undefined,
 };
 
+const filterListResponse = {
+  vehicleTypes: [VehicleTypeEnum.CAR],
+  groupedRanges: [
+    {
+      parent: 'Citroën',
+      children: ['Berlingo', 'Dispatch', 'Relay'],
+    },
+    {
+      parent: 'Dacia',
+      children: ['Duster'],
+    },
+  ],
+  bodyStyles: ['Dropside Tipper', 'Large Van'],
+  transmissions: ['Automatic', 'Manual'],
+  fuelTypes: ['diesel', 'iii'],
+};
+
 jest.mock('next/router', () => ({
   useRouter: jest.fn().mockReturnValue({
     push: jest.fn(),
@@ -88,6 +107,9 @@ jest.mock('next/router', () => ({
 jest.mock('../gql', () => ({
   getVehiclesList: jest.fn(),
   getRangesList: jest.fn(),
+}));
+jest.mock('../../SearchPodContainer/gql', () => ({
+  filterList: jest.fn(),
 }));
 
 jest.mock('../RangeCard', () => () => {
@@ -169,39 +191,162 @@ let vehicleMockCalled = false;
     },
   },
 ]);
+(filterList as jest.Mock).mockReturnValue(
+  {
+    data: {
+      filterList: filterListResponse
+    },
+    refetch: jest.fn(),
+  },
+);
 
 const mocksResponse: MockedResponse[] = [
-  {
-    request: {
-      query: GET_SEARCH_POD_DATA,
-      variables: {
-        vehicleTypes: [VehicleTypeEnum.CAR],
-      },
-    },
-    result: () => {
-      filterMockCalled = true;
-      return {
-        data: {
-          filterList: {
-            vehicleTypes: [VehicleTypeEnum.CAR],
-            groupedRanges: [
-              {
-                parent: 'Citroën',
-                children: ['Berlingo', 'Dispatch', 'Relay'],
-              },
-              {
-                parent: 'Dacia',
-                children: ['Duster'],
-              },
-            ],
-            bodyStyles: ['Dropside Tipper', 'Large Van'],
-            transmissions: ['Automatic', 'Manual'],
-            fuelTypes: ['diesel', 'iii'],
-          },
-        },
-      };
-    },
-  },
+  // {
+  //   request: {
+  //     query: GET_SEARCH_POD_DATA,
+  //     variables: {
+  //       vehicleTypes: [VehicleTypeEnum.CAR],
+  //       onOffer: null,
+  //     },
+      
+  //   },
+  //   result: () => {
+  //     filterMockCalled = true;
+  //     return {
+  //       data: {
+  //         filterList: filterListResponse
+  //       },
+  //       refetch: function() {return this.data},
+  //     };
+  //   },
+  // },
+  // {
+  //   request: {
+  //     query: GET_SEARCH_POD_DATA,
+  //     variables: {
+  //       vehicleTypes: [VehicleTypeEnum.CAR],
+  //       onOffer: true,
+  //     },
+  //   },
+  //   result: () => {
+  //     filterMockCalled = true;
+  //     return {
+  //     data: {
+  //       filterList: filterListResponse,
+  //     },
+  //   }},
+  //   newData: () => {      filterMockCalled = true;
+  //     return {
+  //     data: {
+  //       filterList: filterListResponse,
+  //     },
+  //   }},
+  // },
+  // {
+  //   request: {
+  //     query: GET_SEARCH_POD_DATA,
+  //     variables: {
+  //       vehicleTypes: [VehicleTypeEnum.CAR],
+  //       onOffer: null,
+  //       manufacturerName:"",
+  //       fuelTypes:[],
+  //       bodyStyles:[],
+  //       transmissions:["Automatic"]
+  //     },
+  //   },
+  //   result: () => {
+  //     filterMockCalled = true;
+  //     return {
+  //       data: {
+  //         filterList: filterListResponse
+  //       },
+  //       refetch: function() {return this.data},
+  //     };
+  //   },
+  // },
+  // {
+  //   request: {
+  //     query: GET_SEARCH_POD_DATA,
+  //     variables: {
+  //       "vehicleTypes":["CAR"],"onOffer":true,"fuelTypes":[],"bodyStyles":[],"transmissions":["Automatic"]
+  //     },
+  //   },
+  //   result: {
+  //     data: {
+  //       filterList: filterListResponse,
+  //     },
+  //   },
+  //   newData: jest.fn(() => ({
+  //     data: {
+  //       filterList: filterListResponse,
+  //     },
+  //   })),
+  // },
+  // {
+  //   request: {
+  //     query: GET_SEARCH_POD_DATA,
+  //     variables: {
+  //       vehicleTypes: [VehicleTypeEnum.CAR],
+  //       onOffer: true,
+  //       fuelTypes:[],
+  //       bodyStyles:[],
+  //       transmissions:["Automatic"]
+  //     },
+  //   },
+    // result: () => {
+    //   filterMockCalled = true;
+    //   return {
+    //     data: {
+    //       filterList: filterListResponse
+    //     },
+    //   };
+    // },
+  //   newData: () => {
+  //     filterMockCalled = true;
+  //     return {
+  //       data: {
+  //         filterList: {
+  //           vehicleTypes: [VehicleTypeEnum.CAR],
+  //           groupedRanges: [
+  //             {
+  //               parent: 'Citroën',
+  //               children: ['Berlingo', 'Dispatch'],
+  //             },
+  //             {
+  //               parent: 'Dacia',
+  //               children: ['Duster'],
+  //             },
+  //           ],
+  //           bodyStyles: ['Dropside Tipper', 'Large Van'],
+  //           transmissions: ['Automatic', 'Manual'],
+  //           fuelTypes: ['diesel', 'iii', 'electro'],
+  //         }
+  //       },
+  //     }
+  //   },
+  // },
+  // {
+  //   request: {
+  //     query: GET_SEARCH_POD_DATA,
+  //     variables: {
+  //       vehicleTypes: [VehicleTypeEnum.CAR],
+  //       onOffer: true,
+  //       manufacturerName:"",
+  //       fuelTypes:[],
+  //       bodyStyles:[],
+  //       transmissions:["Automatic"]
+  //     },
+  //   },
+  //   result: () => {
+  //     filterMockCalled = true;
+  //     return {
+  //       data: {
+  //         filterList: filterListResponse
+  //       },
+  //       refetch: function() {return this.data},
+  //     };
+  //   },
+  // },
   {
     request: {
       query: GET_PRODUCT_CARDS_DATA,
@@ -387,6 +532,9 @@ describe('<SearchPageContainer />', () => {
     vehicleMockCalled = false;
     window.sessionStorage.setItem = jest.fn();
   });
+  beforeAll(async () => {
+    await preloadAll();
+  });
 
   it('should make a server request after render', async () => {
     // ACT
@@ -431,6 +579,13 @@ describe('<SearchPageContainer />', () => {
       query: {},
       route: '/car-leasing',
     });
+    (filterList as jest.Mock).mockReturnValue(
+      {
+        data: {
+          filterList: filterListResponse
+        },
+      },
+    );
     act(() => {
       render(
         <MockedProvider mocks={mocksResponse} addTypename={false}>
@@ -439,11 +594,11 @@ describe('<SearchPageContainer />', () => {
       );
     });
     fireEvent.click(screen.getByText('Transmission', { selector: 'span' }));
-
     // ASSERT
     await waitFor(() => {
-      expect(filterMockCalled).toBeTruthy();
       expect(vehicleMockCalled).toBeTruthy();
+      expect(screen.getByText('Automatic')).toBeInTheDocument();
+
     });
 
     fireEvent.click(screen.getByText('Automatic'));
@@ -469,8 +624,8 @@ describe('<SearchPageContainer />', () => {
     );
 
     await waitFor(() => {
-      expect(filterMockCalled).toBeTruthy();
       expect(vehicleMockCalled).toBeTruthy();
+      
     });
     const tree = getComponent.baseElement;
     expect(tree).toMatchSnapshot();
@@ -729,7 +884,6 @@ describe('<SearchPageContainer />', () => {
     );
 
     await waitFor(() => {
-      expect(filterMockCalled).toBeTruthy();
       expect(vehicleMockCalled).toBeTruthy();
     });
     const tree = getComponent.baseElement;

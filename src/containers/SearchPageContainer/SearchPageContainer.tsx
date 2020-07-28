@@ -77,6 +77,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   const { refetch, loading } = useProductCardData(
     capIds,
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+    true,
   );
 
   // get Caps ids for product card request
@@ -86,7 +87,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   // using onCompleted callback for request card data after vehicle list was loaded
   const [getVehicles, { data }] = getVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-    isMakePage ? true : isSpecialOffers,
+    isMakePage ? true : isSpecialOffers || null,
     async vehicles => {
       try {
         const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
@@ -102,7 +103,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         return false;
       }
     },
-    6,
+    isMakePage ? 6 : 9,
   );
   // using for cache request
   const [getVehiclesCache, { data: cacheData }] = getVehiclesList(
@@ -162,7 +163,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           vehicleTypes: isCarSearch
             ? [VehicleTypeEnum.CAR]
             : [VehicleTypeEnum.LCV],
-          onOffer: isSpecialOffers,
+          onOffer: isSpecialOffers || null,
           ...filters,
           sortField,
         },
@@ -270,7 +271,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           vehicleTypes: isCarSearch
             ? [VehicleTypeEnum.CAR]
             : [VehicleTypeEnum.LCV],
-          onOffer: isSpecialOffers,
+          onOffer: isSpecialOffers || null,
           after: lastCard,
           ...filtersData,
           sortField,
@@ -427,7 +428,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                         isPersonalPrice={isPersonal}
                       />
                     )),
-              [cardsData, isPersonal, ranges, carDer],
+              [cardsData, isPersonal, ranges, carDer, totalCount],
             )}
           </div>
           {!isMakePage ? (
