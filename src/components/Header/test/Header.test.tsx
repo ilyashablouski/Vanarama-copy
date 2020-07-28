@@ -15,8 +15,44 @@ const mocks = {
   phoneNumberLink: PHONE_NUMBER_LINK,
 };
 
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // deprecated
+    removeListener: jest.fn(), // deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+});
+
 describe('<Header />', () => {
   it('renders correctly', () => {
+    jest.mock('localForage', () => ({
+      getItem: jest.fn(() => null),
+    }));
+    const getComponent = () => {
+      return renderer.create(<Header {...mocks} />).toJSON();
+    };
+    const tree = getComponent();
+    expect(tree).toMatchSnapshot();
+  });
+
+  it('renders correctly with login user', () => {
+    jest.mock('localForage', () => ({
+      getItem: jest.fn(() => ({
+        personByToken: {
+          firstName: 'firstName',
+          lastName: 'lastName',
+          uuid: 'uuid',
+          partyUuid: '',
+        },
+      })),
+    }));
+
     const getComponent = () => {
       return renderer.create(<Header {...mocks} />).toJSON();
     };

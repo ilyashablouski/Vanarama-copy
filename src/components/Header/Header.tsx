@@ -22,7 +22,10 @@ import Call from '@vanarama/uibook/lib/assets/icons/Call';
 import { ILinkProps } from '../RouterLink/interface';
 import RouterLink from '../RouterLink/RouterLink';
 import HeaderMenu from './HeaderMenu';
-import { PersonByToken_personByToken as Person } from '../../../generated/PersonByToken';
+import {
+  PersonByToken_personByToken as Person,
+  PersonByToken,
+} from '../../../generated/PersonByToken';
 
 export interface IHeaderLink extends ILinkProps {
   id?: string;
@@ -47,7 +50,8 @@ const Header: FC<IHeaderProps> = memo(props => {
   useEffect(() => {
     if (!person) {
       localForage.getItem('person').then(value => {
-        setPerson(value as Person);
+        if ((value as PersonByToken)?.personByToken)
+          setPerson((value as PersonByToken)?.personByToken as Person);
       });
     }
     setOpenMyAccount(false);
@@ -83,18 +87,13 @@ const Header: FC<IHeaderProps> = memo(props => {
               <Button
                 withoutDefaultClass
                 fill="clear"
+                onClick={() => setOpenMyAccount(!isMyAccountOpen)}
+                className="header-account--toggle"
                 label={
-                  <RouterLink
-                    link={loginLink}
-                    onClick={el => {
-                      el.preventDefault();
-                      setOpenMyAccount(!isMyAccountOpen);
-                    }}
-                    className="header-account--toggle"
-                  >
+                  <>
                     <Icon icon={<PersonCircleSharp />} size="xsmall" />
                     <span>My Account</span>
-                  </RouterLink>
+                  </>
                 }
               />
               <div
@@ -114,7 +113,11 @@ const Header: FC<IHeaderProps> = memo(props => {
                   <li>
                     <RouterLink
                       className="header-account--link"
-                      link={{ href: '/account/my-details', label: 'Dashboard' }}
+                      link={{
+                        href: '/account/my-details/[uuid]',
+                        label: 'Dashboard',
+                      }}
+                      as={`/account/my-details/${person.uuid}?partyByUuid=${person.partyUuid}`}
                     >
                       <Icon icon={<HomeOutline />} size="xsmall" />
                       <span>Dashboard</span>
@@ -123,7 +126,11 @@ const Header: FC<IHeaderProps> = memo(props => {
                   <li>
                     <RouterLink
                       className="header-account--link"
-                      link={{ href: '/account/my-quotes', label: 'My Quotes' }}
+                      link={{
+                        href: '/account/my-quotes/[partyByUuid]',
+                        label: 'My Quotes',
+                      }}
+                      as={`/account/my-quotes/${person.partyUuid}`}
                     >
                       <Icon icon={<ReceiptOutline />} size="xsmall" />
                       <span>My Quotes</span>
@@ -132,7 +139,11 @@ const Header: FC<IHeaderProps> = memo(props => {
                   <li>
                     <RouterLink
                       className="header-account--link"
-                      link={{ href: '/account/my-orders', label: 'My Orders' }}
+                      link={{
+                        href: '/account/my-orders/[partyByUuid]',
+                        label: 'My Orders',
+                      }}
+                      as={`/account/my-orders/${person.partyUuid}`}
                     >
                       <Icon icon={<CarOutline />} size="xsmall" />
                       <span>My Orders</span>
@@ -142,6 +153,7 @@ const Header: FC<IHeaderProps> = memo(props => {
                     <RouterLink
                       className="header-account--link"
                       link={{ href: '#', label: 'Log Out' }}
+                      onClick={() => localForage.clear()}
                     >
                       <Icon icon={<LogOutOutline />} size="xsmall" />
                       <span>Log Out</span>
