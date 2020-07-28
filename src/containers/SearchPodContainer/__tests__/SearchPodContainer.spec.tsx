@@ -20,6 +20,7 @@ const mocks: MockedResponse[] = [
       query: GET_SEARCH_POD_DATA,
       variables: {
         vehicleTypes: ['LCV'],
+        onOffer: null,
       },
     },
     result: () => {
@@ -55,6 +56,7 @@ const mocks: MockedResponse[] = [
       query: GET_SEARCH_POD_DATA,
       variables: {
         vehicleTypes: ['CAR'],
+        onOffer: null,
       },
     },
     result: () => {

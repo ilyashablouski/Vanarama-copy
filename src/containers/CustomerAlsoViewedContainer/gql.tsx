@@ -65,6 +65,7 @@ export const GET_PRODUCT_CARDS_DATA = gql`
 export function useProductCardData(
   capIds: string[],
   vehicleType?: VehicleTypeEnum,
+  skip = false,
 ) {
   return useQuery<GetProductCard, GetProductCardVariables>(
     GET_PRODUCT_CARDS_DATA,
@@ -73,6 +74,7 @@ export function useProductCardData(
         capIds,
         vehicleType,
       },
+      skip,
     },
   );
 }
