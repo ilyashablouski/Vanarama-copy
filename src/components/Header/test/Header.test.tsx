@@ -31,7 +31,7 @@ Object.defineProperty(window, 'matchMedia', {
 
 describe('<Header />', () => {
   it('renders correctly', () => {
-    jest.mock('localForage', () => ({
+    jest.mock('localforage', () => ({
       getItem: jest.fn(() => null),
     }));
     const getComponent = () => {
@@ -42,7 +42,7 @@ describe('<Header />', () => {
   });
 
   it('renders correctly with login user', () => {
-    jest.mock('localForage', () => ({
+    jest.mock('localforage', () => ({
       getItem: jest.fn(() => ({
         personByToken: {
           firstName: 'firstName',
