@@ -195,18 +195,17 @@ const SearchPageContainer: React.FC<IProps> = ({
     const objectQuery = Object.keys(router?.query || {});
     // prevent request with empty filters
     const queryLength = objectQuery.length;
-    if (!queryLength) getVehicles();
+    if (!queryLength || isMakePage) getVehicles();
     if (
       (queryLength === 1 && objectQuery[0] === 'bodyStyles') ||
       (isMakePage && queryLength === 1)
     ) {
       getVehicles({
         variables: {
-          ...filtersData,
           vehicleTypes: isCarSearch
             ? [VehicleTypeEnum.CAR]
             : [VehicleTypeEnum.LCV],
-          onOffer: true,
+          onOffer: isMakePage ? true : isSpecialOffers,
           sortField: SortField.offerRanking,
           manufacturerName: isMakePage
             ? (router.query?.make as string)
@@ -226,6 +225,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     setFiltersData,
     filtersData,
     getRanges,
+    isSpecialOffers,
   ]);
 
   // prevent case when we navigate use back/forward button and useCallback return empty result list
