@@ -5,7 +5,6 @@ import Form from '@vanarama/uibook/lib/components/organisms/form';
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
-import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
@@ -234,10 +233,9 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
             hint="Vehicle Registration Number"
             error={errors.vehicleRegistrationNumber?.message?.toString()}
           >
-            <NumericInput
+            <TextInput
               dataTestId="sole-trader-company-details_vehicle-egistration-number"
               id="vehicle-registration-number"
-              type="tel"
               name="vehicleRegistrationNumber"
               ref={register(vehicleRegistrationNumberValidator)}
             />
