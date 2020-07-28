@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable import/no-cycle */
 import React, { FC, memo, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
@@ -9,6 +10,11 @@ import Logo from '@vanarama/uibook/lib/components/atoms/logo';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 
 import SearchCircle from '@vanarama/uibook/lib/assets/icons/SearchOutline';
+import PersonCircleSharp from '@vanarama/uibook/lib/assets/icons/PersonCircleSharp';
+import HomeOutline from '@vanarama/uibook/lib/assets/icons/HomeOutline';
+import ReceiptOutline from '@vanarama/uibook/lib/assets/icons/ReceiptOutline';
+import CarOutline from '@vanarama/uibook/lib/assets/icons/CarOutline';
+import LogOutOutline from '@vanarama/uibook/lib/assets/icons/LogOutOutline';
 import Menu from '@vanarama/uibook/lib/assets/icons/Menu';
 import Close from '@vanarama/uibook/lib/assets/icons/Close';
 import Call from '@vanarama/uibook/lib/assets/icons/Call';
@@ -35,17 +41,17 @@ const Header: FC<IHeaderProps> = memo(props => {
   const { className, topBarLinks, loginLink, phoneNumberLink } = props;
   const [person, setPerson] = useState<Person | null>(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const localPerson: Person = await localForage.getItem('person');
-      if (localPerson) {
-        setPerson(localPerson);
-      }
-    };
-    fetchData();
-  }, [router]);
-
   const [isMenuOpen, setOpenMenu] = useState(false);
+  const [isMyAccountOpen, setOpenMyAccount] = useState(false);
+
+  useEffect(() => {
+    if (!person) {
+      localForage.getItem('person').then(value => {
+        setPerson(value as Person);
+      });
+    }
+    setOpenMyAccount(false);
+  }, [person, router]);
 
   return (
     <header className={cx('header', className)} data-testid="header">
@@ -73,15 +79,77 @@ const Header: FC<IHeaderProps> = memo(props => {
         </RouterLink>
         <div className="header-account">
           {person ? (
-            <Button
-              className="header-account--toggle"
-              fill="clear"
-              label={
-                <RouterLink link={loginLink}>
-                  <span>My Account</span>
-                </RouterLink>
-              }
-            />
+            <>
+              <Button
+                withoutDefaultClass
+                fill="clear"
+                label={
+                  <RouterLink
+                    link={loginLink}
+                    onClick={el => {
+                      el.preventDefault();
+                      setOpenMyAccount(!isMyAccountOpen);
+                    }}
+                    className="header-account--toggle"
+                  >
+                    <Icon icon={<PersonCircleSharp />} size="xsmall" />
+                    <span>My Account</span>
+                  </RouterLink>
+                }
+              />
+              <div
+                className={cx('header-account--content', {
+                  '-open': isMyAccountOpen,
+                })}
+              >
+                <div className="header-account--header">
+                  <span>
+                    Hi
+                    {person?.firstName &&
+                      person?.lastName &&
+                      `, ${person?.firstName} ${person?.lastName}`}
+                  </span>
+                </div>
+                <ul className="header-account--nav">
+                  <li>
+                    <RouterLink
+                      className="header-account--link"
+                      link={{ href: '/account/my-details', label: 'Dashboard' }}
+                    >
+                      <Icon icon={<HomeOutline />} size="xsmall" />
+                      <span>Dashboard</span>
+                    </RouterLink>
+                  </li>
+                  <li>
+                    <RouterLink
+                      className="header-account--link"
+                      link={{ href: '/account/my-quotes', label: 'My Quotes' }}
+                    >
+                      <Icon icon={<ReceiptOutline />} size="xsmall" />
+                      <span>My Quotes</span>
+                    </RouterLink>
+                  </li>
+                  <li>
+                    <RouterLink
+                      className="header-account--link"
+                      link={{ href: '/account/my-orders', label: 'My Orders' }}
+                    >
+                      <Icon icon={<CarOutline />} size="xsmall" />
+                      <span>My Orders</span>
+                    </RouterLink>
+                  </li>
+                  <li>
+                    <RouterLink
+                      className="header-account--link"
+                      link={{ href: '#', label: 'Log Out' }}
+                    >
+                      <Icon icon={<LogOutOutline />} size="xsmall" />
+                      <span>Log Out</span>
+                    </RouterLink>
+                  </li>
+                </ul>
+              </div>
+            </>
           ) : (
             <Button
               className="header-account--toggle"
