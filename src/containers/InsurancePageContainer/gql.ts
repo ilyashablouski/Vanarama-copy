@@ -1,7 +1,7 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
-export const GET_INSURANCE_LANDING_PAGE = gql`
-query GetInsuranceLandingPage {
+const GET_INSURANCE_LANDING_PAGE = gql`
+  query GetInsuranceLandingPage {
     insuranceLandingPage {
       id
       body
@@ -11,14 +11,14 @@ query GetInsuranceLandingPage {
           titleTag
           body
           layout
-          image{
+          image {
             title
-            file{
+            file {
               url
             }
           }
         }
-  
+
         featured2 {
           title
           titleTag
@@ -31,7 +31,7 @@ query GetInsuranceLandingPage {
           }
           layout
         }
-  
+
         cards {
           name
           description
@@ -41,18 +41,18 @@ query GetInsuranceLandingPage {
             title
             body
             link {
-                text
+              text
+              url
+            }
+            image {
+              title
+              file {
                 url
               }
-            image {
-                title
-                file {
-                  url
-                }
-              }
+            }
           }
         }
-        
+
         carousel {
           name
           cards {
@@ -67,24 +67,25 @@ query GetInsuranceLandingPage {
             }
           }
         }
-  
+
         leadText {
           heading
           titleTag
           description
         }
-  
+
         hero {
           title
           body
-          #heroCard {
-          #  title
-          #  body
-          #}
+          heroCard {
+            title
+            body
+          }
         }
       }
     }
   }
 `;
 
-//TODO: uncomment hero card
+// TODO: uncomment hero card
+export default GET_INSURANCE_LANDING_PAGE;

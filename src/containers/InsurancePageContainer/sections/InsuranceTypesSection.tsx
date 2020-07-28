@@ -1,37 +1,43 @@
-import Heading from "@vanarama/uibook/lib/components/atoms/heading";
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown from 'react-markdown';
 
-import { GetInsuranceLandingPage_insuranceLandingPage_sections_cards as ITypesSection, GetInsuranceLandingPage_insuranceLandingPage_sections_cards_cards as TypeCard } from "../../../../generated/GetInsuranceLandingPage";
-import Card from "@vanarama/uibook/lib/components/molecules/cards";
-import getTitleTag from "../../../utils/getTitleTag";
+import Card from '@vanarama/uibook/lib/components/molecules/cards';
+import {
+  GetInsuranceLandingPage_insuranceLandingPage_sections_cards as ITypesSection,
+  GetInsuranceLandingPage_insuranceLandingPage_sections_cards_cards as TypeCard,
+} from '../../../../generated/GetInsuranceLandingPage';
+import getTitleTag from '../../../utils/getTitleTag';
 
 const renderCard = (card: TypeCard) => (
   <Card
     key={card.name || undefined}
     imageSrc={card.image?.file?.url}
     title={{
-      className: "-flex-h",
+      className: '-flex-h',
       link: (
-        //TODO: add color (?) on focus within
         <Heading
           size="lead"
           color="black"
-          tag={getTitleTag(card.titleTag) as any || 'a'}
-          href={card.link?.url || ''}>
+          tag={(getTitleTag(card.titleTag) as any) || 'a'}
+          href={card.link?.url || ''}
+        >
           {card.title}
-        </Heading>),
+        </Heading>
+      ),
       title: card.title || '',
-      withBtn: true
+      withBtn: true,
     }}
     description={card.body || ''}
   />
-)
+);
 
 const InsuranceTypesSection = ({ name, description, cards }: ITypesSection) => (
   <>
     <div className="row:lead-text">
-      <Heading size="xlarge" color="black">{name}</Heading>
+      <Heading size="xlarge" color="black">
+        {name}
+      </Heading>
       <Text size="regular" color="darker" tag="p">
         <ReactMarkdown
           source={description || ''}

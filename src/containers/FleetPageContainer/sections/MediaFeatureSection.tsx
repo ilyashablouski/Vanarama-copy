@@ -17,7 +17,7 @@ const MediaFeatureSection: React.FC<IMediaFeatureProps> = ({
   body,
   layout,
   children,
-  imageOnly
+  imageOnly,
 }) => {
   const selectedLayout = (layout && layout[0]) || '';
   let className = '';
@@ -45,18 +45,26 @@ const MediaFeatureSection: React.FC<IMediaFeatureProps> = ({
         <Image src={image.file.url} alt={image?.title || ''} />
       ) : null}
       <div>
-        {imageOnly ? children : <>
-          <Heading size="large" color="black" tag={getTitleTag(titleTag) as any}>
-            {title}
-          </Heading>
-          <ReactMarkdown
-            source={body || ''}
-            renderers={{
-              heading: props => <Heading {...props} tag="h3" />,
-              paragraph: props => <Text {...props} tag="p" color="darker" />,
-            }}
-          />
-        </>}
+        {imageOnly ? (
+          children
+        ) : (
+          <>
+            <Heading
+              size="large"
+              color="black"
+              tag={getTitleTag(titleTag) as any}
+            >
+              {title}
+            </Heading>
+            <ReactMarkdown
+              source={body || ''}
+              renderers={{
+                heading: props => <Heading {...props} tag="h3" />,
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
+              }}
+            />
+          </>
+        )}
       </div>
       {selectedLayout === LayoutTypes.right && image?.file?.url ? (
         <Image src={image.file.url} alt={image?.title || ''} />

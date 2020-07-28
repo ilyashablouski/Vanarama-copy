@@ -1,16 +1,27 @@
 import SearchPodContainer from '../../containers/SearchPodContainer';
 import { IHeroProps } from './interface';
-import RequestCallBackForm from '../../components/RequestCallBackForm';
+import RequestCallBackForm from '../RequestCallBackForm';
 import WorkingHoursTable from '../../containers/InsurancePageContainer/sections/WorkingHoursTable';
-import { GetInsuranceLandingPage_insuranceLandingPage_sections_hero_heroCard as WorkingHoursCard } from "../../../generated/GetInsuranceLandingPage";
+import { GetInsuranceLandingPage_insuranceLandingPage_sections_hero_heroCard as WorkingHoursCard } from '../../../generated/GetInsuranceLandingPage';
 
-const renderHeroRight = (withRequestCallbackForm: boolean | undefined, workingHoursCard: WorkingHoursCard | undefined) => {
-  if (withRequestCallbackForm) { return <RequestCallBackForm />; }
-  if (workingHoursCard) { return <WorkingHoursTable {...workingHoursCard} />; }
+const renderHeroRight = (
+  withRequestCallbackForm: boolean | undefined,
+  workingHoursCard: WorkingHoursCard | undefined,
+) => {
+  if (withRequestCallbackForm) {
+    return <RequestCallBackForm />;
+  }
+  if (workingHoursCard) {
+    return <WorkingHoursTable {...workingHoursCard} />;
+  }
   return <SearchPodContainer />;
-}
+};
 
-const Hero: React.FC<IHeroProps> = ({ children, withRequestCallbackForm, workingHoursCard }) => {
+const Hero: React.FC<IHeroProps> = ({
+  children,
+  withRequestCallbackForm,
+  workingHoursCard,
+}) => {
   return (
     <div className="row:bg-hero">
       <div className="row:hero">
