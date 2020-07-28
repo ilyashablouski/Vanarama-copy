@@ -279,7 +279,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   // get vehicles to cache
   useEffect(() => {
     // don't make a request for cache in manufacture page
-    if (lastCard && !isMakePage)
+    if (lastCard && !isMakePage && data?.vehicleList.pageInfo.hasNextPage)
       getVehiclesCache({
         variables: {
           vehicleTypes: isCarSearch
@@ -299,6 +299,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     isSpecialOffers,
     sortField,
     isMakePage,
+    data?.vehicleList.pageInfo.hasNextPage
   ]);
 
   // set capsIds for cached data
