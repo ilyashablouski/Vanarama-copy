@@ -12,9 +12,10 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { useRouter } from 'next/router';
 import SearchPageContainer from '../SearchPageContainer';
 import { getVehiclesList, getRangesList } from '../gql';
-import { GET_SEARCH_POD_DATA, filterList } from '../../SearchPodContainer/gql';
+import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import { ObservableQuery } from '@apollo/client';
 
 const mockData = {
   loading: false,
@@ -108,9 +109,6 @@ jest.mock('../gql', () => ({
   getVehiclesList: jest.fn(),
   getRangesList: jest.fn(),
 }));
-jest.mock('../../SearchPodContainer/gql', () => ({
-  filterList: jest.fn(),
-}));
 
 jest.mock('../RangeCard', () => () => {
   return <div />;
@@ -191,57 +189,44 @@ let vehicleMockCalled = false;
     },
   },
 ]);
-(filterList as jest.Mock).mockReturnValue(
-  {
-    data: {
-      filterList: filterListResponse
-    },
-    refetch: jest.fn(),
-  },
-);
 
 const mocksResponse: MockedResponse[] = [
-  // {
-  //   request: {
-  //     query: GET_SEARCH_POD_DATA,
-  //     variables: {
-  //       vehicleTypes: [VehicleTypeEnum.CAR],
-  //       onOffer: null,
-  //     },
+  {
+    request: {
+      query: GET_SEARCH_POD_DATA,
+      variables: {
+        vehicleTypes: [VehicleTypeEnum.CAR],
+        onOffer: null,
+      },
       
-  //   },
-  //   result: () => {
-  //     filterMockCalled = true;
-  //     return {
-  //       data: {
-  //         filterList: filterListResponse
-  //       },
-  //       refetch: function() {return this.data},
-  //     };
-  //   },
-  // },
-  // {
-  //   request: {
-  //     query: GET_SEARCH_POD_DATA,
-  //     variables: {
-  //       vehicleTypes: [VehicleTypeEnum.CAR],
-  //       onOffer: true,
-  //     },
-  //   },
-  //   result: () => {
-  //     filterMockCalled = true;
-  //     return {
-  //     data: {
-  //       filterList: filterListResponse,
-  //     },
-  //   }},
-  //   newData: () => {      filterMockCalled = true;
-  //     return {
-  //     data: {
-  //       filterList: filterListResponse,
-  //     },
-  //   }},
-  // },
+    },
+    result: () => {
+      filterMockCalled = true;
+      return {
+        data: {
+          filterList: filterListResponse
+        },
+        refetch: function() {return this.data},
+      };
+    },
+  },
+  {
+    request: {
+      query: GET_SEARCH_POD_DATA,
+      variables: {
+        vehicleTypes: [VehicleTypeEnum.CAR],
+        onOffer: true,
+      },
+    },
+    result: () => {
+      filterMockCalled = true;
+      return {
+      data: {
+        filterList: filterListResponse,
+      },
+      refetch: () => console.log('refetch mocked') 
+    }},
+  },
   // {
   //   request: {
   //     query: GET_SEARCH_POD_DATA,
@@ -282,49 +267,92 @@ const mocksResponse: MockedResponse[] = [
   //     },
   //   })),
   // },
-  // {
-  //   request: {
-  //     query: GET_SEARCH_POD_DATA,
-  //     variables: {
-  //       vehicleTypes: [VehicleTypeEnum.CAR],
-  //       onOffer: true,
-  //       fuelTypes:[],
-  //       bodyStyles:[],
-  //       transmissions:["Automatic"]
-  //     },
-  //   },
-    // result: () => {
-    //   filterMockCalled = true;
-    //   return {
-    //     data: {
-    //       filterList: filterListResponse
-    //     },
-    //   };
-    // },
-  //   newData: () => {
-  //     filterMockCalled = true;
-  //     return {
-  //       data: {
-  //         filterList: {
-  //           vehicleTypes: [VehicleTypeEnum.CAR],
-  //           groupedRanges: [
-  //             {
-  //               parent: 'Citroën',
-  //               children: ['Berlingo', 'Dispatch'],
-  //             },
-  //             {
-  //               parent: 'Dacia',
-  //               children: ['Duster'],
-  //             },
-  //           ],
-  //           bodyStyles: ['Dropside Tipper', 'Large Van'],
-  //           transmissions: ['Automatic', 'Manual'],
-  //           fuelTypes: ['diesel', 'iii', 'electro'],
-  //         }
-  //       },
-  //     }
-  //   },
-  // },
+  {
+    request: {
+      query: GET_SEARCH_POD_DATA,
+      variables: {
+        vehicleTypes: [VehicleTypeEnum.CAR],
+        onOffer: true,
+        fuelTypes:[],
+        bodyStyles:[],
+        transmissions:["Automatic"]
+      },
+    },
+    result: () => {
+      filterMockCalled = true;
+      return {
+        data: {
+          filterList: filterListResponse
+        },
+        refetch: () => console.log('refetch mocked') 
+      };
+    },
+    newData: 
+    jest.fn(() => ({
+      data: {
+        filterList: {
+          vehicleTypes: [VehicleTypeEnum.CAR],
+          groupedRanges: [
+            {
+              parent: 'Citroën',
+              children: ['Berlingo', 'Dispatch'],
+            },
+            {
+              parent: 'Dacia',
+              children: ['Duster'],
+            },
+          ],
+          bodyStyles: ['Dropside Tipper', 'Large Van'],
+          transmissions: ['Automatic', 'Manual'],
+          fuelTypes: ['diesel', 'iii', 'electro'],
+        }
+      },
+      refetch: () => console.log('refetch mocked') 
+    }))
+  },
+  {
+    request: {
+      query: GET_SEARCH_POD_DATA,
+      variables: {
+        vehicleTypes: [VehicleTypeEnum.CAR],
+        onOffer: true,
+        fuelTypes:[],
+        bodyStyles:[],
+        transmissions:["Automatic"]
+      },
+    },
+    result: () => {
+      filterMockCalled = true;
+      return {
+        data: {
+          filterList: filterListResponse
+        },
+      };
+    },
+    newData: () => {
+      filterMockCalled = true;
+      return {
+        data: {
+          filterList: {
+            vehicleTypes: [VehicleTypeEnum.CAR],
+            groupedRanges: [
+              {
+                parent: 'Citroën',
+                children: ['Berlingo', 'Dispatch'],
+              },
+              {
+                parent: 'Dacia',
+                children: ['Duster'],
+              },
+            ],
+            bodyStyles: ['Dropside Tipper', 'Large Van'],
+            transmissions: ['Automatic', 'Manual'],
+            fuelTypes: ['diesel', 'iii', 'electro'],
+          }
+        },
+      }
+    },
+  },
   // {
   //   request: {
   //     query: GET_SEARCH_POD_DATA,
@@ -570,50 +598,44 @@ describe('<SearchPageContainer />', () => {
       expect(screen.getByText('Showing 1 Results')).toBeTruthy();
     });
   });
-  it('should be start new search', async () => {
-    // ACT
-    const replaceMock = jest.fn();
-    (useRouter as jest.Mock).mockReturnValue({
-      replace: replaceMock,
-      push: jest.fn(),
-      query: {},
-      route: '/car-leasing',
-    });
-    (filterList as jest.Mock).mockReturnValue(
-      {
-        data: {
-          filterList: filterListResponse
-        },
-      },
-    );
-    act(() => {
-      render(
-        <MockedProvider mocks={mocksResponse} addTypename={false}>
-          <SearchPageContainer isCarSearch isServer={false} />
-        </MockedProvider>,
-      );
-    });
-    fireEvent.click(screen.getByText('Transmission', { selector: 'span' }));
-    // ASSERT
-    await waitFor(() => {
-      expect(vehicleMockCalled).toBeTruthy();
-      expect(screen.getByText('Automatic')).toBeInTheDocument();
+  // it('should be start new search', async () => {
+  //   // ACT
+  //   const replaceMock = jest.fn();
+  //   (useRouter as jest.Mock).mockReturnValue({
+  //     replace: replaceMock,
+  //     push: jest.fn(),
+  //     query: {},
+  //     route: '/car-leasing',
+  //   });
+  //   act(() => {
+  //     render(
+  //       <MockedProvider mocks={mocksResponse} addTypename={false}>
+  //         <SearchPageContainer isCarSearch isServer={false} />
+  //       </MockedProvider>,
+  //     );
+  //   });
+  //   fireEvent.click(screen.getByText('Transmission', { selector: 'span' }));
+  //   // ASSERT
+  //   await waitFor(() => {
+  //     expect(filterMockCalled).toBeTruthy();
+  //     expect(vehicleMockCalled).toBeTruthy();
+  //     expect(screen.getByText('Automatic')).toBeInTheDocument();
 
-    });
+  //   });
 
-    fireEvent.click(screen.getByText('Automatic'));
-    expect(replaceMock).toHaveBeenCalledTimes(1);
-    expect(replaceMock).toHaveBeenCalledWith(
-      {
-        pathname: '/car-leasing',
-        query: {
-          transmissions: ['Automatic'],
-        },
-      },
-      '/car-leasing?transmissions=Automatic',
-      { shallow: true },
-    );
-  });
+  //   fireEvent.click(screen.getByText('Automatic'));
+  //   expect(replaceMock).toHaveBeenCalledTimes(1);
+  //   expect(replaceMock).toHaveBeenCalledWith(
+  //     {
+  //       pathname: '/car-leasing',
+  //       query: {
+  //         transmissions: ['Automatic'],
+  //       },
+  //     },
+  //     '/car-leasing?transmissions=Automatic',
+  //     { shallow: true },
+  //   );
+  // });
 
   it('should be render correctly', async () => {
     // ACT
@@ -625,6 +647,7 @@ describe('<SearchPageContainer />', () => {
 
     await waitFor(() => {
       expect(vehicleMockCalled).toBeTruthy();
+      expect(screen.getByText('Automatic')).toBeInTheDocument();
       
     });
     const tree = getComponent.baseElement;
@@ -885,6 +908,7 @@ describe('<SearchPageContainer />', () => {
 
     await waitFor(() => {
       expect(vehicleMockCalled).toBeTruthy();
+      expect(screen.getByText('Automatic')).toBeInTheDocument();
     });
     const tree = getComponent.baseElement;
     expect(tree).toMatchSnapshot();
