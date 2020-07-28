@@ -165,7 +165,8 @@ const FiltersContainer = ({
     // if we have query parameters filters should be preselected
     if (Object.keys(router?.query || {}).length && makeData.length) {
       const presetFilters = {} as ISelectedFiltersState;
-      Object.entries(router.query).forEach(entry => {
+      const routerQuery = Object.entries(router.query);
+      routerQuery.forEach(entry => {
         const [key, values] = entry;
         if (key === 'rangeName') {
           filtersData.groupedRanges?.forEach(element => {
@@ -203,10 +204,17 @@ const FiltersContainer = ({
           presetFilters.to = [rate[1]] || null;
         }
       });
-      setSelectedFiltersState(prevState => ({
-        ...prevState,
-        ...presetFilters,
-      }));
+      if (routerQuery.length === 1) {
+        setSelectedFiltersState(() => ({
+          ...initialState,
+          ...presetFilters,
+        }));
+      } else {
+        setSelectedFiltersState(prevState => ({
+          ...prevState,
+          ...presetFilters,
+        }));
+      }
       Object.keys(presetFilters).forEach((e: any) =>
         choiseBoxReference[e]?.current?.updateState(),
       );
