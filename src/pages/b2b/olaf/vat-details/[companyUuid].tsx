@@ -12,6 +12,10 @@ import VatDetailsForm from '../../../../components/VatDetailsForm/VatDetailsForm
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams, getUrlParam } from '../../../../utils/url';
+import {
+  useCreateUpdateCreditApplication,
+  useGetCreditApplicationByOrderUuid,
+} from '../../../../gql/creditApplication';
 
 export const UPDATE_VAT_DETAILS = gql`
   mutation UpdateVatDetailsMutation($input: LimitedCompanyInputObject!) {
@@ -28,14 +32,31 @@ export const UPDATE_VAT_DETAILS = gql`
   }
 `;
 
+const handleSubmitError = () =>
+  toast.error(
+    'Oops, an unexpected error occurred',
+    'Your details could not be saved. Please try submitting the form again.',
+  );
+
 type QueryParams = OLAFQueryParams & {
   companyUuid: string;
 };
 
 export const VatDetailsPage: NextPage = () => {
   const router = useRouter();
-  const { companyUuid } = router.query as QueryParams;
-  const updateVatDetails = useUpdateVatDetails();
+  const { companyUuid, derivativeId, orderId } = router.query as QueryParams;
+  const [updateVatDetails] = useUpdateVatDetails();
+  const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
+  const [createUpdateApplication] = useCreateUpdateCreditApplication(
+    orderId,
+    () => {},
+  );
+
+  const handleSubmitCompletion = () => {
+    const params = getUrlParam({ derivativeId, orderId });
+    const url = `/b2b/olaf/director-details/[companyUuid]${params}`;
+    router.push(url, url.replace('[companyUuid]', companyUuid));
+  };
 
   return (
     <OLAFLayout>
@@ -56,7 +77,19 @@ export const VatDetailsPage: NextPage = () => {
                 vatNumber,
               },
             },
-          });
+          })
+            .then(() =>
+              createUpdateApplication({
+                variables: {
+                  input: {
+                    ...creditApplication.data?.creditApplicationByOrderUuid,
+                    orderUuid: orderId,
+                  },
+                },
+              }),
+            )
+            .then(handleSubmitCompletion)
+            .catch(handleSubmitError);
         }}
       />
     </OLAFLayout>
@@ -64,25 +97,7 @@ export const VatDetailsPage: NextPage = () => {
 };
 
 function useUpdateVatDetails() {
-  const router = useRouter();
-  const { companyUuid, derivativeId, orderId } = router.query as QueryParams;
-  const [updateVatDetails] = useMutation<Mutation, MutationVariables>(
-    UPDATE_VAT_DETAILS,
-    {
-      onError: () =>
-        toast.error(
-          'Oops, an unexpected error occurred',
-          'Your details could not be saved. Please try submitting the form again.',
-        ),
-      onCompleted: () => {
-        const params = getUrlParam({ derivativeId, orderId });
-        const url = `/b2b/olaf/director-details/[companyUuid]${params}`;
-        router.push(url, url.replace('[companyUuid]', companyUuid));
-      },
-    },
-  );
-
-  return updateVatDetails;
+  return useMutation<Mutation, MutationVariables>(UPDATE_VAT_DETAILS);
 }
 
 export default withApollo(VatDetailsPage, { getDataFromTree });

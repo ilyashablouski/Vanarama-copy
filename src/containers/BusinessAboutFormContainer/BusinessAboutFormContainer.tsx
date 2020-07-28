@@ -84,7 +84,6 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
                 },
               },
             }).then(() => {
-              console.log({ data });
               const result = {
                 companyUuid: data?.createUpdateBusinessPerson?.uuid,
                 companyType: values.companyType,
