@@ -4,20 +4,30 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import BusinessAboutForm from '../../components/BusinessAboutForm/BusinessAboutForm';
 import { useEmailCheck } from '../RegisterFormContainer/gql';
 import { useAboutYouData } from '../AboutFormContainer/gql';
+import {
+  useCreateUpdateCreditApplication,
+  useGetCreditApplicationByOrderUuid,
+} from '../../gql/creditApplication';
 
 import { useAboutPageDataQuery, useSaveAboutYouMutation } from './gql';
 import { IBusinessAboutFormContainerProps, SubmitResult } from './interfaces';
 
 export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerProps> = ({
+  personUuid,
+  orderId,
   onCompleted,
   onError,
-  personUuid,
   onLogInCLick,
 }) => {
   const aboutPageDataQuery = useAboutPageDataQuery();
   const aboutYouData = useAboutYouData(personUuid);
   const [saveDetails] = useSaveAboutYouMutation();
   const [emailAlreadyExists] = useEmailCheck();
+  const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
+  const [createUpdateApplication] = useCreateUpdateCreditApplication(
+    orderId,
+    () => {},
+  );
 
   if (aboutPageDataQuery?.loading) {
     return <Loading size="large" />;
@@ -65,13 +75,23 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
             },
           },
         })
-          .then(data => {
-            const result = {
-              ...data,
-              companyType: values.companyType,
-            } as SubmitResult;
-            onCompleted?.(result);
-          })
+          .then(({ data }) =>
+            createUpdateApplication({
+              variables: {
+                input: {
+                  ...creditApplication.data?.creditApplicationByOrderUuid,
+                  orderUuid: orderId,
+                },
+              },
+            }).then(() => {
+              console.log({ data });
+              const result = {
+                companyUuid: data?.createUpdateBusinessPerson?.uuid,
+                companyType: values.companyType,
+              } as SubmitResult;
+              onCompleted?.(result);
+            }),
+          )
           .catch(onError);
       }}
     />
