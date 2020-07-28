@@ -14,7 +14,7 @@ import OptionsIcon from '@vanarama/uibook/lib/assets/icons/Options';
 import ChevronUpSharp from '@vanarama/uibook/lib/assets/icons/ChevronUpSharp';
 import { useMediaQuery } from 'react-responsive';
 import { useRouter } from 'next/router';
-import { filterList } from '../SearchPodContainer/gql';
+import { useFilterList } from '../SearchPodContainer/gql';
 import { makeHandler, modelHandler } from '../SearchPodContainer/helpers';
 import { filtersConfig, budgets, filterFields } from './config';
 import { IFilterContainerProps } from './interfaces';
@@ -84,7 +84,7 @@ const FiltersContainer = ({
     return choiseBoxReference[id];
   };
 
-  const { refetch } = filterList(
+  const { refetch } = useFilterList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
     isMakePage ? null : isSpecialOffers,
     resp => {
@@ -92,7 +92,6 @@ const FiltersContainer = ({
         setAllFiltersData(resp?.filterList || ({} as IFilterList));
         setFiltersData(resp?.filterList || ({} as IFilterList));
         setMakeData(makeHandler(resp?.filterList || ({} as IFilterList)));
-        console.log('test',resp)
       }
       return resp;
     },
@@ -179,7 +178,6 @@ const FiltersContainer = ({
 
   useEffect(() => {
     if (filtersData.bodyStyles) setChoiceBoxesData(buildChoiseBoxData());
-    console.log('test2', choiceBoxesData)
   }, [filtersData, buildChoiseBoxData]);
 
   useEffect(() => {

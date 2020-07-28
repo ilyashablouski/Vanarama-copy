@@ -35,7 +35,7 @@ export const GET_SEARCH_POD_DATA = gql`
   }
 `;
 
-export function filterList(
+export function useFilterList(
   vehicleTypes: string[],
   onOffer: boolean | null = null,
   onCompleted: (data: IFilterList) => void = data => data,

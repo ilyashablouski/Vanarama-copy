@@ -8,7 +8,7 @@ import {
   carPageTabFields,
   vanPageTabFields,
 } from './config';
-import { filterList, filterTypeAndBudget } from './gql';
+import { useFilterList, filterTypeAndBudget } from './gql';
 import {
   makeHandler,
   modelHandler,
@@ -70,7 +70,7 @@ const SearchPodContainer = () => {
   const selectTypeVans = watch('typeVans');
   const selectTypeCars = watch('typeCars');
 
-  const { data, refetch } = filterList([Tabs[activeIndex]]);
+  const { data, refetch } = useFilterList([Tabs[activeIndex]]);
   const [getVehicleData, { data: actualVehicleData }] = filterTypeAndBudget(
     [Tabs[activeIndex]],
     activeIndex === 1 ? selectMakeVans : selectMakeCars,
