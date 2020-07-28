@@ -25,14 +25,21 @@ interface IProps {
 }
 
 export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
-  const [registrationSuccess, setRegistrationSuccess] = useState(false);
-  const [getPersonByToken] = usePersonByTokenLazyQuery(
-    data => localForage.setItem('person', data),
-    handleAccountFetchError,
-  );
   const { query } = props;
-  const [activeTab, setActiveTab] = useState(1);
   const router = useRouter();
+
+  const [activeTab, setActiveTab] = useState(1);
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [getPersonByToken] = usePersonByTokenLazyQuery(async data => {
+    await localForage.setItem('person', data);
+
+    // Redirect to the user's previous route or homepage.
+    const { redirect } = router.query;
+    const nextUrl =
+      typeof redirect === 'string' && redirect !== '/_error' ? redirect : '/';
+
+    router.push(nextUrl);
+  }, handleAccountFetchError);
 
   return (
     <>
@@ -83,15 +90,6 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
                       },
                     });
                   }
-
-                  // Redirect to the user's previous route or homepage.
-                  const { redirect } = router.query;
-                  const nextUrl =
-                    typeof redirect === 'string' && redirect !== '/_error'
-                      ? redirect
-                      : '/';
-
-                  router.push(nextUrl);
                 }}
               />
             </TabPanel>
