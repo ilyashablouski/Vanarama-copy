@@ -72,12 +72,14 @@ query GetInsuranceLandingPage {
         hero {
           title
           body
-          heroCard {
-            title
-            body
-          }
+          #heroCard {
+          #  title
+          #  body
+          #}
         }
       }
     }
   }
 `;
+
+//TODO: uncomment hero card
