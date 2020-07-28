@@ -126,7 +126,7 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
         'sole-trader-company-details_vehicle-egistration-number',
       ),
       {
-        target: { value: '1233' },
+        target: { value: 'ab1233' },
       },
     );
     fireEvent.input(

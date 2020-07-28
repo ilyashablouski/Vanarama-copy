@@ -106,8 +106,11 @@ const SearchPod = ({
                               {option}
                             </option>
                           ))
-                        : vansCachedData.groupedRanges?.map(
-                            (range: IRanges) => (
+                        : vansCachedData.groupedRanges
+                            ?.filter((range: IRanges) =>
+                              getOptions('makeVans').includes(range.parent),
+                            )
+                            .map((range: IRanges) => (
                               <optgroup label={range.parent} key={range.parent}>
                                 {range.children.map((model: string) => (
                                   <option key={model} value={model}>
@@ -115,8 +118,7 @@ const SearchPod = ({
                                   </option>
                                 ))}
                               </optgroup>
-                            ),
-                          )}
+                            ))}
                     </Select>
                   </Formgroup>
                 ))}
