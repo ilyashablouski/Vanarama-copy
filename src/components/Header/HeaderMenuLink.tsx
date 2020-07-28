@@ -59,7 +59,6 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
               }
             : undefined
         }
-        replace
       >
         {link.highlight && (
           <Icon

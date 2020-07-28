@@ -15,6 +15,10 @@ import Message from '../../../core/components/Message';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import RegisterFormContainer from '../../../containers/RegisterFormContainer/RegisterFormContainer';
 import withApollo from '../../../hocs/withApollo';
+import {
+  usePersonByTokenLazyQuery,
+  handleAccountFetchError,
+} from '../../olaf/about';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -22,6 +26,10 @@ interface IProps {
 
 export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [getPersonByToken] = usePersonByTokenLazyQuery(
+    data => localForage.setItem('person', data),
+    handleAccountFetchError,
+  );
   const { query } = props;
   const [activeTab, setActiveTab] = useState(1);
   const router = useRouter();
@@ -65,8 +73,16 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
             <TabPanel index={1}>
               <LoginFormContainer
                 onCompleted={async data => {
-                  // Put the token in localStorage
-                  await localForage.setItem('token', data.login);
+                  if (data.login !== null) {
+                    // Put the token in localStorage
+                    await localForage.setItem('token', data.login);
+
+                    getPersonByToken({
+                      variables: {
+                        token: data.login,
+                      },
+                    });
+                  }
 
                   // Redirect to the user's previous route or homepage.
                   const { redirect } = router.query;
