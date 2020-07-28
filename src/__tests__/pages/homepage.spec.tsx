@@ -67,10 +67,12 @@ const mocked: MockedResponse[] = [
             },
             featured1: {
               title: 'Why Leasing?',
+              titleTag: 'h2',
               body: "If you're looking to drive a brand new car..",
             },
             featured2: {
               title: 'What Makes Us The Lease Experts?',
+              titleTag: 'h2',
               body: 'Vanarama is more than just..',
             },
             tiles: {
