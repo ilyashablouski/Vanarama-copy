@@ -5,7 +5,7 @@ import { filterTypeAndBudget, useFilterList } from '../gql';
 
 jest.mock('../gql', () => ({
   filterTypeAndBudget: jest.fn(),
-  filterList: jest.fn(),
+  useFilterList: jest.fn(),
 }));
 
 jest.mock('next/router', () => ({

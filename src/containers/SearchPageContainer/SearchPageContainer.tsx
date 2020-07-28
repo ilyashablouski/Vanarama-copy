@@ -66,6 +66,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     [] as (GetDerivatives_derivatives | null)[],
   );
   const [lastCard, setLastCard] = useState('');
+  const [hasNextPage, setHasNextPage] = useState(true);
   const [isPersonal, setIsPersonal] = useState(true);
   const [isSpecialOffers, setIsSpecialOffers] = useState(
     getValueFromStorage(isServer) ?? true,
@@ -252,6 +253,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     if (data?.vehicleList) {
       setVehicleList(data.vehicleList?.edges || []);
       setLastCard(data.vehicleList.pageInfo.endCursor || '');
+      setHasNextPage(data.vehicleList.pageInfo.hasNextPage || false);
       // use range lenght for manufacture page
       if (!isMakePage) setTotalCount(data.vehicleList.totalCount);
       setCapsIds(
@@ -279,7 +281,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   // get vehicles to cache
   useEffect(() => {
     // don't make a request for cache in manufacture page
-    if (lastCard && !isMakePage && data?.vehicleList.pageInfo.hasNextPage)
+    if (lastCard && !isMakePage && hasNextPage)
       getVehiclesCache({
         variables: {
           vehicleTypes: isCarSearch
@@ -299,7 +301,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     isSpecialOffers,
     sortField,
     isMakePage,
-    data?.vehicleList.pageInfo.hasNextPage
+    hasNextPage,
   ]);
 
   // set capsIds for cached data
