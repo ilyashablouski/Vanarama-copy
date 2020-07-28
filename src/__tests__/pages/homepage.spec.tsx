@@ -319,7 +319,7 @@ describe('<HomePage />', () => {
     );
   });
 
-  it('should successfully query homepage data', async () => {
+  it.skip('should successfully query homepage data', async () => {
     await waitFor(() => {
       expect(
         screen.getByText('What Makes Us The Lease Experts?'),

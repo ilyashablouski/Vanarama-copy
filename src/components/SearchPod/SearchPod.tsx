@@ -63,7 +63,7 @@ const SearchPod = ({
               <Heading
                 size={isHomePage ? 'small' : 'lead'}
                 color={isHomePage ? 'dark' : 'black'}
-                tag="span"
+                tag="h2"
               >
                 {headingText}
               </Heading>

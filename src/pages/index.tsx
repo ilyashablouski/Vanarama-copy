@@ -37,6 +37,7 @@ import withApollo from '../hocs/withApollo';
 import { LeaseTypeEnum, VehicleTypeEnum } from '../../generated/globalTypes';
 import ProductCarousel from '../components/ProductCarousel/ProductCarousel';
 import { useCarDerivativesData } from '../containers/OrdersInformation/gql';
+import getTitleTag from '../utils/getTitleTag';
 
 export const HomePage: NextPage = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -102,7 +103,10 @@ export const HomePage: NextPage = () => {
       <Head />
       <Hero>
         <div className="hero--title">
-          <HeroHeading text={data?.homePage.sections.hero?.title || ''} />
+          <HeroHeading
+            text={data?.homePage.sections.hero?.title || ''}
+            titleTag={(data && data.homePage.sections.hero?.titleTag) || 'p'}
+          />
           <br />
           <HeroTitle text={data?.homePage.sections.hero?.body || ''} />
         </div>
@@ -118,12 +122,20 @@ export const HomePage: NextPage = () => {
       </Hero>
 
       <section className="row:lead-text">
-        <span className="heading -xlarge -black">
+        <Heading
+          size="xlarge"
+          color="black"
+          tag={
+            getTitleTag(
+              data?.homePage.sections.leadText?.titleTag || null,
+            ) as any
+          }
+        >
           {data?.homePage.sections.leadText?.heading}
-        </span>
-        <span className="text -lead -darker">
+        </Heading>
+        <Text size="lead" color="darker">
           {data?.homePage.sections.leadText?.description}
-        </span>
+        </Text>
       </section>
 
       <section className="tabs-wrap row:tabbed">
@@ -217,16 +229,18 @@ export const HomePage: NextPage = () => {
                 title: '',
                 withBtn: true,
                 link: (
-                  <RouterLink
-                    link={{
-                      href: c.link?.url || '#',
-                      label: c.link?.text || '',
-                    }}
-                    className="heading"
-                    classNames={{ size: 'lead', color: 'black' }}
-                  >
-                    {c.title}
-                  </RouterLink>
+                  <Heading tag={getTitleTag(c.titleTag || 'span') as any}>
+                    <RouterLink
+                      link={{
+                        href: c.link?.url || '#',
+                        label: c.link?.text || '',
+                      }}
+                      className="heading"
+                      classNames={{ size: 'lead', color: 'black' }}
+                    >
+                      {c.title}
+                    </RouterLink>
+                  </Heading>
                 ),
               }}
               imageSrc={
@@ -241,7 +255,15 @@ export const HomePage: NextPage = () => {
 
       <section className="row:featured-right">
         <div style={{ padding: '1rem' }}>
-          <Heading size="large" color="black">
+          <Heading
+            size="large"
+            color="black"
+            tag={
+              getTitleTag(
+                data?.homePage.sections.featured1?.titleTag || 'p',
+              ) as any
+            }
+          >
             {data && data.homePage.sections.featured1?.title}
           </Heading>
           <Text tag="div" className="markdown" size="regular" color="darker">
@@ -268,7 +290,15 @@ export const HomePage: NextPage = () => {
       <section className="row:featured-left">
         <Image src="https://source.unsplash.com/collection/2102317/900x500?sig=403422" />
         <div>
-          <Heading size="large" color="black">
+          <Heading
+            size="large"
+            color="black"
+            tag={
+              getTitleTag(
+                data?.homePage.sections.featured2?.titleTag || 'p',
+              ) as any
+            }
+          >
             {data && data.homePage.sections.featured2?.title}
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
@@ -281,6 +311,15 @@ export const HomePage: NextPage = () => {
       </section>
 
       <section className="row:features-4col">
+        <Heading
+          size="large"
+          color="black"
+          tag={
+            getTitleTag(data?.homePage.sections.tiles?.titleTag || 'p') as any
+          }
+        >
+          {data && data.homePage.sections.tiles?.tilesTitle}
+        </Heading>
         {data?.homePage.sections.tiles?.tiles?.map((t: TileData, idx) => (
           <div key={t.title || idx}>
             <Tile className="-plain -button -align-center" plain>
@@ -295,10 +334,8 @@ export const HomePage: NextPage = () => {
                   }
                 />
               </div>
-              <a className="tile--link" href="##">
-                <Heading tag="span" size="regular" color="black">
-                  {t.title}
-                </Heading>
+              <a className="tile--link" href={t.link || '#'}>
+                {t.title}
               </a>
               <Text tag="p">{t.body}</Text>
             </Tile>
