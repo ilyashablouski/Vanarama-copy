@@ -5,8 +5,8 @@ import Hero, { HeroHeading, HeroTitle } from "../../../components/Hero";
 
 import config from '../config';
 
-const InsuranceHeroSection = ({ title, body }: IHero) => (
-    <Hero withWorkingHours>
+const InsuranceHeroSection = ({ title, body, heroCard }: IHero) => (
+    <Hero workingHoursCard={heroCard && heroCard[0] || undefined}>
         <HeroHeading text={title || ''} />
         <HeroTitle text={body || ''} />
         <Image

@@ -6,17 +6,21 @@ import { GetInsuranceLandingPage_insuranceLandingPage_sections_cards as ITypesSe
 import Card from "@vanarama/uibook/lib/components/molecules/cards";
 import getTitleTag from "../../../utils/getTitleTag";
 
-//Category Card
 const renderCard = (card: TypeCard) => (
   <Card
     key={card.name || undefined}
-    imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg"
+    imageSrc={card.image?.file?.url}
     title={{
       className: "-flex-h",
-      link: <Heading
-        size="lead"
-        color="black"
-        tag={getTitleTag(card.titleTag) as any || 'a'} >{card.title}</Heading>,
+      link: (
+        //TODO: add color (?) on focus within
+        <Heading
+          size="lead"
+          color="black"
+          tag={getTitleTag(card.titleTag) as any || 'a'}
+          href={card.link?.url || ''}>
+          {card.title}
+        </Heading>),
       title: card.title || '',
       withBtn: true
     }}

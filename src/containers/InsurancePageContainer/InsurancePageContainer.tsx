@@ -5,6 +5,7 @@ import Loading from "@vanarama/uibook/lib/components/atoms/loading";
 import config from "./config";
 import InsuranceHeroSection from "./sections/InsuranceHeroSection";
 import InsuranceTypesSection from "./sections/InsuranceTypesSection";
+import MediaFeatureSection from "../../containers/FleetPageContainer/sections/MediaFeatureSection";
 
 const InsurancePageContainer = () => {
     const { data, error, loading } = useQuery<GetInsuranceLandingPage>(
@@ -35,6 +36,7 @@ const InsurancePageContainer = () => {
         <>
             {hero && <InsuranceHeroSection {...hero} />}
             {cards && <InsuranceTypesSection {...cards} />}
+            {featured1 && <MediaFeatureSection {...featured1} />}
         </>
     )
 };

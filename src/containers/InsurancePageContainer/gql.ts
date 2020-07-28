@@ -11,6 +11,12 @@ query GetInsuranceLandingPage {
           titleTag
           body
           layout
+          image{
+            title
+            file{
+              url
+            }
+          }
         }
   
         featured2 {
@@ -66,7 +72,10 @@ query GetInsuranceLandingPage {
         hero {
           title
           body
-          flag
+          heroCard {
+            title
+            body
+          }
         }
       }
     }

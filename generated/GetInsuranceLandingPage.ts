@@ -7,11 +7,21 @@
 // GraphQL query operation: GetInsuranceLandingPage
 // ====================================================
 
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_image_file {
+  url: string;
+}
+
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_image {
+  title: string | null;
+  file: GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_image_file | null;
+}
+
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured1 {
   title: string | null;
   titleTag: string | null;
   body: string | null;
   layout: string[] | null;
+  image: GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_image | null;
 }
 
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured2_image_file {
@@ -31,11 +41,27 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured2
   layout: string[] | null;
 }
 
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_cards_cards_link {
+  text: string | null;
+  url: string | null;
+}
+
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_cards_cards_image_file {
+  url: string;
+}
+
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_cards_cards_image {
+  title: string | null;
+  file: GetInsuranceLandingPage_insuranceLandingPage_sections_cards_cards_image_file | null;
+}
+
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_cards_cards {
   titleTag: string | null;
   name: string | null;
   title: string | null;
   body: string | null;
+  link: GetInsuranceLandingPage_insuranceLandingPage_sections_cards_cards_link | null;
+  image: GetInsuranceLandingPage_insuranceLandingPage_sections_cards_cards_image | null;
 }
 
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_cards {
@@ -62,10 +88,15 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections_leadText 
   description: string | null;
 }
 
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_hero_heroCard {
+  title: string | null;
+  body: string | null;
+}
+
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_hero {
   title: string | null;
   body: string | null;
-  flag: string | null;
+  heroCard: (GetInsuranceLandingPage_insuranceLandingPage_sections_hero_heroCard | null)[] | null;
 }
 
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections {
