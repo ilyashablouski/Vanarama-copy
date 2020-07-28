@@ -5,7 +5,7 @@ import {
   EMAIL_REGEX,
   WORLDWIDE_MOBILE_REGEX,
   NUMBERS_REGEX,
-  LETTERS_AND_NUMBERS,
+  LETTERS_AND_NUMBERS_REGEX,
 } from './regex';
 
 const MAX_EMAIL_LENGTH = 254;
@@ -171,7 +171,7 @@ export const vehicleRegistrationNumberValidator = {
       'Oops, that’s a long registration number. Please make it not longer than 7 characters long',
   },
   pattern: {
-    value: LETTERS_AND_NUMBERS,
+    value: LETTERS_AND_NUMBERS_REGEX,
     message: 'Please only use letters and numbers',
   },
 };
