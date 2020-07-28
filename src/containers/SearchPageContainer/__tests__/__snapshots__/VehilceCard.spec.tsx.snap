@@ -25,6 +25,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
   >
     <a
       className="link heading -black -large"
+      data-menu={null}
       data-testid="router-link"
       href="/car-leasing/vauxhall/crossland-x/bodystylename/slug"
       onClick={[Function]}

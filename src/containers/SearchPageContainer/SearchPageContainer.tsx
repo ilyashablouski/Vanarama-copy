@@ -72,7 +72,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   );
   const [totalCount, setTotalCount] = useState(0);
 
-  const [filtersData, setFiltersData] = useState({});
+  const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
 
   const { refetch, loading } = useProductCardData(
     capIds,
@@ -191,29 +191,43 @@ const SearchPageContainer: React.FC<IProps> = ({
     );
   };
 
-  // first API call after mount
+  // API call after load new pages
   useEffect(() => {
+    const objectQuery = Object.keys(router?.query || {});
     // prevent request with empty filters
-    const queryLenght = Object.keys(router?.query || {}).length;
-    if (!queryLenght) getVehicles();
-    if (isMakePage) {
+    const queryLength = objectQuery.length;
+    if (!queryLength || isMakePage) getVehicles();
+    if (
+      (queryLength === 1 && objectQuery[0] === 'bodyStyles') ||
+      (isMakePage && queryLength === 1)
+    ) {
       getVehicles({
         variables: {
           vehicleTypes: isCarSearch
             ? [VehicleTypeEnum.CAR]
             : [VehicleTypeEnum.LCV],
-          onOffer: true,
+          onOffer: isMakePage ? true : isSpecialOffers,
           sortField: SortField.offerRanking,
-          manufacturerName: router.query?.make as string,
+          manufacturerName: isMakePage
+            ? (router.query?.make as string)
+            : (filtersData.manufacturerName as string),
+          bodyStyles: router.query?.bodyStyles as string[],
         },
       });
       // if page mount without additional search params in query we made request
       // else request will be made after filters preselected
-      if (queryLenght < 2) getRanges();
+      if (isMakePage && queryLength < 2) getRanges();
     }
-    // router can't be in deps, because it will change after every url replace
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getVehicles, getRanges, isCarSearch, isMakePage]);
+  }, [
+    getVehicles,
+    isCarSearch,
+    isMakePage,
+    router,
+    setFiltersData,
+    filtersData,
+    getRanges,
+    isSpecialOffers,
+  ]);
 
   // prevent case when we navigate use back/forward button and useCallback return empty result list
   useEffect(() => {

@@ -6,6 +6,7 @@ import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
+import AddCircle from '@vanarama/uibook/lib/assets/icons/AddCircleSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import IconList, {
   IconListItem,
@@ -311,31 +312,31 @@ export const VanOffers: NextPage = () => {
         </Heading>
         <hr />
         <IconList>
-          <IconListItem>
+          <IconListItem iconColor="orange" listIcon={<AddCircle />}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt.
           </IconListItem>
-          <IconListItem>
+          <IconListItem iconColor="orange" listIcon={<AddCircle />}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt.
           </IconListItem>
-          <IconListItem>
+          <IconListItem iconColor="orange" listIcon={<AddCircle />}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt.
           </IconListItem>
-          <IconListItem>
+          <IconListItem iconColor="orange" listIcon={<AddCircle />}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt.
           </IconListItem>
-          <IconListItem>
+          <IconListItem iconColor="orange" listIcon={<AddCircle />}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt.
           </IconListItem>
-          <IconListItem>
+          <IconListItem iconColor="orange" listIcon={<AddCircle />}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt.
           </IconListItem>
-          <IconListItem>
+          <IconListItem iconColor="orange" listIcon={<AddCircle />}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt.
           </IconListItem>

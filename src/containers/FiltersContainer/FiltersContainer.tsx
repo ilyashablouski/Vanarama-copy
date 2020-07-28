@@ -187,7 +187,8 @@ const FiltersContainer = ({
       Object.keys(allFiltersData).length
     ) {
       const presetFilters = {} as ISelectedFiltersState;
-      Object.entries(router.query).forEach(entry => {
+      const routerQuery = Object.entries(router.query);
+      routerQuery.forEach(entry => {
         const [key, values] = entry;
         if (key === 'rangeName') {
           filtersData.groupedRanges?.forEach(element => {
@@ -225,13 +226,28 @@ const FiltersContainer = ({
           presetFilters.to = [rate[1]] || null;
         }
       });
-      setSelectedFiltersState(prevState => ({
-        ...prevState,
-        ...presetFilters,
-      }));
+
+      if (routerQuery.length === 1) {
+        setSelectedFiltersState(() => ({
+          ...initialState,
+          ...presetFilters,
+        }));
+      } else {
+        setSelectedFiltersState(prevState => ({
+          ...prevState,
+          ...presetFilters,
+        }));
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allFiltersData]);
+
+  useEffect(() => {
+    const queryLength = Object.keys(router?.query || {}).length;
+    if (!queryLength) {
+      setSelectedFiltersState(initialState);
+    }
+  }, [setSelectedFiltersState, router]);
 
   useEffect(() => {
     if (!isTabletOrMobile) setFilterExpandStatus(true);

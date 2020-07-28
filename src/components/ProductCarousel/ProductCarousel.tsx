@@ -79,7 +79,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                   />
                 ),
                 description: product.derivativeName || '',
-                score: product.averageRating || undefined,
+                score: product.averageRating || 5,
               }}
             >
               <div className="-flex-h">
