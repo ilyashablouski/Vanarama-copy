@@ -39,7 +39,11 @@ const MediaFeatureSection = ({
         <Image src={image.file.url} alt={image?.title || ''} />
       ) : null}
       <div>
-        <Heading size="large" color="black" tag={getTitleTag(titleTag) as any}>
+        <Heading
+          size="large"
+          color="black"
+          tag={getTitleTag(titleTag) as keyof JSX.IntrinsicElements}
+        >
           {title}
         </Heading>
         <ReactMarkdown

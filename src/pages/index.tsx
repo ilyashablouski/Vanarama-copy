@@ -128,7 +128,7 @@ export const HomePage: NextPage = () => {
           tag={
             getTitleTag(
               data?.homePage.sections.leadText?.titleTag || null,
-            ) as any
+            ) as keyof JSX.IntrinsicElements
           }
         >
           {data?.homePage.sections.leadText?.heading}
@@ -261,7 +261,7 @@ export const HomePage: NextPage = () => {
             tag={
               getTitleTag(
                 data?.homePage.sections.featured1?.titleTag || 'p',
-              ) as any
+              ) as keyof JSX.IntrinsicElements
             }
           >
             {data && data.homePage.sections.featured1?.title}
@@ -296,7 +296,7 @@ export const HomePage: NextPage = () => {
             tag={
               getTitleTag(
                 data?.homePage.sections.featured2?.titleTag || 'p',
-              ) as any
+              ) as keyof JSX.IntrinsicElements
             }
           >
             {data && data.homePage.sections.featured2?.title}
@@ -315,7 +315,9 @@ export const HomePage: NextPage = () => {
           size="large"
           color="black"
           tag={
-            getTitleTag(data?.homePage.sections.tiles?.titleTag || 'p') as any
+            getTitleTag(
+              data?.homePage.sections.tiles?.titleTag || 'p',
+            ) as keyof JSX.IntrinsicElements
           }
         >
           {data && data.homePage.sections.tiles?.tilesTitle}
@@ -334,9 +336,12 @@ export const HomePage: NextPage = () => {
                   }
                 />
               </div>
-              <a className="tile--link" href={t.link || '#'}>
+              <RouterLink
+                link={{ href: t.link || '#', label: '' }}
+                className="tile--link"
+              >
                 {t.title}
-              </a>
+              </RouterLink>
               <Text tag="p">{t.body}</Text>
             </Tile>
           </div>
