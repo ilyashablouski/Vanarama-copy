@@ -216,10 +216,9 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   // API call after load new pages
   useEffect(() => {
-    const queryLength = Object.keys(router?.query || {}).length;
-    if (!queryLength) {
-      getVehicles();
-    } else if (router.query?.bodyStyles || isMakePage) {
+    const objectQuery = Object.keys(router?.query || {});
+    const queryLength = objectQuery.length;
+    if ((queryLength === 1 && objectQuery[0] === 'bodyStyles') || isMakePage) {
       getVehicles({
         variables: {
           ...filtersData,
@@ -228,7 +227,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             : [VehicleTypeEnum.LCV],
           onOffer: true,
           sortField: SortField.offerRanking,
-          manufacturerName: isMakePage ? (router.query?.make as string) : null,
+          manufacturerName: router.query?.make as string,
           bodyStyles: router.query?.bodyStyles as string[],
         },
       });
