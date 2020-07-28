@@ -38,7 +38,7 @@ const WorkingHoursTable = ({ body, title }: HeroCard) => (
             const { children } = props;
             const href = `tel:${children[1].props.value
               .split('')
-              .filter((item: string) => !isNaN(+item) && item !== ' ')
+              .filter((item: string) => typeof(1+item) === 'number')
               .join('')
               .trim()}`;
             return (

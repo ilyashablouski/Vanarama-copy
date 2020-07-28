@@ -4,9 +4,8 @@ import { screen, render, waitFor } from '@testing-library/react';
 import FleetLandingPage from '../InsurancePageContainer';
 import GET_INSURANCE_LANDING_PAGE from '../gql';
 
-import { GetFleetLandingPage_fleetLandingPage as FleetPageData } from '../../../../generated/GetFleetLandingPage';
-import { TESTIMONIALS_DATA } from '../../../gql/testimonials';
-import { TestimonialsData } from '../../../../generated/TestimonialsData';
+import { GetInsuranceLandingPage } from '../../../../generated/GetInsuranceLandingPage';
+import InsurancePageContainer from '../InsurancePageContainer';
 
 // ARRANGE
 const mocked: MockedResponse[] = [
@@ -16,181 +15,178 @@ const mocked: MockedResponse[] = [
     },
     result: {
       data: {
-        fleetLandingPage: {
-          id: '1iXmVZNIGFolU38Jol4j08',
-          sections: {
-            featured1: {
-              title:
-                "Wherever You Are, However You Want To Work, We're There For You",
-              titleTag: null,
-              body:
-                "The prospect of managing a mixed fleet of multiple vehicles, on varied financial contracts, is daunting...but we'll take that away. Our dedicated team, and the platforms available to you and us, mean that running your mixed fleet is hassle-free.",
-              layout: ['Media Right'],
-            },
-            featured2: {
-              title: "What's In It For My Business?",
-              titleTag: null,
-              body:
-                "### Every fleet is different: \nYour fleet needs are unique and that's why entrusting yours to a company you trust is important.\n\n### Best price for your business:\nChoosing a fleet management company that works with a network of funders means they can provide the very best prices on the market first time.\n\n### Compliance as standard: \nDuty of care is a key concern and goes hand-in-hand with staying compliant. Driver risk assessments and safety checks need to be carried out on time and to high standards, so work with a company that understands how to keep you organised.\n",
-              image: null,
-              layout: ['Media Left'],
-            },
-            featured3: {
-              title: "What's In It For Me?",
-              titleTag: null,
-              body:
-                "### Hassle-free fleet reporting:\nFrom MOT notifications to duty of care compliance tasks, keeping information at your fingertips is vital to effective fleet management.\n\n### Protect your fleet: \nHaving your fleet managed and insured through one channel makes life less complicated for you.\n\n### Cost-effective fleet maintenance: \nEasy access to all routine servicing and repairs, tyre replacement, MOTs and vehicle breakdown cover is true peace-of-mind.\n\n### Sale and lease back: \nRemoving vehicles from outright purchase and into a lease agreement allows you to grow your business faster by giving you the option to invest cash into your business rather than the vehicles.\n\n### Controlling costs: \nA robust reporting platform will allow you to look at maintenance budgets, total driver costs and whole-life fleet costings at a moment's notice.",
-              image: {
-                title: 'AudiQ30718 4 k5ojqt',
-                file: {
-                  url:
-                    '//images.ctfassets.net/3xid768u5joa/2QbzKD75ObIHIeVMzNeCF/1455166780ba4eb095c965e278a63b69/AudiQ30718_4_k5ojqt.jpg',
-                },
-              },
-              layout: ['Media Right'],
-            },
-            featured4: {
-              title: "What's In It For The Drivers?",
-              titleTag: null,
-              body:
-                "### Maintenance when it's needed: \nNo matter which maintenance package you choose, the drivers themselves can arrange bookings through the Driverhelpline application or by calling the support team.\n\n### Comprehensive vehicle management: \nHow great would it be if drivers knew that support was just a tap on an app away? They'll benefit from the same up-to-date reporting and service-on-demand functions as you. Drivers know they're being compliant, and you can rest easy.\n\n### Peace of mind and support:\nFor drivers, the fleet management relationship shouldn't be centred on vehicle delivery, they want support. And they'll have questions they need answered. That's when having a dedicated app filled with the information they need, and a dedicated support team really will pay for itself.",
-              image: null,
-              layout: ['Media Left'],
-            },
-            leadText: {
-              heading: 'Why You Should Trust Your Fleet With Vanarama',
-              titleTag: null,
-              description:
-                "The prospect of managing a mixed fleet of multiple vehicles, on varied financial contracts, is daunting...but we'll take that away. Our dedicated team, and the platforms available to you and us, mean that running your mixed fleet is hassle-free",
-            },
-            hero: {
-              title: 'Flexible Fleet Management ',
-              body: 'With __No Hidden Costs__',
-              image: null,
-            },
-            tiles: {
-              name: 'Not Quite Convinced? Also Included:',
-              tiles: [
-                {
-                  body:
-                    'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
-                  title: 'Price Protection',
-                  image: null,
-                },
-                {
-                  body:
-                    'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
-                  title: 'Customer Reviews',
-                  image: null,
-                },
-                {
-                  body:
-                    'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
-                  title: 'Quote Online',
-                  image: null,
-                },
-                {
-                  body:
-                    'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
-                  title: 'Confused About Leasing?',
-                  image: null,
-                },
+        "insuranceLandingPage": {
+          "id": "7hZTNl0QA3NnggZlSXao8S",
+          "body": "Plus receive £100 if you switch from your current Insurance provider to Vanarama Insurance*\n\n*Only available to Vanarama leasing customers. Other terms and conditions apply.",
+          "sections": {
+            "featured1": {
+              "title": "Save with Drive Tag",
+              "titleTag": null,
+              "body": "Nulla fugiat laborum elit laborum in irure cillum do laboris fugiat tempor elit consectetur id Lorem mollit duis culpa ea ipsum ipsum nulla magna mollit culpa est non Lorem eiusmod Lorem aute ex sunt laboris enim amet voluptate fugiat officia\n\n[Find Out More](https://www.vanarama.com/van-insurance.html \"Find Out More\")\n[Find Out More](https://www.vanarama.com/van-insurance.html \"Find Out More\")",
+              "layout": [
+                "Media Right"
               ],
+              "image": {
+                "title": "Tesla-Test-6",
+                "file": {
+                  "url": "//images.ctfassets.net/3xid768u5joa/24o810jIcvjhhvKGcxbvDZ/498e6cacaafaaff2e71f9e97bd4a44f7/Tesla-Test-6.jpg"
+                }
+              }
             },
-          },
-        } as FleetPageData,
-      },
+            "featured2": {
+              "title": "Our Van Insurance Services",
+              "titleTag": null,
+              "body": "### What You Need To Know\n\nIn incididunt reprehenderit nostrud occaecat ea qui Lorem deserunt commodo enim commodo quis commodo anim nostrud consectetur ex aliquip quis\n\n[Read Our FAQs](https://beta.vanarama.com/van-insurance.html \"Read Our FAQs\")",
+              "image": null,
+              "layout": null
+            },
+            "cards": {
+              "name": "Insurance Types",
+              "description": "We remove all the hassle and extra costs you'd usually expect when insuring your leased van or pickup truck. Compare insurance prices and purchase policies online, insure your tools, freeze your premium for up to 5 years... all in one place!",
+              "cards": [
+                {
+                  "titleTag": null,
+                  "name": "Multi-Year Insurance",
+                  "title": "Multi-Year Insurance",
+                  "body": "Protect yourself against future insurance price increases",
+                  "link": {
+                    "text": "Multi-Year Van Insurance",
+                    "url": "https://beta.vanarama.com/van-insurance/multi-year-van-insurance.html"
+                  },
+                  "image": {
+                    "title": "placeholder",
+                    "file": {
+                      "url": "//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
+                    }
+                  }
+                },
+                {
+                  "titleTag": null,
+                  "name": "Finance GAP Insurance",
+                  "title": "Finance GAP Insurance",
+                  "body": "Extra protection should the worst happen",
+                  "link": {
+                    "text": "Finance GAP Insurance",
+                    "url": "https://beta.vanarama.com/van-insurance/finance-gap-insurance.html"
+                  },
+                  "image": {
+                    "title": "placeholder",
+                    "file": {
+                      "url": "//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
+                    }
+                  }
+                },
+                {
+                  "titleTag": null,
+                  "name": "Tools in Transit Insurance",
+                  "title": "Tools in Transit Insurance",
+                  "body": "Get up to £3k's worth of tools cover for only £75 per year",
+                  "link": {
+                    "text": "Tools in Transit Insurance",
+                    "url": "https://beta.vanarama.com/van-insurance/tools-in-transit.html"
+                  },
+                  "image": {
+                    "title": "placeholder",
+                    "file": {
+                      "url": "//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
+                    }
+                  }
+                },
+                {
+                  "titleTag": null,
+                  "name": "7-day free Insurance",
+                  "title": "7-day free Insurance",
+                  "body": "If you're eligible for our FREE policy your vehicle will be covered for the first 7 days AFTER it's delivered.",
+                  "link": {
+                    "text": "7-Day Free Insurance",
+                    "url": "https://beta.vanarama.com/van-insurance/7-day-free-van-insurance.html"
+                  },
+                  "image": {
+                    "title": "placeholder",
+                    "file": {
+                      "url": "//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
+                    }
+                  }
+                },
+                {
+                  "titleTag": null,
+                  "name": "Short-Term Insurance",
+                  "title": "Short-Term Insurance",
+                  "body": "Need to drive a vehicle that isn't yours, or insure a temporary driver on yours?",
+                  "link": {
+                    "text": "Short-Term Van Insurance",
+                    "url": "https://beta.vanarama.com/van-insurance/short-term-insurance.html"
+                  },
+                  "image": {
+                    "title": "placeholder",
+                    "file": {
+                      "url": "//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
+                    }
+                  }
+                },
+                {
+                  "titleTag": null,
+                  "name": "FAQS",
+                  "title": "Our Customers Say",
+                  "body": "We try to make everything about van insurance a little clearer, so we've put together the answers to the questions we get asked the most.",
+                  "link": {
+                    "text": "FAQs",
+                    "url": "https://beta.vanarama.com/van-insurance/faq.html"
+                  },
+                  "image": {
+                    "title": "placeholder",
+                    "file": {
+                      "url": "//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
+                    }
+                  }
+                }
+              ]
+            },
+            "carousel": {
+              "name": "Insurance News",
+              "cards": [
+                {
+                  "titleTag": null,
+                  "name": "Do I Need Insurance For A Leased Car?",
+                  "title": "Do I Need Insurance For A Leased Car?",
+                  "body": "Find out what type of coverage you need for a new leased car.\n\n[Read More](https://beta.vanarama.com/car-leasing-explained/do-i-need-insurance-for-leased-car.html)",
+                  "image": {
+                    "file": {
+                      "url": "//images.ctfassets.net/3xid768u5joa/22ybEevo2hRu2pJImPp8tz/327aba1204a84c35b02490ca075c290c/insurance-on-leased-cars.jpg"
+                    }
+                  }
+                }
+              ]
+            },
+            "leadText": null,
+            "hero": {
+              "title": "Get Your Low Cost Vehicle Insurance Quote",
+              "body": "## Plus receive £100 if you switch from your current Insurance provider to Vanarama Insurance*\n\n*Only available to Vanarama leasing customers. Other terms and conditions apply.",
+              "heroCard": [
+                {
+                  "title": "Contact Us",
+                  "body": "\n|      |      |\n| ---------- | ---------- |\n| Monday–Thursday | 8:30am–7pm |\n| Friday | 9am–5pm |\n| Saturday | 9am–3pm |\n| Sunday | Closed |\n\n[Call 01442 838173](\"Call 01442 838173\")\n\n"
+                }
+              ]
+            }
+          }
+        }
+      } as GetInsuranceLandingPage,
     },
   },
 ];
 
-describe('<FleetLandingPage />', () => {
-  it('should render hero section correctly', async () => {
-    // ACT
-    render(
-      <MockedProvider addTypename={false} mocks={mocked}>
-        <FleetLandingPage />
-      </MockedProvider>,
-    );
-
-    // ASSERT
-    await waitFor(() => {
-      expect(screen.getByText(`Flexible Fleet Management`)).toBeInTheDocument();
-    });
-    expect(screen.getByText('No Hidden Costs')).toBeVisible();
-    expect(screen.getByTestId('fleet-request-call-back-form')).toBeVisible();
-    expect(screen.getByTestId('fleet_full-name')).toBeVisible();
-    expect(screen.getByTestId('fleet_company-name')).toBeVisible();
-    expect(screen.getByTestId('fleet_fleet-size')).toBeVisible();
-    expect(screen.getByTestId('fleet_email-address')).toBeVisible();
-    expect(screen.getByTestId('fleet_phone-number')).toBeVisible();
-    expect(screen.getByTestId('fleet_agreement')).toBeVisible();
-    expect(screen.getByTestId('fleet_continue')).toBeVisible();
-  });
-
-  it('should render testimonial section correctly', async () => {
-    // ACT
-    render(
-      <MockedProvider addTypename={false} mocks={mocked}>
-        <FleetLandingPage />
-      </MockedProvider>,
-    );
-
-    // ASSERT
-    await waitFor(() => {
-      expect(
-        screen.getByText(
-          `I can't really compare you with any of the other companies out there as I've not used them. I guess that speaks for itself!`,
-        ),
-      ).toBeInTheDocument();
-    });
-    expect(
-      screen.getByText(
-        `Wherever You Are, However You Want To Work, We're There For You`,
-      ),
-    ).toBeVisible();
-    expect(
-      screen.getByTestId('fleet_testimonial-section_request-button'),
-    ).toHaveTextContent("I'd Like A Callback");
-  });
-
-  it('should render side media sections according to layout type', async () => {
-    // ACT
-    render(
-      <MockedProvider addTypename={false} mocks={mocked}>
-        <FleetLandingPage />
-      </MockedProvider>,
-    );
-
-    // ASSERT
-    await waitFor(() => {
-      expect(
-        screen.getByText(`What's In It For My Business?`),
-      ).toBeInTheDocument();
-    });
-    expect(
-      screen.getByText(`What's In It For My Business?`).parentElement
-        ?.parentElement,
-    ).toHaveClass('row:featured-left');
-    expect(
-      screen.getByText(`What's In It For Me?`).parentElement?.parentElement,
-    ).toHaveClass('row:featured-right');
-    expect(
-      screen.getByText(`What's In It For The Drivers?`).parentElement
-        ?.parentElement,
-    ).toHaveClass('row:featured-left');
-  });
-
+describe('<InsurancePageContainer />', () => {
   it('should match snapshot', async () => {
     // ACT
     const getComponent = render(
       <MockedProvider addTypename={false} mocks={mocked}>
-        <FleetLandingPage />
+        <InsurancePageContainer />
       </MockedProvider>,
     );
     // ASSERT
     await waitFor(() => {
-      expect(screen.getByText(`Flexible Fleet Management`)).toBeInTheDocument();
+      expect(screen.getByText(`Get Your Low Cost Vehicle Insurance Quote`)).toBeInTheDocument();
     });
     const tree = getComponent.baseElement;
     expect(tree).toMatchSnapshot();

@@ -8,12 +8,7 @@ export interface IParsedLinkProps {
   href: string;
   color?: TColor;
   fill?: 'solid' | 'outline' | 'clear';
-  icon?: React.ReactNode;
-  iconColor?: TColor;
-  iconPosition?: 'before' | 'after';
-  round?: boolean;
   size?: TSize;
-  withoutDefaultClass?: boolean;
   className?: string;
 }
 
