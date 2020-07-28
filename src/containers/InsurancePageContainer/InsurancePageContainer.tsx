@@ -6,6 +6,8 @@ import config from "./config";
 import InsuranceHeroSection from "./sections/InsuranceHeroSection";
 import InsuranceTypesSection from "./sections/InsuranceTypesSection";
 import MediaFeatureSection from "../../containers/FleetPageContainer/sections/MediaFeatureSection";
+import MediaFeatureText from "./sections/MediaFeatureText";
+import InsuranceFAQSection from "./sections/InsuranceFAQSection";
 
 const InsurancePageContainer = () => {
     const { data, error, loading } = useQuery<GetInsuranceLandingPage>(
@@ -36,7 +38,12 @@ const InsurancePageContainer = () => {
         <>
             {hero && <InsuranceHeroSection {...hero} />}
             {cards && <InsuranceTypesSection {...cards} />}
-            {featured1 && <MediaFeatureSection {...featured1} />}
+            {featured1 && (
+                <MediaFeatureSection {...featured1} imageOnly>
+                    <MediaFeatureText {...featured1} />
+                </MediaFeatureSection>)}
+            <hr className="-fullwidth" />
+            {featured2 && <InsuranceFAQSection {...featured2} />}
         </>
     )
 };
