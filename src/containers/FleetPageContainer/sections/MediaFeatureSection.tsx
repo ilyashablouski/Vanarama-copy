@@ -8,24 +8,19 @@ import LayoutTypes from '../../../models/enum/LayoutTypes';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import { useState } from 'react';
 
-
-const configureRenderers = () => {
-
-}
 export interface IMediaFeatureProps extends IMediaFeature {
-  renderLinksAsButtons?: boolean;
+  imageOnly?: boolean;
 }
 
-const MediaFeatureSection = ({
+const MediaFeatureSection: React.FC<IMediaFeatureProps> = ({
   image,
   titleTag,
   title,
   body,
   layout,
-  renderLinksAsButtons
-}: IMediaFeatureProps) => {
-  const [buttonFill, setButtonFill] = useState<'solid' | 'outline'>('solid');
-
+  children,
+  imageOnly
+}) => {
   const selectedLayout = (layout && layout[0]) || '';
   let className = '';
   switch (selectedLayout) {
@@ -52,25 +47,18 @@ const MediaFeatureSection = ({
         <Image src={image.file.url} alt={image?.title || ''} />
       ) : null}
       <div>
-        <Heading size="large" color="black" tag={getTitleTag(titleTag) as any}>
-          {title}
-        </Heading>
-        <ReactMarkdown
-          source={body || ''}
-          renderers={{
-            heading: props => <Heading {...props} tag="h3" />,
-            paragraph: props => <Text {...props} tag="p" color="darker" />,
-            //TODO: only with a prop + finish
-            link: props => {
-              setButtonFill(prev => prev === 'solid' ? 'outline' : 'solid');
-              return <Button
-                label={props.title}
-                {...props}
-                color="teal"
-                fill={buttonFill} />
-            }
-          }}
-        />
+        {imageOnly ? children : <>
+          <Heading size="large" color="black" tag={getTitleTag(titleTag) as any}>
+            {title}
+          </Heading>
+          <ReactMarkdown
+            source={body || ''}
+            renderers={{
+              heading: props => <Heading {...props} tag="h3" />,
+              paragraph: props => <Text {...props} tag="p" color="darker" />,
+            }}
+          />
+        </>}
       </div>
       {selectedLayout === LayoutTypes.right && image?.file?.url ? (
         <Image src={image.file.url} alt={image?.title || ''} />
