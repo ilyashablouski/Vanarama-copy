@@ -30,7 +30,7 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 describe('<Header />', () => {
-  xit('renders correctly', () => {
+  it('renders correctly', () => {
     jest.mock('localforage', () => ({
       getItem: jest.fn(() => null),
     }));
@@ -41,7 +41,7 @@ describe('<Header />', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  xit('renders correctly with login user', () => {
+  it('renders correctly with login user', () => {
     jest.mock('localforage', () => ({
       getItem: jest.fn(() => ({
         personByToken: {
