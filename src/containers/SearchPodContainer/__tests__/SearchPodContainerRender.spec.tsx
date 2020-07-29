@@ -1,11 +1,11 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import SearchPodContainer from '../SearchPodContainer';
-import { filterTypeAndBudget, filterListByTypes } from '../gql';
+import { filterTypeAndBudget, useFilterList } from '../gql';
 
 jest.mock('../gql', () => ({
   filterTypeAndBudget: jest.fn(),
-  filterListByTypes: jest.fn(),
+  useFilterList: jest.fn(),
 }));
 
 jest.mock('next/router', () => ({
@@ -47,7 +47,7 @@ describe('<SearchPodContainer />', () => {
         },
       },
     ]);
-    (filterListByTypes as jest.Mock).mockReturnValue({
+    (useFilterList as jest.Mock).mockReturnValue({
       data: {
         filterList: {
           vehicleTypes: ['LCV'],

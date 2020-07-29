@@ -31,4 +31,10 @@ export interface filterList {
 
 export interface filterListVariables {
   vehicleTypes?: VehicleTypeEnum[] | null;
+  onOffer?: boolean | null;
+  manufacturerName?: string | null;
+  rangeName?: string | null;
+  bodyStyles?: string[] | null;
+  transmissions?: string[] | null;
+  fuelTypes?: string[] | null;
 }
