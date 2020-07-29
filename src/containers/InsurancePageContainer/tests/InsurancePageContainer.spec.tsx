@@ -183,12 +183,13 @@ const mocked: MockedResponse[] = [
               title: 'Get Your Low Cost Vehicle Insurance Quote',
               body:
                 '## Plus receive £100 if you switch from your current Insurance provider to Vanarama Insurance*\n\n*Only available to Vanarama leasing customers. Other terms and conditions apply.',
-                image: {
-                  file: {
-                    url: "//images.ctfassets.net/3xid768u5joa/7EJOmbBk6X2yzLtHunY3xU/e9af75665ee74bf1ccefede5c9142e60/insuranceicon.jpg"
-                  }
+              image: {
+                file: {
+                  url:
+                    '//images.ctfassets.net/3xid768u5joa/7EJOmbBk6X2yzLtHunY3xU/e9af75665ee74bf1ccefede5c9142e60/insuranceicon.jpg',
                 },
-                heroCard: [
+              },
+              heroCard: [
                 {
                   title: 'Contact Us',
                   body:
