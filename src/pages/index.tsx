@@ -105,7 +105,11 @@ export const HomePage: NextPage = () => {
         <div className="hero--title">
           <HeroHeading
             text={data?.homePage.sections.hero?.title || ''}
-            titleTag={(data && data.homePage.sections.hero?.titleTag) || 'p'}
+            titleTag={
+              getTitleTag(
+                data?.homePage.sections.hero?.titleTag || 'p',
+              ) as keyof JSX.IntrinsicElements
+            }
           />
           <br />
           <HeroTitle text={data?.homePage.sections.hero?.body || ''} />
