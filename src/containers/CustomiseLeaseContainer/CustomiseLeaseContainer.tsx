@@ -4,7 +4,11 @@ import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Modal from '@vanarama/uibook/lib/components/molecules/modal';
 import CustomiseLease from '../../components/CustomiseLease/CustomiseLease';
 import { useQuoteData } from './gql';
-import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
+import {
+  LeaseTypeEnum,
+  VehicleTypeEnum,
+  OpportunityTypeEnum,
+} from '../../../generated/globalTypes';
 import { IProps } from './interfaces';
 import { GetQuoteDetails_quoteByCapId } from '../../../generated/GetQuoteDetails';
 import GoldrushFormContainer from '../GoldrushFormContainer';
@@ -157,7 +161,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         termsAndConditions
         isPostcodeVisible={vehicleType !== VehicleTypeEnum.CAR}
         capId={capId}
-        kind="quote"
+        opportunityType={OpportunityTypeEnum.QUOTE}
         vehicleType={vehicleType}
       />
     );
@@ -195,12 +199,16 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         showCallBackForm={() => setShowCallBackForm(true)}
       />
       {showCallBackForm && (
-        <Modal show onRequestClose={() => setShowCallBackForm(false)}>
+        <Modal
+          className="-mt-000 callBack"
+          show
+          onRequestClose={() => setShowCallBackForm(false)}
+        >
           <GoldrushFormContainer
             isPostcodeVisible={vehicleType !== VehicleTypeEnum.CAR}
             capId={capId}
             callBack
-            kind="quote"
+            opportunityType={OpportunityTypeEnum.QUOTE}
             vehicleType={vehicleType}
             onCompleted={() => setShowCallBackForm(false)}
           />

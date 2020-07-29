@@ -27,3 +27,13 @@ export const filtersConfig = [
 ];
 
 export const budgets = ['0', '150', '250', '350', '450', '550', '550+'];
+
+export enum filterFields {
+  make = 'make',
+  model = 'model',
+  from = 'from',
+  to = 'to',
+  transmissions = 'transmissions',
+  bodyStyles = 'bodyStyles',
+  fuelTypes = 'fuelTypes',
+}

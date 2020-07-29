@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { NextPage } from 'next';
 import Router from 'next/router';
 import { useQuery } from '@apollo/client';
@@ -7,20 +8,15 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
 import League from '@vanarama/uibook/lib/components/organisms/league';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
-import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
-import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import Step from '@vanarama/uibook/lib/components/molecules/step';
 import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
-import Price from '@vanarama/uibook/lib/components/atoms/price';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 
 import { useState } from 'react';
@@ -42,15 +38,19 @@ import withApollo from '../../../hocs/withApollo';
 import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 import DealOfMonth from '../../../components/DealOfMonth';
 import RouterLink from '../../../components/RouterLink/RouterLink';
-import useSliderProperties from '../../../hooks/useSliderProperties';
-import getIconMap from '../../../utils/getIconMap';
-import truncateString from '../../../utils/truncateString';
+import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
+import {
+  VehicleTypeEnum,
+  LeaseTypeEnum,
+} from '../../../../generated/globalTypes';
+import ProductCarousel from '../../../components/ProductCarousel/ProductCarousel';
+import { getProductPageUrl } from '../../../utils/url';
+import { GetDerivatives_derivatives } from '../../../../generated/GetDerivatives';
 
 type ProdCards = ProdCardData[];
 
 export const VansPage: NextPage = () => {
   const [offers, setOffers] = useState<ProdCards>([]);
-  const { slidesToShow } = useSliderProperties();
   const { data, loading, error } = useQuery<HubVanPageData>(HUB_VAN_CONTENT);
 
   // pluck random offer until offer position available
@@ -59,7 +59,12 @@ export const VansPage: NextPage = () => {
   const { data: productSmallVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
-      variables: { type: 'LCV', subType: 'SMALLVAN', size: 9, offer: true },
+      variables: {
+        type: VehicleTypeEnum.LCV,
+        bodyType: 'SmallVan',
+        size: 9,
+        offer: true,
+      },
       onCompleted: prods => {
         const topProduct = prods?.productCarousel?.find(
           p => p?.isOnOffer === true,
@@ -68,10 +73,21 @@ export const VansPage: NextPage = () => {
       },
     },
   );
+
+  const { data: productSmallVanDerivatives } = useCarDerivativesData(
+    productSmallVan?.productCarousel?.map(el => el?.capId || '') || [''],
+    VehicleTypeEnum.LCV,
+  );
+
   const { data: productMediumVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
-      variables: { type: 'LCV', subType: 'MEDIUMVAN', size: 9, offer: true },
+      variables: {
+        type: VehicleTypeEnum.LCV,
+        bodyType: 'MediumVan',
+        size: 9,
+        offer: true,
+      },
       onCompleted: prods => {
         const topProduct = prods?.productCarousel?.find(
           p => p?.isOnOffer === true,
@@ -80,10 +96,21 @@ export const VansPage: NextPage = () => {
       },
     },
   );
+
+  const { data: productMediumVanDerivatives } = useCarDerivativesData(
+    productMediumVan?.productCarousel?.map(el => el?.capId || '') || [''],
+    VehicleTypeEnum.LCV,
+  );
+
   const { data: productLargeVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
-      variables: { type: 'LCV', subType: 'LARGEVAN', size: 9, offer: true },
+      variables: {
+        type: VehicleTypeEnum.LCV,
+        bodyType: 'LargeVan',
+        size: 9,
+        offer: true,
+      },
       onCompleted: prods => {
         const topProduct = prods?.productCarousel?.find(
           p => p?.isOnOffer === true,
@@ -91,6 +118,11 @@ export const VansPage: NextPage = () => {
         if (topProduct) setOffers([...offers, topProduct]);
       },
     },
+  );
+
+  const { data: productLargeVanDerivatives } = useCarDerivativesData(
+    productLargeVan?.productCarousel?.map(el => el?.capId || '') || [''],
+    VehicleTypeEnum.LCV,
   );
 
   if (loading) {
@@ -100,6 +132,15 @@ export const VansPage: NextPage = () => {
   if (error) {
     return <p>Error: {error.message}</p>;
   }
+  const dealOfMonthUrl = getProductPageUrl(
+    offer!,
+    (productLargeVanDerivatives?.derivatives as GetDerivatives_derivatives[])?.concat(
+      (productMediumVanDerivatives?.derivatives as GetDerivatives_derivatives[]) ||
+        [],
+      (productSmallVanDerivatives?.derivatives as GetDerivatives_derivatives[]) ||
+        [],
+    ),
+  );
 
   return (
     <>
@@ -143,7 +184,10 @@ export const VansPage: NextPage = () => {
           specification={offer?.derivativeName || ''}
           price={offer?.businessRate || 0}
           rating={offer?.averageRating || 3}
-          capIdPath={`/vans/van-details/${offer?.capId}`}
+          viewOfferClick={() => {
+            sessionStorage.setItem('capId', offer?.capId || '');
+            Router.push(dealOfMonthUrl.href, dealOfMonthUrl.url);
+          }}
         />
       </div>
       <div className="row:bg-lighter">
@@ -156,71 +200,15 @@ export const VansPage: NextPage = () => {
               Small Vans
             </span>
           </Heading>
-          <Carousel
-            className="-mh-auto"
+          <ProductCarousel
+            leaseType={LeaseTypeEnum.PERSONAL}
+            data={{
+              derivatives: productSmallVanDerivatives?.derivatives || null,
+              productCard: productSmallVan?.productCarousel || null,
+            }}
             countItems={productSmallVan?.productCarousel?.length || 6}
-          >
-            {productSmallVan?.productCarousel?.map((item, idx) => {
-              const iconMap = getIconMap(item?.keyInformation || []);
-              return (
-                <ProductCard
-                  key={item?.capId || idx}
-                  header={{
-                    accentIcon:
-                      slidesToShow > 2 ? (
-                        <Icon icon={<Flame />} color="white" />
-                      ) : (
-                        ''
-                      ),
-                    accentText: slidesToShow > 2 ? 'Hot Deal' : '',
-                    text: 'In Stock - 14-21 Days Delivery',
-                  }}
-                  features={item?.keyInformation?.map(info => ({
-                    icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
-                    label: info?.value || '',
-                  }))}
-                  imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
-                  onCompare={() => true}
-                  onWishlist={() => true}
-                  title={{
-                    title: '',
-                    link: (
-                      <RouterLink
-                        link={{
-                          href: `/vans/van-details/${item?.capId}`,
-                          label: truncateString(
-                            `${item?.manufacturerName} ${item?.rangeName}`,
-                          ),
-                        }}
-                        className="heading"
-                        classNames={{ size: 'large', color: 'black' }}
-                      />
-                    ),
-                    description: item?.derivativeName || '',
-                    score: item?.averageRating || 0,
-                  }}
-                >
-                  <div className="-flex-h">
-                    <Price
-                      price={item?.businessRate}
-                      size="large"
-                      separator="."
-                      priceDescription="Per Month Exc.VAT"
-                    />
-                    <Button
-                      color="teal"
-                      fill="solid"
-                      label="View Offer"
-                      onClick={() =>
-                        Router.push(`/vans/van-details/${item?.capId}`)
-                      }
-                      size="regular"
-                    />
-                  </div>
-                </ProductCard>
-              );
-            })}
-          </Carousel>
+            dataTestIdBtn="van-view-offer"
+          />
           <div className="-justify-content-row -pt-500">
             <Button
               label="View Small Vans"
@@ -240,71 +228,15 @@ export const VansPage: NextPage = () => {
               Medium Vans
             </span>
           </Heading>
-          <Carousel
-            className="-mh-auto"
+          <ProductCarousel
+            leaseType={LeaseTypeEnum.PERSONAL}
+            data={{
+              derivatives: productMediumVanDerivatives?.derivatives || null,
+              productCard: productMediumVan?.productCarousel || null,
+            }}
             countItems={productMediumVan?.productCarousel?.length || 6}
-          >
-            {productMediumVan?.productCarousel?.map((item, idx) => {
-              const iconMap = getIconMap(item?.keyInformation || []);
-              return (
-                <ProductCard
-                  key={item?.capId || idx}
-                  header={{
-                    accentIcon:
-                      slidesToShow > 2 ? (
-                        <Icon icon={<Flame />} color="white" />
-                      ) : (
-                        ''
-                      ),
-                    accentText: slidesToShow > 2 ? 'Hot Deal' : '',
-                    text: 'In Stock - 14-21 Days Delivery',
-                  }}
-                  features={item?.keyInformation?.map(info => ({
-                    icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
-                    label: info?.value || '',
-                  }))}
-                  imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
-                  onCompare={() => true}
-                  onWishlist={() => true}
-                  title={{
-                    title: '',
-                    link: (
-                      <RouterLink
-                        link={{
-                          href: `/vans/van-details/${item?.capId}`,
-                          label: truncateString(
-                            `${item?.manufacturerName} ${item?.rangeName}`,
-                          ),
-                        }}
-                        className="heading"
-                        classNames={{ size: 'large', color: 'black' }}
-                      />
-                    ),
-                    description: item?.derivativeName || '',
-                    score: item?.averageRating || 0,
-                  }}
-                >
-                  <div className="-flex-h">
-                    <Price
-                      price={item?.businessRate}
-                      size="large"
-                      separator="."
-                      priceDescription="Per Month Exc.VAT"
-                    />
-                    <Button
-                      color="teal"
-                      fill="solid"
-                      label="View Offer"
-                      onClick={() =>
-                        Router.push(`/vans/van-details/${item?.capId}`)
-                      }
-                      size="regular"
-                    />
-                  </div>
-                </ProductCard>
-              );
-            })}
-          </Carousel>
+            dataTestIdBtn="van-view-offer"
+          />
           <div className="-justify-content-row -pt-500">
             <Button
               label="View Medium Vans"
@@ -324,71 +256,15 @@ export const VansPage: NextPage = () => {
               Large Vans
             </span>
           </Heading>
-          <Carousel
-            className="-mh-auto"
+          <ProductCarousel
+            leaseType={LeaseTypeEnum.PERSONAL}
+            data={{
+              derivatives: productLargeVanDerivatives?.derivatives || null,
+              productCard: productLargeVan?.productCarousel || null,
+            }}
             countItems={productLargeVan?.productCarousel?.length || 6}
-          >
-            {productLargeVan?.productCarousel?.map((item, idx) => {
-              const iconMap = getIconMap(item?.keyInformation || []);
-              return (
-                <ProductCard
-                  key={item?.capId || idx}
-                  header={{
-                    accentIcon:
-                      slidesToShow > 2 ? (
-                        <Icon icon={<Flame />} color="white" />
-                      ) : (
-                        ''
-                      ),
-                    accentText: slidesToShow > 2 ? 'Hot Deal' : '',
-                    text: 'In Stock - 14-21 Days Delivery',
-                  }}
-                  features={item?.keyInformation?.map(info => ({
-                    icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
-                    label: info?.value || '',
-                  }))}
-                  imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
-                  onCompare={() => true}
-                  onWishlist={() => true}
-                  title={{
-                    title: '',
-                    link: (
-                      <RouterLink
-                        link={{
-                          href: `/vans/van-details/${item?.capId}`,
-                          label: truncateString(
-                            `${item?.manufacturerName} ${item?.rangeName}`,
-                          ),
-                        }}
-                        className="heading"
-                        classNames={{ size: 'large', color: 'black' }}
-                      />
-                    ),
-                    description: item?.derivativeName || '',
-                    score: item?.averageRating || 0,
-                  }}
-                >
-                  <div className="-flex-h">
-                    <Price
-                      price={item?.businessRate}
-                      size="large"
-                      separator="."
-                      priceDescription="Per Month Exc.VAT"
-                    />
-                    <Button
-                      color="teal"
-                      fill="solid"
-                      label="View Offer"
-                      onClick={() =>
-                        Router.push(`/vans/van-details/${item?.capId}`)
-                      }
-                      size="regular"
-                    />
-                  </div>
-                </ProductCard>
-              );
-            })}
-          </Carousel>
+            dataTestIdBtn="van-view-offer"
+          />
           <div className="-justify-content-row -pt-500">
             <Button
               label="View Large Vans"

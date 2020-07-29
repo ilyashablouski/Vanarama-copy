@@ -237,7 +237,10 @@ describe('<SummaryFormContainer />', () => {
 
     // ASSERT
     expect(mockPush).toHaveBeenCalledTimes(1);
-    expect(mockPush).toHaveBeenCalledWith('/olaf/thank-you');
+    expect(mockPush).toHaveBeenCalledWith(
+      '/olaf/thank-you/[orderId]',
+      '/olaf/thank-you/17596f47-adf5-4e63-b250-238102cb831c',
+    );
   });
 
   it('should redirect to about page when clicking "Edit" on the "Your Details" section', async () => {

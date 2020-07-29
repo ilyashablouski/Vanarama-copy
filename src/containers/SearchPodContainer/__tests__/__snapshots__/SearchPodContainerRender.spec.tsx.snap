@@ -167,16 +167,6 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                     Make
                     s
                   </option>
-                  <option
-                    value="Citroën"
-                  >
-                    Citroën
-                  </option>
-                  <option
-                    value="Dacia"
-                  >
-                    Dacia
-                  </option>
                 </select>
                 <span
                   className="icon select--chevron"
@@ -239,34 +229,6 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                     Model
                     s
                   </option>
-                  <optgroup
-                    label="Citroën"
-                  >
-                    <option
-                      value="Berlingo"
-                    >
-                      Berlingo
-                    </option>
-                    <option
-                      value="Dispatch"
-                    >
-                      Dispatch
-                    </option>
-                    <option
-                      value="Relay"
-                    >
-                      Relay
-                    </option>
-                  </optgroup>
-                  <optgroup
-                    label="Dacia"
-                  >
-                    <option
-                      value="Duster"
-                    >
-                      Duster
-                    </option>
-                  </optgroup>
                 </select>
                 <span
                   className="icon select--chevron"

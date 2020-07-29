@@ -20,6 +20,7 @@ const mocks: MockedResponse[] = [
       query: GET_SEARCH_POD_DATA,
       variables: {
         vehicleTypes: ['LCV'],
+        onOffer: null,
       },
     },
     result: () => {
@@ -55,6 +56,7 @@ const mocks: MockedResponse[] = [
       query: GET_SEARCH_POD_DATA,
       variables: {
         vehicleTypes: ['CAR'],
+        onOffer: null,
       },
     },
     result: () => {
@@ -92,6 +94,7 @@ const mocks: MockedResponse[] = [
         vehicleTypes: ['LCV'],
         manufacturerName: '',
         rangeName: '',
+        bodyStyles: [''],
       },
     },
     result: () => {
@@ -102,6 +105,20 @@ const mocks: MockedResponse[] = [
             bodyStyles: ['Dropside Tipper', 'Pickup'],
             financeProfilesRateMax: 597.98,
             financeProfilesRateMin: 194.95,
+            groupedRanges: [
+              {
+                parent: 'Citroën',
+                children: ['Berlingo', 'Dispatch', 'Relay'],
+              },
+              {
+                parent: 'Dacia',
+                children: ['Duster'],
+              },
+              {
+                parent: 'BMW',
+                children: ['3 series', '4 series'],
+              },
+            ],
           },
         },
       };

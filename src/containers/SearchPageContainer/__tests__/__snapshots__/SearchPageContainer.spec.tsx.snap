@@ -395,7 +395,7 @@ exports[`<SearchPageContainer /> should be render correctly 1`] = `
                 <div
                   class="button--inner"
                 >
-                  View 91 Results
+                  View 1 Results
                 </div>
               </button>
             </div>
@@ -596,7 +596,7 @@ exports[`<SearchPageContainer /> should be render correctly 1`] = `
                 <div
                   class="button--inner"
                 >
-                  View 91 Results
+                  View 1 Results
                 </div>
               </button>
             </div>
@@ -669,7 +669,7 @@ exports[`<SearchPageContainer /> should be render correctly 1`] = `
                 <div
                   class="button--inner"
                 >
-                  View 91 Results
+                  View 1 Results
                 </div>
               </button>
             </div>
@@ -742,7 +742,7 @@ exports[`<SearchPageContainer /> should be render correctly 1`] = `
                 <div
                   class="button--inner"
                 >
-                  View 91 Results
+                  View 1 Results
                 </div>
               </button>
             </div>
@@ -815,7 +815,7 @@ exports[`<SearchPageContainer /> should be render correctly 1`] = `
                 <div
                   class="button--inner"
                 >
-                  View 91 Results
+                  View 1 Results
                 </div>
               </button>
             </div>
@@ -846,25 +846,14 @@ exports[`<SearchPageContainer /> should be render correctly 1`] = `
         <span
           class="text -regular -darker"
         >
-          Showing 91 Results
+          Showing 1 Results
         </span>
         <div
           class="row:cards-3col"
         />
         <div
           class="pagination"
-        >
-          <button
-            class="button -teal -regular -outline"
-            data-testid="LoadMore"
-          >
-            <div
-              class="button--inner"
-            >
-              Load More
-            </div>
-          </button>
-        </div>
+        />
       </div>
     </div>
     <div

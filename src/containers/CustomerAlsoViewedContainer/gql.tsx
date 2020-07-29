@@ -25,6 +25,36 @@ export const GET_PRODUCT_CARDS_DATA = gql`
       businessRate
       personalRate
     }
+    derivatives(ids: $capIds, vehicleType: $vehicleType) {
+      id
+      capCode
+      name
+      slug
+      manufacturer {
+        name
+      }
+      manufacturerName
+      model {
+        name
+      }
+      modelName
+      fuelType {
+        name
+      }
+      fuelTypeName
+      transmission {
+        name
+      }
+      transmissionName
+      bodyStyle {
+        name
+      }
+      bodyStyleName
+      range {
+        name
+      }
+      rangeName
+    }
   }
 `;
 
@@ -35,6 +65,7 @@ export const GET_PRODUCT_CARDS_DATA = gql`
 export function useProductCardData(
   capIds: string[],
   vehicleType?: VehicleTypeEnum,
+  skip = false,
 ) {
   return useQuery<GetProductCard, GetProductCardVariables>(
     GET_PRODUCT_CARDS_DATA,
@@ -43,6 +74,7 @@ export function useProductCardData(
         capIds,
         vehicleType,
       },
+      skip,
     },
   );
 }

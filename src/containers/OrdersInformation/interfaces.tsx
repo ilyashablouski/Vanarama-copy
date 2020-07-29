@@ -1,4 +1,1 @@
-export interface IProps {
-  uuid?: string;
-  partyByUuid: string;
-}
+export interface IProps {}

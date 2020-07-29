@@ -35,6 +35,9 @@ import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import getIconMap from '../../../utils/getIconMap';
 import truncateString from '../../../utils/truncateString';
+import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import { getProductPageUrl } from '../../../utils/url';
+import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 
 export const CarsPage: NextPage = () => {
   const { data, loading, error } = useQuery<HubCarPageData>(HUB_CAR_CONTENT);
@@ -42,8 +45,13 @@ export const CarsPage: NextPage = () => {
   const { data: products, error: productsError } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
-      variables: { type: 'CAR', size: 9, offer: true },
+      variables: { type: VehicleTypeEnum.CAR, size: 9, offer: true },
     },
+  );
+
+  const { data: productsCarDerivatives } = useCarDerivativesData(
+    products?.productCarousel?.map(el => el?.capId || '') || [''],
+    VehicleTypeEnum.CAR,
   );
 
   if (loading) {
@@ -127,6 +135,10 @@ export const CarsPage: NextPage = () => {
         <section className="row:cards-3col">
           {products?.productCarousel?.map((item, idx) => {
             const iconMap = getIconMap(item?.keyInformation || []);
+            const productUrl = getProductPageUrl(
+              item!,
+              productsCarDerivatives?.derivatives || null,
+            );
             return (
               <ProductCard
                 key={item?.capId || idx}
@@ -147,17 +159,21 @@ export const CarsPage: NextPage = () => {
                   link: (
                     <RouterLink
                       link={{
-                        href: `/cars/car-details/${item?.capId}`,
+                        href: productUrl.href,
                         label: truncateString(
                           `${item?.manufacturerName} ${item?.rangeName}`,
                         ),
                       }}
+                      as={productUrl.url}
+                      onClick={() =>
+                        sessionStorage.setItem('capId', item?.capId || '')
+                      }
                       className="heading"
                       classNames={{ size: 'large', color: 'black' }}
                     />
                   ),
                   description: item?.derivativeName || '',
-                  score: item?.averageRating || 0,
+                  score: item?.averageRating || 5,
                 }}
               >
                 <div className="-flex-h">
@@ -171,9 +187,10 @@ export const CarsPage: NextPage = () => {
                     color="teal"
                     fill="solid"
                     label="View Offer"
-                    onClick={() =>
-                      Router.push(`/cars/car-details/${item?.capId}`)
-                    }
+                    onClick={() => {
+                      sessionStorage.setItem('capId', item?.capId || '');
+                      Router.push(productUrl.href, productUrl.url);
+                    }}
                     size="regular"
                   />
                 </div>

@@ -3,8 +3,10 @@ import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import Router from 'next/router';
 import CreditChecker from '../../../pages/eligibility-checker/credit-checker';
 import { useProductCard } from '../../../gql/productCard';
+import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 
 jest.mock('../../../gql/productCard');
+jest.mock('../../../containers/OrdersInformation/gql');
 
 jest.mock('../../../containers/SearchPodContainer', () => () => {
   return <div />;
@@ -47,6 +49,49 @@ describe('<CreditChecker />', () => {
       },
       error: undefined,
     });
+
+    (useCarDerivativesData as jest.Mock).mockReturnValue({
+      loading: false,
+      data: {
+        derivatives: [
+          {
+            id: '83615',
+            manufacturerName: 'Ford',
+            derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
+            rangeName: 'Focus',
+            bodyStyleName: 'Hatchback',
+            slug: '10-ecoBoost-125-st-line-nav-5dr',
+            capCode: 'capCode',
+            name: 'name',
+            modelName: 'modelName',
+            manufacturer: {
+              name: 'name',
+            },
+            model: {
+              name: 'name',
+            },
+            fuelType: {
+              name: 'name',
+            },
+            fuelTypeName: 'fuelTypeName',
+            transmission: {
+              name: 'name',
+            },
+            transmissionName: 'transmissionName',
+            bodyStyle: {
+              name: 'name',
+            },
+            range: {
+              name: 'name',
+            },
+            __typename: 'derivative',
+          },
+        ],
+        vehicleImages: null,
+      },
+      error: undefined,
+    });
+
     render(<CreditChecker />);
   });
 
@@ -73,7 +118,10 @@ describe('<CreditChecker />', () => {
   it('should trigger route push when clicking View Offer', async () => {
     fireEvent.click(screen.getByText('View Offer'));
     await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/cars/car-details/83615'),
+      expect(Router.push).toHaveBeenCalledWith(
+        '/van-leasing/[...manufacturer]',
+        '/van-leasing/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
+      ),
     );
   });
 
@@ -83,6 +131,13 @@ describe('<CreditChecker />', () => {
       data: undefined,
       error: { message: 'error' },
     });
+
+    (useCarDerivativesData as jest.Mock).mockReturnValue({
+      loading: false,
+      data: undefined,
+      error: { message: 'error' },
+    });
+
     render(<CreditChecker />);
 
     expect(screen.getByText('error'));

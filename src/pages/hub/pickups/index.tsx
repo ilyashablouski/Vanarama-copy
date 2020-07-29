@@ -24,9 +24,9 @@ import League from '@vanarama/uibook/lib/components/organisms/league';
 
 import {
   HubPickupPageData,
-  HubPickupPageData_hubPickupPage_sections_tiles_tiles as TileData,
+  HubPickupPageData_hubPickupPage_sections_tiles1_tiles as AccessoryData,
+  HubPickupPageData_hubPickupPage_sections_tiles2_tiles as TileData,
   HubPickupPageData_hubPickupPage_sections_steps_steps as StepData,
-  HubPickupPageData_hubPickupPage_sections_accessories_accessories as AccessoryData,
 } from '../../../../generated/HubPickupPageData';
 import {
   ProductCardData,
@@ -41,6 +41,9 @@ import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import getIconMap from '../../../utils/getIconMap';
 import truncateString from '../../../utils/truncateString';
+import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
+import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import { getProductPageUrl } from '../../../utils/url';
 
 export const PickupsPage: NextPage = () => {
   const [offer, setOffer] = useState<ProdData>();
@@ -49,7 +52,12 @@ export const PickupsPage: NextPage = () => {
   );
 
   const { data: products } = useQuery<ProductCardData>(PRODUCT_CARD_CONTENT, {
-    variables: { type: 'LCV', subType: 'PICKUP', size: 9, offer: true },
+    variables: {
+      type: VehicleTypeEnum.LCV,
+      bodyType: 'Pickup',
+      size: 9,
+      offer: true,
+    },
     onCompleted: prods => {
       const topProduct = prods?.productCarousel?.find(
         p => p?.isOnOffer === true,
@@ -58,6 +66,11 @@ export const PickupsPage: NextPage = () => {
     },
   });
 
+  const { data: productsPickupsDerivatives } = useCarDerivativesData(
+    products?.productCarousel?.map(el => el?.capId || '') || [''],
+    VehicleTypeEnum.LCV,
+  );
+
   if (loading) {
     return <Loading size="large" />;
   }
@@ -65,6 +78,11 @@ export const PickupsPage: NextPage = () => {
   if (error) {
     return <p>Error: {error.message}</p>;
   }
+
+  const dealOfMonthUrl = getProductPageUrl(
+    offer!,
+    productsPickupsDerivatives?.derivatives || null,
+  );
 
   return (
     <>
@@ -104,7 +122,10 @@ export const PickupsPage: NextPage = () => {
           specification={offer?.derivativeName || ''}
           price={offer?.businessRate || 0}
           rating={offer?.averageRating || 3}
-          capIdPath={`/pickups/pickup-details/${offer?.capId}`}
+          viewOfferClick={() => {
+            sessionStorage.setItem('capId', offer?.capId || '');
+            Router.push(dealOfMonthUrl.href, dealOfMonthUrl.url);
+          }}
         />
       </div>
 
@@ -112,6 +133,10 @@ export const PickupsPage: NextPage = () => {
         <section className="row:cards-3col">
           {products?.productCarousel?.map((item, idx) => {
             const iconMap = getIconMap(item?.keyInformation || []);
+            const productUrl = getProductPageUrl(
+              item!,
+              productsPickupsDerivatives?.derivatives || null,
+            );
             return (
               <ProductCard
                 key={item?.capId || idx}
@@ -132,17 +157,21 @@ export const PickupsPage: NextPage = () => {
                   link: (
                     <RouterLink
                       link={{
-                        href: `/pickups/pickup-details/${item?.capId}`,
+                        href: productUrl.href,
                         label: truncateString(
                           `${item?.manufacturerName} ${item?.rangeName}`,
                         ),
                       }}
+                      as={productUrl.url}
+                      onClick={() =>
+                        sessionStorage.setItem('capId', item?.capId || '')
+                      }
                       className="heading"
                       classNames={{ size: 'large', color: 'black' }}
                     />
                   ),
                   description: item?.derivativeName || '',
-                  score: item?.averageRating || 0,
+                  score: item?.averageRating || 5,
                 }}
               >
                 <div className="-flex-h">
@@ -156,9 +185,10 @@ export const PickupsPage: NextPage = () => {
                     color="teal"
                     fill="solid"
                     label="View Offer"
-                    onClick={() =>
-                      Router.push(`/pickups/pickup-details/${item?.capId}`)
-                    }
+                    onClick={() => {
+                      sessionStorage.setItem('capId', item?.capId || '');
+                      Router.push(productUrl.href, productUrl.url);
+                    }}
                     size="regular"
                   />
                 </div>
@@ -245,9 +275,9 @@ export const PickupsPage: NextPage = () => {
 
       <section className="row:accessories">
         <Heading size="large" color="black">
-          {data?.hubPickupPage.sections.accessories?.name}
+          {data?.hubPickupPage.sections.tiles1?.name}
         </Heading>
-        {data?.hubPickupPage.sections.accessories?.accessories?.map(
+        {data?.hubPickupPage.sections.tiles1?.tiles?.map(
           (acc: AccessoryData, idx: number) => (
             <div key={acc.title || idx}>
               <Image
@@ -294,7 +324,7 @@ export const PickupsPage: NextPage = () => {
       <hr className="fullWidth" />
 
       <section className="row:features-4col">
-        {data?.hubPickupPage.sections.tiles?.tiles?.map(
+        {data?.hubPickupPage.sections.tiles2?.tiles?.map(
           (tile: TileData, idx: number) => (
             <div key={tile.title || idx}>
               <Tile className="-plain -button -align-center" plain>

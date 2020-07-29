@@ -17,7 +17,7 @@ import AboutFormContainer from '../../../containers/AboutFormContainer/AboutForm
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
-import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
+import { getUrlParam, OLAFB2CQueryParams } from '../../../utils/url';
 import {
   PersonByToken,
   PersonByTokenVariables,
@@ -28,11 +28,17 @@ import {
   useGetCreditApplicationByOrderUuid,
 } from '../../../gql/creditApplication';
 import { formValuesToInputCreditApplication } from '../../../mappers/mappersCreditApplication';
+import { usePersonByUuidData } from '../../../gql/person';
+import { useCreateUpdateOrder } from '../../../gql/order';
+import { LeaseTypeEnum } from '../../../../generated/globalTypes';
 
 const PERSON_BY_TOKEN_QUERY = gql`
   query PersonByToken($token: String!) {
     personByToken(token: $token) {
       uuid
+      firstName
+      lastName
+      partyUuid
     }
   }
 `;
@@ -47,7 +53,7 @@ export function usePersonByTokenLazyQuery(
   );
 }
 
-const handleAccountFetchError = () =>
+export const handleAccountFetchError = () =>
   toast.error(
     'Sorry there seems to be an issue with your request. Pleaser try again in a few moments',
     'Dolor ut tempor eiusmod enim consequat laboris dolore ut pariatur labore sunt incididunt dolore veniam mollit excepteur dolor aliqua minim nostrud adipisicing culpa aliquip ex',
@@ -56,22 +62,41 @@ const handleAccountFetchError = () =>
 const AboutYouPage: NextPage = () => {
   const router = useRouter();
   const client = useApolloClient();
-  const { orderId } = router.query as OLAFQueryParams;
+  const { orderId, uuid } = router.query as OLAFB2CQueryParams;
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [personUuid, setPersonUuid] = useState<string | undefined>();
 
+  const [updateOrderHandle] = useCreateUpdateOrder(() => {});
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
-  const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
-
   const [getPersonByToken] = usePersonByTokenLazyQuery(
     data => setPersonUuid(data?.personByToken?.uuid),
     handleAccountFetchError,
   );
+  const { refetch } = usePersonByUuidData(personUuid || uuid || '');
+  const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
 
-  const clickOnComplete = (
+  const clickOnComplete = async (
     createUpdatePerson: CreateUpdatePersonMutation_createUpdatePerson,
   ) => {
+    await refetch({
+      uuid: createUpdatePerson.uuid,
+    }).then(resp => {
+      const partyUuidDate = resp.data?.personByUuid?.partyUuid;
+      updateOrderHandle({
+        variables: {
+          input: {
+            leaseType: LeaseTypeEnum.PERSONAL,
+            lineItems: [
+              {
+                quantity: 1,
+              },
+            ],
+            partyUuid: partyUuidDate,
+          },
+        },
+      });
+    });
     createUpdateCA({
       variables: {
         input: formValuesToInputCreditApplication({
@@ -86,7 +111,7 @@ const AboutYouPage: NextPage = () => {
     client.writeQuery({
       query: gql`
         query WriteCachedPersonInformation {
-          uuid
+          uuid @client
         }
       `,
       data: {

@@ -1,5 +1,6 @@
 import { useMutation, gql, useQuery } from '@apollo/client';
 
+import CompanyBankDetails from '../../components/CompanyBankDetails';
 import {
   UpdateBankDetailsMutation as Mutation,
   UpdateBankDetailsMutationVariables as MutationVariables,

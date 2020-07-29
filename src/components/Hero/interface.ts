@@ -1,5 +1,6 @@
 export interface IHeroProps {
   flagText?: string;
+  withRequestCallbackform?: boolean;
 }
 
 export interface IHeroTitleProps {
@@ -8,4 +9,5 @@ export interface IHeroTitleProps {
 
 export interface IHeroHeadingProps {
   text: string;
+  titleTag?: string;
 }

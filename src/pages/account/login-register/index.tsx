@@ -15,16 +15,31 @@ import Message from '../../../core/components/Message';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import RegisterFormContainer from '../../../containers/RegisterFormContainer/RegisterFormContainer';
 import withApollo from '../../../hocs/withApollo';
+import {
+  usePersonByTokenLazyQuery,
+  handleAccountFetchError,
+} from '../../olaf/about';
 
 interface IProps {
   query: ParsedUrlQuery;
 }
 
 export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
-  const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const { query } = props;
-  const [activeTab, setActiveTab] = useState(1);
   const router = useRouter();
+
+  const [activeTab, setActiveTab] = useState(1);
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [getPersonByToken] = usePersonByTokenLazyQuery(async data => {
+    await localForage.setItem('person', data);
+
+    // Redirect to the user's previous route or homepage.
+    const { redirect } = router.query;
+    const nextUrl =
+      typeof redirect === 'string' && redirect !== '/_error' ? redirect : '/';
+
+    router.push(nextUrl);
+  }, handleAccountFetchError);
 
   return (
     <>
@@ -65,17 +80,16 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
             <TabPanel index={1}>
               <LoginFormContainer
                 onCompleted={async data => {
-                  // Put the token in localStorage
-                  await localForage.setItem('token', data.login);
+                  if (data.login !== null) {
+                    // Put the token in localStorage
+                    await localForage.setItem('token', data.login);
 
-                  // Redirect to the user's previous route or homepage.
-                  const { redirect } = router.query;
-                  const nextUrl =
-                    typeof redirect === 'string' && redirect !== '/_error'
-                      ? redirect
-                      : '/';
-
-                  router.push(nextUrl);
+                    getPersonByToken({
+                      variables: {
+                        token: data.login,
+                      },
+                    });
+                  }
                 }}
               />
             </TabPanel>
