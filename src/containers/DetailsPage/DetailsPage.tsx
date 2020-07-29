@@ -10,7 +10,6 @@ import Rating from '@vanarama/uibook/lib/components/atoms/rating';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import DownloadSharp from '@vanarama/uibook/lib/assets/icons/DownloadSharp';
-import Link from '@vanarama/uibook/lib/components/atoms/link';
 import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-gallery';
 import {
   VehicleTypeEnum,
@@ -34,6 +33,7 @@ import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer/Customer
 import { replaceReview } from '../../components/CustomerReviews/helpers';
 import FrequentlyAskedQuestions from '../../components/FrequentlyAskedQuestions/FrequentlyAskedQuestions';
 import { useCreateUpdateOrder } from '../../gql/order';
+import RouterLink from '../../components/RouterLink/RouterLink';
 
 interface IDetailsPageProps {
   capId: number;
@@ -162,10 +162,17 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         >
           <Rating size="regular" score={vehicleDetails?.averageRating || 0} />
           {vehicleDetails?.brochureUrl && (
-            <Link href={vehicleDetails?.brochureUrl} color="teal" size="xsmall">
+            <RouterLink
+              link={{
+                href: vehicleDetails?.brochureUrl,
+                label: '',
+                target: '_blank',
+              }}
+              classNames={{ color: 'teal', size: 'xsmall' }}
+            >
               Download Brochure{' '}
               <Icon color="teal" size="xsmall" icon={<DownloadSharp />} />
-            </Link>
+            </RouterLink>
           )}
         </div>
         <MediaGallery
