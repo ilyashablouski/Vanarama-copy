@@ -9,6 +9,9 @@
 
 export interface PersonByToken_personByToken {
   uuid: string;
+  firstName: string;
+  lastName: string;
+  partyUuid: string;
 }
 
 export interface PersonByToken {

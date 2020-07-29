@@ -36,6 +36,9 @@ const PERSON_BY_TOKEN_QUERY = gql`
   query PersonByToken($token: String!) {
     personByToken(token: $token) {
       uuid
+      firstName
+      lastName
+      partyUuid
     }
   }
 `;
@@ -50,7 +53,7 @@ export function usePersonByTokenLazyQuery(
   );
 }
 
-const handleAccountFetchError = () =>
+export const handleAccountFetchError = () =>
   toast.error(
     'Sorry there seems to be an issue with your request. Pleaser try again in a few moments',
     'Dolor ut tempor eiusmod enim consequat laboris dolore ut pariatur labore sunt incididunt dolore veniam mollit excepteur dolor aliqua minim nostrud adipisicing culpa aliquip ex',
@@ -108,7 +111,7 @@ const AboutYouPage: NextPage = () => {
     client.writeQuery({
       query: gql`
         query WriteCachedPersonInformation {
-          uuid
+          uuid @client
         }
       `,
       data: {

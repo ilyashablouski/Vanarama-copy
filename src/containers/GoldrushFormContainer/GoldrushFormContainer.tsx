@@ -23,7 +23,7 @@ const handleNetworkError = () =>
 const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
   isPostcodeVisible,
   capId,
-  kind,
+  opportunityType,
   vehicleType,
   callBack,
   termsAndConditions,
@@ -55,7 +55,7 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
             postcode: values.postcode || DEFAULT_POSTCODE,
             marketingPreference: Boolean(values.consent),
             capId,
-            kind,
+            opportunityType,
             vehicleType,
             termsAndConditions:
               termsAndConditions || Boolean(values.termsAndCons),

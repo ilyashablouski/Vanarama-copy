@@ -37,21 +37,25 @@ const mocked: MockedResponse[] = [
           sections: {
             hero: {
               title: 'The Vehicle Leasing Experts',
+              titleTag: 'h2',
               body:
-                'Brand New Cars, In Stock Delivered Fast and Free __From Just £115pm__',
+                'Brand New Cars, In Stock Delivered Fast and Free From Just £115pm',
               image: null,
             },
             leadText: {
-              heading: 'Large Sales Heading!',
+              heading: 'Best Vehicle Lease Deals In The UK',
+              titleTag: 'h1',
               description:
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio aspernatur fugiat.',
+                'Upgrade To A Brand New Vehicle Today From As Little As £115pm',
             },
             cards: {
               name: 'Product Categories',
               cards: [
                 {
                   title: null,
-                  body: null,
+                  titleTag: 'h2',
+                  body:
+                    'Find the perfect van lease for your business with a huge range of brand new, in-stock commercial vehicles to choose from at unbeatable prices.',
                   image: {
                     file: {
                       url:
@@ -59,28 +63,115 @@ const mocked: MockedResponse[] = [
                     },
                   },
                   link: {
-                    url: '#',
-                    text: 'Search Vans',
+                    url:
+                      'https://next-storefront.grid.test.autorama.co.uk/hub/vans',
+                    text: 'Van Leasing',
+                  },
+                },
+                {
+                  title: null,
+                  titleTag: null,
+                  body:
+                    'Choose your next brand new pickup truck from our massive range of cutting-edge models from all the biggest manufacturers.',
+                  image: {
+                    file: {
+                      url:
+                        '//images.ctfassets.net/3xid768u5joa/2jt1VrkpXerFKA6V5j3AMG/a1dd09eed5c3e144c7de6e4fd8c833ca/BMWX70419_4_bvxdvu.jpg',
+                    },
+                  },
+                  link: {
+                    url:
+                      'https://next-storefront.grid.test.autorama.co.uk/hub/pickups',
+                    text: 'Pickup Truck Leasing',
+                  },
+                },
+                {
+                  title: null,
+                  titleTag: null,
+                  body:
+                    'Drive away your brand new car with affordable monthly payments. We offer superb business & personal contract hire deals on a range of lease cars.',
+                  image: {
+                    file: {
+                      url:
+                        '//images.ctfassets.net/3xid768u5joa/2QbzKD75ObIHIeVMzNeCF/1455166780ba4eb095c965e278a63b69/AudiQ30718_4_k5ojqt.jpg',
+                    },
+                  },
+                  link: {
+                    url:
+                      'https://next-storefront.grid.test.autorama.co.uk/hub/cars',
+                    text: 'car-leasing',
                   },
                 },
               ],
             },
             featured1: {
               title: 'Why Leasing?',
-              body: "If you're looking to drive a brand new car..",
+              titleTag: 'h2',
+              body:
+                "If you're looking to drive a brand new car, van or truck without any of the hassle - leasing might just be for you! It's affordable, simple and you're not left with a depreciating asset at the end of your contract.",
             },
             featured2: {
               title: 'What Makes Us The Lease Experts?',
-              body: 'Vanarama is more than just..',
+              titleTag: null,
+              body:
+                "Vanarama is more than just a broker or leasing company, we've been leading the market and putting our customers at the heart of everything we do for more than a decade.\n\nAfter 15 years of experience in business & personal van, pickup and car leasing, we're still pushing the industry forward & our vast buying power gives us access to a range of vehicles and lease deal pricing you can't get anywhere else.",
             },
             tiles: {
-              name: 'Tiles',
+              name: 'Benefits Grid',
+              titleTag: 'h2',
+              tilesTitle: 'Why Lease With Vanarama',
               tiles: [
                 {
                   title: 'Price Protection',
+                  link: null,
                   body:
                     'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
-                  image: null,
+                  image: {
+                    file: {
+                      url:
+                        '//images.ctfassets.net/3xid768u5joa/1ZIIHCFIqBIVkse5D80ymR/59d962d5cf10c6f689c847ddab436218/price-promise.jpg',
+                    },
+                    title: 'price-promise',
+                  },
+                },
+                {
+                  title: 'Customer Reviews',
+                  link: null,
+                  body:
+                    'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
+                  image: {
+                    file: {
+                      url:
+                        '//images.ctfassets.net/3xid768u5joa/27vSXvAmh2dn3wh58xoJkP/368c1854210afeaa24f0700fc7c509fc/Icon-Contract-RGB_Contract-Colour-400px-RGB.png',
+                    },
+                    title: 'Smiths-Vanarama-Deal',
+                  },
+                },
+                {
+                  title: 'Quote Online',
+                  link: null,
+                  body:
+                    'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
+                  image: {
+                    file: {
+                      url:
+                        '//images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png',
+                    },
+                    title: 'Insurance-Icon',
+                  },
+                },
+                {
+                  title: 'Confused About Leasing?',
+                  link: null,
+                  body:
+                    'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
+                  image: {
+                    file: {
+                      url:
+                        '//images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png',
+                    },
+                    title: 'Fleet-Icon',
+                  },
                 },
               ],
             },
@@ -96,12 +187,10 @@ const mocked: MockedResponse[] = [
         vehicleTypes: [VehicleTypeEnum.LCV],
       },
     },
-    result: () => {
-      return {
-        data: {
-          ...mockSearchPodResponse,
-        },
-      };
+    result: {
+      data: {
+        ...mockSearchPodResponse,
+      },
     },
   },
   {
@@ -109,51 +198,49 @@ const mocked: MockedResponse[] = [
       query: PRODUCT_CARD_CONTENT,
       variables: {
         type: VehicleTypeEnum.LCV,
-        subType: 'VAN',
+        excludeBodyType: 'Pickup',
         size: 9,
         offer: true,
       },
     },
-    result: () => {
-      return {
-        data: {
-          productCarousel: [
-            {
-              capId: '44514',
-              isOnOffer: true,
-              manufacturerName: 'Citroen',
-              derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
-              rangeName: 'Berlingo',
-              imageUrl:
-                'https://images.autorama.co.uk/Photos/Cap/Vehicles/161237/cap-44514-161237.jpg',
-              leadTime: 'Factory Order',
-              averageRating: 4.7,
-              businessRate: 139,
-              personalRate: 186.98,
-              offerPosition: null,
-              keyInformation: [
-                {
-                  name: 'Transmission',
-                  value: 'Manual',
-                },
-                {
-                  name: 'Fuel Type',
-                  value: 'Diesel',
-                },
-                {
-                  name: 'Emissions',
-                  value: '111',
-                },
-                {
-                  name: 'Fuel Economy',
-                  value: '67.2',
-                },
-              ],
-              vehicleType: VehicleTypeEnum.LCV,
-            },
-          ],
-        } as ProductCardData,
-      };
+    result: {
+      data: {
+        productCarousel: [
+          {
+            capId: '44514',
+            isOnOffer: true,
+            manufacturerName: 'Citroen',
+            derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
+            rangeName: 'Berlingo',
+            imageUrl:
+              'https://images.autorama.co.uk/Photos/Cap/Vehicles/161237/cap-44514-161237.jpg',
+            leadTime: 'Factory Order',
+            averageRating: 4.7,
+            businessRate: 139,
+            personalRate: 186.98,
+            offerPosition: null,
+            keyInformation: [
+              {
+                name: 'Transmission',
+                value: 'Manual',
+              },
+              {
+                name: 'Fuel Type',
+                value: 'Diesel',
+              },
+              {
+                name: 'Emissions',
+                value: '111',
+              },
+              {
+                name: 'Fuel Economy',
+                value: '67.2',
+              },
+            ],
+            vehicleType: VehicleTypeEnum.LCV,
+          },
+        ],
+      } as ProductCardData,
     },
   },
   {
@@ -165,46 +252,44 @@ const mocked: MockedResponse[] = [
         size: 9,
       },
     },
-    result: () => {
-      return {
-        data: {
-          productCarousel: [
-            {
-              capId: '83615',
-              isOnOffer: true,
-              manufacturerName: 'Ford',
-              derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
-              rangeName: 'Focus',
-              imageUrl:
-                'https://images.autorama.co.uk/Photos/Vehicles/155485/im_3411.jpg',
-              leadTime: '14-21 Day Delivery',
-              averageRating: 4.8,
-              businessRate: 175.96,
-              personalRate: 210.96,
-              offerPosition: 1,
-              keyInformation: [
-                {
-                  name: 'Transmission',
-                  value: 'Manual',
-                },
-                {
-                  name: 'Fuel Type',
-                  value: 'Petrol',
-                },
-                {
-                  name: 'Emissions',
-                  value: '97',
-                },
-                {
-                  name: 'Fuel Economy',
-                  value: '67.3',
-                },
-              ],
-              vehicleType: VehicleTypeEnum.CAR,
-            },
-          ],
-        } as ProductCardData,
-      };
+    result: {
+      data: {
+        productCarousel: [
+          {
+            capId: '83615',
+            isOnOffer: true,
+            manufacturerName: 'Ford',
+            derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
+            rangeName: 'Focus',
+            imageUrl:
+              'https://images.autorama.co.uk/Photos/Vehicles/155485/im_3411.jpg',
+            leadTime: '14-21 Day Delivery',
+            averageRating: 4.8,
+            businessRate: 175.96,
+            personalRate: 210.96,
+            offerPosition: 1,
+            keyInformation: [
+              {
+                name: 'Transmission',
+                value: 'Manual',
+              },
+              {
+                name: 'Fuel Type',
+                value: 'Petrol',
+              },
+              {
+                name: 'Emissions',
+                value: '97',
+              },
+              {
+                name: 'Fuel Economy',
+                value: '67.3',
+              },
+            ],
+            vehicleType: VehicleTypeEnum.CAR,
+          },
+        ],
+      } as ProductCardData,
     },
   },
   {
@@ -212,51 +297,49 @@ const mocked: MockedResponse[] = [
       query: PRODUCT_CARD_CONTENT,
       variables: {
         type: VehicleTypeEnum.LCV,
-        subType: 'PICKUP',
+        bodyType: 'Pickup',
         size: 9,
         offer: true,
       },
     },
-    result: () => {
-      return {
-        data: {
-          productCarousel: [
-            {
-              capId: '44514',
-              isOnOffer: true,
-              manufacturerName: 'Citroen',
-              derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
-              rangeName: 'Berlingo',
-              imageUrl:
-                'https://images.autorama.co.uk/Photos/Cap/Vehicles/161237/cap-44514-161237.jpg',
-              leadTime: 'Factory Order',
-              averageRating: 4.7,
-              businessRate: 139,
-              personalRate: 186.98,
-              offerPosition: null,
-              keyInformation: [
-                {
-                  name: 'Transmission',
-                  value: 'Manual',
-                },
-                {
-                  name: 'Fuel Type',
-                  value: 'Diesel',
-                },
-                {
-                  name: 'Emissions',
-                  value: '111',
-                },
-                {
-                  name: 'Fuel Economy',
-                  value: '67.2',
-                },
-              ],
-              vehicleType: VehicleTypeEnum.LCV,
-            },
-          ],
-        } as ProductCardData,
-      };
+    result: {
+      data: {
+        productCarousel: [
+          {
+            capId: '44514',
+            isOnOffer: true,
+            manufacturerName: 'Citroen',
+            derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
+            rangeName: 'Berlingo',
+            imageUrl:
+              'https://images.autorama.co.uk/Photos/Cap/Vehicles/161237/cap-44514-161237.jpg',
+            leadTime: 'Factory Order',
+            averageRating: 4.7,
+            businessRate: 139,
+            personalRate: 186.98,
+            offerPosition: null,
+            keyInformation: [
+              {
+                name: 'Transmission',
+                value: 'Manual',
+              },
+              {
+                name: 'Fuel Type',
+                value: 'Diesel',
+              },
+              {
+                name: 'Emissions',
+                value: '111',
+              },
+              {
+                name: 'Fuel Economy',
+                value: '67.2',
+              },
+            ],
+            vehicleType: VehicleTypeEnum.LCV,
+          },
+        ],
+      } as ProductCardData,
     },
   },
 ];

@@ -58,11 +58,11 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
         id="panel:1-1"
         role="tabpanel"
       >
-        <span
+        <h2
           className="heading -dark -small"
         >
-          Search vehicles
-        </span>
+          Search Vans
+        </h2>
         <form
           className="form"
         >
@@ -167,16 +167,6 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                     Make
                     s
                   </option>
-                  <option
-                    value="Citroën"
-                  >
-                    Citroën
-                  </option>
-                  <option
-                    value="Dacia"
-                  >
-                    Dacia
-                  </option>
                 </select>
                 <span
                   className="icon select--chevron"
@@ -239,34 +229,6 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                     Model
                     s
                   </option>
-                  <optgroup
-                    label="Citroën"
-                  >
-                    <option
-                      value="Berlingo"
-                    >
-                      Berlingo
-                    </option>
-                    <option
-                      value="Dispatch"
-                    >
-                      Dispatch
-                    </option>
-                    <option
-                      value="Relay"
-                    >
-                      Relay
-                    </option>
-                  </optgroup>
-                  <optgroup
-                    label="Dacia"
-                  >
-                    <option
-                      value="Duster"
-                    >
-                      Duster
-                    </option>
-                  </optgroup>
                 </select>
                 <span
                   className="icon select--chevron"
@@ -413,11 +375,11 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
         id="panel:1-2"
         role="tabpanel"
       >
-        <span
+        <h2
           className="heading -dark -small"
         >
-          Search vehicles
-        </span>
+          Search Vans
+        </h2>
         <form
           className="form"
         >

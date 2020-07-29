@@ -10,7 +10,7 @@ export const CREATE_OPPORTUNITY_MUTATION = gql`
     $email: String!
     $fullName: String!
     $marketingPreference: Boolean
-    $kind: String!
+    $opportunityType: OpportunityTypeEnum!
     $phoneNumber: String!
     $postcode: String!
     $termsAndConditions: Boolean
@@ -22,7 +22,7 @@ export const CREATE_OPPORTUNITY_MUTATION = gql`
         communicationsConsent: $marketingPreference
         email: $email
         fullName: $fullName
-        kind: $kind
+        opportunityType: $opportunityType
         phoneNumber: $phoneNumber
         postcode: $postcode
         termsAndConditions: $termsAndConditions

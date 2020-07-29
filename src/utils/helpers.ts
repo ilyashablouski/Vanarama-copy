@@ -16,7 +16,7 @@ export interface ICompareVehicle {
 }
 
 export interface IVehicle extends ICard {
-  bodyStyle: string | null | undefined;
+  bodyStyle?: string | null | undefined;
 }
 
 export const genDays = () => [...Array(31)].map((_, i) => i + 1);
@@ -181,9 +181,11 @@ export const changeCompares = async (vehicle: IVehicle | ICompareVehicle) => {
 };
 
 export const isCorrectCompareType = (
-  data: IVehicle,
-  compareVehicles: IVehicle[],
+  data?: IVehicle,
+  compareVehicles?: IVehicle[],
 ) => {
+  if (!data || !compareVehicles) return false;
+
   if (
     compareVehicles.some(
       vehicle =>

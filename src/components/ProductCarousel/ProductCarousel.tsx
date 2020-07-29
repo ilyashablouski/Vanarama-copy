@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/camelcase */
+import React, { useContext } from 'react';
 import Router from 'next/router';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
@@ -6,10 +7,15 @@ import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/Product
 import Price from '@vanarama/uibook/lib/components/atoms/price';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
+import { isCorrectCompareType, changeCompares } from '../../utils/helpers';
+import { CompareContext } from '../../pages/_app';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import RouterLink from '../RouterLink/RouterLink';
 import { getProductPageUrl } from '../../utils/url';
-import { GetProductCard } from '../../../generated/GetProductCard';
+import {
+  GetProductCard,
+  GetProductCard_productCard,
+} from '../../../generated/GetProductCard';
 import getIconMap from '../../utils/getIconMap';
 import truncateString from '../../utils/truncateString';
 import useSliderProperties from '../../hooks/useSliderProperties';
@@ -28,6 +34,19 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
   dataTestIdBtn,
 }) => {
   const { slidesToShow } = useSliderProperties();
+
+  const {
+    compareVehicles,
+    setCompareVehicles,
+    setModalCompareTypeError,
+  } = useContext(CompareContext);
+
+  const getBodyStyle = (product: GetProductCard_productCard | null) => {
+    const vehicle = data.derivatives?.find(
+      derivative => derivative.id === product?.capId,
+    );
+    return vehicle ? vehicle.bodyStyle?.name : '';
+  };
 
   return (
     <Carousel className="-mh-auto" countItems={countItems || 6}>
@@ -57,8 +76,26 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                 ),
                 label: info?.value || '',
               }))}
+              onCompare={async () => {
+                if (
+                  isCorrectCompareType(
+                    { bodyStyle: getBodyStyle(product), ...product },
+                    compareVehicles,
+                  )
+                ) {
+                  const compares = await changeCompares({
+                    bodyStyle: getBodyStyle(product),
+                    ...product,
+                  });
+                  setCompareVehicles(compares);
+                } else {
+                  setModalCompareTypeError(true);
+                }
+              }}
+              compared={compareVehicles.some(
+                vehicle => `${vehicle.capId}` === `${product.capId}`,
+              )}
               imageSrc={product.imageUrl || '/vehiclePlaceholder.jpg'}
-              onCompare={() => true}
               onWishlist={() => true}
               title={{
                 title: '',
@@ -79,7 +116,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                   />
                 ),
                 description: product.derivativeName || '',
-                score: product.averageRating || undefined,
+                score: product.averageRating || 5,
               }}
             >
               <div className="-flex-h">

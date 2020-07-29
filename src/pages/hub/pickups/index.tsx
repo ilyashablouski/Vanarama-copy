@@ -24,9 +24,9 @@ import League from '@vanarama/uibook/lib/components/organisms/league';
 
 import {
   HubPickupPageData,
-  HubPickupPageData_hubPickupPage_sections_tiles_tiles as TileData,
+  HubPickupPageData_hubPickupPage_sections_tiles1_tiles as AccessoryData,
+  HubPickupPageData_hubPickupPage_sections_tiles2_tiles as TileData,
   HubPickupPageData_hubPickupPage_sections_steps_steps as StepData,
-  HubPickupPageData_hubPickupPage_sections_accessories_accessories as AccessoryData,
 } from '../../../../generated/HubPickupPageData';
 import {
   ProductCardData,
@@ -54,7 +54,7 @@ export const PickupsPage: NextPage = () => {
   const { data: products } = useQuery<ProductCardData>(PRODUCT_CARD_CONTENT, {
     variables: {
       type: VehicleTypeEnum.LCV,
-      subType: 'PICKUP',
+      bodyType: 'Pickup',
       size: 9,
       offer: true,
     },
@@ -171,7 +171,7 @@ export const PickupsPage: NextPage = () => {
                     />
                   ),
                   description: item?.derivativeName || '',
-                  score: item?.averageRating || 0,
+                  score: item?.averageRating || 5,
                 }}
               >
                 <div className="-flex-h">
@@ -275,9 +275,9 @@ export const PickupsPage: NextPage = () => {
 
       <section className="row:accessories">
         <Heading size="large" color="black">
-          {data?.hubPickupPage.sections.accessories?.name}
+          {data?.hubPickupPage.sections.tiles1?.name}
         </Heading>
-        {data?.hubPickupPage.sections.accessories?.accessories?.map(
+        {data?.hubPickupPage.sections.tiles1?.tiles?.map(
           (acc: AccessoryData, idx: number) => (
             <div key={acc.title || idx}>
               <Image
@@ -324,7 +324,7 @@ export const PickupsPage: NextPage = () => {
       <hr className="fullWidth" />
 
       <section className="row:features-4col">
-        {data?.hubPickupPage.sections.tiles?.tiles?.map(
+        {data?.hubPickupPage.sections.tiles2?.tiles?.map(
           (tile: TileData, idx: number) => (
             <div key={tile.title || idx}>
               <Tile className="-plain -button -align-center" plain>

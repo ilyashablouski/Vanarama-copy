@@ -95,12 +95,16 @@ function ProgressSection() {
   if (hideProgress) {
     return null;
   }
-
+  const soleTraderPathMatchResult = pathname.match(
+    /^\/b2b\/olaf\/sole-trader\/.+/,
+  );
+  const isSoleTraderJourney = (soleTraderPathMatchResult || []).length > 0;
   const isB2BJourney = pathname.match(/^\/b2b\/.+/);
+
   return (
     <div className="row:progress">
       {isB2BJourney ? (
-        <BusinessProgressIndicator />
+        <BusinessProgressIndicator isSoleTraderJouney={isSoleTraderJourney} />
       ) : (
         <ConsumerProgressIndicator />
       )}

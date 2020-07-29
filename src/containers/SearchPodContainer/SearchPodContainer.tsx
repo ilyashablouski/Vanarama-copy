@@ -8,7 +8,7 @@ import {
   carPageTabFields,
   vanPageTabFields,
 } from './config';
-import { filterListByTypes, filterTypeAndBudget } from './gql';
+import { useFilterList, filterTypeAndBudget } from './gql';
 import {
   makeHandler,
   modelHandler,
@@ -29,9 +29,10 @@ const SearchPodContainer = () => {
 
   const [vansDataCache, setVansDataCache] = useState({} as IFilterList);
   const [carsDataCache, setCarsDataCache] = useState({} as IFilterList);
+  const [pickupMakes, setPickupMakes] = useState([] as string[]);
 
   const [config, setConfig] = useState([] as any);
-  const [headingText, setHeadingText] = useState('Search vehicles');
+  const [headingText, setHeadingText] = useState('Search Vans');
   // set it to true if we need preselect some data
   const [isShouldPreselectTypes, setIsShouldPreselectTypes] = useState(false);
 
@@ -66,12 +67,24 @@ const SearchPodContainer = () => {
   const selectMakeVans = watch('makeVans');
   const selectModelVans = watch('modelVans');
   const selectModelCars = watch('modelCars');
+  const selectTypeVans = watch('typeVans');
+  const selectTypeCars = watch('typeCars');
 
-  const { data, refetch } = filterListByTypes([Tabs[activeIndex]]);
+  const { data, refetch } = useFilterList([Tabs[activeIndex]]);
   const [getVehicleData, { data: actualVehicleData }] = filterTypeAndBudget(
     [Tabs[activeIndex]],
     activeIndex === 1 ? selectMakeVans : selectMakeCars,
     activeIndex === 1 ? selectModelVans : selectModelCars,
+    activeIndex === 1 ? [selectTypeVans] : [selectTypeCars],
+    resp => {
+      if (
+        selectTypeVans === 'Pickup' &&
+        activeIndex === 1 &&
+        !pickupMakes.length &&
+        resp?.filterList
+      )
+        setPickupMakes(makeHandler(resp?.filterList));
+    },
   );
 
   const setAllDataForVans = (filtersData: IFilterList) => {
@@ -91,7 +104,7 @@ const SearchPodContainer = () => {
   useEffect(() => {
     if (router.pathname.indexOf('cars') > -1) {
       setConfig(carPageTabFields);
-      setHeadingText('Vehicle Search');
+      setHeadingText('Search Car Leasing');
       setActiveIndex(2);
     } else if (router.pathname.indexOf('vans') > -1) {
       setHeadingText('Search Van Leasing');
@@ -106,7 +119,7 @@ const SearchPodContainer = () => {
   // get a data for dropdowns
   useEffect(() => {
     if (data?.filterList) {
-      if (data.filterList.vehicleTypes[0] === 'LCV') {
+      if (data.filterList?.vehicleTypes?.[0] === 'LCV') {
         setAllDataForVans(data.filterList);
       } else {
         setAllDataForCars(data.filterList);
@@ -119,13 +132,31 @@ const SearchPodContainer = () => {
     if (typeVans.length && isShouldPreselectTypes) {
       setValue('typeVans', 'Pickup');
       setIsShouldPreselectTypes(false);
+      getVehicleData();
     }
-  }, [typeVans, isShouldPreselectTypes, setValue]);
+  }, [typeVans, isShouldPreselectTypes, setValue, getVehicleData]);
 
   // call for fetch data if tab was changed, should call once for every tab
   useEffect(() => {
     if (!vansDataCache || !carsDataCache) refetch();
   }, [activeIndex, vansDataCache, carsDataCache, refetch]);
+
+  // using for set actual makes for pickups and return back all makes for other types
+  useEffect(() => {
+    const makes = makeHandler(vansDataCache);
+    // compare current state with new and update
+    const shouldUpdateState =
+      makes.length === makeVans.length &&
+      makes.sort().every((value, index) => value === makeVans.sort()[index]);
+    if (selectTypeVans !== 'Pickup' && activeIndex === 1 && !shouldUpdateState)
+      setMakesVans(makes);
+    else if (
+      selectTypeVans === 'Pickup' &&
+      activeIndex === 1 &&
+      !!pickupMakes.length
+    )
+      setMakesVans(pickupMakes);
+  }, [selectTypeVans, pickupMakes, activeIndex, makeVans, vansDataCache]);
 
   // set actual models value for a specific manufacturer
   useEffect(() => {
@@ -200,7 +231,7 @@ const SearchPodContainer = () => {
           if (
             budgetBetween(
               range,
-              actualVehicleData?.filterList.financeProfilesRateMin,
+              actualVehicleData?.filterList?.financeProfilesRateMin || 0,
             )
           ) {
             array.push(index);
@@ -208,7 +239,7 @@ const SearchPodContainer = () => {
           if (
             budgetBetween(
               range,
-              actualVehicleData?.filterList.financeProfilesRateMax,
+              actualVehicleData?.filterList?.financeProfilesRateMax || 551,
             )
           ) {
             array.push(index > -1 ? index + 1 : array.length);
@@ -218,14 +249,14 @@ const SearchPodContainer = () => {
         [] as number[],
       );
       if (activeIndex === 1) {
-        setTypesVans(actualVehicleData?.filterList.bodyStyles);
+        setTypesVans(actualVehicleData?.filterList.bodyStyles || []);
         setBudgetVans(
           minBudgetIndex >= 0
             ? budget.slice(minBudgetIndex, maxBudgetIndex)
             : budget,
         );
       } else {
-        setTypesCars(actualVehicleData?.filterList.bodyStyles);
+        setTypesCars(actualVehicleData?.filterList.bodyStyles || []);
         setBudgetCars(
           minBudgetIndex >= 0
             ? budget.slice(minBudgetIndex, maxBudgetIndex)
@@ -264,10 +295,16 @@ const SearchPodContainer = () => {
     });
   };
 
+  const onChangeTab = (index: number) => {
+    setActiveIndex(index);
+    if (index === 1) setHeadingText('Search Vans');
+    if (index === 2) setHeadingText('Search Cars');
+  };
+
   return (
     <SearchPod
       activeTab={activeIndex}
-      onChangeTab={(index: number) => setActiveIndex(index)}
+      onChangeTab={(index: number) => onChangeTab(index)}
       config={config}
       onSearch={onSearch}
       getOptions={field => getOptions(field)}

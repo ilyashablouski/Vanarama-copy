@@ -11,7 +11,7 @@ jest.mock('../../OrdersInformation/gql');
 jest.mock('@apollo/client');
 
 const mockPush = jest.fn();
-const router = jest.mock('next/router', () => ({
+jest.mock('next/router', () => ({
   useRouter() {
     return {
       query: {
@@ -22,53 +22,59 @@ const router = jest.mock('next/router', () => ({
   },
 }));
 
-const mockOrdersValue = {
-  loading: false,
-  data: {
-    ordersByPartyUuid: [
-      {
-        id: 'id',
-        leaseType: LeaseTypeEnum.PERSONAL,
-        createdAt: new Date(1592293249880),
-        lineItems: [
-          {
-            vehicleProduct: {
-              derivativeCapId: 'derivativeCapId',
-              description: 'description',
-              depositPayment: 100,
-              monthlyPayment: 100,
-              term: 1,
-              annualMileage: 100,
-              depositMonths: 100,
-              funder: 'funder',
-              colour: 'colour',
-              trim: 'trim',
-              maintenance: false,
+const mockOrdersValue = [
+  jest.fn(),
+  {
+    loading: false,
+    data: {
+      ordersByPartyUuid: [
+        {
+          id: 'id',
+          leaseType: LeaseTypeEnum.PERSONAL,
+          createdAt: new Date(1592293249880),
+          lineItems: [
+            {
+              vehicleProduct: {
+                derivativeCapId: 'derivativeCapId',
+                description: 'description',
+                depositPayment: 100,
+                monthlyPayment: 100,
+                term: 1,
+                annualMileage: 100,
+                depositMonths: 100,
+                funder: 'funder',
+                colour: 'colour',
+                trim: 'trim',
+                maintenance: false,
+              },
             },
-          },
-        ],
-      },
-    ],
+          ],
+        },
+      ],
+    },
+    error: undefined,
   },
-  error: undefined,
-};
+];
 
-const mockCarValue = {
-  loading: false,
-  data: {
-    derivatives: [
-      {
-        id: 'derivativeCapId',
-        manufacturerName: 'manufacturerName',
-        modelName: 'modelName',
-        name: 'name',
-        fuelTypeName: 'fuelTypeName',
-        transmissionName: 'transmissionName',
-      },
-    ],
+const mockCarValue = [
+  jest.fn(),
+  {
+    loading: false,
+    data: {
+      derivatives: [
+        {
+          id: 'derivativeCapId',
+          manufacturerName: 'manufacturerName',
+          modelName: 'modelName',
+          name: 'name',
+          fuelTypeName: 'fuelTypeName',
+          transmissionName: 'transmissionName',
+        },
+      ],
+    },
+    error: undefined,
   },
-  error: undefined,
-};
+];
 
 describe('<MyOverview />', () => {
   afterEach(() => {
@@ -81,9 +87,7 @@ describe('<MyOverview />', () => {
     (useCarDerivativesData as jest.Mock).mockReturnValue(mockCarValue);
 
     const getComponent = () => {
-      return renderer
-        .create(<MyOverview partyByUuid="" quote router={router as any} />)
-        .toJSON();
+      return renderer.create(<MyOverview quote />).toJSON();
     };
 
     const tree = getComponent();
@@ -96,11 +100,7 @@ describe('<MyOverview />', () => {
     (useCarDerivativesData as jest.Mock).mockReturnValue(mockCarValue);
 
     const getComponent = () => {
-      return renderer
-        .create(
-          <MyOverview partyByUuid="" quote={false} router={router as any} />,
-        )
-        .toJSON();
+      return renderer.create(<MyOverview quote={false} />).toJSON();
     };
 
     const tree = getComponent();
@@ -108,16 +108,17 @@ describe('<MyOverview />', () => {
   });
 
   it('renders correctly with error', async () => {
-    (useOrdersByPartyUuidData as jest.Mock).mockReturnValue({
-      loading: false,
-      data: undefined,
-      error: { message: 'Error' },
-    });
+    (useOrdersByPartyUuidData as jest.Mock).mockReturnValue([
+      jest.fn(),
+      {
+        loading: false,
+        data: undefined,
+        error: { message: 'Error' },
+      },
+    ]);
 
     const getComponent = () => {
-      return renderer
-        .create(<MyOverview partyByUuid="" quote router={router as any} />)
-        .toJSON();
+      return renderer.create(<MyOverview quote />).toJSON();
     };
 
     const tree = getComponent();
@@ -125,16 +126,17 @@ describe('<MyOverview />', () => {
   });
 
   it('renders correctly with loading', async () => {
-    (useOrdersByPartyUuidData as jest.Mock).mockReturnValue({
-      loading: true,
-      data: undefined,
-      error: undefined,
-    });
+    (useOrdersByPartyUuidData as jest.Mock).mockReturnValue([
+      jest.fn(),
+      {
+        loading: true,
+        data: undefined,
+        error: undefined,
+      },
+    ]);
 
     const getComponent = () => {
-      return renderer
-        .create(<MyOverview partyByUuid="" quote router={router as any} />)
-        .toJSON();
+      return renderer.create(<MyOverview quote />).toJSON();
     };
 
     const tree = getComponent();

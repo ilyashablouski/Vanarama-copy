@@ -34,7 +34,7 @@ const handleNetworkError = () =>
 
 const MyDetailsPage: NextPage<IProps> = () => {
   const router = useRouter();
-  const { partyByUuid, uuid } = router.query as MyDetailsQueryParams;
+  const { uuid } = router.query as MyDetailsQueryParams;
 
   const [resetPassword, setResetPassword] = useState(false);
 
@@ -51,7 +51,7 @@ const MyDetailsPage: NextPage<IProps> = () => {
           My Details
         </Heading>
       </div>
-      <OrderInformationContainer uuid={uuid} partyByUuid={partyByUuid || ''} />
+      <OrderInformationContainer />
       <div className="row:my-details">
         <div className="my-details--form">
           <PersonalInformationFormContainer personUuid={uuid || personUuid} />

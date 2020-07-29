@@ -15,7 +15,10 @@ interface IVehicleCardProps {
 const RangeCard = memo(
   ({ isPersonalPrice, data, viewRange }: IVehicleCardProps) => {
     // TODO: Should be changed when query for get images will updated
-    const { data: imagesData } = getRangeImages(data?.rangeId || '');
+    const { data: imagesData } = getRangeImages(
+      data?.rangeId || '',
+      !data?.rangeId,
+    );
     const imageProps = imagesData?.vehicleImages?.[0]
       ? {
           imageSrc: imagesData?.vehicleImages?.[0]?.mainImageUrl || '',

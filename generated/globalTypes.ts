@@ -16,20 +16,22 @@ export enum LeaseTypeEnum {
 }
 
 /**
+ * Opportunity type enum
+ */
+export enum OpportunityTypeEnum {
+  CALLBACK = "CALLBACK",
+  FLEET = "FLEET",
+  INSURANCE = "INSURANCE",
+  QUOTE = "QUOTE",
+}
+
+/**
  * Sort field
  */
 export enum SortField {
   manufacturer = "manufacturer",
   offerRanking = "offerRanking",
   rate = "rate",
-}
-
-export enum SubVehicleTypeEnum {
-  LARGEVAN = "LARGEVAN",
-  MEDIUMVAN = "MEDIUMVAN",
-  PICKUP = "PICKUP",
-  SMALLVAN = "SMALLVAN",
-  VAN = "VAN",
 }
 
 /**
@@ -376,6 +378,7 @@ export interface VehicleProductInputObject {
   finalPayment?: number | null;
   financeType?: string | null;
   funder?: string | null;
+  funderId?: string | null;
   maintenance?: boolean | null;
   monthlyPayment?: number | null;
   term?: number | null;

@@ -173,7 +173,7 @@ export const CarsPage: NextPage = () => {
                     />
                   ),
                   description: item?.derivativeName || '',
-                  score: item?.averageRating || 0,
+                  score: item?.averageRating || 5,
                 }}
               >
                 <div className="-flex-h">

@@ -66,17 +66,19 @@ const SearchPageContainer: React.FC<IProps> = ({
     [] as (GetDerivatives_derivatives | null)[],
   );
   const [lastCard, setLastCard] = useState('');
+  const [hasNextPage, setHasNextPage] = useState(true);
   const [isPersonal, setIsPersonal] = useState(true);
   const [isSpecialOffers, setIsSpecialOffers] = useState(
     getValueFromStorage(isServer) ?? true,
   );
   const [totalCount, setTotalCount] = useState(0);
 
-  const [filtersData, setFiltersData] = useState({});
+  const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
 
   const { refetch, loading } = useProductCardData(
     capIds,
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+    true,
   );
 
   // get Caps ids for product card request
@@ -86,23 +88,28 @@ const SearchPageContainer: React.FC<IProps> = ({
   // using onCompleted callback for request card data after vehicle list was loaded
   const [getVehicles, { data }] = getVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-    isMakePage ? true : isSpecialOffers,
+    isMakePage ? true : isSpecialOffers || null,
     async vehicles => {
       try {
         const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
         setCapsIds(responseCapIds);
-        return await refetch({
-          capIds: responseCapIds,
-          vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-        }).then(resp => {
-          setCardsData(resp.data?.productCard || []);
-          setCarDerivatives(resp.data?.derivatives || []);
-        });
+        if (responseCapIds.length) {
+          return await refetch({
+            capIds: responseCapIds,
+            vehicleType: isCarSearch
+              ? VehicleTypeEnum.CAR
+              : VehicleTypeEnum.LCV,
+          }).then(resp => {
+            setCardsData(resp.data?.productCard || []);
+            setCarDerivatives(resp.data?.derivatives || []);
+          });
+        }
+        return false;
       } catch {
         return false;
       }
     },
-    6,
+    isMakePage ? 6 : 9,
   );
   // using for cache request
   const [getVehiclesCache, { data: cacheData }] = getVehiclesList(
@@ -112,13 +119,18 @@ const SearchPageContainer: React.FC<IProps> = ({
       try {
         const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
         setCapsIds(responseCapIds);
-        return await refetch({
-          capIds: responseCapIds,
-          vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-        }).then(resp => {
-          setCardsDataCache(resp.data?.productCard || []);
-          setCarDerivativesCache(resp.data?.derivatives || []);
-        });
+        if (responseCapIds.length) {
+          return await refetch({
+            capIds: responseCapIds,
+            vehicleType: isCarSearch
+              ? VehicleTypeEnum.CAR
+              : VehicleTypeEnum.LCV,
+          }).then(resp => {
+            setCardsDataCache(resp.data?.productCard || []);
+            setCarDerivativesCache(resp.data?.derivatives || []);
+          });
+        }
+        return false;
       } catch {
         return false;
       }
@@ -162,7 +174,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           vehicleTypes: isCarSearch
             ? [VehicleTypeEnum.CAR]
             : [VehicleTypeEnum.LCV],
-          onOffer: isSpecialOffers,
+          onOffer: isSpecialOffers || null,
           ...filters,
           sortField,
         },
@@ -190,29 +202,43 @@ const SearchPageContainer: React.FC<IProps> = ({
     );
   };
 
-  // first API call after mount
+  // API call after load new pages
   useEffect(() => {
+    const objectQuery = Object.keys(router?.query || {});
     // prevent request with empty filters
-    const queryLenght = Object.keys(router?.query || {}).length;
-    if (!queryLenght) getVehicles();
-    if (isMakePage) {
+    const queryLength = objectQuery.length;
+    if (!queryLength || isMakePage) getVehicles();
+    if (
+      (queryLength === 1 && objectQuery[0] === 'bodyStyles') ||
+      (isMakePage && queryLength === 1)
+    ) {
       getVehicles({
         variables: {
           vehicleTypes: isCarSearch
             ? [VehicleTypeEnum.CAR]
             : [VehicleTypeEnum.LCV],
-          onOffer: true,
+          onOffer: isMakePage ? true : isSpecialOffers,
           sortField: SortField.offerRanking,
-          manufacturerName: router.query?.make as string,
+          manufacturerName: isMakePage
+            ? (router.query?.make as string)
+            : (filtersData.manufacturerName as string),
+          bodyStyles: router.query?.bodyStyles as string[],
         },
       });
       // if page mount without additional search params in query we made request
       // else request will be made after filters preselected
-      if (queryLenght < 2) getRanges();
+      if (isMakePage && queryLength < 2) getRanges();
     }
-    // router can't be in deps, because it will change after every url replace
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getVehicles, getRanges, isCarSearch, isMakePage]);
+  }, [
+    getVehicles,
+    isCarSearch,
+    isMakePage,
+    router,
+    setFiltersData,
+    filtersData,
+    getRanges,
+    isSpecialOffers,
+  ]);
 
   // prevent case when we navigate use back/forward button and useCallback return empty result list
   useEffect(() => {
@@ -237,6 +263,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     if (data?.vehicleList) {
       setVehicleList(data.vehicleList?.edges || []);
       setLastCard(data.vehicleList.pageInfo.endCursor || '');
+      setHasNextPage(data.vehicleList.pageInfo.hasNextPage || false);
       // use range lenght for manufacture page
       if (!isMakePage) setTotalCount(data.vehicleList.totalCount);
       setCapsIds(
@@ -264,13 +291,13 @@ const SearchPageContainer: React.FC<IProps> = ({
   // get vehicles to cache
   useEffect(() => {
     // don't make a request for cache in manufacture page
-    if (lastCard && !isMakePage)
+    if (lastCard && !isMakePage && hasNextPage)
       getVehiclesCache({
         variables: {
           vehicleTypes: isCarSearch
             ? [VehicleTypeEnum.CAR]
             : [VehicleTypeEnum.LCV],
-          onOffer: isSpecialOffers,
+          onOffer: isSpecialOffers || null,
           after: lastCard,
           ...filtersData,
           sortField,
@@ -284,6 +311,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     isSpecialOffers,
     sortField,
     isMakePage,
+    hasNextPage,
   ]);
 
   // set capsIds for cached data
@@ -385,7 +413,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             onSearch={onSearch}
             isCarSearch={isCarSearch}
             preSearchVehicleCount={totalCount}
-            isSpecialOffers={isSpecialOffers}
+            isSpecialOffers={isSpecialOffers || null}
           />
         </div>
       </div>
@@ -427,7 +455,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                         isPersonalPrice={isPersonal}
                       />
                     )),
-              [cardsData, isPersonal, ranges, carDer],
+              [cardsData, isPersonal, ranges, carDer, totalCount],
             )}
           </div>
           {!isMakePage ? (
