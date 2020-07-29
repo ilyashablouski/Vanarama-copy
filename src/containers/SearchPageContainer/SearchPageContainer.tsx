@@ -93,13 +93,18 @@ const SearchPageContainer: React.FC<IProps> = ({
       try {
         const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
         setCapsIds(responseCapIds);
-        return await refetch({
-          capIds: responseCapIds,
-          vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-        }).then(resp => {
-          setCardsData(resp.data?.productCard || []);
-          setCarDerivatives(resp.data?.derivatives || []);
-        });
+        if (responseCapIds.length) {
+          return await refetch({
+            capIds: responseCapIds,
+            vehicleType: isCarSearch
+              ? VehicleTypeEnum.CAR
+              : VehicleTypeEnum.LCV,
+          }).then(resp => {
+            setCardsData(resp.data?.productCard || []);
+            setCarDerivatives(resp.data?.derivatives || []);
+          });
+        }
+        return false;
       } catch {
         return false;
       }
@@ -114,13 +119,18 @@ const SearchPageContainer: React.FC<IProps> = ({
       try {
         const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
         setCapsIds(responseCapIds);
-        return await refetch({
-          capIds: responseCapIds,
-          vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-        }).then(resp => {
-          setCardsDataCache(resp.data?.productCard || []);
-          setCarDerivativesCache(resp.data?.derivatives || []);
-        });
+        if (responseCapIds.length) {
+          return await refetch({
+            capIds: responseCapIds,
+            vehicleType: isCarSearch
+              ? VehicleTypeEnum.CAR
+              : VehicleTypeEnum.LCV,
+          }).then(resp => {
+            setCardsDataCache(resp.data?.productCard || []);
+            setCarDerivativesCache(resp.data?.derivatives || []);
+          });
+        }
+        return false;
       } catch {
         return false;
       }
