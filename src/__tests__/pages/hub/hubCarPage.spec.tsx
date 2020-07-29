@@ -37,16 +37,16 @@ const mocked: MockedResponse[] = [
           sections: {
             hero: {
               title: 'Best Car Lease Deals',
-              titleTag: null,
+              titleTag: 'h2',
               body:
                 'Brand New Cars, In Stock Delivered Fast and Free __From Just £115pm__',
               image: null,
             },
             leadText: {
-              heading: 'Large Sales Heading',
+              heading: 'Best Car Lease Deals In The UK',
               titleTag: 'h1',
               description:
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio aspernatur fugiat. Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+                'Upgrade To A Brand New Car Today From As Little As £129pm',
             },
             featured1: {
               title: 'Why Lease A Car?',
@@ -277,9 +277,7 @@ describe('<CarPage />', () => {
 
   it('should successfully query all hub CarsPage data', async () => {
     await waitFor(() => {
-      expect(
-        screen.getByText('Car Leasing with Vanarama?'),
-      ).toBeInTheDocument();
+      expect(screen.getByText('Why Lease A Car?')).toBeInTheDocument();
     });
   });
 
