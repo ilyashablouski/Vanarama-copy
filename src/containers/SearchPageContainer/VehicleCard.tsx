@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, { memo } from 'react';
+import React, { memo, useContext } from 'react';
 import Card from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
 import { ICardTitleProps } from '@vanarama/uibook/lib/components/molecules/cards/CardTitle';
 import { TIcon } from '@vanarama/uibook/lib/components/molecules/cards/CardIcons';
@@ -11,6 +11,12 @@ import { GetProductCard_productCard as ICard } from '../../../generated/GetProdu
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getProductPageUrl } from '../../utils/url';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
+import {
+  changeCompares,
+  isCorrectCompareType,
+  IVehicle,
+} from '../../utils/helpers';
+import { CompareContext } from '../../pages/_app';
 
 export interface IProductPageUrl {
   url: string;
@@ -24,6 +30,9 @@ interface IVehicleCardProps {
   data: ICard;
   viewOffer: (productPageUrl: IProductPageUrl) => void;
   dataDerivatives: (GetDerivatives_derivatives | null)[];
+  onCompare: (data: ICard) => void;
+  compared?: boolean;
+  bodyStyle?: string | null | undefined;
 }
 
 const VehicleCard = memo(
@@ -33,7 +42,14 @@ const VehicleCard = memo(
     data,
     dataDerivatives,
     viewOffer,
+    bodyStyle,
   }: IVehicleCardProps) => {
+    const {
+      compareVehicles,
+      setCompareVehicles,
+      setModalCompareTypeError,
+    } = useContext(CompareContext);
+
     const features = (keyInformation: any[]): TIcon[] => {
       return keyInformation.map(information => ({
         icon: <Icon name={information.name.replace(' ', '')} color="dark" />,
@@ -57,7 +73,17 @@ const VehicleCard = memo(
           accentText: data?.isOnOffer ? 'Hot Deal' : '',
           text: data?.leadTime || '',
         }}
-        onCompare={() => {}}
+        onCompare={async () => {
+          if (isCorrectCompareType({ ...data, bodyStyle }, compareVehicles)) {
+            const compares = await changeCompares({ ...data, bodyStyle });
+            setCompareVehicles(compares);
+          } else {
+            setModalCompareTypeError(true);
+          }
+        }}
+        compared={compareVehicles.some(
+          vehicle => `${vehicle.capId}` === `${data.capId}`,
+        )}
         onWishlist={() => {}}
         features={features(data?.keyInformation || [])}
         title={{
