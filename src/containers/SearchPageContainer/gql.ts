@@ -172,11 +172,12 @@ export const GET_RANGES_IMAGES = gql`
   }
 `;
 
-export function getRangeImages(rangeId: string) {
+export function getRangeImages(rangeId: string, skip = false) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   return useQuery<RangesImages, RangesImagesVariables>(GET_RANGES_IMAGES, {
     variables: {
       rangeId,
     },
+    skip,
   });
 }

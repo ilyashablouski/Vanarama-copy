@@ -58,11 +58,11 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
         id="panel:1-1"
         role="tabpanel"
       >
-        <span
+        <h2
           className="heading -dark -small"
         >
-          Search vehicles
-        </span>
+          Search Vans
+        </h2>
         <form
           className="form"
         >
@@ -375,11 +375,11 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
         id="panel:1-2"
         role="tabpanel"
       >
-        <span
+        <h2
           className="heading -dark -small"
         >
-          Search vehicles
-        </span>
+          Search Vans
+        </h2>
         <form
           className="form"
         >
