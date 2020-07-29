@@ -17,6 +17,13 @@ import {
   IVehicle,
 } from '../utils/helpers';
 
+export const PAGES_WITH_COMPARATOR = [
+  'eligibility-checker/results',
+  'car-leasing',
+  'hub/',
+  'van-leasing',
+];
+
 const initialState = {
   compareVehicles: [] as IVehicle[] | [],
   setCompareVehicles: (vehicles: IVehicle[] | []) => {},
@@ -33,6 +40,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 
   const [compareVehicles, setCompareVehicles] = useState<IVehicle[] | []>([]);
   const [modalCompareTypeError, setModalCompareTypeError] = useState(false);
+  const [exitComparator, setExitComparator] = useState(false);
 
   useEffect(() => {
     // Anytime router.push is called, scroll to the top of the page.
@@ -49,7 +57,15 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
       }
     };
     getVehicles();
-  }, []);
+
+    if (
+      PAGES_WITH_COMPARATOR.some(
+        page => router.pathname.includes(page) || router.pathname === '/',
+      )
+    ) {
+      setExitComparator(true);
+    }
+  }, [router.pathname]);
 
   const resolveMainClass = () => {
     const isTrailingSlug = (slug: string) => {
@@ -88,7 +104,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         >
           <Component {...pageProps} />
         </CompareContext.Provider>
-        {compareVehicles.length > 0 && (
+        {compareVehicles.length > 0 && exitComparator && (
           <ComparatorBar
             deleteVehicle={async vehicle => {
               const vehicles = await changeCompares(vehicle);
