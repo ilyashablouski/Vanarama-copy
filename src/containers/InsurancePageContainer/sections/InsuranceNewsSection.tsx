@@ -7,7 +7,7 @@ import {
   GetInsuranceLandingPage_insuranceLandingPage_sections_carousel as ICarouselData,
   GetInsuranceLandingPage_insuranceLandingPage_sections_carousel_cards as ICard,
 } from '../../../../generated/GetInsuranceLandingPage';
-import { ParsedLink } from '../renderers';
+import { ParsedLink } from '../ParsedLink';
 
 const renderCarouselCards = (cards: (ICard | null)[]) =>
   cards.map(card =>

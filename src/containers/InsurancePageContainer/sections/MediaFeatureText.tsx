@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown';
 
 import getTitleTag from '../../../utils/getTitleTag';
 import { GetFleetLandingPage_fleetLandingPage_sections_featured2 as IMediaFeature } from '../../../../generated/GetFleetLandingPage';
-import { ParsedLink } from '../renderers';
+import { ParsedLink } from '../ParsedLink';
 
 const MediaFeatureText = ({ title, titleTag, body }: IMediaFeature) => {
   let buttonFill: 'solid' | 'outline' = 'outline';

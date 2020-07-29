@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown';
 
 import getTitleTag from '../../../utils/getTitleTag';
 import { GetInsuranceLandingPage_insuranceLandingPage_sections_featured2 as FAQSection } from '../../../../generated/GetInsuranceLandingPage';
-import { ParsedLink } from '../renderers';
+import { ParsedLink } from '../ParsedLink';
 
 const InsuranceFAQSection = ({ title, titleTag, body }: FAQSection) => (
   <div className="row:lead-text">

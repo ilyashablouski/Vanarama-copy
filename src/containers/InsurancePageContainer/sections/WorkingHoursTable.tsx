@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
 import { IList } from '@vanarama/uibook/lib/components/organisms/structured-list/interfaces';
 import { GetInsuranceLandingPage_insuranceLandingPage_sections_hero_heroCard as HeroCard } from '../../../../generated/GetInsuranceLandingPage';
-import { ParsedLink } from '../renderers';
+import { ParsedLink } from '../ParsedLink';
 
 const parseTable = (table: any[]): IList[] =>
   table.map(
