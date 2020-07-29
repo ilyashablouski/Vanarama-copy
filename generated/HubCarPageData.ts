@@ -18,12 +18,14 @@ export interface HubCarPageData_hubCarPage_sections_hero_image {
 
 export interface HubCarPageData_hubCarPage_sections_hero {
   title: string | null;
+  titleTag: string | null;
   body: string | null;
   image: HubCarPageData_hubCarPage_sections_hero_image | null;
 }
 
 export interface HubCarPageData_hubCarPage_sections_leadText {
   heading: string | null;
+  titleTag: string | null;
   description: string | null;
 }
 
@@ -37,6 +39,7 @@ export interface HubCarPageData_hubCarPage_sections_featured1_image {
 
 export interface HubCarPageData_hubCarPage_sections_featured1 {
   title: string | null;
+  titleTag: string | null;
   body: string | null;
   image: HubCarPageData_hubCarPage_sections_featured1_image | null;
 }
@@ -51,6 +54,7 @@ export interface HubCarPageData_hubCarPage_sections_featured2_image {
 
 export interface HubCarPageData_hubCarPage_sections_featured2 {
   title: string | null;
+  titleTag: string | null;
   body: string | null;
   image: HubCarPageData_hubCarPage_sections_featured2_image | null;
 }
@@ -76,12 +80,15 @@ export interface HubCarPageData_hubCarPage_sections_tiles_tiles_image {
 
 export interface HubCarPageData_hubCarPage_sections_tiles_tiles {
   title: string | null;
+  link: string | null;
   body: string | null;
   image: HubCarPageData_hubCarPage_sections_tiles_tiles_image | null;
 }
 
 export interface HubCarPageData_hubCarPage_sections_tiles {
   name: string;
+  titleTag: string | null;
+  tilesTitle: string | null;
   tiles: HubCarPageData_hubCarPage_sections_tiles_tiles[] | null;
 }
 
