@@ -25,7 +25,7 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
 
   const { bankAccounts } = data.companyByUuid;
   const currentAccount =
-    (bankAccounts &&
+    (bankAccounts?.length &&
       bankAccounts.reduce((prev, current) => {
         return new Date(prev.updatedAt).getTime() >
           new Date(current.updatedAt).getTime()
