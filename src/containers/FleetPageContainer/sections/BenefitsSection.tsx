@@ -21,7 +21,11 @@ const BenefitsSection = ({ name, tiles }: IBenefitsSection) => (
           )}
         </span>
         <Link className="tile--link">
-          <Heading size="regular" color="black" tag={tile.titleTag || 'p'}>
+          <Heading
+            size="regular"
+            color="black"
+            // tag={tile.titleTag || 'p'}
+          >
             {tile.title}
           </Heading>
         </Link>
