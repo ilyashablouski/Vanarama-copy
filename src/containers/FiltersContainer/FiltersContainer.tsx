@@ -323,7 +323,7 @@ const FiltersContainer = ({
       .map(entry => {
         if (
           (entry[0] === filterFields.from || entry[0] === filterFields.to) &&
-          entry[1].length
+          entry[1]?.[0]
         ) {
           return `£${entry[1]}`;
         }
