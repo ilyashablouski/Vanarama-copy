@@ -8,7 +8,11 @@ import { ParsedLink } from '../ParsedLink';
 
 const InsuranceFAQSection = ({ title, titleTag, body }: FAQSection) => (
   <div className="row:lead-text">
-    <Heading size="large" color="black" tag={getTitleTag(titleTag) as keyof JSX.IntrinsicElements}>
+    <Heading
+      size="large"
+      color="black"
+      tag={getTitleTag(titleTag) as keyof JSX.IntrinsicElements}
+    >
       {title}
     </Heading>
     <ReactMarkdown

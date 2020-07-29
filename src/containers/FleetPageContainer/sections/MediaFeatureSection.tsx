@@ -8,17 +8,13 @@ import LayoutTypes from '../../../models/enum/LayoutTypes';
 
 const selectClassName = (selectedLayout: string) => {
   switch (selectedLayout) {
-    case LayoutTypes.right: {
-      return 'right';
-    }
-    case LayoutTypes.full: {
-      return 'full';
-    }
+    case LayoutTypes.right:
+    case LayoutTypes.full:
     case LayoutTypes.featuredProduct: {
-      return 'product';
+      return selectedLayout;
     }
     default: {
-      return 'left';
+      return LayoutTypes.left;
     }
   }
 };
