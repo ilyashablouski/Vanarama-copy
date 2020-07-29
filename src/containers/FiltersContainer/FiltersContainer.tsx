@@ -298,9 +298,7 @@ const FiltersContainer = ({
   /** get parent filter name after deleting a tag */
   const getValueKey = (value: string) => {
     const arr = Object.entries(selectedFiltersState) || [];
-    return (
-      arr.find(filter => filter[1].includes(value.replace('£', '')))?.[0] || ''
-    );
+    return arr.find(filter => filter[1].includes(value))?.[0] || '';
   };
 
   /** check budget rules for valid value */
@@ -394,11 +392,12 @@ const FiltersContainer = ({
    * remove value from filter after deleting tag
    */
   const handleRemoveTag = (value: string) => {
-    const filter = getValueKey(value) as keyof typeof filtersMapper;
+    const formatedValue = value.replace('£', '');
+    const filter = getValueKey(formatedValue) as keyof typeof filtersMapper;
     const newSelectedFiltersState = {
       ...selectedFiltersState,
       [filter]: selectedFiltersState[filter].filter(
-        selectedValue => selectedValue !== value,
+        selectedValue => selectedValue !== formatedValue,
       ),
     };
 
@@ -575,11 +574,13 @@ const FiltersContainer = ({
           )}
         </Dropdown>
       ))}
-      <SearchFilterTags
-        selectedFilters={selectedFilterTags}
-        onClearAll={handleClearAll}
-        onRemove={e => handleRemoveTag(e.currentTarget.id)}
-      />
+      {!!selectedFilterTags.length && (
+        <SearchFilterTags
+          selectedFilters={selectedFilterTags}
+          onClearAll={handleClearAll}
+          onRemove={e => handleRemoveTag(e.currentTarget.id)}
+        />
+      )}
     </SearchFilters>
   );
 };
