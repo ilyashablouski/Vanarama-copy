@@ -14,8 +14,6 @@ describe('helpers', () => {
         colour: 'colour',
         trim: 'trim',
         description: 'description',
-        annualMileageBooster: 'annualMileageBooster',
-        damageCover: 'damageCover',
         term: 100,
       } as any;
       const derivative = {
@@ -38,8 +36,6 @@ describe('helpers', () => {
         trim: offer.trim,
         description:
           '99 month contact (inc. VAT). Paid by Direct Debit. First due ≈ 10 days after delivery.',
-        annualMileageBooster: 'Extra 600 miles FREE',
-        damageCover: 'Included',
         initialRentalDataTestId: 'about_intial-rental-testID',
         controlLengthDataTestId: 'about_control-length-testID',
         annualMileageDataTestId: 'about_annual-mileage-testID',
@@ -73,8 +69,6 @@ describe('helpers', () => {
         trim: '-',
         description:
           '0 month contact (ex. VAT). Paid by Direct Debit. First due ≈ 10 days after delivery.',
-        annualMileageBooster: 'Extra 600 miles FREE',
-        damageCover: 'Included',
         initialRentalDataTestId: 'about_intial-rental-testID',
         controlLengthDataTestId: 'about_control-length-testID',
         annualMileageDataTestId: 'about_annual-mileage-testID',
