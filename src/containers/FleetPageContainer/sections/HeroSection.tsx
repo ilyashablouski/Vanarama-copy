@@ -4,7 +4,7 @@ import { GetFleetLandingPage_fleetLandingPage_sections_hero as IHeroData } from 
 import config from '../config';
 
 const HeroSection = ({ title, body, image }: IHeroData) => (
-  <Hero withRequestCallbackform>
+  <Hero withRequestCallbackForm>
     <HeroHeading text={title || ''} />
     <HeroTitle text={body || ''} />
     <Image
