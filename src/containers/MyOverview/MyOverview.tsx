@@ -63,14 +63,13 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   }, [partyByUuid, getOrders, router.query.partyByUuid]);
 
   // collect everything capId from orders
-  const capIdArray =
-    data?.ordersByPartyUuid?.reduce((array, el) => {
-      const capId = el.lineItems[0].vehicleProduct?.derivativeCapId || '';
-      if (capId !== array[0]) {
-        array.unshift(capId);
-      }
-      return array;
-    }, [] as string[]) || [];
+  const capIdArray = data?.ordersByPartyUuid?.reduce((array, el) => {
+    const capId = el.lineItems[0].vehicleProduct?.derivativeCapId || '';
+    if (capId !== array[0]) {
+      array.unshift(capId);
+    }
+    return array;
+  }, [] as string[]) || [''];
 
   // call query for get DerivativesData
   const dataCars = useCarDerivativesData(capIdArray, VehicleTypeEnum.CAR);
