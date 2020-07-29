@@ -7,6 +7,7 @@ import {
 import { GetQuoteDetails_quoteByCapId } from '../../generated/GetQuoteDetails';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { GetProductCard_productCard as ICard } from '../../generated/GetProductCard';
+import { ProductCardData_productCarousel as ICardCarousel } from '../../generated/ProductCardData';
 
 export interface ICompareVehicle {
   capId: string | null;
@@ -17,6 +18,10 @@ export interface ICompareVehicle {
 
 export interface IVehicle extends ICard {
   bodyStyle?: string | null | undefined;
+}
+
+export interface IVehicleCarousel extends ICardCarousel {
+  bodyStyle: string | null | undefined;
 }
 
 export const genDays = () => [...Array(31)].map((_, i) => i + 1);
@@ -139,7 +144,9 @@ export const getOrderList = ({
   ];
 };
 
-export const changeCompares = async (vehicle: IVehicle | ICompareVehicle) => {
+export const changeCompares = async (
+  vehicle: IVehicle | ICompareVehicle | IVehicleCarousel | null,
+) => {
   const compares = sessionStorage.getItem('compares');
 
   // if compares already exist
@@ -149,13 +156,13 @@ export const changeCompares = async (vehicle: IVehicle | ICompareVehicle) => {
     if (
       arrayCompares.some(
         (compare: IVehicle | ICompareVehicle) =>
-          `${compare.capId}` === `${vehicle.capId}`,
+          `${compare.capId}` === `${vehicle?.capId}`,
       )
     ) {
       // delete vehicle from compare
       const deletedVehicle = arrayCompares.find(
         (compare: IVehicle | ICompareVehicle) =>
-          `${compare.capId}` === `${vehicle.capId}`,
+          `${compare.capId}` === `${vehicle?.capId}`,
       );
       const index = arrayCompares.indexOf(deletedVehicle);
       if (index > -1) {
@@ -181,8 +188,8 @@ export const changeCompares = async (vehicle: IVehicle | ICompareVehicle) => {
 };
 
 export const isCorrectCompareType = (
-  data?: IVehicle,
-  compareVehicles?: IVehicle[],
+  data?: IVehicle | IVehicleCarousel | null,
+  compareVehicles?: IVehicle[] | IVehicleCarousel[],
 ) => {
   if (!data || !compareVehicles) return false;
 
@@ -216,7 +223,7 @@ export const getCompares = () => {
 };
 
 export const getVehiclesForComparator = (
-  vehicles: IVehicle[],
+  vehicles: IVehicle[] | IVehicleCarousel[],
 ): ICompareVehicle[] => {
   return vehicles.map(vehicle => ({
     capId: vehicle.capId,

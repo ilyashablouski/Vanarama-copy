@@ -21,6 +21,9 @@ import IconList, {
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
 
+import { useContext } from 'react';
+import { isCorrectCompareType, changeCompares } from '../../../utils/helpers';
+import { CompareContext } from '../../_app';
 import {
   HubCarPageData,
   HubCarPageData_hubCarPage_sections_tiles_tiles as TileData,
@@ -53,6 +56,12 @@ export const CarsPage: NextPage = () => {
     products?.productCarousel?.map(el => el?.capId || '') || [''],
     VehicleTypeEnum.CAR,
   );
+
+  const {
+    compareVehicles,
+    setCompareVehicles,
+    setModalCompareTypeError,
+  } = useContext(CompareContext);
 
   if (loading) {
     return <Loading size="large" />;
@@ -152,7 +161,20 @@ export const CarsPage: NextPage = () => {
                   label: info?.value || '',
                 }))}
                 imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
-                onCompare={() => true}
+                onCompare={async () => {
+                  if (isCorrectCompareType(item, compareVehicles)) {
+                    const compares = await changeCompares({
+                      ...item,
+                      bodyStyle: '',
+                    });
+                    setCompareVehicles(compares);
+                  } else {
+                    setModalCompareTypeError(true);
+                  }
+                }}
+                compared={compareVehicles.some(
+                  vehicle => `${vehicle.capId}` === `${item?.capId}`,
+                )}
                 onWishlist={() => true}
                 title={{
                   title: '',

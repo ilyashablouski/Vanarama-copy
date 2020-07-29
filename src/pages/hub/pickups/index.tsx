@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import Router from 'next/router';
 import { useQuery } from '@apollo/client';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
 import ReactMarkdown from 'react-markdown/with-html';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
@@ -22,6 +22,7 @@ import IconList, {
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
 
+import { isCorrectCompareType, changeCompares } from '../../../utils/helpers';
 import {
   HubPickupPageData,
   HubPickupPageData_hubPickupPage_sections_tiles1_tiles as AccessoryData,
@@ -44,6 +45,7 @@ import truncateString from '../../../utils/truncateString';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { getProductPageUrl } from '../../../utils/url';
+import { CompareContext } from '../../_app';
 
 export const PickupsPage: NextPage = () => {
   const [offer, setOffer] = useState<ProdData>();
@@ -70,6 +72,12 @@ export const PickupsPage: NextPage = () => {
     products?.productCarousel?.map(el => el?.capId || '') || [''],
     VehicleTypeEnum.LCV,
   );
+
+  const {
+    compareVehicles,
+    setCompareVehicles,
+    setModalCompareTypeError,
+  } = useContext(CompareContext);
 
   if (loading) {
     return <Loading size="large" />;
@@ -150,7 +158,24 @@ export const PickupsPage: NextPage = () => {
                   label: info?.value || '',
                 }))}
                 imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
-                onCompare={() => true}
+                onCompare={async () => {
+                  if (
+                    isCorrectCompareType(
+                      item ? { ...item, bodyStyle: 'Pickup' } : null,
+                      compareVehicles,
+                    )
+                  ) {
+                    const compares = await changeCompares(
+                      item ? { ...item, bodyStyle: 'Pickup' } : null,
+                    );
+                    setCompareVehicles(compares);
+                  } else {
+                    setModalCompareTypeError(true);
+                  }
+                }}
+                compared={compareVehicles.some(
+                  vehicle => `${vehicle.capId}` === `${item?.capId}`,
+                )}
                 onWishlist={() => true}
                 title={{
                   title: '',
