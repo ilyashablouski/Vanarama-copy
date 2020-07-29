@@ -1,25 +1,39 @@
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import React from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { useOrdersByPartyUuidData } from './gql';
 import { IProps } from './interfaces';
 
-export const PARTY_BY_UUID = 'f5229b02-7d8a-47f9-b33e-bb9137fded23';
+type QueryParams = {
+  partyByUuid: string;
+};
 
-const OrderInformationContainer: React.FC<IProps> = ({ partyByUuid }) => {
-  const orders = useOrdersByPartyUuidData(
-    partyByUuid || PARTY_BY_UUID,
+const OrderInformationContainer: React.FC<IProps> = () => {
+  const router = useRouter();
+  const { partyByUuid } = router.query as QueryParams;
+
+  const [getOrdersData, orders] = useOrdersByPartyUuidData(
+    partyByUuid,
     [],
     ['quote', 'expired'],
   );
-  const haveOrders = !!orders.data?.ordersByPartyUuid.length;
 
-  const quotes = useOrdersByPartyUuidData(
-    partyByUuid || PARTY_BY_UUID,
+  const [getQuotesData, quotes] = useOrdersByPartyUuidData(
+    partyByUuid,
     ['quote', 'new'],
     ['expired'],
   );
+
+  useEffect(() => {
+    if (partyByUuid) {
+      getOrdersData();
+      getQuotesData();
+    }
+  }, [partyByUuid, getOrdersData, getQuotesData, router.query.partyByUuid]);
+
+  const haveOrders = !!orders.data?.ordersByPartyUuid.length;
   const haveQuotes = !!quotes.data?.ordersByPartyUuid.length;
 
   return (
