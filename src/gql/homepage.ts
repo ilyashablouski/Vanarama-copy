@@ -7,6 +7,7 @@ const ALL_HOME_CONTENT = gql`
       sections {
         hero {
           title
+          titleTag
           body
           image {
             title
@@ -17,12 +18,14 @@ const ALL_HOME_CONTENT = gql`
         }
         leadText {
           heading
+          titleTag
           description
         }
         cards {
           name
           cards {
             title
+            titleTag
             body
             image {
               file {
@@ -37,16 +40,21 @@ const ALL_HOME_CONTENT = gql`
         }
         featured1 {
           title
+          titleTag
           body
         }
         featured2 {
           title
+          titleTag
           body
         }
         tiles {
           name
+          titleTag
+          tilesTitle
           tiles {
             title
+            link
             body
             image {
               file {

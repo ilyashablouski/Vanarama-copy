@@ -18,12 +18,14 @@ export interface HomePageData_homePage_sections_hero_image {
 
 export interface HomePageData_homePage_sections_hero {
   title: string | null;
+  titleTag: string | null;
   body: string | null;
   image: HomePageData_homePage_sections_hero_image | null;
 }
 
 export interface HomePageData_homePage_sections_leadText {
   heading: string | null;
+  titleTag: string | null;
   description: string | null;
 }
 
@@ -42,6 +44,7 @@ export interface HomePageData_homePage_sections_cards_cards_link {
 
 export interface HomePageData_homePage_sections_cards_cards {
   title: string | null;
+  titleTag: string | null;
   body: string | null;
   image: HomePageData_homePage_sections_cards_cards_image | null;
   link: HomePageData_homePage_sections_cards_cards_link | null;
@@ -54,11 +57,13 @@ export interface HomePageData_homePage_sections_cards {
 
 export interface HomePageData_homePage_sections_featured1 {
   title: string | null;
+  titleTag: string | null;
   body: string | null;
 }
 
 export interface HomePageData_homePage_sections_featured2 {
   title: string | null;
+  titleTag: string | null;
   body: string | null;
 }
 
@@ -73,12 +78,15 @@ export interface HomePageData_homePage_sections_tiles_tiles_image {
 
 export interface HomePageData_homePage_sections_tiles_tiles {
   title: string | null;
+  link: string | null;
   body: string | null;
   image: HomePageData_homePage_sections_tiles_tiles_image | null;
 }
 
 export interface HomePageData_homePage_sections_tiles {
   name: string;
+  titleTag: string | null;
+  tilesTitle: string | null;
   tiles: HomePageData_homePage_sections_tiles_tiles[] | null;
 }
 
