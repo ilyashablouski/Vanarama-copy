@@ -1,4 +1,4 @@
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, gql, useLazyQuery } from '@apollo/client';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import {
   GetDerivatives,
@@ -78,7 +78,7 @@ export function useOrdersByPartyUuidData(
   statusesCA?: string[],
   exStatusesCA?: string[],
 ) {
-  return useQuery<GetOrdersByPartyUuid, GetOrdersByPartyUuidVariables>(
+  return useLazyQuery<GetOrdersByPartyUuid, GetOrdersByPartyUuidVariables>(
     GET_ORDERS_BY_PARTY_UUID_DATA,
     {
       variables: {
