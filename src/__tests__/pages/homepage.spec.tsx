@@ -177,7 +177,7 @@ const mocked: MockedResponse[] = [
             },
           },
         },
-      },
+      } as HomePageData,
     },
   },
   {
