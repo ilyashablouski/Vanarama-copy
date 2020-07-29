@@ -14,7 +14,7 @@ import OptionsIcon from '@vanarama/uibook/lib/assets/icons/Options';
 import ChevronUpSharp from '@vanarama/uibook/lib/assets/icons/ChevronUpSharp';
 import { useMediaQuery } from 'react-responsive';
 import { useRouter } from 'next/router';
-import { filterListByTypes } from '../SearchPodContainer/gql';
+import { useFilterList } from '../SearchPodContainer/gql';
 import { makeHandler, modelHandler } from '../SearchPodContainer/helpers';
 import { filtersConfig, budgets, filterFields } from './config';
 import { IFilterContainerProps } from './interfaces';
@@ -51,6 +51,11 @@ const FiltersContainer = ({
 }: IFilterContainerProps) => {
   const router = useRouter();
   const [filtersData, setFiltersData] = useState({} as IFilterList);
+  const [allFiltersData, setAllFiltersData] = useState({} as IFilterList);
+  const [
+    shouldMakeChoiceboxesForceUpdate,
+    setShouldMakeChoiceboxesForceUpdate,
+  ] = useState(false);
   const [makeData, setMakeData] = useState([] as string[]);
   const [modelsData, setModelsData] = useState([] as string[]);
   const [tempFilterName, setTempFilterName] = useState('');
@@ -79,8 +84,17 @@ const FiltersContainer = ({
     return choiseBoxReference[id];
   };
 
-  const { data } = filterListByTypes(
+  const { refetch } = useFilterList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
+    isMakePage ? null : isSpecialOffers,
+    resp => {
+      if (!Object.keys(allFiltersData).length) {
+        setAllFiltersData(resp?.filterList || ({} as IFilterList));
+        setFiltersData(resp?.filterList || ({} as IFilterList));
+        setMakeData(makeHandler(resp?.filterList || ({} as IFilterList)));
+      }
+      return resp;
+    },
   );
 
   const filtersMapper = {
@@ -134,9 +148,22 @@ const FiltersContainer = ({
   );
 
   /** start new search */
-  const onViewResults = useCallback(() => {
+  const onViewResults = () => {
     onSearch(filtersObject);
-  }, [onSearch, filtersObject]);
+    const filtersObjectForFilters = { ...filtersObject };
+    delete filtersObjectForFilters.rate;
+    refetch({
+      vehicleTypes: isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
+      onOffer: isMakePage ? null : isSpecialOffers,
+      ...filtersObjectForFilters,
+    }).then(resp => {
+      // using then because apollo return incorrect cache result https://github.com/apollographql/apollo-client/issues/3550
+      setFiltersData(resp.data?.filterList || ({} as IFilterList));
+      setMakeData(makeHandler(resp.data?.filterList || ({} as IFilterList)));
+      // set force update to true for rerender choiceboxes with new filter data
+      setShouldMakeChoiceboxesForceUpdate(true);
+    });
+  };
 
   /** changing data for choiseboxes component */
   const choiseBoxBuilder = (
@@ -149,21 +176,16 @@ const FiltersContainer = ({
       active: actualState[filterAccessor].includes(value.label),
     }));
 
-  // set data to filters
-  useEffect(() => {
-    if (data?.filterList) {
-      setFiltersData(data.filterList);
-      setMakeData(makeHandler(data.filterList));
-    }
-  }, [data]);
-
   useEffect(() => {
     if (filtersData.bodyStyles) setChoiceBoxesData(buildChoiseBoxData());
   }, [filtersData, buildChoiseBoxData]);
 
   useEffect(() => {
     // if we have query parameters filters should be preselected
-    if (Object.keys(router?.query || {}).length && makeData.length) {
+    if (
+      Object.keys(router?.query || {}).length &&
+      Object.keys(allFiltersData).length
+    ) {
       const presetFilters = {} as ISelectedFiltersState;
       const routerQuery = Object.entries(router.query);
       routerQuery.forEach(entry => {
@@ -204,6 +226,7 @@ const FiltersContainer = ({
           presetFilters.to = [rate[1]] || null;
         }
       });
+
       if (routerQuery.length === 1) {
         setSelectedFiltersState(() => ({
           ...initialState,
@@ -215,12 +238,9 @@ const FiltersContainer = ({
           ...presetFilters,
         }));
       }
-      Object.keys(presetFilters).forEach((e: any) =>
-        choiseBoxReference[e]?.current?.updateState(),
-      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [makeData, preSearchVehicleCount]);
+  }, [allFiltersData]);
 
   useEffect(() => {
     const queryLength = Object.keys(router?.query || {}).length;
@@ -246,7 +266,7 @@ const FiltersContainer = ({
 
   // set actual models after make changing
   useEffect(() => {
-    if (selectedFiltersState.make) {
+    if (selectedFiltersState.make.length && !isMakePage) {
       setSelectedFiltersState(prevState => ({
         ...prevState,
         model: tempModelName ? [tempModelName] : [],
@@ -305,6 +325,16 @@ const FiltersContainer = ({
       .filter(Boolean);
     setSelectedFilterTags(selected);
   }, [selectedFiltersState, isMakePage]);
+
+  // made force update for choiseboxes state
+  useEffect(() => {
+    if (shouldMakeChoiceboxesForceUpdate) {
+      Object.keys(choiseBoxReference).forEach((e: any) =>
+        choiseBoxReference[e]?.current?.updateState(),
+      );
+      setShouldMakeChoiceboxesForceUpdate(false);
+    }
+  }, [shouldMakeChoiceboxesForceUpdate, choiseBoxReference]);
 
   /** handle for dropdowns */
   const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
