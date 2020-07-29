@@ -20,7 +20,7 @@ const MediaFeatureText = ({ title, titleTag, body }: IMediaFeature) => {
           paragraph: props => <Text {...props} tag="p" color="darker" />,
           link: props => {
             buttonFill = buttonFill === 'solid' ? 'outline' : 'solid';
-            return <ParsedLink {...props} fill={buttonFill} />;
+            return <ParsedLink {...props} fill={buttonFill} color="teal" />;
           },
         }}
       />

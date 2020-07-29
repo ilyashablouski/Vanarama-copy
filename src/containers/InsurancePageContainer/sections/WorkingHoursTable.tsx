@@ -38,9 +38,8 @@ const WorkingHoursTable = ({ body, title }: HeroCard) => (
             const { children } = props;
             const href = `tel:${children[1].props.value
               .split('')
-              .filter((item: string) => typeof(1+item) === 'number')
-              .join('')
-              .trim()}`;
+              .filter((item: string) => item === '0' || +item > 0)
+              .join('')}`;
             return (
               <ParsedLink
                 title={children[0].props.children[0].props.value}

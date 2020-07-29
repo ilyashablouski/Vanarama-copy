@@ -2,6 +2,7 @@ import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 
 import ReactMarkdown from 'react-markdown';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import {
   GetInsuranceLandingPage_insuranceLandingPage_sections_carousel as ICarouselData,
   GetInsuranceLandingPage_insuranceLandingPage_sections_carousel_cards as ICard,
@@ -37,9 +38,18 @@ const renderCarouselCards = (cards: (ICard | null)[]) =>
     ) : null,
   );
 
-const InsuranceNewsSection = ({ cards }: ICarouselData) => (
+const InsuranceNewsSection = ({ cards, name }: ICarouselData) => (
   <div className="row:bg-lighter">
-    {cards && <Carousel countItems={3}>{renderCarouselCards(cards)}</Carousel>}
+    <div className="row:carousel">
+      <Heading size="large" color="black">
+        {name}
+      </Heading>
+      {cards && (
+        <Carousel className="-col3" countItems={3}>
+          {renderCarouselCards(cards.slice(0, 9))}
+        </Carousel>
+      )}
+    </div>
   </div>
 );
 

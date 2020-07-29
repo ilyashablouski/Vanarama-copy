@@ -18,7 +18,7 @@ const InsuranceFAQSection = ({ title, titleTag, body }: FAQSection) => (
           <Text {...props} size="lead" color="darker" className="-mt-100" />
         ),
         paragraph: props => <Text {...props} tag="p" color="darker" />,
-        link: props => <ParsedLink {...props} size="lead" />,
+        link: props => <ParsedLink {...props} size="lead" color="teal" />,
       }}
     />
   </div>
