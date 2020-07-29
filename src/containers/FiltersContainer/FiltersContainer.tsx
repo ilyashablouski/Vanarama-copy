@@ -298,7 +298,9 @@ const FiltersContainer = ({
   /** get parent filter name after deleting a tag */
   const getValueKey = (value: string) => {
     const arr = Object.entries(selectedFiltersState) || [];
-    return arr.find(filter => filter[1].includes(value))?.[0] || '';
+    return (
+      arr.find(filter => filter[1].includes(value.replace('£', '')))?.[0] || ''
+    );
   };
 
   /** check budget rules for valid value */
@@ -319,6 +321,12 @@ const FiltersContainer = ({
     const selected: string[] = Object.entries(selectedFiltersState)
       // makes in make page should not to be added
       .map(entry => {
+        if (
+          (entry[0] === filterFields.from || entry[0] === filterFields.to) &&
+          entry[1]?.[0]
+        ) {
+          return `£${entry[1]}`;
+        }
         return isMakePage && entry[0] === filterFields.make ? '' : entry[1];
       })
       .flat()
