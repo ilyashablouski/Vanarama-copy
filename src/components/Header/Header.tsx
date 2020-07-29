@@ -155,7 +155,7 @@ const Header: FC<IHeaderProps> = memo(props => {
                       link={{ href: '#', label: 'Log Out' }}
                       onClick={async () => {
                         await localForage.clear();
-                        router.reload();
+                        setPerson(null);
                       }}
                     >
                       <Icon icon={<LogOutOutline />} size="xsmall" />
