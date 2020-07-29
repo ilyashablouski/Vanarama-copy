@@ -7,21 +7,10 @@
 // GraphQL query operation: GetFleetLandingPage
 // ====================================================
 
-export interface GetFleetLandingPage_fleetLandingPage_sections_featured1_image_file {
-  url: string;
-}
-
-export interface GetFleetLandingPage_fleetLandingPage_sections_featured1_image {
-  title: string | null;
-  file: GetFleetLandingPage_fleetLandingPage_sections_featured1_image_file | null;
-}
-
 export interface GetFleetLandingPage_fleetLandingPage_sections_featured1 {
   title: string | null;
   titleTag: string | null;
   body: string | null;
-  image: GetFleetLandingPage_fleetLandingPage_sections_featured1_image | null;
-  video: string | null;
   layout: string[] | null;
 }
 
@@ -39,7 +28,6 @@ export interface GetFleetLandingPage_fleetLandingPage_sections_featured2 {
   titleTag: string | null;
   body: string | null;
   image: GetFleetLandingPage_fleetLandingPage_sections_featured2_image | null;
-  video: string | null;
   layout: string[] | null;
 }
 
@@ -57,7 +45,6 @@ export interface GetFleetLandingPage_fleetLandingPage_sections_featured3 {
   titleTag: string | null;
   body: string | null;
   image: GetFleetLandingPage_fleetLandingPage_sections_featured3_image | null;
-  video: string | null;
   layout: string[] | null;
 }
 
@@ -75,7 +62,6 @@ export interface GetFleetLandingPage_fleetLandingPage_sections_featured4 {
   titleTag: string | null;
   body: string | null;
   image: GetFleetLandingPage_fleetLandingPage_sections_featured4_image | null;
-  video: string | null;
   layout: string[] | null;
 }
 
@@ -96,7 +82,6 @@ export interface GetFleetLandingPage_fleetLandingPage_sections_hero_image {
 }
 
 export interface GetFleetLandingPage_fleetLandingPage_sections_hero {
-  flag: string | null;
   title: string | null;
   body: string | null;
   image: GetFleetLandingPage_fleetLandingPage_sections_hero_image | null;

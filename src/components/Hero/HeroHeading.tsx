@@ -7,7 +7,7 @@ const HeroHeading: React.FC<IHeroHeadingProps> = ({ text, titleTag }) => {
     <Heading
       size="xlarge"
       color="white"
-      tag={getTitleTag(titleTag || null) as any}
+      tag={getTitleTag(titleTag || null) as keyof JSX.IntrinsicElements}
     >
       {text}
     </Heading>
