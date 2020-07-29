@@ -40,11 +40,40 @@ export interface GetCompanyDirectorDetailsQuery_companyByUuid {
   associates: GetCompanyDirectorDetailsQuery_companyByUuid_associates[] | null;
 }
 
+export interface GetCompanyDirectorDetailsQuery_allDropDowns_titles {
+  __typename: "DropDownDataType";
+  data: string[];
+  favourites: string[];
+}
+
+export interface GetCompanyDirectorDetailsQuery_allDropDowns_noOfDependants {
+  __typename: "DropDownDataType";
+  data: string[];
+  favourites: string[];
+}
+
+export interface GetCompanyDirectorDetailsQuery_allDropDowns_propertyStatuses {
+  __typename: "DropDownDataType";
+  data: string[];
+  favourites: string[];
+}
+
+export interface GetCompanyDirectorDetailsQuery_allDropDowns {
+  __typename: "DropDownType";
+  titles: GetCompanyDirectorDetailsQuery_allDropDowns_titles;
+  noOfDependants: GetCompanyDirectorDetailsQuery_allDropDowns_noOfDependants;
+  propertyStatuses: GetCompanyDirectorDetailsQuery_allDropDowns_propertyStatuses;
+}
+
 export interface GetCompanyDirectorDetailsQuery {
   /**
    * Find Company by Uuid
    */
   companyByUuid: GetCompanyDirectorDetailsQuery_companyByUuid | null;
+  /**
+   * get all drop downs
+   */
+  allDropDowns: GetCompanyDirectorDetailsQuery_allDropDowns | null;
 }
 
 export interface GetCompanyDirectorDetailsQueryVariables {

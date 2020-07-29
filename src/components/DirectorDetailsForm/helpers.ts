@@ -10,16 +10,18 @@ import { addressToDisplay } from '../../utils/address';
 import moment from 'moment';
 
 export const initialFormValues = (
-  directors: DirectorFieldsOfficer[],
+  directors: DirectorFormValues[],
 ): DirectorDetailsFormValues => {
-  if (directors.length > 1) {
-    return { totalPercentage: 0, directors: [] };
-  }
-
-  return {
-    totalPercentage: 0,
-    directors: parseOfficers([directors[0]]),
-  };
+  return directors
+    .reduce(
+      (prev, curr) => ({
+        directors: prev.directors.concat(curr),
+        totalPercentage: prev.totalPercentage + parseInt(curr.shareOfBusiness)
+      }),
+      {
+        directors: [] as DirectorFormValues[],
+        totalPercentage: 0
+      })
 };
 
 export const validate = (

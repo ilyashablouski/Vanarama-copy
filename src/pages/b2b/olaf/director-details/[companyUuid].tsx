@@ -19,6 +19,7 @@ import {
 import { historyToMoment, parseDate } from '../../../../utils/dates';
 import { LimitedCompanyInputObject } from '../../../../../generated/globalTypes';
 import { getUrlParam, OLAFQueryParams } from '../../../../utils/url';
+import DirectorFields from '../../../../components/DirectorDetailsForm/DirectorFields';
 
 type QueryParams = OLAFQueryParams & {
   companyUuid: string;
@@ -53,8 +54,12 @@ export const GET_COMPANY_DIRECTOR_DETAILS = gql`
         ...CompanyAssociate
       }
     }
+    allDropDowns {
+      ...DirectorFieldsDropDownData
+    }
   }
   ${DirectorDetailsForm.fragments.associates}
+  ${DirectorFields.fragments.dropDownData}
 `;
 
 export const SAVE_DIRECTOR_DETAILS = gql`
@@ -99,7 +104,8 @@ export const DirectorDetailsPage: NextPage = () => {
     error ||
     !data ||
     !data.companyByUuid ||
-    !data.companyByUuid.companyNumber
+    !data.companyByUuid.companyNumber ||
+    !data.allDropDowns
   ) {
     return <p>Error: Could not load company data!</p>;
   }
@@ -109,6 +115,7 @@ export const DirectorDetailsPage: NextPage = () => {
       <DirectorDetailsForm
         associates={data.companyByUuid.associates || []}
         companyNumber={data.companyByUuid.companyNumber}
+        dropdownData={data.allDropDowns}
         onSubmit={async values => {
           const input: LimitedCompanyInputObject = {
             uuid: companyUuid,

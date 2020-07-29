@@ -19,12 +19,10 @@ import { initialFormValues, validate, validationSchema, combineDirectorsData } f
 import { DirectorDetailsFormValues } from './interfaces';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { CompanyAssociate } from '../../../generated/CompanyAssociate';
+import { GetCompanyDirectorDetailsQuery_allDropDowns } from '../../../generated/GetCompanyDirectorDetailsQuery';
 
 export const GET_DIRECTOR_DETAILS = gql`
   query GetDirectorDetailsQuery($companyNumber: String!) {
-    allDropDowns {
-      ...DirectorFieldsDropDownData
-    }
     companyOfficers(companyNumber: $companyNumber) {
       nodes {
         name
@@ -36,6 +34,7 @@ export const GET_DIRECTOR_DETAILS = gql`
 
 type IDirectorDetailsFormProps = {
   associates: CompanyAssociate[];
+  dropdownData: GetCompanyDirectorDetailsQuery_allDropDowns;
   companyNumber: string;
   onSubmit: (values: DirectorDetailsFormValues) => Promise<void>;
 };
@@ -44,21 +43,22 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
   associates,
   companyNumber,
   onSubmit,
+  dropdownData,
 }) => {
   const { data, loading, error } = useCompanyOfficers(companyNumber);
   if (loading) {
     return <Loading />;
   }
 
-  if (error || !data || !data.allDropDowns || !data.companyOfficers.nodes) {
+  if (associates.length === 0 && (error || !data || !data.companyOfficers.nodes)) {
     return <ErrorMessage message="Could not load director details!" />;
   }
 
-  const dropdownData = data.allDropDowns;
-  const officers = data.companyOfficers.nodes.filter(isTruthy);
+  const officers = data?.companyOfficers?.nodes?.filter(isTruthy) || [];
+  const directors = combineDirectorsData(officers, associates);
   return (
     <Formik<DirectorDetailsFormValues>
-      initialValues={initialFormValues(officers)}
+      initialValues={initialFormValues(directors)} 
       validationSchema={validationSchema}
       validate={validate}
       onSubmit={onSubmit}
@@ -73,7 +73,7 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
             ownership:
           </Text>
           <DirectorFieldArray
-            directors={combineDirectorsData(officers, associates)}
+            directors={directors}
             dropdownData={dropdownData} />
           <Button
             color="primary"
