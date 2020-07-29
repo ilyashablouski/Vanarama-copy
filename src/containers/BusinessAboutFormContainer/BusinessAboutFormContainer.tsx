@@ -4,10 +4,7 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import BusinessAboutForm from '../../components/BusinessAboutForm/BusinessAboutForm';
 import { useEmailCheck } from '../RegisterFormContainer/gql';
 import { useAboutYouData } from '../AboutFormContainer/gql';
-import {
-  useCreateUpdateCreditApplication,
-  useGetCreditApplicationByOrderUuid,
-} from '../../gql/creditApplication';
+import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
 
 import { useAboutPageDataQuery, useSaveAboutYouMutation } from './gql';
 import { IBusinessAboutFormContainerProps, SubmitResult } from './interfaces';
@@ -23,7 +20,6 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   const aboutYouData = useAboutYouData(personUuid);
   const [saveDetails] = useSaveAboutYouMutation();
   const [emailAlreadyExists] = useEmailCheck();
-  const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
     orderId,
     () => {},
@@ -54,20 +50,23 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
         return Boolean(results?.data?.emailAlreadyExists);
       }}
       onSubmit={async values => {
+        const emailAddress = {
+          value: values.email,
+        };
+        const telephoneNumbers = [
+          {
+            value: values.telephone,
+          },
+        ];
+
         await saveDetails({
           variables: {
             input: {
+              emailAddress,
+              telephoneNumbers,
               title: values.title,
               firstName: values.firstName,
               lastName: values.lastName,
-              telephoneNumbers: [
-                {
-                  value: values.telephone,
-                },
-              ],
-              emailAddress: {
-                value: values.email,
-              },
               profilingConsent: values.consent,
               emailConsent: values.marketing,
               smsConsent: values.marketing,
@@ -79,7 +78,8 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
             createUpdateApplication({
               variables: {
                 input: {
-                  ...creditApplication.data?.creditApplicationByOrderUuid,
+                  telephoneNumbers,
+                  emailAddresses: [emailAddress],
                   orderUuid: orderId,
                 },
               },
