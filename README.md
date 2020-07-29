@@ -30,6 +30,14 @@ $ yarn dev
 
 Open [http://localhost:6601](http://localhost:6601).
 
+## Generate Apollo types.
+
+Run:
+
+```sh
+$ yarn apollo:generate
+```
+
 ## Developing locally with Docker
 
 You need to have the environment variable `NPM_TOKEN` set for this to install dependencies correctly. Easiest way to do this is to edit your `.bashrc` or `.zshrc` files with the following:
