@@ -156,12 +156,10 @@ const mocked: MockedResponse[] = [
         vehicleTypes: ['LCV'],
       },
     },
-    result: () => {
-      return {
-        data: {
-          ...mockSearchPodResponse,
-        },
-      };
+    result: {
+      data: {
+        ...mockSearchPodResponse,
+      },
     },
   },
   {
@@ -173,46 +171,44 @@ const mocked: MockedResponse[] = [
         size: 9,
       },
     },
-    result: () => {
-      return {
-        data: {
-          productCarousel: [
-            {
-              capId: '83615',
-              isOnOffer: true,
-              manufacturerName: 'Ford',
-              derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
-              rangeName: 'Focus',
-              imageUrl:
-                'https://images.autorama.co.uk/Photos/Vehicles/155485/im_3411.jpg',
-              leadTime: '14-21 Day Delivery',
-              averageRating: 4.8,
-              businessRate: 175.96,
-              personalRate: 210.96,
-              offerPosition: 1,
-              keyInformation: [
-                {
-                  name: 'Transmission',
-                  value: 'Manual',
-                },
-                {
-                  name: 'Fuel Type',
-                  value: 'Petrol',
-                },
-                {
-                  name: 'Emissions',
-                  value: '97',
-                },
-                {
-                  name: 'Fuel Economy',
-                  value: '67.3',
-                },
-              ],
-              vehicleType: VehicleTypeEnum.CAR,
-            },
-          ],
-        } as ProductCardData,
-      };
+    result: {
+      data: {
+        productCarousel: [
+          {
+            capId: '83615',
+            isOnOffer: true,
+            manufacturerName: 'Ford',
+            derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
+            rangeName: 'Focus',
+            imageUrl:
+              'https://images.autorama.co.uk/Photos/Vehicles/155485/im_3411.jpg',
+            leadTime: '14-21 Day Delivery',
+            averageRating: 4.8,
+            businessRate: 175.96,
+            personalRate: 210.96,
+            offerPosition: 1,
+            keyInformation: [
+              {
+                name: 'Transmission',
+                value: 'Manual',
+              },
+              {
+                name: 'Fuel Type',
+                value: 'Petrol',
+              },
+              {
+                name: 'Emissions',
+                value: '97',
+              },
+              {
+                name: 'Fuel Economy',
+                value: '67.3',
+              },
+            ],
+            vehicleType: VehicleTypeEnum.CAR,
+          },
+        ],
+      } as ProductCardData,
     },
   },
 ];
