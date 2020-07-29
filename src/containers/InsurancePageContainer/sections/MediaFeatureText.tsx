@@ -10,7 +10,7 @@ const MediaFeatureText = ({ title, titleTag, body }: IMediaFeature) => {
   let buttonFill: 'solid' | 'outline' = 'outline';
   return (
     <>
-      <Heading size="large" color="black" tag={getTitleTag(titleTag) as any}>
+      <Heading size="large" color="black" tag={getTitleTag(titleTag) as keyof JSX.IntrinsicElements}>
         {title}
       </Heading>
       <ReactMarkdown

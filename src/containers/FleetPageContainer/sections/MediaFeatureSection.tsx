@@ -51,7 +51,7 @@ const MediaFeatureSection: React.FC<IMediaFeatureProps> = ({
             <Heading
               size="large"
               color="black"
-              tag={getTitleTag(titleTag) as any}
+              tag={getTitleTag(titleTag) as keyof JSX.IntrinsicElements}
             >
               {title}
             </Heading>

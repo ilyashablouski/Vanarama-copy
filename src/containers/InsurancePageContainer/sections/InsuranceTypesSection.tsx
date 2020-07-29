@@ -19,7 +19,7 @@ const renderCard = (card: TypeCard) => (
         <Heading
           size="lead"
           color="black"
-          tag={(getTitleTag(card.titleTag) as any) || 'a'}
+          tag={(getTitleTag(card.titleTag) as keyof JSX.IntrinsicElements) || 'a'}
           href={card.link?.url || ''}
         >
           {card.title}
