@@ -7,6 +7,7 @@ const HUB_CAR_CONTENT = gql`
       sections {
         hero {
           title
+          titleTag
           body
           image {
             title
@@ -17,10 +18,12 @@ const HUB_CAR_CONTENT = gql`
         }
         leadText {
           heading
+          titleTag
           description
         }
         featured1 {
           title
+          titleTag
           body
           image {
             file {
@@ -30,6 +33,7 @@ const HUB_CAR_CONTENT = gql`
         }
         featured2 {
           title
+          titleTag
           body
           image {
             file {
@@ -46,8 +50,11 @@ const HUB_CAR_CONTENT = gql`
         }
         tiles {
           name
+          titleTag
+          tilesTitle
           tiles {
             title
+            link
             body
             image {
               file {

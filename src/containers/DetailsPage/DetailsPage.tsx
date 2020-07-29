@@ -230,7 +230,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         onCompleted={values => onSubmitClick(values)}
       />
       <CustomerAlsoViewedContainer
-        capsId={capsId || []}
+        capsId={capsId || ['']}
         vehicleType={vehicleType}
         leaseType={leaseType.toUpperCase() || ''}
       />
