@@ -226,7 +226,7 @@ describe('<SearchPodContainer />', () => {
     // ASSERT
     await waitFor(() => {
       expect(mockCalled).toBeTruthy();
-      expect(screen.getByText('Vehicle Search')).toBeInTheDocument();
+      expect(screen.getByText('Search Car Leasing')).toBeInTheDocument();
     });
   });
 
