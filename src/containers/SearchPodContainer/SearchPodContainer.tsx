@@ -8,7 +8,7 @@ import {
   carPageTabFields,
   vanPageTabFields,
 } from './config';
-import { filterListByTypes, filterTypeAndBudget } from './gql';
+import { useFilterList, filterTypeAndBudget } from './gql';
 import {
   makeHandler,
   modelHandler,
@@ -32,7 +32,7 @@ const SearchPodContainer = () => {
   const [pickupMakes, setPickupMakes] = useState([] as string[]);
 
   const [config, setConfig] = useState([] as any);
-  const [headingText, setHeadingText] = useState('Search vehicles');
+  const [headingText, setHeadingText] = useState('Search Vans');
   // set it to true if we need preselect some data
   const [isShouldPreselectTypes, setIsShouldPreselectTypes] = useState(false);
 
@@ -70,7 +70,7 @@ const SearchPodContainer = () => {
   const selectTypeVans = watch('typeVans');
   const selectTypeCars = watch('typeCars');
 
-  const { data, refetch } = filterListByTypes([Tabs[activeIndex]]);
+  const { data, refetch } = useFilterList([Tabs[activeIndex]]);
   const [getVehicleData, { data: actualVehicleData }] = filterTypeAndBudget(
     [Tabs[activeIndex]],
     activeIndex === 1 ? selectMakeVans : selectMakeCars,
@@ -104,7 +104,7 @@ const SearchPodContainer = () => {
   useEffect(() => {
     if (router.pathname.indexOf('cars') > -1) {
       setConfig(carPageTabFields);
-      setHeadingText('Vehicle Search');
+      setHeadingText('Search Car Leasing');
       setActiveIndex(2);
     } else if (router.pathname.indexOf('vans') > -1) {
       setHeadingText('Search Van Leasing');
@@ -119,7 +119,7 @@ const SearchPodContainer = () => {
   // get a data for dropdowns
   useEffect(() => {
     if (data?.filterList) {
-      if (data.filterList.vehicleTypes[0] === 'LCV') {
+      if (data.filterList?.vehicleTypes?.[0] === 'LCV') {
         setAllDataForVans(data.filterList);
       } else {
         setAllDataForCars(data.filterList);
@@ -295,10 +295,16 @@ const SearchPodContainer = () => {
     });
   };
 
+  const onChangeTab = (index: number) => {
+    setActiveIndex(index);
+    if (index === 1) setHeadingText('Search Vans');
+    if (index === 2) setHeadingText('Search Cars');
+  };
+
   return (
     <SearchPod
       activeTab={activeIndex}
-      onChangeTab={(index: number) => setActiveIndex(index)}
+      onChangeTab={(index: number) => onChangeTab(index)}
       config={config}
       onSearch={onSearch}
       getOptions={field => getOptions(field)}

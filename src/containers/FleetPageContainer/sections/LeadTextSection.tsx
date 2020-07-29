@@ -5,7 +5,11 @@ import { GetFleetLandingPage_fleetLandingPage_sections_leadText as ILeadText } f
 
 const LeadTextSection = ({ titleTag, heading, description }: ILeadText) => (
   <div className="row:lead-text">
-    <Heading size="xlarge" color="black" tag={getTitleTag(titleTag) as any}>
+    <Heading
+      size="xlarge"
+      color="black"
+      tag={getTitleTag(titleTag) as keyof JSX.IntrinsicElements}
+    >
       {heading}
     </Heading>
     <Text size="lead" color="darker">

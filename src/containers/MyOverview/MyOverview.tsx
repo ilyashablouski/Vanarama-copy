@@ -7,7 +7,7 @@ import Pagination from '@vanarama/uibook/lib/components/atoms/pagination';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import React, { useState, CSSProperties, useEffect } from 'react';
 import cx from 'classnames';
-import { NextRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import {
   useOrdersByPartyUuidData,
   useCarDerivativesData,
@@ -19,14 +19,19 @@ import {
 } from '../../../generated/GetOrdersByPartyUuid';
 import { createOffersObject } from './helpers';
 
+type QueryParams = {
+  partyByUuid?: string;
+};
+
 interface IMyOverviewProps {
-  partyByUuid: string;
   quote: boolean;
-  router: NextRouter;
 }
 
 const MyOverview: React.FC<IMyOverviewProps> = props => {
-  const { partyByUuid, quote, router } = props;
+  const router = useRouter();
+  const { partyByUuid } = router.query as QueryParams;
+  const { quote } = props;
+
   const [activePage, setActivePage] = useState(1);
   const [activeTab, setActiveTab] = useState(0);
   const [status, changeStatus] = useState<string[]>([]);
@@ -43,23 +48,28 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   };
 
   // call query for get Orders
-  const { data, loading } = useOrdersByPartyUuidData(
-    partyByUuid,
+  const [getOrders, { data, loading }] = useOrdersByPartyUuidData(
+    partyByUuid || '',
     quote ? ['quote', 'new'] : status || [],
     !quote ? ['quote', 'expired', 'new'] : ['expired'],
     (!quote && statusesCA) || [],
     (!quote && exStatusesCA) || [],
   );
 
+  useEffect(() => {
+    if (partyByUuid) {
+      getOrders();
+    }
+  }, [partyByUuid, getOrders, router.query.partyByUuid]);
+
   // collect everything capId from orders
-  const capIdArray =
-    data?.ordersByPartyUuid?.reduce((array, el) => {
-      const capId = el.lineItems[0].vehicleProduct?.derivativeCapId || '';
-      if (capId !== array[0]) {
-        array.unshift(capId);
-      }
-      return array;
-    }, [] as string[]) || [];
+  const capIdArray = data?.ordersByPartyUuid?.reduce((array, el) => {
+    const capId = el.lineItems[0].vehicleProduct?.derivativeCapId || '';
+    if (capId !== array[0]) {
+      array.unshift(capId);
+    }
+    return array;
+  }, [] as string[]) || [''];
 
   // call query for get DerivativesData
   const dataCars = useCarDerivativesData(capIdArray, VehicleTypeEnum.CAR);

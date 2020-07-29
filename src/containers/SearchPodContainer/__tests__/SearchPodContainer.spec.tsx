@@ -20,6 +20,7 @@ const mocks: MockedResponse[] = [
       query: GET_SEARCH_POD_DATA,
       variables: {
         vehicleTypes: ['LCV'],
+        onOffer: null,
       },
     },
     result: () => {
@@ -55,6 +56,7 @@ const mocks: MockedResponse[] = [
       query: GET_SEARCH_POD_DATA,
       variables: {
         vehicleTypes: ['CAR'],
+        onOffer: null,
       },
     },
     result: () => {
@@ -224,7 +226,7 @@ describe('<SearchPodContainer />', () => {
     // ASSERT
     await waitFor(() => {
       expect(mockCalled).toBeTruthy();
-      expect(screen.getByText('Vehicle Search')).toBeInTheDocument();
+      expect(screen.getByText('Search Car Leasing')).toBeInTheDocument();
     });
   });
 

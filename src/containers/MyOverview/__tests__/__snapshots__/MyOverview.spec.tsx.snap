@@ -571,13 +571,7 @@ Array [
               className="heading -black -lead"
               data-testid="card-heading"
             >
-              manufacturerName modelName
-            </span>
-            <span
-              className="heading -dark -small"
-              data-testid="card-description"
-            >
-              name
+               
             </span>
           </div>
           <div
@@ -611,12 +605,12 @@ Array [
             <span>
               Fuel
                
-              fuelTypeName
+              -
             </span>
             <span>
               Transmission
                
-              transmissionName
+              -
             </span>
             <span>
               Color
@@ -885,13 +879,7 @@ Array [
               className="heading -black -lead"
               data-testid="card-heading"
             >
-              manufacturerName modelName
-            </span>
-            <span
-              className="heading -dark -small"
-              data-testid="card-description"
-            >
-              name
+               
             </span>
           </div>
           <div
@@ -925,12 +913,12 @@ Array [
             <span>
               Fuel
                
-              fuelTypeName
+              -
             </span>
             <span>
               Transmission
                
-              transmissionName
+              -
             </span>
             <span>
               Color
