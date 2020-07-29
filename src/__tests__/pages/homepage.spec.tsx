@@ -187,12 +187,10 @@ const mocked: MockedResponse[] = [
         vehicleTypes: [VehicleTypeEnum.LCV],
       },
     },
-    result: () => {
-      return {
-        data: {
-          ...mockSearchPodResponse,
-        },
-      };
+    result: {
+      data: {
+        ...mockSearchPodResponse,
+      },
     },
   },
   {
@@ -205,46 +203,44 @@ const mocked: MockedResponse[] = [
         offer: true,
       },
     },
-    result: () => {
-      return {
-        data: {
-          productCarousel: [
-            {
-              capId: '44514',
-              isOnOffer: true,
-              manufacturerName: 'Citroen',
-              derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
-              rangeName: 'Berlingo',
-              imageUrl:
-                'https://images.autorama.co.uk/Photos/Cap/Vehicles/161237/cap-44514-161237.jpg',
-              leadTime: 'Factory Order',
-              averageRating: 4.7,
-              businessRate: 139,
-              personalRate: 186.98,
-              offerPosition: null,
-              keyInformation: [
-                {
-                  name: 'Transmission',
-                  value: 'Manual',
-                },
-                {
-                  name: 'Fuel Type',
-                  value: 'Diesel',
-                },
-                {
-                  name: 'Emissions',
-                  value: '111',
-                },
-                {
-                  name: 'Fuel Economy',
-                  value: '67.2',
-                },
-              ],
-              vehicleType: VehicleTypeEnum.LCV,
-            },
-          ],
-        } as ProductCardData,
-      };
+    result: {
+      data: {
+        productCarousel: [
+          {
+            capId: '44514',
+            isOnOffer: true,
+            manufacturerName: 'Citroen',
+            derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
+            rangeName: 'Berlingo',
+            imageUrl:
+              'https://images.autorama.co.uk/Photos/Cap/Vehicles/161237/cap-44514-161237.jpg',
+            leadTime: 'Factory Order',
+            averageRating: 4.7,
+            businessRate: 139,
+            personalRate: 186.98,
+            offerPosition: null,
+            keyInformation: [
+              {
+                name: 'Transmission',
+                value: 'Manual',
+              },
+              {
+                name: 'Fuel Type',
+                value: 'Diesel',
+              },
+              {
+                name: 'Emissions',
+                value: '111',
+              },
+              {
+                name: 'Fuel Economy',
+                value: '67.2',
+              },
+            ],
+            vehicleType: VehicleTypeEnum.LCV,
+          },
+        ],
+      } as ProductCardData,
     },
   },
   {
@@ -256,46 +252,44 @@ const mocked: MockedResponse[] = [
         size: 9,
       },
     },
-    result: () => {
-      return {
-        data: {
-          productCarousel: [
-            {
-              capId: '83615',
-              isOnOffer: true,
-              manufacturerName: 'Ford',
-              derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
-              rangeName: 'Focus',
-              imageUrl:
-                'https://images.autorama.co.uk/Photos/Vehicles/155485/im_3411.jpg',
-              leadTime: '14-21 Day Delivery',
-              averageRating: 4.8,
-              businessRate: 175.96,
-              personalRate: 210.96,
-              offerPosition: 1,
-              keyInformation: [
-                {
-                  name: 'Transmission',
-                  value: 'Manual',
-                },
-                {
-                  name: 'Fuel Type',
-                  value: 'Petrol',
-                },
-                {
-                  name: 'Emissions',
-                  value: '97',
-                },
-                {
-                  name: 'Fuel Economy',
-                  value: '67.3',
-                },
-              ],
-              vehicleType: VehicleTypeEnum.CAR,
-            },
-          ],
-        } as ProductCardData,
-      };
+    result: {
+      data: {
+        productCarousel: [
+          {
+            capId: '83615',
+            isOnOffer: true,
+            manufacturerName: 'Ford',
+            derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
+            rangeName: 'Focus',
+            imageUrl:
+              'https://images.autorama.co.uk/Photos/Vehicles/155485/im_3411.jpg',
+            leadTime: '14-21 Day Delivery',
+            averageRating: 4.8,
+            businessRate: 175.96,
+            personalRate: 210.96,
+            offerPosition: 1,
+            keyInformation: [
+              {
+                name: 'Transmission',
+                value: 'Manual',
+              },
+              {
+                name: 'Fuel Type',
+                value: 'Petrol',
+              },
+              {
+                name: 'Emissions',
+                value: '97',
+              },
+              {
+                name: 'Fuel Economy',
+                value: '67.3',
+              },
+            ],
+            vehicleType: VehicleTypeEnum.CAR,
+          },
+        ],
+      } as ProductCardData,
     },
   },
   {
@@ -308,46 +302,44 @@ const mocked: MockedResponse[] = [
         offer: true,
       },
     },
-    result: () => {
-      return {
-        data: {
-          productCarousel: [
-            {
-              capId: '44514',
-              isOnOffer: true,
-              manufacturerName: 'Citroen',
-              derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
-              rangeName: 'Berlingo',
-              imageUrl:
-                'https://images.autorama.co.uk/Photos/Cap/Vehicles/161237/cap-44514-161237.jpg',
-              leadTime: 'Factory Order',
-              averageRating: 4.7,
-              businessRate: 139,
-              personalRate: 186.98,
-              offerPosition: null,
-              keyInformation: [
-                {
-                  name: 'Transmission',
-                  value: 'Manual',
-                },
-                {
-                  name: 'Fuel Type',
-                  value: 'Diesel',
-                },
-                {
-                  name: 'Emissions',
-                  value: '111',
-                },
-                {
-                  name: 'Fuel Economy',
-                  value: '67.2',
-                },
-              ],
-              vehicleType: VehicleTypeEnum.LCV,
-            },
-          ],
-        } as ProductCardData,
-      };
+    result: {
+      data: {
+        productCarousel: [
+          {
+            capId: '44514',
+            isOnOffer: true,
+            manufacturerName: 'Citroen',
+            derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
+            rangeName: 'Berlingo',
+            imageUrl:
+              'https://images.autorama.co.uk/Photos/Cap/Vehicles/161237/cap-44514-161237.jpg',
+            leadTime: 'Factory Order',
+            averageRating: 4.7,
+            businessRate: 139,
+            personalRate: 186.98,
+            offerPosition: null,
+            keyInformation: [
+              {
+                name: 'Transmission',
+                value: 'Manual',
+              },
+              {
+                name: 'Fuel Type',
+                value: 'Diesel',
+              },
+              {
+                name: 'Emissions',
+                value: '111',
+              },
+              {
+                name: 'Fuel Economy',
+                value: '67.2',
+              },
+            ],
+            vehicleType: VehicleTypeEnum.LCV,
+          },
+        ],
+      } as ProductCardData,
     },
   },
 ];
