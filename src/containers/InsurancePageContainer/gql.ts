@@ -87,5 +87,4 @@ const GET_INSURANCE_LANDING_PAGE = gql`
   }
 `;
 
-// TODO: uncomment hero card
 export default GET_INSURANCE_LANDING_PAGE;
