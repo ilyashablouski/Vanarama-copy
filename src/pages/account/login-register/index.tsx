@@ -19,6 +19,7 @@ import {
   usePersonByTokenLazyQuery,
   handleAccountFetchError,
 } from '../../olaf/about';
+import { useOrdersByPartyUuidData } from '../../../containers/OrdersInformation/gql';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -30,8 +31,32 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
 
   const [activeTab, setActiveTab] = useState(1);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [partyByUuid, setPartyByUuid] = useState('');
+
+  const [getOrdersData, orders] = useOrdersByPartyUuidData(
+    partyByUuid,
+    [],
+    ['quote', 'expired'],
+  );
+  const [getQuotesData, quotes] = useOrdersByPartyUuidData(
+    partyByUuid,
+    ['quote', 'new'],
+    ['expired'],
+  );
+
   const [getPersonByToken] = usePersonByTokenLazyQuery(async data => {
     await localForage.setItem('person', data);
+    setPartyByUuid(data.personByToken?.partyUuid || '');
+    getOrdersData();
+    getQuotesData();
+    await localForage.setItem(
+      'ordersLength',
+      orders.data?.ordersByPartyUuid.length,
+    );
+    await localForage.setItem(
+      'quotesLength',
+      quotes.data?.ordersByPartyUuid.length,
+    );
 
     // Redirect to the user's previous route or homepage.
     const { redirect } = router.query;
