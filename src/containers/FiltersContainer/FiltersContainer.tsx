@@ -319,6 +319,12 @@ const FiltersContainer = ({
     const selected: string[] = Object.entries(selectedFiltersState)
       // makes in make page should not to be added
       .map(entry => {
+        if (
+          (entry[0] === filterFields.from || entry[0] === filterFields.to) &&
+          entry[1]?.[0]
+        ) {
+          return `£${entry[1]}`;
+        }
         return isMakePage && entry[0] === filterFields.make ? '' : entry[1];
       })
       .flat()
@@ -386,11 +392,12 @@ const FiltersContainer = ({
    * remove value from filter after deleting tag
    */
   const handleRemoveTag = (value: string) => {
-    const filter = getValueKey(value) as keyof typeof filtersMapper;
+    const formatedValue = value.replace('£', '');
+    const filter = getValueKey(formatedValue) as keyof typeof filtersMapper;
     const newSelectedFiltersState = {
       ...selectedFiltersState,
       [filter]: selectedFiltersState[filter].filter(
-        selectedValue => selectedValue !== value,
+        selectedValue => selectedValue !== formatedValue,
       ),
     };
 
