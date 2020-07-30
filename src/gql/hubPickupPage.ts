@@ -7,6 +7,7 @@ const HUB_PICKUP_CONTENT = gql`
       sections {
         hero {
           title
+          titleTag
           body
           image {
             title
@@ -17,10 +18,12 @@ const HUB_PICKUP_CONTENT = gql`
         }
         leadText {
           heading
+          titleTag
           description
         }
         featured1 {
           title
+          titleTag
           body
           image {
             file {
@@ -30,6 +33,7 @@ const HUB_PICKUP_CONTENT = gql`
         }
         featured2 {
           title
+          titleTag
           body
           image {
             file {
@@ -39,11 +43,13 @@ const HUB_PICKUP_CONTENT = gql`
         }
         rowText {
           heading
+          titleTag
           subHeading
           body
         }
         steps {
           heading
+          titleTag
           steps {
             title
             body
@@ -51,8 +57,11 @@ const HUB_PICKUP_CONTENT = gql`
         }
         tiles1 {
           name
+          titleTag
+          tilesTitle
           tiles {
             title
+            link
             body
             image {
               file {
@@ -63,8 +72,11 @@ const HUB_PICKUP_CONTENT = gql`
         }
         tiles2 {
           name
+          titleTag
+          tilesTitle
           tiles {
             title
+            link
             body
             image {
               file {
