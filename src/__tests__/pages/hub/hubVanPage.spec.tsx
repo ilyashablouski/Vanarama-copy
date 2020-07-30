@@ -37,41 +37,49 @@ const mocked: MockedResponse[] = [
           sections: {
             hero: {
               title: 'Best Van Lease Deals',
+              titleTag: 'h2',
               body:
                 'Brand New Vans, In Stock Delivered Fast and Free __From Just £115pm__',
               image: null,
             },
             leadText: {
-              heading: 'Large Sales Heading',
-              description:
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio aspernatur fugiat. Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+              heading: 'Best Van Leasing Deals In The UK',
+              titleTag: 'h1',
+              description: 'Brand New Vans, Delivered Free From Just £115pm',
             },
             featured1: {
-              title: 'Van Leasing Deals UK',
+              title: 'Why Lease A Van?',
+              titleTag: 'h2',
               body:
-                "If you're looking to drive a brand new car, van or truck without any of the hassle -",
+                "At Vanarama you'll find some of the best van lease deals in the UK. So if you're looking to get your business moving with a brand new van, you're in the right place!\n\nWhether you're after a [small van](https://beta.vanarama.com/small-van-leasing.html), a [medium van](https://beta.vanarama.com/medium-van-leasing.html) perfect for trades or even a [specialist vehicle](https://beta.vanarama.com/specialist-van-leasing.html), we have a huge range of brand new vehicles available from the major manufacturers whatever the model and size you're looking for.\n\nOur massive range of light commercial vehicles in varying sizes, engine types and flexible payloads are available for contract hire on a range of lease lengths too, so you can choose from 2,3, 4 or 5 years. Plus we'll deliver direct to your door anywhere in the UK.",
               image: null,
             },
             featured2: {
               title: 'Why Choose Vanarama For Your Van?',
-              body: 'Vanarama is more than just a broker or leasing company',
+              titleTag: 'h2',
+              body:
+                "Vanarama have been business van leasing specialists for over 15 years. Our enhanced buying power from working with those manufacturers and a large panel of funders, allows us to get you an unbeatable lease price! That's why we introduced our Price Promise\\* so if we can't find you the most competitive quote on the vehicle you want, we'll give you £100\\*.\n\nOur dedicated team of experts can help you find the perfect van lease deal. The major benefits of leasing a van with Vanarama are:\n\n-   **Affordable, fixed monthly costs.**\n-   **Brand-new vehicles with zero mileage.**\n-   **3-year manufacturer warranty and MOT included.**\n-   **Price Promise guarantee.**\n-   **Flexible mileage options.**",
               image: null,
             },
             rowText: {
-              heading: 'Not Sure How Van Leasing Works?',
+              heading: 'How Does Van Leasing Work?',
+              titleTag: 'h2',
               subHeading:
                 'Everything you need to know is a click away in our easy to understand guide',
               body:
-                'Leasing a van is really simple. You drive a brand new vehicle and pay fixed monthly rentals over 2-5 years',
+                'Leasing a van is really simple. You drive a brand new vehicle and pay fixed monthly rentals over 2-5 years after paying an initial rental at the start of your contract. At the end of your agreement, you simply hand the van back and choose which vehicle to upgrade to.\n\n[View Leasing Guides](https://beta.vanarama.com/van-leasing-explained.html)',
             },
             cards: {
-              name: 'What Type Of Van Do You Need?',
+              name: ' What Type Of Van Do You Need?',
+              titleTag: 'h2',
               description:
                 "Choose from Small, Medium and Large vans, or Tippers/Lutons, Crew/Minibus, Pickups and Refrigerated Vans - whatever you need, we've got it.",
               cards: [
                 {
                   title: 'Small Vans',
-                  body: null,
+                  titleTag: 'h3',
+                  body:
+                    'Wider & longer than a car with a surprisingly large load space',
                   image: {
                     file: {
                       url:
@@ -79,14 +87,129 @@ const mocked: MockedResponse[] = [
                     },
                   },
                   link: {
-                    url: '',
-                    text: '',
+                    url: 'https://beta.vanarama.com/small-van-leasing.html',
+                    text: 'Small Vans',
+                  },
+                },
+                {
+                  title: 'Medium Vans',
+                  titleTag: 'h3',
+                  body:
+                    'The most popular size of van on UK roads, trades people love them',
+                  image: {
+                    file: {
+                      url:
+                        '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
+                    },
+                  },
+                  link: {
+                    url: 'https://beta.vanarama.com/medium-van-leasing.html',
+                    text: 'Medium Vans',
+                  },
+                },
+                {
+                  title: 'Large Vans',
+                  titleTag: 'h3',
+                  body:
+                    'The biggest vans around, large vans can carry large & heavy loads',
+                  image: {
+                    file: {
+                      url:
+                        '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
+                    },
+                  },
+                  link: {
+                    url: 'https://beta.vanarama.com/large-van-leasing.html',
+                    text: 'Large Vans',
+                  },
+                },
+                {
+                  title: 'Pickup Trucks',
+                  titleTag: 'h3',
+                  body:
+                    'Car-like comfort, off-road capability & heavy load carrying',
+                  image: {
+                    file: {
+                      url:
+                        '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
+                    },
+                  },
+                  link: {
+                    url: 'https://beta.vanarama.com/pickup-truck-leasing.html',
+                    text: 'Pickup Trucks',
+                  },
+                },
+                {
+                  title: 'Tippers/Lutons',
+                  titleTag: 'h3',
+                  body:
+                    'Trucks with tippable backs & trucks with massive storage',
+                  image: {
+                    file: {
+                      url:
+                        '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
+                    },
+                  },
+                  link: {
+                    url:
+                      'https://beta.vanarama.com/dropside-tipper-leasing.html',
+                    text: 'Tippers/Lutons',
+                  },
+                },
+                {
+                  title: 'Minibus/Crew',
+                  titleTag: 'h3',
+                  body:
+                    'Versatility for businesses who need to move both loads and people',
+                  image: {
+                    file: {
+                      url:
+                        '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
+                    },
+                  },
+                  link: {
+                    url: 'https://beta.vanarama.com/crew-vans.html',
+                    text: 'Minibus/Crew Vans',
+                  },
+                },
+                {
+                  title: 'Refrigerated Vans',
+                  titleTag: 'h3',
+                  body:
+                    'Temperature-controlled vans ideal for safely transporting foodstuff',
+                  image: {
+                    file: {
+                      url:
+                        '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
+                    },
+                  },
+                  link: {
+                    url:
+                      'https://beta.vanarama.com/refrigerated-van-leasing.html',
+                    text: 'Refrigerated Vans',
+                  },
+                },
+                {
+                  title: 'Automatic Vans',
+                  titleTag: 'h3',
+                  body:
+                    'Automatic transmission makes driving your van effortless ',
+                  image: {
+                    file: {
+                      url:
+                        '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
+                    },
+                  },
+                  link: {
+                    url: 'https://beta.vanarama.com/automatic-vans.html',
+                    text: 'Automatic Vans',
                   },
                 },
               ],
             },
             steps: {
               heading: 'Leasing - The Simple Way To Get Your Brand New Vehicle',
+              titleTag: 'h2',
               steps: [
                 {
                   title: 'Check',
@@ -111,31 +234,59 @@ const mocked: MockedResponse[] = [
               ],
             },
             tiles: {
-              name: 'Tiles',
+              name: 'Benefits Grid',
+              titleTag: 'h2',
+              tilesTitle: 'Why Lease With Vanarama',
               tiles: [
                 {
-                  title: 'Price Protection',
+                  title: 'Price Promise',
+                  link: null,
                   body:
-                    'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
-                  image: null,
+                    "You won't find this with any of our competitors. Honest pricing & nothing hidden.",
+                  image: {
+                    file: {
+                      url:
+                        '//images.ctfassets.net/3xid768u5joa/1ZIIHCFIqBIVkse5D80ymR/59d962d5cf10c6f689c847ddab436218/price-promise.jpg',
+                    },
+                    title: 'price-promise',
+                  },
                 },
                 {
                   title: 'Customer Reviews',
+                  link: null,
                   body:
-                    'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
-                  image: null,
+                    'We love our customers and our customers love us, 96% of them would recommend us.',
+                  image: {
+                    file: {
+                      url:
+                        '//images.ctfassets.net/3xid768u5joa/27vSXvAmh2dn3wh58xoJkP/368c1854210afeaa24f0700fc7c509fc/Icon-Contract-RGB_Contract-Colour-400px-RGB.png',
+                    },
+                    title: 'Smiths-Vanarama-Deal',
+                  },
                 },
                 {
                   title: 'Quote Online',
-                  body:
-                    'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
-                  image: null,
+                  link: null,
+                  body: 'Get your quote in seconds with iVan.',
+                  image: {
+                    file: {
+                      url:
+                        '//images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png',
+                    },
+                    title: 'Insurance-Icon',
+                  },
                 },
                 {
                   title: 'Confused About Leasing?',
-                  body:
-                    'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
-                  image: null,
+                  link: null,
+                  body: 'Everything you need to know is a click away.',
+                  image: {
+                    file: {
+                      url:
+                        '//images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png',
+                    },
+                    title: 'Fleet-Icon',
+                  },
                 },
               ],
             },
@@ -151,12 +302,10 @@ const mocked: MockedResponse[] = [
         vehicleTypes: [VehicleTypeEnum.LCV],
       },
     },
-    result: () => {
-      return {
-        data: {
-          ...mockSearchPodResponse,
-        },
-      };
+    result: {
+      data: {
+        ...mockSearchPodResponse,
+      },
     },
   },
   {
@@ -169,46 +318,44 @@ const mocked: MockedResponse[] = [
         offer: true,
       },
     },
-    result: () => {
-      return {
-        data: {
-          productCarousel: [
-            {
-              capId: '44514',
-              isOnOffer: true,
-              manufacturerName: 'Volkswagen',
-              derivativeName: '2.0 TDI BMT 102 Highline Kombi Van Euro 6',
-              rangeName: 'Transporter',
-              imageUrl:
-                'https://images.autorama.co.uk/Photos/Cap/Vehicles/129783/cap-35088-129783.jpg',
-              leadTime: 'Factory Order',
-              averageRating: 4.8,
-              businessRate: 219,
-              personalRate: 278.98,
-              offerPosition: null,
-              keyInformation: [
-                {
-                  name: 'Transmission',
-                  value: 'Manual',
-                },
-                {
-                  name: 'Fuel Type',
-                  value: 'Diesel',
-                },
-                {
-                  name: 'Emissions',
-                  value: '189',
-                },
-                {
-                  name: 'Fuel Economy',
-                  value: '39.2',
-                },
-              ],
-              vehicleType: VehicleTypeEnum.LCV,
-            },
-          ],
-        } as ProductCardData,
-      };
+    result: {
+      data: {
+        productCarousel: [
+          {
+            capId: '44514',
+            isOnOffer: true,
+            manufacturerName: 'Volkswagen',
+            derivativeName: '2.0 TDI BMT 102 Highline Kombi Van Euro 6',
+            rangeName: 'Transporter',
+            imageUrl:
+              'https://images.autorama.co.uk/Photos/Cap/Vehicles/129783/cap-35088-129783.jpg',
+            leadTime: 'Factory Order',
+            averageRating: 4.8,
+            businessRate: 219,
+            personalRate: 278.98,
+            offerPosition: null,
+            keyInformation: [
+              {
+                name: 'Transmission',
+                value: 'Manual',
+              },
+              {
+                name: 'Fuel Type',
+                value: 'Diesel',
+              },
+              {
+                name: 'Emissions',
+                value: '189',
+              },
+              {
+                name: 'Fuel Economy',
+                value: '39.2',
+              },
+            ],
+            vehicleType: VehicleTypeEnum.LCV,
+          },
+        ],
+      } as ProductCardData,
     },
   },
   {
@@ -221,46 +368,44 @@ const mocked: MockedResponse[] = [
         offer: true,
       },
     },
-    result: () => {
-      return {
-        data: {
-          productCarousel: [
-            {
-              capId: '44514',
-              isOnOffer: true,
-              manufacturerName: 'Citroen',
-              derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
-              rangeName: 'Berlingo',
-              imageUrl:
-                'https://images.autorama.co.uk/Photos/Cap/Vehicles/161237/cap-44514-161237.jpg',
-              leadTime: 'Factory Order',
-              averageRating: 4.7,
-              businessRate: 139,
-              personalRate: 186.98,
-              offerPosition: null,
-              keyInformation: [
-                {
-                  name: 'Transmission',
-                  value: 'Manual',
-                },
-                {
-                  name: 'Fuel Type',
-                  value: 'Diesel',
-                },
-                {
-                  name: 'Emissions',
-                  value: '111',
-                },
-                {
-                  name: 'Fuel Economy',
-                  value: '67.2',
-                },
-              ],
-              vehicleType: VehicleTypeEnum.LCV,
-            },
-          ],
-        } as ProductCardData,
-      };
+    result: {
+      data: {
+        productCarousel: [
+          {
+            capId: '44514',
+            isOnOffer: true,
+            manufacturerName: 'Citroen',
+            derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
+            rangeName: 'Berlingo',
+            imageUrl:
+              'https://images.autorama.co.uk/Photos/Cap/Vehicles/161237/cap-44514-161237.jpg',
+            leadTime: 'Factory Order',
+            averageRating: 4.7,
+            businessRate: 139,
+            personalRate: 186.98,
+            offerPosition: null,
+            keyInformation: [
+              {
+                name: 'Transmission',
+                value: 'Manual',
+              },
+              {
+                name: 'Fuel Type',
+                value: 'Diesel',
+              },
+              {
+                name: 'Emissions',
+                value: '111',
+              },
+              {
+                name: 'Fuel Economy',
+                value: '67.2',
+              },
+            ],
+            vehicleType: VehicleTypeEnum.LCV,
+          },
+        ],
+      } as ProductCardData,
     },
   },
   {
@@ -273,46 +418,44 @@ const mocked: MockedResponse[] = [
         offer: true,
       },
     },
-    result: () => {
-      return {
-        data: {
-          productCarousel: [
-            {
-              capId: '44514',
-              isOnOffer: true,
-              manufacturerName: 'Citroen',
-              derivativeName: '2.2 BlueHDi H2 Van 140ps Enterprise',
-              rangeName: 'Relay',
-              imageUrl:
-                'https://images.autorama.co.uk/Photos/Cap/Vehicles/162520/cap-44275-162520.jpg',
-              leadTime: 'Factory Order',
-              averageRating: 4.5,
-              businessRate: 216.97,
-              personalRate: 260.97,
-              offerPosition: null,
-              keyInformation: [
-                {
-                  name: 'Transmission',
-                  value: 'Manual',
-                },
-                {
-                  name: 'Fuel Type',
-                  value: 'Diesel',
-                },
-                {
-                  name: 'Emissions',
-                  value: '162',
-                },
-                {
-                  name: 'Load Height',
-                  value: '1932',
-                },
-              ],
-              vehicleType: VehicleTypeEnum.LCV,
-            },
-          ],
-        } as ProductCardData,
-      };
+    result: {
+      data: {
+        productCarousel: [
+          {
+            capId: '44514',
+            isOnOffer: true,
+            manufacturerName: 'Citroen',
+            derivativeName: '2.2 BlueHDi H2 Van 140ps Enterprise',
+            rangeName: 'Relay',
+            imageUrl:
+              'https://images.autorama.co.uk/Photos/Cap/Vehicles/162520/cap-44275-162520.jpg',
+            leadTime: 'Factory Order',
+            averageRating: 4.5,
+            businessRate: 216.97,
+            personalRate: 260.97,
+            offerPosition: null,
+            keyInformation: [
+              {
+                name: 'Transmission',
+                value: 'Manual',
+              },
+              {
+                name: 'Fuel Type',
+                value: 'Diesel',
+              },
+              {
+                name: 'Emissions',
+                value: '162',
+              },
+              {
+                name: 'Load Height',
+                value: '1932',
+              },
+            ],
+            vehicleType: VehicleTypeEnum.LCV,
+          },
+        ],
+      } as ProductCardData,
     },
   },
 ];

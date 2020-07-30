@@ -307,11 +307,14 @@ export const CarsPage: NextPage = () => {
                   }
                 />
               </div>
-              <a className="tile--link" href="##">
+              <RouterLink
+                link={{ href: tile.link || '#', label: '' }}
+                className="tile--link"
+              >
                 <Heading tag="span" size="regular" color="black">
                   {tile.title}
                 </Heading>
-              </a>
+              </RouterLink>
               <Text tag="p">{tile.body}</Text>
             </Tile>
           </div>
