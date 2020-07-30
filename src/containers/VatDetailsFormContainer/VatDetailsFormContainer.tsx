@@ -18,20 +18,20 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
 
   return (
     <VatDetailsForm
-      onSubmit={async ({ markets, outsideUK, vatNumber, vatRegistered }) => {
+      onSubmit={async values => {
         await updateVatDetails({
           variables: {
             input: {
               uuid: companyUuid,
-              isVatRegistered: vatRegistered,
-              tradesOutsideUk: outsideUK,
-              turnoverPercentageOutsideUk: outsideUK
-                ? markets.map(_ => ({
+              isVatRegistered: values.vatRegistered,
+              tradesOutsideUk: values.outsideUK,
+              turnoverPercentageOutsideUk: values.outsideUK
+                ? values.markets.map(_ => ({
                     country: _.country,
                     percentage: Number(_.percentage),
                   }))
                 : undefined,
-              vatNumber,
+              vatNumber: values.vatNumber,
             },
           },
         })
