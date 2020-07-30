@@ -64,7 +64,7 @@ export const changeCompares = async (
 
 export const isCorrectCompareType = (
   data?: IVehicle | IVehicleCarousel | null,
-  compareVehicles?: IVehicle[] | IVehicleCarousel[],
+  compareVehicles?: IVehicle[] | IVehicleCarousel[] | null,
 ) => {
   if (!data || !compareVehicles) return false;
 

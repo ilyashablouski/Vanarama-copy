@@ -9,7 +9,7 @@ export const PAGES_WITH_COMPARATOR = [
 ];
 
 interface IInitialState {
-  compareVehicles: IVehicle[] | [] | undefined;
+  compareVehicles: IVehicle[] | [] | undefined | null;
   compareChange: (
     product?: IVehicle | IVehicleCarousel | null,
   ) => Promise<void>;

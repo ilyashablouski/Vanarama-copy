@@ -28,7 +28,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   };
 
   const [compareVehicles, setCompareVehicles] = useState<
-    IVehicle[] | [] | undefined
+    IVehicle[] | IVehicleCarousel[] | [] | null | undefined
   >([]);
   const [modalCompareTypeError, setModalCompareTypeError] = useState<
     boolean | undefined
@@ -67,7 +67,10 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     product?: IVehicle | IVehicleCarousel | null | undefined,
   ) => {
     if (isCorrectCompareType(product || null, compareVehicles)) {
-      const compares = await changeCompares(product || null);
+      const compares = (await changeCompares(product || null)) as
+        | IVehicle[]
+        | IVehicleCarousel[]
+        | null;
       setCompareVehicles(compares);
     } else {
       setModalCompareTypeError(true);
