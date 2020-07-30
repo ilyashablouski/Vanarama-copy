@@ -351,13 +351,13 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
           class="text review-text -regular -dark"
           data-testid="review"
         >
-          I can't really compare you with any of the other companies out there as I've not used them. I guess that speaks for itself!
+          Vanarama offered the cheapest prices on the vehicles and their service is fully integrated from telephone support to a state-of-the-art app, for Drivers and Fleet Managers.
         </span>
         <div
           class="review-author"
           data-testid="author-review"
         >
-          Steven Buckle
+          Peter Cheshire
         </div>
         <div
           class="review-decoration"
@@ -432,7 +432,7 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                     ionicons-v5-e
                   </title>
                   <path
-                    d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7ZM274.63,347.82,256,334.49V134.39l26,78.91,7.24,22H394.63l-67.32,47.2-19.69,13.81,7.78,22.75,26.26,76.75Z"
+                    d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
                   />
                 </svg>
               </i>
@@ -450,8 +450,7 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                     ionicons-v5-e
                   </title>
                   <path
-                    d="M480,208H308L256,48,204,208H32l140,96L118,464,256,364,394,464,340,304Z"
-                    style="fill: none; stroke: var(--class-color); stroke-linejoin: round; stroke-width: 32;"
+                    d="M496,203.3H312.36L256,32,199.64,203.3H16L166.21,308.7,107.71,480,256,373.84,404.29,480,345.68,308.7Z"
                   />
                 </svg>
               </i>
@@ -459,7 +458,7 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             <span
               class="text -regular -dark"
             >
-              3.9
+              5
             </span>
           </div>
         </div>

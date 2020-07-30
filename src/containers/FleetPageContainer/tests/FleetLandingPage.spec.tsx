@@ -5,34 +5,9 @@ import FleetLandingPage from '../FleetLandingPage';
 import GET_FLEET_PAGE_CONTENT from '../gql';
 
 import { GetFleetLandingPage_fleetLandingPage as FleetPageData } from '../../../../generated/GetFleetLandingPage';
-import { TESTIMONIALS_DATA } from '../../../gql/testimonials';
-import { TestimonialsData } from '../../../../generated/TestimonialsData';
 
 // ARRANGE
 const mocked: MockedResponse[] = [
-  {
-    request: {
-      query: TESTIMONIALS_DATA,
-      variables: {
-        page: 1,
-        size: 1,
-      },
-    },
-    result: {
-      data: {
-        testimonials: [
-          {
-            date: '2020-02-11',
-            name: 'Steven Buckle',
-            whyLease: 'Cheaper than buying',
-            comments:
-              "I can't really compare you with any of the other companies out there as I've not used them. I guess that speaks for itself!",
-            overallRating: 3.9,
-          },
-        ],
-      } as TestimonialsData,
-    },
-  },
   {
     request: {
       query: GET_FLEET_PAGE_CONTENT,
@@ -49,6 +24,14 @@ const mocked: MockedResponse[] = [
               body:
                 "The prospect of managing a mixed fleet of multiple vehicles, on varied financial contracts, is daunting...but we'll take that away. Our dedicated team, and the platforms available to you and us, mean that running your mixed fleet is hassle-free.",
               layout: ['Media Right'],
+              testimonials: [
+                {
+                  customerName: 'Peter Cheshire',
+                  summary:
+                    'Vanarama offered the cheapest prices on the vehicles and their service is fully integrated from telephone support to a state-of-the-art app, for Drivers and Fleet Managers.',
+                  rating: '5',
+                },
+              ],
             },
             featured2: {
               title: "What's In It For My Business?",
@@ -163,7 +146,7 @@ describe('<FleetLandingPage />', () => {
     await waitFor(() => {
       expect(
         screen.getByText(
-          `I can't really compare you with any of the other companies out there as I've not used them. I guess that speaks for itself!`,
+          `Vanarama offered the cheapest prices on the vehicles and their service is fully integrated from telephone support to a state-of-the-art app, for Drivers and Fleet Managers.`,
         ),
       ).toBeInTheDocument();
     });
