@@ -23,7 +23,7 @@ import League from '@vanarama/uibook/lib/components/organisms/league';
 
 import { useContext } from 'react';
 import { isCorrectCompareType, changeCompares } from '../../../utils/helpers';
-import { CompareContext } from '../../_app';
+import { CompareContext } from '../../../utils/comparatorTool';
 import {
   HubCarPageData,
   HubCarPageData_hubCarPage_sections_tiles_tiles as TileData,

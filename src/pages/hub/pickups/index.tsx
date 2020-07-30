@@ -45,7 +45,7 @@ import truncateString from '../../../utils/truncateString';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { getProductPageUrl } from '../../../utils/url';
-import { CompareContext } from '../../_app';
+import { CompareContext } from '../../../utils/comparatorTool';
 
 export const PickupsPage: NextPage = () => {
   const [offer, setOffer] = useState<ProdData>();

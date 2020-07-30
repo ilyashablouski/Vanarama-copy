@@ -8,6 +8,7 @@ import cx from 'classnames';
 import ComparatorBar from '@vanarama/uibook/lib/components/organisms/comparator-bar';
 import Modal from '@vanarama/uibook/lib/components/molecules/modal';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
+import { PAGES_WITH_COMPARATOR, CompareContext } from '../utils/comparatorTool';
 import Header from '../components/Header/Header';
 import { PHONE_NUMBER_LINK, TOP_BAR_LINKS } from '../models/enum/HeaderLinks';
 import {
@@ -17,27 +18,6 @@ import {
   IVehicle,
   IVehicleCarousel,
 } from '../utils/helpers';
-
-export const PAGES_WITH_COMPARATOR = [
-  'eligibility-checker/results',
-  'car-leasing',
-  'hub/',
-  'van-leasing',
-];
-
-interface IInitialState {
-  compareVehicles: IVehicle[] | [] | undefined;
-  setCompareVehicles: (vehicles?: IVehicle[] | [] | undefined) => void;
-  setModalCompareTypeError: (show?: boolean | undefined) => void;
-}
-
-const initialState = {
-  compareVehicles: [],
-  setCompareVehicles: () => {},
-  setModalCompareTypeError: () => {},
-} as IInitialState;
-
-export const CompareContext = React.createContext(initialState);
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   const LOGIN_LINK = {
@@ -51,7 +31,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   const [modalCompareTypeError, setModalCompareTypeError] = useState<
     boolean | undefined
   >(false);
-  const [exitComparator, setExitComparator] = useState(false);
+  const [existComparator, setExistComparator] = useState(false);
 
   useEffect(() => {
     // Anytime router.push is called, scroll to the top of the page.
@@ -77,7 +57,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         page => router.pathname.includes(page) || router.pathname === '/',
       )
     ) {
-      setExitComparator(true);
+      setExistComparator(true);
     }
   }, [router.pathname]);
 
@@ -118,7 +98,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         >
           <Component {...pageProps} />
         </CompareContext.Provider>
-        {compareVehicles && compareVehicles.length > 0 && exitComparator && (
+        {compareVehicles && compareVehicles.length > 0 && existComparator && (
           <ComparatorBar
             deleteVehicle={async vehicle => {
               const vehicles = await deleteCompare(vehicle);

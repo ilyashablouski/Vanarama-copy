@@ -8,7 +8,7 @@ import Price from '@vanarama/uibook/lib/components/atoms/price';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import { isCorrectCompareType, changeCompares } from '../../utils/helpers';
-import { CompareContext } from '../../pages/_app';
+import { CompareContext } from '../../utils/comparatorTool';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import RouterLink from '../RouterLink/RouterLink';
 import { getProductPageUrl } from '../../utils/url';

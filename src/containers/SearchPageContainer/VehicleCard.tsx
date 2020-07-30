@@ -12,7 +12,7 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import { getProductPageUrl } from '../../utils/url';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import { changeCompares, isCorrectCompareType } from '../../utils/helpers';
-import { CompareContext } from '../../pages/_app';
+import { CompareContext } from '../../utils/comparatorTool';
 
 export interface IProductPageUrl {
   url: string;
