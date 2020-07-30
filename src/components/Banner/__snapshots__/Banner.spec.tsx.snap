@@ -29,7 +29,7 @@ exports[`BusinessAboutForm should show required field validation messages if the
         </clipPath>
       </defs>
       <g
-        clipPath="url(#clip-Redundancy_icon)"
+        clip-path="url(#clip-Redundancy_icon)"
         data-name="Redundancy icon"
         id="Redundancy_icon"
       >
