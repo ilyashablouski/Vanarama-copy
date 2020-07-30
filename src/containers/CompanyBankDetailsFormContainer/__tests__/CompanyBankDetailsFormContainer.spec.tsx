@@ -9,10 +9,12 @@ import CompanyBankDetailsFormContainer from '../CompanyBankDetailsFormContainer'
 import { GET_COMPANY_BANK_DETAILS, UPDATE_COMPANY_BANK_DETAILS } from '../gql';
 import { UpdateBankDetailsMutationVariables as MutationVariables } from '../../../../generated/UpdateBankDetailsMutation';
 import { LimitedCompanyInputObject } from '../../../../generated/globalTypes';
+import { CREATE_UPDATE_CREDIT_APPLICATION } from '../../../gql/creditApplication';
 
 let prepopulatedMockCalled = false;
 
 const companyUuid = '7f5a4ed2-24a5-42ff-9acd-208db847d678';
+const orderUuid = '00000000-24a5-42ff-9acd-00000000';
 const mocks: MockedResponse[] = [
   {
     request: {
@@ -104,6 +106,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
         <CompanyBankDetailsFormContainer
+          orderUuid={orderUuid}
           companyUuid={companyUuid}
           onCompleted={jest.fn()}
         />
@@ -126,6 +129,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
     const getComponent = render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <CompanyBankDetailsFormContainer
+          orderUuid={orderUuid}
           companyUuid={companyUuid}
           onCompleted={jest.fn()}
         />
@@ -178,6 +182,51 @@ describe('<CompanyBankDetailsFormContainer />', () => {
           };
         },
       },
+      {
+        request: {
+          query: CREATE_UPDATE_CREDIT_APPLICATION,
+          variables: {
+            input: {
+              orderUuid: '00000000-24a5-42ff-9acd-00000000',
+            },
+          },
+        },
+        result: {
+          data: {
+            createUpdateCreditApplication: {
+              addresses: [],
+              bankAccounts: [],
+              employmentHistories: null,
+              incomeAndExpenses: null,
+              lineItem: {
+                uuid: 'test uuid',
+                quantity: 1,
+                status: 'test status',
+                productId: 'test productId',
+                productType: 'test productType',
+                vehicleProduct: {
+                  derivativeCapId: 'test derivativeCapId',
+                  description: 'test description',
+                  vsku: 'test vsku',
+                  term: 'test term',
+                  annualMileage: 123,
+                  monthlyPayment: 1232,
+                  depositMonths: 12,
+                  funder: 'test funder',
+                },
+              },
+              leadManagerProposalId: 'test leadManagerProposalId',
+              createdAt: 'test createdAt',
+              emailAddresses: [],
+              partyDetails: null,
+              status: 'test status',
+              telephoneNumbers: [],
+              updatedAt: 'test updatedAt',
+              uuid: 'test uuid',
+            },
+          },
+        },
+      },
     ];
 
     // ACT
@@ -187,6 +236,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
         mocks={mocks.concat(...mutationMocks)}
       >
         <CompanyBankDetailsFormContainer
+          orderUuid={orderUuid}
           companyUuid={companyUuid}
           onCompleted={onCompletedMock}
         />
