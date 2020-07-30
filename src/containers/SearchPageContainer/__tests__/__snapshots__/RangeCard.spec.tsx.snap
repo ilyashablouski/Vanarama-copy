@@ -24,12 +24,6 @@ exports[`<RangeCard /> should be render correctly 1`] = `
           2 Series
         </a>
       </div>
-      <span
-        class="text -regular -dark"
-        data-testid="card-description"
-      >
-        Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id
-      </span>
       <div
         class="-flex-h"
       >
