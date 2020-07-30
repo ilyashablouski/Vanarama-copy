@@ -9,7 +9,7 @@ import CompanyBankDetailsFormContainer from '../CompanyBankDetailsFormContainer'
 import { GET_COMPANY_BANK_DETAILS, UPDATE_COMPANY_BANK_DETAILS } from '../gql';
 import { UpdateBankDetailsMutationVariables as MutationVariables } from '../../../../generated/UpdateBankDetailsMutation';
 import { LimitedCompanyInputObject } from '../../../../generated/globalTypes';
-import { CREATE_UPDATE_CREDIT_APPLICATION } from '../../../gql/creditApplication'
+import { CREATE_UPDATE_CREDIT_APPLICATION } from '../../../gql/creditApplication';
 
 let prepopulatedMockCalled = false;
 

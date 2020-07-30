@@ -5,7 +5,7 @@ import {
   SaveCompanyDetailsMutation as Mutation,
   SaveCompanyDetailsMutationVariables as MutationVariables,
 } from '../../../generated/SaveCompanyDetailsMutation';
-import { LeaseTypeEnum } from '../../../generated/globalTypes'
+import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import CompanyDetailsForm from '../../components/CompanyDetailsForm/CompanyDetailsForm';
 import { historyToMoment } from '../../utils/dates';
 import { useCreateUpdateOrder } from '../../gql/order';
