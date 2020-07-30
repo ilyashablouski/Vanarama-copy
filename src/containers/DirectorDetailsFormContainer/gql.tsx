@@ -7,6 +7,8 @@ import {
   UpdateVatDetailsMutation as Mutation,
   UpdateVatDetailsMutationVariables as MutationVariables,
 } from '../../../generated/UpdateVatDetailsMutation';
+import DirectorDetailsForm from '../../components/DirectorDetailsForm/DirectorDetailsForm';
+import DirectorFields from '../../components/DirectorDetailsForm/DirectorFields';
 
 /**
  * NOTE: Unfotunately, it is not possible to get the officers for a company using only
@@ -32,8 +34,16 @@ export const GET_COMPANY_DIRECTOR_DETAILS = gql`
     companyByUuid(uuid: $uuid) {
       uuid
       companyNumber
+      associates {        
+        ...CompanyAssociate
+      }
     }
-  }
+      allDropDowns {
+        ...DirectorFieldsDropDownData
+      }
+    }    
+    ${DirectorDetailsForm.fragments.associates}
+    ${DirectorFields.fragments.dropDownData}
 `;
 
 export const SAVE_DIRECTOR_DETAILS = gql`

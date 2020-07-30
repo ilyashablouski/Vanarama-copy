@@ -48,12 +48,14 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
     return <p>Error: {error.message}</p>;
   }
 
-  if (!data?.companyByUuid?.companyNumber) {
+  if (!data?.companyByUuid?.companyNumber || !data.companyByUuid.associates || !data.allDropDowns) {
     return <p>Error: Could not load company data!</p>;
   }
 
   return (
     <DirectorDetailsForm
+    dropdownData={data.allDropDowns}
+    associates={data.companyByUuid.associates}
       companyNumber={data.companyByUuid.companyNumber}
       onSubmit={async values => {
         await handleDirectorDetailsSave(values)
