@@ -28,6 +28,14 @@ module.exports = {
       autoPrerender: false,
     },
 
+    // Rollbar.
+    serverRuntimeConfig: {
+      rollbarServerToken: process.env.ROLLBAR_SERVER_TOKEN,
+    },
+    publicRuntimeConfig: {
+      rollbarClientToken: process.env.ROLLBAR_CLIENT_TOKEN,
+    },
+
     // Routes to export into static files.
     exportTrailingSlash: true,
     exportPathMap: () => {

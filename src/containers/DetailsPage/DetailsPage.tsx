@@ -183,7 +183,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             incomplete: true,
           }}
           images={vehicleImages}
-          videoSrc={video}
+          videoSrc={video && `${video}&autostart=false`}
           threeSixtyVideoSrc={threeSixtyVideo}
           videoIframe
         />
