@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import { DirectorDetailsPage } from '../../../../pages/b2b/olaf/director-details/[companyUuid]';
 import {
-  DirectorDetailsPage,
   GET_COMPANY_DIRECTOR_DETAILS,
   SAVE_DIRECTOR_DETAILS,
-} from '../../../../pages/b2b/olaf/director-details/[companyUuid]';
+} from '../../../../containers/DirectorDetailsFormContainer/gql';
 import {
   GetCompanyDirectorDetailsQueryVariables,
   GetCompanyDirectorDetailsQuery,
