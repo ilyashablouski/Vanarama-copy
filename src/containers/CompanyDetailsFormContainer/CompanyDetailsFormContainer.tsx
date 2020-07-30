@@ -1,16 +1,19 @@
 import { gql, useMutation } from '@apollo/client';
-import moment from 'moment';
 import React from 'react';
 import {
   SaveCompanyDetailsMutation as Mutation,
   SaveCompanyDetailsMutationVariables as MutationVariables,
 } from '../../../generated/SaveCompanyDetailsMutation';
-import { LeaseTypeEnum } from '../../../generated/globalTypes';
+import {
+  LeaseTypeEnum,
+  LimitedCompanyInputObject,
+} from '../../../generated/globalTypes';
 import CompanyDetailsForm from '../../components/CompanyDetailsForm/CompanyDetailsForm';
-import { historyToMoment } from '../../utils/dates';
+
 import { useCreateUpdateOrder } from '../../gql/order';
 import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
 import { ICompanyDetailsFormContainerProps } from './interfaces';
+import { mapFormValues } from './mappers';
 
 export const SAVE_COMPANY_DETAILS = gql`
   mutation SaveCompanyDetailsMutation($input: LimitedCompanyInputObject!) {
@@ -36,80 +39,45 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
     () => {},
   );
 
+  const handleCompanyDetailsSave = (input: LimitedCompanyInputObject) =>
+    saveCompanyDetails({
+      variables: {
+        input,
+      },
+    });
+
+  const handleOrderUpdate = (partyUuid: string) =>
+    createUpdateOrder({
+      variables: {
+        input: {
+          partyUuid,
+          leaseType: LeaseTypeEnum.BUSINESS,
+          lineItems: [],
+        },
+      },
+    });
+
+  const handleCreditApplicationUpdate = (values: LimitedCompanyInputObject) =>
+    createUpdateApplication({
+      variables: {
+        input: {
+          addresses: values.addresses,
+          telephoneNumbers: values.telephoneNumbers,
+          emailAddresses: [values.emailAddress],
+          orderUuid: orderId,
+        },
+      },
+    });
+
   return (
     <CompanyDetailsForm
       onSubmit={async values => {
-        const searchResult =
-          values.inputMode === 'search' && values.companySearchResult;
-        const addresses = values.tradingDifferent
-          ? [
-              {
-                serviceId: values.registeredAddress.id,
-                kind: 'registered',
-              },
-              {
-                serviceId: values.tradingAddress.id,
-                kind: 'trading',
-              },
-            ]
-          : [
-              {
-                serviceId: values.registeredAddress.id,
-                kind: 'registered',
-              },
-            ];
-        const emailAddress = {
-          kind: 'Home',
-          value: values.email,
-          primary: true,
-        };
-        const telephoneNumbers = [{ value: values.telephone, primary: true }];
+        const mappedFormValues = mapFormValues(values, personUuid);
 
-        await saveCompanyDetails({
-          variables: {
-            input: {
-              person: { uuid: personUuid },
-              companyType: 'Limited',
-              legalName: searchResult ? searchResult.title : values.companyName,
-              companyNumber: searchResult
-                ? searchResult.companyNumber
-                : values.companyNumber,
-              tradingSince: searchResult
-                ? moment(searchResult.dateOfCreation!).format('DD-MM-YYYY')
-                : historyToMoment({
-                    month: values.tradingSinceMonth,
-                    year: values.tradingSinceYear,
-                  }).format('DD-MM-YYYY'),
-              addresses,
-              withTradingAddress: values.tradingDifferent,
-              companyNature: values.nature,
-              emailAddress,
-              telephoneNumbers,
-            },
-          },
-        })
+        await handleCompanyDetailsSave(mappedFormValues)
           .then(({ data }) =>
-            createUpdateOrder({
-              variables: {
-                input: {
-                  partyUuid: data!.createUpdateLimitedCompany!.partyUuid,
-                  leaseType: LeaseTypeEnum.BUSINESS,
-                  lineItems: [],
-                },
-              },
-            })
-              .then(() =>
-                createUpdateApplication({
-                  variables: {
-                    input: {
-                      addresses,
-                      telephoneNumbers,
-                      emailAddresses: [emailAddress],
-                      orderUuid: orderId,
-                    },
-                  },
-                }),
-              )
+            handleOrderUpdate(data!.createUpdateLimitedCompany!.partyUuid)
+              .then(() => handleCreditApplicationUpdate(mappedFormValues))
               .then(() => onCompleted(data!.createUpdateLimitedCompany!.uuid)),
           )
           .catch(onError);
