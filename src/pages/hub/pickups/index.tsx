@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import Router from 'next/router';
 import { useQuery } from '@apollo/client';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
 import ReactMarkdown from 'react-markdown/with-html';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
@@ -22,7 +22,6 @@ import IconList, {
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
 
-import { isCompared } from '../../../utils/comparatorHelpers';
 import {
   HubPickupPageData,
   HubPickupPageData_hubPickupPage_sections_tiles1_tiles as AccessoryData,
@@ -45,7 +44,6 @@ import truncateString from '../../../utils/truncateString';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { getProductPageUrl } from '../../../utils/url';
-import { CompareContext } from '../../../utils/comparatorTool';
 import getTitleTag from '../../../utils/getTitleTag';
 
 export const PickupsPage: NextPage = () => {
@@ -73,8 +71,6 @@ export const PickupsPage: NextPage = () => {
     products?.productCarousel?.map(el => el?.capId || '') || [''],
     VehicleTypeEnum.LCV,
   );
-
-  const { compareVehicles, compareChange } = useContext(CompareContext);
 
   if (loading) {
     return <Loading size="large" />;
@@ -171,10 +167,7 @@ export const PickupsPage: NextPage = () => {
                   index: `${item.capId}_${info?.name || ''}`,
                 }))}
                 imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
-                onCompare={() => {
-                  compareChange(item ? { ...item, bodyStyle: 'Pickup' } : null);
-                }}
-                compared={isCompared(compareVehicles, item)}
+                onCompare={() => true}
                 onWishlist={() => true}
                 title={{
                   title: '',

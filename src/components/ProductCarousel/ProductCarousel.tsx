@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase */
-import React, { useContext } from 'react';
+import React from 'react';
 import Router from 'next/router';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
@@ -7,15 +6,10 @@ import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/Product
 import Price from '@vanarama/uibook/lib/components/atoms/price';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
-import { isCompared } from '../../utils/comparatorHelpers';
-import { CompareContext } from '../../utils/comparatorTool';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import RouterLink from '../RouterLink/RouterLink';
 import { getProductPageUrl } from '../../utils/url';
-import {
-  GetProductCard,
-  GetProductCard_productCard,
-} from '../../../generated/GetProductCard';
+import { GetProductCard } from '../../../generated/GetProductCard';
 import getIconMap from '../../utils/getIconMap';
 import truncateString from '../../utils/truncateString';
 import useSliderProperties from '../../hooks/useSliderProperties';
@@ -34,15 +28,6 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
   dataTestIdBtn,
 }) => {
   const { slidesToShow } = useSliderProperties();
-
-  const { compareVehicles, compareChange } = useContext(CompareContext);
-
-  const getBodyStyle = (product: GetProductCard_productCard | null) => {
-    const vehicle = data.derivatives?.find(
-      derivative => derivative.id === product?.capId,
-    );
-    return vehicle ? vehicle.bodyStyle?.name : '';
-  };
 
   return (
     <Carousel className="-mh-auto" countItems={countItems || 6}>
@@ -73,14 +58,8 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                 label: info?.value || '',
                 index: `${product.capId}_${info?.name || ''}`,
               }))}
-              onCompare={() => {
-                compareChange({
-                  bodyStyle: getBodyStyle(product),
-                  ...product,
-                });
-              }}
-              compared={isCompared(compareVehicles, product)}
               imageSrc={product.imageUrl || '/vehiclePlaceholder.jpg'}
+              onCompare={() => true}
               onWishlist={() => true}
               title={{
                 title: '',
