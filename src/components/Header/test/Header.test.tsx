@@ -50,6 +50,8 @@ describe('<Header />', () => {
           uuid: 'uuid',
           partyUuid: '',
         },
+        ordersLength: 9,
+        quotesLength: 9,
       })),
     }));
 
