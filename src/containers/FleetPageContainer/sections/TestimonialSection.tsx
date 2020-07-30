@@ -41,7 +41,7 @@ const TestimonialSection = ({
           review={{
             text: testimonials[0].summary || '',
             author: testimonials[0].customerName || '',
-            score: (testimonials[0].rating && +testimonials[0].rating) || 5,
+            score: (testimonials[0].rating && parseInt(testimonials[0].rating)) || 5,
           }}
         />
       )}
