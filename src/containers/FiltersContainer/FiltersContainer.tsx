@@ -574,13 +574,11 @@ const FiltersContainer = ({
           )}
         </Dropdown>
       ))}
-      {!!selectedFilterTags.length && (
-        <SearchFilterTags
-          selectedFilters={selectedFilterTags}
-          onClearAll={handleClearAll}
-          onRemove={e => handleRemoveTag(e.currentTarget.id)}
-        />
-      )}
+      <SearchFilterTags
+        selectedFilters={selectedFilterTags}
+        onClearAll={handleClearAll}
+        onRemove={e => handleRemoveTag(e.currentTarget.id)}
+      />
     </SearchFilters>
   );
 };

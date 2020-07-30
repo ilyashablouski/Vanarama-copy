@@ -820,6 +820,9 @@ exports[`<SearchPageContainer /> should be render correctly 1`] = `
               </button>
             </div>
           </div>
+          <div
+            class="search-filters--tags"
+          />
         </div>
       </div>
     </div>
