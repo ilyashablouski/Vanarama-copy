@@ -123,7 +123,7 @@ describe('<AboutFormContainer />', () => {
     expect(screen.getByLabelText(/First Name/)).toHaveValue('Bob');
     expect(screen.getByLabelText(/Last Name/)).toHaveValue('Smith');
     expect(screen.getByLabelText(/Email/)).toHaveValue('bob.smith90@gmail.com');
-    expect(screen.getByLabelText(/Mobile/)).toHaveValue('077799900022');
+    expect(screen.getByLabelText(/Telephone/)).toHaveValue('077799900022');
     expect(screen.getByTestId(/aboutSelectDOB/)).toHaveValue('25');
     expect(screen.getByTestId(/aboutSelectMOB/)).toHaveValue('12');
     expect(screen.getByTestId(/aboutSelectYOB/)).toHaveValue('1990');
