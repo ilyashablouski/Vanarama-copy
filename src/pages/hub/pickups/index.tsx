@@ -148,6 +148,7 @@ export const PickupsPage: NextPage = () => {
                 features={item?.keyInformation?.map(info => ({
                   icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
                   label: info?.value || '',
+                  index: `${item.capId}_${info?.name || ''}`,
                 }))}
                 imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
                 onCompare={() => true}

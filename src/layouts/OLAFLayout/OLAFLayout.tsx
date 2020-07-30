@@ -24,7 +24,7 @@ const OLAFLayout: React.FC = ({ children }) => {
   const orderByUuid = olafData && olafData.data?.orderByUuid;
 
   const [getDerivativeData, derivativeData] = useCarDerivativesData(
-    orderByUuid?.lineItems[0].vehicleProduct?.derivativeCapId as string,
+    orderByUuid?.lineItems[0].vehicleProduct?.derivativeCapId || '',
     orderByUuid?.lineItems[0].vehicleProduct?.vehicleType,
   );
   const derivative = derivativeData && derivativeData.data?.derivative;
