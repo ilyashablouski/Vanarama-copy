@@ -67,17 +67,16 @@ export const BusinessAboutPage: NextPage = () => {
   }, handleAccountFetchError);
 
   const handleCreateUpdateBusinessPersonCompletion = ({
-    data,
+    companyUuid,
     companyType,
   }: SubmitResult) => {
-    const companyUuid = data.createUpdateBusinessPerson!.uuid!;
     const params = getUrlParam({ derivativeId, orderId });
     const journeyUrl =
       companyType === CompanyTypes.limited
         ? 'company-details'
         : 'sole-trader/company-details';
     const url = `/b2b/olaf/${journeyUrl}/[companyUuid]${params}`;
-    router.push(url, url.replace('[companyUuid]', companyUuid));
+    router.push(url, url.replace('[companyUuid]', companyUuid || ''));
   };
 
   useEffect(() => {
@@ -124,9 +123,10 @@ export const BusinessAboutPage: NextPage = () => {
         </div>
       )}
       <BusinessAboutFormContainer
+        personUuid={personUuid}
+        orderId={orderId}
         onCompleted={handleCreateUpdateBusinessPersonCompletion}
         onError={handleCreateUpdateBusinessPersonError}
-        personUuid={personUuid}
         onLogInCLick={() => toggleLogInVisibility(true)}
       />
     </OLAFLayout>

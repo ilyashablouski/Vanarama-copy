@@ -18,12 +18,14 @@ export interface HubPickupPageData_hubPickupPage_sections_hero_image {
 
 export interface HubPickupPageData_hubPickupPage_sections_hero {
   title: string | null;
+  titleTag: string | null;
   body: string | null;
   image: HubPickupPageData_hubPickupPage_sections_hero_image | null;
 }
 
 export interface HubPickupPageData_hubPickupPage_sections_leadText {
   heading: string | null;
+  titleTag: string | null;
   description: string | null;
 }
 
@@ -37,6 +39,7 @@ export interface HubPickupPageData_hubPickupPage_sections_featured1_image {
 
 export interface HubPickupPageData_hubPickupPage_sections_featured1 {
   title: string | null;
+  titleTag: string | null;
   body: string | null;
   image: HubPickupPageData_hubPickupPage_sections_featured1_image | null;
 }
@@ -51,12 +54,14 @@ export interface HubPickupPageData_hubPickupPage_sections_featured2_image {
 
 export interface HubPickupPageData_hubPickupPage_sections_featured2 {
   title: string | null;
+  titleTag: string | null;
   body: string | null;
   image: HubPickupPageData_hubPickupPage_sections_featured2_image | null;
 }
 
 export interface HubPickupPageData_hubPickupPage_sections_rowText {
   heading: string | null;
+  titleTag: string | null;
   subHeading: string | null;
   body: string | null;
 }
@@ -68,6 +73,7 @@ export interface HubPickupPageData_hubPickupPage_sections_steps_steps {
 
 export interface HubPickupPageData_hubPickupPage_sections_steps {
   heading: string | null;
+  titleTag: string | null;
   steps: HubPickupPageData_hubPickupPage_sections_steps_steps[] | null;
 }
 
@@ -81,12 +87,15 @@ export interface HubPickupPageData_hubPickupPage_sections_tiles1_tiles_image {
 
 export interface HubPickupPageData_hubPickupPage_sections_tiles1_tiles {
   title: string | null;
+  link: string | null;
   body: string | null;
   image: HubPickupPageData_hubPickupPage_sections_tiles1_tiles_image | null;
 }
 
 export interface HubPickupPageData_hubPickupPage_sections_tiles1 {
   name: string;
+  titleTag: string | null;
+  tilesTitle: string | null;
   tiles: HubPickupPageData_hubPickupPage_sections_tiles1_tiles[] | null;
 }
 
@@ -101,12 +110,15 @@ export interface HubPickupPageData_hubPickupPage_sections_tiles2_tiles_image {
 
 export interface HubPickupPageData_hubPickupPage_sections_tiles2_tiles {
   title: string | null;
+  link: string | null;
   body: string | null;
   image: HubPickupPageData_hubPickupPage_sections_tiles2_tiles_image | null;
 }
 
 export interface HubPickupPageData_hubPickupPage_sections_tiles2 {
   name: string;
+  titleTag: string | null;
+  tilesTitle: string | null;
   tiles: HubPickupPageData_hubPickupPage_sections_tiles2_tiles[] | null;
 }
 

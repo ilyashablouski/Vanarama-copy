@@ -38,6 +38,7 @@ const VehicleCard = memo(
       return keyInformation.map(information => ({
         icon: <Icon name={information.name.replace(' ', '')} color="dark" />,
         label: information.value,
+        index: `${data.capId}_${information.name}`,
       }));
     };
 
@@ -48,7 +49,6 @@ const VehicleCard = memo(
 
     return (
       <Card
-        description="Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id"
         imageSrc={data?.imageUrl || ''}
         header={{
           accentIcon: data?.isOnOffer ? (
