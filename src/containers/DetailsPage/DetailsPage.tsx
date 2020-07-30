@@ -229,11 +229,13 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         setLeadTime={setLeadTime}
         onCompleted={values => onSubmitClick(values)}
       />
-      <CustomerAlsoViewedContainer
-        capsId={capsId || ['']}
-        vehicleType={vehicleType}
-        leaseType={leaseType.toUpperCase() || ''}
-      />
+      {!!capsId?.length && (
+        <CustomerAlsoViewedContainer
+          capsId={capsId}
+          vehicleType={vehicleType}
+          leaseType={leaseType.toUpperCase() || ''}
+        />
+      )}
     </>
   );
 };
