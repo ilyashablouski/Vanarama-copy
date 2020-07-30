@@ -40,12 +40,6 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
       test
     </span>
   </div>
-  <span
-    className="text -regular -dark"
-    data-testid="card-description"
-  >
-    Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id
-  </span>
   <div
     className="features"
   >

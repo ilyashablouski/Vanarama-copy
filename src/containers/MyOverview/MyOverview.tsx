@@ -57,10 +57,10 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   );
 
   useEffect(() => {
-    if (partyByUuid) {
+    if (partyByUuid && !data) {
       getOrders();
     }
-  }, [partyByUuid, getOrders, router.query.partyByUuid]);
+  }, [partyByUuid, getOrders, router.query.partyByUuid, data]);
 
   // collect everything capId from orders
   const capIdArray = data?.ordersByPartyUuid?.reduce((array, el) => {
