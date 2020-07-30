@@ -11,7 +11,8 @@ import { IChoice } from '@vanarama/uibook/lib/components/atoms/choiceboxes/inter
 import Toggle from '@vanarama/uibook/lib/components/atoms/toggle';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import OptionsIcon from '@vanarama/uibook/lib/assets/icons/Options';
-import ChevronUpSharp from '@vanarama/uibook/lib/assets/icons/ChevronUpSharp';
+import ChevronUp from '@vanarama/uibook/lib/assets/icons/ChevronUp';
+import ChevronDown from '@vanarama/uibook/lib/assets/icons/ChevronDown';
 import { useMediaQuery } from 'react-responsive';
 import { useRouter } from 'next/router';
 import { useFilterList } from '../SearchPodContainer/gql';
@@ -448,8 +449,9 @@ const FiltersContainer = ({
         <Icon icon={<OptionsIcon />} className="search-filters--title-icon" />
         <span>Filters</span>
         <Icon
-          icon={<ChevronUpSharp />}
+          icon={isOpenFilter ? <ChevronDown/> : <ChevronUp />}
           className="search-filters--title-icon"
+          color="white"
         />
       </SearchFiltersHead>
       <Toggle
