@@ -12,7 +12,7 @@ import Header from '../components/Header/Header';
 import { PHONE_NUMBER_LINK, TOP_BAR_LINKS } from '../models/enum/HeaderLinks';
 import {
   getCompares,
-  changeCompares,
+  deleteCompare,
   getVehiclesForComparator,
   IVehicle,
   IVehicleCarousel,
@@ -121,7 +121,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         {compareVehicles && compareVehicles.length > 0 && exitComparator && (
           <ComparatorBar
             deleteVehicle={async vehicle => {
-              const vehicles = await changeCompares(vehicle);
+              const vehicles = await deleteCompare(vehicle);
               setCompareVehicles(vehicles);
             }}
             compareVehicles={() => {}}

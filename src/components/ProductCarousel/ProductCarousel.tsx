@@ -92,7 +92,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                   setModalCompareTypeError(true);
                 }
               }}
-              compared={compareVehicles.some(
+              compared={compareVehicles?.some(
                 vehicle => `${vehicle.capId}` === `${product.capId}`,
               )}
               imageSrc={product.imageUrl || '/vehiclePlaceholder.jpg'}

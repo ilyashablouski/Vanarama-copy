@@ -173,7 +173,7 @@ export const PickupsPage: NextPage = () => {
                     setModalCompareTypeError(true);
                   }
                 }}
-                compared={compareVehicles.some(
+                compared={compareVehicles?.some(
                   vehicle => `${vehicle.capId}` === `${item?.capId}`,
                 )}
                 onWishlist={() => true}

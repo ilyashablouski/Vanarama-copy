@@ -146,7 +146,7 @@ export const getOrderList = ({
 };
 
 export const changeCompares = async (
-  vehicle: IVehicle | ICompareVehicle | IVehicleCarousel | null,
+  vehicle: IVehicle | IVehicleCarousel | null,
 ) => {
   const arrayCompares = (await localForage.getItem('compares')) as
     | IVehicle[]
@@ -154,7 +154,7 @@ export const changeCompares = async (
     | null;
 
   // if compares already exist
-  if (arrayCompares) {
+  if (arrayCompares && vehicle) {
     if (
       arrayCompares.some(
         (compare: IVehicle | IVehicleCarousel) =>
@@ -185,8 +185,8 @@ export const changeCompares = async (
     return arrayCompares;
   }
 
-  await localForage.setItem('compares', [vehicle]);
-  return vehicle ? [vehicle] : null;
+  await localForage.setItem('compares', vehicle ? [vehicle] : []);
+  return vehicle ? [vehicle] : [];
 };
 
 export const isCorrectCompareType = (
@@ -217,6 +217,31 @@ export const isCorrectCompareType = (
   }
 
   return true;
+};
+
+export const deleteCompare = async (vehicle: ICompareVehicle) => {
+  const arrayCompares = (await localForage.getItem('compares')) as
+    | IVehicle[]
+    | IVehicleCarousel[]
+    | null;
+  // if compares already exist
+  if (arrayCompares) {
+    // delete vehicle from compare
+    const deletedVehicle = arrayCompares.find(
+      (compare: IVehicle | ICompareVehicle | IVehicleCarousel) =>
+        `${compare.capId}` === `${vehicle?.capId}`,
+    );
+    if (deletedVehicle) {
+      const index = arrayCompares.indexOf(deletedVehicle);
+      if (index > -1) {
+        arrayCompares.splice(index, 1);
+      }
+      await localForage.setItem('compares', arrayCompares);
+    }
+    return arrayCompares;
+  }
+
+  return [];
 };
 
 export const getCompares = () => {

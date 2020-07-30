@@ -26,8 +26,6 @@ interface IVehicleCardProps {
   data: ICard;
   viewOffer: (productPageUrl: IProductPageUrl) => void;
   dataDerivatives: (GetDerivatives_derivatives | null)[];
-  onCompare: (data: ICard) => void;
-  compared?: boolean;
   bodyStyle?: string | null | undefined;
 }
 
@@ -77,7 +75,7 @@ const VehicleCard = memo(
             setModalCompareTypeError(true);
           }
         }}
-        compared={compareVehicles.some(
+        compared={compareVehicles?.some(
           vehicle => `${vehicle.capId}` === `${data.capId}`,
         )}
         onWishlist={() => {}}
