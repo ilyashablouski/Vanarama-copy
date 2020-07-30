@@ -15,6 +15,7 @@ import {
   changeCompares,
   getVehiclesForComparator,
   IVehicle,
+  IVehicleCarousel,
 } from '../utils/helpers';
 
 export const PAGES_WITH_COMPARATOR = [
@@ -24,11 +25,17 @@ export const PAGES_WITH_COMPARATOR = [
   'van-leasing',
 ];
 
+interface IInitialState {
+  compareVehicles: IVehicle[] | [] | undefined;
+  setCompareVehicles: (vehicles?: IVehicle[] | [] | undefined) => void;
+  setModalCompareTypeError: (show?: boolean | undefined) => void;
+}
+
 const initialState = {
-  compareVehicles: [] as IVehicle[] | [],
-  setCompareVehicles: (vehicles: IVehicle[] | []) => {},
-  setModalCompareTypeError: (show: boolean) => {},
-};
+  compareVehicles: [],
+  setCompareVehicles: () => {},
+  setModalCompareTypeError: () => {},
+} as IInitialState;
 
 export const CompareContext = React.createContext(initialState);
 
@@ -38,8 +45,12 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     href: `/account/login-register?redirect=${router.asPath}`,
   };
 
-  const [compareVehicles, setCompareVehicles] = useState<IVehicle[] | []>([]);
-  const [modalCompareTypeError, setModalCompareTypeError] = useState(false);
+  const [compareVehicles, setCompareVehicles] = useState<
+    IVehicle[] | [] | undefined
+  >([]);
+  const [modalCompareTypeError, setModalCompareTypeError] = useState<
+    boolean | undefined
+  >(false);
   const [exitComparator, setExitComparator] = useState(false);
 
   useEffect(() => {
@@ -51,7 +62,10 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 
   useEffect(() => {
     const getVehicles = async () => {
-      const vehiclesCompares = await getCompares();
+      const vehiclesCompares = (await getCompares()) as
+        | IVehicle[]
+        | IVehicleCarousel[]
+        | null;
       if (vehiclesCompares) {
         setCompareVehicles(vehiclesCompares);
       }
@@ -104,7 +118,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         >
           <Component {...pageProps} />
         </CompareContext.Provider>
-        {compareVehicles.length > 0 && exitComparator && (
+        {compareVehicles && compareVehicles.length > 0 && exitComparator && (
           <ComparatorBar
             deleteVehicle={async vehicle => {
               const vehicles = await changeCompares(vehicle);

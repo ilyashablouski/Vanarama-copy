@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import moment from 'moment';
+import localForage from 'localforage';
 import {
   GetVehicleDetails_derivativeInfo_colours,
   GetVehicleDetails_derivativeInfo_trims,
@@ -21,7 +22,7 @@ export interface IVehicle extends ICard {
 }
 
 export interface IVehicleCarousel extends ICardCarousel {
-  bodyStyle: string | null | undefined;
+  bodyStyle?: string | null | undefined;
 }
 
 export const genDays = () => [...Array(31)].map((_, i) => i + 1);
@@ -147,44 +148,45 @@ export const getOrderList = ({
 export const changeCompares = async (
   vehicle: IVehicle | ICompareVehicle | IVehicleCarousel | null,
 ) => {
-  const compares = sessionStorage.getItem('compares');
+  const arrayCompares = (await localForage.getItem('compares')) as
+    | IVehicle[]
+    | IVehicleCarousel[]
+    | null;
 
   // if compares already exist
-  if (compares) {
-    const arrayCompares = JSON.parse(compares);
-
+  if (arrayCompares) {
     if (
       arrayCompares.some(
-        (compare: IVehicle | ICompareVehicle) =>
+        (compare: IVehicle | IVehicleCarousel) =>
           `${compare.capId}` === `${vehicle?.capId}`,
       )
     ) {
       // delete vehicle from compare
       const deletedVehicle = arrayCompares.find(
-        (compare: IVehicle | ICompareVehicle) =>
+        (compare: IVehicle | ICompareVehicle | IVehicleCarousel) =>
           `${compare.capId}` === `${vehicle?.capId}`,
       );
-      const index = arrayCompares.indexOf(deletedVehicle);
-      if (index > -1) {
-        arrayCompares.splice(index, 1);
+      if (deletedVehicle) {
+        const index = arrayCompares.indexOf(deletedVehicle);
+        if (index > -1) {
+          arrayCompares.splice(index, 1);
+        }
+        await localForage.setItem('compares', arrayCompares);
       }
-      await sessionStorage.setItem('compares', JSON.stringify(arrayCompares));
       return arrayCompares;
     }
 
     if (arrayCompares.length < 3) {
       // add vehicle to compare
-      await sessionStorage.setItem(
-        'compares',
-        JSON.stringify([...arrayCompares, vehicle]),
-      );
+      await localForage.setItem('compares', [...arrayCompares, vehicle]);
 
       return [...arrayCompares, vehicle];
     }
     return arrayCompares;
   }
-  await sessionStorage.setItem('compares', JSON.stringify([vehicle]));
-  return [vehicle];
+
+  await localForage.setItem('compares', [vehicle]);
+  return vehicle ? [vehicle] : null;
 };
 
 export const isCorrectCompareType = (
@@ -218,8 +220,8 @@ export const isCorrectCompareType = (
 };
 
 export const getCompares = () => {
-  const compares = sessionStorage.getItem('compares');
-  return compares ? JSON.parse(compares) : [];
+  const compares = localForage.getItem('compares');
+  return compares || [];
 };
 
 export const getVehiclesForComparator = (
