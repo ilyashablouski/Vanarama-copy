@@ -19,7 +19,7 @@ import {
   IVehicleCarousel,
   isCorrectCompareType,
   changeCompares,
-} from '../utils/сomparatorHelpers';
+} from '../utils/comparatorHelpers';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   const LOGIN_LINK = {

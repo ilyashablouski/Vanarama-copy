@@ -21,7 +21,7 @@ import IconList, {
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
 import { useContext } from 'react';
-import { isCompared } from '../../../utils/сomparatorHelpers';
+import { isCompared } from '../../../utils/comparatorHelpers';
 import { CompareContext } from '../../../utils/comparatorTool';
 import {
   HubCarPageData,

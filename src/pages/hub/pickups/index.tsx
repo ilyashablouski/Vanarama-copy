@@ -22,7 +22,7 @@ import IconList, {
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
 
-import { isCompared } from '../../../utils/сomparatorHelpers';
+import { isCompared } from '../../../utils/comparatorHelpers';
 import {
   HubPickupPageData,
   HubPickupPageData_hubPickupPage_sections_tiles1_tiles as AccessoryData,

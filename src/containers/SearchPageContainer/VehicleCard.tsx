@@ -11,7 +11,7 @@ import { GetProductCard_productCard as ICard } from '../../../generated/GetProdu
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getProductPageUrl } from '../../utils/url';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
-import { isCompared } from '../../utils/сomparatorHelpers';
+import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
 
 export interface IProductPageUrl {

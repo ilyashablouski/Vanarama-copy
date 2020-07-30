@@ -1,5 +1,5 @@
 import React from 'react';
-import { IVehicle, IVehicleCarousel } from './сomparatorHelpers';
+import { IVehicle, IVehicleCarousel } from './comparatorHelpers';
 
 export const PAGES_WITH_COMPARATOR = [
   'eligibility-checker/results',
