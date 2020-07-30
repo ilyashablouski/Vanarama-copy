@@ -3,7 +3,26 @@ import getConfig from 'next/config';
 
 const { serverRuntimeConfig } = getConfig();
 
-function Error({ statusCode }) {
+const Rollbar = require('rollbar');
+
+const reportError = (err, req) => {
+  // eslint-disable-next-line no-console
+  console.log('Reporting error to Rollbar...');
+  const rollbar = new Rollbar(serverRuntimeConfig.rollbarServerToken);
+  rollbar.error(err, req, rollbarError => {
+    if (rollbarError) {
+      /* eslint-disable */
+      console.error('Rollbar error reporting failed:');
+      console.error(rollbarError);
+      /* eslint-enable */
+      return;
+    }
+    // eslint-disable-next-line no-console
+    console.log('Reported error to Rollbar');
+  });
+};
+
+const Error = ({ statusCode }) => {
   return (
     <p>
       {statusCode
@@ -11,23 +30,14 @@ function Error({ statusCode }) {
         : 'An error occurred on client'}
     </p>
   );
-}
+};
+
 Error.getInitialProps = ({ req, res, err }) => {
+  // eslint-disable-next-line no-nested-ternary
   const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
   // Only require Rollbar and report error if we're on the server
-  if (!process.browser) {
-    console.log('Reporting error to Rollbar...');
-    const Rollbar = require('rollbar');
-    const rollbar = new Rollbar(serverRuntimeConfig.rollbarServerToken);
-    rollbar.error(err, req, rollbarError => {
-      if (rollbarError) {
-        console.error('Rollbar error reporting failed:');
-        console.error(rollbarError);
-        return;
-      }
-      console.log('Reported error to Rollbar');
-    });
-  }
+  if (!process.browser) reportError(err, req);
   return { statusCode };
 };
+
 export default Error;
