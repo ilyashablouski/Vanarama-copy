@@ -19,6 +19,8 @@ import {
   usePersonByTokenLazyQuery,
   handleAccountFetchError,
 } from '../../olaf/about';
+import { GET_ORDERS_BY_PARTY_UUID_DATA } from '../../../containers/OrdersInformation/gql';
+import { useImperativeQuery } from '../../../hooks/useImperativeQuery';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -30,8 +32,31 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
 
   const [activeTab, setActiveTab] = useState(1);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
+
+  const getOrdersData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);
+  const getQuotesData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);
+
   const [getPersonByToken] = usePersonByTokenLazyQuery(async data => {
     await localForage.setItem('person', data);
+    getOrdersData({
+      partyUuid: data.personByToken?.partyUuid,
+      excludeStatuses: ['quote', 'expired'],
+    }).then(response => {
+      localForage.setItem(
+        'ordersLength',
+        response.data?.ordersByPartyUuid.length,
+      );
+    });
+    getQuotesData({
+      partyUuid: data.personByToken?.partyUuid,
+      statuses: ['quote', 'new'],
+      excludeStatuses: ['expired'],
+    }).then(response => {
+      localForage.setItem(
+        'quotesLength',
+        response.data?.ordersByPartyUuid.length,
+      );
+    });
 
     // Redirect to the user's previous route or homepage.
     const { redirect } = router.query;
