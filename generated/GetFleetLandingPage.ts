@@ -7,11 +7,18 @@
 // GraphQL query operation: GetFleetLandingPage
 // ====================================================
 
+export interface GetFleetLandingPage_fleetLandingPage_sections_featured1_testimonials {
+  customerName: string | null;
+  summary: string | null;
+  rating: string | null;
+}
+
 export interface GetFleetLandingPage_fleetLandingPage_sections_featured1 {
   title: string | null;
   titleTag: string | null;
   body: string | null;
   layout: string[] | null;
+  testimonials: (GetFleetLandingPage_fleetLandingPage_sections_featured1_testimonials | null)[] | null;
 }
 
 export interface GetFleetLandingPage_fleetLandingPage_sections_featured2_image_file {

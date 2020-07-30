@@ -126,7 +126,7 @@ const Header: FC<IHeaderProps> = memo(props => {
                     <RouterLink
                       className="header-account--link"
                       link={{
-                        href: '/account/my-details/[uuid]',
+                        href: `/account/my-details/[uuid]?partyByUuid=${person.partyUuid}`,
                         label: 'Dashboard',
                       }}
                       as={`/account/my-details/${person.uuid}?partyByUuid=${person.partyUuid}`}
@@ -141,7 +141,7 @@ const Header: FC<IHeaderProps> = memo(props => {
                       link={{
                         href: ordersLength
                           ? '/account/my-quotes/[partyByUuid]'
-                          : '/account/my-details/[uuid]',
+                          : `/account/my-details/[uuid]?partyByUuid=${person.partyUuid}`,
                         label: 'My Quotes',
                       }}
                       as={
@@ -160,7 +160,7 @@ const Header: FC<IHeaderProps> = memo(props => {
                       link={{
                         href: quotesLength
                           ? '/account/my-orders/[partyByUuid]'
-                          : '/account/my-details/[uuid]',
+                          : `/account/my-details/[uuid]?partyByUuid=${person.partyUuid}`,
                         label: 'My Orders',
                       }}
                       as={
