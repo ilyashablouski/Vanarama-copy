@@ -1,5 +1,5 @@
 import React from 'react';
-import { IVehicle } from './helpers';
+import { IVehicle, IVehicleCarousel } from './сomparatorHelpers';
 
 export const PAGES_WITH_COMPARATOR = [
   'eligibility-checker/results',
@@ -10,14 +10,14 @@ export const PAGES_WITH_COMPARATOR = [
 
 interface IInitialState {
   compareVehicles: IVehicle[] | [] | undefined;
-  setCompareVehicles: (vehicles?: IVehicle[] | [] | undefined) => void;
-  setModalCompareTypeError: (show?: boolean | undefined) => void;
+  compareChange: (
+    product?: IVehicle | IVehicleCarousel | null | undefined,
+  ) => Promise<void>;
 }
 
 const initialState = {
   compareVehicles: [],
-  setCompareVehicles: () => {},
-  setModalCompareTypeError: () => {},
+  compareChange: () => {},
 } as IInitialState;
 
 export const CompareContext = React.createContext(initialState);

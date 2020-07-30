@@ -11,7 +11,7 @@ import { GetProductCard_productCard as ICard } from '../../../generated/GetProdu
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getProductPageUrl } from '../../utils/url';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
-import { changeCompares, isCorrectCompareType } from '../../utils/helpers';
+import { isCompared } from '../../utils/сomparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
 
 export interface IProductPageUrl {
@@ -38,11 +38,7 @@ const VehicleCard = memo(
     viewOffer,
     bodyStyle,
   }: IVehicleCardProps) => {
-    const {
-      compareVehicles,
-      setCompareVehicles,
-      setModalCompareTypeError,
-    } = useContext(CompareContext);
+    const { compareVehicles, compareChange } = useContext(CompareContext);
 
     const features = (keyInformation: any[]): TIcon[] => {
       return keyInformation.map(information => ({
@@ -67,17 +63,10 @@ const VehicleCard = memo(
           accentText: data?.isOnOffer ? 'Hot Deal' : '',
           text: data?.leadTime || '',
         }}
-        onCompare={async () => {
-          if (isCorrectCompareType({ ...data, bodyStyle }, compareVehicles)) {
-            const compares = await changeCompares({ ...data, bodyStyle });
-            setCompareVehicles(compares);
-          } else {
-            setModalCompareTypeError(true);
-          }
+        onCompare={() => {
+          compareChange({ ...data, bodyStyle });
         }}
-        compared={compareVehicles?.some(
-          vehicle => `${vehicle.capId}` === `${data.capId}`,
-        )}
+        compared={isCompared(compareVehicles, data)}
         onWishlist={() => {}}
         features={features(data?.keyInformation || [])}
         title={{

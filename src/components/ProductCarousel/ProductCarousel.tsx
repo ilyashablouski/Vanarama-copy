@@ -7,7 +7,7 @@ import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/Product
 import Price from '@vanarama/uibook/lib/components/atoms/price';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
-import { isCorrectCompareType, changeCompares } from '../../utils/helpers';
+import { isCompared } from '../../utils/сomparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import RouterLink from '../RouterLink/RouterLink';
@@ -35,11 +35,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
 }) => {
   const { slidesToShow } = useSliderProperties();
 
-  const {
-    compareVehicles,
-    setCompareVehicles,
-    setModalCompareTypeError,
-  } = useContext(CompareContext);
+  const { compareVehicles, compareChange } = useContext(CompareContext);
 
   const getBodyStyle = (product: GetProductCard_productCard | null) => {
     const vehicle = data.derivatives?.find(
@@ -76,25 +72,13 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                 ),
                 label: info?.value || '',
               }))}
-              onCompare={async () => {
-                if (
-                  isCorrectCompareType(
-                    { bodyStyle: getBodyStyle(product), ...product },
-                    compareVehicles,
-                  )
-                ) {
-                  const compares = await changeCompares({
-                    bodyStyle: getBodyStyle(product),
-                    ...product,
-                  });
-                  setCompareVehicles(compares);
-                } else {
-                  setModalCompareTypeError(true);
-                }
+              onCompare={() => {
+                compareChange({
+                  bodyStyle: getBodyStyle(product),
+                  ...product,
+                });
               }}
-              compared={compareVehicles?.some(
-                vehicle => `${vehicle.capId}` === `${product.capId}`,
-              )}
+              compared={isCompared(compareVehicles, product)}
               imageSrc={product.imageUrl || '/vehiclePlaceholder.jpg'}
               onWishlist={() => true}
               title={{

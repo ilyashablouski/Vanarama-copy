@@ -22,7 +22,7 @@ import IconList, {
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
 
-import { isCorrectCompareType, changeCompares } from '../../../utils/helpers';
+import { isCompared } from '../../../utils/сomparatorHelpers';
 import {
   HubPickupPageData,
   HubPickupPageData_hubPickupPage_sections_tiles1_tiles as AccessoryData,
@@ -73,11 +73,7 @@ export const PickupsPage: NextPage = () => {
     VehicleTypeEnum.LCV,
   );
 
-  const {
-    compareVehicles,
-    setCompareVehicles,
-    setModalCompareTypeError,
-  } = useContext(CompareContext);
+  const { compareVehicles, compareChange } = useContext(CompareContext);
 
   if (loading) {
     return <Loading size="large" />;
@@ -158,24 +154,10 @@ export const PickupsPage: NextPage = () => {
                   label: info?.value || '',
                 }))}
                 imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
-                onCompare={async () => {
-                  if (
-                    isCorrectCompareType(
-                      item ? { ...item, bodyStyle: 'Pickup' } : null,
-                      compareVehicles,
-                    )
-                  ) {
-                    const compares = await changeCompares(
-                      item ? { ...item, bodyStyle: 'Pickup' } : null,
-                    );
-                    setCompareVehicles(compares);
-                  } else {
-                    setModalCompareTypeError(true);
-                  }
+                onCompare={() => {
+                  compareChange(item ? { ...item, bodyStyle: 'Pickup' } : null);
                 }}
-                compared={compareVehicles?.some(
-                  vehicle => `${vehicle.capId}` === `${item?.capId}`,
-                )}
+                compared={isCompared(compareVehicles, item)}
                 onWishlist={() => true}
                 title={{
                   title: '',

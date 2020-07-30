@@ -17,7 +17,9 @@ import {
   getVehiclesForComparator,
   IVehicle,
   IVehicleCarousel,
-} from '../utils/helpers';
+  isCorrectCompareType,
+  changeCompares,
+} from '../utils/сomparatorHelpers';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   const LOGIN_LINK = {
@@ -61,6 +63,15 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     }
   }, [router.pathname]);
 
+  const compareChange = async (product: IVehicle | IVehicleCarousel | null) => {
+    if (isCorrectCompareType(product || null, compareVehicles)) {
+      const compares = await changeCompares(product || null);
+      setCompareVehicles(compares);
+    } else {
+      setModalCompareTypeError(true);
+    }
+  };
+
   const resolveMainClass = () => {
     const isTrailingSlug = (slug: string) => {
       const index = router.asPath.lastIndexOf('-');
@@ -92,8 +103,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         <CompareContext.Provider
           value={{
             compareVehicles,
-            setCompareVehicles,
-            setModalCompareTypeError,
+            compareChange,
           }}
         >
           <Component {...pageProps} />
