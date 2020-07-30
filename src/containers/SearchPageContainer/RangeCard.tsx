@@ -26,7 +26,6 @@ const RangeCard = memo(
       : {};
     return (
       <Card
-        description="Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id"
         {...imageProps}
         title={{
           title: '',
