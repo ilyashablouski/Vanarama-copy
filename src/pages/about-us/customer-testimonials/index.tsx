@@ -167,7 +167,7 @@ export const CustomerTestimonialPage: NextPage = () => {
       </div>
       <div className="row:bg-lighter">
         <div className="row:features-4col">
-          <Heading size="large" color="black">
+          <Heading size="large" color="black" tag="h2">
             Why Choose Vanarama?
           </Heading>
           {[1, 2, 3, 4].map(t => (

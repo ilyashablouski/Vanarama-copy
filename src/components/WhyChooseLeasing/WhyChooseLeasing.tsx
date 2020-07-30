@@ -44,7 +44,7 @@ const WhyChooseLeasing: React.FC<IWhyChooseLeasingProps> = ({ warranty }) => {
 
   return (
     <div className="pdp--feature-grid -col2">
-      <Heading tag="span" color="black" size="lead">
+      <Heading tag="h2" color="black" size="lead">
         Why Choose Leasing?
       </Heading>
       {renderGridItem(
