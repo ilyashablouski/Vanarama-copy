@@ -449,7 +449,7 @@ const FiltersContainer = ({
         <Icon icon={<OptionsIcon />} className="search-filters--title-icon" />
         <span>Filters</span>
         <Icon
-          icon={isOpenFilter ? <ChevronDown/> : <ChevronUp />}
+          icon={isOpenFilter ? <ChevronDown /> : <ChevronUp />}
           className="search-filters--title-icon"
           color="white"
         />
