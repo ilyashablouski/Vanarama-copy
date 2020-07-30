@@ -46,6 +46,7 @@ import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { getProductPageUrl } from '../../../utils/url';
 import { CompareContext } from '../../../utils/comparatorTool';
+import getTitleTag from '../../../utils/getTitleTag';
 
 export const PickupsPage: NextPage = () => {
   const [offer, setOffer] = useState<ProdData>();
@@ -91,7 +92,14 @@ export const PickupsPage: NextPage = () => {
   return (
     <>
       <Hero>
-        <HeroHeading text={data?.hubPickupPage.sections.hero?.title || ''} />
+        <HeroHeading
+          text={data?.hubPickupPage.sections.hero?.title || ''}
+          titleTag={
+            getTitleTag(
+              data?.hubPickupPage.sections.hero?.titleTag || 'p',
+            ) as keyof JSX.IntrinsicElements
+          }
+        />
         <br />
         <HeroTitle text={data?.hubPickupPage.sections.hero?.body || ''} />
         <br />
@@ -107,7 +115,15 @@ export const PickupsPage: NextPage = () => {
       </Hero>
 
       <section className="row:lead-text">
-        <Heading size="xlarge" color="black">
+        <Heading
+          size="xlarge"
+          color="black"
+          tag={
+            getTitleTag(
+              data?.hubPickupPage.sections.leadText?.titleTag || null,
+            ) as keyof JSX.IntrinsicElements
+          }
+        >
           {data?.hubPickupPage.sections.leadText?.heading}
         </Heading>
         <Text tag="span" size="lead" color="darker">
@@ -152,6 +168,7 @@ export const PickupsPage: NextPage = () => {
                 features={item?.keyInformation?.map(info => ({
                   icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
                   label: info?.value || '',
+                  index: `${item.capId}_${info?.name || ''}`,
                 }))}
                 imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
                 onCompare={() => {
@@ -213,7 +230,16 @@ export const PickupsPage: NextPage = () => {
       </div>
 
       <section className="row:steps-4col">
-        <Heading className="-a-center -mb-400" size="large" color="black">
+        <Heading
+          className="-a-center -mb-400"
+          size="large"
+          color="black"
+          tag={
+            getTitleTag(
+              data?.hubPickupPage.sections.steps?.titleTag || null,
+            ) as keyof JSX.IntrinsicElements
+          }
+        >
           {data?.hubPickupPage.sections.steps?.heading}
         </Heading>
         {data?.hubPickupPage.sections.steps?.steps?.map(
@@ -231,7 +257,15 @@ export const PickupsPage: NextPage = () => {
 
       <section className="row:featured-right">
         <div style={{ padding: '1rem' }}>
-          <Heading size="large" color="black">
+          <Heading
+            size="large"
+            color="black"
+            tag={
+              getTitleTag(
+                data?.hubPickupPage.sections.featured1?.titleTag || 'p',
+              ) as keyof JSX.IntrinsicElements
+            }
+          >
             {data?.hubPickupPage.sections.featured1?.title}
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
@@ -268,7 +302,15 @@ export const PickupsPage: NextPage = () => {
           }
         />
         <div className="-inset -middle -col-400">
-          <Heading size="large" color="black">
+          <Heading
+            size="large"
+            color="black"
+            tag={
+              getTitleTag(
+                data?.hubPickupPage.sections.featured2?.titleTag || 'p',
+              ) as keyof JSX.IntrinsicElements
+            }
+          >
             {data?.hubPickupPage.sections.featured2?.title}
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
@@ -281,7 +323,15 @@ export const PickupsPage: NextPage = () => {
       </section>
 
       <section className="row:accessories">
-        <Heading size="large" color="black">
+        <Heading
+          size="large"
+          color="black"
+          tag={
+            getTitleTag(
+              data?.hubPickupPage.sections.tiles1?.titleTag || 'p',
+            ) as keyof JSX.IntrinsicElements
+          }
+        >
           {data?.hubPickupPage.sections.tiles1?.name}
         </Heading>
         {data?.hubPickupPage.sections.tiles1?.tiles?.map(
@@ -307,7 +357,15 @@ export const PickupsPage: NextPage = () => {
 
       <hr className="fullWidth" />
       <section className="row:text">
-        <Heading size="large" color="black">
+        <Heading
+          size="large"
+          color="black"
+          tag={
+            getTitleTag(
+              data?.hubPickupPage.sections.rowText?.titleTag || 'p',
+            ) as keyof JSX.IntrinsicElements
+          }
+        >
           {data?.hubPickupPage.sections.rowText?.heading}
         </Heading>
         <div>
@@ -331,6 +389,17 @@ export const PickupsPage: NextPage = () => {
       <hr className="fullWidth" />
 
       <section className="row:features-4col">
+        <Heading
+          size="large"
+          color="black"
+          tag={
+            getTitleTag(
+              data?.hubPickupPage.sections.tiles2?.titleTag || 'p',
+            ) as keyof JSX.IntrinsicElements
+          }
+        >
+          {data && data.hubPickupPage.sections.tiles2?.tilesTitle}
+        </Heading>
         {data?.hubPickupPage.sections.tiles2?.tiles?.map(
           (tile: TileData, idx: number) => (
             <div key={tile.title || idx}>
@@ -359,7 +428,12 @@ export const PickupsPage: NextPage = () => {
       </section>
 
       <section className="row:manufacturer-grid">
-        <Heading size="large" color="black" className="-a-center -mb-500">
+        <Heading
+          size="large"
+          color="black"
+          className="-a-center -mb-500"
+          tag="h2"
+        >
           Search By Manufacturer
         </Heading>
         <div>

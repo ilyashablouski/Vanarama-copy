@@ -47,10 +47,10 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
   return (
     <Carousel className="-mh-auto" countItems={countItems || 6}>
       {data.productCard?.map(
-        product =>
+        (product, inx) =>
           product && (
             <ProductCard
-              key={product.capId || ''}
+              key={`${product.capId}_${inx}` || ''}
               header={
                 product.leadTime || product.isOnOffer
                   ? {
@@ -71,6 +71,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                   info?.name?.replace(/\s+/g, ''),
                 ),
                 label: info?.value || '',
+                index: `${product.capId}_${info?.name || ''}`,
               }))}
               onCompare={() => {
                 compareChange({

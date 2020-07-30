@@ -44,6 +44,7 @@ const VehicleCard = memo(
       return keyInformation.map(information => ({
         icon: <Icon name={information.name.replace(' ', '')} color="dark" />,
         label: information.value,
+        index: `${data.capId}_${information.name}`,
       }));
     };
 
