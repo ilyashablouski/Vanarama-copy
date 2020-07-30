@@ -7,12 +7,12 @@ import {
   UpdateVatDetailsMutationVariables,
 } from '../../../../../generated/UpdateVatDetailsMutation';
 import { GET_VAT_DETAILS_COUNTRIES } from '../../../../components/VatDetailsForm/CountryTurnoverFieldArray';
-import {
-  UPDATE_VAT_DETAILS,
-  VatDetailsPage,
-} from '../../../../pages/b2b/olaf/vat-details/[companyUuid]';
+import { VatDetailsPage } from '../../../../pages/b2b/olaf/vat-details/[companyUuid]';
+import { UPDATE_VAT_DETAILS } from '../../../../containers/VatDetailsFormContainer/gql';
+import { CREATE_UPDATE_CREDIT_APPLICATION } from '../../../../gql/creditApplication';
 
 const MOCK_COMPANY_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
+const MOCK_ORDER_UUID = '39c19729-1111-46bd-0000-ed82705b3e01';
 
 jest.mock('../../../../layouts/OLAFLayout/OLAFLayout');
 const mockPush = jest.fn();
@@ -22,6 +22,7 @@ jest.mock('next/router', () => ({
     pathname: '/b2b/olaf/company-details',
     query: {
       companyUuid: MOCK_COMPANY_UUID,
+      orderId: MOCK_ORDER_UUID,
     },
   }),
 }));
@@ -665,6 +666,51 @@ describe('B2B VAT Details page', () => {
               } as UpdateVatDetailsMutation,
             })),
           },
+          {
+            request: {
+              query: CREATE_UPDATE_CREDIT_APPLICATION,
+              variables: {
+                input: {
+                  orderUuid: MOCK_ORDER_UUID,
+                },
+              },
+            },
+            result: {
+              data: {
+                createUpdateCreditApplication: {
+                  addresses: [],
+                  bankAccounts: [],
+                  employmentHistories: null,
+                  incomeAndExpenses: null,
+                  lineItem: {
+                    uuid: 'test uuid',
+                    quantity: 1,
+                    status: 'test status',
+                    productId: 'test productId',
+                    productType: 'test productType',
+                    vehicleProduct: {
+                      derivativeCapId: 'test derivativeCapId',
+                      description: 'test description',
+                      vsku: 'test vsku',
+                      term: 'test term',
+                      annualMileage: 123,
+                      monthlyPayment: 1232,
+                      depositMonths: 12,
+                      funder: 'test funder',
+                    },
+                  },
+                  leadManagerProposalId: 'test leadManagerProposalId',
+                  createdAt: 'test createdAt',
+                  emailAddresses: [],
+                  partyDetails: null,
+                  status: 'test status',
+                  telephoneNumbers: [],
+                  updatedAt: 'test updatedAt',
+                  uuid: 'test uuid',
+                },
+              },
+            },
+          },
         ]}
       >
         <VatDetailsPage />
@@ -678,8 +724,8 @@ describe('B2B VAT Details page', () => {
     await waitFor(() => expect(mockMutation).toHaveBeenCalledTimes(1));
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
-      '/b2b/olaf/director-details/[companyUuid]',
-      `/b2b/olaf/director-details/${MOCK_COMPANY_UUID}`,
+      `/b2b/olaf/director-details/[companyUuid]?orderId=${MOCK_ORDER_UUID}`,
+      `/b2b/olaf/director-details/${MOCK_COMPANY_UUID}?orderId=${MOCK_ORDER_UUID}`,
     );
   });
 });

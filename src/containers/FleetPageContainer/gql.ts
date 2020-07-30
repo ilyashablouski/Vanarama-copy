@@ -10,6 +10,11 @@ const GET_FLEET_PAGE_CONTENT = gql`
           titleTag
           body
           layout
+          testimonials {
+            customerName
+            summary
+            rating
+          }
         }
 
         featured2 {
