@@ -63,7 +63,9 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     }
   }, [router.pathname]);
 
-  const compareChange = async (product: IVehicle | IVehicleCarousel | null) => {
+  const compareChange = async (
+    product?: IVehicle | IVehicleCarousel | null | undefined,
+  ) => {
     if (isCorrectCompareType(product || null, compareVehicles)) {
       const compares = await changeCompares(product || null);
       setCompareVehicles(compares);
