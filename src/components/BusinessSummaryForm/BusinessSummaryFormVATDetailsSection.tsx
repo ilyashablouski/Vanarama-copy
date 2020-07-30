@@ -46,6 +46,7 @@ const BusinessSummaryFormVATDetailsSection: FCWithFragments<IProps> = ({
     heading="VAT Details"
     headingDataTestId="company_vat_details_heading_data_testId"
     headingSize="large"
+    className="-styled-headers"
   />
 };
 

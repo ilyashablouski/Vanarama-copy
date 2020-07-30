@@ -41,7 +41,7 @@ const SummaryFormBankDetailsSection: FCWithFragments<IProps> = ({
     heading="Company Bank Details"
     headingDataTestId="bank_details_heading_data_testId"
     headingSize="large"
-    className="olaf--summary-title"
+    className="-styled-headers"
   />
   <br />
 </React.Fragment>

@@ -80,6 +80,7 @@ const SummaryFormDetailsSection: FCWithFragments<IProps> = ({
       heading="Company Details"
       headingDataTestId="company_details_heading_data_testId"
       headingSize="large"
+      className="-styled-headers"
     />
     <br />
   </React.Fragment>

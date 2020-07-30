@@ -28,7 +28,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
 
   const primaryBankAccount = company.bankAccounts && company.bankAccounts.length && company.bankAccounts[company.bankAccounts.length - 1];
 
-  const handleEdit = (url: string) => () => {
+  const handleEdit = (url: string, additionalParameters: string = '') => () => {
     const href = `${url}?redirect=summary${getUrlParam(
       {
         orderId,
@@ -53,43 +53,46 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
     || null;
 
   return (
-    <Form className="olaf--summary">
-      <Heading color="black" size="xlarge" dataTestId="summary-heading">
+    <div>
+      <Heading color="black" size="xlarge" dataTestId="summary-heading" tag="span">
         Summary
       </Heading>
-      <BusinessSummaryFormDetailsSection
-        company={company}
-        onEdit={handleEdit('/b2b/olaf/company-details/[uuid]')}
-      />
-      {company.isVatRegistered && <BusinessSummaryFormVATDetailsSection
-        vatDetails={company}
-        onEdit={handleEdit('/b2b/olaf/vat-details/[uuid]')}
-      />}
-      {primaryBankAccount && (
-        <BusinessSummaryFormBankDetailsSection
-          account={primaryBankAccount}
-          onEdit={handleEdit('/b2b/olaf/company-bank-details/[uuid]')}
+      <br />
+      <Form className="olaf--summary">
+        <BusinessSummaryFormDetailsSection
+          company={company}
+          onEdit={handleEdit('/b2b/olaf/company-details/[uuid]')}
         />
-      )}
-      <Heading color="black" size="large" dataTestId="directors-section-heading" className="olaf--summary-title">
-        Director Details
+        {company.isVatRegistered && <BusinessSummaryFormVATDetailsSection
+          vatDetails={company}
+          onEdit={handleEdit('/b2b/olaf/vat-details/[uuid]')}
+        />}
+        {primaryBankAccount && (
+          <BusinessSummaryFormBankDetailsSection
+            account={primaryBankAccount}
+            onEdit={handleEdit('/b2b/olaf/company-bank-details/[uuid]')}
+          />
+        )}
+        <Heading color="black" size="large" dataTestId="directors-section-heading" className="olaf--summary-title">
+          Director Details
       </Heading>
-      <hr />
-      {directors}
-      <Button
-        size="large"
-        className="-mt-400"
-        type="button"
-        color="teal"
-        label="Continue"
-        dataTestId="olaf_summary_continue_buttton"
-        onClick={() => {
-          router.push(
-            `/olaf/thank-you${getUrlParam({ orderId, derivativeId })}`,
-          );
-        }}
-      />
-    </Form>
+        <hr />
+        {directors}
+        <Button
+          size="large"
+          className="-mt-400"
+          type="button"
+          color="teal"
+          label="Continue"
+          dataTestId="olaf_summary_continue_buttton"
+          onClick={() => {
+            router.push(
+              `/olaf/thank-you${getUrlParam({ orderId, derivativeId })}`,
+            );
+          }}
+        />
+      </Form>
+    </div>
   );
 };
 
