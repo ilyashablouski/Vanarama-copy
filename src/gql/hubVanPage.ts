@@ -7,6 +7,7 @@ const HUB_VAN_CONTENT = gql`
       sections {
         hero {
           title
+          titleTag
           body
           image {
             title
@@ -17,10 +18,12 @@ const HUB_VAN_CONTENT = gql`
         }
         leadText {
           heading
+          titleTag
           description
         }
         featured1 {
           title
+          titleTag
           body
           image {
             file {
@@ -30,6 +33,7 @@ const HUB_VAN_CONTENT = gql`
         }
         featured2 {
           title
+          titleTag
           body
           image {
             file {
@@ -39,14 +43,17 @@ const HUB_VAN_CONTENT = gql`
         }
         rowText {
           heading
+          titleTag
           subHeading
           body
         }
         cards {
           name
+          titleTag
           description
           cards {
             title
+            titleTag
             body
             image {
               file {
@@ -61,6 +68,7 @@ const HUB_VAN_CONTENT = gql`
         }
         steps {
           heading
+          titleTag
           steps {
             title
             body
@@ -68,8 +76,11 @@ const HUB_VAN_CONTENT = gql`
         }
         tiles {
           name
+          titleTag
+          tilesTitle
           tiles {
             title
+            link
             body
             image {
               file {

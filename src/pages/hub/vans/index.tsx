@@ -46,6 +46,7 @@ import {
 import ProductCarousel from '../../../components/ProductCarousel/ProductCarousel';
 import { getProductPageUrl } from '../../../utils/url';
 import { GetDerivatives_derivatives } from '../../../../generated/GetDerivatives';
+import getTitleTag from '../../../utils/getTitleTag';
 
 type ProdCards = ProdCardData[];
 
@@ -145,7 +146,14 @@ export const VansPage: NextPage = () => {
   return (
     <>
       <Hero>
-        <HeroHeading text={data?.hubVanPage.sections.hero?.title || ''} />
+        <HeroHeading
+          text={data?.hubVanPage.sections.hero?.title || ''}
+          titleTag={
+            getTitleTag(
+              data?.hubVanPage.sections.hero?.titleTag || 'p',
+            ) as keyof JSX.IntrinsicElements
+          }
+        />
         <br />
         <HeroTitle text={data?.hubVanPage.sections.hero?.body || ''} />
         <Button
@@ -166,7 +174,15 @@ export const VansPage: NextPage = () => {
         />
       </Hero>
       <div className="row:lead-text">
-        <Heading size="xlarge" color="black">
+        <Heading
+          size="xlarge"
+          color="black"
+          tag={
+            getTitleTag(
+              data?.hubVanPage.sections.leadText?.titleTag || null,
+            ) as keyof JSX.IntrinsicElements
+          }
+        >
           {data?.hubVanPage.sections.leadText?.heading}
         </Heading>
         <Text tag="span" size="lead" color="darker">
@@ -192,7 +208,7 @@ export const VansPage: NextPage = () => {
       </div>
       <div className="row:bg-lighter">
         <div>
-          <Heading size="large" color="black">
+          <Heading size="large" color="black" tag="h2">
             <span
               style={{ textAlign: 'center', display: 'block' }}
               className="-mb-400"
@@ -220,7 +236,7 @@ export const VansPage: NextPage = () => {
       </div>
       <div className="row:bg-lighter">
         <div>
-          <Heading size="large" color="black">
+          <Heading size="large" color="black" tag="h2">
             <span
               style={{ textAlign: 'center', display: 'block' }}
               className="-mb-400"
@@ -248,7 +264,7 @@ export const VansPage: NextPage = () => {
       </div>
       <div className="row:bg-lighter">
         <div>
-          <Heading size="large" color="black">
+          <Heading size="large" color="black" tag="h2">
             <span
               style={{ textAlign: 'center', display: 'block' }}
               className="-mb-400"
@@ -277,7 +293,15 @@ export const VansPage: NextPage = () => {
 
       <div className="row:bg-lighter ">
         <div className="row:cards-4col">
-          <Heading size="large" color="black">
+          <Heading
+            size="large"
+            color="black"
+            tag={
+              getTitleTag(
+                data?.hubVanPage.sections.cards?.titleTag || null,
+              ) as keyof JSX.IntrinsicElements
+            }
+          >
             {data?.hubVanPage.sections.cards?.name}
           </Heading>
           <Text
@@ -304,7 +328,17 @@ export const VansPage: NextPage = () => {
                       className="heading"
                       classNames={{ size: 'lead', color: 'black' }}
                     >
-                      {card.body}
+                      <Heading
+                        size="regular"
+                        color="black"
+                        tag={
+                          getTitleTag(
+                            card.titleTag || null,
+                          ) as keyof JSX.IntrinsicElements
+                        }
+                      >
+                        {card.title}
+                      </Heading>
                     </RouterLink>
                   ),
                 }}
@@ -317,7 +351,16 @@ export const VansPage: NextPage = () => {
       </div>
 
       <section className="row:steps-4col">
-        <Heading className="-a-center -mb-400" size="large" color="black">
+        <Heading
+          className="-a-center -mb-400"
+          size="large"
+          color="black"
+          tag={
+            getTitleTag(
+              data?.hubVanPage.sections.steps?.titleTag || null,
+            ) as keyof JSX.IntrinsicElements
+          }
+        >
           {data?.hubVanPage.sections.steps?.heading}
         </Heading>
         {data?.hubVanPage.sections.steps?.steps?.map((step: StepData, idx) => (
@@ -333,7 +376,15 @@ export const VansPage: NextPage = () => {
 
       <section className="row:featured-right">
         <div style={{ padding: '1rem' }}>
-          <Heading size="large" color="black">
+          <Heading
+            size="large"
+            color="black"
+            tag={
+              getTitleTag(
+                data?.hubVanPage.sections.featured1?.titleTag || 'p',
+              ) as keyof JSX.IntrinsicElements
+            }
+          >
             {data?.hubVanPage.sections.featured1?.title}
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
@@ -365,7 +416,15 @@ export const VansPage: NextPage = () => {
       <section className="row:featured-left">
         <Image src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349" />
         <div className="-inset -middle -col-400">
-          <Heading size="large" color="black">
+          <Heading
+            size="large"
+            color="black"
+            tag={
+              getTitleTag(
+                data?.hubVanPage.sections.featured1?.titleTag || 'p',
+              ) as keyof JSX.IntrinsicElements
+            }
+          >
             {data?.hubVanPage.sections.featured2?.title}
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
@@ -379,7 +438,15 @@ export const VansPage: NextPage = () => {
 
       <hr className="fullWidth" />
       <section className="row:text">
-        <Heading size="large" color="black">
+        <Heading
+          size="large"
+          color="black"
+          tag={
+            getTitleTag(
+              data?.hubVanPage.sections.rowText?.titleTag || 'p',
+            ) as keyof JSX.IntrinsicElements
+          }
+        >
           {data?.hubVanPage.sections.rowText?.heading}
         </Heading>
         <div>
@@ -403,6 +470,17 @@ export const VansPage: NextPage = () => {
       <hr className="fullWidth" />
 
       <section className="row:features-4col">
+        <Heading
+          size="large"
+          color="black"
+          tag={
+            getTitleTag(
+              data?.hubVanPage.sections.tiles?.titleTag || 'p',
+            ) as keyof JSX.IntrinsicElements
+          }
+        >
+          {data && data.hubVanPage.sections.tiles?.tilesTitle}
+        </Heading>
         {data?.hubVanPage.sections.tiles?.tiles?.map((tile: TileData, idx) => (
           <div key={tile.title || idx}>
             <Tile className="-plain -button -align-center" plain>
@@ -417,11 +495,14 @@ export const VansPage: NextPage = () => {
                   }
                 />
               </div>
-              <a className="tile--link" href="##">
+              <RouterLink
+                link={{ href: tile.link || '#', label: '' }}
+                className="tile--link"
+              >
                 <Heading tag="span" size="regular" color="black">
                   {tile.title}
                 </Heading>
-              </a>
+              </RouterLink>
               <Text tag="p">{tile.body}</Text>
             </Tile>
           </div>
@@ -429,7 +510,12 @@ export const VansPage: NextPage = () => {
       </section>
 
       <section className="row:manufacturer-grid">
-        <Heading size="large" color="black" className="-a-center -mb-500">
+        <Heading
+          size="large"
+          color="black"
+          className="-a-center -mb-500"
+          tag="h2"
+        >
           Search By Manufacturer
         </Heading>
         <div>

@@ -658,20 +658,6 @@ exports[`<FiltersContainer /> should render with data 1`] = `
           </button>
         </div>
       </div>
-      <div
-        class="search-filters--tags"
-      >
-        <button
-          class="button -teal -xsmall -solid"
-          id="clearAllButton"
-        >
-          <div
-            class="button--inner"
-          >
-            Clear All
-          </div>
-        </button>
-      </div>
     </div>
   </div>
 </body>

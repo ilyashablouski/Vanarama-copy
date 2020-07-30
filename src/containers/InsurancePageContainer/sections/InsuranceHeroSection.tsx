@@ -5,7 +5,7 @@ import { GetInsuranceLandingPage_insuranceLandingPage_sections_hero as IHero } f
 import Hero, { HeroHeading } from '../../../components/Hero';
 import config from '../config';
 
-const InsuranceHeroSection = ({ title, body, heroCard }: IHero) => (
+const InsuranceHeroSection = ({ title, body, heroCard, image }: IHero) => (
   <Hero workingHoursCard={(heroCard && heroCard[0]) || undefined}>
     <HeroHeading text={title || ''} />
     <ReactMarkdown
@@ -26,9 +26,10 @@ const InsuranceHeroSection = ({ title, body, heroCard }: IHero) => (
       }}
     />
     <Image
-      dataTestId="fleet_hero-image"
+      alt="Hero Image"
+      dataTestId="insurance_hero-image"
       size="expand"
-      src={config.heroImage.src}
+      src={image?.file?.url || config.heroImage.src}
       plain
       className="hero--image"
     />

@@ -75,7 +75,6 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections_carousel_
 }
 
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_carousel_cards_image {
-  title: string | null;
   file: GetInsuranceLandingPage_insuranceLandingPage_sections_carousel_cards_image_file | null;
 }
 
@@ -98,6 +97,14 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections_leadText 
   description: string | null;
 }
 
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_hero_image_file {
+  url: string;
+}
+
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_hero_image {
+  file: GetInsuranceLandingPage_insuranceLandingPage_sections_hero_image_file | null;
+}
+
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_hero_heroCard {
   title: string | null;
   body: string | null;
@@ -106,6 +113,7 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections_hero_hero
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_hero {
   title: string | null;
   body: string | null;
+  image: GetInsuranceLandingPage_insuranceLandingPage_sections_hero_image | null;
   heroCard: (GetInsuranceLandingPage_insuranceLandingPage_sections_hero_heroCard | null)[] | null;
 }
 

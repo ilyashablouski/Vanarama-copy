@@ -77,6 +77,11 @@ const GET_INSURANCE_LANDING_PAGE = gql`
         hero {
           title
           body
+          image {
+            file {
+              url
+            }
+          }
           heroCard {
             title
             body

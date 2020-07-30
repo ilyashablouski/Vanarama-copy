@@ -31,8 +31,9 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
             class="image hero--image -expand -plain"
           >
             <img
+              alt="Hero Image"
               class="image--native"
-              src="https://www.vanarama.com/assets/images/insurance/home-hero/insurance-hero.png"
+              src="//images.ctfassets.net/3xid768u5joa/7EJOmbBk6X2yzLtHunY3xU/e9af75665ee74bf1ccefede5c9142e60/insuranceicon.jpg"
             />
           </div>
         </div>

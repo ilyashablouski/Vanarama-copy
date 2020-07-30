@@ -32,7 +32,7 @@ const SearchPodContainer = () => {
   const [pickupMakes, setPickupMakes] = useState([] as string[]);
 
   const [config, setConfig] = useState([] as any);
-  const [headingText, setHeadingText] = useState('Search vehicles');
+  const [headingText, setHeadingText] = useState('Search Vans');
   // set it to true if we need preselect some data
   const [isShouldPreselectTypes, setIsShouldPreselectTypes] = useState(false);
 
@@ -104,7 +104,7 @@ const SearchPodContainer = () => {
   useEffect(() => {
     if (router.pathname.indexOf('cars') > -1) {
       setConfig(carPageTabFields);
-      setHeadingText('Vehicle Search');
+      setHeadingText('Search Car Leasing');
       setActiveIndex(2);
     } else if (router.pathname.indexOf('vans') > -1) {
       setHeadingText('Search Van Leasing');
@@ -295,10 +295,16 @@ const SearchPodContainer = () => {
     });
   };
 
+  const onChangeTab = (index: number) => {
+    setActiveIndex(index);
+    if (index === 1) setHeadingText('Search Vans');
+    if (index === 2) setHeadingText('Search Cars');
+  };
+
   return (
     <SearchPod
       activeTab={activeIndex}
-      onChangeTab={(index: number) => setActiveIndex(index)}
+      onChangeTab={(index: number) => onChangeTab(index)}
       config={config}
       onSearch={onSearch}
       getOptions={field => getOptions(field)}

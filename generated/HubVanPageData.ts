@@ -18,12 +18,14 @@ export interface HubVanPageData_hubVanPage_sections_hero_image {
 
 export interface HubVanPageData_hubVanPage_sections_hero {
   title: string | null;
+  titleTag: string | null;
   body: string | null;
   image: HubVanPageData_hubVanPage_sections_hero_image | null;
 }
 
 export interface HubVanPageData_hubVanPage_sections_leadText {
   heading: string | null;
+  titleTag: string | null;
   description: string | null;
 }
 
@@ -37,6 +39,7 @@ export interface HubVanPageData_hubVanPage_sections_featured1_image {
 
 export interface HubVanPageData_hubVanPage_sections_featured1 {
   title: string | null;
+  titleTag: string | null;
   body: string | null;
   image: HubVanPageData_hubVanPage_sections_featured1_image | null;
 }
@@ -51,12 +54,14 @@ export interface HubVanPageData_hubVanPage_sections_featured2_image {
 
 export interface HubVanPageData_hubVanPage_sections_featured2 {
   title: string | null;
+  titleTag: string | null;
   body: string | null;
   image: HubVanPageData_hubVanPage_sections_featured2_image | null;
 }
 
 export interface HubVanPageData_hubVanPage_sections_rowText {
   heading: string | null;
+  titleTag: string | null;
   subHeading: string | null;
   body: string | null;
 }
@@ -76,6 +81,7 @@ export interface HubVanPageData_hubVanPage_sections_cards_cards_link {
 
 export interface HubVanPageData_hubVanPage_sections_cards_cards {
   title: string | null;
+  titleTag: string | null;
   body: string | null;
   image: HubVanPageData_hubVanPage_sections_cards_cards_image | null;
   link: HubVanPageData_hubVanPage_sections_cards_cards_link | null;
@@ -83,6 +89,7 @@ export interface HubVanPageData_hubVanPage_sections_cards_cards {
 
 export interface HubVanPageData_hubVanPage_sections_cards {
   name: string | null;
+  titleTag: string | null;
   description: string | null;
   cards: HubVanPageData_hubVanPage_sections_cards_cards[] | null;
 }
@@ -94,6 +101,7 @@ export interface HubVanPageData_hubVanPage_sections_steps_steps {
 
 export interface HubVanPageData_hubVanPage_sections_steps {
   heading: string | null;
+  titleTag: string | null;
   steps: HubVanPageData_hubVanPage_sections_steps_steps[] | null;
 }
 
@@ -108,12 +116,15 @@ export interface HubVanPageData_hubVanPage_sections_tiles_tiles_image {
 
 export interface HubVanPageData_hubVanPage_sections_tiles_tiles {
   title: string | null;
+  link: string | null;
   body: string | null;
   image: HubVanPageData_hubVanPage_sections_tiles_tiles_image | null;
 }
 
 export interface HubVanPageData_hubVanPage_sections_tiles {
   name: string;
+  titleTag: string | null;
+  tilesTitle: string | null;
   tiles: HubVanPageData_hubVanPage_sections_tiles_tiles[] | null;
 }
 
