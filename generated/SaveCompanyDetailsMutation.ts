@@ -11,6 +11,7 @@ import { LimitedCompanyInputObject } from "./globalTypes";
 
 export interface SaveCompanyDetailsMutation_createUpdateLimitedCompany {
   uuid: string;
+  partyUuid: string;
 }
 
 export interface SaveCompanyDetailsMutation {
