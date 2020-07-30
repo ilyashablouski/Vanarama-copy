@@ -203,7 +203,7 @@ exports[`<SearchPageContainer /> should be render correctly 1`] = `
               Filters
             </span>
             <i
-              class="icon search-filters--title-icon"
+              class="icon search-filters--title-icon -white"
             >
               <svg
                 height="1em"
@@ -214,8 +214,8 @@ exports[`<SearchPageContainer /> should be render correctly 1`] = `
                   ionicons-v5-a
                 </title>
                 <polyline
-                  points="112 328 256 184 400 328"
-                  style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                  points="112 184 256 328 400 184"
+                  style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
                 />
               </svg>
             </i>
@@ -820,6 +820,9 @@ exports[`<SearchPageContainer /> should be render correctly 1`] = `
               </button>
             </div>
           </div>
+          <div
+            class="search-filters--tags"
+          />
         </div>
       </div>
     </div>
