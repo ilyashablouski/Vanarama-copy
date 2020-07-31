@@ -1,4 +1,3 @@
-import { gql } from '@apollo/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -7,15 +6,6 @@ import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { getUrlParam, OLAFQueryParams } from '../../../../utils/url';
 import CompanyDetailsFormContainer from '../../../../containers/CompanyDetailsFormContainer';
-
-// export const SAVE_COMPANY_DETAILS = gql`
-//   mutation SaveCompanyDetailsMutation($input: LimitedCompanyInputObject!) {
-//     createUpdateLimitedCompany(input: $input) {
-//       uuid
-//       partyUuid
-//     }
-//   }
-// `;
 
 const handleSubmitError = () =>
   toast.error(

@@ -1,12 +1,15 @@
 import { NextPage } from 'next';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useLazyQuery } from '@apollo/client';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { ParsedUrlQuery } from 'querystring';
 import { useCarData } from '../../../gql/carpage';
 import withApollo from '../../../hocs/withApollo';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import DetailsPage from '../../../containers/DetailsPage/DetailsPage';
+import { VEHICLE_CONFIGURATION_BY_URL } from '../../../gql/productCard';
+import { VehicleConfigurationByUrl } from '../../../../generated/VehicleConfigurationByUrl';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -21,20 +24,23 @@ const VanDetailsPage: NextPage<IProps> = () => {
     VehicleTypeEnum.LCV,
   );
 
+  const [getConfiguration, { data: configuration }] = useLazyQuery<
+    VehicleConfigurationByUrl
+  >(VEHICLE_CONFIGURATION_BY_URL, {
+    variables: { url: router.asPath.replace('/van-leasing', '').slice(0, -1) },
+    onCompleted: d =>
+      setCapId(d.vehicleConfigurationByUrl?.capDerivativeId || 0),
+  });
+
   useEffect(() => {
     if (capId) {
       getCarData();
-    } else if (sessionStorage) {
-      setCapId(
-        parseInt(
-          sessionStorage.getItem('capId') ??
-            (router.query.capId as string) ??
-            '',
-          10,
-        ),
-      );
+    } else if (sessionStorage && sessionStorage.getItem('capId')) {
+      setCapId(parseInt(sessionStorage.getItem('capId') ?? '', 10));
+    } else if (router.asPath !== router.pathname) {
+      getConfiguration();
     }
-  }, [capId, getCarData, router.query.capId]);
+  }, [capId, getCarData, router, configuration, getConfiguration]);
 
   if (!data) {
     return (

@@ -6,7 +6,7 @@ export interface IBusinessAboutFormValues {
   title: string;
   firstName: string;
   lastName: string;
-  telephone: string;
+  mobile: string;
   email: string;
   companyType: string;
   consent: boolean;

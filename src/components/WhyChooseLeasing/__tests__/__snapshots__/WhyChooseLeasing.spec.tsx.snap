@@ -4,11 +4,11 @@ exports[`<WhyChooseLeasing /> renders correctly with warranty 1`] = `
 <div
   className="pdp--feature-grid -col2"
 >
-  <span
+  <h2
     className="heading -black -lead"
   >
     Why Choose Leasing?
-  </span>
+  </h2>
   <div
     className="pdp--feature-grid--item"
   >
@@ -300,11 +300,11 @@ exports[`<WhyChooseLeasing /> renders correctly with warranty equal N/A 1`] = `
 <div
   className="pdp--feature-grid -col2"
 >
-  <span
+  <h2
     className="heading -black -lead"
   >
     Why Choose Leasing?
-  </span>
+  </h2>
   <div
     className="pdp--feature-grid--item"
   >

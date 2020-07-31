@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import localForage from 'localforage';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -14,6 +15,9 @@ import BusinessAboutFormContainer from '../../../../containers/BusinessAboutForm
 import { SubmitResult } from '../../../../containers/BusinessAboutFormContainer/interfaces';
 import { usePersonByTokenLazyQuery } from '../../../olaf/about';
 import { CompanyTypes } from '../../../../models/enum/CompanyTypes';
+import { PersonByToken } from '../../../../../generated/PersonByToken';
+import { useImperativeQuery } from '../../../../hooks/useImperativeQuery';
+import { GET_ORDERS_BY_PARTY_UUID_DATA } from '../../../../containers/OrdersInformation/gql';
 
 const handleCreateUpdateBusinessPersonError = () =>
   toast.error(
@@ -35,10 +39,33 @@ export const BusinessAboutPage: NextPage = () => {
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [personUuid, setPersonUuid] = useState<string | undefined>();
 
-  const [getPersonByToken] = usePersonByTokenLazyQuery(
-    data => setPersonUuid(data?.personByToken?.uuid),
-    handleAccountFetchError,
-  );
+  const getOrdersData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);
+  const getQuotesData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);
+
+  const [getPersonByToken] = usePersonByTokenLazyQuery(async data => {
+    setPersonUuid(data?.personByToken?.uuid);
+    await localForage.setItem('person', data);
+    getOrdersData({
+      partyUuid: data.personByToken?.partyUuid,
+      excludeStatuses: ['quote', 'expired'],
+    }).then(response => {
+      localForage.setItem(
+        'ordersLength',
+        response.data?.ordersByPartyUuid.length,
+      );
+    });
+    getQuotesData({
+      partyUuid: data.personByToken?.partyUuid,
+      statuses: ['quote', 'new'],
+      excludeStatuses: ['expired'],
+    }).then(response => {
+      localForage.setItem(
+        'quotesLength',
+        response.data?.ordersByPartyUuid.length,
+      );
+    });
+    router.replace(router.pathname, router.asPath);
+  }, handleAccountFetchError);
 
   const handleCreateUpdateBusinessPersonCompletion = ({
     companyUuid,
@@ -55,6 +82,15 @@ export const BusinessAboutPage: NextPage = () => {
         : `/b2b/olaf/${journeyUrl}company-details/[companyUuid]${params}`;
     router.push(url, url.replace('[companyUuid]', companyUuid || ''));
   };
+
+  useEffect(() => {
+    if (!personUuid) {
+      localForage.getItem('person').then(value => {
+        if ((value as PersonByToken)?.personByToken)
+          setPersonUuid((value as PersonByToken)?.personByToken?.uuid);
+      });
+    }
+  }, [personUuid]);
 
   return (
     <OLAFLayout>

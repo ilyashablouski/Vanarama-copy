@@ -19,6 +19,7 @@ interface IProductCarouselProps {
   countItems?: number;
   data: GetProductCard;
   dataTestIdBtn: string;
+  productType?: string;
 }
 
 const ProductCarousel: React.FC<IProductCarouselProps> = ({
@@ -26,6 +27,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
   countItems,
   data,
   dataTestIdBtn,
+  productType,
 }) => {
   const { slidesToShow } = useSliderProperties();
 
@@ -58,6 +60,13 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                 label: info?.value || '',
                 index: `${product.capId}_${info?.name || ''}`,
               }))}
+              onCompare={() => {
+                compareChange({
+                  bodyStyle: productType || getBodyStyle(product),
+                  ...product,
+                });
+              }}
+              compared={isCompared(compareVehicles, product)}
               imageSrc={product.imageUrl || '/vehiclePlaceholder.jpg'}
               onCompare={() => true}
               onWishlist={() => true}

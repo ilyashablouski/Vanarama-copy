@@ -17,5 +17,12 @@
     "downlevelIteration": true
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "src/pages/_document.jsx",
+    "src/pages/_error.jsx"
+  ]
 }

@@ -21,12 +21,17 @@ const productPageUrlData = (
 ): productPageUrlData => {
   const derivativeData = derivatives?.find(el => el.id === productCard?.capId);
   return {
-    manufacturerName: derivativeData?.manufacturerName || null,
-    rangeName: derivativeData?.rangeName || null,
+    manufacturer: derivativeData?.manufacturer.slug || null,
+    range: derivativeData?.range.slug || null,
     slug: derivativeData?.slug || null,
     capId: derivativeData?.id || null,
     vehicleType: productCard?.vehicleType || null,
-    bodyStyleName: derivativeData?.bodyStyleName || null,
+    bodyStyle:
+      derivativeData?.bodyStyle?.name
+        ?.toLocaleLowerCase()
+        .split(' ')
+        .join('-') || null,
+    model: derivativeData?.model.slug || null,
   };
 };
 
@@ -34,46 +39,39 @@ export const getProductPageUrl = (
   productCard: GetProductCard_productCard | null,
   derivatives: GetProductCard_derivatives[] | null,
 ) => {
-  const data = productPageUrlData(productCard, derivatives);
+  const {
+    manufacturer,
+    range,
+    bodyStyle,
+    model,
+    slug,
+    vehicleType,
+    capId,
+  } = productPageUrlData(productCard, derivatives);
   const leasing =
-    data.vehicleType === VehicleTypeEnum.CAR ? '/car-leasing' : '/van-leasing';
-  const manufacturer =
-    data.manufacturerName
-      ?.toLocaleLowerCase()
-      .split(' ')
-      .join('-') || '';
-  const range =
-    data.rangeName
-      ?.toLocaleLowerCase()
-      .split(' ')
-      .join('-') || '';
-  const bodyStyle =
-    data.bodyStyleName
-      ?.toLocaleLowerCase()
-      .split(' ')
-      .join('-') || '';
-  const derivative = data.slug || '';
+    vehicleType === VehicleTypeEnum.CAR ? '/car-leasing' : '/van-leasing';
 
-  return data.vehicleType === VehicleTypeEnum.CAR
+  return vehicleType === VehicleTypeEnum.CAR
     ? {
-        url: `${leasing}/${manufacturer}/${range}/${bodyStyle}/${derivative}`,
+        url: `${leasing}/${manufacturer}/${range}/${bodyStyle}/${slug}`,
         href: `${leasing}/[...manufacturer]`,
-        capId: data.capId as string,
+        capId: capId as string,
       }
     : {
-        url: `${leasing}/${manufacturer}/${range}/${derivative}`,
+        url: `${leasing}/${manufacturer}/${model}/${slug}`,
         href: `${leasing}/[...manufacturer]`,
-        capId: data.capId as string,
+        capId: capId as string,
       };
 };
 
 export type productPageUrlData = {
-  manufacturerName: string | null;
-  rangeName: string | null;
+  manufacturer: string | null;
+  range: string | null;
   slug: string | null;
   capId: string | null;
   vehicleType: VehicleTypeEnum | null;
-  bodyStyleName?: string | null;
+  bodyStyle?: string | null;
+  model?: string | null;
 };
 
 /**

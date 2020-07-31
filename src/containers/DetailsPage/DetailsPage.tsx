@@ -150,12 +150,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     <>
       <div className="pdp--content">
         <Breadcrumb items={PATH.items} />
-        <Heading className="-pt-100" tag="span" size="xlarge" color="black">
-          {pageTitle}
+        <Heading tag="h1">
+          <Heading className="-pt-100" tag="span" size="xlarge" color="black">
+            {pageTitle}
+          </Heading>
+          <Text tag="span" size="lead" color="darker">
+            {vehicleConfigurationByCapId?.capDerivativeDescription}
+          </Text>
         </Heading>
-        <Text tag="span" size="lead" color="darker">
-          {vehicleConfigurationByCapId?.capDerivativeDescription}
-        </Text>
         <div
           className="-mt-500 -mb-200"
           style={{ display: 'flex', justifyContent: 'space-between' }}
@@ -183,7 +185,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             incomplete: true,
           }}
           images={vehicleImages}
-          videoSrc={video}
+          videoSrc={video && `${video}&autostart=false`}
           threeSixtyVideoSrc={threeSixtyVideo}
           videoIframe
         />
