@@ -180,6 +180,7 @@ export const HomePage: NextPage = () => {
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
                 <ProductCarousel
                   leaseType={LeaseTypeEnum.PERSONAL}
+                  productType="Pickup"
                   data={{
                     derivatives: productsPickUpDerivatives?.derivatives || null,
                     productCard: productsPickUp?.productCarousel || null,
