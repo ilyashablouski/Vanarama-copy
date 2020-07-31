@@ -78,7 +78,6 @@ const AboutYouPage: NextPage = () => {
   const [getPersonByToken] = usePersonByTokenLazyQuery(async data => {
     setPersonUuid(data?.personByToken?.uuid);
     await localForage.setItem('person', data);
-    router.replace(router.asPath);
     getOrdersData({
       partyUuid: data.personByToken?.partyUuid,
       excludeStatuses: ['quote', 'expired'],
@@ -98,6 +97,7 @@ const AboutYouPage: NextPage = () => {
         response.data?.ordersByPartyUuid.length,
       );
     });
+    router.replace(router.pathname, router.asPath);
   }, handleAccountFetchError);
   const { refetch } = usePersonByUuidData(personUuid || uuid || '');
   const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
