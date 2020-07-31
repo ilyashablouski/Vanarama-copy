@@ -100,7 +100,12 @@ export const HomePage: NextPage = () => {
 
   return (
     <>
-      <Head />
+      <Head
+        title={data?.homePage.metaData.title}
+        metaDescription={data?.homePage.metaData.metaDescription}
+        legacyUrl={data?.homePage.metaData.legacyUrl}
+        featuredImage={{ url: data?.homePage.metaData.featuredImage?.url }}
+      />
       <Hero>
         <div className="hero--title">
           <HeroHeading

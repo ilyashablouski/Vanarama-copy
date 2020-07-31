@@ -3,6 +3,8 @@ import Head from 'next/head';
 
 import { IHeadProps } from './interface';
 
+require('dotenv').config({ path: '../../../.env' });
+
 const HeadTag: React.FC<IHeadProps> = props => {
   let { title = 'Vanarama' } = props;
   const { metaDescription, legacyUrl, publishedOn, featuredImage } = props;
@@ -12,6 +14,7 @@ const HeadTag: React.FC<IHeadProps> = props => {
 
   return (
     <Head>
+      <title>{title}</title>
       {process.env.ENV !== 'production' && (
         <meta name="robots" content="noindex" />
       )}
