@@ -32,28 +32,25 @@ export const GET_PRODUCT_CARDS_DATA = gql`
       slug
       manufacturer {
         name
+        slug
       }
-      manufacturerName
       model {
         name
+        slug
       }
-      modelName
       fuelType {
         name
       }
-      fuelTypeName
       transmission {
         name
       }
-      transmissionName
       bodyStyle {
         name
       }
-      bodyStyleName
       range {
         name
+        slug
       }
-      rangeName
     }
   }
 `;
