@@ -56,33 +56,30 @@ describe('<CreditChecker />', () => {
         derivatives: [
           {
             id: '83615',
-            manufacturerName: 'Ford',
             derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
-            rangeName: 'Focus',
-            bodyStyleName: 'Hatchback',
             slug: '10-ecoBoost-125-st-line-nav-5dr',
             capCode: 'capCode',
             name: 'name',
-            modelName: 'modelName',
             manufacturer: {
-              name: 'name',
+              name: 'Ford',
+              slug: 'ford',
             },
             model: {
-              name: 'name',
+              name: 'Focus',
+              slug: 'focus',
             },
             fuelType: {
               name: 'name',
             },
-            fuelTypeName: 'fuelTypeName',
             transmission: {
               name: 'name',
             },
-            transmissionName: 'transmissionName',
             bodyStyle: {
-              name: 'name',
+              name: 'Hatchback',
             },
             range: {
-              name: 'name',
+              name: 'Focus',
+              slug: 'focus',
             },
             __typename: 'derivative',
           },

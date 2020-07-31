@@ -11,10 +11,12 @@ import { VehicleTypeEnum } from "./globalTypes";
 
 export interface GetDerivative_derivative_manufacturer {
   name: string;
+  slug: string;
 }
 
 export interface GetDerivative_derivative_model {
   name: string;
+  slug: string;
 }
 
 export interface GetDerivative_derivative_fuelType {
@@ -31,6 +33,7 @@ export interface GetDerivative_derivative_bodyStyle {
 
 export interface GetDerivative_derivative_range {
   name: string;
+  slug: string;
 }
 
 export interface GetDerivative_derivative {
@@ -39,17 +42,11 @@ export interface GetDerivative_derivative {
   name: string;
   slug: string;
   manufacturer: GetDerivative_derivative_manufacturer;
-  manufacturerName: string;
   model: GetDerivative_derivative_model;
-  modelName: string;
   fuelType: GetDerivative_derivative_fuelType;
-  fuelTypeName: string;
   transmission: GetDerivative_derivative_transmission;
-  transmissionName: string;
   bodyStyle: GetDerivative_derivative_bodyStyle | null;
-  bodyStyleName: string | null;
   range: GetDerivative_derivative_range;
-  rangeName: string;
 }
 
 export interface GetDerivative {
