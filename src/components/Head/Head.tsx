@@ -17,26 +17,42 @@ const HeadTag: React.FC<IHeadProps> = props => {
       )}
       <meta property="og:locale" content="en_GB" />
       <meta property="og:title" content={title} />
-      <meta property="og:description" content={metaDescription} />
-      <meta property="og:url" content={legacyUrl} />
+      {metaDescription && (
+        <meta property="og:description" content={metaDescription} />
+      )}
+      {legacyUrl && <meta property="og:url" content={legacyUrl} />}
       <meta property="og:site_name" content="Vanarama" />
       <meta
         property="article:publisher"
         content="https://www.facebook.com/vanarama/"
       />
-      <meta property="article:modified_time" content={publishedOn} />
-      <meta property="og:image" content={featuredImage?.url} />
-      <meta
-        property="og:image:width"
-        content={featuredImage?.width?.toString()}
-      />
-      <meta
-        property="og:image:height"
-        content={featuredImage?.height?.toString()}
-      />
+      {publishedOn && (
+        <meta property="article:modified_time" content={publishedOn} />
+      )}
+      {featuredImage && (
+        <>
+          {featuredImage.url && (
+            <>
+              <meta property="og:image" content={featuredImage.url} />
+              <meta name="twitter:image" content={featuredImage.url} />
+            </>
+          )}
+          {featuredImage.width && (
+            <meta
+              property="og:image:width"
+              content={featuredImage.width.toString()}
+            />
+          )}
+          {featuredImage.height && (
+            <meta
+              property="og:image:height"
+              content={featuredImage.height.toString()}
+            />
+          )}
+        </>
+      )}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
-      <meta name="twitter:image" content={featuredImage?.url} />
       <meta name="twitter:creator" content="@Vanarama" />
       <meta name="twitter:site" content="@Vanarama" />
     </Head>
