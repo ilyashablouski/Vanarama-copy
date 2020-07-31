@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
 import {
   gql,
@@ -9,6 +9,7 @@ import {
 } from '@apollo/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import localForage from 'localforage';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
@@ -31,6 +32,8 @@ import { formValuesToInputCreditApplication } from '../../../mappers/mappersCred
 import { usePersonByUuidData } from '../../../gql/person';
 import { useCreateUpdateOrder } from '../../../gql/order';
 import { LeaseTypeEnum } from '../../../../generated/globalTypes';
+import { useImperativeQuery } from '../../../hooks/useImperativeQuery';
+import { GET_ORDERS_BY_PARTY_UUID_DATA } from '../../../containers/OrdersInformation/gql';
 
 const PERSON_BY_TOKEN_QUERY = gql`
   query PersonByToken($token: String!) {
@@ -67,12 +70,35 @@ const AboutYouPage: NextPage = () => {
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [personUuid, setPersonUuid] = useState<string | undefined>();
 
+  const getOrdersData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);
+  const getQuotesData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);
+
   const [updateOrderHandle] = useCreateUpdateOrder(() => {});
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
-  const [getPersonByToken] = usePersonByTokenLazyQuery(
-    data => setPersonUuid(data?.personByToken?.uuid),
-    handleAccountFetchError,
-  );
+  const [getPersonByToken] = usePersonByTokenLazyQuery(async data => {
+    setPersonUuid(data?.personByToken?.uuid);
+    await localForage.setItem('person', data);
+    getOrdersData({
+      partyUuid: data.personByToken?.partyUuid,
+      excludeStatuses: ['quote', 'expired'],
+    }).then(response => {
+      localForage.setItem(
+        'ordersLength',
+        response.data?.ordersByPartyUuid.length,
+      );
+    });
+    getQuotesData({
+      partyUuid: data.personByToken?.partyUuid,
+      statuses: ['quote', 'new'],
+      excludeStatuses: ['expired'],
+    }).then(response => {
+      localForage.setItem(
+        'quotesLength',
+        response.data?.ordersByPartyUuid.length,
+      );
+    });
+    router.replace(router.pathname, router.asPath);
+  }, handleAccountFetchError);
   const { refetch } = usePersonByUuidData(personUuid || uuid || '');
   const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
 
@@ -127,6 +153,15 @@ const AboutYouPage: NextPage = () => {
 
     router.push(url, url.replace('[orderId]', orderId));
   };
+
+  useEffect(() => {
+    if (!personUuid) {
+      localForage.getItem('person').then(value => {
+        if ((value as PersonByToken)?.personByToken)
+          setPersonUuid((value as PersonByToken)?.personByToken?.uuid);
+      });
+    }
+  }, [personUuid]);
 
   return (
     <OLAFLayout>
