@@ -131,7 +131,7 @@ const CustomiseLease = ({
 
   return (
     <div className={cx('pdp--sidebar', isDisabled ? 'disabled' : '')}>
-      <Heading tag="span" size="xlarge" color="black">
+      <Heading tag="h2" size="xlarge" color="black">
         Customise Your Lease
       </Heading>
       {choices(leaseTypes, setLeaseType, 'Lease Type', isDisabled)}
