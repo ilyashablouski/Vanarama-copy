@@ -55,7 +55,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
         };
         const telephoneNumbers = [
           {
-            value: values.telephone,
+            value: values.mobile,
           },
         ];
 
