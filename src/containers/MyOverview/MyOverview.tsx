@@ -185,8 +185,8 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
           imageSrc={imageSrc?.mainImageUrl || ''}
           key={order.id}
           title={{
-            title: `${derivative?.manufacturerName ||
-              ''} ${derivative?.modelName || ''}`,
+            title: `${derivative?.manufacturer.name || ''} ${derivative?.model
+              .name || ''}`,
             description: derivative?.name || '',
           }}
           orderDetails={createOffersObject(
