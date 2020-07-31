@@ -45,6 +45,7 @@ export const BusinessAboutPage: NextPage = () => {
   const [getPersonByToken] = usePersonByTokenLazyQuery(async data => {
     setPersonUuid(data?.personByToken?.uuid);
     await localForage.setItem('person', data);
+    router.replace(router.asPath);
     getOrdersData({
       partyUuid: data.personByToken?.partyUuid,
       excludeStatuses: ['quote', 'expired'],
