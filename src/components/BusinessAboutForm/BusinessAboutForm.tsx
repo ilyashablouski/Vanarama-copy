@@ -114,16 +114,16 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
         />
       </Formgroup>
       <Formgroup
-        controlId="telephone"
+        controlId="mobile"
         hint="Please provide your phone number"
         label="Telephone Number"
-        error={errors.telephone?.message?.toString()}
+        error={errors.mobile?.message?.toString()}
       >
         <NumericInput
-          id="telephone"
+          id="mobile"
           type="tel"
-          name="telephone"
-          dataTestId="about-you_telephone"
+          name="mobile"
+          dataTestId="about-you_mobile"
           ref={register({
             required: 'Please enter your telephone number',
             minLength: {
