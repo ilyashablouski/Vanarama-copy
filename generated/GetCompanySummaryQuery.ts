@@ -91,13 +91,49 @@ export interface GetCompanySummaryQuery_companyByUuid {
   associates: GetCompanySummaryQuery_companyByUuid_associates[] | null;
 }
 
+export interface GetCompanySummaryQuery_personByUuid_emailAddresses {
+  __typename: "EmailAddressType";
+  uuid: string;
+  primary: boolean;
+  value: string;
+}
+
+export interface GetCompanySummaryQuery_personByUuid_telephoneNumbers {
+  __typename: "TelephoneNumberType";
+  uuid: string;
+  kind: string | null;
+  value: string;
+}
+
+export interface GetCompanySummaryQuery_personByUuid {
+  __typename: "PersonType";
+  uuid: string;
+  title: string | null;
+  firstName: string;
+  lastName: string;
+  emailAddresses: GetCompanySummaryQuery_personByUuid_emailAddresses[];
+  telephoneNumbers: GetCompanySummaryQuery_personByUuid_telephoneNumbers[] | null;
+  dateOfBirth: any | null;
+  countryOfBirth: string | null;
+  nationality: string | null;
+  maritalStatus: string | null;
+  noOfAdultsInHousehold: string | null;
+  noOfDependants: string | null;
+  emailConsent: boolean | null;
+}
+
 export interface GetCompanySummaryQuery {
   /**
    * Find Company by Uuid
    */
   companyByUuid: GetCompanySummaryQuery_companyByUuid | null;
+  /**
+   * Find Person by Uuid
+   */
+  personByUuid: GetCompanySummaryQuery_personByUuid | null;
 }
 
 export interface GetCompanySummaryQueryVariables {
   uuid: string;
+  personUuid: string;
 }

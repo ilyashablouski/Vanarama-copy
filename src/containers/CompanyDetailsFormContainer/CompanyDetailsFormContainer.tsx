@@ -1,5 +1,5 @@
 import { gql, useMutation } from '@apollo/client';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   SaveCompanyDetailsMutation as Mutation,
   SaveCompanyDetailsMutationVariables as MutationVariables,
@@ -14,6 +14,7 @@ import { useCreateUpdateOrder } from '../../gql/order';
 import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
 import { ICompanyDetailsFormContainerProps } from './interfaces';
 import { mapFormValues } from './mappers';
+import localForage from 'localforage';
 
 export const SAVE_COMPANY_DETAILS = gql`
   mutation SaveCompanyDetailsMutation($input: LimitedCompanyInputObject!) {
@@ -33,10 +34,10 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
   const [saveCompanyDetails] = useMutation<Mutation, MutationVariables>(
     SAVE_COMPANY_DETAILS,
   );
-  const [createUpdateOrder] = useCreateUpdateOrder(() => {});
+  const [createUpdateOrder] = useCreateUpdateOrder(() => { });
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
     orderId,
-    () => {},
+    () => { },
   );
 
   const handleCompanyDetailsSave = (input: LimitedCompanyInputObject) =>

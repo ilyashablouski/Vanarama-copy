@@ -12,17 +12,21 @@ import { getUrlParam } from '../../utils/url';
 import { SummaryFormCompany } from '../../../generated/SummaryFormCompany';
 import BusinessSummaryFormVATDetailsSection from './BusinessSummaryFormVATDetailsSection';
 import BusinessSummaryFormDirectorDetailsSection from './BusinessSummaryFormDirectorDetailsSection';
+import { AboutFormPerson } from '../../../generated/AboutFormPerson';
+import BusinessSummaryFormAboutSection from './BusinessSummaryFormAboutSection';
 
 interface IProps {
   company: SummaryFormCompany;
   orderId?: string;
   derivativeId?: string;
+  person: AboutFormPerson;
 }
 
 const BusinessSummaryForm: FCWithFragments<IProps> = ({
   company,
   orderId,
   derivativeId,
+  person
 }) => {
   const router = useRouter();
 
@@ -54,6 +58,8 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
       </Heading>
       <br />
       <Form className="olaf--summary">
+        <BusinessSummaryFormAboutSection person={person} onEdit={handleEdit('/b2b/olaf/about')}
+        />
         <BusinessSummaryFormDetailsSection
           company={company}
           onEdit={handleEdit('/b2b/olaf/company-details/[uuid]')}
