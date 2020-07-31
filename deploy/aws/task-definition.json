@@ -28,6 +28,14 @@
         {
           "name": "API_KEY",
           "valueFrom": "%SSM_PARAMETER_BASE%/fed-gateway-api-key"
+        },
+        {
+          "name": "ROLLBAR_CLIENT_TOKEN",
+          "valueFrom": "%SSM_PARAMETER_BASE%/rollbar-client-token"
+        },
+        {
+          "name": "ROLLBAR_SERVER_TOKEN",
+          "valueFrom": "%SSM_PARAMETER_BASE%/rollbar-server-token"
         }
       ],
       "environment": [
