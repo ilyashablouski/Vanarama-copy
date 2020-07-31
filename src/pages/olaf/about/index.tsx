@@ -65,7 +65,7 @@ const AboutYouPage: NextPage = () => {
   const { orderId, uuid } = router.query as OLAFB2CQueryParams;
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
-  const [personUuid, setPersonUuid] = useState<string | undefined>();
+  const [personUuid, setPersonUuid] = useState<string | undefined>(uuid);
 
   const [updateOrderHandle] = useCreateUpdateOrder(() => {});
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
