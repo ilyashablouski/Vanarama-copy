@@ -4,11 +4,11 @@ exports[`<FrequentlyAskedQuestions /> renders correctly with empty review 1`] = 
 <div
   className="tile--accordion"
 >
-  <p
+  <h2
     className="heading pdp-section-question -black -lead"
   >
     Frequently Asked Questions
-  </p>
+  </h2>
   <ul
     className="accordion"
   >
@@ -167,11 +167,11 @@ exports[`<FrequentlyAskedQuestions /> renders correctly with rangeFAQ 1`] = `
 <div
   className="tile--accordion"
 >
-  <p
+  <h2
     className="heading pdp-section-question -black -lead"
   >
     Frequently Asked Questions
-  </p>
+  </h2>
   <ul
     className="accordion"
   >

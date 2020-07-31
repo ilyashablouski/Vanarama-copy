@@ -4,11 +4,11 @@ exports[`<IndependentReview /> renders correctly with empty review 1`] = `
 <div
   className="tilebox -col-300 -p-400"
 >
-  <span
+  <h2
     className="heading -black -lead"
   >
     Independent Review By Car & Driving
-  </span>
+  </h2>
   <p
     className="text -regular -darker"
   >
@@ -33,11 +33,11 @@ exports[`<IndependentReview /> renders correctly with review 1`] = `
 <div
   className="tilebox -col-300 -p-400"
 >
-  <span
+  <h2
     className="heading -black -lead"
   >
     Independent Review By Car & Driving
-  </span>
+  </h2>
   <p
     className="text -regular -darker"
   >
