@@ -30,10 +30,10 @@ module.exports = {
 
     // Rollbar.
     serverRuntimeConfig: {
-      rollbarServerToken: process.env.ROLLBAR_SERVER_TOKEN,
+      rollbarServerToken: process.env.ROLLBAR_SERVER_TOKEN || '',
     },
     publicRuntimeConfig: {
-      rollbarClientToken: process.env.ROLLBAR_CLIENT_TOKEN,
+      rollbarClientToken: process.env.ROLLBAR_CLIENT_TOKEN || '',
     },
 
     // Routes to export into static files.
