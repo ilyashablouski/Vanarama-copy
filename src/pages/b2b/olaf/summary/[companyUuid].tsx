@@ -5,17 +5,18 @@ import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import BusinessSummaryFormContainer from '../../../../containers/BusinessSummaryFormContainer/BusinessSummaryFormContainer';
 import withApollo from '../../../../hocs/withApollo';
 import { SummaryFormDetailsSectionCompany } from '../../../../../generated/SummaryFormDetailsSectionCompany';
+import { OLAFQueryParams } from 'utils/url';
 
-type QueryParams = {
+type QueryParams = OLAFQueryParams & {
   companyUuid: string;
 };
 
 const BusinessSummaryPage: NextPage = () => {
   const router = useRouter();
-  const { companyUuid } = router.query as QueryParams;
+  const { companyUuid, derivativeId, orderId } = router.query as QueryParams;
   return (
     <OLAFLayout>
-      <BusinessSummaryFormContainer companyUuid={companyUuid} />
+      <BusinessSummaryFormContainer orderId={orderId} companyUuid={companyUuid} />
     </OLAFLayout>
   );
 };

@@ -29,7 +29,6 @@ export const GET_DIRECTOR_DETAILS = gql`
       }
     }
   }
-  ${DirectorFields.fragments.dropDownData}
 `;
 
 type IDirectorDetailsFormProps = {
@@ -37,6 +36,7 @@ type IDirectorDetailsFormProps = {
   dropdownData: GetCompanyDirectorDetailsQuery_allDropDowns;
   companyNumber: string;
   onSubmit: (values: DirectorDetailsFormValues) => Promise<void>;
+  directorUuid?: string;
 };
 
 const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
@@ -44,6 +44,7 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
   companyNumber,
   onSubmit,
   dropdownData,
+  directorUuid,
 }) => {
   const { data, loading, error } = useCompanyOfficers(companyNumber);
   if (loading) {
@@ -57,8 +58,8 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
   const officers = data?.companyOfficers?.nodes?.filter(isTruthy) || [];
   const directors = combineDirectorsData(officers, associates);
   return (
-    <Formik<DirectorDetailsFormValues>
-      initialValues={initialFormValues(directors)} 
+    <Formik<DirectorDetailsFormValues> 
+      initialValues={initialFormValues(directors, directorUuid)}
       validationSchema={validationSchema}
       validate={validate}
       onSubmit={onSubmit}

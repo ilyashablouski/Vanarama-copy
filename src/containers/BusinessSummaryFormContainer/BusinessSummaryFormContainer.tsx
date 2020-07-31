@@ -5,7 +5,7 @@ import BusinessSummaryForm from '../../components/BusinessSummaryForm/BusinessSu
 
 interface IProps {
   companyUuid: string;
-  orderId?: string;
+  orderId: string;
   derivativeId?: string;
 }
 

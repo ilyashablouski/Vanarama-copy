@@ -10,18 +10,27 @@ import { addressToDisplay } from '../../utils/address';
 import moment from 'moment';
 
 export const initialFormValues = (
-  directors: DirectorFormValues[],
+  directors: DirectorFormValues[], directorUuid?: string
 ): DirectorDetailsFormValues => {
-  return directors
-    .reduce(
-      (prev, curr) => ({
-        directors: prev.directors.concat(curr),
-        totalPercentage: prev.totalPercentage + parseInt(curr.shareOfBusiness)
-      }),
-      {
-        directors: [] as DirectorFormValues[],
-        totalPercentage: 0
-      })
+  if (directors.length === 1) {
+    return {
+      directors,
+      totalPercentage: parseInt(directors[0].shareOfBusiness)
+    }
+  }
+  const totalPercentage = directors.reduce((prev, curr) => prev + parseInt(parseInt(curr.shareOfBusiness || 0)), 0);
+
+  if (directorUuid) {
+    const selected = directors.find(d => d.uuid);
+    if (!!selected) return {
+      directors: [selected],
+      totalPercentage
+    }
+  }
+  return {
+    directors: [],
+    totalPercentage
+  }
 };
 
 export const validate = (

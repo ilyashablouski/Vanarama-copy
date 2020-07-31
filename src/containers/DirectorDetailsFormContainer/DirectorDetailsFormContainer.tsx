@@ -15,11 +15,12 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   orderUuid,
   onCompleted,
   onError,
+  directorUuid,
 }) => {
   const [saveDirectorDetails] = useSaveDirectorDetailsMutation();
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
     orderUuid,
-    () => {},
+    () => { },
   );
 
   const handleDirectorDetailsSave = (values: DirectorDetailsFormValues) =>
@@ -54,8 +55,9 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
 
   return (
     <DirectorDetailsForm
-    dropdownData={data.allDropDowns}
-    associates={data.companyByUuid.associates}
+      directorUuid={directorUuid}
+      dropdownData={data.allDropDowns}
+      associates={data.companyByUuid.associates}
       companyNumber={data.companyByUuid.companyNumber}
       onSubmit={async values => {
         await handleDirectorDetailsSave(values)

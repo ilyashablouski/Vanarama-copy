@@ -28,14 +28,9 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
 
   const primaryBankAccount = company.bankAccounts && company.bankAccounts.length && company.bankAccounts[company.bankAccounts.length - 1];
 
-  const handleEdit = (url: string, additionalParameters: string = '') => () => {
-    const href = `${url}?redirect=summary${getUrlParam(
-      {
-        orderId,
-        derivativeId,
-      },
-      true,
-    )}`;
+  const handleEdit = (url: string, additionalParameters?: { [key: string]: string }) => () => {
+    const params = getUrlParam({ orderId, redirect: 'summary', derivativeId, ...additionalParameters });
+    const href = `${url}${params}`;
     router.push(href, href.replace('[uuid]', company.uuid));
   };
 
@@ -47,8 +42,8 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
       .map((d, i) => <BusinessSummaryFormDirectorDetailsSection
         director={d}
         orderBySharehold={i}
-        onEdit={handleEdit('/b2b/olaf/director-details/[uuid]')}
-        key={d.uuid || d.firstName + '-' + d.lastName}
+        onEdit={handleEdit('/b2b/olaf/director-details/[uuid]', { directorUuid: d.uuid })}
+        key={d.uuid}
       />)
     || null;
 

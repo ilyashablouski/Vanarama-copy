@@ -17,11 +17,12 @@ const handleSubmitError = () =>
 
 type QueryParams = OLAFQueryParams & {
   companyUuid: string;
+  directorUuid: string;
 };
 
 export const DirectorDetailsPage: NextPage = () => {
   const router = useRouter();
-  const { companyUuid, derivativeId, orderId } = router.query as QueryParams;
+  const { companyUuid, derivativeId, orderId, directorUuid } = router.query as QueryParams;
 
   const handleSubmitCompletion = () => {
     const params = getUrlParam({ derivativeId, orderId });
@@ -32,6 +33,7 @@ export const DirectorDetailsPage: NextPage = () => {
   return (
     <OLAFLayout>
       <DirectorDetailsFormContainer
+        directorUuid={directorUuid}
         companyUuid={companyUuid}
         orderUuid={orderId}
         onCompleted={handleSubmitCompletion}
