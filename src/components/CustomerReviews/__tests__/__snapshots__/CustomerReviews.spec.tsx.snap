@@ -4,11 +4,11 @@ exports[`<CustomerReviews /> renders correctly with empty review 1`] = `null`;
 
 exports[`<CustomerReviews /> renders correctly with reviews 1`] = `
 Array [
-  <span
+  <h2
     className="heading -black -lead"
   >
     Customer Reviews
-  </span>,
+  </h2>,
   <div
     className="card -overflow"
     data-testid="card-review"
