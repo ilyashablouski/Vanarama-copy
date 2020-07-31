@@ -47,9 +47,12 @@ export const BusinessAboutPage: NextPage = () => {
     const params = getUrlParam({ derivativeId, orderId });
     const journeyUrl =
       companyType === CompanyTypes.limited
-        ? 'company-details'
-        : 'sole-trader/company-details';
-    const url = `/b2b/olaf/${journeyUrl}/[companyUuid]${params}`;
+        ? ''
+        : 'sole-trader/';
+    const url =
+      router.query.redirect === 'summary'
+        ? `/b2b/olaf/summary/[companyUuid]${params}`
+        : `/b2b/olaf/${journeyUrl}company-details/[companyUuid]${params}`;
     router.push(url, url.replace('[companyUuid]', companyUuid || ''));
   };
 

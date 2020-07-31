@@ -24,7 +24,10 @@ export const VatDetailsPage: NextPage = () => {
 
   const handleSubmitCompletion = () => {
     const params = getUrlParam({ derivativeId, orderId });
-    const url = `/b2b/olaf/director-details/[companyUuid]${params}`;
+    const url =
+      router.query.redirect === 'summary'
+        ? `/b2b/olaf/summary/[companyUuid]${params}`
+        : `/b2b/olaf/director-details/[companyUuid]${params}`;
     router.push(url, url.replace('[companyUuid]', companyUuid));
   };
 

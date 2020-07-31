@@ -18,7 +18,7 @@ export const initialFormValues = (
       totalPercentage: parseInt(directors[0].shareOfBusiness)
     }
   }
-  const totalPercentage = directors.reduce((prev, curr) => prev + parseInt(parseInt(curr.shareOfBusiness || 0)), 0);
+  const totalPercentage = directors.reduce((prev, curr) => prev + (parseInt(curr.shareOfBusiness) || 0), 0);
 
   if (directorUuid) {
     const selected = directors.find(d => d.uuid);

@@ -26,7 +26,10 @@ export const DirectorDetailsPage: NextPage = () => {
 
   const handleSubmitCompletion = () => {
     const params = getUrlParam({ derivativeId, orderId });
-    const url = `/b2b/olaf/company-bank-details/[companyUuid]${params}`;
+    const url =
+      router.query.redirect === 'summary'
+        ? `/b2b/olaf/summary/[companyUuid]${params}`
+        : `/b2b/olaf/company-bank-details/[companyUuid]${params}`;
     router.push(url, url.replace('[companyUuid]', companyUuid));
   };
 
