@@ -10,10 +10,8 @@ import {
   SearchCompaniesQueryVariables,
 } from '../../../../../generated/SearchCompaniesQuery';
 import { SEARCH_COMPANIES } from '../../../../components/CompanyDetailsForm/useSearchCompanies';
-import {
-  CompanyDetailsPage,
-  SAVE_COMPANY_DETAILS,
-} from '../../../../pages/b2b/olaf/company-details/[personUuid]';
+import { CompanyDetailsPage } from '../../../../pages/b2b/olaf/company-details/[personUuid]';
+import { SAVE_COMPANY_DETAILS } from '../../../../containers/CompanyDetailsFormContainer/CompanyDetailsFormContainer';
 
 const MOCK_PERSON_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
 

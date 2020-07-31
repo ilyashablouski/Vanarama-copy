@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { useMutation, gql } from '@apollo/client';
 import React from 'react';
 import {
   SaveCompanyDetailsMutation as Mutation,
@@ -14,7 +14,15 @@ import { useCreateUpdateOrder } from '../../gql/order';
 import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
 import { ICompanyDetailsFormContainerProps } from './interfaces';
 import { mapFormValues } from './mappers';
-import { SAVE_COMPANY_DETAILS } from '../../pages/b2b/olaf/company-details/[personUuid]';
+
+export const SAVE_COMPANY_DETAILS = gql`
+  mutation SaveCompanyDetailsMutation($input: LimitedCompanyInputObject!) {
+    createUpdateLimitedCompany(input: $input) {
+      uuid
+      partyUuid
+    }
+  }
+`;
 
 export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerProps> = ({
   personUuid,
