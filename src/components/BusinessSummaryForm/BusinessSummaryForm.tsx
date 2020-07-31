@@ -58,7 +58,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
       </Heading>
       <br />
       <Form className="olaf--summary">
-        <BusinessSummaryFormAboutSection person={person} onEdit={handleEdit('/b2b/olaf/about')}
+        <BusinessSummaryFormAboutSection person={person} onEdit={handleEdit('/b2b/olaf/about', { companyUuid: company.uuid })}
         />
         <BusinessSummaryFormDetailsSection
           company={company}
