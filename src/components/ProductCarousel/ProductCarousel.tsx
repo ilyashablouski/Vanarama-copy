@@ -25,6 +25,7 @@ interface IProductCarouselProps {
   countItems?: number;
   data: GetProductCard;
   dataTestIdBtn: string;
+  productType?: string;
 }
 
 const ProductCarousel: React.FC<IProductCarouselProps> = ({
@@ -32,6 +33,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
   countItems,
   data,
   dataTestIdBtn,
+  productType,
 }) => {
   const { slidesToShow } = useSliderProperties();
 
@@ -75,7 +77,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
               }))}
               onCompare={() => {
                 compareChange({
-                  bodyStyle: getBodyStyle(product),
+                  bodyStyle: productType || getBodyStyle(product),
                   ...product,
                 });
               }}
