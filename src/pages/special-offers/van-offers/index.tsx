@@ -7,6 +7,7 @@ import { getDataFromTree } from '@apollo/react-ssr';
 
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
+import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import AddCircle from '@vanarama/uibook/lib/assets/icons/AddCircleSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
@@ -317,12 +318,17 @@ export const VanOffers: NextPage = () => {
         <hr />
         {data?.vanOffersPage.sections.iconBullets?.iconBullets?.map(
           (item, idx: number) => (
-            <div key={item?.text || idx}>
-              <AddCircle />
-              <Text size="regular" color="darker">
+            <>
+              <Icon
+                key={`${item?.text}-icon` || `${idx}-icon`}
+                icon={<AddCircle />}
+                color="orange"
+                size="large"
+              />
+              <Text key={`${item?.text}-text`} size="regular" color="darker">
                 {item?.text}
               </Text>
-            </div>
+            </>
           ),
         )}
       </div>
