@@ -8,13 +8,7 @@ const twitter = '@Vanarama';
 
 const HeadTag: React.FC<IHeadProps> = props => {
   let { title = defaultTitle, metaRobots } = props;
-  const {
-    metaDescription,
-
-    legacyUrl,
-    publishedOn,
-    featuredImage,
-  } = props;
+  const { metaDescription, legacyUrl, publishedOn, featuredImage } = props;
 
   // Dev override.
   if (process.env.ENV !== 'production') {

@@ -3,8 +3,8 @@ export interface IFeaturedImageFile {
     url?: string | null;
     details?: {
       image?: {
-        width?: number;
-        height?: number;
+        width?: number | null;
+        height?: number | null;
       } | null;
     } | null;
   } | null;
