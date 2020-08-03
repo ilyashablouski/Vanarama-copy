@@ -20,6 +20,7 @@ import { responseToInitialFormValues } from './mappers';
 const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
   account,
   onSubmit,
+  isEdited
 }) => {
   const { handleSubmit, register, control, errors, formState } = useForm<
     ICompanyBankDetails
@@ -138,7 +139,11 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
       </FormGroup>
       <Button
         type="submit"
-        label={formState.isSubmitting ? 'Saving...' : 'Continue'}
+        label={formState.isSubmitting ?
+          'Saving...'
+          : isEdited ?
+            'Save & Return'
+            : 'Continue'}
         disabled={formState.isSubmitting}
         className="-mt-400"
         color="primary"

@@ -17,11 +17,12 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
   orderId,
   onCompleted,
   onError,
+  isEdited
 }) => {
   const [updateVatDetails] = useUpdateVatDetails();
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
     orderId,
-    () => {},
+    () => { },
   );
 
   const handleCreditApplicationUpdate = () =>
@@ -65,7 +66,7 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
   }
 
   return (
-    <VatDetailsForm onSubmit={handleSubmit} vatDetails={data?.companyByUuid} />
+    <VatDetailsForm onSubmit={handleSubmit} vatDetails={data?.companyByUuid} isEdited={isEdited} />
   );
 };
 

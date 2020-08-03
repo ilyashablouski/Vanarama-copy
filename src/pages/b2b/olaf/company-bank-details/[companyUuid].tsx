@@ -25,6 +25,7 @@ const CompanyBankDetailsPage: NextPage = () => {
   return (
     <OLAFLayout>
       <CompanyBankDetailsFormContainer
+        isEdited={router.query.redirect === 'summary'}
         companyUuid={companyUuid}
         orderUuid={orderId}
         onCompleted={handleSubmitCompletion}

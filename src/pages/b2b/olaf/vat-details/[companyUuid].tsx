@@ -38,6 +38,7 @@ export const VatDetailsPage: NextPage = () => {
         companyUuid={companyUuid}
         onCompleted={handleSubmitCompletion}
         onError={handleSubmitError}
+        isEdited={router.query.redirect === 'summary'}
       />
     </OLAFLayout>
   );

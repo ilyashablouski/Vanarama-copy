@@ -19,6 +19,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   onCompleted,
   onError,
   onLogInCLick,
+  isEdited
 }) => {
   const aboutPageDataQuery = useAboutPageDataQuery();
   const aboutYouData = useAboutYouData(personUuid);
@@ -26,7 +27,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   const [emailAlreadyExists] = useEmailCheck();
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
     orderId,
-    () => {},
+    () => { },
   );
 
   if (aboutPageDataQuery?.loading) {
@@ -43,6 +44,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
 
   return (
     <BusinessAboutForm
+      isEdited={isEdited}
       dropDownData={aboutPageDataQuery.data?.allDropDowns}
       person={aboutYouData.data?.personByUuid}
       onLogInCLick={onLogInCLick}

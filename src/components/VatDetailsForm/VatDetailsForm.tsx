@@ -15,9 +15,10 @@ import { mapDefaultValues } from './utils';
 interface IProps {
   onSubmit: OnSubmit<VatDetailsFormValues>;
   vatDetails: VatDetails | null | undefined;
+  isEdited: boolean;
 }
 
-const VatDetailsForm: React.FC<IProps> = ({ onSubmit, vatDetails }) => {
+const VatDetailsForm: React.FC<IProps> = ({ onSubmit, vatDetails, isEdited }) => {
   const methods = useForm<VatDetailsFormValues>({
     mode: 'onBlur',
     defaultValues: mapDefaultValues(vatDetails),
@@ -83,7 +84,11 @@ const VatDetailsForm: React.FC<IProps> = ({ onSubmit, vatDetails }) => {
         icon={<ChevronForwardSharp />}
         iconColor="white"
         iconPosition="after"
-        label={formState.isSubmitting ? 'Saving...' : 'Continue'}
+        label={formState.isSubmitting ?
+          'Saving...'
+          : isEdited ?
+            'Save & Return'
+            : 'Continue'}
         size="large"
         type="submit"
       />

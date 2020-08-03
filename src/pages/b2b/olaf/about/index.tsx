@@ -133,6 +133,7 @@ export const BusinessAboutPage: NextPage = () => {
         onCompleted={handleCreateUpdateBusinessPersonCompletion}
         onError={handleCreateUpdateBusinessPersonError}
         onLogInCLick={() => toggleLogInVisibility(true)}
+        isEdited={router.query.redirect === 'summary'}
       />
     </OLAFLayout>
   );

@@ -26,6 +26,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
   person,
   onEmailExistenceCheck,
   onLogInCLick,
+  isEdited
 }) => {
   const defaultValues = responseToInitialFormValues(person);
   const { formState, handleSubmit, errors, register, reset } = useForm<
@@ -240,7 +241,11 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
         iconColor="white"
         icon={<ChevronForwardSharp />}
         iconPosition="after"
-        label={formState.isSubmitting ? 'Saving...' : 'Continue'}
+        label={formState.isSubmitting ?
+          'Saving...'
+          : isEdited ?
+            'Save & Return'
+            : 'Continue'}
         size="large"
         type="submit"
       />

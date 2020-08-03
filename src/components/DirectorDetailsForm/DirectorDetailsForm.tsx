@@ -91,7 +91,11 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
             icon={<ChevronForwardSharp />}
             iconColor="white"
             iconPosition="after"
-            label={isSubmitting ? 'Saving...' : 'Continue'}
+            label={isSubmitting ?
+              'Saving...'
+              : directorUuid ?
+                'Save & Return'
+                : 'Continue'}
             size="large"
             type="submit"
           />
