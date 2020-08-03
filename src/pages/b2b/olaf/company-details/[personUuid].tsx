@@ -25,10 +25,9 @@ export const CompanyDetailsPage: NextPage = () => {
   const isEdited = router.query.redirect === 'summary';
   const handleSubmitCompletion = (companyUuid: string) => {
     const params = getUrlParam({ derivativeId, orderId });
-    const url =
-      isEdited
-        ? `/b2b/olaf/summary/[companyUuid]${params}`
-        : `/b2b/olaf/vat-details/[companyUuid]${params}`;
+    const url = isEdited
+      ? `/b2b/olaf/summary/[companyUuid]${params}`
+      : `/b2b/olaf/vat-details/[companyUuid]${params}`;
     router.push(url, url.replace('[companyUuid]', companyUuid));
   };
 

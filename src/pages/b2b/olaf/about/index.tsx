@@ -32,13 +32,9 @@ const handleAccountFetchError = () =>
     'Dolor ut tempor eiusmod enim consequat laboris dolore ut pariatur labore sunt incididunt dolore veniam mollit excepteur dolor aliqua minim nostrud adipisicing culpa aliquip ex',
   );
 
-  type QueryParams = OLAFQueryParams & {
-    companyUuid: string;
-  };
-
 export const BusinessAboutPage: NextPage = () => {
   const router = useRouter();
-  const { derivativeId, orderId, companyUuid } = router.query as QueryParams;
+  const { derivativeId, orderId } = router.query as OLAFQueryParams;
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [personUuid, setPersonUuid] = useState<string | undefined>();
@@ -75,17 +71,17 @@ export const BusinessAboutPage: NextPage = () => {
     companyUuid,
     companyType,
   }: SubmitResult) => {
-    const existingCompanyUuid = router.query.companyUuid as string;
-    const params = getUrlParam({ derivativeId, orderId});
+    const params = getUrlParam({ derivativeId, orderId });
     const journeyUrl =
       companyType === CompanyTypes.limited
-        ? ''
-        : 'sole-trader/';
+        ? 'company-details'
+        : 'sole-trader/company-details';
     const url =
       router.query.redirect === 'summary'
         ? `/b2b/olaf/summary/[companyUuid]${params}`
-        : `/b2b/olaf/${journeyUrl}company-details/[companyUuid]${params}`;
-    router.push(url, url.replace('[companyUuid]', existingCompanyUuid || companyUuid || ''));
+        : `/b2b/olaf/${journeyUrl}/[companyUuid]${params}`;
+
+    router.push(url, url.replace('[companyUuid]', companyUuid || ''));
   };
 
   useEffect(() => {

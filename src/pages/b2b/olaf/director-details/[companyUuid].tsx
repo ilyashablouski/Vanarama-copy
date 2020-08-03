@@ -7,7 +7,6 @@ import DirectorDetailsFormContainer from '../../../../containers/DirectorDetails
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { getUrlParam, OLAFQueryParams } from '../../../../utils/url';
-import DirectorFields from '../../../../components/DirectorDetailsForm/DirectorFields';
 
 const handleSubmitError = () =>
   toast.error(
@@ -22,10 +21,10 @@ type QueryParams = OLAFQueryParams & {
 
 export const DirectorDetailsPage: NextPage = () => {
   const router = useRouter();
-  const { companyUuid, derivativeId, orderId, directorUuid } = router.query as QueryParams;
+  const { companyUuid, orderId, directorUuid } = router.query as QueryParams;
 
   const handleSubmitCompletion = () => {
-    const params = getUrlParam({ derivativeId, orderId });
+    const params = getUrlParam({ orderId });
     const url =
       router.query.redirect === 'summary'
         ? `/b2b/olaf/summary/[companyUuid]${params}`

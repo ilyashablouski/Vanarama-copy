@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import generateLimitedSteps from './generateLimitedSteps';
 import generateSoleTraderSteps from './generateSoleTraderSteps';
 import { IBusinessProgressIndicatorProps } from './interfaces';
-import { getUrlParam } from 'utils/url';
+import { getUrlParam } from '../../utils/url';
 
 type QueryParams = {
   companyUuid: string;
@@ -37,6 +37,7 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
 
   const asHref = getUrlParam({
     companyUuid,
+    orderId,
     redirect: activeStep === 6 ? 'summary' : '',
   });
 
@@ -44,15 +45,17 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
     <ProgressIndicator activeStep={currentStep || 0}>
       {steps.map(({ href, label, step }) => {
         const url = href + asHref;
-        return <Step key={href} step={step}>
-          <NextJsLink
-            href={url}
-            as={url.replace('[companyUuid]', companyUuid)}
-            passHref
-          >
-            <StepLink label={label} />
-          </NextJsLink>
-        </Step>
+        return (
+          <Step key={href} step={step}>
+            <NextJsLink
+              href={url}
+              as={url.replace('[companyUuid]', companyUuid)}
+              passHref
+            >
+              <StepLink label={label} />
+            </NextJsLink>
+          </Step>
+        );
       })}
     </ProgressIndicator>
   );

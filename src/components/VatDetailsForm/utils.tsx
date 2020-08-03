@@ -64,6 +64,8 @@ export function mapDefaultValues(vatDetails: VatDetails | null | undefined) {
     vatNumber: vatDetails?.vatNumber || undefined,
     vatRegistered: vatDetails?.isVatRegistered || false,
     outsideUK: vatDetails?.tradesOutsideUk || false,
-    markets: vatDetails?.turnoverPercentageOutsideUk || [{ country: '', percentage: '' }],
-  }
+    markets: vatDetails?.turnoverPercentageOutsideUk || [
+      { country: '', percentage: '' },
+    ],
+  };
 }

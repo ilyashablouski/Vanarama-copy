@@ -21,6 +21,8 @@ import {
 } from '../../../../../generated/SaveDirectorDetailsMutation';
 
 const MOCK_COMPANY_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
+const MOCK_ORDER_UUID = '7a004b65-a409-4ffe-8a3d-23b9ae28d0dc';
+const MOCK_DIRECTOR_UUID = '93452168-bd59-4a70-bb8c-322354e1a7da';
 const MOCK_COMPANY_NUMBER = '000000000';
 
 jest.mock('../../../../layouts/OLAFLayout/OLAFLayout');
@@ -30,6 +32,8 @@ jest.mock('next/router', () => ({
     pathname: '/b2b/olaf/director-details',
     query: {
       companyUuid: MOCK_COMPANY_UUID,
+      directorUuid: MOCK_DIRECTOR_UUID,
+      orderId: MOCK_ORDER_UUID,
     },
   }),
 }));

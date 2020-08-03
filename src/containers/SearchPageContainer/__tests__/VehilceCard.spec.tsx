@@ -17,6 +17,7 @@ describe('<VehicleCard />', () => {
         description: 'test',
         score: 4.5,
       },
+      onCompare: jest.fn(),
       viewOffer: jest.fn(),
       isPersonalPrice: true,
       data: {

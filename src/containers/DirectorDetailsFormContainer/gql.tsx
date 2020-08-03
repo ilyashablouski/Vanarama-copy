@@ -34,16 +34,16 @@ export const GET_COMPANY_DIRECTOR_DETAILS = gql`
     companyByUuid(uuid: $uuid) {
       uuid
       companyNumber
-      associates {        
+      associates {
         ...CompanyAssociate
       }
     }
-      allDropDowns {
-        ...DirectorFieldsDropDownData
-      }
-    }    
-    ${DirectorDetailsForm.fragments.associates}
-    ${DirectorFields.fragments.dropDownData}
+    allDropDowns {
+      ...DirectorFieldsDropDownData
+    }
+  }
+  ${DirectorDetailsForm.fragments.associates}
+  ${DirectorFields.fragments.dropDownData}
 `;
 
 export const SAVE_DIRECTOR_DETAILS = gql`

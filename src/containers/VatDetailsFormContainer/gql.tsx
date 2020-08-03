@@ -3,7 +3,7 @@ import {
   UpdateVatDetailsMutation as Mutation,
   UpdateVatDetailsMutationVariables as MutationVariables,
 } from '../../../generated/UpdateVatDetailsMutation';
-import BusinessSummaryFormVATDetailsSection from 'components/BusinessSummaryForm/BusinessSummaryFormVATDetailsSection';
+import BusinessSummaryFormVATDetailsSection from '../../components/BusinessSummaryForm/BusinessSummaryFormVATDetailsSection';
 
 export const UPDATE_VAT_DETAILS = gql`
   mutation UpdateVatDetailsMutation($input: LimitedCompanyInputObject!) {
@@ -21,12 +21,12 @@ export const UPDATE_VAT_DETAILS = gql`
 `;
 
 export const GET_VAT_DETAILS = gql`
-query GetVatDetailsQuery($companyUuid: ID!) {
-  companyByUuid(uuid: $companyUuid) {
-    ...VatDetails
+  query GetVatDetailsQuery($companyUuid: ID!) {
+    companyByUuid(uuid: $companyUuid) {
+      ...VatDetails
+    }
   }
-}
-${BusinessSummaryFormVATDetailsSection.fragments.vatDetails}
+  ${BusinessSummaryFormVATDetailsSection.fragments.vatDetails}
 `;
 
 export function useUpdateVatDetails() {

@@ -20,7 +20,7 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   const [saveDirectorDetails] = useSaveDirectorDetailsMutation();
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
     orderUuid,
-    () => { },
+    () => {},
   );
 
   const handleDirectorDetailsSave = (values: DirectorDetailsFormValues) =>
@@ -49,7 +49,11 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
     return <p>Error: {error.message}</p>;
   }
 
-  if (!data?.companyByUuid?.companyNumber || !data.companyByUuid.associates || !data.allDropDowns) {
+  if (
+    !data?.companyByUuid?.companyNumber ||
+    !data.companyByUuid.associates ||
+    !data.allDropDowns
+  ) {
     return <p>Error: Could not load company data!</p>;
   }
 

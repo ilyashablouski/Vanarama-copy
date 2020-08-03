@@ -1,12 +1,12 @@
 import { gql, useQuery } from '@apollo/client';
+import { Formik } from 'formik';
+import React from 'react';
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import { Formik } from 'formik';
-import React from 'react';
 import {
   GetDirectorDetailsQuery,
   GetDirectorDetailsQueryVariables,
@@ -14,12 +14,16 @@ import {
 import { isTruthy } from '../../utils/array';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import DirectorFieldArray from './DirectorFieldArray';
-import DirectorFields from './DirectorFields';
-import { initialFormValues, validate, validationSchema, combineDirectorsData } from './helpers';
+import {
+  initialFormValues,
+  validate,
+  validationSchema,
+  combineDirectorsData,
+} from './helpers';
 import { DirectorDetailsFormValues } from './interfaces';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { CompanyAssociate } from '../../../generated/CompanyAssociate';
-import { GetCompanyDirectorDetailsQuery_allDropDowns } from '../../../generated/GetCompanyDirectorDetailsQuery';
+import { GetCompanyDirectorDetailsQuery_allDropDowns as CompanyDirectorDetails } from '../../../generated/GetCompanyDirectorDetailsQuery';
 
 export const GET_DIRECTOR_DETAILS = gql`
   query GetDirectorDetailsQuery($companyNumber: String!) {
@@ -33,7 +37,7 @@ export const GET_DIRECTOR_DETAILS = gql`
 
 type IDirectorDetailsFormProps = {
   associates: CompanyAssociate[];
-  dropdownData: GetCompanyDirectorDetailsQuery_allDropDowns;
+  dropdownData: CompanyDirectorDetails;
   companyNumber: string;
   onSubmit: (values: DirectorDetailsFormValues) => Promise<void>;
   directorUuid?: string;
@@ -51,14 +55,17 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
     return <Loading />;
   }
 
-  if (associates.length === 0 && (error || !data || !data.companyOfficers.nodes)) {
+  if (
+    associates.length === 0 &&
+    (error || !data || !data.companyOfficers.nodes)
+  ) {
     return <ErrorMessage message="Could not load director details!" />;
   }
 
   const officers = data?.companyOfficers?.nodes?.filter(isTruthy) || [];
   const directors = combineDirectorsData(officers, associates);
   return (
-    <Formik<DirectorDetailsFormValues> 
+    <Formik<DirectorDetailsFormValues>
       initialValues={initialFormValues(directors, directorUuid)}
       validationSchema={validationSchema}
       validate={validate}
@@ -75,7 +82,8 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
           </Text>
           <DirectorFieldArray
             directors={directors}
-            dropdownData={dropdownData} />
+            dropdownData={dropdownData}
+          />
           <Button
             color="primary"
             dataTestId="vat-details_continue"
@@ -91,7 +99,8 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
       )}
     </Formik>
   );
-}
+};
+
 DirectorDetailsForm.fragments = {
   associates: gql`
     fragment CompanyAssociate on PersonType {
@@ -116,7 +125,7 @@ DirectorDetailsForm.fragments = {
         postcode
       }
     }
-`,
+  `,
 };
 
 function useCompanyOfficers(companyNumber: string) {

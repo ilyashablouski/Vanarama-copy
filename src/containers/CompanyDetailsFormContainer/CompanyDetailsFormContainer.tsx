@@ -39,16 +39,16 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
   orderId,
   onCompleted,
   onError,
-  isEdited
+  isEdited,
 }) => {
 
   const [saveCompanyDetails] = useMutation<Mutation, MutationVariables>(
     SAVE_COMPANY_DETAILS,
   );
-  const [createUpdateOrder] = useCreateUpdateOrder(() => { });
+  const [createUpdateOrder] = useCreateUpdateOrder(() => {});
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
     orderId,
-    () => { },
+    () => {},
   );
 
   const handleCompanyDetailsSave = (input: LimitedCompanyInputObject) =>
