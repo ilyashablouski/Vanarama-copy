@@ -5,7 +5,7 @@ import Router from 'next/router';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { HubPickupPageData } from '../../../../generated/HubPickupPageData';
-import { HUB_PICKUP_CONTENT } from '../../../gql/hubPickupPage';
+import { HUB_PICKUP_CONTENT } from '../../../gql/hub/hubPickupPage';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
 import { PickupsPage } from '../../../pages/hub/pickups';
