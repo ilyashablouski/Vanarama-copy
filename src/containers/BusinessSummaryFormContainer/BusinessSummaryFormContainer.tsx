@@ -3,14 +3,10 @@ import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React from 'react';
 import BusinessSummaryForm from '../../components/BusinessSummaryForm/BusinessSummaryForm';
 import AboutForm from '../../components/AboutForm';
-import { GetCompanySummaryQuery, GetCompanySummaryQueryVariables } from '../../../generated/GetCompanySummaryQuery';
-
-interface IProps {
-  personUuid: string;
-  companyUuid: string;
-  orderId: string;
-  derivativeId?: string;
-}
+import {
+  GetCompanySummaryQuery,
+  GetCompanySummaryQueryVariables,
+} from '../../../generated/GetCompanySummaryQuery';
 
 export const GET_COMPANY_SUMMARY = gql`
   query GetCompanySummaryQuery($uuid: ID!, $personUuid: ID!) {
@@ -25,23 +21,26 @@ export const GET_COMPANY_SUMMARY = gql`
   ${AboutForm.fragments.person}
 `;
 
-
+interface IProps {
+  personUuid: string;
+  companyUuid: string;
+  orderId: string;
+}
 
 const BusinessSummaryFormContainer: React.FC<IProps> = ({
   companyUuid,
   orderId,
-  derivativeId,
-  personUuid
+  personUuid,
 }) => {
-  const { data, loading, error } = useQuery<GetCompanySummaryQuery, GetCompanySummaryQueryVariables>(
-    GET_COMPANY_SUMMARY,
-    {
-      variables: {
-        uuid: companyUuid,
-        personUuid: personUuid
-      },
+  const { data, loading, error } = useQuery<
+    GetCompanySummaryQuery,
+    GetCompanySummaryQueryVariables
+  >(GET_COMPANY_SUMMARY, {
+    variables: {
+      uuid: companyUuid,
+      personUuid,
     },
-  );
+  });
 
   if (loading) {
     return <Loading size="large" />;
@@ -60,7 +59,6 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
       person={data.personByUuid}
       company={data.companyByUuid}
       orderId={orderId}
-      derivativeId={derivativeId}
     />
   );
 };
