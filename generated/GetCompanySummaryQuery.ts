@@ -85,9 +85,9 @@ export interface GetCompanySummaryQuery_companyByUuid {
   addresses: GetCompanySummaryQuery_companyByUuid_addresses[] | null;
   emailAddresses: GetCompanySummaryQuery_companyByUuid_emailAddresses[];
   telephoneNumbers: GetCompanySummaryQuery_companyByUuid_telephoneNumbers[] | null;
-  bankAccounts: GetCompanySummaryQuery_companyByUuid_bankAccounts[] | null;
   isVatRegistered: boolean | null;
   vatNumber: string | null;
+  bankAccounts: GetCompanySummaryQuery_companyByUuid_bankAccounts[] | null;
   associates: GetCompanySummaryQuery_companyByUuid_associates[] | null;
 }
 

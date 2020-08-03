@@ -36,16 +36,6 @@ export interface SummaryFormDetailsSectionCompany_telephoneNumbers {
   primary: boolean;
 }
 
-export interface SummaryFormDetailsSectionCompany_bankAccounts {
-  __typename: "BankAccountType";
-  uuid: string;
-  accountName: string | null;
-  accountNumber: string | null;
-  joinedAt: any | null;
-  sortCode: string | null;
-  updatedAt: any | null;
-}
-
 export interface SummaryFormDetailsSectionCompany {
   __typename: "CompanyType";
   uuid: string;
@@ -58,5 +48,4 @@ export interface SummaryFormDetailsSectionCompany {
   addresses: SummaryFormDetailsSectionCompany_addresses[] | null;
   emailAddresses: SummaryFormDetailsSectionCompany_emailAddresses[];
   telephoneNumbers: SummaryFormDetailsSectionCompany_telephoneNumbers[] | null;
-  bankAccounts: SummaryFormDetailsSectionCompany_bankAccounts[] | null;
 }

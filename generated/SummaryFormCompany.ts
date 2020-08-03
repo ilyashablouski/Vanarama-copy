@@ -85,8 +85,8 @@ export interface SummaryFormCompany {
   addresses: SummaryFormCompany_addresses[] | null;
   emailAddresses: SummaryFormCompany_emailAddresses[];
   telephoneNumbers: SummaryFormCompany_telephoneNumbers[] | null;
-  bankAccounts: SummaryFormCompany_bankAccounts[] | null;
   isVatRegistered: boolean | null;
   vatNumber: string | null;
+  bankAccounts: SummaryFormCompany_bankAccounts[] | null;
   associates: SummaryFormCompany_associates[] | null;
 }

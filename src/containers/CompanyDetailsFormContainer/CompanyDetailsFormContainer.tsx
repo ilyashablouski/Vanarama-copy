@@ -1,4 +1,4 @@
-import { useMutation, gql } from '@apollo/client';
+import { useMutation, gql, useQuery } from '@apollo/client';
 import React from 'react';
 import {
   SaveCompanyDetailsMutation as Mutation,
@@ -14,7 +14,7 @@ import { useCreateUpdateOrder } from '../../gql/order';
 import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
 import { ICompanyDetailsFormContainerProps } from './interfaces';
 import { mapFormValues } from './mappers';
-import localForage from 'localforage';
+import SummaryFormDetailsSection from 'components/BusinessSummaryForm/BusinessSummaryFormDetailsSection';
 
 export const SAVE_COMPANY_DETAILS = gql`
   mutation SaveCompanyDetailsMutation($input: LimitedCompanyInputObject!) {
@@ -25,6 +25,15 @@ export const SAVE_COMPANY_DETAILS = gql`
   }
 `;
 
+export const GET_COMPANY_DETAILS = gql`
+query GetCompanyDetailsQuery($companyUuid: ID!) {
+  companyByUuid(uuid: $companyUuid) {
+    ...SummaryFormDetailsSectionCompany
+  }
+}
+${SummaryFormDetailsSection.fragments.company}
+`;
+
 export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerProps> = ({
   personUuid,
   orderId,
@@ -32,6 +41,7 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
   onError,
   isEdited
 }) => {
+
   const [saveCompanyDetails] = useMutation<Mutation, MutationVariables>(
     SAVE_COMPANY_DETAILS,
   );
@@ -70,6 +80,8 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
         },
       },
     });
+
+  
 
   return (
     <CompanyDetailsForm

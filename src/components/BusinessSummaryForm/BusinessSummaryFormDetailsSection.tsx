@@ -121,9 +121,6 @@ SummaryFormDetailsSection.fragments = {
         value
         primary
       }
-      bankAccounts {
-        ...CompanyBankDetailsAccount
-      }
     }
   `,
 };
