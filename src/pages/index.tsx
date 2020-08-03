@@ -101,7 +101,7 @@ export const HomePage: NextPage = () => {
   return (
     <>
       <Head
-        title={data?.homePage.metaData.title}
+        title={data?.homePage.metaData.title || ''}
         metaDescription={data?.homePage.metaData.metaDescription}
         metaRobots={data?.homePage.metaData.metaRobots}
         legacyUrl={data?.homePage.metaData.legacyUrl}

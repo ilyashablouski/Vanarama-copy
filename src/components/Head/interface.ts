@@ -1,6 +1,6 @@
 export interface IFeaturedImageFile {
   file?: {
-    url?: string | null;
+    url?: string;
     details?: {
       image?: {
         width?: number | null;
@@ -11,7 +11,7 @@ export interface IFeaturedImageFile {
 }
 
 export interface IHeadProps {
-  title?: string | null;
+  title?: string;
   metaDescription?: string | null;
   metaRobots?: string | null;
   legacyUrl?: string | null;
