@@ -26,8 +26,8 @@ export const createOlafDetails = (
   contractLength: offer.term ? `${offer.term} month` : '-',
   annualMileage: offer.annualMileage ? `${offer.annualMileage} miles` : '-',
   maintenance: offer.maintenance ? 'Yes' : 'No',
-  fuel: derivative?.fuelTypeName || '-',
-  transmission: derivative?.transmissionName || '-',
+  fuel: derivative?.fuelType.name || '-',
+  transmission: derivative?.transmission.name || '-',
   color: offer.colour || '-',
   trim: offer.trim || '-',
   description: `${(offer.term || 1) - 1} month contact (${

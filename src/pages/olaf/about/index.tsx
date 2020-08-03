@@ -68,7 +68,7 @@ const AboutYouPage: NextPage = () => {
   const { orderId, uuid } = router.query as OLAFB2CQueryParams;
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
-  const [personUuid, setPersonUuid] = useState<string | undefined>();
+  const [personUuid, setPersonUuid] = useState<string | undefined>(uuid);
 
   const getOrdersData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);
   const getQuotesData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);

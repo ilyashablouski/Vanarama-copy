@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import { ProductCardData } from '../../generated/ProductCardData';
 
-const PRODUCT_CARD_CONTENT = gql`
+export const PRODUCT_CARD_CONTENT = gql`
   query ProductCardData(
     $type: VehicleTypeEnum!
     $bodyType: String
@@ -36,9 +36,6 @@ const PRODUCT_CARD_CONTENT = gql`
   }
 `;
 
-// eslint-disable-next-line import/prefer-default-export
-export { PRODUCT_CARD_CONTENT };
-
 export function useProductCard(type: string, size: number, offer: boolean) {
   return useQuery<ProductCardData>(PRODUCT_CARD_CONTENT, {
     variables: {
@@ -48,3 +45,12 @@ export function useProductCard(type: string, size: number, offer: boolean) {
     },
   });
 }
+
+export const VEHICLE_CONFIGURATION_BY_URL = gql`
+  query VehicleConfigurationByUrl($url: String!) {
+    vehicleConfigurationByUrl(url: $url) {
+      uuid
+      capDerivativeId
+    }
+  }
+`;

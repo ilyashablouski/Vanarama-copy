@@ -17,8 +17,8 @@ describe('helpers', () => {
         term: 100,
       } as any;
       const derivative = {
-        fuelTypeName: 'fuelTypeName',
-        transmissionName: 'transmissionName',
+        fuelType: { name: 'fuelTypeName' },
+        transmission: { name: 'transmissionName' },
       } as any;
       const actual = createOlafDetails(leaseType, offer, derivative);
 
@@ -30,8 +30,8 @@ describe('helpers', () => {
         contractLength: '100 month',
         annualMileage: '50 miles',
         maintenance: 'Yes',
-        fuel: derivative?.fuelTypeName,
-        transmission: derivative?.transmissionName,
+        fuel: derivative?.fuelType.name,
+        transmission: derivative?.transmission.name,
         color: offer.colour,
         trim: offer.trim,
         description:
@@ -52,7 +52,7 @@ describe('helpers', () => {
     it('should return new object with - element', () => {
       const leaseType = LeaseTypeEnum.BUSINESS;
       const offer = {} as any;
-      const derivative = {} as any;
+      const derivative = null as any;
       const actual = createOlafDetails(leaseType, offer, derivative);
 
       expect(actual).toEqual({
