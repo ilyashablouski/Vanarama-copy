@@ -27,7 +27,7 @@ const mocked: MockedResponse[] = [
     result: () => {
       return {
         data: {
-          VanOffersPage: {
+          vanOffersPage: {
             id: '',
             body: 'van offers page mocked body',
             sections: {
