@@ -4,7 +4,7 @@ import preloadAll from 'jest-next-dynamic';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import Router from 'next/router';
-import { VAN_OFFERS_CONTENT } from '../../../gql/special-offers/van-offers';
+import { VAN_OFFERS_CONTENT } from '../../../gql/special-offers/vanOffers';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import { VanOffers } from '../../../pages/special-offers/van-offers';
 import { ProductCardData } from '../../../../generated/ProductCardData';

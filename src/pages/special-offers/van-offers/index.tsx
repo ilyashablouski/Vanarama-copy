@@ -12,7 +12,7 @@ import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 
 import { ProductCardData } from '../../../../generated/ProductCardData';
 
-import { VAN_OFFERS_CONTENT } from '../../../gql/special-offers/van-offers';
+import { VAN_OFFERS_CONTENT } from '../../../gql/special-offers/vanOffers';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import withApollo from '../../../hocs/withApollo';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
