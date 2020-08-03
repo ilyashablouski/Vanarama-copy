@@ -37,25 +37,29 @@ const mocked: MockedResponse[] = [
           sections: {
             hero: {
               title: 'Best Car Lease Deals',
+              titleTag: 'h2',
               body:
                 'Brand New Cars, In Stock Delivered Fast and Free __From Just £115pm__',
               image: null,
             },
             leadText: {
-              heading: 'Large Sales Heading',
+              heading: 'Best Car Lease Deals In The UK',
+              titleTag: 'h1',
               description:
-                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio aspernatur fugiat.',
+                'Upgrade To A Brand New Car Today From As Little As £129pm',
             },
             featured1: {
-              title: 'Car Leasing with Vanarama?',
+              title: 'Why Lease A Car?',
+              titleTag: 'h2',
               body:
-                'Leasing your brand new car with Vanarama means you can drive the car of your dreams at a price you can afford',
+                "Leasing your brand new car with Vanarama means you can drive the car of your dreams at a price you can afford. And you can upgrade to a new one every few years!\n\nWhether you're looking for your first car, a family car, or a brand new car for your business, we have a massive range of the latest models from all manufacturers.\n\nOnce you've found your ideal car, we'll get you the best deal from our panel of over 10 funders. We get the best deals around because of our buying power. Your new car will be delivered to your door... and you get to enjoy it until it's time to upgrade.\n\nWe're a leasing company, and since 2004 we've leased vehicles to hundreds of thousands of personal and business customers. Our 5* customer service team will ensure you get what you need from enquiry right through to delivery.",
               image: null,
             },
             featured2: {
               title: 'How Does Car Leasing Work?',
+              titleTag: 'h2',
               body:
-                'Personal car leasing works very much like renting, but for a longer time period.',
+                "Personal car leasing works very much like renting, but for a longer time period. You choose your new car, the contract length, how much you'd like your initial rental to be and how many miles you'll drive over the period. At the end of your lease agreement, you return the car & upgrade.\n\nDon't worry about excess mileage and damage charges at the end of your lease, because we have a Mileage Booster which gives you [10% free mileage](https://beta.vanarama.com/car-leasing/mileage-booster-and-damage-cover.html) and up to [£500 Damage Cover.](https://beta.vanarama.com/car-leasing/mileage-booster-and-damage-cover.html)\n\nFor more information take a look at Car Leasing Explained for everything you need to know, including:\n\n-   [How does car leasing work?](https://beta.vanarama.com/car-leasing-explained.html)\n-   [What is fair wear and tear?](https://beta.vanarama.com/car-leasing-explained/lease-car-fair-wear-and-tear.html)\n-   [What happens at the end of a lease?](https://beta.vanarama.com/car-leasing-explained/what-happens-at-end-of-car-lease.html)",
               image: null,
             },
             steps: {
@@ -84,31 +88,59 @@ const mocked: MockedResponse[] = [
               ],
             },
             tiles: {
-              name: 'Tiles',
+              name: 'Benefits Grid',
+              titleTag: 'h2',
+              tilesTitle: 'Why Lease With Vanarama',
               tiles: [
                 {
-                  title: 'Price Protection',
+                  title: 'Price Promise',
+                  link: null,
                   body:
-                    'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
-                  image: null,
+                    "You won't find this with any of our competitors. Honest pricing & nothing hidden.",
+                  image: {
+                    file: {
+                      url:
+                        '//images.ctfassets.net/3xid768u5joa/1ZIIHCFIqBIVkse5D80ymR/59d962d5cf10c6f689c847ddab436218/price-promise.jpg',
+                    },
+                    title: 'price-promise',
+                  },
                 },
                 {
                   title: 'Customer Reviews',
+                  link: null,
                   body:
-                    'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
-                  image: null,
+                    'We love our customers and our customers love us, 96% of them would recommend us.',
+                  image: {
+                    file: {
+                      url:
+                        '//images.ctfassets.net/3xid768u5joa/27vSXvAmh2dn3wh58xoJkP/368c1854210afeaa24f0700fc7c509fc/Icon-Contract-RGB_Contract-Colour-400px-RGB.png',
+                    },
+                    title: 'Smiths-Vanarama-Deal',
+                  },
                 },
                 {
                   title: 'Quote Online',
-                  body:
-                    'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
-                  image: null,
+                  link: null,
+                  body: 'Get your quote in seconds with iVan.',
+                  image: {
+                    file: {
+                      url:
+                        '//images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png',
+                    },
+                    title: 'Insurance-Icon',
+                  },
                 },
                 {
                   title: 'Confused About Leasing?',
-                  body:
-                    'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
-                  image: null,
+                  link: null,
+                  body: 'Everything you need to know is a click away.',
+                  image: {
+                    file: {
+                      url:
+                        '//images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png',
+                    },
+                    title: 'Fleet-Icon',
+                  },
                 },
               ],
             },
@@ -124,12 +156,10 @@ const mocked: MockedResponse[] = [
         vehicleTypes: ['LCV'],
       },
     },
-    result: () => {
-      return {
-        data: {
-          ...mockSearchPodResponse,
-        },
-      };
+    result: {
+      data: {
+        ...mockSearchPodResponse,
+      },
     },
   },
   {
@@ -141,46 +171,44 @@ const mocked: MockedResponse[] = [
         size: 9,
       },
     },
-    result: () => {
-      return {
-        data: {
-          productCarousel: [
-            {
-              capId: '83615',
-              isOnOffer: true,
-              manufacturerName: 'Ford',
-              derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
-              rangeName: 'Focus',
-              imageUrl:
-                'https://images.autorama.co.uk/Photos/Vehicles/155485/im_3411.jpg',
-              leadTime: '14-21 Day Delivery',
-              averageRating: 4.8,
-              businessRate: 175.96,
-              personalRate: 210.96,
-              offerPosition: 1,
-              keyInformation: [
-                {
-                  name: 'Transmission',
-                  value: 'Manual',
-                },
-                {
-                  name: 'Fuel Type',
-                  value: 'Petrol',
-                },
-                {
-                  name: 'Emissions',
-                  value: '97',
-                },
-                {
-                  name: 'Fuel Economy',
-                  value: '67.3',
-                },
-              ],
-              vehicleType: VehicleTypeEnum.CAR,
-            },
-          ],
-        } as ProductCardData,
-      };
+    result: {
+      data: {
+        productCarousel: [
+          {
+            capId: '83615',
+            isOnOffer: true,
+            manufacturerName: 'Ford',
+            derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
+            rangeName: 'Focus',
+            imageUrl:
+              'https://images.autorama.co.uk/Photos/Vehicles/155485/im_3411.jpg',
+            leadTime: '14-21 Day Delivery',
+            averageRating: 4.8,
+            businessRate: 175.96,
+            personalRate: 210.96,
+            offerPosition: 1,
+            keyInformation: [
+              {
+                name: 'Transmission',
+                value: 'Manual',
+              },
+              {
+                name: 'Fuel Type',
+                value: 'Petrol',
+              },
+              {
+                name: 'Emissions',
+                value: '97',
+              },
+              {
+                name: 'Fuel Economy',
+                value: '67.3',
+              },
+            ],
+            vehicleType: VehicleTypeEnum.CAR,
+          },
+        ],
+      } as ProductCardData,
     },
   },
 ];
@@ -193,33 +221,30 @@ describe('<CarPage />', () => {
         derivatives: [
           {
             id: '83615',
-            manufacturerName: 'Ford',
             derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
-            rangeName: 'Focus',
-            bodyStyleName: 'Hatchback',
             slug: '10-ecoBoost-125-st-line-nav-5dr',
             capCode: 'capCode',
             name: 'name',
-            modelName: 'modelName',
             manufacturer: {
-              name: 'name',
+              name: 'Ford',
+              slug: 'ford',
             },
             model: {
-              name: 'name',
+              name: 'Focus',
+              slug: 'focus',
             },
             fuelType: {
               name: 'name',
             },
-            fuelTypeName: 'fuelTypeName',
             transmission: {
               name: 'name',
             },
-            transmissionName: 'transmissionName',
             bodyStyle: {
-              name: 'name',
+              name: 'Hatchback',
             },
             range: {
-              name: 'name',
+              name: 'Focus',
+              slug: 'focus',
             },
             __typename: 'derivative',
           },
@@ -245,9 +270,7 @@ describe('<CarPage />', () => {
 
   it('should successfully query all hub CarsPage data', async () => {
     await waitFor(() => {
-      expect(
-        screen.getByText('Car Leasing with Vanarama?'),
-      ).toBeInTheDocument();
+      expect(screen.getByText('Why Lease A Car?')).toBeInTheDocument();
     });
   });
 

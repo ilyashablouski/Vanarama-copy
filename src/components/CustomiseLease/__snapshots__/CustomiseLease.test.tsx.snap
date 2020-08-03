@@ -4,11 +4,11 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
 <div
   className="pdp--sidebar"
 >
-  <span
+  <h2
     className="heading -black -xlarge"
   >
     Customise Your Lease
-  </span>
+  </h2>
   <span
     className="heading -black -regular"
   >
@@ -582,11 +582,11 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
 <div
   className="pdp--sidebar"
 >
-  <span
+  <h2
     className="heading -black -xlarge"
   >
     Customise Your Lease
-  </span>
+  </h2>
   <span
     className="heading -black -regular"
   >

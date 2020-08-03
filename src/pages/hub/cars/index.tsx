@@ -20,7 +20,9 @@ import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
-
+import { useContext } from 'react';
+import { isCompared } from '../../../utils/comparatorHelpers';
+import { CompareContext } from '../../../utils/comparatorTool';
 import {
   HubCarPageData,
   HubCarPageData_hubCarPage_sections_tiles_tiles as TileData,
@@ -53,6 +55,8 @@ export const CarsPage: NextPage = () => {
     products?.productCarousel?.map(el => el?.capId || '') || [''],
     VehicleTypeEnum.CAR,
   );
+
+  const { compareVehicles, compareChange } = useContext(CompareContext);
 
   if (loading) {
     return <Loading size="large" />;
@@ -150,9 +154,11 @@ export const CarsPage: NextPage = () => {
                 features={item?.keyInformation?.map(info => ({
                   icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
                   label: info?.value || '',
+                  index: `${item.capId}_${info?.name || ''}`,
                 }))}
                 imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
-                onCompare={() => true}
+                onCompare={() => compareChange(item)}
+                compared={isCompared(compareVehicles, item)}
                 onWishlist={() => true}
                 title={{
                   title: '',
@@ -288,11 +294,14 @@ export const CarsPage: NextPage = () => {
                   }
                 />
               </div>
-              <a className="tile--link" href="##">
+              <RouterLink
+                link={{ href: tile.link || '#', label: '' }}
+                className="tile--link"
+              >
                 <Heading tag="span" size="regular" color="black">
                   {tile.title}
                 </Heading>
-              </a>
+              </RouterLink>
               <Text tag="p">{tile.body}</Text>
             </Tile>
           </div>

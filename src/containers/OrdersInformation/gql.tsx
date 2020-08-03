@@ -101,28 +101,25 @@ export const GET_CAR_DERIVATIVES = gql`
       slug
       manufacturer {
         name
+        slug
       }
-      manufacturerName
       model {
         name
+        slug
       }
-      modelName
       fuelType {
         name
       }
-      fuelTypeName
       transmission {
         name
       }
-      transmissionName
       bodyStyle {
         name
       }
-      bodyStyleName
       range {
         name
+        slug
       }
-      rangeName
     }
     vehicleImages(capIds: $ids, vehicleType: $vehicleType) {
       vehicleType

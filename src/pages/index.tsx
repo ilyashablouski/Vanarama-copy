@@ -105,7 +105,11 @@ export const HomePage: NextPage = () => {
         <div className="hero--title">
           <HeroHeading
             text={data?.homePage.sections.hero?.title || ''}
-            titleTag={(data && data.homePage.sections.hero?.titleTag) || 'p'}
+            titleTag={
+              getTitleTag(
+                data?.homePage.sections.hero?.titleTag || 'p',
+              ) as keyof JSX.IntrinsicElements
+            }
           />
           <br />
           <HeroTitle text={data?.homePage.sections.hero?.body || ''} />
@@ -176,6 +180,7 @@ export const HomePage: NextPage = () => {
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
                 <ProductCarousel
                   leaseType={LeaseTypeEnum.PERSONAL}
+                  productType="Pickup"
                   data={{
                     derivatives: productsPickUpDerivatives?.derivatives || null,
                     productCard: productsPickUp?.productCarousel || null,
@@ -322,8 +327,8 @@ export const HomePage: NextPage = () => {
         >
           {data && data.homePage.sections.tiles?.tilesTitle}
         </Heading>
-        {data?.homePage.sections.tiles?.tiles?.map((t: TileData, idx) => (
-          <div key={t.title || idx}>
+        {data?.homePage.sections.tiles?.tiles?.map((tile: TileData, idx) => (
+          <div key={tile.title || idx}>
             <Tile className="-plain -button -align-center" plain>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Image
@@ -331,18 +336,20 @@ export const HomePage: NextPage = () => {
                   round
                   size="large"
                   src={
-                    t.image?.file?.url ||
+                    tile.image?.file?.url ||
                     ' https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
                   }
                 />
               </div>
               <RouterLink
-                link={{ href: t.link || '#', label: '' }}
+                link={{ href: tile.link || '#', label: '' }}
                 className="tile--link"
               >
-                {t.title}
+                <Heading tag="span" size="regular" color="black">
+                  {tile.title}
+                </Heading>
               </RouterLink>
-              <Text tag="p">{t.body}</Text>
+              <Text tag="p">{tile.body}</Text>
             </Tile>
           </div>
         ))}

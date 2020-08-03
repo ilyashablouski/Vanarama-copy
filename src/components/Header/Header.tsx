@@ -43,6 +43,8 @@ const Header: FC<IHeaderProps> = memo(props => {
   const router = useRouter();
   const { className, topBarLinks, loginLink, phoneNumberLink } = props;
   const [person, setPerson] = useState<Person | null>(null);
+  const [ordersLength, setOrdersLength] = useState<number | null>(null);
+  const [quotesLength, setQuotesLength] = useState<number | null>(null);
 
   const [isMenuOpen, setOpenMenu] = useState(false);
   const [isMyAccountOpen, setOpenMyAccount] = useState(false);
@@ -54,8 +56,18 @@ const Header: FC<IHeaderProps> = memo(props => {
           setPerson((value as PersonByToken)?.personByToken as Person);
       });
     }
+    if (!ordersLength) {
+      localForage.getItem('ordersLength').then(value => {
+        if (value) setOrdersLength(value as number);
+      });
+    }
+    if (!quotesLength) {
+      localForage.getItem('quotesLength').then(value => {
+        if (value) setQuotesLength(value as number);
+      });
+    }
     setOpenMyAccount(false);
-  }, [person, router]);
+  }, [person, ordersLength, quotesLength, router]);
 
   return (
     <header className={cx('header', className)} data-testid="header">
@@ -114,7 +126,7 @@ const Header: FC<IHeaderProps> = memo(props => {
                     <RouterLink
                       className="header-account--link"
                       link={{
-                        href: '/account/my-details/[uuid]',
+                        href: `/account/my-details/[uuid]?partyByUuid=${person.partyUuid}`,
                         label: 'Dashboard',
                       }}
                       as={`/account/my-details/${person.uuid}?partyByUuid=${person.partyUuid}`}
@@ -127,10 +139,16 @@ const Header: FC<IHeaderProps> = memo(props => {
                     <RouterLink
                       className="header-account--link"
                       link={{
-                        href: '/account/my-quotes/[partyByUuid]',
+                        href: ordersLength
+                          ? '/account/my-quotes/[partyByUuid]'
+                          : `/account/my-details/[uuid]?partyByUuid=${person.partyUuid}`,
                         label: 'My Quotes',
                       }}
-                      as={`/account/my-quotes/${person.partyUuid}`}
+                      as={
+                        ordersLength
+                          ? `/account/my-quotes/${person.partyUuid}`
+                          : `/account/my-details/${person.uuid}?partyByUuid=${person.partyUuid}`
+                      }
                     >
                       <Icon icon={<ReceiptOutline />} size="xsmall" />
                       <span>My Quotes</span>
@@ -140,10 +158,16 @@ const Header: FC<IHeaderProps> = memo(props => {
                     <RouterLink
                       className="header-account--link"
                       link={{
-                        href: '/account/my-orders/[partyByUuid]',
+                        href: quotesLength
+                          ? '/account/my-orders/[partyByUuid]'
+                          : `/account/my-details/[uuid]?partyByUuid=${person.partyUuid}`,
                         label: 'My Orders',
                       }}
-                      as={`/account/my-orders/${person.partyUuid}`}
+                      as={
+                        quotesLength
+                          ? `/account/my-orders/${person.partyUuid}`
+                          : `/account/my-details/${person.uuid}?partyByUuid=${person.partyUuid}`
+                      }
                     >
                       <Icon icon={<CarOutline />} size="xsmall" />
                       <span>My Orders</span>
@@ -152,11 +176,13 @@ const Header: FC<IHeaderProps> = memo(props => {
                   <li>
                     <RouterLink
                       className="header-account--link"
-                      link={{ href: '#', label: 'Log Out' }}
+                      link={{ href: router.pathname, label: 'Log Out' }}
+                      as={router.asPath}
                       onClick={async () => {
                         await localForage.clear();
                         setPerson(null);
                       }}
+                      replace
                     >
                       <Icon icon={<LogOutOutline />} size="xsmall" />
                       <span>Log Out</span>

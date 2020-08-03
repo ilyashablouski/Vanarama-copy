@@ -64,11 +64,14 @@ const mockCarValue = [
       derivatives: [
         {
           id: 'derivativeCapId',
-          manufacturerName: 'manufacturerName',
-          modelName: 'modelName',
+          manufacturer: {
+            name: 'manufacturer',
+            slug: 'manufacturer',
+          },
+          model: { name: 'modelName', slug: 'modelName' },
           name: 'name',
-          fuelTypeName: 'fuelTypeName',
-          transmissionName: 'transmissionName',
+          fuelType: { name: 'fuelTypeName' },
+          transmission: { name: 'transmissionName' },
         },
       ],
     },

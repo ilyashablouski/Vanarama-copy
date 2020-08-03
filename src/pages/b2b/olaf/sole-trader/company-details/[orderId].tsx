@@ -7,13 +7,9 @@ import withApollo from '../../../../../hocs/withApollo';
 import OLAFLayout from '../../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../../utils/url';
 
-type QueryParams = OLAFQueryParams & {
-  personUuid: string;
-};
-
 export const CompanyDetailsPage: NextPage = () => {
   const router = useRouter();
-  const { orderId } = router.query as QueryParams;
+  const { orderId } = router.query as OLAFQueryParams;
 
   return (
     <OLAFLayout>

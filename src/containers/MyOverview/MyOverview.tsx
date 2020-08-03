@@ -57,20 +57,19 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   );
 
   useEffect(() => {
-    if (partyByUuid) {
+    if (partyByUuid && !data) {
       getOrders();
     }
-  }, [partyByUuid, getOrders, router.query.partyByUuid]);
+  }, [partyByUuid, getOrders, router.query.partyByUuid, data]);
 
   // collect everything capId from orders
-  const capIdArray =
-    data?.ordersByPartyUuid?.reduce((array, el) => {
-      const capId = el.lineItems[0].vehicleProduct?.derivativeCapId || '';
-      if (capId !== array[0]) {
-        array.unshift(capId);
-      }
-      return array;
-    }, [] as string[]) || [];
+  const capIdArray = data?.ordersByPartyUuid?.reduce((array, el) => {
+    const capId = el.lineItems[0].vehicleProduct?.derivativeCapId || '';
+    if (capId !== array[0]) {
+      array.unshift(capId);
+    }
+    return array;
+  }, [] as string[]) || [''];
 
   // call query for get DerivativesData
   const dataCars = useCarDerivativesData(capIdArray, VehicleTypeEnum.CAR);
@@ -186,8 +185,8 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
           imageSrc={imageSrc?.mainImageUrl || ''}
           key={order.id}
           title={{
-            title: `${derivative?.manufacturerName ||
-              ''} ${derivative?.modelName || ''}`,
+            title: `${derivative?.manufacturer.name || ''} ${derivative?.model
+              .name || ''}`,
             description: derivative?.name || '',
           }}
           orderDetails={createOffersObject(

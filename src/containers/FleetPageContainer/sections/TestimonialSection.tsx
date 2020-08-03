@@ -3,22 +3,18 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import ReactMarkdown from 'react-markdown';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import { useQuery } from '@apollo/client';
 import getTitleTag from '../../../utils/getTitleTag';
 import { GetFleetLandingPage_fleetLandingPage_sections_featured1 as ISideText } from '../../../../generated/GetFleetLandingPage';
 import config from '../config';
-import { TestimonialsData } from '../../../../generated/TestimonialsData';
-import { TESTIMONIALS_DATA } from '../../../gql/testimonials';
 
 const goToTop = () => window.scrollTo(0, 0);
 
-const TestimonialSection = ({ titleTag, title, body }: ISideText) => {
-  const { data } = useQuery<TestimonialsData>(TESTIMONIALS_DATA, {
-    variables: { size: 1, page: 1 },
-  });
-
-  const testimonials = data?.testimonials || null;
-
+const TestimonialSection = ({
+  titleTag,
+  title,
+  body,
+  testimonials,
+}: ISideText) => {
   return (
     <div className="row:featured-right">
       <div>
@@ -43,9 +39,12 @@ const TestimonialSection = ({ titleTag, title, body }: ISideText) => {
       {testimonials && testimonials[0] && (
         <ReviewCard
           review={{
-            text: testimonials[0].comments || '',
-            author: testimonials[0].name,
-            score: testimonials[0].overallRating,
+            text: testimonials[0].summary || '',
+            author: testimonials[0].customerName || '',
+            score:
+              (testimonials[0].rating &&
+                parseInt(testimonials[0].rating, 10)) ||
+              5,
           }}
         />
       )}

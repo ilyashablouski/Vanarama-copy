@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
-import { useOlafData, useCarDerivativesData } from '../../gql/order';
+import { useOlafData, useCarDerivativeData } from '../../gql/order';
 import { createOlafDetails } from './helpers';
 import { OLAFQueryParams } from '../../utils/url';
 
@@ -23,8 +23,8 @@ const OLAFLayout: React.FC = ({ children }) => {
   const olafData = useOlafData(orderId);
   const orderByUuid = olafData && olafData.data?.orderByUuid;
 
-  const [getDerivativeData, derivativeData] = useCarDerivativesData(
-    orderByUuid?.lineItems[0].vehicleProduct?.derivativeCapId as string,
+  const [getDerivativeData, derivativeData] = useCarDerivativeData(
+    orderByUuid?.lineItems[0].vehicleProduct?.derivativeCapId || '',
     orderByUuid?.lineItems[0].vehicleProduct?.vehicleType,
   );
   const derivative = derivativeData && derivativeData.data?.derivative;
@@ -73,8 +73,8 @@ const OLAFLayout: React.FC = ({ children }) => {
               descriptionDataTestId="about_description-testID"
               imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/KiaeNiro0219_j7on5z.jpg"
               title={{
-                title: `${derivative?.manufacturerName ||
-                  ''} ${derivative?.modelName || ''}`,
+                title: `${derivative?.manufacturer.name || ''} ${derivative
+                  ?.model.name || ''}`,
                 description: derivative?.name || '',
                 score: 4.5,
                 dataTestId: 'olaf_about_title_derivative',

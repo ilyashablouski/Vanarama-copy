@@ -11,7 +11,8 @@ import { IChoice } from '@vanarama/uibook/lib/components/atoms/choiceboxes/inter
 import Toggle from '@vanarama/uibook/lib/components/atoms/toggle';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import OptionsIcon from '@vanarama/uibook/lib/assets/icons/Options';
-import ChevronUpSharp from '@vanarama/uibook/lib/assets/icons/ChevronUpSharp';
+import ChevronUp from '@vanarama/uibook/lib/assets/icons/ChevronUp';
+import ChevronDown from '@vanarama/uibook/lib/assets/icons/ChevronDown';
 import { useMediaQuery } from 'react-responsive';
 import { useRouter } from 'next/router';
 import { useFilterList } from '../SearchPodContainer/gql';
@@ -319,6 +320,12 @@ const FiltersContainer = ({
     const selected: string[] = Object.entries(selectedFiltersState)
       // makes in make page should not to be added
       .map(entry => {
+        if (
+          (entry[0] === filterFields.from || entry[0] === filterFields.to) &&
+          entry[1]?.[0]
+        ) {
+          return `£${entry[1]}`;
+        }
         return isMakePage && entry[0] === filterFields.make ? '' : entry[1];
       })
       .flat()
@@ -386,11 +393,12 @@ const FiltersContainer = ({
    * remove value from filter after deleting tag
    */
   const handleRemoveTag = (value: string) => {
-    const filter = getValueKey(value) as keyof typeof filtersMapper;
+    const formatedValue = value.replace('£', '');
+    const filter = getValueKey(formatedValue) as keyof typeof filtersMapper;
     const newSelectedFiltersState = {
       ...selectedFiltersState,
       [filter]: selectedFiltersState[filter].filter(
-        selectedValue => selectedValue !== value,
+        selectedValue => selectedValue !== formatedValue,
       ),
     };
 
@@ -441,8 +449,9 @@ const FiltersContainer = ({
         <Icon icon={<OptionsIcon />} className="search-filters--title-icon" />
         <span>Filters</span>
         <Icon
-          icon={<ChevronUpSharp />}
+          icon={isOpenFilter ? <ChevronDown /> : <ChevronUp />}
           className="search-filters--title-icon"
+          color="white"
         />
       </SearchFiltersHead>
       <Toggle

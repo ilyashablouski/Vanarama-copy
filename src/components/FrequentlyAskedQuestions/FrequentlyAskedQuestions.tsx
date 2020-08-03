@@ -67,7 +67,12 @@ const FrequentlyAskedQuestions: React.FC<IFrequentlyAskedQuestionsProps> = ({
 
   return (
     <div className="tile--accordion">
-      <Heading color="black" size="lead" className="pdp-section-question">
+      <Heading
+        color="black"
+        size="lead"
+        className="pdp-section-question"
+        tag="h2"
+      >
         Frequently Asked Questions
       </Heading>
       <Accordion items={accordionItems()} />

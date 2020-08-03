@@ -4,11 +4,11 @@ exports[`<WhyChooseVanarama /> renders correctly 1`] = `
 <div
   className="tile--accordion"
 >
-  <p
+  <h2
     className="heading pdp-section-title -black -lead"
   >
     Why Choose Vanarama?
-  </p>
+  </h2>
   <ul
     className="accordion"
   >

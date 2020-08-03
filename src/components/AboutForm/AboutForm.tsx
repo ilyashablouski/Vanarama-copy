@@ -123,7 +123,7 @@ const AboutForm: FCWithFragments<IProps> = ({
       <FormGroup>
         <FormGroup
           controlId="mobile"
-          label="Mobile"
+          label="Telephone"
           error={errors?.mobile?.message?.toString()}
         >
           <NumericInput
