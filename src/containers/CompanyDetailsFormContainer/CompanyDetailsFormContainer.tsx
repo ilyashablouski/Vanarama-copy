@@ -1,4 +1,4 @@
-import { useMutation, gql } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import React from 'react';
 import {
   SaveCompanyDetailsMutation as Mutation,

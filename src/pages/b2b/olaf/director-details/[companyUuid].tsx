@@ -7,7 +7,6 @@ import DirectorDetailsFormContainer from '../../../../containers/DirectorDetails
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { getUrlParam, OLAFQueryParams } from '../../../../utils/url';
-import DirectorFields from '../../../../components/DirectorDetailsForm/DirectorFields';
 
 const handleSubmitError = () =>
   toast.error(
@@ -17,21 +16,31 @@ const handleSubmitError = () =>
 
 type QueryParams = OLAFQueryParams & {
   companyUuid: string;
+  directorUuid: string;
 };
 
 export const DirectorDetailsPage: NextPage = () => {
   const router = useRouter();
-  const { companyUuid, derivativeId, orderId } = router.query as QueryParams;
+  const {
+    companyUuid,
+    derivativeId,
+    orderId,
+    directorUuid,
+  } = router.query as QueryParams;
 
   const handleSubmitCompletion = () => {
     const params = getUrlParam({ derivativeId, orderId });
-    const url = `/b2b/olaf/company-bank-details/[companyUuid]${params}`;
+    const url =
+      router.query.redirect === 'summary'
+        ? `/b2b/olaf/summary/[companyUuid]${params}`
+        : `/b2b/olaf/company-bank-details/[companyUuid]${params}`;
     router.push(url, url.replace('[companyUuid]', companyUuid));
   };
 
   return (
     <OLAFLayout>
       <DirectorDetailsFormContainer
+        directorUuid={directorUuid}
         companyUuid={companyUuid}
         orderUuid={orderId}
         onCompleted={handleSubmitCompletion}

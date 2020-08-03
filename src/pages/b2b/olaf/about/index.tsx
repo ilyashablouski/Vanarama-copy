@@ -76,7 +76,11 @@ export const BusinessAboutPage: NextPage = () => {
       companyType === CompanyTypes.limited
         ? 'company-details'
         : 'sole-trader/company-details';
-    const url = `/b2b/olaf/${journeyUrl}/[companyUuid]${params}`;
+    const url =
+      router.query.redirect === 'summary'
+        ? `/b2b/olaf/summary/[companyUuid]${params}`
+        : `/b2b/olaf/${journeyUrl}/[companyUuid]${params}`;
+
     router.push(url, url.replace('[companyUuid]', companyUuid || ''));
   };
 

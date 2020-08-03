@@ -1,6 +1,5 @@
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { gql } from '@apollo/client';
 import { useRouter } from 'next/router';
@@ -12,84 +11,118 @@ import { getUrlParam } from '../../utils/url';
 import { SummaryFormCompany } from '../../../generated/SummaryFormCompany';
 import BusinessSummaryFormVATDetailsSection from './BusinessSummaryFormVATDetailsSection';
 import BusinessSummaryFormDirectorDetailsSection from './BusinessSummaryFormDirectorDetailsSection';
+import { AboutFormPerson } from '../../../generated/AboutFormPerson';
+import BusinessSummaryFormAboutSection from './BusinessSummaryFormAboutSection';
 
 interface IProps {
   company: SummaryFormCompany;
-  orderId?: string;
-  derivativeId?: string;
+  orderId: string;
+  person: AboutFormPerson;
 }
 
 const BusinessSummaryForm: FCWithFragments<IProps> = ({
   company,
   orderId,
-  derivativeId,
+  person,
 }) => {
   const router = useRouter();
 
-  const primaryBankAccount = company.bankAccounts && company.bankAccounts.length && company.bankAccounts[company.bankAccounts.length - 1];
+  const primaryBankAccount =
+    company.bankAccounts &&
+    company.bankAccounts.length &&
+    company.bankAccounts[company.bankAccounts.length - 1];
 
-  const handleEdit = (url: string) => () => {
-    const href = `${url}?redirect=summary${getUrlParam(
-      {
-        orderId,
-        derivativeId,
-      },
-      true,
-    )}`;
-    router.push(href, href.replace('[uuid]', company.uuid));
+  const handleEdit = (
+    url: string,
+    additionalParameters?: { [key: string]: string },
+  ) => () => {
+    const params = getUrlParam({
+      orderId,
+      redirect: 'summary',
+      ...additionalParameters,
+    });
+    const href = `${url}${params}`;
+    router.push(href, href.replace('[companyUuid]', company.uuid));
   };
 
-  const directors = company.associates
-    && company.associates.length
-    && company.associates
-      .slice()
-      .sort((a, b) => (b.businessShare || 0) - (a.businessShare || 0))
-      .map((d, i) => <BusinessSummaryFormDirectorDetailsSection
-        director={d}
-        orderBySharehold={i}
-        onEdit={handleEdit('/b2b/olaf/director-details/[uuid]')}
-        key={d.uuid || d.firstName + '-' + d.lastName}
-      />)
-    || null;
+  const directors =
+    (company.associates &&
+      company.associates.length &&
+      company.associates
+        .slice()
+        .sort((a, b) => (b.businessShare || 0) - (a.businessShare || 0))
+        .map((d, i) => (
+          <BusinessSummaryFormDirectorDetailsSection
+            director={d}
+            orderBySharehold={i}
+            onEdit={handleEdit('/b2b/olaf/director-details/[companyUuid]', {
+              directorUuid: d.uuid,
+            })}
+            key={d.uuid}
+          />
+        ))) ||
+    null;
 
   return (
-    <Form className="olaf--summary">
-      <Heading color="black" size="xlarge" dataTestId="summary-heading">
+    <div>
+      <Heading
+        color="black"
+        size="xlarge"
+        dataTestId="summary-heading"
+        tag="span"
+      >
         Summary
       </Heading>
-      <BusinessSummaryFormDetailsSection
-        company={company}
-        onEdit={handleEdit('/b2b/olaf/company-details/[uuid]')}
-      />
-      {company.isVatRegistered && <BusinessSummaryFormVATDetailsSection
-        vatDetails={company}
-        onEdit={handleEdit('/b2b/olaf/vat-details/[uuid]')}
-      />}
-      {primaryBankAccount && (
-        <BusinessSummaryFormBankDetailsSection
-          account={primaryBankAccount}
-          onEdit={handleEdit('/b2b/olaf/company-bank-details/[uuid]')}
+      <br />
+      <Form className="olaf--summary">
+        <BusinessSummaryFormAboutSection
+          person={person}
+          onEdit={handleEdit('/b2b/olaf/about', {
+            companyUuid: company.uuid,
+          })}
         />
-      )}
-      <Heading color="black" size="large" dataTestId="directors-section-heading" className="olaf--summary-title">
-        Director Details
-      </Heading>
-      <hr />
-      {directors}
-      <Button
-        size="large"
-        className="-mt-400"
-        type="button"
-        color="teal"
-        label="Continue"
-        dataTestId="olaf_summary_continue_buttton"
-        onClick={() => {
-          router.push(
-            `/olaf/thank-you${getUrlParam({ orderId, derivativeId })}`,
-          );
-        }}
-      />
-    </Form>
+        <BusinessSummaryFormDetailsSection
+          company={company}
+          onEdit={handleEdit('/b2b/olaf/company-details/[personUuid]')}
+        />
+        {company.isVatRegistered && (
+          <BusinessSummaryFormVATDetailsSection
+            vatDetails={company}
+            onEdit={handleEdit('/b2b/olaf/vat-details/[companyUuid]')}
+          />
+        )}
+        {primaryBankAccount && (
+          <BusinessSummaryFormBankDetailsSection
+            account={primaryBankAccount}
+            onEdit={handleEdit('/b2b/olaf/company-bank-details/[companyUuid]')}
+          />
+        )}
+        <Heading
+          color="black"
+          size="large"
+          dataTestId="directors-section-heading"
+          className="olaf--summary-title"
+        >
+          Director Details
+        </Heading>
+        <hr />
+        {directors}
+        <Button
+          size="large"
+          className="-mt-400"
+          type="button"
+          color="teal"
+          label="Continue"
+          dataTestId="olaf_summary_continue_buttton"
+          onClick={() => {
+            router.push(
+              '/olaf/thank-you/[orderId]',
+              '/olaf/thank-you/[orderId]'.replace('[orderId]', orderId),
+            );
+          }}
+        />
+      </Form>
+    </div>
   );
 };
 

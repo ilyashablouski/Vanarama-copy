@@ -1,13 +1,17 @@
 import React from 'react';
+import localForage from 'localforage';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import BusinessAboutForm from '../../components/BusinessAboutForm/BusinessAboutForm';
 import { useEmailCheck } from '../RegisterFormContainer/gql';
 import { useAboutYouData } from '../AboutFormContainer/gql';
 import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
-
 import { useAboutPageDataQuery, useSaveAboutYouMutation } from './gql';
 import { IBusinessAboutFormContainerProps, SubmitResult } from './interfaces';
+import { SaveBusinessAboutYou } from '../../../generated/SaveBusinessAboutYou';
+
+const savePersonUuid = async (data: SaveBusinessAboutYou) =>
+  localForage.setItem('personUuid', data.createUpdateBusinessPerson?.uuid);
 
 export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerProps> = ({
   personUuid,
@@ -18,7 +22,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
 }) => {
   const aboutPageDataQuery = useAboutPageDataQuery();
   const aboutYouData = useAboutYouData(personUuid);
-  const [saveDetails] = useSaveAboutYouMutation();
+  const [saveDetails] = useSaveAboutYouMutation(savePersonUuid);
   const [emailAlreadyExists] = useEmailCheck();
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
     orderId,
