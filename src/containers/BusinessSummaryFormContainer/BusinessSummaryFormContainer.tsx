@@ -1,25 +1,12 @@
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React from 'react';
 import BusinessSummaryForm from '../../components/BusinessSummaryForm/BusinessSummaryForm';
-import AboutForm from '../../components/AboutForm';
 import {
   GetCompanySummaryQuery,
   GetCompanySummaryQueryVariables,
 } from '../../../generated/GetCompanySummaryQuery';
-
-export const GET_COMPANY_SUMMARY = gql`
-  query GetCompanySummaryQuery($uuid: ID!, $personUuid: ID!) {
-    companyByUuid(uuid: $uuid) {
-      ...SummaryFormCompany
-    }
-    personByUuid(uuid: $personUuid) {
-      ...AboutFormPerson
-    }
-  }
-  ${BusinessSummaryForm.fragments.company}
-  ${AboutForm.fragments.person}
-`;
+import { GET_COMPANY_SUMMARY } from './gql';
 
 interface IProps {
   personUuid: string;
