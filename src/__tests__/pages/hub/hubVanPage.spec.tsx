@@ -5,7 +5,7 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import Router from 'next/router';
 import { HubVanPageData } from '../../../../generated/HubVanPageData';
-import { HUB_VAN_CONTENT } from '../../../gql/hubVanPage';
+import { HUB_VAN_CONTENT } from '../../../gql/hub/hubVanPage';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
 import { VansPage } from '../../../pages/hub/vans';

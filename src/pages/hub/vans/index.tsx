@@ -31,7 +31,7 @@ import {
   ProductCardData_productCarousel as ProdCardData,
 } from '../../../../generated/ProductCardData';
 
-import { HUB_VAN_CONTENT } from '../../../gql/hubVanPage';
+import { HUB_VAN_CONTENT } from '../../../gql/hub/hubVanPage';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import withApollo from '../../../hocs/withApollo';
 
@@ -133,6 +133,7 @@ export const VansPage: NextPage = () => {
   if (error) {
     return <p>Error: {error.message}</p>;
   }
+
   const dealOfMonthUrl = getProductPageUrl(
     offer!,
     (productLargeVanDerivatives?.derivatives as GetDerivatives_derivatives[])?.concat(

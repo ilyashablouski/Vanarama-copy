@@ -20,7 +20,7 @@ const rollbarCode = `
 class MyDocument extends Document {
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           {/* eslint-disable-next-line react/no-danger */}
           <script dangerouslySetInnerHTML={{ __html: rollbarCode }} />

@@ -33,7 +33,7 @@ import {
   ProductCardData,
   ProductCardData_productCarousel as ProdData,
 } from '../../../../generated/ProductCardData';
-import { HUB_PICKUP_CONTENT } from '../../../gql/hubPickupPage';
+import { HUB_PICKUP_CONTENT } from '../../../gql/hub/hubPickupPage';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import withApollo from '../../../hocs/withApollo';
 
