@@ -2,6 +2,7 @@ import { useCallback, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { hasDuplicates, sum } from '../../utils/array';
 import { VatDetailsFormValues as FormValues } from './interfaces';
+import { VatDetails } from '../../../generated/VatDetails';
 
 const DUPLICATE_ERROR = 'You cannot select the same country more than once';
 const MAX_ERROR = 'The Total % of Turnover Cannot Exceed 100%';
@@ -56,4 +57,13 @@ export function useCustomValidation() {
   useEffect(() => {
     triggerValidation('isValid');
   }, [markets, triggerValidation]);
+}
+
+export function mapDefaultValues(vatDetails: VatDetails | null | undefined) {
+  return {
+    vatNumber: vatDetails?.vatNumber || undefined,
+    vatRegistered: vatDetails?.isVatRegistered || false,
+    outsideUK: vatDetails?.tradesOutsideUk || false,
+    markets: vatDetails?.turnoverPercentageOutsideUk || [{ country: '', percentage: '' }],
+  }
 }
