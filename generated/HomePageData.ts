@@ -7,6 +7,32 @@
 // GraphQL query operation: HomePageData
 // ====================================================
 
+export interface HomePageData_homePage_featuredImage_file_details_image {
+  width: number;
+  height: number;
+}
+
+export interface HomePageData_homePage_featuredImage_file_details {
+  image: HomePageData_homePage_featuredImage_file_details_image;
+}
+
+export interface HomePageData_homePage_featuredImage_file {
+  url: string;
+  details: HomePageData_homePage_featuredImage_file_details;
+}
+
+export interface HomePageData_homePage_featuredImage {
+  file: HomePageData_homePage_featuredImage_file | null;
+}
+
+export interface HomePageData_homePage_metaData {
+  title: string | null;
+  metaRobots: string | null;
+  metaDescription: string | null;
+  publishedOn: any | null;
+  legacyUrl: string | null;
+}
+
 export interface HomePageData_homePage_sections_hero_image_file {
   url: string;
 }
@@ -101,6 +127,8 @@ export interface HomePageData_homePage_sections {
 
 export interface HomePageData_homePage {
   id: string;
+  featuredImage: HomePageData_homePage_featuredImage | null;
+  metaData: HomePageData_homePage_metaData;
   sections: HomePageData_homePage_sections;
 }
 

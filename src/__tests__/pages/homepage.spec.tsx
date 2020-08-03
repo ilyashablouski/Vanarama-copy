@@ -34,13 +34,38 @@ const mocked: MockedResponse[] = [
       data: {
         homePage: {
           id: '42LjdTY9hSi2YdVi4aEsuO',
+          featuredImage: {
+            file: {
+              url:
+                '//images.ctfassets.net/3xid768u5joa/3l6qcngNheEgG7dUdXqe5m/2a612809813bb4eb25738fc4690adbd4/placeholder-16-9.jpg',
+              details: {
+                image: {
+                  width: 1600,
+                  height: 900,
+                },
+              },
+            },
+          },
+          metaData: {
+            title: 'Vehicle Leasing | Personal & Business Lease',
+            metaRobots: 'all',
+            metaDescription: null,
+            publishedOn: '2020-08-02',
+            legacyUrl: 'https://www.vanarama.com/',
+          },
           sections: {
             hero: {
               title: 'The Vehicle Leasing Experts',
               titleTag: 'h2',
               body:
                 'Brand New Cars, In Stock Delivered Fast and Free From Just £115pm',
-              image: null,
+              image: {
+                title: 'hero-placeholder-home',
+                file: {
+                  url:
+                    '//images.ctfassets.net/3xid768u5joa/019f3SEZOZmrp4IAj7bS2a/9d737a81502fac89dc0276fbda8e6a2b/hero-placeholder.png',
+                },
+              },
             },
             leadText: {
               heading: 'Best Vehicle Lease Deals In The UK',
@@ -55,7 +80,7 @@ const mocked: MockedResponse[] = [
                   title: null,
                   titleTag: 'h2',
                   body:
-                    'Find the perfect van lease for your business with a huge range of brand new, in-stock commercial vehicles to choose from at unbeatable prices.',
+                    'Find the perfect van lease for your business with a huge range of brand new, in-stock commercial vehicles to choose from at unbeatable prices.\n',
                   image: {
                     file: {
                       url:
@@ -70,9 +95,9 @@ const mocked: MockedResponse[] = [
                 },
                 {
                   title: null,
-                  titleTag: null,
+                  titleTag: 'h2',
                   body:
-                    'Choose your next brand new pickup truck from our massive range of cutting-edge models from all the biggest manufacturers.',
+                    'Choose your next brand new pickup truck from our massive range of cutting-edge models from all the biggest manufacturers.\n',
                   image: {
                     file: {
                       url:
@@ -86,10 +111,10 @@ const mocked: MockedResponse[] = [
                   },
                 },
                 {
-                  title: null,
-                  titleTag: null,
+                  title: 'Car Leasing',
+                  titleTag: 'h2',
                   body:
-                    'Drive away your brand new car with affordable monthly payments. We offer superb business & personal contract hire deals on a range of lease cars.',
+                    'Drive a brand new car with affordable monthly payments. We offer superb business & personal contract hire deals on a range of lease cars.\n',
                   image: {
                     file: {
                       url:
@@ -112,7 +137,7 @@ const mocked: MockedResponse[] = [
             },
             featured2: {
               title: 'What Makes Us The Lease Experts?',
-              titleTag: null,
+              titleTag: 'h2',
               body:
                 "Vanarama is more than just a broker or leasing company, we've been leading the market and putting our customers at the heart of everything we do for more than a decade.\n\nAfter 15 years of experience in business & personal van, pickup and car leasing, we're still pushing the industry forward & our vast buying power gives us access to a range of vehicles and lease deal pricing you can't get anywhere else.",
             },
@@ -122,10 +147,10 @@ const mocked: MockedResponse[] = [
               tilesTitle: 'Why Lease With Vanarama',
               tiles: [
                 {
-                  title: 'Price Protection',
+                  title: 'Price Promise',
                   link: null,
                   body:
-                    'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
+                    "You won't find this with any of our competitors. Honest pricing & nothing hidden.",
                   image: {
                     file: {
                       url:
@@ -138,7 +163,7 @@ const mocked: MockedResponse[] = [
                   title: 'Customer Reviews',
                   link: null,
                   body:
-                    'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
+                    'We love our customers and our customers love us, 96% of them would recommend us.',
                   image: {
                     file: {
                       url:
@@ -150,8 +175,7 @@ const mocked: MockedResponse[] = [
                 {
                   title: 'Quote Online',
                   link: null,
-                  body:
-                    'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
+                  body: 'Get your quote in seconds with iVan.',
                   image: {
                     file: {
                       url:
@@ -163,8 +187,7 @@ const mocked: MockedResponse[] = [
                 {
                   title: 'Confused About Leasing?',
                   link: null,
-                  body:
-                    'Pretium facilisi etiam pretium, cras interdum enim, nullam.',
+                  body: 'Everything you need to know is a click away.',
                   image: {
                     file: {
                       url:

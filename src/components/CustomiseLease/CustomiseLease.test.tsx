@@ -17,6 +17,7 @@ describe('<CustomiseLease />', () => {
       mileage: 6000,
       colour: 13990,
       trim: 112981,
+      screenY: 0,
       terms: [
         { label: '24', active: true },
         { label: '36', active: false },
@@ -146,6 +147,7 @@ describe('<CustomiseLease />', () => {
       isDisabled: false,
       setIsInitialLoading: jest.fn(),
       setIsDisabled: jest.fn(),
+      screenY: 0,
       data: {
         quoteByCapId: {
           colour: '13990',
@@ -240,6 +242,7 @@ describe('<CustomiseLease />', () => {
         {...mocks}
         trim={112981}
         colour={13990}
+        screenY={0}
         isDisabled={false}
         terms={[
           { label: '24', active: false },
