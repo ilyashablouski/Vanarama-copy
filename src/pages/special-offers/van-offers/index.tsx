@@ -2,19 +2,17 @@
 import { NextPage } from 'next';
 import Router from 'next/router';
 import { useQuery } from '@apollo/client';
-// import { useState } from 'react';
+import ReactMarkdown from 'react-markdown/with-html';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import AddCircle from '@vanarama/uibook/lib/assets/icons/AddCircleSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import IconList, {
-  IconListItem,
-} from '@vanarama/uibook/lib/components/organisms/icon-list';
-import BreadCrumbs from '../../../containers/BreadCrumbContainer';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 
 import { ProductCardData } from '../../../../generated/ProductCardData';
 
+import { VAN_OFFERS_CONTENT } from '../../../gql/special-offers/van-offers';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import withApollo from '../../../hocs/withApollo';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
@@ -22,9 +20,12 @@ import {
   VehicleTypeEnum,
   LeaseTypeEnum,
 } from '../../../../generated/globalTypes';
+import BreadCrumbs from '../../../containers/BreadCrumbContainer';
 import ProductCarousel from '../../../components/ProductCarousel/ProductCarousel';
 
 export const VanOffers: NextPage = () => {
+  const { data, loading, error } = useQuery(VAN_OFFERS_CONTENT);
+
   const { data: productSmallVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
@@ -112,13 +113,13 @@ export const VanOffers: NextPage = () => {
     },
   );
 
-  /* if (loading) {
+  if (loading) {
     return <Loading size="large" />;
   }
 
   if (error) {
     return <p>Error: {error.message}</p>;
-  } */
+  }
 
   return (
     <>
@@ -300,10 +301,10 @@ export const VanOffers: NextPage = () => {
       </div>
       <div className="row:text">
         <Text tag="span" size="regular" color="darker">
-          Ipsum pariatur cupidatat adipisicing sint nisi in proident non ipsum
-          reprehenderit nostrud amet ea deserunt excepteur cillum nisi ipsum non
-          occaecat cillum tempor excepteur fugiat commodo sit irure commodo
-          adipisicing
+          <ReactMarkdown
+            escapeHtml={false}
+            source={data?.VanOffersPage.body || ''}
+          />
         </Text>
       </div>
       <div className="row:icon-list">
@@ -311,57 +312,26 @@ export const VanOffers: NextPage = () => {
           Best New Van Deals
         </Heading>
         <hr />
-        <IconList>
-          <IconListItem iconColor="orange" listIcon={<AddCircle />}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt.
-          </IconListItem>
-          <IconListItem iconColor="orange" listIcon={<AddCircle />}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt.
-          </IconListItem>
-          <IconListItem iconColor="orange" listIcon={<AddCircle />}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt.
-          </IconListItem>
-          <IconListItem iconColor="orange" listIcon={<AddCircle />}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt.
-          </IconListItem>
-          <IconListItem iconColor="orange" listIcon={<AddCircle />}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt.
-          </IconListItem>
-          <IconListItem iconColor="orange" listIcon={<AddCircle />}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt.
-          </IconListItem>
-          <IconListItem iconColor="orange" listIcon={<AddCircle />}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt.
-          </IconListItem>
-        </IconList>
+        {data?.VanOffersPage.sections.iconBullets?.iconBullets?.map(
+          (item, idx: number) => (
+            <div key={item.text || idx}>
+              <AddCircle />
+              <Text size="regular" color="darker">
+                {item.text}
+              </Text>
+            </div>
+          ),
+        )}
       </div>
       <div className="row:text">
         <Heading size="large" color="black">
           Text Row Heading
         </Heading>
         <div>
-          <Text tag="p" size="regular" color="darker">
-            At Vanarama, we have a range of funders offering new van finance
-            including contract hire with various options to suit you and your
-            business needs, including Contract Hire, Finance Lease and Contract
-            Purchase. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Hic nisi ab odio perspiciatis, veritatis nulla eaque tempore.
-          </Text>
-          <Text tag="p" size="regular" color="darker">
-            Repellendus, rem! Minima voluptatibus obcaecati incidunt expedita
-            dignissimos? Vanarama can also arrange personal van finance if
-            that&apos;s what you require. We understand the importance of your
-            new van purchase and we want to make sure the process of arranging
-            finance for your new vehicle is as simple and seamless as possible
-            for you.
-          </Text>
+          <ReactMarkdown
+            escapeHtml={false}
+            source={data?.VanOffersPage.sections.featured?.body || ''}
+          />
         </div>
       </div>
       <div className="row:text">

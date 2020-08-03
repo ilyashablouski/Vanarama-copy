@@ -4,6 +4,7 @@ import preloadAll from 'jest-next-dynamic';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import Router from 'next/router';
+import { VAN_OFFERS_CONTENT } from '../../../gql/special-offers/van-offers';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import { VanOffers } from '../../../pages/special-offers/van-offers';
 import { ProductCardData } from '../../../../generated/ProductCardData';
@@ -19,6 +20,35 @@ jest.mock('../../../containers/BreadCrumbContainer', () => () => {
 jest.mock('next/router', () => ({ push: jest.fn() }));
 
 const mocked: MockedResponse[] = [
+  {
+    request: {
+      query: VAN_OFFERS_CONTENT,
+    },
+    result: () => {
+      return {
+        data: {
+          VanOffersPage: {
+            id: '',
+            body: 'van offers page mocked body',
+            sections: {
+              featured: {
+                body: 'van offers page featured mocked body...',
+              },
+              iconBullets: {
+                title: 'Best New Van Deals',
+                iconBullets: [
+                  {
+                    text:
+                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.',
+                  },
+                ],
+              },
+            },
+          },
+        },
+      };
+    },
+  },
   {
     request: {
       query: PRODUCT_CARD_CONTENT,
@@ -391,6 +421,9 @@ describe('<VanOffers />', () => {
 
   it('should successfully query all VanOffers data', async () => {
     await waitFor(() => {
+      expect(
+        screen.getByText('van offers page featured mocked body...'),
+      ).toBeInTheDocument();
       expect(
         screen.getByText('2.0 TDI BMT 102 Highline Kombi Van Euro 6'),
       ).toBeInTheDocument();
