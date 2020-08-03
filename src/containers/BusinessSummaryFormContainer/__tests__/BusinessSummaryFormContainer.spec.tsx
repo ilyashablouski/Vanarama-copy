@@ -4,6 +4,7 @@ import React from 'react';
 import BusinessSummaryFormContainer from '../BusinessSummaryFormContainer';
 import createCompanyData from '../__fixtures__/testCompanyData';
 
+// ARRANGE
 const mockPush = jest.fn();
 jest.mock('next/router', () => ({
   useRouter() {
@@ -16,16 +17,18 @@ jest.mock('next/router', () => ({
 jest.mock('../gql');
 
 const mockParams = {
-  personUuid: 'ad0f772b-eded-483a-96be-18ea4e67948d',
-  companyUuid: 'ad0f772b-eded-483a-96be-18ea4e67948d',
-  orderId: 'ad0f772b-eded-483a-96be-18ea4e67948d',
+  personUuid: '895f87bc-14bf-407b-91c1-42ae3ebfb9e2',
+  companyUuid: 'c4e8c130-8c71-4eeb-b2a8-b161426ef3a7',
+  orderId: 'bf87b571-9846-49db-bd37-2c05c127efe8',
 };
 
+const mocks = [
+  createCompanyData(mockParams.companyUuid, mockParams.personUuid),
+];
+
 describe('<BusinessSummaryFormContainer />', () => {
-  xit('should render company details correctly', async () => {
+  it('should render company details correctly', async () => {
     // ARRANGE
-    const uuid = 'ad0f772b-eded-483a-96be-18ea4e67948d';
-    const mocks = [createCompanyData(uuid)];
 
     // ACT
     render(
@@ -70,11 +73,7 @@ describe('<BusinessSummaryFormContainer />', () => {
     );
   });
 
-  xit('should render VAT details correctly', async () => {
-    // ARRANGE
-    const uuid = 'ad0f772b-eded-483a-96be-18ea4e67948d';
-    const mocks = [createCompanyData(uuid)];
-
+  it('should render VAT details correctly', async () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
@@ -99,11 +98,7 @@ describe('<BusinessSummaryFormContainer />', () => {
     );
   });
 
-  xit('should render company bank details correctly', async () => {
-    // ARRANGE
-    const uuid = 'ad0f772b-eded-483a-96be-18ea4e67948d';
-    const mocks = [createCompanyData(uuid)];
-
+  it('should render company bank details correctly', async () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
@@ -128,11 +123,7 @@ describe('<BusinessSummaryFormContainer />', () => {
     );
   });
 
-  xit('should render directors correctly and sorted by sharehold percentage desc', async () => {
-    // ARRANGE
-    const uuid = 'ad0f772b-eded-483a-96be-18ea4e67948d';
-    const mocks = [createCompanyData(uuid)];
-
+  it('should render directors correctly and sorted by sharehold percentage desc', async () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
@@ -184,11 +175,7 @@ describe('<BusinessSummaryFormContainer />', () => {
     ).toHaveTextContent('Owned with mortgage');
   });
 
-  xit('should redirect to the thank you page when clicking "Continue"', async () => {
-    // ARRANGE
-    const uuid = 'ad0f772b-eded-483a-96be-18ea4e67948d';
-    const mocks = [createCompanyData(uuid)];
-
+  it('should redirect to the thank you page when clicking "Continue"', async () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
@@ -206,11 +193,7 @@ describe('<BusinessSummaryFormContainer />', () => {
     expect(mockPush).toHaveBeenCalledWith('/olaf/thank-you');
   });
 
-  xit('should redirect to about page when clicking "Edit" on the "Your Details" section', async () => {
-    // ARRANGE
-    const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
-    const mocks = [createCompanyData(uuid)];
-
+  it('should redirect to about page when clicking "Edit" on the "Your Details" section', async () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
@@ -231,11 +214,7 @@ describe('<BusinessSummaryFormContainer />', () => {
     );
   });
 
-  xit('should redirect to employment history page when clicking "Edit" on the "Employment History" section', async () => {
-    // ARRANGE
-    const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
-    const mocks = [createCompanyData(uuid)];
-
+  it('should redirect to employment history page when clicking "Edit" on the "Employment History" section', async () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
@@ -256,11 +235,7 @@ describe('<BusinessSummaryFormContainer />', () => {
     );
   });
 
-  xit('should redirect to expenses page when clicking "Edit" on the "Monthly Income" section', async () => {
-    // ARRANGE
-    const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
-    const mocks = [createCompanyData(uuid)];
-
+  it('should redirect to expenses page when clicking "Edit" on the "Monthly Income" section', async () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
@@ -281,11 +256,7 @@ describe('<BusinessSummaryFormContainer />', () => {
     );
   });
 
-  xit('should redirect to bank details page when clicking "Edit" on the "Bank Details" section', async () => {
-    // ARRANGE
-    const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
-    const mocks = [createCompanyData(uuid)];
-
+  it('should redirect to bank details page when clicking "Edit" on the "Bank Details" section', async () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>

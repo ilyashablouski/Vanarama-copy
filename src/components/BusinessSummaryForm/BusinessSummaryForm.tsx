@@ -3,7 +3,7 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { gql } from '@apollo/client';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import FCWithFragments from '../../utils/FCWithFragments';
 import BusinessSummaryFormBankDetailsSection from './BusinessSummaryFormBankDetailsSection';
 import BusinessSummaryFormDetailsSection from './BusinessSummaryFormDetailsSection';
@@ -32,41 +32,53 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
     company.bankAccounts.length &&
     company.bankAccounts[company.bankAccounts.length - 1];
 
-  const handleEdit = (
-    url: string,
-    additionalParameters?: { [key: string]: string },
-  ) => () => {
-    const params = getUrlParam({
-      orderId,
-      redirect: 'summary',
-      ...additionalParameters,
-    });
-    const href = `${url}${params}`;
-    router.push(
-      href,
-      href
-        .replace('[companyUuid]', company.uuid)
-        .replace('[personUuid]', person.uuid),
-    );
-  };
+  const handleEdit = useCallback(
+    (url: string, additionalParameters?: { [key: string]: string }) => () => {
+      const params = getUrlParam({
+        orderId,
+        redirect: 'summary',
+        ...additionalParameters,
+      });
+      const href = `${url}${params}`;
+      router.push(
+        href,
+        href
+          .replace('[companyUuid]', company.uuid)
+          .replace('[personUuid]', person.uuid),
+      );
+    },
+    [company.uuid, orderId, person.uuid, router],
+  );
 
-  const directors =
-    (company.associates &&
-      company.associates.length &&
-      company.associates
-        .slice()
-        .sort((a, b) => (b.businessShare || 0) - (a.businessShare || 0))
-        .map((d, i) => (
-          <BusinessSummaryFormDirectorDetailsSection
-            director={d}
-            orderBySharehold={i}
-            onEdit={handleEdit('/b2b/olaf/director-details/[companyUuid]', {
-              directorUuid: d.uuid,
-            })}
-            key={d.uuid}
-          />
-        ))) ||
-    null;
+  const directors = useMemo(
+    () =>
+      (company.associates &&
+        company.associates.length &&
+        company.associates
+          .slice()
+          .sort((a, b) => (b.businessShare || 0) - (a.businessShare || 0))
+          .map((d, i) => (
+            <BusinessSummaryFormDirectorDetailsSection
+              director={d}
+              orderBySharehold={i}
+              onEdit={handleEdit('/b2b/olaf/director-details/[companyUuid]', {
+                directorUuid: d.uuid,
+              })}
+              key={d.uuid}
+            />
+          ))) ||
+      null,
+    [company.associates, handleEdit],
+  );
+
+  const onButtonPressed = useCallback(
+    () =>
+      router.push(
+        '/olaf/thank-you/[orderId]',
+        '/olaf/thank-you/[orderId]'.replace('[orderId]', orderId),
+      ),
+    [router, orderId],
+  );
 
   return (
     <div>
@@ -122,12 +134,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
         color="teal"
         label="Continue"
         dataTestId="olaf_summary_continue_buttton"
-        onClick={() => {
-          router.push(
-            '/olaf/thank-you/[orderId]',
-            '/olaf/thank-you/[orderId]'.replace('[orderId]', orderId),
-          );
-        }}
+        onClick={onButtonPressed}
       />
     </div>
   );

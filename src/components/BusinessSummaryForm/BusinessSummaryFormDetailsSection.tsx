@@ -11,6 +11,9 @@ interface IProps {
   onEdit: () => any;
 }
 
+const parseTelephone = (number: string) =>
+  `${number.slice(0, 5)} ${number.slice(5)}` || '';
+
 const SummaryFormDetailsSection: FCWithFragments<IProps> = ({
   onEdit,
   company,
@@ -33,62 +36,61 @@ const SummaryFormDetailsSection: FCWithFragments<IProps> = ({
       ? company.emailAddresses[0].value
       : company.emailAddresses.find(_ => _.primary)?.value || '';
 
+  const list = [
+    {
+      label: 'Business Name',
+      value: company.legalName || '',
+      dataTestId: 'summary-business-name',
+    },
+    {
+      label: 'Business Registration Number',
+      value: company.companyNumber || '',
+      dataTestId: 'summary-company-number',
+    },
+    {
+      label: 'Nature of Business',
+      value: company.companyNature || '',
+      dataTestId: 'summary-business-nature',
+    },
+    {
+      label: 'Registered Address',
+      value: registratedAddress,
+      dataTestId: 'summary-registered-address',
+    },
+    {
+      label: 'Trading Address',
+      value: tradingAddress,
+      dataTestId: 'summary-trading-address',
+    },
+    {
+      label: 'Trading Since',
+      value: moment(company.tradingSince).format('MMMM YYYY') || '',
+      dataTestId: 'summary-trading-since',
+    },
+    {
+      label: 'Business Telephone Number',
+      value:
+        (company.telephoneNumbers?.length &&
+          company.telephoneNumbers[0].value &&
+          parseTelephone(company.telephoneNumbers[0].value)) ||
+        '',
+      dataTestId: 'summary-telephone-number',
+    },
+    {
+      label: 'Email',
+      value: companyEmail,
+      name: 'summary-email-address',
+      dataTestId: 'summary-email-address',
+    },
+  ];
+
   return (
     <>
       <StructuredList
         editable
         editDataTestId="edit-company-details"
         onEditClicked={onEdit}
-        list={[
-          {
-            label: 'Business Name',
-            value: company.legalName || '',
-            dataTestId: 'summary-business-name',
-          },
-          {
-            label: 'Business Registration Number',
-            value: company.companyNumber || '',
-            dataTestId: 'summary-company-number',
-          },
-          {
-            label: 'Nature of Business',
-            value: company.companyNature || '',
-            dataTestId: 'summary-business-nature',
-          },
-          {
-            label: 'Registered Address',
-            value: registratedAddress,
-            dataTestId: 'summary-registered-address',
-          },
-          {
-            label: 'Trading Address',
-            value: tradingAddress,
-            dataTestId: 'summary-trading-address',
-          },
-          {
-            label: 'Trading Since',
-            value: moment(company.tradingSince).format('MMMM YYYY') || '',
-            dataTestId: 'summary-trading-since',
-          },
-          {
-            label: 'Business Telephone Number',
-            value:
-              (company.telephoneNumbers?.length &&
-                company.telephoneNumbers[0].value &&
-                `${company.telephoneNumbers[0].value.slice(
-                  0,
-                  5,
-                )} ${company.telephoneNumbers[0].value.slice(5)}`) ||
-              '',
-            dataTestId: 'summary-telephone-number',
-          },
-          {
-            label: 'Email',
-            value: companyEmail,
-            name: 'summary-email-address',
-            dataTestId: 'summary-email-address',
-          },
-        ]}
+        list={list}
         heading="Company Details"
         headingDataTestId="company_details_heading_data_testId"
         headingSize="large"

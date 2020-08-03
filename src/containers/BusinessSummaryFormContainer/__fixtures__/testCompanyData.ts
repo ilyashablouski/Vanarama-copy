@@ -6,73 +6,49 @@ import {
 } from '../../../../generated/GetCompanySummaryQuery';
 import { GET_COMPANY_SUMMARY } from '../gql';
 
-export default (uuid: string) =>
+export default (uuid: string, personUuid: string) =>
   ({
     request: {
       query: GET_COMPANY_SUMMARY,
       variables: {
         uuid,
+        personUuid,
       } as GetCompanySummaryQueryVariables,
     },
     result: {
       data: {
         companyByUuid: {
-          __typename: 'CompanyType',
-          uuid: 'ad0f772b-eded-483a-96be-18ea4e67948d',
-          legalName: 'Nastia Test2',
-          companyNumber: '09876546',
-          companyNature: 'Fairy tale',
-          tradingSince: '2005-02-01',
-          tradesOutsideUk: true,
-          isVatRegistered: true,
-          vatNumber: '123456789',
-          turnoverPercentageOutsideUk: [
+          bankAccounts: [
             {
-              country: 'Belarus',
-              percentage: '30',
-            },
-            {
-              country: 'Vanuatu',
-              percentage: '10',
+              __typename: 'BankAccountType',
+              uuid: 'c5939b96-2854-444b-9aec-52d634581eb0',
+              accountName: 'Eternal account',
+              accountNumber: '01234567',
+              joinedAt: '2007-08-01',
+              sortCode: '433335',
+              updatedAt: '2020-07-31T14:35:52.872+00:00',
             },
           ],
           associates: [
             {
-              uuid: 'fb9cd864-9667-4a71-9808-98709cda5875',
-              title: 'Mr',
-              firstName: 'Codrut Constantin',
-              lastName: 'ABAZA',
-              gender: 'Male',
-              dateOfBirth: '1981-09-16',
-              noOfDependants: 'None',
-              businessShare: 30,
-              roles: [
-                {
-                  position: 'director',
-                },
-              ],
-              addresses: [
-                {
-                  serviceId: 'GB|RM|A|17306875',
-                  propertyStatus: 'Rented',
-                  startedOn: '2004-10-01',
-                  city: 'Norwich',
-                  lineOne: 'Flat 3',
-                  lineTwo: 'Ivory House',
-                  postcode: 'NR1 3NB',
-                },
-              ],
-            },
-            {
               uuid: '895f87bc-14bf-407b-91c1-42ae3ebfb9e2',
               title: 'Miss',
-              firstName: 'Anastasiya',
-              lastName: 'Harbuz',
+              firstName: 'Nastya',
+              lastName: 'Garbuz',
               gender: 'Female',
-              dateOfBirth: '1999-02-17',
+              dateOfBirth: '1999-02-03',
               noOfDependants: 'None',
               businessShare: 40,
               roles: [
+                {
+                  position: null,
+                },
+                {
+                  position: null,
+                },
+                {
+                  position: null,
+                },
                 {
                   position: null,
                 },
@@ -84,7 +60,7 @@ export default (uuid: string) =>
                 {
                   serviceId: 'GB|RM|A|27452128|A1',
                   propertyStatus: 'Owned with mortgage',
-                  startedOn: '2007-02-01',
+                  startedOn: '2008-02-01',
                   city: 'York',
                   lineOne: 'Sky View',
                   lineTwo: '5 Harrogate Road',
@@ -93,83 +69,83 @@ export default (uuid: string) =>
               ],
             },
           ],
-          addresses: [
+          uuid: 'c4e8c130-8c71-4eeb-b2a8-b161426ef3a7',
+          isVatRegistered: true,
+          tradesOutsideUk: true,
+          turnoverPercentageOutsideUk: [
             {
-              uuid: 'd3bbe72e-c785-45a0-a282-dbbc06efdea3',
-              kind: 'trading',
-              lineOne: 'Sadlers Farm',
-              lineTwo: 'Lower Pennington Lane',
-              country: 'GB',
-              city: 'Lymington',
-              postcode: 'SO41 8AL',
+              country: 'Azerbaijan',
+              percentage: '12',
             },
             {
-              uuid: '7826b870-dd25-4d43-a312-9f323e678638',
+              country: 'French Polynesia',
+              percentage: '34',
+            },
+          ],
+          vatNumber: '123456789',
+          __typename: 'CompanyType',
+          legalName: '12345 LIMITED',
+          companyNumber: '03799306',
+          companyNature: 'IT',
+          tradingSince: '1999-07-01',
+          addresses: [
+            {
+              serviceId: 'GB|RM|B|20230758|A1',
+              uuid: 'f3508691-e47d-4208-a637-b47a5eef7b02',
               kind: 'registered',
-              lineOne: 'Desafinado',
-              lineTwo: '15 Mill Bridge Close',
+              lineOne: '4 Keymer Court',
+              lineTwo: '',
               country: 'GB',
-              city: 'Crewe',
-              postcode: 'CW1 5DZ',
+              city: 'Burgess Hill',
+              postcode: 'RH15 0AA',
             },
           ],
           emailAddresses: [
             {
-              uuid: 'a1ba04ed-222b-4005-845f-c0a421b9f8ae',
+              uuid: '0f7c0a3e-7930-4823-895b-07c79fd7f02f',
               kind: 'Home',
-              value: 'a.harbuz81@reply.com',
-              primary: false,
+              value: 'a.harbuz121@reply.com',
+              primary: true,
             },
           ],
           telephoneNumbers: [
             {
-              uuid: 'c803bf5b-4bf2-4164-bd9e-e892a933111d',
+              uuid: 'e58c66c5-1bea-45e1-89f6-0af202d3660e',
               kind: 'Mobile',
-              value: '09876543211',
+              value: '00000000000',
               primary: true,
-            },
-          ],
-          bankAccounts: [
-            {
-              __typename: 'BankAccountType',
-              uuid: 'aeabbbeb-007c-4b3c-b56f-2a02da347e7f',
-              accountName: 'Nastia',
-              accountNumber: '12345678',
-              joinedAt: '2006-03-01',
-              sortCode: '112233',
-              updatedAt: '2020-07-20T14:14:25.317+00:00',
             },
           ],
         },
         personByUuid: {
           __typename: 'PersonType',
-          uuid: 'uuid',
-          title: null,
-          firstName: 'firstName',
-          lastName: 'lastName',
+          uuid: '895f87bc-14bf-407b-91c1-42ae3ebfb9e2',
+          title: 'Miss',
+          firstName: 'Nastya',
+          lastName: 'Garbuz',
           emailAddresses: [
             {
               __typename: 'EmailAddressType',
-              uuid: 'uuid',
+              uuid: '5ba1d32d-b704-441e-a3de-b4c4c8effc0c',
               primary: true,
-              value: 'value',
+              value: 'a.harbuz@reply.com',
             },
           ],
           telephoneNumbers: [
             {
               __typename: 'TelephoneNumberType',
-              uuid: 'uuid',
-              kind: 'kind',
-              value: 'value',
+              uuid: '6e007ebc-acfd-4bcc-8545-52e978980c9d',
+              kind: 'Mobile',
+              value: '09876543213',
             },
           ],
-          dateOfBirth: null,
-          countryOfBirth: null,
-          nationality: null,
-          maritalStatus: null,
-          noOfAdultsInHousehold: null,
-          noOfDependants: null,
-          emailConsent: null,
+          dateOfBirth: '1999-02-03',
+          countryOfBirth: 'Belarus',
+          nationality: 'Belarusian',
+          maritalStatus: 'Single',
+          noOfAdultsInHousehold: '1',
+          noOfDependants: 'None',
+          emailConsent: false,
         },
       } as GetCompanySummaryQuery,
     },
