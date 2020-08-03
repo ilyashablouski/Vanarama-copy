@@ -4,15 +4,17 @@ import Router from 'next/router';
 import { useQuery } from '@apollo/client';
 import ReactMarkdown from 'react-markdown/with-html';
 import { getDataFromTree } from '@apollo/react-ssr';
+
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
+import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import AddCircle from '@vanarama/uibook/lib/assets/icons/AddCircleSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 
 import { ProductCardData } from '../../../../generated/ProductCardData';
-
-import { VAN_OFFERS_CONTENT } from '../../../gql/special-offers/vanOffers';
+import { VanOffersPageData } from '../../../../generated/VanOffersPageData';
+import { VAN_OFFERS_CONTENT } from '../../../gql/special-offers/van-offers';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import withApollo from '../../../hocs/withApollo';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
@@ -24,7 +26,9 @@ import BreadCrumbs from '../../../containers/BreadCrumbContainer';
 import ProductCarousel from '../../../components/ProductCarousel/ProductCarousel';
 
 export const VanOffers: NextPage = () => {
-  const { data, loading, error } = useQuery(VAN_OFFERS_CONTENT);
+  const { data, loading, error } = useQuery<VanOffersPageData>(
+    VAN_OFFERS_CONTENT,
+  );
 
   const { data: productSmallVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
@@ -303,7 +307,7 @@ export const VanOffers: NextPage = () => {
         <Text tag="span" size="regular" color="darker">
           <ReactMarkdown
             escapeHtml={false}
-            source={data?.VanOffersPage.body || ''}
+            source={data?.vanOffersPage.body || ''}
           />
         </Text>
       </div>
@@ -312,14 +316,19 @@ export const VanOffers: NextPage = () => {
           Best New Van Deals
         </Heading>
         <hr />
-        {data?.VanOffersPage.sections.iconBullets?.iconBullets?.map(
+        {data?.vanOffersPage.sections.iconBullets?.iconBullets?.map(
           (item, idx: number) => (
-            <div key={item.text || idx}>
-              <AddCircle />
-              <Text size="regular" color="darker">
-                {item.text}
+            <>
+              <Icon
+                key={`${item?.text}-icon` || `${idx}-icon`}
+                icon={<AddCircle />}
+                color="orange"
+                size="large"
+              />
+              <Text key={`${item?.text}-text`} size="regular" color="darker">
+                {item?.text}
               </Text>
-            </div>
+            </>
           ),
         )}
       </div>
@@ -330,7 +339,7 @@ export const VanOffers: NextPage = () => {
         <div>
           <ReactMarkdown
             escapeHtml={false}
-            source={data?.VanOffersPage.sections.featured?.body || ''}
+            source={data?.vanOffersPage.sections.featured?.body || ''}
           />
         </div>
       </div>

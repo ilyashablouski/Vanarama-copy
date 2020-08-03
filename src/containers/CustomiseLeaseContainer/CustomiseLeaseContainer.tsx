@@ -48,6 +48,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [isInitialLoading, setIsInitialLoading] = useState<boolean>(false);
   const [showCallBackForm, setShowCallBackForm] = useState<boolean>(false);
+  const [screenY, setScreenY] = useState<number | null>(null);
   const { data, error, loading, refetch } = useQuoteData({
     capId: `${capId}`,
     vehicleType,
@@ -67,6 +68,15 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     setTrim(trim || +(data?.quoteByCapId?.trim || 0));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
+
+  const scrollChange = () => {
+    setScreenY(window.pageYOffset);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', scrollChange);
+    return () => window.removeEventListener('scroll', scrollChange);
+  }, []);
 
   useEffect(() => {
     if (isInitialLoading) {
@@ -195,6 +205,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         setIsModalShowing={setIsModalShowing}
         setIsInitialLoading={setIsInitialLoading}
         lineItem={lineItem()}
+        screenY={screenY}
         onSubmit={values => onCompleted(values)}
         showCallBackForm={() => setShowCallBackForm(true)}
       />
