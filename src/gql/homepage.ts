@@ -4,15 +4,23 @@ const ALL_HOME_CONTENT = gql`
   query HomePageData {
     homePage {
       id
-      metaData {
-        title
-        metaDescription
-        legacyUrl
-        featuredImage {
-          file {
-            url
+      featuredImage {
+        file {
+          url
+          details {
+            image {
+              width
+              height
+            }
           }
         }
+      }
+      metaData {
+        title
+        metaRobots
+        metaDescription
+        publishedOn
+        legacyUrl
       }
       sections {
         hero {
