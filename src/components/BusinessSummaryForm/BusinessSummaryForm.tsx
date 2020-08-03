@@ -42,7 +42,12 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
       ...additionalParameters,
     });
     const href = `${url}${params}`;
-    router.push(href, href.replace('[companyUuid]', company.uuid).replace('[personUuid]', person.uuid));
+    router.push(
+      href,
+      href
+        .replace('[companyUuid]', company.uuid)
+        .replace('[personUuid]', person.uuid),
+    );
   };
 
   const directors =
@@ -102,9 +107,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
           Director Details
         </Heading>
         <hr />
-        <div>
-          {directors}
-        </div>
+        <div>{directors}</div>
         {primaryBankAccount && (
           <BusinessSummaryFormBankDetailsSection
             account={primaryBankAccount}

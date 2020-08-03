@@ -3,6 +3,7 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import React, { useState, useMemo } from 'react';
 import { FormContext, OnSubmit, useForm } from 'react-hook-form';
+import moment from 'moment';
 import { SearchCompaniesQuery_searchCompanies_nodes as SearchResult } from '../../../generated/SearchCompaniesQuery';
 import CompanyCard from './CompanyCard';
 import CompanyDetailsFormFields from './CompanyDetailsFormFields';
@@ -14,52 +15,68 @@ import {
 } from './interfaces';
 import SearchActions from './SearchActions';
 import { SummaryFormDetailsSectionCompany } from '../../../generated/SummaryFormDetailsSectionCompany';
-import moment from 'moment';
 import { addressToDisplay } from '../../utils/address';
 
 interface IProps {
   onSubmit: OnSubmit<SubmissionValues>;
   company?: SummaryFormDetailsSectionCompany | null;
+  isEdited: boolean;
 }
 
-const CompanyDetailsForm: React.FC<IProps> = ({ onSubmit, company }) => {
+const CompanyDetailsForm: React.FC<IProps> = ({
+  onSubmit,
+  company,
+  isEdited,
+}) => {
   const [companySearchTerm, setCompanySearchTerm] = useState('');
   const [hasConfirmedCompany, setHasConfirmedCompany] = useState(false);
-  const [inputMode, setInputMode] = useState<InputMode>(company ? 'search' : 'manual');
+  const [inputMode, setInputMode] = useState<InputMode>(
+    company ? 'search' : 'manual',
+  );
 
-  const tradingSince = company?.tradingSince && moment(company.tradingSince) || undefined;
-  const registeredAddresses = company?.addresses && company.addresses.filter(a => a.kind === 'registered');
-  const registeredAddress = registeredAddresses
-    && registeredAddresses[0]
-    && { 
-      id: registeredAddresses[0].serviceId || '', 
-      label: addressToDisplay(registeredAddresses[0]) 
-    }
-    || undefined;
-  const tradingAddresses = company?.addresses && company.addresses.filter(a => a.kind === 'trading');
-  const tradingAddress = tradingAddresses
-    && tradingAddresses[0]
-    && { 
-      id: tradingAddresses[0].serviceId || '', 
-      label: addressToDisplay(tradingAddresses[0]) 
-    }
-    || registeredAddress
-    || undefined;
-  const defaultValues = useMemo(() => ({
-    companyName: company?.legalName || '',
-    companyNumber: company?.companyNumber || '',
-    tradingSinceMonth: tradingSince && (tradingSince.month() + 1).toString(),
-    tradingSinceYear: tradingSince && tradingSince.year().toString(),
-    nature: company?.companyNature || '',
-    registeredAddress,
-    tradingAddress,
-    tradingDifferent: registeredAddress && registeredAddress !== tradingAddress || false,
-    telephone: company?.telephoneNumbers && company?.telephoneNumbers[0].value || '',
-    email: company?.emailAddresses && company?.emailAddresses[0].value || '',
-  }), [company, tradingSince]);
+  const tradingSince =
+    (company?.tradingSince && moment(company.tradingSince)) || undefined;
+  const registeredAddresses =
+    company?.addresses &&
+    company.addresses.filter(a => a.kind === 'registered');
+  const registeredAddress =
+    (registeredAddresses &&
+      registeredAddresses[0] && {
+        id: registeredAddresses[0].serviceId || '',
+        label: addressToDisplay(registeredAddresses[0]),
+      }) ||
+    undefined;
+  const tradingAddresses =
+    company?.addresses && company.addresses.filter(a => a.kind === 'trading');
+  const tradingAddress =
+    (tradingAddresses &&
+      tradingAddresses[0] && {
+        id: tradingAddresses[0].serviceId || '',
+        label: addressToDisplay(tradingAddresses[0]),
+      }) ||
+    registeredAddress ||
+    undefined;
+  const defaultValues = useMemo(
+    () => ({
+      companyName: company?.legalName || '',
+      companyNumber: company?.companyNumber || '',
+      tradingSinceMonth: tradingSince && (tradingSince.month() + 1).toString(),
+      tradingSinceYear: tradingSince && tradingSince.year().toString(),
+      nature: company?.companyNature || '',
+      registeredAddress,
+      tradingAddress,
+      tradingDifferent:
+        (registeredAddress && registeredAddress !== tradingAddress) || false,
+      telephone:
+        (company?.telephoneNumbers && company?.telephoneNumbers[0].value) || '',
+      email:
+        (company?.emailAddresses && company?.emailAddresses[0].value) || '',
+    }),
+    [company, tradingSince, registeredAddress, tradingAddress],
+  );
   const methods = useForm<ICompanyDetailsFormValues>({
     mode: 'onBlur',
-    defaultValues
+    defaultValues,
   });
 
   const companySearchResult = methods.watch('companySearchResult');
@@ -74,8 +91,8 @@ const CompanyDetailsForm: React.FC<IProps> = ({ onSubmit, company }) => {
     clearSearchResult();
   };
 
-  const handleCompanySelect = (company: SearchResult) => {
-    methods.setValue('companySearchResult', company, true);
+  const handleCompanySelect = (selectedCompany: SearchResult) => {
+    methods.setValue('companySearchResult', selectedCompany, true);
     setInputMode('search');
   };
 
@@ -121,7 +138,11 @@ const CompanyDetailsForm: React.FC<IProps> = ({ onSubmit, company }) => {
       )}
       {(hasConfirmedCompany || inputMode === 'manual') && (
         <FormContext {...methods}>
-          <CompanyDetailsFormFields defaultValues={defaultValues} inputMode={inputMode} />
+          <CompanyDetailsFormFields
+            isEdited={isEdited}
+            defaultValues={defaultValues}
+            inputMode={inputMode}
+          />
         </FormContext>
       )}
     </Form>

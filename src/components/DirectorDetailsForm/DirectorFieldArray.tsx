@@ -4,10 +4,34 @@ import { FieldArray, FieldArrayRenderProps, useFormikContext } from 'formik';
 import React from 'react';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import { DirectorFieldsDropDownData } from '../../../generated/DirectorFieldsDropDownData';
-import { GetDirectorDetailsQuery_companyOfficers_nodes as DirectorFieldsOfficer } from '../../../generated/GetDirectorDetailsQuery';
 import DirectorFields from './DirectorFields';
 import { DirectorDetailsFormValues, DirectorFormValues } from './interfaces';
-import { CompanyAssociate } from '../../../generated/CompanyAssociate';
+
+const handleDirectorSelected = (
+  fullname: string,
+  arrayHelpers: FieldArrayRenderProps,
+  directors: DirectorFormValues[],
+) => {
+  const [lastName, firstName] = fullname.split(', ');
+  const selected = directors.find(
+    director =>
+      director.firstName === firstName && director.lastName === lastName,
+  );
+  arrayHelpers.push(
+    selected || {
+      title: '',
+      firstName,
+      lastName,
+      gender: '',
+      shareOfBusiness: '',
+      dayOfBirth: '',
+      monthOfBirth: '',
+      yearOfBirth: '',
+      numberOfDependants: '',
+      history: [],
+    },
+  );
+};
 
 type Props = {
   dropdownData: DirectorFieldsDropDownData;
@@ -63,14 +87,20 @@ export default function DirectorFieldArray({ dropdownData, directors }: Props) {
                 aria-label="Select director"
                 placeholder="Select Director..."
                 onChange={e =>
-                  handleDirectorSelected(e.target.value, arrayHelpers, directors)
+                  handleDirectorSelected(
+                    e.target.value,
+                    arrayHelpers,
+                    directors,
+                  )
                 }
               >
                 {directors.map(_ => (
                   <option
                     key={`${_.lastName}, ${_.firstName}`}
                     value={`${_.lastName}, ${_.firstName}`}
-                    disabled={selectedDirectors.includes(`${_.lastName}, ${_.firstName}`)}
+                    disabled={selectedDirectors.includes(
+                      `${_.lastName}, ${_.firstName}`,
+                    )}
                   >
                     {`${_.lastName}, ${_.firstName}`}
                   </option>
@@ -82,25 +112,4 @@ export default function DirectorFieldArray({ dropdownData, directors }: Props) {
       )}
     </FieldArray>
   );
-}
-
-const handleDirectorSelected = (
-  fullname: string,
-  arrayHelpers: FieldArrayRenderProps,
-  directors: DirectorFormValues[]
-) => {
-  const [lastName, firstName] = fullname.split(', ');
-  const selected = directors.find(director => director.firstName === firstName && director.lastName === lastName);
-  arrayHelpers.push(selected || {
-    title: '',
-    firstName,
-    lastName,
-    gender: '',
-    shareOfBusiness: '',
-    dayOfBirth: '',
-    monthOfBirth: '',
-    yearOfBirth: '',
-    numberOfDependants: '',
-    history: [],
-  });
 }

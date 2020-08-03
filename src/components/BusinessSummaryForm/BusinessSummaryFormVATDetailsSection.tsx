@@ -14,11 +14,11 @@ const BusinessSummaryFormVATDetailsSection: FCWithFragments<IProps> = ({
   vatDetails,
 }) => {
   const formattedPercentageData = vatDetails.turnoverPercentageOutsideUk?.reduce(
-    (prev, curr) => ({
+    (prev, curr, i) => ({
       percentage: `${parseInt(curr.percentage, 10) +
         parseInt(prev.percentage, 10)}`,
-      //line break is ignored so using comma
-      country: prev.country.concat(', ', curr.country),
+      // line break is ignored so using comma
+      country: i > 0 ? prev.country.concat(', ', curr.country) : curr.country,
     }),
     {
       percentage: '0',
@@ -37,7 +37,7 @@ const BusinessSummaryFormVATDetailsSection: FCWithFragments<IProps> = ({
           value: vatDetails.vatNumber || '',
           dataTestId: 'summary-vat-details',
         },
-        
+
         {
           label: 'Countries You Trade In',
           value:

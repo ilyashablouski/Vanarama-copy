@@ -1,5 +1,6 @@
 import { useMutation, gql, useQuery } from '@apollo/client';
 import React from 'react';
+import SummaryFormDetailsSection from '../../components/BusinessSummaryForm/BusinessSummaryFormDetailsSection';
 import {
   SaveCompanyDetailsMutation as Mutation,
   SaveCompanyDetailsMutationVariables as MutationVariables,
@@ -14,8 +15,10 @@ import { useCreateUpdateOrder } from '../../gql/order';
 import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
 import { ICompanyDetailsFormContainerProps } from './interfaces';
 import { mapFormValues } from './mappers';
-import SummaryFormDetailsSection from 'components/BusinessSummaryForm/BusinessSummaryFormDetailsSection';
-import { GetCompanyDetailsQuery, GetCompanyDetailsQueryVariables } from '../../../generated/GetCompanyDetailsQuery';
+import {
+  GetCompanyDetailsQuery,
+  GetCompanyDetailsQueryVariables,
+} from '../../../generated/GetCompanyDetailsQuery';
 
 export const SAVE_COMPANY_DETAILS = gql`
   mutation SaveCompanyDetailsMutation($input: LimitedCompanyInputObject!) {
@@ -27,12 +30,12 @@ export const SAVE_COMPANY_DETAILS = gql`
 `;
 
 export const GET_COMPANY_DETAILS = gql`
-query GetCompanyDetailsQuery($companyUuid: ID!) {
-  companyByUuid(uuid: $companyUuid) {
-    ...SummaryFormDetailsSectionCompany
+  query GetCompanyDetailsQuery($companyUuid: ID!) {
+    companyByUuid(uuid: $companyUuid) {
+      ...SummaryFormDetailsSectionCompany
+    }
   }
-}
-${SummaryFormDetailsSection.fragments.company}
+  ${SummaryFormDetailsSection.fragments.company}
 `;
 
 export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerProps> = ({
@@ -41,16 +44,15 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
   onCompleted,
   onError,
   isEdited,
-  companyUuid
+  companyUuid,
 }) => {
-
   const [saveCompanyDetails] = useMutation<Mutation, MutationVariables>(
     SAVE_COMPANY_DETAILS,
   );
-  const [createUpdateOrder] = useCreateUpdateOrder(() => { });
+  const [createUpdateOrder] = useCreateUpdateOrder(() => {});
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
     orderId,
-    () => { },
+    () => {},
   );
 
   const handleCompanyDetailsSave = (input: LimitedCompanyInputObject) =>
@@ -83,24 +85,31 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
       },
     });
 
-  const { data } = useQuery<GetCompanyDetailsQuery, GetCompanyDetailsQueryVariables>(
-    GET_COMPANY_DETAILS, {
+  const { data } = useQuery<
+    GetCompanyDetailsQuery,
+    GetCompanyDetailsQueryVariables
+  >(GET_COMPANY_DETAILS, {
     skip: !companyUuid,
     variables: {
-      companyUuid: companyUuid!
-    }
+      companyUuid: companyUuid!,
+    },
   });
 
   return (
     <CompanyDetailsForm
+      isEdited={isEdited}
       company={data?.companyByUuid}
       onSubmit={async values => {
         const mappedFormValues = mapFormValues(values, personUuid, companyUuid);
         await handleCompanyDetailsSave(mappedFormValues)
-          .then(({ data }) =>
-            handleOrderUpdate(data!.createUpdateLimitedCompany!.partyUuid)
+          .then(response =>
+            handleOrderUpdate(
+              response.data!.createUpdateLimitedCompany!.partyUuid,
+            )
               .then(() => handleCreditApplicationUpdate(mappedFormValues))
-              .then(() => onCompleted(data!.createUpdateLimitedCompany!.uuid)),
+              .then(() =>
+                onCompleted(response.data!.createUpdateLimitedCompany!.uuid),
+              ),
           )
           .catch(onError);
       }}

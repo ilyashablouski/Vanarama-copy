@@ -34,7 +34,7 @@ export const mapTelephoneNumbers = (values: SubmissionValues) => [
 export const mapFormValues = (
   values: SubmissionValues,
   personUuid: string,
-  companyUuid?: string
+  companyUuid?: string,
 ) => {
   const searchResult =
     values.inputMode === 'search' && values.companySearchResult;

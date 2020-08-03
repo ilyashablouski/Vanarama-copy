@@ -43,6 +43,13 @@ type IDirectorDetailsFormProps = {
   directorUuid?: string;
 };
 
+const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
+  if (isSubmitting) {
+    return 'Saving...';
+  }
+  return isEdited ? 'Save & Return' : 'Continue';
+};
+
 const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
   associates,
   companyNumber,
@@ -64,6 +71,7 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
 
   const officers = data?.companyOfficers?.nodes?.filter(isTruthy) || [];
   const directors = combineDirectorsData(officers, associates);
+
   return (
     <Formik<DirectorDetailsFormValues>
       initialValues={initialFormValues(directors, directorUuid)}
@@ -91,11 +99,7 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
             icon={<ChevronForwardSharp />}
             iconColor="white"
             iconPosition="after"
-            label={isSubmitting ?
-              'Saving...'
-              : directorUuid ?
-                'Save & Return'
-                : 'Continue'}
+            label={selectButtonLabel(isSubmitting, !!directorUuid)}
             size="large"
             type="submit"
           />

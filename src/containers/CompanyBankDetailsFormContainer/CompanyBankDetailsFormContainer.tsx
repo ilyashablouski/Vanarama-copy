@@ -10,13 +10,13 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   companyUuid,
   orderUuid,
   onCompleted,
-  isEdited
+  isEdited,
 }) => {
   const { loading, error, data } = useBankDetails(companyUuid);
   const [updateBankDetails] = useUpdateBankDetails(companyUuid, onCompleted);
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
     orderUuid,
-    () => { },
+    () => {},
   );
 
   if (loading) {

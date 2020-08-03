@@ -8,7 +8,7 @@ import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import SortCode from '@vanarama/uibook/lib/components/molecules/sortcode';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Controller, FieldError, useForm } from 'react-hook-form';
 import { gql } from '@apollo/client';
 import FCWithFragments from '../../utils/FCWithFragments';
@@ -20,7 +20,7 @@ import { responseToInitialFormValues } from './mappers';
 const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
   account,
   onSubmit,
-  isEdited
+  isEdited,
 }) => {
   const { handleSubmit, register, control, errors, formState } = useForm<
     ICompanyBankDetails
@@ -35,6 +35,13 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
   const sortCodeErrors = (
     ((errors?.sortCode as unknown) as (FieldError | undefined)[]) || []
   ).filter((_): _ is FieldError => Boolean(_));
+
+  const selectLabel = useMemo(() => {
+    if (isEdited) {
+      return 'Save & Return';
+    }
+    return formState.isSubmitting ? 'Saving...' : 'Continue';
+  }, [isEdited, formState.isSubmitting]);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -139,11 +146,7 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
       </FormGroup>
       <Button
         type="submit"
-        label={formState.isSubmitting ?
-          'Saving...'
-          : isEdited ?
-            'Save & Return'
-            : 'Continue'}
+        label={selectLabel}
         disabled={formState.isSubmitting}
         className="-mt-400"
         color="primary"

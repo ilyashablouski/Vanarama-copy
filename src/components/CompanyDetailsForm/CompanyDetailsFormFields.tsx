@@ -4,8 +4,8 @@ import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
 import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
-import React, { useEffect } from 'react';
-import { useFormContext, useForm } from 'react-hook-form';
+import React, { useEffect, useMemo } from 'react';
+import { useFormContext } from 'react-hook-form';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
 import AddressFormField from '../AddressFormField/AddressFormField';
 import { ICompanyDetailsFormValues, InputMode } from './interfaces';
@@ -19,18 +19,37 @@ import {
 interface IProps {
   inputMode: InputMode;
   defaultValues: Partial<ICompanyDetailsFormValues>;
+  isEdited: boolean;
 }
 
-export default function CompanyDetailsFormFields({ inputMode, defaultValues }: IProps) {
+export default function CompanyDetailsFormFields({
+  inputMode,
+  defaultValues,
+  isEdited,
+}: IProps) {
   const { formState, errors, register, watch, setValue } = useFormContext<
     ICompanyDetailsFormValues
   >();
-  //pass default values
+
+  const selectLabel = useMemo(() => {
+    if (isEdited) {
+      return 'Save & Return';
+    }
+    return formState.isSubmitting ? 'Saving...' : 'Continue';
+  }, [isEdited, formState.isSubmitting]);
+
+  // pass default values
   useEffect(() => {
-    setValue("tradingDifferent", defaultValues.tradingDifferent || false);
-    Object.entries(defaultValues).forEach(([key, value]) => setValue(key, value));
-  }, [defaultValues.companyName])
-  const tradingDifferent = watch('tradingDifferent', defaultValues.tradingDifferent || false);
+    setValue('tradingDifferent', defaultValues.tradingDifferent || false);
+    Object.entries(defaultValues).forEach(([key, value]) =>
+      setValue(key, value),
+    );
+  }, [defaultValues.companyName]);
+  const tradingDifferent = watch(
+    'tradingDifferent',
+    defaultValues.tradingDifferent || false,
+  );
+
   return (
     <>
       {/* Only capture these fields in 'manual' mode. In 'search' they come from the backend API */}
@@ -228,7 +247,7 @@ export default function CompanyDetailsFormFields({ inputMode, defaultValues }: I
         icon={<ChevronForwardSharp />}
         iconColor="white"
         iconPosition="after"
-        label={formState.isSubmitting ? 'Saving...' : 'Continue'}
+        label={selectLabel}
         size="large"
         type="submit"
       />

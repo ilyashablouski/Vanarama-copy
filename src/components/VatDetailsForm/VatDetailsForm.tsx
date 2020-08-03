@@ -5,7 +5,7 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { FormContext, useForm, OnSubmit } from 'react-hook-form';
 import CountryTurnoverFieldArray from './CountryTurnoverFieldArray';
 import { VatDetailsFormValues } from './interfaces';
@@ -18,7 +18,11 @@ interface IProps {
   isEdited: boolean;
 }
 
-const VatDetailsForm: React.FC<IProps> = ({ onSubmit, vatDetails, isEdited }) => {
+const VatDetailsForm: React.FC<IProps> = ({
+  onSubmit,
+  vatDetails,
+  isEdited,
+}) => {
   const methods = useForm<VatDetailsFormValues>({
     mode: 'onBlur',
     defaultValues: mapDefaultValues(vatDetails),
@@ -27,6 +31,13 @@ const VatDetailsForm: React.FC<IProps> = ({ onSubmit, vatDetails, isEdited }) =>
   const { errors, formState, handleSubmit, register, watch } = methods;
   const vatRegistered = watch('vatRegistered');
   const outsideUK = watch('outsideUK');
+
+  const selectLabel = useMemo(() => {
+    if (isEdited) {
+      return 'Save & Return';
+    }
+    return formState.isSubmitting ? 'Saving...' : 'Continue';
+  }, [isEdited, formState.isSubmitting]);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -84,11 +95,7 @@ const VatDetailsForm: React.FC<IProps> = ({ onSubmit, vatDetails, isEdited }) =>
         icon={<ChevronForwardSharp />}
         iconColor="white"
         iconPosition="after"
-        label={formState.isSubmitting ?
-          'Saving...'
-          : isEdited ?
-            'Save & Return'
-            : 'Continue'}
+        label={selectLabel}
         size="large"
         type="submit"
       />
