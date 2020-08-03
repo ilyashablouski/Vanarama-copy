@@ -53,4 +53,5 @@ export interface IProps {
   onSubmit: (values: OrderInputObject) => Promise<any>;
   lineItem: LineItemInputObject;
   showCallBackForm: Dispatch<SetStateAction<boolean>>;
+  screenY: number | null;
 }
