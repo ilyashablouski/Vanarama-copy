@@ -8,7 +8,11 @@ import cx from 'classnames';
 import ComparatorBar from '@vanarama/uibook/lib/components/organisms/comparator-bar';
 import Modal from '@vanarama/uibook/lib/components/molecules/modal';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import { PAGES_WITH_COMPARATOR, CompareContext } from '../utils/comparatorTool';
+import {
+  PAGES_WITH_COMPARATOR,
+  CompareContext,
+  WHOLE_PATHS_PAGES_WITH_COMPARATOR,
+} from '../utils/comparatorTool';
 import Header from '../components/Header/Header';
 import { PHONE_NUMBER_LINK, TOP_BAR_LINKS } from '../models/enum/HeaderLinks';
 import {
@@ -55,11 +59,12 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     getVehicles();
 
     if (
-      PAGES_WITH_COMPARATOR.some(
-        page => router.pathname.includes(page) || router.pathname === '/',
-      )
+      PAGES_WITH_COMPARATOR.some(page => router.pathname.includes(page)) ||
+      WHOLE_PATHS_PAGES_WITH_COMPARATOR.some(page => router.pathname === page)
     ) {
       setExistComparator(true);
+    } else {
+      setExistComparator(false);
     }
   }, [router.pathname]);
 
