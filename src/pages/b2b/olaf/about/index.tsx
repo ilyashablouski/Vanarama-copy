@@ -72,7 +72,7 @@ export const BusinessAboutPage: NextPage = () => {
   }, handleAccountFetchError);
 
   const handleCreateUpdateBusinessPersonCompletion = (result: SubmitResult) => {
-    const params = getUrlParam({ derivativeId, orderId, companyUuid: companyUuid || result.companyUuid });
+    const params = getUrlParam({ derivativeId, orderId });
     const journeyUrl =
       result.companyType === CompanyTypes.limited
         ? 'company-details'
@@ -82,7 +82,7 @@ export const BusinessAboutPage: NextPage = () => {
         ? `/b2b/olaf/summary/[companyUuid]${params}`
         : `/b2b/olaf/${journeyUrl}/[companyUuid]${params}`;
 
-    router.push(url, url.replace('[companyUuid]', companyUuid || ''));
+    router.push(url, url.replace('[companyUuid]', companyUuid || result.companyUuid || ''));
   };
 
   useEffect(() => {
