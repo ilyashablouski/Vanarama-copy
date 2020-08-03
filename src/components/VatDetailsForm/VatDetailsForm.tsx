@@ -9,17 +9,18 @@ import React from 'react';
 import { FormContext, useForm, OnSubmit } from 'react-hook-form';
 import CountryTurnoverFieldArray from './CountryTurnoverFieldArray';
 import { VatDetailsFormValues } from './interfaces';
+import { VatDetails } from '../../../generated/VatDetails';
+import { mapDefaultValues } from './utils';
 
 interface IProps {
   onSubmit: OnSubmit<VatDetailsFormValues>;
+  vatDetails: VatDetails | null | undefined;
 }
 
-const VatDetailsForm: React.FC<IProps> = ({ onSubmit }) => {
+const VatDetailsForm: React.FC<IProps> = ({ onSubmit, vatDetails }) => {
   const methods = useForm<VatDetailsFormValues>({
     mode: 'onBlur',
-    defaultValues: {
-      markets: [{ country: '', percentage: '' }],
-    },
+    defaultValues: mapDefaultValues(vatDetails),
   });
 
   const { errors, formState, handleSubmit, register, watch } = methods;

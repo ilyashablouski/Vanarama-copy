@@ -66,6 +66,7 @@ const CountryTurnoverFieldArray: React.FC = () => {
           {fields.map((_, index) => (
             <React.Fragment key={_.id}>
               <Select
+                defaultValue={_.country}
                 aria-label={`Country ${index + 1}`}
                 id={`markets[${index}].country`}
                 name={`markets[${index}].country`}
@@ -74,6 +75,7 @@ const CountryTurnoverFieldArray: React.FC = () => {
                 <OptionsWithFavourites options={countriesExceptUK} />
               </Select>
               <NumericInput
+                defaultValue={_.percentage}
                 aria-label={`Percentage for country ${index + 1}`}
                 id={`markets[${index}].percentage`}
                 min="0"

@@ -31,12 +31,20 @@ export const mapTelephoneNumbers = (values: SubmissionValues) => [
   { value: values.telephone, primary: true },
 ];
 
-export const mapFormValues = (values: SubmissionValues, personUuid: string) => {
+export const mapFormValues = (
+  values: SubmissionValues,
+  personOrCompanyUuid: string,
+  isEdited: boolean,
+) => {
   const searchResult =
     values.inputMode === 'search' && values.companySearchResult;
 
+  const uuidData = isEdited
+    ? { uuid: personOrCompanyUuid }
+    : { person: { uuid: personOrCompanyUuid } };
+
   return {
-    person: { uuid: personUuid },
+    ...uuidData,
     companyType: 'Limited',
     legalName: searchResult ? searchResult.title : values.companyName,
     companyNumber: searchResult
