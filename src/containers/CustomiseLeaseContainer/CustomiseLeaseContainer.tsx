@@ -75,6 +75,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
 
   useEffect(() => {
     window.addEventListener('scroll', scrollChange);
+    return () => window.removeEventListener('scroll', scrollChange);
   }, []);
 
   useEffect(() => {
