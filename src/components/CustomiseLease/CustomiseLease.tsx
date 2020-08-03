@@ -125,6 +125,7 @@ const CustomiseLease = ({
   lineItem,
   onSubmit,
   showCallBackForm,
+  screenY,
 }: IProps) => {
   const quoteByCapId = data?.quoteByCapId;
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
@@ -217,7 +218,13 @@ const CustomiseLease = ({
         trims={derivativeInfo?.trims}
         trim={trim}
       />
-      <div className="lease-scanner--sticky-wrap" style={{ opacity: '1' }}>
+      <div
+        className={cx(
+          'lease-scanner--sticky-wrap',
+          (screenY || 0) < 350 ? 'start-screen' : '',
+        )}
+        style={{ opacity: '1' }}
+      >
         <LeaseScanner
           classNameHeading="headingText"
           className="pdp-footer"
