@@ -5,21 +5,21 @@ import { SubmissionValues } from '../../components/CompanyDetailsForm/interfaces
 export const mapAddresses = (values: SubmissionValues) =>
   values.tradingDifferent
     ? [
-        {
-          serviceId: values.registeredAddress.id,
-          kind: 'registered',
-        },
-        {
-          serviceId: values.tradingAddress.id,
-          kind: 'trading',
-        },
-      ]
+      {
+        serviceId: values.registeredAddress.id,
+        kind: 'registered',
+      },
+      {
+        serviceId: values.tradingAddress.id,
+        kind: 'trading',
+      },
+    ]
     : [
-        {
-          serviceId: values.registeredAddress.id,
-          kind: 'registered',
-        },
-      ];
+      {
+        serviceId: values.registeredAddress.id,
+        kind: 'registered',
+      },
+    ];
 
 export const mapEmailAddress = (values: SubmissionValues) => ({
   kind: 'Home',
@@ -31,12 +31,17 @@ export const mapTelephoneNumbers = (values: SubmissionValues) => [
   { value: values.telephone, primary: true },
 ];
 
-export const mapFormValues = (values: SubmissionValues, personUuid: string) => {
+export const mapFormValues = (values: SubmissionValues, personOrCompanyUuid: string, isEdited: boolean) => {
   const searchResult =
     values.inputMode === 'search' && values.companySearchResult;
 
+  const uuidData =
+    isEdited ?
+      { uuid: personOrCompanyUuid }
+      : { person: { uuid: personOrCompanyUuid } };
+
   return {
-    person: { uuid: personUuid },
+    ...uuidData,
     companyType: 'Limited',
     legalName: searchResult ? searchResult.title : values.companyName,
     companyNumber: searchResult
@@ -45,9 +50,9 @@ export const mapFormValues = (values: SubmissionValues, personUuid: string) => {
     tradingSince: searchResult
       ? moment(searchResult.dateOfCreation!).format('DD-MM-YYYY')
       : historyToMoment({
-          month: values.tradingSinceMonth,
-          year: values.tradingSinceYear,
-        }).format('DD-MM-YYYY'),
+        month: values.tradingSinceMonth,
+        year: values.tradingSinceYear,
+      }).format('DD-MM-YYYY'),
     addresses: mapAddresses(values),
     withTradingAddress: values.tradingDifferent,
     companyNature: values.nature,

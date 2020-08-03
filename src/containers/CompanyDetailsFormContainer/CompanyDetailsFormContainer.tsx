@@ -30,6 +30,7 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
   orderId,
   onCompleted,
   onError,
+  isEdited
 }) => {
   const [saveCompanyDetails] = useMutation<Mutation, MutationVariables>(
     SAVE_COMPANY_DETAILS,
@@ -73,7 +74,7 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
   return (
     <CompanyDetailsForm
       onSubmit={async values => {
-        const mappedFormValues = mapFormValues(values, personUuid);
+        const mappedFormValues = mapFormValues(values, personUuid, isEdited);
 
         await handleCompanyDetailsSave(mappedFormValues)
           .then(({ data }) =>

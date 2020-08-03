@@ -22,10 +22,11 @@ export const CompanyDetailsPage: NextPage = () => {
   const router = useRouter();
   const { personUuid, derivativeId, orderId } = router.query as QueryParams;
 
+  const isEdited = router.query.redirect === 'summary';
   const handleSubmitCompletion = (companyUuid: string) => {
     const params = getUrlParam({ derivativeId, orderId });
     const url =
-      router.query.redirect === 'summary'
+      isEdited
         ? `/b2b/olaf/summary/[companyUuid]${params}`
         : `/b2b/olaf/vat-details/[companyUuid]${params}`;
     router.push(url, url.replace('[companyUuid]', companyUuid));
@@ -38,6 +39,7 @@ export const CompanyDetailsPage: NextPage = () => {
         orderId={orderId}
         onCompleted={handleSubmitCompletion}
         onError={handleSubmitError}
+        isEdited={isEdited}
       />
     </OLAFLayout>
   );

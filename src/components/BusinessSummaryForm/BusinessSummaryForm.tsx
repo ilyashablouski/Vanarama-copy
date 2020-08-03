@@ -16,7 +16,7 @@ import BusinessSummaryFormAboutSection from './BusinessSummaryFormAboutSection';
 
 interface IProps {
   company: SummaryFormCompany;
-  orderId?: string;
+  orderId: string;
   person: AboutFormPerson;
 }
 
