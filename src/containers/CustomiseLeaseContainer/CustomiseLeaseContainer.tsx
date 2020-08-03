@@ -28,6 +28,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   setLeaseType,
   setLeadTime,
   onCompleted,
+  setLeaseScannerData,
 }) => {
   const isInitialMount = useRef(true);
 
@@ -99,6 +100,58 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [leaseType, upfront, mileage, colour, term, trim, refetch]);
 
+  const lineItem = () => {
+    const colourDescription = derivativeInfo?.colours?.find(
+      (item: GetVehicleDetails_derivativeInfo_colours | null) =>
+        item?.id === data?.quoteByCapId?.colour,
+    )?.optionDescription;
+    const trimDescription = derivativeInfo?.trims?.find(
+      (item: GetVehicleDetails_derivativeInfo_trims | null) =>
+        item?.id === data?.quoteByCapId?.trim || item?.id === `${trim}`,
+    )?.optionDescription;
+
+    return {
+      vehicleProduct: {
+        vehicleType,
+        derivativeCapId: capId.toString(),
+        colour: colourDescription,
+        trim: trimDescription,
+        term: data?.quoteByCapId?.term || term || null,
+        annualMileage: data?.quoteByCapId?.mileage || mileage,
+        depositMonths: data?.quoteByCapId?.upfront || upfront || null,
+        depositPayment: data?.quoteByCapId?.leaseCost?.initialRental || null,
+        monthlyPayment: data?.quoteByCapId?.leaseCost?.monthlyRental || null,
+        maintenance,
+      },
+      quantity: 1,
+    };
+  };
+
+  useEffect(() => {
+    if (setLeaseScannerData) {
+      setLeaseScannerData({
+        maintenance,
+        quoteByCapId: data?.quoteByCapId,
+        isDisabled,
+        stateVAT: leaseType === 'Personal' ? 'inc' : 'exc',
+        endAnimation: () => {
+          setIsDisabled(false);
+          setIsInitialLoading(true);
+        },
+        requestCallBack: () => {
+          setShowCallBackForm(true);
+        },
+        onSubmit: () => {
+          onCompleted({
+            leaseType: leaseType.toUpperCase() as LeaseTypeEnum,
+            lineItems: [lineItem()],
+          });
+        },
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, leaseType, refetch, isDisabled, maintenance]);
+
   if (error) {
     return (
       <div
@@ -137,33 +190,6 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     { label: 'Personal', active: leaseType === 'Personal' },
     { label: 'Business', active: leaseType === 'Business' },
   ];
-
-  const lineItem = () => {
-    const colourDescription = derivativeInfo?.colours?.find(
-      (item: GetVehicleDetails_derivativeInfo_colours | null) =>
-        item?.id === data?.quoteByCapId?.colour,
-    )?.optionDescription;
-    const trimDescription = derivativeInfo?.trims?.find(
-      (item: GetVehicleDetails_derivativeInfo_trims | null) =>
-        item?.id === data?.quoteByCapId?.trim || item?.id === `${trim}`,
-    )?.optionDescription;
-
-    return {
-      vehicleProduct: {
-        vehicleType,
-        derivativeCapId: capId.toString(),
-        colour: colourDescription,
-        trim: trimDescription,
-        term: data?.quoteByCapId?.term || term || null,
-        annualMileage: data?.quoteByCapId?.mileage || mileage,
-        depositMonths: data?.quoteByCapId?.upfront || upfront || null,
-        depositPayment: data?.quoteByCapId?.leaseCost?.initialRental || null,
-        monthlyPayment: data?.quoteByCapId?.leaseCost?.monthlyRental || null,
-        maintenance,
-      },
-      quantity: 1,
-    };
-  };
 
   if (!data.quoteByCapId?.leaseCost?.monthlyRental) {
     return (
