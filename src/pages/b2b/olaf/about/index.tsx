@@ -32,9 +32,13 @@ const handleAccountFetchError = () =>
     'Dolor ut tempor eiusmod enim consequat laboris dolore ut pariatur labore sunt incididunt dolore veniam mollit excepteur dolor aliqua minim nostrud adipisicing culpa aliquip ex',
   );
 
+type QueryParams = OLAFQueryParams & {
+  companyUuid: string;
+};
+
 export const BusinessAboutPage: NextPage = () => {
   const router = useRouter();
-  const { derivativeId, orderId } = router.query as OLAFQueryParams;
+  const { derivativeId, orderId, companyUuid } = router.query as QueryParams;
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [personUuid, setPersonUuid] = useState<string | undefined>();
@@ -67,13 +71,10 @@ export const BusinessAboutPage: NextPage = () => {
     router.replace(router.pathname, router.asPath);
   }, handleAccountFetchError);
 
-  const handleCreateUpdateBusinessPersonCompletion = ({
-    companyUuid,
-    companyType,
-  }: SubmitResult) => {
-    const params = getUrlParam({ derivativeId, orderId });
+  const handleCreateUpdateBusinessPersonCompletion = (result: SubmitResult) => {
+    const params = getUrlParam({ derivativeId, orderId, companyUuid: companyUuid || result.companyUuid });
     const journeyUrl =
-      companyType === CompanyTypes.limited
+      result.companyType === CompanyTypes.limited
         ? 'company-details'
         : 'sole-trader/company-details';
     const url =
