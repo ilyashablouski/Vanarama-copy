@@ -33,15 +33,15 @@ export const mapTelephoneNumbers = (values: SubmissionValues) => [
 
 export const mapFormValues = (
   values: SubmissionValues,
-  personOrCompanyUuid: string,
-  isEdited: boolean,
+  personUuid: string,
+  companyUuid?: string
 ) => {
   const searchResult =
     values.inputMode === 'search' && values.companySearchResult;
 
-  const uuidData = isEdited
-    ? { uuid: personOrCompanyUuid }
-    : { person: { uuid: personOrCompanyUuid } };
+  const uuidData = companyUuid
+    ? { uuid: companyUuid }
+    : { person: { uuid: personUuid } };
 
   return {
     ...uuidData,

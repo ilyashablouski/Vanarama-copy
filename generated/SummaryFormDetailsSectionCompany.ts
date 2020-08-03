@@ -13,6 +13,7 @@ export interface SummaryFormDetailsSectionCompany_turnoverPercentageOutsideUk {
 }
 
 export interface SummaryFormDetailsSectionCompany_addresses {
+  serviceId: string | null;
   uuid: string;
   kind: string | null;
   lineOne: string;

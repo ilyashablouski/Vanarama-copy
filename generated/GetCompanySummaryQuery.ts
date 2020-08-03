@@ -13,6 +13,7 @@ export interface GetCompanySummaryQuery_companyByUuid_turnoverPercentageOutsideU
 }
 
 export interface GetCompanySummaryQuery_companyByUuid_addresses {
+  serviceId: string | null;
   uuid: string;
   kind: string | null;
   lineOne: string;

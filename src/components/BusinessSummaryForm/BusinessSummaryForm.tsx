@@ -42,7 +42,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
       ...additionalParameters,
     });
     const href = `${url}${params}`;
-    router.push(href, href.replace('[companyUuid]', company.uuid));
+    router.push(href, href.replace('[companyUuid]', company.uuid).replace('[personUuid]', person.uuid));
   };
 
   const directors =
@@ -83,18 +83,14 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
         />
         <BusinessSummaryFormDetailsSection
           company={company}
-          onEdit={handleEdit('/b2b/olaf/company-details/[personUuid]')}
+          onEdit={handleEdit('/b2b/olaf/company-details/[personUuid]', {
+            companyUuid: company.uuid,
+          })}
         />
         {company.isVatRegistered && (
           <BusinessSummaryFormVATDetailsSection
             vatDetails={company}
             onEdit={handleEdit('/b2b/olaf/vat-details/[companyUuid]')}
-          />
-        )}
-        {primaryBankAccount && (
-          <BusinessSummaryFormBankDetailsSection
-            account={primaryBankAccount}
-            onEdit={handleEdit('/b2b/olaf/company-bank-details/[companyUuid]')}
           />
         )}
         <Heading
@@ -106,22 +102,30 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
           Director Details
         </Heading>
         <hr />
-        {directors}
-        <Button
-          size="large"
-          className="-mt-400"
-          type="button"
-          color="teal"
-          label="Continue"
-          dataTestId="olaf_summary_continue_buttton"
-          onClick={() => {
-            router.push(
-              '/olaf/thank-you/[orderId]',
-              '/olaf/thank-you/[orderId]'.replace('[orderId]', orderId),
-            );
-          }}
-        />
+        <div>
+          {directors}
+        </div>
+        {primaryBankAccount && (
+          <BusinessSummaryFormBankDetailsSection
+            account={primaryBankAccount}
+            onEdit={handleEdit('/b2b/olaf/company-bank-details/[companyUuid]')}
+          />
+        )}
       </Form>
+      <Button
+        size="large"
+        className="-mt-400"
+        type="button"
+        color="teal"
+        label="Continue"
+        dataTestId="olaf_summary_continue_buttton"
+        onClick={() => {
+          router.push(
+            '/olaf/thank-you/[orderId]',
+            '/olaf/thank-you/[orderId]'.replace('[orderId]', orderId),
+          );
+        }}
+      />
     </div>
   );
 };

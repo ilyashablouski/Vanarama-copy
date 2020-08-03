@@ -114,6 +114,7 @@ SummaryFormDetailsSection.fragments = {
         percentage
       }
       addresses {
+        serviceId
         uuid
         kind
         lineOne

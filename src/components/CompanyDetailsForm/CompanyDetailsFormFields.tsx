@@ -4,8 +4,8 @@ import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
 import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
-import React from 'react';
-import { useFormContext } from 'react-hook-form';
+import React, { useEffect } from 'react';
+import { useFormContext, useForm } from 'react-hook-form';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
 import AddressFormField from '../AddressFormField/AddressFormField';
 import { ICompanyDetailsFormValues, InputMode } from './interfaces';
@@ -18,14 +18,19 @@ import {
 
 interface IProps {
   inputMode: InputMode;
+  defaultValues: Partial<ICompanyDetailsFormValues>;
 }
 
-export default function CompanyDetailsFormFields({ inputMode }: IProps) {
-  const { formState, errors, register, watch } = useFormContext<
+export default function CompanyDetailsFormFields({ inputMode, defaultValues }: IProps) {
+  const { formState, errors, register, watch, setValue } = useFormContext<
     ICompanyDetailsFormValues
   >();
-
-  const tradingDifferent = watch('tradingDifferent');
+  //pass default values
+  useEffect(() => {
+    setValue("tradingDifferent", defaultValues.tradingDifferent || false);
+    Object.entries(defaultValues).forEach(([key, value]) => setValue(key, value));
+  }, [defaultValues.companyName])
+  const tradingDifferent = watch('tradingDifferent', defaultValues.tradingDifferent || false);
   return (
     <>
       {/* Only capture these fields in 'manual' mode. In 'search' they come from the backend API */}
