@@ -20,6 +20,7 @@ module.exports = {
   // Next.
   next: {
     env: {
+      ENV: process.env.ENV,
       API_URL: process.env.API_URL,
       API_KEY: process.env.API_KEY,
       LOQATE_KEY: process.env.LOQATE_KEY,
