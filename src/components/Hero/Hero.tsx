@@ -1,34 +1,68 @@
+import { useState } from 'react';
+import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import SearchPodContainer from '../../containers/SearchPodContainer';
 import { IHeroProps } from './interface';
 import RequestCallBackForm from '../RequestCallBackForm';
 import WorkingHoursTable from '../../containers/InsurancePageContainer/sections/WorkingHoursTable';
-import { GetInsuranceLandingPage_insuranceLandingPage_sections_hero_heroCard as WorkingHoursCard } from '../../../generated/GetInsuranceLandingPage';
-
-const renderHeroRight = (
-  withRequestCallbackForm: boolean | undefined,
-  workingHoursCard: WorkingHoursCard | undefined,
-) => {
-  if (withRequestCallbackForm) {
-    return <RequestCallBackForm />;
-  }
-  if (workingHoursCard) {
-    return <WorkingHoursTable {...workingHoursCard} />;
-  }
-  return <SearchPodContainer />;
-};
+import { useOpportunityCreation } from '../../containers/GoldrushFormContainer/gql';
+import { handleNetworkError } from '../../containers/GoldrushFormContainer/GoldrushFormContainer';
+import { OpportunityTypeEnum } from '../../../generated/globalTypes';
 
 const Hero: React.FC<IHeroProps> = ({
   children,
   withRequestCallbackForm,
   workingHoursCard,
 }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [createOpportunity, { loading }] = useOpportunityCreation(
+    () => setShowModal(true),
+    error => {
+      if (error?.networkError) {
+        handleNetworkError();
+      }
+      if (error?.message) {
+        toast.error(
+          'Sorry there seems to be an issue with your request. Pleaser try again in a few moments',
+          error?.message,
+        );
+      }
+    },
+  );
+
+  const renderHeroRight = () => {
+    if (withRequestCallbackForm) {
+      return (
+        <RequestCallBackForm
+          setShowModal={setShowModal}
+          showModal={showModal}
+          isSubmitting={loading}
+          onSubmit={values => {
+            createOpportunity({
+              variables: {
+                email: values.email,
+                phoneNumber: values.phoneNumber,
+                fullName: values.fullName,
+                companyName: values.companyName,
+                fleetSize: +values.fleetSize,
+                opportunityType: OpportunityTypeEnum.CALLBACK,
+                marketingPreference: Boolean(values.agreement),
+              },
+            });
+          }}
+        />
+      );
+    }
+    if (workingHoursCard) {
+      return <WorkingHoursTable {...workingHoursCard} />;
+    }
+    return <SearchPodContainer />;
+  };
+
   return (
     <div className="row:bg-hero">
       <div className="row:hero">
         <div className="hero--left">{children}</div>
-        <div className="hero--right">
-          {renderHeroRight(withRequestCallbackForm, workingHoursCard)}
-        </div>
+        <div className="hero--right">{renderHeroRight()}</div>
         <div className="hero--decals">
           <svg
             aria-hidden="true"

@@ -46,7 +46,8 @@ export const GET_ORDER_BY_UUID_DATA = gql`
           term
           annualMileage
           depositMonths
-          funder
+          funderId
+          funderData
           colour
           trim
           maintenance
@@ -146,7 +147,8 @@ export const GET_OLAF_DATA = gql`
           term
           annualMileage
           depositMonths
-          funder
+          funderId
+          funderData
           colour
           trim
           maintenance

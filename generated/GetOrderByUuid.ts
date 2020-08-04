@@ -24,7 +24,8 @@ export interface GetOrderByUuid_orderByUuid_lineItems_vehicleProduct {
   term: number | null;
   annualMileage: number | null;
   depositMonths: number | null;
-  funder: string | null;
+  funderId: string | null;
+  funderData: any | null;
   colour: string | null;
   trim: string | null;
   maintenance: boolean | null;

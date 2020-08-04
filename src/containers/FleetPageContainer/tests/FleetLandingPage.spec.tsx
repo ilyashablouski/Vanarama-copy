@@ -125,13 +125,19 @@ describe('<FleetLandingPage />', () => {
     });
     expect(screen.getByText('No Hidden Costs')).toBeVisible();
     expect(screen.getByTestId('fleet-request-call-back-form')).toBeVisible();
-    expect(screen.getByTestId('fleet_full-name')).toBeVisible();
-    expect(screen.getByTestId('fleet_company-name')).toBeVisible();
-    expect(screen.getByTestId('fleet_fleet-size')).toBeVisible();
-    expect(screen.getByTestId('fleet_email-address')).toBeVisible();
-    expect(screen.getByTestId('fleet_phone-number')).toBeVisible();
-    expect(screen.getByTestId('fleet_agreement')).toBeVisible();
-    expect(screen.getByTestId('fleet_continue')).toBeVisible();
+    expect(screen.getByTestId('fleet-call-back-form_full-name')).toBeVisible();
+    expect(
+      screen.getByTestId('fleet-call-back-form_company-name'),
+    ).toBeVisible();
+    expect(screen.getByTestId('fleet-call-back-form_fleet-size')).toBeVisible();
+    expect(
+      screen.getByTestId('fleet-call-back-form_email-address'),
+    ).toBeVisible();
+    expect(
+      screen.getByTestId('fleet-call-back-form_phone-number'),
+    ).toBeVisible();
+    expect(screen.getByTestId('fleet-call-back-form_agreement')).toBeVisible();
+    expect(screen.getByTestId('fleet-call-back-form_continue')).toBeVisible();
   });
 
   it('should render testimonial section correctly', async () => {
