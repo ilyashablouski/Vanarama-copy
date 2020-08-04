@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable import/no-cycle */
 import React, { FC, memo, useState, useEffect } from 'react';
+import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import cx from 'classnames';
 import localForage from 'localforage';
@@ -21,11 +22,22 @@ import Call from '@vanarama/uibook/lib/assets/icons/Call';
 
 import { ILinkProps } from '../RouterLink/interface';
 import RouterLink from '../RouterLink/RouterLink';
+import withApollo from '../../hocs/withApollo';
 import HeaderMenu from './HeaderMenu';
 import {
   PersonByToken_personByToken as Person,
   PersonByToken,
 } from '../../../generated/PersonByToken';
+import {
+  LogOutUserMutation,
+  LogOutUserMutationVariables,
+} from '../../../generated/LogOutUserMutation';
+
+export const LOGOUT_USER_MUTATION = gql`
+  mutation LogOutUserMutation($token: String!) {
+    logout(token: $token)
+  }
+`;
 
 export interface IHeaderLink extends ILinkProps {
   id?: string;
@@ -39,7 +51,7 @@ export interface IHeaderProps extends IBaseProps {
   phoneNumberLink: ILinkProps;
 }
 
-const Header: FC<IHeaderProps> = memo(props => {
+export const Header: FC<IHeaderProps> = memo(props => {
   const router = useRouter();
   const { className, topBarLinks, loginLink, phoneNumberLink } = props;
   const [person, setPerson] = useState<Person | null>(null);
@@ -48,6 +60,10 @@ const Header: FC<IHeaderProps> = memo(props => {
 
   const [isMenuOpen, setOpenMenu] = useState(false);
   const [isMyAccountOpen, setOpenMyAccount] = useState(false);
+
+  const [logOut] = useMutation<LogOutUserMutation, LogOutUserMutationVariables>(
+    LOGOUT_USER_MUTATION,
+  );
 
   useEffect(() => {
     if (!person) {
@@ -179,6 +195,14 @@ const Header: FC<IHeaderProps> = memo(props => {
                       link={{ href: router.pathname, label: 'Log Out' }}
                       as={router.asPath}
                       onClick={async () => {
+                        const token = await localForage.getItem<string>(
+                          'token',
+                        );
+                        await logOut({
+                          variables: {
+                            token,
+                          },
+                        });
                         await localForage.clear();
                         setPerson(null);
                       }}
@@ -227,4 +251,4 @@ const Header: FC<IHeaderProps> = memo(props => {
   );
 });
 
-export default Header;
+export default withApollo(Header);
