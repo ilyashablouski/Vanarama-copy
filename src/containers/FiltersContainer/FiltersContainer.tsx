@@ -184,11 +184,11 @@ const FiltersContainer = ({
 
   useEffect(() => {
     // if we have query parameters filters should be preselected
-    if (
+    const shouldPreselect =
       (Object.keys(router?.query || {}).length &&
         Object.keys(allFiltersData).length) ||
-      router.query.isChangePage === 'true'
-    ) {
+      router.query.isChangePage === 'true';
+    if (shouldPreselect) {
       const presetFilters = {} as ISelectedFiltersState;
       const routerQuery = Object.entries(router.query);
       routerQuery.forEach(entry => {
@@ -202,7 +202,6 @@ const FiltersContainer = ({
             // saving model to temp because after set makes model will be removed
             if (value) setTempModelName(value);
           });
-          // TODO: check for change state
         } else if (key !== 'pricePerMonth' && key !== 'isChangePage') {
           let query: string | string[];
           // transformation the query value to expected type

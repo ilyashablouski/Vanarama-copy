@@ -118,7 +118,7 @@ export const TOP_BAR_LINKS = [
           {
             label: 'Medium',
             href: '/van-leasing',
-            as: '/van-leasing?bodyStyles=Medium+Van',
+            as: '/van-leasing?bodyStyles=Medium Van',
             query: {
               bodyStyles: 'Medium Vam',
               isChangePage: 'true',
@@ -358,7 +358,7 @@ export const TOP_BAR_LINKS = [
             label: 'Land Rover',
             href: '/car-leasing/[make]',
             query: { isChangePage: 'true' },
-            as: '/car-leasing/Land+Rover',
+            as: '/car-leasing/Land Rover',
           },
           {
             label: 'Mercedes-Benz',
