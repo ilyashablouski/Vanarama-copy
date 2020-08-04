@@ -1,6 +1,8 @@
 export interface IFleetCallBackFormProps {
   onSubmit: (values: IFleetCallBackFormValues) => void;
+  setShowModal: (show: boolean) => void;
   isSubmitting?: boolean;
+  showModal: boolean;
 }
 
 export interface IFleetCallBackFormValues {

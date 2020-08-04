@@ -1,7 +1,4 @@
 import { useState } from 'react';
-import Modal from '@vanarama/uibook/lib/components/molecules/modal';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import SearchPodContainer from '../../containers/SearchPodContainer';
 import { IHeroProps } from './interface';
@@ -34,32 +31,10 @@ const Hero: React.FC<IHeroProps> = ({
 
   const renderHeroRight = () => {
     if (withRequestCallbackForm) {
-      if (showModal) {
-        return (
-          <Modal
-            className="-mt-000 callBack"
-            show
-            onRequestClose={() => setShowModal(false)}
-          >
-            <div className="-pt-000">
-              <Heading size="regular" color="black">
-                Thank you for submitting the form. We will be in touch shortly.
-              </Heading>
-              <Button
-                className="-mt-600"
-                dataTestId="goldrush-button_close"
-                label="Close"
-                size="lead"
-                fill="solid"
-                color="teal"
-                onClick={() => setShowModal(false)}
-              />
-            </div>
-          </Modal>
-        );
-      }
       return (
         <RequestCallBackForm
+          setShowModal={setShowModal}
+          showModal={showModal}
           isSubmitting={loading}
           onSubmit={values => {
             createOpportunity({

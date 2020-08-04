@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
@@ -8,6 +7,7 @@ import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
+import Modal from '@vanarama/uibook/lib/components/molecules/modal';
 import {
   IFleetCallBackFormProps,
   IFleetCallBackFormValues,
@@ -23,6 +23,8 @@ import {
 const RequestCallBackForm: React.FC<IFleetCallBackFormProps> = ({
   onSubmit,
   isSubmitting,
+  showModal,
+  setShowModal,
 }) => {
   const { handleSubmit, errors, register } = useForm<IFleetCallBackFormValues>({
     mode: 'onBlur',
@@ -32,6 +34,31 @@ const RequestCallBackForm: React.FC<IFleetCallBackFormProps> = ({
       phoneNumber: '',
     },
   });
+
+  if (showModal) {
+    return (
+      <Modal
+        className="-mt-000 callBack"
+        show
+        onRequestClose={() => setShowModal(false)}
+      >
+        <div className="-pt-000">
+          <Heading size="regular" color="black">
+            Thank you for submitting the form. We will be in touch shortly.
+          </Heading>
+          <Button
+            className="-mt-600"
+            dataTestId="goldrush-button_close"
+            label="Close"
+            size="lead"
+            fill="solid"
+            color="teal"
+            onClick={() => setShowModal(false)}
+          />
+        </div>
+      </Modal>
+    );
+  }
 
   return (
     <Card className="hero-card">
