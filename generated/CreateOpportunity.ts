@@ -27,7 +27,9 @@ export interface CreateOpportunityVariables {
   marketingPreference?: boolean | null;
   opportunityType: OpportunityTypeEnum;
   phoneNumber: string;
-  postcode: string;
+  postcode?: string | null;
   termsAndConditions?: boolean | null;
   vehicleType?: string | null;
+  companyName?: string | null;
+  fleetSize?: number | null;
 }

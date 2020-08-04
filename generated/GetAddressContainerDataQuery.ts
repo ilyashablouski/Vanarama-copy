@@ -42,7 +42,7 @@ export interface GetAddressContainerDataQuery {
    */
   personByUuid: GetAddressContainerDataQuery_personByUuid | null;
   /**
-   * get all drop downs
+   * Get all drop downs
    */
   allDropDowns: GetAddressContainerDataQuery_allDropDowns | null;
 }
