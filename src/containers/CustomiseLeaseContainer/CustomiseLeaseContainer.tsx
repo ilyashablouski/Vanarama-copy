@@ -28,6 +28,9 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   setLeaseType,
   setLeadTime,
   onCompleted,
+  setLeaseScannerData,
+  isDisabled,
+  setIsDisabled,
 }) => {
   const isInitialMount = useRef(true);
 
@@ -45,9 +48,9 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [trim, setTrim] = useState<number | null>(null);
   const [maintenance, setMaintenance] = useState<boolean | null>(null);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
-  const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [isInitialLoading, setIsInitialLoading] = useState<boolean>(false);
   const [showCallBackForm, setShowCallBackForm] = useState<boolean>(false);
+  const [screenY, setScreenY] = useState<number | null>(null);
   const { data, error, loading, refetch } = useQuoteData({
     capId: `${capId}`,
     vehicleType,
@@ -67,6 +70,15 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     setTrim(trim || +(data?.quoteByCapId?.trim || 0));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
+
+  const scrollChange = () => {
+    setScreenY(window.pageYOffset);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', scrollChange);
+    return () => window.removeEventListener('scroll', scrollChange);
+  }, []);
 
   useEffect(() => {
     if (isInitialLoading) {
@@ -88,6 +100,57 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [leaseType, upfront, mileage, colour, term, trim, refetch]);
+
+  const lineItem = () => {
+    const colourDescription = derivativeInfo?.colours?.find(
+      (item: GetVehicleDetails_derivativeInfo_colours | null) =>
+        item?.id === data?.quoteByCapId?.colour,
+    )?.optionDescription;
+    const trimDescription = derivativeInfo?.trims?.find(
+      (item: GetVehicleDetails_derivativeInfo_trims | null) =>
+        item?.id === data?.quoteByCapId?.trim || item?.id === `${trim}`,
+    )?.optionDescription;
+
+    return {
+      vehicleProduct: {
+        vehicleType,
+        derivativeCapId: capId.toString(),
+        colour: colourDescription,
+        trim: trimDescription,
+        term: data?.quoteByCapId?.term || term || null,
+        annualMileage: data?.quoteByCapId?.mileage || mileage,
+        depositMonths: data?.quoteByCapId?.upfront || upfront || null,
+        depositPayment: data?.quoteByCapId?.leaseCost?.initialRental || null,
+        monthlyPayment: data?.quoteByCapId?.leaseCost?.monthlyRental || null,
+        maintenance,
+      },
+      quantity: 1,
+    };
+  };
+
+  useEffect(() => {
+    if (setLeaseScannerData) {
+      setLeaseScannerData({
+        maintenance,
+        quoteByCapId: data?.quoteByCapId,
+        isDisabled,
+        stateVAT: leaseType === 'Personal' ? 'inc' : 'exc',
+        endAnimation: () => {
+          setIsInitialLoading(true);
+        },
+        requestCallBack: () => {
+          setShowCallBackForm(true);
+        },
+        onSubmit: () => {
+          onCompleted({
+            leaseType: leaseType.toUpperCase() as LeaseTypeEnum,
+            lineItems: [lineItem()],
+          });
+        },
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, leaseType, refetch, isDisabled, maintenance]);
 
   if (error) {
     return (
@@ -127,33 +190,6 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     { label: 'Personal', active: leaseType === 'Personal' },
     { label: 'Business', active: leaseType === 'Business' },
   ];
-
-  const lineItem = () => {
-    const colourDescription = derivativeInfo?.colours?.find(
-      (item: GetVehicleDetails_derivativeInfo_colours | null) =>
-        item?.id === data?.quoteByCapId?.colour,
-    )?.optionDescription;
-    const trimDescription = derivativeInfo?.trims?.find(
-      (item: GetVehicleDetails_derivativeInfo_trims | null) =>
-        item?.id === data?.quoteByCapId?.trim || item?.id === `${trim}`,
-    )?.optionDescription;
-
-    return {
-      vehicleProduct: {
-        vehicleType,
-        derivativeCapId: capId.toString(),
-        colour: colourDescription,
-        trim: trimDescription,
-        term: data?.quoteByCapId?.term || term || null,
-        annualMileage: data?.quoteByCapId?.mileage || mileage,
-        depositMonths: data?.quoteByCapId?.upfront || upfront || null,
-        depositPayment: data?.quoteByCapId?.leaseCost?.initialRental || null,
-        monthlyPayment: data?.quoteByCapId?.leaseCost?.monthlyRental || null,
-        maintenance,
-      },
-      quantity: 1,
-    };
-  };
 
   if (!data.quoteByCapId?.leaseCost?.monthlyRental) {
     return (
@@ -195,6 +231,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         setIsModalShowing={setIsModalShowing}
         setIsInitialLoading={setIsInitialLoading}
         lineItem={lineItem()}
+        screenY={screenY}
         onSubmit={values => onCompleted(values)}
         showCallBackForm={() => setShowCallBackForm(true)}
       />

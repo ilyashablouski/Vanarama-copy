@@ -46,7 +46,7 @@ interface IWhyChooseVanaramaProps {}
 const WhyChooseVanarama: React.FC<IWhyChooseVanaramaProps> = () => {
   return (
     <div className="tile--accordion">
-      <Heading color="black" size="lead" className="pdp-section-title">
+      <Heading tag="h2" color="black" size="lead" className="pdp-section-title">
         Why Choose Vanarama?
       </Heading>
       <Accordion items={ACCORDION_ITEMS} />

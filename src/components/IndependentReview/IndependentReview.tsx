@@ -18,7 +18,7 @@ const IndependentReview: React.FC<IIndependentReviewProps> = ({ review }) => {
   };
   return (
     <div className="tilebox -col-300 -p-400">
-      <Heading tag="span" color="black" size="lead">
+      <Heading tag="h2" color="black" size="lead">
         Independent Review By Car & Driving
       </Heading>
       <Text color="darker" size="regular" tag="p">

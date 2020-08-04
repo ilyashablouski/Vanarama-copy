@@ -100,7 +100,14 @@ export const HomePage: NextPage = () => {
 
   return (
     <>
-      <Head />
+      <Head
+        title={data?.homePage.metaData.title || ''}
+        metaDescription={data?.homePage.metaData.metaDescription}
+        metaRobots={data?.homePage.metaData.metaRobots}
+        legacyUrl={data?.homePage.metaData.legacyUrl}
+        publishedOn={data?.homePage.metaData.publishedOn}
+        featuredImage={data?.homePage.featuredImage}
+      />
       <Hero>
         <div className="hero--title">
           <HeroHeading
@@ -180,6 +187,7 @@ export const HomePage: NextPage = () => {
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
                 <ProductCarousel
                   leaseType={LeaseTypeEnum.PERSONAL}
+                  productType="Pickup"
                   data={{
                     derivatives: productsPickUpDerivatives?.derivatives || null,
                     productCard: productsPickUp?.productCarousel || null,

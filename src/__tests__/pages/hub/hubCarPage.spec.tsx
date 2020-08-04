@@ -5,7 +5,7 @@ import preloadAll from 'jest-next-dynamic';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { HubCarPageData } from '../../../../generated/HubCarPageData';
-import { HUB_CAR_CONTENT } from '../../../gql/hubCarPage';
+import { HUB_CAR_CONTENT } from '../../../gql/hub/hubCarPage';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
 import { CarsPage } from '../../../pages/hub/cars';
@@ -221,33 +221,30 @@ describe('<CarPage />', () => {
         derivatives: [
           {
             id: '83615',
-            manufacturerName: 'Ford',
             derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
-            rangeName: 'Focus',
-            bodyStyleName: 'Hatchback',
             slug: '10-ecoBoost-125-st-line-nav-5dr',
             capCode: 'capCode',
             name: 'name',
-            modelName: 'modelName',
             manufacturer: {
-              name: 'name',
+              name: 'Ford',
+              slug: 'ford',
             },
             model: {
-              name: 'name',
+              name: 'Focus',
+              slug: 'focus',
             },
             fuelType: {
               name: 'name',
             },
-            fuelTypeName: 'fuelTypeName',
             transmission: {
               name: 'name',
             },
-            transmissionName: 'transmissionName',
             bodyStyle: {
-              name: 'name',
+              name: 'Hatchback',
             },
             range: {
-              name: 'name',
+              name: 'Focus',
+              slug: 'focus',
             },
             __typename: 'derivative',
           },

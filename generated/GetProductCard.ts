@@ -32,10 +32,12 @@ export interface GetProductCard_productCard {
 
 export interface GetProductCard_derivatives_manufacturer {
   name: string;
+  slug: string;
 }
 
 export interface GetProductCard_derivatives_model {
   name: string;
+  slug: string;
 }
 
 export interface GetProductCard_derivatives_fuelType {
@@ -52,6 +54,7 @@ export interface GetProductCard_derivatives_bodyStyle {
 
 export interface GetProductCard_derivatives_range {
   name: string;
+  slug: string;
 }
 
 export interface GetProductCard_derivatives {
@@ -60,17 +63,11 @@ export interface GetProductCard_derivatives {
   name: string;
   slug: string;
   manufacturer: GetProductCard_derivatives_manufacturer;
-  manufacturerName: string;
   model: GetProductCard_derivatives_model;
-  modelName: string;
   fuelType: GetProductCard_derivatives_fuelType;
-  fuelTypeName: string;
   transmission: GetProductCard_derivatives_transmission;
-  transmissionName: string;
   bodyStyle: GetProductCard_derivatives_bodyStyle | null;
-  bodyStyleName: string | null;
   range: GetProductCard_derivatives_range;
-  rangeName: string;
 }
 
 export interface GetProductCard {

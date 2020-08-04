@@ -11,6 +11,11 @@ import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import DownloadSharp from '@vanarama/uibook/lib/assets/icons/DownloadSharp';
 import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-gallery';
+import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
+import cx from 'classnames';
+import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
+import { toPriceFormat } from '../../utils/helpers';
+import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import {
   VehicleTypeEnum,
   LeaseTypeEnum,
@@ -64,6 +69,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 }) => {
   const [leaseType, setLeaseType] = useState<string>('Personal');
   const [leadTime, setLeadTime] = useState<string>('');
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const [
+    leaseScannerData,
+    setLeaseScannerData,
+  ] = useState<null | ILeaseScannerData>(null);
   const isMobile = useMobileViewport();
 
   const [createOrderHandle] = useCreateUpdateOrder(() => {});
@@ -145,17 +155,18 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   const vehicleType = cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV;
   const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capRangeDescription}`;
-
   return (
     <>
       <div className="pdp--content">
         <Breadcrumb items={PATH.items} />
-        <Heading className="-pt-100" tag="span" size="xlarge" color="black">
-          {pageTitle}
+        <Heading tag="h1">
+          <Heading className="-pt-100" tag="span" size="xlarge" color="black">
+            {pageTitle}
+          </Heading>
+          <Text tag="span" size="lead" color="darker">
+            {vehicleConfigurationByCapId?.capDerivativeDescription}
+          </Text>
         </Heading>
-        <Text tag="span" size="lead" color="darker">
-          {vehicleConfigurationByCapId?.capDerivativeDescription}
-        </Text>
         <div
           className="-mt-500 -mb-200"
           style={{ display: 'flex', justifyContent: 'space-between' }}
@@ -183,7 +194,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             incomplete: true,
           }}
           images={vehicleImages}
-          videoSrc={video}
+          videoSrc={video && `${video}&autostart=false`}
           threeSixtyVideoSrc={threeSixtyVideo}
           videoIframe
         />
@@ -205,6 +216,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             leaseType={leaseType}
             setLeaseType={setLeaseType}
             setLeadTime={setLeadTime}
+            isDisabled={isDisabled}
+            setIsDisabled={setIsDisabled}
+            setLeaseScannerData={setLeaseScannerData}
             onCompleted={values => onSubmitClick(values)}
           />
         )}
@@ -227,6 +241,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         leaseType={leaseType}
         setLeaseType={setLeaseType}
         setLeadTime={setLeadTime}
+        isDisabled={isDisabled}
+        setIsDisabled={setIsDisabled}
         onCompleted={values => onSubmitClick(values)}
       />
       {!!capsId?.length && (
@@ -235,6 +251,51 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           vehicleType={vehicleType}
           leaseType={leaseType.toUpperCase() || ''}
         />
+      )}
+      {isMobile && (
+        <div
+          className={cx('lease-scanner--sticky-wrap')}
+          style={{ opacity: '1' }}
+        >
+          <LeaseScanner
+            classNameHeading="headingText"
+            className="pdp-footer"
+            nextBestPrice={
+              leaseScannerData?.maintenance
+                ? `£${toPriceFormat(
+                    leaseScannerData?.quoteByCapId?.nextBestPrice?.maintained,
+                  )} PM ${leaseScannerData?.stateVAT}. VAT`
+                : `£${toPriceFormat(
+                    leaseScannerData?.quoteByCapId?.nextBestPrice
+                      ?.nonMaintained,
+                  )} PM ${leaseScannerData?.stateVAT}. VAT`
+            }
+            priceLabel={
+              leaseScannerData?.maintenance
+                ? `+£${toPriceFormat(
+                    leaseScannerData?.quoteByCapId?.maintenanceCost
+                      ?.monthlyRental,
+                  )} Maintenance`
+                : undefined
+            }
+            price={
+              +toPriceFormat(
+                leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
+              )
+            }
+            orderNowClick={() => {}}
+            headingText={`PM ${leaseScannerData?.stateVAT}. VAT`}
+            leasingProviders={LEASING_PROVIDERS}
+            startLoading={isDisabled}
+            endAnimation={() => {
+              setIsDisabled(false);
+              leaseScannerData?.endAnimation();
+            }}
+            requestCallBack={() => {
+              leaseScannerData?.requestCallBack();
+            }}
+          />
+        </div>
       )}
     </>
   );

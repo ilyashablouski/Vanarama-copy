@@ -76,33 +76,30 @@ export const GET_CAR_DERIVATIVE = gql`
       slug
       manufacturer {
         name
+        slug
       }
-      manufacturerName
       model {
         name
+        slug
       }
-      modelName
       fuelType {
         name
       }
-      fuelTypeName
       transmission {
         name
       }
-      transmissionName
       bodyStyle {
         name
       }
-      bodyStyleName
       range {
         name
+        slug
       }
-      rangeName
     }
   }
 `;
 
-export function useCarDerivativesData(
+export function useCarDerivativeData(
   id: string,
   vehicleType?: VehicleTypeEnum,
 ) {

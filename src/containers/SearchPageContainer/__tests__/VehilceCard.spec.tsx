@@ -17,6 +17,7 @@ describe('<VehicleCard />', () => {
         description: 'test',
         score: 4.5,
       },
+      onCompare: jest.fn(),
       viewOffer: jest.fn(),
       isPersonalPrice: true,
       data: {
@@ -37,10 +38,11 @@ describe('<VehicleCard />', () => {
       },
       dataDerivatives: [
         {
-          bodyStyleName: 'bodyStyleName',
+          bodyStyle: { name: 'bodyStyleName' },
           slug: 'slug',
-          manufacturerName: 'Vauxhall',
-          rangeName: 'Crossland X',
+          manufacturer: { name: 'Vauxhall', slug: 'vauxhall' },
+          range: { name: 'Crossland X', slug: 'crossland-x' },
+          model: { name: 'Crossland X', slug: 'crossland-x' },
           id: '86343',
         } as any,
       ],

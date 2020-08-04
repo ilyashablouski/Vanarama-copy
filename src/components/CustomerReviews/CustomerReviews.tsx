@@ -26,12 +26,7 @@ const CustomerReviews: React.FC<ICustomerReviewsProps> = ({
 
   return (
     <>
-      <Heading
-        tag="span"
-        color="black"
-        size="lead"
-        className={headingClassName}
-      >
+      <Heading tag="h2" color="black" size="lead" className={headingClassName}>
         Customer Reviews
       </Heading>
       {reviews.length === 1 ? (

@@ -20,12 +20,21 @@ module.exports = {
   // Next.
   next: {
     env: {
+      ENV: process.env.ENV,
       API_URL: process.env.API_URL,
       API_KEY: process.env.API_KEY,
       LOQATE_KEY: process.env.LOQATE_KEY,
     },
     devIndicators: {
       autoPrerender: false,
+    },
+
+    // Rollbar.
+    serverRuntimeConfig: {
+      rollbarServerToken: process.env.ROLLBAR_SERVER_TOKEN || '',
+    },
+    publicRuntimeConfig: {
+      rollbarClientToken: process.env.ROLLBAR_CLIENT_TOKEN || '',
     },
 
     // Routes to export into static files.

@@ -20,14 +20,16 @@ import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
-
+import { useContext } from 'react';
+import { isCompared } from '../../../utils/comparatorHelpers';
+import { CompareContext } from '../../../utils/comparatorTool';
 import {
   HubCarPageData,
   HubCarPageData_hubCarPage_sections_tiles_tiles as TileData,
   HubCarPageData_hubCarPage_sections_steps_steps as StepData,
 } from '../../../../generated/HubCarPageData';
 import { ProductCardData } from '../../../../generated/ProductCardData';
-import { HUB_CAR_CONTENT } from '../../../gql/hubCarPage';
+import { HUB_CAR_CONTENT } from '../../../gql/hub/hubCarPage';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import withApollo from '../../../hocs/withApollo';
 
@@ -38,7 +40,6 @@ import truncateString from '../../../utils/truncateString';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { getProductPageUrl } from '../../../utils/url';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
-import getTitleTag from '../../../utils/getTitleTag';
 
 export const CarsPage: NextPage = () => {
   const { data, loading, error } = useQuery<HubCarPageData>(HUB_CAR_CONTENT);
@@ -55,6 +56,8 @@ export const CarsPage: NextPage = () => {
     VehicleTypeEnum.CAR,
   );
 
+  const { compareVehicles, compareChange } = useContext(CompareContext);
+
   if (loading) {
     return <Loading size="large" />;
   }
@@ -67,14 +70,7 @@ export const CarsPage: NextPage = () => {
   return (
     <>
       <Hero>
-        <HeroHeading
-          text={data?.hubCarPage.sections.hero?.title || ''}
-          titleTag={
-            getTitleTag(
-              data?.hubCarPage.sections.hero?.titleTag || 'p',
-            ) as keyof JSX.IntrinsicElements
-          }
-        />
+        <HeroHeading text={data?.hubCarPage.sections.hero?.title || ''} />
         <br />
         <HeroTitle text={data?.hubCarPage.sections.hero?.body || ''} />
         <br />
@@ -90,15 +86,7 @@ export const CarsPage: NextPage = () => {
       </Hero>
 
       <section className="row:lead-text">
-        <Heading
-          size="xlarge"
-          color="black"
-          tag={
-            getTitleTag(
-              data?.hubCarPage.sections.leadText?.titleTag || null,
-            ) as keyof JSX.IntrinsicElements
-          }
-        >
+        <Heading size="xlarge" color="black">
           {data?.hubCarPage.sections.leadText?.heading}
         </Heading>
         <Text tag="span" size="lead" color="darker">
@@ -169,7 +157,8 @@ export const CarsPage: NextPage = () => {
                   index: `${item.capId}_${info?.name || ''}`,
                 }))}
                 imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
-                onCompare={() => true}
+                onCompare={() => compareChange(item)}
+                compared={isCompared(compareVehicles, item)}
                 onWishlist={() => true}
                 title={{
                   title: '',
@@ -241,15 +230,7 @@ export const CarsPage: NextPage = () => {
 
       <section className="row:featured-right">
         <div style={{ padding: '1rem' }}>
-          <Heading
-            size="large"
-            color="black"
-            tag={
-              getTitleTag(
-                data?.hubCarPage.sections.featured1?.titleTag || 'p',
-              ) as keyof JSX.IntrinsicElements
-            }
-          >
+          <Heading size="large" color="black">
             {data?.hubCarPage.sections.featured1?.title}
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
@@ -286,15 +267,7 @@ export const CarsPage: NextPage = () => {
           }
         />
         <div className="-inset -middle -col-400">
-          <Heading
-            size="large"
-            color="black"
-            tag={
-              getTitleTag(
-                data?.hubCarPage.sections.featured2?.titleTag || 'p',
-              ) as keyof JSX.IntrinsicElements
-            }
-          >
+          <Heading size="large" color="black">
             {data?.hubCarPage.sections.featured2?.title}
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
@@ -307,17 +280,6 @@ export const CarsPage: NextPage = () => {
       </section>
 
       <section className="row:features-4col">
-        <Heading
-          size="large"
-          color="black"
-          tag={
-            getTitleTag(
-              data?.hubCarPage.sections.tiles?.titleTag || 'p',
-            ) as keyof JSX.IntrinsicElements
-          }
-        >
-          {data && data.hubCarPage.sections.tiles?.tilesTitle}
-        </Heading>
         {data?.hubCarPage.sections.tiles?.tiles?.map((tile: TileData, idx) => (
           <div key={tile.title || idx}>
             <Tile className="-plain -button -align-center" plain>

@@ -19,30 +19,12 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
 
   return (
     <CompanyDetailsForm
-      onSubmit={async values => {
+      onSubmit={async () => {
         await createUpdateApplication({
           variables: {
             input: {
               ...creditApplication.data?.creditApplicationByOrderUuid,
-              addresses: [
-                {
-                  serviceId: values.tradingAddress.id,
-                  label: values.tradingAddress.label,
-                },
-              ],
               orderUuid: orderId,
-              emailAddresses: [
-                {
-                  value: values.email,
-                },
-              ],
-              telephoneNumbers: [
-                {
-                  value: values.businessTelephoneNumber,
-                },
-              ],
-              // bankAccounts: [],
-              // incomeAndExpenses: [],
             },
           },
         });

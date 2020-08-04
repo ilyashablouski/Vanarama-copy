@@ -5,7 +5,7 @@ import Router from 'next/router';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { HubPickupPageData } from '../../../../generated/HubPickupPageData';
-import { HUB_PICKUP_CONTENT } from '../../../gql/hubPickupPage';
+import { HUB_PICKUP_CONTENT } from '../../../gql/hub/hubPickupPage';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
 import { PickupsPage } from '../../../pages/hub/pickups';
@@ -291,33 +291,30 @@ describe('<PickupsPage />', () => {
         derivatives: [
           {
             id: '44514',
-            manufacturerName: 'Ford',
             derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
-            rangeName: 'Focus',
-            bodyStyleName: 'Hatchback',
             slug: '10-ecoBoost-125-st-line-nav-5dr',
             capCode: 'capCode',
             name: 'name',
-            modelName: 'modelName',
             manufacturer: {
-              name: 'name',
+              name: 'Ford',
+              slug: 'ford',
             },
             model: {
-              name: 'name',
+              name: 'Focus',
+              slug: 'focus',
             },
             fuelType: {
               name: 'name',
             },
-            fuelTypeName: 'fuelTypeName',
             transmission: {
               name: 'name',
             },
-            transmissionName: 'transmissionName',
             bodyStyle: {
-              name: 'name',
+              name: 'Hatchback',
             },
             range: {
-              name: 'name',
+              name: 'Focus',
+              slug: 'focus',
             },
             __typename: 'derivative',
           },

@@ -12,6 +12,7 @@ import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Modal from '@vanarama/uibook/lib/components/molecules/modal';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import cx from 'classnames';
+import { useMobileViewport } from '../../hooks/useMediaQuery';
 import OrderSummary from '../OrderSummary/OrderSummary';
 import { IProps, IColour, ITrim, IChoice } from './interfase';
 import { toPriceFormat } from '../../utils/helpers';
@@ -19,21 +20,8 @@ import {
   GetVehicleDetails_derivativeInfo_trims,
   GetVehicleDetails_derivativeInfo_colours,
 } from '../../../generated/GetVehicleDetails';
+import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
-
-const LEASING_PROVIDERS = [
-  'LeasePlan',
-  'Arval',
-  'Lex',
-  'Hitachi',
-  'ALD',
-  'BNP Paribas',
-  'Leasys',
-  'Santander',
-  'Toyota Finance',
-  'Agility Fleet',
-  'BlackHorse',
-];
 
 const choices = (
   choicesValues: IChoice[],
@@ -125,13 +113,15 @@ const CustomiseLease = ({
   lineItem,
   onSubmit,
   showCallBackForm,
+  screenY,
 }: IProps) => {
   const quoteByCapId = data?.quoteByCapId;
+  const isMobile = useMobileViewport();
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
 
   return (
     <div className={cx('pdp--sidebar', isDisabled ? 'disabled' : '')}>
-      <Heading tag="span" size="xlarge" color="black">
+      <Heading tag="h2" size="xlarge" color="black">
         Customise Your Lease
       </Heading>
       {choices(leaseTypes, setLeaseType, 'Lease Type', isDisabled)}
@@ -217,45 +207,53 @@ const CustomiseLease = ({
         trims={derivativeInfo?.trims}
         trim={trim}
       />
-      <div className="lease-scanner--sticky-wrap" style={{ opacity: '1' }}>
-        <LeaseScanner
-          classNameHeading="headingText"
-          className="pdp-footer"
-          nextBestPrice={
-            maintenance
-              ? `£${toPriceFormat(
-                  quoteByCapId?.nextBestPrice?.maintained,
-                )} PM ${stateVAT}. VAT`
-              : `£${toPriceFormat(
-                  quoteByCapId?.nextBestPrice?.nonMaintained,
-                )} PM ${stateVAT}. VAT`
-          }
-          priceLabel={
-            maintenance
-              ? `+£${toPriceFormat(
-                  quoteByCapId?.maintenanceCost?.monthlyRental,
-                )} Maintenance`
-              : undefined
-          }
-          price={+toPriceFormat(quoteByCapId?.leaseCost?.monthlyRental)}
-          orderNowClick={() =>
-            onSubmit({
-              leaseType: leaseType.toUpperCase() as LeaseTypeEnum,
-              lineItems: [lineItem],
-            })
-          }
-          headingText={`PM ${stateVAT}. VAT`}
-          leasingProviders={LEASING_PROVIDERS}
-          startLoading={isDisabled}
-          endAnimation={() => {
-            setIsInitialLoading(true);
-            setIsDisabled(false);
-          }}
-          requestCallBack={() => {
-            showCallBackForm(true);
-          }}
-        />
-      </div>
+      {!isMobile && (
+        <div
+          className={cx(
+            'lease-scanner--sticky-wrap',
+            (screenY || 0) < 350 ? 'start-screen' : '',
+          )}
+          style={{ opacity: '1' }}
+        >
+          <LeaseScanner
+            classNameHeading="headingText"
+            className="pdp-footer"
+            nextBestPrice={
+              maintenance
+                ? `£${toPriceFormat(
+                    quoteByCapId?.nextBestPrice?.maintained,
+                  )} PM ${stateVAT}. VAT`
+                : `£${toPriceFormat(
+                    quoteByCapId?.nextBestPrice?.nonMaintained,
+                  )} PM ${stateVAT}. VAT`
+            }
+            priceLabel={
+              maintenance
+                ? `+£${toPriceFormat(
+                    quoteByCapId?.maintenanceCost?.monthlyRental,
+                  )} Maintenance`
+                : undefined
+            }
+            price={+toPriceFormat(quoteByCapId?.leaseCost?.monthlyRental)}
+            orderNowClick={() =>
+              onSubmit({
+                leaseType: leaseType.toUpperCase() as LeaseTypeEnum,
+                lineItems: [lineItem],
+              })
+            }
+            headingText={`PM ${stateVAT}. VAT`}
+            leasingProviders={LEASING_PROVIDERS}
+            startLoading={isDisabled}
+            endAnimation={() => {
+              setIsInitialLoading(true);
+              setIsDisabled(false);
+            }}
+            requestCallBack={() => {
+              showCallBackForm(true);
+            }}
+          />
+        </div>
+      )}
       {isModalShowing && (
         <Modal
           className="-mt-000"

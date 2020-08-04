@@ -4,11 +4,11 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
 <div
   className="pdp--sidebar"
 >
-  <span
+  <h2
     className="heading -black -xlarge"
   >
     Customise Your Lease
-  </span>
+  </h2>
   <span
     className="heading -black -regular"
   >
@@ -486,7 +486,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </section>
   </div>
   <div
-    className="lease-scanner--sticky-wrap"
+    className="lease-scanner--sticky-wrap start-screen"
     style={
       Object {
         "opacity": "1",
@@ -582,11 +582,11 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
 <div
   className="pdp--sidebar"
 >
-  <span
+  <h2
     className="heading -black -xlarge"
   >
     Customise Your Lease
-  </span>
+  </h2>
   <span
     className="heading -black -regular"
   >
@@ -1064,7 +1064,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </section>
   </div>
   <div
-    className="lease-scanner--sticky-wrap"
+    className="lease-scanner--sticky-wrap start-screen"
     style={
       Object {
         "opacity": "1",
