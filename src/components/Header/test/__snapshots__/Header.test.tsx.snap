@@ -651,7 +651,7 @@ exports[`<Header /> renders correctly 1`] = `
                     className="link -white"
                     data-menu={null}
                     data-testid="router-link"
-                    href=""
+                    href="special-offers/pickup-offers"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -1178,7 +1178,7 @@ exports[`<Header /> renders correctly 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="router-link"
-                    href="/car-leasing/Land+Rover"
+                    href="/car-leasing/Land Rover"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -2344,7 +2344,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     className="link -white"
                     data-menu={null}
                     data-testid="router-link"
-                    href=""
+                    href="special-offers/pickup-offers"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -2871,7 +2871,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="router-link"
-                    href="/car-leasing/Land+Rover"
+                    href="/car-leasing/Land Rover"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >

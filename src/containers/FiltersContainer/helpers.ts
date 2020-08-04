@@ -7,4 +7,4 @@ export const findPreselectFilterValue = (
     element =>
       element.toLowerCase().replace(' ', '-') ===
       value.toLowerCase().replace(' ', '-'),
-  ) || '';
+  ) || value;
