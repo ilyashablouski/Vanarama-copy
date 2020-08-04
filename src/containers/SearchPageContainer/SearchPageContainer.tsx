@@ -118,7 +118,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             setCardsData(resp.data?.productCard || []);
             setCarDerivatives(resp.data?.derivatives || []);
             // set data for carousel in special offer page
-            if (!specialOffersVehiclesCarousel.lenght && isSpecialOfferPage) {
+            if (!specialOffersVehiclesCarousel.length && isSpecialOfferPage) {
               const capIdsForCarousel = vehicles.vehicleList?.edges
                 ?.slice(0, 3)
                 .map(edge => edge?.node?.derivativeId);
@@ -452,18 +452,16 @@ const SearchPageContainer: React.FC<IProps> = ({
           </div>
         </div>
       )}
-      <div className="-mv-400 -stretch-left">
-        {!isMakePage && !isSpecialOfferPage && (
-          <>
-            <Checkbox
-              id="specialOffer"
-              label="View Special Offers Only"
-              checked={isSpecialOffers}
-              onChange={e => onSaveSpecialOffersStatus(e.target.checked)}
-            />
-          </>
-        )}
-      </div>
+      {!isMakePage && !isSpecialOfferPage && (
+        <div className="-mv-400 -stretch-left">
+          <Checkbox
+            id="specialOffer"
+            label="View Special Offers Only"
+            checked={isSpecialOffers}
+            onChange={e => onSaveSpecialOffersStatus(e.target.checked)}
+          />
+        </div>
+      )}
       <div className="row:bg-light -xthin">
         <div className="row:search-filters">
           <FiltersContainer
