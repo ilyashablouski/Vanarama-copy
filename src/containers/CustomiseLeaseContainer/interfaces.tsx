@@ -31,6 +31,8 @@ export interface IProps {
     | GetVehicleDetails_vehicleConfigurationByCapId_financeProfile
     | null
     | undefined;
+  isDisabled: boolean;
+  setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setLeaseType: React.Dispatch<React.SetStateAction<string>>;
   setLeadTime: React.Dispatch<React.SetStateAction<string>>;
   onCompleted: (values: OrderInputObject) => Promise<void>;

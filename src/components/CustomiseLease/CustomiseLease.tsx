@@ -20,7 +20,7 @@ import {
   GetVehicleDetails_derivativeInfo_trims,
   GetVehicleDetails_derivativeInfo_colours,
 } from '../../../generated/GetVehicleDetails';
-import { LEASING_PROVIDERS } from '../../utils/constants';
+import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 
 const choices = (

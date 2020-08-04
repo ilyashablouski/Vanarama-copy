@@ -15,7 +15,7 @@ import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanne
 import cx from 'classnames';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
 import { toPriceFormat } from '../../utils/helpers';
-import { LEASING_PROVIDERS } from '../../utils/constants';
+import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import {
   VehicleTypeEnum,
   LeaseTypeEnum,
@@ -69,6 +69,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 }) => {
   const [leaseType, setLeaseType] = useState<string>('Personal');
   const [leadTime, setLeadTime] = useState<string>('');
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [
     leaseScannerData,
     setLeaseScannerData,
@@ -154,7 +155,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   const vehicleType = cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV;
   const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capRangeDescription}`;
-
   return (
     <>
       <div className="pdp--content">
@@ -216,6 +216,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             leaseType={leaseType}
             setLeaseType={setLeaseType}
             setLeadTime={setLeadTime}
+            isDisabled={isDisabled}
+            setIsDisabled={setIsDisabled}
             setLeaseScannerData={setLeaseScannerData}
             onCompleted={values => onSubmitClick(values)}
           />
@@ -239,6 +241,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         leaseType={leaseType}
         setLeaseType={setLeaseType}
         setLeadTime={setLeadTime}
+        isDisabled={isDisabled}
+        setIsDisabled={setIsDisabled}
         onCompleted={values => onSubmitClick(values)}
       />
       {!!capsId?.length && (
@@ -282,8 +286,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             orderNowClick={() => {}}
             headingText={`PM ${leaseScannerData?.stateVAT}. VAT`}
             leasingProviders={LEASING_PROVIDERS}
-            startLoading={!!leaseScannerData?.isDisabled}
+            startLoading={isDisabled}
             endAnimation={() => {
+              setIsDisabled(false);
               leaseScannerData?.endAnimation();
             }}
             requestCallBack={() => {

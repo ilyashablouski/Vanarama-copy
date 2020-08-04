@@ -29,6 +29,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   setLeadTime,
   onCompleted,
   setLeaseScannerData,
+  isDisabled,
+  setIsDisabled,
 }) => {
   const isInitialMount = useRef(true);
 
@@ -46,7 +48,6 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [trim, setTrim] = useState<number | null>(null);
   const [maintenance, setMaintenance] = useState<boolean | null>(null);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
-  const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [isInitialLoading, setIsInitialLoading] = useState<boolean>(false);
   const [showCallBackForm, setShowCallBackForm] = useState<boolean>(false);
   const [screenY, setScreenY] = useState<number | null>(null);
@@ -135,7 +136,6 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         isDisabled,
         stateVAT: leaseType === 'Personal' ? 'inc' : 'exc',
         endAnimation: () => {
-          setIsDisabled(false);
           setIsInitialLoading(true);
         },
         requestCallBack: () => {
