@@ -8,7 +8,6 @@ import React, {
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Search from '@vanarama/uibook/lib/components/atoms/search';
 import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
@@ -456,7 +455,6 @@ const SearchPageContainer: React.FC<IProps> = ({
       <div className="-mv-400 -stretch-left">
         {!isMakePage && !isSpecialOfferPage && (
           <>
-            <Search />
             <Checkbox
               id="specialOffer"
               label="View Special Offers Only"
