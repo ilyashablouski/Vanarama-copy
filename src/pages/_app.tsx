@@ -13,7 +13,7 @@ import {
   CompareContext,
   WHOLE_PATHS_PAGES_WITH_COMPARATOR,
 } from '../utils/comparatorTool';
-import Header from '../components/Header/Header';
+import Header from '../components/Header';
 import { PHONE_NUMBER_LINK, TOP_BAR_LINKS } from '../models/enum/HeaderLinks';
 import {
   getCompares,
