@@ -86,10 +86,10 @@ export function getVehiclesList(
   onCompleted?: (data: vehicleList) => void,
   first = 9,
   after?: string,
+  bodyStyles?: string[],
   manufacturerName?: string,
   rangeName?: string,
   rate?: RateInputObject,
-  bodyStyles?: string[],
   transmissions?: string[],
   fuelTypes?: string[],
 ) {
