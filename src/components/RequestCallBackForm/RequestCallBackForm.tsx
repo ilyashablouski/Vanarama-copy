@@ -8,8 +8,6 @@ import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
-import { useOpportunityCreation } from '../../containers/GoldrushFormContainer/gql';
-import { handleNetworkError } from '../../containers/GoldrushFormContainer/GoldrushFormContainer';
 import {
   IFleetCallBackFormProps,
   IFleetCallBackFormValues,
@@ -21,7 +19,6 @@ import {
   companyNameValidator,
   fleetSizeValidator,
 } from '../../utils/inputValidators';
-import { OpportunityTypeEnum } from '../../../generated/globalTypes';
 
 const RequestCallBackForm: React.FC<IFleetCallBackFormProps> = ({
   onSubmit,

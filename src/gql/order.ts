@@ -147,7 +147,8 @@ export const GET_OLAF_DATA = gql`
           term
           annualMileage
           depositMonths
-          funder
+          funderId
+          funderData
           colour
           trim
           maintenance
