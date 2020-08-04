@@ -9,6 +9,17 @@ import {
   GetVehicleDetails_leaseAdjustParams,
   GetVehicleDetails_vehicleConfigurationByCapId_financeProfile,
 } from '../../../generated/GetVehicleDetails';
+import { GetQuoteDetails_quoteByCapId } from '../../../generated/GetQuoteDetails';
+
+export interface ILeaseScannerData {
+  maintenance: boolean | null;
+  quoteByCapId: GetQuoteDetails_quoteByCapId | null | undefined;
+  isDisabled: boolean;
+  stateVAT: string;
+  endAnimation: () => void;
+  requestCallBack: () => void;
+  onSubmit: () => void;
+}
 
 export interface IProps {
   capId: number;
@@ -20,9 +31,14 @@ export interface IProps {
     | GetVehicleDetails_vehicleConfigurationByCapId_financeProfile
     | null
     | undefined;
+  isDisabled: boolean;
+  setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setLeaseType: React.Dispatch<React.SetStateAction<string>>;
   setLeadTime: React.Dispatch<React.SetStateAction<string>>;
   onCompleted: (values: OrderInputObject) => Promise<void>;
+  setLeaseScannerData?: React.Dispatch<
+    React.SetStateAction<ILeaseScannerData | null>
+  >;
 }
 
 export interface IQuoteDataInputs {
