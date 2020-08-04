@@ -55,7 +55,8 @@ export const GET_ORDERS_BY_PARTY_UUID_DATA = gql`
           term
           annualMileage
           depositMonths
-          funder
+          funderId
+          funderData
           colour
           trim
           maintenance

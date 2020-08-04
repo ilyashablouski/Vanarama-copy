@@ -45,7 +45,7 @@ export interface GetDirectorDetailsQuery_companyOfficers {
 
 export interface GetDirectorDetailsQuery {
   /**
-   * get all drop downs
+   * Get all drop downs
    */
   allDropDowns: GetDirectorDetailsQuery_allDropDowns | null;
   /**

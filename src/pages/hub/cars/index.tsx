@@ -29,7 +29,7 @@ import {
   HubCarPageData_hubCarPage_sections_steps_steps as StepData,
 } from '../../../../generated/HubCarPageData';
 import { ProductCardData } from '../../../../generated/ProductCardData';
-import { HUB_CAR_CONTENT } from '../../../gql/hubCarPage';
+import { HUB_CAR_CONTENT } from '../../../gql/hub/hubCarPage';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import withApollo from '../../../hocs/withApollo';
 

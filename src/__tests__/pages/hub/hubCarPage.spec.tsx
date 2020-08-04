@@ -5,7 +5,7 @@ import preloadAll from 'jest-next-dynamic';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { HubCarPageData } from '../../../../generated/HubCarPageData';
-import { HUB_CAR_CONTENT } from '../../../gql/hubCarPage';
+import { HUB_CAR_CONTENT } from '../../../gql/hub/hubCarPage';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
 import { CarsPage } from '../../../pages/hub/cars';
