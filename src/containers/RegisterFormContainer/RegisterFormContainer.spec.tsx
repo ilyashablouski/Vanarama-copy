@@ -15,6 +15,8 @@ describe('<RegisterFormContainer />', () => {
         request: {
           query: REGISTER_USER_MUTATION,
           variables: {
+            firstName: 'Barry',
+            lastName: 'Barrys',
             username: 'barry@chuckle.com',
             password: 'Alpha!23',
           },
@@ -34,6 +36,8 @@ describe('<RegisterFormContainer />', () => {
 
     // eslint-disable-next-line no-underscore-dangle, global-require
     require('../../components/RegisterForm/RegisterForm').__setMockValues({
+      firstName: 'Barry',
+      lastName: 'Barrys',
       email: 'barry@chuckle.com',
       password: 'Alpha!23',
     });
@@ -59,6 +63,8 @@ describe('<RegisterFormContainer />', () => {
         request: {
           query: REGISTER_USER_MUTATION,
           variables: {
+            firstName: 'Paul',
+            lastName: 'Pauls',
             username: 'paul@chuckle.com',
             password: 'Passw0rd1',
           },
@@ -75,6 +81,8 @@ describe('<RegisterFormContainer />', () => {
 
     // eslint-disable-next-line no-underscore-dangle, global-require
     require('../../components/RegisterForm/RegisterForm').__setMockValues({
+      firstName: 'Paul',
+      lastName: 'Pauls',
       email: 'paul@chuckle.com',
       password: 'Passw0rd1',
     });

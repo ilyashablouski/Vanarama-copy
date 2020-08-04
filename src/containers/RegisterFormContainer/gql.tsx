@@ -15,8 +15,18 @@ export const EMAIL_ALREADY_EXISTS = gql`
 `;
 
 export const REGISTER_USER_MUTATION = gql`
-  mutation RegisterUserMutation($username: String!, $password: String!) {
-    register(username: $username, password: $password) {
+  mutation RegisterUserMutation(
+    $firstName: String!
+    $lastName: String!
+    $username: String!
+    $password: String!
+  ) {
+    register(
+      firstName: $firstName
+      lastName: $lastName
+      username: $username
+      password: $password
+    ) {
       uuid
     }
   }

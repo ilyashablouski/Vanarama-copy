@@ -11,6 +11,8 @@ import PasswordRequirements from '../../core/components/PasswordRequirements';
 import {
   confirmPasswordValidator,
   passwordValidator,
+  lastNameValidator,
+  firstNameValidator,
 } from '../../utils/inputValidators';
 import { EMAIL_REGEX } from '../../utils/regex';
 import { IRegisterFormProps, IRegisterFormValues } from './interfaces';
@@ -28,6 +30,8 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
       confirmPassword: '',
       email: '',
       password: '',
+      firstName: '',
+      lastName: '',
     },
   });
 
@@ -35,6 +39,34 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
 
   return (
     <Form dataTestId="register-form" onSubmit={handleSubmit(onSubmit)}>
+      <Formgroup
+        controlId="register-form_firstName"
+        label="First Name"
+        error={errors.firstName?.message?.toString()}
+      >
+        <TextInput
+          id="register-form_password"
+          dataTestId="register-form_firstName"
+          name="firstName"
+          ref={register(firstNameValidator)}
+          type="text"
+          width="45ch"
+        />
+      </Formgroup>
+      <Formgroup
+        controlId="register-form_lastName"
+        label="Last Name"
+        error={errors.lastName?.message?.toString()}
+      >
+        <TextInput
+          id="register-form_lastName"
+          dataTestId="register-form_lastName"
+          name="lastName"
+          ref={register(lastNameValidator)}
+          type="text"
+          width="45ch"
+        />
+      </Formgroup>
       <Formgroup
         controlId="register-form_email"
         label="Your Email"

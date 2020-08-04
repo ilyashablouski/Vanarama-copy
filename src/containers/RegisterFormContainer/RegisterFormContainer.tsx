@@ -14,6 +14,8 @@ const RegisterFormContainer: React.FC<IRegisterFormContainerProps> = ({
       onSubmit={async values => {
         await register({
           variables: {
+            firstName: values.firstName,
+            lastName: values.lastName,
             username: values.email,
             password: values.password,
           },
