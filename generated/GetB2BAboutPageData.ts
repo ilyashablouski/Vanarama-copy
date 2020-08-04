@@ -20,7 +20,7 @@ export interface GetB2BAboutPageData_allDropDowns {
 
 export interface GetB2BAboutPageData {
   /**
-   * get all drop downs
+   * Get all drop downs
    */
   allDropDowns: GetB2BAboutPageData_allDropDowns | null;
 }

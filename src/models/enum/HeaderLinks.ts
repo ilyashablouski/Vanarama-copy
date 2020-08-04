@@ -455,7 +455,7 @@ export const TOP_BAR_LINKS = [
   },
   {
     label: 'Fleet',
-    href: '/van-insurance/',
+    href: '/fleet/',
     children: [],
     id: 'ea4dbb42-0c82-4643-800b-a65f0762b245',
   },
