@@ -10,10 +10,6 @@ export const CONTACT_US_CONTENT = gql`
           title
           body
         }
-        featured2 {
-          title
-          body
-        }
         cards {
           titleTag
           cards {
@@ -22,7 +18,23 @@ export const CONTACT_US_CONTENT = gql`
             body
           }
         }
+        featured2 {
+          title
+          body
+        }
       }
+    }
+  }
+`;
+
+export const LOCATIONS_PAGE_CONTENT = gql`
+  query LocationsPageData {
+    regionalOfficesPage {
+      id
+      metaData {
+        title
+      }
+      body
     }
   }
 `;

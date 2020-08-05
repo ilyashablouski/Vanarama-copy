@@ -52,7 +52,7 @@ export interface GetAboutYouPageQuery_allDropDowns {
 
 export interface GetAboutYouPageQuery {
   /**
-   * get all drop downs
+   * Get all drop downs
    */
   allDropDowns: GetAboutYouPageQuery_allDropDowns | null;
 }

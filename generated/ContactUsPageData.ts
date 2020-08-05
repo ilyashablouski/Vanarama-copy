@@ -12,11 +12,6 @@ export interface ContactUsPageData_contactUsLandingPage_sections_featured1 {
   body: string | null;
 }
 
-export interface ContactUsPageData_contactUsLandingPage_sections_featured2 {
-  title: string | null;
-  body: string | null;
-}
-
 export interface ContactUsPageData_contactUsLandingPage_sections_cards_cards {
   title: string | null;
   titleTag: string | null;
@@ -28,10 +23,15 @@ export interface ContactUsPageData_contactUsLandingPage_sections_cards {
   cards: ContactUsPageData_contactUsLandingPage_sections_cards_cards[] | null;
 }
 
+export interface ContactUsPageData_contactUsLandingPage_sections_featured2 {
+  title: string | null;
+  body: string | null;
+}
+
 export interface ContactUsPageData_contactUsLandingPage_sections {
   featured1: ContactUsPageData_contactUsLandingPage_sections_featured1 | null;
-  featured2: ContactUsPageData_contactUsLandingPage_sections_featured2 | null;
   cards: ContactUsPageData_contactUsLandingPage_sections_cards | null;
+  featured2: ContactUsPageData_contactUsLandingPage_sections_featured2 | null;
 }
 
 export interface ContactUsPageData_contactUsLandingPage {

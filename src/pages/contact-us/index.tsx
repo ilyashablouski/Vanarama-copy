@@ -13,10 +13,11 @@ import Card from '@vanarama/uibook/lib/components/molecules/cards';
 
 import withApollo from '../../hocs/withApollo';
 import { ContactUsPageData } from '../../../generated/ContactUsPageData';
-import BreadCrumbContainer from '../../containers/BreadCrumbContainer';
 import { CONTACT_US_CONTENT } from '../../gql/contact-us/contactUs';
 
-const ContactUsPage: NextPage = () => {
+import BreadCrumbContainer from '../../containers/BreadCrumbContainer';
+
+export const ContactUsPage: NextPage = () => {
   const { data, loading, error } = useQuery<ContactUsPageData>(
     CONTACT_US_CONTENT,
   );
