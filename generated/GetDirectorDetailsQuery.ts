@@ -20,10 +20,6 @@ export interface GetDirectorDetailsQuery_companyOfficers {
 
 export interface GetDirectorDetailsQuery {
   /**
-   * Get all drop downs
-   */
-  allDropDowns: GetDirectorDetailsQuery_allDropDowns | null;
-  /**
    * Get Companies House company officers.
    */
   companyOfficers: GetDirectorDetailsQuery_companyOfficers;

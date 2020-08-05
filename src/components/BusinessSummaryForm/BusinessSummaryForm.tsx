@@ -35,7 +35,6 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
   const handleEdit = useCallback(
     (url: string, additionalParameters?: { [key: string]: string }) => () => {
       const params = getUrlParam({
-        orderId,
         redirect: 'summary',
         ...additionalParameters,
       });
@@ -44,7 +43,8 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
         href,
         href
           .replace('[companyUuid]', company.uuid)
-          .replace('[personUuid]', person.uuid),
+          .replace('[personUuid]', person.uuid)
+          .replace('[orderId]', orderId),
       );
     },
     [company.uuid, orderId, person.uuid, router],
@@ -63,12 +63,13 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
               orderBySharehold={i}
               onEdit={handleEdit('/b2b/olaf/director-details/[companyUuid]', {
                 directorUuid: d.uuid,
+                orderId,
               })}
               key={d.uuid}
             />
           ))) ||
       null,
-    [company.associates, handleEdit],
+    [company.associates, handleEdit, orderId],
   );
 
   const onButtonPressed = useCallback(
@@ -94,7 +95,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
       <Form className="olaf--summary">
         <BusinessSummaryFormAboutSection
           person={person}
-          onEdit={handleEdit('/b2b/olaf/about', {
+          onEdit={handleEdit('/b2b/olaf/about/[orderId]', {
             companyUuid: company.uuid,
           })}
         />
@@ -102,12 +103,15 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
           company={company}
           onEdit={handleEdit('/b2b/olaf/company-details/[personUuid]', {
             companyUuid: company.uuid,
+            orderId,
           })}
         />
         {company.isVatRegistered && (
           <BusinessSummaryFormVATDetailsSection
             vatDetails={company}
-            onEdit={handleEdit('/b2b/olaf/vat-details/[companyUuid]')}
+            onEdit={handleEdit('/b2b/olaf/vat-details/[companyUuid]', {
+              orderId,
+            })}
           />
         )}
         <Heading
@@ -123,7 +127,9 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
         {primaryBankAccount && (
           <BusinessSummaryFormBankDetailsSection
             account={primaryBankAccount}
-            onEdit={handleEdit('/b2b/olaf/company-bank-details/[companyUuid]')}
+            onEdit={handleEdit('/b2b/olaf/company-bank-details/[companyUuid]', {
+              orderId,
+            })}
           />
         )}
       </Form>

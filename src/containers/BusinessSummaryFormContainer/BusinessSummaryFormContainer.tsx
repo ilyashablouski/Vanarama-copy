@@ -1,7 +1,11 @@
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React, { useEffect, useState } from 'react';
 import BusinessSummaryForm from '../../components/BusinessSummaryForm/BusinessSummaryForm';
-import { GetCompanySummaryQuery } from '../../../generated/GetCompanySummaryQuery';
+import {
+  GetCompanySummaryQuery,
+  GetCompanySummaryQuery_personByUuid as PersonByUuid,
+  GetCompanySummaryQuery_companyByUuid as CompanyByUuid,
+} from '../../../generated/GetCompanySummaryQuery';
 import { GET_COMPANY_SUMMARY } from './gql';
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 
@@ -30,7 +34,7 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
         .then(response => {
           setData(response.data);
         })
-        .catch(responseError => setError(responseError.message))
+        .catch(responseError => setError(responseError.message));
     }
   }, [setData, personUuid, companyUuid, getDataSummary]);
 
@@ -44,8 +48,8 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
 
   return (
     <BusinessSummaryForm
-      person={data.personByUuid}
-      company={data.companyByUuid}
+      person={data.personByUuid as PersonByUuid}
+      company={data.companyByUuid as CompanyByUuid}
       orderId={orderId}
     />
   );
