@@ -12,9 +12,11 @@ export const CREATE_OPPORTUNITY_MUTATION = gql`
     $marketingPreference: Boolean
     $opportunityType: OpportunityTypeEnum!
     $phoneNumber: String!
-    $postcode: String!
+    $postcode: String
     $termsAndConditions: Boolean
     $vehicleType: String
+    $companyName: String
+    $fleetSize: Int
   ) {
     createOpportunity(
       input: {
@@ -27,6 +29,8 @@ export const CREATE_OPPORTUNITY_MUTATION = gql`
         postcode: $postcode
         termsAndConditions: $termsAndConditions
         vehicleType: $vehicleType
+        companyName: $companyName
+        fleetSize: $fleetSize
       }
     ) {
       uuid
