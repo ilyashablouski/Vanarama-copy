@@ -285,8 +285,10 @@ export const HomePage: NextPage = () => {
             />
           </Text>
           <IconList>
-            {data?.homePage.sections.featured1?.iconList?.map(icon => (
-              <IconListItem iconColor="orange">{icon?.text}</IconListItem>
+            {data?.homePage.sections.featured1?.iconList?.map((icon, idx) => (
+              <IconListItem iconColor="orange" key={icon?.text || idx}>
+                {icon?.text}
+              </IconListItem>
             ))}
           </IconList>
         </div>

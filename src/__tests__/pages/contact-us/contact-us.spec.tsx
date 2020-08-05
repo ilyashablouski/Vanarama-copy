@@ -99,7 +99,6 @@ describe('<ContactUsPage />', () => {
       screen.getAllByText('Chat With iVan')[0],
       new MouseEvent('click', {
         bubbles: false,
-        cancelable: true,
       }),
     );
     await waitFor(() =>
