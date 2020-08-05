@@ -19,13 +19,33 @@ export interface ContactUsPageData_contactUsLandingPage_sections_cards_cards {
 }
 
 export interface ContactUsPageData_contactUsLandingPage_sections_cards {
-  titleTag: string | null;
   cards: ContactUsPageData_contactUsLandingPage_sections_cards_cards[] | null;
+}
+
+export interface ContactUsPageData_contactUsLandingPage_sections_featured2_cards_image_file {
+  url: string;
+}
+
+export interface ContactUsPageData_contactUsLandingPage_sections_featured2_cards_image {
+  file: ContactUsPageData_contactUsLandingPage_sections_featured2_cards_image_file | null;
+}
+
+export interface ContactUsPageData_contactUsLandingPage_sections_featured2_cards_link {
+  url: string | null;
+  text: string | null;
+}
+
+export interface ContactUsPageData_contactUsLandingPage_sections_featured2_cards {
+  title: string | null;
+  body: string | null;
+  image: ContactUsPageData_contactUsLandingPage_sections_featured2_cards_image | null;
+  link: ContactUsPageData_contactUsLandingPage_sections_featured2_cards_link | null;
 }
 
 export interface ContactUsPageData_contactUsLandingPage_sections_featured2 {
   title: string | null;
   body: string | null;
+  cards: (ContactUsPageData_contactUsLandingPage_sections_featured2_cards | null)[] | null;
 }
 
 export interface ContactUsPageData_contactUsLandingPage_sections {

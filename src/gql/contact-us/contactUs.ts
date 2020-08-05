@@ -20,6 +20,19 @@ export const CONTACT_US_CONTENT = gql`
         featured2 {
           title
           body
+          cards {
+            title
+            body
+            image {
+              file {
+                url
+              }
+            }
+            link {
+              url
+              text
+            }
+          }
         }
       }
     }

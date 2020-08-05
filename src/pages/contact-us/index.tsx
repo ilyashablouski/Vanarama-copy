@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { useQuery } from '@apollo/client';
+import Router from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
 
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -10,6 +11,7 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Map from '@vanarama/uibook/lib/components/atoms/map';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
+import CardTitle from '@vanarama/uibook/lib/components/molecules/cards/CardTitle';
 
 import withApollo from '../../hocs/withApollo';
 import { ContactUsPageData } from '../../../generated/ContactUsPageData';
@@ -80,12 +82,19 @@ export const ContactUsPage: NextPage = () => {
             source={data?.contactUsLandingPage.sections.featured2?.body || ''}
           />
         </div>
-        <Card inline>
-          <Image
-            className="card-image"
-            src="https://www.vanarama.com/assets/images-optimised/header-ivan.svg"
-          />
-        </Card>
+        {data?.contactUsLandingPage.sections.featured2?.cards?.map(c => (
+          <Card inline>
+            <Image className="card-image" src={c?.image?.file?.url || ''} />
+            <CardTitle title={c?.title || ''} />
+            <Text color="dark">{c?.body}</Text>
+            <Button
+              fill="clear"
+              color="teal"
+              label={c?.link?.text}
+              onClick={() => Router.push(c?.link?.url || '')}
+            />
+          </Card>
+        ))}
       </section>
     </>
   );
