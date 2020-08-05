@@ -70,10 +70,14 @@ const SummaryForm: FCWithFragments<IProps> = ({ person, orderId }) => {
         label="Continue"
         dataTestId="olaf_summary_continue_buttton"
         onClick={() => {
-          router.push(
-            '/olaf/thank-you/[orderId]',
-            '/olaf/thank-you/[orderId]'.replace('[orderId]', orderId),
-          );
+          router
+            .push(
+              '/olaf/thank-you/[orderId]',
+              '/olaf/thank-you/[orderId]'.replace('[orderId]', orderId),
+            )
+            .then(() => {
+
+            });
         }}
       />
     </Form>
@@ -104,5 +108,62 @@ SummaryForm.fragments = {
     ${SummaryFormBankDetailsSection.fragments.account}
   `,
 };
+
+export const FULL_CREDIT_CHECKER_MUTATION = gql`
+  # mutation RegisterUserMutation($username: String!, $password: String!) {
+  #   fullCreditChecker(username: $username, password: $password) {
+  #     uuid
+  #   }
+  # }
+
+  mutation fullCreditChecker(
+    $partyId: ID!
+    $creditApplicationUuid: ID!
+    $orderUuid: ID,
+    $vehicleType: VehicleTypeEnum!
+    $monthlyPayment: Float!
+    $depositPayment: Float!
+  ){
+    fullCreditChecker(
+     partyId: $partyId,
+          creditApplicationUuid: $creditApplicationUuid,
+          orderUuid: $orderUuid,
+          vehicleType: $vehicleType,
+          monthlyPayment: $Float,
+          depositPayment: $depositPayment
+         ){
+		        creditCheck{
+            uuid
+            creditCheckType
+            creditCheckLines{
+              uuid
+              funder
+              likelihood
+              }
+            }
+          party{
+            uuid
+            person{
+                uuid
+                partyId
+                partyUuid
+                firstName
+                lastName
+              }
+    }
+  }
+}
+
+`;
+
+ function useFullCreditChecker(
+  onCompleted?: (data: FulCreditCheckerMutation) => void,
+) {
+  return useMutation<FulCreditCheckerMutation, FulCreditCheckerMutationVariables>(
+    FULL_CREDIT_CHECKER_MUTATION,
+    { onCompleted },
+  );
+}
+
 
 export default SummaryForm;
