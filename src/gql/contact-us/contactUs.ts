@@ -11,7 +11,6 @@ export const CONTACT_US_CONTENT = gql`
           body
         }
         cards {
-          titleTag
           cards {
             title
             titleTag
