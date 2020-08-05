@@ -27,7 +27,6 @@ export const ContactUsPage: NextPage = () => {
   if (loading) {
     return <Loading size="large" />;
   }
-
   if (error) {
     return <p>Error: {error.message}</p>;
   }
@@ -62,12 +61,12 @@ export const ContactUsPage: NextPage = () => {
       </section>
       <section className="row:bg-light">
         <div className="row:tiles">
-          {data?.contactUsLandingPage.sections.cards?.cards?.map(item => (
-            <Card>
+          {data?.contactUsLandingPage.sections.cards?.cards?.map((c, idx) => (
+            <Card key={c.title || idx}>
               <Heading size="large" color="black">
-                {item.title}
+                {c.title}
               </Heading>
-              <ReactMarkdown escapeHtml={false} source={item.body || ''} />
+              <ReactMarkdown escapeHtml={false} source={c.body || ''} />
             </Card>
           ))}
         </div>
@@ -82,8 +81,8 @@ export const ContactUsPage: NextPage = () => {
             source={data?.contactUsLandingPage.sections.featured2?.body || ''}
           />
         </div>
-        {data?.contactUsLandingPage.sections.featured2?.cards?.map(c => (
-          <Card inline>
+        {data?.contactUsLandingPage.sections.featured2?.cards?.map((c, idx) => (
+          <Card inline key={c?.title || idx}>
             <Image className="card-image" src={c?.image?.file?.url || ''} />
             <CardTitle title={c?.title || ''} />
             <Text color="dark">{c?.body}</Text>
