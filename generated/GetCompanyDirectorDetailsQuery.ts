@@ -71,7 +71,7 @@ export interface GetCompanyDirectorDetailsQuery {
    */
   companyByUuid: GetCompanyDirectorDetailsQuery_companyByUuid | null;
   /**
-   * get all drop downs
+   * Get all drop downs
    */
   allDropDowns: GetCompanyDirectorDetailsQuery_allDropDowns | null;
 }

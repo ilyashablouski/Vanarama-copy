@@ -1,12 +1,9 @@
-import { useQuery } from '@apollo/client';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import BusinessSummaryForm from '../../components/BusinessSummaryForm/BusinessSummaryForm';
-import {
-  GetCompanySummaryQuery,
-  GetCompanySummaryQueryVariables,
-} from '../../../generated/GetCompanySummaryQuery';
+import { GetCompanySummaryQuery } from '../../../generated/GetCompanySummaryQuery';
 import { GET_COMPANY_SUMMARY } from './gql';
+import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 
 interface IProps {
   personUuid: string;
@@ -19,26 +16,30 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
   orderId,
   personUuid,
 }) => {
-  const { data, loading, error } = useQuery<
-    GetCompanySummaryQuery,
-    GetCompanySummaryQueryVariables
-  >(GET_COMPANY_SUMMARY, {
-    variables: {
-      uuid: companyUuid,
-      personUuid,
-    },
-  });
+  const [data, setData] = useState<GetCompanySummaryQuery | null>(null);
+  const [error, setError] = useState('');
 
-  if (loading) {
-    return <Loading size="large" />;
-  }
+  const getDataSummary = useImperativeQuery(GET_COMPANY_SUMMARY);
+
+  useEffect(() => {
+    if (personUuid && companyUuid) {
+      getDataSummary({
+        uuid: companyUuid,
+        personUuid,
+      })
+        .then(response => {
+          setData(response.data);
+        })
+        .catch(responseError => setError(responseError.message))
+    }
+  }, [setData, personUuid, companyUuid, getDataSummary]);
 
   if (error) {
-    return <p>Error occurred: {error.message}</p>;
+    return <p>Error occurred: {error}</p>;
   }
 
-  if (!data || !data.companyByUuid || !data.personByUuid) {
-    return null;
+  if (!data || (!data.companyByUuid && !data.personByUuid)) {
+    return <Loading size="large" />;
   }
 
   return (

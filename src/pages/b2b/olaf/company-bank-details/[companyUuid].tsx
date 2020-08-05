@@ -14,10 +14,10 @@ type QueryParams = OLAFQueryParams & {
 
 const CompanyBankDetailsPage: NextPage = () => {
   const router = useRouter();
-  const { derivativeId, orderId, companyUuid } = router.query as QueryParams;
+  const { orderId, companyUuid } = router.query as QueryParams;
 
   const handleSubmitCompletion = () => {
-    const params = getUrlParam({ derivativeId, orderId });
+    const params = getUrlParam({ orderId });
     const url = `/b2b/olaf/summary/[companyUuid]${params}`;
     router.push(url, url.replace('[companyUuid]', companyUuid));
   };

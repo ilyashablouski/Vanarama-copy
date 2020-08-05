@@ -20,10 +20,10 @@ type QueryParams = OLAFQueryParams & {
 
 export const VatDetailsPage: NextPage = () => {
   const router = useRouter();
-  const { companyUuid, derivativeId, orderId } = router.query as QueryParams;
+  const { companyUuid, orderId } = router.query as QueryParams;
 
   const handleSubmitCompletion = () => {
-    const params = getUrlParam({ derivativeId, orderId });
+    const params = getUrlParam({ orderId });
     const url =
       router.query.redirect === 'summary'
         ? `/b2b/olaf/summary/[companyUuid]${params}`

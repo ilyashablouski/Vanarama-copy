@@ -38,7 +38,7 @@ type QueryParams = OLAFQueryParams & {
 
 export const BusinessAboutPage: NextPage = () => {
   const router = useRouter();
-  const { derivativeId, orderId, companyUuid } = router.query as QueryParams;
+  const { orderId, companyUuid } = router.query as QueryParams;
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [personUuid, setPersonUuid] = useState<string | undefined>();
@@ -72,17 +72,23 @@ export const BusinessAboutPage: NextPage = () => {
   }, handleAccountFetchError);
 
   const handleCreateUpdateBusinessPersonCompletion = (result: SubmitResult) => {
-    const params = getUrlParam({ derivativeId, orderId });
+    const params = getUrlParam({ orderId, isChangePage: 'true' });
     const journeyUrl =
       result.companyType === CompanyTypes.limited
-        ? 'company-details'
-        : 'sole-trader/company-details';
+        ? `company-details/[personUuid]/${params}`
+        : 'sole-trader/company-details/[orderId]';
     const url =
       router.query.redirect === 'summary'
         ? `/b2b/olaf/summary/[companyUuid]${params}`
-        : `/b2b/olaf/${journeyUrl}/[companyUuid]${params}`;
+        : `/b2b/olaf/${journeyUrl}`;
 
-    router.push(url, url.replace('[companyUuid]', companyUuid || result.companyUuid || ''));
+    router.push(
+      url,
+      url
+        .replace('[companyUuid]', companyUuid || result.companyUuid || '')
+        .replace('[personUuid]', personUuid || '')
+        .replace('[orderId]', orderId || ''),
+    );
   };
 
   useEffect(() => {
