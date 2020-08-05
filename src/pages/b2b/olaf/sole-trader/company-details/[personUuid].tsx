@@ -13,7 +13,7 @@ export const CompanyDetailsPage: NextPage = () => {
 
   const handleSubmitCompletion = () => {
     const params = getUrlParam({ orderId });
-    const url = `/b2b/olaf/vat-details/[personUuid]${params}`;
+    const url = `/b2b/olaf/sole-trader/vat-details/[personUuid]${params}`;
     router.push(url, url.replace('[personUuid]', personUuid));
   };
 
