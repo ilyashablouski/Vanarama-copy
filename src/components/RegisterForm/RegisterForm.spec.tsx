@@ -35,6 +35,16 @@ describe('<RegisterForm />', () => {
     // ACT
     renderComponent(onSubmit, emailAlreadyExists);
 
+    // Set the first name
+    fireEvent.input(screen.getByLabelText('First Name'), {
+      target: { value: 'Barry' },
+    });
+
+    // Set the last name
+    fireEvent.input(screen.getByLabelText('Last Name'), {
+      target: { value: 'Chuckle' },
+    });
+
     // Set the email address
     fireEvent.input(screen.getByLabelText('Your Email'), {
       target: { value: 'barry.chuckle@gmail.com' },
@@ -70,10 +80,54 @@ describe('<RegisterForm />', () => {
       expect(screen.getByText('Your Email is required')).toBeVisible(),
     );
 
+    expect(screen.getByText('Please enter your first name')).toBeVisible();
+    expect(screen.getByText('Please enter your last name')).toBeVisible();
     expect(screen.getByText('Your Password is required')).toBeVisible();
-    expect(
-      screen.getByText('Please fill in your repeat password'),
-    ).toBeVisible();
+    expect(screen.getByText('Please fill in your repeat password')).toBeVisible();
+  });
+
+  it('should ensure the First Name and Last Name is the correct format', async () => {
+    // ARRANGE
+    const onSubmit = jest.fn();
+
+    // ACT
+    renderComponent(onSubmit, jest.fn());
+
+    // Set the first name
+    fireEvent.input(screen.getByLabelText('First Name'), {
+      target: { value: 'B2arry' },
+    });
+
+    // Set the last name
+    fireEvent.input(screen.getByLabelText('Last Name'), {
+      target: { value: 'C' },
+    });
+
+    // Set the email address
+    fireEvent.input(screen.getByLabelText('Your Email'), {
+      target: { value: 'barry.chuckle@gmail.com' },
+    });
+
+    // Set the password
+    fireEvent.input(screen.getByLabelText('Your Password'), {
+      target: { value: 'invalid' },
+    });
+
+    // Set the confirm password
+    fireEvent.input(screen.getByLabelText('Repeat Password'), {
+      target: { value: 'invalid' },
+    });
+
+    fireEvent.click(screen.getByText('Register'));
+
+    // ASSERT
+    await waitFor(() =>
+      expect(
+        screen.getByText('Please use only letters, apostrophes and dashes.'),
+      ).toBeVisible(),
+    );
+    
+    expect(screen.getByText('Oops, this last name’s too short. Please make it 2 characters or more.')).toBeVisible();
   });
 
   it('should ensure the password is the correct format', async () => {
