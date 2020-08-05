@@ -83,10 +83,12 @@ describe('<RegisterForm />', () => {
     expect(screen.getByText('Please enter your first name')).toBeVisible();
     expect(screen.getByText('Please enter your last name')).toBeVisible();
     expect(screen.getByText('Your Password is required')).toBeVisible();
-    expect(screen.getByText('Please fill in your repeat password')).toBeVisible();
+    expect(
+      screen.getByText('Please fill in your repeat password'),
+    ).toBeVisible();
   });
 
-  it('should ensure the First Name and Last Name is the correct format', async () => {
+  it('should ensure the First Name and Last Name are in correct format', async () => {
     // ARRANGE
     const onSubmit = jest.fn();
 
@@ -126,8 +128,12 @@ describe('<RegisterForm />', () => {
         screen.getByText('Please use only letters, apostrophes and dashes.'),
       ).toBeVisible(),
     );
-    
-    expect(screen.getByText('Oops, this last name’s too short. Please make it 2 characters or more.')).toBeVisible();
+
+    expect(
+      screen.getByText(
+        'Oops, this last name’s too short. Please make it 2 characters or more.',
+      ),
+    ).toBeVisible();
   });
 
   it('should ensure the password is the correct format', async () => {
