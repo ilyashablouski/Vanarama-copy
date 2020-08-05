@@ -2,7 +2,7 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import { gql } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { SummaryFormPerson } from '../../../generated/SummaryFormPerson';
@@ -13,6 +13,11 @@ import SummaryFormDetailsSection from './SummaryFormDetailsSection';
 import SummaryFormEmploymentHistory from './SummaryFormEmploymentHistory';
 import SummaryFormIncomeSection from './SummaryFormIncomeSection';
 import { getUrlParam } from '../../utils/url';
+
+import {
+  FulCreditCheckerMutation,
+  FulCreditCheckerMutationVariables,
+} from '../../../generated/FulCreditCheckerMutation';
 
 interface IProps {
   person: SummaryFormPerson;
@@ -109,61 +114,59 @@ SummaryForm.fragments = {
   `,
 };
 
-export const FULL_CREDIT_CHECKER_MUTATION = gql`
-  # mutation RegisterUserMutation($username: String!, $password: String!) {
-  #   fullCreditChecker(username: $username, password: $password) {
-  #     uuid
-  #   }
-  # }
+// export const FULL_CREDIT_CHECKER_MUTATION = gql`
+//   mutation fullCreditChecker(
+//     $partyId: String!
+//     $creditApplicationUuid: String!
+//     $orderUuid: String,
+//     $vehicleType: VehicleTypeEnum!
+//     $monthlyPayment: Float!
+//     $depositPayment: Float!
+//   ){
+//     fullCreditChecker(
+//      partyId: $partyId,
+//           creditApplicationUuid: $creditApplicationUuid,
+//           orderUuid: $orderUuid,
+//           vehicleType: $vehicleType,
+//           monthlyPayment: $Float,
+//           depositPayment: $depositPayment
+//          ){
+// 		        creditCheck{
+//             uuid
+//             creditCheckType
+//             creditCheckLines{
+//               uuid
+//               funder
+//               likelihood
+//               }
+//             }
+//           party{
+//             uuid
+//             person{
+//                 uuid
+//                 partyId
+//                 partyUuid
+//                 firstName
+//                 lastName
+//               }
+//     }
+//   }
+// }
 
-  mutation fullCreditChecker(
-    $partyId: ID!
-    $creditApplicationUuid: ID!
-    $orderUuid: ID,
-    $vehicleType: VehicleTypeEnum!
-    $monthlyPayment: Float!
-    $depositPayment: Float!
-  ){
-    fullCreditChecker(
-     partyId: $partyId,
-          creditApplicationUuid: $creditApplicationUuid,
-          orderUuid: $orderUuid,
-          vehicleType: $vehicleType,
-          monthlyPayment: $Float,
-          depositPayment: $depositPayment
-         ){
-		        creditCheck{
-            uuid
-            creditCheckType
-            creditCheckLines{
-              uuid
-              funder
-              likelihood
-              }
-            }
-          party{
-            uuid
-            person{
-                uuid
-                partyId
-                partyUuid
-                firstName
-                lastName
-              }
-    }
-  }
-}
+// `;
 
-`;
+//  function useFullCreditChecker(
+//   onCompleted?: (data: FulCreditCheckerMutation) => void,
+// ) {
+//   return useMutation<FulCreditCheckerMutation, FulCreditCheckerMutationVariables>(
+//     FULL_CREDIT_CHECKER_MUTATION,
+//     { onCompleted },
+//   );
+// }
 
- function useFullCreditChecker(
-  onCompleted?: (data: FulCreditCheckerMutation) => void,
-) {
-  return useMutation<FulCreditCheckerMutation, FulCreditCheckerMutationVariables>(
-    FULL_CREDIT_CHECKER_MUTATION,
-    { onCompleted },
-  );
-}
-
+// enum VehicleTypeEnum {
+//   Car,
+//   LCV
+// }
 
 export default SummaryForm;
