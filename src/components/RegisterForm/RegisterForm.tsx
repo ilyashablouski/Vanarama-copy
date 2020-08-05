@@ -45,7 +45,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
         error={errors.firstName?.message?.toString()}
       >
         <TextInput
-          id="register-form_password"
+          id="register-form_firstName"
           dataTestId="register-form_firstName"
           name="firstName"
           ref={register(firstNameValidator)}
