@@ -285,15 +285,9 @@ export const HomePage: NextPage = () => {
             />
           </Text>
           <IconList>
-            <IconListItem iconColor="orange">
-              Choose your contract length &amp; agreed mileage
-            </IconListItem>
-            <IconListItem iconColor="orange">
-              Pay an initial payment
-            </IconListItem>
-            <IconListItem iconColor="orange">
-              Set up your agreed fixed monthly rental
-            </IconListItem>
+            {data?.homePage.sections.featured1?.iconList?.map(icon => (
+              <IconListItem iconColor="orange">{icon?.text}</IconListItem>
+            ))}
           </IconList>
         </div>
         <Image src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349" />

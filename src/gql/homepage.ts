@@ -60,6 +60,9 @@ const ALL_HOME_CONTENT = gql`
           title
           titleTag
           body
+          iconList {
+            text
+          }
         }
         featured2 {
           title

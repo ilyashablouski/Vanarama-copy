@@ -28,7 +28,7 @@ const mocked: MockedResponse[] = [
               featured1: {
                 title: 'Head Office',
                 body:
-                  'Ad est aliqua reprehenderit labore exercitation est veniam consectetur sit',
+                  'Ad est aliqua reprehenderit labore exercitation est veniam consectetur sit deserunt commodo magna anim sit aliqua sunt non irure sit velit magna aliqua ullamco esse amet cillum elit fugiat ipsum',
               },
               cards: {
                 cards: [
@@ -36,7 +36,13 @@ const mocked: MockedResponse[] = [
                     title: 'Telephone',
                     titleTag: null,
                     body:
-                      'New vehicle & leasing enquiries email: vehicleleasing@vanarama.co.uk',
+                      '### 01442 838 195\n\n__Monday__ - __Friday__ 9am - 9pm\n__Saturday__ - __Sunday__ 11am - 9pm',
+                  },
+                  {
+                    title: 'Email us',
+                    titleTag: null,
+                    body:
+                      '- New vehicle & leasing enquiries email: vehicleleasing@vanarama.co.uk\n\n\n- General enquires: enquiries@vanarama.co.uk\n\n\n- Customer Support email: customersupport@vanarama.co.uk',
                   },
                 ],
               },
@@ -61,11 +67,7 @@ describe('<ContactUsPage />', () => {
       </MockedProvider>,
     );
     await waitFor(() => {
-      expect(
-        screen.getByText(
-          'New vehicle & leasing enquiries email: vehicleleasing@vanarama.co.uk',
-        ),
-      ).toBeInTheDocument();
+      expect(screen.getByText('Head Office')).toBeInTheDocument();
     });
   });
 });
