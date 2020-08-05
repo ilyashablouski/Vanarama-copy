@@ -49,6 +49,7 @@ const FiltersContainer = ({
   preSearchVehicleCount,
   isSpecialOffers,
   isMakePage,
+  isPickups,
 }: IFilterContainerProps) => {
   const router = useRouter();
   const [filtersData, setFiltersData] = useState({} as IFilterList);
@@ -183,10 +184,11 @@ const FiltersContainer = ({
 
   useEffect(() => {
     // if we have query parameters filters should be preselected
-    if (
-      Object.keys(router?.query || {}).length &&
-      Object.keys(allFiltersData).length
-    ) {
+    const shouldPreselect =
+      (Object.keys(router?.query || {}).length &&
+        Object.keys(allFiltersData).length) ||
+      router.query.isChangePage === 'true';
+    if (shouldPreselect) {
       const presetFilters = {} as ISelectedFiltersState;
       const routerQuery = Object.entries(router.query);
       routerQuery.forEach(entry => {
@@ -200,7 +202,7 @@ const FiltersContainer = ({
             // saving model to temp because after set makes model will be removed
             if (value) setTempModelName(value);
           });
-        } else if (key !== 'pricePerMonth') {
+        } else if (key !== 'pricePerMonth' && key !== 'isChangePage') {
           let query: string | string[];
           // transformation the query value to expected type
           if (!Array.isArray(values)) {
@@ -221,31 +223,23 @@ const FiltersContainer = ({
                   filtersMapper[key as keyof typeof filtersMapper],
                 ),
               ];
-        } else {
+        } else if (key !== 'isChangePage') {
           const rate = (values as string).split('|');
           presetFilters.from = [rate[0]] || null;
           presetFilters.to = [rate[1]] || null;
         }
       });
-
-      if (routerQuery.length === 1) {
-        setSelectedFiltersState(() => ({
-          ...initialState,
-          ...presetFilters,
-        }));
-      } else {
-        setSelectedFiltersState(prevState => ({
-          ...prevState,
-          ...presetFilters,
-        }));
-      }
+      setSelectedFiltersState(prevState => ({
+        ...prevState,
+        ...presetFilters,
+      }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [allFiltersData]);
+  }, [allFiltersData, router.query.isChangePage]);
 
   useEffect(() => {
     const queryLength = Object.keys(router?.query || {}).length;
-    if (!queryLength) {
+    if (!queryLength || (queryLength === 1 && router.query.isChangePage)) {
       setSelectedFiltersState(initialState);
     }
   }, [setSelectedFiltersState, router]);
@@ -553,10 +547,19 @@ const FiltersContainer = ({
                             filter.accessor as keyof typeof filtersMapper,
                           )
                         }
-                        choices={choiceBoxesData[filter.accessor]}
+                        choices={
+                          filter.accessor === filterFields.bodyStyles &&
+                          isPickups
+                            ? [{ label: 'Pickup', active: true }]
+                            : choiceBoxesData[filter.accessor]
+                        }
                         className="-cols-1"
                         color="medium"
                         multiSelect
+                        disabled={
+                          filter.accessor === filterFields.bodyStyles &&
+                          isPickups
+                        }
                         ref={getOrCreateRef(filter.accessor)}
                       />
                     )}

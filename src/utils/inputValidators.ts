@@ -175,3 +175,17 @@ export const vehicleRegistrationNumberValidator = {
     message: 'Please only use letters and numbers',
   },
 };
+
+export const companyNameValidator = {
+  required: {
+    value: true,
+    message: 'Please enter your company name',
+  },
+};
+
+export const fleetSizeValidator = {
+  required: {
+    value: true,
+    message: 'Please enter your fleet size',
+  },
+};

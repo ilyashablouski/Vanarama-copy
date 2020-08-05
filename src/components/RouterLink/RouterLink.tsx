@@ -57,7 +57,12 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
   }
 
   return (
-    <Link href={link.href} replace={replace} as={as} shallow={!!as}>
+    <Link
+      href={{ pathname: link.href, query: link.query || {} }}
+      replace={replace}
+      as={as}
+      shallow={!!as}
+    >
       <a
         className={linkClassName}
         onClick={e => onClick && onClick(e)}
