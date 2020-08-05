@@ -1,11 +1,10 @@
-import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import renderer from 'react-test-renderer';
 import React from 'react';
 import {
   TOP_BAR_LINKS,
   PHONE_NUMBER_LINK,
 } from '../../../models/enum/HeaderLinks';
-import { Header, LOGOUT_USER_MUTATION } from '../Header';
+import { Header } from '../Header';
 
 const mocks = {
   topBarLinks: TOP_BAR_LINKS,
@@ -13,24 +12,9 @@ const mocks = {
     label: 'Login',
     href: `/account/login-register`,
   },
+  onLogOut: jest.fn(),
   phoneNumberLink: PHONE_NUMBER_LINK,
 };
-
-const mockedResponse: MockedResponse[] = [
-  {
-    request: {
-      query: LOGOUT_USER_MUTATION,
-      variables: {
-        token: 'test token',
-      },
-    },
-    result: {
-      data: {
-        personByUuid: true,
-      },
-    },
-  },
-];
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
@@ -52,13 +36,7 @@ describe('<Header />', () => {
       getItem: jest.fn(() => null),
     }));
     const getComponent = () => {
-      return renderer
-        .create(
-          <MockedProvider addTypename={false} mocks={mockedResponse}>
-            <Header {...mocks} />
-          </MockedProvider>,
-        )
-        .toJSON();
+      return renderer.create(<Header {...mocks} />).toJSON();
     };
     const tree = getComponent();
     expect(tree).toMatchSnapshot();
@@ -79,13 +57,7 @@ describe('<Header />', () => {
     }));
 
     const getComponent = () => {
-      return renderer
-        .create(
-          <MockedProvider addTypename={false} mocks={mockedResponse}>
-            <Header {...mocks} />
-          </MockedProvider>,
-        )
-        .toJSON();
+      return renderer.create(<Header {...mocks} />).toJSON();
     };
     const tree = getComponent();
     expect(tree).toMatchSnapshot();

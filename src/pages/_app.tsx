@@ -13,8 +13,7 @@ import {
   CompareContext,
   WHOLE_PATHS_PAGES_WITH_COMPARATOR,
 } from '../utils/comparatorTool';
-import Header from '../components/Header';
-import { PHONE_NUMBER_LINK, TOP_BAR_LINKS } from '../models/enum/HeaderLinks';
+import HeaderContainer from '../containers/HeaderContainer';
 import {
   getCompares,
   deleteCompare,
@@ -26,11 +25,6 @@ import {
 } from '../utils/comparatorHelpers';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
-  const LOGIN_LINK = {
-    label: 'Login',
-    href: `/account/login-register?redirect=${router.asPath}`,
-  };
-
   const [compareVehicles, setCompareVehicles] = useState<
     IVehicle[] | IVehicleCarousel[] | [] | null | undefined
   >([]);
@@ -105,11 +99,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     <>
       <ToastContainer />
       <main className={cx(resolveMainClass())}>
-        <Header
-          loginLink={LOGIN_LINK}
-          phoneNumberLink={PHONE_NUMBER_LINK}
-          topBarLinks={TOP_BAR_LINKS}
-        />
+        <HeaderContainer />
         <CompareContext.Provider
           value={{
             compareVehicles,
