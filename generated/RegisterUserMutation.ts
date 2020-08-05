@@ -16,6 +16,8 @@ export interface RegisterUserMutation {
 }
 
 export interface RegisterUserMutationVariables {
+  firstName: string;
+  lastName: string;
   username: string;
   password: string;
 }
