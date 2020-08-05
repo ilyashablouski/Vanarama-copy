@@ -20,6 +20,20 @@ describe('<CustomiseLeaseContainer />', () => {
     { loading: false },
   ]);
 
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: jest.fn().mockImplementation(query => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: jest.fn(),
+      removeListener: jest.fn(),
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    })),
+  });
+
   it('should show data correctly', async () => {
     (useQuoteData as jest.Mock).mockReturnValue({
       loading: false,
@@ -61,6 +75,8 @@ describe('<CustomiseLeaseContainer />', () => {
         capId={84429}
         vehicleType={VehicleTypeEnum.CAR}
         setLeadTime={jest.fn()}
+        isDisabled={false}
+        setIsDisabled={jest.fn()}
         leaseAdjustParams={{
           mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
           terms: [24, 36, 48, 60],
@@ -162,6 +178,8 @@ describe('<CustomiseLeaseContainer />', () => {
       capId: 84429,
       vehicleType: VehicleTypeEnum.CAR,
       setLeadTime: jest.fn(),
+      isDisabled: false,
+      setIsDisabled: jest.fn(),
       leaseAdjustParams: {
         mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
         terms: [24, 36, 48, 60],
@@ -219,6 +237,8 @@ describe('<CustomiseLeaseContainer />', () => {
     const tree = getComponent({
       capId: 84429,
       vehicleType: VehicleTypeEnum.CAR,
+      isDisabled: false,
+      setIsDisabled: jest.fn(),
       setLeadTime: jest.fn(),
       leaseAdjustParams: {
         mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
@@ -307,6 +327,8 @@ describe('<CustomiseLeaseContainer />', () => {
         capId={84429}
         vehicleType={VehicleTypeEnum.CAR}
         setLeadTime={jest.fn()}
+        isDisabled={false}
+        setIsDisabled={jest.fn()}
         financeProfile={{
           leaseType: LeaseTypeEnum.PERSONAL,
           mileage: 1321,
