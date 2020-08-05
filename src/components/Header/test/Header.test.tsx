@@ -4,7 +4,7 @@ import {
   TOP_BAR_LINKS,
   PHONE_NUMBER_LINK,
 } from '../../../models/enum/HeaderLinks';
-import Header from '../Header';
+import { Header } from '../Header';
 
 const mocks = {
   topBarLinks: TOP_BAR_LINKS,
@@ -12,6 +12,7 @@ const mocks = {
     label: 'Login',
     href: `/account/login-register`,
   },
+  onLogOut: jest.fn(),
   phoneNumberLink: PHONE_NUMBER_LINK,
 };
 
