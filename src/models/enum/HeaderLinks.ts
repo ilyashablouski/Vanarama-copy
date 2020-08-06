@@ -188,7 +188,7 @@ export const TOP_BAR_LINKS = [
     children: [
       {
         label: 'Pickups Special offers',
-        href: 'special-offers/pickup-offers',
+        href: '/special-offers/pickup-offers',
         highlight: true,
         id: 'b7b2b49e-ee30-4ad5-93f7-b367d8c6d0ae',
       },
@@ -310,7 +310,7 @@ export const TOP_BAR_LINKS = [
     children: [
       {
         label: 'Car Special Offers',
-        href: '',
+        href: '/special-offers/car-offers',
         highlight: true,
         id: '831f7a18-d3f8-4019-9ddd-e54fbe9f6af7',
       },
