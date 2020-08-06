@@ -5,7 +5,7 @@ import CompanyBankDetails from '..';
 describe('<CompanyBankDetails />', () => {
   it('should show required form field validation messages', async () => {
     // ACT
-    render(<CompanyBankDetails onSubmit={jest.fn()} />);
+    render(<CompanyBankDetails onSubmit={jest.fn()} isEdited={false} />);
     fireEvent.click(screen.getByText('Continue'));
 
     // ASSERT

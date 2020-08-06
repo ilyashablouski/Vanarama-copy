@@ -44,7 +44,7 @@ export default function CompanyDetailsFormFields({
     Object.entries(defaultValues).forEach(([key, value]) =>
       setValue(key, value),
     );
-  }, [defaultValues.companyName]);
+  }, [defaultValues.companyName, setValue, defaultValues]);
   const tradingDifferent = watch(
     'tradingDifferent',
     defaultValues.tradingDifferent || false,

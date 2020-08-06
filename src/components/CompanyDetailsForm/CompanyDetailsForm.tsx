@@ -42,18 +42,18 @@ const CompanyDetailsForm: React.FC<IProps> = ({
   const registeredAddress =
     (registeredAddresses &&
       registeredAddresses[0] && {
-      id: registeredAddresses[0].serviceId || '',
-      label: addressToDisplay(registeredAddresses[0]),
-    }) ||
+        id: registeredAddresses[0].serviceId || '',
+        label: addressToDisplay(registeredAddresses[0]),
+      }) ||
     undefined;
   const tradingAddresses =
     company?.addresses && company.addresses.filter(a => a.kind === 'trading');
   const tradingAddress =
     (tradingAddresses &&
       tradingAddresses[0] && {
-      id: tradingAddresses[0].serviceId || '',
-      label: addressToDisplay(tradingAddresses[0]),
-    }) ||
+        id: tradingAddresses[0].serviceId || '',
+        label: addressToDisplay(tradingAddresses[0]),
+      }) ||
     registeredAddress ||
     undefined;
   const defaultValues = useMemo(
