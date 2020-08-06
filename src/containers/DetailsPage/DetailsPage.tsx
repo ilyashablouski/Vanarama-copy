@@ -155,6 +155,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   const vehicleType = cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV;
   const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capRangeDescription}`;
+
+  if (process.env.ENV === 'development') console.log('CAP Id:', capId);
+
   return (
     <>
       <div className="pdp--content">
