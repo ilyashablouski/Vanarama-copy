@@ -40,6 +40,7 @@ import truncateString from '../../../utils/truncateString';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { getProductPageUrl } from '../../../utils/url';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
+import getTitleTag from '../../../utils/getTitleTag';
 
 export const CarsPage: NextPage = () => {
   const { data, loading, error } = useQuery<HubCarPageData>(HUB_CAR_CONTENT);
@@ -70,7 +71,14 @@ export const CarsPage: NextPage = () => {
   return (
     <>
       <Hero>
-        <HeroHeading text={data?.hubCarPage.sections.hero?.title || ''} />
+        <HeroHeading
+          text={data?.hubCarPage.sections.hero?.title || ''}
+          titleTag={
+            getTitleTag(
+              data?.hubCarPage.sections.hero?.titleTag || 'p',
+            ) as keyof JSX.IntrinsicElements
+          }
+        />
         <br />
         <HeroTitle text={data?.hubCarPage.sections.hero?.body || ''} />
         <br />
@@ -86,7 +94,15 @@ export const CarsPage: NextPage = () => {
       </Hero>
 
       <section className="row:lead-text">
-        <Heading size="xlarge" color="black">
+        <Heading
+          size="xlarge"
+          color="black"
+          tag={
+            getTitleTag(
+              data?.hubCarPage.sections.leadText?.titleTag || null,
+            ) as keyof JSX.IntrinsicElements
+          }
+        >
           {data?.hubCarPage.sections.leadText?.heading}
         </Heading>
         <Text tag="span" size="lead" color="darker">
@@ -230,7 +246,15 @@ export const CarsPage: NextPage = () => {
 
       <section className="row:featured-right">
         <div style={{ padding: '1rem' }}>
-          <Heading size="large" color="black">
+          <Heading
+            size="large"
+            color="black"
+            tag={
+              getTitleTag(
+                data?.hubCarPage.sections.featured1?.titleTag || 'p',
+              ) as keyof JSX.IntrinsicElements
+            }
+          >
             {data?.hubCarPage.sections.featured1?.title}
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
@@ -267,7 +291,15 @@ export const CarsPage: NextPage = () => {
           }
         />
         <div className="-inset -middle -col-400">
-          <Heading size="large" color="black">
+          <Heading
+            size="large"
+            color="black"
+            tag={
+              getTitleTag(
+                data?.hubCarPage.sections.featured2?.titleTag || 'p',
+              ) as keyof JSX.IntrinsicElements
+            }
+          >
             {data?.hubCarPage.sections.featured2?.title}
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
@@ -280,6 +312,17 @@ export const CarsPage: NextPage = () => {
       </section>
 
       <section className="row:features-4col">
+        <Heading
+          size="large"
+          color="black"
+          tag={
+            getTitleTag(
+              data?.hubCarPage.sections.tiles?.titleTag || 'p',
+            ) as keyof JSX.IntrinsicElements
+          }
+        >
+          {data && data.hubCarPage.sections.tiles?.tilesTitle}
+        </Heading>
         {data?.hubCarPage.sections.tiles?.tiles?.map((tile: TileData, idx) => (
           <div key={tile.title || idx}>
             <Tile className="-plain -button -align-center" plain>
