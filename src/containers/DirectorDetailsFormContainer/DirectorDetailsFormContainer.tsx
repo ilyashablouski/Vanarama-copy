@@ -16,6 +16,7 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   onCompleted,
   onError,
   directorUuid,
+  isEdited,
 }) => {
   const [saveDirectorDetails] = useSaveDirectorDetailsMutation();
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
@@ -51,14 +52,14 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
 
   if (
     !data?.companyByUuid?.companyNumber ||
-    !data.companyByUuid.associates ||
-    !data.allDropDowns
+    (isEdited && !(data?.companyByUuid?.associates || data?.allDropDowns))
   ) {
     return <p>Error: Could not load company data!</p>;
   }
 
   return (
     <DirectorDetailsForm
+      isEdited
       directorUuid={directorUuid}
       dropdownData={data.allDropDowns}
       associates={data.companyByUuid.associates}

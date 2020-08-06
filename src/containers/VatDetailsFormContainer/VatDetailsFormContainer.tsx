@@ -1,16 +1,11 @@
-import React from 'react';
-import { useQuery } from '@apollo/client';
+import React, { useEffect } from 'react';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import VatDetailsForm from '../../components/VatDetailsForm/VatDetailsForm';
 import { VatDetailsFormValues } from '../../components/VatDetailsForm/interfaces';
 import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
-import { useUpdateVatDetails, GET_VAT_DETAILS } from './gql';
+import { useUpdateVatDetails, useGetVatDetails } from './gql';
 import { IVatDetailsFormContainerProps } from './interfaces';
 import { mapFormValues } from './mappers';
-import {
-  GetVatDetailsQueryVariables,
-  GetVatDetailsQuery,
-} from '../../../generated/GetVatDetailsQuery';
 
 export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = ({
   companyUuid,
@@ -48,14 +43,15 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
       .catch(onError);
   };
 
-  const { data, loading, error } = useQuery<
-    GetVatDetailsQuery,
-    GetVatDetailsQueryVariables
-  >(GET_VAT_DETAILS, {
-    variables: {
-      companyUuid,
-    },
-  });
+  const [getVatDetails, { data, loading, error }] = useGetVatDetails(
+    companyUuid,
+  );
+
+  useEffect(() => {
+    if (isEdited) {
+      getVatDetails();
+    }
+  }, [getVatDetails, isEdited]);
 
   if (loading) {
     return <Loading size="large" />;

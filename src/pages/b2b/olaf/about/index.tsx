@@ -72,7 +72,7 @@ export const BusinessAboutPage: NextPage = () => {
   }, handleAccountFetchError);
 
   const handleCreateUpdateBusinessPersonCompletion = (result: SubmitResult) => {
-    const params = getUrlParam({ orderId, isChangePage: 'true' });
+    const params = getUrlParam({ orderId });
     const journeyUrl =
       result.companyType === CompanyTypes.limited
         ? `company-details/[personUuid]/${params}`

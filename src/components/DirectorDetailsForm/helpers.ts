@@ -9,7 +9,7 @@ import { CompanyAssociate } from '../../../generated/CompanyAssociate';
 import { TAddressEntry } from '../AddressForm/interfaces';
 import { addressToDisplay } from '../../utils/address';
 
-export const initialFormValues = (
+export const initialEditedFormValues = (
   directors: DirectorFormValues[],
   directorUuid?: string,
 ): DirectorDetailsFormValues => {
@@ -177,7 +177,7 @@ export const parseOfficers = (
 export const parseAssociates = (
   associates: CompanyAssociate[],
 ): DirectorFormValues[] =>
-  associates.map(a => {
+  associates?.map(a => {
     const dateOfBirth = moment(a.dateOfBirth);
     const history: TAddressEntry[] =
       a.addresses?.map(address => {
@@ -209,9 +209,11 @@ export const parseAssociates = (
 
 export const combineDirectorsData = (
   officers: DirectorFieldsOfficer[],
-  associates: CompanyAssociate[],
+  associates: CompanyAssociate[] | null,
 ) => {
-  const editedDirecors: DirectorFormValues[] = parseAssociates(associates);
+  const editedDirecors: DirectorFormValues[] = parseAssociates(
+    associates || [],
+  );
   const notEditedDirecors = parseOfficers(officers).filter(
     officer =>
       editedDirecors.filter(
@@ -220,4 +222,17 @@ export const combineDirectorsData = (
       ).length === 0,
   );
   return editedDirecors.concat(notEditedDirecors);
+};
+
+export const initialFormValues = (
+  directors: DirectorFieldsOfficer[],
+): DirectorDetailsFormValues => {
+  if (directors.length > 1) {
+    return { totalPercentage: 0, directors: [] };
+  }
+
+  return {
+    totalPercentage: 0,
+    directors: parseOfficers([directors[0]]),
+  };
 };

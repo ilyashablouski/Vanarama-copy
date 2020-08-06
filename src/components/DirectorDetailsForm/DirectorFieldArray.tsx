@@ -4,16 +4,17 @@ import { FieldArray, FieldArrayRenderProps, useFormikContext } from 'formik';
 import React from 'react';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import { DirectorFieldsDropDownData } from '../../../generated/DirectorFieldsDropDownData';
+import { GetDirectorDetailsQuery_companyOfficers_nodes as DirectorFieldsOfficer } from '../../../generated/GetDirectorDetailsQuery';
 import DirectorFields from './DirectorFields';
 import { DirectorDetailsFormValues, DirectorFormValues } from './interfaces';
 
 const handleDirectorSelected = (
   fullname: string,
   arrayHelpers: FieldArrayRenderProps,
-  directors: DirectorFormValues[],
+  directors?: DirectorFormValues[],
 ) => {
   const [lastName, firstName] = fullname.split(', ');
-  const selected = directors.find(
+  const selected = directors?.find(
     director =>
       director.firstName === firstName && director.lastName === lastName,
   );
@@ -35,10 +36,17 @@ const handleDirectorSelected = (
 
 type Props = {
   dropdownData: DirectorFieldsDropDownData;
-  directors: DirectorFormValues[];
+  isEdited: boolean;
+  directors?: DirectorFormValues[];
+  officers?: DirectorFieldsOfficer[];
 };
 
-export default function DirectorFieldArray({ dropdownData, directors }: Props) {
+export default function DirectorFieldArray({
+  dropdownData,
+  directors,
+  isEdited,
+  officers,
+}: Props) {
   const { errors, touched, values, submitCount } = useFormikContext<
     DirectorDetailsFormValues
   >();
@@ -47,7 +55,9 @@ export default function DirectorFieldArray({ dropdownData, directors }: Props) {
     _ => `${_.lastName}, ${_.firstName}`,
   );
 
-  const hasMultipleDirectors = directors.length > 1;
+  const hasMultipleDirectors = isEdited
+    ? directors && directors.length > 1
+    : officers && officers.length > 1;
   const showMinimumPercentageMessage =
     errors.totalPercentage === 'TOO_LOW' &&
     touched.directors?.some(_ => _.shareOfBusiness);
@@ -56,6 +66,29 @@ export default function DirectorFieldArray({ dropdownData, directors }: Props) {
     hasMultipleDirectors &&
     (showMinimumPercentageMessage || values.directors.length === 0);
 
+  const optionsRender = () => {
+    if (isEdited) {
+      return directors?.map(_ => (
+        <option
+          key={`${_.lastName}, ${_.firstName}`}
+          value={`${_.lastName}, ${_.firstName}`}
+          disabled={selectedDirectors.includes(`${_.lastName}, ${_.firstName}`)}
+        >
+          {`${_.lastName}, ${_.firstName}`}
+        </option>
+      ));
+    }
+    return officers?.map(_ => (
+      <option
+        key={_.name}
+        value={_.name}
+        disabled={selectedDirectors.includes(_.name)}
+      >
+        {_.name}
+      </option>
+    ));
+  };
+
   return (
     <FieldArray name="directors">
       {arrayHelpers => (
@@ -63,7 +96,7 @@ export default function DirectorFieldArray({ dropdownData, directors }: Props) {
           {values.directors.map((_, index) => (
             <DirectorFields
               key={index} // eslint-disable-line react/no-array-index-key
-              canBeRemoved={hasMultipleDirectors}
+              canBeRemoved={hasMultipleDirectors as boolean}
               dropDownData={dropdownData}
               index={index}
               onRemoveClick={() => arrayHelpers.remove(index)}
@@ -94,17 +127,7 @@ export default function DirectorFieldArray({ dropdownData, directors }: Props) {
                   )
                 }
               >
-                {directors.map(_ => (
-                  <option
-                    key={`${_.lastName}, ${_.firstName}`}
-                    value={`${_.lastName}, ${_.firstName}`}
-                    disabled={selectedDirectors.includes(
-                      `${_.lastName}, ${_.firstName}`,
-                    )}
-                  >
-                    {`${_.lastName}, ${_.firstName}`}
-                  </option>
-                ))}
+                {optionsRender()}
               </Select>
             </Formgroup>
           )}

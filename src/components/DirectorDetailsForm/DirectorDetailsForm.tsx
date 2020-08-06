@@ -19,6 +19,7 @@ import {
   validate,
   validationSchema,
   combineDirectorsData,
+  initialEditedFormValues,
 } from './helpers';
 import { DirectorDetailsFormValues } from './interfaces';
 import FCWithFragments from '../../utils/FCWithFragments';
@@ -36,10 +37,11 @@ export const GET_DIRECTOR_DETAILS = gql`
 `;
 
 type IDirectorDetailsFormProps = {
-  associates: CompanyAssociate[];
-  dropdownData: CompanyDirectorDetails;
+  associates: CompanyAssociate[] | null;
+  dropdownData: CompanyDirectorDetails | null;
   companyNumber: string;
   onSubmit: (values: DirectorDetailsFormValues) => Promise<void>;
+  isEdited: boolean;
   directorUuid?: string;
 };
 
@@ -56,16 +58,14 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
   onSubmit,
   dropdownData,
   directorUuid,
+  isEdited,
 }) => {
   const { data, loading, error } = useCompanyOfficers(companyNumber);
   if (loading) {
     return <Loading />;
   }
 
-  if (
-    associates.length === 0 &&
-    (error || !data || !data.companyOfficers.nodes)
-  ) {
+  if (error || !data || !dropdownData || !data.companyOfficers.nodes) {
     return <ErrorMessage message="Could not load director details!" />;
   }
 
@@ -74,7 +74,11 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
 
   return (
     <Formik<DirectorDetailsFormValues>
-      initialValues={initialFormValues(directors, directorUuid)}
+      initialValues={
+        isEdited
+          ? initialEditedFormValues(directors, directorUuid)
+          : initialFormValues(officers)
+      }
       validationSchema={validationSchema}
       validate={validate}
       onSubmit={onSubmit}
@@ -91,6 +95,8 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
           <DirectorFieldArray
             directors={directors}
             dropdownData={dropdownData}
+            officers={officers}
+            isEdited
           />
           <Button
             color="primary"
@@ -99,7 +105,7 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
             icon={<ChevronForwardSharp />}
             iconColor="white"
             iconPosition="after"
-            label={selectButtonLabel(isSubmitting, !!directorUuid)}
+            label={selectButtonLabel(isSubmitting, isEdited)}
             size="large"
             type="submit"
           />
