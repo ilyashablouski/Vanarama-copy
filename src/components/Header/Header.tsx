@@ -185,8 +185,8 @@ export const Header: FC<IHeaderProps> = memo(props => {
                       className="header-account--link"
                       link={{ href: router.pathname, label: 'Log Out' }}
                       as={router.asPath}
-                      onClick={() => {
-                        onLogOut();
+                      onClick={async () => {
+                        await onLogOut();
                         setPerson(null);
                       }}
                       replace
