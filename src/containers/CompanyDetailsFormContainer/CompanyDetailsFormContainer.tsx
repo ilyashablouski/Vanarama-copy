@@ -61,6 +61,7 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
     createUpdateApplication({
       variables: {
         input: {
+          companyDetails: values,
           addresses: values.addresses,
           telephoneNumbers: values.telephoneNumbers,
           emailAddresses: [values.emailAddress],

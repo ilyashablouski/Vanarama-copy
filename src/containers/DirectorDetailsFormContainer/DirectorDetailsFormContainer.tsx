@@ -29,10 +29,13 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
       },
     });
 
-  const handleCreditApplicationUpdate = () =>
+  const handleCreditApplicationUpdate = (
+    directorsDetails: DirectorDetailsFormValues,
+  ) =>
     createUpdateApplication({
       variables: {
         input: {
+          directorsDetails,
           orderUuid,
         },
       },
@@ -57,7 +60,7 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
       companyNumber={data.companyByUuid.companyNumber}
       onSubmit={async values => {
         await handleDirectorDetailsSave(values)
-          .then(handleCreditApplicationUpdate)
+          .then(() => handleCreditApplicationUpdate(values))
           .then(onCompleted)
           .catch(onError);
       }}

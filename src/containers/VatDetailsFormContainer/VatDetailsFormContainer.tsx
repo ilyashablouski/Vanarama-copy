@@ -18,10 +18,11 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
     () => {},
   );
 
-  const handleCreditApplicationUpdate = () =>
+  const handleCreditApplicationUpdate = (vatDetails: VatDetailsFormValues) =>
     createUpdateApplication({
       variables: {
         input: {
+          vatDetails,
           orderUuid: orderId,
         },
       },
@@ -36,7 +37,7 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
 
   const handleSubmit = async (values: VatDetailsFormValues) => {
     await handleVatDetailsUpdate(values)
-      .then(handleCreditApplicationUpdate)
+      .then(() => handleCreditApplicationUpdate(values))
       .then(onCompleted)
       .catch(onError);
   };

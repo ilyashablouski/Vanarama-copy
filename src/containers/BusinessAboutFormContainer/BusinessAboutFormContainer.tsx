@@ -78,6 +78,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
             createUpdateApplication({
               variables: {
                 input: {
+                  aboutDetails: values,
                   telephoneNumbers,
                   emailAddresses: [emailAddress],
                   orderUuid: orderId,
