@@ -134,6 +134,11 @@ const mocked: MockedResponse[] = [
               titleTag: 'h2',
               body:
                 "If you're looking to drive a brand new car, van or truck without any of the hassle - leasing might just be for you! It's affordable, simple and you're not left with a depreciating asset at the end of your contract.",
+              iconList: [
+                {
+                  text: 'ooo',
+                },
+              ],
             },
             featured2: {
               title: 'What Makes Us The Lease Experts?',
