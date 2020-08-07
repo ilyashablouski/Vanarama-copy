@@ -11,9 +11,12 @@ import {
 import CompanyDetailsForm from '../../components/CompanyDetailsForm/CompanyDetailsForm';
 
 import { useCreateUpdateOrder } from '../../gql/order';
-import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
+import {
+  useCreateUpdateCreditApplication,
+  useGetCreditApplicationByOrderUuid,
+} from '../../gql/creditApplication';
 import { ICompanyDetailsFormContainerProps } from './interfaces';
-import { mapFormValues } from './mappers';
+import { mapFormValues, mapDefaultValues } from './mappers';
 
 export const SAVE_COMPANY_DETAILS = gql`
   mutation SaveCompanyDetailsMutation($input: LimitedCompanyInputObject!) {
@@ -30,6 +33,7 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
   onCompleted,
   onError,
 }) => {
+  const creditApplicationQuery = useGetCreditApplicationByOrderUuid(orderId);
   const [saveCompanyDetails] = useMutation<Mutation, MutationVariables>(
     SAVE_COMPANY_DETAILS,
   );
@@ -70,18 +74,23 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
       },
     });
 
+  const companyDetails = mapDefaultValues(
+    creditApplicationQuery?.data?.creditApplicationByOrderUuid?.companyDetails,
+  );
+
   return (
     <CompanyDetailsForm
+      companyDetails={companyDetails}
       onSubmit={async values => {
         const mappedFormValues = mapFormValues(values, personUuid);
 
-        await handleCompanyDetailsSave(mappedFormValues)
-          .then(({ data }) =>
-            handleOrderUpdate(data!.createUpdateLimitedCompany!.partyUuid)
-              .then(() => handleCreditApplicationUpdate(mappedFormValues))
-              .then(() => onCompleted(data!.createUpdateLimitedCompany!.uuid)),
-          )
-          .catch(onError);
+        // await handleCompanyDetailsSave(mappedFormValues)
+        //   .then(({ data }) =>
+        //     handleOrderUpdate(data!.createUpdateLimitedCompany!.partyUuid)
+        //       .then(() => handleCreditApplicationUpdate(mappedFormValues))
+        //       .then(() => onCompleted(data!.createUpdateLimitedCompany!.uuid)),
+        //   )
+        //   .catch(onError);
       }}
     />
   );

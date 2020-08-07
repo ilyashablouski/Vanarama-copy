@@ -1,7 +1,7 @@
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FormContext, OnSubmit, useForm } from 'react-hook-form';
 import { SearchCompaniesQuery_searchCompanies_nodes as SearchResult } from '../../../generated/SearchCompaniesQuery';
 import CompanyCard from './CompanyCard';
@@ -16,19 +16,27 @@ import SearchActions from './SearchActions';
 
 interface IProps {
   onSubmit: OnSubmit<SubmissionValues>;
+  companyDetails: ICompanyDetailsFormValues;
 }
 
-const CompanyDetailsForm: React.FC<IProps> = ({ onSubmit }) => {
+const CompanyDetailsForm: React.FC<IProps> = ({ onSubmit, companyDetails }) => {
   const [companySearchTerm, setCompanySearchTerm] = useState('');
   const [hasConfirmedCompany, setHasConfirmedCompany] = useState(false);
   const [inputMode, setInputMode] = useState<InputMode>('search');
-
+  console.log({ companyDetails })
   const methods = useForm<ICompanyDetailsFormValues>({
     mode: 'onBlur',
     defaultValues: {
       telephone: '',
     },
   });
+
+  // useEffect(() => {
+  //   if (companyDetails?.companyNumber) {
+  //     methods.reset(companyDetails);
+  //     setInputMode('manual');
+  //   }
+  // }, [companyDetails, methods]);
 
   const companySearchResult = methods.watch('companySearchResult');
   const clearSearchResult = () => {

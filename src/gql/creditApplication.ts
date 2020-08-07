@@ -13,6 +13,9 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
     creditApplicationByOrderUuid(orderUuid: $id) {
       addresses
       bankAccounts
+      companyDetails
+      vatDetails
+      directorsDetails
       employmentHistories
       incomeAndExpenses
       lineItem {
