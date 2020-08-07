@@ -65,11 +65,11 @@ const FiltersContainer = ({
   const [tempModelName, setTempModelName] = useState('');
   const [fromBudget] = useState(budgets.slice(0, budgets.length - 1));
   const [toBudget] = useState(budgets.slice(1));
-  const [isOpenFilter, setFilterExpandStatus] = useState(true);
   const [choiceBoxesData, setChoiceBoxesData] = useState(
     {} as IChoiceBoxesData,
   );
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1216px)' });
+  const [isOpenFilter, setFilterExpandStatus] = useState(false);
 
   const [selectedFiltersState, setSelectedFiltersState] = useState<
     ISelectedFiltersState
@@ -253,7 +253,8 @@ const FiltersContainer = ({
   }, [setSelectedFiltersState, router]);
 
   useEffect(() => {
-    if (!isTabletOrMobile) setFilterExpandStatus(true);
+    if (!isTabletOrMobile) setFilterExpandStatus(true)
+    else setFilterExpandStatus(false);
   }, [isTabletOrMobile]);
 
   useEffect(() => {

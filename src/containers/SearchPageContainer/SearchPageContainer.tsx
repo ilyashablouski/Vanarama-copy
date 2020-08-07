@@ -345,8 +345,16 @@ const SearchPageContainer: React.FC<IProps> = ({
     router.push(productPageUrl.href, productPageUrl.url, { shallow: true });
   };
 
-  // TODO: add logic when range page will complete
-  const viewRange = () => {};
+  const viewRange = (range: string) => {
+    const href = isCarSearch ? 'car-leasing' : 'van-leasing';
+    router.push(
+      `/${href}/[make]/[rangeName]`,
+      `/${href}/${router.query.make}/${range}`,
+    );
+  };
+
+  // TODO: add logic when model page will completed
+  const viewModel = () => {};
 
   return (
     <>
@@ -366,6 +374,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           isPickups={isPickups || false}
           isSpecialOfferPage={isSpecialOfferPage || false}
           viewOffer={viewOffer}
+          viewModel={viewModel}
         />
       )}
       {!isMakePage && !isSpecialOfferPage && !isRangePage && (

@@ -26,6 +26,7 @@ interface IProps {
   isPickups: boolean;
   isRangePage: boolean;
   viewOffer: (productPageUrl: IProductPageUrl) => void;
+  viewModel: (model: string) => void;
 }
 
 const TopOffersContainer: React.FC<IProps> = ({
@@ -36,6 +37,7 @@ const TopOffersContainer: React.FC<IProps> = ({
   isRangePage,
   isPersonal,
   viewOffer,
+  viewModel,
 }: IProps) => {
   const router = useRouter();
 
@@ -95,7 +97,7 @@ const TopOffersContainer: React.FC<IProps> = ({
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
     router.query.make as string,
-    (router.query?.rangeName as string).split('+').join(' '),
+    ((router.query?.rangeName as string) || '').split('+').join(' '),
   );
 
   useEffect(() => {
@@ -117,7 +119,7 @@ const TopOffersContainer: React.FC<IProps> = ({
           sortField: SortField.offerRanking,
           manufacturerName: router.query?.make as string,
           rangeName: isRangePage
-            ? (router.query?.rangeName as string).split('+').join(' ')
+            ? ((router.query?.rangeName as string) || '').split('+').join(' ')
             : '',
           first: isMakePage ? 6 : 3,
         },
@@ -219,7 +221,7 @@ const TopOffersContainer: React.FC<IProps> = ({
               <ModelCard
                 data={bodyStyle}
                 isPersonalPrice={isPersonal}
-                viewModel={() => {}}
+                viewModel={viewModel}
               />
             ))}
           </div>
