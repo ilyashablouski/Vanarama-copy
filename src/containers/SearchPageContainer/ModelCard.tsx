@@ -2,30 +2,35 @@ import React, { memo } from 'react';
 import Card from '@vanarama/uibook/lib/components/molecules/cards/Card';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
+import { useRouter } from 'next/router';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import { rangeList_rangeList as IRangeData } from '../../../generated/rangeList';
-import { getRangeImages } from './gql';
+import { bodyStyleList_bodyStyleList as IModelData } from '../../../generated/bodyStyleList';
+import { useModelImages } from './gql';
 
-interface IVehicleCardProps {
+interface IModelCardProps {
   isPersonalPrice: boolean;
-  data?: IRangeData;
-  viewRange: (rangeId: string) => void;
+  data?: IModelData;
+  viewModel: (bodyStyle: string) => void;
 }
 
-const RangeCard = memo(
-  ({ isPersonalPrice, data, viewRange }: IVehicleCardProps) => {
-    // TODO: Should be changed when query for get images will updated
-    const { data: imagesData } = getRangeImages(
-      data?.rangeId || '',
-      !data?.rangeId,
+const ModelCard = memo(
+  ({ isPersonalPrice, data, viewModel }: IModelCardProps) => {
+    const router = useRouter();
+    const { data: imagesData } = useModelImages(
+      [data?.capId?.toString() || '1'],
+      !data?.capId,
     );
     const imageProps = imagesData?.vehicleImages?.[0]
       ? {
           imageSrc: imagesData?.vehicleImages?.[0]?.mainImageUrl || '',
         }
       : {};
+
+    const rangeName =
+      (router.query.rangeName as string).split('+').join(' ') || '';
     return (
       <Card
+        inline
         {...imageProps}
         title={{
           title: '',
@@ -33,7 +38,7 @@ const RangeCard = memo(
             <RouterLink
               link={{
                 href: '',
-                label: data?.rangeName || '',
+                label: `${rangeName} ${data?.bodyStyle || ''}`,
               }}
               className="heading"
               classNames={{ size: 'large', color: 'black' }}
@@ -54,8 +59,8 @@ const RangeCard = memo(
           <Button
             color="teal"
             fill="solid"
-            label="View All"
-            onClick={() => viewRange(data?.rangeName || '')}
+            label={`View ${data?.count || 'All'} Offers`}
+            onClick={() => viewModel(data?.bodyStyle || '')}
             size="regular"
           />
         </div>
@@ -64,4 +69,4 @@ const RangeCard = memo(
   },
 );
 
-export default RangeCard;
+export default ModelCard;

@@ -1,4 +1,10 @@
-import MyOrdersPage from './index';
+import { NextPage } from 'next';
+import React from 'react';
+import withApollo from '../../../hocs/withApollo';
+import MyOverview from '../../../containers/MyOverview/MyOverview';
 
-// This is here to ensure that '/account/my-orders/[id]' & '/account/my-orders' both point to the about page
-export default MyOrdersPage;
+const MyOrdersPage: NextPage = () => {
+  return <MyOverview quote={false} />;
+};
+
+export default withApollo(MyOrdersPage);

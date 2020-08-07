@@ -1,20 +1,27 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
-import RangeCard from '../RangeCard';
-import { GET_RANGES_IMAGES } from '../gql';
+import ModelCard from '../ModelCard';
+import { GET_MODEL_IMAGES } from '../gql';
 
-describe('<RangeCard />', () => {
+jest.mock('next/router', () => ({
+  useRouter: jest.fn().mockReturnValue({
+    pathname: '/car-leasing/BMW',
+    query: { rangeName: '3 series' },
+    route: '/car-leasing/BMW',
+  }),
+}));
+describe('<ModelCard />', () => {
   const resetMocks = () => {
     return {
       data: {
-        rangeName: '2 Series',
-        rangeId: '1208',
-        count: 217,
-        minPrice: 191.91,
+        bodyStyle: 'coupe',
+        count: 2,
+        minPrice: 120,
+        capId: 123,
       },
       isPersonalPrice: true,
-      viewRange: jest.fn(),
+      viewModel: jest.fn(),
     };
   };
 
@@ -24,9 +31,9 @@ describe('<RangeCard />', () => {
   const mocksResponse: MockedResponse[] = [
     {
       request: {
-        query: GET_RANGES_IMAGES,
+        query: GET_MODEL_IMAGES,
         variables: {
-          rangeId: '1208',
+          capIds: ['123'],
         },
       },
       result: () => {
@@ -53,7 +60,7 @@ describe('<RangeCard />', () => {
     // ACT
     const getComponent = render(
       <MockedProvider mocks={mocksResponse} addTypename={false}>
-        <RangeCard {...mocks} />
+        <ModelCard {...mocks} />
       </MockedProvider>,
     );
 
@@ -63,16 +70,19 @@ describe('<RangeCard />', () => {
     const tree = getComponent.baseElement;
     expect(tree).toMatchSnapshot();
   });
-  it('should be open car page', async () => {
+  it('should be open model page', async () => {
     // ACT
     render(
       <MockedProvider mocks={mocksResponse} addTypename={false}>
-        <RangeCard {...mocks} />
+        <ModelCard {...mocks} />
       </MockedProvider>,
     );
 
     // ASSERT
-    fireEvent.click(screen.getByText('View All'));
-    expect(mocks.viewRange).toBeCalledWith('2 Series');
+    await waitFor(() => {
+      expect(screen.getByText('View 2 Offers')).toBeInTheDocument();
+    });
+    fireEvent.click(screen.getByText('View 2 Offers'));
+    expect(mocks.viewModel).toBeCalledWith('coupe');
   });
 });
