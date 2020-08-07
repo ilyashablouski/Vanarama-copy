@@ -10,6 +10,7 @@ const mocks = {
   title: 'title',
   onClickTitle: jest.fn(),
   isMobile: false,
+  isMenuOpen: false,
 };
 
 jest.mock('../../../hooks/useMediaQuery');

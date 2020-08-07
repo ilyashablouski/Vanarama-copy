@@ -1,6 +1,7 @@
 /* eslint-disable import/no-cycle */
-import React, { FC, memo, useState } from 'react';
+import React, { FC, memo, useState, useEffect } from 'react';
 import cx from 'classnames';
+import { useRouter } from 'next/router';
 import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import FlameSharp from '@vanarama/uibook/lib/assets/icons/FlameSharp';
@@ -12,15 +13,17 @@ import { useMobileViewport } from '../../hooks/useMediaQuery';
 
 export interface IHeaderMenuLinkProps extends IBaseProps {
   link: IHeaderLink;
+  isMenuOpen: boolean;
 }
 
 const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
-  const { link } = props;
+  const router = useRouter();
+  const { link, isMenuOpen } = props;
 
   const isMobile = useMobileViewport();
   const [hoverRef, isHovered] = useHover<HTMLLIElement>();
 
-  const [idOpenMenu, setIdOpenMenu] = useState(false);
+  const [isOpenMenu, setIsOpenMenu] = useState(false);
 
   const linkClassName = (classes: {
     title?: boolean;
@@ -37,7 +40,11 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
 
   const isOpen =
     !!link.children?.length &&
-    ((!isMobile && isHovered) || (isMobile && idOpenMenu));
+    ((!isMobile && isHovered) || (isMobile && isOpenMenu));
+
+  useEffect(() => {
+    setIsOpenMenu(false);
+  }, [router, setIsOpenMenu, isMenuOpen]);
 
   return (
     <li
@@ -55,7 +62,7 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
           isMobile
             ? el => {
                 el.preventDefault();
-                setIdOpenMenu(true);
+                setIsOpenMenu(true);
               }
             : undefined
         }
@@ -74,8 +81,9 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
           key={link.label}
           links={link.children as IHeaderLink[]}
           title={link.label}
-          onClickTitle={() => setIdOpenMenu(false)}
+          onClickTitle={() => setIsOpenMenu(false)}
           isMobile={isMobile}
+          isMenuOpen={isMenuOpen}
         />
       )}
     </li>
