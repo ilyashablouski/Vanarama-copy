@@ -1,9 +1,6 @@
 import React from 'react';
 import CompanyDetailsForm from '../../components/SoleTraderCompanyDetailsForm';
-import {
-  useCreateUpdateCreditApplication,
-  useGetCreditApplicationByOrderUuid,
-} from '../../gql/creditApplication';
+import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
 import { ISoleTraderCompanyDetailsFormContainerProps } from './interfaces';
 
 const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsFormContainerProps> = ({
@@ -15,15 +12,12 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
     onCompleted,
   );
 
-  const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
-
   return (
     <CompanyDetailsForm
       onSubmit={async () => {
         await createUpdateApplication({
           variables: {
             input: {
-              ...creditApplication.data?.creditApplicationByOrderUuid,
               orderUuid: orderId,
             },
           },

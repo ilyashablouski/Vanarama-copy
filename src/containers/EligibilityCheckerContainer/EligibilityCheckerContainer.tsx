@@ -9,7 +9,6 @@ const EligibilityContainer: React.FC<IProps> = ({ onCompleted }) => {
   const [createCreditCheckerHandle] = useCreditChecker(onCompleted);
 
   return (
-    // eslint-disable-next-line no-console
     <YourEligibilityChecker
       submit={values =>
         createCreditCheckerHandle({
