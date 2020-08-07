@@ -18,7 +18,7 @@ import {
 
 interface IProps {
   inputMode: InputMode;
-  defaultValues: Partial<ICompanyDetailsFormValues>;
+  defaultValues?: Partial<ICompanyDetailsFormValues>;
   isEdited: boolean;
 }
 
@@ -27,7 +27,7 @@ export default function CompanyDetailsFormFields({
   defaultValues,
   isEdited,
 }: IProps) {
-  const { formState, errors, register, watch, setValue } = useFormContext<
+  const { formState, errors, register, watch, reset } = useFormContext<
     ICompanyDetailsFormValues
   >();
 
@@ -40,14 +40,15 @@ export default function CompanyDetailsFormFields({
 
   // pass default values
   useEffect(() => {
-    setValue('tradingDifferent', defaultValues.tradingDifferent || false);
-    Object.entries(defaultValues).forEach(([key, value]) =>
-      setValue(key, value),
-    );
-  }, [defaultValues.companyName, setValue, defaultValues]);
+    // setValue('tradingDifferent', defaultValues.tradingDifferent || false);
+    // Object.entries(defaultValues).forEach(([key, value]) =>
+    //   setValue(key, value),
+    // );
+    reset(defaultValues);
+  }, [reset, defaultValues]);
   const tradingDifferent = watch(
     'tradingDifferent',
-    defaultValues.tradingDifferent || false,
+    defaultValues?.tradingDifferent || false,
   );
 
   return (

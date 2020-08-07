@@ -68,7 +68,7 @@ export const mapFormValues = (
   };
 };
 
-export const mapDefaultValues = (data: { [key: string]: string | object }) => {
+export const mapDefaultValues = (data: { [key: string]: any }) => {
   const date = data?.trading_since
     ? moment(data?.trading_since, DATE_FORMAT)
     : null;
@@ -82,9 +82,9 @@ export const mapDefaultValues = (data: { [key: string]: string | object }) => {
     nature: data?.company_nature,
     companyNumber: data?.company_number,
     companyType: data?.company_type,
-    legalName: data?.legal_name,
+    companyName: data?.legal_name,
     tradingDifferent: data?.with_trading_address,
-    tradingSinceMonth: date?.month(),
+    tradingSinceMonth: (date?.month() || '').toString(),
     tradingSinceYear: date?.year(),
     email: data?.email_address?.value,
     telephone: data?.telephone_numbers?.[0]?.value,
