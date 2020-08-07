@@ -6,14 +6,47 @@ import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import { DirectorFieldsDropDownData } from '../../../generated/DirectorFieldsDropDownData';
 import { GetDirectorDetailsQuery_companyOfficers_nodes as DirectorFieldsOfficer } from '../../../generated/GetDirectorDetailsQuery';
 import DirectorFields from './DirectorFields';
-import { DirectorDetailsFormValues } from './interfaces';
+import { DirectorDetailsFormValues, DirectorFormValues } from './interfaces';
+
+const handleDirectorSelected = (
+  fullname: string,
+  arrayHelpers: FieldArrayRenderProps,
+  directors?: DirectorFormValues[],
+) => {
+  const [lastName, firstName] = fullname.split(', ');
+  const selected = directors?.find(
+    director =>
+      director.firstName === firstName && director.lastName === lastName,
+  );
+  arrayHelpers.push(
+    selected || {
+      title: '',
+      firstName,
+      lastName,
+      gender: '',
+      shareOfBusiness: '',
+      dayOfBirth: '',
+      monthOfBirth: '',
+      yearOfBirth: '',
+      numberOfDependants: '',
+      history: [],
+    },
+  );
+};
 
 type Props = {
   dropdownData: DirectorFieldsDropDownData;
-  officers: DirectorFieldsOfficer[];
+  isEdited: boolean;
+  directors?: DirectorFormValues[];
+  officers?: DirectorFieldsOfficer[];
 };
 
-export default function DirectorFieldArray({ dropdownData, officers }: Props) {
+export default function DirectorFieldArray({
+  dropdownData,
+  directors,
+  isEdited,
+  officers,
+}: Props) {
   const { errors, touched, values, submitCount } = useFormikContext<
     DirectorDetailsFormValues
   >();
@@ -22,7 +55,9 @@ export default function DirectorFieldArray({ dropdownData, officers }: Props) {
     _ => `${_.lastName}, ${_.firstName}`,
   );
 
-  const hasMultipleDirectors = officers.length > 1;
+  const hasMultipleDirectors = isEdited
+    ? directors && directors.length > 1
+    : officers && officers.length > 1;
   const showMinimumPercentageMessage =
     errors.totalPercentage === 'TOO_LOW' &&
     touched.directors?.some(_ => _.shareOfBusiness);
@@ -31,6 +66,29 @@ export default function DirectorFieldArray({ dropdownData, officers }: Props) {
     hasMultipleDirectors &&
     (showMinimumPercentageMessage || values.directors.length === 0);
 
+  const optionsRender = () => {
+    if (isEdited) {
+      return directors?.map(_ => (
+        <option
+          key={`${_.lastName}, ${_.firstName}`}
+          value={`${_.lastName}, ${_.firstName}`}
+          disabled={selectedDirectors.includes(`${_.lastName}, ${_.firstName}`)}
+        >
+          {`${_.lastName}, ${_.firstName}`}
+        </option>
+      ));
+    }
+    return officers?.map(_ => (
+      <option
+        key={_.name}
+        value={_.name}
+        disabled={selectedDirectors.includes(_.name)}
+      >
+        {_.name}
+      </option>
+    ));
+  };
+
   return (
     <FieldArray name="directors">
       {arrayHelpers => (
@@ -38,7 +96,7 @@ export default function DirectorFieldArray({ dropdownData, officers }: Props) {
           {values.directors.map((_, index) => (
             <DirectorFields
               key={index} // eslint-disable-line react/no-array-index-key
-              canBeRemoved={hasMultipleDirectors}
+              canBeRemoved={hasMultipleDirectors as boolean}
               dropDownData={dropdownData}
               index={index}
               onRemoveClick={() => arrayHelpers.remove(index)}
@@ -62,18 +120,14 @@ export default function DirectorFieldArray({ dropdownData, officers }: Props) {
                 aria-label="Select director"
                 placeholder="Select Director..."
                 onChange={e =>
-                  handleDirectorSelected(e.target.value, arrayHelpers)
+                  handleDirectorSelected(
+                    e.target.value,
+                    arrayHelpers,
+                    directors,
+                  )
                 }
               >
-                {officers.map(_ => (
-                  <option
-                    key={_.name}
-                    value={_.name}
-                    disabled={selectedDirectors.includes(_.name)}
-                  >
-                    {_.name}
-                  </option>
-                ))}
+                {optionsRender()}
               </Select>
             </Formgroup>
           )}
@@ -81,23 +135,4 @@ export default function DirectorFieldArray({ dropdownData, officers }: Props) {
       )}
     </FieldArray>
   );
-}
-
-function handleDirectorSelected(
-  fullname: string,
-  arrayHelpers: FieldArrayRenderProps,
-) {
-  const [lastName, firstName] = fullname.split(', ');
-  arrayHelpers.push({
-    title: '',
-    firstName,
-    lastName,
-    gender: '',
-    shareOfBusiness: '',
-    dayOfBirth: '',
-    monthOfBirth: '',
-    yearOfBirth: '',
-    numberOfDependants: '',
-    history: [],
-  });
 }

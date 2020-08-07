@@ -7,8 +7,8 @@ export const responseToInitialFormValues = (
 ): ICompanyBankDetails => {
   const joinedDate = account?.joinedAt ? new Date(account.joinedAt) : undefined;
   return {
-    accountNumber: account?.accountNumber || '',
     uuid: account?.uuid,
+    accountNumber: account?.accountNumber || '',
     accountName: account?.accountName || '',
     joinedAtMonth: joinedDate ? String(joinedDate.getMonth() + 1) : '',
     joinedAtYear: joinedDate ? String(joinedDate.getFullYear()) : '',
