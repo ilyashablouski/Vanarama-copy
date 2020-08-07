@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import Router from 'next/router';
 import { ApolloError } from '@apollo/client';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Rating from '@vanarama/uibook/lib/components/atoms/rating';
