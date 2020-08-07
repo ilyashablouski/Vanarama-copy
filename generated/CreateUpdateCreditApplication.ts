@@ -17,7 +17,8 @@ export interface CreateUpdateCreditApplication_createUpdateCreditApplication_lin
   annualMileage: number | null;
   monthlyPayment: number | null;
   depositMonths: number | null;
-  funder: string | null;
+  funderId: string | null;
+  funderData: any | null;
 }
 
 export interface CreateUpdateCreditApplication_createUpdateCreditApplication_lineItem {
