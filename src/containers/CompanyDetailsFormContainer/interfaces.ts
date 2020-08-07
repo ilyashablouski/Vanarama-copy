@@ -5,4 +5,6 @@ export interface ICompanyDetailsFormContainerProps {
   orderId: string;
   onCompleted: (data: string) => void;
   onError: (error: ApolloError) => void;
+  isEdited: boolean;
+  companyUuid?: string;
 }
