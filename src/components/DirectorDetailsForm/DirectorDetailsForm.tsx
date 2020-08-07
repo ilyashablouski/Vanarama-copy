@@ -1,12 +1,12 @@
 import { gql, useQuery } from '@apollo/client';
+import { Formik } from 'formik';
+import React from 'react';
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import { Formik } from 'formik';
-import React from 'react';
 import {
   GetDirectorDetailsQuery,
   GetDirectorDetailsQueryVariables,
@@ -14,47 +14,71 @@ import {
 import { isTruthy } from '../../utils/array';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import DirectorFieldArray from './DirectorFieldArray';
-import DirectorFields from './DirectorFields';
-import { initialFormValues, validate, validationSchema } from './helpers';
+import {
+  initialFormValues,
+  validate,
+  validationSchema,
+  combineDirectorsData,
+  initialEditedFormValues,
+} from './helpers';
 import { DirectorDetailsFormValues } from './interfaces';
+import FCWithFragments from '../../utils/FCWithFragments';
+import { CompanyAssociate } from '../../../generated/CompanyAssociate';
+import { GetCompanyDirectorDetailsQuery_allDropDowns as CompanyDirectorDetails } from '../../../generated/GetCompanyDirectorDetailsQuery';
 
 export const GET_DIRECTOR_DETAILS = gql`
   query GetDirectorDetailsQuery($companyNumber: String!) {
-    allDropDowns {
-      ...DirectorFieldsDropDownData
-    }
     companyOfficers(companyNumber: $companyNumber) {
       nodes {
         name
       }
     }
   }
-  ${DirectorFields.fragments.dropDownData}
 `;
 
-type Props = {
+type IDirectorDetailsFormProps = {
+  associates: CompanyAssociate[] | null;
+  dropdownData: CompanyDirectorDetails | null;
   companyNumber: string;
   onSubmit: (values: DirectorDetailsFormValues) => Promise<void>;
+  isEdited: boolean;
+  directorUuid?: string;
 };
 
-export default function DirectorDetailsForm({
+const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
+  if (isSubmitting) {
+    return 'Saving...';
+  }
+  return isEdited ? 'Save & Return' : 'Continue';
+};
+
+const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
+  associates,
   companyNumber,
   onSubmit,
-}: Props) {
+  dropdownData,
+  directorUuid,
+  isEdited,
+}) => {
   const { data, loading, error } = useCompanyOfficers(companyNumber);
   if (loading) {
     return <Loading />;
   }
 
-  if (error || !data || !data.allDropDowns || !data.companyOfficers.nodes) {
+  if (error || !data || !dropdownData || !data.companyOfficers.nodes) {
     return <ErrorMessage message="Could not load director details!" />;
   }
 
-  const dropdownData = data.allDropDowns;
-  const officers = data.companyOfficers.nodes.filter(isTruthy);
+  const officers = data?.companyOfficers?.nodes?.filter(isTruthy) || [];
+  const directors = combineDirectorsData(officers, associates);
+
   return (
     <Formik<DirectorDetailsFormValues>
-      initialValues={initialFormValues(officers)}
+      initialValues={
+        isEdited
+          ? initialEditedFormValues(directors, directorUuid)
+          : initialFormValues(officers)
+      }
       validationSchema={validationSchema}
       validate={validate}
       onSubmit={onSubmit}
@@ -68,7 +92,12 @@ export default function DirectorDetailsForm({
             Select Directors that combined represent at least 25% of company
             ownership:
           </Text>
-          <DirectorFieldArray dropdownData={dropdownData} officers={officers} />
+          <DirectorFieldArray
+            directors={directors}
+            dropdownData={dropdownData}
+            officers={officers}
+            isEdited
+          />
           <Button
             color="primary"
             dataTestId="vat-details_continue"
@@ -76,7 +105,7 @@ export default function DirectorDetailsForm({
             icon={<ChevronForwardSharp />}
             iconColor="white"
             iconPosition="after"
-            label={isSubmitting ? 'Saving...' : 'Continue'}
+            label={selectButtonLabel(isSubmitting, isEdited)}
             size="large"
             type="submit"
           />
@@ -84,7 +113,34 @@ export default function DirectorDetailsForm({
       )}
     </Formik>
   );
-}
+};
+
+DirectorDetailsForm.fragments = {
+  associates: gql`
+    fragment CompanyAssociate on PersonType {
+      uuid
+      title
+      firstName
+      lastName
+      gender
+      dateOfBirth
+      noOfDependants
+      businessShare
+      roles {
+        position
+      }
+      addresses {
+        serviceId
+        propertyStatus
+        startedOn
+        city
+        lineOne
+        lineTwo
+        postcode
+      }
+    }
+  `,
+};
 
 function useCompanyOfficers(companyNumber: string) {
   return useQuery<GetDirectorDetailsQuery, GetDirectorDetailsQueryVariables>(
@@ -97,3 +153,5 @@ function useCompanyOfficers(companyNumber: string) {
     },
   );
 }
+
+export default DirectorDetailsForm;

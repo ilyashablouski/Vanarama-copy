@@ -32,9 +32,13 @@ const handleAccountFetchError = () =>
     'Dolor ut tempor eiusmod enim consequat laboris dolore ut pariatur labore sunt incididunt dolore veniam mollit excepteur dolor aliqua minim nostrud adipisicing culpa aliquip ex',
   );
 
+type QueryParams = OLAFQueryParams & {
+  companyUuid: string;
+};
+
 export const BusinessAboutPage: NextPage = () => {
   const router = useRouter();
-  const { derivativeId, orderId } = router.query as OLAFQueryParams;
+  const { orderId, companyUuid } = router.query as QueryParams;
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [personUuid, setPersonUuid] = useState<string | undefined>();
@@ -67,17 +71,24 @@ export const BusinessAboutPage: NextPage = () => {
     router.replace(router.pathname, router.asPath);
   }, handleAccountFetchError);
 
-  const handleCreateUpdateBusinessPersonCompletion = ({
-    companyUuid,
-    companyType,
-  }: SubmitResult) => {
-    const params = getUrlParam({ derivativeId, orderId });
+  const handleCreateUpdateBusinessPersonCompletion = (result: SubmitResult) => {
+    const params = getUrlParam({ orderId });
     const journeyUrl =
-      companyType === CompanyTypes.limited
-        ? 'company-details'
-        : 'sole-trader/company-details';
-    const url = `/b2b/olaf/${journeyUrl}/[companyUuid]${params}`;
-    router.push(url, url.replace('[companyUuid]', companyUuid || ''));
+      result.companyType === CompanyTypes.limited
+        ? `company-details/[personUuid]/${params}`
+        : 'sole-trader/company-details/[orderId]';
+    const url =
+      router.query.redirect === 'summary'
+        ? `/b2b/olaf/summary/[companyUuid]${params}`
+        : `/b2b/olaf/${journeyUrl}`;
+
+    router.push(
+      url,
+      url
+        .replace('[companyUuid]', companyUuid || result.companyUuid || '')
+        .replace('[personUuid]', personUuid || '')
+        .replace('[orderId]', orderId || ''),
+    );
   };
 
   useEffect(() => {
@@ -129,6 +140,7 @@ export const BusinessAboutPage: NextPage = () => {
         onCompleted={handleCreateUpdateBusinessPersonCompletion}
         onError={handleCreateUpdateBusinessPersonError}
         onLogInCLick={() => toggleLogInVisibility(true)}
+        isEdited={router.query.redirect === 'summary'}
       />
     </OLAFLayout>
   );

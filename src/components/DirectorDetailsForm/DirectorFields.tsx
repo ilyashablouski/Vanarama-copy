@@ -68,6 +68,7 @@ const DirectorFields: FCWithFragments<Props> = ({
       <FormikTextField
         name={generateFieldKey('firstName')}
         label="First Name"
+        dataTestId="first-name"
       />
       <FormikTextField name={generateFieldKey('lastName')} label="Last Name" />
       <FormikSelectField name={generateFieldKey('gender')} label="Gender">

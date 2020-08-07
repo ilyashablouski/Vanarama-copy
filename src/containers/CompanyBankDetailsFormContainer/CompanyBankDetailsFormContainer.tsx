@@ -10,6 +10,7 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   companyUuid,
   orderUuid,
   onCompleted,
+  isEdited,
 }) => {
   const { loading, error, data } = useBankDetails(companyUuid);
   const [updateBankDetails] = useUpdateBankDetails(companyUuid, onCompleted);
@@ -32,7 +33,7 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
 
   const { bankAccounts } = data.companyByUuid;
   const currentAccount =
-    (bankAccounts &&
+    (bankAccounts?.length &&
       bankAccounts.reduce((prev, current) => {
         return new Date(prev.updatedAt).getTime() >
           new Date(current.updatedAt).getTime()
@@ -43,6 +44,7 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
 
   return (
     <CompanyBankDetails
+      isEdited={isEdited}
       account={currentAccount}
       onSubmit={async values =>
         updateBankDetails({

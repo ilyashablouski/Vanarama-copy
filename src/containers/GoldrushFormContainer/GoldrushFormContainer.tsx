@@ -12,7 +12,7 @@ import GoldrushForm from '../../components/GoldrushForm';
 import { GoldrushFormContainerProps } from './interfaces';
 import { useOpportunityCreation } from './gql';
 
-const DEFAULT_POSTCODE = 'HP27DE';
+export const DEFAULT_POSTCODE = 'HP27DE';
 
 export const handleNetworkError = () =>
   toast.error(

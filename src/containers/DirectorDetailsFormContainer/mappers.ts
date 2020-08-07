@@ -7,6 +7,7 @@ export const mapFormValues = (
 ) => ({
   uuid: companyUuid,
   associates: values.directors.map(director => ({
+    uuid: director.uuid,
     firstName: director.firstName,
     lastName: director.lastName,
     businessShare: parseInt(director.shareOfBusiness, 10),
