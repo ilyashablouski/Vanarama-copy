@@ -6,6 +6,7 @@ import {
   WORLDWIDE_MOBILE_REGEX,
   NUMBERS_REGEX,
   LETTERS_AND_NUMBERS_REGEX,
+  NAME_REGEX,
 } from './regex';
 
 const MAX_EMAIL_LENGTH = 254;
@@ -92,6 +93,48 @@ export const emailValidator = {
   },
 };
 
+export const firstNameValidator = {
+  required: {
+    value: true,
+    message: 'Please enter your first name',
+  },
+  minLength: {
+    value: 2,
+    message:
+      'Oops, this name’s too short. Please make it 2 characters or more.',
+  },
+  maxLength: {
+    value: 50,
+    message:
+      'Oops, this name’s too long. Please keep it to 50 characters or less.',
+  },
+  pattern: {
+    value: NAME_REGEX,
+    message: 'Please use only letters, apostrophes and dashes.',
+  },
+};
+
+export const lastNameValidator = {
+  required: {
+    value: true,
+    message: 'Please enter your last name',
+  },
+  minLength: {
+    value: 2,
+    message:
+      'Oops, this last name’s too short. Please make it 2 characters or more.',
+  },
+  maxLength: {
+    value: 50,
+    message:
+      'Oops, this last name’s too long. Please keep it to 50 characters or less.',
+  },
+  pattern: {
+    value: NAME_REGEX,
+    message: 'Please use only letters, apostrophes and dashes.',
+  },
+};
+
 export const phoneNumberValidator = {
   required: {
     value: true,
@@ -173,5 +216,19 @@ export const vehicleRegistrationNumberValidator = {
   pattern: {
     value: LETTERS_AND_NUMBERS_REGEX,
     message: 'Please only use letters and numbers',
+  },
+};
+
+export const companyNameValidator = {
+  required: {
+    value: true,
+    message: 'Please enter your company name',
+  },
+};
+
+export const fleetSizeValidator = {
+  required: {
+    value: true,
+    message: 'Please enter your fleet size',
   },
 };

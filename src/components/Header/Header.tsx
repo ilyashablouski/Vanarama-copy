@@ -37,11 +37,18 @@ export interface IHeaderProps extends IBaseProps {
   topBarLinks: IHeaderLink[];
   loginLink: ILinkProps;
   phoneNumberLink: ILinkProps;
+  onLogOut: () => void;
 }
 
-const Header: FC<IHeaderProps> = memo(props => {
+export const Header: FC<IHeaderProps> = memo(props => {
   const router = useRouter();
-  const { className, topBarLinks, loginLink, phoneNumberLink } = props;
+  const {
+    className,
+    topBarLinks,
+    loginLink,
+    phoneNumberLink,
+    onLogOut,
+  } = props;
   const [person, setPerson] = useState<Person | null>(null);
   const [ordersLength, setOrdersLength] = useState<number | null>(null);
   const [quotesLength, setQuotesLength] = useState<number | null>(null);
@@ -179,7 +186,7 @@ const Header: FC<IHeaderProps> = memo(props => {
                       link={{ href: router.pathname, label: 'Log Out' }}
                       as={router.asPath}
                       onClick={async () => {
-                        await localForage.clear();
+                        await onLogOut();
                         setPerson(null);
                       }}
                       replace

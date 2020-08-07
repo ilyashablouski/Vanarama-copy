@@ -320,12 +320,16 @@ export const VanOffers: NextPage = () => {
           (item, idx: number) => (
             <>
               <Icon
-                key={`${item?.text}-icon` || `${idx}-icon`}
+                key={`${item?.text || idx}-icon`}
                 icon={<AddCircle />}
                 color="orange"
                 size="large"
               />
-              <Text key={`${item?.text}-text`} size="regular" color="darker">
+              <Text
+                key={`${item?.text || idx}-text`}
+                size="regular"
+                color="darker"
+              >
                 {item?.text}
               </Text>
             </>

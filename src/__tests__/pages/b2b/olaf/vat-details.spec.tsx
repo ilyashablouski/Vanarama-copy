@@ -8,8 +8,12 @@ import {
 } from '../../../../../generated/UpdateVatDetailsMutation';
 import { GET_VAT_DETAILS_COUNTRIES } from '../../../../components/VatDetailsForm/CountryTurnoverFieldArray';
 import { VatDetailsPage } from '../../../../pages/b2b/olaf/vat-details/[companyUuid]';
-import { UPDATE_VAT_DETAILS } from '../../../../containers/VatDetailsFormContainer/gql';
+import {
+  UPDATE_VAT_DETAILS,
+  GET_VAT_DETAILS,
+} from '../../../../containers/VatDetailsFormContainer/gql';
 import { CREATE_UPDATE_CREDIT_APPLICATION } from '../../../../gql/creditApplication';
+import { GetVatDetailsQuery } from '../../../../../generated/GetVatDetailsQuery';
 
 const MOCK_COMPANY_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
 const MOCK_ORDER_UUID = '39c19729-1111-46bd-0000-ed82705b3e01';
@@ -51,6 +55,33 @@ const dropDownData: MockedResponse = {
   },
 };
 
+const companyByUuid: MockedResponse = {
+  request: {
+    query: GET_VAT_DETAILS,
+    variables: {
+      input: {
+        companyUuid: MOCK_COMPANY_UUID,
+      },
+    },
+  },
+  result: {
+    data: {
+      companyByUuid: {
+        uuid: 'uuid',
+        isVatRegistered: false,
+        tradesOutsideUk: false,
+        turnoverPercentageOutsideUk: [
+          {
+            country: 'country',
+            percentage: 'percentage',
+          },
+        ],
+        vatNumber: 'vatNumber',
+      },
+    } as GetVatDetailsQuery,
+  },
+};
+
 function submitForm() {
   fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
 }
@@ -89,7 +120,7 @@ describe('B2B VAT Details page', () => {
   it('should only show the "VAT Number" field when checking "The company is VAT registered"', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData]}>
+      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
@@ -110,7 +141,7 @@ describe('B2B VAT Details page', () => {
   it('should validate the "VAT Number" field is not empty when checking "The company is VAT registered"', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData]}>
+      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
@@ -129,7 +160,7 @@ describe('B2B VAT Details page', () => {
   it('should validate the "VAT Number" field does not contain characters', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData]}>
+      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
@@ -149,7 +180,7 @@ describe('B2B VAT Details page', () => {
   it('should validate the "VAT Number" field is 9 digits', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData]}>
+      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
@@ -169,7 +200,7 @@ describe('B2B VAT Details page', () => {
   it('should only show the "Countries of Trade and % of Turnover" field when checking "The company trades outside the UK"', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData]}>
+      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
@@ -194,7 +225,7 @@ describe('B2B VAT Details page', () => {
   it('should allow the user to add multiple countries', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData]}>
+      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
@@ -219,7 +250,7 @@ describe('B2B VAT Details page', () => {
   it('should allow the user to remove all but one country', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData]}>
+      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
@@ -251,7 +282,7 @@ describe('B2B VAT Details page', () => {
   it('should show a validation message if the user does not select a country', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData]}>
+      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
@@ -270,7 +301,7 @@ describe('B2B VAT Details page', () => {
   it('should show a validation message if the user enters a percentage less than 1', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData]}>
+      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
@@ -299,7 +330,7 @@ describe('B2B VAT Details page', () => {
   it('should show a validation message if the user enters a percentage greater than 100', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData]}>
+      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
@@ -328,7 +359,7 @@ describe('B2B VAT Details page', () => {
   it('should show a validation message if the total percentage is greater than 100', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData]}>
+      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
@@ -365,7 +396,7 @@ describe('B2B VAT Details page', () => {
   it('should not show an option for the "United Kingdom"', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData]}>
+      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
@@ -381,7 +412,7 @@ describe('B2B VAT Details page', () => {
   it('should show a validation message if the user selects the same country twice', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData]}>
+      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
@@ -422,7 +453,7 @@ describe('B2B VAT Details page', () => {
   it('should not show the duplicate country validation when the dropdowns are both empty', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData]}>
+      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
         <VatDetailsPage />
       </MockedProvider>,
     );
@@ -451,6 +482,7 @@ describe('B2B VAT Details page', () => {
         addTypename={false}
         mocks={[
           dropDownData,
+          companyByUuid,
           {
             request: {
               query: UPDATE_VAT_DETAILS,
@@ -495,6 +527,7 @@ describe('B2B VAT Details page', () => {
         addTypename={false}
         mocks={[
           dropDownData,
+          companyByUuid,
           {
             request: {
               query: UPDATE_VAT_DETAILS,
@@ -544,6 +577,7 @@ describe('B2B VAT Details page', () => {
         addTypename={false}
         mocks={[
           dropDownData,
+          companyByUuid,
           {
             request: {
               query: UPDATE_VAT_DETAILS,
@@ -609,6 +643,7 @@ describe('B2B VAT Details page', () => {
       <MockedProvider
         addTypename={false}
         mocks={[
+          companyByUuid,
           {
             request: {
               query: GET_VAT_DETAILS_COUNTRIES,
@@ -645,6 +680,7 @@ describe('B2B VAT Details page', () => {
         addTypename={false}
         mocks={[
           dropDownData,
+          companyByUuid,
           {
             request: {
               query: UPDATE_VAT_DETAILS,

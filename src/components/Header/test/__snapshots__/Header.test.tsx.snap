@@ -1579,7 +1579,7 @@ exports[`<Header /> renders correctly 1`] = `
             className="link"
             data-menu={null}
             data-testid="router-link"
-            href="/van-insurance/"
+            href="/fleet/"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
@@ -3272,7 +3272,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
             className="link"
             data-menu={null}
             data-testid="router-link"
-            href="/van-insurance/"
+            href="/fleet/"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >

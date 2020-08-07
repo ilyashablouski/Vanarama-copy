@@ -16,21 +16,27 @@ const handleSubmitError = () =>
 
 type QueryParams = OLAFQueryParams & {
   companyUuid: string;
+  directorUuid: string;
 };
 
 export const DirectorDetailsPage: NextPage = () => {
   const router = useRouter();
-  const { companyUuid, derivativeId, orderId } = router.query as QueryParams;
+  const { companyUuid, orderId, directorUuid } = router.query as QueryParams;
 
   const handleSubmitCompletion = () => {
-    const params = getUrlParam({ derivativeId, orderId });
-    const url = `/b2b/olaf/company-bank-details/[companyUuid]${params}`;
+    const params = getUrlParam({ orderId });
+    const url =
+      router.query.redirect === 'summary'
+        ? `/b2b/olaf/summary/[companyUuid]${params}`
+        : `/b2b/olaf/company-bank-details/[companyUuid]${params}`;
     router.push(url, url.replace('[companyUuid]', companyUuid));
   };
 
   return (
     <OLAFLayout>
       <DirectorDetailsFormContainer
+        isEdited={router.query.redirect === 'summary'}
+        directorUuid={directorUuid}
         companyUuid={companyUuid}
         orderUuid={orderId}
         onCompleted={handleSubmitCompletion}

@@ -109,6 +109,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
           orderUuid={orderUuid}
           companyUuid={companyUuid}
           onCompleted={jest.fn()}
+          isEdited={false}
         />
       </MockedProvider>,
     );
@@ -132,6 +133,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
           orderUuid={orderUuid}
           companyUuid={companyUuid}
           onCompleted={jest.fn()}
+          isEdited={false}
         />
       </MockedProvider>,
     );
@@ -239,6 +241,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
           orderUuid={orderUuid}
           companyUuid={companyUuid}
           onCompleted={onCompletedMock}
+          isEdited={false}
         />
       </MockedProvider>,
     );

@@ -1391,7 +1391,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
         className="link"
         data-menu={null}
         data-testid="router-link"
-        href="/van-insurance/"
+        href="/fleet/"
         onClick={[Function]}
         onMouseEnter={[Function]}
       >
@@ -2811,7 +2811,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
         className="link"
         data-menu={null}
         data-testid="router-link"
-        href="/van-insurance/"
+        href="/fleet/"
         onClick={[Function]}
         onMouseEnter={[Function]}
       >

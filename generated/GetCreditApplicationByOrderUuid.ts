@@ -15,7 +15,8 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_li
   annualMileage: number | null;
   monthlyPayment: number | null;
   depositMonths: number | null;
-  funder: string | null;
+  funderId: string | null;
+  funderData: any | null;
 }
 
 export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_lineItem {
