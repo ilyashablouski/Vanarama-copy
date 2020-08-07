@@ -249,7 +249,7 @@ describe('<TopOffersContainer />', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
-  //TODO: should be investigate why Mock Provider can't resolve mocked queries
+  // TODO: should be investigate why Mock Provider can't resolve mocked queries
   it.skip('should be render correctly Top Offers for special offer Page', async () => {
     // ACT
     const getComponent = render(

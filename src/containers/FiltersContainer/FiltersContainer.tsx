@@ -253,7 +253,7 @@ const FiltersContainer = ({
   }, [setSelectedFiltersState, router]);
 
   useEffect(() => {
-    if (!isTabletOrMobile) setFilterExpandStatus(true)
+    if (!isTabletOrMobile) setFilterExpandStatus(true);
     else setFilterExpandStatus(false);
   }, [isTabletOrMobile]);
 
