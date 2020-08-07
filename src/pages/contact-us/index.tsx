@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { useQuery } from '@apollo/client';
+import { useState } from 'react';
 import Router from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
 
@@ -20,6 +21,7 @@ import { CONTACT_US_CONTENT } from '../../gql/contact-us/contactUs';
 import BreadCrumbContainer from '../../containers/BreadCrumbContainer';
 
 export const ContactUsPage: NextPage = () => {
+  const [show, setShow] = useState(false);
   const { data, loading, error } = useQuery<ContactUsPageData>(
     CONTACT_US_CONTENT,
   );
@@ -30,6 +32,8 @@ export const ContactUsPage: NextPage = () => {
   if (error) {
     return <p>Error: {error.message}</p>;
   }
+
+  const COORDS = { lat: 51.762479, lng: -0.438241 };
 
   return (
     <>
@@ -57,7 +61,29 @@ export const ContactUsPage: NextPage = () => {
             Lorem nostrud irure sit consectetur
           </Text>
         </div>
-        <Map apiKey="" />
+        <Map
+          apiKey="AIzaSyDwZ-btyncKZtsysSU-FnjRpydDBwAEwsM"
+          center={COORDS}
+          zoom={11}
+        >
+          {show && (
+            <Map.InfoWindow
+              onCloseClick={() => setShow(false)}
+              position={COORDS}
+            >
+              <div>
+                HP2 7DE Maylands Ave, Hemel Hempstead Industrial Estate, Hemel
+                Hempstead
+              </div>
+            </Map.InfoWindow>
+          )}
+          <Map.Marker
+            icon="http://m.schuepfen.ch/icons/helveticons/black/60/Pin-location.png"
+            onClick={() => setShow(true)}
+            position={COORDS}
+            title="Image title"
+          />
+        </Map>
       </section>
       <section className="row:bg-light">
         <div className="row:tiles">
