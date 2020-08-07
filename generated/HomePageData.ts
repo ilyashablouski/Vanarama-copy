@@ -81,10 +81,15 @@ export interface HomePageData_homePage_sections_cards {
   cards: HomePageData_homePage_sections_cards_cards[] | null;
 }
 
+export interface HomePageData_homePage_sections_featured1_iconList {
+  text: string | null;
+}
+
 export interface HomePageData_homePage_sections_featured1 {
   title: string | null;
   titleTag: string | null;
   body: string | null;
+  iconList: (HomePageData_homePage_sections_featured1_iconList | null)[] | null;
 }
 
 export interface HomePageData_homePage_sections_featured2 {

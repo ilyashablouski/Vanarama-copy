@@ -5,26 +5,51 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import React from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { FormContext, useForm, OnSubmit } from 'react-hook-form';
 import CountryTurnoverFieldArray from './CountryTurnoverFieldArray';
 import { VatDetailsFormValues } from './interfaces';
+import { VatDetails } from '../../../generated/VatDetails';
+import { mapDefaultValues } from './utils';
 
 interface IProps {
   onSubmit: OnSubmit<VatDetailsFormValues>;
+  vatDetails: VatDetails | null | undefined;
+  isEdited: boolean;
 }
 
-const VatDetailsForm: React.FC<IProps> = ({ onSubmit }) => {
+const VatDetailsForm: React.FC<IProps> = ({
+  onSubmit,
+  vatDetails,
+  isEdited,
+}) => {
+  const defaultValues = isEdited
+    ? mapDefaultValues(vatDetails)
+    : {
+        markets: [{ country: '', percentage: '' }],
+      };
+
   const methods = useForm<VatDetailsFormValues>({
     mode: 'onBlur',
-    defaultValues: {
-      markets: [{ country: '', percentage: '' }],
-    },
+    defaultValues,
   });
 
-  const { errors, formState, handleSubmit, register, watch } = methods;
+  const { errors, formState, handleSubmit, register, watch, reset } = methods;
+
+  useEffect(() => {
+    reset(defaultValues);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [vatDetails]);
+
   const vatRegistered = watch('vatRegistered');
   const outsideUK = watch('outsideUK');
+
+  const selectLabel = useMemo(() => {
+    if (isEdited) {
+      return 'Save & Return';
+    }
+    return formState.isSubmitting ? 'Saving...' : 'Continue';
+  }, [isEdited, formState.isSubmitting]);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -82,7 +107,7 @@ const VatDetailsForm: React.FC<IProps> = ({ onSubmit }) => {
         icon={<ChevronForwardSharp />}
         iconColor="white"
         iconPosition="after"
-        label={formState.isSubmitting ? 'Saving...' : 'Continue'}
+        label={selectLabel}
         size="large"
         type="submit"
       />

@@ -14,4 +14,5 @@ export interface ICompanyBankDetailsProps {
   onSubmit: (values: ICompanyBankDetails) => Promise<any>;
   account?: CompanyBankDetailsAccount;
   data?: ICompanyBankDetails;
+  isEdited: boolean;
 }

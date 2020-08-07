@@ -1,34 +1,40 @@
 import { FormikErrors } from 'formik';
 import * as Yup from 'yup';
+import moment from 'moment';
 import { GetDirectorDetailsQuery_companyOfficers_nodes as DirectorFieldsOfficer } from '../../../generated/GetDirectorDetailsQuery';
 import { sum } from '../../utils/array';
 import { dateOfBirthValidator, checkFuture } from '../../utils/validation';
 import { DirectorDetailsFormValues, DirectorFormValues } from './interfaces';
+import { CompanyAssociate } from '../../../generated/CompanyAssociate';
+import { TAddressEntry } from '../AddressForm/interfaces';
+import { addressToDisplay } from '../../utils/address';
 
-export const initialFormValues = (
-  directors: DirectorFieldsOfficer[],
+export const initialEditedFormValues = (
+  directors: DirectorFormValues[],
+  directorUuid?: string,
 ): DirectorDetailsFormValues => {
-  if (directors.length > 1) {
-    return { totalPercentage: 0, directors: [] };
+  if (directors.length === 1) {
+    return {
+      directors,
+      totalPercentage: parseInt(directors[0].shareOfBusiness, 10),
+    };
   }
+  const totalPercentage = directors.reduce(
+    (prev, curr) => prev + (parseInt(curr.shareOfBusiness, 10) || 0),
+    0,
+  );
 
-  const [lastName, firstName] = directors[0].name.split(', ');
+  if (directorUuid) {
+    const selected = directors.find(d => d.uuid === directorUuid);
+    if (selected)
+      return {
+        directors: [selected],
+        totalPercentage,
+      };
+  }
   return {
-    totalPercentage: 0,
-    directors: [
-      {
-        title: '',
-        firstName,
-        lastName,
-        gender: '',
-        shareOfBusiness: '',
-        dayOfBirth: '',
-        monthOfBirth: '',
-        yearOfBirth: '',
-        numberOfDependants: '',
-        history: [],
-      },
-    ],
+    directors: [],
+    totalPercentage,
   };
 };
 
@@ -147,3 +153,86 @@ export const validationSchema = Yup.object().shape({
 export function createKeyGenerator(index: number) {
   return (field: keyof DirectorFormValues) => `directors[${index}].${field}`;
 }
+
+export const parseOfficers = (
+  officers: DirectorFieldsOfficer[],
+): DirectorFormValues[] => {
+  return officers.map(officer => {
+    const [lastName, firstName] = officer.name.split(', ');
+    return {
+      title: '',
+      firstName,
+      lastName,
+      gender: '',
+      shareOfBusiness: '',
+      dayOfBirth: '',
+      monthOfBirth: '',
+      yearOfBirth: '',
+      numberOfDependants: '',
+      history: [],
+    };
+  });
+};
+
+export const parseAssociates = (
+  associates: CompanyAssociate[],
+): DirectorFormValues[] =>
+  associates?.map(a => {
+    const dateOfBirth = moment(a.dateOfBirth);
+    const history: TAddressEntry[] =
+      a.addresses?.map(address => {
+        const startedOn = moment(address.startedOn);
+        return {
+          address: {
+            id: address.serviceId || '',
+            label: addressToDisplay(address),
+          },
+          month: (startedOn.month() + 1).toString() || '',
+          status: address.propertyStatus || '',
+          year: startedOn.year().toString() || '',
+        };
+      }) || [];
+    return {
+      uuid: a.uuid,
+      title: a.title || '',
+      firstName: a.firstName || '',
+      lastName: a.lastName || '',
+      gender: a.gender || '',
+      shareOfBusiness: `${a.businessShare}` || '',
+      dayOfBirth: (dateOfBirth.day() + 1).toString() || '',
+      monthOfBirth: (dateOfBirth.month() + 1).toString() || '',
+      yearOfBirth: dateOfBirth.year().toString() || '',
+      numberOfDependants: a.noOfDependants || '',
+      history,
+    };
+  });
+
+export const combineDirectorsData = (
+  officers: DirectorFieldsOfficer[],
+  associates: CompanyAssociate[] | null,
+) => {
+  const editedDirecors: DirectorFormValues[] = parseAssociates(
+    associates || [],
+  );
+  const notEditedDirecors = parseOfficers(officers).filter(
+    officer =>
+      editedDirecors.filter(
+        a =>
+          a.firstName === officer.firstName && a.lastName === officer.lastName,
+      ).length === 0,
+  );
+  return editedDirecors.concat(notEditedDirecors);
+};
+
+export const initialFormValues = (
+  directors: DirectorFieldsOfficer[],
+): DirectorDetailsFormValues => {
+  if (directors.length > 1) {
+    return { totalPercentage: 0, directors: [] };
+  }
+
+  return {
+    totalPercentage: 0,
+    directors: parseOfficers([directors[0]]),
+  };
+};

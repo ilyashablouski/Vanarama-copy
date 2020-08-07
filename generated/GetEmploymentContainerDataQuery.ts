@@ -47,7 +47,7 @@ export interface GetEmploymentContainerDataQuery {
    */
   personByUuid: GetEmploymentContainerDataQuery_personByUuid | null;
   /**
-   * get all drop downs
+   * Get all drop downs
    */
   allDropDowns: GetEmploymentContainerDataQuery_allDropDowns | null;
 }

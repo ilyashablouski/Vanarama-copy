@@ -86,7 +86,10 @@ export const emailValidator = {
 };
 
 export const firstNameValidator = {
-  required: { value: true, message: 'Please enter your first name' },
+  required: {
+    value: true,
+    message: 'Please enter your first name',
+  },
   minLength: {
     value: 2,
     message:
@@ -194,19 +197,15 @@ export const vehicleRegistrationNumberValidator = {
 };
 
 export const companyNameValidator = {
-  required: { value: true, message: 'Please enter your company name' },
-  minLength: {
-    value: 2,
-    message:
-      'Oops, this name’s too short. Please make it 2 characters or more.',
-  },
-  maxLength: {
-    value: 160,
-    message:
-      'Oops, this name’s too long. Please keep it to 160 characters or less.',
+  required: {
+    value: true,
+    message: 'Please enter your company name',
   },
 };
 
 export const fleetSizeValidator = {
-  required: { value: true, message: 'Please enter your fleet size' },
+  required: {
+    value: true,
+    message: 'Please enter your fleet size',
+  },
 };
