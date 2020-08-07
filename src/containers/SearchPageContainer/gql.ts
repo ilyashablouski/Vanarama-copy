@@ -14,6 +14,14 @@ import {
   RangesImages,
   RangesImagesVariables,
 } from '../../../generated/RangesImages';
+import {
+  bodyStyleList,
+  bodyStyleListVariables,
+} from '../../../generated/bodyStyleList';
+import {
+  ModelImages,
+  ModelImagesVariables,
+} from '../../../generated/ModelImages';
 
 export const GET_VEHICLE_LIST = gql`
   query vehicleList(
@@ -179,5 +187,63 @@ export function getRangeImages(rangeId: string, skip = false) {
       rangeId,
     },
     skip,
+  });
+}
+
+export const GET_MODEL_IMAGES = gql`
+  query ModelImages($capIds: [ID]) {
+    vehicleImages(capIds: $capIds, all: false) {
+      mainImageUrl
+    }
+  }
+`;
+
+export function useModelImages(capIds: (string | null)[], skip = false) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  return useQuery<ModelImages, ModelImagesVariables>(GET_MODEL_IMAGES, {
+    variables: {
+      capIds,
+    },
+    skip,
+  });
+}
+
+export const GET_BODY_STYLES = gql`
+  query bodyStyleList(
+    $vehicleTypes: VehicleTypeEnum
+    $leaseType: LeaseTypeEnum
+    $manufacturerName: String!
+    $rangeName: String!
+  ) {
+    bodyStyleList(
+      filter: {
+        vehicleType: $vehicleTypes
+        manufacturerName: $manufacturerName
+        rangeName: $rangeName
+        leaseType: $leaseType
+      }
+    ) {
+      bodyStyle
+      count
+      minPrice
+      capId
+    }
+  }
+`;
+
+export function useBodyStyleList(
+  vehicleTypes: VehicleTypeEnum,
+  leaseType: LeaseTypeEnum,
+  manufacturerName: string,
+  rangeName: string,
+) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  return useLazyQuery<bodyStyleList, bodyStyleListVariables>(GET_BODY_STYLES, {
+    variables: {
+      vehicleTypes,
+      manufacturerName,
+      leaseType,
+      rangeName,
+    },
   });
 }
