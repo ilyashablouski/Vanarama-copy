@@ -1,7 +1,7 @@
 export default function generateLimitedSteps() {
   return [
     {
-      href: '/b2b/olaf/about',
+      href: '/b2b/olaf/about/[orderId]',
       label: 'About You',
       step: 1,
     },
@@ -24,6 +24,11 @@ export default function generateLimitedSteps() {
       href: '/b2b/olaf/company-bank-details/[companyUuid]',
       label: 'Company Bank Details',
       step: 5,
+    },
+    {
+      href: '/b2b/olaf/summary/[companyUuid]',
+      label: 'Summary',
+      step: 6,
     },
   ];
 }
