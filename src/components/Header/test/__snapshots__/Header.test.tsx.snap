@@ -5,9 +5,11 @@ exports[`<Header /> renders correctly 1`] = `
   className="header"
   data-testid="header"
 >
+   
   <div
     className="header-content"
   >
+     
     <a
       className="link logo header-logo -orange -plain"
       data-menu={null}
@@ -16,6 +18,7 @@ exports[`<Header /> renders correctly 1`] = `
       onClick={[Function]}
       onMouseEnter={[Function]}
     >
+       
       <span
         className="logo"
       >
@@ -86,11 +89,14 @@ exports[`<Header /> renders correctly 1`] = `
           />
         </svg>
       </span>
+       
     </a>
+     
     <label
       className="header-search"
       htmlFor="search"
     >
+       
       <i
         className="icon -darker"
       >
@@ -130,13 +136,17 @@ exports[`<Header /> renders correctly 1`] = `
           />
         </svg>
       </i>
+       
       <input
         className="header-search--input"
         id="search"
         placeholder="Search for Vehicles…"
         type="text"
       />
+       
+       
     </label>
+     
     <a
       className="link header-tel"
       data-testid="link"
@@ -144,6 +154,7 @@ exports[`<Header /> renders correctly 1`] = `
       onClick={[Function]}
       rel="noopener noreferrer"
     >
+       
       <i
         className="icon -xsmall"
       >
@@ -161,13 +172,17 @@ exports[`<Header /> renders correctly 1`] = `
           />
         </svg>
       </i>
+       
       <span>
         01442 838195
       </span>
+       
     </a>
+     
     <div
       className="header-account"
     >
+       
       <button
         className="button header-account--toggle -secondary -regular -clear"
       >
@@ -182,13 +197,17 @@ exports[`<Header /> renders correctly 1`] = `
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
+             
             <span>
               Login / Register
             </span>
+             
           </a>
         </div>
       </button>
+       
     </div>
+     
     <nav
       className="menu"
       id="nav"
@@ -1606,6 +1625,7 @@ exports[`<Header /> renders correctly 1`] = `
         </li>
       </ul>
     </nav>
+     
     <button
       className="header-navtoggle -inherit -expand -clear"
       onClick={[Function]}
@@ -1613,6 +1633,7 @@ exports[`<Header /> renders correctly 1`] = `
       <div
         className="button--inner"
       >
+         
         <i
           className="icon -darker"
         >
@@ -1671,6 +1692,7 @@ exports[`<Header /> renders correctly 1`] = `
             />
           </svg>
         </i>
+         
         <i
           className="icon -darker"
         >
@@ -1687,9 +1709,12 @@ exports[`<Header /> renders correctly 1`] = `
             />
           </svg>
         </i>
+         
       </div>
     </button>
+     
   </div>
+   
 </header>
 `;
 
@@ -1698,9 +1723,11 @@ exports[`<Header /> renders correctly with login user 1`] = `
   className="header"
   data-testid="header"
 >
+   
   <div
     className="header-content"
   >
+     
     <a
       className="link logo header-logo -orange -plain"
       data-menu={null}
@@ -1709,6 +1736,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
       onClick={[Function]}
       onMouseEnter={[Function]}
     >
+       
       <span
         className="logo"
       >
@@ -1779,11 +1807,14 @@ exports[`<Header /> renders correctly with login user 1`] = `
           />
         </svg>
       </span>
+       
     </a>
+     
     <label
       className="header-search"
       htmlFor="search"
     >
+       
       <i
         className="icon -darker"
       >
@@ -1823,13 +1854,17 @@ exports[`<Header /> renders correctly with login user 1`] = `
           />
         </svg>
       </i>
+       
       <input
         className="header-search--input"
         id="search"
         placeholder="Search for Vehicles…"
         type="text"
       />
+       
+       
     </label>
+     
     <a
       className="link header-tel"
       data-testid="link"
@@ -1837,6 +1872,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
       onClick={[Function]}
       rel="noopener noreferrer"
     >
+       
       <i
         className="icon -xsmall"
       >
@@ -1854,13 +1890,17 @@ exports[`<Header /> renders correctly with login user 1`] = `
           />
         </svg>
       </i>
+       
       <span>
         01442 838195
       </span>
+       
     </a>
+     
     <div
       className="header-account"
     >
+       
       <button
         className="button header-account--toggle -secondary -regular -clear"
       >
@@ -1875,13 +1915,17 @@ exports[`<Header /> renders correctly with login user 1`] = `
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
+             
             <span>
               Login / Register
             </span>
+             
           </a>
         </div>
       </button>
+       
     </div>
+     
     <nav
       className="menu"
       id="nav"
@@ -2010,7 +2054,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                   </a>
                 </li>
                 <li
-                  className="menu-li -open -with-children"
+                  className="menu-li -with-children"
                   data-testid="Vans By Manufacturer"
                   onFocus={[Function]}
                   onMouseOver={[Function]}
@@ -2068,7 +2112,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                 </li>
               </ul>
               <ul
-                className="menu-tertiary -open"
+                className="menu-tertiary"
               >
                 <li
                   className="menu-li menu-title"
@@ -2370,7 +2414,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                   </a>
                 </li>
                 <li
-                  className="menu-li -open -with-children"
+                  className="menu-li -with-children"
                   data-testid="Pickups By Manufacturer"
                   onFocus={[Function]}
                   onMouseOver={[Function]}
@@ -2409,7 +2453,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                 </li>
               </ul>
               <ul
-                className="menu-tertiary -open"
+                className="menu-tertiary"
               >
                 <li
                   className="menu-li menu-title"
@@ -2711,7 +2755,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                   </a>
                 </li>
                 <li
-                  className="menu-li -open -with-children"
+                  className="menu-li -with-children"
                   data-testid="Cars By Manufacturer"
                   onFocus={[Function]}
                   onMouseOver={[Function]}
@@ -2750,7 +2794,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                 </li>
               </ul>
               <ul
-                className="menu-tertiary -open"
+                className="menu-tertiary"
               >
                 <li
                   className="menu-li menu-title"
@@ -3299,6 +3343,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
         </li>
       </ul>
     </nav>
+     
     <button
       className="header-navtoggle -inherit -expand -clear"
       onClick={[Function]}
@@ -3306,6 +3351,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
       <div
         className="button--inner"
       >
+         
         <i
           className="icon -darker"
         >
@@ -3364,6 +3410,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
             />
           </svg>
         </i>
+         
         <i
           className="icon -darker"
         >
@@ -3380,8 +3427,11 @@ exports[`<Header /> renders correctly with login user 1`] = `
             />
           </svg>
         </i>
+         
       </div>
     </button>
+     
   </div>
+   
 </header>
 `;

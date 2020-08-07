@@ -1549,7 +1549,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
               </a>
             </li>
             <li
-              className="menu-li -open -with-children"
+              className="menu-li -with-children"
               data-testid="Vans By Manufacturer"
               onFocus={[Function]}
               onMouseOver={[Function]}
@@ -1607,7 +1607,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             </li>
           </ul>
           <ul
-            className="menu-tertiary -open"
+            className="menu-tertiary"
           >
             <li
               className="menu-li menu-title"
@@ -1909,7 +1909,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
               </a>
             </li>
             <li
-              className="menu-li -open -with-children"
+              className="menu-li -with-children"
               data-testid="Pickups By Manufacturer"
               onFocus={[Function]}
               onMouseOver={[Function]}
@@ -1948,7 +1948,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             </li>
           </ul>
           <ul
-            className="menu-tertiary -open"
+            className="menu-tertiary"
           >
             <li
               className="menu-li menu-title"
@@ -2250,7 +2250,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
               </a>
             </li>
             <li
-              className="menu-li -open -with-children"
+              className="menu-li -with-children"
               data-testid="Cars By Manufacturer"
               onFocus={[Function]}
               onMouseOver={[Function]}
@@ -2289,7 +2289,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             </li>
           </ul>
           <ul
-            className="menu-tertiary -open"
+            className="menu-tertiary"
           >
             <li
               className="menu-li menu-title"
