@@ -93,22 +93,22 @@ export const PickupsPage: NextPage = () => {
     <>
       <Hero>
         <HeroHeading
-          text={data?.hubPickupPage.sections.hero?.title || ''}
+          text={data?.hubPickupPage?.sections?.hero?.title || ''}
           titleTag={
             getTitleTag(
-              data?.hubPickupPage.sections.hero?.titleTag || 'p',
+              data?.hubPickupPage?.sections?.hero?.titleTag || 'p',
             ) as keyof JSX.IntrinsicElements
           }
         />
         <br />
-        <HeroTitle text={data?.hubPickupPage.sections.hero?.body || ''} />
+        <HeroTitle text={data?.hubPickupPage?.sections?.hero?.body || ''} />
         <br />
         <Image
           className="hero--image"
           plain
           size="expand"
           src={
-            data?.hubPickupPage.sections.hero?.image?.file?.url ||
+            data?.hubPickupPage?.sections?.hero?.image?.file?.url ||
             'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/hilux-removebg-preview.png'
           }
         />
@@ -120,14 +120,14 @@ export const PickupsPage: NextPage = () => {
           color="black"
           tag={
             getTitleTag(
-              data?.hubPickupPage.sections.leadText?.titleTag || null,
+              data?.hubPickupPage?.sections?.leadText?.titleTag || null,
             ) as keyof JSX.IntrinsicElements
           }
         >
-          {data?.hubPickupPage.sections.leadText?.heading}
+          {data?.hubPickupPage?.sections?.leadText?.heading}
         </Heading>
         <Text tag="span" size="lead" color="darker">
-          {data?.hubPickupPage.sections.leadText?.description}
+          {data?.hubPickupPage?.sections?.leadText?.description}
         </Text>
       </section>
       <hr className="-fullwidth" />
@@ -236,13 +236,13 @@ export const PickupsPage: NextPage = () => {
           color="black"
           tag={
             getTitleTag(
-              data?.hubPickupPage.sections.steps?.titleTag || null,
+              data?.hubPickupPage?.sections?.steps?.titleTag || null,
             ) as keyof JSX.IntrinsicElements
           }
         >
-          {data?.hubPickupPage.sections.steps?.heading}
+          {data?.hubPickupPage?.sections?.steps?.heading}
         </Heading>
-        {data?.hubPickupPage.sections.steps?.steps?.map(
+        {data?.hubPickupPage?.sections?.steps?.steps?.map(
           (step: StepData, idx: number) => (
             <Step
               className="-mh-auto"
@@ -262,16 +262,16 @@ export const PickupsPage: NextPage = () => {
             color="black"
             tag={
               getTitleTag(
-                data?.hubPickupPage.sections.featured1?.titleTag || 'p',
+                data?.hubPickupPage?.sections?.featured1?.titleTag || 'p',
               ) as keyof JSX.IntrinsicElements
             }
           >
-            {data?.hubPickupPage.sections.featured1?.title}
+            {data?.hubPickupPage?.sections?.featured1?.title}
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
             <ReactMarkdown
               escapeHtml={false}
-              source={data?.hubPickupPage.sections.featured1?.body || ''}
+              source={data?.hubPickupPage?.sections?.featured1?.body || ''}
             />
           </Text>
           <IconList>
@@ -288,7 +288,7 @@ export const PickupsPage: NextPage = () => {
         </div>
         <Image
           src={
-            data?.hubPickupPage.sections.featured1?.image?.file?.url ||
+            data?.hubPickupPage?.sections?.featured1?.image?.file?.url ||
             'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
           }
         />
@@ -297,7 +297,7 @@ export const PickupsPage: NextPage = () => {
       <section className="row:featured-left">
         <Image
           src={
-            data?.hubPickupPage.sections.featured2?.image?.file?.url ||
+            data?.hubPickupPage?.sections?.featured2?.image?.file?.url ||
             'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
           }
         />
@@ -307,16 +307,16 @@ export const PickupsPage: NextPage = () => {
             color="black"
             tag={
               getTitleTag(
-                data?.hubPickupPage.sections.featured2?.titleTag || 'p',
+                data?.hubPickupPage?.sections?.featured2?.titleTag || 'p',
               ) as keyof JSX.IntrinsicElements
             }
           >
-            {data?.hubPickupPage.sections.featured2?.title}
+            {data?.hubPickupPage?.sections?.featured2?.title}
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
             <ReactMarkdown
               escapeHtml={false}
-              source={data?.hubPickupPage.sections.featured2?.body || ''}
+              source={data?.hubPickupPage?.sections?.featured2?.body || ''}
             />
           </Text>
         </div>
@@ -328,13 +328,13 @@ export const PickupsPage: NextPage = () => {
           color="black"
           tag={
             getTitleTag(
-              data?.hubPickupPage.sections.tiles1?.titleTag || 'p',
+              data?.hubPickupPage?.sections?.tiles1?.titleTag || 'p',
             ) as keyof JSX.IntrinsicElements
           }
         >
-          {data?.hubPickupPage.sections.tiles1?.name}
+          {data?.hubPickupPage?.sections?.tiles1?.name}
         </Heading>
-        {data?.hubPickupPage.sections.tiles1?.tiles?.map(
+        {data?.hubPickupPage?.sections?.tiles1?.tiles?.map(
           (acc: AccessoryData, idx: number) => (
             <div key={acc.title || idx}>
               <Image
@@ -362,18 +362,18 @@ export const PickupsPage: NextPage = () => {
           color="black"
           tag={
             getTitleTag(
-              data?.hubPickupPage.sections.rowText?.titleTag || 'p',
+              data?.hubPickupPage?.sections?.rowText?.titleTag || 'p',
             ) as keyof JSX.IntrinsicElements
           }
         >
-          {data?.hubPickupPage.sections.rowText?.heading}
+          {data?.hubPickupPage?.sections?.rowText?.heading}
         </Heading>
         <div>
           <Text tag="p" size="regular" color="darker">
-            {data?.hubPickupPage.sections.rowText?.body}
+            {data?.hubPickupPage?.sections?.rowText?.body}
           </Text>
           <Heading size="regular" color="black">
-            {data?.hubPickupPage.sections.rowText?.subHeading}
+            {data?.hubPickupPage?.sections?.rowText?.subHeading}
           </Heading>
           <Button
             className="-pt-200"
@@ -394,13 +394,13 @@ export const PickupsPage: NextPage = () => {
           color="black"
           tag={
             getTitleTag(
-              data?.hubPickupPage.sections.tiles2?.titleTag || 'p',
+              data?.hubPickupPage?.sections?.tiles2?.titleTag || 'p',
             ) as keyof JSX.IntrinsicElements
           }
         >
-          {data && data.hubPickupPage.sections.tiles2?.tilesTitle}
+          {data && data?.hubPickupPage?.sections?.tiles2?.tilesTitle}
         </Heading>
-        {data?.hubPickupPage.sections.tiles2?.tiles?.map(
+        {data?.hubPickupPage?.sections?.tiles2?.tiles?.map(
           (tile: TileData, idx: number) => (
             <div key={tile.title || idx}>
               <Tile className="-plain -button -align-center" plain>

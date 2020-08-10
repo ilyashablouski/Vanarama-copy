@@ -27,26 +27,30 @@ const FleetLandingPage = () => {
     return <></>;
   }
 
-  const {
-    hero,
-    leadText,
-    featured1,
-    featured2,
-    featured3,
-    featured4,
-    tiles,
-  } = data.fleetLandingPage.sections;
-
   return (
     <>
-      {hero && <HeroSection {...hero} />}
-      {leadText && <LeadTextSection {...leadText} />}
-      {featured1 && <TestimonialSection {...featured1} />}
-      {featured2 && <MediaFeatureSection {...featured2} />}
-      {featured3 && <MediaFeatureSection {...featured3} />}
-      {featured4 && <MediaFeatureSection {...featured4} />}
+      {data?.fleetLandingPage?.sections?.hero && (
+        <HeroSection {...data?.fleetLandingPage?.sections?.hero} />
+      )}
+      {data?.fleetLandingPage?.sections?.leadText && (
+        <LeadTextSection {...data?.fleetLandingPage?.sections?.leadText} />
+      )}
+      {data?.fleetLandingPage?.sections?.featured1 && (
+        <TestimonialSection {...data?.fleetLandingPage?.sections?.featured1} />
+      )}
+      {data?.fleetLandingPage?.sections?.featured2 && (
+        <MediaFeatureSection {...data?.fleetLandingPage?.sections?.featured2} />
+      )}
+      {data?.fleetLandingPage?.sections?.featured3 && (
+        <MediaFeatureSection {...data?.fleetLandingPage?.sections?.featured3} />
+      )}
+      {data?.fleetLandingPage?.sections?.featured4 && (
+        <MediaFeatureSection {...data?.fleetLandingPage?.sections?.featured4} />
+      )}
       <hr className="-fullwidth" />
-      {tiles && <BenefitsSection {...tiles} />}
+      {data?.fleetLandingPage?.sections?.tiles && (
+        <BenefitsSection {...data?.fleetLandingPage?.sections?.tiles} />
+      )}
     </>
   );
 };

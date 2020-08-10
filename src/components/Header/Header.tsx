@@ -8,7 +8,6 @@ import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Logo from '@vanarama/uibook/lib/components/atoms/logo';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-
 import SearchCircle from '@vanarama/uibook/lib/assets/icons/SearchOutline';
 import PersonCircleSharp from '@vanarama/uibook/lib/assets/icons/PersonCircleSharp';
 import HomeOutline from '@vanarama/uibook/lib/assets/icons/HomeOutline';
@@ -18,7 +17,6 @@ import LogOutOutline from '@vanarama/uibook/lib/assets/icons/LogOutOutline';
 import Menu from '@vanarama/uibook/lib/assets/icons/Menu';
 import Close from '@vanarama/uibook/lib/assets/icons/Close';
 import Call from '@vanarama/uibook/lib/assets/icons/Call';
-
 import { ILinkProps } from '../RouterLink/interface';
 import RouterLink from '../RouterLink/RouterLink';
 import HeaderMenu from './HeaderMenu';
@@ -52,7 +50,6 @@ export const Header: FC<IHeaderProps> = memo(props => {
   const [person, setPerson] = useState<Person | null>(null);
   const [ordersLength, setOrdersLength] = useState<number | null>(null);
   const [quotesLength, setQuotesLength] = useState<number | null>(null);
-
   const [isMenuOpen, setOpenMenu] = useState(false);
   const [isMyAccountOpen, setOpenMyAccount] = useState(false);
 
@@ -76,33 +73,43 @@ export const Header: FC<IHeaderProps> = memo(props => {
     setOpenMyAccount(false);
   }, [person, ordersLength, quotesLength, router]);
 
+  useEffect(() => {
+    setOpenMenu(false);
+  }, [router]);
+
   return (
     <header className={cx('header', className)} data-testid="header">
+      {' '}
       <div className="header-content">
+        {' '}
         <RouterLink
           link={{ href: '/', label: '' }}
           className="logo header-logo"
           classNames={{ color: 'orange', plain: true }}
         >
-          <Logo asset="vanarama" />
-        </RouterLink>
+          {' '}
+          <Logo asset="vanarama" />{' '}
+        </RouterLink>{' '}
         <label className="header-search" htmlFor="search">
-          <Icon icon={<SearchCircle />} color="darker" />
+          {' '}
+          <Icon icon={<SearchCircle />} color="darker" />{' '}
           <input
             className="header-search--input"
             id="search"
             type="text"
             placeholder="Search for Vehicles…"
-          />
-          {/* <div className="header-search--results -is-hidden" /> */}
-        </label>
+          />{' '}
+          {/* <div className="header-search--results -is-hidden" /> */}{' '}
+        </label>{' '}
         <RouterLink link={phoneNumberLink} className="header-tel">
-          <Icon icon={<Call />} size="xsmall" />
-          <span>01442 838195</span>
-        </RouterLink>
+          {' '}
+          <Icon icon={<Call />} size="xsmall" /> <span>01442 838195</span>{' '}
+        </RouterLink>{' '}
         <div className="header-account">
+          {' '}
           {person ? (
             <>
+              {' '}
               <Button
                 withoutDefaultClass
                 fill="clear"
@@ -110,26 +117,32 @@ export const Header: FC<IHeaderProps> = memo(props => {
                 className="header-account--toggle"
                 label={
                   <>
-                    <Icon icon={<PersonCircleSharp />} size="xsmall" />
-                    <span>My Account</span>
+                    {' '}
+                    <Icon icon={<PersonCircleSharp />} size="xsmall" />{' '}
+                    <span>My Account</span>{' '}
                   </>
                 }
-              />
+              />{' '}
               <div
                 className={cx('header-account--content', {
                   '-open': isMyAccountOpen,
                 })}
               >
+                {' '}
                 <div className="header-account--header">
+                  {' '}
                   <span>
-                    Hi
+                    {' '}
+                    Hi{' '}
                     {person?.firstName &&
                       person?.lastName &&
-                      `, ${person?.firstName} ${person?.lastName}`}
-                  </span>
-                </div>
+                      `, ${person?.firstName} ${person?.lastName}`}{' '}
+                  </span>{' '}
+                </div>{' '}
                 <ul className="header-account--nav">
+                  {' '}
                   <li>
+                    {' '}
                     <RouterLink
                       className="header-account--link"
                       link={{
@@ -138,11 +151,13 @@ export const Header: FC<IHeaderProps> = memo(props => {
                       }}
                       as={`/account/my-details/${person.uuid}?partyByUuid=${person.partyUuid}`}
                     >
-                      <Icon icon={<HomeOutline />} size="xsmall" />
-                      <span>Dashboard</span>
-                    </RouterLink>
-                  </li>
+                      {' '}
+                      <Icon icon={<HomeOutline />} size="xsmall" />{' '}
+                      <span>Dashboard</span>{' '}
+                    </RouterLink>{' '}
+                  </li>{' '}
                   <li>
+                    {' '}
                     <RouterLink
                       className="header-account--link"
                       link={{
@@ -157,11 +172,13 @@ export const Header: FC<IHeaderProps> = memo(props => {
                           : `/account/my-details/${person.uuid}?partyByUuid=${person.partyUuid}`
                       }
                     >
-                      <Icon icon={<ReceiptOutline />} size="xsmall" />
-                      <span>My Quotes</span>
-                    </RouterLink>
-                  </li>
+                      {' '}
+                      <Icon icon={<ReceiptOutline />} size="xsmall" />{' '}
+                      <span>My Quotes</span>{' '}
+                    </RouterLink>{' '}
+                  </li>{' '}
                   <li>
+                    {' '}
                     <RouterLink
                       className="header-account--link"
                       link={{
@@ -176,27 +193,30 @@ export const Header: FC<IHeaderProps> = memo(props => {
                           : `/account/my-details/${person.uuid}?partyByUuid=${person.partyUuid}`
                       }
                     >
-                      <Icon icon={<CarOutline />} size="xsmall" />
-                      <span>My Orders</span>
-                    </RouterLink>
-                  </li>
+                      {' '}
+                      <Icon icon={<CarOutline />} size="xsmall" />{' '}
+                      <span>My Orders</span>{' '}
+                    </RouterLink>{' '}
+                  </li>{' '}
                   <li>
+                    {' '}
                     <RouterLink
                       className="header-account--link"
                       link={{ href: router.pathname, label: 'Log Out' }}
                       as={router.asPath}
-                      onClick={() => {
-                        onLogOut();
+                      onClick={async () => {
+                        await onLogOut();
                         setPerson(null);
                       }}
                       replace
                     >
-                      <Icon icon={<LogOutOutline />} size="xsmall" />
-                      <span>Log Out</span>
-                    </RouterLink>
-                  </li>
-                </ul>
-              </div>
+                      {' '}
+                      <Icon icon={<LogOutOutline />} size="xsmall" />{' '}
+                      <span>Log Out</span>{' '}
+                    </RouterLink>{' '}
+                  </li>{' '}
+                </ul>{' '}
+              </div>{' '}
             </>
           ) : (
             <Button
@@ -204,32 +224,34 @@ export const Header: FC<IHeaderProps> = memo(props => {
               fill="clear"
               label={
                 <RouterLink link={loginLink}>
-                  <span>Login / Register</span>
+                  {' '}
+                  <span>Login / Register</span>{' '}
                 </RouterLink>
               }
             />
-          )}
-        </div>
+          )}{' '}
+        </div>{' '}
         <HeaderMenu
           menuLinks={topBarLinks}
           open={isMenuOpen}
           onClickMenu={() => setOpenMenu(false)}
-        />
+        />{' '}
         <Button
           className={cx('header-navtoggle', { '-open': isMenuOpen })}
           onClick={() => setOpenMenu(!isMenuOpen)}
           withoutDefaultClass
           label={
             <>
-              <Icon icon={<Menu />} color="darker" />
-              <Icon icon={<Close />} color="darker" />
+              {' '}
+              <Icon icon={<Menu />} color="darker" />{' '}
+              <Icon icon={<Close />} color="darker" />{' '}
             </>
           }
           size="expand"
           color="inherit"
           fill="clear"
-        />
-      </div>
+        />{' '}
+      </div>{' '}
     </header>
   );
 });

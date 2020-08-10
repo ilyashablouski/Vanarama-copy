@@ -20,11 +20,14 @@ type QueryParams = OLAFQueryParams & {
 
 export const VatDetailsPage: NextPage = () => {
   const router = useRouter();
-  const { companyUuid, derivativeId, orderId } = router.query as QueryParams;
+  const { companyUuid, orderId } = router.query as QueryParams;
 
   const handleSubmitCompletion = () => {
-    const params = getUrlParam({ derivativeId, orderId });
-    const url = `/b2b/olaf/director-details/[companyUuid]${params}`;
+    const params = getUrlParam({ orderId });
+    const url =
+      router.query.redirect === 'summary'
+        ? `/b2b/olaf/summary/[companyUuid]${params}`
+        : `/b2b/olaf/director-details/[companyUuid]${params}`;
     router.push(url, url.replace('[companyUuid]', companyUuid));
   };
 
@@ -35,6 +38,7 @@ export const VatDetailsPage: NextPage = () => {
         companyUuid={companyUuid}
         onCompleted={handleSubmitCompletion}
         onError={handleSubmitError}
+        isEdited={router.query.redirect === 'summary'}
       />
     </OLAFLayout>
   );

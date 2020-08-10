@@ -145,16 +145,23 @@ export interface CompanyInputObject {
  * Input object to create and add a Credit Application
  */
 export interface CreditApplicationInputObject {
+  aboutDetails?: any | null;
   addresses?: any | null;
   bankAccounts?: any | null;
+  companyDetails?: any | null;
+  directorsDetails?: any | null;
   emailAddresses?: any | null;
   employmentHistories?: any | null;
+  financeType?: string | null;
   incomeAndExpenses?: any | null;
   leadManagerProposalId?: string | null;
   orderUuid: string;
+  partnersDetails?: any | null;
   partyDetails?: any | null;
+  soleTraderDetails?: any | null;
   status?: string | null;
   telephoneNumbers?: any | null;
+  vatDetails?: any | null;
 }
 
 /**

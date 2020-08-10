@@ -73,6 +73,6 @@ describe('<RangeCard />', () => {
 
     // ASSERT
     fireEvent.click(screen.getByText('View All'));
-    expect(mocks.viewRange).toBeCalledWith('1208');
+    expect(mocks.viewRange).toBeCalledWith('2 Series');
   });
 });
