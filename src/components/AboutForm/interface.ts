@@ -7,6 +7,7 @@ export interface IAboutFormValues {
   lastName: string;
   email: string;
   mobile: string;
+  telephone: string;
   dayOfBirth: string;
   monthOfBirth: string;
   yearOfBirth: string;
