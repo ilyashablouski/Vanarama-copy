@@ -46,11 +46,11 @@ export const ContactUsPage: NextPage = () => {
       <section className="row:featured-right">
         <div>
           <Heading size="large" color="black">
-            {data?.contactUsLandingPage.sections.featured1?.title}
+            {data?.contactUsLandingPage?.sections?.featured1?.title}
           </Heading>
           <ReactMarkdown
             escapeHtml={false}
-            source={data?.contactUsLandingPage.sections.featured1?.body || ''}
+            source={data?.contactUsLandingPage?.sections?.featured1?.body || ''}
           />
           <div className="button-group">
             <Button label="View Office" fill="solid" color="teal" />
@@ -87,7 +87,7 @@ export const ContactUsPage: NextPage = () => {
       </section>
       <section className="row:bg-light">
         <div className="row:tiles">
-          {data?.contactUsLandingPage.sections.cards?.cards?.map((c, idx) => (
+          {data?.contactUsLandingPage?.sections?.cards?.cards?.map((c, idx) => (
             <Card key={c.title || idx}>
               <Heading size="large" color="black">
                 {c.title}
@@ -100,14 +100,14 @@ export const ContactUsPage: NextPage = () => {
       <section className="row:featured-right">
         <div>
           <Heading size="large" color="black">
-            {data?.contactUsLandingPage.sections.featured2?.title}
+            {data?.contactUsLandingPage?.sections?.featured2?.title}
           </Heading>
           <ReactMarkdown
             escapeHtml={false}
-            source={data?.contactUsLandingPage.sections.featured2?.body || ''}
+            source={data?.contactUsLandingPage?.sections?.featured2?.body || ''}
           />
         </div>
-        {data?.contactUsLandingPage.sections.featured2?.cards?.map((c, idx) => (
+        {data?.contactUsLandingPage?.sections?.featured2?.cards?.map((c, idx) => (
           <Card inline key={c?.title || idx}>
             <Image className="card-image" src={c?.image?.file?.url || ''} />
             <CardTitle title={c?.title || ''} />
