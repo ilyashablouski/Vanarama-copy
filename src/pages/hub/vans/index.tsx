@@ -482,7 +482,7 @@ export const VansPage: NextPage = () => {
             ) as keyof JSX.IntrinsicElements
           }
         >
-          {data && data.hubVanPage.sections.tiles?.tilesTitle}
+          {data && data?.hubVanPage?.sections?.tiles?.tilesTitle}
         </Heading>
         {data?.hubVanPage?.sections?.tiles?.tiles?.map(
           (tile: TileData, idx) => (
