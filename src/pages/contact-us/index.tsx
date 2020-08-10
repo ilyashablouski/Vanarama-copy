@@ -107,19 +107,21 @@ export const ContactUsPage: NextPage = () => {
             source={data?.contactUsLandingPage?.sections?.featured2?.body || ''}
           />
         </div>
-        {data?.contactUsLandingPage?.sections?.featured2?.cards?.map((c, idx) => (
-          <Card inline key={c?.title || idx}>
-            <Image className="card-image" src={c?.image?.file?.url || ''} />
-            <CardTitle title={c?.title || ''} />
-            <Text color="dark">{c?.body}</Text>
-            <Button
-              fill="clear"
-              color="teal"
-              label={c?.link?.text}
-              onClick={() => Router.push(c?.link?.url || '')}
-            />
-          </Card>
-        ))}
+        {data?.contactUsLandingPage?.sections?.featured2?.cards?.map(
+          (c, idx) => (
+            <Card inline key={c?.title || idx}>
+              <Image className="card-image" src={c?.image?.file?.url || ''} />
+              <CardTitle title={c?.title || ''} />
+              <Text color="dark">{c?.body}</Text>
+              <Button
+                fill="clear"
+                color="teal"
+                label={c?.link?.text}
+                onClick={() => Router.push(c?.link?.url || '')}
+              />
+            </Card>
+          ),
+        )}
       </section>
     </>
   );
