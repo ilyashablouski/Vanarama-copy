@@ -398,7 +398,7 @@ export const PickupsPage: NextPage = () => {
             ) as keyof JSX.IntrinsicElements
           }
         >
-          {data && data.hubPickupPage.sections.tiles2?.tilesTitle}
+          {data && data?.hubPickupPage?.sections?.tiles2?.tilesTitle}
         </Heading>
         {data?.hubPickupPage?.sections?.tiles2?.tiles?.map(
           (tile: TileData, idx: number) => (
