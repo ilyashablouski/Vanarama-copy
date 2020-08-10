@@ -126,7 +126,7 @@ export interface GetFleetLandingPage_fleetLandingPage_sections {
 
 export interface GetFleetLandingPage_fleetLandingPage {
   id: string;
-  sections: GetFleetLandingPage_fleetLandingPage_sections;
+  sections: GetFleetLandingPage_fleetLandingPage_sections | null;
 }
 
 export interface GetFleetLandingPage {

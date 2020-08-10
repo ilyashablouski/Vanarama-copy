@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import Router from 'next/router';
 import { ApolloError } from '@apollo/client';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Rating from '@vanarama/uibook/lib/components/atoms/rating';
@@ -49,14 +48,6 @@ interface IDetailsPageProps {
   loading?: boolean;
   error?: ApolloError;
 }
-
-const PATH = {
-  items: [
-    { label: 'Home', href: '/' },
-    { label: 'Mercedes', href: '/' },
-    { label: 'Benz', href: '/' },
-  ],
-};
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
   capId,
@@ -155,14 +146,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   const vehicleType = cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV;
   const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capRangeDescription}`;
-
-  // eslint-disable-next-line no-console
-  if (process.env.ENV === 'development') console.log('CAP Id:', capId);
-
   return (
     <>
       <div className="pdp--content">
-        <Breadcrumb items={PATH.items} />
         <Heading tag="h1">
           <Heading className="-pt-100" tag="span" size="xlarge" color="black">
             {pageTitle}

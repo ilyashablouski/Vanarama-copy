@@ -28,7 +28,7 @@ export interface VanOffersPageData_vanOffersPage_sections {
 export interface VanOffersPageData_vanOffersPage {
   id: string;
   body: string | null;
-  sections: VanOffersPageData_vanOffersPage_sections;
+  sections: VanOffersPageData_vanOffersPage_sections | null;
 }
 
 export interface VanOffersPageData {

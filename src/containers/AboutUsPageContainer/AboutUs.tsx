@@ -96,10 +96,10 @@ const AboutUs: React.FC = () => {
     }),
   );
 
-  const directorsCard = sections.cards?.cards?.find(
+  const directorsCard = sections?.cards?.cards?.find(
     card => card.name === ABOUT_US_MEET_SECTION_NAMES.directors,
   );
-  const teamCard = sections.cards?.cards?.find(
+  const teamCard = sections?.cards?.cards?.find(
     card => card.name === ABOUT_US_MEET_SECTION_NAMES.team,
   );
 
@@ -129,9 +129,9 @@ const AboutUs: React.FC = () => {
         </article>
         <div>
           <div className="-pb-400">
-            {sections.carousel?.cards && (
+            {sections?.carousel?.cards && (
               <Carousel countItems={1}>
-                {renderCarouselCards(sections.carousel.cards)}
+                {renderCarouselCards(sections?.carousel.cards)}
               </Carousel>
             )}
           </div>
@@ -143,11 +143,11 @@ const AboutUs: React.FC = () => {
       </div>
       <div className="row:centered">
         <Heading size="lead" color="black">
-          {sections.rowText?.heading || ''}
+          {sections?.rowText?.heading || ''}
         </Heading>
         <Link color="teal" href="#">
           <ReactMarkdown
-            source={sections.rowText?.body || ''}
+            source={sections?.rowText?.body || ''}
             renderers={{
               paragraph: props => <React.Fragment {...props} />,
             }}

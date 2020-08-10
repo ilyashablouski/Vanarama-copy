@@ -27,5 +27,10 @@ export const responseToInitialFormValues = (
     dayOfBirth: dateOfBirth ? String(dateOfBirth.getDate()) : '',
     monthOfBirth: dateOfBirth ? String(dateOfBirth.getMonth() + 1) : '',
     yearOfBirth: dateOfBirth ? String(dateOfBirth.getFullYear()) : '',
+    termsAndConditions: !!person?.termsAndConditions,
+    marketing: !!person?.smsConsent,
+    companyType: person?.companies?.length
+      ? person.companies[0].companyType || ''
+      : '',
   };
 };

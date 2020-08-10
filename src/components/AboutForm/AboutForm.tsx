@@ -358,6 +358,12 @@ AboutForm.fragments = {
       noOfAdultsInHousehold
       noOfDependants
       emailConsent
+      profilingConsent
+      smsConsent
+      termsAndConditions
+      companies {
+        companyType
+      }
     }
   `,
 };

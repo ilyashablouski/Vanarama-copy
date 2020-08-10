@@ -101,7 +101,7 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
       editable
       editDataTestId={`edit-directorА-details[${orderBySharehold}]`}
       onEditClicked={onEdit}
-      list={list}
+      list={list.filter(el => !!el.value)}
       heading={`${director.firstName} ${director.lastName}`}
       headingDataTestId={`company_director_details_heading_[${orderBySharehold}]`}
       className="-styled-headers"
