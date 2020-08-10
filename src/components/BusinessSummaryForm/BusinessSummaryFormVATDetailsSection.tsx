@@ -40,7 +40,10 @@ const BusinessSummaryFormVATDetailsSection: FCWithFragments<IProps> = ({
 
     {
       label: 'Countries You Trade In',
-      value: (formattedPercentageData && formattedPercentageData.country) || '',
+      value:
+        (formattedPercentageData &&
+          formattedPercentageData.country.split(',')) ||
+        '',
       dataTestId: 'summary-vat-countries',
     },
     {

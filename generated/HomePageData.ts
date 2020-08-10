@@ -134,7 +134,7 @@ export interface HomePageData_homePage {
   id: string;
   featuredImage: HomePageData_homePage_featuredImage | null;
   metaData: HomePageData_homePage_metaData;
-  sections: HomePageData_homePage_sections;
+  sections: HomePageData_homePage_sections | null;
 }
 
 export interface HomePageData {

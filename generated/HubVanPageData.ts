@@ -141,7 +141,7 @@ export interface HubVanPageData_hubVanPage_sections {
 
 export interface HubVanPageData_hubVanPage {
   id: string;
-  sections: HubVanPageData_hubVanPage_sections;
+  sections: HubVanPageData_hubVanPage_sections | null;
 }
 
 export interface HubVanPageData {

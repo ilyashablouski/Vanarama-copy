@@ -129,7 +129,7 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections {
 export interface GetInsuranceLandingPage_insuranceLandingPage {
   id: string;
   body: string | null;
-  sections: GetInsuranceLandingPage_insuranceLandingPage_sections;
+  sections: GetInsuranceLandingPage_insuranceLandingPage_sections | null;
 }
 
 export interface GetInsuranceLandingPage {
