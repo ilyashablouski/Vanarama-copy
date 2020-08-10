@@ -135,7 +135,7 @@ export interface HubPickupPageData_hubPickupPage_sections {
 
 export interface HubPickupPageData_hubPickupPage {
   id: string;
-  sections: HubPickupPageData_hubPickupPage_sections;
+  sections: HubPickupPageData_hubPickupPage_sections | null;
 }
 
 export interface HubPickupPageData {

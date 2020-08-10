@@ -9,6 +9,7 @@ export const CONTACT_US_CONTENT = gql`
         featured1 {
           title
           body
+          layout
         }
         cards {
           cards {
