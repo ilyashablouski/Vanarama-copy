@@ -61,7 +61,7 @@ export interface GetAboutUsPageData_aboutUsLandingPage {
   body: string | null;
   featuredImage: GetAboutUsPageData_aboutUsLandingPage_featuredImage | null;
   metaData: GetAboutUsPageData_aboutUsLandingPage_metaData;
-  sections: GetAboutUsPageData_aboutUsLandingPage_sections;
+  sections: GetAboutUsPageData_aboutUsLandingPage_sections | null;
 }
 
 export interface GetAboutUsPageData {

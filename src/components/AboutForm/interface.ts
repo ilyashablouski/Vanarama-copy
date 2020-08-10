@@ -17,6 +17,9 @@ export interface IAboutFormValues {
   adultsInHousehold: string;
   termsAndCons: boolean;
   consent?: boolean;
+  termsAndConditions?: boolean;
+  marketing?: boolean;
+  companyType?: string;
 }
 
 export interface IProps {

@@ -56,7 +56,7 @@ export interface ContactUsPageData_contactUsLandingPage_sections {
 
 export interface ContactUsPageData_contactUsLandingPage {
   id: string;
-  sections: ContactUsPageData_contactUsLandingPage_sections;
+  sections: ContactUsPageData_contactUsLandingPage_sections | null;
 }
 
 export interface ContactUsPageData {

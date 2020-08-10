@@ -103,7 +103,7 @@ export interface HubCarPageData_hubCarPage_sections {
 
 export interface HubCarPageData_hubCarPage {
   id: string;
-  sections: HubCarPageData_hubCarPage_sections;
+  sections: HubCarPageData_hubCarPage_sections | null;
 }
 
 export interface HubCarPageData {
