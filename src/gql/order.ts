@@ -189,7 +189,8 @@ export const CREATE_UPDATE_ORDER_MUTATION = gql`
           annualMileage
           monthlyPayment
           depositMonths
-          funder
+          funderId
+          funderData
         }
       }
     }

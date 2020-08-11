@@ -76,7 +76,7 @@ export const BusinessAboutPage: NextPage = () => {
     const journeyUrl =
       result.companyType === CompanyTypes.limited
         ? `company-details/[personUuid]/${params}`
-        : 'sole-trader/company-details/[orderId]';
+        : `sole-trader/company-details/[personUuid]${params}`;
     const url =
       router.query.redirect === 'summary'
         ? `/b2b/olaf/summary/[companyUuid]${params}`

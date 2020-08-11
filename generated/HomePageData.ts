@@ -90,12 +90,14 @@ export interface HomePageData_homePage_sections_featured1 {
   titleTag: string | null;
   body: string | null;
   iconList: (HomePageData_homePage_sections_featured1_iconList | null)[] | null;
+  layout: string[] | null;
 }
 
 export interface HomePageData_homePage_sections_featured2 {
   title: string | null;
   titleTag: string | null;
   body: string | null;
+  layout: string[] | null;
 }
 
 export interface HomePageData_homePage_sections_tiles_tiles_image_file {
@@ -134,7 +136,7 @@ export interface HomePageData_homePage {
   id: string;
   featuredImage: HomePageData_homePage_featuredImage | null;
   metaData: HomePageData_homePage_metaData;
-  sections: HomePageData_homePage_sections;
+  sections: HomePageData_homePage_sections | null;
 }
 
 export interface HomePageData {

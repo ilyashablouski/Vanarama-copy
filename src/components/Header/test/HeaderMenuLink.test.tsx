@@ -5,6 +5,7 @@ import HeaderMenuLink from '../HeaderMenuLink';
 
 const mocks = {
   link: TOP_BAR_LINKS[1],
+  isMenuOpen: false,
 };
 
 jest.mock('../../../hooks/useMediaQuery');

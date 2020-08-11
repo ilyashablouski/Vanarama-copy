@@ -1,24 +1,33 @@
 import { FC } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import IconList, {
-  IconListItem,
-} from '@vanarama/uibook/lib/components/organisms/icon-list';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 
-const WhyEligibilityChecker: FC = () => (
+interface IWhyEligibilityChecker {
+  body: string | null;
+  title: string | null;
+  image: {
+    title: string | null;
+    file: {
+      url: string | null;
+    } | null;
+  } | null;
+}
+
+const WhyEligibilityChecker: FC<IWhyEligibilityChecker> = ({
+  body,
+  title,
+  image,
+}) => (
   <div className="row:featured-right">
     <div>
       <Heading size="large" color="black">
-        Why Use Our Car Lease Eligibility Checker?
+        {title}
       </Heading>
       <Text tag="p" size="regular" color="darker">
-        If you&apos;re looking to drive a brand new car, van or truck without
-        any of the hassle - leasing might just be for you! It&apos;s affordable,
-        simple and you&apos;re not left with a depreciating asset at the end of
-        your contract.
+        {body}
       </Text>
-      <IconList>
+      {/* <IconList>
         <IconListItem iconColor="orange">
           Choose your contract length & agreed mileage
         </IconListItem>
@@ -26,12 +35,13 @@ const WhyEligibilityChecker: FC = () => (
         <IconListItem iconColor="orange">
           Set up your agreed fixed monthly rental
         </IconListItem>
-      </IconList>
+      </IconList> */}
     </div>
     <Image
       width="900"
       height="500"
-      src="https://source.unsplash.com/collection/2102317/1000x650?sig=40344"
+      src={image?.file?.url || ''}
+      alt={image?.title || ''}
     />
   </div>
 );

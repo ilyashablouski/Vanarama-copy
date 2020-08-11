@@ -106,6 +106,10 @@ export interface GetCompanySummaryQuery_personByUuid_telephoneNumbers {
   value: string;
 }
 
+export interface GetCompanySummaryQuery_personByUuid_companies {
+  companyType: string | null;
+}
+
 export interface GetCompanySummaryQuery_personByUuid {
   __typename: "PersonType";
   uuid: string;
@@ -121,6 +125,10 @@ export interface GetCompanySummaryQuery_personByUuid {
   noOfAdultsInHousehold: string | null;
   noOfDependants: string | null;
   emailConsent: boolean | null;
+  profilingConsent: boolean | null;
+  smsConsent: boolean | null;
+  termsAndConditions: boolean | null;
+  companies: GetCompanySummaryQuery_personByUuid_companies[] | null;
 }
 
 export interface GetCompanySummaryQuery {

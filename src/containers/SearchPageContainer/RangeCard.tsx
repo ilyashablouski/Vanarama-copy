@@ -55,7 +55,7 @@ const RangeCard = memo(
             color="teal"
             fill="solid"
             label="View All"
-            onClick={() => viewRange(data?.rangeId || '')}
+            onClick={() => viewRange(data?.rangeName || '')}
             size="regular"
           />
         </div>

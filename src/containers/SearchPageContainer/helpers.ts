@@ -10,7 +10,7 @@ const buildRewriteRoute = (
     rate,
     fuelTypes,
   }: IFilters,
-  isMakePage?: boolean,
+  isMakeOrCarPage?: boolean,
 ) => {
   const queries = {} as any;
   Object.entries({
@@ -21,7 +21,10 @@ const buildRewriteRoute = (
     make,
   }).forEach(filter => {
     const [key, value] = filter;
-    if (value?.length && !(isMakePage && key === 'make')) {
+    if (
+      value?.length &&
+      !(isMakeOrCarPage && (key === 'make' || key === 'rangeName'))
+    ) {
       queries[key] = value;
     }
   });
