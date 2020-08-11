@@ -1,23 +1,27 @@
 import { FC } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import IconList, {
+  IconListItem,
+} from '@vanarama/uibook/lib/components/organisms/icon-list';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
+import {
+  EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_iconList as IconListType,
+  EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_image as ImageType,
+} from '../../../../generated/EligibilityCheckerPageData';
 
 interface IWhyEligibilityChecker {
   body: string | null;
   title: string | null;
-  image: {
-    title: string | null;
-    file: {
-      url: string | null;
-    } | null;
-  } | null;
+  image: ImageType | null;
+  iconList: (IconListType | null)[] | null;
 }
 
 const WhyEligibilityChecker: FC<IWhyEligibilityChecker> = ({
   body,
   title,
   image,
+  iconList,
 }) => (
   <div className="row:featured-right">
     <div>
@@ -27,15 +31,15 @@ const WhyEligibilityChecker: FC<IWhyEligibilityChecker> = ({
       <Text tag="p" size="regular" color="darker">
         {body}
       </Text>
-      {/* <IconList>
-        <IconListItem iconColor="orange">
-          Choose your contract length & agreed mileage
-        </IconListItem>
-        <IconListItem iconColor="orange">Pay an initial payment</IconListItem>
-        <IconListItem iconColor="orange">
-          Set up your agreed fixed monthly rental
-        </IconListItem>
-      </IconList> */}
+      {iconList?.length && (
+        <IconList>
+          {iconList.map((el, indx) => (
+            <IconListItem iconColor="orange" key={indx.toString()}>
+              {el?.text}
+            </IconListItem>
+          ))}
+        </IconList>
+      )}
     </div>
     <Image
       width="900"
