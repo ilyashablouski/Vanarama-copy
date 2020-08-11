@@ -5,7 +5,10 @@ import { IHeroProps } from './interface';
 import RequestCallBackForm from '../RequestCallBackForm';
 import WorkingHoursTable from '../../containers/InsurancePageContainer/sections/WorkingHoursTable';
 import { useOpportunityCreation } from '../../containers/GoldrushFormContainer/gql';
-import { handleNetworkError } from '../../containers/GoldrushFormContainer/GoldrushFormContainer';
+import {
+  handleNetworkError,
+  DEFAULT_POSTCODE,
+} from '../../containers/GoldrushFormContainer/GoldrushFormContainer';
 import { OpportunityTypeEnum } from '../../../generated/globalTypes';
 
 const Hero: React.FC<IHeroProps> = ({
@@ -46,6 +49,7 @@ const Hero: React.FC<IHeroProps> = ({
                 fleetSize: +values.fleetSize,
                 opportunityType: OpportunityTypeEnum.CALLBACK,
                 marketingPreference: Boolean(values.agreement),
+                postcode: DEFAULT_POSTCODE,
               },
             });
           }}

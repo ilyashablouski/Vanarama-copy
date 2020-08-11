@@ -384,7 +384,6 @@ export interface VehicleProductInputObject {
   description?: string | null;
   finalPayment?: number | null;
   financeType?: string | null;
-  funder?: string | null;
   funderId?: string | null;
   maintenance?: boolean | null;
   monthlyPayment?: number | null;

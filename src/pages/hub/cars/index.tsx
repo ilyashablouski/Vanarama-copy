@@ -72,22 +72,22 @@ export const CarsPage: NextPage = () => {
     <>
       <Hero>
         <HeroHeading
-          text={data?.hubCarPage.sections?.hero?.title || ''}
+          text={data?.hubCarPage?.sections?.hero?.title || ''}
           titleTag={
             getTitleTag(
-              data?.hubCarPage.sections?.hero?.titleTag || 'p',
+              data?.hubCarPage?.sections?.hero?.titleTag || 'p',
             ) as keyof JSX.IntrinsicElements
           }
         />
         <br />
-        <HeroTitle text={data?.hubCarPage.sections?.hero?.body || ''} />
+        <HeroTitle text={data?.hubCarPage?.sections?.hero?.body || ''} />
         <br />
         <Image
           className="hero--image"
           plain
           size="expand"
           src={
-            data?.hubCarPage.sections?.hero?.image?.file?.url ||
+            data?.hubCarPage?.sections?.hero?.image?.file?.url ||
             'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
           }
         />
@@ -99,14 +99,14 @@ export const CarsPage: NextPage = () => {
           color="black"
           tag={
             getTitleTag(
-              data?.hubCarPage.sections?.leadText?.titleTag || null,
+              data?.hubCarPage?.sections?.leadText?.titleTag || null,
             ) as keyof JSX.IntrinsicElements
           }
         >
-          {data?.hubCarPage.sections?.leadText?.heading}
+          {data?.hubCarPage?.sections?.leadText?.heading}
         </Heading>
         <Text tag="span" size="lead" color="darker">
-          {data?.hubCarPage.sections?.leadText?.description}
+          {data?.hubCarPage?.sections?.leadText?.description}
         </Text>
       </section>
 
@@ -231,17 +231,19 @@ export const CarsPage: NextPage = () => {
 
       <section className="row:steps-4col">
         <Heading className="-a-center -mb-400" size="large" color="black">
-          {data?.hubCarPage.sections?.steps?.heading}
+          {data?.hubCarPage?.sections?.steps?.heading}
         </Heading>
-        {data?.hubCarPage.sections?.steps?.steps?.map((step: StepData, idx) => (
-          <Step
-            className="-mh-auto"
-            key={step.title || idx}
-            heading={step.title || ''}
-            step={idx + 1}
-            text={step.body || ''}
-          />
-        ))}
+        {data?.hubCarPage?.sections?.steps?.steps?.map(
+          (step: StepData, idx) => (
+            <Step
+              className="-mh-auto"
+              key={step.title || idx}
+              heading={step.title || ''}
+              step={idx + 1}
+              text={step.body || ''}
+            />
+          ),
+        )}
       </section>
 
       <section className="row:featured-right">
@@ -251,16 +253,16 @@ export const CarsPage: NextPage = () => {
             color="black"
             tag={
               getTitleTag(
-                data?.hubCarPage.sections?.featured1?.titleTag || 'p',
+                data?.hubCarPage?.sections?.featured1?.titleTag || 'p',
               ) as keyof JSX.IntrinsicElements
             }
           >
-            {data?.hubCarPage.sections?.featured1?.title}
+            {data?.hubCarPage?.sections?.featured1?.title}
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
             <ReactMarkdown
               escapeHtml={false}
-              source={data?.hubCarPage.sections?.featured1?.body || ''}
+              source={data?.hubCarPage?.sections?.featured1?.body || ''}
             />
           </Text>
           <IconList>
@@ -277,7 +279,7 @@ export const CarsPage: NextPage = () => {
         </div>
         <Image
           src={
-            data?.hubCarPage.sections?.featured1?.image?.file?.url ||
+            data?.hubCarPage?.sections?.featured1?.image?.file?.url ||
             'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
           }
         />
@@ -286,7 +288,7 @@ export const CarsPage: NextPage = () => {
       <section className="row:featured-left">
         <Image
           src={
-            data?.hubCarPage.sections?.featured2?.image?.file?.url ||
+            data?.hubCarPage?.sections?.featured2?.image?.file?.url ||
             'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
           }
         />
@@ -296,16 +298,16 @@ export const CarsPage: NextPage = () => {
             color="black"
             tag={
               getTitleTag(
-                data?.hubCarPage.sections?.featured2?.titleTag || 'p',
+                data?.hubCarPage?.sections?.featured2?.titleTag || 'p',
               ) as keyof JSX.IntrinsicElements
             }
           >
-            {data?.hubCarPage.sections?.featured2?.title}
+            {data?.hubCarPage?.sections?.featured2?.title}
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
             <ReactMarkdown
               escapeHtml={false}
-              source={data?.hubCarPage.sections?.featured2?.body || ''}
+              source={data?.hubCarPage?.sections?.featured2?.body || ''}
             />
           </Text>
         </div>
@@ -317,38 +319,40 @@ export const CarsPage: NextPage = () => {
           color="black"
           tag={
             getTitleTag(
-              data?.hubCarPage.sections?.tiles?.titleTag || 'p',
+              data?.hubCarPage?.sections?.tiles?.titleTag || 'p',
             ) as keyof JSX.IntrinsicElements
           }
         >
-          {data && data.hubCarPage.sections?.tiles?.tilesTitle}
+          {data && data?.hubCarPage?.sections?.tiles?.tilesTitle}
         </Heading>
-        {data?.hubCarPage.sections?.tiles?.tiles?.map((tile: TileData, idx) => (
-          <div key={tile.title || idx}>
-            <Tile className="-plain -button -align-center" plain>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Image
-                  inline
-                  round
-                  size="large"
-                  src={
-                    tile.image?.file?.url ||
-                    'https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
-                  }
-                />
-              </div>
-              <RouterLink
-                link={{ href: tile.link || '#', label: '' }}
-                className="tile--link"
-              >
-                <Heading tag="span" size="regular" color="black">
-                  {tile.title}
-                </Heading>
-              </RouterLink>
-              <Text tag="p">{tile.body}</Text>
-            </Tile>
-          </div>
-        ))}
+        {data?.hubCarPage?.sections?.tiles?.tiles?.map(
+          (tile: TileData, idx) => (
+            <div key={tile.title || idx}>
+              <Tile className="-plain -button -align-center" plain>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Image
+                    inline
+                    round
+                    size="large"
+                    src={
+                      tile.image?.file?.url ||
+                      'https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
+                    }
+                  />
+                </div>
+                <RouterLink
+                  link={{ href: tile.link || '#', label: '' }}
+                  className="tile--link"
+                >
+                  <Heading tag="span" size="regular" color="black">
+                    {tile.title}
+                  </Heading>
+                </RouterLink>
+                <Text tag="p">{tile.body}</Text>
+              </Tile>
+            </div>
+          ),
+        )}
       </section>
 
       <section className="row:league">

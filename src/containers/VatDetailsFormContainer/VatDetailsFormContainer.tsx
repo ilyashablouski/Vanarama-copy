@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import VatDetailsForm from '../../components/VatDetailsForm/VatDetailsForm';
 import { VatDetailsFormValues } from '../../components/VatDetailsForm/interfaces';
 import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
-import { useUpdateVatDetails } from './gql';
+import { useUpdateVatDetails, useGetVatDetails } from './gql';
 import { IVatDetailsFormContainerProps } from './interfaces';
 import { mapFormValues } from './mappers';
 
@@ -11,6 +12,7 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
   orderId,
   onCompleted,
   onError,
+  isEdited,
 }) => {
   const [updateVatDetails] = useUpdateVatDetails();
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
@@ -41,7 +43,31 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
       .catch(onError);
   };
 
-  return <VatDetailsForm onSubmit={handleSubmit} />;
+  const [getVatDetails, { data, loading, error }] = useGetVatDetails(
+    companyUuid,
+  );
+
+  useEffect(() => {
+    if (isEdited) {
+      getVatDetails();
+    }
+  }, [getVatDetails, isEdited]);
+
+  if (loading) {
+    return <Loading size="large" />;
+  }
+
+  if (error) {
+    return <p>{`Could not load VAT details: ${error.message}`}</p>;
+  }
+
+  return (
+    <VatDetailsForm
+      onSubmit={handleSubmit}
+      vatDetails={data?.companyByUuid}
+      isEdited={isEdited}
+    />
+  );
 };
 
 export default VatDetailsFormContainer;

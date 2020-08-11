@@ -59,7 +59,9 @@ describe('<AboutForm />', () => {
     expect(screen.getByText('Please enter your first name')).toBeVisible();
     expect(screen.getByText('Please enter your last name')).toBeVisible();
     expect(screen.getByText('Please enter your email address')).toBeVisible();
-    expect(screen.getByText('Please enter your mobile number')).toBeVisible();
+    expect(
+      screen.getByText('Please enter your telephone number'),
+    ).toBeVisible();
     expect(
       screen.getByText('Please complete your date of birth'),
     ).toBeVisible();
@@ -151,8 +153,8 @@ describe('<AboutForm />', () => {
     });
   });
 
-  it('should assure min mobile chars', async () => {
-    fireEvent.input(screen.getByTestId('aboutMobile'), {
+  it('should assure min telephone chars', async () => {
+    fireEvent.input(screen.getByTestId('aboutTelephone'), {
       target: { value: '0740292992' },
     });
     fireEvent.click(screen.getByText('Continue'));
@@ -161,14 +163,14 @@ describe('<AboutForm />', () => {
     await waitFor(() => {
       expect(
         screen.getByText(
-          'Please enter mobile number without spaces or hyphens',
+          'Please enter telephone number without spaces or hyphens',
         ),
       );
     });
   });
 
-  it('should assure max mobile chars', async () => {
-    fireEvent.input(screen.getByTestId('aboutMobile'), {
+  it('should assure max telephone chars', async () => {
+    fireEvent.input(screen.getByTestId('aboutTelephone'), {
       // over 16 digits
       target: { value: '074029299222222200' },
     });
@@ -178,7 +180,7 @@ describe('<AboutForm />', () => {
     await waitFor(() => {
       expect(
         screen.getByText(
-          'Oops, this mobile number is too long. Please enter 16 characters or less',
+          'Oops, this telephone number is too long. Please enter 16 characters or less',
         ),
       );
     });
@@ -216,7 +218,7 @@ describe('<AboutForm />', () => {
     fireEvent.input(screen.getByTestId('aboutEmail'), {
       target: { value: 'hello@email.com' },
     });
-    fireEvent.input(screen.getByTestId('aboutMobile'), {
+    fireEvent.input(screen.getByTestId('aboutTelephone'), {
       target: { value: '07402020200' },
     });
     fireEvent.input(screen.getByTestId('aboutSelectDOB'), {

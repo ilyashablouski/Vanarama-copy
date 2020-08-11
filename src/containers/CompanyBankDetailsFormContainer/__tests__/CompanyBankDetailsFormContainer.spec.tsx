@@ -109,6 +109,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
           orderUuid={orderUuid}
           companyUuid={companyUuid}
           onCompleted={jest.fn()}
+          isEdited={false}
         />
       </MockedProvider>,
     );
@@ -132,6 +133,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
           orderUuid={orderUuid}
           companyUuid={companyUuid}
           onCompleted={jest.fn()}
+          isEdited={false}
         />
       </MockedProvider>,
     );
@@ -212,7 +214,8 @@ describe('<CompanyBankDetailsFormContainer />', () => {
                   annualMileage: 123,
                   monthlyPayment: 1232,
                   depositMonths: 12,
-                  funder: 'test funder',
+                  funderId: 'test funder',
+                  funderData: 'test funder',
                 },
               },
               leadManagerProposalId: 'test leadManagerProposalId',
@@ -239,6 +242,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
           orderUuid={orderUuid}
           companyUuid={companyUuid}
           onCompleted={onCompletedMock}
+          isEdited={false}
         />
       </MockedProvider>,
     );
