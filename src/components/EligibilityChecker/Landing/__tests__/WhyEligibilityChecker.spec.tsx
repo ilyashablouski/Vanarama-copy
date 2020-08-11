@@ -7,11 +7,7 @@ const getComponent = () => {
     .create(
       <WhyEligibilityChecker
         title="Why Use Our Car Lease Eligibility Checker?"
-        body="If you're looking to drive a brand new car, van or truck without
-          any of the hassle - leasing might just be for you! It's affordable,
-          simple and you're not left with a depreciating asset at the end of
-          your contract.
-          describe"
+        body="If you're looking to drive a brand new car, van or truck without any of the hassle - leasing might just be for you! It's affordable, simple and you're not left with a depreciating asset at the end of your contract."
         image={{
           title: 'title',
           file: {

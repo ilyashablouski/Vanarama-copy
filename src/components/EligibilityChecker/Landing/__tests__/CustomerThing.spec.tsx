@@ -7,8 +7,7 @@ const getComponent = () => {
     .create(
       <CustomerThing
         heading="What Do Our Customers Think?"
-        description="More than 1,000 people use our Eligibility Checker every week to find out
-    their likelihood of getting accepted to lease a new car lease."
+        description="More than 1,000 people use our Eligibility Checker every week to find out their likelihood of getting accepted to lease a new car lease."
       />,
     )
     .toJSON();
