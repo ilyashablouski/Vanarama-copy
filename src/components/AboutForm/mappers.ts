@@ -8,11 +8,11 @@ export const responseToInitialFormValues = (
   const email = person?.emailAddresses.find(_ => _.primary)?.value || '';
   const dateOfBirth = person?.dateOfBirth && new Date(person.dateOfBirth);
 
-  const mobile =
+  const telephone =
     person?.telephoneNumbers?.find(_ => _.kind === 'Mobile')?.value || '';
 
   return {
-    telephone: mobile,
+    telephone,
     adultsInHousehold: person?.noOfAdultsInHousehold || '',
     countryOfBirth: person?.countryOfBirth || '',
     dependants: person?.noOfDependants || '',

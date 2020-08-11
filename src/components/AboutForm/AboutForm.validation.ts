@@ -69,16 +69,16 @@ const ValidationSchema = yup.object().shape<IAboutFormValues>(
         'Oops, this email is too long. Please keep it to 254 characters',
       )
       .email('Oops, this email address is invalid'),
-    mobile: yup
+    telephone: yup
       .string()
-      .required(reqMsg('mobile number'))
+      .required(reqMsg('telephone number'))
       .max(
         16,
-        'Oops, this mobile number is too long. Please enter 16 characters or less',
+        'Oops, this telephone number is too long. Please enter 16 characters or less',
       )
       .matches(
         WORLDWIDE_MOBILE_REGEX,
-        'Please enter mobile number without spaces or hyphens',
+        'Please enter telephone number without spaces or hyphens',
       ),
     dayOfBirth: yup
       .string()
