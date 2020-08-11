@@ -42,11 +42,16 @@ export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sectio
   file: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_image_file | null;
 }
 
+export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_iconList {
+  text: string | null;
+}
+
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2 {
   body: string | null;
   image: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_image | null;
   title: string | null;
   layout: string[] | null;
+  iconList: (EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_iconList | null)[] | null;
 }
 
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_faqs_questionSets_questionAnswers {
@@ -64,12 +69,6 @@ export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sectio
   questionSets: (EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_faqs_questionSets | null)[] | null;
 }
 
-export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_carousel_cards {
-  name: string | null;
-  title: string | null;
-  body: string | null;
-}
-
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_carousel_cardTestimonials {
   email: string | null;
   date: string | null;
@@ -82,7 +81,6 @@ export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sectio
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_carousel {
   title: string | null;
   name: string | null;
-  cards: (EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_carousel_cards | null)[] | null;
   cardTestimonials: (EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_carousel_cardTestimonials | null)[] | null;
 }
 

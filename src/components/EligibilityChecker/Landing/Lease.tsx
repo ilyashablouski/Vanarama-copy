@@ -19,7 +19,7 @@ const Lease: FC<ILease> = ({ body, title, video }) => (
       <Text tag="p" size="regular" color="darker">
         {body}
       </Text>
-      <EligibilityCheckerButton path="https://beta.vanarama.com/credit-checker.html" />
+      <EligibilityCheckerButton />
     </div>
     {video && (
       <div className="media">

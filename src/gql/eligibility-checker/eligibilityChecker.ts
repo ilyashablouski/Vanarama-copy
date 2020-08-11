@@ -36,6 +36,9 @@ export const ELIGIBILITY_CHECKER_CONTENT = gql`
           }
           title
           layout
+          iconList {
+            text
+          }
         }
         faqs {
           title

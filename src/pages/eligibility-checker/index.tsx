@@ -70,6 +70,7 @@ const EligibilityChecker: NextPage = () => {
           title={featured2.title}
           body={featured2.body}
           image={featured2.image}
+          iconList={featured2.iconList}
         />
       )}
       {!!questions?.length && (
