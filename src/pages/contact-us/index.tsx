@@ -13,6 +13,7 @@ import Map from '@vanarama/uibook/lib/components/atoms/map';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import CardTitle from '@vanarama/uibook/lib/components/molecules/cards/CardTitle';
+import { getFeaturedClassPartial } from '../../utils/layout';
 
 import withApollo from '../../hocs/withApollo';
 import { ContactUsPageData } from '../../../generated/ContactUsPageData';
@@ -43,18 +44,32 @@ export const ContactUsPage: NextPage = () => {
           Contact Us
         </Heading>
       </div>
-      <section className="row:featured-right">
+      <section
+        className={`row:${getFeaturedClassPartial(
+          data?.contactUsLandingPage.sections?.featured1,
+        )}`}
+      >
         <div>
-          <Heading size="large" color="black">
-            {data?.contactUsLandingPage?.sections?.featured1?.title}
+          <Heading tag="span" size="large" color="black">
+            {data?.contactUsLandingPage.sections?.featured1?.title}
           </Heading>
           <ReactMarkdown
             escapeHtml={false}
-            source={data?.contactUsLandingPage?.sections?.featured1?.body || ''}
+            source={data?.contactUsLandingPage.sections?.featured1?.body || ''}
           />
           <div className="button-group">
-            <Button label="View Office" fill="solid" color="teal" />
-            <Button label="Regional Offices" fill="outline" color="teal" />
+            <Button
+              label="View Office"
+              fill="solid"
+              color="teal"
+              onClick={() => Router.push('')}
+            />
+            <Button
+              label="Regional Offices"
+              fill="outline"
+              color="teal"
+              onClick={() => Router.push('/contact-us/locations')}
+            />
           </div>
           <hr className="-fullwidth" />
           <Text tag="p" size="small" color="dark">
@@ -87,7 +102,7 @@ export const ContactUsPage: NextPage = () => {
       </section>
       <section className="row:bg-light">
         <div className="row:tiles">
-          {data?.contactUsLandingPage?.sections?.cards?.cards?.map((c, idx) => (
+          {data?.contactUsLandingPage.sections?.cards?.cards?.map((c, idx) => (
             <Card key={c.title || idx}>
               <Heading size="large" color="black">
                 {c.title}
@@ -100,14 +115,14 @@ export const ContactUsPage: NextPage = () => {
       <section className="row:featured-right">
         <div>
           <Heading size="large" color="black">
-            {data?.contactUsLandingPage?.sections?.featured2?.title}
+            {data?.contactUsLandingPage.sections?.featured2?.title}
           </Heading>
           <ReactMarkdown
             escapeHtml={false}
-            source={data?.contactUsLandingPage?.sections?.featured2?.body || ''}
+            source={data?.contactUsLandingPage.sections?.featured2?.body || ''}
           />
         </div>
-        {data?.contactUsLandingPage?.sections?.featured2?.cards?.map(
+        {data?.contactUsLandingPage.sections?.featured2?.cards?.map(
           (c, idx) => (
             <Card inline key={c?.title || idx}>
               <Image className="card-image" src={c?.image?.file?.url || ''} />

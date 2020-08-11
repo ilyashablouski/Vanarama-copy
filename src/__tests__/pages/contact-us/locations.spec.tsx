@@ -28,6 +28,7 @@ const mocked: MockedResponse[] = [
               title: 'Our Regional Locations - Vanarama',
             },
             body: 'With 50 regional offices throughout the United Kingdom',
+            intro: 'mock intro',
           },
         } as LocationsPageData,
       };

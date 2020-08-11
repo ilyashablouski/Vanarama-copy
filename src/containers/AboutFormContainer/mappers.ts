@@ -16,7 +16,9 @@ export const formValuesToInput = (
     firstName: values.firstName,
     lastName: values.lastName,
     emailAddress: { kind: 'Home', value: values.email, primary: true },
-    telephoneNumbers: [{ kind: 'Mobile', value: values.mobile, primary: true }],
+    telephoneNumbers: [
+      { kind: 'Mobile', value: values.telephone, primary: true },
+    ],
     dateOfBirth,
     countryOfBirth: values.countryOfBirth,
     nationality: values.nationality,

@@ -38,6 +38,9 @@ export const LocationsPage: NextPage = () => {
         </Heading>
       </div>
       <section className="row:text">
+        <Heading tag="h3" size="regular" color="black">
+          {data?.regionalOfficesPage.intro}
+        </Heading>
         <div>
           <ReactMarkdown
             escapeHtml={false}
