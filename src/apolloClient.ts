@@ -17,6 +17,7 @@ export default function createApolloClient(
         'x-api-key': process.env.API_KEY!,
       },
     }),
+    connectToDevTools: Boolean(process.env.ENABLE_DEV_TOOLS),
     cache: new InMemoryCache({
       typePolicies: {
         Query: {
