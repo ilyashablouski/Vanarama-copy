@@ -77,6 +77,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
               }))}
               onCompare={() => {
                 compareChange({
+                  pageUrl: getProductPageUrl(product, data?.derivatives),
                   bodyStyle: productType || getBodyStyle(product),
                   ...product,
                 });
