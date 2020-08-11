@@ -24,6 +24,7 @@ module.exports = {
       API_URL: process.env.API_URL,
       API_KEY: process.env.API_KEY,
       LOQATE_KEY: process.env.LOQATE_KEY,
+      ENABLE_DEV_TOOLS: process.env.ENABLE_DEV_TOOLS,
     },
     devIndicators: {
       autoPrerender: false,

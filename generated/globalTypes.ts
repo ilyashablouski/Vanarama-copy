@@ -384,7 +384,6 @@ export interface VehicleProductInputObject {
   description?: string | null;
   finalPayment?: number | null;
   financeType?: string | null;
-  funder?: string | null;
   funderId?: string | null;
   maintenance?: boolean | null;
   monthlyPayment?: number | null;
@@ -392,6 +391,11 @@ export interface VehicleProductInputObject {
   trim?: string | null;
   vehicleType: VehicleTypeEnum;
   vsku?: string | null;
+}
+
+export interface VehicleToCompare {
+  capId?: number | null;
+  vehicleType?: VehicleTypeEnum | null;
 }
 
 //==============================================================

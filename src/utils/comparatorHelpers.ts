@@ -18,8 +18,13 @@ export interface IVehicleCarousel extends ICardCarousel {
   bodyStyle?: string | null | undefined;
 }
 
+export interface ICapId {
+  capId: string | number;
+}
+
 export const changeCompares = async (
   vehicle: IVehicle | IVehicleCarousel | null,
+  capId?: string | number,
 ) => {
   const arrayCompares = (await localForage.getItem('compares')) as
     | IVehicle[]
@@ -27,29 +32,31 @@ export const changeCompares = async (
     | null;
 
   // if compares already exist
-  if (arrayCompares && vehicle) {
+  if ((arrayCompares && vehicle) || capId) {
     if (
-      arrayCompares.some(
+      capId ||
+      arrayCompares?.some(
         (compare: IVehicle | IVehicleCarousel) =>
           `${compare.capId}` === `${vehicle?.capId}`,
       )
     ) {
       // delete vehicle from compare
-      const deletedVehicle = arrayCompares.find(
+      const deletedVehicle = arrayCompares?.find(
         (compare: IVehicle | ICompareVehicle | IVehicleCarousel) =>
-          `${compare.capId}` === `${vehicle?.capId}`,
+          `${compare.capId}` === `${vehicle?.capId}` ||
+          `${compare.capId}` === `${capId}`,
       );
       if (deletedVehicle) {
-        const index = arrayCompares.indexOf(deletedVehicle);
-        if (index > -1) {
-          arrayCompares.splice(index, 1);
+        const index = arrayCompares?.indexOf(deletedVehicle);
+        if (index !== undefined && index > -1) {
+          arrayCompares?.splice(index, 1);
         }
         await localForage.setItem('compares', arrayCompares);
       }
       return arrayCompares;
     }
 
-    if (arrayCompares.length < 3) {
+    if (arrayCompares && arrayCompares?.length < 3) {
       // add vehicle to compare
       await localForage.setItem('compares', [...arrayCompares, vehicle]);
 
