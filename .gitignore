@@ -31,6 +31,6 @@ public/sitemap.xml
 .package-lock.json
 
 test.report.xml
-
+.suo
 aws.keys
 JenkinsfileOLD

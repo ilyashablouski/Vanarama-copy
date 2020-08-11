@@ -2,7 +2,7 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import { gql, useMutation } from '@apollo/client';
+import { gql } from '@apollo/client';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { SummaryFormPerson } from '../../../generated/SummaryFormPerson';
@@ -13,11 +13,7 @@ import SummaryFormDetailsSection from './SummaryFormDetailsSection';
 import SummaryFormEmploymentHistory from './SummaryFormEmploymentHistory';
 import SummaryFormIncomeSection from './SummaryFormIncomeSection';
 import { getUrlParam } from '../../utils/url';
-
-import {
-  FulCreditCheckerMutation,
-  FulCreditCheckerMutationVariables,
-} from '../../../generated/FulCreditCheckerMutation';
+import { callfullCreditChecker } from './Utils';
 
 interface IProps {
   person: SummaryFormPerson;
@@ -81,7 +77,7 @@ const SummaryForm: FCWithFragments<IProps> = ({ person, orderId }) => {
               '/olaf/thank-you/[orderId]'.replace('[orderId]', orderId),
             )
             .then(() => {
-
+              callfullCreditChecker(orderId);
             });
         }}
       />
@@ -113,60 +109,5 @@ SummaryForm.fragments = {
     ${SummaryFormBankDetailsSection.fragments.account}
   `,
 };
-
-// export const FULL_CREDIT_CHECKER_MUTATION = gql`
-//   mutation fullCreditChecker(
-//     $partyId: String!
-//     $creditApplicationUuid: String!
-//     $orderUuid: String,
-//     $vehicleType: VehicleTypeEnum!
-//     $monthlyPayment: Float!
-//     $depositPayment: Float!
-//   ){
-//     fullCreditChecker(
-//      partyId: $partyId,
-//           creditApplicationUuid: $creditApplicationUuid,
-//           orderUuid: $orderUuid,
-//           vehicleType: $vehicleType,
-//           monthlyPayment: $Float,
-//           depositPayment: $depositPayment
-//          ){
-// 		        creditCheck{
-//             uuid
-//             creditCheckType
-//             creditCheckLines{
-//               uuid
-//               funder
-//               likelihood
-//               }
-//             }
-//           party{
-//             uuid
-//             person{
-//                 uuid
-//                 partyId
-//                 partyUuid
-//                 firstName
-//                 lastName
-//               }
-//     }
-//   }
-// }
-
-// `;
-
-//  function useFullCreditChecker(
-//   onCompleted?: (data: FulCreditCheckerMutation) => void,
-// ) {
-//   return useMutation<FulCreditCheckerMutation, FulCreditCheckerMutationVariables>(
-//     FULL_CREDIT_CHECKER_MUTATION,
-//     { onCompleted },
-//   );
-// }
-
-// enum VehicleTypeEnum {
-//   Car,
-//   LCV
-// }
 
 export default SummaryForm;
