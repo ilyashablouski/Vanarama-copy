@@ -25,6 +25,7 @@ const HUB_VAN_CONTENT = gql`
           title
           titleTag
           body
+          layout
           image {
             file {
               url
@@ -35,6 +36,7 @@ const HUB_VAN_CONTENT = gql`
           title
           titleTag
           body
+          layout
           image {
             file {
               url
