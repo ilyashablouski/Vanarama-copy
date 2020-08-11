@@ -63,11 +63,13 @@ const ALL_HOME_CONTENT = gql`
           iconList {
             text
           }
+          layout
         }
         featured2 {
           title
           titleTag
           body
+          layout
         }
         tiles {
           name
