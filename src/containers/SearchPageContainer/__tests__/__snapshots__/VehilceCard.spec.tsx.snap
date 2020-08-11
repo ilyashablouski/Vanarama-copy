@@ -24,7 +24,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
     className="title"
   >
     <a
-      className="link heading -black -large"
+      className="heading link -black -large"
       data-menu={null}
       data-testid="router-link"
       href="/car-leasing/vauxhall/crossland-x/bodystylename/slug"
