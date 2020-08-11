@@ -5,6 +5,11 @@ export const ELIGIBILITY_CHECKER_CONTENT = gql`
   query EligibilityCheckerPageData {
     eligibilityCheckerLandingPage {
       id
+      metaData {
+        title
+        name
+        pageType
+      }
       sections {
         leadText {
           heading

@@ -7,6 +7,12 @@
 // GraphQL query operation: EligibilityCheckerPageData
 // ====================================================
 
+export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_metaData {
+  title: string | null;
+  name: string | null;
+  pageType: string | null;
+}
+
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_leadText {
   heading: string | null;
   description: string | null;
@@ -94,6 +100,7 @@ export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sectio
 
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage {
   id: string;
+  metaData: EligibilityCheckerPageData_eligibilityCheckerLandingPage_metaData;
   sections: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections | null;
 }
 

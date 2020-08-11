@@ -36,6 +36,7 @@ const EligibilityChecker: NextPage = () => {
     }));
   };
 
+  const metaData = data?.eligibilityCheckerLandingPage?.metaData;
   const featured1 = data?.eligibilityCheckerLandingPage?.sections?.featured1;
   const featured2 = data?.eligibilityCheckerLandingPage?.sections?.featured2;
   const leadText = data?.eligibilityCheckerLandingPage?.sections?.leadText;
@@ -55,7 +56,7 @@ const EligibilityChecker: NextPage = () => {
     <>
       <div className="row:title">
         <Heading size="xlarge" color="black">
-          Eligibility Checker
+          {metaData?.title}
         </Heading>
       </div>
       {featured1 && (
