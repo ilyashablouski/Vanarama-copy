@@ -2,7 +2,7 @@ import { ToastContainer } from '@vanarama/uibook/lib/components/atoms/toast/Toas
 import Footer from '@vanarama/uibook/lib/components/organisms/footer';
 import '@vanarama/uibook/src/components/base.scss';
 import { AppProps } from 'next/app';
-import { Router } from 'next/router';
+import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 import ComparatorBar from '@vanarama/uibook/lib/components/organisms/comparator-bar';
@@ -64,12 +64,13 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 
   const compareChange = async (
     product?: IVehicle | IVehicleCarousel | null | undefined,
+    capId?: string | number,
   ) => {
-    if (isCorrectCompareType(product || null, compareVehicles)) {
-      const compares = (await changeCompares(product || null)) as
-        | IVehicle[]
-        | IVehicleCarousel[]
-        | null;
+    if (capId || isCorrectCompareType(product || null, compareVehicles)) {
+      const compares = (await changeCompares(
+        product || null,
+        capId || undefined,
+      )) as IVehicle[] | IVehicleCarousel[] | null;
       setCompareVehicles(compares);
     } else {
       setModalCompareTypeError(true);
@@ -114,7 +115,9 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
               const vehicles = await deleteCompare(vehicle);
               setCompareVehicles(vehicles);
             }}
-            compareVehicles={() => {}}
+            compareVehicles={() => {
+              Router.push('/comparator');
+            }}
             vehicles={getVehiclesForComparator(compareVehicles)}
           />
         )}
