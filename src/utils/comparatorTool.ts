@@ -13,6 +13,7 @@ interface IInitialState {
   compareVehicles: IVehicle[] | [] | undefined | null;
   compareChange: (
     product?: IVehicle | IVehicleCarousel | null,
+    capId?: number | string,
   ) => Promise<void>;
 }
 
