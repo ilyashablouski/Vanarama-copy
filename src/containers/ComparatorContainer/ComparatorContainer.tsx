@@ -3,16 +3,19 @@ import React, { useEffect, useState, useContext } from 'react';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import ComparatorTable from '@vanarama/uibook/lib/components/organisms/comparator-table';
 import Router from 'next/router';
-import { IVehicle, IVehicleCarousel } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
 import {
   getVehiclesIds,
   getCriterials,
 } from '../../utils/comparatorTableHelpers';
 import { useVehicleData } from './gql';
+import { vehicleComparator } from '../../../generated/vehicleComparator';
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
 const ComparatorContainer: React.FC = () => {
-  const [vehicles, setVehicles] = useState<IVehicle[] | IVehicleCarousel[]>([]);
+  const [vehicles, setVehicles] = useState<
+    { capId: number; vehicleType: VehicleTypeEnum | null }[]
+  >([]);
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
   useEffect(() => {
@@ -62,7 +65,10 @@ const ComparatorContainer: React.FC = () => {
       deleteVehicle={capId => {
         compareChange(null, capId);
       }}
-      criterias={getCriterials(data, compareVehicles)}
+      criterias={getCriterials(
+        data as vehicleComparator | undefined,
+        compareVehicles,
+      )}
       viewOffer={() => {}}
     />
   );

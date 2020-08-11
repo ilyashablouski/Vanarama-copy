@@ -12,7 +12,7 @@ export const responseToInitialFormValues = (
     person?.telephoneNumbers?.find(_ => _.kind === 'Mobile')?.value || '';
 
   return {
-    mobile,
+    telephone: mobile,
     adultsInHousehold: person?.noOfAdultsInHousehold || '',
     countryOfBirth: person?.countryOfBirth || '',
     dependants: person?.noOfDependants || '',

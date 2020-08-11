@@ -9,7 +9,7 @@ const Comparator: NextPage = () => {
   const breadcrumbProps = {
     items: [
       { label: 'Home', href: '/' },
-      { label: 'Comparator', href: '/comparator' },
+      { label: 'Compare Vehicles', href: '/comparator' },
     ],
   };
 

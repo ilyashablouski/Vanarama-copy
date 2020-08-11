@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ComparatorContainer /> should show error correctly 1`] = `
+<div
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+      "minHeight": "10rem",
+    }
+  }
+>
+  Error
+</div>
+`;
+
+exports[`<ComparatorContainer /> should show loading correctly 1`] = `
+<div
+  className="comparator-table"
+>
+  <header
+    className="comparator-table--header"
+  />
+</div>
+`;

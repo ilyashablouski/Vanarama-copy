@@ -1,33 +1,47 @@
+import {
+  ICriterias,
+  IPrice,
+} from '@vanarama/uibook/lib/components/organisms/comparator-table/interface';
 import { IVehicle } from './comparatorHelpers';
+import { vehicleComparator } from '../../generated/vehicleComparator';
 
-export const getUniqueCriterias = data => {
-  const criterias = [] as string[] | [];
-  data?.vehicleComparator.forEach(item => {
-    item.data.forEach(title => {
-      if (!criterias.includes(title.name)) {
-        criterias.push(title.name);
+export const getUniqueCriterias = (data: vehicleComparator | undefined) => {
+  const criterias: (string | undefined | null)[] = [];
+  data?.vehicleComparator?.forEach(item => {
+    item?.data?.forEach(title => {
+      if (!criterias.includes(title?.name)) {
+        criterias.push(title?.name);
       }
     });
   });
   return criterias;
 };
 
-export const getValuesByCriteria = (criteria: string, data) => {
-  return data.vehicleComparator.map(item => {
-    return item.data.find(value => value.name === criteria).value;
-  });
+export const getValuesByCriteria = (
+  criteria: string | undefined | null,
+  data: vehicleComparator | undefined,
+) => {
+  return (
+    data?.vehicleComparator?.map(item => {
+      const currentCriteria = item?.data?.find(
+        value => value?.name === criteria,
+      );
+      return currentCriteria?.value || '';
+    }) || ['']
+  );
 };
 
 export const getHeading = (
   compareVehicles: [] | IVehicle[] | null | undefined,
 ) => {
+  const currentCompareVehicles = compareVehicles as IVehicle[];
   return {
     title: 'Heading',
-    values: compareVehicles?.map(item => ({
-      capId: item.capId,
-      name: item.manufacturerName,
-      description: item.derivativeName,
-      image: item.imageUrl,
+    values: currentCompareVehicles?.map(item => ({
+      capId: item.capId || '',
+      name: item.manufacturerName || '',
+      description: item.derivativeName || '',
+      image: item.imageUrl || '',
     })),
   };
 };
@@ -35,31 +49,38 @@ export const getHeading = (
 export const getPrice = (
   compareVehicles: [] | IVehicle[] | null | undefined,
 ) => {
+  if (compareVehicles?.length) return null;
+  const currentCompareVehicles = compareVehicles as IVehicle[];
   return {
     title: 'Price',
-    values: compareVehicles?.map(item => ({
-      capId: item.capId,
-      price: item.personalRate,
+    values: currentCompareVehicles?.map(item => ({
+      capId: item.capId || '',
+      price: item.personalRate || 0,
     })),
   };
 };
 
 export const getCriterials = (
-  data,
+  data: vehicleComparator | undefined,
   compareVehicles: [] | IVehicle[] | null | undefined,
-) => {
-  const result = [];
+): ICriterias[] => {
+  const result: ICriterias[] = [];
   const allCriterias = getUniqueCriterias(data);
   allCriterias.forEach(title => {
-    result.push({
-      title,
-      values: getValuesByCriteria(title, data),
-    });
+    if (title) {
+      result.push({
+        title,
+        values: getValuesByCriteria(title, data),
+      });
+    }
   });
 
-  if (allCriterias.length) {
+  if (result.length) {
     result.push(getHeading(compareVehicles));
-    result.push(getPrice(compareVehicles));
+    const price = getPrice(compareVehicles);
+    if (price) {
+      result.push(price);
+    }
   }
 
   return result;
@@ -68,8 +89,10 @@ export const getCriterials = (
 export const getVehiclesIds = (
   vehiclesCompares: [] | IVehicle[] | null | undefined,
 ) => {
-  return vehiclesCompares?.map(vehiclesCompare => ({
-    capId: +vehiclesCompare.capId,
-    vehicleType: vehiclesCompare.vehicleType,
+  if (vehiclesCompares?.length) return [];
+  const currentCompareVehicles = vehiclesCompares as IVehicle[];
+  return currentCompareVehicles?.map(vehiclesCompare => ({
+    capId: +(vehiclesCompare.capId || 0),
+    vehicleType: vehiclesCompare?.vehicleType,
   }));
 };

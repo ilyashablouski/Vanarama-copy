@@ -1,4 +1,9 @@
 import { useQuery, gql } from '@apollo/client';
+import {
+  vehicleComparator,
+  vehicleComparatorVariables,
+} from '../../../generated/vehicleComparator';
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
 export const GET_VEHICLES_DATA = gql`
   query vehicleComparator($vehicles: [VehicleToCompare!]!) {
@@ -13,11 +18,17 @@ export const GET_VEHICLES_DATA = gql`
   }
 `;
 
-export function useVehicleData(vehicles, skip) {
-  return useQuery(GET_VEHICLES_DATA, {
-    variables: {
-      vehicles,
+export function useVehicleData(
+  vehicles: { capId: number; vehicleType: VehicleTypeEnum | null }[],
+  skip: boolean,
+) {
+  return useQuery<vehicleComparator | vehicleComparatorVariables>(
+    GET_VEHICLES_DATA,
+    {
+      variables: {
+        vehicles,
+      },
+      skip,
     },
-    skip
-  });
+  );
 }
