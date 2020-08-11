@@ -39,6 +39,8 @@ const redirects = [{ from: '/old-link', to: '/redirect', type: 301 }];
 app.prepare().then(() => {
   const server = express();
 
+  server.disable('x-powered-by');
+
   // Handle rewrites.
   if (rewrites)
     rewrites.forEach(({ from, to }) => {
