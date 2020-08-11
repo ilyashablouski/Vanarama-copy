@@ -9,6 +9,7 @@ export const CONTACT_US_CONTENT = gql`
         featured1 {
           title
           body
+          layout
         }
         cards {
           cards {
@@ -47,6 +48,7 @@ export const LOCATIONS_PAGE_CONTENT = gql`
         title
       }
       body
+      intro
     }
   }
 `;
