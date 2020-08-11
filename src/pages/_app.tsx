@@ -47,7 +47,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         | IVehicleCarousel[]
         | null;
       if (vehiclesCompares) {
-        debugger
         setCompareVehicles(vehiclesCompares);
       }
     };
