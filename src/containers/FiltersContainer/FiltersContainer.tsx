@@ -51,6 +51,7 @@ const FiltersContainer = ({
   isMakePage,
   isPickups,
   isRangePage,
+  isModelPage,
 }: IFilterContainerProps) => {
   const router = useRouter();
   const [filtersData, setFiltersData] = useState({} as IFilterList);
@@ -89,7 +90,7 @@ const FiltersContainer = ({
 
   const { refetch } = useFilterList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-    isMakePage || isRangePage ? null : isSpecialOffers,
+    isMakePage || isRangePage || isModelPage ? null : isSpecialOffers,
     resp => {
       if (!Object.keys(allFiltersData).length) {
         setAllFiltersData(resp?.filterList || ({} as IFilterList));
@@ -264,7 +265,8 @@ const FiltersContainer = ({
       (selectedFilterTags[0] && isInitialLoad) ||
       (isInitialLoad &&
         ((isMakePage && selectedFiltersState.make[0]) ||
-          (isRangePage && selectedFiltersState.model[0])))
+          (isRangePage && selectedFiltersState.model[0]))) ||
+      (isModelPage && selectedFiltersState.model[0])
     )
       setInitialLoad(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -279,7 +281,7 @@ const FiltersContainer = ({
     if (
       filtersObject.manufacturerName &&
       !isMakePage &&
-      !(isRangePage && !tempModelName)
+      !((isRangePage || isModelPage) && !tempModelName)
     ) {
       // every time when filters update active model missed
       // for preset filters using temp variable
@@ -345,16 +347,17 @@ const FiltersContainer = ({
         ) {
           return `£${entry[1]}`;
         }
-        return ((isMakePage || isRangePage) &&
+        return ((isMakePage || isRangePage || isModelPage) &&
           entry[0] === filterFields.make) ||
-          (isRangePage && entry[0] === filterFields.model)
+          ((isRangePage || isModelPage) && entry[0] === filterFields.model) ||
+          (isModelPage && entry[0] === filterFields.bodyStyles)
           ? ''
           : entry[1];
       })
       .flat()
       .filter(Boolean);
     setSelectedFilterTags(selected);
-  }, [selectedFiltersState, isMakePage, isRangePage]);
+  }, [selectedFiltersState, isMakePage, isRangePage, isModelPage]);
 
   // made force update for choiseboxes state
   useEffect(() => {
@@ -499,7 +502,7 @@ const FiltersContainer = ({
                   <FormGroup label={dropdown.label} key={dropdown.label}>
                     <Select
                       disabled={
-                        (isMakePage || isRangePage) &&
+                        (isMakePage || isRangePage || isModelPage) &&
                         (dropdown.accessor === filterFields.make ||
                           dropdown.accessor === filterFields.model)
                       }
@@ -537,35 +540,38 @@ const FiltersContainer = ({
                 <>
                   {selectedFiltersState[
                     filter.accessor as keyof typeof filtersMapper
-                  ]?.length > 0 && (
-                    <div className="dropdown--header">
-                      <div className="dropdown--header-text">
-                        <span className="dropdown--header-count">{`${
-                          selectedFiltersState[
-                            filter.accessor as keyof typeof filtersMapper
-                          ]?.length
-                        } Selected`}</span>
-                        <div className="dropdown--header-selected">
-                          {selectedFiltersState[
-                            filter.accessor as keyof typeof filtersMapper
-                          ].map(value => (
-                            <span key={value}>{value},</span>
-                          ))}
+                  ]?.length > 0 &&
+                    !(
+                      isModelPage && filter.accessor === filterFields.bodyStyles
+                    ) && (
+                      <div className="dropdown--header">
+                        <div className="dropdown--header-text">
+                          <span className="dropdown--header-count">{`${
+                            selectedFiltersState[
+                              filter.accessor as keyof typeof filtersMapper
+                            ]?.length
+                          } Selected`}</span>
+                          <div className="dropdown--header-selected">
+                            {selectedFiltersState[
+                              filter.accessor as keyof typeof filtersMapper
+                            ].map(value => (
+                              <span key={value}>{value},</span>
+                            ))}
+                          </div>
                         </div>
+                        <Button
+                          size="small"
+                          color="teal"
+                          fill="outline"
+                          label="Clear"
+                          onClick={() =>
+                            clearFilter(
+                              filter.accessor as keyof typeof filtersMapper,
+                            )
+                          }
+                        />
                       </div>
-                      <Button
-                        size="small"
-                        color="teal"
-                        fill="outline"
-                        label="Clear"
-                        onClick={() =>
-                          clearFilter(
-                            filter.accessor as keyof typeof filtersMapper,
-                          )
-                        }
-                      />
-                    </div>
-                  )}
+                    )}
 
                   <FormGroup label={filter.label} dataTestId={filter.label}>
                     {choiceBoxesData[filter.accessor]?.length > 0 && (
@@ -578,8 +584,17 @@ const FiltersContainer = ({
                         }
                         choices={
                           filter.accessor === filterFields.bodyStyles &&
-                          isPickups
-                            ? [{ label: 'Pickup', active: true }]
+                          (isPickups || isModelPage)
+                            ? [
+                                {
+                                  label: `${
+                                    isPickups
+                                      ? 'Pickup'
+                                      : selectedFiltersState.bodyStyles[0]
+                                  }`,
+                                  active: true,
+                                },
+                              ]
                             : choiceBoxesData[filter.accessor]
                         }
                         className="-cols-1"
@@ -587,7 +602,7 @@ const FiltersContainer = ({
                         multiSelect
                         disabled={
                           filter.accessor === filterFields.bodyStyles &&
-                          isPickups
+                          (isPickups || isModelPage)
                         }
                         ref={getOrCreateRef(filter.accessor)}
                       />
