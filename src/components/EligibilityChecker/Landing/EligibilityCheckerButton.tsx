@@ -2,11 +2,11 @@ import { FC } from 'react';
 import { useRouter } from 'next/router';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 
-const EligibilityCheckerButton: FC<{}> = () => {
+const EligibilityCheckerButton: FC<{ path?: string }> = ({ path }) => {
   const router = useRouter();
 
   const goToPage = () => {
-    router.push('/eligibility-checker/details');
+    router.push(path ?? '/eligibility-checker/details');
   };
 
   return (

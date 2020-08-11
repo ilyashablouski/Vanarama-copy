@@ -5,7 +5,9 @@ import CustomerReviews from '../CustomerReviews';
 describe('<CustomerReviews />', () => {
   it('renders correctly with empty review', () => {
     const getComponent = () => {
-      return renderer.create(<CustomerReviews reviews={[]} />).toJSON();
+      return renderer
+        .create(<CustomerReviews title="Customer Reviews" reviews={[]} />)
+        .toJSON();
     };
 
     const tree = getComponent();
@@ -17,6 +19,7 @@ describe('<CustomerReviews />', () => {
       return renderer
         .create(
           <CustomerReviews
+            title="Customer Reviews"
             reviews={[
               {
                 text: 'text',

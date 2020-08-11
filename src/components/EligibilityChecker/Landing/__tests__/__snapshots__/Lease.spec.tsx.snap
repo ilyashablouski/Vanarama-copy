@@ -13,12 +13,10 @@ exports[`<Lease /> renders correctly 1`] = `
     <p
       className="text -regular -darker"
     >
-      Et sunt irure sunt dolore laboris dolore mollit amet enim fugiat in qui sunt mollit magna sint consectetur cillum consequat excepteur nisi pariatur laborum aute minim voluptate dolor ex adipisicing aliqua sit ipsum reprehenderit amet ut nostrud sint do exercitation
-    </p>
-    <p
-      className="text -regular -darker"
-    >
-      Veniam tempor ea officia velit ex et sint enim consectetur labore quis commodo ea ut esse duis incididunt eu ex
+      Et sunt irure sunt dolore laboris dolore mollit amet enim fugiat in qui
+              sunt mollit magna sint consectetur cillum consequat excepteur nisi
+              pariatur laborum aute minim voluptate dolor ex adipisicing aliqua sit
+              ipsum reprehenderit amet ut nostrud sint do exercitation
     </p>
     <button
       className="button -teal -regular -solid"
