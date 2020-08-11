@@ -7,10 +7,17 @@ exports[`<Lease /> renders correctly 1`] = `
   <div>
     <p
       className="heading -black -large"
-    />
+    >
+      Find Out If You Can Lease A Brand-New Car
+    </p>
     <p
       className="text -regular -darker"
-    />
+    >
+      Et sunt irure sunt dolore laboris dolore mollit amet enim fugiat in qui
+              sunt mollit magna sint consectetur cillum consequat excepteur nisi
+              pariatur laborum aute minim voluptate dolor ex adipisicing aliqua sit
+              ipsum reprehenderit amet ut nostrud sint do exercitation
+    </p>
     <button
       className="button -teal -regular -solid"
       data-testid="eligibility-Checker-btn"
@@ -22,6 +29,35 @@ exports[`<Lease /> renders correctly 1`] = `
         Check Your Eligibility
       </div>
     </button>
+  </div>
+  <div
+    className="media"
+  >
+    <div
+      className="media media-player"
+    >
+      <div
+        className="media-player--embed"
+        src="https://player.vimeo.com/video/263419265"
+        style={
+          Object {
+            "height": "100%",
+            "width": "100%",
+          }
+        }
+      >
+        <div
+          style={
+            Object {
+              "display": undefined,
+              "height": "100%",
+              "overflow": "hidden",
+              "width": "100%",
+            }
+          }
+        />
+      </div>
+    </div>
   </div>
 </div>
 `;

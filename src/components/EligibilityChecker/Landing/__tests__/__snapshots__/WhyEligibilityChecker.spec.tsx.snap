@@ -7,19 +7,27 @@ exports[`<WhyEligibilityChecker /> renders correctly 1`] = `
   <div>
     <p
       className="heading -black -large"
-    />
+    >
+      Why Use Our Car Lease Eligibility Checker?
+    </p>
     <p
       className="text -regular -darker"
-    />
+    >
+      If you're looking to drive a brand new car, van or truck without
+ any of the hassle - leasing might just be for you! It's affordable,
+ simple and you're not left with a depreciating asset at the end of
+ your contract.
+ describe
+    </p>
   </div>
   <div
     className="image -expand"
   >
     <img
-      alt=""
+      alt="title"
       className="image--native"
       height="500"
-      src=""
+      src="https://source.unsplash.com/collection/2102317/1000x650?sig=40344"
       width="900"
     />
   </div>

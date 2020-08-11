@@ -6,10 +6,15 @@ exports[`<CustomerThing /> renders correctly 1`] = `
 >
   <p
     className="heading -black -large"
-  />
+  >
+    What Do Our Customers Think?
+  </p>
   <p
     className="text -regular -darker"
-  />
+  >
+    More than 1,000 people use our Eligibility Checker every week to find out
+ their likelihood of getting accepted to lease a new car lease.
+  </p>
   <button
     className="button -teal -regular -solid"
     data-testid="eligibility-Checker-btn"

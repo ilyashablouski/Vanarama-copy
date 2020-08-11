@@ -1,8 +1,5 @@
 import { FC } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import IconList, {
-  IconListItem,
-} from '@vanarama/uibook/lib/components/organisms/icon-list';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 
