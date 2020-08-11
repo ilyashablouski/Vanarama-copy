@@ -173,7 +173,11 @@ export const PickupsPage: NextPage = () => {
                 }))}
                 imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
                 onCompare={() => {
-                  compareChange(item ? { ...item, bodyStyle: 'Pickup' } : null);
+                  compareChange(
+                    item
+                      ? { ...item, bodyStyle: 'Pickup', pageUrl: productUrl }
+                      : null,
+                  );
                 }}
                 compared={isCompared(compareVehicles, item)}
                 onWishlist={() => true}

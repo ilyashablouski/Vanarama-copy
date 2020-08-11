@@ -17,7 +17,7 @@ exports[`<RangeCard /> should be render correctly 1`] = `
         class="title"
       >
         <a
-          class="link heading -black -large"
+          class="heading link -black -large"
           data-testid="router-link"
           href=""
         >
