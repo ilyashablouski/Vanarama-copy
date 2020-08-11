@@ -8,6 +8,7 @@ const cors = require('cors');
 const next = require('next');
 const rewrite = require('express-urlrewrite');
 const prerender = require('prerender-node');
+const hpp = require('hpp');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -40,6 +41,7 @@ app.prepare().then(() => {
   const server = express();
 
   server.disable('x-powered-by');
+  server.use(hpp());
 
   // Handle rewrites.
   if (rewrites)
