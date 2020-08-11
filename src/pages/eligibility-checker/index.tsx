@@ -1,60 +1,107 @@
 import { NextPage } from 'next';
+import { useQuery } from '@apollo/client';
+import { getDataFromTree } from '@apollo/react-ssr';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import Accordion from '@vanarama/uibook/lib/components/molecules/accordion/Accordion';
 import Lease from '../../components/EligibilityChecker/Landing/Lease';
 import WhyEligibilityChecker from '../../components/EligibilityChecker/Landing/WhyEligibilityChecker';
 import CustomerThink from '../../components/EligibilityChecker/Landing/CustomerThing';
 import CustomerReviews from '../../components/CustomerReviews/CustomerReviews';
+import {
+  EligibilityCheckerPageData,
+  EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_faqs_questionSets_questionAnswers as QuestionAnswers,
+  EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_faqs_questionSets as QuestionSets,
+} from '../../../generated/EligibilityCheckerPageData';
+import withApollo from '../../hocs/withApollo';
+import { ELIGIBILITY_CHECKER_CONTENT } from '../../gql/eligibility-checker/eligibilityChecker';
 
-const REVIEW_TILES = [
-  {
-    author: 'John Smith',
-    text:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore adipiscing ipsum dolor sit amet.',
-    timeStamp: '12/02/2020',
-    reviews: 87,
-    score: 4,
-    src: 'https://www.thispersondoesnotexist.com/image',
-  },
-  {
-    author: 'John Smith',
-    text:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore adipiscing ipsum dolor sit amet.',
-    timeStamp: '12/02/2020',
-    reviews: 87,
-    score: 2.5,
-    src: 'https://www.thispersondoesnotexist.com/image',
-  },
-  {
-    author: 'John Smith',
-    text:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore adipiscing ipsum dolor sit amet.',
-    timeStamp: '12/02/2020',
-    reviews: 87,
-    score: 4.5,
-    src: 'https://www.thispersondoesnotexist.com/image',
-  },
-];
+const EligibilityChecker: NextPage = () => {
+  const { data, loading, error } = useQuery<EligibilityCheckerPageData>(
+    ELIGIBILITY_CHECKER_CONTENT,
+  );
 
-const EligibilityChecker: NextPage = () => (
-  <>
-    <div className="row:title">
-      <Heading size="xlarge" color="white">
-        Your Result
-      </Heading>
-    </div>
-    <Lease />
-    <WhyEligibilityChecker />
-    <CustomerThink />
-    <div className="row:bg-lighter ">
-      <div className="row:carousel">
-        <CustomerReviews
-          reviews={REVIEW_TILES}
-          headingClassName="-mb-400 -a-center"
-          sliderClassName="-mh-000"
-        />
+  if (loading) {
+    return <Loading size="large" />;
+  }
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
+
+  const accordionItems = (questions: (QuestionAnswers | null)[]) => {
+    return questions.map((el, idx) => ({
+      id: idx,
+      title: el?.question || '',
+      children: <>{el?.answer || ''}</>,
+    }));
+  };
+
+  const featured1 = data?.eligibilityCheckerLandingPage?.sections?.featured1;
+  const featured2 = data?.eligibilityCheckerLandingPage?.sections?.featured2;
+  const leadText = data?.eligibilityCheckerLandingPage?.sections?.leadText;
+  const carousel = data?.eligibilityCheckerLandingPage?.sections?.carousel;
+  const reviews = carousel?.cardTestimonials?.length
+    ? carousel?.cardTestimonials?.map(el => ({
+        author: el?.companyName || el?.customerName || '',
+        text: el?.summary || '',
+        timeStamp: el?.date || '',
+        score: parseFloat(el?.rating || '0'),
+      }))
+    : [];
+  const faqs = data?.eligibilityCheckerLandingPage?.sections?.faqs;
+  const questions = (faqs?.questionSets as QuestionSets[])[0]?.questionAnswers;
+
+  return (
+    <>
+      <div className="row:title">
+        <Heading size="xlarge" color="black">
+          Eligibility Checker
+        </Heading>
       </div>
-    </div>
-  </>
-);
+      {featured1 && (
+        <Lease
+          title={featured1.title}
+          body={featured1.body}
+          video={featured1.video}
+        />
+      )}
+      {featured2 && (
+        <WhyEligibilityChecker
+          title={featured2.title}
+          body={featured2.body}
+          image={featured2.image}
+        />
+      )}
+      {!!questions?.length && (
+        <div className="row:lead-text">
+          <Heading size="large" color="black">
+            {faqs?.title}
+          </Heading>
+          <Accordion items={accordionItems(questions)} className="tilebox" />
+        </div>
+      )}
+      {leadText && (
+        <CustomerThink
+          heading={leadText.heading}
+          description={leadText.description}
+        />
+      )}
+      {!!carousel?.cardTestimonials?.length && (
+        <div className="row:bg-lighter ">
+          <div className="row:carousel">
+            <CustomerReviews
+              title={
+                data?.eligibilityCheckerLandingPage?.sections?.carousel?.title
+              }
+              reviews={reviews}
+              headingClassName="-mb-400 -a-center"
+              sliderClassName="-mh-000"
+            />
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
 
-export default EligibilityChecker;
+export default withApollo(EligibilityChecker, { getDataFromTree });
