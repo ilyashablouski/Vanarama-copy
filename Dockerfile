@@ -5,6 +5,7 @@ ARG API_KEY
 ARG API_URL
 ARG LOQATE_KEY
 ARG NODE_ENV
+ARG ENV
 ARG ENABLE_DEV_TOOLS
 
 # Setting working directory. All the path will be relative to WORKDIR
