@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-
 require('dotenv').config();
 require('colors');
 
@@ -14,6 +13,7 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
+const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
 const logo = require('./logo');
 
 const PORT = process.env.PORT || 3000;
@@ -42,6 +42,8 @@ app.prepare().then(() => {
 
   server.disable('x-powered-by');
   server.use(hpp());
+  // Prevent brute force attack.
+  if (process.env.ENV === 'production') server.use(rateLimiterRedisMiddleware);
 
   // Handle rewrites.
   if (rewrites)

@@ -25,6 +25,8 @@ module.exports = {
       API_KEY: process.env.API_KEY,
       LOQATE_KEY: process.env.LOQATE_KEY,
       ENABLE_DEV_TOOLS: process.env.ENABLE_DEV_TOOLS,
+      REDIS_CACHE_HOST: process.env.REDIS_CACHE_HOST,
+      REDIS_CACHE_PORT: process.env.REDIS_CACHE_PORT,
     },
     devIndicators: {
       autoPrerender: false,
