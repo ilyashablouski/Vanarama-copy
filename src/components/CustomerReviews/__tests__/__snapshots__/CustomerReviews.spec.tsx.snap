@@ -7,7 +7,7 @@ Array [
   <h2
     className="heading -black -lead"
   >
-    Customer Reviews
+    
   </h2>,
   <div
     className="card -overflow"

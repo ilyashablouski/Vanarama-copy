@@ -7,83 +7,19 @@ exports[`<WhyEligibilityChecker /> renders correctly 1`] = `
   <div>
     <p
       className="heading -black -large"
-    >
-      Why Use Our Car Lease Eligibility Checker?
-    </p>
+    />
     <p
       className="text -regular -darker"
-    >
-      If you're looking to drive a brand new car, van or truck without any of the hassle - leasing might just be for you! It's affordable, simple and you're not left with a depreciating asset at the end of your contract.
-    </p>
-    <ul
-      className="icon-list"
-    >
-      <li>
-        <i
-          className="icon -orange"
-        >
-          <svg
-            height="1em"
-            viewBox="0 0 512 512"
-            width="1em"
-          >
-            <title>
-              ionicons-v5-e
-            </title>
-            <path
-              d="M256,48C141.31,48,48,141.31,48,256s93.31,208,208,208,208-93.31,208-208S370.69,48,256,48ZM218,360.38,137.4,270.81l23.79-21.41,56,62.22L350,153.46,374.54,174Z"
-            />
-          </svg>
-        </i>
-        Choose your contract length & agreed mileage
-      </li>
-      <li>
-        <i
-          className="icon -orange"
-        >
-          <svg
-            height="1em"
-            viewBox="0 0 512 512"
-            width="1em"
-          >
-            <title>
-              ionicons-v5-e
-            </title>
-            <path
-              d="M256,48C141.31,48,48,141.31,48,256s93.31,208,208,208,208-93.31,208-208S370.69,48,256,48ZM218,360.38,137.4,270.81l23.79-21.41,56,62.22L350,153.46,374.54,174Z"
-            />
-          </svg>
-        </i>
-        Pay an initial payment
-      </li>
-      <li>
-        <i
-          className="icon -orange"
-        >
-          <svg
-            height="1em"
-            viewBox="0 0 512 512"
-            width="1em"
-          >
-            <title>
-              ionicons-v5-e
-            </title>
-            <path
-              d="M256,48C141.31,48,48,141.31,48,256s93.31,208,208,208,208-93.31,208-208S370.69,48,256,48ZM218,360.38,137.4,270.81l23.79-21.41,56,62.22L350,153.46,374.54,174Z"
-            />
-          </svg>
-        </i>
-        Set up your agreed fixed monthly rental
-      </li>
-    </ul>
+    />
   </div>
   <div
     className="image -expand"
   >
     <img
+      alt=""
       className="image--native"
       height="500"
-      src="https://source.unsplash.com/collection/2102317/1000x650?sig=40344"
+      src=""
       width="900"
     />
   </div>
