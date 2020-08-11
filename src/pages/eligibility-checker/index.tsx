@@ -28,6 +28,10 @@ const EligibilityChecker: NextPage = () => {
     return <p>Error: {error.message}</p>;
   }
 
+  if (!data?.eligibilityCheckerLandingPage) {
+    return null;
+  }
+
   const accordionItems = (questions: (QuestionAnswers | null)[]) => {
     return questions.map((el, idx) => ({
       id: idx,
