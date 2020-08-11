@@ -48,7 +48,7 @@ export const changeCompares = async (
       );
       if (deletedVehicle) {
         const index = arrayCompares?.indexOf(deletedVehicle);
-        if (index && index > -1) {
+        if (index !== undefined && index > -1) {
           arrayCompares?.splice(index, 1);
         }
         await localForage.setItem('compares', arrayCompares);

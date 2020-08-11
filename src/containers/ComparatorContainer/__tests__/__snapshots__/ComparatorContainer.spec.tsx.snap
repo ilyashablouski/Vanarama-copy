@@ -20,6 +20,238 @@ exports[`<ComparatorContainer /> should show loading correctly 1`] = `
 >
   <header
     className="comparator-table--header"
+  >
+    <div
+      className="card -skeleton"
+      data-testid="card"
+    >
+      <div
+        className="card-image"
+      >
+        <button
+          className="button -teal -regular -solid"
+          onClick={[Function]}
+        >
+          <div
+            className="button--inner"
+          >
+            <i
+              className="icon -white"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <line
+                  style={
+                    Object {
+                      "fill": "none",
+                      "stroke": "var(--class-color)",
+                      "strokeLinecap": "square",
+                      "strokeLinejoin": "round",
+                      "strokeWidth": 32,
+                    }
+                  }
+                  x1={256}
+                  x2={256}
+                  y1={112}
+                  y2={400}
+                />
+                <line
+                  style={
+                    Object {
+                      "fill": "none",
+                      "stroke": "var(--class-color)",
+                      "strokeLinecap": "square",
+                      "strokeLinejoin": "round",
+                      "strokeWidth": 32,
+                    }
+                  }
+                  x1={400}
+                  x2={112}
+                  y1={256}
+                  y2={256}
+                />
+              </svg>
+            </i>
+            Add Vehicle
+          </div>
+        </button>
+      </div>
+      <div
+        className="title"
+      >
+        <p
+          className="heading -black -lead"
+        >
+          Vehicle 1
+        </p>
+        <span
+          className="text -xsmall -dark"
+        >
+          —
+        </span>
+      </div>
+    </div>
+    <div
+      className="card -skeleton"
+      data-testid="card"
+    >
+      <div
+        className="card-image"
+      >
+        <button
+          className="button -teal -regular -solid"
+          onClick={[Function]}
+        >
+          <div
+            className="button--inner"
+          >
+            <i
+              className="icon -white"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <line
+                  style={
+                    Object {
+                      "fill": "none",
+                      "stroke": "var(--class-color)",
+                      "strokeLinecap": "square",
+                      "strokeLinejoin": "round",
+                      "strokeWidth": 32,
+                    }
+                  }
+                  x1={256}
+                  x2={256}
+                  y1={112}
+                  y2={400}
+                />
+                <line
+                  style={
+                    Object {
+                      "fill": "none",
+                      "stroke": "var(--class-color)",
+                      "strokeLinecap": "square",
+                      "strokeLinejoin": "round",
+                      "strokeWidth": 32,
+                    }
+                  }
+                  x1={400}
+                  x2={112}
+                  y1={256}
+                  y2={256}
+                />
+              </svg>
+            </i>
+            Add Vehicle
+          </div>
+        </button>
+      </div>
+      <div
+        className="title"
+      >
+        <p
+          className="heading -black -lead"
+        >
+          Vehicle 2
+        </p>
+        <span
+          className="text -xsmall -dark"
+        >
+          —
+        </span>
+      </div>
+    </div>
+    <div
+      className="card -skeleton"
+      data-testid="card"
+    >
+      <div
+        className="card-image"
+      >
+        <button
+          className="button -teal -regular -solid"
+          onClick={[Function]}
+        >
+          <div
+            className="button--inner"
+          >
+            <i
+              className="icon -white"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <line
+                  style={
+                    Object {
+                      "fill": "none",
+                      "stroke": "var(--class-color)",
+                      "strokeLinecap": "square",
+                      "strokeLinejoin": "round",
+                      "strokeWidth": 32,
+                    }
+                  }
+                  x1={256}
+                  x2={256}
+                  y1={112}
+                  y2={400}
+                />
+                <line
+                  style={
+                    Object {
+                      "fill": "none",
+                      "stroke": "var(--class-color)",
+                      "strokeLinecap": "square",
+                      "strokeLinejoin": "round",
+                      "strokeWidth": 32,
+                    }
+                  }
+                  x1={400}
+                  x2={112}
+                  y1={256}
+                  y2={256}
+                />
+              </svg>
+            </i>
+            Add Vehicle
+          </div>
+        </button>
+      </div>
+      <div
+        className="title"
+      >
+        <p
+          className="heading -black -lead"
+        >
+          Vehicle 3
+        </p>
+        <span
+          className="text -xsmall -dark"
+        >
+          —
+        </span>
+      </div>
+    </div>
+  </header>
+  <div
+    className="comparator-table--row"
   />
 </div>
 `;

@@ -46,7 +46,7 @@ export const getHeading = (
 export const getPrice = (
   compareVehicles: [] | IVehicle[] | null | undefined,
 ) => {
-  if (compareVehicles?.length) return null;
+  if (!compareVehicles?.length) return null;
   const currentCompareVehicles = compareVehicles as IVehicle[];
   return {
     title: 'Price',
@@ -86,7 +86,7 @@ export const getCriterials = (
 export const getVehiclesIds = (
   vehiclesCompares: [] | IVehicle[] | null | undefined,
 ) => {
-  if (vehiclesCompares?.length) return [];
+  if (!vehiclesCompares?.length) return [];
   const currentCompareVehicles = vehiclesCompares as IVehicle[];
   return currentCompareVehicles?.map(vehiclesCompare => ({
     capId: +(vehiclesCompare.capId || 0),

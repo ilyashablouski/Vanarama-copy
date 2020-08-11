@@ -55,8 +55,6 @@ const ComparatorContainer: React.FC = () => {
     );
   }
 
-  if (!data && compareVehicles?.length) return null;
-
   return (
     <ComparatorTable
       addVehicle={() => {
@@ -65,10 +63,14 @@ const ComparatorContainer: React.FC = () => {
       deleteVehicle={capId => {
         compareChange(null, capId);
       }}
-      criterias={getCriterials(
-        data as vehicleComparator | undefined,
-        compareVehicles,
-      )}
+      criterias={
+        compareVehicles?.length
+          ? getCriterials(
+              data as vehicleComparator | undefined,
+              compareVehicles,
+            )
+          : []
+      }
       viewOffer={() => {}}
     />
   );
