@@ -84,8 +84,8 @@ function useFullCreditChecker(
 }
 
 export function callfullCreditChecker(orderUuid: string) {
-  const creditApplication = useGetCreditApplicationByOrderUuid(orderUuid);
-  useFullCreditChecker();
+  // const creditApplication = useGetCreditApplicationByOrderUuid(orderUuid);
+  // useFullCreditChecker();
   // debugger;
   // getCreditApplicationByOrderUuid({
   //   partyUuid: orderUuid,
@@ -116,7 +116,7 @@ export function callfullCreditChecker(orderUuid: string) {
 //   );
 // }
 
-enum VehicleTypeEnum {
-  Car,
-  LCV,
-}
+// enum VehicleTypeEnum {
+//   Car,
+//   LCV,
+// }
