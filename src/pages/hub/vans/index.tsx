@@ -148,15 +148,15 @@ export const VansPage: NextPage = () => {
     <>
       <Hero>
         <HeroHeading
-          text={data?.hubVanPage.sections.hero?.title || ''}
+          text={data?.hubVanPage.sections?.hero?.title || ''}
           titleTag={
             getTitleTag(
-              data?.hubVanPage.sections.hero?.titleTag || 'p',
+              data?.hubVanPage.sections?.hero?.titleTag || 'p',
             ) as keyof JSX.IntrinsicElements
           }
         />
         <br />
-        <HeroTitle text={data?.hubVanPage.sections.hero?.body || ''} />
+        <HeroTitle text={data?.hubVanPage.sections?.hero?.body || ''} />
         <Button
           size="lead"
           fill="outline"
@@ -169,7 +169,7 @@ export const VansPage: NextPage = () => {
           plain
           size="expand"
           src={
-            data?.hubVanPage.sections.hero?.image?.file?.url ||
+            data?.hubVanPage.sections?.hero?.image?.file?.url ||
             'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
           }
         />
@@ -180,14 +180,14 @@ export const VansPage: NextPage = () => {
           color="black"
           tag={
             getTitleTag(
-              data?.hubVanPage.sections.leadText?.titleTag || null,
+              data?.hubVanPage.sections?.leadText?.titleTag || null,
             ) as keyof JSX.IntrinsicElements
           }
         >
-          {data?.hubVanPage.sections.leadText?.heading}
+          {data?.hubVanPage.sections?.leadText?.heading}
         </Heading>
         <Text tag="span" size="lead" color="darker">
-          {data?.hubVanPage.sections.leadText?.description}
+          {data?.hubVanPage.sections?.leadText?.description}
         </Text>
       </div>
       <hr className="-fullwidth" />
@@ -299,11 +299,11 @@ export const VansPage: NextPage = () => {
             color="black"
             tag={
               getTitleTag(
-                data?.hubVanPage.sections.cards?.titleTag || null,
+                data?.hubVanPage.sections?.cards?.titleTag || null,
               ) as keyof JSX.IntrinsicElements
             }
           >
-            {data?.hubVanPage.sections.cards?.name}
+            {data?.hubVanPage.sections?.cards?.name}
           </Heading>
           <Text
             className="-justify-content-row -mb-400"
@@ -311,9 +311,9 @@ export const VansPage: NextPage = () => {
             size="regular"
             color="darker"
           >
-            {data?.hubVanPage.sections.cards?.description}
+            {data?.hubVanPage.sections?.cards?.description}
           </Text>
-          {data?.hubVanPage.sections.cards?.cards?.map(
+          {data?.hubVanPage.sections?.cards?.cards?.map(
             (card: CardData, idx) => (
               <Card
                 key={card.title || idx}
@@ -358,13 +358,13 @@ export const VansPage: NextPage = () => {
           color="black"
           tag={
             getTitleTag(
-              data?.hubVanPage.sections.steps?.titleTag || null,
+              data?.hubVanPage.sections?.steps?.titleTag || null,
             ) as keyof JSX.IntrinsicElements
           }
         >
-          {data?.hubVanPage.sections.steps?.heading}
+          {data?.hubVanPage.sections?.steps?.heading}
         </Heading>
-        {data?.hubVanPage.sections.steps?.steps?.map((step: StepData, idx) => (
+        {data?.hubVanPage.sections?.steps?.steps?.map((step: StepData, idx) => (
           <Step
             className="-mh-auto"
             key={step.title || idx}
@@ -382,16 +382,16 @@ export const VansPage: NextPage = () => {
             color="black"
             tag={
               getTitleTag(
-                data?.hubVanPage.sections.featured1?.titleTag || 'p',
+                data?.hubVanPage.sections?.featured1?.titleTag || 'p',
               ) as keyof JSX.IntrinsicElements
             }
           >
-            {data?.hubVanPage.sections.featured1?.title}
+            {data?.hubVanPage.sections?.featured1?.title}
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
             <ReactMarkdown
               escapeHtml={false}
-              source={data?.hubVanPage.sections.featured1?.body || ''}
+              source={data?.hubVanPage.sections?.featured1?.body || ''}
             />
           </Text>
           <IconList>
@@ -408,7 +408,7 @@ export const VansPage: NextPage = () => {
         </div>
         <Image
           src={
-            data?.hubVanPage.sections.featured1?.image?.file?.url ||
+            data?.hubVanPage.sections?.featured1?.image?.file?.url ||
             'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
           }
         />
@@ -422,16 +422,16 @@ export const VansPage: NextPage = () => {
             color="black"
             tag={
               getTitleTag(
-                data?.hubVanPage.sections.featured1?.titleTag || 'p',
+                data?.hubVanPage.sections?.featured1?.titleTag || 'p',
               ) as keyof JSX.IntrinsicElements
             }
           >
-            {data?.hubVanPage.sections.featured2?.title}
+            {data?.hubVanPage.sections?.featured2?.title}
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
             <ReactMarkdown
               escapeHtml={false}
-              source={data?.hubVanPage.sections.featured2?.body || ''}
+              source={data?.hubVanPage.sections?.featured2?.body || ''}
             />
           </Text>
         </div>
@@ -444,18 +444,18 @@ export const VansPage: NextPage = () => {
           color="black"
           tag={
             getTitleTag(
-              data?.hubVanPage.sections.rowText?.titleTag || 'p',
+              data?.hubVanPage.sections?.rowText?.titleTag || 'p',
             ) as keyof JSX.IntrinsicElements
           }
         >
-          {data?.hubVanPage.sections.rowText?.heading}
+          {data?.hubVanPage.sections?.rowText?.heading}
         </Heading>
         <div>
           <Text tag="p" size="regular" color="darker">
-            {data?.hubVanPage.sections.rowText?.body}
+            {data?.hubVanPage.sections?.rowText?.body}
           </Text>
           <Heading size="regular" color="black">
-            {data?.hubVanPage.sections.rowText?.subHeading}
+            {data?.hubVanPage.sections?.rowText?.subHeading}
           </Heading>
           <Button
             className="-pt-200"
@@ -476,13 +476,13 @@ export const VansPage: NextPage = () => {
           color="black"
           tag={
             getTitleTag(
-              data?.hubVanPage.sections.tiles?.titleTag || 'p',
+              data?.hubVanPage.sections?.tiles?.titleTag || 'p',
             ) as keyof JSX.IntrinsicElements
           }
         >
-          {data && data.hubVanPage.sections.tiles?.tilesTitle}
+          {data && data.hubVanPage.sections?.tiles?.tilesTitle}
         </Heading>
-        {data?.hubVanPage.sections.tiles?.tiles?.map((tile: TileData, idx) => (
+        {data?.hubVanPage.sections?.tiles?.tiles?.map((tile: TileData, idx) => (
           <div key={tile.title || idx}>
             <Tile className="-plain -button -align-center" plain>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
