@@ -12,6 +12,7 @@ import {
   PAGES_WITH_COMPARATOR,
   CompareContext,
   WHOLE_PATHS_PAGES_WITH_COMPARATOR,
+  PAGES_WITHOUT_COMPARATOR,
 } from '../utils/comparatorTool';
 import HeaderContainer from '../containers/HeaderContainer';
 import {
@@ -53,7 +54,10 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     getVehicles();
 
     if (
-      PAGES_WITH_COMPARATOR.some(page => router.pathname.includes(page)) ||
+      (PAGES_WITH_COMPARATOR.some(page => router.pathname.includes(page)) &&
+        !PAGES_WITHOUT_COMPARATOR.some(page =>
+          router.pathname.includes(page),
+        )) ||
       WHOLE_PATHS_PAGES_WITH_COMPARATOR.some(page => router.pathname === page)
     ) {
       setExistComparator(true);
