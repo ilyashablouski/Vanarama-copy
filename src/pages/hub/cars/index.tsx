@@ -175,7 +175,9 @@ export const CarsPage: NextPage = () => {
                   index: `${item.capId}_${info?.name || ''}`,
                 }))}
                 imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
-                onCompare={() => compareChange(item)}
+                onCompare={() =>
+                  compareChange(item ? { ...item, pageUrl: productUrl } : null)
+                }
                 compared={isCompared(compareVehicles, item)}
                 onWishlist={() => true}
                 title={{

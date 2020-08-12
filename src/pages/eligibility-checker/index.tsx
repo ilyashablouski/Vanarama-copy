@@ -28,6 +28,10 @@ const EligibilityChecker: NextPage = () => {
     return <p>Error: {error.message}</p>;
   }
 
+  if (!data?.eligibilityCheckerLandingPage) {
+    return null;
+  }
+
   const accordionItems = (questions: (QuestionAnswers | null)[]) => {
     return questions.map((el, idx) => ({
       id: idx,
@@ -36,6 +40,7 @@ const EligibilityChecker: NextPage = () => {
     }));
   };
 
+  const metaData = data?.eligibilityCheckerLandingPage?.metaData;
   const featured1 = data?.eligibilityCheckerLandingPage?.sections?.featured1;
   const featured2 = data?.eligibilityCheckerLandingPage?.sections?.featured2;
   const leadText = data?.eligibilityCheckerLandingPage?.sections?.leadText;
@@ -55,7 +60,7 @@ const EligibilityChecker: NextPage = () => {
     <>
       <div className="row:title">
         <Heading size="xlarge" color="black">
-          Eligibility Checker
+          {metaData?.title}
         </Heading>
       </div>
       {featured1 && (
@@ -70,6 +75,7 @@ const EligibilityChecker: NextPage = () => {
           title={featured2.title}
           body={featured2.body}
           image={featured2.image}
+          iconList={featured2.iconList}
         />
       )}
       {!!questions?.length && (
