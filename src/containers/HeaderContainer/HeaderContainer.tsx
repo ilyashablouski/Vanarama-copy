@@ -26,7 +26,11 @@ const HeaderContainer: FC = () => {
 
   const LOGIN_LINK = {
     label: 'Login',
-    href: `/account/login-register?redirect=${router.asPath}`,
+    href: '/account/login-register',
+    query: {
+      redirect: router.asPath,
+    },
+    as: '/account/login-register',
   };
 
   const [logOut] = useMutation<LogOutUserMutation, LogOutUserMutationVariables>(
