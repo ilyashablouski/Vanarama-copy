@@ -81,3 +81,16 @@ resource "aws_ssm_parameter" "nextstorefront_gateway_url" {
       created-by = "terraform"
     }
   }
+
+resource "aws_ssm_parameter" "redis-cache-host" {
+  name       = "/${var.env}/${var.stack}/${var.app}/redis-host"
+  type       = "SecureString"
+  value      = "${data.terraform_remote_state.grid.outputs.redis_endpoint}"
+
+  tags = {
+    env        = "${var.env}"
+    stack      = "${var.stack}"
+    app        = "${var.app}"
+    created-by = "terraform"
+  }
+}
