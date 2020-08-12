@@ -14,7 +14,7 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import cx from 'classnames';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import OrderSummary from '../OrderSummary/OrderSummary';
-import { IProps, IColour, ITrim, IChoice } from './interfase';
+import { IProps, IColour, ITrim, IChoice } from './interface';
 import { toPriceFormat } from '../../utils/helpers';
 import {
   GetVehicleDetails_derivativeInfo_trims,
