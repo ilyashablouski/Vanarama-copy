@@ -42,7 +42,7 @@ app.prepare().then(() => {
 
   server.disable('x-powered-by');
   server.use(hpp());
-  // Prevent brute force attack.
+  // Prevent brute force attack in production.
   if (process.env.ENV === 'production') server.use(rateLimiterRedisMiddleware);
 
   // Handle rewrites.
