@@ -9,12 +9,13 @@ const rewrite = require('express-urlrewrite');
 const prerender = require('prerender-node');
 const hpp = require('hpp');
 
+const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
+const logo = require('./logo');
+const { version } = require('./package.json');
+
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
-
-const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
-const logo = require('./logo');
 
 const PORT = process.env.PORT || 3000;
 
@@ -62,8 +63,18 @@ app.prepare().then(() => {
   // Prerender.
   if (prerender && process.env.PRERENDER_SERVICE_URL) server.use(prerender);
 
+  // Status
   server.get('/status', (req, res) => {
-    res.sendStatus(200);
+    const statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.status(statusCode);
+    res.json({
+      statusCode,
+      nodeEnv: process.env.NODE_ENV,
+      env: process.env.ENV,
+      nodeVersion: process.version,
+      appVersion: version,
+    });
   });
 
   server.all('*', cors(), (req, res) => {
@@ -82,6 +93,7 @@ app.prepare().then(() => {
     if (err) throw err;
     console.log(logo);
     console.log(`Ready on http://localhost:${PORT}`.cyan);
+    console.log(`Environment: ${process.env.NODE_ENV.toUpperCase()}`.grey);
   });
 });
 
