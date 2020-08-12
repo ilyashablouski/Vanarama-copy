@@ -80,18 +80,24 @@ export interface GetVehicleDetails_derivativeInfo_bodyType {
 
 export interface GetVehicleDetails_derivativeInfo_technicals {
   id: string;
+  derivativeId: string;
   technicalDescription: string;
   technicalLongDescription: string;
   categoryDescription: string;
+  effectiveFrom: any;
+  effectiveTo: any | null;
   value: string;
 }
 
 export interface GetVehicleDetails_derivativeInfo_standardEquipments {
   id: string;
+  derivativeId: string;
   optionDescription: string;
   optionLongDescription: string;
   categoryDescription: string;
   genericDescription: string | null;
+  effectiveFrom: any;
+  effectiveTo: any | null;
 }
 
 export interface GetVehicleDetails_derivativeInfo_colours {

@@ -67,17 +67,23 @@ export const GET_CAR_DATA = gql`
       }
       technicals {
         id
+        derivativeId
         technicalDescription
         technicalLongDescription
         categoryDescription
+        effectiveFrom
+        effectiveTo
         value
       }
       standardEquipments {
         id
+        derivativeId
         optionDescription
         optionLongDescription
         categoryDescription
         genericDescription
+        effectiveFrom
+        effectiveTo
       }
       colours {
         id
