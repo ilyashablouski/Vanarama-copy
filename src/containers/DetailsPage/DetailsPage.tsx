@@ -150,7 +150,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capRangeDescription}`;
 
   // eslint-disable-next-line no-console
-  if (process.env.NODE_ENV === 'development') console.log('CAP Id', capId);
+  if (process.env.NODE_ENV === 'development') console.log('CAP Id:', capId);
 
   // Schema JSON.
   const seller = {
@@ -170,6 +170,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       email: 'enquiries@vanarama.co.uk',
     },
   };
+
+  const getTechValue = (description: String) =>
+    derivativeInfo?.technicals?.find(
+      (obj: any) => obj?.technicalDescription === description,
+    )?.value || 'N/A';
 
   const schema = cars
     ? // Cars
@@ -200,29 +205,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         model: vehicleConfigurationByCapId?.capModelDescription,
         vehicleTransmission: derivativeInfo?.transmission.name,
         fuelType: derivativeInfo?.fuelType.name,
-        seatingCapacity:
-          derivativeInfo?.technicals?.find(
-            (obj: any) => obj?.technicalDescription === 'No. of Seats',
-          )?.value || 'N/A',
-        meetsEmissionStandard:
-          derivativeInfo?.technicals?.find(
-            (obj: any) =>
-              obj?.technicalDescription === 'Standard Euro Emissions',
-          )?.value || 'N/A',
-        emissionsCO2:
-          derivativeInfo?.technicals?.find(
-            (obj: any) => obj?.technicalDescription === 'CO2 (g/km)',
-          )?.value || 'N/A',
+        seatingCapacity: getTechValue('No. of Seats'),
+        meetsEmissionStandard: getTechValue('Standard Euro Emissions'),
+        emissionsCO2: getTechValue('CO2 (g/km)'),
         bodyType: derivativeInfo?.bodyStyle?.name,
         itemCondition: 'New',
         steeringPosition: 'RightHandDriving',
         fuelConsumption: {
           '@type': 'QuantitativeValue',
           name: 'Fuel Consumption EC Combined (Mpg)',
-          value:
-            derivativeInfo?.technicals?.find(
-              (obj: any) => obj?.technicalDescription === 'EC Combined',
-            )?.value || 'N/A',
+          value: getTechValue('EC Combined'),
           unitCode: 'mpg',
         },
         vehicleEngine: {
@@ -231,10 +223,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           engineDisplacement: {
             '@type': 'QuantitativeValue',
             name: 'CC',
-            value:
-              derivativeInfo?.technicals?.find(
-                (obj: any) => obj?.technicalDescription === 'CC',
-              )?.value || 'N/A',
+            value: getTechValue('CC'),
             unitCode: 'CMQ',
           },
         },
@@ -244,7 +233,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         '@context': 'http://schema.org',
         '@type': 'Vehicle',
         name: `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription}`,
-        description: `New ${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription} Van lease deal from Vanarama starts from £169 per month. FREE UK delivery. Mileage Buffer. 8 Point Price Promise.`,
+        description: `New ${pageTitle} ${
+          vehicleConfigurationByCapId?.capDerivativeDescription
+        } Van lease deal from Vanarama starts from £${toPriceFormat(
+          leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
+        )} per month. FREE UK delivery. Mileage Buffer. 8 Point Price Promise.`,
         offers: {
           '@type': 'AggregateOffer',
           availability: 'http://schema.org/InStock',
@@ -263,65 +256,38 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         model: vehicleConfigurationByCapId?.capModelDescription,
         vehicleTransmission: derivativeInfo?.transmission.name,
         fuelType: derivativeInfo?.fuelType.name,
-        seatingCapacity:
-          derivativeInfo?.technicals?.find(
-            (obj: any) => obj?.technicalDescription === 'No. of Seats',
-          )?.value || 'N/A',
-        meetsEmissionStandard:
-          derivativeInfo?.technicals?.find(
-            (obj: any) =>
-              obj?.technicalDescription === 'Standard Euro Emissions',
-          )?.value || 'N/A',
-        emissionsCO2:
-          derivativeInfo?.technicals?.find(
-            (obj: any) => obj?.technicalDescription === 'CO2',
-          )?.value || 'N/A',
+        seatingCapacity: getTechValue('No. of Seats'),
+        meetsEmissionStandard: getTechValue('Standard Euro Emissions'),
+        emissionsCO2: getTechValue('CO2'),
         bodyType: derivativeInfo?.bodyType?.name || 'N/A',
         itemCondition: 'New',
         steeringPosition: 'RightHandDriving',
         height: {
           '@type': 'QuantitativeValue',
-          value:
-            derivativeInfo?.technicals?.find(
-              (obj: any) => obj?.technicalDescription === 'Height',
-            )?.value || 'N/A',
+          value: getTechValue('Height'),
           unitCode: 'MMT',
         },
         weight: {
           '@type': 'QuantitativeValue',
-          value:
-            derivativeInfo?.technicals?.find(
-              (obj: any) =>
-                obj?.technicalDescription === 'Gross Vehicle Weight',
-            )?.value || 'N/A',
+          value: getTechValue('Gross Vehicle Weight'),
           unitCode: 'KGM',
         },
         fuelCapacity: {
           '@type': 'QuantitativeValue',
-          value:
-            derivativeInfo?.technicals?.find(
-              (obj: any) =>
-                obj?.technicalDescription === 'Fuel Tank Capacity (Litres)',
-            )?.value || 'N/A',
+          value: getTechValue('Fuel Tank Capacity (Litres)'),
           unitCode: 'LTR',
         },
         speed: {
           '@type': 'QuantitativeValue',
           name: 'Speed',
-          maxValue:
-            derivativeInfo?.technicals?.find(
-              (obj: any) => obj?.technicalDescription === 'Top Speed',
-            )?.value || 'N/A',
+          maxValue: getTechValue('Top Speed'),
           minValue: 0,
           unitCode: 'HM',
         },
         wheelbase: {
           '@type': 'QuantitativeValue',
           name: 'Wheelbase',
-          value:
-            derivativeInfo?.technicals?.find(
-              (obj: any) => obj?.technicalDescription === 'Wheelbase',
-            )?.value || 'N/A',
+          value: getTechValue('Wheelbase'),
           unitCode: 'MMT',
         },
         vehicleEngine: {
@@ -330,10 +296,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           engineDisplacement: {
             '@type': 'QuantitativeValue',
             name: 'CC',
-            value:
-              derivativeInfo?.technicals?.find(
-                (obj: any) => obj?.technicalDescription === 'CC',
-              )?.value || 'N/A',
+            value: getTechValue('CC'),
             unitCode: 'CMQ',
           },
         },
