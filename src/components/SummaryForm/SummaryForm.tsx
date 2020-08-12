@@ -2,9 +2,9 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import { gql, useMutation } from '@apollo/client';
+import { gql } from '@apollo/client';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import { SummaryFormPerson } from '../../../generated/SummaryFormPerson';
 import FCWithFragments from '../../utils/FCWithFragments';
 import SummaryFormAddressHistory from './SummaryFormAddressHistory';
@@ -15,13 +15,8 @@ import SummaryFormIncomeSection from './SummaryFormIncomeSection';
 import { getUrlParam } from '../../utils/url';
 import {
   useGetCreditApplicationByOrderUuid,
-  FULL_CREDIT_CHECKER_MUTATION,
-  parseCreditApplicationData,
+  useCallFullCreditChecker,
 } from './Utils';
-import {
-  fullCreditChecker,
-  fullCreditCheckerVariables,
-} from '../../../generated/fullCreditChecker';
 
 interface IProps {
   person: SummaryFormPerson;
@@ -30,18 +25,17 @@ interface IProps {
 
 const SummaryForm: FCWithFragments<IProps> = ({ person, orderId }) => {
   const router = useRouter();
-  const { data: creditApplicationData } = useGetCreditApplicationByOrderUuid(
+  const [continueButtonPressed, setContinueButtonPressed] = useState(false);
+  const creditApplicationByOrderResult = useGetCreditApplicationByOrderUuid(
+    continueButtonPressed,
     orderId,
   );
-
-  const [useFullCreditChecker] = useMutation<
-    fullCreditChecker,
-    fullCreditCheckerVariables
-  >(FULL_CREDIT_CHECKER_MUTATION, {
-    onCompleted: properties => {
-      //if need to react on mutation completed
-    },
-  });
+  useCallFullCreditChecker(
+    continueButtonPressed,
+    creditApplicationByOrderResult?.data,
+    orderId,
+    router,
+  );
 
   // NOTE: Many are returned so just take the first one?
   const primaryBankAccount = person.bankAccounts?.[0];
@@ -91,31 +85,7 @@ const SummaryForm: FCWithFragments<IProps> = ({ person, orderId }) => {
         label="Continue"
         dataTestId="olaf_summary_continue_buttton"
         onClick={() => {
-          router
-            .push(
-              '/olaf/thank-you/[orderId]',
-              '/olaf/thank-you/[orderId]'.replace('[orderId]', orderId),
-            )
-            .then(() => {
-              const {
-                partyUuid,
-                creditAppUuid,
-                vehicleType,
-                monthlyPayment,
-                depositPayment,
-              } = parseCreditApplicationData(creditApplicationData);
-
-              useFullCreditChecker({
-                variables: {
-                  partyId: partyUuid,
-                  creditApplicationUuid: creditAppUuid,
-                  orderUuid: orderId,
-                  vehicleType: vehicleType,
-                  monthlyPayment: monthlyPayment,
-                  depositPayment: depositPayment,
-                },
-              });
-            });
+          setContinueButtonPressed(true);
         }}
       />
     </Form>

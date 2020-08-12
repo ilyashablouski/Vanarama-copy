@@ -1,9 +1,15 @@
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { gql, useQuery, useMutation } from '@apollo/client';
+import { NextRouter } from 'next/router';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import {
   GetCreditApplicationByOrderUuidDataForCreditCheckVariables,
   GetCreditApplicationByOrderUuidDataForCreditCheck,
 } from '../../../generated/GetCreditApplicationByOrderUuidDataForCreditCheck';
+
+import {
+  fullCreditChecker,
+  fullCreditCheckerVariables,
+} from '../../../generated/fullCreditChecker';
 
 export const GET_CREDIT_APPLICATION_BY_ORDER_UUID = gql`
   query GetCreditApplicationByOrderUuidDataForCreditCheck($orderUuid: ID!) {
@@ -27,15 +33,19 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID = gql`
   }
 `;
 
-export function useGetCreditApplicationByOrderUuid(orderUuid: string) {
+export function useGetCreditApplicationByOrderUuid(
+  shouldExecute: boolean,
+  orderUuid: string,
+) {
   return useQuery<
     GetCreditApplicationByOrderUuidDataForCreditCheck,
     GetCreditApplicationByOrderUuidDataForCreditCheckVariables
   >(GET_CREDIT_APPLICATION_BY_ORDER_UUID, {
     fetchPolicy: 'no-cache',
     variables: {
-      orderUuid: orderUuid,
+      orderUuid,
     },
+    skip: !shouldExecute,
   });
 }
 
@@ -81,9 +91,61 @@ export const FULL_CREDIT_CHECKER_MUTATION = gql`
   }
 `;
 
+const PLACEHOLDER_MUTATION = gql`
+  mutation {
+    whatever
+  }
+`;
+
+export function useCallFullCreditChecker(
+  continuePressed: boolean,
+  creditApplicationData:
+    | GetCreditApplicationByOrderUuidDataForCreditCheck
+    | undefined,
+  orderId: string,
+  router: NextRouter,
+) {
+  let mutationText = PLACEHOLDER_MUTATION;
+  let onCompletedFunction = () => {};
+  if (continuePressed) {
+    mutationText = FULL_CREDIT_CHECKER_MUTATION;
+    onCompletedFunction = () => {
+      router.push(
+        '/olaf/thank-you/[orderId]',
+        '/olaf/thank-you/[orderId]'.replace('[orderId]', orderId),
+      );
+    };
+  }
+
+  const [useFullCreditChecker] = useMutation<
+    fullCreditChecker,
+    fullCreditCheckerVariables
+  >(mutationText, {
+    onCompleted: onCompletedFunction,
+  });
+  const {
+    partyUuid,
+    creditAppUuid,
+    vehicleType,
+    monthlyPayment,
+    depositPayment,
+  } = parseCreditApplicationData(creditApplicationData);
+
+  return useFullCreditChecker({
+    variables: {
+      partyId: partyUuid,
+      creditApplicationUuid: creditAppUuid,
+      orderUuid: orderId,
+      vehicleType,
+      monthlyPayment,
+      depositPayment,
+    },
+  });
+}
+
 export function parseCreditApplicationData(
   creditApplicationData:
-    | import('c:/Projects/Autorama/next-storefront/generated/GetCreditApplicationByOrderUuidDataForCreditCheck').GetCreditApplicationByOrderUuidDataForCreditCheck
+    | GetCreditApplicationByOrderUuidDataForCreditCheck
     | undefined,
 ) {
   const lineItem =
