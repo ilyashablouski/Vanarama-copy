@@ -25,6 +25,7 @@ interface IProps {
 
 const SummaryForm: FCWithFragments<IProps> = ({ person, orderId }) => {
   const router = useRouter();
+
   const [continueButtonPressed, setContinueButtonPressed] = useState(false);
   const creditApplicationByOrderResult = useGetCreditApplicationByOrderUuid(
     continueButtonPressed,
@@ -36,7 +37,6 @@ const SummaryForm: FCWithFragments<IProps> = ({ person, orderId }) => {
     orderId,
     router,
   );
-
   // NOTE: Many are returned so just take the first one?
   const primaryBankAccount = person.bankAccounts?.[0];
 

@@ -41,7 +41,6 @@ export function useGetCreditApplicationByOrderUuid(
     GetCreditApplicationByOrderUuidDataForCreditCheck,
     GetCreditApplicationByOrderUuidDataForCreditCheckVariables
   >(GET_CREDIT_APPLICATION_BY_ORDER_UUID, {
-    fetchPolicy: 'no-cache',
     variables: {
       orderUuid,
     },
@@ -91,12 +90,6 @@ export const FULL_CREDIT_CHECKER_MUTATION = gql`
   }
 `;
 
-const PLACEHOLDER_MUTATION = gql`
-  mutation {
-    whatever
-  }
-`;
-
 export function useCallFullCreditChecker(
   continuePressed: boolean,
   creditApplicationData:
@@ -105,10 +98,10 @@ export function useCallFullCreditChecker(
   orderId: string,
   router: NextRouter,
 ) {
-  let mutationText = PLACEHOLDER_MUTATION;
+  const onExecuteEmpty = () => {};
+
   let onCompletedFunction = () => {};
   if (continuePressed) {
-    mutationText = FULL_CREDIT_CHECKER_MUTATION;
     onCompletedFunction = () => {
       router.push(
         '/olaf/thank-you/[orderId]',
@@ -120,7 +113,7 @@ export function useCallFullCreditChecker(
   const [useFullCreditChecker] = useMutation<
     fullCreditChecker,
     fullCreditCheckerVariables
-  >(mutationText, {
+  >(FULL_CREDIT_CHECKER_MUTATION, {
     onCompleted: onCompletedFunction,
   });
   const {
@@ -131,7 +124,7 @@ export function useCallFullCreditChecker(
     depositPayment,
   } = parseCreditApplicationData(creditApplicationData);
 
-  return useFullCreditChecker({
+  const result = useFullCreditChecker({
     variables: {
       partyId: partyUuid,
       creditApplicationUuid: creditAppUuid,
@@ -140,7 +133,11 @@ export function useCallFullCreditChecker(
       monthlyPayment,
       depositPayment,
     },
+  }).catch(error => {
+    if (error.message !== 'Party ID is required to do the credit check.')
+      throw error;
   });
+  return continuePressed ? result : [onExecuteEmpty];
 }
 
 export function parseCreditApplicationData(
