@@ -17,6 +17,7 @@ export interface CreateUpdateOrder_createUpdateOrder_lineItems_vehicleProduct {
   annualMileage: number | null;
   monthlyPayment: number | null;
   depositMonths: number | null;
+  funderId: string | null;
   funderData: any | null;
 }
 

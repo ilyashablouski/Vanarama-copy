@@ -9,6 +9,8 @@ services:
         - API_KEY
         - API_URL
         - LOQATE_KEY
+        - ENV
+        - ENABLE_DEV_TOOLS
     command: yarn dev
     volumes:
       - '.:/usr/src/app'

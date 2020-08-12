@@ -48,6 +48,10 @@
           "value": "development"
         },
         {
+          "name": "ENABLE_DEV_TOOLS",
+          "value": "true"
+        },
+        {
           "name": "ENV",
           "value": "development"
         },

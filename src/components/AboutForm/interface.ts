@@ -6,7 +6,7 @@ export interface IAboutFormValues {
   firstName: string;
   lastName: string;
   email: string;
-  mobile: string;
+  telephone: string;
   dayOfBirth: string;
   monthOfBirth: string;
   yearOfBirth: string;
@@ -17,6 +17,9 @@ export interface IAboutFormValues {
   adultsInHousehold: string;
   termsAndCons: boolean;
   consent?: boolean;
+  termsAndConditions?: boolean;
+  marketing?: boolean;
+  companyType?: string;
 }
 
 export interface IProps {

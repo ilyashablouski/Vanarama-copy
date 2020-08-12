@@ -11,6 +11,7 @@ interface IReviewCard {
 
 interface ICustomerReviewsProps {
   reviews: IReviewCard[];
+  title: string | null | undefined;
   headingClassName?: string;
   sliderClassName?: string;
 }
@@ -19,6 +20,7 @@ const CustomerReviews: React.FC<ICustomerReviewsProps> = ({
   reviews,
   headingClassName,
   sliderClassName,
+  title,
 }) => {
   if (!reviews.length) {
     return null;
@@ -27,7 +29,7 @@ const CustomerReviews: React.FC<ICustomerReviewsProps> = ({
   return (
     <>
       <Heading tag="h2" color="black" size="lead" className={headingClassName}>
-        Customer Reviews
+        {title || ''}
       </Heading>
       {reviews.length === 1 ? (
         <ReviewCard review={{ ...reviews[0] }} />

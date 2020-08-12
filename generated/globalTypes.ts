@@ -393,6 +393,11 @@ export interface VehicleProductInputObject {
   vsku?: string | null;
 }
 
+export interface VehicleToCompare {
+  capId?: number | null;
+  vehicleType?: VehicleTypeEnum | null;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

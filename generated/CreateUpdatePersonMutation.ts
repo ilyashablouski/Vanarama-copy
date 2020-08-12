@@ -23,6 +23,10 @@ export interface CreateUpdatePersonMutation_createUpdatePerson_telephoneNumbers 
   value: string;
 }
 
+export interface CreateUpdatePersonMutation_createUpdatePerson_companies {
+  companyType: string | null;
+}
+
 export interface CreateUpdatePersonMutation_createUpdatePerson {
   __typename: "PersonType";
   uuid: string;
@@ -38,6 +42,10 @@ export interface CreateUpdatePersonMutation_createUpdatePerson {
   noOfAdultsInHousehold: string | null;
   noOfDependants: string | null;
   emailConsent: boolean | null;
+  profilingConsent: boolean | null;
+  smsConsent: boolean | null;
+  termsAndConditions: boolean | null;
+  companies: CreateUpdatePersonMutation_createUpdatePerson_companies[] | null;
 }
 
 export interface CreateUpdatePersonMutation {

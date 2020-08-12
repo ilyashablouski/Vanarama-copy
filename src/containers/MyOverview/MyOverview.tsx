@@ -18,9 +18,11 @@ import {
   GetOrdersByPartyUuid,
 } from '../../../generated/GetOrdersByPartyUuid';
 import { createOffersObject } from './helpers';
+import { getUrlParam } from '../../utils/url';
 
 type QueryParams = {
   partyByUuid?: string;
+  uuid?: string;
 };
 
 interface IMyOverviewProps {
@@ -29,7 +31,7 @@ interface IMyOverviewProps {
 
 const MyOverview: React.FC<IMyOverviewProps> = props => {
   const router = useRouter();
-  const { partyByUuid } = router.query as QueryParams;
+  const { partyByUuid, uuid } = router.query as QueryParams;
   const { quote } = props;
 
   const [activePage, setActivePage] = useState(1);
@@ -38,14 +40,22 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   const [statusesCA, changeStatusesCA] = useState<string[]>([]);
   const [exStatusesCA, changeExlStatusesCA] = useState<string[]>([]);
   const [initData, setInitData] = useState<GetOrdersByPartyUuid>();
+  const [breadcrumbPath, setBreadcrumbPath] = useState([] as any);
 
-  const PATH = {
-    items: [
-      { label: 'Home', href: '/' },
-      { label: 'My Account', href: '/account/my-details' },
-      { label: `My ${quote ? 'Quotes' : 'Orders'}`, href: '/' },
-    ],
-  };
+  useEffect(() => {
+    if (partyByUuid && uuid) {
+      setBreadcrumbPath([
+        { label: 'Home', href: '/', as: '' },
+        {
+          label: 'My Account',
+          // TODO: Need switch as to href when we update Breadcrumb
+          as: `/account/my-details/[uuid]/${getUrlParam({ partyByUuid })}`,
+          href: `/account/my-details/${uuid}${getUrlParam({ partyByUuid })}`,
+        },
+        { label: `My ${quote ? 'Quotes' : 'Orders'}`, href: '/', as: '' },
+      ]);
+    }
+  }, [partyByUuid, uuid, quote]);
 
   // call query for get Orders
   const [getOrders, { data, loading }] = useOrdersByPartyUuidData(
@@ -220,7 +230,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb items={PATH.items} />
+        {!!breadcrumbPath.length && <Breadcrumb items={breadcrumbPath} />}
         <Heading
           tag="h1"
           size="xlarge"

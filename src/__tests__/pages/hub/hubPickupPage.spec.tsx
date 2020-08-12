@@ -60,6 +60,7 @@ const mocked: MockedResponse[] = [
               body:
                 "### Vanarama Is The UK's Only Independent Pickup Truck Specialist\n\nWith low monthly payments, leasing a pickup has become an affordable & easy way to get a stunning, practical vehicle that's a joy to drive. Combining car-like quality with the practicality of a commercial vehicle, pickups are the perfect choice for many of our customers. And with such a long history in the pickup market, it’s no wonder thousands of loyal customers come back to lease a brand new one from us, year after year! \n\n\n### Luxury & Comfort\nThe modern pickup now holds its own against a top specification car with ith cruise control, air conditioning, leather seats, Sat Nav & Bluetooth all included as standard.\n\n### The Ultimate On & Off-Road Machine\nPick Trucks have a huge towing capability & a sturdy, spacious load bed - ideal for easy access to your load & your tools.\n\n### Great To Look At & Amazing To Drive\nMany of our professional trade customers opt for a pickup even though they’re no longer 'on the tools', with luxurious trucks presenting a professional image.\n",
               image: null,
+              layout: [''],
             },
             featured2: {
               title: 'Why Choose Vanarama For Your Pickup?',
@@ -67,6 +68,7 @@ const mocked: MockedResponse[] = [
               body:
                 "At Vanarama, you’ll get the widest choice of pickup trucks & the best advice from our dedicated team of experienced pickup truck experts. Whether you need a workhorse to carry heavy cargo or double cab pickup to seat family members in comfort, you’ll find it at Vanarama.\n\nOur enhanced buying power from working with manufacturers and a large panel of funders, allows us to deliver unbeatable pickup leasing offers. Choose from the most popular models like the Ford Ranger, Toyota Hilux, Nissan Navara & Mitsubishi L200.\n\nLooking for pickup accessories? We can supply a wide range of pickup accessories & fit them to our brand new vehicle in our workshop by our qualified technicians. What's more, you can add the cost of any accessories to your monthly payments. You won't get this service anywhere else.\n",
               image: null,
+              layout: [''],
             },
             rowText: {
               heading: 'How Does Pickup Leasing Works?',

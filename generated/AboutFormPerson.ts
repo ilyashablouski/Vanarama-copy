@@ -21,6 +21,10 @@ export interface AboutFormPerson_telephoneNumbers {
   value: string;
 }
 
+export interface AboutFormPerson_companies {
+  companyType: string | null;
+}
+
 export interface AboutFormPerson {
   __typename: "PersonType";
   uuid: string;
@@ -36,4 +40,8 @@ export interface AboutFormPerson {
   noOfAdultsInHousehold: string | null;
   noOfDependants: string | null;
   emailConsent: boolean | null;
+  profilingConsent: boolean | null;
+  smsConsent: boolean | null;
+  termsAndConditions: boolean | null;
+  companies: AboutFormPerson_companies[] | null;
 }

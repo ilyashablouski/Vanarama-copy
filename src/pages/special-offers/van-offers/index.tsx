@@ -316,16 +316,20 @@ export const VanOffers: NextPage = () => {
           Best New Van Deals
         </Heading>
         <hr />
-        {data?.vanOffersPage.sections.iconBullets?.iconBullets?.map(
+        {data?.vanOffersPage?.sections?.iconBullets?.iconBullets?.map(
           (item, idx: number) => (
             <>
               <Icon
-                key={`${item?.text}-icon` || `${idx}-icon`}
+                key={`${item?.text || idx}-icon`}
                 icon={<AddCircle />}
                 color="orange"
                 size="large"
               />
-              <Text key={`${item?.text}-text`} size="regular" color="darker">
+              <Text
+                key={`${item?.text || idx}-text`}
+                size="regular"
+                color="darker"
+              >
                 {item?.text}
               </Text>
             </>
@@ -339,7 +343,7 @@ export const VanOffers: NextPage = () => {
         <div>
           <ReactMarkdown
             escapeHtml={false}
-            source={data?.vanOffersPage.sections.featured?.body || ''}
+            source={data?.vanOffersPage?.sections?.featured?.body || ''}
           />
         </div>
       </div>

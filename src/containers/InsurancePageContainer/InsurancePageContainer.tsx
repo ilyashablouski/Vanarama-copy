@@ -27,26 +27,37 @@ const InsurancePageContainer = () => {
     return <></>;
   }
 
-  const {
-    hero,
-    featured1,
-    featured2,
-    cards,
-    carousel,
-  } = data.insuranceLandingPage.sections;
-
   return (
     <>
-      {hero && <InsuranceHeroSection {...hero} />}
-      {cards && <InsuranceTypesSection {...cards} />}
-      {featured1 && (
-        <MediaFeatureSection {...featured1} imageOnly>
-          <MediaFeatureText {...featured1} />
+      {data?.insuranceLandingPage?.sections?.hero && (
+        <InsuranceHeroSection {...data?.insuranceLandingPage?.sections?.hero} />
+      )}
+      {data?.insuranceLandingPage?.sections?.cards && (
+        <InsuranceTypesSection
+          {...data?.insuranceLandingPage?.sections?.cards}
+        />
+      )}
+      {data?.insuranceLandingPage?.sections?.featured1 && (
+        <MediaFeatureSection
+          {...data?.insuranceLandingPage?.sections?.featured1}
+          imageOnly
+        >
+          <MediaFeatureText
+            {...data?.insuranceLandingPage?.sections?.featured1}
+          />
         </MediaFeatureSection>
       )}
       <hr className="-fullwidth" />
-      {featured2 && <InsuranceFAQSection {...featured2} />}
-      {carousel && <InsuranceNewsSection {...carousel} />}
+      {data?.insuranceLandingPage?.sections?.featured2 && (
+        <InsuranceFAQSection
+          {...data?.insuranceLandingPage?.sections?.featured2}
+        />
+      )}
+      {data?.insuranceLandingPage?.sections?.carousel && (
+        <InsuranceNewsSection
+          {...data?.insuranceLandingPage?.sections?.carousel}
+        />
+      )}
     </>
   );
 };

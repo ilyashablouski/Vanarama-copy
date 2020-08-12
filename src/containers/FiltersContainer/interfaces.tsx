@@ -9,6 +9,8 @@ export interface IFilterContainerProps {
   isSpecialOffers: boolean;
   isMakePage?: boolean;
   isPickups?: boolean;
+  isRangePage?: boolean;
+  isModelPage?: boolean;
 }
 
 export interface IFilters {
