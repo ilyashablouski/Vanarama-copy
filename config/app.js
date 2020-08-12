@@ -27,6 +27,7 @@ module.exports = {
       ENABLE_DEV_TOOLS: process.env.ENABLE_DEV_TOOLS,
       REDIS_CACHE_HOST: process.env.REDIS_CACHE_HOST,
       REDIS_CACHE_PORT: process.env.REDIS_CACHE_PORT,
+      REDIS_KEY_PREFIX: process.env.REDIS_KEY_PREFIX,
     },
     devIndicators: {
       autoPrerender: false,
