@@ -2,7 +2,7 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import { gql } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { SummaryFormPerson } from '../../../generated/SummaryFormPerson';
@@ -13,7 +13,15 @@ import SummaryFormDetailsSection from './SummaryFormDetailsSection';
 import SummaryFormEmploymentHistory from './SummaryFormEmploymentHistory';
 import SummaryFormIncomeSection from './SummaryFormIncomeSection';
 import { getUrlParam } from '../../utils/url';
-import { callfullCreditChecker } from './Utils';
+import {
+  useGetCreditApplicationByOrderUuid,
+  FULL_CREDIT_CHECKER_MUTATION,
+  parseCreditApplicationData,
+} from './Utils';
+import {
+  fullCreditChecker,
+  fullCreditCheckerVariables,
+} from '../../../generated/fullCreditChecker';
 
 interface IProps {
   person: SummaryFormPerson;
@@ -22,6 +30,19 @@ interface IProps {
 
 const SummaryForm: FCWithFragments<IProps> = ({ person, orderId }) => {
   const router = useRouter();
+  const { data: creditApplicationData } = useGetCreditApplicationByOrderUuid(
+    orderId,
+  );
+
+  const [useFullCreditChecker] = useMutation<
+    fullCreditChecker,
+    fullCreditCheckerVariables
+  >(FULL_CREDIT_CHECKER_MUTATION, {
+    onCompleted: properties => {
+      //if need to react on mutation completed
+    },
+  });
+
   // NOTE: Many are returned so just take the first one?
   const primaryBankAccount = person.bankAccounts?.[0];
 
@@ -30,7 +51,6 @@ const SummaryForm: FCWithFragments<IProps> = ({ person, orderId }) => {
     const href = `${url}${params}`;
     router.push(href, href.replace('[orderId]', orderId));
   };
-  debugger;
   return (
     <Form>
       <Heading color="black" size="xlarge" dataTestId="summary-heading">
@@ -77,7 +97,24 @@ const SummaryForm: FCWithFragments<IProps> = ({ person, orderId }) => {
               '/olaf/thank-you/[orderId]'.replace('[orderId]', orderId),
             )
             .then(() => {
-              callfullCreditChecker(orderId);
+              const {
+                partyUuid,
+                creditAppUuid,
+                vehicleType,
+                monthlyPayment,
+                depositPayment,
+              } = parseCreditApplicationData(creditApplicationData);
+
+              useFullCreditChecker({
+                variables: {
+                  partyId: partyUuid,
+                  creditApplicationUuid: creditAppUuid,
+                  orderUuid: orderId,
+                  vehicleType: vehicleType,
+                  monthlyPayment: monthlyPayment,
+                  depositPayment: depositPayment,
+                },
+              });
             });
         }}
       />
