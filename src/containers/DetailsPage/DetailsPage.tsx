@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Router from 'next/router';
 import { ApolloError } from '@apollo/client';
+
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
@@ -11,6 +12,7 @@ import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import DownloadSharp from '@vanarama/uibook/lib/assets/icons/DownloadSharp';
 import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-gallery';
 import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import cx from 'classnames';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
 import { toPriceFormat } from '../../utils/helpers';
@@ -146,6 +148,202 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   const vehicleType = cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV;
   const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capRangeDescription}`;
+
+  // eslint-disable-next-line no-console
+  if (process.env.NODE_ENV === 'development') console.log('CAP Id', capId);
+
+  // Schema JSON.
+  const seller = {
+    '@type': 'Organization',
+    name: 'Vanarama',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Maylands Avenue',
+      addressLocality: 'Hemel Hempstead',
+      addressRegion: 'Hertfordshire',
+      postalCode: 'HP2 7DE',
+      addressCountry: 'United Kingdom',
+    },
+    contactPoint: {
+      contactType: 'Vehicle Sales',
+      telephone: '+441442838195',
+      email: 'enquiries@vanarama.co.uk',
+    },
+  };
+
+  const schema = cars
+    ? // Cars
+      {
+        '@context': 'http://schema.org',
+        '@type': 'Car',
+        name: `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription}`,
+        description: `New ${pageTitle} ${
+          vehicleConfigurationByCapId?.capDerivativeDescription
+        } lease deal from Vanarama starts from £${toPriceFormat(
+          leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
+        )} per month. FREE UK delivery. Mileage Buffer. 8 Point Price Promise.`,
+        offers: {
+          '@type': 'AggregateOffer',
+          availability: 'http://schema.org/InStock',
+          name: `${leaseScannerData?.quoteByCapId?.term} month Contract Hire agreement`,
+          lowPrice: toPriceFormat(
+            leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
+          ),
+          url: `https://www.vanarama.com/car-leasing${data?.vehicleConfigurationByCapId?.url}`,
+          priceCurrency: 'GBP',
+          seller,
+        },
+        image:
+          (data?.vehicleImages && data?.vehicleImages[0]?.mainImageUrl) || '',
+        manufacturer: vehicleConfigurationByCapId?.capManufacturerDescription,
+        brand: vehicleConfigurationByCapId?.capManufacturerDescription,
+        model: vehicleConfigurationByCapId?.capModelDescription,
+        vehicleTransmission: derivativeInfo?.transmission.name,
+        fuelType: derivativeInfo?.fuelType.name,
+        seatingCapacity:
+          derivativeInfo?.technicals?.find(
+            (obj: any) => obj?.technicalDescription === 'No. of Seats',
+          )?.value || 'N/A',
+        meetsEmissionStandard:
+          derivativeInfo?.technicals?.find(
+            (obj: any) =>
+              obj?.technicalDescription === 'Standard Euro Emissions',
+          )?.value || 'N/A',
+        emissionsCO2:
+          derivativeInfo?.technicals?.find(
+            (obj: any) => obj?.technicalDescription === 'CO2 (g/km)',
+          )?.value || 'N/A',
+        bodyType: derivativeInfo?.bodyStyle?.name,
+        itemCondition: 'New',
+        steeringPosition: 'RightHandDriving',
+        fuelConsumption: {
+          '@type': 'QuantitativeValue',
+          name: 'Fuel Consumption EC Combined (Mpg)',
+          value:
+            derivativeInfo?.technicals?.find(
+              (obj: any) => obj?.technicalDescription === 'EC Combined',
+            )?.value || 'N/A',
+          unitCode: 'mpg',
+        },
+        vehicleEngine: {
+          '@type': 'EngineSpecification',
+          fuelType: derivativeInfo?.fuelType.name,
+          engineDisplacement: {
+            '@type': 'QuantitativeValue',
+            name: 'CC',
+            value:
+              derivativeInfo?.technicals?.find(
+                (obj: any) => obj?.technicalDescription === 'CC',
+              )?.value || 'N/A',
+            unitCode: 'CMQ',
+          },
+        },
+      }
+    : // LCVs
+      {
+        '@context': 'http://schema.org',
+        '@type': 'Vehicle',
+        name: `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription}`,
+        description: `New ${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription} Van lease deal from Vanarama starts from £169 per month. FREE UK delivery. Mileage Buffer. 8 Point Price Promise.`,
+        offers: {
+          '@type': 'AggregateOffer',
+          availability: 'http://schema.org/InStock',
+          name: `${leaseScannerData?.quoteByCapId?.term} month Contract Hire agreement`,
+          lowPrice: toPriceFormat(
+            leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
+          ),
+          url: `https://www.vanarama.com/van-leasing${data?.vehicleConfigurationByCapId?.url}`,
+          priceCurrency: 'GBP',
+          seller,
+        },
+        image:
+          (data?.vehicleImages && data?.vehicleImages[0]?.mainImageUrl) || '',
+        manufacturer: vehicleConfigurationByCapId?.capManufacturerDescription,
+        brand: vehicleConfigurationByCapId?.capManufacturerDescription,
+        model: vehicleConfigurationByCapId?.capModelDescription,
+        vehicleTransmission: derivativeInfo?.transmission.name,
+        fuelType: derivativeInfo?.fuelType.name,
+        seatingCapacity:
+          derivativeInfo?.technicals?.find(
+            (obj: any) => obj?.technicalDescription === 'No. of Seats',
+          )?.value || 'N/A',
+        meetsEmissionStandard:
+          derivativeInfo?.technicals?.find(
+            (obj: any) =>
+              obj?.technicalDescription === 'Standard Euro Emissions',
+          )?.value || 'N/A',
+        emissionsCO2:
+          derivativeInfo?.technicals?.find(
+            (obj: any) => obj?.technicalDescription === 'CO2',
+          )?.value || 'N/A',
+        bodyType: derivativeInfo?.bodyType?.name || 'N/A',
+        itemCondition: 'New',
+        steeringPosition: 'RightHandDriving',
+        height: {
+          '@type': 'QuantitativeValue',
+          value:
+            derivativeInfo?.technicals?.find(
+              (obj: any) => obj?.technicalDescription === 'Height',
+            )?.value || 'N/A',
+          unitCode: 'MMT',
+        },
+        depth: {
+          '@type': 'QuantitativeValue',
+          value: 'N/A',
+          unitCode: 'MMT',
+        },
+        weight: {
+          '@type': 'QuantitativeValue',
+          value:
+            derivativeInfo?.technicals?.find(
+              (obj: any) =>
+                obj?.technicalDescription === 'Gross Vehicle Weight',
+            )?.value || 'N/A',
+          unitCode: 'KGM',
+        },
+        fuelCapacity: {
+          '@type': 'QuantitativeValue',
+          value:
+            derivativeInfo?.technicals?.find(
+              (obj: any) =>
+                obj?.technicalDescription === 'Fuel Tank Capacity (Litres)',
+            )?.value || 'N/A',
+          unitCode: 'LTR',
+        },
+        speed: {
+          '@type': 'QuantitativeValue',
+          name: 'Speed',
+          maxValue:
+            derivativeInfo?.technicals?.find(
+              (obj: any) => obj?.technicalDescription === 'Top Speed',
+            )?.value || 'N/A',
+          minValue: 0,
+          unitCode: 'HM',
+        },
+        wheelbase: {
+          '@type': 'QuantitativeValue',
+          name: 'Wheelbase',
+          value:
+            derivativeInfo?.technicals?.find(
+              (obj: any) => obj?.technicalDescription === 'Wheelbase',
+            )?.value || 'N/A',
+          unitCode: 'MMT',
+        },
+        vehicleEngine: {
+          '@type': 'EngineSpecification',
+          fuelType: derivativeInfo?.fuelType.name,
+          engineDisplacement: {
+            '@type': 'QuantitativeValue',
+            name: 'CC',
+            value:
+              derivativeInfo?.technicals?.find(
+                (obj: any) => obj?.technicalDescription === 'CC',
+              )?.value || 'N/A',
+            unitCode: 'CMQ',
+          },
+        },
+      };
+
   return (
     <>
       <div className="pdp--content">
@@ -287,6 +485,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           />
         </div>
       )}
+      <SchemaJSON json={JSON.stringify(schema)} />
     </>
   );
 };
