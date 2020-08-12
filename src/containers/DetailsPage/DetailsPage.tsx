@@ -287,11 +287,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             )?.value || 'N/A',
           unitCode: 'MMT',
         },
-        depth: {
-          '@type': 'QuantitativeValue',
-          value: 'N/A',
-          unitCode: 'MMT',
-        },
         weight: {
           '@type': 'QuantitativeValue',
           value:
