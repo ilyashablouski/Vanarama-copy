@@ -18,6 +18,7 @@ interface IAppLinkProps extends IBaseProps {
   classNames?: IClassNamesProps;
   as?: string | UrlObject | undefined;
   dataMenu?: string;
+  withoutDefaultClassName?: boolean;
 }
 
 const RouterLink: React.FC<IAppLinkProps> = props => {
@@ -31,9 +32,12 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     dataTestId,
     dataMenu,
     as,
+    withoutDefaultClassName,
   } = props;
 
-  const linkClassName = cx('link', className, {
+  const linkClassName = cx(className, {
+    // eslint-disable-next-line prettier/prettier
+    'link': !withoutDefaultClassName,
     [`-${classNames?.color}`]: classNames?.color,
     [`-${classNames?.size}`]: classNames?.size,
     [`-${classNames?.position}`]: classNames?.position,

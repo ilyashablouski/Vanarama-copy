@@ -45,6 +45,16 @@ const ComparatorContainer: React.FC = () => {
     );
   }
 
+  const viewOffer = (capId: string) => {
+    const currentVehicle = compareVehicles?.find(
+      compareVehicle => compareVehicle.capId === capId,
+    );
+    if (currentVehicle && currentVehicle.pageUrl) {
+      sessionStorage.setItem('capId', capId);
+      Router.push(currentVehicle.pageUrl.href, currentVehicle.pageUrl.url);
+    }
+  };
+
   if (error) {
     return (
       <div
@@ -71,7 +81,9 @@ const ComparatorContainer: React.FC = () => {
             )
           : []
       }
-      viewOffer={() => {}}
+      viewOffer={capId => {
+        viewOffer(`${capId}`);
+      }}
     />
   );
 };

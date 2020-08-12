@@ -12,14 +12,22 @@ export interface ICompareVehicle {
 
 export interface IVehicle extends ICard {
   bodyStyle?: string | null | undefined;
+  pageUrl?: IProductPageUrl;
 }
 
 export interface IVehicleCarousel extends ICardCarousel {
   bodyStyle?: string | null | undefined;
+  pageUrl?: IProductPageUrl;
 }
 
 export interface ICapId {
   capId: string | number;
+}
+
+export interface IProductPageUrl {
+  url: string;
+  href: string;
+  capId: string;
 }
 
 export const changeCompares = async (

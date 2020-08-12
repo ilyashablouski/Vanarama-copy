@@ -72,7 +72,11 @@ const VehicleCard = memo(
           text: data?.leadTime || '',
         }}
         onCompare={() => {
-          compareChange({ ...data, bodyStyle });
+          compareChange({
+            ...data,
+            bodyStyle,
+            pageUrl: productPageUrl,
+          });
         }}
         compared={isCompared(compareVehicles, data)}
         onWishlist={() => {}}
