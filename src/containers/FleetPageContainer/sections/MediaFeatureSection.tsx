@@ -38,6 +38,7 @@ const MediaFeatureSection: React.FC<IMediaFeatureProps> = ({
   const selectedLayout = (layout && layout[0]) || '';
   const className = selectClassName(selectedLayout);
 
+  console.log('image.file.url', image.file.url)
   return (
     <div className={`row:featured-${className}`}>
       {selectedLayout !== LayoutTypes.right && image?.file?.url ? (
