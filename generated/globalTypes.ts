@@ -354,6 +354,33 @@ export interface RoleInputObject {
 }
 
 /**
+ * Input object to create a Sole Trader Company
+ */
+export interface SoleTraderCompanyInputObject {
+  addresses?: AddressInputObject[] | null;
+  annualTurnover?: number | null;
+  associate?: CompanyAssociateInputObject | null;
+  bankAccount?: BankAccountInputObject | null;
+  companyNature?: string | null;
+  companyNumber?: string | null;
+  companyType?: string | null;
+  emailAddress?: EmailAddressInputObject | null;
+  isVatRegistered?: boolean | null;
+  legalName?: string | null;
+  monthlyAmountBeingReplaced?: number | null;
+  otherCountriesOfActivity?: string[] | null;
+  person?: PersonInputObject | null;
+  telephoneNumbers?: TelephoneNumberInputObject[] | null;
+  tradesOutsideUk?: boolean | null;
+  tradingName?: string | null;
+  tradingSince?: any | null;
+  turnoverOutsideUk?: number | null;
+  turnoverPercentageOutsideUk?: TurnoverPercentageOutsideUkInputObject[] | null;
+  uuid?: string | null;
+  vatNumber?: string | null;
+}
+
+/**
  * Input object to create and add a Telephone Number
  */
 export interface TelephoneNumberInputObject {

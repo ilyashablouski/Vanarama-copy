@@ -3,7 +3,7 @@ import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import VatDetailsForm from '../../components/VatDetailsForm/VatDetailsForm';
 import { VatDetailsFormValues } from '../../components/VatDetailsForm/interfaces';
 import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
-import { useUpdateVatDetails, useGetVatDetails } from './gql';
+import { useUpdateLimitedVatDetails, useGetVatDetails } from './gql';
 import { IVatDetailsFormContainerProps } from './interfaces';
 import { mapFormValues } from './mappers';
 
@@ -14,7 +14,7 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
   onError,
   isEdited,
 }) => {
-  const [updateVatDetails] = useUpdateVatDetails();
+  const [updateLimitedVatDetails] = useUpdateLimitedVatDetails();
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
     orderId,
     () => {},
@@ -30,7 +30,7 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
     });
 
   const handleVatDetailsUpdate = (values: VatDetailsFormValues) =>
-    updateVatDetails({
+    updateLimitedVatDetails({
       variables: {
         input: mapFormValues(values, companyUuid),
       },
