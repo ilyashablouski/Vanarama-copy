@@ -26,6 +26,7 @@ export interface GetVehicleDetails_vehicleConfigurationByCapId {
   capTrimDescription: string;
   onOffer: boolean | null;
   offerRanking: number | null;
+  url: string;
   financeProfile: GetVehicleDetails_vehicleConfigurationByCapId_financeProfile | null;
 }
 
@@ -61,6 +62,22 @@ export interface GetVehicleDetails_vehicleDetails {
   rangeFaqs: (GetVehicleDetails_vehicleDetails_rangeFaqs | null)[] | null;
 }
 
+export interface GetVehicleDetails_derivativeInfo_fuelType {
+  name: string;
+}
+
+export interface GetVehicleDetails_derivativeInfo_transmission {
+  name: string;
+}
+
+export interface GetVehicleDetails_derivativeInfo_bodyStyle {
+  name: string | null;
+}
+
+export interface GetVehicleDetails_derivativeInfo_bodyType {
+  name: string | null;
+}
+
 export interface GetVehicleDetails_derivativeInfo_technicals {
   id: string;
   derivativeId: string;
@@ -94,6 +111,10 @@ export interface GetVehicleDetails_derivativeInfo_trims {
 }
 
 export interface GetVehicleDetails_derivativeInfo {
+  fuelType: GetVehicleDetails_derivativeInfo_fuelType;
+  transmission: GetVehicleDetails_derivativeInfo_transmission;
+  bodyStyle: GetVehicleDetails_derivativeInfo_bodyStyle | null;
+  bodyType: GetVehicleDetails_derivativeInfo_bodyType | null;
   technicals: (GetVehicleDetails_derivativeInfo_technicals | null)[];
   standardEquipments: (GetVehicleDetails_derivativeInfo_standardEquipments | null)[];
   colours: (GetVehicleDetails_derivativeInfo_colours | null)[] | null;
