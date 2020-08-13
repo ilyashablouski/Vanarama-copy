@@ -21,6 +21,7 @@ export const GET_CAR_DATA = gql`
       capTrimDescription
       onOffer
       offerRanking
+      url
       financeProfile {
         leaseType
         term
@@ -52,6 +53,18 @@ export const GET_CAR_DATA = gql`
       }
     }
     derivativeInfo(id: $capIdDetails, vehicleType: $vehicleType) {
+      fuelType {
+        name
+      }
+      transmission {
+        name
+      }
+      bodyStyle {
+        name
+      }
+      bodyType {
+        name
+      }
       technicals {
         id
         derivativeId
