@@ -1198,7 +1198,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
                 className="link"
                 data-menu={null}
                 data-testid="router-link"
-                href="/car-leasing/"
+                href="/car-leasing/all-car-manufacturers"
                 onClick={[Function]}
                 onMouseEnter={[Function]}
               >
@@ -2618,7 +2618,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
                 className="link"
                 data-menu={null}
                 data-testid="router-link"
-                href="/car-leasing/"
+                href="/car-leasing/all-car-manufacturers"
                 onClick={[Function]}
                 onMouseEnter={[Function]}
               >

@@ -11,6 +11,7 @@ export interface IFilterContainerProps {
   isPickups?: boolean;
   isRangePage?: boolean;
   isModelPage?: boolean;
+  isAllMakesPage?: boolean;
 }
 
 export interface IFilters {
