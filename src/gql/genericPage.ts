@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { genericPageQuery } from '../../generated/genericPageQuery';
+import { genericPageQuery, genericPageQueryVariables } from '../../generated/genericPageQuery';
 
 export const GENERIC_PAGE = gql`
   query genericPageQuery($slug: String!) {
@@ -69,10 +69,10 @@ export const GENERIC_PAGE = gql`
   }
 `;
 
-export function useGenericPage() {
-  return useQuery<genericPageQuery>(GENERIC_PAGE, {
+export function useGenericPage(slug: string) {
+  return useQuery<genericPageQuery, genericPageQueryVariables>(GENERIC_PAGE, {
     variables: {
-      slug: '/car-leasing-explained/business-vs-personal-car-leasing',
+      slug,
     },
   });
 }

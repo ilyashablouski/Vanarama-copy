@@ -7,6 +7,7 @@ import BreadCrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import ReactMarkdown from 'react-markdown';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Router from 'next/router';
+import Head from '../../components/Head/Head';
 import withApollo from '../../hocs/withApollo';
 import { useGenericPage } from '../../gql/genericPage';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -27,7 +28,9 @@ const crumbs = [
 ];
 
 const BlogPost: NextPage = () => {
-  const { data, loading, error } = useGenericPage();
+  const { data, loading, error } = useGenericPage(
+    '/car-leasing-explained/business-vs-personal-car-leasing',
+  );
 
   if (loading) {
     return <Loading size="large" />;
@@ -41,9 +44,18 @@ const BlogPost: NextPage = () => {
   const title = data?.genericPage?.metaData?.title;
   const image = data?.genericPage?.featuredImage?.file?.url;
   const cards = data?.genericPage?.sections?.cards?.cards;
+  const metaData = data?.genericPage?.metaData;
 
   return (
     <>
+      <Head
+        title={metaData?.title || ''}
+        metaDescription={metaData?.metaDescription}
+        metaRobots={metaData?.metaRobots}
+        legacyUrl={metaData?.legacyUrl}
+        publishedOn={metaData?.publishedOn}
+        featuredImage={data?.genericPage.featuredImage}
+      />
       <div className="row:title">
         <BreadCrumb items={crumbs} />
         <Heading tag="h1" size="xlarge" color="black">
