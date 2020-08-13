@@ -1,5 +1,8 @@
 import { gql, useQuery } from '@apollo/client';
-import { genericPageQuery, genericPageQueryVariables } from '../../generated/genericPageQuery';
+import {
+  genericPageQuery,
+  genericPageQueryVariables,
+} from '../../generated/genericPageQuery';
 
 export const GENERIC_PAGE = gql`
   query genericPageQuery($slug: String!) {
