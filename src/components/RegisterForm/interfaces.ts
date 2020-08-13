@@ -1,6 +1,6 @@
 export interface IRegisterFormProps {
   isSubmitting?: boolean;
-  onSubmit: (values: IRegisterFormValues) => Promise<void>;
+  onSubmit: (values: IRegisterFormValues, event: any) => Promise<void>;
   onCheckEmailExists: (email: string) => Promise<boolean>;
 }
 

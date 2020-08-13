@@ -179,6 +179,11 @@ export const TOP_BAR_LINKS = [
         ],
         id: '44c0f32b-f034-4b84-ac49-0c2b76140c96',
       },
+      {
+        label: 'Van Leasing Explained',
+        href: '/van-leasing/finance-options',
+        id: 'f601c25c-4529-43e3-abaf-8d9fbf0af941',
+      },
     ],
     id: '0422f873-0ae6-4fe0-961f-7a40b7073281',
   },
@@ -548,6 +553,11 @@ export const TOP_BAR_LINKS = [
           },
         ],
         id: '666d9983-41e9-45e4-9a5d-64d184526ff7',
+      },
+      {
+        label: 'Car Leasing Explained',
+        href: '/car-leasing/finance-options',
+        id: 'f601c25c-4529-43e3-abaf-8d9fbf0af941',
       },
     ],
     id: 'bcbe1020-8d08-4c8d-81e5-f1fc0ae0fdbe',
