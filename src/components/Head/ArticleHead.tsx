@@ -3,14 +3,14 @@ import NextHead from 'next/head';
 
 import { IHeadProps } from './interface';
 
-import { defaultTitle, twitter, defaultImage } from './defaults';
+import { defaultTitle, twitter } from './defaults';
 
-const Head: FC<IHeadProps> = props => {
+const ArticleHead: FC<IHeadProps> = props => {
   let { title = defaultTitle, metaRobots } = props;
-  const { metaDescription, legacyUrl, publishedOn } = props;
+  const { metaDescription, legacyUrl, publishedOn, featuredImage } = props;
 
   // Dev override.
-  if (process.env.ENV !== 'production') {
+  if (process.env.ENV && process.env.ENV !== 'production') {
     title = `[${process.env.ENV?.toUpperCase()}] ${title}`;
     metaRobots = 'noindex';
   }
@@ -18,11 +18,9 @@ const Head: FC<IHeadProps> = props => {
   return (
     <NextHead>
       <title>{title}</title>
-      <meta name="og:type" content="website" />
+      <meta property="og:type" content="article" />
       <meta property="og:locale" content="en_GB" />
       <meta property="og:title" content={title} />
-      <meta property="fb:app_id" content="243697725689492" />
-      <meta property="fb:admins" content="1153795855" />
       {metaRobots && <meta name="robots" content={metaRobots} />}
       {metaDescription && (
         <meta property="og:description" content={metaDescription} />
@@ -36,9 +34,25 @@ const Head: FC<IHeadProps> = props => {
       {publishedOn && (
         <meta property="article:modified_time" content={publishedOn} />
       )}
-      <meta name="twitter:image" content={defaultImage} />
-      <meta name="og:image" content={defaultImage} />
-      <meta name="twitter:card" content="summary" />
+      {featuredImage?.file && (
+        <>
+          <meta property="og:image" content={featuredImage.file.url} />
+          <meta name="twitter:image" content={featuredImage.file.url} />
+          {featuredImage.file.details?.image?.width && (
+            <meta
+              property="og:image:width"
+              content={featuredImage.file.details.image.width.toString()}
+            />
+          )}
+          {featuredImage.file.details?.image?.height && (
+            <meta
+              property="og:image:height"
+              content={featuredImage.file.details.image.height.toString()}
+            />
+          )}
+        </>
+      )}
+      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:creator" content={twitter} />
       <meta name="twitter:site" content={twitter} />
@@ -46,4 +60,4 @@ const Head: FC<IHeadProps> = props => {
   );
 };
 
-export default memo(Head);
+export default memo(ArticleHead);
