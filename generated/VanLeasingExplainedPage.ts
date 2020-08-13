@@ -11,23 +11,34 @@ export interface VanLeasingExplainedPage_genericPage_metaData {
   title: string | null;
   name: string | null;
   pageType: string | null;
+  metaRobots: string | null;
+  metaDescription: string | null;
+  publishedOn: any | null;
+  legacyUrl: string | null;
 }
 
-export interface VanLeasingExplainedPage_genericPage_sections_cards_cards_image_file_details_image {
+export interface VanLeasingExplainedPage_genericPage_featuredImage_file_details_image {
   width: number;
   height: number;
 }
 
-export interface VanLeasingExplainedPage_genericPage_sections_cards_cards_image_file_details {
-  size: number;
-  image: VanLeasingExplainedPage_genericPage_sections_cards_cards_image_file_details_image;
+export interface VanLeasingExplainedPage_genericPage_featuredImage_file_details {
+  image: VanLeasingExplainedPage_genericPage_featuredImage_file_details_image;
+}
+
+export interface VanLeasingExplainedPage_genericPage_featuredImage_file {
+  url: string;
+  details: VanLeasingExplainedPage_genericPage_featuredImage_file_details;
+}
+
+export interface VanLeasingExplainedPage_genericPage_featuredImage {
+  file: VanLeasingExplainedPage_genericPage_featuredImage_file | null;
 }
 
 export interface VanLeasingExplainedPage_genericPage_sections_cards_cards_image_file {
   url: string;
   fileName: string;
   contentType: string;
-  details: VanLeasingExplainedPage_genericPage_sections_cards_cards_image_file_details;
 }
 
 export interface VanLeasingExplainedPage_genericPage_sections_cards_cards_image {
@@ -108,21 +119,10 @@ export interface VanLeasingExplainedPage_genericPage_sections_featured2_image {
   file: VanLeasingExplainedPage_genericPage_sections_featured2_image_file | null;
 }
 
-export interface VanLeasingExplainedPage_genericPage_sections_featured2_cards_image_file_details_image {
-  width: number;
-  height: number;
-}
-
-export interface VanLeasingExplainedPage_genericPage_sections_featured2_cards_image_file_details {
-  size: number;
-  image: VanLeasingExplainedPage_genericPage_sections_featured2_cards_image_file_details_image;
-}
-
 export interface VanLeasingExplainedPage_genericPage_sections_featured2_cards_image_file {
   url: string;
   fileName: string;
   contentType: string;
-  details: VanLeasingExplainedPage_genericPage_sections_featured2_cards_image_file_details;
 }
 
 export interface VanLeasingExplainedPage_genericPage_sections_featured2_cards_image {
@@ -152,21 +152,10 @@ export interface VanLeasingExplainedPage_genericPage_sections_featured2 {
   cards: (VanLeasingExplainedPage_genericPage_sections_featured2_cards | null)[] | null;
 }
 
-export interface VanLeasingExplainedPage_genericPage_sections_carousel_cards_image_file_details_image {
-  width: number;
-  height: number;
-}
-
-export interface VanLeasingExplainedPage_genericPage_sections_carousel_cards_image_file_details {
-  size: number;
-  image: VanLeasingExplainedPage_genericPage_sections_carousel_cards_image_file_details_image;
-}
-
 export interface VanLeasingExplainedPage_genericPage_sections_carousel_cards_image_file {
   url: string;
   fileName: string;
   contentType: string;
-  details: VanLeasingExplainedPage_genericPage_sections_carousel_cards_image_file_details;
 }
 
 export interface VanLeasingExplainedPage_genericPage_sections_carousel_cards_image {
@@ -205,6 +194,7 @@ export interface VanLeasingExplainedPage_genericPage {
   id: string;
   body: string | null;
   metaData: VanLeasingExplainedPage_genericPage_metaData;
+  featuredImage: VanLeasingExplainedPage_genericPage_featuredImage | null;
   sections: VanLeasingExplainedPage_genericPage_sections | null;
 }
 

@@ -7,21 +7,10 @@
 // GraphQL fragment: FinanceExplainedContainerSections
 // ====================================================
 
-export interface FinanceExplainedContainerSections_cards_cards_image_file_details_image {
-  width: number;
-  height: number;
-}
-
-export interface FinanceExplainedContainerSections_cards_cards_image_file_details {
-  size: number;
-  image: FinanceExplainedContainerSections_cards_cards_image_file_details_image;
-}
-
 export interface FinanceExplainedContainerSections_cards_cards_image_file {
   url: string;
   fileName: string;
   contentType: string;
-  details: FinanceExplainedContainerSections_cards_cards_image_file_details;
 }
 
 export interface FinanceExplainedContainerSections_cards_cards_image {
@@ -102,21 +91,10 @@ export interface FinanceExplainedContainerSections_featured2_image {
   file: FinanceExplainedContainerSections_featured2_image_file | null;
 }
 
-export interface FinanceExplainedContainerSections_featured2_cards_image_file_details_image {
-  width: number;
-  height: number;
-}
-
-export interface FinanceExplainedContainerSections_featured2_cards_image_file_details {
-  size: number;
-  image: FinanceExplainedContainerSections_featured2_cards_image_file_details_image;
-}
-
 export interface FinanceExplainedContainerSections_featured2_cards_image_file {
   url: string;
   fileName: string;
   contentType: string;
-  details: FinanceExplainedContainerSections_featured2_cards_image_file_details;
 }
 
 export interface FinanceExplainedContainerSections_featured2_cards_image {
@@ -146,21 +124,10 @@ export interface FinanceExplainedContainerSections_featured2 {
   cards: (FinanceExplainedContainerSections_featured2_cards | null)[] | null;
 }
 
-export interface FinanceExplainedContainerSections_carousel_cards_image_file_details_image {
-  width: number;
-  height: number;
-}
-
-export interface FinanceExplainedContainerSections_carousel_cards_image_file_details {
-  size: number;
-  image: FinanceExplainedContainerSections_carousel_cards_image_file_details_image;
-}
-
 export interface FinanceExplainedContainerSections_carousel_cards_image_file {
   url: string;
   fileName: string;
   contentType: string;
-  details: FinanceExplainedContainerSections_carousel_cards_image_file_details;
 }
 
 export interface FinanceExplainedContainerSections_carousel_cards_image {

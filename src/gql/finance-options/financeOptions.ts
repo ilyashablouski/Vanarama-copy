@@ -10,6 +10,21 @@ export const CAR_LEASING_EXPLAINED_CONTENT = gql`
         title
         name
         pageType
+        metaRobots
+        metaDescription
+        publishedOn
+        legacyUrl
+      }
+      featuredImage {
+        file {
+          url
+          details {
+            image {
+              width
+              height
+            }
+          }
+        }
       }
       sections {
         ...FinanceExplainedContainerSections
@@ -28,6 +43,21 @@ export const VAN_LEASING_EXPLAINED_CONTENT = gql`
         title
         name
         pageType
+        metaRobots
+        metaDescription
+        publishedOn
+        legacyUrl
+      }
+      featuredImage {
+        file {
+          url
+          details {
+            image {
+              width
+              height
+            }
+          }
+        }
       }
       sections {
         ...FinanceExplainedContainerSections

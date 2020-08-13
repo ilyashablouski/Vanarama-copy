@@ -11,23 +11,34 @@ export interface CarLeasingExplainedPage_genericPage_metaData {
   title: string | null;
   name: string | null;
   pageType: string | null;
+  metaRobots: string | null;
+  metaDescription: string | null;
+  publishedOn: any | null;
+  legacyUrl: string | null;
 }
 
-export interface CarLeasingExplainedPage_genericPage_sections_cards_cards_image_file_details_image {
+export interface CarLeasingExplainedPage_genericPage_featuredImage_file_details_image {
   width: number;
   height: number;
 }
 
-export interface CarLeasingExplainedPage_genericPage_sections_cards_cards_image_file_details {
-  size: number;
-  image: CarLeasingExplainedPage_genericPage_sections_cards_cards_image_file_details_image;
+export interface CarLeasingExplainedPage_genericPage_featuredImage_file_details {
+  image: CarLeasingExplainedPage_genericPage_featuredImage_file_details_image;
+}
+
+export interface CarLeasingExplainedPage_genericPage_featuredImage_file {
+  url: string;
+  details: CarLeasingExplainedPage_genericPage_featuredImage_file_details;
+}
+
+export interface CarLeasingExplainedPage_genericPage_featuredImage {
+  file: CarLeasingExplainedPage_genericPage_featuredImage_file | null;
 }
 
 export interface CarLeasingExplainedPage_genericPage_sections_cards_cards_image_file {
   url: string;
   fileName: string;
   contentType: string;
-  details: CarLeasingExplainedPage_genericPage_sections_cards_cards_image_file_details;
 }
 
 export interface CarLeasingExplainedPage_genericPage_sections_cards_cards_image {
@@ -108,21 +119,10 @@ export interface CarLeasingExplainedPage_genericPage_sections_featured2_image {
   file: CarLeasingExplainedPage_genericPage_sections_featured2_image_file | null;
 }
 
-export interface CarLeasingExplainedPage_genericPage_sections_featured2_cards_image_file_details_image {
-  width: number;
-  height: number;
-}
-
-export interface CarLeasingExplainedPage_genericPage_sections_featured2_cards_image_file_details {
-  size: number;
-  image: CarLeasingExplainedPage_genericPage_sections_featured2_cards_image_file_details_image;
-}
-
 export interface CarLeasingExplainedPage_genericPage_sections_featured2_cards_image_file {
   url: string;
   fileName: string;
   contentType: string;
-  details: CarLeasingExplainedPage_genericPage_sections_featured2_cards_image_file_details;
 }
 
 export interface CarLeasingExplainedPage_genericPage_sections_featured2_cards_image {
@@ -152,21 +152,10 @@ export interface CarLeasingExplainedPage_genericPage_sections_featured2 {
   cards: (CarLeasingExplainedPage_genericPage_sections_featured2_cards | null)[] | null;
 }
 
-export interface CarLeasingExplainedPage_genericPage_sections_carousel_cards_image_file_details_image {
-  width: number;
-  height: number;
-}
-
-export interface CarLeasingExplainedPage_genericPage_sections_carousel_cards_image_file_details {
-  size: number;
-  image: CarLeasingExplainedPage_genericPage_sections_carousel_cards_image_file_details_image;
-}
-
 export interface CarLeasingExplainedPage_genericPage_sections_carousel_cards_image_file {
   url: string;
   fileName: string;
   contentType: string;
-  details: CarLeasingExplainedPage_genericPage_sections_carousel_cards_image_file_details;
 }
 
 export interface CarLeasingExplainedPage_genericPage_sections_carousel_cards_image {
@@ -205,6 +194,7 @@ export interface CarLeasingExplainedPage_genericPage {
   id: string;
   body: string | null;
   metaData: CarLeasingExplainedPage_genericPage_metaData;
+  featuredImage: CarLeasingExplainedPage_genericPage_featuredImage | null;
   sections: CarLeasingExplainedPage_genericPage_sections | null;
 }
 

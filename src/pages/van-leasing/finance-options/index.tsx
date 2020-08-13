@@ -6,6 +6,7 @@ import withApollo from '../../../hocs/withApollo';
 import FinanceExplainedContainer from '../../../containers/FinanceExplainedContainer/FinanceExplainedContainer';
 import { VAN_LEASING_EXPLAINED_CONTENT } from '../../../gql/finance-options/financeOptions';
 import { VanLeasingExplainedPage } from '../../../../generated/VanLeasingExplainedPage';
+import Head from '../../../components/Head/Head';
 
 const EligibilityChecker: NextPage = () => {
   const { data, loading, error } = useQuery<VanLeasingExplainedPage>(
@@ -27,11 +28,21 @@ const EligibilityChecker: NextPage = () => {
   const sections = data.genericPage?.sections;
 
   return (
-    <FinanceExplainedContainer
-      title={metaData?.title}
-      body={data?.genericPage?.body}
-      sections={sections}
-    />
+    <>
+      <Head
+        title={metaData.title || ''}
+        metaDescription={metaData.metaDescription}
+        metaRobots={metaData.metaRobots}
+        legacyUrl={metaData.legacyUrl}
+        publishedOn={metaData.publishedOn}
+        featuredImage={data?.genericPage.featuredImage}
+      />
+      <FinanceExplainedContainer
+        title={metaData?.title}
+        body={data?.genericPage?.body}
+        sections={sections}
+      />
+    </>
   );
 };
 

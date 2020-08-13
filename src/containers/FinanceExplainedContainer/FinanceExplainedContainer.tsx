@@ -12,9 +12,10 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import { LinkTypes } from '../../models/enum/LinkTypes';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { getFeaturedClassPartial } from '../../utils/layout';
+import { CarLeasingExplainedPage_genericPage_sections as Section } from '../../../generated/CarLeasingExplainedPage';
 
 interface IProps {
-  sections: FinanceExplainedContainerSections | null;
+  sections: FinanceExplainedContainerSections | Section | null;
   title: string | null;
   body: string | null;
 }
