@@ -14,6 +14,10 @@
           "valueFrom": "%SSM_PARAMETER_BASE%/secret-key-base"
         },
         {
+          "name": "REDIS_CACHE_HOST",
+          "valueFrom": "%SSM_PARAMETER_BASE%/redis-host"
+        },
+        {
           "name": "NPM_TOKEN",
           "valueFrom": "%SSM_PARAMETER_BASE%/npm-token"
         },
@@ -48,12 +52,20 @@
           "value": "development"
         },
         {
-          "name": "ENABLE_DEV_TOOLS",
-          "value": "true"
+          "name": "REDIS_CACHE_KEY_PREFIX",
+          "value": "next-storefront:"
+        },
+        {
+          "name": "REDIS_CACHE_PORT",
+          "value": "6379"
         },
         {
           "name": "ENV",
           "value": "development"
+        },
+        {
+          "name": "ENABLE_DEV_TOOLS",
+          "value": "true"
         },
         {
           "name": "PORT",

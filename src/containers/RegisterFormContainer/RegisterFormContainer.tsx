@@ -1,3 +1,4 @@
+import { IRegisterFormValues } from '../../components/RegisterForm/interfaces';
 import RegisterForm from '../../components/RegisterForm/RegisterForm';
 import { IRegisterFormContainerProps } from './interfaces';
 import { useEmailCheck, useRegistration } from './gql';
@@ -11,14 +12,16 @@ const RegisterFormContainer: React.FC<IRegisterFormContainerProps> = ({
   return (
     <RegisterForm
       isSubmitting={loading}
-      onSubmit={async values => {
-        await register({
+      onSubmit={async (values: IRegisterFormValues, event: any) => {
+        register({
           variables: {
             firstName: values.firstName,
             lastName: values.lastName,
             username: values.email,
             password: values.password,
           },
+        }).then(() => {
+          event.target.reset(); // reset form after form submit
         });
       }}
       onCheckEmailExists={async value => {
