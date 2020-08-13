@@ -52,6 +52,7 @@ const FiltersContainer = ({
   isPickups,
   isRangePage,
   isModelPage,
+  isAllMakesPage,
 }: IFilterContainerProps) => {
   const router = useRouter();
   const [filtersData, setFiltersData] = useState({} as IFilterList);
@@ -90,7 +91,9 @@ const FiltersContainer = ({
 
   const { refetch } = useFilterList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-    isMakePage || isRangePage || isModelPage ? null : isSpecialOffers,
+    isMakePage || isRangePage || isModelPage || isAllMakesPage
+      ? null
+      : isSpecialOffers,
     resp => {
       if (!Object.keys(allFiltersData).length) {
         setAllFiltersData(resp?.filterList || ({} as IFilterList));
@@ -158,7 +161,8 @@ const FiltersContainer = ({
     delete filtersObjectForFilters.rate;
     refetch({
       vehicleTypes: isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-      onOffer: isMakePage || isRangePage ? null : isSpecialOffers,
+      onOffer:
+        isMakePage || isRangePage || isAllMakesPage ? null : isSpecialOffers,
       ...filtersObjectForFilters,
     }).then(resp => {
       // using then because apollo return incorrect cache result https://github.com/apollographql/apollo-client/issues/3550
@@ -502,7 +506,10 @@ const FiltersContainer = ({
                   <FormGroup label={dropdown.label} key={dropdown.label}>
                     <Select
                       disabled={
-                        (isMakePage || isRangePage || isModelPage) &&
+                        (isMakePage ||
+                          isRangePage ||
+                          isModelPage ||
+                          isAllMakesPage) &&
                         (dropdown.accessor === filterFields.make ||
                           dropdown.accessor === filterFields.model)
                       }

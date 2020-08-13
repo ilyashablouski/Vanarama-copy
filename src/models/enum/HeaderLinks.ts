@@ -439,7 +439,7 @@ export const TOP_BAR_LINKS = [
           },
           {
             label: 'View All',
-            href: '/car-leasing/',
+            href: '/car-leasing/all-car-manufacturers',
           },
         ],
         id: 'ffd8b86a-9234-4d40-bfa8-085ce9807133',

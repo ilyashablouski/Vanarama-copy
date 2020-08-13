@@ -16,7 +16,7 @@ import TopOffersContainer from './TopOffersContainer';
 import { useProductCardData } from '../CustomerAlsoViewedContainer/gql';
 import { IFilters } from '../FiltersContainer/interfaces';
 import FiltersContainer from '../FiltersContainer';
-import { getVehiclesList, getRangesList } from './gql';
+import { getVehiclesList, getRangesList, useManufacturerList } from './gql';
 import VehicleCard, { IProductPageUrl } from './VehicleCard';
 import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
 import {
@@ -37,6 +37,7 @@ interface IProps {
   isPickups?: boolean;
   isRangePage?: boolean;
   isModelPage?: boolean;
+  isAllMakesPage?: boolean;
 }
 
 const SearchPageContainer: React.FC<IProps> = ({
@@ -47,6 +48,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   isPickups,
   isRangePage,
   isModelPage,
+  isAllMakesPage,
 }: IProps) => {
   const router = useRouter();
   /** we storing the last value of special offers checkbox in Session storage */
@@ -164,6 +166,12 @@ const SearchPageContainer: React.FC<IProps> = ({
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
   );
 
+  // Make list query for all makes page
+  const [getManufacturerList, { data: manufatcurers }] = useManufacturerList(
+    isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+    isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
+  );
+
   const crumbs = [
     { label: 'Home', href: '/' },
     { label: `${isCarSearch ? 'Car' : 'Vans'} Search`, href: '/' },
@@ -185,6 +193,20 @@ const SearchPageContainer: React.FC<IProps> = ({
             : LeaseTypeEnum.BUSINESS,
           ...filters,
           manufacturerName: router.query?.make as string,
+        },
+      });
+      // call only manufacturer list query call after select new filter
+    } else if (isAllMakesPage) {
+      getManufacturerList({
+        variables: {
+          vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+          leaseType: isPersonal
+            ? LeaseTypeEnum.PERSONAL
+            : LeaseTypeEnum.BUSINESS,
+          rate: filters.rate,
+          bodyStyles: filters.bodyStyles,
+          transmissions: filters.transmissions,
+          fuelTypes: filters.fuelTypes,
         },
       });
     } else {
@@ -236,15 +258,15 @@ const SearchPageContainer: React.FC<IProps> = ({
   };
 
   // API call after load new pages
-  // TODO: invistigate requests
   useEffect(() => {
     const objectQuery = Object.keys(router?.query || {});
     // prevent request with empty filters
     const queryLength = objectQuery.length;
-    if (!queryLength || isSpecialOfferPage) getVehicles();
+    if ((!queryLength || isSpecialOfferPage) && !isAllMakesPage) getVehicles();
     // if page mount without additional search params in query we made request
     // else request will be made after filters preselected
     if (isMakePage && queryLength < 2) getRanges();
+    if (isAllMakesPage && !queryLength) getManufacturerList();
     // disabled lint because we can't add router to deps
     // it's change every url replace
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -275,7 +297,8 @@ const SearchPageContainer: React.FC<IProps> = ({
       setLastCard(data.vehicleList.pageInfo.endCursor || '');
       setHasNextPage(data.vehicleList.pageInfo.hasNextPage || false);
       // use range lenght for manufacture page
-      if (!isMakePage) setTotalCount(data.vehicleList.totalCount);
+      if (!isMakePage && !isAllMakesPage)
+        setTotalCount(data.vehicleList.totalCount);
       setCapsIds(
         data.vehicleList?.edges?.map(
           vehicle => vehicle?.node?.derivativeId || '',
@@ -289,6 +312,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     setTotalCount,
     setCapsIds,
     isMakePage,
+    isAllMakesPage,
   ]);
 
   // initial set ranges
@@ -297,6 +321,13 @@ const SearchPageContainer: React.FC<IProps> = ({
       setTotalCount(ranges.rangeList.length);
     }
   }, [ranges, setTotalCount]);
+
+  // initial set makes
+  useEffect(() => {
+    if (manufatcurers?.manufacturerList && isAllMakesPage) {
+      setTotalCount(manufatcurers?.manufacturerList.length);
+    }
+  }, [manufatcurers, setTotalCount, isAllMakesPage]);
 
   // get vehicles to cache
   useEffect(() => {
@@ -307,8 +338,9 @@ const SearchPageContainer: React.FC<IProps> = ({
           vehicleTypes: isCarSearch
             ? [VehicleTypeEnum.CAR]
             : [VehicleTypeEnum.LCV],
-          onOffer:
-            !isRangePage || !isModelPage ? isSpecialOffers || null : null,
+          onOffer: !(isRangePage || isModelPage)
+            ? isSpecialOffers || null
+            : null,
           after: lastCard,
           ...filtersData,
           sortField,
@@ -360,7 +392,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     sessionStorage.setItem('capId', productPageUrl.capId);
     router.push(productPageUrl.href, productPageUrl.url, { shallow: true });
   };
-
+  /** navigate to Range Page */
   const viewRange = (range: string) => {
     const href = isCarSearch ? 'car-leasing' : 'van-leasing';
     router.push(
@@ -368,13 +400,20 @@ const SearchPageContainer: React.FC<IProps> = ({
       `/${href}/${router.query.make}/${range}`,
     );
   };
-
+  /** navigate to Model Page */
   const viewModel = (bodyStyle: string) => {
     const href = isCarSearch ? 'car-leasing' : 'van-leasing';
     router.push(
       `/${href}/[make]/[rangeName]/[bodyStyles]`,
       `/${href}/${router.query.make}/${router.query.rangeName}/${bodyStyle}`,
     );
+  };
+  /** navigate to Make Page */
+  const viewMake = (make: string) => {
+    if (make) {
+      const href = isCarSearch ? 'car-leasing' : 'van-leasing';
+      router.push(`/${href}/[make]`, `/${href}/${make}`);
+    }
   };
 
   return (
@@ -400,16 +439,20 @@ const SearchPageContainer: React.FC<IProps> = ({
           viewModel={viewModel}
         />
       )}
-      {!isMakePage && !isSpecialOfferPage && !isRangePage && !isModelPage && (
-        <div className="-mv-400 -stretch-left">
-          <Checkbox
-            id="specialOffer"
-            label="View Special Offers Only"
-            checked={isSpecialOffers}
-            onChange={e => onSaveSpecialOffersStatus(e.target.checked)}
-          />
-        </div>
-      )}
+      {!isMakePage &&
+        !isSpecialOfferPage &&
+        !isRangePage &&
+        !isModelPage &&
+        !isAllMakesPage && (
+          <div className="-mv-400 -stretch-left">
+            <Checkbox
+              id="specialOffer"
+              label="View Special Offers Only"
+              checked={isSpecialOffers}
+              onChange={e => onSaveSpecialOffersStatus(e.target.checked)}
+            />
+          </div>
+        )}
       <div className="row:bg-light -xthin">
         <div className="row:search-filters">
           <FiltersContainer
@@ -423,6 +466,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             preSearchVehicleCount={totalCount}
             isSpecialOffers={isSpecialOffers || null}
             isModelPage={isModelPage}
+            isAllMakesPage={isAllMakesPage}
           />
         </div>
       </div>
@@ -433,42 +477,60 @@ const SearchPageContainer: React.FC<IProps> = ({
           </Text>
           <div className="row:cards-3col">
             {useCallback(
-              isMakePage
-                ? !!ranges?.rangeList?.length &&
+              isMakePage || isAllMakesPage ? (
+                <>
+                  {isMakePage &&
+                    !!ranges?.rangeList?.length &&
                     ranges?.rangeList?.map((range, index) => (
                       <RangeCard
-                        viewRange={viewRange}
-                        data={range}
+                        onView={() => viewRange(range.rangeName || '')}
+                        title={range.rangeName || ''}
+                        fromPrice={range.minPrice || undefined}
                         key={range.rangeId || index}
                         isPersonalPrice={isPersonal}
+                        id={range.rangeId || ''}
                       />
-                    ))
-                : !!cardsData.length &&
-                    !!carDer.length &&
-                    vehiclesList?.map((vehicle: IVehicles) => (
-                      <VehicleCard
-                        viewOffer={viewOffer}
-                        dataDerivatives={carDer}
-                        key={
-                          vehicle?.node?.derivativeId + vehicle?.cursor || ''
-                        }
-                        data={
-                          getCardData(
-                            vehicle.node?.derivativeId || '',
-                          ) as IProductCard
-                        }
-                        title={{
-                          title: '',
-                          description: vehicle.node?.derivativeName || '',
-                        }}
+                    ))}
+                  {isAllMakesPage &&
+                    !!manufatcurers?.manufacturerList?.length &&
+                    manufatcurers?.manufacturerList?.map((makeData, index) => (
+                      <RangeCard
+                        onView={() => viewMake(makeData.manufacturerName || '')}
+                        title={makeData.manufacturerName || ''}
+                        fromPrice={makeData.minPrice || undefined}
+                        key={makeData.manufacturerId || index}
                         isPersonalPrice={isPersonal}
-                        isModelPage={isModelPage}
+                        id={makeData?.capId?.toString() || ''}
+                        isAllMakesCard
                       />
-                    )),
+                    ))}
+                </>
+              ) : (
+                !!cardsData.length &&
+                  !!carDer.length &&
+                  vehiclesList?.map((vehicle: IVehicles) => (
+                    <VehicleCard
+                      viewOffer={viewOffer}
+                      dataDerivatives={carDer}
+                      key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
+                      data={
+                        getCardData(
+                          vehicle.node?.derivativeId || '',
+                        ) as IProductCard
+                      }
+                      title={{
+                        title: '',
+                        description: vehicle.node?.derivativeName || '',
+                      }}
+                      isPersonalPrice={isPersonal}
+                      isModelPage={isModelPage}
+                    />
+                  ))
+              ),
               [cardsData, isPersonal, ranges, carDer, totalCount],
             )}
           </div>
-          {!isMakePage ? (
+          {!(isMakePage || isAllMakesPage) ? (
             <div className="pagination">
               {totalCount > vehiclesList?.length && (
                 <Button

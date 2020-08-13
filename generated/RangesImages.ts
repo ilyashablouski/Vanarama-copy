@@ -17,4 +17,5 @@ export interface RangesImages {
 
 export interface RangesImagesVariables {
   rangeId?: string | null;
+  capIds?: (string | null)[] | null;
 }

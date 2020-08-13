@@ -2,7 +2,7 @@ import { render, waitFor, screen, act } from '@testing-library/react';
 import React from 'react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import SearchPageContainer from '../SearchPageContainer';
-import { getVehiclesList, getRangesList } from '../gql';
+import { getVehiclesList, getRangesList, useManufacturerList } from '../gql';
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
@@ -95,6 +95,7 @@ jest.mock('next/router', () => ({
 jest.mock('../gql', () => ({
   getVehiclesList: jest.fn(),
   getRangesList: jest.fn(),
+  useManufacturerList: jest.fn(),
 }));
 
 jest.mock('../RangeCard', () => () => {
@@ -157,6 +158,36 @@ let vehicleMockCalled = false;
           },
         ],
       },
+    },
+  },
+]);
+(useManufacturerList as jest.Mock).mockReturnValue([
+  jest.fn(),
+  {
+    data: {
+      manufacturerList: [
+        {
+          count: 8,
+          manufacturerId: '1137',
+          manufacturerName: 'Abarth',
+          minPrice: 201.93,
+          capIds: '1151',
+        },
+        {
+          count: 21,
+          manufacturerId: '1143',
+          manufacturerName: 'Alfa Romeo',
+          minPrice: 140.99,
+          capIds: '1151',
+        },
+        {
+          count: 549,
+          manufacturerId: '1151',
+          manufacturerName: 'Audi',
+          minPrice: 168.91,
+          capIds: '1151',
+        },
+      ],
     },
   },
 ]);
@@ -627,6 +658,21 @@ describe('<SearchPageContainer />', () => {
     const getComponent = render(
       <MockedProvider mocks={mocksResponse} addTypename={false}>
         <SearchPageContainer isCarSearch isServer={false} />
+      </MockedProvider>,
+    );
+
+    await waitFor(() => {
+      expect(vehicleMockCalled).toBeTruthy();
+      expect(screen.getByText('Automatic')).toBeInTheDocument();
+    });
+    const tree = getComponent.baseElement;
+    expect(tree).toMatchSnapshot();
+  });
+  it('should be render correctly all manufacturers Page', async () => {
+    // ACT
+    const getComponent = render(
+      <MockedProvider mocks={mocksResponse} addTypename={false}>
+        <SearchPageContainer isCarSearch isServer={false} isAllMakesPage />
       </MockedProvider>,
     );
 
