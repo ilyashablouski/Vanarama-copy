@@ -12,16 +12,17 @@ export const mapFormValues = (values: ISoleTraderCompanyDetailsFormValues) => {
     addresses: [
       {
         serviceId: values.tradingAddress.id,
+        kind: 'registered',
       },
     ],
     emailAddress: {
       value: values.email,
-      kind: 'business',
+      kind: 'Home',
     },
     telephoneNumbers: [
       {
         value: values.businessTelephoneNumber,
-        kind: 'business',
+        kind: 'Mobile',
       },
     ],
     tradingName: values.tradingName,
@@ -31,7 +32,7 @@ export const mapFormValues = (values: ISoleTraderCompanyDetailsFormValues) => {
     annualSalesCost: parseFloat(values.annualCostOfSales),
     annualExpenses: parseFloat(values.annualExpenses),
     vehicleRegistrationNumber: values.vehicleRegistrationNumber,
-    companyType: CompanyTypes.limited,
+    companyType: CompanyTypes.soleTrader,
     tradingSince,
   };
 };

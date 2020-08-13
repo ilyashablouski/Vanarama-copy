@@ -23,7 +23,7 @@ const mockPush = jest.fn();
 jest.mock('next/router', () => ({
   useRouter: () => ({
     push: mockPush,
-    pathname: '/b2b/olaf/company-details',
+    pathname: '/b2b/olaf/vat-details',
     query: {
       companyUuid: MOCK_COMPANY_UUID,
       orderId: MOCK_ORDER_UUID,
@@ -492,7 +492,7 @@ describe('B2B VAT Details page', () => {
                   isVatRegistered: false,
                   turnoverPercentageOutsideUk: undefined,
                   tradesOutsideUk: false,
-                  vatNumber: undefined,
+                  vatNumber: null,
                 },
               } as UpdateLimitedVatDetailsMutationVariables,
             },
@@ -500,6 +500,12 @@ describe('B2B VAT Details page', () => {
               data: {
                 createUpdateLimitedCompany: {
                   uuid: MOCK_COMPANY_UUID,
+                  isVatRegistered: false,
+                  tradesOutsideUk: true,
+                  turnoverPercentageOutsideUk: [
+                    { country: 'Algeria', percentage: '10' },
+                  ],
+                  vatNumber: null,
                 },
               } as UpdateLimitedVatDetailsMutation,
             })),
@@ -545,6 +551,10 @@ describe('B2B VAT Details page', () => {
               data: {
                 createUpdateLimitedCompany: {
                   uuid: MOCK_COMPANY_UUID,
+                  isVatRegistered: true,
+                  tradesOutsideUk: false,
+                  turnoverPercentageOutsideUk: null,
+                  vatNumber: '012345678',
                 },
               } as UpdateLimitedVatDetailsMutation,
             })),
@@ -589,7 +599,7 @@ describe('B2B VAT Details page', () => {
                     { country: 'Algeria', percentage: 10 },
                     { country: 'Andorra', percentage: 12 },
                   ],
-                  tradesOutsideUk: true,
+                  tradesOutsideUk: false,
                   vatNumber: undefined,
                 },
               } as UpdateLimitedVatDetailsMutationVariables,
@@ -598,6 +608,10 @@ describe('B2B VAT Details page', () => {
               data: {
                 createUpdateLimitedCompany: {
                   uuid: MOCK_COMPANY_UUID,
+                  isVatRegistered: false,
+                  tradesOutsideUk: true,
+                  turnoverPercentageOutsideUk: null,
+                  vatNumber: null,
                 },
               } as UpdateLimitedVatDetailsMutation,
             })),
@@ -698,6 +712,10 @@ describe('B2B VAT Details page', () => {
               data: {
                 createUpdateLimitedCompany: {
                   uuid: MOCK_COMPANY_UUID,
+                  isVatRegistered: false,
+                  tradesOutsideUk: true,
+                  turnoverPercentageOutsideUk: null,
+                  vatNumber: null,
                 },
               } as UpdateLimitedVatDetailsMutation,
             })),
