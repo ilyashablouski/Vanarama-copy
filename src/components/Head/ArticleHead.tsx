@@ -21,6 +21,8 @@ const ArticleHead: FC<IHeadProps> = props => {
       <meta property="og:type" content="article" />
       <meta property="og:locale" content="en_GB" />
       <meta property="og:title" content={title} />
+      <meta property="fb:app_id" content={String(fb.appId)} />
+      <meta property="fb:admins" content={String(fb.admins)} />
       {metaRobots && <meta name="robots" content={metaRobots} />}
       {metaDescription && (
         <meta property="og:description" content={metaDescription} />
