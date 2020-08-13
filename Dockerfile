@@ -22,8 +22,8 @@ COPY . .
 
 RUN npm rebuild node-sass
 
-# Build the app
-RUN yarn build
+# Build the app (this is now executed in "yarn start" command)
+# RUN yarn build
 
 EXPOSE 8080
 
