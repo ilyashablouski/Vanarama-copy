@@ -7,7 +7,7 @@ import Select from '@vanarama/uibook/lib/components/atoms/select';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { EMAIL_REGEX, WORLDWIDE_MOBILE_REGEX } from '../../utils/regex';
@@ -26,6 +26,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
   person,
   onEmailExistenceCheck,
   onLogInCLick,
+  isEdited,
 }) => {
   const defaultValues = responseToInitialFormValues(person);
   const { formState, handleSubmit, errors, register, reset } = useForm<
@@ -38,6 +39,13 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
     reset(defaultValues);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [person]);
+
+  const selectLabel = useMemo(() => {
+    if (isEdited) {
+      return 'Save & Return';
+    }
+    return formState.isSubmitting ? 'Saving...' : 'Continue';
+  }, [isEdited, formState.isSubmitting]);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -240,7 +248,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
         iconColor="white"
         icon={<ChevronForwardSharp />}
         iconPosition="after"
-        label={formState.isSubmitting ? 'Saving...' : 'Continue'}
+        label={selectLabel}
         size="large"
         type="submit"
       />

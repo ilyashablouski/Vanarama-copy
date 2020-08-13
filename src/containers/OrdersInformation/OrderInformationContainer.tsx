@@ -10,11 +10,12 @@ import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 
 type QueryParams = {
   partyByUuid: string;
+  uuid: string;
 };
 
 const OrderInformationContainer: React.FC<IProps> = () => {
   const router = useRouter();
-  const { partyByUuid } = router.query as QueryParams;
+  const { uuid, partyByUuid } = router.query as QueryParams;
   const [ordersLength, setOrdersLength] = useState<number | null>(null);
   const [quotesLength, setQuotesLength] = useState<number | null>(null);
 
@@ -64,7 +65,11 @@ const OrderInformationContainer: React.FC<IProps> = () => {
             classNames={{
               color: 'teal',
             }}
-            link={{ href: '/account/my-orders/[partyByUuid]', label: '' }}
+            link={{
+              href: `/account/my-orders/[partyByUuid]`,
+              label: '',
+              query: { uuid },
+            }}
             as={`/account/my-orders/${partyByUuid}`}
             onClick={ev => !ordersLength && ev.preventDefault()}
             dataTestId="orders-link"
@@ -87,7 +92,11 @@ const OrderInformationContainer: React.FC<IProps> = () => {
             classNames={{
               color: 'teal',
             }}
-            link={{ href: '/account/my-quotes/[partyByUuid]', label: '' }}
+            link={{
+              href: `/account/my-quotes/[partyByUuid]`,
+              label: '',
+              query: { uuid },
+            }}
             as={`/account/my-quotes/${partyByUuid}`}
             onClick={ev => !quotesLength && ev.preventDefault()}
             dataTestId="quotes-link"

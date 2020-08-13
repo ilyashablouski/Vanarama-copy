@@ -5,7 +5,7 @@ import preloadAll from 'jest-next-dynamic';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { HubCarPageData } from '../../../../generated/HubCarPageData';
-import { HUB_CAR_CONTENT } from '../../../gql/hubCarPage';
+import { HUB_CAR_CONTENT } from '../../../gql/hub/hubCarPage';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
 import { CarsPage } from '../../../pages/hub/cars';
@@ -54,6 +54,7 @@ const mocked: MockedResponse[] = [
               body:
                 "Leasing your brand new car with Vanarama means you can drive the car of your dreams at a price you can afford. And you can upgrade to a new one every few years!\n\nWhether you're looking for your first car, a family car, or a brand new car for your business, we have a massive range of the latest models from all manufacturers.\n\nOnce you've found your ideal car, we'll get you the best deal from our panel of over 10 funders. We get the best deals around because of our buying power. Your new car will be delivered to your door... and you get to enjoy it until it's time to upgrade.\n\nWe're a leasing company, and since 2004 we've leased vehicles to hundreds of thousands of personal and business customers. Our 5* customer service team will ensure you get what you need from enquiry right through to delivery.",
               image: null,
+              layout: [''],
             },
             featured2: {
               title: 'How Does Car Leasing Work?',
@@ -61,6 +62,7 @@ const mocked: MockedResponse[] = [
               body:
                 "Personal car leasing works very much like renting, but for a longer time period. You choose your new car, the contract length, how much you'd like your initial rental to be and how many miles you'll drive over the period. At the end of your lease agreement, you return the car & upgrade.\n\nDon't worry about excess mileage and damage charges at the end of your lease, because we have a Mileage Booster which gives you [10% free mileage](https://beta.vanarama.com/car-leasing/mileage-booster-and-damage-cover.html) and up to [£500 Damage Cover.](https://beta.vanarama.com/car-leasing/mileage-booster-and-damage-cover.html)\n\nFor more information take a look at Car Leasing Explained for everything you need to know, including:\n\n-   [How does car leasing work?](https://beta.vanarama.com/car-leasing-explained.html)\n-   [What is fair wear and tear?](https://beta.vanarama.com/car-leasing-explained/lease-car-fair-wear-and-tear.html)\n-   [What happens at the end of a lease?](https://beta.vanarama.com/car-leasing-explained/what-happens-at-end-of-car-lease.html)",
               image: null,
+              layout: [''],
             },
             steps: {
               heading: 'Leasing - The Simple Way To Get Your Brand New Vehicle',

@@ -18,7 +18,7 @@ export interface GetVatDetailsCountries_allDropDowns {
 
 export interface GetVatDetailsCountries {
   /**
-   * get all drop downs
+   * Get all drop downs
    */
   allDropDowns: GetVatDetailsCountries_allDropDowns | null;
 }

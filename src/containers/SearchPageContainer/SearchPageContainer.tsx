@@ -4,15 +4,15 @@ import React, {
   useEffect,
   useCallback,
   useLayoutEffect,
+  useMemo,
 } from 'react';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Search from '@vanarama/uibook/lib/components/atoms/search';
-import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import { useRouter } from 'next/router';
+import TopOffersContainer from './TopOffersContainer';
 import { useProductCardData } from '../CustomerAlsoViewedContainer/gql';
 import { IFilters } from '../FiltersContainer/interfaces';
 import FiltersContainer from '../FiltersContainer';
@@ -31,14 +31,22 @@ import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 
 interface IProps {
   isServer: boolean;
-  isCarSearch: boolean;
+  isCarSearch?: boolean;
   isMakePage?: boolean;
+  isSpecialOfferPage?: boolean;
+  isPickups?: boolean;
+  isRangePage?: boolean;
+  isModelPage?: boolean;
 }
 
 const SearchPageContainer: React.FC<IProps> = ({
   isServer,
-  isCarSearch,
+  isCarSearch = false,
   isMakePage,
+  isSpecialOfferPage,
+  isPickups,
+  isRangePage,
+  isModelPage,
 }: IProps) => {
   const router = useRouter();
   /** we storing the last value of special offers checkbox in Session storage */
@@ -54,6 +62,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   );
 
   const [vehiclesList, setVehicleList] = useState([] as any);
+
   const [capIds, setCapsIds] = useState([] as string[]);
   const [cardsDataCache, setCardsDataCache] = useState(
     [] as (IProductCard | null)[],
@@ -69,7 +78,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [hasNextPage, setHasNextPage] = useState(true);
   const [isPersonal, setIsPersonal] = useState(true);
   const [isSpecialOffers, setIsSpecialOffers] = useState(
-    getValueFromStorage(isServer) ?? true,
+    isSpecialOfferPage ? true : getValueFromStorage(isServer) ?? true,
   );
   const [totalCount, setTotalCount] = useState(0);
 
@@ -81,6 +90,12 @@ const SearchPageContainer: React.FC<IProps> = ({
     true,
   );
 
+  const manualBodyStyle = useMemo(() => {
+    if (isPickups) return ['Pickup'];
+    if (isModelPage) return [router.query?.bodyStyles as string];
+    return [''];
+  }, [isPickups, isModelPage, router.query]);
+
   // get Caps ids for product card request
   const getCapsIds = (data: (IVehicles | null)[]) =>
     data.map(vehicle => vehicle?.node?.derivativeId || '') || [];
@@ -88,7 +103,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   // using onCompleted callback for request card data after vehicle list was loaded
   const [getVehicles, { data }] = getVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-    isMakePage ? true : isSpecialOffers || null,
+    isMakePage || isSpecialOfferPage ? true : isSpecialOffers || null,
     async vehicles => {
       try {
         const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
@@ -109,12 +124,14 @@ const SearchPageContainer: React.FC<IProps> = ({
         return false;
       }
     },
-    isMakePage ? 6 : 9,
+    9,
+    undefined,
+    isPickups || isModelPage ? manualBodyStyle : [],
   );
   // using for cache request
   const [getVehiclesCache, { data: cacheData }] = getVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-    isSpecialOffers,
+    isRangePage ? null : isSpecialOffers || null,
     async vehicles => {
       try {
         const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
@@ -137,6 +154,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     },
     undefined,
     lastCard,
+    isPickups || isModelPage ? manualBodyStyle : [],
   );
 
   // Ranges list query for make page
@@ -151,7 +169,8 @@ const SearchPageContainer: React.FC<IProps> = ({
     { label: `${isCarSearch ? 'Car' : 'Vans'} Search`, href: '/' },
   ];
 
-  const sortField = isSpecialOffers ? SortField.offerRanking : SortField.rate;
+  const sortField =
+    !isRangePage && isSpecialOffers ? SortField.offerRanking : SortField.rate;
 
   // new search with new filters
   const onSearch = (filters = filtersData) => {
@@ -169,23 +188,37 @@ const SearchPageContainer: React.FC<IProps> = ({
         },
       });
     } else {
+      let onOffer;
+      // set onOffer value to actual depend on page type
+      if (isRangePage || isModelPage) onOffer = null;
+      else onOffer = isSpecialOfferPage ? true : isSpecialOffers || null;
       getVehicles({
         variables: {
           vehicleTypes: isCarSearch
             ? [VehicleTypeEnum.CAR]
             : [VehicleTypeEnum.LCV],
-          onOffer: isSpecialOffers || null,
+          onOffer,
           ...filters,
           sortField,
+          ...{
+            bodyStyles:
+              isPickups || isModelPage ? manualBodyStyle : filters.bodyStyles,
+          },
         },
       });
     }
 
     let pathname = router.route
       .replace('[make]', router.query?.make as string)
-      .replace('[model]', router.query?.model as string);
+      .replace('[rangeName]', router.query?.rangeName as string)
+      .replace('[bodyStyles]', router.query?.bodyStyles as string);
     const queryString = new URLSearchParams();
-    const query = buildRewriteRoute(filters as IFilters, isMakePage);
+    // don't add range and make to query for make/range pages
+    const query = buildRewriteRoute(
+      filters as IFilters,
+      isMakePage || isRangePage,
+      isModelPage,
+    );
     Object.entries(query).forEach(([key, value]) =>
       queryString.set(key, value as string),
     );
@@ -203,42 +236,19 @@ const SearchPageContainer: React.FC<IProps> = ({
   };
 
   // API call after load new pages
+  // TODO: invistigate requests
   useEffect(() => {
     const objectQuery = Object.keys(router?.query || {});
     // prevent request with empty filters
     const queryLength = objectQuery.length;
-    if (!queryLength || isMakePage) getVehicles();
-    if (
-      (queryLength === 1 && objectQuery[0] === 'bodyStyles') ||
-      (isMakePage && queryLength === 1)
-    ) {
-      getVehicles({
-        variables: {
-          vehicleTypes: isCarSearch
-            ? [VehicleTypeEnum.CAR]
-            : [VehicleTypeEnum.LCV],
-          onOffer: isMakePage ? true : isSpecialOffers,
-          sortField: SortField.offerRanking,
-          manufacturerName: isMakePage
-            ? (router.query?.make as string)
-            : (filtersData.manufacturerName as string),
-          bodyStyles: router.query?.bodyStyles as string[],
-        },
-      });
-      // if page mount without additional search params in query we made request
-      // else request will be made after filters preselected
-      if (isMakePage && queryLength < 2) getRanges();
-    }
-  }, [
-    getVehicles,
-    isCarSearch,
-    isMakePage,
-    router,
-    setFiltersData,
-    filtersData,
-    getRanges,
-    isSpecialOffers,
-  ]);
+    if (!queryLength || isSpecialOfferPage) getVehicles();
+    // if page mount without additional search params in query we made request
+    // else request will be made after filters preselected
+    if (isMakePage && queryLength < 2) getRanges();
+    // disabled lint because we can't add router to deps
+    // it's change every url replace
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getVehicles, isCarSearch, isMakePage, getRanges, isSpecialOfferPage]);
 
   // prevent case when we navigate use back/forward button and useCallback return empty result list
   useEffect(() => {
@@ -297,7 +307,8 @@ const SearchPageContainer: React.FC<IProps> = ({
           vehicleTypes: isCarSearch
             ? [VehicleTypeEnum.CAR]
             : [VehicleTypeEnum.LCV],
-          onOffer: isSpecialOffers || null,
+          onOffer:
+            !isRangePage || !isModelPage ? isSpecialOffers || null : null,
           after: lastCard,
           ...filtersData,
           sortField,
@@ -312,6 +323,8 @@ const SearchPageContainer: React.FC<IProps> = ({
     sortField,
     isMakePage,
     hasNextPage,
+    isRangePage,
+    isModelPage,
   ]);
 
   // set capsIds for cached data
@@ -340,80 +353,76 @@ const SearchPageContainer: React.FC<IProps> = ({
     sessionStorage.setItem(isCarSearch ? 'Car' : 'Vans', JSON.stringify(value));
   };
 
-  const getCardData = (capId: string) =>
-    cardsData?.filter(card => card?.capId === capId)[0];
+  const getCardData = (capId: string, dataForCards = cardsData) =>
+    dataForCards?.filter(card => card?.capId === capId)[0];
 
   const viewOffer = (productPageUrl: IProductPageUrl) => {
     sessionStorage.setItem('capId', productPageUrl.capId);
     router.push(productPageUrl.href, productPageUrl.url, { shallow: true });
   };
 
-  // TODO: add logic when range page will complete
-  const viewRange = () => {};
+  const viewRange = (range: string) => {
+    const href = isCarSearch ? 'car-leasing' : 'van-leasing';
+    router.push(
+      `/${href}/[make]/[rangeName]`,
+      `/${href}/${router.query.make}/${range}`,
+    );
+  };
+
+  const viewModel = (bodyStyle: string) => {
+    const href = isCarSearch ? 'car-leasing' : 'van-leasing';
+    router.push(
+      `/${href}/[make]/[rangeName]/[bodyStyles]`,
+      `/${href}/${router.query.make}/${router.query.rangeName}/${bodyStyle}`,
+    );
+  };
 
   return (
     <>
       <div className="row:title">
         <Breadcrumb items={crumbs} />
         <Heading tag="h1" size="xlarge" color="black">
-          Lorem Ips
+          {isModelPage
+            ? `${filtersData.manufacturerName} ${filtersData.rangeName} ${filtersData.bodyStyles?.[0]}`
+            : 'Lorem Ips'}
         </Heading>
         <Text color="darker" size="lead" />
       </div>
-      {isMakePage && vehiclesList.length > 3 && !!carDer.length && (
-        <div className="row:bg-lighter">
-          <div className="row:carousel">
-            <Heading size="large" color="black" tag="h3">
-              Top Offers
-            </Heading>
-            <Carousel
-              className="-mh-auto"
-              countItems={vehiclesList.length || 0}
-            >
-              {vehiclesList?.map((vehicle: IVehicles) => (
-                <VehicleCard
-                  dataDerivatives={carDer}
-                  viewOffer={viewOffer}
-                  key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
-                  data={
-                    getCardData(
-                      vehicle.node?.derivativeId || '',
-                    ) as IProductCard
-                  }
-                  title={{
-                    title: '',
-                    description: vehicle.node?.derivativeName || '',
-                  }}
-                  isPersonalPrice={isPersonal}
-                />
-              ))}
-            </Carousel>
-          </div>
+      {(isMakePage || isSpecialOfferPage || isRangePage) && (
+        <TopOffersContainer
+          isCarSearch={isCarSearch}
+          isMakePage={isMakePage || false}
+          isPersonal={isPersonal}
+          isRangePage={isRangePage || false}
+          isPickups={isPickups || false}
+          isSpecialOfferPage={isSpecialOfferPage || false}
+          viewOffer={viewOffer}
+          viewModel={viewModel}
+        />
+      )}
+      {!isMakePage && !isSpecialOfferPage && !isRangePage && !isModelPage && (
+        <div className="-mv-400 -stretch-left">
+          <Checkbox
+            id="specialOffer"
+            label="View Special Offers Only"
+            checked={isSpecialOffers}
+            onChange={e => onSaveSpecialOffersStatus(e.target.checked)}
+          />
         </div>
       )}
-      <div className="-mv-400 -stretch-left">
-        {!isMakePage && (
-          <>
-            <Search />
-            <Checkbox
-              id="specialOffer"
-              label="View Special Offers Only"
-              checked={isSpecialOffers}
-              onChange={e => onSaveSpecialOffersStatus(e.target.checked)}
-            />
-          </>
-        )}
-      </div>
       <div className="row:bg-light -xthin">
         <div className="row:search-filters">
           <FiltersContainer
             isPersonal={isPersonal}
             isMakePage={isMakePage}
+            isRangePage={isRangePage}
             setType={value => setIsPersonal(value)}
             onSearch={onSearch}
+            isPickups={isPickups}
             isCarSearch={isCarSearch}
             preSearchVehicleCount={totalCount}
             isSpecialOffers={isSpecialOffers || null}
+            isModelPage={isModelPage}
           />
         </div>
       </div>
@@ -453,6 +462,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                           description: vehicle.node?.derivativeName || '',
                         }}
                         isPersonalPrice={isPersonal}
+                        isModelPage={isModelPage}
                       />
                     )),
               [cardsData, isPersonal, ranges, carDer, totalCount],

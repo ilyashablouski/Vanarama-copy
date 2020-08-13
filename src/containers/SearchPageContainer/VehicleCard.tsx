@@ -27,6 +27,7 @@ interface IVehicleCardProps {
   viewOffer: (productPageUrl: IProductPageUrl) => void;
   dataDerivatives: (GetDerivatives_derivatives | null)[];
   bodyStyle?: string | null | undefined;
+  isModelPage?: boolean;
 }
 
 const VehicleCard = memo(
@@ -37,6 +38,7 @@ const VehicleCard = memo(
     dataDerivatives,
     viewOffer,
     bodyStyle,
+    isModelPage,
   }: IVehicleCardProps) => {
     const { compareVehicles, compareChange } = useContext(CompareContext);
 
@@ -53,9 +55,15 @@ const VehicleCard = memo(
       dataDerivatives as GetDerivatives_derivatives[],
     );
 
+    const imageProps = !isModelPage
+      ? {
+          imageSrc: data?.imageUrl || '',
+        }
+      : {};
+
     return (
       <Card
-        imageSrc={data?.imageUrl || ''}
+        {...imageProps}
         header={{
           accentIcon: data?.isOnOffer ? (
             <Icon icon={<Flame />} color="white" className="md hydrated" />
@@ -64,7 +72,11 @@ const VehicleCard = memo(
           text: data?.leadTime || '',
         }}
         onCompare={() => {
-          compareChange({ ...data, bodyStyle });
+          compareChange({
+            ...data,
+            bodyStyle,
+            pageUrl: productPageUrl,
+          });
         }}
         compared={isCompared(compareVehicles, data)}
         onWishlist={() => {}}

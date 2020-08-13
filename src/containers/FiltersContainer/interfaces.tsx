@@ -8,6 +8,9 @@ export interface IFilterContainerProps {
   preSearchVehicleCount: number;
   isSpecialOffers: boolean;
   isMakePage?: boolean;
+  isPickups?: boolean;
+  isRangePage?: boolean;
+  isModelPage?: boolean;
 }
 
 export interface IFilters {

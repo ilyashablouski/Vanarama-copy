@@ -21,6 +21,10 @@ export interface GetAboutYouDataQuery_personByUuid_telephoneNumbers {
   value: string;
 }
 
+export interface GetAboutYouDataQuery_personByUuid_companies {
+  companyType: string | null;
+}
+
 export interface GetAboutYouDataQuery_personByUuid {
   __typename: "PersonType";
   uuid: string;
@@ -36,6 +40,10 @@ export interface GetAboutYouDataQuery_personByUuid {
   noOfAdultsInHousehold: string | null;
   noOfDependants: string | null;
   emailConsent: boolean | null;
+  profilingConsent: boolean | null;
+  smsConsent: boolean | null;
+  termsAndConditions: boolean | null;
+  companies: GetAboutYouDataQuery_personByUuid_companies[] | null;
 }
 
 export interface GetAboutYouDataQuery {

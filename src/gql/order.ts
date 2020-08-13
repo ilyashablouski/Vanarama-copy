@@ -46,7 +46,8 @@ export const GET_ORDER_BY_UUID_DATA = gql`
           term
           annualMileage
           depositMonths
-          funder
+          funderId
+          funderData
           colour
           trim
           maintenance
@@ -146,7 +147,8 @@ export const GET_OLAF_DATA = gql`
           term
           annualMileage
           depositMonths
-          funder
+          funderId
+          funderData
           colour
           trim
           maintenance
@@ -187,7 +189,8 @@ export const CREATE_UPDATE_ORDER_MUTATION = gql`
           annualMileage
           monthlyPayment
           depositMonths
-          funder
+          funderId
+          funderData
         }
       }
     }

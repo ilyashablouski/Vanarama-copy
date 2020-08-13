@@ -5,7 +5,7 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import Router from 'next/router';
 import { HubVanPageData } from '../../../../generated/HubVanPageData';
-import { HUB_VAN_CONTENT } from '../../../gql/hubVanPage';
+import { HUB_VAN_CONTENT } from '../../../gql/hub/hubVanPage';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
 import { VansPage } from '../../../pages/hub/vans';
@@ -53,6 +53,7 @@ const mocked: MockedResponse[] = [
               body:
                 "At Vanarama you'll find some of the best van lease deals in the UK. So if you're looking to get your business moving with a brand new van, you're in the right place!\n\nWhether you're after a [small van](https://beta.vanarama.com/small-van-leasing.html), a [medium van](https://beta.vanarama.com/medium-van-leasing.html) perfect for trades or even a [specialist vehicle](https://beta.vanarama.com/specialist-van-leasing.html), we have a huge range of brand new vehicles available from the major manufacturers whatever the model and size you're looking for.\n\nOur massive range of light commercial vehicles in varying sizes, engine types and flexible payloads are available for contract hire on a range of lease lengths too, so you can choose from 2,3, 4 or 5 years. Plus we'll deliver direct to your door anywhere in the UK.",
               image: null,
+              layout: [''],
             },
             featured2: {
               title: 'Why Choose Vanarama For Your Van?',
@@ -60,6 +61,7 @@ const mocked: MockedResponse[] = [
               body:
                 "Vanarama have been business van leasing specialists for over 15 years. Our enhanced buying power from working with those manufacturers and a large panel of funders, allows us to get you an unbeatable lease price! That's why we introduced our Price Promise\\* so if we can't find you the most competitive quote on the vehicle you want, we'll give you £100\\*.\n\nOur dedicated team of experts can help you find the perfect van lease deal. The major benefits of leasing a van with Vanarama are:\n\n-   **Affordable, fixed monthly costs.**\n-   **Brand-new vehicles with zero mileage.**\n-   **3-year manufacturer warranty and MOT included.**\n-   **Price Promise guarantee.**\n-   **Flexible mileage options.**",
               image: null,
+              layout: [''],
             },
             rowText: {
               heading: 'How Does Van Leasing Work?',

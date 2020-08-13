@@ -29,7 +29,8 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
           annualMileage
           monthlyPayment
           depositMonths
-          funder
+          funderId
+          funderData
         }
       }
       leadManagerProposalId
@@ -78,7 +79,8 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
           annualMileage
           monthlyPayment
           depositMonths
-          funder
+          funderId
+          funderData
         }
       }
       leadManagerProposalId

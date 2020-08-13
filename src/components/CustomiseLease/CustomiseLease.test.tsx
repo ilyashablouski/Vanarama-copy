@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { render, fireEvent, screen } from '@testing-library/react';
 import CustomiseLease from './CustomiseLease';
-import { IProps } from './interfase';
+import { IProps } from './interface';
 import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
 
 jest.mock('next/router');
@@ -12,6 +12,20 @@ function getComponent(props: IProps) {
 }
 
 describe('<CustomiseLease />', () => {
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: jest.fn().mockImplementation(query => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addListener: jest.fn(), // deprecated
+      removeListener: jest.fn(), // deprecated
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    })),
+  });
+
   it('renders correctly', () => {
     const tree = getComponent({
       mileage: 6000,
@@ -76,6 +90,18 @@ describe('<CustomiseLease />', () => {
         upfronts: [1, 3, 6, 9, 12],
       },
       derivativeInfo: {
+        transmission: {
+          name: 'Manual',
+        },
+        bodyStyle: {
+          name: 'Hatchback',
+        },
+        bodyType: {
+          name: 'Hatchback',
+        },
+        fuelType: {
+          name: 'Diesel',
+        },
         colours: [{ id: '13990', optionDescription: 'Solid - Polar white' }],
         trims: [{ id: '104562', optionDescription: 'Leather - Cranberry red' }],
         standardEquipments: [
@@ -182,6 +208,18 @@ describe('<CustomiseLease />', () => {
         upfronts: [1, 3, 6, 9, 12],
       },
       derivativeInfo: {
+        transmission: {
+          name: 'Manual',
+        },
+        bodyStyle: {
+          name: 'Hatchback',
+        },
+        bodyType: {
+          name: 'Hatchback',
+        },
+        fuelType: {
+          name: 'Diesel',
+        },
         colours: [{ id: '13990', optionDescription: 'Solid - Polar white' }],
         trims: [{ id: '104562', optionDescription: 'Leather - Cranberry red' }],
         standardEquipments: [
@@ -297,6 +335,18 @@ describe('<CustomiseLease />', () => {
           upfronts: [1, 3, 6, 9, 12],
         }}
         derivativeInfo={{
+          transmission: {
+            name: 'Manual',
+          },
+          bodyStyle: {
+            name: 'Hatchback',
+          },
+          bodyType: {
+            name: 'Hatchback',
+          },
+          fuelType: {
+            name: 'Diesel',
+          },
           colours: [
             { id: '13990', optionDescription: 'Solid - Polar white' },
             { id: '13991', optionDescription: 'Solid - Polar black' },

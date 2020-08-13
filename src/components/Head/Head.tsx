@@ -10,7 +10,7 @@ const Head: FC<IHeadProps> = props => {
   const { metaDescription, legacyUrl, publishedOn } = props;
 
   // Dev override.
-  if (process.env.ENV !== 'production') {
+  if (process.env.ENV && process.env.ENV !== 'production') {
     title = `[${process.env.ENV?.toUpperCase()}] ${title}`;
     metaRobots = 'noindex';
   }

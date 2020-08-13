@@ -5,6 +5,8 @@ ARG API_KEY
 ARG API_URL
 ARG LOQATE_KEY
 ARG NODE_ENV
+ARG ENV
+ARG ENABLE_DEV_TOOLS
 
 # Setting working directory. All the path will be relative to WORKDIR
 WORKDIR /usr/src/app
@@ -20,8 +22,8 @@ COPY . .
 
 RUN npm rebuild node-sass
 
-# Build the app
-RUN yarn build
+# Build the app (this is now executed in "yarn start" command)
+# RUN yarn build
 
 EXPOSE 8080
 

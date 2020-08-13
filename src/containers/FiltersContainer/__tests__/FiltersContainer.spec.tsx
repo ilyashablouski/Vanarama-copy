@@ -18,6 +18,14 @@ const resetMocks = () => {
   };
 };
 
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      query: {},
+    };
+  },
+}));
+
 let mockCalled = false;
 
 const mocksResponse: MockedResponse[] = [

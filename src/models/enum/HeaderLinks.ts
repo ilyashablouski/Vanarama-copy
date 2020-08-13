@@ -30,61 +30,73 @@ export const TOP_BAR_LINKS = [
           {
             label: 'Citroen',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/van-leasing/Citroen',
           },
           {
             label: 'Ford',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/van-leasing/Ford',
           },
           {
             label: 'Benz',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/van-leasing/Benz',
           },
           {
             label: 'Nissan',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/van-leasing/Nissan',
           },
           {
             label: 'Renault',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/van-leasing/Renault',
           },
           {
             label: 'Vauxhall',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/van-leasing/Vauxhall',
           },
           {
             label: 'Fiat',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/van-leasing/Fiat',
           },
           {
             label: 'Isuzu',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/van-leasing/Isuzu',
           },
           {
             label: 'Mitsubishi',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/van-leasing/Mitsubishi',
           },
           {
             label: 'Peugeot',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/van-leasing/Peugeot',
           },
           {
             label: 'Toyota',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/van-leasing/Toyota',
           },
           {
             label: 'Volkswagen',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/van-leasing/Volkswagen',
           },
         ],
@@ -96,15 +108,30 @@ export const TOP_BAR_LINKS = [
         children: [
           {
             label: 'Small',
-            href: '/van-leasing?bodyStyles=Small+Van',
+            href: '/van-leasing',
+            as: '/van-leasing?bodyStyles=Small Van',
+            query: {
+              bodyStyles: 'Small Van',
+              isChangePage: 'true',
+            },
           },
           {
             label: 'Medium',
-            href: '/van-leasing?bodyStyles=Medium+Van',
+            href: '/van-leasing',
+            as: '/van-leasing?bodyStyles=Medium Van',
+            query: {
+              bodyStyles: 'Medium Vam',
+              isChangePage: 'true',
+            },
           },
           {
             label: 'Large',
-            href: '/van-leasing?bodyStyles=Large+Van',
+            href: '/van-leasing',
+            as: '/van-leasing?bodyStyles=Large Van',
+            query: {
+              bodyStyles: 'Large Van',
+              isChangePage: 'true',
+            },
           },
         ],
         id: '43df3e0b-f248-457d-bf3c-ec1fe4def7e3',
@@ -115,22 +142,47 @@ export const TOP_BAR_LINKS = [
         children: [
           {
             label: 'Refrigerated',
-            href: '/van-leasing?bodyStyles=Refrigerated+Van',
+            href: '/van-leasing',
+            as: '/van-leasing?bodyStyles=Refrigerated Van',
+            query: {
+              bodyStyles: 'Refrigerated Van',
+              isChangePage: 'true',
+            },
           },
           {
             label: 'Tippers/Lutons',
-            href: '/van-leasing?bodyStyles=Dropside+Tipper,Luton+Box+Van',
+            as: '/van-leasing?bodyStyles=Dropside Tipper,Luton Box Van',
+            href: '/van-leasing',
+            query: {
+              bodyStyles: ['Dropside Tipper', 'Luton Box Van'],
+              isChangePage: 'true',
+            },
           },
           {
             label: 'Crew/Minibus',
-            href: '/van-leasing?bodyStyles=Minibus',
+            href: '/van-leasing',
+            as: '/van-leasing?bodyStyles=Minibus',
+            query: {
+              bodyStyles: 'Minibus',
+              isChangePage: 'true',
+            },
           },
           {
             label: 'Specialist',
-            href: '/van-leasing?bodyStyles=Specialist',
+            as: '/van-leasing?bodyStyles=Specialist',
+            href: '/van-leasing',
+            query: {
+              bodyStyles: 'Specialist',
+              isChangePage: 'true',
+            },
           },
         ],
         id: '44c0f32b-f034-4b84-ac49-0c2b76140c96',
+      },
+      {
+        label: 'Van Leasing Explained',
+        href: '/van-leasing/finance-options',
+        id: 'f601c25c-4529-43e3-abaf-8d9fbf0af941',
       },
     ],
     id: '0422f873-0ae6-4fe0-961f-7a40b7073281',
@@ -141,7 +193,7 @@ export const TOP_BAR_LINKS = [
     children: [
       {
         label: 'Pickups Special offers',
-        href: '',
+        href: '/special-offers/pickup-offers',
         highlight: true,
         id: 'b7b2b49e-ee30-4ad5-93f7-b367d8c6d0ae',
       },
@@ -152,61 +204,76 @@ export const TOP_BAR_LINKS = [
           {
             label: 'Citroen',
             href: '/van-leasing/[make]',
+            query: {
+              isChangePage: 'true',
+              bodyStyles: 'Pickup',
+            },
             as: '/van-leasing/Citroen?bodyStyles=Pickup',
           },
           {
             label: 'Ford',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true', bodyStyles: 'Pickup' },
             as: '/van-leasing/Ford?bodyStyles=Pickup',
           },
           {
             label: 'Benz',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true', bodyStyles: 'Pickup' },
             as: '/van-leasing/Benz?bodyStyles=Pickup',
           },
           {
             label: 'Nissan',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true', bodyStyles: 'Pickup' },
             as: '/van-leasing/Nissan?bodyStyles=Pickup',
           },
           {
             label: 'Renault',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true', bodyStyles: 'Pickup' },
             as: '/van-leasing/Renault?bodyStyles=Pickup',
           },
           {
             label: 'Vauxhall',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true', bodyStyles: 'Pickup' },
             as: '/van-leasing/Vauxhall?bodyStyles=Pickup',
           },
           {
             label: 'Fiat',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true', bodyStyles: 'Pickup' },
             as: '/van-leasing/Fiat?bodyStyles=Pickup',
           },
           {
             label: 'Isuzu',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true', bodyStyles: 'Pickup' },
             as: '/van-leasing/Isuzu?bodyStyles=Pickup',
           },
           {
             label: 'Mitsubishi',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true', bodyStyles: 'Pickup' },
             as: '/van-leasing/Mitsubishi?bodyStyles=Pickup',
           },
           {
             label: 'Peugeot',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true', bodyStyles: 'Pickup' },
             as: '/van-leasing/Peugeot?bodyStyles=Pickup',
           },
           {
             label: 'Toyota',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true', bodyStyles: 'Pickup' },
             as: '/van-leasing/Toyota?bodyStyles=Pickup',
           },
           {
             label: 'Volkswagen',
             href: '/van-leasing/[make]',
+            query: { isChangePage: 'true', bodyStyles: 'Pickup' },
             as: '/van-leasing/Volkswagen?bodyStyles=Pickup',
           },
         ],
@@ -248,7 +315,7 @@ export const TOP_BAR_LINKS = [
     children: [
       {
         label: 'Car Special Offers',
-        href: '',
+        href: '/special-offers/car-offers',
         highlight: true,
         id: '831f7a18-d3f8-4019-9ddd-e54fbe9f6af7',
       },
@@ -259,96 +326,115 @@ export const TOP_BAR_LINKS = [
           {
             label: 'Audi',
             href: '/car-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/car-leasing/Audi',
           },
           {
             label: 'BMW',
             href: '/car-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/car-leasing/BMW',
           },
           {
             label: 'Ford',
             href: '/car-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/car-leasing/Ford',
           },
           {
             label: 'Hyundai',
             href: '/car-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/car-leasing/Hyundai',
           },
           {
             label: 'Jaguar',
             href: '/car-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/car-leasing/Jaguar',
           },
           {
             label: 'Kia',
             href: '/car-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/car-leasing/Kia',
           },
           {
             label: 'Land Rover',
             href: '/car-leasing/[make]',
-            as: '/car-leasing/Land+Rover',
+            query: { isChangePage: 'true' },
+            as: '/car-leasing/Land Rover',
           },
           {
             label: 'Mercedes-Benz',
             href: '/car-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/car-leasing/Mercedes-Benz',
           },
           {
             label: 'Mini',
             href: '/car-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/car-leasing/Mini',
           },
           {
             label: 'Nissan',
             href: '/car-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/car-leasing/Nissan',
           },
           {
             label: 'Peugeot',
             href: '/car-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/car-leasing/Peugeot',
           },
           {
             label: 'Seat',
             href: '/car-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/car-leasing/Seat',
           },
           {
             label: 'Skoda',
             href: '/car-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/car-leasing/Skoda',
           },
           {
             label: 'Smart',
             href: '/car-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/car-leasing/Smart',
           },
           {
             label: 'Tesla',
             href: '/car-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/car-leasing/Tesla',
           },
           {
             label: 'Toyota',
             href: '/car-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/car-leasing/Toyota',
           },
           {
             label: 'Vauxhall',
             href: '/car-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/car-leasing/Vauxhall',
           },
           {
             label: 'Volkswagen',
             href: '/car-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/car-leasing/Volkswagen',
           },
           {
             label: 'Volvo',
             href: '/car-leasing/[make]',
+            query: { isChangePage: 'true' },
             as: '/car-leasing/Volvo',
           },
           {
@@ -364,47 +450,102 @@ export const TOP_BAR_LINKS = [
         children: [
           {
             label: '4x4/SUV',
-            href: '/car-leasing?bodyStyles=4x4,SUV',
+            href: '/car-leasing',
+            as: '/car-leasing?bodyStyles=4x4',
+            query: {
+              bodyStyles: '4x4',
+              isChangePage: 'true',
+            },
           },
           {
             label: 'Coupe',
-            href: '/car-leasing?bodyStyles=Coupe',
+            href: '/car-leasing',
+            as: '/car-leasing?bodyStyles=Coupe',
+            query: {
+              bodyStyles: 'Coupe',
+              isChangePage: 'true',
+            },
           },
           {
             label: 'Estate',
-            href: '/car-leasing?bodyStyles=Estate',
+            href: '/car-leasing',
+            as: '/car-leasing?bodyStyles=Estate',
+            query: {
+              bodyStyles: 'Estate',
+              isChangePage: 'true',
+            },
           },
           {
             label: 'Hatchback',
-            href: '/car-leasing?bodyStyles=Hatchback',
+            href: '/car-leasing',
+            as: '/car-leasing?bodyStyles=Hatchback',
+            query: {
+              bodyStyles: 'Hatchback',
+              isChangePage: 'true',
+            },
           },
           {
             label: 'Prestige',
-            href: '/car-leasing?bodyStyles=Prestige',
+            href: '/car-leasing',
+            as: '/car-leasing?bodyStyles=Prestige',
+            query: {
+              bodyStyles: 'Prestige',
+              isChangePage: 'true',
+            },
           },
           {
             label: 'Small',
-            href: '/car-leasing?bodyStyles=Small',
+            href: '/car-leasing',
+            as: '/car-leasing?bodyStyles=Small',
+            query: {
+              bodyStyles: 'Small',
+              isChangePage: 'true',
+            },
           },
           {
             label: 'Convertible',
-            href: '/car-leasing?bodyStyles=Convertible',
+            href: '/car-leasing',
+            as: '/car-leasing?bodyStyles=Convertible',
+            query: {
+              bodyStyles: 'Convertible',
+              isChangePage: 'true',
+            },
           },
           {
             label: 'Eco',
-            href: '/car-leasing?bodyStyles=Eco',
+            href: '/car-leasing',
+            as: '/car-leasing?bodyStyles=Eco',
+            query: {
+              bodyStyles: 'Eco',
+              isChangePage: 'true',
+            },
           },
           {
             label: 'Family',
-            href: '/car-leasing?bodyStyles=Family',
+            href: '/car-leasing',
+            as: '/car-leasing?bodyStyles=Family',
+            query: {
+              bodyStyles: 'Family',
+              isChangePage: 'true',
+            },
           },
           {
             label: 'People Carrier',
-            href: '/car-leasing?bodyStyles=People+Carrier',
+            href: '/car-leasing',
+            as: '/car-leasing?bodyStyles=People Carrier',
+            query: {
+              bodyStyles: 'People Carrier',
+              isChangePage: 'true',
+            },
           },
           {
             label: 'Saloon',
-            href: '/car-leasing?bodyStyles=Saloon',
+            href: '/car-leasing',
+            as: '/car-leasing?bodyStyles=Saloon',
+            query: {
+              bodyStyles: 'Saloon',
+              isChangePage: 'true',
+            },
           },
           {
             label: 'View All',
@@ -412,6 +553,11 @@ export const TOP_BAR_LINKS = [
           },
         ],
         id: '666d9983-41e9-45e4-9a5d-64d184526ff7',
+      },
+      {
+        label: 'Car Leasing Explained',
+        href: '/car-leasing/finance-options',
+        id: 'f601c25c-4529-43e3-abaf-8d9fbf0af941',
       },
     ],
     id: 'bcbe1020-8d08-4c8d-81e5-f1fc0ae0fdbe',
@@ -455,7 +601,7 @@ export const TOP_BAR_LINKS = [
   },
   {
     label: 'Fleet',
-    href: '/van-insurance/',
+    href: '/fleet/',
     children: [],
     id: 'ea4dbb42-0c82-4643-800b-a65f0762b245',
   },

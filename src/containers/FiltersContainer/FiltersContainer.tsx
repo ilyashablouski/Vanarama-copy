@@ -49,6 +49,9 @@ const FiltersContainer = ({
   preSearchVehicleCount,
   isSpecialOffers,
   isMakePage,
+  isPickups,
+  isRangePage,
+  isModelPage,
 }: IFilterContainerProps) => {
   const router = useRouter();
   const [filtersData, setFiltersData] = useState({} as IFilterList);
@@ -63,11 +66,11 @@ const FiltersContainer = ({
   const [tempModelName, setTempModelName] = useState('');
   const [fromBudget] = useState(budgets.slice(0, budgets.length - 1));
   const [toBudget] = useState(budgets.slice(1));
-  const [isOpenFilter, setFilterExpandStatus] = useState(true);
   const [choiceBoxesData, setChoiceBoxesData] = useState(
     {} as IChoiceBoxesData,
   );
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1216px)' });
+  const [isOpenFilter, setFilterExpandStatus] = useState(false);
 
   const [selectedFiltersState, setSelectedFiltersState] = useState<
     ISelectedFiltersState
@@ -87,7 +90,7 @@ const FiltersContainer = ({
 
   const { refetch } = useFilterList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-    isMakePage ? null : isSpecialOffers,
+    isMakePage || isRangePage || isModelPage ? null : isSpecialOffers,
     resp => {
       if (!Object.keys(allFiltersData).length) {
         setAllFiltersData(resp?.filterList || ({} as IFilterList));
@@ -149,13 +152,13 @@ const FiltersContainer = ({
   );
 
   /** start new search */
-  const onViewResults = () => {
-    onSearch(filtersObject);
+  const onViewResults = (onlyFiltersUpdate = false) => {
+    if (!onlyFiltersUpdate) onSearch(filtersObject);
     const filtersObjectForFilters = { ...filtersObject };
     delete filtersObjectForFilters.rate;
     refetch({
       vehicleTypes: isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-      onOffer: isMakePage ? null : isSpecialOffers,
+      onOffer: isMakePage || isRangePage ? null : isSpecialOffers,
       ...filtersObjectForFilters,
     }).then(resp => {
       // using then because apollo return incorrect cache result https://github.com/apollographql/apollo-client/issues/3550
@@ -183,24 +186,32 @@ const FiltersContainer = ({
 
   useEffect(() => {
     // if we have query parameters filters should be preselected
-    if (
-      Object.keys(router?.query || {}).length &&
-      Object.keys(allFiltersData).length
-    ) {
+    const shouldPreselect =
+      (Object.keys(router?.query || {}).length &&
+        Object.keys(allFiltersData).length) ||
+      router.query.isChangePage === 'true';
+    if (shouldPreselect) {
       const presetFilters = {} as ISelectedFiltersState;
       const routerQuery = Object.entries(router.query);
       routerQuery.forEach(entry => {
         const [key, values] = entry;
         if (key === 'rangeName') {
-          filtersData.groupedRanges?.forEach(element => {
+          filtersData.groupedRanges?.some(element => {
             const value = findPreselectFilterValue(
-              Array.isArray(values) ? values[0] : values,
+              Array.isArray(values)
+                ? values[0].split('+').join(' ')
+                : values.split('+').join(' '),
               element.children,
             );
             // saving model to temp because after set makes model will be removed
-            if (value) setTempModelName(value);
+            if (value) {
+              setTempModelName(value);
+              presetFilters.model = [value];
+              return true;
+            }
+            return false;
           });
-        } else if (key !== 'pricePerMonth') {
+        } else if (key !== 'pricePerMonth' && key !== 'isChangePage') {
           let query: string | string[];
           // transformation the query value to expected type
           if (!Array.isArray(values)) {
@@ -221,37 +232,30 @@ const FiltersContainer = ({
                   filtersMapper[key as keyof typeof filtersMapper],
                 ),
               ];
-        } else {
+        } else if (key !== 'isChangePage') {
           const rate = (values as string).split('|');
           presetFilters.from = [rate[0]] || null;
           presetFilters.to = [rate[1]] || null;
         }
       });
-
-      if (routerQuery.length === 1) {
-        setSelectedFiltersState(() => ({
-          ...initialState,
-          ...presetFilters,
-        }));
-      } else {
-        setSelectedFiltersState(prevState => ({
-          ...prevState,
-          ...presetFilters,
-        }));
-      }
+      setSelectedFiltersState(prevState => ({
+        ...prevState,
+        ...presetFilters,
+      }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [allFiltersData]);
+  }, [allFiltersData, router.query.isChangePage]);
 
   useEffect(() => {
     const queryLength = Object.keys(router?.query || {}).length;
-    if (!queryLength) {
+    if (!queryLength || (queryLength === 1 && router.query.isChangePage)) {
       setSelectedFiltersState(initialState);
     }
   }, [setSelectedFiltersState, router]);
 
   useEffect(() => {
     if (!isTabletOrMobile) setFilterExpandStatus(true);
+    else setFilterExpandStatus(false);
   }, [isTabletOrMobile]);
 
   useEffect(() => {
@@ -259,25 +263,42 @@ const FiltersContainer = ({
     if (!isInitialLoad) onViewResults();
     if (
       (selectedFilterTags[0] && isInitialLoad) ||
-      (isInitialLoad && isMakePage && selectedFiltersState.make[0])
+      (isInitialLoad &&
+        ((isMakePage && selectedFiltersState.make[0]) ||
+          (isRangePage && selectedFiltersState.model[0]))) ||
+      (isModelPage && selectedFiltersState.model[0])
     )
       setInitialLoad(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFilterTags, isSpecialOffers, isInitialLoad, isPersonal]);
 
+  /** return true if model exist in filters data */
+  const isCurrentModelValid = (model: string) =>
+    filtersData.groupedRanges?.some(({ children }) => children.includes(model));
+
   // set actual models after make changing
   useEffect(() => {
-    if (selectedFiltersState.make.length && !isMakePage) {
+    if (
+      filtersObject.manufacturerName &&
+      !isMakePage &&
+      !((isRangePage || isModelPage) && !tempModelName)
+    ) {
+      // every time when filters update active model missed
+      // for preset filters using temp variable
+      // for cases when we change model manually we check for include this model in  new filters data
+      const model = isCurrentModelValid(filtersObject.rangeName)
+        ? [filtersObject.rangeName]
+        : [];
       setSelectedFiltersState(prevState => ({
         ...prevState,
-        model: tempModelName ? [tempModelName] : [],
+        model: tempModelName ? [tempModelName] : model,
       }));
       setModelsData(modelHandler(filtersData, selectedFiltersState.make[0]));
       // clear temp model value
       if (tempModelName) setTempModelName('');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedFiltersState.make, filtersData]);
+  }, [filtersObject.manufacturerName, filtersData]);
 
   // hack for subscribe multiselects changes and update Choiceboxes state
   useEffect(() => {
@@ -326,12 +347,17 @@ const FiltersContainer = ({
         ) {
           return `£${entry[1]}`;
         }
-        return isMakePage && entry[0] === filterFields.make ? '' : entry[1];
+        return ((isMakePage || isRangePage || isModelPage) &&
+          entry[0] === filterFields.make) ||
+          ((isRangePage || isModelPage) && entry[0] === filterFields.model) ||
+          (isModelPage && entry[0] === filterFields.bodyStyles)
+          ? ''
+          : entry[1];
       })
       .flat()
       .filter(Boolean);
     setSelectedFilterTags(selected);
-  }, [selectedFiltersState, isMakePage]);
+  }, [selectedFiltersState, isMakePage, isRangePage, isModelPage]);
 
   // made force update for choiseboxes state
   useEffect(() => {
@@ -476,7 +502,7 @@ const FiltersContainer = ({
                   <FormGroup label={dropdown.label} key={dropdown.label}>
                     <Select
                       disabled={
-                        isMakePage &&
+                        (isMakePage || isRangePage || isModelPage) &&
                         (dropdown.accessor === filterFields.make ||
                           dropdown.accessor === filterFields.model)
                       }
@@ -514,35 +540,38 @@ const FiltersContainer = ({
                 <>
                   {selectedFiltersState[
                     filter.accessor as keyof typeof filtersMapper
-                  ]?.length > 0 && (
-                    <div className="dropdown--header">
-                      <div className="dropdown--header-text">
-                        <span className="dropdown--header-count">{`${
-                          selectedFiltersState[
-                            filter.accessor as keyof typeof filtersMapper
-                          ]?.length
-                        } Selected`}</span>
-                        <div className="dropdown--header-selected">
-                          {selectedFiltersState[
-                            filter.accessor as keyof typeof filtersMapper
-                          ].map(value => (
-                            <span key={value}>{value},</span>
-                          ))}
+                  ]?.length > 0 &&
+                    !(
+                      isModelPage && filter.accessor === filterFields.bodyStyles
+                    ) && (
+                      <div className="dropdown--header">
+                        <div className="dropdown--header-text">
+                          <span className="dropdown--header-count">{`${
+                            selectedFiltersState[
+                              filter.accessor as keyof typeof filtersMapper
+                            ]?.length
+                          } Selected`}</span>
+                          <div className="dropdown--header-selected">
+                            {selectedFiltersState[
+                              filter.accessor as keyof typeof filtersMapper
+                            ].map(value => (
+                              <span key={value}>{value},</span>
+                            ))}
+                          </div>
                         </div>
+                        <Button
+                          size="small"
+                          color="teal"
+                          fill="outline"
+                          label="Clear"
+                          onClick={() =>
+                            clearFilter(
+                              filter.accessor as keyof typeof filtersMapper,
+                            )
+                          }
+                        />
                       </div>
-                      <Button
-                        size="small"
-                        color="teal"
-                        fill="outline"
-                        label="Clear"
-                        onClick={() =>
-                          clearFilter(
-                            filter.accessor as keyof typeof filtersMapper,
-                          )
-                        }
-                      />
-                    </div>
-                  )}
+                    )}
 
                   <FormGroup label={filter.label} dataTestId={filter.label}>
                     {choiceBoxesData[filter.accessor]?.length > 0 && (
@@ -553,10 +582,28 @@ const FiltersContainer = ({
                             filter.accessor as keyof typeof filtersMapper,
                           )
                         }
-                        choices={choiceBoxesData[filter.accessor]}
+                        choices={
+                          filter.accessor === filterFields.bodyStyles &&
+                          (isPickups || isModelPage)
+                            ? [
+                                {
+                                  label: `${
+                                    isPickups
+                                      ? 'Pickup'
+                                      : selectedFiltersState.bodyStyles[0]
+                                  }`,
+                                  active: true,
+                                },
+                              ]
+                            : choiceBoxesData[filter.accessor]
+                        }
                         className="-cols-1"
                         color="medium"
                         multiSelect
+                        disabled={
+                          filter.accessor === filterFields.bodyStyles &&
+                          (isPickups || isModelPage)
+                        }
                         ref={getOrCreateRef(filter.accessor)}
                       />
                     )}

@@ -5,33 +5,47 @@ import IconList, {
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
+import {
+  EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_iconList as IconListType,
+  EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_image as ImageType,
+} from '../../../../generated/EligibilityCheckerPageData';
 
-const WhyEligibilityChecker: FC = () => (
+interface IWhyEligibilityChecker {
+  body: string | null;
+  title: string | null;
+  image: ImageType | null;
+  iconList: (IconListType | null)[] | null;
+}
+
+const WhyEligibilityChecker: FC<IWhyEligibilityChecker> = ({
+  body,
+  title,
+  image,
+  iconList,
+}) => (
   <div className="row:featured-right">
     <div>
       <Heading size="large" color="black">
-        Why Use Our Car Lease Eligibility Checker?
+        {title}
       </Heading>
       <Text tag="p" size="regular" color="darker">
-        If you&apos;re looking to drive a brand new car, van or truck without
-        any of the hassle - leasing might just be for you! It&apos;s affordable,
-        simple and you&apos;re not left with a depreciating asset at the end of
-        your contract.
+        {body}
       </Text>
-      <IconList>
-        <IconListItem iconColor="orange">
-          Choose your contract length & agreed mileage
-        </IconListItem>
-        <IconListItem iconColor="orange">Pay an initial payment</IconListItem>
-        <IconListItem iconColor="orange">
-          Set up your agreed fixed monthly rental
-        </IconListItem>
-      </IconList>
+      {iconList?.length && (
+        <IconList>
+          {iconList.map((el, indx) => (
+            <IconListItem iconColor="orange" key={indx.toString()}>
+              {el?.text}
+            </IconListItem>
+          ))}
+        </IconList>
+      )}
     </div>
     <Image
       width="900"
       height="500"
-      src="https://source.unsplash.com/collection/2102317/1000x650?sig=40344"
+      src={image?.file?.url || ''}
+      alt={image?.title || ''}
     />
   </div>
 );

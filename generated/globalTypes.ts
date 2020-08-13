@@ -145,16 +145,23 @@ export interface CompanyInputObject {
  * Input object to create and add a Credit Application
  */
 export interface CreditApplicationInputObject {
+  aboutDetails?: any | null;
   addresses?: any | null;
   bankAccounts?: any | null;
+  companyDetails?: any | null;
+  directorsDetails?: any | null;
   emailAddresses?: any | null;
   employmentHistories?: any | null;
+  financeType?: string | null;
   incomeAndExpenses?: any | null;
   leadManagerProposalId?: string | null;
   orderUuid: string;
+  partnersDetails?: any | null;
   partyDetails?: any | null;
+  soleTraderDetails?: any | null;
   status?: string | null;
   telephoneNumbers?: any | null;
+  vatDetails?: any | null;
 }
 
 /**
@@ -234,6 +241,7 @@ export interface LimitedCompanyInputObject {
   companyType?: string | null;
   emailAddress?: EmailAddressInputObject | null;
   isVatRegistered?: boolean | null;
+  leadManagerId?: string | null;
   legalName?: string | null;
   otherCountriesOfActivity?: string[] | null;
   person?: PersonInputObject | null;
@@ -377,7 +385,6 @@ export interface VehicleProductInputObject {
   description?: string | null;
   finalPayment?: number | null;
   financeType?: string | null;
-  funder?: string | null;
   funderId?: string | null;
   maintenance?: boolean | null;
   monthlyPayment?: number | null;
@@ -385,6 +392,11 @@ export interface VehicleProductInputObject {
   trim?: string | null;
   vehicleType: VehicleTypeEnum;
   vsku?: string | null;
+}
+
+export interface VehicleToCompare {
+  capId?: number | null;
+  vehicleType?: VehicleTypeEnum | null;
 }
 
 //==============================================================

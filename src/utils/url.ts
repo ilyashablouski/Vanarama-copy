@@ -48,6 +48,7 @@ export const getProductPageUrl = (
     vehicleType,
     capId,
   } = productPageUrlData(productCard, derivatives);
+
   const leasing =
     vehicleType === VehicleTypeEnum.CAR ? '/car-leasing' : '/van-leasing';
 
