@@ -1,30 +1,23 @@
-import React from 'react';
+import React, { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { gql } from '@apollo/client';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import IvanCta from '@vanarama/uibook/lib/components/molecules/ivan-cta';
 import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
-import { FinanceExplainedContainerSections } from '../../../generated/FinanceExplainedContainerSections';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { LinkTypes } from '../../models/enum/LinkTypes';
-import FCWithFragments from '../../utils/FCWithFragments';
 import { getFeaturedClassPartial } from '../../utils/layout';
-import { CarLeasingExplainedPage_genericPage_sections as Section } from '../../../generated/CarLeasingExplainedPage';
+import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/GenericPageQuery';
 
 interface IProps {
-  sections: FinanceExplainedContainerSections | Section | null;
+  sections: Section | null;
   title: string | null;
   body: string | null;
 }
 
-const FinanceExplainedContainer: FCWithFragments<IProps> = ({
-  title,
-  body,
-  sections,
-}) => {
+const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
   const cards = sections?.cards?.cards;
   const featured1 = sections?.featured1;
   const carousel = sections?.carousel;
@@ -160,117 +153,6 @@ const FinanceExplainedContainer: FCWithFragments<IProps> = ({
       )}
     </>
   );
-};
-
-FinanceExplainedContainer.fragments = {
-  sections: gql`
-    fragment FinanceExplainedContainerSections on Sections {
-      cards {
-        name
-        description
-        cards {
-          name
-          title
-          image {
-            title
-            description
-            file {
-              url
-              fileName
-              contentType
-            }
-          }
-          body
-          link {
-            text
-            url
-          }
-        }
-      }
-      featured1 {
-        layout
-        body
-        title
-        image {
-          title
-          description
-          file {
-            url
-            fileName
-            contentType
-            details {
-              size
-              image {
-                width
-                height
-              }
-            }
-          }
-        }
-      }
-      featured2 {
-        layout
-        body
-        image {
-          title
-          description
-          file {
-            url
-            fileName
-            contentType
-            details {
-              size
-              image {
-                width
-                height
-              }
-            }
-          }
-        }
-        title
-        cards {
-          name
-          title
-          image {
-            title
-            description
-            file {
-              url
-              fileName
-              contentType
-            }
-          }
-          body
-          link {
-            text
-            url
-          }
-        }
-      }
-      carousel {
-        title
-        name
-        cards {
-          name
-          title
-          image {
-            title
-            description
-            file {
-              url
-              fileName
-              contentType
-            }
-          }
-          body
-          link {
-            text
-            url
-          }
-        }
-      }
-    }
-  `,
 };
 
 export default FinanceExplainedContainer;
