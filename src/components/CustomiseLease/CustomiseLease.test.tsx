@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { render, fireEvent, screen } from '@testing-library/react';
 import CustomiseLease from './CustomiseLease';
-import { IProps } from './interfase';
+import { IProps } from './interface';
 import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
 
 jest.mock('next/router');
@@ -90,6 +90,18 @@ describe('<CustomiseLease />', () => {
         upfronts: [1, 3, 6, 9, 12],
       },
       derivativeInfo: {
+        transmission: {
+          name: 'Manual',
+        },
+        bodyStyle: {
+          name: 'Hatchback',
+        },
+        bodyType: {
+          name: 'Hatchback',
+        },
+        fuelType: {
+          name: 'Diesel',
+        },
         colours: [{ id: '13990', optionDescription: 'Solid - Polar white' }],
         trims: [{ id: '104562', optionDescription: 'Leather - Cranberry red' }],
         standardEquipments: [
@@ -196,6 +208,18 @@ describe('<CustomiseLease />', () => {
         upfronts: [1, 3, 6, 9, 12],
       },
       derivativeInfo: {
+        transmission: {
+          name: 'Manual',
+        },
+        bodyStyle: {
+          name: 'Hatchback',
+        },
+        bodyType: {
+          name: 'Hatchback',
+        },
+        fuelType: {
+          name: 'Diesel',
+        },
         colours: [{ id: '13990', optionDescription: 'Solid - Polar white' }],
         trims: [{ id: '104562', optionDescription: 'Leather - Cranberry red' }],
         standardEquipments: [
@@ -311,6 +335,18 @@ describe('<CustomiseLease />', () => {
           upfronts: [1, 3, 6, 9, 12],
         }}
         derivativeInfo={{
+          transmission: {
+            name: 'Manual',
+          },
+          bodyStyle: {
+            name: 'Hatchback',
+          },
+          bodyType: {
+            name: 'Hatchback',
+          },
+          fuelType: {
+            name: 'Diesel',
+          },
           colours: [
             { id: '13990', optionDescription: 'Solid - Polar white' },
             { id: '13991', optionDescription: 'Solid - Polar black' },

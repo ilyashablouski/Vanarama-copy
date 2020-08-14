@@ -89,6 +89,18 @@ describe('<CustomiseLeaseContainer />', () => {
           term: 1231,
         }}
         derivativeInfo={{
+          transmission: {
+            name: 'Manual',
+          },
+          bodyStyle: {
+            name: 'Hatchback',
+          },
+          bodyType: {
+            name: 'Hatchback',
+          },
+          fuelType: {
+            name: 'Diesel',
+          },
           colours: [{ id: '13990', optionDescription: 'Solid - Polar white' }],
           technicals: [
             {
@@ -192,6 +204,18 @@ describe('<CustomiseLeaseContainer />', () => {
         term: 1231,
       },
       derivativeInfo: {
+        transmission: {
+          name: 'Manual',
+        },
+        bodyStyle: {
+          name: 'Hatchback',
+        },
+        bodyType: {
+          name: 'Hatchback',
+        },
+        fuelType: {
+          name: 'Diesel',
+        },
         colours: [{ id: '13990', optionDescription: 'Solid - Polar white' }],
         technicals: [
           {
@@ -252,6 +276,18 @@ describe('<CustomiseLeaseContainer />', () => {
         term: 1231,
       },
       derivativeInfo: {
+        transmission: {
+          name: 'Manual',
+        },
+        bodyStyle: {
+          name: 'Hatchback',
+        },
+        bodyType: {
+          name: 'Hatchback',
+        },
+        fuelType: {
+          name: 'Diesel',
+        },
         colours: [{ id: '13990', optionDescription: 'Solid - Polar white' }],
         technicals: [
           {
@@ -341,6 +377,18 @@ describe('<CustomiseLeaseContainer />', () => {
           upfronts: [1, 3, 6, 9, 12],
         }}
         derivativeInfo={{
+          transmission: {
+            name: 'Manual',
+          },
+          bodyStyle: {
+            name: 'Hatchback',
+          },
+          bodyType: {
+            name: 'Hatchback',
+          },
+          fuelType: {
+            name: 'Diesel',
+          },
           colours: [{ id: '13990', optionDescription: 'Solid - Polar white' }],
           technicals: [
             {
