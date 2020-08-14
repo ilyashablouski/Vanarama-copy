@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 const redis = require('redis');
 const { RateLimiterRedis } = require('rate-limiter-flexible');
 
@@ -15,15 +16,18 @@ const rateLimiter = new RateLimiterRedis({
   duration: 1, // per 1 second by IP
 });
 
-const rateLimiterMiddleware = (req, res, next) => {
-  rateLimiter
-    .consume(req.ip)
-    .then(() => {
-      next();
-    })
-    .catch(() => {
-      res.status(429).send('Too Many Requests');
-    });
-};
+let rateLimiterMiddleware;
+if (process.env.ENV === 'production')
+  rateLimiterMiddleware = (req, res, next) => {
+    rateLimiter
+      .consume(req.ip)
+      .then(() => {
+        next();
+      })
+      .catch(() => {
+        res.status(429).send('Too Many Requests');
+      });
+  };
+else rateLimiterMiddleware = false;
 
 module.exports = rateLimiterMiddleware;
