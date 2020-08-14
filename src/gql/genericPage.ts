@@ -2,7 +2,11 @@ import { gql, useQuery } from '@apollo/client';
 import {
   GenericPageQuery,
   GenericPageQueryVariables,
-} from '../../generated/GenericPageQuery';
+} from '../../generated/genericPageQuery';
+import {
+  GenericPageHeadQuery,
+  GenericPageHeadQueryVariables,
+} from '../../generated/GenericPageHeadQuery';
 
 export const GENERIC_PAGE = gql`
   query GenericPageQuery($slug: String!) {
@@ -188,7 +192,7 @@ export const GENERIC_PAGE_HEAD = gql`
 `;
 
 export function useGenericPageHead(slug: string) {
-  return useQuery<GenericPageQuery, GenericPageQueryVariables>(
+  return useQuery<GenericPageHeadQuery, GenericPageHeadQueryVariables>(
     GENERIC_PAGE_HEAD,
     {
       variables: {
