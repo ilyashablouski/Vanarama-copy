@@ -7,12 +7,13 @@ ARG LOQATE_KEY
 ARG NODE_ENV
 ARG ENV
 ARG ENABLE_DEV_TOOLS
+ARG NODE_OPTIONS
 
 # Setting working directory. All the path will be relative to WORKDIR
 WORKDIR /usr/src/app
 
 # Installing dependencies
-SET NODE_OPTIONS=--max_old_space_size=1024
+
 RUN npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
 COPY yarn.lock .
 COPY package.json .
