@@ -92,59 +92,59 @@ pipeline {
             }
         }
 
-        // stage("2: Unit testing") {
-        //     // TODO: run me in docker -- zero cleanup required; also concurrency safe
-        //     //agent { node('master') }
-        //     agent {
-        //         ecs {
-        //             inheritFrom 'grid-dev-jenkins-agent'  // This is not within customers
-        //         }
-        //     }
-        //     environment { //todo can the agent determine path.
-        //         PATH = "${env.PATH}:/usr/local/bin"
-        //     }
+        stage("2: Unit testing") {
+            // TODO: run me in docker -- zero cleanup required; also concurrency safe
+            //agent { node('master') }
+            agent {
+                ecs {
+                    inheritFrom 'grid-dev-jenkins-agent'  // This is not within customers
+                }
+            }
+            environment { //todo can the agent determine path.
+                PATH = "${env.PATH}:/usr/local/bin"
+            }
 
-        //     steps {
-        //       milestone(10)
-        //       withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
-        //             sh '''npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"'''
-        //             sh "yarn install"
-        //             sh "yarn pack --filename next-storefront.tar.gz"
-        //             sh "yarn test --coverage"
-        //             sh "yarn lint"
-        //             sh "yarn typecheck"
-        //             sh "yarn build"
-        //             stash includes: 'next-storefront.tar.gz', name: 'package'
-        //       }
-        //         sh "cp .coverage/lcov.info lcov.info"
-        //         stash includes: 'lcov.info', name: 'lcov'
-        //         stash includes: 'test-report.xml', name: 'test-report'
-        //     }
-        // }
+            steps {
+              milestone(10)
+              withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
+                    sh '''npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"'''
+                    sh "yarn install"
+                    sh "yarn pack --filename next-storefront.tar.gz"
+                    sh "yarn test --coverage"
+                    sh "yarn lint"
+                    sh "yarn typecheck"
+                    sh "yarn build"
+                    stash includes: 'next-storefront.tar.gz', name: 'package'
+              }
+                sh "cp .coverage/lcov.info lcov.info"
+                stash includes: 'lcov.info', name: 'lcov'
+                stash includes: 'test-report.xml', name: 'test-report'
+            }
+        }
 
-        // stage("3. Static Code Analysis") {
-        //     agent { node('master') }
-        //     steps {
-        //       milestone(20)
-        //       nodejs('node') {
-        //           // requires SonarQube Scanner 2.8+
-        //           script {
-        //               def scannerHome = tool 'SonarQubeScanner';
-        //               withSonarQubeEnv('My SonarQube Server') {
-        //                     unstash 'lcov'
-        //                     unstash 'test-report'
-        //                     sh "${scannerHome}/bin/sonar-scanner"
-        //                 }
-        //                 timeout(time: 40, unit: 'MINUTES') {
-        //                     def qGate = waitForQualityGate()
-        //                     if (qGate.status != 'OK') {
-        //                         error "Pipeline aborted due to quality gate failure: ${qGate.status}"
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+        stage("3. Static Code Analysis") {
+            agent { node('master') }
+            steps {
+              milestone(20)
+              nodejs('node') {
+                  // requires SonarQube Scanner 2.8+
+                  script {
+                      def scannerHome = tool 'SonarQubeScanner';
+                      withSonarQubeEnv('My SonarQube Server') {
+                            unstash 'lcov'
+                            unstash 'test-report'
+                            sh "${scannerHome}/bin/sonar-scanner"
+                        }
+                        timeout(time: 40, unit: 'MINUTES') {
+                            def qGate = waitForQualityGate()
+                            if (qGate.status != 'OK') {
+                                error "Pipeline aborted due to quality gate failure: ${qGate.status}"
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         stage("4. Production Build & push") {
             agent { node('master') }
