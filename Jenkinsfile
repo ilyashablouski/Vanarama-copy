@@ -23,7 +23,7 @@ def app_environment = [
         backendConfigDynamoDbTable: 'autorama-terraform-state-lock',
         jenkinsAgent: 'grid-dev-jenkins-agent',
         dockerRepoName: "000379120260.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}",
-        NODE_ENV: 'development'
+        NODE_ENV: 'production'
     ],
     "master": [
         clusterName: 'grid-test',
