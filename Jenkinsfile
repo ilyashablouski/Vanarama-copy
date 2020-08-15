@@ -6,7 +6,7 @@ currentCommit = ""
 applyMasterMerge = false
 
 def app_environment = [
-    "develop": [
+    "feature/fix-node-config": [
         clusterName: 'grid-dev',
         logGroupName: "dev/grid/apps",
         taskFamily: "grid-dev-${serviceName}",
@@ -154,7 +154,7 @@ pipeline {
             when {
                 beforeAgent true
                 anyOf {
-                  branch 'develop'
+                  branch 'feature/fix-node-config'
                   branch 'master'
                 }
             }
@@ -196,7 +196,7 @@ pipeline {
             when {
                 beforeAgent true
                 anyOf {
-                  branch 'develop'
+                  branch 'feature/fix-node-config'
                   branch 'master'
                 }
             }
@@ -252,7 +252,7 @@ pipeline {
             when {
                   beforeAgent true
                   anyOf {
-                    branch 'develop'
+                    branch 'feature/fix-node-config'
                     branch 'master'
                   }
               }
@@ -338,7 +338,7 @@ pipeline {
                   beforeAgent true
                   beforeInput true
                   anyOf {
-                    branch 'develop'
+                    branch 'feature/fix-node-config'
                     branch 'master'
                   }
                   expression { terraformHasChange == true }
@@ -386,7 +386,7 @@ pipeline {
               when {
                   beforeAgent true
                   anyOf {
-                    branch 'develop'
+                    branch 'feature/fix-node-config'
                     branch 'master'
                   }
               }

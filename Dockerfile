@@ -12,6 +12,7 @@ ARG ENABLE_DEV_TOOLS
 WORKDIR /usr/src/app
 
 # Installing dependencies
+SET NODE_OPTIONS=--max_old_space_size=1024
 RUN npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
 COPY yarn.lock .
 COPY package.json .
