@@ -3,7 +3,7 @@ import NextHead from 'next/head';
 
 import { IHeadProps } from './interface';
 
-import { defaultTitle, twitter } from './defaults';
+import { defaultTitle, twitter, fb } from './defaults';
 
 const ArticleHead: FC<IHeadProps> = props => {
   let { title = defaultTitle, metaRobots } = props;
