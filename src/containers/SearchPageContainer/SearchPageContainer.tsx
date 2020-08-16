@@ -28,6 +28,7 @@ import buildRewriteRoute from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import RangeCard from './RangeCard';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
+import usePriceType from '../../hooks/usePriceType';
 
 interface IProps {
   isServer: boolean;
@@ -85,6 +86,15 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [totalCount, setTotalCount] = useState(0);
 
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
+
+  const { isCachedPersonal, setCachedIsPersonal } = usePriceType();
+
+  useEffect(() => {
+    async function setPriceType() {
+      await setCachedIsPersonal(isPersonal);
+    }
+    setPriceType();
+  }, [isPersonal, setCachedIsPersonal]);
 
   const { refetch, loading } = useProductCardData(
     capIds,
