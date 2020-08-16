@@ -2,7 +2,7 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import { gql } from '@apollo/client';
+import { gql, useMutation, useLazyQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { SummaryFormPerson } from '../../../generated/SummaryFormPerson';
@@ -13,6 +13,20 @@ import SummaryFormDetailsSection from './SummaryFormDetailsSection';
 import SummaryFormEmploymentHistory from './SummaryFormEmploymentHistory';
 import SummaryFormIncomeSection from './SummaryFormIncomeSection';
 import { getUrlParam } from '../../utils/url';
+import parseCreditApplicationData from './Utils';
+import {
+  fullCreditChecker,
+  fullCreditCheckerVariables,
+} from '../../../generated/fullCreditChecker';
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import {
+  FULL_CREDIT_CHECKER_MUTATION,
+  GET_CREDIT_APPLICATION_BY_ORDER_UUID,
+} from './gql';
+import {
+  GetCreditApplicationByOrderUuidDataForCreditCheck,
+  GetCreditApplicationByOrderUuidDataForCreditCheckVariables,
+} from '../../../generated/GetCreditApplicationByOrderUuidDataForCreditCheck';
 
 interface IProps {
   person: SummaryFormPerson;
@@ -21,6 +35,81 @@ interface IProps {
 
 const SummaryForm: FCWithFragments<IProps> = ({ person, orderId }) => {
   const router = useRouter();
+
+  const onCreditCheckComplete = () => {
+    router.push(
+      '/olaf/thank-you/[orderId]',
+      '/olaf/thank-you/[orderId]'.replace('[orderId]', orderId),
+    );
+  };
+
+  const [createCreditCheckMutation] = useMutation<
+    fullCreditChecker,
+    fullCreditCheckerVariables
+  >(FULL_CREDIT_CHECKER_MUTATION, {
+    onCompleted: onCreditCheckComplete,
+  });
+
+  const creditCheck = React.useCallback(
+    (
+      partyUuid: string,
+      creditAppUuid: string,
+      vehicleType: VehicleTypeEnum,
+      monthlyPayment: number,
+      depositPayment: number,
+    ) => {
+      createCreditCheckMutation({
+        variables: {
+          partyId: partyUuid,
+          creditApplicationUuid: creditAppUuid,
+          orderUuid: orderId,
+          vehicleType,
+          monthlyPayment,
+          depositPayment,
+        },
+      });
+    },
+    [createCreditCheckMutation, orderId],
+  );
+
+  const performCreditCheck = React.useCallback(
+    (creditApplicationData: any) => {
+      if (creditApplicationData) {
+        const {
+          partyUuid,
+          creditAppUuid,
+          vehicleType,
+          monthlyPayment,
+          depositPayment,
+        } = parseCreditApplicationData(creditApplicationData);
+
+        creditCheck(
+          partyUuid,
+          creditAppUuid,
+          vehicleType,
+          monthlyPayment,
+          depositPayment,
+        );
+      }
+    },
+    [creditCheck],
+  );
+
+  const [getCreditApplication] = useLazyQuery<
+    GetCreditApplicationByOrderUuidDataForCreditCheck,
+    GetCreditApplicationByOrderUuidDataForCreditCheckVariables
+  >(GET_CREDIT_APPLICATION_BY_ORDER_UUID, {
+    onCompleted: performCreditCheck,
+  });
+
+  const handleSubmit = React.useCallback(() => {
+    getCreditApplication({
+      variables: {
+        orderUuid: orderId,
+      },
+    });
+  }, [getCreditApplication, orderId]);
+
   // NOTE: Many are returned so just take the first one?
   const primaryBankAccount = person.bankAccounts?.[0];
 
@@ -29,7 +118,6 @@ const SummaryForm: FCWithFragments<IProps> = ({ person, orderId }) => {
     const href = `${url}${params}`;
     router.push(href, href.replace('[orderId]', orderId));
   };
-
   return (
     <Form>
       <Heading color="black" size="xlarge" dataTestId="summary-heading">
@@ -70,10 +158,7 @@ const SummaryForm: FCWithFragments<IProps> = ({ person, orderId }) => {
         label="Continue"
         dataTestId="olaf_summary_continue_buttton"
         onClick={() => {
-          router.push(
-            '/olaf/thank-you/[orderId]',
-            '/olaf/thank-you/[orderId]'.replace('[orderId]', orderId),
-          );
+          handleSubmit();
         }}
       />
     </Form>
