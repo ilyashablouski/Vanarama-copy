@@ -61,7 +61,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   loading,
   error,
 }) => {
-  const { setCachedLeaseType, getCachedLeaseType } = useLeaseType();
+  // pass cars prop(Boolean)
+  const { setCachedLeaseType, getCachedLeaseType } = useLeaseType(cars);
   const [leaseType, setLeaseType] = useState<string>(getCachedLeaseType());
   const [leadTime, setLeadTime] = useState<string>('');
   const [isDisabled, setIsDisabled] = useState<boolean>(false);

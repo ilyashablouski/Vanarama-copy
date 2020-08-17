@@ -80,7 +80,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [lastCard, setLastCard] = useState('');
   const [hasNextPage, setHasNextPage] = useState(true);
 
-  const { getCachedLeaseType, setCachedLeaseType } = useLeaseType();
+  const { getCachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
   const [isPersonal, setIsPersonal] = useState(
     getCachedLeaseType() === 'Personal',
   );
@@ -94,10 +94,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   useEffect(() => {
     const type = isPersonal ? 'Personal' : 'Business';
     setCachedLeaseType(type);
-    getCachedLeaseType();
-    // eslint-disable-next-line no-console
-    console.log(getCachedLeaseType() === 'Personal');
-  }, [isPersonal, getCachedLeaseType, setCachedLeaseType]);
+  }, [isPersonal, setCachedLeaseType]);
 
   const { refetch, loading } = useProductCardData(
     capIds,
