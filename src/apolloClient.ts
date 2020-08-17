@@ -16,7 +16,7 @@ const AuthorizationLink = setContext((request, prevContext) =>
   localForage.getItem('token').then(token => ({
     headers: {
       ...prevContext.headers,
-      Authorization: token,
+      Authorization: `Bearer ${token}`,
     },
   })),
 );
