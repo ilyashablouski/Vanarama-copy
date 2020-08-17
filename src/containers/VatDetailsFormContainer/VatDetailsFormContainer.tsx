@@ -59,12 +59,9 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
 
   const handleSubmit = async (values: VatDetailsFormValues) => {
     await handleVatDetailsUpdate(values)
-      .then(data1 => console.log({ data1 }))
       .then(handleCreditApplicationUpdate)
-      .then(data2 => console.log({ data2 }))
       .then(onCompleted)
-      .catch(error => console.log({error}));
-      // .catch(onError);
+      .catch(onError);
   };
 
   const [getVatDetails, { data, loading, error }] = useGetVatDetails(

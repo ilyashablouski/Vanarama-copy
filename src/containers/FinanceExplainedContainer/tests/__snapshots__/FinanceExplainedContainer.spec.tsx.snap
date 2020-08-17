@@ -207,39 +207,43 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         </p>
       </div>
       <div
-        class="card ivan-cta -inline"
-        data-testid="card"
+        class="ivan-cta"
       >
         <div
-          class="image card-image -expand -plain"
+          class="card"
+          data-testid="card"
         >
-          <img
-            class="image--native"
-            src="//images.ctfassets.net/3xid768u5joa/31iQbyGS1DYs7b9viQHtXh/86ae2d62793162409d230b2042d9e00a/header-ivan.svg"
-          />
-        </div>
-        <div
-          class="title"
-        >
-          <p
-            class="heading -black -lead"
+          <div
+            class="-row -p-400"
           >
-            Meet iVan
-          </p>
+            <div
+              class="image ivan-cta--svg -expand -plain"
+            >
+              <img
+                class="image--native"
+                src="https://www.vanarama.com/assets/images-optimised/header-ivan.svg"
+              />
+            </div>
+            <div
+              class="-col-300"
+            >
+              <p
+                class="heading -primary -regular"
+              >
+                Our helpful chatbot iVan is available 24/7 to answer your van financing questions
+              </p>
+              <button
+                class="button -teal -regular -solid"
+              >
+                <div
+                  class="button--inner"
+                >
+                  Chat With iVan
+                </div>
+              </button>
+            </div>
+          </div>
         </div>
-        <span
-          class="text -regular -dark"
-        >
-          Our helpful chatbot iVan is available 24/7 to answer your van financing questions
-        </span>
-        <a
-          class="link -teal"
-          data-testid="link"
-          href="https://www.vanarama.com"
-          rel="noopener noreferrer"
-        >
-          Chat With iVan
-        </a>
       </div>
     </div>
   </div>
