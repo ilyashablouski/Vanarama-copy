@@ -87,12 +87,13 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
 
-  const { setCachedLeaseType } = useLeaseType();
+  const { getCachedLeaseType, setCachedLeaseType } = useLeaseType();
 
   useEffect(() => {
     const type = isPersonal ? 'Personal' : 'Business';
     setCachedLeaseType(type);
-  }, [isPersonal, setCachedLeaseType]);
+    getCachedLeaseType();
+  }, [isPersonal, getCachedLeaseType, setCachedLeaseType]);
 
   const { refetch, loading } = useProductCardData(
     capIds,

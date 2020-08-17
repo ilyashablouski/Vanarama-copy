@@ -1,10 +1,12 @@
 import { useApolloClient, gql } from '@apollo/client';
 
 const query = gql`
-  query PriceTypeQuery {
+  query LeaseTypeQuery {
     leaseType @client
   }
 `;
+
+type LeaseType = 'Personal' | 'Business';
 
 export default function useLeaseType() {
   const client = useApolloClient();
@@ -15,11 +17,15 @@ export default function useLeaseType() {
         data: { __typename: 'LeaseType', leaseType: type },
       });
     },
-    getCachedLeaseType(): string {
-      const res = client.readQuery({ query });
-      // eslint-disable-next-line no-console
-      console.log(res.leaseType);
-      return res.leaseType ? res.leaseType : 'Personal';
+    getCachedLeaseType(): LeaseType {
+      try {
+        const res = client.readQuery({ query });
+        // eslint-disable-next-line no-console
+        console.log(res.leaseType);
+        return res.leaseType;
+      } catch {
+        return 'Personal';
+      }
     },
   };
 }
