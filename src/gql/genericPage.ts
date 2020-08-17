@@ -1,7 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import {
-  GenericPageQuery,
-  GenericPageQueryVariables,
+  genericPageQuery,
+  genericPageQueryVariables,
 } from '../../generated/genericPageQuery';
 import {
   GenericPageHeadQuery,
@@ -9,7 +9,7 @@ import {
 } from '../../generated/GenericPageHeadQuery';
 
 export const GENERIC_PAGE = gql`
-  query GenericPageQuery($slug: String!) {
+  query genericPageQuery($slug: String!) {
     genericPage(slug: $slug) {
       id
       metaData {
@@ -30,6 +30,17 @@ export const GENERIC_PAGE = gql`
           name
           tilesTitle
           titleTag
+        }
+        faqs {
+          title
+          body
+          questionSets {
+            title
+            questionAnswers {
+              question
+              answer
+            }
+          }
         }
         cards {
           position
@@ -59,6 +70,7 @@ export const GENERIC_PAGE = gql`
         featured1 {
           layout
           body
+          titleTag
           title
           image {
             title
@@ -80,6 +92,7 @@ export const GENERIC_PAGE = gql`
         featured2 {
           layout
           body
+          titleTag
           image {
             title
             description
@@ -155,7 +168,7 @@ export const GENERIC_PAGE = gql`
 `;
 
 export function useGenericPage(slug: string) {
-  return useQuery<GenericPageQuery, GenericPageQueryVariables>(GENERIC_PAGE, {
+  return useQuery<genericPageQuery, genericPageQueryVariables>(GENERIC_PAGE, {
     variables: {
       slug,
     },
