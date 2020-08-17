@@ -28,6 +28,7 @@ import buildRewriteRoute from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import RangeCard from './RangeCard';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
+import TopInfoBlock from './TopInfoBlock';
 
 interface IProps {
   isServer: boolean;
@@ -83,6 +84,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     isSpecialOfferPage ? true : getValueFromStorage(isServer) ?? true,
   );
   const [totalCount, setTotalCount] = useState(0);
+  const [pageTitle, setPageTitle] = useState('');
 
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
 
@@ -415,18 +417,20 @@ const SearchPageContainer: React.FC<IProps> = ({
       router.push(`/${href}/[make]`, `/${href}/${make}`);
     }
   };
-
+  //TODO: title logic should be refactor
   return (
     <>
       <div className="row:title">
         <Breadcrumb items={crumbs} />
         <Heading tag="h1" size="xlarge" color="black">
-          {isModelPage
-            ? `${filtersData.manufacturerName} ${filtersData.rangeName} ${filtersData.bodyStyles?.[0]}`
-            : 'Lorem Ips'}
+          {isModelPage && `${filtersData.manufacturerName} ${filtersData.rangeName} ${filtersData.bodyStyles?.[0]}` ||
+          (pageTitle ? pageTitle : 'Lorem Ips')}
         </Heading>
         <Text color="darker" size="lead" />
       </div>
+      {isAllMakesPage && 
+        <TopInfoBlock isAllMakesPage={isAllMakesPage} setTitle={(value: string) => setPageTitle(value)}/>
+      }
       {(isMakePage || isSpecialOfferPage || isRangePage) && (
         <TopOffersContainer
           isCarSearch={isCarSearch}
