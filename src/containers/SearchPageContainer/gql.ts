@@ -22,6 +22,10 @@ import {
   ModelImages,
   ModelImagesVariables,
 } from '../../../generated/ModelImages';
+import {
+  manufacturerList,
+  manufacturerListVariables,
+} from '../../../generated/manufacturerList';
 
 export const GET_VEHICLE_LIST = gql`
   query vehicleList(
@@ -173,14 +177,14 @@ export function getRangesList(
 }
 
 export const GET_RANGES_IMAGES = gql`
-  query RangesImages($rangeId: ID) {
-    vehicleImages(rangeId: $rangeId) {
+  query RangesImages($rangeId: ID, $capIds: [ID]) {
+    vehicleImages(rangeId: $rangeId, capIds: $capIds) {
       mainImageUrl
     }
   }
 `;
 
-export function getRangeImages(rangeId: string, skip = false) {
+export function getRangeImages(rangeId?: string, skip = false) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   return useQuery<RangesImages, RangesImagesVariables>(GET_RANGES_IMAGES, {
     variables: {
@@ -246,4 +250,56 @@ export function useBodyStyleList(
       rangeName,
     },
   });
+}
+
+export const GET_MANUFACTURER_LIST = gql`
+  query manufacturerList(
+    $vehicleType: VehicleTypeEnum
+    $leaseType: LeaseTypeEnum
+    $rate: RateInputObject
+    $bodyStyles: [String!]
+    $transmissions: [String!]
+    $fuelTypes: [String!]
+  ) {
+    manufacturerList(
+      filter: {
+        vehicleType: $vehicleType
+        leaseType: $leaseType
+        rate: $rate
+        bodyStyles: $bodyStyles
+        transmissions: $transmissions
+        fuelTypes: $fuelTypes
+      }
+    ) {
+      count
+      manufacturerId
+      manufacturerName
+      minPrice
+      capId
+    }
+  }
+`;
+
+export function useManufacturerList(
+  vehicleType: VehicleTypeEnum,
+  leaseType: LeaseTypeEnum,
+  rate?: RateInputObject,
+  bodyStyles?: string[],
+  transmissions?: string[],
+  fuelTypes?: string[],
+) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  return useLazyQuery<manufacturerList, manufacturerListVariables>(
+    GET_MANUFACTURER_LIST,
+    {
+      variables: {
+        vehicleType,
+        leaseType,
+        rate,
+        bodyStyles,
+        transmissions,
+        fuelTypes,
+      },
+    },
+  );
 }

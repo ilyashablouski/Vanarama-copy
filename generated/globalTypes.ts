@@ -241,6 +241,7 @@ export interface LimitedCompanyInputObject {
   companyType?: string | null;
   emailAddress?: EmailAddressInputObject | null;
   isVatRegistered?: boolean | null;
+  leadManagerId?: string | null;
   legalName?: string | null;
   otherCountriesOfActivity?: string[] | null;
   person?: PersonInputObject | null;
