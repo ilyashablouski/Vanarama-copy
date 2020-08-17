@@ -61,16 +61,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   loading,
   error,
 }) => {
-  const [leaseType, setLeaseType] = useState<string>('Personal');
+  const { setCachedLeaseType, getCachedLeaseType } = useLeaseType();
+  const [leaseType, setLeaseType] = useState<string>(getCachedLeaseType());
   const [leadTime, setLeadTime] = useState<string>('');
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
-  const { setCachedLeaseType, getCachedLeaseType } = useLeaseType();
-
   useEffect(() => {
     setCachedLeaseType(leaseType);
-    getCachedLeaseType();
-  }, [getCachedLeaseType, leaseType, setCachedLeaseType]);
+  }, [leaseType, setCachedLeaseType]);
 
   const [
     leaseScannerData,
@@ -368,7 +366,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             vehicleType={vehicleType}
             derivativeInfo={derivativeInfo}
             leaseAdjustParams={leaseAdjustParams}
-            leaseType={getCachedLeaseType()}
+            leaseType={leaseType}
             setLeaseType={setLeaseType}
             setLeadTime={setLeadTime}
             isDisabled={isDisabled}
@@ -393,7 +391,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         vehicleType={vehicleType}
         derivativeInfo={derivativeInfo}
         leaseAdjustParams={leaseAdjustParams}
-        leaseType={getCachedLeaseType()}
+        leaseType={leaseType}
         setLeaseType={setLeaseType}
         setLeadTime={setLeadTime}
         isDisabled={isDisabled}
