@@ -17,42 +17,45 @@ export interface manufacturerPage_manufacturerPage_metaData {
   publishedOn: any | null;
 }
 
-export interface manufacturerPage_manufacturerPage_sections_carousel_cards {
-  name: string | null;
-  title: string | null;
-  body: string | null;
+export interface manufacturerPage_manufacturerPage_sections_featured_image_file {
+  url: string;
+  fileName: string;
 }
 
-export interface manufacturerPage_manufacturerPage_sections_carousel {
+export interface manufacturerPage_manufacturerPage_sections_featured_image {
   title: string | null;
-  name: string | null;
-  cards: (manufacturerPage_manufacturerPage_sections_carousel_cards | null)[] | null;
+  description: string | null;
+  file: manufacturerPage_manufacturerPage_sections_featured_image_file | null;
 }
 
 export interface manufacturerPage_manufacturerPage_sections_featured {
+  layout: string[] | null;
   body: string | null;
-}
-
-export interface manufacturerPage_manufacturerPage_sections_tiles_tiles {
   title: string | null;
-  body: string | null;
-}
-
-export interface manufacturerPage_manufacturerPage_sections_tiles {
-  name: string;
-  tilesTitle: string | null;
-  tiles: manufacturerPage_manufacturerPage_sections_tiles_tiles[] | null;
+  titleTag: string | null;
+  image: manufacturerPage_manufacturerPage_sections_featured_image | null;
 }
 
 export interface manufacturerPage_manufacturerPage_sections {
-  carousel: manufacturerPage_manufacturerPage_sections_carousel | null;
   featured: manufacturerPage_manufacturerPage_sections_featured | null;
-  tiles: manufacturerPage_manufacturerPage_sections_tiles | null;
+}
+
+export interface manufacturerPage_manufacturerPage_featuredImage_file {
+  url: string;
+  fileName: string;
+  contentType: string;
+}
+
+export interface manufacturerPage_manufacturerPage_featuredImage {
+  title: string | null;
+  description: string | null;
+  file: manufacturerPage_manufacturerPage_featuredImage_file | null;
 }
 
 export interface manufacturerPage_manufacturerPage {
   metaData: manufacturerPage_manufacturerPage_metaData;
   sections: manufacturerPage_manufacturerPage_sections | null;
+  featuredImage: manufacturerPage_manufacturerPage_featuredImage | null;
 }
 
 export interface manufacturerPage {

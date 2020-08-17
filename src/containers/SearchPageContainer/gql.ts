@@ -306,46 +306,49 @@ export function useManufacturerList(
 }
 
 export const GET_ALL_MAKES_PAGE = gql`
-query manufacturerPage {
-  manufacturerPage(slug:"/car-leasing/all-car-manufacturers") {
-    metaData {
-      pageType
-      slug
-      title
-      metaRobots
-      metaDescription
-      legacyUrl
-      publishedOn
-    }
-		sections {
-      carousel {
+  query manufacturerPage {
+    manufacturerPage(slug: "/car-leasing/all-car-manufacturers") {
+      metaData {
+        pageType
+        slug
         title
-        name
-        cards {
-          name
-          title
+        metaRobots
+        metaDescription
+        legacyUrl
+        publishedOn
+      }
+      sections {
+        featured {
+          layout
           body
+          title
+          titleTag
+          image {
+            title
+            description
+            file {
+              url
+              fileName
+            }
+          }
         }
       }
-      featured {
-        body
-      }
-      tiles {
-        name
-        tilesTitle
-        tiles {
-          title
-          body
+      featuredImage {
+        title
+        description
+        file {
+          url
+          fileName
+          contentType
         }
       }
     }
   }
-}
 `;
 
 export function useAllMakePage(skip = false) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   return useQuery<manufacturerPage>(GET_ALL_MAKES_PAGE, {
-    skip
+    skip,
   });
 }
