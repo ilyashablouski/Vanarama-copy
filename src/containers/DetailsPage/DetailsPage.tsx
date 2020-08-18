@@ -14,7 +14,10 @@ import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-galler
 import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import cx from 'classnames';
-import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
+import {
+  ILeaseScannerData,
+  LeaseType,
+} from '../CustomiseLeaseContainer/interfaces';
 import { toPriceFormat } from '../../utils/helpers';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import {
@@ -63,7 +66,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 }) => {
   // pass cars prop(Boolean)
   const { setCachedLeaseType, getCachedLeaseType } = useLeaseType(cars);
-  const [leaseType, setLeaseType] = useState<string>(getCachedLeaseType());
+  const [leaseType, setLeaseType] = useState<LeaseType>(getCachedLeaseType());
   const [leadTime, setLeadTime] = useState<string>('');
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
 

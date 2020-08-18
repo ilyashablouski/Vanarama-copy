@@ -9,6 +9,7 @@ import {
   OrderInputObject,
   LineItemInputObject,
 } from '../../../generated/globalTypes';
+import { LeaseType } from '../../containers/CustomiseLeaseContainer/interfaces';
 
 export interface IChoice {
   label: string;
@@ -30,7 +31,7 @@ export interface IProps {
   upfronts: IChoice[];
   leaseTypes: IChoice[];
   mileages: number[];
-  setLeaseType: Dispatch<SetStateAction<string>>;
+  setLeaseType: Dispatch<SetStateAction<LeaseType>>;
   setMileage: Dispatch<SetStateAction<number | null>>;
   setUpfront: Dispatch<SetStateAction<number | null>>;
   setColour: Dispatch<SetStateAction<number | null>>;
@@ -38,7 +39,7 @@ export interface IProps {
   setTrim: Dispatch<SetStateAction<number | null>>;
   setMaintenance: Dispatch<SetStateAction<boolean | null>>;
   data: GetQuoteDetails;
-  leaseType: string;
+  leaseType: LeaseType;
   trim: number | null;
   colour: number | null;
   derivativeInfo: GetVehicleDetails_derivativeInfo | null | undefined;

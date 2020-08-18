@@ -11,6 +11,8 @@ import {
 } from '../../../generated/GetVehicleDetails';
 import { GetQuoteDetails_quoteByCapId } from '../../../generated/GetQuoteDetails';
 
+export type LeaseType = 'Personal' | 'Business';
+
 export interface ILeaseScannerData {
   maintenance: boolean | null;
   quoteByCapId: GetQuoteDetails_quoteByCapId | null | undefined;
@@ -26,14 +28,14 @@ export interface IProps {
   vehicleType: VehicleTypeEnum;
   derivativeInfo: GetVehicleDetails_derivativeInfo | null | undefined;
   leaseAdjustParams: GetVehicleDetails_leaseAdjustParams | null | undefined;
-  leaseType: string;
+  leaseType: LeaseType;
   financeProfile:
     | GetVehicleDetails_vehicleConfigurationByCapId_financeProfile
     | null
     | undefined;
   isDisabled: boolean;
   setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-  setLeaseType: React.Dispatch<React.SetStateAction<string>>;
+  setLeaseType: React.Dispatch<React.SetStateAction<LeaseType>>;
   setLeadTime: React.Dispatch<React.SetStateAction<string>>;
   onCompleted: (values: OrderInputObject) => Promise<void>;
   setLeaseScannerData?: React.Dispatch<
