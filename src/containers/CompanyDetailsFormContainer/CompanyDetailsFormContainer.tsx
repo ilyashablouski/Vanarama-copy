@@ -43,6 +43,10 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
     orderId,
     () => {},
   );
+  const { data } = useGetCreditApplicationByOrderUuid(orderId);
+  const company = mapDefaultValues(
+    data?.creditApplicationByOrderUuid?.companyDetails,
+  );
 
   const handleCompanyDetailsSave = (input: LimitedCompanyInputObject) =>
     saveCompanyDetails({
@@ -66,16 +70,15 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
     createUpdateApplication({
       variables: {
         input: {
+          vatDetails: data?.creditApplicationByOrderUuid?.vatDetails,
+          directorsDetails:
+            data?.creditApplicationByOrderUuid?.directorsDetails,
+          bankAccounts: data?.creditApplicationByOrderUuid?.bankAccounts,
           companyDetails: values,
           orderUuid: orderId,
         },
       },
     });
-
-  const { data } = useGetCreditApplicationByOrderUuid(orderId);
-  const company = mapDefaultValues(
-    data?.creditApplicationByOrderUuid?.companyDetails,
-  );
 
   return (
     <CompanyDetailsForm

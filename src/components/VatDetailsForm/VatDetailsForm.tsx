@@ -21,15 +21,22 @@ const VatDetailsForm: React.FC<IProps> = ({
   vatDetails,
   isEdited,
 }) => {
+  const defaultValues = {
+    ...vatDetails,
+    markets:
+      (vatDetails?.markets || []).length > 0
+        ? vatDetails?.markets
+        : [{ country: '', percentage: '' }],
+  };
   const methods = useForm<VatDetailsFormValues>({
     mode: 'onBlur',
-    defaultValues: vatDetails,
+    defaultValues,
   });
 
   const { errors, formState, handleSubmit, register, watch, reset } = methods;
 
   useEffect(() => {
-    reset(vatDetails);
+    reset(defaultValues);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [vatDetails]);
 

@@ -26,6 +26,13 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
     orderUuid,
     () => {},
   );
+  const getDirectorDetailsQuery = useGetDirectorDetailsQuery(companyUuid);
+  const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
+    orderUuid,
+  );
+  const directorDetails =
+    getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
+      ?.directorsDetails;
 
   const handleDirectorDetailsSave = (values: DirectorDetailsFormValues) =>
     saveDirectorDetails({
@@ -40,19 +47,20 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
     createUpdateApplication({
       variables: {
         input: {
+          vatDetails:
+            getCreditApplicationByOrderUuidQuery.data
+              ?.creditApplicationByOrderUuid?.vatDetails,
+          bankAccounts:
+            getCreditApplicationByOrderUuidQuery.data
+              ?.creditApplicationByOrderUuid?.bankAccounts,
+          companyDetails:
+            getCreditApplicationByOrderUuidQuery.data
+              ?.creditApplicationByOrderUuid?.companyDetails,
           directorsDetails,
           orderUuid,
         },
       },
     });
-
-  const getDirectorDetailsQuery = useGetDirectorDetailsQuery(companyUuid);
-  const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
-    orderUuid,
-  );
-  const directorDetails =
-    getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
-      ?.directorsDetails;
 
   if (
     getDirectorDetailsQuery?.loading ||

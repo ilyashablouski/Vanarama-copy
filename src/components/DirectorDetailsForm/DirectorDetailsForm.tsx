@@ -62,6 +62,7 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
   directorDetails,
 }) => {
   const { data, loading, error } = useCompanyOfficers(companyNumber);
+
   if (loading) {
     return <Loading />;
   }
@@ -71,11 +72,18 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
   }
 
   const officers = data?.companyOfficers?.nodes?.filter(isTruthy) || [];
-  const directors = combineDirectorsData(officers, associates);
+  const directors = combineDirectorsData(officers, associates) || [];
+  const initialValues = {
+    ...directorDetails,
+    directors:
+      (directorDetails?.directors || []).length > 0
+        ? directorDetails?.directors
+        : [],
+  };
 
   return (
     <Formik<DirectorDetailsFormValues>
-      initialValues={directorDetails}
+      initialValues={initialValues}
       validationSchema={validationSchema}
       validate={validate}
       onSubmit={onSubmit}

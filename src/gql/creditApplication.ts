@@ -66,6 +66,9 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
     createUpdateCreditApplication(input: $input) {
       addresses
       bankAccounts
+      companyDetails
+      vatDetails
+      directorsDetails
       employmentHistories
       incomeAndExpenses
       lineItem {
@@ -143,6 +146,15 @@ export function useCreateUpdateCreditApplication(
         const updatedAt =
           result.data?.createUpdateCreditApplication?.updatedAt ||
           data?.creditApplicationByOrderUuid?.updatedAt;
+        const companyDetails =
+          result.data?.createUpdateCreditApplication?.companyDetails ||
+          data?.creditApplicationByOrderUuid?.companyDetails;
+        const vatDetails =
+          result.data?.createUpdateCreditApplication?.vatDetails ||
+          data?.creditApplicationByOrderUuid?.vatDetails;
+        const directorsDetails =
+          result.data?.createUpdateCreditApplication?.directorsDetails ||
+          data?.creditApplicationByOrderUuid?.directorsDetails;
 
         // Write our data back to the cache.
         store.writeQuery<Query, QueryVariables>({
@@ -163,6 +175,9 @@ export function useCreateUpdateCreditApplication(
               uuid: orderId,
               partyDetails: null,
               leadManagerProposalId: null,
+              companyDetails,
+              vatDetails,
+              directorsDetails,
             },
           },
         });

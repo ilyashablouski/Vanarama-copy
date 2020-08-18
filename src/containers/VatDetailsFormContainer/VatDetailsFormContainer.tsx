@@ -28,11 +28,26 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
     orderId,
     () => {},
   );
+  const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
+    orderId,
+  );
+  const defaultValues = mapDefaultValues(
+    getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid,
+  );
 
   const handleCreditApplicationUpdate = (vatDetails: VatDetailsFormValues) =>
     createUpdateApplication({
       variables: {
         input: {
+          directorsDetails:
+            getCreditApplicationByOrderUuidQuery.data
+              ?.creditApplicationByOrderUuid?.directorsDetails,
+          bankAccounts:
+            getCreditApplicationByOrderUuidQuery.data
+              ?.creditApplicationByOrderUuid?.bankAccounts,
+          companyDetails:
+            getCreditApplicationByOrderUuidQuery.data
+              ?.creditApplicationByOrderUuid?.companyDetails,
           vatDetails,
           orderUuid: orderId,
         },
@@ -67,15 +82,14 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
       .catch(onError);
   };
 
-  const { data, loading, error } = useGetCreditApplicationByOrderUuid(orderId);
-  const defaultValues = mapDefaultValues(data?.creditApplicationByOrderUuid);
-
-  if (loading) {
+  if (getCreditApplicationByOrderUuidQuery.loading) {
     return <Loading size="large" />;
   }
 
-  if (error) {
-    return <p>{`Could not load VAT details: ${error.message}`}</p>;
+  if (getCreditApplicationByOrderUuidQuery?.error) {
+    return (
+      <p>{`Could not load VAT details: ${getCreditApplicationByOrderUuidQuery?.error.message}`}</p>
+    );
   }
 
   return (

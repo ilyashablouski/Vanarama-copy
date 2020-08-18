@@ -52,6 +52,11 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
           createUpdateApplication({
             variables: {
               input: {
+                vatDetails: data?.creditApplicationByOrderUuid?.vatDetails,
+                companyDetails:
+                  data?.creditApplicationByOrderUuid?.companyDetails,
+                directorsDetails:
+                  data?.creditApplicationByOrderUuid?.directorsDetails,
                 bankAccounts: [values],
                 orderUuid,
               },
