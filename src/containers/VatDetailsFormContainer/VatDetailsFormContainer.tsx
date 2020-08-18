@@ -1,15 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import VatDetailsForm from '../../components/VatDetailsForm/VatDetailsForm';
 import { VatDetailsFormValues } from '../../components/VatDetailsForm/interfaces';
-import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
+import {
+  useCreateUpdateCreditApplication,
+  useGetCreditApplicationByOrderUuid,
+} from '../../gql/creditApplication';
 import {
   useUpdateLimitedVatDetails,
   useUpdateSoleTraderVatDetails,
-  useGetVatDetails,
 } from './gql';
 import { IVatDetailsFormContainerProps } from './interfaces';
-import { mapFormValues } from './mappers';
+import { mapFormValues, mapDefaultValues } from './mappers';
 import { CompanyTypes } from '../../models/enum/CompanyTypes';
 
 export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = ({
@@ -65,15 +67,8 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
       .catch(onError);
   };
 
-  const [getVatDetails, { data, loading, error }] = useGetVatDetails(
-    companyUuid,
-  );
-
-  useEffect(() => {
-    if (isEdited) {
-      getVatDetails();
-    }
-  }, [getVatDetails, isEdited]);
+  const { data, loading, error } = useGetCreditApplicationByOrderUuid(orderId);
+  const defaultValues = mapDefaultValues(data?.creditApplicationByOrderUuid);
 
   if (loading) {
     return <Loading size="large" />;
@@ -86,7 +81,7 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
   return (
     <VatDetailsForm
       onSubmit={handleSubmit}
-      vatDetails={data?.companyByUuid}
+      vatDetails={defaultValues}
       isEdited={isEdited}
     />
   );

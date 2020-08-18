@@ -2,7 +2,10 @@ import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React from 'react';
 import DirectorDetailsForm from '../../components/DirectorDetailsForm/DirectorDetailsForm';
 import { DirectorDetailsFormValues } from '../../components/DirectorDetailsForm/interfaces';
-import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
+import {
+  useCreateUpdateCreditApplication,
+  useGetCreditApplicationByOrderUuid,
+} from '../../gql/creditApplication';
 import {
   useGetDirectorDetailsQuery,
   useSaveDirectorDetailsMutation,
@@ -15,8 +18,8 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   orderUuid,
   onCompleted,
   onError,
-  directorUuid,
-  isEdited,
+  // directorUuid,
+  // isEdited,
 }) => {
   const [saveDirectorDetails] = useSaveDirectorDetailsMutation();
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
@@ -43,30 +46,41 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
       },
     });
 
-  const { data, loading, error } = useGetDirectorDetailsQuery(companyUuid);
+  const getDirectorDetailsQuery = useGetDirectorDetailsQuery(companyUuid);
+  const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
+    orderUuid,
+  );
+  const directorDetails =
+    getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
+      ?.directorsDetails;
 
-  if (loading) {
+  if (
+    getDirectorDetailsQuery?.loading ||
+    getCreditApplicationByOrderUuidQuery.loading
+  ) {
     return <Loading size="xlarge" />;
   }
 
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
-
   if (
-    !data?.companyByUuid?.companyNumber ||
-    (isEdited && !(data?.companyByUuid?.associates || data?.allDropDowns))
+    getDirectorDetailsQuery?.error ||
+    getCreditApplicationByOrderUuidQuery?.error
   ) {
-    return <p>Error: Could not load company data!</p>;
+    const errorMessage = (
+      getDirectorDetailsQuery?.error ||
+      getCreditApplicationByOrderUuidQuery?.error
+    )?.message;
+    return <p>Error: {errorMessage}</p>;
   }
 
   return (
     <DirectorDetailsForm
       isEdited
-      directorUuid={directorUuid}
-      dropdownData={data.allDropDowns}
-      associates={data.companyByUuid.associates}
-      companyNumber={data.companyByUuid.companyNumber}
+      directorDetails={directorDetails}
+      dropdownData={getDirectorDetailsQuery.data?.allDropDowns!}
+      associates={getDirectorDetailsQuery.data?.companyByUuid?.associates!}
+      companyNumber={
+        getDirectorDetailsQuery.data?.companyByUuid?.companyNumber!
+      }
       onSubmit={async values => {
         await handleDirectorDetailsSave(values)
           .then(() => handleCreditApplicationUpdate(values))

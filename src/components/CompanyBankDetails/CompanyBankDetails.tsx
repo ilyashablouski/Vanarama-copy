@@ -15,7 +15,6 @@ import FCWithFragments from '../../utils/FCWithFragments';
 import { genMonths, genYears } from '../../utils/helpers';
 import validationSchema from './CompanyBankDetails.validation';
 import { ICompanyBankDetailsProps, ICompanyBankDetails } from './interfaces';
-import { responseToInitialFormValues } from './mappers';
 
 const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
   account,
@@ -27,7 +26,7 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
   >({
     mode: 'onBlur',
     validationSchema,
-    defaultValues: responseToInitialFormValues(account),
+    defaultValues: account,
   });
 
   const months = genMonths();
