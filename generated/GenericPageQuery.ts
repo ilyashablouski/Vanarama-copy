@@ -45,6 +45,22 @@ export interface GenericPageQuery_genericPage_sections_tiles {
   tiles: GenericPageQuery_genericPage_sections_tiles_tiles[] | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_faqs_questionSets_questionAnswers {
+  question: string | null;
+  answer: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sections_faqs_questionSets {
+  title: string | null;
+  questionAnswers: (GenericPageQuery_genericPage_sections_faqs_questionSets_questionAnswers | null)[] | null;
+}
+
+export interface GenericPageQuery_genericPage_sections_faqs {
+  title: string | null;
+  body: string | null;
+  questionSets: (GenericPageQuery_genericPage_sections_faqs_questionSets | null)[] | null;
+}
+
 export interface GenericPageQuery_genericPage_sections_cards_cards_image_file {
   url: string;
   fileName: string;
@@ -189,6 +205,7 @@ export interface GenericPageQuery_genericPage_sections_carousel {
 
 export interface GenericPageQuery_genericPage_sections {
   tiles: GenericPageQuery_genericPage_sections_tiles | null;
+  faqs: GenericPageQuery_genericPage_sections_faqs | null;
   cards: GenericPageQuery_genericPage_sections_cards | null;
   featured: GenericPageQuery_genericPage_sections_featured | null;
   featured1: GenericPageQuery_genericPage_sections_featured1 | null;
