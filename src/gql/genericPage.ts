@@ -56,6 +56,28 @@ export const GENERIC_PAGE = gql`
             }
           }
         }
+        featured {
+          layout
+          body
+          title
+          video
+          image {
+            title
+            description
+            file {
+              url
+              fileName
+              contentType
+              details {
+                size
+                image {
+                  width
+                  height
+                }
+              }
+            }
+          }
+        }
         featured1 {
           layout
           body
