@@ -2,11 +2,9 @@ import React, { FC } from 'react';
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
+import { ILink } from '@vanarama/uibook/lib/interfaces/link';
 
-import {
-  PHONE_NUMBER_LINK,
-  TOP_BAR_LINKS,
-} from '../../models/enum/HeaderLinks';
+import { PHONE_NUMBER_LINK } from '../../models/enum/HeaderLinks';
 
 import withApollo from '../../hocs/withApollo';
 import Header from '../../components/Header';
@@ -20,7 +18,6 @@ import {
   PrimaryHeader_primaryHeader_linkGroups_linkGroups as LinkGroups,
 } from '../../../generated/PrimaryHeader';
 import { IHeaderLink } from '../../components/Header/Header';
-import { ILink } from '@vanarama/uibook/lib/interfaces/link';
 
 export const LOGOUT_USER_MUTATION = gql`
   mutation LogOutUserMutation($token: String!) {
@@ -49,32 +46,42 @@ const HeaderContainer: FC = () => {
     return <></>;
   }
 
+  const offerLink = data?.primaryHeader?.links?.map(el => ({
+    href: el?.url || '',
+    label: el?.text || '',
+    highlight: true,
+  }));
+
   const topLinks = data?.primaryHeader.linkGroups?.reduce(
     (link, linksGroup) => {
       const transformLinks = linksGroup?.links?.map(el => ({
         href: el?.url || '',
         label: el?.text || '',
+        id: el?.url || '',
       }));
-      const transformGroupLink = (linksGroup?.linkGroups as LinkGroups[]).map(
-        el => ({
-          label: el.name || '',
-          href: '',
-          children: el.links?.map(
-            j =>
-              ({
-                label: j?.text || '',
-                href: j?.url || '',
-              } as ILink),
-          ),
-        }),
-      );
       let headerTopLinks: IHeaderLink;
       if (transformLinks && transformLinks?.length > 1) {
         const linksGroupUrl = transformLinks.shift() as ILink;
         const specialOffersLinks = {
           ...(transformLinks.shift() as ILink),
-          highlight: true,
+          highlight: !!linksGroup?.linkGroups?.length,
         };
+
+        const transformGroupLink =
+          linksGroup?.linkGroups &&
+          (linksGroup?.linkGroups as LinkGroups[]).map(el => ({
+            label: el.name || '',
+            href: '',
+            id: el?.name || '',
+            children: el.links?.map(
+              j =>
+                ({
+                  label: j?.text || '',
+                  href: j?.url || '',
+                  query: { isChangePage: 'true' },
+                } as ILink),
+            ),
+          }));
 
         const childrenGroupLinks =
           linksGroup?.linkGroups?.length && transformGroupLink
@@ -83,6 +90,7 @@ const HeaderContainer: FC = () => {
         headerTopLinks = {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
+          id: linksGroupUrl.label || '',
           children: childrenGroupLinks,
         };
       } else {
@@ -90,6 +98,7 @@ const HeaderContainer: FC = () => {
         headerTopLinks = {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
+          id: linksGroupUrl?.id,
         };
       }
       link.push(headerTopLinks);
@@ -98,10 +107,8 @@ const HeaderContainer: FC = () => {
     [] as any[],
   );
 
-  console.log(topLinks);
-
-  return (
-    <>
+  if (topLinks?.length) {
+    return (
       <Header
         onLogOut={async () => {
           const token = await localForage.getItem<string>('token');
@@ -114,26 +121,11 @@ const HeaderContainer: FC = () => {
         }}
         loginLink={LOGIN_LINK}
         phoneNumberLink={PHONE_NUMBER_LINK}
-        topBarLinks={TOP_BAR_LINKS}
+        topBarLinks={[...offerLink, ...topLinks]}
       />
-      {topLinks?.length && (
-        <Header
-          onLogOut={async () => {
-            const token = await localForage.getItem<string>('token');
-            await logOut({
-              variables: {
-                token,
-              },
-            });
-            await localForage.clear();
-          }}
-          loginLink={LOGIN_LINK}
-          phoneNumberLink={PHONE_NUMBER_LINK}
-          topBarLinks={topLinks}
-        />
-      )}
-    </>
-  );
+    );
+  }
+  return <></>;
 };
 
 export default withApollo(HeaderContainer);
