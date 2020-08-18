@@ -55,11 +55,7 @@ const BlogPage: NextPage = () => {
               {featured.title}
             </Heading>
             <Text tag="p" size="regular" color="darker">
-              <ReactMarkdown
-                source={featured.body || ''}
-                disallowedTypes={['paragraph']}
-                unwrapDisallowed
-              />
+              <ReactMarkdown source={featured.body || ''} />
             </Text>
           </div>
         </div>
