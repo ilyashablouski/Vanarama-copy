@@ -2,19 +2,17 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
 import RangeCard from '../RangeCard';
-import { GET_RANGES_IMAGES } from '../gql';
+import { GET_RANGES_IMAGES, GET_MODEL_IMAGES } from '../gql';
 
 describe('<RangeCard />', () => {
   const resetMocks = () => {
     return {
-      data: {
-        rangeName: '2 Series',
-        rangeId: '1208',
-        count: 217,
-        minPrice: 191.91,
-      },
+      title: '2 Series',
+      id: '1208',
+      fromPrice: 191.91,
       isPersonalPrice: true,
-      viewRange: jest.fn(),
+      onView: jest.fn(),
+      isAllMakesCard: false,
     };
   };
 
@@ -27,6 +25,27 @@ describe('<RangeCard />', () => {
         query: GET_RANGES_IMAGES,
         variables: {
           rangeId: '1208',
+        },
+      },
+      result: () => {
+        imageRequest = true;
+        return {
+          data: {
+            vehicleImages: [
+              {
+                mainImageUrl:
+                  'https://images.autorama.co.uk/Photos/Cap/Vehicles/126268/cap-68051-126268.jpg',
+              },
+            ],
+          },
+        };
+      },
+    },
+    {
+      request: {
+        query: GET_MODEL_IMAGES,
+        variables: {
+          capIds: ['1208'],
         },
       },
       result: () => {
@@ -63,6 +82,20 @@ describe('<RangeCard />', () => {
     const tree = getComponent.baseElement;
     expect(tree).toMatchSnapshot();
   });
+  it('should be render correctly with all makes page', async () => {
+    // ACT
+    const getComponent = render(
+      <MockedProvider mocks={mocksResponse} addTypename={false}>
+        <RangeCard {...mocks} isAllMakesCard />
+      </MockedProvider>,
+    );
+
+    await waitFor(() => {
+      expect(imageRequest).toBeTruthy();
+    });
+    const tree = getComponent.baseElement;
+    expect(tree).toMatchSnapshot();
+  });
   it('should be open car page', async () => {
     // ACT
     render(
@@ -72,7 +105,10 @@ describe('<RangeCard />', () => {
     );
 
     // ASSERT
+    await waitFor(() => {
+      expect(imageRequest).toBeTruthy();
+    });
     fireEvent.click(screen.getByText('View All'));
-    expect(mocks.viewRange).toBeCalledWith('1208');
+    expect(mocks.onView).toBeCalled();
   });
 });

@@ -15,6 +15,7 @@ export interface LocationsPageData_regionalOfficesPage {
   id: string;
   metaData: LocationsPageData_regionalOfficesPage_metaData;
   body: string | null;
+  intro: string | null;
 }
 
 export interface LocationsPageData {

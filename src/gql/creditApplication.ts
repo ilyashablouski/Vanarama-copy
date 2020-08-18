@@ -82,7 +82,8 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
           annualMileage
           monthlyPayment
           depositMonths
-          funder
+          funderId
+          funderData
         }
       }
       leadManagerProposalId

@@ -8,11 +8,11 @@ export const responseToInitialFormValues = (
   const email = person?.emailAddresses.find(_ => _.primary)?.value || '';
   const dateOfBirth = person?.dateOfBirth && new Date(person.dateOfBirth);
 
-  const mobile =
+  const telephone =
     person?.telephoneNumbers?.find(_ => _.kind === 'Mobile')?.value || '';
 
   return {
-    mobile,
+    telephone,
     adultsInHousehold: person?.noOfAdultsInHousehold || '',
     countryOfBirth: person?.countryOfBirth || '',
     dependants: person?.noOfDependants || '',
@@ -27,5 +27,10 @@ export const responseToInitialFormValues = (
     dayOfBirth: dateOfBirth ? String(dateOfBirth.getDate()) : '',
     monthOfBirth: dateOfBirth ? String(dateOfBirth.getMonth() + 1) : '',
     yearOfBirth: dateOfBirth ? String(dateOfBirth.getFullYear()) : '',
+    termsAndConditions: !!person?.termsAndConditions,
+    marketing: !!person?.smsConsent,
+    companyType: person?.companies?.length
+      ? person.companies[0].companyType || ''
+      : '',
   };
 };

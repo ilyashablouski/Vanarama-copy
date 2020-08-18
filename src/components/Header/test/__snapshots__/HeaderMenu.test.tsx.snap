@@ -185,6 +185,23 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
                 </span>
               </a>
             </li>
+            <li
+              className="menu-li"
+              data-testid="Van Leasing Explained"
+            >
+              <a
+                className="link -inherit"
+                data-menu={null}
+                data-testid="router-link"
+                href="/van-leasing/finance-options"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+              >
+                <span>
+                  Van Leasing Explained
+                </span>
+              </a>
+            </li>
           </ul>
           <ul
             className="menu-tertiary"
@@ -463,7 +480,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
                 className="link -white"
                 data-menu={null}
                 data-testid="router-link"
-                href="special-offers/pickup-offers"
+                href="/special-offers/pickup-offers"
                 onClick={[Function]}
                 onMouseEnter={[Function]}
               >
@@ -804,7 +821,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
                 className="link -white"
                 data-menu={null}
                 data-testid="router-link"
-                href=""
+                href="/special-offers/car-offers"
                 onClick={[Function]}
                 onMouseEnter={[Function]}
               >
@@ -864,6 +881,23 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
               >
                 <span>
                   Cars By BodyStyle
+                </span>
+              </a>
+            </li>
+            <li
+              className="menu-li"
+              data-testid="Car Leasing Explained"
+            >
+              <a
+                className="link -inherit"
+                data-menu={null}
+                data-testid="router-link"
+                href="/car-leasing/finance-options"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+              >
+                <span>
+                  Car Leasing Explained
                 </span>
               </a>
             </li>
@@ -1198,7 +1232,7 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
                 className="link"
                 data-menu={null}
                 data-testid="router-link"
-                href="/car-leasing/"
+                href="/car-leasing/all-car-manufacturers"
                 onClick={[Function]}
                 onMouseEnter={[Function]}
               >
@@ -1549,7 +1583,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
               </a>
             </li>
             <li
-              className="menu-li -open -with-children"
+              className="menu-li -with-children"
               data-testid="Vans By Manufacturer"
               onFocus={[Function]}
               onMouseOver={[Function]}
@@ -1605,9 +1639,26 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
                 </span>
               </a>
             </li>
+            <li
+              className="menu-li"
+              data-testid="Van Leasing Explained"
+            >
+              <a
+                className="link -inherit"
+                data-menu={null}
+                data-testid="router-link"
+                href="/van-leasing/finance-options"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+              >
+                <span>
+                  Van Leasing Explained
+                </span>
+              </a>
+            </li>
           </ul>
           <ul
-            className="menu-tertiary -open"
+            className="menu-tertiary"
           >
             <li
               className="menu-li menu-title"
@@ -1883,7 +1934,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
                 className="link -white"
                 data-menu={null}
                 data-testid="router-link"
-                href="special-offers/pickup-offers"
+                href="/special-offers/pickup-offers"
                 onClick={[Function]}
                 onMouseEnter={[Function]}
               >
@@ -1909,7 +1960,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
               </a>
             </li>
             <li
-              className="menu-li -open -with-children"
+              className="menu-li -with-children"
               data-testid="Pickups By Manufacturer"
               onFocus={[Function]}
               onMouseOver={[Function]}
@@ -1948,7 +1999,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             </li>
           </ul>
           <ul
-            className="menu-tertiary -open"
+            className="menu-tertiary"
           >
             <li
               className="menu-li menu-title"
@@ -2224,7 +2275,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
                 className="link -white"
                 data-menu={null}
                 data-testid="router-link"
-                href=""
+                href="/special-offers/car-offers"
                 onClick={[Function]}
                 onMouseEnter={[Function]}
               >
@@ -2250,7 +2301,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
               </a>
             </li>
             <li
-              className="menu-li -open -with-children"
+              className="menu-li -with-children"
               data-testid="Cars By Manufacturer"
               onFocus={[Function]}
               onMouseOver={[Function]}
@@ -2287,9 +2338,26 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
                 </span>
               </a>
             </li>
+            <li
+              className="menu-li"
+              data-testid="Car Leasing Explained"
+            >
+              <a
+                className="link -inherit"
+                data-menu={null}
+                data-testid="router-link"
+                href="/car-leasing/finance-options"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+              >
+                <span>
+                  Car Leasing Explained
+                </span>
+              </a>
+            </li>
           </ul>
           <ul
-            className="menu-tertiary -open"
+            className="menu-tertiary"
           >
             <li
               className="menu-li menu-title"
@@ -2618,7 +2686,7 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
                 className="link"
                 data-menu={null}
                 data-testid="router-link"
-                href="/car-leasing/"
+                href="/car-leasing/all-car-manufacturers"
                 onClick={[Function]}
                 onMouseEnter={[Function]}
               >

@@ -5,13 +5,17 @@
       "image": "%IMAGE%",
       "name": "%APP_NAME%",
       "cpu": 256,
-      "memory": 768,
-      "memoryReservation": 256,
+      "memory": 4096,
+      "memoryReservation": 1024,
       "essential": true,
       "secrets": [
         {
           "name": "SECRET_KEY_BASE",
           "valueFrom": "%SSM_PARAMETER_BASE%/secret-key-base"
+        },
+        {
+          "name": "REDIS_CACHE_HOST",
+          "valueFrom": "%SSM_PARAMETER_BASE%/redis-host"
         },
         {
           "name": "NPM_TOKEN",
@@ -45,11 +49,23 @@
         },
         {
           "name": "NODE_ENV",
-          "value": "development"
+          "value": "production"
+        },
+        {
+          "name": "REDIS_CACHE_KEY_PREFIX",
+          "value": "next-storefront:"
+        },
+        {
+          "name": "REDIS_CACHE_PORT",
+          "value": "6379"
         },
         {
           "name": "ENV",
           "value": "development"
+        },
+        {
+          "name": "ENABLE_DEV_TOOLS",
+          "value": "true"
         },
         {
           "name": "PORT",

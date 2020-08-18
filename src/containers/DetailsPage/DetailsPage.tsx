@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import Router from 'next/router';
 import { ApolloError } from '@apollo/client';
+
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Rating from '@vanarama/uibook/lib/components/atoms/rating';
@@ -12,6 +12,7 @@ import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import DownloadSharp from '@vanarama/uibook/lib/assets/icons/DownloadSharp';
 import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-gallery';
 import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import cx from 'classnames';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
 import { toPriceFormat } from '../../utils/helpers';
@@ -49,14 +50,6 @@ interface IDetailsPageProps {
   loading?: boolean;
   error?: ApolloError;
 }
-
-const PATH = {
-  items: [
-    { label: 'Home', href: '/' },
-    { label: 'Mercedes', href: '/' },
-    { label: 'Benz', href: '/' },
-  ],
-};
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
   capId,
@@ -157,12 +150,161 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capRangeDescription}`;
 
   // eslint-disable-next-line no-console
-  if (process.env.ENV === 'development') console.log('CAP Id:', capId);
+  if (process.env.NODE_ENV === 'development') console.log('CAP Id:', capId);
+
+  // Schema JSON.
+  const seller = {
+    '@type': 'Organization',
+    name: 'Vanarama',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Maylands Avenue',
+      addressLocality: 'Hemel Hempstead',
+      addressRegion: 'Hertfordshire',
+      postalCode: 'HP2 7DE',
+      addressCountry: 'United Kingdom',
+    },
+    contactPoint: {
+      contactType: 'Vehicle Sales',
+      telephone: '+441442838195',
+      email: 'enquiries@vanarama.co.uk',
+    },
+  };
+
+  const getTechValue = (description: String) =>
+    derivativeInfo?.technicals?.find(
+      (obj: any) => obj?.technicalDescription === description,
+    )?.value || 'N/A';
+
+  const schema = cars
+    ? // Cars
+      {
+        '@context': 'http://schema.org',
+        '@type': 'Car',
+        name: `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription}`,
+        description: `New ${pageTitle} ${
+          vehicleConfigurationByCapId?.capDerivativeDescription
+        } lease deal from Vanarama starts from £${toPriceFormat(
+          leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
+        )} per month. FREE UK delivery. Mileage Buffer. 8 Point Price Promise.`,
+        offers: {
+          '@type': 'AggregateOffer',
+          availability: 'http://schema.org/InStock',
+          name: `${leaseScannerData?.quoteByCapId?.term} month Contract Hire agreement`,
+          lowPrice: toPriceFormat(
+            leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
+          ),
+          url: `https://www.vanarama.com/car-leasing${data?.vehicleConfigurationByCapId?.url}`,
+          priceCurrency: 'GBP',
+          seller,
+        },
+        image:
+          (data?.vehicleImages && data?.vehicleImages[0]?.mainImageUrl) || '',
+        manufacturer: vehicleConfigurationByCapId?.capManufacturerDescription,
+        brand: vehicleConfigurationByCapId?.capManufacturerDescription,
+        model: vehicleConfigurationByCapId?.capModelDescription,
+        vehicleTransmission: derivativeInfo?.transmission.name,
+        fuelType: derivativeInfo?.fuelType.name,
+        seatingCapacity: getTechValue('No. of Seats'),
+        meetsEmissionStandard: getTechValue('Standard Euro Emissions'),
+        emissionsCO2: getTechValue('CO2 (g/km)'),
+        bodyType: derivativeInfo?.bodyStyle?.name,
+        itemCondition: 'New',
+        steeringPosition: 'RightHandDriving',
+        fuelConsumption: {
+          '@type': 'QuantitativeValue',
+          name: 'Fuel Consumption EC Combined (Mpg)',
+          value: getTechValue('EC Combined'),
+          unitCode: 'mpg',
+        },
+        vehicleEngine: {
+          '@type': 'EngineSpecification',
+          fuelType: derivativeInfo?.fuelType.name,
+          engineDisplacement: {
+            '@type': 'QuantitativeValue',
+            name: 'CC',
+            value: getTechValue('CC'),
+            unitCode: 'CMQ',
+          },
+        },
+      }
+    : // LCVs
+      {
+        '@context': 'http://schema.org',
+        '@type': 'Vehicle',
+        name: `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription}`,
+        description: `New ${pageTitle} ${
+          vehicleConfigurationByCapId?.capDerivativeDescription
+        } Van lease deal from Vanarama starts from £${toPriceFormat(
+          leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
+        )} per month. FREE UK delivery. Mileage Buffer. 8 Point Price Promise.`,
+        offers: {
+          '@type': 'AggregateOffer',
+          availability: 'http://schema.org/InStock',
+          name: `${leaseScannerData?.quoteByCapId?.term} month Contract Hire agreement`,
+          lowPrice: toPriceFormat(
+            leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
+          ),
+          url: `https://www.vanarama.com/van-leasing${data?.vehicleConfigurationByCapId?.url}`,
+          priceCurrency: 'GBP',
+          seller,
+        },
+        image:
+          (data?.vehicleImages && data?.vehicleImages[0]?.mainImageUrl) || '',
+        manufacturer: vehicleConfigurationByCapId?.capManufacturerDescription,
+        brand: vehicleConfigurationByCapId?.capManufacturerDescription,
+        model: vehicleConfigurationByCapId?.capModelDescription,
+        vehicleTransmission: derivativeInfo?.transmission.name,
+        fuelType: derivativeInfo?.fuelType.name,
+        seatingCapacity: getTechValue('No. of Seats'),
+        meetsEmissionStandard: getTechValue('Standard Euro Emissions'),
+        emissionsCO2: getTechValue('CO2'),
+        bodyType: derivativeInfo?.bodyType?.name || 'N/A',
+        itemCondition: 'New',
+        steeringPosition: 'RightHandDriving',
+        height: {
+          '@type': 'QuantitativeValue',
+          value: getTechValue('Height'),
+          unitCode: 'MMT',
+        },
+        weight: {
+          '@type': 'QuantitativeValue',
+          value: getTechValue('Gross Vehicle Weight'),
+          unitCode: 'KGM',
+        },
+        fuelCapacity: {
+          '@type': 'QuantitativeValue',
+          value: getTechValue('Fuel Tank Capacity (Litres)'),
+          unitCode: 'LTR',
+        },
+        speed: {
+          '@type': 'QuantitativeValue',
+          name: 'Speed',
+          maxValue: getTechValue('Top Speed'),
+          minValue: 0,
+          unitCode: 'HM',
+        },
+        wheelbase: {
+          '@type': 'QuantitativeValue',
+          name: 'Wheelbase',
+          value: getTechValue('Wheelbase'),
+          unitCode: 'MMT',
+        },
+        vehicleEngine: {
+          '@type': 'EngineSpecification',
+          fuelType: derivativeInfo?.fuelType.name,
+          engineDisplacement: {
+            '@type': 'QuantitativeValue',
+            name: 'CC',
+            value: getTechValue('CC'),
+            unitCode: 'CMQ',
+          },
+        },
+      };
 
   return (
     <>
       <div className="pdp--content">
-        <Breadcrumb items={PATH.items} />
         <Heading tag="h1">
           <Heading className="-pt-100" tag="span" size="xlarge" color="black">
             {pageTitle}
@@ -229,7 +371,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <WhyChooseLeasing warranty={warranty || ''} />
         <WhyChooseVanarama />
         <div className="pdp--reviews">
-          <CustomerReviews reviews={reviews || []} />
+          <CustomerReviews reviews={reviews || []} title="Customer Reviews" />
         </div>
         <FrequentlyAskedQuestions
           rangeFAQ={rangeFAQs || []}
@@ -301,6 +443,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           />
         </div>
       )}
+      <SchemaJSON json={JSON.stringify(schema)} />
     </>
   );
 };

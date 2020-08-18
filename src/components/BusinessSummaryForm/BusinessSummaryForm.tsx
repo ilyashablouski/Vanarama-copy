@@ -75,8 +75,8 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
   const onButtonPressed = useCallback(
     () =>
       router.push(
-        '/olaf/thank-you/[orderId]',
-        '/olaf/thank-you/[orderId]'.replace('[orderId]', orderId),
+        '/olaf/thank-you/[orderId]?isB2b=1',
+        '/olaf/thank-you/[orderId]?isB2b=1'.replace('[orderId]', orderId),
       ),
     [router, orderId],
   );

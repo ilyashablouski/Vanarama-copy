@@ -1,63 +1,42 @@
 import React, { FC, memo } from 'react';
-import Head from 'next/head';
+import NextHead from 'next/head';
 
 import { IHeadProps } from './interface';
 
-const defaultTitle = 'Vanarama';
-const twitter = '@Vanarama';
+import { defaultTitle, twitter, defaultImage, fb } from './defaults';
 
-const HeadTag: React.FC<IHeadProps> = props => {
+const Head: FC<IHeadProps> = props => {
   let { title = defaultTitle, metaRobots } = props;
-  const { metaDescription, legacyUrl, publishedOn, featuredImage } = props;
+  const { metaDescription, legacyUrl } = props;
 
   // Dev override.
-  if (process.env.ENV !== 'production') {
+  if (process.env.ENV && process.env.ENV !== 'production') {
     title = `[${process.env.ENV?.toUpperCase()}] ${title}`;
     metaRobots = 'noindex';
   }
 
   return (
-    <Head>
+    <NextHead>
       <title>{title}</title>
+      <meta name="og:type" content="website" />
       <meta property="og:locale" content="en_GB" />
       <meta property="og:title" content={title} />
+      <meta property="fb:app_id" content={String(fb.appId)} />
+      <meta property="fb:admins" content={String(fb.admins)} />
       {metaRobots && <meta name="robots" content={metaRobots} />}
       {metaDescription && (
         <meta property="og:description" content={metaDescription} />
       )}
       {legacyUrl && <meta property="og:url" content={legacyUrl} />}
       <meta property="og:site_name" content={defaultTitle} />
-      <meta
-        property="article:publisher"
-        content="https://www.facebook.com/vanarama/"
-      />
-      {publishedOn && (
-        <meta property="article:modified_time" content={publishedOn} />
-      )}
-      {featuredImage?.file && (
-        <>
-          <meta property="og:image" content={featuredImage.file.url} />
-          <meta name="twitter:image" content={featuredImage.file.url} />
-          {featuredImage.file.details?.image?.width && (
-            <meta
-              property="og:image:width"
-              content={featuredImage.file.details.image.width.toString()}
-            />
-          )}
-          {featuredImage.file.details?.image?.height && (
-            <meta
-              property="og:image:height"
-              content={featuredImage.file.details.image.height.toString()}
-            />
-          )}
-        </>
-      )}
-      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="og:image" content={defaultImage} />
+      <meta name="twitter:image" content={defaultImage} />
+      <meta name="twitter:card" content="summary" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:creator" content={twitter} />
       <meta name="twitter:site" content={twitter} />
-    </Head>
+    </NextHead>
   );
 };
 
-export default memo(HeadTag);
+export default memo(Head);

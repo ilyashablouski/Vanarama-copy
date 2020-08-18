@@ -134,6 +134,7 @@ const mocked: MockedResponse[] = [
               titleTag: 'h2',
               body:
                 "If you're looking to drive a brand new car, van or truck without any of the hassle - leasing might just be for you! It's affordable, simple and you're not left with a depreciating asset at the end of your contract.",
+              layout: [''],
               iconList: [
                 {
                   text: 'ooo',
@@ -145,6 +146,7 @@ const mocked: MockedResponse[] = [
               titleTag: 'h2',
               body:
                 "Vanarama is more than just a broker or leasing company, we've been leading the market and putting our customers at the heart of everything we do for more than a decade.\n\nAfter 15 years of experience in business & personal van, pickup and car leasing, we're still pushing the industry forward & our vast buying power gives us access to a range of vehicles and lease deal pricing you can't get anywhere else.",
+              layout: [''],
             },
             tiles: {
               name: 'Benefits Grid',

@@ -3,25 +3,38 @@ import Card from '@vanarama/uibook/lib/components/molecules/cards/Card';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import { rangeList_rangeList as IRangeData } from '../../../generated/rangeList';
-import { getRangeImages } from './gql';
+import { getRangeImages, useModelImages } from './gql';
 
 interface IVehicleCardProps {
   isPersonalPrice: boolean;
-  data?: IRangeData;
-  viewRange: (rangeId: string) => void;
+  onView: () => void;
+  title: string;
+  fromPrice?: number;
+  id: string;
+  isAllMakesCard?: boolean;
 }
 
 const RangeCard = memo(
-  ({ isPersonalPrice, data, viewRange }: IVehicleCardProps) => {
+  ({
+    isPersonalPrice,
+    id,
+    title,
+    fromPrice,
+    onView,
+    isAllMakesCard,
+  }: IVehicleCardProps) => {
     // TODO: Should be changed when query for get images will updated
-    const { data: imagesData } = getRangeImages(
-      data?.rangeId || '',
-      !data?.rangeId,
+    const { data: imagesData } = getRangeImages(id, !id || isAllMakesCard);
+    const { data: imagesMakeData } = useModelImages(
+      [id],
+      !id || !isAllMakesCard,
     );
-    const imageProps = imagesData?.vehicleImages?.[0]
+    const imageProps = (!isAllMakesCard ? imagesData : imagesMakeData)
+      ?.vehicleImages?.[0]
       ? {
-          imageSrc: imagesData?.vehicleImages?.[0]?.mainImageUrl || '',
+          imageSrc:
+            (!isAllMakesCard ? imagesData : imagesMakeData)?.vehicleImages?.[0]
+              ?.mainImageUrl || '',
         }
       : {};
     return (
@@ -33,7 +46,7 @@ const RangeCard = memo(
             <RouterLink
               link={{
                 href: '',
-                label: data?.rangeName || '',
+                label: title || '',
               }}
               className="heading"
               classNames={{ size: 'large', color: 'black' }}
@@ -43,7 +56,7 @@ const RangeCard = memo(
       >
         <div className="-flex-h">
           <Price
-            price={data?.minPrice}
+            price={fromPrice}
             priceLabel="from"
             size="large"
             separator="."
@@ -55,7 +68,7 @@ const RangeCard = memo(
             color="teal"
             fill="solid"
             label="View All"
-            onClick={() => viewRange(data?.rangeId || '')}
+            onClick={onView}
             size="regular"
           />
         </div>

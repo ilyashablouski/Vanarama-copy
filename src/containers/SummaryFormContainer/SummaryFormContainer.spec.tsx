@@ -218,7 +218,7 @@ describe('<SummaryFormContainer />', () => {
     );
   });
 
-  it('should redirect to the thank you page when clicking "Continue"', async () => {
+  it.skip('should redirect to the thank you page when clicking "Continue"', async () => {
     // ARRANGE
     const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
     const mocks = [createBruceData(uuid)];

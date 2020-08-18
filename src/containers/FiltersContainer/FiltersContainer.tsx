@@ -50,6 +50,9 @@ const FiltersContainer = ({
   isSpecialOffers,
   isMakePage,
   isPickups,
+  isRangePage,
+  isModelPage,
+  isAllMakesPage,
 }: IFilterContainerProps) => {
   const router = useRouter();
   const [filtersData, setFiltersData] = useState({} as IFilterList);
@@ -64,11 +67,11 @@ const FiltersContainer = ({
   const [tempModelName, setTempModelName] = useState('');
   const [fromBudget] = useState(budgets.slice(0, budgets.length - 1));
   const [toBudget] = useState(budgets.slice(1));
-  const [isOpenFilter, setFilterExpandStatus] = useState(true);
   const [choiceBoxesData, setChoiceBoxesData] = useState(
     {} as IChoiceBoxesData,
   );
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1216px)' });
+  const [isOpenFilter, setFilterExpandStatus] = useState(false);
 
   const [selectedFiltersState, setSelectedFiltersState] = useState<
     ISelectedFiltersState
@@ -88,7 +91,9 @@ const FiltersContainer = ({
 
   const { refetch } = useFilterList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-    isMakePage ? null : isSpecialOffers,
+    isMakePage || isRangePage || isModelPage || isAllMakesPage
+      ? null
+      : isSpecialOffers,
     resp => {
       if (!Object.keys(allFiltersData).length) {
         setAllFiltersData(resp?.filterList || ({} as IFilterList));
@@ -150,13 +155,14 @@ const FiltersContainer = ({
   );
 
   /** start new search */
-  const onViewResults = () => {
-    onSearch(filtersObject);
+  const onViewResults = (onlyFiltersUpdate = false) => {
+    if (!onlyFiltersUpdate) onSearch(filtersObject);
     const filtersObjectForFilters = { ...filtersObject };
     delete filtersObjectForFilters.rate;
     refetch({
       vehicleTypes: isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-      onOffer: isMakePage ? null : isSpecialOffers,
+      onOffer:
+        isMakePage || isRangePage || isAllMakesPage ? null : isSpecialOffers,
       ...filtersObjectForFilters,
     }).then(resp => {
       // using then because apollo return incorrect cache result https://github.com/apollographql/apollo-client/issues/3550
@@ -194,13 +200,20 @@ const FiltersContainer = ({
       routerQuery.forEach(entry => {
         const [key, values] = entry;
         if (key === 'rangeName') {
-          filtersData.groupedRanges?.forEach(element => {
+          filtersData.groupedRanges?.some(element => {
             const value = findPreselectFilterValue(
-              Array.isArray(values) ? values[0] : values,
+              Array.isArray(values)
+                ? values[0].split('+').join(' ')
+                : values.split('+').join(' '),
               element.children,
             );
             // saving model to temp because after set makes model will be removed
-            if (value) setTempModelName(value);
+            if (value) {
+              setTempModelName(value);
+              presetFilters.model = [value];
+              return true;
+            }
+            return false;
           });
         } else if (key !== 'pricePerMonth' && key !== 'isChangePage') {
           let query: string | string[];
@@ -246,6 +259,7 @@ const FiltersContainer = ({
 
   useEffect(() => {
     if (!isTabletOrMobile) setFilterExpandStatus(true);
+    else setFilterExpandStatus(false);
   }, [isTabletOrMobile]);
 
   useEffect(() => {
@@ -253,25 +267,42 @@ const FiltersContainer = ({
     if (!isInitialLoad) onViewResults();
     if (
       (selectedFilterTags[0] && isInitialLoad) ||
-      (isInitialLoad && isMakePage && selectedFiltersState.make[0])
+      (isInitialLoad &&
+        ((isMakePage && selectedFiltersState.make[0]) ||
+          (isRangePage && selectedFiltersState.model[0]))) ||
+      (isModelPage && selectedFiltersState.model[0])
     )
       setInitialLoad(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFilterTags, isSpecialOffers, isInitialLoad, isPersonal]);
 
+  /** return true if model exist in filters data */
+  const isCurrentModelValid = (model: string) =>
+    filtersData.groupedRanges?.some(({ children }) => children.includes(model));
+
   // set actual models after make changing
   useEffect(() => {
-    if (selectedFiltersState.make.length && !isMakePage) {
+    if (
+      filtersObject.manufacturerName &&
+      !isMakePage &&
+      !((isRangePage || isModelPage) && !tempModelName)
+    ) {
+      // every time when filters update active model missed
+      // for preset filters using temp variable
+      // for cases when we change model manually we check for include this model in  new filters data
+      const model = isCurrentModelValid(filtersObject.rangeName)
+        ? [filtersObject.rangeName]
+        : [];
       setSelectedFiltersState(prevState => ({
         ...prevState,
-        model: tempModelName ? [tempModelName] : [],
+        model: tempModelName ? [tempModelName] : model,
       }));
       setModelsData(modelHandler(filtersData, selectedFiltersState.make[0]));
       // clear temp model value
       if (tempModelName) setTempModelName('');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedFiltersState.make, filtersData]);
+  }, [filtersObject.manufacturerName, filtersData]);
 
   // hack for subscribe multiselects changes and update Choiceboxes state
   useEffect(() => {
@@ -320,12 +351,17 @@ const FiltersContainer = ({
         ) {
           return `£${entry[1]}`;
         }
-        return isMakePage && entry[0] === filterFields.make ? '' : entry[1];
+        return ((isMakePage || isRangePage || isModelPage) &&
+          entry[0] === filterFields.make) ||
+          ((isRangePage || isModelPage) && entry[0] === filterFields.model) ||
+          (isModelPage && entry[0] === filterFields.bodyStyles)
+          ? ''
+          : entry[1];
       })
       .flat()
       .filter(Boolean);
     setSelectedFilterTags(selected);
-  }, [selectedFiltersState, isMakePage]);
+  }, [selectedFiltersState, isMakePage, isRangePage, isModelPage]);
 
   // made force update for choiseboxes state
   useEffect(() => {
@@ -470,7 +506,10 @@ const FiltersContainer = ({
                   <FormGroup label={dropdown.label} key={dropdown.label}>
                     <Select
                       disabled={
-                        isMakePage &&
+                        (isMakePage ||
+                          isRangePage ||
+                          isModelPage ||
+                          isAllMakesPage) &&
                         (dropdown.accessor === filterFields.make ||
                           dropdown.accessor === filterFields.model)
                       }
@@ -508,35 +547,38 @@ const FiltersContainer = ({
                 <>
                   {selectedFiltersState[
                     filter.accessor as keyof typeof filtersMapper
-                  ]?.length > 0 && (
-                    <div className="dropdown--header">
-                      <div className="dropdown--header-text">
-                        <span className="dropdown--header-count">{`${
-                          selectedFiltersState[
-                            filter.accessor as keyof typeof filtersMapper
-                          ]?.length
-                        } Selected`}</span>
-                        <div className="dropdown--header-selected">
-                          {selectedFiltersState[
-                            filter.accessor as keyof typeof filtersMapper
-                          ].map(value => (
-                            <span key={value}>{value},</span>
-                          ))}
+                  ]?.length > 0 &&
+                    !(
+                      isModelPage && filter.accessor === filterFields.bodyStyles
+                    ) && (
+                      <div className="dropdown--header">
+                        <div className="dropdown--header-text">
+                          <span className="dropdown--header-count">{`${
+                            selectedFiltersState[
+                              filter.accessor as keyof typeof filtersMapper
+                            ]?.length
+                          } Selected`}</span>
+                          <div className="dropdown--header-selected">
+                            {selectedFiltersState[
+                              filter.accessor as keyof typeof filtersMapper
+                            ].map(value => (
+                              <span key={value}>{value},</span>
+                            ))}
+                          </div>
                         </div>
+                        <Button
+                          size="small"
+                          color="teal"
+                          fill="outline"
+                          label="Clear"
+                          onClick={() =>
+                            clearFilter(
+                              filter.accessor as keyof typeof filtersMapper,
+                            )
+                          }
+                        />
                       </div>
-                      <Button
-                        size="small"
-                        color="teal"
-                        fill="outline"
-                        label="Clear"
-                        onClick={() =>
-                          clearFilter(
-                            filter.accessor as keyof typeof filtersMapper,
-                          )
-                        }
-                      />
-                    </div>
-                  )}
+                    )}
 
                   <FormGroup label={filter.label} dataTestId={filter.label}>
                     {choiceBoxesData[filter.accessor]?.length > 0 && (
@@ -549,8 +591,17 @@ const FiltersContainer = ({
                         }
                         choices={
                           filter.accessor === filterFields.bodyStyles &&
-                          isPickups
-                            ? [{ label: 'Pickup', active: true }]
+                          (isPickups || isModelPage)
+                            ? [
+                                {
+                                  label: `${
+                                    isPickups
+                                      ? 'Pickup'
+                                      : selectedFiltersState.bodyStyles[0]
+                                  }`,
+                                  active: true,
+                                },
+                              ]
                             : choiceBoxesData[filter.accessor]
                         }
                         className="-cols-1"
@@ -558,7 +609,7 @@ const FiltersContainer = ({
                         multiSelect
                         disabled={
                           filter.accessor === filterFields.bodyStyles &&
-                          isPickups
+                          (isPickups || isModelPage)
                         }
                         ref={getOrCreateRef(filter.accessor)}
                       />

@@ -14,6 +14,19 @@ import {
   RangesImages,
   RangesImagesVariables,
 } from '../../../generated/RangesImages';
+import {
+  bodyStyleList,
+  bodyStyleListVariables,
+} from '../../../generated/bodyStyleList';
+import {
+  ModelImages,
+  ModelImagesVariables,
+} from '../../../generated/ModelImages';
+import {
+  manufacturerList,
+  manufacturerListVariables,
+} from '../../../generated/manufacturerList';
+import { manufacturerPage } from '../../../generated/manufacturerPage';
 
 export const GET_VEHICLE_LIST = gql`
   query vehicleList(
@@ -165,19 +178,177 @@ export function getRangesList(
 }
 
 export const GET_RANGES_IMAGES = gql`
-  query RangesImages($rangeId: ID) {
-    vehicleImages(rangeId: $rangeId) {
+  query RangesImages($rangeId: ID, $capIds: [ID]) {
+    vehicleImages(rangeId: $rangeId, capIds: $capIds) {
       mainImageUrl
     }
   }
 `;
 
-export function getRangeImages(rangeId: string, skip = false) {
+export function getRangeImages(rangeId?: string, skip = false) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   return useQuery<RangesImages, RangesImagesVariables>(GET_RANGES_IMAGES, {
     variables: {
       rangeId,
     },
+    skip,
+  });
+}
+
+export const GET_MODEL_IMAGES = gql`
+  query ModelImages($capIds: [ID]) {
+    vehicleImages(capIds: $capIds, all: false) {
+      mainImageUrl
+    }
+  }
+`;
+
+export function useModelImages(capIds: (string | null)[], skip = false) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  return useQuery<ModelImages, ModelImagesVariables>(GET_MODEL_IMAGES, {
+    variables: {
+      capIds,
+    },
+    skip,
+  });
+}
+
+export const GET_BODY_STYLES = gql`
+  query bodyStyleList(
+    $vehicleTypes: VehicleTypeEnum
+    $leaseType: LeaseTypeEnum
+    $manufacturerName: String!
+    $rangeName: String!
+  ) {
+    bodyStyleList(
+      filter: {
+        vehicleType: $vehicleTypes
+        manufacturerName: $manufacturerName
+        rangeName: $rangeName
+        leaseType: $leaseType
+      }
+    ) {
+      bodyStyle
+      count
+      minPrice
+      capId
+    }
+  }
+`;
+
+export function useBodyStyleList(
+  vehicleTypes: VehicleTypeEnum,
+  leaseType: LeaseTypeEnum,
+  manufacturerName: string,
+  rangeName: string,
+) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  return useLazyQuery<bodyStyleList, bodyStyleListVariables>(GET_BODY_STYLES, {
+    variables: {
+      vehicleTypes,
+      manufacturerName,
+      leaseType,
+      rangeName,
+    },
+  });
+}
+
+export const GET_MANUFACTURER_LIST = gql`
+  query manufacturerList(
+    $vehicleType: VehicleTypeEnum
+    $leaseType: LeaseTypeEnum
+    $rate: RateInputObject
+    $bodyStyles: [String!]
+    $transmissions: [String!]
+    $fuelTypes: [String!]
+  ) {
+    manufacturerList(
+      filter: {
+        vehicleType: $vehicleType
+        leaseType: $leaseType
+        rate: $rate
+        bodyStyles: $bodyStyles
+        transmissions: $transmissions
+        fuelTypes: $fuelTypes
+      }
+    ) {
+      count
+      manufacturerId
+      manufacturerName
+      minPrice
+      capId
+    }
+  }
+`;
+
+export function useManufacturerList(
+  vehicleType: VehicleTypeEnum,
+  leaseType: LeaseTypeEnum,
+  rate?: RateInputObject,
+  bodyStyles?: string[],
+  transmissions?: string[],
+  fuelTypes?: string[],
+) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  return useLazyQuery<manufacturerList, manufacturerListVariables>(
+    GET_MANUFACTURER_LIST,
+    {
+      variables: {
+        vehicleType,
+        leaseType,
+        rate,
+        bodyStyles,
+        transmissions,
+        fuelTypes,
+      },
+    },
+  );
+}
+
+export const GET_ALL_MAKES_PAGE = gql`
+  query manufacturerPage {
+    manufacturerPage(slug: "/car-leasing/all-car-manufacturers") {
+      metaData {
+        pageType
+        slug
+        title
+        metaRobots
+        metaDescription
+        legacyUrl
+        publishedOn
+      }
+      sections {
+        featured {
+          layout
+          body
+          title
+          titleTag
+          image {
+            title
+            description
+            file {
+              url
+              fileName
+            }
+          }
+        }
+      }
+      featuredImage {
+        title
+        description
+        file {
+          url
+          fileName
+          contentType
+        }
+      }
+    }
+  }
+`;
+
+export function useAllMakePage(skip = false) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  return useQuery<manufacturerPage>(GET_ALL_MAKES_PAGE, {
     skip,
   });
 }

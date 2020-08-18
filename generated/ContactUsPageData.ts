@@ -10,6 +10,7 @@
 export interface ContactUsPageData_contactUsLandingPage_sections_featured1 {
   title: string | null;
   body: string | null;
+  layout: string[] | null;
 }
 
 export interface ContactUsPageData_contactUsLandingPage_sections_cards_cards {
@@ -56,7 +57,7 @@ export interface ContactUsPageData_contactUsLandingPage_sections {
 
 export interface ContactUsPageData_contactUsLandingPage {
   id: string;
-  sections: ContactUsPageData_contactUsLandingPage_sections;
+  sections: ContactUsPageData_contactUsLandingPage_sections | null;
 }
 
 export interface ContactUsPageData {

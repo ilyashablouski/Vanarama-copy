@@ -5,6 +5,6 @@ describe('<helpers />', () => {
     expect(findPreselectFilterValue('test', ['test'])).toEqual('test');
   });
   it('should work when data null', async () => {
-    expect(findPreselectFilterValue('test', null)).toEqual('test');
+    expect(findPreselectFilterValue('test', null)).toEqual('');
   });
 });

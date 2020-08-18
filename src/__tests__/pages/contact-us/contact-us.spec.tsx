@@ -29,6 +29,7 @@ const mocked: MockedResponse[] = [
                 title: 'Head Office',
                 body:
                   'Ad est aliqua reprehenderit labore exercitation est veniam consectetur sit deserunt commodo magna anim sit aliqua sunt non irure sit velit magna aliqua ullamco esse amet cillum elit fugiat ipsum',
+                layout: [''],
               },
               cards: {
                 cards: [
@@ -62,7 +63,7 @@ const mocked: MockedResponse[] = [
                       },
                     },
                     link: {
-                      url: '/www.vanarama.com',
+                      url: '/vanarama',
                       text: 'Chat With iVan',
                     },
                   },
@@ -101,8 +102,6 @@ describe('<ContactUsPage />', () => {
         bubbles: false,
       }),
     );
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/www.vanarama.com'),
-    );
+    await waitFor(() => expect(Router.push).toHaveBeenCalledWith('/vanarama'));
   });
 });

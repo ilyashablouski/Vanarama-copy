@@ -241,6 +241,7 @@ export interface LimitedCompanyInputObject {
   companyType?: string | null;
   emailAddress?: EmailAddressInputObject | null;
   isVatRegistered?: boolean | null;
+  leadManagerId?: string | null;
   legalName?: string | null;
   otherCountriesOfActivity?: string[] | null;
   person?: PersonInputObject | null;
@@ -354,6 +355,33 @@ export interface RoleInputObject {
 }
 
 /**
+ * Input object to create a Sole Trader Company
+ */
+export interface SoleTraderCompanyInputObject {
+  addresses?: AddressInputObject[] | null;
+  annualTurnover?: number | null;
+  associate?: CompanyAssociateInputObject | null;
+  bankAccount?: BankAccountInputObject | null;
+  companyNature?: string | null;
+  companyNumber?: string | null;
+  companyType?: string | null;
+  emailAddress?: EmailAddressInputObject | null;
+  isVatRegistered?: boolean | null;
+  legalName?: string | null;
+  monthlyAmountBeingReplaced?: number | null;
+  otherCountriesOfActivity?: string[] | null;
+  person?: PersonInputObject | null;
+  telephoneNumbers?: TelephoneNumberInputObject[] | null;
+  tradesOutsideUk?: boolean | null;
+  tradingName?: string | null;
+  tradingSince?: any | null;
+  turnoverOutsideUk?: number | null;
+  turnoverPercentageOutsideUk?: TurnoverPercentageOutsideUkInputObject[] | null;
+  uuid?: string | null;
+  vatNumber?: string | null;
+}
+
+/**
  * Input object to create and add a Telephone Number
  */
 export interface TelephoneNumberInputObject {
@@ -384,7 +412,6 @@ export interface VehicleProductInputObject {
   description?: string | null;
   finalPayment?: number | null;
   financeType?: string | null;
-  funder?: string | null;
   funderId?: string | null;
   maintenance?: boolean | null;
   monthlyPayment?: number | null;
@@ -392,6 +419,11 @@ export interface VehicleProductInputObject {
   trim?: string | null;
   vehicleType: VehicleTypeEnum;
   vsku?: string | null;
+}
+
+export interface VehicleToCompare {
+  capId?: number | null;
+  vehicleType?: VehicleTypeEnum | null;
 }
 
 //==============================================================

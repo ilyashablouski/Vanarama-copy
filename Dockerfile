@@ -5,11 +5,15 @@ ARG API_KEY
 ARG API_URL
 ARG LOQATE_KEY
 ARG NODE_ENV
+ARG ENV
+ARG ENABLE_DEV_TOOLS
+ARG NODE_OPTIONS
 
 # Setting working directory. All the path will be relative to WORKDIR
 WORKDIR /usr/src/app
 
 # Installing dependencies
+
 RUN npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
 COPY yarn.lock .
 COPY package.json .
@@ -20,8 +24,8 @@ COPY . .
 
 RUN npm rebuild node-sass
 
-# Build the app
-RUN yarn build
+# Build the app (this is now executed in "yarn start" command)
+# RUN yarn build
 
 EXPOSE 8080
 

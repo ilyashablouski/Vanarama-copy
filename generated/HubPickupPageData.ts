@@ -41,6 +41,7 @@ export interface HubPickupPageData_hubPickupPage_sections_featured1 {
   title: string | null;
   titleTag: string | null;
   body: string | null;
+  layout: string[] | null;
   image: HubPickupPageData_hubPickupPage_sections_featured1_image | null;
 }
 
@@ -56,6 +57,7 @@ export interface HubPickupPageData_hubPickupPage_sections_featured2 {
   title: string | null;
   titleTag: string | null;
   body: string | null;
+  layout: string[] | null;
   image: HubPickupPageData_hubPickupPage_sections_featured2_image | null;
 }
 
@@ -135,7 +137,7 @@ export interface HubPickupPageData_hubPickupPage_sections {
 
 export interface HubPickupPageData_hubPickupPage {
   id: string;
-  sections: HubPickupPageData_hubPickupPage_sections;
+  sections: HubPickupPageData_hubPickupPage_sections | null;
 }
 
 export interface HubPickupPageData {
