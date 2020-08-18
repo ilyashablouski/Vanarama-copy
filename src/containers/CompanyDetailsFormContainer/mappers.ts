@@ -9,12 +9,10 @@ export const mapAddresses = (values: SubmissionValues) =>
     ? [
         {
           serviceId: values.registeredAddress.id,
-          label: values.registeredAddress.label,
           kind: 'registered',
         },
         {
           serviceId: values.tradingAddress.id,
-          label: values.tradingAddress.label,
           kind: 'trading',
         },
       ]
@@ -69,26 +67,17 @@ export const mapFormValues = (
 };
 
 export const mapDefaultValues = (data: { [key: string]: any }) => {
-  const date = data?.trading_since
-    ? moment(data?.trading_since, DATE_FORMAT)
-    : null;
-
-  const tradingAddress = data?.addresses?.find(item => item.kind === 'trading');
-  const registeredAddress = data?.addresses?.find(
-    item => item.kind === 'registered',
-  );
-
   return {
-    nature: data?.company_nature,
+    nature: data?.nature,
     companyNumber: data?.company_number,
     companyType: data?.company_type,
-    companyName: data?.legal_name,
-    tradingDifferent: data?.with_trading_address,
-    tradingSinceMonth: (date?.month() || '').toString(),
-    tradingSinceYear: date?.year(),
-    email: data?.email_address?.value,
-    telephone: data?.telephone_numbers?.[0]?.value,
-    tradingAddress,
-    registeredAddress,
+    companyName: data?.company_name,
+    tradingSinceMonth: data?.trading_since_month,
+    tradingSinceYear: data?.trading_since_year,
+    email: data?.email,
+    telephone: data?.telephone,
+    tradingAddress: data?.trading_address,
+    registeredAddress: data?.registered_address,
+    tradingDifferent: data?.trading_different,
   };
 };

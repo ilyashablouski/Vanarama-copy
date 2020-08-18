@@ -67,9 +67,6 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
       variables: {
         input: {
           companyDetails: values,
-          addresses: values.addresses,
-          telephoneNumbers: values.telephoneNumbers,
-          emailAddresses: [values.emailAddress],
           orderUuid: orderId,
         },
       },
@@ -86,12 +83,13 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
       company={company}
       onSubmit={async values => {
         const mappedFormValues = mapFormValues(values, personUuid, companyUuid);
+
         await handleCompanyDetailsSave(mappedFormValues)
           .then(response =>
             handleOrderUpdate(
               response.data!.createUpdateLimitedCompany!.partyUuid,
             )
-              .then(() => handleCreditApplicationUpdate(mappedFormValues))
+              .then(() => handleCreditApplicationUpdate(values))
               .then(() =>
                 onCompleted(response.data!.createUpdateLimitedCompany!.uuid),
               ),
