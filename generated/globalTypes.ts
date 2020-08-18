@@ -359,6 +359,8 @@ export interface RoleInputObject {
  */
 export interface SoleTraderCompanyInputObject {
   addresses?: AddressInputObject[] | null;
+  annualExpenses?: number | null;
+  annualSalesCost?: number | null;
   annualTurnover?: number | null;
   associate?: CompanyAssociateInputObject | null;
   bankAccount?: BankAccountInputObject | null;
@@ -367,10 +369,12 @@ export interface SoleTraderCompanyInputObject {
   companyType?: string | null;
   emailAddress?: EmailAddressInputObject | null;
   isVatRegistered?: boolean | null;
+  leadManagerId?: string | null;
   legalName?: string | null;
   monthlyAmountBeingReplaced?: number | null;
   otherCountriesOfActivity?: string[] | null;
   person?: PersonInputObject | null;
+  replaceExistingVehicleFinance?: boolean | null;
   telephoneNumbers?: TelephoneNumberInputObject[] | null;
   tradesOutsideUk?: boolean | null;
   tradingName?: string | null;
@@ -379,6 +383,7 @@ export interface SoleTraderCompanyInputObject {
   turnoverPercentageOutsideUk?: TurnoverPercentageOutsideUkInputObject[] | null;
   uuid?: string | null;
   vatNumber?: string | null;
+  vehicleRegistrationNumber?: string | null;
 }
 
 /**
