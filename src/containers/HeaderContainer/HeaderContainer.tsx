@@ -66,7 +66,6 @@ const HeaderContainer: FC = () => {
           ...(transformLinks.shift() as ILink),
           highlight: !!linksGroup?.linkGroups?.length,
         };
-
         const transformGroupLink =
           linksGroup?.linkGroups &&
           (linksGroup?.linkGroups as LinkGroups[]).map(el => ({
@@ -82,11 +81,10 @@ const HeaderContainer: FC = () => {
                 } as ILink),
             ),
           }));
+        const childrenGroupLinks = transformGroupLink?.length
+          ? [specialOffersLinks, ...transformGroupLink, ...transformLinks]
+          : [specialOffersLinks, ...transformLinks];
 
-        const childrenGroupLinks =
-          linksGroup?.linkGroups?.length && transformGroupLink
-            ? [specialOffersLinks, ...transformGroupLink, ...transformLinks]
-            : [specialOffersLinks, ...transformLinks];
         headerTopLinks = {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
