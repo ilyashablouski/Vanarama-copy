@@ -41,15 +41,6 @@ exports[`<AdvancedBreakdownCoverContainer /> should match snapshot 1`] = `
             </a>
           </p>
         </p>
-        <button
-          class="button -orange -large -solid"
-        >
-          <div
-            class="button--inner"
-          >
-            View Deals
-          </div>
-        </button>
       </div>
       <div>
         <div
@@ -76,131 +67,115 @@ exports[`<AdvancedBreakdownCoverContainer /> should match snapshot 1`] = `
           class="row:cards-2col"
         >
           <div
-            class="card"
+            class="card -inline"
             data-testid="card"
           >
+            <img
+              alt="img"
+              class="card-image"
+              data-testid="card-image"
+              src="//images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png"
+            />
+            <div
+              class="title"
+            >
+              <span
+                class="heading -black -lead"
+                data-testid="card-heading"
+              >
+                Breakdown Cover
+              </span>
+            </div>
             <div
               class="-flex-h"
             >
-              <div
-                style="margin-right: 10px;"
-              >
-                <div
-                  class="image card-image -regular -inline"
-                >
-                  <img
-                    alt="Fleet-Icon.png"
-                    class="image--native"
-                    src="//images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png"
-                  />
-                </div>
-              </div>
-              <div>
-                <p
-                  class="heading -black -large"
-                >
-                  Breakdown Cover
-                </p>
-                <p>
-                  Wherever your vehicle breaks down, our trusted partner, the RAC, will provide assistance, so you'll never be left stranded.
-                </p>
-              </div>
+              <p>
+                Wherever your vehicle breaks down, our trusted partner, the RAC, will provide assistance, so you'll never be left stranded.
+              </p>
             </div>
           </div>
           <div
-            class="card"
+            class="card -inline"
             data-testid="card"
           >
+            <img
+              alt="img"
+              class="card-image"
+              data-testid="card-image"
+              src="//images.ctfassets.net/3xid768u5joa/7gH6pHpHcgXHt14wJlfqmz/0acc5f3d654e0a2f1e2e1e584901983e/delivery.jpg"
+            />
+            <div
+              class="title"
+            >
+              <span
+                class="heading -black -lead"
+                data-testid="card-heading"
+              >
+                At Home Cover
+              </span>
+            </div>
             <div
               class="-flex-h"
             >
-              <div
-                style="margin-right: 10px;"
-              >
-                <div
-                  class="image card-image -regular -inline"
-                >
-                  <img
-                    alt="delivery.jpg"
-                    class="image--native"
-                    src="//images.ctfassets.net/3xid768u5joa/7gH6pHpHcgXHt14wJlfqmz/0acc5f3d654e0a2f1e2e1e584901983e/delivery.jpg"
-                  />
-                </div>
-              </div>
-              <div>
-                <p
-                  class="heading -black -large"
-                >
-                  At Home Cover
-                </p>
-                <p>
-                  If your vehicle won't start, the RAC will fix your vehicle if you break down at, or within ¼ mile of home. Just pop the kettle on & sit tight.
-                </p>
-              </div>
+              <p>
+                If your vehicle won't start, the RAC will fix your vehicle if you break down at, or within ¼ mile of home. Just pop the kettle on & sit tight.
+              </p>
             </div>
           </div>
           <div
-            class="card"
+            class="card -inline"
             data-testid="card"
           >
+            <img
+              alt="img"
+              class="card-image"
+              data-testid="card-image"
+              src="//images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png"
+            />
+            <div
+              class="title"
+            >
+              <span
+                class="heading -black -lead"
+                data-testid="card-heading"
+              >
+                Recovery
+              </span>
+            </div>
             <div
               class="-flex-h"
             >
-              <div
-                style="margin-right: 10px;"
-              >
-                <div
-                  class="image card-image -regular -inline"
-                >
-                  <img
-                    alt="Insurance-Icon.png"
-                    class="image--native"
-                    src="//images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png"
-                  />
-                </div>
-              </div>
-              <div>
-                <p
-                  class="heading -black -large"
-                >
-                  Recovery
-                </p>
-                <p>
-                  If your vehicle can't be fixed at the roadside, the RAC will take it for repair. All part of the service!
-                </p>
-              </div>
+              <p>
+                If your vehicle can't be fixed at the roadside, the RAC will take it for repair. All part of the service!
+              </p>
             </div>
           </div>
           <div
-            class="card"
+            class="card -inline"
             data-testid="card"
           >
+            <img
+              alt="img"
+              class="card-image"
+              data-testid="card-image"
+              src="//images.ctfassets.net/3xid768u5joa/4v2ALClaL6YnE0NYRsd8uc/7e92f2b83eb9e594ced8269152961026/Icon-PricePromise-RGB.png"
+            />
+            <div
+              class="title"
+            >
+              <span
+                class="heading -black -lead"
+                data-testid="card-heading"
+              >
+                Replacement Vehicle
+              </span>
+            </div>
             <div
               class="-flex-h"
             >
-              <div
-                style="margin-right: 10px;"
-              >
-                <div
-                  class="image card-image -regular -inline"
-                >
-                  <img
-                    alt="Icon-PricePromise-RGB.png"
-                    class="image--native"
-                    src="//images.ctfassets.net/3xid768u5joa/4v2ALClaL6YnE0NYRsd8uc/7e92f2b83eb9e594ced8269152961026/Icon-PricePromise-RGB.png"
-                  />
-                </div>
-              </div>
-              <div>
-                <p
-                  class="heading -black -large"
-                >
-                  Replacement Vehicle
-                </p>
-                <p>
-                  If your vehicle's off the road needing repair, we'll keep your business moving by giving you a similar-sized vehicle for up to 7 days.
-                </p>
-              </div>
+              <p>
+                If your vehicle's off the road needing repair, we'll keep your business moving by giving you a similar-sized vehicle for up to 7 days.
+              </p>
             </div>
           </div>
         </div>
@@ -229,17 +204,6 @@ exports[`<AdvancedBreakdownCoverContainer /> should match snapshot 1`] = `
             </a>
           </p>
         </p>
-      </div>
-      <div>
-        <button
-          class="button -orange -large -solid"
-        >
-          <div
-            class="button--inner"
-          >
-            View Deals
-          </div>
-        </button>
       </div>
     </section>
   </div>
