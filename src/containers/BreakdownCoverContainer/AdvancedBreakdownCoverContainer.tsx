@@ -4,8 +4,6 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
-import Button from '@vanarama/uibook/lib/components/atoms/button/';
-import { useRouter } from 'next/router';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections as Section } from '../../../generated/advancedBreakdownCoverPage';
 
@@ -20,7 +18,6 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
   body,
   sections,
 }) => {
-  const router = useRouter();
   const featured1 = sections?.featured1;
   const tiles = sections?.tiles;
   const featured2 = sections?.featured2;
@@ -40,13 +37,6 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
             <Text color="darker" size="regular" tag="p">
               <ReactMarkdown source={featured1.body || ''} />
             </Text>
-            <Button // remove if excessive
-              size="large"
-              fill="solid"
-              color="orange"
-              label="View Deals"
-              onClick={() => router.push('/special-offers.html')}
-            />
           </div>
           <div>
             {featured1.image?.file?.url && (
@@ -76,25 +66,16 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
             {tiles?.tiles?.length && (
               <div className="row:cards-2col">
                 {tiles?.tiles.map((el, idx) => (
-                  <Card key={el.title || idx}>
+                  <Card
+                    inline
+                    key={el.title || idx}
+                    imageSrc={el.image?.file?.url || ''}
+                    title={{
+                      title: el.title || '',
+                    }}
+                  >
                     <div className="-flex-h">
-                      {el.image?.file?.url && (
-                        <div style={{ marginRight: '10px' }}>
-                          <Image
-                            className="card-image"
-                            size="regular"
-                            inline
-                            src={el.image?.file.url}
-                            alt={el.image?.file?.fileName}
-                          />
-                        </div>
-                      )}
-                      <div>
-                        <Heading size="large" color="black">
-                          {el.title}
-                        </Heading>
-                        <ReactMarkdown source={el.body || ''} />
-                      </div>
+                      <ReactMarkdown source={el.body || ''} />
                     </div>
                   </Card>
                 ))}
@@ -121,15 +102,6 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
             <Text color="darker" size="regular" tag="p">
               <ReactMarkdown source={featured2.body || ''} />
             </Text>
-          </div>
-          <div>
-            <Button // remove if excessive
-              size="large"
-              fill="solid"
-              color="orange"
-              label="View Deals"
-              onClick={() => router.push('/special-offers.html')}
-            />
           </div>
         </section>
       )}

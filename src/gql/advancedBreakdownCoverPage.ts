@@ -2,20 +2,6 @@ import { gql, useQuery } from '@apollo/client';
 import { advancedBreakdownCoverPage } from '../../generated/advancedBreakdownCoverPage';
 
 export const ADVANCED_BREAKDOWN_COVER_PAGE = gql`
-  # Write your query or mutation here
-
-  # metaData {
-  #     title
-  #     metaRobots
-  #     metaDescription
-  #     publishedOn
-  #     legacyUrl
-  #     pageType
-  #     canonicalUrl
-  #     slug
-  #     publishedOn
-  #     schema
-  #   }
   query advancedBreakdownCoverPage {
     advancedBreakdownCoverPage {
       id
