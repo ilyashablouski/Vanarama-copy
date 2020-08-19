@@ -1,14 +1,8 @@
 import { gql, useQuery } from '@apollo/client';
 import {
-<<<<<<< HEAD
   genericPageQuery,
   genericPageQueryVariables,
 } from '../../generated/genericPageQuery';
-=======
-  GenericPageQuery,
-  GenericPageQueryVariables,
-} from '../../generated/GenericPageQuery';
->>>>>>> origin
 import {
   GenericPageHeadQuery,
   GenericPageHeadQueryVariables,
@@ -38,7 +32,6 @@ export const GENERIC_PAGE = gql`
           tilesTitle
           titleTag
         }
-<<<<<<< HEAD
         iconBullets1 {
           title
           iconBullets {
@@ -51,8 +44,6 @@ export const GENERIC_PAGE = gql`
             text
           }
         }
-=======
->>>>>>> origin
         faqs {
           title
           body

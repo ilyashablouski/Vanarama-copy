@@ -18,6 +18,7 @@ interface IProps {
 const VanDetailsPage: NextPage<IProps> = () => {
   const router = useRouter();
   const [capId, setCapId] = useState(0);
+  console.log('path', router.pathname)
 
   const [getCarData, { data, loading, error }] = useCarData(
     capId,
