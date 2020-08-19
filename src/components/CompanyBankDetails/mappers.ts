@@ -4,7 +4,6 @@ import { ICompanyBankDetails } from './interfaces';
 export const responseToInitialFormValues = (
   account?: ICompanyBankDetails,
 ): ICompanyBankDetails => {
-
   return {
     uuid: account?.uuid,
     accountNumber: account?.accountNumber || '',

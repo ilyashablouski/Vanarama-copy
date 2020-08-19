@@ -19,6 +19,7 @@ export const mapDefaultValues = (data?: CreditApplication | null) => ({
   vatNumber: data?.vatDetails?.vat_number,
   outsideUK: data?.vatDetails?.outside_uk,
   markets: data?.vatDetails?.markets,
+  isValid: data?.vatDetails?.isValid,
 });
 
 export default mapFormValues;

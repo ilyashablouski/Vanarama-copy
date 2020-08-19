@@ -40,10 +40,6 @@ export default function CompanyDetailsFormFields({
 
   // pass default values
   useEffect(() => {
-    // setValue('tradingDifferent', defaultValues.tradingDifferent || false);
-    // Object.entries(defaultValues).forEach(([key, value]) =>
-    //   setValue(key, value),
-    // );
     reset(defaultValues);
   }, [reset, defaultValues]);
   const tradingDifferent = watch(

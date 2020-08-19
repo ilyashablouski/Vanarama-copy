@@ -64,7 +64,7 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
       },
     });
 
-  const handleCreditApplicationUpdate = (values: LimitedCompanyInputObject) => console.log({ values }) ||
+  const handleCreditApplicationUpdate = (values: LimitedCompanyInputObject) =>
     createUpdateApplication({
       variables: {
         input: {

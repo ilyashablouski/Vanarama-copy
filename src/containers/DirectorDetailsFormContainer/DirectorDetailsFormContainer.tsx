@@ -18,8 +18,6 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   orderUuid,
   onCompleted,
   onError,
-  // directorUuid,
-  // isEdited,
 }) => {
   const [saveDirectorDetails] = useSaveDirectorDetailsMutation();
   const [createUpdateApplication] = useCreateUpdateCreditApplication(

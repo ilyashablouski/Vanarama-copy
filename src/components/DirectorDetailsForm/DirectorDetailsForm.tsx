@@ -42,7 +42,6 @@ type IDirectorDetailsFormProps = {
   companyNumber: string;
   onSubmit: (values: DirectorDetailsFormValues) => Promise<void>;
   isEdited: boolean;
-  // directorUuid?: string;
   directorDetails: DirectorDetailsFormValues;
 };
 
