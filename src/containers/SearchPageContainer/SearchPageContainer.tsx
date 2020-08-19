@@ -18,7 +18,8 @@ import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import { useGenericPage } from '../../gql/genericPage';
+import { useLazyQuery } from '@apollo/client';
+import { GENERIC_PAGE } from '../../gql/genericPage';
 import Head from '../../components/Head/Head';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import TopOffersContainer from './TopOffersContainer';
@@ -39,6 +40,10 @@ import RangeCard from './RangeCard';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import TopInfoBlock from './TopInfoBlock';
 import { manufacturerPage_manufacturerPage_sections as sections } from '../../../generated/manufacturerPage';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../../generated/GenericPageQuery';
 
 interface IProps {
   isServer: boolean;
@@ -430,13 +435,28 @@ const SearchPageContainer: React.FC<IProps> = ({
       router.push(`/${href}/[make]`, `/${href}/${make}`);
     }
   };
+
+  const [pageData, setPageData] = useState<GenericPageQuery>();
+  const [getGenericPage] = useLazyQuery<
+    GenericPageQuery,
+    GenericPageQueryVariables
+  >(GENERIC_PAGE, {
+    onCompleted: result => {
+      setPageData(result);
+    },
+  });
+
   useEffect(() => {
-    const { data: pageData, loading: pageLoading } = useGenericPage(
-      `/${router.query.make}-${isCarSearch ? 'car-leasing' : 'van-leasing'}/${
-        router.query.rangeName
-      }`,
-    );
-  }, [cacheData, setCapsIds, isCarSearch]);
+    if (router.query.make && router.query.rangeName) {
+      getGenericPage({
+        variables: {
+          slug: `/${router.query.make}-${
+            isCarSearch ? 'car-leasing' : 'van-leasing'
+          }/${router.query.rangeName}`,
+        },
+      });
+    }
+  }, [cacheData, setCapsIds, isCarSearch, router, getGenericPage]);
 
   const tiles = pageData?.genericPage.sections?.tiles;
   const carousel = pageData?.genericPage.sections?.carousel;
@@ -576,10 +596,10 @@ const SearchPageContainer: React.FC<IProps> = ({
           )}
         </div>
       </div>
-      {pageLoading && router.query.make && router.query.rangeName && (
+      {!pageData && router.query.make && router.query.rangeName && (
         <Loading size="large" />
       )}
-      {!pageLoading && (
+      {pageData && (
         <>
           <Head
             title={pageData?.genericPage.metaData.title || ''}

@@ -581,8 +581,7 @@ const mocksResponse: MockedResponse[] = [
     },
     result: () => {
       return {
-        data: {
-        },
+        data: {},
         refetch: jest.fn(),
       };
     },
@@ -596,8 +595,7 @@ const mocksResponse: MockedResponse[] = [
     },
     result: () => {
       return {
-        data: {
-        },
+        data: {},
         refetch: jest.fn(),
       };
     },
