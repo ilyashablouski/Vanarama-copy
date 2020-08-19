@@ -1,8 +1,14 @@
 import { gql, useQuery } from '@apollo/client';
 import {
+<<<<<<< HEAD
   genericPageQuery,
   genericPageQueryVariables,
 } from '../../generated/genericPageQuery';
+=======
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../generated/GenericPageQuery';
+>>>>>>> origin
 import {
   GenericPageHeadQuery,
   GenericPageHeadQueryVariables,
@@ -14,6 +20,7 @@ export const GENERIC_PAGE = gql`
       id
       metaData {
         title
+        name
         metaRobots
         metaDescription
         publishedOn
@@ -31,6 +38,7 @@ export const GENERIC_PAGE = gql`
           tilesTitle
           titleTag
         }
+<<<<<<< HEAD
         iconBullets1 {
           title
           iconBullets {
@@ -43,6 +51,8 @@ export const GENERIC_PAGE = gql`
             text
           }
         }
+=======
+>>>>>>> origin
         faqs {
           title
           body
@@ -68,7 +78,6 @@ export const GENERIC_PAGE = gql`
               file {
                 url
                 fileName
-                contentType
               }
             }
             body
@@ -76,6 +85,19 @@ export const GENERIC_PAGE = gql`
             link {
               text
               url
+            }
+          }
+        }
+        featured {
+          layout
+          body
+          title
+          image {
+            title
+            description
+            file {
+              url
+              fileName
             }
           }
         }
@@ -90,14 +112,6 @@ export const GENERIC_PAGE = gql`
             file {
               url
               fileName
-              contentType
-              details {
-                size
-                image {
-                  width
-                  height
-                }
-              }
             }
           }
         }
@@ -111,14 +125,6 @@ export const GENERIC_PAGE = gql`
             file {
               url
               fileName
-              contentType
-              details {
-                size
-                image {
-                  width
-                  height
-                }
-              }
             }
           }
           title
@@ -131,7 +137,6 @@ export const GENERIC_PAGE = gql`
               file {
                 url
                 fileName
-                contentType
               }
             }
             body
@@ -153,13 +158,30 @@ export const GENERIC_PAGE = gql`
               file {
                 url
                 fileName
-                contentType
               }
             }
             body
             link {
               text
               url
+            }
+          }
+        }
+        tiles {
+          position
+          name
+          tilesTitle
+          titleTag
+          tiles {
+            body
+            title
+            image {
+              title
+              description
+              file {
+                url
+                fileName
+              }
             }
           }
         }
@@ -202,6 +224,7 @@ export const GENERIC_PAGE_HEAD = gql`
         slug
         publishedOn
         schema
+        name
       }
       featuredImage {
         title

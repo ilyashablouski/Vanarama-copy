@@ -9,6 +9,7 @@
 
 export interface genericPageQuery_genericPage_metaData {
   title: string | null;
+  name: string | null;
   metaRobots: string | null;
   metaDescription: string | null;
   publishedOn: any | null;
@@ -19,11 +20,49 @@ export interface genericPageQuery_genericPage_metaData {
   schema: any | null;
 }
 
+<<<<<<< HEAD:generated/genericPageQuery.ts
 export interface genericPageQuery_genericPage_sections_tiles {
+=======
+export interface GenericPageQuery_genericPage_sections_tiles_tiles_image_file {
+  url: string;
+  fileName: string;
+}
+
+export interface GenericPageQuery_genericPage_sections_tiles_tiles_image {
+  title: string | null;
+  description: string | null;
+  file: GenericPageQuery_genericPage_sections_tiles_tiles_image_file | null;
+}
+
+export interface GenericPageQuery_genericPage_sections_tiles_tiles {
+  body: string | null;
+  title: string | null;
+  image: GenericPageQuery_genericPage_sections_tiles_tiles_image | null;
+}
+
+export interface GenericPageQuery_genericPage_sections_tiles {
+>>>>>>> origin:generated/GenericPageQuery.ts
   position: number | null;
   name: string;
   tilesTitle: string | null;
   titleTag: string | null;
+  tiles: GenericPageQuery_genericPage_sections_tiles_tiles[] | null;
+}
+
+export interface GenericPageQuery_genericPage_sections_faqs_questionSets_questionAnswers {
+  question: string | null;
+  answer: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sections_faqs_questionSets {
+  title: string | null;
+  questionAnswers: (GenericPageQuery_genericPage_sections_faqs_questionSets_questionAnswers | null)[] | null;
+}
+
+export interface GenericPageQuery_genericPage_sections_faqs {
+  title: string | null;
+  body: string | null;
+  questionSets: (GenericPageQuery_genericPage_sections_faqs_questionSets | null)[] | null;
 }
 
 export interface genericPageQuery_genericPage_sections_iconBullets1_iconBullets {
@@ -63,7 +102,6 @@ export interface genericPageQuery_genericPage_sections_faqs {
 export interface genericPageQuery_genericPage_sections_cards_cards_image_file {
   url: string;
   fileName: string;
-  contentType: string;
 }
 
 export interface genericPageQuery_genericPage_sections_cards_cards_image {
@@ -94,6 +132,7 @@ export interface genericPageQuery_genericPage_sections_cards {
   cards: genericPageQuery_genericPage_sections_cards_cards[] | null;
 }
 
+<<<<<<< HEAD:generated/genericPageQuery.ts
 export interface genericPageQuery_genericPage_sections_featured1_image_file_details_image {
   width: number;
   height: number;
@@ -102,13 +141,34 @@ export interface genericPageQuery_genericPage_sections_featured1_image_file_deta
 export interface genericPageQuery_genericPage_sections_featured1_image_file_details {
   size: number;
   image: genericPageQuery_genericPage_sections_featured1_image_file_details_image;
+=======
+export interface GenericPageQuery_genericPage_sections_featured_image_file {
+  url: string;
+  fileName: string;
+}
+
+export interface GenericPageQuery_genericPage_sections_featured_image {
+  title: string | null;
+  description: string | null;
+  file: GenericPageQuery_genericPage_sections_featured_image_file | null;
+}
+
+export interface GenericPageQuery_genericPage_sections_featured {
+  layout: string[] | null;
+  body: string | null;
+  title: string | null;
+  image: GenericPageQuery_genericPage_sections_featured_image | null;
+>>>>>>> origin:generated/GenericPageQuery.ts
 }
 
 export interface genericPageQuery_genericPage_sections_featured1_image_file {
   url: string;
   fileName: string;
+<<<<<<< HEAD:generated/genericPageQuery.ts
   contentType: string;
   details: genericPageQuery_genericPage_sections_featured1_image_file_details;
+=======
+>>>>>>> origin:generated/GenericPageQuery.ts
 }
 
 export interface genericPageQuery_genericPage_sections_featured1_image {
@@ -125,6 +185,7 @@ export interface genericPageQuery_genericPage_sections_featured1 {
   image: genericPageQuery_genericPage_sections_featured1_image | null;
 }
 
+<<<<<<< HEAD:generated/genericPageQuery.ts
 export interface genericPageQuery_genericPage_sections_featured2_image_file_details_image {
   width: number;
   height: number;
@@ -140,6 +201,11 @@ export interface genericPageQuery_genericPage_sections_featured2_image_file {
   fileName: string;
   contentType: string;
   details: genericPageQuery_genericPage_sections_featured2_image_file_details;
+=======
+export interface GenericPageQuery_genericPage_sections_featured2_image_file {
+  url: string;
+  fileName: string;
+>>>>>>> origin:generated/GenericPageQuery.ts
 }
 
 export interface genericPageQuery_genericPage_sections_featured2_image {
@@ -151,7 +217,6 @@ export interface genericPageQuery_genericPage_sections_featured2_image {
 export interface genericPageQuery_genericPage_sections_featured2_cards_image_file {
   url: string;
   fileName: string;
-  contentType: string;
 }
 
 export interface genericPageQuery_genericPage_sections_featured2_cards_image {
@@ -185,7 +250,6 @@ export interface genericPageQuery_genericPage_sections_featured2 {
 export interface genericPageQuery_genericPage_sections_carousel_cards_image_file {
   url: string;
   fileName: string;
-  contentType: string;
 }
 
 export interface genericPageQuery_genericPage_sections_carousel_cards_image {
@@ -213,6 +277,7 @@ export interface genericPageQuery_genericPage_sections_carousel {
   cards: (genericPageQuery_genericPage_sections_carousel_cards | null)[] | null;
 }
 
+<<<<<<< HEAD:generated/genericPageQuery.ts
 export interface genericPageQuery_genericPage_sections {
   tiles: genericPageQuery_genericPage_sections_tiles | null;
   iconBullets1: genericPageQuery_genericPage_sections_iconBullets1 | null;
@@ -222,6 +287,16 @@ export interface genericPageQuery_genericPage_sections {
   featured1: genericPageQuery_genericPage_sections_featured1 | null;
   featured2: genericPageQuery_genericPage_sections_featured2 | null;
   carousel: genericPageQuery_genericPage_sections_carousel | null;
+=======
+export interface GenericPageQuery_genericPage_sections {
+  tiles: GenericPageQuery_genericPage_sections_tiles | null;
+  faqs: GenericPageQuery_genericPage_sections_faqs | null;
+  cards: GenericPageQuery_genericPage_sections_cards | null;
+  featured: GenericPageQuery_genericPage_sections_featured | null;
+  featured1: GenericPageQuery_genericPage_sections_featured1 | null;
+  featured2: GenericPageQuery_genericPage_sections_featured2 | null;
+  carousel: GenericPageQuery_genericPage_sections_carousel | null;
+>>>>>>> origin:generated/GenericPageQuery.ts
 }
 
 export interface genericPageQuery_genericPage_featuredImage_file {
