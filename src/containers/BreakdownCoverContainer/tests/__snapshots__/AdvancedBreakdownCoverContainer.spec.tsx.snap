@@ -67,7 +67,7 @@ exports[`<AdvancedBreakdownCoverContainer /> should match snapshot 1`] = `
           class="row:cards-2col"
         >
           <div
-            class="card -inline"
+            class="card breakdown -inline"
             data-testid="card"
           >
             <img
@@ -85,17 +85,16 @@ exports[`<AdvancedBreakdownCoverContainer /> should match snapshot 1`] = `
               >
                 Breakdown Cover
               </span>
-            </div>
-            <div
-              class="-flex-h"
-            >
-              <p>
+              <span
+                class="heading -dark -small"
+                data-testid="card-description"
+              >
                 Wherever your vehicle breaks down, our trusted partner, the RAC, will provide assistance, so you'll never be left stranded.
-              </p>
+              </span>
             </div>
           </div>
           <div
-            class="card -inline"
+            class="card breakdown -inline"
             data-testid="card"
           >
             <img
@@ -113,17 +112,16 @@ exports[`<AdvancedBreakdownCoverContainer /> should match snapshot 1`] = `
               >
                 At Home Cover
               </span>
-            </div>
-            <div
-              class="-flex-h"
-            >
-              <p>
+              <span
+                class="heading -dark -small"
+                data-testid="card-description"
+              >
                 If your vehicle won't start, the RAC will fix your vehicle if you break down at, or within ¼ mile of home. Just pop the kettle on & sit tight.
-              </p>
+              </span>
             </div>
           </div>
           <div
-            class="card -inline"
+            class="card breakdown -inline"
             data-testid="card"
           >
             <img
@@ -141,17 +139,16 @@ exports[`<AdvancedBreakdownCoverContainer /> should match snapshot 1`] = `
               >
                 Recovery
               </span>
-            </div>
-            <div
-              class="-flex-h"
-            >
-              <p>
+              <span
+                class="heading -dark -small"
+                data-testid="card-description"
+              >
                 If your vehicle can't be fixed at the roadside, the RAC will take it for repair. All part of the service!
-              </p>
+              </span>
             </div>
           </div>
           <div
-            class="card -inline"
+            class="card breakdown -inline"
             data-testid="card"
           >
             <img
@@ -169,13 +166,12 @@ exports[`<AdvancedBreakdownCoverContainer /> should match snapshot 1`] = `
               >
                 Replacement Vehicle
               </span>
-            </div>
-            <div
-              class="-flex-h"
-            >
-              <p>
+              <span
+                class="heading -dark -small"
+                data-testid="card-description"
+              >
                 If your vehicle's off the road needing repair, we'll keep your business moving by giving you a similar-sized vehicle for up to 7 days.
-              </p>
+              </span>
             </div>
           </div>
         </div>
