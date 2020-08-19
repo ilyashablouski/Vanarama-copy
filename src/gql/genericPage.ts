@@ -14,6 +14,7 @@ export const GENERIC_PAGE = gql`
       id
       metaData {
         title
+        name
         metaRobots
         metaDescription
         publishedOn
@@ -31,6 +32,17 @@ export const GENERIC_PAGE = gql`
           tilesTitle
           titleTag
         }
+        faqs {
+          title
+          body
+          questionSets {
+            title
+            questionAnswers {
+              question
+              answer
+            }
+          }
+        }
         cards {
           position
           name
@@ -45,7 +57,6 @@ export const GENERIC_PAGE = gql`
               file {
                 url
                 fileName
-                contentType
               }
             }
             body
@@ -53,6 +64,19 @@ export const GENERIC_PAGE = gql`
             link {
               text
               url
+            }
+          }
+        }
+        featured {
+          layout
+          body
+          title
+          image {
+            title
+            description
+            file {
+              url
+              fileName
             }
           }
         }
@@ -66,14 +90,6 @@ export const GENERIC_PAGE = gql`
             file {
               url
               fileName
-              contentType
-              details {
-                size
-                image {
-                  width
-                  height
-                }
-              }
             }
           }
         }
@@ -86,14 +102,6 @@ export const GENERIC_PAGE = gql`
             file {
               url
               fileName
-              contentType
-              details {
-                size
-                image {
-                  width
-                  height
-                }
-              }
             }
           }
           title
@@ -106,7 +114,6 @@ export const GENERIC_PAGE = gql`
               file {
                 url
                 fileName
-                contentType
               }
             }
             body
@@ -128,13 +135,30 @@ export const GENERIC_PAGE = gql`
               file {
                 url
                 fileName
-                contentType
               }
             }
             body
             link {
               text
               url
+            }
+          }
+        }
+        tiles {
+          position
+          name
+          tilesTitle
+          titleTag
+          tiles {
+            body
+            title
+            image {
+              title
+              description
+              file {
+                url
+                fileName
+              }
             }
           }
         }

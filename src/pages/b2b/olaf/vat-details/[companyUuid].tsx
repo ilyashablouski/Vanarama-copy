@@ -31,9 +31,15 @@ export const VatDetailsPage: NextPage = () => {
     router.push(url, url.replace('[companyUuid]', companyUuid));
   };
 
+  const soleTraderPathMatchResult = router.pathname.match(
+    /^\/b2b\/olaf\/sole-trader\/.+/,
+  );
+  const isSoleTraderJourney = (soleTraderPathMatchResult || []).length > 0;
+
   return (
     <OLAFLayout>
       <VatDetailsFormContainer
+        isSoleTrader={isSoleTraderJourney}
         orderId={orderId}
         companyUuid={companyUuid}
         onCompleted={handleSubmitCompletion}

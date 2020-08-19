@@ -28,6 +28,8 @@ import buildRewriteRoute from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import RangeCard from './RangeCard';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
+import TopInfoBlock from './TopInfoBlock';
+import { manufacturerPage_manufacturerPage_sections as sections } from '../../../generated/manufacturerPage';
 
 interface IProps {
   isServer: boolean;
@@ -38,6 +40,8 @@ interface IProps {
   isRangePage?: boolean;
   isModelPage?: boolean;
   isAllMakesPage?: boolean;
+  pageTitle?: string;
+  topInfoSection?: sections;
 }
 
 const SearchPageContainer: React.FC<IProps> = ({
@@ -49,6 +53,8 @@ const SearchPageContainer: React.FC<IProps> = ({
   isRangePage,
   isModelPage,
   isAllMakesPage,
+  pageTitle,
+  topInfoSection,
 }: IProps) => {
   const router = useRouter();
   /** we storing the last value of special offers checkbox in Session storage */
@@ -421,12 +427,15 @@ const SearchPageContainer: React.FC<IProps> = ({
       <div className="row:title">
         <Breadcrumb items={crumbs} />
         <Heading tag="h1" size="xlarge" color="black">
-          {isModelPage
-            ? `${filtersData.manufacturerName} ${filtersData.rangeName} ${filtersData.bodyStyles?.[0]}`
-            : 'Lorem Ips'}
+          {(isModelPage &&
+            `${filtersData.manufacturerName} ${filtersData.rangeName} ${filtersData.bodyStyles?.[0]}`) ||
+            (pageTitle ?? 'Lorem Ips')}
         </Heading>
         <Text color="darker" size="lead" />
       </div>
+      {isAllMakesPage && topInfoSection && (
+        <TopInfoBlock topInfoSection={topInfoSection} />
+      )}
       {(isMakePage || isSpecialOfferPage || isRangePage) && (
         <TopOffersContainer
           isCarSearch={isCarSearch}
