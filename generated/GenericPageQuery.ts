@@ -46,6 +46,24 @@ export interface GenericPageQuery_genericPage_sections_tiles {
   tiles: GenericPageQuery_genericPage_sections_tiles_tiles[] | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_iconBullets1_iconBullets {
+  text: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sections_iconBullets1 {
+  title: string | null;
+  iconBullets: (GenericPageQuery_genericPage_sections_iconBullets1_iconBullets | null)[] | null;
+}
+
+export interface GenericPageQuery_genericPage_sections_iconBullets2_iconBullets {
+  text: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sections_iconBullets2 {
+  title: string | null;
+  iconBullets: (GenericPageQuery_genericPage_sections_iconBullets2_iconBullets | null)[] | null;
+}
+
 export interface GenericPageQuery_genericPage_sections_faqs_questionSets_questionAnswers {
   question: string | null;
   answer: string | null;
@@ -127,6 +145,7 @@ export interface GenericPageQuery_genericPage_sections_featured1_image {
 export interface GenericPageQuery_genericPage_sections_featured1 {
   layout: string[] | null;
   body: string | null;
+  titleTag: string | null;
   title: string | null;
   image: GenericPageQuery_genericPage_sections_featured1_image | null;
 }
@@ -169,6 +188,7 @@ export interface GenericPageQuery_genericPage_sections_featured2_cards {
 export interface GenericPageQuery_genericPage_sections_featured2 {
   layout: string[] | null;
   body: string | null;
+  titleTag: string | null;
   image: GenericPageQuery_genericPage_sections_featured2_image | null;
   title: string | null;
   cards: (GenericPageQuery_genericPage_sections_featured2_cards | null)[] | null;
@@ -206,6 +226,8 @@ export interface GenericPageQuery_genericPage_sections_carousel {
 
 export interface GenericPageQuery_genericPage_sections {
   tiles: GenericPageQuery_genericPage_sections_tiles | null;
+  iconBullets1: GenericPageQuery_genericPage_sections_iconBullets1 | null;
+  iconBullets2: GenericPageQuery_genericPage_sections_iconBullets2 | null;
   faqs: GenericPageQuery_genericPage_sections_faqs | null;
   cards: GenericPageQuery_genericPage_sections_cards | null;
   featured: GenericPageQuery_genericPage_sections_featured | null;
