@@ -78,6 +78,7 @@ const HeaderContainer: FC = () => {
                   label: j?.text || '',
                   href: j?.url || '',
                   query: { isChangePage: 'true' },
+                  id: j?.url || '',
                 } as ILink),
             ),
           }));
