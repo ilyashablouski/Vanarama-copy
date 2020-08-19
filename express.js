@@ -9,7 +9,7 @@ const rewrite = require('express-urlrewrite');
 const prerender = require('prerender-node');
 const hpp = require('hpp');
 
-// const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
+const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
 const logo = require('./logo');
 const { version } = require('./package.json');
 
@@ -44,7 +44,7 @@ app.prepare().then(() => {
   server.disable('x-powered-by');
   server.use(hpp());
   // Prevent brute force attack in production.
-  // if (process.env.ENV === 'production') server.use(rateLimiterRedisMiddleware);
+  if (process.env.ENV === 'production') server.use(rateLimiterRedisMiddleware);
 
   // Handle rewrites.
   if (rewrites)

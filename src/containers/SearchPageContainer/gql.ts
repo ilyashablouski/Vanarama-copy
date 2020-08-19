@@ -26,6 +26,7 @@ import {
   manufacturerList,
   manufacturerListVariables,
 } from '../../../generated/manufacturerList';
+import { manufacturerPage } from '../../../generated/manufacturerPage';
 
 export const GET_VEHICLE_LIST = gql`
   query vehicleList(
@@ -302,4 +303,53 @@ export function useManufacturerList(
       },
     },
   );
+}
+
+export const GET_ALL_MAKES_PAGE = gql`
+  query manufacturerPage {
+    manufacturerPage(slug: "/car-leasing/all-car-manufacturers") {
+      metaData {
+        pageType
+        slug
+        title
+        metaRobots
+        metaDescription
+        legacyUrl
+        publishedOn
+        name
+      }
+      sections {
+        featured {
+          layout
+          body
+          title
+          titleTag
+          image {
+            title
+            description
+            file {
+              url
+              fileName
+            }
+          }
+        }
+      }
+      featuredImage {
+        title
+        description
+        file {
+          url
+          fileName
+          contentType
+        }
+      }
+    }
+  }
+`;
+
+export function useAllMakePage(skip = false) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  return useQuery<manufacturerPage>(GET_ALL_MAKES_PAGE, {
+    skip,
+  });
 }

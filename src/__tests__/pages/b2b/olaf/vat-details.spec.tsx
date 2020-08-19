@@ -3,13 +3,13 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { GetVatDetailsCountries } from '../../../../../generated/GetVatDetailsCountries';
 import {
-  UpdateVatDetailsMutation,
-  UpdateVatDetailsMutationVariables,
-} from '../../../../../generated/UpdateVatDetailsMutation';
+  UpdateLimitedVatDetailsMutation,
+  UpdateLimitedVatDetailsMutationVariables,
+} from '../../../../../generated/UpdateLimitedVatDetailsMutation';
 import { GET_VAT_DETAILS_COUNTRIES } from '../../../../components/VatDetailsForm/CountryTurnoverFieldArray';
 import { VatDetailsPage } from '../../../../pages/b2b/olaf/vat-details/[companyUuid]';
 import {
-  UPDATE_VAT_DETAILS,
+  UPDATE_LIMITED_VAT_DETAILS,
   GET_VAT_DETAILS,
 } from '../../../../containers/VatDetailsFormContainer/gql';
 import { CREATE_UPDATE_CREDIT_APPLICATION } from '../../../../gql/creditApplication';
@@ -23,7 +23,7 @@ const mockPush = jest.fn();
 jest.mock('next/router', () => ({
   useRouter: () => ({
     push: mockPush,
-    pathname: '/b2b/olaf/company-details',
+    pathname: '/b2b/olaf/vat-details',
     query: {
       companyUuid: MOCK_COMPANY_UUID,
       orderId: MOCK_ORDER_UUID,
@@ -485,23 +485,30 @@ describe('B2B VAT Details page', () => {
           companyByUuid,
           {
             request: {
-              query: UPDATE_VAT_DETAILS,
+              query: UPDATE_LIMITED_VAT_DETAILS,
               variables: {
                 input: {
-                  uuid: MOCK_COMPANY_UUID,
+                  companyType: 'Limited',
+                  uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01',
                   isVatRegistered: false,
-                  turnoverPercentageOutsideUk: undefined,
                   tradesOutsideUk: false,
+                  turnoverPercentageOutsideUk: undefined,
                   vatNumber: undefined,
                 },
-              } as UpdateVatDetailsMutationVariables,
+              } as UpdateLimitedVatDetailsMutationVariables,
             },
             result: mockMutation.mockImplementation(() => ({
               data: {
                 createUpdateLimitedCompany: {
                   uuid: MOCK_COMPANY_UUID,
+                  isVatRegistered: false,
+                  tradesOutsideUk: true,
+                  turnoverPercentageOutsideUk: [
+                    { country: 'Algeria', percentage: '10' },
+                  ],
+                  vatNumber: null,
                 },
-              } as UpdateVatDetailsMutation,
+              } as UpdateLimitedVatDetailsMutation,
             })),
           },
         ]}
@@ -530,23 +537,28 @@ describe('B2B VAT Details page', () => {
           companyByUuid,
           {
             request: {
-              query: UPDATE_VAT_DETAILS,
+              query: UPDATE_LIMITED_VAT_DETAILS,
               variables: {
                 input: {
-                  uuid: MOCK_COMPANY_UUID,
+                  companyType: 'Limited',
+                  uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01',
                   isVatRegistered: true,
-                  turnoverPercentageOutsideUk: undefined,
                   tradesOutsideUk: false,
+                  turnoverPercentageOutsideUk: undefined,
                   vatNumber: '012345678',
                 },
-              } as UpdateVatDetailsMutationVariables,
+              } as UpdateLimitedVatDetailsMutationVariables,
             },
             result: mockMutation.mockImplementation(() => ({
               data: {
                 createUpdateLimitedCompany: {
                   uuid: MOCK_COMPANY_UUID,
+                  isVatRegistered: true,
+                  tradesOutsideUk: false,
+                  turnoverPercentageOutsideUk: null,
+                  vatNumber: '',
                 },
-              } as UpdateVatDetailsMutation,
+              } as UpdateLimitedVatDetailsMutation,
             })),
           },
         ]}
@@ -580,26 +592,31 @@ describe('B2B VAT Details page', () => {
           companyByUuid,
           {
             request: {
-              query: UPDATE_VAT_DETAILS,
+              query: UPDATE_LIMITED_VAT_DETAILS,
               variables: {
                 input: {
-                  uuid: MOCK_COMPANY_UUID,
+                  companyType: 'Limited',
+                  uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01',
                   isVatRegistered: false,
+                  tradesOutsideUk: true,
                   turnoverPercentageOutsideUk: [
                     { country: 'Algeria', percentage: 10 },
                     { country: 'Andorra', percentage: 12 },
                   ],
-                  tradesOutsideUk: true,
                   vatNumber: undefined,
                 },
-              } as UpdateVatDetailsMutationVariables,
+              } as UpdateLimitedVatDetailsMutationVariables,
             },
             result: mockMutation.mockImplementation(() => ({
               data: {
                 createUpdateLimitedCompany: {
                   uuid: MOCK_COMPANY_UUID,
+                  isVatRegistered: false,
+                  tradesOutsideUk: true,
+                  turnoverPercentageOutsideUk: null,
+                  vatNumber: null,
                 },
-              } as UpdateVatDetailsMutation,
+              } as UpdateLimitedVatDetailsMutation,
             })),
           },
         ]}
@@ -683,23 +700,28 @@ describe('B2B VAT Details page', () => {
           companyByUuid,
           {
             request: {
-              query: UPDATE_VAT_DETAILS,
+              query: UPDATE_LIMITED_VAT_DETAILS,
               variables: {
                 input: {
-                  uuid: MOCK_COMPANY_UUID,
+                  companyType: 'Limited',
+                  uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01',
                   isVatRegistered: false,
-                  turnoverPercentageOutsideUk: undefined,
                   tradesOutsideUk: false,
+                  turnoverPercentageOutsideUk: undefined,
                   vatNumber: undefined,
                 },
-              } as UpdateVatDetailsMutationVariables,
+              } as UpdateLimitedVatDetailsMutationVariables,
             },
             result: mockMutation.mockImplementation(() => ({
               data: {
                 createUpdateLimitedCompany: {
                   uuid: MOCK_COMPANY_UUID,
+                  isVatRegistered: false,
+                  tradesOutsideUk: true,
+                  turnoverPercentageOutsideUk: null,
+                  vatNumber: null,
                 },
-              } as UpdateVatDetailsMutation,
+              } as UpdateLimitedVatDetailsMutation,
             })),
           },
           {

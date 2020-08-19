@@ -12,7 +12,7 @@ import Media from '@vanarama/uibook/lib/components/atoms/media';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { LinkTypes } from '../../models/enum/LinkTypes';
 import { getFeaturedClassPartial } from '../../utils/layout';
-import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/genericPageQuery';
+import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/GenericPageQuery';
 
 interface IProps {
   sections: Section | null;
@@ -51,16 +51,8 @@ const LeasingExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
             </Text>
             <Button color="teal" size="regular" label="Read More" />
           </div>
-          <Media src={featured?.video} />
+          <Media src={featured?.video || ''} />
         </div>
-      </div>
-      <div className="row:lead-text">
-        <Heading color="black" size="large">
-          {featured1?.title || ''}
-        </Heading>
-        <Text size="regular" color="darker">
-          {featured1?.body || ''}
-        </Text>
       </div>
       {/* <div className="row:text">
         <div>

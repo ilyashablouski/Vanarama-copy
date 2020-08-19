@@ -95,7 +95,7 @@ const ThankYouPage: NextPage = () => {
         <Form>
           <Heading color="black" tag="h1" size="xlarge">
             {isB2b
-              ? 'Great News - Your Application Is On Its Way'
+              ? 'Great News - Your Application Is On Its Way!'
               : `That's All Done!`}
           </Heading>
           <Text color="black" size="large">
@@ -108,15 +108,17 @@ const ThankYouPage: NextPage = () => {
               : `Your application is on its way to the lease company. It may be as quick as 1 or 2 hours that you hear from us, but it could take up to 24 business hours.`}
           </Text>
           <Heading color="black" tag="h2" size="lead">
-            What Happens Next?
+            {isB2b ? `What's next?` : `What Happens Next?`}
           </Heading>
           <Text color="darker" tag="p">
             Once your application has been approved:
           </Text>
           {renderList()}
           <Text color="darker" tag="p">
-            If you need anything in the meantime, you can login to your online
-            account or give us a call on{' '}
+            {isB2b
+              ? `If you need anything else in the meantime feel free to give us a call on`
+              : `If you need anything in the meantime, you can login to your online
+            account or give us a call on`}{' '}
             <a href="tel:01442838195" className="link -teal">
               01442 838 195
             </a>
