@@ -34,7 +34,7 @@ const EligibilityChecker: NextPage = () => {
         publishedOn={metaData.publishedOn}
         featuredImage={data?.genericPage.featuredImage}
       />
-      <FAQContainer title={metaData?.title} sections={sections} intro={intro} />
+      <FAQContainer title={metaData.name} sections={sections} intro={intro} />
     </>
   );
 };

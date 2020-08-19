@@ -316,6 +316,7 @@ export const GET_ALL_MAKES_PAGE = gql`
         metaDescription
         legacyUrl
         publishedOn
+        name
       }
       sections {
         featured {
