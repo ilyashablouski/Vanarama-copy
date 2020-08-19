@@ -1,8 +1,10 @@
 import { useQuery, gql, useMutation } from '@apollo/client';
+import { MockedResponse } from '@apollo/client/testing';
 import {
   CreateUpdateCreditApplication,
   CreateUpdateCreditApplicationVariables,
 } from '../../generated/CreateUpdateCreditApplication';
+import { CreditApplicationInputObject } from '../../generated/globalTypes';
 import {
   GetCreditApplicationByOrderUuid as Query,
   GetCreditApplicationByOrderUuidVariables as QueryVariables,
@@ -185,3 +187,69 @@ export function useCreateUpdateCreditApplication(
     },
   });
 }
+
+const responseMock = {
+  addresses: [],
+  bankAccounts: [],
+  companyDetails: 'companyDetails',
+  vatDetails: 'vatDetails',
+  directorsDetails: 'directorsDetails',
+  employmentHistories: 'employmentHistories',
+  incomeAndExpenses: 'incomeAndExpenses',
+  lineItem: {
+    uuid: 'uuid',
+    quantity: 'quantity',
+    status: 'status',
+    productId: 'productId',
+    productType: 'productType',
+    vehicleProduct: {
+      derivativeCapId: 'derivativeCapId',
+      description: 'description',
+      vsku: 'vsku',
+      term: 'term',
+      annualMileage: 'annualMileage',
+      monthlyPayment: 'monthlyPayment',
+      depositMonths: 'depositMonths',
+      funderId: 'funderId',
+      funderData: 'funderData',
+    },
+  },
+  leadManagerProposalId: 'leadManagerProposalId',
+  createdAt: 'createdAt',
+  emailAddresses: [],
+  partyDetails: 'partyDetails',
+  status: 'status',
+  telephoneNumbers: [],
+  updatedAt: 'updatedAt',
+  uuid: 'uuid',
+};
+
+export const makeGetCreditApplicationMock = (id: string): MockedResponse => ({
+  request: {
+    query: GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA,
+    variables: { id },
+  },
+  result: {
+    data: {
+      creditApplicationByOrderUuid: {
+        ...responseMock,
+      },
+    },
+  },
+});
+
+export const makeUpdateCreditApplicationMock = (
+  input: CreditApplicationInputObject,
+): MockedResponse => ({
+  request: {
+    query: CREATE_UPDATE_CREDIT_APPLICATION,
+    variables: { input },
+  },
+  result: {
+    data: {
+      createUpdateCreditApplication: {
+        ...responseMock,
+      },
+    },
+  },
+});

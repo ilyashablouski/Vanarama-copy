@@ -19,7 +19,7 @@ import {
   SaveDirectorDetailsMutationVariables,
   SaveDirectorDetailsMutation,
 } from '../../../../../generated/SaveDirectorDetailsMutation';
-import { GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA } from '../../../../gql/creditApplication';
+import { makeGetCreditApplicationMock } from '../../../../gql/creditApplication';
 
 const MOCK_COMPANY_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
 const MOCK_ORDER_UUID = '7a004b65-a409-4ffe-8a3d-23b9ae28d0dc';
@@ -39,51 +39,7 @@ jest.mock('next/router', () => ({
   }),
 }));
 
-const updateCreditApplication: MockedResponse = {
-  request: {
-    query: GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA,
-    variables: { id: MOCK_ORDER_UUID },
-  },
-  result: {
-    data: {
-      creditApplicationByOrderUuid: {
-        addresses: 'addresses',
-        bankAccounts: 'bankAccounts',
-        companyDetails: 'companyDetails',
-        vatDetails: 'vatDetails',
-        directorsDetails: 'directorsDetails',
-        employmentHistories: 'employmentHistories',
-        incomeAndExpenses: 'incomeAndExpenses',
-        lineItem: {
-          uuid: 'uuid',
-          quantity: 'quantity',
-          status: 'status',
-          productId: 'productId',
-          productType: 'productType',
-          vehicleProduct: {
-            derivativeCapId: 'derivativeCapId',
-            description: 'description',
-            vsku: 'vsku',
-            term: 'term',
-            annualMileage: 'annualMileage',
-            monthlyPayment: 'monthlyPayment',
-            depositMonths: 'depositMonths',
-            funderId: 'funderId',
-            funderData: 'funderData',
-          },
-        },
-        leadManagerProposalId: 'leadManagerProposalId',
-        createdAt: 'createdAt',
-        emailAddresses: 'emailAddresses',
-        partyDetails: 'partyDetails',
-        status: 'status',
-        telephoneNumbers: 'telephoneNumbers',
-        updatedAt: 'updatedAt',
-        uuid: 'uuid',
-      },
-    },
-  },
-};
+const updateCreditApplication = makeGetCreditApplicationMock(MOCK_ORDER_UUID);
 
 const getCompanyMock: MockedResponse = {
   request: {

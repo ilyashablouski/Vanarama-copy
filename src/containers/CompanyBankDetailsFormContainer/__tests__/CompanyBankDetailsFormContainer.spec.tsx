@@ -9,13 +9,20 @@ import CompanyBankDetailsFormContainer from '../CompanyBankDetailsFormContainer'
 import { GET_COMPANY_BANK_DETAILS, UPDATE_COMPANY_BANK_DETAILS } from '../gql';
 import { UpdateBankDetailsMutationVariables as MutationVariables } from '../../../../generated/UpdateBankDetailsMutation';
 import { LimitedCompanyInputObject } from '../../../../generated/globalTypes';
-import { CREATE_UPDATE_CREDIT_APPLICATION } from '../../../gql/creditApplication';
+import {
+  makeUpdateCreditApplicationMock,
+  makeGetCreditApplicationMock,
+} from '../../../gql/creditApplication';
 
 let prepopulatedMockCalled = false;
 
 const companyUuid = '7f5a4ed2-24a5-42ff-9acd-208db847d678';
 const orderUuid = '00000000-24a5-42ff-9acd-00000000';
+
+const getCreditApplication = makeGetCreditApplicationMock(orderUuid);
+
 const mocks: MockedResponse[] = [
+  getCreditApplication,
   {
     request: {
       query: GET_COMPANY_BANK_DETAILS,
@@ -100,6 +107,7 @@ const mocks: MockedResponse[] = [
     },
   },
 ];
+
 describe('<CompanyBankDetailsFormContainer />', () => {
   it('should prepopulate the form with existing data', async () => {
     // ACT
@@ -116,6 +124,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
 
     // Wait for the initial query to resolve
     await screen.findByTestId('companyBankDetails');
+    screen.debug();
     expect(screen.getByTestId(/accountName/)).toHaveValue('Eternal account');
     expect(screen.getByTestId(/accountNumber/)).toHaveValue('67272820');
     expect(screen.getByDisplayValue(/01/)).toBeVisible();
@@ -147,9 +156,11 @@ describe('<CompanyBankDetailsFormContainer />', () => {
 
   it('should post data to the server correctly', async () => {
     // ARRANGE
-    let mutationCalled = false;
     const onCompletedMock = jest.fn();
+    const mutationMock = jest.fn();
+
     const mutationMocks: MockedResponse[] = [
+      getCreditApplication,
       {
         request: {
           query: UPDATE_COMPANY_BANK_DETAILS,
@@ -157,7 +168,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
             input: {
               uuid: '7f5a4ed2-24a5-42ff-9acd-208db847d678',
               bankAccount: {
-                uuid: '1ab66023-7566-42c1-8e6b-011ed4000ed0',
+                uuid: null,
                 accountName: 'Test',
                 accountNumber: '27272829',
                 sortCode: '019387',
@@ -166,78 +177,41 @@ describe('<CompanyBankDetailsFormContainer />', () => {
             },
           } as MutationVariables,
         },
-        result: () => {
-          mutationCalled = true;
-          return {
-            data: {
-              createUpdateLimitedCompany: {
-                uuid: '7f5a4ed2-24a5-42ff-9acd-208db847d678',
-                bankAccount: {
-                  uuid: '1ab66023-7566-42c1-8e6b-011ed4000ed0',
-                  accountName: 'Test',
-                  accountNumber: '27272829',
-                  sortCode: '019387',
-                  joinedAt: '2019-01-01',
-                },
-              } as LimitedCompanyInputObject,
-            },
-          };
-        },
-      },
-      {
-        request: {
-          query: CREATE_UPDATE_CREDIT_APPLICATION,
-          variables: {
-            input: {
-              orderUuid: '00000000-24a5-42ff-9acd-00000000',
-            },
-          },
-        },
-        result: {
+        result: mutationMock.mockImplementation(() => ({
           data: {
-            createUpdateCreditApplication: {
-              addresses: [],
-              bankAccounts: [],
-              employmentHistories: null,
-              incomeAndExpenses: null,
-              lineItem: {
-                uuid: 'test uuid',
-                quantity: 1,
-                status: 'test status',
-                productId: 'test productId',
-                productType: 'test productType',
-                vehicleProduct: {
-                  derivativeCapId: 'test derivativeCapId',
-                  description: 'test description',
-                  vsku: 'test vsku',
-                  term: 'test term',
-                  annualMileage: 123,
-                  monthlyPayment: 1232,
-                  depositMonths: 12,
-                  funderId: 'test funder',
-                  funderData: 'test funder',
-                },
+            createUpdateLimitedCompany: {
+              uuid: '7f5a4ed2-24a5-42ff-9acd-208db847d678',
+              bankAccount: {
+                uuid: '1ab66023-7566-42c1-8e6b-011ed4000ed0',
+                accountName: 'Test',
+                accountNumber: '27272829',
+                sortCode: '019387',
+                joinedAt: '2019-01-01',
               },
-              leadManagerProposalId: 'test leadManagerProposalId',
-              createdAt: 'test createdAt',
-              emailAddresses: [],
-              partyDetails: null,
-              status: 'test status',
-              telephoneNumbers: [],
-              updatedAt: 'test updatedAt',
-              uuid: 'test uuid',
-            },
+            } as LimitedCompanyInputObject,
           },
-        },
+        })),
       },
+      makeUpdateCreditApplicationMock({
+        vatDetails: 'vatDetails',
+        companyDetails: 'companyDetails',
+        directorsDetails: 'directorsDetails',
+        bankAccounts: [
+          {
+            accountName: 'Test',
+            accountNumber: '27272829',
+            joinedAtMonth: '1',
+            joinedAtYear: '2019',
+            sortCode: ['01', '93', '87'],
+          },
+        ],
+        orderUuid: '00000000-24a5-42ff-9acd-00000000',
+      }),
     ];
 
     // ACT
     render(
-      <MockedProvider
-        addTypename={false}
-        mocks={mocks.concat(...mutationMocks)}
-      >
+      <MockedProvider addTypename={false} mocks={[...mocks, ...mutationMocks]}>
         <CompanyBankDetailsFormContainer
           orderUuid={orderUuid}
           companyUuid={companyUuid}
@@ -280,7 +254,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
     fireEvent.click(screen.getByTestId('continue'));
 
     // ASSERT
-    await waitFor(() => expect(mutationCalled).toBeTruthy());
+    await waitFor(() => expect(mutationMock).toHaveBeenCalled());
     expect(onCompletedMock).toHaveBeenCalledTimes(1);
   });
 });

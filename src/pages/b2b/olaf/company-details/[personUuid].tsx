@@ -39,7 +39,8 @@ export const CompanyDetailsPage: NextPage = () => {
         personUuid={personUuid}
         orderId={orderId}
         onCompleted={handleSubmitCompletion}
-        onError={handleSubmitError}
+        // onError={handleSubmitError}
+        onError={console.log}
         isEdited={isEdited}
       />
     </OLAFLayout>

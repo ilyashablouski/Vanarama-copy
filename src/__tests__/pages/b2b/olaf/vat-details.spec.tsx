@@ -12,7 +12,10 @@ import {
   UPDATE_LIMITED_VAT_DETAILS,
   GET_VAT_DETAILS,
 } from '../../../../containers/VatDetailsFormContainer/gql';
-import { CREATE_UPDATE_CREDIT_APPLICATION } from '../../../../gql/creditApplication';
+import {
+  makeGetCreditApplicationMock,
+  makeUpdateCreditApplicationMock,
+} from '../../../../gql/creditApplication';
 import { GetVatDetailsQuery } from '../../../../../generated/GetVatDetailsQuery';
 
 const MOCK_COMPANY_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
@@ -30,6 +33,8 @@ jest.mock('next/router', () => ({
     },
   }),
 }));
+
+const getCreditApplication = makeGetCreditApplicationMock(MOCK_ORDER_UUID);
 
 const dropDownData: MockedResponse = {
   request: {
@@ -82,6 +87,12 @@ const companyByUuid: MockedResponse = {
   },
 };
 
+async function waitForLoadingFinish() {
+  await waitFor(() =>
+    expect(screen.getByTestId('vat-details_heading')).toBeInTheDocument(),
+  );
+}
+
 function submitForm() {
   fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
 }
@@ -120,10 +131,15 @@ describe('B2B VAT Details page', () => {
   it('should only show the "VAT Number" field when checking "The company is VAT registered"', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[dropDownData, companyByUuid, getCreditApplication]}
+      >
         <VatDetailsPage />
       </MockedProvider>,
     );
+
+    await waitForLoadingFinish();
 
     // Initially, the VAT Number field should not be shown
     expect(
@@ -141,10 +157,15 @@ describe('B2B VAT Details page', () => {
   it('should validate the "VAT Number" field is not empty when checking "The company is VAT registered"', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[dropDownData, companyByUuid, getCreditApplication]}
+      >
         <VatDetailsPage />
       </MockedProvider>,
     );
+
+    await waitForLoadingFinish();
 
     toggleIsVATRegistered();
     submitForm();
@@ -160,10 +181,15 @@ describe('B2B VAT Details page', () => {
   it('should validate the "VAT Number" field does not contain characters', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[dropDownData, companyByUuid, getCreditApplication]}
+      >
         <VatDetailsPage />
       </MockedProvider>,
     );
+
+    await waitForLoadingFinish();
 
     toggleIsVATRegistered();
     enterVATNumber('chickens!🐔');
@@ -180,10 +206,15 @@ describe('B2B VAT Details page', () => {
   it('should validate the "VAT Number" field is 9 digits', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[dropDownData, companyByUuid, getCreditApplication]}
+      >
         <VatDetailsPage />
       </MockedProvider>,
     );
+
+    await waitForLoadingFinish();
 
     toggleIsVATRegistered();
     enterVATNumber('0000000000');
@@ -200,10 +231,15 @@ describe('B2B VAT Details page', () => {
   it('should only show the "Countries of Trade and % of Turnover" field when checking "The company trades outside the UK"', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[dropDownData, companyByUuid, getCreditApplication]}
+      >
         <VatDetailsPage />
       </MockedProvider>,
     );
+
+    await waitForLoadingFinish();
 
     // Initially, the turnover fields should not be shown
     expect(
@@ -225,10 +261,15 @@ describe('B2B VAT Details page', () => {
   it('should allow the user to add multiple countries', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[dropDownData, companyByUuid, getCreditApplication]}
+      >
         <VatDetailsPage />
       </MockedProvider>,
     );
+
+    await waitForLoadingFinish();
 
     await setTradesOutsideUK();
 
@@ -250,10 +291,15 @@ describe('B2B VAT Details page', () => {
   it('should allow the user to remove all but one country', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[dropDownData, companyByUuid, getCreditApplication]}
+      >
         <VatDetailsPage />
       </MockedProvider>,
     );
+
+    await waitForLoadingFinish();
 
     await setTradesOutsideUK();
     clickAddCountry();
@@ -282,10 +328,15 @@ describe('B2B VAT Details page', () => {
   it('should show a validation message if the user does not select a country', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[dropDownData, companyByUuid, getCreditApplication]}
+      >
         <VatDetailsPage />
       </MockedProvider>,
     );
+
+    await waitForLoadingFinish();
 
     await setTradesOutsideUK();
     submitForm();
@@ -301,10 +352,15 @@ describe('B2B VAT Details page', () => {
   it('should show a validation message if the user enters a percentage less than 1', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[dropDownData, companyByUuid, getCreditApplication]}
+      >
         <VatDetailsPage />
       </MockedProvider>,
     );
+
+    await waitForLoadingFinish();
 
     await setTradesOutsideUK();
 
@@ -330,10 +386,15 @@ describe('B2B VAT Details page', () => {
   it('should show a validation message if the user enters a percentage greater than 100', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[dropDownData, companyByUuid, getCreditApplication]}
+      >
         <VatDetailsPage />
       </MockedProvider>,
     );
+
+    await waitForLoadingFinish();
 
     await setTradesOutsideUK();
 
@@ -359,10 +420,15 @@ describe('B2B VAT Details page', () => {
   it('should show a validation message if the total percentage is greater than 100', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[dropDownData, companyByUuid, getCreditApplication]}
+      >
         <VatDetailsPage />
       </MockedProvider>,
     );
+
+    await waitForLoadingFinish();
 
     await setTradesOutsideUK();
 
@@ -396,10 +462,15 @@ describe('B2B VAT Details page', () => {
   it('should not show an option for the "United Kingdom"', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[dropDownData, companyByUuid, getCreditApplication]}
+      >
         <VatDetailsPage />
       </MockedProvider>,
     );
+
+    await waitForLoadingFinish();
 
     await setTradesOutsideUK();
 
@@ -412,10 +483,15 @@ describe('B2B VAT Details page', () => {
   it('should show a validation message if the user selects the same country twice', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[dropDownData, companyByUuid, getCreditApplication]}
+      >
         <VatDetailsPage />
       </MockedProvider>,
     );
+
+    await waitForLoadingFinish();
 
     await setTradesOutsideUK();
 
@@ -453,10 +529,15 @@ describe('B2B VAT Details page', () => {
   it('should not show the duplicate country validation when the dropdowns are both empty', async () => {
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={[dropDownData, companyByUuid]}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[dropDownData, companyByUuid, getCreditApplication]}
+      >
         <VatDetailsPage />
       </MockedProvider>,
     );
+
+    await waitForLoadingFinish();
 
     await setTradesOutsideUK();
     clickAddCountry();
@@ -511,11 +592,14 @@ describe('B2B VAT Details page', () => {
               } as UpdateLimitedVatDetailsMutation,
             })),
           },
+          getCreditApplication,
         ]}
       >
         <VatDetailsPage />
       </MockedProvider>,
     );
+
+    await waitForLoadingFinish();
 
     // Just submit the form straight-away
     submitForm();
@@ -561,11 +645,14 @@ describe('B2B VAT Details page', () => {
               } as UpdateLimitedVatDetailsMutation,
             })),
           },
+          getCreditApplication,
         ]}
       >
         <VatDetailsPage />
       </MockedProvider>,
     );
+
+    await waitForLoadingFinish();
 
     toggleIsVATRegistered();
 
@@ -619,11 +706,14 @@ describe('B2B VAT Details page', () => {
               } as UpdateLimitedVatDetailsMutation,
             })),
           },
+          getCreditApplication,
         ]}
       >
         <VatDetailsPage />
       </MockedProvider>,
     );
+
+    await waitForLoadingFinish();
 
     await setTradesOutsideUK();
 
@@ -667,11 +757,14 @@ describe('B2B VAT Details page', () => {
             },
             error: new Error('Backend is down!'),
           },
+          getCreditApplication,
         ]}
       >
         <VatDetailsPage />
       </MockedProvider>,
     );
+
+    await waitForLoadingFinish();
 
     fireEvent.click(
       screen.getByRole('checkbox', {
@@ -698,6 +791,7 @@ describe('B2B VAT Details page', () => {
         mocks={[
           dropDownData,
           companyByUuid,
+          getCreditApplication,
           {
             request: {
               query: UPDATE_LIMITED_VAT_DETAILS,
@@ -724,57 +818,23 @@ describe('B2B VAT Details page', () => {
               } as UpdateLimitedVatDetailsMutation,
             })),
           },
-          {
-            request: {
-              query: CREATE_UPDATE_CREDIT_APPLICATION,
-              variables: {
-                input: {
-                  orderUuid: MOCK_ORDER_UUID,
-                },
-              },
+          makeUpdateCreditApplicationMock({
+            directorsDetails: 'directorsDetails',
+            bankAccounts: [],
+            companyDetails: 'companyDetails',
+            vatDetails: {
+              vatRegistered: false,
+              outsideUK: false,
             },
-            result: {
-              data: {
-                createUpdateCreditApplication: {
-                  addresses: [],
-                  bankAccounts: [],
-                  employmentHistories: null,
-                  incomeAndExpenses: null,
-                  lineItem: {
-                    uuid: 'test uuid',
-                    quantity: 1,
-                    status: 'test status',
-                    productId: 'test productId',
-                    productType: 'test productType',
-                    vehicleProduct: {
-                      derivativeCapId: 'test derivativeCapId',
-                      description: 'test description',
-                      vsku: 'test vsku',
-                      term: 'test term',
-                      annualMileage: 123,
-                      monthlyPayment: 1232,
-                      depositMonths: 12,
-                      funderId: 'test funder',
-                      funderData: 'test funder',
-                    },
-                  },
-                  leadManagerProposalId: 'test leadManagerProposalId',
-                  createdAt: 'test createdAt',
-                  emailAddresses: [],
-                  partyDetails: null,
-                  status: 'test status',
-                  telephoneNumbers: [],
-                  updatedAt: 'test updatedAt',
-                  uuid: 'test uuid',
-                },
-              },
-            },
-          },
+            orderUuid: MOCK_ORDER_UUID,
+          }),
         ]}
       >
         <VatDetailsPage />
       </MockedProvider>,
     );
+
+    await waitForLoadingFinish();
 
     // Just submit the form straight-away
     submitForm();

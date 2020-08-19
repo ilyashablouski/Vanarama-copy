@@ -12,7 +12,7 @@ import {
 import { SEARCH_COMPANIES } from '../../../../components/CompanyDetailsForm/useSearchCompanies';
 import { CompanyDetailsPage } from '../../../../pages/b2b/olaf/company-details/[personUuid]';
 import { SAVE_COMPANY_DETAILS } from '../../../../containers/CompanyDetailsFormContainer/CompanyDetailsFormContainer';
-import { GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA } from '../../../../gql/creditApplication';
+import { makeGetCreditApplicationMock, makeUpdateCreditApplicationMock } from '../../../../gql/creditApplication';
 
 const MOCK_PERSON_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
 const MOCK_ORDER_ID = '11111111-b980-46bd-8a8e-ed82705b3e01';
@@ -29,52 +29,13 @@ jest.mock('next/router', () => ({
   }),
 }));
 
-const updateCreditApplication: MockedResponse = {
-  request: {
-    query: GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA,
-    variables: {},
-  },
-  result: {
-    data: {
-      creditApplicationByOrderUuid: {
-        addresses: 'addresses',
-        bankAccounts: '',
-        companyDetails: '',
-        vatDetails: '',
-        directorsDetails: '',
-        employmentHistories: '',
-        incomeAndExpenses: '',
-        lineItem: {
-          uuid: '',
-          quantity: '',
-          status: '',
-          productId: '',
-          productType: '',
-          vehicleProduct: {
-            derivativeCapId: '',
-            description: '',
-            vsku: '',
-            term: '',
-            annualMileage: '',
-            monthlyPayment: '',
-            depositMonths: '',
-            funderId: '',
-            funderData: '',
-          },
-        },
-        leadManagerProposalId: '',
-        createdAt: '',
-        emailAddresses: '',
-        partyDetails: '',
-        status: '',
-        telephoneNumbers: '',
-        updatedAt: '',
-        uuid: '',
-      },
-    },
-  },
-};
+const getCreditApplication = makeGetCreditApplicationMock(MOCK_ORDER_ID);
 
+async function waitForLoadingFinish() {
+  await waitFor(() =>
+    expect(screen.getByTestId('company-details_heading')).toBeInTheDocument(),
+  );
+}
 function typeIntoSearchField(value: string) {
   const field = screen.getByRole('textbox', { name: /Company Lookup/i });
   fireEvent.focus(field);
@@ -87,6 +48,7 @@ describe('B2B Company Details page', () => {
     const queryMock = jest.fn();
     const mutationMock = jest.fn();
     const mocks: MockedResponse[] = [
+      getCreditApplication,
       {
         request: {
           query: SEARCH_COMPANIES,
@@ -150,6 +112,7 @@ describe('B2B Company Details page', () => {
           data: {
             createUpdateLimitedCompany: {
               uuid: MOCK_PERSON_UUID,
+              partyUuid: 'partyUuid',
             },
           } as SaveCompanyDetailsMutation,
         })),
@@ -203,6 +166,7 @@ describe('B2B Company Details page', () => {
     // ARRANGE
     const mutationMock = jest.fn();
     const mocks: MockedResponse[] = [
+      getCreditApplication,
       {
         request: {
           query: SAVE_COMPANY_DETAILS,
@@ -304,6 +268,7 @@ describe('B2B Company Details page', () => {
     const queryMock = jest.fn();
     const mutationMock = jest.fn();
     const mocks: MockedResponse[] = [
+      getCreditApplication,
       {
         request: {
           query: SEARCH_COMPANIES,
@@ -413,6 +378,8 @@ describe('B2B Company Details page', () => {
       target: { value: 'Vanarama, Maylands Avenue' },
     });
 
+    await waitForLoadingFinish();
+
     // Choose that the trading address is different
     fireEvent.click(
       screen.getByRole('checkbox', {
@@ -482,7 +449,7 @@ describe('B2B Company Details page', () => {
           } as SearchCompaniesQuery,
         })),
       },
-      updateCreditApplication,
+      getCreditApplication,
     ];
 
     // ACT
@@ -491,6 +458,8 @@ describe('B2B Company Details page', () => {
         <CompanyDetailsPage />
       </MockedProvider>,
     );
+
+    await waitForLoadingFinish();
 
     // Type a search term and wait for the results to load
     typeIntoSearchField('INACTIVE LTD');
