@@ -32,6 +32,17 @@ export const GENERIC_PAGE = gql`
           tilesTitle
           titleTag
         }
+        faqs {
+          title
+          body
+          questionSets {
+            title
+            questionAnswers {
+              question
+              answer
+            }
+          }
+        }
         cards {
           position
           name
