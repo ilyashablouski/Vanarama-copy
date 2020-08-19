@@ -430,12 +430,14 @@ const SearchPageContainer: React.FC<IProps> = ({
       router.push(`/${href}/[make]`, `/${href}/${make}`);
     }
   };
+  useEffect(() => {
+    const { data: pageData, loading: pageLoading } = useGenericPage(
+      `/${router.query.make}-${isCarSearch ? 'car-leasing' : 'van-leasing'}/${
+        router.query.rangeName
+      }`,
+    );
+  }, [cacheData, setCapsIds, isCarSearch]);
 
-  const { data: pageData, loading: pageLoading } = useGenericPage(
-    `/${router.query.make}-${isCarSearch ? 'car-leasing' : 'van-leasing'}/${
-      router.query.rangeName
-    }`,
-  );
   const tiles = pageData?.genericPage.sections?.tiles;
   const carousel = pageData?.genericPage.sections?.carousel;
 
