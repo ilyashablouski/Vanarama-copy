@@ -11,7 +11,16 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
+import Image from '@vanarama/uibook/lib/components/atoms/image';
+import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
+import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import { useRouter } from 'next/router';
+import ReactMarkdown from 'react-markdown';
+import Tile from '@vanarama/uibook/lib/components/molecules/tile';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import { useGenericPage } from '../../gql/genericPage';
+import Head from '../../components/Head/Head';
+import RouterLink from '../../components/RouterLink/RouterLink';
 import TopOffersContainer from './TopOffersContainer';
 import { useProductCardData } from '../CustomerAlsoViewedContainer/gql';
 import { IFilters } from '../FiltersContainer/interfaces';
@@ -422,6 +431,14 @@ const SearchPageContainer: React.FC<IProps> = ({
     }
   };
 
+  const { data: pageData, loading: pageLoading } = useGenericPage(
+    `/${router.query.make}-${isCarSearch ? 'car-leasing' : 'van-leasing'}/${
+      router.query.rangeName
+    }`,
+  );
+  const tiles = pageData?.genericPage.sections?.tiles;
+  const carousel = pageData?.genericPage.sections?.carousel;
+
   return (
     <>
       <div className="row:title">
@@ -557,6 +574,106 @@ const SearchPageContainer: React.FC<IProps> = ({
           )}
         </div>
       </div>
+      {pageLoading && router.query.make && router.query.rangeName && (
+        <Loading size="large" />
+      )}
+      {!pageLoading && (
+        <>
+          <Head
+            title={pageData?.genericPage.metaData.title || ''}
+            metaDescription={pageData?.genericPage.metaData.metaDescription}
+            metaRobots={pageData?.genericPage.metaData.metaRobots}
+            legacyUrl={pageData?.genericPage.metaData.legacyUrl}
+            publishedOn={pageData?.genericPage.metaData.publishedOn}
+            featuredImage={pageData?.genericPage.featuredImage}
+          />
+          <div className="row:title">
+            <Heading size="large" color="black">
+              {pageData?.genericPage.metaData.title}
+            </Heading>
+          </div>
+          <div className="row:text">
+            <div>
+              <Text color="darker" size="regular" tag="div">
+                <ReactMarkdown
+                  source={pageData?.genericPage.body || ''}
+                  disallowedTypes={['paragraph']}
+                  unwrapDisallowed
+                />
+              </Text>
+            </div>
+          </div>
+
+          {tiles && (
+            <div className="row:features-4col">
+              {tiles?.tiles?.length &&
+                tiles.tiles.map(tile => (
+                  <Tile plain className="-align-center -button">
+                    <span>
+                      <Image
+                        src={tile.image?.file?.url || ''}
+                        inline
+                        round
+                        size="large"
+                      />
+                    </span>
+                    <RouterLink
+                      link={{ href: tile.link || '', label: tile.title || '' }}
+                      className="tile--link"
+                      withoutDefaultClassName
+                    >
+                      <Heading color="black" size="regular">
+                        {tile.title}
+                      </Heading>
+                    </RouterLink>
+                    <Text color="darker" size="regular">
+                      {tile.body}
+                    </Text>
+                  </Tile>
+                ))}
+            </div>
+          )}
+
+          {carousel?.cards?.length && (
+            <div className="row:bg-lighter ">
+              <Heading size="large" color="black">
+                {carousel.title}
+              </Heading>
+              <div className="row:carousel">
+                <Carousel
+                  countItems={carousel?.cards?.length || 0}
+                  className="-col3"
+                >
+                  {carousel?.cards.map(
+                    (card, indx) =>
+                      card && (
+                        <Card
+                          key={`${card.name}_${indx.toString()}`}
+                          className="card__article"
+                          imageSrc={card?.image?.file?.url || ''}
+                          title={{
+                            title: '',
+                            link: (
+                              <RouterLink
+                                link={{ href: '#', label: card.title || '' }}
+                                className="card--link"
+                                classNames={{ color: 'black', size: 'regular' }}
+                              />
+                            ),
+                          }}
+                        >
+                          <Text color="dark" size="regular" tag="span">
+                            <ReactMarkdown source={card.body || ''} />
+                          </Text>
+                        </Card>
+                      ),
+                  )}
+                </Carousel>
+              </div>
+            </div>
+          )}
+        </>
+      )}
       <div className="row:text">
         <Text color="darker" size="regular" tag="span">
           Photos and videos are for illustration purposes only.

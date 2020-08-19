@@ -788,6 +788,22 @@ exports[`<SearchPageContainer /> should be render correctly 1`] = `
       </div>
     </div>
     <div
+      class="row:title"
+    >
+      <p
+        class="heading -black -large"
+      />
+    </div>
+    <div
+      class="row:text"
+    >
+      <div>
+        <div
+          class="text -regular -darker"
+        />
+      </div>
+    </div>
+    <div
       class="row:text"
     >
       <span
@@ -1563,6 +1579,22 @@ exports[`<SearchPageContainer /> should be render correctly all manufacturers Pa
           <div />
           <div />
         </div>
+      </div>
+    </div>
+    <div
+      class="row:title"
+    >
+      <p
+        class="heading -black -large"
+      />
+    </div>
+    <div
+      class="row:text"
+    >
+      <div>
+        <div
+          class="text -regular -darker"
+        />
       </div>
     </div>
     <div

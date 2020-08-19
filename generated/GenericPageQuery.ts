@@ -34,6 +34,7 @@ export interface GenericPageQuery_genericPage_sections_tiles_tiles_image {
 export interface GenericPageQuery_genericPage_sections_tiles_tiles {
   body: string | null;
   title: string | null;
+  link: string | null;
   image: GenericPageQuery_genericPage_sections_tiles_tiles_image | null;
 }
 

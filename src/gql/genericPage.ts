@@ -141,6 +141,7 @@ export const GENERIC_PAGE = gql`
           tiles {
             body
             title
+            link
             image {
               title
               description
