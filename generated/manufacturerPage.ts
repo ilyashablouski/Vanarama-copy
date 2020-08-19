@@ -15,6 +15,7 @@ export interface manufacturerPage_manufacturerPage_metaData {
   metaDescription: string | null;
   legacyUrl: string | null;
   publishedOn: any | null;
+  name: string | null;
 }
 
 export interface manufacturerPage_manufacturerPage_sections_featured_image_file {
