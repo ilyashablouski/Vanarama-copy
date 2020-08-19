@@ -1,10 +1,10 @@
 import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import withApollo from '../../../hocs/withApollo';
-import FinanceInformationExplainedContainer from '../../../containers/FinanceInformationExplainedContainer/FinanceInfromationExplainedContainer';
-import Head from '../../../components/Head/Head';
-import { useGenericPage } from '../../../gql/genericPage';
+import withApollo from '../../../../hocs/withApollo';
+import FinanceInformationExplainedContainer from '../../../../containers/FinanceInformationExplainedContainer/FinanceInfromationExplainedContainer';
+import Head from '../../../../components/Head/Head';
+import { useGenericPage } from '../../../../gql/genericPage';
 
 const FinanceInfo: NextPage = () => {
   const { data, loading, error } = useGenericPage(

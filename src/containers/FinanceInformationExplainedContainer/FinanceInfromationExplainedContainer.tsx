@@ -5,6 +5,9 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Accordion from '@vanarama/uibook/lib/components/molecules/accordion/Accordion';
 import cx from 'classnames';
+import AddCircleSharp from '@vanarama/uibook/lib/assets/icons/AddCircleSharp';
+import RemoveCircleSharp from '@vanarama/uibook/lib/assets/icons/RemoveCircleSharp';
+import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import getTitleTag from '../../utils/getTitleTag';
 import { genericPageQuery_genericPage_sections as Section } from '../../../generated/genericPageQuery';
 
@@ -42,6 +45,9 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
     }));
   };
 
+  const iconBullets1 = sections?.iconBullets1;
+  const iconBullets2 = sections?.iconBullets2;
+
   return (
     <>
       <div className="row:title">
@@ -66,6 +72,40 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
           <div>
             <ReactMarkdown source={sections.featured1.body || ''} />
           </div>
+        </div>
+      )}
+      {iconBullets1 && (
+        <div className="row:icon-list">
+          <Heading size="lead" color="black">
+            {iconBullets1.title || ''}
+          </Heading>
+          <hr />
+          {iconBullets1?.iconBullets?.map(iconBullet => (
+            <>
+              <Icon icon={<AddCircleSharp />} color="orange" />
+              <Text tag="span" size="regular" color="darker">
+                {' '}
+                {iconBullet?.text}
+              </Text>
+            </>
+          ))}
+        </div>
+      )}
+      {iconBullets2 && (
+        <div className="row:icon-list">
+          <Heading size="lead" color="black">
+            {iconBullets2.title || ''}
+          </Heading>
+          <hr />
+          {iconBullets2?.iconBullets?.map(iconBullet => (
+            <>
+              <Icon icon={<RemoveCircleSharp />} color="orange" />
+              <Text tag="span" size="regular" color="darker">
+                {' '}
+                {iconBullet?.text}
+              </Text>
+            </>
+          ))}
         </div>
       )}
       {sections?.featured2 && (

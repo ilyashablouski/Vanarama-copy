@@ -31,6 +31,18 @@ export const GENERIC_PAGE = gql`
           tilesTitle
           titleTag
         }
+        iconBullets1 {
+          title
+          iconBullets {
+            text
+          }
+        }
+        iconBullets2 {
+          title
+          iconBullets {
+            text
+          }
+        }
         faqs {
           title
           body
