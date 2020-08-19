@@ -202,6 +202,7 @@ export const GENERIC_PAGE_HEAD = gql`
         slug
         publishedOn
         schema
+        name
       }
       featuredImage {
         title
