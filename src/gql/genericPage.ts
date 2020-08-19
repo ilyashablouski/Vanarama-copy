@@ -2,7 +2,7 @@ import { gql, useQuery } from '@apollo/client';
 import {
   GenericPageQuery,
   GenericPageQueryVariables,
-} from '../../generated/genericPageQuery';
+} from '../../generated/GenericPageQuery';
 import {
   GenericPageHeadQuery,
   GenericPageHeadQueryVariables,
