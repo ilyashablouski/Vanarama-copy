@@ -9,7 +9,7 @@ import AddCircleSharp from '@vanarama/uibook/lib/assets/icons/AddCircleSharp';
 import RemoveCircleSharp from '@vanarama/uibook/lib/assets/icons/RemoveCircleSharp';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import getTitleTag from '../../utils/getTitleTag';
-import { genericPageQuery_genericPage_sections as Section } from '../../../generated/genericPageQuery';
+import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/GenericPageQuery';
 
 interface IProps {
   sections: Section | null;

@@ -9,11 +9,7 @@ import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { LinkTypes } from '../../models/enum/LinkTypes';
 import { getFeaturedClassPartial } from '../../utils/layout';
-<<<<<<< HEAD
-import { genericPageQuery_genericPage_sections as Section } from '../../../generated/genericPageQuery';
-=======
 import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/GenericPageQuery';
->>>>>>> origin
 
 interface IProps {
   sections: Section | null;

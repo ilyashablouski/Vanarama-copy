@@ -1,15 +1,15 @@
 import { gql, useQuery } from '@apollo/client';
 import {
-  genericPageQuery,
-  genericPageQueryVariables,
-} from '../../generated/genericPageQuery';
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../generated/GenericPageQuery';
 import {
   GenericPageHeadQuery,
   GenericPageHeadQueryVariables,
 } from '../../generated/GenericPageHeadQuery';
 
 export const GENERIC_PAGE = gql`
-  query genericPageQuery($slug: String!) {
+  query GenericPageQuery($slug: String!) {
     genericPage(slug: $slug) {
       id
       metaData {
@@ -193,7 +193,7 @@ export const GENERIC_PAGE = gql`
 `;
 
 export function useGenericPage(slug: string) {
-  return useQuery<genericPageQuery, genericPageQueryVariables>(GENERIC_PAGE, {
+  return useQuery<GenericPageQuery, GenericPageQueryVariables>(GENERIC_PAGE, {
     variables: {
       slug,
     },
