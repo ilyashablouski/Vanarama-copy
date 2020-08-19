@@ -28,7 +28,12 @@ const Page: NextPage<IProps> = ({ isServer }) => {
         publishedOn={metaData.publishedOn}
         featuredImage={data?.genericPage.featuredImage}
       />
-      <SearchPageContainer isServer={isServer} isSpecialOfferPage isPickups />
+      <SearchPageContainer
+        isServer={isServer}
+        isSpecialOfferPage
+        isPickups
+        pageTitle={metaData.name || undefined}
+      />
     </>
   );
 };
