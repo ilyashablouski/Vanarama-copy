@@ -28,7 +28,7 @@ const CompanyDetailsForm: React.FC<IProps> = ({
   const [companySearchTerm, setCompanySearchTerm] = useState('');
   const [hasConfirmedCompany, setHasConfirmedCompany] = useState(false);
   const [inputMode, setInputMode] = useState<InputMode>(
-    company?.companyNumber ? 'manual' : 'search',
+    company ? 'manual' : 'search',
   );
 
   const methods = useForm<ICompanyDetailsFormValues>({

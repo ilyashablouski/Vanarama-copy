@@ -199,7 +199,7 @@ const responseMock = {
       sort_code: ['01', '93', '87'],
     },
   ],
-  companyDetails: 'companyDetails',
+  companyDetails: null,
   vatDetails: 'vatDetails',
   directorsDetails: 'directorsDetails',
   employmentHistories: 'employmentHistories',

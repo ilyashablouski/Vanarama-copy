@@ -101,7 +101,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
       },
       makeUpdateCreditApplicationMock({
         vatDetails: 'vatDetails',
-        companyDetails: 'companyDetails',
+        companyDetails: null,
         directorsDetails: 'directorsDetails',
         bankAccounts: [
           {
