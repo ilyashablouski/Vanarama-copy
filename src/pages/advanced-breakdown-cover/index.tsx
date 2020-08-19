@@ -3,23 +3,20 @@ import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import withApollo from '../../hocs/withApollo';
 import Head from '../../components/Head/Head';
-import { useGenericPage, useGenericPageHead } from '../../gql/genericPage';
-import AdvancedBreakdownCoverContainer from 'containers/BreakdownCoverContainer/AdvancedBreakdownCoverContainer';
-import { useAdvancedBreakdownCoverPage } from 'gql/advancedBreakdownCoverPage';
+import AdvancedBreakdownCoverContainer from '../../containers/BreakdownCoverContainer/AdvancedBreakdownCoverContainer';
+import { useAdvancedBreakdownCoverPage } from '../../gql/advancedBreakdownCoverPage';
 
 const EligibilityChecker: NextPage = () => {
   const { data, loading, error } = useAdvancedBreakdownCoverPage();
-  const {
-    data: dataHead,
-    loading: loadingHead,
-    error: errorHead,
-  } = useGenericPageHead('/advanced-breakdown-cover');
-
-  if (loading || loadingHead) {
+  if (loading) {
     return <Loading size="large" />;
   }
-  if (error || errorHead) {
-    return <div><p>Error: {error?.message}</p><p>Error: {errorHead?.message}</p></div>;
+  if (error) {
+    return (
+      <div>
+        <p>Error: {error?.message}</p>
+      </div>
+    );
   }
 
   if (!data?.advancedBreakdownCoverPage) {
@@ -31,7 +28,7 @@ const EligibilityChecker: NextPage = () => {
 
   return (
     <>
-       <Head
+      <Head
         title={metaData.title || ''}
         metaDescription={metaData.metaDescription}
         metaRobots={metaData.metaRobots}

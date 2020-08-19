@@ -69,6 +69,15 @@ export const ADVANCED_BREAKDOWN_COVER_PAGE = gql`
             title
             body
             link
+            image {
+              title
+              description
+              file {
+                url
+                fileName
+                contentType
+              }
+            }
           }
         }
       }

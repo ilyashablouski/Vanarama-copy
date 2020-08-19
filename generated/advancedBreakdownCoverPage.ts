@@ -55,10 +55,23 @@ export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_
   body: string | null;
 }
 
+export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_tiles_tiles_image_file {
+  url: string;
+  fileName: string;
+  contentType: string;
+}
+
+export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_tiles_tiles_image {
+  title: string | null;
+  description: string | null;
+  file: advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_tiles_tiles_image_file | null;
+}
+
 export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_tiles_tiles {
   title: string | null;
   body: string | null;
   link: string | null;
+  image: advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_tiles_tiles_image | null;
 }
 
 export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_tiles {
