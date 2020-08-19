@@ -12,8 +12,10 @@ import {
 import { SEARCH_COMPANIES } from '../../../../components/CompanyDetailsForm/useSearchCompanies';
 import { CompanyDetailsPage } from '../../../../pages/b2b/olaf/company-details/[personUuid]';
 import { SAVE_COMPANY_DETAILS } from '../../../../containers/CompanyDetailsFormContainer/CompanyDetailsFormContainer';
+import { GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA } from '../../../../gql/creditApplication';
 
 const MOCK_PERSON_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
+const MOCK_ORDER_ID = '11111111-b980-46bd-8a8e-ed82705b3e01';
 
 jest.mock('../../../../layouts/OLAFLayout/OLAFLayout');
 jest.mock('next/router', () => ({
@@ -21,10 +23,57 @@ jest.mock('next/router', () => ({
     push: jest.fn(),
     pathname: '/b2b/olaf/company-details',
     query: {
+      orderId: MOCK_ORDER_ID,
       personUuid: MOCK_PERSON_UUID,
     },
   }),
 }));
+
+const updateCreditApplication: MockedResponse = {
+  request: {
+    query: GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA,
+    variables: {},
+  },
+  result: {
+    data: {
+      creditApplicationByOrderUuid: {
+        addresses: 'addresses',
+        bankAccounts: '',
+        companyDetails: '',
+        vatDetails: '',
+        directorsDetails: '',
+        employmentHistories: '',
+        incomeAndExpenses: '',
+        lineItem: {
+          uuid: '',
+          quantity: '',
+          status: '',
+          productId: '',
+          productType: '',
+          vehicleProduct: {
+            derivativeCapId: '',
+            description: '',
+            vsku: '',
+            term: '',
+            annualMileage: '',
+            monthlyPayment: '',
+            depositMonths: '',
+            funderId: '',
+            funderData: '',
+          },
+        },
+        leadManagerProposalId: '',
+        createdAt: '',
+        emailAddresses: '',
+        partyDetails: '',
+        status: '',
+        telephoneNumbers: '',
+        updatedAt: '',
+        uuid: '',
+      },
+    },
+  },
+};
 
 function typeIntoSearchField(value: string) {
   const field = screen.getByRole('textbox', { name: /Company Lookup/i });
@@ -433,6 +482,7 @@ describe('B2B Company Details page', () => {
           } as SearchCompaniesQuery,
         })),
       },
+      updateCreditApplication,
     ];
 
     // ACT
