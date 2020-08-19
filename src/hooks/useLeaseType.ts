@@ -5,18 +5,22 @@ const query = gql`
     leaseTypes @client
   }
 `;
-interface LeaseTypes {
+
+/* export interface LeaseTypes {
   car: LeaseType;
   lcv: LeaseType;
-}
-type LeaseType = 'Personal' | 'Business';
+} */
+
+// not doing much due to type related complexities throughout all dependant components/pages.
+// left for future ref.
+export type LeaseType = 'Personal' | 'Business';
 
 export default function useLeaseType(isCars: boolean | undefined) {
   const client = useApolloClient();
-  const initleaseTypes: LeaseTypes = { car: 'Personal', lcv: 'Business' };
+  const initleaseTypes = { car: 'Personal', lcv: 'Business' };
   return {
-    setCachedLeaseType(type: LeaseType): void {
-      const leaseTypes: LeaseTypes = isCars
+    setCachedLeaseType(type: string): void {
+      const leaseTypes = isCars
         ? { ...initleaseTypes, car: type }
         : { ...initleaseTypes, lcv: type };
       client.writeQuery({
@@ -24,7 +28,7 @@ export default function useLeaseType(isCars: boolean | undefined) {
         data: { __typename: 'LeaseTypes', leaseTypes },
       });
     },
-    getCachedLeaseType(): LeaseType {
+    get cachedLeaseType(): LeaseType | string {
       try {
         const res = client.readQuery({ query });
         // eslint-disable-next-line no-console

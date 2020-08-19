@@ -80,10 +80,8 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [lastCard, setLastCard] = useState('');
   const [hasNextPage, setHasNextPage] = useState(true);
 
-  const { getCachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
-  const [isPersonal, setIsPersonal] = useState(
-    getCachedLeaseType() === 'Personal',
-  );
+  const { cachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
+  const [isPersonal, setIsPersonal] = useState(cachedLeaseType === 'Personal');
   const [isSpecialOffers, setIsSpecialOffers] = useState(
     isSpecialOfferPage ? true : getValueFromStorage(isServer) ?? true,
   );
