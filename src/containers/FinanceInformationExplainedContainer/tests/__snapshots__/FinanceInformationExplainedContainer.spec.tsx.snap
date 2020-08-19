@@ -137,7 +137,9 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       >
         How Does Car Leasing Work?
       </p>
-      <div>
+      <div
+        class="content"
+      >
         <p>
           You simply choose the car you want to drive & tailor the deal depending on the following criteria:
         </p>
@@ -198,7 +200,9 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       >
         Contact Us
       </p>
-      <div>
+      <div
+        class="content"
+      >
         <p>
           Of course, feel free to pick up the phone to one of our Account Managers on tel: 
           <a
