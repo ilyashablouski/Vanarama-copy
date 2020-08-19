@@ -5,102 +5,172 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
+import ReactMarkdown from 'react-markdown';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import BreadCrumbs from '../../containers/BreadCrumbContainer/BreadCrumbContainer';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import Head from '../../components/Head/Head';
+import { useGenericPage } from '../../gql/genericPage';
+import { getFeaturedClassPartial } from '../../utils/layout';
+import withApollo from '../../hocs/withApollo';
+import getTitleTag from '../../utils/getTitleTag';
 
-const BlogPage: NextPage = () => (
-  <>
-    <div className="row:title">
-      <BreadCrumbs />
-      <Heading tag="h1" size="xlarge" color="black">
-        Blog Archive Page
-      </Heading>
-    </div>
-    <div className="row:featured-left">
-      <Image
-        size="expand"
-        src="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/KiaProceed0219_4_bpoxte.jpg"
+const BlogPage: NextPage = () => {
+  const { data, loading, error } = useGenericPage('/latest-news');
+
+  if (loading) {
+    return <Loading size="large" />;
+  }
+
+  if (error) {
+    return <p>Error: {error.message}</p>;
+  }
+
+  const featured = data?.genericPage?.sections?.featured;
+  const carousel = data?.genericPage?.sections?.carousel;
+  const tiles = data?.genericPage?.sections?.tiles;
+  const metaData = data?.genericPage?.metaData;
+
+  return (
+    <>
+      <Head
+        title={metaData?.title || ''}
+        metaDescription={metaData?.metaDescription}
+        metaRobots={metaData?.metaRobots}
+        legacyUrl={metaData?.legacyUrl}
+        publishedOn={metaData?.publishedOn}
+        featuredImage={data?.genericPage.featuredImage}
       />
-      <div>
-        <Heading tag="span" size="large" color="black">
-          Featured Article Title
+      <div className="row:title">
+        <BreadCrumbs />
+        <Heading tag="h1" size="xlarge" color="black">
+          {metaData?.name}
         </Heading>
-        <Text tag="p" size="lead" color="darker">
-          Reprehenderit veniam minim id laboris commodo id laboris minim enim
-          consequat adipisicing proident adipisicing exercitation
-        </Text>
-        <Text tag="p" size="regular" color="darker">
-          Do enim nulla consectetur non tempor pariatur eu excepteur elit ea
-          consectetur duis magna reprehenderit incididunt duis esse culpa ex ea
-          qui et adipisicing incididunt nisi eiusmod excepteur nisi est
-        </Text>
-        <Text tag="p" size="regular" color="darker">
-          Velit fugiat ea eu excepteur nisi et ut duis minim labore pariatur est
-          eiusmod cupidatat ea consectetur occaecat pariatur officia
-        </Text>
-        <Button color="teal" size="regular" fill="clear" label="Read More" />
       </div>
-    </div>
-    <div className="row:bg-lighter -col-300">
-      <Heading className="-a-center" tag="h3" size="large" color="black">
-        Top Articles
-      </Heading>
-      <Carousel className="-mh-auto" countItems={5}>
-        {[1, 2, 3, 4, 5].map(k => (
-          <Card
-            key={k.toString()}
-            className="card__article"
-            imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg"
-            title={{
-              title: '',
-              link: (
-                <RouterLink
-                  link={{ href: '#', label: 'Article Name' }}
-                  className="card--link"
-                  classNames={{ color: 'black', size: 'regular' }}
-                />
-              ),
-            }}
-            description="Lorem ipsum dolor sit amet adipisicing elit. Iste, quaerat consequatur sapiente sed."
-          >
-            <Button
-              label="Read More"
-              color="teal"
-              size="small"
-              fill="solid"
-              className="-mt-400"
-            />
-          </Card>
-        ))}
-      </Carousel>
-    </div>
-    <div className="row:bg-lighter">
-      <div className="row:cards-3col">
-        <Heading size="large" color="black">
-          Category Title
-        </Heading>
-        {[1, 2, 3, 4, 5, 6].map(v => (
-          <div key={v.toString()}>
+      {featured && (
+        <div className={`row:${getFeaturedClassPartial(featured)}`}>
+          <Image size="expand" src={featured.image?.file?.url || ''} />
+          <div>
+            <Heading tag="span" size="large" color="black">
+              {featured.title}
+            </Heading>
+            <Text tag="p" size="regular" color="darker">
+              <ReactMarkdown source={featured.body || ''} />
+            </Text>
+          </div>
+        </div>
+      )}
+      {carousel && carousel.cards?.length && (
+        <div className="row:bg-lighter -col-300">
+          <Heading className="-a-center" tag="h3" size="large" color="black">
+            {carousel.title}
+          </Heading>
+          {carousel.cards.length > 1 ? (
+            <Carousel className="-mh-auto" countItems={5}>
+              {carousel.cards.map(
+                (card, indx) =>
+                  card && (
+                    <Card
+                      key={`${card.name}_${indx.toString()}`}
+                      className="card__article"
+                      imageSrc={card.image?.file?.url || ''}
+                      title={{
+                        title: '',
+                        link: (
+                          <RouterLink
+                            link={{ href: '#', label: card.title || '' }}
+                            className="card--link"
+                            classNames={{ color: 'black', size: 'regular' }}
+                          />
+                        ),
+                      }}
+                    >
+                      <Text color="dark" size="regular" tag="span">
+                        <ReactMarkdown
+                          source={card.body || ''}
+                          disallowedTypes={['paragraph']}
+                          unwrapDisallowed
+                        />
+                      </Text>
+                    </Card>
+                  ),
+              )}
+            </Carousel>
+          ) : (
             <Card
-              className="card__category"
-              imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg"
+              className="card__article"
+              imageSrc={carousel.cards[0]!.image?.file?.url || ''}
               title={{
                 title: '',
                 link: (
                   <RouterLink
-                    link={{ href: '#', label: 'Category Name' }}
+                    link={{ href: '#', label: carousel.cards[0]!.title || '' }}
                     className="card--link"
                     classNames={{ color: 'black', size: 'regular' }}
                   />
                 ),
-                withBtn: true,
               }}
-            />
+            >
+              <Text color="dark" size="regular" tag="span">
+                <ReactMarkdown
+                  source={carousel.cards[0]!.body || ''}
+                  disallowedTypes={['paragraph']}
+                  unwrapDisallowed
+                />
+              </Text>
+              <Button
+                label="Read More"
+                color="teal"
+                size="small"
+                fill="solid"
+                className="-mt-400"
+              />
+            </Card>
+          )}
+        </div>
+      )}
+      {tiles && (
+        <div className="row:bg-lighter">
+          <div className="row:cards-3col">
+            <Heading
+              size="large"
+              color="black"
+              tag={getTitleTag(tiles.titleTag) as keyof JSX.IntrinsicElements}
+            >
+              {tiles.tilesTitle}
+            </Heading>
+            {tiles.tiles?.length &&
+              tiles.tiles.map((tile, indx) => (
+                <Card
+                  key={indx.toString()}
+                  className="card__category"
+                  imageSrc={tile.image?.file?.url || ''}
+                  title={{
+                    title: '',
+                    link: (
+                      <RouterLink
+                        link={{ href: '#', label: tile.title || '' }}
+                        className="card--link"
+                        classNames={{ color: 'black', size: 'regular' }}
+                      />
+                    ),
+                    withBtn: true,
+                  }}
+                >
+                  <Text tag="span" size="regular" color="dark">
+                    <ReactMarkdown
+                      source={tile.body || ''}
+                      disallowedTypes={['paragraph']}
+                      unwrapDisallowed
+                    />
+                  </Text>
+                </Card>
+              ))}
           </div>
-        ))}
-      </div>
-    </div>
-  </>
-);
+        </div>
+      )}
+    </>
+  );
+};
 
-export default BlogPage;
+export default withApollo(BlogPage);
