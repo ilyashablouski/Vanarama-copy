@@ -41,7 +41,7 @@ const BlogPost: NextPage = () => {
   }
 
   const body = data?.genericPage?.body;
-  const title = data?.genericPage?.metaData?.title;
+  const name = data?.genericPage?.metaData?.name;
   const image = data?.genericPage?.featuredImage?.file?.url;
   const cards = data?.genericPage?.sections?.cards?.cards;
   const metaData = data?.genericPage?.metaData;
@@ -59,7 +59,7 @@ const BlogPost: NextPage = () => {
       <div className="row:title">
         <BreadCrumb items={crumbs} />
         <Heading tag="h1" size="xlarge" color="black">
-          {title || ''}
+          {name || ''}
         </Heading>
       </div>
       <div className="row:bg-black -compact">

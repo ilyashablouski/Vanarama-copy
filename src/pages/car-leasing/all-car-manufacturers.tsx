@@ -34,7 +34,7 @@ const Page: NextPage<IProps> = ({ isServer }) => {
         isCarSearch
         isAllMakesPage
         topInfoSection={section || undefined}
-        pageTitle={metaData.title || undefined}
+        pageTitle={metaData.name || undefined}
       />
     </>
   );
