@@ -32,6 +32,18 @@ export const GENERIC_PAGE = gql`
           tilesTitle
           titleTag
         }
+        iconBullets1 {
+          title
+          iconBullets {
+            text
+          }
+        }
+        iconBullets2 {
+          title
+          iconBullets {
+            text
+          }
+        }
         faqs {
           title
           body
@@ -83,6 +95,7 @@ export const GENERIC_PAGE = gql`
         featured1 {
           layout
           body
+          titleTag
           title
           image {
             title
@@ -96,6 +109,7 @@ export const GENERIC_PAGE = gql`
         featured2 {
           layout
           body
+          titleTag
           image {
             title
             description
@@ -152,6 +166,7 @@ export const GENERIC_PAGE = gql`
           tiles {
             body
             title
+            link
             image {
               title
               description
