@@ -36,7 +36,7 @@ const EligibilityChecker: NextPage = () => {
         featuredImage={data?.genericPage.featuredImage}
       />
       <FinanceExplainedContainer
-        title={metaData?.title}
+        title={metaData?.name}
         body={data?.genericPage?.body}
         sections={sections}
       />
