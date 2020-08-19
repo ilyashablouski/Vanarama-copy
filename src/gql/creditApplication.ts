@@ -190,7 +190,15 @@ export function useCreateUpdateCreditApplication(
 
 const responseMock = {
   addresses: [],
-  bankAccounts: [],
+  bankAccounts: [
+    {
+      account_name: 'Eternal account',
+      account_number: '67272820',
+      joined_at_month: '1',
+      joined_at_year: '2020',
+      sort_code: ['01', '93', '87'],
+    },
+  ],
   companyDetails: 'companyDetails',
   vatDetails: 'vatDetails',
   directorsDetails: 'directorsDetails',
@@ -229,13 +237,13 @@ export const makeGetCreditApplicationMock = (id: string): MockedResponse => ({
     query: GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA,
     variables: { id },
   },
-  result: {
+  result: jest.fn().mockImplementation(() => ({
     data: {
       creditApplicationByOrderUuid: {
         ...responseMock,
       },
     },
-  },
+  })),
 });
 
 export const makeUpdateCreditApplicationMock = (
@@ -245,11 +253,11 @@ export const makeUpdateCreditApplicationMock = (
     query: CREATE_UPDATE_CREDIT_APPLICATION,
     variables: { input },
   },
-  result: {
+  result: jest.fn().mockImplementation(() => ({
     data: {
       createUpdateCreditApplication: {
         ...responseMock,
       },
     },
-  },
+  })),
 });

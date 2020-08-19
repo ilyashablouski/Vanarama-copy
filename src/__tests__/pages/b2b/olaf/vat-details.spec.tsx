@@ -820,13 +820,18 @@ describe('B2B VAT Details page', () => {
           },
           makeUpdateCreditApplicationMock({
             directorsDetails: 'directorsDetails',
-            bankAccounts: [],
+            bankAccounts: [
+              {
+                account_name: 'Eternal account',
+                account_number: '67272820',
+                joined_at_month: '1',
+                joined_at_year: '2020',
+                sort_code: ['01', '93', '87'],
+              },
+            ],
             companyDetails: 'companyDetails',
-            vatDetails: {
-              vatRegistered: false,
-              outsideUK: false,
-            },
-            orderUuid: MOCK_ORDER_UUID,
+            vatDetails: { vatRegistered: false, outsideUK: false },
+            orderUuid: '39c19729-1111-46bd-0000-ed82705b3e01',
           }),
         ]}
       >
