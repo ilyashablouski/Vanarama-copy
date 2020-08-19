@@ -43,9 +43,12 @@ import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { getProductPageUrl } from '../../../utils/url';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 import getTitleTag from '../../../utils/getTitleTag';
+import useLeaseType from '../../../hooks/useLeaseType';
 
 export const CarsPage: NextPage = () => {
   const { data, loading, error } = useQuery<HubCarPageData>(HUB_CAR_CONTENT);
+  // pass in true for car leaseType
+  const { getCachedLeaseType } = useLeaseType(true);
 
   const { data: products, error: productsError } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
@@ -69,6 +72,8 @@ export const CarsPage: NextPage = () => {
     const err = error || productsError;
     return <p>Error: {err?.message}</p>;
   }
+
+  const isPersonal = getCachedLeaseType() === 'Personal';
 
   return (
     <>
@@ -204,10 +209,12 @@ export const CarsPage: NextPage = () => {
               >
                 <div className="-flex-h">
                   <Price
-                    price={item?.businessRate}
+                    price={isPersonal ? item?.personalRate : item?.businessRate}
                     size="large"
                     separator="."
-                    priceDescription="Per Month Exc.VAT"
+                    priceDescription={`Per Month ${
+                      isPersonal ? 'Inc.VAT' : 'Exc.VAT'
+                    }`}
                   />
                   <Button
                     color="teal"
