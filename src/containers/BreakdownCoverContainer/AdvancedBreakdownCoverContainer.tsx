@@ -72,12 +72,10 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
                     imageSrc={el.image?.file?.url || ''}
                     title={{
                       title: el.title || '',
+                      description: el.body || '',
                     }}
-                  >
-                    <div className="-flex-h">
-                      <ReactMarkdown source={el.body || ''} />
-                    </div>
-                  </Card>
+                    className="breakdown"
+                  />
                 ))}
               </div>
             )}
