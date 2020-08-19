@@ -69,7 +69,7 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
           >
             {sections.featured1.title || ''}
           </Heading>
-          <div>
+          <div className="content">
             <ReactMarkdown source={sections.featured1.body || ''} />
           </div>
         </div>
@@ -83,7 +83,12 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
           {iconBullets1?.iconBullets?.map(iconBullet => (
             <>
               <Icon icon={<AddCircleSharp />} color="orange" />
-              <Text tag="span" size="regular" color="darker">
+              <Text
+                className="context-justify"
+                tag="span"
+                size="regular"
+                color="darker"
+              >
                 {' '}
                 {iconBullet?.text}
               </Text>
@@ -100,7 +105,12 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
           {iconBullets2?.iconBullets?.map(iconBullet => (
             <>
               <Icon icon={<RemoveCircleSharp />} color="orange" />
-              <Text tag="span" size="regular" color="darker">
+              <Text
+                className="context-justify"
+                tag="span"
+                size="regular"
+                color="darker"
+              >
                 {' '}
                 {iconBullet?.text}
               </Text>
@@ -121,7 +131,7 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
           >
             {sections.featured2.title || ''}
           </Heading>
-          <div>
+          <div className="content">
             <ReactMarkdown source={sections.featured2.body || ''} />
           </div>
         </div>
