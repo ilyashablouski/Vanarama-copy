@@ -1,8 +1,8 @@
 import moment from 'moment';
 import { ICompanyBankDetails } from '../../components/CompanyBankDetails/interfaces';
 import { LimitedCompanyInputObject } from '../../../generated/globalTypes';
+import { GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as CreditApplication } from '../../../generated/GetCreditApplicationByOrderUuid';
 
-// eslint-disable-next-line import/prefer-default-export
 export const formValuesToInput = (
   uuid: string,
   values: ICompanyBankDetails,
@@ -22,5 +22,17 @@ export const formValuesToInput = (
       sortCode: values.sortCode?.join('') || null,
       joinedAt: joiningDateFormatted,
     },
+  };
+};
+
+export const mapDefaultValues = (data?: CreditApplication | null) => {
+  const account = data?.bankAccounts?.[0];
+
+  return {
+    accountName: account?.account_name,
+    accountNumber: account?.account_number,
+    joinedAtMonth: account?.joined_at_month,
+    joinedAtYear: account?.joined_at_year,
+    sortCode: account?.sort_code,
   };
 };

@@ -24,6 +24,7 @@ export const UPDATE_LIMITED_VAT_DETAILS = gql`
         percentage
       }
       vatNumber
+      companyNumber
     }
   }
 `;
@@ -50,6 +51,7 @@ export const UPDATE_SOLE_TRADER_VAT_DETAILS = gql`
         percentage
       }
       vatNumber
+      companyNumber
     }
   }
 `;

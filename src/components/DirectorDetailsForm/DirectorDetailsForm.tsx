@@ -15,11 +15,11 @@ import { isTruthy } from '../../utils/array';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import DirectorFieldArray from './DirectorFieldArray';
 import {
-  initialFormValues,
+  // initialFormValues,
   validate,
   validationSchema,
   combineDirectorsData,
-  initialEditedFormValues,
+  // initialEditedFormValues,
 } from './helpers';
 import { DirectorDetailsFormValues } from './interfaces';
 import FCWithFragments from '../../utils/FCWithFragments';
@@ -42,7 +42,7 @@ type IDirectorDetailsFormProps = {
   companyNumber: string;
   onSubmit: (values: DirectorDetailsFormValues) => Promise<void>;
   isEdited: boolean;
-  directorUuid?: string;
+  directorDetails: DirectorDetailsFormValues;
 };
 
 const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
@@ -57,10 +57,11 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
   companyNumber,
   onSubmit,
   dropdownData,
-  directorUuid,
   isEdited,
+  directorDetails,
 }) => {
   const { data, loading, error } = useCompanyOfficers(companyNumber);
+
   if (loading) {
     return <Loading />;
   }
@@ -70,15 +71,18 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
   }
 
   const officers = data?.companyOfficers?.nodes?.filter(isTruthy) || [];
-  const directors = combineDirectorsData(officers, associates);
+  const directors = combineDirectorsData(officers, associates) || [];
+  const initialValues = {
+    ...directorDetails,
+    directors:
+      (directorDetails?.directors || []).length > 0
+        ? directorDetails?.directors
+        : [],
+  };
 
   return (
     <Formik<DirectorDetailsFormValues>
-      initialValues={
-        isEdited
-          ? initialEditedFormValues(directors, directorUuid)
-          : initialFormValues(officers)
-      }
+      initialValues={initialValues}
       validationSchema={validationSchema}
       validate={validate}
       onSubmit={onSubmit}

@@ -20,6 +20,7 @@ export interface UpdateLimitedVatDetailsMutation_createUpdateLimitedCompany {
   tradesOutsideUk: boolean | null;
   turnoverPercentageOutsideUk: UpdateLimitedVatDetailsMutation_createUpdateLimitedCompany_turnoverPercentageOutsideUk[] | null;
   vatNumber: string | null;
+  companyNumber: string | null;
 }
 
 export interface UpdateLimitedVatDetailsMutation {

@@ -1,6 +1,6 @@
-import { useMutation, gql, useQuery } from '@apollo/client';
+import { useMutation, gql } from '@apollo/client';
 import React from 'react';
-import SummaryFormDetailsSection from '../../components/BusinessSummaryForm/BusinessSummaryFormDetailsSection';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import {
   SaveCompanyDetailsMutation as Mutation,
   SaveCompanyDetailsMutationVariables as MutationVariables,
@@ -12,13 +12,12 @@ import {
 import CompanyDetailsForm from '../../components/CompanyDetailsForm/CompanyDetailsForm';
 
 import { useCreateUpdateOrder } from '../../gql/order';
-import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
-import { ICompanyDetailsFormContainerProps } from './interfaces';
-import { mapFormValues } from './mappers';
 import {
-  GetCompanyDetailsQuery,
-  GetCompanyDetailsQueryVariables,
-} from '../../../generated/GetCompanyDetailsQuery';
+  useCreateUpdateCreditApplication,
+  useGetCreditApplicationByOrderUuid,
+} from '../../gql/creditApplication';
+import { ICompanyDetailsFormContainerProps } from './interfaces';
+import { mapFormValues, mapDefaultValues } from './mappers';
 
 export const SAVE_COMPANY_DETAILS = gql`
   mutation SaveCompanyDetailsMutation($input: LimitedCompanyInputObject!) {
@@ -27,15 +26,6 @@ export const SAVE_COMPANY_DETAILS = gql`
       partyUuid
     }
   }
-`;
-
-export const GET_COMPANY_DETAILS = gql`
-  query GetCompanyDetailsQuery($companyUuid: ID!) {
-    companyByUuid(uuid: $companyUuid) {
-      ...SummaryFormDetailsSectionCompany
-    }
-  }
-  ${SummaryFormDetailsSection.fragments.company}
 `;
 
 export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerProps> = ({
@@ -54,6 +44,7 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
     orderId,
     () => {},
   );
+  const { data, loading } = useGetCreditApplicationByOrderUuid(orderId);
 
   const handleCompanyDetailsSave = (input: LimitedCompanyInputObject) =>
     saveCompanyDetails({
@@ -77,36 +68,37 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
     createUpdateApplication({
       variables: {
         input: {
-          addresses: values.addresses,
-          telephoneNumbers: values.telephoneNumbers,
-          emailAddresses: [values.emailAddress],
+          vatDetails: data?.creditApplicationByOrderUuid?.vatDetails,
+          directorsDetails:
+            data?.creditApplicationByOrderUuid?.directorsDetails,
+          bankAccounts: data?.creditApplicationByOrderUuid?.bankAccounts,
+          companyDetails: values,
           orderUuid: orderId,
         },
       },
     });
 
-  const { data } = useQuery<
-    GetCompanyDetailsQuery,
-    GetCompanyDetailsQueryVariables
-  >(GET_COMPANY_DETAILS, {
-    skip: !companyUuid,
-    variables: {
-      companyUuid: companyUuid!,
-    },
-  });
+  if (loading) {
+    return <Loading />;
+  }
+
+  const company = data?.creditApplicationByOrderUuid?.companyDetails
+    ? mapDefaultValues(data?.creditApplicationByOrderUuid?.companyDetails)
+    : undefined;
 
   return (
     <CompanyDetailsForm
       isEdited={isEdited}
-      company={data?.companyByUuid}
+      company={company}
       onSubmit={async values => {
         const mappedFormValues = mapFormValues(values, personUuid, companyUuid);
+
         await handleCompanyDetailsSave(mappedFormValues)
           .then(response =>
             handleOrderUpdate(
               response.data!.createUpdateLimitedCompany!.partyUuid,
             )
-              .then(() => handleCreditApplicationUpdate(mappedFormValues))
+              .then(() => handleCreditApplicationUpdate(values))
               .then(() =>
                 onCompleted(response.data!.createUpdateLimitedCompany!.uuid),
               ),

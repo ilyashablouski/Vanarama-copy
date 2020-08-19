@@ -2,7 +2,7 @@ import { ApolloError } from '@apollo/client';
 
 export type SubmitResult = {
   companyType: string;
-  companyUuid?: string;
+  businessPersonUuid?: string;
 };
 
 export interface IBusinessAboutFormContainerProps {

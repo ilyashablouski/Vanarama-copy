@@ -1,10 +1,13 @@
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React from 'react';
 import CompanyBankDetails from '../../components/CompanyBankDetails';
-import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
-import { useUpdateBankDetails, useBankDetails } from './gql';
+import {
+  useCreateUpdateCreditApplication,
+  useGetCreditApplicationByOrderUuid,
+} from '../../gql/creditApplication';
+import { useUpdateBankDetails } from './gql';
 import { IProps } from './interfaces';
-import { formValuesToInput } from './mappers';
+import { formValuesToInput, mapDefaultValues } from './mappers';
 
 const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   companyUuid,
@@ -12,12 +15,15 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   onCompleted,
   isEdited,
 }) => {
-  const { loading, error, data } = useBankDetails(companyUuid);
   const [updateBankDetails] = useUpdateBankDetails(companyUuid, onCompleted);
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
     orderUuid,
     () => {},
   );
+  const { loading, error, data } = useGetCreditApplicationByOrderUuid(
+    orderUuid,
+  );
+  const account = mapDefaultValues(data?.creditApplicationByOrderUuid);
 
   if (loading) {
     return <Loading size="large" />;
@@ -27,40 +33,37 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
     return <p>Error: {error.message}</p>;
   }
 
-  if (!data || !data.companyByUuid) {
+  if (!data) {
     return null;
   }
-
-  const { bankAccounts } = data.companyByUuid;
-  const currentAccount =
-    (bankAccounts?.length &&
-      bankAccounts.reduce((prev, current) => {
-        return new Date(prev.updatedAt).getTime() >
-          new Date(current.updatedAt).getTime()
-          ? prev
-          : current;
-      })) ||
-    undefined;
 
   return (
     <CompanyBankDetails
       isEdited={isEdited}
-      account={currentAccount}
-      onSubmit={async values =>
-        updateBankDetails({
+      account={account}
+      onSubmit={async values => {
+        const input = formValuesToInput(companyUuid, values);
+
+        await updateBankDetails({
           variables: {
-            input: formValuesToInput(companyUuid, values, currentAccount?.uuid),
+            input,
           },
         }).then(() =>
           createUpdateApplication({
             variables: {
               input: {
+                vatDetails: data?.creditApplicationByOrderUuid?.vatDetails,
+                companyDetails:
+                  data?.creditApplicationByOrderUuid?.companyDetails,
+                directorsDetails:
+                  data?.creditApplicationByOrderUuid?.directorsDetails,
+                bankAccounts: [values],
                 orderUuid,
               },
             },
           }),
-        )
-      }
+        );
+      }}
     />
   );
 };
