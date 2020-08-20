@@ -82,7 +82,8 @@ const SummaryForm: FCWithFragments<IProps> = ({ person, orderId }) => {
   >();
 
   const performCreditCheck = React.useCallback(
-    (partyData: any) => {
+    (partyData: GetPartyByUuid) => {
+      debugger;
       debugger;
       if (creditApplicationData) {
         debugger;
@@ -108,13 +109,14 @@ const SummaryForm: FCWithFragments<IProps> = ({ person, orderId }) => {
   const [getParty] = useLazyQuery<GetPartyByUuid, GetPartyByUuidVariables>(
     GET_PARTY_BY_UUID,
     {
-     // onCompleted: performCreditCheck,
+      onCompleted: performCreditCheck,
     },
   );
 
   const getPartyData = React.useCallback(
-    (creditApplicationDataFromCompleted: GetCreditApplicationByOrderUuidDataForCreditCheck) => {
-      debugger;
+    (
+      creditApplicationDataFromCompleted: GetCreditApplicationByOrderUuidDataForCreditCheck,
+    ) => {
       if (creditApplicationDataFromCompleted) {
         setCreditApplicationData(creditApplicationDataFromCompleted);
         const partyUuid =
@@ -123,12 +125,12 @@ const SummaryForm: FCWithFragments<IProps> = ({ person, orderId }) => {
         debugger;
         getParty({
           variables: {
-            uuid: partyUuid,
+            uuid: partyUuid, // 9b087ebc-b2a5-42ed-8782-e8614b985efa
           },
         });
       }
     },
-    [setCreditApplicationData, getParty],
+    [getParty],
   );
 
   const [getCreditApplication] = useLazyQuery<
@@ -139,7 +141,6 @@ const SummaryForm: FCWithFragments<IProps> = ({ person, orderId }) => {
   });
 
   const handleSubmit = React.useCallback(() => {
-    debugger;
     getCreditApplication({
       variables: {
         orderUuid: orderId,
