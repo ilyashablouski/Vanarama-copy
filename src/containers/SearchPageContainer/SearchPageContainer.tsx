@@ -34,7 +34,7 @@ import {
   SortField,
   LeaseTypeEnum,
 } from '../../../generated/globalTypes';
-import buildRewriteRoute from './helpers';
+import { buildRewriteRoute, prepareSlugPart } from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import RangeCard from './RangeCard';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
@@ -456,11 +456,14 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   useEffect(() => {
     if (router.query.make && router.query.rangeName) {
+      const makePart = prepareSlugPart(router.query.make);
+      const rangeNamePart = prepareSlugPart(router.query.rangeName);
+      const slug = `/${makePart}-${
+        isCarSearch ? 'car-leasing' : 'van-leasing'
+      }/${rangeNamePart}`;
       getGenericPage({
         variables: {
-          slug: `/${router.query.make}-${
-            isCarSearch ? 'car-leasing' : 'van-leasing'
-          }/${router.query.rangeName}`,
+          slug,
         },
       });
     }
@@ -637,8 +640,12 @@ const SearchPageContainer: React.FC<IProps> = ({
           {tiles && (
             <div className="row:features-4col">
               {tiles?.tiles?.length &&
-                tiles.tiles.map(tile => (
-                  <Tile plain className="-align-center -button">
+                tiles.tiles.map((tile, indx) => (
+                  <Tile
+                    plain
+                    className="-align-center -button"
+                    key={`${tile.title}_${indx.toString()}`}
+                  >
                     <span>
                       <Image
                         src={tile.image?.file?.url || ''}
