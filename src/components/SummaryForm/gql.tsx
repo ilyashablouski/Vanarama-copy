@@ -25,7 +25,7 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID = gql`
 export const FULL_CREDIT_CHECKER_MUTATION = gql`
   mutation fullCreditChecker(
     $partyId: ID!
-    $careditApplicationUuid: ID!
+    $creditApplicationUuid: ID!
     $orderUuid: ID!
     $vehicleType: VehicleTypeEnum!
     $monthlyPayment: Float!
