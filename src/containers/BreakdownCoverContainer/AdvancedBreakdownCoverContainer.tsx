@@ -34,8 +34,10 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
             >
               {featured1.title}
             </Heading>
-            <Text color="darker" size="regular" tag="p">
-              <ReactMarkdown source={featured1.body || ''} />
+            <Text color="darker" size="regular">
+              <ReactMarkdown
+                source={featured1.body?.replace(/\n/gi, '\n &nbsp;') || ''}
+              />
             </Text>
           </div>
           <div>
@@ -75,6 +77,7 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
                       description: el.body || '',
                     }}
                     className="breakdown"
+                    style={{ paddingTop: '10px', paddingBottom: '10px' }}
                   />
                 ))}
               </div>
@@ -109,7 +112,7 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
   return (
     <>
       <div className="row:title">
-        <Heading size="xlarge" color="black">
+        <Heading size="xlarge" color="black" tag="h1" >
           {title}
         </Heading>
         <ReactMarkdown source={body || ''} />
