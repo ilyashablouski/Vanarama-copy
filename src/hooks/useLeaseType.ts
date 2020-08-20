@@ -40,8 +40,6 @@ export default function useLeaseType(isCars: boolean | undefined | null) {
     get cachedLeaseType() {
       try {
         const res = client.readQuery({ query });
-        // eslint-disable-next-line no-console
-        console.log(res);
         if (isCars === null) {
           return { car: res.leaseTypes.car, lcv: res.leaseTypes.lcv };
         }
