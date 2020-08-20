@@ -175,11 +175,11 @@ const FiltersContainer = ({
 
   /** changing data for choiseboxes component */
   const choiseBoxBuilder = (
-    choises: IChoice[],
+    choices: IChoice[],
     filterAccessor: keyof typeof filtersMapper,
     actualState = selectedFiltersState,
   ) =>
-    choises?.map((value: IChoice) => ({
+    choices?.map((value: IChoice) => ({
       ...value,
       active: actualState[filterAccessor].includes(value.label),
     }));

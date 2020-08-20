@@ -44,6 +44,7 @@ import {
   GenericPageQuery,
   GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
+import useLeaseType from '../../hooks/useLeaseType';
 
 interface IProps {
   isServer: boolean;
@@ -98,13 +99,20 @@ const SearchPageContainer: React.FC<IProps> = ({
   );
   const [lastCard, setLastCard] = useState('');
   const [hasNextPage, setHasNextPage] = useState(true);
-  const [isPersonal, setIsPersonal] = useState(true);
+
+  const { cachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
+  const [isPersonal, setIsPersonal] = useState(cachedLeaseType === 'Personal');
   const [isSpecialOffers, setIsSpecialOffers] = useState(
     isSpecialOfferPage ? true : getValueFromStorage(isServer) ?? true,
   );
   const [totalCount, setTotalCount] = useState(0);
 
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
+
+  useEffect(() => {
+    const type = isPersonal ? 'Personal' : 'Business';
+    setCachedLeaseType(type);
+  }, [isPersonal, setCachedLeaseType]);
 
   const { refetch, loading } = useProductCardData(
     capIds,
