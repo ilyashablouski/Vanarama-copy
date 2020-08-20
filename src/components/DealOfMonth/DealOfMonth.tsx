@@ -15,6 +15,7 @@ interface IDealOfMonthProps {
   price: number;
   imageSrc: string;
   flagText?: string;
+  isPersonal: boolean;
   viewOfferClick: () => void;
 }
 
@@ -25,6 +26,7 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
   price,
   viewOfferClick,
   imageSrc,
+  isPersonal,
   flagText = 'DEAL OF THE MONTH',
 }) => (
   <>
@@ -63,7 +65,7 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
       >
         <Price size="xlarge" price={price} />
         <Text tag="p" size="small" color="dark">
-          Per Month Excluding VAT
+          {isPersonal ? 'Per Month Inc VAT' : 'Per Month Excluding VAT'}
         </Text>
         <br />
         <Button
