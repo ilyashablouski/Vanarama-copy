@@ -48,7 +48,7 @@ import useLeaseType from '../../../hooks/useLeaseType';
 export const CarsPage: NextPage = () => {
   const { data, loading, error } = useQuery<HubCarPageData>(HUB_CAR_CONTENT);
   // pass in true for car leaseType
-  const { getCachedLeaseType } = useLeaseType(true);
+  const { cachedLeaseType } = useLeaseType(true);
 
   const { data: products, error: productsError } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
@@ -73,7 +73,7 @@ export const CarsPage: NextPage = () => {
     return <p>Error: {err?.message}</p>;
   }
 
-  const isPersonal = getCachedLeaseType() === 'Personal';
+  const isPersonal = cachedLeaseType === 'Personal';
 
   return (
     <>

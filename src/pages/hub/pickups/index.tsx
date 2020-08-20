@@ -48,9 +48,11 @@ import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { getProductPageUrl } from '../../../utils/url';
 import { CompareContext } from '../../../utils/comparatorTool';
 import getTitleTag from '../../../utils/getTitleTag';
+import useLeaseType from '../../../hooks/useLeaseType';
 
 export const PickupsPage: NextPage = () => {
   const [offer, setOffer] = useState<ProdData>();
+  const { cachedLeaseType } = useLeaseType(false);
   const { data, loading, error } = useQuery<HubPickupPageData>(
     HUB_PICKUP_CONTENT,
   );
@@ -89,6 +91,8 @@ export const PickupsPage: NextPage = () => {
     offer!,
     productsPickupsDerivatives?.derivatives || null,
   );
+
+  const isPersonal = cachedLeaseType === 'Personal';
 
   return (
     <>
@@ -205,7 +209,7 @@ export const PickupsPage: NextPage = () => {
               >
                 <div className="-flex-h">
                   <Price
-                    price={item?.businessRate}
+                    price={isPersonal ? item?.personalRate : item?.businessRate}
                     size="large"
                     separator="."
                     priceDescription="Per Month Exc.VAT"

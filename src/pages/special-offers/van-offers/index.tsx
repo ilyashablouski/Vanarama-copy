@@ -24,11 +24,14 @@ import {
 } from '../../../../generated/globalTypes';
 import BreadCrumbs from '../../../containers/BreadCrumbContainer';
 import ProductCarousel from '../../../components/ProductCarousel/ProductCarousel';
+import useLeaseType from '../../../hooks/useLeaseType';
 
 export const VanOffers: NextPage = () => {
   const { data, loading, error } = useQuery<VanOffersPageData>(
     VAN_OFFERS_CONTENT,
   );
+
+  const { cachedLeaseType } = useLeaseType(false);
 
   const { data: productSmallVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
@@ -125,6 +128,8 @@ export const VanOffers: NextPage = () => {
     return <p>Error: {error.message}</p>;
   }
 
+  const isPersonal = cachedLeaseType === 'Personal';
+
   return (
     <>
       <div className="row:title">
@@ -144,7 +149,9 @@ export const VanOffers: NextPage = () => {
             </span>
           </Heading>
           <ProductCarousel
-            leaseType={LeaseTypeEnum.PERSONAL}
+            leaseType={
+              isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+            }
             data={{
               derivatives: productSmallVanDerivatives?.derivatives || null,
               productCard: productSmallVan?.productCarousel || null,
@@ -172,7 +179,9 @@ export const VanOffers: NextPage = () => {
             </span>
           </Heading>
           <ProductCarousel
-            leaseType={LeaseTypeEnum.PERSONAL}
+            leaseType={
+              isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+            }
             data={{
               derivatives: productMediumVanDerivatives?.derivatives || null,
               productCard: productMediumVan?.productCarousel || null,
@@ -200,7 +209,9 @@ export const VanOffers: NextPage = () => {
             </span>
           </Heading>
           <ProductCarousel
-            leaseType={LeaseTypeEnum.PERSONAL}
+            leaseType={
+              isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+            }
             data={{
               derivatives: productLargeVanDerivatives?.derivatives || null,
               productCard: productLargeVan?.productCarousel || null,
@@ -228,7 +239,9 @@ export const VanOffers: NextPage = () => {
             </span>
           </Heading>
           <ProductCarousel
-            leaseType={LeaseTypeEnum.PERSONAL}
+            leaseType={
+              isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+            }
             data={{
               derivatives: null,
               productCard: productPickups?.productCarousel || null,
@@ -256,7 +269,9 @@ export const VanOffers: NextPage = () => {
             </span>
           </Heading>
           <ProductCarousel
-            leaseType={LeaseTypeEnum.PERSONAL}
+            leaseType={
+              isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+            }
             data={{
               derivatives: null,
               productCard: productTippers?.productCarousel || null,
@@ -286,7 +301,9 @@ export const VanOffers: NextPage = () => {
             </span>
           </Heading>
           <ProductCarousel
-            leaseType={LeaseTypeEnum.PERSONAL}
+            leaseType={
+              isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+            }
             data={{
               derivatives: null,
               productCard: productSpecialistVan?.productCarousel || null,
