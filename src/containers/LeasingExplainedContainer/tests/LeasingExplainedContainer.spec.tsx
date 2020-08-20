@@ -105,11 +105,13 @@ describe('<FinanceExplainedContainer />', () => {
     );
     // ASSERT
     await waitFor(() => {
-      expect(screen.getByText(`Car Leasing Explained`)).toBeInTheDocument();
+      expect(screen.getByText(`Your Guide To Car Leasing`)).toBeInTheDocument();
     });
 
     await waitFor(() => {
-      expect(screen.getByText(`Your Guide To Car Leasing`)).toBeInTheDocument();
+      expect(
+        screen.getByText(`Company Cash Allowance Vs Company Car`),
+      ).toBeInTheDocument();
     });
 
     const tree = getComponent.baseElement;
