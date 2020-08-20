@@ -17,15 +17,14 @@ export type LeaseType = 'Personal' | 'Business';
 */
 
 /**
- * pass in optional boolean value
- * true set and get car leaseType,
- * false set and get lcv lease type,
- * passing in 0 args defaults to null inorder to get both types as object, no setting for both required
+ * --- useLeaseType hook ---
+ * pass in required arg
+ * true to set and get car leaseType,
+ * false | undefined to set and get lcv lease type,
+ * null inorder to get both types as object, no set required
  * @return {Object}  return lease type setter fn and getter
  */
-export default function useLeaseType(
-  isCars: boolean | undefined | null = null,
-) {
+export default function useLeaseType(isCars: boolean | undefined | null) {
   const client = useApolloClient();
   const initleaseTypes = { car: 'Personal', lcv: 'Business' };
   return {

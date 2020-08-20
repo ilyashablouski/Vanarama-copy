@@ -42,7 +42,7 @@ import useLeaseType from '../hooks/useLeaseType';
 
 export const HomePage: NextPage = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const { cachedLeaseType } = useLeaseType();
+  const { cachedLeaseType } = useLeaseType(null);
   const { data, loading, error } = useQuery<HomePageData>(ALL_HOME_CONTENT);
 
   const { data: productsVan } = useQuery<ProductCardData>(
