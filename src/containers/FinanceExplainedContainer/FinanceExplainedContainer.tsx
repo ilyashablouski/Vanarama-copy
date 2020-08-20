@@ -43,6 +43,9 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
       </div>
       {!!cards?.length && (
         <div className="row:bg-lighter">
+          <Heading color="black" size="lead">
+            {sections?.cards?.title}
+          </Heading>
           <div className="row:cards-3col">
             {cards.map((el, indx) => (
               <Card
