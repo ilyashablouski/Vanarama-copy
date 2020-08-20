@@ -110,6 +110,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
                         }}
                       />
                     ),
+                    description: el?.body || '',
                   }}
                 />
               ))}
