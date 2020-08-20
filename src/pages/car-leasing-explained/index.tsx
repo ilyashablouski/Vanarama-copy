@@ -8,11 +8,11 @@ import { useGenericPage } from '../../gql/genericPage';
 
 const crumbs = [
   { label: 'Home', href: '/' },
-  { label: 'Van Leasing Explained', href: '/van-leasing-explained' },
+  { label: 'Car Leasing Explained', href: '/car-leasing-explained' },
 ];
 
 const FinanceInfo: NextPage = () => {
-  const { data, loading, error } = useGenericPage('/van-leasing-explained');
+  const { data, loading, error } = useGenericPage('/car-leasing-explained');
 
   if (loading) {
     return <Loading size="large" />;
