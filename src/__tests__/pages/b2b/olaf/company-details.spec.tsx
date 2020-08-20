@@ -12,8 +12,11 @@ import {
 import { SEARCH_COMPANIES } from '../../../../components/CompanyDetailsForm/useSearchCompanies';
 import { CompanyDetailsPage } from '../../../../pages/b2b/olaf/company-details/[personUuid]';
 import { SAVE_COMPANY_DETAILS } from '../../../../containers/CompanyDetailsFormContainer/CompanyDetailsFormContainer';
+import { makeGetCreditApplicationMock } from '../../../../gql/creditApplication';
+import { CREATE_UPDATE_ORDER_MUTATION } from '../../../../gql/order';
 
 const MOCK_PERSON_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
+const MOCK_ORDER_ID = '11111111-b980-46bd-8a8e-ed82705b3e01';
 
 jest.mock('../../../../layouts/OLAFLayout/OLAFLayout');
 jest.mock('next/router', () => ({
@@ -21,10 +24,19 @@ jest.mock('next/router', () => ({
     push: jest.fn(),
     pathname: '/b2b/olaf/company-details',
     query: {
+      orderId: MOCK_ORDER_ID,
       personUuid: MOCK_PERSON_UUID,
     },
   }),
 }));
+
+const getCreditApplication = makeGetCreditApplicationMock(MOCK_ORDER_ID);
+
+async function waitForLoadingFinish() {
+  await waitFor(() =>
+    expect(screen.getByTestId('company-details_heading')).toBeInTheDocument(),
+  );
+}
 
 function typeIntoSearchField(value: string) {
   const field = screen.getByRole('textbox', { name: /Company Lookup/i });
@@ -38,6 +50,7 @@ describe('B2B Company Details page', () => {
     const queryMock = jest.fn();
     const mutationMock = jest.fn();
     const mocks: MockedResponse[] = [
+      getCreditApplication,
       {
         request: {
           query: SEARCH_COMPANIES,
@@ -73,18 +86,13 @@ describe('B2B Company Details page', () => {
           query: SAVE_COMPANY_DETAILS,
           variables: {
             input: {
-              person: {
-                uuid: MOCK_PERSON_UUID,
-              },
+              person: { uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01' },
               companyType: 'Limited',
-              legalName: 'AUTORAMA UK LTD',
-              companyNumber: '05137709',
-              tradingSince: '01-05-2004',
+              legalName: undefined,
+              companyNumber: undefined,
+              tradingSince: '01-08-2020',
               addresses: [
-                {
-                  serviceId: 'Vanarama, Maylands Avenue',
-                  kind: 'registered',
-                },
+                { serviceId: 'Vanarama, Maylands Avenue', kind: 'registered' },
               ],
               withTradingAddress: false,
               companyNature: 'Selling cars',
@@ -101,6 +109,7 @@ describe('B2B Company Details page', () => {
           data: {
             createUpdateLimitedCompany: {
               uuid: MOCK_PERSON_UUID,
+              partyUuid: 'partyUuid',
             },
           } as SaveCompanyDetailsMutation,
         })),
@@ -114,6 +123,7 @@ describe('B2B Company Details page', () => {
       </MockedProvider>,
     );
 
+    await waitForLoadingFinish();
     // Type a search term and wait for the results to load
     typeIntoSearchField('Autora');
     await waitFor(() => expect(queryMock).toHaveBeenCalledTimes(1));
@@ -154,6 +164,7 @@ describe('B2B Company Details page', () => {
     // ARRANGE
     const mutationMock = jest.fn();
     const mocks: MockedResponse[] = [
+      getCreditApplication,
       {
         request: {
           query: SAVE_COMPANY_DETAILS,
@@ -200,6 +211,7 @@ describe('B2B Company Details page', () => {
       </MockedProvider>,
     );
 
+    await waitForLoadingFinish();
     // Choose to enter details manually
     fireEvent.click(
       screen.getByRole('button', {
@@ -255,6 +267,7 @@ describe('B2B Company Details page', () => {
     const queryMock = jest.fn();
     const mutationMock = jest.fn();
     const mocks: MockedResponse[] = [
+      getCreditApplication,
       {
         request: {
           query: SEARCH_COMPANIES,
@@ -290,18 +303,13 @@ describe('B2B Company Details page', () => {
           query: SAVE_COMPANY_DETAILS,
           variables: {
             input: {
-              person: {
-                uuid: MOCK_PERSON_UUID,
-              },
+              person: { uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01' },
               companyType: 'Limited',
-              legalName: 'AUTORAMA UK LTD',
-              companyNumber: '05137709',
-              tradingSince: '01-05-2004',
+              legalName: undefined,
+              companyNumber: undefined,
+              tradingSince: '01-08-2020',
               addresses: [
-                {
-                  serviceId: 'Vanarama, Maylands Avenue',
-                  kind: 'registered',
-                },
+                { serviceId: 'Vanarama, Maylands Avenue', kind: 'registered' },
                 {
                   serviceId: 'Vanarama Trading Address, PO BOX 999',
                   kind: 'trading',
@@ -322,9 +330,32 @@ describe('B2B Company Details page', () => {
           data: {
             createUpdateLimitedCompany: {
               uuid: MOCK_PERSON_UUID,
+              partyUuid: 'partyUuid',
             },
           } as SaveCompanyDetailsMutation,
         })),
+      },
+      {
+        request: {
+          query: CREATE_UPDATE_ORDER_MUTATION,
+          variables: {
+            input: {
+              partyUuid: 'partyUuid',
+              leaseType: 'BUSINESS',
+              lineItems: [],
+            },
+          },
+        },
+        result: {
+          data: {
+            createUpdateOrder: {
+              uuid: 'uuid',
+              createdAt: 'createdAt',
+              salesChannel: 'salesChannel',
+              status: 'status',
+            },
+          },
+        },
       },
     ];
 
@@ -335,6 +366,7 @@ describe('B2B Company Details page', () => {
       </MockedProvider>,
     );
 
+    await waitForLoadingFinish();
     // Type a search term and wait for the results to load
     typeIntoSearchField('Autora');
     await waitFor(() => expect(queryMock).toHaveBeenCalledTimes(1));
@@ -433,6 +465,7 @@ describe('B2B Company Details page', () => {
           } as SearchCompaniesQuery,
         })),
       },
+      getCreditApplication,
     ];
 
     // ACT
@@ -441,6 +474,8 @@ describe('B2B Company Details page', () => {
         <CompanyDetailsPage />
       </MockedProvider>,
     );
+
+    await waitForLoadingFinish();
 
     // Type a search term and wait for the results to load
     typeIntoSearchField('INACTIVE LTD');

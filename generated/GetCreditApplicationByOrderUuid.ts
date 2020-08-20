@@ -31,6 +31,9 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_li
 export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid {
   addresses: any | null;
   bankAccounts: any | null;
+  companyDetails: any | null;
+  vatDetails: any | null;
+  directorsDetails: any | null;
   employmentHistories: any | null;
   incomeAndExpenses: any | null;
   lineItem: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_lineItem | null;

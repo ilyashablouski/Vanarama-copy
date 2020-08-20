@@ -2,6 +2,8 @@ import moment from 'moment';
 import { historyToMoment } from '../../utils/dates';
 import { SubmissionValues } from '../../components/CompanyDetailsForm/interfaces';
 
+const DATE_FORMAT = 'DD-MM-YYYY';
+
 export const mapAddresses = (values: SubmissionValues) =>
   values.tradingDifferent
     ? [
@@ -51,15 +53,31 @@ export const mapFormValues = (
       ? searchResult.companyNumber
       : values.companyNumber,
     tradingSince: searchResult
-      ? moment(searchResult.dateOfCreation!).format('DD-MM-YYYY')
+      ? moment(searchResult.dateOfCreation!).format(DATE_FORMAT)
       : historyToMoment({
           month: values.tradingSinceMonth,
           year: values.tradingSinceYear,
-        }).format('DD-MM-YYYY'),
+        }).format(DATE_FORMAT),
     addresses: mapAddresses(values),
     withTradingAddress: values.tradingDifferent,
     companyNature: values.nature,
     emailAddress: mapEmailAddress(values),
     telephoneNumbers: mapTelephoneNumbers(values),
+  };
+};
+
+export const mapDefaultValues = (data: { [key: string]: any }) => {
+  return {
+    nature: data?.nature,
+    companyNumber: data?.company_number,
+    companyType: data?.company_type,
+    companyName: data?.company_name,
+    tradingSinceMonth: data?.trading_since_month,
+    tradingSinceYear: data?.trading_since_year,
+    email: data?.email,
+    telephone: data?.telephone,
+    tradingAddress: data?.trading_address,
+    registeredAddress: data?.registered_address,
+    tradingDifferent: data?.trading_different,
   };
 };
