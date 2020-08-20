@@ -33,6 +33,9 @@ export interface CreateUpdateCreditApplication_createUpdateCreditApplication_lin
 export interface CreateUpdateCreditApplication_createUpdateCreditApplication {
   addresses: any | null;
   bankAccounts: any | null;
+  companyDetails: any | null;
+  vatDetails: any | null;
+  directorsDetails: any | null;
   employmentHistories: any | null;
   incomeAndExpenses: any | null;
   lineItem: CreateUpdateCreditApplication_createUpdateCreditApplication_lineItem | null;

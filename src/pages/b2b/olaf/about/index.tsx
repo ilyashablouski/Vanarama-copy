@@ -75,18 +75,20 @@ export const BusinessAboutPage: NextPage = () => {
     const params = getUrlParam({ orderId });
     const journeyUrl =
       result.companyType === CompanyTypes.limited
-        ? `company-details/[personUuid]/${params}`
+        ? `company-details/[personUuid]${params}`
         : `sole-trader/company-details/[personUuid]${params}`;
     const url =
       router.query.redirect === 'summary'
         ? `/b2b/olaf/summary/[companyUuid]${params}`
         : `/b2b/olaf/${journeyUrl}`;
 
+    const personId = personUuid || result.businessPersonUuid || '';
+
     router.push(
       url,
       url
-        .replace('[companyUuid]', companyUuid || result.companyUuid || '')
-        .replace('[personUuid]', personUuid || '')
+        .replace('[companyUuid]', companyUuid || '')
+        .replace('[personUuid]', personId)
         .replace('[orderId]', orderId || ''),
     );
   };

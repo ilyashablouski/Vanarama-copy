@@ -6,6 +6,7 @@ import { getVehiclesList, getRangesList, useManufacturerList } from '../gql';
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import { GENERIC_PAGE } from '../../../gql/genericPage';
 // TODO: Invistigate useQuery refetch problem
 const mockData = {
   loading: false,
@@ -567,6 +568,34 @@ const mocksResponse: MockedResponse[] = [
           productCard: mockData.data.productCard,
           derivatives: mockData.data.derivatives,
         },
+        refetch: jest.fn(),
+      };
+    },
+  },
+  {
+    request: {
+      query: GENERIC_PAGE,
+      variables: {
+        slug: '/abarth-car-leasing/124-spider',
+      },
+    },
+    result: () => {
+      return {
+        data: {},
+        refetch: jest.fn(),
+      };
+    },
+  },
+  {
+    request: {
+      query: GENERIC_PAGE,
+      variables: {
+        slug: '/undefined-car-leasing/undefined',
+      },
+    },
+    result: () => {
+      return {
+        data: {},
         refetch: jest.fn(),
       };
     },

@@ -14,6 +14,7 @@ describe('<BlogPost />', () => {
           id: '42LjdTY9hSi2YdVi4aEsuO',
           metaData: {
             title: 'Vehicle Leasing | Personal & Business Lease',
+            name: 'Vehicle Leasing | Personal & Business Lease',
             metaRobots: 'all',
             metaDescription: null,
             publishedOn: '2020-08-02',

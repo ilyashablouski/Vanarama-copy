@@ -1,16 +1,20 @@
 import { gql, useMutation, useLazyQuery } from '@apollo/client';
 import {
-  UpdateVatDetailsMutation as Mutation,
-  UpdateVatDetailsMutationVariables as MutationVariables,
-} from '../../../generated/UpdateVatDetailsMutation';
+  UpdateLimitedVatDetailsMutation,
+  UpdateLimitedVatDetailsMutationVariables,
+} from '../../../generated/UpdateLimitedVatDetailsMutation';
+import {
+  UpdateSoleTraderVatDetailsMutation,
+  UpdateSoleTraderVatDetailsMutationVariables,
+} from '../../../generated/UpdateSoleTraderVatDetailsMutation';
 import BusinessSummaryFormVATDetailsSection from '../../components/BusinessSummaryForm/BusinessSummaryFormVATDetailsSection';
 import {
   GetVatDetailsQuery,
   GetVatDetailsQueryVariables,
 } from '../../../generated/GetVatDetailsQuery';
 
-export const UPDATE_VAT_DETAILS = gql`
-  mutation UpdateVatDetailsMutation($input: LimitedCompanyInputObject!) {
+export const UPDATE_LIMITED_VAT_DETAILS = gql`
+  mutation UpdateLimitedVatDetailsMutation($input: LimitedCompanyInputObject!) {
     createUpdateLimitedCompany(input: $input) {
       uuid
       isVatRegistered
@@ -20,6 +24,7 @@ export const UPDATE_VAT_DETAILS = gql`
         percentage
       }
       vatNumber
+      companyNumber
     }
   }
 `;
@@ -33,8 +38,29 @@ export const GET_VAT_DETAILS = gql`
   ${BusinessSummaryFormVATDetailsSection.fragments.vatDetails}
 `;
 
-export function useUpdateVatDetails() {
-  return useMutation<Mutation, MutationVariables>(UPDATE_VAT_DETAILS);
+export const UPDATE_SOLE_TRADER_VAT_DETAILS = gql`
+  mutation UpdateSoleTraderVatDetailsMutation(
+    $input: SoleTraderCompanyInputObject!
+  ) {
+    createUpdateSoleTraderCompany(input: $input) {
+      uuid
+      isVatRegistered
+      tradesOutsideUk
+      turnoverPercentageOutsideUk {
+        country
+        percentage
+      }
+      vatNumber
+      companyNumber
+    }
+  }
+`;
+
+export function useUpdateLimitedVatDetails() {
+  return useMutation<
+    UpdateLimitedVatDetailsMutation,
+    UpdateLimitedVatDetailsMutationVariables
+  >(UPDATE_LIMITED_VAT_DETAILS);
 }
 
 export function useGetVatDetails(companyUuid: string) {
@@ -46,4 +72,11 @@ export function useGetVatDetails(companyUuid: string) {
       },
     },
   );
+}
+
+export function useUpdateSoleTraderVatDetails() {
+  return useMutation<
+    UpdateSoleTraderVatDetailsMutation,
+    UpdateSoleTraderVatDetailsMutationVariables
+  >(UPDATE_SOLE_TRADER_VAT_DETAILS);
 }

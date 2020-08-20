@@ -9,12 +9,10 @@ import React, { useMemo, useEffect } from 'react';
 import { FormContext, useForm, OnSubmit } from 'react-hook-form';
 import CountryTurnoverFieldArray from './CountryTurnoverFieldArray';
 import { VatDetailsFormValues } from './interfaces';
-import { VatDetails } from '../../../generated/VatDetails';
-import { mapDefaultValues } from './utils';
 
 interface IProps {
   onSubmit: OnSubmit<VatDetailsFormValues>;
-  vatDetails: VatDetails | null | undefined;
+  vatDetails: VatDetailsFormValues | undefined;
   isEdited: boolean;
 }
 
@@ -23,12 +21,13 @@ const VatDetailsForm: React.FC<IProps> = ({
   vatDetails,
   isEdited,
 }) => {
-  const defaultValues = isEdited
-    ? mapDefaultValues(vatDetails)
-    : {
-        markets: [{ country: '', percentage: '' }],
-      };
-
+  const defaultValues = {
+    ...vatDetails,
+    markets:
+      (vatDetails?.markets || []).length > 0
+        ? vatDetails?.markets
+        : [{ country: '', percentage: '' }],
+  };
   const methods = useForm<VatDetailsFormValues>({
     mode: 'onBlur',
     defaultValues,
