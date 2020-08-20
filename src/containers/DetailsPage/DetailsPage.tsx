@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Router from 'next/router';
 import { ApolloError } from '@apollo/client';
 
@@ -40,6 +40,7 @@ import { replaceReview } from '../../components/CustomerReviews/helpers';
 import FrequentlyAskedQuestions from '../../components/FrequentlyAskedQuestions/FrequentlyAskedQuestions';
 import { useCreateUpdateOrder } from '../../gql/order';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import useLeaseType from '../../hooks/useLeaseType';
 
 interface IDetailsPageProps {
   capId: number;
@@ -60,9 +61,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   loading,
   error,
 }) => {
-  const [leaseType, setLeaseType] = useState<string>('Personal');
+  // pass cars prop(Boolean)
+  const { cachedLeaseType, setCachedLeaseType } = useLeaseType(cars);
+  const [leaseType, setLeaseType] = useState<string>(cachedLeaseType);
   const [leadTime, setLeadTime] = useState<string>('');
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
+
+  useEffect(() => {
+    setCachedLeaseType(leaseType);
+  }, [leaseType, setCachedLeaseType]);
+
   const [
     leaseScannerData,
     setLeaseScannerData,
