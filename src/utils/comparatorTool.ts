@@ -9,8 +9,8 @@ export const PAGES_WITH_COMPARATOR = [
 ];
 
 export const PAGES_WITHOUT_COMPARATOR = [
-  '/van-leasing/[...manufacturer]',
-  '/car-leasing/[...manufacturer]',
+  '/van-leasing/[...details-page]',
+  '/car-leasing/[...details-page]',
 ];
 
 export const WHOLE_PATHS_PAGES_WITH_COMPARATOR = ['/'];
