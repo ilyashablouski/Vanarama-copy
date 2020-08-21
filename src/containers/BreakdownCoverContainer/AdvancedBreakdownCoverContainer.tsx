@@ -7,9 +7,9 @@ import Image from '@vanarama/uibook/lib/components/atoms/image';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
   advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections as Section,
-  advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured3,
-  advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured1,
-  advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured2,
+  advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured1 as Featured1Type,
+  advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured2 as Featured2Type,
+  advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured3 as Featured3Type,
 } from '../../../generated/advancedBreakdownCoverPage';
 
 interface IProps {
@@ -66,8 +66,6 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
     </>
   );
 
- 
-
   return (
     <>
       <div className="row:title">
@@ -86,15 +84,10 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
 
 export default AdvancedBreakdownCoverContainer;
 function getFeaturedHtml(
-  featured3:
-    | advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured1
-    | advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured2
-    | advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured3
-    | null
-    | undefined,
+  featured3: Featured1Type | Featured2Type | Featured3Type | null | undefined,
 ) {
   const featuredClass = getFeaturedClassPartial(featured3);
-  const imageFirst = featuredClass == 'featured-left';
+  const imageFirst = featuredClass === 'featured-left';
   return (
     <>
       {featured3 && (
