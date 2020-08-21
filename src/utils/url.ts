@@ -55,12 +55,12 @@ export const getProductPageUrl = (
   return vehicleType === VehicleTypeEnum.CAR
     ? {
         url: `${leasing}/${manufacturer}/${range}/${bodyStyle}/${slug}`,
-        href: `${leasing}/[...manufacturer]`,
+        href: `${leasing}/[...details-page]`,
         capId: capId as string,
       }
     : {
         url: `${leasing}/${manufacturer}/${model}/${slug}`,
-        href: `${leasing}/[...manufacturer]`,
+        href: `${leasing}/[...details-page]`,
         capId: capId as string,
       };
 };
