@@ -784,6 +784,16 @@ const SearchPageContainer: React.FC<IProps> = ({
                           <Text color="dark" size="regular" tag="span">
                             <ReactMarkdown source={card.body || ''} />
                           </Text>
+                          <RouterLink
+                            link={{
+                              href: card.link?.url || '',
+                              label: card.link?.text || '',
+                              linkType: card.link?.url?.match('http')
+                                ? LinkTypes.external
+                                : '',
+                            }}
+                            classNames={{ color: 'teal' }}
+                          />
                         </Card>
                       ),
                   )}
