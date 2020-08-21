@@ -1,9 +1,8 @@
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { FormContext, OnSubmit, useForm } from 'react-hook-form';
-import moment from 'moment';
 import { SearchCompaniesQuery_searchCompanies_nodes as SearchResult } from '../../../generated/SearchCompaniesQuery';
 import CompanyCard from './CompanyCard';
 import CompanyDetailsFormFields from './CompanyDetailsFormFields';
@@ -14,12 +13,10 @@ import {
   SubmissionValues,
 } from './interfaces';
 import SearchActions from './SearchActions';
-import { SummaryFormDetailsSectionCompany } from '../../../generated/SummaryFormDetailsSectionCompany';
-import { addressToDisplay } from '../../utils/address';
 
 interface IProps {
   onSubmit: OnSubmit<SubmissionValues>;
-  company?: SummaryFormDetailsSectionCompany | null;
+  company?: ICompanyDetailsFormValues;
   isEdited: boolean;
 }
 
@@ -34,52 +31,13 @@ const CompanyDetailsForm: React.FC<IProps> = ({
     company ? 'manual' : 'search',
   );
 
-  const tradingSince =
-    (company?.tradingSince && moment(company.tradingSince)) || undefined;
-  const registeredAddresses =
-    company?.addresses &&
-    company.addresses.filter(a => a.kind === 'registered');
-  const registeredAddress =
-    (registeredAddresses &&
-      registeredAddresses[0] && {
-        id: registeredAddresses[0].serviceId || '',
-        label: addressToDisplay(registeredAddresses[0]),
-      }) ||
-    undefined;
-  const tradingAddresses =
-    company?.addresses && company.addresses.filter(a => a.kind === 'trading');
-  const tradingAddress =
-    (tradingAddresses &&
-      tradingAddresses[0] && {
-        id: tradingAddresses[0].serviceId || '',
-        label: addressToDisplay(tradingAddresses[0]),
-      }) ||
-    registeredAddress ||
-    undefined;
-  const defaultValues = useMemo(
-    () => ({
-      companyName: company?.legalName || '',
-      companyNumber: company?.companyNumber || '',
-      tradingSinceMonth: tradingSince && (tradingSince.month() + 1).toString(),
-      tradingSinceYear: tradingSince && tradingSince.year().toString(),
-      nature: company?.companyNature || '',
-      registeredAddress,
-      tradingAddress,
-      tradingDifferent:
-        (registeredAddress && registeredAddress !== tradingAddress) || false,
-      telephone:
-        (company?.telephoneNumbers && company?.telephoneNumbers[0].value) || '',
-      email:
-        (company?.emailAddresses && company?.emailAddresses[0].value) || '',
-    }),
-    [company, tradingSince, registeredAddress, tradingAddress],
-  );
   const methods = useForm<ICompanyDetailsFormValues>({
     mode: 'onBlur',
-    defaultValues,
+    defaultValues: company,
   });
 
   const companySearchResult = methods.watch('companySearchResult');
+
   const clearSearchResult = () => {
     setCompanySearchTerm('');
     methods.setValue('companySearchResult', undefined, true);
@@ -140,7 +98,7 @@ const CompanyDetailsForm: React.FC<IProps> = ({
         <FormContext {...methods}>
           <CompanyDetailsFormFields
             isEdited={isEdited}
-            defaultValues={defaultValues}
+            defaultValues={company}
             inputMode={inputMode}
           />
         </FormContext>

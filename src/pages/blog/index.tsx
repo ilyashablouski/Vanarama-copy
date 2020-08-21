@@ -55,7 +55,15 @@ const BlogPage: NextPage = () => {
               {featured.title}
             </Heading>
             <Text tag="p" size="regular" color="darker">
-              <ReactMarkdown source={featured.body || ''} />
+              <ReactMarkdown
+                source={featured.body || ''}
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return <RouterLink link={{ href, label: children }} />;
+                  },
+                }}
+              />
             </Text>
           </div>
         </div>
@@ -90,6 +98,14 @@ const BlogPage: NextPage = () => {
                           source={card.body || ''}
                           disallowedTypes={['paragraph']}
                           unwrapDisallowed
+                          renderers={{
+                            link: props => {
+                              const { href, children } = props;
+                              return (
+                                <RouterLink link={{ href, label: children }} />
+                              );
+                            },
+                          }}
                         />
                       </Text>
                     </Card>
@@ -116,6 +132,12 @@ const BlogPage: NextPage = () => {
                   source={carousel.cards[0]!.body || ''}
                   disallowedTypes={['paragraph']}
                   unwrapDisallowed
+                  renderers={{
+                    link: props => {
+                      const { href, children } = props;
+                      return <RouterLink link={{ href, label: children }} />;
+                    },
+                  }}
                 />
               </Text>
               <Button
@@ -162,6 +184,14 @@ const BlogPage: NextPage = () => {
                       source={tile.body || ''}
                       disallowedTypes={['paragraph']}
                       unwrapDisallowed
+                      renderers={{
+                        link: props => {
+                          const { href, children } = props;
+                          return (
+                            <RouterLink link={{ href, label: children }} />
+                          );
+                        },
+                      }}
                     />
                   </Text>
                 </Card>

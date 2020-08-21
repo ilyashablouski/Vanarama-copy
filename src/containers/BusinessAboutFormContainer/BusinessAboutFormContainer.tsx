@@ -84,6 +84,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
             createUpdateApplication({
               variables: {
                 input: {
+                  aboutDetails: values,
                   telephoneNumbers,
                   emailAddresses: [emailAddress],
                   orderUuid: orderId,
@@ -91,7 +92,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
               },
             }).then(() => {
               const result = {
-                companyUuid: data?.createUpdateBusinessPerson?.uuid,
+                businessPersonUuid: data?.createUpdateBusinessPerson?.uuid,
                 companyType: values.companyType,
               } as SubmitResult;
               onCompleted?.(result);

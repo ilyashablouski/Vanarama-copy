@@ -8,6 +8,7 @@ import {
   GetInsuranceLandingPage_insuranceLandingPage_sections_cards_cards as TypeCard,
 } from '../../../../generated/GetInsuranceLandingPage';
 import getTitleTag from '../../../utils/getTitleTag';
+import RouterLink from '../../../components/RouterLink/RouterLink';
 
 const renderCard = (card: TypeCard) => (
   <Card
@@ -45,6 +46,12 @@ const InsuranceTypesSection = ({ name, description, cards }: ITypesSection) => (
           source={description || ''}
           disallowedTypes={['paragraph']}
           unwrapDisallowed
+          renderers={{
+            link: props => {
+              const { href, children } = props;
+              return <RouterLink link={{ href, label: children }} />;
+            },
+          }}
         />
       </Text>
     </div>

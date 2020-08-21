@@ -20,6 +20,7 @@ export interface UpdateSoleTraderVatDetailsMutation_createUpdateSoleTraderCompan
   tradesOutsideUk: boolean | null;
   turnoverPercentageOutsideUk: UpdateSoleTraderVatDetailsMutation_createUpdateSoleTraderCompany_turnoverPercentageOutsideUk[] | null;
   vatNumber: string | null;
+  companyNumber: string | null;
 }
 
 export interface UpdateSoleTraderVatDetailsMutation {

@@ -38,10 +38,11 @@ import { LeaseTypeEnum, VehicleTypeEnum } from '../../generated/globalTypes';
 import ProductCarousel from '../components/ProductCarousel/ProductCarousel';
 import { useCarDerivativesData } from '../containers/OrdersInformation/gql';
 import getTitleTag from '../utils/getTitleTag';
+import useLeaseType from '../hooks/useLeaseType';
 
 export const HomePage: NextPage = () => {
   const [activeTab, setActiveTab] = useState(0);
-
+  const { cachedLeaseType } = useLeaseType(null);
   const { data, loading, error } = useQuery<HomePageData>(ALL_HOME_CONTENT);
 
   const { data: productsVan } = useQuery<ProductCardData>(
@@ -97,6 +98,9 @@ export const HomePage: NextPage = () => {
   if (error) {
     return <p>Error: {error.message}</p>;
   }
+
+  const isPersonalLcv = cachedLeaseType.lcv === 'Personal';
+  const isPersonalCar = cachedLeaseType.car === 'Personal';
 
   return (
     <>
@@ -165,7 +169,11 @@ export const HomePage: NextPage = () => {
             <TabPanel index={0}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
                 <ProductCarousel
-                  leaseType={LeaseTypeEnum.PERSONAL}
+                  leaseType={
+                    isPersonalLcv
+                      ? LeaseTypeEnum.PERSONAL
+                      : LeaseTypeEnum.BUSINESS
+                  }
                   data={{
                     derivatives: productsVanDerivatives?.derivatives || null,
                     productCard: productsVan?.productCarousel || null,
@@ -186,7 +194,11 @@ export const HomePage: NextPage = () => {
             <TabPanel index={1}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
                 <ProductCarousel
-                  leaseType={LeaseTypeEnum.PERSONAL}
+                  leaseType={
+                    isPersonalLcv
+                      ? LeaseTypeEnum.PERSONAL
+                      : LeaseTypeEnum.BUSINESS
+                  }
                   productType="Pickup"
                   data={{
                     derivatives: productsPickUpDerivatives?.derivatives || null,
@@ -210,7 +222,11 @@ export const HomePage: NextPage = () => {
             <TabPanel index={2}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
                 <ProductCarousel
-                  leaseType={LeaseTypeEnum.PERSONAL}
+                  leaseType={
+                    isPersonalCar
+                      ? LeaseTypeEnum.PERSONAL
+                      : LeaseTypeEnum.BUSINESS
+                  }
                   data={{
                     derivatives: productsCarDerivatives?.derivatives || null,
                     productCard: productsCar?.productCarousel || null,
@@ -282,6 +298,12 @@ export const HomePage: NextPage = () => {
             <ReactMarkdown
               escapeHtml={false}
               source={data?.homePage?.sections?.featured1?.body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+              }}
             />
           </Text>
           <IconList>
@@ -313,6 +335,12 @@ export const HomePage: NextPage = () => {
             <ReactMarkdown
               escapeHtml={false}
               source={data?.homePage?.sections?.featured2?.body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+              }}
             />
           </Text>
         </div>

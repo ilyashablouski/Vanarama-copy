@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import Router from 'next/router';
 import ReactMarkdown from 'react-markdown';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
@@ -10,6 +11,7 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import { LinkTypes } from '../../models/enum/LinkTypes';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/GenericPageQuery';
+import getTitleTag from '../../utils/getTitleTag';
 
 interface IProps {
   sections: Section | null;
@@ -37,12 +39,29 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
               source={body || ''}
               disallowedTypes={['paragraph']}
               unwrapDisallowed
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+              }}
             />
           </Text>
         </div>
       </div>
       {!!cards?.length && (
         <div className="row:bg-lighter">
+          <Heading
+            color="black"
+            size="lead"
+            tag={
+              getTitleTag(
+                sections?.cards?.titleTag || null,
+              ) as keyof JSX.IntrinsicElements
+            }
+          >
+            {sections?.cards?.name}
+          </Heading>
           <div className="row:cards-3col">
             {cards.map((el, indx) => (
               <Card
@@ -70,7 +89,15 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
       {featured1 && (
         <div className={`row:${getFeaturedClassPartial(featured1)}`}>
           <div>
-            <Heading color="black" size="lead">
+            <Heading
+              color="black"
+              size="lead"
+              tag={
+                getTitleTag(
+                  featured1.titleTag || null,
+                ) as keyof JSX.IntrinsicElements
+              }
+            >
               {featured1.title}
             </Heading>
             <Text color="darker" size="regular" tag="div">
@@ -78,6 +105,12 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
                 source={featured1.body || ''}
                 disallowedTypes={['paragraph']}
                 unwrapDisallowed
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return <RouterLink link={{ href, label: children }} />;
+                  },
+                }}
               />
             </Text>
           </div>
@@ -99,6 +132,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
                   title={{
                     title: el?.title || '',
                     withBtn: true,
+                    btnClick: () => Router.push(el?.link?.url || ''),
                     link: (
                       <RouterLink
                         link={{
@@ -108,10 +142,28 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
                             ? LinkTypes.external
                             : '',
                         }}
+                        className="heading"
+                        classNames={{ size: 'lead', color: 'black' }}
                       />
                     ),
                   }}
-                />
+                >
+                  <Text color="dark" size="regular" tag="span">
+                    <ReactMarkdown
+                      source={el?.body || ''}
+                      disallowedTypes={['paragraph']}
+                      unwrapDisallowed
+                      renderers={{
+                        link: props => {
+                          const { href, children } = props;
+                          return (
+                            <RouterLink link={{ href, label: children }} />
+                          );
+                        },
+                      }}
+                    />
+                  </Text>
+                </Card>
               ))}
             </Carousel>
           </div>
@@ -120,7 +172,15 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
       {featured2 && (
         <div className={`row:${getFeaturedClassPartial(featured2)}`}>
           <div>
-            <Heading color="black" size="large" tag="h3">
+            <Heading
+              color="black"
+              size="large"
+              tag={
+                getTitleTag(
+                  featured2.titleTag || null,
+                ) as keyof JSX.IntrinsicElements
+              }
+            >
               {featured2.title}
             </Heading>
             <Text color="darker" size="regular" tag="p">

@@ -614,34 +614,22 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           class="text -regular -darker"
         >
           <a
-            class="link -primary -regular -plain"
+            class="link -teal"
+            data-testid="link"
             href="https://www.vanarama.com/van-insurance.html"
+            rel="noopener noreferrer"
           >
-            <button
-              class="button -teal -regular -solid"
-            >
-              <div
-                class="button--inner"
-              >
-                Find Out More
-              </div>
-            </button>
+            Find Out More
           </a>
           
 
           <a
-            class="link -primary -regular -plain"
+            class="link -teal"
+            data-testid="link"
             href="https://www.vanarama.com/van-insurance.html"
+            rel="noopener noreferrer"
           >
-            <button
-              class="button -teal -regular -outline"
-            >
-              <div
-                class="button--inner"
-              >
-                Find Out More
-              </div>
-            </button>
+            Find Out More
           </a>
         </p>
       </div>
@@ -680,18 +668,12 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
         class="text -regular -darker"
       >
         <a
-          class="link -primary -regular -plain"
+          class="link -teal -lead"
+          data-testid="link"
           href="https://beta.vanarama.com/van-insurance.html"
+          rel="noopener noreferrer"
         >
-          <button
-            class="button -teal -lead -solid"
-          >
-            <div
-              class="button--inner"
-            >
-              Read Our FAQs
-            </div>
-          </button>
+          Read Our FAQs
         </a>
       </p>
     </div>
@@ -760,18 +742,12 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                     </p>
                     <p>
                       <a
-                        class="link -primary -regular -plain"
+                        class="link -teal -regular"
+                        data-testid="link"
                         href="https://beta.vanarama.com/car-leasing-explained/do-i-need-insurance-for-leased-car.html"
+                        rel="noopener noreferrer"
                       >
-                        <button
-                          class="button -teal -regular -clear"
-                        >
-                          <div
-                            class="button--inner"
-                          >
-                            Read More
-                          </div>
-                        </button>
+                        Read More
                       </a>
                     </p>
                   </div>

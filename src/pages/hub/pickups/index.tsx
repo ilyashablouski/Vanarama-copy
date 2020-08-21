@@ -48,9 +48,11 @@ import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { getProductPageUrl } from '../../../utils/url';
 import { CompareContext } from '../../../utils/comparatorTool';
 import getTitleTag from '../../../utils/getTitleTag';
+import useLeaseType from '../../../hooks/useLeaseType';
 
 export const PickupsPage: NextPage = () => {
   const [offer, setOffer] = useState<ProdData>();
+  const { cachedLeaseType } = useLeaseType(false);
   const { data, loading, error } = useQuery<HubPickupPageData>(
     HUB_PICKUP_CONTENT,
   );
@@ -89,6 +91,8 @@ export const PickupsPage: NextPage = () => {
     offer!,
     productsPickupsDerivatives?.derivatives || null,
   );
+
+  const isPersonal = cachedLeaseType === 'Personal';
 
   return (
     <>
@@ -135,6 +139,7 @@ export const PickupsPage: NextPage = () => {
 
       <div className="row:featured-product">
         <DealOfMonth
+          isPersonal
           imageSrc={
             offer?.imageUrl ||
             'https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg'
@@ -205,7 +210,7 @@ export const PickupsPage: NextPage = () => {
               >
                 <div className="-flex-h">
                   <Price
-                    price={item?.businessRate}
+                    price={isPersonal ? item?.personalRate : item?.businessRate}
                     size="large"
                     separator="."
                     priceDescription="Per Month Exc.VAT"
@@ -281,6 +286,12 @@ export const PickupsPage: NextPage = () => {
             <ReactMarkdown
               escapeHtml={false}
               source={data?.hubPickupPage.sections?.featured1?.body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+              }}
             />
           </Text>
           <IconList>
@@ -330,6 +341,12 @@ export const PickupsPage: NextPage = () => {
             <ReactMarkdown
               escapeHtml={false}
               source={data?.hubPickupPage.sections?.featured2?.body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+              }}
             />
           </Text>
         </div>

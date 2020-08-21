@@ -9,9 +9,11 @@ export interface ICompanyDetailsFormValues {
   nature: string;
   registeredAddress: {
     id: string;
+    label: string;
   };
   tradingAddress: {
     id: string;
+    label: string;
   };
   tradingDifferent: boolean;
   telephone: string;

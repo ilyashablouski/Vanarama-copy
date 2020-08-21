@@ -48,12 +48,14 @@ import ProductCarousel from '../../../components/ProductCarousel/ProductCarousel
 import { getProductPageUrl } from '../../../utils/url';
 import { GetDerivatives_derivatives } from '../../../../generated/GetDerivatives';
 import getTitleTag from '../../../utils/getTitleTag';
+import useLeaseType from '../../../hooks/useLeaseType';
 
 type ProdCards = ProdCardData[];
 
 export const VansPage: NextPage = () => {
   const [offers, setOffers] = useState<ProdCards>([]);
   const { data, loading, error } = useQuery<HubVanPageData>(HUB_VAN_CONTENT);
+  const { cachedLeaseType } = useLeaseType(false);
 
   // pluck random offer until offer position available
   const offer: ProdCardData = offers[Math.floor(Math.random() * offers.length)];
@@ -145,6 +147,8 @@ export const VansPage: NextPage = () => {
     ),
   );
 
+  const isPersonal = cachedLeaseType === 'Personal';
+
   return (
     <>
       <Hero>
@@ -194,13 +198,14 @@ export const VansPage: NextPage = () => {
       <hr className="-fullwidth" />
       <div className="row:featured-product">
         <DealOfMonth
+          isPersonal
           imageSrc={
             offer?.imageUrl ||
             'https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg'
           }
           vehicle={`${offer?.manufacturerName} ${offer?.rangeName}`}
           specification={offer?.derivativeName || ''}
-          price={offer?.businessRate || 0}
+          price={(isPersonal ? offer?.personalRate : offer?.businessRate) || 0}
           rating={offer?.averageRating || 3}
           viewOfferClick={() => {
             sessionStorage.setItem('capId', offer?.capId || '');
@@ -219,7 +224,9 @@ export const VansPage: NextPage = () => {
             </span>
           </Heading>
           <ProductCarousel
-            leaseType={LeaseTypeEnum.PERSONAL}
+            leaseType={
+              isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+            }
             data={{
               derivatives: productSmallVanDerivatives?.derivatives || null,
               productCard: productSmallVan?.productCarousel || null,
@@ -247,7 +254,9 @@ export const VansPage: NextPage = () => {
             </span>
           </Heading>
           <ProductCarousel
-            leaseType={LeaseTypeEnum.PERSONAL}
+            leaseType={
+              isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+            }
             data={{
               derivatives: productMediumVanDerivatives?.derivatives || null,
               productCard: productMediumVan?.productCarousel || null,
@@ -275,7 +284,9 @@ export const VansPage: NextPage = () => {
             </span>
           </Heading>
           <ProductCarousel
-            leaseType={LeaseTypeEnum.PERSONAL}
+            leaseType={
+              isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+            }
             data={{
               derivatives: productLargeVanDerivatives?.derivatives || null,
               productCard: productLargeVan?.productCarousel || null,
@@ -397,6 +408,12 @@ export const VansPage: NextPage = () => {
             <ReactMarkdown
               escapeHtml={false}
               source={data?.hubVanPage.sections?.featured1?.body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+              }}
             />
           </Text>
           <IconList>
@@ -441,6 +458,12 @@ export const VansPage: NextPage = () => {
             <ReactMarkdown
               escapeHtml={false}
               source={data?.hubVanPage.sections?.featured2?.body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+              }}
             />
           </Text>
         </div>

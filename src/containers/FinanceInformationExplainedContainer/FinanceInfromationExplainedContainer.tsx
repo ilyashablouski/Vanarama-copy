@@ -10,6 +10,7 @@ import RemoveCircleSharp from '@vanarama/uibook/lib/assets/icons/RemoveCircleSha
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import getTitleTag from '../../utils/getTitleTag';
 import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/GenericPageQuery';
+import RouterLink from '../../components/RouterLink/RouterLink';
 
 interface IProps {
   sections: Section | null;
@@ -70,7 +71,15 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
             {sections.featured1.title || ''}
           </Heading>
           <div className="content">
-            <ReactMarkdown source={sections.featured1.body || ''} />
+            <ReactMarkdown
+              source={sections.featured1.body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+              }}
+            />
           </div>
         </div>
       )}
@@ -132,7 +141,15 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
             {sections.featured2.title || ''}
           </Heading>
           <div className="content">
-            <ReactMarkdown source={sections.featured2.body || ''} />
+            <ReactMarkdown
+              source={sections.featured2.body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+              }}
+            />
           </div>
         </div>
       )}

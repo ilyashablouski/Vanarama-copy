@@ -1,8 +1,10 @@
 import { useQuery, gql, useMutation } from '@apollo/client';
+import { MockedResponse } from '@apollo/client/testing';
 import {
   CreateUpdateCreditApplication,
   CreateUpdateCreditApplicationVariables,
 } from '../../generated/CreateUpdateCreditApplication';
+import { CreditApplicationInputObject } from '../../generated/globalTypes';
 import {
   GetCreditApplicationByOrderUuid as Query,
   GetCreditApplicationByOrderUuidVariables as QueryVariables,
@@ -13,6 +15,9 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
     creditApplicationByOrderUuid(orderUuid: $id) {
       addresses
       bankAccounts
+      companyDetails
+      vatDetails
+      directorsDetails
       employmentHistories
       incomeAndExpenses
       lineItem {
@@ -63,6 +68,9 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
     createUpdateCreditApplication(input: $input) {
       addresses
       bankAccounts
+      companyDetails
+      vatDetails
+      directorsDetails
       employmentHistories
       incomeAndExpenses
       lineItem {
@@ -140,6 +148,15 @@ export function useCreateUpdateCreditApplication(
         const updatedAt =
           result.data?.createUpdateCreditApplication?.updatedAt ||
           data?.creditApplicationByOrderUuid?.updatedAt;
+        const companyDetails =
+          result.data?.createUpdateCreditApplication?.companyDetails ||
+          data?.creditApplicationByOrderUuid?.companyDetails;
+        const vatDetails =
+          result.data?.createUpdateCreditApplication?.vatDetails ||
+          data?.creditApplicationByOrderUuid?.vatDetails;
+        const directorsDetails =
+          result.data?.createUpdateCreditApplication?.directorsDetails ||
+          data?.creditApplicationByOrderUuid?.directorsDetails;
 
         // Write our data back to the cache.
         store.writeQuery<Query, QueryVariables>({
@@ -160,6 +177,9 @@ export function useCreateUpdateCreditApplication(
               uuid: orderId,
               partyDetails: null,
               leadManagerProposalId: null,
+              companyDetails,
+              vatDetails,
+              directorsDetails,
             },
           },
         });
@@ -167,3 +187,77 @@ export function useCreateUpdateCreditApplication(
     },
   });
 }
+
+const responseMock = {
+  addresses: [],
+  bankAccounts: [
+    {
+      account_name: 'Eternal account',
+      account_number: '67272820',
+      joined_at_month: '1',
+      joined_at_year: '2020',
+      sort_code: ['01', '93', '87'],
+    },
+  ],
+  companyDetails: null,
+  vatDetails: 'vatDetails',
+  directorsDetails: 'directorsDetails',
+  employmentHistories: 'employmentHistories',
+  incomeAndExpenses: 'incomeAndExpenses',
+  lineItem: {
+    uuid: 'uuid',
+    quantity: 'quantity',
+    status: 'status',
+    productId: 'productId',
+    productType: 'productType',
+    vehicleProduct: {
+      derivativeCapId: 'derivativeCapId',
+      description: 'description',
+      vsku: 'vsku',
+      term: 'term',
+      annualMileage: 'annualMileage',
+      monthlyPayment: 'monthlyPayment',
+      depositMonths: 'depositMonths',
+      funderId: 'funderId',
+      funderData: 'funderData',
+    },
+  },
+  leadManagerProposalId: 'leadManagerProposalId',
+  createdAt: 'createdAt',
+  emailAddresses: [],
+  partyDetails: 'partyDetails',
+  status: 'status',
+  telephoneNumbers: [],
+  updatedAt: 'updatedAt',
+  uuid: 'uuid',
+};
+
+export const makeGetCreditApplicationMock = (id: string): MockedResponse => ({
+  request: {
+    query: GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA,
+    variables: { id },
+  },
+  result: jest.fn().mockImplementation(() => ({
+    data: {
+      creditApplicationByOrderUuid: {
+        ...responseMock,
+      },
+    },
+  })),
+});
+
+export const makeUpdateCreditApplicationMock = (
+  input: CreditApplicationInputObject,
+): MockedResponse => ({
+  request: {
+    query: CREATE_UPDATE_CREDIT_APPLICATION,
+    variables: { input },
+  },
+  result: jest.fn().mockImplementation(() => ({
+    data: {
+      createUpdateCreditApplication: {
+        ...responseMock,
+      },
+    },
+  })),
+});
