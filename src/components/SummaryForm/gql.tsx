@@ -22,6 +22,20 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID = gql`
   }
 `;
 
+export const GET_PARTY_BY_UUID = gql`
+  query GetPartyByUuid($uuid: ID!) {
+    partyByUuid(uuid: $uuid) {
+      uuid
+      person {
+        firstName
+        lastName
+        partyId
+        uuid
+      }
+    }
+  }
+`;
+
 export const FULL_CREDIT_CHECKER_MUTATION = gql`
   mutation fullCreditChecker(
     $partyId: ID!

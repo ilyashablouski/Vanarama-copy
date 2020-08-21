@@ -2,7 +2,7 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import { gql, useMutation, useLazyQuery } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { SummaryFormPerson } from '../../../generated/SummaryFormPerson';
@@ -22,11 +22,9 @@ import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import {
   FULL_CREDIT_CHECKER_MUTATION,
   GET_CREDIT_APPLICATION_BY_ORDER_UUID,
+  GET_PARTY_BY_UUID,
 } from './gql';
-import {
-  GetCreditApplicationByOrderUuidDataForCreditCheck,
-  GetCreditApplicationByOrderUuidDataForCreditCheckVariables,
-} from '../../../generated/GetCreditApplicationByOrderUuidDataForCreditCheck';
+import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 
 interface IProps {
   person: SummaryFormPerson;
@@ -72,43 +70,40 @@ const SummaryForm: FCWithFragments<IProps> = ({ person, orderId }) => {
     [createCreditCheckMutation, orderId],
   );
 
-  const performCreditCheck = React.useCallback(
-    (creditApplicationData: any) => {
-      if (creditApplicationData) {
+  const getParty = useImperativeQuery(GET_PARTY_BY_UUID);
+
+  const getCreditApplication = useImperativeQuery(
+    GET_CREDIT_APPLICATION_BY_ORDER_UUID,
+  );
+
+  const handleSubmit = React.useCallback(() => {
+    getCreditApplication({
+      orderUuid: orderId,
+    }).then(response => {
+      const partyUuid =
+        response.data?.creditApplicationByOrderUuid?.lineItem?.order
+          ?.partyUuid || '';
+      getParty({
+        uuid: partyUuid,
+      }).then(resp => {
         const {
-          partyUuid,
           creditAppUuid,
           vehicleType,
           monthlyPayment,
           depositPayment,
-        } = parseCreditApplicationData(creditApplicationData);
-
+        } = parseCreditApplicationData(
+          response.data.creditApplicationByOrderUuid,
+        );
         creditCheck(
-          partyUuid,
+          resp.data.partyByUuid?.person?.partyId || '',
           creditAppUuid,
           vehicleType,
           monthlyPayment,
           depositPayment,
         );
-      }
-    },
-    [creditCheck],
-  );
-
-  const [getCreditApplication] = useLazyQuery<
-    GetCreditApplicationByOrderUuidDataForCreditCheck,
-    GetCreditApplicationByOrderUuidDataForCreditCheckVariables
-  >(GET_CREDIT_APPLICATION_BY_ORDER_UUID, {
-    onCompleted: performCreditCheck,
-  });
-
-  const handleSubmit = React.useCallback(() => {
-    getCreditApplication({
-      variables: {
-        orderUuid: orderId,
-      },
+      });
     });
-  }, [getCreditApplication, orderId]);
+  }, [getCreditApplication, orderId, getParty, creditCheck]);
 
   // NOTE: Many are returned so just take the first one?
   const primaryBankAccount = person.bankAccounts?.[0];
