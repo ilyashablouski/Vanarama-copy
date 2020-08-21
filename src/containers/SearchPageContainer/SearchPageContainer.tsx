@@ -699,6 +699,14 @@ const SearchPageContainer: React.FC<IProps> = ({
                       source={pageData?.genericPage.body || ''}
                       disallowedTypes={['paragraph']}
                       unwrapDisallowed
+                      renderers={{
+                        link: props => {
+                          const { href, children } = props;
+                          return (
+                            <RouterLink link={{ href, label: children }} />
+                          );
+                        },
+                      }}
                     />
                   </Text>
                 </div>
@@ -713,7 +721,15 @@ const SearchPageContainer: React.FC<IProps> = ({
                   {featured.title}
                 </Heading>
                 <Text tag="p" size="regular" color="darker">
-                  <ReactMarkdown source={featured.body || ''} />
+                  <ReactMarkdown
+                    source={featured.body || ''}
+                    renderers={{
+                      link: props => {
+                        const { href, children } = props;
+                        return <RouterLink link={{ href, label: children }} />;
+                      },
+                    }}
+                  />
                 </Text>
               </div>
             </div>
@@ -782,7 +798,19 @@ const SearchPageContainer: React.FC<IProps> = ({
                           }}
                         >
                           <Text color="dark" size="regular" tag="span">
-                            <ReactMarkdown source={card.body || ''} />
+                            <ReactMarkdown
+                              source={card.body || ''}
+                              renderers={{
+                                link: props => {
+                                  const { href, children } = props;
+                                  return (
+                                    <RouterLink
+                                      link={{ href, label: children }}
+                                    />
+                                  );
+                                },
+                              }}
+                            />
                           </Text>
                         </Card>
                       ),

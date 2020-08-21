@@ -6,6 +6,7 @@ import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections as Section } from '../../../generated/advancedBreakdownCoverPage';
+import RouterLink from '../../components/RouterLink/RouterLink';
 
 interface IProps {
   sections: Section | null;
@@ -38,6 +39,12 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
             <Text color="darker" size="regular">
               <ReactMarkdown
                 source={featured1.body?.replace(/\n/gi, '&nbsp;\n') || ''}
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return <RouterLink link={{ href, label: children }} />;
+                  },
+                }}
               />
             </Text>
           </div>
@@ -103,6 +110,12 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
             <Text color="darker" size="regular">
               <ReactMarkdown
                 source={featured2.body?.replace(/\n/gi, '&nbsp;\n') || ''}
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return <RouterLink link={{ href, label: children }} />;
+                  },
+                }}
               />
             </Text>
           </div>
@@ -134,6 +147,12 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
             <Text color="darker" size="regular">
               <ReactMarkdown
                 source={featured3.body?.replace(/\n/gi, '&nbsp;\n') || ''}
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return <RouterLink link={{ href, label: children }} />;
+                  },
+                }}
               />
             </Text>
           </div>
@@ -156,7 +175,15 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
         <Heading size="xlarge" color="black" tag="h1">
           {title}
         </Heading>
-        <ReactMarkdown source={body || ''} />
+        <ReactMarkdown
+          source={body || ''}
+          renderers={{
+            link: props => {
+              const { href, children } = props;
+              return <RouterLink link={{ href, label: children }} />;
+            },
+          }}
+        />
       </div>
       {featured1Html}
       {tilesHtml}

@@ -115,19 +115,32 @@ Array [
       <p>
         Vanarama is an award-winning personal and commercial vehicle leasing company. Whether you're looking for your dream 
         <a
+          className="link"
+          data-testid="link"
           href="https://beta.vanarama.com/car-leasing.html"
+          onClick={[Function]}
+          rel="noopener noreferrer"
         >
           car
         </a>
         , a 
         <a
+          className="link"
+          data-menu={null}
+          data-testid="router-link"
           href="/van-leasing.html"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
         >
           new van
         </a>
          for your business or a 
         <a
+          className="link"
+          data-testid="link"
           href="https://beta.vanarama.com/pickup-truck-leasing.html"
+          onClick={[Function]}
+          rel="noopener noreferrer"
         >
           pick-up truck
         </a>
@@ -145,7 +158,11 @@ Array [
       <p>
         With the largest panel of funders, Vanarama has the largest buying power around and this enables us to offer you the best leasing deals for whatever your needs. And as well as a huge range of vehicles, we also provide a range of van leasing finance, 
         <a
+          className="link"
+          data-testid="link"
           href="https://beta.vanarama.com/van-insurance.html"
+          onClick={[Function]}
+          rel="noopener noreferrer"
         >
           van insurance
         </a>
@@ -187,19 +204,31 @@ Array [
       <p>
         Vanarama has been confirmed as a Sunday Times 100 Best Small Company To Work For in the UK in 2016, 
         <a
+          className="link"
+          data-testid="link"
           href="https://beta.vanarama.com/latest-news/the-sunday-times-100-best-small-companies-to-work-for.html"
+          onClick={[Function]}
+          rel="noopener noreferrer"
         >
           2017
         </a>
          and 2018, with Andy Alderson (CEO) being named 
         <a
+          className="link"
+          data-testid="link"
           href="https://beta.vanarama.com/latest-news/the-sunday-times-100-best-small-companies-to-work-for.html"
+          onClick={[Function]}
+          rel="noopener noreferrer"
         >
           Best Leader at the 2017 awards ceremony
         </a>
         .We're delighted to have been recognised by The Sunday Times as one of the 
         <a
+          className="link"
+          data-testid="link"
           href="https://beta.vanarama.com/latest-news/the-sunday-times-100-best-small-companies-to-work-for.html"
+          onClick={[Function]}
+          rel="noopener noreferrer"
         >
           Best Small Companies To Work For in the UK
         </a>
@@ -214,7 +243,11 @@ Array [
         </strong>
         The company provides industry-leading customer service and has found investing in that service, and the staff that provide it, to be a successful formula for success. From sector awards to national awards you will be dealing with a business that has had scrutiny at the highest level in industry. In 2015, Vanarama won the highly prestigious Lloyds National Business Award for Best Small to Medium Sized Business 2015, an accolade that recognised our commitment to training, customer service and innovation. Read our 
         <a
+          className="link"
+          data-testid="link"
           href="https://beta.vanarama.com/about-us/customer-testimonials.html"
+          onClick={[Function]}
+          rel="noopener noreferrer"
         >
           latest customer reviews
         </a>
@@ -229,7 +262,11 @@ Array [
       <p>
         Interested in working at Vanarama? Check out our 
         <a
+          className="link"
+          data-testid="link"
           href="https://beta.vanarama.com/careers.html"
+          onClick={[Function]}
+          rel="noopener noreferrer"
         >
           Careers page
         </a>
@@ -270,8 +307,11 @@ Array [
       </p>
       <p>
         <a
-          className="link -primary -regular -plain"
+          className="link"
+          data-testid="link"
           href="https://beta.vanarama.com/about-us/meet-the-directors.html"
+          onClick={[Function]}
+          rel="noopener noreferrer"
         >
           Learn More
         </a>
@@ -295,8 +335,11 @@ Array [
       </p>
       <p>
         <a
-          className="link -primary -regular -plain"
+          className="link"
+          data-testid="link"
           href="https://www.vanarama.com/about-us/meet-your-support-team.html"
+          onClick={[Function]}
+          rel="noopener noreferrer"
         >
           Learn More
         </a>
