@@ -44,5 +44,5 @@ export const buildRewriteRoute = (
 export function prepareSlugPart(part: string | string[]) {
   return decodeURI(Array.isArray(part) ? part[0] : part)
     .replace(/ /g, '-')
-    .toLowerCase();
+    .toLocaleLowerCase();
 }
