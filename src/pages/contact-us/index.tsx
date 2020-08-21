@@ -20,6 +20,7 @@ import { ContactUsPageData } from '../../../generated/ContactUsPageData';
 import { CONTACT_US_CONTENT } from '../../gql/contact-us/contactUs';
 
 import BreadCrumbContainer from '../../containers/BreadCrumbContainer';
+import RouterLink from '../../components/RouterLink/RouterLink';
 
 export const ContactUsPage: NextPage = () => {
   const [show, setShow] = useState(false);
@@ -56,6 +57,12 @@ export const ContactUsPage: NextPage = () => {
           <ReactMarkdown
             escapeHtml={false}
             source={data?.contactUsLandingPage.sections?.featured1?.body || ''}
+            renderers={{
+              link: props => {
+                const { href, children } = props;
+                return <RouterLink link={{ href, label: children }} />;
+              },
+            }}
           />
           <div className="button-group">
             <Button
@@ -107,7 +114,16 @@ export const ContactUsPage: NextPage = () => {
               <Heading size="large" color="black">
                 {c.title}
               </Heading>
-              <ReactMarkdown escapeHtml={false} source={c.body || ''} />
+              <ReactMarkdown
+                escapeHtml={false}
+                source={c.body || ''}
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return <RouterLink link={{ href, label: children }} />;
+                  },
+                }}
+              />
             </Card>
           ))}
         </div>
@@ -120,6 +136,12 @@ export const ContactUsPage: NextPage = () => {
           <ReactMarkdown
             escapeHtml={false}
             source={data?.contactUsLandingPage.sections?.featured2?.body || ''}
+            renderers={{
+              link: props => {
+                const { href, children } = props;
+                return <RouterLink link={{ href, label: children }} />;
+              },
+            }}
           />
         </div>
         {data?.contactUsLandingPage.sections?.featured2?.cards?.map(

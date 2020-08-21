@@ -10,6 +10,7 @@ import {
   GenericPageQuery_genericPage_sections_faqs_questionSets,
   GenericPageQuery_genericPage_sections_faqs_questionSets_questionAnswers,
 } from '../../../generated/GenericPageQuery';
+import RouterLink from '../../components/RouterLink/RouterLink';
 
 interface IProps {
   sections: Section | null;
@@ -26,7 +27,17 @@ const getAccordionItemsInside = (
   return questionAnswers?.map(questionAnswer => ({
     id: questionAnswer?.question || '',
     title: questionAnswer?.question || '',
-    children: <ReactMarkdown source={questionAnswer?.answer || ''} />,
+    children: (
+      <ReactMarkdown
+        source={questionAnswer?.answer || ''}
+        renderers={{
+          link: props => {
+            const { href, children } = props;
+            return <RouterLink link={{ href, label: children }} />;
+          },
+        }}
+      />
+    ),
   }));
 };
 

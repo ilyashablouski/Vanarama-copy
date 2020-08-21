@@ -4,10 +4,9 @@ import ReactMarkdown from 'react-markdown';
 
 import getTitleTag from '../../../utils/getTitleTag';
 import { GetFleetLandingPage_fleetLandingPage_sections_featured2 as IMediaFeature } from '../../../../generated/GetFleetLandingPage';
-import { ParsedLink } from '../ParsedLink';
+import RouterLink from '../../../components/RouterLink/RouterLink';
 
 const MediaFeatureText = ({ title, titleTag, body }: IMediaFeature) => {
-  let buttonFill: 'solid' | 'outline' = 'outline';
   return (
     <>
       <Heading
@@ -23,8 +22,13 @@ const MediaFeatureText = ({ title, titleTag, body }: IMediaFeature) => {
           heading: props => <Heading {...props} tag="h3" />,
           paragraph: props => <Text {...props} tag="p" color="darker" />,
           link: props => {
-            buttonFill = buttonFill === 'solid' ? 'outline' : 'solid';
-            return <ParsedLink {...props} fill={buttonFill} color="teal" />;
+            const { href, children } = props;
+            return (
+              <RouterLink
+                classNames={{ color: 'teal' }}
+                link={{ href, label: children }}
+              />
+            );
           },
         }}
       />

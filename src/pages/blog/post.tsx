@@ -69,7 +69,16 @@ const BlogPost: NextPage = () => {
       </div>
       <div className="row:article">
         <article className="markdown">
-          <ReactMarkdown escapeHtml={false} source={body || ''} />
+          <ReactMarkdown
+            escapeHtml={false}
+            source={body || ''}
+            renderers={{
+              link: props => {
+                const { href, children } = props;
+                return <RouterLink link={{ href, label: children }} />;
+              },
+            }}
+          />
         </article>
         <div>
           <Heading tag="span" size="large" color="black">

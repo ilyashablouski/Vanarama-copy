@@ -7,7 +7,7 @@ import {
   GetInsuranceLandingPage_insuranceLandingPage_sections_carousel as ICarouselData,
   GetInsuranceLandingPage_insuranceLandingPage_sections_carousel_cards as ICard,
 } from '../../../../generated/GetInsuranceLandingPage';
-import { ParsedLink } from '../ParsedLink';
+import RouterLink from '../../../components/RouterLink/RouterLink';
 
 const renderCarouselCards = (cards: (ICard | null)[]) =>
   cards.map(card =>
@@ -21,14 +21,11 @@ const renderCarouselCards = (cards: (ICard | null)[]) =>
           source={card.body || ''}
           renderers={{
             link: props => {
-              const { children, href } = props;
+              const { href, children } = props;
               return (
-                <ParsedLink
-                  title={children[0].props.value}
-                  href={href}
-                  color="teal"
-                  fill="clear"
-                  size="regular"
+                <RouterLink
+                  classNames={{ color: 'teal', size: 'regular' }}
+                  link={{ href, label: children }}
                 />
               );
             },

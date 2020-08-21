@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import getTitleTag from '../../utils/getTitleTag';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { manufacturerPage_manufacturerPage_sections as sections } from '../../../generated/manufacturerPage';
+import RouterLink from '../../components/RouterLink/RouterLink';
 
 interface ITopInfoBlockProps {
   topInfoSection: sections;
@@ -32,6 +33,12 @@ const TopInfoBlock = memo(({ topInfoSection }: ITopInfoBlockProps) => {
           <ReactMarkdown
             escapeHtml={false}
             source={topInfoSection.featured?.body || ''}
+            renderers={{
+              link: props => {
+                const { href, children } = props;
+                return <RouterLink link={{ href, label: children }} />;
+              },
+            }}
           />
         </Text>
       </div>
