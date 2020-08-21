@@ -7,6 +7,7 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 
 import Link from '@vanarama/uibook/lib/components/atoms/link';
 import { GetFleetLandingPage_fleetLandingPage_sections_tiles as IBenefitsSection } from '../../../../generated/GetFleetLandingPage';
+import RouterLink from '../../../components/RouterLink/RouterLink';
 
 const BenefitsSection = ({ name, tiles }: IBenefitsSection) => (
   <div className="row:features-4col">
@@ -34,6 +35,12 @@ const BenefitsSection = ({ name, tiles }: IBenefitsSection) => (
             source={tile.body || ''}
             disallowedTypes={['paragraph']}
             unwrapDisallowed
+            renderers={{
+              link: props => {
+                const { href, children } = props;
+                return <RouterLink link={{ href, label: children }} />;
+              },
+            }}
           />
         </Text>
       </Tile>

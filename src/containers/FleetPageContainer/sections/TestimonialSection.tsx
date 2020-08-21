@@ -6,6 +6,7 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import getTitleTag from '../../../utils/getTitleTag';
 import { GetFleetLandingPage_fleetLandingPage_sections_featured1 as ISideText } from '../../../../generated/GetFleetLandingPage';
 import config from '../config';
+import RouterLink from '../../../components/RouterLink/RouterLink';
 
 const goToTop = () => window.scrollTo(0, 0);
 
@@ -26,7 +27,15 @@ const TestimonialSection = ({
           {title}
         </Heading>
         <Text tag="div">
-          <ReactMarkdown source={body || ''} />
+          <ReactMarkdown
+            source={body || ''}
+            renderers={{
+              link: props => {
+                const { href, children } = props;
+                return <RouterLink link={{ href, label: children }} />;
+              },
+            }}
+          />
         </Text>
         <Button
           dataTestId="fleet_testimonial-section_request-button"

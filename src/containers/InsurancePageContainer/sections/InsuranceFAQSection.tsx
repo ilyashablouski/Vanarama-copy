@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown';
 
 import getTitleTag from '../../../utils/getTitleTag';
 import { GetInsuranceLandingPage_insuranceLandingPage_sections_featured2 as FAQSection } from '../../../../generated/GetInsuranceLandingPage';
-import { ParsedLink } from '../ParsedLink';
+import RouterLink from '../../../components/RouterLink/RouterLink';
 
 const InsuranceFAQSection = ({ title, titleTag, body }: FAQSection) => (
   <div className="row:lead-text">
@@ -22,7 +22,15 @@ const InsuranceFAQSection = ({ title, titleTag, body }: FAQSection) => (
           <Text {...props} size="lead" color="darker" className="-mt-100" />
         ),
         paragraph: props => <Text {...props} tag="p" color="darker" />,
-        link: props => <ParsedLink {...props} size="lead" color="teal" />,
+        link: props => {
+          const { href, children } = props;
+          return (
+            <RouterLink
+              classNames={{ size: 'lead', color: 'teal' }}
+              link={{ href, label: children }}
+            />
+          );
+        },
       }}
     />
   </div>
