@@ -60,6 +60,7 @@ import {
   GenericPageHeadQueryVariables,
 } from '../../../generated/GenericPageHeadQuery';
 import useLeaseType from '../../hooks/useLeaseType';
+import { LinkTypes } from '../../models/enum/LinkTypes';
 
 interface IProps {
   isServer: boolean;
