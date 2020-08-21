@@ -5,16 +5,23 @@ import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import BreadCrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Media from '@vanarama/uibook/lib/components/atoms/media';
+import Router from 'next/router';
 import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/GenericPageQuery';
 
 interface IProps {
   sections: Section | null;
   title: string | null;
   body: string | null;
+  link: string;
   crumbs: { href: string; label: string }[];
 }
 
-const LeasingExplainedContainer: FC<IProps> = ({ title, sections, crumbs }) => {
+const LeasingExplainedContainer: FC<IProps> = ({
+  title,
+  sections,
+  crumbs,
+  link,
+}) => {
   const cards = sections?.cards?.cards;
   const featured = sections?.featured;
   const leadText = sections?.leadText;
@@ -36,7 +43,14 @@ const LeasingExplainedContainer: FC<IProps> = ({ title, sections, crumbs }) => {
             <Text tag="p" size="regular" color="white">
               {featured?.body || ''}
             </Text>
-            <Button color="teal" size="regular" label="Read More" />
+            <Button
+              onClick={() => {
+                Router.push(link);
+              }}
+              color="teal"
+              size="regular"
+              label="Read More"
+            />
           </div>
           <Media src={featured?.video || ''} width="100%" height="360px" />
         </div>
@@ -63,12 +77,13 @@ const LeasingExplainedContainer: FC<IProps> = ({ title, sections, crumbs }) => {
               >
                 <Button
                   onClick={() => {
-                    // Router.push(el.link?.url || '/');
+                    Router.push(el.link?.url || '/');
                   }}
                   label={el.link?.text}
                   color="teal"
                   size="small"
                   fill="solid"
+                  type="button"
                   className="-mt-400"
                 />
               </Card>

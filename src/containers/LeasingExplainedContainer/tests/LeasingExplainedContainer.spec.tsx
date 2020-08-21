@@ -99,6 +99,7 @@ describe('<FinanceExplainedContainer />', () => {
           crumbs={CRUMBS}
           sections={SECTIONS}
           title={METADATA.title}
+          link="/van-leasing-explained/what-is-van-leasing"
           body={BODY}
         />
       </MockedProvider>,

@@ -171,6 +171,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             </span>
             <button
               class="button -mt-400 -teal -small -solid"
+              type="button"
             >
               <div
                 class="button--inner"
@@ -209,6 +210,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             </span>
             <button
               class="button -mt-400 -teal -small -solid"
+              type="button"
             >
               <div
                 class="button--inner"

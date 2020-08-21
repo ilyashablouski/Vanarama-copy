@@ -28,6 +28,7 @@ const FinanceInfo: NextPage = () => {
   const metaData = data?.genericPage?.metaData;
   const sections = data.genericPage?.sections;
   const body = data.genericPage?.body;
+  const whatIsCarLeasing = '/car-leasing-explained/what-is-car-leasing';
 
   return (
     <>
@@ -41,6 +42,7 @@ const FinanceInfo: NextPage = () => {
       />
       <LeasingExplainedContainer
         crumbs={crumbs}
+        link={whatIsCarLeasing}
         body={body}
         title={metaData?.title}
         sections={sections}
