@@ -1,7 +1,7 @@
 import { getBudgetForQuery } from '../SearchPodContainer/helpers';
 import { IFilters } from '../FiltersContainer/interfaces';
 
-const buildRewriteRoute = (
+export const buildRewriteRoute = (
   {
     transmissions,
     bodyStyles,
@@ -41,4 +41,8 @@ const buildRewriteRoute = (
   return queries;
 };
 
-export default buildRewriteRoute;
+export function prepareSlugPart(part: string | string[]) {
+  return decodeURI(Array.isArray(part) ? part[0] : part)
+    .replace(/ /g, '-')
+    .toLocaleLowerCase();
+}
