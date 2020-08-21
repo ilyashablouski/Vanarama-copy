@@ -110,6 +110,7 @@ export interface GenericPageQuery_genericPage_sections_cards {
   name: string | null;
   titleTag: string | null;
   description: string | null;
+  title: string | null;
   cards: GenericPageQuery_genericPage_sections_cards_cards[] | null;
 }
 

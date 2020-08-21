@@ -90,7 +90,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 
     if (
       isTrailingSlug('details') ||
-      router.pathname.includes('[...manufacturer]')
+      router.pathname.includes('[...details-page]')
     ) {
       return 'page:pdp';
     }
