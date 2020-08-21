@@ -39,7 +39,7 @@ import {
   SortField,
   LeaseTypeEnum,
 } from '../../../generated/globalTypes';
-import buildRewriteRoute from './helpers';
+import { buildRewriteRoute, prepareSlugPart } from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import RangeCard from './RangeCard';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
@@ -498,9 +498,9 @@ const SearchPageContainer: React.FC<IProps> = ({
       if (router.query.rangeName) {
         getGenericPage({
           variables: {
-            slug: `/${(router.query.make as string).toLocaleLowerCase()}-${
+            slug: `/${prepareSlugPart(router.query.make)}-${
               isCarSearch ? 'car-leasing' : 'van-leasing'
-            }/${router.query.rangeName}`,
+            }/${prepareSlugPart(router.query.rangeName)}`,
           },
         });
       } else {
@@ -722,8 +722,12 @@ const SearchPageContainer: React.FC<IProps> = ({
           {tiles && (
             <div className="row:features-4col">
               {tiles?.tiles?.length &&
-                tiles.tiles.map(tile => (
-                  <Tile plain className="-align-center -button">
+                tiles.tiles.map((tile, indx) => (
+                  <Tile
+                    plain
+                    className="-align-center -button"
+                    key={`${tile.title}_${indx.toString()}`}
+                  >
                     <span>
                       <Image
                         src={tile.image?.file?.url || ''}
