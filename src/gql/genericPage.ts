@@ -60,6 +60,7 @@ export const GENERIC_PAGE = gql`
           name
           titleTag
           description
+          title
           cards {
             title
             name

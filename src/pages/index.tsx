@@ -298,6 +298,12 @@ export const HomePage: NextPage = () => {
             <ReactMarkdown
               escapeHtml={false}
               source={data?.homePage?.sections?.featured1?.body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+              }}
             />
           </Text>
           <IconList>
@@ -329,6 +335,12 @@ export const HomePage: NextPage = () => {
             <ReactMarkdown
               escapeHtml={false}
               source={data?.homePage?.sections?.featured2?.body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+              }}
             />
           </Text>
         </div>

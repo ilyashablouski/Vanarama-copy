@@ -81,7 +81,7 @@ describe('<ProductCarousel />', () => {
     fireEvent.click(screen.getByTestId('van-view-offer'));
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing/[...manufacturer]',
+        '/van-leasing/[...details-page]',
         '/van-leasing/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
       ),
     );

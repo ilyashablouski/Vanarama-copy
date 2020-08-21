@@ -16,6 +16,7 @@ import Link from '@vanarama/uibook/lib/components/atoms/link';
 import { useAboutUsPageData } from './gql';
 import { ABOUT_US_NAV_ITEM, ABOUT_US_MEET_SECTION_NAMES } from './config';
 import { GetAboutUsPageData_aboutUsLandingPage_sections_carousel_cards as ICard } from '../../../generated/GetAboutUsPageData';
+import RouterLink from '../../components/RouterLink/RouterLink';
 
 const prepareTagName = (possibleTag: string | null) =>
   possibleTag && Heading.defaultProps?.tag?.indexOf(possibleTag) !== -1
@@ -66,7 +67,12 @@ const renderMeetCard = (card: ICard | undefined) =>
     >
       <ReactMarkdown
         source={card.body}
-        renderers={{ link: props => <Link {...props} /> }}
+        renderers={{
+          link: props => {
+            const { href, children } = props;
+            return <RouterLink link={{ href, label: children }} />;
+          },
+        }}
       />
     </Card>
   )) ||
@@ -125,7 +131,15 @@ const AboutUs: React.FC = () => {
       </div>
       <div className="row:article">
         <article className="markdown">
-          <ReactMarkdown source={body || ''} />
+          <ReactMarkdown
+            source={body || ''}
+            renderers={{
+              link: props => {
+                const { href, children } = props;
+                return <RouterLink link={{ href, label: children }} />;
+              },
+            }}
+          />
         </article>
         <div>
           <div className="-pb-400">
@@ -150,6 +164,10 @@ const AboutUs: React.FC = () => {
             source={sections?.rowText?.body || ''}
             renderers={{
               paragraph: props => <React.Fragment {...props} />,
+              link: props => {
+                const { href, children } = props;
+                return <RouterLink link={{ href, label: children }} />;
+              },
             }}
           />{' '}
           <Icon

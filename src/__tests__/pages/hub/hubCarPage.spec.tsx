@@ -289,7 +289,7 @@ describe('<CarPage />', () => {
     fireEvent.click(screen.getAllByText('View Offer')[0]);
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith(
-        '/car-leasing/[...manufacturer]',
+        '/car-leasing/[...details-page]',
         '/car-leasing/ford/focus/hatchback/10-ecoBoost-125-st-line-nav-5dr',
       ),
     );

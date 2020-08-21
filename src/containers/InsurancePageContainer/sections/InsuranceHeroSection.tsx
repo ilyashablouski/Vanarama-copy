@@ -4,6 +4,7 @@ import Image from '@vanarama/uibook/lib/components/atoms/image';
 import { GetInsuranceLandingPage_insuranceLandingPage_sections_hero as IHero } from '../../../../generated/GetInsuranceLandingPage';
 import Hero, { HeroHeading } from '../../../components/Hero';
 import config from '../config';
+import RouterLink from '../../../components/RouterLink/RouterLink';
 
 const InsuranceHeroSection = ({ title, body, heroCard, image }: IHero) => (
   <Hero workingHoursCard={(heroCard && heroCard[0]) || undefined}>
@@ -23,6 +24,10 @@ const InsuranceHeroSection = ({ title, body, heroCard, image }: IHero) => (
             className="hero--small-print"
           />
         ),
+        link: props => {
+          const { href, children } = props;
+          return <RouterLink link={{ href, label: children }} />;
+        },
       }}
     />
     <Image

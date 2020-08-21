@@ -25,6 +25,7 @@ import {
 import BreadCrumbs from '../../../containers/BreadCrumbContainer';
 import ProductCarousel from '../../../components/ProductCarousel/ProductCarousel';
 import useLeaseType from '../../../hooks/useLeaseType';
+import RouterLink from '../../../components/RouterLink/RouterLink';
 
 export const VanOffers: NextPage = () => {
   const { data, loading, error } = useQuery<VanOffersPageData>(
@@ -325,6 +326,12 @@ export const VanOffers: NextPage = () => {
           <ReactMarkdown
             escapeHtml={false}
             source={data?.vanOffersPage.body || ''}
+            renderers={{
+              link: props => {
+                const { href, children } = props;
+                return <RouterLink link={{ href, label: children }} />;
+              },
+            }}
           />
         </Text>
       </div>
@@ -361,6 +368,12 @@ export const VanOffers: NextPage = () => {
           <ReactMarkdown
             escapeHtml={false}
             source={data?.vanOffersPage?.sections?.featured?.body || ''}
+            renderers={{
+              link: props => {
+                const { href, children } = props;
+                return <RouterLink link={{ href, label: children }} />;
+              },
+            }}
           />
         </div>
       </div>

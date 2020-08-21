@@ -37,7 +37,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
 
   const linkClassName = cx(className, {
     // eslint-disable-next-line prettier/prettier
-    'link': !withoutDefaultClassName,
+    link: !withoutDefaultClassName,
     [`-${classNames?.color}`]: classNames?.color,
     [`-${classNames?.size}`]: classNames?.size,
     [`-${classNames?.position}`]: classNames?.position,
@@ -45,7 +45,11 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     '-solid': classNames?.solid,
   });
 
-  if (link.linkType === LinkTypes.external || !!link.target) {
+  if (
+    link.linkType === LinkTypes.external ||
+    !!link.target ||
+    link.href.match(/^(https?:)?\/\//)
+  ) {
     return (
       <a
         href={link.href}

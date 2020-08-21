@@ -79,7 +79,7 @@ describe('<VehicleCard />', () => {
     fireEvent.click(screen.getByText('View Offer'));
     expect(mocks.viewOffer).toBeCalledWith({
       capId: '86343',
-      href: '/car-leasing/[...manufacturer]',
+      href: '/car-leasing/[...details-page]',
       url: '/car-leasing/vauxhall/crossland-x/bodystylename/slug',
     });
   });
