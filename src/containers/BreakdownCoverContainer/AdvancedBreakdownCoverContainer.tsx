@@ -46,7 +46,7 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
               {tiles.tilesTitle}
             </Heading>
             {tiles?.tiles?.length && (
-              <div className="row:cards-2col">
+              <div className="row:cards-2col" style={{ paddingTop: '10px' }}>
                 {tiles?.tiles.map((el, idx) => (
                   <Card
                     inline
