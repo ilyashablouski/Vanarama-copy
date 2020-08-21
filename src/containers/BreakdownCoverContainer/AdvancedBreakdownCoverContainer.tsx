@@ -21,6 +21,7 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
   const featured1 = sections?.featured1;
   const tiles = sections?.tiles;
   const featured2 = sections?.featured2;
+  const featured3 = sections?.featured3;
 
   const featured1Html = (
     <>
@@ -34,8 +35,10 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
             >
               {featured1.title}
             </Heading>
-            <Text color="darker" size="regular" tag="p">
-              <ReactMarkdown source={featured1.body || ''} />
+            <Text color="darker" size="regular">
+              <ReactMarkdown
+                source={featured1.body?.replace(/\n/gi, '&nbsp;\n') || ''}
+              />
             </Text>
           </div>
           <div>
@@ -97,9 +100,50 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
             >
               {featured2.title}
             </Heading>
-            <Text color="darker" size="regular" tag="p">
-              <ReactMarkdown source={featured2.body || ''} />
+            <Text color="darker" size="regular">
+              <ReactMarkdown
+                source={featured2.body?.replace(/\n/gi, '&nbsp;\n') || ''}
+              />
             </Text>
+          </div>
+          <div>
+            {featured2.image?.file?.url && (
+              <Image
+                src={featured2.image?.file?.url}
+                alt={featured2.image?.file?.fileName}
+              />
+            )}
+          </div>
+        </section>
+      )}
+    </>
+  );
+
+  const featured3Html = (
+    <>
+      {featured3 && (
+        <section className={`row:${getFeaturedClassPartial(featured3)}`}>
+          <div>
+            <Heading
+              color="black"
+              size="large"
+              tag={featured3.titleTag as keyof JSX.IntrinsicElements}
+            >
+              {featured3.title}
+            </Heading>
+            <Text color="darker" size="regular">
+              <ReactMarkdown
+                source={featured3.body?.replace(/\n/gi, '&nbsp;\n') || ''}
+              />
+            </Text>
+          </div>
+          <div>
+            {featured3.image?.file?.url && (
+              <Image
+                src={featured3.image?.file?.url}
+                alt={featured3.image?.file?.fileName}
+              />
+            )}
           </div>
         </section>
       )}
@@ -109,7 +153,7 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
   return (
     <>
       <div className="row:title">
-        <Heading size="xlarge" color="black">
+        <Heading size="xlarge" color="black" tag="h1">
           {title}
         </Heading>
         <ReactMarkdown source={body || ''} />
@@ -117,6 +161,7 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
       {featured1Html}
       {tilesHtml}
       {featured2Html}
+      {featured3Html}
     </>
   );
 };
