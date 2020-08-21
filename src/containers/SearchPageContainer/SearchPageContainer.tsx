@@ -60,6 +60,7 @@ import {
   GenericPageHeadQueryVariables,
 } from '../../../generated/GenericPageHeadQuery';
 import useLeaseType from '../../hooks/useLeaseType';
+import { LinkTypes } from '../../models/enum/LinkTypes';
 
 interface IProps {
   isServer: boolean;
@@ -812,6 +813,16 @@ const SearchPageContainer: React.FC<IProps> = ({
                               }}
                             />
                           </Text>
+                          <RouterLink
+                            link={{
+                              href: card.link?.url || '',
+                              label: card.link?.text || '',
+                              linkType: card.link?.url?.match('http')
+                                ? LinkTypes.external
+                                : '',
+                            }}
+                            classNames={{ color: 'teal' }}
+                          />
                         </Card>
                       ),
                   )}
