@@ -1,0 +1,227 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="row:title"
+    >
+      <nav>
+        <ol
+          class="breadcrumb"
+        >
+          <li
+            class="breadcrumb-item -parent"
+          >
+            <a
+              class="link breadcrumb-item--backlink -teal -small -plain"
+              href="/"
+            >
+              Back to 
+              Home
+              <i
+                class="icon -medium -xsmall"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-a
+                  </title>
+                  <polyline
+                    points="328 112 184 256 328 400"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+            </a>
+            <a
+              class="link breadcrumb-item--parent -teal -small -plain"
+              href="/"
+            >
+              Home
+            </a>
+            <i
+              class="icon -medium -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="184 112 328 256 184 400"
+                  style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                />
+              </svg>
+            </i>
+          </li>
+          <li
+            class="breadcrumb-item -child"
+          >
+            <span
+              class="text breadcrumb-item--child -small -darker"
+            >
+              Car Leasing Explained
+            </span>
+          </li>
+        </ol>
+      </nav>
+      <p
+        class="heading -black -xlarge"
+      >
+        Car Leasing Explained
+      </p>
+    </div>
+    <div
+      class="row:bg-black"
+    >
+      <div
+        class="row:featured-right"
+      >
+        <div>
+          <span
+            class="heading -white -large"
+          >
+            Your Guide To Car Leasing
+          </span>
+          <p
+            class="text -regular -white"
+          >
+            If you're looking for a brand new car and don't want to buy one outright, leasing could be the perfect solution. Car leasing makes getting behind the wheel of your dream car easy through hassle-free fixed monthly payments on 2 to 5-year contracts. Find out what leasing is, how it works & how Vanarama makes car leasing simple.
+
+[Read More](https://beta.vanarama.com/car-leasing-explained/what-is-car-leasing.html)
+          </p>
+          <button
+            class="button -teal -regular -solid"
+          >
+            <div
+              class="button--inner"
+            >
+              Read More
+            </div>
+          </button>
+        </div>
+        <div
+          class="media"
+        >
+          <div
+            class=""
+            src=""
+            style="width: 100%; height: 360px;"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="row:lead-text"
+    >
+      <p
+        class="heading -black -large"
+      >
+        How Leasing A Car Works
+      </p>
+      <span
+        class="text -regular -darker"
+      >
+        Leasing a car for personal or business use can seem complicated if it's the first time you've thought about doing it. At Vanarama, we want to make leasing a brand new car as simple as possible - you'll find all of the information & advice you might need in our collection of easy-to-understand guides to leasing.
+      </span>
+    </div>
+    <div
+      class="row:bg-lighter -thin"
+    >
+      <div
+        class="row:results"
+      >
+        <div
+          class="row:cards-3col"
+        >
+          <div
+            class="card"
+            data-testid="card"
+          >
+            <img
+              alt="img"
+              class="card-image"
+              data-testid="card-image"
+              src="//images.ctfassets.net/3xid768u5joa/FRg0wIDLXZqVIB9ZoJEw7/e04f3cfdfb2ad9405be84ef106d83d26/company-cash-allowance-vs-company-car.jpg"
+            />
+            <div
+              class="title"
+            >
+              <span
+                class="heading -black -lead"
+                data-testid="card-heading"
+              >
+                Company Cash Allowance Vs Company Car
+              </span>
+            </div>
+            <span
+              class="text -regular -dark"
+              data-testid="card-description"
+            >
+              So what should you consider if you are a company car driver reviewing your options?
+
+[Read More](https://beta.vanarama.com/car-leasing-explained/given-company-cash-allowance-vs-company-car.html)
+            </span>
+            <button
+              class="button -mt-400 -teal -small -solid"
+              type="button"
+            >
+              <div
+                class="button--inner"
+              >
+                Read More
+              </div>
+            </button>
+          </div>
+          <div
+            class="card"
+            data-testid="card"
+          >
+            <img
+              alt="img"
+              class="card-image"
+              data-testid="card-image"
+              src="//images.ctfassets.net/3xid768u5joa/2gBj5lixlkrla8kFNF8XSi/0fea9544b48e892f4f96d612b9be9c70/what-happens-at-end-of-car-lease.jpg"
+            />
+            <div
+              class="title"
+            >
+              <span
+                class="heading -black -lead"
+                data-testid="card-heading"
+              >
+                What Happens At The End Of A Car Lease?
+              </span>
+            </div>
+            <span
+              class="text -regular -dark"
+              data-testid="card-description"
+            >
+              At the end of a lease contract, you simply hand back the car to the finance company...
+
+[Read More](https://beta.vanarama.com/car-leasing-explained/what-happens-at-end-of-car-lease.html)
+            </span>
+            <button
+              class="button -mt-400 -teal -small -solid"
+              type="button"
+            >
+              <div
+                class="button--inner"
+              >
+                Read More
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
