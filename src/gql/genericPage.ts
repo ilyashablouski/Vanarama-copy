@@ -32,6 +32,12 @@ export const GENERIC_PAGE = gql`
           tilesTitle
           titleTag
         }
+        leadText {
+          titleTag
+          heading
+          description
+          position
+        }
         iconBullets1 {
           title
           iconBullets {
@@ -84,12 +90,21 @@ export const GENERIC_PAGE = gql`
           layout
           body
           title
+          video
           image {
             title
             description
             file {
               url
               fileName
+              contentType
+              details {
+                size
+                image {
+                  width
+                  height
+                }
+              }
             }
           }
         }
