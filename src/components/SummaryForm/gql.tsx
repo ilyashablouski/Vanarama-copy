@@ -30,6 +30,7 @@ export const GET_PARTY_BY_UUID = gql`
         firstName
         lastName
         partyId
+        uuid
       }
     }
   }
