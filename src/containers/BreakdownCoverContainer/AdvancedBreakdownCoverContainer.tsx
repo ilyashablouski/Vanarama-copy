@@ -8,9 +8,9 @@ import { getFeaturedClassPartial } from '../../utils/layout';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import {
   advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections as Section,
-  advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured3,
-  advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured1,
-  advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured2,
+  advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured1 as Featured1Type,
+  advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured2 as Featured2Type,
+  advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured3 as Featured3Type,
 } from '../../../generated/advancedBreakdownCoverPage';
 
 interface IProps {
@@ -67,8 +67,6 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
     </>
   );
 
- 
-
   return (
     <>
       <div className="row:title">
@@ -93,16 +91,11 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
   );
 };
 
-export function getFeaturedHtml(
-  featured:
-    | advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured1
-    | advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured2
-    | advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured3
-    | null
-    | undefined,
+function getFeaturedHtml(
+  featured: Featured1Type | Featured2Type | Featured3Type | null | undefined,
 ) {
   const featuredClass = getFeaturedClassPartial(featured);
-  const imageFirst = featuredClass == 'featured-left';
+  const imageFirst = featuredClass === 'featured-left';
   return (
     <>
       {featured && (
@@ -118,7 +111,7 @@ export function getFeaturedHtml(
             </div>
           )}
           <div>
-          <Heading
+            <Heading
               color="black"
               size="lead"
               tag={featured.titleTag as keyof JSX.IntrinsicElements}
@@ -126,7 +119,7 @@ export function getFeaturedHtml(
               {featured.title}
             </Heading>
             <Text color="darker" size="regular">
-            <ReactMarkdown
+              <ReactMarkdown
                 source={featured.body?.replace(/\n/gi, '&nbsp;\n') || ''}
                 renderers={{
                   link: props => {
@@ -139,18 +132,18 @@ export function getFeaturedHtml(
           </div>
           {!imageFirst && (
             <div>
-               {featured.image?.file?.url && (
-              <Image
-                src={featured.image?.file?.url}
-                alt={featured.image?.file?.fileName}
-              />
-            )}
+              {featured.image?.file?.url && (
+                <Image
+                  src={featured.image?.file?.url}
+                  alt={featured.image?.file?.fileName}
+                />
+              )}
             </div>
           )}
         </section>
       )}
     </>
-  )
-};
+  );
+}
 
 export default AdvancedBreakdownCoverContainer;
