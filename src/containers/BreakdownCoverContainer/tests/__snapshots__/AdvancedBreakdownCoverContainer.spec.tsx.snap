@@ -6,11 +6,11 @@ exports[`<AdvancedBreakdownCoverContainer /> should match snapshot 1`] = `
     <div
       class="row:title"
     >
-      <p
+      <h1
         class="heading -black -xlarge"
       >
         Advanced Breakdown Cover
-      </p>
+      </h1>
     </div>
     <section
       class="row:featured-right"
@@ -21,26 +21,36 @@ exports[`<AdvancedBreakdownCoverContainer /> should match snapshot 1`] = `
         >
           Advanced Breakdown Cover
         </h2>
-        <p
+        <span
           class="text -regular -darker"
         >
           <h2>
             Full & Drama-Free Breakdown Cover For Less
+             
           </h2>
           <p>
-            Breaking down is the last thing you want to think about when you order your brand-new van or pickup truck from us. But it could happen, & if you don't have breakdown cover, you're likely to find yourself forking out a fortune to recover your vehicle & find a replacement.
-          </p>
-          <p>
-            So, get our Advanced Breakdown Cover when you lease a brand-new van or pickup truck from Vanarama. If you break down, you're covered! If your vehicle needs repairing we'll give you a similar-sized vehicle for up to 7 days to keep your business moving!
-          </p>
-          <p>
+             
+            
+Breaking down is the last thing you want to think about when you order your brand-new van or pickup truck from us. But it could happen, & if you don't have breakdown cover, you're likely to find yourself forking out a fortune to recover your vehicle & find a replacement.
+             
+            
+
+             
+            
+So, get our Advanced Breakdown Cover when you lease a brand-new van or pickup truck from Vanarama. If you break down, you're covered! If your vehicle needs repairing we'll give you a similar-sized vehicle for up to 7 days to keep your business moving!
+             
+            
+
+             
+            
+
             <a
               href="https://beta.vanarama.com/special-offers.html"
             >
               View Deals
             </a>
           </p>
-        </p>
+        </span>
       </div>
       <div>
         <div
@@ -186,21 +196,26 @@ exports[`<AdvancedBreakdownCoverContainer /> should match snapshot 1`] = `
         >
           How Much Will It Cost You?
         </h2>
-        <p
+        <span
           class="text -regular -darker"
         >
           <p>
             Advanced Breakdown Cover is only £9 per month for the entire length of your lease. You get all that piece of mind for less than a tenner a month... talk about a no-brainer.
-          </p>
-          <p>
+             
+            
+
+             
+            
+
             <a
               href="https://beta.vanarama.com/special-offers.html"
             >
               View Deals
             </a>
           </p>
-        </p>
+        </span>
       </div>
+      <div />
     </section>
   </div>
 </body>
