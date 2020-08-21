@@ -9,11 +9,13 @@ const query = gql`
 /** 
 * types not being used due to type related complexities/conflicts throughout all dependant components/pages.
 * left for future ref.
-export interface LeaseTypes {
+
+interface LeaseTypes {
   car: LeaseType;
   lcv: LeaseType;
 }
-export type LeaseType = 'Personal' | 'Business';
+
+type LeaseType = 'Personal' | 'Business';
 */
 
 /**
