@@ -107,7 +107,7 @@ export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_
 }
 
 export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_tiles {
-  name: string;
+  name: string | null;
   tilesTitle: string | null;
   titleTag: string | null;
   tiles: advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_tiles_tiles[] | null;

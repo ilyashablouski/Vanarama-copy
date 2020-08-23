@@ -110,7 +110,7 @@ export interface GetFleetLandingPage_fleetLandingPage_sections_tiles_tiles {
 }
 
 export interface GetFleetLandingPage_fleetLandingPage_sections_tiles {
-  name: string;
+  name: string | null;
   tiles: GetFleetLandingPage_fleetLandingPage_sections_tiles_tiles[] | null;
 }
 
