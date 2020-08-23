@@ -595,9 +595,12 @@ const SearchPageContainer: React.FC<IProps> = ({
                             );
                           },
                           image: props => {
-                            const { href, children } = props;
+                            const { src, alt } = props;
                             return (
-                              <img {...props} style={{maxWidth: '100%'}} />
+                              <img
+                                {...{ src, alt }}
+                                style={{ maxWidth: '100%' }}
+                              />
                             );
                           },
                         }}
