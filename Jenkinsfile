@@ -3,7 +3,6 @@ ecrRegion = 'eu-west-2'
 stack = 'grid'
 taskDefFile = "deploy/aws/task-definition.json"
 currentCommit = ""
-applyMasterMerge = false
 
 def app_environment = [
     "develop": [
@@ -23,7 +22,8 @@ def app_environment = [
         backendConfigDynamoDbTable: 'autorama-terraform-state-lock',
         jenkinsAgent: 'grid-dev-jenkins-agent',
         dockerRepoName: "000379120260.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}",
-        NODE_ENV: 'development'
+        NODE_ENV: 'development',
+        terraformService: true
     ],
     "master": [
         clusterName: 'grid-test',
@@ -41,7 +41,27 @@ def app_environment = [
         backendConfigDynamoDbTable: 'test-grid-terraform-state-lock',
         jenkinsAgent: 'grid-test-jenkins-agent',
         dockerRepoName: "126764662304.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}",
-        NODE_ENV: 'development'
+        NODE_ENV: 'development',
+        terraformService: true
+    ],
+    "uat": [
+        clusterName: 'grid-uat',
+        logGroupName: "uat/grid/apps",
+        taskFamily: "grid-uat-${serviceName}",
+        app: "${serviceName}",
+        ssmParametersBase: "arn:aws:ssm:eu-west-2:126764662304:parameter/test/${stack}/${serviceName}",
+        env: 'uat',
+        stack: 'grid',
+        slackChannelInfra: '#dev-infra-approvals',
+        jenkinsCredentialsId: 'aws-keys-terraform-grid-test',
+        accountId: '126764662304',
+        awsMasterRole: 'arn:aws:iam::126764662304:role/AutoramaGridDelegate',
+        state_bucket: 'grid-terraform-state-1',
+        backendConfigDynamoDbTable: 'uat-grid-terraform-state-lock',
+        jenkinsAgent: 'grid-uat-jenkins-agent',
+        dockerRepoName: "126764662304.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}",
+        NODE_ENV: 'development',
+        terraformService: true
     ]
 ]
 
@@ -63,6 +83,41 @@ def getTaskDefinition(family, region) {
     ).trim()
 }
 
+def mergeAndPushBranch(appEnvironment, destinationBranch) {
+
+    cleanWs()
+
+    def dcName = "${env.JOB_NAME}-${env.BUILD_NUMBER}"
+    def appName = appEnvironment["${env.BRANCH_NAME}"].app
+    def currentBranch = "${env.BRANCH_NAME}"
+
+    try {
+        git branch: "${destinationBranch}", credentialsId: 'TechAmigo-DevOps-New', url: "https://github.com/Autorama/${appName}.git"
+
+        sh "git config user.email devops@techamigos.com"
+        sh "git config user.name 'devops'"
+        sh "git remote set-url origin git@github.com:Autorama/${appName}.git"
+
+        sh """
+        git tag -a ${dcName} -m \"Tagging a New Release\"
+        git merge origin/${currentBranch}
+        """
+
+        sshagent(['autorama']) {
+        sh"""
+            #!/usr/bin/env bash
+            set +x
+            export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
+            git push origin ${dcName}
+            git push origin ${destinationBranch}
+        """
+        }
+    } catch (err) {
+        slackSend channel: appEnvironment["${env.BRANCH_NAME}"].slackChannelQA, color: 'warning', message: "Merge to ${destinationBranch} has failed for : ${env.JOB_NAME} - ${env.BUILD_NUMBER} "
+        currentBuild.result = 'UNSTABLE'
+    }
+}
+
 pipeline {
     agent none
     options {
@@ -79,6 +134,7 @@ pipeline {
                 anyOf {
                   branch 'develop'
                   branch 'master'
+                  branch 'uat'
                 }
             }
 
@@ -156,6 +212,7 @@ pipeline {
                 anyOf {
                   branch 'develop'
                   branch 'master'
+                  branch 'uat'
                 }
             }
 
@@ -198,6 +255,7 @@ pipeline {
                 anyOf {
                   branch 'develop'
                   branch 'master'
+                  branch 'uat'
                 }
             }
 
@@ -254,6 +312,7 @@ pipeline {
                   anyOf {
                     branch 'develop'
                     branch 'master'
+                    branch 'uat'
                   }
               }
 
@@ -270,6 +329,7 @@ pipeline {
                                 def state_bucket = app_environment["${BRANCH_NAME}"].state_bucket
                                 def slackChannelInfra = app_environment["${BRANCH_NAME}"].slackChannelInfra
                                 def backend_config_dynamodb_table = app_environment["${BRANCH_NAME}"].backendConfigDynamoDbTable
+                                def terraformService = app_environment["${BRANCH_NAME}"].terraformService
 
                                   sh """
                                       set +e
@@ -290,6 +350,7 @@ pipeline {
                                               -var=env=${env} \
                                               -var=state_bucket=${state_bucket} \
                                               -var=task_definition=${taskDefinition} \
+                                              -var=include_ecs_service=${terraformService} \
                                               -out=.plan)
                                       """
                                   )
@@ -340,6 +401,7 @@ pipeline {
                   anyOf {
                     branch 'develop'
                     branch 'master'
+                  branch 'uat'
                   }
                   expression { terraformHasChange == true }
               }
@@ -388,6 +450,7 @@ pipeline {
                   anyOf {
                     branch 'develop'
                     branch 'master'
+                  branch 'uat'
                   }
               }
 
@@ -442,8 +505,6 @@ pipeline {
               agent { node('master') }
               environment { //todo can the agent determine path.
                   PATH = "${env.PATH}:/usr/local/bin"
-                  J_NAME = "${env.JOB_NAME}"
-                  B_NUMBER = "${env.BUILD_NUMBER}"
               }
               when {
                   beforeAgent true
@@ -455,67 +516,29 @@ pipeline {
               steps {
                   milestone(80)
                   script {
-                      applyMasterMerge = true
+                      mergeAndPushBranch(app_environment, 'master');
                   }
               }
           }
-          stage("11. Auto-Merge to Master") {
+          stage("11. Merge to UAT") {
+              input {
+                  message 'Merge to uat?'
+              }
               agent { node('master') }
               environment { //todo can the agent determine path.
                   PATH = "${env.PATH}:/usr/local/bin"
-                  J_NAME = "${env.JOB_NAME}"
-                  B_NUMBER = "${env.BUILD_NUMBER}"
               }
               when {
                   beforeAgent true
+                  beforeInput true
                   anyOf {
-                    branch 'develop'
-                  }
-
-                  expression {
-                      applyMasterMerge == true
+                      branch 'master'
                   }
               }
               steps {
                   milestone(90)
                   script {
-
-                      cleanWs()
-
-                      def dcName = "${env.JOB_NAME}-${env.BUILD_NUMBER}"
-                      def appName = app_environment["${BRANCH_NAME}"].app
-                      def currentBranch = "${BRANCH_NAME}"
-
-
-                      try {
-
-                          git branch: 'master', credentialsId: 'TechAmigo-DevOps-New', url: "https://github.com/Autorama/${appName}.git"
-
-                          sh "git config user.email devops@techamigos.com"
-                          sh "git config user.name 'devops'"
-                          sh "git remote set-url origin git@github.com:Autorama/${appName}.git"
-
-                          sh """
-                          git tag -a ${dcName} -m \"Tagging a New Release\"
-                          git merge origin/${currentBranch}
-                          """
-
-                          sshagent(['autorama']) {
-                          sh"""
-                              #!/usr/bin/env bash
-                              set +x
-                              export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
-                              git push origin ${dcName}
-                              git push origin master
-                          """
-                          }
-
-
-                      } catch (err) {
-                          slackSend channel: app_environment["${BRANCH_NAME}"].slackChannelQA, color: 'warning', message: "Merge to master has failed for : ${J_NAME} - ${B_NUMBER} "
-                          currentBuild.result = 'UNSTABLE'
-                      }
-
+                      mergeAndPushBranch(app_environment, 'uat');
                   }
               }
           }

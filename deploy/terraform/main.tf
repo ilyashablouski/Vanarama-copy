@@ -25,27 +25,42 @@ data "terraform_remote_state" "grid" {
   }
 }
 
-module "cluster-service" {
-  source = "git@github.com:Autorama/autorama-infra-modules.git//ecs_service"
+module "alb_target" {
+  source = "git@github.com:Autorama/autorama-infra-modules.git//alb_target"
 
   env   = "${var.env}"
   stack = "${var.stack}"
   app   = "${var.app}"
 
-  # service_name         = "${var.env}-${var.stack}-${var.app}"
-  task_definition = "${var.task_definition}"
+  env_subdomain_name = "${data.terraform_remote_state.grid.outputs.env_subdomain_name}"
+  vpc_id             = "${data.terraform_remote_state.grid.outputs.vpc_id}"
 
-  cluster_arn          = "${data.terraform_remote_state.grid.outputs.cluster_arn}"
-  env_subdomain_name   = "${data.terraform_remote_state.grid.outputs.env_subdomain_name}"
-  vpc_id               = "${data.terraform_remote_state.grid.outputs.vpc_id}"
-  ecs_service_role_arn = "${data.terraform_remote_state.grid.outputs.ecs_service_role_arn}"
-
-  container_port  = "8080"
   target_grp_port = "8080"
-  alb_listner_arn = "${data.terraform_remote_state.grid.outputs.aws_alb_listener_arn}"
-  container_name  = "${var.app}"
 
   health_check_path = "/status"
+
+  alb_listener_arn = "${data.terraform_remote_state.grid.outputs.aws_alb_listener_arn}"
+  alb_dns_name     = "${data.terraform_remote_state.grid.outputs.alb_dns_name}"
+  route53_zone_ids = [data.terraform_remote_state.grid.outputs.route53_internal_zone_id, data.terraform_remote_state.grid.outputs.route53_zone_id]
+}
+
+module "ecs_service" {
+  source = "git@github.com:Autorama/autorama-infra-modules.git//ecs_service-v2"
+
+  _count = var.include_ecs_service ? 1 : 0
+
+  env   = "${var.env}"
+  stack = "${var.stack}"
+  app   = "${var.app}"
+
+  cluster_arn          = "${data.terraform_remote_state.grid.outputs.cluster_arn}"
+  ecs_service_role_arn = "${data.terraform_remote_state.grid.outputs.ecs_service_role_arn}"
+  ecs_target_group_arn = "${module.alb_target.target_group_arn}"
+
+  task_definition      = "${var.task_definition}"
+
+  container_port  = "8080"
+  container_name  = "${var.app}"
 }
 
 resource "random_id" "secret_key_base" {
