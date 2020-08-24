@@ -78,6 +78,7 @@ So, get our Advanced Breakdown Cover when you lease a brand-new van or pickup tr
         </h2>
         <div
           class="row:cards-2col"
+          style="padding-top: 10px;"
         >
           <div
             class="card breakdown -inline"
@@ -195,7 +196,7 @@ So, get our Advanced Breakdown Cover when you lease a brand-new van or pickup tr
     >
       <div>
         <h2
-          class="heading -black -large"
+          class="heading -black -lead"
         >
           How Much Will It Cost You?
         </h2>

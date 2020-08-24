@@ -88,7 +88,7 @@ export interface HubCarPageData_hubCarPage_sections_tiles_tiles {
 }
 
 export interface HubCarPageData_hubCarPage_sections_tiles {
-  name: string;
+  name: string | null;
   titleTag: string | null;
   tilesTitle: string | null;
   tiles: HubCarPageData_hubCarPage_sections_tiles_tiles[] | null;

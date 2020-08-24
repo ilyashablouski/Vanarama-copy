@@ -60,6 +60,7 @@ import {
   GenericPageHeadQueryVariables,
 } from '../../../generated/GenericPageHeadQuery';
 import useLeaseType from '../../hooks/useLeaseType';
+import { LinkTypes } from '../../models/enum/LinkTypes';
 
 interface IProps {
   isServer: boolean;
@@ -496,13 +497,25 @@ const SearchPageContainer: React.FC<IProps> = ({
   useEffect(() => {
     if (router.query.make) {
       if (router.query.rangeName) {
-        getGenericPage({
-          variables: {
-            slug: `/${prepareSlugPart(router.query.make)}-${
-              isCarSearch ? 'car-leasing' : 'van-leasing'
-            }/${prepareSlugPart(router.query.rangeName)}`,
-          },
-        });
+        if (router.query.bodyStyles) {
+          getGenericPage({
+            variables: {
+              slug: `/${prepareSlugPart(router.query.make)}-${
+                isCarSearch ? 'car-leasing' : 'van-leasing'
+              }/${prepareSlugPart(router.query.rangeName)}/${prepareSlugPart(
+                router.query.bodyStyles,
+              )}`,
+            },
+          });
+        } else {
+          getGenericPage({
+            variables: {
+              slug: `/${prepareSlugPart(router.query.make)}-${
+                isCarSearch ? 'car-leasing' : 'van-leasing'
+              }/${prepareSlugPart(router.query.rangeName)}`,
+            },
+          });
+        }
       } else {
         getGenericPage({
           variables: {
@@ -556,6 +569,50 @@ const SearchPageContainer: React.FC<IProps> = ({
         </Heading>
         <Text color="darker" size="lead" />
       </div>
+      {pageData && (
+        <>
+          {router.query.bodyStyles &&
+            router.query.make &&
+            router.query.rangeName && (
+              <>
+                <div className="row:title">
+                  <Heading size="large" color="black">
+                    {metaData?.name}
+                  </Heading>
+                </div>
+                <div className="row:text">
+                  <div>
+                    <Text color="darker" size="regular" tag="div">
+                      <ReactMarkdown
+                        source={pageData?.genericPage.body || ''}
+                        disallowedTypes={['paragraph']}
+                        unwrapDisallowed
+                        renderers={{
+                          link: props => {
+                            const { href, children } = props;
+                            return (
+                              <RouterLink link={{ href, label: children }} />
+                            );
+                          },
+                          image: props => {
+                            const { src, alt } = props;
+                            return (
+                              <img
+                                {...{ src, alt }}
+                                style={{ maxWidth: '100%' }}
+                              />
+                            );
+                          },
+                        }}
+                      />
+                    </Text>
+                  </div>
+                </div>
+              </>
+            )}
+        </>
+      )}
+
       {isAllMakesPage && topInfoSection && (
         <TopInfoBlock topInfoSection={topInfoSection} />
       )}
@@ -644,6 +701,9 @@ const SearchPageContainer: React.FC<IProps> = ({
                     <VehicleCard
                       viewOffer={viewOffer}
                       dataDerivatives={carDer}
+                      bodyStyle={
+                        router.query?.bodyStyles === 'Pickup' ? 'Pickup' : null
+                      }
                       key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
                       data={
                         getCardData(
@@ -685,34 +745,36 @@ const SearchPageContainer: React.FC<IProps> = ({
       )}
       {pageData && (
         <>
-          {router.query.make && router.query.rangeName && (
-            <>
-              <div className="row:title">
-                <Heading size="large" color="black">
-                  {metaData?.name}
-                </Heading>
-              </div>
-              <div className="row:text">
-                <div>
-                  <Text color="darker" size="regular" tag="div">
-                    <ReactMarkdown
-                      source={pageData?.genericPage.body || ''}
-                      disallowedTypes={['paragraph']}
-                      unwrapDisallowed
-                      renderers={{
-                        link: props => {
-                          const { href, children } = props;
-                          return (
-                            <RouterLink link={{ href, label: children }} />
-                          );
-                        },
-                      }}
-                    />
-                  </Text>
+          {!router.query.bodyStyles &&
+            router.query.make &&
+            router.query.rangeName && (
+              <>
+                <div className="row:title">
+                  <Heading size="large" color="black">
+                    {metaData?.name}
+                  </Heading>
                 </div>
-              </div>
-            </>
-          )}
+                <div className="row:text">
+                  <div>
+                    <Text color="darker" size="regular" tag="div">
+                      <ReactMarkdown
+                        source={pageData?.genericPage.body || ''}
+                        disallowedTypes={['paragraph']}
+                        unwrapDisallowed
+                        renderers={{
+                          link: props => {
+                            const { href, children } = props;
+                            return (
+                              <RouterLink link={{ href, label: children }} />
+                            );
+                          },
+                        }}
+                      />
+                    </Text>
+                  </div>
+                </div>
+              </>
+            )}
           {featured && (
             <div className={`row:${getFeaturedClassPartial(featured)}`}>
               <Image size="expand" src={featured.image?.file?.url || ''} />
@@ -812,6 +874,16 @@ const SearchPageContainer: React.FC<IProps> = ({
                               }}
                             />
                           </Text>
+                          <RouterLink
+                            link={{
+                              href: card.link?.url || '',
+                              label: card.link?.text || '',
+                              linkType: card.link?.url?.match('http')
+                                ? LinkTypes.external
+                                : '',
+                            }}
+                            classNames={{ color: 'teal' }}
+                          />
                         </Card>
                       ),
                   )}

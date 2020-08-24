@@ -91,6 +91,10 @@ export const GENERIC_PAGE = gql`
           body
           title
           video
+          link {
+            text
+            url
+          }
           image {
             title
             description
