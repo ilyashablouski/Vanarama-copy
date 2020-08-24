@@ -88,9 +88,9 @@ describe('B2B Company Details page', () => {
             input: {
               person: { uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01' },
               companyType: 'Limited',
-              legalName: undefined,
-              companyNumber: undefined,
-              tradingSince: '01-08-2020',
+              legalName: 'AUTORAMA UK LTD',
+              companyNumber: '05137709',
+              tradingSince: '01-05-2004',
               addresses: [
                 { serviceId: 'Vanarama, Maylands Avenue', kind: 'registered' },
               ],
@@ -305,9 +305,9 @@ describe('B2B Company Details page', () => {
             input: {
               person: { uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01' },
               companyType: 'Limited',
-              legalName: undefined,
-              companyNumber: undefined,
-              tradingSince: '01-08-2020',
+              legalName: 'AUTORAMA UK LTD',
+              companyNumber: '05137709',
+              tradingSince: '01-05-2004',
               addresses: [
                 { serviceId: 'Vanarama, Maylands Avenue', kind: 'registered' },
                 {
