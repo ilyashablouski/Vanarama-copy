@@ -12,16 +12,10 @@ interface IProps {
   sections: Section | null;
   title: string | null;
   body: string | null;
-  link: string;
   crumbs: { href: string; label: string }[];
 }
 
-const LeasingExplainedContainer: FC<IProps> = ({
-  title,
-  sections,
-  crumbs,
-  link,
-}) => {
+const LeasingExplainedContainer: FC<IProps> = ({ title, sections, crumbs }) => {
   const cards = sections?.cards?.cards;
   const featured = sections?.featured;
   const leadText = sections?.leadText;
@@ -43,14 +37,16 @@ const LeasingExplainedContainer: FC<IProps> = ({
             <Text tag="p" size="regular" color="white">
               {featured?.body || ''}
             </Text>
-            <Button
-              onClick={() => {
-                Router.push(link);
-              }}
-              color="teal"
-              size="regular"
-              label="Read More"
-            />
+            {featured?.link && (
+              <Button
+                onClick={() => {
+                  Router.push(featured?.link?.url || '');
+                }}
+                color="teal"
+                size="regular"
+                label={featured?.link?.text}
+              />
+            )}
           </div>
           <Media src={featured?.video || ''} width="100%" height="360px" />
         </div>

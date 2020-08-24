@@ -11,6 +11,10 @@ export const PAGES_WITH_COMPARATOR = [
 export const PAGES_WITHOUT_COMPARATOR = [
   '/van-leasing/[...details-page]',
   '/car-leasing/[...details-page]',
+  '/car-leasing-explained',
+  '/van-leasing-explained',
+  '/van-leasing/finance-options',
+  '/car-leasing/finance-options',
 ];
 
 export const WHOLE_PATHS_PAGES_WITH_COMPARATOR = ['/'];

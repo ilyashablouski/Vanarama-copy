@@ -28,7 +28,6 @@ const FinanceInfo: NextPage = () => {
   const metaData = data?.genericPage?.metaData;
   const sections = data.genericPage?.sections;
   const body = data.genericPage?.body;
-  const whatIsVanLeasing = '/van-leasing-explained/what-is-van-leasing';
 
   return (
     <>
@@ -43,7 +42,6 @@ const FinanceInfo: NextPage = () => {
       <LeasingExplainedContainer
         crumbs={crumbs}
         body={body}
-        link={whatIsVanLeasing}
         title={metaData?.title}
         sections={sections}
       />
