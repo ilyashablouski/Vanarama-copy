@@ -20,7 +20,6 @@ const OrderInformationContainer: React.FC<IProps> = () => {
   const [quotesLength, setQuotesLength] = useState<number | null>(null);
 
   const getOrdersData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);
-  const getQuotesData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);
 
   useEffect(() => {
     if (partyByUuid && !quotesLength && !ordersLength) {
@@ -34,7 +33,7 @@ const OrderInformationContainer: React.FC<IProps> = () => {
           response.data?.ordersByPartyUuid.length,
         );
       });
-      getQuotesData({
+      getOrdersData({
         partyUuid: partyByUuid,
         statuses: ['quote', 'new'],
         excludeStatuses: ['expired'],
@@ -46,7 +45,7 @@ const OrderInformationContainer: React.FC<IProps> = () => {
         );
       });
     }
-  }, [partyByUuid, getOrdersData, getQuotesData, quotesLength, ordersLength]);
+  }, [partyByUuid, getOrdersData, quotesLength, ordersLength]);
 
   return (
     <div className="row:bg-light">

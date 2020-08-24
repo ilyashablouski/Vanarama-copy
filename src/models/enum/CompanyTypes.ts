@@ -1,6 +1,7 @@
 export enum CompanyTypes {
   limited = 'Limited',
   soleTrader = 'Sole trader',
+  partnership = 'Limited liability partnership',
 }
 
 export const companyTypesList = [
@@ -10,7 +11,7 @@ export const companyTypesList = [
   },
   {
     label: 'Limited liability partnership',
-    value: CompanyTypes.limited,
+    value: CompanyTypes.partnership,
   },
   {
     label: 'Limited company',
