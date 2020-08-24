@@ -701,6 +701,9 @@ const SearchPageContainer: React.FC<IProps> = ({
                     <VehicleCard
                       viewOffer={viewOffer}
                       dataDerivatives={carDer}
+                      bodyStyle={
+                        router.query?.bodyStyles === 'Pickup' ? 'Pickup' : null
+                      }
                       key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
                       data={
                         getCardData(

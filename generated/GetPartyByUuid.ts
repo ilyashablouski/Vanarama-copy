@@ -11,9 +11,11 @@ export interface GetPartyByUuid_partyByUuid_person {
   firstName: string;
   lastName: string;
   partyId: string;
+  uuid: string;
 }
 
 export interface GetPartyByUuid_partyByUuid {
+  uuid: string;
   person: GetPartyByUuid_partyByUuid_person | null;
 }
 

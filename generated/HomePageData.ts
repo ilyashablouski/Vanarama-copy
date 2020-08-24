@@ -117,7 +117,7 @@ export interface HomePageData_homePage_sections_tiles_tiles {
 }
 
 export interface HomePageData_homePage_sections_tiles {
-  name: string;
+  name: string | null;
   titleTag: string | null;
   tilesTitle: string | null;
   tiles: HomePageData_homePage_sections_tiles_tiles[] | null;

@@ -95,7 +95,7 @@ export interface HubPickupPageData_hubPickupPage_sections_tiles1_tiles {
 }
 
 export interface HubPickupPageData_hubPickupPage_sections_tiles1 {
-  name: string;
+  name: string | null;
   titleTag: string | null;
   tilesTitle: string | null;
   tiles: HubPickupPageData_hubPickupPage_sections_tiles1_tiles[] | null;
@@ -118,7 +118,7 @@ export interface HubPickupPageData_hubPickupPage_sections_tiles2_tiles {
 }
 
 export interface HubPickupPageData_hubPickupPage_sections_tiles2 {
-  name: string;
+  name: string | null;
   titleTag: string | null;
   tilesTitle: string | null;
   tiles: HubPickupPageData_hubPickupPage_sections_tiles2_tiles[] | null;

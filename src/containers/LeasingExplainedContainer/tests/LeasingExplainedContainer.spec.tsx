@@ -35,6 +35,11 @@ const SECTIONS = {
       "If you're looking for a brand new car and don't want to buy one outright, leasing could be the perfect solution. Car leasing makes getting behind the wheel of your dream car easy through hassle-free fixed monthly payments on 2 to 5-year contracts. Find out what leasing is, how it works & how Vanarama makes car leasing simple.\n\n[Read More](https://beta.vanarama.com/car-leasing-explained/what-is-car-leasing.html)",
     position: 0,
     video: null,
+    link: {
+      text: 'Read More',
+      url:
+        'https://betavanarama.com/van-leasing-explained/how-does-van-leasing-work.html',
+    },
   },
   cards: {
     position: 2,
@@ -99,7 +104,6 @@ describe('<FinanceExplainedContainer />', () => {
           crumbs={CRUMBS}
           sections={SECTIONS}
           title={METADATA.title}
-          link="/van-leasing-explained/what-is-van-leasing"
           body={BODY}
         />
       </MockedProvider>,
