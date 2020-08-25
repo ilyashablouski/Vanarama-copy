@@ -271,10 +271,15 @@ export interface GenericPageQuery_genericPage_sections_hero_image {
   file: GenericPageQuery_genericPage_sections_hero_image_file | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_hero_heroCard {
+  title: string | null;
+  body: string | null;
+}
 export interface GenericPageQuery_genericPage_sections_hero {
   title: string | null;
   body: string | null;
   image: GenericPageQuery_genericPage_sections_hero_image | null;
+  heroCard: (GenericPageQuery_genericPage_sections_hero_heroCard | null)[] | null;
 }
 
 export interface GenericPageQuery_genericPage_sections {
