@@ -59,7 +59,9 @@ export interface GenericPageQuery_genericPage_sections_iconBullets1_iconBullets 
 
 export interface GenericPageQuery_genericPage_sections_iconBullets1 {
   title: string | null;
-  iconBullets: (GenericPageQuery_genericPage_sections_iconBullets1_iconBullets | null)[] | null;
+  iconBullets:
+    | (GenericPageQuery_genericPage_sections_iconBullets1_iconBullets | null)[]
+    | null;
 }
 
 export interface GenericPageQuery_genericPage_sections_iconBullets2_iconBullets {
@@ -68,7 +70,9 @@ export interface GenericPageQuery_genericPage_sections_iconBullets2_iconBullets 
 
 export interface GenericPageQuery_genericPage_sections_iconBullets2 {
   title: string | null;
-  iconBullets: (GenericPageQuery_genericPage_sections_iconBullets2_iconBullets | null)[] | null;
+  iconBullets:
+    | (GenericPageQuery_genericPage_sections_iconBullets2_iconBullets | null)[]
+    | null;
 }
 
 export interface GenericPageQuery_genericPage_sections_faqs_questionSets_questionAnswers {
@@ -78,13 +82,17 @@ export interface GenericPageQuery_genericPage_sections_faqs_questionSets_questio
 
 export interface GenericPageQuery_genericPage_sections_faqs_questionSets {
   title: string | null;
-  questionAnswers: (GenericPageQuery_genericPage_sections_faqs_questionSets_questionAnswers | null)[] | null;
+  questionAnswers:
+    | (GenericPageQuery_genericPage_sections_faqs_questionSets_questionAnswers | null)[]
+    | null;
 }
 
 export interface GenericPageQuery_genericPage_sections_faqs {
   title: string | null;
   body: string | null;
-  questionSets: (GenericPageQuery_genericPage_sections_faqs_questionSets | null)[] | null;
+  questionSets:
+    | (GenericPageQuery_genericPage_sections_faqs_questionSets | null)[]
+    | null;
 }
 
 export interface GenericPageQuery_genericPage_sections_cards_cards_image_file {
@@ -218,7 +226,9 @@ export interface GenericPageQuery_genericPage_sections_featured2 {
   titleTag: string | null;
   image: GenericPageQuery_genericPage_sections_featured2_image | null;
   title: string | null;
-  cards: (GenericPageQuery_genericPage_sections_featured2_cards | null)[] | null;
+  cards:
+    | (GenericPageQuery_genericPage_sections_featured2_cards | null)[]
+    | null;
 }
 
 export interface GenericPageQuery_genericPage_sections_carousel_cards_image_file {
@@ -251,7 +261,24 @@ export interface GenericPageQuery_genericPage_sections_carousel {
   cards: (GenericPageQuery_genericPage_sections_carousel_cards | null)[] | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_hero_image_file {
+  url: string;
+}
+
+export interface GenericPageQuery_genericPage_sections_hero_image {
+  title: string | null;
+  description: string | null;
+  file: GenericPageQuery_genericPage_sections_hero_image_file | null;
+}
+
+export interface GenericPageQuery_genericPage_sections_hero {
+  title: string | null;
+  body: string | null;
+  image: GenericPageQuery_genericPage_sections_hero_image | null;
+}
+
 export interface GenericPageQuery_genericPage_sections {
+  hero: GenericPageQuery_genericPage_sections_hero | null;
   tiles: GenericPageQuery_genericPage_sections_tiles | null;
   leadText: GenericPageQuery_genericPage_sections_leadText | null;
   iconBullets1: GenericPageQuery_genericPage_sections_iconBullets1 | null;
