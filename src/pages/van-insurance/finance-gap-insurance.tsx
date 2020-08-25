@@ -4,7 +4,7 @@ import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import withApollo from '../../hocs/withApollo';
 import Head from '../../components/Head/Head';
 import { useGenericPage } from '../../gql/genericPage';
-import FinanceGapInsurancePageContainer from '../../containers/FinanceGapInsurancePageContainer/FinanceGapInsurancePageContainer';
+import FinanceGapInsuranceContainer from '../../containers/FinanceGapInsuranceContainer/FinanceGapInsuranceContainer';
 
 const FinanceGapInsurancePage: NextPage = () => {
   const { data, loading, error } = useGenericPage(
@@ -35,7 +35,7 @@ const FinanceGapInsurancePage: NextPage = () => {
         publishedOn={metaData.publishedOn}
         featuredImage={data?.genericPage.featuredImage}
       />
-      <FinanceGapInsurancePageContainer sections={sections} />
+      <FinanceGapInsuranceContainer sections={sections} />
     </>
   );
 };

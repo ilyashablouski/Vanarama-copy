@@ -51,7 +51,7 @@ const InsuranceFormSection = ({
 
   return (
     <div className="row:featured-right">
-      <div>
+      <div className="card-content">
         <Heading size="large" color="black">
           {title || ''}
         </Heading>
