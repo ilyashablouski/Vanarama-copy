@@ -24,7 +24,6 @@ const FinanceGapInsurancePage: NextPage = () => {
 
   const metaData = data?.genericPage?.metaData;
   const sections = data.genericPage?.sections;
-  const intro = data.genericPage?.intro;
 
   return (
     <>
@@ -36,11 +35,7 @@ const FinanceGapInsurancePage: NextPage = () => {
         publishedOn={metaData.publishedOn}
         featuredImage={data?.genericPage.featuredImage}
       />
-      <FinanceGapInsurancePageContainer
-        title={metaData.name}
-        sections={sections}
-        intro={intro}
-      />
+      <FinanceGapInsurancePageContainer sections={sections} />
     </>
   );
 };

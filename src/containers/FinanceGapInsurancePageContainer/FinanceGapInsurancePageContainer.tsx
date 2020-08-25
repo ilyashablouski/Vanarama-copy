@@ -5,10 +5,7 @@ import { GenericPageQuery_genericPage_sections as Section } from '../../../gener
 import InsuranceTypeSection from './sections/InsuranceTypeSection';
 import InsuranceFormSection from './sections/InsuranceFormSection';
 import { useOpportunityCreation } from '../GoldrushFormContainer/gql';
-import {
-  VehicleTypeEnum,
-  OpportunityTypeEnum,
-} from '../../../generated/globalTypes';
+import { OpportunityTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
 
 interface IProps {
   sections: Section | null;

@@ -1,6 +1,5 @@
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
-import ReactMarkdown from 'react-markdown';
 
 interface IProps {
   heading: string | null;
@@ -13,12 +12,11 @@ const InsuranceTypeSection = ({ heading, description, body }: IProps) => (
     <Heading size="xlarge" color="black">
       {heading}
     </Heading>
-    {description && (
+    {(description || body) && (
       <Text size="lead" color="darker" tag="p">
-        {description || ''}
+        {description || body || ''}
       </Text>
     )}
-    {body && <ReactMarkdown source={body || ''} />}
   </div>
 );
 
