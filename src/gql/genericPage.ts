@@ -26,6 +26,19 @@ export const GENERIC_PAGE = gql`
         schema
       }
       sections {
+        hero {
+          title
+          body
+          image {
+            file {
+              url
+            }
+          }
+          heroCard {
+            title
+            body
+          }
+        }
         tiles {
           position
           name
