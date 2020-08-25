@@ -22,6 +22,7 @@ import { IFilterContainerProps } from './interfaces';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
 import { findPreselectFilterValue } from './helpers';
+import { prepareSlugPart } from 'containers/SearchPageContainer/helpers';
 
 interface ISelectedFiltersState {
   [index: string]: string[];
@@ -53,6 +54,7 @@ const FiltersContainer = ({
   isRangePage,
   isModelPage,
   isAllMakesPage,
+  isBodyPage,
 }: IFilterContainerProps) => {
   const router = useRouter();
   const [filtersData, setFiltersData] = useState({} as IFilterList);
@@ -91,7 +93,7 @@ const FiltersContainer = ({
 
   const { refetch } = useFilterList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-    isMakePage || isRangePage || isModelPage || isAllMakesPage
+    isMakePage || isRangePage || isModelPage || isAllMakesPage || isBodyPage
       ? null
       : isSpecialOffers,
     resp => {
@@ -162,7 +164,9 @@ const FiltersContainer = ({
     refetch({
       vehicleTypes: isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
       onOffer:
-        isMakePage || isRangePage || isAllMakesPage ? null : isSpecialOffers,
+        isMakePage || isRangePage || isAllMakesPage || isBodyPage
+          ? null
+          : isSpecialOffers,
       ...filtersObjectForFilters,
     }).then(resp => {
       // using then because apollo return incorrect cache result https://github.com/apollographql/apollo-client/issues/3550
@@ -198,7 +202,13 @@ const FiltersContainer = ({
       const presetFilters = {} as ISelectedFiltersState;
       const routerQuery = Object.entries(router.query);
       routerQuery.forEach(entry => {
-        const [key, values] = entry;
+        const [keyRaw, valuesRaw] = entry;
+        const key =
+          keyRaw === 'make' && prepareSlugPart(valuesRaw).includes('.html')
+            ? 'bodyStyles'
+            : keyRaw;
+        const values = valuesRaw;
+
         if (key === 'rangeName') {
           filtersData.groupedRanges?.some(element => {
             const value = findPreselectFilterValue(
@@ -219,7 +229,10 @@ const FiltersContainer = ({
           let query: string | string[];
           // transformation the query value to expected type
           if (!Array.isArray(values)) {
-            query = values.split(',').length > 1 ? values.split(',') : values;
+            query =
+              values.split(',').length > 1
+                ? values.replace(/.html/g, '').split(',')
+                : values.replace(/.html/g, '');
           } else {
             query = values;
           }
@@ -472,7 +485,6 @@ const FiltersContainer = ({
   const handleFilterExpand = () => {
     if (isTabletOrMobile) setFilterExpandStatus(prevValue => !prevValue);
   };
-
   return (
     <SearchFilters isOpen={isOpenFilter}>
       <SearchFiltersHead onClick={handleFilterExpand}>
@@ -506,12 +518,14 @@ const FiltersContainer = ({
                   <FormGroup label={dropdown.label} key={dropdown.label}>
                     <Select
                       disabled={
-                        (isMakePage ||
+                        ((isMakePage ||
                           isRangePage ||
                           isModelPage ||
                           isAllMakesPage) &&
-                        (dropdown.accessor === filterFields.make ||
-                          dropdown.accessor === filterFields.model)
+                          (dropdown.accessor === filterFields.make ||
+                            dropdown.accessor === filterFields.model)) ||
+                        (isBodyPage &&
+                          dropdown.accessor == filterFields.bodyStyles)
                       }
                       name={dropdown.accessor}
                       placeholder={`Select ${dropdown.accessor}`}

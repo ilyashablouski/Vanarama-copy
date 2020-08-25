@@ -121,6 +121,8 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
 
+  const isBodyPage = prepareSlugPart(router.query.make).endsWith('.html'); //todo
+
   useEffect(() => {
     const type = isPersonal ? 'Personal' : 'Business';
     setCachedLeaseType(type);
@@ -469,6 +471,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     GenericPageQueryVariables
   >(GENERIC_PAGE, {
     onCompleted: result => {
+      debugger;
       setPageData(result);
       setMetaData(result.genericPage.metaData);
       setFeaturedImage(result.genericPage.featuredImage);
@@ -517,13 +520,24 @@ const SearchPageContainer: React.FC<IProps> = ({
           });
         }
       } else {
-        getGenericPage({
-          variables: {
-            slug: `/${(router.query.make as string).toLocaleLowerCase()}-${
-              isCarSearch ? 'car-leasing' : 'van-leasing'
-            }`,
-          },
-        });
+        if (isBodyPage) {
+          getGenericPage({
+            variables: {
+              slug: `/${prepareSlugPart(router.query.make).replace(
+                /.html/g,
+                '',
+              )}`,
+            },
+          });
+        } else {
+          getGenericPage({
+            variables: {
+              slug: `/${(router.query.make as string).toLocaleLowerCase()}-${
+                isCarSearch ? 'car-leasing' : 'van-leasing'
+              }`,
+            },
+          });
+        }
       }
     }
     if (router.asPath.match('all-car-manufacturers')) {
@@ -544,12 +558,12 @@ const SearchPageContainer: React.FC<IProps> = ({
     getGenericPage,
     getAllManufacturersPage,
     getGenericPageHead,
+    isBodyPage,
   ]);
 
   const tiles = pageData?.genericPage.sections?.tiles;
   const carousel = pageData?.genericPage.sections?.carousel;
   const featured = pageData?.genericPage.sections?.featured;
-
   return (
     <>
       <Head
@@ -565,6 +579,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         <Heading tag="h1" size="xlarge" color="black">
           {(isModelPage &&
             `${filtersData.manufacturerName} ${filtersData.rangeName} ${filtersData.bodyStyles?.[0]}`) ||
+            (isBodyPage && `${filtersData.bodyStyles?.[0]}`) ||
             (metaData?.name ?? 'Lorem Ips')}
         </Heading>
         <Text color="darker" size="lead" />
