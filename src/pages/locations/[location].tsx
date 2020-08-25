@@ -113,46 +113,51 @@ export const LocationsPage: NextPage = () => {
               />
             </div>
             <div className="hero--right">
-              {hero.heroCard && (
-                <Card className="hero-card">
-                  <div className="hero-card--inner">
-                    <Heading tag="span" color="black" size="small">
-                      {hero.heroCard.title}
-                    </Heading>
-                    {hero.heroCard.body ? (
-                      <ReactMarkdown
-                        escapeHtml={false}
-                        source={hero.heroCard?.body || ''}
-                        renderers={{
-                          link: props => {
-                            const { href, children } = props;
-                            return (
-                              <RouterLink link={{ href, label: children }} />
-                            );
-                          },
-                        }}
-                      />
-                    ) : (
-                      <>
-                        <Button
-                          color="teal"
-                          size="regular"
-                          fill="solid"
-                          label="Call 07771 501507"
-                          className="-fullwidth"
-                        />
-                        <Button
-                          color="teal"
-                          size="regular"
-                          fill="outline"
-                          label="Get A Quote"
-                          className="-fullwidth"
-                        />
-                      </>
-                    )}
-                  </div>
-                </Card>
-              )}
+              {hero.heroCard &&
+                hero.heroCard.map(el => (
+                  <Card className="hero-card">
+                    <div className="hero-card--inner">
+                      <Heading tag="span" color="black" size="small">
+                        {el?.title}
+                      </Heading>
+                      {el?.body ? (
+                        <Text color="black">
+                          <ReactMarkdown
+                            escapeHtml={false}
+                            source={el?.body || ''}
+                            renderers={{
+                              link: props => {
+                                const { href, children } = props;
+                                return (
+                                  <RouterLink
+                                    link={{ href, label: children }}
+                                  />
+                                );
+                              },
+                            }}
+                          />
+                        </Text>
+                      ) : (
+                        <>
+                          <Button
+                            color="teal"
+                            size="regular"
+                            fill="solid"
+                            label="Call 07771 501507"
+                            className="-fullwidth"
+                          />
+                          <Button
+                            color="teal"
+                            size="regular"
+                            fill="outline"
+                            label="Get A Quote"
+                            className="-fullwidth"
+                          />
+                        </>
+                      )}
+                    </div>
+                  </Card>
+                ))}
             </div>
             <div className="hero--decals">
               <svg
