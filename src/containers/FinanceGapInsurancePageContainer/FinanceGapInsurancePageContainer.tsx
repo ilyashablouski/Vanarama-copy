@@ -5,7 +5,10 @@ import { GenericPageQuery_genericPage_sections as Section } from '../../../gener
 import InsuranceTypeSection from './sections/InsuranceTypeSection';
 import InsuranceFormSection from './sections/InsuranceFormSection';
 import { useOpportunityCreation } from '../GoldrushFormContainer/gql';
-import { OpportunityTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
+import {
+  OpportunityTypeEnum,
+  VehicleTypeEnum,
+} from '../../../generated/globalTypes';
 
 interface IProps {
   sections: Section | null;
@@ -47,31 +50,37 @@ const FinanceGapInsurancePageContainer = ({ sections }: IProps) => {
       {hero && <InsuranceHeroSection {...hero} />}
       {leadText && <InsuranceTypeSection {...leadText} />}
       {featured1 && (
-          <InsuranceFormSection
-            {...featured1}
-            isSubmitting={loading}
-            isGratitudeVisible={isGratitudeVisible}
-            onCompleted={() => {
-              toggleGratitude(false);
-            }}
-            onSubmit={(values: IValues) => {
-              createOppurtunity({
-                variables: {
-                  email: values.email,
-                  phoneNumber: values.phoneNumber,
-                  fullName: values.fullName,
-                  postcode: values.postcode,
-                  marketingPreference: true,
-                  opportunityType: OpportunityTypeEnum.INSURANCE,
-                  vehicleType: VehicleTypeEnum.LCV,
-                  termsAndConditions: true,
-                },
-              });
-            }}
-          />
+        <InsuranceFormSection
+          {...featured1}
+          isSubmitting={loading}
+          isGratitudeVisible={isGratitudeVisible}
+          onCompleted={() => {
+            toggleGratitude(false);
+          }}
+          onSubmit={(values: IValues) => {
+            createOppurtunity({
+              variables: {
+                email: values.email,
+                phoneNumber: values.phoneNumber,
+                fullName: values.fullName,
+                postcode: values.postcode,
+                marketingPreference: true,
+                opportunityType: OpportunityTypeEnum.INSURANCE,
+                vehicleType: VehicleTypeEnum.LCV,
+                termsAndConditions: true,
+              },
+            });
+          }}
+        />
       )}
       <hr className="-fullwidth" />
-      {rowText && <InsuranceTypeSection {...rowText} link1={featured1?.link} link2={featured2?.link} />}
+      {rowText && (
+        <InsuranceTypeSection
+          {...rowText}
+          link1={featured1?.link}
+          link2={featured2?.link}
+        />
+      )}
     </>
   );
 };
