@@ -40,6 +40,7 @@ export const ADVANCED_BREAKDOWN_COVER_PAGE = gql`
               contentType
             }
           }
+          layout
         }
         featured2 {
           title
@@ -54,6 +55,7 @@ export const ADVANCED_BREAKDOWN_COVER_PAGE = gql`
               contentType
             }
           }
+          layout
         }
         featured3 {
           title
@@ -68,6 +70,7 @@ export const ADVANCED_BREAKDOWN_COVER_PAGE = gql`
               contentType
             }
           }
+          layout
         }
         tiles {
           name
