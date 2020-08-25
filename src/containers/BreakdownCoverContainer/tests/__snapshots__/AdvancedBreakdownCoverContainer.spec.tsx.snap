@@ -15,6 +15,15 @@ exports[`<AdvancedBreakdownCoverContainer /> should match snapshot 1`] = `
     <section
       class="row:featured-right"
     >
+      <div
+        class="image -expand"
+      >
+        <img
+          alt="abc-man.jpg"
+          class="image--native"
+          src="//images.ctfassets.net/3xid768u5joa/5Z6WeTc9kvkrnJpomCE1s4/0a3ec860b45748e384761e24be3d2e42/abc-man.jpg"
+        />
+      </div>
       <div>
         <h2
           class="heading -black -lead"
@@ -54,17 +63,6 @@ So, get our Advanced Breakdown Cover when you lease a brand-new van or pickup tr
             </a>
           </p>
         </span>
-      </div>
-      <div>
-        <div
-          class="image -expand"
-        >
-          <img
-            alt="abc-man.jpg"
-            class="image--native"
-            src="//images.ctfassets.net/3xid768u5joa/5Z6WeTc9kvkrnJpomCE1s4/0a3ec860b45748e384761e24be3d2e42/abc-man.jpg"
-          />
-        </div>
       </div>
     </section>
     <section
@@ -222,7 +220,6 @@ So, get our Advanced Breakdown Cover when you lease a brand-new van or pickup tr
           </p>
         </span>
       </div>
-      <div />
     </section>
   </div>
 </body>
