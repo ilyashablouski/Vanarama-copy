@@ -95,20 +95,15 @@ function getFeaturedHtml(
   featured: Featured1Type | Featured2Type | Featured3Type | null | undefined,
 ) {
   const featuredClass = getFeaturedClassPartial(featured);
-  const imageFirst = featuredClass === 'featured-left';
   return (
     <>
       {featured && (
         <section className={`row:${featuredClass}`}>
-          {imageFirst && (
-            <div>
-              {featured.image?.file?.url && (
-                <Image
-                  src={featured.image?.file?.url}
-                  alt={featured.image?.file?.fileName}
-                />
-              )}
-            </div>
+          {featured.image?.file?.url && (
+            <Image
+              src={featured.image?.file?.url}
+              alt={featured.image?.file?.fileName}
+            />
           )}
           <div>
             <Heading
@@ -130,16 +125,6 @@ function getFeaturedHtml(
               />
             </Text>
           </div>
-          {!imageFirst && (
-            <div>
-              {featured.image?.file?.url && (
-                <Image
-                  src={featured.image?.file?.url}
-                  alt={featured.image?.file?.fileName}
-                />
-              )}
-            </div>
-          )}
         </section>
       )}
     </>
