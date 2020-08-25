@@ -2,7 +2,6 @@ import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import withApollo from '../../hocs/withApollo';
-import FAQContainer from '../../containers/FAQContainer/FAQContainer';
 import Head from '../../components/Head/Head';
 import { useGenericPage } from '../../gql/genericPage';
 import FinanceGapInsurancePageContainer from '../../containers/FinanceGapInsurancePageContainer/FinanceGapInsurancePageContainer';

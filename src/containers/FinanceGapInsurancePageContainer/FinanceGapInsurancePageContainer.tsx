@@ -1,60 +1,72 @@
-import { useQuery } from '@apollo/client';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import { GetInsuranceLandingPage } from '../../../generated/GetInsuranceLandingPage';
-import GET_INSURANCE_LANDING_PAGE from './gql';
-import config from './config';
-import InsuranceHeroSection from './sections/InsuranceHeroSection';
-import InsuranceTypesSection from './sections/InsuranceTypesSection';
-import MediaFeatureSection from '../FleetPageContainer/sections/MediaFeatureSection';
-import MediaFeatureText from './sections/MediaFeatureText';
-import InsuranceFAQSection from './sections/InsuranceFAQSection';
-import InsuranceNewsSection from './sections/InsuranceNewsSection';
+import { useState } from 'react';
+import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
+import InsuranceHeroSection from '../InsurancePageContainer/sections/InsuranceHeroSection';
+import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/GenericPageQuery';
+import InsuranceTypeSection from './sections/InsuranceTypeSection';
+import InsuranceFormSection from './sections/InsuranceFormSection';
+import { useOpportunityCreation } from './gql';
 import {
-  GenericPageQuery_genericPage_sections as Section,
-  GenericPageQuery_genericPage_sections_faqs_questionSets,
-  GenericPageQuery_genericPage_sections_faqs_questionSets_questionAnswers,
-} from '../../../generated/GenericPageQuery';
+  VehicleTypeEnum,
+  OpportunityTypeEnum,
+} from '../../../generated/globalTypes';
 
 interface IProps {
   sections: Section | null;
-  title: string | null;
-  intro: string | null;
 }
 
-const FinanceGapInsurancePageContainer = ({sections, title, intro}) => {
-  
-  console.log('sections', sections)
+export const handleNetworkError = () =>
+  toast.error(
+    'Sorry there seems to be an issue with your request. Pleaser try again in a few moments',
+    'Dolor ut tempor eiusmod enim consequat laboris dolore ut pariatur labore sunt incididunt dolore veniam mollit excepteur dolor aliqua minim nostrud adipisicing culpa aliquip ex',
+  );
+
+const FinanceGapInsurancePageContainer = ({ sections }: IProps) => {
+  const hero = sections?.hero;
+  const leadText = sections?.leadText;
+  const featured = sections?.featured;
+  const rowText = sections?.rowText;
+
+  const [isGratitudeVisible, toggleGratitude] = useState(false);
+
+  const [createOppurtunity, { loading }] = useOpportunityCreation(
+    () => toggleGratitude(true),
+    error => {
+      if (error?.networkError) {
+        handleNetworkError();
+      }
+    },
+  );
+
   return (
     <>
-      {/* {data?.insuranceLandingPage?.sections?.hero && (
-        <InsuranceHeroSection {...data?.insuranceLandingPage?.sections?.hero} />
-      )} */}
-      {/* {data?.insuranceLandingPage?.sections?.cards && (
-        <InsuranceTypesSection
-          {...data?.insuranceLandingPage?.sections?.cards}
+      {hero && <InsuranceHeroSection {...hero} />}
+      {leadText && <InsuranceTypeSection {...leadText} />}
+      {featured && (
+        <InsuranceFormSection
+          {...featured}
+          isSubmitting={loading}
+          isGratitudeVisible={isGratitudeVisible}
+          onCompleted={() => {
+            toggleGratitude(false);
+          }}
+          onSubmit={values => {
+            createOppurtunity({
+              variables: {
+                email: values.email,
+                phoneNumber: values.phoneNumber,
+                fullName: values.fullName,
+                postcode: values.postcode,
+                marketingPreference: true,
+                opportunityType: OpportunityTypeEnum.INSURANCE,
+                vehicleType: VehicleTypeEnum.LCV,
+                termsAndConditions: true,
+              },
+            });
+          }}
         />
-      )}
-      {data?.insuranceLandingPage?.sections?.featured1 && (
-        <MediaFeatureSection
-          {...data?.insuranceLandingPage?.sections?.featured1}
-          imageOnly
-        >
-          <MediaFeatureText
-            {...data?.insuranceLandingPage?.sections?.featured1}
-          />
-        </MediaFeatureSection>
       )}
       <hr className="-fullwidth" />
-      {data?.insuranceLandingPage?.sections?.featured2 && (
-        <InsuranceFAQSection
-          {...data?.insuranceLandingPage?.sections?.featured2}
-        />
-      )}
-      {data?.insuranceLandingPage?.sections?.carousel && (
-        <InsuranceNewsSection
-          {...data?.insuranceLandingPage?.sections?.carousel}
-        />
-      )} */}
+      {rowText && <InsuranceTypeSection {...rowText} />}
     </>
   );
 };
