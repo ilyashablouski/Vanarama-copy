@@ -228,7 +228,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       </p>
     </div>
     <div
-      class="row:featured-right"
+      class="row:featured-left"
     >
       <div>
         <p
@@ -312,6 +312,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       >
         <form
           class="form"
+          data-testid="goldrush-form"
         >
           <div
             class="formgroup"
@@ -413,20 +414,67 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
               </div>
             </div>
           </div>
-          <span
-            class="text -small -darker"
+          <div
+            class="formgroup"
           >
-            Terms and conditions agreement text and
-             
-            <a
-              class="link -primary -regular -plain"
-              href=""
+            <label
+              class="formgroup--legend"
             >
-              link
-            </a>
-          </span>
+              Please Confirm
+            </label>
+            <div
+              class="formgroup--content"
+            >
+              <div
+                class="checkbox -teal"
+              >
+                <input
+                  class="checkbox--native"
+                  data-testid="aboutConsent"
+                  id="consent"
+                  name="consent"
+                  type="checkbox"
+                  value=""
+                />
+                <label
+                  class="checkbox--label"
+                  for="consent"
+                >
+                  <span
+                    class="text -regular -darker"
+                  >
+                    I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions.
+                  </span>
+                </label>
+              </div>
+              <div
+                class="checkbox -teal"
+              >
+                <input
+                  class="checkbox--native"
+                  data-testid="aboutTermsAndCons"
+                  id="termsAndCons"
+                  name="termsAndCons"
+                  type="checkbox"
+                  value=""
+                />
+                <label
+                  class="checkbox--label"
+                  for="termsAndCons"
+                >
+                  <span
+                    class="text -regular -darker"
+                  >
+                    I agree to the terms and conditions.
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
           <button
-            class="button -teal -regular -solid"
+            class="button -teal -lead -solid"
+            data-testid="goldrush-form_submit"
+            type="submit"
           >
             <div
               class="button--inner"

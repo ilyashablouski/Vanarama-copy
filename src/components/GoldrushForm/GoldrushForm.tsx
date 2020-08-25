@@ -22,6 +22,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
   heading,
   callBack,
   text,
+  isTextInVisible,
 }) => {
   const buttonLabelText = callBack ? 'Call Me Back' : 'Get Quote Now';
   const buttonLabel = isSubmitting ? 'Loading...' : buttonLabelText;
@@ -145,13 +146,15 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
           {termsAndConditions()}
         </FormGroup>
       )}
-      <Text tag="p" color={callBack ? 'dark' : 'darker'} size="xsmall">
-        Vanarama collects the contact information you provide to us to contact
-        you about our products and services. You may unsubscribe from these
-        communications at any time. For information on how to unsubscribe, as
-        well as our privacy practices and commitment to protecting your privacy,
-        please check out our Privacy Policy.
-      </Text>
+      {!isTextInVisible && (
+        <Text tag="p" color={callBack ? 'dark' : 'darker'} size="xsmall">
+          Vanarama collects the contact information you provide to us to contact
+          you about our products and services. You may unsubscribe from these
+          communications at any time. For information on how to unsubscribe, as
+          well as our privacy practices and commitment to protecting your
+          privacy, please check out our Privacy Policy.
+        </Text>
+      )}
       <Button
         dataTestId="goldrush-form_submit"
         type="submit"

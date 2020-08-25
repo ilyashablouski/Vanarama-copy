@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
+import { IGoldrushFromValues } from '../../components/GoldrushForm/interfaces';
 import InsuranceHeroSection from '../InsurancePageContainer/sections/InsuranceHeroSection';
 import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/GenericPageQuery';
 import InsuranceTypeSection from './sections/InsuranceTypeSection';
@@ -59,7 +60,7 @@ const FinanceGapInsurancePageContainer = ({ sections }: IProps) => {
           onCompleted={() => {
             toggleGratitude(false);
           }}
-          onSubmit={(values: IValues) => {
+          onSubmit={(values: IGoldrushFromValues) => {
             createOppurtunity({
               variables: {
                 email: values.email,
@@ -69,7 +70,7 @@ const FinanceGapInsurancePageContainer = ({ sections }: IProps) => {
                 opportunityType: OpportunityTypeEnum.INSURANCE,
                 vehicleType: VehicleTypeEnum.LCV,
                 marketingPreference: Boolean(values.consent),
-                termsAndConditions: Boolean(values.termsAndCons)
+                termsAndConditions: Boolean(values.termsAndCons),
               },
             });
           }}

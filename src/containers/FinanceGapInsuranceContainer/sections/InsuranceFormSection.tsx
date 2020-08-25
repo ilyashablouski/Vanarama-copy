@@ -1,36 +1,15 @@
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import ReactMarkdown from 'react-markdown';
-import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import { useForm } from 'react-hook-form';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
-import Router from 'next/router';
-import Link from '@vanarama/uibook/lib/components/atoms/link';
 import GoldrushForm from '../../../components/GoldrushForm/GoldrushForm';
-import {
-  postcodeValidator,
-  emailValidator,
-  phoneNumberValidator,
-  fullNameValidator,
-} from '../../../utils/inputValidators';
-import { OpportunityTypeEnum } from '../../../../generated/globalTypes';
-import { DEFAULT_POSTCODE } from 'containers/GoldrushFormContainer/GoldrushFormContainer';
+import { IGoldrushFromValues } from '../../../components/GoldrushForm/interfaces';
 
 interface IProps {
   title: string | null;
   body: string | null;
   isSubmitting: boolean;
   isGratitudeVisible: boolean;
-  onSubmit: (variables: {
-    fullName: string;
-    email: string;
-    phoneNumber: string;
-    postcode: string;
-    consent: boolean;
-    termsAndCons: boolean;
-  }) => void;
+  onSubmit: (variables: IGoldrushFromValues) => void;
   onCompleted: () => void;
 }
 
@@ -42,16 +21,6 @@ const InsuranceFormSection = ({
   isGratitudeVisible,
   onCompleted,
 }: IProps) => {
-  const { handleSubmit, errors, register } = useForm({
-    mode: 'onBlur',
-    defaultValues: {
-      fullName: '',
-      email: '',
-      phoneNumber: '',
-      postcode: '',
-    },
-  });
-
   return (
     <div className="row:featured-left">
       <div>
@@ -77,28 +46,13 @@ const InsuranceFormSection = ({
             />
           </>
         ) : (
-          <Form onSubmit={handleSubmit(onSubmit)}>
-            <GoldrushForm
-              callBack={false}
-              isSubmitting={isSubmitting}
-              isPostcodeVisible
-              isTextInVisible
-              onSubmit={values => {
-                createOpportunity({
-                  variables: {
-                    email: values.email,
-                    phoneNumber: values.phoneNumber,
-                    fullName: values.fullName,
-                    opportunityType: OpportunityTypeEnum.QUOTE,
-                    postcode: values.postcode || DEFAULT_POSTCODE,
-                    marketingPreference: Boolean(values.consent),
-                    termsAndConditions: Boolean(values.termsAndCons),
-                    opportunityType: OpportunityTypeEnum.CALLBACK,
-                  },
-                });
-              }}
-            />
-          </Form>
+          <GoldrushForm
+            callBack={false}
+            isSubmitting={isSubmitting}
+            isPostcodeVisible
+            isTextInVisible
+            onSubmit={onSubmit}
+          />
         )}
       </div>
     </div>
