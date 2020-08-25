@@ -6,7 +6,6 @@ import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import { useForm } from 'react-hook-form';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import RouterLink from 'components/RouterLink/RouterLink';
 import Router from 'next/router';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
 import {
@@ -21,7 +20,12 @@ interface IProps {
   body: string | null;
   isSubmitting: boolean;
   isGratitudeVisible: boolean;
-  onSubmit: () => void;
+  onSubmit: (variables: {
+    fullName: string;
+    email: string;
+    phoneNumber: string;
+    postcode: string;
+  }) => void;
   onCompleted: () => void;
 }
 
@@ -39,6 +43,7 @@ const InsuranceFormSection = ({
       fullName: '',
       email: '',
       phoneNumber: '',
+      postcode: '',
     },
   });
 

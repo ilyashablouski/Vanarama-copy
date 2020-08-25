@@ -22,7 +22,6 @@ const FinanceGapInsurancePage: NextPage = () => {
     return null;
   }
 
-  console.log('data', data)
   const metaData = data?.genericPage?.metaData;
   const sections = data.genericPage?.sections;
   const intro = data.genericPage?.intro;

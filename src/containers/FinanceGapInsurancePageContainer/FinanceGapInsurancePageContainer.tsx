@@ -4,7 +4,7 @@ import InsuranceHeroSection from '../InsurancePageContainer/sections/InsuranceHe
 import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/GenericPageQuery';
 import InsuranceTypeSection from './sections/InsuranceTypeSection';
 import InsuranceFormSection from './sections/InsuranceFormSection';
-import { useOpportunityCreation } from './gql';
+import { useOpportunityCreation } from '../GoldrushFormContainer/gql';
 import {
   VehicleTypeEnum,
   OpportunityTypeEnum,
@@ -12,6 +12,13 @@ import {
 
 interface IProps {
   sections: Section | null;
+}
+
+interface IValues {
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  postcode: string;
 }
 
 export const handleNetworkError = () =>
@@ -49,7 +56,7 @@ const FinanceGapInsurancePageContainer = ({ sections }: IProps) => {
           onCompleted={() => {
             toggleGratitude(false);
           }}
-          onSubmit={values => {
+          onSubmit={(values: IValues) => {
             createOppurtunity({
               variables: {
                 email: values.email,
