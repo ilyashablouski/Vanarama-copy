@@ -27,7 +27,8 @@ export const handleNetworkError = () =>
 const FinanceGapInsurancePageContainer = ({ sections }: IProps) => {
   const hero = sections?.hero;
   const leadText = sections?.leadText;
-  const featured = sections?.featured;
+  const featured1 = sections?.featured1;
+  const featured2 = sections?.featured2;
   const rowText = sections?.rowText;
 
   const [isGratitudeVisible, toggleGratitude] = useState(false);
@@ -45,32 +46,32 @@ const FinanceGapInsurancePageContainer = ({ sections }: IProps) => {
     <>
       {hero && <InsuranceHeroSection {...hero} />}
       {leadText && <InsuranceTypeSection {...leadText} />}
-      {featured && (
-        <InsuranceFormSection
-          {...featured}
-          isSubmitting={loading}
-          isGratitudeVisible={isGratitudeVisible}
-          onCompleted={() => {
-            toggleGratitude(false);
-          }}
-          onSubmit={(values: IValues) => {
-            createOppurtunity({
-              variables: {
-                email: values.email,
-                phoneNumber: values.phoneNumber,
-                fullName: values.fullName,
-                postcode: values.postcode,
-                marketingPreference: true,
-                opportunityType: OpportunityTypeEnum.INSURANCE,
-                vehicleType: VehicleTypeEnum.LCV,
-                termsAndConditions: true,
-              },
-            });
-          }}
-        />
+      {featured1 && (
+          <InsuranceFormSection
+            {...featured1}
+            isSubmitting={loading}
+            isGratitudeVisible={isGratitudeVisible}
+            onCompleted={() => {
+              toggleGratitude(false);
+            }}
+            onSubmit={(values: IValues) => {
+              createOppurtunity({
+                variables: {
+                  email: values.email,
+                  phoneNumber: values.phoneNumber,
+                  fullName: values.fullName,
+                  postcode: values.postcode,
+                  marketingPreference: true,
+                  opportunityType: OpportunityTypeEnum.INSURANCE,
+                  vehicleType: VehicleTypeEnum.LCV,
+                  termsAndConditions: true,
+                },
+              });
+            }}
+          />
       )}
       <hr className="-fullwidth" />
-      {rowText && <InsuranceTypeSection {...rowText} />}
+      {rowText && <InsuranceTypeSection {...rowText} link1={featured1?.link} link2={featured2?.link} />}
     </>
   );
 };

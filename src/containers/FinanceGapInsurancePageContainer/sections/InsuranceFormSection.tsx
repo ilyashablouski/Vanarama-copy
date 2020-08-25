@@ -114,7 +114,6 @@ const InsuranceFormSection = ({
                 type="text"
               />
             </FormGroup>
-
             <FormGroup
               controlId="goldrush-form_postcode"
               label="Postcode"
