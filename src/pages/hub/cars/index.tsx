@@ -276,6 +276,12 @@ export const CarsPage: NextPage = () => {
             <ReactMarkdown
               escapeHtml={false}
               source={data?.hubCarPage.sections?.featured1?.body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+              }}
             />
           </Text>
           <IconList>
@@ -325,6 +331,12 @@ export const CarsPage: NextPage = () => {
             <ReactMarkdown
               escapeHtml={false}
               source={data?.hubCarPage.sections?.featured2?.body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+              }}
             />
           </Text>
         </div>

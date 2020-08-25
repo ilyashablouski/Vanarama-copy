@@ -16,6 +16,7 @@ variable "app" {
 variable "task_definition" {
   type        = "string"
   description = "The urn of the task definitions - only applies on create (ecs-service module)"
+  default     = ""
 }
 
 variable "state_bucket" {
@@ -36,4 +37,8 @@ variable "aws_master_role" {
 
 variable "aws_account_id" {
   type = "string"
+}
+
+variable "include_ecs_service" {
+  type = bool
 }

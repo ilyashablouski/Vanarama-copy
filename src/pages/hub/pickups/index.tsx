@@ -139,7 +139,7 @@ export const PickupsPage: NextPage = () => {
 
       <div className="row:featured-product">
         <DealOfMonth
-          isPersonal
+          isPersonal={isPersonal}
           imageSrc={
             offer?.imageUrl ||
             'https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg'
@@ -286,6 +286,12 @@ export const PickupsPage: NextPage = () => {
             <ReactMarkdown
               escapeHtml={false}
               source={data?.hubPickupPage.sections?.featured1?.body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+              }}
             />
           </Text>
           <IconList>
@@ -335,6 +341,12 @@ export const PickupsPage: NextPage = () => {
             <ReactMarkdown
               escapeHtml={false}
               source={data?.hubPickupPage.sections?.featured2?.body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+              }}
             />
           </Text>
         </div>

@@ -30,6 +30,7 @@ const CompanyDetailsForm: React.FC<IProps> = ({
   const [inputMode, setInputMode] = useState<InputMode>(
     company ? 'manual' : 'search',
   );
+  const [proceedCompany, setProceedCompany] = useState<SearchResult>();
 
   const methods = useForm<ICompanyDetailsFormValues>({
     mode: 'onBlur',
@@ -42,6 +43,7 @@ const CompanyDetailsForm: React.FC<IProps> = ({
     setCompanySearchTerm('');
     methods.setValue('companySearchResult', undefined, true);
     setHasConfirmedCompany(false);
+    setProceedCompany(undefined);
   };
 
   const handleManualClick = () => {
@@ -56,12 +58,17 @@ const CompanyDetailsForm: React.FC<IProps> = ({
 
   const handleProceed = () => {
     setHasConfirmedCompany(true);
+    setProceedCompany(companySearchResult);
   };
 
   return (
     <Form
       onSubmit={methods.handleSubmit(values =>
-        onSubmit({ ...values, inputMode }),
+        onSubmit({
+          ...values,
+          companySearchResult: values.companySearchResult ?? proceedCompany,
+          inputMode,
+        }),
       )}
     >
       <Heading color="black" dataTestId="company-details_heading" size="xlarge">

@@ -7,7 +7,6 @@ export const ADVANCED_BREAKDOWN_COVER_PAGE = gql`
       id
       intro
       body
-
       metaData {
         pageType
         title
@@ -41,11 +40,37 @@ export const ADVANCED_BREAKDOWN_COVER_PAGE = gql`
               contentType
             }
           }
+          layout
         }
         featured2 {
           title
           titleTag
           body
+          image {
+            title
+            description
+            file {
+              url
+              fileName
+              contentType
+            }
+          }
+          layout
+        }
+        featured3 {
+          title
+          titleTag
+          body
+          image {
+            title
+            description
+            file {
+              url
+              fileName
+              contentType
+            }
+          }
+          layout
         }
         tiles {
           name

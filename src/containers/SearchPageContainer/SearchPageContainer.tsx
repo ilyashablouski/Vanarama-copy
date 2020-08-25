@@ -19,14 +19,19 @@ import ReactMarkdown from 'react-markdown';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useLazyQuery } from '@apollo/client';
-import { GENERIC_PAGE } from '../../gql/genericPage';
+import { GENERIC_PAGE, GENERIC_PAGE_HEAD } from '../../gql/genericPage';
 import Head from '../../components/Head/Head';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import TopOffersContainer from './TopOffersContainer';
 import { useProductCardData } from '../CustomerAlsoViewedContainer/gql';
 import { IFilters } from '../FiltersContainer/interfaces';
 import FiltersContainer from '../FiltersContainer';
-import { getVehiclesList, getRangesList, useManufacturerList } from './gql';
+import {
+  getVehiclesList,
+  getRangesList,
+  useManufacturerList,
+  GET_ALL_MAKES_PAGE,
+} from './gql';
 import VehicleCard, { IProductPageUrl } from './VehicleCard';
 import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
 import {
@@ -34,17 +39,28 @@ import {
   SortField,
   LeaseTypeEnum,
 } from '../../../generated/globalTypes';
-import buildRewriteRoute from './helpers';
+import { buildRewriteRoute, prepareSlugPart } from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import RangeCard from './RangeCard';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import TopInfoBlock from './TopInfoBlock';
-import { manufacturerPage_manufacturerPage_sections as sections } from '../../../generated/manufacturerPage';
+import {
+  manufacturerPage_manufacturerPage_sections as sections,
+  manufacturerPage,
+  manufacturerPage_manufacturerPage_metaData as PageMetaData,
+} from '../../../generated/manufacturerPage';
 import {
   GenericPageQuery,
   GenericPageQueryVariables,
 } from '../../../generated/GenericPageQuery';
+import { getFeaturedClassPartial } from '../../utils/layout';
+import { IFeaturedImageFile } from '../../components/Head/interface';
+import {
+  GenericPageHeadQuery,
+  GenericPageHeadQueryVariables,
+} from '../../../generated/GenericPageHeadQuery';
 import useLeaseType from '../../hooks/useLeaseType';
+import { LinkTypes } from '../../models/enum/LinkTypes';
 
 interface IProps {
   isServer: boolean;
@@ -55,8 +71,6 @@ interface IProps {
   isRangePage?: boolean;
   isModelPage?: boolean;
   isAllMakesPage?: boolean;
-  pageTitle?: string;
-  topInfoSection?: sections;
 }
 
 const SearchPageContainer: React.FC<IProps> = ({
@@ -68,8 +82,6 @@ const SearchPageContainer: React.FC<IProps> = ({
   isRangePage,
   isModelPage,
   isAllMakesPage,
-  pageTitle,
-  topInfoSection,
 }: IProps) => {
   const router = useRouter();
   /** we storing the last value of special offers checkbox in Session storage */
@@ -445,41 +457,162 @@ const SearchPageContainer: React.FC<IProps> = ({
   };
 
   const [pageData, setPageData] = useState<GenericPageQuery>();
+  const [metaData, setMetaData] = useState<PageMetaData>();
+  const [
+    featuredImage,
+    setFeaturedImage,
+  ] = useState<IFeaturedImageFile | null>();
+  const [topInfoSection, setTopInfoSection] = useState<sections | null>();
+
   const [getGenericPage] = useLazyQuery<
     GenericPageQuery,
     GenericPageQueryVariables
   >(GENERIC_PAGE, {
     onCompleted: result => {
       setPageData(result);
+      setMetaData(result.genericPage.metaData);
+      setFeaturedImage(result.genericPage.featuredImage);
     },
   });
+  const [getGenericPageHead] = useLazyQuery<
+    GenericPageHeadQuery,
+    GenericPageHeadQueryVariables
+  >(GENERIC_PAGE_HEAD, {
+    onCompleted: result => {
+      setMetaData(result.genericPage.metaData);
+      setFeaturedImage(result.genericPage.featuredImage);
+    },
+  });
+  const [getAllManufacturersPage] = useLazyQuery<manufacturerPage>(
+    GET_ALL_MAKES_PAGE,
+    {
+      onCompleted: result => {
+        setTopInfoSection(result.manufacturerPage.sections);
+        setMetaData(result.manufacturerPage.metaData);
+        setFeaturedImage(result.manufacturerPage.featuredImage);
+      },
+    },
+  );
 
   useEffect(() => {
-    if (router.query.make && router.query.rangeName) {
-      getGenericPage({
+    if (router.query.make) {
+      if (router.query.rangeName) {
+        if (router.query.bodyStyles) {
+          getGenericPage({
+            variables: {
+              slug: `/${prepareSlugPart(router.query.make)}-${
+                isCarSearch ? 'car-leasing' : 'van-leasing'
+              }/${prepareSlugPart(router.query.rangeName)}/${prepareSlugPart(
+                router.query.bodyStyles,
+              )}`,
+            },
+          });
+        } else {
+          getGenericPage({
+            variables: {
+              slug: `/${prepareSlugPart(router.query.make)}-${
+                isCarSearch ? 'car-leasing' : 'van-leasing'
+              }/${prepareSlugPart(router.query.rangeName)}`,
+            },
+          });
+        }
+      } else {
+        getGenericPage({
+          variables: {
+            slug: `/${(router.query.make as string).toLocaleLowerCase()}-${
+              isCarSearch ? 'car-leasing' : 'van-leasing'
+            }`,
+          },
+        });
+      }
+    }
+    if (router.asPath.match('all-car-manufacturers')) {
+      getAllManufacturersPage();
+    }
+    if (router.asPath.match('special-offers')) {
+      getGenericPageHead({
         variables: {
-          slug: `/${router.query.make}-${
-            isCarSearch ? 'car-leasing' : 'van-leasing'
-          }/${router.query.rangeName}`,
+          slug: `/${isCarSearch ? 'car-leasing' : 'pickup'}-special-offers`,
         },
       });
     }
-  }, [cacheData, setCapsIds, isCarSearch, router, getGenericPage]);
+  }, [
+    cacheData,
+    setCapsIds,
+    isCarSearch,
+    router,
+    getGenericPage,
+    getAllManufacturersPage,
+    getGenericPageHead,
+  ]);
 
   const tiles = pageData?.genericPage.sections?.tiles;
   const carousel = pageData?.genericPage.sections?.carousel;
+  const featured = pageData?.genericPage.sections?.featured;
 
   return (
     <>
+      <Head
+        title={metaData?.title || ''}
+        metaDescription={metaData?.metaDescription}
+        metaRobots={metaData?.metaRobots}
+        legacyUrl={metaData?.legacyUrl}
+        publishedOn={metaData?.publishedOn}
+        featuredImage={featuredImage}
+      />
       <div className="row:title">
         <Breadcrumb items={crumbs} />
         <Heading tag="h1" size="xlarge" color="black">
           {(isModelPage &&
             `${filtersData.manufacturerName} ${filtersData.rangeName} ${filtersData.bodyStyles?.[0]}`) ||
-            (pageTitle ?? 'Lorem Ips')}
+            (metaData?.name ?? 'Lorem Ips')}
         </Heading>
         <Text color="darker" size="lead" />
       </div>
+      {pageData && (
+        <>
+          {router.query.bodyStyles &&
+            router.query.make &&
+            router.query.rangeName && (
+              <>
+                <div className="row:title">
+                  <Heading size="large" color="black">
+                    {metaData?.name}
+                  </Heading>
+                </div>
+                <div className="row:text">
+                  <div>
+                    <Text color="darker" size="regular" tag="div">
+                      <ReactMarkdown
+                        source={pageData?.genericPage.body || ''}
+                        disallowedTypes={['paragraph']}
+                        unwrapDisallowed
+                        renderers={{
+                          link: props => {
+                            const { href, children } = props;
+                            return (
+                              <RouterLink link={{ href, label: children }} />
+                            );
+                          },
+                          image: props => {
+                            const { src, alt } = props;
+                            return (
+                              <img
+                                {...{ src, alt }}
+                                style={{ maxWidth: '100%' }}
+                              />
+                            );
+                          },
+                        }}
+                      />
+                    </Text>
+                  </div>
+                </div>
+              </>
+            )}
+        </>
+      )}
+
       {isAllMakesPage && topInfoSection && (
         <TopInfoBlock topInfoSection={topInfoSection} />
       )}
@@ -568,6 +701,9 @@ const SearchPageContainer: React.FC<IProps> = ({
                     <VehicleCard
                       viewOffer={viewOffer}
                       dataDerivatives={carDer}
+                      bodyStyle={
+                        router.query?.bodyStyles === 'Pickup' ? 'Pickup' : null
+                      }
                       key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
                       data={
                         getCardData(
@@ -609,36 +745,67 @@ const SearchPageContainer: React.FC<IProps> = ({
       )}
       {pageData && (
         <>
-          <Head
-            title={pageData?.genericPage.metaData.title || ''}
-            metaDescription={pageData?.genericPage.metaData.metaDescription}
-            metaRobots={pageData?.genericPage.metaData.metaRobots}
-            legacyUrl={pageData?.genericPage.metaData.legacyUrl}
-            publishedOn={pageData?.genericPage.metaData.publishedOn}
-            featuredImage={pageData?.genericPage.featuredImage}
-          />
-          <div className="row:title">
-            <Heading size="large" color="black">
-              {pageData?.genericPage.metaData.title}
-            </Heading>
-          </div>
-          <div className="row:text">
-            <div>
-              <Text color="darker" size="regular" tag="div">
-                <ReactMarkdown
-                  source={pageData?.genericPage.body || ''}
-                  disallowedTypes={['paragraph']}
-                  unwrapDisallowed
-                />
-              </Text>
+          {!router.query.bodyStyles &&
+            router.query.make &&
+            router.query.rangeName && (
+              <>
+                <div className="row:title">
+                  <Heading size="large" color="black">
+                    {metaData?.name}
+                  </Heading>
+                </div>
+                <div className="row:text">
+                  <div>
+                    <Text color="darker" size="regular" tag="div">
+                      <ReactMarkdown
+                        source={pageData?.genericPage.body || ''}
+                        disallowedTypes={['paragraph']}
+                        unwrapDisallowed
+                        renderers={{
+                          link: props => {
+                            const { href, children } = props;
+                            return (
+                              <RouterLink link={{ href, label: children }} />
+                            );
+                          },
+                        }}
+                      />
+                    </Text>
+                  </div>
+                </div>
+              </>
+            )}
+          {featured && (
+            <div className={`row:${getFeaturedClassPartial(featured)}`}>
+              <Image size="expand" src={featured.image?.file?.url || ''} />
+              <div>
+                <Heading tag="span" size="large" color="black">
+                  {featured.title}
+                </Heading>
+                <Text tag="p" size="regular" color="darker">
+                  <ReactMarkdown
+                    source={featured.body || ''}
+                    renderers={{
+                      link: props => {
+                        const { href, children } = props;
+                        return <RouterLink link={{ href, label: children }} />;
+                      },
+                    }}
+                  />
+                </Text>
+              </div>
             </div>
-          </div>
+          )}
 
           {tiles && (
             <div className="row:features-4col">
               {tiles?.tiles?.length &&
-                tiles.tiles.map(tile => (
-                  <Tile plain className="-align-center -button">
+                tiles.tiles.map((tile, indx) => (
+                  <Tile
+                    plain
+                    className="-align-center -button"
+                    key={`${tile.title}_${indx.toString()}`}
+                  >
                     <span>
                       <Image
                         src={tile.image?.file?.url || ''}
@@ -666,10 +833,10 @@ const SearchPageContainer: React.FC<IProps> = ({
 
           {carousel?.cards?.length && (
             <div className="row:bg-lighter ">
-              <Heading size="large" color="black">
-                {carousel.title}
-              </Heading>
               <div className="row:carousel">
+                <Heading size="large" color="black" tag="h3">
+                  {carousel.title}
+                </Heading>
                 <Carousel
                   countItems={carousel?.cards?.length || 0}
                   className="-col3"
@@ -693,8 +860,30 @@ const SearchPageContainer: React.FC<IProps> = ({
                           }}
                         >
                           <Text color="dark" size="regular" tag="span">
-                            <ReactMarkdown source={card.body || ''} />
+                            <ReactMarkdown
+                              source={card.body || ''}
+                              renderers={{
+                                link: props => {
+                                  const { href, children } = props;
+                                  return (
+                                    <RouterLink
+                                      link={{ href, label: children }}
+                                    />
+                                  );
+                                },
+                              }}
+                            />
                           </Text>
+                          <RouterLink
+                            link={{
+                              href: card.link?.url || '',
+                              label: card.link?.text || '',
+                              linkType: card.link?.url?.match('http')
+                                ? LinkTypes.external
+                                : '',
+                            }}
+                            classNames={{ color: 'teal' }}
+                          />
                         </Card>
                       ),
                   )}

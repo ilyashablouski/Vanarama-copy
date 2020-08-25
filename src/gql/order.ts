@@ -97,6 +97,11 @@ export const GET_CAR_DERIVATIVE = gql`
         slug
       }
     }
+    vehicleImages(capIds: [$id], vehicleType: $vehicleType) {
+      vehicleType
+      capId
+      mainImageUrl
+    }
   }
 `;
 

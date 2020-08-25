@@ -15,6 +15,7 @@ import { LocationsPageData } from '../../../../generated/LocationsPageData';
 
 import withApollo from '../../../hocs/withApollo';
 import BreadCrumbContainer from '../../../containers/BreadCrumbContainer';
+import RouterLink from '../../../components/RouterLink/RouterLink';
 
 export const LocationsPage: NextPage = () => {
   const { data, loading, error } = useQuery<LocationsPageData>(
@@ -45,6 +46,12 @@ export const LocationsPage: NextPage = () => {
           <ReactMarkdown
             escapeHtml={false}
             source={data?.regionalOfficesPage.body || ''}
+            renderers={{
+              link: props => {
+                const { href, children } = props;
+                return <RouterLink link={{ href, label: children }} />;
+              },
+            }}
           />
         </div>
       </section>

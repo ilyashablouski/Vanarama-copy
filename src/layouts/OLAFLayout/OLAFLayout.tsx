@@ -10,6 +10,7 @@ import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { useOlafData, useCarDerivativeData } from '../../gql/order';
 import { createOlafDetails } from './helpers';
 import { OLAFQueryParams } from '../../utils/url';
+import { GetDerivative_vehicleImages as VehicleImages } from '../../../generated/GetDerivative';
 
 const OLAFLayout: React.FC = ({ children }) => {
   const router = useRouter();
@@ -28,6 +29,10 @@ const OLAFLayout: React.FC = ({ children }) => {
     orderByUuid?.lineItems[0].vehicleProduct?.vehicleType,
   );
   const derivative = derivativeData && derivativeData.data?.derivative;
+  const mainImage =
+    derivativeData &&
+    derivativeData.data?.vehicleImages &&
+    (derivativeData.data?.vehicleImages as VehicleImages[])[0]?.mainImageUrl;
 
   useEffect(() => {
     if (orderByUuid) {
@@ -71,7 +76,7 @@ const OLAFLayout: React.FC = ({ children }) => {
               colorDataTestId="about_color-testID"
               trimDataTestId="about_trim-testID"
               descriptionDataTestId="about_description-testID"
-              imageSrc="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/KiaeNiro0219_j7on5z.jpg"
+              imageSrc={mainImage || ''}
               title={{
                 title: `${derivative?.manufacturer.name || ''} ${derivative
                   ?.model.name || ''}`,

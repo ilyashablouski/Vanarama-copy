@@ -47,12 +47,47 @@ export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_
   titleTag: string | null;
   body: string | null;
   image: advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured1_image | null;
+  layout: string[] | null;
+}
+
+export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured2_image_file {
+  url: string;
+  fileName: string;
+  contentType: string;
+}
+
+export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured2_image {
+  title: string | null;
+  description: string | null;
+  file: advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured2_image_file | null;
 }
 
 export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured2 {
   title: string | null;
   titleTag: string | null;
   body: string | null;
+  image: advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured2_image | null;
+  layout: string[] | null;
+}
+
+export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured3_image_file {
+  url: string;
+  fileName: string;
+  contentType: string;
+}
+
+export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured3_image {
+  title: string | null;
+  description: string | null;
+  file: advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured3_image_file | null;
+}
+
+export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured3 {
+  title: string | null;
+  titleTag: string | null;
+  body: string | null;
+  image: advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured3_image | null;
+  layout: string[] | null;
 }
 
 export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_tiles_tiles_image_file {
@@ -75,7 +110,7 @@ export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_
 }
 
 export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_tiles {
-  name: string;
+  name: string | null;
   tilesTitle: string | null;
   titleTag: string | null;
   tiles: advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_tiles_tiles[] | null;
@@ -84,6 +119,7 @@ export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_
 export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections {
   featured1: advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured1 | null;
   featured2: advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured2 | null;
+  featured3: advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured3 | null;
   tiles: advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_tiles | null;
 }
 

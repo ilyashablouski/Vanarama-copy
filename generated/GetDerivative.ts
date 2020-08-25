@@ -49,8 +49,15 @@ export interface GetDerivative_derivative {
   range: GetDerivative_derivative_range;
 }
 
+export interface GetDerivative_vehicleImages {
+  vehicleType: VehicleTypeEnum | null;
+  capId: number | null;
+  mainImageUrl: string | null;
+}
+
 export interface GetDerivative {
   derivative: GetDerivative_derivative | null;
+  vehicleImages: (GetDerivative_vehicleImages | null)[] | null;
 }
 
 export interface GetDerivativeVariables {

@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import getTitleTag from '../../../utils/getTitleTag';
 import { GetFleetLandingPage_fleetLandingPage_sections_featured2 as IMediaFeature } from '../../../../generated/GetFleetLandingPage';
 import LayoutTypes from '../../../models/enum/LayoutTypes';
+import RouterLink from '../../../components/RouterLink/RouterLink';
 
 const selectClassName = (selectedLayout: string) => {
   switch (selectedLayout) {
@@ -60,6 +61,11 @@ const MediaFeatureSection: React.FC<IMediaFeatureProps> = ({
               renderers={{
                 heading: props => <Heading {...props} tag="h3" />,
                 paragraph: props => <Text {...props} tag="p" color="darker" />,
+                link: props => {
+                  const { href } = props;
+                  // eslint-disable-next-line react/destructuring-assignment
+                  return <RouterLink link={{ href, label: props.children }} />;
+                },
               }}
             />
           </>

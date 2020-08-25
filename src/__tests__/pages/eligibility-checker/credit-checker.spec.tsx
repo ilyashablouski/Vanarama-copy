@@ -116,7 +116,7 @@ describe('<CreditChecker />', () => {
     fireEvent.click(screen.getByText('View Offer'));
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing/[...manufacturer]',
+        '/van-leasing/[...details-page]',
         '/van-leasing/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
       ),
     );

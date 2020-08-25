@@ -60,6 +60,7 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
           partyUuid,
           leaseType: LeaseTypeEnum.BUSINESS,
           lineItems: [],
+          uuid: orderId,
         },
       },
     });

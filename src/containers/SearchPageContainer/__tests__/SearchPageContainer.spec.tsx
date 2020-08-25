@@ -90,6 +90,7 @@ jest.mock('next/router', () => ({
     pathname: '/car-leasing',
     query: {},
     route: '/car-leasing',
+    asPath: '',
   }),
 }));
 
