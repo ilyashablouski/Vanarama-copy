@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
@@ -22,10 +23,13 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
   heading,
   callBack,
   text,
+  isTextInVisible,
 }) => {
   const buttonLabelText = callBack ? 'Call Me Back' : 'Get Quote Now';
   const buttonLabel = isSubmitting ? 'Loading...' : buttonLabelText;
-  const { handleSubmit, errors, register } = useForm<IGoldrushFromValues>({
+  const { handleSubmit, errors, register, reset } = useForm<
+    IGoldrushFromValues
+  >({
     mode: 'onBlur',
     defaultValues: {
       fullName: '',
@@ -33,6 +37,16 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
       phoneNumber: '',
     },
   });
+
+  useEffect(() => {
+    if (isSubmitting) {
+      reset({
+        fullName: '',
+        email: '',
+        phoneNumber: '',
+      });
+    }
+  }, [isSubmitting, reset]);
 
   const termsAndConditions = () => (
     <CheckBox
@@ -145,13 +159,15 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
           {termsAndConditions()}
         </FormGroup>
       )}
-      <Text tag="p" color={callBack ? 'dark' : 'darker'} size="xsmall">
-        Vanarama collects the contact information you provide to us to contact
-        you about our products and services. You may unsubscribe from these
-        communications at any time. For information on how to unsubscribe, as
-        well as our privacy practices and commitment to protecting your privacy,
-        please check out our Privacy Policy.
-      </Text>
+      {!isTextInVisible && (
+        <Text tag="p" color={callBack ? 'dark' : 'darker'} size="xsmall">
+          Vanarama collects the contact information you provide to us to contact
+          you about our products and services. You may unsubscribe from these
+          communications at any time. For information on how to unsubscribe, as
+          well as our privacy practices and commitment to protecting your
+          privacy, please check out our Privacy Policy.
+        </Text>
+      )}
       <Button
         dataTestId="goldrush-form_submit"
         type="submit"
