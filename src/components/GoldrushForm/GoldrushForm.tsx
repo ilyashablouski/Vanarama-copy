@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
@@ -26,7 +27,9 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
 }) => {
   const buttonLabelText = callBack ? 'Call Me Back' : 'Get Quote Now';
   const buttonLabel = isSubmitting ? 'Loading...' : buttonLabelText;
-  const { handleSubmit, errors, register } = useForm<IGoldrushFromValues>({
+  const { handleSubmit, errors, register, reset } = useForm<
+    IGoldrushFromValues
+  >({
     mode: 'onBlur',
     defaultValues: {
       fullName: '',
@@ -34,6 +37,16 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
       phoneNumber: '',
     },
   });
+
+  useEffect(() => {
+    if (isSubmitting) {
+      reset({
+        fullName: '',
+        email: '',
+        phoneNumber: '',
+      });
+    }
+  }, [isSubmitting, reset]);
 
   const termsAndConditions = () => (
     <CheckBox

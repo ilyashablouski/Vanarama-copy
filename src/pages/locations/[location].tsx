@@ -3,26 +3,16 @@ import { getDataFromTree } from '@apollo/react-ssr';
 import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
 import Modal from '@vanarama/uibook/lib/components/molecules/modal';
-import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
-import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import withApollo from '../../hocs/withApollo';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import {
-  fullNameValidator,
-  emailValidator,
-  phoneNumberValidator,
-  postcodeValidator,
-} from '../../utils/inputValidators';
 import {
   handleNetworkError,
   DEFAULT_POSTCODE,
@@ -33,19 +23,11 @@ import { useGenericPage } from '../../gql/genericPage';
 import Head from '../../components/Head/Head';
 import getTitleTag from '../../utils/getTitleTag';
 import { getFeaturedClassPartial } from '../../utils/layout';
+import GoldrushForm from '../../components/GoldrushForm/GoldrushForm';
 
 export const LocationsPage: NextPage = () => {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
-  const { handleSubmit, errors, register } = useForm({
-    mode: 'onBlur',
-    defaultValues: {
-      fullName: '',
-      email: '',
-      phoneNumber: '',
-      postcode: '',
-    },
-  });
 
   const [createOpportunity, { loading }] = useOpportunityCreation(
     () => setShowModal(true),
@@ -266,88 +248,25 @@ export const LocationsPage: NextPage = () => {
       {featured && (
         <div className={`row:${getFeaturedClassPartial(featured)}`}>
           <Card>
-            <Form
-              dataTestId="fleet-request-call-back-form"
-              id="fleet-request-call-back-form"
-              onSubmit={handleSubmit(values => {
+            <GoldrushForm
+              callBack={false}
+              isSubmitting={loading}
+              isPostcodeVisible
+              isTextInVisible
+              onSubmit={values => {
                 createOpportunity({
                   variables: {
                     email: values.email,
                     phoneNumber: values.phoneNumber,
                     fullName: values.fullName,
-                    opportunityType: OpportunityTypeEnum.QUOTE,
                     postcode: values.postcode || DEFAULT_POSTCODE,
+                    marketingPreference: Boolean(values.consent),
+                    termsAndConditions: Boolean(values.termsAndCons),
+                    opportunityType: OpportunityTypeEnum.CALLBACK,
                   },
                 });
-              })}
-            >
-              <FormGroup
-                controlId="fleet-call-back-form_full-name"
-                label="Full Name"
-                error={errors.fullName?.message?.toString()}
-              >
-                <TextInput
-                  id="fleet-call-back-form_full-name"
-                  dataTestId="fleet-call-back-form_full-name"
-                  name="fullName"
-                  ref={register(fullNameValidator)}
-                  type="text"
-                />
-              </FormGroup>
-              <FormGroup
-                controlId="fleet-call-back-form_email-name"
-                label="Email Address"
-                error={errors.email?.message?.toString()}
-              >
-                <TextInput
-                  name="email"
-                  dataTestId="fleet-call-back-form_email-address"
-                  ref={register(emailValidator)}
-                  type="text"
-                />
-              </FormGroup>
-              <FormGroup
-                controlId="fleet-call-back-form_phone-number"
-                label="Phone Number"
-                error={errors.phoneNumber?.message?.toString()}
-              >
-                <TextInput
-                  id="fleet-call-back-form_phone-number"
-                  dataTestId="fleet-call-back-form_phone-number"
-                  name="phoneNumber"
-                  ref={register(phoneNumberValidator)}
-                  type="text"
-                />
-              </FormGroup>
-              <FormGroup
-                controlId="fleet-call-back-form_postcode"
-                label="Postcode"
-                error={errors.postcode?.message?.toString()}
-              >
-                <TextInput
-                  id="fleet-call-back-form_postcode"
-                  dataTestId="fleet-call-back-form_postcode"
-                  name="postcode"
-                  ref={register(postcodeValidator)}
-                  type="text"
-                />
-              </FormGroup>
-              <Text size="small" color="darker" tag="span">
-                Terms and conditions agreement text and{' '}
-                <RouterLink
-                  link={{ href: '', label: 'link' }}
-                  classNames={{ color: 'teal' }}
-                />
-              </Text>
-              <Button
-                color="primary"
-                dataTestId="fleet-call-back-form_continue"
-                label="Get Quote Now"
-                size="large"
-                type="submit"
-                disabled={loading}
-              />
-            </Form>
+              }}
+            />
           </Card>
           <div>
             <Heading color="black" size="lead" tag="h3">
