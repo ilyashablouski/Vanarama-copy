@@ -1,6 +1,10 @@
 import moment from 'moment';
 import { historyToMoment } from '../../utils/dates';
-import { SubmissionValues } from '../../components/CompanyDetailsForm/interfaces';
+import {
+  SubmissionValues,
+  ICompanyDetailsFormValues,
+} from '../../components/CompanyDetailsForm/interfaces';
+import { SearchCompaniesQuery_searchCompanies_nodes as CompanySearchResult } from '../../../generated/SearchCompaniesQuery';
 
 const DATE_FORMAT = 'DD-MM-YYYY';
 
@@ -66,18 +70,28 @@ export const mapFormValues = (
   };
 };
 
-export const mapDefaultValues = (data: { [key: string]: any }) => {
+export const mapDefaultValues = (data: {
+  [key: string]: any;
+}): ICompanyDetailsFormValues => {
   return {
-    nature: data?.nature,
+    companySearchResult: data?.company_search_result
+      ? {
+          addressSnippet: data?.company_search_result?.address_snippet,
+          companyNumber: data?.company_search_result?.company_number,
+          companyStatus: data?.company_search_result?.company_status,
+          dateOfCreation: data?.company_search_result?.date_of_creation,
+          title: data?.company_search_result?.title,
+        }
+      : undefined,
     companyNumber: data?.company_number,
-    companyType: data?.company_type,
     companyName: data?.company_name,
     tradingSinceMonth: data?.trading_since_month,
     tradingSinceYear: data?.trading_since_year,
-    email: data?.email,
-    telephone: data?.telephone,
-    tradingAddress: data?.trading_address,
+    nature: data?.nature,
     registeredAddress: data?.registered_address,
     tradingDifferent: data?.trading_different,
+    tradingAddress: data?.trading_address,
+    email: data?.email,
+    telephone: data?.telephone,
   };
 };

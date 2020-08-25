@@ -15,5 +15,9 @@ export const formValuesToInputCreditApplication = (
     leadManagerProposalId: creditApp.leadManagerProposalId,
     partyDetails: creditApp.partyDetails,
     telephoneNumbers: creditApp.telephoneNumbers,
+    aboutDetails: creditApp.aboutDetails,
+    companyDetails: creditApp.companyDetails,
+    vatDetails: creditApp.vatDetails,
+    directorsDetails: creditApp.directorsDetails,
   };
 };
