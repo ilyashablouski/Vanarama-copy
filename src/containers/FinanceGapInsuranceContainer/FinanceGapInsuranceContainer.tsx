@@ -19,6 +19,8 @@ interface IValues {
   email: string;
   phoneNumber: string;
   postcode: string;
+  consent: boolean;
+  termsAndCons: boolean;
 }
 
 export const handleNetworkError = () =>
@@ -64,10 +66,10 @@ const FinanceGapInsurancePageContainer = ({ sections }: IProps) => {
                 phoneNumber: values.phoneNumber,
                 fullName: values.fullName,
                 postcode: values.postcode,
-                marketingPreference: true,
                 opportunityType: OpportunityTypeEnum.INSURANCE,
                 vehicleType: VehicleTypeEnum.LCV,
-                termsAndConditions: true,
+                marketingPreference: Boolean(values.consent),
+                termsAndConditions: Boolean(values.termsAndCons)
               },
             });
           }}
