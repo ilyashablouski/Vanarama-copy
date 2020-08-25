@@ -163,6 +163,10 @@ export const GENERIC_PAGE = gql`
           body
           titleTag
           title
+          link {
+            url
+            text
+          }
           image {
             title
             description
@@ -176,6 +180,10 @@ export const GENERIC_PAGE = gql`
           layout
           body
           titleTag
+          link {
+            url
+            text
+          }
           image {
             title
             description
