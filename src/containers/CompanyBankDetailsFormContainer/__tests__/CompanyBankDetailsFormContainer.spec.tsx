@@ -100,9 +100,10 @@ describe('<CompanyBankDetailsFormContainer />', () => {
         })),
       },
       makeUpdateCreditApplicationMock({
-        vatDetails: 'vatDetails',
-        companyDetails: null,
-        directorsDetails: 'directorsDetails',
+        orderUuid: '00000000-24a5-42ff-9acd-00000000',
+        status: 'status',
+        emailAddresses: [],
+        addresses: [],
         bankAccounts: [
           {
             accountName: 'Test',
@@ -112,7 +113,15 @@ describe('<CompanyBankDetailsFormContainer />', () => {
             sortCode: ['01', '93', '87'],
           },
         ],
-        orderUuid: '00000000-24a5-42ff-9acd-00000000',
+        employmentHistories: 'employmentHistories',
+        incomeAndExpenses: 'incomeAndExpenses',
+        leadManagerProposalId: 'leadManagerProposalId',
+        partyDetails: 'partyDetails',
+        telephoneNumbers: [],
+        aboutDetails: undefined,
+        companyDetails: null,
+        vatDetails: 'vatDetails',
+        directorsDetails: 'directorsDetails'
       }),
     ];
 
