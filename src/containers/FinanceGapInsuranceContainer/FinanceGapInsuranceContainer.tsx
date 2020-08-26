@@ -1,5 +1,9 @@
 import { useState } from 'react';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
+import Modal from '@vanarama/uibook/lib/components/molecules/modal';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import Button from '@vanarama/uibook/lib/components/atoms/button';
+import GoldrushForm from '../../components/GoldrushForm/GoldrushForm';
 import { IGoldrushFromValues } from '../../components/GoldrushForm/interfaces';
 import InsuranceHeroSection from '../InsurancePageContainer/sections/InsuranceHeroSection';
 import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/GenericPageQuery';
@@ -38,6 +42,7 @@ const FinanceGapInsurancePageContainer = ({ sections }: IProps) => {
   const rowText = sections?.rowText;
 
   const [isGratitudeVisible, toggleGratitude] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const [createOppurtunity, { loading }] = useOpportunityCreation(
     () => toggleGratitude(true),
@@ -76,9 +81,62 @@ const FinanceGapInsurancePageContainer = ({ sections }: IProps) => {
           }}
         />
       )}
+      {showModal && (
+        <Modal
+          className="-mt-000 callBack"
+          show
+          onRequestClose={() => {
+            toggleGratitude(false);
+            setShowModal(false);
+          }}
+        >
+          {isGratitudeVisible ? (
+            <>
+              <Heading size="regular" color="black">
+                Thank you for submitting the form. We will be in touch shortly.
+              </Heading>
+              <Button
+                className="-mt-600"
+                dataTestId="goldrush-button_close"
+                label="Close"
+                size="lead"
+                fill="solid"
+                color="teal"
+                onClick={() => {
+                  toggleGratitude(false);
+                  setShowModal(false);
+                }}
+              />
+            </>
+          ) : (
+            <GoldrushForm
+              callBack={false}
+              isSubmitting={loading}
+              isPostcodeVisible
+              termsAndConditionsId="modal"
+              isTextInVisible
+              onSubmit={(values: IGoldrushFromValues) => {
+                createOppurtunity({
+                  variables: {
+                    email: values.email,
+                    phoneNumber: values.phoneNumber,
+                    fullName: values.fullName,
+                    postcode: values.postcode,
+                    opportunityType: OpportunityTypeEnum.INSURANCE,
+                    vehicleType: VehicleTypeEnum.LCV,
+                    marketingPreference: Boolean(values.consent),
+                    termsAndConditions: Boolean(values.termsAndCons),
+                  },
+                });
+              }}
+            />
+          )}
+        </Modal>
+      )}
       <hr className="-fullwidth" />
       {rowText && (
         <InsuranceTypeSection
+          showModal={() => setShowModal(true)}
           {...rowText}
           link1={featured1?.link}
           link2={featured2?.link}
