@@ -99,6 +99,39 @@ export const GENERIC_PAGE = gql`
             }
           }
         }
+        hero {
+          position
+          flag
+          title
+          titleTag
+          body
+          image {
+            title
+            description
+            file {
+              url
+              fileName
+              contentType
+            }
+          }
+          heroCard {
+            title
+            body
+          }
+        }
+        leadText {
+          position
+          heading
+          titleTag
+          description
+        }
+        rowText {
+          position
+          heading
+          titleTag
+          subHeading
+          body
+        }
         featured {
           layout
           body
@@ -130,6 +163,10 @@ export const GENERIC_PAGE = gql`
           body
           titleTag
           title
+          link {
+            url
+            text
+          }
           image {
             title
             description
@@ -143,6 +180,10 @@ export const GENERIC_PAGE = gql`
           layout
           body
           titleTag
+          link {
+            url
+            text
+          }
           image {
             title
             description
