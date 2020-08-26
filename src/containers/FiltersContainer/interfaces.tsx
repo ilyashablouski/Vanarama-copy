@@ -12,6 +12,7 @@ export interface IFilterContainerProps {
   isRangePage?: boolean;
   isModelPage?: boolean;
   isAllMakesPage?: boolean;
+  isBodyPage?: boolean;
 }
 
 export interface IFilters {
