@@ -30,7 +30,9 @@ jest.mock('next/router', () => ({
   },
 }));
 
-const getCreditApplication = makeGetCreditApplicationMock('00000000-24a5-42ff-9acd-00000000');
+const getCreditApplication = makeGetCreditApplicationMock(
+  '00000000-24a5-42ff-9acd-00000000',
+);
 
 describe('B2B About You page', () => {
   it('should submit data to the server and redirect to the company details page', async () => {

@@ -4,7 +4,6 @@ import {
   SubmissionValues,
   ICompanyDetailsFormValues,
 } from '../../components/CompanyDetailsForm/interfaces';
-import { SearchCompaniesQuery_searchCompanies_nodes as CompanySearchResult } from '../../../generated/SearchCompaniesQuery';
 
 const DATE_FORMAT = 'DD-MM-YYYY';
 

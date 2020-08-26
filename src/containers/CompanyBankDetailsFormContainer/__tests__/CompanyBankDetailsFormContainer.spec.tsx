@@ -121,7 +121,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
         aboutDetails: undefined,
         companyDetails: null,
         vatDetails: 'vatDetails',
-        directorsDetails: 'directorsDetails'
+        directorsDetails: 'directorsDetails',
       }),
     ];
 
