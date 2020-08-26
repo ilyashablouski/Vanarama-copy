@@ -42,14 +42,14 @@ const InsuranceTypeSection = ({
           color="teal"
           fill="solid"
           label={link1?.text}
-          onClick={goToTop}
+          onClick={showModal}
         />
         <Button
           size="regular"
           color="teal"
           fill="outline"
           label={link2?.text}
-          onClick={showModal}
+          onClick={goToTop}
         />
       </div>
     )}
