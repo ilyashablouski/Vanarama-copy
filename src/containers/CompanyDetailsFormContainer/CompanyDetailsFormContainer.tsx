@@ -10,7 +10,7 @@ import {
   LimitedCompanyInputObject,
 } from '../../../generated/globalTypes';
 import CompanyDetailsForm from '../../components/CompanyDetailsForm/CompanyDetailsForm';
-
+import { ICompanyDetailsFormValues } from '../../components/CompanyDetailsForm/interfaces';
 import { useCreateUpdateOrder } from '../../gql/order';
 import {
   useCreateUpdateCreditApplication,
@@ -18,6 +18,7 @@ import {
 } from '../../gql/creditApplication';
 import { ICompanyDetailsFormContainerProps } from './interfaces';
 import { mapFormValues, mapDefaultValues } from './mappers';
+import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 
 export const SAVE_COMPANY_DETAILS = gql`
   mutation SaveCompanyDetailsMutation($input: LimitedCompanyInputObject!) {
@@ -65,17 +66,14 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
       },
     });
 
-  const handleCreditApplicationUpdate = (values: LimitedCompanyInputObject) =>
+  const handleCreditApplicationUpdate = (values: ICompanyDetailsFormValues) =>
     createUpdateApplication({
       variables: {
-        input: {
-          vatDetails: data?.creditApplicationByOrderUuid?.vatDetails,
-          directorsDetails:
-            data?.creditApplicationByOrderUuid?.directorsDetails,
-          bankAccounts: data?.creditApplicationByOrderUuid?.bankAccounts,
+        input: formValuesToInputCreditApplication({
+          ...data?.creditApplicationByOrderUuid,
           companyDetails: values,
           orderUuid: orderId,
-        },
+        }),
       },
     });
 

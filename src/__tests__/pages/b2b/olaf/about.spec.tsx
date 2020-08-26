@@ -14,6 +14,7 @@ import {
   SaveBusinessAboutYou,
   SaveBusinessAboutYouVariables,
 } from '../../../../../generated/SaveBusinessAboutYou';
+import { makeGetCreditApplicationMock } from '../../../../gql/creditApplication';
 
 jest.mock('../../../../layouts/OLAFLayout/OLAFLayout');
 const mockPush = jest.fn();
@@ -22,14 +23,21 @@ jest.mock('next/router', () => ({
     return {
       push: mockPush,
       pathname: '/b2b/olaf/about',
-      query: {},
+      query: {
+        orderId: '00000000-24a5-42ff-9acd-00000000',
+      },
     };
   },
 }));
 
+const getCreditApplication = makeGetCreditApplicationMock(
+  '00000000-24a5-42ff-9acd-00000000',
+);
+
 describe('B2B About You page', () => {
   it('should submit data to the server and redirect to the company details page', async () => {
     const mocks: MockedResponse[] = [
+      getCreditApplication,
       {
         request: {
           query: GET_B2B_ABOUT_PAGE_DATA,
@@ -150,6 +158,7 @@ describe('B2B About You page', () => {
 
   it('should display a toast message if the request to the server fails', async () => {
     const mocks: MockedResponse[] = [
+      getCreditApplication,
       {
         request: {
           query: GET_ABOUT_YOU_DATA,

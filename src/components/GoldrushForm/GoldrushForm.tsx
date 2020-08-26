@@ -24,6 +24,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
   callBack,
   text,
   isTextInVisible,
+  termsAndConditionsId,
 }) => {
   const buttonLabelText = callBack ? 'Call Me Back' : 'Get Quote Now';
   const buttonLabel = isSubmitting ? 'Loading...' : buttonLabelText;
@@ -50,7 +51,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
 
   const termsAndConditions = () => (
     <CheckBox
-      id="termsAndCons"
+      id={`termsAndCons${termsAndConditionsId || ''}`}
       dataTestId="aboutTermsAndCons"
       name="termsAndCons"
       label={
@@ -64,7 +65,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
 
   const consent = () => (
     <CheckBox
-      id="consent"
+      id={`consent${termsAndConditionsId || ''}`}
       dataTestId="aboutConsent"
       name="consent"
       label={

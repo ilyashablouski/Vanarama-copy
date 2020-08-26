@@ -12,6 +12,7 @@ import {
 } from './gql';
 import { IVatDetailsFormContainerProps } from './interfaces';
 import { mapFormValues, mapDefaultValues } from './mappers';
+import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 import { CompanyTypes } from '../../models/enum/CompanyTypes';
 
 export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = ({
@@ -38,19 +39,12 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
   const handleCreditApplicationUpdate = (vatDetails: VatDetailsFormValues) =>
     createUpdateApplication({
       variables: {
-        input: {
-          directorsDetails:
-            getCreditApplicationByOrderUuidQuery.data
-              ?.creditApplicationByOrderUuid?.directorsDetails,
-          bankAccounts:
-            getCreditApplicationByOrderUuidQuery.data
-              ?.creditApplicationByOrderUuid?.bankAccounts,
-          companyDetails:
-            getCreditApplicationByOrderUuidQuery.data
-              ?.creditApplicationByOrderUuid?.companyDetails,
+        input: formValuesToInputCreditApplication({
+          ...getCreditApplicationByOrderUuidQuery.data
+            ?.creditApplicationByOrderUuid,
           vatDetails,
           orderUuid: orderId,
-        },
+        }),
       },
     });
 
