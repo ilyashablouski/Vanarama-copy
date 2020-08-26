@@ -40,10 +40,7 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
       }
       leadManagerProposalId
       createdAt
-      emailAddresses
-      partyDetails
       status
-      telephoneNumbers
       updatedAt
       uuid
     }
@@ -93,10 +90,7 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
       }
       leadManagerProposalId
       createdAt
-      emailAddresses
-      partyDetails
       status
-      telephoneNumbers
       updatedAt
       uuid
     }
@@ -130,9 +124,6 @@ export function useCreateUpdateCreditApplication(
         const bankAccounts =
           result.data?.createUpdateCreditApplication?.bankAccounts ||
           data?.creditApplicationByOrderUuid?.bankAccounts;
-        const emailAddresses =
-          result.data?.createUpdateCreditApplication?.emailAddresses ||
-          data?.creditApplicationByOrderUuid?.emailAddresses;
         const employmentHistories =
           result.data?.createUpdateCreditApplication?.employmentHistories ||
           data?.creditApplicationByOrderUuid?.employmentHistories;
@@ -142,9 +133,6 @@ export function useCreateUpdateCreditApplication(
         const status =
           result.data?.createUpdateCreditApplication?.status ||
           data?.creditApplicationByOrderUuid?.status;
-        const telephoneNumbers =
-          result.data?.createUpdateCreditApplication?.telephoneNumbers ||
-          data?.creditApplicationByOrderUuid?.telephoneNumbers;
         const updatedAt =
           result.data?.createUpdateCreditApplication?.updatedAt ||
           data?.creditApplicationByOrderUuid?.updatedAt;
@@ -167,12 +155,12 @@ export function useCreateUpdateCreditApplication(
               createdAt: data?.creditApplicationByOrderUuid?.createdAt,
               addresses,
               bankAccounts,
-              emailAddresses,
+              emailAddresses: [],
               employmentHistories,
               incomeAndExpenses,
               lineItem: null,
               status: status || 'draft',
-              telephoneNumbers,
+              telephoneNumbers: [],
               updatedAt,
               uuid: orderId,
               partyDetails: null,
@@ -224,10 +212,7 @@ const responseMock = {
   },
   leadManagerProposalId: 'leadManagerProposalId',
   createdAt: 'createdAt',
-  emailAddresses: [],
-  partyDetails: 'partyDetails',
   status: 'status',
-  telephoneNumbers: [],
   updatedAt: 'updatedAt',
   uuid: 'uuid',
 };

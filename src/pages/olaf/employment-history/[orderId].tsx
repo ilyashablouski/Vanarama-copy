@@ -43,7 +43,7 @@ const EmploymentHistoryPage: NextPage = () => {
         input: formValuesToInputCreditApplication({
           ...creditApplication.data?.creditApplicationByOrderUuid,
           orderUuid: orderId,
-          employmentHistories: createUpdateEmploymentHistory?.slice(-1)[0],
+          employmentHistories: createUpdateEmploymentHistory,
         }),
       },
     });
