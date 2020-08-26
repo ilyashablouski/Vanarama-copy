@@ -821,7 +821,6 @@ describe('B2B VAT Details page', () => {
           makeUpdateCreditApplicationMock({
             orderUuid: '39c19729-1111-46bd-0000-ed82705b3e01',
             status: 'status',
-            emailAddresses: [],
             addresses: [],
             bankAccounts: [
               {
@@ -835,8 +834,6 @@ describe('B2B VAT Details page', () => {
             employmentHistories: 'employmentHistories',
             incomeAndExpenses: 'incomeAndExpenses',
             leadManagerProposalId: 'leadManagerProposalId',
-            partyDetails: 'partyDetails',
-            telephoneNumbers: [],
             aboutDetails: undefined,
             companyDetails: null,
             vatDetails: { vatRegistered: false, outsideUK: false },

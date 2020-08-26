@@ -11,17 +11,17 @@ export const mapAddresses = (values: SubmissionValues) =>
   values.tradingDifferent
     ? [
         {
-          serviceId: values.registeredAddress.id,
+          serviceId: values.registeredAddress?.id,
           kind: 'registered',
         },
         {
-          serviceId: values.tradingAddress.id,
+          serviceId: values.tradingAddress?.id,
           kind: 'trading',
         },
       ]
     : [
         {
-          serviceId: values.registeredAddress.id,
+          serviceId: values.registeredAddress?.id,
           kind: 'registered',
         },
       ];
