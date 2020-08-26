@@ -239,6 +239,7 @@ describe('<TopOffersContainer />', () => {
       isSpecialOfferPage: true,
       isPickups: false,
       isRangePage: false,
+      isBodyPage: false,
       viewOffer: jest.fn(),
       viewModel: jest.fn(),
     };
