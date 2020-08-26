@@ -2,7 +2,6 @@
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Router from 'next/router';
 import {
   GenericPageQuery_genericPage_sections_featured1_link,
   GenericPageQuery_genericPage_sections_featured2_link,

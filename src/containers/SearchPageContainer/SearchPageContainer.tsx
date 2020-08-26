@@ -39,7 +39,12 @@ import {
   SortField,
   LeaseTypeEnum,
 } from '../../../generated/globalTypes';
-import { buildRewriteRoute, prepareSlugPart } from './helpers';
+import {
+  buildRewriteRoute,
+  prepareSlugPart,
+  bodyUrls,
+  isBodyTransmission,
+} from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import RangeCard from './RangeCard';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
@@ -121,6 +126,8 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
 
+  const isBodyPage = bodyUrls.indexOf(prepareSlugPart(router.query.make)) > -1;
+
   useEffect(() => {
     const type = isPersonal ? 'Personal' : 'Business';
     setCachedLeaseType(type);
@@ -145,7 +152,9 @@ const SearchPageContainer: React.FC<IProps> = ({
   // using onCompleted callback for request card data after vehicle list was loaded
   const [getVehicles, { data }] = getVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-    isMakePage || isSpecialOfferPage ? true : isSpecialOffers || null,
+    isMakePage || isBodyPage || isSpecialOfferPage
+      ? true
+      : isSpecialOffers || null,
     async vehicles => {
       try {
         const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
@@ -202,8 +211,23 @@ const SearchPageContainer: React.FC<IProps> = ({
   // Ranges list query for make page
   const [getRanges, { data: ranges }] = getRangesList(
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-    router.query?.make as string,
+    !isBodyPage ? (router.query?.make as string) : '',
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
+    undefined,
+    isBodyPage && !isBodyTransmission(router.query?.make as string)
+      ? [
+          (router.query?.make as string)
+            .replace(/.html/g, '')
+            .replace(/-vans/g, ''),
+        ]
+      : undefined,
+    isBodyPage && isBodyTransmission(router.query?.make as string)
+      ? [
+          (router.query?.make as string)
+            .replace(/.html/g, '')
+            .replace(/-vans/g, ''),
+        ]
+      : undefined,
   );
 
   // Make list query for all makes page
@@ -224,7 +248,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   const onSearch = (filters = filtersData) => {
     // set search filters data
     setFiltersData(filters);
-    if (isMakePage) {
+    if (isMakePage || isBodyPage) {
       getRanges({
         variables: {
           vehicleTypes: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
@@ -232,7 +256,24 @@ const SearchPageContainer: React.FC<IProps> = ({
             ? LeaseTypeEnum.PERSONAL
             : LeaseTypeEnum.BUSINESS,
           ...filters,
-          manufacturerName: router.query?.make as string,
+          manufacturerName: !isBodyPage ? (router.query?.make as string) : '',
+          bodyStyles:
+            isBodyPage &&
+            !isBodyTransmission(
+              (router.query?.make as string)
+                .replace(/.html/g, '')
+                .replace(/-vans/g, ''),
+            ) // if needed
+              ? [router.query?.make as string]
+              : undefined,
+          transmissions:
+            isBodyPage && isBodyTransmission(router.query?.make as string)
+              ? [
+                  (router.query?.make as string)
+                    .replace(/.html/g, '')
+                    .replace(/-vans/g, ''),
+                ]
+              : undefined,
         },
       });
       // call only manufacturer list query call after select new filter
@@ -305,7 +346,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     if ((!queryLength || isSpecialOfferPage) && !isAllMakesPage) getVehicles();
     // if page mount without additional search params in query we made request
     // else request will be made after filters preselected
-    if (isMakePage && queryLength < 2) getRanges();
+    if ((isMakePage || isBodyPage) && queryLength < 2) getRanges();
     if (isAllMakesPage && !queryLength) getManufacturerList();
     // disabled lint because we can't add router to deps
     // it's change every url replace
@@ -337,7 +378,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       setLastCard(data.vehicleList.pageInfo.endCursor || '');
       setHasNextPage(data.vehicleList.pageInfo.hasNextPage || false);
       // use range lenght for manufacture page
-      if (!isMakePage && !isAllMakesPage)
+      if (!isMakePage && !isBodyPage && !isAllMakesPage)
         setTotalCount(data.vehicleList.totalCount);
       setCapsIds(
         data.vehicleList?.edges?.map(
@@ -353,6 +394,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     setCapsIds,
     isMakePage,
     isAllMakesPage,
+    isBodyPage,
   ]);
 
   // initial set ranges
@@ -372,7 +414,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   // get vehicles to cache
   useEffect(() => {
     // don't make a request for cache in manufacture page
-    if (lastCard && !isMakePage && hasNextPage)
+    if (lastCard && !isMakePage && !isBodyPage && hasNextPage)
       getVehiclesCache({
         variables: {
           vehicleTypes: isCarSearch
@@ -397,6 +439,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     hasNextPage,
     isRangePage,
     isModelPage,
+    isBodyPage,
   ]);
 
   // set capsIds for cached data
@@ -516,6 +559,15 @@ const SearchPageContainer: React.FC<IProps> = ({
             },
           });
         }
+      } else if (isBodyPage) {
+        getGenericPage({
+          variables: {
+            slug: `/${prepareSlugPart(router.query.make).replace(
+              /.html/g,
+              '',
+            )}`,
+          },
+        });
       } else {
         getGenericPage({
           variables: {
@@ -544,12 +596,12 @@ const SearchPageContainer: React.FC<IProps> = ({
     getGenericPage,
     getAllManufacturersPage,
     getGenericPageHead,
+    isBodyPage,
   ]);
 
   const tiles = pageData?.genericPage.sections?.tiles;
   const carousel = pageData?.genericPage.sections?.carousel;
   const featured = pageData?.genericPage.sections?.featured;
-
   return (
     <>
       <Head
@@ -567,7 +619,27 @@ const SearchPageContainer: React.FC<IProps> = ({
             `${filtersData.manufacturerName} ${filtersData.rangeName} ${filtersData.bodyStyles?.[0]}`) ||
             (metaData?.name ?? 'Lorem Ips')}
         </Heading>
-        <Text color="darker" size="lead" />
+        {!isBodyPage ? (
+          <Text color="darker" size="lead" />
+        ) : (
+          <Text color="darker" size="regular" tag="div">
+            <ReactMarkdown
+              source={pageData?.genericPage.intro || ''}
+              disallowedTypes={['paragraph']}
+              unwrapDisallowed
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+                image: props => {
+                  const { src, alt } = props;
+                  return <img {...{ src, alt }} style={{ maxWidth: '100%' }} />;
+                },
+              }}
+            />
+          </Text>
+        )}
       </div>
       {pageData && (
         <>
@@ -620,6 +692,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         <TopOffersContainer
           isCarSearch={isCarSearch}
           isMakePage={isMakePage || false}
+          isBodyPage={isBodyPage}
           isPersonal={isPersonal}
           isRangePage={isRangePage || false}
           isPickups={isPickups || false}
@@ -666,9 +739,9 @@ const SearchPageContainer: React.FC<IProps> = ({
           </Text>
           <div className="row:cards-3col">
             {useCallback(
-              isMakePage || isAllMakesPage ? (
+              isMakePage || isBodyPage || isAllMakesPage ? (
                 <>
-                  {isMakePage &&
+                  {(isMakePage || isBodyPage) &&
                     !!ranges?.rangeList?.length &&
                     ranges?.rangeList?.map((range, index) => (
                       <RangeCard
@@ -722,7 +795,7 @@ const SearchPageContainer: React.FC<IProps> = ({
               [cardsData, isPersonal, ranges, carDer, totalCount],
             )}
           </div>
-          {!(isMakePage || isAllMakesPage) ? (
+          {!(isMakePage || isBodyPage || isAllMakesPage) ? (
             <div className="pagination">
               {totalCount > vehiclesList?.length && (
                 <Button
@@ -743,38 +816,74 @@ const SearchPageContainer: React.FC<IProps> = ({
       {!pageData && router.query.make && router.query.rangeName && (
         <Loading size="large" />
       )}
+
+      {isBodyPage && (
+        <div className="row:features-4col">
+          {tiles?.tiles?.length &&
+            tiles.tiles.map((tile, indx) => (
+              <Tile
+                plain
+                className="-align-center -button"
+                key={`${tile.title}_${indx.toString()}`}
+              >
+                <span>
+                  <Image
+                    src={tile.image?.file?.url || ''}
+                    inline
+                    round
+                    size="large"
+                  />
+                </span>
+                <RouterLink
+                  link={{ href: tile.link || '', label: tile.title || '' }}
+                  className="tile--link"
+                  withoutDefaultClassName
+                >
+                  <Heading color="black" size="regular">
+                    {tile.title}
+                  </Heading>
+                </RouterLink>
+                <Text color="darker" size="regular">
+                  {tile.body}
+                </Text>
+              </Tile>
+            ))}
+        </div>
+      )}
+
       {pageData && (
         <>
-          {!router.query.bodyStyles &&
+          {((!router.query.bodyStyles &&
             router.query.make &&
-            router.query.rangeName && (
-              <>
-                <div className="row:title">
-                  <Heading size="large" color="black">
-                    {metaData?.name}
-                  </Heading>
+            router.query.rangeName) ||
+            isBodyPage) && (
+            <>
+              <div className="row:title">
+                <Heading size="large" color="black">
+                  {metaData?.name}
+                </Heading>
+              </div>
+              <div className="row:text">
+                <div>
+                  <Text color="darker" size="regular" tag="div">
+                    <ReactMarkdown
+                      source={pageData?.genericPage.body || ''}
+                      disallowedTypes={['paragraph']}
+                      unwrapDisallowed
+                      renderers={{
+                        link: props => {
+                          const { href, children } = props;
+                          return (
+                            <RouterLink link={{ href, label: children }} />
+                          );
+                        },
+                      }}
+                    />
+                  </Text>
                 </div>
-                <div className="row:text">
-                  <div>
-                    <Text color="darker" size="regular" tag="div">
-                      <ReactMarkdown
-                        source={pageData?.genericPage.body || ''}
-                        disallowedTypes={['paragraph']}
-                        unwrapDisallowed
-                        renderers={{
-                          link: props => {
-                            const { href, children } = props;
-                            return (
-                              <RouterLink link={{ href, label: children }} />
-                            );
-                          },
-                        }}
-                      />
-                    </Text>
-                  </div>
-                </div>
-              </>
-            )}
+              </div>
+            </>
+          )}
           {featured && (
             <div className={`row:${getFeaturedClassPartial(featured)}`}>
               <Image size="expand" src={featured.image?.file?.url || ''} />
@@ -797,7 +906,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             </div>
           )}
 
-          {tiles && (
+          {tiles && !isBodyPage && (
             <div className="row:features-4col">
               {tiles?.tiles?.length &&
                 tiles.tiles.map((tile, indx) => (

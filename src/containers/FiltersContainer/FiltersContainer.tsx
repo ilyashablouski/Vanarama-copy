@@ -15,6 +15,7 @@ import ChevronUp from '@vanarama/uibook/lib/assets/icons/ChevronUp';
 import ChevronDown from '@vanarama/uibook/lib/assets/icons/ChevronDown';
 import { useMediaQuery } from 'react-responsive';
 import { useRouter } from 'next/router';
+import { prepareSlugPart, bodyUrls } from '../SearchPageContainer/helpers';
 import { useFilterList } from '../SearchPodContainer/gql';
 import { makeHandler, modelHandler } from '../SearchPodContainer/helpers';
 import { filtersConfig, budgets, filterFields } from './config';
@@ -53,6 +54,7 @@ const FiltersContainer = ({
   isRangePage,
   isModelPage,
   isAllMakesPage,
+  isBodyPage,
 }: IFilterContainerProps) => {
   const router = useRouter();
   const [filtersData, setFiltersData] = useState({} as IFilterList);
@@ -91,7 +93,7 @@ const FiltersContainer = ({
 
   const { refetch } = useFilterList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-    isMakePage || isRangePage || isModelPage || isAllMakesPage
+    isMakePage || isRangePage || isModelPage || isAllMakesPage || isBodyPage
       ? null
       : isSpecialOffers,
     resp => {
@@ -162,7 +164,9 @@ const FiltersContainer = ({
     refetch({
       vehicleTypes: isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
       onOffer:
-        isMakePage || isRangePage || isAllMakesPage ? null : isSpecialOffers,
+        isMakePage || isRangePage || isAllMakesPage || isBodyPage
+          ? null
+          : isSpecialOffers,
       ...filtersObjectForFilters,
     }).then(resp => {
       // using then because apollo return incorrect cache result https://github.com/apollographql/apollo-client/issues/3550
@@ -198,7 +202,14 @@ const FiltersContainer = ({
       const presetFilters = {} as ISelectedFiltersState;
       const routerQuery = Object.entries(router.query);
       routerQuery.forEach(entry => {
-        const [key, values] = entry;
+        const [keyRaw, valuesRaw] = entry;
+        const key =
+          keyRaw === 'make' &&
+          bodyUrls.lastIndexOf(prepareSlugPart(valuesRaw)) > -1
+            ? 'bodyStyles'
+            : keyRaw;
+        const values = valuesRaw;
+
         if (key === 'rangeName') {
           filtersData.groupedRanges?.some(element => {
             const value = findPreselectFilterValue(
@@ -219,7 +230,13 @@ const FiltersContainer = ({
           let query: string | string[];
           // transformation the query value to expected type
           if (!Array.isArray(values)) {
-            query = values.split(',').length > 1 ? values.split(',') : values;
+            query =
+              values.split(',').length > 1
+                ? values
+                    .replace(/.html/g, '')
+                    .replace(/-vans/g, '')
+                    .split(',')
+                : values.replace(/.html/g, '').replace(/-vans/g, '');
           } else {
             query = values;
           }
@@ -269,6 +286,7 @@ const FiltersContainer = ({
       (selectedFilterTags[0] && isInitialLoad) ||
       (isInitialLoad &&
         ((isMakePage && selectedFiltersState.make[0]) ||
+          (isBodyPage && selectedFiltersState.make[0]) ||
           (isRangePage && selectedFiltersState.model[0]))) ||
       (isModelPage && selectedFiltersState.model[0])
     )
@@ -285,6 +303,7 @@ const FiltersContainer = ({
     if (
       filtersObject.manufacturerName &&
       !isMakePage &&
+      !isBodyPage &&
       !((isRangePage || isModelPage) && !tempModelName)
     ) {
       // every time when filters update active model missed
@@ -351,7 +370,7 @@ const FiltersContainer = ({
         ) {
           return `£${entry[1]}`;
         }
-        return ((isMakePage || isRangePage || isModelPage) &&
+        return ((isMakePage || isBodyPage || isRangePage || isModelPage) &&
           entry[0] === filterFields.make) ||
           ((isRangePage || isModelPage) && entry[0] === filterFields.model) ||
           (isModelPage && entry[0] === filterFields.bodyStyles)
@@ -361,7 +380,7 @@ const FiltersContainer = ({
       .flat()
       .filter(Boolean);
     setSelectedFilterTags(selected);
-  }, [selectedFiltersState, isMakePage, isRangePage, isModelPage]);
+  }, [selectedFiltersState, isMakePage, isBodyPage, isRangePage, isModelPage]);
 
   // made force update for choiseboxes state
   useEffect(() => {
@@ -472,7 +491,6 @@ const FiltersContainer = ({
   const handleFilterExpand = () => {
     if (isTabletOrMobile) setFilterExpandStatus(prevValue => !prevValue);
   };
-
   return (
     <SearchFilters isOpen={isOpenFilter}>
       <SearchFiltersHead onClick={handleFilterExpand}>
@@ -506,12 +524,17 @@ const FiltersContainer = ({
                   <FormGroup label={dropdown.label} key={dropdown.label}>
                     <Select
                       disabled={
-                        (isMakePage ||
+                        ((isMakePage ||
+                          isBodyPage ||
                           isRangePage ||
                           isModelPage ||
                           isAllMakesPage) &&
-                        (dropdown.accessor === filterFields.make ||
-                          dropdown.accessor === filterFields.model)
+                          (dropdown.accessor === filterFields.make ||
+                            dropdown.accessor === filterFields.model)) ||
+                        (isBodyPage &&
+                          dropdown.accessor === filterFields.bodyStyles) ||
+                        (isBodyPage &&
+                          dropdown.accessor === filterFields.transmissions)
                       }
                       name={dropdown.accessor}
                       placeholder={`Select ${dropdown.accessor}`}
