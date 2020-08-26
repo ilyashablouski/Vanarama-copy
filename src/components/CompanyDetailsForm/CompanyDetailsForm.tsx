@@ -43,7 +43,8 @@ const CompanyDetailsForm: React.FC<IProps> = ({
       setProceedCompany(company?.companySearchResult);
       setHasConfirmedCompany(true);
     }
-  }, [company, methods]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [company]);
 
   const companySearchResult = methods.watch('companySearchResult');
 

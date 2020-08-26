@@ -48,7 +48,7 @@ const AddressHistoryPage: NextPage = () => {
         input: formValuesToInputCreditApplication({
           ...creditApplication.data?.creditApplicationByOrderUuid,
           orderUuid: orderId,
-          addresses: createUpdateAddress?.slice(-1)[0],
+          addresses: createUpdateAddress,
         }),
       },
     });
