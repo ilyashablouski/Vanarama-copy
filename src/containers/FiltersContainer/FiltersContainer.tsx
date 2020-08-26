@@ -15,6 +15,7 @@ import ChevronUp from '@vanarama/uibook/lib/assets/icons/ChevronUp';
 import ChevronDown from '@vanarama/uibook/lib/assets/icons/ChevronDown';
 import { useMediaQuery } from 'react-responsive';
 import { useRouter } from 'next/router';
+import { prepareSlugPart, bodyUrls } from '../SearchPageContainer/helpers';
 import { useFilterList } from '../SearchPodContainer/gql';
 import { makeHandler, modelHandler } from '../SearchPodContainer/helpers';
 import { filtersConfig, budgets, filterFields } from './config';
@@ -22,7 +23,6 @@ import { IFilterContainerProps } from './interfaces';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
 import { findPreselectFilterValue } from './helpers';
-import { prepareSlugPart } from 'containers/SearchPageContainer/helpers';
 
 interface ISelectedFiltersState {
   [index: string]: string[];
@@ -204,7 +204,8 @@ const FiltersContainer = ({
       routerQuery.forEach(entry => {
         const [keyRaw, valuesRaw] = entry;
         const key =
-          keyRaw === 'make' && prepareSlugPart(valuesRaw).includes('.html')
+          keyRaw === 'make' &&
+          bodyUrls.lastIndexOf(prepareSlugPart(valuesRaw)) > -1
             ? 'bodyStyles'
             : keyRaw;
         const values = valuesRaw;
@@ -525,7 +526,9 @@ const FiltersContainer = ({
                           (dropdown.accessor === filterFields.make ||
                             dropdown.accessor === filterFields.model)) ||
                         (isBodyPage &&
-                          dropdown.accessor == filterFields.bodyStyles)
+                          dropdown.accessor === filterFields.bodyStyles) ||
+                        (isBodyPage &&
+                          dropdown.accessor === filterFields.transmissions)
                       }
                       name={dropdown.accessor}
                       placeholder={`Select ${dropdown.accessor}`}

@@ -17,11 +17,13 @@ import {
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import { bodyStyleList_bodyStyleList as IModelsData } from '../../../generated/bodyStyleList';
+import { isBodyTransmission } from './helpers';
 
 interface IProps {
   isPersonal: boolean;
   isCarSearch: boolean;
   isMakePage: boolean;
+  isBodyPage: boolean;
   isSpecialOfferPage: boolean;
   isPickups: boolean;
   isRangePage: boolean;
@@ -32,6 +34,7 @@ interface IProps {
 const TopOffersContainer: React.FC<IProps> = ({
   isCarSearch,
   isMakePage,
+  isBodyPage,
   isSpecialOfferPage,
   isPickups,
   isRangePage,
@@ -109,7 +112,7 @@ const TopOffersContainer: React.FC<IProps> = ({
   // API call after load new pages
   useEffect(() => {
     if (isSpecialOfferPage) getVehicles();
-    if (isMakePage || isRangePage) {
+    if (isMakePage || isRangePage || isBodyPage) {
       getVehicles({
         variables: {
           vehicleTypes: isCarSearch
@@ -117,7 +120,17 @@ const TopOffersContainer: React.FC<IProps> = ({
             : [VehicleTypeEnum.LCV],
           onOffer: true,
           sortField: SortField.offerRanking,
-          manufacturerName: router.query?.make as string,
+          manufacturerName: !isBodyPage
+            ? (router.query?.make as string)
+            : undefined,
+          bodyStyles:
+            isBodyPage && !isBodyTransmission(router.query?.make as string)
+              ? [router.query?.make as string]
+              : undefined,
+          transmissions:
+            isBodyPage && isBodyTransmission(router.query?.make as string)
+              ? [router.query?.make as string]
+              : undefined,
           rangeName: isRangePage
             ? ((router.query?.rangeName as string) || '').split('+').join(' ')
             : '',
@@ -129,11 +142,18 @@ const TopOffersContainer: React.FC<IProps> = ({
     // disabled lint because we can't add router to deps
     // it's change every url replace
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getVehicles, isCarSearch, isMakePage, isSpecialOfferPage, isPersonal]);
+  }, [
+    getVehicles,
+    isCarSearch,
+    isMakePage,
+    isBodyPage,
+    isSpecialOfferPage,
+    isPersonal,
+  ]);
 
   // using for get vehicles for carousel when we switching between pages by header links
   useEffect(() => {
-    if (isMakePage && router.query.isChangePage === 'true') {
+    if ((isMakePage || isBodyPage) && router.query.isChangePage === 'true') {
       getVehicles({
         variables: {
           vehicleTypes: isCarSearch
@@ -141,19 +161,31 @@ const TopOffersContainer: React.FC<IProps> = ({
             : [VehicleTypeEnum.LCV],
           onOffer: true,
           sortField: SortField.offerRanking,
-          manufacturerName: router.query?.make as string,
+          manufacturerName: !isBodyPage
+            ? (router.query?.make as string)
+            : undefined,
+          bodyStyles:
+            isBodyPage && !isBodyTransmission(router.query?.make as string)
+              ? [router.query?.make as string]
+              : undefined,
+          transmissions:
+            isBodyPage && isBodyTransmission(router.query?.make as string)
+              ? [router.query?.make as string]
+              : undefined,
           first: 6,
         },
       });
     }
-  }, [router, isCarSearch, isMakePage, getVehicles]);
+  }, [router, isCarSearch, isMakePage, isBodyPage, getVehicles]);
 
   const getCardData = (capId: string, dataForCards = cardsData) =>
     dataForCards?.filter(card => card?.capId === capId)[0];
 
   return (
     <>
-      {((isMakePage && vehiclesList.length > 3 && !!carDer.length) ||
+      {(((isMakePage || isBodyPage) &&
+        vehiclesList.length > 3 &&
+        !!carDer.length) ||
         ((isSpecialOfferPage || (isRangePage && vehiclesList.length > 2)) &&
           !!vehiclesList.length &&
           !!carDer.length)) && (

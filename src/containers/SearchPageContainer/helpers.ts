@@ -46,3 +46,31 @@ export function prepareSlugPart(part: string | string[]) {
     .replace(/ /g, '-')
     .toLocaleLowerCase();
 }
+
+const transmissions = ['automatic-vans'];
+
+export const bodyUrls = [
+  'automatic-vans',
+  '4x4-suv',
+  'convertible',
+  'coupe',
+  'eco',
+  'estate',
+  'family',
+  'hatchback',
+  'people-carrier',
+  'prestige',
+  'saloon',
+  'small',
+  'crew-vans',
+  'dropside-tipper-leasing',
+  'large-van-leasing',
+  'medium-van-leasing',
+  'refrigerated-van-leasing',
+  'small-van-leasing',
+  'specialist-van-leasing',
+];
+
+export function isBodyTransmission(key: string) {
+  return transmissions.indexOf(key) > -1;
+}
