@@ -211,8 +211,23 @@ const SearchPageContainer: React.FC<IProps> = ({
   // Ranges list query for make page
   const [getRanges, { data: ranges }] = getRangesList(
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-    router.query?.make as string,
+    !isBodyPage ? router.query?.make as string : '',
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
+    undefined,
+    isBodyPage && !isBodyTransmission(router.query?.make as string)
+      ? [
+          (router.query?.make as string)
+            .replace(/.html/g, '')
+            .replace(/-vans/g, ''),
+        ]
+      : undefined,
+    isBodyPage && isBodyTransmission(router.query?.make as string)
+      ? [
+          (router.query?.make as string)
+            .replace(/.html/g, '')
+            .replace(/-vans/g, ''),
+        ]
+      : undefined,
   );
 
   // Make list query for all makes page
@@ -232,7 +247,6 @@ const SearchPageContainer: React.FC<IProps> = ({
   // new search with new filters
   const onSearch = (filters = filtersData) => {
     // set search filters data
-    debugger;
     setFiltersData(filters);
     if (isMakePage || isBodyPage) {
       getRanges({

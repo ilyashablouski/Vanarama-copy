@@ -87,7 +87,6 @@ const TopOffersContainer: React.FC<IProps> = ({
         }
         return false;
       } catch (exc) {
-        debugger;
         return false;
       }
     },
