@@ -8,6 +8,7 @@ import {
 import { useUpdateBankDetails } from './gql';
 import { IProps } from './interfaces';
 import { formValuesToInput, mapDefaultValues } from './mappers';
+import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 
 const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   companyUuid,
@@ -51,15 +52,11 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
         }).then(() =>
           createUpdateApplication({
             variables: {
-              input: {
-                vatDetails: data?.creditApplicationByOrderUuid?.vatDetails,
-                companyDetails:
-                  data?.creditApplicationByOrderUuid?.companyDetails,
-                directorsDetails:
-                  data?.creditApplicationByOrderUuid?.directorsDetails,
+              input: formValuesToInputCreditApplication({
+                ...data?.creditApplicationByOrderUuid,
                 bankAccounts: [values],
                 orderUuid,
-              },
+              }),
             },
           }),
         );

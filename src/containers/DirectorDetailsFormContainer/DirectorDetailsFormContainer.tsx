@@ -12,6 +12,7 @@ import {
 } from './gql';
 import { IDirectorDetailsFormContainerProps } from './interfaces';
 import { mapFormValues } from './mappers';
+import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 
 export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContainerProps> = ({
   companyUuid,
@@ -44,19 +45,12 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   ) =>
     createUpdateApplication({
       variables: {
-        input: {
-          vatDetails:
-            getCreditApplicationByOrderUuidQuery.data
-              ?.creditApplicationByOrderUuid?.vatDetails,
-          bankAccounts:
-            getCreditApplicationByOrderUuidQuery.data
-              ?.creditApplicationByOrderUuid?.bankAccounts,
-          companyDetails:
-            getCreditApplicationByOrderUuidQuery.data
-              ?.creditApplicationByOrderUuid?.companyDetails,
+        input: formValuesToInputCreditApplication({
+          ...getCreditApplicationByOrderUuidQuery.data
+            ?.creditApplicationByOrderUuid,
           directorsDetails,
           orderUuid,
-        },
+        }),
       },
     });
 

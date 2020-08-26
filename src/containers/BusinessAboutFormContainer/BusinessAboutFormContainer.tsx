@@ -5,10 +5,14 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import BusinessAboutForm from '../../components/BusinessAboutForm/BusinessAboutForm';
 import { useEmailCheck } from '../RegisterFormContainer/gql';
 import { useAboutYouData } from '../AboutFormContainer/gql';
-import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
+import {
+  useCreateUpdateCreditApplication,
+  useGetCreditApplicationByOrderUuid,
+} from '../../gql/creditApplication';
 import { useAboutPageDataQuery, useSaveAboutYouMutation } from './gql';
 import { IBusinessAboutFormContainerProps, SubmitResult } from './interfaces';
 import { SaveBusinessAboutYou } from '../../../generated/SaveBusinessAboutYou';
+import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 
 const savePersonUuid = async (data: SaveBusinessAboutYou) =>
   localForage.setItem('personUuid', data.createUpdateBusinessPerson?.uuid);
@@ -29,8 +33,14 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     orderId,
     () => {},
   );
+  const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
+    orderId,
+  );
 
-  if (aboutPageDataQuery?.loading) {
+  if (
+    aboutPageDataQuery?.loading ||
+    getCreditApplicationByOrderUuidQuery.loading
+  ) {
     return <Loading size="large" />;
   }
 
@@ -56,20 +66,17 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
         return Boolean(results?.data?.emailAlreadyExists);
       }}
       onSubmit={async values => {
-        const emailAddress = {
-          value: values.email,
-        };
-        const telephoneNumbers = [
-          {
-            value: values.mobile,
-          },
-        ];
-
         await saveDetails({
           variables: {
             input: {
-              emailAddress,
-              telephoneNumbers,
+              emailAddress: {
+                value: values.email,
+              },
+              telephoneNumbers: [
+                {
+                  value: values.mobile,
+                },
+              ],
               title: values.title,
               firstName: values.firstName,
               lastName: values.lastName,
@@ -83,12 +90,12 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
           .then(({ data }) =>
             createUpdateApplication({
               variables: {
-                input: {
+                input: formValuesToInputCreditApplication({
+                  ...getCreditApplicationByOrderUuidQuery.data
+                    ?.creditApplicationByOrderUuid,
                   aboutDetails: values,
-                  telephoneNumbers,
-                  emailAddresses: [emailAddress],
                   orderUuid: orderId,
-                },
+                }),
               },
             }).then(() => {
               const result = {
