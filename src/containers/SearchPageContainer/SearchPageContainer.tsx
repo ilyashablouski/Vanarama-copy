@@ -211,7 +211,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   // Ranges list query for make page
   const [getRanges, { data: ranges }] = getRangesList(
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-    !isBodyPage ? router.query?.make as string : '',
+    !isBodyPage ? (router.query?.make as string) : '',
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
     undefined,
     isBodyPage && !isBodyTransmission(router.query?.make as string)
