@@ -232,8 +232,11 @@ const FiltersContainer = ({
           if (!Array.isArray(values)) {
             query =
               values.split(',').length > 1
-                ? values.replace(/.html/g, '').split(',')
-                : values.replace(/.html/g, '');
+                ? values
+                    .replace(/.html/g, '')
+                    .replace(/-vans/g, '')
+                    .split(',')
+                : values.replace(/.html/g, '').replace(/-vans/g, '');
           } else {
             query = values;
           }
@@ -283,6 +286,7 @@ const FiltersContainer = ({
       (selectedFilterTags[0] && isInitialLoad) ||
       (isInitialLoad &&
         ((isMakePage && selectedFiltersState.make[0]) ||
+          (isBodyPage && selectedFiltersState.make[0]) ||
           (isRangePage && selectedFiltersState.model[0]))) ||
       (isModelPage && selectedFiltersState.model[0])
     )
@@ -299,6 +303,7 @@ const FiltersContainer = ({
     if (
       filtersObject.manufacturerName &&
       !isMakePage &&
+      !isBodyPage &&
       !((isRangePage || isModelPage) && !tempModelName)
     ) {
       // every time when filters update active model missed
@@ -365,7 +370,7 @@ const FiltersContainer = ({
         ) {
           return `£${entry[1]}`;
         }
-        return ((isMakePage || isRangePage || isModelPage) &&
+        return ((isMakePage || isBodyPage || isRangePage || isModelPage) &&
           entry[0] === filterFields.make) ||
           ((isRangePage || isModelPage) && entry[0] === filterFields.model) ||
           (isModelPage && entry[0] === filterFields.bodyStyles)
@@ -375,7 +380,7 @@ const FiltersContainer = ({
       .flat()
       .filter(Boolean);
     setSelectedFilterTags(selected);
-  }, [selectedFiltersState, isMakePage, isRangePage, isModelPage]);
+  }, [selectedFiltersState, isMakePage, isBodyPage, isRangePage, isModelPage]);
 
   // made force update for choiseboxes state
   useEffect(() => {
@@ -520,6 +525,7 @@ const FiltersContainer = ({
                     <Select
                       disabled={
                         ((isMakePage ||
+                          isBodyPage ||
                           isRangePage ||
                           isModelPage ||
                           isAllMakesPage) &&

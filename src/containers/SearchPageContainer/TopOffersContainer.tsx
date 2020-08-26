@@ -86,7 +86,8 @@ const TopOffersContainer: React.FC<IProps> = ({
           });
         }
         return false;
-      } catch {
+      } catch (exc) {
+        debugger;
         return false;
       }
     },
@@ -125,11 +126,19 @@ const TopOffersContainer: React.FC<IProps> = ({
             : undefined,
           bodyStyles:
             isBodyPage && !isBodyTransmission(router.query?.make as string)
-              ? [router.query?.make as string]
+              ? [
+                  (router.query?.make as string)
+                    .replace(/.html/g, '')
+                    .replace(/-vans/g, ''),
+                ]
               : undefined,
           transmissions:
             isBodyPage && isBodyTransmission(router.query?.make as string)
-              ? [router.query?.make as string]
+              ? [
+                  (router.query?.make as string)
+                    .replace(/.html/g, '')
+                    .replace(/-vans/g, ''),
+                ]
               : undefined,
           rangeName: isRangePage
             ? ((router.query?.rangeName as string) || '').split('+').join(' ')
@@ -180,7 +189,6 @@ const TopOffersContainer: React.FC<IProps> = ({
 
   const getCardData = (capId: string, dataForCards = cardsData) =>
     dataForCards?.filter(card => card?.capId === capId)[0];
-
   return (
     <>
       {(((isMakePage || isBodyPage) &&

@@ -232,6 +232,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   // new search with new filters
   const onSearch = (filters = filtersData) => {
     // set search filters data
+    debugger;
     setFiltersData(filters);
     if (isMakePage || isBodyPage) {
       getRanges({
@@ -243,12 +244,21 @@ const SearchPageContainer: React.FC<IProps> = ({
           ...filters,
           manufacturerName: !isBodyPage ? (router.query?.make as string) : '',
           bodyStyles:
-            isBodyPage && !isBodyTransmission(router.query?.make as string) // if needed
+            isBodyPage &&
+            !isBodyTransmission(
+              (router.query?.make as string)
+                .replace(/.html/g, '')
+                .replace(/-vans/g, ''),
+            ) // if needed
               ? [router.query?.make as string]
               : undefined,
           transmissions:
             isBodyPage && isBodyTransmission(router.query?.make as string)
-              ? [router.query?.make as string]
+              ? [
+                  (router.query?.make as string)
+                    .replace(/.html/g, '')
+                    .replace(/-vans/g, ''),
+                ]
               : undefined,
         },
       });
