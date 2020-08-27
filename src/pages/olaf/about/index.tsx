@@ -129,8 +129,7 @@ const AboutYouPage: NextPage = () => {
         input: formValuesToInputCreditApplication({
           ...creditApplication.data?.creditApplicationByOrderUuid,
           orderUuid: orderId,
-          emailAddresses: createUpdatePerson.emailAddresses?.slice(-1)[0],
-          telephoneNumbers: createUpdatePerson.telephoneNumbers?.slice(-1)[0],
+          aboutDetails: createUpdatePerson,
         }),
       },
     });
