@@ -8,6 +8,7 @@ import {
 } from '../../../generated/GetCompanySummaryQuery';
 import { GET_COMPANY_SUMMARY } from './gql';
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
+import { useGetCreditApplicationByOrderUuid } from '../../gql/creditApplication';
 
 interface IProps {
   personUuid: string;
@@ -24,6 +25,7 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
   const [error, setError] = useState('');
 
   const getDataSummary = useImperativeQuery(GET_COMPANY_SUMMARY);
+  const getCreditApplication = useGetCreditApplicationByOrderUuid(orderId);
 
   useEffect(() => {
     if (personUuid && companyUuid) {
@@ -36,18 +38,25 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
         })
         .catch(responseError => setError(responseError.message));
     }
-  }, [setData, personUuid, companyUuid, getDataSummary]);
+  }, [setData, personUuid, companyUuid, getDataSummary?.refetch]);
 
   if (error) {
     return <p>Error occurred: {error}</p>;
   }
 
-  if (!data || (!data.companyByUuid && !data.personByUuid)) {
+  if (
+    !data ||
+    (!data.companyByUuid && !data.personByUuid) ||
+    getCreditApplication.loading
+  ) {
     return <Loading size="large" />;
   }
 
   return (
     <BusinessSummaryForm
+      creditApplication={
+        getCreditApplication.data?.creditApplicationByOrderUuid
+      }
       person={data.personByUuid as PersonByUuid}
       company={data.companyByUuid as CompanyByUuid}
       orderId={orderId}
