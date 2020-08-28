@@ -64,7 +64,7 @@ export interface GetOrdersByPartyUuid {
 }
 
 export interface GetOrdersByPartyUuidVariables {
-  partyUuid: string;
+  partyUuid: string[];
   statuses?: string[] | null;
   excludeStatuses?: string[] | null;
   statusesCA?: string[] | null;

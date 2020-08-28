@@ -9,6 +9,7 @@ import { LeaseTypeEnum } from '../../../../generated/globalTypes';
 
 jest.mock('../../OrdersInformation/gql');
 jest.mock('@apollo/client');
+jest.mock('../../../hooks/useImperativeQuery');
 
 const mockPush = jest.fn();
 jest.mock('next/router', () => ({
