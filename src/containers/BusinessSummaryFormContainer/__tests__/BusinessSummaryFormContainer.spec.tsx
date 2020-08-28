@@ -1,7 +1,9 @@
 import React from 'react';
+import { MockedProvider } from '@apollo/client/testing';
 import renderer from 'react-test-renderer';
 import BusinessSummaryFormContainer from '../BusinessSummaryFormContainer';
 import { GetCompanySummaryQuery } from '../../../../generated/GetCompanySummaryQuery';
+import { makeGetCreditApplicationMock } from '../../../gql/creditApplication';
 
 // ARRANGE
 const mockPush = jest.fn();
@@ -291,7 +293,11 @@ describe('<BusinessSummaryFormContainer />', () => {
 
     const getComponent = () => {
       return renderer
-        .create(<BusinessSummaryFormContainer {...mockParams} />)
+        .create(
+          <MockedProvider mocks={[makeGetCreditApplicationMock('')]}>
+            <BusinessSummaryFormContainer {...mockParams} />
+          </MockedProvider>,
+        )
         .toJSON();
     };
 
