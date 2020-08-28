@@ -42,7 +42,7 @@ type IDirectorDetailsFormProps = {
   companyNumber: string;
   onSubmit: (values: DirectorDetailsFormValues) => Promise<void>;
   isEdited: boolean;
-  directorDetails: DirectorDetailsFormValues | undefined;
+  directorDetails?: DirectorDetailsFormValues;
   directorUuid?: string;
 };
 
@@ -54,11 +54,11 @@ const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
 };
 
 const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
+  associates,
   companyNumber,
   onSubmit,
   dropdownData,
   isEdited,
-  directorDetails,
   directorUuid,
 }) => {
   const { data, loading, error } = useCompanyOfficers(companyNumber);
@@ -72,10 +72,9 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
   }
 
   const officers = data?.companyOfficers?.nodes?.filter(isTruthy) || [];
-  const directors = combineDirectorsData(officers, []) || [];
-
+  const directors = combineDirectorsData(officers, associates) || [];
   const initialValues = isEdited
-    ? initialEditedFormValues(directorDetails?.directors || [], directorUuid)
+    ? initialEditedFormValues(directors, directorUuid)
     : initialFormValues(officers);
 
   return (

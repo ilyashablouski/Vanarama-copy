@@ -1,5 +1,4 @@
 import { OnSubmit } from 'react-hook-form';
-import { AboutFormPerson } from '../../../generated/AboutFormPerson';
 import { BusinessAboutFormDropDownData } from '../../../generated/BusinessAboutFormDropDownData';
 
 export interface IBusinessAboutFormValues {
@@ -18,7 +17,7 @@ export interface IProps {
   isEdited: boolean;
   dropDownData: BusinessAboutFormDropDownData;
   onSubmit: OnSubmit<IBusinessAboutFormValues>;
-  person?: AboutFormPerson | null;
+  person?: IBusinessAboutFormValues | null;
   onLogInCLick?: () => void;
   onEmailExistenceCheck?: (email: string) => Promise<boolean>;
 }

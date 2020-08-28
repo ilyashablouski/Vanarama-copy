@@ -11,7 +11,7 @@ import {
   useSaveDirectorDetailsMutation,
 } from './gql';
 import { IDirectorDetailsFormContainerProps } from './interfaces';
-import { mapFormValues, mapDirectorsDefaultValues } from './mappers';
+import { mapFormValues } from './mappers';
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 
 export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContainerProps> = ({
@@ -31,13 +31,6 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
     orderUuid,
   );
-  const directorDetails = getCreditApplicationByOrderUuidQuery.data
-    ?.creditApplicationByOrderUuid?.directorsDetails
-    ? mapDirectorsDefaultValues(
-        getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
-          ?.directorsDetails,
-      )
-    : undefined;
   const handleDirectorDetailsSave = (values: DirectorDetailsFormValues) =>
     saveDirectorDetails({
       variables: {
@@ -81,7 +74,6 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
     <DirectorDetailsForm
       isEdited={isEdited}
       directorUuid={directorUuid}
-      directorDetails={directorDetails}
       dropdownData={getDirectorDetailsQuery.data?.allDropDowns!}
       associates={getDirectorDetailsQuery.data?.companyByUuid?.associates!}
       companyNumber={
