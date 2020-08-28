@@ -132,7 +132,7 @@ const ThankYouPage: NextPage = () => {
               if (person) {
                 router.push(
                   '/account/my-orders/[partyByUuid]',
-                  `/account/my-orders/${person.partyUuid}`,
+                  `/account/my-orders/${person.partyUuid}?uuid=${person.uuid}`,
                 );
               } else {
                 router.push('/');
