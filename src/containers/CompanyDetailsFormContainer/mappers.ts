@@ -4,6 +4,7 @@ import {
   SubmissionValues,
   ICompanyDetailsFormValues,
 } from '../../components/CompanyDetailsForm/interfaces';
+import { SaveCompanyDetailsMutation_createUpdateLimitedCompany_addresses as Address } from '../../../generated/SaveCompanyDetailsMutation';
 
 const DATE_FORMAT = 'DD-MM-YYYY';
 
@@ -72,6 +73,10 @@ export const mapFormValues = (
 export const mapDefaultValues = (data: {
   [key: string]: any;
 }): ICompanyDetailsFormValues => {
+  const tradingSince = data.trading_since
+    ? new Date(data?.trading_since)
+    : undefined;
+
   return {
     companySearchResult: data?.company_search_result
       ? {
@@ -82,15 +87,48 @@ export const mapDefaultValues = (data: {
           title: data?.company_search_result?.title,
         }
       : undefined,
-    companyNumber: data?.company_number,
-    companyName: data?.company_name,
-    tradingSinceMonth: data?.trading_since_month,
-    tradingSinceYear: data?.trading_since_year,
-    nature: data?.nature,
+    companyNumber: data?.business_registration_number,
+    companyName: data?.business_name,
+    tradingSinceMonth: (tradingSince?.getMonth() || '').toString(),
+    tradingSinceYear: (tradingSince?.getFullYear() || '').toString(),
+    nature: data?.nature_of_business,
     registeredAddress: data?.registered_address,
-    tradingDifferent: data?.trading_different,
+    tradingDifferent: !!data?.trading_address,
     tradingAddress: data?.trading_address,
     email: data?.email,
-    telephone: data?.telephone,
+    telephone: data?.business_telephone_number,
+  };
+};
+
+export const mapCompanyDetailsToCreditApplication = (
+  values: ICompanyDetailsFormValues,
+  addresses?: Address[] | null,
+) => {
+  const registeredAddress =
+    addresses?.find(address => address.kind === 'registered') || {};
+  const tradingAddress =
+    addresses?.find(address => address.kind === 'trading') || {};
+
+  return {
+    companySearchResult: values.companySearchResult,
+    businessName: values.companyName,
+    businessRegistrationNumber:
+      values.companySearchResult?.companyNumber || values.companyNumber,
+    natureOfBusiness: values.nature,
+    registeredAddress: {
+      ...registeredAddress,
+      label: values.registeredAddress.label,
+    },
+    tradingAddress: {
+      ...tradingAddress,
+      label: values.tradingAddress.label,
+    },
+    tradingSince: new Date(
+      parseInt(values.tradingSinceYear, 10),
+      parseInt(values.tradingSinceMonth, 10),
+      0,
+    ),
+    businessTelephoneNumber: values.telephone,
+    email: values.email,
   };
 };

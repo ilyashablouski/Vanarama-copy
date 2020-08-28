@@ -32,6 +32,7 @@ export interface CreateUpdateCreditApplication_createUpdateCreditApplication_lin
 
 export interface CreateUpdateCreditApplication_createUpdateCreditApplication {
   addresses: any | null;
+  aboutDetails: any | null;
   bankAccounts: any | null;
   companyDetails: any | null;
   vatDetails: any | null;
@@ -41,10 +42,7 @@ export interface CreateUpdateCreditApplication_createUpdateCreditApplication {
   lineItem: CreateUpdateCreditApplication_createUpdateCreditApplication_lineItem | null;
   leadManagerProposalId: string | null;
   createdAt: any | null;
-  emailAddresses: any | null;
-  partyDetails: any | null;
   status: string;
-  telephoneNumbers: any | null;
   updatedAt: any | null;
   uuid: string;
 }
