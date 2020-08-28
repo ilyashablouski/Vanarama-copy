@@ -17,7 +17,7 @@ export interface GetFleetLandingPage_fleetLandingPage_sections_featured1 {
   title: string | null;
   titleTag: string | null;
   body: string | null;
-  layout: string[] | null;
+  layout: (string | null)[] | null;
   testimonials: (GetFleetLandingPage_fleetLandingPage_sections_featured1_testimonials | null)[] | null;
 }
 
@@ -35,7 +35,7 @@ export interface GetFleetLandingPage_fleetLandingPage_sections_featured2 {
   titleTag: string | null;
   body: string | null;
   image: GetFleetLandingPage_fleetLandingPage_sections_featured2_image | null;
-  layout: string[] | null;
+  layout: (string | null)[] | null;
 }
 
 export interface GetFleetLandingPage_fleetLandingPage_sections_featured3_image_file {
@@ -52,7 +52,7 @@ export interface GetFleetLandingPage_fleetLandingPage_sections_featured3 {
   titleTag: string | null;
   body: string | null;
   image: GetFleetLandingPage_fleetLandingPage_sections_featured3_image | null;
-  layout: string[] | null;
+  layout: (string | null)[] | null;
 }
 
 export interface GetFleetLandingPage_fleetLandingPage_sections_featured4_image_file {
@@ -69,7 +69,7 @@ export interface GetFleetLandingPage_fleetLandingPage_sections_featured4 {
   titleTag: string | null;
   body: string | null;
   image: GetFleetLandingPage_fleetLandingPage_sections_featured4_image | null;
-  layout: string[] | null;
+  layout: (string | null)[] | null;
 }
 
 export interface GetFleetLandingPage_fleetLandingPage_sections_leadText {

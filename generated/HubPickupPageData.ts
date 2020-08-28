@@ -41,7 +41,7 @@ export interface HubPickupPageData_hubPickupPage_sections_featured1 {
   title: string | null;
   titleTag: string | null;
   body: string | null;
-  layout: string[] | null;
+  layout: (string | null)[] | null;
   image: HubPickupPageData_hubPickupPage_sections_featured1_image | null;
 }
 
@@ -57,7 +57,7 @@ export interface HubPickupPageData_hubPickupPage_sections_featured2 {
   title: string | null;
   titleTag: string | null;
   body: string | null;
-  layout: string[] | null;
+  layout: (string | null)[] | null;
   image: HubPickupPageData_hubPickupPage_sections_featured2_image | null;
 }
 

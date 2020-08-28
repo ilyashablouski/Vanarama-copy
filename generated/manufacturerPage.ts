@@ -30,7 +30,7 @@ export interface manufacturerPage_manufacturerPage_sections_featured_image {
 }
 
 export interface manufacturerPage_manufacturerPage_sections_featured {
-  layout: string[] | null;
+  layout: (string | null)[] | null;
   body: string | null;
   title: string | null;
   titleTag: string | null;

@@ -131,8 +131,8 @@ const ThankYouPage: NextPage = () => {
             onClick={() => {
               if (person) {
                 router.push(
-                  '/account/my-orders/[partyByUuid]',
-                  `/account/my-orders/${person.partyUuid}`,
+                  `/account/my-orders/[partyByUuid]?uuid=${person.uuid}`,
+                  `/account/my-orders/${person.partyUuid}?uuid=${person.uuid}`,
                 );
               } else {
                 router.push('/');

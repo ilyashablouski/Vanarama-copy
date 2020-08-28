@@ -30,7 +30,7 @@ exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
         className="link -teal"
         data-menu={null}
         data-testid="orders-link"
-        href="/account/my-orders/partyByUuid"
+        href="/account/my-orders/partyByUuid?uuid=undefined"
         onClick={[Function]}
         onMouseEnter={[Function]}
       >
@@ -60,7 +60,7 @@ exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
         className="link -teal"
         data-menu={null}
         data-testid="quotes-link"
-        href="/account/my-quotes/partyByUuid"
+        href="/account/my-quotes/partyByUuid?uuid=undefined"
         onClick={[Function]}
         onMouseEnter={[Function]}
       >

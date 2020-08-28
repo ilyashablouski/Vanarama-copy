@@ -19,6 +19,9 @@ import {
 } from '../../../generated/GetOrdersByPartyUuid';
 import { createOffersObject } from './helpers';
 import { getUrlParam } from '../../utils/url';
+import { useImperativeQuery } from '../../hooks/useImperativeQuery';
+import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
+import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../generated/GetCompaniesByPersonUuid';
 
 type QueryParams = {
   partyByUuid?: string;
@@ -41,25 +44,47 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   const [exStatusesCA, changeExlStatusesCA] = useState<string[]>([]);
   const [initData, setInitData] = useState<GetOrdersByPartyUuid>();
   const [breadcrumbPath, setBreadcrumbPath] = useState([] as any);
+  const [partyUuidArray, setPartyUuidArray] = useState<string[]>([]);
+
+  const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
 
   useEffect(() => {
     if (partyByUuid && uuid) {
-      setBreadcrumbPath([
-        { label: 'Home', href: '/', as: '' },
-        {
-          label: 'My Account',
-          // TODO: Need switch as to href when we update Breadcrumb
-          as: `/account/my-details/[uuid]/${getUrlParam({ partyByUuid })}`,
-          href: `/account/my-details/${uuid}${getUrlParam({ partyByUuid })}`,
-        },
-        { label: `My ${quote ? 'Quotes' : 'Orders'}`, href: '/', as: '' },
-      ]);
+      if (!breadcrumbPath.length) {
+        setBreadcrumbPath([
+          { label: 'Home', href: '/', as: '' },
+          {
+            label: 'My Account',
+            // TODO: Need switch as to href when we update Breadcrumb
+            as: `/account/my-details/[uuid]/${getUrlParam({ partyByUuid })}`,
+            href: `/account/my-details/${uuid}${getUrlParam({ partyByUuid })}`,
+          },
+          { label: `My ${quote ? 'Quotes' : 'Orders'}`, href: '/', as: '' },
+        ]);
+      }
+      if (!partyUuidArray.length) {
+        getCompaniesData({
+          personUuid: uuid,
+        }).then(resp => {
+          const companiesPartyUuid: string[] = resp.data?.companiesByPersonUuid?.map(
+            (companies: CompaniesByPersonUuid) => companies.partyUuid,
+          );
+          setPartyUuidArray(companiesPartyUuid);
+        });
+      }
     }
-  }, [partyByUuid, uuid, quote]);
+  }, [
+    partyByUuid,
+    uuid,
+    quote,
+    getCompaniesData,
+    partyUuidArray,
+    breadcrumbPath,
+  ]);
 
   // call query for get Orders
   const [getOrders, { data, loading }] = useOrdersByPartyUuidData(
-    partyByUuid || '',
+    [partyByUuid as string, ...partyUuidArray] || [''],
     quote ? ['quote', 'new'] : status || [],
     !quote ? ['quote', 'expired', 'new'] : ['expired'],
     (!quote && statusesCA) || [],
@@ -67,10 +92,10 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   );
 
   useEffect(() => {
-    if (partyByUuid && !data) {
+    if (partyByUuid && partyUuidArray.length && !data) {
       getOrders();
     }
-  }, [partyByUuid, getOrders, router.query.partyByUuid, data]);
+  }, [partyByUuid, getOrders, router.query.partyByUuid, data, partyUuidArray]);
 
   // collect everything capId from orders
   const capIdArray = data?.ordersByPartyUuid?.reduce((array, el) => {
@@ -83,6 +108,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
 
   // call query for get DerivativesData
   const dataCars = useCarDerivativesData(capIdArray, VehicleTypeEnum.CAR);
+  const dataCarsLCV = useCarDerivativesData(capIdArray, VehicleTypeEnum.LCV);
 
   useEffect(() => {
     if (data && !initData) {
@@ -173,15 +199,26 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
         .reverse() || [];
     return showOffers.map((order: GetOrdersByPartyUuid_ordersByPartyUuid) => {
       // we get derivative data for this offers
-      const derivative = dataCars?.data?.derivatives?.find(
-        (der: { id: string }) =>
-          der.id === order.lineItems[0].vehicleProduct?.derivativeCapId,
-      );
-      const imageSrc = dataCars?.data?.vehicleImages?.find(
-        el =>
-          el?.capId?.toString() ===
-          order.lineItems[0].vehicleProduct?.derivativeCapId,
-      );
+      const derivative =
+        dataCars?.data?.derivatives?.find(
+          (der: { id: string }) =>
+            der.id === order.lineItems[0].vehicleProduct?.derivativeCapId,
+        ) ||
+        dataCarsLCV?.data?.derivatives?.find(
+          (der: { id: string }) =>
+            der.id === order.lineItems[0].vehicleProduct?.derivativeCapId,
+        );
+      const imageSrc =
+        dataCars?.data?.vehicleImages?.find(
+          el =>
+            el?.capId?.toString() ===
+            order.lineItems[0].vehicleProduct?.derivativeCapId,
+        ) ||
+        dataCarsLCV?.data?.vehicleImages?.find(
+          el =>
+            el?.capId?.toString() ===
+            order.lineItems[0].vehicleProduct?.derivativeCapId,
+        );
       // we get offers credit state
       const creditState =
         (order.status === 'credit' &&
