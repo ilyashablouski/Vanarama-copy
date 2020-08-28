@@ -1,4 +1,7 @@
-import { DirectorDetailsFormValues, DirectorFormValues } from '../../components/DirectorDetailsForm/interfaces';
+import {
+  DirectorDetailsFormValues,
+  DirectorFormValues,
+} from '../../components/DirectorDetailsForm/interfaces';
 import { historyToMoment, parseDate } from '../../utils/dates';
 
 export const mapFormValues = (
@@ -32,7 +35,7 @@ export const mapDirectorDetails = (data: any): DirectorFormValues => ({
   dayOfBirth: data?.day_of_birth,
   firstName: data?.first_name,
   gender: data?.gender,
-  history: data?.history?.map(item => ({
+  history: data?.history?.map((item: any) => ({
     month: item?.month,
     status: item?.status,
     year: item?.year,
@@ -51,8 +54,12 @@ export const mapDirectorDetails = (data: any): DirectorFormValues => ({
   yearOfBirth: data?.year_of_birth,
 });
 
-export const mapDirectorsDefaultValues = (data: any): DirectorDetailsFormValues => ({
-  directors: (data?.directors || []).map(item => mapDirectorDetails(item)),
+export const mapDirectorsDefaultValues = (
+  data: any,
+): DirectorDetailsFormValues => ({
+  directors: (data?.directors || []).map((item: any) =>
+    mapDirectorDetails(item),
+  ),
   totalPercentage: data?.total_percentage,
 });
 

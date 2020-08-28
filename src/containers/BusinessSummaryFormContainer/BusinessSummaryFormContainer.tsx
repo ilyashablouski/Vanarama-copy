@@ -1,13 +1,14 @@
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useLazyQuery } from '@apollo/client';
 import BusinessSummaryForm from '../../components/BusinessSummaryForm/BusinessSummaryForm';
 import {
   GetCompanySummaryQuery,
+  GetCompanySummaryQueryVariables,
   GetCompanySummaryQuery_personByUuid as PersonByUuid,
   GetCompanySummaryQuery_companyByUuid as CompanyByUuid,
 } from '../../../generated/GetCompanySummaryQuery';
 import { GET_COMPANY_SUMMARY } from './gql';
-import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { useGetCreditApplicationByOrderUuid } from '../../gql/creditApplication';
 
 interface IProps {
@@ -21,32 +22,31 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
   orderId,
   personUuid,
 }) => {
-  const [data, setData] = useState<GetCompanySummaryQuery | null>(null);
-  const [error, setError] = useState('');
-
-  const getDataSummary = useImperativeQuery(GET_COMPANY_SUMMARY);
+  const [getDataSummary, { data, error, loading }] = useLazyQuery<
+    GetCompanySummaryQuery,
+    GetCompanySummaryQueryVariables
+  >(GET_COMPANY_SUMMARY);
   const getCreditApplication = useGetCreditApplicationByOrderUuid(orderId);
 
   useEffect(() => {
     if (personUuid && companyUuid) {
       getDataSummary({
-        uuid: companyUuid,
-        personUuid,
-      })
-        .then(response => {
-          setData(response.data);
-        })
-        .catch(responseError => setError(responseError.message));
+        variables: {
+          uuid: companyUuid,
+          personUuid,
+        },
+      });
     }
-  }, [setData, personUuid, companyUuid, getDataSummary?.refetch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [personUuid, companyUuid]);
 
   if (error) {
-    return <p>Error occurred: {error}</p>;
+    return <p>Error occurred: {error.message}</p>;
   }
 
   if (
-    !data ||
-    (!data.companyByUuid && !data.personByUuid) ||
+    loading ||
+    (!data?.companyByUuid && !data?.personByUuid) ||
     getCreditApplication.loading
   ) {
     return <Loading size="large" />;
