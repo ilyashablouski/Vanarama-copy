@@ -185,7 +185,7 @@ export interface GenericPageQuery_genericPage_sections_featured_image {
 }
 
 export interface GenericPageQuery_genericPage_sections_featured {
-  layout: string[] | null;
+  layout: (string | null)[] | null;
   body: string | null;
   title: string | null;
   video: string | null;
@@ -210,7 +210,7 @@ export interface GenericPageQuery_genericPage_sections_featured1_image {
 }
 
 export interface GenericPageQuery_genericPage_sections_featured1 {
-  layout: string[] | null;
+  layout: (string | null)[] | null;
   body: string | null;
   titleTag: string | null;
   title: string | null;
@@ -259,7 +259,7 @@ export interface GenericPageQuery_genericPage_sections_featured2_cards {
 }
 
 export interface GenericPageQuery_genericPage_sections_featured2 {
-  layout: string[] | null;
+  layout: (string | null)[] | null;
   body: string | null;
   titleTag: string | null;
   link: GenericPageQuery_genericPage_sections_featured2_link | null;
