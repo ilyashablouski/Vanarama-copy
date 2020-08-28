@@ -14,6 +14,7 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
   query GetCreditApplicationByOrderUuid($id: ID!) {
     creditApplicationByOrderUuid(orderUuid: $id) {
       addresses
+      aboutDetails
       bankAccounts
       companyDetails
       vatDetails
@@ -64,6 +65,7 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
   ) {
     createUpdateCreditApplication(input: $input) {
       addresses
+      aboutDetails
       bankAccounts
       companyDetails
       vatDetails
@@ -118,6 +120,9 @@ export function useCreateUpdateCreditApplication(
         data?.creditApplicationByOrderUuid ||
         result.data?.createUpdateCreditApplication
       ) {
+        const aboutDetails =
+          result.data?.createUpdateCreditApplication?.aboutDetails ||
+          data?.creditApplicationByOrderUuid?.aboutDetails;
         const addresses =
           result.data?.createUpdateCreditApplication?.addresses ||
           data?.creditApplicationByOrderUuid?.addresses;
@@ -153,17 +158,15 @@ export function useCreateUpdateCreditApplication(
           data: {
             creditApplicationByOrderUuid: {
               createdAt: data?.creditApplicationByOrderUuid?.createdAt,
+              aboutDetails,
               addresses,
               bankAccounts,
-              emailAddresses: [],
               employmentHistories,
               incomeAndExpenses,
               lineItem: null,
               status: status || 'draft',
-              telephoneNumbers: [],
               updatedAt,
               uuid: orderId,
-              partyDetails: null,
               leadManagerProposalId: null,
               companyDetails,
               vatDetails,
@@ -178,6 +181,7 @@ export function useCreateUpdateCreditApplication(
 
 const responseMock = {
   addresses: [],
+  aboutDetails: 'aboutDetails',
   bankAccounts: [
     {
       account_name: 'Eternal account',

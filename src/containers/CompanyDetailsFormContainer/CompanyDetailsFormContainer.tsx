@@ -4,6 +4,7 @@ import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import {
   SaveCompanyDetailsMutation as Mutation,
   SaveCompanyDetailsMutationVariables as MutationVariables,
+  SaveCompanyDetailsMutation_createUpdateLimitedCompany_addresses as Address,
 } from '../../../generated/SaveCompanyDetailsMutation';
 import {
   LeaseTypeEnum,
@@ -17,7 +18,11 @@ import {
   useGetCreditApplicationByOrderUuid,
 } from '../../gql/creditApplication';
 import { ICompanyDetailsFormContainerProps } from './interfaces';
-import { mapFormValues, mapDefaultValues } from './mappers';
+import {
+  mapFormValues,
+  mapDefaultValues,
+  mapCompanyDetailsToCreditApplication,
+} from './mappers';
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 
 export const SAVE_COMPANY_DETAILS = gql`
@@ -25,6 +30,20 @@ export const SAVE_COMPANY_DETAILS = gql`
     createUpdateLimitedCompany(input: $input) {
       uuid
       partyUuid
+      addresses {
+        lineOne
+        lineTwo
+        lineThree
+        city
+        county
+        postcode
+        country
+        startedOn
+        endedOn
+        propertyStatus
+        serviceId
+        kind
+      }
     }
   }
 `;
@@ -66,12 +85,18 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
       },
     });
 
-  const handleCreditApplicationUpdate = (values: ICompanyDetailsFormValues) =>
+  const handleCreditApplicationUpdate = (
+    values: ICompanyDetailsFormValues,
+    addresses?: Address[] | null,
+  ) =>
     createUpdateApplication({
       variables: {
         input: formValuesToInputCreditApplication({
           ...data?.creditApplicationByOrderUuid,
-          companyDetails: values,
+          companyDetails: mapCompanyDetailsToCreditApplication(
+            values,
+            addresses,
+          ),
           orderUuid: orderId,
         }),
       },
@@ -97,7 +122,12 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
             handleOrderUpdate(
               response.data!.createUpdateLimitedCompany!.partyUuid,
             )
-              .then(() => handleCreditApplicationUpdate(values))
+              .then(() =>
+                handleCreditApplicationUpdate(
+                  values,
+                  response.data!.createUpdateLimitedCompany?.addresses,
+                ),
+              )
               .then(() =>
                 onCompleted(response.data!.createUpdateLimitedCompany!.uuid),
               ),

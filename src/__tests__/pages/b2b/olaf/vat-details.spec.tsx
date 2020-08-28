@@ -822,6 +822,7 @@ describe('B2B VAT Details page', () => {
             orderUuid: '39c19729-1111-46bd-0000-ed82705b3e01',
             status: 'status',
             addresses: [],
+            aboutDetails: 'aboutDetails',
             bankAccounts: [
               {
                 account_name: 'Eternal account',
@@ -834,7 +835,6 @@ describe('B2B VAT Details page', () => {
             employmentHistories: 'employmentHistories',
             incomeAndExpenses: 'incomeAndExpenses',
             leadManagerProposalId: 'leadManagerProposalId',
-            aboutDetails: undefined,
             companyDetails: null,
             vatDetails: { vatRegistered: false, outsideUK: false },
             directorsDetails: 'directorsDetails',

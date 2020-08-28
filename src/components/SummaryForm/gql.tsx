@@ -15,7 +15,6 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID = gql`
         }
         creditApplications {
           uuid
-          partyDetails
         }
       }
     }

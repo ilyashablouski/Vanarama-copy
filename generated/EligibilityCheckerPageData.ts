@@ -22,7 +22,7 @@ export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sectio
   body: string | null;
   title: string | null;
   video: string | null;
-  layout: string[] | null;
+  layout: (string | null)[] | null;
 }
 
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_image_file_details_image {
@@ -56,7 +56,7 @@ export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sectio
   body: string | null;
   image: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_image | null;
   title: string | null;
-  layout: string[] | null;
+  layout: (string | null)[] | null;
   iconList: (EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_iconList | null)[] | null;
 }
 
