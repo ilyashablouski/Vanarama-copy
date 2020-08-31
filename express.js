@@ -34,6 +34,10 @@ const rewrites = [
   //   from: '/car-leasing/:bodyStyle.html',
   //   to: '/search/?bodyStyle=:bodyStyle',
   // },
+  {
+    from: '/van-leasing-questions/:question.html',
+    to: '/van-leasing-questions/:question',
+  },
 ];
 // Redirects.
 const redirects = [{ from: '/old-link', to: '/redirect', type: 301 }];
