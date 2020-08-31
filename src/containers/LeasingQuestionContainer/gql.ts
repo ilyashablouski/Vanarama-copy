@@ -248,12 +248,12 @@ export const GENERIC_PAGE_QUESTION = gql`
           }
         }
         questionSet {
-        title
-        questionAnswers {
-          answer
-          question
+          title
+          questionAnswers {
+            answer
+            question
+          }
         }
-      }
       }
       intro
       body
@@ -271,9 +271,12 @@ export const GENERIC_PAGE_QUESTION = gql`
 `;
 
 export function useGenericPageQuestion(slug: string) {
-  return useQuery<GenericPageQuestionQuery, GenericPageQuestionQueryVariables>(GENERIC_PAGE_QUESTION, {
-    variables: {
-      slug,
+  return useQuery<GenericPageQuestionQuery, GenericPageQuestionQueryVariables>(
+    GENERIC_PAGE_QUESTION,
+    {
+      variables: {
+        slug,
+      },
     },
-  });
+  );
 }

@@ -38,7 +38,6 @@ const rewrites = [
   //   from: '/car-leasing/:bodyStyle.html',
   //   to: '/search/?bodyStyle=:bodyStyle',
   // },
-  
 ];
 // Redirects.
 const redirects = [{ from: '/old-link', to: '/redirect', type: 301 }];

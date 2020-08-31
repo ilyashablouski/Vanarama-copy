@@ -1,7 +1,7 @@
 import React from 'react';
 import { MockedProvider } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
-import LeasingQuestionsContainer from '../LeasingQuestionsContainer';
+import LeasingQuestionsContainer from '../LeasingQuestionContainer';
 
 // ARRANGE
 const CRUMBS = [
@@ -110,18 +110,6 @@ describe('<FinanceExplainedContainer />', () => {
     // ASSERT
     await waitFor(() => {
       expect(screen.getByText(`Most Popular Questions`)).toBeInTheDocument();
-    });
-
-    await waitFor(() => {
-      expect(
-        screen.getByText(`Do I Need Insurance For A Leased Car?`),
-      ).toBeInTheDocument();
-    });
-
-    await waitFor(() => {
-      expect(
-        screen.getByText(`Company Cash Allowance Vs Company Car`),
-      ).toBeInTheDocument();
     });
 
     const tree = getComponent.baseElement;

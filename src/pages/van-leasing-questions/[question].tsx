@@ -1,26 +1,26 @@
 import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import { useRouter } from 'next/router';
 import withApollo from '../../hocs/withApollo';
 import Head from '../../components/Head/Head';
-import { useGenericPage } from '../../gql/genericPage';
-import { useRouter } from 'next/router';
 import LeasingQuestionContainer from '../../containers/LeasingQuestionContainer/LeasingQuestionContainer';
 import { useGenericPageQuestion } from '../../containers/LeasingQuestionContainer/gql';
-
-
-
-
 
 const FinanceInfo: NextPage = () => {
   const router = useRouter();
 
   const crumbs = [
     { label: 'Home', href: '/' },
-    { label: 'Ask A Question About Van Leasing', href: '/van-leasing-questions' },
+    {
+      label: 'Ask A Question About Van Leasing',
+      href: '/van-leasing-questions',
+    },
   ];
 
-  const { data, loading, error } = useGenericPageQuestion(`/van-leasing-questions/${(router.query.question as string)}`);
+  const { data, loading, error } = useGenericPageQuestion(
+    `/van-leasing-questions/${router.query.question as string}`,
+  );
 
   if (loading) {
     return <Loading size="large" />;
