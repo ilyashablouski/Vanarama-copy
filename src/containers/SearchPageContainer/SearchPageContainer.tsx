@@ -94,10 +94,8 @@ const SearchPageContainer: React.FC<IProps> = ({
 }: IProps) => {
   const router = useRouter();
 
-  const {
-    data: searchGenericPage,
-    loading: loadingGenericPage,
-  } = useSearchResultPage(
+  // generic page for /car-leasing or /van-leasing
+  const { data: searchGenericPage } = useSearchResultPage(
     isCarSearch ? '/car-leasing-search' : '/search',
     !isGeneric,
   );

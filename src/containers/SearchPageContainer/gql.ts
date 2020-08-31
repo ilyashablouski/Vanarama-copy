@@ -26,6 +26,10 @@ import {
   manufacturerList,
   manufacturerListVariables,
 } from '../../../generated/manufacturerList';
+import {
+  SearchResultsPage,
+  SearchResultsPageVariables,
+} from '../../../generated/SearchResultsPage';
 import { manufacturerPage } from '../../../generated/manufacturerPage';
 
 export const GET_VEHICLE_LIST = gql`
@@ -355,7 +359,7 @@ export function useAllMakePage(skip = false) {
 }
 
 export const GET_SEARCH_RESULTS_PAGE = gql`
-  query searchResultsPage($slug: String!) {
+  query SearchResultsPage($slug: String!) {
     searchResultsPage(slug: $slug) {
       id
       intro
@@ -385,10 +389,13 @@ export const GET_SEARCH_RESULTS_PAGE = gql`
 `;
 
 export function useSearchResultPage(slug: string, skip: boolean) {
-  return useQuery(GET_SEARCH_RESULTS_PAGE, {
-    variables: {
-      slug,
+  return useQuery<SearchResultsPage, SearchResultsPageVariables>(
+    GET_SEARCH_RESULTS_PAGE,
+    {
+      variables: {
+        slug,
+      },
+      skip,
     },
-    skip,
-  });
+  );
 }
