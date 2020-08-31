@@ -76,9 +76,8 @@ interface IProps {
   isPickups?: boolean;
   isRangePage?: boolean;
   isModelPage?: boolean;
-  isAllMake?: boolean;
   isAllMakesPage?: boolean;
-  isGeneric?: boolean;
+  isGenericIntro?: boolean;
 }
 
 const SearchPageContainer: React.FC<IProps> = ({
@@ -90,14 +89,14 @@ const SearchPageContainer: React.FC<IProps> = ({
   isRangePage,
   isModelPage,
   isAllMakesPage,
-  isGeneric,
+  isGenericIntro,
 }: IProps) => {
   const router = useRouter();
 
   // generic page for /car-leasing or /van-leasing
   const { data: searchGenericPage } = useSearchResultPage(
     isCarSearch ? '/car-leasing-search' : '/search',
-    !isGeneric,
+    !isGenericIntro,
   );
 
   /** we storing the last value of special offers checkbox in Session storage */
