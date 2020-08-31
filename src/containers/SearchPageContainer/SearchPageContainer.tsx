@@ -76,6 +76,7 @@ interface IProps {
   isRangePage?: boolean;
   isModelPage?: boolean;
   isAllMakesPage?: boolean;
+  isBodyStylePage?: boolean;
 }
 
 const SearchPageContainer: React.FC<IProps> = ({
@@ -87,6 +88,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   isRangePage,
   isModelPage,
   isAllMakesPage,
+  isBodyStylePage
 }: IProps) => {
   const router = useRouter();
   /** we storing the last value of special offers checkbox in Session storage */
@@ -126,7 +128,7 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
 
-  const isBodyPage = bodyUrls.indexOf(prepareSlugPart(router.query.make)) > -1;
+  const isBodyPage = isBodyStylePage;
 
   useEffect(() => {
     const type = isPersonal ? 'Personal' : 'Business';
@@ -214,20 +216,21 @@ const SearchPageContainer: React.FC<IProps> = ({
     !isBodyPage ? (router.query?.make as string) : '',
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
     undefined,
-    isBodyPage && !isBodyTransmission(router.query?.make as string)
-      ? [
-          (router.query?.make as string)
-            .replace(/.html/g, '')
-            .replace(/-vans/g, ''),
-        ]
-      : undefined,
-    isBodyPage && isBodyTransmission(router.query?.make as string)
-      ? [
-          (router.query?.make as string)
-            .replace(/.html/g, '')
-            .replace(/-vans/g, ''),
-        ]
-      : undefined,
+    // TODO: отрефактори этот метод плз, в какой-то момент у нас нет make
+    // isBodyPage && !isBodyTransmission(router.query?.make as string)
+    //   ? [
+    //       (router.query?.make as string)
+    //         .replace(/.html/g, '')
+    //         .replace(/-vans/g, ''),
+    //     ]
+    //   : undefined,
+    // isBodyPage && isBodyTransmission(router.query?.make as string)
+    //   ? [
+    //       (router.query?.make as string)
+    //         .replace(/.html/g, '')
+    //         .replace(/-vans/g, ''),
+    //     ]
+    //   : undefined,
   );
 
   // Make list query for all makes page
@@ -312,7 +315,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     }
 
     let pathname = router.route
-      .replace('[make]', router.query?.make as string)
+      .replace('[dynamicParam]', router.query?.dynamicParam as string)
       .replace('[rangeName]', router.query?.rangeName as string)
       .replace('[bodyStyles]', router.query?.bodyStyles as string);
     const queryString = new URLSearchParams();
@@ -692,7 +695,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         <TopOffersContainer
           isCarSearch={isCarSearch}
           isMakePage={isMakePage || false}
-          isBodyPage={isBodyPage}
+          isBodyPage={isBodyPage || false}
           isPersonal={isPersonal}
           isRangePage={isRangePage || false}
           isPickups={isPickups || false}

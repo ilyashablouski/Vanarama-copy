@@ -29,11 +29,10 @@ const rewrites = [
     from: '/:manufacturer-:vehicleType-leasing/:model.html',
     to: '/:vehicleType-leasing/:manufacturer/:model',
   },
-  // E.g.:
-  // {
-  //   from: '/car-leasing/:bodyStyle.html',
-  //   to: '/search/?bodyStyle=:bodyStyle',
-  // },
+  {
+    from: '/car-leasing/:bodyStyle.html',
+    to: '/car-leasing/:bodyStyle',
+  },
 ];
 // Redirects.
 const redirects = [{ from: '/old-link', to: '/redirect', type: 301 }];
