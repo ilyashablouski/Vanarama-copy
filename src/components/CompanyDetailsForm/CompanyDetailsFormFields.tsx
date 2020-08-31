@@ -4,7 +4,7 @@ import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
 import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
 import AddressFormField from '../AddressFormField/AddressFormField';
@@ -18,16 +18,14 @@ import {
 
 interface IProps {
   inputMode: InputMode;
-  defaultValues?: Partial<ICompanyDetailsFormValues>;
   isEdited: boolean;
 }
 
 export default function CompanyDetailsFormFields({
   inputMode,
-  defaultValues,
   isEdited,
 }: IProps) {
-  const { formState, errors, register, watch, reset } = useFormContext<
+  const { formState, errors, register, watch } = useFormContext<
     ICompanyDetailsFormValues
   >();
 
@@ -38,14 +36,7 @@ export default function CompanyDetailsFormFields({
     return formState.isSubmitting ? 'Saving...' : 'Continue';
   }, [isEdited, formState.isSubmitting]);
 
-  // pass default values
-  useEffect(() => {
-    reset(defaultValues);
-  }, [reset, defaultValues]);
-  const tradingDifferent = watch(
-    'tradingDifferent',
-    defaultValues?.tradingDifferent || false,
-  );
+  const tradingDifferent = watch('tradingDifferent');
 
   return (
     <>

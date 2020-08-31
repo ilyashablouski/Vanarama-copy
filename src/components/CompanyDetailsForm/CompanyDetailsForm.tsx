@@ -34,23 +34,22 @@ const CompanyDetailsForm: React.FC<IProps> = ({
     mode: 'onBlur',
   });
 
-  useEffect(() => {
-    if (company !== undefined) {
-      methods.reset(company);
-    }
+  const companySearchResult = methods.watch('companySearchResult');
 
-    if (company?.companySearchResult !== undefined) {
+  useEffect(() => {
+    if (company !== undefined && companySearchResult === undefined) {
+      methods.reset(company);
       setProceedCompany(company?.companySearchResult);
       setHasConfirmedCompany(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [company]);
 
-  const companySearchResult = methods.watch('companySearchResult');
-
   const clearSearchResult = () => {
     setCompanySearchTerm('');
-    methods.setValue('companySearchResult', undefined, true);
+    methods.reset({
+      companySearchResult: undefined,
+    });
     setHasConfirmedCompany(false);
     setProceedCompany(undefined);
   };
@@ -69,8 +68,6 @@ const CompanyDetailsForm: React.FC<IProps> = ({
     setHasConfirmedCompany(true);
     setProceedCompany(companySearchResult);
   };
-
-  const selectedCompany = companySearchResult || proceedCompany;
 
   return (
     <Form
@@ -92,9 +89,9 @@ const CompanyDetailsForm: React.FC<IProps> = ({
           value={companySearchTerm}
         />
       </FormContext>
-      {selectedCompany && (
+      {companySearchResult && (
         <>
-          <CompanyCard company={selectedCompany} />
+          <CompanyCard company={companySearchResult} />
           <SearchActions
             hasConfirmedCompany={hasConfirmedCompany}
             onProceed={handleProceed}
@@ -114,11 +111,7 @@ const CompanyDetailsForm: React.FC<IProps> = ({
       )}
       {(hasConfirmedCompany || inputMode === 'manual') && (
         <FormContext {...methods}>
-          <CompanyDetailsFormFields
-            isEdited={isEdited}
-            defaultValues={company}
-            inputMode={inputMode}
-          />
+          <CompanyDetailsFormFields isEdited={isEdited} inputMode={inputMode} />
         </FormContext>
       )}
     </Form>
