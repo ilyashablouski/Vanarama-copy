@@ -42,7 +42,6 @@ import {
 import {
   buildRewriteRoute,
   prepareSlugPart,
-  bodyUrls,
   isBodyTransmission,
 } from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
@@ -88,7 +87,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   isRangePage,
   isModelPage,
   isAllMakesPage,
-  isBodyStylePage
+  isBodyStylePage,
 }: IProps) => {
   const router = useRouter();
   /** we storing the last value of special offers checkbox in Session storage */
@@ -128,8 +127,6 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
 
-  const isBodyPage = isBodyStylePage;
-
   useEffect(() => {
     const type = isPersonal ? 'Personal' : 'Business';
     setCachedLeaseType(type);
@@ -154,7 +151,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   // using onCompleted callback for request card data after vehicle list was loaded
   const [getVehicles, { data }] = getVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-    isMakePage || isBodyPage || isSpecialOfferPage
+    isMakePage || isBodyStylePage || isSpecialOfferPage
       ? true
       : isSpecialOffers || null,
     async vehicles => {
@@ -213,24 +210,20 @@ const SearchPageContainer: React.FC<IProps> = ({
   // Ranges list query for make page
   const [getRanges, { data: ranges }] = getRangesList(
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-    !isBodyPage ? (router.query?.make as string) : '',
+    !isBodyStylePage ? (router.query?.make as string) : '',
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
     undefined,
     // TODO: отрефактори этот метод плз, в какой-то момент у нас нет make
-    // isBodyPage && !isBodyTransmission(router.query?.make as string)
-    //   ? [
-    //       (router.query?.make as string)
-    //         .replace(/.html/g, '')
-    //         .replace(/-vans/g, ''),
-    //     ]
-    //   : undefined,
-    // isBodyPage && isBodyTransmission(router.query?.make as string)
-    //   ? [
-    //       (router.query?.make as string)
-    //         .replace(/.html/g, '')
-    //         .replace(/-vans/g, ''),
-    //     ]
-    //   : undefined,
+    isBodyStylePage &&
+      router.query?.make &&
+      !isBodyTransmission(router.query?.make as string)
+      ? [router.query?.make as string]
+      : undefined,
+    isBodyStylePage &&
+      router.query?.make &&
+      isBodyTransmission(router.query?.make as string)
+      ? [router.query?.make as string]
+      : undefined,
   );
 
   // Make list query for all makes page
@@ -251,7 +244,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   const onSearch = (filters = filtersData) => {
     // set search filters data
     setFiltersData(filters);
-    if (isMakePage || isBodyPage) {
+    if (isMakePage || isBodyStylePage) {
       getRanges({
         variables: {
           vehicleTypes: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
@@ -259,23 +252,16 @@ const SearchPageContainer: React.FC<IProps> = ({
             ? LeaseTypeEnum.PERSONAL
             : LeaseTypeEnum.BUSINESS,
           ...filters,
-          manufacturerName: !isBodyPage ? (router.query?.make as string) : '',
+          manufacturerName: !isBodyStylePage
+            ? (router.query?.make as string)
+            : '',
           bodyStyles:
-            isBodyPage &&
-            !isBodyTransmission(
-              (router.query?.make as string)
-                .replace(/.html/g, '')
-                .replace(/-vans/g, ''),
-            ) // if needed
+            isBodyStylePage && !isBodyTransmission(router.query?.make as string) // if needed
               ? [router.query?.make as string]
               : undefined,
           transmissions:
-            isBodyPage && isBodyTransmission(router.query?.make as string)
-              ? [
-                  (router.query?.make as string)
-                    .replace(/.html/g, '')
-                    .replace(/-vans/g, ''),
-                ]
+            isBodyStylePage && isBodyTransmission(router.query?.make as string)
+              ? [router.query?.make as string]
               : undefined,
         },
       });
@@ -349,7 +335,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     if ((!queryLength || isSpecialOfferPage) && !isAllMakesPage) getVehicles();
     // if page mount without additional search params in query we made request
     // else request will be made after filters preselected
-    if ((isMakePage || isBodyPage) && queryLength < 2) getRanges();
+    if ((isMakePage || isBodyStylePage) && queryLength < 2) getRanges();
     if (isAllMakesPage && !queryLength) getManufacturerList();
     // disabled lint because we can't add router to deps
     // it's change every url replace
@@ -381,7 +367,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       setLastCard(data.vehicleList.pageInfo.endCursor || '');
       setHasNextPage(data.vehicleList.pageInfo.hasNextPage || false);
       // use range lenght for manufacture page
-      if (!isMakePage && !isBodyPage && !isAllMakesPage)
+      if (!isMakePage && !isBodyStylePage && !isAllMakesPage)
         setTotalCount(data.vehicleList.totalCount);
       setCapsIds(
         data.vehicleList?.edges?.map(
@@ -397,7 +383,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     setCapsIds,
     isMakePage,
     isAllMakesPage,
-    isBodyPage,
+    isBodyStylePage,
   ]);
 
   // initial set ranges
@@ -417,7 +403,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   // get vehicles to cache
   useEffect(() => {
     // don't make a request for cache in manufacture page
-    if (lastCard && !isMakePage && !isBodyPage && hasNextPage)
+    if (lastCard && !isMakePage && !isBodyStylePage && hasNextPage)
       getVehiclesCache({
         variables: {
           vehicleTypes: isCarSearch
@@ -442,7 +428,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     hasNextPage,
     isRangePage,
     isModelPage,
-    isBodyPage,
+    isBodyStylePage,
   ]);
 
   // set capsIds for cached data
@@ -562,13 +548,10 @@ const SearchPageContainer: React.FC<IProps> = ({
             },
           });
         }
-      } else if (isBodyPage) {
+      } else if (isBodyStylePage) {
         getGenericPage({
           variables: {
-            slug: `/${prepareSlugPart(router.query.make).replace(
-              /.html/g,
-              '',
-            )}`,
+            slug: `/${prepareSlugPart(router.query.make)}`,
           },
         });
       } else {
@@ -599,7 +582,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     getGenericPage,
     getAllManufacturersPage,
     getGenericPageHead,
-    isBodyPage,
+    isBodyStylePage,
   ]);
 
   const tiles = pageData?.genericPage.sections?.tiles;
@@ -622,7 +605,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             `${filtersData.manufacturerName} ${filtersData.rangeName} ${filtersData.bodyStyles?.[0]}`) ||
             (metaData?.name ?? 'Lorem Ips')}
         </Heading>
-        {!isBodyPage ? (
+        {!isBodyStylePage ? (
           <Text color="darker" size="lead" />
         ) : (
           <Text color="darker" size="regular" tag="div">
@@ -695,7 +678,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         <TopOffersContainer
           isCarSearch={isCarSearch}
           isMakePage={isMakePage || false}
-          isBodyPage={isBodyPage || false}
+          isBodyPage={isBodyStylePage || false}
           isPersonal={isPersonal}
           isRangePage={isRangePage || false}
           isPickups={isPickups || false}
@@ -742,9 +725,9 @@ const SearchPageContainer: React.FC<IProps> = ({
           </Text>
           <div className="row:cards-3col">
             {useCallback(
-              isMakePage || isBodyPage || isAllMakesPage ? (
+              isMakePage || isBodyStylePage || isAllMakesPage ? (
                 <>
-                  {(isMakePage || isBodyPage) &&
+                  {(isMakePage || isBodyStylePage) &&
                     !!ranges?.rangeList?.length &&
                     ranges?.rangeList?.map((range, index) => (
                       <RangeCard
@@ -798,7 +781,7 @@ const SearchPageContainer: React.FC<IProps> = ({
               [cardsData, isPersonal, ranges, carDer, totalCount],
             )}
           </div>
-          {!(isMakePage || isBodyPage || isAllMakesPage) ? (
+          {!(isMakePage || isBodyStylePage || isAllMakesPage) ? (
             <div className="pagination">
               {totalCount > vehiclesList?.length && (
                 <Button
@@ -820,7 +803,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         <Loading size="large" />
       )}
 
-      {isBodyPage && (
+      {isBodyStylePage && (
         <div className="row:features-4col">
           {tiles?.tiles?.length &&
             tiles.tiles.map((tile, indx) => (
@@ -859,7 +842,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           {((!router.query.bodyStyles &&
             router.query.make &&
             router.query.rangeName) ||
-            isBodyPage) && (
+            isBodyStylePage) && (
             <>
               <div className="row:title">
                 <Heading size="large" color="black">
@@ -909,7 +892,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             </div>
           )}
 
-          {tiles && !isBodyPage && (
+          {tiles && !isBodyStylePage && (
             <div className="row:features-4col">
               {tiles?.tiles?.length &&
                 tiles.tiles.map((tile, indx) => (
