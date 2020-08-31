@@ -26,7 +26,7 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
     expect(
       screen.getByText('Please enter the trading since date'),
     ).toBeVisible();
-    expect(screen.getByText('Please enter your mobile number')).toBeVisible();
+    expect(screen.getByText('Please enter your phone number')).toBeVisible();
     expect(screen.getByText('Please enter your email address')).toBeVisible();
     expect(screen.getByText('Please enter annual turnover')).toBeVisible();
     expect(screen.getByText('Please enter annual cost of sales')).toBeVisible();
