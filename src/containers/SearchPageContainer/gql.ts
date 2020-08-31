@@ -353,3 +353,42 @@ export function useAllMakePage(skip = false) {
     skip,
   });
 }
+
+export const GET_SEARCH_RESULTS_PAGE = gql`
+  query searchResultsPage($slug: String!) {
+    searchResultsPage(slug: $slug) {
+      id
+      intro
+      body
+      featuredImage {
+        file {
+          url
+          details {
+            image {
+              width
+              height
+            }
+          }
+        }
+      }
+      metaData {
+        pageType
+        slug
+        title
+        metaRobots
+        metaDescription
+        legacyUrl
+        publishedOn
+      }
+    }
+  }
+`;
+
+export function useSearchResultPage(slug: string, skip: boolean) {
+  return useQuery(GET_SEARCH_RESULTS_PAGE, {
+    variables: {
+      slug,
+    },
+    skip,
+  });
+}
