@@ -125,19 +125,11 @@ const TopOffersContainer: React.FC<IProps> = ({
             : undefined,
           bodyStyles:
             isBodyPage && !isBodyTransmission(router.query?.make as string)
-              ? [
-                  (router.query?.make as string)
-                    .replace(/.html/g, '')
-                    .replace(/-vans/g, ''),
-                ]
+              ? [router.query?.make as string]
               : undefined,
           transmissions:
             isBodyPage && isBodyTransmission(router.query?.make as string)
-              ? [
-                  (router.query?.make as string)
-                    .replace(/.html/g, '')
-                    .replace(/-vans/g, ''),
-                ]
+              ? [router.query?.make as string]
               : undefined,
           rangeName: isRangePage
             ? ((router.query?.rangeName as string) || '').split('+').join(' ')

@@ -230,13 +230,7 @@ const FiltersContainer = ({
           let query: string | string[];
           // transformation the query value to expected type
           if (!Array.isArray(values)) {
-            query =
-              values.split(',').length > 1
-                ? values
-                    .replace(/.html/g, '')
-                    .replace(/-vans/g, '')
-                    .split(',')
-                : values.replace(/.html/g, '').replace(/-vans/g, '');
+            query = values.split(',').length > 1 ? values.split(',') : values;
           } else {
             query = values;
           }
