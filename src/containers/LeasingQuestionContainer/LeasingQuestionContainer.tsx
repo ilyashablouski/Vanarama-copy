@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
@@ -15,7 +15,9 @@ import {
 import getTitleTag from '../../utils/getTitleTag';
 import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Accordion from '@vanarama/uibook/lib/components/molecules/accordion/Accordion';
-import RouterLink from 'components/RouterLink/RouterLink';
+import RouterLink from '../../components/RouterLink/RouterLink';
+import DOMPurify from 'dompurify';
+import Link from '@vanarama/uibook/lib/components/atoms/link';
 
 interface IProps {
   sections: Section | null;
@@ -25,34 +27,40 @@ interface IProps {
 }
 
 const renderCarouselCards = (cards: (ICaruselCard | null)[]) =>
-  cards.map(card =>
-    card?.title && card.body && card.name ? (
+  cards.map(card => {
+    const [readMore, toggleRead] = useState(true);
+    const clearHtml = DOMPurify.sanitize(card.body);
+    const cardText = {
+      dangerouslySetInnerHTML: {
+        __html: readMore ? `${clearHtml.slice(0, 120)}...` : clearHtml,
+      },
+    };
+
+    return card?.title && card.body && card.name ? (
       <Card
         key={card.name}
-        className="card__article"
         title={{ title: card?.title }}
         imageSrc={card.image?.file?.url}
       >
         <Text size="regular" color="dark">
-          {card.body || ''}
+          <span {...cardText} />
         </Text>
         <Button
           fill="clear"
           color="teal"
           size="regular"
-          label={card?.link?.text}
-          onClick={() => {
-            Router.push(card?.link?.url || '');
-          }}
+          label={readMore ? 'Read More' : 'Read Less'}
+          onClick={() => toggleRead(!readMore)}
         />
       </Card>
-    ) : null,
+
+    ) : null;
+  }
   );
 
 const accordionItems = (questions: (IQuestion | null)[] | undefined | null) => {
-  debugger;
-  return questions ? questions.map((item: any) => ({
-    id: item.question,
+  return questions ? questions.map((item: IQuestion | null, id) => ({
+    id: id,
     key: item.question,
     title: item.question,
     children: (
@@ -69,8 +77,8 @@ const accordionItems = (questions: (IQuestion | null)[] | undefined | null) => {
 };
 
 const renderQuestions = (questions: (IQuestion | null)[] | undefined | null) => {
-  questions?.length ? (
-    <Accordion items={accordionItems(questions)} />
+  return questions?.length ? (
+    <Accordion className="tilebox" items={accordionItems(questions)} />
   ) : (
       <p>Error: No questions</p>
     )
@@ -117,7 +125,7 @@ const LeasingQuestionContainer: FC<IProps> = ({
         </div>
       </div>
       <div className="row:bg-lighter">
-        <div className="row:cards-3col">
+        <div className="row:lead-text">
           <Heading tag="h2" size="large" color="black">
             {questionSet?.title || ''}
           </Heading>

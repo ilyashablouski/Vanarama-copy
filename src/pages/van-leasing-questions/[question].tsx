@@ -20,7 +20,7 @@ const FinanceInfo: NextPage = () => {
     { label: 'Ask A Question About Van Leasing', href: '/van-leasing-questions' },
   ];
 
-  const { data, loading, error } = useGenericPageQuestion(`/van-leasing-questions/${(router.query.question as string).replace(/.html/g, '')}`);
+  const { data, loading, error } = useGenericPageQuestion(`/van-leasing-questions/${(router.query.question as string)}`);
 
   if (loading) {
     return <Loading size="large" />;
