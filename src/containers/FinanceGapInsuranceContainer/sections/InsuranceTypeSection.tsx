@@ -2,7 +2,6 @@
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Router from 'next/router';
 import {
   GenericPageQuery_genericPage_sections_featured1_link,
   GenericPageQuery_genericPage_sections_featured2_link,
@@ -14,7 +13,10 @@ interface IProps {
   body?: string | null;
   link1?: GenericPageQuery_genericPage_sections_featured1_link | null;
   link2?: GenericPageQuery_genericPage_sections_featured2_link | null;
+  showModal?: () => void;
 }
+
+const goToTop = () => window.scrollTo(0, 0);
 
 const InsuranceTypeSection = ({
   heading,
@@ -22,6 +24,7 @@ const InsuranceTypeSection = ({
   body,
   link1,
   link2,
+  showModal,
 }: IProps) => (
   <div className="row:lead-text">
     <Heading size="xlarge" color="black">
@@ -39,14 +42,14 @@ const InsuranceTypeSection = ({
           color="teal"
           fill="solid"
           label={link1?.text}
-          onClick={() => Router.push(link1?.url || '')}
+          onClick={showModal}
         />
         <Button
           size="regular"
           color="teal"
           fill="outline"
           label={link2?.text}
-          onClick={() => Router.push(link2?.url || '')}
+          onClick={goToTop}
         />
       </div>
     )}

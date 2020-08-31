@@ -13,14 +13,18 @@ import BusinessSummaryFormVATDetailsSection from './BusinessSummaryFormVATDetail
 import BusinessSummaryFormDirectorDetailsSection from './BusinessSummaryFormDirectorDetailsSection';
 import { AboutFormPerson } from '../../../generated/AboutFormPerson';
 import BusinessSummaryFormAboutSection from './BusinessSummaryFormAboutSection';
+import { GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as CreditApplication } from '../../../generated/GetCreditApplicationByOrderUuid';
+import { mapDirectorsDefaultValues } from '../../containers/DirectorDetailsFormContainer/mappers';
 
 interface IProps {
   company: SummaryFormCompany;
   orderId: string;
   person: AboutFormPerson;
+  creditApplication?: CreditApplication | null;
 }
 
 const BusinessSummaryForm: FCWithFragments<IProps> = ({
+  creditApplication,
   company,
   orderId,
   person,
@@ -50,27 +54,35 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
     [company.uuid, orderId, person.uuid, router],
   );
 
-  const directors = useMemo(
-    () =>
-      (company.associates &&
-        company.associates.length &&
-        company.associates
-          .slice()
-          .sort((a, b) => (b.businessShare || 0) - (a.businessShare || 0))
-          .map((d, i) => (
-            <BusinessSummaryFormDirectorDetailsSection
-              director={d}
-              orderBySharehold={i}
-              onEdit={handleEdit('/b2b/olaf/director-details/[companyUuid]', {
-                directorUuid: d.uuid,
-                orderId,
-              })}
-              key={d.uuid}
-            />
-          ))) ||
-      null,
-    [company.associates, handleEdit, orderId],
-  );
+  const directors = useMemo(() => {
+    const providedDirectorsData =
+      mapDirectorsDefaultValues(creditApplication?.directorsDetails)
+        .directors || [];
+    const fullProvidedDirectorsData = (
+      company?.associates || []
+    ).filter(director =>
+      providedDirectorsData?.find(
+        associate =>
+          associate.firstName === director.firstName &&
+          associate.lastName === director.lastName,
+      ),
+    );
+
+    return fullProvidedDirectorsData
+      .slice()
+      .sort((a, b) => (b.businessShare || 0) - (a.businessShare || 0))
+      .map((d, i) => (
+        <BusinessSummaryFormDirectorDetailsSection
+          director={d}
+          orderBySharehold={i}
+          onEdit={handleEdit('/b2b/olaf/director-details/[companyUuid]', {
+            directorUuid: d.uuid,
+            orderId,
+          })}
+          key={d.uuid}
+        />
+      ));
+  }, [company, handleEdit, orderId, creditApplication]);
 
   const onButtonPressed = useCallback(
     () =>

@@ -20,7 +20,7 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured1
   title: string | null;
   titleTag: string | null;
   body: string | null;
-  layout: string[] | null;
+  layout: (string | null)[] | null;
   image: GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_image | null;
 }
 
@@ -38,7 +38,7 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured2
   titleTag: string | null;
   body: string | null;
   image: GetInsuranceLandingPage_insuranceLandingPage_sections_featured2_image | null;
-  layout: string[] | null;
+  layout: (string | null)[] | null;
 }
 
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_cards_cards_link {

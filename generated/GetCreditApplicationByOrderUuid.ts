@@ -30,6 +30,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_li
 
 export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid {
   addresses: any | null;
+  aboutDetails: any | null;
   bankAccounts: any | null;
   companyDetails: any | null;
   vatDetails: any | null;
@@ -39,10 +40,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid {
   lineItem: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_lineItem | null;
   leadManagerProposalId: string | null;
   createdAt: any | null;
-  emailAddresses: any | null;
-  partyDetails: any | null;
   status: string;
-  telephoneNumbers: any | null;
   updatedAt: any | null;
   uuid: string;
 }

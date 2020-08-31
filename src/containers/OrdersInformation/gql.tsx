@@ -11,7 +11,7 @@ import {
 
 export const GET_ORDERS_BY_PARTY_UUID_DATA = gql`
   query GetOrdersByPartyUuid(
-    $partyUuid: ID!
+    $partyUuid: [ID!]!
     $statuses: [String!]
     $excludeStatuses: [String!]
     $statusesCA: [String!]
@@ -73,7 +73,7 @@ export const GET_ORDERS_BY_PARTY_UUID_DATA = gql`
  *  @props excludeStatuses - optional param, array of strings with statuses that we don’t want to receive
  */
 export function useOrdersByPartyUuidData(
-  partyByUuid: string,
+  partyByUuid: string[],
   statuses?: string[],
   excludeStatuses?: string[],
   statusesCA?: string[],

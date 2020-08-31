@@ -15,6 +15,7 @@ export const PAGES_WITHOUT_COMPARATOR = [
   '/van-leasing-explained',
   '/van-leasing/finance-options',
   '/car-leasing/finance-options',
+  '/van-leasing-questions',
 ];
 
 export const WHOLE_PATHS_PAGES_WITH_COMPARATOR = ['/'];

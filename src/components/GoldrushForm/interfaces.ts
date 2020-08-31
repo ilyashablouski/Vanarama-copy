@@ -6,6 +6,9 @@ export interface IGoldrushFormProps {
   heading?: string;
   callBack?: boolean;
   text?: string;
+  className?: string;
+  termsAndConditionsId?: string;
+  noTermsAndConditions?: boolean;
 }
 
 export interface IGoldrushFromValues {

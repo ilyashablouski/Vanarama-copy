@@ -15,11 +15,11 @@ import { isTruthy } from '../../utils/array';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import DirectorFieldArray from './DirectorFieldArray';
 import {
-  // initialFormValues,
+  initialFormValues,
   validate,
   validationSchema,
   combineDirectorsData,
-  // initialEditedFormValues,
+  initialEditedFormValues,
 } from './helpers';
 import { DirectorDetailsFormValues } from './interfaces';
 import FCWithFragments from '../../utils/FCWithFragments';
@@ -42,7 +42,8 @@ type IDirectorDetailsFormProps = {
   companyNumber: string;
   onSubmit: (values: DirectorDetailsFormValues) => Promise<void>;
   isEdited: boolean;
-  directorDetails: DirectorDetailsFormValues;
+  directorDetails: DirectorDetailsFormValues | undefined;
+  directorUuid?: string;
 };
 
 const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
@@ -53,12 +54,12 @@ const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
 };
 
 const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
-  associates,
   companyNumber,
   onSubmit,
   dropdownData,
   isEdited,
   directorDetails,
+  directorUuid,
 }) => {
   const { data, loading, error } = useCompanyOfficers(companyNumber);
 
@@ -71,14 +72,11 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
   }
 
   const officers = data?.companyOfficers?.nodes?.filter(isTruthy) || [];
-  const directors = combineDirectorsData(officers, associates) || [];
-  const initialValues = {
-    ...directorDetails,
-    directors:
-      (directorDetails?.directors || []).length > 0
-        ? directorDetails?.directors
-        : [],
-  };
+  const directors = combineDirectorsData(officers, []) || [];
+
+  const initialValues = isEdited
+    ? initialEditedFormValues(directorDetails?.directors || [], directorUuid)
+    : initialFormValues(officers);
 
   return (
     <Formik<DirectorDetailsFormValues>
@@ -100,7 +98,7 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
             directors={directors}
             dropdownData={dropdownData}
             officers={officers}
-            isEdited
+            isEdited={isEdited}
           />
           <Button
             color="primary"

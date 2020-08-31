@@ -24,6 +24,9 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
   callBack,
   text,
   isTextInVisible,
+  termsAndConditionsId,
+  noTermsAndConditions,
+  className,
 }) => {
   const buttonLabelText = callBack ? 'Call Me Back' : 'Get Quote Now';
   const buttonLabel = isSubmitting ? 'Loading...' : buttonLabelText;
@@ -50,7 +53,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
 
   const termsAndConditions = () => (
     <CheckBox
-      id="termsAndCons"
+      id={`termsAndCons${termsAndConditionsId || ''}`}
       dataTestId="aboutTermsAndCons"
       name="termsAndCons"
       label={
@@ -64,7 +67,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
 
   const consent = () => (
     <CheckBox
-      id="consent"
+      id={`consent${termsAndConditionsId || ''}`}
       dataTestId="aboutConsent"
       name="consent"
       label={
@@ -77,7 +80,11 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
   );
 
   return (
-    <Form dataTestId="goldrush-form" onSubmit={handleSubmit(onSubmit)}>
+    <Form
+      className={className}
+      dataTestId="goldrush-form"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       {heading && (
         <Heading tag="span" size={callBack ? 'large' : 'lead'} color="black">
           {heading}
@@ -142,22 +149,26 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
           />
         </FormGroup>
       )}
-      {callBack ? (
-        <FormGroup
-          label="Agree To:"
-          error={errors?.termsAndCons?.message?.toString()}
-        >
-          {termsAndConditions()}
-          {consent()}
-        </FormGroup>
-      ) : (
-        <FormGroup
-          label="Please Confirm"
-          error={errors?.termsAndCons?.message?.toString()}
-        >
-          {consent()}
-          {termsAndConditions()}
-        </FormGroup>
+      {!noTermsAndConditions && (
+        <>
+          {callBack ? (
+            <FormGroup
+              label="Agree To:"
+              error={errors?.termsAndCons?.message?.toString()}
+            >
+              {termsAndConditions()}
+              {consent()}
+            </FormGroup>
+          ) : (
+            <FormGroup
+              label="Please Confirm"
+              error={errors?.termsAndCons?.message?.toString()}
+            >
+              {consent()}
+              {termsAndConditions()}
+            </FormGroup>
+          )}
+        </>
       )}
       {!isTextInVisible && (
         <Text tag="p" color={callBack ? 'dark' : 'darker'} size="xsmall">

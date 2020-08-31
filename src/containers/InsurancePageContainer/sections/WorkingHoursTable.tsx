@@ -36,19 +36,21 @@ const WorkingHoursTable = ({ body, title }: HeroCard) => (
         renderers={{
           paragraph: props => {
             const { children } = props;
-            const href = `tel:${children[1].props.value
+            const href = `tel:${children[1]?.props.value
               .split('')
               .filter((item: string) => item === '0' || +item > 0)
               .join('')}`;
-            return (
+            return children[0].props.children[0].props?.value ? (
               <ParsedLink
-                title={children[0].props.children[0].props.value}
+                title={children[0].props.children[0].props?.value}
                 color="teal"
                 size="large"
                 fill="solid"
                 className="-fullwidth"
                 href={href}
               />
+            ) : (
+              <></>
             );
           },
           table: props => renderTable(props),

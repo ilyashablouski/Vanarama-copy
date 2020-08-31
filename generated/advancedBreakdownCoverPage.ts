@@ -47,7 +47,7 @@ export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_
   titleTag: string | null;
   body: string | null;
   image: advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured1_image | null;
-  layout: string[] | null;
+  layout: (string | null)[] | null;
 }
 
 export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured2_image_file {
@@ -67,7 +67,7 @@ export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_
   titleTag: string | null;
   body: string | null;
   image: advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured2_image | null;
-  layout: string[] | null;
+  layout: (string | null)[] | null;
 }
 
 export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured3_image_file {
@@ -87,7 +87,7 @@ export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_
   titleTag: string | null;
   body: string | null;
   image: advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_featured3_image | null;
-  layout: string[] | null;
+  layout: (string | null)[] | null;
 }
 
 export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_tiles_tiles_image_file {

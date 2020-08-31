@@ -102,7 +102,6 @@ describe('<CompanyBankDetailsFormContainer />', () => {
       makeUpdateCreditApplicationMock({
         orderUuid: '00000000-24a5-42ff-9acd-00000000',
         status: 'status',
-        emailAddresses: [],
         addresses: [],
         bankAccounts: [
           {
@@ -113,12 +112,10 @@ describe('<CompanyBankDetailsFormContainer />', () => {
             sortCode: ['01', '93', '87'],
           },
         ],
+        aboutDetails: 'aboutDetails',
         employmentHistories: 'employmentHistories',
         incomeAndExpenses: 'incomeAndExpenses',
         leadManagerProposalId: 'leadManagerProposalId',
-        partyDetails: 'partyDetails',
-        telephoneNumbers: [],
-        aboutDetails: undefined,
         companyDetails: null,
         vatDetails: 'vatDetails',
         directorsDetails: 'directorsDetails',

@@ -21,6 +21,8 @@ import {
 } from '../../olaf/about';
 import { GET_ORDERS_BY_PARTY_UUID_DATA } from '../../../containers/OrdersInformation/gql';
 import { useImperativeQuery } from '../../../hooks/useImperativeQuery';
+import { GET_COMPANIES_BY_PERSON_UUID } from '../../../gql/companies';
+import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -34,12 +36,21 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
   const getOrdersData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);
-  const getQuotesData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);
+  const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
 
   const [getPersonByToken] = usePersonByTokenLazyQuery(async data => {
     await localForage.setItem('person', data);
+    const partyUuid = [data.personByToken?.partyUuid];
+    await getCompaniesData({
+      personUuid: data.personByToken?.uuid,
+    }).then(resp => {
+      resp.data?.companiesByPersonUuid?.forEach(
+        (companies: CompaniesByPersonUuid) =>
+          partyUuid.push(companies.partyUuid),
+      );
+    });
     getOrdersData({
-      partyUuid: data.personByToken?.partyUuid,
+      partyUuid,
       excludeStatuses: ['quote', 'expired'],
     }).then(response => {
       localForage.setItem(
@@ -47,8 +58,8 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
         response.data?.ordersByPartyUuid.length,
       );
     });
-    getQuotesData({
-      partyUuid: data.personByToken?.partyUuid,
+    getOrdersData({
+      partyUuid,
       statuses: ['quote', 'new'],
       excludeStatuses: ['expired'],
     }).then(response => {

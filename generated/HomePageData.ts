@@ -90,14 +90,14 @@ export interface HomePageData_homePage_sections_featured1 {
   titleTag: string | null;
   body: string | null;
   iconList: (HomePageData_homePage_sections_featured1_iconList | null)[] | null;
-  layout: string[] | null;
+  layout: (string | null)[] | null;
 }
 
 export interface HomePageData_homePage_sections_featured2 {
   title: string | null;
   titleTag: string | null;
   body: string | null;
-  layout: string[] | null;
+  layout: (string | null)[] | null;
 }
 
 export interface HomePageData_homePage_sections_tiles_tiles_image_file {
