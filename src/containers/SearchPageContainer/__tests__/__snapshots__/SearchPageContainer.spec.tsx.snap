@@ -78,7 +78,7 @@ exports[`<SearchPageContainer /> should be render correctly 1`] = `
         Lorem Ips
       </h1>
       <span
-        class="text -lead -darker"
+        class="text -regular -dark"
       />
     </div>
     <div
@@ -878,7 +878,7 @@ exports[`<SearchPageContainer /> should be render correctly all manufacturers Pa
         Lorem Ips
       </h1>
       <span
-        class="text -lead -darker"
+        class="text -regular -dark"
       />
     </div>
     <div

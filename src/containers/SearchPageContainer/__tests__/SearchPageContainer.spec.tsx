@@ -2,7 +2,12 @@ import { render, waitFor, screen, act } from '@testing-library/react';
 import React from 'react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import SearchPageContainer from '../SearchPageContainer';
-import { getVehiclesList, getRangesList, useManufacturerList } from '../gql';
+import {
+  getVehiclesList,
+  getRangesList,
+  useManufacturerList,
+  useSearchResultPage,
+} from '../gql';
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
@@ -98,6 +103,7 @@ jest.mock('../gql', () => ({
   getVehiclesList: jest.fn(),
   getRangesList: jest.fn(),
   useManufacturerList: jest.fn(),
+  useSearchResultPage: jest.fn(),
 }));
 
 jest.mock('../RangeCard', () => () => {
@@ -163,6 +169,7 @@ let vehicleMockCalled = false;
     },
   },
 ]);
+
 (useManufacturerList as jest.Mock).mockReturnValue([
   jest.fn(),
   {
@@ -190,6 +197,30 @@ let vehicleMockCalled = false;
           capIds: '1151',
         },
       ],
+    },
+  },
+]);
+
+(useSearchResultPage as jest.Mock).mockReturnValue([
+  jest.fn(),
+  {
+    data: {
+      searchResultsPage: {
+        id: '6h7l2K8zNunmnxOf5J40uN',
+        intro:
+          'Save money on a brand new van by leasing from Vanarama today! View our unbeatable lease deals on vans from all the top brands',
+        body: null,
+        featuredImage: null,
+        metaData: {
+          pageType: 'Search Results',
+          slug: '/search',
+          title: 'Van Search Results',
+          metaRobots: 'noindex,follow',
+          metaDescription: 'Van Search Results',
+          legacyUrl: 'https://www.vanarama.com/search.html',
+          publishedOn: null,
+        },
+      },
     },
   },
 ]);
@@ -615,7 +646,7 @@ describe('<SearchPageContainer />', () => {
     act(() => {
       render(
         <MockedProvider mocks={mocksResponse} addTypename={false}>
-          <SearchPageContainer isCarSearch isServer={false} />
+          <SearchPageContainer isGenericIntro isCarSearch isServer={false} />
         </MockedProvider>,
       );
     });
