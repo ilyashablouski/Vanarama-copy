@@ -29,7 +29,7 @@ const BlogPost: NextPage = () => {
       href: '/blog',
     },
     {
-      label: data?.blogPost?.metaData?.name,
+      label: data?.blogPost?.metaData?.name || '',
       href: '/blog/post',
     },
   ];
@@ -38,7 +38,7 @@ const BlogPost: NextPage = () => {
   const name = data?.blogPost?.metaData?.name;
   const image = data?.blogPost?.featuredImage?.file?.url;
   const metaData = data?.blogPost?.metaData;
-  const cards = data?.blogPost?.category;
+  const articles = data?.blogPost?.category;
 
   return (
     <>
@@ -54,7 +54,7 @@ const BlogPost: NextPage = () => {
         body={body}
         name={name}
         image={image}
-        cards={cards}
+        articles={articles}
         crumbs={crumbs}
       />
     </>

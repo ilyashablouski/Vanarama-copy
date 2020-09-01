@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { NextPage } from 'next';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
@@ -6,14 +7,30 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import BreadCrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import ReactMarkdown from 'react-markdown';
 import Router from 'next/router';
+import { ILink } from '@vanarama/uibook/lib/interfaces/link';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import { BlogPost_blogPost_category } from '../../../generated/BlogPost';
+import { GenericPageQuery_genericPage_sections_cards_cards } from '../../../generated/GenericPageQuery';
 
-const BlogPostContainer: NextPage = ({
+interface IProps {
+  body: string | null | undefined;
+  name: string | null | undefined;
+  image: string | null | undefined;
+  crumbs: ILink[];
+  cards?:
+    | (GenericPageQuery_genericPage_sections_cards_cards | null)[]
+    | null
+    | undefined;
+  articles?: (BlogPost_blogPost_category | null)[] | null | undefined;
+}
+
+const BlogPostContainer: NextPage<IProps> = ({
   body,
   name,
   image,
   cards,
   crumbs,
+  articles,
 }) => {
   return (
     <>
@@ -47,24 +64,54 @@ const BlogPostContainer: NextPage = ({
           </Heading>
           {cards?.map((el, indx) => (
             <Card
-              key={`${el.name}_${indx.toString()}`}
+              key={`${el?.name}_${indx.toString()}`}
               className="card__article"
-              imageSrc={el.image?.file?.url || ''}
+              imageSrc={el?.image?.file?.url || ''}
               title={{
                 title: '',
                 link: (
                   <RouterLink
-                    link={{ href: el.link?.url || '', label: el.title || '' }}
+                    link={{ href: el?.link?.url || '', label: el?.title || '' }}
                     className="card--link"
                     classNames={{ color: 'black', size: 'regular' }}
                   />
                 ),
               }}
-              description={el.body || ''}
+              description={el?.body || ''}
             >
               <Button
                 onClick={() => {
-                  Router.push(el.link?.url || '');
+                  Router.push(el?.link?.url || '');
+                }}
+                label="Read More"
+                color="teal"
+                size="small"
+                fill="solid"
+                className="-mt-400"
+              />
+            </Card>
+          ))}
+          {articles?.map((el, indx) => (
+            <Card
+              key={`${el?.title}_${indx.toString()}`}
+              title={{
+                title: '',
+                link: (
+                  <RouterLink
+                    link={{
+                      href: el?.canonicalUrl || '',
+                      label: el?.title || '',
+                    }}
+                    className="card--link"
+                    classNames={{ color: 'black', size: 'regular' }}
+                  />
+                ),
+              }}
+              description={el?.metaDescription || ''}
+            >
+              <Button
+                onClick={() => {
+                  Router.push(el?.canonicalUrl || '');
                 }}
                 label="Read More"
                 color="teal"

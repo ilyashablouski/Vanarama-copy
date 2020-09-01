@@ -1,12 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import {
-  GenericPageQuery,
-  GenericPageQueryVariables,
-} from '../../generated/GenericPageQuery';
-import {
-  GenericPageHeadQuery,
-  GenericPageHeadQueryVariables,
-} from '../../generated/GenericPageHeadQuery';
+import { BlogPost, BlogPostVariables } from '../../generated/BlogPost';
 
 export const BLOG_POPST_PAGE = gql`
   query BlogPost($slug: String!) {
@@ -49,12 +42,9 @@ export const BLOG_POPST_PAGE = gql`
 `;
 
 export function useBlogPostPage(slug: string) {
-  return useQuery<GenericPageQuery, GenericPageQueryVariables>(
-    BLOG_POPST_PAGE,
-    {
-      variables: {
-        slug,
-      },
+  return useQuery<BlogPost, BlogPostVariables>(BLOG_POPST_PAGE, {
+    variables: {
+      slug,
     },
-  );
+  });
 }
