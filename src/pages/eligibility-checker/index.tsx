@@ -15,6 +15,7 @@ import {
 } from '../../../generated/EligibilityCheckerPageData';
 import withApollo from '../../hocs/withApollo';
 import { ELIGIBILITY_CHECKER_CONTENT } from '../../gql/eligibility-checker/eligibilityChecker';
+import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
 
 const EligibilityChecker: NextPage = () => {
   const { data, loading, error } = useQuery<EligibilityCheckerPageData>(
@@ -106,6 +107,9 @@ const EligibilityChecker: NextPage = () => {
           </div>
         </div>
       )}
+      <section className="row:trustpilot">
+        <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
+      </section>
     </>
   );
 };
