@@ -47,7 +47,7 @@ describe('<GoldrushForm />', () => {
       screen.getByText('Please enter your email address'),
     ).toBeInTheDocument();
     expect(
-      screen.getByText('Please enter your mobile number'),
+      screen.getByText('Please enter your phone number'),
     ).toBeInTheDocument();
     expect(screen.getByText('Please enter your postcode')).toBeInTheDocument();
   });
@@ -175,7 +175,7 @@ describe('<GoldrushForm />', () => {
 
     expect(
       screen.getByText(
-        'Oops, this mobile number is too short. Please enter 11 characters or more',
+        'Oops, this phone number is too short. Please enter 11 characters or more',
       ),
     ).toBeInTheDocument();
   });
@@ -203,7 +203,7 @@ describe('<GoldrushForm />', () => {
 
     expect(
       screen.getByText(
-        'Oops, this mobile number is too long. Please enter 16 characters or less',
+        'Oops, this phone number is too long. Please enter 16 characters or less',
       ),
     ).toBeInTheDocument();
   });
@@ -231,7 +231,7 @@ describe('<GoldrushForm />', () => {
 
     expect(
       screen.getByText(
-        'Please enter your mobile number without spaces or hyphens',
+        'Please enter your phone number without spaces or hyphens',
       ),
     ).toBeInTheDocument();
   });
