@@ -176,23 +176,4 @@ describe('<CustomerAlsoViewedContainer />', () => {
     const tree = getComponent();
     expect(tree).toMatchSnapshot();
   });
-
-  it('renders correctly with data', () => {
-    (useProductCardData as jest.Mock).mockReturnValue(mockData);
-
-    const getComponent = () => {
-      return renderer
-        .create(
-          <CustomerAlsoViewedContainer
-            capsId={['44514']}
-            leaseType="PERSONAL"
-            vehicleType={VehicleTypeEnum.CAR}
-          />,
-        )
-        .toJSON();
-    };
-
-    const tree = getComponent();
-    expect(tree).toMatchSnapshot();
-  });
 });
