@@ -4,6 +4,7 @@ import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Accordion from '@vanarama/uibook/lib/components/molecules/accordion/Accordion';
+import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
 import Lease from '../../components/EligibilityChecker/Landing/Lease';
 import WhyEligibilityChecker from '../../components/EligibilityChecker/Landing/WhyEligibilityChecker';
 import CustomerThink from '../../components/EligibilityChecker/Landing/CustomerThing';
@@ -15,7 +16,6 @@ import {
 } from '../../../generated/EligibilityCheckerPageData';
 import withApollo from '../../hocs/withApollo';
 import { ELIGIBILITY_CHECKER_CONTENT } from '../../gql/eligibility-checker/eligibilityChecker';
-import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
 
 const EligibilityChecker: NextPage = () => {
   const { data, loading, error } = useQuery<EligibilityCheckerPageData>(
