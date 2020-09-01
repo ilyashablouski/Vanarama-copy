@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FooterColumn /> renders correctly with body 1`] = `
+<div
+  className="footer--column"
+>
+  <span
+    className="heading -medium -small"
+  >
+    GET IN TOUCH WITH US
+  </span>
+  <p>
+    test
+  </p>
+</div>
+`;
+
+exports[`<FooterColumn /> renders correctly with links 1`] = `
+<div
+  className="footer--column"
+>
+  <span
+    className="heading -medium -small"
+  >
+    VANS & TRUCKS
+  </span>
+  <ul>
+    <li>
+      <a
+        className="link -white -small"
+        data-testid="link"
+        href="https://beta.vanarama.com/van-leasing.html"
+        onClick={[Function]}
+        rel="noopener noreferrer"
+      >
+        Van Leasing
+      </a>
+    </li>
+    <li>
+      <a
+        className="link -white -small"
+        data-testid="link"
+        href="https://beta.vanarama.com/pickup-truck-leasing.html"
+        onClick={[Function]}
+        rel="noopener noreferrer"
+      >
+        Pickup Truck Leasing
+      </a>
+    </li>
+    <li>
+      <a
+        className="link -white -small"
+        data-testid="link"
+        href="https://beta.vanarama.com/van-reviews.html"
+        onClick={[Function]}
+        rel="noopener noreferrer"
+      >
+        Van Reviews
+      </a>
+    </li>
+  </ul>
+</div>
+`;

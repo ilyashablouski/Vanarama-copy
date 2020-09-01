@@ -39,6 +39,8 @@ export interface vehicleList_vehicleList_edges_node_financeProfiles {
 }
 
 export interface vehicleList_vehicleList_edges_node {
+  url: string | null;
+  legacyUrl: string | null;
   vehicleType: VehicleTypeEnum | null;
   offerRanking: number | null;
   onOffer: boolean | null;
