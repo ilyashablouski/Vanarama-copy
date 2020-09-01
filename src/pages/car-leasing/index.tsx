@@ -8,7 +8,7 @@ interface IProps {
 }
 
 const Page: NextPage<IProps> = ({ isServer }) => {
-  return <SearchPageContainer isServer={isServer} isCarSearch />;
+  return <SearchPageContainer isGenericIntro isServer={isServer} isCarSearch />;
 };
 Page.getInitialProps = ({ query, req }) => {
   return { query, isServer: !!req };
