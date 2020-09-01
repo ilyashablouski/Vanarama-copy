@@ -19,7 +19,7 @@ const ARTICLES = [
   },
 ];
 
-const NAME = 'Top 5 Electric Vans… Sort Of';
+const NAME = 'Top 5 Electric Vans Sort Of';
 
 const IMAGE =
   '//images.ctfassets.net/3xid768u5joa/2FgrgR6JOuvUgIGRmV5rZg/648465d10d6aa137a720013270728029/maxus-top-electric-vans.jpg';
@@ -56,7 +56,7 @@ describe('<FinanceExplainedContainer />', () => {
     // ASSERT
     await waitFor(() => {
       expect(
-        screen.getByText(`Top 5 Electric Vans… Sort Of`),
+        screen.getByText(`Top 5 Electric Vans Sort Of`),
       ).toBeInTheDocument();
     });
 
