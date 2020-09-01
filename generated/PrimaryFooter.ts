@@ -16,11 +16,12 @@ export interface PrimaryFooter_primaryFooter_linkGroups_linkGroups_links {
   text: string | null;
   url: string | null;
 }
+
 export interface PrimaryFooter_primaryFooter_linkGroups_linkGroups {
   name: string | null;
-  body: string | null;
   links: (PrimaryFooter_primaryFooter_linkGroups_linkGroups_links | null)[] | null;
 }
+
 export interface PrimaryFooter_primaryFooter_linkGroups {
   name: string | null;
   body: string | null;

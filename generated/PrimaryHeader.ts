@@ -24,7 +24,6 @@ export interface PrimaryHeader_primaryHeader_linkGroups_linkGroups_links {
 
 export interface PrimaryHeader_primaryHeader_linkGroups_linkGroups {
   name: string | null;
-  body: string | null;
   links: (PrimaryHeader_primaryHeader_linkGroups_linkGroups_links | null)[] | null;
 }
 

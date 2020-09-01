@@ -177,8 +177,7 @@ describe('<CustomerAlsoViewedContainer />', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  // TODO: return to test when will don't have a problem in jenkins, because on local env. test is passed
-  xit('renders correctly with data', () => {
+  it('renders correctly with data', () => {
     (useProductCardData as jest.Mock).mockReturnValue(mockData);
 
     const getComponent = () => {
