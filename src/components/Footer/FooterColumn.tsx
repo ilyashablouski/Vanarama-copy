@@ -4,6 +4,7 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import { PrimaryFooter_primaryFooter_linkGroups as LinkGroups } from '../../../generated/PrimaryFooter';
 import RouterLink from '../RouterLink/RouterLink';
+import { LinkTypes } from '../../models/enum/LinkTypes';
 
 interface IFooterColumn {
   linkGroup: LinkGroups | null;
@@ -41,13 +42,15 @@ const FooterColumn: FC<IFooterColumn> = props => {
                 </Text>{' '}
                 {el?.links?.map(link =>
                   link?.url ? (
-                    <a
-                      className="link -white -small"
-                      href={link?.url || ''}
-                      key={link?.url || ''}
-                    >
-                      {link?.text}
-                    </a>
+                    <RouterLink
+                      key={link?.text || ''}
+                      link={{
+                        href: link?.url || '',
+                        label: link?.text || '',
+                        linkType: LinkTypes.external,
+                      }}
+                      classNames={{ color: 'white', size: 'small' }}
+                    />
                   ) : (
                     <Text
                       size="small"

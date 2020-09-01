@@ -24,7 +24,10 @@ exports[`<Footer /> renders correctly with body 1`] = `
          
         <a
           className="link -white -small"
+          data-testid="link"
           href="01442 838 195"
+          onClick={[Function]}
+          rel="noopener noreferrer"
         >
           01442 838 195
         </a>
@@ -98,7 +101,10 @@ exports[`<Footer /> renders correctly with body 1`] = `
          
         <a
           className="link -white -small"
+          data-testid="link"
           href="enquiries@vanarama.co.uk"
+          onClick={[Function]}
+          rel="noopener noreferrer"
         >
           enquiries@vanarama.co.uk
         </a>
