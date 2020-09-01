@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import { PrimaryFooter_primaryFooter_linkGroups as LinkGroups } from '../../../generated/PrimaryFooter';
-import RouterLink from '../../components/RouterLink/RouterLink';
+import RouterLink from '../RouterLink/RouterLink';
 
 interface IFooterColumn {
   linkGroup: LinkGroups | null;
