@@ -1,5 +1,5 @@
 import { useMutation, gql } from '@apollo/client';
-import React from 'react';
+import React, { useMemo } from 'react';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import {
   SaveCompanyDetailsMutation as Mutation,
@@ -66,6 +66,12 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
   );
   const { data, loading } = useGetCreditApplicationByOrderUuid(orderId);
 
+  const companyDetails = data?.creditApplicationByOrderUuid?.companyDetails;
+  const company = useMemo(
+    () => (companyDetails ? mapDefaultValues(companyDetails) : undefined),
+    [companyDetails],
+  );
+
   const handleCompanyDetailsSave = (input: LimitedCompanyInputObject) =>
     saveCompanyDetails({
       variables: {
@@ -105,10 +111,6 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
   if (loading) {
     return <Loading />;
   }
-
-  const company = data?.creditApplicationByOrderUuid?.companyDetails
-    ? mapDefaultValues(data?.creditApplicationByOrderUuid?.companyDetails)
-    : undefined;
 
   return (
     <CompanyDetailsForm
