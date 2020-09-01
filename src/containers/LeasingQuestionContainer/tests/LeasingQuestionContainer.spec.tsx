@@ -26,20 +26,28 @@ const SECTIONS = {
     name: 'All Questions',
     questionAnswers: [
       {
-        question: "I would like a large van, but still unsure what is the best purchase option? Also what is the best tax relief option through my limited company? I'm not VAT registered, so can I claim back my contract payments?",
-        answer: "Our expert Mike answered... Hello Adrian, thank you very much for leaving your question on our website. There are various leasing options available depending on what you would like to achieve at the end of the contract. If you are not VAT registered then you will not be able to claim the VAT back on the rentals, however depending on which contract you decided to go for, the rentals may well be 100% tax deductible. If you would like to discuss any of these options in greater detail, the best thing to do is contact one of our specialists on 01442 838193 or alternatively please let us know the best contact number for you and when would be a convenient time to contact you. Many thanks once again for leaving your question. Kind regards, Mike Daly.",
+        question:
+          "I would like a large van, but still unsure what is the best purchase option? Also what is the best tax relief option through my limited company? I'm not VAT registered, so can I claim back my contract payments?",
+        answer:
+          'Our expert Mike answered... Hello Adrian, thank you very much for leaving your question on our website. There are various leasing options available depending on what you would like to achieve at the end of the contract. If you are not VAT registered then you will not be able to claim the VAT back on the rentals, however depending on which contract you decided to go for, the rentals may well be 100% tax deductible. If you would like to discuss any of these options in greater detail, the best thing to do is contact one of our specialists on 01442 838193 or alternatively please let us know the best contact number for you and when would be a convenient time to contact you. Many thanks once again for leaving your question. Kind regards, Mike Daly.',
       },
       {
-        question: "I would like a large van, but still unsure what is the best purchase option? Also what is the best tax relief option through my limited company? I'm not VAT registered, so can I claim back my contract payments?",
-        answer: "Our expert Mike answered... Hello Adrian, thank you very much for leaving your question on our website. There are various leasing options available depending on what you would like to achieve at the end of the contract. If you are not VAT registered then you will not be able to claim the VAT back on the rentals, however depending on which contract you decided to go for, the rentals may well be 100% tax deductible. If you would like to discuss any of these options in greater detail, the best thing to do is contact one of our specialists on 01442 838193 or alternatively please let us know the best contact number for you and when would be a convenient time to contact you. Many thanks once again for leaving your question. Kind regards, Mike Daly.",
+        question:
+          "I would like a large van, but still unsure what is the best purchase option? Also what is the best tax relief option through my limited company? I'm not VAT registered, so can I claim back my contract payments?",
+        answer:
+          'Our expert Mike answered... Hello Adrian, thank you very much for leaving your question on our website. There are various leasing options available depending on what you would like to achieve at the end of the contract. If you are not VAT registered then you will not be able to claim the VAT back on the rentals, however depending on which contract you decided to go for, the rentals may well be 100% tax deductible. If you would like to discuss any of these options in greater detail, the best thing to do is contact one of our specialists on 01442 838193 or alternatively please let us know the best contact number for you and when would be a convenient time to contact you. Many thanks once again for leaving your question. Kind regards, Mike Daly.',
       },
       {
-        question: "I would like a large van, but still unsure what is the best purchase option? Also what is the best tax relief option through my limited company? I'm not VAT registered, so can I claim back my contract payments?",
-        answer: "Our expert Mike answered... Hello Adrian, thank you very much for leaving your question on our website. There are various leasing options available depending on what you would like to achieve at the end of the contract. If you are not VAT registered then you will not be able to claim the VAT back on the rentals, however depending on which contract you decided to go for, the rentals may well be 100% tax deductible. If you would like to discuss any of these options in greater detail, the best thing to do is contact one of our specialists on 01442 838193 or alternatively please let us know the best contact number for you and when would be a convenient time to contact you. Many thanks once again for leaving your question. Kind regards, Mike Daly.",
+        question:
+          "I would like a large van, but still unsure what is the best purchase option? Also what is the best tax relief option through my limited company? I'm not VAT registered, so can I claim back my contract payments?",
+        answer:
+          'Our expert Mike answered... Hello Adrian, thank you very much for leaving your question on our website. There are various leasing options available depending on what you would like to achieve at the end of the contract. If you are not VAT registered then you will not be able to claim the VAT back on the rentals, however depending on which contract you decided to go for, the rentals may well be 100% tax deductible. If you would like to discuss any of these options in greater detail, the best thing to do is contact one of our specialists on 01442 838193 or alternatively please let us know the best contact number for you and when would be a convenient time to contact you. Many thanks once again for leaving your question. Kind regards, Mike Daly.',
       },
-        {
-        question: "I would like a large van, but still unsure what is the best purchase option? Also what is the best tax relief option through my limited company? I'm not VAT registered, so can I claim back my contract payments?",
-        answer: "Our expert Mike answered... Hello Adrian, thank you very much for leaving your question on our website. There are various leasing options available depending on what you would like to achieve at the end of the contract. If you are not VAT registered then you will not be able to claim the VAT back on the rentals, however depending on which contract you decided to go for, the rentals may well be 100% tax deductible. If you would like to discuss any of these options in greater detail, the best thing to do is contact one of our specialists on 01442 838193 or alternatively please let us know the best contact number for you and when would be a convenient time to contact you. Many thanks once again for leaving your question. Kind regards, Mike Daly.",
+      {
+        question:
+          "I would like a large van, but still unsure what is the best purchase option? Also what is the best tax relief option through my limited company? I'm not VAT registered, so can I claim back my contract payments?",
+        answer:
+          'Our expert Mike answered... Hello Adrian, thank you very much for leaving your question on our website. There are various leasing options available depending on what you would like to achieve at the end of the contract. If you are not VAT registered then you will not be able to claim the VAT back on the rentals, however depending on which contract you decided to go for, the rentals may well be 100% tax deductible. If you would like to discuss any of these options in greater detail, the best thing to do is contact one of our specialists on 01442 838193 or alternatively please let us know the best contact number for you and when would be a convenient time to contact you. Many thanks once again for leaving your question. Kind regards, Mike Daly.',
       },
     ],
   },
@@ -73,7 +81,6 @@ const SECTIONS = {
           "It depends on which lease product you choose. If you choose a contract hire or contract purchase the road tax is included for the duration of the contract. Finance lease will include the first year's road tax, however, the finance company will then invoice you for the next year.",
         image: null,
       },
-      ,
     ],
   },
 } as any;
@@ -93,7 +100,9 @@ describe('<LeasingQuestionContainer />', () => {
     );
     // ASSERT
     await waitFor(() => {
-      expect(screen.getByText(`Is Road Tax Covered In The Lease?`)).toBeInTheDocument();
+      expect(
+        screen.getByText(`Is Road Tax Covered In The Lease?`),
+      ).toBeInTheDocument();
     });
 
     const tree = getComponent.baseElement;

@@ -57,21 +57,21 @@ const renderCarouselCards = (cards: (ICaruselCard | null)[]) =>
 const accordionItems = (questions: (IQuestion | null)[] | undefined | null) => {
   return questions
     ? questions.map((item: IQuestion | null, id) => ({
-      id,
-      key: item?.question || '',
-      title: item?.question || '',
-      children: (
-        <ReactMarkdown
-          source={item?.answer || ''}
-          renderers={{
-            link: props => {
-              const { href, children } = props;
-              return <RouterLink link={{ href, label: children }} />;
-            },
-          }}
-        />
-      ),
-    }))
+        id,
+        key: item?.question || '',
+        title: item?.question || '',
+        children: (
+          <ReactMarkdown
+            source={item?.answer || ''}
+            renderers={{
+              link: props => {
+                const { href, children } = props;
+                return <RouterLink link={{ href, label: children }} />;
+              },
+            }}
+          />
+        ),
+      }))
     : [];
 };
 
@@ -81,8 +81,8 @@ const renderQuestions = (
   return questions?.length ? (
     <Accordion className="tilebox" items={accordionItems(questions)} />
   ) : (
-      <p>Error: No questions</p>
-    );
+    <p>Error: No questions</p>
+  );
 };
 
 const LeasingQuestionContainer: FC<IProps> = ({
