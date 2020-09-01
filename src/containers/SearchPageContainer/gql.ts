@@ -26,6 +26,10 @@ import {
   manufacturerList,
   manufacturerListVariables,
 } from '../../../generated/manufacturerList';
+import {
+  SearchResultsPage,
+  SearchResultsPageVariables,
+} from '../../../generated/SearchResultsPage';
 import { manufacturerPage } from '../../../generated/manufacturerPage';
 
 export const GET_VEHICLE_LIST = gql`
@@ -354,4 +358,46 @@ export function useAllMakePage(skip = false) {
   return useQuery<manufacturerPage>(GET_ALL_MAKES_PAGE, {
     skip,
   });
+}
+
+export const GET_SEARCH_RESULTS_PAGE = gql`
+  query SearchResultsPage($slug: String!) {
+    searchResultsPage(slug: $slug) {
+      id
+      intro
+      body
+      featuredImage {
+        file {
+          url
+          details {
+            image {
+              width
+              height
+            }
+          }
+        }
+      }
+      metaData {
+        pageType
+        slug
+        title
+        metaRobots
+        metaDescription
+        legacyUrl
+        publishedOn
+      }
+    }
+  }
+`;
+
+export function useSearchResultPage(slug: string, skip: boolean) {
+  return useQuery<SearchResultsPage, SearchResultsPageVariables>(
+    GET_SEARCH_RESULTS_PAGE,
+    {
+      variables: {
+        slug,
+      },
+      skip,
+    },
+  );
 }

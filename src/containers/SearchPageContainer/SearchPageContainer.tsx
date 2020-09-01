@@ -30,6 +30,7 @@ import {
   getVehiclesList,
   getRangesList,
   useManufacturerList,
+  useSearchResultPage,
   GET_ALL_MAKES_PAGE,
 } from './gql';
 import VehicleCard, { IProductPageUrl } from './VehicleCard';
@@ -76,6 +77,7 @@ interface IProps {
   isRangePage?: boolean;
   isModelPage?: boolean;
   isAllMakesPage?: boolean;
+  isGenericIntro?: boolean;
 }
 
 const SearchPageContainer: React.FC<IProps> = ({
@@ -87,8 +89,16 @@ const SearchPageContainer: React.FC<IProps> = ({
   isRangePage,
   isModelPage,
   isAllMakesPage,
+  isGenericIntro,
 }: IProps) => {
   const router = useRouter();
+
+  // generic page for /car-leasing or /van-leasing
+  const { data: searchGenericPage } = useSearchResultPage(
+    isCarSearch ? '/car-leasing-search' : '/search',
+    !isGenericIntro,
+  );
+
   /** we storing the last value of special offers checkbox in Session storage */
   const getValueFromStorage = useCallback(
     (isServerCheck = false) => {
@@ -602,15 +612,19 @@ const SearchPageContainer: React.FC<IProps> = ({
   const tiles = pageData?.genericPage.sections?.tiles;
   const carousel = pageData?.genericPage.sections?.carousel;
   const featured = pageData?.genericPage.sections?.featured;
+  const searchPage = searchGenericPage?.searchResultsPage;
+
   return (
     <>
       <Head
-        title={metaData?.title || ''}
-        metaDescription={metaData?.metaDescription}
-        metaRobots={metaData?.metaRobots}
-        legacyUrl={metaData?.legacyUrl}
-        publishedOn={metaData?.publishedOn}
-        featuredImage={featuredImage}
+        title={metaData?.title || searchPage?.metaData?.title || ''}
+        metaDescription={
+          metaData?.metaDescription || searchPage?.metaData?.metaDescription
+        }
+        metaRobots={metaData?.metaRobots || searchPage?.metaData?.metaRobots}
+        legacyUrl={metaData?.legacyUrl || searchPage?.metaData?.legacyUrl}
+        publishedOn={metaData?.publishedOn || searchPage?.metaData?.publishedOn}
+        featuredImage={featuredImage || searchPage?.featuredImage}
       />
       <div className="row:title">
         <Breadcrumb items={crumbs} />
@@ -620,7 +634,23 @@ const SearchPageContainer: React.FC<IProps> = ({
             (metaData?.name ?? 'Lorem Ips')}
         </Heading>
         {!isBodyPage ? (
-          <Text color="darker" size="lead" />
+          <Text color="dark" size="regular">
+            <ReactMarkdown
+              source={searchPage?.intro || ''}
+              disallowedTypes={['paragraph']}
+              unwrapDisallowed
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+                image: props => {
+                  const { src, alt } = props;
+                  return <img {...{ src, alt }} style={{ maxWidth: '100%' }} />;
+                },
+              }}
+            />
+          </Text>
         ) : (
           <Text color="darker" size="regular" tag="div">
             <ReactMarkdown

@@ -125,20 +125,20 @@ export const lastNameValidator = {
 };
 
 export const phoneNumberValidator = {
-  required: { value: true, message: 'Please enter your mobile number' },
+  required: { value: true, message: 'Please enter your phone number' },
   minLength: {
     value: 11,
     message:
-      'Oops, this mobile number is too short. Please enter 11 characters or more',
+      'Oops, this phone number is too short. Please enter 11 characters or more',
   },
   maxLength: {
     value: 16,
     message:
-      'Oops, this mobile number is too long. Please enter 16 characters or less',
+      'Oops, this phone number is too long. Please enter 16 characters or less',
   },
   pattern: {
     value: WORLDWIDE_MOBILE_REGEX,
-    message: 'Please enter your mobile number without spaces or hyphens',
+    message: 'Please enter your phone number without spaces or hyphens',
   },
 };
 
