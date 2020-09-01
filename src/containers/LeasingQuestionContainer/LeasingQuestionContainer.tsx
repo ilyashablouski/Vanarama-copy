@@ -1,21 +1,17 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import BreadCrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import ReactMarkdown from 'react-markdown';
-import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Accordion from '@vanarama/uibook/lib/components/molecules/accordion/Accordion';
-import DOMPurify from 'dompurify';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import getTitleTag from '../../utils/getTitleTag';
 import {
-  GenericPageQuestionQuery_genericPage_sections_cards_cards as ICaruselCard,
   GenericPageQuestionQuery_genericPage_sections as Section,
   GenericPageQuestionQuery_genericPage_sections_faqs_questionSets_questionAnswers as IQuestion,
 } from '../../../generated/GenericPageQuestionQuery';
+import CarouselCards from './CarouselCards';
 
 interface IProps {
   sections: Section | null;
@@ -23,36 +19,6 @@ interface IProps {
   body: string | null;
   crumbs: { href: string; label: string }[];
 }
-
-const renderCarouselCards = (cards: (ICaruselCard | null)[]) =>
-  cards.map(card => {
-    const [readMore, toggleRead] = useState(true);
-    const clearHtml = DOMPurify.sanitize(card && card.body ? card.body : '');
-    const cardText = {
-      dangerouslySetInnerHTML: {
-        __html: readMore ? `${clearHtml.slice(0, 120)}...` : clearHtml,
-      },
-    };
-
-    return card?.title && card.body && card.name ? (
-      <Card
-        key={card.name}
-        title={{ title: card?.title }}
-        imageSrc={card.image?.file?.url}
-      >
-        <Text size="regular" color="dark">
-          <span {...cardText} />
-        </Text>
-        <Button
-          fill="clear"
-          color="teal"
-          size="regular"
-          label={readMore ? 'Read More' : 'Read Less'}
-          onClick={() => toggleRead(!readMore)}
-        />
-      </Card>
-    ) : null;
-  });
 
 const accordionItems = (questions: (IQuestion | null)[] | undefined | null) => {
   return questions
@@ -125,11 +91,7 @@ const LeasingQuestionContainer: FC<IProps> = ({
           >
             {carousel?.title || ''}
           </Heading>
-          {carousel?.cards && (
-            <Carousel className="-col3" countItems={3}>
-              {renderCarouselCards(carousel?.cards)}
-            </Carousel>
-          )}
+          {carousel?.cards && <CarouselCards cards={carousel?.cards} />}
         </div>
       </div>
       <div className="row:bg-lighter">
