@@ -15,7 +15,7 @@ const Footer: FC<IFooter> = ({ primaryFooter }) => {
   return (
     <footer className="footer">
       {linkGroups?.map(linkGroup => (
-        <FooterColumn linkGroup={linkGroup} />
+        <FooterColumn linkGroup={linkGroup} key={linkGroup?.name || ''} />
       ))}
       <hr className="footer--divider -fullwidth" />
       {legalStatement?.title && (
