@@ -48,24 +48,12 @@ const BlogPostContainer: NextPage<IProps> = ({
       <div className="row:article">
         <article className="markdown">
           <ReactMarkdown
-            unwrapDisallowed
             escapeHtml={false}
             source={body || ''}
             renderers={{
               link: props => {
                 const { href, children } = props;
                 return <RouterLink link={{ href, label: children }} />;
-              },
-              image: props => {
-                const { src, alt } = props;
-                return (
-                  <img
-                    alt={alt}
-                    style={{ margin: '1rem auto', display: 'block' }}
-                    width="90%"
-                    src={src}
-                  />
-                );
               },
             }}
           />

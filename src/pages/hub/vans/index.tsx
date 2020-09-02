@@ -573,7 +573,7 @@ export const VansPage: NextPage = () => {
       </section>
 
       <section className="row:league">
-        <League altText="vanarama national league" />
+        <League href="/fan-hub" altText="vanarama national league" />
       </section>
 
       <section className="row:featured-logos">
