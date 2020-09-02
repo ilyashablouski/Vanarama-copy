@@ -43,6 +43,7 @@ import {
   buildRewriteRoute,
   prepareSlugPart,
   isBodyTransmission,
+  pageContentQueryExecutor,
 } from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import RangeCard from './RangeCard';
@@ -141,8 +142,9 @@ const SearchPageContainer: React.FC<IProps> = ({
   const manualBodyStyle = useMemo(() => {
     if (isPickups) return ['Pickup'];
     if (isModelPage) return [router.query?.bodyStyles as string];
+    if (isBodyStylePage) return [router.query?.dynamicParam as string];
     return [''];
-  }, [isPickups, isModelPage, router.query]);
+  }, [isPickups, isModelPage, router.query, isBodyStylePage]);
 
   // get Caps ids for product card request
   const getCapsIds = (data: (IVehicles | null)[]) =>
@@ -176,7 +178,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     },
     9,
     undefined,
-    isPickups || isModelPage ? manualBodyStyle : [],
+    isPickups || isModelPage || isBodyStylePage ? manualBodyStyle : [],
   );
   // using for cache request
   const [getVehiclesCache, { data: cacheData }] = getVehiclesList(
@@ -204,26 +206,14 @@ const SearchPageContainer: React.FC<IProps> = ({
     },
     undefined,
     lastCard,
-    isPickups || isModelPage ? manualBodyStyle : [],
+    isPickups || isModelPage || isBodyStylePage ? manualBodyStyle : [],
   );
 
   // Ranges list query for make page
   const [getRanges, { data: ranges }] = getRangesList(
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-    !isBodyStylePage ? (router.query?.make as string) : '',
+    router.query?.dynamicParam as string,
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
-    undefined,
-    // TODO: отрефактори этот метод плз, в какой-то момент у нас нет make
-    isBodyStylePage &&
-      router.query?.make &&
-      !isBodyTransmission(router.query?.make as string)
-      ? [router.query?.make as string]
-      : undefined,
-    isBodyStylePage &&
-      router.query?.make &&
-      isBodyTransmission(router.query?.make as string)
-      ? [router.query?.make as string]
-      : undefined,
   );
 
   // Make list query for all makes page
@@ -238,13 +228,15 @@ const SearchPageContainer: React.FC<IProps> = ({
   ];
 
   const sortField =
-    !isRangePage && isSpecialOffers ? SortField.offerRanking : SortField.rate;
+    !isRangePage && isSpecialOffers && !isBodyStylePage
+      ? SortField.offerRanking
+      : SortField.rate;
 
   // new search with new filters
   const onSearch = (filters = filtersData) => {
     // set search filters data
     setFiltersData(filters);
-    if (isMakePage || isBodyStylePage) {
+    if (isMakePage) {
       getRanges({
         variables: {
           vehicleTypes: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
@@ -252,17 +244,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             ? LeaseTypeEnum.PERSONAL
             : LeaseTypeEnum.BUSINESS,
           ...filters,
-          manufacturerName: !isBodyStylePage
-            ? (router.query?.make as string)
-            : '',
-          bodyStyles:
-            isBodyStylePage && !isBodyTransmission(router.query?.make as string) // if needed
-              ? [router.query?.make as string]
-              : undefined,
-          transmissions:
-            isBodyStylePage && isBodyTransmission(router.query?.make as string)
-              ? [router.query?.make as string]
-              : undefined,
+          manufacturerName: router.query?.dynamicParam as string,
         },
       });
       // call only manufacturer list query call after select new filter
@@ -282,7 +264,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     } else {
       let onOffer;
       // set onOffer value to actual depend on page type
-      if (isRangePage || isModelPage) onOffer = null;
+      if (isRangePage || isModelPage || isBodyStylePage) onOffer = null;
       else onOffer = isSpecialOfferPage ? true : isSpecialOffers || null;
       getVehicles({
         variables: {
@@ -294,7 +276,9 @@ const SearchPageContainer: React.FC<IProps> = ({
           sortField,
           ...{
             bodyStyles:
-              isPickups || isModelPage ? manualBodyStyle : filters.bodyStyles,
+              isPickups || isModelPage || isBodyStylePage
+                ? manualBodyStyle
+                : filters.bodyStyles,
           },
         },
       });
@@ -310,6 +294,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       filters as IFilters,
       isMakePage || isRangePage,
       isModelPage,
+      isBodyStylePage,
     );
     Object.entries(query).forEach(([key, value]) =>
       queryString.set(key, value as string),
@@ -335,7 +320,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     if ((!queryLength || isSpecialOfferPage) && !isAllMakesPage) getVehicles();
     // if page mount without additional search params in query we made request
     // else request will be made after filters preselected
-    if ((isMakePage || isBodyStylePage) && queryLength < 2) getRanges();
+    if (isMakePage && queryLength < 2) getRanges();
     if (isAllMakesPage && !queryLength) getManufacturerList();
     // disabled lint because we can't add router to deps
     // it's change every url replace
@@ -367,7 +352,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       setLastCard(data.vehicleList.pageInfo.endCursor || '');
       setHasNextPage(data.vehicleList.pageInfo.hasNextPage || false);
       // use range lenght for manufacture page
-      if (!isMakePage && !isBodyStylePage && !isAllMakesPage)
+      if (!isMakePage && !isAllMakesPage)
         setTotalCount(data.vehicleList.totalCount);
       setCapsIds(
         data.vehicleList?.edges?.map(
@@ -403,13 +388,13 @@ const SearchPageContainer: React.FC<IProps> = ({
   // get vehicles to cache
   useEffect(() => {
     // don't make a request for cache in manufacture page
-    if (lastCard && !isMakePage && !isBodyStylePage && hasNextPage)
+    if (lastCard && !isMakePage && hasNextPage)
       getVehiclesCache({
         variables: {
           vehicleTypes: isCarSearch
             ? [VehicleTypeEnum.CAR]
             : [VehicleTypeEnum.LCV],
-          onOffer: !(isRangePage || isModelPage)
+          onOffer: !(isRangePage || isModelPage || isBodyStylePage)
             ? isSpecialOffers || null
             : null,
           after: lastCard,
@@ -467,24 +452,42 @@ const SearchPageContainer: React.FC<IProps> = ({
   /** navigate to Range Page */
   const viewRange = (range: string) => {
     const href = isCarSearch ? 'car-leasing' : 'van-leasing';
+    const query = { make: router.query.dynamicParam };
     router.push(
-      `/${href}/[make]/[rangeName]`,
-      `/${href}/${router.query.make}/${range}`,
+      {
+        pathname: `/${href}/[dynamicParam]/[rangeName]`,
+        query,
+      },
+      `/${href}/${router.query.dynamicParam}/${range}`,
+      { shallow: true },
     );
   };
   /** navigate to Model Page */
   const viewModel = (bodyStyle: string) => {
     const href = isCarSearch ? 'car-leasing' : 'van-leasing';
+    const query = { make: router.query.dynamicParam };
     router.push(
-      `/${href}/[make]/[rangeName]/[bodyStyles]`,
-      `/${href}/${router.query.make}/${router.query.rangeName}/${bodyStyle}`,
+      {
+        pathname: `/${href}/[dynamicParam]/[rangeName]/[bodyStyles]`,
+        query,
+      },
+      `/${href}/${router.query.dynamicParam}/${router.query.rangeName}/${bodyStyle}`,
+      { shallow: true },
     );
   };
   /** navigate to Make Page */
   const viewMake = (make: string) => {
     if (make) {
       const href = isCarSearch ? 'car-leasing' : 'van-leasing';
-      router.push(`/${href}/[make]`, `/${href}/${make}`);
+      const query = { make: router.query.dynamicParam };
+      router.push(
+        {
+          pathname: `/${href}/[dynamicParam]`,
+          query,
+        },
+        `/${href}/${make}`,
+        { shallow: true },
+      );
     }
   };
 
@@ -527,62 +530,64 @@ const SearchPageContainer: React.FC<IProps> = ({
   );
 
   useEffect(() => {
-    if (router.query.make) {
-      if (router.query.rangeName) {
-        if (router.query.bodyStyles) {
-          getGenericPage({
-            variables: {
-              slug: `/${prepareSlugPart(router.query.make)}-${
-                isCarSearch ? 'car-leasing' : 'van-leasing'
-              }/${prepareSlugPart(router.query.rangeName)}/${prepareSlugPart(
-                router.query.bodyStyles,
-              )}`,
-            },
-          });
-        } else {
-          getGenericPage({
-            variables: {
-              slug: `/${prepareSlugPart(router.query.make)}-${
-                isCarSearch ? 'car-leasing' : 'van-leasing'
-              }/${prepareSlugPart(router.query.rangeName)}`,
-            },
-          });
-        }
-      } else if (isBodyStylePage) {
-        getGenericPage({
-          variables: {
-            slug: `/${prepareSlugPart(router.query.make)}`,
-          },
-        });
-      } else {
-        getGenericPage({
-          variables: {
-            slug: `/${(router.query.make as string).toLocaleLowerCase()}-${
-              isCarSearch ? 'car-leasing' : 'van-leasing'
-            }`,
-          },
-        });
-      }
-    }
-    if (router.asPath.match('all-car-manufacturers')) {
-      getAllManufacturersPage();
-    }
-    if (router.asPath.match('special-offers')) {
-      getGenericPageHead({
-        variables: {
-          slug: `/${isCarSearch ? 'car-leasing' : 'pickup'}-special-offers`,
-        },
-      });
+    const searchType = isCarSearch ? 'car-leasing' : 'van-leasing';
+    const { query } = router;
+    switch (true) {
+      case isMakePage:
+        pageContentQueryExecutor(
+          getGenericPage,
+          `/${(query.dynamicParam as string).toLocaleLowerCase()}-${searchType}`,
+        );
+        break;
+      case isRangePage:
+        pageContentQueryExecutor(
+          getGenericPage,
+          `/${prepareSlugPart(
+            query.dynamicParam,
+          )}-${searchType}/${prepareSlugPart(query.rangeName)}`,
+        );
+        break;
+      case isModelPage:
+        pageContentQueryExecutor(
+          getGenericPage,
+          `/${prepareSlugPart(
+            query.dynamicParam,
+          )}-car-leasing/${prepareSlugPart(query.rangeName)}/${prepareSlugPart(
+            query.bodyStyles,
+          )}`,
+        );
+        break;
+      case isBodyStylePage:
+        pageContentQueryExecutor(
+          getGenericPage,
+          `${isCarSearch ? '/car-leasing' : ''}/${prepareSlugPart(
+            query.dynamicParam,
+          )}`,
+        );
+        break;
+      case isSpecialOfferPage:
+        pageContentQueryExecutor(
+          getGenericPageHead,
+          `/${isCarSearch ? 'car-leasing' : 'pickup'}-special-offers`,
+        );
+        break;
+      case isAllMakesPage:
+        getAllManufacturersPage();
+        break;
+      default:
+        break;
     }
   }, [
-    cacheData,
-    setCapsIds,
     isCarSearch,
-    router,
+    isAllMakesPage,
+    isSpecialOfferPage,
+    isBodyStylePage,
+    isModelPage,
+    isRangePage,
+    isMakePage,
     getGenericPage,
     getAllManufacturersPage,
     getGenericPageHead,
-    isBodyStylePage,
   ]);
 
   const tiles = pageData?.genericPage.sections?.tiles;
@@ -605,9 +610,6 @@ const SearchPageContainer: React.FC<IProps> = ({
             `${filtersData.manufacturerName} ${filtersData.rangeName} ${filtersData.bodyStyles?.[0]}`) ||
             (metaData?.name ?? 'Lorem Ips')}
         </Heading>
-        {!isBodyStylePage ? (
-          <Text color="darker" size="lead" />
-        ) : (
           <Text color="darker" size="regular" tag="div">
             <ReactMarkdown
               source={pageData?.genericPage.intro || ''}
@@ -625,56 +627,53 @@ const SearchPageContainer: React.FC<IProps> = ({
               }}
             />
           </Text>
-        )}
       </div>
       {pageData && (
         <>
-          {router.query.bodyStyles &&
-            router.query.make &&
-            router.query.rangeName && (
-              <>
-                <div className="row:title">
-                  <Heading size="large" color="black">
-                    {metaData?.name}
-                  </Heading>
+          {isModelPage && (
+            <>
+              <div className="row:title">
+                <Heading size="large" color="black">
+                  {metaData?.name}
+                </Heading>
+              </div>
+              <div className="row:text">
+                <div>
+                  <Text color="darker" size="regular" tag="div">
+                    <ReactMarkdown
+                      source={pageData?.genericPage.body || ''}
+                      disallowedTypes={['paragraph']}
+                      unwrapDisallowed
+                      renderers={{
+                        link: props => {
+                          const { href, children } = props;
+                          return (
+                            <RouterLink link={{ href, label: children }} />
+                          );
+                        },
+                        image: props => {
+                          const { src, alt } = props;
+                          return (
+                            <img
+                              {...{ src, alt }}
+                              style={{ maxWidth: '100%' }}
+                            />
+                          );
+                        },
+                      }}
+                    />
+                  </Text>
                 </div>
-                <div className="row:text">
-                  <div>
-                    <Text color="darker" size="regular" tag="div">
-                      <ReactMarkdown
-                        source={pageData?.genericPage.body || ''}
-                        disallowedTypes={['paragraph']}
-                        unwrapDisallowed
-                        renderers={{
-                          link: props => {
-                            const { href, children } = props;
-                            return (
-                              <RouterLink link={{ href, label: children }} />
-                            );
-                          },
-                          image: props => {
-                            const { src, alt } = props;
-                            return (
-                              <img
-                                {...{ src, alt }}
-                                style={{ maxWidth: '100%' }}
-                              />
-                            );
-                          },
-                        }}
-                      />
-                    </Text>
-                  </div>
-                </div>
-              </>
-            )}
+              </div>
+            </>
+          )}
         </>
       )}
 
       {isAllMakesPage && topInfoSection && (
         <TopInfoBlock topInfoSection={topInfoSection} />
       )}
-      {(isMakePage || isSpecialOfferPage || isRangePage) && (
+      {(isMakePage || isSpecialOfferPage || isRangePage || isBodyStylePage) && (
         <TopOffersContainer
           isCarSearch={isCarSearch}
           isMakePage={isMakePage || false}
@@ -691,6 +690,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         !isSpecialOfferPage &&
         !isRangePage &&
         !isModelPage &&
+        !isBodyStylePage &&
         !isAllMakesPage && (
           <div className="-mv-400 -stretch-left">
             <Checkbox
@@ -715,6 +715,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             isSpecialOffers={isSpecialOffers || null}
             isModelPage={isModelPage}
             isAllMakesPage={isAllMakesPage}
+            isBodyPage={isBodyStylePage}
           />
         </div>
       </div>
@@ -725,9 +726,9 @@ const SearchPageContainer: React.FC<IProps> = ({
           </Text>
           <div className="row:cards-3col">
             {useCallback(
-              isMakePage || isBodyStylePage || isAllMakesPage ? (
+              isMakePage || isAllMakesPage ? (
                 <>
-                  {(isMakePage || isBodyStylePage) &&
+                  {isMakePage &&
                     !!ranges?.rangeList?.length &&
                     ranges?.rangeList?.map((range, index) => (
                       <RangeCard
@@ -781,7 +782,7 @@ const SearchPageContainer: React.FC<IProps> = ({
               [cardsData, isPersonal, ranges, carDer, totalCount],
             )}
           </div>
-          {!(isMakePage || isBodyStylePage || isAllMakesPage) ? (
+          {!(isMakePage || isAllMakesPage) ? (
             <div className="pagination">
               {totalCount > vehiclesList?.length && (
                 <Button
@@ -799,9 +800,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           )}
         </div>
       </div>
-      {!pageData && router.query.make && router.query.rangeName && (
-        <Loading size="large" />
-      )}
+      {!pageData && isRangePage && <Loading size="large" />}
 
       {isBodyStylePage && (
         <div className="row:features-4col">
@@ -839,10 +838,7 @@ const SearchPageContainer: React.FC<IProps> = ({
 
       {pageData && (
         <>
-          {((!router.query.bodyStyles &&
-            router.query.make &&
-            router.query.rangeName) ||
-            isBodyStylePage) && (
+          {(isRangePage || isBodyStylePage) && (
             <>
               <div className="row:title">
                 <Heading size="large" color="black">

@@ -99,7 +99,7 @@ const TopOffersContainer: React.FC<IProps> = ({
   const [getBodyStylesList, { data }] = useBodyStyleList(
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
-    router.query.make as string,
+    router.query.dynamicParam as string,
     ((router.query?.rangeName as string) || '').split('+').join(' '),
   );
 
@@ -121,15 +121,17 @@ const TopOffersContainer: React.FC<IProps> = ({
           onOffer: true,
           sortField: SortField.offerRanking,
           manufacturerName: !isBodyPage
-            ? (router.query?.make as string)
+            ? (router.query?.dynamicParam as string)
             : undefined,
           bodyStyles:
-            isBodyPage && !isBodyTransmission(router.query?.make as string)
-              ? [router.query?.make as string]
+            isBodyPage &&
+            !isBodyTransmission(router.query?.dynamicParam as string)
+              ? [router.query?.dynamicParam as string]
               : undefined,
           transmissions:
-            isBodyPage && isBodyTransmission(router.query?.make as string)
-              ? [router.query?.make as string]
+            isBodyPage &&
+            isBodyTransmission(router.query?.dynamicParam as string)
+              ? [router.query?.dynamicParam as string]
               : undefined,
           rangeName: isRangePage
             ? ((router.query?.rangeName as string) || '').split('+').join(' ')
@@ -162,15 +164,17 @@ const TopOffersContainer: React.FC<IProps> = ({
           onOffer: true,
           sortField: SortField.offerRanking,
           manufacturerName: !isBodyPage
-            ? (router.query?.make as string)
+            ? (router.query?.dynamicParam as string)
             : undefined,
           bodyStyles:
-            isBodyPage && !isBodyTransmission(router.query?.make as string)
-              ? [router.query?.make as string]
+            isBodyPage &&
+            !isBodyTransmission(router.query?.dynamicParam as string)
+              ? [router.query?.dynamicParam as string]
               : undefined,
           transmissions:
-            isBodyPage && isBodyTransmission(router.query?.make as string)
-              ? [router.query?.make as string]
+            isBodyPage &&
+            isBodyTransmission(router.query?.dynamicParam as string)
+              ? [router.query?.dynamicParam as string]
               : undefined,
           first: 6,
         },
@@ -182,23 +186,22 @@ const TopOffersContainer: React.FC<IProps> = ({
     dataForCards?.filter(card => card?.capId === capId)[0];
   return (
     <>
-      {(((isMakePage || isBodyPage) &&
-        vehiclesList.length > 3 &&
-        !!carDer.length) ||
-        ((isSpecialOfferPage || (isRangePage && vehiclesList.length > 2)) &&
+      {((isMakePage && vehiclesList.length > 3 && !!carDer.length) ||
+        ((isSpecialOfferPage ||
+          ((isRangePage || isBodyPage) && vehiclesList.length > 2)) &&
           !!vehiclesList.length &&
           !!carDer.length)) && (
         <div className="row:bg-lighter">
           <div
             className={cx({
-              'row:carousel': !isRangePage,
-              'row:cards-3col': isRangePage,
+              'row:carousel': !isRangePage && !isBodyPage,
+              'row:cards-3col': isRangePage || isBodyPage,
             })}
           >
             <Heading size="large" color="black" tag="h3">
               Top Offers
             </Heading>
-            {isRangePage ? (
+            {isRangePage || isBodyPage ? (
               vehiclesList.map((vehicle: IVehicles) => (
                 <VehicleCard
                   dataDerivatives={carDer}

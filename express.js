@@ -33,6 +33,22 @@ const rewrites = [
     from: '/car-leasing/:bodyStyle.html',
     to: '/car-leasing/:bodyStyle',
   },
+  {
+    from: 'car-leasing/4x4-suv.html',
+    to: '/car-leasing/4x4',
+  },
+  {
+    from: '/car-leasing/eco.html',
+    to: '/car-leasing/:electric',
+  },
+  {
+    from: '/specialist-van-leasing.html',
+    to: '/van-leasing/Specialist',
+  },
+  {
+    from: '/:bodyStyle-leasing.html',
+    to: '/van-leasing/:bodyStyle',
+  },
 ];
 // Redirects.
 const redirects = [{ from: '/old-link', to: '/redirect', type: 301 }];

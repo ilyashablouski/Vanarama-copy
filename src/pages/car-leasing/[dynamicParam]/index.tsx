@@ -28,7 +28,7 @@ const Page: NextPage<IProps> = ({
     // copy dynamic param for actual filter query
     if (
       (isMakePage && !router.query.make) ||
-      (!isMakePage && !router.query.bodyStyle)
+      (!isMakePage && !router.query.bodyStyles)
     ) {
       router.replace(
         {
@@ -54,7 +54,7 @@ Page.getInitialProps = ({ query, req, pathname, asPath }) => {
   // check for bodystyle page
   const isBodyStylePage =
     bodyUrls.indexOf(prepareSlugPart(query.dynamicParam)) > -1;
-  if (isBodyStylePage) newQuery.bodyStyle = query.dynamicParam;
+  if (isBodyStylePage) newQuery.bodyStyles = (query.dynamicParam as string).replace('-', ' ');
   else newQuery.make = query.dynamicParam;
   return {
     query: { ...newQuery },

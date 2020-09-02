@@ -202,14 +202,7 @@ const FiltersContainer = ({
       const presetFilters = {} as ISelectedFiltersState;
       const routerQuery = Object.entries(router.query);
       routerQuery.forEach(entry => {
-        const [keyRaw, valuesRaw] = entry;
-        const key =
-          keyRaw === 'make' &&
-          bodyUrls.lastIndexOf(prepareSlugPart(valuesRaw)) > -1
-            ? 'bodyStyles'
-            : keyRaw;
-        const values = valuesRaw;
-
+        const [key, values] = entry;
         if (key === 'rangeName') {
           filtersData.groupedRanges?.some(element => {
             const value = findPreselectFilterValue(
@@ -280,7 +273,7 @@ const FiltersContainer = ({
       (selectedFilterTags[0] && isInitialLoad) ||
       (isInitialLoad &&
         ((isMakePage && selectedFiltersState.make[0]) ||
-          (isBodyPage && selectedFiltersState.make[0]) ||
+          (isBodyPage && selectedFiltersState.bodyStyles[0]) ||
           (isRangePage && selectedFiltersState.model[0]))) ||
       (isModelPage && selectedFiltersState.model[0])
     )
@@ -297,7 +290,6 @@ const FiltersContainer = ({
     if (
       filtersObject.manufacturerName &&
       !isMakePage &&
-      !isBodyPage &&
       !((isRangePage || isModelPage) && !tempModelName)
     ) {
       // every time when filters update active model missed
@@ -364,10 +356,10 @@ const FiltersContainer = ({
         ) {
           return `£${entry[1]}`;
         }
-        return ((isMakePage || isBodyPage || isRangePage || isModelPage) &&
+        return ((isMakePage || isRangePage || isModelPage) &&
           entry[0] === filterFields.make) ||
           ((isRangePage || isModelPage) && entry[0] === filterFields.model) ||
-          (isModelPage && entry[0] === filterFields.bodyStyles)
+          ((isModelPage || isBodyPage) && entry[0] === filterFields.bodyStyles)
           ? ''
           : entry[1];
       })
@@ -519,16 +511,11 @@ const FiltersContainer = ({
                     <Select
                       disabled={
                         ((isMakePage ||
-                          isBodyPage ||
                           isRangePage ||
                           isModelPage ||
                           isAllMakesPage) &&
                           (dropdown.accessor === filterFields.make ||
-                            dropdown.accessor === filterFields.model)) ||
-                        (isBodyPage &&
-                          dropdown.accessor === filterFields.bodyStyles) ||
-                        (isBodyPage &&
-                          dropdown.accessor === filterFields.transmissions)
+                            dropdown.accessor === filterFields.model))
                       }
                       name={dropdown.accessor}
                       placeholder={`Select ${dropdown.accessor}`}
@@ -566,7 +553,7 @@ const FiltersContainer = ({
                     filter.accessor as keyof typeof filtersMapper
                   ]?.length > 0 &&
                     !(
-                      isModelPage && filter.accessor === filterFields.bodyStyles
+                      (isModelPage || isBodyPage) && filter.accessor === filterFields.bodyStyles
                     ) && (
                       <div className="dropdown--header">
                         <div className="dropdown--header-text">
@@ -608,7 +595,7 @@ const FiltersContainer = ({
                         }
                         choices={
                           filter.accessor === filterFields.bodyStyles &&
-                          (isPickups || isModelPage)
+                          (isPickups || isModelPage || isBodyPage)
                             ? [
                                 {
                                   label: `${
@@ -626,7 +613,7 @@ const FiltersContainer = ({
                         multiSelect
                         disabled={
                           filter.accessor === filterFields.bodyStyles &&
-                          (isPickups || isModelPage)
+                          (isPickups || isModelPage || isBodyPage)
                         }
                         ref={getOrCreateRef(filter.accessor)}
                       />

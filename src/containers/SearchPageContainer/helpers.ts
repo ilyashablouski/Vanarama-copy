@@ -1,5 +1,8 @@
 import { getBudgetForQuery } from '../SearchPodContainer/helpers';
 import { IFilters } from '../FiltersContainer/interfaces';
+import { QueryLazyOptions } from '@apollo/client';
+import { GenericPageQueryVariables } from '../../../generated/GenericPageQuery';
+import { GenericPageHeadQueryVariables } from '../../../generated/GenericPageHeadQuery';
 
 export const buildRewriteRoute = (
   {
@@ -12,6 +15,7 @@ export const buildRewriteRoute = (
   }: IFilters,
   isMakeOrCarPage?: boolean,
   isModelPage?: boolean,
+  isBodyStylePage?: boolean,
 ) => {
   const queries = {} as any;
   Object.entries({
@@ -24,7 +28,9 @@ export const buildRewriteRoute = (
     const [key, value] = filter;
     if (
       value?.length &&
+      // don't add queries in page where we have same data in route
       !(isMakeOrCarPage && (key === 'make' || key === 'rangeName')) &&
+      !(isBodyStylePage && key === 'bodyStyles') &&
       !(
         isModelPage &&
         (key === 'make' || key === 'rangeName' || key === 'bodyStyles')
@@ -74,3 +80,11 @@ export const bodyUrls = [
 export function isBodyTransmission(key: string) {
   return transmissions.indexOf(key) > -1;
 }
+
+export const pageContentQueryExecutor = (query: (options?: QueryLazyOptions<GenericPageQueryVariables|GenericPageHeadQueryVariables> | undefined) => void, slug: string) => {
+  query({
+    variables: {
+      slug,
+    },
+  });
+};
