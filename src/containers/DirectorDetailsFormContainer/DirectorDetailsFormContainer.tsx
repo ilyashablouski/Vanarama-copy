@@ -1,5 +1,5 @@
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import React from 'react';
+import React, { useMemo } from 'react';
 import DirectorDetailsForm from '../../components/DirectorDetailsForm/DirectorDetailsForm';
 import { DirectorDetailsFormValues } from '../../components/DirectorDetailsForm/interfaces';
 import {
@@ -11,7 +11,7 @@ import {
   useSaveDirectorDetailsMutation,
 } from './gql';
 import { IDirectorDetailsFormContainerProps } from './interfaces';
-import { mapFormValues } from './mappers';
+import { mapFormValues, mapDirectorsDefaultValues } from './mappers';
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 
 export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContainerProps> = ({
@@ -31,6 +31,14 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
     orderUuid,
   );
+  const directorsDetails =
+    getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
+      ?.directorsDetails;
+  const defaultValues = useMemo(
+    () => mapDirectorsDefaultValues(directorsDetails),
+    [directorsDetails],
+  );
+
   const handleDirectorDetailsSave = (values: DirectorDetailsFormValues) =>
     saveDirectorDetails({
       variables: {
@@ -38,15 +46,13 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
       },
     });
 
-  const handleCreditApplicationUpdate = (
-    directorsDetails: DirectorDetailsFormValues,
-  ) =>
+  const handleCreditApplicationUpdate = (values: DirectorDetailsFormValues) =>
     createUpdateApplication({
       variables: {
         input: formValuesToInputCreditApplication({
           ...getCreditApplicationByOrderUuidQuery.data
             ?.creditApplicationByOrderUuid,
-          directorsDetails,
+          directorsDetails: values,
           orderUuid,
         }),
       },
@@ -74,6 +80,7 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
     <DirectorDetailsForm
       isEdited={isEdited}
       directorUuid={directorUuid}
+      defaultValues={defaultValues}
       dropdownData={getDirectorDetailsQuery.data?.allDropDowns!}
       associates={getDirectorDetailsQuery.data?.companyByUuid?.associates!}
       companyNumber={

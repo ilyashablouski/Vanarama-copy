@@ -42,8 +42,8 @@ type IDirectorDetailsFormProps = {
   companyNumber: string;
   onSubmit: (values: DirectorDetailsFormValues) => Promise<void>;
   isEdited: boolean;
-  directorDetails?: DirectorDetailsFormValues;
   directorUuid?: string;
+  defaultValues: DirectorDetailsFormValues;
 };
 
 const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
@@ -60,6 +60,7 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
   dropdownData,
   isEdited,
   directorUuid,
+  defaultValues,
 }) => {
   const { data, loading, error } = useCompanyOfficers(companyNumber);
 
