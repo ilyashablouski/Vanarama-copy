@@ -1,7 +1,10 @@
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React, { useMemo } from 'react';
 import DirectorDetailsForm from '../../components/DirectorDetailsForm/DirectorDetailsForm';
-import { DirectorDetailsFormValues } from '../../components/DirectorDetailsForm/interfaces';
+import {
+  DirectorDetailsFormValues,
+  DirectorFormValues,
+} from '../../components/DirectorDetailsForm/interfaces';
 import {
   useCreateUpdateCreditApplication,
   useGetCreditApplicationByOrderUuid,
@@ -11,7 +14,11 @@ import {
   useSaveDirectorDetailsMutation,
 } from './gql';
 import { IDirectorDetailsFormContainerProps } from './interfaces';
-import { mapFormValues, mapDirectorsDefaultValues } from './mappers';
+import {
+  mapFormValues,
+  mapDirectorsDefaultValues,
+  combineUpdatedDirectors,
+} from './mappers';
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 
 export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContainerProps> = ({
@@ -35,7 +42,10 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
     getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
       ?.directorsDetails;
   const defaultValues = useMemo(
-    () => mapDirectorsDefaultValues(directorsDetails),
+    () =>
+      directorsDetails
+        ? mapDirectorsDefaultValues(directorsDetails)
+        : undefined,
     [directorsDetails],
   );
 
@@ -46,13 +56,19 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
       },
     });
 
-  const handleCreditApplicationUpdate = (values: DirectorDetailsFormValues) =>
+  const handleCreditApplicationUpdate = (
+    directors: DirectorFormValues[],
+    totalPercentage: number,
+  ) =>
     createUpdateApplication({
       variables: {
         input: formValuesToInputCreditApplication({
           ...getCreditApplicationByOrderUuidQuery.data
             ?.creditApplicationByOrderUuid,
-          directorsDetails: values,
+          directorsDetails: {
+            directors,
+            totalPercentage,
+          },
           orderUuid,
         }),
       },
@@ -82,13 +98,23 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
       directorUuid={directorUuid}
       defaultValues={defaultValues}
       dropdownData={getDirectorDetailsQuery.data?.allDropDowns!}
-      associates={getDirectorDetailsQuery.data?.companyByUuid?.associates!}
       companyNumber={
         getDirectorDetailsQuery.data?.companyByUuid?.companyNumber!
       }
       onSubmit={async values => {
         await handleDirectorDetailsSave(values)
-          .then(() => handleCreditApplicationUpdate(values))
+          .then(query =>
+            combineUpdatedDirectors(
+              values.directors,
+              query.data?.createUpdateLimitedCompany?.associates,
+            ),
+          )
+          .then(updatedDirectors =>
+            handleCreditApplicationUpdate(
+              updatedDirectors,
+              values.totalPercentage,
+            ),
+          )
           .then(onCompleted)
           .catch(onError);
       }}

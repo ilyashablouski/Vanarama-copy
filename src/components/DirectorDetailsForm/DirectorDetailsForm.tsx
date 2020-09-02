@@ -23,7 +23,6 @@ import {
 } from './helpers';
 import { DirectorDetailsFormValues } from './interfaces';
 import FCWithFragments from '../../utils/FCWithFragments';
-import { CompanyAssociate } from '../../../generated/CompanyAssociate';
 import { GetCompanyDirectorDetailsQuery_allDropDowns as CompanyDirectorDetails } from '../../../generated/GetCompanyDirectorDetailsQuery';
 
 export const GET_DIRECTOR_DETAILS = gql`
@@ -37,13 +36,12 @@ export const GET_DIRECTOR_DETAILS = gql`
 `;
 
 type IDirectorDetailsFormProps = {
-  associates: CompanyAssociate[] | null;
   dropdownData: CompanyDirectorDetails | null;
   companyNumber: string;
   onSubmit: (values: DirectorDetailsFormValues) => Promise<void>;
   isEdited: boolean;
   directorUuid?: string;
-  defaultValues: DirectorDetailsFormValues;
+  defaultValues?: DirectorDetailsFormValues;
 };
 
 const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
@@ -54,7 +52,6 @@ const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
 };
 
 const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
-  associates,
   companyNumber,
   onSubmit,
   dropdownData,
@@ -73,10 +70,12 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
   }
 
   const officers = data?.companyOfficers?.nodes?.filter(isTruthy) || [];
-  const directors = combineDirectorsData(officers, associates) || [];
+  const directors =
+    combineDirectorsData(officers, defaultValues?.directors) || [];
+
   const initialValues = isEdited
     ? initialEditedFormValues(directors, directorUuid)
-    : initialFormValues(officers);
+    : defaultValues || initialFormValues(officers);
 
   return (
     <Formik<DirectorDetailsFormValues>

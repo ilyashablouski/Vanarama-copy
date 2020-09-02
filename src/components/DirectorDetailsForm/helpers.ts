@@ -8,6 +8,7 @@ import { DirectorDetailsFormValues, DirectorFormValues } from './interfaces';
 import { CompanyAssociate } from '../../../generated/CompanyAssociate';
 import { TAddressEntry } from '../AddressForm/interfaces';
 import { addressToDisplay } from '../../utils/address';
+import { off } from 'process';
 
 export const initialEditedFormValues = (
   directors: DirectorFormValues[],
@@ -209,19 +210,21 @@ export const parseAssociates = (
 
 export const combineDirectorsData = (
   officers: DirectorFieldsOfficer[],
-  associates: CompanyAssociate[] | null,
+  directors?: DirectorFormValues[] | null,
 ) => {
-  const editedDirecors: DirectorFormValues[] = parseAssociates(
-    associates || [],
-  );
-  const notEditedDirecors = parseOfficers(officers).filter(
-    officer =>
-      editedDirecors.filter(
-        a =>
-          a.firstName === officer.firstName && a.lastName === officer.lastName,
-      ).length === 0,
-  );
-  return editedDirecors.concat(notEditedDirecors);
+  const notEditedDirecors = parseOfficers(officers);
+
+  return notEditedDirecors.map(officer => {
+    const data = directors?.find(
+      director =>
+        officer.firstName === director.firstName &&
+        officer.lastName === director.lastName,
+    );
+    return {
+      ...officer,
+      ...(data || {}),
+    };
+  });
 };
 
 export const initialFormValues = (
