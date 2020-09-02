@@ -13,14 +13,16 @@ const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
 const logo = require('./logo');
 const { version } = require('./package.json');
 
+const rewrites = require('./rewrites.js');
+
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
 const PORT = process.env.PORT || 3000;
 
-// Rewrites.
-const rewrites = [
+// RewriteList.
+const rewriteList = [
   {
     from: '/:manufacturer-:vehicleType-leasing.html',
     to: '/:vehicleType-leasing/:manufacturer',
@@ -35,8 +37,8 @@ const rewrites = [
   //   to: '/search/?bodyStyle=:bodyStyle',
   // },
 ];
-// Redirects.
-const redirects = [{ from: '/old-link', to: '/redirect', type: 301 }];
+// RedirectList.
+const redirectList = [{ from: '/old-link', to: '/redirect', type: 301 }];
 
 app.prepare().then(() => {
   const server = express();
@@ -46,15 +48,15 @@ app.prepare().then(() => {
   // Prevent brute force attack in production.
   if (process.env.ENV === 'production') server.use(rateLimiterRedisMiddleware);
 
-  // Handle rewrites.
-  if (rewrites)
-    rewrites.forEach(({ from, to }) => {
+  // Handle rewrite list.
+  if (rewriteList)
+    rewriteList.forEach(({ from, to }) => {
       server.use(rewrite(from, to));
     });
 
-  // Handle redirects.
-  if (redirects)
-    redirects.forEach(({ from, to, type = 301, method = 'get' }) => {
+  // Handle redirect list.
+  if (redirectList)
+    redirectList.forEach(({ from, to, type = 301, method = 'get' }) => {
       server[method](from, (req, res) => {
         res.redirect(type, to);
       });
