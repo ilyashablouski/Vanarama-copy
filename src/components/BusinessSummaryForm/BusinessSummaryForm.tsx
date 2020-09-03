@@ -15,6 +15,7 @@ import { AboutFormPerson } from '../../../generated/AboutFormPerson';
 import BusinessSummaryFormAboutSection from './BusinessSummaryFormAboutSection';
 import { GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as CreditApplication } from '../../../generated/GetCreditApplicationByOrderUuid';
 import { mapDirectorsDefaultValues } from '../../containers/DirectorDetailsFormContainer/mappers';
+import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
 
 interface IProps {
   company: SummaryFormCompany;
@@ -30,6 +31,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
   person,
 }) => {
   const router = useRouter();
+  const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
 
   const primaryBankAccount =
     company.bankAccounts &&
@@ -152,7 +154,17 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
         color="teal"
         label="Continue"
         dataTestId="olaf_summary_continue_buttton"
-        onClick={onButtonPressed}
+        onClick={() => {
+          createUpdateCA({
+            variables: {
+              input: {
+                orderUuid: orderId,
+                submittedAt: new Date(),
+              },
+            },
+          });
+          onButtonPressed();
+        }}
       />
     </div>
   );
