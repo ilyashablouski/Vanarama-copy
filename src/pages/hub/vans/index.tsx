@@ -49,6 +49,7 @@ import { getProductPageUrl } from '../../../utils/url';
 import { GetDerivatives_derivatives } from '../../../../generated/GetDerivatives';
 import getTitleTag from '../../../utils/getTitleTag';
 import useLeaseType from '../../../hooks/useLeaseType';
+import { getSectionsData } from '../../../utils/getSectionsData';
 
 type ProdCards = ProdCardData[];
 
@@ -153,15 +154,24 @@ export const VansPage: NextPage = () => {
     <>
       <Hero>
         <HeroHeading
-          text={data?.hubVanPage.sections?.hero?.title || ''}
+          text={
+            getSectionsData(['hero', 'title'], data?.hubVanPage.sections) || ''
+          }
           titleTag={
             getTitleTag(
-              data?.hubVanPage.sections?.hero?.titleTag || 'p',
+              getSectionsData(
+                ['hero', 'titleTag'],
+                data?.hubVanPage.sections,
+              ) || 'p',
             ) as keyof JSX.IntrinsicElements
           }
         />
         <br />
-        <HeroTitle text={data?.hubVanPage.sections?.hero?.body || ''} />
+        <HeroTitle
+          text={
+            getSectionsData(['hero', 'body'], data?.hubVanPage.sections) || ''
+          }
+        />
         <Button
           size="lead"
           fill="outline"
@@ -174,7 +184,10 @@ export const VansPage: NextPage = () => {
           plain
           size="expand"
           src={
-            data?.hubVanPage.sections?.hero?.image?.file?.url ||
+            getSectionsData(
+              ['hero', 'image', 'file', 'url'],
+              data?.hubVanPage.sections,
+            ) ||
             'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
           }
         />
@@ -185,14 +198,20 @@ export const VansPage: NextPage = () => {
           color="black"
           tag={
             getTitleTag(
-              data?.hubVanPage.sections?.leadText?.titleTag || null,
+              getSectionsData(
+                ['leadText', 'titleTag'],
+                data?.hubVanPage.sections,
+              ) || null,
             ) as keyof JSX.IntrinsicElements
           }
         >
-          {data?.hubVanPage.sections?.leadText?.heading}
+          {getSectionsData(['leadText', 'heading'], data?.hubVanPage.sections)}
         </Heading>
         <Text tag="span" size="lead" color="darker">
-          {data?.hubVanPage.sections?.leadText?.description}
+          {getSectionsData(
+            ['leadText', 'description'],
+            data?.hubVanPage.sections,
+          )}
         </Text>
       </div>
       <hr className="-fullwidth" />
@@ -311,11 +330,14 @@ export const VansPage: NextPage = () => {
             color="black"
             tag={
               getTitleTag(
-                data?.hubVanPage.sections?.cards?.titleTag || null,
+                getSectionsData(
+                  ['cards', 'titleTag'],
+                  data?.hubVanPage.sections,
+                ) || null,
               ) as keyof JSX.IntrinsicElements
             }
           >
-            {data?.hubVanPage.sections?.cards?.name}
+            {getSectionsData(['cards', 'name'], data?.hubVanPage.sections)}
           </Heading>
           <Text
             className="-justify-content-row -mb-400"
@@ -323,43 +345,47 @@ export const VansPage: NextPage = () => {
             size="regular"
             color="darker"
           >
-            {data?.hubVanPage.sections?.cards?.description}
+            {getSectionsData(
+              ['cards', 'description'],
+              data?.hubVanPage.sections,
+            )}
           </Text>
-          {data?.hubVanPage.sections?.cards?.cards?.map(
-            (card: CardData, idx) => (
-              <Card
-                key={card.title || idx}
-                title={{
-                  title: '',
-                  withBtn: true,
-                  link: (
-                    <RouterLink
-                      link={{
-                        href: card.link?.url || '#',
-                        label: card.title || '',
-                      }}
-                      className="heading"
-                      classNames={{ size: 'lead', color: 'black' }}
+          {(getSectionsData(
+            ['cards', 'cards'],
+            data?.hubVanPage.sections,
+          ) as CardData[])?.map((card: CardData, idx) => (
+            <Card
+              key={card.title || idx}
+              title={{
+                title: '',
+                withBtn: true,
+                link: (
+                  <RouterLink
+                    link={{
+                      href: card.link?.url || '#',
+                      label: card.title || '',
+                    }}
+                    className="heading"
+                    classNames={{ size: 'lead', color: 'black' }}
+                  >
+                    <Heading
+                      size="regular"
+                      color="black"
+                      tag={
+                        getTitleTag(
+                          card.titleTag || null,
+                        ) as keyof JSX.IntrinsicElements
+                      }
                     >
-                      <Heading
-                        size="regular"
-                        color="black"
-                        tag={
-                          getTitleTag(
-                            card.titleTag || null,
-                          ) as keyof JSX.IntrinsicElements
-                        }
-                      >
-                        {card.title}
-                      </Heading>
-                    </RouterLink>
-                  ),
-                }}
-                imageSrc={card.image?.file?.url}
-                description={card.body || ''}
-              />
-            ),
-          )}
+                      {card.title}
+                    </Heading>
+                  </RouterLink>
+                ),
+              }}
+              imageSrc={card.image?.file?.url}
+              description={card.body || ''}
+            />
+          ))}
         </div>
       </div>
 
@@ -370,13 +396,19 @@ export const VansPage: NextPage = () => {
           color="black"
           tag={
             getTitleTag(
-              data?.hubVanPage.sections?.steps?.titleTag || null,
+              getSectionsData(
+                ['steps', 'titleTag'],
+                data?.hubVanPage.sections,
+              ) || null,
             ) as keyof JSX.IntrinsicElements
           }
         >
-          {data?.hubVanPage.sections?.steps?.heading}
+          {getSectionsData(['steps', 'heading'], data?.hubVanPage.sections)}
         </Heading>
-        {data?.hubVanPage.sections?.steps?.steps?.map((step: StepData, idx) => (
+        {(getSectionsData(
+          ['steps', 'steps'],
+          data?.hubVanPage.sections,
+        ) as StepData[])?.map((step: StepData, idx) => (
           <Step
             className="-mh-auto"
             key={step.title || idx}
@@ -389,7 +421,7 @@ export const VansPage: NextPage = () => {
 
       <section
         className={`row:${getFeaturedClassPartial(
-          data?.hubVanPage.sections?.featured1,
+          getSectionsData(['featured1'], data?.hubVanPage.sections),
         )}`}
       >
         <div style={{ padding: '1rem' }}>
@@ -398,16 +430,24 @@ export const VansPage: NextPage = () => {
             color="black"
             tag={
               getTitleTag(
-                data?.hubVanPage.sections?.featured1?.titleTag || 'p',
+                getSectionsData(
+                  ['featured1', 'titleTag'],
+                  data?.hubVanPage.sections,
+                ) || 'p',
               ) as keyof JSX.IntrinsicElements
             }
           >
-            {data?.hubVanPage.sections?.featured1?.title}
+            {getSectionsData(['featured1', 'title'], data?.hubVanPage.sections)}
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
             <ReactMarkdown
               escapeHtml={false}
-              source={data?.hubVanPage.sections?.featured1?.body || ''}
+              source={
+                getSectionsData(
+                  ['featured1', 'body'],
+                  data?.hubVanPage.sections,
+                ) || ''
+              }
               renderers={{
                 link: props => {
                   const { href, children } = props;
@@ -430,7 +470,10 @@ export const VansPage: NextPage = () => {
         </div>
         <Image
           src={
-            data?.hubVanPage.sections?.featured1?.image?.file?.url ||
+            getSectionsData(
+              ['featured1', 'image', 'file', 'url'],
+              data?.hubVanPage.sections,
+            ) ||
             'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
           }
         />
@@ -438,7 +481,7 @@ export const VansPage: NextPage = () => {
 
       <section
         className={`row:${getFeaturedClassPartial(
-          data?.hubVanPage.sections?.featured2,
+          getSectionsData(['featured2'], data?.hubVanPage.sections),
         )}`}
       >
         <Image src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349" />
@@ -448,16 +491,24 @@ export const VansPage: NextPage = () => {
             color="black"
             tag={
               getTitleTag(
-                data?.hubVanPage.sections?.featured2?.titleTag || 'p',
+                getSectionsData(
+                  ['featured2', 'titleTag'],
+                  data?.hubVanPage.sections,
+                ) || 'p',
               ) as keyof JSX.IntrinsicElements
             }
           >
-            {data?.hubVanPage.sections?.featured2?.title}
+            {getSectionsData(['featured2', 'title'], data?.hubVanPage.sections)}
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
             <ReactMarkdown
               escapeHtml={false}
-              source={data?.hubVanPage.sections?.featured2?.body || ''}
+              source={
+                getSectionsData(
+                  ['featured2', 'body'],
+                  data?.hubVanPage.sections,
+                ) || ''
+              }
               renderers={{
                 link: props => {
                   const { href, children } = props;
@@ -476,18 +527,24 @@ export const VansPage: NextPage = () => {
           color="black"
           tag={
             getTitleTag(
-              data?.hubVanPage.sections?.rowText?.titleTag || 'p',
+              getSectionsData(
+                ['rowText', 'titleTag'],
+                data?.hubVanPage.sections,
+              ) || 'p',
             ) as keyof JSX.IntrinsicElements
           }
         >
-          {data?.hubVanPage.sections?.rowText?.heading}
+          {getSectionsData(['rowText', 'heading'], data?.hubVanPage.sections)}
         </Heading>
         <div>
           <Text tag="p" size="regular" color="darker">
-            {data?.hubVanPage.sections?.rowText?.body}
+            {getSectionsData(['rowText', 'body'], data?.hubVanPage.sections)}
           </Text>
           <Heading size="regular" color="black">
-            {data?.hubVanPage.sections?.rowText?.subHeading}
+            {getSectionsData(
+              ['rowText', 'subHeading'],
+              data?.hubVanPage.sections,
+            )}
           </Heading>
           <Button
             className="-pt-200"
@@ -508,13 +565,19 @@ export const VansPage: NextPage = () => {
           color="black"
           tag={
             getTitleTag(
-              data?.hubVanPage.sections?.tiles?.titleTag || 'p',
+              getSectionsData(
+                ['tiles', 'titleTag'],
+                data?.hubVanPage.sections,
+              ) || 'p',
             ) as keyof JSX.IntrinsicElements
           }
         >
-          {data && data?.hubVanPage.sections?.tiles?.tilesTitle}
+          {getSectionsData(['tiles', 'tilesTitle'], data?.hubVanPage.sections)}
         </Heading>
-        {data?.hubVanPage.sections?.tiles?.tiles?.map((tile: TileData, idx) => (
+        {(getSectionsData(
+          ['tiles', 'tiles'],
+          data?.hubVanPage.sections,
+        ) as TileData[])?.map((tile: TileData, idx) => (
           <div key={tile.title || idx}>
             <Tile className="-plain -button -align-center" plain>
               <div style={{ display: 'flex', justifyContent: 'center' }}>

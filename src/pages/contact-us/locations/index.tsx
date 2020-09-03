@@ -2,7 +2,6 @@ import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { useQuery } from '@apollo/client';
 import ReactMarkdown from 'react-markdown/with-html';
-
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
@@ -19,6 +18,7 @@ import BreadCrumbContainer from '../../../containers/BreadCrumbContainer';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import Head from '../../../components/Head/Head';
 import getTitleTag from '../../../utils/getTitleTag';
+import { getSectionsData } from '../../../utils/getSectionsData';
 
 export const LocationsPage: NextPage = () => {
   const { data, loading, error } = useQuery<LocationsPageData>(
@@ -37,7 +37,10 @@ export const LocationsPage: NextPage = () => {
     return <></>;
   }
 
-  const cards = data?.regionalOfficesPage?.sections?.cards?.cards;
+  const cards = getSectionsData(
+    ['cards', 'cards'],
+    data.regionalOfficesPage?.sections,
+  );
   const metaData = data?.regionalOfficesPage?.metaData;
 
   return (

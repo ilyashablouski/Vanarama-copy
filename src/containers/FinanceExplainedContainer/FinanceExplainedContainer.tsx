@@ -12,6 +12,7 @@ import { LinkTypes } from '../../models/enum/LinkTypes';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/GenericPageQuery';
 import getTitleTag from '../../utils/getTitleTag';
+import { getSectionsData } from '../../utils/getSectionsData';
 
 interface IProps {
   sections: Section | null;
@@ -20,7 +21,7 @@ interface IProps {
 }
 
 const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
-  const cards = sections?.cards?.cards;
+  const cards = getSectionsData(['cards', 'cards'], sections);
   const featured1 = sections?.featured1;
   const carousel = sections?.carousel;
   const featured2 = sections?.featured2;
