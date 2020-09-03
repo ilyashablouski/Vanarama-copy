@@ -25,7 +25,7 @@ const OrderInformationContainer: React.FC<IProps> = () => {
   const getOrdersData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);
 
   useEffect(() => {
-    if (partyByUuid && !quotesLength && !ordersLength) {
+    if (partyByUuid && quotesLength === null && ordersLength === null) {
       const partyUuidArray = [partyByUuid];
       getCompaniesData({
         personUuid: uuid,
@@ -36,7 +36,7 @@ const OrderInformationContainer: React.FC<IProps> = () => {
         );
         getOrdersData({
           partyUuid: partyUuidArray,
-          excludeStatuses: ['quote', 'expired'],
+          excludeStatuses: ['quote', 'expired', 'new'],
         }).then(response => {
           setOrdersLength(response.data?.ordersByPartyUuid.length);
           localForage.setItem(
