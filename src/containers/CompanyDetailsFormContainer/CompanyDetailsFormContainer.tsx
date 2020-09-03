@@ -4,7 +4,7 @@ import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import {
   SaveCompanyDetailsMutation as Mutation,
   SaveCompanyDetailsMutationVariables as MutationVariables,
-  SaveCompanyDetailsMutation_createUpdateLimitedCompany_addresses as Address,
+  SaveCompanyDetailsMutation_createUpdateLimitedCompany as Company,
 } from '../../../generated/SaveCompanyDetailsMutation';
 import {
   LeaseTypeEnum,
@@ -93,7 +93,7 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
 
   const handleCreditApplicationUpdate = (
     values: ICompanyDetailsFormValues,
-    addresses?: Address[] | null,
+    companyData: Company | null,
   ) =>
     createUpdateApplication({
       variables: {
@@ -101,7 +101,8 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
           ...data?.creditApplicationByOrderUuid,
           companyDetails: mapCompanyDetailsToCreditApplication(
             values,
-            addresses,
+            companyData?.uuid,
+            companyData?.addresses,
           ),
           orderUuid: orderId,
         }),
@@ -127,7 +128,7 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
               .then(() =>
                 handleCreditApplicationUpdate(
                   values,
-                  response.data!.createUpdateLimitedCompany?.addresses,
+                  response.data!.createUpdateLimitedCompany,
                 ),
               )
               .then(() =>
