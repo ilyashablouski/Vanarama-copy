@@ -2,11 +2,10 @@ import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
+import { useReviewsPageQuery } from '../../containers/VehicleReviewContainer/gql';
 import withApollo from '../../hocs/withApollo';
 import Head from '../../components/Head/Head';
-import { useGenericPageQuestion } from '../../containers/LeasingQuestionContainer/gql';
 import VehicleReviewContainer from '../../containers/VehicleReviewContainer/VehicleReviewContainer';
-import { useReviewsPageQuery } from 'containers/VehicleReviewContainer/gql';
 
 const FinanceInfo: NextPage = () => {
   const router = useRouter();
@@ -50,7 +49,7 @@ const FinanceInfo: NextPage = () => {
         metaRobots={metaData.metaRobots}
         legacyUrl={metaData.legacyUrl}
         publishedOn={metaData.publishedOn}
-        //featuredImage={data?.reviewsPage.metaData.}
+        // featuredImage={data?.reviewsPage.metaData.}
       />
       <VehicleReviewContainer
         crumbs={crumbs}

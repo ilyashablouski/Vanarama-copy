@@ -1,13 +1,6 @@
-import { gql, useQuery } from '@apollo/client';
-import {
-  ReviewsPageQuery,
-  ReviewsPageQueryVariables,
-  ReviewsPageQuery_reviewsPage_sections_reviews_reviews,
-} from '../../../generated/ReviewsPageQuery';
+import { ReviewsPageQuery_reviewsPage_sections_reviews_reviews as Reviews } from '../../../generated/ReviewsPageQuery';
 
-export function mapToReviewCard(
-  review: ReviewsPageQuery_reviewsPage_sections_reviews_reviews | null,
-) {
+export default function mapToReviewCard(review: Reviews | null) {
   return {
     text: review?.summary || '',
     author: review?.customerName || '',

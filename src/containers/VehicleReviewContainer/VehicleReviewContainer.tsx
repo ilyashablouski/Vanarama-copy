@@ -3,30 +3,19 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import BreadCrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import ReactMarkdown from 'react-markdown';
-import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
-import Accordion from '@vanarama/uibook/lib/components/molecules/accordion/Accordion';
-import RouterLink from '../../components/RouterLink/RouterLink';
-import getTitleTag from '../../utils/getTitleTag';
-import { ReviewsPageQuery_reviewsPage_sections as Section } from '../../../generated/ReviewsPageQuery';
-import CarouselCards from './CarouselCards';
 import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
 import TabList from '@vanarama/uibook/lib/components/molecules/tabs/TabList';
 import Tab from '@vanarama/uibook/lib/components/molecules/tabs/Tab';
 import TabPanels from '@vanarama/uibook/lib/components/molecules/tabs/TabPanels';
 import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
-import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-gallery';
-import ImageCarousel from '@vanarama/uibook/lib/components/organisms/media-gallery/ImageCarousel';
 import Media from '@vanarama/uibook/lib/components/atoms/media';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import ReviewCard from '@vanarama/uibook/lib/components/molecules/cards/ReviewCard/ReviewCard';
-import { mapToReviewCard } from './helpers';
 import Modal from '@vanarama/uibook/lib/components/molecules/modal';
-import GoldrushForm from 'components/GoldrushForm/GoldrushForm';
-import GoldrushFormContainer from 'containers/GoldrushFormContainer';
-import {
-  VehicleTypeEnum,
-  OpportunityTypeEnum,
-} from '../../../generated/globalTypes';
+import GoldrushForm from '../../components/GoldrushForm/GoldrushForm';
+import { mapToReviewCard } from './helpers';
+import { ReviewsPageQuery_reviewsPage_sections as Section } from '../../../generated/ReviewsPageQuery';
+import RouterLink from '../../components/RouterLink/RouterLink';
 
 interface IProps {
   sections: Section | null;
@@ -105,21 +94,21 @@ const VehicleReviewContainer: FC<IProps> = ({
               color="teal"
               size="regular"
               fill="solid"
-              label={'Leave a review'}
+              label="Leave a review"
               onClick={() => {}}
             />
-             <Button
+            <Button
               color="teal"
               size="regular"
               fill="outline"
-              label={'Latest Deals'}
+              label="Latest Deals"
               onClick={() => {}}
             />
           </div>
         </article>
         <div>
           <Heading tag="h2" color="black" size="lead">
-            {'Expert Review'}
+            Expert Review
           </Heading>
           <ReviewCard
             key="ExpertRevew"
@@ -130,7 +119,7 @@ const VehicleReviewContainer: FC<IProps> = ({
             }}
           />
           <Heading tag="h2" color="black" size="lead">
-            {'Customer Reviews'}
+            Customer Reviews
           </Heading>
           {sections?.reviews?.reviews
             ?.slice(0, reviewsExpanded ? 10 : 2)
@@ -141,7 +130,7 @@ const VehicleReviewContainer: FC<IProps> = ({
               />
             ))}
           <Button
-            className={'-fullwidth '}
+            className="-fullwidth "
             color="teal"
             size="regular"
             fill="solid"
@@ -150,14 +139,14 @@ const VehicleReviewContainer: FC<IProps> = ({
           />
           <hr className="-fullwidth -mv-500" />
           <Heading color="black" size="large">
-            {'Berlingo quote'}
+            Berlingo quote
           </Heading>
           <Button
-            className={'-fullwidth '}
+            className="-fullwidth "
             color="teal"
             size="regular"
             fill="solid"
-            label={'Get My Quote Now'}
+            label="Get My Quote Now"
             onClick={() => setIsModalGetYourFreeQuoteExpanded(true)}
           />
         </div>
@@ -167,14 +156,10 @@ const VehicleReviewContainer: FC<IProps> = ({
         onRequestClose={() => setIsModalGetYourFreeQuoteExpanded(false)}
       >
         <Heading color="black" size="large">
-          {'Get Your Free Quote From Our Experts'}
+          Get Your Free Quote From Our Experts
         </Heading>
 
-        <GoldrushForm
-          callBack={false}
-          isPostcodeVisible={true}
-          onSubmit={() => {}}
-        />
+        <GoldrushForm callBack={false} isPostcodeVisible onSubmit={() => {}} />
         {/* NOTE: If same backend-connection functionality is required - use GoldrushFormContainer */}
         {/* <GoldrushFormContainer 
           termsAndConditions
