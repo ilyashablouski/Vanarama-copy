@@ -28,7 +28,7 @@ const FinanceInfo: NextPage = () => {
   const metaData = data?.reviewsPage?.metaData;
   const sections = data.reviewsPage?.sections;
   const body = data.reviewsPage?.body;
- 
+
   const crumbs = [
     { label: 'Home', href: '/' },
     {
@@ -40,9 +40,6 @@ const FinanceInfo: NextPage = () => {
       href: '/',
     },
   ];
-  console.log(JSON.stringify(JSON.stringify(sections)));
-  console.log(JSON.stringify(JSON.stringify(metaData)));
-  console.log(JSON.stringify(JSON.stringify(body)));
   return (
     <>
       <Head
