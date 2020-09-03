@@ -24,6 +24,22 @@ interface IProps {
   articles?: (BlogPost_blogPost_category | null)[] | null | undefined;
 }
 
+interface IImage {
+  src: string;
+  alt: string;
+}
+
+const renderImage = ({ src, alt }: IImage) => {
+  return (
+    <img
+      alt={alt}
+      style={{ margin: '1rem auto', display: 'block' }}
+      width="90%"
+      src={src}
+    />
+  );
+};
+
 const BlogPostContainer: NextPage<IProps> = ({
   body,
   name,
@@ -55,17 +71,7 @@ const BlogPostContainer: NextPage<IProps> = ({
                 const { href, children } = props;
                 return <RouterLink link={{ href, label: children }} />;
               },
-              image: props => {
-                const { src, alt } = props;
-                return (
-                  <img
-                    alt={alt}
-                    style={{ margin: '1rem auto', display: 'block' }}
-                    width="90%"
-                    src={src}
-                  />
-                );
-              },
+              image: props => renderImage(props),
             }}
           />
         </article>
