@@ -2,7 +2,10 @@ import React, { useMemo } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import DirectorDetailsForm from '../../components/DirectorDetailsForm/DirectorDetailsForm';
-import { DirectorDetailsFormValues, DirectorFormValues } from '../../components/DirectorDetailsForm/interfaces';
+import {
+  DirectorDetailsFormValues,
+  DirectorFormValues,
+} from '../../components/DirectorDetailsForm/interfaces';
 import {
   useCreateUpdateCreditApplication,
   useGetCreditApplicationByOrderUuid,
@@ -12,14 +15,18 @@ import {
   useSaveDirectorDetailsMutation,
 } from './gql';
 import { IDirectorDetailsFormContainerProps } from './interfaces';
-import { mapFormValues, mapDirectorsDefaultValues, combineUpdatedDirectors } from './mappers';
+import {
+  mapFormValues,
+  mapDirectorsDefaultValues,
+  combineUpdatedDirectors,
+} from './mappers';
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 import {
   GetDirectorDetailsQuery,
   GetDirectorDetailsQueryVariables,
 } from '../../../generated/GetDirectorDetailsQuery';
-import { SaveDirectorDetailsMutation_createUpdateCompanyDirector_associates as Associate } from '../../../generated/SaveDirectorDetailsMutation';
-
+import { parseOfficers } from '../../components/DirectorDetailsForm/helpers';
+import { isTruthy } from '../../utils/array';
 
 export const GET_DIRECTOR_DETAILS = gql`
   query GetDirectorDetailsQuery($companyNumber: String!) {
@@ -65,17 +72,28 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
     getDirectorDetailsQuery.data?.companyByUuid?.companyNumber,
   );
 
-  // const directorsDetails =
-  //   getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
-  //     ?.directorsDetails;
-  // const defaultValues = useMemo(() => {
-  //   if (directorsDetails) {
-  //     const defaultValues = mapDirectorsDefaultValues(directorsDetails);
-  //     // const mappedDirectors =
-  //   }
+  const officersNodes =
+    companyOfficersQuery?.data?.companyOfficers?.nodes?.filter(isTruthy) || [];
+  const directorsDetails =
+    getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
+      ?.directorsDetails;
 
-  //   return undefined;
-  // }, [direc torsDetails]);
+  const defaultValues = useMemo(() => {
+    if (directorsDetails) {
+      const { directors, totalPercentage } = mapDirectorsDefaultValues(
+        directorsDetails,
+      );
+      const parsedOfficers = parseOfficers(officersNodes);
+      const combinedDirectors = combineUpdatedDirectors(
+        parsedOfficers,
+        directors,
+      );
+
+      return { direcotors: combinedDirectors, totalPercentage };
+    }
+
+    return undefined;
+  }, [directorsDetails, officersNodes]);
 
   const handleDirectorDetailsSave = (values: DirectorDetailsFormValues) =>
     saveDirectorDetails({
@@ -123,8 +141,8 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
       isEdited={isEdited}
       directorUuid={directorUuid}
       associates={getDirectorDetailsQuery.data?.companyByUuid?.associates!}
-      // defaultValues={defaultValues}
-      dropdownData={getDirectorDetailsQuery.data?.allDropDowns!}
+      defaultValues={defaultValues}
+      dropdownData={getDirectorDetailsQuery.data?.allDropDowns || []}
       companyNumber={
         getDirectorDetailsQuery.data?.companyByUuid?.companyNumber!
       }
@@ -142,7 +160,7 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
               combinedDirectors,
             ),
           )
-          // .then(onCompleted)
+          .then(onCompleted)
           .catch(onError);
       }}
     />

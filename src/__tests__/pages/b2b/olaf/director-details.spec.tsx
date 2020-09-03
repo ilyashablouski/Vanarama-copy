@@ -14,7 +14,7 @@ import {
   GetDirectorDetailsQueryVariables,
   GetDirectorDetailsQuery,
 } from '../../../../../generated/GetDirectorDetailsQuery';
-import { GET_DIRECTOR_DETAILS } from '../../../../components/DirectorDetailsForm/DirectorDetailsForm';
+import { GET_DIRECTOR_DETAILS } from '../../../../containers/DirectorDetailsFormContainer/DirectorDetailsFormContainer';
 import {
   SaveDirectorDetailsMutationVariables,
   SaveDirectorDetailsMutation,

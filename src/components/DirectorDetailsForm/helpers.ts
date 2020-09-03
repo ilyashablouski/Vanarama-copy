@@ -227,7 +227,7 @@ export const combineDirectorsData = (
 };
 
 export const initialFormValues = (
-  directors: DirectorFieldsOfficer[],
+  directors: DirectorFormValues[],
 ): DirectorDetailsFormValues => {
   if (directors.length > 1) {
     return { totalPercentage: 0, directors: [] };
@@ -235,6 +235,6 @@ export const initialFormValues = (
 
   return {
     totalPercentage: 0,
-    directors: parseOfficers([directors[0]]),
+    directors: [directors[0]],
   };
 };

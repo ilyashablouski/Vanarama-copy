@@ -1,18 +1,11 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import { Formik } from 'formik';
 import React from 'react';
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-// import {
-//   GetDirectorDetailsQuery,
-//   GetDirectorDetailsQueryVariables,
-// } from '../../../generated/GetDirectorDetailsQuery';
-import { isTruthy } from '../../utils/array';
-import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import DirectorFieldArray from './DirectorFieldArray';
 import {
   initialFormValues,
@@ -24,12 +17,9 @@ import {
 import { DirectorDetailsFormValues } from './interfaces';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { GetCompanyDirectorDetailsQuery_allDropDowns as CompanyDirectorDetails } from '../../../generated/GetCompanyDirectorDetailsQuery';
-import { CompanyAssociate } from '../../../generated/CompanyAssociate';
 
 type IDirectorDetailsFormProps = {
-  associates: CompanyAssociate[] | null;
   dropdownData: CompanyDirectorDetails | null;
-  companyNumber: string;
   onSubmit: (values: DirectorDetailsFormValues) => Promise<void>;
   isEdited: boolean;
   directorUuid?: string;
@@ -45,7 +35,6 @@ const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
 };
 
 const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
-  companyNumber,
   onSubmit,
   dropdownData,
   isEdited,
@@ -53,7 +42,6 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
   defaultValues,
   officers,
 }) => {
-  // const officers = data?.companyOfficers?.nodes?.filter(isTruthy) || [];
   const directors =
     combineDirectorsData(officers, defaultValues?.directors) || [];
 
@@ -126,27 +114,5 @@ DirectorDetailsForm.fragments = {
     }
   `,
 };
-
-// export const GET_DIRECTOR_DETAILS = gql`
-//   query GetDirectorDetailsQuery($companyNumber: String!) {
-//     companyOfficers(companyNumber: $companyNumber) {
-//       nodes {
-//         name
-//       }
-//     }
-//   }
-// `;
-
-// function useCompanyOfficers(companyNumber: string) {
-//   return useQuery<GetDirectorDetailsQuery, GetDirectorDetailsQueryVariables>(
-//     GET_DIRECTOR_DETAILS,
-//     {
-//       fetchPolicy: 'no-cache',
-//       variables: {
-//         companyNumber,
-//       },
-//     },
-//   );
-// }
 
 export default DirectorDetailsForm;
