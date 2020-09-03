@@ -34,7 +34,7 @@ const SECTIONS = {
   },
   rowText: {
     __typename: 'RowText',
-    heading: 'Get Your Free Quote ',
+    heading: 'Get Your Free Quote',
     titleTag: 'h2',
     link: {
       __typename: 'Link',

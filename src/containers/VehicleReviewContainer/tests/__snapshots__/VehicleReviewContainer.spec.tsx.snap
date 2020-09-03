@@ -608,7 +608,7 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
         <h2
           class="heading -black -large"
         >
-          Get Your Free Quote 
+          Get Your Free Quote
         </h2>
         <button
           class="button -fullwidth  -teal -regular -solid"
