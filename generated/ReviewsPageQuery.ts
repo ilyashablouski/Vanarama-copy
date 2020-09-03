@@ -20,6 +20,16 @@ export interface ReviewsPageQuery_reviewsPage_metaData {
   schema: any | null;
 }
 
+export interface ReviewsPageQuery_reviewsPage_sections_link {
+  text: string | null;
+  url: string | null;
+}
+
+export interface ReviewsPageQuery_reviewsPage_sections_rowText {
+  heading: string | null;
+  titleTag: string | null;
+}
+
 export interface ReviewsPageQuery_reviewsPage_sections_vehicleReviewMedia_reviewPhoto_file {
   url: string;
 }
@@ -65,6 +75,8 @@ export interface ReviewsPageQuery_reviewsPage_sections_reviews {
 }
 
 export interface ReviewsPageQuery_reviewsPage_sections {
+  link: ReviewsPageQuery_reviewsPage_sections_link | null;
+  rowText: ReviewsPageQuery_reviewsPage_sections_rowText | null;
   vehicleReviewMedia: ReviewsPageQuery_reviewsPage_sections_vehicleReviewMedia | null;
   vehicleReview: ReviewsPageQuery_reviewsPage_sections_vehicleReview | null;
   reviews: ReviewsPageQuery_reviewsPage_sections_reviews | null;
