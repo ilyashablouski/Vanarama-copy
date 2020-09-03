@@ -459,6 +459,12 @@ describe('<HomePage />', () => {
     );
   });
 
+  it('should trigger route push when clicking Here', async () => {
+    await screen.findByTestId('view-all-pickups');
+    fireEvent.click(screen.getByText('Here'));
+    await waitFor(() => expect(Router.push).toHaveBeenCalledWith('/fan-hub'));
+  });
+
   it('should trigger router push to with correct car details path  ', async () => {
     await screen.findByTestId('view-all-cars');
     fireEvent.click(screen.getByTestId('view-all-cars'));
