@@ -6,7 +6,11 @@ import BreadCrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Media from '@vanarama/uibook/lib/components/atoms/media';
 import Router from 'next/router';
-import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/GenericPageQuery';
+import {
+  GenericPageQuery_genericPage_sections as Section,
+  GenericPageQuery_genericPage_sections_cards_cards as Cards,
+} from '../../../generated/GenericPageQuery';
+import { getSectionsData } from '../../utils/getSectionsData';
 
 interface IProps {
   sections: Section | null;
@@ -16,7 +20,7 @@ interface IProps {
 }
 
 const LeasingExplainedContainer: FC<IProps> = ({ title, sections, crumbs }) => {
-  const cards = sections?.cards?.cards;
+  const cards = getSectionsData(['cards', 'cards'], sections);
   const featured = sections?.featured;
   const leadText = sections?.leadText;
 
@@ -62,9 +66,9 @@ const LeasingExplainedContainer: FC<IProps> = ({ title, sections, crumbs }) => {
       <div className="row:bg-lighter -thin">
         <div className="row:results">
           <div className="row:cards-3col">
-            {cards?.map((el, number) => (
+            {cards?.map((el: Cards, ind: number) => (
               <Card
-                key={`${el?.title}_${number}`}
+                key={`${el?.title}_${ind}`}
                 title={{
                   title: el?.title || '',
                 }}

@@ -10,8 +10,12 @@ import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { LinkTypes } from '../../models/enum/LinkTypes';
 import { getFeaturedClassPartial } from '../../utils/layout';
-import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/GenericPageQuery';
+import {
+  GenericPageQuery_genericPage_sections as Section,
+  GenericPageQuery_genericPage_sections_cards_cards as Cards,
+} from '../../../generated/GenericPageQuery';
 import getTitleTag from '../../utils/getTitleTag';
+import { getSectionsData } from '../../utils/getSectionsData';
 
 interface IProps {
   sections: Section | null;
@@ -20,7 +24,7 @@ interface IProps {
 }
 
 const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
-  const cards = sections?.cards?.cards;
+  const cards = getSectionsData(['cards', 'cards'], sections);
   const featured1 = sections?.featured1;
   const carousel = sections?.carousel;
   const featured2 = sections?.featured2;
@@ -63,7 +67,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
             {sections?.cards?.name}
           </Heading>
           <div className="row:cards-3col">
-            {cards.map((el, indx) => (
+            {cards.map((el: Cards, indx: number) => (
               <Card
                 key={`${el.name}_${indx.toString()}`}
                 title={{
