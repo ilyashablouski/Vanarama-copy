@@ -16,6 +16,7 @@ import {
 } from '../../../generated/EligibilityCheckerPageData';
 import withApollo from '../../hocs/withApollo';
 import { ELIGIBILITY_CHECKER_CONTENT } from '../../gql/eligibility-checker/eligibilityChecker';
+import Head from '../../components/Head/Head';
 
 const EligibilityChecker: NextPage = () => {
   const { data, loading, error } = useQuery<EligibilityCheckerPageData>(
@@ -59,9 +60,17 @@ const EligibilityChecker: NextPage = () => {
 
   return (
     <>
+      <Head
+        title={metaData?.title || ''}
+        metaDescription={metaData?.metaDescription}
+        metaRobots={metaData?.metaRobots}
+        legacyUrl={metaData?.legacyUrl}
+        publishedOn={metaData?.publishedOn}
+        featuredImage={data?.eligibilityCheckerLandingPage?.featuredImage}
+      />
       <div className="row:title">
         <Heading size="xlarge" color="black">
-          {metaData?.title}
+          {metaData?.name}
         </Heading>
       </div>
       {featured1 && (

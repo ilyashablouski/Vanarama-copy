@@ -7,6 +7,31 @@
 // GraphQL query operation: HubVanPageData
 // ====================================================
 
+export interface HubVanPageData_hubVanPage_metaData {
+  title: string | null;
+  name: string | null;
+  metaRobots: string | null;
+  metaDescription: string | null;
+  publishedOn: any | null;
+  legacyUrl: string | null;
+  pageType: string | null;
+  canonicalUrl: string | null;
+  slug: string | null;
+  schema: any | null;
+}
+
+export interface HubVanPageData_hubVanPage_featuredImage_file {
+  url: string;
+  fileName: string;
+  contentType: string;
+}
+
+export interface HubVanPageData_hubVanPage_featuredImage {
+  title: string | null;
+  description: string | null;
+  file: HubVanPageData_hubVanPage_featuredImage_file | null;
+}
+
 export interface HubVanPageData_hubVanPage_sections_hero_image_file {
   url: string;
 }
@@ -143,6 +168,8 @@ export interface HubVanPageData_hubVanPage_sections {
 
 export interface HubVanPageData_hubVanPage {
   id: string;
+  metaData: HubVanPageData_hubVanPage_metaData;
+  featuredImage: HubVanPageData_hubVanPage_featuredImage | null;
   sections: HubVanPageData_hubVanPage_sections | null;
 }
 

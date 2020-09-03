@@ -49,6 +49,7 @@ import { getProductPageUrl } from '../../../utils/url';
 import { GetDerivatives_derivatives } from '../../../../generated/GetDerivatives';
 import getTitleTag from '../../../utils/getTitleTag';
 import useLeaseType from '../../../hooks/useLeaseType';
+import Head from '../../../components/Head/Head';
 
 type ProdCards = ProdCardData[];
 
@@ -148,9 +149,18 @@ export const VansPage: NextPage = () => {
   );
 
   const isPersonal = cachedLeaseType === 'Personal';
+  const metaData = data?.hubVanPage?.metaData;
 
   return (
     <>
+      <Head
+        title={metaData?.title || ''}
+        metaDescription={metaData?.metaDescription}
+        metaRobots={metaData?.metaRobots}
+        legacyUrl={metaData?.legacyUrl}
+        publishedOn={metaData?.publishedOn}
+        featuredImage={data?.hubVanPage?.featuredImage}
+      />
       <Hero>
         <HeroHeading
           text={data?.hubVanPage.sections?.hero?.title || ''}

@@ -21,6 +21,7 @@ import { CONTACT_US_CONTENT } from '../../gql/contact-us/contactUs';
 
 import BreadCrumbContainer from '../../containers/BreadCrumbContainer';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import Head from '../../components/Head/Head';
 
 export const ContactUsPage: NextPage = () => {
   const [show, setShow] = useState(false);
@@ -36,13 +37,22 @@ export const ContactUsPage: NextPage = () => {
   }
 
   const COORDS = { lat: 51.762479, lng: -0.438241 };
+  const metaData = data?.contactUsLandingPage?.metaData;
 
   return (
     <>
+      <Head
+        title={metaData?.title || ''}
+        metaDescription={metaData?.metaDescription}
+        metaRobots={metaData?.metaRobots}
+        legacyUrl={metaData?.legacyUrl}
+        publishedOn={metaData?.publishedOn}
+        featuredImage={data?.contactUsLandingPage?.featuredImage}
+      />
       <div className="row:title">
         <BreadCrumbContainer />
         <Heading size="xlarge" color="black">
-          Contact Us
+          {metaData?.name}
         </Heading>
       </div>
       <section
