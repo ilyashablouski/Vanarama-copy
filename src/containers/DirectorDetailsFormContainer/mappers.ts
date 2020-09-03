@@ -53,6 +53,7 @@ export const mapDirectorDetails = (data: any): DirectorFormValues => ({
   shareOfBusiness: data?.share_of_business,
   title: data?.title,
   yearOfBirth: data?.year_of_birth,
+  uuid: data?.uuid,
 });
 
 export const mapDirectorsDefaultValues = (

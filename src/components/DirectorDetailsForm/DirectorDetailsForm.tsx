@@ -24,6 +24,7 @@ import {
 import { DirectorDetailsFormValues } from './interfaces';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { GetCompanyDirectorDetailsQuery_allDropDowns as CompanyDirectorDetails } from '../../../generated/GetCompanyDirectorDetailsQuery';
+import { CompanyAssociate } from '../../../generated/CompanyAssociate';
 
 export const GET_DIRECTOR_DETAILS = gql`
   query GetDirectorDetailsQuery($companyNumber: String!) {
@@ -36,6 +37,7 @@ export const GET_DIRECTOR_DETAILS = gql`
 `;
 
 type IDirectorDetailsFormProps = {
+  associates: CompanyAssociate[] | null;
   dropdownData: CompanyDirectorDetails | null;
   companyNumber: string;
   onSubmit: (values: DirectorDetailsFormValues) => Promise<void>;
