@@ -67,7 +67,7 @@ export const mapDirectorsDefaultValues = (
 
 export const combineUpdatedDirectors = (
   directors: DirectorFormValues[],
-  associates?: Associate[],
+  associates?: Associate[] | null,
 ) => {
   return directors.map(director => {
     const data = associates?.find(

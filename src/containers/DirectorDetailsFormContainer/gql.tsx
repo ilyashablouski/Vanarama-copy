@@ -4,9 +4,9 @@ import {
   GetCompanyDirectorDetailsQueryVariables as QueryVariables,
 } from '../../../generated/GetCompanyDirectorDetailsQuery';
 import {
-  UpdateLimitedVatDetailsMutation as Mutation,
-  UpdateLimitedVatDetailsMutationVariables as MutationVariables,
-} from '../../../generated/UpdateLimitedVatDetailsMutation';
+  SaveDirectorDetailsMutation as Mutation,
+  SaveDirectorDetailsMutationVariables as MutationVariables,
+} from '../../../generated/SaveDirectorDetailsMutation';
 import DirectorDetailsForm from '../../components/DirectorDetailsForm/DirectorDetailsForm';
 import DirectorFields from '../../components/DirectorDetailsForm/DirectorFields';
 

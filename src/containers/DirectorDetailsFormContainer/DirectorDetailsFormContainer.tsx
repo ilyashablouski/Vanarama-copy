@@ -1,7 +1,8 @@
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React, { useMemo } from 'react';
+import { useQuery, gql } from '@apollo/client';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import DirectorDetailsForm from '../../components/DirectorDetailsForm/DirectorDetailsForm';
-import { DirectorDetailsFormValues } from '../../components/DirectorDetailsForm/interfaces';
+import { DirectorDetailsFormValues, DirectorFormValues } from '../../components/DirectorDetailsForm/interfaces';
 import {
   useCreateUpdateCreditApplication,
   useGetCreditApplicationByOrderUuid,
@@ -11,8 +12,37 @@ import {
   useSaveDirectorDetailsMutation,
 } from './gql';
 import { IDirectorDetailsFormContainerProps } from './interfaces';
-import { mapFormValues, mapDirectorsDefaultValues } from './mappers';
+import { mapFormValues, mapDirectorsDefaultValues, combineUpdatedDirectors } from './mappers';
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
+import {
+  GetDirectorDetailsQuery,
+  GetDirectorDetailsQueryVariables,
+} from '../../../generated/GetDirectorDetailsQuery';
+import { SaveDirectorDetailsMutation_createUpdateCompanyDirector_associates as Associate } from '../../../generated/SaveDirectorDetailsMutation';
+
+
+export const GET_DIRECTOR_DETAILS = gql`
+  query GetDirectorDetailsQuery($companyNumber: String!) {
+    companyOfficers(companyNumber: $companyNumber) {
+      nodes {
+        name
+      }
+    }
+  }
+`;
+
+function useCompanyOfficers(companyNumber?: string | null) {
+  return useQuery<GetDirectorDetailsQuery, GetDirectorDetailsQueryVariables>(
+    GET_DIRECTOR_DETAILS,
+    {
+      fetchPolicy: 'no-cache',
+      variables: {
+        companyNumber: companyNumber || '',
+      },
+      skip: !companyNumber,
+    },
+  );
+}
 
 export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContainerProps> = ({
   directorUuid,
@@ -31,13 +61,17 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
     orderUuid,
   );
+  const companyOfficersQuery = useCompanyOfficers(
+    getDirectorDetailsQuery.data?.companyByUuid?.companyNumber,
+  );
+
   // const directorsDetails =
   //   getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
   //     ?.directorsDetails;
   // const defaultValues = useMemo(() => {
   //   if (directorsDetails) {
   //     const defaultValues = mapDirectorsDefaultValues(directorsDetails);
-  //     // const mappedDirectors = 
+  //     // const mappedDirectors =
   //   }
 
   //   return undefined;
@@ -50,13 +84,19 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
       },
     });
 
-  const handleCreditApplicationUpdate = (values: DirectorDetailsFormValues) =>
+  const handleCreditApplicationUpdate = (
+    totalPercentage: number,
+    direcotors?: DirectorFormValues[],
+  ) =>
     createUpdateApplication({
       variables: {
         input: formValuesToInputCreditApplication({
           ...getCreditApplicationByOrderUuidQuery.data
             ?.creditApplicationByOrderUuid,
-          directorsDetails: values,
+          directorsDetails: {
+            direcotors,
+            totalPercentage,
+          },
           orderUuid,
         }),
       },
@@ -64,24 +104,22 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
 
   if (
     getDirectorDetailsQuery?.loading ||
-    getCreditApplicationByOrderUuidQuery.loading
+    getCreditApplicationByOrderUuidQuery?.loading ||
+    companyOfficersQuery?.loading
   ) {
     return <Loading size="xlarge" />;
   }
 
-  if (
-    getDirectorDetailsQuery?.error ||
-    getCreditApplicationByOrderUuidQuery?.error
-  ) {
+  if (getDirectorDetailsQuery?.error || companyOfficersQuery?.error) {
     const errorMessage = (
-      getDirectorDetailsQuery?.error ||
-      getCreditApplicationByOrderUuidQuery?.error
+      getDirectorDetailsQuery?.error || companyOfficersQuery?.error
     )?.message;
     return <p>Error: {errorMessage}</p>;
   }
 
   return (
     <DirectorDetailsForm
+      officers={companyOfficersQuery.data?.companyOfficers.nodes}
       isEdited={isEdited}
       directorUuid={directorUuid}
       associates={getDirectorDetailsQuery.data?.companyByUuid?.associates!}
@@ -92,8 +130,19 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
       }
       onSubmit={async values => {
         await handleDirectorDetailsSave(values)
-          .then(() => handleCreditApplicationUpdate(values))
-          .then(onCompleted)
+          .then(query =>
+            combineUpdatedDirectors(
+              values.directors,
+              query.data?.createUpdateCompanyDirector?.associates,
+            ),
+          )
+          .then(combinedDirectors =>
+            handleCreditApplicationUpdate(
+              values.totalPercentage,
+              combinedDirectors,
+            ),
+          )
+          // .then(onCompleted)
           .catch(onError);
       }}
     />

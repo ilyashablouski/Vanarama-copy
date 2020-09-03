@@ -7,10 +7,10 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import {
-  GetDirectorDetailsQuery,
-  GetDirectorDetailsQueryVariables,
-} from '../../../generated/GetDirectorDetailsQuery';
+// import {
+//   GetDirectorDetailsQuery,
+//   GetDirectorDetailsQueryVariables,
+// } from '../../../generated/GetDirectorDetailsQuery';
 import { isTruthy } from '../../utils/array';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import DirectorFieldArray from './DirectorFieldArray';
@@ -26,16 +26,6 @@ import FCWithFragments from '../../utils/FCWithFragments';
 import { GetCompanyDirectorDetailsQuery_allDropDowns as CompanyDirectorDetails } from '../../../generated/GetCompanyDirectorDetailsQuery';
 import { CompanyAssociate } from '../../../generated/CompanyAssociate';
 
-export const GET_DIRECTOR_DETAILS = gql`
-  query GetDirectorDetailsQuery($companyNumber: String!) {
-    companyOfficers(companyNumber: $companyNumber) {
-      nodes {
-        name
-      }
-    }
-  }
-`;
-
 type IDirectorDetailsFormProps = {
   associates: CompanyAssociate[] | null;
   dropdownData: CompanyDirectorDetails | null;
@@ -44,6 +34,7 @@ type IDirectorDetailsFormProps = {
   isEdited: boolean;
   directorUuid?: string;
   defaultValues?: DirectorDetailsFormValues;
+  officers: any;
 };
 
 const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
@@ -60,18 +51,9 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
   isEdited,
   directorUuid,
   defaultValues,
+  officers,
 }) => {
-  const { data, loading, error } = useCompanyOfficers(companyNumber);
-
-  if (loading) {
-    return <Loading />;
-  }
-
-  if (error || !data || !dropdownData || !data.companyOfficers.nodes) {
-    return <ErrorMessage message="Could not load director details!" />;
-  }
-
-  const officers = data?.companyOfficers?.nodes?.filter(isTruthy) || [];
+  // const officers = data?.companyOfficers?.nodes?.filter(isTruthy) || [];
   const directors =
     combineDirectorsData(officers, defaultValues?.directors) || [];
 
@@ -145,16 +127,26 @@ DirectorDetailsForm.fragments = {
   `,
 };
 
-function useCompanyOfficers(companyNumber: string) {
-  return useQuery<GetDirectorDetailsQuery, GetDirectorDetailsQueryVariables>(
-    GET_DIRECTOR_DETAILS,
-    {
-      fetchPolicy: 'no-cache',
-      variables: {
-        companyNumber,
-      },
-    },
-  );
-}
+// export const GET_DIRECTOR_DETAILS = gql`
+//   query GetDirectorDetailsQuery($companyNumber: String!) {
+//     companyOfficers(companyNumber: $companyNumber) {
+//       nodes {
+//         name
+//       }
+//     }
+//   }
+// `;
+
+// function useCompanyOfficers(companyNumber: string) {
+//   return useQuery<GetDirectorDetailsQuery, GetDirectorDetailsQueryVariables>(
+//     GET_DIRECTOR_DETAILS,
+//     {
+//       fetchPolicy: 'no-cache',
+//       variables: {
+//         companyNumber,
+//       },
+//     },
+//   );
+// }
 
 export default DirectorDetailsForm;
