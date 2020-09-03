@@ -71,6 +71,8 @@ export const GET_VEHICLE_LIST = gql`
       edges {
         cursor
         node {
+          url
+          legacyUrl
           vehicleType
           offerRanking
           onOffer

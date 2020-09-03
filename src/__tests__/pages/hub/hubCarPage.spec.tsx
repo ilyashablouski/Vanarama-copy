@@ -284,6 +284,12 @@ describe('<CarPage />', () => {
     );
   });
 
+  it('should trigger route push when clicking Here', async () => {
+    await screen.findByText('View All Cars');
+    fireEvent.click(screen.getByText('Here'));
+    await waitFor(() => expect(Router.push).toHaveBeenCalledWith('/fan-hub'));
+  });
+
   it('should trigger router push when clicking product View Offer', async () => {
     await screen.findAllByText('View Offer');
     fireEvent.click(screen.getAllByText('View Offer')[0]);
