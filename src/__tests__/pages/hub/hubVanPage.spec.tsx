@@ -557,6 +557,12 @@ describe('<VansPage />', () => {
     );
   });
 
+  it('should trigger route push when clicking Here', async () => {
+    await screen.findAllByText('View Medium Vans');
+    fireEvent.click(screen.getByText('Here'));
+    await waitFor(() => expect(Router.push).toHaveBeenCalledWith('/fan-hub'));
+  });
+
   it('should trigger route push when clicking View Large Vans', async () => {
     await screen.findAllByText('View Large Vans');
     fireEvent.click(screen.getAllByText('View Large Vans')[0]);

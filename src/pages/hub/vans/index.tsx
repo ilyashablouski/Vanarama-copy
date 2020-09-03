@@ -636,7 +636,10 @@ export const VansPage: NextPage = () => {
       </section>
 
       <section className="row:league">
-        <League altText="vanarama national league" />
+        <League
+          clickReadMore={() => Router.push('/fan-hub')}
+          altText="vanarama national league"
+        />
       </section>
 
       <section className="row:featured-logos">

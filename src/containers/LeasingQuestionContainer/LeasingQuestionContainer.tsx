@@ -1,9 +1,7 @@
 import React, { FC } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import BreadCrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import ReactMarkdown from 'react-markdown';
-import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Accordion from '@vanarama/uibook/lib/components/molecules/accordion/Accordion';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import getTitleTag from '../../utils/getTitleTag';
@@ -57,7 +55,7 @@ const LeasingQuestionContainer: FC<IProps> = ({
   sections,
   crumbs,
 }) => {
-  const carousel = sections?.cards;
+  const cards = sections?.cards;
   const questionSet = sections?.questionSet;
   return (
     <>
@@ -67,7 +65,7 @@ const LeasingQuestionContainer: FC<IProps> = ({
           {title}
         </Heading>
         <ReactMarkdown source={body || ''} />
-        <Button
+        {/* <Button // NOTE: Functionality does not exist yet, so - commented out.
           type="button"
           label="Ask A Question"
           disabled={false}
@@ -76,22 +74,22 @@ const LeasingQuestionContainer: FC<IProps> = ({
           iconColor="white"
           iconPosition="after"
           dataTestId="ask-a-question"
-        />
+        /> */}
       </div>
       <div className="row:bg-lighter">
         <div className="row:carousel">
           <Heading
             tag={
               getTitleTag(
-                carousel?.titleTag || null,
+                cards?.titleTag || null,
               ) as keyof JSX.IntrinsicElements
             }
             size="large"
             color="black"
           >
-            {carousel?.title || ''}
+            {cards?.name || ''}
           </Heading>
-          {carousel?.cards && <CarouselCards cards={carousel?.cards} />}
+          {cards?.cards && <CarouselCards cards={cards?.cards} />}
         </div>
       </div>
       <div className="row:bg-lighter">

@@ -77,41 +77,6 @@ exports[`<LeasingQuestionContainer /> should match snapshot 1`] = `
       >
         Insurance, Tax & Vat Leasing Questions
       </h1>
-      <button
-        class="button -primary -regular -solid"
-        data-testid="ask-a-question"
-        type="button"
-      >
-        <div
-          class="button--inner"
-        >
-          Ask A Question
-          <i
-            class="icon -white"
-          >
-            <svg
-              height="1em"
-              viewBox="0 0 512 512"
-              width="1em"
-            >
-              <title>
-                ionicons-v5-a
-              </title>
-              <polyline
-                points="268 112 412 256 268 400"
-                style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-              />
-              <line
-                style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                x1="392"
-                x2="100"
-                y1="256"
-                y2="256"
-              />
-            </svg>
-          </i>
-        </div>
-      </button>
     </div>
     <div
       class="row:bg-lighter"
@@ -121,7 +86,9 @@ exports[`<LeasingQuestionContainer /> should match snapshot 1`] = `
       >
         <p
           class="heading -black -large"
-        />
+        >
+          Most Popular Questions
+        </p>
         <div
           class="carousel -col3"
         >
