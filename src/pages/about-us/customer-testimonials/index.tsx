@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { useState, useEffect } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
-import { useQuery } from '@apollo/client';
+import { useQuery, useLazyQuery } from '@apollo/client';
 import Rating from '@vanarama/uibook/lib/components/atoms/rating';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
@@ -17,10 +17,38 @@ import {
   TestimonialsData_testimonials as TestimonialData,
 } from '../../../../generated/TestimonialsData';
 import BreadCrumbs from '../../../containers/BreadCrumbContainer';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../../../generated/GenericPageQuery';
+import { GENERIC_PAGE } from 'gql/genericPage';
+import Head from '../../../components/Head/Head';
 
 export const CustomerTestimonialPage: NextPage = () => {
   const [page, setPage] = useState(1);
   const [data, setTestimonialsData] = useState<TestimonialsData>();
+
+  const [pageData, setPageData] = useState<GenericPageQuery>();
+
+  const [getGenericPage] = useLazyQuery<
+    GenericPageQuery,
+    GenericPageQueryVariables
+  >(GENERIC_PAGE, {
+    onCompleted: result => {
+      setPageData(result);
+      // setMetaData(result.genericPage.metaData);
+      //setFeaturedImage(result.genericPage.featuredImage);
+    },
+  });
+
+  useEffect(() => {
+    getGenericPage({
+      variables: {
+        slug: `/about-us/customer-testimonials`,
+      },
+    });
+  }, [getGenericPage]);
+
   const { loading, error, fetchMore } = useQuery<TestimonialsData>(
     TESTIMONIALS_DATA,
     {
@@ -72,9 +100,17 @@ export const CustomerTestimonialPage: NextPage = () => {
 
   return (
     <>
+      <Head
+        title={pageData?.genericPage.metaData.title || ''}
+        metaDescription={pageData?.genericPage.metaData.metaDescription}
+        metaRobots={pageData?.genericPage.metaData.metaRobots}
+        legacyUrl={pageData?.genericPage.metaData.legacyUrl}
+        publishedOn={pageData?.genericPage.metaData.publishedOn}
+        featuredImage={pageData?.genericPage.featuredImage}
+      />
       <div className="testimonials--content">
         <BreadCrumbs />
-        <Heading size="xlarge" color="black">
+        <Heading tag="h1" size="xlarge" color="black">
           Testimonials Hub
         </Heading>
         <br />
