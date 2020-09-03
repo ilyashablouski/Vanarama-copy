@@ -95,6 +95,18 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
     [router, orderId],
   );
 
+  const onClickBtn = () => {
+    createUpdateCA({
+      variables: {
+        input: {
+          orderUuid: orderId,
+          submittedAt: new Date(),
+        },
+      },
+    });
+    onButtonPressed();
+  };
+
   return (
     <div>
       <Heading
@@ -154,17 +166,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
         color="teal"
         label="Continue"
         dataTestId="olaf_summary_continue_buttton"
-        onClick={() => {
-          createUpdateCA({
-            variables: {
-              input: {
-                orderUuid: orderId,
-                submittedAt: new Date(),
-              },
-            },
-          });
-          onButtonPressed();
-        }}
+        onClick={onClickBtn}
       />
     </div>
   );
