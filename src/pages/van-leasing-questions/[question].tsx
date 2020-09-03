@@ -35,7 +35,7 @@ const FinanceInfo: NextPage = () => {
 
   const metaData = data?.genericPage?.metaData;
   const sections = data.genericPage?.sections;
-  const body = data.genericPage?.body;
+  const body = data.genericPage?.intro;
 
   return (
     <>
