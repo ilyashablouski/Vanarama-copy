@@ -27,7 +27,6 @@ describe('Section utils', () => {
       expect(actual).toEqual(expected);
     });
   });
-
   describe('getCardsName', () => {
     it.each([
       [
