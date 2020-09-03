@@ -74,6 +74,7 @@ const CompanyDetailsForm: React.FC<IProps> = ({
       onSubmit={methods.handleSubmit(values =>
         onSubmit({
           ...values,
+          uuid: company?.uuid,
           companySearchResult: values.companySearchResult ?? proceedCompany,
           inputMode,
         }),

@@ -51,6 +51,7 @@ export const mapFormValues = (
 
   return {
     ...uuidData,
+    uuid: values.uuid,
     companyType: 'Limited',
     legalName: searchResult ? searchResult.title : values.companyName,
     companyNumber: searchResult
@@ -93,6 +94,7 @@ export const mapDefaultValues = (data: {
     : undefined;
 
   return {
+    uuid: data?.uuid,
     companySearchResult: data?.company_search_result
       ? {
           addressSnippet: data?.company_search_result?.address_snippet,
@@ -117,6 +119,7 @@ export const mapDefaultValues = (data: {
 
 export const mapCompanyDetailsToCreditApplication = (
   values: ICompanyDetailsFormValues,
+  uuid?: string,
   addresses?: Address[] | null,
 ) => {
   const registeredAddress =
@@ -125,6 +128,7 @@ export const mapCompanyDetailsToCreditApplication = (
     addresses?.find(address => address.kind === 'trading') || {};
 
   return {
+    uuid,
     companySearchResult: values.companySearchResult,
     businessName: values.companyName,
     businessRegistrationNumber:
