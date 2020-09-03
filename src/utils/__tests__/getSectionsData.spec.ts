@@ -1,7 +1,7 @@
-import { getSectionsData } from '../getSectionsData';
+import { getSectionsData, getCardsName } from '../getSectionsData';
 
-describe('Date utils', () => {
-  describe('toYearsAndMonthsDisplay', () => {
+describe('Section utils', () => {
+  describe('getSectionsData', () => {
     it.each([
       [
         ['sections', 'cards', 'description'],
@@ -24,6 +24,23 @@ describe('Date utils', () => {
       [['cards'], null, undefined],
     ])('getSectionsData(%d) should return "%s"', (path, data, expected) => {
       const actual = getSectionsData(path, data);
+      expect(actual).toEqual(expected);
+    });
+  });
+
+  describe('getCardsName', () => {
+    it.each([
+      [
+        {
+          sections: {
+            cards: { description: 'description', name: 'name' },
+          },
+        },
+        'name',
+      ],
+      [null, undefined],
+    ])('getCardsName(%d) should return "%s"', (data, expected) => {
+      const actual = getCardsName(data);
       expect(actual).toEqual(expected);
     });
   });

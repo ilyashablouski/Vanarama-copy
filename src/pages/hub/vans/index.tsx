@@ -49,7 +49,7 @@ import { getProductPageUrl } from '../../../utils/url';
 import { GetDerivatives_derivatives } from '../../../../generated/GetDerivatives';
 import getTitleTag from '../../../utils/getTitleTag';
 import useLeaseType from '../../../hooks/useLeaseType';
-import { getSectionsData } from '../../../utils/getSectionsData';
+import { getSectionsData, getCardsName } from '../../../utils/getSectionsData';
 
 type ProdCards = ProdCardData[];
 
@@ -337,7 +337,7 @@ export const VansPage: NextPage = () => {
               ) as keyof JSX.IntrinsicElements
             }
           >
-            {getSectionsData(['cards', 'name'], data?.hubVanPage.sections)}
+            {getCardsName(data?.hubVanPage)}
           </Heading>
           <Text
             className="-justify-content-row -mb-400"

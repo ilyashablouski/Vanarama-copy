@@ -5,4 +5,5 @@ export const getSectionsData = (
   data: any,
 ): any | undefined => R.path(sectionPath, data);
 
-export default getSectionsData;
+export const getCardsName = (data: any): any | undefined =>
+  R.path(['sections', 'cards', 'name'], data);
