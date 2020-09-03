@@ -24,7 +24,7 @@ const FinanceInfo: NextPage = () => {
   if (!data?.reviewsPage) {
     return null;
   }
-
+  debugger;
   const metaData = data?.reviewsPage?.metaData;
   const sections = data.reviewsPage?.sections;
   const body = data.reviewsPage?.body;

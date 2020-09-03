@@ -29,10 +29,10 @@ export const GENERIC_PAGE_QUESTION = gql`
         rowText {
           heading
           titleTag
-          # link {
-          #   text
-          #   url
-          # }
+          link {
+            text
+            url
+          }
         }
         vehicleReviewMedia {
           reviewVideo

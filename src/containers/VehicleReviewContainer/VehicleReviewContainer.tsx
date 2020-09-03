@@ -13,12 +13,14 @@ import Image from '@vanarama/uibook/lib/components/atoms/image';
 import ReviewCard from '@vanarama/uibook/lib/components/molecules/cards/ReviewCard/ReviewCard';
 import Modal from '@vanarama/uibook/lib/components/molecules/modal';
 import GoldrushForm from '../../components/GoldrushForm/GoldrushForm';
-import { mapToReviewCard } from './helpers';
-import { ReviewsPageQuery_reviewsPage_sections as Section } from '../../../generated/ReviewsPageQuery';
+import mapToReviewCard from './helpers';
+import { ReviewsPageQuery_reviewsPage_sections as Sections } from '../../../generated/ReviewsPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import { useRouter } from 'next/router';
+import getTitleTag from 'utils/getTitleTag';
 
 interface IProps {
-  sections: Section | null;
+  sections: Sections | null;
   title: string | null;
   body: string | null;
   crumbs: { href: string; label: string }[];
@@ -30,6 +32,7 @@ const VehicleReviewContainer: FC<IProps> = ({
   sections,
   crumbs,
 }) => {
+  const router = useRouter();
   const [reviewsExpanded, setReviewsExpanded] = useState(false);
   const [
     isModalGetYourFreeQuoteExpanded,
@@ -90,19 +93,21 @@ const VehicleReviewContainer: FC<IProps> = ({
             }}
           />
           <div className="button-group">
-            <Button
+            {/* <Button // NOTE: no such functionality yet, commented out
               color="teal"
               size="regular"
               fill="solid"
               label="Leave a review"
               onClick={() => {}}
-            />
+            /> */}
             <Button
               color="teal"
               size="regular"
               fill="outline"
-              label="Latest Deals"
-              onClick={() => {}}
+              label={sections?.link?.text}
+              onClick={() => {
+                router.push(sections?.link?.url || '/');
+              }}
             />
           </div>
         </article>
@@ -138,37 +143,29 @@ const VehicleReviewContainer: FC<IProps> = ({
             onClick={() => setReviewsExpanded(!reviewsExpanded)}
           />
           <hr className="-fullwidth -mv-500" />
-          <Heading color="black" size="large">
-            Berlingo quote
+          <Heading
+            tag={
+              getTitleTag(
+                sections?.rowText?.titleTag || null,
+              ) as keyof JSX.IntrinsicElements
+            }
+            color="black"
+            size="large"
+          >
+            {sections?.rowText?.heading}
           </Heading>
           <Button
             className="-fullwidth "
             color="teal"
             size="regular"
             fill="solid"
-            label="Get My Quote Now"
-            onClick={() => setIsModalGetYourFreeQuoteExpanded(true)}
+            label={sections?.rowText?.link?.text}
+            onClick={() => {
+              router.push(sections?.rowText?.link?.url || '/');
+            }}
           />
         </div>
       </div>
-      <Modal
-        show={isModalGetYourFreeQuoteExpanded}
-        onRequestClose={() => setIsModalGetYourFreeQuoteExpanded(false)}
-      >
-        <Heading color="black" size="large">
-          Get Your Free Quote From Our Experts
-        </Heading>
-
-        <GoldrushForm callBack={false} isPostcodeVisible onSubmit={() => {}} />
-        {/* NOTE: If same backend-connection functionality is required - use GoldrushFormContainer */}
-        {/* <GoldrushFormContainer 
-          termsAndConditions
-          isPostcodeVisible={true}
-          capId={capId}
-          opportunityType={OpportunityTypeEnum.QUOTE}
-          vehicleType={VehicleTypeEnum.LCV}
-        /> */}
-      </Modal>
     </>
   );
 };

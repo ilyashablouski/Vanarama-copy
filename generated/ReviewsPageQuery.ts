@@ -25,9 +25,15 @@ export interface ReviewsPageQuery_reviewsPage_sections_link {
   url: string | null;
 }
 
+export interface ReviewsPageQuery_reviewsPage_sections_rowText_link {
+  text: string | null;
+  url: string | null;
+}
+
 export interface ReviewsPageQuery_reviewsPage_sections_rowText {
   heading: string | null;
   titleTag: string | null;
+  link: ReviewsPageQuery_reviewsPage_sections_rowText_link | null;
 }
 
 export interface ReviewsPageQuery_reviewsPage_sections_vehicleReviewMedia_reviewPhoto_file {
