@@ -46,6 +46,7 @@ export interface ContactUsPageData_contactUsLandingPage_sections_featured2_cards
 export interface ContactUsPageData_contactUsLandingPage_sections_featured2 {
   title: string | null;
   body: string | null;
+  layout: (string | null)[] | null;
   cards: (ContactUsPageData_contactUsLandingPage_sections_featured2_cards | null)[] | null;
 }
 
