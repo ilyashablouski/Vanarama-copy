@@ -111,7 +111,7 @@ export const CustomerTestimonialPage: NextPage = () => {
       <div className="testimonials--content">
         <BreadCrumbs />
         <Heading tag="h1" size="xlarge" color="black">
-          Testimonials Hub
+        {pageData?.genericPage?.metaData.title}
         </Heading>
         <br />
         {data?.testimonials
