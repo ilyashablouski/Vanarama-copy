@@ -21,6 +21,7 @@ export const CONTACT_US_CONTENT = gql`
         featured2 {
           title
           body
+          layout
           cards {
             title
             body

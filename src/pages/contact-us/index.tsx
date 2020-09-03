@@ -144,7 +144,11 @@ export const ContactUsPage: NextPage = () => {
           ))}
         </div>
       </section>
-      <section className="row:featured-right">
+      <section
+        className={`row:${getFeaturedClassPartial(
+          getSectionsData(['featured2'], data?.contactUsLandingPage.sections),
+        )}`}
+      >
         <div>
           <Heading size="large" color="black">
             {getSectionsData(
