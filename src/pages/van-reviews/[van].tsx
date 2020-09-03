@@ -24,11 +24,11 @@ const FinanceInfo: NextPage = () => {
   if (!data?.reviewsPage) {
     return null;
   }
-  debugger;
+
   const metaData = data?.reviewsPage?.metaData;
   const sections = data.reviewsPage?.sections;
   const body = data.reviewsPage?.body;
-
+ 
   const crumbs = [
     { label: 'Home', href: '/' },
     {
@@ -40,7 +40,9 @@ const FinanceInfo: NextPage = () => {
       href: '/',
     },
   ];
-
+  console.log(JSON.stringify(JSON.stringify(sections)));
+  console.log(JSON.stringify(JSON.stringify(metaData)));
+  console.log(JSON.stringify(JSON.stringify(body)));
   return (
     <>
       <Head
@@ -49,7 +51,6 @@ const FinanceInfo: NextPage = () => {
         metaRobots={metaData.metaRobots}
         legacyUrl={metaData.legacyUrl}
         publishedOn={metaData.publishedOn}
-        // featuredImage={data?.reviewsPage.metaData.}
       />
       <VehicleReviewContainer
         crumbs={crumbs}

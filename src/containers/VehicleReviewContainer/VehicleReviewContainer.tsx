@@ -11,13 +11,11 @@ import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
 import Media from '@vanarama/uibook/lib/components/atoms/media';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import ReviewCard from '@vanarama/uibook/lib/components/molecules/cards/ReviewCard/ReviewCard';
-import Modal from '@vanarama/uibook/lib/components/molecules/modal';
-import GoldrushForm from '../../components/GoldrushForm/GoldrushForm';
+import { useRouter } from 'next/router';
+import getTitleTag from '../../utils/getTitleTag';
 import mapToReviewCard from './helpers';
 import { ReviewsPageQuery_reviewsPage_sections as Sections } from '../../../generated/ReviewsPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import { useRouter } from 'next/router';
-import getTitleTag from 'utils/getTitleTag';
 
 interface IProps {
   sections: Sections | null;
@@ -34,10 +32,6 @@ const VehicleReviewContainer: FC<IProps> = ({
 }) => {
   const router = useRouter();
   const [reviewsExpanded, setReviewsExpanded] = useState(false);
-  const [
-    isModalGetYourFreeQuoteExpanded,
-    setIsModalGetYourFreeQuoteExpanded,
-  ] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
 
   const expertName = sections?.vehicleReview?.author?.length
