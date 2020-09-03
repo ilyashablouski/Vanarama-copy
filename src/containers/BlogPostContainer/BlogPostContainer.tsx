@@ -48,6 +48,7 @@ const BlogPostContainer: NextPage<IProps> = ({
       <div className="row:article">
         <article className="markdown">
           <ReactMarkdown
+            unwrapDisallowed
             escapeHtml={false}
             source={body || ''}
             renderers={{
