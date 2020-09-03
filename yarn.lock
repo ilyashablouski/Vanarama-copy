@@ -2082,6 +2082,13 @@
   version "6.9.1"
   resolved "https://registry.npmjs.org/@types/qs/-/qs-6.9.1.tgz#937fab3194766256ee09fcd40b781740758617e7"
 
+"@types/ramda@^0.27.14":
+  version "0.27.14"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.27.14.tgz#95f5f676ebdff89cbc7ded8cd011911fa6854daf"
+  integrity sha512-vbw/VAtEJeSJ6Z61QT+epirlnBeJiJIO7ndK1BJ0fKswnfbiTNga/jBG6R3OnBaFYx+UJv6Iv7ZfWDFSsSzNqA==
+  dependencies:
+    ts-toolbelt "^6.3.3"
+
 "@types/react-autosuggest@^9.3.14":
   version "9.3.14"
   resolved "https://registry.npmjs.org/@types/react-autosuggest/-/react-autosuggest-9.3.14.tgz#0a759db913f28609f390605283747c497af7e931"
@@ -2242,10 +2249,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@5.25.36":
-  version "5.25.36"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.25.36.tgz#3d3927f9efce4f954e3e3894317b7f73314c0c66"
-  integrity sha512-NQKdeL0d3xZNWjmrV0mOP+VA3teqW84z2y7hGGAyp0hIDCjyNCMpjt9yYQqo3XSj27N0D0bsXmkeXzfH7OhqIw==
+"@vanarama/uibook@5.25.39":
+  version "5.25.39"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.25.39.tgz#8334616926b5d85ce7fcd7deeee70cbcd9c95394"
+  integrity sha512-gSDXrWhn96iSyOU0SwIEOT9h4Iok0wlgz+YA/HouHhpe0LPSYbio0fFXRTHAx0uTDdEso+Iv6ZGZlr+GauTVGA==
   dependencies:
     "@egjs/flicking" "^3.4.7"
     "@reach/auto-id" "^0.10.3"
@@ -9243,6 +9250,11 @@ ramda@^0.27:
   version "0.27.0"
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.27.0.tgz#915dc29865c0800bf3f69b8fd6c279898b59de43"
 
+ramda@^0.27.1:
+  version "0.27.1"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.27.1.tgz#66fc2df3ef873874ffc2da6aa8984658abacf5c9"
+  integrity sha512-PgIdVpn5y5Yns8vqb8FzBUEYn98V3xcPgawAkkgj0YJ0qDsnHCiNmZYfOGMgOvoB0eWFLpYbhxUR3mxfDIMvpw==
+
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.1.0.tgz#df6f84372f0270dc65cdf6291349ab7a473d4f2a"
@@ -10962,6 +10974,11 @@ ts-node@^8:
 ts-pnp@^1.1.6:
   version "1.2.0"
   resolved "https://registry.npmjs.org/ts-pnp/-/ts-pnp-1.2.0.tgz#a500ad084b0798f1c3071af391e65912c86bca92"
+
+ts-toolbelt@^6.3.3:
+  version "6.15.5"
+  resolved "https://registry.yarnpkg.com/ts-toolbelt/-/ts-toolbelt-6.15.5.tgz#cb3b43ed725cb63644782c64fbcad7d8f28c0a83"
+  integrity sha512-FZIXf1ksVyLcfr7M317jbB67XFJhOO1YqdTcuGaq9q5jLUoTikukZ+98TPjKiP2jC5CgmYdWWYs0s2nLSU0/1A==
 
 tslib@^1, tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   version "1.11.1"
