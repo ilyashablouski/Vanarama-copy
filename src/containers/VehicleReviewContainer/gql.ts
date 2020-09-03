@@ -22,6 +22,15 @@ export const GENERIC_PAGE_QUESTION = gql`
       }
       body
       sections {
+        # link {
+        #   text
+        #   url
+        # }
+        # rowText {
+        #   heading
+        #   url
+        #   titleTag
+        # }
         vehicleReviewMedia {
           reviewVideo
           reviewPhoto {
