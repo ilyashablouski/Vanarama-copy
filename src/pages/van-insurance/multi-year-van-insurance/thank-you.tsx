@@ -1,21 +1,18 @@
 import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb/Breadcrumb';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import CheckmarkCircleSharp from '@vanarama/uibook/lib/assets/icons/CheckmarkCircleSharp';
-import ReactMarkdown from 'react-markdown';
+import ThankYouContainer from '../../../containers/ThankYouContainer/ThankYouContainer';
 import withApollo from '../../../hocs/withApollo';
 import { useGenericPage } from '../../../gql/genericPage';
 import Head from '../../../components/Head/Head';
-import RouterLink from '../../../components/RouterLink/RouterLink';
 
 const crumbs = [
   { label: 'Home', href: '/' },
   { label: 'Van Insurance', href: '/van-insurance' },
-  { label: 'Thank You', href: '/van-insurance/multi-year-van-insurance' },
+  {
+    label: 'Thank You',
+    href: '/van-insurance/multi-year-van-insurance/thank-you',
+  },
 ];
 
 const ThankYouPage: NextPage = () => {
@@ -49,22 +46,7 @@ const ThankYouPage: NextPage = () => {
         featuredImage={data?.genericPage.featuredImage}
       />
       <>
-        <div className="row:title">
-          <Breadcrumb items={crumbs} />
-        </div>
-        <div className="row:lead-text">
-          <Heading tag="h1" size="xlarge" color="black">
-            <Icon
-              className="-pr-300"
-              color="success"
-              icon={<CheckmarkCircleSharp />}
-            />
-            {sections?.leadText?.heading}
-          </Heading>
-          <Text size="lead" color="darker">
-            {sections?.leadText?.description}
-          </Text>
-        </div>
+        <ThankYouContainer sections={sections} crumbs={crumbs} />
       </>
     </>
   );
