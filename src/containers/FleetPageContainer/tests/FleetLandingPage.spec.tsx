@@ -16,6 +16,29 @@ const mocked: MockedResponse[] = [
       data: {
         fleetLandingPage: {
           id: '1iXmVZNIGFolU38Jol4j08',
+          metaData: {
+            title: 'Vehicle Leasing | Personal & Business Lease',
+            name: 'Vehicle Leasing | Personal & Business Lease',
+            metaRobots: 'all',
+            metaDescription: null,
+            publishedOn: '2020-08-02',
+            legacyUrl: 'https://www.vanarama.com/',
+            pageType: 'Leasing Explained Article',
+            canonicalUrl:
+              'https://www.vanarama.com/car-leasing-explained/business-vs-personal-car-leasing.html',
+            slug: '/car-leasing-explained/business-vs-personal-car-leasing',
+            schema: null,
+          },
+          featuredImage: {
+            title: 'Personal Vs Buisness Leasing-full',
+            description: 'Man searching though his bag in a business lease car',
+            file: {
+              url:
+                '//images.ctfassets.net/3xid768u5joa/2e4LdVtVx07Zo9SX2m6hC3/c6a589ac518aa667201206d6a8fa1402/personal-vs-buisness-leasing.jpg',
+              fileName: 'personal-vs-buisness-leasing.jpg',
+              contentType: 'image/jpeg',
+            },
+          },
           sections: {
             featured1: {
               title:

@@ -13,6 +13,9 @@ export interface IFilterContainerProps {
   isModelPage?: boolean;
   isAllMakesPage?: boolean;
   isBodyPage?: boolean;
+  isFuelPage?: boolean;
+  isTransmissionPage?: boolean;
+  isDynamicFilterPage?: boolean;
 }
 
 export interface IFilters {
@@ -22,4 +25,8 @@ export interface IFilters {
   bodyStyles: string[];
   transmissions: string[];
   fuelTypes: string[];
+}
+
+export interface ISelectedFiltersState {
+  [index: string]: string[];
 }
