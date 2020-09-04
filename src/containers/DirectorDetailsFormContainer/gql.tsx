@@ -4,11 +4,14 @@ import {
   GetCompanyDirectorDetailsQueryVariables as QueryVariables,
 } from '../../../generated/GetCompanyDirectorDetailsQuery';
 import {
-  UpdateLimitedVatDetailsMutation as Mutation,
-  UpdateLimitedVatDetailsMutationVariables as MutationVariables,
-} from '../../../generated/UpdateLimitedVatDetailsMutation';
-import DirectorDetailsForm from '../../components/DirectorDetailsForm/DirectorDetailsForm';
+  SaveDirectorDetailsMutation as Mutation,
+  SaveDirectorDetailsMutationVariables as MutationVariables,
+} from '../../../generated/SaveDirectorDetailsMutation';
 import DirectorFields from '../../components/DirectorDetailsForm/DirectorFields';
+import {
+  GetDirectorDetailsQuery,
+  GetDirectorDetailsQueryVariables,
+} from '../../../generated/GetDirectorDetailsQuery';
 
 /**
  * NOTE: Unfotunately, it is not possible to get the officers for a company using only
@@ -34,15 +37,11 @@ export const GET_COMPANY_DIRECTOR_DETAILS = gql`
     companyByUuid(uuid: $uuid) {
       uuid
       companyNumber
-      associates {
-        ...CompanyAssociate
-      }
     }
     allDropDowns {
       ...DirectorFieldsDropDownData
     }
   }
-  ${DirectorDetailsForm.fragments.associates}
   ${DirectorFields.fragments.dropDownData}
 `;
 
@@ -50,6 +49,11 @@ export const SAVE_DIRECTOR_DETAILS = gql`
   mutation SaveDirectorDetailsMutation($input: LimitedCompanyInputObject!) {
     createUpdateCompanyDirector(input: $input) {
       uuid
+      associates {
+        uuid
+        lastName
+        firstName
+      }
     }
   }
 `;
@@ -62,4 +66,27 @@ export function useGetDirectorDetailsQuery(companyUuid: string) {
   return useQuery<Query, QueryVariables>(GET_COMPANY_DIRECTOR_DETAILS, {
     variables: { uuid: companyUuid },
   });
+}
+
+export const GET_DIRECTOR_DETAILS = gql`
+  query GetDirectorDetailsQuery($companyNumber: String!) {
+    companyOfficers(companyNumber: $companyNumber) {
+      nodes {
+        name
+      }
+    }
+  }
+`;
+
+export function useCompanyOfficers(companyNumber: string) {
+  return useQuery<GetDirectorDetailsQuery, GetDirectorDetailsQueryVariables>(
+    GET_DIRECTOR_DETAILS,
+    {
+      fetchPolicy: 'no-cache',
+      variables: {
+        companyNumber,
+      },
+      skip: !companyNumber,
+    },
+  );
 }
