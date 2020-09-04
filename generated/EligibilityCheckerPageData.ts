@@ -10,7 +10,26 @@
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_metaData {
   title: string | null;
   name: string | null;
+  metaRobots: string | null;
+  metaDescription: string | null;
+  publishedOn: any | null;
+  legacyUrl: string | null;
   pageType: string | null;
+  canonicalUrl: string | null;
+  slug: string | null;
+  schema: any | null;
+}
+
+export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_featuredImage_file {
+  url: string;
+  fileName: string;
+  contentType: string;
+}
+
+export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_featuredImage {
+  title: string | null;
+  description: string | null;
+  file: EligibilityCheckerPageData_eligibilityCheckerLandingPage_featuredImage_file | null;
 }
 
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_leadText {
@@ -101,6 +120,7 @@ export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sectio
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage {
   id: string;
   metaData: EligibilityCheckerPageData_eligibilityCheckerLandingPage_metaData;
+  featuredImage: EligibilityCheckerPageData_eligibilityCheckerLandingPage_featuredImage | null;
   sections: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections | null;
 }
 
