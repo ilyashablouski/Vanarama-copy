@@ -4,6 +4,28 @@ const GET_FLEET_PAGE_CONTENT = gql`
   query GetFleetLandingPage {
     fleetLandingPage {
       id
+      metaData {
+        title
+        name
+        metaRobots
+        metaDescription
+        publishedOn
+        legacyUrl
+        pageType
+        canonicalUrl
+        slug
+        publishedOn
+        schema
+      }
+      featuredImage {
+        title
+        description
+        file {
+          url
+          fileName
+          contentType
+        }
+      }
       sections {
         featured1 {
           title

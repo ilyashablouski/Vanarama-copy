@@ -44,6 +44,7 @@ import { getProductPageUrl } from '../../../utils/url';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 import getTitleTag from '../../../utils/getTitleTag';
 import useLeaseType from '../../../hooks/useLeaseType';
+import Head from '../../../components/Head/Head';
 
 export const CarsPage: NextPage = () => {
   const { data, loading, error } = useQuery<HubCarPageData>(HUB_CAR_CONTENT);
@@ -74,9 +75,18 @@ export const CarsPage: NextPage = () => {
   }
 
   const isPersonal = cachedLeaseType === 'Personal';
+  const metaData = data?.hubCarPage?.metaData;
 
   return (
     <>
+      <Head
+        title={metaData?.title || ''}
+        metaDescription={metaData?.metaDescription}
+        metaRobots={metaData?.metaRobots}
+        legacyUrl={metaData?.legacyUrl}
+        publishedOn={metaData?.publishedOn}
+        featuredImage={data?.hubCarPage?.featuredImage}
+      />
       <Hero>
         <HeroHeading
           text={data?.hubCarPage.sections?.hero?.title || ''}

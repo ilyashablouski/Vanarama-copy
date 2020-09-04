@@ -1,13 +1,13 @@
 import React, { FC, memo } from 'react';
 import NextHead from 'next/head';
-
+import { useRouter } from 'next/router';
 import { IHeadProps } from './interface';
-
 import { defaultTitle, twitter, defaultImage, fb } from './defaults';
 
 const Head: FC<IHeadProps> = props => {
+  const router = useRouter();
   let { title = defaultTitle, metaRobots } = props;
-  const { metaDescription, legacyUrl } = props;
+  const { metaDescription, legacyUrl, canonicalUrl } = props;
 
   // Dev override.
   if (process.env.ENV && process.env.ENV !== 'production') {
@@ -27,6 +27,7 @@ const Head: FC<IHeadProps> = props => {
       {metaDescription && (
         <meta property="og:description" content={metaDescription} />
       )}
+      <link rel="canonical" href={canonicalUrl ?? legacyUrl ?? router.asPath} />
       {legacyUrl && <meta property="og:url" content={legacyUrl} />}
       <meta property="og:site_name" content={defaultTitle} />
       <meta name="og:image" content={defaultImage} />

@@ -28,6 +28,7 @@ import {
   HomePageData,
   HomePageData_homePage_sections_tiles_tiles as TileData,
   HomePageData_homePage_sections_cards_cards as CardData,
+  HomePageData_homePage_sections_featured1_iconList as IIconList,
 } from '../../generated/HomePageData';
 import { ProductCardData } from '../../generated/ProductCardData';
 import Hero, { HeroHeading, HeroTitle } from '../components/Hero';
@@ -39,6 +40,7 @@ import ProductCarousel from '../components/ProductCarousel/ProductCarousel';
 import { useCarDerivativesData } from '../containers/OrdersInformation/gql';
 import getTitleTag from '../utils/getTitleTag';
 import useLeaseType from '../hooks/useLeaseType';
+import { getSectionsData } from '../utils/getSectionsData';
 
 export const HomePage: NextPage = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -109,28 +111,41 @@ export const HomePage: NextPage = () => {
         metaDescription={data?.homePage.metaData.metaDescription}
         metaRobots={data?.homePage.metaData.metaRobots}
         legacyUrl={data?.homePage.metaData.legacyUrl}
+        canonicalUrl={data?.homePage.metaData.canonicalUrl}
         publishedOn={data?.homePage.metaData.publishedOn}
         featuredImage={data?.homePage.featuredImage}
       />
       <Hero>
         <div className="hero--title">
           <HeroHeading
-            text={data?.homePage?.sections?.hero?.title || ''}
+            text={
+              getSectionsData(['hero', 'title'], data?.homePage?.sections) || ''
+            }
             titleTag={
               getTitleTag(
-                data?.homePage?.sections?.hero?.titleTag || 'p',
+                getSectionsData(
+                  ['hero', 'titleTag'],
+                  data?.homePage?.sections,
+                ) || 'p',
               ) as keyof JSX.IntrinsicElements
             }
           />
           <br />
-          <HeroTitle text={data?.homePage?.sections?.hero?.body || ''} />
+          <HeroTitle
+            text={
+              getSectionsData(['hero', 'body'], data?.homePage?.sections) || ''
+            }
+          />
         </div>
         <Image
           className="hero--image"
           plain
           size="expand"
           src={
-            data?.homePage?.sections?.hero?.image?.file?.url ||
+            getSectionsData(
+              ['hero', 'image', 'file', 'url'],
+              data?.homePage?.sections,
+            ) ||
             'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
           }
         />
@@ -142,14 +157,20 @@ export const HomePage: NextPage = () => {
           color="black"
           tag={
             getTitleTag(
-              data?.homePage?.sections?.leadText?.titleTag || null,
+              getSectionsData(
+                ['leadText', 'titleTag'],
+                data?.homePage?.sections,
+              ) || null,
             ) as keyof JSX.IntrinsicElements
           }
         >
-          {data?.homePage?.sections?.leadText?.heading}
+          {getSectionsData(['leadText', 'heading'], data?.homePage?.sections)}
         </Heading>
         <Text size="lead" color="darker">
-          {data?.homePage?.sections?.leadText?.description}
+          {getSectionsData(
+            ['leadText', 'description'],
+            data?.homePage?.sections,
+          )}
         </Text>
       </section>
 
@@ -250,7 +271,10 @@ export const HomePage: NextPage = () => {
 
       <section className="row:bg-lighter">
         <div className="row:cards-3col">
-          {data?.homePage?.sections?.cards?.cards?.map((c: CardData, idx) => (
+          {(getSectionsData(
+            ['cards', 'cards'],
+            data?.homePage?.sections,
+          ) as CardData[])?.map((c: CardData, idx) => (
             <Card
               key={c.title || idx}
               title={{
@@ -288,16 +312,24 @@ export const HomePage: NextPage = () => {
             color="black"
             tag={
               getTitleTag(
-                data?.homePage?.sections?.featured1?.titleTag || 'p',
+                getSectionsData(
+                  ['featured1', 'titleTag'],
+                  data?.homePage?.sections,
+                ) || 'p',
               ) as keyof JSX.IntrinsicElements
             }
           >
-            {data && data?.homePage?.sections?.featured1?.title}
+            {getSectionsData(['featured1', 'title'], data?.homePage?.sections)}
           </Heading>
           <Text tag="div" className="markdown" size="regular" color="darker">
             <ReactMarkdown
               escapeHtml={false}
-              source={data?.homePage?.sections?.featured1?.body || ''}
+              source={
+                getSectionsData(
+                  ['featured1', 'body'],
+                  data?.homePage?.sections,
+                ) || ''
+              }
               renderers={{
                 link: props => {
                   const { href, children } = props;
@@ -307,7 +339,10 @@ export const HomePage: NextPage = () => {
             />
           </Text>
           <IconList>
-            {data?.homePage?.sections?.featured1?.iconList?.map((icon, idx) => (
+            {(getSectionsData(
+              ['featured1', 'iconList'],
+              data?.homePage?.sections,
+            ) as IIconList[])?.map((icon: IIconList, idx) => (
               <IconListItem iconColor="orange" key={icon?.text || idx}>
                 {icon?.text}
               </IconListItem>
@@ -325,16 +360,24 @@ export const HomePage: NextPage = () => {
             color="black"
             tag={
               getTitleTag(
-                data?.homePage?.sections?.featured2?.titleTag || 'p',
+                getSectionsData(
+                  ['featured2', 'titleTag'],
+                  data?.homePage?.sections,
+                ) || 'p',
               ) as keyof JSX.IntrinsicElements
             }
           >
-            {data && data?.homePage?.sections?.featured2?.title}
+            {getSectionsData(['featured2', 'title'], data?.homePage?.sections)}
           </Heading>
           <Text className="markdown" tag="div" size="regular" color="darker">
             <ReactMarkdown
               escapeHtml={false}
-              source={data?.homePage?.sections?.featured2?.body || ''}
+              source={
+                getSectionsData(
+                  ['featured2', 'body'],
+                  data?.homePage?.sections,
+                ) || ''
+              }
               renderers={{
                 link: props => {
                   const { href, children } = props;
@@ -352,13 +395,19 @@ export const HomePage: NextPage = () => {
           color="black"
           tag={
             getTitleTag(
-              data?.homePage?.sections?.tiles?.titleTag || 'p',
+              getSectionsData(
+                ['tiles', 'titleTag'],
+                data?.homePage?.sections,
+              ) || 'p',
             ) as keyof JSX.IntrinsicElements
           }
         >
-          {data && data?.homePage?.sections?.tiles?.tilesTitle}
+          {getSectionsData(['tiles', 'tilesTitle'], data?.homePage?.sections)}
         </Heading>
-        {data?.homePage?.sections?.tiles?.tiles?.map((tile: TileData, idx) => (
+        {(getSectionsData(
+          ['tiles', 'tiles'],
+          data?.homePage?.sections,
+        ) as TileData[])?.map((tile: TileData, idx) => (
           <div key={tile.title || idx}>
             <Tile className="-plain -button -align-center" plain>
               <div style={{ display: 'flex', justifyContent: 'center' }}>

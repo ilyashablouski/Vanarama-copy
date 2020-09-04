@@ -13,7 +13,6 @@ import FCWithFragments from '../../utils/FCWithFragments';
 import { EMAIL_REGEX, WORLDWIDE_MOBILE_REGEX } from '../../utils/regex';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
 import { IBusinessAboutFormValues, IProps } from './interfaces';
-import { responseToInitialFormValues } from '../AboutForm/mappers';
 import {
   mapEmailErrorMessage,
   EMAIL_ALREADY_EXISTS,
@@ -28,7 +27,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
   onLogInCLick,
   isEdited,
 }) => {
-  const defaultValues = responseToInitialFormValues(person);
+  const defaultValues = person || {};
   const { formState, handleSubmit, errors, register, reset } = useForm<
     IBusinessAboutFormValues
   >({
