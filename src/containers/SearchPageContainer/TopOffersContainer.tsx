@@ -197,6 +197,7 @@ const TopOffersContainer: React.FC<IProps> = ({
     }
   }, [
     router,
+    isFuelPage,
     isCarSearch,
     isMakePage,
     isBodyPage,

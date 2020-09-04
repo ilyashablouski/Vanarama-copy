@@ -381,6 +381,9 @@ const FiltersContainer = ({
     // check for empty array used for prevent cases when initial render don't call a request
     if (!isArraySame(selected, selectedFilterTags) || !selected.length)
       setSelectedFilterTags(selected);
+    // can't to add selectedFilterTags to deps, because it have circular dependency with selectedFiltersState
+    // TODO: try to resolve circular dependency
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     selectedFiltersState,
     isMakePage,

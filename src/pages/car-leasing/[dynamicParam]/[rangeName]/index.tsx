@@ -24,6 +24,8 @@ const Page: NextPage<IProps> = ({ isServer, pathname, asPath }) => {
         { shallow: true },
       );
     }
+    // it's should executed only when page init
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return <SearchPageContainer isServer={isServer} isCarSearch isRangePage />;
 };
