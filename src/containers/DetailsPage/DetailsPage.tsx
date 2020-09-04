@@ -29,6 +29,8 @@ import {
   GetVehicleDetails,
   GetVehicleDetails_vehicleDetails_rangeFaqs,
   GetVehicleDetails_vehicleImages,
+  GetVehicleDetails_derivativeInfo_colours,
+  GetVehicleDetails_derivativeInfo_trims,
 } from '../../../generated/GetVehicleDetails';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import WhyChooseLeasing from '../../components/WhyChooseLeasing/WhyChooseLeasing';
@@ -310,6 +312,39 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         },
       };
 
+  const onSubmitClickMobile = () => {
+    const colourDescription = derivativeInfo?.colours?.find(
+      (item: GetVehicleDetails_derivativeInfo_colours | null) =>
+        item?.id === leaseScannerData?.quoteByCapId?.colour,
+    )?.optionDescription;
+    const trimDescription = derivativeInfo?.trims?.find(
+      (item: GetVehicleDetails_derivativeInfo_trims | null) =>
+        item?.id === leaseScannerData?.quoteByCapId?.trim,
+    )?.optionDescription;
+    onSubmitClick({
+      leaseType: leaseType.toUpperCase() as LeaseTypeEnum,
+      lineItems: [
+        {
+          vehicleProduct: {
+            vehicleType,
+            derivativeCapId: capId.toString(),
+            colour: colourDescription,
+            trim: trimDescription,
+            term: leaseScannerData?.quoteByCapId?.term || null,
+            annualMileage: leaseScannerData?.quoteByCapId?.mileage,
+            depositMonths: leaseScannerData?.quoteByCapId?.upfront || null,
+            depositPayment:
+              leaseScannerData?.quoteByCapId?.leaseCost?.initialRental || null,
+            monthlyPayment:
+              leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental || null,
+            maintenance: leaseScannerData?.maintenance,
+          },
+          quantity: 1,
+        },
+      ],
+    });
+  };
+
   return (
     <>
       <div className="pdp--content">
@@ -437,7 +472,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
                 leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
               )
             }
-            orderNowClick={() => {}}
+            orderNowClick={onSubmitClickMobile}
             headingText={`PM ${leaseScannerData?.stateVAT}. VAT`}
             leasingProviders={LEASING_PROVIDERS}
             startLoading={isDisabled}
