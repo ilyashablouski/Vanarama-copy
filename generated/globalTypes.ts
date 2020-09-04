@@ -158,6 +158,7 @@ export interface CreditApplicationInputObject {
   partnersDetails?: any | null;
   soleTraderDetails?: any | null;
   status?: string | null;
+  submittedAt?: any | null;
   vatDetails?: any | null;
 }
 

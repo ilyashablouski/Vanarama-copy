@@ -7,7 +7,7 @@ import Head from '../../components/Head/Head';
 import LeasingQuestionContainer from '../../containers/LeasingQuestionContainer/LeasingQuestionContainer';
 import { useGenericPageQuestion } from '../../containers/LeasingQuestionContainer/gql';
 
-const FinanceInfo: NextPage = () => {
+const LeasingQuestion: NextPage = () => {
   const router = useRouter();
 
   const crumbs = [
@@ -57,4 +57,4 @@ const FinanceInfo: NextPage = () => {
   );
 };
 
-export default withApollo(FinanceInfo, { getDataFromTree });
+export default withApollo(LeasingQuestion, { getDataFromTree });
