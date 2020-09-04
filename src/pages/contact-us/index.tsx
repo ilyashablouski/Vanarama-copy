@@ -16,11 +16,16 @@ import CardTitle from '@vanarama/uibook/lib/components/molecules/cards/CardTitle
 import { getFeaturedClassPartial } from '../../utils/layout';
 
 import withApollo from '../../hocs/withApollo';
-import { ContactUsPageData } from '../../../generated/ContactUsPageData';
+import {
+  ContactUsPageData,
+  ContactUsPageData_contactUsLandingPage_sections_cards_cards as Cards,
+  ContactUsPageData_contactUsLandingPage_sections_featured2_cards as Cards2,
+} from '../../../generated/ContactUsPageData';
 import { CONTACT_US_CONTENT } from '../../gql/contact-us/contactUs';
 
 import BreadCrumbContainer from '../../containers/BreadCrumbContainer';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import { getSectionsData } from '../../utils/getSectionsData';
 
 export const ContactUsPage: NextPage = () => {
   const [show, setShow] = useState(false);
@@ -47,16 +52,24 @@ export const ContactUsPage: NextPage = () => {
       </div>
       <section
         className={`row:${getFeaturedClassPartial(
-          data?.contactUsLandingPage.sections?.featured1,
+          getSectionsData(['featured1'], data?.contactUsLandingPage.sections),
         )}`}
       >
         <div>
           <Heading tag="span" size="large" color="black">
-            {data?.contactUsLandingPage.sections?.featured1?.title}
+            {getSectionsData(
+              ['featured1', 'title'],
+              data?.contactUsLandingPage.sections,
+            )}
           </Heading>
           <ReactMarkdown
             escapeHtml={false}
-            source={data?.contactUsLandingPage.sections?.featured1?.body || ''}
+            source={
+              getSectionsData(
+                ['featured1', 'body'],
+                data?.contactUsLandingPage.sections,
+              ) || ''
+            }
             renderers={{
               link: props => {
                 const { href, children } = props;
@@ -109,7 +122,10 @@ export const ContactUsPage: NextPage = () => {
       </section>
       <section className="row:bg-light">
         <div className="row:tiles">
-          {data?.contactUsLandingPage.sections?.cards?.cards?.map((c, idx) => (
+          {(getSectionsData(
+            ['cards', 'cards'],
+            data?.contactUsLandingPage.sections,
+          ) as Cards[])?.map((c: Cards, idx) => (
             <Card key={c.title || idx}>
               <Heading size="large" color="black">
                 {c.title}
@@ -128,14 +144,26 @@ export const ContactUsPage: NextPage = () => {
           ))}
         </div>
       </section>
-      <section className="row:featured-right">
+      <section
+        className={`row:${getFeaturedClassPartial(
+          getSectionsData(['featured2'], data?.contactUsLandingPage.sections),
+        )}`}
+      >
         <div>
           <Heading size="large" color="black">
-            {data?.contactUsLandingPage.sections?.featured2?.title}
+            {getSectionsData(
+              ['featured2', 'title'],
+              data?.contactUsLandingPage.sections,
+            )}
           </Heading>
           <ReactMarkdown
             escapeHtml={false}
-            source={data?.contactUsLandingPage.sections?.featured2?.body || ''}
+            source={
+              getSectionsData(
+                ['featured2', 'body'],
+                data?.contactUsLandingPage.sections,
+              ) || ''
+            }
             renderers={{
               link: props => {
                 const { href, children } = props;
@@ -144,21 +172,22 @@ export const ContactUsPage: NextPage = () => {
             }}
           />
         </div>
-        {data?.contactUsLandingPage.sections?.featured2?.cards?.map(
-          (c, idx) => (
-            <Card inline key={c?.title || idx}>
-              <Image className="card-image" src={c?.image?.file?.url || ''} />
-              <CardTitle title={c?.title || ''} />
-              <Text color="dark">{c?.body}</Text>
-              <Button
-                fill="clear"
-                color="teal"
-                label={c?.link?.text}
-                onClick={() => Router.push(c?.link?.url || '')}
-              />
-            </Card>
-          ),
-        )}
+        {(getSectionsData(
+          ['featured2', 'cards'],
+          data?.contactUsLandingPage.sections,
+        ) as Cards2[])?.map((c: Cards2 | null, idx) => (
+          <Card inline key={c?.title || idx}>
+            <Image className="card-image" src={c?.image?.file?.url || ''} />
+            <CardTitle title={c?.title || ''} />
+            <Text color="dark">{c?.body}</Text>
+            <Button
+              fill="clear"
+              color="teal"
+              label={c?.link?.text || ''}
+              onClick={() => Router.push(c?.link?.url || '')}
+            />
+          </Card>
+        ))}
       </section>
     </>
   );

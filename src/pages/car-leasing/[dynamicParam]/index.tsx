@@ -47,6 +47,8 @@ const Page: NextPage<IProps> = ({
         { shallow: true },
       );
     }
+    // it's should executed only when page init
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <SearchPageContainer
@@ -63,6 +65,7 @@ Page.getInitialProps = ({ query, req, pathname, asPath }) => {
   // check for bodystyle page
   const isBodyStylePage =
     bodyUrls.indexOf(prepareSlugPart(query.dynamicParam)) > -1;
+  // check for fuel page
   const isFuelType = !!fuelMapper[
     query.dynamicParam as keyof typeof fuelMapper
   ];

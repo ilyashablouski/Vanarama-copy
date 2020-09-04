@@ -597,7 +597,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       case isFuelPage:
         pageContentQueryExecutor(
           getGenericPage,
-          `/car-leasing/${router.query.dynamicParam}`,
+          `car-leasing/${router.query.dynamicParam}`,
         );
         break;
       case isSpecialOfferPage:
@@ -610,8 +610,14 @@ const SearchPageContainer: React.FC<IProps> = ({
         getAllManufacturersPage();
         break;
       default:
+        pageContentQueryExecutor(
+          getGenericPage,
+          isCarSearch ? '/car-leasing/search' : '/search',
+        );
         break;
     }
+    // router can't be added to deps, because it change every url replacing
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     isCarSearch,
     isAllMakesPage,
@@ -621,6 +627,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     isModelPage,
     isRangePage,
     isMakePage,
+    isFuelPage,
     getGenericPage,
     getAllManufacturersPage,
     getGenericPageHead,
@@ -629,6 +636,9 @@ const SearchPageContainer: React.FC<IProps> = ({
   const tiles = pageData?.genericPage.sections?.tiles;
   const carousel = pageData?.genericPage.sections?.carousel;
   const featured = pageData?.genericPage.sections?.featured;
+
+  // TODO: render must be refactored, some components should be moved to separate components
+  // Some props should be contain in one param for achieve more readable code
   return (
     <>
       <Head

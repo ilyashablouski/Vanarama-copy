@@ -2,7 +2,12 @@ import { render, waitFor, screen, act } from '@testing-library/react';
 import React from 'react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import SearchPageContainer from '../SearchPageContainer';
-import { getVehiclesList, getRangesList, useManufacturerList } from '../gql';
+import {
+  getVehiclesList,
+  getRangesList,
+  useManufacturerList,
+  GET_ALL_MAKES_PAGE,
+} from '../gql';
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
@@ -95,9 +100,11 @@ jest.mock('next/router', () => ({
 }));
 
 jest.mock('../gql', () => ({
+  ...jest.requireActual('../gql'),
   getVehiclesList: jest.fn(),
   getRangesList: jest.fn(),
   useManufacturerList: jest.fn(),
+  useSearchResultPage: jest.fn(),
 }));
 
 jest.mock('../RangeCard', () => () => {
@@ -163,6 +170,7 @@ let vehicleMockCalled = false;
     },
   },
 ]);
+
 (useManufacturerList as jest.Mock).mockReturnValue([
   jest.fn(),
   {
@@ -597,6 +605,62 @@ const mocksResponse: MockedResponse[] = [
     result: () => {
       return {
         data: {},
+        refetch: jest.fn(),
+      };
+    },
+  },
+  {
+    request: {
+      query: GET_ALL_MAKES_PAGE,
+      variables: {},
+    },
+    result: () => {
+      return {
+        data: { manufacturerPage: {} },
+        refetch: jest.fn(),
+      };
+    },
+  },
+  {
+    request: {
+      query: GET_ALL_MAKES_PAGE,
+      variables: {},
+    },
+    result: () => {
+      return {
+        data: { manufacturerPage: {} },
+        refetch: jest.fn(),
+      };
+    },
+  },
+  {
+    request: {
+      query: GENERIC_PAGE,
+      variables: {
+        slug: '/car-leasing/search',
+      },
+    },
+    result: () => {
+      return {
+        data: {
+          genericPage: {},
+        },
+        refetch: jest.fn(),
+      };
+    },
+  },
+  {
+    request: {
+      query: GENERIC_PAGE,
+      variables: {
+        slug: '/car-leasing/search',
+      },
+    },
+    result: () => {
+      return {
+        data: {
+          genericPage: {},
+        },
         refetch: jest.fn(),
       };
     },
