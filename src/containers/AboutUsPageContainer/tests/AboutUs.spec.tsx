@@ -8,6 +8,12 @@ jest.mock('../gql');
 jest.mock('@vanarama/uibook/lib/components/organisms/carousel', () => () => {
   return <div />;
 });
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    asPath: '/about-us',
+  }),
+}));
+
 describe('<AboutUs />', () => {
   it('renders correctly with data', async () => {
     (useAboutUsPageData as jest.Mock).mockReturnValue({

@@ -38,6 +38,7 @@ const BlogPage: NextPage = () => {
         metaDescription={metaData?.metaDescription}
         metaRobots={metaData?.metaRobots}
         legacyUrl={metaData?.legacyUrl}
+        canonicalUrl={metaData?.canonicalUrl}
         publishedOn={metaData?.publishedOn}
         featuredImage={data?.genericPage.featuredImage}
       />
