@@ -7,7 +7,6 @@ import {
   SaveDirectorDetailsMutation as Mutation,
   SaveDirectorDetailsMutationVariables as MutationVariables,
 } from '../../../generated/SaveDirectorDetailsMutation';
-import DirectorDetailsForm from '../../components/DirectorDetailsForm/DirectorDetailsForm';
 import DirectorFields from '../../components/DirectorDetailsForm/DirectorFields';
 import {
   GetDirectorDetailsQuery,
@@ -79,7 +78,7 @@ export const GET_DIRECTOR_DETAILS = gql`
   }
 `;
 
-export function useCompanyOfficers(companyNumber?: string | null) {
+export function useCompanyOfficers(companyNumber: string) {
   return useQuery<GetDirectorDetailsQuery, GetDirectorDetailsQueryVariables>(
     GET_DIRECTOR_DETAILS,
     {

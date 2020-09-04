@@ -1,4 +1,3 @@
-import { gql } from '@apollo/client';
 import { Formik } from 'formik';
 import React from 'react';
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';

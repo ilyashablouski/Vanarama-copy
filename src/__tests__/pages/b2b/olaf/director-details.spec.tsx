@@ -909,7 +909,6 @@ describe('B2B Director Details page', () => {
       </MockedProvider>,
     );
 
-    screen.debug();
     // Wait for data to load
     await screen.findByRole('combobox', { name: /Select director/i });
 

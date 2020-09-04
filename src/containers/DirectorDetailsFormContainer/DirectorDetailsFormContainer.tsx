@@ -44,7 +44,7 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   const allDropDowns = getDirectorDetailsQuery.data?.allDropDowns;
   const companyNumber =
     getDirectorDetailsQuery.data?.companyByUuid?.companyNumber;
-  const companyOfficersQuery = useCompanyOfficers(companyNumber);
+  const companyOfficersQuery = useCompanyOfficers(companyNumber || '');
 
   const officersNodes =
     companyOfficersQuery?.data?.companyOfficers?.nodes?.filter(isTruthy) || [];
