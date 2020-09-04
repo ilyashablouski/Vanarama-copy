@@ -1,5 +1,4 @@
 import { ToastContainer } from '@vanarama/uibook/lib/components/atoms/toast/Toast';
-import Footer from '@vanarama/uibook/lib/components/organisms/footer';
 import '@vanarama/uibook/src/components/base.scss';
 import { AppProps } from 'next/app';
 import Router from 'next/router';
@@ -24,6 +23,7 @@ import {
   isCorrectCompareType,
   changeCompares,
 } from '../utils/comparatorHelpers';
+import FooterContainer from '../containers/FooterContainer';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   const [compareVehicles, setCompareVehicles] = useState<
@@ -139,10 +139,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
             />
           </Modal>
         )}
-        <Footer
-          emailAddress="enquiries@vanarama.co.uk"
-          phoneNumber="01442 838 195"
-        />
+        <FooterContainer />
       </main>
     </>
   );

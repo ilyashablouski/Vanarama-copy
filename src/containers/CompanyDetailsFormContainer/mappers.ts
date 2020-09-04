@@ -51,6 +51,7 @@ export const mapFormValues = (
 
   return {
     ...uuidData,
+    uuid: values.uuid,
     companyType: 'Limited',
     legalName: searchResult ? searchResult.title : values.companyName,
     companyNumber: searchResult
@@ -70,6 +71,21 @@ export const mapFormValues = (
   };
 };
 
+export const mapAddress = (data: any) => ({
+  city: data?.city,
+  country: data?.country,
+  endedOn: data?.ended_on,
+  kind: data?.kind,
+  label: data?.label,
+  lineOne: data?.line_one,
+  lineThree: data?.line_three,
+  lineTwo: data?.line_two,
+  postcode: data?.postcode,
+  property_status: data?.property_status,
+  id: data?.service_id,
+  startedOn: data?.started_on,
+});
+
 export const mapDefaultValues = (data: {
   [key: string]: any;
 }): ICompanyDetailsFormValues => {
@@ -78,6 +94,7 @@ export const mapDefaultValues = (data: {
     : undefined;
 
   return {
+    uuid: data?.uuid,
     companySearchResult: data?.company_search_result
       ? {
           addressSnippet: data?.company_search_result?.address_snippet,
@@ -92,9 +109,9 @@ export const mapDefaultValues = (data: {
     tradingSinceMonth: (tradingSince?.getMonth() || '').toString(),
     tradingSinceYear: (tradingSince?.getFullYear() || '').toString(),
     nature: data?.nature_of_business,
-    registeredAddress: data?.registered_address,
+    registeredAddress: mapAddress(data?.registered_address),
     tradingDifferent: !!data?.trading_address,
-    tradingAddress: data?.trading_address,
+    tradingAddress: mapAddress(data?.trading_address),
     email: data?.email,
     telephone: data?.business_telephone_number,
   };
@@ -102,6 +119,7 @@ export const mapDefaultValues = (data: {
 
 export const mapCompanyDetailsToCreditApplication = (
   values: ICompanyDetailsFormValues,
+  uuid?: string,
   addresses?: Address[] | null,
 ) => {
   const registeredAddress =
@@ -110,6 +128,7 @@ export const mapCompanyDetailsToCreditApplication = (
     addresses?.find(address => address.kind === 'trading') || {};
 
   return {
+    uuid,
     companySearchResult: values.companySearchResult,
     businessName: values.companyName,
     businessRegistrationNumber:
