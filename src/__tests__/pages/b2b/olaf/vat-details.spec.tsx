@@ -829,7 +829,7 @@ describe('B2B VAT Details page', () => {
                 account_number: '67272820',
                 joined_at_month: '1',
                 joined_at_year: '2020',
-                sort_code: ['01', '93', '87'],
+                sort_code: '019387',
               },
             ],
             employmentHistories: 'employmentHistories',
