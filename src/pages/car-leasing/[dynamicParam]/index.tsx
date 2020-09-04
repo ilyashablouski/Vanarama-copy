@@ -4,13 +4,20 @@ import { useEffect } from 'react';
 import {
   bodyUrls,
   prepareSlugPart,
-} from 'containers/SearchPageContainer/helpers';
+  fuelMapper,
+} from '../../../containers/SearchPageContainer/helpers';
 import SearchPageContainer from '../../../containers/SearchPageContainer';
 import withApollo from '../../../hocs/withApollo';
 
+interface IPageType {
+  isBodyStylePage: boolean;
+  isFuelType: boolean;
+  isMakePage: boolean;
+}
+
 interface IProps {
   isServer: boolean;
-  isMakePage: boolean;
+  pageType: IPageType;
   pathname?: string;
   asPath?: string;
   query: any;
@@ -19,7 +26,7 @@ interface IProps {
 const Page: NextPage<IProps> = ({
   isServer,
   query,
-  isMakePage,
+  pageType,
   pathname,
   asPath,
 }) => {
@@ -27,8 +34,9 @@ const Page: NextPage<IProps> = ({
   useEffect(() => {
     // copy dynamic param for actual filter query
     if (
-      (isMakePage && !router.query.make) ||
-      (!isMakePage && !router.query.bodyStyles)
+      (pageType.isMakePage && !router.query.make) ||
+      (pageType.isBodyStylePage && !router.query.bodyStyles) ||
+      (pageType.isFuelType && !router.query.fuelTypes)
     ) {
       router.replace(
         {
@@ -44,8 +52,9 @@ const Page: NextPage<IProps> = ({
     <SearchPageContainer
       isServer={isServer}
       isCarSearch
-      isMakePage={isMakePage}
-      isBodyStylePage={!isMakePage}
+      isMakePage={pageType.isMakePage}
+      isBodyStylePage={pageType.isBodyStylePage}
+      isFuelPage={pageType.isFuelType}
     />
   );
 };
@@ -54,12 +63,24 @@ Page.getInitialProps = ({ query, req, pathname, asPath }) => {
   // check for bodystyle page
   const isBodyStylePage =
     bodyUrls.indexOf(prepareSlugPart(query.dynamicParam)) > -1;
-  if (isBodyStylePage) newQuery.bodyStyles = (query.dynamicParam as string).replace('-', ' ');
+  const isFuelType = !!fuelMapper[
+    query.dynamicParam as keyof typeof fuelMapper
+  ];
+  const pageType = {
+    isBodyStylePage,
+    isFuelType,
+    isMakePage: !(isBodyStylePage || isFuelType),
+  };
+  if (isBodyStylePage)
+    newQuery.bodyStyles = (query.dynamicParam as string).replace('-', ' ');
+  else if (isFuelType)
+    newQuery.fuelTypes =
+      fuelMapper[query.dynamicParam as keyof typeof fuelMapper];
   else newQuery.make = query.dynamicParam;
   return {
     query: { ...newQuery },
     isServer: !!req,
-    isMakePage: !isBodyStylePage,
+    pageType,
     pathname,
     asPath,
   };

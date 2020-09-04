@@ -39,7 +39,7 @@ const rewrites = [
   },
   {
     from: '/car-leasing/eco.html',
-    to: '/car-leasing/:electric',
+    to: '/car-leasing/electric',
   },
   {
     from: '/specialist-van-leasing.html',
@@ -48,6 +48,10 @@ const rewrites = [
   {
     from: '/:bodyStyle-leasing.html',
     to: '/van-leasing/:bodyStyle',
+  },
+  {
+    from: '/automatic-vans.html',
+    to: '/van-leasing/automatic',
   },
 ];
 // Redirects.

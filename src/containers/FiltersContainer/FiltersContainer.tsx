@@ -15,18 +15,14 @@ import ChevronUp from '@vanarama/uibook/lib/assets/icons/ChevronUp';
 import ChevronDown from '@vanarama/uibook/lib/assets/icons/ChevronDown';
 import { useMediaQuery } from 'react-responsive';
 import { useRouter } from 'next/router';
-import { prepareSlugPart, bodyUrls } from '../SearchPageContainer/helpers';
+import { isArraySame } from '../../utils/helpers';
 import { useFilterList } from '../SearchPodContainer/gql';
 import { makeHandler, modelHandler } from '../SearchPodContainer/helpers';
 import { filtersConfig, budgets, filterFields } from './config';
-import { IFilterContainerProps } from './interfaces';
+import { IFilterContainerProps, ISelectedFiltersState } from './interfaces';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
-import { findPreselectFilterValue } from './helpers';
-
-interface ISelectedFiltersState {
-  [index: string]: string[];
-}
+import { findPreselectFilterValue, buildPreselectChoiseboxes } from './helpers';
 
 interface IChoiceBoxesData {
   [index: string]: IChoice[];
@@ -55,6 +51,9 @@ const FiltersContainer = ({
   isModelPage,
   isAllMakesPage,
   isBodyPage,
+  isFuelPage,
+  isTransmissionPage,
+  isDynamicFilterPage,
 }: IFilterContainerProps) => {
   const router = useRouter();
   const [filtersData, setFiltersData] = useState({} as IFilterList);
@@ -93,7 +92,11 @@ const FiltersContainer = ({
 
   const { refetch } = useFilterList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-    isMakePage || isRangePage || isModelPage || isAllMakesPage || isBodyPage
+    isMakePage ||
+      isRangePage ||
+      isModelPage ||
+      isAllMakesPage ||
+      isDynamicFilterPage
       ? null
       : isSpecialOffers,
     resp => {
@@ -164,7 +167,7 @@ const FiltersContainer = ({
     refetch({
       vehicleTypes: isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
       onOffer:
-        isMakePage || isRangePage || isAllMakesPage || isBodyPage
+        isMakePage || isRangePage || isAllMakesPage || isDynamicFilterPage
           ? null
           : isSpecialOffers,
       ...filtersObjectForFilters,
@@ -274,6 +277,8 @@ const FiltersContainer = ({
       (isInitialLoad &&
         ((isMakePage && selectedFiltersState.make[0]) ||
           (isBodyPage && selectedFiltersState.bodyStyles[0]) ||
+          (isTransmissionPage && selectedFiltersState.transmissions[0]) ||
+          (isFuelPage && selectedFiltersState.fuelTypes[0]) ||
           (isRangePage && selectedFiltersState.model[0]))) ||
       (isModelPage && selectedFiltersState.model[0])
     )
@@ -305,7 +310,9 @@ const FiltersContainer = ({
       setModelsData(modelHandler(filtersData, selectedFiltersState.make[0]));
       // clear temp model value
       if (tempModelName) setTempModelName('');
-    }
+    } else if (!filtersObject.manufacturerName && modelsData.length)
+      setModelsData([]);
+    // clear models data after remove make filter
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filtersObject.manufacturerName, filtersData]);
 
@@ -349,6 +356,9 @@ const FiltersContainer = ({
   useEffect(() => {
     const selected: string[] = Object.entries(selectedFiltersState)
       // makes in make page should not to be added
+      // makes, model, bodystyles in model page should not to be added
+      // makes, model in range page should not to be added
+      // bodyStyles/transmissions/fuels in body/transmission/fuel page should not to be added
       .map(entry => {
         if (
           (entry[0] === filterFields.from || entry[0] === filterFields.to) &&
@@ -359,14 +369,27 @@ const FiltersContainer = ({
         return ((isMakePage || isRangePage || isModelPage) &&
           entry[0] === filterFields.make) ||
           ((isRangePage || isModelPage) && entry[0] === filterFields.model) ||
+          (isFuelPage && entry[0] === filterFields.fuelTypes) ||
+          (isTransmissionPage && entry[0] === filterFields.transmissions) ||
           ((isModelPage || isBodyPage) && entry[0] === filterFields.bodyStyles)
           ? ''
           : entry[1];
       })
       .flat()
       .filter(Boolean);
-    setSelectedFilterTags(selected);
-  }, [selectedFiltersState, isMakePage, isBodyPage, isRangePage, isModelPage]);
+    // prevented useless updates
+    // check for empty array used for prevent cases when initial render don't call a request
+    if (!isArraySame(selected, selectedFilterTags) || !selected.length)
+      setSelectedFilterTags(selected);
+  }, [
+    selectedFiltersState,
+    isMakePage,
+    isBodyPage,
+    isRangePage,
+    isModelPage,
+    isFuelPage,
+    isTransmissionPage,
+  ]);
 
   // made force update for choiseboxes state
   useEffect(() => {
@@ -510,12 +533,12 @@ const FiltersContainer = ({
                   <FormGroup label={dropdown.label} key={dropdown.label}>
                     <Select
                       disabled={
-                        ((isMakePage ||
+                        (isMakePage ||
                           isRangePage ||
                           isModelPage ||
                           isAllMakesPage) &&
-                          (dropdown.accessor === filterFields.make ||
-                            dropdown.accessor === filterFields.model))
+                        (dropdown.accessor === filterFields.make ||
+                          dropdown.accessor === filterFields.model)
                       }
                       name={dropdown.accessor}
                       placeholder={`Select ${dropdown.accessor}`}
@@ -553,7 +576,15 @@ const FiltersContainer = ({
                     filter.accessor as keyof typeof filtersMapper
                   ]?.length > 0 &&
                     !(
-                      (isModelPage || isBodyPage) && filter.accessor === filterFields.bodyStyles
+                      // don't render list of selected values
+                      (
+                        ((isModelPage || isBodyPage) &&
+                          filter.accessor === filterFields.bodyStyles) ||
+                        (isFuelPage &&
+                          filter.accessor === filterFields.fuelTypes) ||
+                        (isTransmissionPage &&
+                          filter.accessor === filterFields.transmissions)
+                      )
                     ) && (
                       <div className="dropdown--header">
                         <div className="dropdown--header-text">
@@ -594,26 +625,30 @@ const FiltersContainer = ({
                           )
                         }
                         choices={
-                          filter.accessor === filterFields.bodyStyles &&
-                          (isPickups || isModelPage || isBodyPage)
-                            ? [
+                          isPickups || isModelPage || isDynamicFilterPage
+                            ? buildPreselectChoiseboxes(
                                 {
-                                  label: `${
-                                    isPickups
-                                      ? 'Pickup'
-                                      : selectedFiltersState.bodyStyles[0]
-                                  }`,
-                                  active: true,
+                                  isPickups,
+                                  isModelPage,
+                                  isBodyPage,
+                                  isTransmissionPage,
+                                  isFuelPage,
                                 },
-                              ]
+                                filter.accessor,
+                                selectedFiltersState,
+                              ) || choiceBoxesData[filter.accessor]
                             : choiceBoxesData[filter.accessor]
                         }
                         className="-cols-1"
                         color="medium"
                         multiSelect
                         disabled={
-                          filter.accessor === filterFields.bodyStyles &&
-                          (isPickups || isModelPage || isBodyPage)
+                          (filter.accessor === filterFields.bodyStyles &&
+                            (isPickups || isModelPage || isBodyPage)) ||
+                          (filter.accessor === filterFields.fuelTypes &&
+                            isFuelPage) ||
+                          (filter.accessor === filterFields.transmissions &&
+                            isTransmissionPage)
                         }
                         ref={getOrCreateRef(filter.accessor)}
                       />
