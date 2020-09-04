@@ -1,11 +1,12 @@
 import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
 import React, { useMemo } from 'react';
+import { gql } from '@apollo/client';
 import moment from 'moment';
 import FCWithFragments from '../../utils/FCWithFragments';
 
 import { CompanyAssociate } from '../../../generated/CompanyAssociate';
-import DirectorDetailsForm from '../DirectorDetailsForm/DirectorDetailsForm';
 import { addressToDisplay } from '../../utils/address';
+import { formatPreviousAddressesArray } from './helpers';
 
 interface IBusinessSummaryFormDirectorDetailsSectionProps {
   director: CompanyAssociate;
@@ -26,11 +27,15 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
         .sort(
           (a, b) =>
             new Date(a.startedOn).getTime() - new Date(b.startedOn).getTime(),
-        ),
+        )
+        .reverse(),
     [director.addresses],
   );
   const currentAddress = (sortedAddresses && sortedAddresses[0]) || null;
-  const previousAddress = (sortedAddresses && sortedAddresses[1]) || null;
+  const previousAddress = formatPreviousAddressesArray(
+    sortedAddresses || [],
+    orderBySharehold,
+  );
 
   const list = [
     {
@@ -76,24 +81,7 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
       value: (currentAddress && currentAddress.propertyStatus) || '',
       dataTestId: `summary-director[${orderBySharehold}]-curr-prop-status`,
     },
-    {
-      label: 'Past Address',
-      value: (previousAddress && addressToDisplay(previousAddress)) || '',
-      dataTestId: `summary-director-past-address[${orderBySharehold}]`,
-    },
-    {
-      label: 'Date Moved In',
-      value:
-        (previousAddress &&
-          moment(previousAddress.startedOn).format('MMMM YYYY')) ||
-        '',
-      dataTestId: `summary-director-past-moved-in[${orderBySharehold}]`,
-    },
-    {
-      label: 'Property Status',
-      value: (previousAddress && previousAddress.propertyStatus) || '',
-      dataTestId: `summary-director-past-prop-status[${orderBySharehold}]`,
-    },
+    ...previousAddress,
   ];
 
   return (
@@ -111,7 +99,30 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
 };
 
 BusinessSummaryFormDirectorDetailsSection.fragments = {
-  director: DirectorDetailsForm.fragments.associates,
+  director: gql`
+    fragment CompanyAssociate on PersonType {
+      uuid
+      title
+      firstName
+      lastName
+      gender
+      dateOfBirth
+      noOfDependants
+      businessShare
+      roles {
+        position
+      }
+      addresses {
+        serviceId
+        propertyStatus
+        startedOn
+        city
+        lineOne
+        lineTwo
+        postcode
+      }
+    }
+  `,
 };
 
 export default BusinessSummaryFormDirectorDetailsSection;

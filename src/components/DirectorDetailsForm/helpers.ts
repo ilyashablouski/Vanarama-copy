@@ -208,24 +208,24 @@ export const parseAssociates = (
   });
 
 export const combineDirectorsData = (
-  officers: DirectorFieldsOfficer[],
-  associates: CompanyAssociate[] | null,
+  officers: DirectorFormValues[],
+  directors?: DirectorFormValues[] | null,
 ) => {
-  const editedDirecors: DirectorFormValues[] = parseAssociates(
-    associates || [],
-  );
-  const notEditedDirecors = parseOfficers(officers).filter(
-    officer =>
-      editedDirecors.filter(
-        a =>
-          a.firstName === officer.firstName && a.lastName === officer.lastName,
-      ).length === 0,
-  );
-  return editedDirecors.concat(notEditedDirecors);
+  return officers.map(officer => {
+    const data = directors?.find(
+      director =>
+        officer.firstName === director.firstName &&
+        officer.lastName === director.lastName,
+    );
+    return {
+      ...officer,
+      ...(data || {}),
+    };
+  });
 };
 
 export const initialFormValues = (
-  directors: DirectorFieldsOfficer[],
+  directors: DirectorFormValues[],
 ): DirectorDetailsFormValues => {
   if (directors.length > 1) {
     return { totalPercentage: 0, directors: [] };
@@ -233,6 +233,6 @@ export const initialFormValues = (
 
   return {
     totalPercentage: 0,
-    directors: parseOfficers([directors[0]]),
+    directors: [directors[0]],
   };
 };

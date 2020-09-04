@@ -3,6 +3,7 @@ import {
   DirectorFormValues,
 } from '../../components/DirectorDetailsForm/interfaces';
 import { historyToMoment, parseDate } from '../../utils/dates';
+import { SaveDirectorDetailsMutation_createUpdateCompanyDirector_associates as Associate } from '../../../generated/SaveDirectorDetailsMutation';
 
 export const mapFormValues = (
   values: DirectorDetailsFormValues,
@@ -52,6 +53,7 @@ export const mapDirectorDetails = (data: any): DirectorFormValues => ({
   shareOfBusiness: data?.share_of_business,
   title: data?.title,
   yearOfBirth: data?.year_of_birth,
+  uuid: data?.uuid,
 });
 
 export const mapDirectorsDefaultValues = (
@@ -62,5 +64,22 @@ export const mapDirectorsDefaultValues = (
   ),
   totalPercentage: data?.total_percentage,
 });
+
+export const combineUpdatedDirectors = (
+  directors: DirectorFormValues[],
+  associates?: Associate[] | null,
+) => {
+  return directors.map(director => {
+    const data = associates?.find(
+      associate =>
+        associate.firstName === director.firstName &&
+        associate.lastName === director.lastName,
+    );
+    return {
+      ...(data || {}),
+      ...director,
+    };
+  });
+};
 
 export default mapFormValues;
