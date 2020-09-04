@@ -3,6 +3,12 @@ import React from 'react';
 
 import Head from '../Head';
 
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    asPath: '/b2b/olaf/director-details',
+  }),
+}));
+
 const props = {
   title: 'Page Title',
 };
