@@ -16,6 +16,7 @@ import { LocationsPageData } from '../../../../generated/LocationsPageData';
 import withApollo from '../../../hocs/withApollo';
 import BreadCrumbContainer from '../../../containers/BreadCrumbContainer';
 import RouterLink from '../../../components/RouterLink/RouterLink';
+import Head from '../../../components/Head/Head';
 
 export const LocationsPage: NextPage = () => {
   const { data, loading, error } = useQuery<LocationsPageData>(
@@ -30,12 +31,23 @@ export const LocationsPage: NextPage = () => {
     return <p>Error: {error.message}</p>;
   }
 
+  const metaData = data?.regionalOfficesPage.metaData;
+
   return (
     <>
+      <Head
+        title={metaData?.title || ''}
+        metaDescription={metaData?.metaDescription}
+        metaRobots={metaData?.metaRobots}
+        legacyUrl={metaData?.legacyUrl}
+        canonicalUrl={metaData?.canonicalUrl}
+        publishedOn={metaData?.publishedOn}
+        featuredImage={data?.regionalOfficesPage?.featuredImage}
+      />
       <div className="row:title">
         <BreadCrumbContainer />
         <Heading size="xlarge" color="black">
-          {data?.regionalOfficesPage.metaData.title}
+          {metaData?.name}
         </Heading>
       </div>
       <section className="row:text">

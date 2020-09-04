@@ -65,10 +65,29 @@ export const CONTACT_US_CONTENT = gql`
 export const LOCATIONS_PAGE_CONTENT = gql`
   query LocationsPageData {
     regionalOfficesPage {
-      id
       metaData {
         title
+        name
+        metaRobots
+        metaDescription
+        publishedOn
+        legacyUrl
+        pageType
+        canonicalUrl
+        slug
+        publishedOn
+        schema
       }
+      featuredImage {
+        title
+        description
+        file {
+          url
+          fileName
+          contentType
+        }
+      }
+      id
       body
       intro
     }

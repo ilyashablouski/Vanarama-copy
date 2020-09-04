@@ -8,14 +8,17 @@ export const ADVANCED_BREAKDOWN_COVER_PAGE = gql`
       intro
       body
       metaData {
-        pageType
         title
-        legacyUrl
-        canonicalUrl
+        name
         metaRobots
         metaDescription
-        schema
         publishedOn
+        legacyUrl
+        pageType
+        canonicalUrl
+        slug
+        publishedOn
+        schema
       }
       featuredImage {
         title

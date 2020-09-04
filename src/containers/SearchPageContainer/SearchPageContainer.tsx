@@ -623,6 +623,9 @@ const SearchPageContainer: React.FC<IProps> = ({
         }
         metaRobots={metaData?.metaRobots || searchPage?.metaData?.metaRobots}
         legacyUrl={metaData?.legacyUrl || searchPage?.metaData?.legacyUrl}
+        canonicalUrl={
+          metaData?.canonicalUrl || searchPage?.metaData?.canonicalUrl
+        }
         publishedOn={metaData?.publishedOn || searchPage?.metaData?.publishedOn}
         featuredImage={featuredImage || searchPage?.featuredImage}
       />

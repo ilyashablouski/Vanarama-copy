@@ -27,10 +27,15 @@ export interface HomePageData_homePage_featuredImage {
 
 export interface HomePageData_homePage_metaData {
   title: string | null;
+  name: string | null;
   metaRobots: string | null;
   metaDescription: string | null;
   publishedOn: any | null;
   legacyUrl: string | null;
+  pageType: string | null;
+  canonicalUrl: string | null;
+  slug: string | null;
+  schema: any | null;
 }
 
 export interface HomePageData_homePage_sections_hero_image_file {

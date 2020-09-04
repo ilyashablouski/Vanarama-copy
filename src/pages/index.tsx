@@ -109,6 +109,7 @@ export const HomePage: NextPage = () => {
         metaDescription={data?.homePage.metaData.metaDescription}
         metaRobots={data?.homePage.metaData.metaRobots}
         legacyUrl={data?.homePage.metaData.legacyUrl}
+        canonicalUrl={data?.homePage.metaData.canonicalUrl}
         publishedOn={data?.homePage.metaData.publishedOn}
         featuredImage={data?.homePage.featuredImage}
       />

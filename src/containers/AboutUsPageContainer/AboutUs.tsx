@@ -117,6 +117,7 @@ const AboutUs: React.FC = () => {
         metaDescription={metaData.metaDescription}
         metaRobots={metaData.metaRobots}
         legacyUrl={metaData.legacyUrl}
+        canonicalUrl={metaData.canonicalUrl}
         publishedOn={metaData.publishedOn}
         featuredImage={data?.aboutUsLandingPage.featuredImage}
       />
