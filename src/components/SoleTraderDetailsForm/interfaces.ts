@@ -1,3 +1,6 @@
+import { SoleTraderDetailsDropDownData } from '../../../generated/SoleTraderDetailsDropDownData';
+import { TAddressEntry } from '../AddressForm/interfaces';
+
 export interface ISoleTraderDetailsFormValues {
   title: string;
   firstName: string;
@@ -7,6 +10,7 @@ export interface ISoleTraderDetailsFormValues {
   monthOfBirth: string;
   yearOfBirth: string;
   placeOfBirth: string;
+  maritalStatus: string;
   nationality: string;
   email: string;
   adultsInHousehold: string;
@@ -18,9 +22,11 @@ export interface ISoleTraderDetailsFormValues {
   monthlyStudentPayments: string;
   incomeChange: boolean;
   futureMonthlyIncome: string;
+  history: TAddressEntry[];
 }
 
 export interface ISoleTraderDetailsProps {
+  dropDownData: SoleTraderDetailsDropDownData;
   onSubmit: (values: ISoleTraderDetailsFormValues) => Promise<void>;
   isEdited: boolean;
 }

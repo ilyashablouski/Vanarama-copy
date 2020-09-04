@@ -1,6 +1,6 @@
 import React from 'react';
 import { FieldArray, Formik } from 'formik';
-// import { gql } from '@apollo/client';
+import { gql } from '@apollo/client';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
@@ -12,11 +12,11 @@ import FormikSelectField from '../FormikSelectField/FormikSelectField';
 import FormikDateField from '../FormikDateField/FormikDateField';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
 import AddressFormFieldArray from '../AddressForm/AddressFormFieldArray';
-import { responseToInitialFormValues } from '../AboutForm/mappers';
+import { responseToInitialFormValues } from './mappers';
 import {
   ISoleTraderDetailsProps,
   ISoleTraderDetailsFormValues,
-} from './interface';
+} from './interfaces';
 
 const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
   if (isSubmitting) {
@@ -33,8 +33,8 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
   return (
     <Formik<ISoleTraderDetailsFormValues>
       initialValues={responseToInitialFormValues(addresses)}
-      validationSchema={validationSchema}
-      validate={validate}
+      /* validationSchema={validationSchema}
+      validate={validate} */
       onSubmit={onSubmit}
     >
       {formikProps => (
@@ -160,7 +160,7 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
 };
 
 SoleTraderDetailsForm.fragments = {
-  /*  dropDownData: gql`
+  dropDownData: gql`
     fragment SoleTraderDetailsDropDownData on DropDownType {
       __typename
       titles {
@@ -168,15 +168,33 @@ SoleTraderDetailsForm.fragments = {
         data
         favourites
       }
-      noOfDependants {
+      countries {
         __typename
         data
         favourites
       }
+      nationalities {
+        __typename
+        data
+        favourites
+      }
+      maritalStatuses {
+        __typename
+        data
+      }
+      noOfDependants {
+        __typename
+        data
+      }
+      noOfAdultsInHousehold {
+        __typename
+        data
+      }
+    }
       ...AddressFormFieldArrayDownData
     }
     ${AddressFormFieldArray.fragments.dropDownData}
-  `, */
+  `,
 };
 
 export default SoleTraderDetailsForm;
