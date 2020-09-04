@@ -125,3 +125,9 @@ export const getOrderList = ({
     },
   ];
 };
+
+export const isArraySame = (first: any[], second: any[]) =>
+  first.length === second.length &&
+  first.sort().every((value, index) => {
+    return value === second.sort()[index];
+  });
