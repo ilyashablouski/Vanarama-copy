@@ -9,6 +9,10 @@ import {
 } from '../../../generated/SaveDirectorDetailsMutation';
 import DirectorDetailsForm from '../../components/DirectorDetailsForm/DirectorDetailsForm';
 import DirectorFields from '../../components/DirectorDetailsForm/DirectorFields';
+import {
+  GetDirectorDetailsQuery,
+  GetDirectorDetailsQueryVariables,
+} from '../../../generated/GetDirectorDetailsQuery';
 
 /**
  * NOTE: Unfotunately, it is not possible to get the officers for a company using only
@@ -63,4 +67,27 @@ export function useGetDirectorDetailsQuery(companyUuid: string) {
   return useQuery<Query, QueryVariables>(GET_COMPANY_DIRECTOR_DETAILS, {
     variables: { uuid: companyUuid },
   });
+}
+
+export const GET_DIRECTOR_DETAILS = gql`
+  query GetDirectorDetailsQuery($companyNumber: String!) {
+    companyOfficers(companyNumber: $companyNumber) {
+      nodes {
+        name
+      }
+    }
+  }
+`;
+
+export function useCompanyOfficers(companyNumber?: string | null) {
+  return useQuery<GetDirectorDetailsQuery, GetDirectorDetailsQueryVariables>(
+    GET_DIRECTOR_DETAILS,
+    {
+      fetchPolicy: 'no-cache',
+      variables: {
+        companyNumber,
+      },
+      skip: !companyNumber,
+    },
+  );
 }

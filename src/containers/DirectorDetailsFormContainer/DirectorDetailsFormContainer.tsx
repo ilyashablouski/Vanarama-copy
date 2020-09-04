@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { useQuery, gql } from '@apollo/client';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import DirectorDetailsForm from '../../components/DirectorDetailsForm/DirectorDetailsForm';
 import {
@@ -13,6 +12,7 @@ import {
 import {
   useGetDirectorDetailsQuery,
   useSaveDirectorDetailsMutation,
+  useCompanyOfficers,
 } from './gql';
 import { IDirectorDetailsFormContainerProps } from './interfaces';
 import {
@@ -21,35 +21,8 @@ import {
   combineUpdatedDirectors,
 } from './mappers';
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
-import {
-  GetDirectorDetailsQuery,
-  GetDirectorDetailsQueryVariables,
-} from '../../../generated/GetDirectorDetailsQuery';
 import { parseOfficers } from '../../components/DirectorDetailsForm/helpers';
 import { isTruthy } from '../../utils/array';
-
-export const GET_DIRECTOR_DETAILS = gql`
-  query GetDirectorDetailsQuery($companyNumber: String!) {
-    companyOfficers(companyNumber: $companyNumber) {
-      nodes {
-        name
-      }
-    }
-  }
-`;
-
-function useCompanyOfficers(companyNumber?: string | null) {
-  return useQuery<GetDirectorDetailsQuery, GetDirectorDetailsQueryVariables>(
-    GET_DIRECTOR_DETAILS,
-    {
-      fetchPolicy: 'no-cache',
-      variables: {
-        companyNumber: companyNumber || '',
-      },
-      skip: !companyNumber,
-    },
-  );
-}
 
 export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContainerProps> = ({
   directorUuid,
@@ -112,23 +85,20 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
       },
     });
 
-  if (
-    getDirectorDetailsQuery?.loading ||
-    getCreditApplicationByOrderUuidQuery?.loading ||
-    companyOfficersQuery?.loading
-  ) {
-    return <Loading size="xlarge" />;
-  }
-
-  if (
-    getDirectorDetailsQuery?.error ||
-    companyOfficersQuery?.error ||
-    !allDropDowns
-  ) {
+  if (getDirectorDetailsQuery?.error || companyOfficersQuery?.error) {
     const errorMessage = (
       getDirectorDetailsQuery?.error || companyOfficersQuery?.error
     )?.message;
     return <p>Error: {errorMessage}</p>;
+  }
+
+  if (
+    getDirectorDetailsQuery?.loading ||
+    getCreditApplicationByOrderUuidQuery?.loading ||
+    companyOfficersQuery?.loading ||
+    !allDropDowns
+  ) {
+    return <Loading size="xlarge" />;
   }
 
   return (

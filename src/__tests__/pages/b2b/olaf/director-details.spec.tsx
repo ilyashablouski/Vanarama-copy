@@ -5,6 +5,7 @@ import { DirectorDetailsPage } from '../../../../pages/b2b/olaf/director-details
 import {
   GET_COMPANY_DIRECTOR_DETAILS,
   SAVE_DIRECTOR_DETAILS,
+  GET_DIRECTOR_DETAILS,
 } from '../../../../containers/DirectorDetailsFormContainer/gql';
 import {
   GetCompanyDirectorDetailsQueryVariables,
@@ -14,7 +15,6 @@ import {
   GetDirectorDetailsQueryVariables,
   GetDirectorDetailsQuery,
 } from '../../../../../generated/GetDirectorDetailsQuery';
-import { GET_DIRECTOR_DETAILS } from '../../../../containers/DirectorDetailsFormContainer/DirectorDetailsFormContainer';
 import {
   SaveDirectorDetailsMutationVariables,
   SaveDirectorDetailsMutation,
@@ -140,9 +140,16 @@ const multiDirectorMock: MockedResponse = {
 
 describe('B2B Director Details page', () => {
   it('should show a dropdown of directors when there are multiple', async () => {
-    const mocks = [getCompanyMock, multiDirectorMock, updateCreditApplication];
     render(
-      <MockedProvider addTypename={false} mocks={mocks}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[
+          getCompanyMock,
+          multiDirectorMock,
+          multiDirectorMock,
+          updateCreditApplication,
+        ]}
+      >
         <DirectorDetailsPage />
       </MockedProvider>,
     );
@@ -164,9 +171,16 @@ describe('B2B Director Details page', () => {
   });
 
   it('should show the form and pre-fill the first & last name when selecting a director', async () => {
-    const mocks = [getCompanyMock, multiDirectorMock, updateCreditApplication];
     render(
-      <MockedProvider addTypename={false} mocks={mocks}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[
+          getCompanyMock,
+          multiDirectorMock,
+          multiDirectorMock,
+          updateCreditApplication,
+        ]}
+      >
         <DirectorDetailsPage />
       </MockedProvider>,
     );
@@ -198,9 +212,16 @@ describe('B2B Director Details page', () => {
   });
 
   it('should show the correct validation messages when there are more than one director and the user submits an empty form', async () => {
-    const mocks = [getCompanyMock, multiDirectorMock, updateCreditApplication];
     render(
-      <MockedProvider addTypename={false} mocks={mocks}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[
+          getCompanyMock,
+          multiDirectorMock,
+          multiDirectorMock,
+          updateCreditApplication,
+        ]}
+      >
         <DirectorDetailsPage />
       </MockedProvider>,
     );
@@ -242,9 +263,16 @@ describe('B2B Director Details page', () => {
   });
 
   it('should show the correct validation messages for first and last name when they are cleared', async () => {
-    const mocks = [getCompanyMock, multiDirectorMock, updateCreditApplication];
     render(
-      <MockedProvider addTypename={false} mocks={mocks}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[
+          getCompanyMock,
+          multiDirectorMock,
+          multiDirectorMock,
+          updateCreditApplication,
+        ]}
+      >
         <DirectorDetailsPage />
       </MockedProvider>,
     );
@@ -281,9 +309,16 @@ describe('B2B Director Details page', () => {
   });
 
   it('should show the correct validation messages when the user enters less than 25% shareholding', async () => {
-    const mocks = [getCompanyMock, multiDirectorMock, updateCreditApplication];
     render(
-      <MockedProvider addTypename={false} mocks={mocks}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[
+          getCompanyMock,
+          multiDirectorMock,
+          multiDirectorMock,
+          updateCreditApplication,
+        ]}
+      >
         <DirectorDetailsPage />
       </MockedProvider>,
     );
@@ -332,9 +367,16 @@ describe('B2B Director Details page', () => {
   });
 
   it('should prompt to add another director when the total shareholding is less than 25%', async () => {
-    const mocks = [getCompanyMock, multiDirectorMock, updateCreditApplication];
     render(
-      <MockedProvider addTypename={false} mocks={mocks}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[
+          getCompanyMock,
+          multiDirectorMock,
+          multiDirectorMock,
+          updateCreditApplication,
+        ]}
+      >
         <DirectorDetailsPage />
       </MockedProvider>,
     );
@@ -391,9 +433,17 @@ describe('B2B Director Details page', () => {
   });
 
   it('should disable directors that are already selected', async () => {
-    const mocks = [getCompanyMock, multiDirectorMock, updateCreditApplication];
     render(
-      <MockedProvider addTypename={false} mocks={mocks}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[
+          getCompanyMock,
+          multiDirectorMock,
+          multiDirectorMock,
+          multiDirectorMock,
+          updateCreditApplication,
+        ]}
+      >
         <DirectorDetailsPage />
       </MockedProvider>,
     );
@@ -432,9 +482,17 @@ describe('B2B Director Details page', () => {
   });
 
   it('should allow directors to be deleted', async () => {
-    const mocks = [getCompanyMock, multiDirectorMock, updateCreditApplication];
     render(
-      <MockedProvider addTypename={false} mocks={mocks}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[
+          getCompanyMock,
+          multiDirectorMock,
+          multiDirectorMock,
+          multiDirectorMock,
+          updateCreditApplication,
+        ]}
+      >
         <DirectorDetailsPage />
       </MockedProvider>,
     );
@@ -467,9 +525,17 @@ describe('B2B Director Details page', () => {
   });
 
   it('should show a validation message against each director if the total percentage is over 100%', async () => {
-    const mocks = [getCompanyMock, multiDirectorMock, updateCreditApplication];
     render(
-      <MockedProvider addTypename={false} mocks={mocks}>
+      <MockedProvider
+        addTypename={false}
+        mocks={[
+          getCompanyMock,
+          multiDirectorMock,
+          multiDirectorMock,
+          multiDirectorMock,
+          updateCreditApplication,
+        ]}
+      >
         <DirectorDetailsPage />
       </MockedProvider>,
     );
@@ -648,7 +714,13 @@ describe('B2B Director Details page', () => {
     render(
       <MockedProvider
         addTypename={false}
-        mocks={[getCompanyMock, multiDirectorMock, updateCreditApplication]}
+        mocks={[
+          getCompanyMock,
+          multiDirectorMock,
+          multiDirectorMock,
+          multiDirectorMock,
+          updateCreditApplication,
+        ]}
       >
         <DirectorDetailsPage />
       </MockedProvider>,
@@ -692,7 +764,12 @@ describe('B2B Director Details page', () => {
     render(
       <MockedProvider
         addTypename={false}
-        mocks={[getCompanyMock, multiDirectorMock, updateCreditApplication]}
+        mocks={[
+          getCompanyMock,
+          multiDirectorMock,
+          multiDirectorMock,
+          updateCreditApplication,
+        ]}
       >
         <DirectorDetailsPage />
       </MockedProvider>,
@@ -734,7 +811,12 @@ describe('B2B Director Details page', () => {
     render(
       <MockedProvider
         addTypename={false}
-        mocks={[getCompanyMock, multiDirectorMock, updateCreditApplication]}
+        mocks={[
+          getCompanyMock,
+          multiDirectorMock,
+          multiDirectorMock,
+          updateCreditApplication,
+        ]}
       >
         <DirectorDetailsPage />
       </MockedProvider>,
@@ -772,7 +854,12 @@ describe('B2B Director Details page', () => {
     render(
       <MockedProvider
         addTypename={false}
-        mocks={[getCompanyMock, multiDirectorMock, updateCreditApplication]}
+        mocks={[
+          getCompanyMock,
+          multiDirectorMock,
+          multiDirectorMock,
+          updateCreditApplication,
+        ]}
       >
         <DirectorDetailsPage />
       </MockedProvider>,
@@ -810,12 +897,19 @@ describe('B2B Director Details page', () => {
     render(
       <MockedProvider
         addTypename={false}
-        mocks={[getCompanyMock, multiDirectorMock, updateCreditApplication]}
+        mocks={[
+          getCompanyMock,
+          multiDirectorMock,
+          multiDirectorMock,
+          multiDirectorMock,
+          updateCreditApplication,
+        ]}
       >
         <DirectorDetailsPage />
       </MockedProvider>,
     );
 
+    screen.debug();
     // Wait for data to load
     await screen.findByRole('combobox', { name: /Select director/i });
 
@@ -844,7 +938,12 @@ describe('B2B Director Details page', () => {
     render(
       <MockedProvider
         addTypename={false}
-        mocks={[getCompanyMock, multiDirectorMock, updateCreditApplication]}
+        mocks={[
+          getCompanyMock,
+          multiDirectorMock,
+          multiDirectorMock,
+          updateCreditApplication,
+        ]}
       >
         <DirectorDetailsPage />
       </MockedProvider>,
