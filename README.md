@@ -8,6 +8,12 @@ Next.js Storefront frontend.
 
 ## Getting Started
 
+Create `.npmrc` file in your home directory and add `_authToken`, for example:
+
+```sh
+//registry.npmjs.org/:_authToken=AUTH_TOKEN
+```
+
 Install the dependencies
 
 ```sh
@@ -38,7 +44,7 @@ Run:
 $ yarn apollo:generate
 ```
 
-## Developing locally with Docker
+## (DEPRECATED) Developing locally with Docker
 
 You need to have the environment variable `NPM_TOKEN` set for this to install dependencies correctly. Easiest way to do this is to edit your `.bashrc` or `.zshrc` files with the following:
 

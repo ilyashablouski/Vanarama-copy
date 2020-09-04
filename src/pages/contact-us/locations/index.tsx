@@ -2,21 +2,23 @@ import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { useQuery } from '@apollo/client';
 import ReactMarkdown from 'react-markdown/with-html';
-
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import CardTitle from '@vanarama/uibook/lib/components/molecules/cards/CardTitle';
 
 import { LOCATIONS_PAGE_CONTENT } from '../../../gql/contact-us/contactUs';
-import { LocationsPageData } from '../../../../generated/LocationsPageData';
+import {
+  LocationsPageData,
+  LocationsPageData_regionalOfficesPage_sections_cards_cards as ICard,
+} from '../../../../generated/LocationsPageData';
 
 import withApollo from '../../../hocs/withApollo';
 import BreadCrumbContainer from '../../../containers/BreadCrumbContainer';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import Head from '../../../components/Head/Head';
+import getTitleTag from '../../../utils/getTitleTag';
+import { getSectionsData } from '../../../utils/getSectionsData';
 
 export const LocationsPage: NextPage = () => {
   const { data, loading, error } = useQuery<LocationsPageData>(
@@ -31,7 +33,15 @@ export const LocationsPage: NextPage = () => {
     return <p>Error: {error.message}</p>;
   }
 
-  const metaData = data?.regionalOfficesPage.metaData;
+  if (!data) {
+    return <></>;
+  }
+
+  const cards = getSectionsData(
+    ['cards', 'cards'],
+    data.regionalOfficesPage?.sections,
+  );
+  const metaData = data?.regionalOfficesPage?.metaData;
 
   return (
     <>
@@ -67,22 +77,34 @@ export const LocationsPage: NextPage = () => {
           />
         </div>
       </section>
-      <section className="row:bg-lighter -thin">
-        <div className="row:cards-3col">
-          {[...Array(9)].map((i: number) => (
-            <Card key={i}>
-              <CardTitle title="Birmingham North and South" />
-              <Text size="regular" color="darker">
-                Tel: 01213825657
-              </Text>
-              <Text size="regular" color="darker">
-                Email: info@autorama.uk
-              </Text>
-              <Button fill="clear" color="teal" label="More Information" />
-            </Card>
-          ))}
-        </div>
-      </section>
+      {cards?.length ? (
+        <section className="row:bg-lighter -thin">
+          <div className="row:cards-3col">
+            {cards.map((card: ICard, i: number) => (
+              <Card key={i.toString()}>
+                <CardTitle
+                  title={card.title || ''}
+                  tag={
+                    getTitleTag(
+                      card.titleTag || null,
+                    ) as keyof JSX.IntrinsicElements
+                  }
+                />
+                <ReactMarkdown
+                  escapeHtml={false}
+                  source={card.body || ''}
+                  renderers={{
+                    link: props => {
+                      const { href, children } = props;
+                      return <RouterLink link={{ href, label: children }} />;
+                    },
+                  }}
+                />
+              </Card>
+            ))}
+          </div>
+        </section>
+      ) : null}
     </>
   );
 };

@@ -130,13 +130,13 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       </h1>
     </div>
     <div
-      class="row:bg-black -compact"
+      class="row:bg-white -compact"
     >
       <div
         class="row:featured-image"
       >
         <div
-          class="image -expand"
+          class="image -white -expand"
         >
           <img
             class="image--native"

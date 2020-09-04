@@ -43,6 +43,7 @@ export const CONTACT_US_CONTENT = gql`
         featured2 {
           title
           body
+          layout
           cards {
             title
             body
@@ -90,6 +91,42 @@ export const LOCATIONS_PAGE_CONTENT = gql`
       id
       body
       intro
+      featuredImage {
+        title
+        description
+        file {
+          url
+          fileName
+          contentType
+        }
+      }
+      sections {
+        cards {
+          position
+          name
+          titleTag
+          description
+          title
+          cards {
+            title
+            name
+            image {
+              title
+              description
+              file {
+                url
+                fileName
+              }
+            }
+            body
+            titleTag
+            link {
+              text
+              url
+            }
+          }
+        }
+      }
     }
   }
 `;

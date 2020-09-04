@@ -2,24 +2,16 @@ import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
+import { useReviewsPageQuery } from '../../containers/VehicleReviewContainer/gql';
 import withApollo from '../../hocs/withApollo';
 import Head from '../../components/Head/Head';
-import LeasingQuestionContainer from '../../containers/LeasingQuestionContainer/LeasingQuestionContainer';
-import { useGenericPageQuestion } from '../../containers/LeasingQuestionContainer/gql';
+import VehicleReviewContainer from '../../containers/VehicleReviewContainer/VehicleReviewContainer';
 
 const FinanceInfo: NextPage = () => {
   const router = useRouter();
 
-  const crumbs = [
-    { label: 'Home', href: '/' },
-    {
-      label: 'Ask A Question About Van Leasing',
-      href: '/van-leasing-questions',
-    },
-  ];
-
-  const { data, loading, error } = useGenericPageQuestion(
-    `/van-leasing-questions/${router.query.question as string}`,
+  const { data, loading, error } = useReviewsPageQuery(
+    `/van-reviews/${router.query.van as string}`,
   );
 
   if (loading) {
@@ -29,14 +21,25 @@ const FinanceInfo: NextPage = () => {
     return <p>Error: {error.message}</p>;
   }
 
-  if (!data?.genericPage) {
+  if (!data?.reviewsPage) {
     return null;
   }
 
-  const metaData = data?.genericPage?.metaData;
-  const sections = data.genericPage?.sections;
-  const body = data.genericPage?.intro;
+  const metaData = data?.reviewsPage?.metaData;
+  const sections = data.reviewsPage?.sections;
+  const body = data.reviewsPage?.body;
 
+  const crumbs = [
+    { label: 'Home', href: '/' },
+    {
+      label: 'Van Reviews',
+      href: '/van-reviews',
+    },
+    {
+      label: data.reviewsPage.metaData.name || '',
+      href: '/',
+    },
+  ];
   return (
     <>
       <Head
@@ -44,11 +47,9 @@ const FinanceInfo: NextPage = () => {
         metaDescription={metaData.metaDescription}
         metaRobots={metaData.metaRobots}
         legacyUrl={metaData.legacyUrl}
-        canonicalUrl={metaData.canonicalUrl}
         publishedOn={metaData.publishedOn}
-        featuredImage={data?.genericPage.featuredImage}
       />
-      <LeasingQuestionContainer
+      <VehicleReviewContainer
         crumbs={crumbs}
         body={body}
         title={metaData?.title}
