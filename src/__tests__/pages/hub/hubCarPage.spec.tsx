@@ -23,7 +23,17 @@ jest.mock('../../../containers/SearchPodContainer', () => () => {
 });
 jest.mock('../../../containers/OrdersInformation/gql');
 
-jest.mock('next/router', () => ({ push: jest.fn() }));
+jest.mock('next/router', () => ({
+  push: jest.fn(),
+  useRouter() {
+    return {
+      asPath: '/hub/cars',
+      query: {
+        score: 75,
+      },
+    };
+  },
+}));
 
 const mocked: MockedResponse[] = [
   {
@@ -272,7 +282,7 @@ describe('<CarPage />', () => {
 
   it('should successfully query all hub CarsPage data', async () => {
     await waitFor(() => {
-      expect(screen.getByText('Why Lease A Car?')).toBeInTheDocument();
+      expect(screen.getByText('Check My Eligibility')).toBeInTheDocument();
     });
   });
 

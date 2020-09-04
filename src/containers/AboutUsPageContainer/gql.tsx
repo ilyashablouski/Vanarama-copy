@@ -6,9 +6,26 @@ export const GET_ABOUT_US_PAGE_DATA = gql`
     aboutUsLandingPage {
       id
       body
+      metaData {
+        title
+        name
+        metaRobots
+        metaDescription
+        publishedOn
+        legacyUrl
+        pageType
+        canonicalUrl
+        slug
+        publishedOn
+        schema
+      }
       featuredImage {
+        title
+        description
         file {
           url
+          fileName
+          contentType
         }
       }
       metaData {

@@ -17,10 +17,16 @@ const ALL_HOME_CONTENT = gql`
       }
       metaData {
         title
+        name
         metaRobots
         metaDescription
         publishedOn
         legacyUrl
+        pageType
+        canonicalUrl
+        slug
+        publishedOn
+        schema
       }
       sections {
         hero {
