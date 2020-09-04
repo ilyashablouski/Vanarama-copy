@@ -1,12 +1,12 @@
 import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
-import { IList } from '@vanarama/uibook/lib/components/organisms/structured-list/interfaces';
 import React, { useMemo } from 'react';
+import { gql } from '@apollo/client';
 import moment from 'moment';
 import FCWithFragments from '../../utils/FCWithFragments';
 
 import { CompanyAssociate } from '../../../generated/CompanyAssociate';
-import DirectorDetailsForm from '../DirectorDetailsForm/DirectorDetailsForm';
 import { addressToDisplay } from '../../utils/address';
+import { formatPreviousAddressesArray } from './helpers';
 
 interface IBusinessSummaryFormDirectorDetailsSectionProps {
   director: CompanyAssociate;
@@ -32,26 +32,9 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
     [director.addresses],
   );
   const currentAddress = (sortedAddresses && sortedAddresses[0]) || null;
-  const previousAddress = (sortedAddresses || []).slice(1).reduce<IList[]>(
-    (acc, address) => [
-      ...acc,
-      {
-        label: 'Past Address',
-        value: (address && addressToDisplay(address)) || '',
-        dataTestId: `summary-director-past-address[${orderBySharehold}]`,
-      },
-      {
-        label: 'Date Moved In',
-        value: (address && moment(address.startedOn).format('MMMM YYYY')) || '',
-        dataTestId: `summary-director-past-moved-in[${orderBySharehold}]`,
-      },
-      {
-        label: 'Property Status',
-        value: (address && address.propertyStatus) || '',
-        dataTestId: `summary-director-past-prop-status[${orderBySharehold}]`,
-      },
-    ],
-    [],
+  const previousAddress = formatPreviousAddressesArray(
+    sortedAddresses || [],
+    orderBySharehold,
   );
 
   const list = [
@@ -116,7 +99,30 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
 };
 
 BusinessSummaryFormDirectorDetailsSection.fragments = {
-  director: DirectorDetailsForm.fragments.associates,
+  director: gql`
+    fragment CompanyAssociate on PersonType {
+      uuid
+      title
+      firstName
+      lastName
+      gender
+      dateOfBirth
+      noOfDependants
+      businessShare
+      roles {
+        position
+      }
+      addresses {
+        serviceId
+        propertyStatus
+        startedOn
+        city
+        lineOne
+        lineTwo
+        postcode
+      }
+    }
+  `,
 };
 
 export default BusinessSummaryFormDirectorDetailsSection;

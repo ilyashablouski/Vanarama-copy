@@ -208,12 +208,10 @@ export const parseAssociates = (
   });
 
 export const combineDirectorsData = (
-  officers: DirectorFieldsOfficer[],
+  officers: DirectorFormValues[],
   directors?: DirectorFormValues[] | null,
 ) => {
-  const notEditedDirecors = parseOfficers(officers);
-
-  return notEditedDirecors.map(officer => {
+  return officers.map(officer => {
     const data = directors?.find(
       director =>
         officer.firstName === director.firstName &&

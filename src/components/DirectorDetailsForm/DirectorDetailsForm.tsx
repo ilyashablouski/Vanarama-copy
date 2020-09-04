@@ -15,11 +15,10 @@ import {
   initialEditedFormValues,
 } from './helpers';
 import { DirectorDetailsFormValues } from './interfaces';
-import FCWithFragments from '../../utils/FCWithFragments';
 import { GetCompanyDirectorDetailsQuery_allDropDowns as CompanyDirectorDetails } from '../../../generated/GetCompanyDirectorDetailsQuery';
 
 type IDirectorDetailsFormProps = {
-  dropdownData: CompanyDirectorDetails | null;
+  dropdownData: CompanyDirectorDetails;
   onSubmit: (values: DirectorDetailsFormValues) => Promise<void>;
   isEdited: boolean;
   directorUuid?: string;
@@ -34,7 +33,7 @@ const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
   return isEdited ? 'Save & Return' : 'Continue';
 };
 
-const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
+const DirectorDetailsForm: React.FC<IDirectorDetailsFormProps> = ({
   onSubmit,
   dropdownData,
   isEdited,
@@ -86,33 +85,6 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
       )}
     </Formik>
   );
-};
-
-DirectorDetailsForm.fragments = {
-  associates: gql`
-    fragment CompanyAssociate on PersonType {
-      uuid
-      title
-      firstName
-      lastName
-      gender
-      dateOfBirth
-      noOfDependants
-      businessShare
-      roles {
-        position
-      }
-      addresses {
-        serviceId
-        propertyStatus
-        startedOn
-        city
-        lineOne
-        lineTwo
-        postcode
-      }
-    }
-  `,
 };
 
 export default DirectorDetailsForm;

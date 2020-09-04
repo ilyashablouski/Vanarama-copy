@@ -68,9 +68,10 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
     orderUuid,
   );
-  const companyOfficersQuery = useCompanyOfficers(
-    getDirectorDetailsQuery.data?.companyByUuid?.companyNumber,
-  );
+  const allDropDowns = getDirectorDetailsQuery.data?.allDropDowns;
+  const companyNumber =
+    getDirectorDetailsQuery.data?.companyByUuid?.companyNumber;
+  const companyOfficersQuery = useCompanyOfficers(companyNumber);
 
   const officersNodes =
     companyOfficersQuery?.data?.companyOfficers?.nodes?.filter(isTruthy) || [];
@@ -79,21 +80,12 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
       ?.directorsDetails;
 
   const defaultValues = useMemo(() => {
-    if (directorsDetails) {
-      const { directors, totalPercentage } = mapDirectorsDefaultValues(
-        directorsDetails,
-      );
-      const parsedOfficers = parseOfficers(officersNodes);
-      const combinedDirectors = combineUpdatedDirectors(
-        parsedOfficers,
-        directors,
-      );
+    return directorsDetails
+      ? mapDirectorsDefaultValues(directorsDetails)
+      : undefined;
+  }, [directorsDetails]);
 
-      return { direcotors: combinedDirectors, totalPercentage };
-    }
-
-    return undefined;
-  }, [directorsDetails, officersNodes]);
+  const officers = useMemo(() => parseOfficers(officersNodes), [officersNodes]);
 
   const handleDirectorDetailsSave = (values: DirectorDetailsFormValues) =>
     saveDirectorDetails({
@@ -104,7 +96,7 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
 
   const handleCreditApplicationUpdate = (
     totalPercentage: number,
-    direcotors?: DirectorFormValues[],
+    directors?: DirectorFormValues[],
   ) =>
     createUpdateApplication({
       variables: {
@@ -112,7 +104,7 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
           ...getCreditApplicationByOrderUuidQuery.data
             ?.creditApplicationByOrderUuid,
           directorsDetails: {
-            direcotors,
+            directors,
             totalPercentage,
           },
           orderUuid,
@@ -128,7 +120,11 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
     return <Loading size="xlarge" />;
   }
 
-  if (getDirectorDetailsQuery?.error || companyOfficersQuery?.error) {
+  if (
+    getDirectorDetailsQuery?.error ||
+    companyOfficersQuery?.error ||
+    !allDropDowns
+  ) {
     const errorMessage = (
       getDirectorDetailsQuery?.error || companyOfficersQuery?.error
     )?.message;
@@ -137,15 +133,11 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
 
   return (
     <DirectorDetailsForm
-      officers={companyOfficersQuery.data?.companyOfficers.nodes}
+      officers={officers}
       isEdited={isEdited}
       directorUuid={directorUuid}
-      associates={getDirectorDetailsQuery.data?.companyByUuid?.associates!}
       defaultValues={defaultValues}
-      dropdownData={getDirectorDetailsQuery.data?.allDropDowns || []}
-      companyNumber={
-        getDirectorDetailsQuery.data?.companyByUuid?.companyNumber!
-      }
+      dropdownData={allDropDowns}
       onSubmit={async values => {
         await handleDirectorDetailsSave(values)
           .then(query =>

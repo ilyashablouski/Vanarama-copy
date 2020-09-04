@@ -4,7 +4,6 @@ import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import BusinessAboutForm from '../../components/BusinessAboutForm/BusinessAboutForm';
 import { useEmailCheck } from '../RegisterFormContainer/gql';
-import { useAboutYouData } from '../AboutFormContainer/gql';
 import {
   useCreateUpdateCreditApplication,
   useGetCreditApplicationByOrderUuid,
