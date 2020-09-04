@@ -43,11 +43,10 @@ const ThankYouPage: NextPage = () => {
         metaRobots={metaData.metaRobots}
         legacyUrl={metaData.legacyUrl}
         publishedOn={metaData.publishedOn}
+        canonicalUrl={metaData.canonicalUrl}
         featuredImage={data?.genericPage.featuredImage}
       />
-      <>
-        <ThankYouContainer sections={sections} crumbs={crumbs} />
-      </>
+      <ThankYouContainer sections={sections} crumbs={crumbs} />
     </>
   );
 };
