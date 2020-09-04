@@ -1,7 +1,10 @@
+import React, { useMemo } from 'react';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import React from 'react';
 import DirectorDetailsForm from '../../components/DirectorDetailsForm/DirectorDetailsForm';
-import { DirectorDetailsFormValues } from '../../components/DirectorDetailsForm/interfaces';
+import {
+  DirectorDetailsFormValues,
+  DirectorFormValues,
+} from '../../components/DirectorDetailsForm/interfaces';
 import {
   useCreateUpdateCreditApplication,
   useGetCreditApplicationByOrderUuid,
@@ -9,10 +12,17 @@ import {
 import {
   useGetDirectorDetailsQuery,
   useSaveDirectorDetailsMutation,
+  useCompanyOfficers,
 } from './gql';
 import { IDirectorDetailsFormContainerProps } from './interfaces';
-import { mapFormValues, mapDirectorsDefaultValues } from './mappers';
+import {
+  mapFormValues,
+  mapDirectorsDefaultValues,
+  combineUpdatedDirectors,
+} from './mappers';
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
+import { parseOfficers } from '../../components/DirectorDetailsForm/helpers';
+import { isTruthy } from '../../utils/array';
 
 export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContainerProps> = ({
   directorUuid,
@@ -31,13 +41,25 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
     orderUuid,
   );
-  const directorDetails = getCreditApplicationByOrderUuidQuery.data
-    ?.creditApplicationByOrderUuid?.directorsDetails
-    ? mapDirectorsDefaultValues(
-        getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
-          ?.directorsDetails,
-      )
-    : undefined;
+  const allDropDowns = getDirectorDetailsQuery.data?.allDropDowns;
+  const companyNumber =
+    getDirectorDetailsQuery.data?.companyByUuid?.companyNumber;
+  const companyOfficersQuery = useCompanyOfficers(companyNumber || '');
+
+  const officersNodes =
+    companyOfficersQuery?.data?.companyOfficers?.nodes?.filter(isTruthy) || [];
+  const directorsDetails =
+    getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
+      ?.directorsDetails;
+
+  const defaultValues = useMemo(() => {
+    return directorsDetails
+      ? mapDirectorsDefaultValues(directorsDetails)
+      : undefined;
+  }, [directorsDetails]);
+
+  const officers = useMemo(() => parseOfficers(officersNodes), [officersNodes]);
+
   const handleDirectorDetailsSave = (values: DirectorDetailsFormValues) =>
     saveDirectorDetails({
       variables: {
@@ -46,50 +68,60 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
     });
 
   const handleCreditApplicationUpdate = (
-    directorsDetails: DirectorDetailsFormValues,
+    totalPercentage: number,
+    directors?: DirectorFormValues[],
   ) =>
     createUpdateApplication({
       variables: {
         input: formValuesToInputCreditApplication({
           ...getCreditApplicationByOrderUuidQuery.data
             ?.creditApplicationByOrderUuid,
-          directorsDetails,
+          directorsDetails: {
+            directors,
+            totalPercentage,
+          },
           orderUuid,
         }),
       },
     });
 
-  if (
-    getDirectorDetailsQuery?.loading ||
-    getCreditApplicationByOrderUuidQuery.loading
-  ) {
-    return <Loading size="xlarge" />;
-  }
-
-  if (
-    getDirectorDetailsQuery?.error ||
-    getCreditApplicationByOrderUuidQuery?.error
-  ) {
+  if (getDirectorDetailsQuery?.error || companyOfficersQuery?.error) {
     const errorMessage = (
-      getDirectorDetailsQuery?.error ||
-      getCreditApplicationByOrderUuidQuery?.error
+      getDirectorDetailsQuery?.error || companyOfficersQuery?.error
     )?.message;
     return <p>Error: {errorMessage}</p>;
   }
 
+  if (
+    getDirectorDetailsQuery?.loading ||
+    getCreditApplicationByOrderUuidQuery?.loading ||
+    companyOfficersQuery?.loading ||
+    !allDropDowns
+  ) {
+    return <Loading size="xlarge" />;
+  }
+
   return (
     <DirectorDetailsForm
+      officers={officers}
       isEdited={isEdited}
       directorUuid={directorUuid}
-      directorDetails={directorDetails}
-      dropdownData={getDirectorDetailsQuery.data?.allDropDowns!}
-      associates={getDirectorDetailsQuery.data?.companyByUuid?.associates!}
-      companyNumber={
-        getDirectorDetailsQuery.data?.companyByUuid?.companyNumber!
-      }
+      defaultValues={defaultValues}
+      dropdownData={allDropDowns}
       onSubmit={async values => {
         await handleDirectorDetailsSave(values)
-          .then(() => handleCreditApplicationUpdate(values))
+          .then(query =>
+            combineUpdatedDirectors(
+              values.directors,
+              query.data?.createUpdateCompanyDirector?.associates,
+            ),
+          )
+          .then(combinedDirectors =>
+            handleCreditApplicationUpdate(
+              values.totalPercentage,
+              combinedDirectors,
+            ),
+          )
           .then(onCompleted)
           .catch(onError);
       }}
