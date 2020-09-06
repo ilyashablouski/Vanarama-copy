@@ -9,6 +9,7 @@
 
 export interface GenericPageHeadQuery_genericPage_metaData {
   title: string | null;
+  name: string | null;
   metaRobots: string | null;
   metaDescription: string | null;
   publishedOn: any | null;
@@ -17,7 +18,6 @@ export interface GenericPageHeadQuery_genericPage_metaData {
   canonicalUrl: string | null;
   slug: string | null;
   schema: any | null;
-  name: string | null;
 }
 
 export interface GenericPageHeadQuery_genericPage_featuredImage_file {

@@ -50,13 +50,14 @@ export const LocationsPage: NextPage = () => {
         metaDescription={metaData?.metaDescription}
         metaRobots={metaData?.metaRobots}
         legacyUrl={metaData?.legacyUrl}
+        canonicalUrl={metaData?.canonicalUrl}
         publishedOn={metaData?.publishedOn}
-        featuredImage={data?.regionalOfficesPage.featuredImage}
+        featuredImage={data?.regionalOfficesPage?.featuredImage}
       />
       <div className="row:title">
         <BreadCrumbContainer />
         <Heading size="xlarge" color="black">
-          {data?.regionalOfficesPage.metaData.title}
+          {metaData?.name}
         </Heading>
       </div>
       <section className="row:text">

@@ -24,6 +24,22 @@ interface IProps {
   articles?: (BlogPost_blogPost_category | null)[] | null | undefined;
 }
 
+interface IImage {
+  src: string;
+  alt: string;
+}
+
+const renderImage = ({ src, alt }: IImage) => {
+  return (
+    <img
+      alt={alt}
+      style={{ margin: '1rem auto', display: 'block' }}
+      width="90%"
+      src={src}
+    />
+  );
+};
+
 const BlogPostContainer: NextPage<IProps> = ({
   body,
   name,
@@ -40,9 +56,9 @@ const BlogPostContainer: NextPage<IProps> = ({
           {name || ''}
         </Heading>
       </div>
-      <div className="row:bg-black -compact">
+      <div className="row:bg-white -compact">
         <div className="row:featured-image">
-          {image && <Image size="expand" src={image} />}
+          {image && <Image className="-white" size="expand" src={image} />}
         </div>
       </div>
       <div className="row:article">
@@ -55,6 +71,7 @@ const BlogPostContainer: NextPage<IProps> = ({
                 const { href, children } = props;
                 return <RouterLink link={{ href, label: children }} />;
               },
+              image: props => renderImage(props),
             }}
           />
         </article>

@@ -7,7 +7,7 @@ import Head from '../../components/Head/Head';
 import LeasingQuestionContainer from '../../containers/LeasingQuestionContainer/LeasingQuestionContainer';
 import { useGenericPageQuestion } from '../../containers/LeasingQuestionContainer/gql';
 
-const FinanceInfo: NextPage = () => {
+const LeasingQuestion: NextPage = () => {
   const router = useRouter();
 
   const crumbs = [
@@ -44,6 +44,7 @@ const FinanceInfo: NextPage = () => {
         metaDescription={metaData.metaDescription}
         metaRobots={metaData.metaRobots}
         legacyUrl={metaData.legacyUrl}
+        canonicalUrl={metaData.canonicalUrl}
         publishedOn={metaData.publishedOn}
         featuredImage={data?.genericPage.featuredImage}
       />
@@ -57,4 +58,4 @@ const FinanceInfo: NextPage = () => {
   );
 };
 
-export default withApollo(FinanceInfo, { getDataFromTree });
+export default withApollo(LeasingQuestion, { getDataFromTree });
