@@ -2,6 +2,7 @@
 import React from 'react';
 import SoleTraderDetailsForm from '../../components/SoleTraderDetailsForm';
 import { ISoleTraderDetailsFormContainerProps } from './interface';
+import { useSoleTraderDetailsFormDataQuery } from './gql';
 
 const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerProps> = ({
   personUuid,
@@ -10,7 +11,14 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
   onCompleted,
   onError,
 }) => {
-  return <SoleTraderDetailsForm isEdited onSubmit={async values => {}} />;
+  const soleTraderDetailsFormData = useSoleTraderDetailsFormDataQuery();
+  return (
+    <SoleTraderDetailsForm
+      dropDownData={soleTraderDetailsFormData.data?.allDropDowns}
+      isEdited
+      onSubmit={async values => {}}
+    />
+  );
 };
 
 export default SoleTraderDetailsFormContainer;

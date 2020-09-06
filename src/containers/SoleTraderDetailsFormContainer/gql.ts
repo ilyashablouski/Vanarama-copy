@@ -1,9 +1,9 @@
 import { gql, useQuery } from '@apollo/client';
 import SoleTraderDetailsForm from '../../components/SoleTraderDetailsForm';
-import { GetAboutYouPageQuery } from '../../../generated/GetAboutYouPageQuery';
+import { SoleTraderDetailsFormDataQuery } from '../../../generated/SoleTraderDetailsFormDataQuery';
 
 export const GET_SOLETRADER_DETAILS_FORM_DATA = gql`
-  query GetAboutYouPageQuery {
+  query SoleTraderDetailsFormDataQuery {
     allDropDowns {
       ...SoleTraderDetailsDropDownData
     }
@@ -15,7 +15,10 @@ export const GET_SOLETRADER_DETAILS_FORM_DATA = gql`
 export const UPDATE_SOLETRADER_DETAILS = gql``;
 
 export function useSoleTraderDetailsFormDataQuery() {
-  return useQuery<GetAboutYouPageQuery>(GET_SOLETRADER_DETAILS_FORM_DATA, {
-    fetchPolicy: 'no-cache',
-  });
+  return useQuery<SoleTraderDetailsFormDataQuery>(
+    GET_SOLETRADER_DETAILS_FORM_DATA,
+    {
+      fetchPolicy: 'no-cache',
+    },
+  );
 }

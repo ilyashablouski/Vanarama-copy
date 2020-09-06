@@ -190,7 +190,6 @@ SoleTraderDetailsForm.fragments = {
         __typename
         data
       }
-    }
       ...AddressFormFieldArrayDownData
     }
     ${AddressFormFieldArray.fragments.dropDownData}
