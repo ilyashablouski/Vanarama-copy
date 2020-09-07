@@ -75,6 +75,7 @@ export const bodyUrls = [
   'people-carrier',
   'prestige',
   'saloon',
+  'city-car',
   'small',
   'crew-vans',
   'dropside-tipper',
@@ -105,3 +106,7 @@ export const pageContentQueryExecutor = (
     },
   });
 };
+
+export function getBodyStyleForCms(this: string, element: string) {
+  return element.indexOf(this) > -1;
+}

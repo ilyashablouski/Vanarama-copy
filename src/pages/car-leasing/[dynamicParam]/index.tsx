@@ -3,8 +3,8 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import {
   bodyUrls,
-  prepareSlugPart,
   fuelMapper,
+  getBodyStyleForCms,
 } from '../../../containers/SearchPageContainer/helpers';
 import SearchPageContainer from '../../../containers/SearchPageContainer';
 import withApollo from '../../../hocs/withApollo';
@@ -63,8 +63,10 @@ const Page: NextPage<IProps> = ({
 Page.getInitialProps = ({ query, req, pathname, asPath }) => {
   const newQuery = { ...query };
   // check for bodystyle page
-  const isBodyStylePage =
-    bodyUrls.indexOf(prepareSlugPart(query.dynamicParam)) > -1;
+  const isBodyStylePage = !!bodyUrls.find(
+    getBodyStyleForCms,
+    (query.dynamicParam as string).toLowerCase(),
+  );
   // check for fuel page
   const isFuelType = !!fuelMapper[
     query.dynamicParam as keyof typeof fuelMapper
