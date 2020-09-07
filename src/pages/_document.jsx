@@ -1,8 +1,15 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
+
+import { Script as GTMScript, Body as GTMBody } from '../components/GTM';
+
 // import getConfig from 'next/config';
 
 // const { publicRuntimeConfig } = getConfig();
 
+// GTM.
+const gtmEnvs = ['uat', 'production'];
+
+// Rollbar
 // const rollbarCode = `
 //   var _rollbarConfig = {
 //     accessToken: "${publicRuntimeConfig.rollbarClientToken}",
@@ -24,8 +31,10 @@ class MyDocument extends Document {
         <Head>
           {/* eslint-disable-next-line react/no-danger */}
           {/* <script dangerouslySetInnerHTML={{ __html: rollbarCode }} /> */}
+          {gtmEnvs.includes(process.env.ENV) && <GTMScript />}
         </Head>
         <body>
+          {gtmEnvs.includes(process.env.ENV) && <GTMBody />}
           <Main />
           <NextScript />
         </body>
