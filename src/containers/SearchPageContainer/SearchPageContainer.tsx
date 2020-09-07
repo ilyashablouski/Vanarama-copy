@@ -50,6 +50,8 @@ import {
   prepareSlugPart,
   pageContentQueryExecutor,
   fuelMapper,
+  getBodyStyleForCms,
+  bodyUrls,
 } from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import RangeCard from './RangeCard';
@@ -157,8 +159,15 @@ const SearchPageContainer: React.FC<IProps> = ({
   const manualBodyStyle = useMemo(() => {
     if (isPickups) return ['Pickup'];
     if (isModelPage) return [router.query?.bodyStyles as string];
-    if (isBodyStylePage)
-      return [(router.query?.dynamicParam as string).replace('-', ' ')];
+    if (isBodyStylePage) {
+      const bodyStyle = router.query?.dynamicParam as string;
+      // city-car is only one style with '-' we shouldn't to replace it
+      return [
+        bodyStyle.toLowerCase() === 'city-car'
+          ? bodyStyle
+          : bodyStyle.replace('-', ' '),
+      ];
+    }
     return [''];
   }, [isPickups, isModelPage, router.query, isBodyStylePage]);
 
@@ -587,7 +596,10 @@ const SearchPageContainer: React.FC<IProps> = ({
         pageContentQueryExecutor(
           getGenericPage,
           `${isCarSearch ? '/car-leasing' : ''}/${prepareSlugPart(
-            query.dynamicParam,
+            bodyUrls.find(
+              getBodyStyleForCms,
+              (router.query.dynamicParam as string).toLowerCase(),
+            ) || '',
           )}${!isCarSearch ? '-leasing' : ''}`,
         );
         break;
