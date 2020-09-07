@@ -40,6 +40,10 @@
         {
           "name": "ROLLBAR_SERVER_TOKEN",
           "valueFrom": "%SSM_PARAMETER_BASE%/rollbar-server-token"
+        },
+        {
+          "name": "ENV",
+          "valueFrom": "%SSM_PARAMETER_BASE%/ENV"
         }
       ],
       "environment": [
