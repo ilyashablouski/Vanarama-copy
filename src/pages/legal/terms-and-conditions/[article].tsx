@@ -1,17 +1,14 @@
 import { NextPage } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
-import Head from '../../components/Head/Head';
-import withApollo from '../../hocs/withApollo';
-import { useLegalPageQuery } from '../../containers/LegalArticleContainer/gql';
-import LegalArticleContainer from '../../containers/LegalArticleContainer/LegalArticleContainer';
+import Head from '../../../components/Head/Head';
+import withApollo from '../../../hocs/withApollo';
+import { useLegalPageQuery } from '../../../containers/LegalArticleContainer/gql';
+import LegalArticleContainer from '../../../containers/LegalArticleContainer/LegalArticleContainer';
 
 const BlogPost: NextPage = () => {
   const router = useRouter();
-  const slug = `/legal/${router.query.article as string}`.replace(
-    '/legal/fca',
-    '/fca',
-  );
+  const slug = `/legal/terms-and-conditions/${router.query.article as string}`;
   const { data, loading, error } = useLegalPageQuery(slug);
 
   if (loading) {

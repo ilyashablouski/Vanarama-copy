@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { NextPage } from 'next';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
@@ -36,12 +35,9 @@ const LegalArticleContainer: NextPage<IProps> = ({
   body,
   name,
   image,
-  // cards,
   crumbs,
   sections,
-  // articles,
 }) => {
-  console.log(JSON.stringify(sections));
   return (
     <>
       <div className="row:title">

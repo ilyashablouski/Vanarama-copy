@@ -57,6 +57,14 @@ const rewrites = [
     from: '/automatic-vans.html',
     to: '/van-leasing/automatic',
   },
+  {
+    from: '/legal/:legalArticle.html',
+    to: '/legal/:legalArticle',
+  },
+  {
+    from: '/fca.html',
+    to: '/legal/fca',
+  },
 ];
 // Redirects.
 const redirects = [{ from: '/old-link', to: '/redirect', type: 301 }];
