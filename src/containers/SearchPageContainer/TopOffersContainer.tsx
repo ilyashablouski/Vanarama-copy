@@ -147,7 +147,7 @@ const TopOffersContainer: React.FC<IProps> = ({
           first: isMakePage ? 6 : 3,
         },
       });
-      if (isRangePage) getBodyStylesList();
+      if (isRangePage && isCarSearch) getBodyStylesList();
     }
     // disabled lint because we can't add router to deps
     // it's change every url replace
@@ -272,21 +272,23 @@ const TopOffersContainer: React.FC<IProps> = ({
           </div>
         </div>
       )}
-      <div className="row:bg-lighter">
-        {isRangePage && bodyStyleList.length > 1 ? (
-          <div className="row:cards-2col">
-            {bodyStyleList.map(bodyStyle => (
-              <ModelCard
-                data={bodyStyle}
-                isPersonalPrice={isPersonal}
-                viewModel={viewModel}
-              />
-            ))}
+      <>
+        {isRangePage && isCarSearch && bodyStyleList.length > 1 ? (
+          <div className="row:bg-lighter">
+            <div className="row:cards-2col">
+              {bodyStyleList.map(bodyStyle => (
+                <ModelCard
+                  data={bodyStyle}
+                  isPersonalPrice={isPersonal}
+                  viewModel={viewModel}
+                />
+              ))}
+            </div>
           </div>
         ) : (
           <></>
         )}
-      </div>
+      </>
     </>
   );
 };
