@@ -25,7 +25,7 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
   const [getDataSummary, { data, error, loading }] = useLazyQuery<
     GetCompanySummaryQuery,
     GetCompanySummaryQueryVariables
-  >(GET_COMPANY_SUMMARY);
+  >(GET_COMPANY_SUMMARY, { fetchPolicy: 'no-cache' });
   const getCreditApplication = useGetCreditApplicationByOrderUuid(orderId);
 
   useEffect(() => {
