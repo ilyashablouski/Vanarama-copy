@@ -109,8 +109,6 @@ app.prepare().then(() => {
   });
 
   server.all('*', cors(), (req, res) => {
-    res.setHeader('X-Robots-Tag', 'noindex'); // Disable indexing.
-
     // Trailing slash fix on page reload.
     req.url = req.url.replace(/\/$/, '');
     if (req.url === '') req.url = '/';
