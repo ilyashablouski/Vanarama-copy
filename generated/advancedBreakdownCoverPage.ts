@@ -8,14 +8,16 @@
 // ====================================================
 
 export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_metaData {
-  pageType: string | null;
   title: string | null;
-  legacyUrl: string | null;
-  canonicalUrl: string | null;
+  name: string | null;
   metaRobots: string | null;
   metaDescription: string | null;
-  schema: any | null;
   publishedOn: any | null;
+  legacyUrl: string | null;
+  pageType: string | null;
+  canonicalUrl: string | null;
+  slug: string | null;
+  schema: any | null;
 }
 
 export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_featuredImage_file {

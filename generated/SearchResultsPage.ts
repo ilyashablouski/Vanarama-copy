@@ -26,13 +26,16 @@ export interface SearchResultsPage_searchResultsPage_featuredImage {
 }
 
 export interface SearchResultsPage_searchResultsPage_metaData {
-  pageType: string | null;
-  slug: string | null;
   title: string | null;
+  name: string | null;
   metaRobots: string | null;
   metaDescription: string | null;
-  legacyUrl: string | null;
   publishedOn: any | null;
+  legacyUrl: string | null;
+  pageType: string | null;
+  canonicalUrl: string | null;
+  slug: string | null;
+  schema: any | null;
 }
 
 export interface SearchResultsPage_searchResultsPage {

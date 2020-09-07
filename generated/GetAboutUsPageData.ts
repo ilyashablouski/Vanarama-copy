@@ -7,17 +7,29 @@
 // GraphQL query operation: GetAboutUsPageData
 // ====================================================
 
+export interface GetAboutUsPageData_aboutUsLandingPage_metaData {
+  title: string | null;
+  name: string | null;
+  metaRobots: string | null;
+  metaDescription: string | null;
+  publishedOn: any | null;
+  legacyUrl: string | null;
+  pageType: string | null;
+  canonicalUrl: string | null;
+  slug: string | null;
+  schema: any | null;
+}
+
 export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage_file {
   url: string;
+  fileName: string;
+  contentType: string;
 }
 
 export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage {
+  title: string | null;
+  description: string | null;
   file: GetAboutUsPageData_aboutUsLandingPage_featuredImage_file | null;
-}
-
-export interface GetAboutUsPageData_aboutUsLandingPage_metaData {
-  name: string | null;
-  schema: any | null;
 }
 
 export interface GetAboutUsPageData_aboutUsLandingPage_sections_rowText {
@@ -59,8 +71,8 @@ export interface GetAboutUsPageData_aboutUsLandingPage_sections {
 export interface GetAboutUsPageData_aboutUsLandingPage {
   id: string;
   body: string | null;
-  featuredImage: GetAboutUsPageData_aboutUsLandingPage_featuredImage | null;
   metaData: GetAboutUsPageData_aboutUsLandingPage_metaData;
+  featuredImage: GetAboutUsPageData_aboutUsLandingPage_featuredImage | null;
   sections: GetAboutUsPageData_aboutUsLandingPage_sections | null;
 }
 

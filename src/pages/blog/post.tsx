@@ -4,6 +4,7 @@ import Head from '../../components/Head/Head';
 import withApollo from '../../hocs/withApollo';
 import { useGenericPage } from '../../gql/genericPage';
 import BlogPostContainer from '../../containers/BlogPostContainer/BlogPostContainer';
+import { getSectionsData } from '../../utils/getSectionsData';
 
 const crumbs = [
   {
@@ -36,7 +37,10 @@ const BlogPost: NextPage = () => {
   const body = data?.genericPage?.body;
   const name = data?.genericPage?.metaData?.name;
   const image = data?.genericPage?.featuredImage?.file?.url;
-  const cards = data?.genericPage?.sections?.cards?.cards;
+  const cards = getSectionsData(
+    ['cards', 'cards'],
+    data?.genericPage?.sections,
+  );
   const metaData = data?.genericPage?.metaData;
 
   return (
@@ -46,6 +50,7 @@ const BlogPost: NextPage = () => {
         metaDescription={metaData?.metaDescription}
         metaRobots={metaData?.metaRobots}
         legacyUrl={metaData?.legacyUrl}
+        canonicalUrl={metaData?.canonicalUrl}
         publishedOn={metaData?.publishedOn}
         featuredImage={data?.genericPage.featuredImage}
       />

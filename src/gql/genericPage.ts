@@ -281,6 +281,7 @@ export const GENERIC_PAGE_HEAD = gql`
       id
       metaData {
         title
+        name
         metaRobots
         metaDescription
         publishedOn
@@ -290,7 +291,6 @@ export const GENERIC_PAGE_HEAD = gql`
         slug
         publishedOn
         schema
-        name
       }
       featuredImage {
         title

@@ -1,4 +1,10 @@
 /* eslint-disable @typescript-eslint/camelcase */
+/* 
+  The first route param renamed to dynamicParam. 
+  Because this route can be any filter value: make, bodystyle, transmission, fuel type.
+  We define type of this params before page rendering in root page container,
+  this query param should be using only with page type context for prevent any issues with it
+*/
 import React, {
   useState,
   useEffect,
@@ -30,7 +36,6 @@ import {
   getVehiclesList,
   getRangesList,
   useManufacturerList,
-  useSearchResultPage,
   GET_ALL_MAKES_PAGE,
 } from './gql';
 import VehicleCard, { IProductPageUrl } from './VehicleCard';
@@ -43,8 +48,8 @@ import {
 import {
   buildRewriteRoute,
   prepareSlugPart,
-  bodyUrls,
-  isBodyTransmission,
+  pageContentQueryExecutor,
+  fuelMapper,
 } from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import RangeCard from './RangeCard';
@@ -77,7 +82,9 @@ interface IProps {
   isRangePage?: boolean;
   isModelPage?: boolean;
   isAllMakesPage?: boolean;
-  isGenericIntro?: boolean;
+  isBodyStylePage?: boolean;
+  isTransmissionPage?: boolean;
+  isFuelPage?: boolean;
 }
 
 const SearchPageContainer: React.FC<IProps> = ({
@@ -89,14 +96,14 @@ const SearchPageContainer: React.FC<IProps> = ({
   isRangePage,
   isModelPage,
   isAllMakesPage,
-  isGenericIntro,
+  isBodyStylePage,
+  isTransmissionPage,
+  isFuelPage,
 }: IProps) => {
   const router = useRouter();
-
-  // generic page for /car-leasing or /van-leasing
-  const { data: searchGenericPage } = useSearchResultPage(
-    isCarSearch ? '/car-leasing-search' : '/search',
-    !isGenericIntro,
+  const isDynamicFilterPage = useMemo(
+    () => isBodyStylePage || isFuelPage || isTransmissionPage,
+    [isBodyStylePage, isFuelPage, isTransmissionPage],
   );
 
   /** we storing the last value of special offers checkbox in Session storage */
@@ -136,8 +143,6 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
 
-  const isBodyPage = bodyUrls.indexOf(prepareSlugPart(router.query.make)) > -1;
-
   useEffect(() => {
     const type = isPersonal ? 'Personal' : 'Business';
     setCachedLeaseType(type);
@@ -152,8 +157,10 @@ const SearchPageContainer: React.FC<IProps> = ({
   const manualBodyStyle = useMemo(() => {
     if (isPickups) return ['Pickup'];
     if (isModelPage) return [router.query?.bodyStyles as string];
+    if (isBodyStylePage)
+      return [(router.query?.dynamicParam as string).replace('-', ' ')];
     return [''];
-  }, [isPickups, isModelPage, router.query]);
+  }, [isPickups, isModelPage, router.query, isBodyStylePage]);
 
   // get Caps ids for product card request
   const getCapsIds = (data: (IVehicles | null)[]) =>
@@ -162,7 +169,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   // using onCompleted callback for request card data after vehicle list was loaded
   const [getVehicles, { data }] = getVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-    isMakePage || isBodyPage || isSpecialOfferPage
+    isMakePage || isDynamicFilterPage || isSpecialOfferPage
       ? true
       : isSpecialOffers || null,
     async vehicles => {
@@ -187,7 +194,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     },
     9,
     undefined,
-    isPickups || isModelPage ? manualBodyStyle : [],
+    isPickups || isModelPage || isBodyStylePage ? manualBodyStyle : [],
   );
   // using for cache request
   const [getVehiclesCache, { data: cacheData }] = getVehiclesList(
@@ -215,29 +222,14 @@ const SearchPageContainer: React.FC<IProps> = ({
     },
     undefined,
     lastCard,
-    isPickups || isModelPage ? manualBodyStyle : [],
+    isPickups || isModelPage || isBodyStylePage ? manualBodyStyle : [],
   );
 
   // Ranges list query for make page
   const [getRanges, { data: ranges }] = getRangesList(
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-    !isBodyPage ? (router.query?.make as string) : '',
+    router.query?.dynamicParam as string,
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
-    undefined,
-    isBodyPage && !isBodyTransmission(router.query?.make as string)
-      ? [
-          (router.query?.make as string)
-            .replace(/.html/g, '')
-            .replace(/-vans/g, ''),
-        ]
-      : undefined,
-    isBodyPage && isBodyTransmission(router.query?.make as string)
-      ? [
-          (router.query?.make as string)
-            .replace(/.html/g, '')
-            .replace(/-vans/g, ''),
-        ]
-      : undefined,
   );
 
   // Make list query for all makes page
@@ -252,13 +244,15 @@ const SearchPageContainer: React.FC<IProps> = ({
   ];
 
   const sortField =
-    !isRangePage && isSpecialOffers ? SortField.offerRanking : SortField.rate;
+    !isRangePage && isSpecialOffers && !isDynamicFilterPage
+      ? SortField.offerRanking
+      : SortField.rate;
 
   // new search with new filters
   const onSearch = (filters = filtersData) => {
     // set search filters data
     setFiltersData(filters);
-    if (isMakePage || isBodyPage) {
+    if (isMakePage) {
       getRanges({
         variables: {
           vehicleTypes: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
@@ -266,24 +260,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             ? LeaseTypeEnum.PERSONAL
             : LeaseTypeEnum.BUSINESS,
           ...filters,
-          manufacturerName: !isBodyPage ? (router.query?.make as string) : '',
-          bodyStyles:
-            isBodyPage &&
-            !isBodyTransmission(
-              (router.query?.make as string)
-                .replace(/.html/g, '')
-                .replace(/-vans/g, ''),
-            ) // if needed
-              ? [router.query?.make as string]
-              : undefined,
-          transmissions:
-            isBodyPage && isBodyTransmission(router.query?.make as string)
-              ? [
-                  (router.query?.make as string)
-                    .replace(/.html/g, '')
-                    .replace(/-vans/g, ''),
-                ]
-              : undefined,
+          manufacturerName: router.query?.dynamicParam as string,
         },
       });
       // call only manufacturer list query call after select new filter
@@ -303,7 +280,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     } else {
       let onOffer;
       // set onOffer value to actual depend on page type
-      if (isRangePage || isModelPage) onOffer = null;
+      if (isRangePage || isModelPage || isDynamicFilterPage) onOffer = null;
       else onOffer = isSpecialOfferPage ? true : isSpecialOffers || null;
       getVehicles({
         variables: {
@@ -315,14 +292,24 @@ const SearchPageContainer: React.FC<IProps> = ({
           sortField,
           ...{
             bodyStyles:
-              isPickups || isModelPage ? manualBodyStyle : filters.bodyStyles,
+              isPickups || isModelPage || isBodyStylePage
+                ? manualBodyStyle
+                : filters.bodyStyles,
+            transmissions: isTransmissionPage
+              ? [(router.query.dynamicParam as string).replace('-', ' ')]
+              : filters.transmissions,
+            fuelTypes: isFuelPage
+              ? (fuelMapper[
+                  router.query.dynamicParam as keyof typeof fuelMapper
+                ] as string).split(',')
+              : filters.fuelTypes,
           },
         },
       });
     }
 
     let pathname = router.route
-      .replace('[make]', router.query?.make as string)
+      .replace('[dynamicParam]', router.query?.dynamicParam as string)
       .replace('[rangeName]', router.query?.rangeName as string)
       .replace('[bodyStyles]', router.query?.bodyStyles as string);
     const queryString = new URLSearchParams();
@@ -331,6 +318,9 @@ const SearchPageContainer: React.FC<IProps> = ({
       filters as IFilters,
       isMakePage || isRangePage,
       isModelPage,
+      isBodyStylePage,
+      isTransmissionPage,
+      isFuelPage,
     );
     Object.entries(query).forEach(([key, value]) =>
       queryString.set(key, value as string),
@@ -356,7 +346,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     if ((!queryLength || isSpecialOfferPage) && !isAllMakesPage) getVehicles();
     // if page mount without additional search params in query we made request
     // else request will be made after filters preselected
-    if ((isMakePage || isBodyPage) && queryLength < 2) getRanges();
+    if (isMakePage && queryLength < 2) getRanges();
     if (isAllMakesPage && !queryLength) getManufacturerList();
     // disabled lint because we can't add router to deps
     // it's change every url replace
@@ -388,7 +378,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       setLastCard(data.vehicleList.pageInfo.endCursor || '');
       setHasNextPage(data.vehicleList.pageInfo.hasNextPage || false);
       // use range lenght for manufacture page
-      if (!isMakePage && !isBodyPage && !isAllMakesPage)
+      if (!isMakePage && !isAllMakesPage)
         setTotalCount(data.vehicleList.totalCount);
       setCapsIds(
         data.vehicleList?.edges?.map(
@@ -404,7 +394,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     setCapsIds,
     isMakePage,
     isAllMakesPage,
-    isBodyPage,
   ]);
 
   // initial set ranges
@@ -424,13 +413,13 @@ const SearchPageContainer: React.FC<IProps> = ({
   // get vehicles to cache
   useEffect(() => {
     // don't make a request for cache in manufacture page
-    if (lastCard && !isMakePage && !isBodyPage && hasNextPage)
+    if (lastCard && !isMakePage && hasNextPage)
       getVehiclesCache({
         variables: {
           vehicleTypes: isCarSearch
             ? [VehicleTypeEnum.CAR]
             : [VehicleTypeEnum.LCV],
-          onOffer: !(isRangePage || isModelPage)
+          onOffer: !(isRangePage || isModelPage || isDynamicFilterPage)
             ? isSpecialOffers || null
             : null,
           after: lastCard,
@@ -449,7 +438,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     hasNextPage,
     isRangePage,
     isModelPage,
-    isBodyPage,
+    isDynamicFilterPage,
   ]);
 
   // set capsIds for cached data
@@ -488,24 +477,42 @@ const SearchPageContainer: React.FC<IProps> = ({
   /** navigate to Range Page */
   const viewRange = (range: string) => {
     const href = isCarSearch ? 'car-leasing' : 'van-leasing';
+    const query = { make: router.query.dynamicParam };
     router.push(
-      `/${href}/[make]/[rangeName]`,
-      `/${href}/${router.query.make}/${range}`,
+      {
+        pathname: `/${href}/[dynamicParam]/[rangeName]`,
+        query,
+      },
+      `/${href}/${router.query.dynamicParam}/${range}`,
+      { shallow: true },
     );
   };
   /** navigate to Model Page */
   const viewModel = (bodyStyle: string) => {
     const href = isCarSearch ? 'car-leasing' : 'van-leasing';
+    const query = { make: router.query.dynamicParam };
     router.push(
-      `/${href}/[make]/[rangeName]/[bodyStyles]`,
-      `/${href}/${router.query.make}/${router.query.rangeName}/${bodyStyle}`,
+      {
+        pathname: `/${href}/[dynamicParam]/[rangeName]/[bodyStyles]`,
+        query,
+      },
+      `/${href}/${router.query.dynamicParam}/${router.query.rangeName}/${bodyStyle}`,
+      { shallow: true },
     );
   };
   /** navigate to Make Page */
   const viewMake = (make: string) => {
     if (make) {
       const href = isCarSearch ? 'car-leasing' : 'van-leasing';
-      router.push(`/${href}/[make]`, `/${href}/${make}`);
+      const query = { make: router.query.dynamicParam };
+      router.push(
+        {
+          pathname: `/${href}/[dynamicParam]`,
+          query,
+        },
+        `/${href}/${make}`,
+        { shallow: true },
+      );
     }
   };
 
@@ -547,84 +554,100 @@ const SearchPageContainer: React.FC<IProps> = ({
     },
   );
 
+  // made requests for different types of search pages
   useEffect(() => {
-    if (router.query.make) {
-      if (router.query.rangeName) {
-        if (router.query.bodyStyles) {
-          getGenericPage({
-            variables: {
-              slug: `/${prepareSlugPart(router.query.make)}-${
-                isCarSearch ? 'car-leasing' : 'van-leasing'
-              }/${prepareSlugPart(router.query.rangeName)}/${prepareSlugPart(
-                router.query.bodyStyles,
-              )}`,
-            },
-          });
-        } else {
-          getGenericPage({
-            variables: {
-              slug: `/${prepareSlugPart(router.query.make)}-${
-                isCarSearch ? 'car-leasing' : 'van-leasing'
-              }/${prepareSlugPart(router.query.rangeName)}`,
-            },
-          });
-        }
-      } else if (isBodyPage) {
-        getGenericPage({
-          variables: {
-            slug: `/${prepareSlugPart(router.query.make).replace(
-              /.html/g,
-              '',
-            )}`,
-          },
-        });
-      } else {
-        getGenericPage({
-          variables: {
-            slug: `/${(router.query.make as string).toLocaleLowerCase()}-${
-              isCarSearch ? 'car-leasing' : 'van-leasing'
-            }`,
-          },
-        });
-      }
+    const searchType = isCarSearch ? 'car-leasing' : 'van-leasing';
+    const { query } = router;
+    switch (true) {
+      case isMakePage:
+        pageContentQueryExecutor(
+          getGenericPage,
+          `/${(query.dynamicParam as string).toLocaleLowerCase()}-${searchType}`,
+        );
+        break;
+      case isRangePage:
+        pageContentQueryExecutor(
+          getGenericPage,
+          `/${prepareSlugPart(
+            query.dynamicParam,
+          )}-${searchType}/${prepareSlugPart(query.rangeName)}`,
+        );
+        break;
+      case isModelPage:
+        pageContentQueryExecutor(
+          getGenericPage,
+          `/${prepareSlugPart(
+            query.dynamicParam,
+          )}-car-leasing/${prepareSlugPart(query.rangeName)}/${prepareSlugPart(
+            query.bodyStyles,
+          )}`,
+        );
+        break;
+      case isBodyStylePage:
+        pageContentQueryExecutor(
+          getGenericPage,
+          `${isCarSearch ? '/car-leasing' : ''}/${prepareSlugPart(
+            query.dynamicParam,
+          )}${!isCarSearch ? '-leasing' : ''}`,
+        );
+        break;
+      case isTransmissionPage:
+        pageContentQueryExecutor(getGenericPage, '/automatic-vans');
+        break;
+      case isFuelPage:
+        pageContentQueryExecutor(
+          getGenericPage,
+          `car-leasing/${router.query.dynamicParam}`,
+        );
+        break;
+      case isSpecialOfferPage:
+        pageContentQueryExecutor(
+          getGenericPageHead,
+          `/${isCarSearch ? 'car-leasing' : 'pickup'}-special-offers`,
+        );
+        break;
+      case isAllMakesPage:
+        getAllManufacturersPage();
+        break;
+      default:
+        pageContentQueryExecutor(
+          getGenericPage,
+          isCarSearch ? '/car-leasing/search' : '/search',
+        );
+        break;
     }
-    if (router.asPath.match('all-car-manufacturers')) {
-      getAllManufacturersPage();
-    }
-    if (router.asPath.match('special-offers')) {
-      getGenericPageHead({
-        variables: {
-          slug: `/${isCarSearch ? 'car-leasing' : 'pickup'}-special-offers`,
-        },
-      });
-    }
+    // router can't be added to deps, because it change every url replacing
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    cacheData,
-    setCapsIds,
     isCarSearch,
-    router,
+    isAllMakesPage,
+    isSpecialOfferPage,
+    isBodyStylePage,
+    isTransmissionPage,
+    isModelPage,
+    isRangePage,
+    isMakePage,
+    isFuelPage,
     getGenericPage,
     getAllManufacturersPage,
     getGenericPageHead,
-    isBodyPage,
   ]);
 
   const tiles = pageData?.genericPage.sections?.tiles;
   const carousel = pageData?.genericPage.sections?.carousel;
   const featured = pageData?.genericPage.sections?.featured;
-  const searchPage = searchGenericPage?.searchResultsPage;
 
+  // TODO: render must be refactored, some components should be moved to separate components
+  // Some props should be contain in one param for achieve more readable code
   return (
     <>
       <Head
-        title={metaData?.title || searchPage?.metaData?.title || ''}
-        metaDescription={
-          metaData?.metaDescription || searchPage?.metaData?.metaDescription
-        }
-        metaRobots={metaData?.metaRobots || searchPage?.metaData?.metaRobots}
-        legacyUrl={metaData?.legacyUrl || searchPage?.metaData?.legacyUrl}
-        publishedOn={metaData?.publishedOn || searchPage?.metaData?.publishedOn}
-        featuredImage={featuredImage || searchPage?.featuredImage}
+        title={metaData?.title || ''}
+        metaDescription={metaData?.metaDescription}
+        metaRobots={metaData?.metaRobots}
+        legacyUrl={metaData?.legacyUrl}
+        publishedOn={metaData?.publishedOn}
+        featuredImage={featuredImage}
       />
       <div className="row:title">
         <Breadcrumb items={crumbs} />
@@ -633,96 +656,80 @@ const SearchPageContainer: React.FC<IProps> = ({
             `${filtersData.manufacturerName} ${filtersData.rangeName} ${filtersData.bodyStyles?.[0]}`) ||
             (metaData?.name ?? 'Lorem Ips')}
         </Heading>
-        {!isBodyPage ? (
-          <Text color="dark" size="regular">
-            <ReactMarkdown
-              source={searchPage?.intro || ''}
-              disallowedTypes={['paragraph']}
-              unwrapDisallowed
-              renderers={{
-                link: props => {
-                  const { href, children } = props;
-                  return <RouterLink link={{ href, label: children }} />;
-                },
-                image: props => {
-                  const { src, alt } = props;
-                  return <img {...{ src, alt }} style={{ maxWidth: '100%' }} />;
-                },
-              }}
-            />
-          </Text>
-        ) : (
-          <Text color="darker" size="regular" tag="div">
-            <ReactMarkdown
-              source={pageData?.genericPage.intro || ''}
-              disallowedTypes={['paragraph']}
-              unwrapDisallowed
-              renderers={{
-                link: props => {
-                  const { href, children } = props;
-                  return <RouterLink link={{ href, label: children }} />;
-                },
-                image: props => {
-                  const { src, alt } = props;
-                  return <img {...{ src, alt }} style={{ maxWidth: '100%' }} />;
-                },
-              }}
-            />
-          </Text>
-        )}
+        <Text color="darker" size="regular" tag="div">
+          <ReactMarkdown
+            source={pageData?.genericPage.intro || ''}
+            disallowedTypes={['paragraph']}
+            unwrapDisallowed
+            renderers={{
+              link: props => {
+                const { href, children } = props;
+                return <RouterLink link={{ href, label: children }} />;
+              },
+              image: props => {
+                const { src, alt } = props;
+                return <img {...{ src, alt }} style={{ maxWidth: '100%' }} />;
+              },
+            }}
+          />
+        </Text>
       </div>
       {pageData && (
         <>
-          {router.query.bodyStyles &&
-            router.query.make &&
-            router.query.rangeName && (
-              <>
-                <div className="row:title">
-                  <Heading size="large" color="black">
-                    {metaData?.name}
-                  </Heading>
+          {isModelPage && (
+            <>
+              <div className="row:title">
+                <Heading size="large" color="black">
+                  {metaData?.name}
+                </Heading>
+              </div>
+              <div className="row:text">
+                <div>
+                  <Text color="darker" size="regular" tag="div">
+                    <ReactMarkdown
+                      source={pageData?.genericPage.body || ''}
+                      disallowedTypes={['paragraph']}
+                      unwrapDisallowed
+                      renderers={{
+                        link: props => {
+                          const { href, children } = props;
+                          return (
+                            <RouterLink link={{ href, label: children }} />
+                          );
+                        },
+                        image: props => {
+                          const { src, alt } = props;
+                          return (
+                            <img
+                              {...{ src, alt }}
+                              style={{ maxWidth: '100%' }}
+                            />
+                          );
+                        },
+                      }}
+                    />
+                  </Text>
                 </div>
-                <div className="row:text">
-                  <div>
-                    <Text color="darker" size="regular" tag="div">
-                      <ReactMarkdown
-                        source={pageData?.genericPage.body || ''}
-                        disallowedTypes={['paragraph']}
-                        unwrapDisallowed
-                        renderers={{
-                          link: props => {
-                            const { href, children } = props;
-                            return (
-                              <RouterLink link={{ href, label: children }} />
-                            );
-                          },
-                          image: props => {
-                            const { src, alt } = props;
-                            return (
-                              <img
-                                {...{ src, alt }}
-                                style={{ maxWidth: '100%' }}
-                              />
-                            );
-                          },
-                        }}
-                      />
-                    </Text>
-                  </div>
-                </div>
-              </>
-            )}
+              </div>
+            </>
+          )}
         </>
       )}
 
       {isAllMakesPage && topInfoSection && (
         <TopInfoBlock topInfoSection={topInfoSection} />
       )}
-      {(isMakePage || isSpecialOfferPage || isRangePage) && (
+      {(isMakePage ||
+        isSpecialOfferPage ||
+        isRangePage ||
+        isDynamicFilterPage) && (
         <TopOffersContainer
           isCarSearch={isCarSearch}
           isMakePage={isMakePage || false}
-          isBodyPage={isBodyPage}
+          isBodyPage={isBodyStylePage || false}
+          isTransmissionPage={isTransmissionPage || false}
+          isDynamicFilterPage={isDynamicFilterPage || false}
+          isFuelPage={isFuelPage || false}
           isPersonal={isPersonal}
           isRangePage={isRangePage || false}
           isPickups={isPickups || false}
@@ -735,6 +742,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         !isSpecialOfferPage &&
         !isRangePage &&
         !isModelPage &&
+        !isDynamicFilterPage &&
         !isAllMakesPage && (
           <div className="-mv-400 -stretch-left">
             <Checkbox
@@ -759,6 +767,10 @@ const SearchPageContainer: React.FC<IProps> = ({
             isSpecialOffers={isSpecialOffers || null}
             isModelPage={isModelPage}
             isAllMakesPage={isAllMakesPage}
+            isBodyPage={isBodyStylePage}
+            isDynamicFilterPage={isDynamicFilterPage}
+            isFuelPage={isFuelPage}
+            isTransmissionPage={isTransmissionPage}
           />
         </div>
       </div>
@@ -769,9 +781,9 @@ const SearchPageContainer: React.FC<IProps> = ({
           </Text>
           <div className="row:cards-3col">
             {useCallback(
-              isMakePage || isBodyPage || isAllMakesPage ? (
+              isMakePage || isAllMakesPage ? (
                 <>
-                  {(isMakePage || isBodyPage) &&
+                  {isMakePage &&
                     !!ranges?.rangeList?.length &&
                     ranges?.rangeList?.map((range, index) => (
                       <RangeCard
@@ -825,7 +837,7 @@ const SearchPageContainer: React.FC<IProps> = ({
               [cardsData, isPersonal, ranges, carDer, totalCount],
             )}
           </div>
-          {!(isMakePage || isBodyPage || isAllMakesPage) ? (
+          {!(isMakePage || isAllMakesPage) ? (
             <div className="pagination">
               {totalCount > vehiclesList?.length && (
                 <Button
@@ -843,11 +855,9 @@ const SearchPageContainer: React.FC<IProps> = ({
           )}
         </div>
       </div>
-      {!pageData && router.query.make && router.query.rangeName && (
-        <Loading size="large" />
-      )}
+      {!pageData && isRangePage && <Loading size="large" />}
 
-      {isBodyPage && (
+      {isDynamicFilterPage && (
         <div className="row:features-4col">
           {tiles?.tiles?.length &&
             tiles.tiles.map((tile, indx) => (
@@ -883,10 +893,7 @@ const SearchPageContainer: React.FC<IProps> = ({
 
       {pageData && (
         <>
-          {((!router.query.bodyStyles &&
-            router.query.make &&
-            router.query.rangeName) ||
-            isBodyPage) && (
+          {(isRangePage || isDynamicFilterPage) && (
             <>
               <div className="row:title">
                 <Heading size="large" color="black">
@@ -936,7 +943,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             </div>
           )}
 
-          {tiles && !isBodyPage && (
+          {tiles && !isDynamicFilterPage && (
             <div className="row:features-4col">
               {tiles?.tiles?.length &&
                 tiles.tiles.map((tile, indx) => (

@@ -17,7 +17,7 @@ import {
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import { bodyStyleList_bodyStyleList as IModelsData } from '../../../generated/bodyStyleList';
-import { isBodyTransmission } from './helpers';
+import { fuelMapper } from './helpers';
 
 interface IProps {
   isPersonal: boolean;
@@ -27,6 +27,9 @@ interface IProps {
   isSpecialOfferPage: boolean;
   isPickups: boolean;
   isRangePage: boolean;
+  isTransmissionPage: boolean;
+  isFuelPage: boolean;
+  isDynamicFilterPage: boolean;
   viewOffer: (productPageUrl: IProductPageUrl) => void;
   viewModel: (model: string) => void;
 }
@@ -36,11 +39,14 @@ const TopOffersContainer: React.FC<IProps> = ({
   isMakePage,
   isBodyPage,
   isSpecialOfferPage,
+  isTransmissionPage,
   isPickups,
   isRangePage,
   isPersonal,
+  isFuelPage,
   viewOffer,
   viewModel,
+  isDynamicFilterPage,
 }: IProps) => {
   const router = useRouter();
 
@@ -99,7 +105,7 @@ const TopOffersContainer: React.FC<IProps> = ({
   const [getBodyStylesList, { data }] = useBodyStyleList(
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
-    router.query.make as string,
+    router.query.dynamicParam as string,
     ((router.query?.rangeName as string) || '').split('+').join(' '),
   );
 
@@ -112,7 +118,7 @@ const TopOffersContainer: React.FC<IProps> = ({
   // API call after load new pages
   useEffect(() => {
     if (isSpecialOfferPage) getVehicles();
-    if (isMakePage || isRangePage || isBodyPage) {
+    if (isMakePage || isRangePage || isDynamicFilterPage) {
       getVehicles({
         variables: {
           vehicleTypes: isCarSearch
@@ -120,25 +126,21 @@ const TopOffersContainer: React.FC<IProps> = ({
             : [VehicleTypeEnum.LCV],
           onOffer: true,
           sortField: SortField.offerRanking,
-          manufacturerName: !isBodyPage
-            ? (router.query?.make as string)
+          manufacturerName:
+            isMakePage || isRangePage
+              ? (router.query?.dynamicParam as string)
+              : undefined,
+          bodyStyles: isBodyPage
+            ? [(router.query?.dynamicParam as string).replace('-', ' ')]
             : undefined,
-          bodyStyles:
-            isBodyPage && !isBodyTransmission(router.query?.make as string)
-              ? [
-                  (router.query?.make as string)
-                    .replace(/.html/g, '')
-                    .replace(/-vans/g, ''),
-                ]
-              : undefined,
-          transmissions:
-            isBodyPage && isBodyTransmission(router.query?.make as string)
-              ? [
-                  (router.query?.make as string)
-                    .replace(/.html/g, '')
-                    .replace(/-vans/g, ''),
-                ]
-              : undefined,
+          transmissions: isTransmissionPage
+            ? [router.query?.dynamicParam as string]
+            : undefined,
+          fuelTypes: isFuelPage
+            ? (fuelMapper[
+                router.query.dynamicParam as keyof typeof fuelMapper
+              ] as string).split(',')
+            : undefined,
           rangeName: isRangePage
             ? ((router.query?.rangeName as string) || '').split('+').join(' ')
             : '',
@@ -155,13 +157,19 @@ const TopOffersContainer: React.FC<IProps> = ({
     isCarSearch,
     isMakePage,
     isBodyPage,
+    isTransmissionPage,
     isSpecialOfferPage,
+    isDynamicFilterPage,
+    isFuelPage,
     isPersonal,
   ]);
 
   // using for get vehicles for carousel when we switching between pages by header links
   useEffect(() => {
-    if ((isMakePage || isBodyPage) && router.query.isChangePage === 'true') {
+    if (
+      (isMakePage || isDynamicFilterPage) &&
+      router.query.isChangePage === 'true'
+    ) {
       getVehicles({
         variables: {
           vehicleTypes: isCarSearch
@@ -169,44 +177,55 @@ const TopOffersContainer: React.FC<IProps> = ({
             : [VehicleTypeEnum.LCV],
           onOffer: true,
           sortField: SortField.offerRanking,
-          manufacturerName: !isBodyPage
-            ? (router.query?.make as string)
+          manufacturerName: isMakePage
+            ? (router.query?.dynamicParam as string)
             : undefined,
-          bodyStyles:
-            isBodyPage && !isBodyTransmission(router.query?.make as string)
-              ? [router.query?.make as string]
-              : undefined,
-          transmissions:
-            isBodyPage && isBodyTransmission(router.query?.make as string)
-              ? [router.query?.make as string]
-              : undefined,
+          bodyStyles: isBodyPage
+            ? [router.query?.dynamicParam as string]
+            : undefined,
+          transmissions: isTransmissionPage
+            ? [router.query?.dynamicParam as string]
+            : undefined,
+          fuelTypes: isFuelPage
+            ? (fuelMapper[
+                router.query.dynamicParam as keyof typeof fuelMapper
+              ] as string).split(',')
+            : undefined,
           first: 6,
         },
       });
     }
-  }, [router, isCarSearch, isMakePage, isBodyPage, getVehicles]);
+  }, [
+    router,
+    isFuelPage,
+    isCarSearch,
+    isMakePage,
+    isBodyPage,
+    isTransmissionPage,
+    isDynamicFilterPage,
+    getVehicles,
+  ]);
 
   const getCardData = (capId: string, dataForCards = cardsData) =>
     dataForCards?.filter(card => card?.capId === capId)[0];
   return (
     <>
-      {(((isMakePage || isBodyPage) &&
-        vehiclesList.length > 3 &&
-        !!carDer.length) ||
-        ((isSpecialOfferPage || (isRangePage && vehiclesList.length > 2)) &&
+      {((isMakePage && vehiclesList.length > 3 && !!carDer.length) ||
+        ((isSpecialOfferPage ||
+          ((isRangePage || isDynamicFilterPage) && vehiclesList.length > 2)) &&
           !!vehiclesList.length &&
           !!carDer.length)) && (
         <div className="row:bg-lighter">
           <div
             className={cx({
-              'row:carousel': !isRangePage,
-              'row:cards-3col': isRangePage,
+              'row:carousel': !isRangePage && !isDynamicFilterPage,
+              'row:cards-3col': isRangePage || isDynamicFilterPage,
             })}
           >
             <Heading size="large" color="black" tag="h3">
               Top Offers
             </Heading>
-            {isRangePage ? (
+            {isRangePage || isDynamicFilterPage ? (
               vehiclesList.map((vehicle: IVehicles) => (
                 <VehicleCard
                   dataDerivatives={carDer}
