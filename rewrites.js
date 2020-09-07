@@ -1,37 +1,39 @@
 const fetch = require('node-fetch');
 const csv = require('csvtojson');
 
-const vehicles = { car: [], lcv: [] };
-const capIds = { car: [], lcv: [] };
+// Github endpoint.
+const endpoint =
+  'https://raw.githubusercontent.com/Autorama/vanarama-seo/master';
 
-// Github endpoint
-const url =
-  'https://0ae40ce80020c5131ffdbcf0983d7a231d117d3e@raw.githubusercontent.com/Autorama/vanarama-seo/master/pdp-rewrites.csv';
-
-// Fetch options
+// Fetch options.
 const options = {
   method: 'GET',
   withCredentials: true,
   credentials: 'include',
   headers: {
-    Authorization: 'Bearer 0ae40ce80020c5131ffdbcf0983d7a231d117d3e',
+    Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
     'Content-Type': 'text/csv',
   },
 };
 
-const fetchList = async () => {
+// Fetch csv file.
+const fetchList = async url => {
   const res = await fetch(url, options);
   const data = await res.text();
   const list = await csv().fromString(data);
   return list;
 };
 
-(async () => {
+// PDP list.
+const getPdpList = async () => {
+  const vehicles = { car: [], lcv: [] };
+  const capIds = { car: [], lcv: [] };
+
   // Fetch data from github.
-  const list = await fetchList();
+  const pdpList = await fetchList(`${endpoint}/pdp-rewrites.csv`);
 
   // Extract cap ids.
-  list.forEach(entry => vehicles[entry.vehicle_type].push(entry.cap_id));
+  pdpList.forEach(entry => vehicles[entry.vehicle_type].push(entry.cap_id));
 
   // Split into chunks.
   const chunk = 50;
@@ -44,7 +46,13 @@ const fetchList = async () => {
     }
   });
 
-  console.log(capIds);
+  return capIds;
+};
+
+(async () => {
+  const pdpList = await getPdpList();
+
+  console.log(pdpList);
 })();
 
 // fetchAsync()

@@ -24,6 +24,7 @@ module.exports = {
       API_URL: process.env.API_URL,
       API_KEY: process.env.API_KEY,
       LOQATE_KEY: process.env.LOQATE_KEY,
+      GITHUB_TOKEN: process.env.GITHUB_TOKEN,
       ENABLE_DEV_TOOLS: process.env.ENABLE_DEV_TOOLS,
       REDIS_CACHE_HOST: process.env.REDIS_CACHE_HOST,
       REDIS_CACHE_PORT: process.env.REDIS_CACHE_PORT,
