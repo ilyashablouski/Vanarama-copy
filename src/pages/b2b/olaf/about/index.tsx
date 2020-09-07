@@ -63,6 +63,7 @@ export const BusinessAboutPage: NextPage = () => {
     getOrdersData({
       partyUuid,
       excludeStatuses: ['quote', 'expired', 'new'],
+      statuses: null,
     }).then(response => {
       localForage.setItem(
         'ordersLength',
