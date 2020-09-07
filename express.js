@@ -30,6 +30,10 @@ const rewrites = [
     to: '/:vehicleType-leasing/:manufacturer/:model',
   },
   {
+    from: '/car-leasing/small.html',
+    to: '/car-leasing/city-car',
+  },
+  {
     from: '/car-leasing/:bodyStyle.html',
     to: '/car-leasing/:bodyStyle',
   },
