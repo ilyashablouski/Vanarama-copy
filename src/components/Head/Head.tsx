@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import { IHeadProps } from './interface';
 import { defaultTitle, twitter, defaultImage, fb } from './defaults';
 
+import GTM from './GTM';
+
 const Head: FC<IHeadProps> = props => {
   const router = useRouter();
   let { title = defaultTitle, metaRobots } = props;
@@ -36,6 +38,7 @@ const Head: FC<IHeadProps> = props => {
       <meta name="twitter:title" content={title} />
       <meta name="twitter:creator" content={twitter} />
       <meta name="twitter:site" content={twitter} />
+      <GTM />
     </NextHead>
   );
 };
