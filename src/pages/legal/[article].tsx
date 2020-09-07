@@ -30,12 +30,12 @@ const BlogPost: NextPage = () => {
       href: '/',
     },
     {
-      label: 'Blog',
-      href: '/blog',
+      label: 'legal',
+      href: '/legal',
     },
     {
       label: data?.genericPage?.metaData?.name || '',
-      href: '/blog/post',
+      href: `/legal/${router.query.article as string}`,
     },
   ];
 

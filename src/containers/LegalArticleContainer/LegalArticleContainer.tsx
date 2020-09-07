@@ -45,6 +45,8 @@ const LegalArticleContainer: NextPage<IProps> = ({
   sections,
   //articles,
 }) => {
+
+  console.log(JSON.stringify(sections));
   return (
     <>
       <div className="row:title">
