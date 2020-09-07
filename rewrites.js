@@ -1,51 +1,54 @@
-// const csv = require('csv-parser');
-// const fs = require('fs');
 const fetch = require('node-fetch');
-const { Readable } = require('stream');
-
 const csv = require('csvtojson');
 
-const results = [];
+const vehicles = { car: [], lcv: [] };
+const capIds = { car: [], lcv: [] };
 
+// Github endpoint
 const url =
-  'https://raw.githubusercontent.com/Autorama/vanarama-seo/master/pdp-rewrites.csv?token=AAODSWH6XAFCM6HSRVCRZ2S7K43YE';
+  'https://0ae40ce80020c5131ffdbcf0983d7a231d117d3e@raw.githubusercontent.com/Autorama/vanarama-seo/master/pdp-rewrites.csv';
 
-fetch(url)
-  .then(res => res.text())
-  .then(text => {
-    const stream = Readable.from(text);
+// Fetch options
+const options = {
+  method: 'GET',
+  withCredentials: true,
+  credentials: 'include',
+  headers: {
+    Authorization: 'Bearer 0ae40ce80020c5131ffdbcf0983d7a231d117d3e',
+    'Content-Type': 'text/csv',
+  },
+};
 
-    stream.pipe(csv()).then(json => console.log(json));
+const fetchList = async () => {
+  const res = await fetch(url, options);
+  const data = await res.text();
+  const list = await csv().fromString(data);
+  return list;
+};
 
-    // csv()
-    //   .fromStream(stream)
-    //   .subscribe(
-    //     json => {
-    //       return new Promise((resolve, reject) => {
-    //         results.push(json);
-    //       });
-    //     },
-    //     // onError,
-    //     // onComplete,
-    //   );
+(async () => {
+  // Fetch data from github.
+  const list = await fetchList();
 
-    console.log(results);
+  // Extract cap ids.
+  list.forEach(entry => vehicles[entry.vehicle_type].push(entry.cap_id));
+
+  // Split into chunks.
+  const chunk = 50;
+  let i;
+  let j;
+
+  Object.keys(vehicles).forEach(key => {
+    for (i = 0, j = vehicles[key].length; i < j; i += chunk) {
+      capIds[key].push(vehicles[key].slice(i, i + chunk));
+    }
   });
 
-// request(url)
-//   .pipe(csvStream)
-//   .on('error', err => {
-//     console.error(err);
-//   })
-//   .on('data', data => {
-//     results.push(data);
-//     // const capIds = data.filter(entry => {
-//     //   return entry.cap_id;
-//     // });
+  console.log(capIds);
+})();
 
-//     // console.log(results);
-//   });
+// fetchAsync()
+//   .then(data => data.filter(entry => entry.cap_id))
+//   .then(data => console.log(data))
 
-// console.log('list', list);
-
-// // module.exports = getList;
+//   .catch(error => console.log(error.message));
