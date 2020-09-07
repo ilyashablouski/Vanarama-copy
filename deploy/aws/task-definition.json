@@ -40,6 +40,10 @@
         {
           "name": "ROLLBAR_SERVER_TOKEN",
           "valueFrom": "%SSM_PARAMETER_BASE%/rollbar-server-token"
+        },
+        {
+          "name": "ENV",
+          "valueFrom": "%SSM_PARAMETER_BASE%/ENV"
         }
       ],
       "environment": [
@@ -60,16 +64,16 @@
           "value": "6379"
         },
         {
-          "name": "ENV",
-          "value": "development"
-        },
-        {
           "name": "ENABLE_DEV_TOOLS",
           "value": "true"
         },
         {
           "name": "PORT",
           "value": "8080"
+        }
+        {
+          "name": "GTM_ID",
+          "value": "GTM-W49QWPM"
         }
       ],
       "portMappings": [
