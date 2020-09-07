@@ -273,7 +273,7 @@ const TopOffersContainer: React.FC<IProps> = ({
         </div>
       )}
       <>
-        {(isRangePage && isCarSearch) && bodyStyleList.length > 1 ? (
+        {isRangePage && isCarSearch && bodyStyleList.length > 1 ? (
           <div className="row:bg-lighter">
             <div className="row:cards-2col">
               {bodyStyleList.map(bodyStyle => (
