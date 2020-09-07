@@ -9,6 +9,7 @@ import MediaFeatureSection from './sections/MediaFeatureSection';
 import BenefitsSection from './sections/BenefitsSection';
 import { GetFleetLandingPage } from '../../../generated/GetFleetLandingPage';
 import config from './config';
+import Head from '../../components/Head/Head';
 
 const FleetLandingPage = () => {
   const { data, error, loading } = useQuery<GetFleetLandingPage>(
@@ -27,8 +28,18 @@ const FleetLandingPage = () => {
     return <></>;
   }
 
+  const metaData = data?.fleetLandingPage?.metaData;
+
   return (
     <>
+      <Head
+        title={metaData?.title || ''}
+        metaDescription={metaData?.metaDescription}
+        metaRobots={metaData?.metaRobots}
+        legacyUrl={metaData?.legacyUrl}
+        publishedOn={metaData?.publishedOn}
+        featuredImage={data?.fleetLandingPage?.featuredImage}
+      />
       {data?.fleetLandingPage?.sections?.hero && (
         <HeroSection {...data?.fleetLandingPage?.sections?.hero} />
       )}

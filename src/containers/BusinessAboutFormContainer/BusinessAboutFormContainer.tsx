@@ -4,7 +4,6 @@ import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import BusinessAboutForm from '../../components/BusinessAboutForm/BusinessAboutForm';
 import { useEmailCheck } from '../RegisterFormContainer/gql';
-import { useAboutYouData } from '../AboutFormContainer/gql';
 import {
   useCreateUpdateCreditApplication,
   useGetCreditApplicationByOrderUuid,
@@ -13,12 +12,12 @@ import { useAboutPageDataQuery, useSaveAboutYouMutation } from './gql';
 import { IBusinessAboutFormContainerProps, SubmitResult } from './interfaces';
 import { SaveBusinessAboutYou } from '../../../generated/SaveBusinessAboutYou';
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
+import { responseToInitialFormValues } from './mappers';
 
 const savePersonUuid = async (data: SaveBusinessAboutYou) =>
   localForage.setItem('personUuid', data.createUpdateBusinessPerson?.uuid);
 
 export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerProps> = ({
-  personUuid,
   orderId,
   onCompleted,
   onError,
@@ -26,7 +25,6 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   isEdited,
 }) => {
   const aboutPageDataQuery = useAboutPageDataQuery();
-  const aboutYouData = useAboutYouData(personUuid);
   const [saveDetails] = useSaveAboutYouMutation(savePersonUuid);
   const [emailAlreadyExists] = useEmailCheck();
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
@@ -35,6 +33,11 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   );
   const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
     orderId,
+  );
+
+  const person = responseToInitialFormValues(
+    getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
+      ?.aboutDetails,
   );
 
   if (
@@ -56,7 +59,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     <BusinessAboutForm
       isEdited={isEdited}
       dropDownData={aboutPageDataQuery.data?.allDropDowns}
-      person={aboutYouData.data?.personByUuid}
+      person={person}
       onLogInCLick={onLogInCLick}
       onEmailExistenceCheck={async email => {
         const results = await emailAlreadyExists({
@@ -75,6 +78,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
               telephoneNumbers: [
                 {
                   value: values.mobile,
+                  kind: 'Mobile',
                 },
               ],
               title: values.title,

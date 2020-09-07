@@ -6,7 +6,7 @@ import {
   getVehiclesList,
   getRangesList,
   useManufacturerList,
-  useSearchResultPage,
+  GET_ALL_MAKES_PAGE,
 } from '../gql';
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
@@ -100,6 +100,7 @@ jest.mock('next/router', () => ({
 }));
 
 jest.mock('../gql', () => ({
+  ...jest.requireActual('../gql'),
   getVehiclesList: jest.fn(),
   getRangesList: jest.fn(),
   useManufacturerList: jest.fn(),
@@ -197,30 +198,6 @@ let vehicleMockCalled = false;
           capIds: '1151',
         },
       ],
-    },
-  },
-]);
-
-(useSearchResultPage as jest.Mock).mockReturnValue([
-  jest.fn(),
-  {
-    data: {
-      searchResultsPage: {
-        id: '6h7l2K8zNunmnxOf5J40uN',
-        intro:
-          'Save money on a brand new van by leasing from Vanarama today! View our unbeatable lease deals on vans from all the top brands',
-        body: null,
-        featuredImage: null,
-        metaData: {
-          pageType: 'Search Results',
-          slug: '/search',
-          title: 'Van Search Results',
-          metaRobots: 'noindex,follow',
-          metaDescription: 'Van Search Results',
-          legacyUrl: 'https://www.vanarama.com/search.html',
-          publishedOn: null,
-        },
-      },
     },
   },
 ]);
@@ -632,6 +609,62 @@ const mocksResponse: MockedResponse[] = [
       };
     },
   },
+  {
+    request: {
+      query: GET_ALL_MAKES_PAGE,
+      variables: {},
+    },
+    result: () => {
+      return {
+        data: { manufacturerPage: {} },
+        refetch: jest.fn(),
+      };
+    },
+  },
+  {
+    request: {
+      query: GET_ALL_MAKES_PAGE,
+      variables: {},
+    },
+    result: () => {
+      return {
+        data: { manufacturerPage: {} },
+        refetch: jest.fn(),
+      };
+    },
+  },
+  {
+    request: {
+      query: GENERIC_PAGE,
+      variables: {
+        slug: '/car-leasing/search',
+      },
+    },
+    result: () => {
+      return {
+        data: {
+          genericPage: {},
+        },
+        refetch: jest.fn(),
+      };
+    },
+  },
+  {
+    request: {
+      query: GENERIC_PAGE,
+      variables: {
+        slug: '/car-leasing/search',
+      },
+    },
+    result: () => {
+      return {
+        data: {
+          genericPage: {},
+        },
+        refetch: jest.fn(),
+      };
+    },
+  },
 ];
 describe('<SearchPageContainer />', () => {
   beforeEach(() => {
@@ -646,7 +679,7 @@ describe('<SearchPageContainer />', () => {
     act(() => {
       render(
         <MockedProvider mocks={mocksResponse} addTypename={false}>
-          <SearchPageContainer isGenericIntro isCarSearch isServer={false} />
+          <SearchPageContainer isCarSearch isServer={false} />
         </MockedProvider>,
       );
     });

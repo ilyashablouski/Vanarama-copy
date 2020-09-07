@@ -1,5 +1,8 @@
+import { QueryLazyOptions } from '@apollo/client';
 import { getBudgetForQuery } from '../SearchPodContainer/helpers';
 import { IFilters } from '../FiltersContainer/interfaces';
+import { GenericPageQueryVariables } from '../../../generated/GenericPageQuery';
+import { GenericPageHeadQueryVariables } from '../../../generated/GenericPageHeadQuery';
 
 export const buildRewriteRoute = (
   {
@@ -12,6 +15,9 @@ export const buildRewriteRoute = (
   }: IFilters,
   isMakeOrCarPage?: boolean,
   isModelPage?: boolean,
+  isBodyStylePage?: boolean,
+  isTransmissionPage?: boolean,
+  isFuelPage?: boolean,
 ) => {
   const queries = {} as any;
   Object.entries({
@@ -24,7 +30,11 @@ export const buildRewriteRoute = (
     const [key, value] = filter;
     if (
       value?.length &&
+      // don't add queries in page where we have same data in route
       !(isMakeOrCarPage && (key === 'make' || key === 'rangeName')) &&
+      !(isBodyStylePage && key === 'bodyStyles') &&
+      !(isFuelPage && key === 'fuelTypes') &&
+      !(isTransmissionPage && key === 'transmissions') &&
       !(
         isModelPage &&
         (key === 'make' || key === 'rangeName' || key === 'bodyStyles')
@@ -47,7 +57,11 @@ export function prepareSlugPart(part: string | string[]) {
     .toLocaleLowerCase();
 }
 
-const transmissions = ['automatic-vans'];
+const transmissions = ['automatic'];
+export const fuelMapper = {
+  hybrid: 'Diesel/plugin Elec Hybrid,Petrol/plugin Elec Hybrid',
+  electric: 'Electric',
+};
 
 export const bodyUrls = [
   'automatic-vans',
@@ -61,16 +75,38 @@ export const bodyUrls = [
   'people-carrier',
   'prestige',
   'saloon',
+  'city-car',
   'small',
   'crew-vans',
-  'dropside-tipper-leasing',
-  'large-van-leasing',
-  'medium-van-leasing',
-  'refrigerated-van-leasing',
-  'small-van-leasing',
-  'specialist-van-leasing',
+  'dropside-tipper',
+  'large-van',
+  'medium-van',
+  'refrigerated-van',
+  'small-van',
+  'specialist-van',
 ];
 
-export function isBodyTransmission(key: string) {
+export function isTransmission(key: string) {
   return transmissions.indexOf(key) > -1;
+}
+
+export const pageContentQueryExecutor = (
+  query: (
+    options?:
+      | QueryLazyOptions<
+          GenericPageQueryVariables | GenericPageHeadQueryVariables
+        >
+      | undefined,
+  ) => void,
+  slug: string,
+) => {
+  query({
+    variables: {
+      slug,
+    },
+  });
+};
+
+export function getBodyStyleForCms(this: string, element: string) {
+  return element.indexOf(this) > -1;
 }

@@ -136,12 +136,14 @@ export const mapCompanyDetailsToCreditApplication = (
     natureOfBusiness: values.nature,
     registeredAddress: {
       ...registeredAddress,
-      label: values.registeredAddress.label,
+      label: values.registeredAddress?.label,
     },
-    tradingAddress: {
-      ...tradingAddress,
-      label: values.tradingAddress.label,
-    },
+    tradingAddress: values.tradingAddress?.label
+      ? {
+          ...tradingAddress,
+          label: values.tradingAddress?.label,
+        }
+      : undefined,
     tradingSince: new Date(
       parseInt(values.tradingSinceYear, 10),
       parseInt(values.tradingSinceMonth, 10),

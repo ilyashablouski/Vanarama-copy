@@ -37,6 +37,7 @@ const OrderInformationContainer: React.FC<IProps> = () => {
         getOrdersData({
           partyUuid: partyUuidArray,
           excludeStatuses: ['quote', 'expired', 'new'],
+          statuses: null,
         }).then(response => {
           setOrdersLength(response.data?.ordersByPartyUuid.length);
           localForage.setItem(

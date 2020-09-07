@@ -17,6 +17,7 @@ import { useAboutUsPageData } from './gql';
 import { ABOUT_US_NAV_ITEM, ABOUT_US_MEET_SECTION_NAMES } from './config';
 import { GetAboutUsPageData_aboutUsLandingPage_sections_carousel_cards as ICard } from '../../../generated/GetAboutUsPageData';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import Head from '../../components/Head/Head';
 
 const prepareTagName = (possibleTag: string | null) =>
   possibleTag && Heading.defaultProps?.tag?.indexOf(possibleTag) !== -1
@@ -111,6 +112,15 @@ const AboutUs: React.FC = () => {
 
   return (
     <>
+      <Head
+        title={metaData.title || ''}
+        metaDescription={metaData.metaDescription}
+        metaRobots={metaData.metaRobots}
+        legacyUrl={metaData.legacyUrl}
+        canonicalUrl={metaData.canonicalUrl}
+        publishedOn={metaData.publishedOn}
+        featuredImage={data?.aboutUsLandingPage.featuredImage}
+      />
       <div className="row:title">
         <nav>
           <Breadcrumb
