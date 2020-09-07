@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import {
   bodyUrls,
-  prepareSlugPart,
   isTransmission,
   getBodyStyleForCms,
 } from '../../../containers/SearchPageContainer/helpers';
@@ -48,6 +47,8 @@ const Page: NextPage<IProps> = ({
         { shallow: true },
       );
     }
+    // it's should executed only when page init
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <SearchPageContainer

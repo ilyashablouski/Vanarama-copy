@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import {
   bodyUrls,
-  prepareSlugPart,
   fuelMapper,
   getBodyStyleForCms,
 } from '../../../containers/SearchPageContainer/helpers';
