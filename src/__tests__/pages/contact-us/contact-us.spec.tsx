@@ -12,7 +12,12 @@ jest.mock('../../../containers/BreadCrumbContainer', () => () => {
   return <div />;
 });
 
-jest.mock('next/router', () => ({ push: jest.fn() }));
+jest.mock('next/router', () => ({
+  push: jest.fn(),
+  useRouter: () => ({
+    asPath: '/contact-us',
+  }),
+}));
 
 const mocked: MockedResponse[] = [
   {
@@ -24,6 +29,30 @@ const mocked: MockedResponse[] = [
         data: {
           contactUsLandingPage: {
             id: '6kwAjjbDywHCouepDMPJ1v',
+            metaData: {
+              title: 'Vehicle Leasing | Personal & Business Lease',
+              name: 'Vehicle Leasing | Personal & Business Lease',
+              metaRobots: 'all',
+              metaDescription: null,
+              publishedOn: '2020-08-02',
+              legacyUrl: 'https://www.vanarama.com/',
+              pageType: 'Leasing Explained Article',
+              canonicalUrl:
+                'https://www.vanarama.com/car-leasing-explained/business-vs-personal-car-leasing.html',
+              slug: '/car-leasing-explained/business-vs-personal-car-leasing',
+              schema: null,
+            },
+            featuredImage: {
+              title: 'Personal Vs Buisness Leasing-full',
+              description:
+                'Man searching though his bag in a business lease car',
+              file: {
+                url:
+                  '//images.ctfassets.net/3xid768u5joa/2e4LdVtVx07Zo9SX2m6hC3/c6a589ac518aa667201206d6a8fa1402/personal-vs-buisness-leasing.jpg',
+                fileName: 'personal-vs-buisness-leasing.jpg',
+                contentType: 'image/jpeg',
+              },
+            },
             sections: {
               featured1: {
                 title: 'Head Office',
@@ -48,7 +77,6 @@ const mocked: MockedResponse[] = [
                 ],
               },
               featured2: {
-                layout: [''],
                 title: 'Customer Service',
                 body:
                   'Vanarama is a trading name for Autorama UK Ltd \n\nAutorama UK Ltd Registered in England and Wales with registration number: 05137709 \n\nRegistered office: Vanarama HQ, Maylands Avenue, Hemel Hempstead, Hertfordshire, HP2 7DE \n\nTo view our complaints procedure, please [click here](https://beta.vanarama.com/contact-us/complaints-procedure.html).',
@@ -89,10 +117,9 @@ describe('<ContactUsPage />', () => {
     );
   });
 
-  // local test is - ok, but error in jenkins
-  it.skip('should successfully query ContactUsPage data', async () => {
+  it('should successfully query ContactUsPage data', async () => {
     await waitFor(() => {
-      expect(screen.getByText('Head Office')).toBeInTheDocument();
+      expect(screen.getByText('Regional Offices')).toBeInTheDocument();
     });
   });
 

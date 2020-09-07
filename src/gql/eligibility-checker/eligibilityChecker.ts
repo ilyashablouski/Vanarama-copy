@@ -8,7 +8,24 @@ export const ELIGIBILITY_CHECKER_CONTENT = gql`
       metaData {
         title
         name
+        metaRobots
+        metaDescription
+        publishedOn
+        legacyUrl
         pageType
+        canonicalUrl
+        slug
+        publishedOn
+        schema
+      }
+      featuredImage {
+        title
+        description
+        file {
+          url
+          fileName
+          contentType
+        }
       }
       sections {
         leadText {
