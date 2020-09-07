@@ -237,6 +237,7 @@ export const CarsPage: NextPage = () => {
                     }
                     classNames={{ color: 'teal', solid: true, size: 'regular' }}
                     className="button"
+                    dataTestId="view-offer"
                   >
                     <div className="button--inner">View Offer</div>
                   </RouterLink>
@@ -251,6 +252,7 @@ export const CarsPage: NextPage = () => {
               label: 'View All Cars',
             }}
             classNames={{ color: 'teal', size: 'large' }}
+            dataTestId="view-all-cars"
           />
         </section>
       </div>

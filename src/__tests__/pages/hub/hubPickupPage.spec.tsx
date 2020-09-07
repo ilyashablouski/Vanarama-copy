@@ -367,6 +367,15 @@ describe('<PickupsPage />', () => {
     );
   });
 
+  it('should have link in View All Pickups', async () => {
+    await screen.findByText('View All Pickups');
+
+    expect(screen.getByTestId('view-all-pickups')).toHaveAttribute(
+      'href',
+      '/van-leasing%3FbodyStyles=Pickup',
+    );
+  });
+
   it('should trigger route push when clicking Here', async () => {
     await screen.findByText('View All Pickups');
     fireEvent.click(screen.getByText('Here'));

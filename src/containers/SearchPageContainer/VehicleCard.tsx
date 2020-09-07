@@ -95,6 +95,7 @@ const VehicleCard = memo(
               }}
               className="heading"
               classNames={{ size: 'large', color: 'black' }}
+              dataTestId="heading-link"
             />
           ),
         }}
@@ -117,6 +118,7 @@ const VehicleCard = memo(
             onClick={() => viewOffer(productPageUrl)}
             classNames={{ color: 'teal', solid: true, size: 'regular' }}
             className="button"
+            dataTestId="view-offer"
           >
             <div className="button--inner">View Offer</div>
           </RouterLink>

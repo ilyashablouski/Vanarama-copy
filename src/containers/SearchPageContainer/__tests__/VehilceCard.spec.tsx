@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import VehicleCard from '../VehicleCard';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 
@@ -70,5 +70,15 @@ describe('<VehicleCard />', () => {
 
     // ASSERT
     expect(screen.getByText('Per Month Exc.VAT')).toBeInTheDocument();
+  });
+  it('should have link in View Offer', async () => {
+    // ACT
+    render(<VehicleCard {...mocks} isPersonalPrice={false} />);
+
+    // ASSERT
+    expect(screen.getByTestId('view-offer')).toHaveAttribute(
+      'href',
+      '/car-leasing/vauxhall/crossland-x/bodystylename/slug',
+    );
   });
 });
