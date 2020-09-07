@@ -2,15 +2,11 @@
 import { NextPage } from 'next';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import BreadCrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import ReactMarkdown from 'react-markdown';
-import Router from 'next/router';
 import { ILink } from '@vanarama/uibook/lib/interfaces/link';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { LegalPageQuery_genericPage_sections as Section } from '../../../generated/LegalPageQuery';
-import { none } from 'ramda';
 
 interface IProps {
   body: string | null | undefined;
@@ -40,12 +36,11 @@ const LegalArticleContainer: NextPage<IProps> = ({
   body,
   name,
   image,
-  //cards,
+  // cards,
   crumbs,
   sections,
-  //articles,
+  // articles,
 }) => {
-
   console.log(JSON.stringify(sections));
   return (
     <>

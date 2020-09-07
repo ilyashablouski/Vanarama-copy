@@ -3,10 +3,8 @@ import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
 import Head from '../../components/Head/Head';
 import withApollo from '../../hocs/withApollo';
-import { useBlogPostPage } from '../../gql/blogPost';
-import BlogPostContainer from '../../containers/BlogPostContainer/BlogPostContainer';
-import { useLegalPageQuery } from 'containers/LegalArticleContainer/gql';
-import LegalArticleContainer from 'containers/LegalArticleContainer/LegalArticleContainer';
+import { useLegalPageQuery } from '../../containers/LegalArticleContainer/gql';
+import LegalArticleContainer from '../../containers/LegalArticleContainer/LegalArticleContainer';
 
 const BlogPost: NextPage = () => {
   const router = useRouter();
@@ -14,7 +12,6 @@ const BlogPost: NextPage = () => {
   const { data, loading, error } = useLegalPageQuery(
     `/legal/${router.query.article as string}`,
   );
-
 
   if (loading) {
     return <Loading size="large" />;
