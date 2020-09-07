@@ -71,16 +71,4 @@ describe('<VehicleCard />', () => {
     // ASSERT
     expect(screen.getByText('Per Month Exc.VAT')).toBeInTheDocument();
   });
-  it('should be open car page', async () => {
-    // ACT
-    render(<VehicleCard {...mocks} isPersonalPrice={false} />);
-
-    // ASSERT
-    fireEvent.click(screen.getByText('View Offer'));
-    expect(mocks.viewOffer).toBeCalledWith({
-      capId: '86343',
-      href: '/car-leasing/[...details-page]',
-      url: '/car-leasing/vauxhall/crossland-x/bodystylename/slug',
-    });
-  });
 });

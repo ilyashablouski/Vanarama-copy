@@ -113,16 +113,6 @@ describe('<CreditChecker />', () => {
     );
   });
 
-  it('should trigger route push when clicking View Offer', async () => {
-    fireEvent.click(screen.getByText('View Offer'));
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing/[...details-page]',
-        '/van-leasing/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
-      ),
-    );
-  });
-
   it('should render Error', async () => {
     (useProductCard as jest.Mock).mockReturnValue({
       loading: false,

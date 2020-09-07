@@ -143,16 +143,20 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
         Per Month Inc.VAT
       </div>
     </div>
-    <button
-      className="button -teal -regular -solid"
+    <a
+      className="button link -teal -regular -solid"
+      data-menu={null}
+      data-testid="router-link"
+      href="/car-leasing/vauxhall/crossland-x/bodystylename/slug"
       onClick={[Function]}
+      onMouseEnter={[Function]}
     >
       <div
         className="button--inner"
       >
         View Offer
       </div>
-    </button>
+    </a>
   </div>
   <div
     className="card-footer"

@@ -367,16 +367,6 @@ describe('<PickupsPage />', () => {
     );
   });
 
-  it('should trigger route push when clicking View All Pickups', async () => {
-    await screen.findByText('View All Pickups');
-    fireEvent.click(screen.getByText('View All Pickups'));
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing?bodyStyles=Pickup',
-      ),
-    );
-  });
-
   it('should trigger route push when clicking Here', async () => {
     await screen.findByText('View All Pickups');
     fireEvent.click(screen.getByText('Here'));
