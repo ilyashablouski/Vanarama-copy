@@ -51,7 +51,8 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
     });
     getOrdersData({
       partyUuid,
-      excludeStatuses: ['quote', 'expired'],
+      excludeStatuses: ['quote', 'expired', 'new'],
+      statuses: null,
     }).then(response => {
       localForage.setItem(
         'ordersLength',

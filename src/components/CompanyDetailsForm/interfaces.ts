@@ -1,6 +1,7 @@
 import { SearchCompaniesQuery_searchCompanies_nodes as CompanySearchResult } from '../../../generated/SearchCompaniesQuery';
 
 export interface ICompanyDetailsFormValues {
+  uuid?: string;
   companySearchResult?: CompanySearchResult;
   companyName: string;
   companyNumber: string;

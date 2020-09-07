@@ -9,6 +9,7 @@ import MediaFeatureSection from '../FleetPageContainer/sections/MediaFeatureSect
 import MediaFeatureText from './sections/MediaFeatureText';
 import InsuranceFAQSection from './sections/InsuranceFAQSection';
 import InsuranceNewsSection from './sections/InsuranceNewsSection';
+import Head from '../../components/Head/Head';
 
 const InsurancePageContainer = () => {
   const { data, error, loading } = useQuery<GetInsuranceLandingPage>(
@@ -27,8 +28,18 @@ const InsurancePageContainer = () => {
     return <></>;
   }
 
+  const metaData = data?.insuranceLandingPage?.metaData;
+
   return (
     <>
+      <Head
+        title={metaData?.title || ''}
+        metaDescription={metaData?.metaDescription}
+        metaRobots={metaData?.metaRobots}
+        legacyUrl={metaData?.legacyUrl}
+        publishedOn={metaData?.publishedOn}
+        featuredImage={data?.insuranceLandingPage?.featuredImage}
+      />
       {data?.insuranceLandingPage?.sections?.hero && (
         <InsuranceHeroSection {...data?.insuranceLandingPage?.sections?.hero} />
       )}

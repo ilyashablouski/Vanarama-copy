@@ -65,6 +65,7 @@ export const LocationsPage: NextPage = () => {
         metaRobots={metaData.metaRobots}
         legacyUrl={metaData.legacyUrl}
         publishedOn={metaData.publishedOn}
+        canonicalUrl={metaData.canonicalUrl}
         featuredImage={data?.genericPage.featuredImage}
       />
       {hero && (

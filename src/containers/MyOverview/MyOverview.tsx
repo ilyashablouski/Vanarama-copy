@@ -44,7 +44,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   const [exStatusesCA, changeExlStatusesCA] = useState<string[]>([]);
   const [initData, setInitData] = useState<GetOrdersByPartyUuid>();
   const [breadcrumbPath, setBreadcrumbPath] = useState([] as any);
-  const [partyUuidArray, setPartyUuidArray] = useState<string[]>([]);
+  const [partyUuidArray, setPartyUuidArray] = useState<string[] | null>(null);
 
   const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
 
@@ -62,7 +62,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
           { label: `My ${quote ? 'Quotes' : 'Orders'}`, href: '/', as: '' },
         ]);
       }
-      if (!partyUuidArray.length) {
+      if (!partyUuidArray) {
         getCompaniesData({
           personUuid: uuid,
         }).then(resp => {
@@ -84,15 +84,17 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
 
   // call query for get Orders
   const [getOrders, { data, loading }] = useOrdersByPartyUuidData(
-    [partyByUuid as string, ...partyUuidArray] || [''],
+    partyUuidArray
+      ? [partyByUuid as string, ...partyUuidArray]
+      : [partyByUuid as string] || [''],
     quote ? ['quote', 'new'] : status || [],
-    !quote ? ['quote', 'expired', 'new'] : ['expired'],
+    quote ? ['expired'] : ['quote', 'expired', 'new'],
     (!quote && statusesCA) || [],
     (!quote && exStatusesCA) || [],
   );
 
   useEffect(() => {
-    if (partyByUuid && partyUuidArray.length && !data) {
+    if (partyByUuid && partyUuidArray !== null && !data) {
       getOrders();
     }
   }, [partyByUuid, getOrders, router.query.partyByUuid, data, partyUuidArray]);
@@ -166,12 +168,13 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   };
 
   const onClickOrderBtn = (orderUuid: string, leaseType: LeaseTypeEnum) => {
-    // change current page to '/olaf/about' or '/b2b/olaf/about'
-    router.push(
-      leaseType === LeaseTypeEnum.PERSONAL
-        ? `/olaf/about/${orderUuid}`
-        : `/b2b/olaf/about/${orderUuid}`,
-    );
+    // change current page to '/olaf/about' or '/b2b/olaf/about
+    const url =
+      leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
+        ? `/olaf/about/[orderId]?uuid=${uuid}`
+        : `/b2b/olaf/about/[orderId]?uuid=${uuid}`;
+
+    router.push(url, url.replace('[orderId]', orderUuid));
   };
 
   const renderChoiceBtn = (index: number, text: string) => (
@@ -191,12 +194,12 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     // we get the right amount of orders for the current page, sorted by createdAt date from last
     const showOffers =
       data?.ordersByPartyUuid
-        .slice(indexOfFirstOffer, indexOfLastOffer)
+        .slice()
         .sort(
           (a, b) =>
-            new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
         )
-        .reverse() || [];
+        .slice(indexOfFirstOffer, indexOfLastOffer) || [];
     return showOffers.map((order: GetOrdersByPartyUuid_ordersByPartyUuid) => {
       // we get derivative data for this offers
       const derivative =
@@ -297,20 +300,22 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
             {loading ? (
               <Loading size="large" />
             ) : (
-              <>
-                <div className="row:cards-1col">{renderOffers()}</div>
-                {pages.length > 1 && (
-                  <Pagination
-                    path=""
-                    pages={pages}
-                    onClick={el => {
-                      el.preventDefault();
-                      setActivePage(+(el.target as Element).innerHTML);
-                    }}
-                    selected={activePage}
-                  />
-                )}
-              </>
+              data?.ordersByPartyUuid?.length && (
+                <>
+                  <div className="row:cards-1col">{renderOffers()}</div>
+                  {pages.length > 1 && (
+                    <Pagination
+                      path=""
+                      pages={pages}
+                      onClick={el => {
+                        el.preventDefault();
+                        setActivePage(+(el.target as Element).innerHTML);
+                      }}
+                      selected={activePage}
+                    />
+                  )}
+                </>
+              )
             )}
           </div>
         </div>

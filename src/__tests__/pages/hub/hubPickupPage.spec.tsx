@@ -23,7 +23,17 @@ jest.mock('../../../containers/SearchPodContainer', () => () => {
 });
 jest.mock('../../../containers/OrdersInformation/gql');
 
-jest.mock('next/router', () => ({ push: jest.fn() }));
+jest.mock('next/router', () => ({
+  push: jest.fn(),
+  useRouter() {
+    return {
+      asPath: '/hub/pickups',
+      query: {
+        score: 75,
+      },
+    };
+  },
+}));
 
 const mocked: MockedResponse[] = [
   {
@@ -342,9 +352,7 @@ describe('<PickupsPage />', () => {
 
   it('should successfully query all hub PickupsPage data', async () => {
     await waitFor(() => {
-      expect(
-        screen.getByText('Why Choose Vanarama For Your Pickup?'),
-      ).toBeInTheDocument();
+      expect(screen.getByText('DEAL OF THE MONTH')).toBeInTheDocument();
     });
   });
 
@@ -367,6 +375,12 @@ describe('<PickupsPage />', () => {
         '/van-leasing?bodyStyles=Pickup',
       ),
     );
+  });
+
+  it('should trigger route push when clicking Here', async () => {
+    await screen.findByText('View All Pickups');
+    fireEvent.click(screen.getByText('Here'));
+    await waitFor(() => expect(Router.push).toHaveBeenCalledWith('/fan-hub'));
   });
 
   it('should trigger router push when clicking product View Offer', async () => {

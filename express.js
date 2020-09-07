@@ -31,11 +31,34 @@ const rewriteList = [
     from: '/:manufacturer-:vehicleType-leasing/:model.html',
     to: '/:vehicleType-leasing/:manufacturer/:model',
   },
-  // E.g.:
-  // {
-  //   from: '/car-leasing/:bodyStyle.html',
-  //   to: '/search/?bodyStyle=:bodyStyle',
-  // },
+  {
+    from: '/car-leasing/small.html',
+    to: '/car-leasing/city-car',
+  },
+  {
+    from: '/car-leasing/:bodyStyle.html',
+    to: '/car-leasing/:bodyStyle',
+  },
+  {
+    from: 'car-leasing/4x4-suv.html',
+    to: '/car-leasing/4x4',
+  },
+  {
+    from: '/car-leasing/eco.html',
+    to: '/car-leasing/electric',
+  },
+  {
+    from: '/specialist-van-leasing.html',
+    to: '/van-leasing/Specialist',
+  },
+  {
+    from: '/:bodyStyle-leasing.html',
+    to: '/van-leasing/:bodyStyle',
+  },
+  {
+    from: '/automatic-vans.html',
+    to: '/van-leasing/automatic',
+  },
 ];
 // RedirectList.
 const redirectList = [{ from: '/old-link', to: '/redirect', type: 301 }];

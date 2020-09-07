@@ -27,4 +27,30 @@ export const PRIMARY_HEADER = gql`
   }
 `;
 
-export default PRIMARY_HEADER;
+export const PRIMARY_FOOTER = gql`
+  query PrimaryFooter {
+    primaryFooter {
+      id
+      linkGroups {
+        name
+        body
+        links {
+          url
+          text
+        }
+        linkGroups {
+          name
+          links {
+            text
+            url
+          }
+        }
+      }
+      legalStatement {
+        name
+        title
+        body
+      }
+    }
+  }
+`;

@@ -4,7 +4,6 @@ import { FieldArray, FieldArrayRenderProps, useFormikContext } from 'formik';
 import React from 'react';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import { DirectorFieldsDropDownData } from '../../../generated/DirectorFieldsDropDownData';
-import { GetDirectorDetailsQuery_companyOfficers_nodes as DirectorFieldsOfficer } from '../../../generated/GetDirectorDetailsQuery';
 import DirectorFields from './DirectorFields';
 import { DirectorDetailsFormValues, DirectorFormValues } from './interfaces';
 
@@ -38,7 +37,7 @@ type Props = {
   dropdownData: DirectorFieldsDropDownData;
   isEdited: boolean;
   directors?: DirectorFormValues[];
-  officers?: DirectorFieldsOfficer[];
+  officers?: DirectorFormValues[];
 };
 
 export default function DirectorFieldArray({
@@ -50,7 +49,6 @@ export default function DirectorFieldArray({
   const { errors, touched, values, submitCount } = useFormikContext<
     DirectorDetailsFormValues
   >();
-
   const selectedDirectors = values.directors.map(
     _ => `${_.lastName}, ${_.firstName}`,
   );
@@ -80,11 +78,11 @@ export default function DirectorFieldArray({
     }
     return officers?.map(_ => (
       <option
-        key={_.name}
-        value={_.name}
-        disabled={selectedDirectors.includes(_.name)}
+        key={`${_.lastName}, ${_.firstName}`}
+        value={`${_.lastName}, ${_.firstName}`}
+        disabled={selectedDirectors.includes(`${_.lastName}, ${_.firstName}`)}
       >
-        {_.name}
+        {`${_.lastName}, ${_.firstName}`}
       </option>
     ));
   };

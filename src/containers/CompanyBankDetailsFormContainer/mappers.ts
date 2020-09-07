@@ -2,6 +2,7 @@ import moment from 'moment';
 import { ICompanyBankDetails } from '../../components/CompanyBankDetails/interfaces';
 import { LimitedCompanyInputObject } from '../../../generated/globalTypes';
 import { GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as CreditApplication } from '../../../generated/GetCreditApplicationByOrderUuid';
+import { UpdateBankDetailsMutation_createUpdateLimitedCompany_bankAccounts as BankAccount } from '../../../generated/UpdateBankDetailsMutation';
 
 export const formValuesToInput = (
   uuid: string,
@@ -25,14 +26,34 @@ export const formValuesToInput = (
   };
 };
 
+export const mapBankAccountsForCreditApplication = (
+  values: ICompanyBankDetails,
+  bankAccounts?: BankAccount[] | null,
+) => {
+  const currentBankAccount = bankAccounts?.find(
+    account => account.accountName === values.accountName,
+  );
+  const formattedBankAccount = {
+    uuid: currentBankAccount?.uuid,
+    accountName: values.accountName,
+    accountNumber: values.accountNumber,
+    joinedAtMonth: values?.joinedAtMonth,
+    joinedAtYear: values?.joinedAtYear,
+    sortCode: values?.sortCode?.join(''),
+  };
+
+  return [formattedBankAccount];
+};
+
 export const mapDefaultValues = (data?: CreditApplication | null) => {
   const account = data?.bankAccounts?.[0];
 
   return {
+    uuid: account?.uuid,
     accountName: account?.account_name,
     accountNumber: account?.account_number,
     joinedAtMonth: account?.joined_at_month,
     joinedAtYear: account?.joined_at_year,
-    sortCode: account?.sort_code,
+    sortCode: account?.sort_code?.match(/.{1,2}/g),
   };
 };

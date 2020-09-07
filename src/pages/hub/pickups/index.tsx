@@ -49,6 +49,7 @@ import { getProductPageUrl } from '../../../utils/url';
 import { CompareContext } from '../../../utils/comparatorTool';
 import getTitleTag from '../../../utils/getTitleTag';
 import useLeaseType from '../../../hooks/useLeaseType';
+import Head from '../../../components/Head/Head';
 
 export const PickupsPage: NextPage = () => {
   const [offer, setOffer] = useState<ProdData>();
@@ -93,9 +94,18 @@ export const PickupsPage: NextPage = () => {
   );
 
   const isPersonal = cachedLeaseType === 'Personal';
+  const metaData = data?.hubPickupPage?.metaData;
 
   return (
     <>
+      <Head
+        title={metaData?.title || ''}
+        metaDescription={metaData?.metaDescription}
+        metaRobots={metaData?.metaRobots}
+        legacyUrl={metaData?.legacyUrl}
+        publishedOn={metaData?.publishedOn}
+        featuredImage={data?.hubPickupPage?.featuredImage}
+      />
       <Hero>
         <HeroHeading
           text={data?.hubPickupPage.sections?.hero?.title || ''}
@@ -490,7 +500,10 @@ export const PickupsPage: NextPage = () => {
       </section>
 
       <section className="row:league">
-        <League altText="vanarama national league" />
+        <League
+          clickReadMore={() => Router.push('/fan-hub')}
+          altText="vanarama national league"
+        />
       </section>
 
       <section className="row:featured-logos">
