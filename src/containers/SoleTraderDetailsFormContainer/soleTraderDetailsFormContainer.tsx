@@ -57,7 +57,9 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
       addresses={addresses}
       dropdownData={soleTraderDetailsFormData.data!.allDropDowns}
       isEdited={isEdited}
-      onSubmit={async values => {}}
+      onSubmit={async values => {
+        handleSoleTraderDetailsSave(values).then(onCompleted);
+      }}
     />
   );
 };
