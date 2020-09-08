@@ -1,15 +1,13 @@
 import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import { useVanaramaSmilesPage } from '../../containers/VanaramaSmilesContainer/gql';
+import { useGenericPage } from '../../gql/genericPage';
 import withApollo from '../../hocs/withApollo';
 import Head from '../../components/Head/Head';
 import VanaramaSmilesContainer from '../../containers/VanaramaSmilesContainer/VanaramaSmilesContainer';
 
 const EligibilityChecker: NextPage = () => {
-  const { data, loading, error } = useVanaramaSmilesPage(
-    'welcome-to-vanarama-smiles',
-  );
+  const { data, loading, error } = useGenericPage('welcome-to-vanarama-smiles');
   if (loading) {
     return <Loading size="large" />;
   }

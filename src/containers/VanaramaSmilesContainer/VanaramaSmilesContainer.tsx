@@ -1,17 +1,10 @@
 import React, { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import Image from '@vanarama/uibook/lib/components/atoms/image';
-import { getFeaturedClassPartial } from '../../utils/layout';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import {
-  vanaramaSmilesPageQuery_genericPage_sections as Section,
-  vanaramaSmilesPageQuery_genericPage_sections_featured1 as Featured1Type,
-  vanaramaSmilesPageQuery_genericPage_sections_featured2 as Featured2Type,
-  vanaramaSmilesPageQuery_genericPage_sections_featured3 as Featured3Type,
-} from '../../../generated/vanaramaSmilesPageQuery';
+import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/GenericPageQuery';
+import getFeaturedHtml from './getFeaturedHtml';
 
 interface IProps {
   sections: Section | null;
@@ -85,45 +78,5 @@ const VanaramaSmilesContainer: FC<IProps> = ({ title, body, sections }) => {
     </>
   );
 };
-
-function getFeaturedHtml(
-  featured: Featured1Type | Featured2Type | Featured3Type | null | undefined,
-) {
-  const featuredClass = getFeaturedClassPartial(featured);
-  return (
-    <>
-      {featured && (
-        <section className={`row:${featuredClass}`}>
-          {featured.image?.file?.url && (
-            <Image
-              src={featured.image?.file?.url}
-              alt={featured.image?.file?.fileName}
-            />
-          )}
-          <div>
-            <Heading
-              color="black"
-              size="lead"
-              tag={featured.titleTag as keyof JSX.IntrinsicElements}
-            >
-              {featured.title}
-            </Heading>
-            <Text color="darker" size="regular">
-              <ReactMarkdown
-                source={featured.body || ''}
-                renderers={{
-                  link: props => {
-                    const { href, children } = props;
-                    return <RouterLink link={{ href, label: children }} />;
-                  },
-                }}
-              />
-            </Text>
-          </div>
-        </section>
-      )}
-    </>
-  );
-}
 
 export default VanaramaSmilesContainer;
