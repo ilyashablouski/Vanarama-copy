@@ -1,13 +1,13 @@
 import moment from 'moment';
 import { SoleTraderPerson_associates as SoleTrader } from '../../../generated/SoleTraderPerson';
 import { SoleTraderDetailsFormAddresses } from '../../../generated/SoleTraderDetailsFormAddresses';
-import { PersonInputObject } from '../../../generated/globalTypes';
+import { CompanyAssociateInputObject } from '../../../generated/globalTypes';
 import { ISoleTraderDetailsFormValues } from './interfaces';
 import { addressToDisplay } from '../../utils/address';
 
 export const formValuesToInput = (
   values: ISoleTraderDetailsFormValues,
-): PersonInputObject => {
+): CompanyAssociateInputObject => {
   const dateOfBirth = moment(
     `${values.dayOfBirth}-${values.monthOfBirth}-${values.yearOfBirth}`,
     'DD-MM-YYYY',

@@ -3,7 +3,12 @@ import React from 'react';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import SoleTraderDetailsForm from '../../components/SoleTraderDetailsForm';
 import { ISoleTraderDetailsFormContainerProps } from './interface';
-import { useSoleTraderDetailsFormDataQuery, useUpdateSoleTrader } from './gql';
+import { ISoleTraderDetailsFormValues } from '../../components/SoleTraderDetailsForm/interfaces';
+import { formValuesToInput } from '../../components/SoleTraderDetailsForm/mappers';
+import {
+  useSoleTraderDetailsFormDataQuery,
+  useUpdateSoleTraderMutation,
+} from './gql';
 
 const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerProps> = ({
   personUuid,
@@ -14,6 +19,7 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
   const soleTraderDetailsFormData = useSoleTraderDetailsFormDataQuery(
     personUuid,
   );
+  const [updateSoleTraderDetails] = useUpdateSoleTraderMutation();
 
   if (soleTraderDetailsFormData.loading) {
     return <Loading size="large" />;
@@ -38,6 +44,13 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
   }
 
   const { addresses, partyId } = soleTraderDetailsFormData.data.personByUuid;
+
+  const handleSoleTraderDetailsSave = (values: ISoleTraderDetailsFormValues) =>
+    updateSoleTraderDetails({
+      variables: {
+        input: { uuid: personUuid, associate: formValuesToInput(values) },
+      },
+    });
 
   return (
     <SoleTraderDetailsForm
