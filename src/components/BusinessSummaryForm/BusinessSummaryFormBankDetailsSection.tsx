@@ -1,13 +1,17 @@
 import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
 import React from 'react';
+import moment from 'moment';
 import FCWithFragments from '../../utils/FCWithFragments';
 import CompanyBankDetails from '../CompanyBankDetails';
-import { CompanyBankDetailsAccount } from '../../../generated/CompanyBankDetailsAccount';
+import { ICompanyBankDetails } from '../CompanyBankDetails/interfaces';
 
 interface IProps {
-  account: CompanyBankDetailsAccount;
+  account: ICompanyBankDetails;
   onEdit: () => any;
 }
+
+const formatTimeAtBank = (year?: string, month?: string) =>
+  moment(`${year} ${month}`, 'YYYY MM').format('MMMM YYYY');
 
 const SummaryFormBankDetailsSection: FCWithFragments<IProps> = ({
   account,
@@ -20,22 +24,26 @@ const SummaryFormBankDetailsSection: FCWithFragments<IProps> = ({
       onEditClicked={onEdit}
       list={[
         {
-          label: 'Name on Card',
+          label: 'Bank Account name',
           value: account.accountName || '',
           dataTestId: 'summary-name-on-card',
         },
         {
-          label: 'Sort Code',
-          value: (account.sortCode || '').replace(
-            /(\d{2})(\d{2})(\d{2})/,
-            '$1-$2-$3',
-          ),
+          label: 'Bank Account Number',
+          value: account.accountNumber || '',
+          dataTestId: 'summary-account-number',
+        },
+        {
+          label: 'Bank Sort Code',
+          value: (account.sortCode || [])
+            .join('')
+            .replace(/(\d{2})(\d{2})(\d{2})/, '$1-$2-$3'),
           dataTestId: 'summary-sort-code',
         },
         {
-          label: 'Account Number',
-          value: account.accountNumber || '',
-          dataTestId: 'summary-account-number',
+          label: 'Time At Bank',
+          value: formatTimeAtBank(account.joinedAtYear, account.joinedAtMonth),
+          dataTestId: 'summary-account-time',
         },
       ]}
       heading="Company Bank Details"
