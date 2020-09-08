@@ -17,6 +17,7 @@ import {
   ISoleTraderDetailsProps,
   ISoleTraderDetailsFormValues,
 } from './interfaces';
+import { validationSchema } from './helpers';
 
 const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
   if (isSubmitting) {
@@ -26,15 +27,16 @@ const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
 };
 
 const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
+  soleTrader,
+  addresses,
   onSubmit,
   isEdited,
-  dropDownData,
+  dropdownData,
 }) => {
   return (
     <Formik<ISoleTraderDetailsFormValues>
-      initialValues={responseToInitialFormValues(addresses)}
-      /* validationSchema={validationSchema}
-      validate={validate} */
+      initialValues={responseToInitialFormValues(soleTrader, addresses)}
+      validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
       {formikProps => (
@@ -44,7 +46,7 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
           </Heading>
 
           <FormikSelectField name="title" label="Title">
-            <OptionsWithFavourites options={dropDownData.titles} />
+            <OptionsWithFavourites options={dropdownData.titles} />
           </FormikSelectField>
 
           <FormikTextField
@@ -77,39 +79,41 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
           />
 
           <FormikSelectField name="maritalStatus" label="Marital Status">
-            <OptionsWithFavourites options={dropDownData.maritalStatus} />
+            <OptionsWithFavourites options={dropdownData.maritalStatuses} />
           </FormikSelectField>
 
           <FormikSelectField name="nationality" label="Nationality">
-            <OptionsWithFavourites options={dropDownData.nationality} />
+            <OptionsWithFavourites options={dropdownData.nationalities} />
+          </FormikSelectField>
+
+          <FormikSelectField
+            name="adultsInHousehold"
+            label="Number of Dependants"
+          >
+            <OptionsWithFavourites
+              options={dropdownData.noOfAdultsInHousehold}
+            />
           </FormikSelectField>
 
           <FormikSelectField
             name="numberOfDependants"
             label="Number of Dependants"
           >
-            <OptionsWithFavourites options={dropDownData.adultsInHouse} />
-          </FormikSelectField>
-
-          <FormikSelectField
-            name="numberOfDependants"
-            label="Number of Dependants"
-          >
-            <OptionsWithFavourites options={dropDownData.noOfDependants} />
+            <OptionsWithFavourites options={dropdownData.noOfDependants} />
           </FormikSelectField>
 
           <FieldArray name="history">
             {arrayHelpers => (
               <AddressFormFieldArray
                 arrayHelpers={arrayHelpers}
-                dropDownData={dropDownData}
+                dropDownData={dropdownData}
                 values={formikProps.values}
               />
             )}
           </FieldArray>
 
           <FormikSelectField name="occupation" label="Occupation">
-            <OptionsWithFavourites options={dropDownData.occupation} />
+            <OptionsWithFavourites options={dropdownData.occupations} />
           </FormikSelectField>
 
           <FormikTextField
@@ -160,7 +164,7 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
 };
 
 SoleTraderDetailsForm.fragments = {
-  dropDownData: gql`
+  dropdownData: gql`
     fragment SoleTraderDetailsDropDownData on DropDownType {
       __typename
       titles {
@@ -181,18 +185,74 @@ SoleTraderDetailsForm.fragments = {
       maritalStatuses {
         __typename
         data
+        favourites
       }
       noOfDependants {
         __typename
         data
+        favourites
       }
       noOfAdultsInHousehold {
         __typename
         data
+        favourites
+      }
+      occupations {
+        __typename
+        data
+        favourites
       }
       ...AddressFormFieldArrayDownData
     }
     ${AddressFormFieldArray.fragments.dropDownData}
+  `,
+  soleTrader: gql`
+    fragment SoleTraderPerson on CompanyType {
+      __typename
+      uuid
+      associates {
+        __typename
+        title
+        firstName
+        lastName
+        emailAddresses {
+          __typename
+          uuid
+          primary
+          value
+        }
+        dateOfBirth
+        countryOfBirth
+        nationality
+        maritalStatus
+        noOfAdultsInHousehold
+        noOfDependants
+        occupation
+        incomeAndExpense {
+          __typename
+          averageMonthlyIncome
+          annualIncome
+          totalMonthlyExpenses
+          mortgageOrRent
+          studentLoan
+          anticipateMonthlyIncomeChange
+          futureMonthlyIncome
+        }
+      }
+    }
+  `,
+  addresses: gql`
+    fragment SoleTraderDetailsFormAddresses on AddressType {
+      __typename
+      uuid
+      serviceId
+      lineOne
+      lineTwo
+      postcode
+      city
+      propertyStatus
+      startedOn
+    }
   `,
 };
 

@@ -3,22 +3,33 @@ import SoleTraderDetailsForm from '../../components/SoleTraderDetailsForm';
 import { SoleTraderDetailsFormDataQuery } from '../../../generated/SoleTraderDetailsFormDataQuery';
 
 export const GET_SOLETRADER_DETAILS_FORM_DATA = gql`
-  query SoleTraderDetailsFormDataQuery {
+  query SoleTraderDetailsFormDataQuery($uuid: ID!) {
     allDropDowns {
       ...SoleTraderDetailsDropDownData
     }
+    personByUuid(uuid: $uuid) {
+      uuid
+      partyId
+      addresses {
+        ...AddressFormAddresses
+      }
+    }
   }
-  ${SoleTraderDetailsForm.fragments.dropDownData}
+  ${SoleTraderDetailsForm.fragments.addresses}
+  ${SoleTraderDetailsForm.fragments.dropdownData}
 `;
 
 // eslint-disable-next-line import/prefer-default-export
-export const UPDATE_SOLETRADER_DETAILS = gql``;
+// export const UPDATE_SOLETRADER_DETAILS = gql``;
 
-export function useSoleTraderDetailsFormDataQuery() {
+export function useSoleTraderDetailsFormDataQuery(personUuid: string) {
   return useQuery<SoleTraderDetailsFormDataQuery>(
     GET_SOLETRADER_DETAILS_FORM_DATA,
     {
       fetchPolicy: 'no-cache',
+      variables: {
+        uuid: personUuid,
+      },
     },
   );
 }

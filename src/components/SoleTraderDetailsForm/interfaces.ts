@@ -1,4 +1,6 @@
 import { SoleTraderDetailsDropDownData } from '../../../generated/SoleTraderDetailsDropDownData';
+import { SoleTraderPerson_associates as SoleTraderAssociates } from '../../../generated/SoleTraderPerson';
+import { SoleTraderDetailsFormAddresses } from '../../../generated/SoleTraderDetailsFormAddresses';
 import { TAddressEntry } from '../AddressForm/interfaces';
 
 export interface ISoleTraderDetailsFormValues {
@@ -16,17 +18,19 @@ export interface ISoleTraderDetailsFormValues {
   adultsInHousehold: string;
   dependants: string;
   occupation: string;
-  annualIncome: string;
-  avgMonthlyIncome: string;
-  monthlyMortgagePayments: string;
-  monthlyStudentPayments: string;
-  incomeChange: boolean;
-  futureMonthlyIncome: string;
+  annualIncome: string | number;
+  avgMonthlyIncome: string | number;
+  monthlyMortgagePayments: string | number;
+  monthlyStudentPayments: string | number;
+  monthlyIncomeChange: boolean;
+  futureMonthlyIncome: string | number;
   history: TAddressEntry[];
 }
 
 export interface ISoleTraderDetailsProps {
-  dropDownData: SoleTraderDetailsDropDownData;
+  addresses: SoleTraderDetailsFormAddresses[] | undefined;
+  soleTrader?: SoleTraderAssociates | null;
+  dropdownData: SoleTraderDetailsDropDownData;
   onSubmit: (values: ISoleTraderDetailsFormValues) => Promise<void>;
   isEdited: boolean;
 }
