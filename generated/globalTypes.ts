@@ -101,6 +101,7 @@ export interface CompanyAssociateInputObject {
   nationality?: string | null;
   noOfAdultsInHousehold?: string | null;
   noOfDependants?: string | null;
+  occupation?: string | null;
   profilingConsent?: boolean | null;
   role?: RoleInputObject | null;
   smsConsent?: boolean | null;
