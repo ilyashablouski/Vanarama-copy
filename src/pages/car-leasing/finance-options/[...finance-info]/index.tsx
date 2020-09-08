@@ -38,7 +38,7 @@ const FinanceInfo: NextPage = () => {
         featuredImage={data?.genericPage.featuredImage}
       />
       <FinanceInformationExplainedContainer
-        title={metaData?.title}
+        title={metaData?.name}
         sections={sections}
       />
     </>

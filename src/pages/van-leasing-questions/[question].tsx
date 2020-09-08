@@ -51,7 +51,7 @@ const LeasingQuestion: NextPage = () => {
       <LeasingQuestionContainer
         crumbs={crumbs}
         body={body}
-        title={metaData?.title}
+        title={metaData?.name}
         sections={sections}
       />
     </>
