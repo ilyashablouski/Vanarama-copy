@@ -154,14 +154,12 @@ export const VansPage: NextPage = () => {
 
   return (
     <>
-      <Head
-        title={metaData?.title || ''}
-        metaDescription={metaData?.metaDescription}
-        metaRobots={metaData?.metaRobots}
-        legacyUrl={metaData?.legacyUrl}
-        publishedOn={metaData?.publishedOn}
-        featuredImage={data?.hubVanPage?.featuredImage}
-      />
+      {metaData && (
+        <Head
+          metaData={metaData}
+          featuredImage={data?.hubVanPage?.featuredImage}
+        />
+      )}
       <Hero>
         <HeroHeading
           text={

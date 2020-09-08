@@ -1,13 +1,18 @@
 import React, { FC, memo } from 'react';
 import NextHead from 'next/head';
 import { useRouter } from 'next/router';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { IHeadProps } from './interface';
 import { defaultTitle, twitter, defaultImage, fb } from './defaults';
 
 const Head: FC<IHeadProps> = props => {
   const router = useRouter();
-  let { title = defaultTitle, metaRobots } = props;
-  const { metaDescription, legacyUrl, canonicalUrl } = props;
+  let {
+    metaData: { metaRobots, title = defaultTitle },
+  } = props;
+  const {
+    metaData: { metaDescription, legacyUrl, canonicalUrl, schema },
+  } = props;
 
   // Dev override.
   if (process.env.ENV && process.env.ENV !== 'production') {
@@ -20,7 +25,7 @@ const Head: FC<IHeadProps> = props => {
       <title>{title}</title>
       <meta name="og:type" content="website" />
       <meta property="og:locale" content="en_GB" />
-      <meta property="og:title" content={title} />
+      <meta property="og:title" content={title || defaultTitle} />
       <meta property="fb:app_id" content={String(fb.appId)} />
       <meta property="fb:admins" content={String(fb.admins)} />
       {metaRobots && <meta name="robots" content={metaRobots} />}
@@ -33,9 +38,10 @@ const Head: FC<IHeadProps> = props => {
       <meta name="og:image" content={defaultImage} />
       <meta name="twitter:image" content={defaultImage} />
       <meta name="twitter:card" content="summary" />
-      <meta name="twitter:title" content={title} />
+      <meta name="twitter:title" content={title || defaultTitle} />
       <meta name="twitter:creator" content={twitter} />
       <meta name="twitter:site" content={twitter} />
+      <SchemaJSON json={JSON.stringify(schema)} />
     </NextHead>
   );
 };

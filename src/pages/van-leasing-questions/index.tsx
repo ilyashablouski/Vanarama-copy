@@ -32,12 +32,7 @@ const FinanceInfo: NextPage = () => {
   return (
     <>
       <Head
-        title={metaData.title || ''}
-        metaDescription={metaData.metaDescription}
-        metaRobots={metaData.metaRobots}
-        legacyUrl={metaData.legacyUrl}
-        canonicalUrl={metaData.canonicalUrl}
-        publishedOn={metaData.publishedOn}
+        metaData={metaData}
         featuredImage={data?.genericPage.featuredImage}
       />
       <LeasingQuestionsContainer

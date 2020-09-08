@@ -45,15 +45,12 @@ export const LocationsPage: NextPage = () => {
 
   return (
     <>
-      <Head
-        title={metaData?.title || ''}
-        metaDescription={metaData?.metaDescription}
-        metaRobots={metaData?.metaRobots}
-        legacyUrl={metaData?.legacyUrl}
-        canonicalUrl={metaData?.canonicalUrl}
-        publishedOn={metaData?.publishedOn}
-        featuredImage={data?.regionalOfficesPage?.featuredImage}
-      />
+      {metaData && (
+        <Head
+          metaData={metaData}
+          featuredImage={data?.regionalOfficesPage?.featuredImage}
+        />
+      )}
       <div className="row:title">
         <BreadCrumbContainer />
         <Heading size="xlarge" color="black">

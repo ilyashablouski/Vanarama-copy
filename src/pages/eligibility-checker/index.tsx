@@ -60,15 +60,12 @@ const EligibilityChecker: NextPage = () => {
 
   return (
     <>
-      <Head
-        title={metaData?.title || ''}
-        metaDescription={metaData?.metaDescription}
-        metaRobots={metaData?.metaRobots}
-        legacyUrl={metaData?.legacyUrl}
-        canonicalUrl={metaData?.canonicalUrl}
-        publishedOn={metaData?.publishedOn}
-        featuredImage={data?.eligibilityCheckerLandingPage?.featuredImage}
-      />
+      {metaData && (
+        <Head
+          metaData={metaData}
+          featuredImage={data?.eligibilityCheckerLandingPage?.featuredImage}
+        />
+      )}
       <div className="row:title">
         <Heading size="xlarge" color="black">
           {metaData?.name}

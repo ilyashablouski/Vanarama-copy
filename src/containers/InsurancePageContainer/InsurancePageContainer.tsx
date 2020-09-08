@@ -33,11 +33,7 @@ const InsurancePageContainer = () => {
   return (
     <>
       <Head
-        title={metaData?.title || ''}
-        metaDescription={metaData?.metaDescription}
-        metaRobots={metaData?.metaRobots}
-        legacyUrl={metaData?.legacyUrl}
-        publishedOn={metaData?.publishedOn}
+        metaData={metaData}
         featuredImage={data?.insuranceLandingPage?.featuredImage}
       />
       {data?.insuranceLandingPage?.sections?.hero && (

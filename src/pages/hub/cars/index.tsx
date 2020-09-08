@@ -79,14 +79,12 @@ export const CarsPage: NextPage = () => {
 
   return (
     <>
-      <Head
-        title={metaData?.title || ''}
-        metaDescription={metaData?.metaDescription}
-        metaRobots={metaData?.metaRobots}
-        legacyUrl={metaData?.legacyUrl}
-        publishedOn={metaData?.publishedOn}
-        featuredImage={data?.hubCarPage?.featuredImage}
-      />
+      {metaData && (
+        <Head
+          metaData={metaData}
+          featuredImage={data?.hubCarPage?.featuredImage}
+        />
+      )}
       <Hero>
         <HeroHeading
           text={data?.hubCarPage.sections?.hero?.title || ''}
