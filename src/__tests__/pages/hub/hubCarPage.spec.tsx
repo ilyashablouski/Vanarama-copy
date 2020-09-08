@@ -286,11 +286,12 @@ describe('<CarPage />', () => {
     });
   });
 
-  it('should trigger route push when clicking View All Cars', async () => {
+  it('should have link in View All Cars', async () => {
     await screen.findByText('View All Cars');
-    fireEvent.click(screen.getByText('View All Cars'));
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/car-leasing'),
+
+    expect(screen.getByTestId('view-all-cars')).toHaveAttribute(
+      'href',
+      '/car-leasing',
     );
   });
 
@@ -300,14 +301,12 @@ describe('<CarPage />', () => {
     await waitFor(() => expect(Router.push).toHaveBeenCalledWith('/fan-hub'));
   });
 
-  it('should trigger router push when clicking product View Offer', async () => {
+  it('should have link in View Offer', async () => {
     await screen.findAllByText('View Offer');
-    fireEvent.click(screen.getAllByText('View Offer')[0]);
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith(
-        '/car-leasing/[...details-page]',
-        '/car-leasing/ford/focus/hatchback/10-ecoBoost-125-st-line-nav-5dr',
-      ),
+
+    expect(screen.getByTestId('view-offer')).toHaveAttribute(
+      'href',
+      '/car-leasing/ford/focus/hatchback/10-ecoBoost-125-st-line-nav-5dr',
     );
   });
 });

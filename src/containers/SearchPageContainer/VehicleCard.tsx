@@ -4,7 +4,6 @@ import Card from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/Pr
 import { ICardTitleProps } from '@vanarama/uibook/lib/components/molecules/cards/CardTitle';
 import { TIcon } from '@vanarama/uibook/lib/components/molecules/cards/CardIcons';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
@@ -96,6 +95,7 @@ const VehicleCard = memo(
               }}
               className="heading"
               classNames={{ size: 'large', color: 'black' }}
+              dataTestId="heading-link"
             />
           ),
         }}
@@ -109,13 +109,19 @@ const VehicleCard = memo(
               isPersonalPrice ? 'Inc' : 'Exc'
             }.VAT`}
           />
-          <Button
-            color="teal"
-            fill="solid"
-            label="View Offer"
+          <RouterLink
+            link={{
+              href: productPageUrl.href,
+              label: 'View Offer',
+            }}
+            as={productPageUrl.url}
             onClick={() => viewOffer(productPageUrl)}
-            size="regular"
-          />
+            classNames={{ color: 'teal', solid: true, size: 'regular' }}
+            className="button"
+            dataTestId="view-offer"
+          >
+            <div className="button--inner">View Offer</div>
+          </RouterLink>
         </div>
       </Card>
     );

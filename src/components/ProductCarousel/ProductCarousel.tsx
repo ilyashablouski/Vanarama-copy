@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useContext } from 'react';
-import Router from 'next/router';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
@@ -120,20 +118,21 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                     leaseType === LeaseTypeEnum.PERSONAL ? 'Inc' : 'Ex'
                   }.VAT`}
                 />
-                <Button
-                  color="teal"
-                  fill="solid"
-                  label="View Offer"
-                  dataTestId={dataTestIdBtn}
-                  onClick={() => {
-                    sessionStorage.setItem('capId', product.capId || '');
-                    Router.push(
-                      getProductPageUrl(product, data?.derivatives).href,
-                      getProductPageUrl(product, data?.derivatives).url,
-                    );
+                <RouterLink
+                  link={{
+                    href: getProductPageUrl(product, data?.derivatives).href,
+                    label: 'View Offer',
                   }}
-                  size="regular"
-                />
+                  as={getProductPageUrl(product, data?.derivatives).url}
+                  onClick={() =>
+                    sessionStorage.setItem('capId', product.capId || '')
+                  }
+                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                  className="button"
+                  dataTestId={dataTestIdBtn}
+                >
+                  <div className="button--inner">View Offer</div>
+                </RouterLink>
               </div>
             </ProductCard>
           ),
