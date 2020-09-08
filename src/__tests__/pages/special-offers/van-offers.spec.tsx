@@ -422,9 +422,6 @@ describe('<VanOffers />', () => {
   it('should successfully query all VanOffers data', async () => {
     await waitFor(() => {
       expect(
-        screen.getByText('van offers page featured mocked body...'),
-      ).toBeInTheDocument();
-      expect(
         screen.getByText('2.0 TDI BMT 102 Highline Kombi Van Euro 6'),
       ).toBeInTheDocument();
     });
