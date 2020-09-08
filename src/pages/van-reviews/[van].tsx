@@ -52,7 +52,7 @@ const FinanceInfo: NextPage = () => {
       <VehicleReviewContainer
         crumbs={crumbs}
         body={body}
-        title={metaData?.title}
+        title={metaData?.name}
         sections={sections}
       />
     </>
