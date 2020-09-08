@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useMutation } from '@apollo/client';
 import SoleTraderDetailsForm from '../../components/SoleTraderDetailsForm';
 import { SoleTraderDetailsFormDataQuery } from '../../../generated/SoleTraderDetailsFormDataQuery';
 
@@ -11,7 +11,7 @@ export const GET_SOLETRADER_DETAILS_FORM_DATA = gql`
       uuid
       partyId
       addresses {
-        ...AddressFormAddresses
+        ...SoleTraderDetailsFormAddresses
       }
     }
   }
@@ -19,8 +19,14 @@ export const GET_SOLETRADER_DETAILS_FORM_DATA = gql`
   ${SoleTraderDetailsForm.fragments.dropdownData}
 `;
 
-// eslint-disable-next-line import/prefer-default-export
-// export const UPDATE_SOLETRADER_DETAILS = gql``;
+export const UPDATE_SOLETRADER_COMPANY = gql`
+  mutation UpdateSoleTraderMutation($input: SoleTraderCompanyInputObject!) {
+    updateCompanySoleTrader(input: $input) {
+      ...SoleTraderPerson
+    }
+  }
+  ${SoleTraderDetailsForm.fragments.soleTrader}
+`;
 
 export function useSoleTraderDetailsFormDataQuery(personUuid: string) {
   return useQuery<SoleTraderDetailsFormDataQuery>(
@@ -32,4 +38,12 @@ export function useSoleTraderDetailsFormDataQuery(personUuid: string) {
       },
     },
   );
+}
+
+export function useUpdateSoleTrader(personUuid: string) {
+  return useMutation(UPDATE_SOLETRADER_COMPANY, {
+    variables: {
+      uuid: personUuid,
+    },
+  });
 }

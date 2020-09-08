@@ -3,11 +3,11 @@ import React from 'react';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import SoleTraderDetailsForm from '../../components/SoleTraderDetailsForm';
 import { ISoleTraderDetailsFormContainerProps } from './interface';
-import { useSoleTraderDetailsFormDataQuery } from './gql';
+import { useSoleTraderDetailsFormDataQuery, useUpdateSoleTrader } from './gql';
 
 const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerProps> = ({
   personUuid,
-  isEdited = true,
+  isEdited,
   onCompleted,
   onError,
 }) => {
@@ -31,13 +31,14 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
   }
 
   if (
-    !soleTraderDetailsFormData.data?.personByUuid ||
-    soleTraderDetailsFormData.data?.personByUuid === null
+    !soleTraderDetailsFormData.data?.personByUuid?.addresses ||
+    soleTraderDetailsFormData.data?.personByUuid.addresses === null
   ) {
     return null;
   }
 
   const { addresses, partyId } = soleTraderDetailsFormData.data.personByUuid;
+
   return (
     <SoleTraderDetailsForm
       addresses={addresses}

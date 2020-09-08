@@ -1,7 +1,7 @@
 import { ApolloError } from '@apollo/client';
 
 export interface ISoleTraderDetailsFormContainerProps {
-  isEdited?: boolean;
+  isEdited: boolean;
   personUuid: string;
   orderUuid: string;
   onCompleted: () => void;

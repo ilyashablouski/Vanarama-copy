@@ -1,7 +1,31 @@
+import moment from 'moment';
 import { SoleTraderPerson_associates as SoleTrader } from '../../../generated/SoleTraderPerson';
 import { SoleTraderDetailsFormAddresses } from '../../../generated/SoleTraderDetailsFormAddresses';
+import { PersonInputObject } from '../../../generated/globalTypes';
 import { ISoleTraderDetailsFormValues } from './interfaces';
 import { addressToDisplay } from '../../utils/address';
+
+export const formValuesToInput = (
+  values: ISoleTraderDetailsFormValues,
+): PersonInputObject => {
+  const dateOfBirth = moment(
+    `${values.dayOfBirth}-${values.monthOfBirth}-${values.yearOfBirth}`,
+    'DD-MM-YYYY',
+  ).format('YYYY-MM-DD');
+
+  return {
+    title: values.title,
+    firstName: values.firstName,
+    lastName: values.lastName,
+    emailAddress: { kind: 'Home', value: values.email, primary: true },
+    dateOfBirth,
+    countryOfBirth: values.placeOfBirth,
+    nationality: values.nationality,
+    maritalStatus: values.maritalStatus,
+    noOfDependants: values.dependants,
+    noOfAdultsInHousehold: values.adultsInHousehold,
+  };
+};
 
 // eslint-disable-next-line import/prefer-default-export
 export const responseToInitialFormValues = (

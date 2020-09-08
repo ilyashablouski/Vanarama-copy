@@ -28,7 +28,7 @@ export interface ISoleTraderDetailsFormValues {
 }
 
 export interface ISoleTraderDetailsProps {
-  addresses: SoleTraderDetailsFormAddresses[] | undefined;
+  addresses: SoleTraderDetailsFormAddresses[];
   soleTrader?: SoleTraderAssociates | null;
   dropdownData: SoleTraderDetailsDropDownData;
   onSubmit: (values: ISoleTraderDetailsFormValues) => Promise<void>;
