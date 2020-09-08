@@ -223,26 +223,32 @@ export const PickupsPage: NextPage = () => {
                     separator="."
                     priceDescription="Per Month Exc.VAT"
                   />
-                  <Button
-                    color="teal"
-                    fill="solid"
-                    label="View Offer"
-                    onClick={() => {
-                      sessionStorage.setItem('capId', item?.capId || '');
-                      Router.push(productUrl.href, productUrl.url);
+                  <RouterLink
+                    link={{
+                      href: productUrl.href,
+                      label: 'View Offer',
                     }}
-                    size="regular"
-                  />
+                    as={productUrl.url}
+                    onClick={() =>
+                      sessionStorage.setItem('capId', item?.capId || '')
+                    }
+                    classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                    className="button"
+                  >
+                    <div className="button--inner">View Offer</div>
+                  </RouterLink>
                 </div>
               </ProductCard>
             );
           })}
 
-          <Button
-            label="View All Pickups"
-            size="large"
-            color="teal"
-            onClick={() => Router.push('/van-leasing?bodyStyles=Pickup')}
+          <RouterLink
+            link={{
+              href: '/van-leasing?bodyStyles=Pickup',
+              label: 'View All Pickups',
+            }}
+            classNames={{ color: 'teal', size: 'large' }}
+            dataTestId="view-all-pickups"
           />
         </section>
       </div>

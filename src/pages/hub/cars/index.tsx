@@ -224,26 +224,33 @@ export const CarsPage: NextPage = () => {
                       isPersonal ? 'Inc.VAT' : 'Exc.VAT'
                     }`}
                   />
-                  <Button
-                    color="teal"
-                    fill="solid"
-                    label="View Offer"
-                    onClick={() => {
-                      sessionStorage.setItem('capId', item?.capId || '');
-                      Router.push(productUrl.href, productUrl.url);
+                  <RouterLink
+                    link={{
+                      href: productUrl.href,
+                      label: 'View Offer',
                     }}
-                    size="regular"
-                  />
+                    as={productUrl.url}
+                    onClick={() =>
+                      sessionStorage.setItem('capId', item?.capId || '')
+                    }
+                    classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                    className="button"
+                    dataTestId="view-offer"
+                  >
+                    <div className="button--inner">View Offer</div>
+                  </RouterLink>
                 </div>
               </ProductCard>
             );
           })}
 
-          <Button
-            label="View All Cars"
-            size="large"
-            color="teal"
-            onClick={() => Router.push('/car-leasing')}
+          <RouterLink
+            link={{
+              href: '/car-leasing',
+              label: 'View All Cars',
+            }}
+            classNames={{ color: 'teal', size: 'large' }}
+            dataTestId="view-all-cars"
           />
         </section>
       </div>
