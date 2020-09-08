@@ -4,6 +4,28 @@ const HUB_PICKUP_CONTENT = gql`
   query HubPickupPageData {
     hubPickupPage {
       id
+      metaData {
+        title
+        name
+        metaRobots
+        metaDescription
+        publishedOn
+        legacyUrl
+        pageType
+        canonicalUrl
+        slug
+        publishedOn
+        schema
+      }
+      featuredImage {
+        title
+        description
+        file {
+          url
+          fileName
+          contentType
+        }
+      }
       sections {
         hero {
           title

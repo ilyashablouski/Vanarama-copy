@@ -1,18 +1,10 @@
-import { gql, useQuery } from '@apollo/client';
 import { Formik } from 'formik';
 import React from 'react';
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import {
-  GetDirectorDetailsQuery,
-  GetDirectorDetailsQueryVariables,
-} from '../../../generated/GetDirectorDetailsQuery';
-import { isTruthy } from '../../utils/array';
-import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import DirectorFieldArray from './DirectorFieldArray';
 import {
   initialFormValues,
@@ -22,28 +14,15 @@ import {
   initialEditedFormValues,
 } from './helpers';
 import { DirectorDetailsFormValues } from './interfaces';
-import FCWithFragments from '../../utils/FCWithFragments';
-import { CompanyAssociate } from '../../../generated/CompanyAssociate';
 import { GetCompanyDirectorDetailsQuery_allDropDowns as CompanyDirectorDetails } from '../../../generated/GetCompanyDirectorDetailsQuery';
 
-export const GET_DIRECTOR_DETAILS = gql`
-  query GetDirectorDetailsQuery($companyNumber: String!) {
-    companyOfficers(companyNumber: $companyNumber) {
-      nodes {
-        name
-      }
-    }
-  }
-`;
-
 type IDirectorDetailsFormProps = {
-  associates: CompanyAssociate[] | null;
-  dropdownData: CompanyDirectorDetails | null;
-  companyNumber: string;
+  dropdownData: CompanyDirectorDetails;
   onSubmit: (values: DirectorDetailsFormValues) => Promise<void>;
   isEdited: boolean;
-  directorDetails: DirectorDetailsFormValues | undefined;
   directorUuid?: string;
+  defaultValues?: DirectorDetailsFormValues;
+  officers: any;
 };
 
 const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
@@ -53,30 +32,20 @@ const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
   return isEdited ? 'Save & Return' : 'Continue';
 };
 
-const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
-  companyNumber,
+const DirectorDetailsForm: React.FC<IDirectorDetailsFormProps> = ({
   onSubmit,
   dropdownData,
   isEdited,
-  directorDetails,
   directorUuid,
+  defaultValues,
+  officers,
 }) => {
-  const { data, loading, error } = useCompanyOfficers(companyNumber);
-
-  if (loading) {
-    return <Loading />;
-  }
-
-  if (error || !data || !dropdownData || !data.companyOfficers.nodes) {
-    return <ErrorMessage message="Could not load director details!" />;
-  }
-
-  const officers = data?.companyOfficers?.nodes?.filter(isTruthy) || [];
-  const directors = combineDirectorsData(officers, []) || [];
+  const directors =
+    combineDirectorsData(officers, defaultValues?.directors) || [];
 
   const initialValues = isEdited
-    ? initialEditedFormValues(directorDetails?.directors || [], directorUuid)
-    : initialFormValues(officers);
+    ? initialEditedFormValues(directors, directorUuid)
+    : defaultValues || initialFormValues(officers);
 
   return (
     <Formik<DirectorDetailsFormValues>
@@ -116,44 +85,5 @@ const DirectorDetailsForm: FCWithFragments<IDirectorDetailsFormProps> = ({
     </Formik>
   );
 };
-
-DirectorDetailsForm.fragments = {
-  associates: gql`
-    fragment CompanyAssociate on PersonType {
-      uuid
-      title
-      firstName
-      lastName
-      gender
-      dateOfBirth
-      noOfDependants
-      businessShare
-      roles {
-        position
-      }
-      addresses {
-        serviceId
-        propertyStatus
-        startedOn
-        city
-        lineOne
-        lineTwo
-        postcode
-      }
-    }
-  `,
-};
-
-function useCompanyOfficers(companyNumber: string) {
-  return useQuery<GetDirectorDetailsQuery, GetDirectorDetailsQueryVariables>(
-    GET_DIRECTOR_DETAILS,
-    {
-      fetchPolicy: 'no-cache',
-      variables: {
-        companyNumber,
-      },
-    },
-  );
-}
 
 export default DirectorDetailsForm;

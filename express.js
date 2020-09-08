@@ -30,14 +30,33 @@ const rewrites = [
     to: '/:vehicleType-leasing/:manufacturer/:model',
   },
   {
-    from: '/van-leasing-questions/:question.html',
-    to: '/van-leasing-questions/:question',
+    from: '/car-leasing/small.html',
+    to: '/car-leasing/city-car',
   },
-  // E.g.:
-  // {
-  //   from: '/car-leasing/:bodyStyle.html',
-  //   to: '/search/?bodyStyle=:bodyStyle',
-  // },
+  {
+    from: '/car-leasing/:bodyStyle.html',
+    to: '/car-leasing/:bodyStyle',
+  },
+  {
+    from: 'car-leasing/4x4-suv.html',
+    to: '/car-leasing/4x4',
+  },
+  {
+    from: '/car-leasing/eco.html',
+    to: '/car-leasing/electric',
+  },
+  {
+    from: '/specialist-van-leasing.html',
+    to: '/van-leasing/Specialist',
+  },
+  {
+    from: '/:bodyStyle-leasing.html',
+    to: '/van-leasing/:bodyStyle',
+  },
+  {
+    from: '/automatic-vans.html',
+    to: '/van-leasing/automatic',
+  },
 ];
 // Redirects.
 const redirects = [{ from: '/old-link', to: '/redirect', type: 301 }];
@@ -82,8 +101,6 @@ app.prepare().then(() => {
   });
 
   server.all('*', cors(), (req, res) => {
-    res.setHeader('X-Robots-Tag', 'noindex'); // Disable indexing.
-
     // Trailing slash fix on page reload.
     req.url = req.url.replace(/\/$/, '');
     if (req.url === '') req.url = '/';

@@ -15,6 +15,7 @@ export interface IHeadProps {
   metaDescription?: string | null;
   metaRobots?: string | null;
   legacyUrl?: string | null;
+  canonicalUrl?: string | null;
   publishedOn?: string | null;
   featuredImage?: IFeaturedImageFile | null;
 }

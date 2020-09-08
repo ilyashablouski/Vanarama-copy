@@ -16,6 +16,7 @@ jest.mock('next/router', () => ({
   useRouter() {
     return {
       pathname: '/eligibility-checker/credit-checker',
+      asPath: '/eligibility-checker/credit-checker',
       query: {
         score: 75,
       },
