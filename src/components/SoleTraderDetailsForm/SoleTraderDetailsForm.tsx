@@ -42,7 +42,7 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
       {formikProps => (
         <Form onSubmit={formikProps.handleSubmit}>
           <Heading color="black" size="xlarge">
-            Director Details
+            SoleTrader Details
           </Heading>
 
           <FormikSelectField name="title" label="Title">

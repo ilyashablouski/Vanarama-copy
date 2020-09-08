@@ -1,6 +1,11 @@
 import { gql, useQuery, useMutation } from '@apollo/client';
 import SoleTraderDetailsForm from '../../components/SoleTraderDetailsForm';
 import { SoleTraderDetailsFormDataQuery } from '../../../generated/SoleTraderDetailsFormDataQuery';
+// import { SoleTraderPerson_associates as SoleTrader } from '../../../generated/SoleTraderPerson';
+import {
+  UpdateSoleTraderMutationVariables as MutationVars,
+  UpdateSoleTraderMutation as Mutation,
+} from '../../../generated/UpdateSoleTraderMutation';
 
 export const GET_SOLETRADER_DETAILS_FORM_DATA = gql`
   query SoleTraderDetailsFormDataQuery($uuid: ID!) {
@@ -40,10 +45,6 @@ export function useSoleTraderDetailsFormDataQuery(personUuid: string) {
   );
 }
 
-export function useUpdateSoleTrader(personUuid: string) {
-  return useMutation(UPDATE_SOLETRADER_COMPANY, {
-    variables: {
-      uuid: personUuid,
-    },
-  });
+export function useUpdateSoleTraderMutation() {
+  return useMutation<Mutation, MutationVars>(UPDATE_SOLETRADER_COMPANY);
 }
