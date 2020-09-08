@@ -32,6 +32,7 @@ const Head: FC<IHeadProps> = props => {
       {metaDescription && (
         <meta property="og:description" content={metaDescription} />
       )}
+      {metaDescription && <meta name="description" content={metaDescription} />}
       <link rel="canonical" href={canonicalUrl ?? legacyUrl ?? router.asPath} />
       {legacyUrl && <meta property="og:url" content={legacyUrl} />}
       <meta property="og:site_name" content={defaultTitle} />
