@@ -71,11 +71,11 @@ export interface LocationsPageData_regionalOfficesPage_sections {
 }
 
 export interface LocationsPageData_regionalOfficesPage {
-  id: string;
   metaData: LocationsPageData_regionalOfficesPage_metaData;
+  featuredImage: LocationsPageData_regionalOfficesPage_featuredImage | null;
+  id: string;
   body: string | null;
   intro: string | null;
-  featuredImage: LocationsPageData_regionalOfficesPage_featuredImage | null;
   sections: LocationsPageData_regionalOfficesPage_sections | null;
 }
 
