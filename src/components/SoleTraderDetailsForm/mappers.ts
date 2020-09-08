@@ -17,6 +17,7 @@ export const formValuesToInput = (
     title: values.title,
     firstName: values.firstName,
     lastName: values.lastName,
+    gender: values.gender,
     emailAddress: { kind: 'Home', value: values.email, primary: true },
     dateOfBirth,
     countryOfBirth: values.placeOfBirth,
@@ -24,6 +25,14 @@ export const formValuesToInput = (
     maritalStatus: values.maritalStatus,
     noOfDependants: values.dependants,
     noOfAdultsInHousehold: values.adultsInHousehold,
+    occupation: values.occupation,
+    incomeAndExpense: {
+      annualIncome: values.annualIncome,
+      averageMonthlyIncome: values.avgMonthlyIncome,
+      mortgageOrRent: values.monthlyMortgagePayments,
+      studentLoan: values.monthlyStudentPayments,
+      futureMonthlyIncome: values.futureMonthlyIncome,
+    },
   };
 };
 
@@ -50,13 +59,13 @@ export const responseToInitialFormValues = (
     yearOfBirth: dateOfBirth ? String(dateOfBirth.getFullYear()) : '',
     adultsInHousehold: person?.noOfAdultsInHousehold || '',
     occupation: person?.occupation || '',
-    avgMonthlyIncome: person?.incomeAndExpense?.averageMonthlyIncome || '',
-    annualIncome: person?.incomeAndExpense?.annualIncome || '',
-    monthlyMortgagePayments: person?.incomeAndExpense?.mortgageOrRent || '',
-    monthlyStudentPayments: person?.incomeAndExpense?.studentLoan || '',
+    avgMonthlyIncome: person?.incomeAndExpense?.averageMonthlyIncome || 0,
+    annualIncome: person?.incomeAndExpense?.annualIncome || 0,
+    monthlyMortgagePayments: person?.incomeAndExpense?.mortgageOrRent || 0,
+    monthlyStudentPayments: person?.incomeAndExpense?.studentLoan || 0,
     monthlyIncomeChange:
       person?.incomeAndExpense?.anticipateMonthlyIncomeChange || false,
-    futureMonthlyIncome: person?.incomeAndExpense?.futureMonthlyIncome || '',
+    futureMonthlyIncome: person?.incomeAndExpense?.futureMonthlyIncome || 0,
     history: [...addresses]
       .sort(
         (a, b) =>

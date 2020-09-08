@@ -18,12 +18,12 @@ export interface ISoleTraderDetailsFormValues {
   adultsInHousehold: string;
   dependants: string;
   occupation: string;
-  annualIncome: string | number;
-  avgMonthlyIncome: string | number;
-  monthlyMortgagePayments: string | number;
-  monthlyStudentPayments: string | number;
+  annualIncome: number | null;
+  avgMonthlyIncome: number | null;
+  monthlyMortgagePayments: number | null;
+  monthlyStudentPayments: number | null;
   monthlyIncomeChange: boolean;
-  futureMonthlyIncome: string | number;
+  futureMonthlyIncome: number | null;
   history: TAddressEntry[];
 }
 

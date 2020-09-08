@@ -10,6 +10,7 @@ import FCWithFragments from '../../utils/FCWithFragments';
 import FormikTextField from '../FormikTextField/FormikTextField';
 import FormikSelectField from '../FormikSelectField/FormikSelectField';
 import FormikDateField from '../FormikDateField/FormikDateField';
+import FormikNumericField from '../FormikNumericField/FormikNumericField';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
 import AddressFormFieldArray from '../AddressForm/AddressFormFieldArray';
 import { responseToInitialFormValues } from './mappers';
@@ -36,7 +37,6 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
   return (
     <Formik<ISoleTraderDetailsFormValues>
       initialValues={responseToInitialFormValues(soleTrader, addresses)}
-      validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
       {formikProps => (
@@ -88,17 +88,14 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
 
           <FormikSelectField
             name="adultsInHousehold"
-            label="Number of Dependants"
+            label="Adults Living in Household"
           >
             <OptionsWithFavourites
               options={dropdownData.noOfAdultsInHousehold}
             />
           </FormikSelectField>
 
-          <FormikSelectField
-            name="numberOfDependants"
-            label="Number of Dependants"
-          >
+          <FormikSelectField name="dependants" label="Number of Dependants">
             <OptionsWithFavourites options={dropdownData.noOfDependants} />
           </FormikSelectField>
 
@@ -116,34 +113,39 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
             <OptionsWithFavourites options={dropdownData.occupations} />
           </FormikSelectField>
 
-          <FormikTextField
+          <FormikNumericField
             name="annualIncome"
             label="Annual Income"
             dataTestId="annual-income"
+            prefix="£"
           />
 
-          <FormikTextField
+          <FormikNumericField
             name="avgMonthlyIncome"
             label="Average Monthly Income"
             dataTestId="avg-monthly-income"
+            prefix="£"
           />
 
-          <FormikTextField
+          <FormikNumericField
             name="monthlyMorgatgePayments"
             label="Monthly Mortgage Payments"
             dataTestId="monthly-Mortgage-payments"
+            prefix="£"
           />
 
-          <FormikTextField
+          <FormikNumericField
             name="monthlyStudentPayments"
-            label="Monthly Student Payments"
+            label="£ Monthly Student Payments"
             dataTestId="monthly-student-payments"
+            prefix="£"
           />
 
-          <FormikTextField
+          <FormikNumericField
             name="futureMonthlyIncome"
             label="Future Monthly Income"
             dataTestId="monthly-student-payments"
+            prefix="£"
           />
 
           <Button
