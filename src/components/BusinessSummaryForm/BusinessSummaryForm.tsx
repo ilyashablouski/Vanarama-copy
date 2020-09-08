@@ -16,6 +16,7 @@ import BusinessSummaryFormAboutSection from './BusinessSummaryFormAboutSection';
 import { GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as CreditApplication } from '../../../generated/GetCreditApplicationByOrderUuid';
 import { mapDirectorsDefaultValues } from '../../containers/DirectorDetailsFormContainer/mappers';
 import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
+import { mapDefaultValues } from '../../containers/CompanyBankDetailsFormContainer/mappers';
 
 interface IProps {
   company: SummaryFormCompany;
@@ -33,10 +34,10 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
   const router = useRouter();
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
 
-  const primaryBankAccount =
-    company.bankAccounts &&
-    company.bankAccounts.length &&
-    company.bankAccounts[company.bankAccounts.length - 1];
+  const primaryBankAccount = useMemo(
+    () => (creditApplication ? mapDefaultValues(creditApplication) : undefined),
+    [creditApplication],
+  );
 
   const handleEdit = useCallback(
     (url: string, additionalParameters?: { [key: string]: string }) => () => {
