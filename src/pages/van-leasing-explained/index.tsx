@@ -38,7 +38,7 @@ const FinanceInfo: NextPage = () => {
       <LeasingExplainedContainer
         crumbs={crumbs}
         body={body}
-        title={metaData?.title}
+        title={metaData?.name}
         sections={sections}
       />
     </>
