@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import localForage from 'localforage';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import BusinessAboutForm from '../../components/BusinessAboutForm/BusinessAboutForm';
 import { useEmailCheck } from '../RegisterFormContainer/gql';
+import { useAboutYouData } from '../AboutFormContainer/gql';
 import {
   useCreateUpdateCreditApplication,
   useGetCreditApplicationByOrderUuid,
@@ -12,19 +13,21 @@ import { useAboutPageDataQuery, useSaveAboutYouMutation } from './gql';
 import { IBusinessAboutFormContainerProps, SubmitResult } from './interfaces';
 import { SaveBusinessAboutYou } from '../../../generated/SaveBusinessAboutYou';
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
-import { responseToInitialFormValues } from './mappers';
+import { responseToInitialFormValues, mapAboutPersonData } from './mappers';
 
 const savePersonUuid = async (data: SaveBusinessAboutYou) =>
   localForage.setItem('personUuid', data.createUpdateBusinessPerson?.uuid);
 
 export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerProps> = ({
   orderId,
+  personUuid,
   onCompleted,
   onError,
   onLogInCLick,
   isEdited,
 }) => {
   const aboutPageDataQuery = useAboutPageDataQuery();
+  const aboutYouData = useAboutYouData(personUuid);
   const [saveDetails] = useSaveAboutYouMutation(savePersonUuid);
   const [emailAlreadyExists] = useEmailCheck();
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
@@ -35,10 +38,20 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     orderId,
   );
 
-  const person = responseToInitialFormValues(
-    getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
-      ?.aboutDetails,
-  );
+  const creditApplication =
+    getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid;
+  const personByUuid = aboutYouData.data?.personByUuid;
+  const person = useMemo(() => {
+    if (creditApplication?.aboutDetails) {
+      return responseToInitialFormValues(creditApplication.aboutDetails);
+    }
+
+    if (personByUuid) {
+      return mapAboutPersonData(personByUuid);
+    }
+
+    return null;
+  }, [creditApplication, personByUuid]);
 
   if (
     aboutPageDataQuery?.loading ||
