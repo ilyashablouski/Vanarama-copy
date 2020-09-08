@@ -43,11 +43,8 @@ const FinanceInfo: NextPage = () => {
   return (
     <>
       <Head
-        title={metaData.title || ''}
-        metaDescription={metaData.metaDescription}
-        metaRobots={metaData.metaRobots}
-        legacyUrl={metaData.legacyUrl}
-        publishedOn={metaData.publishedOn}
+        metaData={metaData}
+        featuredImage={data.reviewsPage.featuredImage}
       />
       <VehicleReviewContainer
         crumbs={crumbs}

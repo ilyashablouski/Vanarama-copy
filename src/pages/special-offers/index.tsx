@@ -11,20 +11,30 @@ import Arrow from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Redundancy from '@vanarama/uibook/lib/assets/icons/Redundancy';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 // import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import {
-  ProductCardData,
-  ProductCardData_productCarousel as ProdCardData,
-} from '../../../generated/ProductCardData';
+import { ProductCardData } from '../../../generated/ProductCardData';
 
 import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
 import withApollo from '../../hocs/withApollo';
 import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
-
-type ProdCards = ProdCardData[];
+import { GENERIC_PAGE_HEAD } from '../../gql/genericPage';
+import {
+  GenericPageHeadQuery,
+  GenericPageHeadQueryVariables,
+} from '../../../generated/GenericPageHeadQuery';
+import Head from '../../components/Head/Head';
 
 export const OffersPage: NextPage = () => {
+  const { data: genericPageCMS } = useQuery<
+    GenericPageHeadQuery,
+    GenericPageHeadQueryVariables
+  >(GENERIC_PAGE_HEAD, {
+    variables: {
+      slug: '/offers',
+    },
+  });
+
   const { data: productsVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
@@ -83,8 +93,16 @@ export const OffersPage: NextPage = () => {
     return <p>Error: {error.message}</p>;
   } */
 
+  const metaData = genericPageCMS?.genericPage.metaData;
+
   return (
     <>
+      {metaData && (
+        <Head
+          metaData={metaData}
+          featuredImage={genericPageCMS?.genericPage.featuredImage}
+        />
+      )}
       <div className="row:plain-hero">
         <div className="-col-100">
           <Heading size="xlarge" color="black">

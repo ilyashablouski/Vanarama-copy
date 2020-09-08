@@ -9,14 +9,24 @@ jest.mock('next/router', () => ({
   }),
 }));
 
-const props = {
-  title: 'Page Title',
+const meta = {
+  canonicalUrl: 'https://www.vanarama.com/car-leasing.html',
+  legacyUrl: 'https://www.vanarama.com/car-leasing.html',
+  metaDescription:
+    'Find unbeatable Car Leasing Deals at Vanarama. Get top personal & business lease offers on brand new, in-stock cars in every make and model. Save money and lease your dream car today.',
+  metaRobots: 'all',
+  name: 'HubCarPage',
+  pageType: null,
+  publishedOn: null,
+  slug: 'hubcarpage',
+  title: 'Car Leasing Deals | Personal & Business Contract Hire | Vanarama',
+  schema: null,
 };
 
 describe('<Head />', () => {
   it('renders correctly', () => {
     const getComponent = () => {
-      return renderer.create(<Head title={props.title} />).toJSON();
+      return renderer.create(<Head metaData={meta} />).toJSON();
     };
     const tree = getComponent();
     expect(tree).toMatchSnapshot();

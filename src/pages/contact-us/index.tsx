@@ -46,14 +46,12 @@ export const ContactUsPage: NextPage = () => {
 
   return (
     <>
-      <Head
-        title={metaData?.title || ''}
-        metaDescription={metaData?.metaDescription}
-        metaRobots={metaData?.metaRobots}
-        legacyUrl={metaData?.legacyUrl}
-        publishedOn={metaData?.publishedOn}
-        featuredImage={data?.contactUsLandingPage?.featuredImage}
-      />
+      {metaData && (
+        <Head
+          metaData={metaData}
+          featuredImage={data?.contactUsLandingPage?.featuredImage}
+        />
+      )}
       <div className="row:title">
         <BreadCrumbContainer />
         <Heading size="xlarge" color="black">

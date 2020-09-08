@@ -27,12 +27,7 @@ const EligibilityChecker: NextPage = () => {
   return (
     <>
       <Head
-        title={metaData.title || ''}
-        metaDescription={metaData.metaDescription}
-        metaRobots={metaData.metaRobots}
-        legacyUrl={metaData.legacyUrl}
-        canonicalUrl={metaData.canonicalUrl}
-        publishedOn={metaData.publishedOn}
+        metaData={metaData}
         featuredImage={data?.genericPage.featuredImage}
       />
       <FAQContainer title={metaData.name} sections={sections} intro={intro} />

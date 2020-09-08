@@ -48,14 +48,12 @@ const BlogPost: NextPage = () => {
 
   return (
     <>
-      <Head
-        title={metaData?.title || ''}
-        metaDescription={metaData?.metaDescription}
-        metaRobots={metaData?.metaRobots}
-        legacyUrl={metaData?.legacyUrl}
-        publishedOn={metaData?.publishedOn}
-        featuredImage={data?.genericPage.featuredImage}
-      />
+      {metaData && (
+        <Head
+          metaData={metaData}
+          featuredImage={data?.genericPage.featuredImage}
+        />
+      )}
       <div className="row:title">
         <BreadCrumb items={crumbs} />
         <Heading tag="h1" size="xlarge" color="black">

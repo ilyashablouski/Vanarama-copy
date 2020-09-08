@@ -20,6 +20,15 @@ export const GENERIC_PAGE_QUESTION = gql`
         publishedOn
         schema
       }
+      featuredImage {
+        title
+        description
+        file {
+          url
+          fileName
+          contentType
+        }
+      }
       body
       sections {
         link {

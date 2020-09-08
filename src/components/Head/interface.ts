@@ -1,3 +1,5 @@
+import { GenericPageHeadQuery_genericPage_metaData as MetaData } from '../../../generated/GenericPageHeadQuery';
+
 export interface IFeaturedImageFile {
   file?: {
     url?: string;
@@ -11,11 +13,6 @@ export interface IFeaturedImageFile {
 }
 
 export interface IHeadProps {
-  title?: string;
-  metaDescription?: string | null;
-  metaRobots?: string | null;
-  legacyUrl?: string | null;
-  canonicalUrl?: string | null;
-  publishedOn?: string | null;
   featuredImage?: IFeaturedImageFile | null;
+  metaData: MetaData;
 }

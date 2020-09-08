@@ -38,12 +38,7 @@ const ThankYouPage: NextPage = () => {
   return (
     <>
       <Head
-        title={metaData.title || ''}
-        metaDescription={metaData.metaDescription}
-        metaRobots={metaData.metaRobots}
-        legacyUrl={metaData.legacyUrl}
-        publishedOn={metaData.publishedOn}
-        canonicalUrl={metaData.canonicalUrl}
+        metaData={metaData}
         featuredImage={data?.genericPage.featuredImage}
       />
       <ThankYouContainer sections={sections} crumbs={crumbs} />

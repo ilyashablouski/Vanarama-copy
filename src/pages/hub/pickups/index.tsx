@@ -98,14 +98,12 @@ export const PickupsPage: NextPage = () => {
 
   return (
     <>
-      <Head
-        title={metaData?.title || ''}
-        metaDescription={metaData?.metaDescription}
-        metaRobots={metaData?.metaRobots}
-        legacyUrl={metaData?.legacyUrl}
-        publishedOn={metaData?.publishedOn}
-        featuredImage={data?.hubPickupPage?.featuredImage}
-      />
+      {metaData && (
+        <Head
+          metaData={metaData}
+          featuredImage={data?.hubPickupPage?.featuredImage}
+        />
+      )}
       <Hero>
         <HeroHeading
           text={data?.hubPickupPage.sections?.hero?.title || ''}
