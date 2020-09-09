@@ -112,7 +112,9 @@ Array [
     <article
       className="markdown"
     >
-      <p>
+      <p
+        className="text -regular -darker"
+      >
         Vanarama is an award-winning personal and commercial vehicle leasing company. Whether you're looking for your dream 
         <a
           className="link"
@@ -146,16 +148,24 @@ Array [
         </a>
         ... we've got you covered.
       </p>
-      <p>
+      <p
+        className="text -regular -darker"
+      >
         Big things have small beginnings, and some days it's hard to believe that Vanarama started its journey in 2004 with a team of just 3 people in a porta cabin. Today, we employ around 230 people and Vanarama is the ultimate destination for your next vehicle.
       </p>
-      <h2>
+      <span
+        className="text -mt-100 -lead -darker"
+      >
         What We Do
-      </h2>
-      <p>
+      </span>
+      <p
+        className="text -regular -darker"
+      >
         We all want the latest technology with the option to regularly upgrade - just like a mobile phone. At Vanarama we understand that your vehicle is a statement about you and we want to make it as easy to upgrade as you would your phone! Our aim is to get you moving in the most cost-effective, simple way possible, so we'll be there every step of the way - from choosing your new vehicle to delivery straight to your door.
       </p>
-      <p>
+      <p
+        className="text -regular -darker"
+      >
         With the largest panel of funders, Vanarama has the largest buying power around and this enables us to offer you the best leasing deals for whatever your needs. And as well as a huge range of vehicles, we also provide a range of van leasing finance, 
         <a
           className="link"
@@ -168,21 +178,31 @@ Array [
         </a>
          and maintenance packages.
       </p>
-      <h2>
+      <span
+        className="text -mt-100 -lead -darker"
+      >
         Customer Support
-      </h2>
-      <p>
+      </span>
+      <p
+        className="text -regular -darker"
+      >
         Our dedicated customer support team is always on-hand to help, keeping you up to date all the way from order through to delivery. We're here to answer any queries you have as quickly as possible and even if you found us online, you can always come and visit us at our head office!
       </p>
-      <p>
+      <p
+        className="text -regular -darker"
+      >
         To further enhance your customer service experience, Vanarama is a member of the Institute of Customer Service (ICS). We like to think that this investment and commitment in our staff is one of the reasons that 95% of our customers would not only recommend us, but also use us again.
       </p>
-      <h2>
+      <span
+        className="text -mt-100 -lead -darker"
+      >
         Our Opening Hours
-      </h2>
+      </span>
       <ul>
         <li>
-          <p>
+          <p
+            className="text -regular -darker"
+          >
             <strong>
               Monday-Friday
             </strong>
@@ -190,7 +210,9 @@ Array [
           </p>
         </li>
         <li>
-          <p>
+          <p
+            className="text -regular -darker"
+          >
             <strong>
               Saturday & Sunday
             </strong>
@@ -198,10 +220,14 @@ Array [
           </p>
         </li>
       </ul>
-      <h2>
+      <span
+        className="text -mt-100 -lead -darker"
+      >
         Our Awards
-      </h2>
-      <p>
+      </span>
+      <p
+        className="text -regular -darker"
+      >
         Vanarama has been confirmed as a Sunday Times 100 Best Small Company To Work For in the UK in 2016, 
         <a
           className="link"
@@ -234,7 +260,9 @@ Array [
         </a>
         .
       </p>
-      <p>
+      <p
+        className="text -regular -darker"
+      >
         <strong>
           <img
             alt="Sunday Time Best Small Companies to work for award 2018"
@@ -253,13 +281,19 @@ Array [
         </a>
         .
       </p>
-      <p>
+      <p
+        className="text -regular -darker"
+      >
         We also sponsor The Vanarama National League and through a charity partnership with Prostate Cancer UK, we won the BT Sport Industry Sponsorship Campaign Of The Year 2019, Business Charity Awards - Campaign Of The Year 2019 and Football Business Awards - Silver For Sponsorship Of The Year and Gold for Brand Activation for the Manarama campaign which saw us rename the League to support the charity and raise £150k.
       </p>
-      <h2>
+      <span
+        className="text -mt-100 -lead -darker"
+      >
         One Of The Best Companies To Work For
-      </h2>
-      <p>
+      </span>
+      <p
+        className="text -regular -darker"
+      >
         Interested in working at Vanarama? Check out our 
         <a
           className="link"
@@ -272,7 +306,9 @@ Array [
         </a>
         .
       </p>
-      <p>
+      <p
+        className="text -regular -darker"
+      >
         <em>
           Vanarama is regulated by the British Vehicle Rental Leasing Association (BVRLA) and the Financial Conduct Authority (FCA), as well as being a member of the Institute of Customer Service with a distinction grading.
         </em>
@@ -302,10 +338,14 @@ Array [
           Meet The Directors
         </p>
       </div>
-      <p>
+      <p
+        className="text -regular -darker"
+      >
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
       </p>
-      <p>
+      <p
+        className="text -regular -darker"
+      >
         <a
           className="link"
           data-testid="link"
@@ -330,10 +370,14 @@ Array [
           Meet The Team
         </p>
       </div>
-      <p>
+      <p
+        className="text -regular -darker"
+      >
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
       </p>
-      <p>
+      <p
+        className="text -regular -darker"
+      >
         <a
           className="link"
           data-testid="link"

@@ -140,7 +140,9 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       <div
         class="content"
       >
-        <p>
+        <p
+          class="text -regular -inherit"
+        >
           You simply choose the car you want to drive & tailor the deal depending on the following criteria:
         </p>
         <ul>
@@ -160,13 +162,19 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             If you want to add a maintenance package to your lease.
           </li>
         </ul>
-        <p>
+        <p
+          class="text -regular -inherit"
+        >
           After choosing a vehicle, you will need to undergo a credit check. This is when the finance company verifies that you can comfortably afford the payments.
         </p>
-        <p>
+        <p
+          class="text -regular -inherit"
+        >
           Once your finances have been approved, you will be asked to pay a Vehicle Reservation Fee of £500 (this secures your vehicle & prevents it being leased to someone else), which is refunded to you less our administration fee of £198 after delivery of your vehicles.
         </p>
-        <p>
+        <p
+          class="text -regular -inherit"
+        >
           When the 
           <a
             class="link"
@@ -187,7 +195,9 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           </a>
            or if you have exceeded the agreed mileage allowance.
         </p>
-        <p>
+        <p
+          class="text -regular -inherit"
+        >
           Don't worry about the end-of-contract damage charges – you've been driving the vehicle for up to 5 years, a bit of damage is to be expected, that's why it's called "Fair Wear & Tear". Take a look at our comprehensive 
           <a
             class="link"
@@ -212,7 +222,9 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       <div
         class="content"
       >
-        <p>
+        <p
+          class="text -regular -inherit"
+        >
           Of course, feel free to pick up the phone to one of our Account Managers on tel: 
           <a
             class="link"

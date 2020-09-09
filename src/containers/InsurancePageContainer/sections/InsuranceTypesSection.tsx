@@ -41,19 +41,21 @@ const InsuranceTypesSection = ({ name, description, cards }: ITypesSection) => (
       <Heading size="xlarge" color="black">
         {name}
       </Heading>
-      <Text size="regular" color="darker" tag="p">
-        <ReactMarkdown
-          source={description || ''}
-          disallowedTypes={['paragraph']}
-          unwrapDisallowed
-          renderers={{
-            link: props => {
-              const { href, children } = props;
-              return <RouterLink link={{ href, label: children }} />;
-            },
-          }}
-        />
-      </Text>
+      <ReactMarkdown
+        source={description || ''}
+        disallowedTypes={['paragraph']}
+        unwrapDisallowed
+        renderers={{
+          link: props => {
+            const { href, children } = props;
+            return <RouterLink link={{ href, label: children }} />;
+          },
+          heading: props => (
+            <Text {...props} size="lead" color="darker" className="-mt-100" />
+          ),
+          paragraph: props => <Text {...props} tag="p" color="darker" />,
+        }}
+      />
     </div>
     <div className="row:bg-lighter">
       <div className="row:cards-3col">

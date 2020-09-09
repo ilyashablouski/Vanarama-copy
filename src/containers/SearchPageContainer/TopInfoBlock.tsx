@@ -29,7 +29,7 @@ const TopInfoBlock = memo(({ topInfoSection }: ITopInfoBlockProps) => {
         >
           {topInfoSection.featured?.title}
         </Heading>
-        <Text className="markdown" tag="div" size="regular" color="darker">
+        <div className="markdown">
           <ReactMarkdown
             escapeHtml={false}
             source={topInfoSection.featured?.body || ''}
@@ -38,9 +38,18 @@ const TopInfoBlock = memo(({ topInfoSection }: ITopInfoBlockProps) => {
                 const { href, children } = props;
                 return <RouterLink link={{ href, label: children }} />;
               },
+              heading: props => (
+                <Text
+                  {...props}
+                  size="lead"
+                  color="darker"
+                  className="-mt-100"
+                />
+              ),
+              paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
           />
-        </Text>
+        </div>
       </div>
     </section>
   ) : (

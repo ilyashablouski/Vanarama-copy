@@ -78,6 +78,15 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
                   const { href, children } = props;
                   return <RouterLink link={{ href, label: children }} />;
                 },
+                heading: props => (
+                  <Text
+                    {...props}
+                    size="lead"
+                    color="inherit"
+                    className="-mt-100"
+                  />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="inherit" />,
               }}
             />
           </div>
@@ -148,6 +157,15 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
                   const { href, children } = props;
                   return <RouterLink link={{ href, label: children }} />;
                 },
+                heading: props => (
+                  <Text
+                    {...props}
+                    size="lead"
+                    color="inherit"
+                    className="-mt-100"
+                  />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="inherit" />,
               }}
             />
           </div>

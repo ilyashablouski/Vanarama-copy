@@ -4,6 +4,7 @@ import Image from '@vanarama/uibook/lib/components/atoms/image';
 import BreadCrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import ReactMarkdown from 'react-markdown';
 import { ILink } from '@vanarama/uibook/lib/interfaces/link';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { LegalPageQuery_genericPage_sections as Section } from '../../../generated/LegalPageQuery';
 
@@ -81,6 +82,15 @@ const LegalArticleContainer: NextPage<IProps> = ({
                   return <RouterLink link={{ href, label: children }} />;
                 },
                 image: props => renderImage(props),
+                heading: props => (
+                  <Text
+                    {...props}
+                    size="lead"
+                    color="darker"
+                    className="-mt-100"
+                  />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}
             />
           </div>
@@ -101,6 +111,15 @@ const LegalArticleContainer: NextPage<IProps> = ({
                   return <RouterLink link={{ href, label: children }} />;
                 },
                 image: props => renderImage(props),
+                heading: props => (
+                  <Text
+                    {...props}
+                    size="lead"
+                    color="darker"
+                    className="-mt-100"
+                  />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}
             />
           </div>
@@ -121,6 +140,15 @@ const LegalArticleContainer: NextPage<IProps> = ({
                   return <RouterLink link={{ href, label: children }} />;
                 },
                 image: props => renderImage(props),
+                heading: props => (
+                  <Text
+                    {...props}
+                    size="lead"
+                    color="darker"
+                    className="-mt-100"
+                  />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}
             />
           </div>

@@ -330,18 +330,20 @@ export const VanOffers: NextPage = () => {
         </div>
       </div>
       <div className="row:text">
-        <Text tag="span" size="regular" color="darker">
-          <ReactMarkdown
-            escapeHtml={false}
-            source={data?.vanOffersPage.body || ''}
-            renderers={{
-              link: props => {
-                const { href, children } = props;
-                return <RouterLink link={{ href, label: children }} />;
-              },
-            }}
-          />
-        </Text>
+        <ReactMarkdown
+          escapeHtml={false}
+          source={data?.vanOffersPage.body || ''}
+          renderers={{
+            link: props => {
+              const { href, children } = props;
+              return <RouterLink link={{ href, label: children }} />;
+            },
+            heading: props => (
+              <Text {...props} size="lead" color="darker" className="-mt-100" />
+            ),
+            paragraph: props => <Text {...props} tag="p" color="darker" />,
+          }}
+        />
       </div>
       <div className="row:icon-list">
         <Heading tag="span" size="lead" color="black">
@@ -381,6 +383,15 @@ export const VanOffers: NextPage = () => {
                 const { href, children } = props;
                 return <RouterLink link={{ href, label: children }} />;
               },
+              heading: props => (
+                <Text
+                  {...props}
+                  size="lead"
+                  color="darker"
+                  className="-mt-100"
+                />
+              ),
+              paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
           />
         </div>

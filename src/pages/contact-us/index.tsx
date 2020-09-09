@@ -83,6 +83,15 @@ export const ContactUsPage: NextPage = () => {
                 const { href, children } = props;
                 return <RouterLink link={{ href, label: children }} />;
               },
+              heading: props => (
+                <Text
+                  {...props}
+                  size="lead"
+                  color="darker"
+                  className="-mt-100"
+                />
+              ),
+              paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
           />
           <div className="button-group">
@@ -100,7 +109,7 @@ export const ContactUsPage: NextPage = () => {
             />
           </div>
           <hr className="-fullwidth" />
-          <Text tag="p" size="small" color="dark">
+          <Text tag="p" size="small" color="darker">
             Lorem nostrud irure sit consectetur
           </Text>
         </div>
@@ -146,6 +155,17 @@ export const ContactUsPage: NextPage = () => {
                     const { href, children } = props;
                     return <RouterLink link={{ href, label: children }} />;
                   },
+                  heading: props => (
+                    <Text
+                      {...props}
+                      size="lead"
+                      color="darker"
+                      className="-mt-100"
+                    />
+                  ),
+                  paragraph: props => (
+                    <Text {...props} tag="p" color="darker" />
+                  ),
                 }}
               />
             </Card>
@@ -177,6 +197,15 @@ export const ContactUsPage: NextPage = () => {
                 const { href, children } = props;
                 return <RouterLink link={{ href, label: children }} />;
               },
+              heading: props => (
+                <Text
+                  {...props}
+                  size="lead"
+                  color="darker"
+                  className="-mt-100"
+                />
+              ),
+              paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
           />
         </div>
@@ -187,7 +216,7 @@ export const ContactUsPage: NextPage = () => {
           <Card inline key={c?.title || idx}>
             <Image className="card-image" src={c?.image?.file?.url || ''} />
             <CardTitle title={c?.title || ''} />
-            <Text color="dark">{c?.body}</Text>
+            <Text color="darker">{c?.body}</Text>
             <Button
               fill="clear"
               color="teal"

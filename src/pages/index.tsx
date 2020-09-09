@@ -318,7 +318,7 @@ export const HomePage: NextPage = () => {
           >
             {getSectionsData(['featured1', 'title'], data?.homePage?.sections)}
           </Heading>
-          <Text tag="div" className="markdown" size="regular" color="darker">
+          <div className="markdown">
             <ReactMarkdown
               escapeHtml={false}
               source={
@@ -332,9 +332,18 @@ export const HomePage: NextPage = () => {
                   const { href, children } = props;
                   return <RouterLink link={{ href, label: children }} />;
                 },
+                heading: props => (
+                  <Text
+                    {...props}
+                    size="lead"
+                    color="darker"
+                    className="-mt-100"
+                  />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}
             />
-          </Text>
+          </div>
           <IconList>
             {(getSectionsData(
               ['featured1', 'iconList'],
@@ -366,7 +375,7 @@ export const HomePage: NextPage = () => {
           >
             {getSectionsData(['featured2', 'title'], data?.homePage?.sections)}
           </Heading>
-          <Text className="markdown" tag="div" size="regular" color="darker">
+          <div className="markdown">
             <ReactMarkdown
               escapeHtml={false}
               source={
@@ -380,9 +389,18 @@ export const HomePage: NextPage = () => {
                   const { href, children } = props;
                   return <RouterLink link={{ href, label: children }} />;
                 },
+                heading: props => (
+                  <Text
+                    {...props}
+                    size="lead"
+                    color="darker"
+                    className="-mt-100"
+                  />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}
             />
-          </Text>
+          </div>
         </div>
       </section>
 

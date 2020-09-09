@@ -691,31 +691,35 @@ const SearchPageContainer: React.FC<IProps> = ({
               </div>
               <div className="row:text">
                 <div>
-                  <Text color="darker" size="regular" tag="div">
-                    <ReactMarkdown
-                      escapeHtml={false}
-                      source={pageData?.genericPage.body || ''}
-                      disallowedTypes={['paragraph']}
-                      unwrapDisallowed
-                      renderers={{
-                        link: props => {
-                          const { href, children } = props;
-                          return (
-                            <RouterLink link={{ href, label: children }} />
-                          );
-                        },
-                        image: props => {
-                          const { src, alt } = props;
-                          return (
-                            <img
-                              {...{ src, alt }}
-                              style={{ maxWidth: '100%' }}
-                            />
-                          );
-                        },
-                      }}
-                    />
-                  </Text>
+                  <ReactMarkdown
+                    escapeHtml={false}
+                    source={pageData?.genericPage.body || ''}
+                    disallowedTypes={['paragraph']}
+                    unwrapDisallowed
+                    renderers={{
+                      link: props => {
+                        const { href, children } = props;
+                        return <RouterLink link={{ href, label: children }} />;
+                      },
+                      image: props => {
+                        const { src, alt } = props;
+                        return (
+                          <img {...{ src, alt }} style={{ maxWidth: '100%' }} />
+                        );
+                      },
+                      heading: props => (
+                        <Text
+                          {...props}
+                          size="lead"
+                          color="darker"
+                          className="-mt-100"
+                        />
+                      ),
+                      paragraph: props => (
+                        <Text {...props} tag="p" color="darker" />
+                      ),
+                    }}
+                  />
                 </div>
               </div>
             </>
@@ -909,20 +913,27 @@ const SearchPageContainer: React.FC<IProps> = ({
               </div>
               <div className="row:text">
                 <div>
-                  <Text color="darker" size="regular" tag="div">
-                    <ReactMarkdown
-                      source={pageData?.genericPage.body || ''}
-                      escapeHtml={false}
-                      renderers={{
-                        link: props => {
-                          const { href, children } = props;
-                          return (
-                            <RouterLink link={{ href, label: children }} />
-                          );
-                        },
-                      }}
-                    />
-                  </Text>
+                  <ReactMarkdown
+                    source={pageData?.genericPage.body || ''}
+                    escapeHtml={false}
+                    renderers={{
+                      link: props => {
+                        const { href, children } = props;
+                        return <RouterLink link={{ href, label: children }} />;
+                      },
+                      heading: props => (
+                        <Text
+                          {...props}
+                          size="lead"
+                          color="darker"
+                          className="-mt-100"
+                        />
+                      ),
+                      paragraph: props => (
+                        <Text {...props} tag="p" color="darker" />
+                      ),
+                    }}
+                  />
                 </div>
               </div>
             </>
@@ -934,18 +945,27 @@ const SearchPageContainer: React.FC<IProps> = ({
                 <Heading tag="span" size="large" color="black">
                   {featured.title}
                 </Heading>
-                <Text tag="p" size="regular" color="darker">
-                  <ReactMarkdown
-                    source={featured.body || ''}
-                    escapeHtml={false}
-                    renderers={{
-                      link: props => {
-                        const { href, children } = props;
-                        return <RouterLink link={{ href, label: children }} />;
-                      },
-                    }}
-                  />
-                </Text>
+                <ReactMarkdown
+                  source={featured.body || ''}
+                  escapeHtml={false}
+                  renderers={{
+                    link: props => {
+                      const { href, children } = props;
+                      return <RouterLink link={{ href, label: children }} />;
+                    },
+                    heading: props => (
+                      <Text
+                        {...props}
+                        size="lead"
+                        color="darker"
+                        className="-mt-100"
+                      />
+                    ),
+                    paragraph: props => (
+                      <Text {...props} tag="p" color="darker" />
+                    ),
+                  }}
+                />
               </div>
             </div>
           )}
@@ -1012,22 +1032,31 @@ const SearchPageContainer: React.FC<IProps> = ({
                             ),
                           }}
                         >
-                          <Text color="dark" size="regular" tag="span">
-                            <ReactMarkdown
-                              escapeHtml={false}
-                              source={card.body || ''}
-                              renderers={{
-                                link: props => {
-                                  const { href, children } = props;
-                                  return (
-                                    <RouterLink
-                                      link={{ href, label: children }}
-                                    />
-                                  );
-                                },
-                              }}
-                            />
-                          </Text>
+                          <ReactMarkdown
+                            escapeHtml={false}
+                            source={card.body || ''}
+                            renderers={{
+                              link: props => {
+                                const { href, children } = props;
+                                return (
+                                  <RouterLink
+                                    link={{ href, label: children }}
+                                  />
+                                );
+                              },
+                              heading: props => (
+                                <Text
+                                  {...props}
+                                  size="lead"
+                                  color="dark"
+                                  className="-mt-100"
+                                />
+                              ),
+                              paragraph: props => (
+                                <Text {...props} tag="p" color="dark" />
+                              ),
+                            }}
+                          />
                           <RouterLink
                             link={{
                               href: card.link?.url || '',

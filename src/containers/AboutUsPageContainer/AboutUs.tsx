@@ -11,7 +11,7 @@ import { ILink } from '@vanarama/uibook/lib/interfaces/link';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import TrophySharp from '@vanarama/uibook/lib/assets/icons/TrophySharp';
 import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
-
+import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
 import { useAboutUsPageData } from './gql';
 import { ABOUT_US_NAV_ITEM, ABOUT_US_MEET_SECTION_NAMES } from './config';
@@ -73,6 +73,10 @@ const renderMeetCard = (card: ICard | undefined) =>
             const { href, children } = props;
             return <RouterLink link={{ href, label: children }} />;
           },
+          heading: props => (
+            <Text {...props} size="lead" color="darker" className="-mt-100" />
+          ),
+          paragraph: props => <Text {...props} tag="p" color="darker" />,
         }}
       />
     </Card>
@@ -143,6 +147,15 @@ const AboutUs: React.FC = () => {
                 const { href, children } = props;
                 return <RouterLink link={{ href, label: children }} />;
               },
+              heading: props => (
+                <Text
+                  {...props}
+                  size="lead"
+                  color="darker"
+                  className="-mt-100"
+                />
+              ),
+              paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
           />
         </article>
