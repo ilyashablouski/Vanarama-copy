@@ -105,12 +105,11 @@ export const OffersPage: NextPage = () => {
       )}
       <div className="row:plain-hero">
         <div className="-col-100">
-          <Heading size="xlarge" color="black">
+          <Heading color="black" size="xlarge" tag="h1">
             <Flame /> {metaData?.name}
           </Heading>
           <Text size="large" color="darker">
             {genericPageCMS?.genericPage.intro}
-            Brand New Vehicles Available Now
           </Text>
           <div className="-flex-row -mt-500">
             <Button
