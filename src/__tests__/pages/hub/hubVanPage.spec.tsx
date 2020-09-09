@@ -536,12 +536,9 @@ describe('<VansPage />', () => {
 
   it('should trigger route push when clicking deal of the month View Offer', async () => {
     await screen.findByTestId('deal-of-month__view-offer');
-    fireEvent.click(screen.getByTestId('deal-of-month__view-offer'));
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing/[...details-page]',
-        '/van-leasing/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
-      ),
+    expect(screen.getByTestId('deal-of-month__view-offer')).toHaveAttribute(
+      'href',
+      '/van-leasing/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
     );
   });
 

@@ -298,6 +298,7 @@ export const GENERIC_PAGE_HEAD = gql`
   query GenericPageHeadQuery($slug: String!) {
     genericPage(slug: $slug) {
       id
+      intro
       metaData {
         title
         name
