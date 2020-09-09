@@ -38,19 +38,26 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
       </div>
       <div className="row:text">
         <div>
-          <Text color="darker" tag="div">
-            <ReactMarkdown
-              source={body || ''}
-              disallowedTypes={['paragraph']}
-              unwrapDisallowed
-              renderers={{
-                link: props => {
-                  const { href, children } = props;
-                  return <RouterLink link={{ href, label: children }} />;
-                },
-              }}
-            />
-          </Text>
+          <ReactMarkdown
+            source={body || ''}
+            disallowedTypes={['paragraph']}
+            unwrapDisallowed
+            renderers={{
+              link: props => {
+                const { href, children } = props;
+                return <RouterLink link={{ href, label: children }} />;
+              },
+              heading: props => (
+                <Text
+                  {...props}
+                  size="lead"
+                  color="darker"
+                  className="-mt-100"
+                />
+              ),
+              paragraph: props => <Text {...props} tag="p" color="darker" />,
+            }}
+          />
         </div>
       </div>
       {!!cards?.length && (
@@ -104,30 +111,26 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
             >
               {featured1.title}
             </Heading>
-            <Text color="darker" size="regular" tag="div">
-              <ReactMarkdown
-                source={featured1.body || ''}
-                disallowedTypes={['paragraph']}
-                unwrapDisallowed
-                renderers={{
-                  link: props => {
-                    const { href, children } = props;
-                    return <RouterLink link={{ href, label: children }} />;
-                  },
-                  heading: props => (
-                    <Text
-                      {...props}
-                      size="lead"
-                      color="darker"
-                      className="-mt-100"
-                    />
-                  ),
-                  paragraph: props => (
-                    <Text {...props} tag="p" color="darker" />
-                  ),
-                }}
-              />
-            </Text>
+            <ReactMarkdown
+              source={featured1.body || ''}
+              disallowedTypes={['paragraph']}
+              unwrapDisallowed
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+                heading: props => (
+                  <Text
+                    {...props}
+                    size="lead"
+                    color="darker"
+                    className="-mt-100"
+                  />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
+              }}
+            />
           </div>
           {featured1.image?.file?.url && (
             <Image
@@ -163,32 +166,28 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
                     ),
                   }}
                 >
-                  <Text color="dark" size="regular" tag="span">
-                    <ReactMarkdown
-                      source={el?.body || ''}
-                      disallowedTypes={['paragraph']}
-                      unwrapDisallowed
-                      renderers={{
-                        link: props => {
-                          const { href, children } = props;
-                          return (
-                            <RouterLink link={{ href, label: children }} />
-                          );
-                        },
-                        heading: props => (
-                          <Text
-                            {...props}
-                            size="lead"
-                            color="darker"
-                            className="-mt-100"
-                          />
-                        ),
-                        paragraph: props => (
-                          <Text {...props} tag="p" color="darker" />
-                        ),
-                      }}
-                    />
-                  </Text>
+                  <ReactMarkdown
+                    source={el?.body || ''}
+                    disallowedTypes={['paragraph']}
+                    unwrapDisallowed
+                    renderers={{
+                      link: props => {
+                        const { href, children } = props;
+                        return <RouterLink link={{ href, label: children }} />;
+                      },
+                      heading: props => (
+                        <Text
+                          {...props}
+                          size="lead"
+                          color="dark"
+                          className="-mt-100"
+                        />
+                      ),
+                      paragraph: props => (
+                        <Text {...props} tag="p" color="dark" />
+                      ),
+                    }}
+                  />
                 </Card>
               ))}
             </Carousel>
@@ -227,30 +226,26 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
                 />
               </IvanCta>
             )}
-            <Text color="darker" size="regular" tag="p">
-              <ReactMarkdown
-                source={featured2.body || ''}
-                disallowedTypes={['paragraph']}
-                unwrapDisallowed
-                renderers={{
-                  link: props => {
-                    const { href, children } = props;
-                    return <RouterLink link={{ href, label: children }} />;
-                  },
-                  heading: props => (
-                    <Text
-                      {...props}
-                      size="lead"
-                      color="darker"
-                      className="-mt-100"
-                    />
-                  ),
-                  paragraph: props => (
-                    <Text {...props} tag="p" color="darker" />
-                  ),
-                }}
-              />
-            </Text>
+            <ReactMarkdown
+              source={featured2.body || ''}
+              disallowedTypes={['paragraph']}
+              unwrapDisallowed
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+                heading: props => (
+                  <Text
+                    {...props}
+                    size="lead"
+                    color="darker"
+                    className="-mt-100"
+                  />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
+              }}
+            />
           </div>
         </div>
       )}
