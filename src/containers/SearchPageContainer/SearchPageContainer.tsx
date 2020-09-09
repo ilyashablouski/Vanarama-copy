@@ -50,6 +50,8 @@ import {
   prepareSlugPart,
   pageContentQueryExecutor,
   fuelMapper,
+  getBodyStyleForCms,
+  bodyUrls,
 } from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import RangeCard from './RangeCard';
@@ -157,8 +159,15 @@ const SearchPageContainer: React.FC<IProps> = ({
   const manualBodyStyle = useMemo(() => {
     if (isPickups) return ['Pickup'];
     if (isModelPage) return [router.query?.bodyStyles as string];
-    if (isBodyStylePage)
-      return [(router.query?.dynamicParam as string).replace('-', ' ')];
+    if (isBodyStylePage) {
+      const bodyStyle = router.query?.dynamicParam as string;
+      // city-car is only one style with '-' we shouldn't to replace it
+      return [
+        bodyStyle.toLowerCase() === 'city-car'
+          ? bodyStyle
+          : bodyStyle.replace('-', ' '),
+      ];
+    }
     return [''];
   }, [isPickups, isModelPage, router.query, isBodyStylePage]);
 
@@ -587,7 +596,10 @@ const SearchPageContainer: React.FC<IProps> = ({
         pageContentQueryExecutor(
           getGenericPage,
           `${isCarSearch ? '/car-leasing' : ''}/${prepareSlugPart(
-            query.dynamicParam,
+            bodyUrls.find(
+              getBodyStyleForCms,
+              (router.query.dynamicParam as string).toLowerCase(),
+            ) || '',
           )}${!isCarSearch ? '-leasing' : ''}`,
         );
         break;
@@ -641,14 +653,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   // Some props should be contain in one param for achieve more readable code
   return (
     <>
-      <Head
-        title={metaData?.title || ''}
-        metaDescription={metaData?.metaDescription}
-        metaRobots={metaData?.metaRobots}
-        legacyUrl={metaData?.legacyUrl}
-        publishedOn={metaData?.publishedOn}
-        featuredImage={featuredImage}
-      />
+      {metaData && <Head metaData={metaData} featuredImage={featuredImage} />}
       <div className="row:title">
         <Breadcrumb items={crumbs} />
         <Heading tag="h1" size="xlarge" color="black">
@@ -658,6 +663,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         </Heading>
         <Text color="darker" size="regular" tag="div">
           <ReactMarkdown
+            escapeHtml={false}
             source={pageData?.genericPage.intro || ''}
             disallowedTypes={['paragraph']}
             unwrapDisallowed
@@ -687,6 +693,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                 <div>
                   <Text color="darker" size="regular" tag="div">
                     <ReactMarkdown
+                      escapeHtml={false}
                       source={pageData?.genericPage.body || ''}
                       disallowedTypes={['paragraph']}
                       unwrapDisallowed
@@ -905,8 +912,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                   <Text color="darker" size="regular" tag="div">
                     <ReactMarkdown
                       source={pageData?.genericPage.body || ''}
-                      disallowedTypes={['paragraph']}
-                      unwrapDisallowed
+                      escapeHtml={false}
                       renderers={{
                         link: props => {
                           const { href, children } = props;
@@ -931,6 +937,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                 <Text tag="p" size="regular" color="darker">
                   <ReactMarkdown
                     source={featured.body || ''}
+                    escapeHtml={false}
                     renderers={{
                       link: props => {
                         const { href, children } = props;
@@ -1007,6 +1014,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                         >
                           <Text color="dark" size="regular" tag="span">
                             <ReactMarkdown
+                              escapeHtml={false}
                               source={card.body || ''}
                               renderers={{
                                 link: props => {

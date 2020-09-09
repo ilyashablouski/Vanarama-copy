@@ -401,7 +401,7 @@ pipeline {
                   anyOf {
                     branch 'develop'
                     branch 'master'
-                  branch 'uat'
+                    branch 'uat'
                   }
                   expression { terraformHasChange == true }
               }
@@ -450,7 +450,7 @@ pipeline {
                   anyOf {
                     branch 'develop'
                     branch 'master'
-                  branch 'uat'
+                    branch 'uat'
                   }
               }
 

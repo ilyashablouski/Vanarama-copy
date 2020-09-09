@@ -30,6 +30,10 @@ const rewrites = [
     to: '/:vehicleType-leasing/:manufacturer/:model',
   },
   {
+    from: '/car-leasing/small.html',
+    to: '/car-leasing/city-car',
+  },
+  {
     from: '/car-leasing/:bodyStyle.html',
     to: '/car-leasing/:bodyStyle',
   },
@@ -52,6 +56,14 @@ const rewrites = [
   {
     from: '/automatic-vans.html',
     to: '/van-leasing/automatic',
+  },
+  {
+    from: '/legal/:legalArticle.html',
+    to: '/legal/:legalArticle',
+  },
+  {
+    from: '/fca.html',
+    to: '/legal/fca',
   },
 ];
 // Redirects.
@@ -97,8 +109,6 @@ app.prepare().then(() => {
   });
 
   server.all('*', cors(), (req, res) => {
-    res.setHeader('X-Robots-Tag', 'noindex'); // Disable indexing.
-
     // Trailing slash fix on page reload.
     req.url = req.url.replace(/\/$/, '');
     if (req.url === '') req.url = '/';

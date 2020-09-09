@@ -88,13 +88,15 @@ describe('<CompanyBankDetailsFormContainer />', () => {
           data: {
             createUpdateLimitedCompany: {
               uuid: '7f5a4ed2-24a5-42ff-9acd-208db847d678',
-              bankAccount: {
-                uuid: '1ab66023-7566-42c1-8e6b-011ed4000ed0',
-                accountName: 'Test',
-                accountNumber: '27272829',
-                sortCode: '019387',
-                joinedAt: '2019-01-01',
-              },
+              bankAccounts: [
+                {
+                  uuid: '1ab66023-7566-42c1-8e6b-011ed4000ed0',
+                  accountName: 'Test',
+                  accountNumber: '27272829',
+                  sortCode: '019387',
+                  joinedAt: '2019-01-01',
+                },
+              ],
             } as LimitedCompanyInputObject,
           },
         })),
@@ -105,11 +107,12 @@ describe('<CompanyBankDetailsFormContainer />', () => {
         addresses: [],
         bankAccounts: [
           {
+            uuid: '1ab66023-7566-42c1-8e6b-011ed4000ed0',
             accountName: 'Test',
             accountNumber: '27272829',
             joinedAtMonth: '1',
             joinedAtYear: '2019',
-            sortCode: ['01', '93', '87'],
+            sortCode: '019387',
           },
         ],
         aboutDetails: 'aboutDetails',

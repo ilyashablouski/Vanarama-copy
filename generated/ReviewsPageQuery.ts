@@ -20,6 +20,18 @@ export interface ReviewsPageQuery_reviewsPage_metaData {
   schema: any | null;
 }
 
+export interface ReviewsPageQuery_reviewsPage_featuredImage_file {
+  url: string;
+  fileName: string;
+  contentType: string;
+}
+
+export interface ReviewsPageQuery_reviewsPage_featuredImage {
+  title: string | null;
+  description: string | null;
+  file: ReviewsPageQuery_reviewsPage_featuredImage_file | null;
+}
+
 export interface ReviewsPageQuery_reviewsPage_sections_link {
   text: string | null;
   url: string | null;
@@ -90,6 +102,7 @@ export interface ReviewsPageQuery_reviewsPage_sections {
 
 export interface ReviewsPageQuery_reviewsPage {
   metaData: ReviewsPageQuery_reviewsPage_metaData;
+  featuredImage: ReviewsPageQuery_reviewsPage_featuredImage | null;
   body: string | null;
   sections: ReviewsPageQuery_reviewsPage_sections | null;
 }

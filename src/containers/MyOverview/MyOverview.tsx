@@ -44,7 +44,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   const [exStatusesCA, changeExlStatusesCA] = useState<string[]>([]);
   const [initData, setInitData] = useState<GetOrdersByPartyUuid>();
   const [breadcrumbPath, setBreadcrumbPath] = useState([] as any);
-  const [partyUuidArray, setPartyUuidArray] = useState<string[]>([]);
+  const [partyUuidArray, setPartyUuidArray] = useState<string[] | null>(null);
 
   const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
 
@@ -62,7 +62,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
           { label: `My ${quote ? 'Quotes' : 'Orders'}`, href: '/', as: '' },
         ]);
       }
-      if (!partyUuidArray.length) {
+      if (!partyUuidArray) {
         getCompaniesData({
           personUuid: uuid,
         }).then(resp => {
@@ -84,7 +84,9 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
 
   // call query for get Orders
   const [getOrders, { data, loading }] = useOrdersByPartyUuidData(
-    [partyByUuid as string, ...partyUuidArray] || [''],
+    partyUuidArray
+      ? [partyByUuid as string, ...partyUuidArray]
+      : [partyByUuid as string] || [''],
     quote ? ['quote', 'new'] : status || [],
     quote ? ['expired'] : ['quote', 'expired', 'new'],
     (!quote && statusesCA) || [],
@@ -92,7 +94,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   );
 
   useEffect(() => {
-    if (partyByUuid && partyUuidArray.length && !data) {
+    if (partyByUuid && partyUuidArray !== null && !data) {
       getOrders();
     }
   }, [partyByUuid, getOrders, router.query.partyByUuid, data, partyUuidArray]);
