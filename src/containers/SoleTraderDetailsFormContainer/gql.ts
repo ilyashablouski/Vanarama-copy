@@ -27,7 +27,10 @@ export const GET_SOLETRADER_DETAILS_FORM_DATA = gql`
 export const UPDATE_SOLETRADER_COMPANY = gql`
   mutation UpdateSoleTraderMutation($input: SoleTraderCompanyInputObject!) {
     updateCompanySoleTrader(input: $input) {
-      ...SoleTraderPerson
+      uuid
+      associate {
+        ...SoleTraderPerson
+      }
     }
   }
   ${SoleTraderDetailsForm.fragments.soleTrader}
