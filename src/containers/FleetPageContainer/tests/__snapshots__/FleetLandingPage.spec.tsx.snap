@@ -321,30 +321,6 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
     <div
       class="row:featured-right"
     >
-      <div>
-        <p
-          class="heading -black -large"
-        >
-          Wherever You Are, However You Want To Work, We're There For You
-        </p>
-        <div
-          class="text -regular -darker"
-        >
-          <p>
-            The prospect of managing a mixed fleet of multiple vehicles, on varied financial contracts, is daunting...but we'll take that away. Our dedicated team, and the platforms available to you and us, mean that running your mixed fleet is hassle-free.
-          </p>
-        </div>
-        <button
-          class="button -primary -regular -solid"
-          data-testid="fleet_testimonial-section_request-button"
-        >
-          <div
-            class="button--inner"
-          >
-            I'd Like A Callback
-          </div>
-        </button>
-      </div>
       <div
         class="card -overflow"
         data-testid="card-review"
@@ -464,6 +440,28 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             </span>
           </div>
         </div>
+      </div>
+      <div>
+        <p
+          class="heading -black -large"
+        >
+          Wherever You Are, However You Want To Work, We're There For You
+        </p>
+        <p
+          class="text -regular -darker"
+        >
+          The prospect of managing a mixed fleet of multiple vehicles, on varied financial contracts, is daunting...but we'll take that away. Our dedicated team, and the platforms available to you and us, mean that running your mixed fleet is hassle-free.
+        </p>
+        <button
+          class="button -primary -regular -solid"
+          data-testid="fleet_testimonial-section_request-button"
+        >
+          <div
+            class="button--inner"
+          >
+            I'd Like A Callback
+          </div>
+        </button>
       </div>
     </div>
     <div
