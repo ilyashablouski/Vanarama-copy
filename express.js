@@ -13,7 +13,7 @@ const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
 const logo = require('./logo');
 const { version } = require('./package.json');
 
-const { getPdpRewiteList } = require('./rewrites/pdp');
+// const { getPdpRewiteList } = require('./rewrites/pdp');
 const rewritePatterns = require('./rewrites/rewritePatterns');
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -23,9 +23,9 @@ const handle = app.getRequestHandler();
 const PORT = process.env.PORT || 3000;
 
 // RewriteList.
-async function getRewriteList(pdpRewiteList) {
-  return [...pdpRewiteList, ...rewritePatterns];
-}
+// async function getRewriteList(pdpRewiteList) {
+//   return [...pdpRewiteList, ...rewritePatterns];
+// }
 
 // RedirectList.
 const redirectList = [{ from: '/old-link', to: '/redirect', type: 301 }];

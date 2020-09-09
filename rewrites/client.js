@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const { ApolloClient, InMemoryCache } = require('@apollo/client');
 
 const client = new ApolloClient({

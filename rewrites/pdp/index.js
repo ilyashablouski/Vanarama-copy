@@ -104,9 +104,11 @@ function buildListOfRewrites(derivatives, rawList) {
 
 async function resolveAllPromises(listOfPromises) {
   return new Promise((resolve, reject) => {
-    Promise.all(listOfPromises).then(values => {
-      resolve(values);
-    });
+    Promise.all(listOfPromises)
+      .then(values => {
+        resolve(values);
+      })
+      .catch(err => reject(err));
   });
 }
 
