@@ -252,12 +252,16 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         >
           Of course, feel free to pick up the phone to one of our Account Managers on tel: 
           <a
+            class="link"
+            data-testid="router-link"
             href="tel:01442838195"
           >
             01442 838 195
           </a>
            or drop us an email to 
           <a
+            class="link"
+            data-testid="router-link"
             href="mailto:enquiries@vanarama.co.uk"
           >
             enquiries@vanarama.co.uk

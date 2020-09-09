@@ -40,7 +40,6 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
         <div>
           <Text color="darker" tag="div">
             <ReactMarkdown
-              escapeHtml={false}
               source={body || ''}
               disallowedTypes={['paragraph']}
               unwrapDisallowed
@@ -48,10 +47,6 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
                 link: props => {
                   const { href, children } = props;
                   return <RouterLink link={{ href, label: children }} />;
-                },
-                image: props => {
-                  const { src, alt } = props;
-                  return <img {...{ src, alt }} style={{ maxWidth: '100%' }} />;
                 },
               }}
             />
@@ -111,7 +106,6 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
             </Heading>
             <Text color="darker" size="regular" tag="div">
               <ReactMarkdown
-                escapeHtml={false}
                 source={featured1.body || ''}
                 disallowedTypes={['paragraph']}
                 unwrapDisallowed
@@ -120,12 +114,17 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
                     const { href, children } = props;
                     return <RouterLink link={{ href, label: children }} />;
                   },
-                  image: props => {
-                    const { src, alt } = props;
-                    return (
-                      <img {...{ src, alt }} style={{ maxWidth: '100%' }} />
-                    );
-                  },
+                  heading: props => (
+                    <Text
+                      {...props}
+                      size="lead"
+                      color="darker"
+                      className="-mt-100"
+                    />
+                  ),
+                  paragraph: props => (
+                    <Text {...props} tag="p" color="darker" />
+                  ),
                 }}
               />
             </Text>
@@ -166,7 +165,6 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
                 >
                   <Text color="dark" size="regular" tag="span">
                     <ReactMarkdown
-                      escapeHtml={false}
                       source={el?.body || ''}
                       disallowedTypes={['paragraph']}
                       unwrapDisallowed
@@ -177,15 +175,17 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
                             <RouterLink link={{ href, label: children }} />
                           );
                         },
-                        image: props => {
-                          const { src, alt } = props;
-                          return (
-                            <img
-                              {...{ src, alt }}
-                              style={{ maxWidth: '100%' }}
-                            />
-                          );
-                        },
+                        heading: props => (
+                          <Text
+                            {...props}
+                            size="lead"
+                            color="darker"
+                            className="-mt-100"
+                          />
+                        ),
+                        paragraph: props => (
+                          <Text {...props} tag="p" color="darker" />
+                        ),
                       }}
                     />
                   </Text>
@@ -209,7 +209,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
             >
               {featured2.title}
             </Heading>
-            {featured2.cards && featured2.cards.length && (
+            {featured2.cards?.length && (
               <IvanCta
                 title={featured2.cards[0]?.title || ''}
                 body={featured2.cards[0]?.body || ''}
@@ -232,6 +232,23 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
                 source={featured2.body || ''}
                 disallowedTypes={['paragraph']}
                 unwrapDisallowed
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return <RouterLink link={{ href, label: children }} />;
+                  },
+                  heading: props => (
+                    <Text
+                      {...props}
+                      size="lead"
+                      color="darker"
+                      className="-mt-100"
+                    />
+                  ),
+                  paragraph: props => (
+                    <Text {...props} tag="p" color="darker" />
+                  ),
+                }}
               />
             </Text>
           </div>
