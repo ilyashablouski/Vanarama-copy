@@ -380,6 +380,15 @@ const SearchPageContainer: React.FC<IProps> = ({
     if (isServer) setIsSpecialOffers(getValueFromStorage() ?? true);
   }, [isServer, getValueFromStorage]);
 
+  // using for scroll page to top only for page mount
+  useEffect(() => {
+    if (window) {
+      window.scrollTo(0, 0);
+    }
+    // can't add a window to deps, because it isn't exist in SSR
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // initial set offers
   useEffect(() => {
     if (data?.vehicleList) {
