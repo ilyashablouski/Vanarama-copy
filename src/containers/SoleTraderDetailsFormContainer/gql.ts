@@ -1,7 +1,7 @@
 import { gql, useQuery, useMutation } from '@apollo/client';
 import SoleTraderDetailsForm from '../../components/SoleTraderDetailsForm';
 import { SoleTraderDetailsFormDataQuery } from '../../../generated/SoleTraderDetailsFormDataQuery';
-// import { SoleTraderPerson_associates as SoleTrader } from '../../../generated/SoleTraderPerson';
+
 import {
   UpdateSoleTraderMutationVariables as MutationVars,
   UpdateSoleTraderMutation as Mutation,
@@ -27,10 +27,7 @@ export const GET_SOLETRADER_DETAILS_FORM_DATA = gql`
 export const UPDATE_SOLETRADER_COMPANY = gql`
   mutation UpdateSoleTraderMutation($input: SoleTraderCompanyInputObject!) {
     updateCompanySoleTrader(input: $input) {
-      uuid
-      associate {
-        ...SoleTraderPerson
-      }
+      ...SoleTraderPerson
     }
   }
   ${SoleTraderDetailsForm.fragments.soleTrader}
