@@ -22,8 +22,8 @@ export interface ISoleTraderDetailsFormValues {
   avgMonthlyIncome: number | null;
   monthlyMortgagePayments: number | null;
   monthlyStudentPayments: number | null;
-  monthlyIncomeChange: boolean;
-  futureMonthlyIncome: number | null;
+  monthlyIncomeChange?: boolean;
+  futureMonthlyIncome?: number | null;
   history: TAddressEntry[];
 }
 

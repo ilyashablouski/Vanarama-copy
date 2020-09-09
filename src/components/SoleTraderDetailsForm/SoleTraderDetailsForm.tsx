@@ -38,6 +38,7 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
     <Formik<ISoleTraderDetailsFormValues>
       initialValues={responseToInitialFormValues(soleTrader, addresses)}
       onSubmit={onSubmit}
+      validationSchema={validationSchema}
     >
       {formikProps => (
         <Form onSubmit={formikProps.handleSubmit}>
@@ -128,7 +129,7 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
           />
 
           <FormikNumericField
-            name="monthlyMorgatgePayments"
+            name="monthlyMortgagePayments"
             label="Monthly Mortgage Payments"
             dataTestId="monthly-Mortgage-payments"
             prefix="£"

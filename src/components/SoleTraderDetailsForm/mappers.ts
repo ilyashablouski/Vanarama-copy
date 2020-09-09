@@ -27,11 +27,11 @@ export const formValuesToInput = (
     noOfAdultsInHousehold: values.adultsInHousehold,
     occupation: values.occupation,
     incomeAndExpense: {
-      annualIncome: values.annualIncome,
-      averageMonthlyIncome: values.avgMonthlyIncome,
-      mortgageOrRent: values.monthlyMortgagePayments,
-      studentLoan: values.monthlyStudentPayments,
-      futureMonthlyIncome: values.futureMonthlyIncome,
+      annualIncome: Number(values.annualIncome),
+      averageMonthlyIncome: Number(values.avgMonthlyIncome),
+      mortgageOrRent: Number(values.monthlyMortgagePayments),
+      studentLoan: Number(values.monthlyStudentPayments),
+      futureMonthlyIncome: Number(values.futureMonthlyIncome),
     },
   };
 };
