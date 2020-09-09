@@ -44,7 +44,7 @@ module.exports = {
     },
 
     // Routes to export into static files.
-    exportTrailingSlash: true,
+    trailingSlash: true,
     exportPathMap: () => {
       return {
         '/': { page: '/' },
