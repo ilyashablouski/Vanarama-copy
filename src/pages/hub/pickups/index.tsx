@@ -160,6 +160,7 @@ export const PickupsPage: NextPage = () => {
             sessionStorage.setItem('capId', offer?.capId || '');
             Router.push(dealOfMonthUrl.href, dealOfMonthUrl.url);
           }}
+          link={{ href: dealOfMonthUrl.href, url: dealOfMonthUrl.url }}
         />
       </div>
 
