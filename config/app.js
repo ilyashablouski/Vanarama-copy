@@ -22,6 +22,7 @@ module.exports = {
     // Env vars.
     env: {
       ENV: process.env.ENV,
+      GTM_ID: process.env.GTM_ID,
       API_URL: process.env.API_URL,
       API_KEY: process.env.API_KEY,
       LOQATE_KEY: process.env.LOQATE_KEY,

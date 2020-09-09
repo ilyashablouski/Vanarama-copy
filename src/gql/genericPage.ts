@@ -211,6 +211,24 @@ export const GENERIC_PAGE = gql`
             }
           }
         }
+        featured3 {
+          layout
+          body
+          titleTag
+          title
+          link {
+            url
+            text
+          }
+          image {
+            title
+            description
+            file {
+              url
+              fileName
+            }
+          }
+        }
         carousel {
           title
           name
@@ -247,6 +265,7 @@ export const GENERIC_PAGE = gql`
               file {
                 url
                 fileName
+                contentType
               }
             }
           }
@@ -279,6 +298,7 @@ export const GENERIC_PAGE_HEAD = gql`
   query GenericPageHeadQuery($slug: String!) {
     genericPage(slug: $slug) {
       id
+      intro
       metaData {
         title
         name

@@ -106,15 +106,12 @@ export const HomePage: NextPage = () => {
 
   return (
     <>
-      <Head
-        title={data?.homePage.metaData.title || ''}
-        metaDescription={data?.homePage.metaData.metaDescription}
-        metaRobots={data?.homePage.metaData.metaRobots}
-        legacyUrl={data?.homePage.metaData.legacyUrl}
-        canonicalUrl={data?.homePage.metaData.canonicalUrl}
-        publishedOn={data?.homePage.metaData.publishedOn}
-        featuredImage={data?.homePage.featuredImage}
-      />
+      {data && (
+        <Head
+          metaData={data?.homePage.metaData}
+          featuredImage={data?.homePage.featuredImage}
+        />
+      )}
       <Hero>
         <div className="hero--title">
           <HeroHeading

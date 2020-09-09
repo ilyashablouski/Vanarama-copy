@@ -34,17 +34,13 @@ const CustomerTestimonialPage: NextPage = () => {
   return (
     <>
       <Head
-        title={metaData.title || ''}
-        metaDescription={metaData.metaDescription}
-        metaRobots={metaData.metaRobots}
-        legacyUrl={metaData.legacyUrl}
-        publishedOn={metaData.publishedOn}
+        metaData={metaData}
         featuredImage={data?.genericPage.featuredImage}
       />
       <CustomerTestimonialsContainer
         crumbs={crumbs}
         body={body}
-        title={metaData?.title}
+        title={metaData?.name}
         sections={sections}
       />
     </>

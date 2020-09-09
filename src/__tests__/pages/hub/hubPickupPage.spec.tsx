@@ -358,22 +358,18 @@ describe('<PickupsPage />', () => {
 
   it('should trigger route push when clicking deal of the month View Offer', async () => {
     await screen.findByTestId('deal-of-month__view-offer');
-    fireEvent.click(screen.getByTestId('deal-of-month__view-offer'));
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing/[...details-page]',
-        '/van-leasing/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
-      ),
+    expect(screen.getByTestId('deal-of-month__view-offer')).toHaveAttribute(
+      'href',
+      '/van-leasing/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
     );
   });
 
-  it('should trigger route push when clicking View All Pickups', async () => {
+  it('should have link in View All Pickups', async () => {
     await screen.findByText('View All Pickups');
-    fireEvent.click(screen.getByText('View All Pickups'));
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing?bodyStyles=Pickup',
-      ),
+
+    expect(screen.getByTestId('view-all-pickups')).toHaveAttribute(
+      'href',
+      '/van-leasing%3FbodyStyles=Pickup',
     );
   });
 
@@ -381,16 +377,5 @@ describe('<PickupsPage />', () => {
     await screen.findByText('View All Pickups');
     fireEvent.click(screen.getByText('Here'));
     await waitFor(() => expect(Router.push).toHaveBeenCalledWith('/fan-hub'));
-  });
-
-  it('should trigger router push when clicking product View Offer', async () => {
-    await screen.findAllByText('View Offer');
-    fireEvent.click(screen.getAllByText('View Offer')[0]);
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing/[...details-page]',
-        '/van-leasing/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
-      ),
-    );
   });
 });

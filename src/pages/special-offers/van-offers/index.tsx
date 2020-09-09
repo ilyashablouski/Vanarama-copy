@@ -26,6 +26,7 @@ import BreadCrumbs from '../../../containers/BreadCrumbContainer';
 import ProductCarousel from '../../../components/ProductCarousel/ProductCarousel';
 import useLeaseType from '../../../hooks/useLeaseType';
 import RouterLink from '../../../components/RouterLink/RouterLink';
+import Head from '../../../components/Head/Head';
 
 export const VanOffers: NextPage = () => {
   const { data, loading, error } = useQuery<VanOffersPageData>(
@@ -130,13 +131,20 @@ export const VanOffers: NextPage = () => {
   }
 
   const isPersonal = cachedLeaseType === 'Personal';
+  const metaData = data?.vanOffersPage.metaData;
 
   return (
     <>
+      {metaData && (
+        <Head
+          metaData={metaData}
+          featuredImage={data?.vanOffersPage.featuredImage}
+        />
+      )}
       <div className="row:title">
         <BreadCrumbs />
         <Heading color="black" size="xlarge">
-          Van Offers
+          {metaData?.name}
         </Heading>
       </div>
       <div className="row:bg-lighter">

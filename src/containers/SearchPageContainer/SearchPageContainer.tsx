@@ -380,6 +380,15 @@ const SearchPageContainer: React.FC<IProps> = ({
     if (isServer) setIsSpecialOffers(getValueFromStorage() ?? true);
   }, [isServer, getValueFromStorage]);
 
+  // using for scroll page to top only for page mount
+  useEffect(() => {
+    if (window) {
+      window.scrollTo(0, 0);
+    }
+    // can't add a window to deps, because it isn't exist in SSR
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // initial set offers
   useEffect(() => {
     if (data?.vehicleList) {
@@ -653,14 +662,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   // Some props should be contain in one param for achieve more readable code
   return (
     <>
-      <Head
-        title={metaData?.title || ''}
-        metaDescription={metaData?.metaDescription}
-        metaRobots={metaData?.metaRobots}
-        legacyUrl={metaData?.legacyUrl}
-        publishedOn={metaData?.publishedOn}
-        featuredImage={featuredImage}
-      />
+      {metaData && <Head metaData={metaData} featuredImage={featuredImage} />}
       <div className="row:title">
         <Breadcrumb items={crumbs} />
         <Heading tag="h1" size="xlarge" color="black">

@@ -131,7 +131,10 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
         />
         {sections?.tiles2?.tiles?.map(tile => {
           return (
-            <div className="testimonials--sidebar--service tilebox">
+            <div
+              className="testimonials--sidebar--service tilebox"
+              key={tile.title || ''}
+            >
               <Image
                 src={tile.image?.file?.url || ''}
                 alt={tile.image?.title || ''}

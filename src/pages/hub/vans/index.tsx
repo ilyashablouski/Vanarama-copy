@@ -154,14 +154,12 @@ export const VansPage: NextPage = () => {
 
   return (
     <>
-      <Head
-        title={metaData?.title || ''}
-        metaDescription={metaData?.metaDescription}
-        metaRobots={metaData?.metaRobots}
-        legacyUrl={metaData?.legacyUrl}
-        publishedOn={metaData?.publishedOn}
-        featuredImage={data?.hubVanPage?.featuredImage}
-      />
+      {metaData && (
+        <Head
+          metaData={metaData}
+          featuredImage={data?.hubVanPage?.featuredImage}
+        />
+      )}
       <Hero>
         <HeroHeading
           text={
@@ -240,6 +238,7 @@ export const VansPage: NextPage = () => {
             sessionStorage.setItem('capId', offer?.capId || '');
             Router.push(dealOfMonthUrl.href, dealOfMonthUrl.url);
           }}
+          link={{ href: dealOfMonthUrl.href, url: dealOfMonthUrl.url }}
         />
       </div>
       <div className="row:bg-lighter">

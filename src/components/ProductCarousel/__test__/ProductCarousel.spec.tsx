@@ -1,6 +1,5 @@
 import React from 'react';
-import Router from 'next/router';
-import { fireEvent, render, waitFor, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import ProductCarousel from '../ProductCarousel';
 import {
   LeaseTypeEnum,
@@ -78,12 +77,10 @@ describe('<ProductCarousel />', () => {
 
   it('should trigger route push when clicking car View Offer', async () => {
     await screen.findByTestId('van-view-offer');
-    fireEvent.click(screen.getByTestId('van-view-offer'));
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing/[...details-page]',
-        '/van-leasing/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
-      ),
+
+    expect(screen.getByTestId('van-view-offer')).toHaveAttribute(
+      'href',
+      '/van-leasing/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
     );
   });
 });
