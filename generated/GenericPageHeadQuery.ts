@@ -34,6 +34,7 @@ export interface GenericPageHeadQuery_genericPage_featuredImage {
 
 export interface GenericPageHeadQuery_genericPage {
   id: string;
+  intro: string | null;
   metaData: GenericPageHeadQuery_genericPage_metaData;
   featuredImage: GenericPageHeadQuery_genericPage_featuredImage | null;
 }

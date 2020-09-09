@@ -144,7 +144,7 @@ export const VanOffers: NextPage = () => {
       <div className="row:title">
         <BreadCrumbs />
         <Heading color="black" size="xlarge">
-          Van Offers
+          {metaData?.name}
         </Heading>
       </div>
       <div className="row:bg-lighter">
