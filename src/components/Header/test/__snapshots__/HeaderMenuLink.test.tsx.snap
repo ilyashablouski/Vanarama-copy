@@ -46,13 +46,8 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
           className="menu-li -highlight"
           data-testid="VANS Special Offers"
         >
-          <a
+          <span
             className="link -white"
-            data-menu={null}
-            data-testid="router-link"
-            href=""
-            onClick={[Function]}
-            onMouseEnter={[Function]}
           >
             <i
               className="icon -white -xsmall"
@@ -70,10 +65,8 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
                 />
               </svg>
             </i>
-            <span>
-              VANS Special Offers
-            </span>
-          </a>
+            VANS Special Offers
+          </span>
         </li>
         <li
           className="menu-li -with-children"
@@ -81,18 +74,11 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
           onFocus={[Function]}
           onMouseOver={[Function]}
         >
-          <a
+          <span
             className="link -inherit"
-            data-menu={null}
-            data-testid="router-link"
-            href=""
-            onClick={[Function]}
-            onMouseEnter={[Function]}
           >
-            <span>
-              Vans By Manufacturer
-            </span>
-          </a>
+            Vans By Manufacturer
+          </span>
         </li>
         <li
           className="menu-li -with-children"
@@ -100,18 +86,11 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
           onFocus={[Function]}
           onMouseOver={[Function]}
         >
-          <a
+          <span
             className="link -inherit"
-            data-menu={null}
-            data-testid="router-link"
-            href=""
-            onClick={[Function]}
-            onMouseEnter={[Function]}
           >
-            <span>
-              Vans By Size
-            </span>
-          </a>
+            Vans By Size
+          </span>
         </li>
         <li
           className="menu-li -with-children"
@@ -119,18 +98,11 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
           onFocus={[Function]}
           onMouseOver={[Function]}
         >
-          <a
+          <span
             className="link -inherit"
-            data-menu={null}
-            data-testid="router-link"
-            href=""
-            onClick={[Function]}
-            onMouseEnter={[Function]}
           >
-            <span>
-              Vans By Type
-            </span>
-          </a>
+            Vans By Type
+          </span>
         </li>
         <li
           className="menu-li"
