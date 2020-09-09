@@ -18,33 +18,6 @@ const TestimonialSection = ({
 }: ISideText) => {
   return (
     <div className="row:featured-right">
-      <div>
-        <Heading
-          size="large"
-          color="black"
-          tag={getTitleTag(titleTag) as keyof JSX.IntrinsicElements}
-        >
-          {title}
-        </Heading>
-        <Text tag="div">
-          <ReactMarkdown
-            source={body || ''}
-            renderers={{
-              link: props => {
-                const { href, children } = props;
-                return <RouterLink link={{ href, label: children }} />;
-              },
-            }}
-          />
-        </Text>
-        <Button
-          dataTestId="fleet_testimonial-section_request-button"
-          color="primary"
-          size="regular"
-          label={config.requestCallBackButtonLabel}
-          onClick={goToTop}
-        />
-      </div>
       {testimonials && testimonials[0] && (
         <ReviewCard
           review={{
@@ -57,6 +30,35 @@ const TestimonialSection = ({
           }}
         />
       )}
+      <div>
+        <Heading
+          size="large"
+          color="black"
+          tag={getTitleTag(titleTag) as keyof JSX.IntrinsicElements}
+        >
+          {title}
+        </Heading>
+        <ReactMarkdown
+          source={body || ''}
+          renderers={{
+            link: props => {
+              const { href, children } = props;
+              return <RouterLink link={{ href, label: children }} />;
+            },
+            heading: props => (
+              <Text {...props} size="lead" color="darker" className="-mt-100" />
+            ),
+            paragraph: props => <Text {...props} tag="p" color="darker" />,
+          }}
+        />
+        <Button
+          dataTestId="fleet_testimonial-section_request-button"
+          color="primary"
+          size="regular"
+          label={config.requestCallBackButtonLabel}
+          onClick={goToTop}
+        />
+      </div>
     </div>
   );
 };
