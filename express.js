@@ -13,7 +13,8 @@ const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
 const logo = require('./logo');
 const { version } = require('./package.json');
 
-const { getPdpRewiteList } = require('./rewrites/index');
+const { getPdpRewiteList } = require('./rewrites/pdp');
+const rewritePatterns = require('./rewrites/rewritePatterns');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -22,46 +23,8 @@ const handle = app.getRequestHandler();
 const PORT = process.env.PORT || 3000;
 
 // RewriteList.
-const rewritePatterns = [
-  {
-    from: '/:manufacturer-:vehicleType-leasing.html',
-    to: '/:vehicleType-leasing/:manufacturer',
-  },
-  {
-    from: '/:manufacturer-:vehicleType-leasing/:model.html',
-    to: '/:vehicleType-leasing/:manufacturer/:model',
-  },
-  {
-    from: '/car-leasing/small.html',
-    to: '/car-leasing/city-car',
-  },
-  {
-    from: '/car-leasing/:bodyStyle.html',
-    to: '/car-leasing/:bodyStyle',
-  },
-  {
-    from: 'car-leasing/4x4-suv.html',
-    to: '/car-leasing/4x4',
-  },
-  {
-    from: '/car-leasing/eco.html',
-    to: '/car-leasing/electric',
-  },
-  {
-    from: '/specialist-van-leasing.html',
-    to: '/van-leasing/Specialist',
-  },
-  {
-    from: '/:bodyStyle-leasing.html',
-    to: '/van-leasing/:bodyStyle',
-  },
-  {
-    from: '/automatic-vans.html',
-    to: '/van-leasing/automatic',
-  },
-];
 async function getRewriteList(pdpRewiteList) {
-  return [...rewritePatterns, ...pdpRewiteList];
+  return [...pdpRewiteList, ...rewritePatterns];
 }
 
 // RedirectList.
@@ -70,16 +33,18 @@ const redirectList = [{ from: '/old-link', to: '/redirect', type: 301 }];
 app
   .prepare()
   .then(async () => {
-    const pdpRewiteList = await getPdpRewiteList();
-    const rewriteList = await getRewriteList(pdpRewiteList);
+    // const pdpRewiteList = await getPdpRewiteList();
+    // const rewriteList = await getRewriteList(pdpRewiteList || []);
 
-    return rewriteList;
+    // return rewriteList;
+    return rewritePatterns;
   })
   .then(rewriteList => {
     const server = express();
 
     server.disable('x-powered-by');
     server.use(hpp());
+
     // Prevent brute force attack in production.
     if (process.env.ENV === 'production')
       server.use(rateLimiterRedisMiddleware);
@@ -101,7 +66,7 @@ app
     // Prerender.
     if (prerender && process.env.PRERENDER_SERVICE_URL) server.use(prerender);
 
-    // Status
+    // Status.
     server.get('/status', (req, res) => {
       const statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
@@ -116,8 +81,6 @@ app
     });
 
     server.all('*', cors(), (req, res) => {
-      res.setHeader('X-Robots-Tag', 'noindex'); // Disable indexing.
-
       // Trailing slash fix on page reload.
       req.url = req.url.replace(/\/$/, '');
       if (req.url === '') req.url = '/';

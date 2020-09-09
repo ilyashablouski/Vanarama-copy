@@ -19,6 +19,7 @@ module.exports = {
 
   // Next.
   next: {
+    // Env vars.
     env: {
       ENV: process.env.ENV,
       API_URL: process.env.API_URL,
@@ -34,6 +35,21 @@ module.exports = {
       autoPrerender: false,
     },
     poweredByHeader: false,
+
+    // Rerwrites (supported in v9.5)
+    // async rewrites() {
+    //   return [
+    //     {
+    //       source: '/seat-car-leasing/ibiza/hatchback/1-0-fr-ez-5dr-161392.html',
+    //       destination: '/car-leasing/seat/ibiza/hatchback/10-fr-ez-5-doors',
+    //     },
+    //     {
+    //       source: '/testurl',
+    //       destination:
+    //         '/car-leasing/audi/a1/hatchback/35-tfsi-vorsprung-5-doors-s-tronic',
+    //     },
+    //   ];
+    // },
 
     // Rollbar.
     serverRuntimeConfig: {
