@@ -53,6 +53,7 @@ export interface VanOffersPageData_vanOffersPage_sections {
 export interface VanOffersPageData_vanOffersPage {
   id: string;
   body: string | null;
+  intro: string | null;
   metaData: VanOffersPageData_vanOffersPage_metaData;
   featuredImage: VanOffersPageData_vanOffersPage_featuredImage | null;
   sections: VanOffersPageData_vanOffersPage_sections | null;

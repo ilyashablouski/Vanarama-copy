@@ -143,9 +143,12 @@ export const VanOffers: NextPage = () => {
       )}
       <div className="row:title">
         <BreadCrumbs />
-        <Heading color="black" size="xlarge">
+        <Heading color="black" size="xlarge" tag="h1">
           {metaData?.name}
         </Heading>
+        <Text size="large" color="darker">
+          {data?.vanOffersPage.intro}
+        </Text>
       </div>
       <div className="row:bg-lighter">
         <div>
