@@ -99,3 +99,5 @@ export type MyDetailsQueryParams = {
   partyByUuid?: string;
   uuid: string;
 };
+
+export const SEARCH_PAGES = ['/car-leasing', '/van-leasing', '/special-offers'];
