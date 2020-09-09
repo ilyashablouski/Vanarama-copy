@@ -22,19 +22,26 @@ export const VatDetailsPage: NextPage = () => {
   const router = useRouter();
   const { companyUuid, orderId } = router.query as QueryParams;
 
-  const handleSubmitCompletion = () => {
-    const params = getUrlParam({ orderId });
-    const url =
-      router.query.redirect === 'summary'
-        ? `/b2b/olaf/summary/[companyUuid]${params}`
-        : `/b2b/olaf/director-details/[companyUuid]${params}`;
-    router.push(url, url.replace('[companyUuid]', companyUuid));
-  };
-
   const soleTraderPathMatchResult = router.pathname.match(
     /^\/b2b\/olaf\/sole-trader\/.+/,
   );
   const isSoleTraderJourney = (soleTraderPathMatchResult || []).length > 0;
+
+  const handleSubmitCompletion = () => {
+    const params = getUrlParam({ orderId });
+    const detailsUrl = !isSoleTraderJourney
+      ? `/b2b/olaf/director-details/[companyUuid]${params}`
+      : `/b2b/olaf/sole-trader/sole-trader-details/[personalUuid]${params}`;
+    const url =
+      router.query.redirect === 'summary'
+        ? `/b2b/olaf/summary/[companyUuid]${params}`
+        : detailsUrl;
+    if (!isSoleTraderJourney) {
+      router.push(url, url.replace('[companyUuid]', companyUuid));
+    } else {
+      router.push(url, url.replace('[personalUuid]', companyUuid));
+    }
+  };
 
   return (
     <OLAFLayout>
