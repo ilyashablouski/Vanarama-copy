@@ -40,6 +40,10 @@
         {
           "name": "ROLLBAR_SERVER_TOKEN",
           "valueFrom": "%SSM_PARAMETER_BASE%/rollbar-server-token"
+        },
+        {
+          "name": "GITHUB_TOKEN",
+          "valueFrom": "%SSM_PARAMETER_BASE%/github-token"
         }
       ],
       "environment": [
