@@ -19,12 +19,14 @@ module.exports = {
 
   // Next.
   next: {
+    // Env vars.
     env: {
       ENV: process.env.ENV,
       GTM_ID: process.env.GTM_ID,
       API_URL: process.env.API_URL,
       API_KEY: process.env.API_KEY,
       LOQATE_KEY: process.env.LOQATE_KEY,
+      GITHUB_TOKEN: process.env.GITHUB_TOKEN,
       ENABLE_DEV_TOOLS: process.env.ENABLE_DEV_TOOLS,
       REDIS_CACHE_HOST: process.env.REDIS_CACHE_HOST,
       REDIS_CACHE_PORT: process.env.REDIS_CACHE_PORT,
@@ -34,6 +36,21 @@ module.exports = {
       autoPrerender: false,
     },
     poweredByHeader: false,
+
+    // Rerwrites (supported in v9.5)
+    // async rewrites() {
+    //   return [
+    //     {
+    //       source: '/seat-car-leasing/ibiza/hatchback/1-0-fr-ez-5dr-161392.html',
+    //       destination: '/car-leasing/seat/ibiza/hatchback/10-fr-ez-5-doors',
+    //     },
+    //     {
+    //       source: '/testurl',
+    //       destination:
+    //         '/car-leasing/audi/a1/hatchback/35-tfsi-vorsprung-5-doors-s-tronic',
+    //     },
+    //   ];
+    // },
 
     // Rollbar.
     serverRuntimeConfig: {

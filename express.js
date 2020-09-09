@@ -13,118 +13,91 @@ const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
 const logo = require('./logo');
 const { version } = require('./package.json');
 
+// const { getPdpRewiteList } = require('./rewrites/pdp');
+const rewritePatterns = require('./rewrites/rewritePatterns');
+
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
 const PORT = process.env.PORT || 3000;
 
-// Rewrites.
-const rewrites = [
-  {
-    from: '/:manufacturer-:vehicleType-leasing.html',
-    to: '/:vehicleType-leasing/:manufacturer',
-  },
-  {
-    from: '/:manufacturer-:vehicleType-leasing/:model.html',
-    to: '/:vehicleType-leasing/:manufacturer/:model',
-  },
-  {
-    from: '/car-leasing/small.html',
-    to: '/car-leasing/city-car',
-  },
-  {
-    from: '/car-leasing/:bodyStyle.html',
-    to: '/car-leasing/:bodyStyle',
-  },
-  {
-    from: 'car-leasing/4x4-suv.html',
-    to: '/car-leasing/4x4',
-  },
-  {
-    from: '/car-leasing/eco.html',
-    to: '/car-leasing/electric',
-  },
-  {
-    from: '/specialist-van-leasing.html',
-    to: '/van-leasing/Specialist',
-  },
-  {
-    from: '/:bodyStyle-leasing.html',
-    to: '/van-leasing/:bodyStyle',
-  },
-  {
-    from: '/automatic-vans.html',
-    to: '/van-leasing/automatic',
-  },
-  {
-    from: '/legal/:legalArticle.html',
-    to: '/legal/:legalArticle',
-  },
-  {
-    from: '/fca.html',
-    to: '/legal/fca',
-  },
-];
-// Redirects.
-const redirects = [{ from: '/old-link', to: '/redirect', type: 301 }];
+// RewriteList.
+// async function getRewriteList(pdpRewiteList) {
+//   return [...pdpRewiteList, ...rewritePatterns];
+// }
 
-app.prepare().then(() => {
-  const server = express();
+// RedirectList.
+const redirectList = [{ from: '/old-link', to: '/redirect', type: 301 }];
 
-  server.disable('x-powered-by');
-  server.use(hpp());
-  // Prevent brute force attack in production.
-  if (process.env.ENV === 'production') server.use(rateLimiterRedisMiddleware);
+app
+  .prepare()
+  .then(async () => {
+    // const pdpRewiteList = await getPdpRewiteList();
+    // const rewriteList = await getRewriteList(pdpRewiteList || []);
 
-  // Handle rewrites.
-  if (rewrites)
-    rewrites.forEach(({ from, to }) => {
-      server.use(rewrite(from, to));
-    });
+    // return rewriteList;
+    return rewritePatterns;
+  })
+  .then(rewriteList => {
+    const server = express();
 
-  // Handle redirects.
-  if (redirects)
-    redirects.forEach(({ from, to, type = 301, method = 'get' }) => {
-      server[method](from, (req, res) => {
-        res.redirect(type, to);
+    server.disable('x-powered-by');
+    server.use(hpp());
+
+    // Prevent brute force attack in production.
+    if (process.env.ENV === 'production')
+      server.use(rateLimiterRedisMiddleware);
+
+    // Handle rewrite list.
+    if (rewriteList)
+      rewriteList.forEach(({ from, to }) => {
+        server.use(rewrite(from, to));
+      });
+
+    // Handle redirect list.
+    if (redirectList)
+      redirectList.forEach(({ from, to, type = 301, method = 'get' }) => {
+        server[method](from, (req, res) => {
+          res.redirect(type, to);
+        });
+      });
+
+    // Prerender.
+    if (prerender && process.env.PRERENDER_SERVICE_URL) server.use(prerender);
+
+    // Status.
+    server.get('/status', (req, res) => {
+      const statusCode = 200;
+      res.setHeader('Content-Type', 'application/json');
+      res.status(statusCode);
+      res.json({
+        statusCode,
+        nodeEnv: process.env.NODE_ENV,
+        env: process.env.ENV,
+        nodeVersion: process.version,
+        appVersion: version,
       });
     });
 
-  // Prerender.
-  if (prerender && process.env.PRERENDER_SERVICE_URL) server.use(prerender);
+    server.all('*', cors(), (req, res) => {
+      // Trailing slash fix on page reload.
+      req.url = req.url.replace(/\/$/, '');
+      if (req.url === '') req.url = '/';
 
-  // Status
-  server.get('/status', (req, res) => {
-    const statusCode = 200;
-    res.setHeader('Content-Type', 'application/json');
-    res.status(statusCode);
-    res.json({
-      statusCode,
-      nodeEnv: process.env.NODE_ENV,
-      env: process.env.ENV,
-      nodeVersion: process.version,
-      appVersion: version,
+      if (process.env.ENV !== 'production')
+        res.setHeader('X-Robots-Tag', 'noindex'); // Disable indexing.
+      return handle(req, res);
+    });
+
+    server.listen(PORT, err => {
+      if (err) throw err;
+      console.log(logo);
+      console.log(`Ready on http://localhost:${PORT}`.cyan);
+      console.log(`Environment: ${process.env.NODE_ENV.toUpperCase()}`.grey);
+      // console.log(`Environment: ${process.env.ENV.toUpperCase()}`.grey);
     });
   });
-
-  server.all('*', cors(), (req, res) => {
-    // Trailing slash fix on page reload.
-    req.url = req.url.replace(/\/$/, '');
-    if (req.url === '') req.url = '/';
-
-    if (process.env.ENV !== 'production')
-      res.setHeader('X-Robots-Tag', 'noindex'); // Disable indexing.
-    return handle(req, res);
-  });
-
-  server.listen(PORT, err => {
-    if (err) throw err;
-    console.log(logo);
-    console.log(`Ready on http://localhost:${PORT}`.cyan);
-    console.log(`Environment: ${process.env.NODE_ENV.toUpperCase()}`.grey);
-  });
-});
 
 process.on('SIGTERM', () => {
   console.log('Closing http server');
