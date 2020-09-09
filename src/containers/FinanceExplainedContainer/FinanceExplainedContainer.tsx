@@ -40,6 +40,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
         <div>
           <Text color="darker" tag="div">
             <ReactMarkdown
+              escapeHtml={false}
               source={body || ''}
               disallowedTypes={['paragraph']}
               unwrapDisallowed
@@ -48,6 +49,10 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
                   const { href, children } = props;
                   return <RouterLink link={{ href, label: children }} />;
                 },
+                image: props => {
+                  const { src, alt } = props;
+                  return <img {...{ src, alt }} style={{ maxWidth: '100%' }} />;
+                },
               }}
             />
           </Text>
@@ -55,18 +60,18 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
       </div>
       {!!cards?.length && (
         <div className="row:bg-lighter">
-          <Heading
-            color="black"
-            size="lead"
-            tag={
-              getTitleTag(
-                sections?.cards?.titleTag || null,
-              ) as keyof JSX.IntrinsicElements
-            }
-          >
-            {sections?.cards?.name}
-          </Heading>
           <div className="row:cards-3col">
+            <Heading
+              color="black"
+              size="lead"
+              tag={
+                getTitleTag(
+                  sections?.cards?.titleTag || null,
+                ) as keyof JSX.IntrinsicElements
+              }
+            >
+              {sections?.cards?.name}
+            </Heading>
             {cards.map((el: Cards, indx: number) => (
               <Card
                 key={`${el.name}_${indx.toString()}`}
@@ -106,6 +111,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
             </Heading>
             <Text color="darker" size="regular" tag="div">
               <ReactMarkdown
+                escapeHtml={false}
                 source={featured1.body || ''}
                 disallowedTypes={['paragraph']}
                 unwrapDisallowed
@@ -113,6 +119,12 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
                   link: props => {
                     const { href, children } = props;
                     return <RouterLink link={{ href, label: children }} />;
+                  },
+                  image: props => {
+                    const { src, alt } = props;
+                    return (
+                      <img {...{ src, alt }} style={{ maxWidth: '100%' }} />
+                    );
                   },
                 }}
               />
@@ -154,6 +166,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
                 >
                   <Text color="dark" size="regular" tag="span">
                     <ReactMarkdown
+                      escapeHtml={false}
                       source={el?.body || ''}
                       disallowedTypes={['paragraph']}
                       unwrapDisallowed
@@ -162,6 +175,15 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
                           const { href, children } = props;
                           return (
                             <RouterLink link={{ href, label: children }} />
+                          );
+                        },
+                        image: props => {
+                          const { src, alt } = props;
+                          return (
+                            <img
+                              {...{ src, alt }}
+                              style={{ maxWidth: '100%' }}
+                            />
                           );
                         },
                       }}
@@ -187,6 +209,24 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
             >
               {featured2.title}
             </Heading>
+            {featured2.cards && featured2.cards.length && (
+              <IvanCta
+                title={featured2.cards[0]?.title || ''}
+                body={featured2.cards[0]?.body || ''}
+                imageSrc={featured2.cards[0]?.image?.file?.url || ''}
+              >
+                <RouterLink
+                  link={{
+                    href: featured2.cards[0]?.link?.url || '',
+                    label: featured2.cards[0]?.link?.text || '',
+                    linkType: featured2.cards[0]?.link?.url?.match('http')
+                      ? LinkTypes.external
+                      : '',
+                  }}
+                  classNames={{ color: 'teal' }}
+                />
+              </IvanCta>
+            )}
             <Text color="darker" size="regular" tag="p">
               <ReactMarkdown
                 source={featured2.body || ''}
@@ -195,24 +235,6 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
               />
             </Text>
           </div>
-          {featured2.cards && featured2.cards.length && (
-            <IvanCta
-              title={featured2.cards[0]?.title || ''}
-              body={featured2.cards[0]?.body || ''}
-              imageSrc={featured2.cards[0]?.image?.file?.url || ''}
-            >
-              <RouterLink
-                link={{
-                  href: featured2.cards[0]?.link?.url || '',
-                  label: featured2.cards[0]?.link?.text || '',
-                  linkType: featured2.cards[0]?.link?.url?.match('http')
-                    ? LinkTypes.external
-                    : '',
-                }}
-                classNames={{ color: 'teal' }}
-              />
-            </IvanCta>
-          )}
         </div>
       )}
     </>

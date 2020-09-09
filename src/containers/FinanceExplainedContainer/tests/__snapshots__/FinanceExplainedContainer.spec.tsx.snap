@@ -71,14 +71,14 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
     <div
       class="row:bg-lighter"
     >
-      <p
-        class="heading -black -lead"
-      >
-        Available New Car Finance Leasing Options
-      </p>
       <div
         class="row:cards-3col"
       >
+        <p
+          class="heading -black -lead"
+        >
+          Available New Car Finance Leasing Options
+        </p>
         <div
           class="card"
           data-testid="card"
@@ -212,6 +212,41 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         >
           Contact Us
         </p>
+        <div
+          class="card ivan-cta -inline"
+          data-testid="card"
+        >
+          <div
+            class="image card-image -expand -plain"
+          >
+            <img
+              class="image--native"
+              src="//images.ctfassets.net/3xid768u5joa/31iQbyGS1DYs7b9viQHtXh/86ae2d62793162409d230b2042d9e00a/header-ivan.svg"
+            />
+          </div>
+          <div
+            class="title"
+          >
+            <p
+              class="heading -black -lead"
+            >
+              Meet iVan
+            </p>
+          </div>
+          <span
+            class="text -regular -dark"
+          >
+            Our helpful chatbot iVan is available 24/7 to answer your van financing questions
+          </span>
+          <a
+            class="link -teal"
+            data-testid="link"
+            href="https://www.vanarama.com"
+            rel="noopener noreferrer"
+          >
+            Chat With iVan
+          </a>
+        </div>
         <p
           class="text -regular -darker"
         >
@@ -229,41 +264,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           </a>
           .
         </p>
-      </div>
-      <div
-        class="card ivan-cta -inline"
-        data-testid="card"
-      >
-        <div
-          class="image card-image -expand -plain"
-        >
-          <img
-            class="image--native"
-            src="//images.ctfassets.net/3xid768u5joa/31iQbyGS1DYs7b9viQHtXh/86ae2d62793162409d230b2042d9e00a/header-ivan.svg"
-          />
-        </div>
-        <div
-          class="title"
-        >
-          <p
-            class="heading -black -lead"
-          >
-            Meet iVan
-          </p>
-        </div>
-        <span
-          class="text -regular -dark"
-        >
-          Our helpful chatbot iVan is available 24/7 to answer your van financing questions
-        </span>
-        <a
-          class="link -teal"
-          data-testid="link"
-          href="https://www.vanarama.com"
-          rel="noopener noreferrer"
-        >
-          Chat With iVan
-        </a>
       </div>
     </div>
   </div>
