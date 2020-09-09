@@ -7,6 +7,7 @@ import cx from 'classnames';
 import ComparatorBar from '@vanarama/uibook/lib/components/organisms/comparator-bar';
 import Modal from '@vanarama/uibook/lib/components/molecules/modal';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
+import { SEARCH_PAGES } from '../utils/url';
 import {
   PAGES_WITH_COMPARATOR,
   CompareContext,
@@ -36,8 +37,12 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 
   useEffect(() => {
     // Anytime router.push is called, scroll to the top of the page.
-    Router.events.on('routeChangeComplete', () => {
-      window.scrollTo(0, 0);
+    // it should be prevent for cases when we make a url replace in search pages after filters changing
+    Router.events.on('routeChangeComplete', (url: string) => {
+      const isSearchPage = !!SEARCH_PAGES.find(element =>
+        url.includes(element),
+      );
+      if (!isSearchPage) window.scrollTo(0, 0);
     });
   }, []);
 
