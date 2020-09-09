@@ -4,9 +4,9 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Rating from '@vanarama/uibook/lib/components/atoms/rating';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
+import RouterLink from '../RouterLink/RouterLink';
 
 interface IDealOfMonthProps {
   vehicle: string;
@@ -17,6 +17,10 @@ interface IDealOfMonthProps {
   flagText?: string;
   isPersonal: boolean;
   viewOfferClick: () => void;
+  link: {
+    href: string;
+    url: string;
+  };
 }
 
 const DealOfMonth: React.FC<IDealOfMonthProps> = ({
@@ -28,6 +32,7 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
   imageSrc,
   isPersonal,
   flagText = 'DEAL OF THE MONTH',
+  link,
 }) => (
   <>
     <Card
@@ -68,15 +73,22 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
           {isPersonal ? 'Per Month Inc VAT' : 'Per Month Excluding VAT'}
         </Text>
         <br />
-        <Button
-          color="teal"
-          label="View Offer"
-          icon={<ArrowForwardSharp />}
-          iconPosition="after"
-          iconColor="white"
+        <RouterLink
+          link={{
+            href: link.href,
+            label: 'View Offer',
+          }}
+          as={link.url}
           onClick={viewOfferClick}
+          classNames={{ color: 'teal', solid: true, size: 'regular' }}
+          className="button"
           dataTestId="deal-of-month__view-offer"
-        />
+        >
+          <div className="button--inner">
+            View Offer
+            <Icon color="white" icon={<ArrowForwardSharp />} />
+          </div>
+        </RouterLink>
       </div>
     </div>
   </>
