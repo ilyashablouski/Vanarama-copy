@@ -40,7 +40,7 @@ const BankDetailsPage: NextPage = () => {
         input: formValuesToInputCreditApplication({
           ...creditApplication.data?.creditApplicationByOrderUuid,
           orderUuid: orderId,
-          bankAccounts: createUpdateBankAccount,
+          bankAccounts: [createUpdateBankAccount],
         }),
       },
     });

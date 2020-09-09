@@ -9,10 +9,23 @@ import { LimitedCompanyInputObject } from "./globalTypes";
 // GraphQL mutation operation: SaveDirectorDetailsMutation
 // ====================================================
 
+export interface SaveDirectorDetailsMutation_createUpdateCompanyDirector_associates_addresses {
+  city: string;
+  country: string;
+  county: string | null;
+  kind: string | null;
+  lineOne: string;
+  lineThree: string | null;
+  lineTwo: string | null;
+  postcode: string;
+  serviceId: string | null;
+}
+
 export interface SaveDirectorDetailsMutation_createUpdateCompanyDirector_associates {
   uuid: string;
   lastName: string;
   firstName: string;
+  addresses: SaveDirectorDetailsMutation_createUpdateCompanyDirector_associates_addresses[] | null;
 }
 
 export interface SaveDirectorDetailsMutation_createUpdateCompanyDirector {
