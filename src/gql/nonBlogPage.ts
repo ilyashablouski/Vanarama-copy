@@ -3,10 +3,7 @@ import {
   GenericPageQuery,
   GenericPageQueryVariables,
 } from '../../generated/GenericPageQuery';
-import {
-  GenericPageHeadQuery,
-  GenericPageHeadQueryVariables,
-} from '../../generated/GenericPageHeadQuery';
+
 
 export const NON_BLOG_PAGE = gql`
   query NonBlogPageQuery($slug: String!) {
