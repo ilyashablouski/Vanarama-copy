@@ -13,7 +13,7 @@ const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
 const logo = require('./logo');
 const { version } = require('./package.json');
 
-// const { getPdpRewiteList } = require('./rewrites/pdp');
+const { getPdpRewiteList } = require('./rewrites/pdp');
 const rewritePatterns = require('./rewrites/rewritePatterns');
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -23,9 +23,9 @@ const handle = app.getRequestHandler();
 const PORT = process.env.PORT || 3000;
 
 // RewriteList.
-// async function getRewriteList(pdpRewiteList) {
-//   return [...pdpRewiteList, ...rewritePatterns];
-// }
+async function getRewriteList(pdpRewiteList) {
+  return [...pdpRewiteList, ...rewritePatterns];
+}
 
 // RedirectList.
 const redirectList = [{ from: '/old-link', to: '/redirect', type: 301 }];
@@ -33,14 +33,28 @@ const redirectList = [{ from: '/old-link', to: '/redirect', type: 301 }];
 app
   .prepare()
   .then(async () => {
-    // const pdpRewiteList = await getPdpRewiteList();
-    // const rewriteList = await getRewriteList(pdpRewiteList || []);
-
-    // return rewriteList;
-    return rewritePatterns;
-  })
-  .then(rewriteList => {
+    // Create server.
     const server = express();
+
+    return server;
+  })
+  .then(async server => {
+    const pdpRewiteList = await getPdpRewiteList();
+    const rewriteList = await getRewriteList(pdpRewiteList || []);
+
+    console.log(rewriteList);
+
+    // Handle rewrite list.
+    if (rewriteList)
+      rewriteList.forEach(({ from, to }) => {
+        server.get(from, rewrite(to));
+        // server.use(rewrite(from, to));
+      });
+
+    return server;
+  })
+  .then(server => {
+    // const server = express();
 
     server.disable('x-powered-by');
     server.use(hpp());
@@ -48,12 +62,6 @@ app
     // Prevent brute force attack in production.
     if (process.env.ENV === 'production')
       server.use(rateLimiterRedisMiddleware);
-
-    // Handle rewrite list.
-    if (rewriteList)
-      rewriteList.forEach(({ from, to }) => {
-        server.use(rewrite(from, to));
-      });
 
     // Handle redirect list.
     if (redirectList)
@@ -82,8 +90,8 @@ app
 
     server.all('*', cors(), (req, res) => {
       // Trailing slash fix on page reload.
-      req.url = req.url.replace(/\/$/, '');
-      if (req.url === '') req.url = '/';
+      // req.url = req.url.replace(/\/$/, '');
+      // if (req.url === '') req.url = '/';
 
       if (process.env.ENV !== 'production')
         res.setHeader('X-Robots-Tag', 'noindex'); // Disable indexing.

@@ -37,7 +37,7 @@ module.exports = {
     },
     poweredByHeader: false,
 
-    // Rerwrites (supported in v9.5)
+    // Rewrites.
     // async rewrites() {
     //   return [
     //     {
@@ -47,7 +47,7 @@ module.exports = {
     //     {
     //       source: '/testurl',
     //       destination:
-    //         '/car-leasing/audi/a1/hatchback/35-tfsi-vorsprung-5-doors-s-tronic',
+    //         '/car-leasing/bmw/3-series/saloon/320i-m-sport-4-doors-step-auto/',
     //     },
     //   ];
     // },
