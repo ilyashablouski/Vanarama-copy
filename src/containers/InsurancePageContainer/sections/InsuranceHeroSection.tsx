@@ -26,7 +26,12 @@ const InsuranceHeroSection = ({ title, body, heroCard, image }: IHero) => (
         ),
         link: props => {
           const { href, children } = props;
-          return <RouterLink link={{ href, label: children }} />;
+          return (
+            <RouterLink
+              link={{ href, label: children }}
+              classNames={{ color: 'teal' }}
+            />
+          );
         },
       }}
     />

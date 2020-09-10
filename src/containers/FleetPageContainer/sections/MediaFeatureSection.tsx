@@ -63,8 +63,13 @@ const MediaFeatureSection: React.FC<IMediaFeatureProps> = ({
                 paragraph: props => <Text {...props} tag="p" color="darker" />,
                 link: props => {
                   const { href } = props;
-                  // eslint-disable-next-line react/destructuring-assignment
-                  return <RouterLink link={{ href, label: props.children }} />;
+                  return (
+                    <RouterLink
+                      // eslint-disable-next-line react/destructuring-assignment
+                      link={{ href, label: props.children }}
+                      classNames={{ color: 'teal' }}
+                    />
+                  );
                 },
               }}
             />

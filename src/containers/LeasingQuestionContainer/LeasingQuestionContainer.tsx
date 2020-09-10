@@ -64,7 +64,20 @@ const LeasingQuestionContainer: FC<IProps> = ({
         <Heading tag="h1" size="xlarge" color="black">
           {title}
         </Heading>
-        <ReactMarkdown source={body || ''} />
+        <ReactMarkdown
+          source={body || ''}
+          renderers={{
+            link: props => {
+              const { href, children } = props;
+              return (
+                <RouterLink
+                  link={{ href, label: children }}
+                  classNames={{ color: 'teal' }}
+                />
+              );
+            },
+          }}
+        />
         {/* <Button // NOTE: Functionality does not exist yet, so - commented out.
           type="button"
           label="Ask A Question"

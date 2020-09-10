@@ -674,17 +674,30 @@ const SearchPageContainer: React.FC<IProps> = ({
           <ReactMarkdown
             escapeHtml={false}
             source={pageData?.genericPage.intro || ''}
-            disallowedTypes={['paragraph']}
-            unwrapDisallowed
             renderers={{
               link: props => {
                 const { href, children } = props;
-                return <RouterLink link={{ href, label: children }} />;
+                return (
+                  <RouterLink
+                    link={{ href, label: children }}
+                    classNames={{ color: 'teal' }}
+                  />
+                );
               },
               image: props => {
                 const { src, alt } = props;
                 return <img {...{ src, alt }} style={{ maxWidth: '100%' }} />;
               },
+              heading: props => (
+                <Text
+                  {...props}
+                  size="lead"
+                  color="darker"
+                  className="-mt-100"
+                  tag="h2"
+                />
+              ),
+              paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
           />
         </Text>
@@ -708,7 +721,12 @@ const SearchPageContainer: React.FC<IProps> = ({
                     renderers={{
                       link: props => {
                         const { href, children } = props;
-                        return <RouterLink link={{ href, label: children }} />;
+                        return (
+                          <RouterLink
+                            link={{ href, label: children }}
+                            classNames={{ color: 'teal' }}
+                          />
+                        );
                       },
                       image: props => {
                         const { src, alt } = props;
@@ -722,6 +740,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                           size="lead"
                           color="darker"
                           className="-mt-100"
+                          tag="h2"
                         />
                       ),
                       paragraph: props => (
@@ -928,7 +947,12 @@ const SearchPageContainer: React.FC<IProps> = ({
                     renderers={{
                       link: props => {
                         const { href, children } = props;
-                        return <RouterLink link={{ href, label: children }} />;
+                        return (
+                          <RouterLink
+                            link={{ href, label: children }}
+                            classNames={{ color: 'teal' }}
+                          />
+                        );
                       },
                       heading: props => (
                         <Text
@@ -936,6 +960,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                           size="lead"
                           color="darker"
                           className="-mt-100"
+                          tag="h2"
                         />
                       ),
                       paragraph: props => (
@@ -960,7 +985,12 @@ const SearchPageContainer: React.FC<IProps> = ({
                   renderers={{
                     link: props => {
                       const { href, children } = props;
-                      return <RouterLink link={{ href, label: children }} />;
+                      return (
+                        <RouterLink
+                          link={{ href, label: children }}
+                          classNames={{ color: 'teal' }}
+                        />
+                      );
                     },
                     heading: props => (
                       <Text
@@ -968,6 +998,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                         size="lead"
                         color="darker"
                         className="-mt-100"
+                        tag="h2"
                       />
                     ),
                     paragraph: props => (
@@ -1050,6 +1081,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                                 return (
                                   <RouterLink
                                     link={{ href, label: children }}
+                                    classNames={{ color: 'teal' }}
                                   />
                                 );
                               },
@@ -1057,12 +1089,13 @@ const SearchPageContainer: React.FC<IProps> = ({
                                 <Text
                                   {...props}
                                   size="lead"
-                                  color="dark"
+                                  color="darker"
                                   className="-mt-100"
+                                  tag="h2"
                                 />
                               ),
                               paragraph: props => (
-                                <Text {...props} tag="p" color="dark" />
+                                <Text {...props} tag="p" color="darker" />
                               ),
                             }}
                           />

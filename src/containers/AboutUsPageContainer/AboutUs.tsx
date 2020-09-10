@@ -66,19 +66,26 @@ const renderMeetCard = (card: ICard | undefined) =>
         ),
       }}
     >
-      <ReactMarkdown
-        source={card.body}
-        renderers={{
-          link: props => {
-            const { href, children } = props;
-            return <RouterLink link={{ href, label: children }} />;
-          },
-          heading: props => (
-            <Text {...props} size="lead" color="darker" className="-mt-100" />
-          ),
-          paragraph: props => <Text {...props} tag="p" color="darker" />,
-        }}
-      />
+      <div>
+        <ReactMarkdown
+          source={card.body}
+          renderers={{
+            link: props => {
+              const { href, children } = props;
+              return (
+                <RouterLink
+                  link={{ href, label: children }}
+                  classNames={{ color: 'teal' }}
+                />
+              );
+            },
+            heading: props => (
+              <Text {...props} size="lead" color="darker" className="-mt-100" />
+            ),
+            paragraph: props => <Text {...props} tag="p" color="darker" />,
+          }}
+        />
+      </div>
     </Card>
   )) ||
   null;
@@ -145,7 +152,12 @@ const AboutUs: React.FC = () => {
             renderers={{
               link: props => {
                 const { href, children } = props;
-                return <RouterLink link={{ href, label: children }} />;
+                return (
+                  <RouterLink
+                    link={{ href, label: children }}
+                    classNames={{ color: 'teal' }}
+                  />
+                );
               },
               heading: props => (
                 <Text
@@ -184,7 +196,12 @@ const AboutUs: React.FC = () => {
               paragraph: props => <React.Fragment {...props} />,
               link: props => {
                 const { href, children } = props;
-                return <RouterLink link={{ href, label: children }} />;
+                return (
+                  <RouterLink
+                    link={{ href, label: children }}
+                    classNames={{ color: 'teal' }}
+                  />
+                );
               },
             }}
           />{' '}

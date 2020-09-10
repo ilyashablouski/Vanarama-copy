@@ -43,7 +43,12 @@ const TestimonialSection = ({
           renderers={{
             link: props => {
               const { href, children } = props;
-              return <RouterLink link={{ href, label: children }} />;
+              return (
+                <RouterLink
+                  link={{ href, label: children }}
+                  classNames={{ color: 'teal' }}
+                />
+              );
             },
             heading: props => (
               <Text {...props} size="lead" color="darker" className="-mt-100" />

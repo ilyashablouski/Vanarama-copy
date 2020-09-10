@@ -332,15 +332,6 @@ export const HomePage: NextPage = () => {
                   const { href, children } = props;
                   return <RouterLink link={{ href, label: children }} />;
                 },
-                heading: props => (
-                  <Text
-                    {...props}
-                    size="lead"
-                    color="darker"
-                    className="-mt-100"
-                  />
-                ),
-                paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}
             />
           </div>
@@ -389,15 +380,6 @@ export const HomePage: NextPage = () => {
                   const { href, children } = props;
                   return <RouterLink link={{ href, label: children }} />;
                 },
-                heading: props => (
-                  <Text
-                    {...props}
-                    size="lead"
-                    color="darker"
-                    className="-mt-100"
-                  />
-                ),
-                paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}
             />
           </div>

@@ -102,7 +102,13 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
         </div>
       )}
       {featured1 && (
-        <div className="row:text">
+        <div
+          className={
+            featured1.image?.file?.url
+              ? `row:${getFeaturedClassPartial(featured1)}`
+              : 'row:text'
+          }
+        >
           <div>
             <Heading
               color="black"
