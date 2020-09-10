@@ -77,7 +77,7 @@ describe('<BankDetailsFormContainer />', () => {
 
     expect(screen.getByTestId(/checkCreditHistory/)).toBeChecked();
     expect(
-      screen.getByLabelText(/I agree to the Terms and conditions./),
+      screen.getByLabelText(/I agree to the/),
     ).toBeChecked();
   });
 });
