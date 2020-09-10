@@ -16,14 +16,18 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       class="row:text"
     >
       <div>
-        <div
+        <p
           class="text -regular -darker"
         >
           At Vanarama, we can offer you the best car leasing option to suit your needs, whether it's personal contract hire or business contract hire.
+        </p>
+        <p
+          class="text -regular -darker"
+        >
           We understand the importance of your new car decision and want to make sure the process is as simple and seamless as possible for you. You can find out how we do this by visiting our page about
            
           <a
-            class="link"
+            class="link -teal"
             data-testid="link"
             href="https://beta.vanarama.com/car-leasing-explained.html"
             rel="noopener noreferrer"
@@ -31,54 +35,64 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             How Car Leasing Works
           </a>
           .
+        </p>
+        <p
+          class="text -regular -darker"
+        >
           You can use the links below to view the key features and benefits of the new car finance products available. Our in-depth FAQs will also help with any specific queries. If you need any more information, please feel free to pick up the phone to one of our Account Managers on 01442 835 769 or drop us an email at 
           <a
-            class="link"
+            class="link -teal"
             data-testid="router-link"
             href="mailto:enquiries@vanarama.co.uk"
           >
             enquiries@vanarama.co.uk
           </a>
           .
-          <h2>
-            Available New Car Finance Leasing Options
-          </h2>
-          <ul>
-            <li>
+        </p>
+        <span
+          class="text -mt-100 -lead -darker"
+        >
+          Available New Car Finance Leasing Options
+        </span>
+        <ul>
+          <li>
+            <a
+              class="link -teal"
+              data-testid="link"
+              href="https://beta.vanarama.com/car-business-contract-hire.html"
+              rel="noopener noreferrer"
+            >
+              Business Contract Hire
+            </a>
+          </li>
+          <li>
+            <p
+              class="text -regular -darker"
+            >
               <a
-                class="link"
-                data-testid="link"
-                href="https://beta.vanarama.com/car-business-contract-hire.html"
-                rel="noopener noreferrer"
-              >
-                Business Contract Hire
-              </a>
-            </li>
-            <li>
-              <a
-                class="link"
+                class="link -teal"
                 data-testid="link"
                 href="https://beta.vanarama.com/car-personal-contract-hire.html"
                 rel="noopener noreferrer"
               >
                 Personal Contract Hire
               </a>
-            </li>
-          </ul>
-        </div>
+            </p>
+          </li>
+        </ul>
       </div>
     </div>
     <div
       class="row:bg-lighter"
     >
-      <p
-        class="heading -black -lead"
-      >
-        Available New Car Finance Leasing Options
-      </p>
       <div
         class="row:cards-3col"
       >
+        <p
+          class="heading -black -lead"
+        >
+          Available New Car Finance Leasing Options
+        </p>
         <div
           class="card"
           data-testid="card"
@@ -140,7 +154,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="row:featured-right"
+      class="row:text"
     >
       <div>
         <p
@@ -148,10 +162,12 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         >
           How Does Car Leasing Work?
         </p>
-        <div
-          class="text -regular -darker"
-        >
-          You simply choose the car you want to drive & tailor the deal depending on the following criteria:
+        <div>
+          <p
+            class="text -regular -darker"
+          >
+            You simply choose the car you want to drive & tailor the deal depending on the following criteria:
+          </p>
           <ul>
             <li>
               Your budget.
@@ -169,67 +185,59 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
               If you want to add a maintenance package to your lease.
             </li>
           </ul>
-          After choosing a vehicle, you will need to undergo a credit check. This is when the finance company verifies that you can comfortably afford the payments.
-          Once your finances have been approved, you will be asked to pay a Vehicle Reservation Fee of £500 (this secures your vehicle & prevents it being leased to someone else), which is refunded to you less our administration fee of £198 after delivery of your vehicles.
-          When the 
-          <a
-            class="link"
-            data-testid="link"
-            href="https://beta.vanarama.com/car-leasing-explained/what-happens-at-end-of-car-lease.html"
-            rel="noopener noreferrer"
+          <p
+            class="text -regular -darker"
           >
-            contract finishes
-          </a>
-          , the car is returned to the finance company who will send out a driver to collect it. When the vehicle is returned, it will be inspected for damage & excess mileage. You will be charged for damage considered over & above the British Vehicle Rental & Leasing Association's (BVRLA) 
-          <a
-            class="link"
-            data-testid="link"
-            href="https://beta.vanarama.com/car-leasing-explained/lease-car-fair-wear-and-tear.html"
-            rel="noopener noreferrer"
+            After choosing a vehicle, you will need to undergo a credit check. This is when the finance company verifies that you can comfortably afford the payments.
+          </p>
+          <p
+            class="text -regular -darker"
           >
-            Fair Wear & Tear guidelines
-          </a>
-           or if you have exceeded the agreed mileage allowance.
-          Don't worry about the end-of-contract damage charges – you've been driving the vehicle for up to 5 years, a bit of damage is to be expected, that's why it's called "Fair Wear & Tear". Take a look at our comprehensive 
-          <a
-            class="link"
-            data-testid="link"
-            href="https://beta.vanarama.com/car-leasing-explained/lease-car-fair-wear-and-tear.html"
-            rel="noopener noreferrer"
+            Once your finances have been approved, you will be asked to pay a Vehicle Reservation Fee of £500 (this secures your vehicle & prevents it being leased to someone else), which is refunded to you less our administration fee of £198 after delivery of your vehicles.
+          </p>
+          <p
+            class="text -regular -darker"
           >
-            wear and tear guide
-          </a>
-           for more information.
+            When the 
+            <a
+              class="link -teal"
+              data-testid="link"
+              href="https://beta.vanarama.com/car-leasing-explained/what-happens-at-end-of-car-lease.html"
+              rel="noopener noreferrer"
+            >
+              contract finishes
+            </a>
+            , the car is returned to the finance company who will send out a driver to collect it. When the vehicle is returned, it will be inspected for damage & excess mileage. You will be charged for damage considered over & above the British Vehicle Rental & Leasing Association's (BVRLA) 
+            <a
+              class="link -teal"
+              data-testid="link"
+              href="https://beta.vanarama.com/car-leasing-explained/lease-car-fair-wear-and-tear.html"
+              rel="noopener noreferrer"
+            >
+              Fair Wear & Tear guidelines
+            </a>
+             or if you have exceeded the agreed mileage allowance.
+          </p>
+          <p
+            class="text -regular -darker"
+          >
+            Don't worry about the end-of-contract damage charges – you've been driving the vehicle for up to 5 years, a bit of damage is to be expected, that's why it's called "Fair Wear & Tear". Take a look at our comprehensive 
+            <a
+              class="link -teal"
+              data-testid="link"
+              href="https://beta.vanarama.com/car-leasing-explained/lease-car-fair-wear-and-tear.html"
+              rel="noopener noreferrer"
+            >
+              wear and tear guide
+            </a>
+             for more information.
+          </p>
         </div>
       </div>
     </div>
     <div
       class="row:featured-right"
     >
-      <div>
-        <p
-          class="heading -black -large"
-        >
-          Contact Us
-        </p>
-        <p
-          class="text -regular -darker"
-        >
-          Of course, feel free to pick up the phone to one of our Account Managers on tel: 
-          <a
-            href="tel:01442838195"
-          >
-            01442 838 195
-          </a>
-           or drop us an email to 
-          <a
-            href="mailto:enquiries@vanarama.co.uk"
-          >
-            enquiries@vanarama.co.uk
-          </a>
-          .
-        </p>
-      </div>
       <div
         class="card ivan-cta -inline"
         data-testid="card"
@@ -264,6 +272,36 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         >
           Chat With iVan
         </a>
+      </div>
+      <div>
+        <p
+          class="heading -black -large"
+        >
+          Contact Us
+        </p>
+        <div>
+          <p
+            class="text -regular -darker"
+          >
+            Of course, feel free to pick up the phone to one of our Account Managers on tel: 
+            <a
+              class="link -teal"
+              data-testid="router-link"
+              href="tel:01442838195"
+            >
+              01442 838 195
+            </a>
+             or drop us an email to 
+            <a
+              class="link -teal"
+              data-testid="router-link"
+              href="mailto:enquiries@vanarama.co.uk"
+            >
+              enquiries@vanarama.co.uk
+            </a>
+            .
+          </p>
+        </div>
       </div>
     </div>
   </div>

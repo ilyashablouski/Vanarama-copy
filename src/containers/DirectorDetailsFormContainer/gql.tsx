@@ -53,6 +53,17 @@ export const SAVE_DIRECTOR_DETAILS = gql`
         uuid
         lastName
         firstName
+        addresses {
+          city
+          country
+          county
+          kind
+          lineOne
+          lineThree
+          lineTwo
+          postcode
+          serviceId
+        }
       }
     }
   }

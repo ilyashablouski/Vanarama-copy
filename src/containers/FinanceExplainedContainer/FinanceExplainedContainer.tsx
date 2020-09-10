@@ -38,35 +38,46 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
       </div>
       <div className="row:text">
         <div>
-          <Text color="darker" tag="div">
-            <ReactMarkdown
-              source={body || ''}
-              disallowedTypes={['paragraph']}
-              unwrapDisallowed
-              renderers={{
-                link: props => {
-                  const { href, children } = props;
-                  return <RouterLink link={{ href, label: children }} />;
-                },
-              }}
-            />
-          </Text>
+          <ReactMarkdown
+            source={body || ''}
+            escapeHtml={false}
+            renderers={{
+              link: props => {
+                const { href, children } = props;
+                return (
+                  <RouterLink
+                    classNames={{ color: 'teal' }}
+                    link={{ href, label: children }}
+                  />
+                );
+              },
+              heading: props => (
+                <Text
+                  {...props}
+                  size="lead"
+                  color="darker"
+                  className="-mt-100"
+                />
+              ),
+              paragraph: props => <Text {...props} tag="p" color="darker" />,
+            }}
+          />
         </div>
       </div>
       {!!cards?.length && (
         <div className="row:bg-lighter">
-          <Heading
-            color="black"
-            size="lead"
-            tag={
-              getTitleTag(
-                sections?.cards?.titleTag || null,
-              ) as keyof JSX.IntrinsicElements
-            }
-          >
-            {sections?.cards?.name}
-          </Heading>
           <div className="row:cards-3col">
+            <Heading
+              color="black"
+              size="lead"
+              tag={
+                getTitleTag(
+                  sections?.cards?.titleTag || null,
+                ) as keyof JSX.IntrinsicElements
+              }
+            >
+              {sections?.cards?.name}
+            </Heading>
             {cards.map((el: Cards, indx: number) => (
               <Card
                 key={`${el.name}_${indx.toString()}`}
@@ -91,7 +102,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
         </div>
       )}
       {featured1 && (
-        <div className={`row:${getFeaturedClassPartial(featured1)}`}>
+        <div className="row:text">
           <div>
             <Heading
               color="black"
@@ -104,19 +115,34 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
             >
               {featured1.title}
             </Heading>
-            <Text color="darker" size="regular" tag="div">
+            <div>
               <ReactMarkdown
                 source={featured1.body || ''}
-                disallowedTypes={['paragraph']}
-                unwrapDisallowed
+                escapeHtml={false}
                 renderers={{
                   link: props => {
                     const { href, children } = props;
-                    return <RouterLink link={{ href, label: children }} />;
+                    return (
+                      <RouterLink
+                        classNames={{ color: 'teal' }}
+                        link={{ href, label: children }}
+                      />
+                    );
                   },
+                  heading: props => (
+                    <Text
+                      {...props}
+                      size="lead"
+                      color="darker"
+                      className="-mt-100"
+                    />
+                  ),
+                  paragraph: props => (
+                    <Text {...props} tag="p" color="darker" />
+                  ),
                 }}
               />
-            </Text>
+            </div>
           </div>
           {featured1.image?.file?.url && (
             <Image
@@ -152,21 +178,34 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
                     ),
                   }}
                 >
-                  <Text color="dark" size="regular" tag="span">
+                  <div>
                     <ReactMarkdown
                       source={el?.body || ''}
-                      disallowedTypes={['paragraph']}
-                      unwrapDisallowed
+                      escapeHtml={false}
                       renderers={{
                         link: props => {
                           const { href, children } = props;
                           return (
-                            <RouterLink link={{ href, label: children }} />
+                            <RouterLink
+                              classNames={{ color: 'teal' }}
+                              link={{ href, label: children }}
+                            />
                           );
                         },
+                        heading: props => (
+                          <Text
+                            {...props}
+                            size="lead"
+                            color="dark"
+                            className="-mt-100"
+                          />
+                        ),
+                        paragraph: props => (
+                          <Text {...props} tag="p" color="dark" />
+                        ),
                       }}
                     />
-                  </Text>
+                  </div>
                 </Card>
               ))}
             </Carousel>
@@ -175,27 +214,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
       )}
       {featured2 && (
         <div className={`row:${getFeaturedClassPartial(featured2)}`}>
-          <div>
-            <Heading
-              color="black"
-              size="large"
-              tag={
-                getTitleTag(
-                  featured2.titleTag || null,
-                ) as keyof JSX.IntrinsicElements
-              }
-            >
-              {featured2.title}
-            </Heading>
-            <Text color="darker" size="regular" tag="p">
-              <ReactMarkdown
-                source={featured2.body || ''}
-                disallowedTypes={['paragraph']}
-                unwrapDisallowed
-              />
-            </Text>
-          </div>
-          {featured2.cards && featured2.cards.length && (
+          {featured2.cards?.length && (
             <IvanCta
               title={featured2.cards[0]?.title || ''}
               body={featured2.cards[0]?.body || ''}
@@ -213,6 +232,47 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
               />
             </IvanCta>
           )}
+          <div>
+            <Heading
+              color="black"
+              size="large"
+              tag={
+                getTitleTag(
+                  featured2.titleTag || null,
+                ) as keyof JSX.IntrinsicElements
+              }
+            >
+              {featured2.title}
+            </Heading>
+            <div>
+              <ReactMarkdown
+                source={featured2.body || ''}
+                escapeHtml={false}
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return (
+                      <RouterLink
+                        classNames={{ color: 'teal' }}
+                        link={{ href, label: children }}
+                      />
+                    );
+                  },
+                  heading: props => (
+                    <Text
+                      {...props}
+                      size="lead"
+                      color="darker"
+                      className="-mt-100"
+                    />
+                  ),
+                  paragraph: props => (
+                    <Text {...props} tag="p" color="darker" />
+                  ),
+                }}
+              />
+            </div>
+          </div>
         </div>
       )}
     </>

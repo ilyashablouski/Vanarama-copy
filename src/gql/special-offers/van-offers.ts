@@ -6,6 +6,7 @@ export const VAN_OFFERS_CONTENT = gql`
     vanOffersPage {
       id
       body
+      intro
       metaData {
         title
         name
