@@ -154,7 +154,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="row:featured-right"
+      class="row:text"
     >
       <div>
         <p
