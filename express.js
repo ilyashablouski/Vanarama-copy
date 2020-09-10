@@ -39,30 +39,22 @@ app
     return server;
   })
   .then(async server => {
+    // Handle rewrite list.
     const pdpRewiteList = await getPdpRewiteList();
     const rewriteList = await getRewriteList(pdpRewiteList || []);
 
-    console.log(rewriteList);
-
-    // Handle rewrite list.
-    if (rewriteList)
+    if (rewriteList) {
       rewriteList.forEach(({ from, to }) => {
         server.get(from, rewrite(to));
         // server.use(rewrite(from, to));
       });
+    }
+
+    console.log(rewriteList);
 
     return server;
   })
   .then(server => {
-    // const server = express();
-
-    server.disable('x-powered-by');
-    server.use(hpp());
-
-    // Prevent brute force attack in production.
-    if (process.env.ENV === 'production')
-      server.use(rateLimiterRedisMiddleware);
-
     // Handle redirect list.
     if (redirectList)
       redirectList.forEach(({ from, to, type = 301, method = 'get' }) => {
@@ -71,9 +63,22 @@ app
         });
       });
 
+    return server;
+  })
+  .then(server => {
+    server.disable('x-powered-by');
+    server.use(hpp());
+
+    // Prevent brute force attack in production.
+    if (process.env.ENV === 'production')
+      server.use(rateLimiterRedisMiddleware);
+
     // Prerender.
     if (prerender && process.env.PRERENDER_SERVICE_URL) server.use(prerender);
 
+    return server;
+  })
+  .then(server => {
     // Status.
     server.get('/status', (req, res) => {
       const statusCode = 200;
@@ -88,6 +93,7 @@ app
       });
     });
 
+    // All routes.
     server.all('*', cors(), (req, res) => {
       // Trailing slash fix on page reload.
       // req.url = req.url.replace(/\/$/, '');
