@@ -45,8 +45,8 @@ module.exports = {
       rollbarClientToken: process.env.ROLLBAR_CLIENT_TOKEN || '',
     },
 
-    // Routes to export into static files.
     trailingSlash: true,
+    // Routes to export into static files.
     exportPathMap: () => {
       return {
         '/': { page: '/' },

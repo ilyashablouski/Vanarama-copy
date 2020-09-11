@@ -223,7 +223,7 @@ exports[`<Header /> renders correctly 1`] = `
             className="link"
             data-menu={null}
             data-testid="menu-title"
-            href=""
+            href="/"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
@@ -237,7 +237,7 @@ exports[`<Header /> renders correctly 1`] = `
             className="link"
             data-menu={null}
             data-testid="router-link"
-            href="/van-leasing/"
+            href="/van-leasing"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
@@ -294,7 +294,7 @@ exports[`<Header /> renders correctly 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="menu-title"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -393,7 +393,7 @@ exports[`<Header /> renders correctly 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="router-link"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -643,7 +643,7 @@ exports[`<Header /> renders correctly 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="menu-title"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -720,7 +720,7 @@ exports[`<Header /> renders correctly 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="router-link"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -970,7 +970,7 @@ exports[`<Header /> renders correctly 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="menu-title"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -1064,7 +1064,7 @@ exports[`<Header /> renders correctly 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="router-link"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -1176,7 +1176,7 @@ exports[`<Header /> renders correctly 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="router-link"
-                    href="/car-leasing/Land Rover"
+                    href="/car-leasing/Land%20Rover"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -1417,7 +1417,7 @@ exports[`<Header /> renders correctly 1`] = `
             className="link"
             data-menu={null}
             data-testid="router-link"
-            href="/van-insurance/"
+            href="/van-insurance"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
@@ -1442,7 +1442,7 @@ exports[`<Header /> renders correctly 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="menu-title"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -1535,7 +1535,7 @@ exports[`<Header /> renders correctly 1`] = `
             className="link"
             data-menu={null}
             data-testid="router-link"
-            href="/fleet/"
+            href="/fleet"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
@@ -1551,7 +1551,7 @@ exports[`<Header /> renders correctly 1`] = `
             className="link"
             data-menu={null}
             data-testid="router-link"
-            href="/van-insurance/"
+            href="/van-insurance"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
@@ -1878,7 +1878,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
             className="link"
             data-menu={null}
             data-testid="menu-title"
-            href=""
+            href="/"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
@@ -1892,7 +1892,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
             className="link"
             data-menu={null}
             data-testid="router-link"
-            href="/van-leasing/"
+            href="/van-leasing"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
@@ -1949,7 +1949,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="menu-title"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -2048,7 +2048,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="router-link"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -2298,7 +2298,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="menu-title"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -2375,7 +2375,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="router-link"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -2625,7 +2625,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="menu-title"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -2719,7 +2719,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="router-link"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -2831,7 +2831,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="router-link"
-                    href="/car-leasing/Land Rover"
+                    href="/car-leasing/Land%20Rover"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -3072,7 +3072,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
             className="link"
             data-menu={null}
             data-testid="router-link"
-            href="/van-insurance/"
+            href="/van-insurance"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
@@ -3097,7 +3097,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="menu-title"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -3190,7 +3190,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
             className="link"
             data-menu={null}
             data-testid="router-link"
-            href="/fleet/"
+            href="/fleet"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
@@ -3206,7 +3206,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
             className="link"
             data-menu={null}
             data-testid="router-link"
-            href="/van-insurance/"
+            href="/van-insurance"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
