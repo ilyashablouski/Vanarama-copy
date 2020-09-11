@@ -72,11 +72,11 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           </li>
         </ol>
       </nav>
-      <p
+      <h1
         class="heading -black -xlarge"
       >
         Customer Leasing Questions
-      </p>
+      </h1>
       <p>
         At Vanarama, we can offer you the best car leasing option to suit your needs, whether it's personal contract hire or business contract hire.
       </p>

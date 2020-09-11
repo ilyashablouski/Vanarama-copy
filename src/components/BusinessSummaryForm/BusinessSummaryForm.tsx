@@ -106,7 +106,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
         color="black"
         size="xlarge"
         dataTestId="summary-heading"
-        tag="span"
+        tag="h1"
       >
         Summary
       </Heading>

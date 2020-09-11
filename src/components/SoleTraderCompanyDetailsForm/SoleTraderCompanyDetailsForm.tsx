@@ -52,6 +52,7 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
         dataTestId="company-details_heading"
         size="xlarge"
         className="-mb-500"
+        tag="h1"
       >
         Company Details
       </Heading>
