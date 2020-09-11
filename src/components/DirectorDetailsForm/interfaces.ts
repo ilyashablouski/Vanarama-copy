@@ -1,4 +1,5 @@
 import { TAddressEntry } from '../AddressForm/interfaces';
+import { CompanyAssociate_addresses as Address } from '../../../generated/CompanyAssociate';
 
 export type DirectorDetailsFormValues = {
   directors: DirectorFormValues[];
@@ -18,3 +19,5 @@ export type DirectorFormValues = {
   numberOfDependants: string;
   history: TAddressEntry[];
 };
+
+export type DirectorDetails = DirectorFormValues & { addresses?: Address[] };

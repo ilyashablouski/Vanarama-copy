@@ -95,25 +95,36 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
               }
               data-testid={link.label}
             >
-              <RouterLink
-                link={link}
-                classNames={{
-                  color: (!!link.highlight && 'white') || 'inherit',
-                }}
-                onClick={
-                  isMobile && link.children?.length
-                    ? el => {
-                        el.preventDefault();
-                        setIsOpenMenu(link.id || null);
-                      }
-                    : undefined
-                }
-              >
-                {link.highlight && (
-                  <Icon icon={<FlameSharp />} color="white" size="xsmall" />
-                )}
-                <span>{link.label}</span>
-              </RouterLink>
+              {!link.href ? (
+                <span
+                  className={link.highlight ? 'link -white' : 'link -inherit'}
+                >
+                  {link.highlight && (
+                    <Icon icon={<FlameSharp />} color="white" size="xsmall" />
+                  )}
+                  {link.label}
+                </span>
+              ) : (
+                <RouterLink
+                  link={link}
+                  classNames={{
+                    color: (!!link.highlight && 'white') || 'inherit',
+                  }}
+                  onClick={
+                    isMobile && link.children?.length
+                      ? el => {
+                          el.preventDefault();
+                          setIsOpenMenu(link.id || null);
+                        }
+                      : undefined
+                  }
+                >
+                  {link.highlight && (
+                    <Icon icon={<FlameSharp />} color="white" size="xsmall" />
+                  )}
+                  <span>{link.label}</span>
+                </RouterLink>
+              )}
             </li>
           ))}
         </ul>

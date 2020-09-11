@@ -40,12 +40,16 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
         <div>
           <ReactMarkdown
             source={body || ''}
-            disallowedTypes={['paragraph']}
-            unwrapDisallowed
+            escapeHtml={false}
             renderers={{
               link: props => {
                 const { href, children } = props;
-                return <RouterLink link={{ href, label: children }} />;
+                return (
+                  <RouterLink
+                    classNames={{ color: 'teal' }}
+                    link={{ href, label: children }}
+                  />
+                );
               },
               heading: props => (
                 <Text
@@ -98,7 +102,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
         </div>
       )}
       {featured1 && (
-        <div className={`row:${getFeaturedClassPartial(featured1)}`}>
+        <div className="row:text">
           <div>
             <Heading
               color="black"
@@ -111,26 +115,34 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
             >
               {featured1.title}
             </Heading>
-            <ReactMarkdown
-              source={featured1.body || ''}
-              disallowedTypes={['paragraph']}
-              unwrapDisallowed
-              renderers={{
-                link: props => {
-                  const { href, children } = props;
-                  return <RouterLink link={{ href, label: children }} />;
-                },
-                heading: props => (
-                  <Text
-                    {...props}
-                    size="lead"
-                    color="darker"
-                    className="-mt-100"
-                  />
-                ),
-                paragraph: props => <Text {...props} tag="p" color="darker" />,
-              }}
-            />
+            <div>
+              <ReactMarkdown
+                source={featured1.body || ''}
+                escapeHtml={false}
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return (
+                      <RouterLink
+                        classNames={{ color: 'teal' }}
+                        link={{ href, label: children }}
+                      />
+                    );
+                  },
+                  heading: props => (
+                    <Text
+                      {...props}
+                      size="lead"
+                      color="darker"
+                      className="-mt-100"
+                    />
+                  ),
+                  paragraph: props => (
+                    <Text {...props} tag="p" color="darker" />
+                  ),
+                }}
+              />
+            </div>
           </div>
           {featured1.image?.file?.url && (
             <Image
@@ -166,28 +178,34 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
                     ),
                   }}
                 >
-                  <ReactMarkdown
-                    source={el?.body || ''}
-                    disallowedTypes={['paragraph']}
-                    unwrapDisallowed
-                    renderers={{
-                      link: props => {
-                        const { href, children } = props;
-                        return <RouterLink link={{ href, label: children }} />;
-                      },
-                      heading: props => (
-                        <Text
-                          {...props}
-                          size="lead"
-                          color="dark"
-                          className="-mt-100"
-                        />
-                      ),
-                      paragraph: props => (
-                        <Text {...props} tag="p" color="dark" />
-                      ),
-                    }}
-                  />
+                  <div>
+                    <ReactMarkdown
+                      source={el?.body || ''}
+                      escapeHtml={false}
+                      renderers={{
+                        link: props => {
+                          const { href, children } = props;
+                          return (
+                            <RouterLink
+                              classNames={{ color: 'teal' }}
+                              link={{ href, label: children }}
+                            />
+                          );
+                        },
+                        heading: props => (
+                          <Text
+                            {...props}
+                            size="lead"
+                            color="dark"
+                            className="-mt-100"
+                          />
+                        ),
+                        paragraph: props => (
+                          <Text {...props} tag="p" color="dark" />
+                        ),
+                      }}
+                    />
+                  </div>
                 </Card>
               ))}
             </Carousel>
@@ -196,6 +214,24 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
       )}
       {featured2 && (
         <div className={`row:${getFeaturedClassPartial(featured2)}`}>
+          {featured2.cards?.length && (
+            <IvanCta
+              title={featured2.cards[0]?.title || ''}
+              body={featured2.cards[0]?.body || ''}
+              imageSrc={featured2.cards[0]?.image?.file?.url || ''}
+            >
+              <RouterLink
+                link={{
+                  href: featured2.cards[0]?.link?.url || '',
+                  label: featured2.cards[0]?.link?.text || '',
+                  linkType: featured2.cards[0]?.link?.url?.match('http')
+                    ? LinkTypes.external
+                    : '',
+                }}
+                classNames={{ color: 'teal' }}
+              />
+            </IvanCta>
+          )}
           <div>
             <Heading
               color="black"
@@ -208,44 +244,34 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
             >
               {featured2.title}
             </Heading>
-            {featured2.cards?.length && (
-              <IvanCta
-                title={featured2.cards[0]?.title || ''}
-                body={featured2.cards[0]?.body || ''}
-                imageSrc={featured2.cards[0]?.image?.file?.url || ''}
-              >
-                <RouterLink
-                  link={{
-                    href: featured2.cards[0]?.link?.url || '',
-                    label: featured2.cards[0]?.link?.text || '',
-                    linkType: featured2.cards[0]?.link?.url?.match('http')
-                      ? LinkTypes.external
-                      : '',
-                  }}
-                  classNames={{ color: 'teal' }}
-                />
-              </IvanCta>
-            )}
-            <ReactMarkdown
-              source={featured2.body || ''}
-              disallowedTypes={['paragraph']}
-              unwrapDisallowed
-              renderers={{
-                link: props => {
-                  const { href, children } = props;
-                  return <RouterLink link={{ href, label: children }} />;
-                },
-                heading: props => (
-                  <Text
-                    {...props}
-                    size="lead"
-                    color="darker"
-                    className="-mt-100"
-                  />
-                ),
-                paragraph: props => <Text {...props} tag="p" color="darker" />,
-              }}
-            />
+            <div>
+              <ReactMarkdown
+                source={featured2.body || ''}
+                escapeHtml={false}
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return (
+                      <RouterLink
+                        classNames={{ color: 'teal' }}
+                        link={{ href, label: children }}
+                      />
+                    );
+                  },
+                  heading: props => (
+                    <Text
+                      {...props}
+                      size="lead"
+                      color="darker"
+                      className="-mt-100"
+                    />
+                  ),
+                  paragraph: props => (
+                    <Text {...props} tag="p" color="darker" />
+                  ),
+                }}
+              />
+            </div>
           </div>
         </div>
       )}

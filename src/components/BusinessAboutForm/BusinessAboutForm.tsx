@@ -235,7 +235,17 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
             validate: value =>
               value ? undefined : 'The terms and conditions must be accepted',
           })}
-          label="I agree to the Terms and Conditions"
+          label={[
+            'I agree to the ',
+            <a
+              className="link -teal"
+              href="/legal/terms-and-conditions/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Terms and Conditions
+            </a>,
+          ]}
         />
       </Formgroup>
       <Button
