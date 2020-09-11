@@ -22,14 +22,6 @@ const handle = app.getRequestHandler();
 
 const PORT = process.env.PORT || 3000;
 
-// RewriteList.
-async function getRewriteList(pdpRewiteList) {
-  return [...pdpRewiteList, ...rewritePatterns];
-}
-
-// RedirectList.
-const redirectList = [{ from: '/old-link', to: '/redirect', type: 301 }];
-
 app
   .prepare()
   .then(async () => {
@@ -41,24 +33,22 @@ app
   .then(async server => {
     // Handle rewrite list.
     const pdpRewiteList = await getPdpRewiteList();
-    const rewriteList = await getRewriteList(pdpRewiteList || []);
+    const rewriteList = [...pdpRewiteList, ...rewritePatterns];
 
-    if (rewriteList) {
-      rewriteList.forEach(({ from, to }) => {
-        server.get(from, rewrite(to));
-        // server.use(rewrite(from, to));
-      });
-    }
-
-    console.log(rewriteList);
+    rewriteList.forEach(({ from, to }) => {
+      server.get(from, rewrite(to));
+    });
 
     return server;
   })
   .then(server => {
     // Handle redirect list.
+    // const redirectList = [{ from: '/old-link', to: '/redirect', type: 301 }];
+    const redirectList = null;
+
     if (redirectList)
       redirectList.forEach(({ from, to, type = 301, method = 'get' }) => {
-        server[method](from, (req, res) => {
+        server[method](from, (_req, res) => {
           res.redirect(type, to);
         });
       });
@@ -79,8 +69,8 @@ app
     return server;
   })
   .then(server => {
-    // Status.
-    server.get('/status', (req, res) => {
+    // Status route.
+    server.get('/status', (_req, res) => {
       const statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
       res.status(statusCode);
@@ -95,7 +85,7 @@ app
 
     // All routes.
     server.all('*', cors(), (req, res) => {
-      // Trailing slash fix on page reload.
+      // Trailing slash fix on page reload. (not sure if still needed)
       // req.url = req.url.replace(/\/$/, '');
       // if (req.url === '') req.url = '/';
 
@@ -103,7 +93,10 @@ app
         res.setHeader('X-Robots-Tag', 'noindex'); // Disable indexing.
       return handle(req, res);
     });
-
+    return server;
+  })
+  .then(server => {
+    // Start server.
     server.listen(PORT, err => {
       if (err) throw err;
       console.log(logo);
