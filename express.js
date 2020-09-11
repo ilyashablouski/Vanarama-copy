@@ -85,9 +85,9 @@ app
 
     // All routes.
     server.all('*', cors(), (req, res) => {
-      // Trailing slash fix on page reload. (not sure if still needed)
-      // req.url = req.url.replace(/\/$/, '');
-      // if (req.url === '') req.url = '/';
+      // Trailing slash fix on page reload.
+      req.url = req.url.replace(/\/$/, '');
+      if (req.url === '') req.url = '/';
 
       if (process.env.ENV !== 'production')
         res.setHeader('X-Robots-Tag', 'noindex'); // Disable indexing.

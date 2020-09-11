@@ -37,21 +37,6 @@ module.exports = {
     },
     poweredByHeader: false,
 
-    // Rewrites.
-    // async rewrites() {
-    //   return [
-    //     {
-    //       source: '/seat-car-leasing/ibiza/hatchback/1-0-fr-ez-5dr-161392.html',
-    //       destination: '/car-leasing/seat/ibiza/hatchback/10-fr-ez-5-doors',
-    //     },
-    //     {
-    //       source: '/testurl',
-    //       destination:
-    //         '/car-leasing/bmw/3-series/saloon/320i-m-sport-4-doors-step-auto/',
-    //     },
-    //   ];
-    // },
-
     // Rollbar.
     serverRuntimeConfig: {
       rollbarServerToken: process.env.ROLLBAR_SERVER_TOKEN || '',
