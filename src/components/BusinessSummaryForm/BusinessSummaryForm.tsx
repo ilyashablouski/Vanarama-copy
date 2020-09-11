@@ -17,6 +17,7 @@ import { GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as CreditA
 import { mapDirectorsDefaultValues } from '../../containers/DirectorDetailsFormContainer/mappers';
 import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
 import { mapDefaultValues } from '../../containers/CompanyBankDetailsFormContainer/mappers';
+import { DirectorDetails } from '../DirectorDetailsForm/interfaces';
 
 interface IProps {
   company: SummaryFormCompany;
@@ -58,34 +59,25 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
   );
 
   const directors = useMemo(() => {
-    const providedDirectorsData =
-      mapDirectorsDefaultValues(creditApplication?.directorsDetails)
-        .directors || [];
-    const fullProvidedDirectorsData = (
-      company?.associates || []
-    ).filter(director =>
-      providedDirectorsData?.find(
-        associate =>
-          associate.firstName === director.firstName &&
-          associate.lastName === director.lastName,
-      ),
-    );
+    const providedDirectorsData = (mapDirectorsDefaultValues(
+      creditApplication?.directorsDetails,
+    ).directors || []) as DirectorDetails[];
 
-    return fullProvidedDirectorsData
+    return providedDirectorsData
       .slice()
-      .sort((a, b) => (b.businessShare || 0) - (a.businessShare || 0))
+      .sort((a, b) => (+b.shareOfBusiness || 0) - (+a.shareOfBusiness || 0))
       .map((d, i) => (
         <BusinessSummaryFormDirectorDetailsSection
           director={d}
           orderBySharehold={i}
           onEdit={handleEdit('/b2b/olaf/director-details/[companyUuid]', {
-            directorUuid: d.uuid,
+            directorUuid: d.uuid || '',
             orderId,
           })}
           key={d.uuid}
         />
       ));
-  }, [company, handleEdit, orderId, creditApplication]);
+  }, [handleEdit, orderId, creditApplication]);
 
   const onButtonPressed = useCallback(
     () =>

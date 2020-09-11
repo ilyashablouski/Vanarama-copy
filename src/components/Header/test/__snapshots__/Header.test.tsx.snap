@@ -98,7 +98,7 @@ exports[`<Header /> renders correctly 1`] = `
     >
        
       <i
-        className="icon -darker"
+        className="icon"
       >
         <svg
           height="1em"
@@ -139,8 +139,9 @@ exports[`<Header /> renders correctly 1`] = `
        
       <input
         className="header-search--input"
+        disabled={true}
         id="search"
-        placeholder="Search for Vehicles…"
+        placeholder=""
         type="text"
       />
        
@@ -1752,7 +1753,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
     >
        
       <i
-        className="icon -darker"
+        className="icon"
       >
         <svg
           height="1em"
@@ -1793,8 +1794,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
        
       <input
         className="header-search--input"
+        disabled={true}
         id="search"
-        placeholder="Search for Vehicles…"
+        placeholder=""
         type="text"
       />
        

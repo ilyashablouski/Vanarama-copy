@@ -281,7 +281,17 @@ const AboutForm: FCWithFragments<IProps> = ({
           id="termsAndCons"
           dataTestId="aboutTermsAndCons"
           name="termsAndCons"
-          label="I agree to the terms and conditions."
+          label={[
+            'I agree to the ',
+            <a
+              className="link -teal"
+              href="/legal/terms-and-conditions/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Terms and Conditions
+            </a>,
+          ]}
           ref={register}
         />
       </FormGroup>

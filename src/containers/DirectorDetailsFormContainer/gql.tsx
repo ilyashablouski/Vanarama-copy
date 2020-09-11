@@ -63,6 +63,7 @@ export const SAVE_DIRECTOR_DETAILS = gql`
           lineTwo
           postcode
           serviceId
+          startedOn
         }
       }
     }
