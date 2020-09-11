@@ -123,11 +123,11 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           </li>
         </ol>
       </nav>
-      <p
+      <h1
         class="heading -black -xlarge"
       >
         FAQs About Van Insurance UK
-      </p>
+      </h1>
       <span
         class="text -regular -dark"
       >

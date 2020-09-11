@@ -42,7 +42,7 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
     >
       {formikProps => (
         <Form onSubmit={formikProps.handleSubmit}>
-          <Heading color="black" size="xlarge">
+          <Heading color="black" size="xlarge" tag="h1">
             SoleTrader Details
           </Heading>
 

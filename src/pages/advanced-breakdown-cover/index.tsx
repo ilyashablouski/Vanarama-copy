@@ -33,7 +33,7 @@ const EligibilityChecker: NextPage = () => {
         featuredImage={data?.advancedBreakdownCoverPage.featuredImage}
       />
       <AdvancedBreakdownCoverContainer
-        title={metaData?.title}
+        title={metaData?.name}
         body={data?.advancedBreakdownCoverPage?.body}
         sections={sections}
       />
