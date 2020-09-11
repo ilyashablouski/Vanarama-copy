@@ -125,7 +125,12 @@ const SummaryForm: FCWithFragments<IProps> = ({ person, orderId }) => {
   };
   return (
     <Form>
-      <Heading color="black" size="xlarge" dataTestId="summary-heading">
+      <Heading
+        color="black"
+        size="xlarge"
+        dataTestId="summary-heading"
+        tag="h1"
+      >
         Summary
       </Heading>
       <Text color="darker" size="lead" dataTestId="olaf_summary_text">

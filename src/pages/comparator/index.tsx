@@ -17,7 +17,7 @@ const Comparator: NextPage = () => {
     <>
       <div className="row:title">
         <Breadcrumb items={breadcrumbProps.items} />
-        <Heading size="xlarge" color="black">
+        <Heading size="xlarge" color="black" tag="h1">
           Compare Vehicles
         </Heading>
       </div>

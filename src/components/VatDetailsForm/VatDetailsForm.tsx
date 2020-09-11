@@ -52,7 +52,12 @@ const VatDetailsForm: React.FC<IProps> = ({
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <Heading color="black" dataTestId="vat-details_heading" size="xlarge">
+      <Heading
+        color="black"
+        dataTestId="vat-details_heading"
+        size="xlarge"
+        tag="h1"
+      >
         VAT Details
       </Heading>
       <FormGroup>

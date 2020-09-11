@@ -45,7 +45,12 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <Heading color="black" size="xlarge" dataTestId="companyBankDetails">
+      <Heading
+        color="black"
+        size="xlarge"
+        dataTestId="companyBankDetails"
+        tag="h1"
+      >
         Company Bank Details
       </Heading>
       <Text color="black" size="regular">
