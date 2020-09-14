@@ -15,8 +15,6 @@ interface IProps {
   crumbs: { href: string; label: string }[];
 }
 
-
-
 const VehicleReviewCategoryContainer: FC<IProps> = ({
   body,
   title,
@@ -25,7 +23,7 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
 }) => {
   const [reviewsExpanded, setReviewsExpanded] = useState(12);
   const router = useRouter();
-  
+
   return (
     <>
       <div className="row:title">
