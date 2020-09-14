@@ -13,7 +13,7 @@ const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
 const logo = require('./logo');
 const { version } = require('./package.json');
 
-// const { getPdpRewiteList } = require('./rewrites/pdp');
+const { getPdpRewiteList } = require('./rewrites/pdp');
 const rewritePatterns = require('./rewrites/rewritePatterns');
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -22,26 +22,40 @@ const handle = app.getRequestHandler();
 
 const PORT = process.env.PORT || 3000;
 
-// RewriteList.
-// async function getRewriteList(pdpRewiteList) {
-//   return [...pdpRewiteList, ...rewritePatterns];
-// }
-
-// RedirectList.
-const redirectList = [{ from: '/old-link', to: '/redirect', type: 301 }];
-
 app
   .prepare()
   .then(async () => {
-    // const pdpRewiteList = await getPdpRewiteList();
-    // const rewriteList = await getRewriteList(pdpRewiteList || []);
-
-    // return rewriteList;
-    return rewritePatterns;
-  })
-  .then(rewriteList => {
+    // Create server.
     const server = express();
 
+    return server;
+  })
+  .then(async server => {
+    // Handle rewrite list.
+    const pdpRewiteList = await getPdpRewiteList();
+    const rewriteList = [...pdpRewiteList, ...rewritePatterns];
+
+    rewriteList.forEach(({ from, to }) => {
+      server.get(from, rewrite(to));
+    });
+
+    return server;
+  })
+  .then(server => {
+    // Handle redirect list.
+    // const redirectList = [{ from: '/old-link', to: '/redirect', type: 301 }];
+    const redirectList = null;
+
+    if (redirectList)
+      redirectList.forEach(({ from, to, type = 301, method = 'get' }) => {
+        server[method](from, (_req, res) => {
+          res.redirect(type, to);
+        });
+      });
+
+    return server;
+  })
+  .then(server => {
     server.disable('x-powered-by');
     server.use(hpp());
 
@@ -49,25 +63,14 @@ app
     if (process.env.ENV === 'production')
       server.use(rateLimiterRedisMiddleware);
 
-    // Handle rewrite list.
-    if (rewriteList)
-      rewriteList.forEach(({ from, to }) => {
-        server.use(rewrite(from, to));
-      });
-
-    // Handle redirect list.
-    if (redirectList)
-      redirectList.forEach(({ from, to, type = 301, method = 'get' }) => {
-        server[method](from, (req, res) => {
-          res.redirect(type, to);
-        });
-      });
-
     // Prerender.
     if (prerender && process.env.PRERENDER_SERVICE_URL) server.use(prerender);
 
-    // Status.
-    server.get('/status', (req, res) => {
+    return server;
+  })
+  .then(server => {
+    // Status route.
+    server.get('/status', (_req, res) => {
       const statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
       res.status(statusCode);
@@ -80,6 +83,7 @@ app
       });
     });
 
+    // All routes.
     server.all('*', cors(), (req, res) => {
       // Trailing slash fix on page reload.
       req.url = req.url.replace(/\/$/, '');
@@ -89,7 +93,10 @@ app
         res.setHeader('X-Robots-Tag', 'noindex'); // Disable indexing.
       return handle(req, res);
     });
-
+    return server;
+  })
+  .then(server => {
+    // Start server.
     server.listen(PORT, err => {
       if (err) throw err;
       console.log(logo);
