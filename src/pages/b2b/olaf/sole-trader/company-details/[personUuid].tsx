@@ -24,10 +24,10 @@ export const CompanyDetailsPage: NextPage = () => {
       { dataTestId: 'company-details-error' },
     );
 
-  const handleSubmitCompletion = () => {
+  const handleSubmitCompletion = (uuid: string) => {
     const params = getUrlParam({ orderId });
     const url = `/b2b/olaf/sole-trader/vat-details/[companyUuid]${params}`;
-    router.push(url, url.replace('[companyUuid]', companyUuid));
+    router.push(url, url.replace('[companyUuid]', uuid));
   };
 
   return (
