@@ -5,7 +5,6 @@ import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import BreadCrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import ReactMarkdown from 'react-markdown';
 import Router from 'next/router';
 import { ILink } from '@vanarama/uibook/lib/interfaces/link';
