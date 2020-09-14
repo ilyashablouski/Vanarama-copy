@@ -84,7 +84,10 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         We understand the importance of your new car decision and want to make sure the process is as simple and seamless as possible for you. You can find out how we do this by visiting our page about
          
         <a
+          class="link -teal"
+          data-testid="link"
           href="https://beta.vanarama.com/car-leasing-explained.html"
+          rel="noopener noreferrer"
         >
           How Car Leasing Works
         </a>
@@ -93,6 +96,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       <p>
         You can use the links below to view the key features and benefits of the new car finance products available. Our in-depth FAQs will also help with any specific queries. If you need any more information, please feel free to pick up the phone to one of our Account Managers on 01442 835 769 or drop us an email at 
         <a
+          class="link -teal"
+          data-testid="router-link"
           href="mailto:enquiries@vanarama.co.uk"
         >
           enquiries@vanarama.co.uk
@@ -105,7 +110,10 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       <ul>
         <li>
           <a
+            class="link -teal"
+            data-testid="link"
             href="https://beta.vanarama.com/car-business-contract-hire.html"
+            rel="noopener noreferrer"
           >
             Business Contract Hire
           </a>
@@ -113,8 +121,10 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         <li>
           <p>
             <a
+              class="link -teal"
+              data-testid="link"
               href="https://beta.vanarama.com/car-personal-contract-hire.html"
-              title="Personal Contract Hire"
+              rel="noopener noreferrer"
             >
               Personal Contract Hire
             </a>

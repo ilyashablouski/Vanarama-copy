@@ -57,6 +57,7 @@ const MediaFeatureSection: React.FC<IMediaFeatureProps> = ({
               {title}
             </Heading>
             <ReactMarkdown
+              escapeHtml={false}
               source={body || ''}
               renderers={{
                 heading: props => <Heading {...props} tag="h3" />,

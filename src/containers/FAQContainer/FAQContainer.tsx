@@ -29,6 +29,7 @@ const getAccordionItemsInside = (
     title: questionAnswer?.question || '',
     children: (
       <ReactMarkdown
+        escapeHtml={false}
         source={questionAnswer?.answer || ''}
         renderers={{
           link: props => {

@@ -55,7 +55,7 @@ So, get our Advanced Breakdown Cover when you lease a brand-new van or pickup tr
           
 
           <a
-            class="link"
+            class="link -teal"
             data-testid="link"
             href="https://beta.vanarama.com/special-offers.html"
             rel="noopener noreferrer"
@@ -209,7 +209,7 @@ So, get our Advanced Breakdown Cover when you lease a brand-new van or pickup tr
           
 
           <a
-            class="link"
+            class="link -teal"
             data-testid="link"
             href="https://beta.vanarama.com/special-offers.html"
             rel="noopener noreferrer"

@@ -26,6 +26,7 @@ const accordionItems = (questions: (IQuestion | null)[] | undefined | null) => {
         title: item?.question || '',
         children: (
           <ReactMarkdown
+            escapeHtml={false}
             source={item?.answer || ''}
             renderers={{
               link: props => {
@@ -65,6 +66,7 @@ const LeasingQuestionContainer: FC<IProps> = ({
           {title}
         </Heading>
         <ReactMarkdown
+          escapeHtml={false}
           source={body || ''}
           renderers={{
             link: props => {

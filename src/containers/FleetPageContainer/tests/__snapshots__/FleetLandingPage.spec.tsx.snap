@@ -640,7 +640,11 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             Price Protection
           </p>
         </a>
-        Pretium facilisi etiam pretium, cras interdum enim, nullam.
+        <p
+          class="text -regular -darker"
+        >
+          Pretium facilisi etiam pretium, cras interdum enim, nullam.
+        </p>
       </div>
       <div
         class="tile -button -plain tile--centered"
@@ -655,7 +659,11 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             Customer Reviews
           </p>
         </a>
-        Pretium facilisi etiam pretium, cras interdum enim, nullam.
+        <p
+          class="text -regular -darker"
+        >
+          Pretium facilisi etiam pretium, cras interdum enim, nullam.
+        </p>
       </div>
       <div
         class="tile -button -plain tile--centered"
@@ -670,7 +678,11 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             Quote Online
           </p>
         </a>
-        Pretium facilisi etiam pretium, cras interdum enim, nullam.
+        <p
+          class="text -regular -darker"
+        >
+          Pretium facilisi etiam pretium, cras interdum enim, nullam.
+        </p>
       </div>
       <div
         class="tile -button -plain tile--centered"
@@ -685,7 +697,11 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             Confused About Leasing?
           </p>
         </a>
-        Pretium facilisi etiam pretium, cras interdum enim, nullam.
+        <p
+          class="text -regular -darker"
+        >
+          Pretium facilisi etiam pretium, cras interdum enim, nullam.
+        </p>
       </div>
     </div>
   </div>

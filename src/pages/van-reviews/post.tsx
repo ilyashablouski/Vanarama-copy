@@ -6,6 +6,7 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import BreadCrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import ReactMarkdown from 'react-markdown';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Router from 'next/router';
 import Head from '../../components/Head/Head';
 import withApollo from '../../hocs/withApollo';
@@ -73,7 +74,12 @@ const BlogPost: NextPage = () => {
             renderers={{
               link: props => {
                 const { href, children } = props;
-                return <RouterLink link={{ href, label: children }} />;
+                return (
+                  <RouterLink
+                    link={{ href, label: children }}
+                    classNames={{ color: 'teal' }}
+                  />
+                );
               },
               heading: props => (
                 <Text

@@ -165,22 +165,16 @@ exports[`<LegalArticleContainer /> should match snapshot 1`] = `
         class="markdown"
         style="max-width: none;"
       >
-        <p
-          class="text -regular -darker"
-        >
+        <p>
            
           <strong>
             Autorama UK is the UK's most-recognised vehicle leasing brand. Our principal business is brokering the sale of vehicles, finance and insurance to our customers. All of our directly employed staff are based in the UK.
           </strong>
         </p>
-        <p
-          class="text -regular -darker"
-        >
+        <p>
           We seek to operate in an open, ethical manner in all our business dealings. We believe that modern slavery is an unacceptable issue. Our policy is to assess and address modern slavery laws within our own business and we expect those organisations with whom we do business to adopt and enforce policies to comply with the legislation.
         </p>
-        <p
-          class="text -regular -darker"
-        >
+        <p>
           <strong>
             Our policy on slavery and human trafficking
           </strong>
@@ -202,16 +196,12 @@ exports[`<LegalArticleContainer /> should match snapshot 1`] = `
             Autorama UK LTD will quickly and thoroughly investigate any claim or indication that any area of its business or supply chains is engaging in human trafficking or slave labour.
           </li>
           <li>
-            <p
-              class="text -regular -darker"
-            >
+            <p>
               Any such claim coming to the attention of personnel within Autorama UK LTD should be reported to senior management in accordance with our Whistleblowing Policy. The board of directors will be informed of the issue including the findings and outcome of the investigation.
             </p>
           </li>
         </ul>
-        <p
-          class="text -regular -darker"
-        >
+        <p>
           <strong>
             Our people
           </strong>
@@ -227,16 +217,12 @@ exports[`<LegalArticleContainer /> should match snapshot 1`] = `
             Our Core Values set out guiding principles for members of staff which outlines they should always act lawfully and ethically. 
           </li>
           <li>
-            <p
-              class="text -regular -darker"
-            >
+            <p>
               All staff undertake mandatory compliance training courses which outline these values further. 
             </p>
           </li>
         </ul>
-        <p
-          class="text -regular -darker"
-        >
+        <p>
           <strong>
             Our supply chains
           </strong>
@@ -255,16 +241,12 @@ exports[`<LegalArticleContainer /> should match snapshot 1`] = `
             The vast majority of suppliers for our core business are registered and trade in the UK. 
           </li>
           <li>
-            <p
-              class="text -regular -darker"
-            >
+            <p>
               A review has been completed of our top suppliers, (who themselves are eligible to publish statements) and we have sufficiently concluded that their Modern Slavery Statements meet requirements under the Modern Slavery Act 2015. These statements will be reviewed periodically to ensure compliance.
             </p>
           </li>
         </ul>
-        <p
-          class="text -regular -darker"
-        >
+        <p>
           <strong>
             Actions taken
           </strong>
@@ -283,23 +265,17 @@ exports[`<LegalArticleContainer /> should match snapshot 1`] = `
             National Minimum Wage reviews were completed to ensure all employees were paid within legal requirements.
           </li>
           <li>
-            <p
-              class="text -regular -darker"
-            >
+            <p>
               Employee induction and training provisions were created, all new members of staff would be aware of our obligations and where to find our statement. 
             </p>
           </li>
         </ul>
-        <p
-          class="text -regular -darker"
-        >
+        <p>
           <strong>
             Measuring Effectiveness
           </strong>
         </p>
-        <p
-          class="text -regular -darker"
-        >
+        <p>
           In order to assess the effectiveness of the steps we are taking to ensure that modern slavery is not taking place within our business or supply chain we will continue to:
         </p>
         <ul>
@@ -313,54 +289,38 @@ exports[`<LegalArticleContainer /> should match snapshot 1`] = `
             Ensure ongoing training and awareness for new and existing staff
           </li>
           <li>
-            <p
-              class="text -regular -darker"
-            >
+            <p>
               Monitor reporting from staff, the public, law enforcement agencies and the media in relation to modern slavery for our business and our supply chain
             </p>
           </li>
         </ul>
-        <p
-          class="text -regular -darker"
-        >
+        <p>
           <strong>
             Board Approval
           </strong>
         </p>
-        <p
-          class="text -regular -darker"
-        >
+        <p>
           This statement will be reviewed and updated (if necessary) annually to reflect our ongoing commitment to ensuring that our business and supply chain have made provisions to aid in the prevention of Human Trafficking and Slavery.
         </p>
-        <p
-          class="text -regular -darker"
-        >
+        <p>
           <strong>
             This Statement is for the financial year ending 2020, it is approved by the board and signed on its behalf:
           </strong>
         </p>
-        <p
-          class="text -regular -darker"
-        >
+        <p>
           ![](/assets/blog/modern slavery/andysignature.jpg)
         </p>
-        <p
-          class="text -regular -darker"
-        >
+        <p>
           <strong>
             Andy Alderson
           </strong>
         </p>
-        <p
-          class="text -regular -darker"
-        >
+        <p>
           <strong>
             CEO, Autorama UK Ltd
           </strong>
         </p>
-        <p
-          class="text -regular -darker"
-        >
+        <p>
           This statement is made on behalf of Autorama UK Ltd, its subsidiary companies and brands in accordance with Section 54(1) of the Modern Slavery Act 2015 ('the Act') in relation to the financial year ended 31 December 2020.
         </p>
       </div>

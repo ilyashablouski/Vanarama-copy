@@ -222,7 +222,9 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   <div
                     class="accordion--content"
                   >
-                    <p>
+                    <p
+                      class="text -regular -darker"
+                    >
                       Before you give us a call, make sure you have these things to hand:
                     </p>
                     <ul>
@@ -285,7 +287,9 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   <div
                     class="accordion--content"
                   >
-                    <p>
+                    <p
+                      class="text -regular -darker"
+                    >
                       You can enter the vehicle's year of manufacture, make & model instead.
                     </p>
                   </div>
@@ -328,7 +332,9 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   <div
                     class="accordion--content"
                   >
-                    <p>
+                    <p
+                      class="text -regular -darker"
+                    >
                       Yes, you can, but we will need this info if you decide to purchase a policy
                     </p>
                   </div>
@@ -371,7 +377,9 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   <div
                     class="accordion--content"
                   >
-                    <p>
+                    <p
+                      class="text -regular -darker"
+                    >
                       It's what you need to pay if you make a claim. For example, if you have a £100 excess on your policy then you pay the first £100 of the claim you make.
                     </p>
                   </div>
@@ -458,7 +466,9 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   <div
                     class="accordion--content"
                   >
-                    <p>
+                    <p
+                      class="text -regular -darker"
+                    >
                       This is the number of years you have been insured & not made a claim. You need proof of NCB when you purchase a new policy.
                     </p>
                   </div>

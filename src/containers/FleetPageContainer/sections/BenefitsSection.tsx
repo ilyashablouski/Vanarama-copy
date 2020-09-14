@@ -31,9 +31,8 @@ const BenefitsSection = ({ name, tiles }: IBenefitsSection) => (
           </Heading>
         </Link>
         <ReactMarkdown
+          escapeHtml={false}
           source={tile.body || ''}
-          disallowedTypes={['paragraph']}
-          unwrapDisallowed
           renderers={{
             link: props => {
               const { href, children } = props;

@@ -22,6 +22,7 @@ export default function getFeaturedHtml(featured: Featured | null | undefined) {
           </Heading>
           <div>
             <ReactMarkdown
+              escapeHtml={false}
               source={featured.body || ''}
               renderers={{
                 link: props => {

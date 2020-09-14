@@ -716,8 +716,6 @@ const SearchPageContainer: React.FC<IProps> = ({
                   <ReactMarkdown
                     escapeHtml={false}
                     source={pageData?.genericPage.body || ''}
-                    disallowedTypes={['paragraph']}
-                    unwrapDisallowed
                     renderers={{
                       link: props => {
                         const { href, children } = props;

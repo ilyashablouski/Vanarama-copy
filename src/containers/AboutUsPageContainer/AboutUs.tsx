@@ -68,6 +68,7 @@ const renderMeetCard = (card: ICard | undefined) =>
     >
       <div>
         <ReactMarkdown
+          escapeHtml={false}
           source={card.body}
           renderers={{
             link: props => {
@@ -148,6 +149,7 @@ const AboutUs: React.FC = () => {
       <div className="row:article">
         <article className="markdown">
           <ReactMarkdown
+            escapeHtml={false}
             source={body || ''}
             renderers={{
               link: props => {
@@ -191,6 +193,7 @@ const AboutUs: React.FC = () => {
         </Heading>
         <Link color="teal" href="#">
           <ReactMarkdown
+            escapeHtml={false}
             source={sections?.rowText?.body || ''}
             renderers={{
               paragraph: props => <React.Fragment {...props} />,

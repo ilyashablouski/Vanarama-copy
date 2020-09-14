@@ -53,11 +53,17 @@ const BlogPage: NextPage = () => {
               {featured.title}
             </Heading>
             <ReactMarkdown
+              escapeHtml={false}
               source={featured.body || ''}
               renderers={{
                 link: props => {
                   const { href, children } = props;
-                  return <RouterLink link={{ href, label: children }} />;
+                  return (
+                    <RouterLink
+                      link={{ href, label: children }}
+                      classNames={{ color: 'teal' }}
+                    />
+                  );
                 },
                 heading: props => (
                   <Text
@@ -99,14 +105,16 @@ const BlogPage: NextPage = () => {
                       }}
                     >
                       <ReactMarkdown
+                        escapeHtml={false}
                         source={card.body || ''}
-                        disallowedTypes={['paragraph']}
-                        unwrapDisallowed
                         renderers={{
                           link: props => {
                             const { href, children } = props;
                             return (
-                              <RouterLink link={{ href, label: children }} />
+                              <RouterLink
+                                link={{ href, label: children }}
+                                classNames={{ color: 'teal' }}
+                              />
                             );
                           },
                           heading: props => (
@@ -142,13 +150,17 @@ const BlogPage: NextPage = () => {
               }}
             >
               <ReactMarkdown
+                escapeHtml={false}
                 source={carousel.cards[0]!.body || ''}
-                disallowedTypes={['paragraph']}
-                unwrapDisallowed
                 renderers={{
                   link: props => {
                     const { href, children } = props;
-                    return <RouterLink link={{ href, label: children }} />;
+                    return (
+                      <RouterLink
+                        link={{ href, label: children }}
+                        classNames={{ color: 'teal' }}
+                      />
+                    );
                   },
                   heading: props => (
                     <Text
@@ -201,13 +213,17 @@ const BlogPage: NextPage = () => {
                   }}
                 >
                   <ReactMarkdown
+                    escapeHtml={false}
                     source={tile.body || ''}
-                    disallowedTypes={['paragraph']}
-                    unwrapDisallowed
                     renderers={{
                       link: props => {
                         const { href, children } = props;
-                        return <RouterLink link={{ href, label: children }} />;
+                        return (
+                          <RouterLink
+                            link={{ href, label: children }}
+                            classNames={{ color: 'teal' }}
+                          />
+                        );
                       },
                       heading: props => (
                         <Text

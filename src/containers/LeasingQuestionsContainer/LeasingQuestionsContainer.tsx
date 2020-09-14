@@ -92,6 +92,7 @@ const LeasingExplainedContainer: FC<IProps> = ({
           {title}
         </Heading>
         <ReactMarkdown
+          escapeHtml={false}
           source={body || ''}
           renderers={{
             link: props => {

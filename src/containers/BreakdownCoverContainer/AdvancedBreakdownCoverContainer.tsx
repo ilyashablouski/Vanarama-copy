@@ -74,6 +74,7 @@ const AdvancedBreakdownCoverContainer: FC<IProps> = ({
           {title}
         </Heading>
         <ReactMarkdown
+          escapeHtml={false}
           source={body || ''}
           renderers={{
             link: props => {
@@ -123,6 +124,7 @@ function getFeaturedHtml(
               {featured.title}
             </Heading>
             <ReactMarkdown
+              escapeHtml={false}
               source={featured.body?.replace(/\n/gi, '&nbsp;\n') || ''}
               renderers={{
                 link: props => {
