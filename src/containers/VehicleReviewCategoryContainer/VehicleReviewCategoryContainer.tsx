@@ -6,7 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import { useRouter } from 'next/router';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import { ReviewsHubCategoryQuery_genericPage_sections as Sections } from '../../../generated/ReviewsHubCategoryQuery';
-import RouterLink from '../../components/RouterLink/RouterLink';
+import { getMarkdownRenderers } from './Utils';
 
 interface IProps {
   sections: Sections | null;
@@ -33,19 +33,11 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
         </Heading>
       </div>
       <div className="row:text">
-        <ReactMarkdown
-          source={body || ''}
-          renderers={{
-            link: props => {
-              const { href, children } = props;
-              return <RouterLink link={{ href, label: children }} />;
-            },
-          }}
-        />
+        <ReactMarkdown source={body || ''} renderers={getMarkdownRenderers()} />
       </div>
       {sections?.cards?.cards?.length && (
         <>
-          <div className="row:cards-3col" style={{ paddingTop: '10px' }}>
+          <div className="row:cards-3col -pt-300">
             {sections.cards?.cards
               .slice(0, reviewsExpanded)
               .map((reviewCard, idx) => (
