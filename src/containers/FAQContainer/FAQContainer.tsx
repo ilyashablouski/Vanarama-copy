@@ -72,7 +72,7 @@ const FAQContainer: FC<IProps> = ({ title, sections, intro }) => {
     <>
       <div className="row:title">
         <BreadCrumb items={crumbs} />
-        <Heading size="xlarge" color="black">
+        <Heading size="xlarge" color="black" tag="h1">
           {title || ''}
         </Heading>
         <Text color="dark" size="regular">

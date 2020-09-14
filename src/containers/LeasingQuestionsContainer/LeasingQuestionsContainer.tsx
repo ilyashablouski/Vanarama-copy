@@ -87,7 +87,7 @@ const LeasingExplainedContainer: FC<IProps> = ({
     <>
       <div className="row:title">
         <BreadCrumb items={crumbs} />
-        <Heading size="xlarge" color="black">
+        <Heading size="xlarge" color="black" tag="h1">
           {title}
         </Heading>
         <ReactMarkdown source={body || ''} />

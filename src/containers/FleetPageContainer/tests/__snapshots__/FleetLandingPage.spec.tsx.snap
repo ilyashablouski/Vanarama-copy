@@ -3,6 +3,11 @@
 exports[`<FleetLandingPage /> should match snapshot 1`] = `
 <body>
   <div>
+    <script
+      type="application/ld+json"
+    >
+      null
+    </script>
     <div
       class="row:bg-hero"
     >
@@ -12,11 +17,11 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
         <div
           class="hero--left"
         >
-          <p
+          <h1
             class="heading -white -xlarge"
           >
             Flexible Fleet Management 
-          </p>
+          </h1>
           <p
             class="text -large -white"
           >

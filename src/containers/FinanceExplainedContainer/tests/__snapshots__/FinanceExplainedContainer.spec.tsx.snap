@@ -6,11 +6,11 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
     <div
       class="row:title"
     >
-      <p
+      <h1
         class="heading -black -xlarge"
       >
         Car Finance Options | Business Car Leasing Deals UK
-      </p>
+      </h1>
     </div>
     <div
       class="row:text"
@@ -154,7 +154,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="row:featured-right"
+      class="row:text"
     >
       <div>
         <p

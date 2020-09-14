@@ -176,7 +176,7 @@ const AboutYouPage: NextPage = () => {
 
   return (
     <OLAFLayout>
-      <Heading color="black" size="xlarge" dataTestId="aboutHeading">
+      <Heading color="black" size="xlarge" dataTestId="aboutHeading" tag="h1">
         About You
       </Heading>
       <Text color="darker" size="lead">

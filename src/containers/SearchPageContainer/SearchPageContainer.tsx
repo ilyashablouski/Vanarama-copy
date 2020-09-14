@@ -153,7 +153,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   const { refetch, loading } = useProductCardData(
     capIds,
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-    true,
+    !!capIds.length,
   );
 
   const manualBodyStyle = useMemo(() => {

@@ -56,7 +56,7 @@ const DirectorDetailsForm: React.FC<IDirectorDetailsFormProps> = ({
     >
       {({ handleSubmit, isSubmitting }) => (
         <Form onSubmit={handleSubmit}>
-          <Heading color="black" size="xlarge">
+          <Heading color="black" size="xlarge" tag="h1">
             Director Details
           </Heading>
           <Text color="black" size="regular">
