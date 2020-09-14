@@ -17,6 +17,6 @@ export interface ISoleTraderCompanyDetailsFormValues {
 }
 
 export interface ISoleTraderCompanyDetailsFormProps {
-  company: any;
+  company?: any;
   onSubmit: (values: ISoleTraderCompanyDetailsFormValues) => void;
 }

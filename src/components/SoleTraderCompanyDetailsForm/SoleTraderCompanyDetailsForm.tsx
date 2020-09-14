@@ -1,6 +1,5 @@
 import React from 'react';
 import { useForm, FormContext } from 'react-hook-form';
-import { gql } from '@apollo/client';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
@@ -10,7 +9,6 @@ import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
 import AddressFormField from '../AddressFormField/AddressFormField';
-import FCWithFragments from '../../utils/FCWithFragments';
 import { genMonths, genYears } from '../../utils/helpers';
 import {
   emailValidator,
@@ -36,7 +34,7 @@ const isMonthInFuture = (month: string, year: string) => {
   return result;
 };
 
-const SoleTraderCompanyDetailsForm: FCWithFragments<ISoleTraderCompanyDetailsFormProps> = ({
+const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps> = ({
   onSubmit,
 }) => {
   const methods = useForm<ISoleTraderCompanyDetailsFormValues>({
@@ -274,42 +272,6 @@ const SoleTraderCompanyDetailsForm: FCWithFragments<ISoleTraderCompanyDetailsFor
       />
     </Form>
   );
-};
-
-SoleTraderCompanyDetailsForm.fragments = {
-  company: gql`
-    fragment CompanyDetails on CompanyType {
-      __typename
-      uuid
-      person {
-        uuid
-      }
-      tradingName
-      address {
-        __typename
-        startedOn
-        endedOn
-        propertyStatus
-        serviceId
-        kind
-      }
-      companyNature
-      tradingSince
-      telephone {
-        __typename
-        kind
-        primary
-        value
-      }
-      emailAddress
-      annualTurnover
-      annualSalesCost
-      annualExpenses
-      replaceExistingVehicleFinance
-      vehicleRegistrationNumber
-      monthlyAmountBeingReplaced
-    }
-  `,
 };
 
 export default SoleTraderCompanyDetailsForm;
