@@ -262,6 +262,7 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
           label={[
             'I agree to the ',
             <a
+              key="a"
               className="link -teal"
               href="/legal/terms-and-conditions/"
               target="_blank"

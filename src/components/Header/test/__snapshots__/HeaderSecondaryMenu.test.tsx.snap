@@ -18,7 +18,7 @@ exports[`<HeaderSecondaryMenu /> renders correctly 1`] = `
           className="link"
           data-menu={null}
           data-testid="menu-title"
-          href=""
+          href="/"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >
@@ -117,7 +117,7 @@ exports[`<HeaderSecondaryMenu /> renders correctly 1`] = `
           className="link"
           data-menu={null}
           data-testid="router-link"
-          href=""
+          href="/"
           onClick={[Function]}
           onMouseEnter={[Function]}
         >

@@ -284,6 +284,7 @@ const AboutForm: FCWithFragments<IProps> = ({
           label={[
             'I agree to the ',
             <a
+              key="a"
               className="link -teal"
               href="/legal/terms-and-conditions/"
               target="_blank"
