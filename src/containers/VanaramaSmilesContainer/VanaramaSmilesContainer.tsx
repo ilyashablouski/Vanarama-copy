@@ -31,7 +31,7 @@ const VanaramaSmilesContainer: FC<IProps> = ({ title, body, sections }) => {
             <Heading
               color="black"
               size="large"
-              tag={tiles.titleTag as keyof JSX.IntrinsicElements}
+              tag={(tiles.titleTag || 'h1') as keyof JSX.IntrinsicElements}
             >
               {tiles.tilesTitle}
             </Heading>

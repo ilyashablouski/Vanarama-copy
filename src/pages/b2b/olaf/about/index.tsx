@@ -116,7 +116,12 @@ export const BusinessAboutPage: NextPage = () => {
 
   return (
     <OLAFLayout>
-      <Heading color="black" dataTestId="about-you_heading" size="xlarge">
+      <Heading
+        color="black"
+        dataTestId="about-you_heading"
+        size="xlarge"
+        tag="h1"
+      >
         About You
       </Heading>
       <Text color="darker" size="lead">

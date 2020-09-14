@@ -135,7 +135,7 @@ const AboutUs: React.FC = () => {
             items={navigation.concat(ABOUT_US_NAV_ITEM)}
           />
         </nav>
-        <Heading size="xlarge" color="black">
+        <Heading size="xlarge" color="black" tag="h1">
           {metaData.name}
         </Heading>
       </div>

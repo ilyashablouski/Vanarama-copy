@@ -1,6 +1,7 @@
 import {
   DirectorDetailsFormValues,
   DirectorFormValues,
+  DirectorDetails,
 } from '../../components/DirectorDetailsForm/interfaces';
 import { historyToMoment, parseDate } from '../../utils/dates';
 import { SaveDirectorDetailsMutation_createUpdateCompanyDirector_associates as Associate } from '../../../generated/SaveDirectorDetailsMutation';
@@ -32,7 +33,21 @@ export const mapFormValues = (
   })),
 });
 
-export const mapDirectorDetails = (data: any): DirectorFormValues => ({
+export const mapAddresses = (data?: any) =>
+  data?.map((item: any) => ({
+    city: item?.city,
+    country: item?.country,
+    county: item?.county,
+    kind: item?.kind,
+    lineOne: item?.line_one,
+    lineThree: item?.line_three,
+    lineTwo: item?.line_two,
+    postcode: item?.postcode,
+    serviceId: item?.service_id,
+    startedOn: item?.started_on,
+  }));
+
+export const mapDirectorDetails = (data: any): DirectorDetails => ({
   dayOfBirth: data?.day_of_birth,
   firstName: data?.first_name,
   gender: data?.gender,
@@ -54,6 +69,7 @@ export const mapDirectorDetails = (data: any): DirectorFormValues => ({
   title: data?.title,
   yearOfBirth: data?.year_of_birth,
   uuid: data?.uuid,
+  addresses: mapAddresses(data?.addresses),
 });
 
 export const mapDirectorsDefaultValues = (
@@ -75,9 +91,10 @@ export const combineUpdatedDirectors = (
         associate.firstName === director.firstName &&
         associate.lastName === director.lastName,
     );
+
     return {
-      ...(data || {}),
       ...director,
+      ...(data || {}),
     };
   });
 };

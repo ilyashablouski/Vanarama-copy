@@ -31,6 +31,7 @@ const EligibilityCheckerDetails: NextPage = () => {
           color="black"
           size="xlarge"
           dataTestId="eligibilityCheckerHeading"
+          tag="h1"
         >
           Enter Details
         </Heading>

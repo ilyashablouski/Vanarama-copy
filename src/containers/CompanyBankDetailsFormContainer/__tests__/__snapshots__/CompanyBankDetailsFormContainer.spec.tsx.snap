@@ -6,12 +6,12 @@ exports[`<CompanyBankDetailsFormContainer /> should be render correctly 1`] = `
     <form
       class="form"
     >
-      <p
+      <h1
         class="heading -black -xlarge"
         data-testid="companyBankDetails"
       >
         Company Bank Details
-      </p>
+      </h1>
       <span
         class="text -regular -black"
       >

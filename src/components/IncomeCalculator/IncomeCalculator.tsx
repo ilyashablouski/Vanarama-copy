@@ -35,7 +35,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
   const { disposableIncome, monthlyExpenses } = calculateIncome(values);
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <Heading color="black" size="xlarge" dataTestId="expenses">
+      <Heading color="black" size="xlarge" dataTestId="expenses" tag="h1">
         Expenses
       </Heading>
       <Text color="darker" size="lead">

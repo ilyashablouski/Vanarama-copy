@@ -2,6 +2,14 @@
 
 exports[`<AboutUs /> renders correctly with data 1`] = `
 Array [
+  <script
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "{\\"itemListElement\\":[{\\"item\\":\\"https://www.vanarama.com/\\",\\"name\\":\\"Home\\",\\"position\\":1}]}",
+      }
+    }
+    type="application/ld+json"
+  />,
   <div
     className="row:title"
   >
@@ -91,11 +99,11 @@ Array [
         </ol>
       </nav>
     </nav>
-    <p
+    <h1
       className="heading -black -xlarge"
     >
       About Us
-    </p>
+    </h1>
   </div>,
   <div
     className="row:bg-black -compact"

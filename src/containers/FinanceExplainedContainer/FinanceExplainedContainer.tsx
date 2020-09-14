@@ -32,7 +32,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
   return (
     <>
       <div className="row:title">
-        <Heading size="xlarge" color="black">
+        <Heading size="xlarge" color="black" tag="h1">
           {title}
         </Heading>
       </div>

@@ -29,7 +29,7 @@ const AddressForm: FCWithFragments<IAddressFormProps> = ({
       <Form onSubmit={formikProps.handleSubmit}>
         <Heading
           dataTestId="address-history-heading"
-          tag="span"
+          tag="h1"
           size="xlarge"
           color="black"
         >
