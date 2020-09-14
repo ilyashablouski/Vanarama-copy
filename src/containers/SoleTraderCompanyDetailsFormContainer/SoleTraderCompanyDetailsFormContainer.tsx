@@ -4,18 +4,15 @@ import CompanyDetailsForm from '../../components/SoleTraderCompanyDetailsForm';
 import { ISoleTraderCompanyDetailsFormValues } from '../../components/SoleTraderCompanyDetailsForm/interfaces';
 import { ISoleTraderCompanyDetailsFormContainerProps } from './interfaces';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
-// import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
+import {
+  useCreateUpdateCreditApplication,
+  useGetCreditApplicationByOrderUuid,
+} from '../../gql/creditApplication';
 import { useUpdateSoleTraderCompanyMutation } from './gql';
 import { useCreateUpdateOrder } from '../../gql/order';
 import { mapFormValues } from './mappers';
-
-/* const GET_PARTY_ID = gql`
-  query companyByUuid($id: ID!) {
-    companyByUuid(uuid: $id) {
-      partyUuid
-    }
-  }
-`; */
+import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
+import { UpdateSoleTraderCompanyMutation_createUpdateSoleTraderCompany as Company } from '../../../generated/UpdateSoleTraderCompanyMutation';
 
 const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsFormContainerProps> = ({
   orderId,
@@ -26,6 +23,17 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
 }) => {
   const [updateSoleTraderCompanyDetails] = useUpdateSoleTraderCompanyMutation();
   const [createUpdateOrder] = useCreateUpdateOrder(() => {});
+  const [createUpdateApplication] = useCreateUpdateCreditApplication(
+    orderId,
+    () => {},
+  );
+  const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
+    orderId,
+  );
+
+  const defaultCompanyDetails =
+    getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
+      ?.companyDetails;
 
   const handleSoleTraderCompanyDetailsSave = (
     values: ISoleTraderCompanyDetailsFormValues,
@@ -52,16 +60,42 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
       },
     });
 
+  const handleCreditApplicationUpdate = (
+    values: ISoleTraderCompanyDetailsFormValues,
+    companyData: Company | null,
+  ) => {
+    createUpdateApplication({
+      variables: {
+        input: formValuesToInputCreditApplication({
+          ...getCreditApplicationByOrderUuidQuery.data
+            ?.creditApplicationByOrderUuid,
+          companyDetails: { uuid: companyData?.uuid, ...mapFormValues(values) },
+          orderUuid: orderId,
+        }),
+      },
+    });
+  };
+
   return (
     <CompanyDetailsForm
+      companyDetails={defaultCompanyDetails}
       onSubmit={async values => {
+        console.log(values);
         handleSoleTraderCompanyDetailsSave(values)
-          .then(response => {
+          .then(response =>
             handleOrderUpdate(
               response.data!.createUpdateSoleTraderCompany!.partyUuid,
-            );
-          })
-          .then(onCompleted)
+            )
+              .then(() =>
+                handleCreditApplicationUpdate(
+                  values,
+                  response.data!.createUpdateSoleTraderCompany,
+                ),
+              )
+              .then(() =>
+                onCompleted(response.data!.createUpdateSoleTraderCompany!.uuid),
+              ),
+          )
           .catch(onError);
       }}
     />

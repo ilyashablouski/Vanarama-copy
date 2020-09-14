@@ -12,6 +12,7 @@ import {
 
 const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerProps> = ({
   personUuid,
+  companyUuid,
   isEdited,
   onCompleted,
   onError,
@@ -48,7 +49,7 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
   const handleSoleTraderDetailsSave = (values: ISoleTraderDetailsFormValues) =>
     updateSoleTraderDetails({
       variables: {
-        input: { uuid: personUuid, associate: formValuesToInput(values) },
+        input: { uuid: companyUuid, associate: formValuesToInput(values) },
       },
     });
 

@@ -31,16 +31,12 @@ export const VatDetailsPage: NextPage = () => {
     const params = getUrlParam({ orderId });
     const detailsUrl = !isSoleTraderJourney
       ? `/b2b/olaf/director-details/[companyUuid]${params}`
-      : `/b2b/olaf/sole-trader/sole-trader-details/[personalUuid]${params}`;
+      : `/b2b/olaf/sole-trader/sole-trader-details/[companyUuid]${params}`;
     const url =
       router.query.redirect === 'summary'
         ? `/b2b/olaf/summary/[companyUuid]${params}`
         : detailsUrl;
-    if (!isSoleTraderJourney) {
-      router.push(url, url.replace('[companyUuid]', companyUuid));
-    } else {
-      router.push(url, url.replace('[personalUuid]', companyUuid));
-    }
+    router.push(url, url.replace('[companyUuid]', companyUuid));
   };
 
   return (
