@@ -188,8 +188,7 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
       </p>
     </div>
     <div
-      class="row:cards-3col"
-      style="padding-top: 10px;"
+      class="row:cards-3col -pt-300"
     >
       <div
         class="card"
