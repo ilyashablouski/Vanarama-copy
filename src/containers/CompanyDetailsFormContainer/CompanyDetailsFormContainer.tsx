@@ -24,6 +24,7 @@ import {
   mapCompanyDetailsToCreditApplication,
 } from './mappers';
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
+import { useCompanyProfile } from './gql';
 
 export const SAVE_COMPANY_DETAILS = gql`
   mutation SaveCompanyDetailsMutation($input: LimitedCompanyInputObject!) {
