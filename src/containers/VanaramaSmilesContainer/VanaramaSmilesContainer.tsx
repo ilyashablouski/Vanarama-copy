@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/GenericPageQuery';
 import getFeaturedHtml from './getFeaturedHtml';
@@ -30,7 +31,7 @@ const VanaramaSmilesContainer: FC<IProps> = ({ title, body, sections }) => {
             <Heading
               color="black"
               size="large"
-              tag={tiles.titleTag as keyof JSX.IntrinsicElements}
+              tag={(tiles.titleTag || 'h1') as keyof JSX.IntrinsicElements}
             >
               {tiles.tilesTitle}
             </Heading>
@@ -62,12 +63,22 @@ const VanaramaSmilesContainer: FC<IProps> = ({ title, body, sections }) => {
           {title}
         </Heading>
         <ReactMarkdown
+          escapeHtml={false}
           source={body || ''}
           renderers={{
             link: props => {
               const { href, children } = props;
-              return <RouterLink link={{ href, label: children }} />;
+              return (
+                <RouterLink
+                  link={{ href, label: children }}
+                  classNames={{ color: 'teal' }}
+                />
+              );
             },
+            heading: props => (
+              <Text {...props} size="lead" color="darker" className="-mt-100" />
+            ),
+            paragraph: props => <Text {...props} tag="p" color="darker" />,
           }}
         />
       </div>

@@ -98,7 +98,7 @@ exports[`<Header /> renders correctly 1`] = `
     >
        
       <i
-        className="icon -darker"
+        className="icon"
       >
         <svg
           height="1em"
@@ -139,8 +139,9 @@ exports[`<Header /> renders correctly 1`] = `
        
       <input
         className="header-search--input"
+        disabled={true}
         id="search"
-        placeholder="Search for Vehicles…"
+        placeholder=""
         type="text"
       />
        
@@ -222,7 +223,7 @@ exports[`<Header /> renders correctly 1`] = `
             className="link"
             data-menu={null}
             data-testid="menu-title"
-            href=""
+            href="/"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
@@ -236,7 +237,7 @@ exports[`<Header /> renders correctly 1`] = `
             className="link"
             data-menu={null}
             data-testid="router-link"
-            href="/van-leasing/"
+            href="/van-leasing"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
@@ -293,7 +294,7 @@ exports[`<Header /> renders correctly 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="menu-title"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -392,7 +393,7 @@ exports[`<Header /> renders correctly 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="router-link"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -642,7 +643,7 @@ exports[`<Header /> renders correctly 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="menu-title"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -719,7 +720,7 @@ exports[`<Header /> renders correctly 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="router-link"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -969,7 +970,7 @@ exports[`<Header /> renders correctly 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="menu-title"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -1063,7 +1064,7 @@ exports[`<Header /> renders correctly 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="router-link"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -1175,7 +1176,7 @@ exports[`<Header /> renders correctly 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="router-link"
-                    href="/car-leasing/Land Rover"
+                    href="/car-leasing/Land%20Rover"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -1416,7 +1417,7 @@ exports[`<Header /> renders correctly 1`] = `
             className="link"
             data-menu={null}
             data-testid="router-link"
-            href="/van-insurance/"
+            href="/van-insurance"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
@@ -1441,7 +1442,7 @@ exports[`<Header /> renders correctly 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="menu-title"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -1534,7 +1535,7 @@ exports[`<Header /> renders correctly 1`] = `
             className="link"
             data-menu={null}
             data-testid="router-link"
-            href="/fleet/"
+            href="/fleet"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
@@ -1550,7 +1551,7 @@ exports[`<Header /> renders correctly 1`] = `
             className="link"
             data-menu={null}
             data-testid="router-link"
-            href="/van-insurance/"
+            href="/van-insurance"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
@@ -1752,7 +1753,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
     >
        
       <i
-        className="icon -darker"
+        className="icon"
       >
         <svg
           height="1em"
@@ -1793,8 +1794,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
        
       <input
         className="header-search--input"
+        disabled={true}
         id="search"
-        placeholder="Search for Vehicles…"
+        placeholder=""
         type="text"
       />
        
@@ -1876,7 +1878,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
             className="link"
             data-menu={null}
             data-testid="menu-title"
-            href=""
+            href="/"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
@@ -1890,7 +1892,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
             className="link"
             data-menu={null}
             data-testid="router-link"
-            href="/van-leasing/"
+            href="/van-leasing"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
@@ -1947,7 +1949,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="menu-title"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -2046,7 +2048,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="router-link"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -2296,7 +2298,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="menu-title"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -2373,7 +2375,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="router-link"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -2623,7 +2625,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="menu-title"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -2717,7 +2719,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="router-link"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -2829,7 +2831,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="router-link"
-                    href="/car-leasing/Land Rover"
+                    href="/car-leasing/Land%20Rover"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -3070,7 +3072,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
             className="link"
             data-menu={null}
             data-testid="router-link"
-            href="/van-insurance/"
+            href="/van-insurance"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
@@ -3095,7 +3097,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     className="link"
                     data-menu={null}
                     data-testid="menu-title"
-                    href=""
+                    href="/"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -3188,7 +3190,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
             className="link"
             data-menu={null}
             data-testid="router-link"
-            href="/fleet/"
+            href="/fleet"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
@@ -3204,7 +3206,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
             className="link"
             data-menu={null}
             data-testid="router-link"
-            href="/van-insurance/"
+            href="/van-insurance"
             onClick={[Function]}
             onMouseEnter={[Function]}
           >
