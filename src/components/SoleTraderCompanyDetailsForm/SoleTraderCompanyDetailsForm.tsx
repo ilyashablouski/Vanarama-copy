@@ -45,6 +45,7 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
   const existingVehicle = watch('existingVehicle');
   const tradingSinceYear = watch('tradingSinceYear');
   const tradingSinceMonth = watch('tradingSinceMonth');
+  console.log(companyDetails);
 
   return (
     <Form onSubmit={methods.handleSubmit(onSubmit)}>

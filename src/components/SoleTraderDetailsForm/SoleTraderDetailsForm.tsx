@@ -87,6 +87,8 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
             <OptionsWithFavourites options={dropdownData.nationalities} />
           </FormikSelectField>
 
+          <FormikTextField name="email" label="Email" dataTestId="email-addr" />
+
           <FormikSelectField
             name="adultsInHousehold"
             label="Adults Living in Household"

@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
-import SoleTraderDetailsFormContainer from '../../../../../containers/SoleTraderDetailsFormContainer';
 import withApollo from '../../../../../hocs/withApollo';
 import OLAFLayout from '../../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams, getUrlParam } from '../../../../../utils/url';
@@ -12,7 +12,7 @@ type QueryParams = OLAFQueryParams & {
   companyUuid: string;
 };
 
-export const SoleTraderDetailsPage: NextPage = () => {
+export const SoleTraderBankDetailsPage: NextPage = () => {
   const router = useRouter();
   const { orderId, personUuid, companyUuid } = router.query as QueryParams;
 
@@ -28,20 +28,9 @@ export const SoleTraderDetailsPage: NextPage = () => {
       'Your details could not be saved. Please try submitting the form again.',
     );
 
-  return (
-    <OLAFLayout>
-      <SoleTraderDetailsFormContainer
-        orderUuid={orderId}
-        personUuid={personUuid}
-        companyUuid={companyUuid}
-        onCompleted={handleSubmitCompletion}
-        onError={handleSubmitError}
-        isEdited={router.query.redirect === 'summary'}
-      />
-    </OLAFLayout>
-  );
+  return <OLAFLayout>...</OLAFLayout>;
 };
 
-export default withApollo(SoleTraderDetailsPage, {
+export default withApollo(SoleTraderBankDetailsPage, {
   getDataFromTree,
 });

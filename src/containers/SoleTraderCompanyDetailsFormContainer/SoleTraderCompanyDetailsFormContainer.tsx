@@ -31,6 +31,8 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
     orderId,
   );
 
+  console.log(personUuid);
+
   const defaultCompanyDetails =
     getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
       ?.companyDetails;

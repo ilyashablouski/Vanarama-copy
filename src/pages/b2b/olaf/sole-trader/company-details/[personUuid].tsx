@@ -12,7 +12,7 @@ type QueryParams = OLAFQueryParams & {
   companyUuid: string;
 };
 
-export const CompanyDetailsPage: NextPage = () => {
+export const SoleTraderCompanyDetailsPage: NextPage = () => {
   const router = useRouter();
   const { personUuid, orderId, companyUuid } = router.query as QueryParams;
   const isEdited = router.query.redirect === 'summary';
@@ -25,7 +25,7 @@ export const CompanyDetailsPage: NextPage = () => {
     );
 
   const handleSubmitCompletion = (uuid: string) => {
-    const params = getUrlParam({ orderId });
+    const params = getUrlParam({ orderId, personUuid });
     const url = `/b2b/olaf/sole-trader/vat-details/[companyUuid]${params}`;
     router.push(url, url.replace('[companyUuid]', uuid));
   };
@@ -44,6 +44,6 @@ export const CompanyDetailsPage: NextPage = () => {
   );
 };
 
-export default withApollo(CompanyDetailsPage, {
+export default withApollo(SoleTraderCompanyDetailsPage, {
   getDataFromTree,
 });

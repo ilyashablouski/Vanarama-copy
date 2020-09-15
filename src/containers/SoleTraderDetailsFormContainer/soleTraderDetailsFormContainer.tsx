@@ -59,7 +59,7 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
       dropdownData={soleTraderDetailsFormData.data!.allDropDowns}
       isEdited={isEdited}
       onSubmit={async values => {
-        // console.log(values);
+        console.log(formValuesToInput(values));
         handleSoleTraderDetailsSave(values)
           .then(onCompleted)
           .catch(onError);
