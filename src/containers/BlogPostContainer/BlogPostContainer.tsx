@@ -69,7 +69,12 @@ const BlogPostContainer: NextPage<IProps> = ({
             renderers={{
               link: props => {
                 const { href, children } = props;
-                return <RouterLink link={{ href, label: children }} />;
+                return (
+                  <RouterLink
+                    link={{ href, label: children }}
+                    classNames={{ color: 'teal' }}
+                  />
+                );
               },
               image: props => renderImage(props),
             }}

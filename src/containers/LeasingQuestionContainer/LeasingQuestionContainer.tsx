@@ -26,6 +26,7 @@ const accordionItems = (questions: (IQuestion | null)[] | undefined | null) => {
         title: item?.question || '',
         children: (
           <ReactMarkdown
+            escapeHtml={false}
             source={item?.answer || ''}
             renderers={{
               link: props => {
@@ -64,7 +65,21 @@ const LeasingQuestionContainer: FC<IProps> = ({
         <Heading tag="h1" size="xlarge" color="black">
           {title}
         </Heading>
-        <ReactMarkdown source={body || ''} />
+        <ReactMarkdown
+          escapeHtml={false}
+          source={body || ''}
+          renderers={{
+            link: props => {
+              const { href, children } = props;
+              return (
+                <RouterLink
+                  link={{ href, label: children }}
+                  classNames={{ color: 'teal' }}
+                />
+              );
+            },
+          }}
+        />
         {/* <Button // NOTE: Functionality does not exist yet, so - commented out.
           type="button"
           label="Ask A Question"

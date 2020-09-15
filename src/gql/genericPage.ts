@@ -26,25 +26,6 @@ export const GENERIC_PAGE = gql`
         schema
       }
       sections {
-        hero {
-          title
-          body
-          image {
-            file {
-              url
-            }
-          }
-          heroCard {
-            title
-            body
-          }
-        }
-        tiles {
-          position
-          name
-          tilesTitle
-          titleTag
-        }
         leadText {
           titleTag
           heading
@@ -118,12 +99,6 @@ export const GENERIC_PAGE = gql`
             title
             body
           }
-        }
-        leadText {
-          position
-          heading
-          titleTag
-          description
         }
         rowText {
           position

@@ -30,13 +30,11 @@ exports[`<VanaramaSmilesContainer /> should match snapshot 1`] = `
         >
           Welcome To Vanarama Smiles
         </h2>
-        <span
+        <p
           class="text -regular -darker"
         >
-          <p>
-            As a thank you, we're giving Vanarama customers exclusive access to our rewards scheme. When you lease with us you'll earn Smiles to enjoy some of the very best offers, discounts and free gifts.
-          </p>
-        </span>
+          As a thank you, we're giving Vanarama customers exclusive access to our rewards scheme. When you lease with us you'll earn Smiles to enjoy some of the very best offers, discounts and free gifts.
+        </p>
       </div>
     </section>
     <section
@@ -172,13 +170,11 @@ exports[`<VanaramaSmilesContainer /> should match snapshot 1`] = `
         >
           Vanarama Smiles 2
         </h2>
-        <span
+        <p
           class="text -regular -darker"
         >
-          <p>
-            Due to the Covid-19 outbreak, earning and spending Smiles points on certain rewards is now temporarily on hold. We are sorry for any inconvenience this may cause. We are working hard behind the scenes to source some of the best in-home offers for you during this difficult time. To view these offers, simply visit the My Offers page on vanaramasmiles.co.uk
-          </p>
-        </span>
+          Due to the Covid-19 outbreak, earning and spending Smiles points on certain rewards is now temporarily on hold. We are sorry for any inconvenience this may cause. We are working hard behind the scenes to source some of the best in-home offers for you during this difficult time. To view these offers, simply visit the My Offers page on vanaramasmiles.co.uk
+        </p>
       </div>
     </section>
   </div>

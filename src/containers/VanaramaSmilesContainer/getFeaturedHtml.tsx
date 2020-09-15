@@ -38,17 +38,30 @@ export default function getFeaturedHtml(
             >
               {featured.title}
             </Heading>
-            <Text color="darker" size="regular">
-              <ReactMarkdown
-                source={featured.body || ''}
-                renderers={{
-                  link: props => {
-                    const { href, children } = props;
-                    return <RouterLink link={{ href, label: children }} />;
-                  },
-                }}
-              />
-            </Text>
+            <ReactMarkdown
+              escapeHtml={false}
+              source={featured.body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return (
+                    <RouterLink
+                      link={{ href, label: children }}
+                      classNames={{ color: 'teal' }}
+                    />
+                  );
+                },
+                heading: props => (
+                  <Text
+                    {...props}
+                    size="lead"
+                    color="darker"
+                    className="-mt-100"
+                  />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
+              }}
+            />
           </div>
         </section>
       )}

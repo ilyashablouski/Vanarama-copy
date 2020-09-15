@@ -13,6 +13,7 @@ import {
   GenericPageQuery_genericPage_sections_carousel_cards as ICaruselCard,
 } from '../../../generated/GenericPageQuery';
 import getTitleTag from '../../utils/getTitleTag';
+import RouterLink from '../../components/RouterLink/RouterLink';
 
 interface IProps {
   sections: Section | null;
@@ -90,7 +91,21 @@ const LeasingExplainedContainer: FC<IProps> = ({
         <Heading size="xlarge" color="black" tag="h1">
           {title}
         </Heading>
-        <ReactMarkdown source={body || ''} />
+        <ReactMarkdown
+          escapeHtml={false}
+          source={body || ''}
+          renderers={{
+            link: props => {
+              const { href, children } = props;
+              return (
+                <RouterLink
+                  link={{ href, label: children }}
+                  classNames={{ color: 'teal' }}
+                />
+              );
+            },
+          }}
+        />
       </div>
       <div className="row:bg-lighter">
         <div className="row:carousel">

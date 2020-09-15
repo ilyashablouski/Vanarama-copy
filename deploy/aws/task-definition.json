@@ -23,7 +23,7 @@
         },
         {
           "name": "API_URL",
-          "valueFrom": "%SSM_PARAMETER_BASE%/fed-gateway-api-url"
+          "valueFrom": "%SSM_PARAMETER_BASE%/gateway-api-url"
         },
         {
           "name": "LOQATE_KEY",
