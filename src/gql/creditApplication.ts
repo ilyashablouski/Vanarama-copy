@@ -27,6 +27,10 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
         status
         productId
         productType
+        order {
+          partyUuid
+          uuid
+        }
         vehicleProduct {
           derivativeCapId
           description
@@ -37,6 +41,8 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
           depositMonths
           funderId
           funderData
+          depositPayment
+          vehicleType
         }
       }
       leadManagerProposalId
@@ -78,6 +84,10 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
         status
         productId
         productType
+        order {
+          partyUuid
+          uuid
+        }
         vehicleProduct {
           derivativeCapId
           description
@@ -88,6 +98,8 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
           depositMonths
           funderId
           funderData
+          depositPayment
+          vehicleType
         }
       }
       leadManagerProposalId
@@ -202,6 +214,10 @@ const responseMock = {
     status: 'status',
     productId: 'productId',
     productType: 'productType',
+    order: {
+      partyUuid: 'partyUuid',
+      uuid: 'uuid',
+    },
     vehicleProduct: {
       derivativeCapId: 'derivativeCapId',
       description: 'description',
@@ -212,6 +228,8 @@ const responseMock = {
       depositMonths: 'depositMonths',
       funderId: 'funderId',
       funderData: 'funderData',
+      depositPayment: 'depositPayment',
+      vehicleType: 'vehicleType',
     },
   },
   leadManagerProposalId: 'leadManagerProposalId',
