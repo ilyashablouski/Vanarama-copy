@@ -31,8 +31,6 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
     orderId,
   );
 
-  console.log(personUuid);
-
   const defaultCompanyDetails =
     getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
       ?.companyDetails;
@@ -82,7 +80,6 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
     <CompanyDetailsForm
       companyDetails={defaultCompanyDetails}
       onSubmit={async values => {
-        console.log(values);
         handleSoleTraderCompanyDetailsSave(values)
           .then(response =>
             handleOrderUpdate(

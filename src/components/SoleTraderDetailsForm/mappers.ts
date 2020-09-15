@@ -18,7 +18,7 @@ export const formValuesToInput = (
     firstName: values.firstName,
     lastName: values.lastName,
     gender: values.gender,
-    emailAddress: { kind: 'Home', value: values.email, primary: true },
+    // emailAddress: { kind: 'Home', value: values.email, primary: true },
     dateOfBirth,
     countryOfBirth: values.placeOfBirth,
     nationality: values.nationality,
