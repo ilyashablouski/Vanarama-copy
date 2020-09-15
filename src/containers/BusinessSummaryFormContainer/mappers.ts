@@ -3,8 +3,9 @@ import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
 export const mapCreditApplicationToCreditChecker = (
   data?: CreditApplication | null,
+  partyId?: string | null,
 ) => ({
-  partyId: data?.lineItem?.order?.partyUuid || '',
+  partyId: partyId || '',
   orderUuid: data?.lineItem?.order?.uuid,
   vehicleType:
     data?.lineItem?.vehicleProduct?.vehicleType || VehicleTypeEnum.CAR,

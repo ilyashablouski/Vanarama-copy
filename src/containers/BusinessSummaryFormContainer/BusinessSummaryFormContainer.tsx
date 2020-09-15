@@ -14,6 +14,8 @@ import {
   useCreateUpdateCreditApplication,
 } from '../../gql/creditApplication';
 import { mapCreditApplicationToCreditChecker } from './mappers';
+import { useGetPartyByUuidQuery } from '../../components/SummaryForm/gql';
+import { GetPartyByUuid_partyByUuid as Party } from '../../../generated/GetPartyByUuid';
 
 interface IProps {
   personUuid: string;
@@ -43,6 +45,10 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
     submitFullCreditChecker,
     creditCheckerMutationOptions,
   ] = useUseFullCreditCheckerB2BMutation();
+  const partyUuid =
+    getCreditApplication.data?.creditApplicationByOrderUuid?.lineItem?.order
+      ?.partyUuid || '';
+  const getPartyByUuidQuery = useGetPartyByUuidQuery(partyUuid || '');
 
   const isSubmitting =
     creditApplicationMutationOptions.loading ||
@@ -67,7 +73,8 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
   if (
     loading ||
     (!data?.companyByUuid && !data?.personByUuid) ||
-    getCreditApplication.loading
+    getCreditApplication.loading ||
+    getPartyByUuidQuery.loading
   ) {
     return <Loading size="large" />;
   }
@@ -82,18 +89,21 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
       },
     });
 
-  const hanldeCreditCheckerSubmit = () =>
+  const hanldeCreditCheckerSubmit = (party?: Party | null) =>
     submitFullCreditChecker({
       variables: {
         input: mapCreditApplicationToCreditChecker(
           getCreditApplication.data?.creditApplicationByOrderUuid,
+          party?.company?.partyId || '',
         ),
       },
     });
 
   const handleSubmit = () => {
     hanldeCredutApplicationSubmit()
-      .then(() => hanldeCreditCheckerSubmit())
+      .then(() =>
+        hanldeCreditCheckerSubmit(getPartyByUuidQuery.data?.partyByUuid),
+      )
       .then(() => onCompleted?.())
       .catch(onError);
   };
