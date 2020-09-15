@@ -57,14 +57,20 @@ const MediaFeatureSection: React.FC<IMediaFeatureProps> = ({
               {title}
             </Heading>
             <ReactMarkdown
+              escapeHtml={false}
               source={body || ''}
               renderers={{
                 heading: props => <Heading {...props} tag="h3" />,
                 paragraph: props => <Text {...props} tag="p" color="darker" />,
                 link: props => {
                   const { href } = props;
-                  // eslint-disable-next-line react/destructuring-assignment
-                  return <RouterLink link={{ href, label: props.children }} />;
+                  return (
+                    <RouterLink
+                      // eslint-disable-next-line react/destructuring-assignment
+                      link={{ href, label: props.children }}
+                      classNames={{ color: 'teal' }}
+                    />
+                  );
                 },
               }}
             />

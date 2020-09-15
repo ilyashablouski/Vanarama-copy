@@ -32,6 +32,7 @@ const WorkingHoursTable = ({ body, title }: HeroCard) => (
         {title}
       </Heading>
       <ReactMarkdown
+        escapeHtml={false}
         source={body || ''}
         renderers={{
           paragraph: props => {

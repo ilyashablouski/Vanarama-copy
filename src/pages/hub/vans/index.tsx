@@ -448,7 +448,7 @@ export const VansPage: NextPage = () => {
           >
             {getSectionsData(['featured1', 'title'], data?.hubVanPage.sections)}
           </Heading>
-          <Text className="markdown" tag="div" size="regular" color="darker">
+          <div className="markdown">
             <ReactMarkdown
               escapeHtml={false}
               source={
@@ -462,9 +462,18 @@ export const VansPage: NextPage = () => {
                   const { href, children } = props;
                   return <RouterLink link={{ href, label: children }} />;
                 },
+                heading: props => (
+                  <Text
+                    {...props}
+                    size="lead"
+                    color="darker"
+                    className="-mt-100"
+                  />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}
             />
-          </Text>
+          </div>
           <IconList>
             <IconListItem iconColor="orange">
               &nbsp;&nbsp;Choose your contract length &amp; agreed mileage
@@ -509,7 +518,7 @@ export const VansPage: NextPage = () => {
           >
             {getSectionsData(['featured2', 'title'], data?.hubVanPage.sections)}
           </Heading>
-          <Text className="markdown" tag="div" size="regular" color="darker">
+          <div className="markdown">
             <ReactMarkdown
               escapeHtml={false}
               source={
@@ -523,9 +532,18 @@ export const VansPage: NextPage = () => {
                   const { href, children } = props;
                   return <RouterLink link={{ href, label: children }} />;
                 },
+                heading: props => (
+                  <Text
+                    {...props}
+                    size="lead"
+                    color="darker"
+                    className="-mt-100"
+                  />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}
             />
-          </Text>
+          </div>
         </div>
       </section>
 
