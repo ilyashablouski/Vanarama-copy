@@ -450,17 +450,17 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
         About Vanarama
       </p>
       <div>
-        <span
+        <p
           class="text -regular -darker"
         >
-          <p>
-            Vanarama is an award-winning vehicle leasing company and the leading destination to get you driving the vehicle you want for less. 
+          Vanarama is an award-winning vehicle leasing company and the leading destination to get you driving the vehicle you want for less. 
 We started out in 2004 leasing vans (hence the name) but since then we’ve grown & grown and now, whether you're looking for your dream car, a new van or even a pickup truck... we've got you covered.
-          </p>
-          <p>
-            At Vanarama, we understand that your vehicle is a statement about you and so we wanted to make it as easy to upgrade as you would your mobile phone! We’ll get you moving in the most cost-effective, simple way possible & we'll be there every step of the way - from choosing your new car to delivery straight to your door.
-          </p>
-        </span>
+        </p>
+        <p
+          class="text -regular -darker"
+        >
+          At Vanarama, we understand that your vehicle is a statement about you and so we wanted to make it as easy to upgrade as you would your mobile phone! We’ll get you moving in the most cost-effective, simple way possible & we'll be there every step of the way - from choosing your new car to delivery straight to your door.
+        </p>
       </div>
     </section>
   </div>

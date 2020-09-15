@@ -72,12 +72,27 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
           </Heading>
           <div className="content">
             <ReactMarkdown
+              escapeHtml={false}
               source={sections.featured1.body || ''}
               renderers={{
                 link: props => {
                   const { href, children } = props;
-                  return <RouterLink link={{ href, label: children }} />;
+                  return (
+                    <RouterLink
+                      link={{ href, label: children }}
+                      classNames={{ color: 'teal' }}
+                    />
+                  );
                 },
+                heading: props => (
+                  <Text
+                    {...props}
+                    size="lead"
+                    color="inherit"
+                    className="-mt-100"
+                  />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="inherit" />,
               }}
             />
           </div>
@@ -142,12 +157,27 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
           </Heading>
           <div className="content">
             <ReactMarkdown
+              escapeHtml={false}
               source={sections.featured2.body || ''}
               renderers={{
                 link: props => {
                   const { href, children } = props;
-                  return <RouterLink link={{ href, label: children }} />;
+                  return (
+                    <RouterLink
+                      link={{ href, label: children }}
+                      classNames={{ color: 'teal' }}
+                    />
+                  );
                 },
+                heading: props => (
+                  <Text
+                    {...props}
+                    size="lead"
+                    color="inherit"
+                    className="-mt-100"
+                  />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="inherit" />,
               }}
             />
           </div>

@@ -17,6 +17,7 @@ const MediaFeatureText = ({ title, titleTag, body }: IMediaFeature) => {
         {title}
       </Heading>
       <ReactMarkdown
+        escapeHtml={false}
         source={body || ''}
         renderers={{
           heading: props => <Heading {...props} tag="h3" />,

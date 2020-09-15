@@ -236,7 +236,9 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
       <p
         class="text -regular -darker"
       >
-        We remove all the hassle and extra costs you'd usually expect when insuring your leased van or pickup truck. Compare insurance prices and purchase policies online, insure your tools, freeze your premium for up to 5 years... all in one place!
+        <p>
+          We remove all the hassle and extra costs you'd usually expect when insuring your leased van or pickup truck. Compare insurance prices and purchase policies online, insure your tools, freeze your premium for up to 5 years... all in one place!
+        </p>
       </p>
     </div>
     <div
