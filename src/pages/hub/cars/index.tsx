@@ -287,7 +287,7 @@ export const CarsPage: NextPage = () => {
           >
             {data?.hubCarPage.sections?.featured1?.title}
           </Heading>
-          <Text className="markdown" tag="div" size="regular" color="darker">
+          <div className="markdown">
             <ReactMarkdown
               escapeHtml={false}
               source={data?.hubCarPage.sections?.featured1?.body || ''}
@@ -296,9 +296,18 @@ export const CarsPage: NextPage = () => {
                   const { href, children } = props;
                   return <RouterLink link={{ href, label: children }} />;
                 },
+                heading: props => (
+                  <Text
+                    {...props}
+                    size="lead"
+                    color="darker"
+                    className="-mt-100"
+                  />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}
             />
-          </Text>
+          </div>
           <IconList>
             <IconListItem iconColor="orange">
               &nbsp;&nbsp;Choose your contract length &amp; agreed mileage
@@ -342,7 +351,7 @@ export const CarsPage: NextPage = () => {
           >
             {data?.hubCarPage.sections?.featured2?.title}
           </Heading>
-          <Text className="markdown" tag="div" size="regular" color="darker">
+          <div className="markdown">
             <ReactMarkdown
               escapeHtml={false}
               source={data?.hubCarPage.sections?.featured2?.body || ''}
@@ -351,9 +360,18 @@ export const CarsPage: NextPage = () => {
                   const { href, children } = props;
                   return <RouterLink link={{ href, label: children }} />;
                 },
+                heading: props => (
+                  <Text
+                    {...props}
+                    size="lead"
+                    color="darker"
+                    className="-mt-100"
+                  />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}
             />
-          </Text>
+          </div>
         </div>
       </section>
 

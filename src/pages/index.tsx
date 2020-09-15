@@ -318,7 +318,7 @@ export const HomePage: NextPage = () => {
           >
             {getSectionsData(['featured1', 'title'], data?.homePage?.sections)}
           </Heading>
-          <Text tag="div" className="markdown" size="regular" color="darker">
+          <div className="markdown">
             <ReactMarkdown
               escapeHtml={false}
               source={
@@ -334,7 +334,7 @@ export const HomePage: NextPage = () => {
                 },
               }}
             />
-          </Text>
+          </div>
           <IconList>
             {(getSectionsData(
               ['featured1', 'iconList'],
@@ -366,7 +366,7 @@ export const HomePage: NextPage = () => {
           >
             {getSectionsData(['featured2', 'title'], data?.homePage?.sections)}
           </Heading>
-          <Text className="markdown" tag="div" size="regular" color="darker">
+          <div className="markdown">
             <ReactMarkdown
               escapeHtml={false}
               source={
@@ -382,7 +382,7 @@ export const HomePage: NextPage = () => {
                 },
               }}
             />
-          </Text>
+          </div>
         </div>
       </section>
 
