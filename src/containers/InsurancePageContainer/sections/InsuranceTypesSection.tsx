@@ -43,13 +43,17 @@ const InsuranceTypesSection = ({ name, description, cards }: ITypesSection) => (
       </Heading>
       <Text size="regular" color="darker" tag="p">
         <ReactMarkdown
+          escapeHtml={false}
           source={description || ''}
-          disallowedTypes={['paragraph']}
-          unwrapDisallowed
           renderers={{
             link: props => {
               const { href, children } = props;
-              return <RouterLink link={{ href, label: children }} />;
+              return (
+                <RouterLink
+                  link={{ href, label: children }}
+                  classNames={{ color: 'teal' }}
+                />
+              );
             },
           }}
         />
