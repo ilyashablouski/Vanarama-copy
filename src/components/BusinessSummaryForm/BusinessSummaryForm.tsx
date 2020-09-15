@@ -42,12 +42,9 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
     [creditApplication],
   );
 
-  const selectLabel = useMemo(() => {
-    if (isSubmitting) {
-      return 'Continue';
-    }
-    return 'Saving...';
-  }, [isSubmitting]);
+  const selectLabel = useMemo(() => (isSubmitting ? 'Saving...' : 'Continue'), [
+    isSubmitting,
+  ]);
 
   const handleEdit = useCallback(
     (url: string, additionalParameters?: { [key: string]: string }) => () => {
