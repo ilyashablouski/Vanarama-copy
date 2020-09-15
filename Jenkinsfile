@@ -5,7 +5,7 @@ taskDefFile = "deploy/aws/task-definition.json"
 currentCommit = ""
 
 def app_environment = [
-    "develop": [
+    "feature/DIG-XXX-change-node-version": [
         clusterName: 'grid-dev',
         logGroupName: "dev/grid/apps",
         taskFamily: "grid-dev-${serviceName}",
@@ -210,7 +210,7 @@ pipeline {
             when {
                 beforeAgent true
                 anyOf {
-                  branch 'develop'
+                  branch 'feature/DIG-XXX-change-node-version'
                   branch 'master'
                   branch 'uat'
                 }
