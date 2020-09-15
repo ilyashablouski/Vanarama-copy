@@ -10,6 +10,7 @@ const InsuranceHeroSection = ({ title, body, heroCard, image }: IHero) => (
   <Hero workingHoursCard={(heroCard && heroCard[0]) || undefined}>
     <HeroHeading text={title || ''} />
     <ReactMarkdown
+      escapeHtml={false}
       source={body || ''}
       renderers={{
         heading: props => (
@@ -26,7 +27,12 @@ const InsuranceHeroSection = ({ title, body, heroCard, image }: IHero) => (
         ),
         link: props => {
           const { href, children } = props;
-          return <RouterLink link={{ href, label: children }} />;
+          return (
+            <RouterLink
+              link={{ href, label: children }}
+              classNames={{ color: 'teal' }}
+            />
+          );
         },
       }}
     />
