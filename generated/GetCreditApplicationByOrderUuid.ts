@@ -3,9 +3,16 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { VehicleTypeEnum } from "./globalTypes";
+
 // ====================================================
 // GraphQL query operation: GetCreditApplicationByOrderUuid
 // ====================================================
+
+export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_lineItem_order {
+  partyUuid: string | null;
+  uuid: string;
+}
 
 export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_lineItem_vehicleProduct {
   derivativeCapId: string;
@@ -17,6 +24,8 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_li
   depositMonths: number | null;
   funderId: string | null;
   funderData: any | null;
+  depositPayment: number | null;
+  vehicleType: VehicleTypeEnum;
 }
 
 export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_lineItem {
@@ -25,6 +34,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_li
   status: string | null;
   productId: string;
   productType: string;
+  order: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_lineItem_order | null;
   vehicleProduct: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_lineItem_vehicleProduct | null;
 }
 
