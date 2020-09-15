@@ -74,7 +74,8 @@ async function getDerivatives(vehicleGroupList, vehicleGroupType) {
       vehicleType: vehicleGroupType.toUpperCase(),
     },
   });
-  return result.data.derivatives;
+  if (result && result.data) return result.data.derivatives;
+  return [];
 }
 
 function buildListOfRewrites(derivatives, rawList) {
