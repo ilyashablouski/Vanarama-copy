@@ -210,7 +210,7 @@ pipeline {
             when {
                 beforeAgent true
                 anyOf {
-                  branch 'feature-DIG-XXX-change-node-version'
+                  branch 'develop'
                   branch 'master'
                   branch 'uat'
                 }
