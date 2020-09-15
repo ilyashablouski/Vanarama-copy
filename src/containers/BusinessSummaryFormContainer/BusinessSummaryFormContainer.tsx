@@ -19,7 +19,7 @@ interface IProps {
   personUuid: string;
   companyUuid: string;
   orderId: string;
-  onCompleted: () => void;
+  onCompleted?: () => void;
   onError?: (error: ApolloError) => void;
 }
 
@@ -94,7 +94,7 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
   const handleSubmit = () => {
     hanldeCredutApplicationSubmit()
       .then(() => hanldeCreditCheckerSubmit())
-      .then(onCompleted)
+      .then(() => onCompleted?.())
       .catch(onError);
   };
 
