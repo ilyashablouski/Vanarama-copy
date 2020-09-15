@@ -1,11 +1,10 @@
 import { NextPage } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
-import Head from '../../components/Head/Head';
-import withApollo from '../../hocs/withApollo';
-import { useBlogPostPage } from '../../gql/blogPost';
-import NonBlogPostContainer from '../../containers/NonBlogPostContainer/NonBlogPostContainer';
-import { useGenericPage } from 'gql/genericPage';
+import { useGenericPage } from '../../../gql/genericPage';
+import Head from '../../../components/Head/Head';
+import withApollo from '../../../hocs/withApollo';
+import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostContainer';
 
 const NonBlogPost: NextPage = () => {
   const router = useRouter();
@@ -20,6 +19,11 @@ const NonBlogPost: NextPage = () => {
     return <p>Error: {error.message}</p>;
   }
 
+  const body = data?.genericPage?.body;
+  const name = data?.genericPage?.metaData?.name;
+  const image = data?.genericPage?.featuredImage?.file?.url;
+  const metaData = data?.genericPage?.metaData;
+
   const crumbs = [
     {
       label: 'Home',
@@ -29,13 +33,11 @@ const NonBlogPost: NextPage = () => {
       label: 'non-blog',
       href: '/non-blog',
     },
-   
+    {
+      label: 'non-blog',
+      href: `/${router.query.article}`,
+    },
   ];
-
-  const body = data?.genericPage?.body;
-  const name = data?.genericPage?.metaData?.name;
-  const image = data?.genericPage?.featuredImage?.file?.url;
-  const metaData = data?.genericPage?.metaData;
 
   return (
     <>
@@ -45,7 +47,7 @@ const NonBlogPost: NextPage = () => {
           featuredImage={data?.genericPage?.featuredImage}
         />
       )}
-      <NonBlogPostContainer
+      <BlogPostContainer
         body={body}
         name={name}
         image={image}
