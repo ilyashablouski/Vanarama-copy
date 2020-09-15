@@ -1,3 +1,4 @@
+import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
@@ -54,4 +55,4 @@ const BusinessSummaryPage: NextPage = () => {
   );
 };
 
-export default withApollo(BusinessSummaryPage);
+export default withApollo(BusinessSummaryPage, { getDataFromTree });
