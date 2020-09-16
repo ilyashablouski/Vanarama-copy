@@ -42,7 +42,7 @@ const OLAFLayout: React.FC = ({ children }) => {
       getDerivativeData();
     }
   }, [orderByUuid, getDerivativeData]);
-
+  // TODO: Refactor into a standalone utility function as part of https://autorama.atlassian.net/browse/DIG-3039
   const term =
     olafData.data?.orderByUuid?.leaseType === LeaseTypeEnum.PERSONAL
       ? olafData.data?.orderByUuid.lineItems[0].vehicleProduct?.funderData.b2c
