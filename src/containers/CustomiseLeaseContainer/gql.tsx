@@ -27,6 +27,7 @@ export const GET_QUOTE_DATA = gql`
       trim: $trim
     ) {
       term
+      funderId
       mileage
       upfront
       trim
