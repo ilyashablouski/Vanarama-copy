@@ -5,6 +5,7 @@ import withApollo from '../../hocs/withApollo';
 import { useGenericPage } from '../../gql/genericPage';
 import BlogPostContainer from '../../containers/BlogPostContainer/BlogPostContainer';
 import { getSectionsData } from '../../utils/getSectionsData';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 const crumbs = [
   {
@@ -31,7 +32,7 @@ const BlogPost: NextPage = () => {
   }
 
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <ErrorMessage message={error.message} />;
   }
 
   const body = data?.genericPage?.body;
