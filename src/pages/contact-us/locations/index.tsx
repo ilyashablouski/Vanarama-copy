@@ -6,7 +6,7 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import CardTitle from '@vanarama/uibook/lib/components/molecules/cards/CardTitle';
-
+import Text from '@vanarama/uibook/lib/components/atoms/text';
 import { LOCATIONS_PAGE_CONTENT } from '../../../gql/contact-us/contactUs';
 import {
   LocationsPageData,
@@ -70,6 +70,15 @@ export const LocationsPage: NextPage = () => {
                 const { href, children } = props;
                 return <RouterLink link={{ href, label: children }} />;
               },
+              heading: props => (
+                <Text
+                  {...props}
+                  size="lead"
+                  color="darker"
+                  className="-mt-100"
+                />
+              ),
+              paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
           />
         </div>
@@ -95,6 +104,17 @@ export const LocationsPage: NextPage = () => {
                       const { href, children } = props;
                       return <RouterLink link={{ href, label: children }} />;
                     },
+                    heading: props => (
+                      <Text
+                        {...props}
+                        size="lead"
+                        color="darker"
+                        className="-mt-100"
+                      />
+                    ),
+                    paragraph: props => (
+                      <Text {...props} tag="p" color="darker" />
+                    ),
                   }}
                 />
               </Card>

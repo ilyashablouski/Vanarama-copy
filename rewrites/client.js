@@ -1,8 +1,24 @@
 /* eslint-disable no-console */
-const { ApolloClient, InMemoryCache } = require('@apollo/client');
+const fetch = require('node-fetch');
+
+const {
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache,
+} = require('@apollo/client');
+
+// const inspect = require('../inspect');
+
+const httpLink = createHttpLink({
+  uri: process.env.API_URL,
+  fetch,
+  headers: {
+    'x-api-key': process.env.API_KEY,
+  },
+});
 
 const client = new ApolloClient({
-  uri: process.env.CAP_GQL_API_ENDPOINT,
+  link: httpLink,
   cache: new InMemoryCache(),
   onError: ({ networkError, graphQLErrors }) => {
     console.log('graphQLErrors', graphQLErrors);

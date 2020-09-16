@@ -1,4 +1,4 @@
-FROM node:13.6
+FROM node:12.13.0
 
 ARG NPM_TOKEN
 ARG API_KEY
