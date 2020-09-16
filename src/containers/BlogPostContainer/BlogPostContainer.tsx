@@ -81,9 +81,11 @@ const BlogPostContainer: NextPage<IProps> = ({
           />
         </article>
         <div>
-          <Heading tag="span" size="large" color="black">
-            Related Articles
-          </Heading>
+          {cards && articles && (
+            <Heading tag="span" size="large" color="black">
+              Related Articles
+            </Heading>
+          )}
           {cards?.map((el, indx) => (
             <Card
               key={`${el?.name}_${indx.toString()}`}
@@ -145,8 +147,6 @@ const BlogPostContainer: NextPage<IProps> = ({
           ))}
         </div>
       </div>
-
-      <div className="row:comments" />
     </>
   );
 };

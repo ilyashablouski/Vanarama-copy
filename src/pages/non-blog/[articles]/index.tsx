@@ -8,7 +8,7 @@ import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostCon
 
 const NonBlogPost: NextPage = () => {
   const router = useRouter();
-  const slug = `/${router.query.article as string}`;
+  const slug = `/${router.query.articles as string}`;
   const { data, loading, error } = useGenericPage(slug);
 
   if (loading) {
@@ -30,11 +30,11 @@ const NonBlogPost: NextPage = () => {
       href: '/',
     },
     {
-      label: 'non-blog',
+      label: 'Non-blog',
       href: '/non-blog',
     },
     {
-      label: 'non-blog',
+      label: name || '',
       href: `/${router.query.article}`,
     },
   ];
