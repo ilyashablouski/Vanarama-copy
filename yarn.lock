@@ -2689,9 +2689,9 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@5.27.0":
-  version "5.27.0"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.27.0.tgz#4d916e2bc606130fb81b5a128f44885b2759d78a"
+"@vanarama/uibook@5.27.1":
+  version "5.27.1"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.27.1.tgz#388d1f12cad560c55baca7bfc44bd5e34f1e15b6"
   dependencies:
     "@egjs/flicking" "^3.4.7"
     "@reach/auto-id" "^0.10.3"
