@@ -3,8 +3,8 @@ import Hero, { HeroHeading, HeroTitle } from '../../../components/Hero';
 import { GetFleetLandingPage_fleetLandingPage_sections_hero as IHeroData } from '../../../../generated/GetFleetLandingPage';
 import config from '../config';
 
-const HeroSection = ({ title, body, image }: IHeroData, fleet?: boolean) => (
-  <Hero withRequestFleetForm={fleet} withRequestCallbackForm={!fleet}>
+const HeroSection = ({ title, body, image }: IHeroData) => (
+  <Hero withRequestCallbackForm>
     <HeroHeading text={title || ''} />
     <HeroTitle text={body || ''} />
     <Image

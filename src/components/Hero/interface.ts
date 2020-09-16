@@ -3,7 +3,6 @@ import { GetInsuranceLandingPage_insuranceLandingPage_sections_hero_heroCard as 
 export interface IHeroProps {
   flagText?: string;
   withRequestCallbackForm?: boolean;
-  withRequestFleetForm?: boolean;
   workingHoursCard?: WorkingHoursCard;
 }
 

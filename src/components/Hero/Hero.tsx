@@ -14,7 +14,6 @@ import { OpportunityTypeEnum } from '../../../generated/globalTypes';
 const Hero: React.FC<IHeroProps> = ({
   children,
   withRequestCallbackForm,
-  withRequestFleetForm,
   workingHoursCard,
 }) => {
   const [showModal, setShowModal] = useState(false);
@@ -34,7 +33,7 @@ const Hero: React.FC<IHeroProps> = ({
   );
 
   const renderHeroRight = () => {
-    if (withRequestCallbackForm || withRequestFleetForm) {
+    if (withRequestCallbackForm) {
       return (
         <RequestCallBackForm
           setShowModal={setShowModal}
@@ -48,9 +47,7 @@ const Hero: React.FC<IHeroProps> = ({
                 fullName: values.fullName,
                 companyName: values.companyName,
                 fleetSize: +values.fleetSize,
-                opportunityType: withRequestFleetForm
-                  ? OpportunityTypeEnum.FLEET
-                  : OpportunityTypeEnum.CALLBACK,
+                opportunityType: OpportunityTypeEnum.FLEET,
                 marketingPreference: Boolean(values.agreement),
                 postcode: DEFAULT_POSTCODE,
               },

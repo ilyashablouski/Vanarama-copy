@@ -37,7 +37,7 @@ const FleetLandingPage = () => {
         featuredImage={data?.fleetLandingPage?.featuredImage}
       />
       {data?.fleetLandingPage?.sections?.hero && (
-        <HeroSection {...data?.fleetLandingPage?.sections?.hero} fleet />
+        <HeroSection {...data?.fleetLandingPage?.sections?.hero} />
       )}
       {data?.fleetLandingPage?.sections?.leadText && (
         <LeadTextSection {...data?.fleetLandingPage?.sections?.leadText} />
