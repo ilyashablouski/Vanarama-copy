@@ -1,12 +1,15 @@
 import moment from 'moment';
-import { SoleTraderPerson_associates as SoleTrader } from '../../../generated/SoleTraderPerson';
+import { SoleTraderAssociate_associates as SoleTrader } from '../../../generated/SoleTraderAssociate';
+import { SoleTraderPerson as Person } from '../../../generated/SoleTraderPerson';
 import { SoleTraderDetailsFormAddresses } from '../../../generated/SoleTraderDetailsFormAddresses';
 import { CompanyAssociateInputObject } from '../../../generated/globalTypes';
 import { ISoleTraderDetailsFormValues } from './interfaces';
 import { addressToDisplay } from '../../utils/address';
+import { historyToMoment } from '../../utils/dates';
 
-export const formValuesToInput = (
+export const formValuesToAssociate = (
   values: ISoleTraderDetailsFormValues,
+  personUuid: string,
 ): CompanyAssociateInputObject => {
   const dateOfBirth = moment(
     `${values.dayOfBirth}-${values.monthOfBirth}-${values.yearOfBirth}`,
@@ -26,19 +29,27 @@ export const formValuesToInput = (
     noOfDependants: values.dependants,
     noOfAdultsInHousehold: values.adultsInHousehold,
     occupation: values.occupation,
+    addresses: values.history.map(item => ({
+      serviceId: item.address?.id,
+      propertyStatus: item.status,
+      startedOn: historyToMoment(item).format('YYYY-MM-DD'),
+    })),
     incomeAndExpense: {
       annualIncome: Number(values.annualIncome),
       averageMonthlyIncome: Number(values.avgMonthlyIncome),
       mortgageOrRent: Number(values.monthlyMortgagePayments),
       studentLoan: Number(values.monthlyStudentPayments),
+      anticipateMonthlyIncomeChange: Boolean(values.monthlyIncomeChange),
       futureMonthlyIncome: Number(values.futureMonthlyIncome),
     },
+    uuid: personUuid,
   };
 };
 
 // eslint-disable-next-line import/prefer-default-export
 export const responseToInitialFormValues = (
-  person?: SoleTrader | null,
+  person?: Person | null,
+  soleTrader?: SoleTrader | null,
   addresses?: SoleTraderDetailsFormAddresses[],
 ): ISoleTraderDetailsFormValues => {
   const email = person?.emailAddresses.find(_ => _.primary)?.value || '';
@@ -47,7 +58,7 @@ export const responseToInitialFormValues = (
   return {
     firstName: person?.firstName || '',
     lastName: person?.lastName || '',
-    gender: '',
+    gender: person?.gender || '',
     placeOfBirth: person?.countryOfBirth || '',
     dependants: person?.noOfDependants || '',
     email,
@@ -58,14 +69,14 @@ export const responseToInitialFormValues = (
     monthOfBirth: dateOfBirth ? String(dateOfBirth.getMonth() + 1) : '',
     yearOfBirth: dateOfBirth ? String(dateOfBirth.getFullYear()) : '',
     adultsInHousehold: person?.noOfAdultsInHousehold || '',
-    occupation: person?.occupation || '',
-    avgMonthlyIncome: person?.incomeAndExpense?.averageMonthlyIncome || 0,
-    annualIncome: person?.incomeAndExpense?.annualIncome || 0,
-    monthlyMortgagePayments: person?.incomeAndExpense?.mortgageOrRent || 0,
-    monthlyStudentPayments: person?.incomeAndExpense?.studentLoan || 0,
+    occupation: soleTrader?.occupation || '',
+    avgMonthlyIncome: soleTrader?.incomeAndExpense?.averageMonthlyIncome || 0,
+    annualIncome: soleTrader?.incomeAndExpense?.annualIncome || 0,
+    monthlyMortgagePayments: soleTrader?.incomeAndExpense?.mortgageOrRent || 0,
+    monthlyStudentPayments: soleTrader?.incomeAndExpense?.studentLoan || 0,
     monthlyIncomeChange:
-      person?.incomeAndExpense?.anticipateMonthlyIncomeChange || false,
-    futureMonthlyIncome: person?.incomeAndExpense?.futureMonthlyIncome || 0,
+      soleTrader?.incomeAndExpense?.anticipateMonthlyIncomeChange || false,
+    futureMonthlyIncome: soleTrader?.incomeAndExpense?.futureMonthlyIncome || 0,
     history: [...addresses]
       .sort(
         (a, b) =>

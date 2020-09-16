@@ -4,7 +4,7 @@ export interface ISoleTraderDetailsFormContainerProps {
   isEdited: boolean;
   personUuid: string;
   companyUuid: string;
-  orderUuid: string;
+  orderId: string;
   onCompleted: () => void;
   onError: (error: ApolloError) => void;
 }

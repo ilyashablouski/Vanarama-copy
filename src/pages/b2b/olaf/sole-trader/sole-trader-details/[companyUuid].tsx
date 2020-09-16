@@ -3,6 +3,7 @@ import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
+import { ApolloError } from '@apollo/client';
 import SoleTraderDetailsFormContainer from '../../../../../containers/SoleTraderDetailsFormContainer';
 import withApollo from '../../../../../hocs/withApollo';
 import OLAFLayout from '../../../../../layouts/OLAFLayout/OLAFLayout';
@@ -22,20 +23,22 @@ export const SoleTraderDetailsPage: NextPage = () => {
     router.push(url, url.replace('[personUuid]', companyUuid));
   };
 
-  const handleSubmitError = () =>
+  const handleSubmitError = (err: ApolloError) => {
+    console.log(err);
     toast.error(
       'Oops, an unexpected error occurred',
       'Your details could not be saved. Please try submitting the form again.',
     );
+  };
 
   return (
     <OLAFLayout>
       <SoleTraderDetailsFormContainer
-        orderUuid={orderId}
+        orderId={orderId}
         personUuid={personUuid}
         companyUuid={companyUuid}
         onCompleted={handleSubmitCompletion}
-        onError={handleSubmitError}
+        onError={err => handleSubmitError(err)}
         isEdited={router.query.redirect === 'summary'}
       />
     </OLAFLayout>

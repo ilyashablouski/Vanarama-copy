@@ -63,7 +63,7 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
   const handleCreditApplicationUpdate = (
     values: ISoleTraderCompanyDetailsFormValues,
     companyData: Company | null,
-  ) => {
+  ) =>
     createUpdateApplication({
       variables: {
         input: formValuesToInputCreditApplication({
@@ -74,7 +74,6 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
         }),
       },
     });
-  };
 
   return (
     <CompanyDetailsForm
