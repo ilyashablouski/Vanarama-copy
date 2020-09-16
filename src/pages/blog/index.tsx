@@ -14,6 +14,7 @@ import { useGenericPage } from '../../gql/genericPage';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import withApollo from '../../hocs/withApollo';
 import getTitleTag from '../../utils/getTitleTag';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 const BlogPage: NextPage = () => {
   const { data, loading, error } = useGenericPage('/latest-news');
@@ -23,7 +24,7 @@ const BlogPage: NextPage = () => {
   }
 
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <ErrorMessage message={error.message} />;
   }
 
   const featured = data?.genericPage?.sections?.featured;

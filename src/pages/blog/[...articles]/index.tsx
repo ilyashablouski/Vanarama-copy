@@ -5,6 +5,7 @@ import Head from '../../../components/Head/Head';
 import withApollo from '../../../hocs/withApollo';
 import { useBlogPostPage } from '../../../gql/blogPost';
 import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostContainer';
+import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
 
 const BlogPost: NextPage = () => {
   const router = useRouter();
@@ -16,7 +17,7 @@ const BlogPost: NextPage = () => {
   }
 
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <ErrorMessage message={error.message} />;
   }
 
   const crumbs = [

@@ -19,14 +19,16 @@ interface IProps {
   arrayHelpers: FieldArrayRenderProps;
   dropDownData: EmploymentFormFieldArrayDownData;
   values: IEmploymentFormValues;
+  requiredMonths?: number;
 }
 
 const EmploymentFormFieldArray: FCWithFragments<IProps> = ({
   arrayHelpers,
   dropDownData,
   values,
+  requiredMonths = 36,
 }) => {
-  const { remainingMonths } = useHistory(values.history, 36, {
+  const { remainingMonths } = useHistory(values.history, requiredMonths, {
     onAppend: () => {
       arrayHelpers.push(EMPTY_EMPLOYMENT_ENTRY);
     },
