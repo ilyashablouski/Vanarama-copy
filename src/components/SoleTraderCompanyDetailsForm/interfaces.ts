@@ -11,10 +11,12 @@ export interface ISoleTraderCompanyDetailsFormValues {
   annualTurnover: string;
   annualCostOfSales: string;
   annualExpenses: string;
+  existingFinanceReplacement: string;
   vehicleRegistrationNumber: string;
   monthlyAmountBeingReplaced: string;
 }
 
 export interface ISoleTraderCompanyDetailsFormProps {
+  companyDetails?: any;
   onSubmit: (values: ISoleTraderCompanyDetailsFormValues) => void;
 }
