@@ -8,8 +8,8 @@ describe('WHEN ID cookie is empty', () => {
     const cookie = '';
     document.cookie = cookie;
 
-    const isUthenticated = isUserAuthenticated();
-    expect(isUthenticated).toBe(false);
+    const isAuthenticated = isUserAuthenticated();
+    expect(isAuthenticated).toBe(false);
   });
 });
 
@@ -19,8 +19,8 @@ describe('WHEN ID cookie is expired', () => {
     const cookie = `${ID_COOKIE_NAME}=${ID_COOKIE_VALUE}; Expires=${expiredDate}`;
     document.cookie = cookie;
 
-    const isUthenticated = isUserAuthenticated();
-    expect(isUthenticated).toBe(false);
+    const isAuthenticated = isUserAuthenticated();
+    expect(isAuthenticated).toBe(false);
   });
 });
 
@@ -31,7 +31,7 @@ describe('WHEN ID cookie is NOT empty AND is NOT expired', () => {
     const cookie = `${ID_COOKIE_NAME}=${ID_COOKIE_VALUE}; Expires=${validDate}`;
     document.cookie = cookie;
 
-    const isUthenticated = isUserAuthenticated();
-    expect(isUthenticated).toBe(true);
+    const isAuthenticated = isUserAuthenticated();
+    expect(isAuthenticated).toBe(true);
   });
 });
