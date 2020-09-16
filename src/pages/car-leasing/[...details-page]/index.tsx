@@ -24,11 +24,19 @@ const CarDetailsPage: NextPage<IProps> = () => {
     VehicleTypeEnum.CAR,
   );
 
+  function getPath(path: string) {
+    const newPath = path.replace('/car-leasing', '');
+    if (newPath.slice(-1) === '/') {
+      return newPath.slice(0, -1);
+    }
+    return newPath;
+  }
+
   const [getConfiguration, { data: configuration }] = useLazyQuery<
     VehicleConfigurationByUrl
   >(VEHICLE_CONFIGURATION_BY_URL, {
     variables: {
-      url: router.asPath.replace('/car-leasing', '').slice(0, -1),
+      url: getPath(router.asPath),
     },
     onCompleted: d =>
       setCapId(d.vehicleConfigurationByUrl?.capDerivativeId || 0),
