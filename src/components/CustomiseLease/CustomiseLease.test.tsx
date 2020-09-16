@@ -75,6 +75,7 @@ describe('<CustomiseLease />', () => {
           processingFee: 0,
           stock: 'Brand New - ',
           term: 24,
+          funderId: 3,
           trim: '112981',
           upfront: 1,
           vehicleType: VehicleTypeEnum.CAR,
@@ -179,6 +180,7 @@ describe('<CustomiseLease />', () => {
           colour: '13990',
           leadTime: '14-21 Day Delivery',
           leaseType: LeaseTypeEnum.BUSINESS,
+          funderId: 3,
           maintenanceCost: {
             monthlyRental: 61.75,
             initialRental: 61.75,
@@ -306,6 +308,7 @@ describe('<CustomiseLease />', () => {
             colour: '13990',
             leadTime: '14-21 Day Delivery',
             leaseType: LeaseTypeEnum.BUSINESS,
+            funderId: 3,
             nextBestPrice: {
               maintained: 70,
               nonMaintained: 60,

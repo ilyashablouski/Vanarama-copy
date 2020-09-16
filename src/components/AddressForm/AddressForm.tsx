@@ -5,7 +5,8 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { gql } from '@apollo/client';
 import { FieldArray, Formik } from 'formik';
-import React from 'react';
+import React, { useContext } from 'react';
+import { OlafContext } from '../../layouts/OLAFLayout/OLAFLayout';
 import FCWithFragments from '../../utils/FCWithFragments';
 import AddressFormFieldArray from './AddressFormFieldArray';
 import {
@@ -19,54 +20,58 @@ const AddressForm: FCWithFragments<IAddressFormProps> = ({
   addresses,
   dropDownData,
   onSubmit,
-}) => (
-  <Formik<IFormValues>
-    initialValues={responseToInitialFormValues(addresses)}
-    onSubmit={onSubmit}
-    validationSchema={validationSchema}
-  >
-    {formikProps => (
-      <Form onSubmit={formikProps.handleSubmit}>
-        <Heading
-          dataTestId="address-history-heading"
-          tag="h1"
-          size="xlarge"
-          color="black"
-        >
-          Address History
-        </Heading>
-        <Text
-          dataTestId="address-history-lead"
-          size="lead"
-          color="darker"
-          tag="span"
-        >
-          just need your address history for the past 3 years to complete your
-          credit check.
-        </Text>
-        <FieldArray name="history">
-          {arrayHelpers => (
-            <AddressFormFieldArray
-              arrayHelpers={arrayHelpers}
-              dropDownData={dropDownData}
-              values={formikProps.values}
-            />
-          )}
-        </FieldArray>
-        <Button
-          color="primary"
-          dataTestId="address-history-submit"
-          disabled={formikProps.isSubmitting}
-          icon={<ChevronForwardSharp />}
-          iconColor="white"
-          iconPosition="after"
-          label={formikProps.isSubmitting ? 'Saving...' : 'Continue'}
-          type="submit"
-        />
-      </Form>
-    )}
-  </Formik>
-);
+}) => {
+  const context = useContext(OlafContext);
+  return (
+    <Formik<IFormValues>
+      initialValues={responseToInitialFormValues(addresses)}
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
+    >
+      {formikProps => (
+        <Form onSubmit={formikProps.handleSubmit}>
+          <Heading
+            dataTestId="address-history-heading"
+            tag="h1"
+            size="xlarge"
+            color="black"
+          >
+            Address History
+          </Heading>
+          <Text
+            dataTestId="address-history-lead"
+            size="lead"
+            color="darker"
+            tag="span"
+          >
+            {` just need your address history for the past ${context.requiredMonths /
+              12} years to complete your credit check.`}
+          </Text>
+          <FieldArray name="history">
+            {arrayHelpers => (
+              <AddressFormFieldArray
+                arrayHelpers={arrayHelpers}
+                dropDownData={dropDownData}
+                values={formikProps.values}
+                requiredMonths={context.requiredMonths}
+              />
+            )}
+          </FieldArray>
+          <Button
+            color="primary"
+            dataTestId="address-history-submit"
+            disabled={formikProps.isSubmitting}
+            icon={<ChevronForwardSharp />}
+            iconColor="white"
+            iconPosition="after"
+            label={formikProps.isSubmitting ? 'Saving...' : 'Continue'}
+            type="submit"
+          />
+        </Form>
+      )}
+    </Formik>
+  );
+};
 
 AddressForm.fragments = {
   addresses: gql`
