@@ -82,7 +82,7 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
     <>
       <div className="row:title">
         <Heading
-          tag="span"
+          tag="h1"
           size="xlarge"
           color="black"
           dataTestId="login-register-heading"

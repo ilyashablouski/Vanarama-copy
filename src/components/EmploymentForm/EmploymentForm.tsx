@@ -5,7 +5,8 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { gql } from '@apollo/client';
 import { FieldArray, Formik } from 'formik';
-import React from 'react';
+import React, { useContext } from 'react';
+import { OlafContext } from '../../layouts/OLAFLayout/OLAFLayout';
 import FCWithFragments from '../../utils/FCWithFragments';
 import EmploymentFormFieldArray from './EmploymentFormFieldArray';
 import {
@@ -20,6 +21,7 @@ const EmploymentForm: FCWithFragments<IEmploymentFormProps> = ({
   employments,
   onSubmit,
 }) => {
+  const context = useContext(OlafContext);
   return (
     <Formik<IFormValues>
       initialValues={responseToInitialFormValues(employments)}
@@ -30,7 +32,7 @@ const EmploymentForm: FCWithFragments<IEmploymentFormProps> = ({
         <Form onSubmit={formikProps.handleSubmit}>
           <Heading
             dataTestId="employment-history-heading"
-            tag="span"
+            tag="h1"
             size="xlarge"
             color="black"
           >
@@ -42,8 +44,8 @@ const EmploymentForm: FCWithFragments<IEmploymentFormProps> = ({
             color="darker"
             tag="span"
           >
-            Thanks, we also need your employment history for the past 3 years so
-            the funder can check your status.
+            {`Thanks, we also need your employment history for the past ${context.requiredMonths /
+              12} years so the funder can check your status.`}
           </Text>
           <FieldArray name="history">
             {arrayHelpers => (
@@ -51,6 +53,7 @@ const EmploymentForm: FCWithFragments<IEmploymentFormProps> = ({
                 arrayHelpers={arrayHelpers}
                 dropDownData={dropDownData}
                 values={formikProps.values}
+                requiredMonths={context.requiredMonths}
               />
             )}
           </FieldArray>

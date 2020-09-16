@@ -29,12 +29,22 @@ const getAccordionItemsInside = (
     title: questionAnswer?.question || '',
     children: (
       <ReactMarkdown
+        escapeHtml={false}
         source={questionAnswer?.answer || ''}
         renderers={{
           link: props => {
             const { href, children } = props;
-            return <RouterLink link={{ href, label: children }} />;
+            return (
+              <RouterLink
+                link={{ href, label: children }}
+                classNames={{ color: 'teal' }}
+              />
+            );
           },
+          heading: props => (
+            <Text {...props} size="lead" color="darker" className="-mt-100" />
+          ),
+          paragraph: props => <Text {...props} tag="p" color="darker" />,
         }}
       />
     ),
@@ -52,6 +62,7 @@ const getAccordionItems = (
     title: questionSet?.title || '',
     children: (
       <Accordion
+        key={questionSet?.title || ''}
         className="tilebox"
         items={getAccordionItemsInside(questionSet?.questionAnswers) || null}
       />
@@ -72,7 +83,7 @@ const FAQContainer: FC<IProps> = ({ title, sections, intro }) => {
     <>
       <div className="row:title">
         <BreadCrumb items={crumbs} />
-        <Heading size="xlarge" color="black">
+        <Heading size="xlarge" color="black" tag="h1">
           {title || ''}
         </Heading>
         <Text color="dark" size="regular">

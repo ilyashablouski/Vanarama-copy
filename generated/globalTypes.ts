@@ -205,6 +205,22 @@ export interface EmploymentInputObject {
 }
 
 /**
+ * Input object to make full credit check
+ */
+export interface FullCreditCheckerInputObject {
+  annualMileage?: number | null;
+  capId?: string | null;
+  creditApplicationUuid: string;
+  depositPayment: number;
+  lcvCapId?: string | null;
+  monthlyPayment: number;
+  orderUuid?: string | null;
+  partyId: string;
+  term?: number | null;
+  vehicleType: VehicleTypeEnum;
+}
+
+/**
  * Input object to create and add an Income And Expense
  */
 export interface IncomeAndExpenseInputObject {
@@ -263,6 +279,7 @@ export interface LineItemInputObject {
   orderId?: string | null;
   quantity: number;
   vehicleProduct?: VehicleProductInputObject | null;
+  funderId?: string | null;
 }
 
 /**

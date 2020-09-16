@@ -129,7 +129,12 @@ const CompanyDetailsForm: React.FC<IProps> = ({
         }),
       )}
     >
-      <Heading color="black" dataTestId="company-details_heading" size="xlarge">
+      <Heading
+        color="black"
+        dataTestId="company-details_heading"
+        size="xlarge"
+        tag="h1"
+      >
         Company Details
       </Heading>
       <FormContext {...methods}>

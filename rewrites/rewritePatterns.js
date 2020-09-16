@@ -1,47 +1,38 @@
 module.exports = [
-  // {
-  //   from: '/seat-car-leasing/ibiza/hatchback/1-0-fr-ez-5dr-161392.html',
-  //   to: '/car-leasing/seat/ibiza/hatchback/10-fr-ez-5-doors',
-  // },
-  // {
-  //   from:
-  //     '/audi-car-leasing/a1/sportback/35-tfsi-vorsprung-5dr-s-tronic-163825.html',
-  //   to: '/car-leasing/audi/a1/hatchback/35-tfsi-vorsprung-5-doors-s-tronic',
-  // },
   {
-    from: '/:manufacturer-:vehicleType-leasing.html',
-    to: '/:vehicleType-leasing/:manufacturer',
+    source: '/:manufacturer-:vehicleType-leasing.html',
+    destination: '/:vehicleType-leasing/:manufacturer',
   },
   {
-    from: '/:manufacturer-:vehicleType-leasing/:model.html',
-    to: '/:vehicleType-leasing/:manufacturer/:model',
+    source: '/:manufacturer-:vehicleType-leasing/:model.html',
+    destination: '/:vehicleType-leasing/:manufacturer/:model',
   },
   {
-    from: '/car-leasing/small.html',
-    to: '/car-leasing/city-car',
+    source: '/car-leasing/small.html',
+    destination: '/car-leasing/city-car',
   },
   {
-    from: '/car-leasing/:bodyStyle.html',
-    to: '/car-leasing/:bodyStyle',
+    source: '/car-leasing/:bodyStyle.html',
+    destination: '/car-leasing/:bodyStyle',
   },
   {
-    from: 'car-leasing/4x4-suv.html',
-    to: '/car-leasing/4x4',
+    source: '/car-leasing/4x4-suv.html',
+    destination: '/car-leasing/4x4',
   },
   {
-    from: '/car-leasing/eco.html',
-    to: '/car-leasing/electric',
+    source: '/car-leasing/eco.html',
+    destination: '/car-leasing/electric',
   },
   {
-    from: '/specialist-van-leasing.html',
-    to: '/van-leasing/Specialist',
+    source: '/specialist-van-leasing.html',
+    destination: '/van-leasing/Specialist',
   },
   {
-    from: '/:bodyStyle-leasing.html',
-    to: '/van-leasing/:bodyStyle',
+    source: '/:bodyStyle-leasing.html',
+    destination: '/van-leasing/:bodyStyle',
   },
   {
-    from: '/automatic-vans.html',
-    to: '/van-leasing/automatic',
+    source: '/automatic-vans.html',
+    destination: '/van-leasing/automatic',
   },
 ];

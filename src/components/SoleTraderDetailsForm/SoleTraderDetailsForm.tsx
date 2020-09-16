@@ -8,6 +8,7 @@ import Form from '@vanarama/uibook/lib/components/organisms/form';
 // import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import FCWithFragments from '../../utils/FCWithFragments';
 import FormikTextField from '../FormikTextField/FormikTextField';
+import FormikCheckBoxField from '../FormikCheckboxField/FormikCheckboxField';
 import FormikSelectField from '../FormikSelectField/FormikSelectField';
 import FormikDateField from '../FormikDateField/FormikDateField';
 import FormikNumericField from '../FormikNumericField/FormikNumericField';
@@ -28,6 +29,7 @@ const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
 };
 
 const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
+  person,
   soleTrader,
   addresses,
   onSubmit,
@@ -36,13 +38,13 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
 }) => {
   return (
     <Formik<ISoleTraderDetailsFormValues>
-      initialValues={responseToInitialFormValues(soleTrader, addresses)}
+      initialValues={responseToInitialFormValues(person, soleTrader, addresses)}
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
       {formikProps => (
         <Form onSubmit={formikProps.handleSubmit}>
-          <Heading color="black" size="xlarge">
+          <Heading color="black" size="xlarge" tag="h1">
             SoleTrader Details
           </Heading>
 
@@ -86,6 +88,13 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
           <FormikSelectField name="nationality" label="Nationality">
             <OptionsWithFavourites options={dropdownData.nationalities} />
           </FormikSelectField>
+
+          <FormikTextField
+            name="email"
+            label="Email"
+            dataTestId="email-addr"
+            disabled
+          />
 
           <FormikSelectField
             name="adultsInHousehold"
@@ -142,12 +151,22 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
             prefix="£"
           />
 
-          <FormikNumericField
-            name="futureMonthlyIncome"
-            label="Future Monthly Income"
-            dataTestId="monthly-student-payments"
-            prefix="£"
+          <FormikCheckBoxField
+            label="Does you expect your monthly income to decrease?"
+            id="monthlyIncomeChange"
+            name="monthlyIncomeChange"
+            checkboxLabel="I am anticipating a change in my monthly income"
+            dataTestId="income-change"
           />
+
+          {formikProps.values.monthlyIncomeChange && (
+            <FormikNumericField
+              name="futureMonthlyIncome"
+              label="Future Monthly Income"
+              dataTestId="future-monthly-income"
+              prefix="£"
+            />
+          )}
 
           <Button
             color="primary"
@@ -210,7 +229,7 @@ SoleTraderDetailsForm.fragments = {
     ${AddressFormFieldArray.fragments.dropDownData}
   `,
   soleTrader: gql`
-    fragment SoleTraderPerson on CompanyType {
+    fragment SoleTraderAssociate on CompanyType {
       __typename
       uuid
       associates {
@@ -220,7 +239,6 @@ SoleTraderDetailsForm.fragments = {
         lastName
         emailAddresses {
           __typename
-          uuid
           primary
           value
         }
@@ -241,13 +259,13 @@ SoleTraderDetailsForm.fragments = {
           anticipateMonthlyIncomeChange
           futureMonthlyIncome
         }
+        uuid
       }
     }
   `,
   addresses: gql`
     fragment SoleTraderDetailsFormAddresses on AddressType {
       __typename
-      uuid
       serviceId
       lineOne
       lineTwo
@@ -255,6 +273,27 @@ SoleTraderDetailsForm.fragments = {
       city
       propertyStatus
       startedOn
+    }
+  `,
+  person: gql`
+    fragment SoleTraderPerson on PersonType {
+      __typename
+      uuid
+      title
+      firstName
+      lastName
+      gender
+      emailAddresses {
+        __typename
+        primary
+        value
+      }
+      dateOfBirth
+      countryOfBirth
+      nationality
+      maritalStatus
+      noOfAdultsInHousehold
+      noOfDependants
     }
   `,
 };

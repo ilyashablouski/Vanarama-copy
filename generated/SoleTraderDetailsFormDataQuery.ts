@@ -67,9 +67,14 @@ export interface SoleTraderDetailsFormDataQuery_allDropDowns {
   propertyStatuses: SoleTraderDetailsFormDataQuery_allDropDowns_propertyStatuses;
 }
 
+export interface SoleTraderDetailsFormDataQuery_personByUuid_emailAddresses {
+  __typename: "EmailAddressType";
+  primary: boolean;
+  value: string;
+}
+
 export interface SoleTraderDetailsFormDataQuery_personByUuid_addresses {
   __typename: "AddressType";
-  uuid: string;
   serviceId: string | null;
   lineOne: string;
   lineTwo: string | null;
@@ -80,8 +85,19 @@ export interface SoleTraderDetailsFormDataQuery_personByUuid_addresses {
 }
 
 export interface SoleTraderDetailsFormDataQuery_personByUuid {
+  __typename: "PersonType";
   uuid: string;
-  partyId: string;
+  title: string | null;
+  firstName: string;
+  lastName: string;
+  gender: string | null;
+  emailAddresses: SoleTraderDetailsFormDataQuery_personByUuid_emailAddresses[];
+  dateOfBirth: any | null;
+  countryOfBirth: string | null;
+  nationality: string | null;
+  maritalStatus: string | null;
+  noOfAdultsInHousehold: string | null;
+  noOfDependants: string | null;
   addresses: SoleTraderDetailsFormDataQuery_personByUuid_addresses[] | null;
 }
 
