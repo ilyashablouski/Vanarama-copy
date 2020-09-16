@@ -86,11 +86,12 @@ export const FULL_CREDIT_CHECKER_MUTATION = gql`
   }
 `;
 
-export function useGetPartyByUuidQuery(partyUuid?: string) {
+export function useGetPartyByUuidQuery(partyUuid: string) {
   return useQuery<GetPartyByUuid, GetPartyByUuidVariables>(GET_PARTY_BY_UUID, {
     variables: {
-      uuid: partyUuid || '',
+      uuid: partyUuid,
     },
+    fetchPolicy: 'no-cache',
     skip: !partyUuid,
   });
 }

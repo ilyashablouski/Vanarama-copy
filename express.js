@@ -5,16 +5,12 @@ require('colors');
 const express = require('express');
 const cors = require('cors');
 const next = require('next');
-const rewrite = require('express-urlrewrite');
 const prerender = require('prerender-node');
 const hpp = require('hpp');
 
 const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
 const logo = require('./logo');
 const { version } = require('./package.json');
-
-const { getPdpRewiteList } = require('./rewrites/pdp');
-const rewritePatterns = require('./rewrites/rewritePatterns');
 
 // const inspect = require('./inspect');
 
@@ -29,17 +25,6 @@ app
   .then(async () => {
     // Create server.
     const server = express();
-
-    return server;
-  })
-  .then(async server => {
-    // Handle rewrite list.
-    const pdpRewiteList = await getPdpRewiteList();
-    const rewriteList = [...pdpRewiteList, ...rewritePatterns];
-
-    rewriteList.forEach(({ from, to }) => {
-      server.get(from, rewrite(to));
-    });
 
     return server;
   })

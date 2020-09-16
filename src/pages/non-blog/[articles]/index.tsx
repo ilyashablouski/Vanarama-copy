@@ -1,16 +1,16 @@
 import { NextPage } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
+import { useGenericPage } from '../../../gql/genericPage';
 import Head from '../../../components/Head/Head';
 import withApollo from '../../../hocs/withApollo';
-import { useBlogPostPage } from '../../../gql/blogPost';
 import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostContainer';
 import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
 
-const BlogPost: NextPage = () => {
+const NonBlogPost: NextPage = () => {
   const router = useRouter();
-  const slug = router.asPath.replace('/blog/', '').replace('/', '');
-  const { data, loading, error } = useBlogPostPage(slug);
+  const slug = `/${router.query.articles as string}`;
+  const { data, loading, error } = useGenericPage(slug);
 
   if (loading) {
     return <Loading size="large" />;
@@ -20,44 +20,42 @@ const BlogPost: NextPage = () => {
     return <ErrorMessage message={error.message} />;
   }
 
+  const body = data?.genericPage?.body;
+  const name = data?.genericPage?.metaData?.name;
+  const image = data?.genericPage?.featuredImage?.file?.url;
+  const metaData = data?.genericPage?.metaData;
+
   const crumbs = [
     {
       label: 'Home',
       href: '/',
     },
     {
-      label: 'Blog',
-      href: '/blog',
+      label: 'Non-blog',
+      href: '/non-blog',
     },
     {
-      label: data?.blogPost?.metaData?.name || '',
-      href: '/blog/post',
+      label: name || '',
+      href: `/${router.query.article}`,
     },
   ];
-
-  const body = data?.blogPost?.body;
-  const name = data?.blogPost?.metaData?.name;
-  const image = data?.blogPost?.featuredImage?.file?.url;
-  const metaData = data?.blogPost?.metaData;
-  const articles = data?.blogPost?.category;
 
   return (
     <>
       {metaData && (
         <Head
           metaData={metaData}
-          featuredImage={data?.blogPost?.featuredImage}
+          featuredImage={data?.genericPage?.featuredImage}
         />
       )}
       <BlogPostContainer
         body={body}
         name={name}
         image={image}
-        articles={articles}
         crumbs={crumbs}
       />
     </>
   );
 };
 
-export default withApollo(BlogPost);
+export default withApollo(NonBlogPost);

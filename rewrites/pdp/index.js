@@ -83,25 +83,25 @@ async function getDerivatives(vehicleGroupList, vehicleGroupType) {
 function buildListOfRewrites(derivatives, rawList) {
   // Loop through every derivative.
   return derivatives.map(derivative => {
-    let to;
+    let destination;
     // Set to url.
     switch (derivative.vehicleType) {
       case 'CAR':
-        to = `/car-leasing/${derivative.manufacturer.slug}/${derivative.range.slug}/${derivative.bodyStyle.slug}/${derivative.slug}`;
+        destination = `/car-leasing/${derivative.manufacturer.slug}/${derivative.range.slug}/${derivative.bodyStyle.slug}/${derivative.slug}`;
         break;
       case 'LCV':
-        to = `/van-leasing/${derivative.manufacturer.slug}/${derivative.model.slug}/${derivative.slug}`;
+        destination = `/van-leasing/${derivative.manufacturer.slug}/${derivative.model.slug}/${derivative.slug}`;
         break;
       default:
     }
 
-    const from = rawList.filter(
+    const source = rawList.filter(
       entry =>
         entry.cap_id === derivative.id &&
         entry.vehicle_type === derivative.vehicleType.toLowerCase(),
     )[0].legacy_url;
 
-    return { from, to };
+    return { source, destination };
   });
 }
 
