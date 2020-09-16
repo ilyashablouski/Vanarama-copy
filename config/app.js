@@ -48,9 +48,12 @@ module.exports = {
       rollbarClientToken: process.env.ROLLBAR_CLIENT_TOKEN || '',
     },
 
+    // Rewrites.
     async rewrites() {
       const pdpRewiteList = await getPdpRewiteList();
       const rewriteList = [...pdpRewiteList, ...rewritePatterns];
+
+      console.log(rewriteList);
 
       return [...rewriteList];
     },
