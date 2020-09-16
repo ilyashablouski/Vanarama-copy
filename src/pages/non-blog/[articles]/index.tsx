@@ -5,6 +5,7 @@ import { useGenericPage } from '../../../gql/genericPage';
 import Head from '../../../components/Head/Head';
 import withApollo from '../../../hocs/withApollo';
 import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostContainer';
+import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
 
 const NonBlogPost: NextPage = () => {
   const router = useRouter();
@@ -16,7 +17,7 @@ const NonBlogPost: NextPage = () => {
   }
 
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <ErrorMessage message={error.message} />;
   }
 
   const body = data?.genericPage?.body;
