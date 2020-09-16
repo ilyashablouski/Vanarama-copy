@@ -17,6 +17,7 @@ export interface IAddressFormProps {
   addresses: AddressFormAddresses[];
   dropDownData: AddressFormDropDownData;
   onSubmit: (values: IAddressFormValues) => Promise<any>;
+  requiredMonths: number;
 }
 
 export const EMPTY_ADDRESS_ENTRY: TAddressEntry = {

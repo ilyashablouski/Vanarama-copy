@@ -263,6 +263,7 @@ export interface LineItemInputObject {
   orderId?: string | null;
   quantity: number;
   vehicleProduct?: VehicleProductInputObject | null;
+  funderId?: string | null;
 }
 
 /**

@@ -3,7 +3,7 @@ import ChevronUpSharp from '@vanarama/uibook/lib/assets/icons/ChevronUpSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import OlafCard from '@vanarama/uibook/lib/components/molecules/cards/OlafCard/OlafCard';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
@@ -11,6 +11,9 @@ import { useOlafData, useCarDerivativeData } from '../../gql/order';
 import { createOlafDetails } from './helpers';
 import { OLAFQueryParams } from '../../utils/url';
 import { GetDerivative_vehicleImages as VehicleImages } from '../../../generated/GetDerivative';
+import { LeaseTypeEnum } from '../../../generated/globalTypes';
+
+export const OlafContext = createContext({ requiredMonths: 36 });
 
 const OLAFLayout: React.FC = ({ children }) => {
   const router = useRouter();
@@ -40,6 +43,12 @@ const OLAFLayout: React.FC = ({ children }) => {
     }
   }, [orderByUuid, getDerivativeData]);
 
+  const term =
+    olafData.data?.orderByUuid?.leaseType === LeaseTypeEnum.PERSONAL
+      ? olafData.data?.orderByUuid.lineItems[0].vehicleProduct?.funderData.b2c
+          .address_history
+      : 36;
+
   return (
     <>
       <ProgressSection />
@@ -55,7 +64,9 @@ const OLAFLayout: React.FC = ({ children }) => {
         />
       )}
       <div className="row:olaf">
-        {children}
+        <OlafContext.Provider value={{ requiredMonths: term }}>
+          {children}
+        </OlafContext.Provider>
         {showAside && orderByUuid && derivative && (
           <div className="olaf-aside">
             <OlafCard
