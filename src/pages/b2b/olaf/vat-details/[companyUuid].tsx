@@ -20,7 +20,7 @@ type QueryParams = OLAFQueryParams & {
 
 export const VatDetailsPage: NextPage = () => {
   const router = useRouter();
-  const { companyUuid, orderId } = router.query as QueryParams;
+  const { companyUuid, orderId, personUuid } = router.query as QueryParams;
 
   const soleTraderPathMatchResult = router.pathname.match(
     /^\/b2b\/olaf\/sole-trader\/.+/,
@@ -28,19 +28,15 @@ export const VatDetailsPage: NextPage = () => {
   const isSoleTraderJourney = (soleTraderPathMatchResult || []).length > 0;
 
   const handleSubmitCompletion = () => {
-    const params = getUrlParam({ orderId });
+    const params = getUrlParam({ orderId, personUuid });
     const detailsUrl = !isSoleTraderJourney
       ? `/b2b/olaf/director-details/[companyUuid]${params}`
-      : `/b2b/olaf/sole-trader/sole-trader-details/[personalUuid]${params}`;
+      : `/b2b/olaf/sole-trader/sole-trader-details/[companyUuid]${params}`;
     const url =
       router.query.redirect === 'summary'
         ? `/b2b/olaf/summary/[companyUuid]${params}`
         : detailsUrl;
-    if (!isSoleTraderJourney) {
-      router.push(url, url.replace('[companyUuid]', companyUuid));
-    } else {
-      router.push(url, url.replace('[personalUuid]', companyUuid));
-    }
+    router.push(url, url.replace('[companyUuid]', companyUuid));
   };
 
   return (

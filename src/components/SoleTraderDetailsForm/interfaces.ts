@@ -1,5 +1,6 @@
 import { SoleTraderDetailsDropDownData } from '../../../generated/SoleTraderDetailsDropDownData';
-import { SoleTraderPerson_associates as SoleTraderAssociates } from '../../../generated/SoleTraderPerson';
+import { SoleTraderAssociate_associates as SoleTraderAssociates } from '../../../generated/SoleTraderAssociate';
+import { SoleTraderPerson } from '../../../generated/SoleTraderPerson';
 import { SoleTraderDetailsFormAddresses } from '../../../generated/SoleTraderDetailsFormAddresses';
 import { TAddressEntry } from '../AddressForm/interfaces';
 
@@ -30,6 +31,7 @@ export interface ISoleTraderDetailsFormValues {
 export interface ISoleTraderDetailsProps {
   addresses: SoleTraderDetailsFormAddresses[];
   soleTrader?: SoleTraderAssociates | null;
+  person?: SoleTraderPerson | null;
   dropdownData: SoleTraderDetailsDropDownData;
   onSubmit: (values: ISoleTraderDetailsFormValues) => Promise<void>;
   isEdited: boolean;

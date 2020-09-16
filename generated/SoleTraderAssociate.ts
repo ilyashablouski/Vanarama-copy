@@ -1,0 +1,48 @@
+/* tslint:disable */
+/* eslint-disable */
+// @generated
+// This file was automatically generated and should not be edited.
+
+// ====================================================
+// GraphQL fragment: SoleTraderAssociate
+// ====================================================
+
+export interface SoleTraderAssociate_associates_emailAddresses {
+  __typename: "EmailAddressType";
+  primary: boolean;
+  value: string;
+}
+
+export interface SoleTraderAssociate_associates_incomeAndExpense {
+  __typename: "IncomeAndExpenseType";
+  averageMonthlyIncome: number;
+  annualIncome: number | null;
+  totalMonthlyExpenses: number | null;
+  mortgageOrRent: number | null;
+  studentLoan: number | null;
+  anticipateMonthlyIncomeChange: boolean;
+  futureMonthlyIncome: number | null;
+}
+
+export interface SoleTraderAssociate_associates {
+  __typename: "PersonType";
+  title: string | null;
+  firstName: string;
+  lastName: string;
+  emailAddresses: SoleTraderAssociate_associates_emailAddresses[];
+  dateOfBirth: any | null;
+  countryOfBirth: string | null;
+  nationality: string | null;
+  maritalStatus: string | null;
+  noOfAdultsInHousehold: string | null;
+  noOfDependants: string | null;
+  occupation: string | null;
+  incomeAndExpense: SoleTraderAssociate_associates_incomeAndExpense | null;
+  uuid: string;
+}
+
+export interface SoleTraderAssociate {
+  __typename: "CompanyType";
+  uuid: string;
+  associates: SoleTraderAssociate_associates[] | null;
+}
