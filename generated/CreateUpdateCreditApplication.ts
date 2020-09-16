@@ -3,11 +3,16 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { CreditApplicationInputObject } from "./globalTypes";
+import { CreditApplicationInputObject, VehicleTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: CreateUpdateCreditApplication
 // ====================================================
+
+export interface CreateUpdateCreditApplication_createUpdateCreditApplication_lineItem_order {
+  partyUuid: string | null;
+  uuid: string;
+}
 
 export interface CreateUpdateCreditApplication_createUpdateCreditApplication_lineItem_vehicleProduct {
   derivativeCapId: string;
@@ -19,6 +24,8 @@ export interface CreateUpdateCreditApplication_createUpdateCreditApplication_lin
   depositMonths: number | null;
   funderId: string | null;
   funderData: any | null;
+  depositPayment: number | null;
+  vehicleType: VehicleTypeEnum;
 }
 
 export interface CreateUpdateCreditApplication_createUpdateCreditApplication_lineItem {
@@ -27,6 +34,7 @@ export interface CreateUpdateCreditApplication_createUpdateCreditApplication_lin
   status: string | null;
   productId: string;
   productType: string;
+  order: CreateUpdateCreditApplication_createUpdateCreditApplication_lineItem_order | null;
   vehicleProduct: CreateUpdateCreditApplication_createUpdateCreditApplication_lineItem_vehicleProduct | null;
 }
 

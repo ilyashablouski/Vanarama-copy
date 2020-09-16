@@ -16,6 +16,8 @@ const { version } = require('./package.json');
 const { getPdpRewiteList } = require('./rewrites/pdp');
 const rewritePatterns = require('./rewrites/rewritePatterns');
 
+// const inspect = require('./inspect');
+
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
@@ -86,8 +88,8 @@ app
     // All routes.
     server.all('*', cors(), (req, res) => {
       // Trailing slash fix on page reload.
-      req.url = req.url.replace(/\/$/, '');
-      if (req.url === '') req.url = '/';
+      // req.url = req.url.replace(/\/$/, '');
+      // if (req.url === '') req.url = '/';
 
       if (process.env.ENV !== 'production')
         res.setHeader('X-Robots-Tag', 'noindex'); // Disable indexing.
@@ -104,6 +106,10 @@ app
       console.log(`Environment: ${process.env.NODE_ENV.toUpperCase()}`.grey);
       // console.log(`Environment: ${process.env.ENV.toUpperCase()}`.grey);
     });
+  })
+  .catch(err => {
+    console.log(err);
+    process.exit(1);
   });
 
 process.on('SIGTERM', () => {
