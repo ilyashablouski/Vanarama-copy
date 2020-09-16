@@ -1,4 +1,8 @@
-import { gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
+import {
+  GetPartyByUuid,
+  GetPartyByUuidVariables,
+} from '../../../generated/GetPartyByUuid';
 
 export const GET_CREDIT_APPLICATION_BY_ORDER_UUID = gql`
   query GetCreditApplicationByOrderUuidDataForCreditCheck($orderUuid: ID!) {
@@ -30,6 +34,11 @@ export const GET_PARTY_BY_UUID = gql`
         lastName
         partyId
         uuid
+      }
+      company {
+        partyId
+        legalName
+        companyType
       }
     }
   }
@@ -76,3 +85,12 @@ export const FULL_CREDIT_CHECKER_MUTATION = gql`
     }
   }
 `;
+
+export function useGetPartyByUuidQuery(partyUuid?: string) {
+  return useQuery<GetPartyByUuid, GetPartyByUuidVariables>(GET_PARTY_BY_UUID, {
+    variables: {
+      uuid: partyUuid || '',
+    },
+    skip: !partyUuid,
+  });
+}

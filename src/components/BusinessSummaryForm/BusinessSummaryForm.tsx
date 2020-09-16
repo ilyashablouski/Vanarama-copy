@@ -15,7 +15,6 @@ import { AboutFormPerson } from '../../../generated/AboutFormPerson';
 import BusinessSummaryFormAboutSection from './BusinessSummaryFormAboutSection';
 import { GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as CreditApplication } from '../../../generated/GetCreditApplicationByOrderUuid';
 import { mapDirectorsDefaultValues } from '../../containers/DirectorDetailsFormContainer/mappers';
-import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
 import { mapDefaultValues } from '../../containers/CompanyBankDetailsFormContainer/mappers';
 import { DirectorDetails } from '../DirectorDetailsForm/interfaces';
 
@@ -24,6 +23,8 @@ interface IProps {
   orderId: string;
   person: AboutFormPerson;
   creditApplication?: CreditApplication | null;
+  onSubmit: () => void;
+  isSubmitting: boolean;
 }
 
 const BusinessSummaryForm: FCWithFragments<IProps> = ({
@@ -31,14 +32,19 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
   company,
   orderId,
   person,
+  onSubmit,
+  isSubmitting,
 }) => {
   const router = useRouter();
-  const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
 
   const primaryBankAccount = useMemo(
     () => (creditApplication ? mapDefaultValues(creditApplication) : undefined),
     [creditApplication],
   );
+
+  const selectLabel = useMemo(() => (isSubmitting ? 'Saving...' : 'Continue'), [
+    isSubmitting,
+  ]);
 
   const handleEdit = useCallback(
     (url: string, additionalParameters?: { [key: string]: string }) => () => {
@@ -78,27 +84,6 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
         />
       ));
   }, [handleEdit, orderId, creditApplication]);
-
-  const onButtonPressed = useCallback(
-    () =>
-      router.push(
-        '/olaf/thank-you/[orderId]?isB2b=1',
-        '/olaf/thank-you/[orderId]?isB2b=1'.replace('[orderId]', orderId),
-      ),
-    [router, orderId],
-  );
-
-  const onClickBtn = () => {
-    createUpdateCA({
-      variables: {
-        input: {
-          orderUuid: orderId,
-          submittedAt: new Date(),
-        },
-      },
-    });
-    onButtonPressed();
-  };
 
   return (
     <div>
@@ -153,13 +138,14 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
         )}
       </Form>
       <Button
+        disabled={isSubmitting}
         size="large"
         className="-mt-400"
         type="button"
         color="teal"
-        label="Continue"
+        label={selectLabel}
         dataTestId="olaf_summary_continue_buttton"
-        onClick={onClickBtn}
+        onClick={onSubmit}
       />
     </div>
   );
