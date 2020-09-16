@@ -39,7 +39,7 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <Heading color="black" size="xlarge" dataTestId="bankDetails">
+      <Heading color="black" size="xlarge" dataTestId="bankDetails" tag="h1">
         Bank Details
       </Heading>
       <Text color="darker" size="lead">
@@ -259,7 +259,18 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
           id="termsAndConditions"
           dataTestId="termsAndConditions"
           name="termsAndConditions"
-          label="I agree to the Terms and conditions."
+          label={[
+            'I agree to the ',
+            <a
+              key="a"
+              className="link -teal"
+              href="/legal/terms-and-conditions/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Terms and Conditions
+            </a>,
+          ]}
           ref={register}
         />
       </FormGroup>

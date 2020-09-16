@@ -67,7 +67,7 @@ const EligibilityChecker: NextPage = () => {
         />
       )}
       <div className="row:title">
-        <Heading size="xlarge" color="black">
+        <Heading size="xlarge" color="black" tag="h1">
           {metaData?.name}
         </Heading>
       </div>

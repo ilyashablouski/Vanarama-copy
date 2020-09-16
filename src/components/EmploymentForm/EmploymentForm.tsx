@@ -30,7 +30,7 @@ const EmploymentForm: FCWithFragments<IEmploymentFormProps> = ({
         <Form onSubmit={formikProps.handleSubmit}>
           <Heading
             dataTestId="employment-history-heading"
-            tag="span"
+            tag="h1"
             size="xlarge"
             color="black"
           >

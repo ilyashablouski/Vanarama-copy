@@ -92,12 +92,14 @@ export const Header: FC<IHeaderProps> = memo(props => {
         </RouterLink>{' '}
         <label className="header-search" htmlFor="search">
           {' '}
-          <Icon icon={<SearchCircle />} color="darker" />{' '}
+          {/* {TODO: commit for this search lines should be reverted after implement search functionality} */}
+          <Icon icon={<SearchCircle />} />{' '}
           <input
             className="header-search--input"
             id="search"
             type="text"
-            placeholder="Search for Vehicles…"
+            disabled
+            placeholder=""
           />{' '}
           {/* <div className="header-search--results -is-hidden" /> */}{' '}
         </label>{' '}

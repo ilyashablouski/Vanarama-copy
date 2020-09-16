@@ -4,15 +4,19 @@ import { gql } from '@apollo/client';
 import moment from 'moment';
 import FCWithFragments from '../../utils/FCWithFragments';
 
-import { CompanyAssociate } from '../../../generated/CompanyAssociate';
+import { CompanyAssociate_addresses as Address } from '../../../generated/CompanyAssociate';
 import { addressToDisplay } from '../../utils/address';
 import { formatPreviousAddressesArray } from './helpers';
+import { DirectorFormValues } from '../DirectorDetailsForm/interfaces';
 
 interface IBusinessSummaryFormDirectorDetailsSectionProps {
-  director: CompanyAssociate;
+  director: DirectorFormValues & { addresses?: Address[] };
   orderBySharehold: number;
   onEdit: () => any;
 }
+
+const formatDateOfBirth = (year: string, month: string, day: string) =>
+  moment(new Date(+year, +month, +day)).format('DD MMMM YYYY') || '';
 
 const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummaryFormDirectorDetailsSectionProps> = ({
   onEdit,
@@ -21,9 +25,8 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
 }) => {
   const sortedAddresses = useMemo(
     () =>
-      director.addresses?.length &&
       director.addresses
-        .slice()
+        ?.slice()
         .sort(
           (a, b) =>
             new Date(a.startedOn).getTime() - new Date(b.startedOn).getTime(),
@@ -50,17 +53,21 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
     },
     {
       label: 'Date Of Birth',
-      value: moment(director.dateOfBirth).format('DD MMMM YYYY') || '',
+      value: formatDateOfBirth(
+        director.yearOfBirth,
+        director.monthOfBirth,
+        director.dayOfBirth,
+      ),
       dataTestId: `summary-director[${orderBySharehold}]-birth-date`,
     },
     {
       label: '% Shareholder Of Business',
-      value: (director.businessShare && `${director.businessShare}%`) || '',
+      value: (director.shareOfBusiness && `${director.shareOfBusiness}%`) || '',
       dataTestId: `summary-director[${orderBySharehold}]-business-share`,
     },
     {
       label: 'Number of Dependants',
-      value: director.noOfDependants || '',
+      value: director.numberOfDependants || '',
       dataTestId: `summary-director[${orderBySharehold}]-noOfDependants`,
     },
     {

@@ -14,9 +14,16 @@ export interface GetPartyByUuid_partyByUuid_person {
   uuid: string;
 }
 
+export interface GetPartyByUuid_partyByUuid_company {
+  partyId: string;
+  legalName: string | null;
+  companyType: string | null;
+}
+
 export interface GetPartyByUuid_partyByUuid {
   uuid: string;
   person: GetPartyByUuid_partyByUuid_person | null;
+  company: GetPartyByUuid_partyByUuid_company | null;
 }
 
 export interface GetPartyByUuid {
