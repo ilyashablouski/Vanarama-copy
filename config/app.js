@@ -45,7 +45,28 @@ module.exports = {
       rollbarClientToken: process.env.ROLLBAR_CLIENT_TOKEN || '',
     },
 
-    trailingSlash: true,
+    async rewrites() {
+      return [
+        {
+          source: '/test',
+          destination: '/van-leasing/nissan',
+        },
+        {
+          source:
+            '/nissan-van-leasing/navara/diesel/double-cab-pick-up-tekna-2-3dci-190-tt-4wd-auto-9953.html',
+          destination:
+            '/van-leasing/nissan/navara/double-cab-pick-up-tekna-23dci-190-tt-4wd-auto',
+        },
+        {
+          source:
+            '/citroen-van-leasing/dispatch/1000-1-6-bluehdi-115-van-enterprise-9789.html',
+          destination:
+            '/van-leasing/citroen/dispatch-m/1000-15-bluehdi-100-van-enterprise',
+        },
+      ];
+    },
+
+    trailingSlash: false,
     // Routes to export into static files.
     exportPathMap: () => {
       return {

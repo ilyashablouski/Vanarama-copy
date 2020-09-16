@@ -38,7 +38,8 @@ app
     const rewriteList = [...pdpRewiteList, ...rewritePatterns];
 
     rewriteList.forEach(({ from, to }) => {
-      server.get(from, rewrite(to));
+      // server.get(from, rewrite(to));
+      console.log({ from, to });
     });
 
     return server;
@@ -88,8 +89,8 @@ app
     // All routes.
     server.all('*', cors(), (req, res) => {
       // Trailing slash fix on page reload.
-      req.url = req.url.replace(/\/$/, '');
-      if (req.url === '') req.url = '/';
+      // req.url = req.url.replace(/\/$/, '');
+      // if (req.url === '') req.url = '/';
 
       if (process.env.ENV !== 'production')
         res.setHeader('X-Robots-Tag', 'noindex'); // Disable indexing.
