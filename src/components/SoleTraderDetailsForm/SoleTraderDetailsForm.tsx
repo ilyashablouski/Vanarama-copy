@@ -262,7 +262,6 @@ SoleTraderDetailsForm.fragments = {
         uuid
       }
     }
-    ${SoleTraderDetailsForm.fragments.addresses}
   `,
   addresses: gql`
     fragment SoleTraderDetailsFormAddresses on AddressType {
