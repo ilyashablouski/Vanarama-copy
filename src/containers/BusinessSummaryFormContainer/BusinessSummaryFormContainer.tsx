@@ -32,7 +32,7 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
   onCompleted,
   onError,
 }) => {
-  const [getDataSummary, { data, error, loading }] = useLazyQuery<
+  const [getDataSummary, getDataSummaryQueryOptions] = useLazyQuery<
     GetCompanySummaryQuery,
     GetCompanySummaryQueryVariables
   >(GET_COMPANY_SUMMARY, { fetchPolicy: 'no-cache' });
@@ -66,13 +66,17 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [personUuid, companyUuid]);
 
-  if (error) {
-    return <p>Error occurred: {error.message}</p>;
+  if (getDataSummaryQueryOptions.error || getPartyByUuidQuery.error) {
+    const errorMessage = (
+      getDataSummaryQueryOptions.error || getPartyByUuidQuery.error
+    )?.message;
+    return <p>Error occurred: {errorMessage}</p>;
   }
 
   if (
-    loading ||
-    (!data?.companyByUuid && !data?.personByUuid) ||
+    getDataSummaryQueryOptions.loading ||
+    (!getDataSummaryQueryOptions.data?.companyByUuid &&
+      !getDataSummaryQueryOptions.data?.personByUuid) ||
     getCreditApplication.loading ||
     getPartyByUuidQuery.loading
   ) {
@@ -115,8 +119,8 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
       creditApplication={
         getCreditApplication.data?.creditApplicationByOrderUuid
       }
-      person={data.personByUuid as PersonByUuid}
-      company={data.companyByUuid as CompanyByUuid}
+      person={getDataSummaryQueryOptions.data.personByUuid as PersonByUuid}
+      company={getDataSummaryQueryOptions.data.companyByUuid as CompanyByUuid}
       orderId={orderId}
     />
   );
