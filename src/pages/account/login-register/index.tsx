@@ -6,6 +6,7 @@ import TabPanels from '@vanarama/uibook/lib/components/molecules/tabs/TabPanels'
 import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import CheckmarkSharp from '@vanarama/uibook/lib/assets/icons/CheckmarkSharp';
+import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
@@ -27,6 +28,12 @@ import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid
 interface IProps {
   query: ParsedUrlQuery;
 }
+
+const handleRegisterError = () =>
+  toast.error(
+    'Oops, an unexpected error occurred',
+    'You can not be registered now. Please try submitting the form again.',
+  );
 
 export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
   const { query } = props;
@@ -133,6 +140,7 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
             <TabPanel index={2}>
               <RegisterFormContainer
                 onCompleted={() => setRegistrationSuccess(true)}
+                onError={handleRegisterError}
               />
             </TabPanel>
           </TabPanels>

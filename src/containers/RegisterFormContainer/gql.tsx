@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { gql, useMutation, ApolloError } from '@apollo/client';
 import {
   EmailAlreadyExistsMutation,
   EmailAlreadyExistsMutationVariables,
@@ -43,9 +43,10 @@ export function useEmailCheck(
 
 export function useRegistration(
   onCompleted?: (data: RegisterUserMutation) => void,
+  onError?: (error: ApolloError) => void,
 ) {
   return useMutation<RegisterUserMutation, RegisterUserMutationVariables>(
     REGISTER_USER_MUTATION,
-    { onCompleted },
+    { onCompleted, onError },
   );
 }
