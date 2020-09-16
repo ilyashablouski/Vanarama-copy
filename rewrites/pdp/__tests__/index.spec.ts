@@ -84,14 +84,15 @@ describe('buildListOfRewrites', () => {
 
     const expected = [
       {
-        from:
+        source:
           '/toyota-van-leasing/hilux/invincible-x-d/cab-pick-up-2-4-d-4d-auto-9584.html',
-        to: '/car-leasing/volvo/v50/estate/t5-r-design-se-sport-5-doors',
+        destination:
+          '/car-leasing/volvo/v50/estate/t5-r-design-se-sport-5-doors',
       },
       {
-        from:
+        source:
           '/citroen-van-leasing/berlingo/1-5-bluehdi-650kg-enterprise-75ps-9986.html',
-        to: '/van-leasing/fiat/panda-hatchback/12-pop-5-doors',
+        destination: '/van-leasing/fiat/panda-hatchback/12-pop-5-doors',
       },
     ];
 

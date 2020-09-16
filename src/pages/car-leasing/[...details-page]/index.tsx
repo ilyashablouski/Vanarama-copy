@@ -10,6 +10,7 @@ import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import DetailsPage from '../../../containers/DetailsPage/DetailsPage';
 import { VEHICLE_CONFIGURATION_BY_URL } from '../../../gql/productCard';
 import { VehicleConfigurationByUrl } from '../../../../generated/VehicleConfigurationByUrl';
+import { getVehicleConfigurationPath } from '../../../utils/url';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -28,7 +29,7 @@ const CarDetailsPage: NextPage<IProps> = () => {
     VehicleConfigurationByUrl
   >(VEHICLE_CONFIGURATION_BY_URL, {
     variables: {
-      url: router.asPath.replace('/car-leasing', '').slice(0, -1),
+      url: getVehicleConfigurationPath(router.asPath, '/car-leasing'),
     },
     onCompleted: d =>
       setCapId(d.vehicleConfigurationByUrl?.capDerivativeId || 0),
