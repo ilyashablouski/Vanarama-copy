@@ -81,7 +81,7 @@ const BlogPostContainer: NextPage<IProps> = ({
           />
         </article>
         <div>
-          {cards && articles && (
+          {(cards || articles) && (
             <Heading tag="span" size="large" color="black">
               Related Articles
             </Heading>

@@ -161,6 +161,11 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         </p>
       </article>
       <div>
+        <span
+          class="heading -black -large"
+        >
+          Related Articles
+        </span>
         <div
           class="card"
           data-testid="card"
