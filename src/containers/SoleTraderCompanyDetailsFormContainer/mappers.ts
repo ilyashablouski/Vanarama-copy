@@ -12,7 +12,8 @@ export const mapFormValues = (values: ISoleTraderCompanyDetailsFormValues) => {
     addresses: [
       {
         serviceId: values.tradingAddress.id,
-        kind: 'registered',
+        lineOne: values.tradingAddress.label,
+        kind: 'Trading',
       },
     ],
     emailAddress: {

@@ -9,7 +9,6 @@
 
 export interface SoleTraderDetailsFormAddresses {
   __typename: "AddressType";
-  uuid: string;
   serviceId: string | null;
   lineOne: string;
   lineTwo: string | null;

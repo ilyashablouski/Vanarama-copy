@@ -13,13 +13,13 @@ export const GET_SOLETRADER_DETAILS_FORM_DATA = gql`
       ...SoleTraderDetailsDropDownData
     }
     personByUuid(uuid: $uuid) {
-      uuid
-      partyId
+      ...SoleTraderPerson
       addresses {
         ...SoleTraderDetailsFormAddresses
       }
     }
   }
+  ${SoleTraderDetailsForm.fragments.person}
   ${SoleTraderDetailsForm.fragments.addresses}
   ${SoleTraderDetailsForm.fragments.dropdownData}
 `;
@@ -27,7 +27,7 @@ export const GET_SOLETRADER_DETAILS_FORM_DATA = gql`
 export const UPDATE_SOLETRADER_COMPANY = gql`
   mutation UpdateSoleTraderMutation($input: SoleTraderCompanyInputObject!) {
     updateCompanySoleTrader(input: $input) {
-      ...SoleTraderPerson
+      ...SoleTraderAssociate
     }
   }
   ${SoleTraderDetailsForm.fragments.soleTrader}
