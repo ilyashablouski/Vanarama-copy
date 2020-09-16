@@ -16,6 +16,7 @@ import {
 import { mapCreditApplicationToCreditChecker } from './mappers';
 import { useGetPartyByUuidQuery } from '../../components/SummaryForm/gql';
 import { GetPartyByUuid_partyByUuid as Party } from '../../../generated/GetPartyByUuid';
+import { GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as CreditApplication } from '../../../generated/GetCreditApplicationByOrderUuid';
 
 interface IProps {
   personUuid: string;
@@ -32,7 +33,7 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
   onCompleted,
   onError,
 }) => {
-  const [getDataSummary, { data, error, loading }] = useLazyQuery<
+  const [getDataSummary, getDataSummaryQueryOptions] = useLazyQuery<
     GetCompanySummaryQuery,
     GetCompanySummaryQueryVariables
   >(GET_COMPANY_SUMMARY, { fetchPolicy: 'no-cache' });
@@ -47,7 +48,7 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
   ] = useUseFullCreditCheckerB2BMutation();
   const partyUuid =
     getCreditApplication.data?.creditApplicationByOrderUuid?.lineItem?.order
-      ?.partyUuid || '';
+      ?.partyUuid;
   const getPartyByUuidQuery = useGetPartyByUuidQuery(partyUuid || '');
 
   const isSubmitting =
@@ -66,15 +67,17 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [personUuid, companyUuid]);
 
+  const error = getDataSummaryQueryOptions.error || getPartyByUuidQuery.error;
   if (error) {
-    return <p>Error occurred: {error.message}</p>;
+    return <p>Error occurred: {error?.message}</p>;
   }
 
   if (
-    loading ||
-    (!data?.companyByUuid && !data?.personByUuid) ||
+    getDataSummaryQueryOptions.loading ||
     getCreditApplication.loading ||
-    getPartyByUuidQuery.loading
+    getPartyByUuidQuery.loading ||
+    (!getDataSummaryQueryOptions.data?.companyByUuid &&
+      !getDataSummaryQueryOptions.data?.personByUuid)
   ) {
     return <Loading size="large" />;
   }
@@ -99,11 +102,17 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
       },
     });
 
+  const handlePartyRefetch = (creditApplication?: CreditApplication | null) =>
+    getPartyByUuidQuery.refetch({
+      uuid: creditApplication?.lineItem?.order?.partyUuid || '',
+    });
+
   const handleSubmit = () => {
     hanldeCredutApplicationSubmit()
-      .then(() =>
-        hanldeCreditCheckerSubmit(getPartyByUuidQuery.data?.partyByUuid),
+      .then(query =>
+        handlePartyRefetch(query.data?.createUpdateCreditApplication),
       )
+      .then(query => hanldeCreditCheckerSubmit(query.data?.partyByUuid))
       .then(() => onCompleted?.())
       .catch(onError);
   };
@@ -115,8 +124,8 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
       creditApplication={
         getCreditApplication.data?.creditApplicationByOrderUuid
       }
-      person={data.personByUuid as PersonByUuid}
-      company={data.companyByUuid as CompanyByUuid}
+      person={getDataSummaryQueryOptions.data.personByUuid as PersonByUuid}
+      company={getDataSummaryQueryOptions.data.companyByUuid as CompanyByUuid}
       orderId={orderId}
     />
   );
