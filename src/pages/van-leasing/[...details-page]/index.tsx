@@ -52,10 +52,13 @@ const VanDetailsPage: NextPage<IProps> = () => {
       </div>
     );
   }
+  const isPickup = !data?.derivativeInfo?.bodyType?.slug?.match('van');
+
   return (
     <DetailsPage
       capId={capId}
-      vans
+      vans={!isPickup}
+      pickups={isPickup}
       data={data}
       loading={loading}
       error={error}
