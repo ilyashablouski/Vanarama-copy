@@ -62,6 +62,16 @@ export interface GetVehicleDetails_vehicleDetails {
   rangeFaqs: (GetVehicleDetails_vehicleDetails_rangeFaqs | null)[] | null;
 }
 
+export interface GetVehicleDetails_derivativeInfo_manufacturer {
+  name: string;
+  slug: string;
+}
+
+export interface GetVehicleDetails_derivativeInfo_range {
+  name: string;
+  slug: string;
+}
+
 export interface GetVehicleDetails_derivativeInfo_fuelType {
   name: string;
 }
@@ -76,6 +86,7 @@ export interface GetVehicleDetails_derivativeInfo_bodyStyle {
 
 export interface GetVehicleDetails_derivativeInfo_bodyType {
   name: string | null;
+  slug: string;
 }
 
 export interface GetVehicleDetails_derivativeInfo_technicals {
@@ -111,6 +122,9 @@ export interface GetVehicleDetails_derivativeInfo_trims {
 }
 
 export interface GetVehicleDetails_derivativeInfo {
+  name: string;
+  manufacturer: GetVehicleDetails_derivativeInfo_manufacturer;
+  range: GetVehicleDetails_derivativeInfo_range;
   fuelType: GetVehicleDetails_derivativeInfo_fuelType;
   transmission: GetVehicleDetails_derivativeInfo_transmission;
   bodyStyle: GetVehicleDetails_derivativeInfo_bodyStyle | null;

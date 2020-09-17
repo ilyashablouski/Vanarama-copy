@@ -89,6 +89,15 @@ describe('<CustomiseLeaseContainer />', () => {
           term: 1231,
         }}
         derivativeInfo={{
+          name: '',
+          manufacturer: {
+            name: '',
+            slug: '',
+          },
+          range: {
+            name: '',
+            slug: '',
+          },
           transmission: {
             name: 'Manual',
           },
@@ -97,6 +106,7 @@ describe('<CustomiseLeaseContainer />', () => {
           },
           bodyType: {
             name: 'Hatchback',
+            slug: 'hatchback',
           },
           fuelType: {
             name: 'Diesel',
@@ -204,6 +214,15 @@ describe('<CustomiseLeaseContainer />', () => {
         term: 1231,
       },
       derivativeInfo: {
+        name: '',
+        manufacturer: {
+          name: '',
+          slug: '',
+        },
+        range: {
+          name: '',
+          slug: '',
+        },
         transmission: {
           name: 'Manual',
         },
@@ -212,6 +231,7 @@ describe('<CustomiseLeaseContainer />', () => {
         },
         bodyType: {
           name: 'Hatchback',
+          slug: 'hatchback',
         },
         fuelType: {
           name: 'Diesel',
@@ -276,6 +296,15 @@ describe('<CustomiseLeaseContainer />', () => {
         term: 1231,
       },
       derivativeInfo: {
+        name: '',
+        manufacturer: {
+          name: '',
+          slug: '',
+        },
+        range: {
+          name: '',
+          slug: '',
+        },
         transmission: {
           name: 'Manual',
         },
@@ -284,6 +313,7 @@ describe('<CustomiseLeaseContainer />', () => {
         },
         bodyType: {
           name: 'Hatchback',
+          slug: 'hatchback',
         },
         fuelType: {
           name: 'Diesel',
@@ -377,6 +407,15 @@ describe('<CustomiseLeaseContainer />', () => {
           upfronts: [1, 3, 6, 9, 12],
         }}
         derivativeInfo={{
+          name: '',
+          manufacturer: {
+            name: '',
+            slug: '',
+          },
+          range: {
+            name: '',
+            slug: '',
+          },
           transmission: {
             name: 'Manual',
           },
@@ -385,6 +424,7 @@ describe('<CustomiseLeaseContainer />', () => {
           },
           bodyType: {
             name: 'Hatchback',
+            slug: 'hatchback',
           },
           fuelType: {
             name: 'Diesel',

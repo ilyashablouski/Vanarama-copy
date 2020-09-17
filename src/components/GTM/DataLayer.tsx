@@ -5,6 +5,7 @@ const DataLayer: FC = () => {
 
   return process.env.GTM_ID ? (
     <script
+      type="text/javascript"
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{
         __html: code,
