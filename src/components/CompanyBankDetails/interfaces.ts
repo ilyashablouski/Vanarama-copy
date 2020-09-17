@@ -10,7 +10,7 @@ export interface ICompanyBankDetails {
 }
 
 export interface ICompanyBankDetailsProps {
-  onSubmit: (values: ICompanyBankDetails) => Promise<any>;
+  onSubmit: (values: ICompanyBankDetails) => void;
   account?: ICompanyBankDetails;
   data?: ICompanyBankDetails;
   isEdited: boolean;
