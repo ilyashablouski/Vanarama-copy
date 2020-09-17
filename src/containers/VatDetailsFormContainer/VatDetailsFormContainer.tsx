@@ -61,19 +61,18 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
     };
 
     return isSoleTrader
-      ? updateSoleTraderVatDetails(input).then(
-          ({ data }) => data?.createUpdateSoleTraderCompany,
-        )
-      : updateLimitedVatDetails(input).then(
-          ({ data }) => data?.createUpdateLimitedCompany,
-        );
+      ? updateSoleTraderVatDetails(input)
+      : updateLimitedVatDetails(input);
   };
 
   const handleSubmit = async (values: VatDetailsFormValues) => {
-    await handleVatDetailsUpdate(values)
-      .then(() => handleCreditApplicationUpdate(values))
-      .then(onCompleted)
-      .catch(onError);
+    try {
+      await handleVatDetailsUpdate(values);
+      await handleCreditApplicationUpdate(values);
+      onCompleted();
+    } catch (err) {
+      onError(err);
+    }
   };
 
   if (getCreditApplicationByOrderUuidQuery.loading) {

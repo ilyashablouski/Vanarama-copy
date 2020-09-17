@@ -146,7 +146,7 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
 
           <FormikNumericField
             name="monthlyStudentPayments"
-            label="£ Monthly Student Payments"
+            label="Monthly Student Payments"
             dataTestId="monthly-student-payments"
             prefix="£"
           />
