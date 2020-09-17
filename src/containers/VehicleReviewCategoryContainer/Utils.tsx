@@ -20,10 +20,6 @@ export function getReviewCategoryCrumbs(data: ReviewsHubCategoryQuery) {
       href: '/van-reviews',
     },
     {
-      label: 'Hub',
-      href: '/hub',
-    },
-    {
       label: data.genericPage.metaData.name || '',
       href: '/',
     },
