@@ -25,14 +25,14 @@ const AboutForm: FCWithFragments<IProps> = ({
   onEmailExistenceCheck,
   onLogInClick,
 }) => {
-  const isEmailChekcerExists = onEmailExistenceCheck !== undefined;
+  const isEmailCheckerExists = onEmailExistenceCheck !== undefined;
   const validationSchema = useMemo(
     () =>
-      isEmailChekcerExists
+      isEmailCheckerExists
         ? createValidationSchema(onEmailExistenceCheck!)
         : () => Promise.resolve(false),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [isEmailChekcerExists],
+    [isEmailCheckerExists],
   );
   const months = genMonths();
   const years = genYears(100);
