@@ -180,6 +180,6 @@ describe('<CompanyBankDetailsFormContainer />', () => {
 
     // ASSERT
     await waitFor(() => expect(mutationMock).toHaveBeenCalled());
-    expect(onCompletedMock).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(onCompletedMock).toHaveBeenCalledTimes(1));
   });
 });
