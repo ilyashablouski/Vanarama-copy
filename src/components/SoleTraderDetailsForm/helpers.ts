@@ -69,12 +69,21 @@ export const validationSchema = Yup.object().shape(
           ),
       }),
     ),
-    annualIncome: Yup.number().required('Please your annual income'),
-    avgMonthlyIncome: Yup.number().required('Please your annual income'),
-    monthlyMortgagePayments: Yup.number().required('Please your annual income'),
-    monthlyStudentPayments: Yup.number().required('Please your annual income'),
+    annualIncome: Yup.number().required('Please enter your annual income'),
+    avgMonthlyIncome: Yup.number().required(
+      'Please enter your average monthly income',
+    ),
+    monthlyMortgagePayments: Yup.number().required(
+      'Please enter your monthly mortgage/rent payments',
+    ),
+    monthlyStudentPayments: Yup.number().required(
+      'Please enter your student loan payments',
+    ),
     monthlyIncomeChange: Yup.boolean().notRequired(),
-    futureMonthlyIncome: Yup.number().notRequired(),
+    futureMonthlyIncome: Yup.number().when('monthlyIncomeChange', {
+      is: true,
+      then: Yup.number().required('Please enter your future monthly income'),
+    }),
   },
   [
     ['dayOfBirth', 'monthOfBirth'],

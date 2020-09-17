@@ -1,11 +1,15 @@
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React from 'react';
+import { ICompanyBankDetails } from '../../components/CompanyBankDetails/interfaces';
 import CompanyBankDetails from '../../components/CompanyBankDetails';
 import {
   useCreateUpdateCreditApplication,
   useGetCreditApplicationByOrderUuid,
 } from '../../gql/creditApplication';
-import { useUpdateBankDetails } from './gql';
+import {
+  useUpdateLimitedBankDetails,
+  useUpdateSoleTraderBankDetails,
+} from './gql';
 import { IProps } from './interfaces';
 import {
   formValuesToInput,
@@ -18,9 +22,12 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   companyUuid,
   orderUuid,
   onCompleted,
+  onError,
   isEdited,
+  isSoleTrader,
 }) => {
-  const [updateBankDetails] = useUpdateBankDetails(companyUuid, onCompleted);
+  const [updateLimitedBankDetails] = useUpdateLimitedBankDetails();
+  const [updateSoleTraderBankDetails] = useUpdateSoleTraderBankDetails();
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
     orderUuid,
     () => {},
@@ -42,32 +49,48 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
     return null;
   }
 
+  const handleUpdateBankDetails = (values: ICompanyBankDetails) => {
+    const input = {
+      variables: { input: formValuesToInput(companyUuid, values) },
+    };
+
+    return isSoleTrader
+      ? updateSoleTraderBankDetails(input)
+      : updateLimitedBankDetails(input);
+  };
+
+  const pluckBankAccountData = (res: any) => {
+    return isSoleTrader
+      ? res.data?.createUpdateSoleTraderCompany?.bankAccounts
+      : res.data?.createUpdateLimitedCompany?.bankAccounts;
+  };
+
+  const handleSubmit = async (values: ICompanyBankDetails) => {
+    try {
+      const res = await handleUpdateBankDetails(values);
+      await createUpdateApplication({
+        variables: {
+          input: formValuesToInputCreditApplication({
+            ...data?.creditApplicationByOrderUuid,
+            bankAccounts: mapBankAccountsForCreditApplication(
+              values,
+              pluckBankAccountData(res),
+            ),
+            orderUuid,
+          }),
+        },
+      });
+      onCompleted();
+    } catch (err) {
+      onError(err);
+    }
+  };
+
   return (
     <CompanyBankDetails
       isEdited={isEdited}
       account={account}
-      onSubmit={async values => {
-        const input = formValuesToInput(companyUuid, values);
-
-        await updateBankDetails({
-          variables: {
-            input,
-          },
-        }).then(query =>
-          createUpdateApplication({
-            variables: {
-              input: formValuesToInputCreditApplication({
-                ...data?.creditApplicationByOrderUuid,
-                bankAccounts: mapBankAccountsForCreditApplication(
-                  values,
-                  query.data?.createUpdateLimitedCompany?.bankAccounts,
-                ),
-                orderUuid,
-              }),
-            },
-          }),
-        );
-      }}
+      onSubmit={handleSubmit}
     />
   );
 };

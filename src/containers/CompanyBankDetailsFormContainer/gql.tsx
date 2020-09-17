@@ -2,17 +2,37 @@ import { useMutation, gql, useQuery } from '@apollo/client';
 
 import CompanyBankDetails from '../../components/CompanyBankDetails';
 import {
-  UpdateBankDetailsMutation as Mutation,
-  UpdateBankDetailsMutationVariables as MutationVariables,
-} from '../../../generated/UpdateBankDetailsMutation';
+  UpdateLimitedBankDetailsMutation as MutationLimited,
+  UpdateLimitedBankDetailsMutationVariables as MutationLimitedVariables,
+} from '../../../generated/UpdateLimitedBankDetailsMutation';
+import {
+  UpdateSoleTraderBankDetailsMutation as MutationSoleTrader,
+  UpdateSoleTraderBankDetailsMutationVariables as MutationSoleTraderVariables,
+} from '../../../generated/UpdateSoleTraderBankDetailsMutation';
 import {
   GetCompanyBankDetailsPageDataQuery as Query,
   GetCompanyBankDetailsPageDataQueryVariables as QueryVariables,
 } from '../../../generated/GetCompanyBankDetailsPageDataQuery';
 
-export const UPDATE_COMPANY_BANK_DETAILS = gql`
-  mutation UpdateBankDetailsMutation($input: LimitedCompanyInputObject!) {
+export const UPDATE_LIMITED_BANK_DETAILS = gql`
+  mutation UpdateLimitedBankDetailsMutation(
+    $input: LimitedCompanyInputObject!
+  ) {
     createUpdateLimitedCompany(input: $input) {
+      uuid
+      bankAccounts {
+        ...CompanyBankDetailsAccount
+      }
+    }
+  }
+  ${CompanyBankDetails.fragments.account}
+`;
+
+export const UPDATE_SOLETRADER_BANK_DETAILS = gql`
+  mutation UpdateSoleTraderBankDetailsMutation(
+    $input: SoleTraderCompanyInputObject!
+  ) {
+    createUpdateSoleTraderCompany(input: $input) {
       uuid
       bankAccounts {
         ...CompanyBankDetailsAccount
@@ -40,11 +60,14 @@ export function useBankDetails(companyUuid: string) {
   });
 }
 
-export function useUpdateBankDetails(
-  companyUuid: string,
-  onCompleted: () => void,
-) {
-  return useMutation<Mutation, MutationVariables>(UPDATE_COMPANY_BANK_DETAILS, {
-    onCompleted,
-  });
+export function useUpdateLimitedBankDetails() {
+  return useMutation<MutationLimited, MutationLimitedVariables>(
+    UPDATE_LIMITED_BANK_DETAILS,
+  );
+}
+
+export function useUpdateSoleTraderBankDetails() {
+  return useMutation<MutationSoleTrader, MutationSoleTraderVariables>(
+    UPDATE_SOLETRADER_BANK_DETAILS,
+  );
 }

@@ -6,10 +6,10 @@
 import { LimitedCompanyInputObject } from "./globalTypes";
 
 // ====================================================
-// GraphQL mutation operation: UpdateBankDetailsMutation
+// GraphQL mutation operation: UpdateLimitedBankDetailsMutation
 // ====================================================
 
-export interface UpdateBankDetailsMutation_createUpdateLimitedCompany_bankAccounts {
+export interface UpdateLimitedBankDetailsMutation_createUpdateLimitedCompany_bankAccounts {
   __typename: "BankAccountType";
   uuid: string;
   accountName: string | null;
@@ -19,18 +19,18 @@ export interface UpdateBankDetailsMutation_createUpdateLimitedCompany_bankAccoun
   updatedAt: any | null;
 }
 
-export interface UpdateBankDetailsMutation_createUpdateLimitedCompany {
+export interface UpdateLimitedBankDetailsMutation_createUpdateLimitedCompany {
   uuid: string;
-  bankAccounts: UpdateBankDetailsMutation_createUpdateLimitedCompany_bankAccounts[] | null;
+  bankAccounts: UpdateLimitedBankDetailsMutation_createUpdateLimitedCompany_bankAccounts[] | null;
 }
 
-export interface UpdateBankDetailsMutation {
+export interface UpdateLimitedBankDetailsMutation {
   /**
    * Create or update Ltd. Company
    */
-  createUpdateLimitedCompany: UpdateBankDetailsMutation_createUpdateLimitedCompany | null;
+  createUpdateLimitedCompany: UpdateLimitedBankDetailsMutation_createUpdateLimitedCompany | null;
 }
 
-export interface UpdateBankDetailsMutationVariables {
+export interface UpdateLimitedBankDetailsMutationVariables {
   input: LimitedCompanyInputObject;
 }
