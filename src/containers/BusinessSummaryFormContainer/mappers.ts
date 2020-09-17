@@ -10,7 +10,7 @@ export const mapCreditApplicationToCreditChecker = (
   vehicleType:
     data?.lineItem?.vehicleProduct?.vehicleType || VehicleTypeEnum.CAR,
   capId: data?.lineItem?.vehicleProduct?.derivativeCapId,
-  creditApplicationUuid: data?.uuid || '',
+  creditApplicationUuid: data?.lineItem?.creditApplications?.[0]?.uuid || '',
   monthlyPayment: data?.lineItem?.vehicleProduct?.monthlyPayment || 0,
   depositPayment: data?.lineItem?.vehicleProduct?.depositPayment || 0,
 });

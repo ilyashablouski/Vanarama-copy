@@ -27,6 +27,9 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
         status
         productId
         productType
+        creditApplications {
+          uuid
+        }
         order {
           partyUuid
           uuid
@@ -85,6 +88,9 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
         status
         productId
         productType
+        creditApplications {
+          uuid
+        }
         order {
           partyUuid
           uuid
@@ -215,6 +221,9 @@ const responseMock = {
     status: 'status',
     productId: 'productId',
     productType: 'productType',
+    creditApplications: {
+      uuid: 'uuid',
+    },
     order: {
       partyUuid: 'partyUuid',
       uuid: 'uuid',
