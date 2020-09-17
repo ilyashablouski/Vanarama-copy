@@ -34,7 +34,7 @@ const CompanyBankDetailsPage: NextPage = () => {
       ? `/b2b/olaf/summary/[companyUuid]${params}`
       : `/b2b/olaf/sole-trader/summary/[companyUuid]${params}`;
     const url = summaryUrl;
-    // router.push(url, url.replace('[companyUuid]', companyUuid));
+    router.push(url, url.replace('[companyUuid]', companyUuid));
   };
 
   return (
