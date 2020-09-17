@@ -221,9 +221,11 @@ const responseMock = {
     status: 'status',
     productId: 'productId',
     productType: 'productType',
-    creditApplications: {
-      uuid: 'uuid',
-    },
+    creditApplications: [
+      {
+        uuid: 'uuid',
+      },
+    ],
     order: {
       partyUuid: 'partyUuid',
       uuid: 'uuid',
