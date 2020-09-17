@@ -18,7 +18,7 @@ export const SoleTraderDetailsPage: NextPage = () => {
   const { orderId, personUuid, companyUuid } = router.query as QueryParams;
 
   const handleSubmitError = (err: ApolloError) => {
-    console.log(err);
+    console.error(err);
     toast.error(
       'Oops, an unexpected error occurred',
       'Your details could not be saved. Please try submitting the form again.',
@@ -38,7 +38,7 @@ export const SoleTraderDetailsPage: NextPage = () => {
         personUuid={personUuid}
         companyUuid={companyUuid}
         onCompleted={handleSubmitCompletion}
-        onError={err => handleSubmitError(err)}
+        onError={handleSubmitError}
         isEdited={router.query.redirect === 'summary'}
       />
     </OLAFLayout>
