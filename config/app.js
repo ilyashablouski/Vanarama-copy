@@ -2,6 +2,9 @@
 require('dotenv').config();
 const { homepage } = require('../package.json');
 
+const { getPdpRewiteList } = require('../rewrites/pdp');
+const rewritePatterns = require('../rewrites/rewritePatterns');
+
 module.exports = {
   // Sass.
   sass: {
@@ -45,7 +48,17 @@ module.exports = {
       rollbarClientToken: process.env.ROLLBAR_CLIENT_TOKEN || '',
     },
 
-    trailingSlash: true,
+    // Rewrites.
+    async rewrites() {
+      const pdpRewiteList = await getPdpRewiteList();
+      const rewriteList = [...pdpRewiteList, ...rewritePatterns];
+
+      console.log(rewriteList);
+
+      return [...rewriteList];
+    },
+
+    trailingSlash: false,
     // Routes to export into static files.
     exportPathMap: () => {
       return {

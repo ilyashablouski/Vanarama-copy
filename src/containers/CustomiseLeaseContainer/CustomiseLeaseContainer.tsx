@@ -118,6 +118,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         colour: colourDescription,
         trim: trimDescription,
         term: data?.quoteByCapId?.term || term || null,
+        funderId: data?.quoteByCapId?.funderId?.toString() || null,
         annualMileage: data?.quoteByCapId?.mileage || mileage,
         depositMonths: data?.quoteByCapId?.upfront || upfront || null,
         depositPayment: data?.quoteByCapId?.leaseCost?.initialRental || null,

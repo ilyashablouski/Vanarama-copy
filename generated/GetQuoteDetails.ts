@@ -28,6 +28,7 @@ export interface GetQuoteDetails_quoteByCapId_maintenanceCost {
 
 export interface GetQuoteDetails_quoteByCapId {
   term: number | null;
+  funderId: number | null;
   mileage: number | null;
   upfront: number | null;
   trim: string | null;

@@ -65,6 +65,14 @@ export const getProductPageUrl = (
       };
 };
 
+export const getVehicleConfigurationPath = (path: string, prefix: string) => {
+  const newPath = path.replace(prefix, '');
+  if (newPath.slice(-1) === '/') {
+    return newPath.slice(0, -1);
+  }
+  return newPath;
+};
+
 export type productPageUrlData = {
   manufacturer: string | null;
   range: string | null;
