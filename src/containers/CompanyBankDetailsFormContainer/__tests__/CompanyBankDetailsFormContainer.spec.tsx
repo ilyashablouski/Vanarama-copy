@@ -138,7 +138,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
         <CompanyBankDetailsFormContainer
           orderUuid={orderUuid}
           companyUuid={companyUuid}
-          onCompleted={jest.fn()}
+          onCompleted={onCompletedMock}
           onError={jest.fn()}
           isEdited={false}
           isSoleTrader={false}
