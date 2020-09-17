@@ -2,8 +2,8 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import React from 'react';
 import CompanyBankDetailsFormContainer from '../CompanyBankDetailsFormContainer';
-import { UPDATE_COMPANY_BANK_DETAILS } from '../gql';
-import { UpdateBankDetailsMutationVariables as MutationVariables } from '../../../../generated/UpdateBankDetailsMutation';
+import { UPDATE_LIMITED_BANK_DETAILS } from '../gql';
+import { UpdateLimitedBankDetailsMutationVariables as MutationVariables } from '../../../../generated/UpdateLimitedBankDetailsMutation';
 import { LimitedCompanyInputObject } from '../../../../generated/globalTypes';
 import {
   makeUpdateCreditApplicationMock,
@@ -24,7 +24,9 @@ describe('<CompanyBankDetailsFormContainer />', () => {
           orderUuid={orderUuid}
           companyUuid={companyUuid}
           onCompleted={jest.fn()}
+          onError={jest.fn()}
           isEdited={false}
+          isSoleTrader={false}
         />
       </MockedProvider>,
     );
@@ -49,7 +51,9 @@ describe('<CompanyBankDetailsFormContainer />', () => {
           orderUuid={orderUuid}
           companyUuid={companyUuid}
           onCompleted={jest.fn()}
+          onError={jest.fn()}
           isEdited={false}
+          isSoleTrader={false}
         />
       </MockedProvider>,
     );
@@ -70,7 +74,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
       getCreditApplication,
       {
         request: {
-          query: UPDATE_COMPANY_BANK_DETAILS,
+          query: UPDATE_LIMITED_BANK_DETAILS,
           variables: {
             input: {
               uuid: '7f5a4ed2-24a5-42ff-9acd-208db847d678',
@@ -134,8 +138,10 @@ describe('<CompanyBankDetailsFormContainer />', () => {
         <CompanyBankDetailsFormContainer
           orderUuid={orderUuid}
           companyUuid={companyUuid}
-          onCompleted={onCompletedMock}
+          onCompleted={jest.fn()}
+          onError={jest.fn()}
           isEdited={false}
+          isSoleTrader={false}
         />
       </MockedProvider>,
     );

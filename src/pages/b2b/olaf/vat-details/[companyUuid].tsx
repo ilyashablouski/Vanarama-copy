@@ -3,16 +3,12 @@ import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { ApolloError } from '@apollo/client';
 import VatDetailsFormContainer from '../../../../containers/VatDetailsFormContainer';
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams, getUrlParam } from '../../../../utils/url';
-
-const handleSubmitError = () =>
-  toast.error(
-    'Oops, an unexpected error occurred',
-    'Your details could not be saved. Please try submitting the form again.',
-  );
+import useSoleTraderJorney from '../../../../hooks/useSoleTraderJourney';
 
 type QueryParams = OLAFQueryParams & {
   companyUuid: string;
@@ -20,22 +16,26 @@ type QueryParams = OLAFQueryParams & {
 
 export const VatDetailsPage: NextPage = () => {
   const router = useRouter();
+  const isSoleTraderJourney = useSoleTraderJorney();
   const { companyUuid, orderId, personUuid } = router.query as QueryParams;
 
-  const soleTraderPathMatchResult = router.pathname.match(
-    /^\/b2b\/olaf\/sole-trader\/.+/,
-  );
-  const isSoleTraderJourney = (soleTraderPathMatchResult || []).length > 0;
+  const handleSubmitError = (err: ApolloError) => {
+    console.log(err);
+    toast.error(
+      'Oops, an unexpected error occurred',
+      'Your details could not be saved. Please try submitting the form again.',
+    );
+  };
 
   const handleSubmitCompletion = () => {
     const params = getUrlParam({ orderId, personUuid });
     const detailsUrl = !isSoleTraderJourney
       ? `/b2b/olaf/director-details/[companyUuid]${params}`
       : `/b2b/olaf/sole-trader/sole-trader-details/[companyUuid]${params}`;
-    const url =
-      router.query.redirect === 'summary'
-        ? `/b2b/olaf/summary/[companyUuid]${params}`
-        : detailsUrl;
+    const summaryUrl = !isSoleTraderJourney
+      ? `/b2b/olaf/summary/[companyUuid]${params}`
+      : `/b2b/olaf/sole-trader/summary/[companyUuid]${params}`;
+    const url = router.query.redirect === 'summary' ? summaryUrl : detailsUrl;
     router.push(url, url.replace('[companyUuid]', companyUuid));
   };
 
@@ -46,7 +46,7 @@ export const VatDetailsPage: NextPage = () => {
         orderId={orderId}
         companyUuid={companyUuid}
         onCompleted={handleSubmitCompletion}
-        onError={handleSubmitError}
+        onError={err => handleSubmitError(err)}
         isEdited={router.query.redirect === 'summary'}
       />
     </OLAFLayout>

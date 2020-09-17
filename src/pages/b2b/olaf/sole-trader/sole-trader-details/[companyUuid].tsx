@@ -17,18 +17,18 @@ export const SoleTraderDetailsPage: NextPage = () => {
   const router = useRouter();
   const { orderId, personUuid, companyUuid } = router.query as QueryParams;
 
-  const handleSubmitCompletion = () => {
-    const params = getUrlParam({ orderId, personUuid });
-    const url = `/b2b/olaf/sole-trader/bank-details/[companyUuid]${params}`;
-    router.push(url, url.replace('[personUuid]', companyUuid));
-  };
-
   const handleSubmitError = (err: ApolloError) => {
     console.log(err);
     toast.error(
       'Oops, an unexpected error occurred',
       'Your details could not be saved. Please try submitting the form again.',
     );
+  };
+
+  const handleSubmitCompletion = () => {
+    const params = getUrlParam({ orderId, personUuid });
+    const url = `/b2b/olaf/sole-trader/bank-details/[companyUuid]${params}`;
+    router.push(url, url.replace('[personUuid]', companyUuid));
   };
 
   return (
