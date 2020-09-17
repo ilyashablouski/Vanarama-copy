@@ -33,7 +33,12 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
         </Heading>
       </div>
       <div className="row:text">
-        <ReactMarkdown source={body || ''} renderers={getMarkdownRenderers()} />
+        <div>
+          <ReactMarkdown
+            source={body || ''}
+            renderers={getMarkdownRenderers()}
+          />
+        </div>
       </div>
       {sections?.cards?.cards?.length && (
         <>

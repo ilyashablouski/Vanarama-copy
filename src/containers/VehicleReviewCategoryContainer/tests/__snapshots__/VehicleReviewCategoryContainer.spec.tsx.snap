@@ -183,9 +183,11 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
     <div
       class="row:text"
     >
-      <p>
-        Looking for advice on which van to lease? Check out our expert reviews of the latest Citroen vans and see how they fared in the Vanarama roadtest.
-      </p>
+      <div>
+        <p>
+          Looking for advice on which van to lease? Check out our expert reviews of the latest Citroen vans and see how they fared in the Vanarama roadtest.
+        </p>
+      </div>
     </div>
     <div
       class="row:cards-3col -pt-300"
