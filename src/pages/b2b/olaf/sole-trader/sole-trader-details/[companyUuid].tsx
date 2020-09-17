@@ -28,7 +28,7 @@ export const SoleTraderDetailsPage: NextPage = () => {
   const handleSubmitCompletion = () => {
     const params = getUrlParam({ orderId, personUuid });
     const url = `/b2b/olaf/sole-trader/bank-details/[companyUuid]${params}`;
-    router.push(url, url.replace('[personUuid]', companyUuid));
+    router.push(url, url.replace('[companyUuid]', companyUuid));
   };
 
   return (
