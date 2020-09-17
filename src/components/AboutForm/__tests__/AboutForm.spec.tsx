@@ -4,7 +4,7 @@ import AboutForm from '..';
 
 describe('<AboutForm />', () => {
   const submit = jest.fn();
-  const emailExistenceCheckMock = jest.fn();
+  const emailExistenceCheckMock = jest.fn(() => Promise.resolve(false));
   const onLogInClickMock = jest.fn();
 
   beforeEach(() => {
