@@ -99,22 +99,29 @@ export const LocationsPage: NextPage = () => {
                         {el?.title}
                       </Heading>
                       {el?.body ? (
-                        <Text color="black">
-                          <ReactMarkdown
-                            escapeHtml={false}
-                            source={el?.body || ''}
-                            renderers={{
-                              link: props => {
-                                const { href, children } = props;
-                                return (
-                                  <RouterLink
-                                    link={{ href, label: children }}
-                                  />
-                                );
-                              },
-                            }}
-                          />
-                        </Text>
+                        <ReactMarkdown
+                          escapeHtml={false}
+                          source={el?.body || ''}
+                          renderers={{
+                            link: props => {
+                              const { href, children } = props;
+                              return (
+                                <RouterLink link={{ href, label: children }} />
+                              );
+                            },
+                            heading: props => (
+                              <Text
+                                {...props}
+                                size="lead"
+                                color="black"
+                                className="-mt-100"
+                              />
+                            ),
+                            paragraph: props => (
+                              <Text {...props} tag="p" color="black" />
+                            ),
+                          }}
+                        />
                       ) : (
                         <>
                           <Button
@@ -227,18 +234,25 @@ export const LocationsPage: NextPage = () => {
           >
             {leadText.heading}
           </Heading>
-          <Text tag="span" size="lead" color="darker">
-            <ReactMarkdown
-              escapeHtml={false}
-              source={leadText.description || ''}
-              renderers={{
-                link: props => {
-                  const { href, children } = props;
-                  return <RouterLink link={{ href, label: children }} />;
-                },
-              }}
-            />
-          </Text>
+          <ReactMarkdown
+            escapeHtml={false}
+            source={leadText.description || ''}
+            renderers={{
+              link: props => {
+                const { href, children } = props;
+                return <RouterLink link={{ href, label: children }} />;
+              },
+              heading: props => (
+                <Text
+                  {...props}
+                  size="lead"
+                  color="darker"
+                  className="-mt-100"
+                />
+              ),
+              paragraph: props => <Text {...props} tag="p" color="darker" />,
+            }}
+          />
         </div>
       )}
       {featured && (
@@ -277,6 +291,15 @@ export const LocationsPage: NextPage = () => {
                   const { href, children } = props;
                   return <RouterLink link={{ href, label: children }} />;
                 },
+                heading: props => (
+                  <Text
+                    {...props}
+                    size="lead"
+                    color="darker"
+                    className="-mt-100"
+                  />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}
             />
           </div>
@@ -334,6 +357,15 @@ export const LocationsPage: NextPage = () => {
                 const { href, children } = props;
                 return <RouterLink link={{ href, label: children }} />;
               },
+              heading: props => (
+                <Text
+                  {...props}
+                  size="lead"
+                  color="darker"
+                  className="-mt-100"
+                />
+              ),
+              paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
           />
         </div>

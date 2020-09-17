@@ -7,6 +7,7 @@ const HeroTitle: React.FC<IHeroTitleProps> = ({ text }) => {
   return (
     <Text tag="p" size="large" color="white">
       <ReactMarkdown
+        escapeHtml={false}
         source={text}
         disallowedTypes={['paragraph']}
         unwrapDisallowed

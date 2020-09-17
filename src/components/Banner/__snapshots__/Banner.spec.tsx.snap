@@ -315,7 +315,7 @@ exports[`BusinessAboutForm should show required field validation messages if the
       className="link -white -small"
       data-menu={null}
       data-testid="router-link"
-      href=""
+      href="/"
       onClick={[Function]}
       onMouseEnter={[Function]}
     >

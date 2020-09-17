@@ -5,8 +5,9 @@ import { useEmailCheck, useRegistration } from './gql';
 
 const RegisterFormContainer: React.FC<IRegisterFormContainerProps> = ({
   onCompleted,
+  onError,
 }) => {
-  const [register, { loading }] = useRegistration(onCompleted);
+  const [register, { loading }] = useRegistration(onCompleted, onError);
   const [emailAlreadyExists] = useEmailCheck();
 
   return (

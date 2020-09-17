@@ -2,6 +2,9 @@
 require('dotenv').config();
 const { homepage } = require('../package.json');
 
+const { getPdpRewiteList } = require('../rewrites/pdp');
+const rewritePatterns = require('../rewrites/rewritePatterns');
+
 module.exports = {
   // Sass.
   sass: {
@@ -37,21 +40,6 @@ module.exports = {
     },
     poweredByHeader: false,
 
-    // Rerwrites (supported in v9.5)
-    // async rewrites() {
-    //   return [
-    //     {
-    //       source: '/seat-car-leasing/ibiza/hatchback/1-0-fr-ez-5dr-161392.html',
-    //       destination: '/car-leasing/seat/ibiza/hatchback/10-fr-ez-5-doors',
-    //     },
-    //     {
-    //       source: '/testurl',
-    //       destination:
-    //         '/car-leasing/audi/a1/hatchback/35-tfsi-vorsprung-5-doors-s-tronic',
-    //     },
-    //   ];
-    // },
-
     // Rollbar.
     serverRuntimeConfig: {
       rollbarServerToken: process.env.ROLLBAR_SERVER_TOKEN || '',
@@ -60,8 +48,18 @@ module.exports = {
       rollbarClientToken: process.env.ROLLBAR_CLIENT_TOKEN || '',
     },
 
+    // Rewrites.
+    async rewrites() {
+      const pdpRewiteList = await getPdpRewiteList();
+      const rewriteList = [...pdpRewiteList, ...rewritePatterns];
+
+      console.log(rewriteList);
+
+      return [...rewriteList];
+    },
+
+    trailingSlash: false,
     // Routes to export into static files.
-    exportTrailingSlash: true,
     exportPathMap: () => {
       return {
         '/': { page: '/' },

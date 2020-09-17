@@ -10,6 +10,7 @@ import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import DetailsPage from '../../../containers/DetailsPage/DetailsPage';
 import { VEHICLE_CONFIGURATION_BY_URL } from '../../../gql/productCard';
 import { VehicleConfigurationByUrl } from '../../../../generated/VehicleConfigurationByUrl';
+import { getVehicleConfigurationPath } from '../../../utils/url';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -27,7 +28,9 @@ const VanDetailsPage: NextPage<IProps> = () => {
   const [getConfiguration, { data: configuration }] = useLazyQuery<
     VehicleConfigurationByUrl
   >(VEHICLE_CONFIGURATION_BY_URL, {
-    variables: { url: router.asPath.replace('/van-leasing', '').slice(0, -1) },
+    variables: {
+      url: getVehicleConfigurationPath(router.asPath, '/van-leasing'),
+    },
     onCompleted: d =>
       setCapId(d.vehicleConfigurationByUrl?.capDerivativeId || 0),
   });

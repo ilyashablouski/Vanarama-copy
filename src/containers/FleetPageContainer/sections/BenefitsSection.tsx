@@ -30,19 +30,25 @@ const BenefitsSection = ({ name, tiles }: IBenefitsSection) => (
             {tile.title}
           </Heading>
         </Link>
-        <Text size="regular" color="darker" tag="p">
-          <ReactMarkdown
-            source={tile.body || ''}
-            disallowedTypes={['paragraph']}
-            unwrapDisallowed
-            renderers={{
-              link: props => {
-                const { href, children } = props;
-                return <RouterLink link={{ href, label: children }} />;
-              },
-            }}
-          />
-        </Text>
+        <ReactMarkdown
+          escapeHtml={false}
+          source={tile.body || ''}
+          renderers={{
+            link: props => {
+              const { href, children } = props;
+              return (
+                <RouterLink
+                  link={{ href, label: children }}
+                  classNames={{ color: 'teal' }}
+                />
+              );
+            },
+            heading: props => (
+              <Text {...props} size="lead" color="darker" className="-mt-100" />
+            ),
+            paragraph: props => <Text {...props} tag="p" color="darker" />,
+          }}
+        />
       </Tile>
     ))}
   </div>

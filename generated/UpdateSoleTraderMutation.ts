@@ -11,7 +11,6 @@ import { SoleTraderCompanyInputObject } from "./globalTypes";
 
 export interface UpdateSoleTraderMutation_updateCompanySoleTrader_associates_emailAddresses {
   __typename: "EmailAddressType";
-  uuid: string;
   primary: boolean;
   value: string;
 }
@@ -41,6 +40,7 @@ export interface UpdateSoleTraderMutation_updateCompanySoleTrader_associates {
   noOfDependants: string | null;
   occupation: string | null;
   incomeAndExpense: UpdateSoleTraderMutation_updateCompanySoleTrader_associates_incomeAndExpense | null;
+  uuid: string;
 }
 
 export interface UpdateSoleTraderMutation_updateCompanySoleTrader {

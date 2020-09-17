@@ -14,6 +14,7 @@ import { useGenericPage } from '../../gql/genericPage';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import withApollo from '../../hocs/withApollo';
 import getTitleTag from '../../utils/getTitleTag';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 const BlogPage: NextPage = () => {
   const { data, loading, error } = useGenericPage('/latest-news');
@@ -23,7 +24,7 @@ const BlogPage: NextPage = () => {
   }
 
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <ErrorMessage message={error.message} />;
   }
 
   const featured = data?.genericPage?.sections?.featured;
@@ -52,17 +53,30 @@ const BlogPage: NextPage = () => {
             <Heading tag="span" size="large" color="black">
               {featured.title}
             </Heading>
-            <Text tag="p" size="regular" color="darker">
-              <ReactMarkdown
-                source={featured.body || ''}
-                renderers={{
-                  link: props => {
-                    const { href, children } = props;
-                    return <RouterLink link={{ href, label: children }} />;
-                  },
-                }}
-              />
-            </Text>
+            <ReactMarkdown
+              escapeHtml={false}
+              source={featured.body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return (
+                    <RouterLink
+                      link={{ href, label: children }}
+                      classNames={{ color: 'teal' }}
+                    />
+                  );
+                },
+                heading: props => (
+                  <Text
+                    {...props}
+                    size="lead"
+                    color="darker"
+                    className="-mt-100"
+                  />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
+              }}
+            />
           </div>
         </div>
       )}
@@ -91,21 +105,32 @@ const BlogPage: NextPage = () => {
                         ),
                       }}
                     >
-                      <Text color="dark" size="regular" tag="span">
-                        <ReactMarkdown
-                          source={card.body || ''}
-                          disallowedTypes={['paragraph']}
-                          unwrapDisallowed
-                          renderers={{
-                            link: props => {
-                              const { href, children } = props;
-                              return (
-                                <RouterLink link={{ href, label: children }} />
-                              );
-                            },
-                          }}
-                        />
-                      </Text>
+                      <ReactMarkdown
+                        escapeHtml={false}
+                        source={card.body || ''}
+                        renderers={{
+                          link: props => {
+                            const { href, children } = props;
+                            return (
+                              <RouterLink
+                                link={{ href, label: children }}
+                                classNames={{ color: 'teal' }}
+                              />
+                            );
+                          },
+                          heading: props => (
+                            <Text
+                              {...props}
+                              size="lead"
+                              color="darker"
+                              className="-mt-100"
+                            />
+                          ),
+                          paragraph: props => (
+                            <Text {...props} tag="p" color="darker" />
+                          ),
+                        }}
+                      />
                     </Card>
                   ),
               )}
@@ -125,19 +150,30 @@ const BlogPage: NextPage = () => {
                 ),
               }}
             >
-              <Text color="dark" size="regular" tag="span">
-                <ReactMarkdown
-                  source={carousel.cards[0]!.body || ''}
-                  disallowedTypes={['paragraph']}
-                  unwrapDisallowed
-                  renderers={{
-                    link: props => {
-                      const { href, children } = props;
-                      return <RouterLink link={{ href, label: children }} />;
-                    },
-                  }}
-                />
-              </Text>
+              <ReactMarkdown
+                escapeHtml={false}
+                source={carousel.cards[0]!.body || ''}
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return (
+                      <RouterLink
+                        link={{ href, label: children }}
+                        classNames={{ color: 'teal' }}
+                      />
+                    );
+                  },
+                  heading: props => (
+                    <Text
+                      {...props}
+                      size="lead"
+                      color="dark"
+                      className="-mt-100"
+                    />
+                  ),
+                  paragraph: props => <Text {...props} tag="p" color="dark" />,
+                }}
+              />
               <Button
                 label="Read More"
                 color="teal"
@@ -177,21 +213,32 @@ const BlogPage: NextPage = () => {
                     withBtn: true,
                   }}
                 >
-                  <Text tag="span" size="regular" color="dark">
-                    <ReactMarkdown
-                      source={tile.body || ''}
-                      disallowedTypes={['paragraph']}
-                      unwrapDisallowed
-                      renderers={{
-                        link: props => {
-                          const { href, children } = props;
-                          return (
-                            <RouterLink link={{ href, label: children }} />
-                          );
-                        },
-                      }}
-                    />
-                  </Text>
+                  <ReactMarkdown
+                    escapeHtml={false}
+                    source={tile.body || ''}
+                    renderers={{
+                      link: props => {
+                        const { href, children } = props;
+                        return (
+                          <RouterLink
+                            link={{ href, label: children }}
+                            classNames={{ color: 'teal' }}
+                          />
+                        );
+                      },
+                      heading: props => (
+                        <Text
+                          {...props}
+                          size="lead"
+                          color="dark"
+                          className="-mt-100"
+                        />
+                      ),
+                      paragraph: props => (
+                        <Text {...props} tag="p" color="dark" />
+                      ),
+                    }}
+                  />
                 </Card>
               ))}
           </div>

@@ -1,4 +1,4 @@
-FROM node:13.6
+FROM node:12.13.0
 
 ARG NPM_TOKEN
 ARG API_KEY
@@ -7,6 +7,7 @@ ARG LOQATE_KEY
 ARG NODE_ENV
 ARG ENV
 ARG ENABLE_DEV_TOOLS
+ARG GITHUB_TOKEN
 ARG NODE_OPTIONS
 
 # Setting working directory. All the path will be relative to WORKDIR

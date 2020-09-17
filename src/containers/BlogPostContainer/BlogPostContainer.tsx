@@ -69,16 +69,23 @@ const BlogPostContainer: NextPage<IProps> = ({
             renderers={{
               link: props => {
                 const { href, children } = props;
-                return <RouterLink link={{ href, label: children }} />;
+                return (
+                  <RouterLink
+                    link={{ href, label: children }}
+                    classNames={{ color: 'teal' }}
+                  />
+                );
               },
               image: props => renderImage(props),
             }}
           />
         </article>
         <div>
-          <Heading tag="span" size="large" color="black">
-            Related Articles
-          </Heading>
+          {(cards || articles) && (
+            <Heading tag="span" size="large" color="black">
+              Related Articles
+            </Heading>
+          )}
           {cards?.map((el, indx) => (
             <Card
               key={`${el?.name}_${indx.toString()}`}
@@ -140,8 +147,6 @@ const BlogPostContainer: NextPage<IProps> = ({
           ))}
         </div>
       </div>
-
-      <div className="row:comments" />
     </>
   );
 };
