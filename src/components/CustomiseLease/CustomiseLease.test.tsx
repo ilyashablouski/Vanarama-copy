@@ -91,6 +91,15 @@ describe('<CustomiseLease />', () => {
         upfronts: [1, 3, 6, 9, 12],
       },
       derivativeInfo: {
+        name: '',
+        manufacturer: {
+          name: '',
+          slug: '',
+        },
+        range: {
+          name: '',
+          slug: '',
+        },
         transmission: {
           name: 'Manual',
         },
@@ -99,6 +108,7 @@ describe('<CustomiseLease />', () => {
         },
         bodyType: {
           name: 'Hatchback',
+          slug: 'hatchback',
         },
         fuelType: {
           name: 'Diesel',
@@ -210,6 +220,15 @@ describe('<CustomiseLease />', () => {
         upfronts: [1, 3, 6, 9, 12],
       },
       derivativeInfo: {
+        name: '',
+        manufacturer: {
+          name: '',
+          slug: '',
+        },
+        range: {
+          name: '',
+          slug: '',
+        },
         transmission: {
           name: 'Manual',
         },
@@ -218,6 +237,7 @@ describe('<CustomiseLease />', () => {
         },
         bodyType: {
           name: 'Hatchback',
+          slug: 'hatchback',
         },
         fuelType: {
           name: 'Diesel',
@@ -338,6 +358,15 @@ describe('<CustomiseLease />', () => {
           upfronts: [1, 3, 6, 9, 12],
         }}
         derivativeInfo={{
+          name: '',
+          manufacturer: {
+            name: '',
+            slug: '',
+          },
+          range: {
+            name: '',
+            slug: '',
+          },
           transmission: {
             name: 'Manual',
           },
@@ -346,6 +375,7 @@ describe('<CustomiseLease />', () => {
           },
           bodyType: {
             name: 'Hatchback',
+            slug: 'hatchback',
           },
           fuelType: {
             name: 'Diesel',

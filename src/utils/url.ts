@@ -65,6 +65,54 @@ export const getProductPageUrl = (
       };
 };
 
+export const getProductPageBreadCrumb = (
+  data: any,
+  cars: boolean | undefined,
+) => {
+  const { manufacturer, range, bodyStyle, name } = data;
+
+  const leasing = cars ? '/car-leasing' : '/van-leasing';
+
+  if (manufacturer && range) {
+    const makeLink = {
+      link: {
+        label: manufacturer?.name,
+        href: `${leasing}/[dynamicParam]`,
+      },
+      as: `${leasing}/${manufacturer?.slug}`,
+    };
+    const rangeLink = {
+      link: {
+        label: range?.name,
+        href: `${leasing}/[dynamicParam]/[rangeName]`,
+      },
+      as: `${leasing}/${manufacturer?.slug}/${range?.slug}`,
+    };
+    const modelLink = {
+      link: {
+        label: bodyStyle?.name,
+        href: `${leasing}/[dynamicParam]/[rangeName]/[bodyStyles]`,
+      },
+      as: `${leasing}/${manufacturer?.slug}/${range?.slug}/${bodyStyle?.name
+        ?.toLocaleLowerCase()
+        .split(' ')
+        .join('-') || null}`,
+    };
+    const derivativeLink = {
+      link: {
+        label: name,
+        href: '',
+      },
+    };
+
+    return cars
+      ? [makeLink, rangeLink, modelLink, derivativeLink]
+      : [makeLink, rangeLink, derivativeLink];
+  }
+
+  return null;
+};
+
 export const getVehicleConfigurationPath = (path: string, prefix: string) => {
   const newPath = path.replace(prefix, '');
   if (newPath.slice(-1) === '/') {
@@ -77,7 +125,7 @@ export type productPageUrlData = {
   manufacturer: string | null;
   range: string | null;
   slug: string | null;
-  capId: string | null;
+  capId?: string | null;
   vehicleType: VehicleTypeEnum | null;
   bodyStyle?: string | null;
   model?: string | null;

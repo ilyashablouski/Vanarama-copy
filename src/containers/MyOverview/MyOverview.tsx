@@ -10,7 +10,7 @@ import cx from 'classnames';
 import { useRouter } from 'next/router';
 import {
   useOrdersByPartyUuidData,
-  useCarDerivativesData,
+  GET_CAR_DERIVATIVES,
 } from '../OrdersInformation/gql';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import {
@@ -22,6 +22,7 @@ import { getUrlParam } from '../../utils/url';
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../generated/GetCompaniesByPersonUuid';
+import { GetDerivatives } from '../../../generated/GetDerivatives';
 
 type QueryParams = {
   partyByUuid?: string;
@@ -45,6 +46,8 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   const [initData, setInitData] = useState<GetOrdersByPartyUuid>();
   const [breadcrumbPath, setBreadcrumbPath] = useState([] as any);
   const [partyUuidArray, setPartyUuidArray] = useState<string[] | null>(null);
+  const [dataCars, setDataCars] = useState<GetDerivatives | null>(null);
+  const [dataCarsLCV, setDataCarsLCV] = useState<GetDerivatives | null>(null);
 
   const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
 
@@ -99,18 +102,50 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     }
   }, [partyByUuid, getOrders, router.query.partyByUuid, data, partyUuidArray]);
 
-  // collect everything capId from orders
-  const capIdArray = data?.ordersByPartyUuid?.reduce((array, el) => {
-    const capId = el.lineItems[0].vehicleProduct?.derivativeCapId || '';
-    if (capId !== array[0]) {
-      array.unshift(capId);
-    }
-    return array;
-  }, [] as string[]) || [''];
+  // collect car and lcv capId from orders
+  const capIdArrayData = data?.ordersByPartyUuid?.reduce(
+    (array, el) => {
+      const capId = el.lineItems[0].vehicleProduct?.derivativeCapId || '';
+      if (
+        capId !== array.carId[0] &&
+        el.lineItems[0].vehicleProduct?.vehicleType === VehicleTypeEnum.CAR
+      ) {
+        array.carId.unshift(capId);
+      }
+      if (
+        capId !== array.lcvId[0] &&
+        el.lineItems[0].vehicleProduct?.vehicleType === VehicleTypeEnum.LCV
+      ) {
+        array.lcvId.unshift(capId);
+      }
+      return array;
+    },
+    { lcvId: [] as string[], carId: [] as string[] },
+  ) || { carId: [], lcvId: [] };
 
   // call query for get DerivativesData
-  const dataCars = useCarDerivativesData(capIdArray, VehicleTypeEnum.CAR);
-  const dataCarsLCV = useCarDerivativesData(capIdArray, VehicleTypeEnum.LCV);
+  const getCarsDerivative = useImperativeQuery(GET_CAR_DERIVATIVES);
+
+  useEffect(() => {
+    if (!!capIdArrayData.carId.length && dataCars === null) {
+      getCarsDerivative({
+        ids: capIdArrayData.carId,
+        vehicleType: VehicleTypeEnum.CAR,
+      }).then(resp => setDataCars(resp.data));
+    }
+    if (!!capIdArrayData.lcvId.length && dataCarsLCV === null) {
+      getCarsDerivative({
+        ids: capIdArrayData.lcvId,
+        vehicleType: VehicleTypeEnum.LCV,
+      }).then(resp => setDataCarsLCV(resp.data));
+    }
+  }, [
+    capIdArrayData.carId,
+    capIdArrayData.lcvId,
+    getCarsDerivative,
+    dataCars,
+    dataCarsLCV,
+  ]);
 
   useEffect(() => {
     if (data && !initData) {
@@ -203,21 +238,21 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     return showOffers.map((order: GetOrdersByPartyUuid_ordersByPartyUuid) => {
       // we get derivative data for this offers
       const derivative =
-        dataCars?.data?.derivatives?.find(
+        dataCars?.derivatives?.find(
           (der: { id: string }) =>
             der.id === order.lineItems[0].vehicleProduct?.derivativeCapId,
         ) ||
-        dataCarsLCV?.data?.derivatives?.find(
+        dataCarsLCV?.derivatives?.find(
           (der: { id: string }) =>
             der.id === order.lineItems[0].vehicleProduct?.derivativeCapId,
         );
       const imageSrc =
-        dataCars?.data?.vehicleImages?.find(
+        dataCars?.vehicleImages?.find(
           el =>
             el?.capId?.toString() ===
             order.lineItems[0].vehicleProduct?.derivativeCapId,
         ) ||
-        dataCarsLCV?.data?.vehicleImages?.find(
+        dataCarsLCV?.vehicleImages?.find(
           el =>
             el?.capId?.toString() ===
             order.lineItems[0].vehicleProduct?.derivativeCapId,
