@@ -1,11 +1,10 @@
 import React from 'react';
-import { FieldArray, Formik } from 'formik';
+import { FieldArray, Formik, useFormikContext } from 'formik';
 import { gql } from '@apollo/client';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-// import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import FCWithFragments from '../../utils/FCWithFragments';
 import FormikTextField from '../FormikTextField/FormikTextField';
 import FormikCheckBoxField from '../FormikCheckboxField/FormikCheckboxField';
@@ -26,6 +25,28 @@ const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
     return 'Saving...';
   }
   return isEdited ? 'Save & Return' : 'Continue';
+};
+
+const AnnualIncomeField: React.FC = () => {
+  const {
+    values: { annualIncome },
+    touched,
+    setFieldValue,
+  } = useFormikContext<ISoleTraderDetailsFormValues>();
+
+  React.useEffect(() => {
+    if (touched.annualIncome) {
+      setFieldValue('avgMonthlyIncome', Math.round((annualIncome || 0) / 12));
+    }
+  }, [annualIncome, touched.annualIncome, setFieldValue]);
+  return (
+    <FormikNumericField
+      name="annualIncome"
+      label="Annual Income"
+      dataTestId="annual-income"
+      prefix="£"
+    />
+  );
 };
 
 const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
@@ -123,18 +144,14 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
             <OptionsWithFavourites options={dropdownData.occupations} />
           </FormikSelectField>
 
-          <FormikNumericField
-            name="annualIncome"
-            label="Annual Income"
-            dataTestId="annual-income"
-            prefix="£"
-          />
+          <AnnualIncomeField />
 
           <FormikNumericField
             name="avgMonthlyIncome"
             label="Average Monthly Income"
             dataTestId="avg-monthly-income"
             prefix="£"
+            disabled
           />
 
           <FormikNumericField
@@ -146,7 +163,7 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
 
           <FormikNumericField
             name="monthlyStudentPayments"
-            label="£ Monthly Student Payments"
+            label="Monthly Student Payments"
             dataTestId="monthly-student-payments"
             prefix="£"
           />

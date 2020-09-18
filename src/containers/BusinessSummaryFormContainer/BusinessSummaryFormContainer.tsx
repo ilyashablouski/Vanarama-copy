@@ -92,11 +92,14 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
       },
     });
 
-  const hanldeCreditCheckerSubmit = (party?: Party | null) =>
+  const hanldeCreditCheckerSubmit = (
+    creditApplication?: CreditApplication | null,
+    party?: Party | null,
+  ) =>
     submitFullCreditChecker({
       variables: {
         input: mapCreditApplicationToCreditChecker(
-          getCreditApplication.data?.creditApplicationByOrderUuid,
+          creditApplication,
           party?.company?.partyId || '',
         ),
       },
@@ -109,10 +112,16 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
 
   const handleSubmit = () => {
     hanldeCredutApplicationSubmit()
-      .then(query =>
-        handlePartyRefetch(query.data?.createUpdateCreditApplication),
+      .then(creditApplicationQuery =>
+        handlePartyRefetch(
+          creditApplicationQuery.data?.createUpdateCreditApplication,
+        ).then(partyQuery =>
+          hanldeCreditCheckerSubmit(
+            creditApplicationQuery.data?.createUpdateCreditApplication,
+            partyQuery.data?.partyByUuid,
+          ),
+        ),
       )
-      .then(query => hanldeCreditCheckerSubmit(query.data?.partyByUuid))
       .then(() => onCompleted?.())
       .catch(onError);
   };
