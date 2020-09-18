@@ -636,15 +636,15 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
         class="tile -button -plain tile--centered"
       >
         <span />
-        <a
-          class="link tile--link -primary -regular -plain"
+        <span
+          class="tile--link"
         >
           <p
             class="heading -black -regular"
           >
             Price Protection
           </p>
-        </a>
+        </span>
         <p
           class="text -regular -darker"
         >
@@ -655,15 +655,15 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
         class="tile -button -plain tile--centered"
       >
         <span />
-        <a
-          class="link tile--link -primary -regular -plain"
+        <span
+          class="tile--link"
         >
           <p
             class="heading -black -regular"
           >
             Customer Reviews
           </p>
-        </a>
+        </span>
         <p
           class="text -regular -darker"
         >
@@ -674,15 +674,15 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
         class="tile -button -plain tile--centered"
       >
         <span />
-        <a
-          class="link tile--link -primary -regular -plain"
+        <span
+          class="tile--link"
         >
           <p
             class="heading -black -regular"
           >
             Quote Online
           </p>
-        </a>
+        </span>
         <p
           class="text -regular -darker"
         >
@@ -693,15 +693,15 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
         class="tile -button -plain tile--centered"
       >
         <span />
-        <a
-          class="link tile--link -primary -regular -plain"
+        <span
+          class="tile--link"
         >
           <p
             class="heading -black -regular"
           >
             Confused About Leasing?
           </p>
-        </a>
+        </span>
         <p
           class="text -regular -darker"
         >

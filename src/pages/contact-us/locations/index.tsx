@@ -57,7 +57,7 @@ export const LocationsPage: NextPage = () => {
           {metaData?.name}
         </Heading>
       </div>
-      <section className="row:text">
+      <section className="row:text -columns">
         <Heading tag="h3" size="regular" color="black">
           {data?.regionalOfficesPage.intro}
         </Heading>

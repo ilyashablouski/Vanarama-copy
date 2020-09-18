@@ -330,14 +330,22 @@ export const LocationsPage: NextPage = () => {
                     }
                   />
                 </div>
-                <RouterLink
-                  link={{ href: tile.link || '#', label: '' }}
-                  className="tile--link"
-                >
-                  <Heading tag="span" size="regular" color="black">
-                    {tile.title}
-                  </Heading>
-                </RouterLink>
+                {tile.link ? (
+                  <RouterLink
+                    link={{ href: tile.link || '#', label: '' }}
+                    className="tile--link"
+                  >
+                    <Heading tag="span" size="regular" color="black">
+                      {tile.title}
+                    </Heading>
+                  </RouterLink>
+                ) : (
+                  <span className="tile--link">
+                    <Heading tag="span" size="regular" color="black">
+                      {tile.title}
+                    </Heading>
+                  </span>
+                )}
                 <Text tag="p">{tile.body}</Text>
               </Tile>
             </div>
@@ -345,29 +353,31 @@ export const LocationsPage: NextPage = () => {
         </section>
       )}
       {featured1 && (
-        <div className="row:text">
+        <div className="row:text -columns">
           <Heading size="large" color="black" tag="h2">
             {featured1.title}
           </Heading>
-          <ReactMarkdown
-            escapeHtml={false}
-            source={featured1.body || ''}
-            renderers={{
-              link: props => {
-                const { href, children } = props;
-                return <RouterLink link={{ href, label: children }} />;
-              },
-              heading: props => (
-                <Text
-                  {...props}
-                  size="lead"
-                  color="darker"
-                  className="-mt-100"
-                />
-              ),
-              paragraph: props => <Text {...props} tag="p" color="darker" />,
-            }}
-          />
+          <div>
+            <ReactMarkdown
+              escapeHtml={false}
+              source={featured1.body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+                heading: props => (
+                  <Text
+                    {...props}
+                    size="lead"
+                    color="darker"
+                    className="-mt-100"
+                  />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
+              }}
+            />
+          </div>
         </div>
       )}
 

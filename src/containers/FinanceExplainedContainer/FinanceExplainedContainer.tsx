@@ -36,7 +36,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
           {title}
         </Heading>
       </div>
-      <div className="row:text">
+      <div className="row:text -columns">
         <div>
           <ReactMarkdown
             source={body || ''}
@@ -106,7 +106,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
           className={
             featured1.image?.file?.url
               ? `row:${getFeaturedClassPartial(featured1)}`
-              : 'row:text'
+              : 'row:text -columns'
           }
         >
           <div>

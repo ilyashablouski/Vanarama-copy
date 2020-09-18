@@ -1,11 +1,8 @@
 import ReactMarkdown from 'react-markdown';
-
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
-
-import Link from '@vanarama/uibook/lib/components/atoms/link';
 import { GetFleetLandingPage_fleetLandingPage_sections_tiles as IBenefitsSection } from '../../../../generated/GetFleetLandingPage';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 
@@ -21,15 +18,11 @@ const BenefitsSection = ({ name, tiles }: IBenefitsSection) => (
             <Image src={tile.image.file.url} size="large" inline round />
           )}
         </span>
-        <Link className="tile--link">
-          <Heading
-            size="regular"
-            color="black"
-            // tag={tile.titleTag || 'p'}
-          >
+        <span className="tile--link">
+          <Heading size="regular" color="black">
             {tile.title}
           </Heading>
-        </Link>
+        </span>
         <ReactMarkdown
           escapeHtml={false}
           source={tile.body || ''}

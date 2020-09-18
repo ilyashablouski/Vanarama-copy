@@ -10,7 +10,7 @@ export default function getFeaturedHtml(featured: Featured | null | undefined) {
   return (
     <>
       {featured && (
-        <section className="row:text">
+        <section className="row:text -columns">
           {featured.image?.file?.url && (
             <Image
               src={featured.image?.file?.url}

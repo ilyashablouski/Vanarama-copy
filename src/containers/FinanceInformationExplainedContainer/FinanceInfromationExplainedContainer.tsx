@@ -58,7 +58,7 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
         </Heading>
       </div>
       {sections?.featured1 && (
-        <div className="row:text">
+        <div className="row:text -columns">
           <Heading
             tag={
               getTitleTag(
