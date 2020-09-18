@@ -1,16 +1,22 @@
-import { useQuery, gql, useLazyQuery, useApolloClient } from '@apollo/client';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import {
-  GetProductCard,
-  GetProductCardVariables,
-} from '../../../generated/GetProductCard';
+import { gql, useLazyQuery, useApolloClient } from '@apollo/client';
 import { useEffect, useState } from 'react';
-import { Query } from '@testing-library/react';
+import {
+  companyProfile,
+  companyProfileVariables,
+} from '../../../generated/companyProfile';
+import {
+  sicCodes,
+  sicCodesVariables,
+  sicCodes_sicCodes_sicData as ISicData,
+} from '../../../generated/sicCodes';
 
 export const GET_COMPANY_PROFILE = gql`
   query companyProfile($companyNumber: String!) {
     companyProfile(companyNumber: $companyNumber) {
-        sicCodes
+      sicData {
+        sicCode
+        description
+      }
     }
   }
 `;
@@ -18,10 +24,8 @@ export const GET_COMPANY_PROFILE = gql`
 /**
  *  @param companyNumber - string with company number
  */
-export function useCompanyProfile(
-    companyNumber: string,
-) {
-  return useLazyQuery<any, any>(
+export function useCompanyProfile(companyNumber: string) {
+  return useLazyQuery<companyProfile, companyProfileVariables>(
     GET_COMPANY_PROFILE,
     {
       variables: {
@@ -32,11 +36,11 @@ export function useCompanyProfile(
 }
 
 export const GET_SIC_CODES = gql`
-query sicCodes {
-    sicCodes{
-      sicData{
+  query sicCodes($value: String!) {
+    sicCodes(value: $value) {
+      sicData {
         sicCode
-          description
+        description
       }
     }
   }
@@ -44,19 +48,17 @@ query sicCodes {
 
 export function useSicCodes(searchTerm?: string) {
   const apolloClient = useApolloClient();
-  const [suggestions, setSuggestions] = useState([]);
-
+  const [suggestions, setSuggestions] = useState<ISicData[]>([]);
   // This effect runs when the debounced search term changes and executes the search
   useEffect(() => {
     async function fetchData(value: string) {
-      const { data } = await apolloClient.query<any, any>({
+      const { data } = await apolloClient.query<sicCodes, sicCodesVariables>({
         query: GET_SIC_CODES,
         variables: {
-          searchTerm: value,
+          value,
         },
       });
-
-      return (data?.searchCompanies?.nodes || []);
+      return data?.sicCodes?.sicData || [];
     }
 
     if (searchTerm && searchTerm.length > 2) {

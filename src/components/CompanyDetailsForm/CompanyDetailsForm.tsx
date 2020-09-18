@@ -13,9 +13,8 @@ import {
   SubmissionValues,
 } from './interfaces';
 import SearchActions from './SearchActions';
-import { useCompanyProfile, useSicCodes } from '../../containers/CompanyDetailsFormContainer/gql';
-import { isArraySame } from 'utils/helpers';
-import useDebounce from 'hooks/useDebounce';
+import { useCompanyProfile } from '../../containers/CompanyDetailsFormContainer/gql';
+import { sicCodes_sicCodes_sicData as ISicData } from '../../../generated/sicCodes';
 
 interface IProps {
   onSubmit: OnSubmit<SubmissionValues>;
@@ -29,46 +28,31 @@ const CompanyDetailsForm: React.FC<IProps> = ({
   isEdited,
 }) => {
   const [companySearchTerm, setCompanySearchTerm] = useState('');
-  const [selectedCompanyData, setSelectedCompanyData] = useState<undefined|SearchResult>(undefined);
+  const [selectedCompanyData, setSelectedCompanyData] = useState<
+    undefined | SearchResult
+  >(undefined);
   const [hasConfirmedCompany, setHasConfirmedCompany] = useState(false);
   const [inputMode, setInputMode] = useState<InputMode>('search');
-  const [proceedCompany, setProceedCompany] = useState<SearchResult>()
-  // save applied natural values
+  const [proceedCompany, setProceedCompany] = useState<SearchResult>();
+  // save applied nature values
   const [applyedNatureOfBusiness, setNatureOfBusiness] = useState<string[]>([]);
-  // value for autocomplete
-  const [natureSearchValue, setNatureSearchValue] = useState<string>('');
-  const debouncedSearchTerm = useDebounce(natureSearchValue);
-  // variants
-  const suggestions = useSicCodes(debouncedSearchTerm);
-
-
-  // TODO: set natural values to field
 
   const methods = useForm<ICompanyDetailsFormValues>({
     mode: 'onBlur',
   });
 
   const companySearchResult = methods.watch('companySearchResult');
-  const natureOfBusiness = methods.watch('nature');
 
-  const [getCompanyDetails, {data}] = useCompanyProfile(selectedCompanyData?.companyNumber || '');
-
-  // find changable part of string for pass to search nature request
-  useEffect(() => {
-    if(applyedNatureOfBusiness.length) {
-      const trimArray = natureOfBusiness.split(',').filter(Boolean);
-      if(!isArraySame(trimArray, applyedNatureOfBusiness)) {
-        const [searchValue] = trimArray.filter( ( el ) => !applyedNatureOfBusiness.includes( el ) );
-        setNatureSearchValue(searchValue);
-      }
-    }
-  }, [natureOfBusiness])
+  const [getCompanyDetails, { data }] = useCompanyProfile(
+    selectedCompanyData?.companyNumber || '',
+  );
 
   useEffect(() => {
     if (company !== undefined && companySearchResult === undefined) {
       methods.reset(company);
       setProceedCompany(company?.companySearchResult);
       setHasConfirmedCompany(true);
+      setNatureOfBusiness(company.nature.split('.'));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [company]);
@@ -77,13 +61,23 @@ const CompanyDetailsForm: React.FC<IProps> = ({
     if (selectedCompanyData?.companyNumber) {
       getCompanyDetails();
     }
-  }, [selectedCompanyData?.companyNumber]);
+  }, [selectedCompanyData, getCompanyDetails]);
+
+  const handleNatureSelect = (selectedNature: string | string[]) => {
+    const isArray = Array.isArray(selectedNature);
+    setNatureOfBusiness(
+      (isArray ? selectedNature : [selectedNature]) as string[],
+    );
+  };
 
   useEffect(() => {
-    if (data?.companyProfile.sicCodes) {
-      methods.setValue('nature', data?.companyProfile.sicCodes.join(), true);
+    if (data?.companyProfile.sicData) {
+      const descriptions = data?.companyProfile.sicData.map(
+        (sicData: ISicData) => sicData.description,
+      );
+      handleNatureSelect(descriptions);
     }
-  }, [data?.companyProfile, methods]);
+  }, [data]);
 
   const clearSearchResult = () => {
     setCompanySearchTerm('');
@@ -105,14 +99,6 @@ const CompanyDetailsForm: React.FC<IProps> = ({
     setInputMode('search');
   };
 
-  // handle nature select
-  const handleNatureSelect = () => {
-    // input data
-
-    // get value from input -> compare with applyedNatureOfBusiness -> save only includes values -> push new value
-    // set value to form
-  }
-
   const handleProceed = () => {
     setHasConfirmedCompany(true);
     setProceedCompany(companySearchResult);
@@ -126,6 +112,7 @@ const CompanyDetailsForm: React.FC<IProps> = ({
           uuid: company?.uuid,
           companySearchResult: values.companySearchResult ?? proceedCompany,
           inputMode,
+          nature: applyedNatureOfBusiness.join('.'),
         }),
       )}
     >
@@ -166,7 +153,12 @@ const CompanyDetailsForm: React.FC<IProps> = ({
       )}
       {(hasConfirmedCompany || inputMode === 'manual') && (
         <FormContext {...methods}>
-          <CompanyDetailsFormFields isEdited={isEdited} inputMode={inputMode} />
+          <CompanyDetailsFormFields
+            isEdited={isEdited}
+            inputMode={inputMode}
+            setNatureValue={handleNatureSelect}
+            natureOfBusinessValue={applyedNatureOfBusiness}
+          />
         </FormContext>
       )}
     </Form>
