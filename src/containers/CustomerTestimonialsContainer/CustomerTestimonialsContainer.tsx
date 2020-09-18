@@ -18,6 +18,7 @@ import { GenericPageTestimonialsQuery_genericPage_sections as Section } from '..
 import getTitleTag from '../../utils/getTitleTag';
 import getFeaturedHtml from './getFeaturedHtml';
 import { TESTIMONIALS_DATA } from '../../gql/testimonials';
+import TileLink from '../../components/TileLink/TileLink';
 
 interface IProps {
   sections: Section | null;
@@ -180,11 +181,7 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
                       src={tile.image?.file?.url || ''}
                     />
                   </div>
-                  <a className="tile--link" href={tile.link || '##'}>
-                    <Heading tag="span" size="regular" color="black">
-                      {tile.title}
-                    </Heading>
-                  </a>
+                  <TileLink tile={tile} />
                   <Text tag="p">{tile.body}</Text>
                 </Tile>
               </div>

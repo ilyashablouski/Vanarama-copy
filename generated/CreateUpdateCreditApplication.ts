@@ -9,6 +9,10 @@ import { CreditApplicationInputObject, VehicleTypeEnum } from "./globalTypes";
 // GraphQL mutation operation: CreateUpdateCreditApplication
 // ====================================================
 
+export interface CreateUpdateCreditApplication_createUpdateCreditApplication_lineItem_creditApplications {
+  uuid: string;
+}
+
 export interface CreateUpdateCreditApplication_createUpdateCreditApplication_lineItem_order {
   partyUuid: string | null;
   uuid: string;
@@ -34,6 +38,7 @@ export interface CreateUpdateCreditApplication_createUpdateCreditApplication_lin
   status: string | null;
   productId: string;
   productType: string;
+  creditApplications: CreateUpdateCreditApplication_createUpdateCreditApplication_lineItem_creditApplications[] | null;
   order: CreateUpdateCreditApplication_createUpdateCreditApplication_lineItem_order | null;
   vehicleProduct: CreateUpdateCreditApplication_createUpdateCreditApplication_lineItem_vehicleProduct | null;
 }

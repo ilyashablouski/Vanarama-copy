@@ -9,6 +9,10 @@ import { VehicleTypeEnum } from "./globalTypes";
 // GraphQL query operation: GetCreditApplicationByOrderUuid
 // ====================================================
 
+export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_lineItem_creditApplications {
+  uuid: string;
+}
+
 export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_lineItem_order {
   partyUuid: string | null;
   uuid: string;
@@ -34,6 +38,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_li
   status: string | null;
   productId: string;
   productType: string;
+  creditApplications: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_lineItem_creditApplications[] | null;
   order: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_lineItem_order | null;
   vehicleProduct: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_lineItem_vehicleProduct | null;
 }

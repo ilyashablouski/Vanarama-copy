@@ -53,6 +53,15 @@ export const GET_CAR_DATA = gql`
       }
     }
     derivativeInfo(id: $capIdDetails, vehicleType: $vehicleType) {
+      name
+      manufacturer {
+        name
+        slug
+      }
+      range {
+        name
+        slug
+      }
       fuelType {
         name
       }
@@ -64,6 +73,7 @@ export const GET_CAR_DATA = gql`
       }
       bodyType {
         name
+        slug
       }
       technicals {
         id

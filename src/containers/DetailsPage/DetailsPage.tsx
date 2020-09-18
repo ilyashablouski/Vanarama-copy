@@ -12,7 +12,6 @@ import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import DownloadSharp from '@vanarama/uibook/lib/assets/icons/DownloadSharp';
 import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-gallery';
 import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
-import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import cx from 'classnames';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
 import { toPriceFormat } from '../../utils/helpers';
@@ -43,6 +42,9 @@ import FrequentlyAskedQuestions from '../../components/FrequentlyAskedQuestions/
 import { useCreateUpdateOrder } from '../../gql/order';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import useLeaseType from '../../hooks/useLeaseType';
+import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
+import { getProductPageBreadCrumb } from '../../utils/url';
+import Head from '../../components/Head/Head';
 
 interface IDetailsPageProps {
   capId: number;
@@ -345,9 +347,33 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     });
   };
 
+  const breadCrumbItems = getProductPageBreadCrumb(data?.derivativeInfo, cars);
+  const metaData = {
+    title:
+      `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription} 
+    Leasing Deals | Vanarama` || null,
+    name: '' || null,
+    metaRobots: '' || null,
+    metaDescription:
+      `Get top ${pageTitle} ${
+        vehicleConfigurationByCapId?.capDerivativeDescription
+      } leasing deals at Vanarama. ✅ 5* Customer Service ✅ Brand-New ${
+        // eslint-disable-next-line no-nested-ternary
+        cars ? 'Cars' : vans ? 'Vans' : 'Pickups'
+      } ✅ Free Delivery ✅ Road Tax Included` || null,
+    publishedOn: '' || null,
+    legacyUrl: '' || null,
+    pageType: '' || null,
+    canonicalUrl: '' || null,
+    slug: '' || null,
+    schema: schema || null,
+  };
+
   return (
     <>
+      <Head metaData={metaData} featuredImage={null} />
       <div className="pdp--content">
+        <BreadCrumb items={breadCrumbItems} />
         <Heading tag="h1">
           <Heading className="-pt-100" tag="span" size="xlarge" color="black">
             {pageTitle}
@@ -486,7 +512,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           />
         </div>
       )}
-      <SchemaJSON json={JSON.stringify(schema)} />
     </>
   );
 };

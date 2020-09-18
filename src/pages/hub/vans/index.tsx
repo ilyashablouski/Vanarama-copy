@@ -51,6 +51,7 @@ import getTitleTag from '../../../utils/getTitleTag';
 import useLeaseType from '../../../hooks/useLeaseType';
 import Head from '../../../components/Head/Head';
 import { getSectionsData, getCardsName } from '../../../utils/getSectionsData';
+import TileLink from '../../../components/TileLink/TileLink';
 
 type ProdCards = ProdCardData[];
 
@@ -433,6 +434,15 @@ export const VansPage: NextPage = () => {
           getSectionsData(['featured1'], data?.hubVanPage.sections),
         )}`}
       >
+        <Image
+          src={
+            getSectionsData(
+              ['featured1', 'image', 'file', 'url'],
+              data?.hubVanPage.sections,
+            ) ||
+            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+          }
+        />
         <div style={{ padding: '1rem' }}>
           <Heading
             size="large"
@@ -486,15 +496,6 @@ export const VansPage: NextPage = () => {
             </IconListItem>
           </IconList>
         </div>
-        <Image
-          src={
-            getSectionsData(
-              ['featured1', 'image', 'file', 'url'],
-              data?.hubVanPage.sections,
-            ) ||
-            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-          }
-        />
       </section>
 
       <section
@@ -618,14 +619,7 @@ export const VansPage: NextPage = () => {
                   }
                 />
               </div>
-              <RouterLink
-                link={{ href: tile.link || '#', label: '' }}
-                className="tile--link"
-              >
-                <Heading tag="span" size="regular" color="black">
-                  {tile.title}
-                </Heading>
-              </RouterLink>
+              <TileLink tile={tile} />
               <Text tag="p">{tile.body}</Text>
             </Tile>
           </div>
