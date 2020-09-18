@@ -481,11 +481,21 @@ export const PickupsPage: NextPage = () => {
                     }
                   />
                 </div>
-                <a className="tile--link" href="##">
-                  <Heading tag="span" size="regular" color="black">
-                    {tile.title}
-                  </Heading>
-                </a>
+                {tile.link ? (
+                  <RouterLink
+                    link={{ href: tile.link || '', label: tile.title || '' }}
+                  >
+                    <Heading tag="span" size="regular" color="black">
+                      {tile.title}
+                    </Heading>
+                  </RouterLink>
+                ) : (
+                  <span className="tile--link">
+                    <Heading tag="span" size="regular" color="black">
+                      {tile.title}
+                    </Heading>
+                  </span>
+                )}
                 <Text tag="p">{tile.body}</Text>
               </Tile>
             </div>

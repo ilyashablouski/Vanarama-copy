@@ -911,15 +911,23 @@ const SearchPageContainer: React.FC<IProps> = ({
                     size="large"
                   />
                 </span>
-                <RouterLink
-                  link={{ href: tile.link || '', label: tile.title || '' }}
-                  className="tile--link"
-                  withoutDefaultClassName
-                >
-                  <Heading color="black" size="regular">
-                    {tile.title}
-                  </Heading>
-                </RouterLink>
+                {tile.link ? (
+                  <RouterLink
+                    link={{ href: tile.link || '', label: tile.title || '' }}
+                    className="tile--link"
+                    withoutDefaultClassName
+                  >
+                    <Heading color="black" size="regular">
+                      {tile.title}
+                    </Heading>
+                  </RouterLink>
+                ) : (
+                  <span className="tile--link">
+                    <Heading color="black" size="regular">
+                      {tile.title}
+                    </Heading>
+                  </span>
+                )}
                 <Text color="darker" size="regular">
                   {tile.body}
                 </Text>
@@ -1025,15 +1033,26 @@ const SearchPageContainer: React.FC<IProps> = ({
                         size="large"
                       />
                     </span>
-                    <RouterLink
-                      link={{ href: tile.link || '', label: tile.title || '' }}
-                      className="tile--link"
-                      withoutDefaultClassName
-                    >
-                      <Heading color="black" size="regular">
-                        {tile.title}
-                      </Heading>
-                    </RouterLink>
+                    {tile.link ? (
+                      <RouterLink
+                        link={{
+                          href: tile.link || '',
+                          label: tile.title || '',
+                        }}
+                        className="tile--link"
+                        withoutDefaultClassName
+                      >
+                        <Heading color="black" size="regular">
+                          {tile.title}
+                        </Heading>
+                      </RouterLink>
+                    ) : (
+                      <span className="tile--link">
+                        <Heading color="black" size="regular">
+                          {tile.title}
+                        </Heading>
+                      </span>
+                    )}
                     <Text color="darker" size="regular">
                       {tile.body}
                     </Text>
@@ -1060,10 +1079,16 @@ const SearchPageContainer: React.FC<IProps> = ({
                           className="card__article"
                           imageSrc={card?.image?.file?.url || ''}
                           title={{
-                            title: '',
+                            title: card.link?.url ? '' : card.title || '',
                             link: (
                               <RouterLink
-                                link={{ href: '#', label: card.title || '' }}
+                                link={{
+                                  href: card.link?.url || '',
+                                  label: card.title || '',
+                                  linkType: card.link?.url?.match('http')
+                                    ? LinkTypes.external
+                                    : '',
+                                }}
                                 className="card--link"
                                 classNames={{ color: 'black', size: 'regular' }}
                               />

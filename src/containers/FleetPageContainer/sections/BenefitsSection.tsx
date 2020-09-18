@@ -21,15 +21,11 @@ const BenefitsSection = ({ name, tiles }: IBenefitsSection) => (
             <Image src={tile.image.file.url} size="large" inline round />
           )}
         </span>
-        <Link className="tile--link">
-          <Heading
-            size="regular"
-            color="black"
-            // tag={tile.titleTag || 'p'}
-          >
+        <span className="tile--link">
+          <Heading size="regular" color="black">
             {tile.title}
           </Heading>
-        </Link>
+        </span>
         <ReactMarkdown
           escapeHtml={false}
           source={tile.body || ''}

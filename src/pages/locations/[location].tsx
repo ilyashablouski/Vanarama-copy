@@ -330,14 +330,22 @@ export const LocationsPage: NextPage = () => {
                     }
                   />
                 </div>
-                <RouterLink
-                  link={{ href: tile.link || '#', label: '' }}
-                  className="tile--link"
-                >
-                  <Heading tag="span" size="regular" color="black">
-                    {tile.title}
-                  </Heading>
-                </RouterLink>
+                {tile.link ? (
+                  <RouterLink
+                    link={{ href: tile.link || '#', label: '' }}
+                    className="tile--link"
+                  >
+                    <Heading tag="span" size="regular" color="black">
+                      {tile.title}
+                    </Heading>
+                  </RouterLink>
+                ) : (
+                  <span className="tile--link">
+                    <Heading tag="span" size="regular" color="black">
+                      {tile.title}
+                    </Heading>
+                  </span>
+                )}
                 <Text tag="p">{tile.body}</Text>
               </Tile>
             </div>
