@@ -74,6 +74,7 @@ import {
 } from '../../../generated/GenericPageHeadQuery';
 import useLeaseType from '../../hooks/useLeaseType';
 import { LinkTypes } from '../../models/enum/LinkTypes';
+import TileLink from '../../components/TileLink/TileLink';
 
 interface IProps {
   isServer: boolean;
@@ -911,23 +912,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                     size="large"
                   />
                 </span>
-                {tile.link ? (
-                  <RouterLink
-                    link={{ href: tile.link || '', label: tile.title || '' }}
-                    className="tile--link"
-                    withoutDefaultClassName
-                  >
-                    <Heading color="black" size="regular">
-                      {tile.title}
-                    </Heading>
-                  </RouterLink>
-                ) : (
-                  <span className="tile--link">
-                    <Heading color="black" size="regular">
-                      {tile.title}
-                    </Heading>
-                  </span>
-                )}
+                <TileLink tile={tile} />
                 <Text color="darker" size="regular">
                   {tile.body}
                 </Text>
@@ -1033,26 +1018,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                         size="large"
                       />
                     </span>
-                    {tile.link ? (
-                      <RouterLink
-                        link={{
-                          href: tile.link || '',
-                          label: tile.title || '',
-                        }}
-                        className="tile--link"
-                        withoutDefaultClassName
-                      >
-                        <Heading color="black" size="regular">
-                          {tile.title}
-                        </Heading>
-                      </RouterLink>
-                    ) : (
-                      <span className="tile--link">
-                        <Heading color="black" size="regular">
-                          {tile.title}
-                        </Heading>
-                      </span>
-                    )}
+                    <TileLink tile={tile} />
                     <Text color="darker" size="regular">
                       {tile.body}
                     </Text>

@@ -50,6 +50,7 @@ import { CompareContext } from '../../../utils/comparatorTool';
 import getTitleTag from '../../../utils/getTitleTag';
 import useLeaseType from '../../../hooks/useLeaseType';
 import Head from '../../../components/Head/Head';
+import TileLink from '../../../components/TileLink/TileLink';
 
 export const PickupsPage: NextPage = () => {
   const [offer, setOffer] = useState<ProdData>();
@@ -481,21 +482,7 @@ export const PickupsPage: NextPage = () => {
                     }
                   />
                 </div>
-                {tile.link ? (
-                  <RouterLink
-                    link={{ href: tile.link || '', label: tile.title || '' }}
-                  >
-                    <Heading tag="span" size="regular" color="black">
-                      {tile.title}
-                    </Heading>
-                  </RouterLink>
-                ) : (
-                  <span className="tile--link">
-                    <Heading tag="span" size="regular" color="black">
-                      {tile.title}
-                    </Heading>
-                  </span>
-                )}
+                <TileLink tile={tile} />
                 <Text tag="p">{tile.body}</Text>
               </Tile>
             </div>
