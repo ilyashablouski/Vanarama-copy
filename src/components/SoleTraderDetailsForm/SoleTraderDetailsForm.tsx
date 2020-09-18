@@ -27,7 +27,7 @@ const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
   return isEdited ? 'Save & Return' : 'Continue';
 };
 
-const AnnualIncomeFeild: React.FC = () => {
+const AnnualIncomeField: React.FC = () => {
   const {
     values: { annualIncome },
     touched,
@@ -144,7 +144,7 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
             <OptionsWithFavourites options={dropdownData.occupations} />
           </FormikSelectField>
 
-          <AnnualIncomeFeild />
+          <AnnualIncomeField />
 
           <FormikNumericField
             name="avgMonthlyIncome"
