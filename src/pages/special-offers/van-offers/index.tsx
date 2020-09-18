@@ -332,7 +332,7 @@ export const VanOffers: NextPage = () => {
           </div>
         </div>
       </div>
-      <div className="row:text">
+      <div className="row:text -columns">
         <ReactMarkdown
           escapeHtml={false}
           source={data?.vanOffersPage.body || ''}
@@ -373,7 +373,7 @@ export const VanOffers: NextPage = () => {
           ),
         )}
       </div>
-      <div className="row:text">
+      <div className="row:text -columns">
         <Heading size="large" color="black">
           Text Row Heading
         </Heading>

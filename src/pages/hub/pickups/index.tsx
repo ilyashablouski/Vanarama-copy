@@ -249,8 +249,11 @@ export const PickupsPage: NextPage = () => {
               label: 'View All Pickups',
             }}
             classNames={{ color: 'teal', size: 'large' }}
+            className="button -solid"
             dataTestId="view-all-pickups"
-          />
+          >
+            <div className="button--inner">View All Pickups</div>
+          </RouterLink>
         </section>
       </div>
 
@@ -285,6 +288,12 @@ export const PickupsPage: NextPage = () => {
           data?.hubPickupPage.sections?.featured1,
         )}`}
       >
+        <Image
+          src={
+            data?.hubPickupPage.sections?.featured1?.image?.file?.url ||
+            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+          }
+        />
         <div style={{ padding: '1rem' }}>
           <Heading
             size="large"
@@ -330,12 +339,6 @@ export const PickupsPage: NextPage = () => {
             </IconListItem>
           </IconList>
         </div>
-        <Image
-          src={
-            data?.hubPickupPage.sections?.featured1?.image?.file?.url ||
-            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-          }
-        />
       </section>
 
       <section

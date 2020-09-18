@@ -126,7 +126,6 @@ export const CarsPage: NextPage = () => {
       </section>
 
       <section className="row:eligibility-checker-cta">
-        <div />
         <div>
           <Image
             size="expand"
@@ -250,8 +249,11 @@ export const CarsPage: NextPage = () => {
               label: 'View All Cars',
             }}
             classNames={{ color: 'teal', size: 'large' }}
+            className="button -solid"
             dataTestId="view-all-cars"
-          />
+          >
+            <div className="button--inner">View All Cars</div>
+          </RouterLink>
         </section>
       </div>
 
@@ -275,6 +277,12 @@ export const CarsPage: NextPage = () => {
           data?.hubCarPage.sections?.featured1,
         )}`}
       >
+        <Image
+          src={
+            data?.hubCarPage.sections?.featured1?.image?.file?.url ||
+            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+          }
+        />
         <div style={{ padding: '1rem' }}>
           <Heading
             size="large"
@@ -320,12 +328,6 @@ export const CarsPage: NextPage = () => {
             </IconListItem>
           </IconList>
         </div>
-        <Image
-          src={
-            data?.hubCarPage.sections?.featured1?.image?.file?.url ||
-            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-          }
-        />
       </section>
 
       <section

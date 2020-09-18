@@ -711,7 +711,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                   {metaData?.name}
                 </Heading>
               </div>
-              <div className="row:text">
+              <div className="row:text -columns">
                 <div>
                   <ReactMarkdown
                     escapeHtml={false}
@@ -937,7 +937,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                   {metaData?.name}
                 </Heading>
               </div>
-              <div className="row:text">
+              <div className="row:text -columns">
                 <div>
                   <ReactMarkdown
                     source={pageData?.genericPage.body || ''}

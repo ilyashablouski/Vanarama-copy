@@ -32,7 +32,7 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
           {title}
         </Heading>
       </div>
-      <div className="row:text">
+      <div className="row:text -columns">
         <div>
           <ReactMarkdown
             source={body || ''}

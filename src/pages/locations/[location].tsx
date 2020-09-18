@@ -345,29 +345,31 @@ export const LocationsPage: NextPage = () => {
         </section>
       )}
       {featured1 && (
-        <div className="row:text">
+        <div className="row:text -columns">
           <Heading size="large" color="black" tag="h2">
             {featured1.title}
           </Heading>
-          <ReactMarkdown
-            escapeHtml={false}
-            source={featured1.body || ''}
-            renderers={{
-              link: props => {
-                const { href, children } = props;
-                return <RouterLink link={{ href, label: children }} />;
-              },
-              heading: props => (
-                <Text
-                  {...props}
-                  size="lead"
-                  color="darker"
-                  className="-mt-100"
-                />
-              ),
-              paragraph: props => <Text {...props} tag="p" color="darker" />,
-            }}
-          />
+          <div>
+            <ReactMarkdown
+              escapeHtml={false}
+              source={featured1.body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+                heading: props => (
+                  <Text
+                    {...props}
+                    size="lead"
+                    color="darker"
+                    className="-mt-100"
+                  />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
+              }}
+            />
+          </div>
         </div>
       )}
 

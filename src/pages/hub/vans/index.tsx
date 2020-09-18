@@ -433,6 +433,15 @@ export const VansPage: NextPage = () => {
           getSectionsData(['featured1'], data?.hubVanPage.sections),
         )}`}
       >
+        <Image
+          src={
+            getSectionsData(
+              ['featured1', 'image', 'file', 'url'],
+              data?.hubVanPage.sections,
+            ) ||
+            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+          }
+        />
         <div style={{ padding: '1rem' }}>
           <Heading
             size="large"
@@ -486,15 +495,6 @@ export const VansPage: NextPage = () => {
             </IconListItem>
           </IconList>
         </div>
-        <Image
-          src={
-            getSectionsData(
-              ['featured1', 'image', 'file', 'url'],
-              data?.hubVanPage.sections,
-            ) ||
-            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-          }
-        />
       </section>
 
       <section
