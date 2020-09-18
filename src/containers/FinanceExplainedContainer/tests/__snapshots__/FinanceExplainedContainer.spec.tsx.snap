@@ -13,7 +13,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       </h1>
     </div>
     <div
-      class="row:text"
+      class="row:text -columns"
     >
       <div>
         <p
@@ -154,7 +154,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="row:text"
+      class="row:text -columns"
     >
       <div>
         <p

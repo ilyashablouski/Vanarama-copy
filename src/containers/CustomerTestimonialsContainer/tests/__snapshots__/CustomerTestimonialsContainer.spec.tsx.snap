@@ -442,7 +442,7 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
       </div>
     </div>
     <section
-      class="row:text"
+      class="row:text -columns"
     >
       <p
         class="heading -black -large"
