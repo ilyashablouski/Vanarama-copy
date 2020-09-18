@@ -47,8 +47,9 @@ app
     server.use(hpp());
 
     // Prevent brute force attack in production.
-    if (process.env.ENV === 'production')
+    if (process.env.ENV === 'production') {
       server.use(rateLimiterRedisMiddleware);
+    }
 
     // Prerender.
     if (prerender && process.env.PRERENDER_SERVICE_URL) server.use(prerender);

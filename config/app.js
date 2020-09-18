@@ -53,12 +53,17 @@ module.exports = {
       const pdpRewiteList = await getPdpRewiteList();
       const rewriteList = [...pdpRewiteList, ...rewritePatterns];
 
-      console.log(rewriteList);
-
-      return [...rewriteList];
+      return [
+        {
+          source: '/sitemap.xml',
+          destination: '/api/sitemap',
+        },
+        ...rewriteList,
+      ];
     },
 
     trailingSlash: false,
+
     // Routes to export into static files.
     exportPathMap: () => {
       return {
