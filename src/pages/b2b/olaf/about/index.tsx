@@ -51,15 +51,18 @@ export const BusinessAboutPage: NextPage = () => {
   const [getPersonByToken] = usePersonByTokenLazyQuery(async data => {
     setPersonUuid(data?.personByToken?.uuid);
     await localForage.setItem('person', data);
-    const partyUuid = [data.personByToken?.partyUuid];
-    await getCompaniesData({
+
+    const companyData = await getCompaniesData({
       personUuid: data.personByToken?.uuid,
-    }).then(resp => {
-      resp.data?.companiesByPersonUuid?.forEach(
-        (companies: CompaniesByPersonUuid) =>
-          partyUuid.push(companies.partyUuid),
-      );
     });
+
+    const partyUuid = [
+      data.personByToken?.partyUuid,
+      ...companyData.data?.companiesByPersonUuid?.map(
+        (companies: CompaniesByPersonUuid) => companies.partyUuid,
+      ),
+    ];
+
     getOrdersData({
       partyUuid,
       excludeStatuses: ['quote', 'expired', 'new'],

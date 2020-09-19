@@ -8,6 +8,7 @@ import SoleTraderDetailsFormContainer from '../../../../../containers/SoleTrader
 import withApollo from '../../../../../hocs/withApollo';
 import OLAFLayout from '../../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams, getUrlParam } from '../../../../../utils/url';
+import useGetPersonUuid from '../../../../../hooks/useGetPersonUuid';
 
 type QueryParams = OLAFQueryParams & {
   companyUuid: string;
@@ -15,7 +16,8 @@ type QueryParams = OLAFQueryParams & {
 
 export const SoleTraderDetailsPage: NextPage = () => {
   const router = useRouter();
-  const { orderId, personUuid, companyUuid } = router.query as QueryParams;
+  const { orderId, companyUuid } = router.query as QueryParams;
+  const personUuid = useGetPersonUuid();
 
   const handleSubmitError = (err: ApolloError) => {
     console.error(err);
@@ -26,7 +28,7 @@ export const SoleTraderDetailsPage: NextPage = () => {
   };
 
   const handleSubmitCompletion = () => {
-    const params = getUrlParam({ orderId, personUuid });
+    const params = getUrlParam({ orderId });
     const url = `/b2b/olaf/sole-trader/bank-details/[companyUuid]${params}`;
     router.push(url, url.replace('[companyUuid]', companyUuid));
   };

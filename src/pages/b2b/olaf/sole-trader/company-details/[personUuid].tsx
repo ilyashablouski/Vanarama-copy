@@ -25,7 +25,7 @@ export const SoleTraderCompanyDetailsPage: NextPage = () => {
     );
 
   const handleSubmitCompletion = (uuid: string) => {
-    const params = getUrlParam({ orderId, personUuid });
+    const params = getUrlParam({ orderId });
     const url = `/b2b/olaf/sole-trader/vat-details/[companyUuid]${params}`;
     router.push(url, url.replace('[companyUuid]', uuid));
   };
