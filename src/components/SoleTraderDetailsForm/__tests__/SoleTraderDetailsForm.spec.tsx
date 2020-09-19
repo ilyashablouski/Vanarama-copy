@@ -61,26 +61,43 @@ describe('<SoleTraderDetailsForm />', () => {
   });
 
   it('should display validation messages', async () => {
-    fireEvent.input(screen.getByTestId('income-change'), {
+    fireEvent.input(screen.getByTestId('annual-income'), {
+      target: { value: '' },
+    });
+    fireEvent.input(screen.getByTestId('monthly-Mortgage-payments'), {
+      target: { value: '' },
+    });
+    fireEvent.input(screen.getByTestId('monthly-student-payments'), {
+      target: { value: '' },
+    });
+    /*  fireEvent.input(screen.getByTestId('income-change'), {
       target: { checked: true },
     });
+     await waitFor(() => {
+      expect(screen.getByTestId('future-monthly-income')).toBeInTheDocument();
+    });
+
+    fireEvent.input(screen.getByTestId('future-monthly-income'), {
+      target: { value: '' },
+    }); */
     fireEvent.click(screen.getByText('Continue'));
+
     // ASSERT
     await waitFor(() =>
       expect(screen.getByTestId('soleTrader-details-heading')).toBeVisible(),
     );
 
     expect(screen.getByText('Please select a title')).toBeVisible();
-    expect(screen.getByText('Please select a firstname')).toBeVisible();
-    expect(screen.getByText('Please select a lastName')).toBeVisible();
+    expect(screen.getByText('Please enter a first name')).toBeVisible();
+    expect(screen.getByText('Please enter a last name')).toBeVisible();
     expect(screen.getByText('Please select a gender')).toBeVisible();
-    expect(screen.getByText('Please select a place of birth')).toBeVisible();
+    expect(screen.getByText('Please select your place of birth')).toBeVisible();
     expect(screen.getByText('Please enter your marital status')).toBeVisible();
     expect(screen.getByText('Please enter your nationality')).toBeVisible();
-    expect(screen.getByText('Please enter a date of birth')).toBeVisible();
+    expect(screen.getByText('Please select a date of birth')).toBeVisible();
     expect(screen.getByText('Please enter a number of adults')).toBeVisible();
     expect(
-      screen.getByText('Please enter a  number of dependants'),
+      screen.getByText('Please enter a number of dependants'),
     ).toBeVisible();
     expect(screen.getByText('Please select your occupation')).toBeVisible();
     expect(screen.getByText('Please enter your address')).toBeVisible();
@@ -90,16 +107,13 @@ describe('<SoleTraderDetailsForm />', () => {
     expect(screen.getByText('Please select a move in date')).toBeVisible();
     expect(screen.getByText('Please enter your annual income')).toBeVisible();
     expect(
-      screen.getByText('Please enter your average monthly income'),
-    ).toBeVisible();
-    expect(
       screen.getByText('Please enter your monthly mortgage/rent payments'),
     ).toBeVisible();
     expect(
       screen.getByText('Please enter your student loan payments'),
     ).toBeVisible();
-    expect(
+    /* expect(
       screen.getByText('Please enter your future monthly income'),
-    ).toBeVisible();
+    ).toBeVisible(); */
   });
 });
