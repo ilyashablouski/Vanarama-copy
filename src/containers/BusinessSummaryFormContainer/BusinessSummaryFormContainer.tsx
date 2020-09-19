@@ -22,6 +22,7 @@ interface IProps {
   personUuid: string;
   companyUuid: string;
   orderId: string;
+  isSoleTrader: boolean;
   onCompleted?: () => void;
   onError?: (error: ApolloError) => void;
 }

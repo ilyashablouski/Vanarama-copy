@@ -6,6 +6,7 @@ import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import BusinessSummaryFormContainer from '../../../../containers/BusinessSummaryFormContainer/BusinessSummaryFormContainer';
 import withApollo from '../../../../hocs/withApollo';
 import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
+import useSoleTraderJourney from '../../../../hooks/useSoleTraderJourney';
 
 type QueryParams = {
   companyUuid: string;
@@ -22,6 +23,7 @@ const BusinessSummaryPage: NextPage = () => {
   const router = useRouter();
   const { companyUuid, orderId } = router.query as QueryParams;
   const personUuid = useGetPersonUuid();
+  const isSoleTrader = useSoleTraderJourney();
 
   const handleComplete = () =>
     router.push(
@@ -32,6 +34,7 @@ const BusinessSummaryPage: NextPage = () => {
   return (
     <OLAFLayout>
       <BusinessSummaryFormContainer
+        isSoleTrader={isSoleTrader}
         onCompleted={handleComplete}
         onError={handleSubmitError}
         personUuid={personUuid}
