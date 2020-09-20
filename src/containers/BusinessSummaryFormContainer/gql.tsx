@@ -11,24 +11,13 @@ export const GET_COMPANY_SUMMARY = gql`
   query GetCompanySummaryQuery($uuid: ID!, $personUuid: ID!) {
     companyByUuid(uuid: $uuid) {
       ...SummaryFormCompany
-    }
-    personByUuid(uuid: $personUuid) {
-      ...AboutFormPerson
-    }
-  }
-  ${BusinessSummaryForm.fragments.company}
-  ${AboutForm.fragments.person}
-`;
-
-export const GET_SOLETRADER_SUMMARY = gql`
-  query GetSoleTraderSummaryQuery($uuid: ID!, $personUuid: ID!) {
-    companyByUuid(uuid: $uuid) {
       ...SummaryFormSoleTrader
     }
     personByUuid(uuid: $personUuid) {
       ...AboutFormPerson
     }
   }
+  ${BusinessSummaryForm.fragments.company}
   ${SoleTraderSummaryForm.fragments.company}
   ${AboutForm.fragments.person}
 `;

@@ -2,7 +2,7 @@ import StructuredList from '@vanarama/uibook/lib/components/organisms/structured
 import { SoleTraderAssociate_associates as SoleTraderAssociate } from '../../../generated/SoleTraderAssociate';
 
 interface IProps {
-  soleTrader: SoleTraderAssociate;
+  soleTrader: SoleTraderAssociate | null;
   onEdit: () => any;
 }
 
@@ -18,90 +18,92 @@ const SoleTraderDetailsSummarySection: React.FC<IProps> = ({
       list={[
         {
           label: 'Title',
-          value: soleTrader.title || '',
+          value: soleTrader?.title || '',
           dataTestId: 'summary-soleTrader-title',
         },
         {
           label: 'First Name',
-          value: soleTrader.firstName || '',
+          value: soleTrader?.firstName || '',
           dataTestId: 'summary-soleTrader-first-name',
         },
         {
           label: 'Last Name',
-          value: soleTrader.lastName || '',
+          value: soleTrader?.lastName || '',
           dataTestId: 'summary-soleTrader-last-name',
         },
         {
           label: 'Gender',
-          value: soleTrader.gender || '',
+          value: soleTrader?.gender || '',
           dataTestId: 'summary-soleTrader-gender',
         },
         {
           label: 'Date Of Birth',
-          value: soleTrader.lastName || '',
+          value: soleTrader?.lastName || '',
           dataTestId: 'summary-soleTrader-last-name',
         },
         {
           label: 'Place Of Birth',
-          value: soleTrader.countryOfBirth || '',
+          value: soleTrader?.countryOfBirth || '',
           dataTestId: 'summary-soleTrader-place-of-birth',
         },
         {
           label: 'Marital Status',
-          value: soleTrader.maritalStatus || '',
+          value: soleTrader?.maritalStatus || '',
           dataTestId: 'summary-soleTrader-marital-status',
         },
         {
           label: 'Nationality',
-          value: soleTrader.nationality || '',
+          value: soleTrader?.nationality || '',
           dataTestId: 'summary-soleTrader-nationality',
         },
         {
           label: 'Email Address',
           value:
-            (soleTrader.emailAddresses && soleTrader.emailAddresses[0].value) ||
+            (soleTrader?.emailAddresses &&
+              soleTrader?.emailAddresses[0].value) ||
             '',
           dataTestId: 'summary-soleTrader-email',
         },
         {
           label: 'Adults Living in Household',
-          value: soleTrader.noOfAdultsInHousehold || '',
+          value: soleTrader?.noOfAdultsInHousehold || '',
           dataTestId: 'summary-soleTrader-adults-in-house',
         },
         {
           label: 'Number of Dependants',
-          value: soleTrader.noOfDependants || '',
+          value: soleTrader?.noOfDependants || '',
           dataTestId: 'summary-soleTrader-dependants',
         },
         {
           label: 'Occupation',
-          value: soleTrader.occupation || '',
+          value: soleTrader?.occupation || '',
           dataTestId: 'summary-soleTrader-occupation',
         },
         {
           label: 'Annual Income',
-          value: String(soleTrader.incomeAndExpense?.annualIncome) || '',
+          value: String(soleTrader?.incomeAndExpense?.annualIncome) || '',
           dataTestId: 'summary-soleTrader-annual-income',
         },
         {
           label: 'Average Monthly Income',
           value:
-            String(soleTrader.incomeAndExpense?.averageMonthlyIncome) || '',
+            String(soleTrader?.incomeAndExpense?.averageMonthlyIncome) || '',
           dataTestId: 'summary-soleTrader-monthly-income',
         },
         {
           label: 'Monthly Mortgage Payments',
-          value: String(soleTrader.incomeAndExpense?.mortgageOrRent) || '',
+          value: String(soleTrader?.incomeAndExpense?.mortgageOrRent) || '',
           dataTestId: 'summary-soleTrader-monthly-payments',
         },
         {
           label: 'Monthly Student Payments',
-          value: String(soleTrader.incomeAndExpense?.studentLoan) || '',
+          value: String(soleTrader?.incomeAndExpense?.studentLoan) || '',
           dataTestId: 'summary-soleTrader-student-payments',
         },
         {
           label: 'Future Monthly Income',
-          value: String(soleTrader.incomeAndExpense?.futureMonthlyIncome) || '',
+          value:
+            String(soleTrader?.incomeAndExpense?.futureMonthlyIncome) || '',
           dataTestId: 'summary-soleTrader-future-income',
         },
       ]}

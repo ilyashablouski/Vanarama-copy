@@ -2,6 +2,7 @@ import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React, { useEffect } from 'react';
 import { useLazyQuery, ApolloError } from '@apollo/client';
 import BusinessSummaryForm from '../../components/BusinessSummaryForm/BusinessSummaryForm';
+import SoleTraderSummaryForm from '../../components/BusinessSummaryForm/SoleTraderSummaryForm';
 import {
   GetCompanySummaryQuery,
   GetCompanySummaryQueryVariables,
@@ -33,6 +34,7 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
   personUuid,
   onCompleted,
   onError,
+  isSoleTrader,
 }) => {
   const [getDataSummary, getDataSummaryQueryOptions] = useLazyQuery<
     GetCompanySummaryQuery,
@@ -128,16 +130,35 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
   };
 
   return (
-    <BusinessSummaryForm
-      isSubmitting={isSubmitting}
-      onSubmit={handleSubmit}
-      creditApplication={
-        getCreditApplication.data?.creditApplicationByOrderUuid
-      }
-      person={getDataSummaryQueryOptions.data.personByUuid as PersonByUuid}
-      company={getDataSummaryQueryOptions.data.companyByUuid as CompanyByUuid}
-      orderId={orderId}
-    />
+    <>
+      {isSoleTrader ? (
+        <SoleTraderSummaryForm
+          isSubmitting={isSubmitting}
+          onSubmit={handleSubmit}
+          creditApplication={
+            getCreditApplication.data?.creditApplicationByOrderUuid
+          }
+          person={getDataSummaryQueryOptions.data.personByUuid as PersonByUuid}
+          company={
+            getDataSummaryQueryOptions.data.companyByUuid as CompanyByUuid
+          }
+          orderId={orderId}
+        />
+      ) : (
+        <BusinessSummaryForm
+          isSubmitting={isSubmitting}
+          onSubmit={handleSubmit}
+          creditApplication={
+            getCreditApplication.data?.creditApplicationByOrderUuid
+          }
+          person={getDataSummaryQueryOptions.data.personByUuid as PersonByUuid}
+          company={
+            getDataSummaryQueryOptions.data.companyByUuid as CompanyByUuid
+          }
+          orderId={orderId}
+        />
+      )}
+    </>
   );
 };
 

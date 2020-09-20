@@ -15,6 +15,7 @@ import { GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as CreditA
 import { mapDefaultValues } from '../../containers/CompanyBankDetailsFormContainer/mappers';
 import SoleTraderDetailsForm from '../SoleTraderDetailsForm';
 import SoleTraderCompanyDetailsSummarySection from './SoleTraderCompanyDetailsSummarySection';
+import SoleTraderDetailsSummarySection from './SoleTraderDetailsSummarySection';
 
 interface IProps {
   company: SummaryFormSoleTrader;
@@ -98,6 +99,15 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
             )}
           />
         )}
+        <SoleTraderDetailsSummarySection
+          soleTrader={company.associates && company.associates[0]}
+          onEdit={handleEdit(
+            '/b2b/olaf/sole-trader/sole-trader-details/[orderId]',
+            {
+              companyUuid: company.uuid,
+            },
+          )}
+        />
         {primaryBankAccount && (
           <BusinessSummaryFormBankDetailsSection
             account={primaryBankAccount}
