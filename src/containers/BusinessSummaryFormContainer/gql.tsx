@@ -4,6 +4,7 @@ import {
   B2bFullCreditCheckerVariables,
 } from '../../../generated/B2bFullCreditChecker';
 import BusinessSummaryForm from '../../components/BusinessSummaryForm/BusinessSummaryForm';
+import SoleTraderSummaryForm from '../../components/BusinessSummaryForm/SoleTraderSummaryForm';
 import AboutForm from '../../components/AboutForm';
 
 export const GET_COMPANY_SUMMARY = gql`
@@ -16,6 +17,19 @@ export const GET_COMPANY_SUMMARY = gql`
     }
   }
   ${BusinessSummaryForm.fragments.company}
+  ${AboutForm.fragments.person}
+`;
+
+export const GET_SOLETRADER_SUMMARY = gql`
+  query GetSoleTraderSummaryQuery($uuid: ID!, $personUuid: ID!) {
+    companyByUuid(uuid: $uuid) {
+      ...SummaryFormSoleTrader
+    }
+    personByUuid(uuid: $personUuid) {
+      ...AboutFormPerson
+    }
+  }
+  ${SoleTraderSummaryForm.fragments.company}
   ${AboutForm.fragments.person}
 `;
 

@@ -259,6 +259,7 @@ SoleTraderDetailsForm.fragments = {
         title
         firstName
         lastName
+        gender
         emailAddresses {
           __typename
           primary

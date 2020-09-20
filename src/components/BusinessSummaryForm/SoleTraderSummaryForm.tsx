@@ -6,20 +6,18 @@ import { useRouter } from 'next/router';
 import React, { useCallback, useMemo } from 'react';
 import FCWithFragments from '../../utils/FCWithFragments';
 import BusinessSummaryFormBankDetailsSection from './BusinessSummaryFormBankDetailsSection';
-import BusinessSummaryFormDetailsSection from './BusinessSummaryFormDetailsSection';
 import { getUrlParam } from '../../utils/url';
-import { SummaryFormCompany } from '../../../generated/SummaryFormCompany';
+import { SummaryFormSoleTrader } from '../../../generated/SummaryFormSoleTrader';
 import BusinessSummaryFormVATDetailsSection from './BusinessSummaryFormVATDetailsSection';
-import BusinessSummaryFormDirectorDetailsSection from './BusinessSummaryFormDirectorDetailsSection';
 import { AboutFormPerson } from '../../../generated/AboutFormPerson';
 import BusinessSummaryFormAboutSection from './BusinessSummaryFormAboutSection';
 import { GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as CreditApplication } from '../../../generated/GetCreditApplicationByOrderUuid';
-import { mapDirectorsDefaultValues } from '../../containers/DirectorDetailsFormContainer/mappers';
 import { mapDefaultValues } from '../../containers/CompanyBankDetailsFormContainer/mappers';
-import { DirectorDetails } from '../DirectorDetailsForm/interfaces';
+import SoleTraderDetailsForm from '../SoleTraderDetailsForm';
+import SoleTraderCompanyDetailsSummarySection from './SoleTraderCompanyDetailsSummarySection';
 
 interface IProps {
-  company: SummaryFormCompany;
+  company: SummaryFormSoleTrader;
   orderId: string;
   person: AboutFormPerson;
   creditApplication?: CreditApplication | null;
@@ -27,7 +25,7 @@ interface IProps {
   isSubmitting: boolean;
 }
 
-const BusinessSummaryForm: FCWithFragments<IProps> = ({
+const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
   creditApplication,
   company,
   orderId,
@@ -62,27 +60,6 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
     [company.uuid, orderId, person.uuid, router],
   );
 
-  const directors = useMemo(() => {
-    const providedDirectorsData = (mapDirectorsDefaultValues(
-      creditApplication?.directorsDetails,
-    ).directors || []) as DirectorDetails[];
-
-    return providedDirectorsData
-      .slice()
-      .sort((a, b) => (+b.shareOfBusiness || 0) - (+a.shareOfBusiness || 0))
-      .map((d, i) => (
-        <BusinessSummaryFormDirectorDetailsSection
-          director={d}
-          orderBySharehold={i}
-          onEdit={handleEdit('/b2b/olaf/director-details/[companyUuid]', {
-            directorUuid: d.uuid || '',
-            orderId,
-          })}
-          key={d.uuid}
-        />
-      ));
-  }, [handleEdit, orderId, creditApplication]);
-
   return (
     <div>
       <Heading
@@ -101,37 +78,35 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
             companyUuid: company.uuid,
           })}
         />
-        <BusinessSummaryFormDetailsSection
+        <SoleTraderCompanyDetailsSummarySection
           company={company}
-          onEdit={handleEdit('/b2b/olaf/company-details/[personUuid]', {
-            companyUuid: company.uuid,
-            orderId,
-          })}
+          onEdit={handleEdit(
+            '/b2b/olaf/sole-trader/company-details/[orderId]',
+            {
+              companyUuid: company.uuid,
+            },
+          )}
         />
         {company.isVatRegistered && (
           <BusinessSummaryFormVATDetailsSection
             vatDetails={company}
-            onEdit={handleEdit('/b2b/olaf/vat-details/[companyUuid]', {
-              orderId,
-            })}
+            onEdit={handleEdit(
+              '/b2b/olaf/sole-trader/vat-details/[companyUuid]',
+              {
+                orderId,
+              },
+            )}
           />
         )}
-        <Heading
-          color="black"
-          size="large"
-          dataTestId="directors-section-heading"
-          className="olaf--summary-title"
-        >
-          Director Details
-        </Heading>
-        <hr />
-        <div>{directors}</div>
         {primaryBankAccount && (
           <BusinessSummaryFormBankDetailsSection
             account={primaryBankAccount}
-            onEdit={handleEdit('/b2b/olaf/company-bank-details/[companyUuid]', {
-              orderId,
-            })}
+            onEdit={handleEdit(
+              '/b2b/olaf/sole-Trader/company-bank-details/[companyUuid]',
+              {
+                orderId,
+              },
+            )}
           />
         )}
       </Form>
@@ -149,23 +124,21 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
   );
 };
 
-BusinessSummaryForm.fragments = {
+SoleTraderSummaryForm.fragments = {
   company: gql`
-    fragment SummaryFormCompany on CompanyType {
-      ...SummaryFormDetailsSectionCompany
+    fragment SummaryFormSoleTrader on CompanyType {
+      ...SoleTraderCompanyDetailsSummary
       ...VatDetails
+      ...SoleTraderAssociate
       bankAccounts {
         ...CompanyBankDetailsAccount
       }
-      associates {
-        ...CompanyAssociate
-      }
     }
-    ${BusinessSummaryFormDetailsSection.fragments.company}
+    ${SoleTraderCompanyDetailsSummarySection.fragments.company}
+    ${SoleTraderDetailsForm.fragments.soleTrader}
     ${BusinessSummaryFormVATDetailsSection.fragments.vatDetails}
     ${BusinessSummaryFormBankDetailsSection.fragments.account}
-    ${BusinessSummaryFormDirectorDetailsSection.fragments.director}
   `,
 };
 
-export default BusinessSummaryForm;
+export default SoleTraderSummaryForm;

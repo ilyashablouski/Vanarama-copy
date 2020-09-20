@@ -1,12 +1,12 @@
 import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
-import React, { useMemo } from 'react';
+import React from 'react';
 import { gql } from '@apollo/client';
 import moment from 'moment';
 import FCWithFragments from '../../utils/FCWithFragments';
 
 import { CompanyAssociate_addresses as Address } from '../../../generated/CompanyAssociate';
 import { addressToDisplay } from '../../utils/address';
-import { formatPreviousAddressesArray } from './helpers';
+import { formatPreviousAddressesArray, sortAddresses } from './helpers';
 import { DirectorFormValues } from '../DirectorDetailsForm/interfaces';
 
 interface IBusinessSummaryFormDirectorDetailsSectionProps {
@@ -23,17 +23,7 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
   director,
   orderBySharehold,
 }) => {
-  const sortedAddresses = useMemo(
-    () =>
-      director.addresses
-        ?.slice()
-        .sort(
-          (a, b) =>
-            new Date(a.startedOn).getTime() - new Date(b.startedOn).getTime(),
-        )
-        .reverse(),
-    [director.addresses],
-  );
+  const sortedAddresses = sortAddresses(director.addresses);
   const currentAddress = (sortedAddresses && sortedAddresses[0]) || null;
   const previousAddress = formatPreviousAddressesArray(
     sortedAddresses || [],

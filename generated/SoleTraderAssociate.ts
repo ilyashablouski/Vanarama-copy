@@ -29,6 +29,7 @@ export interface SoleTraderAssociate_associates {
   title: string | null;
   firstName: string;
   lastName: string;
+  gender: string | null;
   emailAddresses: SoleTraderAssociate_associates_emailAddresses[];
   dateOfBirth: any | null;
   countryOfBirth: string | null;

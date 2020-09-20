@@ -31,6 +31,7 @@ export interface UpdateSoleTraderMutation_updateCompanySoleTrader_associates {
   title: string | null;
   firstName: string;
   lastName: string;
+  gender: string | null;
   emailAddresses: UpdateSoleTraderMutation_updateCompanySoleTrader_associates_emailAddresses[];
   dateOfBirth: any | null;
   countryOfBirth: string | null;

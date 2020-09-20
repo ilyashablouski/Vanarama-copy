@@ -83,7 +83,7 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
     return <Loading size="large" />;
   }
 
-  const hanldeCredutApplicationSubmit = () =>
+  const handleCreditApplicationSubmit = () =>
     createUpdateCA({
       variables: {
         input: {
@@ -93,7 +93,7 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
       },
     });
 
-  const hanldeCreditCheckerSubmit = (
+  const handleCreditCheckerSubmit = (
     creditApplication?: CreditApplication | null,
     party?: Party | null,
   ) =>
@@ -112,12 +112,12 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
     });
 
   const handleSubmit = () => {
-    hanldeCredutApplicationSubmit()
+    handleCreditApplicationSubmit()
       .then(creditApplicationQuery =>
         handlePartyRefetch(
           creditApplicationQuery.data?.createUpdateCreditApplication,
         ).then(partyQuery =>
-          hanldeCreditCheckerSubmit(
+          handleCreditCheckerSubmit(
             creditApplicationQuery.data?.createUpdateCreditApplication,
             partyQuery.data?.partyByUuid,
           ),

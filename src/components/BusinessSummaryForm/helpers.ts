@@ -29,4 +29,11 @@ export const formatPreviousAddressesArray = (
     [],
   );
 
-export default formatPreviousAddressesArray;
+export const sortAddresses = (addresses: Address[] | undefined) =>
+  addresses
+    ?.slice()
+    .sort(
+      (a, b) =>
+        new Date(a.startedOn).getTime() - new Date(b.startedOn).getTime(),
+    )
+    .reverse();
