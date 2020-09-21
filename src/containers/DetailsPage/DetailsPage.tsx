@@ -13,6 +13,7 @@ import DownloadSharp from '@vanarama/uibook/lib/assets/icons/DownloadSharp';
 import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-gallery';
 import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
 import cx from 'classnames';
+import { pushPDPData } from 'utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
 import { toPriceFormat } from '../../utils/helpers';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
@@ -70,6 +71,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [leaseType, setLeaseType] = useState<string>(cachedLeaseType);
   const [leadTime, setLeadTime] = useState<string>('');
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const [firstTimePushDataLayer, setFirstTimePushDataLayer] = useState<boolean>(
+    true,
+  );
 
   useEffect(() => {
     setCachedLeaseType(leaseType);
@@ -80,6 +84,21 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     setLeaseScannerData,
   ] = useState<null | ILeaseScannerData>(null);
   const isMobile = useMobileViewport();
+
+  useEffect(() => {
+    if (
+      window &&
+      firstTimePushDataLayer &&
+      data?.derivativeInfo &&
+      leaseScannerData?.quoteByCapId
+    ) {
+      const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
+      const mileage = leaseScannerData?.quoteByCapId?.mileage;
+      const derivativeInfo = data?.derivativeInfo;
+      pushPDPData({ capId, derivativeInfo, price, mileage });
+      setFirstTimePushDataLayer(false);
+    }
+  }, [data, leaseScannerData, capId, firstTimePushDataLayer]);
 
   const [createOrderHandle] = useCreateUpdateOrder(() => {});
 
