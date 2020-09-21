@@ -14,12 +14,12 @@ const financeToBeReplaced = (company: SoleTraderCompanyDetailsSummary) =>
     ? [
         {
           label: 'Monthly Amount Being Replaced',
-          value: company.monthlyAmountBeingReplaced,
+          value: String(company.monthlyAmountBeingReplaced),
           dataTestId: 'summary-company-amount-replaced',
         },
         {
           label: 'Vehicle Registration Number',
-          value: company.vehicleRegistrationNumber,
+          value: String(company.vehicleRegistrationNumber) || '',
           dataTestId: 'summary-company-vehicle-reg',
         },
       ]
@@ -42,7 +42,7 @@ const SoleTraderCompanyDetailsSummarySection: FCWithFragments<IProps> = ({
         },
         {
           label: 'Trading Address',
-          value: company.addresses || '',
+          value: (company.addresses && company.addresses[0].lineOne) || '',
           dataTestId: 'summary-comapny-trading-address',
         },
         {
@@ -52,7 +52,7 @@ const SoleTraderCompanyDetailsSummarySection: FCWithFragments<IProps> = ({
         },
         {
           label: 'Trading Since',
-          value: company.tradingSince,
+          value: company.tradingSince || '',
           dataTestId: 'summary-company-trading-since',
         },
         {
@@ -70,23 +70,23 @@ const SoleTraderCompanyDetailsSummarySection: FCWithFragments<IProps> = ({
         },
         {
           label: 'Annual Turn Over',
-          value: company.annualTurnover,
+          value: String(company.annualTurnover) || '',
           dataTestId: 'summary-company-annual-turnover',
         },
         {
           label: 'Annual Cost of Sales',
-          value: company.annualSalesCost,
+          value: String(company.annualSalesCost) || '',
           dataTestId: 'summary-company-annual-sales-cost',
         },
         {
           label: 'Annual Expenses',
-          value: company.annualExpenses,
+          value: String(company.annualExpenses) || '',
           dataTestId: 'summary-company-annual-expenses',
         },
         ...financeToBeReplaced(company),
       ]}
       heading="About You"
-      headingDataTestId="about_you_heading_data_testId"
+      dataTestId="company-details-summary-heading"
       headingSize="large"
       className="-styled-headers"
     />

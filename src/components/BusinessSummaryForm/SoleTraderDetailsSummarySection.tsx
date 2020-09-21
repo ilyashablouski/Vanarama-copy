@@ -86,8 +86,7 @@ const SoleTraderDetailsSummarySection: React.FC<IProps> = ({
         },
         {
           label: 'Average Monthly Income',
-          value:
-            String(soleTrader?.incomeAndExpense?.averageMonthlyIncome) || '',
+          value: String(soleTrader?.incomeAndExpense?.averageMonthlyIncome) || '',
           dataTestId: 'summary-soleTrader-monthly-income',
         },
         {
@@ -102,8 +101,7 @@ const SoleTraderDetailsSummarySection: React.FC<IProps> = ({
         },
         {
           label: 'Future Monthly Income',
-          value:
-            String(soleTrader?.incomeAndExpense?.futureMonthlyIncome) || '',
+          value: String(soleTrader?.incomeAndExpense?.futureMonthlyIncome) || '',
           dataTestId: 'summary-soleTrader-future-income',
         },
       ]}
