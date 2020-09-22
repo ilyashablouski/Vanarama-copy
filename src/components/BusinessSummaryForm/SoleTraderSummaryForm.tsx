@@ -101,7 +101,6 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
         )}
         <SoleTraderDetailsSummarySection
           soleTrader={company.associates?.[0]}
-          addresses={company.addresses}
           onEdit={handleEdit(
             '/b2b/olaf/sole-trader/sole-trader-details/[orderId]',
             {
