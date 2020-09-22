@@ -41,8 +41,6 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
     return {};
   }, [initialCompanyDetails]);
 
-  console.log(mappedCompanyDetails)
-
   const handleSoleTraderCompanyDetailsSave = (
     values: ISoleTraderCompanyDetailsFormValues,
   ) =>
