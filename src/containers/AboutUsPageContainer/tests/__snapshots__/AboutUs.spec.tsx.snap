@@ -157,11 +157,11 @@ Array [
       >
         Big things have small beginnings, and some days it's hard to believe that Vanarama started its journey in 2004 with a team of just 3 people in a porta cabin. Today, we employ around 230 people and Vanarama is the ultimate destination for your next vehicle.
       </p>
-      <span
+      <h3
         className="text -lead -darker"
       >
         What We Do
-      </span>
+      </h3>
       <p
         className="text -regular -darker"
       >
@@ -182,11 +182,11 @@ Array [
         </a>
          and maintenance packages.
       </p>
-      <span
+      <h3
         className="text -lead -darker"
       >
         Customer Support
-      </span>
+      </h3>
       <p
         className="text -regular -darker"
       >
@@ -197,11 +197,11 @@ Array [
       >
         To further enhance your customer service experience, Vanarama is a member of the Institute of Customer Service (ICS). We like to think that this investment and commitment in our staff is one of the reasons that 95% of our customers would not only recommend us, but also use us again.
       </p>
-      <span
+      <h3
         className="text -lead -darker"
       >
         Our Opening Hours
-      </span>
+      </h3>
       <ul>
         <li>
           <p
@@ -224,11 +224,11 @@ Array [
           </p>
         </li>
       </ul>
-      <span
+      <h3
         className="text -lead -darker"
       >
         Our Awards
-      </span>
+      </h3>
       <p
         className="text -regular -darker"
       >
@@ -290,11 +290,11 @@ Array [
       >
         We also sponsor The Vanarama National League and through a charity partnership with Prostate Cancer UK, we won the BT Sport Industry Sponsorship Campaign Of The Year 2019, Business Charity Awards - Campaign Of The Year 2019 and Football Business Awards - Silver For Sponsorship Of The Year and Gold for Brand Activation for the Manarama campaign which saw us rename the League to support the charity and raise £150k.
       </p>
-      <span
+      <h3
         className="text -lead -darker"
       >
         One Of The Best Companies To Work For
-      </span>
+      </h3>
       <p
         className="text -regular -darker"
       >

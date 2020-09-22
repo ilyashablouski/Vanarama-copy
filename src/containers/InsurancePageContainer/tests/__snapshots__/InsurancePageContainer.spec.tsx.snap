@@ -17,11 +17,11 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           >
             Get Your Low Cost Vehicle Insurance Quote
           </h1>
-          <p
+          <h3
             class="text -large -white"
           >
             Plus receive £100 if you switch from your current Insurance provider to Vanarama Insurance*
-          </p>
+          </h3>
           <p
             class="text hero--small-print -xsmall -white"
           >
@@ -656,11 +656,11 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
       >
         Our Van Insurance Services
       </p>
-      <span
+      <h3
         class="text -lead -darker"
       >
         What You Need To Know
-      </span>
+      </h3>
       <p
         class="text -regular -darker"
       >
