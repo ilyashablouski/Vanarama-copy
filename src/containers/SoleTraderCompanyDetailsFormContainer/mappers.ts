@@ -42,24 +42,24 @@ export const prelodedValuesToInput = (details: any) => {
   const tradingAddress = details.addresses
     ? {
         tradingAddress: {
-          label: details.addresses.lineOne,
-          id: details.addresses.serviceId,
+          label: details.addresses.line_one,
+          id: details.addresses.service_id,
         },
       }
     : null;
   return {
-    tradingName: details.tradingName,
+    tradingName: details.trading_name,
     ...tradingAddress,
-    natureOfBusiness: details.companyNature,
-    tradingSinceYear: String(new Date(details.tradingSince).getFullYear()),
-    tradingSinceMonth: String(new Date(details.tradingSince).getMonth()),
-    businessTelephoneNumber: details?.telephoneNumbers?.value || '',
-    email: details.emailAddress,
-    annualTurnover: String(details.annualTurnover),
-    annualCostOfSales: String(details.annualSalesCost),
-    annualExpenses: String(details.annualExpenses),
-    vehicleRegistrationNumber: details.vehicleRegistrationNumber,
-    monthlyAmountBeingReplaced: String(details.monthlyAmountBeingReplaced),
+    natureOfBusiness: details.company_nature,
+    tradingSinceYear: String(new Date(details.trading_since).getFullYear()),
+    tradingSinceMonth: String(new Date(details.trading_since).getMonth()),
+    businessTelephoneNumber: details?.telephone_numbers?.value || '',
+    email: details.email_address,
+    annualTurnover: String(details.annual_turnover),
+    annualCostOfSales: String(details.annual_sales_cost),
+    annualExpenses: String(details.annual_expenses),
+    vehicleRegistrationNumber: details.vehicle_registration_number,
+    monthlyAmountBeingReplaced: String(details.monthly_amount_being_replaced),
   };
 };
 
