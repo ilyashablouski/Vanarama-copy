@@ -10,7 +10,7 @@ import {
 } from '../../gql/creditApplication';
 import { useUpdateSoleTraderCompanyMutation } from './gql';
 import { useCreateUpdateOrder } from '../../gql/order';
-import { mapFormValues } from './mappers';
+import { mapFormValues, prelodedValuesToInput } from './mappers';
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 import { UpdateSoleTraderCompanyMutation_createUpdateSoleTraderCompany as Company } from '../../../generated/UpdateSoleTraderCompanyMutation';
 
@@ -31,9 +31,16 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
     orderId,
   );
 
-  const defaultCompanyDetails =
+  const companyDetails =
     getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
       ?.companyDetails;
+
+  const defaultCompanyDetails = React.useMemo(() => {
+    if (companyDetails) {
+      return prelodedValuesToInput(companyDetails);
+    }
+    return null;
+  }, [companyDetails]);
 
   const handleSoleTraderCompanyDetailsSave = (
     values: ISoleTraderCompanyDetailsFormValues,

@@ -10,7 +10,6 @@ import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
 import AddressFormField from '../AddressFormField/AddressFormField';
 import { genMonths, genYears } from '../../utils/helpers';
-import { prelodedValuesToInput } from '../../containers/SoleTraderCompanyDetailsFormContainer/mappers';
 import {
   emailValidator,
   phoneNumberValidator,
@@ -41,7 +40,7 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
 }) => {
   const methods = useForm<ISoleTraderCompanyDetailsFormValues>({
     mode: 'onBlur',
-    defaultValues: prelodedValuesToInput(companyDetails),
+    defaultValues: companyDetails,
   });
   const { formState, errors, register, watch } = methods;
   const existingVehicle = watch('existingVehicle');

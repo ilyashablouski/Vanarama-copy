@@ -39,31 +39,27 @@ export const mapFormValues = (values: ISoleTraderCompanyDetailsFormValues) => {
 };
 
 export const prelodedValuesToInput = (details: any) => {
-  const tradingAddress = details?.addresses
+  const tradingAddress = details.addresses
     ? {
         tradingAddress: {
-          label: details?.addresses.lineOne || '',
-          id: details?.addresses.serviceId || '',
+          label: details.addresses.lineOne,
+          id: details.addresses.serviceId,
         },
       }
-    : {};
+    : null;
   return {
-    tradingName: details?.tradingName || '',
+    tradingName: details.tradingName,
     ...tradingAddress,
-    natureOfBusiness: details?.companyNature || '',
-    tradingSinceYear: String(
-      new Date(details?.tradingSince).getFullYear() || '',
-    ),
-    tradingSinceMonth: String(new Date(details?.tradingSince).getMonth() || ''),
+    natureOfBusiness: details.companyNature,
+    tradingSinceYear: String(new Date(details.tradingSince).getFullYear()),
+    tradingSinceMonth: String(new Date(details.tradingSince).getMonth()),
     businessTelephoneNumber: details?.telephoneNumbers?.value || '',
-    email: details?.emailAddress || '',
-    annualTurnover: String(details?.annualTurnover || ''),
-    annualCostOfSales: String(details?.annualSalesCost || ''),
-    annualExpenses: String(details?.annualExpenses || ''),
-    vehicleRegistrationNumber: details?.vehicleRegistrationNumber || '',
-    monthlyAmountBeingReplaced: String(
-      details?.monthlyAmountBeingReplaced || '',
-    ),
+    email: details.emailAddress,
+    annualTurnover: String(details.annualTurnover),
+    annualCostOfSales: String(details.annualSalesCost),
+    annualExpenses: String(details.annualExpenses),
+    vehicleRegistrationNumber: details.vehicleRegistrationNumber,
+    monthlyAmountBeingReplaced: String(details.monthlyAmountBeingReplaced),
   };
 };
 
