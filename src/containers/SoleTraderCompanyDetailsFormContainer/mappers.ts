@@ -42,8 +42,8 @@ export const prelodedValuesToInput = (details: any) => {
   const tradingAddress = details.addresses
     ? {
         tradingAddress: {
-          label: details.addresses.line_one,
-          id: details.addresses.service_id,
+          label: details.addresses[0].line_one,
+          id: details.addresses[0].service_id,
         },
       }
     : null;
