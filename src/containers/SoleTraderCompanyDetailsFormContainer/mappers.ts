@@ -53,7 +53,7 @@ export const prelodedValuesToInput = (details: any) => {
     natureOfBusiness: details.company_nature,
     tradingSinceYear: String(new Date(details.trading_since).getFullYear()),
     tradingSinceMonth: String(new Date(details.trading_since).getMonth()),
-    businessTelephoneNumber: details.telephone_numbers?.value || '',
+    businessTelephoneNumber: details.telephone_numbers?.value,
     email: details.email_address,
     annualTurnover: String(details.annual_turnover),
     annualCostOfSales: String(details.annual_sales_cost),
