@@ -74,7 +74,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [firstTimePushDataLayer, setFirstTimePushDataLayer] = useState<boolean>(
     true,
   );
-
   useEffect(() => {
     setCachedLeaseType(leaseType);
   }, [leaseType, setCachedLeaseType]);
@@ -85,24 +84,17 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   ] = useState<null | ILeaseScannerData>(null);
   const isMobile = useMobileViewport();
 
-  const [createOrderHandle] = useCreateUpdateOrder(() => {});
-
   useEffect(() => {
-    console.log('hi')
-    if (
-      firstTimePushDataLayer &&
-      data?.derivativeInfo &&
-      leaseScannerData?.quoteByCapId
-    ) {
+    if (window && firstTimePushDataLayer && data?.derivativeInfo) {
       const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
       const mileage = leaseScannerData?.quoteByCapId?.mileage;
       const derivativeInfo = data?.derivativeInfo;
       pushPDPData({ capId, derivativeInfo, price, mileage });
       setFirstTimePushDataLayer(false);
     }
-  }, [
-    leaseScannerData,
-  ]);
+  }, [data, capId, leaseScannerData, firstTimePushDataLayer]);
+
+  const [createOrderHandle] = useCreateUpdateOrder(() => {});
 
   const onSubmitClick = (values: OrderInputObject) => {
     return createOrderHandle({
