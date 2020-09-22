@@ -45,15 +45,15 @@ export const prelodedValuesToInput = (details: any) => ({
     id: details?.addresses.serviceId || '',
   },
   natureofBusiness: details?.companyNature || '',
-  tradingSinceYear: String(new Date(details?.tradingSince).getFullYear()),
-  tradingSinceMonth: String(new Date(details?.tradingSince).getMonth()),
+  tradingSinceYear: String(new Date(details?.tradingSince).getFullYear()) || '',
+  tradingSinceMonth: String(new Date(details?.tradingSince).getMonth()) || '',
   businessTelephoneNumber: details?.telephoneNumbers?.value || '',
   email: details?.emailAddress || '',
-  annualTurnover: String(details?.annualTurnover),
-  annualCostOfSales: String(details?.annualSalesCost),
-  annualExpenses: String(details?.annualExpenses),
+  annualTurnover: String(details?.annualTurnover) || '',
+  annualCostOfSales: String(details?.annualSalesCost) || '',
+  annualExpenses: String(details?.annualExpenses) || '',
   vehicleRegistrationNumber: details?.vehicleRegistrationNumber || '',
-  monthlyAmountBeingReplaced: String(details?.monthlyAmountBeingReplaced),
+  monthlyAmountBeingReplaced: String(details?.monthlyAmountBeingReplaced) || '',
 });
 
 export default mapFormValues;
