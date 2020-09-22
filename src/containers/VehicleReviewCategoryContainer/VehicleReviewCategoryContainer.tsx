@@ -1,25 +1,23 @@
 import React, { FC, useState } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import BreadCrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import ReactMarkdown from 'react-markdown';
 import { useRouter } from 'next/router';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import { ReviewsHubCategoryQuery_genericPage_sections as Sections } from '../../../generated/ReviewsHubCategoryQuery';
 import { getMarkdownRenderers } from './Utils';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   sections: Sections | null;
   title: string | null;
   body: string | null;
-  crumbs: { href: string; label: string }[];
 }
 
 const VehicleReviewCategoryContainer: FC<IProps> = ({
   body,
   title,
   sections,
-  crumbs,
 }) => {
   const [reviewsExpanded, setReviewsExpanded] = useState(12);
   const router = useRouter();
@@ -27,7 +25,7 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
   return (
     <>
       <div className="row:title">
-        <BreadCrumb items={crumbs} />
+        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {title}
         </Heading>

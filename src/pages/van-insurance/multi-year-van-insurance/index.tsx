@@ -28,11 +28,11 @@ const FinanceGapInsurancePage: NextPage = () => {
 
   return (
     <>
+      <FinanceGapInsuranceContainer sections={sections} />
       <Head
         metaData={metaData}
         featuredImage={data?.genericPage.featuredImage}
       />
-      <FinanceGapInsuranceContainer sections={sections} />
     </>
   );
 };

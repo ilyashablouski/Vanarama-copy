@@ -4,6 +4,11 @@ import { useGenericPage } from '../../../gql/genericPage';
 import BlogPost from '../../../pages/blog/post';
 
 jest.mock('../../../gql/genericPage');
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    asPath: '/',
+  }),
+}));
 
 describe('<BlogPost />', () => {
   it('should successfully show post data', async () => {

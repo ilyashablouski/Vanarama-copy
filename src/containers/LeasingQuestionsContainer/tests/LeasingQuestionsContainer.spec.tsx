@@ -3,12 +3,13 @@ import { MockedProvider } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
 import LeasingQuestionsContainer from '../LeasingQuestionsContainer';
 
-// ARRANGE
-const CRUMBS = [
-  { label: 'Home', href: '/' },
-  { label: 'Customer Leasing Questions', href: '/car-leasing-explained' },
-];
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    asPath: '/',
+  }),
+}));
 
+// ARRANGE
 const METADATA = {
   title: 'Customer Leasing Questions',
   metaRobots: null,
@@ -100,7 +101,6 @@ describe('<FinanceExplainedContainer />', () => {
     const getComponent = render(
       <MockedProvider addTypename={false}>
         <LeasingQuestionsContainer
-          crumbs={CRUMBS}
           sections={SECTIONS}
           title={METADATA.title}
           body={BODY}

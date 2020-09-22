@@ -15,11 +15,11 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           <h1
             class="heading -white -xlarge"
           />
-          <p
+          <h3
             class="text -large -white"
           >
             Extra Protection Should The Worst happen
-          </p>
+          </h3>
           <div
             class="image hero--image -expand -plain"
           >

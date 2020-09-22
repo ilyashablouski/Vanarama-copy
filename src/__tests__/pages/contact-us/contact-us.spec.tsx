@@ -8,10 +8,6 @@ import { ContactUsPage } from '../../../pages/contact-us';
 import { CONTACT_US_CONTENT } from '../../../gql/contact-us/contactUs';
 import { ContactUsPageData } from '../../../../generated/ContactUsPageData';
 
-jest.mock('../../../containers/BreadCrumbContainer', () => () => {
-  return <div />;
-});
-
 jest.mock('next/router', () => ({
   push: jest.fn(),
   useRouter: () => ({

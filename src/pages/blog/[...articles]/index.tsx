@@ -20,21 +20,6 @@ const BlogPost: NextPage = () => {
     return <ErrorMessage message={error.message} />;
   }
 
-  const crumbs = [
-    {
-      label: 'Home',
-      href: '/',
-    },
-    {
-      label: 'Blog',
-      href: '/blog',
-    },
-    {
-      label: data?.blogPost?.metaData?.name || '',
-      href: '/blog/post',
-    },
-  ];
-
   const body = data?.blogPost?.body;
   const name = data?.blogPost?.metaData?.name;
   const image = data?.blogPost?.featuredImage?.file?.url;
@@ -43,19 +28,18 @@ const BlogPost: NextPage = () => {
 
   return (
     <>
+      <BlogPostContainer
+        body={body}
+        name={name}
+        image={image}
+        articles={articles}
+      />
       {metaData && (
         <Head
           metaData={metaData}
           featuredImage={data?.blogPost?.featuredImage}
         />
       )}
-      <BlogPostContainer
-        body={body}
-        name={name}
-        image={image}
-        articles={articles}
-        crumbs={crumbs}
-      />
     </>
   );
 };

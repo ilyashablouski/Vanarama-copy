@@ -99,12 +99,6 @@ export const PickupsPage: NextPage = () => {
 
   return (
     <>
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.hubPickupPage?.featuredImage}
-        />
-      )}
       <Hero>
         <HeroHeading
           text={data?.hubPickupPage.sections?.hero?.title || ''}
@@ -317,12 +311,7 @@ export const PickupsPage: NextPage = () => {
                   return <RouterLink link={{ href, label: children }} />;
                 },
                 heading: props => (
-                  <Text
-                    {...props}
-                    size="lead"
-                    color="darker"
-                    className="-mt-100"
-                  />
+                  <Text {...props} size="lead" color="darker" tag="h3" />
                 ),
                 paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}
@@ -375,12 +364,7 @@ export const PickupsPage: NextPage = () => {
                   return <RouterLink link={{ href, label: children }} />;
                 },
                 heading: props => (
-                  <Text
-                    {...props}
-                    size="lead"
-                    color="darker"
-                    className="-mt-100"
-                  />
+                  <Text {...props} size="lead" color="darker" tag="h3" />
                 ),
                 paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}
@@ -588,6 +572,12 @@ export const PickupsPage: NextPage = () => {
       <section className="row:trustpilot">
         <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
       </section>
+      {metaData && (
+        <Head
+          metaData={metaData}
+          featuredImage={data?.hubPickupPage?.featuredImage}
+        />
+      )}
     </>
   );
 };

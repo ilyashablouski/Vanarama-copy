@@ -6,15 +6,6 @@ import withApollo from '../../../hocs/withApollo';
 import { useGenericPage } from '../../../gql/genericPage';
 import Head from '../../../components/Head/Head';
 
-const crumbs = [
-  { label: 'Home', href: '/' },
-  { label: 'Van Insurance', href: '/van-insurance' },
-  {
-    label: 'Thank You',
-    href: '/van-insurance/multi-year-van-insurance/thank-you',
-  },
-];
-
 const ThankYouPage: NextPage = () => {
   const { data, loading, error } = useGenericPage(
     '/van-insurance/multi-year-van-insurance/thank-you',
@@ -37,11 +28,11 @@ const ThankYouPage: NextPage = () => {
 
   return (
     <>
+      <ThankYouContainer sections={sections} />
       <Head
         metaData={metaData}
         featuredImage={data?.genericPage.featuredImage}
       />
-      <ThankYouContainer sections={sections} crumbs={crumbs} />
     </>
   );
 };

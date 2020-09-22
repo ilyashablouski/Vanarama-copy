@@ -29,28 +29,16 @@ const FinanceInfo: NextPage = () => {
   const sections = data.reviewsPage?.sections;
   const body = data.reviewsPage?.body;
 
-  const crumbs = [
-    { label: 'Home', href: '/' },
-    {
-      label: 'Van Reviews',
-      href: '/van-reviews',
-    },
-    {
-      label: data.reviewsPage.metaData.name || '',
-      href: '/',
-    },
-  ];
   return (
     <>
-      <Head
-        metaData={metaData}
-        featuredImage={data.reviewsPage.featuredImage}
-      />
       <VehicleReviewContainer
-        crumbs={crumbs}
         body={body}
         title={metaData?.name}
         sections={sections}
+      />
+      <Head
+        metaData={metaData}
+        featuredImage={data.reviewsPage.featuredImage}
       />
     </>
   );

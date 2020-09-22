@@ -7,21 +7,6 @@ import BlogPostContainer from '../../containers/BlogPostContainer/BlogPostContai
 import { getSectionsData } from '../../utils/getSectionsData';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
-const crumbs = [
-  {
-    label: 'Home',
-    href: '/',
-  },
-  {
-    label: 'Blog',
-    href: '/blog',
-  },
-  {
-    label: 'Post',
-    href: '/blog/post',
-  },
-];
-
 const BlogPost: NextPage = () => {
   const { data, loading, error } = useGenericPage(
     '/car-leasing-explained/business-vs-personal-car-leasing',
@@ -46,19 +31,13 @@ const BlogPost: NextPage = () => {
 
   return (
     <>
+      <BlogPostContainer body={body} name={name} image={image} cards={cards} />
       {metaData && (
         <Head
           metaData={metaData}
           featuredImage={data?.genericPage.featuredImage}
         />
       )}
-      <BlogPostContainer
-        body={body}
-        name={name}
-        image={image}
-        cards={cards}
-        crumbs={crumbs}
-      />
     </>
   );
 };

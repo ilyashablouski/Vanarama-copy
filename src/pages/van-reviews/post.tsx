@@ -3,7 +3,6 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import BreadCrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import ReactMarkdown from 'react-markdown';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
@@ -12,21 +11,7 @@ import Head from '../../components/Head/Head';
 import withApollo from '../../hocs/withApollo';
 import { useGenericPage } from '../../gql/genericPage';
 import RouterLink from '../../components/RouterLink/RouterLink';
-
-const crumbs = [
-  {
-    label: 'Home',
-    href: '/',
-  },
-  {
-    label: 'Blog',
-    href: '/blog',
-  },
-  {
-    label: 'Post',
-    href: '/blog/post',
-  },
-];
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 const BlogPost: NextPage = () => {
   const { data, loading, error } = useGenericPage(
@@ -49,14 +34,8 @@ const BlogPost: NextPage = () => {
 
   return (
     <>
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.genericPage.featuredImage}
-        />
-      )}
       <div className="row:title">
-        <BreadCrumb items={crumbs} />
+        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {name || ''}
         </Heading>
@@ -82,12 +61,7 @@ const BlogPost: NextPage = () => {
                 );
               },
               heading: props => (
-                <Text
-                  {...props}
-                  size="lead"
-                  color="darker"
-                  className="-mt-100"
-                />
+                <Text {...props} size="lead" color="darker" tag="h3" />
               ),
               paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
@@ -130,6 +104,12 @@ const BlogPost: NextPage = () => {
       </div>
 
       <div className="row:comments" />
+      {metaData && (
+        <Head
+          metaData={metaData}
+          featuredImage={data?.genericPage.featuredImage}
+        />
+      )}
     </>
   );
 };
