@@ -9,29 +9,34 @@ import { SaveDirectorDetailsMutation_createUpdateCompanyDirector_associates as A
 export const mapFormValues = (
   values: DirectorDetailsFormValues,
   companyUuid: string,
-) => ({
-  uuid: companyUuid,
-  associates: values.directors.map(director => ({
-    uuid: director.uuid,
-    firstName: director.firstName,
-    lastName: director.lastName,
-    businessShare: parseInt(director.shareOfBusiness, 10),
-    addresses: director.history.map(_ => ({
+) => {
+  const addresses = (director: DirectorFormValues) =>
+    director.history.map(_ => ({
       serviceId: _.address!.id,
       propertyStatus: _.status,
       startedOn: historyToMoment(_).format('YYYY-MM-DD'),
+    }));
+  return {
+    uuid: companyUuid,
+    associates: values.directors.map(director => ({
+      uuid: director.uuid,
+      firstName: director.firstName,
+      lastName: director.lastName,
+      businessShare: parseInt(director.shareOfBusiness, 10),
+      addresses:
+        addresses(director).length > 0 ? addresses(director) : undefined,
+      gender: director.gender,
+      title: director.title,
+      dateOfBirth: parseDate(
+        director.dayOfBirth,
+        director.monthOfBirth,
+        director.yearOfBirth,
+      ).format('YYYY-MM-DD'),
+      role: { position: 'director' },
+      noOfDependants: director.numberOfDependants,
     })),
-    gender: director.gender,
-    title: director.title,
-    dateOfBirth: parseDate(
-      director.dayOfBirth,
-      director.monthOfBirth,
-      director.yearOfBirth,
-    ).format('YYYY-MM-DD'),
-    role: { position: 'director' },
-    noOfDependants: director.numberOfDependants,
-  })),
-});
+  };
+};
 
 export const mapAddresses = (data?: any) =>
   data?.map((item: any) => ({

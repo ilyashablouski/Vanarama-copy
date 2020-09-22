@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import { useApolloClient } from '@apollo/client';
+import { createContext } from 'react';
+import { GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA } from '../../gql/creditApplication';
+import { DEFAULT_TERM } from '../../models/enum/OlafVariables';
+import { CompanyTypes } from '../../models/enum/CompanyTypes';
 import { GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct } from '../../../generated/GetOrdersByPartyUuid';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
+import { GetOlafData_orderByUuid } from '../../../generated/GetOlafData';
 
 /**
  * @param leaseType - string, offer leaseType
@@ -46,4 +52,39 @@ export const createOlafDetails = (
   descriptionDataTestId: 'about_description-testID',
 });
 
-export default createOlafDetails;
+// get funder term for address/employement history
+export const useFunderTerm = (
+  orderByUuid?: GetOlafData_orderByUuid | undefined | null,
+) => {
+  const client = useApolloClient();
+  const data = orderByUuid?.lineItems?.[0].vehicleProduct || ({} as any);
+  if (Object.values(data).length > 0) {
+    if (orderByUuid?.leaseType === LeaseTypeEnum.PERSONAL) {
+      return data.funderData.b2c.address_history || DEFAULT_TERM;
+    }
+    try {
+      const {
+        creditApplicationByOrderUuid: { aboutDetails },
+      } = client.readQuery({
+        query: GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA,
+        variables: {
+          id: orderByUuid?.uuid,
+        },
+      });
+      switch (aboutDetails.company_type) {
+        case CompanyTypes.limited:
+          return data.funderData.b2b.limited.address_history;
+        case CompanyTypes.partnership:
+          return data.funderData.b2b.partnership.address_history;
+        case CompanyTypes.soleTrader:
+          return data.funderData.b2b.sole_trader.address_history;
+        default:
+          return DEFAULT_TERM;
+      }
+    } catch (err) {
+      return DEFAULT_TERM;
+    }
+  } else return DEFAULT_TERM;
+};
+
+export const OlafContext = createContext({ requiredMonths: DEFAULT_TERM });

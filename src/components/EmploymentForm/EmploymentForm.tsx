@@ -6,7 +6,7 @@ import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { gql } from '@apollo/client';
 import { FieldArray, Formik } from 'formik';
 import React, { useContext } from 'react';
-import { OlafContext } from '../../layouts/OLAFLayout/OLAFLayout';
+import { OlafContext } from '../../layouts/OLAFLayout/helpers';
 import FCWithFragments from '../../utils/FCWithFragments';
 import EmploymentFormFieldArray from './EmploymentFormFieldArray';
 import {
