@@ -106,7 +106,7 @@ const DirectorFields: FCWithFragments<Props> = ({
           {...shareField}
         />
       </Formgroup>
-      {requiredMonths > 0 ? (
+      {requiredMonths > 0 && (
         <>
           <hr className="mv-400" />
           <Heading color="dark" size="small">
@@ -128,8 +128,6 @@ const DirectorFields: FCWithFragments<Props> = ({
             )}
           </FieldArray>
         </>
-      ) : (
-        <></>
       )}
     </Tile>
   );

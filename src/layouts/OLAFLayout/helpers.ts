@@ -60,7 +60,7 @@ export const useFunderTerm = (
   const data = orderByUuid?.lineItems?.[0].vehicleProduct || ({} as any);
   if (Object.values(data).length > 0) {
     if (orderByUuid?.leaseType === LeaseTypeEnum.PERSONAL) {
-      return data.funderData.b2c.address_history || DEFAULT_TERM;
+      return data.funderData?.b2c.address_history || DEFAULT_TERM;
     }
     try {
       const {
@@ -73,11 +73,11 @@ export const useFunderTerm = (
       });
       switch (aboutDetails.company_type) {
         case CompanyTypes.limited:
-          return data.funderData.b2b.limited.address_history;
+          return data.funderData?.b2b.limited.address_history;
         case CompanyTypes.partnership:
-          return data.funderData.b2b.partnership.address_history;
+          return data.funderData?.b2b.partnership.address_history;
         case CompanyTypes.soleTrader:
-          return data.funderData.b2b.sole_trader.address_history;
+          return data.funderData?.b2b.sole_trader.address_history;
         default:
           return DEFAULT_TERM;
       }

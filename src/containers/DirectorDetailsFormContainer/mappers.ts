@@ -11,10 +11,10 @@ export const mapFormValues = (
   companyUuid: string,
 ) => {
   const addresses = (director: DirectorFormValues) =>
-    director.history.map(_ => ({
-      serviceId: _.address!.id,
-      propertyStatus: _.status,
-      startedOn: historyToMoment(_).format('YYYY-MM-DD'),
+    director.history.map(directorHistory => ({
+      serviceId: directorHistory.address!.id,
+      propertyStatus: directorHistory.status,
+      startedOn: historyToMoment(directorHistory).format('YYYY-MM-DD'),
     }));
   return {
     uuid: companyUuid,
