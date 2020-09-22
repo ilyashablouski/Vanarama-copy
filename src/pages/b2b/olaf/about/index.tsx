@@ -89,8 +89,6 @@ export const BusinessAboutPage: NextPage = () => {
   const handleCreateUpdateBusinessPersonCompletion = async (
     result: SubmitResult,
   ) => {
-    await localForage.setItem('person', result.businessPersonUuid);
-
     const params = getUrlParam({ orderId });
     const slug =
       result.companyType === CompanyTypes.limited ? '' : 'sole-trader/';
