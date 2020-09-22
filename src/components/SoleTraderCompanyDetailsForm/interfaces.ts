@@ -3,7 +3,7 @@ import { IAddressSuggestion } from '@vanarama/uibook/lib/components/molecules/ad
 export interface ISoleTraderCompanyDetailsFormValues {
   tradingName: string;
   tradingAddress: IAddressSuggestion;
-  natureofBusiness: string;
+  natureOfBusiness: string;
   tradingSinceMonth: string;
   tradingSinceYear: string;
   businessTelephoneNumber: string;

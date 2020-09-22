@@ -87,7 +87,7 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
         controlId="natureOfBusiness"
         label="Nature of Business"
         hint="e.g. building firm/marketing agency"
-        error={errors.natureofBusiness?.message?.toString()}
+        error={errors.natureOfBusiness?.message?.toString()}
       >
         <TextInput
           id="nature-of-business"
