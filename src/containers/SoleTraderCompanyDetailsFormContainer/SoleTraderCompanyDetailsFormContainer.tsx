@@ -1,5 +1,4 @@
 import React from 'react';
-// import { gql } from '@apollo/client';
 import CompanyDetailsForm from '../../components/SoleTraderCompanyDetailsForm';
 import { ISoleTraderCompanyDetailsFormValues } from '../../components/SoleTraderCompanyDetailsForm/interfaces';
 import { ISoleTraderCompanyDetailsFormContainerProps } from './interfaces';
@@ -31,16 +30,16 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
     orderId,
   );
 
-  const companyDetails =
+  const initialCompanyDetails =
     getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
       ?.companyDetails;
 
-  const defaultCompanyDetails = React.useMemo(() => {
-    if (companyDetails) {
-      return prelodedValuesToInput(companyDetails);
+  const mappedCompanyDetails = React.useMemo(() => {
+    if (initialCompanyDetails) {
+      return prelodedValuesToInput(initialCompanyDetails);
     }
     return null;
-  }, [companyDetails]);
+  }, [initialCompanyDetails]);
 
   const handleSoleTraderCompanyDetailsSave = (
     values: ISoleTraderCompanyDetailsFormValues,
@@ -84,7 +83,7 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
 
   return (
     <CompanyDetailsForm
-      companyDetails={defaultCompanyDetails}
+      companyDetails={mappedCompanyDetails}
       onSubmit={async values => {
         handleSoleTraderCompanyDetailsSave(values)
           .then(response =>
