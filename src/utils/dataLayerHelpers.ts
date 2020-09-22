@@ -1,11 +1,17 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { GetVehicleDetails_derivativeInfo } from '../../generated/GetVehicleDetails';
+import {
+  GetVehicleDetails_derivativeInfo,
+  GetVehicleDetails_vehicleConfigurationByCapId,
+} from '../../generated/GetVehicleDetails';
 
 interface IPDPData {
   capId: string | number | undefined;
   derivativeInfo: GetVehicleDetails_derivativeInfo | null | undefined;
+  vehicleConfigurationByCapId:
+    | GetVehicleDetails_vehicleConfigurationByCapId
+    | null
+    | undefined;
   price: string | number | null | undefined;
-  mileage: string | number | null | undefined;
 }
 
 interface IProduct {
@@ -48,11 +54,11 @@ export const pushDetail = (
   if (value) Object.assign(product, { [field]: `${value}` });
 };
 
-export const pushPDPData = ({
+export const pushPDPDataLayer = ({
   capId,
   derivativeInfo,
+  vehicleConfigurationByCapId,
   price,
-  mileage,
 }: IPDPData) => {
   const data = {
     event: 'detailView',
@@ -73,10 +79,26 @@ export const pushPDPData = ({
   pushDetail('name', derivativeInfo?.name, product);
   pushDetail('price', price, product);
   pushDetail('category', derivativeInfo?.bodyType?.name, product);
-  pushDetail('brand', derivativeInfo?.manufacturer?.name, product);
-  pushDetail('variant', derivativeInfo?.range?.name, product);
-  pushDetail('vehicleModel', derivativeInfo?.range?.name, product);
-  pushDetail('annualMileage', mileage, product);
+  pushDetail(
+    'brand',
+    vehicleConfigurationByCapId?.capManufacturerDescription,
+    product,
+  );
+  pushDetail(
+    'variant',
+    vehicleConfigurationByCapId?.capRangeDescription,
+    product,
+  );
+  pushDetail(
+    'vehicleModel',
+    vehicleConfigurationByCapId?.capModelDescription,
+    product,
+  );
+  pushDetail(
+    'annualMileage',
+    vehicleConfigurationByCapId?.financeProfile?.mileage,
+    product,
+  );
 
   pushToDataLayer(data);
 };
