@@ -1,23 +1,15 @@
-/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/camelcase */
 import { GetVehicleDetails_derivativeInfo } from '../../generated/GetVehicleDetails';
 
 interface IPDPData {
-  capId: string | number | null | undefined;
+  capId: string | number | undefined;
   derivativeInfo: GetVehicleDetails_derivativeInfo | null | undefined;
   price: string | number | null | undefined;
   mileage: string | number | null | undefined;
 }
 
 interface IProduct {
-  id?: string;
-  name?: string;
-  price?: string;
-  category?: string;
-  brand?: string;
-  variant?: string;
-  vehicleModel?: string;
-  annualMileage?: string;
+  [key: string]: string;
 }
 
 interface IDetail {
@@ -33,8 +25,8 @@ interface IPageDataLayer {
   event: string;
   eventCategory: string;
   eventAction: string;
-  eventLabel: string;
-  eventValue: string;
+  eventLabel: string | undefined;
+  eventValue: string | undefined;
   ecommerce: IEcommerceData;
 }
 
@@ -44,19 +36,17 @@ declare global {
   }
 }
 
-const getPageInfo = (eventAction: string) => ({
-  event: 'detailView',
-  eventCategory: 'Ecommerce',
-  eventAction,
-});
-
 export const pushToDataLayer = (data: IPageDataLayer) => {
   window.dataLayer.push(data);
 };
 
-export const pushDetail = (field: string, value: string, product: IProduct) => {
-    if(value) product[field] = value;
-}
+export const pushDetail = (
+  field: string,
+  value: string | number | null | undefined,
+  product: IProduct,
+) => {
+  if (value) Object.assign(product, { [field]: `${value}` });
+};
 
 export const pushPDPData = ({
   capId,
@@ -65,25 +55,28 @@ export const pushPDPData = ({
   mileage,
 }: IPDPData) => {
   const data = {
-    ...getPageInfo("PDP View"),
-    "eventLabel": derivativeInfo?.name,
-    "eventValue": price,
-    "ecommerce": {
-      "currencyCode": "GBP",
-      "detail": {
-        "products": [{}],
+    event: 'detailView',
+    eventCategory: 'Ecommerce',
+    eventAction: 'PDP View',
+    eventLabel: derivativeInfo?.name,
+    eventValue: `${price}`,
+    ecommerce: {
+      currencyCode: 'GBP',
+      detail: {
+        products: [{}],
       },
     },
   };
 
   const product = data.ecommerce.detail.products[0];
-  pushDetail("id", capId, product);
-  pushDetail("price", price, products);
-  pushDetail("category", `${derivativeInfo?.bodyType?.name}`, product);
-  pushDetail("brand", `${derivativeInfo?.manufacturer?.name}`, product);
-  pushDetail("variant", `${derivativeInfo?.range?.name}`, product);
-  pushDetail("vehicleModel", `${derivativeInfo?.range?.name}`, product);
-  pushDetail("annualMileage", mileage, product);
+  pushDetail('id', capId, product);
+  pushDetail('name', derivativeInfo?.name, product);
+  pushDetail('price', price, product);
+  pushDetail('category', derivativeInfo?.bodyType?.name, product);
+  pushDetail('brand', derivativeInfo?.manufacturer?.name, product);
+  pushDetail('variant', derivativeInfo?.range?.name, product);
+  pushDetail('vehicleModel', derivativeInfo?.range?.name, product);
+  pushDetail('annualMileage', mileage, product);
 
   pushToDataLayer(data);
 };

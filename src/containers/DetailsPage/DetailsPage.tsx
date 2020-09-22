@@ -85,9 +85,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   ] = useState<null | ILeaseScannerData>(null);
   const isMobile = useMobileViewport();
 
+  const [createOrderHandle] = useCreateUpdateOrder(() => {});
+
   useEffect(() => {
+    console.log('hi')
     if (
-      window &&
       firstTimePushDataLayer &&
       data?.derivativeInfo &&
       leaseScannerData?.quoteByCapId
@@ -98,9 +100,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       pushPDPData({ capId, derivativeInfo, price, mileage });
       setFirstTimePushDataLayer(false);
     }
-  }, [data, leaseScannerData, capId, firstTimePushDataLayer]);
-
-  const [createOrderHandle] = useCreateUpdateOrder(() => {});
+  }, [
+    leaseScannerData,
+  ]);
 
   const onSubmitClick = (values: OrderInputObject) => {
     return createOrderHandle({
