@@ -89,6 +89,12 @@ interface IProps {
   isFuelPage?: boolean;
 }
 
+const getUrl = (data: any[], derivativeId?: string | null) => {
+  const edge = data.find(item => item.node?.derivativeId === derivativeId);
+
+  return edge.node?.legacyUrl || edge.node?.url;
+};
+
 const SearchPageContainer: React.FC<IProps> = ({
   isServer,
   isCarSearch = false,
@@ -852,7 +858,6 @@ const SearchPageContainer: React.FC<IProps> = ({
                   vehiclesList?.map((vehicle: IVehicles) => (
                     <VehicleCard
                       viewOffer={viewOffer}
-                      dataDerivatives={carDer}
                       bodyStyle={
                         router.query?.bodyStyles === 'Pickup' ? 'Pickup' : null
                       }
@@ -862,6 +867,8 @@ const SearchPageContainer: React.FC<IProps> = ({
                           vehicle.node?.derivativeId || '',
                         ) as IProductCard
                       }
+                      derivativeId={vehicle.node?.derivativeId}
+                      url={getUrl(vehiclesList, vehicle.node?.derivativeId)}
                       title={{
                         title: '',
                         description: vehicle.node?.derivativeName || '',

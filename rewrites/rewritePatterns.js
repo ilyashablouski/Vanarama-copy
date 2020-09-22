@@ -1,5 +1,15 @@
 module.exports = [
   {
+    source: '/:manufacturer-:vehicleType-leasing/:model/:description.html',
+    destination: '/:vehicleType-leasing/:manufacturer/:model/:description',
+  },
+  {
+    source:
+      '/:manufacturer-:vehicleType-leasing/:model/:bodyStyle/:description.html',
+    destination:
+      '/:vehicleType-leasing/:manufacturer/:model/:bodyStyle/:description',
+  },
+  {
     source: '/:manufacturer-:vehicleType-leasing.html',
     destination: '/:vehicleType-leasing/:manufacturer',
   },

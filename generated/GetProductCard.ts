@@ -70,9 +70,37 @@ export interface GetProductCard_derivatives {
   range: GetProductCard_derivatives_range;
 }
 
+export interface GetProductCard_vehicleList_edges_node {
+  derivativeId: string | null;
+  url: string | null;
+  legacyUrl: string | null;
+}
+
+export interface GetProductCard_vehicleList_edges {
+  /**
+   * A cursor for use in pagination.
+   */
+  cursor: string;
+  /**
+   * The item at the end of the edge.
+   */
+  node: GetProductCard_vehicleList_edges_node | null;
+}
+
+export interface GetProductCard_vehicleList {
+  /**
+   * A list of edges.
+   */
+  edges: (GetProductCard_vehicleList_edges | null)[] | null;
+}
+
 export interface GetProductCard {
   productCard: (GetProductCard_productCard | null)[] | null;
   derivatives: GetProductCard_derivatives[] | null;
+  /**
+   * Find Vehicle by filter
+   */
+  vehicleList: GetProductCard_vehicleList;
 }
 
 export interface GetProductCardVariables {

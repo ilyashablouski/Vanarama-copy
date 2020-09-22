@@ -65,6 +65,15 @@ export const getProductPageUrl = (
       };
 };
 
+export const formatProductPageUrl = (
+  url?: string | null,
+  capId?: string | null,
+) => ({
+  url: url || '',
+  href: url || '',
+  capId: capId as string,
+});
+
 export const getProductPageBreadCrumb = (
   data: any,
   cars: boolean | undefined,

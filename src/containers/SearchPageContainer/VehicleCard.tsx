@@ -8,8 +8,7 @@ import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import { getProductPageUrl } from '../../utils/url';
-import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
+import { formatProductPageUrl } from '../../utils/url';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
 
@@ -24,17 +23,19 @@ interface IVehicleCardProps {
   isPersonalPrice: boolean;
   data: ICard;
   viewOffer: (productPageUrl: IProductPageUrl) => void;
-  dataDerivatives: (GetDerivatives_derivatives | null)[];
   bodyStyle?: string | null | undefined;
   isModelPage?: boolean;
+  url: string;
+  derivativeId?: string | null;
 }
 
 const VehicleCard = memo(
   ({
+    url,
+    derivativeId,
     title,
     isPersonalPrice,
     data,
-    dataDerivatives,
     viewOffer,
     bodyStyle,
     isModelPage,
@@ -49,10 +50,7 @@ const VehicleCard = memo(
       }));
     };
 
-    const productPageUrl = getProductPageUrl(
-      data,
-      dataDerivatives as GetDerivatives_derivatives[],
-    );
+    const productPageUrl = formatProductPageUrl(url, derivativeId);
 
     const imageProps = !isModelPage
       ? {

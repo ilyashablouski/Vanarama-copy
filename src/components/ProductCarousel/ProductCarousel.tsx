@@ -9,7 +9,7 @@ import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import RouterLink from '../RouterLink/RouterLink';
-import { getProductPageUrl } from '../../utils/url';
+import { getProductPageUrl, formatProductPageUrl } from '../../utils/url';
 import {
   GetProductCard,
   GetProductCard_productCard,
