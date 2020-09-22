@@ -70,7 +70,7 @@ export const useFunderTerm = (
         variables: {
           id: orderByUuid?.uuid,
         },
-      });
+      }) as any;
       switch (aboutDetails.company_type) {
         case CompanyTypes.limited:
           return data.funderData?.b2b.limited.address_history;
