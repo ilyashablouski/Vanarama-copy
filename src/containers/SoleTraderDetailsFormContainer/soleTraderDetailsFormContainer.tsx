@@ -57,7 +57,9 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
     return null;
   }
 
-  const { addresses } = soleTraderDetailsFormData.data.personByUuid;
+  const { addresses } =
+    soleTraderDetailsFormData.data!.companyByUuid ||
+    soleTraderDetailsFormData.data.personByUuid;
 
   const handleSoleTraderDetailsSave = (values: ISoleTraderDetailsFormValues) =>
     updateSoleTraderDetails({

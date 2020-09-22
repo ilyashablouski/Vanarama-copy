@@ -31,7 +31,7 @@ export interface ISoleTraderDetailsFormValues {
 }
 
 export interface ISoleTraderDetailsProps {
-  addresses: SoleTraderDetailsAddresses[];
+  addresses: SoleTraderDetailsAddresses[] | null;
   soleTrader?: SoleTraderAssociates | null;
   person?: SoleTraderPerson | null;
   dropdownData: SoleTraderDetailsDropDownData;

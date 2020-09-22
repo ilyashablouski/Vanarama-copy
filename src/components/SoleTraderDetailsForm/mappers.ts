@@ -48,9 +48,9 @@ export const formValuesToAssociate = (
 
 // eslint-disable-next-line import/prefer-default-export
 export const responseToInitialFormValues = (
-  person?: Person | null,
-  soleTrader?: SoleTrader | null,
-  addresses?: SoleTraderDetailsAddresses[],
+  person: Person | null | undefined,
+  soleTrader: SoleTrader | null | undefined,
+  addresses: SoleTraderDetailsAddresses[] | null,
 ): ISoleTraderDetailsFormValues => {
   const email = person?.emailAddresses.find(_ => _.primary)?.value || '';
   const dateOfBirth = person?.dateOfBirth && new Date(person.dateOfBirth);

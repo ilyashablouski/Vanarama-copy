@@ -50,8 +50,8 @@ const AnnualIncomeField: React.FC = () => {
 };
 
 const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
-  soleTrader,
   person,
+  soleTrader,
   addresses,
   onSubmit,
   isEdited,
@@ -287,7 +287,7 @@ SoleTraderDetailsForm.fragments = {
     }
   `,
   addresses: gql`
-    fragment SoleTraderDetailsAddresses on AddressType {
+    fragment SoleTraderDetailsFormAddresses on AddressType {
       __typename
       serviceId
       lineOne

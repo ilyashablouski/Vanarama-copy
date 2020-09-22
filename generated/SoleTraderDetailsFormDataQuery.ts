@@ -102,10 +102,22 @@ export interface SoleTraderDetailsFormDataQuery_companyByUuid_associates {
   uuid: string;
 }
 
+export interface SoleTraderDetailsFormDataQuery_companyByUuid_addresses {
+  __typename: "AddressType";
+  serviceId: string | null;
+  lineOne: string;
+  lineTwo: string | null;
+  postcode: string;
+  city: string;
+  propertyStatus: string | null;
+  startedOn: any | null;
+}
+
 export interface SoleTraderDetailsFormDataQuery_companyByUuid {
   __typename: "CompanyType";
   uuid: string;
   associates: SoleTraderDetailsFormDataQuery_companyByUuid_associates[] | null;
+  addresses: SoleTraderDetailsFormDataQuery_companyByUuid_addresses[] | null;
 }
 
 export interface SoleTraderDetailsFormDataQuery_personByUuid_emailAddresses {
