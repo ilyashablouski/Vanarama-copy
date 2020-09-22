@@ -22,11 +22,11 @@ import {
   VehicleTypeEnum,
   LeaseTypeEnum,
 } from '../../../../generated/globalTypes';
-import BreadCrumbs from '../../../containers/BreadCrumbContainer';
 import ProductCarousel from '../../../components/ProductCarousel/ProductCarousel';
 import useLeaseType from '../../../hooks/useLeaseType';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import Head from '../../../components/Head/Head';
+import Breadcrumb from '../../../components/Breadcrumb/Breadcrumb';
 
 export const VanOffers: NextPage = () => {
   const { data, loading, error } = useQuery<VanOffersPageData>(
@@ -135,14 +135,8 @@ export const VanOffers: NextPage = () => {
 
   return (
     <>
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.vanOffersPage.featuredImage}
-        />
-      )}
       <div className="row:title">
-        <BreadCrumbs />
+        <Breadcrumb />
         <Heading color="black" size="xlarge" tag="h1">
           {metaData?.name}
         </Heading>
@@ -342,7 +336,7 @@ export const VanOffers: NextPage = () => {
               return <RouterLink link={{ href, label: children }} />;
             },
             heading: props => (
-              <Text {...props} size="lead" color="darker" className="-mt-100" />
+              <Text {...props} size="lead" color="darker" tag="h3" />
             ),
             paragraph: props => <Text {...props} tag="p" color="darker" />,
           }}
@@ -387,12 +381,7 @@ export const VanOffers: NextPage = () => {
                 return <RouterLink link={{ href, label: children }} />;
               },
               heading: props => (
-                <Text
-                  {...props}
-                  size="lead"
-                  color="darker"
-                  className="-mt-100"
-                />
+                <Text {...props} size="lead" color="darker" tag="h3" />
               ),
               paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
@@ -404,6 +393,12 @@ export const VanOffers: NextPage = () => {
           Photos and videos are for illustration purposes only.
         </Text>
       </div>
+      {metaData && (
+        <Head
+          metaData={metaData}
+          featuredImage={data?.vanOffersPage.featuredImage}
+        />
+      )}
     </>
   );
 };

@@ -43,7 +43,7 @@ import FrequentlyAskedQuestions from '../../components/FrequentlyAskedQuestions/
 import { useCreateUpdateOrder } from '../../gql/order';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import useLeaseType from '../../hooks/useLeaseType';
-import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { getProductPageBreadCrumb } from '../../utils/url';
 import Head from '../../components/Head/Head';
 
@@ -371,7 +371,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     });
   };
 
-  const breadCrumbItems = getProductPageBreadCrumb(data?.derivativeInfo, cars);
+  const breadcrumbItems = getProductPageBreadCrumb(data?.derivativeInfo, cars);
   const metaData = {
     title:
       `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription} 
@@ -395,9 +395,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   return (
     <>
-      <Head metaData={metaData} featuredImage={null} />
       <div className="pdp--content">
-        <BreadCrumb items={breadCrumbItems} />
+        <Breadcrumb items={breadcrumbItems} />
         <Heading tag="h1">
           <Heading className="-pt-100" tag="span" size="xlarge" color="black">
             {pageTitle}
@@ -537,6 +536,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           />
         </div>
       )}
+      <Head metaData={metaData} featuredImage={null} />
     </>
   );
 };

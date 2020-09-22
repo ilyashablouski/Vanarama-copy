@@ -5,9 +5,11 @@ import { LocationsPage } from '../../../pages/contact-us/locations';
 import { LOCATIONS_PAGE_CONTENT } from '../../../gql/contact-us/contactUs';
 import { LocationsPageData } from '../../../../generated/LocationsPageData';
 
-jest.mock('../../../containers/BreadCrumbContainer', () => () => {
-  return <div />;
-});
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    asPath: '/',
+  }),
+}));
 
 const mocked: MockedResponse[] = [
   {

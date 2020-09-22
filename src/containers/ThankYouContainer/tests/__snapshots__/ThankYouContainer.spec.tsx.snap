@@ -14,13 +14,12 @@ exports[`<ThankYouContainer /> should match snapshot 1`] = `
             class="breadcrumb-item -parent"
           >
             <a
-              class="link breadcrumb-item--backlink -teal -small -plain"
+              class="breadcrumb-item--backlink link -teal -small"
+              data-testid="router-link"
               href="/"
             >
-              Back to 
-              Home
               <i
-                class="icon -medium -xsmall"
+                class="icon -teal"
               >
                 <svg
                   height="1em"
@@ -36,63 +35,15 @@ exports[`<ThankYouContainer /> should match snapshot 1`] = `
                   />
                 </svg>
               </i>
+              Back to 
+              home
             </a>
             <a
-              class="link breadcrumb-item--parent -teal -small -plain"
+              class="breadcrumb-item--parent link -teal -small"
+              data-testid="router-link"
               href="/"
             >
-              Home
-            </a>
-            <i
-              class="icon -medium -xsmall"
-            >
-              <svg
-                height="1em"
-                viewBox="0 0 512 512"
-                width="1em"
-              >
-                <title>
-                  ionicons-v5-a
-                </title>
-                <polyline
-                  points="184 112 328 256 184 400"
-                  style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
-                />
-              </svg>
-            </i>
-          </li>
-          <li
-            class="breadcrumb-item -parent"
-          >
-            <a
-              class="link breadcrumb-item--backlink -teal -small -plain"
-              href="/van-insurance"
-            >
-              Back to 
-              Van Insurance
-              <i
-                class="icon -medium -xsmall"
-              >
-                <svg
-                  height="1em"
-                  viewBox="0 0 512 512"
-                  width="1em"
-                >
-                  <title>
-                    ionicons-v5-a
-                  </title>
-                  <polyline
-                    points="328 112 184 256 328 400"
-                    style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
-                  />
-                </svg>
-              </i>
-            </a>
-            <a
-              class="link breadcrumb-item--parent -teal -small -plain"
-              href="/van-insurance"
-            >
-              Van Insurance
+              home
             </a>
             <i
               class="icon -medium -xsmall"
@@ -118,7 +69,7 @@ exports[`<ThankYouContainer /> should match snapshot 1`] = `
             <span
               class="text breadcrumb-item--child -small -darker"
             >
-              Thank You
+              home
             </span>
           </li>
         </ol>

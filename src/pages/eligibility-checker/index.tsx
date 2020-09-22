@@ -60,12 +60,6 @@ const EligibilityChecker: NextPage = () => {
 
   return (
     <>
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.eligibilityCheckerLandingPage?.featuredImage}
-        />
-      )}
       <div className="row:title">
         <Heading size="xlarge" color="black" tag="h1">
           {metaData?.name}
@@ -117,6 +111,12 @@ const EligibilityChecker: NextPage = () => {
       <section className="row:trustpilot">
         <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
       </section>
+      {metaData && (
+        <Head
+          metaData={metaData}
+          featuredImage={data?.eligibilityCheckerLandingPage?.featuredImage}
+        />
+      )}
     </>
   );
 };

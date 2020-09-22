@@ -6,11 +6,6 @@ import LeasingQuestionsContainer from '../../containers/LeasingQuestionsContaine
 import Head from '../../components/Head/Head';
 import { useGenericPage } from '../../gql/genericPage';
 
-const crumbs = [
-  { label: 'Home', href: '/' },
-  { label: 'Ask A Question About Van Leasing', href: '/van-leasing-questions' },
-];
-
 const FinanceInfo: NextPage = () => {
   const { data, loading, error } = useGenericPage('van-leasing-questions');
 
@@ -31,15 +26,14 @@ const FinanceInfo: NextPage = () => {
 
   return (
     <>
-      <Head
-        metaData={metaData}
-        featuredImage={data?.genericPage.featuredImage}
-      />
       <LeasingQuestionsContainer
-        crumbs={crumbs}
         body={body}
         title={metaData?.name}
         sections={sections}
+      />
+      <Head
+        metaData={metaData}
+        featuredImage={data?.genericPage.featuredImage}
       />
     </>
   );

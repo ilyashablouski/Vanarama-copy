@@ -3,7 +3,6 @@ import React, { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
-import BreadCrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Accordion from '@vanarama/uibook/lib/components/molecules/accordion/Accordion';
 import {
   GenericPageQuery_genericPage_sections as Section,
@@ -11,6 +10,7 @@ import {
   GenericPageQuery_genericPage_sections_faqs_questionSets_questionAnswers,
 } from '../../../generated/GenericPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   sections: Section | null;
@@ -42,7 +42,7 @@ const getAccordionItemsInside = (
             );
           },
           heading: props => (
-            <Text {...props} size="lead" color="darker" className="-mt-100" />
+            <Text {...props} size="lead" color="darker" tag="h3" />
           ),
           paragraph: props => <Text {...props} tag="p" color="darker" />,
         }}
@@ -73,16 +73,10 @@ const getAccordionItems = (
 const FAQContainer: FC<IProps> = ({ title, sections, intro }) => {
   const questionSets = sections?.faqs?.questionSets;
 
-  const crumbs = [
-    { label: 'Home', href: '/' },
-    { label: 'Van Insurance', href: `/van-insurance` },
-    { label: title || '', href: `/van-insurance/faq` },
-  ];
-
   return (
     <>
       <div className="row:title">
-        <BreadCrumb items={crumbs} />
+        <Breadcrumb />
         <Heading size="xlarge" color="black" tag="h1">
           {title || ''}
         </Heading>

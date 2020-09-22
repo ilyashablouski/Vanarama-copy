@@ -14,7 +14,7 @@ const InsuranceHeroSection = ({ title, body, heroCard, image }: IHero) => (
       source={body || ''}
       renderers={{
         heading: props => (
-          <Text {...props} tag="p" size="large" color="white" />
+          <Text {...props} tag="h3" size="large" color="white" />
         ),
         paragraph: props => (
           <Text

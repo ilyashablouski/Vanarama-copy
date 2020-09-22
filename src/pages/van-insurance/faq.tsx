@@ -26,11 +26,11 @@ const EligibilityChecker: NextPage = () => {
 
   return (
     <>
+      <FAQContainer title={metaData.name} sections={sections} intro={intro} />
       <Head
         metaData={metaData}
         featuredImage={data?.genericPage.featuredImage}
       />
-      <FAQContainer title={metaData.name} sections={sections} intro={intro} />
     </>
   );
 };

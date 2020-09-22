@@ -12,7 +12,6 @@ import React, {
   useLayoutEffect,
   useMemo,
 } from 'react';
-import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
@@ -75,6 +74,7 @@ import {
 import useLeaseType from '../../hooks/useLeaseType';
 import { LinkTypes } from '../../models/enum/LinkTypes';
 import TileLink from '../../components/TileLink/TileLink';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   isServer: boolean;
@@ -247,11 +247,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
   );
-
-  const crumbs = [
-    { label: 'Home', href: '/' },
-    { label: `${isCarSearch ? 'Car' : 'Vans'} Search`, href: '/' },
-  ];
 
   const sortField =
     !isRangePage && isSpecialOffers && !isDynamicFilterPage
@@ -663,9 +658,8 @@ const SearchPageContainer: React.FC<IProps> = ({
   // Some props should be contain in one param for achieve more readable code
   return (
     <>
-      {metaData && <Head metaData={metaData} featuredImage={featuredImage} />}
       <div className="row:title">
-        <Breadcrumb items={crumbs} />
+        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {(isModelPage &&
             `${filtersData.manufacturerName} ${filtersData.rangeName} ${filtersData.bodyStyles?.[0]}`) ||
@@ -690,13 +684,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                 return <img {...{ src, alt }} style={{ maxWidth: '100%' }} />;
               },
               heading: props => (
-                <Text
-                  {...props}
-                  size="lead"
-                  color="darker"
-                  className="-mt-100"
-                  tag="h2"
-                />
+                <Text {...props} size="lead" color="darker" tag="h3" />
               ),
               paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
@@ -734,13 +722,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                         );
                       },
                       heading: props => (
-                        <Text
-                          {...props}
-                          size="lead"
-                          color="darker"
-                          className="-mt-100"
-                          tag="h2"
-                        />
+                        <Text {...props} size="lead" color="darker" tag="h3" />
                       ),
                       paragraph: props => (
                         <Text {...props} tag="p" color="darker" />
@@ -946,13 +928,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                         );
                       },
                       heading: props => (
-                        <Text
-                          {...props}
-                          size="lead"
-                          color="darker"
-                          className="-mt-100"
-                          tag="h2"
-                        />
+                        <Text {...props} size="lead" color="darker" tag="h3" />
                       ),
                       paragraph: props => (
                         <Text {...props} tag="p" color="darker" />
@@ -984,13 +960,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                       );
                     },
                     heading: props => (
-                      <Text
-                        {...props}
-                        size="lead"
-                        color="darker"
-                        className="-mt-100"
-                        tag="h2"
-                      />
+                      <Text {...props} size="lead" color="darker" tag="h3" />
                     ),
                     paragraph: props => (
                       <Text {...props} tag="p" color="darker" />
@@ -1079,8 +1049,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                                   {...props}
                                   size="lead"
                                   color="darker"
-                                  className="-mt-100"
-                                  tag="h2"
+                                  tag="h3"
                                 />
                               ),
                               paragraph: props => (
@@ -1112,6 +1081,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           Photos and videos are for illustration purposes only.
         </Text>
       </div>
+      {metaData && <Head metaData={metaData} featuredImage={featuredImage} />}
     </>
   );
 };

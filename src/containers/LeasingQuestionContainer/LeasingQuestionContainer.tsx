@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import BreadCrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import ReactMarkdown from 'react-markdown';
 import Accordion from '@vanarama/uibook/lib/components/molecules/accordion/Accordion';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -10,12 +9,12 @@ import {
   GenericPageQuestionQuery_genericPage_sections_faqs_questionSets_questionAnswers as IQuestion,
 } from '../../../generated/GenericPageQuestionQuery';
 import CarouselCards from './CarouselCards';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   sections: Section | null;
   title: string | null;
   body: string | null;
-  crumbs: { href: string; label: string }[];
 }
 
 const accordionItems = (questions: (IQuestion | null)[] | undefined | null) => {
@@ -50,18 +49,13 @@ const renderQuestions = (
   );
 };
 
-const LeasingQuestionContainer: FC<IProps> = ({
-  body,
-  title,
-  sections,
-  crumbs,
-}) => {
+const LeasingQuestionContainer: FC<IProps> = ({ body, title, sections }) => {
   const cards = sections?.cards;
   const questionSet = sections?.questionSet;
   return (
     <>
       <div className="row:title">
-        <BreadCrumb items={crumbs} />
+        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {title}
         </Heading>

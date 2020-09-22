@@ -12,13 +12,12 @@ import {
   LocationsPageData,
   LocationsPageData_regionalOfficesPage_sections_cards_cards as ICard,
 } from '../../../../generated/LocationsPageData';
-
 import withApollo from '../../../hocs/withApollo';
-import BreadCrumbContainer from '../../../containers/BreadCrumbContainer';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import Head from '../../../components/Head/Head';
 import getTitleTag from '../../../utils/getTitleTag';
 import { getSectionsData } from '../../../utils/getSectionsData';
+import Breadcrumb from '../../../components/Breadcrumb/Breadcrumb';
 
 export const LocationsPage: NextPage = () => {
   const { data, loading, error } = useQuery<LocationsPageData>(
@@ -45,14 +44,8 @@ export const LocationsPage: NextPage = () => {
 
   return (
     <>
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.regionalOfficesPage?.featuredImage}
-        />
-      )}
       <div className="row:title">
-        <BreadCrumbContainer />
+        <Breadcrumb />
         <Heading size="xlarge" color="black" tag="h1">
           {metaData?.name}
         </Heading>
@@ -71,12 +64,7 @@ export const LocationsPage: NextPage = () => {
                 return <RouterLink link={{ href, label: children }} />;
               },
               heading: props => (
-                <Text
-                  {...props}
-                  size="lead"
-                  color="darker"
-                  className="-mt-100"
-                />
+                <Text {...props} size="lead" color="darker" tag="h3" />
               ),
               paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
@@ -105,12 +93,7 @@ export const LocationsPage: NextPage = () => {
                       return <RouterLink link={{ href, label: children }} />;
                     },
                     heading: props => (
-                      <Text
-                        {...props}
-                        size="lead"
-                        color="darker"
-                        className="-mt-100"
-                      />
+                      <Text {...props} size="lead" color="darker" tag="h3" />
                     ),
                     paragraph: props => (
                       <Text {...props} tag="p" color="darker" />
@@ -122,6 +105,12 @@ export const LocationsPage: NextPage = () => {
           </div>
         </section>
       ) : null}
+      {metaData && (
+        <Head
+          metaData={metaData}
+          featuredImage={data?.regionalOfficesPage?.featuredImage}
+        />
+      )}
     </>
   );
 };

@@ -2,16 +2,13 @@ import React from 'react';
 import { screen, render, waitFor } from '@testing-library/react';
 import ThankYouContainer from '../ThankYouContainer';
 
-// ARRANGE
-const CRUMBS = [
-  { label: 'Home', href: '/' },
-  { label: 'Van Insurance', href: '/van-insurance' },
-  {
-    label: 'Thank You',
-    href: '/van-insurance/multi-year-van-insurance/thank-you',
-  },
-];
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    asPath: '/',
+  }),
+}));
 
+// ARRANGE
 const SECTIONS = {
   leadText: {
     titleTag: 'h1',
@@ -87,9 +84,7 @@ const SECTIONS = {
 
 describe('<ThankYouContainer />', () => {
   it('should match snapshot', async () => {
-    const getComponent = render(
-      <ThankYouContainer crumbs={CRUMBS} sections={SECTIONS} />,
-    );
+    const getComponent = render(<ThankYouContainer sections={SECTIONS} />);
     // ASSERT
     await waitFor(() => {
       expect(

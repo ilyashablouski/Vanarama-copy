@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import OrderCard from '@vanarama/uibook/lib/components/molecules/cards/OrderCard/OrderCard';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Pagination from '@vanarama/uibook/lib/components/atoms/pagination';
@@ -23,6 +22,7 @@ import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../generated/GetCompaniesByPersonUuid';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 type QueryParams = {
   partyByUuid?: string;
@@ -55,14 +55,24 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     if (partyByUuid && uuid) {
       if (!breadcrumbPath.length) {
         setBreadcrumbPath([
-          { label: 'Home', href: '/', as: '' },
+          { link: { label: 'Home', href: '/', as: '' } },
           {
-            label: 'My Account',
-            // TODO: Need switch as to href when we update Breadcrumb
-            as: `/account/my-details/[uuid]/${getUrlParam({ partyByUuid })}`,
-            href: `/account/my-details/${uuid}${getUrlParam({ partyByUuid })}`,
+            link: {
+              label: 'My Account',
+              // TODO: Need switch as to href when we update Breadcrumb
+              as: `/account/my-details/[uuid]/${getUrlParam({ partyByUuid })}`,
+              href: `/account/my-details/${uuid}${getUrlParam({
+                partyByUuid,
+              })}`,
+            },
           },
-          { label: `My ${quote ? 'Quotes' : 'Orders'}`, href: '/', as: '' },
+          {
+            link: {
+              label: `My ${quote ? 'Quotes' : 'Orders'}`,
+              href: '/',
+              as: '',
+            },
+          },
         ]);
       }
       if (!partyUuidArray) {

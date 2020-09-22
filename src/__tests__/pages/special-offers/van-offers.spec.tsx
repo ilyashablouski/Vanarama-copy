@@ -13,11 +13,12 @@ import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 
 jest.mock('../../../containers/OrdersInformation/gql');
 
-jest.mock('../../../containers/BreadCrumbContainer', () => () => {
-  return <div />;
-});
-
-jest.mock('next/router', () => ({ push: jest.fn() }));
+jest.mock('next/router', () => ({
+  push: jest.fn(),
+  useRouter: () => ({
+    asPath: '/',
+  }),
+}));
 
 const mocked: MockedResponse[] = [
   {

@@ -97,12 +97,6 @@ export const OffersPage: NextPage = () => {
 
   return (
     <>
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={genericPageCMS?.genericPage.featuredImage}
-        />
-      )}
       <div className="row:plain-hero">
         <div className="-col-100">
           <Heading color="black" size="xlarge" tag="h1">
@@ -250,6 +244,12 @@ export const OffersPage: NextPage = () => {
           </div>
         </div>
       </div>
+      {metaData && (
+        <Head
+          metaData={metaData}
+          featuredImage={genericPageCMS?.genericPage.featuredImage}
+        />
+      )}
     </>
   );
 };
