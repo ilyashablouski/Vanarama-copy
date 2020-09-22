@@ -20,6 +20,7 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
   onCompleted,
   onError,
 }) => {
+  const [mappedCompanyDetails, setMappedCompanyDetails] = React.useState({});
   const [updateSoleTraderCompanyDetails] = useUpdateSoleTraderCompanyMutation();
   const [createUpdateOrder] = useCreateUpdateOrder(() => {});
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
@@ -34,11 +35,10 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
     getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
       ?.companyDetails;
 
-  const mappedCompanyDetails = React.useMemo(() => {
+  React.useMemo(() => {
     if (initialCompanyDetails) {
-      return prelodedValuesToInput(initialCompanyDetails);
+      setMappedCompanyDetails(prelodedValuesToInput(initialCompanyDetails));
     }
-    return {};
   }, [initialCompanyDetails]);
 
   const handleSoleTraderCompanyDetailsSave = (
