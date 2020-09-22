@@ -38,7 +38,7 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
     if (initialCompanyDetails) {
       return prelodedValuesToInput(initialCompanyDetails);
     }
-    return null;
+    return {};
   }, [initialCompanyDetails]);
 
   const handleSoleTraderCompanyDetailsSave = (
