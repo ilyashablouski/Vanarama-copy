@@ -15,6 +15,9 @@ export interface SummaryFormSoleTrader_addresses {
   country: string;
   city: string;
   postcode: string;
+  __typename: "AddressType";
+  propertyStatus: string | null;
+  startedOn: any | null;
 }
 
 export interface SummaryFormSoleTrader_emailAddresses {

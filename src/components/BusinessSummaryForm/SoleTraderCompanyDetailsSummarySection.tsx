@@ -42,7 +42,11 @@ const SoleTraderCompanyDetailsSummarySection: FCWithFragments<IProps> = ({
         },
         {
           label: 'Trading Address',
-          value: (company.addresses && company.addresses[0].lineOne) || '',
+          value: `${company.addresses?.[0].lineOne} 
+          ${company.addresses?.[0].lineTwo}
+          ${company.addresses?.[0].city}
+          ${company.addresses?.[0].country}
+          ${company.addresses?.[0].postcode}`,
           dataTestId: 'summary-comapny-trading-address',
         },
         {
@@ -57,15 +61,12 @@ const SoleTraderCompanyDetailsSummarySection: FCWithFragments<IProps> = ({
         },
         {
           label: 'Business Phone Number',
-          value:
-            (company.telephoneNumbers && company.telephoneNumbers[0].value) ||
-            '',
+          value: company.telephoneNumbers?.[0].value || '',
           dataTestId: 'summary-company-telephone',
         },
         {
           label: 'Email Address',
-          value:
-            (company.emailAddresses && company.emailAddresses[0].value) || '',
+          value: company.emailAddresses?.[0].value || '',
           dataTestId: 'summary-company-email',
         },
         {
@@ -85,7 +86,7 @@ const SoleTraderCompanyDetailsSummarySection: FCWithFragments<IProps> = ({
         },
         ...financeToBeReplaced(company),
       ]}
-      heading="About You"
+      heading="Company Details"
       dataTestId="company-details-summary-heading"
       headingSize="large"
       className="-styled-headers"

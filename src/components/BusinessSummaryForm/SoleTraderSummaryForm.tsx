@@ -100,7 +100,8 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
           />
         )}
         <SoleTraderDetailsSummarySection
-          soleTrader={company.associates && company.associates[0]}
+          soleTrader={company.associates?.[0]}
+          addresses={company.addresses}
           onEdit={handleEdit(
             '/b2b/olaf/sole-trader/sole-trader-details/[orderId]',
             {
@@ -140,12 +141,16 @@ SoleTraderSummaryForm.fragments = {
       ...SoleTraderCompanyDetailsSummary
       ...VatDetails
       ...SoleTraderAssociate
+      addresses {
+        ...SoleTraderDetailsAddresses
+      }
       bankAccounts {
         ...CompanyBankDetailsAccount
       }
     }
     ${SoleTraderCompanyDetailsSummarySection.fragments.company}
     ${SoleTraderDetailsForm.fragments.soleTrader}
+    ${SoleTraderDetailsForm.fragments.addresses}
     ${BusinessSummaryFormVATDetailsSection.fragments.vatDetails}
     ${BusinessSummaryFormBankDetailsSection.fragments.account}
   `,

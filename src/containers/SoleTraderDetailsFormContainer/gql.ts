@@ -8,17 +8,21 @@ import {
 } from '../../../generated/UpdateSoleTraderMutation';
 
 export const GET_SOLETRADER_DETAILS_FORM_DATA = gql`
-  query SoleTraderDetailsFormDataQuery($uuid: ID!) {
+  query SoleTraderDetailsFormDataQuery($personUuid: ID!, $companyUuid: ID!) {
     allDropDowns {
       ...SoleTraderDetailsDropDownData
     }
-    personByUuid(uuid: $uuid) {
+    companyByUuid(uuid: $companyUuid) {
+      ...SoleTraderAssociate
+    }
+    personByUuid(uuid: $personUuid) {
       ...SoleTraderPerson
       addresses {
-        ...SoleTraderDetailsFormAddresses
+        ...SoleTraderDetailsAddresses
       }
     }
   }
+  ${SoleTraderDetailsForm.fragments.soleTrader}
   ${SoleTraderDetailsForm.fragments.person}
   ${SoleTraderDetailsForm.fragments.addresses}
   ${SoleTraderDetailsForm.fragments.dropdownData}
@@ -33,13 +37,17 @@ export const UPDATE_SOLETRADER_COMPANY = gql`
   ${SoleTraderDetailsForm.fragments.soleTrader}
 `;
 
-export function useSoleTraderDetailsFormDataQuery(personUuid: string) {
+export function useSoleTraderDetailsFormDataQuery(
+  personUuid: string,
+  companyUuid: string,
+) {
   return useQuery<SoleTraderDetailsFormDataQuery>(
     GET_SOLETRADER_DETAILS_FORM_DATA,
     {
       fetchPolicy: 'no-cache',
       variables: {
-        uuid: personUuid,
+        personUuid,
+        companyUuid,
       },
     },
   );

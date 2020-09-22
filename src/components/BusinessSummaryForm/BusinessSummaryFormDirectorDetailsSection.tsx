@@ -6,7 +6,7 @@ import FCWithFragments from '../../utils/FCWithFragments';
 
 import { CompanyAssociate_addresses as Address } from '../../../generated/CompanyAssociate';
 import { addressToDisplay } from '../../utils/address';
-import { formatPreviousAddressesArray, sortAddresses } from './helpers';
+import { sortAddresses } from './helpers';
 import { DirectorFormValues } from '../DirectorDetailsForm/interfaces';
 
 interface IBusinessSummaryFormDirectorDetailsSectionProps {
@@ -23,10 +23,8 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
   director,
   orderBySharehold,
 }) => {
-  const sortedAddresses = sortAddresses(director.addresses);
-  const currentAddress = (sortedAddresses && sortedAddresses[0]) || null;
-  const previousAddress = formatPreviousAddressesArray(
-    sortedAddresses || [],
+  const { currentAddress, previousAddress } = sortAddresses(
+    director.addresses,
     orderBySharehold,
   );
 
