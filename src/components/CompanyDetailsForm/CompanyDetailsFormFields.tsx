@@ -15,15 +15,20 @@ import {
   WORLDWIDE_MOBILE_REGEX,
   EMAIL_REGEX,
 } from '../../utils/regex';
+import NatureTypeahead from './NatureTypehead';
 
 interface IProps {
   inputMode: InputMode;
   isEdited: boolean;
+  natureOfBusinessValue: string[];
+  setNatureValue: (values: string[]) => void;
 }
 
 export default function CompanyDetailsFormFields({
   inputMode,
   isEdited,
+  natureOfBusinessValue,
+  setNatureValue,
 }: IProps) {
   const { formState, errors, register, watch } = useFormContext<
     ICompanyDetailsFormValues
@@ -127,21 +132,11 @@ export default function CompanyDetailsFormFields({
           </Formgroup>
         </>
       )}
-      <Formgroup
-        controlId="nature"
-        label="Nature of Business"
-        hint="e.g. building firm/marketing agency"
-        error={errors.nature?.message?.toString()}
-      >
-        <TextInput
-          id="nature"
-          name="nature"
-          dataTestId="company-details_nature"
-          ref={register({
-            required: 'Please enter the nature of business',
-          })}
-        />
-      </Formgroup>
+      <NatureTypeahead
+        value={natureOfBusinessValue}
+        setNatureValue={setNatureValue}
+      />
+
       <hr className="-mv-400" />
       <AddressFormField
         dataTestId="company-details_registered-address"

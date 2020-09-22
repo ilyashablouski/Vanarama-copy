@@ -45,6 +45,7 @@ import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql
 import getTitleTag from '../../../utils/getTitleTag';
 import useLeaseType from '../../../hooks/useLeaseType';
 import Head from '../../../components/Head/Head';
+import TileLink from '../../../components/TileLink/TileLink';
 
 export const CarsPage: NextPage = () => {
   const { data, loading, error } = useQuery<HubCarPageData>(HUB_CAR_CONTENT);
@@ -126,7 +127,6 @@ export const CarsPage: NextPage = () => {
       </section>
 
       <section className="row:eligibility-checker-cta">
-        <div />
         <div>
           <Image
             size="expand"
@@ -250,8 +250,11 @@ export const CarsPage: NextPage = () => {
               label: 'View All Cars',
             }}
             classNames={{ color: 'teal', size: 'large' }}
+            className="button -solid"
             dataTestId="view-all-cars"
-          />
+          >
+            <div className="button--inner">View All Cars</div>
+          </RouterLink>
         </section>
       </div>
 
@@ -275,6 +278,12 @@ export const CarsPage: NextPage = () => {
           data?.hubCarPage.sections?.featured1,
         )}`}
       >
+        <Image
+          src={
+            data?.hubCarPage.sections?.featured1?.image?.file?.url ||
+            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+          }
+        />
         <div style={{ padding: '1rem' }}>
           <Heading
             size="large"
@@ -320,12 +329,6 @@ export const CarsPage: NextPage = () => {
             </IconListItem>
           </IconList>
         </div>
-        <Image
-          src={
-            data?.hubCarPage.sections?.featured1?.image?.file?.url ||
-            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-          }
-        />
       </section>
 
       <section
@@ -401,14 +404,7 @@ export const CarsPage: NextPage = () => {
                   }
                 />
               </div>
-              <RouterLink
-                link={{ href: tile.link || '#', label: '' }}
-                className="tile--link"
-              >
-                <Heading tag="span" size="regular" color="black">
-                  {tile.title}
-                </Heading>
-              </RouterLink>
+              <TileLink tile={tile} />
               <Text tag="p">{tile.body}</Text>
             </Tile>
           </div>
