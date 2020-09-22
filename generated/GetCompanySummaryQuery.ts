@@ -21,9 +21,6 @@ export interface GetCompanySummaryQuery_companyByUuid_addresses {
   country: string;
   city: string;
   postcode: string;
-  __typename: "AddressType";
-  propertyStatus: string | null;
-  startedOn: any | null;
 }
 
 export interface GetCompanySummaryQuery_companyByUuid_emailAddresses {
@@ -62,6 +59,7 @@ export interface GetCompanySummaryQuery_companyByUuid_associates_addresses {
   lineOne: string;
   lineTwo: string | null;
   postcode: string;
+  __typename: "AddressType";
 }
 
 export interface GetCompanySummaryQuery_companyByUuid_associates_emailAddresses {

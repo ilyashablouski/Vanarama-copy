@@ -86,16 +86,18 @@ export const BusinessAboutPage: NextPage = () => {
     router.replace(router.pathname, router.asPath);
   }, handleAccountFetchError);
 
-  const handleCreateUpdateBusinessPersonCompletion = (result: SubmitResult) => {
+  const handleCreateUpdateBusinessPersonCompletion = async (
+    result: SubmitResult,
+  ) => {
+    await localForage.setItem('person', result.businessPersonUuid);
+
     const params = getUrlParam({ orderId });
-    const journeyUrl =
-      result.companyType === CompanyTypes.limited
-        ? `company-details/[personUuid]${params}`
-        : `sole-trader/company-details/[personUuid]${params}`;
+    const slug =
+      result.companyType === CompanyTypes.limited ? '' : 'sole-trader/';
     const url =
       router.query.redirect === 'summary'
-        ? `/b2b/olaf/summary/[companyUuid]${params}`
-        : `/b2b/olaf/${journeyUrl}`;
+        ? `/b2b/olaf/${slug}summary/[companyUuid]${params}`
+        : `/b2b/olaf/${slug}company-details/[personUuid]${params}`;
 
     const personId = personUuid || result.businessPersonUuid || '';
 

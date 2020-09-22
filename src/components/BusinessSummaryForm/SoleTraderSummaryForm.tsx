@@ -141,16 +141,12 @@ SoleTraderSummaryForm.fragments = {
       ...SoleTraderCompanyDetailsSummary
       ...VatDetails
       ...SoleTraderAssociate
-      addresses {
-        ...SoleTraderDetailsAddresses
-      }
       bankAccounts {
         ...CompanyBankDetailsAccount
       }
     }
     ${SoleTraderCompanyDetailsSummarySection.fragments.company}
     ${SoleTraderDetailsForm.fragments.soleTrader}
-    ${SoleTraderDetailsForm.fragments.addresses}
     ${BusinessSummaryFormVATDetailsSection.fragments.vatDetails}
     ${BusinessSummaryFormBankDetailsSection.fragments.account}
   `,

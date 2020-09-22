@@ -38,22 +38,33 @@ export const mapFormValues = (values: ISoleTraderCompanyDetailsFormValues) => {
   };
 };
 
-export const prelodedValuesToInput = (details: any) => ({
-  tradingName: details?.tradingName || '',
-  tradingAddress: {
-    label: details?.addresses.lineOne || '',
-    id: details?.addresses.serviceId || '',
-  },
-  natureOfBusiness: details?.companyNature || '',
-  tradingSinceYear: String(new Date(details?.tradingSince).getFullYear()) || '',
-  tradingSinceMonth: String(new Date(details?.tradingSince).getMonth()) || '',
-  businessTelephoneNumber: details?.telephoneNumbers?.value || '',
-  email: details?.emailAddress || '',
-  annualTurnover: String(details?.annualTurnover) || '',
-  annualCostOfSales: String(details?.annualSalesCost) || '',
-  annualExpenses: String(details?.annualExpenses) || '',
-  vehicleRegistrationNumber: details?.vehicleRegistrationNumber || '',
-  monthlyAmountBeingReplaced: String(details?.monthlyAmountBeingReplaced) || '',
-});
+export const prelodedValuesToInput = (details: any) => {
+  const tradingAddress = details?.addresses
+    ? {
+        tradingAddress: {
+          label: details?.addresses.lineOne || '',
+          id: details?.addresses.serviceId || '',
+        },
+      }
+    : {};
+  return {
+    tradingName: details?.tradingName || '',
+    ...tradingAddress,
+    natureOfBusiness: details?.companyNature || '',
+    tradingSinceYear: String(
+      new Date(details?.tradingSince).getFullYear() || '',
+    ),
+    tradingSinceMonth: String(new Date(details?.tradingSince).getMonth() || ''),
+    businessTelephoneNumber: details?.telephoneNumbers?.value || '',
+    email: details?.emailAddress || '',
+    annualTurnover: String(details?.annualTurnover || ''),
+    annualCostOfSales: String(details?.annualSalesCost || ''),
+    annualExpenses: String(details?.annualExpenses || ''),
+    vehicleRegistrationNumber: details?.vehicleRegistrationNumber || '',
+    monthlyAmountBeingReplaced: String(
+      details?.monthlyAmountBeingReplaced || '',
+    ),
+  };
+};
 
 export default mapFormValues;

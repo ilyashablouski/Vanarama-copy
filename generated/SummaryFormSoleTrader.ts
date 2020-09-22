@@ -15,9 +15,6 @@ export interface SummaryFormSoleTrader_addresses {
   country: string;
   city: string;
   postcode: string;
-  __typename: "AddressType";
-  propertyStatus: string | null;
-  startedOn: any | null;
 }
 
 export interface SummaryFormSoleTrader_emailAddresses {
@@ -41,6 +38,17 @@ export interface SummaryFormSoleTrader_associates_emailAddresses {
   value: string;
 }
 
+export interface SummaryFormSoleTrader_associates_addresses {
+  __typename: "AddressType";
+  serviceId: string | null;
+  lineOne: string;
+  lineTwo: string | null;
+  postcode: string;
+  city: string;
+  propertyStatus: string | null;
+  startedOn: any | null;
+}
+
 export interface SummaryFormSoleTrader_associates_incomeAndExpense {
   __typename: "IncomeAndExpenseType";
   averageMonthlyIncome: number;
@@ -62,6 +70,7 @@ export interface SummaryFormSoleTrader_associates {
   dateOfBirth: any | null;
   countryOfBirth: string | null;
   nationality: string | null;
+  addresses: SummaryFormSoleTrader_associates_addresses[] | null;
   maritalStatus: string | null;
   noOfAdultsInHousehold: string | null;
   noOfDependants: string | null;

@@ -19,7 +19,7 @@ const financeToBeReplaced = (company: SoleTraderCompanyDetailsSummary) =>
         },
         {
           label: 'Vehicle Registration Number',
-          value: String(company.vehicleRegistrationNumber) || '',
+          value: String(company.vehicleRegistrationNumber || ''),
           dataTestId: 'summary-company-vehicle-reg',
         },
       ]
@@ -71,17 +71,17 @@ const SoleTraderCompanyDetailsSummarySection: FCWithFragments<IProps> = ({
         },
         {
           label: 'Annual Turn Over',
-          value: String(company.annualTurnover) || '',
+          value: String(company.annualTurnover || ''),
           dataTestId: 'summary-company-annual-turnover',
         },
         {
           label: 'Annual Cost of Sales',
-          value: String(company.annualSalesCost) || '',
+          value: String(company.annualSalesCost || ''),
           dataTestId: 'summary-company-annual-sales-cost',
         },
         {
           label: 'Annual Expenses',
-          value: String(company.annualExpenses) || '',
+          value: String(company.annualExpenses || ''),
           dataTestId: 'summary-company-annual-expenses',
         },
         ...financeToBeReplaced(company),

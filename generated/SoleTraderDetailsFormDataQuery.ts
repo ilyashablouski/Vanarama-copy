@@ -73,6 +73,17 @@ export interface SoleTraderDetailsFormDataQuery_companyByUuid_associates_emailAd
   value: string;
 }
 
+export interface SoleTraderDetailsFormDataQuery_companyByUuid_associates_addresses {
+  __typename: "AddressType";
+  serviceId: string | null;
+  lineOne: string;
+  lineTwo: string | null;
+  postcode: string;
+  city: string;
+  propertyStatus: string | null;
+  startedOn: any | null;
+}
+
 export interface SoleTraderDetailsFormDataQuery_companyByUuid_associates_incomeAndExpense {
   __typename: "IncomeAndExpenseType";
   averageMonthlyIncome: number;
@@ -94,6 +105,7 @@ export interface SoleTraderDetailsFormDataQuery_companyByUuid_associates {
   dateOfBirth: any | null;
   countryOfBirth: string | null;
   nationality: string | null;
+  addresses: SoleTraderDetailsFormDataQuery_companyByUuid_associates_addresses[] | null;
   maritalStatus: string | null;
   noOfAdultsInHousehold: string | null;
   noOfDependants: string | null;
@@ -102,22 +114,10 @@ export interface SoleTraderDetailsFormDataQuery_companyByUuid_associates {
   uuid: string;
 }
 
-export interface SoleTraderDetailsFormDataQuery_companyByUuid_addresses {
-  __typename: "AddressType";
-  serviceId: string | null;
-  lineOne: string;
-  lineTwo: string | null;
-  postcode: string;
-  city: string;
-  propertyStatus: string | null;
-  startedOn: any | null;
-}
-
 export interface SoleTraderDetailsFormDataQuery_companyByUuid {
   __typename: "CompanyType";
   uuid: string;
   associates: SoleTraderDetailsFormDataQuery_companyByUuid_associates[] | null;
-  addresses: SoleTraderDetailsFormDataQuery_companyByUuid_addresses[] | null;
 }
 
 export interface SoleTraderDetailsFormDataQuery_personByUuid_emailAddresses {
@@ -148,10 +148,10 @@ export interface SoleTraderDetailsFormDataQuery_personByUuid {
   dateOfBirth: any | null;
   countryOfBirth: string | null;
   nationality: string | null;
+  addresses: SoleTraderDetailsFormDataQuery_personByUuid_addresses[] | null;
   maritalStatus: string | null;
   noOfAdultsInHousehold: string | null;
   noOfDependants: string | null;
-  addresses: SoleTraderDetailsFormDataQuery_personByUuid_addresses[] | null;
 }
 
 export interface SoleTraderDetailsFormDataQuery {

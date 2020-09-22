@@ -13,6 +13,17 @@ export interface SoleTraderAssociate_associates_emailAddresses {
   value: string;
 }
 
+export interface SoleTraderAssociate_associates_addresses {
+  __typename: "AddressType";
+  serviceId: string | null;
+  lineOne: string;
+  lineTwo: string | null;
+  postcode: string;
+  city: string;
+  propertyStatus: string | null;
+  startedOn: any | null;
+}
+
 export interface SoleTraderAssociate_associates_incomeAndExpense {
   __typename: "IncomeAndExpenseType";
   averageMonthlyIncome: number;
@@ -34,6 +45,7 @@ export interface SoleTraderAssociate_associates {
   dateOfBirth: any | null;
   countryOfBirth: string | null;
   nationality: string | null;
+  addresses: SoleTraderAssociate_associates_addresses[] | null;
   maritalStatus: string | null;
   noOfAdultsInHousehold: string | null;
   noOfDependants: string | null;

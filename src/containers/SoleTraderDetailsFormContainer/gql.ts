@@ -14,20 +14,13 @@ export const GET_SOLETRADER_DETAILS_FORM_DATA = gql`
     }
     companyByUuid(uuid: $companyUuid) {
       ...SoleTraderAssociate
-      addresses {
-        ...SoleTraderDetailsAddresses
-      }
     }
     personByUuid(uuid: $personUuid) {
       ...SoleTraderPerson
-      addresses {
-        ...SoleTraderDetailsAddresses
-      }
     }
   }
   ${SoleTraderDetailsForm.fragments.soleTrader}
   ${SoleTraderDetailsForm.fragments.person}
-  ${SoleTraderDetailsForm.fragments.addresses}
   ${SoleTraderDetailsForm.fragments.dropdownData}
 `;
 

@@ -15,6 +15,17 @@ export interface UpdateSoleTraderMutation_updateCompanySoleTrader_associates_ema
   value: string;
 }
 
+export interface UpdateSoleTraderMutation_updateCompanySoleTrader_associates_addresses {
+  __typename: "AddressType";
+  serviceId: string | null;
+  lineOne: string;
+  lineTwo: string | null;
+  postcode: string;
+  city: string;
+  propertyStatus: string | null;
+  startedOn: any | null;
+}
+
 export interface UpdateSoleTraderMutation_updateCompanySoleTrader_associates_incomeAndExpense {
   __typename: "IncomeAndExpenseType";
   averageMonthlyIncome: number;
@@ -36,6 +47,7 @@ export interface UpdateSoleTraderMutation_updateCompanySoleTrader_associates {
   dateOfBirth: any | null;
   countryOfBirth: string | null;
   nationality: string | null;
+  addresses: UpdateSoleTraderMutation_updateCompanySoleTrader_associates_addresses[] | null;
   maritalStatus: string | null;
   noOfAdultsInHousehold: string | null;
   noOfDependants: string | null;

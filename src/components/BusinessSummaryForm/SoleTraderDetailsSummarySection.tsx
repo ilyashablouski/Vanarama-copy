@@ -1,24 +1,21 @@
 import moment from 'moment';
 import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
-import {
-  SummaryFormSoleTrader_associates as SoleTraderAssociate,
-  SummaryFormSoleTrader_addresses as SoleTraderAddresses,
-} from '../../../generated/SummaryFormSoleTrader';
+import { SummaryFormSoleTrader_associates as SoleTraderAssociate } from '../../../generated/SummaryFormSoleTrader';
 import { addressToDisplay } from '../../utils/address';
 import { sortAddresses } from './helpers';
 
 interface IProps {
   soleTrader: SoleTraderAssociate | undefined;
-  addresses: SoleTraderAddresses[] | null;
   onEdit: () => any;
 }
 
 const SoleTraderDetailsSummarySection: React.FC<IProps> = ({
   soleTrader,
-  addresses,
   onEdit,
 }) => {
-  const { currentAddress, previousAddress } = sortAddresses(addresses);
+  const { currentAddress, previousAddress } = sortAddresses(
+    soleTrader?.addresses,
+  );
   return (
     <>
       <StructuredList
@@ -110,29 +107,31 @@ const SoleTraderDetailsSummarySection: React.FC<IProps> = ({
           },
           {
             label: 'Annual Income',
-            value: String(soleTrader?.incomeAndExpense?.annualIncome) || '',
+            value: String(soleTrader?.incomeAndExpense?.annualIncome || ''),
             dataTestId: 'summary-soleTrader-annual-income',
           },
           {
             label: 'Average Monthly Income',
-            value:
-              String(soleTrader?.incomeAndExpense?.averageMonthlyIncome) || '',
+            value: String(
+              soleTrader?.incomeAndExpense?.averageMonthlyIncome || '',
+            ),
             dataTestId: 'summary-soleTrader-monthly-income',
           },
           {
             label: 'Monthly Mortgage Payments',
-            value: String(soleTrader?.incomeAndExpense?.mortgageOrRent) || '',
+            value: String(soleTrader?.incomeAndExpense?.mortgageOrRent || ''),
             dataTestId: 'summary-soleTrader-monthly-payments',
           },
           {
             label: 'Monthly Student Payments',
-            value: String(soleTrader?.incomeAndExpense?.studentLoan) || '',
+            value: String(soleTrader?.incomeAndExpense?.studentLoan || ''),
             dataTestId: 'summary-soleTrader-student-payments',
           },
           {
             label: 'Future Monthly Income',
-            value:
-              String(soleTrader?.incomeAndExpense?.futureMonthlyIncome) || '',
+            value: String(
+              soleTrader?.incomeAndExpense?.futureMonthlyIncome || '',
+            ),
             dataTestId: 'summary-soleTrader-future-income',
           },
         ]}
