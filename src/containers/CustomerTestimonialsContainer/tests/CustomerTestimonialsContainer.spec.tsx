@@ -5,12 +5,13 @@ import CustomerTestimonialsContainer from '../CustomerTestimonialsContainer';
 import { TestimonialsData } from '../../../../generated/TestimonialsData';
 import { TESTIMONIALS_DATA } from '../../../gql/testimonials';
 
-// ARRANGE
-const CRUMBS = [
-  { label: 'Home', href: '/' },
-  { label: 'Customer Leasing Questions', href: '/car-leasing-explained' },
-];
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    asPath: '/',
+  }),
+}));
 
+// ARRANGE
 const METADATA = {
   __typename: 'Meta',
   title: 'Customer Testimonials & Reviews for Vanarama',
@@ -216,7 +217,6 @@ describe('<CustomerTestimonialsContainer />', () => {
     const getComponent = render(
       <MockedProvider addTypename={false} mocks={mocked}>
         <CustomerTestimonialsContainer
-          crumbs={CRUMBS}
           sections={SECTIONS}
           title={METADATA.title}
           body={BODY}

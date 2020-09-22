@@ -52,12 +52,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
                 );
               },
               heading: props => (
-                <Text
-                  {...props}
-                  size="lead"
-                  color="darker"
-                  className="-mt-100"
-                />
+                <Text {...props} size="lead" color="darker" tag="h3" />
               ),
               paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
@@ -136,12 +131,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
                     );
                   },
                   heading: props => (
-                    <Text
-                      {...props}
-                      size="lead"
-                      color="darker"
-                      className="-mt-100"
-                    />
+                    <Text {...props} size="lead" color="darker" tag="h3" />
                   ),
                   paragraph: props => (
                     <Text {...props} tag="p" color="darker" />
@@ -199,12 +189,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
                           );
                         },
                         heading: props => (
-                          <Text
-                            {...props}
-                            size="lead"
-                            color="dark"
-                            className="-mt-100"
-                          />
+                          <Text {...props} size="lead" color="dark" tag="h3" />
                         ),
                         paragraph: props => (
                           <Text {...props} tag="p" color="dark" />
@@ -265,12 +250,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
                     );
                   },
                   heading: props => (
-                    <Text
-                      {...props}
-                      size="lead"
-                      color="darker"
-                      className="-mt-100"
-                    />
+                    <Text {...props} size="lead" color="darker" tag="h3" />
                   ),
                   paragraph: props => (
                     <Text {...props} tag="p" color="darker" />

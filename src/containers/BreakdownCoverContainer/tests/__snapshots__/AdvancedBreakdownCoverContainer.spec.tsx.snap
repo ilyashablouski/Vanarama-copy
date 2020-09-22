@@ -31,7 +31,7 @@ exports[`<AdvancedBreakdownCoverContainer /> should match snapshot 1`] = `
           Advanced Breakdown Cover
         </h2>
         <span
-          class="text -mt-100 -lead -darker"
+          class="text -lead -darker"
         >
           Full & Drama-Free Breakdown Cover For Less
            

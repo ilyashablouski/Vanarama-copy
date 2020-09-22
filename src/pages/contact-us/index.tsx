@@ -14,7 +14,6 @@ import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import CardTitle from '@vanarama/uibook/lib/components/molecules/cards/CardTitle';
 import { getFeaturedClassPartial } from '../../utils/layout';
-
 import withApollo from '../../hocs/withApollo';
 import {
   ContactUsPageData,
@@ -22,11 +21,10 @@ import {
   ContactUsPageData_contactUsLandingPage_sections_featured2_cards as Cards2,
 } from '../../../generated/ContactUsPageData';
 import { CONTACT_US_CONTENT } from '../../gql/contact-us/contactUs';
-
-import BreadCrumbContainer from '../../containers/BreadCrumbContainer';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Head from '../../components/Head/Head';
 import { getSectionsData } from '../../utils/getSectionsData';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 export const ContactUsPage: NextPage = () => {
   const [show, setShow] = useState(false);
@@ -46,14 +44,8 @@ export const ContactUsPage: NextPage = () => {
 
   return (
     <>
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.contactUsLandingPage?.featuredImage}
-        />
-      )}
       <div className="row:title">
-        <BreadCrumbContainer />
+        <Breadcrumb />
         <Heading size="xlarge" color="black" tag="h1">
           {metaData?.name}
         </Heading>
@@ -84,12 +76,7 @@ export const ContactUsPage: NextPage = () => {
                 return <RouterLink link={{ href, label: children }} />;
               },
               heading: props => (
-                <Text
-                  {...props}
-                  size="lead"
-                  color="darker"
-                  className="-mt-100"
-                />
+                <Text {...props} size="lead" color="darker" tag="h3" />
               ),
               paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
@@ -156,12 +143,7 @@ export const ContactUsPage: NextPage = () => {
                     return <RouterLink link={{ href, label: children }} />;
                   },
                   heading: props => (
-                    <Text
-                      {...props}
-                      size="lead"
-                      color="darker"
-                      className="-mt-100"
-                    />
+                    <Text {...props} size="lead" color="darker" tag="h3" />
                   ),
                   paragraph: props => (
                     <Text {...props} tag="p" color="darker" />
@@ -198,12 +180,7 @@ export const ContactUsPage: NextPage = () => {
                 return <RouterLink link={{ href, label: children }} />;
               },
               heading: props => (
-                <Text
-                  {...props}
-                  size="lead"
-                  color="darker"
-                  className="-mt-100"
-                />
+                <Text {...props} size="lead" color="darker" tag="h3" />
               ),
               paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
@@ -226,6 +203,12 @@ export const ContactUsPage: NextPage = () => {
           </Card>
         ))}
       </section>
+      {metaData && (
+        <Head
+          metaData={metaData}
+          featuredImage={data?.contactUsLandingPage?.featuredImage}
+        />
+      )}
     </>
   );
 };

@@ -1,5 +1,4 @@
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
@@ -12,17 +11,11 @@ import PasswordChangeContainer from '../../../containers/PasswordChangeContainer
 import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
 import OrderInformationContainer from '../../../containers/OrdersInformation/OrderInformationContainer';
 import { MyDetailsQueryParams } from '../../../utils/url';
+import Breadcrumb from '../../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   query: ParsedUrlQuery;
 }
-
-const PATH = {
-  items: [
-    { label: 'Home', href: '/' },
-    { label: 'My Details', href: '/' },
-  ],
-};
 
 const handleNetworkError = () =>
   toast.error(
@@ -39,7 +32,7 @@ const MyDetailsPage: NextPage<IProps> = () => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb items={PATH.items} />
+        <Breadcrumb />
         <Heading
           tag="h1"
           size="xlarge"

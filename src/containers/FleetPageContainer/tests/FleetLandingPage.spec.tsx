@@ -6,6 +6,12 @@ import GET_FLEET_PAGE_CONTENT from '../gql';
 
 import { GetFleetLandingPage_fleetLandingPage as FleetPageData } from '../../../../generated/GetFleetLandingPage';
 
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    asPath: '/',
+  }),
+}));
+
 // ARRANGE
 const mocked: MockedResponse[] = [
   {

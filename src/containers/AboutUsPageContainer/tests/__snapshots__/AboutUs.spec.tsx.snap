@@ -2,67 +2,26 @@
 
 exports[`<AboutUs /> renders correctly with data 1`] = `
 Array [
-  <script
-    dangerouslySetInnerHTML={
-      Object {
-        "__html": "{\\"itemListElement\\":[{\\"item\\":\\"https://www.vanarama.com/\\",\\"name\\":\\"Home\\",\\"position\\":1}]}",
-      }
-    }
-    type="application/ld+json"
-  />,
   <div
     className="row:title"
   >
     <nav>
-      <nav
-        data-testid="about-us-nav"
+      <ol
+        className="breadcrumb"
       >
-        <ol
-          className="breadcrumb"
+        <li
+          className="breadcrumb-item -parent"
         >
-          <li
-            className="breadcrumb-item -parent"
+          <a
+            className="breadcrumb-item--backlink link -teal -small"
+            data-menu={null}
+            data-testid="router-link"
+            href="/"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
           >
-            <a
-              className="link breadcrumb-item--backlink -teal -small -plain"
-              href="https://www.vanarama.com/"
-            >
-              Back to 
-              Home
-              <i
-                className="icon -medium -xsmall"
-              >
-                <svg
-                  height="1em"
-                  viewBox="0 0 512 512"
-                  width="1em"
-                >
-                  <title>
-                    ionicons-v5-a
-                  </title>
-                  <polyline
-                    points="328 112 184 256 328 400"
-                    style={
-                      Object {
-                        "fill": "none",
-                        "stroke": "var(--class-color)",
-                        "strokeLinecap": "round",
-                        "strokeLinejoin": "round",
-                        "strokeWidth": 48,
-                      }
-                    }
-                  />
-                </svg>
-              </i>
-            </a>
-            <a
-              className="link breadcrumb-item--parent -teal -small -plain"
-              href="https://www.vanarama.com/"
-            >
-              Home
-            </a>
             <i
-              className="icon -medium -xsmall"
+              className="icon -teal"
             >
               <svg
                 height="1em"
@@ -73,7 +32,7 @@ Array [
                   ionicons-v5-a
                 </title>
                 <polyline
-                  points="184 112 328 256 184 400"
+                  points="328 112 184 256 328 400"
                   style={
                     Object {
                       "fill": "none",
@@ -86,18 +45,55 @@ Array [
                 />
               </svg>
             </i>
-          </li>
-          <li
-            className="breadcrumb-item -child"
+            Back to 
+            home
+          </a>
+          <a
+            className="breadcrumb-item--parent link -teal -small"
+            data-menu={null}
+            data-testid="router-link"
+            href="/"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
           >
-            <span
-              className="text breadcrumb-item--child -small -darker"
+            home
+          </a>
+          <i
+            className="icon -medium -xsmall"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
             >
-              About Us
-            </span>
-          </li>
-        </ol>
-      </nav>
+              <title>
+                ionicons-v5-a
+              </title>
+              <polyline
+                points="184 112 328 256 184 400"
+                style={
+                  Object {
+                    "fill": "none",
+                    "stroke": "var(--class-color)",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "strokeWidth": 48,
+                  }
+                }
+              />
+            </svg>
+          </i>
+        </li>
+        <li
+          className="breadcrumb-item -child"
+        >
+          <span
+            className="text breadcrumb-item--child -small -darker"
+          >
+            about us
+          </span>
+        </li>
+      </ol>
     </nav>
     <h1
       className="heading -black -xlarge"
@@ -162,7 +158,7 @@ Array [
         Big things have small beginnings, and some days it's hard to believe that Vanarama started its journey in 2004 with a team of just 3 people in a porta cabin. Today, we employ around 230 people and Vanarama is the ultimate destination for your next vehicle.
       </p>
       <span
-        className="text -mt-100 -lead -darker"
+        className="text -lead -darker"
       >
         What We Do
       </span>
@@ -187,7 +183,7 @@ Array [
          and maintenance packages.
       </p>
       <span
-        className="text -mt-100 -lead -darker"
+        className="text -lead -darker"
       >
         Customer Support
       </span>
@@ -202,7 +198,7 @@ Array [
         To further enhance your customer service experience, Vanarama is a member of the Institute of Customer Service (ICS). We like to think that this investment and commitment in our staff is one of the reasons that 95% of our customers would not only recommend us, but also use us again.
       </p>
       <span
-        className="text -mt-100 -lead -darker"
+        className="text -lead -darker"
       >
         Our Opening Hours
       </span>
@@ -229,7 +225,7 @@ Array [
         </li>
       </ul>
       <span
-        className="text -mt-100 -lead -darker"
+        className="text -lead -darker"
       >
         Our Awards
       </span>
@@ -295,7 +291,7 @@ Array [
         We also sponsor The Vanarama National League and through a charity partnership with Prostate Cancer UK, we won the BT Sport Industry Sponsorship Campaign Of The Year 2019, Business Charity Awards - Campaign Of The Year 2019 and Football Business Awards - Silver For Sponsorship Of The Year and Gold for Brand Activation for the Manarama campaign which saw us rename the League to support the charity and raise £150k.
       </p>
       <span
-        className="text -mt-100 -lead -darker"
+        className="text -lead -darker"
       >
         One Of The Best Companies To Work For
       </span>
@@ -458,6 +454,14 @@ Array [
       </i>
     </a>
   </div>,
+  <script
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "{\\"itemListElement\\":[{\\"item\\":\\"https://www.vanarama.com/\\",\\"name\\":\\"Home\\",\\"position\\":1}]}",
+      }
+    }
+    type="application/ld+json"
+  />,
 ]
 `;
 

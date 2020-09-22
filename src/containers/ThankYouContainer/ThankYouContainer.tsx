@@ -1,11 +1,9 @@
 import React, { FC } from 'react';
-import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb/Breadcrumb';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import CheckmarkCircleSharp from '@vanarama/uibook/lib/assets/icons/CheckmarkCircleSharp';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import { ILink } from '@vanarama/uibook/lib/interfaces/link';
 import {
   GenericPageQuery_genericPage_sections as Section,
   GenericPageQuery_genericPage_sections_cards_cards as CardData,
@@ -13,20 +11,20 @@ import {
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getSectionsData } from '../../utils/getSectionsData';
 import getTitleTag from '../../utils/getTitleTag';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   sections: Section | null;
-  crumbs: ILink[];
 }
 
-const ThankYouContainer: FC<IProps> = ({ crumbs, sections }) => {
+const ThankYouContainer: FC<IProps> = ({ sections }) => {
   const cards = getSectionsData(['carousel', 'cards'], sections);
   const leadText = sections?.leadText;
 
   return (
     <>
       <div className="row:title">
-        <Breadcrumb items={crumbs} />
+        <Breadcrumb />
       </div>
       <div className="row:lead-text">
         <Heading

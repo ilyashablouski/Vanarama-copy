@@ -3,11 +3,6 @@
 exports[`<InsurancePageContainer /> should match snapshot 1`] = `
 <body>
   <div>
-    <script
-      type="application/ld+json"
-    >
-      null
-    </script>
     <div
       class="row:bg-hero"
     >
@@ -662,7 +657,7 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
         Our Van Insurance Services
       </p>
       <span
-        class="text -mt-100 -lead -darker"
+        class="text -lead -darker"
       >
         What You Need To Know
       </span>
@@ -854,6 +849,11 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
         </div>
       </div>
     </div>
+    <script
+      type="application/ld+json"
+    >
+      null
+    </script>
   </div>
 </body>
 `;

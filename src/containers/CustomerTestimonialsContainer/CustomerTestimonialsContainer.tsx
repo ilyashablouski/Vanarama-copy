@@ -1,6 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import BreadCrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useQuery } from '@apollo/client';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
@@ -9,7 +8,6 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
 import Rating from '@vanarama/uibook/lib/components/atoms/rating';
-import { ILink } from '@vanarama/uibook/lib/interfaces/link';
 import {
   TestimonialsData,
   TestimonialsData_testimonials as TestimonialData,
@@ -19,19 +17,15 @@ import getTitleTag from '../../utils/getTitleTag';
 import getFeaturedHtml from './getFeaturedHtml';
 import { TESTIMONIALS_DATA } from '../../gql/testimonials';
 import TileLink from '../../components/TileLink/TileLink';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   sections: Section | null;
   title: string | null;
   body: string | null;
-  crumbs: ILink[];
 }
 
-const CustomerTestimonialsContainer: FC<IProps> = ({
-  title,
-  sections,
-  crumbs,
-}) => {
+const CustomerTestimonialsContainer: FC<IProps> = ({ title, sections }) => {
   const [page, setPage] = useState(1);
   const [data, setTestimonialsData] = useState<TestimonialsData>();
 
@@ -87,7 +81,7 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
   return (
     <>
       <div className="testimonials--content">
-        <BreadCrumb items={crumbs} />
+        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {title}
         </Heading>

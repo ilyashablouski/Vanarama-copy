@@ -32,10 +32,6 @@ const FleetLandingPage = () => {
 
   return (
     <>
-      <Head
-        metaData={metaData}
-        featuredImage={data?.fleetLandingPage?.featuredImage}
-      />
       {data?.fleetLandingPage?.sections?.hero && (
         <HeroSection {...data?.fleetLandingPage?.sections?.hero} />
       )}
@@ -58,6 +54,10 @@ const FleetLandingPage = () => {
       {data?.fleetLandingPage?.sections?.tiles && (
         <BenefitsSection {...data?.fleetLandingPage?.sections?.tiles} />
       )}
+      <Head
+        metaData={metaData}
+        featuredImage={data?.fleetLandingPage?.featuredImage}
+      />
     </>
   );
 };

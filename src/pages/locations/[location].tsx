@@ -59,10 +59,6 @@ export const LocationsPage: NextPage = () => {
 
   return (
     <>
-      <Head
-        metaData={metaData}
-        featuredImage={data?.genericPage.featuredImage}
-      />
       {hero && (
         <div
           className="row:bg-hero"
@@ -114,7 +110,7 @@ export const LocationsPage: NextPage = () => {
                                 {...props}
                                 size="lead"
                                 color="black"
-                                className="-mt-100"
+                                tag="h3"
                               />
                             ),
                             paragraph: props => (
@@ -243,12 +239,7 @@ export const LocationsPage: NextPage = () => {
                 return <RouterLink link={{ href, label: children }} />;
               },
               heading: props => (
-                <Text
-                  {...props}
-                  size="lead"
-                  color="darker"
-                  className="-mt-100"
-                />
+                <Text {...props} size="lead" color="darker" tag="h3" />
               ),
               paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
@@ -292,12 +283,7 @@ export const LocationsPage: NextPage = () => {
                   return <RouterLink link={{ href, label: children }} />;
                 },
                 heading: props => (
-                  <Text
-                    {...props}
-                    size="lead"
-                    color="darker"
-                    className="-mt-100"
-                  />
+                  <Text {...props} size="lead" color="darker" tag="h3" />
                 ),
                 paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}
@@ -367,12 +353,7 @@ export const LocationsPage: NextPage = () => {
                   return <RouterLink link={{ href, label: children }} />;
                 },
                 heading: props => (
-                  <Text
-                    {...props}
-                    size="lead"
-                    color="darker"
-                    className="-mt-100"
-                  />
+                  <Text {...props} size="lead" color="darker" tag="h3" />
                 ),
                 paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}
@@ -403,6 +384,10 @@ export const LocationsPage: NextPage = () => {
           </div>
         </Modal>
       )}
+      <Head
+        metaData={metaData}
+        featuredImage={data?.genericPage.featuredImage}
+      />
     </>
   );
 };

@@ -6,11 +6,6 @@ import LeasingExplainedContainer from '../../containers/LeasingExplainedContaine
 import Head from '../../components/Head/Head';
 import { useGenericPage } from '../../gql/genericPage';
 
-const crumbs = [
-  { label: 'Home', href: '/' },
-  { label: 'Car Leasing Explained', href: '/car-leasing-explained' },
-];
-
 const FinanceInfo: NextPage = () => {
   const { data, loading, error } = useGenericPage('/car-leasing-explained');
 
@@ -31,15 +26,14 @@ const FinanceInfo: NextPage = () => {
 
   return (
     <>
-      <Head
-        metaData={metaData}
-        featuredImage={data?.genericPage.featuredImage}
-      />
       <LeasingExplainedContainer
-        crumbs={crumbs}
         body={body}
         title={metaData?.name}
         sections={sections}
+      />
+      <Head
+        metaData={metaData}
+        featuredImage={data?.genericPage.featuredImage}
       />
     </>
   );

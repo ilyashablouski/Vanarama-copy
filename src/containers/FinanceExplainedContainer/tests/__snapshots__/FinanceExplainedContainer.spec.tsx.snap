@@ -50,7 +50,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           .
         </p>
         <span
-          class="text -mt-100 -lead -darker"
+          class="text -lead -darker"
         >
           Available New Car Finance Leasing Options
         </span>
