@@ -75,7 +75,7 @@ import useLeaseType from '../../hooks/useLeaseType';
 import { LinkTypes } from '../../models/enum/LinkTypes';
 import { getLegacyUrl } from '../../utils/url';
 import TileLink from '../../components/TileLink/TileLink';
-import Breadcrumb from '../../components/Breadcrumb/Breadrumb';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   isServer: boolean;
