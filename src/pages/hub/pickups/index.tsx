@@ -43,7 +43,6 @@ import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import getIconMap from '../../../utils/getIconMap';
 import truncateString from '../../../utils/truncateString';
-import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { formatProductPageUrl, getLegacyUrl } from '../../../utils/url';
 import { CompareContext } from '../../../utils/comparatorTool';
