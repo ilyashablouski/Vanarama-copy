@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
@@ -6,10 +7,9 @@ import Head from '../../../components/Head/Head';
 import { useGenericPage } from '../../../gql/genericPage';
 import FinanceGapInsuranceContainer from '../../../containers/FinanceGapInsuranceContainer/FinanceGapInsuranceContainer';
 
-const FinanceGapInsurancePage: NextPage = () => {
-  const { data, loading, error } = useGenericPage(
-    '/van-insurance/finance-gap-insurance',
-  );
+const MultiYearInsurancePage: NextPage = () => {
+  const path = useRouter();
+  const { data, loading, error } = useGenericPage(path.asPath);
 
   if (loading) {
     return <Loading size="large" />;
@@ -37,4 +37,4 @@ const FinanceGapInsurancePage: NextPage = () => {
   );
 };
 
-export default withApollo(FinanceGapInsurancePage, { getDataFromTree });
+export default withApollo(MultiYearInsurancePage, { getDataFromTree });

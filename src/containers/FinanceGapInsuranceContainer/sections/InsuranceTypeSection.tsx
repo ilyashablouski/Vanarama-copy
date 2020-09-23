@@ -2,10 +2,12 @@
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
+import ReactMarkdown from 'react-markdown';
 import {
   GenericPageQuery_genericPage_sections_featured1_link,
   GenericPageQuery_genericPage_sections_featured2_link,
 } from '../../../../generated/GenericPageQuery';
+import RouterLink from '../../../components/RouterLink/RouterLink';
 
 interface IProps {
   heading: string | null;
@@ -31,10 +33,33 @@ const InsuranceTypeSection = ({
       {heading}
     </Heading>
     {(description || body) && (
-      <Text size="lead" color="darker" tag="p">
-        {description || body || ''}
-      </Text>
+      <div>
+        <ReactMarkdown
+          escapeHtml={false}
+          source={description || body || ''}
+          renderers={{
+            link: props => {
+              const { href, children } = props;
+              return (
+                <RouterLink
+                  link={{ href, label: children }}
+                  classNames={{ color: 'teal' }}
+                />
+              );
+            },
+            image: props => {
+              const { src, alt } = props;
+              return <img {...{ src, alt }} style={{ maxWidth: '100%' }} />;
+            },
+            heading: props => (
+              <Text {...props} size="lead" color="darker" tag="h3" />
+            ),
+            paragraph: props => <Text {...props} tag="p" color="darker" />,
+          }}
+        />
+      </div>
     )}
+
     {link1 && link2 && (
       <div className="button-group">
         <Button

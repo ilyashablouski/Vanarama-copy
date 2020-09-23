@@ -3,14 +3,9 @@ import ChevronBack from '@vanarama/uibook/lib/assets/icons/ChevronBack';
 import ChevronForward from '@vanarama/uibook/lib/assets/icons/ChevronForward';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import { ILink } from '@vanarama/uibook/lib/interfaces/link';
 import { useRouter } from 'next/router';
 import RouterLink from '../RouterLink/RouterLink';
-
-export interface IBreadcrumbLink {
-  link: ILink;
-  as?: string;
-}
+import { routerItems, IBreadcrumbLink } from './helpers';
 
 interface IBreadcrumbProps {
   items?: IBreadcrumbLink[] | null;
@@ -19,19 +14,6 @@ interface IBreadcrumbProps {
 const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
   const router = useRouter();
   const { items } = props;
-
-  const routerItems = (): IBreadcrumbLink[] => {
-    return router.asPath.split('/').reduce((arr, el) => {
-      const href = arr.map(_el => _el.link.href);
-      arr.push({
-        link: {
-          href: el ? [...href, el].join('/').replace(/\/+/g, '/') : '/',
-          label: el ? el.replace(/-/g, ' ') : 'home',
-        },
-      });
-      return arr;
-    }, [] as IBreadcrumbLink[]);
-  };
 
   const renderParent = (item: IBreadcrumbLink) => (
     <li className="breadcrumb-item -parent" key={item.link.label}>
@@ -64,7 +46,7 @@ const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
     </li>
   );
 
-  const breadcrumbArray = items ?? routerItems();
+  const breadcrumbArray = items ?? routerItems(router);
 
   return (
     <nav>

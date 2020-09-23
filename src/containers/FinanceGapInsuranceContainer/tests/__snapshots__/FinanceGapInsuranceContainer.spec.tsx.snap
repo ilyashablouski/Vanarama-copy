@@ -221,11 +221,13 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       >
         Guaranteed Asset Protection (GAP)
       </p>
-      <p
-        class="text -lead -darker"
-      >
-        Cover the difference between your insurance payment and the full value of your car.
-      </p>
+      <div>
+        <p
+          class="text -regular -darker"
+        >
+          Cover the difference between your insurance payment and the full value of your car.
+        </p>
+      </div>
     </div>
     <div
       class="row:featured-left"

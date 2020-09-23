@@ -24,6 +24,7 @@ import {
   GenericPageHeadQueryVariables,
 } from '../../../generated/GenericPageHeadQuery';
 import Head from '../../components/Head/Head';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 export const OffersPage: NextPage = () => {
   const { data: genericPageCMS } = useQuery<
@@ -97,6 +98,9 @@ export const OffersPage: NextPage = () => {
 
   return (
     <>
+      <div className="row:title">
+        <Breadcrumb />
+      </div>
       <div className="row:plain-hero">
         <div className="-col-100">
           <Heading color="black" size="xlarge" tag="h1">
