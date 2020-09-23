@@ -4,18 +4,21 @@ import {
   B2bFullCreditCheckerVariables,
 } from '../../../generated/B2bFullCreditChecker';
 import BusinessSummaryForm from '../../components/BusinessSummaryForm/BusinessSummaryForm';
+import SoleTraderSummaryForm from '../../components/BusinessSummaryForm/SoleTraderSummaryForm';
 import AboutForm from '../../components/AboutForm';
 
 export const GET_COMPANY_SUMMARY = gql`
   query GetCompanySummaryQuery($uuid: ID!, $personUuid: ID!) {
     companyByUuid(uuid: $uuid) {
       ...SummaryFormCompany
+      ...SummaryFormSoleTrader
     }
     personByUuid(uuid: $personUuid) {
       ...AboutFormPerson
     }
   }
   ${BusinessSummaryForm.fragments.company}
+  ${SoleTraderSummaryForm.fragments.company}
   ${AboutForm.fragments.person}
 `;
 

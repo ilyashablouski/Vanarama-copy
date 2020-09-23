@@ -1,12 +1,12 @@
 import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
-import localForage from 'localforage';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import BusinessSummaryFormContainer from '../../../../containers/BusinessSummaryFormContainer/BusinessSummaryFormContainer';
 import withApollo from '../../../../hocs/withApollo';
+import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
+import useSoleTraderJourney from '../../../../hooks/useSoleTraderJourney';
 
 type QueryParams = {
   companyUuid: string;
@@ -22,19 +22,8 @@ const handleSubmitError = () =>
 const BusinessSummaryPage: NextPage = () => {
   const router = useRouter();
   const { companyUuid, orderId } = router.query as QueryParams;
-  const [personUuid, setPersonUuid] = useState('');
-
-  useEffect(() => {
-    const getPersonUuid = async () => {
-      const personUuidStorage = (await localForage.getItem(
-        'personUuid',
-      )) as string;
-      if (personUuidStorage) {
-        setPersonUuid(personUuidStorage);
-      }
-    };
-    getPersonUuid();
-  }, []);
+  const personUuid = useGetPersonUuid();
+  const isSoleTrader = useSoleTraderJourney();
 
   const handleComplete = () =>
     router.push(
@@ -45,6 +34,7 @@ const BusinessSummaryPage: NextPage = () => {
   return (
     <OLAFLayout>
       <BusinessSummaryFormContainer
+        isSoleTrader={isSoleTrader}
         onCompleted={handleComplete}
         onError={handleSubmitError}
         personUuid={personUuid}

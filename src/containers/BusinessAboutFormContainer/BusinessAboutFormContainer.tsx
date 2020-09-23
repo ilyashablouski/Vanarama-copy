@@ -81,8 +81,8 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
 
         return Boolean(results?.data?.emailAlreadyExists);
       }}
-      onSubmit={async values => {
-        await saveDetails({
+      onSubmit={values => {
+        saveDetails({
           variables: {
             input: {
               emailAddress: {
