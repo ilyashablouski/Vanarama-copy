@@ -7,7 +7,8 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import { FieldArray, useField, useFormikContext } from 'formik';
-import React from 'react';
+import React, { useContext } from 'react';
+import { OlafContext } from '../../layouts/OLAFLayout/helpers';
 import { DirectorFieldsDropDownData } from '../../../generated/DirectorFieldsDropDownData';
 import FCWithFragments from '../../utils/FCWithFragments';
 import AddressFormFieldArray from '../AddressForm/AddressFormFieldArray';
@@ -34,6 +35,7 @@ const DirectorFields: FCWithFragments<Props> = ({
   const { values, errors } = useFormikContext<DirectorDetailsFormValues>();
   const currentDirector = values.directors[index];
   const generateFieldKey = createKeyGenerator(index);
+  const { requiredMonths } = useContext(OlafContext);
 
   // Manually reguster the shareOfBusiness field because it has validation rules
   // based on itself and the total percentage
@@ -104,24 +106,29 @@ const DirectorFields: FCWithFragments<Props> = ({
           {...shareField}
         />
       </Formgroup>
-      <hr className="mv-400" />
-      <Heading color="dark" size="small">
-        Address History
-      </Heading>
-      <Text color="dark" size="small">
-        Please provide your personal address history for the past five years.
-      </Text>
-      <FieldArray name={generateFieldKey('history')}>
-        {arrayHelpers => (
-          <AddressFormFieldArray
-            arrayHelpers={arrayHelpers}
-            dropDownData={dropDownData}
-            idPrefix={`directors[${index}].`}
-            requiredMonths={60}
-            values={currentDirector}
-          />
-        )}
-      </FieldArray>
+      {requiredMonths > 0 && (
+        <>
+          <hr className="mv-400" />
+          <Heading color="dark" size="small">
+            Address History
+          </Heading>
+          <Text color="dark" size="small">
+            Please provide your personal address history for the past{' '}
+            {requiredMonths / 12} years.
+          </Text>
+          <FieldArray name={generateFieldKey('history')}>
+            {arrayHelpers => (
+              <AddressFormFieldArray
+                arrayHelpers={arrayHelpers}
+                dropDownData={dropDownData}
+                idPrefix={`directors[${index}].`}
+                requiredMonths={requiredMonths}
+                values={currentDirector}
+              />
+            )}
+          </FieldArray>
+        </>
+      )}
     </Tile>
   );
 };

@@ -43,7 +43,7 @@ declare global {
 }
 
 export const pushToDataLayer = (data: IPageDataLayer) => {
-  window.dataLayer.push(data);
+  window.dataLayer?.push(data);
 };
 
 export const pushDetail = (
