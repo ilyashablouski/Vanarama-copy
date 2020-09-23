@@ -156,8 +156,8 @@ export const VansPage: NextPage = () => {
   }
 
   const dealOfMonthUrl = formatProductPageUrl(
-    getLegacyUrl(productVanVehicles?.vehicleList?.edges, offer.capId),
-    offer.capId,
+    getLegacyUrl(productVanVehicles?.vehicleList?.edges, offer?.capId),
+    offer?.capId,
   );
 
   const isPersonal = cachedLeaseType === 'Personal';

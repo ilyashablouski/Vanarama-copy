@@ -5,6 +5,7 @@ import {
   LeaseTypeEnum,
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
+import { VEHICLE_LIST_URL } from 'gql/vehicleList';
 
 jest.mock('next/router', () => ({ push: jest.fn() }));
 
@@ -59,6 +60,19 @@ const DERIVATIVES = [
   },
 ];
 
+const VEHICLE_LIST = {
+  edges: [
+    {
+      cursor: 'cursor',
+      node: {
+        derivativeId: '44514',
+        url: '/van-leasing/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
+        legacyUrl: null,
+      },
+    },
+  ],
+};
+
 describe('<ProductCarousel />', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -68,6 +82,7 @@ describe('<ProductCarousel />', () => {
         data={{
           derivatives: DERIVATIVES,
           productCard: PRODUCT_CARDS,
+          vehicleList: VEHICLE_LIST,
         }}
         countItems={6}
         dataTestIdBtn="van-view-offer"
