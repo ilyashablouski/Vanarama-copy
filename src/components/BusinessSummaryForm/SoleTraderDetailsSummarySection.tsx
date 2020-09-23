@@ -45,7 +45,7 @@ const SoleTraderDetailsSummarySection: React.FC<IProps> = ({
           },
           {
             label: 'Date Of Birth',
-            value: soleTrader?.lastName || '',
+            value: soleTrader?.dateOfBirth || '',
             dataTestId: 'summary-soleTrader-last-name',
           },
           {
