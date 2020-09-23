@@ -25,6 +25,7 @@ import {
 } from '../../../generated/GenericPageHeadQuery';
 import Head from '../../components/Head/Head';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import { useVehicleListUrl } from '../../gql/vehicleList';
 
 export const OffersPage: NextPage = () => {
   const { data: genericPageCMS } = useQuery<
@@ -48,8 +49,11 @@ export const OffersPage: NextPage = () => {
     },
   );
 
+  const productVanCapIds = productsVan?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
   const { data: productVanDerivatives } = useCarDerivativesData(
-    productsVan?.productCarousel?.map(el => el?.capId || '') || [''],
+    productVanCapIds,
     VehicleTypeEnum.LCV,
   );
 
@@ -65,8 +69,11 @@ export const OffersPage: NextPage = () => {
     },
   );
 
+  const productPickupCapIds = productsPickup?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
   const { data: productPickupDerivatives } = useCarDerivativesData(
-    productsPickup?.productCarousel?.map(el => el?.capId || '') || [''],
+    productPickupCapIds,
     VehicleTypeEnum.LCV,
   );
 
@@ -81,10 +88,19 @@ export const OffersPage: NextPage = () => {
     },
   );
 
+  const productCarCapIds = productsCar?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
   const { data: productCarDerivatives } = useCarDerivativesData(
-    productsCar?.productCarousel?.map(el => el?.capId || '') || [''],
+    productCarCapIds,
     VehicleTypeEnum.CAR,
   );
+
+  const { data: productVehicles } = useVehicleListUrl([
+    ...productVanCapIds,
+    ...productPickupCapIds,
+    ...productCarCapIds,
+  ]);
 
   /* if (loading) {
     return <Loading size="large" />;
@@ -179,6 +195,7 @@ export const OffersPage: NextPage = () => {
             data={{
               derivatives: productVanDerivatives?.derivatives || null,
               productCard: productsVan?.productCarousel || null,
+              vehicleList: productVehicles?.vehicleList!,
             }}
             countItems={productsVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
@@ -207,6 +224,7 @@ export const OffersPage: NextPage = () => {
             data={{
               derivatives: productPickupDerivatives?.derivatives || null,
               productCard: productsPickup?.productCarousel || null,
+              vehicleList: productVehicles?.vehicleList!,
             }}
             countItems={productsPickup?.productCarousel?.length || 6}
             dataTestIdBtn="pickup-view-offer"
@@ -235,6 +253,7 @@ export const OffersPage: NextPage = () => {
             data={{
               derivatives: productCarDerivatives?.derivatives || null,
               productCard: productsCar?.productCarousel || null,
+              vehicleList: productVehicles?.vehicleList!,
             }}
             countItems={productsCar?.productCarousel?.length || 6}
             dataTestIdBtn="car-view-offer"

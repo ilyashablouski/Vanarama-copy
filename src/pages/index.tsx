@@ -212,7 +212,7 @@ export const HomePage: NextPage = () => {
                   data={{
                     derivatives: productsVanDerivatives?.derivatives || null,
                     productCard: productsVan?.productCarousel || null,
-                    vehicleList: productsVihicles?.vehicleList,
+                    vehicleList: productsVihicles?.vehicleList!,
                   }}
                   countItems={productsVan?.productCarousel?.length || 6}
                   dataTestIdBtn="van-view-offer"
@@ -239,7 +239,7 @@ export const HomePage: NextPage = () => {
                   data={{
                     derivatives: productsPickUpDerivatives?.derivatives || null,
                     productCard: productsPickUp?.productCarousel || null,
-                    vehicleList: productsVihicles?.vehicleList,
+                    vehicleList: productsVihicles?.vehicleList!,
                   }}
                   countItems={productsPickUp?.productCarousel?.length || 6}
                   dataTestIdBtn="pickup-view-offer"
@@ -267,7 +267,7 @@ export const HomePage: NextPage = () => {
                   data={{
                     derivatives: productsCarDerivatives?.derivatives || null,
                     productCard: productsCar?.productCarousel || null,
-                    vehicleList: productsVihicles?.vehicleList,
+                    vehicleList: productsVihicles?.vehicleList!,
                   }}
                   countItems={productsCar?.productCarousel?.length || 6}
                   dataTestIdBtn="car-view-offer"

@@ -263,6 +263,7 @@ export const VansPage: NextPage = () => {
             data={{
               derivatives: productSmallVanDerivatives?.derivatives || null,
               productCard: productSmallVan?.productCarousel || null,
+              vehicleList: productVanVehicles?.vehicleList!,
             }}
             countItems={productSmallVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
@@ -293,6 +294,7 @@ export const VansPage: NextPage = () => {
             data={{
               derivatives: productMediumVanDerivatives?.derivatives || null,
               productCard: productMediumVan?.productCarousel || null,
+              vehicleList: productVanVehicles?.vehicleList!,
             }}
             countItems={productMediumVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
@@ -323,6 +325,7 @@ export const VansPage: NextPage = () => {
             data={{
               derivatives: productLargeVanDerivatives?.derivatives || null,
               productCard: productLargeVan?.productCarousel || null,
+              vehicleList: productVanVehicles?.vehicleList!,
             }}
             countItems={productLargeVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"

@@ -123,7 +123,7 @@ const CreditChecker: NextPage = () => {
                   data={{
                     derivatives: productCarDerivatives?.derivatives || null,
                     productCard: productsCar?.productCarousel || null,
-                    vehicleList: productCarVehicles?.vehicleList,
+                    vehicleList: productCarVehicles?.vehicleList!,
                   }}
                   countItems={productsCar?.productCarousel?.length || 6}
                   dataTestIdBtn="car-view-offer"

@@ -5,7 +5,6 @@ import {
   LeaseTypeEnum,
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
-import { VEHICLE_LIST_URL } from 'gql/vehicleList';
 
 jest.mock('next/router', () => ({ push: jest.fn() }));
 
