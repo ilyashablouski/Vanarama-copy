@@ -7,13 +7,13 @@ import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import ReactMarkdown from 'react-markdown';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import BreadCrumbs from '../../containers/BreadCrumbContainer/BreadCrumbContainer';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Head from '../../components/Head/Head';
 import { useGenericPage } from '../../gql/genericPage';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import withApollo from '../../hocs/withApollo';
 import getTitleTag from '../../utils/getTitleTag';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 const BlogPage: NextPage = () => {
   const { data, loading, error } = useGenericPage('/latest-news');
@@ -33,14 +33,8 @@ const BlogPage: NextPage = () => {
 
   return (
     <>
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.genericPage.featuredImage}
-        />
-      )}
       <div className="row:title">
-        <BreadCrumbs />
+        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {metaData?.name}
         </Heading>
@@ -66,12 +60,7 @@ const BlogPage: NextPage = () => {
                   );
                 },
                 heading: props => (
-                  <Text
-                    {...props}
-                    size="lead"
-                    color="darker"
-                    className="-mt-100"
-                  />
+                  <Text {...props} size="lead" color="darker" tag="h3" />
                 ),
                 paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}
@@ -122,7 +111,7 @@ const BlogPage: NextPage = () => {
                               {...props}
                               size="lead"
                               color="dark"
-                              className="-mt-100"
+                              tag="h3"
                             />
                           ),
                           paragraph: props => (
@@ -163,12 +152,7 @@ const BlogPage: NextPage = () => {
                     );
                   },
                   heading: props => (
-                    <Text
-                      {...props}
-                      size="lead"
-                      color="dark"
-                      className="-mt-100"
-                    />
+                    <Text {...props} size="lead" color="dark" tag="h3" />
                   ),
                   paragraph: props => <Text {...props} tag="p" color="dark" />,
                 }}
@@ -226,12 +210,7 @@ const BlogPage: NextPage = () => {
                         );
                       },
                       heading: props => (
-                        <Text
-                          {...props}
-                          size="lead"
-                          color="darker"
-                          className="-mt-100"
-                        />
+                        <Text {...props} size="lead" color="darker" tag="h3" />
                       ),
                       paragraph: props => (
                         <Text {...props} tag="p" color="darker" />
@@ -242,6 +221,12 @@ const BlogPage: NextPage = () => {
               ))}
           </div>
         </div>
+      )}
+      {metaData && (
+        <Head
+          metaData={metaData}
+          featuredImage={data?.genericPage.featuredImage}
+        />
       )}
     </>
   );

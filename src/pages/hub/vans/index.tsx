@@ -51,6 +51,7 @@ import useLeaseType from '../../../hooks/useLeaseType';
 import Head from '../../../components/Head/Head';
 import { getSectionsData, getCardsName } from '../../../utils/getSectionsData';
 import { useVehicleListUrl } from '../../../gql/vehicleList';
+import TileLink from '../../../components/TileLink/TileLink';
 
 type ProdCards = ProdCardData[];
 
@@ -164,12 +165,6 @@ export const VansPage: NextPage = () => {
 
   return (
     <>
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.hubVanPage?.featuredImage}
-        />
-      )}
       <Hero>
         <HeroHeading
           text={
@@ -443,6 +438,15 @@ export const VansPage: NextPage = () => {
           getSectionsData(['featured1'], data?.hubVanPage.sections),
         )}`}
       >
+        <Image
+          src={
+            getSectionsData(
+              ['featured1', 'image', 'file', 'url'],
+              data?.hubVanPage.sections,
+            ) ||
+            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+          }
+        />
         <div style={{ padding: '1rem' }}>
           <Heading
             size="large"
@@ -473,12 +477,7 @@ export const VansPage: NextPage = () => {
                   return <RouterLink link={{ href, label: children }} />;
                 },
                 heading: props => (
-                  <Text
-                    {...props}
-                    size="lead"
-                    color="darker"
-                    className="-mt-100"
-                  />
+                  <Text {...props} size="lead" color="darker" tag="h3" />
                 ),
                 paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}
@@ -496,15 +495,6 @@ export const VansPage: NextPage = () => {
             </IconListItem>
           </IconList>
         </div>
-        <Image
-          src={
-            getSectionsData(
-              ['featured1', 'image', 'file', 'url'],
-              data?.hubVanPage.sections,
-            ) ||
-            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-          }
-        />
       </section>
 
       <section
@@ -543,12 +533,7 @@ export const VansPage: NextPage = () => {
                   return <RouterLink link={{ href, label: children }} />;
                 },
                 heading: props => (
-                  <Text
-                    {...props}
-                    size="lead"
-                    color="darker"
-                    className="-mt-100"
-                  />
+                  <Text {...props} size="lead" color="darker" tag="h3" />
                 ),
                 paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}
@@ -628,14 +613,7 @@ export const VansPage: NextPage = () => {
                   }
                 />
               </div>
-              <RouterLink
-                link={{ href: tile.link || '#', label: '' }}
-                className="tile--link"
-              >
-                <Heading tag="span" size="regular" color="black">
-                  {tile.title}
-                </Heading>
-              </RouterLink>
+              <TileLink tile={tile} />
               <Text tag="p">{tile.body}</Text>
             </Tile>
           </div>
@@ -739,6 +717,12 @@ export const VansPage: NextPage = () => {
       <section className="row:trustpilot">
         <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
       </section>
+      {metaData && (
+        <Head
+          metaData={metaData}
+          featuredImage={data?.hubVanPage?.featuredImage}
+        />
+      )}
     </>
   );
 };

@@ -3,25 +3,13 @@ import { MockedProvider } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
 import VehicleReviewCategoryContainer from '../VehicleReviewCategoryContainer';
 
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    asPath: '/',
+  }),
+}));
+
 // ARRANGE
-const CRUMBS = [
-  {
-    label: 'Home',
-    href: '/',
-  },
-  {
-    label: 'Van Reviews',
-    href: '/van-reviews',
-  },
-  {
-    label: 'Hub',
-    href: '/hub',
-  },
-  {
-    label: 'Citroen Van Reviews',
-    href: '/',
-  },
-];
 const TITLE = 'Citroen Van Reviews';
 const BODY =
   'Looking for advice on which van to lease? Check out our expert reviews of the latest Citroen vans and see how they fared in the Vanarama roadtest.\n';
@@ -115,7 +103,6 @@ describe('<VehicleReviewContainer />', () => {
     const getComponent = render(
       <MockedProvider addTypename={false}>
         <VehicleReviewCategoryContainer
-          crumbs={CRUMBS}
           sections={SECTIONS}
           title={TITLE}
           body={BODY}

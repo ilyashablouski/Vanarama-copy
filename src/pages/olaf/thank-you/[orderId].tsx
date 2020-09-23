@@ -14,7 +14,6 @@ import localForage from 'localforage';
 import { getDataFromTree } from '@apollo/react-ssr';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
-import RouterLink from '../../../components/RouterLink/RouterLink';
 import {
   PersonByToken_personByToken as Person,
   PersonByToken,
@@ -152,15 +151,11 @@ const ThankYouPage: NextPage = () => {
                 size="large"
               />
             </span>
-            <RouterLink
-              link={{ href: '', label: '' }}
-              className="tile--link"
-              withoutDefaultClassName
-            >
+            <span className="tile--link">
               <Heading color="black" size="regular">
                 Free, Safe & Contactless Delivery Direct To Your Door
               </Heading>
-            </RouterLink>
+            </span>
             <Text color="darker" size="regular">
               Pretium facilisi etiam pretium, cras interdum enim, nullam.
             </Text>
@@ -174,15 +169,11 @@ const ThankYouPage: NextPage = () => {
                 size="large"
               />
             </span>
-            <RouterLink
-              link={{ href: '', label: '' }}
-              className="tile--link"
-              withoutDefaultClassName
-            >
+            <span className="tile--link">
               <Heading color="black" size="regular">
                 Rated Excellent On TrustPilot
               </Heading>
-            </RouterLink>
+            </span>
             <Text color="darker" size="regular">
               Pretium facilisi etiam pretium, cras interdum enim, nullam.
             </Text>
@@ -196,15 +187,11 @@ const ThankYouPage: NextPage = () => {
                 size="large"
               />
             </span>
-            <RouterLink
-              link={{ href: '', label: '' }}
-              className="tile--link"
-              withoutDefaultClassName
-            >
+            <span className="tile--link">
               <Heading color="black" size="regular">
                 Free 30-Day Returns
               </Heading>
-            </RouterLink>
+            </span>
             <Text color="darker" size="regular">
               Pretium facilisi etiam pretium, cras interdum enim, nullam.
             </Text>
@@ -218,15 +205,11 @@ const ThankYouPage: NextPage = () => {
                 size="large"
               />
             </span>
-            <RouterLink
-              link={{ href: '', label: '' }}
-              className="tile--link"
-              withoutDefaultClassName
-            >
+            <span className="tile--link">
               <Heading color="black" size="regular">
                 The Best Price Or We&apos;ll Give You £100*
               </Heading>
-            </RouterLink>
+            </span>
             <Text color="darker" size="regular">
               Pretium facilisi etiam pretium, cras interdum enim, nullam.
             </Text>

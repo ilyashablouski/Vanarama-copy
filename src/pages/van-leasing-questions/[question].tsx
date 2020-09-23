@@ -10,14 +10,6 @@ import { useGenericPageQuestion } from '../../containers/LeasingQuestionContaine
 const LeasingQuestion: NextPage = () => {
   const router = useRouter();
 
-  const crumbs = [
-    { label: 'Home', href: '/' },
-    {
-      label: 'Ask A Question About Van Leasing',
-      href: '/van-leasing-questions',
-    },
-  ];
-
   const { data, loading, error } = useGenericPageQuestion(
     `/van-leasing-questions/${router.query.question as string}`,
   );
@@ -39,15 +31,14 @@ const LeasingQuestion: NextPage = () => {
 
   return (
     <>
-      <Head
-        metaData={metaData}
-        featuredImage={data?.genericPage.featuredImage}
-      />
       <LeasingQuestionContainer
-        crumbs={crumbs}
         body={body}
         title={metaData?.name}
         sections={sections}
+      />
+      <Head
+        metaData={metaData}
+        featuredImage={data?.genericPage.featuredImage}
       />
     </>
   );

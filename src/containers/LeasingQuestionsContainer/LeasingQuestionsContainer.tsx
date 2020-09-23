@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import BreadCrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Router from 'next/router';
 import ReactMarkdown from 'react-markdown';
@@ -14,12 +13,12 @@ import {
 } from '../../../generated/GenericPageQuery';
 import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   sections: Section | null;
   title: string | null;
   body: string | null;
-  crumbs: { href: string; label: string }[];
 }
 
 const renderCarouselCards = (cards: (ICaruselCard | null)[]) =>
@@ -75,19 +74,14 @@ const renderCards = (cards: (ICard | null)[] | undefined | null) =>
     ) : null,
   );
 
-const LeasingExplainedContainer: FC<IProps> = ({
-  body,
-  title,
-  sections,
-  crumbs,
-}) => {
+const LeasingExplainedContainer: FC<IProps> = ({ body, title, sections }) => {
   const carousel = sections?.carousel;
   const cards = sections?.cards;
 
   return (
     <>
       <div className="row:title">
-        <BreadCrumb items={crumbs} />
+        <Breadcrumb />
         <Heading size="xlarge" color="black" tag="h1">
           {title}
         </Heading>

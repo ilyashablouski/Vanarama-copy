@@ -14,9 +14,16 @@ import { CompanyDetailsPage } from '../../../../pages/b2b/olaf/company-details/[
 import { SAVE_COMPANY_DETAILS } from '../../../../containers/CompanyDetailsFormContainer/CompanyDetailsFormContainer';
 import { makeGetCreditApplicationMock } from '../../../../gql/creditApplication';
 import { CREATE_UPDATE_ORDER_MUTATION } from '../../../../gql/order';
+import {
+  GET_COMPANY_PROFILE,
+  GET_SIC_CODES,
+} from '../../../../containers/CompanyDetailsFormContainer/gql';
 
 const MOCK_PERSON_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
 const MOCK_ORDER_ID = '11111111-b980-46bd-8a8e-ed82705b3e01';
+
+let companyProfileCalled = false;
+let getSicCodesCalled = false;
 
 jest.mock('../../../../layouts/OLAFLayout/OLAFLayout');
 jest.mock('next/router', () => ({
@@ -44,13 +51,74 @@ function typeIntoSearchField(value: string) {
   fireEvent.change(field, { target: { value } });
 }
 
+function typeIntoNatureField(value: string) {
+  const field = screen.getByTestId('company-details_nature');
+  fireEvent.focus(field);
+  fireEvent.change(field, { target: { value } });
+}
+
+const sicDataMocks = [
+  {
+    request: {
+      query: GET_COMPANY_PROFILE,
+      variables: {
+        companyNumber: '05137709',
+      },
+    },
+    result: () => {
+      companyProfileCalled = true;
+      return {
+        data: {
+          companyProfile: {
+            sicData: [
+              {
+                sicCode: '62020',
+                description: 'Information technology consultancy activities',
+              },
+            ],
+          },
+        },
+      };
+    },
+  },
+  {
+    request: {
+      query: GET_SIC_CODES,
+      variables: {
+        value: '62020',
+      },
+    },
+    result: () => {
+      getSicCodesCalled = true;
+      return {
+        data: {
+          sicCodes: {
+            sicData: [
+              {
+                sicCode: '62020',
+                description: 'Information technology consultancy activities',
+              },
+              { sicCode: '121212', description: 'test test' },
+            ],
+          },
+        },
+      };
+    },
+  },
+];
+
 describe('B2B Company Details page', () => {
+  beforeEach(() => {
+    companyProfileCalled = false;
+    getSicCodesCalled = false;
+  });
   it('should allow the user to search for and select a company', async () => {
     // ARRANGE
     const queryMock = jest.fn();
     const mutationMock = jest.fn();
     const mocks: MockedResponse[] = [
       getCreditApplication,
+      ...sicDataMocks,
       {
         request: {
           query: SEARCH_COMPANIES,
@@ -96,7 +164,7 @@ describe('B2B Company Details page', () => {
                 { serviceId: 'Vanarama, Maylands Avenue', kind: 'registered' },
               ],
               withTradingAddress: false,
-              companyNature: 'Selling cars',
+              companyNature: 'Information technology consultancy activities',
               emailAddress: {
                 kind: 'Home',
                 value: 'info@autorama.co.uk',
@@ -136,10 +204,10 @@ describe('B2B Company Details page', () => {
     fireEvent.click(screen.getByRole('button', { name: /Yes And Proceed/i }));
 
     // Fill the rest of the form in
-    fireEvent.change(
-      screen.getByRole('textbox', { name: /Nature of Business/i }),
-      { target: { value: 'Selling cars' } },
-    );
+    await waitFor(() => expect(companyProfileCalled).toBeTruthy());
+    typeIntoNatureField('62020');
+    await waitFor(() => expect(getSicCodesCalled).toBeTruthy());
+    fireEvent.click(screen.getByText('62020'));
 
     fireEvent.change(
       screen.getByRole('textbox', { name: /Business Telephone Number/i }),
@@ -166,6 +234,7 @@ describe('B2B Company Details page', () => {
     const mutationMock = jest.fn();
     const mocks: MockedResponse[] = [
       getCreditApplication,
+      ...sicDataMocks,
       {
         request: {
           query: SAVE_COMPANY_DETAILS,
@@ -186,7 +255,7 @@ describe('B2B Company Details page', () => {
                 },
               ],
               withTradingAddress: false,
-              companyNature: 'Selling cars',
+              companyNature: 'Information technology consultancy activities',
               emailAddress: {
                 kind: 'Home',
                 value: 'info@autorama.co.uk',
@@ -239,10 +308,10 @@ describe('B2B Company Details page', () => {
       target: { value: '2004' },
     });
 
-    fireEvent.change(
-      screen.getByRole('textbox', { name: /Nature of Business/i }),
-      { target: { value: 'Selling cars' } },
-    );
+    // Fill the rest of the form in
+    typeIntoNatureField('62020');
+    await waitFor(() => expect(getSicCodesCalled).toBeTruthy());
+    fireEvent.click(screen.getByText('62020'));
 
     fireEvent.change(
       screen.getByRole('textbox', { name: /Business Telephone Number/i }),
@@ -270,6 +339,7 @@ describe('B2B Company Details page', () => {
     const mutationMock = jest.fn();
     const mocks: MockedResponse[] = [
       getCreditApplication,
+      ...sicDataMocks,
       {
         request: {
           query: SEARCH_COMPANIES,
@@ -319,7 +389,7 @@ describe('B2B Company Details page', () => {
                 },
               ],
               withTradingAddress: true,
-              companyNature: 'Selling cars',
+              companyNature: 'Information technology consultancy activities',
               emailAddress: {
                 kind: 'Home',
                 value: 'info@autorama.co.uk',
@@ -381,10 +451,10 @@ describe('B2B Company Details page', () => {
     fireEvent.click(screen.getByRole('button', { name: /Yes And Proceed/i }));
 
     // Fill the rest of the form in
-    fireEvent.change(
-      screen.getByRole('textbox', { name: /Nature of Business/i }),
-      { target: { value: 'Selling cars' } },
-    );
+    await waitFor(() => expect(companyProfileCalled).toBeTruthy());
+    typeIntoNatureField('62020');
+    await waitFor(() => expect(getSicCodesCalled).toBeTruthy());
+    fireEvent.click(screen.getByText('62020'));
 
     fireEvent.change(
       screen.getByRole('textbox', { name: /Business Telephone Number/i }),
@@ -422,6 +492,7 @@ describe('B2B Company Details page', () => {
     const inactiveQueryMock = jest.fn();
     const activeQueryMock = jest.fn();
     const mocks: MockedResponse[] = [
+      ...sicDataMocks,
       {
         request: {
           query: SEARCH_COMPANIES,
@@ -435,7 +506,7 @@ describe('B2B Company Details page', () => {
               nodes: [
                 {
                   addressSnippet: '123 Fake Street',
-                  companyNumber: '111111111',
+                  companyNumber: '05137709',
                   companyStatus: 'dissolved',
                   dateOfCreation: '2013-04-01',
                   title: 'INACTIVE LTD',
@@ -458,7 +529,7 @@ describe('B2B Company Details page', () => {
               nodes: [
                 {
                   addressSnippet: '123 Fake Street',
-                  companyNumber: '111111111',
+                  companyNumber: '05137709',
                   companyStatus: 'active',
                   dateOfCreation: '2013-04-01',
                   title: 'ACTIVE LTD',

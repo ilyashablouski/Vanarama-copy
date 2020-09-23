@@ -1,17 +1,15 @@
 import { NextPage } from 'next';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
-import BreadCrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import ReactMarkdown from 'react-markdown';
-import { ILink } from '@vanarama/uibook/lib/interfaces/link';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { LegalPageQuery_genericPage_sections as Section } from '../../../generated/LegalPageQuery';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   body: string | null | undefined;
   name: string | null | undefined;
   image: string | null | undefined;
-  crumbs: ILink[];
   sections: Section | null | undefined;
 }
 
@@ -35,13 +33,12 @@ const LegalArticleContainer: NextPage<IProps> = ({
   body,
   name,
   image,
-  crumbs,
   sections,
 }) => {
   return (
     <>
+      <Breadcrumb />
       <div className="row:title">
-        <BreadCrumb items={crumbs} />
         <Heading tag="h1" size="xlarge" color="black">
           {name || ''}
         </Heading>

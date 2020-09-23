@@ -28,13 +28,13 @@ const FinanceInfo: NextPage = () => {
 
   return (
     <>
-      <Head
-        metaData={metaData}
-        featuredImage={data?.genericPage.featuredImage}
-      />
       <FinanceInformationExplainedContainer
         title={metaData?.name}
         sections={sections}
+      />
+      <Head
+        metaData={metaData}
+        featuredImage={data?.genericPage.featuredImage}
       />
     </>
   );

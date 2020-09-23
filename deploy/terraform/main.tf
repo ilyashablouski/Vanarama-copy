@@ -39,6 +39,8 @@ module "alb_target" {
 
   health_check_path = "/status"
 
+  alb_listener_host_override = "${var.alb_listener_host_override}"
+  
   alb_listener_arn = "${data.terraform_remote_state.grid.outputs.aws_alb_listener_arn}"
   alb_dns_name     = "${data.terraform_remote_state.grid.outputs.alb_dns_name}"
   route53_zone_ids = [data.terraform_remote_state.grid.outputs.route53_internal_zone_id, data.terraform_remote_state.grid.outputs.route53_zone_id]

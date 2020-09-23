@@ -42,6 +42,7 @@ import getTitleTag from '../utils/getTitleTag';
 import useLeaseType from '../hooks/useLeaseType';
 import { getSectionsData } from '../utils/getSectionsData';
 import { useVehicleListUrl } from '../gql/vehicleList';
+import TileLink from '../components/TileLink/TileLink';
 
 export const HomePage: NextPage = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -437,14 +438,7 @@ export const HomePage: NextPage = () => {
                   }
                 />
               </div>
-              <RouterLink
-                link={{ href: tile.link || '#', label: '' }}
-                className="tile--link"
-              >
-                <Heading tag="span" size="regular" color="black">
-                  {tile.title}
-                </Heading>
-              </RouterLink>
+              <TileLink tile={tile} />
               <Text tag="p">{tile.body}</Text>
             </Tile>
           </div>

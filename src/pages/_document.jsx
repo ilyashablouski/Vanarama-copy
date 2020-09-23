@@ -1,13 +1,17 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 
-import { Script as GTMScript, Body as GTMBody } from '../components/GTM';
+import {
+  Script as GTMScript,
+  Body as GTMBody,
+  DataLayer as GTMDataLayerScript,
+} from '../components/GTM';
 
 // import getConfig from 'next/config';
 
 // const { publicRuntimeConfig } = getConfig();
 
 // GTM.
-const gtmEnvs = ['uat', 'production'];
+const gtmEnvs = ['test', 'dev', 'production', 'development'];
 
 // Rollbar
 // const rollbarCode = `
@@ -31,6 +35,7 @@ class MyDocument extends Document {
         <Head>
           {/* eslint-disable-next-line react/no-danger */}
           {/* <script dangerouslySetInnerHTML={{ __html: rollbarCode }} /> */}
+          {gtmEnvs.includes(process.env.ENV) && <GTMDataLayerScript />}
           {gtmEnvs.includes(process.env.ENV) && <GTMScript />}
         </Head>
         <body>

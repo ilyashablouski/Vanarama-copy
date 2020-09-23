@@ -11,7 +11,12 @@ import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 import { GENERIC_PAGE_HEAD } from '../../../gql/genericPage';
 
-jest.mock('next/router', () => ({ push: jest.fn() }));
+jest.mock('next/router', () => ({
+  push: jest.fn(),
+  useRouter: () => ({
+    asPath: '/',
+  }),
+}));
 jest.mock('../../../containers/OrdersInformation/gql');
 
 const mocked: MockedResponse[] = [

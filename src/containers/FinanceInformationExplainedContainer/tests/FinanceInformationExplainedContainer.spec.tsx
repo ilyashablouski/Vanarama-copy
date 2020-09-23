@@ -3,6 +3,12 @@ import { MockedProvider } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
 import FinanceInfromationExplainedContainer from '../FinanceInfromationExplainedContainer';
 
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    asPath: '/',
+  }),
+}));
+
 // ARRANGE
 const METADATA = {
   title: 'Car Finance Options | Business Car Leasing Deals UK',

@@ -13,6 +13,7 @@ import DownloadSharp from '@vanarama/uibook/lib/assets/icons/DownloadSharp';
 import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-gallery';
 import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
 import cx from 'classnames';
+import { pushPDPDataLayer } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
 import { toPriceFormat } from '../../utils/helpers';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
@@ -42,7 +43,7 @@ import FrequentlyAskedQuestions from '../../components/FrequentlyAskedQuestions/
 import { useCreateUpdateOrder } from '../../gql/order';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import useLeaseType from '../../hooks/useLeaseType';
-import BreadCrumb from '../../components/BreadCrumb/BreadCrumb';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { getProductPageBreadCrumb } from '../../utils/url';
 import Head from '../../components/Head/Head';
 
@@ -70,7 +71,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [leaseType, setLeaseType] = useState<string>(cachedLeaseType);
   const [leadTime, setLeadTime] = useState<string>('');
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
-
+  const [firstTimePushDataLayer, setFirstTimePushDataLayer] = useState<boolean>(
+    true,
+  );
   useEffect(() => {
     setCachedLeaseType(leaseType);
   }, [leaseType, setCachedLeaseType]);
@@ -80,6 +83,27 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     setLeaseScannerData,
   ] = useState<null | ILeaseScannerData>(null);
   const isMobile = useMobileViewport();
+
+  useEffect(() => {
+    if (
+      window &&
+      firstTimePushDataLayer &&
+      data?.derivativeInfo &&
+      data?.vehicleConfigurationByCapId &&
+      leaseScannerData?.quoteByCapId
+    ) {
+      const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
+      const derivativeInfo = data?.derivativeInfo;
+      const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
+      pushPDPDataLayer({
+        capId,
+        derivativeInfo,
+        vehicleConfigurationByCapId,
+        price,
+      });
+      setFirstTimePushDataLayer(false);
+    }
+  }, [data, capId, leaseScannerData, firstTimePushDataLayer]);
 
   const [createOrderHandle] = useCreateUpdateOrder(() => {});
 
@@ -347,7 +371,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     });
   };
 
-  const breadCrumbItems = getProductPageBreadCrumb(data?.derivativeInfo, cars);
+  const breadcrumbItems = getProductPageBreadCrumb(data?.derivativeInfo, cars);
   const metaData = {
     title:
       `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription} 
@@ -371,9 +395,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   return (
     <>
-      <Head metaData={metaData} featuredImage={null} />
       <div className="pdp--content">
-        <BreadCrumb items={breadCrumbItems} />
+        <Breadcrumb items={breadcrumbItems} />
         <Heading tag="h1">
           <Heading className="-pt-100" tag="span" size="xlarge" color="black">
             {pageTitle}
@@ -458,6 +481,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         setLeadTime={setLeadTime}
         isDisabled={isDisabled}
         setIsDisabled={setIsDisabled}
+        setLeaseScannerData={setLeaseScannerData}
         onCompleted={values => onSubmitClick(values)}
       />
       {!!capsId?.length && (
@@ -512,6 +536,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           />
         </div>
       )}
+      <Head metaData={metaData} featuredImage={null} />
     </>
   );
 };

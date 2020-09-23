@@ -12,7 +12,6 @@ import React, {
   useLayoutEffect,
   useMemo,
 } from 'react';
-import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
@@ -75,6 +74,8 @@ import {
 import useLeaseType from '../../hooks/useLeaseType';
 import { LinkTypes } from '../../models/enum/LinkTypes';
 import { getLegacyUrl } from '../../utils/url';
+import TileLink from '../../components/TileLink/TileLink';
+import Breadcrumb from '../../components/Breadcrumb/Breadrumb';
 
 interface IProps {
   isServer: boolean;
@@ -247,11 +248,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
   );
-
-  const crumbs = [
-    { label: 'Home', href: '/' },
-    { label: `${isCarSearch ? 'Car' : 'Vans'} Search`, href: '/' },
-  ];
 
   const sortField =
     !isRangePage && isSpecialOffers && !isDynamicFilterPage
@@ -663,9 +659,8 @@ const SearchPageContainer: React.FC<IProps> = ({
   // Some props should be contain in one param for achieve more readable code
   return (
     <>
-      {metaData && <Head metaData={metaData} featuredImage={featuredImage} />}
       <div className="row:title">
-        <Breadcrumb items={crumbs} />
+        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {(isModelPage &&
             `${filtersData.manufacturerName} ${filtersData.rangeName} ${filtersData.bodyStyles?.[0]}`) ||
@@ -690,13 +685,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                 return <img {...{ src, alt }} style={{ maxWidth: '100%' }} />;
               },
               heading: props => (
-                <Text
-                  {...props}
-                  size="lead"
-                  color="darker"
-                  className="-mt-100"
-                  tag="h2"
-                />
+                <Text {...props} size="lead" color="darker" tag="h3" />
               ),
               paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
@@ -712,7 +701,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                   {metaData?.name}
                 </Heading>
               </div>
-              <div className="row:text">
+              <div className="row:text -columns">
                 <div>
                   <ReactMarkdown
                     escapeHtml={false}
@@ -734,13 +723,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                         );
                       },
                       heading: props => (
-                        <Text
-                          {...props}
-                          size="lead"
-                          color="darker"
-                          className="-mt-100"
-                          tag="h2"
-                        />
+                        <Text {...props} size="lead" color="darker" tag="h3" />
                       ),
                       paragraph: props => (
                         <Text {...props} tag="p" color="darker" />
@@ -916,15 +899,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                     size="large"
                   />
                 </span>
-                <RouterLink
-                  link={{ href: tile.link || '', label: tile.title || '' }}
-                  className="tile--link"
-                  withoutDefaultClassName
-                >
-                  <Heading color="black" size="regular">
-                    {tile.title}
-                  </Heading>
-                </RouterLink>
+                <TileLink tile={tile} />
                 <Text color="darker" size="regular">
                   {tile.body}
                 </Text>
@@ -942,7 +917,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                   {metaData?.name}
                 </Heading>
               </div>
-              <div className="row:text">
+              <div className="row:text -columns">
                 <div>
                   <ReactMarkdown
                     source={pageData?.genericPage.body || ''}
@@ -958,13 +933,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                         );
                       },
                       heading: props => (
-                        <Text
-                          {...props}
-                          size="lead"
-                          color="darker"
-                          className="-mt-100"
-                          tag="h2"
-                        />
+                        <Text {...props} size="lead" color="darker" tag="h3" />
                       ),
                       paragraph: props => (
                         <Text {...props} tag="p" color="darker" />
@@ -996,13 +965,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                       );
                     },
                     heading: props => (
-                      <Text
-                        {...props}
-                        size="lead"
-                        color="darker"
-                        className="-mt-100"
-                        tag="h2"
-                      />
+                      <Text {...props} size="lead" color="darker" tag="h3" />
                     ),
                     paragraph: props => (
                       <Text {...props} tag="p" color="darker" />
@@ -1030,15 +993,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                         size="large"
                       />
                     </span>
-                    <RouterLink
-                      link={{ href: tile.link || '', label: tile.title || '' }}
-                      className="tile--link"
-                      withoutDefaultClassName
-                    >
-                      <Heading color="black" size="regular">
-                        {tile.title}
-                      </Heading>
-                    </RouterLink>
+                    <TileLink tile={tile} />
                     <Text color="darker" size="regular">
                       {tile.body}
                     </Text>
@@ -1065,10 +1020,16 @@ const SearchPageContainer: React.FC<IProps> = ({
                           className="card__article"
                           imageSrc={card?.image?.file?.url || ''}
                           title={{
-                            title: '',
+                            title: card.link?.url ? '' : card.title || '',
                             link: (
                               <RouterLink
-                                link={{ href: '#', label: card.title || '' }}
+                                link={{
+                                  href: card.link?.url || '',
+                                  label: card.title || '',
+                                  linkType: card.link?.url?.match('http')
+                                    ? LinkTypes.external
+                                    : '',
+                                }}
                                 className="card--link"
                                 classNames={{ color: 'black', size: 'regular' }}
                               />
@@ -1093,8 +1054,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                                   {...props}
                                   size="lead"
                                   color="darker"
-                                  className="-mt-100"
-                                  tag="h2"
+                                  tag="h3"
                                 />
                               ),
                               paragraph: props => (
@@ -1126,6 +1086,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           Photos and videos are for illustration purposes only.
         </Text>
       </div>
+      {metaData && <Head metaData={metaData} featuredImage={featuredImage} />}
     </>
   );
 };

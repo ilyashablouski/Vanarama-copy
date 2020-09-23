@@ -3,6 +3,12 @@ import { MockedProvider } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
 import LegalArticleContainer from '../LegalArticleContainer';
 
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    asPath: '/',
+  }),
+}));
+
 // ARRANGE
 const BODY =
   '#### **By Paul Kirby, Vanarama Head Of EV & LCV**\n\n\n**If I was to scour the internet for the best lease deals on an electric van I would probably find only 4 electric vehicles available for sale.';
@@ -24,28 +30,12 @@ const NAME = 'Legal statement';
 const IMAGE =
   '//images.ctfassets.net/3xid768u5joa/2FgrgR6JOuvUgIGRmV5rZg/648465d10d6aa137a720013270728029/maxus-top-electric-vans.jpg';
 
-const CRUMBS = [
-  {
-    label: 'Home',
-    href: '/',
-  },
-  {
-    label: 'Legal',
-    href: '/Legal',
-  },
-  {
-    label: 'Test',
-    href: '/legal/test',
-  },
-];
-
 describe('<LegalArticleContainer />', () => {
   it('should match snapshot', async () => {
     // ACT
     const getComponent = render(
       <MockedProvider addTypename={false}>
         <LegalArticleContainer
-          crumbs={CRUMBS}
           image={IMAGE}
           name={NAME}
           body={BODY}

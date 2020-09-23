@@ -1,22 +1,15 @@
 import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
-import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import withApollo from '../../hocs/withApollo';
 import ComparatorContainer from '../../containers/ComparatorContainer/ComparatorContainer';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 const Comparator: NextPage = () => {
-  const breadcrumbProps = {
-    items: [
-      { label: 'Home', href: '/' },
-      { label: 'Compare Vehicles', href: '/comparator' },
-    ],
-  };
-
   return (
     <>
       <div className="row:title">
-        <Breadcrumb items={breadcrumbProps.items} />
+        <Breadcrumb />
         <Heading size="xlarge" color="black" tag="h1">
           Compare Vehicles
         </Heading>

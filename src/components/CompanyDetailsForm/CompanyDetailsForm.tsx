@@ -13,6 +13,8 @@ import {
   SubmissionValues,
 } from './interfaces';
 import SearchActions from './SearchActions';
+import { useCompanyProfile } from '../../containers/CompanyDetailsFormContainer/gql';
+import { sicCodes_sicCodes_sicData as ISicData } from '../../../generated/sicCodes';
 
 interface IProps {
   onSubmit: OnSubmit<SubmissionValues>;
@@ -26,9 +28,14 @@ const CompanyDetailsForm: React.FC<IProps> = ({
   isEdited,
 }) => {
   const [companySearchTerm, setCompanySearchTerm] = useState('');
+  const [selectedCompanyData, setSelectedCompanyData] = useState<
+    undefined | SearchResult
+  >(undefined);
   const [hasConfirmedCompany, setHasConfirmedCompany] = useState(false);
   const [inputMode, setInputMode] = useState<InputMode>('search');
   const [proceedCompany, setProceedCompany] = useState<SearchResult>();
+  // save applied nature values
+  const [applyedNatureOfBusiness, setNatureOfBusiness] = useState<string[]>([]);
 
   const methods = useForm<ICompanyDetailsFormValues>({
     mode: 'onBlur',
@@ -36,14 +43,41 @@ const CompanyDetailsForm: React.FC<IProps> = ({
 
   const companySearchResult = methods.watch('companySearchResult');
 
+  const [getCompanyDetails, { data }] = useCompanyProfile(
+    selectedCompanyData?.companyNumber || '',
+  );
+
   useEffect(() => {
     if (company !== undefined && companySearchResult === undefined) {
       methods.reset(company);
       setProceedCompany(company?.companySearchResult);
       setHasConfirmedCompany(true);
+      setNatureOfBusiness(company.nature.split('.'));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [company]);
+
+  useEffect(() => {
+    if (selectedCompanyData?.companyNumber) {
+      getCompanyDetails();
+    }
+  }, [selectedCompanyData, getCompanyDetails]);
+
+  const handleNatureSelect = (selectedNature: string | string[]) => {
+    const isArray = Array.isArray(selectedNature);
+    setNatureOfBusiness(
+      (isArray ? selectedNature : [selectedNature]) as string[],
+    );
+  };
+
+  useEffect(() => {
+    if (data?.companyProfile.sicData) {
+      const descriptions = data?.companyProfile.sicData.map(
+        (sicData: ISicData) => sicData.description,
+      );
+      handleNatureSelect(descriptions);
+    }
+  }, [data]);
 
   const clearSearchResult = () => {
     setCompanySearchTerm('');
@@ -61,6 +95,7 @@ const CompanyDetailsForm: React.FC<IProps> = ({
 
   const handleCompanySelect = (selectedCompany: SearchResult) => {
     methods.setValue('companySearchResult', selectedCompany, true);
+    setSelectedCompanyData(selectedCompany);
     setInputMode('search');
   };
 
@@ -77,6 +112,7 @@ const CompanyDetailsForm: React.FC<IProps> = ({
           uuid: company?.uuid,
           companySearchResult: values.companySearchResult ?? proceedCompany,
           inputMode,
+          nature: applyedNatureOfBusiness.join('.'),
         }),
       )}
     >
@@ -117,7 +153,12 @@ const CompanyDetailsForm: React.FC<IProps> = ({
       )}
       {(hasConfirmedCompany || inputMode === 'manual') && (
         <FormContext {...methods}>
-          <CompanyDetailsFormFields isEdited={isEdited} inputMode={inputMode} />
+          <CompanyDetailsFormFields
+            isEdited={isEdited}
+            inputMode={inputMode}
+            setNatureValue={handleNatureSelect}
+            natureOfBusinessValue={applyedNatureOfBusiness}
+          />
         </FormContext>
       )}
     </Form>
