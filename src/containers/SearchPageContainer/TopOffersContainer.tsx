@@ -229,6 +229,7 @@ const TopOffersContainer: React.FC<IProps> = ({
             {isRangePage || isDynamicFilterPage ? (
               vehiclesList.map((vehicle: IVehicles) => (
                 <VehicleCard
+                  derivativeId={vehicle.node?.derivativeId}
                   url={getLegacyUrl(vehiclesList, vehicle.node?.derivativeId)}
                   viewOffer={viewOffer}
                   key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
@@ -252,6 +253,7 @@ const TopOffersContainer: React.FC<IProps> = ({
               >
                 {vehiclesList.map((vehicle: IVehicles) => (
                   <VehicleCard
+                    derivativeId={vehicle.node?.derivativeId}
                     url={getLegacyUrl(vehiclesList, vehicle.node?.derivativeId)}
                     viewOffer={viewOffer}
                     key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
