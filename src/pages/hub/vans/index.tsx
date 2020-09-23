@@ -45,12 +45,12 @@ import {
   LeaseTypeEnum,
 } from '../../../../generated/globalTypes';
 import ProductCarousel from '../../../components/ProductCarousel/ProductCarousel';
-import { getProductPageUrl } from '../../../utils/url';
-import { GetDerivatives_derivatives } from '../../../../generated/GetDerivatives';
+import { formatProductPageUrl, getLegacyUrl } from '../../../utils/url';
 import getTitleTag from '../../../utils/getTitleTag';
 import useLeaseType from '../../../hooks/useLeaseType';
 import Head from '../../../components/Head/Head';
 import { getSectionsData, getCardsName } from '../../../utils/getSectionsData';
+import { useVehicleListUrl } from '../../../gql/vehicleList';
 
 type ProdCards = ProdCardData[];
 
@@ -80,8 +80,11 @@ export const VansPage: NextPage = () => {
     },
   );
 
+  const productSmallVanCapIds = productSmallVan?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
   const { data: productSmallVanDerivatives } = useCarDerivativesData(
-    productSmallVan?.productCarousel?.map(el => el?.capId || '') || [''],
+    productSmallVanCapIds,
     VehicleTypeEnum.LCV,
   );
 
@@ -103,8 +106,11 @@ export const VansPage: NextPage = () => {
     },
   );
 
+  const productMediumVanCapIds = productMediumVan?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
   const { data: productMediumVanDerivatives } = useCarDerivativesData(
-    productMediumVan?.productCarousel?.map(el => el?.capId || '') || [''],
+    productMediumVanCapIds,
     VehicleTypeEnum.LCV,
   );
 
@@ -126,10 +132,19 @@ export const VansPage: NextPage = () => {
     },
   );
 
+  const productLargeVanCapIds = productLargeVan?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
   const { data: productLargeVanDerivatives } = useCarDerivativesData(
-    productLargeVan?.productCarousel?.map(el => el?.capId || '') || [''],
+    productLargeVanCapIds,
     VehicleTypeEnum.LCV,
   );
+
+  const { data: productVanVehicles } = useVehicleListUrl([
+    ...productSmallVanCapIds,
+    ...productMediumVanCapIds,
+    ...productLargeVanCapIds,
+  ]);
 
   if (loading) {
     return <Loading size="large" />;
@@ -139,14 +154,9 @@ export const VansPage: NextPage = () => {
     return <p>Error: {error.message}</p>;
   }
 
-  const dealOfMonthUrl = getProductPageUrl(
-    offer!,
-    (productLargeVanDerivatives?.derivatives as GetDerivatives_derivatives[])?.concat(
-      (productMediumVanDerivatives?.derivatives as GetDerivatives_derivatives[]) ||
-        [],
-      (productSmallVanDerivatives?.derivatives as GetDerivatives_derivatives[]) ||
-        [],
-    ),
+  const dealOfMonthUrl = formatProductPageUrl(
+    getLegacyUrl(productVanVehicles?.vehicleList?.edges, offer.capId),
+    offer.capId,
   );
 
   const isPersonal = cachedLeaseType === 'Personal';

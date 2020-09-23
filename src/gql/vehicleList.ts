@@ -1,5 +1,8 @@
 import { gql, useQuery } from '@apollo/client';
-import { VehicleListUrl, VehicleListUrlVariables } from '../../generated/VehicleListUrl';
+import {
+  VehicleListUrl,
+  VehicleListUrlVariables,
+} from '../../generated/VehicleListUrl';
 
 export const VEHICLE_LIST_URL = gql`
   query VehicleListUrl($derivativeIds: [ID!]) {

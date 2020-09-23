@@ -40,11 +40,11 @@ import RouterLink from '../../../components/RouterLink/RouterLink';
 import getIconMap from '../../../utils/getIconMap';
 import truncateString from '../../../utils/truncateString';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
-import { getProductPageUrl } from '../../../utils/url';
-import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
+import { getLegacyUrl, formatProductPageUrl } from '../../../utils/url';
 import getTitleTag from '../../../utils/getTitleTag';
 import useLeaseType from '../../../hooks/useLeaseType';
 import Head from '../../../components/Head/Head';
+import { useVehicleListUrl } from '../../../gql/vehicleList';
 
 export const CarsPage: NextPage = () => {
   const { data, loading, error } = useQuery<HubCarPageData>(HUB_CAR_CONTENT);
@@ -58,10 +58,10 @@ export const CarsPage: NextPage = () => {
     },
   );
 
-  const { data: productsCarDerivatives } = useCarDerivativesData(
-    products?.productCarousel?.map(el => el?.capId || '') || [''],
-    VehicleTypeEnum.CAR,
-  );
+  const productsCapIds = products?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
+  const { data: productsVehicles } = useVehicleListUrl(productsCapIds);
 
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
@@ -170,9 +170,9 @@ export const CarsPage: NextPage = () => {
         <section className="row:cards-3col">
           {products?.productCarousel?.map((item, idx) => {
             const iconMap = getIconMap(item?.keyInformation || []);
-            const productUrl = getProductPageUrl(
-              item!,
-              productsCarDerivatives?.derivatives || null,
+            const productUrl = formatProductPageUrl(
+              getLegacyUrl(productsVehicles?.vehicleList?.edges, item?.capId),
+              item?.capId,
             );
             return (
               <ProductCard

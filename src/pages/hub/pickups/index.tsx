@@ -45,11 +45,12 @@ import getIconMap from '../../../utils/getIconMap';
 import truncateString from '../../../utils/truncateString';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
-import { getProductPageUrl } from '../../../utils/url';
+import { formatProductPageUrl, getLegacyUrl } from '../../../utils/url';
 import { CompareContext } from '../../../utils/comparatorTool';
 import getTitleTag from '../../../utils/getTitleTag';
 import useLeaseType from '../../../hooks/useLeaseType';
 import Head from '../../../components/Head/Head';
+import { useVehicleListUrl } from '../../../gql/vehicleList';
 
 export const PickupsPage: NextPage = () => {
   const [offer, setOffer] = useState<ProdData>();
@@ -73,9 +74,11 @@ export const PickupsPage: NextPage = () => {
     },
   });
 
-  const { data: productsPickupsDerivatives } = useCarDerivativesData(
-    products?.productCarousel?.map(el => el?.capId || '') || [''],
-    VehicleTypeEnum.LCV,
+  const productsPickupsCapIds = products?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
+  const { data: prdouctPickUpsVehicles } = useVehicleListUrl(
+    productsPickupsCapIds,
   );
 
   const { compareVehicles, compareChange } = useContext(CompareContext);
@@ -88,9 +91,9 @@ export const PickupsPage: NextPage = () => {
     return <p>Error: {error.message}</p>;
   }
 
-  const dealOfMonthUrl = getProductPageUrl(
-    offer!,
-    productsPickupsDerivatives?.derivatives || null,
+  const dealOfMonthUrl = formatProductPageUrl(
+    getLegacyUrl(prdouctPickUpsVehicles?.vehicleList?.edges, offer?.capId),
+    offer?.capId,
   );
 
   const isPersonal = cachedLeaseType === 'Personal';
@@ -168,9 +171,12 @@ export const PickupsPage: NextPage = () => {
         <section className="row:cards-3col">
           {products?.productCarousel?.map((item, idx) => {
             const iconMap = getIconMap(item?.keyInformation || []);
-            const productUrl = getProductPageUrl(
-              item!,
-              productsPickupsDerivatives?.derivatives || null,
+            const productUrl = formatProductPageUrl(
+              getLegacyUrl(
+                prdouctPickUpsVehicles?.vehicleList?.edges,
+                item?.capId,
+              ),
+              item?.capId,
             );
             return (
               <ProductCard

@@ -74,6 +74,7 @@ import {
 } from '../../../generated/GenericPageHeadQuery';
 import useLeaseType from '../../hooks/useLeaseType';
 import { LinkTypes } from '../../models/enum/LinkTypes';
+import { getLegacyUrl } from '../../utils/url';
 
 interface IProps {
   isServer: boolean;
@@ -88,12 +89,6 @@ interface IProps {
   isTransmissionPage?: boolean;
   isFuelPage?: boolean;
 }
-
-const getUrl = (data: any[], derivativeId?: string | null) => {
-  const edge = data.find(item => item.node?.derivativeId === derivativeId);
-
-  return edge.node?.legacyUrl || edge.node?.url;
-};
 
 const SearchPageContainer: React.FC<IProps> = ({
   isServer,
@@ -868,7 +863,10 @@ const SearchPageContainer: React.FC<IProps> = ({
                         ) as IProductCard
                       }
                       derivativeId={vehicle.node?.derivativeId}
-                      url={getUrl(vehiclesList, vehicle.node?.derivativeId)}
+                      url={getLegacyUrl(
+                        vehiclesList,
+                        vehicle.node?.derivativeId,
+                      )}
                       title={{
                         title: '',
                         description: vehicle.node?.derivativeName || '',
