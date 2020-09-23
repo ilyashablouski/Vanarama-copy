@@ -23,6 +23,21 @@ const handleNetworkError = () =>
     'Dolor ut tempor eiusmod enim consequat laboris dolore ut pariatur labore sunt incididunt dolore veniam mollit excepteur dolor aliqua minim nostrud adipisicing culpa aliquip ex',
   );
 
+const breadcrumbItems = [
+  {
+    link: {
+      href: '/',
+      label: 'home',
+    },
+  },
+  {
+    link: {
+      href: '',
+      label: 'my details',
+    },
+  },
+];
+
 const MyDetailsPage: NextPage<IProps> = () => {
   const router = useRouter();
   const { uuid } = router.query as MyDetailsQueryParams;
@@ -32,7 +47,7 @@ const MyDetailsPage: NextPage<IProps> = () => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
+        <Breadcrumb items={breadcrumbItems} />
         <Heading
           tag="h1"
           size="xlarge"

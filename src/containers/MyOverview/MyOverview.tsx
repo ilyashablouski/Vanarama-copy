@@ -55,22 +55,24 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     if (partyByUuid && uuid) {
       if (!breadcrumbPath.length) {
         setBreadcrumbPath([
-          { link: { label: 'Home', href: '/', as: '' } },
+          { link: { label: 'Home', href: '/' } },
           {
             link: {
               label: 'My Account',
-              // TODO: Need switch as to href when we update Breadcrumb
-              as: `/account/my-details/[uuid]/${getUrlParam({ partyByUuid })}`,
-              href: `/account/my-details/${uuid}${getUrlParam({
+              href: '/account/my-details/[uuid]',
+              query: {
                 partyByUuid,
-              })}`,
+                uuid,
+              },
             },
+            as: `/account/my-details/${uuid}${getUrlParam({
+              partyByUuid,
+            })}`,
           },
           {
             link: {
               label: `My ${quote ? 'Quotes' : 'Orders'}`,
               href: '/',
-              as: '',
             },
           },
         ]);
