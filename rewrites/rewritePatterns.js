@@ -1,13 +1,11 @@
 module.exports = [
   {
-    source: '/:manufacturer-:vehicleType-leasing/:model/:description.html',
-    destination: '/:vehicleType-leasing/:manufacturer/:model/:description',
+    source: '/:manufacturer-van-leasing/:model/:description.html',
+    destination: '/van-leasing/:manufacturer/:model/:description',
   },
   {
-    source:
-      '/:manufacturer-:vehicleType-leasing/:model/:bodyStyle/:description.html',
-    destination:
-      '/:vehicleType-leasing/:manufacturer/:model/:bodyStyle/:description',
+    source: '/:manufacturer-car-leasing/:model/:bodyStyle/:description.html',
+    destination: '/car-leasing/:manufacturer/:model/:bodyStyle/:description',
   },
   {
     source: '/:manufacturer-:vehicleType-leasing.html',
