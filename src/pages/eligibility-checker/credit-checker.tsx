@@ -3,7 +3,6 @@ import { NextPage } from 'next';
 import Router, { useRouter } from 'next/router';
 import Score from '@vanarama/uibook/lib/components/atoms/score';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
-import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
@@ -13,6 +12,7 @@ import { useProductCard } from '../../gql/productCard';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 const CreditChecker: NextPage = () => {
   const router = useRouter();
@@ -29,14 +29,6 @@ const CreditChecker: NextPage = () => {
     productsCar?.productCarousel?.map(el => el?.capId || '') || [''],
     VehicleTypeEnum.CAR,
   );
-
-  const breadcrumbProps = {
-    items: [
-      { label: 'Home', href: '/' },
-      { label: 'Eligibility Checker', href: '/' },
-      { label: 'Your Result', href: '/' },
-    ],
-  };
 
   const setText = () => {
     // Average.
@@ -70,7 +62,7 @@ const CreditChecker: NextPage = () => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb items={breadcrumbProps.items} />
+        <Breadcrumb />
         <Heading tag="h1" color="black" size="xlarge">
           Your Result
         </Heading>

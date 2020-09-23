@@ -24,6 +24,7 @@ import {
   GenericPageHeadQueryVariables,
 } from '../../../generated/GenericPageHeadQuery';
 import Head from '../../components/Head/Head';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 export const OffersPage: NextPage = () => {
   const { data: genericPageCMS } = useQuery<
@@ -97,12 +98,9 @@ export const OffersPage: NextPage = () => {
 
   return (
     <>
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={genericPageCMS?.genericPage.featuredImage}
-        />
-      )}
+      <div className="row:title">
+        <Breadcrumb />
+      </div>
       <div className="row:plain-hero">
         <div className="-col-100">
           <Heading color="black" size="xlarge" tag="h1">
@@ -250,6 +248,12 @@ export const OffersPage: NextPage = () => {
           </div>
         </div>
       </div>
+      {metaData && (
+        <Head
+          metaData={metaData}
+          featuredImage={genericPageCMS?.genericPage.featuredImage}
+        />
+      )}
     </>
   );
 };

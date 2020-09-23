@@ -1,28 +1,22 @@
 import React, { FC, memo } from 'react';
-import cx from 'classnames';
 import ChevronBack from '@vanarama/uibook/lib/assets/icons/ChevronBack';
 import ChevronForward from '@vanarama/uibook/lib/assets/icons/ChevronForward';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
-import { ILink } from '@vanarama/uibook/lib/interfaces/link';
-
+import { useRouter } from 'next/router';
 import RouterLink from '../RouterLink/RouterLink';
+import { routerItems, IBreadcrumbLink } from './helpers';
 
-interface IBreadcrumbLink {
-  link: ILink;
-  as?: string;
+interface IBreadcrumbProps {
+  items?: IBreadcrumbLink[] | null;
 }
 
-interface IBreadcrumbProps extends IBaseProps {
-  items: IBreadcrumbLink[] | null;
-}
-
-const BreadCrumb: FC<IBreadcrumbProps> = memo(props => {
-  const { className, items = [], dataTestId } = props;
+const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
+  const router = useRouter();
+  const { items } = props;
 
   const renderParent = (item: IBreadcrumbLink) => (
-    <li className="breadcrumb-item -parent">
+    <li className="breadcrumb-item -parent" key={item.link.label}>
       <RouterLink
         classNames={{ color: 'teal', size: 'small' }}
         className="breadcrumb-item--backlink"
@@ -45,22 +39,26 @@ const BreadCrumb: FC<IBreadcrumbProps> = memo(props => {
   );
 
   const renderChild = (item: IBreadcrumbLink) => (
-    <li className="breadcrumb-item -child">
+    <li className="breadcrumb-item -child" key={item.link.label}>
       <Text size="small" color="darker" className="breadcrumb-item--child">
         {item.link.label}
       </Text>
     </li>
   );
 
-  return items?.length ? (
-    <nav data-testid={dataTestId}>
-      <ol className={cx('breadcrumb', className)}>
-        {items.map((item, key) =>
-          items.length === key + 1 ? renderChild(item) : renderParent(item),
+  const breadcrumbArray = items ?? routerItems(router);
+
+  return (
+    <nav>
+      <ol className="breadcrumb">
+        {breadcrumbArray.map((item, key) =>
+          breadcrumbArray.length === key + 1
+            ? renderChild(item)
+            : renderParent(item),
         )}
       </ol>
     </nav>
-  ) : null;
+  );
 });
 
-export default BreadCrumb;
+export default Breadcrumb;

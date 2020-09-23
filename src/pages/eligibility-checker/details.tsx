@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { useRouter } from 'next/router';
-import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import withApollo from '../../hocs/withApollo';
 import EligibilityCheckerContainer from '../../containers/EligibilityCheckerContainer/EligibilityCheckerContainer';
 import ErrorMessage from './error-message';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 const EligibilityCheckerDetails: NextPage = () => {
   const [
@@ -15,18 +15,10 @@ const EligibilityCheckerDetails: NextPage = () => {
   ] = useState(false);
   const router = useRouter();
 
-  const breadcrumbProps = {
-    items: [
-      { label: 'Home', href: '/' },
-      { label: 'Eligibility Checker', href: '/eligibility-checker' },
-      { label: 'Enter Details', href: '/eligibility-checker/details' },
-    ],
-  };
-
   return (
     <>
       <div className="row:title">
-        <Breadcrumb items={breadcrumbProps.items} />
+        <Breadcrumb />
         <Heading
           color="black"
           size="xlarge"

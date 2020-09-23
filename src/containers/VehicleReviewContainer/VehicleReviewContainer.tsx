@@ -1,6 +1,5 @@
 import React, { FC, useState } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import BreadCrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import ReactMarkdown from 'react-markdown';
 import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
@@ -16,20 +15,15 @@ import getTitleTag from '../../utils/getTitleTag';
 import mapToReviewCard from './helpers';
 import { ReviewsPageQuery_reviewsPage_sections as Sections } from '../../../generated/ReviewsPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   sections: Sections | null;
   title: string | null;
   body: string | null;
-  crumbs: { href: string; label: string }[];
 }
 
-const VehicleReviewContainer: FC<IProps> = ({
-  body,
-  title,
-  sections,
-  crumbs,
-}) => {
+const VehicleReviewContainer: FC<IProps> = ({ body, title, sections }) => {
   const router = useRouter();
   const [reviewsExpanded, setReviewsExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
@@ -41,7 +35,7 @@ const VehicleReviewContainer: FC<IProps> = ({
   return (
     <>
       <div className="row:title">
-        <BreadCrumb items={crumbs} />
+        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {title}
         </Heading>

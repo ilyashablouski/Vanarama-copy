@@ -1,14 +1,14 @@
 import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import ThankYouContainer from '../../../containers/ThankYouContainer/ThankYouContainer';
 import withApollo from '../../../hocs/withApollo';
-import Head from '../../../components/Head/Head';
 import { useGenericPage } from '../../../gql/genericPage';
-import FinanceGapInsuranceContainer from '../../../containers/FinanceGapInsuranceContainer/FinanceGapInsuranceContainer';
+import Head from '../../../components/Head/Head';
 
-const FinanceGapInsurancePage: NextPage = () => {
+const ThankYouPage: NextPage = () => {
   const { data, loading, error } = useGenericPage(
-    '/van-insurance/finance-gap-insurance',
+    '/van-insurance/multi-year-van-insurance/thank-you',
   );
 
   if (loading) {
@@ -28,13 +28,13 @@ const FinanceGapInsurancePage: NextPage = () => {
 
   return (
     <>
+      <ThankYouContainer sections={sections} />
       <Head
         metaData={metaData}
         featuredImage={data?.genericPage.featuredImage}
       />
-      <FinanceGapInsuranceContainer sections={sections} />
     </>
   );
 };
 
-export default withApollo(FinanceGapInsurancePage, { getDataFromTree });
+export default withApollo(ThankYouPage, { getDataFromTree });

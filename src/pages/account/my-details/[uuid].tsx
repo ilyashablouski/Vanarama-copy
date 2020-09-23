@@ -1,5 +1,4 @@
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
@@ -12,23 +11,32 @@ import PasswordChangeContainer from '../../../containers/PasswordChangeContainer
 import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
 import OrderInformationContainer from '../../../containers/OrdersInformation/OrderInformationContainer';
 import { MyDetailsQueryParams } from '../../../utils/url';
+import Breadcrumb from '../../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   query: ParsedUrlQuery;
 }
-
-const PATH = {
-  items: [
-    { label: 'Home', href: '/' },
-    { label: 'My Details', href: '/' },
-  ],
-};
 
 const handleNetworkError = () =>
   toast.error(
     'Sorry there seems to be an issue with your password reset request. Pleaser try again in a few moments',
     'Dolor ut tempor eiusmod enim consequat laboris dolore ut pariatur labore sunt incididunt dolore veniam mollit excepteur dolor aliqua minim nostrud adipisicing culpa aliquip ex',
   );
+
+const breadcrumbItems = [
+  {
+    link: {
+      href: '/',
+      label: 'home',
+    },
+  },
+  {
+    link: {
+      href: '',
+      label: 'my details',
+    },
+  },
+];
 
 const MyDetailsPage: NextPage<IProps> = () => {
   const router = useRouter();
@@ -39,7 +47,7 @@ const MyDetailsPage: NextPage<IProps> = () => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb items={PATH.items} />
+        <Breadcrumb items={breadcrumbItems} />
         <Heading
           tag="h1"
           size="xlarge"

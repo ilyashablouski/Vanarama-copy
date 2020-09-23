@@ -49,11 +49,11 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           </a>
           .
         </p>
-        <span
-          class="text -mt-100 -lead -darker"
+        <h3
+          class="text -lead -darker"
         >
           Available New Car Finance Leasing Options
-        </span>
+        </h3>
         <ul>
           <li>
             <a

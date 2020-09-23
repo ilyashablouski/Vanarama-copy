@@ -36,7 +36,6 @@ const isMonthInFuture = (month: string, year: string) => {
 
 const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps> = ({
   onSubmit,
-  companyDetails,
 }) => {
   const methods = useForm<ISoleTraderCompanyDetailsFormValues>({
     mode: 'onBlur',

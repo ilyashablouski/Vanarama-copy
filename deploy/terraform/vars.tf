@@ -42,3 +42,9 @@ variable "aws_account_id" {
 variable "include_ecs_service" {
   type = bool
 }
+
+variable "alb_listener_host_override" {
+  type = string
+  description = "Optional extra host name to associate with the ALB listener for your target."
+  default = null
+} 	

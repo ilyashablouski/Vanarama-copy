@@ -2,7 +2,6 @@ import React, { FC, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Accordion from '@vanarama/uibook/lib/components/molecules/accordion/Accordion';
 import cx from 'classnames';
 import AddCircleSharp from '@vanarama/uibook/lib/assets/icons/AddCircleSharp';
@@ -11,17 +10,12 @@ import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import getTitleTag from '../../utils/getTitleTag';
 import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/GenericPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   sections: Section | null;
   title: string | null;
 }
-
-const crumbs = [
-  { label: 'Home', href: '/' },
-  { label: 'Van Leasing', href: '/van-leasing' },
-  { label: 'Finance Information', href: '/van-leasing/finance-info' },
-];
 
 const FinanceInformationExplainedContainer: FC<IProps> = ({
   title,
@@ -52,7 +46,7 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
   return (
     <>
       <div className="row:title">
-        <Breadcrumb items={crumbs} />
+        <Breadcrumb />
         <Heading size="xlarge" color="black" tag="h1">
           {title}
         </Heading>
@@ -85,12 +79,7 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
                   );
                 },
                 heading: props => (
-                  <Text
-                    {...props}
-                    size="lead"
-                    color="inherit"
-                    className="-mt-100"
-                  />
+                  <Text {...props} size="lead" color="inherit" tag="h3" />
                 ),
                 paragraph: props => <Text {...props} tag="p" color="inherit" />,
               }}
@@ -170,12 +159,7 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
                   );
                 },
                 heading: props => (
-                  <Text
-                    {...props}
-                    size="lead"
-                    color="inherit"
-                    className="-mt-100"
-                  />
+                  <Text {...props} size="lead" color="inherit" tag="h3" />
                 ),
                 paragraph: props => <Text {...props} tag="p" color="inherit" />,
               }}

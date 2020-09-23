@@ -23,7 +23,8 @@ def app_environment = [
         jenkinsAgent: 'grid-dev-jenkins-agent',
         dockerRepoName: "000379120260.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}",
         NODE_ENV: 'development',
-        terraformService: true
+        terraformService: true,
+        alternateDomain: 'dev.vanarama-nonprod.com'
     ],
     "master": [
         clusterName: 'grid-test',
@@ -42,7 +43,8 @@ def app_environment = [
         jenkinsAgent: 'grid-test-jenkins-agent',
         dockerRepoName: "126764662304.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}",
         NODE_ENV: 'development',
-        terraformService: true
+        terraformService: true,
+        alternateDomain: 'test.vanarama-nonprod.com'
     ],
     "uat": [
         clusterName: 'grid-uat',
@@ -61,7 +63,8 @@ def app_environment = [
         jenkinsAgent: 'grid-uat-jenkins-agent',
         dockerRepoName: "126764662304.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}",
         NODE_ENV: 'development',
-        terraformService: true
+        terraformService: true,
+        alternateDomain: 'uat.vanarama-nonprod.com'
     ]
 ]
 
@@ -306,6 +309,7 @@ pipeline {
                 B_NUMBER = "${env.BUILD_NUMBER}"
                 TF_VAR_aws_account_id = "${app_environment["${env.BRANCH_NAME}"].accountId}"
                 TF_VAR_aws_master_role = "${app_environment["${env.BRANCH_NAME}"].awsMasterRole}"
+                TF_VAR_alb_listener_host_override = "${app_environment["${env.BRANCH_NAME}"].alternateDomain}"
             }
             when {
                   beforeAgent true
@@ -394,6 +398,7 @@ pipeline {
                   B_NUMBER = "${env.BUILD_NUMBER}"
                   TF_VAR_aws_account_id = "${app_environment["${env.BRANCH_NAME}"].accountId}"
                   TF_VAR_aws_master_role = "${app_environment["${env.BRANCH_NAME}"].awsMasterRole}"
+                  TF_VAR_alb_listener_host_override = "${app_environment["${env.BRANCH_NAME}"].alternateDomain}"
               }
               when {
                   beforeAgent true

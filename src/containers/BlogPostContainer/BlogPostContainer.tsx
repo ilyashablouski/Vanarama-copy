@@ -4,19 +4,17 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import BreadCrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import ReactMarkdown from 'react-markdown';
 import Router from 'next/router';
-import { ILink } from '@vanarama/uibook/lib/interfaces/link';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { BlogPost_blogPost_category } from '../../../generated/BlogPost';
 import { GenericPageQuery_genericPage_sections_cards_cards } from '../../../generated/GenericPageQuery';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   body: string | null | undefined;
   name: string | null | undefined;
   image: string | null | undefined;
-  crumbs: ILink[];
   cards?:
     | (GenericPageQuery_genericPage_sections_cards_cards | null)[]
     | null
@@ -45,13 +43,12 @@ const BlogPostContainer: NextPage<IProps> = ({
   name,
   image,
   cards,
-  crumbs,
   articles,
 }) => {
   return (
     <>
       <div className="row:title">
-        <BreadCrumb items={crumbs} />
+        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {name || ''}
         </Heading>

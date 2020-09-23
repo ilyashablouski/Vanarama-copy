@@ -6,11 +6,6 @@ import CustomerTestimonialsContainer from '../../../containers/CustomerTestimoni
 import Head from '../../../components/Head/Head';
 import withApollo from '../../../hocs/withApollo';
 
-const crumbs = [
-  { label: 'Home', href: '/' },
-  { label: 'Ask A Question About Van Leasing', href: '/van-leasing-questions' },
-];
-
 const CustomerTestimonialPage: NextPage = () => {
   const { data, loading, error } = useGenericPageTestimonials(
     `/about-us/customer-testimonials`,
@@ -33,15 +28,14 @@ const CustomerTestimonialPage: NextPage = () => {
 
   return (
     <>
-      <Head
-        metaData={metaData}
-        featuredImage={data?.genericPage.featuredImage}
-      />
       <CustomerTestimonialsContainer
-        crumbs={crumbs}
         body={body}
         title={metaData?.name}
         sections={sections}
+      />
+      <Head
+        metaData={metaData}
+        featuredImage={data?.genericPage.featuredImage}
       />
     </>
   );
