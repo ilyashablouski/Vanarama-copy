@@ -3,6 +3,7 @@ import { FieldArray, Formik, useFormikContext } from 'formik';
 import { gql } from '@apollo/client';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import FCWithFragments from '../../utils/FCWithFragments';
@@ -65,7 +66,12 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
     >
       {formikProps => (
         <Form onSubmit={formikProps.handleSubmit}>
-          <Heading color="black" size="xlarge" tag="h1">
+          <Heading
+            color="black"
+            size="xlarge"
+            tag="h1"
+            dataTestId="soleTrader-details-heading"
+          >
             SoleTrader Details
           </Heading>
 
@@ -130,6 +136,14 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
             <OptionsWithFavourites options={dropdownData.noOfDependants} />
           </FormikSelectField>
 
+          <hr className="mv-400" />
+          <Heading color="dark" size="small">
+            Address History
+          </Heading>
+          <Text color="dark" size="small">
+            Please provide your personal address history for the past five
+            years.
+          </Text>
           <FieldArray name="history">
             {arrayHelpers => (
               <AddressFormFieldArray
@@ -254,6 +268,7 @@ SoleTraderDetailsForm.fragments = {
         title
         firstName
         lastName
+        gender
         emailAddresses {
           __typename
           primary
@@ -262,6 +277,16 @@ SoleTraderDetailsForm.fragments = {
         dateOfBirth
         countryOfBirth
         nationality
+        addresses {
+          __typename
+          serviceId
+          lineOne
+          lineTwo
+          postcode
+          city
+          propertyStatus
+          startedOn
+        }
         maritalStatus
         noOfAdultsInHousehold
         noOfDependants
@@ -280,18 +305,6 @@ SoleTraderDetailsForm.fragments = {
       }
     }
   `,
-  addresses: gql`
-    fragment SoleTraderDetailsFormAddresses on AddressType {
-      __typename
-      serviceId
-      lineOne
-      lineTwo
-      postcode
-      city
-      propertyStatus
-      startedOn
-    }
-  `,
   person: gql`
     fragment SoleTraderPerson on PersonType {
       __typename
@@ -308,6 +321,16 @@ SoleTraderDetailsForm.fragments = {
       dateOfBirth
       countryOfBirth
       nationality
+      addresses {
+        __typename
+        serviceId
+        lineOne
+        lineTwo
+        postcode
+        city
+        propertyStatus
+        startedOn
+      }
       maritalStatus
       noOfAdultsInHousehold
       noOfDependants

@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL fragment: SoleTraderDetailsFormAddresses
+// GraphQL fragment: SoleTraderDetailsAddresses
 // ====================================================
 
-export interface SoleTraderDetailsFormAddresses {
+export interface SoleTraderDetailsAddresses {
   __typename: "AddressType";
   serviceId: string | null;
   lineOne: string;

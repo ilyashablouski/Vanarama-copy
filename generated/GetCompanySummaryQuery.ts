@@ -59,6 +59,24 @@ export interface GetCompanySummaryQuery_companyByUuid_associates_addresses {
   lineOne: string;
   lineTwo: string | null;
   postcode: string;
+  __typename: "AddressType";
+}
+
+export interface GetCompanySummaryQuery_companyByUuid_associates_emailAddresses {
+  __typename: "EmailAddressType";
+  primary: boolean;
+  value: string;
+}
+
+export interface GetCompanySummaryQuery_companyByUuid_associates_incomeAndExpense {
+  __typename: "IncomeAndExpenseType";
+  averageMonthlyIncome: number;
+  annualIncome: number | null;
+  totalMonthlyExpenses: number | null;
+  mortgageOrRent: number | null;
+  studentLoan: number | null;
+  anticipateMonthlyIncomeChange: boolean;
+  futureMonthlyIncome: number | null;
 }
 
 export interface GetCompanySummaryQuery_companyByUuid_associates {
@@ -72,6 +90,14 @@ export interface GetCompanySummaryQuery_companyByUuid_associates {
   businessShare: number | null;
   roles: GetCompanySummaryQuery_companyByUuid_associates_roles[] | null;
   addresses: GetCompanySummaryQuery_companyByUuid_associates_addresses[] | null;
+  __typename: "PersonType";
+  emailAddresses: GetCompanySummaryQuery_companyByUuid_associates_emailAddresses[];
+  countryOfBirth: string | null;
+  nationality: string | null;
+  maritalStatus: string | null;
+  noOfAdultsInHousehold: string | null;
+  occupation: string | null;
+  incomeAndExpense: GetCompanySummaryQuery_companyByUuid_associates_incomeAndExpense | null;
 }
 
 export interface GetCompanySummaryQuery_companyByUuid {
@@ -90,6 +116,13 @@ export interface GetCompanySummaryQuery_companyByUuid {
   vatNumber: string | null;
   bankAccounts: GetCompanySummaryQuery_companyByUuid_bankAccounts[] | null;
   associates: GetCompanySummaryQuery_companyByUuid_associates[] | null;
+  tradingName: string | null;
+  monthlyAmountBeingReplaced: number | null;
+  annualTurnover: number | null;
+  annualSalesCost: number | null;
+  annualExpenses: number | null;
+  vehicleRegistrationNumber: string | null;
+  companyType: string | null;
 }
 
 export interface GetCompanySummaryQuery_personByUuid_emailAddresses {
