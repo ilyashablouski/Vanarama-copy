@@ -17,7 +17,7 @@ type QueryParams = OLAFQueryParams & {
 export const VatDetailsPage: NextPage = () => {
   const router = useRouter();
   const isSoleTraderJourney = useSoleTraderJorney();
-  const { companyUuid, orderId, personUuid } = router.query as QueryParams;
+  const { companyUuid, orderId } = router.query as QueryParams;
 
   const handleSubmitError = (err: ApolloError) => {
     console.error(err);
@@ -28,7 +28,7 @@ export const VatDetailsPage: NextPage = () => {
   };
 
   const handleSubmitCompletion = () => {
-    const params = getUrlParam({ orderId, personUuid });
+    const params = getUrlParam({ orderId });
     const detailsUrl = !isSoleTraderJourney
       ? `/b2b/olaf/director-details/[companyUuid]${params}`
       : `/b2b/olaf/sole-trader/sole-trader-details/[companyUuid]${params}`;

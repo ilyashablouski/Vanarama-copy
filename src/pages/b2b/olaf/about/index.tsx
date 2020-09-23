@@ -51,15 +51,18 @@ export const BusinessAboutPage: NextPage = () => {
   const [getPersonByToken] = usePersonByTokenLazyQuery(async data => {
     setPersonUuid(data?.personByToken?.uuid);
     await localForage.setItem('person', data);
-    const partyUuid = [data.personByToken?.partyUuid];
-    await getCompaniesData({
+
+    const companyData = await getCompaniesData({
       personUuid: data.personByToken?.uuid,
-    }).then(resp => {
-      resp.data?.companiesByPersonUuid?.forEach(
-        (companies: CompaniesByPersonUuid) =>
-          partyUuid.push(companies.partyUuid),
-      );
     });
+
+    const partyUuid = [
+      data.personByToken?.partyUuid,
+      ...companyData.data?.companiesByPersonUuid?.map(
+        (companies: CompaniesByPersonUuid) => companies.partyUuid,
+      ),
+    ];
+
     getOrdersData({
       partyUuid,
       excludeStatuses: ['quote', 'expired', 'new'],
@@ -83,16 +86,16 @@ export const BusinessAboutPage: NextPage = () => {
     router.replace(router.pathname, router.asPath);
   }, handleAccountFetchError);
 
-  const handleCreateUpdateBusinessPersonCompletion = (result: SubmitResult) => {
+  const handleCreateUpdateBusinessPersonCompletion = async (
+    result: SubmitResult,
+  ) => {
     const params = getUrlParam({ orderId });
-    const journeyUrl =
-      result.companyType === CompanyTypes.limited
-        ? `company-details/[personUuid]${params}`
-        : `sole-trader/company-details/[personUuid]${params}`;
+    const slug =
+      result.companyType === CompanyTypes.limited ? '' : 'sole-trader/';
     const url =
       router.query.redirect === 'summary'
-        ? `/b2b/olaf/summary/[companyUuid]${params}`
-        : `/b2b/olaf/${journeyUrl}`;
+        ? `/b2b/olaf/${slug}summary/[companyUuid]${params}`
+        : `/b2b/olaf/${slug}company-details/[personUuid]${params}`;
 
     const personId = personUuid || result.businessPersonUuid || '';
 

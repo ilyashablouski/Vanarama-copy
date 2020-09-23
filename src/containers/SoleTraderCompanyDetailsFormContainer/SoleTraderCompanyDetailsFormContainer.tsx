@@ -1,5 +1,4 @@
 import React from 'react';
-// import { gql } from '@apollo/client';
 import CompanyDetailsForm from '../../components/SoleTraderCompanyDetailsForm';
 import { ISoleTraderCompanyDetailsFormValues } from '../../components/SoleTraderCompanyDetailsForm/interfaces';
 import { ISoleTraderCompanyDetailsFormContainerProps } from './interfaces';
@@ -10,7 +9,7 @@ import {
 } from '../../gql/creditApplication';
 import { useUpdateSoleTraderCompanyMutation } from './gql';
 import { useCreateUpdateOrder } from '../../gql/order';
-import { mapFormValues } from './mappers';
+import { mapFormValues, prelodedValuesToInput } from './mappers';
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 import { UpdateSoleTraderCompanyMutation_createUpdateSoleTraderCompany as Company } from '../../../generated/UpdateSoleTraderCompanyMutation';
 
@@ -21,6 +20,7 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
   onCompleted,
   onError,
 }) => {
+  const [mappedCompanyDetails, setMappedCompanyDetails] = React.useState({});
   const [updateSoleTraderCompanyDetails] = useUpdateSoleTraderCompanyMutation();
   const [createUpdateOrder] = useCreateUpdateOrder(() => {});
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
@@ -31,9 +31,15 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
     orderId,
   );
 
-  const defaultCompanyDetails =
+  const initialCompanyDetails =
     getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
       ?.companyDetails;
+
+  React.useMemo(() => {
+    if (initialCompanyDetails) {
+      setMappedCompanyDetails(prelodedValuesToInput(initialCompanyDetails));
+    }
+  }, [initialCompanyDetails]);
 
   const handleSoleTraderCompanyDetailsSave = (
     values: ISoleTraderCompanyDetailsFormValues,
@@ -77,7 +83,7 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
 
   return (
     <CompanyDetailsForm
-      companyDetails={defaultCompanyDetails}
+      companyDetails={mappedCompanyDetails}
       onSubmit={async values => {
         handleSoleTraderCompanyDetailsSave(values)
           .then(response =>
