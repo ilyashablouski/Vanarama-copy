@@ -3,7 +3,7 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { gql } from '@apollo/client';
 import { useRouter } from 'next/router';
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import FCWithFragments from '../../utils/FCWithFragments';
 import BusinessSummaryFormBankDetailsSection from './BusinessSummaryFormBankDetailsSection';
 import { getUrlParam } from '../../utils/url';
