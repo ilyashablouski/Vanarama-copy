@@ -13,6 +13,7 @@ import { mockSearchPodResponse } from '../../../__mocks__/searchpod';
 import { ProductCardData } from '../../../generated/ProductCardData';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
+import { useVehicleListUrl } from '../../gql/vehicleList';
 
 /**
  * NOTE: Mock the SearchPodContainer as it is out of scope for this test and is doing state
@@ -22,6 +23,7 @@ jest.mock('../../containers/SearchPodContainer', () => () => {
   return <div />;
 });
 jest.mock('../../containers/OrdersInformation/gql');
+jest.mock('../../gql/vehicleList');
 
 jest.mock('next/router', () => ({
   push: jest.fn(),
@@ -381,6 +383,32 @@ const mocked: MockedResponse[] = [
 
 describe('<HomePage />', () => {
   beforeEach(async () => {
+    (useVehicleListUrl as jest.Mock).mockReturnValue({
+      loading: false,
+      data: {
+        vehicleList: {
+          totalCount: 1,
+          pageInfo: {
+            startCursor: 'startCursor',
+            endCursor: 'endCursor',
+            hasNextPage: 'hasNextPage',
+            hasPreviousPage: 'hasPreviousPage',
+          },
+          edges: [
+            {
+              cursor: 'cursor',
+              node: {
+                derivativeId: '44514',
+                url: 'url',
+                legacyUrl: 'legacyUrl',
+              },
+            },
+          ],
+        },
+      },
+      error: undefined,
+    });
+
     (useCarDerivativesData as jest.Mock).mockReturnValue({
       loading: false,
       data: {
