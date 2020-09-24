@@ -13,7 +13,7 @@ import Script from '../components/VWO/Script';
 // const { publicRuntimeConfig } = getConfig();
 
 // GTM.
-const gtmEnvs = ['test', 'dev', 'production', 'development'];
+const gtmEnvs = ['dev', 'uat', 'production', 'development'];
 
 // VWO
 const vwoEnvs = ['uat'];

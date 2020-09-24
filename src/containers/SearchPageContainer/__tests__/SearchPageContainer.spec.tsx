@@ -431,6 +431,7 @@ const mocksResponse: MockedResponse[] = [
             personalRate: 55,
           },
           derivatives: mockData.data.derivatives,
+          vehicleList: {},
         },
         refetch: jest.fn(),
       };
@@ -449,6 +450,7 @@ const mocksResponse: MockedResponse[] = [
         data: {
           productCard: {},
           derivatives: [],
+          vehicleList: {},
         },
         refetch: jest.fn(),
       };
@@ -458,7 +460,7 @@ const mocksResponse: MockedResponse[] = [
     request: {
       query: GET_PRODUCT_CARDS_DATA,
       variables: {
-        capIds: [83615],
+        capIds: ['83615'],
         vehicleType: VehicleTypeEnum.CAR,
       },
     },
@@ -558,6 +560,9 @@ const mocksResponse: MockedResponse[] = [
             },
           ],
           derivatives: mockData.data.derivatives,
+        },
+        vehicleList: {
+          edges: [],
         },
         refetch: jest.fn(),
       };

@@ -36,9 +36,11 @@ const isMonthInFuture = (month: string, year: string) => {
 
 const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps> = ({
   onSubmit,
+  companyDetails,
 }) => {
   const methods = useForm<ISoleTraderCompanyDetailsFormValues>({
     mode: 'onBlur',
+    defaultValues: companyDetails,
   });
   const { formState, errors, register, watch } = methods;
   const existingVehicle = watch('existingVehicle');
@@ -84,7 +86,7 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
         controlId="natureOfBusiness"
         label="Nature of Business"
         hint="e.g. building firm/marketing agency"
-        error={errors.natureofBusiness?.message?.toString()}
+        error={errors.natureOfBusiness?.message?.toString()}
       >
         <TextInput
           id="nature-of-business"

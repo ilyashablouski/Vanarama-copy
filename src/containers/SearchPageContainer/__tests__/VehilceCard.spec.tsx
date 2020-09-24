@@ -7,6 +7,7 @@ import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 describe('<VehicleCard />', () => {
   const resetMocks = () => {
     return {
+      url: '/car-leasing/vauxhall/crossland-x/bodystylename/slug',
       title: {
         title: '',
         link: (

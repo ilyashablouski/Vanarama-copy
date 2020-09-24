@@ -22,6 +22,7 @@ const mockParams = {
   personUuid: '895f87bc-14bf-407b-91c1-42ae3ebfb9e2',
   companyUuid: 'c4e8c130-8c71-4eeb-b2a8-b161426ef3a7',
   orderId: 'bf87b571-9846-49db-bd37-2c05c127efe8',
+  isSoleTrader: false,
 };
 
 // const mocks = [
