@@ -53,49 +53,48 @@ export const responseToInitialFormValues = (
   const st: any = soleTrader || person;
   const email = person?.emailAddresses.find(addr => addr.primary)?.value || '';
   const dateOfBirth = st?.dateOfBirth && new Date(st.dateOfBirth);
+  const addresses = st?.addresses || [];
 
-  return (
-    {
-      firstName: st?.firstName || '',
-      lastName: st?.lastName || '',
-      gender: st?.gender || '',
-      placeOfBirth: st?.countryOfBirth || '',
-      dependants: st?.noOfDependants || '',
-      email,
-      maritalStatus: st?.maritalStatus || '',
-      nationality: st?.nationality || '',
-      title: st?.title || '',
-      dayOfBirth: dateOfBirth ? String(dateOfBirth.getDate()) : '',
-      monthOfBirth: dateOfBirth ? String(dateOfBirth.getMonth() + 1) : '',
-      yearOfBirth: dateOfBirth ? String(dateOfBirth.getFullYear()) : '',
-      adultsInHousehold: st?.noOfAdultsInHousehold || '',
-      occupation: st?.occupation || '',
-      avgMonthlyIncome: st?.incomeAndExpense?.averageMonthlyIncome || 0,
-      annualIncome: st?.incomeAndExpense?.annualIncome || 0,
-      monthlyMortgagePayments: st?.incomeAndExpense?.mortgageOrRent || 0,
-      monthlyStudentPayments: st?.incomeAndExpense?.studentLoan || 0,
-      monthlyIncomeChange:
-        st?.incomeAndExpense?.anticipateMonthlyIncomeChange || false,
-      futureMonthlyIncome: st?.incomeAndExpense?.futureMonthlyIncome || 0,
-      history: [...st?.addresses]
-        ?.sort(
-          (a, b) =>
-            new Date(b.startedOn).getTime() - new Date(a.startedOn).getTime(),
-        )
-        .map(address => {
-          const movedIn = new Date(address.startedOn);
-          return {
-            status: address.propertyStatus || '',
-            month: String(movedIn.getMonth() + 1),
-            year: String(movedIn.getFullYear()),
-            address: address.serviceId
-              ? {
-                  id: address.serviceId,
-                  label: addressToDisplay(address),
-                }
-              : undefined,
-          };
-        }),
-    } || []
-  );
+  return {
+    firstName: st?.firstName || '',
+    lastName: st?.lastName || '',
+    gender: st?.gender || '',
+    placeOfBirth: st?.countryOfBirth || '',
+    dependants: st?.noOfDependants || '',
+    email,
+    maritalStatus: st?.maritalStatus || '',
+    nationality: st?.nationality || '',
+    title: st?.title || '',
+    dayOfBirth: dateOfBirth ? String(dateOfBirth.getDate()) : '',
+    monthOfBirth: dateOfBirth ? String(dateOfBirth.getMonth() + 1) : '',
+    yearOfBirth: dateOfBirth ? String(dateOfBirth.getFullYear()) : '',
+    adultsInHousehold: st?.noOfAdultsInHousehold || '',
+    occupation: st?.occupation || '',
+    avgMonthlyIncome: st?.incomeAndExpense?.averageMonthlyIncome || 0,
+    annualIncome: st?.incomeAndExpense?.annualIncome || 0,
+    monthlyMortgagePayments: st?.incomeAndExpense?.mortgageOrRent || 0,
+    monthlyStudentPayments: st?.incomeAndExpense?.studentLoan || 0,
+    monthlyIncomeChange:
+      st?.incomeAndExpense?.anticipateMonthlyIncomeChange || false,
+    futureMonthlyIncome: st?.incomeAndExpense?.futureMonthlyIncome || 0,
+    history: [...addresses]
+      .sort(
+        (a, b) =>
+          new Date(b.startedOn).getTime() - new Date(a.startedOn).getTime(),
+      )
+      .map(address => {
+        const movedIn = new Date(address.startedOn);
+        return {
+          status: address.propertyStatus || '',
+          month: String(movedIn.getMonth() + 1),
+          year: String(movedIn.getFullYear()),
+          address: address.serviceId
+            ? {
+                id: address.serviceId,
+                label: addressToDisplay(address),
+              }
+            : undefined,
+        };
+      }),
+  };
 };
