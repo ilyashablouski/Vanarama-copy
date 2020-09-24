@@ -3,7 +3,6 @@ import {
   SoleTraderDetailsFormDataQuery_companyByUuid_associates as SoleTraderAssociates,
   SoleTraderDetailsFormDataQuery_personByUuid as SoleTraderPerson,
 } from '../../../generated/SoleTraderDetailsFormDataQuery';
-import { SoleTraderDetailsAddresses } from '../../../generated/SoleTraderDetailsAddresses';
 import { TAddressEntry } from '../AddressForm/interfaces';
 
 export interface ISoleTraderDetailsFormValues {
@@ -31,7 +30,6 @@ export interface ISoleTraderDetailsFormValues {
 }
 
 export interface ISoleTraderDetailsProps {
-  addresses: SoleTraderDetailsAddresses[] | null;
   soleTrader?: SoleTraderAssociates | null;
   person?: SoleTraderPerson | null;
   dropdownData: SoleTraderDetailsDropDownData;
