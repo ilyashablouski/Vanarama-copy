@@ -82,9 +82,10 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
         <SoleTraderCompanyDetailsSummarySection
           company={company}
           onEdit={handleEdit(
-            '/b2b/olaf/sole-trader/company-details/[orderId]',
+            '/b2b/olaf/sole-trader/company-details/[personUuid]',
             {
               companyUuid: company.uuid,
+              orderId,
             },
           )}
         />
@@ -102,9 +103,9 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
         <SoleTraderDetailsSummarySection
           soleTrader={company.associates?.[0]}
           onEdit={handleEdit(
-            '/b2b/olaf/sole-trader/sole-trader-details/[orderId]',
+            '/b2b/olaf/sole-trader/sole-trader-details/[companyUuid]',
             {
-              companyUuid: company.uuid,
+              orderId,
             },
           )}
         />
@@ -112,7 +113,7 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
           <BusinessSummaryFormBankDetailsSection
             account={primaryBankAccount}
             onEdit={handleEdit(
-              '/b2b/olaf/sole-Trader/bank-details/[companyUuid]',
+              '/b2b/olaf/sole-Trader/company-bank-details/[companyUuid]',
               {
                 orderId,
               },
