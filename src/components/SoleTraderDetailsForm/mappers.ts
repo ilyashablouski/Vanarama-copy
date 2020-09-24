@@ -1,7 +1,6 @@
 import moment from 'moment';
 import { SoleTraderAssociate_associates as SoleTrader } from '../../../generated/SoleTraderAssociate';
 import { SoleTraderPerson as Person } from '../../../generated/SoleTraderPerson';
-import { SoleTraderDetailsAddresses } from '../../../generated/SoleTraderDetailsAddresses';
 import { CompanyAssociateInputObject } from '../../../generated/globalTypes';
 import { ISoleTraderDetailsFormValues } from './interfaces';
 import { addressToDisplay } from '../../utils/address';
@@ -50,7 +49,6 @@ export const formValuesToAssociate = (
 export const responseToInitialFormValues = (
   person: Person | null | undefined,
   soleTrader: SoleTrader | null | undefined,
-  addresses: SoleTraderDetailsAddresses[] | null,
 ): ISoleTraderDetailsFormValues => {
   const email = person?.emailAddresses.find(_ => _.primary)?.value || '';
   const dateOfBirth = person?.dateOfBirth && new Date(person.dateOfBirth);
@@ -78,7 +76,7 @@ export const responseToInitialFormValues = (
     monthlyIncomeChange:
       st?.incomeAndExpense?.anticipateMonthlyIncomeChange || false,
     futureMonthlyIncome: st?.incomeAndExpense?.futureMonthlyIncome || 0,
-    history: [...addresses]
+    history: [...st.addresses]
       .sort(
         (a, b) =>
           new Date(b.startedOn).getTime() - new Date(a.startedOn).getTime(),
