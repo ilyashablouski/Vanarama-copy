@@ -8,6 +8,11 @@ export interface THistoryEntry {
 export const formatDate = (year: string, month: string, day: string) =>
   moment(new Date(+year, +month - 1, +day)).format('DD MMMM YYYY') || '';
 
+export const dateToFormat = (date: string) => {
+  const arr = date.split('-');
+  return formatDate(arr[0], arr[1], arr[2]);
+};
+
 export const parseDate = (day: string, month: string, year: string) =>
   moment(`${day}-${month}-${year}`, 'DD-MM-YYYY');
 
