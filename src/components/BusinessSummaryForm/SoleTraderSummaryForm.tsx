@@ -46,7 +46,7 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
   const handleEdit = (
     url: string,
     additionalParameters?: { [key: string]: string },
-  ) => {
+  ) => () => {
     const params = getUrlParam({
       redirect: 'summary',
       ...additionalParameters,
