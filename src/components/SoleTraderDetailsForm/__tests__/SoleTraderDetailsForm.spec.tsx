@@ -11,7 +11,6 @@ describe('<SoleTraderDetailsForm />', () => {
     render(
       <SoleTraderDetailsForm
         isEdited={false}
-        addresses={[]}
         dropdownData={{
           __typename: 'DropDownType',
           titles: {
