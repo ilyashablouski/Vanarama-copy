@@ -76,7 +76,7 @@ export const responseToInitialFormValues = (
     monthlyIncomeChange:
       st?.incomeAndExpense?.anticipateMonthlyIncomeChange || false,
     futureMonthlyIncome: st?.incomeAndExpense?.futureMonthlyIncome || 0,
-    history: [...st.addresses]
+    history: [...st?.addresses]
       .sort(
         (a, b) =>
           new Date(b.startedOn).getTime() - new Date(a.startedOn).getTime(),
