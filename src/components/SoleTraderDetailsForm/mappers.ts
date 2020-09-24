@@ -50,9 +50,9 @@ export const responseToInitialFormValues = (
   person: Person | null | undefined,
   soleTrader: SoleTrader | null | undefined,
 ): ISoleTraderDetailsFormValues => {
-  const email = person?.emailAddresses.find(_ => _.primary)?.value || '';
-  const dateOfBirth = person?.dateOfBirth && new Date(person.dateOfBirth);
   const st: any = soleTrader || person;
+  const email = person?.emailAddresses.find(addr => addr.primary)?.value || '';
+  const dateOfBirth = st?.dateOfBirth && new Date(st.dateOfBirth);
 
   return {
     firstName: st?.firstName || '',
