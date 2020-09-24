@@ -50,6 +50,11 @@ declare global {
   }
 }
 
+const PRICE_TYPE = {
+  excVAT: 'Excluding VAT',
+  incVAT: 'Including VAT',
+};
+
 export const pushToDataLayer = (data: IPageDataLayer) => {
   window.dataLayer?.push(data);
 };
@@ -187,8 +192,8 @@ export const pushAddToCartDataLayer = ({
   pushDetail(
     'priceType',
     values?.leaseType === LeaseTypeEnum.BUSINESS
-      ? 'Excluding VAT'
-      : 'Including VAT',
+      ? PRICE_TYPE.excVAT
+      : PRICE_TYPE.incVAT,
     product,
   );
   pushDetail('lengthOfLease', lineItem?.vehicleProduct?.term, product);
