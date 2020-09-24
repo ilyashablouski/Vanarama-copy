@@ -30,7 +30,7 @@ const AboutForm: FCWithFragments<IProps> = ({
     () =>
       isEmailCheckerExists
         ? createValidationSchema(onEmailExistenceCheck!)
-        : () => Promise.resolve(false),
+        : createValidationSchema(() => Promise.resolve(false)),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [isEmailCheckerExists],
   );

@@ -73,6 +73,7 @@ import {
 } from '../../../generated/GenericPageHeadQuery';
 import useLeaseType from '../../hooks/useLeaseType';
 import { LinkTypes } from '../../models/enum/LinkTypes';
+import { getLegacyUrl } from '../../utils/url';
 import TileLink from '../../components/TileLink/TileLink';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
@@ -835,7 +836,6 @@ const SearchPageContainer: React.FC<IProps> = ({
                   vehiclesList?.map((vehicle: IVehicles) => (
                     <VehicleCard
                       viewOffer={viewOffer}
-                      dataDerivatives={carDer}
                       bodyStyle={
                         router.query?.bodyStyles === 'Pickup' ? 'Pickup' : null
                       }
@@ -845,6 +845,11 @@ const SearchPageContainer: React.FC<IProps> = ({
                           vehicle.node?.derivativeId || '',
                         ) as IProductCard
                       }
+                      derivativeId={vehicle.node?.derivativeId}
+                      url={getLegacyUrl(
+                        vehiclesList,
+                        vehicle.node?.derivativeId,
+                      )}
                       title={{
                         title: '',
                         description: vehicle.node?.derivativeName || '',
