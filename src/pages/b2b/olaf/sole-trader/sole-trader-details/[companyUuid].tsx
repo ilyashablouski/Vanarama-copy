@@ -29,7 +29,10 @@ export const SoleTraderDetailsPage: NextPage = () => {
 
   const handleSubmitCompletion = () => {
     const params = getUrlParam({ orderId });
-    const url = `/b2b/olaf/sole-trader/bank-details/[companyUuid]${params}`;
+    const url =
+      router.query.redirect === 'summary'
+        ? `/b2b/olaf/sole-trader/summary/[companyUuid]${params}`
+        : `/b2b/olaf/sole-trader/bank-details/[companyUuid]${params}`;
     router.push(url, url.replace('[companyUuid]', companyUuid));
   };
 
