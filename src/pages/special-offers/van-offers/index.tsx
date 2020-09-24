@@ -27,6 +27,7 @@ import useLeaseType from '../../../hooks/useLeaseType';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import Head from '../../../components/Head/Head';
 import Breadcrumb from '../../../components/Breadcrumb/Breadcrumb';
+import { useVehicleListUrl } from '../../../gql/vehicleList';
 
 export const VanOffers: NextPage = () => {
   const { data, loading, error } = useQuery<VanOffersPageData>(
@@ -47,8 +48,11 @@ export const VanOffers: NextPage = () => {
     },
   );
 
+  const productSmallVanCapIds = productSmallVan?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
   const { data: productSmallVanDerivatives } = useCarDerivativesData(
-    productSmallVan?.productCarousel?.map(el => el?.capId || '') || [''],
+    productSmallVanCapIds,
     VehicleTypeEnum.LCV,
   );
 
@@ -64,8 +68,11 @@ export const VanOffers: NextPage = () => {
     },
   );
 
+  const productMediumVanCapIds = productMediumVan?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
   const { data: productMediumVanDerivatives } = useCarDerivativesData(
-    productMediumVan?.productCarousel?.map(el => el?.capId || '') || [''],
+    productMediumVanCapIds,
     VehicleTypeEnum.LCV,
   );
 
@@ -81,8 +88,11 @@ export const VanOffers: NextPage = () => {
     },
   );
 
+  const productLargeVanCapIds = productLargeVan?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
   const { data: productLargeVanDerivatives } = useCarDerivativesData(
-    productLargeVan?.productCarousel?.map(el => el?.capId || '') || [''],
+    productLargeVanCapIds,
     VehicleTypeEnum.LCV,
   );
 
@@ -121,6 +131,12 @@ export const VanOffers: NextPage = () => {
       },
     },
   );
+
+  const { data: productVehicles } = useVehicleListUrl([
+    ...productSmallVanCapIds,
+    ...productMediumVanCapIds,
+    ...productLargeVanCapIds,
+  ]);
 
   if (loading) {
     return <Loading size="large" />;
@@ -161,6 +177,7 @@ export const VanOffers: NextPage = () => {
             data={{
               derivatives: productSmallVanDerivatives?.derivatives || null,
               productCard: productSmallVan?.productCarousel || null,
+              vehicleList: productVehicles?.vehicleList!,
             }}
             countItems={productSmallVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
@@ -191,6 +208,7 @@ export const VanOffers: NextPage = () => {
             data={{
               derivatives: productMediumVanDerivatives?.derivatives || null,
               productCard: productMediumVan?.productCarousel || null,
+              vehicleList: productVehicles?.vehicleList!,
             }}
             countItems={productMediumVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
@@ -221,6 +239,7 @@ export const VanOffers: NextPage = () => {
             data={{
               derivatives: productLargeVanDerivatives?.derivatives || null,
               productCard: productLargeVan?.productCarousel || null,
+              vehicleList: productVehicles?.vehicleList!,
             }}
             countItems={productLargeVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
@@ -251,6 +270,7 @@ export const VanOffers: NextPage = () => {
             data={{
               derivatives: null,
               productCard: productPickups?.productCarousel || null,
+              vehicleList: productVehicles?.vehicleList!,
             }}
             countItems={productPickups?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
@@ -281,6 +301,7 @@ export const VanOffers: NextPage = () => {
             data={{
               derivatives: null,
               productCard: productTippers?.productCarousel || null,
+              vehicleList: productVehicles?.vehicleList!,
             }}
             countItems={productTippers?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
@@ -313,6 +334,7 @@ export const VanOffers: NextPage = () => {
             data={{
               derivatives: null,
               productCard: productSpecialistVan?.productCarousel || null,
+              vehicleList: productVehicles?.vehicleList!,
             }}
             countItems={productSpecialistVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"

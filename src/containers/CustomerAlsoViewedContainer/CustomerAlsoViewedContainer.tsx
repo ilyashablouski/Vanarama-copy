@@ -18,7 +18,6 @@ const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> =
   vehicleType,
 }) => {
   const { data, loading, error } = useProductCardData(capsId, vehicleType);
-
   if (loading) {
     return (
       <div
