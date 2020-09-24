@@ -114,7 +114,7 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
           <BusinessSummaryFormBankDetailsSection
             account={primaryBankAccount}
             onEdit={handleEdit(
-              '/b2b/olaf/sole-Trader/company-bank-details/[companyUuid]',
+              '/b2b/olaf/sole-trader/bank-details/[companyUuid]',
               {
                 orderId,
               },
