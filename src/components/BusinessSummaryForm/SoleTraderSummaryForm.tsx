@@ -43,23 +43,23 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
 
   const selectLabel = isSubmitting ? 'Saving...' : 'Continue';
 
-  const handleEdit = useCallback(
-    (url: string, additionalParameters?: { [key: string]: string }) => () => {
-      const params = getUrlParam({
-        redirect: 'summary',
-        ...additionalParameters,
-      });
-      const href = `${url}${params}`;
-      router.push(
-        href,
-        href
-          .replace('[companyUuid]', company.uuid)
-          .replace('[personUuid]', person.uuid)
-          .replace('[orderId]', orderId),
-      );
-    },
-    [company.uuid, orderId, person.uuid, router],
-  );
+  const handleEdit = (
+    url: string,
+    additionalParameters?: { [key: string]: string },
+  ) => {
+    const params = getUrlParam({
+      redirect: 'summary',
+      ...additionalParameters,
+    });
+    const href = `${url}${params}`;
+    router.push(
+      href,
+      href
+        .replace('[companyUuid]', company.uuid)
+        .replace('[personUuid]', person.uuid)
+        .replace('[orderId]', orderId),
+    );
+  };
 
   return (
     <div>
