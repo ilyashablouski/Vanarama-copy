@@ -35,4 +35,12 @@ module.exports = [
     source: '/automatic-vans.html',
     destination: '/van-leasing/automatic',
   },
+  {
+    source: '/car-leasing-explained.html',
+    destination: '/car-leasing-explained',
+  },
+  {
+    source: '/car-leasing-explained/:explained.html',
+    destination: '/car-leasing-explained/:explained',
+  },
 ];
