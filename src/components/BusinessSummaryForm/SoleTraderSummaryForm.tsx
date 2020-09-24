@@ -74,6 +74,7 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
       <br />
       <Form className="olaf--summary">
         <BusinessSummaryFormAboutSection
+          soletrader
           person={person}
           onEdit={handleEdit('/b2b/olaf/about/[orderId]', {
             companyUuid: company.uuid,

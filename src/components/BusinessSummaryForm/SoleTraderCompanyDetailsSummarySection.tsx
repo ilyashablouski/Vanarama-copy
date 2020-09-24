@@ -3,6 +3,7 @@ import React from 'react';
 import { gql } from '@apollo/client';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { SoleTraderCompanyDetailsSummary } from '../../../generated/SoleTraderCompanyDetailsSummary';
+import { formatDate } from '../../utils/dates';
 
 interface IProps {
   company: SoleTraderCompanyDetailsSummary;
@@ -24,6 +25,11 @@ const financeToBeReplaced = (company: SoleTraderCompanyDetailsSummary) =>
         },
       ]
     : [];
+
+const dateToFormat = (date: string) => {
+  const arr = date.split('-');
+  return formatDate(arr[0], arr[1], arr[2]);
+};
 
 const SoleTraderCompanyDetailsSummarySection: FCWithFragments<IProps> = ({
   company,
@@ -56,7 +62,7 @@ const SoleTraderCompanyDetailsSummarySection: FCWithFragments<IProps> = ({
         },
         {
           label: 'Trading Since',
-          value: company.tradingSince || '',
+          value: dateToFormat(company.tradingSince) || '',
           dataTestId: 'summary-company-trading-since',
         },
         {

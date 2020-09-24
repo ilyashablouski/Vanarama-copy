@@ -1,4 +1,4 @@
-import { toYearsAndMonthsDisplay } from '../dates';
+import { toYearsAndMonthsDisplay, formatDate } from '../dates';
 
 describe('Date utils', () => {
   describe('toYearsAndMonthsDisplay', () => {
@@ -17,6 +17,15 @@ describe('Date utils', () => {
     ])('toYearsAndMonthsDisplay(%d) should return "%s"', (input, expected) => {
       const actual = toYearsAndMonthsDisplay(input);
       expect(actual).toEqual(expected);
+    });
+  });
+
+  describe('formatDate', () => {
+    it('should format date to a more human readable variation', () => {
+      const yr = '1999';
+      const mth = '08';
+      const day = '04';
+      expect(formatDate(yr, mth, day)).toBe('04 August 1999');
     });
   });
 });

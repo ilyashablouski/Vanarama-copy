@@ -8,15 +8,13 @@ import { CompanyAssociate_addresses as Address } from '../../../generated/Compan
 import { addressToDisplay } from '../../utils/address';
 import { sortAddresses } from './helpers';
 import { DirectorFormValues } from '../DirectorDetailsForm/interfaces';
+import { formatDate } from '../../utils/dates';
 
 interface IBusinessSummaryFormDirectorDetailsSectionProps {
   director: DirectorFormValues & { addresses?: Address[] };
   orderBySharehold: number;
   onEdit: () => any;
 }
-
-const formatDateOfBirth = (year: string, month: string, day: string) =>
-  moment(new Date(+year, +month, +day)).format('DD MMMM YYYY') || '';
 
 const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummaryFormDirectorDetailsSectionProps> = ({
   onEdit,
@@ -41,7 +39,7 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
     },
     {
       label: 'Date Of Birth',
-      value: formatDateOfBirth(
+      value: formatDate(
         director.yearOfBirth,
         director.monthOfBirth,
         director.dayOfBirth,

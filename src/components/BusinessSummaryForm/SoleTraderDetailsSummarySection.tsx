@@ -3,11 +3,17 @@ import StructuredList from '@vanarama/uibook/lib/components/organisms/structured
 import { SummaryFormSoleTrader_associates as SoleTraderAssociate } from '../../../generated/SummaryFormSoleTrader';
 import { addressToDisplay } from '../../utils/address';
 import { sortAddresses } from './helpers';
+import { formatDate } from '../../utils/dates';
 
 interface IProps {
   soleTrader: SoleTraderAssociate | undefined;
   onEdit: () => any;
 }
+
+const dateToFormat = (date: string) => {
+  const arr = date.split('-');
+  return formatDate(arr[0], arr[1], arr[2]);
+};
 
 const SoleTraderDetailsSummarySection: React.FC<IProps> = ({
   soleTrader,
@@ -45,7 +51,7 @@ const SoleTraderDetailsSummarySection: React.FC<IProps> = ({
           },
           {
             label: 'Date Of Birth',
-            value: soleTrader?.dateOfBirth || '',
+            value: dateToFormat(soleTrader?.dateOfBirth) || '',
             dataTestId: 'summary-soleTrader-last-name',
           },
           {
