@@ -13,7 +13,11 @@ import DownloadSharp from '@vanarama/uibook/lib/assets/icons/DownloadSharp';
 import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-gallery';
 import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
 import cx from 'classnames';
-import { pushPDPDataLayer } from '../../utils/dataLayerHelpers';
+import {
+  pushPDPDataLayer,
+  pushAddToCartDataLayer,
+  pushPageData,
+} from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
 import { toPriceFormat } from '../../utils/helpers';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
@@ -74,6 +78,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [firstTimePushDataLayer, setFirstTimePushDataLayer] = useState<boolean>(
     true,
   );
+
+  useEffect(() => {
+    pushPageData(cars ? 'Cars' : 'Vans');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   useEffect(() => {
     setCachedLeaseType(leaseType);
   }, [leaseType, setCachedLeaseType]);
@@ -108,6 +118,17 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [createOrderHandle] = useCreateUpdateOrder(() => {});
 
   const onSubmitClick = (values: OrderInputObject) => {
+    const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
+    const derivativeInfo = data?.derivativeInfo;
+    const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
+    pushAddToCartDataLayer({
+      capId,
+      derivativeInfo,
+      leaseScannerData,
+      values,
+      vehicleConfigurationByCapId,
+      price,
+    });
     return createOrderHandle({
       variables: {
         input: values,

@@ -11,7 +11,7 @@ import {
 // const { publicRuntimeConfig } = getConfig();
 
 // GTM.
-const gtmEnvs = ['test', 'dev', 'production', 'development'];
+const gtmEnvs = ['dev', 'uat', 'production', 'development'];
 
 // Rollbar
 // const rollbarCode = `

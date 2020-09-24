@@ -9,7 +9,7 @@ import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import RouterLink from '../RouterLink/RouterLink';
-import { getProductPageUrl } from '../../utils/url';
+import { formatProductPageUrl, getLegacyUrl } from '../../utils/url';
 import {
   GetProductCard,
   GetProductCard_productCard,
@@ -75,7 +75,10 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
               }))}
               onCompare={() => {
                 compareChange({
-                  pageUrl: getProductPageUrl(product, data?.derivatives),
+                  pageUrl: formatProductPageUrl(
+                    getLegacyUrl(data?.vehicleList?.edges, product.capId),
+                    product.capId,
+                  ),
                   bodyStyle: productType || getBodyStyle(product),
                   ...product,
                 });
@@ -88,12 +91,15 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                 link: (
                   <RouterLink
                     link={{
-                      href: getProductPageUrl(product, data?.derivatives).href,
+                      href: getLegacyUrl(
+                        data.vehicleList?.edges,
+                        product?.capId,
+                      ),
                       label: truncateString(
                         `${product.manufacturerName} ${product.rangeName}`,
                       ),
                     }}
-                    as={getProductPageUrl(product, data?.derivatives).url}
+                    as={getLegacyUrl(data.vehicleList?.edges, product?.capId)}
                     onClick={() =>
                       sessionStorage.setItem('capId', product.capId || '')
                     }
@@ -120,10 +126,10 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                 />
                 <RouterLink
                   link={{
-                    href: getProductPageUrl(product, data?.derivatives).href,
+                    href: getLegacyUrl(data.vehicleList?.edges, product?.capId),
                     label: 'View Offer',
                   }}
-                  as={getProductPageUrl(product, data?.derivatives).url}
+                  as={getLegacyUrl(data.vehicleList?.edges, product?.capId)}
                   onClick={() =>
                     sessionStorage.setItem('capId', product.capId || '')
                   }
