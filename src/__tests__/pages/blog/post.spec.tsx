@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { useGenericPage } from '../../../gql/genericPage';
-import BlogPost from '../../../pages/blog/post';
+import BlogPost from '../../../pages/blog';
 
 jest.mock('../../../gql/genericPage');
 jest.mock('next/router', () => ({
