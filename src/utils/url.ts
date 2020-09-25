@@ -1,9 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { VehicleTypeEnum } from '../../generated/globalTypes';
-import {
-  GetProductCard_productCard,
-  GetProductCard_derivatives,
-} from '../../generated/GetProductCard';
 
 type UrlParams = { [key: string]: string | undefined };
 
@@ -15,54 +11,22 @@ export const getUrlParam = (urlParams: UrlParams, notReplace?: boolean) => {
   return notReplace ? url.join('') : url.join('').replace('&', '?');
 };
 
-const productPageUrlData = (
-  productCard: GetProductCard_productCard | null,
-  derivatives: GetProductCard_derivatives[] | null,
-): productPageUrlData => {
-  const derivativeData = derivatives?.find(el => el.id === productCard?.capId);
-  return {
-    manufacturer: derivativeData?.manufacturer.slug || null,
-    range: derivativeData?.range.slug || null,
-    slug: derivativeData?.slug || null,
-    capId: derivativeData?.id || null,
-    vehicleType: productCard?.vehicleType || null,
-    bodyStyle:
-      derivativeData?.bodyStyle?.name
-        ?.toLocaleLowerCase()
-        .split(' ')
-        .join('-') || null,
-    model: derivativeData?.model.slug || null,
-  };
-};
+export const formatProductPageUrl = (
+  url?: string | null,
+  capId?: string | null,
+) => ({
+  url: url || '',
+  href: url || '',
+  capId: capId as string,
+});
 
-export const getProductPageUrl = (
-  productCard: GetProductCard_productCard | null,
-  derivatives: GetProductCard_derivatives[] | null,
+export const getLegacyUrl = (
+  data?: any[] | null,
+  derivativeId?: string | null,
 ) => {
-  const {
-    manufacturer,
-    range,
-    bodyStyle,
-    model,
-    slug,
-    vehicleType,
-    capId,
-  } = productPageUrlData(productCard, derivatives);
+  const edge = data?.find(item => item.node?.derivativeId === derivativeId);
 
-  const leasing =
-    vehicleType === VehicleTypeEnum.CAR ? '/car-leasing' : '/van-leasing';
-
-  return vehicleType === VehicleTypeEnum.CAR
-    ? {
-        url: `${leasing}/${manufacturer}/${range}/${bodyStyle}/${slug}`,
-        href: `${leasing}/[...details-page]`,
-        capId: capId as string,
-      }
-    : {
-        url: `${leasing}/${manufacturer}/${model}/${slug}`,
-        href: `${leasing}/[...details-page]`,
-        capId: capId as string,
-      };
+  return edge?.node?.legacyUrl || edge?.node?.url || '';
 };
 
 export const getProductPageBreadCrumb = (

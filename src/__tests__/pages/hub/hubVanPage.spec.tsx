@@ -13,6 +13,7 @@ import { mockSearchPodResponse } from '../../../../__mocks__/searchpod';
 import { ProductCardData } from '../../../../generated/ProductCardData';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import { useVehicleListUrl } from '../../../gql/vehicleList';
 
 /**
  * NOTE: Mock the SearchPodContainer as it is out of scope for this test and is doing state
@@ -22,6 +23,7 @@ jest.mock('../../../containers/SearchPodContainer', () => () => {
   return <div />;
 });
 jest.mock('../../../containers/OrdersInformation/gql');
+jest.mock('../../../gql/vehicleList');
 
 jest.mock('next/router', () => ({
   push: jest.fn(),
@@ -474,6 +476,32 @@ const mocked: MockedResponse[] = [
 
 describe('<VansPage />', () => {
   beforeEach(async () => {
+    (useVehicleListUrl as jest.Mock).mockReturnValue({
+      loading: false,
+      data: {
+        vehicleList: {
+          totalCount: 1,
+          pageInfo: {
+            startCursor: 'startCursor',
+            endCursor: 'endCursor',
+            hasNextPage: 'hasNextPage',
+            hasPreviousPage: 'hasPreviousPage',
+          },
+          edges: [
+            {
+              cursor: 'cursor',
+              node: {
+                derivativeId: '44514',
+                url: '/van-leasing/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
+                legacyUrl: null,
+              },
+            },
+          ],
+        },
+      },
+      error: undefined,
+    });
+
     (useCarDerivativesData as jest.Mock).mockReturnValue({
       loading: false,
       data: {

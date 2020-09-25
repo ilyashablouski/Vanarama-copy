@@ -6,12 +6,14 @@ import AboutForm from '../AboutForm';
 
 interface IProps {
   person: AboutFormPerson;
+  soletrader?: boolean;
   onEdit: () => any;
 }
 
 const BusinessSummaryFormAboutSection: FCWithFragments<IProps> = ({
   person,
   onEdit,
+  soletrader,
 }) => (
   <>
     <StructuredList
@@ -48,7 +50,7 @@ const BusinessSummaryFormAboutSection: FCWithFragments<IProps> = ({
         },
         {
           label: 'Type Of Company',
-          value: 'Limited',
+          value: soletrader ? 'Sole trader' : 'Limited',
           dataTestId: 'summary-person-type-of-company',
         },
       ]}

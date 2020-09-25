@@ -1,5 +1,13 @@
 module.exports = [
   {
+    source: '/:manufacturer-van-leasing/:model/:description.html',
+    destination: '/van-leasing/:manufacturer/:model/:description',
+  },
+  {
+    source: '/:manufacturer-car-leasing/:model/:bodyStyle/:description.html',
+    destination: '/car-leasing/:manufacturer/:model/:bodyStyle/:description',
+  },
+  {
     source: '/:manufacturer-:vehicleType-leasing.html',
     destination: '/:vehicleType-leasing/:manufacturer',
   },
@@ -34,5 +42,13 @@ module.exports = [
   {
     source: '/automatic-vans.html',
     destination: '/van-leasing/automatic',
+  },
+  {
+    source: '/car-leasing-explained.html',
+    destination: '/car-leasing-explained',
+  },
+  {
+    source: '/car-leasing-explained/:explained.html',
+    destination: '/car-leasing-explained/:explained',
   },
 ];

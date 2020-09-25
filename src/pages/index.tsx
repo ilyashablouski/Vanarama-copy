@@ -41,6 +41,7 @@ import { useCarDerivativesData } from '../containers/OrdersInformation/gql';
 import getTitleTag from '../utils/getTitleTag';
 import useLeaseType from '../hooks/useLeaseType';
 import { getSectionsData } from '../utils/getSectionsData';
+import { useVehicleListUrl } from '../gql/vehicleList';
 import TileLink from '../components/TileLink/TileLink';
 
 export const HomePage: NextPage = () => {
@@ -60,8 +61,11 @@ export const HomePage: NextPage = () => {
     },
   );
 
+  const productsVanCapIds = productsVan?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
   const { data: productsVanDerivatives } = useCarDerivativesData(
-    productsVan?.productCarousel?.map(el => el?.capId || '') || [''],
+    productsVanCapIds,
     VehicleTypeEnum.LCV,
   );
 
@@ -72,8 +76,11 @@ export const HomePage: NextPage = () => {
     },
   );
 
+  const productsCarCapIds = productsCar?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
   const { data: productsCarDerivatives } = useCarDerivativesData(
-    productsCar?.productCarousel?.map(el => el?.capId || '') || [''],
+    productsCarCapIds,
     VehicleTypeEnum.CAR,
   );
 
@@ -89,10 +96,19 @@ export const HomePage: NextPage = () => {
     },
   );
 
+  const productsPickUpCapIds = productsPickUp?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
   const { data: productsPickUpDerivatives } = useCarDerivativesData(
-    productsPickUp?.productCarousel?.map(el => el?.capId || '') || [''],
+    productsPickUpCapIds,
     VehicleTypeEnum.LCV,
   );
+
+  const { data: productsVihicles } = useVehicleListUrl([
+    ...productsPickUpCapIds,
+    ...productsVanCapIds,
+    ...productsCarCapIds,
+  ]);
 
   if (loading) {
     return <Loading size="large" />;
@@ -196,6 +212,7 @@ export const HomePage: NextPage = () => {
                   data={{
                     derivatives: productsVanDerivatives?.derivatives || null,
                     productCard: productsVan?.productCarousel || null,
+                    vehicleList: productsVihicles?.vehicleList!,
                   }}
                   countItems={productsVan?.productCarousel?.length || 6}
                   dataTestIdBtn="van-view-offer"
@@ -222,6 +239,7 @@ export const HomePage: NextPage = () => {
                   data={{
                     derivatives: productsPickUpDerivatives?.derivatives || null,
                     productCard: productsPickUp?.productCarousel || null,
+                    vehicleList: productsVihicles?.vehicleList!,
                   }}
                   countItems={productsPickUp?.productCarousel?.length || 6}
                   dataTestIdBtn="pickup-view-offer"
@@ -249,6 +267,7 @@ export const HomePage: NextPage = () => {
                   data={{
                     derivatives: productsCarDerivatives?.derivatives || null,
                     productCard: productsCar?.productCarousel || null,
+                    vehicleList: productsVihicles?.vehicleList!,
                   }}
                   countItems={productsCar?.productCarousel?.length || 6}
                   dataTestIdBtn="car-view-offer"

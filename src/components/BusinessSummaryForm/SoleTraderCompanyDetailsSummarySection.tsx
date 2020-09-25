@@ -3,6 +3,7 @@ import React from 'react';
 import { gql } from '@apollo/client';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { SoleTraderCompanyDetailsSummary } from '../../../generated/SoleTraderCompanyDetailsSummary';
+import { dateToFormat } from '../../utils/dates';
 
 interface IProps {
   company: SoleTraderCompanyDetailsSummary;
@@ -56,7 +57,7 @@ const SoleTraderCompanyDetailsSummarySection: FCWithFragments<IProps> = ({
         },
         {
           label: 'Trading Since',
-          value: company.tradingSince || '',
+          value: dateToFormat(company.tradingSince) || '',
           dataTestId: 'summary-company-trading-since',
         },
         {
