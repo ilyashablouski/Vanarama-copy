@@ -22,6 +22,7 @@ export const VEHICLE_LIST_URL = gql`
           derivativeId
           url
           legacyUrl
+          vehicleType
         }
       }
     }
