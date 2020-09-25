@@ -24,7 +24,7 @@ const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
         as={item.as}
       >
         <Icon icon={<ChevronBack />} color="teal" />
-        Back to {item.link.label}
+        Back to {decodeURIComponent(item.link.label)}
       </RouterLink>
       <RouterLink
         classNames={{ color: 'teal', size: 'small' }}
@@ -32,7 +32,7 @@ const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
         link={item.link}
         as={item.as}
       >
-        {item.link.label}
+        {decodeURIComponent(item.link.label)}
       </RouterLink>
       <Icon icon={<ChevronForward />} size="xsmall" color="medium" />
     </li>
@@ -41,7 +41,7 @@ const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
   const renderChild = (item: IBreadcrumbLink) => (
     <li className="breadcrumb-item -child" key={item.link.label}>
       <Text size="small" color="darker" className="breadcrumb-item--child">
-        {item.link.label}
+        {decodeURIComponent(item.link.label)}
       </Text>
     </li>
   );
