@@ -53,14 +53,14 @@ const AnnualIncomeField: React.FC = () => {
 const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
   person,
   soleTrader,
-  addresses,
   onSubmit,
   isEdited,
   dropdownData,
 }) => {
   return (
     <Formik<ISoleTraderDetailsFormValues>
-      initialValues={responseToInitialFormValues(person, soleTrader, addresses)}
+      initialValues={responseToInitialFormValues(person, soleTrader)}
+      enableReinitialize
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >

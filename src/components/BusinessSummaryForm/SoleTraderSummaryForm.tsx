@@ -3,7 +3,7 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { gql } from '@apollo/client';
 import { useRouter } from 'next/router';
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import FCWithFragments from '../../utils/FCWithFragments';
 import BusinessSummaryFormBankDetailsSection from './BusinessSummaryFormBankDetailsSection';
 import { getUrlParam } from '../../utils/url';
@@ -43,23 +43,23 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
 
   const selectLabel = isSubmitting ? 'Saving...' : 'Continue';
 
-  const handleEdit = useCallback(
-    (url: string, additionalParameters?: { [key: string]: string }) => () => {
-      const params = getUrlParam({
-        redirect: 'summary',
-        ...additionalParameters,
-      });
-      const href = `${url}${params}`;
-      router.push(
-        href,
-        href
-          .replace('[companyUuid]', company.uuid)
-          .replace('[personUuid]', person.uuid)
-          .replace('[orderId]', orderId),
-      );
-    },
-    [company.uuid, orderId, person.uuid, router],
-  );
+  const handleEdit = (
+    url: string,
+    additionalParameters?: { [key: string]: string },
+  ) => () => {
+    const params = getUrlParam({
+      redirect: 'summary',
+      ...additionalParameters,
+    });
+    const href = `${url}${params}`;
+    router.push(
+      href,
+      href
+        .replace('[companyUuid]', company.uuid)
+        .replace('[personUuid]', person.uuid)
+        .replace('[orderId]', orderId),
+    );
+  };
 
   return (
     <div>
@@ -74,6 +74,7 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
       <br />
       <Form className="olaf--summary">
         <BusinessSummaryFormAboutSection
+          soletrader
           person={person}
           onEdit={handleEdit('/b2b/olaf/about/[orderId]', {
             companyUuid: company.uuid,
@@ -82,9 +83,10 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
         <SoleTraderCompanyDetailsSummarySection
           company={company}
           onEdit={handleEdit(
-            '/b2b/olaf/sole-trader/company-details/[orderId]',
+            '/b2b/olaf/sole-trader/company-details/[personUuid]',
             {
               companyUuid: company.uuid,
+              orderId,
             },
           )}
         />
@@ -102,9 +104,9 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
         <SoleTraderDetailsSummarySection
           soleTrader={company.associates?.[0]}
           onEdit={handleEdit(
-            '/b2b/olaf/sole-trader/sole-trader-details/[orderId]',
+            '/b2b/olaf/sole-trader/sole-trader-details/[companyUuid]',
             {
-              companyUuid: company.uuid,
+              orderId,
             },
           )}
         />
@@ -112,7 +114,7 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
           <BusinessSummaryFormBankDetailsSection
             account={primaryBankAccount}
             onEdit={handleEdit(
-              '/b2b/olaf/sole-Trader/company-bank-details/[companyUuid]',
+              '/b2b/olaf/sole-trader/bank-details/[companyUuid]',
               {
                 orderId,
               },
