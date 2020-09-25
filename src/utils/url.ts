@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { VehicleTypeEnum } from '../../generated/globalTypes';
-import { VehicleListUrl_vehicleList_edges } from '../../generated/VehicleListUrl'
+import { VehicleListUrl_vehicleList_edges } from '../../generated/VehicleListUrl';
 
 type UrlParams = { [key: string]: string | undefined };
 
