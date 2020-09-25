@@ -16,7 +16,7 @@ export async function getStaticProps(context: NextPageContext) {
   const { data, loading, errors } = await client.query({
     query: GET_ABOUT_US_PAGE_DATA,
   });
-  return { props: { data, loading, error: errors } };
+  return { props: { data, loading, error: errors || null } };
 }
 
 export default AboutUsLandingPage;

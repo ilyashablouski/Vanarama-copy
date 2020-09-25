@@ -33,7 +33,7 @@ const Error = ({ statusCode }) => {
 };
 
 // Error.getInitialProps = ({ req, res, err }) => {
-export async function getServerSideProps({ res, err }) {
+export async function getStaticProps({ res, err }) {
   // eslint-disable-next-line no-nested-ternary
   const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
   // Only require Rollbar and report error if we're on the server
