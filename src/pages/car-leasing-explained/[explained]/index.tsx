@@ -6,6 +6,7 @@ import withApollo from '../../../hocs/withApollo';
 import LeasingArticleContainer from '../../../containers/LeasingArticleContainer/LeasingArticleContainer';
 import Head from '../../../components/Head/Head';
 import { useGenericPage } from '../../../gql/genericPage';
+import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
 
 const FinanceInfo: NextPage = () => {
   const router = useRouter();
@@ -15,7 +16,7 @@ const FinanceInfo: NextPage = () => {
     return <Loading size="large" />;
   }
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <ErrorMessage message={error.message} />;
   }
 
   if (!data?.genericPage) {
