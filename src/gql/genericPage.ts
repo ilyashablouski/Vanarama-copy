@@ -111,6 +111,7 @@ export const GENERIC_PAGE = gql`
           layout
           body
           title
+          titleTag
           video
           link {
             text

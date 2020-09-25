@@ -1,22 +1,23 @@
+import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useGenericPage } from '../../gql/genericPage';
 import withApollo from '../../hocs/withApollo';
 import Head from '../../components/Head/Head';
-import VanaramaSmilesContainer from '../../containers/VanaramaSmilesContainer/VanaramaSmilesContainer';
+import VanaramaSmilesContainer from '../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 const EligibilityChecker: NextPage = () => {
-  const { data, loading, error } = useGenericPage('welcome-to-vanarama-smiles');
+  const router = useRouter();
+  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
+
   if (loading) {
     return <Loading size="large" />;
   }
+
   if (error) {
-    return (
-      <div>
-        <p>Error: {error?.message}</p>
-      </div>
-    );
+    return <ErrorMessage message={error.message} />;
   }
 
   if (!data?.genericPage) {

@@ -1,16 +1,18 @@
+import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import withApollo from '../../hocs/withApollo';
+import { useGenericPageTestimonials } from '../../containers/CustomerTestimonialsContainer/gql';
+import CustomerTestimonialsContainer from '../../containers/CustomerTestimonialsContainer/CustomerTestimonialsContainer';
 import Head from '../../components/Head/Head';
-import FeaturedAndTilesContainer from '../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
-import { useGenericPage } from '../../gql/genericPage';
+import withApollo from '../../hocs/withApollo';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
-const EligibilityChecker: NextPage = () => {
+const CustomerTestimonialPage: NextPage = () => {
   const router = useRouter();
-  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
+  const { data, loading, error } = useGenericPageTestimonials(
+    router.asPath.slice(1),
+  );
 
   if (loading) {
     return <Loading size="large" />;
@@ -26,12 +28,13 @@ const EligibilityChecker: NextPage = () => {
 
   const metaData = data?.genericPage?.metaData;
   const sections = data.genericPage?.sections;
+  const body = data.genericPage?.body;
 
   return (
     <>
-      <FeaturedAndTilesContainer
+      <CustomerTestimonialsContainer
+        body={body}
         title={metaData?.name}
-        body={data?.genericPage?.body}
         sections={sections}
       />
       <Head
@@ -42,4 +45,4 @@ const EligibilityChecker: NextPage = () => {
   );
 };
 
-export default withApollo(EligibilityChecker, { getDataFromTree });
+export default withApollo(CustomerTestimonialPage, { getDataFromTree });
