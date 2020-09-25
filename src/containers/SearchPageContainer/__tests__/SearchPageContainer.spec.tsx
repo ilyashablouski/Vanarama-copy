@@ -95,7 +95,7 @@ jest.mock('next/router', () => ({
     pathname: '/car-leasing',
     query: {},
     route: '/car-leasing',
-    asPath: '',
+    asPath: '/car-leasing',
   }),
 }));
 
@@ -642,7 +642,7 @@ const mocksResponse: MockedResponse[] = [
     request: {
       query: GENERIC_PAGE,
       variables: {
-        slug: '/car-leasing/search',
+        slug: 'car-leasing/search',
       },
     },
     result: () => {
@@ -658,7 +658,7 @@ const mocksResponse: MockedResponse[] = [
     request: {
       query: GENERIC_PAGE,
       variables: {
-        slug: '/car-leasing/search',
+        slug: 'car-leasing/search',
       },
     },
     result: () => {
