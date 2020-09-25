@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { VehicleTypeEnum } from '../../generated/globalTypes';
-import { VehicleListUrl_vehicleList_edges } from '../../generated/VehicleListUrl';
+import { VehicleListUrl_vehicleList_edges as VehicleEdge } from '../../generated/VehicleListUrl';
+import { GetProductCard_vehicleList_edges as ProductEdge } from '../../generated/GetProductCard';
 
 type UrlParams = { [key: string]: string | undefined };
 
@@ -21,7 +21,7 @@ export const formatProductPageUrl = (
   capId: capId as string,
 });
 
-export const formatNewUrl = (edge?: VehicleListUrl_vehicleList_edges) => {
+export const formatNewUrl = (edge?: VehicleEdge | ProductEdge | null) => {
   const urlPrefix =
     edge?.node?.vehicleType === VehicleTypeEnum.CAR
       ? '/car-leasing'
@@ -31,10 +31,10 @@ export const formatNewUrl = (edge?: VehicleListUrl_vehicleList_edges) => {
 };
 
 export const getLegacyUrl = (
-  data?: VehicleListUrl_vehicleList_edges[] | null,
+  data?: (VehicleEdge | ProductEdge | null)[] | null,
   derivativeId?: string | null,
 ) => {
-  const edge = data?.find(item => item.node?.derivativeId === derivativeId);
+  const edge = data?.find(item => item?.node?.derivativeId === derivativeId);
 
   return edge?.node?.legacyUrl || formatNewUrl(edge);
 };
