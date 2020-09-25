@@ -2,7 +2,6 @@ import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from 'apollo-link-context';
 import fetch from 'isomorphic-unfetch';
 import { NextPageContext } from 'next';
-import localForage from 'localforage';
 
 const BaseLink = createHttpLink({
   uri: process.env.API_URL!,
@@ -12,14 +11,13 @@ const BaseLink = createHttpLink({
   },
 });
 
-const AuthorizationLink = setContext((request, prevContext) =>
-  localForage.getItem('token').then(token => ({
-    headers: {
-      ...prevContext.headers,
-      Authorization: `Bearer ${token}`,
-    },
-  })),
-);
+// TODO: should be rewrited after implement cookie auth logic
+const AuthorizationLink = setContext((request, prevContext) => ({
+  headers: {
+    ...prevContext.headers,
+    Authorization: `Bearer`,
+  },
+}));
 
 export default function createApolloClient(
   initialState: any,

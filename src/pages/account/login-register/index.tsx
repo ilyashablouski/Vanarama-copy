@@ -7,7 +7,7 @@ import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import CheckmarkSharp from '@vanarama/uibook/lib/assets/icons/CheckmarkSharp';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
-import { NextPage } from 'next';
+import { NextPage, NextPageContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
 import localForage from 'localforage';
@@ -150,8 +150,8 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
   );
 };
 
-LoginRegisterPage.getInitialProps = ({ query }) => {
-  return { query };
-};
+export async function getServerSideProps({ query }: NextPageContext) {
+  return { props: { query } };
+}
 
 export default withApollo(LoginRegisterPage);
