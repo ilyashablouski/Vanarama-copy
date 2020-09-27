@@ -50,11 +50,13 @@ describe('<CategoryPageContainer />', () => {
     );
     // ASSERT
     await waitFor(() => {
-      expect(screen.getByText(`Van News`)).toBeInTheDocument();
+      expect(screen.getByText(`Insurance News`)).toBeInTheDocument();
     });
 
     await waitFor(() => {
-      expect(screen.getByText(`Van News`)).toBeInTheDocument();
+      expect(
+        screen.getByText(`Do I Need Insurance For A Leased Car?`),
+      ).toBeInTheDocument();
     });
 
     const tree = getComponent.baseElement;

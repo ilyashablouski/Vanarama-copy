@@ -26,57 +26,55 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
           <Heading className="-a-center" tag="h3" size="large" color="black">
             {carousel.title}
           </Heading>
-          {carousel?.cards.length > 1 && (
-            <Carousel className="-mh-auto" countItems={5}>
-              {carousel.cards.map(
-                (card, indx) =>
-                  card && (
-                    <Card
-                      key={`${card.name}_${indx.toString()}`}
-                      className="card__article"
-                      imageSrc={card.image?.file?.url || ''}
-                      title={{
-                        title: '',
-                        link: (
-                          <RouterLink
-                            link={{ href: '#', label: card.title || '' }}
-                            className="card--link"
-                            classNames={{ color: 'black', size: 'regular' }}
+          <Carousel className="-mh-auto" countItems={5}>
+            {carousel.cards.map(
+              (card, indx) =>
+                card && (
+                  <Card
+                    key={`${card.name}_${indx.toString()}`}
+                    className="card__article"
+                    imageSrc={card.image?.file?.url || ''}
+                    title={{
+                      title: '',
+                      link: (
+                        <RouterLink
+                          link={{ href: '#', label: card.title || '' }}
+                          className="card--link"
+                          classNames={{ color: 'black', size: 'regular' }}
+                        />
+                      ),
+                    }}
+                  >
+                    <ReactMarkdown
+                      escapeHtml={false}
+                      source={card.body || ''}
+                      renderers={{
+                        link: props => {
+                          const { href, children } = props;
+                          return (
+                            <RouterLink
+                              link={{ href, label: children }}
+                              classNames={{ color: 'teal' }}
+                            />
+                          );
+                        },
+                        heading: props => (
+                          <Text
+                            {...props}
+                            size="lead"
+                            color="darker"
+                            tag="h3"
                           />
                         ),
+                        paragraph: props => (
+                          <Text {...props} tag="p" color="darker" />
+                        ),
                       }}
-                    >
-                      <ReactMarkdown
-                        escapeHtml={false}
-                        source={card.body || ''}
-                        renderers={{
-                          link: props => {
-                            const { href, children } = props;
-                            return (
-                              <RouterLink
-                                link={{ href, label: children }}
-                                classNames={{ color: 'teal' }}
-                              />
-                            );
-                          },
-                          heading: props => (
-                            <Text
-                              {...props}
-                              size="lead"
-                              color="darker"
-                              tag="h3"
-                            />
-                          ),
-                          paragraph: props => (
-                            <Text {...props} tag="p" color="darker" />
-                          ),
-                        }}
-                      />
-                    </Card>
-                  ),
-              )}
-            </Carousel>
-          )}
+                    />
+                  </Card>
+                ),
+            )}
+          </Carousel>
         </div>
       )}
     </>

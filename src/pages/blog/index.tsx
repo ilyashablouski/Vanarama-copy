@@ -19,17 +19,13 @@ const CategoryPage: NextPage = () => {
     return <ErrorMessage message={error.message} />;
   }
 
-  const featured = data?.genericPage?.sections?.featured;
   const carousel = data?.genericPage?.sections?.carousel;
-  const tiles = data?.genericPage?.sections?.tiles;
   const metaData = data?.genericPage?.metaData;
 
   return (
     <>
       <CategoryPageContainer
-        featured={featured}
         carousel={carousel}
-        tiles={tiles}
         metaData={metaData}
         featuredImage={data?.genericPage.featuredImage}
       />
