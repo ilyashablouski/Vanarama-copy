@@ -65,8 +65,9 @@ const VEHICLE_LIST = {
       cursor: 'cursor',
       node: {
         derivativeId: '44514',
-        url: '/van-leasing/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
+        url: '/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
         legacyUrl: null,
+        vehicleType: VehicleTypeEnum.LCV,
       },
     },
   ],
