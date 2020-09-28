@@ -1,19 +1,22 @@
 import { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import withApollo from '../../hocs/withApollo';
-import LeasingQuestionsContainer from '../../containers/LeasingQuestionsContainer/LeasingQuestionsContainer';
-import Head from '../../components/Head/Head';
-import { useGenericPage } from '../../gql/genericPage';
+import withApollo from '../../../../hocs/withApollo';
+import LeasingArticleContainer from '../../../../containers/LeasingArticleContainer/LeasingArticleContainer';
+import Head from '../../../../components/Head/Head';
+import { useGenericPage } from '../../../../gql/genericPage';
+import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
 
 const FinanceInfo: NextPage = () => {
-  const { data, loading, error } = useGenericPage('van-leasing-questions');
+  const router = useRouter();
+  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
 
   if (loading) {
     return <Loading size="large" />;
   }
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <ErrorMessage message={error.message} />;
   }
 
   if (!data?.genericPage) {
@@ -26,10 +29,11 @@ const FinanceInfo: NextPage = () => {
 
   return (
     <>
-      <LeasingQuestionsContainer
+      <LeasingArticleContainer
         body={body}
         title={metaData?.name}
         sections={sections}
+        image={data?.genericPage.featuredImage?.file?.url}
       />
       <Head
         metaData={metaData}

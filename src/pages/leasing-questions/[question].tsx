@@ -6,19 +6,21 @@ import withApollo from '../../hocs/withApollo';
 import Head from '../../components/Head/Head';
 import LeasingQuestionContainer from '../../containers/LeasingQuestionContainer/LeasingQuestionContainer';
 import { useGenericPageQuestion } from '../../containers/LeasingQuestionContainer/gql';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 const LeasingQuestion: NextPage = () => {
   const router = useRouter();
 
   const { data, loading, error } = useGenericPageQuestion(
-    `/van-leasing-questions/${router.query.question as string}`,
+    router.asPath.slice(1),
   );
 
   if (loading) {
     return <Loading size="large" />;
   }
+
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <ErrorMessage message={error.message} />;
   }
 
   if (!data?.genericPage) {

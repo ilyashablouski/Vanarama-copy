@@ -2,15 +2,15 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import withApollo from '../../../hocs/withApollo';
-import LeasingArticleContainer from '../../../containers/LeasingArticleContainer/LeasingArticleContainer';
-import Head from '../../../components/Head/Head';
-import { useGenericPage } from '../../../gql/genericPage';
-import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
+import withApollo from '../../../../hocs/withApollo';
+import LeasingArticleContainer from '../../../../containers/LeasingArticleContainer/LeasingArticleContainer';
+import Head from '../../../../components/Head/Head';
+import { useGenericPage } from '../../../../gql/genericPage';
+import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
 
 const FinanceInfo: NextPage = () => {
   const router = useRouter();
-  const { data, loading, error } = useGenericPage(`guides${router.asPath}`);
+  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
 
   if (loading) {
     return <Loading size="large" />;
