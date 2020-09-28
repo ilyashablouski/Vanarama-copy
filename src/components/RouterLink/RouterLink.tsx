@@ -4,6 +4,7 @@
 import * as React from 'react';
 import cx from 'classnames';
 import Link from 'next/link';
+import Router from 'next/router';
 import { UrlObject } from 'url';
 import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
 import { LinkTypes } from '../../models/enum/LinkTypes';
@@ -66,7 +67,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
 
   return (
     <Link
-      href={{ pathname: link.href, query: link.query || {} }}
+      href={{ pathname: link.href || Router.asPath, query: link.query || {} }}
       replace={replace}
       as={as}
       shallow={!!as}
