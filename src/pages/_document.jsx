@@ -6,14 +6,14 @@ import {
   DataLayer as GTMDataLayerScript,
 } from '../components/GTM';
 
-import Script from '../components/VWO/Script';
+import { Script as VWOScript } from '../components/VWO';
 
+// Rollbar.
 // import getConfig from 'next/config';
-
 // const { publicRuntimeConfig } = getConfig();
 
 // GTM.
-const gtmEnvs = ['dev', 'uat', 'production', 'development'];
+const gtmEnvs = ['dev', 'uat', 'production'];
 
 // VWO
 const vwoEnvs = ['uat'];
@@ -42,7 +42,7 @@ class MyDocument extends Document {
           {/* <script dangerouslySetInnerHTML={{ __html: rollbarCode }} /> */}
           {gtmEnvs.includes(process.env.ENV) && <GTMDataLayerScript />}
           {gtmEnvs.includes(process.env.ENV) && <GTMScript />}
-          {vwoEnvs.includes(process.env.ENV) && <Script />}
+          {vwoEnvs.includes(process.env.ENV) && <VWOScript />}
         </Head>
         <body>
           {gtmEnvs.includes(process.env.ENV) && <GTMBody />}
