@@ -7,7 +7,7 @@ import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import CardTitle from '@vanarama/uibook/lib/components/molecules/cards/CardTitle';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import { useRouter } from 'next/router';
-import { LocationsPageData_regionalOfficesPage_sections_cards_cards as ICard } from '../../../generated/LocationsPageData';
+import { GenericPageQuery_genericPage_sections_cards_cards as ICard } from '../../../generated/GenericPageQuery';
 import withApollo from '../../hocs/withApollo';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Head from '../../components/Head/Head';
