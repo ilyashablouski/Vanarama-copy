@@ -74,6 +74,7 @@ export interface GetProductCard_vehicleList_edges_node {
   derivativeId: string | null;
   url: string | null;
   legacyUrl: string | null;
+  vehicleType: VehicleTypeEnum | null;
 }
 
 export interface GetProductCard_vehicleList_edges {

@@ -4,6 +4,12 @@ import { MockedResponse, MockedProvider } from '@apollo/client/testing';
 import RangeCard from '../RangeCard';
 import { GET_RANGES_IMAGES, GET_MODEL_IMAGES } from '../gql';
 
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    asPath: '/',
+  }),
+}));
+
 describe('<RangeCard />', () => {
   const resetMocks = () => {
     return {
