@@ -2,15 +2,14 @@ import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
-import withApollo from '../../../../hocs/withApollo';
-import FinanceInformationExplainedContainer from '../../../../containers/FinanceInformationExplainedContainer/FinanceInfromationExplainedContainer';
-import Head from '../../../../components/Head/Head';
-import { useGenericPage } from '../../../../gql/genericPage';
+import withApollo from '../../../hocs/withApollo';
+import FinanceExplainedContainer from '../../../containers/FinanceExplainedContainer/FinanceExplainedContainer';
+import Head from '../../../components/Head/Head';
+import { useGenericPage } from '../../../gql/genericPage';
 
-const FinanceInfo: NextPage = () => {
-  const path = useRouter();
-  const slug = path.asPath.replace('/van-leasing/finance-options', '');
-  const { data, loading, error } = useGenericPage(slug);
+const EligibilityChecker: NextPage = () => {
+  const router = useRouter();
+  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
 
   if (loading) {
     return <Loading size="large" />;
@@ -28,8 +27,9 @@ const FinanceInfo: NextPage = () => {
 
   return (
     <>
-      <FinanceInformationExplainedContainer
+      <FinanceExplainedContainer
         title={metaData?.name}
+        body={data?.genericPage?.body}
         sections={sections}
       />
       <Head
@@ -40,4 +40,4 @@ const FinanceInfo: NextPage = () => {
   );
 };
 
-export default withApollo(FinanceInfo, { getDataFromTree });
+export default withApollo(EligibilityChecker, { getDataFromTree });
