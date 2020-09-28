@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { NextPage } from 'next';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -10,7 +10,7 @@ import Flame from '@vanarama/uibook/lib/assets/icons/FlameSharp';
 import Arrow from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Redundancy from '@vanarama/uibook/lib/assets/icons/Redundancy';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
-// import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { ProductCardData } from '../../../generated/ProductCardData';
 
 import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
@@ -28,12 +28,13 @@ import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { useVehicleListUrl } from '../../gql/vehicleList';
 
 export const OffersPage: NextPage = () => {
-  const { data: genericPageCMS } = useQuery<
+  const router = useRouter();
+  const { data: genericPageCMS, loading } = useQuery<
     GenericPageHeadQuery,
     GenericPageHeadQueryVariables
   >(GENERIC_PAGE_HEAD, {
     variables: {
-      slug: '/offers',
+      slug: router.asPath.slice(1),
     },
   });
 
@@ -102,13 +103,9 @@ export const OffersPage: NextPage = () => {
     ...productCarCapIds,
   ]);
 
-  /* if (loading) {
+  if (loading) {
     return <Loading size="large" />;
   }
-
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  } */
 
   const metaData = genericPageCMS?.genericPage.metaData;
 
@@ -134,7 +131,7 @@ export const OffersPage: NextPage = () => {
               icon={<Arrow />}
               iconColor="white"
               iconPosition="after"
-              onClick={() => Router.push('/van-leasing')}
+              onClick={() => Router.push('/van-leasing/special-offers')}
             />
             <Button
               size="large"
@@ -144,7 +141,9 @@ export const OffersPage: NextPage = () => {
               icon={<Arrow />}
               iconColor="white"
               iconPosition="after"
-              onClick={() => Router.push('/van-leasing?bodyStyles=Pickup')}
+              onClick={() =>
+                Router.push('/pickup-truck-leasing/special-offers')
+              }
             />
             <Button
               size="large"
@@ -154,7 +153,7 @@ export const OffersPage: NextPage = () => {
               icon={<Arrow />}
               iconColor="white"
               iconPosition="after"
-              onClick={() => Router.push('/car-leasing')}
+              onClick={() => Router.push('/car-leasing/special-offers')}
             />
           </div>
         </div>

@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
-import withApollo from '../../../hocs/withApollo';
-import SearchPageContainer from '../../../containers/SearchPageContainer';
+import withApollo from '../../hocs/withApollo';
+import SearchPageContainer from '../../containers/SearchPageContainer';
 
 interface IProps {
   isServer: boolean;

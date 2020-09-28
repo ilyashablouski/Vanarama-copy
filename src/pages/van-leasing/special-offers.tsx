@@ -12,22 +12,19 @@ import AddCircle from '@vanarama/uibook/lib/assets/icons/AddCircleSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 
-import { ProductCardData } from '../../../../generated/ProductCardData';
-import { VanOffersPageData } from '../../../../generated/VanOffersPageData';
-import { VAN_OFFERS_CONTENT } from '../../../gql/special-offers/van-offers';
-import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
-import withApollo from '../../../hocs/withApollo';
-import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
-import {
-  VehicleTypeEnum,
-  LeaseTypeEnum,
-} from '../../../../generated/globalTypes';
-import ProductCarousel from '../../../components/ProductCarousel/ProductCarousel';
-import useLeaseType from '../../../hooks/useLeaseType';
-import RouterLink from '../../../components/RouterLink/RouterLink';
-import Head from '../../../components/Head/Head';
-import Breadcrumb from '../../../components/Breadcrumb/Breadcrumb';
-import { useVehicleListUrl } from '../../../gql/vehicleList';
+import { ProductCardData } from '../../../generated/ProductCardData';
+import { VanOffersPageData } from '../../../generated/VanOffersPageData';
+import { VAN_OFFERS_CONTENT } from '../../gql/special-offers/van-offers';
+import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
+import withApollo from '../../hocs/withApollo';
+import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
+import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
+import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
+import useLeaseType from '../../hooks/useLeaseType';
+import RouterLink from '../../components/RouterLink/RouterLink';
+import Head from '../../components/Head/Head';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import { useVehicleListUrl } from '../../gql/vehicleList';
 
 export const VanOffers: NextPage = () => {
   const { data, loading, error } = useQuery<VanOffersPageData>(
