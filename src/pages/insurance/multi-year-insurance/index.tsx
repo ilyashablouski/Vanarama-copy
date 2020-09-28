@@ -8,8 +8,8 @@ import { useGenericPage } from '../../../gql/genericPage';
 import FinanceGapInsuranceContainer from '../../../containers/FinanceGapInsuranceContainer/FinanceGapInsuranceContainer';
 
 const MultiYearInsurancePage: NextPage = () => {
-  const path = useRouter();
-  const { data, loading, error } = useGenericPage(path.asPath);
+  const router = useRouter();
+  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
 
   if (loading) {
     return <Loading size="large" />;

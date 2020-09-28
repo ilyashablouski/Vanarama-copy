@@ -1,15 +1,15 @@
+import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import ThankYouContainer from '../../../containers/ThankYouContainer/ThankYouContainer';
 import withApollo from '../../../hocs/withApollo';
-import { useGenericPage } from '../../../gql/genericPage';
 import Head from '../../../components/Head/Head';
+import { useGenericPage } from '../../../gql/genericPage';
+import FinanceGapInsuranceContainer from '../../../containers/FinanceGapInsuranceContainer/FinanceGapInsuranceContainer';
 
-const ThankYouPage: NextPage = () => {
-  const { data, loading, error } = useGenericPage(
-    '/van-insurance/multi-year-van-insurance/thank-you',
-  );
+const MultiYearInsurancePage: NextPage = () => {
+  const router = useRouter();
+  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
 
   if (loading) {
     return <Loading size="large" />;
@@ -28,7 +28,7 @@ const ThankYouPage: NextPage = () => {
 
   return (
     <>
-      <ThankYouContainer sections={sections} />
+      <FinanceGapInsuranceContainer sections={sections} />
       <Head
         metaData={metaData}
         featuredImage={data?.genericPage.featuredImage}
@@ -37,4 +37,4 @@ const ThankYouPage: NextPage = () => {
   );
 };
 
-export default withApollo(ThankYouPage, { getDataFromTree });
+export default withApollo(MultiYearInsurancePage, { getDataFromTree });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import Router from 'next/router';
-import CreditChecker from '../../../pages/eligibility-checker/credit-checker';
+import CreditChecker from '../../../pages/lease-eligibility-checker/credit-checker';
 import { useProductCard } from '../../../gql/productCard';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 import { useVehicleListUrl } from '../../../gql/vehicleList';

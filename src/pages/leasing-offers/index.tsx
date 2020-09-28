@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { NextPage } from 'next';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -28,12 +28,13 @@ import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { useVehicleListUrl } from '../../gql/vehicleList';
 
 export const OffersPage: NextPage = () => {
+  const router = useRouter();
   const { data: genericPageCMS } = useQuery<
     GenericPageHeadQuery,
     GenericPageHeadQueryVariables
   >(GENERIC_PAGE_HEAD, {
     variables: {
-      slug: '/offers',
+      slug: router.asPath.slice(1) || 'leasing-offers',
     },
   });
 
