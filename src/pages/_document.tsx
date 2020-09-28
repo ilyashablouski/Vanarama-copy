@@ -12,6 +12,8 @@ import { Script as VWOScript } from '../components/VWO';
 // import getConfig from 'next/config';
 // const { publicRuntimeConfig } = getConfig();
 
+const env = process?.env?.ENV || '';
+
 // GTM.
 const gtmEnvs = ['dev', 'uat', 'production'];
 
@@ -40,12 +42,12 @@ class MyDocument extends Document {
         <Head>
           {/* eslint-disable-next-line react/no-danger */}
           {/* <script dangerouslySetInnerHTML={{ __html: rollbarCode }} /> */}
-          {gtmEnvs.includes(process.env.ENV) && <GTMDataLayerScript />}
-          {gtmEnvs.includes(process.env.ENV) && <GTMScript />}
-          {vwoEnvs.includes(process.env.ENV) && <VWOScript />}
+          {gtmEnvs.includes(env) && <GTMDataLayerScript />}
+          {gtmEnvs.includes(env) && <GTMScript />}
+          {vwoEnvs.includes(env) && <VWOScript />}
         </Head>
         <body>
-          {gtmEnvs.includes(process.env.ENV) && <GTMBody />}
+          {gtmEnvs.includes(env) && <GTMBody />}
           <Main />
           <NextScript />
         </body>
