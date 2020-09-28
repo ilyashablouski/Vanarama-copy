@@ -8,8 +8,7 @@ import LegalArticleContainer from '../../../containers/LegalArticleContainer/Leg
 
 const BlogPost: NextPage = () => {
   const router = useRouter();
-  const slug = `/legal/terms-and-conditions/${router.query.article as string}`;
-  const { data, loading, error } = useLegalPageQuery(slug);
+  const { data, loading, error } = useLegalPageQuery(router.asPath.slice(1));
 
   if (loading) {
     return <Loading size="large" />;
