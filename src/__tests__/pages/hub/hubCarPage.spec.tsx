@@ -244,9 +244,9 @@ describe('<CarPage />', () => {
               cursor: 'cursor',
               node: {
                 derivativeId: '83615',
-                url:
-                  '/car-leasing/ford/focus/hatchback/10-ecoBoost-125-st-line-nav-5dr',
+                url: '/ford/focus/hatchback/10-ecoBoost-125-st-line-nav-5dr',
                 legacyUrl: null,
+                vehicleType: VehicleTypeEnum.CAR,
               },
             },
           ],
