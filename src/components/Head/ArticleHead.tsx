@@ -6,12 +6,13 @@ import { IHeadProps } from './interface';
 import { defaultTitle, twitter, fb } from './defaults';
 
 const ArticleHead: FC<IHeadProps> = props => {
-  let {
-    metaData: { metaRobots, title = defaultTitle },
-  } = props;
   const {
     metaData: { metaDescription, legacyUrl, canonicalUrl, schema, publishedOn },
     featuredImage,
+  } = props;
+
+  let {
+    metaData: { metaRobots, title = defaultTitle },
   } = props;
 
   // Dev override.
