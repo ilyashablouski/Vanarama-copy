@@ -178,7 +178,12 @@ const mocked: MockedResponse[] = [
       };
     },
   },
-];
+
+
+
+
+
+
 
 describe('<OffersPage />', () => {
   beforeEach(async () => {
