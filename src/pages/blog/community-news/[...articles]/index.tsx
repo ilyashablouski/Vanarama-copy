@@ -1,11 +1,11 @@
 import { NextPage } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
-import Head from '../../../components/Head/Head';
-import withApollo from '../../../hocs/withApollo';
-import { useBlogPostPage } from '../../../gql/blogPost';
-import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostContainer';
-import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
+import Head from '../../../../components/Head/Head';
+import withApollo from '../../../../hocs/withApollo';
+import { useBlogPostPage } from '../../../../gql/blogPost';
+import BlogPostContainer from '../../../../containers/BlogPostContainer/BlogPostContainer';
+import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
 
 const BlogPost: NextPage = () => {
   const router = useRouter();

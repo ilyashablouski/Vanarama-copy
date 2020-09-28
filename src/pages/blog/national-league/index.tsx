@@ -1,11 +1,11 @@
 import { NextPage } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
-import Head from '../../components/Head/Head';
-import { useGenericPage } from '../../gql/genericPage';
-import withApollo from '../../hocs/withApollo';
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import CategoryPageContainer from '../../containers/CategoryPageContainer/CategoryPageContainer';
+import Head from '../../../components/Head/Head';
+import { useGenericPage } from '../../../gql/genericPage';
+import withApollo from '../../../hocs/withApollo';
+import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
+import CategoryPageContainer from '../../../containers/CategoryPageContainer/CategoryPageContainer';
 
 const CategoryPage: NextPage = () => {
   const router = useRouter();
