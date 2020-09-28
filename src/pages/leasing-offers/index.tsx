@@ -34,7 +34,7 @@ export const OffersPage: NextPage = () => {
     GenericPageHeadQueryVariables
   >(GENERIC_PAGE_HEAD, {
     variables: {
-      slug: router.asPath.slice(1),
+      slug: router.asPath.slice(1) || 'leasing-offers',
     },
   });
 

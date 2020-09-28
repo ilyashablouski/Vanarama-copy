@@ -5,7 +5,7 @@ import Router from 'next/router';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
-import { OffersPage } from '../../../pages/special-offers';
+import { OffersPage } from '../../../pages/leasing-offers';
 import { ProductCardData } from '../../../../generated/ProductCardData';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
@@ -181,7 +181,7 @@ const mocked: MockedResponse[] = [
     request: {
       query: GENERIC_PAGE_HEAD,
       variables: {
-        slug: '/offers',
+        slug: 'leasing-offers',
       },
     },
     result: () => {
