@@ -285,7 +285,6 @@ export const GENERIC_PAGE_HEAD = gql`
         pageType
         canonicalUrl
         slug
-        publishedOn
         schema
       }
       featuredImage {
