@@ -572,66 +572,51 @@ const SearchPageContainer: React.FC<IProps> = ({
   // made requests for different types of search pages
   useEffect(() => {
     const searchType = isCarSearch ? 'car-leasing' : 'van-leasing';
-    const { query } = router;
+    const { query, asPath } = router;
+    // remove first slash from route and queries part
+    const slug = asPath.slice(
+      1,
+      asPath.indexOf('?') > -1 ? asPath.indexOf('?') : asPath.length,
+    );
     switch (true) {
       case isMakePage:
-        pageContentQueryExecutor(
-          getGenericPage,
-          `/${(query.dynamicParam as string).toLocaleLowerCase()}-${searchType}`,
-        );
-        break;
       case isRangePage:
-        pageContentQueryExecutor(
-          getGenericPage,
-          `/${prepareSlugPart(
-            query.dynamicParam,
-          )}-${searchType}/${prepareSlugPart(query.rangeName)}`,
-        );
-        break;
       case isModelPage:
-        pageContentQueryExecutor(
-          getGenericPage,
-          `/${prepareSlugPart(
-            query.dynamicParam,
-          )}-car-leasing/${prepareSlugPart(query.rangeName)}/${prepareSlugPart(
-            query.bodyStyles,
-          )}`,
-        );
+        pageContentQueryExecutor(getGenericPage, prepareSlugPart(slug));
         break;
       case isBodyStylePage:
         pageContentQueryExecutor(
           getGenericPage,
-          `${isCarSearch ? '/car-leasing' : ''}/${prepareSlugPart(
+          `${searchType}/${prepareSlugPart(
             bodyUrls.find(
               getBodyStyleForCms,
-              (router.query.dynamicParam as string).toLowerCase(),
+              (query.dynamicParam as string).toLowerCase(),
             ) || '',
           )}${!isCarSearch ? '-leasing' : ''}`,
         );
         break;
       case isTransmissionPage:
-        pageContentQueryExecutor(getGenericPage, '/automatic-vans');
-        break;
-      case isFuelPage:
         pageContentQueryExecutor(
           getGenericPage,
-          `car-leasing/${router.query.dynamicParam}`,
+          'van-leasing/automatic-van-leasing',
         );
+        break;
+      case isFuelPage:
+        pageContentQueryExecutor(getGenericPage, slug);
         break;
       case isSpecialOfferPage:
         pageContentQueryExecutor(
           getGenericPageHead,
-          `/${isCarSearch ? 'car-leasing' : 'pickup'}-special-offers`,
+          `${
+            isCarSearch ? 'car-leasing' : 'pickup-truck-leasing'
+          }/special-offers`,
         );
         break;
       case isAllMakesPage:
         getAllManufacturersPage();
         break;
       default:
-        pageContentQueryExecutor(
-          getGenericPage,
-          isCarSearch ? '/car-leasing/search' : '/search',
-        );
+        pageContentQueryExecutor(getGenericPage, `${searchType}/search`);
         break;
     }
     // router can't be added to deps, because it change every url replacing
@@ -664,7 +649,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         <Heading tag="h1" size="xlarge" color="black">
           {(isModelPage &&
             `${filtersData.manufacturerName} ${filtersData.rangeName} ${filtersData.bodyStyles?.[0]}`) ||
-            (metaData?.name ?? 'Lorem Ips')}
+            (metaData?.name ?? '')}
         </Heading>
         <Text color="darker" size="regular" tag="div">
           <ReactMarkdown

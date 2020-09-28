@@ -310,7 +310,7 @@ export function useManufacturerList(
 
 export const GET_ALL_MAKES_PAGE = gql`
   query manufacturerPage {
-    manufacturerPage(slug: "/car-leasing/all-car-manufacturers") {
+    manufacturerPage(slug: "car-leasing/all-manufacturers") {
       metaData {
         title
         name
