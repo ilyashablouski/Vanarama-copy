@@ -22,7 +22,7 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.js",
-    "src/pages/_document.jsx",
+    "src/pages/_document.tsx",
     "src/pages/_error.jsx"
   ]
 }
