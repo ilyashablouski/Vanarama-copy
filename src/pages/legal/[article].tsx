@@ -8,11 +8,7 @@ import LegalArticleContainer from '../../containers/LegalArticleContainer/LegalA
 
 const BlogPost: NextPage = () => {
   const router = useRouter();
-  const slug = `/legal/${router.query.article as string}`.replace(
-    '/legal/fca',
-    '/fca',
-  );
-  const { data, loading, error } = useLegalPageQuery(slug);
+  const { data, loading, error } = useLegalPageQuery(router.asPath.slice(1));
 
   if (loading) {
     return <Loading size="large" />;
