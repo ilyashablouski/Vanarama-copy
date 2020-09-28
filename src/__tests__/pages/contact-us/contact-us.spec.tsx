@@ -5,8 +5,7 @@ import Router from 'next/router';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { ContactUsPage } from '../../../pages/contact-us';
-import { CONTACT_US_CONTENT } from '../../../gql/contact-us/contactUs';
-import { ContactUsPageData } from '../../../../generated/ContactUsPageData';
+import { GENERIC_PAGE } from '../../../gql/genericPage';
 
 jest.mock('next/router', () => ({
   push: jest.fn(),
@@ -18,12 +17,12 @@ jest.mock('next/router', () => ({
 const mocked: MockedResponse[] = [
   {
     request: {
-      query: CONTACT_US_CONTENT,
+      query: GENERIC_PAGE,
     },
     result: () => {
       return {
         data: {
-          contactUsLandingPage: {
+          genericPage: {
             id: '6kwAjjbDywHCouepDMPJ1v',
             metaData: {
               title: 'Vehicle Leasing | Personal & Business Lease',
@@ -96,7 +95,7 @@ const mocked: MockedResponse[] = [
               },
             },
           },
-        } as ContactUsPageData,
+        },
       };
     },
   },

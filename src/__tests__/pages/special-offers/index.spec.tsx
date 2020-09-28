@@ -186,8 +186,11 @@ const mocked: MockedResponse[] = [
     },
     result: () => {
       return {
+        loading: false,
         data: {
           genericPage: {
+            id: 'id',
+            intro: '',
             metaData: {
               canonicalUrl: 'https://www.vanarama.com/car-leasing.html',
               legacyUrl: 'https://www.vanarama.com/car-leasing.html',
@@ -203,6 +206,15 @@ const mocked: MockedResponse[] = [
               schema: null,
             },
             sections: null,
+            featuredImage: {
+              title: '',
+              description: '',
+              file: {
+                url: '',
+                fileName: '',
+                contentType: '',
+              },
+            },
           },
         },
       };

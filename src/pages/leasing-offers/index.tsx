@@ -10,7 +10,6 @@ import Flame from '@vanarama/uibook/lib/assets/icons/FlameSharp';
 import Arrow from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Redundancy from '@vanarama/uibook/lib/assets/icons/Redundancy';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { ProductCardData } from '../../../generated/ProductCardData';
 
 import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
@@ -29,7 +28,7 @@ import { useVehicleListUrl } from '../../gql/vehicleList';
 
 export const OffersPage: NextPage = () => {
   const router = useRouter();
-  const { data: genericPageCMS, loading } = useQuery<
+  const { data: genericPageCMS } = useQuery<
     GenericPageHeadQuery,
     GenericPageHeadQueryVariables
   >(GENERIC_PAGE_HEAD, {
@@ -102,10 +101,6 @@ export const OffersPage: NextPage = () => {
     ...productPickupCapIds,
     ...productCarCapIds,
   ]);
-
-  if (loading) {
-    return <Loading size="large" />;
-  }
 
   const metaData = genericPageCMS?.genericPage.metaData;
 

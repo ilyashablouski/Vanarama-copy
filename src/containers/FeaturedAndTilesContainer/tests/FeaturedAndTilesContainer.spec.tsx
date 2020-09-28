@@ -3,6 +3,12 @@ import { MockedProvider } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
 import FeaturedAndTilesContainer from '../FeaturedAndTilesContainer';
 
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    asPath: '/',
+  }),
+}));
+
 // ARRANGE
 const TITLE = `Vanarama Smiles Container`;
 const BODY = ``;
