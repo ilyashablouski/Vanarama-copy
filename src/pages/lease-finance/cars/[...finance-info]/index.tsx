@@ -8,9 +8,8 @@ import Head from '../../../../components/Head/Head';
 import { useGenericPage } from '../../../../gql/genericPage';
 
 const FinanceInfo: NextPage = () => {
-  const path = useRouter();
-  const slug = path.asPath.replace('/van-leasing/finance-options', '');
-  const { data, loading, error } = useGenericPage(slug);
+  const router = useRouter();
+  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
 
   if (loading) {
     return <Loading size="large" />;
