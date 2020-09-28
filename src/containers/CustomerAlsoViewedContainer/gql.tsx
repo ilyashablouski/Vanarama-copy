@@ -59,6 +59,7 @@ export const GET_PRODUCT_CARDS_DATA = gql`
           derivativeId
           url
           legacyUrl
+          vehicleType
         }
       }
     }
