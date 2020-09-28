@@ -6,7 +6,12 @@ import {
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
 
-jest.mock('next/router', () => ({ push: jest.fn() }));
+jest.mock('next/router', () => ({
+  push: jest.fn(),
+  useRouter: () => ({
+    asPath: '/',
+  }),
+}));
 
 const PRODUCT_CARDS = [
   {
