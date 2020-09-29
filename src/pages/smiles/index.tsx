@@ -5,7 +5,7 @@ import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useGenericPage } from '../../gql/genericPage';
 import withApollo from '../../hocs/withApollo';
 import Head from '../../components/Head/Head';
-import VanaramaSmilesContainer from '../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
+import FeaturedAndTilesContainer from '../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 const EligibilityChecker: NextPage = () => {
@@ -29,7 +29,7 @@ const EligibilityChecker: NextPage = () => {
 
   return (
     <>
-      <VanaramaSmilesContainer
+      <FeaturedAndTilesContainer
         title={metaData?.name}
         body={data?.genericPage?.body}
         sections={sections}
