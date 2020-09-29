@@ -112,6 +112,7 @@ export const GENERIC_PAGE = gql`
           body
           title
           video
+          titleTag
           link {
             text
             url
@@ -279,7 +280,6 @@ export const GENERIC_PAGE_HEAD = gql`
         name
         metaRobots
         metaDescription
-        publishedOn
         legacyUrl
         pageType
         canonicalUrl

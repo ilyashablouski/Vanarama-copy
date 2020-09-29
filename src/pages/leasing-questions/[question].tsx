@@ -1,16 +1,19 @@
 import { NextPage } from 'next';
-import { useRouter } from 'next/router';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import { useRouter } from 'next/router';
 import withApollo from '../../hocs/withApollo';
 import Head from '../../components/Head/Head';
-import FeaturedAndTilesContainer from '../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
-import { useGenericPage } from '../../gql/genericPage';
+import LeasingQuestionContainer from '../../containers/LeasingQuestionContainer/LeasingQuestionContainer';
+import { useGenericPageQuestion } from '../../containers/LeasingQuestionContainer/gql';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
-const EligibilityChecker: NextPage = () => {
+const LeasingQuestion: NextPage = () => {
   const router = useRouter();
-  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
+
+  const { data, loading, error } = useGenericPageQuestion(
+    router.asPath.slice(1),
+  );
 
   if (loading) {
     return <Loading size="large" />;
@@ -26,12 +29,13 @@ const EligibilityChecker: NextPage = () => {
 
   const metaData = data?.genericPage?.metaData;
   const sections = data.genericPage?.sections;
+  const body = data.genericPage?.intro;
 
   return (
     <>
-      <FeaturedAndTilesContainer
+      <LeasingQuestionContainer
+        body={body}
         title={metaData?.name}
-        body={data?.genericPage?.body}
         sections={sections}
       />
       <Head
@@ -42,4 +46,4 @@ const EligibilityChecker: NextPage = () => {
   );
 };
 
-export default withApollo(EligibilityChecker, { getDataFromTree });
+export default withApollo(LeasingQuestion, { getDataFromTree });

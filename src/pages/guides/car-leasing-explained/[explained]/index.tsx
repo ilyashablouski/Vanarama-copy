@@ -2,20 +2,19 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import withApollo from '../../hocs/withApollo';
-import Head from '../../components/Head/Head';
-import FeaturedAndTilesContainer from '../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
-import { useGenericPage } from '../../gql/genericPage';
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import withApollo from '../../../../hocs/withApollo';
+import LeasingArticleContainer from '../../../../containers/LeasingArticleContainer/LeasingArticleContainer';
+import Head from '../../../../components/Head/Head';
+import { useGenericPage } from '../../../../gql/genericPage';
+import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
 
-const EligibilityChecker: NextPage = () => {
+const FinanceInfo: NextPage = () => {
   const router = useRouter();
   const { data, loading, error } = useGenericPage(router.asPath.slice(1));
 
   if (loading) {
     return <Loading size="large" />;
   }
-
   if (error) {
     return <ErrorMessage message={error.message} />;
   }
@@ -26,13 +25,15 @@ const EligibilityChecker: NextPage = () => {
 
   const metaData = data?.genericPage?.metaData;
   const sections = data.genericPage?.sections;
+  const body = data.genericPage?.body;
 
   return (
     <>
-      <FeaturedAndTilesContainer
+      <LeasingArticleContainer
+        body={body}
         title={metaData?.name}
-        body={data?.genericPage?.body}
         sections={sections}
+        image={data?.genericPage.featuredImage?.file?.url}
       />
       <Head
         metaData={metaData}
@@ -42,4 +43,4 @@ const EligibilityChecker: NextPage = () => {
   );
 };
 
-export default withApollo(EligibilityChecker, { getDataFromTree });
+export default withApollo(FinanceInfo, { getDataFromTree });
