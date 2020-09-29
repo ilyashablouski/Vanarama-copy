@@ -10,6 +10,7 @@ services:
         - API_URL
         - LOQATE_KEY
         - ENV
+        - GTM_ID
         - ENABLE_DEV_TOOLS
     command: yarn dev
     volumes:
