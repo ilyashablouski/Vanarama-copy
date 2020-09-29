@@ -37,9 +37,10 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
     const indexOfLastOffer = activePage * 12;
     const indexOfFirstOffer = indexOfLastOffer - 12;
     // we get the right amount of cards for the current page
-    const showCards = (cards as Cards[])
-      .slice()
-      .slice(indexOfFirstOffer, indexOfLastOffer);
+    const showCards = (cards as Cards[]).slice(
+      indexOfFirstOffer,
+      indexOfLastOffer,
+    );
     return showCards?.map((reviewCard, idx) => (
       <Card
         key={idx.toString()}
