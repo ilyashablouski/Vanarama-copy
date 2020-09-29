@@ -115,6 +115,7 @@ export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_
   name: string | null;
   tilesTitle: string | null;
   titleTag: string | null;
+  position: number | null;
   tiles: advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_tiles_tiles[] | null;
 }
 
