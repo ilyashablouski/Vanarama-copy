@@ -10,7 +10,9 @@ import Flame from '@vanarama/uibook/lib/assets/icons/FlameSharp';
 import Arrow from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Redundancy from '@vanarama/uibook/lib/assets/icons/Redundancy';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
+
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+
 import { ProductCardData } from '../../../generated/ProductCardData';
 
 import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
