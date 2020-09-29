@@ -136,6 +136,24 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
                   paragraph: props => (
                     <Text {...props} tag="p" color="darker" />
                   ),
+                  list: props => {
+                    const { children } = props;
+                    return <ol style={{ display: 'list-item' }}>{children}</ol>;
+                  },
+                  listItem: props => {
+                    const { children } = props;
+                    return (
+                      <li
+                        style={{
+                          display: 'list-item',
+                          listStyleType: 'decimal',
+                          listStylePosition: 'inside',
+                        }}
+                      >
+                        {children}
+                      </li>
+                    );
+                  },
                 }}
               />
             </div>
