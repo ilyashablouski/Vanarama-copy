@@ -18,7 +18,7 @@ const env = process?.env?.ENV || '';
 const gtmEnvs = ['dev', 'uat', 'production'];
 
 // VWO
-const vwoEnvs = ['uat'];
+const vwoEnvs = ['uat', 'production'];
 
 // Rollbar
 // const rollbarCode = `
