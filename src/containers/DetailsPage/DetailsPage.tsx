@@ -12,8 +12,13 @@ import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import DownloadSharp from '@vanarama/uibook/lib/assets/icons/DownloadSharp';
 import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-gallery';
 import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
-import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import cx from 'classnames';
+import {
+  pushPDPDataLayer,
+  pushAddToCartDataLayer,
+  pushPageData,
+  getCategory,
+} from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
 import { toPriceFormat } from '../../utils/helpers';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
@@ -43,6 +48,9 @@ import FrequentlyAskedQuestions from '../../components/FrequentlyAskedQuestions/
 import { useCreateUpdateOrder } from '../../gql/order';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import useLeaseType from '../../hooks/useLeaseType';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import { getProductPageBreadCrumb } from '../../utils/url';
+import Head from '../../components/Head/Head';
 
 interface IDetailsPageProps {
   capId: number;
@@ -68,6 +76,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [leaseType, setLeaseType] = useState<string>(cachedLeaseType);
   const [leadTime, setLeadTime] = useState<string>('');
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const [firstTimePushDataLayer, setFirstTimePushDataLayer] = useState<boolean>(
+    true,
+  );
+
+  useEffect(() => {
+    pushPageData(cars ? 'Cars' : 'Vans');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setCachedLeaseType(leaseType);
@@ -79,9 +95,51 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   ] = useState<null | ILeaseScannerData>(null);
   const isMobile = useMobileViewport();
 
+  useEffect(() => {
+    if (
+      window &&
+      firstTimePushDataLayer &&
+      data?.derivativeInfo &&
+      data?.vehicleConfigurationByCapId &&
+      leaseScannerData?.quoteByCapId
+    ) {
+      const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
+      const derivativeInfo = data?.derivativeInfo;
+      const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
+      pushPDPDataLayer({
+        capId,
+        derivativeInfo,
+        vehicleConfigurationByCapId,
+        price,
+        category: getCategory({ cars, vans, pickups }),
+      });
+      setFirstTimePushDataLayer(false);
+    }
+  }, [
+    data,
+    cars,
+    vans,
+    pickups,
+    capId,
+    leaseScannerData,
+    firstTimePushDataLayer,
+  ]);
+
   const [createOrderHandle] = useCreateUpdateOrder(() => {});
 
   const onSubmitClick = (values: OrderInputObject) => {
+    const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
+    const derivativeInfo = data?.derivativeInfo;
+    const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
+    pushAddToCartDataLayer({
+      capId,
+      derivativeInfo,
+      leaseScannerData,
+      values,
+      vehicleConfigurationByCapId,
+      price,
+      category: getCategory({ cars, vans, pickups }),
+    });
     return createOrderHandle({
       variables: {
         input: values,
@@ -345,9 +403,32 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     });
   };
 
+  const breadcrumbItems = getProductPageBreadCrumb(data?.derivativeInfo, cars);
+  const metaData = {
+    title:
+      `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription} 
+    Leasing Deals | Vanarama` || null,
+    name: '' || null,
+    metaRobots: '' || null,
+    metaDescription:
+      `Get top ${pageTitle} ${
+        vehicleConfigurationByCapId?.capDerivativeDescription
+      } leasing deals at Vanarama. ✅ 5* Customer Service ✅ Brand-New ${
+        // eslint-disable-next-line no-nested-ternary
+        cars ? 'Cars' : vans ? 'Vans' : 'Pickups'
+      } ✅ Free Delivery ✅ Road Tax Included` || null,
+    publishedOn: '' || null,
+    legacyUrl: '' || null,
+    pageType: '' || null,
+    canonicalUrl: '' || null,
+    slug: '' || null,
+    schema: schema || null,
+  };
+
   return (
     <>
       <div className="pdp--content">
+        <Breadcrumb items={breadcrumbItems} />
         <Heading tag="h1">
           <Heading className="-pt-100" tag="span" size="xlarge" color="black">
             {pageTitle}
@@ -432,6 +513,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         setLeadTime={setLeadTime}
         isDisabled={isDisabled}
         setIsDisabled={setIsDisabled}
+        setLeaseScannerData={setLeaseScannerData}
         onCompleted={values => onSubmitClick(values)}
       />
       {!!capsId?.length && (
@@ -486,7 +568,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           />
         </div>
       )}
-      <SchemaJSON json={JSON.stringify(schema)} />
+      <Head metaData={metaData} featuredImage={null} />
     </>
   );
 };

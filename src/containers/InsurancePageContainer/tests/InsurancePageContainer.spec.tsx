@@ -6,6 +6,12 @@ import GET_INSURANCE_LANDING_PAGE from '../gql';
 import { GetInsuranceLandingPage } from '../../../../generated/GetInsuranceLandingPage';
 import InsurancePageContainer from '../InsurancePageContainer';
 
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    asPath: '/',
+  }),
+}));
+
 // ARRANGE
 const mocked: MockedResponse[] = [
   {

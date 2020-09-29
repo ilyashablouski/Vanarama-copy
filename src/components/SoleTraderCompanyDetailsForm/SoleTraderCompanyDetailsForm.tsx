@@ -38,14 +38,19 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
   onSubmit,
   companyDetails,
 }) => {
+  const defaultValues = companyDetails;
   const methods = useForm<ISoleTraderCompanyDetailsFormValues>({
     mode: 'onBlur',
+    defaultValues,
   });
-  const { formState, errors, register, watch } = methods;
+  const { formState, errors, register, watch, reset } = methods;
   const existingVehicle = watch('existingVehicle');
   const tradingSinceYear = watch('tradingSinceYear');
   const tradingSinceMonth = watch('tradingSinceMonth');
-  console.log(companyDetails);
+
+  React.useEffect(() => {
+    reset(defaultValues);
+  }, [companyDetails, defaultValues, reset]);
 
   return (
     <Form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -86,7 +91,7 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
         controlId="natureOfBusiness"
         label="Nature of Business"
         hint="e.g. building firm/marketing agency"
-        error={errors.natureofBusiness?.message?.toString()}
+        error={errors.natureOfBusiness?.message?.toString()}
       >
         <TextInput
           id="nature-of-business"

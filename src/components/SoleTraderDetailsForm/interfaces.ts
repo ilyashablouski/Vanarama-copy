@@ -1,7 +1,8 @@
 import { SoleTraderDetailsDropDownData } from '../../../generated/SoleTraderDetailsDropDownData';
-import { SoleTraderAssociate_associates as SoleTraderAssociates } from '../../../generated/SoleTraderAssociate';
-import { SoleTraderPerson } from '../../../generated/SoleTraderPerson';
-import { SoleTraderDetailsFormAddresses } from '../../../generated/SoleTraderDetailsFormAddresses';
+import {
+  SoleTraderDetailsFormDataQuery_companyByUuid_associates as SoleTraderAssociates,
+  SoleTraderDetailsFormDataQuery_personByUuid as SoleTraderPerson,
+} from '../../../generated/SoleTraderDetailsFormDataQuery';
 import { TAddressEntry } from '../AddressForm/interfaces';
 
 export interface ISoleTraderDetailsFormValues {
@@ -29,7 +30,6 @@ export interface ISoleTraderDetailsFormValues {
 }
 
 export interface ISoleTraderDetailsProps {
-  addresses: SoleTraderDetailsFormAddresses[];
   soleTrader?: SoleTraderAssociates | null;
   person?: SoleTraderPerson | null;
   dropdownData: SoleTraderDetailsDropDownData;

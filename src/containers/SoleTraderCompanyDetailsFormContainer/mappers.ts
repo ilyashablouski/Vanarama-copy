@@ -29,12 +29,37 @@ export const mapFormValues = (values: ISoleTraderCompanyDetailsFormValues) => {
     tradingName: values.tradingName,
     monthlyAmountBeingReplaced: parseFloat(values.monthlyAmountBeingReplaced),
     annualTurnover: parseFloat(values.annualTurnover),
-    companyNature: values.natureofBusiness,
+    companyNature: values.natureOfBusiness,
     annualSalesCost: parseFloat(values.annualCostOfSales),
     annualExpenses: parseFloat(values.annualExpenses),
     vehicleRegistrationNumber: values.vehicleRegistrationNumber,
     companyType: CompanyTypes.soleTrader,
     tradingSince,
+  };
+};
+
+export const prelodedValuesToInput = (details: any) => {
+  const tradingAddress = details.addresses
+    ? {
+        tradingAddress: {
+          label: details.addresses[0].line_one,
+          id: details.addresses[0].service_id,
+        },
+      }
+    : null;
+  return {
+    tradingName: details.trading_name,
+    ...tradingAddress,
+    natureOfBusiness: details.company_nature,
+    tradingSinceYear: String(new Date(details.trading_since).getFullYear()),
+    tradingSinceMonth: String(new Date(details.trading_since).getMonth() + 1),
+    businessTelephoneNumber: details.telephone_numbers?.[0].value,
+    email: details.email_address.value,
+    annualTurnover: String(details.annual_turnover),
+    annualCostOfSales: String(details.annual_sales_cost),
+    annualExpenses: String(details.annual_expenses),
+    vehicleRegistrationNumber: details.vehicle_registration_number,
+    monthlyAmountBeingReplaced: String(details.monthly_amount_being_replaced),
   };
 };
 

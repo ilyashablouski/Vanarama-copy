@@ -2,6 +2,7 @@ import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React, { useEffect } from 'react';
 import { useLazyQuery, ApolloError } from '@apollo/client';
 import BusinessSummaryForm from '../../components/BusinessSummaryForm/BusinessSummaryForm';
+import SoleTraderSummaryForm from '../../components/BusinessSummaryForm/SoleTraderSummaryForm';
 import {
   GetCompanySummaryQuery,
   GetCompanySummaryQueryVariables,
@@ -22,6 +23,7 @@ interface IProps {
   personUuid: string;
   companyUuid: string;
   orderId: string;
+  isSoleTrader: boolean;
   onCompleted?: () => void;
   onError?: (error: ApolloError) => void;
 }
@@ -32,6 +34,7 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
   personUuid,
   onCompleted,
   onError,
+  isSoleTrader,
 }) => {
   const [getDataSummary, getDataSummaryQueryOptions] = useLazyQuery<
     GetCompanySummaryQuery,
@@ -82,7 +85,7 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
     return <Loading size="large" />;
   }
 
-  const hanldeCredutApplicationSubmit = () =>
+  const handleCreditApplicationSubmit = () =>
     createUpdateCA({
       variables: {
         input: {
@@ -92,11 +95,14 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
       },
     });
 
-  const hanldeCreditCheckerSubmit = (party?: Party | null) =>
+  const handleCreditCheckerSubmit = (
+    creditApplication?: CreditApplication | null,
+    party?: Party | null,
+  ) =>
     submitFullCreditChecker({
       variables: {
         input: mapCreditApplicationToCreditChecker(
-          getCreditApplication.data?.creditApplicationByOrderUuid,
+          creditApplication,
           party?.company?.partyId || '',
         ),
       },
@@ -108,26 +114,51 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
     });
 
   const handleSubmit = () => {
-    hanldeCredutApplicationSubmit()
-      .then(query =>
-        handlePartyRefetch(query.data?.createUpdateCreditApplication),
+    handleCreditApplicationSubmit()
+      .then(creditApplicationQuery =>
+        handlePartyRefetch(
+          creditApplicationQuery.data?.createUpdateCreditApplication,
+        ).then(partyQuery =>
+          handleCreditCheckerSubmit(
+            creditApplicationQuery.data?.createUpdateCreditApplication,
+            partyQuery.data?.partyByUuid,
+          ),
+        ),
       )
-      .then(query => hanldeCreditCheckerSubmit(query.data?.partyByUuid))
       .then(() => onCompleted?.())
       .catch(onError);
   };
 
   return (
-    <BusinessSummaryForm
-      isSubmitting={isSubmitting}
-      onSubmit={handleSubmit}
-      creditApplication={
-        getCreditApplication.data?.creditApplicationByOrderUuid
-      }
-      person={getDataSummaryQueryOptions.data.personByUuid as PersonByUuid}
-      company={getDataSummaryQueryOptions.data.companyByUuid as CompanyByUuid}
-      orderId={orderId}
-    />
+    <>
+      {isSoleTrader ? (
+        <SoleTraderSummaryForm
+          isSubmitting={isSubmitting}
+          onSubmit={handleSubmit}
+          creditApplication={
+            getCreditApplication.data?.creditApplicationByOrderUuid
+          }
+          person={getDataSummaryQueryOptions.data.personByUuid as PersonByUuid}
+          company={
+            getDataSummaryQueryOptions.data.companyByUuid as CompanyByUuid
+          }
+          orderId={orderId}
+        />
+      ) : (
+        <BusinessSummaryForm
+          isSubmitting={isSubmitting}
+          onSubmit={handleSubmit}
+          creditApplication={
+            getCreditApplication.data?.creditApplicationByOrderUuid
+          }
+          person={getDataSummaryQueryOptions.data.personByUuid as PersonByUuid}
+          company={
+            getDataSummaryQueryOptions.data.companyByUuid as CompanyByUuid
+          }
+          orderId={orderId}
+        />
+      )}
+    </>
   );
 };
 

@@ -10,7 +10,7 @@ export default function getFeaturedHtml(featured: Featured | null | undefined) {
   return (
     <>
       {featured && (
-        <section className="row:text">
+        <section className="row:text -columns">
           {featured.image?.file?.url && (
             <Image
               src={featured.image?.file?.url}
@@ -35,12 +35,7 @@ export default function getFeaturedHtml(featured: Featured | null | undefined) {
                   );
                 },
                 heading: props => (
-                  <Text
-                    {...props}
-                    size="lead"
-                    color="darker"
-                    className="-mt-100"
-                  />
+                  <Text {...props} size="lead" color="darker" tag="h3" />
                 ),
                 paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}

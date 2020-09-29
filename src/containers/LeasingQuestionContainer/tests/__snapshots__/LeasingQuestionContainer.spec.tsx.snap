@@ -14,13 +14,12 @@ exports[`<LeasingQuestionContainer /> should match snapshot 1`] = `
             class="breadcrumb-item -parent"
           >
             <a
-              class="link breadcrumb-item--backlink -teal -small -plain"
+              class="breadcrumb-item--backlink link -teal -small"
+              data-testid="router-link"
               href="/"
             >
-              Back to 
-              Home
               <i
-                class="icon -medium -xsmall"
+                class="icon -teal"
               >
                 <svg
                   height="1em"
@@ -36,12 +35,15 @@ exports[`<LeasingQuestionContainer /> should match snapshot 1`] = `
                   />
                 </svg>
               </i>
+              Back to 
+              home
             </a>
             <a
-              class="link breadcrumb-item--parent -teal -small -plain"
+              class="breadcrumb-item--parent link -teal -small"
+              data-testid="router-link"
               href="/"
             >
-              Home
+              home
             </a>
             <i
               class="icon -medium -xsmall"
@@ -67,7 +69,7 @@ exports[`<LeasingQuestionContainer /> should match snapshot 1`] = `
             <span
               class="text breadcrumb-item--child -small -darker"
             >
-              Customer Leasing Questions
+              home
             </span>
           </li>
         </ol>

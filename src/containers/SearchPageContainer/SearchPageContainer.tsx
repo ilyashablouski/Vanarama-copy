@@ -12,7 +12,6 @@ import React, {
   useLayoutEffect,
   useMemo,
 } from 'react';
-import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
@@ -74,6 +73,9 @@ import {
 } from '../../../generated/GenericPageHeadQuery';
 import useLeaseType from '../../hooks/useLeaseType';
 import { LinkTypes } from '../../models/enum/LinkTypes';
+import { getLegacyUrl } from '../../utils/url';
+import TileLink from '../../components/TileLink/TileLink';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   isServer: boolean;
@@ -246,11 +248,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
   );
-
-  const crumbs = [
-    { label: 'Home', href: '/' },
-    { label: `${isCarSearch ? 'Car' : 'Vans'} Search`, href: '/' },
-  ];
 
   const sortField =
     !isRangePage && isSpecialOffers && !isDynamicFilterPage
@@ -575,66 +572,51 @@ const SearchPageContainer: React.FC<IProps> = ({
   // made requests for different types of search pages
   useEffect(() => {
     const searchType = isCarSearch ? 'car-leasing' : 'van-leasing';
-    const { query } = router;
+    const { query, asPath } = router;
+    // remove first slash from route and queries part
+    const slug = asPath.slice(
+      1,
+      asPath.indexOf('?') > -1 ? asPath.indexOf('?') : asPath.length,
+    );
     switch (true) {
       case isMakePage:
-        pageContentQueryExecutor(
-          getGenericPage,
-          `/${(query.dynamicParam as string).toLocaleLowerCase()}-${searchType}`,
-        );
-        break;
       case isRangePage:
-        pageContentQueryExecutor(
-          getGenericPage,
-          `/${prepareSlugPart(
-            query.dynamicParam,
-          )}-${searchType}/${prepareSlugPart(query.rangeName)}`,
-        );
-        break;
       case isModelPage:
-        pageContentQueryExecutor(
-          getGenericPage,
-          `/${prepareSlugPart(
-            query.dynamicParam,
-          )}-car-leasing/${prepareSlugPart(query.rangeName)}/${prepareSlugPart(
-            query.bodyStyles,
-          )}`,
-        );
+        pageContentQueryExecutor(getGenericPage, prepareSlugPart(slug));
         break;
       case isBodyStylePage:
         pageContentQueryExecutor(
           getGenericPage,
-          `${isCarSearch ? '/car-leasing' : ''}/${prepareSlugPart(
+          `${searchType}/${prepareSlugPart(
             bodyUrls.find(
               getBodyStyleForCms,
-              (router.query.dynamicParam as string).toLowerCase(),
+              (query.dynamicParam as string).toLowerCase(),
             ) || '',
           )}${!isCarSearch ? '-leasing' : ''}`,
         );
         break;
       case isTransmissionPage:
-        pageContentQueryExecutor(getGenericPage, '/automatic-vans');
-        break;
-      case isFuelPage:
         pageContentQueryExecutor(
           getGenericPage,
-          `car-leasing/${router.query.dynamicParam}`,
+          'van-leasing/automatic-van-leasing',
         );
+        break;
+      case isFuelPage:
+        pageContentQueryExecutor(getGenericPage, slug);
         break;
       case isSpecialOfferPage:
         pageContentQueryExecutor(
           getGenericPageHead,
-          `/${isCarSearch ? 'car-leasing' : 'pickup'}-special-offers`,
+          `${
+            isCarSearch ? 'car-leasing' : 'pickup-truck-leasing'
+          }/special-offers`,
         );
         break;
       case isAllMakesPage:
         getAllManufacturersPage();
         break;
       default:
-        pageContentQueryExecutor(
-          getGenericPage,
-          isCarSearch ? '/car-leasing/search' : '/search',
-        );
+        pageContentQueryExecutor(getGenericPage, `${searchType}/search`);
         break;
     }
     // router can't be added to deps, because it change every url replacing
@@ -662,13 +644,12 @@ const SearchPageContainer: React.FC<IProps> = ({
   // Some props should be contain in one param for achieve more readable code
   return (
     <>
-      {metaData && <Head metaData={metaData} featuredImage={featuredImage} />}
       <div className="row:title">
-        <Breadcrumb items={crumbs} />
+        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {(isModelPage &&
             `${filtersData.manufacturerName} ${filtersData.rangeName} ${filtersData.bodyStyles?.[0]}`) ||
-            (metaData?.name ?? 'Lorem Ips')}
+            (metaData?.name ?? '')}
         </Heading>
         <Text color="darker" size="regular" tag="div">
           <ReactMarkdown
@@ -689,13 +670,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                 return <img {...{ src, alt }} style={{ maxWidth: '100%' }} />;
               },
               heading: props => (
-                <Text
-                  {...props}
-                  size="lead"
-                  color="darker"
-                  className="-mt-100"
-                  tag="h2"
-                />
+                <Text {...props} size="lead" color="darker" tag="h3" />
               ),
               paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
@@ -711,7 +686,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                   {metaData?.name}
                 </Heading>
               </div>
-              <div className="row:text">
+              <div className="row:text -columns">
                 <div>
                   <ReactMarkdown
                     escapeHtml={false}
@@ -733,13 +708,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                         );
                       },
                       heading: props => (
-                        <Text
-                          {...props}
-                          size="lead"
-                          color="darker"
-                          className="-mt-100"
-                          tag="h2"
-                        />
+                        <Text {...props} size="lead" color="darker" tag="h3" />
                       ),
                       paragraph: props => (
                         <Text {...props} tag="p" color="darker" />
@@ -852,7 +821,6 @@ const SearchPageContainer: React.FC<IProps> = ({
                   vehiclesList?.map((vehicle: IVehicles) => (
                     <VehicleCard
                       viewOffer={viewOffer}
-                      dataDerivatives={carDer}
                       bodyStyle={
                         router.query?.bodyStyles === 'Pickup' ? 'Pickup' : null
                       }
@@ -862,6 +830,11 @@ const SearchPageContainer: React.FC<IProps> = ({
                           vehicle.node?.derivativeId || '',
                         ) as IProductCard
                       }
+                      derivativeId={vehicle.node?.derivativeId}
+                      url={getLegacyUrl(
+                        vehiclesList,
+                        vehicle.node?.derivativeId,
+                      )}
                       title={{
                         title: '',
                         description: vehicle.node?.derivativeName || '',
@@ -911,15 +884,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                     size="large"
                   />
                 </span>
-                <RouterLink
-                  link={{ href: tile.link || '', label: tile.title || '' }}
-                  className="tile--link"
-                  withoutDefaultClassName
-                >
-                  <Heading color="black" size="regular">
-                    {tile.title}
-                  </Heading>
-                </RouterLink>
+                <TileLink tile={tile} />
                 <Text color="darker" size="regular">
                   {tile.body}
                 </Text>
@@ -937,7 +902,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                   {metaData?.name}
                 </Heading>
               </div>
-              <div className="row:text">
+              <div className="row:text -columns">
                 <div>
                   <ReactMarkdown
                     source={pageData?.genericPage.body || ''}
@@ -953,13 +918,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                         );
                       },
                       heading: props => (
-                        <Text
-                          {...props}
-                          size="lead"
-                          color="darker"
-                          className="-mt-100"
-                          tag="h2"
-                        />
+                        <Text {...props} size="lead" color="darker" tag="h3" />
                       ),
                       paragraph: props => (
                         <Text {...props} tag="p" color="darker" />
@@ -991,13 +950,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                       );
                     },
                     heading: props => (
-                      <Text
-                        {...props}
-                        size="lead"
-                        color="darker"
-                        className="-mt-100"
-                        tag="h2"
-                      />
+                      <Text {...props} size="lead" color="darker" tag="h3" />
                     ),
                     paragraph: props => (
                       <Text {...props} tag="p" color="darker" />
@@ -1025,15 +978,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                         size="large"
                       />
                     </span>
-                    <RouterLink
-                      link={{ href: tile.link || '', label: tile.title || '' }}
-                      className="tile--link"
-                      withoutDefaultClassName
-                    >
-                      <Heading color="black" size="regular">
-                        {tile.title}
-                      </Heading>
-                    </RouterLink>
+                    <TileLink tile={tile} />
                     <Text color="darker" size="regular">
                       {tile.body}
                     </Text>
@@ -1060,10 +1005,16 @@ const SearchPageContainer: React.FC<IProps> = ({
                           className="card__article"
                           imageSrc={card?.image?.file?.url || ''}
                           title={{
-                            title: '',
+                            title: card.link?.url ? '' : card.title || '',
                             link: (
                               <RouterLink
-                                link={{ href: '#', label: card.title || '' }}
+                                link={{
+                                  href: card.link?.url || '',
+                                  label: card.title || '',
+                                  linkType: card.link?.url?.match('http')
+                                    ? LinkTypes.external
+                                    : '',
+                                }}
                                 className="card--link"
                                 classNames={{ color: 'black', size: 'regular' }}
                               />
@@ -1088,8 +1039,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                                   {...props}
                                   size="lead"
                                   color="darker"
-                                  className="-mt-100"
-                                  tag="h2"
+                                  tag="h3"
                                 />
                               ),
                               paragraph: props => (
@@ -1121,6 +1071,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           Photos and videos are for illustration purposes only.
         </Text>
       </div>
+      {metaData && <Head metaData={metaData} featuredImage={featuredImage} />}
     </>
   );
 };

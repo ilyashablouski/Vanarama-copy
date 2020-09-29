@@ -4,20 +4,19 @@ import ReactMarkdown from 'react-markdown';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
-import Breadcrumb from '@vanarama/uibook/lib/components/atoms/breadcrumb';
 import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import { ILink } from '@vanarama/uibook/lib/interfaces/link';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import TrophySharp from '@vanarama/uibook/lib/assets/icons/TrophySharp';
 import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
 import { useAboutUsPageData } from './gql';
-import { ABOUT_US_NAV_ITEM, ABOUT_US_MEET_SECTION_NAMES } from './config';
+import { ABOUT_US_MEET_SECTION_NAMES } from './config';
 import { GetAboutUsPageData_aboutUsLandingPage_sections_carousel_cards as ICard } from '../../../generated/GetAboutUsPageData';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Head from '../../components/Head/Head';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 const prepareTagName = (possibleTag: string | null) =>
   possibleTag && Heading.defaultProps?.tag?.indexOf(possibleTag) !== -1
@@ -81,7 +80,7 @@ const renderMeetCard = (card: ICard | undefined) =>
               );
             },
             heading: props => (
-              <Text {...props} size="lead" color="darker" className="-mt-100" />
+              <Text {...props} size="lead" color="darker" tag="h3" />
             ),
             paragraph: props => <Text {...props} tag="p" color="darker" />,
           }}
@@ -108,13 +107,6 @@ const AboutUs: React.FC = () => {
 
   const { metaData, sections, featuredImage, body } = data.aboutUsLandingPage;
 
-  const navigation: ILink[] = metaData.schema.itemListElement.map(
-    (nav: any) => ({
-      href: nav.item,
-      label: nav.name,
-    }),
-  );
-
   const directorsCard = sections?.cards?.cards?.find(
     card => card.name === ABOUT_US_MEET_SECTION_NAMES.directors,
   );
@@ -124,17 +116,8 @@ const AboutUs: React.FC = () => {
 
   return (
     <>
-      <Head
-        metaData={metaData}
-        featuredImage={data?.aboutUsLandingPage.featuredImage}
-      />
       <div className="row:title">
-        <nav>
-          <Breadcrumb
-            dataTestId="about-us-nav"
-            items={navigation.concat(ABOUT_US_NAV_ITEM)}
-          />
-        </nav>
+        <Breadcrumb />
         <Heading size="xlarge" color="black" tag="h1">
           {metaData.name}
         </Heading>
@@ -162,12 +145,7 @@ const AboutUs: React.FC = () => {
                 );
               },
               heading: props => (
-                <Text
-                  {...props}
-                  size="lead"
-                  color="darker"
-                  className="-mt-100"
-                />
+                <Text {...props} size="lead" color="darker" tag="h3" />
               ),
               paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
@@ -215,6 +193,10 @@ const AboutUs: React.FC = () => {
           />
         </Link>
       </div>
+      <Head
+        metaData={metaData}
+        featuredImage={data?.aboutUsLandingPage.featuredImage}
+      />
     </>
   );
 };

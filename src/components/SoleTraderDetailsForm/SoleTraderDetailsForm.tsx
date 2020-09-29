@@ -1,11 +1,11 @@
 import React from 'react';
-import { FieldArray, Formik } from 'formik';
+import { FieldArray, Formik, useFormikContext } from 'formik';
 import { gql } from '@apollo/client';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-// import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import FCWithFragments from '../../utils/FCWithFragments';
 import FormikTextField from '../FormikTextField/FormikTextField';
 import FormikCheckBoxField from '../FormikCheckboxField/FormikCheckboxField';
@@ -28,23 +28,50 @@ const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
   return isEdited ? 'Save & Return' : 'Continue';
 };
 
+const AnnualIncomeField: React.FC = () => {
+  const {
+    values: { annualIncome },
+    touched,
+    setFieldValue,
+  } = useFormikContext<ISoleTraderDetailsFormValues>();
+
+  React.useEffect(() => {
+    if (touched.annualIncome) {
+      setFieldValue('avgMonthlyIncome', Math.round((annualIncome || 0) / 12));
+    }
+  }, [annualIncome, touched.annualIncome, setFieldValue]);
+  return (
+    <FormikNumericField
+      name="annualIncome"
+      label="Annual Income"
+      dataTestId="annual-income"
+      prefix="£"
+    />
+  );
+};
+
 const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
   person,
   soleTrader,
-  addresses,
   onSubmit,
   isEdited,
   dropdownData,
 }) => {
   return (
     <Formik<ISoleTraderDetailsFormValues>
-      initialValues={responseToInitialFormValues(person, soleTrader, addresses)}
+      initialValues={responseToInitialFormValues(person, soleTrader)}
+      enableReinitialize
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
       {formikProps => (
         <Form onSubmit={formikProps.handleSubmit}>
-          <Heading color="black" size="xlarge" tag="h1">
+          <Heading
+            color="black"
+            size="xlarge"
+            tag="h1"
+            dataTestId="soleTrader-details-heading"
+          >
             SoleTrader Details
           </Heading>
 
@@ -109,6 +136,14 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
             <OptionsWithFavourites options={dropdownData.noOfDependants} />
           </FormikSelectField>
 
+          <hr className="mv-400" />
+          <Heading color="dark" size="small">
+            Address History
+          </Heading>
+          <Text color="dark" size="small">
+            Please provide your personal address history for the past five
+            years.
+          </Text>
           <FieldArray name="history">
             {arrayHelpers => (
               <AddressFormFieldArray
@@ -123,18 +158,14 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
             <OptionsWithFavourites options={dropdownData.occupations} />
           </FormikSelectField>
 
-          <FormikNumericField
-            name="annualIncome"
-            label="Annual Income"
-            dataTestId="annual-income"
-            prefix="£"
-          />
+          <AnnualIncomeField />
 
           <FormikNumericField
             name="avgMonthlyIncome"
             label="Average Monthly Income"
             dataTestId="avg-monthly-income"
             prefix="£"
+            disabled
           />
 
           <FormikNumericField
@@ -146,7 +177,7 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
 
           <FormikNumericField
             name="monthlyStudentPayments"
-            label="£ Monthly Student Payments"
+            label="Monthly Student Payments"
             dataTestId="monthly-student-payments"
             prefix="£"
           />
@@ -237,6 +268,7 @@ SoleTraderDetailsForm.fragments = {
         title
         firstName
         lastName
+        gender
         emailAddresses {
           __typename
           primary
@@ -245,6 +277,16 @@ SoleTraderDetailsForm.fragments = {
         dateOfBirth
         countryOfBirth
         nationality
+        addresses {
+          __typename
+          serviceId
+          lineOne
+          lineTwo
+          postcode
+          city
+          propertyStatus
+          startedOn
+        }
         maritalStatus
         noOfAdultsInHousehold
         noOfDependants
@@ -263,18 +305,6 @@ SoleTraderDetailsForm.fragments = {
       }
     }
   `,
-  addresses: gql`
-    fragment SoleTraderDetailsFormAddresses on AddressType {
-      __typename
-      serviceId
-      lineOne
-      lineTwo
-      postcode
-      city
-      propertyStatus
-      startedOn
-    }
-  `,
   person: gql`
     fragment SoleTraderPerson on PersonType {
       __typename
@@ -291,6 +321,16 @@ SoleTraderDetailsForm.fragments = {
       dateOfBirth
       countryOfBirth
       nationality
+      addresses {
+        __typename
+        serviceId
+        lineOne
+        lineTwo
+        postcode
+        city
+        propertyStatus
+        startedOn
+      }
       maritalStatus
       noOfAdultsInHousehold
       noOfDependants

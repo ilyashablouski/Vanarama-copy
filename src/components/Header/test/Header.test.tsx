@@ -6,6 +6,12 @@ import {
 } from '../../../models/enum/HeaderLinks';
 import { Header } from '../Header';
 
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    asPath: '/',
+  }),
+}));
+
 const mocks = {
   topBarLinks: TOP_BAR_LINKS,
   loginLink: {

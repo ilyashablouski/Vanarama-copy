@@ -1,7 +1,6 @@
 import moment from 'moment';
 import { SoleTraderAssociate_associates as SoleTrader } from '../../../generated/SoleTraderAssociate';
 import { SoleTraderPerson as Person } from '../../../generated/SoleTraderPerson';
-import { SoleTraderDetailsFormAddresses } from '../../../generated/SoleTraderDetailsFormAddresses';
 import { CompanyAssociateInputObject } from '../../../generated/globalTypes';
 import { ISoleTraderDetailsFormValues } from './interfaces';
 import { addressToDisplay } from '../../utils/address';
@@ -48,35 +47,36 @@ export const formValuesToAssociate = (
 
 // eslint-disable-next-line import/prefer-default-export
 export const responseToInitialFormValues = (
-  person?: Person | null,
-  soleTrader?: SoleTrader | null,
-  addresses?: SoleTraderDetailsFormAddresses[],
+  person: Person | null | undefined,
+  soleTrader: SoleTrader | null | undefined,
 ): ISoleTraderDetailsFormValues => {
-  const email = person?.emailAddresses.find(_ => _.primary)?.value || '';
-  const dateOfBirth = person?.dateOfBirth && new Date(person.dateOfBirth);
+  const st: any = soleTrader || person;
+  const email = person?.emailAddresses.find(addr => addr.primary)?.value || '';
+  const dateOfBirth = st?.dateOfBirth && new Date(st.dateOfBirth);
+  const addresses = st?.addresses || [];
 
   return {
-    firstName: person?.firstName || '',
-    lastName: person?.lastName || '',
-    gender: person?.gender || '',
-    placeOfBirth: person?.countryOfBirth || '',
-    dependants: person?.noOfDependants || '',
+    firstName: st?.firstName || '',
+    lastName: st?.lastName || '',
+    gender: st?.gender || '',
+    placeOfBirth: st?.countryOfBirth || '',
+    dependants: st?.noOfDependants || '',
     email,
-    maritalStatus: person?.maritalStatus || '',
-    nationality: person?.nationality || '',
-    title: person?.title || '',
+    maritalStatus: st?.maritalStatus || '',
+    nationality: st?.nationality || '',
+    title: st?.title || '',
     dayOfBirth: dateOfBirth ? String(dateOfBirth.getDate()) : '',
     monthOfBirth: dateOfBirth ? String(dateOfBirth.getMonth() + 1) : '',
     yearOfBirth: dateOfBirth ? String(dateOfBirth.getFullYear()) : '',
-    adultsInHousehold: person?.noOfAdultsInHousehold || '',
-    occupation: soleTrader?.occupation || '',
-    avgMonthlyIncome: soleTrader?.incomeAndExpense?.averageMonthlyIncome || 0,
-    annualIncome: soleTrader?.incomeAndExpense?.annualIncome || 0,
-    monthlyMortgagePayments: soleTrader?.incomeAndExpense?.mortgageOrRent || 0,
-    monthlyStudentPayments: soleTrader?.incomeAndExpense?.studentLoan || 0,
+    adultsInHousehold: st?.noOfAdultsInHousehold || '',
+    occupation: st?.occupation || '',
+    avgMonthlyIncome: st?.incomeAndExpense?.averageMonthlyIncome || 0,
+    annualIncome: st?.incomeAndExpense?.annualIncome || 0,
+    monthlyMortgagePayments: st?.incomeAndExpense?.mortgageOrRent || 0,
+    monthlyStudentPayments: st?.incomeAndExpense?.studentLoan || 0,
     monthlyIncomeChange:
-      soleTrader?.incomeAndExpense?.anticipateMonthlyIncomeChange || false,
-    futureMonthlyIncome: soleTrader?.incomeAndExpense?.futureMonthlyIncome || 0,
+      st?.incomeAndExpense?.anticipateMonthlyIncomeChange || false,
+    futureMonthlyIncome: st?.incomeAndExpense?.futureMonthlyIncome || 0,
     history: [...addresses]
       .sort(
         (a, b) =>

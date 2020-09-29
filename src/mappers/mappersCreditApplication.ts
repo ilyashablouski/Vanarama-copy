@@ -16,5 +16,6 @@ export const formValuesToInputCreditApplication = (
     companyDetails: creditApp.companyDetails,
     vatDetails: creditApp.vatDetails,
     directorsDetails: creditApp.directorsDetails,
+    soleTraderDetails: creditApp.soleTraderDetails,
   };
 };

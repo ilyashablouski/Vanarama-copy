@@ -2,7 +2,7 @@ import moment from 'moment';
 import { ICompanyBankDetails } from '../../components/CompanyBankDetails/interfaces';
 import { LimitedCompanyInputObject } from '../../../generated/globalTypes';
 import { GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as CreditApplication } from '../../../generated/GetCreditApplicationByOrderUuid';
-import { UpdateBankDetailsMutation_createUpdateLimitedCompany_bankAccounts as BankAccount } from '../../../generated/UpdateBankDetailsMutation';
+import { UpdateLimitedBankDetailsMutation_createUpdateLimitedCompany_bankAccounts as BankAccount } from '../../../generated/UpdateLimitedBankDetailsMutation';
 
 export const formValuesToInput = (
   uuid: string,

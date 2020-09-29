@@ -28,14 +28,14 @@ const EligibilityChecker: NextPage = () => {
 
   return (
     <>
-      <Head
-        metaData={metaData}
-        featuredImage={data?.advancedBreakdownCoverPage.featuredImage}
-      />
       <AdvancedBreakdownCoverContainer
         title={metaData?.name}
         body={data?.advancedBreakdownCoverPage?.body}
         sections={sections}
+      />
+      <Head
+        metaData={metaData}
+        featuredImage={data?.advancedBreakdownCoverPage.featuredImage}
       />
     </>
   );

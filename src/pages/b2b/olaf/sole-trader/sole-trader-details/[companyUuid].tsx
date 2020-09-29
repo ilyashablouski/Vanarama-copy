@@ -8,6 +8,7 @@ import SoleTraderDetailsFormContainer from '../../../../../containers/SoleTrader
 import withApollo from '../../../../../hocs/withApollo';
 import OLAFLayout from '../../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams, getUrlParam } from '../../../../../utils/url';
+import useGetPersonUuid from '../../../../../hooks/useGetPersonUuid';
 
 type QueryParams = OLAFQueryParams & {
   companyUuid: string;
@@ -15,20 +16,24 @@ type QueryParams = OLAFQueryParams & {
 
 export const SoleTraderDetailsPage: NextPage = () => {
   const router = useRouter();
-  const { orderId, personUuid, companyUuid } = router.query as QueryParams;
-
-  const handleSubmitCompletion = () => {
-    const params = getUrlParam({ orderId, personUuid });
-    const url = `/b2b/olaf/sole-trader/bank-details/[companyUuid]${params}`;
-    router.push(url, url.replace('[personUuid]', companyUuid));
-  };
+  const { orderId, companyUuid } = router.query as QueryParams;
+  const personUuid = useGetPersonUuid();
 
   const handleSubmitError = (err: ApolloError) => {
-    console.log(err);
+    console.error(err);
     toast.error(
       'Oops, an unexpected error occurred',
       'Your details could not be saved. Please try submitting the form again.',
     );
+  };
+
+  const handleSubmitCompletion = () => {
+    const params = getUrlParam({ orderId });
+    const url =
+      router.query.redirect === 'summary'
+        ? `/b2b/olaf/sole-trader/summary/[companyUuid]${params}`
+        : `/b2b/olaf/sole-trader/bank-details/[companyUuid]${params}`;
+    router.push(url, url.replace('[companyUuid]', companyUuid));
   };
 
   return (
@@ -38,7 +43,7 @@ export const SoleTraderDetailsPage: NextPage = () => {
         personUuid={personUuid}
         companyUuid={companyUuid}
         onCompleted={handleSubmitCompletion}
-        onError={err => handleSubmitError(err)}
+        onError={handleSubmitError}
         isEdited={router.query.redirect === 'summary'}
       />
     </OLAFLayout>

@@ -6,18 +6,21 @@ import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import Router from 'next/router';
 import { VAN_OFFERS_CONTENT } from '../../../gql/special-offers/van-offers';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
-import { VanOffers } from '../../../pages/special-offers/van-offers';
+import { VanOffers } from '../../../pages/leasing-offers/van-offers';
 import { ProductCardData } from '../../../../generated/ProductCardData';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import { useVehicleListUrl } from '../../../gql/vehicleList';
 
 jest.mock('../../../containers/OrdersInformation/gql');
+jest.mock('../../../gql/vehicleList');
 
-jest.mock('../../../containers/BreadCrumbContainer', () => () => {
-  return <div />;
-});
-
-jest.mock('next/router', () => ({ push: jest.fn() }));
+jest.mock('next/router', () => ({
+  push: jest.fn(),
+  useRouter: () => ({
+    asPath: '/',
+  }),
+}));
 
 const mocked: MockedResponse[] = [
   {
@@ -362,6 +365,32 @@ const mocked: MockedResponse[] = [
 
 describe('<VanOffers />', () => {
   beforeEach(async () => {
+    (useVehicleListUrl as jest.Mock).mockReturnValue({
+      loading: false,
+      data: {
+        vehicleList: {
+          totalCount: 1,
+          pageInfo: {
+            startCursor: 'startCursor',
+            endCursor: 'endCursor',
+            hasNextPage: 'hasNextPage',
+            hasPreviousPage: 'hasPreviousPage',
+          },
+          edges: [
+            {
+              cursor: 'cursor',
+              node: {
+                derivativeId: '44514',
+                url: '/van-leasing/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
+                legacyUrl: null,
+              },
+            },
+          ],
+        },
+      },
+      error: undefined,
+    });
+
     (useCarDerivativesData as jest.Mock).mockReturnValue({
       loading: false,
       data: {

@@ -45,12 +45,13 @@ import {
   LeaseTypeEnum,
 } from '../../../../generated/globalTypes';
 import ProductCarousel from '../../../components/ProductCarousel/ProductCarousel';
-import { getProductPageUrl } from '../../../utils/url';
-import { GetDerivatives_derivatives } from '../../../../generated/GetDerivatives';
+import { formatProductPageUrl, getLegacyUrl } from '../../../utils/url';
 import getTitleTag from '../../../utils/getTitleTag';
 import useLeaseType from '../../../hooks/useLeaseType';
 import Head from '../../../components/Head/Head';
 import { getSectionsData, getCardsName } from '../../../utils/getSectionsData';
+import { useVehicleListUrl } from '../../../gql/vehicleList';
+import TileLink from '../../../components/TileLink/TileLink';
 
 type ProdCards = ProdCardData[];
 
@@ -80,8 +81,11 @@ export const VansPage: NextPage = () => {
     },
   );
 
+  const productSmallVanCapIds = productSmallVan?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
   const { data: productSmallVanDerivatives } = useCarDerivativesData(
-    productSmallVan?.productCarousel?.map(el => el?.capId || '') || [''],
+    productSmallVanCapIds,
     VehicleTypeEnum.LCV,
   );
 
@@ -103,8 +107,11 @@ export const VansPage: NextPage = () => {
     },
   );
 
+  const productMediumVanCapIds = productMediumVan?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
   const { data: productMediumVanDerivatives } = useCarDerivativesData(
-    productMediumVan?.productCarousel?.map(el => el?.capId || '') || [''],
+    productMediumVanCapIds,
     VehicleTypeEnum.LCV,
   );
 
@@ -126,10 +133,19 @@ export const VansPage: NextPage = () => {
     },
   );
 
+  const productLargeVanCapIds = productLargeVan?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
   const { data: productLargeVanDerivatives } = useCarDerivativesData(
-    productLargeVan?.productCarousel?.map(el => el?.capId || '') || [''],
+    productLargeVanCapIds,
     VehicleTypeEnum.LCV,
   );
+
+  const { data: productVanVehicles } = useVehicleListUrl([
+    ...productSmallVanCapIds,
+    ...productMediumVanCapIds,
+    ...productLargeVanCapIds,
+  ]);
 
   if (loading) {
     return <Loading size="large" />;
@@ -139,14 +155,9 @@ export const VansPage: NextPage = () => {
     return <p>Error: {error.message}</p>;
   }
 
-  const dealOfMonthUrl = getProductPageUrl(
-    offer!,
-    (productLargeVanDerivatives?.derivatives as GetDerivatives_derivatives[])?.concat(
-      (productMediumVanDerivatives?.derivatives as GetDerivatives_derivatives[]) ||
-        [],
-      (productSmallVanDerivatives?.derivatives as GetDerivatives_derivatives[]) ||
-        [],
-    ),
+  const dealOfMonthUrl = formatProductPageUrl(
+    getLegacyUrl(productVanVehicles?.vehicleList?.edges, offer?.capId),
+    offer?.capId,
   );
 
   const isPersonal = cachedLeaseType === 'Personal';
@@ -154,12 +165,6 @@ export const VansPage: NextPage = () => {
 
   return (
     <>
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.hubVanPage?.featuredImage}
-        />
-      )}
       <Hero>
         <HeroHeading
           text={
@@ -258,6 +263,7 @@ export const VansPage: NextPage = () => {
             data={{
               derivatives: productSmallVanDerivatives?.derivatives || null,
               productCard: productSmallVan?.productCarousel || null,
+              vehicleList: productVanVehicles?.vehicleList!,
             }}
             countItems={productSmallVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
@@ -288,6 +294,7 @@ export const VansPage: NextPage = () => {
             data={{
               derivatives: productMediumVanDerivatives?.derivatives || null,
               productCard: productMediumVan?.productCarousel || null,
+              vehicleList: productVanVehicles?.vehicleList!,
             }}
             countItems={productMediumVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
@@ -318,6 +325,7 @@ export const VansPage: NextPage = () => {
             data={{
               derivatives: productLargeVanDerivatives?.derivatives || null,
               productCard: productLargeVan?.productCarousel || null,
+              vehicleList: productVanVehicles?.vehicleList!,
             }}
             countItems={productLargeVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
@@ -433,6 +441,15 @@ export const VansPage: NextPage = () => {
           getSectionsData(['featured1'], data?.hubVanPage.sections),
         )}`}
       >
+        <Image
+          src={
+            getSectionsData(
+              ['featured1', 'image', 'file', 'url'],
+              data?.hubVanPage.sections,
+            ) ||
+            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+          }
+        />
         <div style={{ padding: '1rem' }}>
           <Heading
             size="large"
@@ -463,12 +480,7 @@ export const VansPage: NextPage = () => {
                   return <RouterLink link={{ href, label: children }} />;
                 },
                 heading: props => (
-                  <Text
-                    {...props}
-                    size="lead"
-                    color="darker"
-                    className="-mt-100"
-                  />
+                  <Text {...props} size="lead" color="darker" tag="h3" />
                 ),
                 paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}
@@ -486,15 +498,6 @@ export const VansPage: NextPage = () => {
             </IconListItem>
           </IconList>
         </div>
-        <Image
-          src={
-            getSectionsData(
-              ['featured1', 'image', 'file', 'url'],
-              data?.hubVanPage.sections,
-            ) ||
-            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-          }
-        />
       </section>
 
       <section
@@ -533,12 +536,7 @@ export const VansPage: NextPage = () => {
                   return <RouterLink link={{ href, label: children }} />;
                 },
                 heading: props => (
-                  <Text
-                    {...props}
-                    size="lead"
-                    color="darker"
-                    className="-mt-100"
-                  />
+                  <Text {...props} size="lead" color="darker" tag="h3" />
                 ),
                 paragraph: props => <Text {...props} tag="p" color="darker" />,
               }}
@@ -618,14 +616,7 @@ export const VansPage: NextPage = () => {
                   }
                 />
               </div>
-              <RouterLink
-                link={{ href: tile.link || '#', label: '' }}
-                className="tile--link"
-              >
-                <Heading tag="span" size="regular" color="black">
-                  {tile.title}
-                </Heading>
-              </RouterLink>
+              <TileLink tile={tile} />
               <Text tag="p">{tile.body}</Text>
             </Tile>
           </div>
@@ -729,6 +720,12 @@ export const VansPage: NextPage = () => {
       <section className="row:trustpilot">
         <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
       </section>
+      {metaData && (
+        <Head
+          metaData={metaData}
+          featuredImage={data?.hubVanPage?.featuredImage}
+        />
+      )}
     </>
   );
 };

@@ -25,35 +25,15 @@ const NonBlogPost: NextPage = () => {
   const image = data?.genericPage?.featuredImage?.file?.url;
   const metaData = data?.genericPage?.metaData;
 
-  const crumbs = [
-    {
-      label: 'Home',
-      href: '/',
-    },
-    {
-      label: 'Non-blog',
-      href: '/non-blog',
-    },
-    {
-      label: name || '',
-      href: `/${router.query.article}`,
-    },
-  ];
-
   return (
     <>
+      <BlogPostContainer body={body} name={name} image={image} />
       {metaData && (
         <Head
           metaData={metaData}
           featuredImage={data?.genericPage?.featuredImage}
         />
       )}
-      <BlogPostContainer
-        body={body}
-        name={name}
-        image={image}
-        crumbs={crumbs}
-      />
     </>
   );
 };

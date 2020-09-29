@@ -32,10 +32,6 @@ const InsurancePageContainer = () => {
 
   return (
     <>
-      <Head
-        metaData={metaData}
-        featuredImage={data?.insuranceLandingPage?.featuredImage}
-      />
       {data?.insuranceLandingPage?.sections?.hero && (
         <InsuranceHeroSection {...data?.insuranceLandingPage?.sections?.hero} />
       )}
@@ -65,6 +61,10 @@ const InsurancePageContainer = () => {
           {...data?.insuranceLandingPage?.sections?.carousel}
         />
       )}
+      <Head
+        metaData={metaData}
+        featuredImage={data?.insuranceLandingPage?.featuredImage}
+      />
     </>
   );
 };

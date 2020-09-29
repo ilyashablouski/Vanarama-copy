@@ -14,13 +14,12 @@ exports[`<SearchPageContainer /> should be render correctly 1`] = `
             class="breadcrumb-item -parent"
           >
             <a
-              class="link breadcrumb-item--backlink -teal -small -plain"
+              class="breadcrumb-item--backlink link -teal -small"
+              data-testid="router-link"
               href="/"
             >
-              Back to 
-              Home
               <i
-                class="icon -medium -xsmall"
+                class="icon -teal"
               >
                 <svg
                   height="1em"
@@ -36,12 +35,15 @@ exports[`<SearchPageContainer /> should be render correctly 1`] = `
                   />
                 </svg>
               </i>
+              Back to 
+              home
             </a>
             <a
-              class="link breadcrumb-item--parent -teal -small -plain"
+              class="breadcrumb-item--parent link -teal -small"
+              data-testid="router-link"
               href="/"
             >
-              Home
+              home
             </a>
             <i
               class="icon -medium -xsmall"
@@ -67,16 +69,14 @@ exports[`<SearchPageContainer /> should be render correctly 1`] = `
             <span
               class="text breadcrumb-item--child -small -darker"
             >
-              Car Search
+              car leasing
             </span>
           </li>
         </ol>
       </nav>
       <h1
         class="heading -black -xlarge"
-      >
-        Lorem Ips
-      </h1>
+      />
       <div
         class="text -regular -darker"
       />
@@ -814,13 +814,12 @@ exports[`<SearchPageContainer /> should be render correctly all manufacturers Pa
             class="breadcrumb-item -parent"
           >
             <a
-              class="link breadcrumb-item--backlink -teal -small -plain"
+              class="breadcrumb-item--backlink link -teal -small"
+              data-testid="router-link"
               href="/"
             >
-              Back to 
-              Home
               <i
-                class="icon -medium -xsmall"
+                class="icon -teal"
               >
                 <svg
                   height="1em"
@@ -836,12 +835,15 @@ exports[`<SearchPageContainer /> should be render correctly all manufacturers Pa
                   />
                 </svg>
               </i>
+              Back to 
+              home
             </a>
             <a
-              class="link breadcrumb-item--parent -teal -small -plain"
+              class="breadcrumb-item--parent link -teal -small"
+              data-testid="router-link"
               href="/"
             >
-              Home
+              home
             </a>
             <i
               class="icon -medium -xsmall"
@@ -867,16 +869,14 @@ exports[`<SearchPageContainer /> should be render correctly all manufacturers Pa
             <span
               class="text breadcrumb-item--child -small -darker"
             >
-              Car Search
+              car leasing
             </span>
           </li>
         </ol>
       </nav>
       <h1
         class="heading -black -xlarge"
-      >
-        Lorem Ips
-      </h1>
+      />
       <div
         class="text -regular -darker"
       />

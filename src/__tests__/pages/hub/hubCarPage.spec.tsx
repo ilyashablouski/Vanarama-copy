@@ -11,8 +11,8 @@ import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql'
 import { CarsPage } from '../../../pages/hub/cars';
 import { mockSearchPodResponse } from '../../../../__mocks__/searchpod';
 import { ProductCardData } from '../../../../generated/ProductCardData';
-import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import { useVehicleListUrl } from '../../../gql/vehicleList';
 
 /**
  * NOTE: Mock the SearchPodContainer as it is out of scope for this test and is doing state
@@ -22,6 +22,7 @@ jest.mock('../../../containers/SearchPodContainer', () => () => {
   return <div />;
 });
 jest.mock('../../../containers/OrdersInformation/gql');
+jest.mock('../../../gql/vehicleList');
 
 jest.mock('next/router', () => ({
   push: jest.fn(),
@@ -227,47 +228,29 @@ const mocked: MockedResponse[] = [
 
 describe('<CarPage />', () => {
   beforeEach(async () => {
-    (useCarDerivativesData as jest.Mock).mockReturnValue({
+    (useVehicleListUrl as jest.Mock).mockReturnValue({
       loading: false,
       data: {
-        derivatives: [
-          {
-            id: '83615',
-            derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
-            slug: '10-ecoBoost-125-st-line-nav-5dr',
-            capCode: 'capCode',
-            name: 'name',
-            manufacturer: {
-              name: 'Ford',
-              slug: 'ford',
-            },
-            model: {
-              name: 'Focus',
-              slug: 'focus',
-            },
-            fuelType: {
-              name: 'name',
-            },
-            transmission: {
-              name: 'name',
-            },
-            bodyStyle: {
-              name: 'Hatchback',
-            },
-            range: {
-              name: 'Focus',
-              slug: 'focus',
-            },
-            __typename: 'derivative',
+        vehicleList: {
+          totalCount: 1,
+          pageInfo: {
+            startCursor: 'startCursor',
+            endCursor: 'endCursor',
+            hasNextPage: 'hasNextPage',
+            hasPreviousPage: 'hasPreviousPage',
           },
-        ],
-        vehicleImages: [
-          {
-            vehicleType: VehicleTypeEnum.CAR,
-            capId: 1212,
-            mainImageUrl: 'mainImageUrl',
-          },
-        ],
+          edges: [
+            {
+              cursor: 'cursor',
+              node: {
+                derivativeId: '83615',
+                url: '/ford/focus/hatchback/10-ecoBoost-125-st-line-nav-5dr',
+                legacyUrl: null,
+                vehicleType: VehicleTypeEnum.CAR,
+              },
+            },
+          ],
+        },
       },
       error: undefined,
     });

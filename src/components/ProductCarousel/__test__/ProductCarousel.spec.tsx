@@ -6,7 +6,12 @@ import {
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
 
-jest.mock('next/router', () => ({ push: jest.fn() }));
+jest.mock('next/router', () => ({
+  push: jest.fn(),
+  useRouter: () => ({
+    asPath: '/',
+  }),
+}));
 
 const PRODUCT_CARDS = [
   {
@@ -59,6 +64,20 @@ const DERIVATIVES = [
   },
 ];
 
+const VEHICLE_LIST = {
+  edges: [
+    {
+      cursor: 'cursor',
+      node: {
+        derivativeId: '44514',
+        url: '/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
+        legacyUrl: null,
+        vehicleType: VehicleTypeEnum.LCV,
+      },
+    },
+  ],
+};
+
 describe('<ProductCarousel />', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -68,6 +87,7 @@ describe('<ProductCarousel />', () => {
         data={{
           derivatives: DERIVATIVES,
           productCard: PRODUCT_CARDS,
+          vehicleList: VEHICLE_LIST,
         }}
         countItems={6}
         dataTestIdBtn="van-view-offer"

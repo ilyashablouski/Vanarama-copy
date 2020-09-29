@@ -1,12 +1,14 @@
 import React from 'react';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import Router from 'next/router';
-import CreditChecker from '../../../pages/eligibility-checker/credit-checker';
+import CreditChecker from '../../../pages/lease-eligibility-checker/credit-checker';
 import { useProductCard } from '../../../gql/productCard';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
+import { useVehicleListUrl } from '../../../gql/vehicleList';
 
 jest.mock('../../../gql/productCard');
 jest.mock('../../../containers/OrdersInformation/gql');
+jest.mock('../../../gql/vehicleList');
 
 jest.mock('../../../containers/SearchPodContainer', () => () => {
   return <div />;
@@ -86,6 +88,33 @@ describe('<CreditChecker />', () => {
           },
         ],
         vehicleImages: null,
+      },
+      error: undefined,
+    });
+
+    (useVehicleListUrl as jest.Mock).mockReturnValue({
+      loading: false,
+      data: {
+        vehicleList: {
+          totalCount: 1,
+          pageInfo: {
+            startCursor: 'startCursor',
+            endCursor: 'endCursor',
+            hasNextPage: 'hasNextPage',
+            hasPreviousPage: 'hasPreviousPage',
+          },
+          edges: [
+            {
+              cursor: 'cursor',
+              node: {
+                derivativeId: '83615',
+                url: 'url',
+                legacyUrl:
+                  '/van-leasing/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
+              },
+            },
+          ],
+        },
       },
       error: undefined,
     });

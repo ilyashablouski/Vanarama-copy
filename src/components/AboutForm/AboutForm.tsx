@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button/';
 import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
@@ -12,14 +12,11 @@ import { useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { genMonths, genYears, genDays } from '../../utils/helpers';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
-import validationSchema from './AboutForm.validation';
+import { createValidationSchema } from './AboutForm.validation';
 import { IAboutFormValues, IProps } from './interface';
 import { responseToInitialFormValues } from './mappers';
 import useDateOfBirthValidation from './useDateOfBirthValidation';
-import {
-  mapEmailErrorMessage,
-  EMAIL_ALREADY_EXISTS,
-} from './mapEmailErrorMessage';
+import { mapEmailErrorMessage } from './mapEmailErrorMessage';
 
 const AboutForm: FCWithFragments<IProps> = ({
   dropdownData,
@@ -28,6 +25,15 @@ const AboutForm: FCWithFragments<IProps> = ({
   onEmailExistenceCheck,
   onLogInClick,
 }) => {
+  const isEmailCheckerExists = onEmailExistenceCheck !== undefined;
+  const validationSchema = useMemo(
+    () =>
+      isEmailCheckerExists
+        ? createValidationSchema(onEmailExistenceCheck!)
+        : createValidationSchema(() => Promise.resolve(false)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [isEmailCheckerExists],
+  );
   const months = genMonths();
   const years = genYears(100);
   const defaultValues = responseToInitialFormValues(person);
@@ -38,8 +44,6 @@ const AboutForm: FCWithFragments<IProps> = ({
     triggerValidation,
     watch,
     formState,
-    setError,
-    getValues,
     reset,
   } = useForm<IAboutFormValues>({
     mode: 'onBlur',
@@ -109,15 +113,6 @@ const AboutForm: FCWithFragments<IProps> = ({
           dataTestId="aboutEmail"
           ref={register}
           width="35ch"
-          onBlur={async () => {
-            const isEmailExists = await onEmailExistenceCheck?.(
-              getValues('email'),
-            );
-
-            if (isEmailExists) {
-              setError('email', 'required', EMAIL_ALREADY_EXISTS);
-            }
-          }}
         />
       </FormGroup>
       <FormGroup>

@@ -52,6 +52,17 @@ export const GET_PRODUCT_CARDS_DATA = gql`
         slug
       }
     }
+    vehicleList(filter: { derivativeIds: $capIds }) {
+      edges {
+        cursor
+        node {
+          derivativeId
+          url
+          legacyUrl
+          vehicleType
+        }
+      }
+    }
   }
 `;
 

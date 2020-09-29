@@ -24,6 +24,7 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
 }) => {
   const soleTraderDetailsFormData = useSoleTraderDetailsFormDataQuery(
     personUuid,
+    companyUuid,
   );
   const [updateSoleTraderDetails] = useUpdateSoleTraderMutation();
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
@@ -56,8 +57,6 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
     return null;
   }
 
-  const { addresses } = soleTraderDetailsFormData.data.personByUuid;
-
   const handleSoleTraderDetailsSave = (values: ISoleTraderDetailsFormValues) =>
     updateSoleTraderDetails({
       variables: {
@@ -87,7 +86,9 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
 
   return (
     <SoleTraderDetailsForm
-      addresses={addresses}
+      soleTrader={
+        soleTraderDetailsFormData.data!.companyByUuid?.associates?.[0]
+      }
       person={soleTraderDetailsFormData.data!.personByUuid}
       dropdownData={soleTraderDetailsFormData.data!.allDropDowns}
       isEdited={isEdited}
