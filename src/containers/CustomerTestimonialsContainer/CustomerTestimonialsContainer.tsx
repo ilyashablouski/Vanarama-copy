@@ -14,10 +14,10 @@ import {
 } from '../../../generated/TestimonialsData';
 import { GenericPageTestimonialsQuery_genericPage_sections as Section } from '../../../generated/GenericPageTestimonialsQuery';
 import getTitleTag from '../../utils/getTitleTag';
-import getFeaturedHtml from './getFeaturedHtml';
 import { TESTIMONIALS_DATA } from '../../gql/testimonials';
 import TileLink from '../../components/TileLink/TileLink';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import getFeaturedHtml from '../FeaturedAndTilesContainer/getFeaturedHtml';
 
 interface IProps {
   sections: Section | null;

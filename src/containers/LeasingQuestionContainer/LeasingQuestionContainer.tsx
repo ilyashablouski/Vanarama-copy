@@ -19,7 +19,7 @@ interface IProps {
 
 const accordionItems = (questions: (IQuestion | null)[] | undefined | null) => {
   return questions
-    ? questions.map((item: IQuestion | null, id) => ({
+    ? questions.filter(Boolean).map((item: IQuestion | null, id) => ({
         id,
         key: item?.question || '',
         title: item?.question || '',
