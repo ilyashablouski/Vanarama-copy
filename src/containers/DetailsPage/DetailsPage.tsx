@@ -17,6 +17,7 @@ import {
   pushPDPDataLayer,
   pushAddToCartDataLayer,
   pushPageData,
+  getCategory,
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
 import { toPriceFormat } from '../../utils/helpers';
@@ -115,10 +116,19 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         derivativeInfo,
         vehicleConfigurationByCapId,
         price,
+        category: getCategory({ cars, vans, pickups }),
       });
       setFirstTimePushDataLayer(false);
     }
-  }, [data, capId, leaseScannerData, firstTimePushDataLayer]);
+  }, [
+    data,
+    cars,
+    vans,
+    pickups,
+    capId,
+    leaseScannerData,
+    firstTimePushDataLayer,
+  ]);
 
   const [createOrderHandle] = useCreateUpdateOrder(() => {});
 
@@ -133,6 +143,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       values,
       vehicleConfigurationByCapId,
       price,
+      category: getCategory({ cars, vans, pickups }),
     });
     return createOrderHandle({
       variables: {

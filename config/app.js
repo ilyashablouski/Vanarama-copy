@@ -53,8 +53,6 @@ module.exports = {
       const pdpRewiteList = await getPdpRewiteList();
       const rewriteList = [...pdpRewiteList, ...rewritePatterns];
 
-      console.log(rewriteList);
-
       return [...rewriteList];
     },
 
