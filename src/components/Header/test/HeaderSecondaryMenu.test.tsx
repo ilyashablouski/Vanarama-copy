@@ -14,7 +14,11 @@ const mocks = {
 };
 
 jest.mock('../../../hooks/useMediaQuery');
-jest.mock('next/router');
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    asPath: '/',
+  }),
+}));
 
 describe('<HeaderSecondaryMenu />', () => {
   beforeEach(() => {

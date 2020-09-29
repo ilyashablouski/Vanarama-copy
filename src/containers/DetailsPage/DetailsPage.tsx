@@ -17,6 +17,7 @@ import {
   pushPDPDataLayer,
   pushAddToCartDataLayer,
   pushPageData,
+  getCategory,
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
 import { toPriceFormat } from '../../utils/helpers';
@@ -50,6 +51,7 @@ import useLeaseType from '../../hooks/useLeaseType';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { getProductPageBreadCrumb } from '../../utils/url';
 import Head from '../../components/Head/Head';
+import { useGenericPageHead } from '../../gql/genericPage';
 
 interface IDetailsPageProps {
   capId: number;
@@ -77,6 +79,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [firstTimePushDataLayer, setFirstTimePushDataLayer] = useState<boolean>(
     true,
+  );
+
+  const { data: genericPageHead } = useGenericPageHead(
+    Router.asPath.slice(1, -5),
   );
 
   useEffect(() => {
@@ -110,10 +116,19 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         derivativeInfo,
         vehicleConfigurationByCapId,
         price,
+        category: getCategory({ cars, vans, pickups }),
       });
       setFirstTimePushDataLayer(false);
     }
-  }, [data, capId, leaseScannerData, firstTimePushDataLayer]);
+  }, [
+    data,
+    cars,
+    vans,
+    pickups,
+    capId,
+    leaseScannerData,
+    firstTimePushDataLayer,
+  ]);
 
   const [createOrderHandle] = useCreateUpdateOrder(() => {});
 
@@ -128,6 +143,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       values,
       vehicleConfigurationByCapId,
       price,
+      category: getCategory({ cars, vans, pickups }),
     });
     return createOrderHandle({
       variables: {
@@ -393,7 +409,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   };
 
   const breadcrumbItems = getProductPageBreadCrumb(data?.derivativeInfo, cars);
-  const metaData = {
+  const metaData = genericPageHead?.genericPage.metaData ?? {
     title:
       `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription} 
     Leasing Deals | Vanarama` || null,
@@ -557,7 +573,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           />
         </div>
       )}
-      <Head metaData={metaData} featuredImage={null} />
+      <Head
+        metaData={metaData}
+        featuredImage={genericPageHead?.genericPage.featuredImage || null}
+      />
     </>
   );
 };

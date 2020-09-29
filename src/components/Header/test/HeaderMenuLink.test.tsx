@@ -8,6 +8,11 @@ const mocks = {
   isMenuOpen: false,
 };
 
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    asPath: '/',
+  }),
+}));
 jest.mock('../../../hooks/useMediaQuery');
 
 describe('<HeaderMenuLink />', () => {

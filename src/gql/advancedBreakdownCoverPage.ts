@@ -79,6 +79,7 @@ export const ADVANCED_BREAKDOWN_COVER_PAGE = gql`
           name
           tilesTitle
           titleTag
+          position
           tiles {
             title
             body
