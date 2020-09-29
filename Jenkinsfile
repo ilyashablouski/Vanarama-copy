@@ -188,18 +188,18 @@ pipeline {
               nodejs('node') {
                   // requires SonarQube Scanner 2.8+
                   script {
-                      def scannerHome = tool 'SonarQubeScanner';
-                      withSonarQubeEnv('My SonarQube Server') {
-                            unstash 'lcov'
-                            unstash 'test-report'
-                            sh "${scannerHome}/bin/sonar-scanner"
-                        }
-                        timeout(time: 40, unit: 'MINUTES') {
-                            def qGate = waitForQualityGate()
-                            if (qGate.status != 'OK') {
-                                error "Pipeline aborted due to quality gate failure: ${qGate.status}"
-                            }
-                        }
+                    //   def scannerHome = tool 'SonarQubeScanner';
+                    //   withSonarQubeEnv('My SonarQube Server') {
+                    //         unstash 'lcov'
+                    //         unstash 'test-report'
+                    //         sh "${scannerHome}/bin/sonar-scanner"
+                    //     }
+                    //     timeout(time: 40, unit: 'MINUTES') {
+                    //         def qGate = waitForQualityGate()
+                    //         if (qGate.status != 'OK') {
+                    //             error "Pipeline aborted due to quality gate failure: ${qGate.status}"
+                    //         }
+                    //     }
                     }
                 }
             }
