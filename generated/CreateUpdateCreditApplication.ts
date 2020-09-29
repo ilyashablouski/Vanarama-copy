@@ -49,6 +49,7 @@ export interface CreateUpdateCreditApplication_createUpdateCreditApplication {
   bankAccounts: any | null;
   companyDetails: any | null;
   vatDetails: any | null;
+  soleTraderDetails: any | null;
   directorsDetails: any | null;
   employmentHistories: any | null;
   incomeAndExpenses: any | null;
