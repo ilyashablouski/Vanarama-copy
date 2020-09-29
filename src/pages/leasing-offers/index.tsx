@@ -183,7 +183,7 @@ export const OffersPage: NextPage = () => {
             </span>
           </Heading>
           <ProductCarousel
-            leaseType={LeaseTypeEnum.PERSONAL}
+            leaseType={LeaseTypeEnum.BUSINESS}
             data={{
               derivatives: productVanDerivatives?.derivatives || null,
               productCard: productsVan?.productCarousel || null,
@@ -212,7 +212,7 @@ export const OffersPage: NextPage = () => {
             </span>
           </Heading>
           <ProductCarousel
-            leaseType={LeaseTypeEnum.PERSONAL}
+            leaseType={LeaseTypeEnum.BUSINESS}
             data={{
               derivatives: productPickupDerivatives?.derivatives || null,
               productCard: productsPickup?.productCarousel || null,
