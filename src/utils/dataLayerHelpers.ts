@@ -170,6 +170,7 @@ export const pushAddToCartDataLayer = ({
   values,
   vehicleConfigurationByCapId,
   price,
+  category,
 }: IPDPData) => {
   const data = {
     event: 'addToCart',
@@ -195,6 +196,7 @@ export const pushAddToCartDataLayer = ({
     vehicleConfigurationByCapId,
     price,
     product,
+    category,
   });
 
   pushDetail('quantity', lineItem?.quantity, product);
