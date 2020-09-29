@@ -21,6 +21,7 @@ import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown';
+import Truncate from 'react-truncate';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useLazyQuery } from '@apollo/client';
@@ -936,27 +937,42 @@ const SearchPageContainer: React.FC<IProps> = ({
                 <Heading tag="span" size="large" color="black">
                   {featured.title}
                 </Heading>
-                <ReactMarkdown
-                  source={featured.body || ''}
-                  escapeHtml={false}
-                  renderers={{
-                    link: props => {
-                      const { href, children } = props;
-                      return (
-                        <RouterLink
-                          link={{ href, label: children }}
-                          classNames={{ color: 'teal' }}
-                        />
-                      );
-                    },
-                    heading: props => (
-                      <Text {...props} size="lead" color="darker" tag="h3" />
-                    ),
-                    paragraph: props => (
-                      <Text {...props} tag="p" color="darker" />
-                    ),
-                  }}
-                />
+                <Truncate
+                  lines={10}
+                  ellipsis={
+                    <span>
+                      ...
+                      <Button
+                        size="small"
+                        color="black"
+                        fill="clear"
+                        label="READ MORE"
+                      />
+                    </span>
+                  }
+                >
+                  <ReactMarkdown
+                    source={featured.body || ''}
+                    escapeHtml={false}
+                    renderers={{
+                      link: props => {
+                        const { href, children } = props;
+                        return (
+                          <RouterLink
+                            link={{ href, label: children }}
+                            classNames={{ color: 'teal' }}
+                          />
+                        );
+                      },
+                      heading: props => (
+                        <Text {...props} size="lead" color="darker" tag="h3" />
+                      ),
+                      paragraph: props => (
+                        <Text {...props} tag="p" color="darker" />
+                      ),
+                    }}
+                  />
+                </Truncate>
               </div>
             </div>
           )}
