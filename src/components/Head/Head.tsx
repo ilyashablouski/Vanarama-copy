@@ -7,11 +7,13 @@ import { defaultTitle, twitter, defaultImage, fb } from './defaults';
 
 const Head: FC<IHeadProps> = props => {
   const router = useRouter();
-  let {
-    metaData: { metaRobots, title = defaultTitle },
-  } = props;
+
   const {
     metaData: { metaDescription, legacyUrl, canonicalUrl, schema },
+  } = props;
+
+  let {
+    metaData: { metaRobots, title = defaultTitle },
   } = props;
 
   // Dev override.
@@ -24,6 +26,7 @@ const Head: FC<IHeadProps> = props => {
     <>
       <NextHead>
         <title>{title}</title>
+        <meta name="gtm_id" content={process?.env?.GTM_ID} />
         <meta name="og:type" content="website" />
         <meta property="og:locale" content="en_GB" />
         <meta property="og:title" content={title || defaultTitle} />

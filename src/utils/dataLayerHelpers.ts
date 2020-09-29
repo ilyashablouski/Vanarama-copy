@@ -19,6 +19,7 @@ interface IPDPData {
   price: string | number | null | undefined;
   values?: OrderInputObject;
   product?: IProduct;
+  category?: string;
 }
 
 interface IProduct {
@@ -44,6 +45,12 @@ interface IPageDataLayer {
   ecommerce: IEcommerceData;
 }
 
+interface ICategory {
+  cars: boolean | null | undefined;
+  vans: boolean | null | undefined;
+  pickups: boolean | null | undefined;
+}
+
 declare global {
   interface Window {
     dataLayer: object[];
@@ -53,6 +60,12 @@ declare global {
 const PRICE_TYPE = {
   excVAT: 'Excluding VAT',
   incVAT: 'Including VAT',
+};
+
+export const getCategory = ({ cars, pickups }: ICategory): string => {
+  if (pickups) return 'Pickup';
+  if (cars) return 'Car';
+  return 'Van';
 };
 
 export const pushToDataLayer = (data: IPageDataLayer) => {
@@ -86,19 +99,15 @@ const getProductData = ({
   vehicleConfigurationByCapId,
   price,
   product,
+  category,
 }: IPDPData) => {
-  const isPickup = derivativeInfo?.bodyType?.name?.includes('Pick');
   const variant = vehicleConfigurationByCapId?.capRangeDescription;
   const vehicleModel = vehicleConfigurationByCapId?.capModelDescription;
 
   pushDetail('id', capId, product);
   pushDetail('name', derivativeInfo?.name, product);
   pushDetail('price', price, product);
-  pushDetail(
-    'category',
-    isPickup ? 'Pickup' : derivativeInfo?.bodyType?.name,
-    product,
-  );
+  pushDetail('category', category, product);
   pushDetail(
     'brand',
     vehicleConfigurationByCapId?.capManufacturerDescription,
@@ -117,6 +126,7 @@ export const pushPDPDataLayer = ({
   derivativeInfo,
   vehicleConfigurationByCapId,
   price,
+  category,
 }: IPDPData) => {
   if (!window.dataLayer) return;
 
@@ -141,6 +151,7 @@ export const pushPDPDataLayer = ({
     vehicleConfigurationByCapId,
     price,
     product,
+    category,
   });
 
   pushDetail(

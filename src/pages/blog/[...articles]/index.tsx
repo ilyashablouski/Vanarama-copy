@@ -9,8 +9,7 @@ import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
 
 const BlogPost: NextPage = () => {
   const router = useRouter();
-  const slug = router.asPath.replace('/blog/', '').replace('/', '');
-  const { data, loading, error } = useBlogPostPage(slug);
+  const { data, loading, error } = useBlogPostPage(router.asPath.slice(1));
 
   if (loading) {
     return <Loading size="large" />;
