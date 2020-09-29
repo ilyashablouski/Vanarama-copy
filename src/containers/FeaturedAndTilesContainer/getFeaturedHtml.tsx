@@ -7,7 +7,7 @@ import getTitleTag from '../../utils/getTitleTag';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import RouterLink from '../../components/RouterLink/RouterLink';
 
-export default function getFeaturedHtml(featured: any) {
+export default function getFeaturedHtml(featured: any | null | undefined) {
   const featuredClass = getFeaturedClassPartial(featured);
   return (
     <>

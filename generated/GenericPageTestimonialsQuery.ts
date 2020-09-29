@@ -113,6 +113,7 @@ export interface GenericPageTestimonialsQuery_genericPage_sections_featured {
   body: string | null;
   title: string | null;
   video: string | null;
+  titleTag: string | null;
   link: GenericPageTestimonialsQuery_genericPage_sections_featured_link | null;
   image: GenericPageTestimonialsQuery_genericPage_sections_featured_image | null;
 }
