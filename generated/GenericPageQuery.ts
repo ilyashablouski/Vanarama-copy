@@ -162,6 +162,7 @@ export interface GenericPageQuery_genericPage_sections_featured {
   layout: (string | null)[] | null;
   body: string | null;
   title: string | null;
+  titleTag: string | null;
   video: string | null;
   link: GenericPageQuery_genericPage_sections_featured_link | null;
   image: GenericPageQuery_genericPage_sections_featured_image | null;
