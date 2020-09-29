@@ -71,6 +71,7 @@ export const GENERIC_PAGE_TESTIMONIALS = gql`
           layout
           body
           title
+          titleTag
           video
           link {
             text

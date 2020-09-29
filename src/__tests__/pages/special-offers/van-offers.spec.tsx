@@ -6,11 +6,11 @@ import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import Router from 'next/router';
 import { VAN_OFFERS_CONTENT } from '../../../gql/special-offers/van-offers';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
-import { VanOffers } from '../../../pages/leasing-offers/van-offers';
 import { ProductCardData } from '../../../../generated/ProductCardData';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { useVehicleListUrl } from '../../../gql/vehicleList';
+import { VanOffers } from '../../../pages/van-leasing/special-offers';
 
 jest.mock('../../../containers/OrdersInformation/gql');
 jest.mock('../../../gql/vehicleList');
