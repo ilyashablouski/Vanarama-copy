@@ -111,6 +111,7 @@ export const GENERIC_PAGE = gql`
           layout
           body
           title
+          titleTag
           video
           titleTag
           link {
@@ -284,7 +285,6 @@ export const GENERIC_PAGE_HEAD = gql`
         pageType
         canonicalUrl
         slug
-        publishedOn
         schema
       }
       featuredImage {
