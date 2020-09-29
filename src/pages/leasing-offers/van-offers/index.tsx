@@ -366,7 +366,7 @@ export const VanOffers: NextPage = () => {
       </div>
       <div className="row:icon-list">
         <Heading tag="span" size="lead" color="black">
-          Best New Van Deals
+          {data?.vanOffersPage?.sections?.iconBullets?.title || ''}
         </Heading>
         <hr />
         {data?.vanOffersPage?.sections?.iconBullets?.iconBullets?.map(
@@ -391,7 +391,7 @@ export const VanOffers: NextPage = () => {
       </div>
       <div className="row:text -columns">
         <Heading size="large" color="black">
-          Text Row Heading
+          {data?.vanOffersPage?.sections?.featured?.title || ''}
         </Heading>
         <div>
           <ReactMarkdown
