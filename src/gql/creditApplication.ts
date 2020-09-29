@@ -18,6 +18,7 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
       bankAccounts
       companyDetails
       vatDetails
+      soleTraderDetails
       directorsDetails
       employmentHistories
       incomeAndExpenses
@@ -79,6 +80,7 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
       bankAccounts
       companyDetails
       vatDetails
+      soleTraderDetails
       directorsDetails
       employmentHistories
       incomeAndExpenses
@@ -166,6 +168,9 @@ export function useCreateUpdateCreditApplication(
         const vatDetails =
           result.data?.createUpdateCreditApplication?.vatDetails ||
           data?.creditApplicationByOrderUuid?.vatDetails;
+        const soleTraderDetails =
+          result.data?.createUpdateCreditApplication?.soleTraderDetails ||
+          data?.creditApplicationByOrderUuid?.soleTraderDetails;
         const directorsDetails =
           result.data?.createUpdateCreditApplication?.directorsDetails ||
           data?.creditApplicationByOrderUuid?.directorsDetails;
@@ -189,6 +194,7 @@ export function useCreateUpdateCreditApplication(
               leadManagerProposalId: null,
               companyDetails,
               vatDetails,
+              soleTraderDetails,
               directorsDetails,
             },
           },
@@ -212,6 +218,7 @@ const responseMock = {
   ],
   companyDetails: null,
   vatDetails: 'vatDetails',
+  soleTraderDetails: 'soleTraderDetails',
   directorsDetails: 'directorsDetails',
   employmentHistories: 'employmentHistories',
   incomeAndExpenses: 'incomeAndExpenses',
