@@ -27,8 +27,6 @@ const Head: FC<IHeadProps> = props => {
       <NextHead>
         <title>{title}</title>
         <meta name="og:type" content="website" />
-        <meta name="env" content={process.env.ENV} />
-        <meta name="gtm_id" content={process.env.GTM_ID} />
         <meta property="og:locale" content="en_GB" />
         <meta property="og:title" content={title || defaultTitle} />
         <meta property="fb:app_id" content={String(fb.appId)} />
