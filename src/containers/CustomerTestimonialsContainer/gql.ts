@@ -73,6 +73,7 @@ export const GENERIC_PAGE_TESTIMONIALS = gql`
           title
           titleTag
           video
+          titleTag
           link {
             text
             url
