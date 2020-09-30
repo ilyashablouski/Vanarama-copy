@@ -320,30 +320,4 @@ describe('<OffersPage />', () => {
       ).toBeInTheDocument();
     });
   });
-
-  it('should trigger router push to with correct van offers path  ', async () => {
-    await screen.findAllByText('View All Van Offers');
-    fireEvent.click(screen.getAllByText('View All Van Offers')[0]);
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/van-leasing'),
-    );
-  });
-
-  it('should trigger router push to with correct pickup offers path  ', async () => {
-    await screen.findAllByText('View All Truck Offers');
-    fireEvent.click(screen.getAllByText('View All Truck Offers')[0]);
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing?bodyStyles=Pickup',
-      ),
-    );
-  });
-
-  it('should trigger router push to with correct car offers path  ', async () => {
-    await screen.findAllByText('View All Car Offers');
-    fireEvent.click(screen.getAllByText('View All Car Offers')[0]);
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/car-leasing'),
-    );
-  });
 });
