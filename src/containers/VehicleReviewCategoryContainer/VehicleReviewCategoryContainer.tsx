@@ -74,7 +74,7 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
         </Heading>
       </div>
       <div className="row:text -columns">
-        <div className="markdown">
+        <div>
           <ReactMarkdown
             source={body || ''}
             renderers={getMarkdownRenderers()}
