@@ -72,17 +72,17 @@ const SoleTraderCompanyDetailsSummarySection: FCWithFragments<IProps> = ({
         },
         {
           label: 'Annual Turnover',
-          value: String(company.annualTurnover || ''),
+          value: String(company.annualTurnover || 'N/A'),
           dataTestId: 'summary-company-annual-turnover',
         },
         {
           label: 'Annual Cost of Sales',
-          value: String(company.annualSalesCost || ''),
+          value: String(company.annualSalesCost || 'N/A'),
           dataTestId: 'summary-company-annual-sales-cost',
         },
         {
           label: 'Annual Expenses',
-          value: String(company.annualExpenses || ''),
+          value: String(company.annualExpenses || 'N/A'),
           dataTestId: 'summary-company-annual-expenses',
         },
         ...financeToBeReplaced(company),
