@@ -10,7 +10,9 @@ import Flame from '@vanarama/uibook/lib/assets/icons/FlameSharp';
 import Arrow from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Redundancy from '@vanarama/uibook/lib/assets/icons/Redundancy';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
-// import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+
 import { ProductCardData } from '../../../generated/ProductCardData';
 
 import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
@@ -18,25 +20,16 @@ import withApollo from '../../hocs/withApollo';
 import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
-import { GENERIC_PAGE_HEAD } from '../../gql/genericPage';
-import {
-  GenericPageHeadQuery,
-  GenericPageHeadQueryVariables,
-} from '../../../generated/GenericPageHeadQuery';
+import { useGenericPageHead } from '../../gql/genericPage';
 import Head from '../../components/Head/Head';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { useVehicleListUrl } from '../../gql/vehicleList';
 
 export const OffersPage: NextPage = () => {
   const router = useRouter();
-  const { data: genericPageCMS } = useQuery<
-    GenericPageHeadQuery,
-    GenericPageHeadQueryVariables
-  >(GENERIC_PAGE_HEAD, {
-    variables: {
-      slug: router.asPath.slice(1) || 'leasing-offers',
-    },
-  });
+  const { data: genericPageCMS, loading } = useGenericPageHead(
+    router.asPath.slice(1),
+  );
 
   const { data: productsVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
@@ -103,13 +96,9 @@ export const OffersPage: NextPage = () => {
     ...productCarCapIds,
   ]);
 
-  /* if (loading) {
+  if (loading) {
     return <Loading size="large" />;
   }
-
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  } */
 
   const metaData = genericPageCMS?.genericPage.metaData;
 
@@ -135,7 +124,7 @@ export const OffersPage: NextPage = () => {
               icon={<Arrow />}
               iconColor="white"
               iconPosition="after"
-              onClick={() => Router.push('/van-leasing')}
+              onClick={() => Router.push('/van-leasing/special-offers')}
             />
             <Button
               size="large"
@@ -145,7 +134,9 @@ export const OffersPage: NextPage = () => {
               icon={<Arrow />}
               iconColor="white"
               iconPosition="after"
-              onClick={() => Router.push('/van-leasing?bodyStyles=Pickup')}
+              onClick={() =>
+                Router.push('/pickup-truck-leasing/special-offers')
+              }
             />
             <Button
               size="large"
@@ -155,7 +146,7 @@ export const OffersPage: NextPage = () => {
               icon={<Arrow />}
               iconColor="white"
               iconPosition="after"
-              onClick={() => Router.push('/car-leasing')}
+              onClick={() => Router.push('/car-leasing/special-offers')}
             />
           </div>
         </div>
@@ -192,7 +183,7 @@ export const OffersPage: NextPage = () => {
             </span>
           </Heading>
           <ProductCarousel
-            leaseType={LeaseTypeEnum.PERSONAL}
+            leaseType={LeaseTypeEnum.BUSINESS}
             data={{
               derivatives: productVanDerivatives?.derivatives || null,
               productCard: productsVan?.productCarousel || null,
@@ -221,7 +212,7 @@ export const OffersPage: NextPage = () => {
             </span>
           </Heading>
           <ProductCarousel
-            leaseType={LeaseTypeEnum.PERSONAL}
+            leaseType={LeaseTypeEnum.BUSINESS}
             data={{
               derivatives: productPickupDerivatives?.derivatives || null,
               productCard: productsPickup?.productCarousel || null,

@@ -1,41 +1,42 @@
 import { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import withApollo from '../../hocs/withApollo';
 import Head from '../../components/Head/Head';
-import AdvancedBreakdownCoverContainer from '../../containers/BreakdownCoverContainer/AdvancedBreakdownCoverContainer';
-import { useAdvancedBreakdownCoverPage } from '../../gql/advancedBreakdownCoverPage';
+import FeaturedAndTilesContainer from '../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
+import { useGenericPage } from '../../gql/genericPage';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 const EligibilityChecker: NextPage = () => {
-  const { data, loading, error } = useAdvancedBreakdownCoverPage();
+  const router = useRouter();
+  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
+
   if (loading) {
     return <Loading size="large" />;
   }
+
   if (error) {
-    return (
-      <div>
-        <p>Error: {error?.message}</p>
-      </div>
-    );
+    return <ErrorMessage message={error.message} />;
   }
 
-  if (!data?.advancedBreakdownCoverPage) {
+  if (!data?.genericPage) {
     return null;
   }
 
-  const metaData = data?.advancedBreakdownCoverPage?.metaData;
-  const sections = data.advancedBreakdownCoverPage?.sections;
+  const metaData = data?.genericPage?.metaData;
+  const sections = data.genericPage?.sections;
 
   return (
     <>
-      <AdvancedBreakdownCoverContainer
+      <FeaturedAndTilesContainer
         title={metaData?.name}
-        body={data?.advancedBreakdownCoverPage?.body}
+        body={data?.genericPage?.body}
         sections={sections}
       />
       <Head
         metaData={metaData}
-        featuredImage={data?.advancedBreakdownCoverPage.featuredImage}
+        featuredImage={data?.genericPage.featuredImage}
       />
     </>
   );

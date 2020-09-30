@@ -9,7 +9,7 @@ import { OffersPage } from '../../../pages/leasing-offers';
 import { ProductCardData } from '../../../../generated/ProductCardData';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
-import { GENERIC_PAGE_HEAD } from '../../../gql/genericPage';
+import { useGenericPageHead } from '../../../gql/genericPage';
 import { useVehicleListUrl } from '../../../gql/vehicleList';
 
 jest.mock('next/router', () => ({
@@ -20,6 +20,7 @@ jest.mock('next/router', () => ({
 }));
 jest.mock('../../../containers/OrdersInformation/gql');
 jest.mock('../../../gql/vehicleList');
+jest.mock('../../../gql/genericPage');
 
 const mocked: MockedResponse[] = [
   {
@@ -177,37 +178,6 @@ const mocked: MockedResponse[] = [
       };
     },
   },
-  {
-    request: {
-      query: GENERIC_PAGE_HEAD,
-      variables: {
-        slug: 'leasing-offers',
-      },
-    },
-    result: () => {
-      return {
-        data: {
-          genericPage: {
-            metaData: {
-              canonicalUrl: 'https://www.vanarama.com/car-leasing.html',
-              legacyUrl: 'https://www.vanarama.com/car-leasing.html',
-              metaDescription:
-                'Find unbeatable Car Leasing Deals at Vanarama. Get top personal & business lease offers on brand new, in-stock cars in every make and model. Save money and lease your dream car today.',
-              metaRobots: 'all',
-              name: 'HubCarPage',
-              pageType: null,
-              publishedOn: null,
-              slug: 'hubcarpage',
-              title:
-                'Car Leasing Deals | Personal & Business Contract Hire | Vanarama',
-              schema: null,
-            },
-            sections: null,
-          },
-        },
-      };
-    },
-  },
 ];
 
 describe('<OffersPage />', () => {
@@ -284,6 +254,39 @@ describe('<OffersPage />', () => {
         ],
       },
       error: undefined,
+    });
+
+    (useGenericPageHead as jest.Mock).mockReturnValue({
+      loading: false,
+      data: {
+        genericPage: {
+          id: 'id',
+          intro: '',
+          metaData: {
+            canonicalUrl: 'https://www.vanarama.com/car-leasing.html',
+            legacyUrl: 'https://www.vanarama.com/car-leasing.html',
+            metaDescription:
+              'Find unbeatable Car Leasing Deals at Vanarama. Get top personal & business lease offers on brand new, in-stock cars in every make and model. Save money and lease your dream car today.',
+            metaRobots: 'all',
+            name: 'HubCarPage',
+            pageType: null,
+            publishedOn: null,
+            slug: 'hubcarpage',
+            title:
+              'Car Leasing Deals | Personal & Business Contract Hire | Vanarama',
+            schema: null,
+          },
+          featuredImage: {
+            title: '',
+            description: '',
+            file: {
+              url: '',
+              fileName: '',
+              contentType: '',
+            },
+          },
+        },
+      },
     });
 
     await preloadAll();

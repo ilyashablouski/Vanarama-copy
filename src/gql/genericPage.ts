@@ -111,7 +111,9 @@ export const GENERIC_PAGE = gql`
           layout
           body
           title
+          titleTag
           video
+          titleTag
           link {
             text
             url
@@ -279,12 +281,10 @@ export const GENERIC_PAGE_HEAD = gql`
         name
         metaRobots
         metaDescription
-        publishedOn
         legacyUrl
         pageType
         canonicalUrl
         slug
-        publishedOn
         schema
       }
       featuredImage {
