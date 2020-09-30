@@ -32,6 +32,7 @@ export const VAN_OFFERS_CONTENT = gql`
       sections {
         featured {
           body
+          title
         }
         iconBullets {
           title
