@@ -207,11 +207,16 @@ export const OffersPage: NextPage = () => {
           />
           <div className="-justify-content-row -pt-500">
             <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'regular' }}
               link={{
                 label: 'View All Van Offers',
                 href: '/van-leasing/special-offers',
               }}
-            />
+              withoutDefaultClassName
+            >
+              <div className="button--inner">View All Van Offers</div>
+            </RouterLink>
           </div>
         </div>
       </div>
@@ -241,11 +246,16 @@ export const OffersPage: NextPage = () => {
           />
           <div className="-justify-content-row -pt-500">
             <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'regular' }}
               link={{
                 label: 'View All Truck Offers',
                 href: '/pickup-truck-leasing/special-offers',
               }}
-            />
+              withoutDefaultClassName
+            >
+              <div className="button--inner">View All Truck Offers</div>
+            </RouterLink>
           </div>
         </div>
       </div>
@@ -275,11 +285,16 @@ export const OffersPage: NextPage = () => {
           />
           <div className="-justify-content-row -pt-500">
             <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'regular' }}
               link={{
                 label: 'View All Car Offers',
                 href: '/car-leasing/special-offers',
               }}
-            />
+              withoutDefaultClassName
+            >
+              <div className="button--inner">View All Car Offers</div>
+            </RouterLink>
           </div>
         </div>
       </div>
