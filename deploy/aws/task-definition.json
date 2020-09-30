@@ -76,10 +76,6 @@
           "value": "8080"
         },
         {
-          "name": "GTM_ID",
-          "value": "GTM-W49QWPM"
-        },
-        {
           "name": "ENV",
           "value": "%ENVIRONMENT%"
         }
