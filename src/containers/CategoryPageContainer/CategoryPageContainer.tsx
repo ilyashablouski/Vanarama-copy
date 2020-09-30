@@ -67,7 +67,8 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   tiles,
 }) => {
   const [activePage, setActivePage] = useState(1);
-  const cards = TILES?.tiles; //WAIT this!!!
+  // for articles
+  const cards = !tiles?.tiles?.length ? [] : [];
 
   const countPages = () => Math.ceil((cards?.length || 0) / 3);
 
