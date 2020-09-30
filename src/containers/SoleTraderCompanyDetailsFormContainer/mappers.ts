@@ -59,7 +59,9 @@ export const prelodedValuesToInput = (details: any) => {
     annualCostOfSales: String(details.annual_sales_cost),
     annualExpenses: String(details.annual_expenses),
     vehicleRegistrationNumber: details.vehicle_registration_number,
-    monthlyAmountBeingReplaced: String(details.monthly_amount_being_replaced),
+    monthlyAmountBeingReplaced: String(
+      details.monthly_amount_being_replaced || '',
+    ),
   };
 };
 
