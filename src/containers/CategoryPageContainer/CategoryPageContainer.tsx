@@ -60,6 +60,29 @@ const renderCarouselCards = (
       ),
   );
 
+const renderCards = (
+  cards: GenericPageQuery_genericPage_sections_tiles_tiles[] | null | undefined,
+) => {
+  return cards?.map(card =>
+    card?.body ? (
+      <Card
+        key={card.title || undefined}
+        imageSrc={card.image?.file?.url || ''}
+        title={{
+          className: '-flex-h',
+          link: (
+            <Heading size="lead" color="black" tag="a" href={card.link || ''}>
+              {card.title}
+            </Heading>
+          ),
+          title: card.title || '',
+          withBtn: true,
+        }}
+      />
+    ) : null,
+  );
+};
+
 const CategoryPageContainer: React.FC<ICategoryPage> = ({
   carousel,
   metaData,
@@ -75,29 +98,57 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   // create array with number of page for pagination
   const pages = [...Array(countPages())].map((_el, i) => i + 1);
 
-  const renderCards = () => {
+  const getBody = (body: string) => {
+    const bodyShort = body.slice(0, 100);
+    return `${bodyShort?.replace(/\**/g, '')}...`;
+  };
+
+  const renderArticles = () => {
     const indexOfLastOffer = activePage * 9;
     const indexOfFirstOffer = indexOfLastOffer - 9;
     // we get the right amount of cards for the current page
-    const showCards =
-      tiles?.tiles || articles.slice(indexOfFirstOffer, indexOfLastOffer);
+    const showCards = articles?.slice(indexOfFirstOffer, indexOfLastOffer);
     return showCards?.map(card =>
-      card?.title ? (
+      card?.body ? (
         <Card
-          key={card.title || undefined}
-          imageSrc={card.image?.file?.url || card?.featuredImage?.file?.url}
+          key={card?.body || undefined}
+          imageSrc=""
           title={{
             className: '-flex-h',
             link: (
-              <Heading size="lead" color="black" tag="a" href={card.link || ''}>
-                {card.title}
-              </Heading>
+              <Heading
+                size="lead"
+                color="black"
+                tag="a"
+                href={card?.slug || ''}
+              />
             ),
-            title: card.title || '',
+            title: '',
             withBtn: true,
           }}
-          description={card.body || ''}
-        />
+        >
+          <div>
+            <ReactMarkdown
+              source={getBody(card?.body)}
+              escapeHtml={false}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return (
+                    <RouterLink
+                      classNames={{ color: 'teal' }}
+                      link={{ href, label: children }}
+                    />
+                  );
+                },
+                heading: props => (
+                  <Text {...props} size="lead" color="dark" tag="h3" />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="dark" />,
+              }}
+            />
+          </div>
+        </Card>
       ) : null,
     );
   };
@@ -165,7 +216,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
             >
               {tiles?.tilesTitle}
             </Heading>
-            {renderCards()}
+            {renderCards(tiles?.tiles)}
           </div>
         </div>
       )}
@@ -175,7 +226,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
             <Heading className="-a-center" tag="h3" size="large" color="black">
               Top Articles
             </Heading>
-            {renderCards()}
+            {renderArticles()}
           </div>
           <div className="row:pagination">
             <Pagination

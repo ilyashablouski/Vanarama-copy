@@ -302,7 +302,7 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
               class="heading -black -lead"
               href=""
             >
-              Category Title
+              Category Titles
             </a>
             <button
               class="button -teal -xsmall -solid -round"
@@ -337,12 +337,6 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
               </div>
             </button>
           </div>
-          <span
-            class="text -regular -dark"
-            data-testid="card-description"
-          >
-            Sunt enim sunt laborum culpa eiusmod do aliqua voluptate in aute nisi anim magna ullamc
-          </span>
         </div>
       </div>
     </div>
