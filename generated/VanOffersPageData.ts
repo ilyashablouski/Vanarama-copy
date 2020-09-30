@@ -34,6 +34,7 @@ export interface VanOffersPageData_vanOffersPage_featuredImage {
 
 export interface VanOffersPageData_vanOffersPage_sections_featured {
   body: string | null;
+  title: string | null;
 }
 
 export interface VanOffersPageData_vanOffersPage_sections_iconBullets_iconBullets {
