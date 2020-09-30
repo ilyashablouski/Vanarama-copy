@@ -111,45 +111,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           **If I was to scour the internet for the best lease deals on an electric van I would probably find only 4 electric vehicles available for sale.
         </p>
       </article>
-      <div>
-        <span
-          class="heading -black -large"
-        >
-          Related Articles
-        </span>
-        <div
-          class="card"
-          data-testid="card"
-        >
-          <div
-            class="title"
-          >
-            <a
-              class="card--link link -black -regular"
-              data-testid="link"
-              href="https://www.vanarama.com/latest-news/category/van-news.html"
-              rel="noopener noreferrer"
-            >
-              Van News
-            </a>
-          </div>
-          <span
-            class="text -regular -dark"
-            data-testid="card-description"
-          >
-            Van and pickup news from the UK's number one van leasing specialists. Bringing you the latest news on all things connected to business motoring in 2019
-          </span>
-          <button
-            class="button -mt-400 -teal -small -solid"
-          >
-            <div
-              class="button--inner"
-            >
-              Read More
-            </div>
-          </button>
-        </div>
-      </div>
+      <div />
     </div>
   </div>
 </body>

@@ -7,7 +7,6 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import ReactMarkdown from 'react-markdown';
 import Router from 'next/router';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import { BlogPost_blogPost_category } from '../../../generated/BlogPost';
 import { GenericPageQuery_genericPage_sections_cards_cards } from '../../../generated/GenericPageQuery';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
@@ -19,7 +18,6 @@ interface IProps {
     | (GenericPageQuery_genericPage_sections_cards_cards | null)[]
     | null
     | undefined;
-  articles?: (BlogPost_blogPost_category | null)[] | null | undefined;
 }
 
 interface IImage {
@@ -38,13 +36,7 @@ const renderImage = ({ src, alt }: IImage) => {
   );
 };
 
-const BlogPostContainer: NextPage<IProps> = ({
-  body,
-  name,
-  image,
-  cards,
-  articles,
-}) => {
+const BlogPostContainer: NextPage<IProps> = ({ body, name, image, cards }) => {
   return (
     <>
       <div className="row:title">
@@ -78,7 +70,7 @@ const BlogPostContainer: NextPage<IProps> = ({
           />
         </article>
         <div>
-          {(cards || articles) && (
+          {cards && (
             <Heading tag="span" size="large" color="black">
               Related Articles
             </Heading>
@@ -103,36 +95,6 @@ const BlogPostContainer: NextPage<IProps> = ({
               <Button
                 onClick={() => {
                   Router.push(el?.link?.url || '');
-                }}
-                label="Read More"
-                color="teal"
-                size="small"
-                fill="solid"
-                className="-mt-400"
-              />
-            </Card>
-          ))}
-          {articles?.map((el, indx) => (
-            <Card
-              key={`${el?.title}_${indx.toString()}`}
-              title={{
-                title: '',
-                link: (
-                  <RouterLink
-                    link={{
-                      href: el?.canonicalUrl || '',
-                      label: el?.title || '',
-                    }}
-                    className="card--link"
-                    classNames={{ color: 'black', size: 'regular' }}
-                  />
-                ),
-              }}
-              description={el?.metaDescription || ''}
-            >
-              <Button
-                onClick={() => {
-                  Router.push(el?.canonicalUrl || '');
                 }}
                 label="Read More"
                 color="teal"
