@@ -185,23 +185,23 @@ pipeline {
             agent { node('master') }
             steps {
               milestone(20)
-              nodejs('node') {
-                  // requires SonarQube Scanner 2.8+
-                  script {
-                      def scannerHome = tool 'SonarQubeScanner';
-                      withSonarQubeEnv('My SonarQube Server') {
-                            unstash 'lcov'
-                            unstash 'test-report'
-                            sh "${scannerHome}/bin/sonar-scanner"
-                        }
-                        timeout(time: 40, unit: 'MINUTES') {
-                            def qGate = waitForQualityGate()
-                            if (qGate.status != 'OK') {
-                                error "Pipeline aborted due to quality gate failure: ${qGate.status}"
-                            }
-                        }
-                    }
-                }
+              // nodejs('node') {
+              //     // requires SonarQube Scanner 2.8+
+              //     script {
+              //         def scannerHome = tool 'SonarQubeScanner';
+              //         withSonarQubeEnv('My SonarQube Server') {
+              //               unstash 'lcov'
+              //               unstash 'test-report'
+              //               sh "${scannerHome}/bin/sonar-scanner"
+              //           }
+              //           timeout(time: 40, unit: 'MINUTES') {
+              //               def qGate = waitForQualityGate()
+              //               if (qGate.status != 'OK') {
+              //                   error "Pipeline aborted due to quality gate failure: ${qGate.status}"
+              //               }
+              //           }
+              //       }
+              //   }
             }
         }
 
@@ -229,6 +229,7 @@ pipeline {
                 def envs = app_environment["${BRANCH_NAME}"].env
                 def stack = app_environment["${BRANCH_NAME}"].stack
                 def NODE_ENV = app_environment["${BRANCH_NAME}"].NODE_ENV
+                def GTM_ID = "GTM-W49QWPM"
                 currentCommit = env.GIT_COMMIT
                     //TO DO - Paramaterise the source function with env variable
                     withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
