@@ -91,7 +91,9 @@ export const BusinessAboutPage: NextPage = () => {
   ) => {
     const params = getUrlParam({ orderId });
     const slug =
-      result.companyType === CompanyTypes.limited ? '' : 'sole-trader/';
+      result.companyType === (CompanyTypes.limited || CompanyTypes.partnership)
+        ? ''
+        : 'sole-trader/';
     const url =
       router.query.redirect === 'summary'
         ? `/b2b/olaf/${slug}summary/[companyUuid]${params}`

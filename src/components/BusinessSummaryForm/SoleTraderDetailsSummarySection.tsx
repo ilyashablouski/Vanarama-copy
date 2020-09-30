@@ -131,7 +131,7 @@ const SoleTraderDetailsSummarySection: React.FC<IProps> = ({
           {
             label: 'Future Monthly Income',
             value: String(
-              soleTrader?.incomeAndExpense?.futureMonthlyIncome || '',
+              soleTrader?.incomeAndExpense?.futureMonthlyIncome || 'N/A',
             ),
             dataTestId: 'summary-soleTrader-future-income',
           },

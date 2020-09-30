@@ -232,6 +232,7 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
           name="existingVehicle"
           label="Existing Vehicle Finance to be Replaced?"
           ref={register}
+          checked={Boolean(defaultValues.monthlyAmountBeingReplaced)}
         />
       </Formgroup>
       {existingVehicle && (

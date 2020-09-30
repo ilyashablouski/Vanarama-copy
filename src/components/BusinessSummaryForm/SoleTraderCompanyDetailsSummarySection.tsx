@@ -71,7 +71,7 @@ const SoleTraderCompanyDetailsSummarySection: FCWithFragments<IProps> = ({
           dataTestId: 'summary-company-email',
         },
         {
-          label: 'Annual Turn Over',
+          label: 'Annual Turnover',
           value: String(company.annualTurnover || ''),
           dataTestId: 'summary-company-annual-turnover',
         },
