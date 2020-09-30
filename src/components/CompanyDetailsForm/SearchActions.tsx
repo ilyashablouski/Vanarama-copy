@@ -18,7 +18,7 @@ export default function SearchActions({
         color="primary"
         dataTestId="company-details_proceed"
         disabled={hasConfirmedCompany}
-        label="Yes And Proceed"
+        label="Save And Proceed"
         onClick={onProceed}
         size="small"
         type="button"
