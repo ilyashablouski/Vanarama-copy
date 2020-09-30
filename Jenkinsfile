@@ -229,7 +229,6 @@ pipeline {
                 def envs = app_environment["${BRANCH_NAME}"].env
                 def stack = app_environment["${BRANCH_NAME}"].stack
                 def NODE_ENV = app_environment["${BRANCH_NAME}"].NODE_ENV
-                def GTM_ID = "GTM-W49QWPM"
                 currentCommit = env.GIT_COMMIT
                     //TO DO - Paramaterise the source function with env variable
                     withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
@@ -237,7 +236,7 @@ pipeline {
                     sh """
                       source ./setup.sh ${envs} ${stack} ${serviceName} ${ecrRegion} ${BRANCH_NAME}
                       docker pull $dockerRepoName:latest || true
-                      docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg API_KEY=\${API_KEY} --build-arg API_URL=\${API_URL} --build-arg ENV=\${ENV} --build-arg GTM_ID=\${GTM_ID} --build-arg GITHUB_TOKEN=\${GITHUB_TOKEN} --build-arg LOQATE_KEY=\${LOQATE_KEY} --build-arg NODE_ENV=\${NODE_ENV}  --cache-from $dockerRepoName:latest .
+                      docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg API_KEY=\${API_KEY} --build-arg API_URL=\${API_URL} --build-arg ENV=\${env} --build-arg GTM_ID=\${GTM_ID} --build-arg GITHUB_TOKEN=\${GITHUB_TOKEN} --build-arg LOQATE_KEY=\${LOQATE_KEY} --build-arg NODE_ENV=\${NODE_ENV}  --cache-from $dockerRepoName:latest .
                       docker push $dockerRepoName:${env.GIT_COMMIT}
                       docker tag $dockerRepoName:${env.GIT_COMMIT} $dockerRepoName:latest
                       docker push $dockerRepoName:latest
