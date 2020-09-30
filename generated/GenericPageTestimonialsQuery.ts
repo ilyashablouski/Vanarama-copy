@@ -112,8 +112,8 @@ export interface GenericPageTestimonialsQuery_genericPage_sections_featured {
   layout: (string | null)[] | null;
   body: string | null;
   title: string | null;
-  video: string | null;
   titleTag: string | null;
+  video: string | null;
   link: GenericPageTestimonialsQuery_genericPage_sections_featured_link | null;
   image: GenericPageTestimonialsQuery_genericPage_sections_featured_image | null;
 }
