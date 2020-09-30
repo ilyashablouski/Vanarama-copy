@@ -1,9 +1,8 @@
 import React from 'react';
 // @ts-ignore
 import preloadAll from 'jest-next-dynamic';
-import Router from 'next/router';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import { OffersPage } from '../../../pages/leasing-offers';
 import { ProductCardData } from '../../../../generated/ProductCardData';
