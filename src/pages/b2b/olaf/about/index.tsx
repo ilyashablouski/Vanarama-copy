@@ -91,7 +91,8 @@ export const BusinessAboutPage: NextPage = () => {
   ) => {
     const params = getUrlParam({ orderId });
     const slug =
-      result.companyType === (CompanyTypes.limited || CompanyTypes.partnership)
+      result.companyType === CompanyTypes.limited ||
+      result.companyType === CompanyTypes.partnership
         ? ''
         : 'sole-trader/';
     const url =
