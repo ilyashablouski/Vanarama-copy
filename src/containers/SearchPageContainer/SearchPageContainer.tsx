@@ -572,12 +572,13 @@ const SearchPageContainer: React.FC<IProps> = ({
   // made requests for different types of search pages
   useEffect(() => {
     const searchType = isCarSearch ? 'car-leasing' : 'van-leasing';
-    const { query, asPath } = router;
-    // remove first slash from route and queries part
-    const slug = asPath.slice(
-      1,
-      asPath.indexOf('?') > -1 ? asPath.indexOf('?') : asPath.length,
-    );
+    const { query, pathname } = router;
+    // remove first slash from route and build valid path
+    const slug = pathname
+      .slice(1, pathname.length)
+      .replace('[dynamicParam]', (query.dynamicParam as string) || '')
+      .replace('[rangeName]', (query.rangeName as string) || '')
+      .replace('[bodyStyles]', (query.bodyStyles as string) || '');
     switch (true) {
       case isMakePage:
       case isRangePage:
