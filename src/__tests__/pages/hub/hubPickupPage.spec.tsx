@@ -8,12 +8,12 @@ import { HubPickupPageData } from '../../../../generated/HubPickupPageData';
 import { HUB_PICKUP_CONTENT } from '../../../gql/hub/hubPickupPage';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
-import { PickupsPage } from '../../../pages/hub/pickups';
 import { mockSearchPodResponse } from '../../../../__mocks__/searchpod';
 import { ProductCardData } from '../../../../generated/ProductCardData';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { useVehicleListUrl } from '../../../gql/vehicleList';
+import { PickupsPage } from '../../../pages/pickup-truck-leasing';
 
 /**
  * NOTE: Mock the SearchPodContainer as it is out of scope for this test and is doing state
