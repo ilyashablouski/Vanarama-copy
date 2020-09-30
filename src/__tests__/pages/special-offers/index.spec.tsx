@@ -1,9 +1,8 @@
 import React from 'react';
 // @ts-ignore
 import preloadAll from 'jest-next-dynamic';
-import Router from 'next/router';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import { OffersPage } from '../../../pages/leasing-offers';
 import { ProductCardData } from '../../../../generated/ProductCardData';
@@ -319,31 +318,5 @@ describe('<OffersPage />', () => {
         screen.getByText('Double Cab DI-D 150 Warrior 4WD'),
       ).toBeInTheDocument();
     });
-  });
-
-  it('should trigger router push to with correct van offers path  ', async () => {
-    await screen.findAllByText('View All Van Offers');
-    fireEvent.click(screen.getAllByText('View All Van Offers')[0]);
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/van-leasing'),
-    );
-  });
-
-  it('should trigger router push to with correct pickup offers path  ', async () => {
-    await screen.findAllByText('View All Truck Offers');
-    fireEvent.click(screen.getAllByText('View All Truck Offers')[0]);
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing?bodyStyles=Pickup',
-      ),
-    );
-  });
-
-  it('should trigger router push to with correct car offers path  ', async () => {
-    await screen.findAllByText('View All Car Offers');
-    fireEvent.click(screen.getAllByText('View All Car Offers')[0]);
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/car-leasing'),
-    );
   });
 });
