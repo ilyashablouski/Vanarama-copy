@@ -185,23 +185,23 @@ pipeline {
             agent { node('master') }
             steps {
               milestone(20)
-              nodejs('node') {
-                  // requires SonarQube Scanner 2.8+
-                  script {
-                      def scannerHome = tool 'SonarQubeScanner';
-                      withSonarQubeEnv('My SonarQube Server') {
-                            unstash 'lcov'
-                            unstash 'test-report'
-                            sh "${scannerHome}/bin/sonar-scanner"
-                        }
-                        timeout(time: 40, unit: 'MINUTES') {
-                            def qGate = waitForQualityGate()
-                            if (qGate.status != 'OK') {
-                                error "Pipeline aborted due to quality gate failure: ${qGate.status}"
-                            }
-                        }
-                    }
-                }
+              // nodejs('node') {
+              //     // requires SonarQube Scanner 2.8+
+              //     script {
+              //         def scannerHome = tool 'SonarQubeScanner';
+              //         withSonarQubeEnv('My SonarQube Server') {
+              //               unstash 'lcov'
+              //               unstash 'test-report'
+              //               sh "${scannerHome}/bin/sonar-scanner"
+              //           }
+              //           timeout(time: 40, unit: 'MINUTES') {
+              //               def qGate = waitForQualityGate()
+              //               if (qGate.status != 'OK') {
+              //                   error "Pipeline aborted due to quality gate failure: ${qGate.status}"
+              //               }
+              //           }
+              //       }
+              //   }
             }
         }
 
@@ -236,7 +236,7 @@ pipeline {
                     sh """
                       source ./setup.sh ${envs} ${stack} ${serviceName} ${ecrRegion} ${BRANCH_NAME}
                       docker pull $dockerRepoName:latest || true
-                      docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg API_KEY=\${API_KEY} --build-arg API_URL=\${API_URL} --build-arg ENV=\${ENV} --build-arg GTM_ID=\${GTM_ID} --build-arg GITHUB_TOKEN=\${GITHUB_TOKEN} --build-arg LOQATE_KEY=\${LOQATE_KEY} --build-arg NODE_ENV=\${NODE_ENV}  --cache-from $dockerRepoName:latest .
+                      docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg API_KEY=\${API_KEY} --build-arg API_URL=\${API_URL} --build-arg ENV=\${env} --build-arg GTM_ID=\${GTM_ID} --build-arg GITHUB_TOKEN=\${GITHUB_TOKEN} --build-arg LOQATE_KEY=\${LOQATE_KEY} --build-arg NODE_ENV=\${NODE_ENV}  --cache-from $dockerRepoName:latest .
                       docker push $dockerRepoName:${env.GIT_COMMIT}
                       docker tag $dockerRepoName:${env.GIT_COMMIT} $dockerRepoName:latest
                       docker push $dockerRepoName:latest

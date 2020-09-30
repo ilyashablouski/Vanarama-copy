@@ -44,6 +44,10 @@
         {
           "name": "GITHUB_TOKEN",
           "valueFrom": "%SSM_PARAMETER_BASE%/github-token"
+        },
+        {
+          "name": "GTM_ID",
+          "valueFrom": "%SSM_PARAMETER_BASE%/gtm-id"
         }
       ],
       "environment": [
@@ -70,10 +74,6 @@
         {
           "name": "PORT",
           "value": "8080"
-        },
-        {
-          "name": "GTM_ID",
-          "value": "GTM-W49QWPM"
         },
         {
           "name": "ENV",

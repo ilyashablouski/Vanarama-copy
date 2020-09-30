@@ -12,11 +12,11 @@ export interface GenericPageHeadQuery_genericPage_metaData {
   name: string | null;
   metaRobots: string | null;
   metaDescription: string | null;
-  publishedOn: any | null;
   legacyUrl: string | null;
   pageType: string | null;
   canonicalUrl: string | null;
   slug: string | null;
+  publishedOn: any | null;
   schema: any | null;
 }
 

@@ -44,7 +44,7 @@ export const LocationsPage: NextPage = () => {
     },
   );
 
-  const { data } = useGenericPage(router.asPath);
+  const { data } = useGenericPage(router.asPath.slice(1));
 
   if (!data?.genericPage) {
     return null;
