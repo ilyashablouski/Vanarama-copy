@@ -2,9 +2,8 @@ import { gql, useQuery } from '@apollo/client';
 import { BlogPost, BlogPostVariables } from '../../generated/BlogPost';
 
 export const BLOG_POPST_PAGE = gql`
-  query BlogPost($slug: String!, $category: Boolean) {
-    blogPost(slug: $slug, category: $category) {
-      id
+  query BlogPost($slug: String!) {
+    blogPost(slug: $slug) {
       metaData {
         title
         name
@@ -18,57 +17,28 @@ export const BLOG_POPST_PAGE = gql`
         publishedOn
         schema
       }
-      category {
-        pageTitle
-        title
-        slug
-        metaDescription
-        canonicalUrl
-        legacyUrl
-      }
-      sections {
-        carousel {
-          title
-          name
-          cards {
-            name
-            title
-            image {
-              title
-              description
-              file {
-                url
-                fileName
-              }
-            }
-            body
-            link {
-              text
-              url
-            }
+      pageTitle
+      articles {
+        tags
+        body
+        featuredImage {
+          file {
+            url
           }
         }
-      }
-      intro
-      body
-      featuredImage {
         title
-        description
-        file {
-          url
-          fileName
-          contentType
+        category {
+          pageTitle
         }
       }
     }
   }
 `;
 
-export function useBlogPostPage(slug: string, category?: boolean) {
+export function useBlogPostPage(slug: string) {
   return useQuery<BlogPost, BlogPostVariables>(BLOG_POPST_PAGE, {
     variables: {
       slug,
-      category,
     },
   });
 }

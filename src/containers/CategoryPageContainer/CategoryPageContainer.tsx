@@ -64,32 +64,28 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   carousel,
   metaData,
   featured,
+  pageTitle,
+  articles,
   tiles,
 }) => {
   const [activePage, setActivePage] = useState(1);
-  // for articles
-  const cards = !tiles?.tiles?.length ? [] : [];
 
-  const countPages = () => Math.ceil((cards?.length || 0) / 3);
+  const countPages = () => Math.ceil((articles?.length || 0) / 9);
 
   // create array with number of page for pagination
   const pages = [...Array(countPages())].map((_el, i) => i + 1);
 
   const renderCards = () => {
-    const indexOfLastOffer = activePage * 3;
-    const indexOfFirstOffer = indexOfLastOffer - 3;
+    const indexOfLastOffer = activePage * 9;
+    const indexOfFirstOffer = indexOfLastOffer - 9;
     // we get the right amount of cards for the current page
     const showCards =
-      tiles?.tiles ||
-      (cards as GenericPageQuery_genericPage_sections_tiles_tiles[]).slice(
-        indexOfFirstOffer,
-        indexOfLastOffer,
-      );
+      tiles?.tiles || articles.slice(indexOfFirstOffer, indexOfLastOffer);
     return showCards?.map(card =>
       card?.title ? (
         <Card
           key={card.title || undefined}
-          imageSrc={card.image?.file?.url}
+          imageSrc={card.image?.file?.url || card?.featuredImage?.file?.url}
           title={{
             className: '-flex-h',
             link: (
@@ -111,7 +107,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
       <div className="row:title">
         <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
-          {metaData?.name}
+          {metaData?.name || pageTitle}
         </Heading>
       </div>
       {featured && (
@@ -171,27 +167,35 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
             </Heading>
             {renderCards()}
           </div>
-          {!tiles && cards.length && (
-            <div className="row:pagination">
-              <Pagination
-                path=""
-                pages={pages}
-                onClick={el => {
-                  el.preventDefault();
-                  setActivePage(+(el.target as Element).innerHTML);
-                }}
-                onClickBackArray={el => {
-                  el.preventDefault();
-                  setActivePage(activePage - 1);
-                }}
-                onClickNextArray={el => {
-                  el.preventDefault();
-                  setActivePage(activePage + 1);
-                }}
-                selected={activePage}
-              />
-            </div>
-          )}
+        </div>
+      )}
+      {articles && articles?.length && (
+        <div className="row:bg-lighter -col-300">
+          <div className="row:cards-3col">
+            <Heading className="-a-center" tag="h3" size="large" color="black">
+              Top Articles
+            </Heading>
+            {renderCards()}
+          </div>
+          <div className="row:pagination">
+            <Pagination
+              path=""
+              pages={pages}
+              onClick={el => {
+                el.preventDefault();
+                setActivePage(+(el.target as Element).innerHTML);
+              }}
+              onClickBackArray={el => {
+                el.preventDefault();
+                setActivePage(activePage - 1);
+              }}
+              onClickNextArray={el => {
+                el.preventDefault();
+                setActivePage(activePage + 1);
+              }}
+              selected={activePage}
+            />
+          </div>
         </div>
       )}
     </>

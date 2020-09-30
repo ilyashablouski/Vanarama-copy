@@ -9,7 +9,7 @@ import CategoryPageContainer from '../../../containers/CategoryPageContainer/Cat
 
 const CategoryPage: NextPage = () => {
   const router = useRouter();
-  const { data, loading, error } = useBlogPostPage(
+  const { data, loading, error } = useBlogPostCategory(
     router.asPath.slice(1),
     true,
   );
@@ -22,14 +22,16 @@ const CategoryPage: NextPage = () => {
     return <ErrorMessage message={error.message} />;
   }
 
-  const carousel = data?.blogPost?.sections?.carousel;
   const metaData = data?.blogPost?.metaData;
+  const articles = data?.blogPost?.articles;
+  const pageTitle = data?.blogPost?.pageTitle;
 
   return (
     <>
       <CategoryPageContainer
-        carousel={carousel}
+        articles={articles}
         metaData={metaData}
+        pageTitle={pageTitle}
         featuredImage={data?.blogPost?.featuredImage}
       />
       {metaData && (
