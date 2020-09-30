@@ -16,17 +16,21 @@ const CategoryPage: NextPage = () => {
   }
 
   if (error) {
-    return <ErrorMessage message={error.message} />;
+    return <ErrorMessage message={error?.message} />;
   }
 
   const carousel = data?.genericPage?.sections?.carousel;
+  const featured = data?.genericPage?.sections?.featured;
   const metaData = data?.genericPage?.metaData;
+  const tiles = data?.genericPage?.sections?.tiles;
 
   return (
     <>
       <CategoryPageContainer
+        featured={featured}
         carousel={carousel}
         metaData={metaData}
+        tiles={tiles}
         featuredImage={data?.genericPage.featuredImage}
       />
       {metaData && (
