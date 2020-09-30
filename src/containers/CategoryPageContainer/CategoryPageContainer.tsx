@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React from 'react';
+import React, { useState } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import ReactMarkdown from 'react-markdown';
+import Pagination from '@vanarama/uibook/lib/components/atoms/pagination';
 import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
@@ -15,29 +16,6 @@ import {
   GenericPageQuery_genericPage_sections_tiles_tiles,
 } from '../../../generated/GenericPageQuery';
 
-const renderCards = (
-  cards: GenericPageQuery_genericPage_sections_tiles_tiles[],
-) =>
-  cards?.map(card =>
-    card?.title ? (
-      <Card
-        key={card.title || undefined}
-        imageSrc={card.image?.file?.url}
-        title={{
-          className: '-flex-h',
-          link: (
-            <Heading size="lead" color="black" tag="a" href={card.link || ''}>
-              {card.title}
-            </Heading>
-          ),
-          title: card.title || '',
-          withBtn: true,
-        }}
-        description={card.body || ''}
-      />
-    ) : null,
-  );
-
 const renderCarouselCards = (
   cards: (GenericPageQuery_genericPage_sections_carousel_cards | null)[],
 ) =>
@@ -45,7 +23,7 @@ const renderCarouselCards = (
     (card, index) =>
       card && (
         <Card
-          key={`${card.name}_${index.toString()}`}
+          key={`${card.title}_${index.toString()}_${card.body}`}
           className="card__article"
           imageSrc={card.image?.file?.url || ''}
           title={{
@@ -88,6 +66,45 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   featured,
   tiles,
 }) => {
+  const [activePage, setActivePage] = useState(1);
+  const cards = TILES?.tiles; //WAIT this!!!
+
+  const countPages = () => Math.ceil((cards?.length || 0) / 3);
+
+  // create array with number of page for pagination
+  const pages = [...Array(countPages())].map((_el, i) => i + 1);
+
+  const renderCards = () => {
+    const indexOfLastOffer = activePage * 3;
+    const indexOfFirstOffer = indexOfLastOffer - 3;
+    // we get the right amount of cards for the current page
+    const showCards =
+      tiles?.tiles ||
+      (cards as GenericPageQuery_genericPage_sections_tiles_tiles[]).slice(
+        indexOfFirstOffer,
+        indexOfLastOffer,
+      );
+    return showCards?.map(card =>
+      card?.title ? (
+        <Card
+          key={card.title || undefined}
+          imageSrc={card.image?.file?.url}
+          title={{
+            className: '-flex-h',
+            link: (
+              <Heading size="lead" color="black" tag="a" href={card.link || ''}>
+                {card.title}
+              </Heading>
+            ),
+            title: card.title || '',
+            withBtn: true,
+          }}
+          description={card.body || ''}
+        />
+      ) : null,
+    );
+  };
+
   return (
     <>
       <div className="row:title">
@@ -151,8 +168,29 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
             >
               {tiles?.tilesTitle}
             </Heading>
-            {renderCards(tiles?.tiles)}
+            {renderCards()}
           </div>
+          {!tiles && cards.length && (
+            <div className="row:pagination">
+              <Pagination
+                path=""
+                pages={pages}
+                onClick={el => {
+                  el.preventDefault();
+                  setActivePage(+(el.target as Element).innerHTML);
+                }}
+                onClickBackArray={el => {
+                  el.preventDefault();
+                  setActivePage(activePage - 1);
+                }}
+                onClickNextArray={el => {
+                  el.preventDefault();
+                  setActivePage(activePage + 1);
+                }}
+                selected={activePage}
+              />
+            </div>
+          )}
         </div>
       )}
     </>
