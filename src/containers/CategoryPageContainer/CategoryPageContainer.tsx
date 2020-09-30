@@ -112,7 +112,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
       card?.body ? (
         <Card
           key={card?.body || undefined}
-          imageSrc=""
+          imageSrc={card.featuredImage?.file?.url || ''}
           title={{
             className: '-flex-h',
             link: (

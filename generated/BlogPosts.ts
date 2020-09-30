@@ -192,8 +192,17 @@ export interface BlogPosts_blogPosts_sections {
   tiles: BlogPosts_blogPosts_sections_tiles | null;
 }
 
+export interface BlogPosts_blogPosts_articles_featuredImage_file {
+  url: string;
+}
+
+export interface BlogPosts_blogPosts_articles_featuredImage {
+  file: BlogPosts_blogPosts_articles_featuredImage_file | null;
+}
+
 export interface BlogPosts_blogPosts_articles {
   intro: string | null;
+  featuredImage: BlogPosts_blogPosts_articles_featuredImage | null;
   tags: (string | null)[] | null;
   slug: string | null;
   body: string | null;

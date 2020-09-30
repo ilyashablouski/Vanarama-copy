@@ -142,6 +142,11 @@ export const BLOG_POSTS_PAGE = gql`
       pageTitle
       articles {
         intro
+        featuredImage {
+          file {
+            url
+          }
+        }
         tags
         slug
         body

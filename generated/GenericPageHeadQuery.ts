@@ -16,7 +16,6 @@ export interface GenericPageHeadQuery_genericPage_metaData {
   pageType: string | null;
   canonicalUrl: string | null;
   slug: string | null;
-  publishedOn: any | null
   schema: any | null;
 }
 
