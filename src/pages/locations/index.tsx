@@ -10,7 +10,6 @@ import { useRouter } from 'next/router';
 import { GenericPageQuery_genericPage_sections_cards_cards as ICard } from '../../../generated/GenericPageQuery';
 import withApollo from '../../hocs/withApollo';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import Head from '../../components/Head/Head';
 import getTitleTag from '../../utils/getTitleTag';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
@@ -33,14 +32,17 @@ export const LocationsPage: NextPage = () => {
   }
 
   const cards = getSectionsData(['cards', 'cards'], data.genericPage?.sections);
-  const metaData = data?.genericPage?.metaData;
+  const metaDataName = getSectionsData(
+    ['metaData', 'name'],
+    data.genericPage?.sections,
+  );
 
   return (
     <>
       <div className="row:title">
         <Breadcrumb />
         <Heading size="xlarge" color="black" tag="h1">
-          {metaData?.name}
+          {metaDataName}
         </Heading>
       </div>
       <section className="row:text -columns">
@@ -98,12 +100,6 @@ export const LocationsPage: NextPage = () => {
           </div>
         </section>
       ) : null}
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.genericPage?.featuredImage}
-        />
-      )}
     </>
   );
 };

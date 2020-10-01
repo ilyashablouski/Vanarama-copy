@@ -193,10 +193,6 @@ const AboutUs: React.FC = () => {
           />
         </Link>
       </div>
-      <Head
-        metaData={metaData}
-        featuredImage={data?.aboutUsLandingPage.featuredImage}
-      />
     </>
   );
 };

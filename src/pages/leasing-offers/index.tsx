@@ -22,7 +22,6 @@ import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import { useGenericPageHead } from '../../gql/genericPage';
-import Head from '../../components/Head/Head';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { useVehicleListUrl } from '../../gql/vehicleList';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -298,12 +297,6 @@ export const OffersPage: NextPage = () => {
           </div>
         </div>
       </div>
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={genericPageCMS?.genericPage.featuredImage}
-        />
-      )}
     </>
   );
 };

@@ -25,6 +25,9 @@ import {
   changeCompares,
 } from '../utils/comparatorHelpers';
 import FooterContainer from '../containers/FooterContainer';
+import { useGenericPageHead } from '../gql/genericPage';
+import { getSectionsData } from '../utils/getSectionsData';
+import Head from '../components/Head/Head';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   const [compareVehicles, setCompareVehicles] = useState<
@@ -34,6 +37,9 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     boolean | undefined
   >(false);
   const [existComparator, setExistComparator] = useState(false);
+  const { data: genericPageHeadCMS } = useGenericPageHead(
+    router.asPath.slice(1),
+  );
 
   useEffect(() => {
     // Anytime router.push is called, scroll to the top of the page.
@@ -105,6 +111,15 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     return 'page:default';
   };
 
+  const metaData = getSectionsData(
+    ['metaData'],
+    genericPageHeadCMS?.genericPage,
+  );
+  const featuredImage = getSectionsData(
+    ['featuredImage'],
+    genericPageHeadCMS?.genericPage,
+  );
+
   return (
     <>
       <ToastContainer />
@@ -146,6 +161,9 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         )}
         <FooterContainer />
       </main>
+      {!router.pathname.includes('[...details-page]') && (
+        <Head metaData={metaData} featuredImage={featuredImage} />
+      )}
     </>
   );
 };

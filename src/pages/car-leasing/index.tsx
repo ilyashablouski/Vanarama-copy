@@ -43,7 +43,6 @@ import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { getLegacyUrl, formatProductPageUrl } from '../../utils/url';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
-import Head from '../../components/Head/Head';
 import { useVehicleListUrl } from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
 
@@ -76,7 +75,6 @@ export const CarsPage: NextPage = () => {
   }
 
   const isPersonal = cachedLeaseType === 'Personal';
-  const metaData = data?.hubCarPage?.metaData;
 
   return (
     <>
@@ -461,12 +459,6 @@ export const CarsPage: NextPage = () => {
       <section className="row:trustpilot">
         <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
       </section>
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.hubCarPage?.featuredImage}
-        />
-      )}
     </>
   );
 };

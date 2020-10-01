@@ -90,9 +90,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       >
         <p
           class="heading -black -lead"
-        >
-          Available New Car Finance Leasing Options
-        </p>
+        />
         <div
           class="card"
           data-testid="card"

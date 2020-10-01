@@ -8,34 +8,7 @@
 // ====================================================
 
 export interface LegalPageQuery_genericPage_metaData {
-  title: string | null;
   name: string | null;
-  metaRobots: string | null;
-  metaDescription: string | null;
-  publishedOn: any | null;
-  legacyUrl: string | null;
-  pageType: string | null;
-  canonicalUrl: string | null;
-  slug: string | null;
-  schema: any | null;
-}
-
-export interface LegalPageQuery_genericPage_featuredImage_file_details_image {
-  width: number;
-  height: number;
-}
-
-export interface LegalPageQuery_genericPage_featuredImage_file_details {
-  image: LegalPageQuery_genericPage_featuredImage_file_details_image;
-}
-
-export interface LegalPageQuery_genericPage_featuredImage_file {
-  url: string;
-  details: LegalPageQuery_genericPage_featuredImage_file_details;
-}
-
-export interface LegalPageQuery_genericPage_featuredImage {
-  file: LegalPageQuery_genericPage_featuredImage_file | null;
 }
 
 export interface LegalPageQuery_genericPage_sections_legalStatement {
@@ -67,7 +40,6 @@ export interface LegalPageQuery_genericPage {
   intro: string | null;
   body: string | null;
   metaData: LegalPageQuery_genericPage_metaData;
-  featuredImage: LegalPageQuery_genericPage_featuredImage | null;
   sections: LegalPageQuery_genericPage_sections | null;
 }
 

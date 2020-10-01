@@ -8,9 +8,13 @@ import AddCircleSharp from '@vanarama/uibook/lib/assets/icons/AddCircleSharp';
 import RemoveCircleSharp from '@vanarama/uibook/lib/assets/icons/RemoveCircleSharp';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import getTitleTag from '../../utils/getTitleTag';
-import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/GenericPageQuery';
+import {
+  GenericPageQuery_genericPage_sections as Section,
+  GenericPageQuery_genericPage_sections_faqs as FAQ,
+} from '../../../generated/GenericPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import { getSectionsData } from '../../utils/getSectionsData';
 
 interface IProps {
   sections: Section | null;
@@ -21,7 +25,8 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
   title,
   sections,
 }) => {
-  const questionTypes = sections?.faqs?.questionSets?.map(
+  const faqs: FAQ = getSectionsData(['faqs'], sections);
+  const questionTypes = faqs?.questionSets?.map(
     questionSet => questionSet?.title,
   ) || [''];
 
@@ -30,7 +35,7 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
   );
 
   const getQuestions = () => {
-    const sets = sections?.faqs?.questionSets?.find(
+    const sets = faqs?.questionSets?.find(
       questionSet => questionSet?.title === questionType,
     );
     return sets?.questionAnswers?.map(set => ({
@@ -169,10 +174,10 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
       )}
       <div className="row:lead-text">
         <Heading color="black" size="xlarge">
-          {sections?.faqs?.title || ''}
+          {faqs?.title || ''}
         </Heading>
         <Text size="regular" color="darker">
-          {sections?.faqs?.body || ''}
+          {faqs?.body || ''}
         </Text>
       </div>
       <div className="tabs-wrap row:tabbed">

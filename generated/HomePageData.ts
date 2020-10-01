@@ -35,6 +35,7 @@ export interface HomePageData_homePage_metaData {
   pageType: string | null;
   canonicalUrl: string | null;
   slug: string | null;
+  breadCrumbs: any | null;
   schema: any | null;
 }
 
@@ -90,41 +91,152 @@ export interface HomePageData_homePage_sections_featured1_iconList {
   text: string | null;
 }
 
+export interface HomePageData_homePage_sections_featured1_link {
+  url: string | null;
+  text: string | null;
+}
+
+export interface HomePageData_homePage_sections_featured1_cards_image_file {
+  url: string;
+  fileName: string;
+}
+
+export interface HomePageData_homePage_sections_featured1_cards_image {
+  title: string | null;
+  description: string | null;
+  file: HomePageData_homePage_sections_featured1_cards_image_file | null;
+}
+
+export interface HomePageData_homePage_sections_featured1_cards_link {
+  text: string | null;
+  url: string | null;
+}
+
+export interface HomePageData_homePage_sections_featured1_cards {
+  name: string | null;
+  title: string | null;
+  image: HomePageData_homePage_sections_featured1_cards_image | null;
+  body: string | null;
+  link: HomePageData_homePage_sections_featured1_cards_link | null;
+}
+
+export interface HomePageData_homePage_sections_featured1_image_file {
+  url: string;
+  fileName: string;
+}
+
+export interface HomePageData_homePage_sections_featured1_image {
+  title: string | null;
+  description: string | null;
+  file: HomePageData_homePage_sections_featured1_image_file | null;
+}
+
+export interface HomePageData_homePage_sections_featured1_testimonials {
+  customerName: string | null;
+  summary: string | null;
+  rating: string | null;
+}
+
 export interface HomePageData_homePage_sections_featured1 {
+  layout: (string | null)[] | null;
+  body: string | null;
   title: string | null;
   titleTag: string | null;
-  body: string | null;
+  video: string | null;
   iconList: (HomePageData_homePage_sections_featured1_iconList | null)[] | null;
-  layout: (string | null)[] | null;
+  link: HomePageData_homePage_sections_featured1_link | null;
+  cards: (HomePageData_homePage_sections_featured1_cards | null)[] | null;
+  image: HomePageData_homePage_sections_featured1_image | null;
+  testimonials: (HomePageData_homePage_sections_featured1_testimonials | null)[] | null;
+}
+
+export interface HomePageData_homePage_sections_featured2_iconList {
+  text: string | null;
+}
+
+export interface HomePageData_homePage_sections_featured2_link {
+  url: string | null;
+  text: string | null;
+}
+
+export interface HomePageData_homePage_sections_featured2_cards_image_file {
+  url: string;
+  fileName: string;
+}
+
+export interface HomePageData_homePage_sections_featured2_cards_image {
+  title: string | null;
+  description: string | null;
+  file: HomePageData_homePage_sections_featured2_cards_image_file | null;
+}
+
+export interface HomePageData_homePage_sections_featured2_cards_link {
+  text: string | null;
+  url: string | null;
+}
+
+export interface HomePageData_homePage_sections_featured2_cards {
+  name: string | null;
+  title: string | null;
+  image: HomePageData_homePage_sections_featured2_cards_image | null;
+  body: string | null;
+  link: HomePageData_homePage_sections_featured2_cards_link | null;
+}
+
+export interface HomePageData_homePage_sections_featured2_image_file {
+  url: string;
+  fileName: string;
+}
+
+export interface HomePageData_homePage_sections_featured2_image {
+  title: string | null;
+  description: string | null;
+  file: HomePageData_homePage_sections_featured2_image_file | null;
+}
+
+export interface HomePageData_homePage_sections_featured2_testimonials {
+  customerName: string | null;
+  summary: string | null;
+  rating: string | null;
 }
 
 export interface HomePageData_homePage_sections_featured2 {
+  layout: (string | null)[] | null;
+  body: string | null;
   title: string | null;
   titleTag: string | null;
-  body: string | null;
-  layout: (string | null)[] | null;
+  video: string | null;
+  iconList: (HomePageData_homePage_sections_featured2_iconList | null)[] | null;
+  link: HomePageData_homePage_sections_featured2_link | null;
+  cards: (HomePageData_homePage_sections_featured2_cards | null)[] | null;
+  image: HomePageData_homePage_sections_featured2_image | null;
+  testimonials: (HomePageData_homePage_sections_featured2_testimonials | null)[] | null;
 }
 
 export interface HomePageData_homePage_sections_tiles_tiles_image_file {
   url: string;
+  fileName: string;
+  contentType: string;
 }
 
 export interface HomePageData_homePage_sections_tiles_tiles_image {
-  file: HomePageData_homePage_sections_tiles_tiles_image_file | null;
   title: string | null;
+  description: string | null;
+  file: HomePageData_homePage_sections_tiles_tiles_image_file | null;
 }
 
 export interface HomePageData_homePage_sections_tiles_tiles {
+  body: string | null;
   title: string | null;
   link: string | null;
-  body: string | null;
   image: HomePageData_homePage_sections_tiles_tiles_image | null;
 }
 
 export interface HomePageData_homePage_sections_tiles {
+  position: number | null;
   name: string | null;
-  titleTag: string | null;
   tilesTitle: string | null;
+  titleTag: string | null;
   tiles: HomePageData_homePage_sections_tiles_tiles[] | null;
 }
 

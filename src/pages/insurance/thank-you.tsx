@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import ThankYouContainer from '../../containers/ThankYouContainer/ThankYouContainer';
 import withApollo from '../../hocs/withApollo';
 import { useGenericPage } from '../../gql/genericPage';
-import Head from '../../components/Head/Head';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 const ThankYouPage: NextPage = () => {
   const router = useRouter();
@@ -16,25 +16,16 @@ const ThankYouPage: NextPage = () => {
   }
 
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <ErrorMessage message={error.message} />;
   }
 
   if (!data?.genericPage) {
     return null;
   }
 
-  const metaData = data?.genericPage?.metaData;
   const sections = data.genericPage?.sections;
 
-  return (
-    <>
-      <ThankYouContainer sections={sections} />
-      <Head
-        metaData={metaData}
-        featuredImage={data?.genericPage.featuredImage}
-      />
-    </>
-  );
+  return <ThankYouContainer sections={sections} />;
 };
 
 export default withApollo(ThankYouPage, { getDataFromTree });

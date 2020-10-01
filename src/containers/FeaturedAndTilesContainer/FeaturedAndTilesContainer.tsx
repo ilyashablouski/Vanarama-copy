@@ -3,26 +3,33 @@ import ReactMarkdown from 'react-markdown';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/GenericPageQuery';
-import getFeaturedHtml from './getFeaturedHtml';
+import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import TilesContainer from '../TilesContainer/TilesContainer';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import { FeaturedHtml } from './getFeaturedHtml';
+import { getSectionsData } from '../../utils/getSectionsData';
 
 interface IProps {
-  sections: Section | null;
-  title: string | null;
-  body: string | null;
+  data: GenericPageQuery | undefined;
 }
 
-const FeaturedAndTilesContainer: FC<IProps> = ({ title, body, sections }) => {
-  const featured1 = sections?.featured1;
-  const tiles = sections?.tiles;
-  const featured2 = sections?.featured2;
-  const featured3 = sections?.featured3;
+const FeaturedAndTilesContainer: FC<IProps> = ({ data }) => {
+  const title = getSectionsData(['metaData', 'name'], data?.genericPage);
+  const body = getSectionsData(['body'], data?.genericPage);
 
-  const featured1Html = getFeaturedHtml(featured1);
-  const featured2Html = getFeaturedHtml(featured2);
-  const featured3Html = getFeaturedHtml(featured3);
+  const featured1 = getSectionsData(
+    ['sections', 'featured1'],
+    data?.genericPage,
+  );
+  const tiles = getSectionsData(['sections', 'tiles'], data?.genericPage);
+  const featured2 = getSectionsData(
+    ['sections', 'featured2'],
+    data?.genericPage,
+  );
+  const featured3 = getSectionsData(
+    ['sections', 'featured3'],
+    data?.genericPage,
+  );
 
   return (
     <>
@@ -51,10 +58,10 @@ const FeaturedAndTilesContainer: FC<IProps> = ({ title, body, sections }) => {
           }}
         />
       </div>
-      {featured1Html}
+      <FeaturedHtml featured={featured1} />
       {tiles && <TilesContainer tiles={tiles} />}
-      {featured2Html}
-      {featured3Html}
+      <FeaturedHtml featured={featured2} />
+      <FeaturedHtml featured={featured3} />
     </>
   );
 };

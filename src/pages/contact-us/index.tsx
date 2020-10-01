@@ -19,7 +19,7 @@ import {
   ContactUsPageData_contactUsLandingPage_sections_featured2_cards as Cards2,
 } from '../../../generated/ContactUsPageData';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import Head from '../../components/Head/Head';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { useGenericPage } from '../../gql/genericPage';
@@ -32,8 +32,9 @@ export const ContactUsPage: NextPage = () => {
   if (loading) {
     return <Loading size="large" />;
   }
+
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <ErrorMessage message={error.message} />;
   }
 
   const COORDS = { lat: 51.762479, lng: -0.438241 };
@@ -200,12 +201,6 @@ export const ContactUsPage: NextPage = () => {
           </Card>
         ))}
       </section>
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.genericPage?.featuredImage}
-        />
-      )}
     </>
   );
 };

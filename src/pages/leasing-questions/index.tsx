@@ -4,7 +4,6 @@ import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import withApollo from '../../hocs/withApollo';
 import LeasingQuestionsContainer from '../../containers/LeasingQuestionsContainer/LeasingQuestionsContainer';
-import Head from '../../components/Head/Head';
 import { useGenericPage } from '../../gql/genericPage';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
@@ -24,23 +23,7 @@ const FinanceInfo: NextPage = () => {
     return null;
   }
 
-  const metaData = data?.genericPage?.metaData;
-  const sections = data.genericPage?.sections;
-  const body = data.genericPage?.body;
-
-  return (
-    <>
-      <LeasingQuestionsContainer
-        body={body}
-        title={metaData?.name}
-        sections={sections}
-      />
-      <Head
-        metaData={metaData}
-        featuredImage={data?.genericPage.featuredImage}
-      />
-    </>
-  );
+  return <LeasingQuestionsContainer data={data} />;
 };
 
 export default withApollo(FinanceInfo, { getDataFromTree });
