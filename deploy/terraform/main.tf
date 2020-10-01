@@ -90,6 +90,7 @@ resource "aws_ssm_parameter" "nextstorefront_gateway_url" {
     name       = "/${var.env}/${var.stack}/${var.app}/gateway-api-url"
     type       = "SecureString"
     value      = "${data.aws_ssm_parameter.gateway_url.value}"
+    overwrite  = true 
 
     tags = {
       env        = "${var.env}"
