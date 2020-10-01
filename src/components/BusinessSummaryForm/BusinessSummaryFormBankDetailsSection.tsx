@@ -24,7 +24,7 @@ const SummaryFormBankDetailsSection: FCWithFragments<IProps> = ({
       onEditClicked={onEdit}
       list={[
         {
-          label: 'Bank Account name',
+          label: 'Bank Account Name',
           value: account.accountName || '',
           dataTestId: 'summary-name-on-card',
         },
