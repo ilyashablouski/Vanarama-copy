@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import { MutableRefObject, useRef } from 'react';
 import { NextPage } from 'next';
 import Router, { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
@@ -24,8 +25,12 @@ import { useGenericPageHead } from '../../gql/genericPage';
 import Head from '../../components/Head/Head';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { useVehicleListUrl } from '../../gql/vehicleList';
+import RouterLink from '../../components/RouterLink/RouterLink';
 
 export const OffersPage: NextPage = () => {
+  const vanRef = useRef<HTMLDivElement>();
+  const truckRef = useRef<HTMLDivElement>();
+  const carRef = useRef<HTMLDivElement>();
   const router = useRouter();
   const { data: genericPageCMS, loading } = useGenericPageHead(
     router.asPath.slice(1),
@@ -115,7 +120,7 @@ export const OffersPage: NextPage = () => {
           <Text size="large" color="darker">
             {genericPageCMS?.genericPage.intro}
           </Text>
-          <div className="-flex-row -mt-500">
+          <div className="-flex-row -mt-500 btn">
             <Button
               size="large"
               fill="solid"
@@ -124,7 +129,9 @@ export const OffersPage: NextPage = () => {
               icon={<Arrow />}
               iconColor="white"
               iconPosition="after"
-              onClick={() => Router.push('/van-leasing/special-offers')}
+              onClick={() => {
+                window.scrollTo(0, vanRef!.current!.offsetTop);
+              }}
             />
             <Button
               size="large"
@@ -134,9 +141,9 @@ export const OffersPage: NextPage = () => {
               icon={<Arrow />}
               iconColor="white"
               iconPosition="after"
-              onClick={() =>
-                Router.push('/pickup-truck-leasing/special-offers')
-              }
+              onClick={() => {
+                window.scrollTo(0, truckRef!.current!.offsetTop);
+              }}
             />
             <Button
               size="large"
@@ -146,7 +153,9 @@ export const OffersPage: NextPage = () => {
               icon={<Arrow />}
               iconColor="white"
               iconPosition="after"
-              onClick={() => Router.push('/car-leasing/special-offers')}
+              onClick={() => {
+                window.scrollTo(0, carRef!.current!.offsetTop);
+              }}
             />
           </div>
         </div>
@@ -172,7 +181,11 @@ export const OffersPage: NextPage = () => {
           </Card>
         </div>
       </div>
-      <div className="row:bg-lighter">
+      <div
+        className="row:bg-lighter"
+        id="van-offers"
+        ref={vanRef as MutableRefObject<HTMLDivElement>}
+      >
         <div>
           <Heading size="large" color="black">
             <span
@@ -193,15 +206,25 @@ export const OffersPage: NextPage = () => {
             dataTestIdBtn="van-view-offer"
           />
           <div className="-justify-content-row -pt-500">
-            <Button
-              label="View All Van Offers"
-              color="teal"
-              onClick={() => Router.push('/van-leasing')}
-            />
+            <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'regular' }}
+              link={{
+                label: 'View All Van Offers',
+                href: '/van-leasing/special-offers',
+              }}
+              withoutDefaultClassName
+            >
+              <div className="button--inner">View All Van Offers</div>
+            </RouterLink>
           </div>
         </div>
       </div>
-      <div className="row:bg-lighter">
+      <div
+        className="row:bg-lighter"
+        id="truck-offers"
+        ref={truckRef as MutableRefObject<HTMLDivElement>}
+      >
         <div>
           <Heading size="large" color="black">
             <span
@@ -222,15 +245,25 @@ export const OffersPage: NextPage = () => {
             dataTestIdBtn="pickup-view-offer"
           />
           <div className="-justify-content-row -pt-500">
-            <Button
-              label="View All Truck Offers"
-              color="teal"
-              onClick={() => Router.push('/van-leasing?bodyStyles=Pickup')}
-            />
+            <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'regular' }}
+              link={{
+                label: 'View All Truck Offers',
+                href: '/pickup-truck-leasing/special-offers',
+              }}
+              withoutDefaultClassName
+            >
+              <div className="button--inner">View All Truck Offers</div>
+            </RouterLink>
           </div>
         </div>
       </div>
-      <div className="row:bg-lighter">
+      <div
+        className="row:bg-lighter"
+        id="car-offers"
+        ref={carRef as MutableRefObject<HTMLDivElement>}
+      >
         <div>
           <Heading size="large" color="black">
             <span
@@ -251,11 +284,17 @@ export const OffersPage: NextPage = () => {
             dataTestIdBtn="car-view-offer"
           />
           <div className="-justify-content-row -pt-500">
-            <Button
-              label="View All Car Offers"
-              color="teal"
-              onClick={() => Router.push('/car-leasing')}
-            />
+            <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'regular' }}
+              link={{
+                label: 'View All Car Offers',
+                href: '/car-leasing/special-offers',
+              }}
+              withoutDefaultClassName
+            >
+              <div className="button--inner">View All Car Offers</div>
+            </RouterLink>
           </div>
         </div>
       </div>
