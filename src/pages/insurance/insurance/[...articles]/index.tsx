@@ -23,16 +23,10 @@ const BlogPost: NextPage = () => {
   const name = data?.blogPost?.metaData?.name;
   const image = data?.blogPost?.featuredImage?.file?.url;
   const metaData = data?.blogPost?.metaData;
-  const articles = data?.blogPost?.category;
 
   return (
     <>
-      <BlogPostContainer
-        body={body}
-        name={name}
-        image={image}
-        articles={articles}
-      />
+      <BlogPostContainer body={body} name={name} image={image} />
       {metaData && (
         <Head
           metaData={metaData}
