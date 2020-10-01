@@ -196,6 +196,7 @@ export const CREATE_UPDATE_ORDER_MUTATION = gql`
           depositMonths
           funderId
           funderData
+          maintenancePrice
         }
       }
     }
