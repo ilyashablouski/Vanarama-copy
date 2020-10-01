@@ -72,7 +72,7 @@ const renderCards = (
           className: '-flex-h',
           link: (
             <Heading size="lead" color="black" tag="a" href={card.link || ''}>
-              {card.title}
+              {card?.title}
             </Heading>
           ),
           title: card.title || '',
@@ -116,15 +116,11 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
           title={{
             className: '-flex-h',
             link: (
-              <Heading
-                size="lead"
-                color="black"
-                tag="a"
-                href={card?.slug || ''}
-              />
+              <Heading size="lead" color="black" tag="a">
+                {card?.title}
+              </Heading>
             ),
             title: '',
-            withBtn: true,
           }}
         >
           <div>
@@ -148,6 +144,13 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
               }}
             />
           </div>
+          <RouterLink
+            classNames={{ color: 'teal', size: 'regular' }}
+            link={{
+              label: 'Read More',
+              href: card.slug || '',
+            }}
+          />
         </Card>
       ) : null,
     );
