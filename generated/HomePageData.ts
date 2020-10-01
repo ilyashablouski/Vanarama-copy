@@ -96,6 +96,7 @@ export interface HomePageData_homePage_sections_featured1 {
   body: string | null;
   iconList: (HomePageData_homePage_sections_featured1_iconList | null)[] | null;
   layout: (string | null)[] | null;
+  video: string | null;
 }
 
 export interface HomePageData_homePage_sections_featured2 {
@@ -103,6 +104,7 @@ export interface HomePageData_homePage_sections_featured2 {
   titleTag: string | null;
   body: string | null;
   layout: (string | null)[] | null;
+  video: string | null;
 }
 
 export interface HomePageData_homePage_sections_tiles_tiles_image_file {
