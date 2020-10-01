@@ -48,6 +48,7 @@ const HUB_VAN_CONTENT = gql`
           titleTag
           body
           layout
+          video
           image {
             file {
               url
@@ -59,6 +60,7 @@ const HUB_VAN_CONTENT = gql`
           titleTag
           body
           layout
+          video
           image {
             file {
               url

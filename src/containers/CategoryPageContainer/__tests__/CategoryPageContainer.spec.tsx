@@ -76,7 +76,7 @@ const TILES = {
     {
       body:
         'Sunt enim sunt laborum culpa eiusmod do aliqua voluptate in aute nisi anim magna ullamc',
-      title: 'Category Title',
+      title: 'Category Titles',
       link: null,
       image: {
         description: null,
@@ -131,15 +131,7 @@ describe('<CategoryPageContainer />', () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText(`Category Title`)).toBeInTheDocument();
-    });
-
-    await waitFor(() => {
-      expect(
-        screen.getByText(
-          `Sunt enim sunt laborum culpa eiusmod do aliqua voluptate in aute nisi anim magna ullamc`,
-        ),
-      ).toBeInTheDocument();
+      expect(screen.getByText(`Category Titles`)).toBeInTheDocument();
     });
 
     const tree = getComponent.baseElement;

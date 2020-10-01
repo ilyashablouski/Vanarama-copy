@@ -1,15 +1,15 @@
 import { NextPage } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
+import { useBlogPostsPage } from '../../../gql/blogPosts';
 import Head from '../../../components/Head/Head';
-import { useGenericPage } from '../../../gql/genericPage';
 import withApollo from '../../../hocs/withApollo';
 import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
 import CategoryPageContainer from '../../../containers/CategoryPageContainer/CategoryPageContainer';
 
 const CategoryPage: NextPage = () => {
   const router = useRouter();
-  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
+  const { data, loading, error } = useBlogPostsPage(router.asPath.slice(1));
 
   if (loading) {
     return <Loading size="large" />;
@@ -19,22 +19,18 @@ const CategoryPage: NextPage = () => {
     return <ErrorMessage message={error.message} />;
   }
 
-  const carousel = data?.genericPage?.sections?.carousel;
-  const metaData = data?.genericPage?.metaData;
+  const metaData = data?.blogPosts?.metaData;
+  const articles = data?.blogPosts?.articles;
+  const pageTitle = data?.blogPosts?.pageTitle;
 
   return (
     <>
       <CategoryPageContainer
-        carousel={carousel}
         metaData={metaData}
-        featuredImage={data?.genericPage.featuredImage}
+        articles={articles}
+        pageTitle={pageTitle}
       />
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.genericPage.featuredImage}
-        />
-      )}
+      {metaData && <Head metaData={metaData} />}
     </>
   );
 };

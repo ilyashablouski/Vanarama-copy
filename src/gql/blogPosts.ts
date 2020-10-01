@@ -1,9 +1,9 @@
 import { gql, useQuery } from '@apollo/client';
-import { BlogPost, BlogPostVariables } from '../../generated/BlogPost';
+import { BlogPosts, BlogPostsVariables } from '../../generated/BlogPosts';
 
-export const BLOG_POPST_PAGE = gql`
-  query BlogPost($slug: String!) {
-    blogPost(slug: $slug) {
+export const BLOG_POSTS_PAGE = gql`
+  query BlogPosts($slug: String!) {
+    blogPosts(slug: $slug) {
       metaData {
         title
         name
@@ -16,14 +16,6 @@ export const BLOG_POPST_PAGE = gql`
         slug
         publishedOn
         schema
-      }
-      featuredImage {
-        title
-        file {
-          url
-          fileName
-          contentType
-        }
       }
       sections {
         leadText {
@@ -147,16 +139,25 @@ export const BLOG_POPST_PAGE = gql`
           }
         }
       }
-      body
-      isFeatured
-      pinned
-      tags
+      pageTitle
+      articles {
+        intro
+        featuredImage {
+          file {
+            url
+          }
+        }
+        tags
+        slug
+        body
+        slug
+      }
     }
   }
 `;
 
-export function useBlogPostPage(slug: string) {
-  return useQuery<BlogPost, BlogPostVariables>(BLOG_POPST_PAGE, {
+export function useBlogPostsPage(slug: string) {
+  return useQuery<BlogPosts, BlogPostsVariables>(BLOG_POSTS_PAGE, {
     variables: {
       slug,
     },

@@ -19,20 +19,14 @@ const BlogPost: NextPage = () => {
     return <ErrorMessage message={error.message} />;
   }
 
-  const body = data?.blogPost?.body;
   const name = data?.blogPost?.metaData?.name;
   const image = data?.blogPost?.featuredImage?.file?.url;
   const metaData = data?.blogPost?.metaData;
-  const articles = data?.blogPost?.category;
+  const body = data?.blogPost?.body;
 
   return (
     <>
-      <BlogPostContainer
-        body={body}
-        name={name}
-        image={image}
-        articles={articles}
-      />
+      <BlogPostContainer body={body} name={name} image={image} />
       {metaData && (
         <Head
           metaData={metaData}

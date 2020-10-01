@@ -21,6 +21,7 @@ import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
+import Media from '@vanarama/uibook/lib/components/atoms/media';
 import Head from '../components/Head/Head';
 
 import RouterLink from '../components/RouterLink/RouterLink';
@@ -366,11 +367,53 @@ export const HomePage: NextPage = () => {
             ))}
           </IconList>
         </div>
-        <Image src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349" />
+        {data?.homePage?.sections?.featured1?.video ? (
+          <Media
+            src={
+              getSectionsData(
+                ['featured1', 'video'],
+                data?.homePage.sections,
+              ) || ''
+            }
+            width="100%"
+            height="360px"
+          />
+        ) : (
+          <Image
+            src={
+              getSectionsData(
+                ['featured1', 'image', 'file', 'url'],
+                data?.homePage.sections,
+              ) ||
+              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+            }
+          />
+        )}
       </section>
 
       <section className="row:featured-left">
-        <Image src="https://source.unsplash.com/collection/2102317/900x500?sig=403422" />
+        {data?.homePage?.sections?.featured2?.video ? (
+          <Media
+            src={
+              getSectionsData(
+                ['featured2', 'video'],
+                data?.homePage.sections,
+              ) || ''
+            }
+            width="100%"
+            height="360px"
+          />
+        ) : (
+          <Image
+            src={
+              getSectionsData(
+                ['featured2', 'image', 'file', 'url'],
+                data?.homePage.sections,
+              ) ||
+              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+            }
+          />
+        )}
         <div>
           <Heading
             size="large"
