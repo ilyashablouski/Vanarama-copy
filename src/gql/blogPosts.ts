@@ -147,10 +147,10 @@ export const BLOG_POSTS_PAGE = gql`
             url
           }
         }
+        title
         tags
         slug
         body
-        slug
       }
     }
   }
