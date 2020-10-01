@@ -22,6 +22,8 @@ import IconList, {
 import League from '@vanarama/uibook/lib/components/organisms/league';
 import { useContext } from 'react';
 
+import Media from '@vanarama/uibook/lib/components/atoms/media';
+import { getSectionsData } from '../../utils/getSectionsData';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
@@ -270,12 +272,28 @@ export const CarsPage: NextPage = () => {
           data?.hubCarPage.sections?.featured1,
         )}`}
       >
-        <Image
-          src={
-            data?.hubCarPage.sections?.featured1?.image?.file?.url ||
-            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-          }
-        />
+        {data?.hubCarPage?.sections?.featured1?.video ? (
+          <Media
+            src={
+              getSectionsData(
+                ['featured1', 'video'],
+                data?.hubCarPage.sections,
+              ) || ''
+            }
+            width="100%"
+            height="360px"
+          />
+        ) : (
+          <Image
+            src={
+              getSectionsData(
+                ['featured1', 'image', 'file', 'url'],
+                data?.hubCarPage.sections,
+              ) ||
+              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+            }
+          />
+        )}
         <div style={{ padding: '1rem' }}>
           <Heading
             size="large"
@@ -323,12 +341,28 @@ export const CarsPage: NextPage = () => {
           data?.hubCarPage.sections?.featured2,
         )}`}
       >
-        <Image
-          src={
-            data?.hubCarPage.sections?.featured2?.image?.file?.url ||
-            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-          }
-        />
+        {data?.hubCarPage?.sections?.featured2?.video ? (
+          <Media
+            src={
+              getSectionsData(
+                ['featured2', 'video'],
+                data?.hubCarPage.sections,
+              ) || ''
+            }
+            width="100%"
+            height="360px"
+          />
+        ) : (
+          <Image
+            src={
+              getSectionsData(
+                ['featured2', 'image', 'file', 'url'],
+                data?.hubCarPage.sections,
+              ) ||
+              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+            }
+          />
+        )}
         <div className="-inset -middle -col-400">
           <Heading
             size="large"

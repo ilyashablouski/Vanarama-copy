@@ -401,6 +401,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             monthlyPayment:
               leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental || null,
             maintenance: leaseScannerData?.maintenance,
+            maintenancePrice: leaseScannerData?.maintenance
+              ? leaseScannerData?.quoteByCapId?.maintenanceCost?.monthlyRental
+              : undefined,
           },
           quantity: 1,
         },
