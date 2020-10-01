@@ -22,8 +22,8 @@ import IconList, {
 import League from '@vanarama/uibook/lib/components/organisms/league';
 import { useContext } from 'react';
 
-import { getSectionsData } from '../../utils/getSectionsData';
 import Media from '@vanarama/uibook/lib/components/atoms/media';
+import { getSectionsData } from '../../utils/getSectionsData';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
