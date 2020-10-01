@@ -78,6 +78,10 @@
         {
           "name": "ENV",
           "value": "%ENVIRONMENT%"
+        },
+        {
+          "name": "GTM_ID",
+          "value": "%GTM_ID%"
         }
       ],
       "portMappings": [
