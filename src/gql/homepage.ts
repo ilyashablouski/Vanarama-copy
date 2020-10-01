@@ -70,12 +70,14 @@ const ALL_HOME_CONTENT = gql`
             text
           }
           layout
+          video
         }
         featured2 {
           title
           titleTag
           body
           layout
+          video
         }
         tiles {
           name

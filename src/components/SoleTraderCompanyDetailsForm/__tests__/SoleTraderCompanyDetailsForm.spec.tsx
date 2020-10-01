@@ -8,7 +8,12 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
 
   beforeEach(() => {
     onSubmitMock.mockReset();
-    render(<SoleTraderCompanyDetailsForm onSubmit={onSubmitMock} />);
+    render(
+      <SoleTraderCompanyDetailsForm
+        companyDetails={{ monthlyAmountBeingReplaced: '' }}
+        onSubmit={onSubmitMock}
+      />,
+    );
   });
 
   it('should show required form field validation messages', async () => {

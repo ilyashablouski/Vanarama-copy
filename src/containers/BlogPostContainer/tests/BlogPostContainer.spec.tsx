@@ -13,18 +13,6 @@ jest.mock('next/router', () => ({
 const BODY =
   '#### **By Paul Kirby, Vanarama Head Of EV & LCV**\n\n\n**If I was to scour the internet for the best lease deals on an electric van I would probably find only 4 electric vehicles available for sale.';
 
-const ARTICLES = [
-  {
-    pageTitle: 'Van News | Vanarama Blog | Van, Industry & Company News',
-    title: 'Van News',
-    slug: 'van-news',
-    metaDescription:
-      "Van and pickup news from the UK's number one van leasing specialists. Bringing you the latest news on all things connected to business motoring in 2019",
-    canonicalUrl: 'https://www.vanarama.com/latest-news/category/van-news.html',
-    legacyUrl: 'https://www.vanarama.com/latest-news/category/van-news.html',
-  },
-];
-
 const NAME = 'Top 5 Electric Vans Sort Of';
 
 const IMAGE =
@@ -35,12 +23,7 @@ describe('<FinanceExplainedContainer />', () => {
     // ACT
     const getComponent = render(
       <MockedProvider addTypename={false}>
-        <BlogPostContainer
-          image={IMAGE}
-          name={NAME}
-          body={BODY}
-          articles={ARTICLES}
-        />
+        <BlogPostContainer image={IMAGE} name={NAME} body={BODY} />
       </MockedProvider>,
     );
     // ASSERT
@@ -48,10 +31,6 @@ describe('<FinanceExplainedContainer />', () => {
       expect(
         screen.getByText(`Top 5 Electric Vans Sort Of`),
       ).toBeInTheDocument();
-    });
-
-    await waitFor(() => {
-      expect(screen.getByText(`Van News`)).toBeInTheDocument();
     });
 
     const tree = getComponent.baseElement;

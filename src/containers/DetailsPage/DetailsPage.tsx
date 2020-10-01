@@ -51,6 +51,7 @@ import useLeaseType from '../../hooks/useLeaseType';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { getProductPageBreadCrumb } from '../../utils/url';
 import Head from '../../components/Head/Head';
+import { useGenericPageHead } from '../../gql/genericPage';
 
 interface IDetailsPageProps {
   capId: number;
@@ -78,6 +79,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [firstTimePushDataLayer, setFirstTimePushDataLayer] = useState<boolean>(
     true,
+  );
+
+  const { data: genericPageHead } = useGenericPageHead(
+    Router.asPath.slice(1, -5),
   );
 
   useEffect(() => {
@@ -396,6 +401,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             monthlyPayment:
               leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental || null,
             maintenance: leaseScannerData?.maintenance,
+            maintenancePrice: leaseScannerData?.maintenance
+              ? leaseScannerData?.quoteByCapId?.maintenanceCost?.monthlyRental
+              : undefined,
           },
           quantity: 1,
         },
@@ -404,7 +412,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   };
 
   const breadcrumbItems = getProductPageBreadCrumb(data?.derivativeInfo, cars);
-  const metaData = {
+  const metaData = genericPageHead?.genericPage.metaData ?? {
     title:
       `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription} 
     Leasing Deals | Vanarama` || null,
@@ -568,7 +576,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           />
         </div>
       )}
-      <Head metaData={metaData} featuredImage={null} />
+      <Head
+        metaData={metaData}
+        featuredImage={genericPageHead?.genericPage.featuredImage || null}
+      />
     </>
   );
 };

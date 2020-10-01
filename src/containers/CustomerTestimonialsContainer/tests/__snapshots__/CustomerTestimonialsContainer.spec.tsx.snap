@@ -441,14 +441,14 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
       </div>
     </div>
     <section
-      class="row:text -columns"
+      class="row:featured-right"
     >
-      <p
-        class="heading -black -large"
-      >
-        About Vanarama
-      </p>
       <div>
+        <h2
+          class="heading -black -lead"
+        >
+          About Vanarama
+        </h2>
         <p
           class="text -regular -darker"
         >
