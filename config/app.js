@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
 require('dotenv').config();
-const { homepage } = require('../package.json');
 
 const { getPdpRewiteList } = require('../rewrites/pdp');
 const rewritePatterns = require('../rewrites/rewritePatterns');
@@ -13,12 +12,6 @@ module.exports = {
         "@import './node_modules/@vanarama/uibook/src/components/variables.scss';",
     },
   },
-  // Sitemap.
-  // sitemap: {
-  //   baseUrl: homepage,
-  //   pagesDirectory: 'src/pages',
-  //   targetDirectory: 'public/',
-  // },
 
   // Next.
   next: {
