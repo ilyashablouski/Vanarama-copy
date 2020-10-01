@@ -186,7 +186,7 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
           />
 
           <FormikCheckBoxField
-            label="Does you expect your monthly income to decrease?"
+            label="Do you expect your monthly income to decrease?"
             id="monthlyIncomeChange"
             name="monthlyIncomeChange"
             checkboxLabel="I am anticipating a change in my monthly income"
