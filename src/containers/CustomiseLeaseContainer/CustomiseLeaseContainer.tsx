@@ -124,6 +124,9 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         depositPayment: data?.quoteByCapId?.leaseCost?.initialRental || null,
         monthlyPayment: data?.quoteByCapId?.leaseCost?.monthlyRental || null,
         maintenance,
+        maintenancePrice: maintenance
+          ? data?.quoteByCapId?.maintenanceCost?.monthlyRental
+          : undefined,
       },
       quantity: 1,
     };
