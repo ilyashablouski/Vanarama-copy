@@ -14,16 +14,17 @@ module.exports = {
     },
   },
   // Sitemap.
-  sitemap: {
-    baseUrl: homepage,
-    pagesDirectory: 'src/pages',
-    targetDirectory: 'public/',
-  },
+  // sitemap: {
+  //   baseUrl: homepage,
+  //   pagesDirectory: 'src/pages',
+  //   targetDirectory: 'public/',
+  // },
 
   // Next.
   next: {
     // Env vars.
     env: {
+      HOSTNAME: process.env.HOSTNAME,
       ENV: process.env.ENV,
       GTM_ID: process.env.GTM_ID,
       API_URL: process.env.API_URL,
@@ -55,8 +56,8 @@ module.exports = {
 
       return [
         {
-          source: '/sitemap.xml',
-          destination: '/api/sitemap',
+          source: '/sitemap-vehicles.xml',
+          destination: '/api/sitemap-vehicles',
         },
         ...rewriteList,
       ];

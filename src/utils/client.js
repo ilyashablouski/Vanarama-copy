@@ -7,8 +7,6 @@ const {
   InMemoryCache,
 } = require('@apollo/client');
 
-// const inspect = require('../inspect');
-
 const httpLink = createHttpLink({
   uri: process.env.API_URL,
   fetch,
