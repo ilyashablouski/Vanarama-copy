@@ -23,7 +23,10 @@ import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import { useGenericPageHead } from '../../gql/genericPage';
 import Head from '../../components/Head/Head';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
-import { useVehicleListUrl } from '../../gql/vehicleList';
+import {
+  useVehicleListUrl,
+  useVehicleListUrlFetchMore,
+} from '../../gql/vehicleList';
 
 export const OffersPage: NextPage = () => {
   const router = useRouter();
@@ -90,11 +93,14 @@ export const OffersPage: NextPage = () => {
     VehicleTypeEnum.CAR,
   );
 
-  const { data: productVehicles } = useVehicleListUrl([
+  const derivativeIds = [
     ...productVanCapIds,
     ...productPickupCapIds,
     ...productCarCapIds,
-  ]);
+  ];
+  const vehicleListUrlQuery = useVehicleListUrl(derivativeIds);
+
+  useVehicleListUrlFetchMore(vehicleListUrlQuery, derivativeIds);
 
   if (loading) {
     return <Loading size="large" />;
@@ -187,7 +193,7 @@ export const OffersPage: NextPage = () => {
             data={{
               derivatives: productVanDerivatives?.derivatives || null,
               productCard: productsVan?.productCarousel || null,
-              vehicleList: productVehicles?.vehicleList!,
+              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
             }}
             countItems={productsVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
@@ -216,7 +222,7 @@ export const OffersPage: NextPage = () => {
             data={{
               derivatives: productPickupDerivatives?.derivatives || null,
               productCard: productsPickup?.productCarousel || null,
-              vehicleList: productVehicles?.vehicleList!,
+              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
             }}
             countItems={productsPickup?.productCarousel?.length || 6}
             dataTestIdBtn="pickup-view-offer"
@@ -245,7 +251,7 @@ export const OffersPage: NextPage = () => {
             data={{
               derivatives: productCarDerivatives?.derivatives || null,
               productCard: productsCar?.productCarousel || null,
-              vehicleList: productVehicles?.vehicleList!,
+              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
             }}
             countItems={productsCar?.productCarousel?.length || 6}
             dataTestIdBtn="car-view-offer"
