@@ -203,6 +203,7 @@ export interface BlogPosts_blogPosts_articles_featuredImage {
 export interface BlogPosts_blogPosts_articles {
   intro: string | null;
   featuredImage: BlogPosts_blogPosts_articles_featuredImage | null;
+  title: string | null;
   tags: (string | null)[] | null;
   slug: string | null;
   body: string | null;
