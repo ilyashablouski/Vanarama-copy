@@ -67,4 +67,5 @@ export interface VehicleListUrl {
 
 export interface VehicleListUrlVariables {
   derivativeIds?: string[] | null;
+  after?: string | null;
 }
