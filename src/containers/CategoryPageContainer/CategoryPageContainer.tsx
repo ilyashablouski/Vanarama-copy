@@ -167,7 +167,10 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
       </div>
       {featured && (
         <div className="row:featured-left">
-          <Image src={featured?.image?.file?.url || ''} />
+          <Image
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            src={featured?.image?.file?.url || ''}
+          />
           <div>
             <Heading size="large" color="black">
               {featured?.title}

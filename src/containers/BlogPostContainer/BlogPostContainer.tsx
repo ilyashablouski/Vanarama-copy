@@ -47,7 +47,14 @@ const BlogPostContainer: NextPage<IProps> = ({ body, name, image, cards }) => {
       </div>
       <div className="row:bg-white -compact">
         <div className="row:featured-image">
-          {image && <Image className="-white" size="expand" src={image} />}
+          {image && (
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              className="-white"
+              size="expand"
+              src={image}
+            />
+          )}
         </div>
       </div>
       <div className="row:article">

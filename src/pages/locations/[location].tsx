@@ -78,6 +78,7 @@ export const LocationsPage: NextPage = () => {
                 {hero.body}
               </Text>
               <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 className="hero--image"
                 plain
                 src={
@@ -307,6 +308,7 @@ export const LocationsPage: NextPage = () => {
               <Tile className="-plain -button -align-center" plain>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                   <Image
+                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                     inline
                     round
                     size="large"

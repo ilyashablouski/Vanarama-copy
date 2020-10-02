@@ -40,6 +40,7 @@ const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
         <div className="row:bg-white -compact">
           <div className="row:featured-image">
             <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               className="-white"
               size="expand"
               src={data?.genericPage.featuredImage?.file?.url}

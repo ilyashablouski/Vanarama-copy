@@ -153,6 +153,7 @@ export const HomePage: NextPage = () => {
           />
         </div>
         <Image
+          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           className="hero--image"
           plain
           size="expand"
@@ -380,6 +381,7 @@ export const HomePage: NextPage = () => {
           />
         ) : (
           <Image
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             src={
               getSectionsData(
                 ['featured1', 'image', 'file', 'url'],
@@ -405,6 +407,7 @@ export const HomePage: NextPage = () => {
           />
         ) : (
           <Image
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             src={
               getSectionsData(
                 ['featured2', 'image', 'file', 'url'],
@@ -472,6 +475,7 @@ export const HomePage: NextPage = () => {
             <Tile className="-plain -button -align-center" plain>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Image
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                   inline
                   round
                   size="large"
@@ -547,7 +551,14 @@ export const HomePage: NextPage = () => {
                 'https://www.vanarama.com/Assets/images-optimised/home/featured/thetelegraph.png',
             },
           ].map(({ href, label }) => (
-            <Image key={label} src={href} alt={label} size="expand" plain />
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              key={label}
+              src={href}
+              alt={label}
+              size="expand"
+              plain
+            />
           ))}
         </div>
       </section>

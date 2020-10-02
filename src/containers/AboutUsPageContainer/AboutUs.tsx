@@ -125,7 +125,11 @@ const AboutUs: React.FC = () => {
       <div className="row:bg-black -compact">
         <div className="row:featured-image">
           {featuredImage?.file?.url && (
-            <Image src={featuredImage.file.url} alt="Featured image" />
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              src={featuredImage.file.url}
+              alt="Featured image"
+            />
           )}
         </div>
       </div>

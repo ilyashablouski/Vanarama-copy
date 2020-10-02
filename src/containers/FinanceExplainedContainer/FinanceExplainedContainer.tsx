@@ -162,6 +162,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
           </div>
           {featured1.image?.file?.url && (
             <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={featured1.image?.file?.url}
               alt={featured1.image?.file?.fileName}
             />

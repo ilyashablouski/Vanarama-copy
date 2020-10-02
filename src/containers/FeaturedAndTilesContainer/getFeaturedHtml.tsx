@@ -15,6 +15,7 @@ export default function getFeaturedHtml(featured: any | null | undefined) {
         <section className={`row:${featuredClass}`}>
           {featured.image?.file?.url && (
             <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={featured.image?.file?.url}
               alt={featured.image?.file?.fileName}
             />

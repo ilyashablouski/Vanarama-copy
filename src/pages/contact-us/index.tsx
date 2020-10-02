@@ -188,7 +188,11 @@ export const ContactUsPage: NextPage = () => {
           data?.genericPage.sections,
         ) as Cards2[])?.map((c: Cards2 | null, idx) => (
           <Card inline key={c?.title || idx}>
-            <Image className="card-image" src={c?.image?.file?.url || ''} />
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              className="card-image"
+              src={c?.image?.file?.url || ''}
+            />
             <CardTitle title={c?.title || ''} />
             <Text color="darker">{c?.body}</Text>
             <Button

@@ -116,6 +116,7 @@ export const PickupsPage: NextPage = () => {
         <HeroTitle text={data?.hubPickupPage.sections?.hero?.body || ''} />
         <br />
         <Image
+          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           className="hero--image"
           plain
           size="expand"
@@ -303,6 +304,7 @@ export const PickupsPage: NextPage = () => {
           />
         ) : (
           <Image
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             src={
               getSectionsData(
                 ['featured1', 'image', 'file', 'url'],
@@ -372,6 +374,7 @@ export const PickupsPage: NextPage = () => {
           />
         ) : (
           <Image
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             src={
               getSectionsData(
                 ['featured2', 'image', 'file', 'url'],
@@ -428,6 +431,7 @@ export const PickupsPage: NextPage = () => {
           (acc: AccessoryData, idx: number) => (
             <div key={acc.title || idx}>
               <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 size="expand"
                 src={
                   acc.image?.file?.url ||
@@ -496,6 +500,7 @@ export const PickupsPage: NextPage = () => {
               <Tile className="-plain -button -align-center" plain>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                   <Image
+                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                     inline
                     round
                     size="large"
@@ -604,7 +609,14 @@ export const PickupsPage: NextPage = () => {
                 'https://www.vanarama.com/Assets/images-optimised/home/featured/thetelegraph.png',
             },
           ].map(({ href, label }) => (
-            <Image key={label} src={href} alt={label} size="expand" plain />
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              key={label}
+              src={href}
+              alt={label}
+              size="expand"
+              plain
+            />
           ))}
         </div>
       </section>

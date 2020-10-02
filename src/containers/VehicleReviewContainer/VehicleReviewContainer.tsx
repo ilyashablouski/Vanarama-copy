@@ -46,6 +46,7 @@ const VehicleReviewContainer: FC<IProps> = ({ body, title, sections }) => {
             <TabPanels className="-p-000">
               <TabPanel index={0}>
                 <Image
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                   src={
                     sections?.vehicleReviewMedia?.reviewPhoto?.file?.url || ''
                   }
