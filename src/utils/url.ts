@@ -39,6 +39,14 @@ export const getLegacyUrl = (
   return edge?.node?.legacyUrl || formatNewUrl(edge);
 };
 
+export const getNewUrl = (
+  data?: (VehicleEdge | ProductEdge | null)[] | null,
+  derivativeId?: string | null,
+) => {
+  const edge = data?.find(item => item?.node?.derivativeId === derivativeId);
+  return formatNewUrl(edge);
+};
+
 export const getProductPageBreadCrumb = (
   data: any,
   cars: boolean | undefined,
