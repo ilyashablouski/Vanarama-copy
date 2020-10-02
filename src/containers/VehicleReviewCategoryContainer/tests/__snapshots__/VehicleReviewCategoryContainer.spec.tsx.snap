@@ -84,7 +84,9 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
       class="row:text -columns"
     >
       <div>
-        <p>
+        <p
+          class="text -regular -darker"
+        >
           Looking for advice on which van to lease? Check out our expert reviews of the latest Citroen vans and see how they fared in the Vanarama roadtest.
         </p>
       </div>

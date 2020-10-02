@@ -60,48 +60,99 @@ const renderCarouselCards = (
       ),
   );
 
+const renderCards = (
+  cards: GenericPageQuery_genericPage_sections_tiles_tiles[] | null | undefined,
+) => {
+  return cards?.map(card =>
+    card?.body ? (
+      <Card
+        key={card.title || undefined}
+        imageSrc={card.image?.file?.url || ''}
+        title={{
+          className: '-flex-h',
+          link: (
+            <Heading size="lead" color="black" tag="a" href={card.link || ''}>
+              {card?.title}
+            </Heading>
+          ),
+          title: card.title || '',
+          withBtn: true,
+        }}
+        description={card.body}
+      />
+    ) : null,
+  );
+};
+
 const CategoryPageContainer: React.FC<ICategoryPage> = ({
   carousel,
   metaData,
   featured,
+  pageTitle,
+  articles,
   tiles,
 }) => {
   const [activePage, setActivePage] = useState(1);
-  // for articles
-  const cards = !tiles?.tiles?.length ? [] : [];
 
-  const countPages = () => Math.ceil((cards?.length || 0) / 3);
+  const countPages = () => Math.ceil((articles?.length || 0) / 9);
 
   // create array with number of page for pagination
   const pages = [...Array(countPages())].map((_el, i) => i + 1);
 
-  const renderCards = () => {
-    const indexOfLastOffer = activePage * 3;
-    const indexOfFirstOffer = indexOfLastOffer - 3;
+  const getBody = (body: string) => {
+    const bodyShort = body.slice(0, 100);
+    return `${bodyShort?.replace(/\**/g, '')}...`;
+  };
+
+  const renderArticles = () => {
+    const indexOfLastOffer = activePage * 9;
+    const indexOfFirstOffer = indexOfLastOffer - 9;
     // we get the right amount of cards for the current page
-    const showCards =
-      tiles?.tiles ||
-      (cards as GenericPageQuery_genericPage_sections_tiles_tiles[]).slice(
-        indexOfFirstOffer,
-        indexOfLastOffer,
-      );
+    const showCards = articles?.slice(indexOfFirstOffer, indexOfLastOffer);
     return showCards?.map(card =>
-      card?.title ? (
+      card?.body ? (
         <Card
-          key={card.title || undefined}
-          imageSrc={card.image?.file?.url}
+          key={card?.body || undefined}
+          imageSrc={card.featuredImage?.file?.url || ''}
           title={{
             className: '-flex-h',
             link: (
-              <Heading size="lead" color="black" tag="a" href={card.link || ''}>
-                {card.title}
+              <Heading size="lead" color="black" tag="a">
+                {card?.title}
               </Heading>
             ),
-            title: card.title || '',
-            withBtn: true,
+            title: '',
           }}
-          description={card.body || ''}
-        />
+        >
+          <div>
+            <ReactMarkdown
+              source={getBody(card?.body)}
+              escapeHtml={false}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return (
+                    <RouterLink
+                      classNames={{ color: 'teal' }}
+                      link={{ href, label: children }}
+                    />
+                  );
+                },
+                heading: props => (
+                  <Text {...props} size="lead" color="dark" tag="h3" />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="dark" />,
+              }}
+            />
+          </div>
+          <RouterLink
+            classNames={{ color: 'teal', size: 'regular' }}
+            link={{
+              label: 'Read More',
+              href: card.slug || '',
+            }}
+          />
+        </Card>
       ) : null,
     );
   };
@@ -111,7 +162,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
       <div className="row:title">
         <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
-          {metaData?.name}
+          {metaData?.name || pageTitle}
         </Heading>
       </div>
       {featured && (
@@ -169,29 +220,37 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
             >
               {tiles?.tilesTitle}
             </Heading>
-            {renderCards()}
+            {renderCards(tiles?.tiles)}
           </div>
-          {!tiles && cards.length && (
-            <div className="row:pagination">
-              <Pagination
-                path=""
-                pages={pages}
-                onClick={el => {
-                  el.preventDefault();
-                  setActivePage(+(el.target as Element).innerHTML);
-                }}
-                onClickBackArray={el => {
-                  el.preventDefault();
-                  setActivePage(activePage - 1);
-                }}
-                onClickNextArray={el => {
-                  el.preventDefault();
-                  setActivePage(activePage + 1);
-                }}
-                selected={activePage}
-              />
-            </div>
-          )}
+        </div>
+      )}
+      {articles && articles?.length && (
+        <div className="row:bg-lighter -col-300">
+          <div className="row:cards-3col">
+            <Heading className="-a-center" tag="h3" size="large" color="black">
+              Top Articles
+            </Heading>
+            {renderArticles()}
+          </div>
+          <div className="row:pagination">
+            <Pagination
+              path=""
+              pages={pages}
+              onClick={el => {
+                el.preventDefault();
+                setActivePage(+(el.target as Element).innerHTML);
+              }}
+              onClickBackArray={el => {
+                el.preventDefault();
+                setActivePage(activePage - 1);
+              }}
+              onClickNextArray={el => {
+                el.preventDefault();
+                setActivePage(activePage + 1);
+              }}
+              selected={activePage}
+            />
+          </div>
         </div>
       )}
     </>

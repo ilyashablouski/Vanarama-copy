@@ -20,6 +20,7 @@ import IconList, {
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useState } from 'react';
 
+import Media from '@vanarama/uibook/lib/components/atoms/media';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
   HubVanPageData,
@@ -42,7 +43,7 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
-import { formatProductPageUrl, getLegacyUrl } from '../../utils/url';
+import { formatProductPageUrl, getLegacyUrl, getNewUrl } from '../../utils/url';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
 import Head from '../../components/Head/Head';
@@ -163,6 +164,11 @@ export const VansPage: NextPage = () => {
     offer?.capId,
   );
 
+  const dealOfMonthHref = getNewUrl(
+    productVanVehicles?.vehicleList?.edges,
+    offer?.capId,
+  );
+
   const isPersonal = cachedLeaseType === 'Personal';
   const metaData = data?.hubVanPage?.metaData;
 
@@ -246,7 +252,7 @@ export const VansPage: NextPage = () => {
             sessionStorage.setItem('capId', offer?.capId || '');
             Router.push(dealOfMonthUrl.href, dealOfMonthUrl.url);
           }}
-          link={{ href: dealOfMonthUrl.href, url: dealOfMonthUrl.url }}
+          link={{ href: dealOfMonthHref, url: dealOfMonthUrl.url }}
         />
       </div>
       <div className="row:bg-lighter">
@@ -444,15 +450,29 @@ export const VansPage: NextPage = () => {
           getSectionsData(['featured1'], data?.hubVanPage.sections),
         )}`}
       >
-        <Image
-          src={
-            getSectionsData(
-              ['featured1', 'image', 'file', 'url'],
-              data?.hubVanPage.sections,
-            ) ||
-            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-          }
-        />
+        {data?.hubVanPage?.sections?.featured1?.video ? (
+          <Media
+            src={
+              getSectionsData(
+                ['featured1', 'video'],
+                data?.hubVanPage.sections,
+              ) || ''
+            }
+            width="100%"
+            height="360px"
+          />
+        ) : (
+          <Image
+            src={
+              getSectionsData(
+                ['featured1', 'image', 'file', 'url'],
+                data?.hubVanPage.sections,
+              ) ||
+              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+            }
+          />
+        )}
+
         <div style={{ padding: '1rem' }}>
           <Heading
             size="large"
@@ -508,7 +528,28 @@ export const VansPage: NextPage = () => {
           getSectionsData(['featured2'], data?.hubVanPage.sections),
         )}`}
       >
-        <Image src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349" />
+        {data?.hubVanPage?.sections?.featured2?.video ? (
+          <Media
+            src={
+              getSectionsData(
+                ['featured2', 'video'],
+                data?.hubVanPage.sections,
+              ) || ''
+            }
+            width="100%"
+            height="360px"
+          />
+        ) : (
+          <Image
+            src={
+              getSectionsData(
+                ['featured2', 'image', 'file', 'url'],
+                data?.hubVanPage.sections,
+              ) ||
+              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+            }
+          />
+        )}
         <div className="-inset -middle -col-400">
           <Heading
             size="large"

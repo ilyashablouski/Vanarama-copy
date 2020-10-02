@@ -22,6 +22,8 @@ import IconList, {
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
 
+import Media from '@vanarama/uibook/lib/components/atoms/media';
+import { getSectionsData } from '../../utils/getSectionsData';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { isCompared } from '../../utils/comparatorHelpers';
 import {
@@ -44,7 +46,7 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import getIconMap from '../../utils/getIconMap';
 import truncateString from '../../utils/truncateString';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import { formatProductPageUrl, getLegacyUrl } from '../../utils/url';
+import { formatProductPageUrl, getLegacyUrl, getNewUrl } from '../../utils/url';
 import { CompareContext } from '../../utils/comparatorTool';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
@@ -96,6 +98,11 @@ export const PickupsPage: NextPage = () => {
 
   const dealOfMonthUrl = formatProductPageUrl(
     getLegacyUrl(vehicleListUrlQuery.data?.vehicleList?.edges, offer?.capId),
+    offer?.capId,
+  );
+
+  const dealOfMonthHref = getNewUrl(
+    prdouctPickUpsVehicles?.vehicleList?.edges,
     offer?.capId,
   );
 
@@ -160,7 +167,7 @@ export const PickupsPage: NextPage = () => {
             sessionStorage.setItem('capId', offer?.capId || '');
             Router.push(dealOfMonthUrl.href, dealOfMonthUrl.url);
           }}
-          link={{ href: dealOfMonthUrl.href, url: dealOfMonthUrl.url }}
+          link={{ href: dealOfMonthHref, url: dealOfMonthUrl.url }}
         />
       </div>
 
@@ -173,6 +180,10 @@ export const PickupsPage: NextPage = () => {
                 vehicleListUrlQuery.data?.vehicleList?.edges,
                 item?.capId,
               ),
+              item?.capId,
+            );
+            const href = getNewUrl(
+              prdouctPickUpsVehicles?.vehicleList?.edges,
               item?.capId,
             );
             return (
@@ -203,7 +214,7 @@ export const PickupsPage: NextPage = () => {
                   link: (
                     <RouterLink
                       link={{
-                        href: productUrl.href,
+                        href,
                         label: truncateString(
                           `${item?.manufacturerName} ${item?.rangeName}`,
                         ),
@@ -229,7 +240,7 @@ export const PickupsPage: NextPage = () => {
                   />
                   <RouterLink
                     link={{
-                      href: productUrl.href,
+                      href,
                       label: 'View Offer',
                     }}
                     as={productUrl.url}
@@ -291,12 +302,28 @@ export const PickupsPage: NextPage = () => {
           data?.hubPickupPage.sections?.featured1,
         )}`}
       >
-        <Image
-          src={
-            data?.hubPickupPage.sections?.featured1?.image?.file?.url ||
-            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-          }
-        />
+        {data?.hubPickupPage?.sections?.featured1?.video ? (
+          <Media
+            src={
+              getSectionsData(
+                ['featured1', 'video'],
+                data?.hubPickupPage.sections,
+              ) || ''
+            }
+            width="100%"
+            height="360px"
+          />
+        ) : (
+          <Image
+            src={
+              getSectionsData(
+                ['featured1', 'image', 'file', 'url'],
+                data?.hubPickupPage.sections,
+              ) ||
+              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+            }
+          />
+        )}
         <div style={{ padding: '1rem' }}>
           <Heading
             size="large"
@@ -344,12 +371,28 @@ export const PickupsPage: NextPage = () => {
           data?.hubPickupPage.sections?.featured2,
         )}`}
       >
-        <Image
-          src={
-            data?.hubPickupPage.sections?.featured2?.image?.file?.url ||
-            'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-          }
-        />
+        {data?.hubPickupPage?.sections?.featured2?.video ? (
+          <Media
+            src={
+              getSectionsData(
+                ['featured2', 'video'],
+                data?.hubPickupPage.sections,
+              ) || ''
+            }
+            width="100%"
+            height="360px"
+          />
+        ) : (
+          <Image
+            src={
+              getSectionsData(
+                ['featured2', 'image', 'file', 'url'],
+                data?.hubPickupPage.sections,
+              ) ||
+              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+            }
+          />
+        )}
         <div className="-inset -middle -col-400">
           <Heading
             size="large"

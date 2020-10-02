@@ -302,7 +302,7 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
               class="heading -black -lead"
               href=""
             >
-              Category Title
+              Category Titles
             </a>
             <button
               class="button -teal -xsmall -solid -round"
