@@ -78,6 +78,7 @@ const renderCards = (
           title: card.title || '',
           withBtn: true,
         }}
+        description={card.body}
       />
     ) : null,
   );
@@ -148,7 +149,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
             classNames={{ color: 'teal', size: 'regular' }}
             link={{
               label: 'Read More',
-              href: card.slug || '',
+              href: `/${card.slug}`,
             }}
           />
         </Card>
