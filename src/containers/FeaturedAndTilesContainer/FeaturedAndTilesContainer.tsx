@@ -5,7 +5,6 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import TilesContainer from '../TilesContainer/TilesContainer';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { FeaturedHtml } from './getFeaturedHtml';
 import { getSectionsData } from '../../utils/getSectionsData';
 
@@ -34,7 +33,6 @@ const FeaturedAndTilesContainer: FC<IProps> = ({ data }) => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading size="xlarge" color="black" tag="h1">
           {title}
         </Heading>

@@ -73,7 +73,6 @@ import useLeaseType from '../../hooks/useLeaseType';
 import { LinkTypes } from '../../models/enum/LinkTypes';
 import { getLegacyUrl } from '../../utils/url';
 import TileLink from '../../components/TileLink/TileLink';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { getSectionsData } from '../../utils/getSectionsData';
 
 interface IProps {
@@ -644,7 +643,6 @@ const SearchPageContainer: React.FC<IProps> = ({
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {(isModelPage &&
             `${filtersData.manufacturerName} ${filtersData.rangeName} ${filtersData.bodyStyles?.[0]}`) ||

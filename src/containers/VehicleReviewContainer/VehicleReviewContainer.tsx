@@ -15,7 +15,6 @@ import getTitleTag from '../../utils/getTitleTag';
 import mapToReviewCard from './helpers';
 import { ReviewsPageQuery_reviewsPage_sections as Sections } from '../../../generated/ReviewsPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   sections: Sections | null;
@@ -35,7 +34,6 @@ const VehicleReviewContainer: FC<IProps> = ({ body, title, sections }) => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {title}
         </Heading>

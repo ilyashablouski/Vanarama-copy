@@ -9,6 +9,11 @@ export const GET_ABOUT_US_PAGE_DATA = gql`
       metaData {
         name
       }
+      featuredImage {
+        file {
+          url
+        }
+      }
       sections {
         rowText {
           heading

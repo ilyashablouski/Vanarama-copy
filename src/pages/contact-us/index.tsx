@@ -21,7 +21,6 @@ import {
 import RouterLink from '../../components/RouterLink/RouterLink';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { getSectionsData } from '../../utils/getSectionsData';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { useGenericPage } from '../../gql/genericPage';
 
 export const ContactUsPage: NextPage = () => {
@@ -43,7 +42,6 @@ export const ContactUsPage: NextPage = () => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading size="xlarge" color="black" tag="h1">
           {metaData?.name}
         </Heading>

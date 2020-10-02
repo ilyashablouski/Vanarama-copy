@@ -10,7 +10,6 @@ import {
   ReviewsHubCategoryQuery_genericPage_sections_cards_cards as Cards,
 } from '../../../generated/ReviewsHubCategoryQuery';
 import { getMarkdownRenderers } from './Utils';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { getSectionsData } from '../../utils/getSectionsData';
 
 interface IProps {
@@ -68,7 +67,6 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({ data }) => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {title}
         </Heading>

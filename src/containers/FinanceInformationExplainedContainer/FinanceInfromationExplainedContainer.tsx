@@ -13,7 +13,6 @@ import {
   GenericPageQuery_genericPage_sections_faqs as FAQ,
 } from '../../../generated/GenericPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { getSectionsData } from '../../utils/getSectionsData';
 
 interface IProps {
@@ -51,7 +50,6 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading size="xlarge" color="black" tag="h1">
           {title}
         </Heading>

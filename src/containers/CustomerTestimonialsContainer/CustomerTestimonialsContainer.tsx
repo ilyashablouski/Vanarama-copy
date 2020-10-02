@@ -16,7 +16,6 @@ import { GenericPageTestimonialsQuery_genericPage_sections as Section } from '..
 import getTitleTag from '../../utils/getTitleTag';
 import { TESTIMONIALS_DATA } from '../../gql/testimonials';
 import TileLink from '../../components/TileLink/TileLink';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { FeaturedHtml } from '../FeaturedAndTilesContainer/getFeaturedHtml';
 
 interface IProps {
@@ -81,7 +80,6 @@ const CustomerTestimonialsContainer: FC<IProps> = ({ title, sections }) => {
   return (
     <>
       <div className="testimonials--content">
-        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {title}
         </Heading>

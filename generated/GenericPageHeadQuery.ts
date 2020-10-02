@@ -18,7 +18,7 @@ export interface GenericPageHeadQuery_genericPage_metaData {
   slug: string | null;
   schema: any | null;
   publishedOn: any | null;
-  breadCrumbs: any | null;
+  breadcrumbs: any | null;
 }
 
 export interface GenericPageHeadQuery_genericPage_featuredImage_file {

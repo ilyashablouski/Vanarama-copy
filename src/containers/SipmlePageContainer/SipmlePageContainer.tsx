@@ -6,7 +6,6 @@ import ReactMarkdown from 'react-markdown';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import { getSectionsData } from '../../utils/getSectionsData';
 
@@ -36,7 +35,6 @@ const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {metaDataName}
         </Heading>

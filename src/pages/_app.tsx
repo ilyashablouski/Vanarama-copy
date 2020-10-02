@@ -34,6 +34,7 @@ import {
   GenericPageHeadQuery,
   GenericPageHeadQueryVariables,
 } from '../../generated/GenericPageHeadQuery';
+import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   const [compareVehicles, setCompareVehicles] = useState<
@@ -87,7 +88,8 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   useEffect(() => {
     if (
       !router.pathname.includes('[...details-page]') &&
-      !router.pathname.includes('/olaf')
+      !router.pathname.includes('/olaf') &&
+      router.pathname.length !== 1
     ) {
       getPageHead();
     }
@@ -133,12 +135,18 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     ['featuredImage'],
     pageHead?.data?.genericPage,
   );
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
   return (
     <>
       <ToastContainer />
       <main className={cx(resolveMainClass())}>
         <HeaderContainer />
+        <div className="row:title">
+          <Breadcrumb items={breadcrumbsItems} />
+        </div>
         <CompareContext.Provider
           value={{
             compareVehicles,

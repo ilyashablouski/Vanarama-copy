@@ -173,7 +173,7 @@ export const GENERIC_PAGE_HEAD = gql`
         slug
         schema
         publishedOn
-        breadCrumbs
+        breadcrumbs
       }
       featuredImage {
         title

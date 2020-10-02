@@ -27,7 +27,7 @@ const ALL_HOME_CONTENT = gql`
         pageType
         canonicalUrl
         slug
-        breadCrumbs
+        breadcrumbs
         schema
       }
       sections {

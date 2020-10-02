@@ -22,7 +22,6 @@ import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import { useGenericPageHead } from '../../gql/genericPage';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { useVehicleListUrl } from '../../gql/vehicleList';
 import RouterLink from '../../components/RouterLink/RouterLink';
 
@@ -109,7 +108,6 @@ export const OffersPage: NextPage = () => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
       </div>
       <div className="row:plain-hero">
         <div className="-col-100">

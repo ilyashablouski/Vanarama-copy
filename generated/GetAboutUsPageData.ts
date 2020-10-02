@@ -11,6 +11,14 @@ export interface GetAboutUsPageData_aboutUsLandingPage_metaData {
   name: string | null;
 }
 
+export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage_file {
+  url: string;
+}
+
+export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage {
+  file: GetAboutUsPageData_aboutUsLandingPage_featuredImage_file | null;
+}
+
 export interface GetAboutUsPageData_aboutUsLandingPage_sections_rowText {
   heading: string | null;
   subHeading: string | null;
@@ -51,6 +59,7 @@ export interface GetAboutUsPageData_aboutUsLandingPage {
   id: string;
   body: string | null;
   metaData: GetAboutUsPageData_aboutUsLandingPage_metaData;
+  featuredImage: GetAboutUsPageData_aboutUsLandingPage_featuredImage | null;
   sections: GetAboutUsPageData_aboutUsLandingPage_sections | null;
 }
 

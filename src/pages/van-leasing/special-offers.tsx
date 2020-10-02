@@ -22,7 +22,6 @@ import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import useLeaseType from '../../hooks/useLeaseType';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { useVehicleListUrl } from '../../gql/vehicleList';
 import { getSectionsData } from '../../utils/getSectionsData';
 
@@ -152,7 +151,6 @@ export const VanOffers: NextPage = () => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading color="black" size="xlarge" tag="h1">
           {metaDataName}
         </Heading>

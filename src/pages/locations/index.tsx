@@ -12,7 +12,6 @@ import withApollo from '../../hocs/withApollo';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import getTitleTag from '../../utils/getTitleTag';
 import { getSectionsData } from '../../utils/getSectionsData';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { useGenericPage } from '../../gql/genericPage';
 
 export const LocationsPage: NextPage = () => {
@@ -40,7 +39,6 @@ export const LocationsPage: NextPage = () => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading size="xlarge" color="black" tag="h1">
           {metaDataName}
         </Heading>
