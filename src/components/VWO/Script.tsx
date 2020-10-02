@@ -23,4 +23,6 @@ const Script: FC = () => {
   );
 };
 
+Script.displayName = 'VWOScript';
+
 export default memo(Script);

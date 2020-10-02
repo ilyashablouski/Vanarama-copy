@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
 require('dotenv').config();
-const { homepage } = require('../package.json');
 
 const { getPdpRewiteList } = require('../rewrites/pdp');
 const rewritePatterns = require('../rewrites/rewritePatterns');
@@ -13,17 +12,12 @@ module.exports = {
         "@import './node_modules/@vanarama/uibook/src/components/variables.scss';",
     },
   },
-  // Sitemap.
-  sitemap: {
-    baseUrl: homepage,
-    pagesDirectory: 'src/pages',
-    targetDirectory: 'public/',
-  },
 
   // Next.
   next: {
     // Env vars.
     env: {
+      HOSTNAME: process.env.HOSTNAME,
       ENV: process.env.ENV,
       IMG_OPTIMISATION_HOST: process.env.IMG_OPTIMISATION_HOST,
       HOSTNAME: process.env.HOSTNAME,
@@ -55,10 +49,17 @@ module.exports = {
       const pdpRewiteList = await getPdpRewiteList();
       const rewriteList = [...pdpRewiteList, ...rewritePatterns];
 
-      return [...rewriteList];
+      return [
+        {
+          source: '/sitemap-vehicles.xml',
+          destination: '/api/sitemap-vehicles',
+        },
+        ...rewriteList,
+      ];
     },
 
     trailingSlash: false,
+
     // Routes to export into static files.
     exportPathMap: () => {
       return {
