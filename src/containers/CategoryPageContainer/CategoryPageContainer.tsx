@@ -78,6 +78,7 @@ const renderCards = (
           title: card.title || '',
           withBtn: true,
         }}
+        description={card.body}
       />
     ) : null,
   );
