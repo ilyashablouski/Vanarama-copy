@@ -42,7 +42,7 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
-import { formatProductPageUrl, getLegacyUrl } from '../../utils/url';
+import { formatProductPageUrl, getLegacyUrl, getNewUrl } from '../../utils/url';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
 import Head from '../../components/Head/Head';
@@ -157,6 +157,11 @@ export const VansPage: NextPage = () => {
     offer?.capId,
   );
 
+  const dealOfMonthHref = getNewUrl(
+    productVanVehicles?.vehicleList?.edges,
+    offer?.capId,
+  );
+
   const isPersonal = cachedLeaseType === 'Personal';
   const metaData = data?.hubVanPage?.metaData;
 
@@ -240,7 +245,7 @@ export const VansPage: NextPage = () => {
             sessionStorage.setItem('capId', offer?.capId || '');
             Router.push(dealOfMonthUrl.href, dealOfMonthUrl.url);
           }}
-          link={{ href: dealOfMonthUrl.href, url: dealOfMonthUrl.url }}
+          link={{ href: dealOfMonthHref, url: dealOfMonthUrl.url }}
         />
       </div>
       <div className="row:bg-lighter">
