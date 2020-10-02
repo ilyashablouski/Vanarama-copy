@@ -37,7 +37,7 @@ const BusinessSummaryFormAboutSection: FCWithFragments<IProps> = ({
           dataTestId: 'summary-person-last-name',
         },
         {
-          label: 'Business Phone Number',
+          label: 'Telephone Number',
           value:
             (person.telephoneNumbers && person.telephoneNumbers[0].value) || '',
           dataTestId: 'summary-person-phone-number',

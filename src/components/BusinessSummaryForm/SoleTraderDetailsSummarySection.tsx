@@ -108,30 +108,32 @@ const SoleTraderDetailsSummarySection: React.FC<IProps> = ({
           },
           {
             label: 'Annual Income',
-            value: String(soleTrader?.incomeAndExpense?.annualIncome || ''),
+            value: String(soleTrader?.incomeAndExpense?.annualIncome || 'N/A'),
             dataTestId: 'summary-soleTrader-annual-income',
           },
           {
             label: 'Average Monthly Income',
             value: String(
-              soleTrader?.incomeAndExpense?.averageMonthlyIncome || '',
+              soleTrader?.incomeAndExpense?.averageMonthlyIncome || 'N/A',
             ),
             dataTestId: 'summary-soleTrader-monthly-income',
           },
           {
             label: 'Monthly Mortgage Payments',
-            value: String(soleTrader?.incomeAndExpense?.mortgageOrRent || ''),
+            value: String(
+              soleTrader?.incomeAndExpense?.mortgageOrRent || 'N/A',
+            ),
             dataTestId: 'summary-soleTrader-monthly-payments',
           },
           {
             label: 'Monthly Student Payments',
-            value: String(soleTrader?.incomeAndExpense?.studentLoan || ''),
+            value: String(soleTrader?.incomeAndExpense?.studentLoan || 'N/A'),
             dataTestId: 'summary-soleTrader-student-payments',
           },
           {
             label: 'Future Monthly Income',
             value: String(
-              soleTrader?.incomeAndExpense?.futureMonthlyIncome || '',
+              soleTrader?.incomeAndExpense?.futureMonthlyIncome || 'N/A',
             ),
             dataTestId: 'summary-soleTrader-future-income',
           },
