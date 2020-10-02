@@ -165,7 +165,7 @@ export const VansPage: NextPage = () => {
   );
 
   const dealOfMonthHref = getNewUrl(
-    productVanVehicles?.vehicleList?.edges,
+    vehicleListUrlQuery.data?.vehicleList?.edges,
     offer?.capId,
   );
 

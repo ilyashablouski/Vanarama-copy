@@ -196,7 +196,7 @@ export const CarsPage: NextPage = () => {
               item?.capId,
             );
             const href = getNewUrl(
-              productsVehicles?.vehicleList?.edges,
+              vehicleListUrlQuery.data?.vehicleList?.edges,
               item?.capId,
             );
             return (

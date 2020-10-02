@@ -102,7 +102,7 @@ export const PickupsPage: NextPage = () => {
   );
 
   const dealOfMonthHref = getNewUrl(
-    prdouctPickUpsVehicles?.vehicleList?.edges,
+    vehicleListUrlQuery.data?.vehicleList?.edges,
     offer?.capId,
   );
 
@@ -183,7 +183,7 @@ export const PickupsPage: NextPage = () => {
               item?.capId,
             );
             const href = getNewUrl(
-              prdouctPickUpsVehicles?.vehicleList?.edges,
+              vehicleListUrlQuery.data?.vehicleList?.edges,
               item?.capId,
             );
             return (
