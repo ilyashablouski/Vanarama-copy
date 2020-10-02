@@ -43,7 +43,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           <a
             class="link -teal"
             data-testid="router-link"
-            href="mailto:enquiries@vanarama.co.uk"
+            href="/mailto:enquiries@vanarama.co.uk"
           >
             enquiries@vanarama.co.uk
           </a>
@@ -317,7 +317,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             <a
               class="link -teal"
               data-testid="router-link"
-              href="tel:01442838195"
+              href="/tel:01442838195"
             >
               01442 838 195
             </a>
@@ -325,7 +325,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             <a
               class="link -teal"
               data-testid="router-link"
-              href="mailto:enquiries@vanarama.co.uk"
+              href="/mailto:enquiries@vanarama.co.uk"
             >
               enquiries@vanarama.co.uk
             </a>

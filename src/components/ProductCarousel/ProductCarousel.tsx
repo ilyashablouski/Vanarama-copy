@@ -9,7 +9,7 @@ import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import RouterLink from '../RouterLink/RouterLink';
-import { formatProductPageUrl, getLegacyUrl } from '../../utils/url';
+import { formatProductPageUrl, getLegacyUrl, getNewUrl } from '../../utils/url';
 import {
   GetProductCard,
   GetProductCard_productCard,
@@ -91,10 +91,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                 link: (
                   <RouterLink
                     link={{
-                      href: getLegacyUrl(
-                        data.vehicleList?.edges,
-                        product?.capId,
-                      ),
+                      href: getNewUrl(data.vehicleList?.edges, product?.capId),
                       label: truncateString(
                         `${product.manufacturerName} ${product.rangeName}`,
                       ),
@@ -126,7 +123,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                 />
                 <RouterLink
                   link={{
-                    href: getLegacyUrl(data.vehicleList?.edges, product?.capId),
+                    href: getNewUrl(data.vehicleList?.edges, product?.capId),
                     label: 'View Offer',
                   }}
                   as={getLegacyUrl(data.vehicleList?.edges, product?.capId)}

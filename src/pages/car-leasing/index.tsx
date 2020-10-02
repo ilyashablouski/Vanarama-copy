@@ -20,8 +20,9 @@ import IconList, {
   IconListItem,
 } from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
+import Choiceboxes from '@vanarama/uibook/lib/components/atoms/choiceboxes';
 import Media from '@vanarama/uibook/lib/components/atoms/media';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { getFeaturedClassPartial } from '../../utils/layout';
@@ -42,7 +43,7 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import getIconMap from '../../utils/getIconMap';
 import truncateString from '../../utils/truncateString';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import { getLegacyUrl, formatProductPageUrl } from '../../utils/url';
+import { getLegacyUrl, formatProductPageUrl, getNewUrl } from '../../utils/url';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
 import { useVehicleListUrl } from '../../gql/vehicleList';
@@ -51,7 +52,8 @@ import TileLink from '../../components/TileLink/TileLink';
 export const CarsPage: NextPage = () => {
   const { data, loading, error } = useQuery<HubCarPageData>(HUB_CAR_CONTENT);
   // pass in true for car leaseType
-  const { cachedLeaseType } = useLeaseType(true);
+  const { cachedLeaseType, setCachedLeaseType } = useLeaseType(true);
+  const [isPersonal, setIsPersonal] = useState(cachedLeaseType === 'Personal');
 
   const { data: products, error: productsError } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
@@ -67,6 +69,10 @@ export const CarsPage: NextPage = () => {
 
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
+  useEffect(() => {
+    setCachedLeaseType(isPersonal ? 'Personal' : 'Business');
+  }, [isPersonal, setCachedLeaseType]);
+
   if (loading) {
     return <Loading size="large" />;
   }
@@ -76,7 +82,10 @@ export const CarsPage: NextPage = () => {
     return <p>Error: {err?.message}</p>;
   }
 
-  const isPersonal = cachedLeaseType === 'Personal';
+  const leaseTypes = [
+    { label: 'Personal', active: isPersonal },
+    { label: 'Business', active: !isPersonal },
+  ];
 
   return (
     <>
@@ -162,10 +171,21 @@ export const CarsPage: NextPage = () => {
 
       <div className="row:bg-lighter">
         <section className="row:cards-3col">
+          <Choiceboxes
+            className="-cols-2"
+            choices={leaseTypes}
+            onSubmit={value => {
+              setIsPersonal(value.label === 'Personal');
+            }}
+          />
           {products?.productCarousel?.map((item, idx) => {
             const iconMap = getIconMap(item?.keyInformation || []);
             const productUrl = formatProductPageUrl(
               getLegacyUrl(productsVehicles?.vehicleList?.edges, item?.capId),
+              item?.capId,
+            );
+            const href = getNewUrl(
+              productsVehicles?.vehicleList?.edges,
               item?.capId,
             );
             return (
@@ -192,7 +212,7 @@ export const CarsPage: NextPage = () => {
                   link: (
                     <RouterLink
                       link={{
-                        href: productUrl.href,
+                        href,
                         label: truncateString(
                           `${item?.manufacturerName} ${item?.rangeName}`,
                         ),
@@ -220,7 +240,7 @@ export const CarsPage: NextPage = () => {
                   />
                   <RouterLink
                     link={{
-                      href: productUrl.href,
+                      href,
                       label: 'View Offer',
                     }}
                     as={productUrl.url}
