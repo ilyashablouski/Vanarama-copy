@@ -641,6 +641,8 @@ const SearchPageContainer: React.FC<IProps> = ({
   const carousel = pageData?.genericPage.sections?.carousel;
   const featured = pageData?.genericPage.sections?.featured;
 
+  const [readmore, setReadMore] = useState(true);
+
   // TODO: render must be refactored, some components should be moved to separate components
   // Some props should be contain in one param for achieve more readable code
   return (
@@ -933,13 +935,19 @@ const SearchPageContainer: React.FC<IProps> = ({
           {featured && (
             <div className={`row:${getFeaturedClassPartial(featured)}`}>
               <Image size="expand" src={featured.image?.file?.url || ''} />
-              <div>
+              <div className="markdown">
                 <Heading tag="span" size="large" color="black">
                   {featured.title}
                 </Heading>
                 <Truncate
-                  lines={10}
-                  ellipsis={
+                  lines={
+                    featured?.layout &&
+                    featured?.layout.includes('Read More') &&
+                    readmore
+                      ? 15
+                      : 0
+                  }
+                  /* ellipsis={
                     <span>
                       ...
                       <Button
@@ -947,9 +955,10 @@ const SearchPageContainer: React.FC<IProps> = ({
                         color="black"
                         fill="clear"
                         label="READ MORE"
+                        onClick={() => setReadMore(!readmore)}
                       />
                     </span>
-                  }
+                  } */
                 >
                   <ReactMarkdown
                     source={featured.body || ''}
@@ -964,15 +973,16 @@ const SearchPageContainer: React.FC<IProps> = ({
                           />
                         );
                       },
-                      heading: props => (
-                        <Text {...props} size="lead" color="darker" tag="h3" />
-                      ),
-                      paragraph: props => (
-                        <Text {...props} tag="p" color="darker" />
-                      ),
                     }}
                   />
                 </Truncate>
+                <Button
+                  size="small"
+                  color="black"
+                  fill="clear"
+                  label={readmore ? 'READ MORE' : 'READ LESS'}
+                  onClick={() => setReadMore(!readmore)}
+                />
               </div>
             </div>
           )}
