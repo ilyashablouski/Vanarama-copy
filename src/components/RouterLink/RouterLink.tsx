@@ -65,9 +65,14 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     );
   }
 
+  const href = link.href?.charAt(0) !== '/' ? `/${link.href}` : link.href;
+
   return (
     <Link
-      href={{ pathname: link.href || router.asPath, query: link.query || {} }}
+      href={{
+        pathname: link.href ? href : router.asPath,
+        query: link.query || {},
+      }}
       replace={replace}
       as={as}
       shallow={!!as}
