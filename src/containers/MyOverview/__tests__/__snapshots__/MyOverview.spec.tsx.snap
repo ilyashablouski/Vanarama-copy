@@ -112,7 +112,6 @@ Array [
           }
         >
           <img
-            alt="img"
             className="card-image"
             data-testid="card-image"
             onError={[Function]}
@@ -243,7 +242,6 @@ Array [
           }
         >
           <img
-            alt="img"
             className="card-image"
             data-testid="card-image"
             onError={[Function]}
@@ -402,7 +400,6 @@ Array [
           }
         >
           <img
-            alt="img"
             className="card-image"
             data-testid="card-image"
             onError={[Function]}
@@ -533,7 +530,6 @@ Array [
           }
         >
           <img
-            alt="img"
             className="card-image"
             data-testid="card-image"
             onError={[Function]}
