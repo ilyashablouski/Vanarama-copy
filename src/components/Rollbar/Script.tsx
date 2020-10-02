@@ -18,7 +18,7 @@ const Script: FC = () => {
     // End Rollbar Snippet
   `;
 
-  return process.env.GTM_ID ? (
+  return publicRuntimeConfig.rollbarClientToken ? (
     <script
       // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{
@@ -27,5 +27,7 @@ const Script: FC = () => {
     />
   ) : null;
 };
+
+Script.displayName = 'RollbarScript';
 
 export default memo(Script);

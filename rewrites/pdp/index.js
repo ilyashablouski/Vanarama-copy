@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 const csv = require('csvtojson');
 
-const client = require('../client');
+const client = require('../../src/utils/client');
 const SLUGS = require('./slugs.gql.js');
 
 // const inspect = require('../inspect');
@@ -155,12 +155,6 @@ async function getPdpRewiteList() {
 
   return rewrites;
 }
-
-// (async () => {
-//   const pdpRewiteList = await getPdpRewiteList();
-
-//   return pdpRewiteList;
-// })();
 
 module.exports = {
   reduceVehiclesToChunks,
