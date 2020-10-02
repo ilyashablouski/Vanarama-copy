@@ -51,7 +51,10 @@ import { CompareContext } from '../../utils/comparatorTool';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
 import Head from '../../components/Head/Head';
-import { useVehicleListUrl } from '../../gql/vehicleList';
+import {
+  useVehicleListUrl,
+  useVehicleListUrlFetchMore,
+} from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
 
 export const PickupsPage: NextPage = () => {
@@ -79,9 +82,9 @@ export const PickupsPage: NextPage = () => {
   const productsPickupsCapIds = products?.productCarousel?.map(
     el => el?.capId || '',
   ) || [''];
-  const { data: prdouctPickUpsVehicles } = useVehicleListUrl(
-    productsPickupsCapIds,
-  );
+  const vehicleListUrlQuery = useVehicleListUrl(productsPickupsCapIds);
+
+  useVehicleListUrlFetchMore(vehicleListUrlQuery, productsPickupsCapIds);
 
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
@@ -94,12 +97,12 @@ export const PickupsPage: NextPage = () => {
   }
 
   const dealOfMonthUrl = formatProductPageUrl(
-    getLegacyUrl(prdouctPickUpsVehicles?.vehicleList?.edges, offer?.capId),
+    getLegacyUrl(vehicleListUrlQuery.data?.vehicleList?.edges, offer?.capId),
     offer?.capId,
   );
 
   const dealOfMonthHref = getNewUrl(
-    prdouctPickUpsVehicles?.vehicleList?.edges,
+    vehicleListUrlQuery.data?.vehicleList?.edges,
     offer?.capId,
   );
 
@@ -174,13 +177,13 @@ export const PickupsPage: NextPage = () => {
             const iconMap = getIconMap(item?.keyInformation || []);
             const productUrl = formatProductPageUrl(
               getLegacyUrl(
-                prdouctPickUpsVehicles?.vehicleList?.edges,
+                vehicleListUrlQuery.data?.vehicleList?.edges,
                 item?.capId,
               ),
               item?.capId,
             );
             const href = getNewUrl(
-              prdouctPickUpsVehicles?.vehicleList?.edges,
+              vehicleListUrlQuery.data?.vehicleList?.edges,
               item?.capId,
             );
             return (

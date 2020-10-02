@@ -42,7 +42,10 @@ import { useCarDerivativesData } from '../containers/OrdersInformation/gql';
 import getTitleTag from '../utils/getTitleTag';
 import useLeaseType from '../hooks/useLeaseType';
 import { getSectionsData } from '../utils/getSectionsData';
-import { useVehicleListUrl } from '../gql/vehicleList';
+import {
+  useVehicleListUrl,
+  useVehicleListUrlFetchMore,
+} from '../gql/vehicleList';
 import TileLink from '../components/TileLink/TileLink';
 
 export const HomePage: NextPage = () => {
@@ -105,11 +108,14 @@ export const HomePage: NextPage = () => {
     VehicleTypeEnum.LCV,
   );
 
-  const { data: productsVehicle } = useVehicleListUrl([
+  const derivativeIds = [
     ...productsPickUpCapIds,
     ...productsVanCapIds,
     ...productsCarCapIds,
-  ]);
+  ];
+  const vehicleListUrlQuery = useVehicleListUrl(derivativeIds);
+
+  useVehicleListUrlFetchMore(vehicleListUrlQuery, derivativeIds);
 
   if (loading) {
     return <Loading size="large" />;
@@ -213,7 +219,7 @@ export const HomePage: NextPage = () => {
                   data={{
                     derivatives: productsVanDerivatives?.derivatives || null,
                     productCard: productsVan?.productCarousel || null,
-                    vehicleList: productsVehicle?.vehicleList!,
+                    vehicleList: vehicleListUrlQuery.data?.vehicleList!,
                   }}
                   countItems={productsVan?.productCarousel?.length || 6}
                   dataTestIdBtn="van-view-offer"
@@ -240,7 +246,7 @@ export const HomePage: NextPage = () => {
                   data={{
                     derivatives: productsPickUpDerivatives?.derivatives || null,
                     productCard: productsPickUp?.productCarousel || null,
-                    vehicleList: productsVehicle?.vehicleList!,
+                    vehicleList: vehicleListUrlQuery.data?.vehicleList!,
                   }}
                   countItems={productsPickUp?.productCarousel?.length || 6}
                   dataTestIdBtn="pickup-view-offer"
@@ -268,7 +274,7 @@ export const HomePage: NextPage = () => {
                   data={{
                     derivatives: productsCarDerivatives?.derivatives || null,
                     productCard: productsCar?.productCarousel || null,
-                    vehicleList: productsVehicle?.vehicleList!,
+                    vehicleList: vehicleListUrlQuery.data?.vehicleList!,
                   }}
                   countItems={productsCar?.productCarousel?.length || 6}
                   dataTestIdBtn="car-view-offer"
