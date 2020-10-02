@@ -82,6 +82,10 @@
         {
           "name": "HOSTNAME",
           "value": "https://vanarama.com"
+        },
+        {
+          "name": "IMG_OPTIMISATION_HOST",
+          "value": "https://vanarama.com"
         }
       ],
       "portMappings": [
