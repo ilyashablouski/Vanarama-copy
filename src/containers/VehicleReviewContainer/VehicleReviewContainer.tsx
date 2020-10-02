@@ -106,6 +106,7 @@ const VehicleReviewContainer: FC<IProps> = ({ body, title, sections }) => {
             Expert Review
           </Heading>
           <ReviewCard
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             key="ExpertRevew"
             review={{
               text: sections?.vehicleReview?.summary || '',
@@ -120,6 +121,7 @@ const VehicleReviewContainer: FC<IProps> = ({ body, title, sections }) => {
             ?.slice(0, reviewsExpanded ? 10 : 2)
             .map((reviewTile, index) => (
               <ReviewCard
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 key={index.toString()}
                 review={{ ...mapToReviewCard(reviewTile) }}
               />

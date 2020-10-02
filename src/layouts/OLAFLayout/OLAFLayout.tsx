@@ -62,6 +62,7 @@ const OLAFLayout: React.FC = ({ children }) => {
         {showAside && orderByUuid && derivative && (
           <div className="olaf-aside">
             <OlafCard
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               header={{ text: '14-21 Days Delivery' }}
               olafDetails={createOlafDetails(
                 orderByUuid.leaseType,

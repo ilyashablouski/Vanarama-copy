@@ -20,6 +20,7 @@ const TestimonialSection = ({
     <div className="row:featured-right">
       {testimonials && testimonials[0] && (
         <ReviewCard
+          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           review={{
             text: testimonials[0].summary || '',
             author: testimonials[0].customerName || '',
