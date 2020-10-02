@@ -200,11 +200,7 @@ export const ContactUsPage: NextPage = () => {
               className="card-image"
               src={c?.image?.file?.url || ''}
             />
-            <Card
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              Title
-              title={c?.title || ''}
-            />
+            <CardTitle title={c?.title || ''} />
             <Text color="darker">{c?.body}</Text>
             <Button
               fill="clear"

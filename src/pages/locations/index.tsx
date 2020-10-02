@@ -72,9 +72,7 @@ export const LocationsPage: NextPage = () => {
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 key={i.toString()}
               >
-                <Card
-                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  Title
+                <CardTitle
                   title={card.title || ''}
                   tag={
                     getTitleTag(
