@@ -46,7 +46,7 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import getIconMap from '../../utils/getIconMap';
 import truncateString from '../../utils/truncateString';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import { formatProductPageUrl, getLegacyUrl } from '../../utils/url';
+import { formatProductPageUrl, getLegacyUrl, getNewUrl } from '../../utils/url';
 import { CompareContext } from '../../utils/comparatorTool';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
@@ -95,6 +95,11 @@ export const PickupsPage: NextPage = () => {
 
   const dealOfMonthUrl = formatProductPageUrl(
     getLegacyUrl(prdouctPickUpsVehicles?.vehicleList?.edges, offer?.capId),
+    offer?.capId,
+  );
+
+  const dealOfMonthHref = getNewUrl(
+    prdouctPickUpsVehicles?.vehicleList?.edges,
     offer?.capId,
   );
 
@@ -159,7 +164,7 @@ export const PickupsPage: NextPage = () => {
             sessionStorage.setItem('capId', offer?.capId || '');
             Router.push(dealOfMonthUrl.href, dealOfMonthUrl.url);
           }}
-          link={{ href: dealOfMonthUrl.href, url: dealOfMonthUrl.url }}
+          link={{ href: dealOfMonthHref, url: dealOfMonthUrl.url }}
         />
       </div>
 
@@ -172,6 +177,10 @@ export const PickupsPage: NextPage = () => {
                 prdouctPickUpsVehicles?.vehicleList?.edges,
                 item?.capId,
               ),
+              item?.capId,
+            );
+            const href = getNewUrl(
+              prdouctPickUpsVehicles?.vehicleList?.edges,
               item?.capId,
             );
             return (
@@ -202,7 +211,7 @@ export const PickupsPage: NextPage = () => {
                   link: (
                     <RouterLink
                       link={{
-                        href: productUrl.href,
+                        href,
                         label: truncateString(
                           `${item?.manufacturerName} ${item?.rangeName}`,
                         ),
@@ -228,7 +237,7 @@ export const PickupsPage: NextPage = () => {
                   />
                   <RouterLink
                     link={{
-                      href: productUrl.href,
+                      href,
                       label: 'View Offer',
                     }}
                     as={productUrl.url}

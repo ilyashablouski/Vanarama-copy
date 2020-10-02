@@ -78,6 +78,10 @@
         {
           "name": "ENV",
           "value": "%ENVIRONMENT%"
+        },
+        {
+          "name": "HOSTNAME",
+          "value": "https://vanarama.com"
         }
       ],
       "portMappings": [
