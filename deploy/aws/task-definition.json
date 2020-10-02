@@ -80,8 +80,8 @@
           "value": "%ENVIRONMENT%"
         },
         {
-          "name": "GTM_ID",
-          "value": "%GTM_ID%"
+          "name": "HOSTNAME",
+          "value": "https://vanarama.com"
         }
       ],
       "portMappings": [

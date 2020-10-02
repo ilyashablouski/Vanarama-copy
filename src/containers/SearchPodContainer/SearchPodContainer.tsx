@@ -102,14 +102,14 @@ const SearchPodContainer = () => {
 
   // use effect for handle hub pages
   useEffect(() => {
-    if (router.pathname.indexOf('cars') > -1) {
+    if (router.pathname.indexOf('car') > -1) {
       setConfig(carPageTabFields);
       setHeadingText('Search Car Leasing');
       setActiveIndex(2);
-    } else if (router.pathname.indexOf('vans') > -1) {
+    } else if (router.pathname.indexOf('van') > -1) {
       setHeadingText('Search Van Leasing');
       setConfig(vanPageTabFields);
-    } else if (router.pathname.indexOf('pickups') > -1) {
+    } else if (router.pathname.indexOf('pickup') > -1) {
       setHeadingText('Search Pickup Leasing');
       setIsShouldPreselectTypes(true);
       setConfig(vanPageTabFields);
@@ -274,7 +274,7 @@ const SearchPodContainer = () => {
     const isCarTab = tabType === 'Cars';
     const values = getValues();
     const searchType = isCarTab ? 'car-leasing' : 'van-leasing';
-    const routerUrl = `/${searchType}`;
+    const routerUrl = `/${searchType}/search`;
     const query = {} as any;
     // make
     if (values[`make${tabType}`]) {
