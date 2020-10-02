@@ -43,12 +43,15 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
-import { formatProductPageUrl, getLegacyUrl } from '../../utils/url';
+import { formatProductPageUrl, getLegacyUrl, getNewUrl } from '../../utils/url';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
 import Head from '../../components/Head/Head';
 import { getSectionsData, getCardsName } from '../../utils/getSectionsData';
-import { useVehicleListUrl } from '../../gql/vehicleList';
+import {
+  useVehicleListUrl,
+  useVehicleListUrlFetchMore,
+} from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
 
 type ProdCards = ProdCardData[];
@@ -139,11 +142,14 @@ export const VansPage: NextPage = () => {
     VehicleTypeEnum.LCV,
   );
 
-  const { data: productVanVehicles } = useVehicleListUrl([
+  const derivativeIds = [
     ...productSmallVanCapIds,
     ...productMediumVanCapIds,
     ...productLargeVanCapIds,
-  ]);
+  ];
+  const vehicleListUrlQuery = useVehicleListUrl(derivativeIds);
+
+  useVehicleListUrlFetchMore(vehicleListUrlQuery, derivativeIds);
 
   if (loading) {
     return <Loading size="large" />;
@@ -154,7 +160,12 @@ export const VansPage: NextPage = () => {
   }
 
   const dealOfMonthUrl = formatProductPageUrl(
-    getLegacyUrl(productVanVehicles?.vehicleList?.edges, offer?.capId),
+    getLegacyUrl(vehicleListUrlQuery.data?.vehicleList?.edges, offer?.capId),
+    offer?.capId,
+  );
+
+  const dealOfMonthHref = getNewUrl(
+    vehicleListUrlQuery.data?.vehicleList?.edges,
     offer?.capId,
   );
 
@@ -242,7 +253,7 @@ export const VansPage: NextPage = () => {
             sessionStorage.setItem('capId', offer?.capId || '');
             Router.push(dealOfMonthUrl.href, dealOfMonthUrl.url);
           }}
-          link={{ href: dealOfMonthUrl.href, url: dealOfMonthUrl.url }}
+          link={{ href: dealOfMonthHref, url: dealOfMonthUrl.url }}
         />
       </div>
       <div className="row:bg-lighter">
@@ -262,7 +273,7 @@ export const VansPage: NextPage = () => {
             data={{
               derivatives: productSmallVanDerivatives?.derivatives || null,
               productCard: productSmallVan?.productCarousel || null,
-              vehicleList: productVanVehicles?.vehicleList!,
+              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
             }}
             countItems={productSmallVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
@@ -293,7 +304,7 @@ export const VansPage: NextPage = () => {
             data={{
               derivatives: productMediumVanDerivatives?.derivatives || null,
               productCard: productMediumVan?.productCarousel || null,
-              vehicleList: productVanVehicles?.vehicleList!,
+              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
             }}
             countItems={productMediumVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
@@ -324,7 +335,7 @@ export const VansPage: NextPage = () => {
             data={{
               derivatives: productLargeVanDerivatives?.derivatives || null,
               productCard: productLargeVan?.productCarousel || null,
-              vehicleList: productVanVehicles?.vehicleList!,
+              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
             }}
             countItems={productLargeVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"

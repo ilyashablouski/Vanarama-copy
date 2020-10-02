@@ -73,7 +73,7 @@ import {
 } from '../../../generated/GenericPageHeadQuery';
 import useLeaseType from '../../hooks/useLeaseType';
 import { LinkTypes } from '../../models/enum/LinkTypes';
-import { getLegacyUrl } from '../../utils/url';
+import { getLegacyUrl, getNewUrl } from '../../utils/url';
 import TileLink from '../../components/TileLink/TileLink';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
@@ -833,6 +833,10 @@ const SearchPageContainer: React.FC<IProps> = ({
                       }
                       derivativeId={vehicle.node?.derivativeId}
                       url={getLegacyUrl(
+                        vehiclesList,
+                        vehicle.node?.derivativeId,
+                      )}
+                      appUrl={getNewUrl(
                         vehiclesList,
                         vehicle.node?.derivativeId,
                       )}

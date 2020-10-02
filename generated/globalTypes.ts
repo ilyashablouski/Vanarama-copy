@@ -29,6 +29,7 @@ export enum OpportunityTypeEnum {
  * Sort field
  */
 export enum SortField {
+  availability = "availability",
   manufacturer = "manufacturer",
   offerRanking = "offerRanking",
   rate = "rate",

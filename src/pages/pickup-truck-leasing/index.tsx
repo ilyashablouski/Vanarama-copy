@@ -46,12 +46,15 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import getIconMap from '../../utils/getIconMap';
 import truncateString from '../../utils/truncateString';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import { formatProductPageUrl, getLegacyUrl } from '../../utils/url';
+import { formatProductPageUrl, getLegacyUrl, getNewUrl } from '../../utils/url';
 import { CompareContext } from '../../utils/comparatorTool';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
 import Head from '../../components/Head/Head';
-import { useVehicleListUrl } from '../../gql/vehicleList';
+import {
+  useVehicleListUrl,
+  useVehicleListUrlFetchMore,
+} from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
 
 export const PickupsPage: NextPage = () => {
@@ -79,9 +82,9 @@ export const PickupsPage: NextPage = () => {
   const productsPickupsCapIds = products?.productCarousel?.map(
     el => el?.capId || '',
   ) || [''];
-  const { data: prdouctPickUpsVehicles } = useVehicleListUrl(
-    productsPickupsCapIds,
-  );
+  const vehicleListUrlQuery = useVehicleListUrl(productsPickupsCapIds);
+
+  useVehicleListUrlFetchMore(vehicleListUrlQuery, productsPickupsCapIds);
 
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
@@ -94,7 +97,12 @@ export const PickupsPage: NextPage = () => {
   }
 
   const dealOfMonthUrl = formatProductPageUrl(
-    getLegacyUrl(prdouctPickUpsVehicles?.vehicleList?.edges, offer?.capId),
+    getLegacyUrl(vehicleListUrlQuery.data?.vehicleList?.edges, offer?.capId),
+    offer?.capId,
+  );
+
+  const dealOfMonthHref = getNewUrl(
+    vehicleListUrlQuery.data?.vehicleList?.edges,
     offer?.capId,
   );
 
@@ -160,7 +168,7 @@ export const PickupsPage: NextPage = () => {
             sessionStorage.setItem('capId', offer?.capId || '');
             Router.push(dealOfMonthUrl.href, dealOfMonthUrl.url);
           }}
-          link={{ href: dealOfMonthUrl.href, url: dealOfMonthUrl.url }}
+          link={{ href: dealOfMonthHref, url: dealOfMonthUrl.url }}
         />
       </div>
 
@@ -170,9 +178,13 @@ export const PickupsPage: NextPage = () => {
             const iconMap = getIconMap(item?.keyInformation || []);
             const productUrl = formatProductPageUrl(
               getLegacyUrl(
-                prdouctPickUpsVehicles?.vehicleList?.edges,
+                vehicleListUrlQuery.data?.vehicleList?.edges,
                 item?.capId,
               ),
+              item?.capId,
+            );
+            const href = getNewUrl(
+              vehicleListUrlQuery.data?.vehicleList?.edges,
               item?.capId,
             );
             return (
@@ -204,7 +216,7 @@ export const PickupsPage: NextPage = () => {
                   link: (
                     <RouterLink
                       link={{
-                        href: productUrl.href,
+                        href,
                         label: truncateString(
                           `${item?.manufacturerName} ${item?.rangeName}`,
                         ),
@@ -230,7 +242,7 @@ export const PickupsPage: NextPage = () => {
                   />
                   <RouterLink
                     link={{
-                      href: productUrl.href,
+                      href,
                       label: 'View Offer',
                     }}
                     as={productUrl.url}
