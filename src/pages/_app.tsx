@@ -1,3 +1,4 @@
+import { useLazyQuery } from '@apollo/client';
 import { ToastContainer } from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import '@vanarama/uibook/src/components/base.scss';
 import { AppProps } from 'next/app';
@@ -25,9 +26,14 @@ import {
   changeCompares,
 } from '../utils/comparatorHelpers';
 import FooterContainer from '../containers/FooterContainer';
-import { useGenericPageHead } from '../gql/genericPage';
+import { GENERIC_PAGE_HEAD } from '../gql/genericPage';
 import { getSectionsData } from '../utils/getSectionsData';
 import Head from '../components/Head/Head';
+import withApollo from '../hocs/withApollo';
+import {
+  GenericPageHeadQuery,
+  GenericPageHeadQueryVariables,
+} from '../../generated/GenericPageHeadQuery';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   const [compareVehicles, setCompareVehicles] = useState<
@@ -37,9 +43,10 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     boolean | undefined
   >(false);
   const [existComparator, setExistComparator] = useState(false);
-  const { data: genericPageHeadCMS } = useGenericPageHead(
-    router.asPath.slice(1),
-  );
+  const [getPageHead, pageHead] = useLazyQuery<
+    GenericPageHeadQuery,
+    GenericPageHeadQueryVariables
+  >(GENERIC_PAGE_HEAD, { variables: { slug: router.asPath.slice(1) } });
 
   useEffect(() => {
     // Anytime router.push is called, scroll to the top of the page.
@@ -77,6 +84,16 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     }
   }, [router.pathname]);
 
+  useEffect(() => {
+    if (
+      !router.pathname.includes('[...details-page]') &&
+      !router.pathname.includes('/olaf')
+    ) {
+      getPageHead();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const compareChange = async (
     product?: IVehicle | IVehicleCarousel | null | undefined,
     capId?: string | number,
@@ -111,13 +128,10 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     return 'page:default';
   };
 
-  const metaData = getSectionsData(
-    ['metaData'],
-    genericPageHeadCMS?.genericPage,
-  );
+  const metaData = getSectionsData(['metaData'], pageHead?.data?.genericPage);
   const featuredImage = getSectionsData(
     ['featuredImage'],
-    genericPageHeadCMS?.genericPage,
+    pageHead?.data?.genericPage,
   );
 
   return (
@@ -161,9 +175,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         )}
         <FooterContainer />
       </main>
-      {!router.pathname.includes('[...details-page]') && (
-        <Head metaData={metaData} featuredImage={featuredImage} />
-      )}
+      {metaData && <Head metaData={metaData} featuredImage={featuredImage} />}
     </>
   );
 };
@@ -180,4 +192,4 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 //   return { ...appProps }
 // }
 
-export default MyApp;
+export default withApollo(MyApp);
