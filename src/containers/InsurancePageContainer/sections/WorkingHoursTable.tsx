@@ -26,7 +26,7 @@ const renderTable = (props: any) => {
 };
 
 const WorkingHoursTable = ({ body, title }: HeroCard) => (
-  <Card className="hero-card">
+  <Card optimisedHost={process.env.IMG_OPTIMISATION_HOST} className="hero-card">
     <div className="hero-card--inner">
       <Heading size="lead" color="black">
         {title}

@@ -67,6 +67,7 @@ const LeasingExplainedContainer: FC<IProps> = ({ title, sections }) => {
           <div className="row:cards-3col">
             {cards?.map((el: Cards, ind: number) => (
               <Card
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 key={`${el?.title}_${ind}`}
                 title={{
                   title: el?.title || '',

@@ -75,6 +75,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
             </Heading>
             {cards.map((el: Cards, indx: number) => (
               <Card
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 key={`${el.name}_${indx.toString()}`}
                 title={{
                   title: el.title || '',
@@ -175,6 +176,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
             <Carousel countItems={carousel?.cards?.length || 0}>
               {carousel?.cards.map(el => (
                 <Card
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                   imageSrc={el?.image?.file?.url || ''}
                   title={{
                     title: el?.title || '',

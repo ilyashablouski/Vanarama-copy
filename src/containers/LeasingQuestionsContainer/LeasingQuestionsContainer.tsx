@@ -25,6 +25,7 @@ const renderCarouselCards = (cards: (ICaruselCard | null)[]) =>
   cards.map(card =>
     card?.title && card.body && card.name ? (
       <Card
+        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         key={card.name}
         title={{ title: card?.title }}
         imageSrc={card.image?.file?.url}
@@ -49,6 +50,7 @@ const renderCards = (cards: (ICard | null)[] | undefined | null) =>
   cards?.map(card =>
     card?.title && card.name ? (
       <Card
+        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         key={card.name || undefined}
         imageSrc={card.image?.file?.url}
         title={{

@@ -84,6 +84,7 @@ const BlogPostContainer: NextPage<IProps> = ({ body, name, image, cards }) => {
           )}
           {cards?.map((el, indx) => (
             <Card
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               key={`${el?.name}_${indx.toString()}`}
               className="card__article"
               imageSrc={el?.image?.file?.url || ''}

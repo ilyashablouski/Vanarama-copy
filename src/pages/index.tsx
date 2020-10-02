@@ -295,6 +295,7 @@ export const HomePage: NextPage = () => {
             data?.homePage?.sections,
           ) as CardData[])?.map((c: CardData, idx) => (
             <Card
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               key={c.title || idx}
               title={{
                 title: '',

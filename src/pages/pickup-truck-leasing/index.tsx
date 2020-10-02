@@ -177,6 +177,7 @@ export const PickupsPage: NextPage = () => {
             );
             return (
               <ProductCard
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 key={item?.capId || idx}
                 header={{
                   accentIcon: <Icon icon={<Flame />} color="white" />,

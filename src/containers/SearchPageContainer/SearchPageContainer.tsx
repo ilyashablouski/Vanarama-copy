@@ -1008,6 +1008,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                     (card, indx) =>
                       card && (
                         <Card
+                          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                           key={`${card.name}_${indx.toString()}`}
                           className="card__article"
                           imageSrc={card?.image?.file?.url || ''}

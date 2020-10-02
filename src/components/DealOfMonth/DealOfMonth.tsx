@@ -36,6 +36,7 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
 }) => (
   <>
     <Card
+      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
       header={{
         accentIcon: <Icon icon={<Flame />} color="white" />,
         accentText: 'Hot Deal',

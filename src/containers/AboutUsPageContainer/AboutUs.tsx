@@ -27,6 +27,7 @@ const renderCarouselCards = (cards: (ICard | null)[]) =>
   cards.map(card =>
     card?.title && card.body && card.name ? (
       <Card
+        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         // TODO: remove width when Carousel component is fixed
         // now its slider is wider than carousel itself, and cards adapts and its right border is hidden
         style={{ width: '362px' }}
@@ -52,6 +53,7 @@ const renderCarouselCards = (cards: (ICard | null)[]) =>
 const renderMeetCard = (card: ICard | undefined) =>
   (card?.title && card.body && (
     <Card
+      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
       title={{
         title: card.title,
         link: (

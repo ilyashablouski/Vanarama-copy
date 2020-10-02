@@ -371,6 +371,7 @@ export const VansPage: NextPage = () => {
             data?.hubVanPage.sections,
           ) as CardData[])?.map((card: CardData, idx) => (
             <Card
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               key={card.title || idx}
               title={{
                 title: '',

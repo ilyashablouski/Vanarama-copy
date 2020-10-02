@@ -50,6 +50,7 @@ const ThankYouContainer: FC<IProps> = ({ sections }) => {
           </Heading>
           {cards?.map((c: CardData, idx: number) => (
             <Card
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               key={c.title || idx}
               title={{
                 title: '',
