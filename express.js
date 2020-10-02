@@ -84,6 +84,11 @@ app
     return server;
   })
   .then(server => {
+    // Env var logging.
+    console.log('Environments variables', process.env);
+    return server;
+  })
+  .then(server => {
     // Start server.
     server.listen(PORT, err => {
       if (err) throw err;
