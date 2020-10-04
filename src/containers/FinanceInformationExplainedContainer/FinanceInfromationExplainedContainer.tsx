@@ -179,28 +179,20 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
         <nav className="tabs -content-end -alt -lead -center">
           <div className="tabs__list-wrap">
             <div className="tabs__list" role="tablist">
-              <button
-                onClick={() => setQuestionType(questionTypes[0])}
-                type="button"
-                className={cx(
-                  '-start',
-                  questionType === questionTypes[0] ? '-active' : '',
-                )}
-                role="tab"
-              >
-                Finance & Application
-              </button>
-              <button
-                onClick={() => setQuestionType(questionTypes[1])}
-                type="button"
-                className={cx(
-                  '-end',
-                  questionType === questionTypes[1] ? '-active' : '',
-                )}
-                role="tab"
-              >
-                What&#39;s Included?
-              </button>
+              {questionTypes?.map((type, idx) => (
+                <button
+                  key={type || idx}
+                  onClick={() => setQuestionType(type)}
+                  type="button"
+                  className={cx(
+                    '-start',
+                    questionType === type ? '-active' : '',
+                  )}
+                  role="tab"
+                >
+                  {type}
+                </button>
+              ))}
             </div>
           </div>
         </nav>
