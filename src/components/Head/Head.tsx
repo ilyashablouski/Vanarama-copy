@@ -57,4 +57,6 @@ const Head: FC<IHeadProps> = props => {
   );
 };
 
+Head.displayName = 'Head';
+
 export default memo(Head);

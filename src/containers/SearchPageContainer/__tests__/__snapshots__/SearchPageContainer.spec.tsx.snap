@@ -1,0 +1,1579 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SearchPageContainer /> should be render correctly 1`] = `
+<body>
+  <div>
+    <div
+      class="row:title"
+    >
+      <nav>
+        <ol
+          class="breadcrumb"
+        >
+          <li
+            class="breadcrumb-item -parent"
+          >
+            <a
+              class="breadcrumb-item--backlink link -teal -small"
+              data-testid="router-link"
+              href="/"
+            >
+              <i
+                class="icon -teal"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-a
+                  </title>
+                  <polyline
+                    points="328 112 184 256 328 400"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+              Back to 
+              home
+            </a>
+            <a
+              class="breadcrumb-item--parent link -teal -small"
+              data-testid="router-link"
+              href="/"
+            >
+              home
+            </a>
+            <i
+              class="icon -medium -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="184 112 328 256 184 400"
+                  style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                />
+              </svg>
+            </i>
+          </li>
+          <li
+            class="breadcrumb-item -child"
+          >
+            <span
+              class="text breadcrumb-item--child -small -darker"
+            >
+              car leasing
+            </span>
+          </li>
+        </ol>
+      </nav>
+      <h1
+        class="heading -black -xlarge"
+      />
+      <div
+        class="text -regular -darker"
+      />
+    </div>
+    <div
+      class="-mv-400 -stretch-left"
+    >
+      <div
+        class="checkbox -teal"
+      >
+        <input
+          checked=""
+          class="checkbox--native"
+          id="specialOffer"
+          type="checkbox"
+          value=""
+        />
+        <label
+          class="checkbox--label"
+          for="specialOffer"
+        >
+          <span
+            class="text -regular -darker"
+          >
+            View Special Offers Only
+          </span>
+        </label>
+      </div>
+    </div>
+    <div
+      class="row:bg-light -xthin"
+    >
+      <div
+        class="row:search-filters"
+      >
+        <div
+          class="search-filters -open"
+        >
+          <div
+            class="search-filters--title"
+            role="heading"
+          >
+            <i
+              class="icon search-filters--title-icon"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-i
+                </title>
+                <path
+                  d="M64,144H290.75a48,48,0,0,0,90.5,0H448a16,16,0,0,0,0-32H381.25a48,48,0,0,0-90.5,0H64a16,16,0,0,0,0,32Z"
+                />
+                <path
+                  d="M448,368H381.25a48,48,0,0,0-90.5,0H64a16,16,0,0,0,0,32H290.75a48,48,0,0,0,90.5,0H448a16,16,0,0,0,0-32Z"
+                />
+                <path
+                  d="M448,240H221.25a48,48,0,0,0-90.5,0H64a16,16,0,0,0,0,32h66.75a48,48,0,0,0,90.5,0H448a16,16,0,0,0,0-32Z"
+                />
+              </svg>
+            </i>
+            <span>
+              Filters
+            </span>
+            <i
+              class="icon search-filters--title-icon -white"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="112 184 256 328 400 184"
+                  style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                />
+              </svg>
+            </i>
+          </div>
+          <div
+            class="toggle--wrapper search-filters--toggle"
+          >
+            <input
+              checked=""
+              class="toggle toggle--input"
+              id="contractType"
+              type="checkbox"
+            />
+            <label
+              class="toggle--input-label -orange"
+              for="contractType"
+            >
+              <span
+                class="toggle--switch"
+              >
+                <span
+                  class="toggle--off"
+                >
+                  Personal
+                </span>
+                <span
+                  class="toggle--on"
+                >
+                  Business
+                </span>
+              </span>
+            </label>
+          </div>
+          <div
+            class="dropdown search-filters--dropdown"
+          >
+            <button
+              class="dropdown--toggle"
+              type="button"
+            >
+              <span>
+                Make & Model
+              </span>
+              <i
+                class="icon -dark"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-a
+                  </title>
+                  <polyline
+                    points="112 184 256 328 400 184"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+            </button>
+            <div
+              class="dropdown--content"
+            >
+              <div
+                class="formgroup"
+              >
+                <label
+                  class="formgroup--legend"
+                >
+                  Make
+                </label>
+                <div
+                  class="formgroup--content"
+                >
+                  <div
+                    class="select"
+                  >
+                    <select
+                      class="select--native"
+                      name="make"
+                    >
+                      <option
+                        disabled=""
+                        value=""
+                      >
+                        Select make
+                      </option>
+                      <option
+                        value="Citroën"
+                      >
+                        Citroën
+                      </option>
+                      <option
+                        value="Dacia"
+                      >
+                        Dacia
+                      </option>
+                    </select>
+                    <span
+                      class="icon select--chevron"
+                    >
+                      <i
+                        class="icon -stroke -dark"
+                      >
+                        <svg
+                          height="1em"
+                          viewBox="0 0 512 512"
+                          width="1em"
+                        >
+                          <title>
+                            ionicons-v5-a
+                          </title>
+                          <polyline
+                            points="112 184 256 328 400 184"
+                            style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                          />
+                        </svg>
+                      </i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="formgroup"
+              >
+                <label
+                  class="formgroup--legend"
+                >
+                  Model
+                </label>
+                <div
+                  class="formgroup--content"
+                >
+                  <div
+                    class="select"
+                  >
+                    <select
+                      class="select--native"
+                      name="model"
+                    >
+                      <option
+                        disabled=""
+                        value=""
+                      >
+                        Select model
+                      </option>
+                    </select>
+                    <span
+                      class="icon select--chevron"
+                    >
+                      <i
+                        class="icon -stroke -dark"
+                      >
+                        <svg
+                          height="1em"
+                          viewBox="0 0 512 512"
+                          width="1em"
+                        >
+                          <title>
+                            ionicons-v5-a
+                          </title>
+                          <polyline
+                            points="112 184 256 328 400 184"
+                            style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                          />
+                        </svg>
+                      </i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <button
+                class="button -fullwidth -teal -small -solid"
+                data-testid="Make & Modelbtn"
+              >
+                <div
+                  class="button--inner"
+                >
+                  View 1 Results
+                </div>
+              </button>
+            </div>
+          </div>
+          <div
+            class="dropdown search-filters--dropdown"
+          >
+            <button
+              class="dropdown--toggle"
+              type="button"
+            >
+              <span>
+                Budget
+              </span>
+              <i
+                class="icon -dark"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-a
+                  </title>
+                  <polyline
+                    points="112 184 256 328 400 184"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+            </button>
+            <div
+              class="dropdown--content"
+            >
+              <div
+                class="formgroup"
+              >
+                <label
+                  class="formgroup--legend"
+                >
+                  Price From
+                </label>
+                <div
+                  class="formgroup--content"
+                >
+                  <div
+                    class="select"
+                  >
+                    <select
+                      class="select--native"
+                      name="from"
+                    >
+                      <option
+                        disabled=""
+                        value=""
+                      >
+                        Select from
+                      </option>
+                      <option
+                        value="0"
+                      >
+                        £0
+                      </option>
+                      <option
+                        value="150"
+                      >
+                        £150
+                      </option>
+                      <option
+                        value="250"
+                      >
+                        £250
+                      </option>
+                      <option
+                        value="350"
+                      >
+                        £350
+                      </option>
+                      <option
+                        value="450"
+                      >
+                        £450
+                      </option>
+                      <option
+                        value="550"
+                      >
+                        £550
+                      </option>
+                    </select>
+                    <span
+                      class="icon select--chevron"
+                    >
+                      <i
+                        class="icon -stroke -dark"
+                      >
+                        <svg
+                          height="1em"
+                          viewBox="0 0 512 512"
+                          width="1em"
+                        >
+                          <title>
+                            ionicons-v5-a
+                          </title>
+                          <polyline
+                            points="112 184 256 328 400 184"
+                            style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                          />
+                        </svg>
+                      </i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="formgroup"
+              >
+                <label
+                  class="formgroup--legend"
+                >
+                  Price To
+                </label>
+                <div
+                  class="formgroup--content"
+                >
+                  <div
+                    class="select"
+                  >
+                    <select
+                      class="select--native"
+                      name="to"
+                    >
+                      <option
+                        disabled=""
+                        value=""
+                      >
+                        Select to
+                      </option>
+                      <option
+                        value="150"
+                      >
+                        £150
+                      </option>
+                      <option
+                        value="250"
+                      >
+                        £250
+                      </option>
+                      <option
+                        value="350"
+                      >
+                        £350
+                      </option>
+                      <option
+                        value="450"
+                      >
+                        £450
+                      </option>
+                      <option
+                        value="550"
+                      >
+                        £550
+                      </option>
+                      <option
+                        value="550+"
+                      >
+                        £550+
+                      </option>
+                    </select>
+                    <span
+                      class="icon select--chevron"
+                    >
+                      <i
+                        class="icon -stroke -dark"
+                      >
+                        <svg
+                          height="1em"
+                          viewBox="0 0 512 512"
+                          width="1em"
+                        >
+                          <title>
+                            ionicons-v5-a
+                          </title>
+                          <polyline
+                            points="112 184 256 328 400 184"
+                            style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                          />
+                        </svg>
+                      </i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <button
+                class="button -fullwidth -teal -small -solid"
+                data-testid="Budgetbtn"
+              >
+                <div
+                  class="button--inner"
+                >
+                  View 1 Results
+                </div>
+              </button>
+            </div>
+          </div>
+          <div
+            class="dropdown search-filters--dropdown"
+          >
+            <button
+              class="dropdown--toggle"
+              type="button"
+            >
+              <span>
+                Body Type
+              </span>
+              <i
+                class="icon -dark"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-a
+                  </title>
+                  <polyline
+                    points="112 184 256 328 400 184"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+            </button>
+            <div
+              class="dropdown--content"
+            >
+              <div
+                class="formgroup"
+                data-testid="Body Type"
+              >
+                <label
+                  class="formgroup--legend"
+                >
+                  Body Type
+                </label>
+                <div
+                  class="formgroup--content"
+                >
+                  <div
+                    class="choiceboxes -cols-1 -medium"
+                  >
+                    <button
+                      class="choicebox"
+                      type="button"
+                    >
+                      Dropside Tipper
+                    </button>
+                    <button
+                      class="choicebox"
+                      type="button"
+                    >
+                      Large Van
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <button
+                class="button -fullwidth -teal -small -solid"
+                data-testid="Body Typebtn"
+              >
+                <div
+                  class="button--inner"
+                >
+                  View 1 Results
+                </div>
+              </button>
+            </div>
+          </div>
+          <div
+            class="dropdown search-filters--dropdown"
+          >
+            <button
+              class="dropdown--toggle"
+              type="button"
+            >
+              <span>
+                Transmission
+              </span>
+              <i
+                class="icon -dark"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-a
+                  </title>
+                  <polyline
+                    points="112 184 256 328 400 184"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+            </button>
+            <div
+              class="dropdown--content"
+            >
+              <div
+                class="formgroup"
+                data-testid="Transmission"
+              >
+                <label
+                  class="formgroup--legend"
+                >
+                  Transmission
+                </label>
+                <div
+                  class="formgroup--content"
+                >
+                  <div
+                    class="choiceboxes -cols-1 -medium"
+                  >
+                    <button
+                      class="choicebox"
+                      type="button"
+                    >
+                      Automatic
+                    </button>
+                    <button
+                      class="choicebox"
+                      type="button"
+                    >
+                      Manual
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <button
+                class="button -fullwidth -teal -small -solid"
+                data-testid="Transmissionbtn"
+              >
+                <div
+                  class="button--inner"
+                >
+                  View 1 Results
+                </div>
+              </button>
+            </div>
+          </div>
+          <div
+            class="dropdown search-filters--dropdown"
+          >
+            <button
+              class="dropdown--toggle"
+              type="button"
+            >
+              <span>
+                Fuel Type
+              </span>
+              <i
+                class="icon -dark"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-a
+                  </title>
+                  <polyline
+                    points="112 184 256 328 400 184"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+            </button>
+            <div
+              class="dropdown--content"
+            >
+              <div
+                class="formgroup"
+                data-testid="Fuel Type"
+              >
+                <label
+                  class="formgroup--legend"
+                >
+                  Fuel Type
+                </label>
+                <div
+                  class="formgroup--content"
+                >
+                  <div
+                    class="choiceboxes -cols-1 -medium"
+                  >
+                    <button
+                      class="choicebox"
+                      type="button"
+                    >
+                      diesel
+                    </button>
+                    <button
+                      class="choicebox"
+                      type="button"
+                    >
+                      iii
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <button
+                class="button -fullwidth -teal -small -solid"
+                data-testid="Fuel Typebtn"
+              >
+                <div
+                  class="button--inner"
+                >
+                  View 1 Results
+                </div>
+              </button>
+            </div>
+          </div>
+          <div
+            class="search-filters--tags"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="row:bg-lighter -thin"
+    >
+      <div
+        class="row:results"
+      >
+        <span
+          class="text -regular -darker"
+        >
+          Showing 1 Results
+        </span>
+        <div
+          class="row:cards-3col"
+        />
+        <div
+          class="pagination"
+        />
+      </div>
+    </div>
+    <div
+      class="row:text"
+    >
+      <span
+        class="text -regular -darker"
+      >
+        Photos and videos are for illustration purposes only.
+      </span>
+    </div>
+  </div>
+</body>
+`;
+
+exports[`<SearchPageContainer /> should be render correctly all manufacturers Page 1`] = `
+<body>
+  <div>
+    <div
+      class="row:title"
+    >
+      <nav>
+        <ol
+          class="breadcrumb"
+        >
+          <li
+            class="breadcrumb-item -parent"
+          >
+            <a
+              class="breadcrumb-item--backlink link -teal -small"
+              data-testid="router-link"
+              href="/"
+            >
+              <i
+                class="icon -teal"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-a
+                  </title>
+                  <polyline
+                    points="328 112 184 256 328 400"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+              Back to 
+              home
+            </a>
+            <a
+              class="breadcrumb-item--parent link -teal -small"
+              data-testid="router-link"
+              href="/"
+            >
+              home
+            </a>
+            <i
+              class="icon -medium -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="184 112 328 256 184 400"
+                  style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                />
+              </svg>
+            </i>
+          </li>
+          <li
+            class="breadcrumb-item -child"
+          >
+            <span
+              class="text breadcrumb-item--child -small -darker"
+            >
+              car leasing
+            </span>
+          </li>
+        </ol>
+      </nav>
+      <h1
+        class="heading -black -xlarge"
+      />
+      <div
+        class="text -regular -darker"
+      />
+    </div>
+    <div
+      class="row:bg-light -xthin"
+    >
+      <div
+        class="row:search-filters"
+      >
+        <div
+          class="search-filters -open"
+        >
+          <div
+            class="search-filters--title"
+            role="heading"
+          >
+            <i
+              class="icon search-filters--title-icon"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-i
+                </title>
+                <path
+                  d="M64,144H290.75a48,48,0,0,0,90.5,0H448a16,16,0,0,0,0-32H381.25a48,48,0,0,0-90.5,0H64a16,16,0,0,0,0,32Z"
+                />
+                <path
+                  d="M448,368H381.25a48,48,0,0,0-90.5,0H64a16,16,0,0,0,0,32H290.75a48,48,0,0,0,90.5,0H448a16,16,0,0,0,0-32Z"
+                />
+                <path
+                  d="M448,240H221.25a48,48,0,0,0-90.5,0H64a16,16,0,0,0,0,32h66.75a48,48,0,0,0,90.5,0H448a16,16,0,0,0,0-32Z"
+                />
+              </svg>
+            </i>
+            <span>
+              Filters
+            </span>
+            <i
+              class="icon search-filters--title-icon -white"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="112 184 256 328 400 184"
+                  style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                />
+              </svg>
+            </i>
+          </div>
+          <div
+            class="toggle--wrapper search-filters--toggle"
+          >
+            <input
+              checked=""
+              class="toggle toggle--input"
+              id="contractType"
+              type="checkbox"
+            />
+            <label
+              class="toggle--input-label -orange"
+              for="contractType"
+            >
+              <span
+                class="toggle--switch"
+              >
+                <span
+                  class="toggle--off"
+                >
+                  Personal
+                </span>
+                <span
+                  class="toggle--on"
+                >
+                  Business
+                </span>
+              </span>
+            </label>
+          </div>
+          <div
+            class="dropdown search-filters--dropdown"
+          >
+            <button
+              class="dropdown--toggle"
+              type="button"
+            >
+              <span>
+                Make & Model
+              </span>
+              <i
+                class="icon -dark"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-a
+                  </title>
+                  <polyline
+                    points="112 184 256 328 400 184"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+            </button>
+            <div
+              class="dropdown--content"
+            >
+              <div
+                class="formgroup"
+              >
+                <label
+                  class="formgroup--legend"
+                >
+                  Make
+                </label>
+                <div
+                  class="formgroup--content"
+                >
+                  <div
+                    class="select"
+                  >
+                    <select
+                      class="select--native"
+                      disabled=""
+                      name="make"
+                    >
+                      <option
+                        disabled=""
+                        value=""
+                      >
+                        Select make
+                      </option>
+                      <option
+                        value="Citroën"
+                      >
+                        Citroën
+                      </option>
+                      <option
+                        value="Dacia"
+                      >
+                        Dacia
+                      </option>
+                    </select>
+                    <span
+                      class="icon select--chevron"
+                    >
+                      <i
+                        class="icon -stroke -dark"
+                      >
+                        <svg
+                          height="1em"
+                          viewBox="0 0 512 512"
+                          width="1em"
+                        >
+                          <title>
+                            ionicons-v5-a
+                          </title>
+                          <polyline
+                            points="112 184 256 328 400 184"
+                            style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                          />
+                        </svg>
+                      </i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="formgroup"
+              >
+                <label
+                  class="formgroup--legend"
+                >
+                  Model
+                </label>
+                <div
+                  class="formgroup--content"
+                >
+                  <div
+                    class="select"
+                  >
+                    <select
+                      class="select--native"
+                      disabled=""
+                      name="model"
+                    >
+                      <option
+                        disabled=""
+                        value=""
+                      >
+                        Select model
+                      </option>
+                    </select>
+                    <span
+                      class="icon select--chevron"
+                    >
+                      <i
+                        class="icon -stroke -dark"
+                      >
+                        <svg
+                          height="1em"
+                          viewBox="0 0 512 512"
+                          width="1em"
+                        >
+                          <title>
+                            ionicons-v5-a
+                          </title>
+                          <polyline
+                            points="112 184 256 328 400 184"
+                            style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                          />
+                        </svg>
+                      </i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <button
+                class="button -fullwidth -teal -small -solid"
+                data-testid="Make & Modelbtn"
+              >
+                <div
+                  class="button--inner"
+                >
+                  View 3 Results
+                </div>
+              </button>
+            </div>
+          </div>
+          <div
+            class="dropdown search-filters--dropdown"
+          >
+            <button
+              class="dropdown--toggle"
+              type="button"
+            >
+              <span>
+                Budget
+              </span>
+              <i
+                class="icon -dark"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-a
+                  </title>
+                  <polyline
+                    points="112 184 256 328 400 184"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+            </button>
+            <div
+              class="dropdown--content"
+            >
+              <div
+                class="formgroup"
+              >
+                <label
+                  class="formgroup--legend"
+                >
+                  Price From
+                </label>
+                <div
+                  class="formgroup--content"
+                >
+                  <div
+                    class="select"
+                  >
+                    <select
+                      class="select--native"
+                      name="from"
+                    >
+                      <option
+                        disabled=""
+                        value=""
+                      >
+                        Select from
+                      </option>
+                      <option
+                        value="0"
+                      >
+                        £0
+                      </option>
+                      <option
+                        value="150"
+                      >
+                        £150
+                      </option>
+                      <option
+                        value="250"
+                      >
+                        £250
+                      </option>
+                      <option
+                        value="350"
+                      >
+                        £350
+                      </option>
+                      <option
+                        value="450"
+                      >
+                        £450
+                      </option>
+                      <option
+                        value="550"
+                      >
+                        £550
+                      </option>
+                    </select>
+                    <span
+                      class="icon select--chevron"
+                    >
+                      <i
+                        class="icon -stroke -dark"
+                      >
+                        <svg
+                          height="1em"
+                          viewBox="0 0 512 512"
+                          width="1em"
+                        >
+                          <title>
+                            ionicons-v5-a
+                          </title>
+                          <polyline
+                            points="112 184 256 328 400 184"
+                            style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                          />
+                        </svg>
+                      </i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="formgroup"
+              >
+                <label
+                  class="formgroup--legend"
+                >
+                  Price To
+                </label>
+                <div
+                  class="formgroup--content"
+                >
+                  <div
+                    class="select"
+                  >
+                    <select
+                      class="select--native"
+                      name="to"
+                    >
+                      <option
+                        disabled=""
+                        value=""
+                      >
+                        Select to
+                      </option>
+                      <option
+                        value="150"
+                      >
+                        £150
+                      </option>
+                      <option
+                        value="250"
+                      >
+                        £250
+                      </option>
+                      <option
+                        value="350"
+                      >
+                        £350
+                      </option>
+                      <option
+                        value="450"
+                      >
+                        £450
+                      </option>
+                      <option
+                        value="550"
+                      >
+                        £550
+                      </option>
+                      <option
+                        value="550+"
+                      >
+                        £550+
+                      </option>
+                    </select>
+                    <span
+                      class="icon select--chevron"
+                    >
+                      <i
+                        class="icon -stroke -dark"
+                      >
+                        <svg
+                          height="1em"
+                          viewBox="0 0 512 512"
+                          width="1em"
+                        >
+                          <title>
+                            ionicons-v5-a
+                          </title>
+                          <polyline
+                            points="112 184 256 328 400 184"
+                            style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                          />
+                        </svg>
+                      </i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <button
+                class="button -fullwidth -teal -small -solid"
+                data-testid="Budgetbtn"
+              >
+                <div
+                  class="button--inner"
+                >
+                  View 3 Results
+                </div>
+              </button>
+            </div>
+          </div>
+          <div
+            class="dropdown search-filters--dropdown"
+          >
+            <button
+              class="dropdown--toggle"
+              type="button"
+            >
+              <span>
+                Body Type
+              </span>
+              <i
+                class="icon -dark"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-a
+                  </title>
+                  <polyline
+                    points="112 184 256 328 400 184"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+            </button>
+            <div
+              class="dropdown--content"
+            >
+              <div
+                class="formgroup"
+                data-testid="Body Type"
+              >
+                <label
+                  class="formgroup--legend"
+                >
+                  Body Type
+                </label>
+                <div
+                  class="formgroup--content"
+                >
+                  <div
+                    class="choiceboxes -cols-1 -medium"
+                  >
+                    <button
+                      class="choicebox"
+                      type="button"
+                    >
+                      Dropside Tipper
+                    </button>
+                    <button
+                      class="choicebox"
+                      type="button"
+                    >
+                      Large Van
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <button
+                class="button -fullwidth -teal -small -solid"
+                data-testid="Body Typebtn"
+              >
+                <div
+                  class="button--inner"
+                >
+                  View 3 Results
+                </div>
+              </button>
+            </div>
+          </div>
+          <div
+            class="dropdown search-filters--dropdown"
+          >
+            <button
+              class="dropdown--toggle"
+              type="button"
+            >
+              <span>
+                Transmission
+              </span>
+              <i
+                class="icon -dark"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-a
+                  </title>
+                  <polyline
+                    points="112 184 256 328 400 184"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+            </button>
+            <div
+              class="dropdown--content"
+            >
+              <div
+                class="formgroup"
+                data-testid="Transmission"
+              >
+                <label
+                  class="formgroup--legend"
+                >
+                  Transmission
+                </label>
+                <div
+                  class="formgroup--content"
+                >
+                  <div
+                    class="choiceboxes -cols-1 -medium"
+                  >
+                    <button
+                      class="choicebox"
+                      type="button"
+                    >
+                      Automatic
+                    </button>
+                    <button
+                      class="choicebox"
+                      type="button"
+                    >
+                      Manual
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <button
+                class="button -fullwidth -teal -small -solid"
+                data-testid="Transmissionbtn"
+              >
+                <div
+                  class="button--inner"
+                >
+                  View 3 Results
+                </div>
+              </button>
+            </div>
+          </div>
+          <div
+            class="dropdown search-filters--dropdown"
+          >
+            <button
+              class="dropdown--toggle"
+              type="button"
+            >
+              <span>
+                Fuel Type
+              </span>
+              <i
+                class="icon -dark"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <title>
+                    ionicons-v5-a
+                  </title>
+                  <polyline
+                    points="112 184 256 328 400 184"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+            </button>
+            <div
+              class="dropdown--content"
+            >
+              <div
+                class="formgroup"
+                data-testid="Fuel Type"
+              >
+                <label
+                  class="formgroup--legend"
+                >
+                  Fuel Type
+                </label>
+                <div
+                  class="formgroup--content"
+                >
+                  <div
+                    class="choiceboxes -cols-1 -medium"
+                  >
+                    <button
+                      class="choicebox"
+                      type="button"
+                    >
+                      diesel
+                    </button>
+                    <button
+                      class="choicebox"
+                      type="button"
+                    >
+                      iii
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <button
+                class="button -fullwidth -teal -small -solid"
+                data-testid="Fuel Typebtn"
+              >
+                <div
+                  class="button--inner"
+                >
+                  View 3 Results
+                </div>
+              </button>
+            </div>
+          </div>
+          <div
+            class="search-filters--tags"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="row:bg-lighter -thin"
+    >
+      <div
+        class="row:results"
+      >
+        <span
+          class="text -regular -darker"
+        >
+          Showing 3 Results
+        </span>
+        <div
+          class="row:cards-3col"
+        >
+          <div />
+          <div />
+          <div />
+        </div>
+      </div>
+    </div>
+    <div
+      class="row:text"
+    >
+      <span
+        class="text -regular -darker"
+      >
+        Photos and videos are for illustration purposes only.
+      </span>
+    </div>
+  </div>
+</body>
+`;
