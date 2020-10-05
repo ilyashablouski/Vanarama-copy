@@ -66,6 +66,11 @@ const ALL_HOME_CONTENT = gql`
           title
           titleTag
           body
+          image {
+            file {
+              url
+            }
+          }
           iconList {
             text
           }
@@ -78,6 +83,11 @@ const ALL_HOME_CONTENT = gql`
           body
           layout
           video
+          image {
+            file {
+              url
+            }
+          }
         }
         tiles {
           name
