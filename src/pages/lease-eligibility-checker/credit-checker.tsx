@@ -12,7 +12,10 @@ import { useProductCard } from '../../gql/productCard';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
-import { useVehicleListUrl } from '../../gql/vehicleList';
+import {
+  useVehicleListUrl,
+  useVehicleListUrlFetchMore,
+} from '../../gql/vehicleList';
 
 const CreditChecker: NextPage = () => {
   const router = useRouter();
@@ -32,7 +35,9 @@ const CreditChecker: NextPage = () => {
     aproductsCarCapIds,
     VehicleTypeEnum.CAR,
   );
-  const { data: productCarVehicles } = useVehicleListUrl(aproductsCarCapIds);
+  const vehicleListUrlQuery = useVehicleListUrl(aproductsCarCapIds);
+
+  useVehicleListUrlFetchMore(vehicleListUrlQuery, aproductsCarCapIds);
 
   const setText = () => {
     // Average.
@@ -121,7 +126,7 @@ const CreditChecker: NextPage = () => {
                   data={{
                     derivatives: productCarDerivatives?.derivatives || null,
                     productCard: productsCar?.productCarousel || null,
-                    vehicleList: productCarVehicles?.vehicleList!,
+                    vehicleList: vehicleListUrlQuery.data?.vehicleList!,
                   }}
                   countItems={productsCar?.productCarousel?.length || 6}
                   dataTestIdBtn="car-view-offer"

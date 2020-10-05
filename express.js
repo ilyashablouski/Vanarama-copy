@@ -47,8 +47,9 @@ app
     server.use(hpp());
 
     // Prevent brute force attack in production.
-    if (process.env.ENV === 'production')
+    if (process.env.ENV === 'production') {
       server.use(rateLimiterRedisMiddleware);
+    }
 
     // Prerender.
     if (prerender && process.env.PRERENDER_SERVICE_URL) server.use(prerender);
@@ -70,6 +71,14 @@ app
       });
     });
 
+    // Env route.
+    server.get('/env', (_req, res) => {
+      const statusCode = 200;
+      res.setHeader('Content-Type', 'application/json');
+      res.status(statusCode);
+      res.json(process.env);
+    });
+
     // All routes.
     server.all('*', cors(), (req, res) => {
       // Trailing slash fix on page reload.
@@ -80,6 +89,11 @@ app
         res.setHeader('X-Robots-Tag', 'noindex'); // Disable indexing.
       return handle(req, res);
     });
+    return server;
+  })
+  .then(server => {
+    // Env var logging.
+    console.log('Environments variables', process.env);
     return server;
   })
   .then(server => {

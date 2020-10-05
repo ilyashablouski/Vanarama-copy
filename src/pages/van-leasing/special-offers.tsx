@@ -22,8 +22,11 @@ import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import useLeaseType from '../../hooks/useLeaseType';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import { useVehicleListUrl } from '../../gql/vehicleList';
 import { getSectionsData } from '../../utils/getSectionsData';
+import {
+  useVehicleListUrl,
+  useVehicleListUrlFetchMore,
+} from '../../gql/vehicleList';
 
 export const VanOffers: NextPage = () => {
   const { data, loading, error } = useQuery<VanOffersPageData>(
@@ -128,11 +131,14 @@ export const VanOffers: NextPage = () => {
     },
   );
 
-  const { data: productVehicles } = useVehicleListUrl([
+  const derivativeIds = [
     ...productSmallVanCapIds,
     ...productMediumVanCapIds,
     ...productLargeVanCapIds,
-  ]);
+  ];
+  const vehicleListUrlQuery = useVehicleListUrl(derivativeIds);
+
+  useVehicleListUrlFetchMore(vehicleListUrlQuery, derivativeIds);
 
   if (loading) {
     return <Loading size="large" />;
@@ -175,7 +181,7 @@ export const VanOffers: NextPage = () => {
             data={{
               derivatives: productSmallVanDerivatives?.derivatives || null,
               productCard: productSmallVan?.productCarousel || null,
-              vehicleList: productVehicles?.vehicleList!,
+              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
             }}
             countItems={productSmallVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
@@ -206,7 +212,7 @@ export const VanOffers: NextPage = () => {
             data={{
               derivatives: productMediumVanDerivatives?.derivatives || null,
               productCard: productMediumVan?.productCarousel || null,
-              vehicleList: productVehicles?.vehicleList!,
+              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
             }}
             countItems={productMediumVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
@@ -237,7 +243,7 @@ export const VanOffers: NextPage = () => {
             data={{
               derivatives: productLargeVanDerivatives?.derivatives || null,
               productCard: productLargeVan?.productCarousel || null,
-              vehicleList: productVehicles?.vehicleList!,
+              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
             }}
             countItems={productLargeVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
@@ -268,7 +274,7 @@ export const VanOffers: NextPage = () => {
             data={{
               derivatives: null,
               productCard: productPickups?.productCarousel || null,
-              vehicleList: productVehicles?.vehicleList!,
+              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
             }}
             countItems={productPickups?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
@@ -299,7 +305,7 @@ export const VanOffers: NextPage = () => {
             data={{
               derivatives: null,
               productCard: productTippers?.productCarousel || null,
-              vehicleList: productVehicles?.vehicleList!,
+              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
             }}
             countItems={productTippers?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
@@ -332,7 +338,7 @@ export const VanOffers: NextPage = () => {
             data={{
               derivatives: null,
               productCard: productSpecialistVan?.productCarousel || null,
-              vehicleList: productVehicles?.vehicleList!,
+              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
             }}
             countItems={productSpecialistVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"

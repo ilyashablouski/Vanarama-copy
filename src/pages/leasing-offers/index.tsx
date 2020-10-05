@@ -11,18 +11,18 @@ import Flame from '@vanarama/uibook/lib/assets/icons/FlameSharp';
 import Arrow from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Redundancy from '@vanarama/uibook/lib/assets/icons/Redundancy';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
-
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-
 import { ProductCardData } from '../../../generated/ProductCardData';
-
 import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
 import withApollo from '../../hocs/withApollo';
 import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import { useGenericPageHead } from '../../gql/genericPage';
-import { useVehicleListUrl } from '../../gql/vehicleList';
+import {
+  useVehicleListUrl,
+  useVehicleListUrlFetchMore,
+} from '../../gql/vehicleList';
 import RouterLink from '../../components/RouterLink/RouterLink';
 
 export const OffersPage: NextPage = () => {
@@ -93,11 +93,14 @@ export const OffersPage: NextPage = () => {
     VehicleTypeEnum.CAR,
   );
 
-  const { data: productVehicles } = useVehicleListUrl([
+  const derivativeIds = [
     ...productVanCapIds,
     ...productPickupCapIds,
     ...productCarCapIds,
-  ]);
+  ];
+  const vehicleListUrlQuery = useVehicleListUrl(derivativeIds);
+
+  useVehicleListUrlFetchMore(vehicleListUrlQuery, derivativeIds);
 
   if (loading) {
     return <Loading size="large" />;
@@ -107,8 +110,6 @@ export const OffersPage: NextPage = () => {
 
   return (
     <>
-      <div className="row:title">
-      </div>
       <div className="row:plain-hero">
         <div className="-col-100">
           <Heading color="black" size="xlarge" tag="h1">
@@ -197,7 +198,7 @@ export const OffersPage: NextPage = () => {
             data={{
               derivatives: productVanDerivatives?.derivatives || null,
               productCard: productsVan?.productCarousel || null,
-              vehicleList: productVehicles?.vehicleList!,
+              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
             }}
             countItems={productsVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
@@ -236,7 +237,7 @@ export const OffersPage: NextPage = () => {
             data={{
               derivatives: productPickupDerivatives?.derivatives || null,
               productCard: productsPickup?.productCarousel || null,
-              vehicleList: productVehicles?.vehicleList!,
+              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
             }}
             countItems={productsPickup?.productCarousel?.length || 6}
             dataTestIdBtn="pickup-view-offer"
@@ -275,7 +276,7 @@ export const OffersPage: NextPage = () => {
             data={{
               derivatives: productCarDerivatives?.derivatives || null,
               productCard: productsCar?.productCarousel || null,
-              vehicleList: productVehicles?.vehicleList!,
+              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
             }}
             countItems={productsCar?.productCarousel?.length || 6}
             dataTestIdBtn="car-view-offer"

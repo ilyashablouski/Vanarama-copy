@@ -46,7 +46,10 @@ import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { getLegacyUrl, formatProductPageUrl, getNewUrl } from '../../utils/url';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
-import { useVehicleListUrl } from '../../gql/vehicleList';
+import {
+  useVehicleListUrl,
+  useVehicleListUrlFetchMore,
+} from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
 
 export const CarsPage: NextPage = () => {
@@ -65,7 +68,9 @@ export const CarsPage: NextPage = () => {
   const productsCapIds = products?.productCarousel?.map(
     el => el?.capId || '',
   ) || [''];
-  const { data: productsVehicles } = useVehicleListUrl(productsCapIds);
+  const vehicleListUrlQuery = useVehicleListUrl(productsCapIds);
+
+  useVehicleListUrlFetchMore(vehicleListUrlQuery, productsCapIds);
 
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
@@ -181,11 +186,14 @@ export const CarsPage: NextPage = () => {
           {products?.productCarousel?.map((item, idx) => {
             const iconMap = getIconMap(item?.keyInformation || []);
             const productUrl = formatProductPageUrl(
-              getLegacyUrl(productsVehicles?.vehicleList?.edges, item?.capId),
+              getLegacyUrl(
+                vehicleListUrlQuery.data?.vehicleList?.edges,
+                item?.capId,
+              ),
               item?.capId,
             );
             const href = getNewUrl(
-              productsVehicles?.vehicleList?.edges,
+              vehicleListUrlQuery.data?.vehicleList?.edges,
               item?.capId,
             );
             return (

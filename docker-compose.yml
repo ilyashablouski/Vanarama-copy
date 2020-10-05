@@ -11,6 +11,8 @@ services:
         - LOQATE_KEY
         - ENV
         - GTM_ID
+        - HOSTNAME
+        - IMAGE_OPTIMIZATION_HOST
         - ENABLE_DEV_TOOLS
     command: yarn dev
     volumes:

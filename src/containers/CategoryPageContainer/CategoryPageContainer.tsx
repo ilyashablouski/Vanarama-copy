@@ -116,7 +116,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
           title={{
             className: '-flex-h',
             link: (
-              <Heading size="lead" color="black" tag="a">
+              <Heading size="lead" color="black" tag="a" href={card.slug || ''}>
                 {card?.title}
               </Heading>
             ),

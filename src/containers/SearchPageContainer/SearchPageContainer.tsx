@@ -160,7 +160,10 @@ const SearchPageContainer: React.FC<IProps> = ({
     if (isPickups) return ['Pickup'];
     if (isModelPage) return [router.query?.bodyStyles as string];
     if (isBodyStylePage) {
-      const bodyStyle = router.query?.dynamicParam as string;
+      const bodyStyle = (router.query?.dynamicParam as string).replace(
+        '-leasing',
+        '',
+      );
       // city-car is only one style with '-' we shouldn't to replace it
       return [
         bodyStyle.toLowerCase() === 'city-car'

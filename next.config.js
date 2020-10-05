@@ -3,7 +3,7 @@ const withSass = require('@zeit/next-sass');
 const withCss = require('@zeit/next-css');
 const withImages = require('next-images');
 const withFonts = require('next-fonts');
-const sitemap = require('nextjs-sitemap-generator');
+// const sitemap = require('nextjs-sitemap-generator');
 const withCustomBabelConfig = require('next-plugin-custom-babel-config');
 /**
  * NOTE: uibook is not transpiled with webpack so some of the components contain
@@ -24,7 +24,7 @@ module.exports = withPlugins(
     ],
     [withSass],
     withImages,
-    [sitemap, config.sitemap],
+    // [sitemap, config.sitemap],
     [withCss, { url: false }],
     [config.withCustomWebpack],
   ],
