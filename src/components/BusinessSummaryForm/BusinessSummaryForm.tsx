@@ -84,7 +84,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
   }, [handleEdit, orderId, creditApplication]);
 
   return (
-    <div style={{ width: '100%' }}>
+    <div className="full-width">
       <Heading
         color="black"
         size="xlarge"
