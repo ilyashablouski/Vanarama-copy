@@ -232,7 +232,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
               Finance & Application
             </button>
             <button
-              class="-end"
+              class="-start"
               role="tab"
               type="button"
             >
