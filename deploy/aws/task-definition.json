@@ -48,18 +48,6 @@
         {
           "name": "GTM_ID",
           "valueFrom": "%SSM_PARAMETER_BASE%/gtm-id"
-        },
-        {
-          "name": "HOSTNAME",
-          "valueFrom": "%SSM_PARAMETER_BASE%/hostname"
-        },
-        {
-          "name": "IMAGE_OPTIMIZATION_HOST",
-          "valueFrom": "%SSM_PARAMETER_BASE%/image-optimization-host"
-        },
-        {
-          "name": "ENV",
-          "valueFrom": "%SSM_PARAMETER_BASE%/env"
         }
       ],
       "environment": [
@@ -86,6 +74,18 @@
         {
           "name": "PORT",
           "value": "8080"
+        },
+        {
+          "name": "ENV",
+          "value": "%ENVIRONMENT%"
+        },
+        {
+          "name": "IMAGE_OPTIMIZATION_HOST",
+          "value": "https://vanarama.com"
+        },
+        {
+          "name": "HOSTNAME",
+          "valueFrom": "%ALTERNATEDOMAIN%"
         }
       ],
       "portMappings": [
