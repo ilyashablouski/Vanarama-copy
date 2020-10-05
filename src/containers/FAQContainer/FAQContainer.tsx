@@ -10,7 +10,6 @@ import {
   GenericPageQuery_genericPage_sections_faqs_questionSets_questionAnswers,
 } from '../../../generated/GenericPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   sections: Section | null;
@@ -76,7 +75,6 @@ const FAQContainer: FC<IProps> = ({ title, sections, intro }) => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading size="xlarge" color="black" tag="h1">
           {title || ''}
         </Heading>

@@ -11,28 +11,7 @@ export const LEGAL_PAGE_QUERY = gql`
       intro
       body
       metaData {
-        title
         name
-        metaRobots
-        metaDescription
-        publishedOn
-        legacyUrl
-        pageType
-        canonicalUrl
-        slug
-        publishedOn
-        schema
-      }
-      featuredImage {
-        file {
-          url
-          details {
-            image {
-              width
-              height
-            }
-          }
-        }
       }
       sections {
         legalStatement {
@@ -49,6 +28,11 @@ export const LEGAL_PAGE_QUERY = gql`
           name
           title
           body
+        }
+      }
+      featuredImage {
+        file {
+          url
         }
       }
     }

@@ -3,7 +3,6 @@ import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
 import withApollo from '../../hocs/withApollo';
-import Head from '../../components/Head/Head';
 import LeasingQuestionContainer from '../../containers/LeasingQuestionContainer/LeasingQuestionContainer';
 import { useGenericPageQuestion } from '../../containers/LeasingQuestionContainer/gql';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
@@ -32,17 +31,11 @@ const LeasingQuestion: NextPage = () => {
   const body = data.genericPage?.intro;
 
   return (
-    <>
-      <LeasingQuestionContainer
-        body={body}
-        title={metaData?.name}
-        sections={sections}
-      />
-      <Head
-        metaData={metaData}
-        featuredImage={data?.genericPage.featuredImage}
-      />
-    </>
+    <LeasingQuestionContainer
+      body={body}
+      title={metaData?.name}
+      sections={sections}
+    />
   );
 };
 

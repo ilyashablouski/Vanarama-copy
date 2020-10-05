@@ -2,10 +2,10 @@ import { NextPage } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
 import { useGenericPage } from '../../../gql/genericPage';
-import Head from '../../../components/Head/Head';
 import withApollo from '../../../hocs/withApollo';
 import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostContainer';
 import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
+import { getSectionsData } from '../../../utils/getSectionsData';
 
 const NonBlogPost: NextPage = () => {
   const router = useRouter();
@@ -20,22 +20,14 @@ const NonBlogPost: NextPage = () => {
     return <ErrorMessage message={error.message} />;
   }
 
-  const body = data?.genericPage?.body;
-  const name = data?.genericPage?.metaData?.name;
-  const image = data?.genericPage?.featuredImage?.file?.url;
-  const metaData = data?.genericPage?.metaData;
-
-  return (
-    <>
-      <BlogPostContainer body={body} name={name} image={image} />
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.genericPage?.featuredImage}
-        />
-      )}
-    </>
+  const image = getSectionsData(
+    ['featuredImage', 'file', 'url'],
+    data?.genericPage,
   );
+  const name = getSectionsData(['metaData', 'name'], data?.genericPage);
+  const body = getSectionsData(['body'], data?.genericPage);
+
+  return <BlogPostContainer body={body} name={name} image={image} />;
 };
 
 export default withApollo(NonBlogPost);

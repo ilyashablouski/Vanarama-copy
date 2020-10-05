@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import withApollo from '../../../hocs/withApollo';
-import Head from '../../../components/Head/Head';
+import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
 import { useGenericPage } from '../../../gql/genericPage';
 import FinanceGapInsuranceContainer from '../../../containers/FinanceGapInsuranceContainer/FinanceGapInsuranceContainer';
 
@@ -16,25 +16,16 @@ const MultiYearInsurancePage: NextPage = () => {
   }
 
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <ErrorMessage message={error.message} />;
   }
 
   if (!data?.genericPage) {
     return null;
   }
 
-  const metaData = data?.genericPage?.metaData;
   const sections = data.genericPage?.sections;
 
-  return (
-    <>
-      <FinanceGapInsuranceContainer sections={sections} />
-      <Head
-        metaData={metaData}
-        featuredImage={data?.genericPage.featuredImage}
-      />
-    </>
-  );
+  return <FinanceGapInsuranceContainer sections={sections} />;
 };
 
 export default withApollo(MultiYearInsurancePage, { getDataFromTree });

@@ -2,6 +2,7 @@ import React from 'react';
 import { MockedProvider } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
 import VehicleReviewCategoryContainer from '../VehicleReviewCategoryContainer';
+import { ReviewsHubCategoryQuery } from '../../../../generated/ReviewsHubCategoryQuery';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -97,16 +98,22 @@ const SECTIONS = {
   },
 } as any;
 
+const genericPageData = {
+  genericPage: {
+    sections: SECTIONS,
+    body: BODY,
+    metaData: {
+      name: TITLE,
+    },
+  },
+} as ReviewsHubCategoryQuery;
+
 describe('<VehicleReviewContainer />', () => {
   it('should match snapshot', async () => {
     // ACT
     const getComponent = render(
       <MockedProvider addTypename={false}>
-        <VehicleReviewCategoryContainer
-          sections={SECTIONS}
-          title={TITLE}
-          body={BODY}
-        />
+        <VehicleReviewCategoryContainer data={genericPageData} />
       </MockedProvider>,
     );
     // ASSERT

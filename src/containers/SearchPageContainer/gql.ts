@@ -312,41 +312,11 @@ export const GET_ALL_MAKES_PAGE = gql`
   query manufacturerPage {
     manufacturerPage(slug: "car-leasing/all-manufacturers") {
       metaData {
-        title
         name
-        metaRobots
-        metaDescription
-        publishedOn
-        legacyUrl
-        pageType
-        canonicalUrl
-        slug
-        publishedOn
-        schema
       }
       sections {
         featured {
-          layout
-          body
-          title
-          titleTag
-          image {
-            title
-            description
-            file {
-              url
-              fileName
-            }
-          }
-        }
-      }
-      featuredImage {
-        title
-        description
-        file {
-          url
-          fileName
-          contentType
+          ...GenericPageQueryFeatured
         }
       }
     }

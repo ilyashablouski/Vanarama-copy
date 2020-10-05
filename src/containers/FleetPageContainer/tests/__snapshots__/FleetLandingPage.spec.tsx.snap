@@ -704,11 +704,6 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
         </p>
       </div>
     </div>
-    <script
-      type="application/ld+json"
-    >
-      null
-    </script>
   </div>
 </body>
 `;

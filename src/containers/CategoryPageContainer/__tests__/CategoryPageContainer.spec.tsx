@@ -2,6 +2,7 @@ import React from 'react';
 import { MockedProvider } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
 import CategoryPageContainer from '../CategoryPageContainer';
+import { GenericPageQuery_genericPage_sections_featured as Featured } from '../../../../generated/GenericPageQuery';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -65,8 +66,11 @@ const FEATURED = {
   title: 'Featured Article Title',
   titleTag: null,
   video: null,
+  iconList: null,
+  cards: null,
+  testimonials: null,
   __typename: 'Featured',
-};
+} as Featured;
 
 const TILES = {
   name: 'Top Articles',

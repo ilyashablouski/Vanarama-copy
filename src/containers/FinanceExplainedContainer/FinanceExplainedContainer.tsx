@@ -11,23 +11,36 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import { LinkTypes } from '../../models/enum/LinkTypes';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
-  GenericPageQuery_genericPage_sections as Section,
+  GenericPageQuery,
   GenericPageQuery_genericPage_sections_cards_cards as Cards,
+  GenericPageQuery_genericPage_sections_carousel as CarouselData,
 } from '../../../generated/GenericPageQuery';
 import getTitleTag from '../../utils/getTitleTag';
 import { getSectionsData } from '../../utils/getSectionsData';
 
 interface IProps {
-  sections: Section | null;
-  title: string | null;
-  body: string | null;
+  data: GenericPageQuery;
 }
 
-const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
-  const cards = getSectionsData(['cards', 'cards'], sections);
-  const featured1 = sections?.featured1;
-  const carousel = sections?.carousel;
-  const featured2 = sections?.featured2;
+const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
+  const title = getSectionsData(['metaData', 'name'], data?.genericPage);
+  const body = getSectionsData(['body'], data?.genericPage);
+  const cards = getSectionsData(
+    ['sections', 'cards', 'cards'],
+    data?.genericPage,
+  );
+  const featured1 = getSectionsData(
+    ['sections', 'featured1'],
+    data?.genericPage,
+  );
+  const carousel: CarouselData = getSectionsData(
+    ['sections', 'carousel'],
+    data?.genericPage,
+  );
+  const featured2 = getSectionsData(
+    ['sections', 'featured2'],
+    data?.genericPage,
+  );
 
   return (
     <>
@@ -67,11 +80,11 @@ const FinanceExplainedContainer: FC<IProps> = ({ title, body, sections }) => {
               size="lead"
               tag={
                 getTitleTag(
-                  sections?.cards?.titleTag || null,
+                  cards?.titleTag || null,
                 ) as keyof JSX.IntrinsicElements
               }
             >
-              {sections?.cards?.name}
+              {cards?.name}
             </Heading>
             {cards.map((el: Cards, indx: number) => (
               <Card

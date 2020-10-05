@@ -8,27 +8,14 @@
 // ====================================================
 
 export interface GetAboutUsPageData_aboutUsLandingPage_metaData {
-  title: string | null;
   name: string | null;
-  metaRobots: string | null;
-  metaDescription: string | null;
-  publishedOn: any | null;
-  legacyUrl: string | null;
-  pageType: string | null;
-  canonicalUrl: string | null;
-  slug: string | null;
-  schema: any | null;
 }
 
 export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage_file {
   url: string;
-  fileName: string;
-  contentType: string;
 }
 
 export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage {
-  title: string | null;
-  description: string | null;
   file: GetAboutUsPageData_aboutUsLandingPage_featuredImage_file | null;
 }
 

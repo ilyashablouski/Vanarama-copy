@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import withApollo from '../../hocs/withApollo';
-import Head from '../../components/Head/Head';
 import FeaturedAndTilesContainer from '../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 import { useGenericPage } from '../../gql/genericPage';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
@@ -24,22 +23,7 @@ const EligibilityChecker: NextPage = () => {
     return null;
   }
 
-  const metaData = data?.genericPage?.metaData;
-  const sections = data.genericPage?.sections;
-
-  return (
-    <>
-      <FeaturedAndTilesContainer
-        title={metaData?.name}
-        body={data?.genericPage?.body}
-        sections={sections}
-      />
-      <Head
-        metaData={metaData}
-        featuredImage={data?.genericPage.featuredImage}
-      />
-    </>
-  );
+  return <FeaturedAndTilesContainer data={data} />;
 };
 
 export default withApollo(EligibilityChecker, { getDataFromTree });

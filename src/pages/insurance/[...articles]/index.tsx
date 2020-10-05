@@ -2,7 +2,6 @@ import { NextPage } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
 import { getSectionsData } from '../../../utils/getSectionsData';
-import Head from '../../../components/Head/Head';
 import withApollo from '../../../hocs/withApollo';
 import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostContainer';
 import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
@@ -27,18 +26,9 @@ const BlogPost: NextPage = () => {
     ['cards', 'cards'],
     data?.genericPage?.sections,
   );
-  const metaData = data?.genericPage?.metaData;
 
   return (
-    <>
-      <BlogPostContainer body={body} name={name} image={image} cards={cards} />
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.genericPage.featuredImage}
-        />
-      )}
-    </>
+    <BlogPostContainer body={body} name={name} image={image} cards={cards} />
   );
 };
 

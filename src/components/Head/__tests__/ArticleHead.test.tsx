@@ -15,6 +15,7 @@ const meta = {
   slug: 'hubcarpage',
   title: 'Car Leasing Deals | Personal & Business Contract Hire | Vanarama',
   schema: null,
+  breadcrumbs: null,
 };
 
 describe('<ArticleHead />', () => {
