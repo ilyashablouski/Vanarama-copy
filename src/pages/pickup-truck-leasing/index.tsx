@@ -236,7 +236,9 @@ export const PickupsPage: NextPage = () => {
                     price={isPersonal ? item?.personalRate : item?.businessRate}
                     size="large"
                     separator="."
-                    priceDescription="Per Month Exc.VAT"
+                    priceDescription={`Per Month ${
+                      isPersonal ? 'Inc' : 'Exc'
+                    }.VAT`}
                   />
                   <RouterLink
                     link={{
