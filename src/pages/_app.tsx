@@ -8,7 +8,7 @@ import cx from 'classnames';
 import ComparatorBar from '@vanarama/uibook/lib/components/organisms/comparator-bar';
 import Modal from '@vanarama/uibook/lib/components/molecules/modal';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import { SEARCH_PAGES } from '../utils/url';
+import { isNotShowBreadcrumbs, SEARCH_PAGES } from '../utils/url';
 import {
   PAGES_WITH_COMPARATOR,
   CompareContext,
@@ -87,9 +87,11 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 
   useEffect(() => {
     if (
-      !router.pathname.includes('[...details-page]') &&
-      !router.pathname.includes('/olaf') &&
-      router.pathname.length !== 1
+      !(
+        router.pathname.includes('[...details-page]') ||
+        router.pathname.includes('/olaf') ||
+        router.pathname.length === 1
+      )
     ) {
       getPageHead();
     }
@@ -135,6 +137,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     ['featuredImage'],
     pageHead?.data?.genericPage,
   );
+
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
   }));
@@ -144,9 +147,11 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
       <ToastContainer />
       <main className={cx(resolveMainClass())}>
         <HeaderContainer />
-        <div className="row:title">
-          <Breadcrumb items={breadcrumbsItems} />
-        </div>
+        {!isNotShowBreadcrumbs(router.pathname) && (
+          <div className="row:title">
+            <Breadcrumb items={breadcrumbsItems} />
+          </div>
+        )}
         <CompareContext.Provider
           value={{
             compareVehicles,
