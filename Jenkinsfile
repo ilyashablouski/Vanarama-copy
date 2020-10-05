@@ -230,7 +230,7 @@ pipeline {
                 def jenkinsCredentialsId = app_environment["${env.BRANCH_NAME}"].jenkinsCredentialsId
                 ecrLogin(jenkinsCredentialsId)
                 def dockerRepoName = app_environment["${env.BRANCH_NAME}"].dockerRepoName
-                def envs = app_environment["${BRANCH_NAME}"].env
+                def env = app_environment["${BRANCH_NAME}"].env
                 def stack = app_environment["${BRANCH_NAME}"].stack
                 def NODE_ENV = app_environment["${BRANCH_NAME}"].NODE_ENV
                 
@@ -239,9 +239,9 @@ pipeline {
                     withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: "${jenkinsCredentialsId}" , secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
                     sh """
-                      source ./setup.sh ${envs} ${stack} ${serviceName} ${ecrRegion} ${BRANCH_NAME}
+                      source ./setup.sh ${env} ${stack} ${serviceName} ${ecrRegion} ${BRANCH_NAME} ${alternateDomain}
                       docker pull $dockerRepoName:latest || true
-                      docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg API_KEY=\${API_KEY} --build-arg API_URL=\${API_URL} --build-arg ENV=\${env} --build-arg GTM_ID=\${GTM_ID} --build-arg HOSTNAME=\${HOSTNAME} --build-arg GITHUB_TOKEN=\${GITHUB_TOKEN} --build-arg LOQATE_KEY=\${LOQATE_KEY} --build-arg NODE_ENV=\${NODE_ENV}  --cache-from $dockerRepoName:latest .
+                      docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg API_KEY=\${API_KEY} --build-arg API_URL=\${API_URL} --build-arg ENV=\${env} --build-arg GTM_ID=\${GTM_ID} --build-arg HOSTNAME=\${HOSTNAME} --build-arg IMAGE_OPTIMIZATION_HOST=\${IMAGE_OPTIMIZATION_HOST} --build-arg GITHUB_TOKEN=\${GITHUB_TOKEN} --build-arg LOQATE_KEY=\${LOQATE_KEY} --build-arg NODE_ENV=\${NODE_ENV}  --cache-from $dockerRepoName:latest .
                       docker push $dockerRepoName:${env.GIT_COMMIT}
                       docker tag $dockerRepoName:${env.GIT_COMMIT} $dockerRepoName:latest
                       docker push $dockerRepoName:latest
@@ -291,6 +291,7 @@ pipeline {
                             | sed -e "s;%AWS_REGION%;${ecrRegion};g" \
                             | sed -e "s;%SSM_PARAMETER_BASE%;${ssmParametersBase};g" \
                             | sed -e "s;%ACCOUNT_NUMBER%;${accountId};g" \
+                            | sed -e "s;%ALTERNATEDOMAIN%;app_environment["${BRANCH_NAME}"].alternateDomain"
                             | tee ${taskDefFile}_final.json
                         aws ecs register-task-definition --execution-role-arn arn:aws:iam::${accountId}:role/Acorn-DevOps \
                             --family ${taskFamily} --cli-input-json file://${taskDefFile}_final.json --region ${ecrRegion}

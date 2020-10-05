@@ -80,8 +80,12 @@
           "value": "%ENVIRONMENT%"
         },
         {
-          "name": "HOSTNAME",
+          "name": "IMAGE_OPTIMIZATION_HOST",
           "value": "https://vanarama.com"
+        },
+        {
+          "name": "HOSTNAME",
+          "valueFrom": "%ALTERNATEDOMAIN%"
         }
       ],
       "portMappings": [
