@@ -9,6 +9,7 @@ ARG ENV
 ARG GTM_ID
 ARG ENABLE_DEV_TOOLS
 ARG GITHUB_TOKEN
+ARG HOSTNAME
 ARG NODE_OPTIONS
 
 # Setting working directory. All the path will be relative to WORKDIR
