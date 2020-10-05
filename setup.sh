@@ -14,3 +14,4 @@ export ROLLBAR_SERVER_TOKEN="$(aws ssm get-parameter --name "/$ENV/$STACK/$APP/r
 export GTM_ID="$(aws ssm get-parameter --name "/$ENV/$STACK/$APP/gtm-id" --region $REGION --with-decryption | jq -r ".Parameter.Value")"
 export HOSTNAME="$(aws ssm get-parameter --name "/$ENV/$STACK/$APP/hostname" --region $REGION --with-decryption | jq -r ".Parameter.Value")"
 export IMAGE_OPTIMIZATION_HOST="$(aws ssm get-parameter --name "/$ENV/$STACK/$APP/image-optimization-host" --region $REGION --with-decryption | jq -r ".Parameter.Value")"
+export ENV="$(aws ssm get-parameter --name "/$ENV/$STACK/$APP/env" --region $REGION --with-decryption | jq -r ".Parameter.Value")"

@@ -56,6 +56,10 @@
         {
           "name": "IMAGE_OPTIMIZATION_HOST",
           "valueFrom": "%SSM_PARAMETER_BASE%/image-optimization-host"
+        },
+        {
+          "name": "ENV",
+          "valueFrom": "%SSM_PARAMETER_BASE%/env"
         }
       ],
       "environment": [
@@ -82,10 +86,6 @@
         {
           "name": "PORT",
           "value": "8080"
-        },
-        {
-          "name": "ENV",
-          "value": "%ENVIRONMENT%"
         }
       ],
       "portMappings": [
