@@ -241,7 +241,7 @@ pipeline {
                     sh """
                       source ./setup.sh ${envs} ${stack} ${serviceName} ${ecrRegion} ${BRANCH_NAME}
                       docker pull $dockerRepoName:latest || true
-                      docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg API_KEY=\${API_KEY} --build-arg API_URL=\${API_URL} --build-arg ENV=\${env} --build-arg GTM_ID=\${GTM_ID} --build-arg HOSTNAME=\${HOSTNAME} --build-arg GITHUB_TOKEN=\${GITHUB_TOKEN} --build-arg LOQATE_KEY=\${LOQATE_KEY} --build-arg NODE_ENV=\${NODE_ENV}  --cache-from $dockerRepoName:latest .
+                      docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg API_KEY=\${API_KEY} --build-arg API_URL=\${API_URL} --build-arg ENV=\${ENV} --build-arg GTM_ID=\${GTM_ID} --build-arg HOSTNAME=\${HOSTNAME} --build-arg IMAGE_OPTIMIZATION_HOST=\${IMAGE_OPTIMIZATION_HOST} --build-arg GITHUB_TOKEN=\${GITHUB_TOKEN} --build-arg LOQATE_KEY=\${LOQATE_KEY} --build-arg NODE_ENV=\${NODE_ENV}  --cache-from $dockerRepoName:latest .
                       docker push $dockerRepoName:${env.GIT_COMMIT}
                       docker tag $dockerRepoName:${env.GIT_COMMIT} $dockerRepoName:latest
                       docker push $dockerRepoName:latest
@@ -274,7 +274,7 @@ pipeline {
                     def appName = app_environment["${BRANCH_NAME}"].app
                     def logGroupName = app_environment["${BRANCH_NAME}"].logGroupName
                     def taskFamily = app_environment["${BRANCH_NAME}"].taskFamily
-                    def env = app_environment["${BRANCH_NAME}"].env
+                    //def env = app_environment["${BRANCH_NAME}"].env
                     def ssmParametersBase = app_environment["${BRANCH_NAME}"].ssmParametersBase
                     def accountId =  app_environment["${BRANCH_NAME}"].accountId
                     def dockerRepoName = app_environment["${BRANCH_NAME}"].dockerRepoName
@@ -287,7 +287,6 @@ pipeline {
                             | sed -e "s;%APP_NAME%;${appName};g" \
                             | sed -e "s;%LOG_GROUP%;${logGroupName};g" \
                             | sed -e "s;%IMAGE%;$dockerRepoName:$currentCommit;g" \
-                            | sed -e "s;%ENVIRONMENT%;${env};g" \
                             | sed -e "s;%AWS_REGION%;${ecrRegion};g" \
                             | sed -e "s;%SSM_PARAMETER_BASE%;${ssmParametersBase};g" \
                             | sed -e "s;%ACCOUNT_NUMBER%;${accountId};g" \
