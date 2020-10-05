@@ -5,7 +5,7 @@ taskDefFile = "deploy/aws/task-definition.json"
 currentCommit = ""
 
 def app_environment = [
-    "develop": [
+    "feature/dig-xxx-changehost": [
         clusterName: 'grid-dev',
         logGroupName: "dev/grid/apps",
         taskFamily: "grid-dev-${serviceName}",
@@ -135,7 +135,7 @@ pipeline {
             when {
                 beforeAgent true
                 anyOf {
-                  branch 'develop'
+                  branch 'feature/dig-xxx-changehost'
                   branch 'master'
                   branch 'uat'
                 }
@@ -217,7 +217,7 @@ pipeline {
             when {
                 beforeAgent true
                 anyOf {
-                  branch 'develop'
+                  branch 'feature/dig-xxx-changehost'
                   branch 'master'
                   branch 'uat'
                 }
@@ -262,7 +262,7 @@ pipeline {
             when {
                 beforeAgent true
                 anyOf {
-                  branch 'develop'
+                  branch 'feature/dig-xxx-changehost'
                   branch 'master'
                   branch 'uat'
                 }
