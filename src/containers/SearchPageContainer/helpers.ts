@@ -108,5 +108,5 @@ export const pageContentQueryExecutor = (
 };
 
 export function getBodyStyleForCms(this: string, element: string) {
-  return element.indexOf(this) > -1;
+  return this.indexOf(element) > -1 || element.indexOf(this) > -1;
 }
