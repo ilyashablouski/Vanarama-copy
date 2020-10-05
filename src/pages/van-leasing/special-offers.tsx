@@ -22,8 +22,7 @@ import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import useLeaseType from '../../hooks/useLeaseType';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import Head from '../../components/Head/Head';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import { getSectionsData } from '../../utils/getSectionsData';
 import {
   useVehicleListUrl,
   useVehicleListUrlFetchMore,
@@ -150,14 +149,16 @@ export const VanOffers: NextPage = () => {
   }
 
   const isPersonal = cachedLeaseType === 'Personal';
-  const metaData = data?.vanOffersPage.metaData;
+  const metaDataName = getSectionsData(
+    ['metaData', 'name'],
+    data?.vanOffersPage,
+  );
 
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading color="black" size="xlarge" tag="h1">
-          {metaData?.name}
+          {metaDataName}
         </Heading>
         <Text size="large" color="darker">
           {data?.vanOffersPage.intro}
@@ -418,12 +419,6 @@ export const VanOffers: NextPage = () => {
           Photos and videos are for illustration purposes only.
         </Text>
       </div>
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.vanOffersPage.featuredImage}
-        />
-      )}
     </>
   );
 };

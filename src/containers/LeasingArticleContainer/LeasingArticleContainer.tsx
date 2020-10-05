@@ -10,7 +10,6 @@ import {
 } from '../../../generated/GenericPageQuery';
 import { getSectionsData } from '../../utils/getSectionsData';
 import getTitleTag from '../../utils/getTitleTag';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import RouterLink from '../../components/RouterLink/RouterLink';
 
 interface IProps {
@@ -31,7 +30,6 @@ const LeasingArticleContainer: FC<IProps> = ({
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading size="xlarge" color="black" tag="h1">
           {title}
         </Heading>

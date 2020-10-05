@@ -12,7 +12,6 @@ import { useProductCard } from '../../gql/productCard';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import {
   useVehicleListUrl,
   useVehicleListUrlFetchMore,
@@ -72,7 +71,6 @@ const CreditChecker: NextPage = () => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading tag="h1" color="black" size="xlarge">
           Your Result
         </Heading>

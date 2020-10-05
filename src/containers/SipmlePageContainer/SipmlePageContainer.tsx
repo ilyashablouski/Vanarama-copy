@@ -6,8 +6,8 @@ import ReactMarkdown from 'react-markdown';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
+import { getSectionsData } from '../../utils/getSectionsData';
 
 interface ISimplePageContainer {
   data: GenericPageQuery | undefined;
@@ -26,24 +26,23 @@ const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
     return <ErrorMessage message={error.message} />;
   }
 
-  const metaData = data?.genericPage?.metaData;
+  const metaDataName = getSectionsData(['metaData', 'name'], data?.genericPage);
+  const featuredImage = getSectionsData(
+    ['featuredImage', 'file', 'url'],
+    data?.genericPage,
+  );
 
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
-          {metaData?.name}
+          {metaDataName}
         </Heading>
       </div>
-      {data?.genericPage.featuredImage?.file?.url && (
+      {featuredImage && (
         <div className="row:bg-white -compact">
           <div className="row:featured-image">
-            <Image
-              className="-white"
-              size="expand"
-              src={data?.genericPage.featuredImage?.file?.url}
-            />
+            <Image className="-white" size="expand" src={featuredImage} />
           </div>
         </div>
       )}

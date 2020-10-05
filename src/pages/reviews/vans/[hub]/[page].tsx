@@ -4,9 +4,9 @@ import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
 import { useReviewsPageQuery } from '../../../../containers/VehicleReviewContainer/gql';
 import withApollo from '../../../../hocs/withApollo';
-import Head from '../../../../components/Head/Head';
 import VehicleReviewContainer from '../../../../containers/VehicleReviewContainer/VehicleReviewContainer';
 import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
+import { getSectionsData } from '../../../../utils/getSectionsData';
 
 const ReviewPage: NextPage = () => {
   const router = useRouter();
@@ -24,22 +24,12 @@ const ReviewPage: NextPage = () => {
     return null;
   }
 
-  const metaData = data?.reviewsPage?.metaData;
-  const sections = data.reviewsPage?.sections;
-  const body = data.reviewsPage?.body;
+  const title = getSectionsData(['metaData', 'name'], data?.reviewsPage);
+  const body = getSectionsData(['body'], data?.reviewsPage);
+  const sections = getSectionsData(['sections'], data?.reviewsPage);
 
   return (
-    <>
-      <VehicleReviewContainer
-        body={body}
-        title={metaData?.name}
-        sections={sections}
-      />
-      <Head
-        metaData={metaData}
-        featuredImage={data.reviewsPage.featuredImage}
-      />
-    </>
+    <VehicleReviewContainer body={body} title={title} sections={sections} />
   );
 };
 

@@ -3,7 +3,6 @@ import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
 import withApollo from '../../../../hocs/withApollo';
-import Head from '../../../../components/Head/Head';
 import VehicleReviewCategoryContainer from '../../../../containers/VehicleReviewCategoryContainer/VehicleReviewCategoryContainer';
 import { useReviewsHubCategoryQuery } from '../../../../containers/VehicleReviewCategoryContainer/gql';
 import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
@@ -26,23 +25,7 @@ const ReviewHub: NextPage = () => {
     return null;
   }
 
-  const metaData = data?.genericPage?.metaData;
-  const sections = data.genericPage?.sections;
-  const body = data.genericPage?.body;
-
-  return (
-    <>
-      <VehicleReviewCategoryContainer
-        body={body}
-        title={metaData?.name}
-        sections={sections}
-      />
-      <Head
-        metaData={metaData}
-        featuredImage={data.genericPage.featuredImage}
-      />
-    </>
-  );
+  return <VehicleReviewCategoryContainer data={data} />;
 };
 
 export default withApollo(ReviewHub, { getDataFromTree });

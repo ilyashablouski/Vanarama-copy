@@ -431,6 +431,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     canonicalUrl: '' || null,
     slug: '' || null,
     schema: schema || null,
+    breadcrumbs: breadcrumbItems || null,
   };
 
   return (

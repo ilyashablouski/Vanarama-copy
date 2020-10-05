@@ -1,3 +1,4 @@
+import { gql } from '@apollo/client';
 import React from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import ReactMarkdown from 'react-markdown';
@@ -6,8 +7,14 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import getTitleTag from '../../utils/getTitleTag';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import { GenericPageQueryFeatured } from '../../../generated/GenericPageQueryFeatured';
+import FCWithFragments from '../../utils/FCWithFragments';
 
-export default function getFeaturedHtml(featured: any | null | undefined) {
+interface IFeatured {
+  featured: GenericPageQueryFeatured | null | undefined;
+}
+
+export const FeaturedHtml: FCWithFragments<IFeatured> = ({ featured }) => {
   const featuredClass = getFeaturedClassPartial(featured);
   return (
     <>
@@ -55,4 +62,56 @@ export default function getFeaturedHtml(featured: any | null | undefined) {
       )}
     </>
   );
-}
+};
+
+FeaturedHtml.fragments = {
+  featured: gql`
+    fragment GenericPageQueryFeatured on Featured {
+      layout
+      body
+      title
+      titleTag
+      video
+      iconList {
+        text
+      }
+      link {
+        url
+        text
+      }
+      title
+      cards {
+        name
+        title
+        image {
+          title
+          description
+          file {
+            url
+            fileName
+          }
+        }
+        body
+        link {
+          text
+          url
+        }
+      }
+      image {
+        title
+        description
+        file {
+          url
+          fileName
+        }
+      }
+      testimonials {
+        customerName
+        summary
+        rating
+      }
+    }
+  `,
+};
+
+export default FeaturedHtml;
