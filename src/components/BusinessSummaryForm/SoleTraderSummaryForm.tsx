@@ -62,7 +62,7 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
   };
 
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       <Heading
         color="black"
         size="xlarge"
