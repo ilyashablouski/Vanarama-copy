@@ -30,6 +30,11 @@ export const LEGAL_PAGE_QUERY = gql`
           body
         }
       }
+      featuredImage {
+        file {
+          url
+        }
+      }
     }
   }
 `;

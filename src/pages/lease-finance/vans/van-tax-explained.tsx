@@ -5,6 +5,7 @@ import withApollo from '../../../hocs/withApollo';
 import { useGenericPage } from '../../../gql/genericPage';
 import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostContainer';
 import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
+import { getSectionsData } from '../../../utils/getSectionsData';
 
 const BlogPost: NextPage = () => {
   const router = useRouter();
@@ -18,7 +19,20 @@ const BlogPost: NextPage = () => {
     return <ErrorMessage message={error.message} />;
   }
 
-  return <BlogPostContainer data={data} />;
+  const body = getSectionsData(['body'], data?.genericPage);
+  const name = getSectionsData(['metaData', 'name'], data?.genericPage);
+  const image = getSectionsData(
+    ['featuredImage', 'file', 'url'],
+    data?.genericPage,
+  );
+  const cards = getSectionsData(
+    ['cards', 'cards'],
+    data?.genericPage?.sections,
+  );
+
+  return (
+    <BlogPostContainer body={body} name={name} image={image} cards={cards} />
+  );
 };
 
 export default withApollo(BlogPost);

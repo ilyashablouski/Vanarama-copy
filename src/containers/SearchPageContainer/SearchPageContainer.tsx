@@ -63,6 +63,8 @@ import {
   GenericPageQuery,
   GenericPageQueryVariables,
   GenericPageQuery_genericPage_metaData as PageMetaData,
+  GenericPageQuery_genericPage_sections_carousel as CarouselData,
+  GenericPageQuery_genericPage_sections_tiles as Tiles,
 } from '../../../generated/GenericPageQuery';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
@@ -631,8 +633,11 @@ const SearchPageContainer: React.FC<IProps> = ({
     getGenericPageHead,
   ]);
 
-  const tiles = getSectionsData(['sections', 'tiles'], pageData?.genericPage);
-  const carousel = getSectionsData(
+  const tiles: Tiles = getSectionsData(
+    ['sections', 'tiles'],
+    pageData?.genericPage,
+  );
+  const carousel: CarouselData = getSectionsData(
     ['sections', 'carousel'],
     pageData?.genericPage,
   );
