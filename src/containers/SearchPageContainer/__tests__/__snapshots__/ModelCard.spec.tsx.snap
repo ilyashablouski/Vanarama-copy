@@ -8,6 +8,7 @@ exports[`<ModelCard /> should be render correctly 1`] = `
       data-testid="card"
     >
       <img
+        alt="img"
         class="card-image"
         data-testid="card-image"
         src="https://images.autorama.co.uk/Photos/Cap/Vehicles/126268/cap-68051-126268.jpg"

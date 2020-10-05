@@ -14,6 +14,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
     
   </div>
   <img
+    alt="img"
     className="card-image"
     data-testid="card-image"
     onError={[Function]}
