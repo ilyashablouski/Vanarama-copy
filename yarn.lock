@@ -3062,10 +3062,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@5.28.5":
-  version "5.28.5"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.28.5.tgz#2d814b39a7b640c38f04007982ff10b9417c24db"
-  integrity sha512-lELVHMyIvXucpy4G1L/f7OCp4MSKlkamyH3U0OOkFdfaWq7FcsVJDTw5jxblELgj2NAQjuE+dluGG3zDtmNc8w==
+"@vanarama/uibook@5.28.9":
+  version "5.28.9"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.28.9.tgz#c97166908b0fcebc6fa295078a315e52ae3d1a76"
+  integrity sha512-UPjQkZwAnZqgGoV4MGdepJJLNIXn3mrXP8tFlzE0lL2bydkSZjFTQXgx2Ep4J3Sx1RcIbkB6m38HpWg6Juk0YA==
   dependencies:
     "@egjs/flicking" "^3.4.7"
     "@reach/auto-id" "^0.10.3"
