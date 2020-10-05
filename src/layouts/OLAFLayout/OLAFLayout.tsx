@@ -12,7 +12,7 @@ import { createOlafDetails, useFunderTerm, OlafContext } from './helpers';
 import { OLAFQueryParams } from '../../utils/url';
 import { GetDerivative_vehicleImages as VehicleImages } from '../../../generated/GetDerivative';
 
-const OLAFLayout: React.FC = ({ children }) => {
+const OLAFLayout: React.FC = ({ children, setDetailsData }) => {
   const router = useRouter();
   const { orderId } = router.query as OLAFQueryParams;
 
@@ -37,8 +37,9 @@ const OLAFLayout: React.FC = ({ children }) => {
   useEffect(() => {
     if (orderByUuid) {
       getDerivativeData();
+      setDetailsData(orderByUuid);
     }
-  }, [orderByUuid, getDerivativeData]);
+  }, [orderByUuid, setDetailsData, getDerivativeData]);
   const term = useFunderTerm(olafData.data?.orderByUuid);
 
   return (

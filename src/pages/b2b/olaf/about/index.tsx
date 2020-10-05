@@ -44,6 +44,7 @@ export const BusinessAboutPage: NextPage = () => {
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [personUuid, setPersonUuid] = useState<string | undefined>();
+  const [detailsData, setDetailsData] = useState();
 
   const getOrdersData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);
   const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
@@ -120,8 +121,10 @@ export const BusinessAboutPage: NextPage = () => {
     }
   }, [personUuid]);
 
+  console.log('detailsData', detailsData);
+
   return (
-    <OLAFLayout>
+    <OLAFLayout setDetailsData={setDetailsData}>
       <Heading
         color="black"
         dataTestId="about-you_heading"
