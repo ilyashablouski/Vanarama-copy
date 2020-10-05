@@ -75,7 +75,9 @@ Page.getInitialProps = ({ query, req, pathname, asPath }) => {
     isMakePage: !(isBodyStylePage || isTransmissionPage),
   };
   if (isBodyStylePage)
-    newQuery.bodyStyles = (query.dynamicParam as string).replace('-', ' ');
+    newQuery.bodyStyles = (query.dynamicParam as string)
+      .replace('-', ' ')
+      .replace('-leasing', '');
   else if (isTransmissionPage)
     newQuery.transmissions = (query.dynamicParam as string).replace('-', ' ');
   else newQuery.make = query.dynamicParam;
