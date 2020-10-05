@@ -11,10 +11,10 @@ import { Script as VWOScript } from '../components/VWO';
 const env = process?.env?.ENV || '';
 
 // GTM environments.
-const gtmEnvs = ['dev', 'uat', 'production'];
+const gtmEnvs = ['uat'];
 
 // VWO environments.
-const vwoEnvs = ['uat', 'production'];
+const vwoEnvs = ['uat'];
 
 class MyDocument extends Document {
   render() {
