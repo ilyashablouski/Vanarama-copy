@@ -71,6 +71,14 @@ app
       });
     });
 
+    // Env route.
+    server.get('/env', (_req, res) => {
+      const statusCode = 200;
+      res.setHeader('Content-Type', 'application/json');
+      res.status(statusCode);
+      res.json(process.env);
+    });
+
     // All routes.
     server.all('*', cors(), (req, res) => {
       // Trailing slash fix on page reload.
