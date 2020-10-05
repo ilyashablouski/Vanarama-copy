@@ -85,7 +85,7 @@
         },
         {
           "name": "HOSTNAME",
-          "value": "%ALTERNATEDOMAIN%"
+          "value": "https://%ALTERNATEDOMAIN%"
         }
       ],
       "portMappings": [
