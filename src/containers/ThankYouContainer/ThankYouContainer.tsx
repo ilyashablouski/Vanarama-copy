@@ -22,8 +22,7 @@ const ThankYouContainer: FC<IProps> = ({ sections }) => {
 
   return (
     <>
-      <div className="row:title">
-      </div>
+      <div className="row:title" />
       <div className="row:lead-text">
         <Heading
           tag={getTitleTag(leadText?.titleTag || 'h1') as any}
