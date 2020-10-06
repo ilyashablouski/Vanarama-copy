@@ -75,6 +75,10 @@ export const GET_CAR_DERIVATIVE = gql`
       capCode
       name
       slug
+      bodyType {
+        name
+        slug
+      }
       manufacturer {
         name
         slug

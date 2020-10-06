@@ -236,24 +236,19 @@ export const pushAddToCartDataLayer = ({
 };
 
 const getCategoryAboutYouData = (
-  lineItem: GetOlafData_orderByUuid_lineItems | undefined,
   derivativeData: GetDerivative_derivative | null,
 ) => {
-  if (
-    lineItem?.productType === 'LCV' &&
-    derivativeData?.name.split(' ').includes('VAN')
-  ) {
-    return 'Van';
+  if (derivativeData?.bodyType?.name?.includes('Pick-Up')) {
+    return 'Pickup';
   }
 
-  if (lineItem?.productType === 'LCV') return 'Pickup';
-
-  return 'Car';
+  return 'Van';
 };
 
 export const pushAboutYouDataLayer = (
   detailsData: GetOlafData_orderByUuid | null,
   derivativeData: GetDerivative_derivative | null,
+  type?: string,
 ) => {
   const lineItem = detailsData?.lineItems[0];
   const price = lineItem?.vehicleProduct?.monthlyPayment;
@@ -279,7 +274,7 @@ export const pushAboutYouDataLayer = (
     capId: derivativeData?.id,
     derivativeInfo: derivativeData,
     price,
-    category: getCategoryAboutYouData(lineItem, derivativeData),
+    category: type || getCategoryAboutYouData(derivativeData),
     product,
   });
 
