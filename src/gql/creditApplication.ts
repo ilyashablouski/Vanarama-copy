@@ -116,6 +116,9 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
       status
       updatedAt
       uuid
+      B2C_PERSONAL
+      B2B_SOLE_TRADER
+      B2B_LIMITED
     }
   }
 `;
@@ -256,6 +259,9 @@ const responseMock = {
   status: 'status',
   updatedAt: 'updatedAt',
   uuid: 'uuid',
+  B2C_PERSONAL: 'B2C_PERSONAL',
+  B2B_SOLE_TRADER: 'B2B_SOLE_TRADER',
+  B2B_LIMITED: 'B2B_LIMITED',
 };
 
 export const makeGetCreditApplicationMock = (id: string): MockedResponse => ({

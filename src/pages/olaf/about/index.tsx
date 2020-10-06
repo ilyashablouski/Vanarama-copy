@@ -142,6 +142,7 @@ const AboutYouPage: NextPage = () => {
           ...creditApplication.data?.creditApplicationByOrderUuid,
           orderUuid: orderId,
           aboutDetails: createUpdatePerson,
+          B2C_PERSONAL: 'B2C_PERSONAL',
         }),
       },
     });
