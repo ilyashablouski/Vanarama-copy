@@ -50,7 +50,6 @@ import { formatProductPageUrl, getLegacyUrl, getNewUrl } from '../../utils/url';
 import { CompareContext } from '../../utils/comparatorTool';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
-import Head from '../../components/Head/Head';
 import {
   useVehicleListUrl,
   useVehicleListUrlFetchMore,
@@ -107,7 +106,6 @@ export const PickupsPage: NextPage = () => {
   );
 
   const isPersonal = cachedLeaseType === 'Personal';
-  const metaData = data?.hubPickupPage?.metaData;
 
   return (
     <>
@@ -238,7 +236,9 @@ export const PickupsPage: NextPage = () => {
                     price={isPersonal ? item?.personalRate : item?.businessRate}
                     size="large"
                     separator="."
-                    priceDescription="Per Month Exc.VAT"
+                    priceDescription={`Per Month ${
+                      isPersonal ? 'Inc' : 'Exc'
+                    }.VAT`}
                   />
                   <RouterLink
                     link={{
@@ -636,12 +636,6 @@ export const PickupsPage: NextPage = () => {
       <section className="row:trustpilot">
         <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
       </section>
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.hubPickupPage?.featuredImage}
-        />
-      )}
     </>
   );
 };

@@ -8,7 +8,6 @@ import ReactMarkdown from 'react-markdown';
 import Router from 'next/router';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery_genericPage_sections_cards_cards } from '../../../generated/GenericPageQuery';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   body: string | null | undefined;
@@ -40,7 +39,6 @@ const BlogPostContainer: NextPage<IProps> = ({ body, name, image, cards }) => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {name || ''}
         </Heading>

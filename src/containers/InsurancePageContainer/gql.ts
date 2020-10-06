@@ -1,57 +1,18 @@
 import { gql } from '@apollo/client';
+import { FeaturedHtml } from '../FeaturedAndTilesContainer/getFeaturedHtml';
 
 const GET_INSURANCE_LANDING_PAGE = gql`
   query GetInsuranceLandingPage {
     insuranceLandingPage {
       id
       body
-      metaData {
-        title
-        name
-        metaRobots
-        metaDescription
-        publishedOn
-        legacyUrl
-        pageType
-        canonicalUrl
-        slug
-        publishedOn
-        schema
-      }
-      featuredImage {
-        title
-        description
-        file {
-          url
-          fileName
-          contentType
-        }
-      }
       sections {
         featured1 {
-          title
-          titleTag
-          body
-          layout
-          image {
-            title
-            file {
-              url
-            }
-          }
+          ...GenericPageQueryFeatured
         }
 
         featured2 {
-          title
-          titleTag
-          body
-          image {
-            title
-            file {
-              url
-            }
-          }
-          layout
+          ...GenericPageQueryFeatured
         }
 
         cards {
@@ -112,6 +73,7 @@ const GET_INSURANCE_LANDING_PAGE = gql`
       }
     }
   }
+  ${FeaturedHtml.fragments.featured}
 `;
 
 export default GET_INSURANCE_LANDING_PAGE;

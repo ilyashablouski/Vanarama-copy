@@ -1,28 +1,17 @@
 import { gql, useQuery } from '@apollo/client';
+import { FeaturedHtml } from '../containers/FeaturedAndTilesContainer/getFeaturedHtml';
+import TilesContainer from '../containers/TilesContainer/TilesContainer';
 import { BlogPost, BlogPostVariables } from '../../generated/BlogPost';
 
 export const BLOG_POPST_PAGE = gql`
   query BlogPost($slug: String!) {
     blogPost(slug: $slug) {
       metaData {
-        title
         name
-        metaRobots
-        metaDescription
-        publishedOn
-        legacyUrl
-        pageType
-        canonicalUrl
-        slug
-        publishedOn
-        schema
       }
       featuredImage {
-        title
         file {
           url
-          fileName
-          contentType
         }
       }
       sections {
@@ -78,32 +67,7 @@ export const BLOG_POPST_PAGE = gql`
           }
         }
         featured {
-          layout
-          body
-          title
-          titleTag
-          video
-          titleTag
-          link {
-            text
-            url
-          }
-          image {
-            title
-            description
-            file {
-              url
-              fileName
-              contentType
-              details {
-                size
-                image {
-                  width
-                  height
-                }
-              }
-            }
-          }
+          ...GenericPageQueryFeatured
         }
         carousel {
           title
@@ -127,24 +91,7 @@ export const BLOG_POPST_PAGE = gql`
           }
         }
         tiles {
-          position
-          name
-          tilesTitle
-          titleTag
-          tiles {
-            body
-            title
-            link
-            image {
-              title
-              description
-              file {
-                url
-                fileName
-                contentType
-              }
-            }
-          }
+          ...GenericPageQueryTiles
         }
       }
       body
@@ -153,6 +100,8 @@ export const BLOG_POPST_PAGE = gql`
       tags
     }
   }
+  ${TilesContainer.fragments.tiles}
+  ${FeaturedHtml.fragments.featured}
 `;
 
 export function useBlogPostPage(slug: string) {

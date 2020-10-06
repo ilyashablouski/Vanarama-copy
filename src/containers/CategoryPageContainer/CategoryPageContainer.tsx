@@ -9,7 +9,6 @@ import ReactMarkdown from 'react-markdown';
 import Pagination from '@vanarama/uibook/lib/components/atoms/pagination';
 import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { ICategoryPage } from './interface';
 import {
   GenericPageQuery_genericPage_sections_carousel_cards,
@@ -163,7 +162,6 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {metaData?.name || pageTitle}
         </Heading>

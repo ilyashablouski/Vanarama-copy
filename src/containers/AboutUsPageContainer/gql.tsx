@@ -7,30 +7,12 @@ export const GET_ABOUT_US_PAGE_DATA = gql`
       id
       body
       metaData {
-        title
         name
-        metaRobots
-        metaDescription
-        publishedOn
-        legacyUrl
-        pageType
-        canonicalUrl
-        slug
-        publishedOn
-        schema
       }
       featuredImage {
-        title
-        description
         file {
           url
-          fileName
-          contentType
         }
-      }
-      metaData {
-        name
-        schema
       }
       sections {
         rowText {

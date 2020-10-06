@@ -25,7 +25,6 @@ import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useLazyQuery } from '@apollo/client';
 import { GENERIC_PAGE, GENERIC_PAGE_HEAD } from '../../gql/genericPage';
-import Head from '../../components/Head/Head';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import TopOffersContainer from './TopOffersContainer';
 import { useProductCardData } from '../CustomerAlsoViewedContainer/gql';
@@ -59,14 +58,15 @@ import TopInfoBlock from './TopInfoBlock';
 import {
   manufacturerPage_manufacturerPage_sections as sections,
   manufacturerPage,
-  manufacturerPage_manufacturerPage_metaData as PageMetaData,
 } from '../../../generated/manufacturerPage';
 import {
   GenericPageQuery,
   GenericPageQueryVariables,
+  GenericPageQuery_genericPage_metaData as PageMetaData,
+  GenericPageQuery_genericPage_sections_carousel as CarouselData,
+  GenericPageQuery_genericPage_sections_tiles as Tiles,
 } from '../../../generated/GenericPageQuery';
 import { getFeaturedClassPartial } from '../../utils/layout';
-import { IFeaturedImageFile } from '../../components/Head/interface';
 import {
   GenericPageHeadQuery,
   GenericPageHeadQueryVariables,
@@ -75,7 +75,7 @@ import useLeaseType from '../../hooks/useLeaseType';
 import { LinkTypes } from '../../models/enum/LinkTypes';
 import { getLegacyUrl, getNewUrl } from '../../utils/url';
 import TileLink from '../../components/TileLink/TileLink';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import { getSectionsData } from '../../utils/getSectionsData';
 
 interface IProps {
   isServer: boolean;
@@ -536,10 +536,6 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   const [pageData, setPageData] = useState<GenericPageQuery>();
   const [metaData, setMetaData] = useState<PageMetaData>();
-  const [
-    featuredImage,
-    setFeaturedImage,
-  ] = useState<IFeaturedImageFile | null>();
   const [topInfoSection, setTopInfoSection] = useState<sections | null>();
 
   const [getGenericPage] = useLazyQuery<
@@ -549,7 +545,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     onCompleted: result => {
       setPageData(result);
       setMetaData(result.genericPage.metaData);
-      setFeaturedImage(result.genericPage.featuredImage);
     },
   });
   const [getGenericPageHead] = useLazyQuery<
@@ -558,7 +553,6 @@ const SearchPageContainer: React.FC<IProps> = ({
   >(GENERIC_PAGE_HEAD, {
     onCompleted: result => {
       setMetaData(result.genericPage.metaData);
-      setFeaturedImage(result.genericPage.featuredImage);
     },
   });
   const [getAllManufacturersPage] = useLazyQuery<manufacturerPage>(
@@ -567,7 +561,6 @@ const SearchPageContainer: React.FC<IProps> = ({
       onCompleted: result => {
         setTopInfoSection(result.manufacturerPage.sections);
         setMetaData(result.manufacturerPage.metaData);
-        setFeaturedImage(result.manufacturerPage.featuredImage);
       },
     },
   );
@@ -640,16 +633,24 @@ const SearchPageContainer: React.FC<IProps> = ({
     getGenericPageHead,
   ]);
 
-  const tiles = pageData?.genericPage.sections?.tiles;
-  const carousel = pageData?.genericPage.sections?.carousel;
-  const featured = pageData?.genericPage.sections?.featured;
+  const tiles: Tiles = getSectionsData(
+    ['sections', 'tiles'],
+    pageData?.genericPage,
+  );
+  const carousel: CarouselData = getSectionsData(
+    ['sections', 'carousel'],
+    pageData?.genericPage,
+  );
+  const featured = getSectionsData(
+    ['sections', 'featured'],
+    pageData?.genericPage,
+  );
 
   // TODO: render must be refactored, some components should be moved to separate components
   // Some props should be contain in one param for achieve more readable code
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {(isModelPage &&
             `${filtersData.manufacturerName} ${filtersData.rangeName} ${filtersData.bodyStyles?.[0]}`) ||
@@ -1086,7 +1087,6 @@ const SearchPageContainer: React.FC<IProps> = ({
           Photos and videos are for illustration purposes only.
         </Text>
       </div>
-      {metaData && <Head metaData={metaData} featuredImage={featuredImage} />}
     </>
   );
 };

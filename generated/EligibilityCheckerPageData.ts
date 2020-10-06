@@ -8,28 +8,7 @@
 // ====================================================
 
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_metaData {
-  title: string | null;
   name: string | null;
-  metaRobots: string | null;
-  metaDescription: string | null;
-  publishedOn: any | null;
-  legacyUrl: string | null;
-  pageType: string | null;
-  canonicalUrl: string | null;
-  slug: string | null;
-  schema: any | null;
-}
-
-export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_featuredImage_file {
-  url: string;
-  fileName: string;
-  contentType: string;
-}
-
-export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_featuredImage {
-  title: string | null;
-  description: string | null;
-  file: EligibilityCheckerPageData_eligibilityCheckerLandingPage_featuredImage_file | null;
 }
 
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_leadText {
@@ -37,28 +16,105 @@ export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sectio
   description: string | null;
 }
 
+export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_iconList {
+  text: string | null;
+}
+
+export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_link {
+  url: string | null;
+  text: string | null;
+}
+
+export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_cards_image_file {
+  url: string;
+  fileName: string;
+}
+
+export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_cards_image {
+  title: string | null;
+  description: string | null;
+  file: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_cards_image_file | null;
+}
+
+export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_cards_link {
+  text: string | null;
+  url: string | null;
+}
+
+export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_cards {
+  name: string | null;
+  title: string | null;
+  image: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_cards_image | null;
+  body: string | null;
+  link: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_cards_link | null;
+}
+
+export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_image_file {
+  url: string;
+  fileName: string;
+}
+
+export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_image {
+  title: string | null;
+  description: string | null;
+  file: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_image_file | null;
+}
+
+export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_testimonials {
+  customerName: string | null;
+  summary: string | null;
+  rating: string | null;
+}
+
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1 {
+  layout: (string | null)[] | null;
   body: string | null;
   title: string | null;
+  titleTag: string | null;
   video: string | null;
-  layout: (string | null)[] | null;
+  iconList: (EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_iconList | null)[] | null;
+  link: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_link | null;
+  cards: (EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_cards | null)[] | null;
+  image: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_image | null;
+  testimonials: (EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_testimonials | null)[] | null;
 }
 
-export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_image_file_details_image {
-  width: number;
-  height: number;
+export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_iconList {
+  text: string | null;
 }
 
-export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_image_file_details {
-  size: number;
-  image: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_image_file_details_image;
+export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_link {
+  url: string | null;
+  text: string | null;
+}
+
+export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_cards_image_file {
+  url: string;
+  fileName: string;
+}
+
+export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_cards_image {
+  title: string | null;
+  description: string | null;
+  file: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_cards_image_file | null;
+}
+
+export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_cards_link {
+  text: string | null;
+  url: string | null;
+}
+
+export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_cards {
+  name: string | null;
+  title: string | null;
+  image: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_cards_image | null;
+  body: string | null;
+  link: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_cards_link | null;
 }
 
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_image_file {
   url: string;
   fileName: string;
-  contentType: string;
-  details: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_image_file_details;
 }
 
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_image {
@@ -67,16 +123,23 @@ export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sectio
   file: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_image_file | null;
 }
 
-export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_iconList {
-  text: string | null;
+export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_testimonials {
+  customerName: string | null;
+  summary: string | null;
+  rating: string | null;
 }
 
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2 {
-  body: string | null;
-  image: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_image | null;
-  title: string | null;
   layout: (string | null)[] | null;
+  body: string | null;
+  title: string | null;
+  titleTag: string | null;
+  video: string | null;
   iconList: (EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_iconList | null)[] | null;
+  link: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_link | null;
+  cards: (EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_cards | null)[] | null;
+  image: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_image | null;
+  testimonials: (EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_testimonials | null)[] | null;
 }
 
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_faqs_questionSets_questionAnswers {
@@ -120,7 +183,6 @@ export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sectio
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage {
   id: string;
   metaData: EligibilityCheckerPageData_eligibilityCheckerLandingPage_metaData;
-  featuredImage: EligibilityCheckerPageData_eligibilityCheckerLandingPage_featuredImage | null;
   sections: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections | null;
 }
 

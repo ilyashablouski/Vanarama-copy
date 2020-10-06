@@ -1,7 +1,6 @@
 import { NextPage } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
-import Head from '../../components/Head/Head';
 import { useGenericPage } from '../../gql/genericPage';
 import withApollo from '../../hocs/withApollo';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
@@ -25,21 +24,13 @@ const CategoryPage: NextPage = () => {
   const tiles = data?.genericPage?.sections?.tiles;
 
   return (
-    <>
-      <CategoryPageContainer
-        featured={featured}
-        carousel={carousel}
-        metaData={metaData}
-        tiles={tiles}
-        featuredImage={data?.genericPage.featuredImage}
-      />
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.genericPage.featuredImage}
-        />
-      )}
-    </>
+    <CategoryPageContainer
+      featured={featured}
+      carousel={carousel}
+      metaData={metaData}
+      tiles={tiles}
+      featuredImage={data?.genericPage.featuredImage}
+    />
   );
 };
 

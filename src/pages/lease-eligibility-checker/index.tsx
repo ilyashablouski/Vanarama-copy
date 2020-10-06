@@ -13,10 +13,12 @@ import {
   EligibilityCheckerPageData,
   EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_faqs_questionSets_questionAnswers as QuestionAnswers,
   EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_faqs_questionSets as QuestionSets,
+  EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_carousel as CarouselData,
 } from '../../../generated/EligibilityCheckerPageData';
 import withApollo from '../../hocs/withApollo';
 import { ELIGIBILITY_CHECKER_CONTENT } from '../../gql/eligibility-checker/eligibilityChecker';
-import Head from '../../components/Head/Head';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import { getSectionsData } from '../../utils/getSectionsData';
 
 const EligibilityChecker: NextPage = () => {
   const { data, loading, error } = useQuery<EligibilityCheckerPageData>(
@@ -26,8 +28,9 @@ const EligibilityChecker: NextPage = () => {
   if (loading) {
     return <Loading size="large" />;
   }
+
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <ErrorMessage message={error.message} />;
   }
 
   if (!data?.eligibilityCheckerLandingPage) {
@@ -42,11 +45,26 @@ const EligibilityChecker: NextPage = () => {
     }));
   };
 
-  const metaData = data?.eligibilityCheckerLandingPage?.metaData;
-  const featured1 = data?.eligibilityCheckerLandingPage?.sections?.featured1;
-  const featured2 = data?.eligibilityCheckerLandingPage?.sections?.featured2;
-  const leadText = data?.eligibilityCheckerLandingPage?.sections?.leadText;
-  const carousel = data?.eligibilityCheckerLandingPage?.sections?.carousel;
+  const metaDataName = getSectionsData(
+    ['metaData', 'name'],
+    data?.eligibilityCheckerLandingPage,
+  );
+  const featured1 = getSectionsData(
+    ['sections', 'featured1'],
+    data?.eligibilityCheckerLandingPage,
+  );
+  const featured2 = getSectionsData(
+    ['sections', 'featured2'],
+    data?.eligibilityCheckerLandingPage,
+  );
+  const leadText = getSectionsData(
+    ['sections', 'leadText'],
+    data?.eligibilityCheckerLandingPage,
+  );
+  const carousel: CarouselData = getSectionsData(
+    ['sections', 'carousel'],
+    data?.eligibilityCheckerLandingPage,
+  );
   const reviews = carousel?.cardTestimonials?.length
     ? carousel?.cardTestimonials?.map(el => ({
         author: el?.companyName || el?.customerName || '',
@@ -55,14 +73,17 @@ const EligibilityChecker: NextPage = () => {
         score: parseFloat(el?.rating || '0'),
       }))
     : [];
-  const faqs = data?.eligibilityCheckerLandingPage?.sections?.faqs;
+  const faqs = getSectionsData(
+    ['sections', 'faqs'],
+    data?.eligibilityCheckerLandingPage,
+  );
   const questions = (faqs?.questionSets as QuestionSets[])[0]?.questionAnswers;
 
   return (
     <>
       <div className="row:title">
         <Heading size="xlarge" color="black" tag="h1">
-          {metaData?.name}
+          {metaDataName}
         </Heading>
       </div>
       {featured1 && (
@@ -111,12 +132,6 @@ const EligibilityChecker: NextPage = () => {
       <section className="row:trustpilot">
         <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
       </section>
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.eligibilityCheckerLandingPage?.featuredImage}
-        />
-      )}
     </>
   );
 };

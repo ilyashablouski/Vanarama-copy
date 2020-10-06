@@ -15,8 +15,6 @@ import { useAboutUsPageData } from './gql';
 import { ABOUT_US_MEET_SECTION_NAMES } from './config';
 import { GetAboutUsPageData_aboutUsLandingPage_sections_carousel_cards as ICard } from '../../../generated/GetAboutUsPageData';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import Head from '../../components/Head/Head';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 const prepareTagName = (possibleTag: string | null) =>
   possibleTag && Heading.defaultProps?.tag?.indexOf(possibleTag) !== -1
@@ -119,7 +117,6 @@ const AboutUs: React.FC = () => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading size="xlarge" color="black" tag="h1">
           {metaData.name}
         </Heading>
@@ -199,10 +196,6 @@ const AboutUs: React.FC = () => {
           />
         </Link>
       </div>
-      <Head
-        metaData={metaData}
-        featuredImage={data?.aboutUsLandingPage.featuredImage}
-      />
     </>
   );
 };

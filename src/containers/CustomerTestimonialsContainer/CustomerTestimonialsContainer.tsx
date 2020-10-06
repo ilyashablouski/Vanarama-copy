@@ -16,8 +16,7 @@ import { GenericPageTestimonialsQuery_genericPage_sections as Section } from '..
 import getTitleTag from '../../utils/getTitleTag';
 import { TESTIMONIALS_DATA } from '../../gql/testimonials';
 import TileLink from '../../components/TileLink/TileLink';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
-import getFeaturedHtml from '../FeaturedAndTilesContainer/getFeaturedHtml';
+import { FeaturedHtml } from '../FeaturedAndTilesContainer/getFeaturedHtml';
 
 interface IProps {
   sections: Section | null;
@@ -81,7 +80,6 @@ const CustomerTestimonialsContainer: FC<IProps> = ({ title, sections }) => {
   return (
     <>
       <div className="testimonials--content">
-        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {title}
         </Heading>
@@ -186,7 +184,7 @@ const CustomerTestimonialsContainer: FC<IProps> = ({ title, sections }) => {
           })}
         </div>
       </div>
-      {getFeaturedHtml(sections?.featured)}
+      <FeaturedHtml featured={sections?.featured} />
     </>
   );
 };

@@ -6,27 +6,26 @@ import ReactMarkdown from 'react-markdown';
 import { useRouter } from 'next/router';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import {
-  ReviewsHubCategoryQuery_genericPage_sections as Sections,
+  ReviewsHubCategoryQuery,
   ReviewsHubCategoryQuery_genericPage_sections_cards_cards as Cards,
 } from '../../../generated/ReviewsHubCategoryQuery';
 import { getMarkdownRenderers } from './Utils';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { getSectionsData } from '../../utils/getSectionsData';
 
 interface IProps {
-  sections: Sections | null;
-  title: string | null;
-  body: string | null;
+  data: ReviewsHubCategoryQuery | undefined;
 }
 
-const VehicleReviewCategoryContainer: FC<IProps> = ({
-  body,
-  title,
-  sections,
-}) => {
+const VehicleReviewCategoryContainer: FC<IProps> = ({ data }) => {
+  const title = getSectionsData(['metaData', 'name'], data?.genericPage);
+  const body = getSectionsData(['body'], data?.genericPage);
+  const cards = getSectionsData(
+    ['sections', 'cards', 'cards'],
+    data?.genericPage,
+  );
+
   const [activePage, setActivePage] = useState(1);
   const router = useRouter();
-  const cards = getSectionsData(['cards', 'cards'], sections);
 
   const countPages = () => Math.ceil((cards.length || 0) / 12);
 
@@ -69,7 +68,6 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {title}
         </Heading>

@@ -20,10 +20,11 @@ import {
 import { useOpportunityCreation } from '../../containers/GoldrushFormContainer/gql';
 import { OpportunityTypeEnum } from '../../../generated/globalTypes';
 import { useGenericPage } from '../../gql/genericPage';
-import Head from '../../components/Head/Head';
 import getTitleTag from '../../utils/getTitleTag';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import GoldrushForm from '../../components/GoldrushForm/GoldrushForm';
+import { getSectionsData } from '../../utils/getSectionsData';
+import { GenericPageQuery_genericPage_sections_hero as Hero } from '../../../generated/GenericPageQuery';
 
 export const LocationsPage: NextPage = () => {
   const router = useRouter();
@@ -50,12 +51,14 @@ export const LocationsPage: NextPage = () => {
     return null;
   }
 
-  const metaData = data.genericPage?.metaData;
-  const hero = data.genericPage?.sections?.hero;
-  const leadText = data.genericPage?.sections?.leadText;
-  const featured = data.genericPage?.sections?.featured1;
-  const tiles = data.genericPage?.sections?.tiles;
-  const featured1 = data.genericPage?.sections?.featured2;
+  const hero: Hero = getSectionsData(['sections', 'hero'], data.genericPage);
+  const leadText = getSectionsData(['sections', 'leadText'], data.genericPage);
+  const featured = getSectionsData(['sections', 'featured1'], data.genericPage);
+  const tiles = getSectionsData(['sections', 'tiles'], data.genericPage);
+  const featured1 = getSectionsData(
+    ['sections', 'featured2'],
+    data.genericPage,
+  );
 
   return (
     <>
@@ -389,10 +392,6 @@ export const LocationsPage: NextPage = () => {
           </div>
         </Modal>
       )}
-      <Head
-        metaData={metaData}
-        featuredImage={data?.genericPage.featuredImage}
-      />
     </>
   );
 };
