@@ -172,8 +172,6 @@ pipeline {
                     sh "yarn test --coverage"
                     sh "yarn lint"
                     sh "yarn typecheck"
-                    // Hardcoding variables for testing purposes - Gianluca - 6/10/2020
-                    sh "API_URL=\"https://gateway-service.grid.dev.autorama.co.uk/\" API_KEY=\"hfL0TdNsV36H1trSOUFTy5ccW3RweWxx21oVanZ5\" yarn build"
                     // sh "yarn build"
                     stash includes: 'next-storefront.tar.gz', name: 'package'
               }
