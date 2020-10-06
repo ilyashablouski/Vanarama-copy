@@ -40,8 +40,6 @@ const ConsumerProgressIndicator: React.FC = () => {
     if (currentStep > latestStep) {
       setCachedLastStep(currentStep);
     }
-    console.log(currentStep);
-    console.log(latestStep);
   }, [currentStep]);
 
   return (
