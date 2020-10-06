@@ -893,6 +893,7 @@ const SearchPageContainer: React.FC<IProps> = ({
               >
                 <span>
                   <Image
+                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                     src={tile.image?.file?.url || ''}
                     inline
                     round
@@ -946,7 +947,11 @@ const SearchPageContainer: React.FC<IProps> = ({
           )}
           {featured && (
             <div className={`row:${getFeaturedClassPartial(featured)}`}>
-              <Image size="expand" src={featured.image?.file?.url || ''} />
+              <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                size="expand"
+                src={featured.image?.file?.url || ''}
+              />
               <div>
                 <Heading tag="span" size="large" color="black">
                   {featured.title}
@@ -987,6 +992,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                   >
                     <span>
                       <Image
+                        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                         src={tile.image?.file?.url || ''}
                         inline
                         round
@@ -1016,6 +1022,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                     (card, indx) =>
                       card && (
                         <Card
+                          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                           key={`${card.name}_${indx.toString()}`}
                           className="card__article"
                           imageSrc={card?.image?.file?.url || ''}

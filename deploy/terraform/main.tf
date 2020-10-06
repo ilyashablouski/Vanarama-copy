@@ -82,6 +82,7 @@ resource "aws_ssm_parameter" "secret-key-base" {
   }
 }
 
+
 resource "aws_ssm_parameter" "redis-cache-host" {
   name       = "/${var.env}/${var.stack}/${var.app}/redis-host"
   type       = "SecureString"

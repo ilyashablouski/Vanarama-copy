@@ -168,12 +168,12 @@ pipeline {
               withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
                     sh '''npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"'''
                     sh "yarn install"
-                    sh "yarn pack --filename next-storefront.tar.gz"
+                    // sh "yarn pack --filename next-storefront.tar.gz"
                     sh "yarn test --coverage"
                     sh "yarn lint"
                     sh "yarn typecheck"
-                    sh "yarn build"
-                    stash includes: 'next-storefront.tar.gz', name: 'package'
+                    // sh "yarn build"
+                    // stash includes: 'next-storefront.tar.gz', name: 'package'
               }
                 sh "cp .coverage/lcov.info lcov.info"
                 stash includes: 'lcov.info', name: 'lcov'
@@ -242,7 +242,7 @@ pipeline {
                     sh """
                       source ./setup.sh ${envs} ${stack} ${serviceName} ${ecrRegion} ${BRANCH_NAME} ${alternateDomain}
                       docker pull $dockerRepoName:latest || true
-                      docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg API_KEY=\${API_KEY} --build-arg API_URL=\${API_URL} --build-arg ENV=\${ENV} --build-arg GTM_ID=\${GTM_ID} --build-arg HOSTNAME=\${HOSTNAME} --build-arg IMAGE_OPTIMIZATION_HOST=\${IMAGE_OPTIMIZATION_HOST} --build-arg GITHUB_TOKEN=\${GITHUB_TOKEN} --build-arg LOQATE_KEY=\${LOQATE_KEY} --build-arg NODE_ENV=\${NODE_ENV}  --cache-from $dockerRepoName:latest .
+                      docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg API_KEY=\${API_KEY} --build-arg API_URL=\${API_URL} --build-arg ENV=\${ENV} --build-arg GTM_ID=\${GTM_ID} --build-arg HOSTNAME=\${HOSTNAME} --build-arg IMG_OPTIMISATION_HOST=\${IMG_OPTIMISATION_HOST} --build-arg GITHUB_TOKEN=\${GITHUB_TOKEN} --build-arg LOQATE_KEY=\${LOQATE_KEY} --build-arg NODE_ENV=\${NODE_ENV}  --cache-from $dockerRepoName:latest .
                       docker push $dockerRepoName:${env.GIT_COMMIT}
                       docker tag $dockerRepoName:${env.GIT_COMMIT} $dockerRepoName:latest
                       docker push $dockerRepoName:latest

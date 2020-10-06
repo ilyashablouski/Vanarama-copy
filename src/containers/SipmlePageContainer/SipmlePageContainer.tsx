@@ -42,7 +42,12 @@ const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
       {featuredImage && (
         <div className="row:bg-white -compact">
           <div className="row:featured-image">
-            <Image className="-white" size="expand" src={featuredImage} />
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              className="-white"
+              size="expand"
+              src={featuredImage}
+            />
           </div>
         </div>
       )}

@@ -42,6 +42,7 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({ data }) => {
     );
     return showCards?.map((reviewCard, idx) => (
       <Card
+        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         key={idx.toString()}
         title={{
           title: reviewCard.title || '',

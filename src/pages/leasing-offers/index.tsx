@@ -158,7 +158,7 @@ export const OffersPage: NextPage = () => {
           </div>
         </div>
         <div>
-          <Card>
+          <Card optimisedHost={process.env.IMG_OPTIMISATION_HOST}>
             <Redundancy />
             <Heading size="lead" color="black">
               Redundancy & Life Event Cover

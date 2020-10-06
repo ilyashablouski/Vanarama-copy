@@ -71,6 +71,7 @@ const OrderInformationContainer: React.FC<IProps> = () => {
     <div className="row:bg-light">
       <div className="row:cards-3col">
         <Card
+          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           title={{
             title: 'My Orders',
           }}
@@ -98,6 +99,7 @@ const OrderInformationContainer: React.FC<IProps> = () => {
         </Card>
 
         <Card
+          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           title={{
             title: 'My Quotes',
           }}

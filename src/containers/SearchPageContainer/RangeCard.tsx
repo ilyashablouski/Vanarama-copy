@@ -39,6 +39,7 @@ const RangeCard = memo(
       : {};
     return (
       <Card
+        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         {...imageProps}
         title={{
           title: '',

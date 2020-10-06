@@ -30,6 +30,7 @@ const ModelCard = memo(
       (router.query.rangeName as string).split('+').join(' ') || '';
     return (
       <Card
+        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         inline
         {...imageProps}
         title={{

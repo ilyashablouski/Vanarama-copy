@@ -22,6 +22,7 @@ export const FeaturedHtml: FCWithFragments<IFeatured> = ({ featured }) => {
         <section className={`row:${featuredClass}`}>
           {featured.image?.file?.url && (
             <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={featured.image?.file?.url}
               alt={featured.image?.file?.fileName}
             />

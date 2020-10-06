@@ -277,6 +277,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
         '';
       return (
         <OrderCard
+          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           style={{ '--img-w': '300px' } as CSSProperties}
           inline
           imageSrc={imageSrc?.mainImageUrl || ''}

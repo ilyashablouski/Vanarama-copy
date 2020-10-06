@@ -12,7 +12,7 @@ services:
         - ENV
         - GTM_ID
         - HOSTNAME
-        - IMAGE_OPTIMIZATION_HOST
+        - IMG_OPTIMISATION_HOST
         - ENABLE_DEV_TOOLS
     command: yarn dev
     volumes:

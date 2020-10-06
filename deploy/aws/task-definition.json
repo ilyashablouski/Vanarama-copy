@@ -80,7 +80,7 @@
           "value": "%ENVIRONMENT%"
         },
         {
-          "name": "IMAGE_OPTIMIZATION_HOST",
+          "name": "IMG_OPTIMISATION_HOST",
           "value": "https://vanarama.com"
         },
         {

@@ -17,8 +17,9 @@ module.exports = {
   next: {
     // Env vars.
     env: {
-      HOSTNAME: process.env.HOSTNAME,
       ENV: process.env.ENV,
+      IMG_OPTIMISATION_HOST: process.env.IMG_OPTIMISATION_HOST,
+      HOSTNAME: process.env.HOSTNAME,
       GTM_ID: process.env.GTM_ID,
       API_URL: process.env.API_URL,
       API_KEY: process.env.API_KEY,
