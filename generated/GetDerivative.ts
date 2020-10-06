@@ -9,6 +9,11 @@ import { VehicleTypeEnum } from "./globalTypes";
 // GraphQL query operation: GetDerivative
 // ====================================================
 
+export interface GetDerivative_derivative_bodyType {
+  name: string | null;
+  slug: string;
+}
+
 export interface GetDerivative_derivative_manufacturer {
   name: string;
   slug: string;
@@ -41,6 +46,7 @@ export interface GetDerivative_derivative {
   capCode: string;
   name: string;
   slug: string;
+  bodyType: GetDerivative_derivative_bodyType | null;
   manufacturer: GetDerivative_derivative_manufacturer;
   model: GetDerivative_derivative_model;
   fuelType: GetDerivative_derivative_fuelType;
