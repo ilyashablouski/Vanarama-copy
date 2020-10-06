@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
@@ -20,6 +21,9 @@ import { useImperativeQuery } from '../../../../hooks/useImperativeQuery';
 import { GET_ORDERS_BY_PARTY_UUID_DATA } from '../../../../containers/OrdersInformation/gql';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../../generated/GetCompaniesByPersonUuid';
+import { pushAboutYouDataLayer } from '../../../../utils/dataLayerHelpers';
+import { GetOlafData_orderByUuid } from '../../../../../generated/GetOlafData';
+import { GetDerivative_derivative } from '../../../../../generated/GetDerivative';
 
 const handleCreateUpdateBusinessPersonError = () =>
   toast.error(
@@ -44,7 +48,14 @@ export const BusinessAboutPage: NextPage = () => {
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [personUuid, setPersonUuid] = useState<string | undefined>();
-  const [detailsData, setDetailsData] = useState();
+  const [
+    detailsData,
+    setDetailsData,
+  ] = useState<GetOlafData_orderByUuid | null>(null);
+  const [
+    derivativeData,
+    setDerivativeData,
+  ] = useState<GetDerivative_derivative | null>(null);
 
   const getOrdersData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);
   const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
@@ -90,6 +101,7 @@ export const BusinessAboutPage: NextPage = () => {
   const handleCreateUpdateBusinessPersonCompletion = async (
     result: SubmitResult,
   ) => {
+    pushAboutYouDataLayer(detailsData, derivativeData);
     const params = getUrlParam({ orderId });
     const slug =
       result.companyType === CompanyTypes.limited ||
@@ -121,10 +133,11 @@ export const BusinessAboutPage: NextPage = () => {
     }
   }, [personUuid]);
 
-  console.log('detailsData', detailsData);
-
   return (
-    <OLAFLayout setDetailsData={setDetailsData}>
+    <OLAFLayout
+      setDetailsData={setDetailsData}
+      setDerivativeData={setDerivativeData}
+    >
       <Heading
         color="black"
         dataTestId="about-you_heading"

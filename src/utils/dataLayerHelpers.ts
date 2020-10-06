@@ -7,11 +7,20 @@ import {
 } from '../../generated/GetVehicleDetails';
 import { OrderInputObject, LeaseTypeEnum } from '../../generated/globalTypes';
 import { PersonByToken } from '../../generated/PersonByToken';
+import {
+  GetOlafData_orderByUuid,
+  GetOlafData_orderByUuid_lineItems,
+} from '../../generated/GetOlafData';
+import { GetDerivative_derivative } from '../../generated/GetDerivative';
 
 interface IPDPData {
   capId: string | number | undefined;
-  derivativeInfo: GetVehicleDetails_derivativeInfo | null | undefined;
-  vehicleConfigurationByCapId:
+  derivativeInfo:
+    | GetVehicleDetails_derivativeInfo
+    | GetDerivative_derivative
+    | null
+    | undefined;
+  vehicleConfigurationByCapId?:
     | GetVehicleDetails_vehicleConfigurationByCapId
     | null
     | undefined;
@@ -224,4 +233,80 @@ export const pushAddToCartDataLayer = ({
   );
 
   pushToDataLayer(data);
+};
+
+const getCategoryAboutYouData = (
+  lineItem: GetOlafData_orderByUuid_lineItems | undefined,
+  derivativeData: GetDerivative_derivative | null,
+) => {
+  if (
+    lineItem?.productType === 'LCV' &&
+    derivativeData?.name.split(' ').includes('VAN')
+  ) {
+    return 'Van';
+  }
+
+  if (lineItem?.productType === 'LCV') return 'Pickup';
+
+  return 'Car';
+};
+
+export const pushAboutYouDataLayer = (
+  detailsData: GetOlafData_orderByUuid | null,
+  derivativeData: GetDerivative_derivative | null,
+) => {
+  const lineItem = detailsData?.lineItems[0];
+  const price = lineItem?.vehicleProduct?.monthlyPayment;
+  const data = {
+    event: 'checkout',
+    eventCategory: 'Ecommerce',
+    eventAction: 'Checkout - Step 1 Complete',
+    eventLabel: derivativeData?.name || '',
+    eventValue: `${price}`,
+    ecommerce: {
+      currencyCode: 'GBP',
+      checkout: {
+        actionField: {
+          step: '1',
+        },
+        products: [{}],
+      },
+    },
+  };
+
+  const product = data.ecommerce.checkout.products[0];
+  getProductData({
+    capId: derivativeData?.id,
+    derivativeInfo: derivativeData,
+    price,
+    category: getCategoryAboutYouData(lineItem, derivativeData),
+    product,
+  });
+
+  pushDetail('brand', derivativeData?.manufacturer.name, product);
+  pushDetail('variant', derivativeData?.range.name, product);
+  pushDetail('quantity', lineItem?.quantity, product);
+  pushDetail(
+    'vehicleModel',
+    derivativeData?.model.name !== derivativeData?.range.name
+      ? derivativeData?.model.name
+      : null,
+    product,
+  );
+  pushDetail('annualMileage', lineItem?.vehicleProduct?.annualMileage, product);
+  pushDetail('journeyType', detailsData?.leaseType, product);
+  pushDetail(
+    'priceType',
+    detailsData?.leaseType === LeaseTypeEnum.BUSINESS
+      ? PRICE_TYPE.excVAT
+      : PRICE_TYPE.incVAT,
+    product,
+  );
+  pushDetail('lengthOfLease', lineItem?.vehicleProduct?.term, product);
+  pushDetail(
+    'initialPayment',
+    lineItem?.vehicleProduct?.depositMonths,
+    product,
+  );
+  pushDetail('addMaintenance', lineItem?.vehicleProduct?.maintenance, product);
 };
