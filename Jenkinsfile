@@ -168,12 +168,12 @@ pipeline {
               withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
                     sh '''npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"'''
                     sh "yarn install"
-                    sh "yarn pack --filename next-storefront.tar.gz"
+                    // sh "yarn pack --filename next-storefront.tar.gz"
                     sh "yarn test --coverage"
                     sh "yarn lint"
                     sh "yarn typecheck"
                     // sh "yarn build"
-                    stash includes: 'next-storefront.tar.gz', name: 'package'
+                    // stash includes: 'next-storefront.tar.gz', name: 'package'
               }
                 sh "cp .coverage/lcov.info lcov.info"
                 stash includes: 'lcov.info', name: 'lcov'
