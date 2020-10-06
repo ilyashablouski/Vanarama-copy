@@ -28,7 +28,7 @@ const renderCarouselCards = (
         <Card
           optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           key={`${card.title}_${index.toString()}_${card.body}`}
-          className="card__article full-height"
+          className="card__article"
           imageSrc={card.featuredImage?.file?.url || ''}
           title={{
             className: '-flex-h',
@@ -114,9 +114,13 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
 }) => {
   const [activePage, setActivePage] = useState(1);
 
-  const articlesSorted = [...articles]?.sort((firstArticle, secondArticle) =>
-    moment(secondArticle?.publishedOn).diff(moment(firstArticle?.publishedOn)),
-  );
+  const articlesSorted = articles
+    ? [...articles]?.sort((firstArticle, secondArticle) =>
+        moment(secondArticle?.publishedOn).diff(
+          moment(firstArticle?.publishedOn),
+        ),
+      )
+    : [];
 
   const data = articlesSorted?.reduce(
     (obj, el) => {
@@ -269,7 +273,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
           </div>
         </div>
       )}
-      {data?.articles && data?.articles?.length && (
+      {data?.articles && (
         <div className="row:bg-lighter -col-300">
           <div className="row:cards-3col">{renderArticles()}</div>
           <div className="row:pagination">

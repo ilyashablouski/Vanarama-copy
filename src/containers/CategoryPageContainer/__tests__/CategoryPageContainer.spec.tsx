@@ -25,21 +25,20 @@ const METADATA = {
   schema: null,
 };
 
-const CAROUSEL = {
-  name: 'Insurance News',
-  title: 'Insurance News',
-  cards: [
-    {
-      titleTag: null,
-      link: null,
-      name: 'Do I Need Insurance For A Leased Car?',
-      title: 'Do I Need Insurance For A Leased Car?',
-      body:
-        'Find out what type of coverage you need for a new leased car.\n\n[Read More](https://beta.vanarama.com/car-leasing-explained/do-i-need-insurance-for-leased-car.html)',
-      image: null,
-    },
-  ],
-};
+const ARTICLES = [
+  {
+    body: 'Body',
+    featuredImage: { file: null, __typename: 'Image' },
+    intro: null,
+    slug: 'blog/cars/best-cars-for-mpg',
+    tags: null,
+    publishedOn: '2020-02-22',
+    isFeatured: false,
+    name: 'Best Cars For MPG',
+    title: 'Best Cars For MPG | Vanarama',
+    _typename: 'Article',
+  },
+];
 
 const FEATURED = {
   body:
@@ -110,19 +109,17 @@ describe('<CategoryPageContainer />', () => {
         <CategoryPageContainer
           featured={FEATURED}
           metaData={METADATA}
-          carousel={CAROUSEL}
+          articles={ARTICLES}
           tiles={TILES}
         />
       </MockedProvider>,
     );
     // ASSERT
     await waitFor(() => {
-      expect(screen.getByText(`Insurance News`)).toBeInTheDocument();
-    });
-
-    await waitFor(() => {
       expect(
-        screen.getByText(`Do I Need Insurance For A Leased Car?`),
+        screen.getByText(
+          `Sunt enim sunt laborum culpa eiusmod do aliqua voluptate in aute nisi anim magna ullamc`,
+        ),
       ).toBeInTheDocument();
     });
 
@@ -131,11 +128,7 @@ describe('<CategoryPageContainer />', () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText(`Top Articles`)).toBeInTheDocument();
-    });
-
-    await waitFor(() => {
-      expect(screen.getByText(`Category Titles`)).toBeInTheDocument();
+      expect(screen.getByText(`Best Cars For MPG`)).toBeInTheDocument();
     });
 
     const tree = getComponent.baseElement;
