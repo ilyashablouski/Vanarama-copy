@@ -61,71 +61,6 @@ export interface BlogPosts_blogPosts_sections_cards {
   cards: BlogPosts_blogPosts_sections_cards_cards[] | null;
 }
 
-export interface BlogPosts_blogPosts_sections_hero_image_file {
-  url: string;
-  fileName: string;
-  contentType: string;
-}
-
-export interface BlogPosts_blogPosts_sections_hero_image {
-  title: string | null;
-  description: string | null;
-  file: BlogPosts_blogPosts_sections_hero_image_file | null;
-}
-
-export interface BlogPosts_blogPosts_sections_hero_heroCard {
-  title: string | null;
-  body: string | null;
-}
-
-export interface BlogPosts_blogPosts_sections_hero {
-  position: number | null;
-  flag: string | null;
-  title: string | null;
-  titleTag: string | null;
-  body: string | null;
-  image: BlogPosts_blogPosts_sections_hero_image | null;
-  heroCard: (BlogPosts_blogPosts_sections_hero_heroCard | null)[] | null;
-}
-
-export interface BlogPosts_blogPosts_sections_featured_link {
-  text: string | null;
-  url: string | null;
-}
-
-export interface BlogPosts_blogPosts_sections_featured_image_file_details_image {
-  width: number;
-  height: number;
-}
-
-export interface BlogPosts_blogPosts_sections_featured_image_file_details {
-  size: number;
-  image: BlogPosts_blogPosts_sections_featured_image_file_details_image;
-}
-
-export interface BlogPosts_blogPosts_sections_featured_image_file {
-  url: string;
-  fileName: string;
-  contentType: string;
-  details: BlogPosts_blogPosts_sections_featured_image_file_details;
-}
-
-export interface BlogPosts_blogPosts_sections_featured_image {
-  title: string | null;
-  description: string | null;
-  file: BlogPosts_blogPosts_sections_featured_image_file | null;
-}
-
-export interface BlogPosts_blogPosts_sections_featured {
-  layout: (string | null)[] | null;
-  body: string | null;
-  title: string | null;
-  titleTag: string | null;
-  video: string | null;
-  link: BlogPosts_blogPosts_sections_featured_link | null;
-  image: BlogPosts_blogPosts_sections_featured_image | null;
-}
-
 export interface BlogPosts_blogPosts_sections_carousel_cards_image_file {
   url: string;
   fileName: string;
@@ -186,8 +121,6 @@ export interface BlogPosts_blogPosts_sections_tiles {
 export interface BlogPosts_blogPosts_sections {
   leadText: BlogPosts_blogPosts_sections_leadText | null;
   cards: BlogPosts_blogPosts_sections_cards | null;
-  hero: BlogPosts_blogPosts_sections_hero | null;
-  featured: BlogPosts_blogPosts_sections_featured | null;
   carousel: BlogPosts_blogPosts_sections_carousel | null;
   tiles: BlogPosts_blogPosts_sections_tiles | null;
 }
@@ -202,7 +135,10 @@ export interface BlogPosts_blogPosts_articles_featuredImage {
 
 export interface BlogPosts_blogPosts_articles {
   intro: string | null;
+  name: string | null;
+  publishedOn: any | null;
   featuredImage: BlogPosts_blogPosts_articles_featuredImage | null;
+  isFeatured: boolean | null;
   title: string | null;
   tags: (string | null)[] | null;
   slug: string | null;
