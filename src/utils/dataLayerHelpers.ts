@@ -7,10 +7,7 @@ import {
 } from '../../generated/GetVehicleDetails';
 import { OrderInputObject, LeaseTypeEnum } from '../../generated/globalTypes';
 import { PersonByToken } from '../../generated/PersonByToken';
-import {
-  GetOlafData_orderByUuid,
-  GetOlafData_orderByUuid_lineItems,
-} from '../../generated/GetOlafData';
+import { GetOlafData_orderByUuid } from '../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../generated/GetDerivative';
 
 interface IPDPData {

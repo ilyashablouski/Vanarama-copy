@@ -18,10 +18,10 @@ import {
 import { GetOlafData_orderByUuid } from '../../../generated/GetOlafData';
 
 interface IProps {
-  setDetailsData: React.Dispatch<
+  setDetailsData?: React.Dispatch<
     React.SetStateAction<GetOlafData_orderByUuid | null>
   >;
-  setDerivativeData: React.Dispatch<
+  setDerivativeData?: React.Dispatch<
     React.SetStateAction<GetDerivative_derivative | null>
   >;
   children?: ReactNode;

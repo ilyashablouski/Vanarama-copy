@@ -14,7 +14,7 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
-import { pushAboutYouDataLayer } from 'utils/dataLayerHelpers';
+import { pushAboutYouDataLayer } from '../../../utils/dataLayerHelpers';
 import AboutFormContainer from '../../../containers/AboutFormContainer/AboutFormContainer';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
