@@ -8,5 +8,5 @@
 // ====================================================
 
 export interface LastStepQuery {
-  lastStep: number | null;
+  lastStep: any | null;
 }

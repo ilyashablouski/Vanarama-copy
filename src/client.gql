@@ -1,5 +1,5 @@
 extend type Query {
   uuid: ID
   leaseTypes: JSON
-  lastStep: Int
+  lastStep: JSON
 }
