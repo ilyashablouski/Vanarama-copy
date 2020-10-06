@@ -9,7 +9,6 @@ import MediaFeatureSection from '../FleetPageContainer/sections/MediaFeatureSect
 import MediaFeatureText from './sections/MediaFeatureText';
 import InsuranceFAQSection from './sections/InsuranceFAQSection';
 import InsuranceNewsSection from './sections/InsuranceNewsSection';
-import Head from '../../components/Head/Head';
 
 const InsurancePageContainer = () => {
   const { data, error, loading } = useQuery<GetInsuranceLandingPage>(
@@ -27,8 +26,6 @@ const InsurancePageContainer = () => {
   if (!data) {
     return <></>;
   }
-
-  const metaData = data?.insuranceLandingPage?.metaData;
 
   return (
     <>
@@ -61,10 +58,6 @@ const InsurancePageContainer = () => {
           {...data?.insuranceLandingPage?.sections?.carousel}
         />
       )}
-      <Head
-        metaData={metaData}
-        featuredImage={data?.insuranceLandingPage?.featuredImage}
-      />
     </>
   );
 };

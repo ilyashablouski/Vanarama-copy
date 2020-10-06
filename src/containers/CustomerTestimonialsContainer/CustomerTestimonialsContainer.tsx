@@ -16,8 +16,7 @@ import { GenericPageTestimonialsQuery_genericPage_sections as Section } from '..
 import getTitleTag from '../../utils/getTitleTag';
 import { TESTIMONIALS_DATA } from '../../gql/testimonials';
 import TileLink from '../../components/TileLink/TileLink';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
-import getFeaturedHtml from '../FeaturedAndTilesContainer/getFeaturedHtml';
+import { FeaturedHtml } from '../FeaturedAndTilesContainer/getFeaturedHtml';
 
 interface IProps {
   sections: Section | null;
@@ -81,7 +80,6 @@ const CustomerTestimonialsContainer: FC<IProps> = ({ title, sections }) => {
   return (
     <>
       <div className="testimonials--content">
-        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {title}
         </Heading>
@@ -91,6 +89,7 @@ const CustomerTestimonialsContainer: FC<IProps> = ({ title, sections }) => {
           .map((item: TestimonialData | null, idx) => (
             <div className="review" key={idx}>
               <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 size="expand"
                 round
                 src={`https://eu.ui-avatars.com/api/?name=name=${item?.name}&color=ffffff&background=0A0D10&format=svg&rounded=true`}
@@ -131,6 +130,7 @@ const CustomerTestimonialsContainer: FC<IProps> = ({ title, sections }) => {
               key={tile.title || ''}
             >
               <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 src={tile.image?.file?.url || ''}
                 alt={tile.image?.title || ''}
                 size="expand"
@@ -168,6 +168,7 @@ const CustomerTestimonialsContainer: FC<IProps> = ({ title, sections }) => {
                 <Tile className="-plain -button -align-center" plain>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Image
+                      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                       inline
                       round
                       size="large"
@@ -183,7 +184,7 @@ const CustomerTestimonialsContainer: FC<IProps> = ({ title, sections }) => {
           })}
         </div>
       </div>
-      {getFeaturedHtml(sections?.featured)}
+      <FeaturedHtml featured={sections?.featured} />
     </>
   );
 };

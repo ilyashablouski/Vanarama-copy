@@ -26,7 +26,6 @@ const Head: FC<IHeadProps> = props => {
     <>
       <NextHead>
         <title>{title}</title>
-        <meta name="gtm_id" content={process?.env?.GTM_ID} />
         <meta name="og:type" content="website" />
         <meta property="og:locale" content="en_GB" />
         <meta property="og:title" content={title || defaultTitle} />

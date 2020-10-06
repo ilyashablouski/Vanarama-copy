@@ -11,19 +11,14 @@ import Flame from '@vanarama/uibook/lib/assets/icons/FlameSharp';
 import Arrow from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Redundancy from '@vanarama/uibook/lib/assets/icons/Redundancy';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
-
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-
 import { ProductCardData } from '../../../generated/ProductCardData';
-
 import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
 import withApollo from '../../hocs/withApollo';
 import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import { useGenericPageHead } from '../../gql/genericPage';
-import Head from '../../components/Head/Head';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import {
   useVehicleListUrl,
   useVehicleListUrlFetchMore,
@@ -115,9 +110,6 @@ export const OffersPage: NextPage = () => {
 
   return (
     <>
-      <div className="row:title">
-        <Breadcrumb />
-      </div>
       <div className="row:plain-hero">
         <div className="-col-100">
           <Heading color="black" size="xlarge" tag="h1">
@@ -166,7 +158,7 @@ export const OffersPage: NextPage = () => {
           </div>
         </div>
         <div>
-          <Card>
+          <Card optimisedHost={process.env.IMG_OPTIMISATION_HOST}>
             <Redundancy />
             <Heading size="lead" color="black">
               Redundancy & Life Event Cover
@@ -304,12 +296,6 @@ export const OffersPage: NextPage = () => {
           </div>
         </div>
       </div>
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={genericPageCMS?.genericPage.featuredImage}
-        />
-      )}
     </>
   );
 };

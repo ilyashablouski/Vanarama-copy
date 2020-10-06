@@ -1,17 +1,19 @@
+import { gql } from '@apollo/client';
 import ReactMarkdown from 'react-markdown';
-import React, { FC } from 'react';
+import React from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
-import { GenericPageQuery_genericPage_sections_tiles as Tiles } from '../../../generated/GenericPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import getTitleTag from '../../utils/getTitleTag';
+import FCWithFragments from '../../utils/FCWithFragments';
+import { GenericPageQueryTiles } from '../../../generated/GenericPageQueryTiles';
 
 interface IProps {
-  tiles: Tiles;
+  tiles: GenericPageQueryTiles;
 }
 
-const TilesContainer: FC<IProps> = ({ tiles }) => {
+const TilesContainer: FCWithFragments<IProps> = ({ tiles }) => {
   return (
     <section className="row:bg-light">
       <div>
@@ -28,6 +30,7 @@ const TilesContainer: FC<IProps> = ({ tiles }) => {
           <div className="row:cards-2col" style={{ paddingTop: '10px' }}>
             {tiles?.tiles.map((el, idx) => (
               <Card
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 inline
                 key={el.title || idx}
                 imageSrc={el.image?.file?.url || ''}
@@ -66,6 +69,31 @@ const TilesContainer: FC<IProps> = ({ tiles }) => {
       </div>
     </section>
   );
+};
+
+TilesContainer.fragments = {
+  tiles: gql`
+    fragment GenericPageQueryTiles on Tiles {
+      position
+      name
+      tilesTitle
+      titleTag
+      tiles {
+        body
+        title
+        link
+        image {
+          title
+          description
+          file {
+            url
+            fileName
+            contentType
+          }
+        }
+      }
+    }
+  `,
 };
 
 export default TilesContainer;

@@ -37,6 +37,7 @@ const InsuranceHeroSection = ({ title, body, heroCard, image }: IHero) => (
       }}
     />
     <Image
+      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
       alt="Hero Image"
       dataTestId="insurance_hero-image"
       size="expand"

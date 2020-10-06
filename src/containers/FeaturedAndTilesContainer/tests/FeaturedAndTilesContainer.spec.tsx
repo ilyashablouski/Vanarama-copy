@@ -2,6 +2,7 @@ import React from 'react';
 import { MockedProvider } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
 import FeaturedAndTilesContainer from '../FeaturedAndTilesContainer';
+import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -131,16 +132,22 @@ const SECTIONS = {
   },
 } as any;
 
+const DATA = {
+  genericPage: {
+    sections: SECTIONS,
+    body: BODY,
+    metaData: {
+      name: TITLE,
+    },
+  },
+} as GenericPageQuery;
+
 describe('<FeaturedAndTilesContainer />', () => {
   it('should match snapshot', async () => {
     // ACT
     const getComponent = render(
       <MockedProvider addTypename={false}>
-        <FeaturedAndTilesContainer
-          sections={SECTIONS}
-          title={TITLE}
-          body={BODY}
-        />
+        <FeaturedAndTilesContainer data={DATA} />
       </MockedProvider>,
     );
     // ASSERT

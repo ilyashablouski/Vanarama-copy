@@ -4,7 +4,6 @@ import Image from '@vanarama/uibook/lib/components/atoms/image';
 import ReactMarkdown from 'react-markdown';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { LegalPageQuery_genericPage_sections as Section } from '../../../generated/LegalPageQuery';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   body: string | null | undefined;
@@ -37,7 +36,6 @@ const LegalArticleContainer: NextPage<IProps> = ({
 }) => {
   return (
     <>
-      <Breadcrumb />
       <div className="row:title">
         <Heading tag="h1" size="xlarge" color="black">
           {name || ''}
@@ -45,7 +43,14 @@ const LegalArticleContainer: NextPage<IProps> = ({
       </div>
       <div className="row:bg-white -compact">
         <div className="row:featured-image">
-          {image && <Image className="-white" size="expand" src={image} />}
+          {image && (
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              className="-white"
+              size="expand"
+              src={image}
+            />
+          )}
         </div>
       </div>
       <div className="row:centered">

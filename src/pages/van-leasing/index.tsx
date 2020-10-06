@@ -46,7 +46,6 @@ import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import { formatProductPageUrl, getLegacyUrl, getNewUrl } from '../../utils/url';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
-import Head from '../../components/Head/Head';
 import { getSectionsData, getCardsName } from '../../utils/getSectionsData';
 import {
   useVehicleListUrl,
@@ -170,7 +169,6 @@ export const VansPage: NextPage = () => {
   );
 
   const isPersonal = cachedLeaseType === 'Personal';
-  const metaData = data?.hubVanPage?.metaData;
 
   return (
     <>
@@ -202,6 +200,7 @@ export const VansPage: NextPage = () => {
         />
         <br />
         <Image
+          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           className="hero--image"
           plain
           size="expand"
@@ -381,6 +380,7 @@ export const VansPage: NextPage = () => {
             data?.hubVanPage.sections,
           ) as CardData[])?.map((card: CardData, idx) => (
             <Card
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               key={card.title || idx}
               title={{
                 title: '',
@@ -463,6 +463,7 @@ export const VansPage: NextPage = () => {
           />
         ) : (
           <Image
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             src={
               getSectionsData(
                 ['featured1', 'image', 'file', 'url'],
@@ -541,6 +542,7 @@ export const VansPage: NextPage = () => {
           />
         ) : (
           <Image
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             src={
               getSectionsData(
                 ['featured2', 'image', 'file', 'url'],
@@ -651,6 +653,7 @@ export const VansPage: NextPage = () => {
             <Tile className="-plain -button -align-center" plain>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Image
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                   inline
                   round
                   size="large"
@@ -756,7 +759,14 @@ export const VansPage: NextPage = () => {
                 'https://www.vanarama.com/Assets/images-optimised/home/featured/thetelegraph.png',
             },
           ].map(({ href, label }) => (
-            <Image key={label} src={href} alt={label} size="expand" plain />
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              key={label}
+              src={href}
+              alt={label}
+              size="expand"
+              plain
+            />
           ))}
         </div>
       </section>
@@ -764,12 +774,6 @@ export const VansPage: NextPage = () => {
       <section className="row:trustpilot">
         <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
       </section>
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.hubVanPage?.featuredImage}
-        />
-      )}
     </>
   );
 };

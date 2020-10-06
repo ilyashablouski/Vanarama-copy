@@ -145,6 +145,7 @@ const ThankYouPage: NextPage = () => {
           <Tile plain className="-align-center -button">
             <span>
               <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 src="https://source.unsplash.com/collection/2102317/500x325?sig=40347"
                 inline
                 round
@@ -163,6 +164,7 @@ const ThankYouPage: NextPage = () => {
           <Tile plain className="-align-center -button">
             <span>
               <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 src="https://source.unsplash.com/collection/2102317/500x325?sig=403419"
                 inline
                 round
@@ -181,6 +183,7 @@ const ThankYouPage: NextPage = () => {
           <Tile plain className="-align-center -button">
             <span>
               <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 src="https://source.unsplash.com/collection/2102317/500x325?sig=403430"
                 inline
                 round
@@ -199,6 +202,7 @@ const ThankYouPage: NextPage = () => {
           <Tile plain className="-align-center -button">
             <span>
               <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 src="https://source.unsplash.com/collection/2102317/500x325?sig=40347"
                 inline
                 round

@@ -50,7 +50,6 @@ import { formatProductPageUrl, getLegacyUrl, getNewUrl } from '../../utils/url';
 import { CompareContext } from '../../utils/comparatorTool';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
-import Head from '../../components/Head/Head';
 import {
   useVehicleListUrl,
   useVehicleListUrlFetchMore,
@@ -107,7 +106,6 @@ export const PickupsPage: NextPage = () => {
   );
 
   const isPersonal = cachedLeaseType === 'Personal';
-  const metaData = data?.hubPickupPage?.metaData;
 
   return (
     <>
@@ -124,6 +122,7 @@ export const PickupsPage: NextPage = () => {
         <HeroTitle text={data?.hubPickupPage.sections?.hero?.body || ''} />
         <br />
         <Image
+          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           className="hero--image"
           plain
           size="expand"
@@ -188,6 +187,7 @@ export const PickupsPage: NextPage = () => {
             );
             return (
               <ProductCard
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 key={item?.capId || idx}
                 header={{
                   accentIcon: <Icon icon={<Flame />} color="white" />,
@@ -236,7 +236,9 @@ export const PickupsPage: NextPage = () => {
                     price={isPersonal ? item?.personalRate : item?.businessRate}
                     size="large"
                     separator="."
-                    priceDescription="Per Month Exc.VAT"
+                    priceDescription={`Per Month ${
+                      isPersonal ? 'Inc' : 'Exc'
+                    }.VAT`}
                   />
                   <RouterLink
                     link={{
@@ -315,6 +317,7 @@ export const PickupsPage: NextPage = () => {
           />
         ) : (
           <Image
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             src={
               getSectionsData(
                 ['featured1', 'image', 'file', 'url'],
@@ -384,6 +387,7 @@ export const PickupsPage: NextPage = () => {
           />
         ) : (
           <Image
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             src={
               getSectionsData(
                 ['featured2', 'image', 'file', 'url'],
@@ -440,6 +444,7 @@ export const PickupsPage: NextPage = () => {
           (acc: AccessoryData, idx: number) => (
             <div key={acc.title || idx}>
               <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 size="expand"
                 src={
                   acc.image?.file?.url ||
@@ -508,6 +513,7 @@ export const PickupsPage: NextPage = () => {
               <Tile className="-plain -button -align-center" plain>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                   <Image
+                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                     inline
                     round
                     size="large"
@@ -616,19 +622,20 @@ export const PickupsPage: NextPage = () => {
                 'https://www.vanarama.com/Assets/images-optimised/home/featured/thetelegraph.png',
             },
           ].map(({ href, label }) => (
-            <Image key={label} src={href} alt={label} size="expand" plain />
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              key={label}
+              src={href}
+              alt={label}
+              size="expand"
+              plain
+            />
           ))}
         </div>
       </section>
       <section className="row:trustpilot">
         <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
       </section>
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.hubPickupPage?.featuredImage}
-        />
-      )}
     </>
   );
 };

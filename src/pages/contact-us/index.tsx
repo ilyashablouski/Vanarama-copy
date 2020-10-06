@@ -19,9 +19,8 @@ import {
   ContactUsPageData_contactUsLandingPage_sections_featured2_cards as Cards2,
 } from '../../../generated/ContactUsPageData';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import Head from '../../components/Head/Head';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { getSectionsData } from '../../utils/getSectionsData';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { useGenericPage } from '../../gql/genericPage';
 
 export const ContactUsPage: NextPage = () => {
@@ -32,8 +31,9 @@ export const ContactUsPage: NextPage = () => {
   if (loading) {
     return <Loading size="large" />;
   }
+
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <ErrorMessage message={error.message} />;
   }
 
   const COORDS = { lat: 51.762479, lng: -0.438241 };
@@ -42,7 +42,6 @@ export const ContactUsPage: NextPage = () => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading size="xlarge" color="black" tag="h1">
           {metaData?.name}
         </Heading>
@@ -127,7 +126,10 @@ export const ContactUsPage: NextPage = () => {
             ['cards', 'cards'],
             data?.genericPage.sections,
           ) as Cards[])?.map((c: Cards, idx) => (
-            <Card key={c.title || idx}>
+            <Card
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              key={c.title || idx}
+            >
               <Heading size="large" color="black">
                 {c.title}
               </Heading>
@@ -187,8 +189,16 @@ export const ContactUsPage: NextPage = () => {
           ['featured2', 'cards'],
           data?.genericPage.sections,
         ) as Cards2[])?.map((c: Cards2 | null, idx) => (
-          <Card inline key={c?.title || idx}>
-            <Image className="card-image" src={c?.image?.file?.url || ''} />
+          <Card
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            inline
+            key={c?.title || idx}
+          >
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              className="card-image"
+              src={c?.image?.file?.url || ''}
+            />
             <CardTitle title={c?.title || ''} />
             <Text color="darker">{c?.body}</Text>
             <Button
@@ -200,12 +210,6 @@ export const ContactUsPage: NextPage = () => {
           </Card>
         ))}
       </section>
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.genericPage?.featuredImage}
-        />
-      )}
     </>
   );
 };

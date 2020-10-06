@@ -12,6 +12,7 @@ import RouterLink from '../../../components/RouterLink/RouterLink';
 
 const renderCard = (card: TypeCard) => (
   <Card
+    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
     key={card.name || undefined}
     imageSrc={card.image?.file?.url}
     title={{

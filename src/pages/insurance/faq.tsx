@@ -4,7 +4,7 @@ import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
 import withApollo from '../../hocs/withApollo';
 import FAQContainer from '../../containers/FAQContainer/FAQContainer';
-import Head from '../../components/Head/Head';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { useGenericPage } from '../../gql/genericPage';
 
 const EligibilityChecker: NextPage = () => {
@@ -15,7 +15,7 @@ const EligibilityChecker: NextPage = () => {
     return <Loading size="large" />;
   }
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <ErrorMessage message={error.message} />;
   }
 
   if (!data?.genericPage) {
@@ -27,13 +27,7 @@ const EligibilityChecker: NextPage = () => {
   const intro = data.genericPage?.intro;
 
   return (
-    <>
-      <FAQContainer title={metaData.name} sections={sections} intro={intro} />
-      <Head
-        metaData={metaData}
-        featuredImage={data?.genericPage.featuredImage}
-      />
-    </>
+    <FAQContainer title={metaData.name} sections={sections} intro={intro} />
   );
 };
 

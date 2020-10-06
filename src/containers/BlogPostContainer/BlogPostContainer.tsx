@@ -8,7 +8,6 @@ import ReactMarkdown from 'react-markdown';
 import Router from 'next/router';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery_genericPage_sections_cards_cards } from '../../../generated/GenericPageQuery';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   body: string | null | undefined;
@@ -40,14 +39,20 @@ const BlogPostContainer: NextPage<IProps> = ({ body, name, image, cards }) => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {name || ''}
         </Heading>
       </div>
       <div className="row:bg-white -compact">
         <div className="row:featured-image">
-          {image && <Image className="-white" size="expand" src={image} />}
+          {image && (
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              className="-white"
+              size="expand"
+              src={image}
+            />
+          )}
         </div>
       </div>
       <div className="row:article">
@@ -77,6 +82,7 @@ const BlogPostContainer: NextPage<IProps> = ({ body, name, image, cards }) => {
           )}
           {cards?.map((el, indx) => (
             <Card
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               key={`${el?.name}_${indx.toString()}`}
               className="card__article"
               imageSrc={el?.image?.file?.url || ''}

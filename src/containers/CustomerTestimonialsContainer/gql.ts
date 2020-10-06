@@ -3,6 +3,8 @@ import {
   GenericPageTestimonialsQuery,
   GenericPageTestimonialsQueryVariables,
 } from '../../../generated/GenericPageTestimonialsQuery';
+import TilesContainer from '../TilesContainer/TilesContainer';
+import { FeaturedHtml } from '../FeaturedAndTilesContainer/getFeaturedHtml';
 
 export const GENERIC_PAGE_TESTIMONIALS = gql`
   query GenericPageTestimonialsQuery($slug: String!) {
@@ -10,94 +12,24 @@ export const GENERIC_PAGE_TESTIMONIALS = gql`
       id
       intro
       body
-      featuredImage {
-        title
-        description
-        file {
-          url
-          fileName
-          contentType
-        }
-      }
       metaData {
-        title
         name
-        metaRobots
-        metaDescription
-        publishedOn
-        legacyUrl
-        pageType
-        canonicalUrl
-        slug
-        publishedOn
-        schema
       }
       sections {
         tiles1 {
-          name
-          titleTag
-          tiles {
-            title
-            body
-            image {
-              title
-              description
-              file {
-                url
-                contentType
-              }
-            }
-            link
-          }
+          ...GenericPageQueryTiles
         }
         tiles2 {
-          name
-          titleTag
-          tiles {
-            title
-            body
-            image {
-              title
-              description
-              file {
-                url
-                contentType
-              }
-            }
-            link
-          }
+          ...GenericPageQueryTiles
         }
         featured {
-          layout
-          body
-          title
-          titleTag
-          video
-          titleTag
-          link {
-            text
-            url
-          }
-          image {
-            title
-            description
-            file {
-              url
-              fileName
-              contentType
-              details {
-                size
-                image {
-                  width
-                  height
-                }
-              }
-            }
-          }
+          ...GenericPageQueryFeatured
         }
       }
     }
   }
+  ${FeaturedHtml.fragments.featured}
+  ${TilesContainer.fragments.tiles}
 `;
 
 export function useGenericPageTestimonials(slug: string) {

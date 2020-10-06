@@ -9,7 +9,6 @@ import ReactMarkdown from 'react-markdown';
 import Pagination from '@vanarama/uibook/lib/components/atoms/pagination';
 import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { ICategoryPage } from './interface';
 import {
   GenericPageQuery_genericPage_sections_carousel_cards,
@@ -23,6 +22,7 @@ const renderCarouselCards = (
     (card, index) =>
       card && (
         <Card
+          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           key={`${card.title}_${index.toString()}_${card.body}`}
           className="card__article"
           imageSrc={card.image?.file?.url || ''}
@@ -66,6 +66,7 @@ const renderCards = (
   return cards?.map(card =>
     card?.body ? (
       <Card
+        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         key={card.title || undefined}
         imageSrc={card.image?.file?.url || ''}
         title={{
@@ -112,6 +113,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
     return showCards?.map(card =>
       card?.body ? (
         <Card
+          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           key={card?.body || undefined}
           imageSrc={card.featuredImage?.file?.url || ''}
           title={{
@@ -160,14 +162,16 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {metaData?.name || pageTitle}
         </Heading>
       </div>
       {featured && (
         <div className="row:featured-left">
-          <Image src={featured?.image?.file?.url || ''} />
+          <Image
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            src={featured?.image?.file?.url || ''}
+          />
           <div>
             <Heading size="large" color="black">
               {featured?.title}
