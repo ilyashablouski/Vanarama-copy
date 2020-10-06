@@ -1,4 +1,6 @@
 import { gql } from '@apollo/client';
+import { FeaturedHtml } from '../containers/FeaturedAndTilesContainer/getFeaturedHtml';
+import TilesContainer from '../containers/TilesContainer/TilesContainer';
 
 const ALL_HOME_CONTENT = gql`
   query HomePageData {
@@ -25,7 +27,7 @@ const ALL_HOME_CONTENT = gql`
         pageType
         canonicalUrl
         slug
-        publishedOn
+        breadcrumbs
         schema
       }
       sections {
@@ -63,51 +65,19 @@ const ALL_HOME_CONTENT = gql`
           }
         }
         featured1 {
-          title
-          titleTag
-          body
-          image {
-            file {
-              url
-            }
-          }
-          iconList {
-            text
-          }
-          layout
-          video
+          ...GenericPageQueryFeatured
         }
         featured2 {
-          title
-          titleTag
-          body
-          layout
-          video
-          image {
-            file {
-              url
-            }
-          }
+          ...GenericPageQueryFeatured
         }
         tiles {
-          name
-          titleTag
-          tilesTitle
-          tiles {
-            title
-            link
-            body
-            image {
-              file {
-                url
-              }
-              title
-            }
-          }
+          ...GenericPageQueryTiles
         }
       }
     }
   }
+  ${TilesContainer.fragments.tiles}
+  ${FeaturedHtml.fragments.featured}
 `;
 
 // eslint-disable-next-line import/prefer-default-export

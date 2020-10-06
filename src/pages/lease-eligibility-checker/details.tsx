@@ -6,7 +6,6 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import withApollo from '../../hocs/withApollo';
 import EligibilityCheckerContainer from '../../containers/EligibilityCheckerContainer/EligibilityCheckerContainer';
 import ErrorMessage from './error-message';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 const EligibilityCheckerDetails: NextPage = () => {
   const [
@@ -18,7 +17,6 @@ const EligibilityCheckerDetails: NextPage = () => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading
           color="black"
           size="xlarge"

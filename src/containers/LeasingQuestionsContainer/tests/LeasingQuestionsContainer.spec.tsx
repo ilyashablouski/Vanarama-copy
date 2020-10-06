@@ -2,6 +2,7 @@ import React from 'react';
 import { MockedProvider } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
 import LeasingQuestionsContainer from '../LeasingQuestionsContainer';
+import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -19,6 +20,7 @@ const METADATA = {
   legacyUrl: 'https://www.vanarama.com/car-leasing-explained.html',
   pageType: 'Customer Leasing Questions',
   __typename: 'Meta',
+  name: 'Customer Leasing Questions',
 };
 const BODY = `At Vanarama, we can offer you the best car leasing option to suit your needs, whether it's personal contract hire or business contract hire.\n\nWe understand the importance of your new car decision and want to make sure the process is as simple and seamless as possible for you. You can find out how we do this by visiting our page about&nbsp;[How Car Leasing Works](https://beta.vanarama.com/car-leasing-explained.html).\n\nYou can use the links below to view the key features and benefits of the new car finance products available. Our in-depth FAQs will also help with any specific queries. If you need any more information, please feel free to pick up the phone to one of our Account Managers on 01442 835 769 or drop us an email at [enquiries@vanarama.co.uk](mailto:enquiries@vanarama.co.uk).\n\n## Available New Car Finance Leasing Options\n \n- [Business Contract Hire](https://beta.vanarama.com/car-business-contract-hire.html)\n- [Personal Contract Hire](https://beta.vanarama.com/car-personal-contract-hire.html "Personal Contract Hire")\n \n\n\n`;
 
@@ -95,16 +97,23 @@ const SECTIONS = {
   },
 } as any;
 
+const DATA = {
+  genericPage: {
+    sections: SECTIONS,
+    body: BODY,
+    metaData: METADATA,
+    id: 'id',
+    featuredImage: null,
+    intro: '',
+  },
+} as GenericPageQuery;
+
 describe('<FinanceExplainedContainer />', () => {
   it('should match snapshot', async () => {
     // ACT
     const getComponent = render(
       <MockedProvider addTypename={false}>
-        <LeasingQuestionsContainer
-          sections={SECTIONS}
-          title={METADATA.title}
-          body={BODY}
-        />
+        <LeasingQuestionsContainer data={DATA} />
       </MockedProvider>,
     );
     // ASSERT

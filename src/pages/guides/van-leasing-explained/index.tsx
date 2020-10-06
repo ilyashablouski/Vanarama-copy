@@ -4,9 +4,9 @@ import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import withApollo from '../../../hocs/withApollo';
 import LeasingExplainedContainer from '../../../containers/LeasingExplainedContainer/LeasingExplainedContainer';
-import Head from '../../../components/Head/Head';
 import { useGenericPage } from '../../../gql/genericPage';
 import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
+import { getSectionsData } from '../../../utils/getSectionsData';
 
 const FinanceInfo: NextPage = () => {
   const router = useRouter();
@@ -23,23 +23,12 @@ const FinanceInfo: NextPage = () => {
   if (!data?.genericPage) {
     return null;
   }
-
-  const metaData = data?.genericPage?.metaData;
-  const sections = data.genericPage?.sections;
-  const body = data.genericPage?.body;
+  const title = getSectionsData(['metaData', 'name'], data?.genericPage);
+  const sections = getSectionsData(['sections'], data?.genericPage);
+  const body = getSectionsData(['body'], data?.genericPage);
 
   return (
-    <>
-      <LeasingExplainedContainer
-        body={body}
-        title={metaData?.name}
-        sections={sections}
-      />
-      <Head
-        metaData={metaData}
-        featuredImage={data?.genericPage.featuredImage}
-      />
-    </>
+    <LeasingExplainedContainer body={body} title={title} sections={sections} />
   );
 };
 

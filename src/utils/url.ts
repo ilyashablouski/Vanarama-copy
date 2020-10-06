@@ -103,6 +103,37 @@ export const getVehicleConfigurationPath = (path: string, prefix: string) => {
   return newPath;
 };
 
+/**
+ * define on which page not to show Breadcrumbs
+ * @param routerPathName - string router pathName
+ */
+export const isNotShowBreadcrumbs = (routerPathName: string) => {
+  const pathNamePart = routerPathName.split('/');
+  const pathNameLength = pathNamePart.length;
+  return (
+    // not to show on location pages
+    routerPathName.includes('[location]') ||
+    // not to show on PDP pages
+    routerPathName.includes('[...details-page]') ||
+    // not to show on b2b and b2c pages
+    routerPathName.includes('/olaf') ||
+    // not to show on insurance pages, but show on faq insurance
+    (pathNameLength === 2 && routerPathName.includes('/insurance')) ||
+    (pathNameLength === 3 &&
+      routerPathName.includes('/insurance') &&
+      !pathNamePart[2].includes('/faq')) ||
+    // not to show on main van leasing page
+    (pathNameLength === 2 && routerPathName.includes('/van-leasing')) ||
+    // not to show on main car leasing page
+    (pathNameLength === 2 && routerPathName.includes('/car-leasing')) ||
+    // not to show on main pickup leasing page
+    (pathNameLength === 2 &&
+      routerPathName.includes('/pickup-truck-leasing')) ||
+    // not to show on home page
+    routerPathName.length === 1
+  );
+};
+
 export type productPageUrlData = {
   manufacturer: string | null;
   range: string | null;

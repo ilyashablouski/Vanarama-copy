@@ -4,9 +4,9 @@ import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import withApollo from '../../../../hocs/withApollo';
 import LeasingArticleContainer from '../../../../containers/LeasingArticleContainer/LeasingArticleContainer';
-import Head from '../../../../components/Head/Head';
 import { useGenericPage } from '../../../../gql/genericPage';
 import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
+import { getSectionsData } from '../../../../utils/getSectionsData';
 
 const FinanceInfo: NextPage = () => {
   const router = useRouter();
@@ -23,23 +23,21 @@ const FinanceInfo: NextPage = () => {
     return null;
   }
 
-  const metaData = data?.genericPage?.metaData;
-  const sections = data.genericPage?.sections;
-  const body = data.genericPage?.body;
+  const title = getSectionsData(['metaData', 'name'], data?.genericPage);
+  const sections = getSectionsData(['sections'], data?.genericPage);
+  const body = getSectionsData(['body'], data?.genericPage);
+  const featuredImage = getSectionsData(
+    ['featuredImage', 'file', 'url'],
+    data?.genericPage,
+  );
 
   return (
-    <>
-      <LeasingArticleContainer
-        body={body}
-        title={metaData?.name}
-        sections={sections}
-        image={data?.genericPage.featuredImage?.file?.url}
-      />
-      <Head
-        metaData={metaData}
-        featuredImage={data?.genericPage.featuredImage}
-      />
-    </>
+    <LeasingArticleContainer
+      body={body}
+      title={title}
+      sections={sections}
+      image={featuredImage}
+    />
   );
 };
 
