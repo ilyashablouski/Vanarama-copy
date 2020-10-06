@@ -392,6 +392,10 @@ const SearchPageContainer: React.FC<IProps> = ({
   // initial set offers
   useEffect(() => {
     if (data?.vehicleList) {
+      if (data.vehicleList?.edges?.length === 0 && isSpecialOffers) {
+        setIsSpecialOffers(false);
+        return;
+      }
       setVehicleList(data.vehicleList?.edges || []);
       setLastCard(data.vehicleList.pageInfo.endCursor || '');
       setHasNextPage(data.vehicleList.pageInfo.hasNextPage || false);
@@ -412,6 +416,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     setCapsIds,
     isMakePage,
     isAllMakesPage,
+    isSpecialOffers,
   ]);
 
   // initial set ranges
@@ -776,6 +781,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             isCarSearch={isCarSearch}
             preSearchVehicleCount={totalCount}
             isSpecialOffers={isSpecialOffers || null}
+            setIsSpecialOffers={setIsSpecialOffers}
             isModelPage={isModelPage}
             isAllMakesPage={isAllMakesPage}
             isBodyPage={isBodyStylePage}
