@@ -1,6 +1,6 @@
 import { useApolloClient, gql } from '@apollo/client';
 
-const query = gql`
+export const query = gql`
   query LastStepQuery {
     lastStep @client
   }
@@ -23,6 +23,7 @@ export default function useProgressHistory(orderId: string) {
     get cachedLastStep() {
       try {
         const res = client.readQuery({ query });
+        console.log(res);
         return res.lastStep[orderId];
       } catch {
         return 1;
