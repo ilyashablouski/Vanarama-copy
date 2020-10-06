@@ -1,18 +1,37 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import ChevronDownSharp from '@vanarama/uibook/lib/assets/icons/ChevronDownSharp';
 import ChevronUpSharp from '@vanarama/uibook/lib/assets/icons/ChevronUpSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import OlafCard from '@vanarama/uibook/lib/components/molecules/cards/OlafCard/OlafCard';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { useOlafData, useCarDerivativeData } from '../../gql/order';
 import { createOlafDetails, useFunderTerm, OlafContext } from './helpers';
 import { OLAFQueryParams } from '../../utils/url';
-import { GetDerivative_vehicleImages as VehicleImages } from '../../../generated/GetDerivative';
+import {
+  GetDerivative_derivative,
+  GetDerivative_vehicleImages as VehicleImages,
+} from '../../../generated/GetDerivative';
+import { GetOlafData_orderByUuid } from '../../../generated/GetOlafData';
 
-const OLAFLayout: React.FC = ({ children }) => {
+interface IProps {
+  setDetailsData?: React.Dispatch<
+    React.SetStateAction<GetOlafData_orderByUuid | null>
+  >;
+  setDerivativeData?: React.Dispatch<
+    React.SetStateAction<GetDerivative_derivative | null>
+  >;
+  children?: ReactNode;
+}
+
+const OLAFLayout: React.FC<IProps> = ({
+  children,
+  setDetailsData,
+  setDerivativeData,
+}) => {
   const router = useRouter();
   const { orderId } = router.query as OLAFQueryParams;
 
@@ -39,6 +58,19 @@ const OLAFLayout: React.FC = ({ children }) => {
       getDerivativeData();
     }
   }, [orderByUuid, getDerivativeData]);
+
+  useEffect(() => {
+    if (
+      orderByUuid &&
+      derivativeData.data &&
+      setDetailsData &&
+      setDerivativeData
+    ) {
+      setDetailsData(orderByUuid);
+      setDerivativeData(derivativeData.data.derivative);
+    }
+  }, [orderByUuid, setDerivativeData, setDetailsData, derivativeData]);
+
   const term = useFunderTerm(olafData.data?.orderByUuid);
 
   return (
