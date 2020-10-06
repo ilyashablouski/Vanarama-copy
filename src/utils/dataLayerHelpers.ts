@@ -308,5 +308,11 @@ export const pushAboutYouDataLayer = (
     lineItem?.vehicleProduct?.depositMonths,
     product,
   );
-  pushDetail('addMaintenance', lineItem?.vehicleProduct?.maintenance, product);
+  pushDetail(
+    'addMaintenance',
+    lineItem?.vehicleProduct?.maintenancePrice,
+    product,
+  );
+
+  pushToDataLayer(data);
 };

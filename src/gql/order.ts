@@ -150,6 +150,7 @@ export const GET_OLAF_DATA = gql`
           depositPayment
           monthlyPayment
           term
+          maintenancePrice
           annualMileage
           depositMonths
           funderId
