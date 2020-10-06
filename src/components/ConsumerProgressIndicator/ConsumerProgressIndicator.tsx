@@ -4,8 +4,9 @@ import Step from '@vanarama/uibook/lib/components/molecules/progress-indicator/S
 import StepLink from '@vanarama/uibook/lib/components/molecules/progress-indicator/StepLink';
 import NextJsLink from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { getUrlParam } from '../../utils/url';
+import useProgressHistory from '../../hooks/useProgressHistory';
 
 type QueryParams = {
   redirect?: string;
@@ -14,24 +15,34 @@ type QueryParams = {
 };
 
 const ConsumerProgressIndicator: React.FC = () => {
+  // const [latestStep, setLatestStep] = useState(1);
   const { pathname, query } = useRouter();
   const { redirect, uuid, orderId } = query as QueryParams;
+  const { setCachedLastStep, cachedLastStep } = useProgressHistory();
+
+  const latestStep = cachedLastStep;
 
   // Only regenerate the steps if the `orderId` changes
   const steps = useMemo(() => generateSteps(), [orderId]);
   // Work out the current step based on the URL
-  const currentStep = steps.find(x => x.href === pathname)?.step;
+  const currentStep = steps.find(x => x.href === pathname)?.step || 1;
   // If the querystring contains `redirect=summary` then the current step is being edited
   const editingStep = redirect === 'summary' ? currentStep : 0;
   // If the current step is being edited then mark the summary step as the active step
-  const activeStep = editingStep
-    ? steps.find(x => x.href === '/olaf/summary/[orderId]')?.step
-    : currentStep;
+  const activeStep = editingStep ? steps[steps.length - 1]?.step : latestStep;
 
   const asHref = getUrlParam({
     uuid,
     redirect: activeStep === 6 ? 'summary' : '',
   });
+
+  useEffect(() => {
+    if (currentStep > latestStep) {
+      setCachedLastStep(currentStep);
+    }
+    console.log(currentStep);
+    console.log(latestStep);
+  }, [currentStep]);
 
   return (
     <ProgressIndicator activeStep={activeStep || 0}>
