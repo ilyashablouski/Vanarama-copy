@@ -68,7 +68,10 @@ export const LocationsPage: NextPage = () => {
         <section className="row:bg-lighter -thin">
           <div className="row:cards-3col">
             {cards.map((card: ICard, i: number) => (
-              <Card key={i.toString()}>
+              <Card
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                key={i.toString()}
+              >
                 <CardTitle
                   title={card.title || ''}
                   tag={

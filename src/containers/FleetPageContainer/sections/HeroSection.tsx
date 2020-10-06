@@ -8,6 +8,7 @@ const HeroSection = ({ title, body, image }: IHeroData) => (
     <HeroHeading text={title || ''} />
     <HeroTitle text={body || ''} />
     <Image
+      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
       dataTestId="fleet_hero-image"
       size="expand"
       src={image?.file?.url || config.heroImage.src}

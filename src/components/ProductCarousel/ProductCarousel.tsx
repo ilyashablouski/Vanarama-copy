@@ -50,6 +50,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
         (product, inx) =>
           product && (
             <ProductCard
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               key={`${product.capId}_${inx}` || ''}
               header={
                 product.leadTime || product.isOnOffer

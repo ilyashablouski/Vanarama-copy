@@ -81,6 +81,7 @@ export const LocationsPage: NextPage = () => {
                 {hero.body}
               </Text>
               <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 className="hero--image"
                 plain
                 src={
@@ -92,7 +93,10 @@ export const LocationsPage: NextPage = () => {
             <div className="hero--right">
               {hero.heroCard &&
                 hero.heroCard.map(el => (
-                  <Card className="hero-card">
+                  <Card
+                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                    className="hero-card"
+                  >
                     <div className="hero-card--inner">
                       <Heading tag="span" color="black" size="small">
                         {el?.title}
@@ -251,7 +255,7 @@ export const LocationsPage: NextPage = () => {
       )}
       {featured && (
         <div className={`row:${getFeaturedClassPartial(featured)}`}>
-          <Card>
+          <Card optimisedHost={process.env.IMG_OPTIMISATION_HOST}>
             <GoldrushForm
               callBack={false}
               isSubmitting={loading}
@@ -310,6 +314,7 @@ export const LocationsPage: NextPage = () => {
               <Tile className="-plain -button -align-center" plain>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                   <Image
+                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                     inline
                     round
                     size="large"

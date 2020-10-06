@@ -88,6 +88,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
             </Heading>
             {cards.map((el: Cards, indx: number) => (
               <Card
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 key={`${el.name}_${indx.toString()}`}
                 title={{
                   title: el.title || '',
@@ -175,6 +176,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
           </div>
           {featured1.image?.file?.url && (
             <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={featured1.image?.file?.url}
               alt={featured1.image?.file?.fileName}
             />
@@ -187,6 +189,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
             <Carousel countItems={carousel?.cards?.length || 0}>
               {carousel?.cards.map(el => (
                 <Card
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                   imageSrc={el?.image?.file?.url || ''}
                   title={{
                     title: el?.title || '',

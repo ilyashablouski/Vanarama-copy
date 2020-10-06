@@ -89,6 +89,7 @@ const CustomerTestimonialsContainer: FC<IProps> = ({ title, sections }) => {
           .map((item: TestimonialData | null, idx) => (
             <div className="review" key={idx}>
               <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 size="expand"
                 round
                 src={`https://eu.ui-avatars.com/api/?name=name=${item?.name}&color=ffffff&background=0A0D10&format=svg&rounded=true`}
@@ -129,6 +130,7 @@ const CustomerTestimonialsContainer: FC<IProps> = ({ title, sections }) => {
               key={tile.title || ''}
             >
               <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 src={tile.image?.file?.url || ''}
                 alt={tile.image?.title || ''}
                 size="expand"
@@ -166,6 +168,7 @@ const CustomerTestimonialsContainer: FC<IProps> = ({ title, sections }) => {
                 <Tile className="-plain -button -align-center" plain>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Image
+                      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                       inline
                       round
                       size="large"
