@@ -31,7 +31,10 @@ import {
 import { formValuesToInputCreditApplication } from '../../../mappers/mappersCreditApplication';
 import { usePersonByUuidData } from '../../../gql/person';
 import { useCreateUpdateOrder } from '../../../gql/order';
-import { LeaseTypeEnum } from '../../../../generated/globalTypes';
+import {
+  LeaseTypeEnum,
+  CreditApplicationTypeEnum as CATypeEnum,
+} from '../../../../generated/globalTypes';
 import { useImperativeQuery } from '../../../hooks/useImperativeQuery';
 import { GET_ORDERS_BY_PARTY_UUID_DATA } from '../../../containers/OrdersInformation/gql';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../../gql/companies';
@@ -142,7 +145,7 @@ const AboutYouPage: NextPage = () => {
           ...creditApplication.data?.creditApplicationByOrderUuid,
           orderUuid: orderId,
           aboutDetails: createUpdatePerson,
-          B2C_PERSONAL: 'B2C_PERSONAL',
+          creditApplicationType: CATypeEnum.B2C_PERSONAL,
         }),
       },
     });
