@@ -217,7 +217,7 @@ export interface BlogPost_blogPost_sections {
 }
 
 export interface BlogPost_blogPost {
-  metaData: BlogPost_blogPost_metaData;
+  metaData: BlogPost_blogPost_metaData | null;
   featuredImage: BlogPost_blogPost_featuredImage | null;
   sections: BlogPost_blogPost_sections | null;
   body: string | null;
