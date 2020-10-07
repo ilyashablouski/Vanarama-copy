@@ -272,7 +272,7 @@ export const CarsPage: NextPage = () => {
 
           <RouterLink
             link={{
-              href: '/car-leasing',
+              href: '/car-leasing/search',
               label: 'View All Cars',
             }}
             classNames={{ color: 'teal', size: 'large' }}

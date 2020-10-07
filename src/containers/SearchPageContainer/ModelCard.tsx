@@ -15,7 +15,7 @@ interface IModelCardProps {
 
 const ModelCard = memo(
   ({ isPersonalPrice, data, viewModel }: IModelCardProps) => {
-    const router = useRouter();
+    const { query } = useRouter();
     const { data: imagesData } = useModelImages(
       [data?.capId?.toString() || '1'],
       !data?.capId,
@@ -26,8 +26,7 @@ const ModelCard = memo(
         }
       : {};
 
-    const rangeName =
-      (router.query.rangeName as string).split('+').join(' ') || '';
+    const rangeName = (query.rangeName as string).split('+').join(' ') || '';
     return (
       <Card
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -38,10 +37,14 @@ const ModelCard = memo(
           link: (
             <RouterLink
               link={{
-                href: '',
+                href: `/car-leasing/${query.dynamicParam}/${rangeName}/${data?.bodyStyle}`,
                 label: `${rangeName} ${data?.bodyStyle || ''}`,
               }}
               className="heading"
+              onClick={e => {
+                e.preventDefault();
+                viewModel(data?.bodyStyle || '');
+              }}
               classNames={{ size: 'large', color: 'black' }}
             />
           ),

@@ -136,7 +136,7 @@ const CreditChecker: NextPage = () => {
                     label="View All Cars"
                     color="teal"
                     onClick={() => {
-                      Router.push(`/car-leasing`);
+                      Router.push(`/car-leasing/search`);
                     }}
                   />
                 </div>

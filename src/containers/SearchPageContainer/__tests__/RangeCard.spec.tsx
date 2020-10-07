@@ -7,6 +7,10 @@ import { GET_RANGES_IMAGES, GET_MODEL_IMAGES } from '../gql';
 jest.mock('next/router', () => ({
   useRouter: () => ({
     asPath: '/',
+    pathname: '/car-leasing/BMW',
+    query: {
+      dynamicParam: 'BMW',
+    },
   }),
 }));
 

@@ -7,7 +7,7 @@ import { GET_MODEL_IMAGES } from '../gql';
 jest.mock('next/router', () => ({
   useRouter: jest.fn().mockReturnValue({
     pathname: '/car-leasing/BMW',
-    query: { rangeName: '3 series' },
+    query: { rangeName: '3 series', dynamicParam: 'BMW' },
     route: '/car-leasing/BMW',
   }),
 }));
