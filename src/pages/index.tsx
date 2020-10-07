@@ -229,7 +229,7 @@ export const HomePage: NextPage = () => {
                   <Button
                     label="View All Van Offers"
                     color="teal"
-                    onClick={() => Router.push('/van-leasing')}
+                    onClick={() => Router.push('/van-leasing/search')}
                     dataTestId="view-all-vans"
                   />
                 </div>
@@ -256,9 +256,7 @@ export const HomePage: NextPage = () => {
                   <Button
                     label="View All Pickup Offers"
                     color="teal"
-                    onClick={() =>
-                      Router.push('/van-leasing?bodyStyles=Pickup')
-                    }
+                    onClick={() => Router.push('/pickup-truck-leasing/search')}
                     dataTestId="view-all-pickups"
                   />
                 </div>
@@ -284,7 +282,7 @@ export const HomePage: NextPage = () => {
                   <Button
                     label="View All Car Offers"
                     color="teal"
-                    onClick={() => Router.push('/car-leasing')}
+                    onClick={() => Router.push('/car-leasing/search')}
                     dataTestId="view-all-cars"
                   />
                 </div>

@@ -398,7 +398,7 @@ describe('<PickupsPage />', () => {
 
     expect(screen.getByTestId('view-all-pickups')).toHaveAttribute(
       'href',
-      '/van-leasing%3FbodyStyles=Pickup',
+      '/pickup-truck-leasing/search',
     );
   });
 

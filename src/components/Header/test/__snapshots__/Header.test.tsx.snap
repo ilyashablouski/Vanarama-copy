@@ -660,7 +660,7 @@ exports[`<Header /> renders correctly 1`] = `
                     className="link -white"
                     data-menu={null}
                     data-testid="router-link"
-                    href="/special-offers/pickup-offers"
+                    href="/pickup-truck-leasing/special-offers"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -987,7 +987,7 @@ exports[`<Header /> renders correctly 1`] = `
                     className="link -white"
                     data-menu={null}
                     data-testid="router-link"
-                    href="/special-offers/car-offers"
+                    href="/car-leasing/special-offers"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -2315,7 +2315,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     className="link -white"
                     data-menu={null}
                     data-testid="router-link"
-                    href="/special-offers/pickup-offers"
+                    href="/pickup-truck-leasing/special-offers"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >
@@ -2642,7 +2642,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     className="link -white"
                     data-menu={null}
                     data-testid="router-link"
-                    href="/special-offers/car-offers"
+                    href="/car-leasing/special-offers"
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                   >

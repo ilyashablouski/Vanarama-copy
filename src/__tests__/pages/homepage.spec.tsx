@@ -478,7 +478,7 @@ describe('<HomePage />', () => {
     await screen.findByTestId('view-all-vans');
     fireEvent.click(screen.getByTestId('view-all-vans'));
     await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/van-leasing'),
+      expect(Router.push).toHaveBeenCalledWith('/van-leasing/search'),
     );
   });
 
@@ -486,9 +486,7 @@ describe('<HomePage />', () => {
     await screen.findByTestId('view-all-pickups');
     fireEvent.click(screen.getByTestId('view-all-pickups'));
     await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing?bodyStyles=Pickup',
-      ),
+      expect(Router.push).toHaveBeenCalledWith('/pickup-truck-leasing/search'),
     );
   });
 
@@ -502,7 +500,7 @@ describe('<HomePage />', () => {
     await screen.findByTestId('view-all-cars');
     fireEvent.click(screen.getByTestId('view-all-cars'));
     await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/car-leasing'),
+      expect(Router.push).toHaveBeenCalledWith('/car-leasing/search'),
     );
   });
 });
