@@ -7,6 +7,7 @@ export interface IFilterContainerProps {
   onSearch: (filters: IFilters) => void;
   preSearchVehicleCount: number;
   isSpecialOffers: boolean;
+  setIsSpecialOffers: (value: boolean) => void;
   isMakePage?: boolean;
   isPickups?: boolean;
   isRangePage?: boolean;
