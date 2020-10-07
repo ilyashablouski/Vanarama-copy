@@ -42,7 +42,7 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
       <h3
         class="heading -a-center -black -large"
       >
-        Insurance News
+        Top Articles
       </h3>
       <div
         class="carousel -mh-auto"
@@ -58,7 +58,7 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
             style="position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden;"
             tabindex="-1"
           >
-            Slide 1 of 1
+            Slide 1 of 0
           </div>
           <div
             class="slider-frame"
@@ -67,51 +67,7 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
             <ul
               class="slider-list"
               style="box-sizing: border-box; cursor: pointer; display: block; height: 0px; margin: 0px -10px; padding: 0px; position: relative; transform: translate3d(0px, 0px, 0); width: auto;"
-            >
-              <li
-                class="slider-slide slide-visible slide-current"
-                style="box-sizing: border-box; display: inline-block; height: auto; left: 0px; list-style-type: none; margin: auto 10px auto 10px; position: absolute; top: 0px; transform: scale(1); transition: transform .4s linear; vertical-align: top; width: -13.33333333333333px;"
-                tabindex="-1"
-              >
-                <div
-                  class="card card__article"
-                  data-testid="card"
-                >
-                  <img
-                    class="card-image"
-                    data-testid="card-image"
-                  />
-                  <div
-                    class="title"
-                  >
-                    <a
-                      class="card--link link -black -regular"
-                      data-testid="router-link"
-                      href="/%23"
-                    >
-                      Do I Need Insurance For A Leased Car?
-                    </a>
-                  </div>
-                  <p
-                    class="text -regular -darker"
-                  >
-                    Find out what type of coverage you need for a new leased car.
-                  </p>
-                  <p
-                    class="text -regular -darker"
-                  >
-                    <a
-                      class="link -teal"
-                      data-testid="link"
-                      href="https://beta.vanarama.com/car-leasing-explained/do-i-need-insurance-for-leased-car.html"
-                      rel="noopener noreferrer"
-                    >
-                      Read More
-                    </a>
-                  </p>
-                </div>
-              </li>
-            </ul>
+            />
           </div>
           <style
             type="text/css"
@@ -148,27 +104,6 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
                   x2="412"
                   y1="256"
                   y2="256"
-                />
-              </svg>
-            </i>
-          </button>
-          <button
-            class="carousel--nav-item -active"
-            type="button"
-          >
-            <i
-              class="icon -regular"
-            >
-              <svg
-                height="1em"
-                viewBox="0 0 512 512"
-                width="1em"
-              >
-                <title>
-                  ionicons-v5-q
-                </title>
-                <path
-                  d="M256,464C141.31,464,48,370.69,48,256S141.31,48,256,48s208,93.31,208,208S370.69,464,256,464Z"
                 />
               </svg>
             </i>
@@ -230,7 +165,7 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
           >
             <a
               class="heading -black -lead"
-              href=""
+              href="/null"
             >
               Category Titles
             </a>
@@ -273,6 +208,105 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
           >
             Sunt enim sunt laborum culpa eiusmod do aliqua voluptate in aute nisi anim magna ullamc
           </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="row:bg-lighter -col-300"
+    >
+      <div
+        class="row:cards-3col"
+      >
+        <div
+          class="card"
+          data-testid="card"
+        >
+          <img
+            class="card-image"
+            data-testid="card-image"
+          />
+          <div
+            class="title"
+          >
+            <a
+              class="heading -black -lead"
+              href="/blog/cars/best-cars-for-mpg"
+            >
+              Best Cars For MPG
+            </a>
+          </div>
+          <div>
+            <p
+              class="text -regular -dark"
+            >
+              Body...
+            </p>
+          </div>
+          <a
+            class="link -teal -regular"
+            data-testid="router-link"
+            href="/blog/cars/best-cars-for-mpg"
+          >
+            Read More
+          </a>
+        </div>
+      </div>
+      <div
+        class="row:pagination"
+      >
+        <div
+          class="pagination"
+        >
+          <a
+            class="link pagination--chevron -disabled -primary -regular -plain"
+            href=""
+          >
+            <i
+              class="icon"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="328 112 184 256 328 400"
+                  style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                />
+              </svg>
+            </i>
+          </a>
+          <a
+            class="link pagination--item -active -primary -regular -plain"
+            href="/1"
+          >
+            1
+          </a>
+          <a
+            class="link pagination--chevron -disabled -primary -regular -plain"
+            href=""
+          >
+            <i
+              class="icon"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="184 112 328 256 184 400"
+                  style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                />
+              </svg>
+            </i>
+          </a>
         </div>
       </div>
     </div>

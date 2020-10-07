@@ -49,54 +49,6 @@ export const BLOG_POSTS_PAGE = gql`
             }
           }
         }
-        hero {
-          position
-          flag
-          title
-          titleTag
-          body
-          image {
-            title
-            description
-            file {
-              url
-              fileName
-              contentType
-            }
-          }
-          heroCard {
-            title
-            body
-          }
-        }
-        featured {
-          layout
-          body
-          title
-          titleTag
-          video
-          titleTag
-          link {
-            text
-            url
-          }
-          image {
-            title
-            description
-            file {
-              url
-              fileName
-              contentType
-              details {
-                size
-                image {
-                  width
-                  height
-                }
-              }
-            }
-          }
-        }
         carousel {
           title
           name
@@ -142,11 +94,14 @@ export const BLOG_POSTS_PAGE = gql`
       pageTitle
       articles {
         intro
+        name
+        publishedOn
         featuredImage {
           file {
             url
           }
         }
+        isFeatured
         title
         tags
         slug
