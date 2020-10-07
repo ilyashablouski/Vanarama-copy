@@ -14,6 +14,8 @@ import { IBusinessAboutFormContainerProps, SubmitResult } from './interfaces';
 import { SaveBusinessAboutYou } from '../../../generated/SaveBusinessAboutYou';
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 import { responseToInitialFormValues, mapAboutPersonData } from './mappers';
+import { CompanyTypes } from '../../models/enum/CompanyTypes';
+import { CreditApplicationTypeEnum as CATypeEnum } from '../../../generated/globalTypes';
 
 const savePersonUuid = async (data: SaveBusinessAboutYou) =>
   localForage.setItem('personUuid', data.createUpdateBusinessPerson?.uuid);
@@ -112,6 +114,11 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
                     ?.creditApplicationByOrderUuid,
                   aboutDetails: values,
                   orderUuid: orderId,
+                  creditApplicationType:
+                    values.companyType === CompanyTypes.limited ||
+                    values.companyType === CompanyTypes.partnership
+                      ? CATypeEnum.B2B_LIMITED
+                      : CATypeEnum.B2B_SOLE_TRADER,
                 }),
               },
             }).then(() => {

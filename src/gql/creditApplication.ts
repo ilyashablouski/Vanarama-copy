@@ -111,6 +111,7 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
           vehicleType
         }
       }
+      creditApplicationType
       leadManagerProposalId
       createdAt
       status
@@ -256,6 +257,7 @@ const responseMock = {
   status: 'status',
   updatedAt: 'updatedAt',
   uuid: 'uuid',
+  creditApplicationType: 'B2B_LIMITED',
 };
 
 export const makeGetCreditApplicationMock = (id: string): MockedResponse => ({
