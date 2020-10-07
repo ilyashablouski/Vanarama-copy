@@ -15,6 +15,7 @@ const resetMocks = () => {
     onSearch: jest.fn(),
     preSearchVehicleCount: 10,
     isSpecialOffers: true,
+    setIsSpecialOffers: jest.fn(),
   };
 };
 
