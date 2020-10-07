@@ -8,6 +8,17 @@
 //==============================================================
 
 /**
+ * CreditApplication Type
+ */
+export enum CreditApplicationTypeEnum {
+  B2B_LIMITED = "B2B_LIMITED",
+  B2B_PARTNERSHIP = "B2B_PARTNERSHIP",
+  B2B_REGISTERED_PARTNERSHIP = "B2B_REGISTERED_PARTNERSHIP",
+  B2B_SOLE_TRADER = "B2B_SOLE_TRADER",
+  B2C_PERSONAL = "B2C_PERSONAL",
+}
+
+/**
  * Lease type
  */
 export enum LeaseTypeEnum {
@@ -151,6 +162,7 @@ export interface CreditApplicationInputObject {
   addresses?: any | null;
   bankAccounts?: any | null;
   companyDetails?: any | null;
+  creditApplicationType?: CreditApplicationTypeEnum | null;
   directorsDetails?: any | null;
   employmentHistories?: any | null;
   financeType?: string | null;

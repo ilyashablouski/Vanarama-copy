@@ -1,9 +1,7 @@
 import React, { FC, useState } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Pagination from '@vanarama/uibook/lib/components/atoms/pagination';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import ReactMarkdown from 'react-markdown';
-import { useRouter } from 'next/router';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import {
   ReviewsHubCategoryQuery,
@@ -11,6 +9,7 @@ import {
 } from '../../../generated/ReviewsHubCategoryQuery';
 import { getMarkdownRenderers } from './Utils';
 import { getSectionsData } from '../../utils/getSectionsData';
+import RouterLink from '../../components/RouterLink/RouterLink';
 
 interface IProps {
   data: ReviewsHubCategoryQuery | undefined;
@@ -25,7 +24,6 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({ data }) => {
   );
 
   const [activePage, setActivePage] = useState(1);
-  const router = useRouter();
 
   const countPages = () => Math.ceil((cards.length || 0) / 12);
 
@@ -51,16 +49,14 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({ data }) => {
         description={reviewCard.body || ''}
         imageSrc={reviewCard.image?.file?.url || ''}
       >
-        <Button
-          color="teal"
-          size="small"
-          fill="clear"
-          type="button"
-          label="Read Review >"
-          onClick={() => {
-            router.push(reviewCard.link?.url || '#');
-          }}
-        />
+        <RouterLink
+          link={{ href: reviewCard.link?.url || '#', label: 'Read Review >' }}
+          className="button"
+          classNames={{ color: 'teal', size: 'small', clear: true }}
+          withoutDefaultClassName
+        >
+          <div className="button--inner">Read Review &gt;</div>
+        </RouterLink>
       </Card>
     ));
   };

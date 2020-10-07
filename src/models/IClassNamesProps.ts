@@ -7,4 +7,5 @@ export interface IClassNamesProps {
   position?: 'left' | 'right';
   plain?: boolean;
   solid?: boolean;
+  clear?: boolean;
 }
