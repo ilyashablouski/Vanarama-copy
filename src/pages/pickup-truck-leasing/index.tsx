@@ -261,7 +261,7 @@ export const PickupsPage: NextPage = () => {
 
           <RouterLink
             link={{
-              href: '/van-leasing?bodyStyles=Pickup',
+              href: '/pickup-truck-leasing/search',
               label: 'View All Pickups',
             }}
             classNames={{ color: 'teal', size: 'large' }}

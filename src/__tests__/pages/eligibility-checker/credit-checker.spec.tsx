@@ -138,7 +138,7 @@ describe('<CreditChecker />', () => {
   it('should trigger route push when clicking View All Cars', async () => {
     fireEvent.click(screen.getByText('View All Cars'));
     await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/car-leasing'),
+      expect(Router.push).toHaveBeenCalledWith('/car-leasing/search'),
     );
   });
 

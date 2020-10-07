@@ -461,7 +461,7 @@ describe('<VanOffers />', () => {
     fireEvent.click(screen.getAllByText('See All Small Vans')[0]);
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing?bodyStyles=Small+Van',
+        '/van-leasing/search?bodyStyles=Small+Van',
       ),
     );
   });
@@ -471,7 +471,7 @@ describe('<VanOffers />', () => {
     fireEvent.click(screen.getAllByText('See All Medium Vans')[0]);
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing?bodyStyles=Medium+Van',
+        '/van-leasing/search?bodyStyles=Medium+Van',
       ),
     );
   });
@@ -481,7 +481,7 @@ describe('<VanOffers />', () => {
     fireEvent.click(screen.getAllByText('See All Large Vans')[0]);
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing?bodyStyles=Large+Van',
+        '/van-leasing/search?bodyStyles=Large+Van',
       ),
     );
   });
@@ -491,7 +491,7 @@ describe('<VanOffers />', () => {
     fireEvent.click(screen.getAllByText('See All Pickup Trucks')[0]);
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing?bodyStyles=Pickup',
+        '/van-leasing/search?bodyStyles=Pickup',
       ),
     );
   });
@@ -501,7 +501,7 @@ describe('<VanOffers />', () => {
     fireEvent.click(screen.getAllByText('See All Dropside Tippers')[0]);
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing?bodyStyles=Dropside+Tipper',
+        '/van-leasing/search?bodyStyles=Dropside+Tipper',
       ),
     );
   });
@@ -511,7 +511,7 @@ describe('<VanOffers />', () => {
     fireEvent.click(screen.getAllByText('See All Specialist Vans')[0]);
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing?bodyStyles=Specialist',
+        '/van-leasing/search?bodyStyles=Specialist',
       ),
     );
   });

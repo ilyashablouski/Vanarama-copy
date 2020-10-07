@@ -190,7 +190,9 @@ export const VanOffers: NextPage = () => {
             <Button
               label="See All Small Vans"
               color="teal"
-              onClick={() => Router.push('/van-leasing?bodyStyles=Small+Van')}
+              onClick={() =>
+                Router.push('/van-leasing/search?bodyStyles=Small+Van')
+              }
             />
           </div>
         </div>
@@ -221,7 +223,9 @@ export const VanOffers: NextPage = () => {
             <Button
               label="See All Medium Vans"
               color="teal"
-              onClick={() => Router.push('/van-leasing?bodyStyles=Medium+Van')}
+              onClick={() =>
+                Router.push('/van-leasing/search?bodyStyles=Medium+Van')
+              }
             />
           </div>
         </div>
@@ -252,7 +256,9 @@ export const VanOffers: NextPage = () => {
             <Button
               label="See All Large Vans"
               color="teal"
-              onClick={() => Router.push('/van-leasing?bodyStyles=Large+Van')}
+              onClick={() =>
+                Router.push('/van-leasing/search?bodyStyles=Large+Van')
+              }
             />
           </div>
         </div>
@@ -283,7 +289,9 @@ export const VanOffers: NextPage = () => {
             <Button
               label="See All Pickup Trucks"
               color="teal"
-              onClick={() => Router.push('/van-leasing?bodyStyles=Pickup')}
+              onClick={() =>
+                Router.push('/van-leasing/search?bodyStyles=Pickup')
+              }
             />
           </div>
         </div>
@@ -315,7 +323,7 @@ export const VanOffers: NextPage = () => {
               label="See All Dropside Tippers"
               color="teal"
               onClick={() =>
-                Router.push('/van-leasing?bodyStyles=Dropside+Tipper')
+                Router.push('/van-leasing/search?bodyStyles=Dropside+Tipper')
               }
             />
           </div>
@@ -347,7 +355,9 @@ export const VanOffers: NextPage = () => {
             <Button
               label="See All Specialist Vans"
               color="teal"
-              onClick={() => Router.push('/van-leasing?bodyStyles=Specialist')}
+              onClick={() =>
+                Router.push('/van-leasing/search?bodyStyles=Specialist')
+              }
             />
           </div>
         </div>

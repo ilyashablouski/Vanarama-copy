@@ -18,7 +18,7 @@ exports[`<ModelCard /> should be render correctly 1`] = `
         <a
           class="heading link -black -large"
           data-testid="router-link"
-          href="/"
+          href="/car-leasing/BMW/3%20series/coupe"
         >
           3 series coupe
         </a>
