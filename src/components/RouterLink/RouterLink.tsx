@@ -44,6 +44,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     [`-${classNames?.position}`]: classNames?.position,
     '-plain': classNames?.plain,
     '-solid': classNames?.solid,
+    '-clear': classNames?.clear,
   });
 
   if (
