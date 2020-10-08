@@ -86,7 +86,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   );
 
   useEffect(() => {
-    pushPageData(cars ? 'Cars' : 'Vans');
+    pushPageData('PDP', cars ? 'Cars' : 'Vans');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

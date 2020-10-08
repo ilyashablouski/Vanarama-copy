@@ -21,7 +21,10 @@ import { useImperativeQuery } from '../../../../hooks/useImperativeQuery';
 import { GET_ORDERS_BY_PARTY_UUID_DATA } from '../../../../containers/OrdersInformation/gql';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../../generated/GetCompaniesByPersonUuid';
-import { pushAboutYouDataLayer } from '../../../../utils/dataLayerHelpers';
+import {
+  pushAboutYouDataLayer,
+  pushPageData,
+} from '../../../../utils/dataLayerHelpers';
 import { GetOlafData_orderByUuid } from '../../../../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../../../../generated/GetDerivative';
 
@@ -123,6 +126,10 @@ export const BusinessAboutPage: NextPage = () => {
         .replace('[orderId]', orderId || ''),
     );
   };
+
+  useEffect(() => {
+    pushPageData('Checkout Pages', 'Vans');
+  }, []);
 
   useEffect(() => {
     if (!personUuid) {

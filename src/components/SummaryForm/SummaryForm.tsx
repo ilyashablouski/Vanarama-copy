@@ -30,13 +30,19 @@ import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
 interface IProps {
   person: SummaryFormPerson;
   orderId: string;
+  onComplete?: () => void;
 }
 
-const SummaryForm: FCWithFragments<IProps> = ({ person, orderId }) => {
+const SummaryForm: FCWithFragments<IProps> = ({
+  person,
+  orderId,
+  onComplete,
+}) => {
   const router = useRouter();
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
 
   const onCreditCheckComplete = () => {
+    onComplete?.();
     createUpdateCA({
       variables: {
         input: {
