@@ -24,7 +24,7 @@ interface IProps {
   companyUuid: string;
   orderId: string;
   isSoleTrader: boolean;
-  onCompleted?: () => void;
+  onCompleted?: (emailAddresses: string | undefined) => void;
   onError?: (error: ApolloError) => void;
 }
 
@@ -125,7 +125,11 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
           ),
         ),
       )
-      .then(() => onCompleted?.())
+      .then(() =>
+        onCompleted?.(
+          getDataSummaryQueryOptions?.data?.personByUuid?.emailAddresses[0].value,
+        ),
+      )
       .catch(onError);
   };
 

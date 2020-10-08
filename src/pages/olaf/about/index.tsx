@@ -50,6 +50,10 @@ const PERSON_BY_TOKEN_QUERY = gql`
       firstName
       lastName
       partyUuid
+      emailAddresses {
+        value
+        partyId
+      }
     }
   }
 `;

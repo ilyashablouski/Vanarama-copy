@@ -7,11 +7,17 @@
 // GraphQL query operation: PersonByToken
 // ====================================================
 
+export interface PersonByToken_personByToken_emailAddresses {
+  value: string;
+  partyId: string;
+}
+
 export interface PersonByToken_personByToken {
   uuid: string;
   firstName: string;
   lastName: string;
   partyUuid: string;
+  emailAddresses: PersonByToken_personByToken_emailAddresses[];
 }
 
 export interface PersonByToken {

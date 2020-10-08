@@ -11,7 +11,7 @@ import { Script as VWOScript } from '../components/VWO';
 const env = process?.env?.ENV || '';
 
 // GTM environments.
-const gtmEnvs = ['uat'];
+const gtmEnvs = ['uat', 'dev'];
 
 // VWO environments.
 const vwoEnvs = ['uat'];
