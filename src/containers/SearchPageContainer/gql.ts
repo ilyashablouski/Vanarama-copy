@@ -1,4 +1,5 @@
 import { gql, useLazyQuery, useQuery } from '@apollo/client';
+import useSortOrder from '../../hooks/useSortOrder';
 import {
   vehicleList,
   vehicleListVariables,
@@ -9,6 +10,7 @@ import {
   RateInputObject,
   SortField,
   LeaseTypeEnum,
+  SortDirection,
 } from '../../../generated/globalTypes';
 import {
   RangesImages,
@@ -42,6 +44,7 @@ export const GET_VEHICLE_LIST = gql`
     $fuelTypes: [String!]
     $sortField: SortField!
     $first: Int
+    $sortDirection: SortDirection!
   ) {
     vehicleList(
       first: $first
@@ -56,7 +59,7 @@ export const GET_VEHICLE_LIST = gql`
         transmissions: $transmissions
         fuelTypes: $fuelTypes
       }
-      sort: { field: $sortField, direction: ASC }
+      sort: { field: $sortField, direction: $sortDirection }
     ) {
       totalCount
       pageInfo {
@@ -96,7 +99,7 @@ export const GET_VEHICLE_LIST = gql`
   }
 `;
 
-export function getVehiclesList(
+export function useVehiclesList(
   vehicleTypes: VehicleTypeEnum[],
   onOffer = false,
   onCompleted?: (data: vehicleList) => void,
@@ -109,6 +112,7 @@ export function getVehiclesList(
   transmissions?: string[],
   fuelTypes?: string[],
 ) {
+  const { savedSortOrder } = useSortOrder();
   // eslint-disable-next-line react-hooks/rules-of-hooks
   return useLazyQuery<vehicleList, vehicleListVariables>(GET_VEHICLE_LIST, {
     onCompleted,
@@ -122,7 +126,8 @@ export function getVehiclesList(
       bodyStyles,
       transmissions,
       fuelTypes,
-      sortField: onOffer ? SortField.offerRanking : SortField.rate,
+      sortField: onOffer ? SortField.offerRanking : savedSortOrder.type,
+      sortDirection: onOffer ? SortDirection.ASC : savedSortOrder.direction,
       first,
     },
   });

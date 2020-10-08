@@ -1,3 +1,4 @@
+import { ISortOrder } from '../../hooks/useSortOrder';
 import { RateInputObject } from '../../../generated/globalTypes';
 
 export interface IFilterContainerProps {
@@ -17,6 +18,7 @@ export interface IFilterContainerProps {
   isFuelPage?: boolean;
   isTransmissionPage?: boolean;
   isDynamicFilterPage?: boolean;
+  sortOrder: ISortOrder;
 }
 
 export interface IFilters {

@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { VehicleTypeEnum, RateInputObject, SortField, LeaseTypeEnum } from "./globalTypes";
+import { VehicleTypeEnum, RateInputObject, SortField, SortDirection, LeaseTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: vehicleList
@@ -97,4 +97,5 @@ export interface vehicleListVariables {
   fuelTypes?: string[] | null;
   sortField: SortField;
   first?: number | null;
+  sortDirection: SortDirection;
 }
