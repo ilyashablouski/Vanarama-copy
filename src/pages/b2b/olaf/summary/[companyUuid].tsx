@@ -42,11 +42,16 @@ const BusinessSummaryPage: NextPage = () => {
   ] = useState<GetDerivative_derivative | null>(null);
 
   useEffect(() => {
-    pushPageData('Order Confirmation', 'Van', true);
+    pushPageData('Order Confirmation', 'Vans', true);
   }, []);
 
-  const handleComplete = (emailAdress: string | undefined) => {
-    pushSummaryDataLayer(detailsData, derivativeData, orderId, emailAdress);
+  const handleComplete = (emailAddress: string | undefined) => {
+    pushSummaryDataLayer({
+      detailsData,
+      derivativeData,
+      orderId,
+      emailAddress,
+    });
     router.push(
       '/olaf/thank-you/[orderId]?isB2b=1',
       '/olaf/thank-you/[orderId]?isB2b=1'.replace('[orderId]', orderId),

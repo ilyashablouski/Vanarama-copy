@@ -114,6 +114,7 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
     });
 
   const handleSubmit = () => {
+    const personByUuid = getDataSummaryQueryOptions?.data?.personByUuid;
     handleCreditApplicationSubmit()
       .then(creditApplicationQuery =>
         handlePartyRefetch(
@@ -125,11 +126,7 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
           ),
         ),
       )
-      .then(() =>
-        onCompleted?.(
-          getDataSummaryQueryOptions?.data?.personByUuid?.emailAddresses[0].value,
-        ),
-      )
+      .then(() => onCompleted?.(personByUuid?.emailAddresses[0].value))
       .catch(onError);
   };
 

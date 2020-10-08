@@ -14,6 +14,15 @@ import {
 } from '../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../generated/GetDerivative';
 
+interface ICheckoutData {
+  price: string | number | null | undefined;
+  product?: IProduct;
+  detailsData: GetOlafData_orderByUuid | null;
+  derivativeData: GetDerivative_derivative | null;
+  lineItem: GetOlafData_orderByUuid_lineItems | undefined;
+  type?: string;
+}
+
 interface IPDPData {
   capId: string | number | undefined;
   derivativeInfo:
@@ -32,12 +41,11 @@ interface IPDPData {
   category?: string;
 }
 
-interface ICheckoutData {
-  price: string | number | null | undefined;
-  product?: IProduct;
+interface ISummary {
   detailsData: GetOlafData_orderByUuid | null;
   derivativeData: GetDerivative_derivative | null;
-  lineItem: GetOlafData_orderByUuid_lineItems | undefined;
+  orderId: string;
+  emailAddress: string | undefined;
   type?: string;
 }
 
@@ -354,13 +362,13 @@ export const pushAboutYouDataLayer = (
   pushToDataLayer(data);
 };
 
-export const pushSummaryDataLayer = (
-  detailsData: GetOlafData_orderByUuid | null,
-  derivativeData: GetDerivative_derivative | null,
-  orderId: string,
-  emailAdress: string | undefined,
-  type?: string,
-) => {
+export const pushSummaryDataLayer = ({
+  detailsData,
+  derivativeData,
+  orderId,
+  emailAddress,
+  type,
+}: ISummary) => {
   const lineItem = detailsData?.lineItems[0];
   const price = lineItem?.vehicleProduct?.monthlyPayment;
   const data = {
@@ -370,7 +378,7 @@ export const pushSummaryDataLayer = (
     eventLabel: orderId,
     eventValue: `${price}`,
     ecommerce: {
-      visitorEmail: emailAdress ? sha256(emailAdress) : 'undefined',
+      visitorEmail: emailAddress ? sha256(emailAddress) : 'undefined',
       currencyCode: 'GBP',
       checkout: {
         actionField: {
