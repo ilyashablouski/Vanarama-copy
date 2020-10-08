@@ -9,13 +9,13 @@ export const BLOG_POSTS_PAGE = gql`
         name
         metaRobots
         metaDescription
-        publishedOn
         legacyUrl
         pageType
         canonicalUrl
         slug
-        publishedOn
         schema
+        publishedOn
+        breadcrumbs
       }
       sections {
         leadText {
