@@ -24,6 +24,8 @@ import ReactMarkdown from 'react-markdown';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useLazyQuery } from '@apollo/client';
+import Select from '@vanarama/uibook/lib/components/atoms/select';
+import useSortOrder from '../../hooks/useSortOrder';
 import { GENERIC_PAGE, GENERIC_PAGE_HEAD } from '../../gql/genericPage';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import TopOffersContainer from './TopOffersContainer';
@@ -31,7 +33,7 @@ import { useProductCardData } from '../CustomerAlsoViewedContainer/gql';
 import { IFilters } from '../FiltersContainer/interfaces';
 import FiltersContainer from '../FiltersContainer';
 import {
-  getVehiclesList,
+  useVehiclesList,
   getRangesList,
   useManufacturerList,
   GET_ALL_MAKES_PAGE,
@@ -42,6 +44,7 @@ import {
   VehicleTypeEnum,
   SortField,
   LeaseTypeEnum,
+  SortDirection,
 } from '../../../generated/globalTypes';
 import {
   buildRewriteRoute,
@@ -50,6 +53,7 @@ import {
   fuelMapper,
   getBodyStyleForCms,
   bodyUrls,
+  sortValues,
 } from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import RangeCard from './RangeCard';
@@ -144,7 +148,8 @@ const SearchPageContainer: React.FC<IProps> = ({
     isSpecialOfferPage ? true : getValueFromStorage(isServer) ?? true,
   );
   const [totalCount, setTotalCount] = useState(0);
-
+  const { savedSortOrder, saveSortOrder } = useSortOrder();
+  const [sortOrder, setSortOrder] = useState(savedSortOrder);
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
 
   useEffect(() => {
@@ -181,7 +186,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     data.map(vehicle => vehicle?.node?.derivativeId || '') || [];
 
   // using onCompleted callback for request card data after vehicle list was loaded
-  const [getVehicles, { data }] = getVehiclesList(
+  const [getVehicles, { data }] = useVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
     isMakePage || isDynamicFilterPage || isSpecialOfferPage
       ? true
@@ -211,7 +216,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     isPickups || isModelPage || isBodyStylePage ? manualBodyStyle : [],
   );
   // using for cache request
-  const [getVehiclesCache, { data: cacheData }] = getVehiclesList(
+  const [getVehiclesCache, { data: cacheData }] = useVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
     isRangePage ? null : isSpecialOffers || null,
     async vehicles => {
@@ -251,11 +256,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
   );
-
-  const sortField =
-    !isRangePage && isSpecialOffers && !isDynamicFilterPage
-      ? SortField.offerRanking
-      : SortField.rate;
 
   // new search with new filters
   const onSearch = (filters = filtersData) => {
@@ -298,7 +298,10 @@ const SearchPageContainer: React.FC<IProps> = ({
             : [VehicleTypeEnum.LCV],
           onOffer,
           ...filters,
-          sortField,
+          sortField: isSpecialOffers ? SortField.offerRanking : sortOrder.type,
+          sortDirection: isSpecialOffers
+            ? SortDirection.ASC
+            : sortOrder.direction,
           ...{
             bodyStyles:
               isPickups || isModelPage || isBodyStylePage
@@ -447,7 +450,10 @@ const SearchPageContainer: React.FC<IProps> = ({
             : null,
           after: lastCard,
           ...filtersData,
-          sortField,
+          sortField: isSpecialOffers ? SortField.offerRanking : sortOrder.type,
+          sortDirection: isSpecialOffers
+            ? SortDirection.ASC
+            : sortOrder.direction,
         },
       });
   }, [
@@ -456,12 +462,13 @@ const SearchPageContainer: React.FC<IProps> = ({
     filtersData,
     isCarSearch,
     isSpecialOffers,
-    sortField,
     isMakePage,
     hasNextPage,
     isRangePage,
     isModelPage,
     isDynamicFilterPage,
+    sortOrder.direction,
+    sortOrder.type,
   ]);
 
   // set capsIds for cached data
@@ -474,6 +481,16 @@ const SearchPageContainer: React.FC<IProps> = ({
       );
     }
   }, [cacheData, setCapsIds, isCarSearch]);
+
+  // handler for changing sort dropdown
+  const onChangeSortOrder = (value: string) => {
+    const [type, direction] = value.split('_');
+    setSortOrder({ type, direction });
+    saveSortOrder({
+      type: type as SortField,
+      direction: direction as SortDirection,
+    });
+  };
 
   // load more offers
   const onLoadMore = () => {
@@ -788,6 +805,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             isDynamicFilterPage={isDynamicFilterPage}
             isFuelPage={isFuelPage}
             isTransmissionPage={isTransmissionPage}
+            sortOrder={sortOrder}
           />
         </div>
       </div>
@@ -796,6 +814,19 @@ const SearchPageContainer: React.FC<IProps> = ({
           <Text color="darker" size="regular" tag="span">
             {`Showing ${totalCount} Results`}
           </Text>
+          {!(isAllMakesPage && isMakePage) && (
+            <Select
+              value={`${sortOrder.type}_${sortOrder.direction}`}
+              onChange={e => onChangeSortOrder(e.target.value)}
+              disabled={isSpecialOffers}
+            >
+              {sortValues.map(option => (
+                <option key={option.value} value={option.value}>
+                  {option.text}
+                </option>
+              ))}
+            </Select>
+          )}
           <div className="row:cards-3col">
             {useCallback(
               isMakePage || isAllMakesPage ? (

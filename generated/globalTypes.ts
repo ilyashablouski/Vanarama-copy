@@ -37,6 +37,14 @@ export enum OpportunityTypeEnum {
 }
 
 /**
+ * Sort direction
+ */
+export enum SortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+/**
  * Sort field
  */
 export enum SortField {

@@ -55,6 +55,7 @@ const FiltersContainer = ({
   isFuelPage,
   isTransmissionPage,
   isDynamicFilterPage,
+  sortOrder,
 }: IFilterContainerProps) => {
   const router = useRouter();
   const [filtersData, setFiltersData] = useState({} as IFilterList);
@@ -310,7 +311,13 @@ const FiltersContainer = ({
     )
       setInitialLoad(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedFilterTags, isSpecialOffers, isInitialLoad, isPersonal]);
+  }, [
+    selectedFilterTags,
+    isSpecialOffers,
+    isInitialLoad,
+    isPersonal,
+    sortOrder,
+  ]);
 
   /** return true if model exist in filters data */
   const isCurrentModelValid = (model: string) =>

@@ -5,7 +5,7 @@ import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
 import { useProductCardData } from '../CustomerAlsoViewedContainer/gql';
-import { getVehiclesList, useBodyStyleList } from './gql';
+import { useVehiclesList, useBodyStyleList } from './gql';
 import VehicleCard, { IProductPageUrl } from './VehicleCard';
 import ModelCard from './ModelCard';
 import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
@@ -13,6 +13,7 @@ import {
   VehicleTypeEnum,
   SortField,
   LeaseTypeEnum,
+  SortDirection,
 } from '../../../generated/globalTypes';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
@@ -73,7 +74,7 @@ const TopOffersContainer: React.FC<IProps> = ({
     data.map(vehicle => vehicle?.node?.derivativeId || '') || [];
 
   // using onCompleted callback for request card data after vehicle list was loaded
-  const [getVehicles] = getVehiclesList(
+  const [getVehicles] = useVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
     true,
     async vehicles => {
@@ -127,6 +128,7 @@ const TopOffersContainer: React.FC<IProps> = ({
             : [VehicleTypeEnum.LCV],
           onOffer: true,
           sortField: SortField.offerRanking,
+          sortDirection: SortDirection.ASC,
           manufacturerName:
             isMakePage || isRangePage
               ? (router.query?.dynamicParam as string)
@@ -178,6 +180,7 @@ const TopOffersContainer: React.FC<IProps> = ({
             : [VehicleTypeEnum.LCV],
           onOffer: true,
           sortField: SortField.offerRanking,
+          sortDirection: SortDirection.ASC,
           manufacturerName: isMakePage
             ? (router.query?.dynamicParam as string)
             : undefined,
