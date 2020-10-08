@@ -38,12 +38,14 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
         <div
           class="title"
         >
-          <span
-            class="heading -black -lead"
-            data-testid="card-heading"
+          <a
+            class="heading link -black -lead"
+            data-testid="link"
+            href="https://next-storefront.grid.dev.autorama.co.uk/van-reviews/citroen-berlingo-review"
+            rel="noopener noreferrer"
           >
             Citroen Berlingo Review
-          </span>
+          </a>
           <div
             class="rating -regular -orange"
           >
@@ -175,12 +177,14 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
         <div
           class="title"
         >
-          <span
-            class="heading -black -lead"
-            data-testid="card-heading"
+          <a
+            class="heading link -black -lead"
+            data-testid="link"
+            href="https://next-storefront.grid.dev.autorama.co.uk/van-reviews/citroen-dispatch-review"
+            rel="noopener noreferrer"
           >
             Citroen Dispatch Review
-          </span>
+          </a>
           <div
             class="rating -regular -orange"
           >
@@ -312,12 +316,14 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
         <div
           class="title"
         >
-          <span
-            class="heading -black -lead"
-            data-testid="card-heading"
+          <a
+            class="heading link -black -lead"
+            data-testid="link"
+            href="https://next-storefront.grid.dev.autorama.co.uk/van-reviews/citroen-relay-review"
+            rel="noopener noreferrer"
           >
             Citroen Relay Review
-          </span>
+          </a>
           <div
             class="rating -regular -orange"
           >

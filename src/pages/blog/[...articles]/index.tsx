@@ -25,8 +25,20 @@ const BlogPost: NextPage = () => {
     ['featuredImage', 'file', 'url'],
     data?.blogPost,
   );
+  const metaData = getSectionsData(['metaData'], data?.blogPost);
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
-  return <BlogPostContainer body={body} name={name} image={image} />;
+  return (
+    <BlogPostContainer
+      body={body}
+      name={name}
+      image={image}
+      breadcrumbsItems={breadcrumbsItems}
+      metaData={metaData}
+    />
+  );
 };
 
 export default withApollo(BlogPost);

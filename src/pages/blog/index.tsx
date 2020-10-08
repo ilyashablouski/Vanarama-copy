@@ -1,14 +1,16 @@
 import { NextPage } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
-import { useGenericPage } from '../../gql/genericPage';
+import { useGenericPage, useGenericPageHead } from '../../gql/genericPage';
 import withApollo from '../../hocs/withApollo';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import CategoryPageContainer from '../../containers/CategoryPageContainer/CategoryPageContainer';
+import { getSectionsData } from '../../utils/getSectionsData';
 
 const CategoryPage: NextPage = () => {
   const router = useRouter();
   const { data, loading, error } = useGenericPage(router.asPath.slice(1));
+  const { data: pageHead } = useGenericPageHead(router.asPath.slice(1));
 
   if (loading) {
     return <Loading size="large" />;
@@ -18,13 +20,17 @@ const CategoryPage: NextPage = () => {
     return <ErrorMessage message={error?.message} />;
   }
 
-  const carousel = data?.genericPage?.sections?.carousel;
-  const featured = data?.genericPage?.sections?.featured;
-  const metaData = data?.genericPage?.metaData;
-  const tiles = data?.genericPage?.sections?.tiles;
+  const tiles = getSectionsData(['sections', 'tiles'], data?.genericPage);
+  const featured = getSectionsData(['sections', 'featured'], data?.genericPage);
+  const carousel = getSectionsData(['sections', 'carousel'], data?.genericPage);
+  const metaData = getSectionsData(['metaData'], pageHead?.genericPage);
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
   return (
     <CategoryPageContainer
+      breadcrumbsItems={breadcrumbsItems}
       featured={featured}
       carousel={carousel}
       metaData={metaData}

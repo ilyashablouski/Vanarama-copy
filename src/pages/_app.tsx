@@ -90,6 +90,8 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
       !(
         router.pathname.includes('[...details-page]') ||
         router.pathname.includes('/olaf') ||
+        router.pathname.includes('/blog') ||
+        router.pathname.includes('/non-blog') ||
         router.pathname.length === 1
       )
     ) {
