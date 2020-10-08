@@ -13,6 +13,8 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import { ICategoryPage } from './interface';
 import { GenericPageQuery_genericPage_sections_tiles_tiles } from '../../../generated/GenericPageQuery';
 import { BlogPosts_blogPosts_articles } from '../../../generated/BlogPosts';
+import Head from '../../components/Head/Head';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 const getBody = (body: string) => {
   const bodyShort = body.slice(0, 100);
@@ -111,6 +113,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   pageTitle,
   articles,
   tiles,
+  breadcrumbsItems,
 }) => {
   const [activePage, setActivePage] = useState(1);
 
@@ -207,6 +210,9 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   return (
     <>
       <div className="row:title">
+        <Breadcrumb items={breadcrumbsItems} />
+      </div>
+      <div className="row:title">
         <Heading tag="h1" size="xlarge" color="black">
           {metaData?.name || pageTitle}
         </Heading>
@@ -250,9 +256,15 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
           <Heading className="-a-center" tag="h3" size="large" color="black">
             Top Articles
           </Heading>
-          <Carousel className="-mh-auto" countItems={5}>
-            {renderCarouselCards(data?.topArticles)}
-          </Carousel>
+          {data?.topArticles.length > 3 ? (
+            <Carousel className="-mh-auto" countItems={5}>
+              {renderCarouselCards(data?.topArticles)}
+            </Carousel>
+          ) : (
+            <div className="row:cards-3col">
+              {renderCarouselCards(data?.topArticles)}
+            </div>
+          )}
         </div>
       )}
       {tiles && tiles?.tiles?.length && (
@@ -276,27 +288,30 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
       {data?.articles && (
         <div className="row:bg-lighter -col-300">
           <div className="row:cards-3col">{renderArticles()}</div>
-          <div className="row:pagination">
-            <Pagination
-              path=""
-              pages={pages}
-              onClick={el => {
-                el.preventDefault();
-                setActivePage(+(el.target as Element).innerHTML);
-              }}
-              onClickBackArray={el => {
-                el.preventDefault();
-                setActivePage(activePage - 1);
-              }}
-              onClickNextArray={el => {
-                el.preventDefault();
-                setActivePage(activePage + 1);
-              }}
-              selected={activePage}
-            />
-          </div>
+          {data?.articles.length > 9 && (
+            <div className="row:pagination">
+              <Pagination
+                path=""
+                pages={pages}
+                onClick={el => {
+                  el.preventDefault();
+                  setActivePage(+(el.target as Element).innerHTML);
+                }}
+                onClickBackArray={el => {
+                  el.preventDefault();
+                  setActivePage(activePage - 1);
+                }}
+                onClickNextArray={el => {
+                  el.preventDefault();
+                  setActivePage(activePage + 1);
+                }}
+                selected={activePage}
+              />
+            </div>
+          )}
         </div>
       )}
+      {metaData && <Head metaData={metaData} featuredImage={null} />}
     </>
   );
 };
