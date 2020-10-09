@@ -209,7 +209,7 @@ export const OffersPage: NextPage = () => {
               classNames={{ color: 'teal', solid: true, size: 'regular' }}
               link={{
                 label: 'View All Van Offers',
-                href: '/van-leasing/special-offers',
+                href: '/special-offers.html',
               }}
               withoutDefaultClassName
             >
@@ -248,7 +248,7 @@ export const OffersPage: NextPage = () => {
               classNames={{ color: 'teal', solid: true, size: 'regular' }}
               link={{
                 label: 'View All Truck Offers',
-                href: '/pickup-truck-leasing/special-offers',
+                href: ' /pickup-special-offers.html',
               }}
               withoutDefaultClassName
             >
@@ -287,7 +287,7 @@ export const OffersPage: NextPage = () => {
               classNames={{ color: 'teal', solid: true, size: 'regular' }}
               link={{
                 label: 'View All Car Offers',
-                href: '/car-leasing/special-offers',
+                href: '/car-leasing-special-offers.html',
               }}
               withoutDefaultClassName
             >

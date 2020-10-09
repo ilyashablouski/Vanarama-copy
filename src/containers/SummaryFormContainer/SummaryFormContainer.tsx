@@ -10,6 +10,7 @@ import SummaryForm from '../../components/SummaryForm/SummaryForm';
 interface IProps {
   personUuid: string;
   orderId: string;
+  onComplete?: (emailAddress: string) => void;
 }
 
 export const GET_PERSON_SUMMARY = gql`
@@ -21,7 +22,11 @@ export const GET_PERSON_SUMMARY = gql`
   ${SummaryForm.fragments.person}
 `;
 
-const SummaryFormContainer: React.FC<IProps> = ({ personUuid, orderId }) => {
+const SummaryFormContainer: React.FC<IProps> = ({
+  personUuid,
+  orderId,
+  onComplete,
+}) => {
   const { data, loading, error } = useQuery<Query, QueryVariables>(
     GET_PERSON_SUMMARY,
     {
@@ -43,7 +48,14 @@ const SummaryFormContainer: React.FC<IProps> = ({ personUuid, orderId }) => {
     return null;
   }
 
-  return <SummaryForm person={data.personByUuid} orderId={orderId} />;
+  const { personByUuid } = data;
+  return (
+    <SummaryForm
+      onComplete={() => onComplete?.(personByUuid?.emailAddresses[0].value)}
+      person={personByUuid}
+      orderId={orderId}
+    />
+  );
 };
 
 export default SummaryFormContainer;

@@ -4,6 +4,7 @@ import { screen, render, waitFor } from '@testing-library/react';
 import CategoryPageContainer from '../CategoryPageContainer';
 import { GenericPageQuery_genericPage_sections_featured as Featured } from '../../../../generated/GenericPageQuery';
 
+jest.mock('../../../hooks/useMediaQuery');
 jest.mock('next/router', () => ({
   useRouter: () => ({
     asPath: '/',
@@ -23,6 +24,7 @@ const METADATA = {
   slug: 'hubcarpage',
   title: 'Car Leasing Deals | Personal & Business Contract Hire | Vanarama',
   schema: null,
+  breadcrumbs: null,
 };
 
 const ARTICLES = [
@@ -111,6 +113,7 @@ describe('<CategoryPageContainer />', () => {
           metaData={METADATA}
           articles={ARTICLES}
           tiles={TILES}
+          breadcrumbsItems={null}
         />
       </MockedProvider>,
     );

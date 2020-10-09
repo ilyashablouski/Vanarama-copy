@@ -7,7 +7,17 @@ export const BLOG_POPST_PAGE = gql`
   query BlogPost($slug: String!) {
     blogPost(slug: $slug) {
       metaData {
+        title
         name
+        metaRobots
+        metaDescription
+        legacyUrl
+        pageType
+        canonicalUrl
+        slug
+        schema
+        publishedOn
+        breadcrumbs
       }
       featuredImage {
         file {

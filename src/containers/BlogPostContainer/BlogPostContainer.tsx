@@ -8,6 +8,9 @@ import ReactMarkdown from 'react-markdown';
 import Router from 'next/router';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery_genericPage_sections_cards_cards } from '../../../generated/GenericPageQuery';
+import { GenericPageHeadQuery_genericPage_metaData } from '../../../generated/GenericPageHeadQuery';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Head from '../../components/Head/Head';
 
 interface IProps {
   body: string | null | undefined;
@@ -17,6 +20,8 @@ interface IProps {
     | (GenericPageQuery_genericPage_sections_cards_cards | null)[]
     | null
     | undefined;
+  breadcrumbsItems?: any;
+  metaData?: GenericPageHeadQuery_genericPage_metaData | null | undefined;
 }
 
 interface IImage {
@@ -35,9 +40,21 @@ const renderImage = ({ src, alt }: IImage) => {
   );
 };
 
-const BlogPostContainer: NextPage<IProps> = ({ body, name, image, cards }) => {
+const BlogPostContainer: NextPage<IProps> = ({
+  body,
+  name,
+  image,
+  cards,
+  breadcrumbsItems,
+  metaData,
+}) => {
   return (
     <>
+      {breadcrumbsItems && (
+        <div className="row:title">
+          <Breadcrumb items={breadcrumbsItems} />
+        </div>
+      )}
       <div className="row:title">
         <Heading tag="h1" size="xlarge" color="black">
           {name || ''}
@@ -112,6 +129,7 @@ const BlogPostContainer: NextPage<IProps> = ({ body, name, image, cards }) => {
           ))}
         </div>
       </div>
+      {metaData && <Head metaData={metaData} featuredImage={null} />}
     </>
   );
 };

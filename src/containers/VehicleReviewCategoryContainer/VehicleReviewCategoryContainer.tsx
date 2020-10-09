@@ -45,6 +45,16 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({ data }) => {
         title={{
           title: reviewCard.title || '',
           score: Number(reviewCard.reviewRating) || 0,
+          link: (
+            <RouterLink
+              link={{
+                href: reviewCard.link?.url || '#',
+                label: reviewCard.title || '',
+              }}
+              className="heading"
+              classNames={{ size: 'lead', color: 'black' }}
+            />
+          ),
         }}
         description={reviewCard.body || ''}
         imageSrc={reviewCard.image?.file?.url || ''}
