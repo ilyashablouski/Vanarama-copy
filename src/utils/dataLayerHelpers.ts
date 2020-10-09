@@ -69,7 +69,15 @@ interface IPageDataLayer {
   eventAction: string;
   eventLabel: string | undefined;
   eventValue: string | undefined;
-  ecommerce: IEcommerceData;
+  ecommerce?: IEcommerceData;
+  annualMileage?: string;
+  id?: string;
+  name?: string;
+  price?: string;
+  variant?: string;
+  category?: string;
+  brand?: string;
+  vehicleModel?: string;
 }
 
 interface ICategory {
@@ -233,8 +241,8 @@ export const pushPDPDataLayer = ({
     event: 'detailView',
     eventCategory: 'Ecommerce',
     eventAction: 'PDP View',
-    eventLabel: derivativeInfo?.name,
-    eventValue: `${price}`,
+    eventLabel: derivativeInfo?.name || 'undefined',
+    eventValue: `${price || 'undefined'}`,
     ecommerce: {
       currencyCode: 'GBP',
       detail: {
@@ -275,8 +283,8 @@ export const pushAddToCartDataLayer = ({
     event: 'addToCart',
     eventCategory: 'Ecommerce',
     eventAction: 'Order Start',
-    eventLabel: derivativeInfo?.name,
-    eventValue: `${price}`,
+    eventLabel: derivativeInfo?.name || 'undefined',
+    eventValue: `${price || 'undefined'}`,
     ecommerce: {
       currencyCode: 'GBP',
       add: {
@@ -336,8 +344,8 @@ export const pushAboutYouDataLayer = (
     event: 'checkout',
     eventCategory: 'Ecommerce',
     eventAction: 'Checkout - Step 1 Complete',
-    eventLabel: derivativeData?.name || '',
-    eventValue: `${price}`,
+    eventLabel: derivativeData?.name || 'undefined',
+    eventValue: `${price || 'undefined'}`,
     ecommerce: {
       currencyCode: 'GBP',
       checkout: {
@@ -375,8 +383,8 @@ export const pushSummaryDataLayer = ({
     event: 'purchase',
     eventCategory: 'Ecommerce',
     eventAction: 'Order Complete',
-    eventLabel: orderId,
-    eventValue: `${price}`,
+    eventLabel: orderId || 'undefined',
+    eventValue: `${price || 'undefined'}`,
     ecommerce: {
       visitorEmail: emailAddress ? sha256(emailAddress) : 'undefined',
       currencyCode: 'GBP',
@@ -399,6 +407,41 @@ export const pushSummaryDataLayer = ({
     type,
     lineItem,
   });
+
+  pushToDataLayer(data);
+};
+
+export const pushPDPCallBackDataLayer = ({
+  capId,
+  derivativeInfo,
+  vehicleConfigurationByCapId,
+  price,
+  category,
+}: IPDPData) => {
+  if (!window.dataLayer) return;
+
+  const data = {
+    event: 'enquiry',
+    eventCategory: 'Enquiries',
+    eventAction: 'Vehicle Enquiry',
+    eventLabel: derivativeInfo?.name || 'undefined',
+    eventValue: `${price || 'undefined'}`,
+  };
+
+  getProductData({
+    capId,
+    derivativeInfo,
+    vehicleConfigurationByCapId,
+    price,
+    product: data,
+    category,
+  });
+
+  pushDetail(
+    'annualMileage',
+    vehicleConfigurationByCapId?.financeProfile?.mileage,
+    data,
+  );
 
   pushToDataLayer(data);
 };
