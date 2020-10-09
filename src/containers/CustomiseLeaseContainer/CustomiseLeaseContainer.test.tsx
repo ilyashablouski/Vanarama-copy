@@ -74,6 +74,7 @@ describe('<CustomiseLeaseContainer />', () => {
       <CustomiseLeaseContainer
         capId={84429}
         vehicleType={VehicleTypeEnum.CAR}
+        onCompletedCallBack={jest.fn()}
         setLeadTime={jest.fn()}
         isDisabled={false}
         setIsDisabled={jest.fn()}
@@ -266,6 +267,7 @@ describe('<CustomiseLeaseContainer />', () => {
       leaseType: 'Personal',
       setLeaseType: jest.fn(),
       onCompleted: jest.fn(),
+      onCompletedCallBack: jest.fn(),
     });
     expect(tree).toMatchSnapshot();
   });
@@ -283,6 +285,7 @@ describe('<CustomiseLeaseContainer />', () => {
       vehicleType: VehicleTypeEnum.CAR,
       isDisabled: false,
       setIsDisabled: jest.fn(),
+      onCompletedCallBack: jest.fn(),
       setLeadTime: jest.fn(),
       leaseAdjustParams: {
         mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
@@ -391,6 +394,7 @@ describe('<CustomiseLeaseContainer />', () => {
     render(
       <CustomiseLeaseContainer
         capId={84429}
+        onCompletedCallBack={jest.fn()}
         vehicleType={VehicleTypeEnum.CAR}
         setLeadTime={jest.fn()}
         isDisabled={false}
