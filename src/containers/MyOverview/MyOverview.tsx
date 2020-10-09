@@ -3,20 +3,27 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import OrderCard from '@vanarama/uibook/lib/components/molecules/cards/OrderCard/OrderCard';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Pagination from '@vanarama/uibook/lib/components/atoms/pagination';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import React, { useState, CSSProperties, useEffect } from 'react';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
+import Select from '@vanarama/uibook/lib/components/atoms/select';
 import {
   useOrdersByPartyUuidData,
   GET_CAR_DERIVATIVES,
 } from '../OrdersInformation/gql';
-import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
+import {
+  VehicleTypeEnum,
+  LeaseTypeEnum,
+  SortField,
+  SortDirection,
+} from '../../../generated/globalTypes';
 import {
   GetOrdersByPartyUuid_ordersByPartyUuid,
   GetOrdersByPartyUuid,
 } from '../../../generated/GetOrdersByPartyUuid';
-import { createOffersObject } from './helpers';
+import { createOffersObject, sortOrders, sortOrderValues } from './helpers';
 import { getUrlParam } from '../../utils/url';
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
@@ -48,6 +55,10 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   const [partyUuidArray, setPartyUuidArray] = useState<string[] | null>(null);
   const [dataCars, setDataCars] = useState<GetDerivatives | null>(null);
   const [dataCarsLCV, setDataCarsLCV] = useState<GetDerivatives | null>(null);
+  const [sortOrder, setSortOrder] = useState({
+    type: SortField.availability,
+    direction: SortDirection.ASC,
+  });
 
   const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
 
@@ -165,6 +176,15 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     }
   }, [data, initData]);
 
+  // handler for changing sort dropdown
+  const onChangeSortOrder = (value: string) => {
+    const [type, direction] = value.split('_');
+    setSortOrder({
+      type: type as SortField,
+      direction: direction as SortDirection,
+    });
+  };
+
   // check what we have 'credit' order and this order credit not in status 'draft'
   const hasCreditCompleteOrder = () =>
     !!(initData?.ordersByPartyUuid as GetOrdersByPartyUuid_ordersByPartyUuid[])?.find(
@@ -239,14 +259,18 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     const indexOfLastOffer = activePage * 6;
     const indexOfFirstOffer = indexOfLastOffer - 6;
     // we get the right amount of orders for the current page, sorted by createdAt date from last
+
+    const sortedOffers =
+      sortOrder.direction === SortDirection.DESC
+        ? data?.ordersByPartyUuid
+            .slice()
+            .sort((a, b) => sortOrders(a, b, sortOrder.type))
+            .reverse()
+        : data?.ordersByPartyUuid
+            .slice()
+            .sort((a, b) => sortOrders(a, b, sortOrder.type));
     const showOffers =
-      data?.ordersByPartyUuid
-        .slice()
-        .sort(
-          (a, b) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-        )
-        .slice(indexOfFirstOffer, indexOfLastOffer) || [];
+      sortedOffers?.slice(indexOfFirstOffer, indexOfLastOffer) || [];
     return showOffers.map((order: GetOrdersByPartyUuid_ordersByPartyUuid) => {
       // we get derivative data for this offers
       const derivative =
@@ -296,7 +320,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
             derivative,
             <Button
               color="teal"
-              label={quote ? 'Continue To Order' : 'Order Now'}
+              label={quote ? 'Continue To Order' : 'View Order'}
               onClick={() => onClickOrderBtn(order.uuid, order.leaseType)}
             />,
             quote,
@@ -304,7 +328,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
           header={
             !quote && !!creditState
               ? {
-                  text: creditState === 'draft' ? 'Incomplete' : 'Complete',
+                  text: creditState === 'draft' ? 'In Progress' : 'Complete',
                   complete: creditState !== 'draft',
                   incomplete: creditState === 'draft',
                 }
@@ -341,8 +365,10 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
             {!quote && (
               <div className="choiceboxes -cols-3 -teal">
                 {renderChoiceBtn(0, 'All Orders')}
-                {hasCreditCompleteOrder() && renderChoiceBtn(1, 'Complete')}
-                {hasCreditIncompleteOrder() && renderChoiceBtn(2, 'Incomplete')}
+                {hasCreditCompleteOrder() &&
+                  renderChoiceBtn(1, 'Complete Orders')}
+                {hasCreditIncompleteOrder() &&
+                  renderChoiceBtn(2, 'In Progress')}
               </div>
             )}
             {loading ? (
@@ -350,6 +376,19 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
             ) : (
               data?.ordersByPartyUuid?.length && (
                 <>
+                  <Text tag="span" color="darker" size="regular">
+                    Showing {data?.ordersByPartyUuid?.length} Orders
+                  </Text>
+                  <Select
+                    value={`${sortOrder.type}_${sortOrder.direction}`}
+                    onChange={e => onChangeSortOrder(e.target.value)}
+                  >
+                    {sortOrderValues.map(option => (
+                      <option key={option.value} value={option.value}>
+                        {option.text}
+                      </option>
+                    ))}
+                  </Select>
                   <div className="row:cards-1col">{renderOffers()}</div>
                   {pages.length > 1 && (
                     <Pagination
