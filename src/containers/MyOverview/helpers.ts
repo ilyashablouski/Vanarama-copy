@@ -3,7 +3,11 @@ import moment from 'moment';
 
 import { GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct } from '../../../generated/GetOrdersByPartyUuid';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
-import { LeaseTypeEnum } from '../../../generated/globalTypes';
+import {
+  LeaseTypeEnum,
+  SortDirection,
+  SortField,
+} from '../../../generated/globalTypes';
 
 /**
  * @param id - string, order ID
@@ -45,4 +49,33 @@ export const createOffersObject = (
   orderButton: state === 'draft' || quote || !state ? button : undefined,
 });
 
-export default createOffersObject;
+export const sortOrderValues = [
+  {
+    text: 'Newest To Oldest',
+    value: `${SortField.availability}_${SortDirection.ASC}`,
+  },
+  {
+    text: 'Oldest To Newest',
+    value: `${SortField.availability}_${SortDirection.DESC}`,
+  },
+  {
+    text: 'Price low to high',
+    value: `${SortField.rate}_${SortDirection.ASC}`,
+  },
+  {
+    text: 'Price high to low',
+    value: `${SortField.rate}_${SortDirection.DESC}`,
+  },
+];
+
+export const sortOrders = (first: any, second: any, type: SortField) => {
+  if (type === SortField.availability) {
+    return (
+      new Date(second.createdAt).getTime() - new Date(first.createdAt).getTime()
+    );
+  }
+  return (
+    second.lineItems[0].vehicleProduct.monthlyPayment -
+    first.lineItems[0].vehicleProduct.monthlyPayment
+  );
+};
