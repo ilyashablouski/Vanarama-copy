@@ -8,10 +8,7 @@ import { PHONE_NUMBER_LINK } from '../../models/enum/HeaderLinks';
 
 import withApollo from '../../hocs/withApollo';
 import Header from '../../components/Header';
-import {
-  LogOutUserMutation,
-  LogOutUserMutationVariables,
-} from '../../../generated/LogOutUserMutation';
+import { LogOutUserMutation } from '../../../generated/LogOutUserMutation';
 import { PRIMARY_HEADER } from '../../gql/header';
 import {
   PrimaryHeader,
@@ -20,8 +17,10 @@ import {
 import { IHeaderLink } from '../../components/Header/Header';
 
 export const LOGOUT_USER_MUTATION = gql`
-  mutation LogOutUserMutation($token: String!) {
-    logout(token: $token)
+  mutation LogOutUserMutation {
+    logoutV2 {
+      isSuccessfull
+    }
   }
 `;
 
@@ -38,9 +37,7 @@ const HeaderContainer: FC = () => {
     as: '/account/login-register',
   };
 
-  const [logOut] = useMutation<LogOutUserMutation, LogOutUserMutationVariables>(
-    LOGOUT_USER_MUTATION,
-  );
+  const [logOut] = useMutation<LogOutUserMutation>(LOGOUT_USER_MUTATION);
 
   if (loading) {
     return <></>;

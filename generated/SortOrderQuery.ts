@@ -4,13 +4,9 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: LogOutUserMutation
+// GraphQL query operation: SortOrderQuery
 // ====================================================
 
-export interface LogOutUserMutation_logoutV2 {
-  isSuccessfull: boolean | null;
-}
-
-export interface LogOutUserMutation {
-  logoutV2: LogOutUserMutation_logoutV2 | null;
+export interface SortOrderQuery {
+  sortOrder: any | null;
 }
