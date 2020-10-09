@@ -7,11 +7,17 @@
 // GraphQL query operation: GetPerson
 // ====================================================
 
+export interface GetPerson_getPerson_emailAddresses {
+  value: string;
+  partyId: string;
+}
+
 export interface GetPerson_getPerson {
   uuid: string;
   firstName: string;
   lastName: string;
   partyUuid: string;
+  emailAddresses: GetPerson_getPerson_emailAddresses[];
 }
 
 export interface GetPerson {

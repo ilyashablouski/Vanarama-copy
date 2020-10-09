@@ -66,7 +66,13 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     );
   }
 
-  const href = link.href?.charAt(0) !== '/' ? `/${link.href}` : link.href;
+  const replaceSpaceInHref =
+    link.href.charAt(0) === ' ' ? link.href.replace(' ', '') : link.href;
+
+  const href =
+    replaceSpaceInHref?.charAt(0) !== '/'
+      ? `/${replaceSpaceInHref}`
+      : replaceSpaceInHref;
 
   return (
     <Link

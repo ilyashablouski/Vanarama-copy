@@ -3,6 +3,7 @@ import { getBudgetForQuery } from '../SearchPodContainer/helpers';
 import { IFilters } from '../FiltersContainer/interfaces';
 import { GenericPageQueryVariables } from '../../../generated/GenericPageQuery';
 import { GenericPageHeadQueryVariables } from '../../../generated/GenericPageHeadQuery';
+import { SortDirection, SortField } from '../../../generated/globalTypes';
 
 export const buildRewriteRoute = (
   {
@@ -110,3 +111,22 @@ export const pageContentQueryExecutor = (
 export function getBodyStyleForCms(this: string, element: string) {
   return this.indexOf(element) > -1 || element.indexOf(this) > -1;
 }
+
+export const sortValues = [
+  {
+    text: 'Price lowest to highest',
+    value: `${SortField.rate}_${SortDirection.ASC}`,
+  },
+  {
+    text: 'Price highest to lowest',
+    value: `${SortField.rate}_${SortDirection.DESC}`,
+  },
+  {
+    text: 'Quickest to longest delivery time',
+    value: `${SortField.availability}_${SortDirection.ASC}`,
+  },
+  {
+    text: 'Longest to quickest delivery time',
+    value: `${SortField.availability}_${SortDirection.DESC}`,
+  },
+];

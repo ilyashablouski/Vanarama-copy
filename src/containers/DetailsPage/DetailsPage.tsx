@@ -18,6 +18,7 @@ import {
   pushAddToCartDataLayer,
   pushPageData,
   getCategory,
+  pushPDPCallBackDataLayer,
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
 import { toPriceFormat } from '../../utils/helpers';
@@ -86,7 +87,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   );
 
   useEffect(() => {
-    pushPageData(cars ? 'Cars' : 'Vans');
+    pushPageData('PDP', cars ? 'Cars' : 'Vans');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -111,6 +112,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
       const derivativeInfo = data?.derivativeInfo;
       const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
+      // tracking
       pushPDPDataLayer({
         capId,
         derivativeInfo,
@@ -118,6 +120,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         price,
         category: getCategory({ cars, vans, pickups }),
       });
+
       setFirstTimePushDataLayer(false);
     }
   }, [
@@ -434,6 +437,19 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     breadcrumbs: breadcrumbItems || null,
   };
 
+  // tracking
+  const onCompletedCallBack = () => {
+    const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
+
+    pushPDPCallBackDataLayer({
+      capId,
+      derivativeInfo,
+      vehicleConfigurationByCapId,
+      price,
+      category: getCategory({ cars, vans, pickups }),
+    });
+  };
+
   return (
     <>
       <div className="pdp--content">
@@ -488,6 +504,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         {isMobile && (
           <CustomiseLeaseContainer
             capId={capId}
+            onCompletedCallBack={onCompletedCallBack}
             financeProfile={financeProfile}
             vehicleType={vehicleType}
             derivativeInfo={derivativeInfo}
@@ -523,6 +540,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         isDisabled={isDisabled}
         setIsDisabled={setIsDisabled}
         setLeaseScannerData={setLeaseScannerData}
+        onCompletedCallBack={onCompletedCallBack}
         onCompleted={values => onSubmitClick(values)}
       />
       {!!capsId?.length && (

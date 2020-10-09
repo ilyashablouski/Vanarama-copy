@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import localForage from 'localforage';
+import { sha256 } from 'js-sha256';
 import { ILeaseScannerData } from '../containers/CustomiseLeaseContainer/interfaces';
 import {
   GetVehicleDetails_derivativeInfo,
@@ -7,8 +8,20 @@ import {
 } from '../../generated/GetVehicleDetails';
 import { OrderInputObject, LeaseTypeEnum } from '../../generated/globalTypes';
 import { GetPerson } from '../../generated/GetPerson';
-import { GetOlafData_orderByUuid } from '../../generated/GetOlafData';
+import {
+  GetOlafData_orderByUuid,
+  GetOlafData_orderByUuid_lineItems,
+} from '../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../generated/GetDerivative';
+
+interface ICheckoutData {
+  price: string | number | null | undefined;
+  product?: IProduct;
+  detailsData: GetOlafData_orderByUuid | null;
+  derivativeData: GetDerivative_derivative | null;
+  lineItem: GetOlafData_orderByUuid_lineItems | undefined;
+  type?: string;
+}
 
 interface IPDPData {
   capId: string | number | undefined;
@@ -26,6 +39,14 @@ interface IPDPData {
   values?: OrderInputObject;
   product?: IProduct;
   category?: string;
+}
+
+interface ISummary {
+  detailsData: GetOlafData_orderByUuid | null;
+  derivativeData: GetDerivative_derivative | null;
+  orderId: string;
+  emailAddress: string | undefined;
+  type?: string;
 }
 
 interface IProduct {
@@ -48,7 +69,15 @@ interface IPageDataLayer {
   eventAction: string;
   eventLabel: string | undefined;
   eventValue: string | undefined;
-  ecommerce: IEcommerceData;
+  ecommerce?: IEcommerceData;
+  annualMileage?: string;
+  id?: string;
+  name?: string;
+  price?: string;
+  variant?: string;
+  category?: string;
+  brand?: string;
+  vehicleModel?: string;
 }
 
 interface ICategory {
@@ -74,6 +103,16 @@ export const getCategory = ({ cars, pickups }: ICategory): string => {
   return 'Van';
 };
 
+const getCategoryAboutYouData = (
+  derivativeData: GetDerivative_derivative | null,
+) => {
+  if (derivativeData?.bodyType?.name?.includes('Pick-Up')) {
+    return 'Pickup';
+  }
+
+  return 'Van';
+};
+
 export const pushToDataLayer = (data: IPageDataLayer) => {
   window.dataLayer?.push(data);
 };
@@ -86,16 +125,28 @@ export const pushDetail = (
   if (value) Object.assign(product, { [field]: `${value}` });
 };
 
-export const pushPageData = async (siteSection: string) => {
+export const pushPageData = async (
+  pageType: string,
+  siteSection: string,
+  email?: boolean,
+) => {
   if (!window.dataLayer) return;
-  const person = (await localForage.getItem('person')) as GetPerson | null;
+  const personData = (await localForage.getItem('person')) as GetPerson | null;
+  const person = personData?.getPerson;
 
   const data = {
-    pageType: 'PDP',
+    pageType,
     siteSection,
   };
 
-  pushDetail('customerId', person?.getPerson?.uuid, data);
+  pushDetail('customerId', person?.uuid, data);
+  pushDetail(
+    'visitorEmail',
+    email && person?.emailAddresses && person?.emailAddresses[0]?.value
+      ? sha256(person?.emailAddresses[0].value)
+      : null,
+    data,
+  );
   window.dataLayer.push(data);
 };
 
@@ -127,6 +178,54 @@ const getProductData = ({
   );
 };
 
+const getProductDataForCheckout = ({
+  product,
+  detailsData,
+  derivativeData,
+  price,
+  type,
+  lineItem,
+}: ICheckoutData) => {
+  getProductData({
+    capId: derivativeData?.id,
+    derivativeInfo: derivativeData,
+    price,
+    category: type || getCategoryAboutYouData(derivativeData),
+    product,
+  });
+
+  pushDetail('brand', derivativeData?.manufacturer.name, product);
+  pushDetail('variant', derivativeData?.range.name, product);
+  pushDetail('quantity', lineItem?.quantity, product);
+  pushDetail(
+    'vehicleModel',
+    derivativeData?.model.name !== derivativeData?.range.name
+      ? derivativeData?.model.name
+      : null,
+    product,
+  );
+  pushDetail('annualMileage', lineItem?.vehicleProduct?.annualMileage, product);
+  pushDetail('journeyType', detailsData?.leaseType, product);
+  pushDetail(
+    'priceType',
+    detailsData?.leaseType === LeaseTypeEnum.BUSINESS
+      ? PRICE_TYPE.excVAT
+      : PRICE_TYPE.incVAT,
+    product,
+  );
+  pushDetail('lengthOfLease', lineItem?.vehicleProduct?.term, product);
+  pushDetail(
+    'initialPayment',
+    lineItem?.vehicleProduct?.depositMonths,
+    product,
+  );
+  pushDetail(
+    'addMaintenance',
+    lineItem?.vehicleProduct?.maintenancePrice,
+    product,
+  );
+};
+
 export const pushPDPDataLayer = ({
   capId,
   derivativeInfo,
@@ -140,8 +239,8 @@ export const pushPDPDataLayer = ({
     event: 'detailView',
     eventCategory: 'Ecommerce',
     eventAction: 'PDP View',
-    eventLabel: derivativeInfo?.name,
-    eventValue: `${price}`,
+    eventLabel: derivativeInfo?.name || 'undefined',
+    eventValue: `${price || 'undefined'}`,
     ecommerce: {
       currencyCode: 'GBP',
       detail: {
@@ -182,8 +281,8 @@ export const pushAddToCartDataLayer = ({
     event: 'addToCart',
     eventCategory: 'Ecommerce',
     eventAction: 'Order Start',
-    eventLabel: derivativeInfo?.name,
-    eventValue: `${price}`,
+    eventLabel: derivativeInfo?.name || 'undefined',
+    eventValue: `${price || 'undefined'}`,
     ecommerce: {
       currencyCode: 'GBP',
       add: {
@@ -232,16 +331,6 @@ export const pushAddToCartDataLayer = ({
   pushToDataLayer(data);
 };
 
-const getCategoryAboutYouData = (
-  derivativeData: GetDerivative_derivative | null,
-) => {
-  if (derivativeData?.bodyType?.name?.includes('Pick-Up')) {
-    return 'Pickup';
-  }
-
-  return 'Van';
-};
-
 export const pushAboutYouDataLayer = (
   detailsData: GetOlafData_orderByUuid | null,
   derivativeData: GetDerivative_derivative | null,
@@ -253,8 +342,8 @@ export const pushAboutYouDataLayer = (
     event: 'checkout',
     eventCategory: 'Ecommerce',
     eventAction: 'Checkout - Step 1 Complete',
-    eventLabel: derivativeData?.name || '',
-    eventValue: `${price}`,
+    eventLabel: derivativeData?.name || 'undefined',
+    eventValue: `${price || 'undefined'}`,
     ecommerce: {
       currencyCode: 'GBP',
       checkout: {
@@ -267,43 +356,89 @@ export const pushAboutYouDataLayer = (
   };
 
   const product = data.ecommerce.checkout.products[0];
-  getProductData({
-    capId: derivativeData?.id,
-    derivativeInfo: derivativeData,
-    price,
-    category: type || getCategoryAboutYouData(derivativeData),
+  getProductDataForCheckout({
     product,
+    detailsData,
+    derivativeData,
+    price,
+    type,
+    lineItem,
   });
 
-  pushDetail('brand', derivativeData?.manufacturer.name, product);
-  pushDetail('variant', derivativeData?.range.name, product);
-  pushDetail('quantity', lineItem?.quantity, product);
-  pushDetail(
-    'vehicleModel',
-    derivativeData?.model.name !== derivativeData?.range.name
-      ? derivativeData?.model.name
-      : null,
+  pushToDataLayer(data);
+};
+
+export const pushSummaryDataLayer = ({
+  detailsData,
+  derivativeData,
+  orderId,
+  emailAddress,
+  type,
+}: ISummary) => {
+  const lineItem = detailsData?.lineItems[0];
+  const price = lineItem?.vehicleProduct?.monthlyPayment;
+  const data = {
+    event: 'purchase',
+    eventCategory: 'Ecommerce',
+    eventAction: 'Order Complete',
+    eventLabel: orderId || 'undefined',
+    eventValue: `${price || 'undefined'}`,
+    ecommerce: {
+      visitorEmail: emailAddress ? sha256(emailAddress) : 'undefined',
+      currencyCode: 'GBP',
+      checkout: {
+        actionField: {
+          id: orderId,
+          revenue: `${price}`,
+        },
+        products: [{}],
+      },
+    },
+  };
+
+  const product = data.ecommerce.checkout.products[0];
+  getProductDataForCheckout({
     product,
-  );
-  pushDetail('annualMileage', lineItem?.vehicleProduct?.annualMileage, product);
-  pushDetail('journeyType', detailsData?.leaseType, product);
+    detailsData,
+    derivativeData,
+    price,
+    type,
+    lineItem,
+  });
+
+  pushToDataLayer(data);
+};
+
+export const pushPDPCallBackDataLayer = ({
+  capId,
+  derivativeInfo,
+  vehicleConfigurationByCapId,
+  price,
+  category,
+}: IPDPData) => {
+  if (!window.dataLayer) return;
+
+  const data = {
+    event: 'enquiry',
+    eventCategory: 'Enquiries',
+    eventAction: 'Vehicle Enquiry',
+    eventLabel: derivativeInfo?.name || 'undefined',
+    eventValue: `${price || 'undefined'}`,
+  };
+
+  getProductData({
+    capId,
+    derivativeInfo,
+    vehicleConfigurationByCapId,
+    price,
+    product: data,
+    category,
+  });
+
   pushDetail(
-    'priceType',
-    detailsData?.leaseType === LeaseTypeEnum.BUSINESS
-      ? PRICE_TYPE.excVAT
-      : PRICE_TYPE.incVAT,
-    product,
-  );
-  pushDetail('lengthOfLease', lineItem?.vehicleProduct?.term, product);
-  pushDetail(
-    'initialPayment',
-    lineItem?.vehicleProduct?.depositMonths,
-    product,
-  );
-  pushDetail(
-    'addMaintenance',
-    lineItem?.vehicleProduct?.maintenancePrice,
-    product,
+    'annualMileage',
+    vehicleConfigurationByCapId?.financeProfile?.mileage,
+    data,
   );
 
   pushToDataLayer(data);

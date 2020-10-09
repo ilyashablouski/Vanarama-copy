@@ -6,6 +6,53 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
     <div
       class="row:title"
     >
+      <nav>
+        <ol
+          class="breadcrumb"
+        >
+          <li
+            class="breadcrumb-item -parent"
+          >
+            <a
+              class="breadcrumb-item--parent link -teal -small"
+              data-testid="router-link"
+              href="/"
+            >
+              home
+            </a>
+            <i
+              class="icon -medium -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="184 112 328 256 184 400"
+                  style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                />
+              </svg>
+            </i>
+          </li>
+          <li
+            class="breadcrumb-item -child"
+          >
+            <span
+              class="text breadcrumb-item--child -small -darker"
+            >
+              home
+            </span>
+          </li>
+        </ol>
+      </nav>
+    </div>
+    <div
+      class="row:title"
+    >
       <h1
         class="heading -black -xlarge"
       >
@@ -34,110 +81,6 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
         >
           Eu ex nulla ea veniam nisi tempor pariatur consectetur duis ea adipisicing aliqua ullamco ipsum↵↵Tempor sit magna eu eu tempor sunt officia esse velit excepteur laborum non ea amet aliqua adipisicing voluptate adipisicing velit quis ut ut mollit officia aute eiusmod cillum adipisicing et↵↵Culpa sint consectetur sit anim enim occaecat nulla quis minim velit Lorem ea voluptate cillum proident nostrud ut irure cupidatat.)
         </p>
-      </div>
-    </div>
-    <div
-      class="row:bg-lighter -col-300"
-    >
-      <h3
-        class="heading -a-center -black -large"
-      >
-        Top Articles
-      </h3>
-      <div
-        class="carousel -mh-auto"
-      >
-        <div
-          class="slider"
-          style="box-sizing: border-box; display: block; height: inherit; position: relative; width: 100%;"
-          tabindex="0"
-        >
-          <div
-            aria-atomic="true"
-            aria-live="polite"
-            style="position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden;"
-            tabindex="-1"
-          >
-            Slide 1 of 0
-          </div>
-          <div
-            class="slider-frame"
-            style="box-sizing: border-box; display: block; height: 100%; margin: 0px; overflow: hidden; padding: 0px; position: relative; transform: translate3d(0, 0, 0);"
-          >
-            <ul
-              class="slider-list"
-              style="box-sizing: border-box; cursor: pointer; display: block; height: 0px; margin: 0px -10px; padding: 0px; position: relative; transform: translate3d(0px, 0px, 0); width: auto;"
-            />
-          </div>
-          <style
-            type="text/css"
-          >
-            .slider-slide &gt; img { width: 100%; display: block; }
-          .slider-slide &gt; img:focus { margin: auto; }
-          </style>
-        </div>
-        <nav
-          class="carousel--nav"
-        >
-          <button
-            class="carousel--nav-arrow"
-            type="button"
-          >
-            <i
-              class="icon -darker -regular"
-            >
-              <svg
-                height="1em"
-                viewBox="0 0 512 512"
-                width="1em"
-              >
-                <title>
-                  ionicons-v5-a
-                </title>
-                <polyline
-                  points="244 400 100 256 244 112"
-                  style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                />
-                <line
-                  style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                  x1="120"
-                  x2="412"
-                  y1="256"
-                  y2="256"
-                />
-              </svg>
-            </i>
-          </button>
-          <button
-            class="carousel--nav-arrow"
-            type="button"
-          >
-            <i
-              class="icon -darker -regular"
-            >
-              <svg
-                height="1em"
-                viewBox="0 0 512 512"
-                width="1em"
-              >
-                <title>
-                  ionicons-v5-a
-                </title>
-                <polyline
-                  points="268 112 412 256 268 400"
-                  style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                />
-                <line
-                  style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                  x1="392"
-                  x2="100"
-                  y1="256"
-                  y2="256"
-                />
-              </svg>
-            </i>
-          </button>
-        </nav>
       </div>
     </div>
     <div
@@ -251,65 +194,12 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
           </a>
         </div>
       </div>
-      <div
-        class="row:pagination"
-      >
-        <div
-          class="pagination"
-        >
-          <a
-            class="link pagination--chevron -disabled -primary -regular -plain"
-            href=""
-          >
-            <i
-              class="icon"
-            >
-              <svg
-                height="1em"
-                viewBox="0 0 512 512"
-                width="1em"
-              >
-                <title>
-                  ionicons-v5-a
-                </title>
-                <polyline
-                  points="328 112 184 256 328 400"
-                  style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                />
-              </svg>
-            </i>
-          </a>
-          <a
-            class="link pagination--item -active -primary -regular -plain"
-            href="/1"
-          >
-            1
-          </a>
-          <a
-            class="link pagination--chevron -disabled -primary -regular -plain"
-            href=""
-          >
-            <i
-              class="icon"
-            >
-              <svg
-                height="1em"
-                viewBox="0 0 512 512"
-                width="1em"
-              >
-                <title>
-                  ionicons-v5-a
-                </title>
-                <polyline
-                  points="184 112 328 256 184 400"
-                  style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                />
-              </svg>
-            </i>
-          </a>
-        </div>
-      </div>
     </div>
+    <script
+      type="application/ld+json"
+    >
+      null
+    </script>
   </div>
 </body>
 `;
