@@ -95,3 +95,26 @@ resource "aws_ssm_parameter" "redis-cache-host" {
     created-by = "terraform"
   }
 }
+
+module "aws_cloudwatch_ecs_alarms" {
+  source = "git@github.com:Autorama/autorama-infra-modules.git//ecs_service_alarms"
+
+  env   = "${var.env}"
+  stack = "${var.stack}"
+  app   = "${var.app}"
+  cluster = "${data.terraform_remote_state.grid.outputs.cluster_arn}"
+}
+
+module "aws_cloudwatch_sqs_alarms" {
+  source = "git@github.com:Autorama/autorama-infra-modules.git//sqs_alarms"
+
+  env   = "${var.env}"
+  stack = "${var.stack}"
+  app   = "${var.app}"
+
+  queue_names = [
+    "${var.env}-${var.stack}-${var.app}-dlq-opportunity-out.fifo",
+    "${var.env}-${var.stack}-${var.app}-dlq-company-out.fifo",
+    "${var.env}-${var.stack}-${var.app}-dlq-person-out.fifo"
+  ]
+}
