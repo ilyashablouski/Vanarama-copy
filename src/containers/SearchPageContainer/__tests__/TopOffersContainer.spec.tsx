@@ -245,6 +245,7 @@ describe('<TopOffersContainer />', () => {
       isDynamicFilterPage: false,
       viewOffer: jest.fn(),
       viewModel: jest.fn(),
+      manualBodyStyle: ['test'],
     };
   };
 

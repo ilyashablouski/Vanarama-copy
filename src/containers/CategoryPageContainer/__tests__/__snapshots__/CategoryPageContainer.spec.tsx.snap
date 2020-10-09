@@ -86,18 +86,6 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
     <div
       class="row:bg-lighter -col-300"
     >
-      <h3
-        class="heading -a-center -black -large"
-      >
-        Top Articles
-      </h3>
-      <div
-        class="row:cards-3col"
-      />
-    </div>
-    <div
-      class="row:bg-lighter -col-300"
-    >
       <div
         class="row:cards-3col"
       >

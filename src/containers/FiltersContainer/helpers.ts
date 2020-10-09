@@ -7,8 +7,10 @@ export const findPreselectFilterValue = (
 ): string =>
   data?.find(
     element =>
-      element.toLowerCase().replace(' ', '-') ===
-      value.toLowerCase().replace(' ', '-'),
+      value
+        .toLowerCase()
+        .replace(' ', '-')
+        .indexOf(element.toLowerCase().replace(' ', '-')) > -1,
   ) || '';
 
 // build choiseboxes for preselected filters in custom page like a bodystyle page
