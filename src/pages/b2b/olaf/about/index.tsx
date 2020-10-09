@@ -14,9 +14,9 @@ import { getUrlParam, OLAFQueryParams } from '../../../../utils/url';
 import LoginFormContainer from '../../../../containers/LoginFormContainer/LoginFormContainer';
 import BusinessAboutFormContainer from '../../../../containers/BusinessAboutFormContainer';
 import { SubmitResult } from '../../../../containers/BusinessAboutFormContainer/interfaces';
-import { usePersonByTokenLazyQuery } from '../../../olaf/about';
+import { useGetPersonLazyQuery } from '../../../olaf/about';
 import { CompanyTypes } from '../../../../models/enum/CompanyTypes';
-import { PersonByToken } from '../../../../../generated/PersonByToken';
+import { GetPerson } from '../../../../../generated/GetPerson';
 import { useImperativeQuery } from '../../../../hooks/useImperativeQuery';
 import { GET_ORDERS_BY_PARTY_UUID_DATA } from '../../../../containers/OrdersInformation/gql';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../../../gql/companies';
@@ -24,6 +24,7 @@ import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid
 import { pushAboutYouDataLayer } from '../../../../utils/dataLayerHelpers';
 import { GetOlafData_orderByUuid } from '../../../../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../../../../generated/GetDerivative';
+import { isUserAuthenticated } from '../../../../utils/authentication';
 
 const handleCreateUpdateBusinessPersonError = () =>
   toast.error(
@@ -60,16 +61,16 @@ export const BusinessAboutPage: NextPage = () => {
   const getOrdersData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);
   const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
 
-  const [getPersonByToken] = usePersonByTokenLazyQuery(async data => {
-    setPersonUuid(data?.personByToken?.uuid);
+  const [getPerson] = useGetPersonLazyQuery(async data => {
+    setPersonUuid(data?.getPerson?.uuid);
     await localForage.setItem('person', data);
 
     const companyData = await getCompaniesData({
-      personUuid: data.personByToken?.uuid,
+      personUuid: data.getPerson?.uuid,
     });
 
     const partyUuid = [
-      data.personByToken?.partyUuid,
+      data.getPerson?.partyUuid,
       ...companyData.data?.companiesByPersonUuid?.map(
         (companies: CompaniesByPersonUuid) => companies.partyUuid,
       ),
@@ -127,8 +128,8 @@ export const BusinessAboutPage: NextPage = () => {
   useEffect(() => {
     if (!personUuid) {
       localForage.getItem('person').then(value => {
-        if ((value as PersonByToken)?.personByToken)
-          setPersonUuid((value as PersonByToken)?.personByToken?.uuid);
+        if ((value as GetPerson)?.getPerson)
+          setPersonUuid((value as GetPerson)?.getPerson?.uuid);
       });
     }
   }, [personUuid]);
@@ -161,14 +162,9 @@ export const BusinessAboutPage: NextPage = () => {
           </div>
           {isLogInVisible && (
             <LoginFormContainer
-              onCompleted={data => {
-                // request person account after login
-                if (data.login !== null) {
-                  getPersonByToken({
-                    variables: {
-                      token: data.login,
-                    },
-                  });
+              onCompleted={() => {
+                if (isUserAuthenticated()) {
+                  getPerson();
                 }
               }}
             />

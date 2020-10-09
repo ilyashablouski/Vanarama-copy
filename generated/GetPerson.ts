@@ -4,23 +4,19 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: PersonByToken
+// GraphQL query operation: GetPerson
 // ====================================================
 
-export interface PersonByToken_personByToken {
+export interface GetPerson_getPerson {
   uuid: string;
   firstName: string;
   lastName: string;
   partyUuid: string;
 }
 
-export interface PersonByToken {
+export interface GetPerson {
   /**
    * Find Person by JWT token
    */
-  personByToken: PersonByToken_personByToken | null;
-}
-
-export interface PersonByTokenVariables {
-  token: string;
+  getPerson: GetPerson_getPerson | null;
 }

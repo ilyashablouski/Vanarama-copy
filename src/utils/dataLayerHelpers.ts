@@ -6,7 +6,7 @@ import {
   GetVehicleDetails_vehicleConfigurationByCapId,
 } from '../../generated/GetVehicleDetails';
 import { OrderInputObject, LeaseTypeEnum } from '../../generated/globalTypes';
-import { PersonByToken } from '../../generated/PersonByToken';
+import { GetPerson } from '../../generated/GetPerson';
 import { GetOlafData_orderByUuid } from '../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../generated/GetDerivative';
 
@@ -88,14 +88,14 @@ export const pushDetail = (
 
 export const pushPageData = async (siteSection: string) => {
   if (!window.dataLayer) return;
-  const person = (await localForage.getItem('person')) as PersonByToken | null;
+  const person = (await localForage.getItem('person')) as GetPerson | null;
 
   const data = {
     pageType: 'PDP',
     siteSection,
   };
 
-  pushDetail('customerId', person?.personByToken?.uuid, data);
+  pushDetail('customerId', person?.getPerson?.uuid, data);
   window.dataLayer.push(data);
 };
 
