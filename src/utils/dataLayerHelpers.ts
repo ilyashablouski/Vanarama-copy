@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import localForage from 'localforage';
 import { sha256 } from 'js-sha256';
+import { NextRouter } from 'next/router';
+import { routerItems } from '../components/Breadcrumb/helpers';
 import { ILeaseScannerData } from '../containers/CustomiseLeaseContainer/interfaces';
 import {
   GetVehicleDetails_derivativeInfo,
@@ -68,7 +70,7 @@ interface IPageDataLayer {
   eventCategory: string;
   eventAction: string;
   eventLabel: string | undefined;
-  eventValue: string | undefined;
+  eventValue?: string | undefined;
   ecommerce?: IEcommerceData;
   annualMileage?: string;
   id?: string;
@@ -407,6 +409,18 @@ export const pushSummaryDataLayer = ({
     type,
     lineItem,
   });
+
+  pushToDataLayer(data);
+};
+
+export const pushInsuranceEventDataLayer = (router: NextRouter) => {
+  const eventLabel = routerItems(router).pop()?.link.label;
+  const data = {
+    event: 'enquiry',
+    eventCategory: 'Enquiries',
+    eventAction: 'Insurance Enquiry',
+    eventLabel,
+  };
 
   pushToDataLayer(data);
 };

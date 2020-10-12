@@ -10,6 +10,7 @@ import InsuranceTypeSection from './sections/InsuranceTypeSection';
 import InsuranceFormSection from './sections/InsuranceFormSection';
 import { useOpportunityCreation } from '../GoldrushFormContainer/gql';
 import { OpportunityTypeEnum } from '../../../generated/globalTypes';
+import { pushInsuranceEventDataLayer } from '../../utils/dataLayerHelpers';
 
 interface IProps {
   sections: Section | null;
@@ -31,7 +32,7 @@ export const handleNetworkError = () =>
   );
 
 const toThankYouPage = () => {
-  Router.push('/van-insurance/multi-year-van-insurance/thank-you');
+  Router.push(`thank-you`);
 };
 
 const FinanceGapInsurancePageContainer = ({ sections }: IProps) => {
@@ -61,6 +62,7 @@ const FinanceGapInsurancePageContainer = ({ sections }: IProps) => {
           {...featured1}
           isSubmitting={loading}
           onSubmit={(values: IGoldrushFromValues) => {
+            pushInsuranceEventDataLayer(Router);
             createOppurtunity({
               variables: {
                 email: values.email,
@@ -90,6 +92,7 @@ const FinanceGapInsurancePageContainer = ({ sections }: IProps) => {
             isTextInVisible
             noTermsAndConditions
             onSubmit={(values: IGoldrushFromValues) => {
+              pushInsuranceEventDataLayer(Router);
               createOppurtunity({
                 variables: {
                   email: values.email,
