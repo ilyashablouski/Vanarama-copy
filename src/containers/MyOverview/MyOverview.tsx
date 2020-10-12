@@ -365,8 +365,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
             {!quote && (
               <div className="choiceboxes -cols-3 -teal">
                 {renderChoiceBtn(0, 'All Orders')}
-                {hasCreditCompleteOrder() &&
-                  renderChoiceBtn(1, 'Complete Orders')}
+                {hasCreditCompleteOrder() && renderChoiceBtn(1, 'Completed')}
                 {hasCreditIncompleteOrder() &&
                   renderChoiceBtn(2, 'In Progress')}
               </div>
