@@ -248,7 +248,7 @@ export const OffersPage: NextPage = () => {
               classNames={{ color: 'teal', solid: true, size: 'regular' }}
               link={{
                 label: 'View All Truck Offers',
-                href: ' /pickup-special-offers.html',
+                href: '/pickup-special-offers.html',
               }}
               withoutDefaultClassName
             >

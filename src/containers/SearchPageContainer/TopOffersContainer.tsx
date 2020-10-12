@@ -34,6 +34,7 @@ interface IProps {
   isDynamicFilterPage: boolean;
   viewOffer: (productPageUrl: IProductPageUrl) => void;
   viewModel: (model: string) => void;
+  manualBodyStyle: string[];
 }
 
 const TopOffersContainer: React.FC<IProps> = ({
@@ -49,6 +50,7 @@ const TopOffersContainer: React.FC<IProps> = ({
   viewOffer,
   viewModel,
   isDynamicFilterPage,
+  manualBodyStyle,
 }: IProps) => {
   const router = useRouter();
 
@@ -133,9 +135,7 @@ const TopOffersContainer: React.FC<IProps> = ({
             isMakePage || isRangePage
               ? (router.query?.dynamicParam as string)
               : undefined,
-          bodyStyles: isBodyPage
-            ? [(router.query?.dynamicParam as string).replace('-', ' ')]
-            : undefined,
+          bodyStyles: isBodyPage ? manualBodyStyle : undefined,
           transmissions: isTransmissionPage
             ? [router.query?.dynamicParam as string]
             : undefined,
@@ -165,6 +165,7 @@ const TopOffersContainer: React.FC<IProps> = ({
     isDynamicFilterPage,
     isFuelPage,
     isPersonal,
+    manualBodyStyle,
   ]);
 
   // using for get vehicles for carousel when we switching between pages by header links
