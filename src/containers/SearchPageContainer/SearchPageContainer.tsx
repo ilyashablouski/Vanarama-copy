@@ -25,6 +25,7 @@ import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useLazyQuery } from '@apollo/client';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
+import { findPreselectFilterValue } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
 import { GENERIC_PAGE, GENERIC_PAGE_HEAD } from '../../gql/genericPage';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -167,19 +168,27 @@ const SearchPageContainer: React.FC<IProps> = ({
     if (isPickups) return ['Pickup'];
     if (isModelPage) return [router.query?.bodyStyles as string];
     if (isBodyStylePage) {
-      const bodyStyle = (router.query?.dynamicParam as string).replace(
-        '-leasing',
-        '',
-      );
+      const bodyStyle = (router.query?.dynamicParam as string)
+        .replace('-leasing', '')
+        .replace('-', ' ');
       // city-car is only one style with '-' we shouldn't to replace it
       return [
         bodyStyle.toLowerCase() === 'city-car'
-          ? bodyStyle
-          : bodyStyle.replace('-', ' '),
+          ? findPreselectFilterValue(bodyStyle, filtersData.bodyStyles)
+          : findPreselectFilterValue(
+              bodyStyle.replace('-', ' '),
+              filtersData.bodyStyles,
+            ),
       ];
     }
     return [''];
-  }, [isPickups, isModelPage, router.query, isBodyStylePage]);
+  }, [
+    isPickups,
+    isModelPage,
+    router.query,
+    isBodyStylePage,
+    filtersData.bodyStyles,
+  ]);
 
   // get Caps ids for product card request
   const getCapsIds = (data: (IVehicles | null)[]) =>
@@ -305,7 +314,8 @@ const SearchPageContainer: React.FC<IProps> = ({
           ...{
             bodyStyles:
               isPickups || isModelPage || isBodyStylePage
-                ? manualBodyStyle
+                ? (filters.bodyStyles[0] && filters.bodyStyles) ||
+                  manualBodyStyle
                 : filters.bodyStyles,
             transmissions: isTransmissionPage
               ? [(router.query.dynamicParam as string).replace('-', ' ')]
@@ -769,6 +779,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           isSpecialOfferPage={isSpecialOfferPage || false}
           viewOffer={viewOffer}
           viewModel={viewModel}
+          manualBodyStyle={manualBodyStyle}
         />
       )}
       {!isMakePage &&
