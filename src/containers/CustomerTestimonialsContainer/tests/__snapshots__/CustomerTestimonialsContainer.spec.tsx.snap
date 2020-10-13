@@ -16,11 +16,10 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
         class="review"
       >
         <div
-          class="image -expand -round"
+          class="lazyload-wrapper"
         >
-          <img
-            class="image--native"
-            src="https://eu.ui-avatars.com/api/?name=name=Steven Buckle&color=ffffff&background=0A0D10&format=svg&rounded=true"
+          <div
+            class="lazyload-placeholder"
           />
         </div>
         <p
@@ -165,12 +164,10 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
         class="testimonials--sidebar--service tilebox"
       >
         <div
-          class="image -expand -round"
+          class="lazyload-wrapper"
         >
-          <img
-            alt="Fleet-Icon"
-            class="image--native"
-            src="//images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png"
+          <div
+            class="lazyload-placeholder"
           />
         </div>
         <div>
@@ -190,12 +187,10 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
         class="testimonials--sidebar--service tilebox"
       >
         <div
-          class="image -expand -round"
+          class="lazyload-wrapper"
         >
-          <img
-            alt="Fleet-Icon"
-            class="image--native"
-            src="//images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png"
+          <div
+            class="lazyload-placeholder"
           />
         </div>
         <div>
@@ -215,12 +210,10 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
         class="testimonials--sidebar--service tilebox"
       >
         <div
-          class="image -expand -round"
+          class="lazyload-wrapper"
         >
-          <img
-            alt="Fleet-Icon"
-            class="image--native"
-            src="//images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png"
+          <div
+            class="lazyload-placeholder"
           />
         </div>
         <div>
@@ -240,12 +233,10 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
         class="testimonials--sidebar--service tilebox"
       >
         <div
-          class="image -expand -round"
+          class="lazyload-wrapper"
         >
-          <img
-            alt=""
-            class="image--native"
-            src=""
+          <div
+            class="lazyload-placeholder"
           />
         </div>
         <div>
@@ -279,12 +270,10 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
               style="display: flex; justify-content: center;"
             >
               <div
-                class="image -large -round -inline"
+                class="lazyload-wrapper"
               >
-                <img
-                  alt="redundancy-life-event-cover"
-                  class="image--native"
-                  src="//images.ctfassets.net/3xid768u5joa/3kTJFwdjcWkVHexxDcRSju/d94c9af10e343bfc271e2ed3204b56e0/redundancy.jpg"
+                <div
+                  class="lazyload-placeholder"
                 />
               </div>
             </div>
@@ -312,12 +301,10 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
               style="display: flex; justify-content: center;"
             >
               <div
-                class="image -large -round -inline"
+                class="lazyload-wrapper"
               >
-                <img
-                  alt="Vanarama-Price-Promise-Icon"
-                  class="image--native"
-                  src="//images.ctfassets.net/3xid768u5joa/4v2ALClaL6YnE0NYRsd8uc/7e92f2b83eb9e594ced8269152961026/Icon-PricePromise-RGB.png"
+                <div
+                  class="lazyload-placeholder"
                 />
               </div>
             </div>
@@ -345,12 +332,10 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
               style="display: flex; justify-content: center;"
             >
               <div
-                class="image -large -round -inline"
+                class="lazyload-wrapper"
               >
-                <img
-                  alt="Insurance-Icon"
-                  class="image--native"
-                  src="//images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png"
+                <div
+                  class="lazyload-placeholder"
                 />
               </div>
             </div>
