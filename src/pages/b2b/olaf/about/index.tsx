@@ -23,6 +23,7 @@ import { GET_COMPANIES_BY_PERSON_UUID } from '../../../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../../generated/GetCompaniesByPersonUuid';
 import {
   pushAboutYouDataLayer,
+  pushAuthorizationEventDataLayer,
   pushPageData,
 } from '../../../../utils/dataLayerHelpers';
 import { GetOlafData_orderByUuid } from '../../../../../generated/GetOlafData';
@@ -169,6 +170,7 @@ export const BusinessAboutPage: NextPage = () => {
           {isLogInVisible && (
             <LoginFormContainer
               onCompleted={data => {
+                pushAuthorizationEventDataLayer({ eventLabel: router.asPath });
                 // request person account after login
                 if (data.login !== null) {
                   getPersonByToken({

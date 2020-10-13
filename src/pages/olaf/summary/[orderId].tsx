@@ -33,7 +33,7 @@ const SummaryPage: NextPage = () => {
   ] = useState<GetDerivative_derivative | null>(null);
 
   useEffect(() => {
-    pushPageData('Order Confirmation', 'Cars', true);
+    pushPageData('Order Confirmation', 'Cars');
   }, []);
 
   let personUuid = uuid || '';
