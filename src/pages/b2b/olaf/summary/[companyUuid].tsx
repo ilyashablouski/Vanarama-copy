@@ -42,7 +42,7 @@ const BusinessSummaryPage: NextPage = () => {
   ] = useState<GetDerivative_derivative | null>(null);
 
   useEffect(() => {
-    pushPageData('Order Confirmation', 'Vans', true);
+    pushPageData('Order Confirmation', 'Vans');
   }, []);
 
   const handleComplete = (emailAddress: string | undefined) => {

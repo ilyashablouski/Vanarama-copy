@@ -18,7 +18,7 @@ import {
   pushAddToCartDataLayer,
   pushPageData,
   getCategory,
-  pushPDPCallBackDataLayer,
+  pushCallBackDataLayer,
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
 import { toPriceFormat } from '../../utils/helpers';
@@ -441,7 +441,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const onCompletedCallBack = () => {
     const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
 
-    pushPDPCallBackDataLayer({
+    pushCallBackDataLayer({
       capId,
       derivativeInfo,
       vehicleConfigurationByCapId,
