@@ -41,11 +41,10 @@ const BlogPost: NextPage = () => {
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
   }));
-  console.log('articles', getArticles(articles, router));
-  console.log('data', data);
 
   return (
     <BlogPostContainer
+      articles={getArticles(articles, router)}
       body={body}
       name={name}
       image={image}

@@ -28,3 +28,8 @@ export const getArticles = (
   }
   return firstArticles;
 };
+
+export const getBody = (body: string) => {
+  const bodyShort = body.slice(0, 100);
+  return `${bodyShort?.replace(/\**/g, '')}...`;
+};
