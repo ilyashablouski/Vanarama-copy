@@ -115,10 +115,12 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
                   aboutDetails: {
                     ...values,
                     emailAddress: undefined,
+                    email: undefined,
+                    mobile: undefined,
                     emailAddresses:
-                      aboutYouData.data?.personByUuid?.emailAddresses,
+                      data?.createUpdateBusinessPerson?.emailAddresses,
                     telephoneNumbers:
-                      aboutYouData.data?.personByUuid?.telephoneNumbers,
+                      data?.createUpdateBusinessPerson?.telephoneNumbers,
                   },
                   orderUuid: orderId,
                   creditApplicationType:
