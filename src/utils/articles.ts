@@ -33,3 +33,9 @@ export const getBody = (body: string) => {
   const bodyShort = body.slice(0, 100);
   return `${bodyShort?.replace(/\**/g, '')}...`;
 };
+
+export const getArticlesSlug = (router: NextRouter) => {
+  const items = router.pathname.slice(1).split('/');
+  items.pop();
+  return items ? items.join('/') : '';
+};

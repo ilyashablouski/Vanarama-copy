@@ -14,6 +14,7 @@ const BlogPost: NextPage = () => {
   const router = useRouter();
   const { data, loading, error } = useBlogPostPage(router.asPath.slice(1));
 
+  console.log('router', router)
   const {
     data: blogPosts,
     loading: blogPostsLoading,
