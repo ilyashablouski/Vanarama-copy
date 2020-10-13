@@ -9,6 +9,7 @@ module.exports = api => {
   const plugins = [
     '@babel/plugin-transform-runtime',
     'transform-dynamic-import',
+    'babel-plugin-dynamic-import-node',
   ];
   return {
     presets,

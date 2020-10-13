@@ -273,11 +273,10 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         data-testid="card"
       >
         <div
-          class="image card-image -expand -plain"
+          class="lazyload-wrapper"
         >
-          <img
-            class="image--native"
-            src="//images.ctfassets.net/3xid768u5joa/31iQbyGS1DYs7b9viQHtXh/86ae2d62793162409d230b2042d9e00a/header-ivan.svg"
+          <div
+            class="lazyload-placeholder"
           />
         </div>
         <div

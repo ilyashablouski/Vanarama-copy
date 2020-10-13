@@ -2881,6 +2881,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-lazyload@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/react-lazyload/-/react-lazyload-3.0.0.tgz#7b43b45b5db7ead73ca9ccaf93d1c24397706d01"
+  integrity sha512-AhyiXlbniFIBaL3Eo6m3j4fJws9xnEm8b7d0Z53fepM0f4kyWtN7GPQNYg7oqV/YaSd++nITqqJRI/3YAEeXdg==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-responsive@^8.0.2":
   version "8.0.2"
   resolved "https://registry.yarnpkg.com/@types/react-responsive/-/react-responsive-8.0.2.tgz#959fdc32f72e38b807e32be617a74be2c315081b"
@@ -3062,15 +3069,16 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@5.28.14":
-  version "5.28.14"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.28.14.tgz#119836d8b46e39099d95f3ebc893cdd520078315"
-  integrity sha512-VpQRv5b159hs5mOliOHFugFntaB7twTmNSF7Yd06SK1QIv8Lb8DwaEFUMhA6CB0OeKvvSZbwBRAiqadIoAb+ew==
+"@vanarama/uibook@5.28.15":
+  version "5.28.15"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.28.15.tgz#06528d1e87a750778432cb718535b9ce0ef5bb7f"
+  integrity sha512-/ImVztgBuQjENPBkZsejOUBSgeW6cEKMDA2XLkds1ct0tKKr/SqQP+Tn95r2QBt+DdgzLSUS9kTiwbIpwJ4zhg==
   dependencies:
     "@egjs/flicking" "^3.4.7"
     "@reach/auto-id" "^0.10.3"
     "@react-google-maps/api" "^1.9.0"
     "@storybook/addon-knobs" "^5.3.19"
+    "@types/react-lazyload" "^3.0.0"
     classnames "^2.2.6"
     i18n-react "^0.7.0"
     moment "^2.24.0"
@@ -3081,6 +3089,7 @@
     react-autosuggest "^10.0.2"
     react-dom "^16.12.0"
     react-html-parser "^2.0.2"
+    react-lazyload "^3.0.0"
     react-player "^1.15.3"
     react-responsive "^8.0.3"
     react-toastify "^6.0.5"
@@ -3909,7 +3918,8 @@ babel-plugin-dynamic-import-node@^2.3.0:
 
 babel-plugin-dynamic-import-node@^2.3.3:
   version "2.3.3"
-  resolved "https://registry.npmjs.org/babel-plugin-dynamic-import-node/-/babel-plugin-dynamic-import-node-2.3.3.tgz#84fda19c976ec5c6defef57f9427b3def66e17a3"
+  resolved "https://registry.yarnpkg.com/babel-plugin-dynamic-import-node/-/babel-plugin-dynamic-import-node-2.3.3.tgz#84fda19c976ec5c6defef57f9427b3def66e17a3"
+  integrity sha512-jZVI+s9Zg3IqA/kdi0i6UDCybUI3aSBLnglhYbSSjKlV7yF1F/5LWv8MakQmvYpnbJDS6fcBL2KzHSxNCMtWSQ==
   dependencies:
     object.assign "^4.1.0"
 
@@ -7749,6 +7759,7 @@ jest-mock@^26.0.1:
 jest-next-dynamic@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/jest-next-dynamic/-/jest-next-dynamic-1.0.1.tgz#b8af62babeda3cff0cf0a6e0af6de3a9dfc8d6cd"
+  integrity sha512-peo9yRvUn8u6PZro9AzzjxpgUc+1NZhZMan+1xzk7Bz1vA0d5IC2Iw8E7bkC2cwl9AG3XxTaqPVAXbC3aMbVkw==
 
 jest-pnp-resolver@^1.2.1:
   version "1.2.1"
@@ -10110,6 +10121,11 @@ react-input-autosize@^2.2.2:
 react-is@16.13.1, react-is@^16.12.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
+
+react-lazyload@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/react-lazyload/-/react-lazyload-3.0.0.tgz#f9741daa823d95ddb4dd59527ca6b8845d1b4c3e"
+  integrity sha512-wYR9iroanIUELPQ7YtgeHjl7KburmA1WxB2GurjAOs31B6IehxxvHEp/74pIaWJLv+o/ug952WoWqjFpDzl5Ig==
 
 react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
   version "3.0.4"

@@ -1,4 +1,6 @@
 import React from 'react';
+// @ts-ignore
+import preloadAll from 'jest-next-dynamic';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
 import GET_INSURANCE_LANDING_PAGE from '../gql';
@@ -211,6 +213,10 @@ const mocked: MockedResponse[] = [
 ];
 
 describe('<InsurancePageContainer />', () => {
+  beforeAll(async () => {
+    await preloadAll();
+  });
+
   it('should match snapshot', async () => {
     // ACT
     const getComponent = render(
