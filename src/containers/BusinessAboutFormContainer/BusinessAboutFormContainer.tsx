@@ -112,7 +112,14 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
                 input: formValuesToInputCreditApplication({
                   ...getCreditApplicationByOrderUuidQuery.data
                     ?.creditApplicationByOrderUuid,
-                  aboutDetails: values,
+                  aboutDetails: {
+                    ...values,
+                    emailAddress: undefined,
+                    emailAddresses:
+                      aboutYouData.data?.personByUuid?.emailAddresses,
+                    telephoneNumbers:
+                      aboutYouData.data?.personByUuid?.telephoneNumbers,
+                  },
                   orderUuid: orderId,
                   creditApplicationType:
                     values.companyType === CompanyTypes.limited ||

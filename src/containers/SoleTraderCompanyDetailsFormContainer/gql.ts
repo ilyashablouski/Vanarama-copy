@@ -11,6 +11,20 @@ export const UPDATE_SOLE_TRADER_COMPANY_DETAILS = gql`
     createUpdateSoleTraderCompany(input: $input) {
       uuid
       partyUuid
+      addresses {
+        lineOne
+        lineTwo
+        lineThree
+        city
+        county
+        postcode
+        country
+        startedOn
+        endedOn
+        propertyStatus
+        serviceId
+        kind
+      }
     }
   }
 `;

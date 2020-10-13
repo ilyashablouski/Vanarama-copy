@@ -109,11 +109,11 @@ export const mapDefaultValues = (data: {
     tradingSinceMonth: (tradingSince?.getMonth() || '').toString(),
     tradingSinceYear: (tradingSince?.getFullYear() || '').toString(),
     nature: data?.nature_of_business,
-    registeredAddress: mapAddress(data?.registered_address),
+    registeredAddress: mapAddress(data?.registered_address[0]),
     tradingDifferent: !!data?.trading_address,
-    tradingAddress: mapAddress(data?.trading_address),
-    email: data?.email,
-    telephone: data?.business_telephone_number,
+    tradingAddress: mapAddress(data?.trading_address?.[0]),
+    email: data?.email_addresses?.value,
+    telephone: data?.telephone_numbers?.value,
   };
 };
 
@@ -134,15 +134,19 @@ export const mapCompanyDetailsToCreditApplication = (
     businessRegistrationNumber:
       values.companySearchResult?.companyNumber || values.companyNumber,
     natureOfBusiness: values.nature,
-    registeredAddress: {
-      ...registeredAddress,
-      label: values.registeredAddress?.label,
-    },
+    registeredAddress: [
+      {
+        ...registeredAddress,
+        label: values.registeredAddress?.label,
+      },
+    ],
     tradingAddress: values.tradingAddress?.label
-      ? {
-          ...tradingAddress,
-          label: values.tradingAddress?.label,
-        }
+      ? [
+          {
+            ...tradingAddress,
+            label: values.tradingAddress?.label,
+          },
+        ]
       : undefined,
     tradingSince: new Date(
       parseInt(values.tradingSinceYear, 10),
@@ -150,6 +154,8 @@ export const mapCompanyDetailsToCreditApplication = (
       0,
     ),
     businessTelephoneNumber: values.telephone,
-    email: values.email,
+    companyType: 'Limited',
+    telephoneNumbers: { value: values.telephone, kind: 'business' },
+    emailAddresses: { kind: 'Home', value: values.email, primary: true },
   };
 };
