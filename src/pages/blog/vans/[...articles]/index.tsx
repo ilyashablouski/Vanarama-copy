@@ -40,8 +40,6 @@ const BlogPost: NextPage = () => {
     link: { href: el.href || '', label: el.label },
   }));
 
-  console.log('articles', articles)
-
   return (
     <BlogPostContainer
       articles={getArticles(articles, router)}

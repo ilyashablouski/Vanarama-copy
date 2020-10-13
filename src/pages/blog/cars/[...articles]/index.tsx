@@ -8,18 +8,17 @@ import BlogPostContainer from '../../../../containers/BlogPostContainer/BlogPost
 import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
 import { getSectionsData } from '../../../../utils/getSectionsData';
 import { useBlogPostsPage } from '../../../../gql/blogPosts';
-import { getArticles } from '../../../../utils/articles';
+import { getArticles, getArticlesSlug } from '../../../../utils/articles';
 
 const BlogPost: NextPage = () => {
   const router = useRouter();
   const { data, loading, error } = useBlogPostPage(router.asPath.slice(1));
 
-  console.log('router', router)
   const {
     data: blogPosts,
     loading: blogPostsLoading,
     error: blogPostsError,
-  } = useBlogPostsPage('blog/cars');
+  } = useBlogPostsPage(getArticlesSlug(router));
 
   if (loading || blogPostsLoading) {
     return <Loading size="large" />;
