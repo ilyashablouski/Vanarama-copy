@@ -122,10 +122,11 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
                   },
                   orderUuid: orderId,
                   creditApplicationType:
-                    values.companyType === CompanyTypes.limited ||
-                    values.companyType === CompanyTypes.partnership
-                      ? CATypeEnum.B2B_LIMITED
-                      : CATypeEnum.B2B_SOLE_TRADER,
+                    (values.companyType === CompanyTypes.limited &&
+                      CATypeEnum.B2B_LIMITED) ||
+                    (values.companyType === CompanyTypes.partnership &&
+                      CATypeEnum.B2B_REGISTERED_PARTNERSHIP) ||
+                    CATypeEnum.B2B_SOLE_TRADER,
                 }),
               },
             }).then(() => {
