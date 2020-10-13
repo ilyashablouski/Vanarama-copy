@@ -99,6 +99,78 @@ Array [
           All Orders
         </button>
       </div>
+      <span
+        className="text -regular -darker"
+      >
+        Showing 
+        2
+         Orders
+      </span>
+      <div
+        className="select"
+      >
+        <select
+          className="select--native"
+          onChange={[Function]}
+          value="availability_ASC"
+        >
+          <option
+            disabled={true}
+            value=""
+          >
+            Please Select
+          </option>
+          <option
+            value="availability_ASC"
+          >
+            Newest To Oldest
+          </option>
+          <option
+            value="availability_DESC"
+          >
+            Oldest To Newest
+          </option>
+          <option
+            value="rate_DESC"
+          >
+            Price low to high
+          </option>
+          <option
+            value="rate_ASC"
+          >
+            Price high to low
+          </option>
+        </select>
+        <span
+          className="icon select--chevron"
+        >
+          <i
+            className="icon -stroke -dark"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <title>
+                ionicons-v5-a
+              </title>
+              <polyline
+                points="112 184 256 328 400 184"
+                style={
+                  Object {
+                    "fill": "none",
+                    "stroke": "var(--class-color)",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "strokeWidth": 48,
+                  }
+                }
+              />
+            </svg>
+          </i>
+        </span>
+      </div>
       <div
         className="row:cards-1col"
       >
@@ -227,7 +299,7 @@ Array [
               <div
                 className="button--inner"
               >
-                Order Now
+                View Order
               </div>
             </button>
           </div>
@@ -357,7 +429,7 @@ Array [
               <div
                 className="button--inner"
               >
-                Order Now
+                View Order
               </div>
             </button>
           </div>
@@ -387,6 +459,78 @@ Array [
     <div
       className="row:results"
     >
+      <span
+        className="text -regular -darker"
+      >
+        Showing 
+        2
+         Orders
+      </span>
+      <div
+        className="select"
+      >
+        <select
+          className="select--native"
+          onChange={[Function]}
+          value="availability_ASC"
+        >
+          <option
+            disabled={true}
+            value=""
+          >
+            Please Select
+          </option>
+          <option
+            value="availability_ASC"
+          >
+            Newest To Oldest
+          </option>
+          <option
+            value="availability_DESC"
+          >
+            Oldest To Newest
+          </option>
+          <option
+            value="rate_DESC"
+          >
+            Price low to high
+          </option>
+          <option
+            value="rate_ASC"
+          >
+            Price high to low
+          </option>
+        </select>
+        <span
+          className="icon select--chevron"
+        >
+          <i
+            className="icon -stroke -dark"
+          >
+            <svg
+              height="1em"
+              viewBox="0 0 512 512"
+              width="1em"
+            >
+              <title>
+                ionicons-v5-a
+              </title>
+              <polyline
+                points="112 184 256 328 400 184"
+                style={
+                  Object {
+                    "fill": "none",
+                    "stroke": "var(--class-color)",
+                    "strokeLinecap": "round",
+                    "strokeLinejoin": "round",
+                    "strokeWidth": 48,
+                  }
+                }
+              />
+            </svg>
+          </i>
+        </span>
+      </div>
       <div
         className="row:cards-1col"
       >

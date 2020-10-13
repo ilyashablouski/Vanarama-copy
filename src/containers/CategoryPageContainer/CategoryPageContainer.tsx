@@ -21,9 +21,7 @@ const getBody = (body: string) => {
   return `${bodyShort?.replace(/\**/g, '')}...`;
 };
 
-const renderCarouselCards = (
-  cards: (BlogPosts_blogPosts_articles | null)[] | undefined,
-) =>
+const renderCarouselCards = (cards: any[] | undefined) =>
   cards?.map(
     (card, index) =>
       card && (
@@ -31,7 +29,9 @@ const renderCarouselCards = (
           optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           key={`${card.title}_${index.toString()}_${card.body}`}
           className="card__article"
-          imageSrc={card.featuredImage?.file?.url || ''}
+          imageSrc={
+            card.featuredImage?.file?.url || card.image?.file?.url || ''
+          }
           title={{
             className: '-flex-h',
             link: (
@@ -39,7 +39,7 @@ const renderCarouselCards = (
                 size="lead"
                 color="black"
                 tag="a"
-                href={`/${card.slug}` || ''}
+                href={`/${card.slug || card.link || ''}`}
               >
                 {card?.name}
               </Heading>
@@ -70,7 +70,7 @@ const renderCarouselCards = (
             classNames={{ color: 'teal', size: 'regular' }}
             link={{
               label: 'Read More',
-              href: card.slug || '',
+              href: card.slug || card.link || '',
             }}
           />
         </Card>
@@ -114,6 +114,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   articles,
   tiles,
   breadcrumbsItems,
+  carousel,
 }) => {
   const [activePage, setActivePage] = useState(1);
 
@@ -251,7 +252,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
           </div>
         </div>
       )}
-      {data?.topArticles && (
+      {!!data?.topArticles?.length && (
         <div className="row:bg-lighter -col-300">
           <Heading className="-a-center" tag="h3" size="large" color="black">
             Top Articles
@@ -263,6 +264,22 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
           ) : (
             <div className="row:cards-3col">
               {renderCarouselCards(data?.topArticles)}
+            </div>
+          )}
+        </div>
+      )}
+      {!!carousel?.cards?.length && (
+        <div className="row:bg-lighter -col-300">
+          <Heading className="-a-center" tag="h3" size="large" color="black">
+            {carousel.title}
+          </Heading>
+          {carousel.cards.length > 3 ? (
+            <Carousel className="-mh-auto" countItems={5}>
+              {renderCarouselCards(carousel.cards)}
+            </Carousel>
+          ) : (
+            <div className="row:cards-3col">
+              {renderCarouselCards(carousel.cards)}
             </div>
           )}
         </div>

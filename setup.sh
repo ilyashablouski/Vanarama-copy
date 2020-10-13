@@ -16,3 +16,4 @@ export ROLLBAR_SERVER_TOKEN="$(aws ssm get-parameter --name "/$ENV/$STACK/$APP/r
 export GTM_ID="$(aws ssm get-parameter --name "/$ENV/$STACK/$APP/gtm-id" --region $REGION --with-decryption | jq -r ".Parameter.Value")"
 export HOSTNAME="https://$ALTERNATEDOMAIN"
 export IMG_OPTIMISATION_HOST="https://vanarama.com"
+export PRERENDER_SERVICE_URL="https://prerender-service-production.herokuapp.com/"

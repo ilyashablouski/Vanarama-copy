@@ -84,6 +84,10 @@
           "value": "https://vanarama.com"
         },
         {
+          "name": "PRERENDER_SERVICE_URL",
+          "value": "https://prerender-service-production.herokuapp.com/"
+        },
+        {
           "name": "HOSTNAME",
           "value": "https://%ALTERNATEDOMAIN%"
         }
