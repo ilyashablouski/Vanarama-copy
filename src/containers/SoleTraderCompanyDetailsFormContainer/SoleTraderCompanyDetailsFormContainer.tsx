@@ -9,7 +9,11 @@ import {
 } from '../../gql/creditApplication';
 import { useUpdateSoleTraderCompanyMutation } from './gql';
 import { useCreateUpdateOrder } from '../../gql/order';
-import { mapFormValues, prelodedValuesToInput } from './mappers';
+import {
+  mapCreateUpdteApplicationData,
+  mapFormValues,
+  prelodedValuesToInput,
+} from './mappers';
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 import { UpdateSoleTraderCompanyMutation_createUpdateSoleTraderCompany as Company } from '../../../generated/UpdateSoleTraderCompanyMutation';
 
@@ -75,7 +79,7 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
         input: formValuesToInputCreditApplication({
           ...getCreditApplicationByOrderUuidQuery.data
             ?.creditApplicationByOrderUuid,
-          companyDetails: { uuid: companyData?.uuid, ...mapFormValues(values) },
+          companyDetails: mapCreateUpdteApplicationData(values, companyData),
           orderUuid: orderId,
         }),
       },

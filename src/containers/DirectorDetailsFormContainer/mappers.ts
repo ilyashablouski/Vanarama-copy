@@ -32,7 +32,7 @@ export const mapFormValues = (
         director.monthOfBirth,
         director.yearOfBirth,
       ).format('YYYY-MM-DD'),
-      role: { position: 'director' },
+      role: { position: 'Director' },
       noOfDependants: director.numberOfDependants,
     })),
   };
