@@ -9,7 +9,7 @@ import CheckmarkSharp from '@vanarama/uibook/lib/assets/icons/CheckmarkSharp';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import localForage from 'localforage';
 import { useRouter } from 'next/router';
 import Message from '../../../core/components/Message';
@@ -24,6 +24,10 @@ import { GET_ORDERS_BY_PARTY_UUID_DATA } from '../../../containers/OrdersInforma
 import { useImperativeQuery } from '../../../hooks/useImperativeQuery';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
+import {
+  pushAuthorizationEventDataLayer,
+  pushPageData,
+} from '../../../utils/dataLayerHelpers';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -85,6 +89,10 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
     router.push(nextUrl);
   }, handleAccountFetchError);
 
+  useEffect(() => {
+    pushPageData('My Account', 'Login/Register');
+  }, []);
+
   return (
     <>
       <div className="row:title">
@@ -124,6 +132,9 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
             <TabPanel index={1}>
               <LoginFormContainer
                 onCompleted={async data => {
+                  pushAuthorizationEventDataLayer({
+                    eventLabel: router.pathname,
+                  });
                   if (data.login !== null) {
                     // Put the token in localStorage
                     await localForage.setItem('token', data.login);
@@ -139,7 +150,13 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
             </TabPanel>
             <TabPanel index={2}>
               <RegisterFormContainer
-                onCompleted={() => setRegistrationSuccess(true)}
+                onCompleted={() => {
+                  pushAuthorizationEventDataLayer({
+                    eventLabel: router.pathname,
+                    register: true,
+                  });
+                  setRegistrationSuccess(true);
+                }}
                 onError={handleRegisterError}
               />
             </TabPanel>
