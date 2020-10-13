@@ -88,6 +88,11 @@ interface ICategory {
   pickups: boolean | null | undefined;
 }
 
+interface IAuthorizationEvent {
+  eventLabel: string;
+  register?: boolean;
+}
+
 declare global {
   interface Window {
     dataLayer: object[];
@@ -127,11 +132,7 @@ export const pushDetail = (
   if (value) Object.assign(product, { [field]: `${value}` });
 };
 
-export const pushPageData = async (
-  pageType: string,
-  siteSection: string,
-  email?: boolean,
-) => {
+export const pushPageData = async (pageType: string, siteSection: string) => {
   if (!window.dataLayer) return;
   const personData = (await localForage.getItem(
     'person',
@@ -146,7 +147,7 @@ export const pushPageData = async (
   pushDetail('customerId', person?.uuid, data);
   pushDetail(
     'visitorEmail',
-    email && person?.emailAddresses && person?.emailAddresses[0]?.value
+    person?.emailAddresses && person?.emailAddresses[0]?.value
       ? sha256(person?.emailAddresses[0].value)
       : null,
     data,
@@ -425,7 +426,7 @@ export const pushInsuranceEventDataLayer = (router: NextRouter) => {
   pushToDataLayer(data);
 };
 
-export const pushPDPCallBackDataLayer = ({
+export const pushCallBackDataLayer = ({
   capId,
   derivativeInfo,
   vehicleConfigurationByCapId,
@@ -456,6 +457,20 @@ export const pushPDPCallBackDataLayer = ({
     vehicleConfigurationByCapId?.financeProfile?.mileage,
     data,
   );
+
+  pushToDataLayer(data);
+};
+
+export const pushAuthorizationEventDataLayer = ({
+  eventLabel,
+  register,
+}: IAuthorizationEvent) => {
+  const data = {
+    event: register ? 'register' : 'login',
+    eventCategory: 'Account',
+    eventAction: register ? 'Register' : 'Login',
+    eventLabel,
+  };
 
   pushToDataLayer(data);
 };
