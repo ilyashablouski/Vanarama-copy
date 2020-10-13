@@ -19,8 +19,7 @@ export const SAVE_BUSINESS_ABOUT_YOU = gql`
   mutation SaveBusinessAboutYou($input: PersonInputObject!) {
     createUpdateBusinessPerson(input: $input) {
       uuid
-      emailAddresses
-      {
+      emailAddresses {
         createdAt
         kind
         partyId
@@ -28,9 +27,8 @@ export const SAVE_BUSINESS_ABOUT_YOU = gql`
         updatedAt
         uuid
         value
-        }
-      telephoneNumbers
-      {
+      }
+      telephoneNumbers {
         createdAt
         kind
         partyId
@@ -38,7 +36,7 @@ export const SAVE_BUSINESS_ABOUT_YOU = gql`
         updatedAt
         uuid
         value
-        }
+      }
     }
   }
 `;
