@@ -90,7 +90,7 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
   }, handleAccountFetchError);
 
   useEffect(() => {
-    pushPageData('Account page', 'Login/Register');
+    pushPageData('My Account', 'Login/Register');
   }, []);
 
   return (
