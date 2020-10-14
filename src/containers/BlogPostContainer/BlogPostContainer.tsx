@@ -3,14 +3,14 @@ import { NextPage } from 'next';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import ReactMarkdown from 'react-markdown';
-import Router from 'next/router';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery_genericPage_sections_cards_cards } from '../../../generated/GenericPageQuery';
 import { GenericPageHeadQuery_genericPage_metaData } from '../../../generated/GenericPageHeadQuery';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import Head from '../../components/Head/Head';
+import { BlogPosts_blogPosts_articles } from '../../../generated/BlogPosts';
+import { getBody } from '../../utils/articles';
 
 interface IProps {
   body: string | null | undefined;
@@ -22,6 +22,7 @@ interface IProps {
     | undefined;
   breadcrumbsItems?: any;
   metaData?: GenericPageHeadQuery_genericPage_metaData | null | undefined;
+  articles?: (BlogPosts_blogPosts_articles | null)[] | null | undefined;
 }
 
 interface IImage {
@@ -44,9 +45,9 @@ const BlogPostContainer: NextPage<IProps> = ({
   body,
   name,
   image,
-  cards,
   breadcrumbsItems,
   metaData,
+  articles,
 }) => {
   return (
     <>
@@ -92,38 +93,35 @@ const BlogPostContainer: NextPage<IProps> = ({
           />
         </article>
         <div>
-          {cards && (
+          {articles && (
             <Heading tag="span" size="large" color="black">
               Related Articles
             </Heading>
           )}
-          {cards?.map((el, indx) => (
+          {articles?.map((el, indx) => (
             <Card
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               key={`${el?.name}_${indx.toString()}`}
               className="card__article"
-              imageSrc={el?.image?.file?.url || ''}
+              imageSrc={el?.featuredImage?.file?.url || ''}
               title={{
                 title: '',
                 link: (
                   <RouterLink
-                    link={{ href: el?.link?.url || '', label: el?.title || '' }}
+                    link={{ href: el?.slug || '', label: el?.title || '' }}
                     className="card--link"
                     classNames={{ color: 'black', size: 'regular' }}
                   />
                 ),
               }}
-              description={el?.body || ''}
+              description={getBody(el?.body || '')}
             >
-              <Button
-                onClick={() => {
-                  Router.push(el?.link?.url || '');
+              <RouterLink
+                classNames={{ color: 'teal', size: 'regular' }}
+                link={{
+                  label: 'Read More',
+                  href: el?.slug || '',
                 }}
-                label="Read More"
-                color="teal"
-                size="small"
-                fill="solid"
-                className="-mt-400"
               />
             </Card>
           ))}

@@ -63,11 +63,10 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
       class="row:featured-left"
     >
       <div
-        class="image -expand"
+        class="lazyload-wrapper"
       >
-        <img
-          class="image--native"
-          src="//images.ctfassets.net/3xid768u5joa/3NMAHSKcOLSuiHzRa6DE46/190659547927a1af84fa8ca2eb5afb40/photo-1543934686-54bae151bd4c"
+        <div
+          class="lazyload-placeholder"
         />
       </div>
       <div>

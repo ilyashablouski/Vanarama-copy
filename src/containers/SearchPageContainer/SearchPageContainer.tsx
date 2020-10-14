@@ -197,6 +197,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   // using onCompleted callback for request card data after vehicle list was loaded
   const [getVehicles, { data }] = useVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
+    isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
     isMakePage || isDynamicFilterPage || isSpecialOfferPage
       ? true
       : isSpecialOffers || null,
@@ -227,6 +228,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   // using for cache request
   const [getVehiclesCache, { data: cacheData }] = useVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
+    isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
     isRangePage ? null : isSpecialOffers || null,
     async vehicles => {
       try {
@@ -305,6 +307,9 @@ const SearchPageContainer: React.FC<IProps> = ({
           vehicleTypes: isCarSearch
             ? [VehicleTypeEnum.CAR]
             : [VehicleTypeEnum.LCV],
+          leaseType: isPersonal
+            ? LeaseTypeEnum.PERSONAL
+            : LeaseTypeEnum.BUSINESS,
           onOffer,
           ...filters,
           sortField: isSpecialOffers ? SortField.offerRanking : sortOrder.type,
@@ -455,6 +460,9 @@ const SearchPageContainer: React.FC<IProps> = ({
           vehicleTypes: isCarSearch
             ? [VehicleTypeEnum.CAR]
             : [VehicleTypeEnum.LCV],
+          leaseType: isPersonal
+            ? LeaseTypeEnum.PERSONAL
+            : LeaseTypeEnum.BUSINESS,
           onOffer: !(isRangePage || isModelPage || isDynamicFilterPage)
             ? isSpecialOffers || null
             : null,
@@ -479,6 +487,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     isDynamicFilterPage,
     sortOrder.direction,
     sortOrder.type,
+    isPersonal,
   ]);
 
   // set capsIds for cached data

@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import localForage from 'localforage';
 import { sha256 } from 'js-sha256';
+import { NextRouter } from 'next/router';
+import { routerItems } from '../components/Breadcrumb/helpers';
 import { ILeaseScannerData } from '../containers/CustomiseLeaseContainer/interfaces';
 import {
   GetVehicleDetails_derivativeInfo,
@@ -68,7 +70,7 @@ interface IPageDataLayer {
   eventCategory: string;
   eventAction: string;
   eventLabel: string | undefined;
-  eventValue: string | undefined;
+  eventValue?: string | undefined;
   ecommerce?: IEcommerceData;
   annualMileage?: string;
   id?: string;
@@ -125,11 +127,7 @@ export const pushDetail = (
   if (value) Object.assign(product, { [field]: `${value}` });
 };
 
-export const pushPageData = async (
-  pageType: string,
-  siteSection: string,
-  email?: boolean,
-) => {
+export const pushPageData = async (pageType: string, siteSection: string) => {
   if (!window.dataLayer) return;
   const personData = (await localForage.getItem(
     'person',
@@ -141,12 +139,12 @@ export const pushPageData = async (
     siteSection,
   };
 
-  pushDetail('customerId', person?.uuid, data);
+  pushDetail('customerId', person?.uuid || 'undefined', data);
   pushDetail(
     'visitorEmail',
-    email && person?.emailAddresses && person?.emailAddresses[0]?.value
+    person?.emailAddresses && person?.emailAddresses[0]?.value
       ? sha256(person?.emailAddresses[0].value)
-      : null,
+      : 'undefined',
     data,
   );
   window.dataLayer.push(data);
@@ -411,7 +409,19 @@ export const pushSummaryDataLayer = ({
   pushToDataLayer(data);
 };
 
-export const pushPDPCallBackDataLayer = ({
+export const pushInsuranceEventDataLayer = (router: NextRouter) => {
+  const eventLabel = routerItems(router).pop()?.link.label;
+  const data = {
+    event: 'enquiry',
+    eventCategory: 'Enquiries',
+    eventAction: 'Insurance Enquiry',
+    eventLabel,
+  };
+
+  pushToDataLayer(data);
+};
+
+export const pushCallBackDataLayer = ({
   capId,
   derivativeInfo,
   vehicleConfigurationByCapId,
@@ -442,6 +452,17 @@ export const pushPDPCallBackDataLayer = ({
     vehicleConfigurationByCapId?.financeProfile?.mileage,
     data,
   );
+
+  pushToDataLayer(data);
+};
+
+export const pushAuthorizationEventDataLayer = (register?: boolean) => {
+  const data = {
+    event: register ? 'register' : 'login',
+    eventCategory: 'Account',
+    eventAction: register ? 'Register' : 'Login',
+    eventLabel: register ? 'Account/Register' : 'Account/Login',
+  };
 
   pushToDataLayer(data);
 };

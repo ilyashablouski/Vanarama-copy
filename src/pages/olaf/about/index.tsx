@@ -16,6 +16,7 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import {
   pushAboutYouDataLayer,
+  pushAuthorizationEventDataLayer,
   pushPageData,
 } from '../../../utils/dataLayerHelpers';
 import AboutFormContainer from '../../../containers/AboutFormContainer/AboutFormContainer';
@@ -225,6 +226,7 @@ const AboutYouPage: NextPage = () => {
           {isLogInVisible && (
             <LoginFormContainer
               onCompleted={response => {
+                pushAuthorizationEventDataLayer();
                 // request person account after login
                 if (response.login !== null) {
                   getPersonByToken({

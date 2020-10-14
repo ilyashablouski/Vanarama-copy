@@ -60,11 +60,11 @@ export const sortOrderValues = [
   },
   {
     text: 'Price low to high',
-    value: `${SortField.rate}_${SortDirection.ASC}`,
+    value: `${SortField.rate}_${SortDirection.DESC}`,
   },
   {
     text: 'Price high to low',
-    value: `${SortField.rate}_${SortDirection.DESC}`,
+    value: `${SortField.rate}_${SortDirection.ASC}`,
   },
 ];
 
