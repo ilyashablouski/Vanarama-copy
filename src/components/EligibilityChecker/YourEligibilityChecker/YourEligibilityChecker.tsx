@@ -1,24 +1,42 @@
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { gql } from '@apollo/client';
 import Button from '@vanarama/uibook/lib/components/atoms/button/';
-import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
-import Select from '@vanarama/uibook/lib/components/atoms/select/';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
-import TextInput from '@vanarama/uibook/lib/components/atoms/textinput/';
-import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
-import Link from '@vanarama/uibook/lib/components/atoms/link';
-import LockClosed from '@vanarama/uibook/lib/assets/icons/LockClosed';
-import AddressFinder from '@vanarama/uibook/lib/components/molecules/address-finder';
-import { genMonths, genYears, genDays } from '../../../utils/helpers';
+import CameraSharp from '@vanarama/uibook/lib/assets/icons/CameraSharp';
+import Modal from '@vanarama/uibook/lib/components/molecules/modal';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import React, { useState } from 'react';
 import validationSchema from './YourEligibilityChecker.validation';
-import { IYourEligiblityCheckerValues, IProps } from './interface';
-import useDateOfBirthValidation from './useDateOfBirthValidation';
+import {
+  IYourEligiblityCheckerValues,
+  IProps,
+  IDrivingLicence,
+} from './interface';
 import FCWithFragments from '../../../utils/FCWithFragments';
+import { responseBlinkIdToInitialFormValues } from './mappers';
+import EligibilityCheckerForm from './EligibilityCheckerForm';
+import EnabledCamera from './EligibilityCheckerModals/EnabledCamera';
+import PhotoPreview from './EligibilityCheckerModals/PhotoPreview';
+import Camera from './EligibilityCheckerModals/Camera';
+import AccessCamera from './EligibilityCheckerModals/AccessCamera';
 
 const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
-  const months = genMonths();
-  const years = genYears(100);
+  const [isModalShowing, setIsModalShowing] = useState(false);
+  const [data, setImageData] = useState<any>();
+  const [camera, toggleCamera] = useState(false);
+  const [enabledCamera, toggleEnabledCamera] = useState(false);
+  const [imgSrc, setImgSrc] = useState<string | null>(null);
+  const [loadingData, setLoadingData] = useState(false);
+
+  const defaultValues = {
+    firstName: '',
+    lastName: '',
+    addressFinder: undefined,
+    promotions: false,
+    dayOfBirth: '',
+    monthOfBirth: '',
+    yearOfBirth: '',
+  };
   const {
     errors,
     handleSubmit,
@@ -27,184 +45,157 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
     watch,
     formState,
     control,
+    reset,
   } = useForm<IYourEligiblityCheckerValues>({
     mode: 'onBlur',
     validationSchema,
-    defaultValues: {
-      firstName: '',
-      lastName: '',
-      addressFinder: undefined,
-      promotions: false,
-      dayOfBirth: '',
-      monthOfBirth: '',
-      yearOfBirth: '',
-    },
+    defaultValues,
   });
 
-  useDateOfBirthValidation(watch, triggerValidation);
+  const endpoint = 'https://microblink-secure.motorama.com';
+
+  const webcamRef = React.createRef<any>();
+
+  const fetchData = () => {
+    const url = `${endpoint}/recognize/execute`;
+
+    setLoadingData(true);
+    setImgSrc(null);
+    toggleCamera(false);
+    reset(defaultValues);
+
+    return new Promise((resolve, reject) => {
+      resolve(
+        fetch(url, {
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        }),
+      );
+      reject(Error());
+    });
+  };
+
+  const onCloseModal = () => {
+    setImgSrc(null);
+    toggleCamera(false);
+    setIsModalShowing(false);
+    toggleEnabledCamera(false);
+  };
+
+  const capture = React.useCallback(() => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    toggleCamera(false);
+    setImgSrc(imageSrc);
+
+    setImageData({
+      recognizerType: 'UK_DL_FRONT',
+      detectGlare: false,
+      exportImages: false,
+      exportFaceImage: false,
+      exportFullDocumentImage: false,
+      // imageBase64: imageSrc,
+      imageURL:
+        'https://storage.googleapis.com/microblink-data-public/microblink-api/test-set/blinkid/UK_DL_FRONT/UK_DL_FRONT_specimen.jpg',
+      imageBase64: 'imageURL has priority!',
+    });
+  }, [webcamRef]);
+
+  const handleOnUserMedia = () => {
+    if (!webcamRef.current.stream) {
+      toggleEnabledCamera(true);
+    }
+  };
+
+  if (loadingData) {
+    return <Loading size="large" />;
+  }
 
   return (
-    <Form onSubmit={handleSubmit(submit)} className="-mt-400">
-      <Text color="darker" size="lead">
-        Please fill your details in the form below or scan your driving licence
-        to help you.
-      </Text>
-      <FormGroup
-        controlId="firstName"
-        label="First Name"
-        error={errors?.firstName?.message?.toString()}
-      >
-        <TextInput
-          id="firstName"
-          name="firstName"
-          type="text"
-          dataTestId="eligibilityCheckerFirstName"
-          ref={register}
+    <>
+      <div className="form -mt-400">
+        <Text color="darker" size="lead">
+          Scan your driving license to quickly provide us with your information.
+        </Text>
+        <Button
+          type="submit"
+          label="Scan Driving License"
+          color="primary"
+          iconColor="white"
+          iconPosition="before"
+          icon={<CameraSharp />}
+          dataTestId="scan-driving-license"
+          onClick={() => setIsModalShowing(true)}
         />
-      </FormGroup>
-      <FormGroup
-        controlId="lastName"
-        label="Last Name"
-        error={errors?.lastName?.message?.toString()}
-      >
-        <TextInput
-          id="lastName"
-          type="text"
-          name="lastName"
-          dataTestId="eligibilityCheckerLastName"
-          ref={register}
-        />
-      </FormGroup>
-      <Controller
-        name="addressFinder"
-        valueName="selected"
-        onChangeName="onSuggestionChange"
-        as={
-          <AddressFinder
-            apiKey={process.env.LOQATE_KEY!}
-            onSuggestionChange={() => {}}
-          >
-            <FormGroup
-              label="Your Postcode or Address"
-              error={errors?.addressFinder?.message?.toString()}
-              className="address-finder"
-            >
-              <AddressFinder.Input id="addressFinder" />
-              <AddressFinder.Selected />
-              <AddressFinder.Intermediate />
-            </FormGroup>
-            <AddressFinder.Results />
-          </AddressFinder>
-        }
+        <Text color="dark" size="regular">
+          Or you can enter your details manually:
+        </Text>
+      </div>
+      <EligibilityCheckerForm
+        submit={submit}
+        errors={errors}
+        handleSubmit={handleSubmit}
+        register={register}
+        triggerValidation={triggerValidation}
+        watch={watch}
+        formState={formState}
         control={control}
       />
-      <FormGroup
-        controlId="dayOfBirth"
-        label="Date of Birth"
-        inline
-        error={
-          errors?.dayOfBirth?.message?.toString() ||
-          errors?.monthOfBirth?.message?.toString() ||
-          errors?.yearOfBirth?.message?.toString()
-        }
-      >
-        <Select
-          id="dayOfBirth"
-          dataTestId="eligibilityCheckerSelectDOB"
-          name="dayOfBirth"
-          ref={register}
-          placeholder="Day"
+      {isModalShowing && (
+        <Modal
+          className="-mt-000"
+          title={enabledCamera ? 'Notification' : ''}
+          text={
+            !(camera || imgSrc || loadingData)
+              ? 'Would like to access to the camera?'
+              : ''
+          }
+          show={isModalShowing}
+          onRequestClose={() => onCloseModal()}
         >
-          {genDays().map(value => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
-        </Select>
-        <Select
-          dataTestId="eligibilityCheckerSelectMOB"
-          name="monthOfBirth"
-          ref={register}
-          placeholder="Month"
-        >
-          {months.map((value: any, i: number) => (
-            <option key={value} value={i + 1}>
-              {value}
-            </option>
-          ))}
-        </Select>
-        <Select
-          dataTestId="eligibilityCheckerSelectYOB"
-          name="yearOfBirth"
-          ref={register}
-          placeholder="Year"
-        >
-          {years.map(value => (
-            <option key={value} value={value}>
-              {value}
-            </option>
-          ))}
-        </Select>
-      </FormGroup>
-      <FormGroup
-        controlId="email"
-        label="Email"
-        error={errors?.email?.message?.toString()}
-      >
-        <TextInput
-          id="email"
-          type="email"
-          name="email"
-          dataTestId="eligibilityCheckerEmail"
-          ref={register}
-        />
-      </FormGroup>
-      <FormGroup
-        label="Please Confirm"
-        error={errors?.promotions?.message?.toString()}
-      >
-        <CheckBox
-          id="promotions"
-          dataTestId="eligibilityCheckoutPromotions"
-          name="promotions"
-          label="I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions."
-          ref={register}
-        />
-      </FormGroup>
-      <FormGroup>
-        <Text tag="p" color="darker" size="regular">
-          By checking your eligibility, you agree to our{' '}
-          <Link
-            dataTestId="terms_and_conditions"
-            href="https://www.motorama.com/terms-conditions"
-            size="regular"
-          >
-            Terms and Conditions
-          </Link>{' '}
-          and{' '}
-          <Link
-            dataTestId="privacy_policy"
-            href="https://www.motorama.com/cookie-privacy-policy"
-            size="regular"
-          >
-            Privacy Policy
-          </Link>{' '}
-          and a soft credit check.
-        </Text>
-      </FormGroup>
-      <Button
-        type="submit"
-        label={formState.isSubmitting ? 'Saving...' : 'Check Your Eligibility'}
-        color="primary"
-        disabled={formState.isSubmitting}
-        iconColor="white"
-        iconPosition="after"
-        dataTestId="eligibilityCheckerSubmit"
-      />
-      <Text tag="p" color="dark" size="small">
-        <LockClosed /> Your credit score will not be affected.
-      </Text>
-    </Form>
+          {!(camera || imgSrc || loadingData || enabledCamera) && (
+            <AccessCamera
+              onClickYes={() => toggleCamera(true)}
+              onClickNo={() => onCloseModal()}
+            />
+          )}
+          {!enabledCamera && camera && (
+            <Camera
+              handleOnUserMedia={handleOnUserMedia}
+              onClickCapture={capture}
+              webcamRef={webcamRef}
+            />
+          )}
+          {imgSrc && (
+            <PhotoPreview
+              imgSrc={imgSrc}
+              onClickSave={() => {
+                fetchData()
+                  .then((response: any) => response.json())
+                  .then(response => {
+                    setLoadingData(false);
+                    if (response.data.result) {
+                      setIsModalShowing(false);
+                      const drivingLicence: IDrivingLicence =
+                        response.data.result;
+                      reset(responseBlinkIdToInitialFormValues(drivingLicence));
+                    }
+                  });
+              }}
+              onClickRetake={() => {
+                setImgSrc(null);
+                toggleCamera(true);
+              }}
+            />
+          )}
+          {enabledCamera && <EnabledCamera onCloseModal={onCloseModal} />}
+        </Modal>
+      )}
+    </>
   );
 };
 
