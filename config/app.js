@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 require('dotenv').config();
 
-const { getPdpRewiteList } = require('../rewrites/pdp');
-const rewritePatterns = require('../rewrites/rewritePatterns');
+// const { getPdpRewiteList } = require('../rewrites/pdp');
+// const rewritePatterns = require('../rewrites/rewritePatterns');
 
 module.exports = {
   // Sass.
@@ -44,18 +44,18 @@ module.exports = {
     },
 
     // Rewrites.
-    async rewrites() {
-      const pdpRewiteList = await getPdpRewiteList();
-      const rewriteList = [...pdpRewiteList, ...rewritePatterns];
+    // async rewrites() {
+    //   const pdpRewiteList = await getPdpRewiteList();
+    //   const rewriteList = [...pdpRewiteList, ...rewritePatterns];
 
-      return [
-        {
-          source: '/sitemap-vehicles.xml',
-          destination: '/api/sitemap-vehicles',
-        },
-        ...rewriteList,
-      ];
-    },
+    //   return [
+    //     {
+    //       source: '/sitemap-vehicles.xml',
+    //       destination: '/api/sitemap-vehicles',
+    //     },
+    //     ...rewriteList,
+    //   ];
+    // },
 
     trailingSlash: false,
 
