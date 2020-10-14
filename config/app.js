@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 require('dotenv').config();
 
-const { getPdpRewiteList } = require('../rewrites/pdp');
-const rewritePatterns = require('../rewrites/rewritePatterns');
+// const { getPdpRewiteList } = require('../rewrites/pdp');
+// const rewritePatterns = require('../rewrites/rewritePatterns');
 
 module.exports = {
   // Sass.
