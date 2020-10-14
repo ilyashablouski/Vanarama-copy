@@ -27,7 +27,6 @@ import {
 } from '../../../../utils/dataLayerHelpers';
 import { GetOlafData_orderByUuid } from '../../../../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../../../../generated/GetDerivative';
-import { isUserAuthenticated } from '../../../../utils/authentication';
 
 const handleCreateUpdateBusinessPersonError = () =>
   toast.error(
@@ -168,13 +167,7 @@ export const BusinessAboutPage: NextPage = () => {
             />
           </div>
           {isLogInVisible && (
-            <LoginFormContainer
-              onCompleted={() => {
-                if (isUserAuthenticated()) {
-                  getPerson();
-                }
-              }}
-            />
+            <LoginFormContainer onCompleted={() => getPerson()} />
           )}
         </div>
       )}
