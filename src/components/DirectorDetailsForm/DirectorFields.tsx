@@ -78,6 +78,11 @@ const DirectorFields: FCWithFragments<Props> = ({
         <option value="Female">Female</option>
         <option value="Prefer Not To Say">Prefer Not To Say</option>
       </FormikSelectField>
+      <FormikTextField
+        name={generateFieldKey('email')}
+        label="Email"
+        dataTestId="Email"
+      />
       <FormikDateField
         label="Date Of Birth"
         fieldNames={[
