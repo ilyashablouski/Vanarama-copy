@@ -234,7 +234,7 @@ const FiltersContainer = ({
                 .toLowerCase()
                 .replace(' ', '-')
                 .indexOf(
-                  (router.query.make as string).toLowerCase().replace(' ', '-'),
+                  (router.query?.make as string)?.toLowerCase().replace(' ', '-'),
                 ) > -1
             ) {
               value = findPreselectFilterValue(
