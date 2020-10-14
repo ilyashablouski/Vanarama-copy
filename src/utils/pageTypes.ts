@@ -248,4 +248,9 @@ export const PAGES = [
     pageType: PAGE_TYPES.PLP,
     siteSection: SITE_SECTIONS.pickUps,
   },
+  {
+    pages: ['/'],
+    pageType: PAGE_TYPES.homepage,
+    siteSection: SITE_SECTIONS.homepage,
+  },
 ];

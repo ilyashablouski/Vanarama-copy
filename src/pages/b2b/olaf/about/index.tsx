@@ -126,7 +126,7 @@ export const BusinessAboutPage: NextPage = () => {
         .replace('[orderId]', orderId || ''),
     );
   };
-  
+
   useEffect(() => {
     if (!personUuid) {
       localForage.getItem('person').then(value => {
