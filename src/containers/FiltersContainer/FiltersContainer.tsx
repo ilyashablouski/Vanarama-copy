@@ -227,12 +227,23 @@ const FiltersContainer = ({
         const [key, values] = entry;
         if (key === 'rangeName') {
           const isExist = filtersData.groupedRanges?.some(element => {
-            const value = findPreselectFilterValue(
-              Array.isArray(values)
-                ? values[0].split('+').join(' ')
-                : values.split('+').join(' '),
-              element.children,
-            );
+            let value = '';
+            // if make correct then we are looking for a rangeName
+            if (
+              element.parent
+                .toLowerCase()
+                .replace(' ', '-')
+                .indexOf(
+                  (router.query.make as string).toLowerCase().replace(' ', '-'),
+                ) > -1
+            ) {
+              value = findPreselectFilterValue(
+                Array.isArray(values)
+                  ? values[0].split('+').join(' ')
+                  : values.split('+').join(' '),
+                element.children,
+              );
+            }
             // saving model to temp because after set makes model will be removed
             if (value) {
               setTempModelName(value);
