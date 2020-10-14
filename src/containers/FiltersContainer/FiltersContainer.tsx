@@ -22,7 +22,11 @@ import { filtersConfig, budgets, filterFields } from './config';
 import { IFilterContainerProps, ISelectedFiltersState } from './interfaces';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
-import { findPreselectFilterValue, buildPreselectChoiseboxes } from './helpers';
+import {
+  findPreselectFilterValue,
+  buildPreselectChoiseboxes,
+  isInclude,
+} from './helpers';
 
 interface IChoiceBoxesData {
   [index: string]: IChoice[];
@@ -229,14 +233,7 @@ const FiltersContainer = ({
           const isExist = filtersData.groupedRanges?.some(element => {
             let value = '';
             // if make correct then we are looking for a rangeName
-            if (
-              element.parent
-                .toLowerCase()
-                .replace(' ', '-')
-                .indexOf(
-                  (router.query?.make as string)?.toLowerCase().replace(' ', '-'),
-                ) > -1
-            ) {
+            if (isInclude(element.parent, router.query?.make as string)) {
               value = findPreselectFilterValue(
                 Array.isArray(values)
                   ? values[0].split('+').join(' ')
