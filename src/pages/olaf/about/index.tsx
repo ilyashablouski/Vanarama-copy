@@ -226,7 +226,7 @@ const AboutYouPage: NextPage = () => {
           {isLogInVisible && (
             <LoginFormContainer
               onCompleted={response => {
-                pushAuthorizationEventDataLayer({ eventLabel: router.asPath });
+                pushAuthorizationEventDataLayer();
                 // request person account after login
                 if (response.login !== null) {
                   getPersonByToken({

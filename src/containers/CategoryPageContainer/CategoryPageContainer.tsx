@@ -15,11 +15,7 @@ import { GenericPageQuery_genericPage_sections_tiles_tiles } from '../../../gene
 import { BlogPosts_blogPosts_articles } from '../../../generated/BlogPosts';
 import Head from '../../components/Head/Head';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
-
-const getBody = (body: string) => {
-  const bodyShort = body.slice(0, 100);
-  return `${bodyShort?.replace(/\**/g, '')}...`;
-};
+import { getBody } from '../../utils/articles';
 
 const renderCarouselCards = (cards: any[] | undefined) =>
   cards?.map(

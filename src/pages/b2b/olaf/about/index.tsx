@@ -170,7 +170,7 @@ export const BusinessAboutPage: NextPage = () => {
           {isLogInVisible && (
             <LoginFormContainer
               onCompleted={data => {
-                pushAuthorizationEventDataLayer({ eventLabel: router.asPath });
+                pushAuthorizationEventDataLayer();
                 // request person account after login
                 if (data.login !== null) {
                   getPersonByToken({

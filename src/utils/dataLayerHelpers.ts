@@ -88,11 +88,6 @@ interface ICategory {
   pickups: boolean | null | undefined;
 }
 
-interface IAuthorizationEvent {
-  eventLabel: string;
-  register?: boolean;
-}
-
 declare global {
   interface Window {
     dataLayer: object[];
@@ -144,12 +139,12 @@ export const pushPageData = async (pageType: string, siteSection: string) => {
     siteSection,
   };
 
-  pushDetail('customerId', person?.uuid, data);
+  pushDetail('customerId', person?.uuid || 'undefined', data);
   pushDetail(
     'visitorEmail',
     person?.emailAddresses && person?.emailAddresses[0]?.value
       ? sha256(person?.emailAddresses[0].value)
-      : null,
+      : 'undefined',
     data,
   );
   window.dataLayer.push(data);
@@ -461,15 +456,12 @@ export const pushCallBackDataLayer = ({
   pushToDataLayer(data);
 };
 
-export const pushAuthorizationEventDataLayer = ({
-  eventLabel,
-  register,
-}: IAuthorizationEvent) => {
+export const pushAuthorizationEventDataLayer = (register?: boolean) => {
   const data = {
     event: register ? 'register' : 'login',
     eventCategory: 'Account',
     eventAction: register ? 'Register' : 'Login',
-    eventLabel,
+    eventLabel: register ? 'Account/Register' : 'Account/Login',
   };
 
   pushToDataLayer(data);
