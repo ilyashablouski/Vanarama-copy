@@ -3,9 +3,7 @@ import { NextPage } from 'next';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import ReactMarkdown from 'react-markdown';
-import Router from 'next/router';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery_genericPage_sections_cards_cards } from '../../../generated/GenericPageQuery';
 import { GenericPageHeadQuery_genericPage_metaData } from '../../../generated/GenericPageHeadQuery';
@@ -118,15 +116,12 @@ const BlogPostContainer: NextPage<IProps> = ({
               }}
               description={getBody(el?.body || '')}
             >
-              <Button
-                onClick={() => {
-                  Router.push(el?.slug || '');
+              <RouterLink
+                classNames={{ color: 'teal', size: 'regular' }}
+                link={{
+                  label: 'Read More',
+                  href: el?.slug || '',
                 }}
-                label="Read More"
-                color="teal"
-                size="small"
-                fill="clear"
-                className="-mt-400"
               />
             </Card>
           ))}

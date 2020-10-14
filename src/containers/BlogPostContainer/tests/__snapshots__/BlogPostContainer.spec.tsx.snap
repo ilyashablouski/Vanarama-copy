@@ -73,15 +73,13 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           >
             Test1...
           </span>
-          <button
-            class="button -mt-400 -teal -small -clear"
+          <a
+            class="link -teal -regular"
+            data-testid="router-link"
+            href="/blog/vans/4-year-mot-exemption"
           >
-            <div
-              class="button--inner"
-            >
-              Read More
-            </div>
-          </button>
+            Read More
+          </a>
         </div>
         <div
           class="card card__article"
@@ -108,15 +106,13 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           >
             Test2...
           </span>
-          <button
-            class="button -mt-400 -teal -small -clear"
+          <a
+            class="link -teal -regular"
+            data-testid="router-link"
+            href="/blog/vans/top-5-electric-vans"
           >
-            <div
-              class="button--inner"
-            >
-              Read More
-            </div>
-          </button>
+            Read More
+          </a>
         </div>
         <div
           class="card card__article"
@@ -143,15 +139,13 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           >
             Test3...
           </span>
-          <button
-            class="button -mt-400 -teal -small -clear"
+          <a
+            class="link -teal -regular"
+            data-testid="router-link"
+            href="/blog/vans/5-things-we-love-about-peugeot-boxer"
           >
-            <div
-              class="button--inner"
-            >
-              Read More
-            </div>
-          </button>
+            Read More
+          </a>
         </div>
       </div>
     </div>
