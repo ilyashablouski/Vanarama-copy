@@ -132,9 +132,7 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
             <TabPanel index={1}>
               <LoginFormContainer
                 onCompleted={async data => {
-                  pushAuthorizationEventDataLayer({
-                    eventLabel: router.pathname,
-                  });
+                  pushAuthorizationEventDataLayer();
                   if (data.login !== null) {
                     // Put the token in localStorage
                     await localForage.setItem('token', data.login);
@@ -151,10 +149,7 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
             <TabPanel index={2}>
               <RegisterFormContainer
                 onCompleted={() => {
-                  pushAuthorizationEventDataLayer({
-                    eventLabel: router.pathname,
-                    register: true,
-                  });
+                  pushAuthorizationEventDataLayer(true);
                   setRegistrationSuccess(true);
                 }}
                 onError={handleRegisterError}

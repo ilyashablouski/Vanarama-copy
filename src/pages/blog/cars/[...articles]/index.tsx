@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { NextPage } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
@@ -6,19 +7,30 @@ import { useBlogPostPage } from '../../../../gql/blogPost';
 import BlogPostContainer from '../../../../containers/BlogPostContainer/BlogPostContainer';
 import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
 import { getSectionsData } from '../../../../utils/getSectionsData';
+import { useBlogPostsPage } from '../../../../gql/blogPosts';
+import { getArticles, getArticlesSlug } from '../../../../utils/articles';
 
 const BlogPost: NextPage = () => {
   const router = useRouter();
   const { data, loading, error } = useBlogPostPage(router.asPath.slice(1));
 
-  if (loading) {
+  const {
+    data: blogPosts,
+    loading: blogPostsLoading,
+    error: blogPostsError,
+  } = useBlogPostsPage(getArticlesSlug(router));
+
+  if (loading || blogPostsLoading) {
     return <Loading size="large" />;
   }
 
-  if (error) {
-    return <ErrorMessage message={error.message} />;
+  if (error || blogPostsError) {
+    return (
+      <ErrorMessage message={error?.message || blogPostsError?.message || ''} />
+    );
   }
 
+  const articles = getSectionsData(['blogPosts', 'articles'], blogPosts);
   const body = getSectionsData(['body'], data?.blogPost);
   const name = getSectionsData(['metaData', 'name'], data?.blogPost);
   const image = getSectionsData(
@@ -32,6 +44,7 @@ const BlogPost: NextPage = () => {
 
   return (
     <BlogPostContainer
+      articles={getArticles(articles, router)}
       body={body}
       name={name}
       image={image}
