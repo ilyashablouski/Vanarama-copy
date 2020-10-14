@@ -46,10 +46,10 @@ export const mapCreateUpdteApplicationData = (
   ...mapFormValues(values),
   addresses: [
     {
-      ...companyData?.addresses,
-      kind: 'Trading',
+      ...companyData?.addresses?.[0],
     },
   ],
+  emailAddress: undefined,
   emailAddresses: [
     {
       value: values.email,
