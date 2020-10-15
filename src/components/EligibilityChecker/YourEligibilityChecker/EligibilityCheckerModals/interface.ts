@@ -1,5 +1,6 @@
-export interface IEnabledCamera {
+export interface INotificationCamera {
   onCloseModal: () => void;
+  text: string;
 }
 
 export interface IAccessCamera {

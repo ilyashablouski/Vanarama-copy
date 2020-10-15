@@ -15,7 +15,7 @@ import {
 import FCWithFragments from '../../../utils/FCWithFragments';
 import { responseBlinkIdToInitialFormValues } from './mappers';
 import EligibilityCheckerForm from './EligibilityCheckerForm';
-import EnabledCamera from './EligibilityCheckerModals/EnabledCamera';
+import NotificationCamera from './EligibilityCheckerModals/NotificationCamera';
 import PhotoPreview from './EligibilityCheckerModals/PhotoPreview';
 import Camera from './EligibilityCheckerModals/Camera';
 import AccessCamera from './EligibilityCheckerModals/AccessCamera';
@@ -24,7 +24,7 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
   const [isModalShowing, setIsModalShowing] = useState(false);
   const [data, setImageData] = useState<any>();
   const [camera, toggleCamera] = useState(false);
-  const [enabledCamera, toggleEnabledCamera] = useState(false);
+  const [notificationCamera, toggleNotificationCamera] = useState('');
   const [imgSrc, setImgSrc] = useState<string | null>(null);
   const [loadingData, setLoadingData] = useState(false);
 
@@ -84,7 +84,7 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
     setImgSrc(null);
     toggleCamera(false);
     setIsModalShowing(false);
-    toggleEnabledCamera(false);
+    toggleNotificationCamera('');
   };
 
   const capture = React.useCallback(() => {
@@ -107,7 +107,7 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
 
   const handleOnUserMedia = () => {
     if (!webcamRef.current.stream) {
-      toggleEnabledCamera(true);
+      toggleNotificationCamera('Your camera is not enabled.');
     }
   };
 
@@ -148,7 +148,7 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
       {isModalShowing && (
         <Modal
           className="-mt-000"
-          title={enabledCamera ? 'Notification' : ''}
+          title={notificationCamera ? 'Notification' : ''}
           text={
             !(camera || imgSrc || loadingData)
               ? 'Would like to access to the camera?'
@@ -157,13 +157,13 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
           show={isModalShowing}
           onRequestClose={() => onCloseModal()}
         >
-          {!(camera || imgSrc || loadingData || enabledCamera) && (
+          {!(camera || imgSrc || loadingData || notificationCamera) && (
             <AccessCamera
               onClickYes={() => toggleCamera(true)}
               onClickNo={() => onCloseModal()}
             />
           )}
-          {!enabledCamera && camera && (
+          {!notificationCamera && camera && (
             <Camera
               handleOnUserMedia={handleOnUserMedia}
               onClickCapture={capture}
@@ -183,6 +183,8 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
                       const drivingLicence: IDrivingLicence =
                         response.data.result;
                       reset(responseBlinkIdToInitialFormValues(drivingLicence));
+                    } else {
+                      toggleNotificationCamera('Something went wrong.');
                     }
                   });
               }}
@@ -192,7 +194,12 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
               }}
             />
           )}
-          {enabledCamera && <EnabledCamera onCloseModal={onCloseModal} />}
+          {!!notificationCamera && (
+            <NotificationCamera
+              onCloseModal={onCloseModal}
+              text={notificationCamera}
+            />
+          )}
         </Modal>
       )}
     </>

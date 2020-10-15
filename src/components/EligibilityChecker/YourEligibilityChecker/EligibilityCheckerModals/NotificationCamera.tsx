@@ -1,12 +1,15 @@
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import React, { FC } from 'react';
-import { IEnabledCamera } from './interface';
+import { INotificationCamera } from './interface';
 
-const EnabledCamera: FC<IEnabledCamera> = ({ onCloseModal }) => {
+const NotificationCamera: FC<INotificationCamera> = ({
+  onCloseModal,
+  text,
+}) => {
   return (
     <div>
       <Text color="darker">
-        Your camera is not enabled. Please
+        {text} Please
         <span
           className="text -regular -teal"
           onClick={onCloseModal}
@@ -20,4 +23,4 @@ const EnabledCamera: FC<IEnabledCamera> = ({ onCloseModal }) => {
   );
 };
 
-export default EnabledCamera;
+export default NotificationCamera;
