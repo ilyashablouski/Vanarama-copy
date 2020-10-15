@@ -24,7 +24,6 @@ import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid
 import {
   pushAboutYouDataLayer,
   pushAuthorizationEventDataLayer,
-  pushPageData,
 } from '../../../../utils/dataLayerHelpers';
 import { GetOlafData_orderByUuid } from '../../../../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../../../../generated/GetDerivative';
@@ -127,10 +126,6 @@ export const BusinessAboutPage: NextPage = () => {
         .replace('[orderId]', orderId || ''),
     );
   };
-
-  useEffect(() => {
-    pushPageData('Checkout Pages', 'Vans');
-  }, []);
 
   useEffect(() => {
     if (!personUuid) {

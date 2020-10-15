@@ -28,8 +28,10 @@ const RangeCard = memo(
     const { pathname, query } = useRouter();
     const searchType = pathname.slice(1).split('/')[0];
     const href = isAllMakesCard
-      ? `${searchType}/${title}`
-      : `${searchType}/${query.dynamicParam}/${title}`;
+      ? `${searchType}/${title.toLowerCase().replace(' ', '-')}`
+      : `${searchType}/${query.dynamicParam}/${title
+          .toLowerCase()
+          .replace(' ', '-')}`;
     const { data: imagesData } = getRangeImages(id, !id || isAllMakesCard);
     const { data: imagesMakeData } = useModelImages(
       [id],
