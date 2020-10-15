@@ -1004,7 +1004,11 @@ const SearchPageContainer: React.FC<IProps> = ({
                 src={featured.image?.file?.url || ''}
               />
               <div>
-                <Heading tag="span" size="large" color="black">
+                <Heading
+                  tag={featured.titleTag || 'span'}
+                  size="large"
+                  color="black"
+                >
                   {featured.title}
                 </Heading>
                 <ReactMarkdown
