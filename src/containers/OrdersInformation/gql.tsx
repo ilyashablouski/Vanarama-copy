@@ -1,5 +1,8 @@
 import { useQuery, gql, useLazyQuery } from '@apollo/client';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import {
+  MyOrdersTypeEnum,
+  VehicleTypeEnum,
+} from '../../../generated/globalTypes';
 import {
   GetDerivatives,
   GetDerivativesVariables,
@@ -8,6 +11,10 @@ import {
   GetOrdersByPartyUuid,
   GetOrdersByPartyUuidVariables,
 } from '../../../generated/GetOrdersByPartyUuid';
+import {
+  GetMyOrders,
+  GetMyOrdersVariables,
+} from '../../../generated/GetMyOrders';
 
 export const GET_ORDERS_BY_PARTY_UUID_DATA = gql`
   query GetOrdersByPartyUuid(
@@ -91,6 +98,67 @@ export function useOrdersByPartyUuidData(
       },
     },
   );
+}
+
+export const GET_MY_ORDERS_DATA = gql`
+  query GetMyOrders($partyUuid: ID!, $filter: MyOrdersTypeEnum!) {
+    myOrders(partyUuid: $partyUuid, filter: $filter) {
+      uuid
+      id
+      leaseType
+      partyUuid
+      status
+      createdAt
+      updatedAt
+      lineItems {
+        createdAt
+        leadManagerQuoteId
+        productId
+        productType
+        quantity
+        status
+        updatedAt
+        uuid
+        creditApplications(
+          statuses: $statusesCA
+          excludeStatuses: $exStatusesCA
+        ) {
+          status
+          uuid
+        }
+        vehicleProduct {
+          derivativeCapId
+          description
+          vsku
+          financeType
+          depositPayment
+          monthlyPayment
+          term
+          annualMileage
+          depositMonths
+          funderId
+          funderData
+          colour
+          trim
+          maintenance
+          vehicleType
+        }
+      }
+    }
+  }
+`;
+
+/**
+ *  @props partyByUuid - string with partyByUuid
+ *  @props filter - value for filter
+ */
+export function useMyOrdersData(partyByUuid: string, filter: MyOrdersTypeEnum) {
+  return useLazyQuery<GetMyOrders, GetMyOrdersVariables>(GET_MY_ORDERS_DATA, {
+    variables: {
+      partyUuid: partyByUuid,
+      filter,
+    },
+  });
 }
 
 export const GET_CAR_DERIVATIVES = gql`

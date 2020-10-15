@@ -27,6 +27,16 @@ export enum LeaseTypeEnum {
 }
 
 /**
+ * Filter orders/quotes by section
+ */
+export enum MyOrdersTypeEnum {
+  ALL_ORDERS = "ALL_ORDERS",
+  ALL_QUOTES = "ALL_QUOTES",
+  COMPLETED_ORDERS = "COMPLETED_ORDERS",
+  IN_PROGRESS_ORDERS = "IN_PROGRESS_ORDERS",
+}
+
+/**
  * Opportunity type enum
  */
 export enum OpportunityTypeEnum {

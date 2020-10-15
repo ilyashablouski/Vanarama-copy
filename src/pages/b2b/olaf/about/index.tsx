@@ -18,7 +18,7 @@ import { usePersonByTokenLazyQuery } from '../../../olaf/about';
 import { CompanyTypes } from '../../../../models/enum/CompanyTypes';
 import { PersonByToken } from '../../../../../generated/PersonByToken';
 import { useImperativeQuery } from '../../../../hooks/useImperativeQuery';
-import { GET_ORDERS_BY_PARTY_UUID_DATA } from '../../../../containers/OrdersInformation/gql';
+import { GET_MY_ORDERS_DATA } from '../../../../containers/OrdersInformation/gql';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../../generated/GetCompaniesByPersonUuid';
 import {
@@ -60,7 +60,7 @@ export const BusinessAboutPage: NextPage = () => {
     setDerivativeData,
   ] = useState<GetDerivative_derivative | null>(null);
 
-  const getOrdersData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);
+  const getOrdersData = useImperativeQuery(GET_MY_ORDERS_DATA);
   const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
 
   const [getPersonByToken] = usePersonByTokenLazyQuery(async data => {

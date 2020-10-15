@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import localForage from 'localforage';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import { GET_ORDERS_BY_PARTY_UUID_DATA } from './gql';
+import { GET_MY_ORDERS_DATA } from './gql';
 import { IProps } from './interfaces';
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../generated/GetCompaniesByPersonUuid';
@@ -22,7 +22,7 @@ const OrderInformationContainer: React.FC<IProps> = () => {
   const [quotesLength, setQuotesLength] = useState<number | null>(null);
 
   const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
-  const getOrdersData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);
+  const getOrdersData = useImperativeQuery(GET_MY_ORDERS_DATA);
 
   useEffect(() => {
     if (partyByUuid && quotesLength === null && ordersLength === null) {

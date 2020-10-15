@@ -20,7 +20,7 @@ import {
   usePersonByTokenLazyQuery,
   handleAccountFetchError,
 } from '../../olaf/about';
-import { GET_ORDERS_BY_PARTY_UUID_DATA } from '../../../containers/OrdersInformation/gql';
+import { GET_MY_ORDERS_DATA } from '../../../containers/OrdersInformation/gql';
 import { useImperativeQuery } from '../../../hooks/useImperativeQuery';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
@@ -43,7 +43,7 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
   const [activeTab, setActiveTab] = useState(1);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
-  const getOrdersData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);
+  const getOrdersData = useImperativeQuery(GET_MY_ORDERS_DATA);
   const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
 
   const [getPersonByToken] = usePersonByTokenLazyQuery(async data => {
