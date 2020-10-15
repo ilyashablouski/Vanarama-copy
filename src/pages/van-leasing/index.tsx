@@ -14,9 +14,6 @@ import League from '@vanarama/uibook/lib/components/organisms/league';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Step from '@vanarama/uibook/lib/components/molecules/step';
-import IconList, {
-  IconListItem,
-} from '@vanarama/uibook/lib/components/organisms/icon-list';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useState } from 'react';
 
@@ -510,17 +507,6 @@ export const VansPage: NextPage = () => {
               }}
             />
           </div>
-          <IconList>
-            <IconListItem iconColor="orange">
-              &nbsp;&nbsp;Choose your contract length &amp; agreed mileage
-            </IconListItem>
-            <IconListItem iconColor="orange">
-              &nbsp;&nbsp;Pay an initial payment
-            </IconListItem>
-            <IconListItem iconColor="orange">
-              &nbsp;&nbsp;Set up your agreed fixed monthly rental
-            </IconListItem>
-          </IconList>
         </div>
       </section>
 
