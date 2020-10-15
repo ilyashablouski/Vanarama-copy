@@ -40,15 +40,14 @@ exports[`<WhyEligibilityChecker /> renders correctly 1`] = `
     </ul>
   </div>
   <div
-    className="lazyload-wrapper"
+    className="image -expand"
   >
-    <div
-      className="lazyload-placeholder"
-      style={
-        Object {
-          "height": "500",
-        }
-      }
+    <img
+      alt="title"
+      className="image--native"
+      height="500"
+      src="https://source.unsplash.com/collection/2102317/1000x650?sig=40344"
+      width="900"
     />
   </div>
 </div>

@@ -28,10 +28,12 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
             *Only available to Vanarama leasing customers. Other terms and conditions apply.
           </p>
           <div
-            class="lazyload-wrapper"
+            class="image hero--image -expand -plain"
           >
-            <div
-              class="lazyload-placeholder"
+            <img
+              alt="Hero Image"
+              class="image--native"
+              src="//images.ctfassets.net/3xid768u5joa/7EJOmbBk6X2yzLtHunY3xU/e9af75665ee74bf1ccefede5c9142e60/insuranceicon.jpg"
             />
           </div>
         </div>

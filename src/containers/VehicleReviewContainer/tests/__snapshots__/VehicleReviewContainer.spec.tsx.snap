@@ -29,10 +29,11 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
               role="tabpanel"
             >
               <div
-                class="lazyload-wrapper"
+                class="image -expand"
               >
-                <div
-                  class="lazyload-placeholder"
+                <img
+                  class="image--native"
+                  src="//images.ctfassets.net/3xid768u5joa/1ufFnJNOsfjenEKcmSUeXt/f0978cb49686d6466600a17ea0d6d0e9/berlingo-outside.jpg"
                 />
               </div>
             </div>

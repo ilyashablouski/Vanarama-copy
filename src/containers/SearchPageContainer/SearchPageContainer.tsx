@@ -542,7 +542,9 @@ const SearchPageContainer: React.FC<IProps> = ({
         pathname: `/${href}/[dynamicParam]/[rangeName]`,
         query,
       },
-      `/${href}/${router.query.dynamicParam}/${range}`,
+      `/${href}/${router.query.dynamicParam}/${range
+        .toLowerCase()
+        .replace(' ', '-')}`,
       { shallow: true },
     );
   };
