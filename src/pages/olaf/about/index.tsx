@@ -17,7 +17,6 @@ import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import {
   pushAboutYouDataLayer,
   pushAuthorizationEventDataLayer,
-  pushPageData,
 } from '../../../utils/dataLayerHelpers';
 import AboutFormContainer from '../../../containers/AboutFormContainer/AboutFormContainer';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
@@ -188,10 +187,6 @@ const AboutYouPage: NextPage = () => {
 
     router.push(url, url.replace('[orderId]', orderId));
   };
-
-  useEffect(() => {
-    pushPageData('Checkout Pages', 'Cars');
-  }, []);
 
   useEffect(() => {
     if (!personUuid) {
