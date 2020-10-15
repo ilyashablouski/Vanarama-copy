@@ -18,7 +18,7 @@ exports[`<RangeCard /> should be render correctly 1`] = `
         <a
           class="heading link -black -large"
           data-testid="router-link"
-          href="/car-leasing/BMW/2%20Series"
+          href="/car-leasing/BMW/2-series"
         >
           2 Series
         </a>
@@ -89,7 +89,7 @@ exports[`<RangeCard /> should be render correctly with all makes page 1`] = `
         <a
           class="heading link -black -large"
           data-testid="router-link"
-          href="/car-leasing/2%20Series"
+          href="/car-leasing/2-series"
         >
           2 Series
         </a>

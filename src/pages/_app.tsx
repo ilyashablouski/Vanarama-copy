@@ -35,6 +35,7 @@ import {
   GenericPageHeadQueryVariables,
 } from '../../generated/GenericPageHeadQuery';
 import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
+import { pushPageData } from '../utils/dataLayerHelpers';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   const [compareVehicles, setCompareVehicles] = useState<
@@ -61,6 +62,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   }, []);
 
   useEffect(() => {
+    pushPageData({ pathname: router.pathname });
     const getVehicles = async () => {
       const vehiclesCompares = (await getCompares()) as
         | IVehicle[]

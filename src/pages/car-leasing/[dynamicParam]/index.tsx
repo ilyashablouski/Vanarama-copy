@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { PAGE_TYPES, SITE_SECTIONS } from '../../../utils/pageTypes';
 import {
   bodyUrls,
   fuelMapper,
@@ -8,6 +9,7 @@ import {
 } from '../../../containers/SearchPageContainer/helpers';
 import SearchPageContainer from '../../../containers/SearchPageContainer';
 import withApollo from '../../../hocs/withApollo';
+import { pushPageData } from '../../../utils/dataLayerHelpers';
 
 interface IPageType {
   isBodyStylePage: boolean;
@@ -32,6 +34,13 @@ const Page: NextPage<IProps> = ({
 }) => {
   const router = useRouter();
   useEffect(() => {
+    pushPageData({
+      pageType: pageType.isMakePage
+        ? PAGE_TYPES.makePage
+        : PAGE_TYPES.vehicleTypePage,
+      siteSection: SITE_SECTIONS.cars,
+      pathname: router.pathname,
+    });
     // copy dynamic param for actual filter query
     if (
       (pageType.isMakePage && !router.query.make) ||

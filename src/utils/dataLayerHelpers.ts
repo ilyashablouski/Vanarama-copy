@@ -15,6 +15,7 @@ import {
   GetOlafData_orderByUuid_lineItems,
 } from '../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../generated/GetDerivative';
+import { PAGES } from './pageTypes';
 
 interface ICheckoutData {
   price: string | number | null | undefined;
@@ -82,6 +83,12 @@ interface IPageDataLayer {
   vehicleModel?: string;
 }
 
+interface IPageData {
+  pathname?: string;
+  pageType?: string;
+  siteSection?: string;
+}
+
 interface ICategory {
   cars: boolean | null | undefined;
   vans: boolean | null | undefined;
@@ -127,17 +134,38 @@ export const pushDetail = (
   if (value) Object.assign(product, { [field]: `${value}` });
 };
 
-export const pushPageData = async (pageType: string, siteSection: string) => {
+export const pushPageData = async ({
+  pathname,
+  pageType,
+  siteSection,
+}: IPageData) => {
   if (!window.dataLayer) return;
   const personData = (await localForage.getItem(
     'person',
   )) as PersonByToken | null;
   const person = personData?.personByToken;
 
-  const data = {
-    pageType,
-    siteSection,
-  };
+  let data = {};
+
+  if (
+    pathname === '/car-leasing/[dynamicParam]' ||
+    pathname === '/van-leasing/[dynamicParam]'
+  ) {
+    if (!pageType) return;
+    data = {
+      pageType,
+      siteSection,
+    };
+  } else {
+    const pageData = PAGES.find(pages =>
+      pages.pages.find(page => pathname?.includes(page)),
+    );
+
+    data = {
+      pageType: pageData?.pageType || 'undefined',
+      siteSection: pageData?.siteSection || 'undefined',
+    };
+  }
 
   pushDetail('customerId', person?.uuid || 'undefined', data);
   pushDetail(

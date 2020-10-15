@@ -16,7 +16,6 @@ import cx from 'classnames';
 import {
   pushPDPDataLayer,
   pushAddToCartDataLayer,
-  pushPageData,
   getCategory,
   pushCallBackDataLayer,
 } from '../../utils/dataLayerHelpers';
@@ -85,11 +84,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const { data: genericPageHead } = useGenericPageHead(
     Router.asPath.slice(1, -5),
   );
-
-  useEffect(() => {
-    pushPageData('PDP', cars ? 'Cars' : 'Vans');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     setCachedLeaseType(leaseType);
