@@ -8,6 +8,8 @@ import {
 } from '../../../containers/SearchPageContainer/helpers';
 import SearchPageContainer from '../../../containers/SearchPageContainer';
 import withApollo from '../../../hocs/withApollo';
+import { pushPageData } from '../../../utils/dataLayerHelpers';
+import { PAGE_TYPES, SITE_SECTIONS } from '../../../utils/pageTypes';
 
 interface IPageType {
   isBodyStylePage: boolean;
@@ -32,6 +34,13 @@ const Page: NextPage<IProps> = ({
 }) => {
   const router = useRouter();
   useEffect(() => {
+    pushPageData({
+      pageType: pageType.isMakePage
+        ? PAGE_TYPES.makePage
+        : PAGE_TYPES.vehicleTypePage,
+      siteSection: SITE_SECTIONS.vans,
+      pathname: router.pathname,
+    });
     // copy dynamic param for actual filter query
     if (
       (pageType.isMakePage && !router.query.make) ||
