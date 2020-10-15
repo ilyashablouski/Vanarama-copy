@@ -17,9 +17,6 @@ import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
-import IconList, {
-  IconListItem,
-} from '@vanarama/uibook/lib/components/organisms/icon-list';
 import League from '@vanarama/uibook/lib/components/organisms/league';
 
 import Media from '@vanarama/uibook/lib/components/atoms/media';
@@ -355,17 +352,6 @@ export const PickupsPage: NextPage = () => {
               }}
             />
           </div>
-          <IconList>
-            <IconListItem iconColor="orange">
-              &nbsp;&nbsp;Choose your contract length &amp; agreed mileage
-            </IconListItem>
-            <IconListItem iconColor="orange">
-              &nbsp;&nbsp;Pay an initial payment
-            </IconListItem>
-            <IconListItem iconColor="orange">
-              &nbsp;&nbsp;Set up your agreed fixed monthly rental
-            </IconListItem>
-          </IconList>
         </div>
       </section>
 
