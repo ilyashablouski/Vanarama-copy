@@ -965,12 +965,6 @@ const SearchPageContainer: React.FC<IProps> = ({
       {pageData && (
         <>
           {(isRangePage || isDynamicFilterPage) && (
-            <>
-              <div className="row:title">
-                <Heading size="large" color="black">
-                  {metaData?.name}
-                </Heading>
-              </div>
               <div className="row:text -columns">
                 <div>
                   <ReactMarkdown
@@ -996,7 +990,6 @@ const SearchPageContainer: React.FC<IProps> = ({
                   />
                 </div>
               </div>
-            </>
           )}
           {featured && (
             <div className={`row:${getFeaturedClassPartial(featured)}`}>
