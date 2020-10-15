@@ -15,6 +15,7 @@ import {
   GetOlafData_orderByUuid_lineItems,
 } from '../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../generated/GetDerivative';
+import { PAGES } from './pageTypes';
 
 interface ICheckoutData {
   price: string | number | null | undefined;
@@ -127,16 +128,19 @@ export const pushDetail = (
   if (value) Object.assign(product, { [field]: `${value}` });
 };
 
-export const pushPageData = async (pageType: string, siteSection: string) => {
+export const pushPageData = async (pathname: string) => {
   if (!window.dataLayer) return;
   const personData = (await localForage.getItem(
     'person',
   )) as PersonByToken | null;
   const person = personData?.personByToken;
 
+  const pageData = PAGES.find(pages =>
+    pages.pages.find(page => pathname.includes(page)),
+  );
   const data = {
-    pageType,
-    siteSection,
+    pageType: pageData?.pageType || 'undefined',
+    siteSection: pageData?.siteSection || 'undefined',
   };
 
   pushDetail('customerId', person?.uuid || 'undefined', data);

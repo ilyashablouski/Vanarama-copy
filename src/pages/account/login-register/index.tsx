@@ -9,7 +9,7 @@ import CheckmarkSharp from '@vanarama/uibook/lib/assets/icons/CheckmarkSharp';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import localForage from 'localforage';
 import { useRouter } from 'next/router';
 import Message from '../../../core/components/Message';
@@ -24,10 +24,7 @@ import { GET_ORDERS_BY_PARTY_UUID_DATA } from '../../../containers/OrdersInforma
 import { useImperativeQuery } from '../../../hooks/useImperativeQuery';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
-import {
-  pushAuthorizationEventDataLayer,
-  pushPageData,
-} from '../../../utils/dataLayerHelpers';
+import { pushAuthorizationEventDataLayer } from '../../../utils/dataLayerHelpers';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -88,10 +85,6 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
 
     router.push(nextUrl);
   }, handleAccountFetchError);
-
-  useEffect(() => {
-    pushPageData('My Account', 'Login/Register');
-  }, []);
 
   return (
     <>
