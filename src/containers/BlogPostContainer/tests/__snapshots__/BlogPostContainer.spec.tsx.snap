@@ -60,11 +60,10 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             class="title"
           >
             <a
-              class="card--link link -black -regular"
-              data-testid="router-link"
+              class="heading -black -lead"
               href="/blog/vans/4-year-mot-exemption"
             >
-              4-year MoT exemption period proposed for vans | Vanarama
+              4-year MoT exemption period could save YOU money!
             </a>
           </div>
           <span
@@ -93,11 +92,10 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             class="title"
           >
             <a
-              class="card--link link -black -regular"
-              data-testid="router-link"
+              class="heading -black -lead"
               href="/blog/vans/top-5-electric-vans"
             >
-              Top 5 Electric Vans | Vanarama
+              Top 5 Electric Vans… Sort Of
             </a>
           </div>
           <span
@@ -126,8 +124,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             class="title"
           >
             <a
-              class="card--link link -black -regular"
-              data-testid="router-link"
+              class="heading -black -lead"
               href="/blog/vans/5-things-we-love-about-peugeot-boxer"
             >
               5 Things We Love About Peugeot Boxer
