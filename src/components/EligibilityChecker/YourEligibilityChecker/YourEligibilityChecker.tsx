@@ -150,7 +150,7 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
           className="-mt-000"
           title={notificationCamera ? 'Notification' : ''}
           text={
-            !(camera || imgSrc || loadingData)
+            !(camera || imgSrc || loadingData || notificationCamera)
               ? 'Would like to access to the camera?'
               : ''
           }
