@@ -125,6 +125,7 @@ export function useCarDerivativesData(
         ids,
         vehicleType,
       },
+      skip: !ids[0],
     },
   );
 }
