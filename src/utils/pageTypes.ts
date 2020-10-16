@@ -64,6 +64,7 @@ export const PAGES = [
       '/refer-a-friend',
       '/sitemap',
       '/smiles',
+      '/community',
     ],
     pageType: PAGE_TYPES.contentPage,
     siteSection: SITE_SECTIONS.other,
