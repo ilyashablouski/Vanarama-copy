@@ -64,6 +64,6 @@ export interface GetMyOrders {
 }
 
 export interface GetMyOrdersVariables {
-  partyUuid: string;
+  partyUuid: string[];
   filter: MyOrdersTypeEnum;
 }

@@ -25,6 +25,7 @@ import { useImperativeQuery } from '../../../hooks/useImperativeQuery';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
 import { pushAuthorizationEventDataLayer } from '../../../utils/dataLayerHelpers';
+import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -59,23 +60,15 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
     });
     getOrdersData({
       partyUuid,
-      excludeStatuses: ['quote', 'expired', 'new'],
-      statuses: null,
+      filter: MyOrdersTypeEnum.ALL_ORDERS,
     }).then(response => {
-      localForage.setItem(
-        'ordersLength',
-        response.data?.ordersByPartyUuid.length,
-      );
+      localForage.setItem('ordersLength', response.data?.myOrders.length);
     });
     getOrdersData({
       partyUuid,
-      statuses: ['quote', 'new'],
-      excludeStatuses: ['expired'],
+      filter: MyOrdersTypeEnum.ALL_QUOTES,
     }).then(response => {
-      localForage.setItem(
-        'quotesLength',
-        response.data?.ordersByPartyUuid.length,
-      );
+      localForage.setItem('quotesLength', response.data?.myOrders.length);
     });
 
     // Redirect to the user's previous route or homepage.

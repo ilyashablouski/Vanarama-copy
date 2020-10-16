@@ -376,7 +376,8 @@ export interface PersonInputObject {
  * Input object to make quick credit check
  */
 export interface QuickCreditCheckerInputObject {
-  addressServiceId: string;
+  address?: AddressInputObject | null;
+  addressServiceId?: string | null;
   emailAddress: EmailAddressInputObject;
   person: PersonInputObject;
 }

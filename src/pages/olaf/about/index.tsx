@@ -38,6 +38,7 @@ import { useCreateUpdateOrder } from '../../../gql/order';
 import {
   LeaseTypeEnum,
   CreditApplicationTypeEnum as CATypeEnum,
+  MyOrdersTypeEnum,
 } from '../../../../generated/globalTypes';
 import { useImperativeQuery } from '../../../hooks/useImperativeQuery';
 import { GET_MY_ORDERS_DATA } from '../../../containers/OrdersInformation/gql';
@@ -112,23 +113,15 @@ const AboutYouPage: NextPage = () => {
     });
     getOrdersData({
       partyUuid,
-      excludeStatuses: ['quote', 'expired', 'new'],
-      statuses: null,
+      filter: MyOrdersTypeEnum.ALL_ORDERS,
     }).then(response => {
-      localForage.setItem(
-        'ordersLength',
-        response.data?.ordersByPartyUuid.length,
-      );
+      localForage.setItem('ordersLength', response.data?.myOrders.length);
     });
     getOrdersData({
       partyUuid,
-      statuses: ['quote', 'new'],
-      excludeStatuses: ['expired'],
+      filter: MyOrdersTypeEnum.ALL_QUOTES,
     }).then(response => {
-      localForage.setItem(
-        'quotesLength',
-        response.data?.ordersByPartyUuid.length,
-      );
+      localForage.setItem('quotesLength', response.data?.myOrders.length);
     });
     router.replace(router.pathname, router.asPath);
   }, handleAccountFetchError);

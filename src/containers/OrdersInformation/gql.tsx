@@ -8,100 +8,12 @@ import {
   GetDerivativesVariables,
 } from '../../../generated/GetDerivatives';
 import {
-  GetOrdersByPartyUuid,
-  GetOrdersByPartyUuidVariables,
-} from '../../../generated/GetOrdersByPartyUuid';
-import {
   GetMyOrders,
   GetMyOrdersVariables,
 } from '../../../generated/GetMyOrders';
 
-export const GET_ORDERS_BY_PARTY_UUID_DATA = gql`
-  query GetOrdersByPartyUuid(
-    $partyUuid: [ID!]!
-    $statuses: [String!]
-    $excludeStatuses: [String!]
-    $statusesCA: [String!]
-    $exStatusesCA: [String!]
-  ) {
-    ordersByPartyUuid(
-      partyUuid: $partyUuid
-      statuses: $statuses
-      excludeStatuses: $excludeStatuses
-    ) {
-      uuid
-      id
-      leaseType
-      partyUuid
-      status
-      createdAt
-      updatedAt
-      lineItems {
-        createdAt
-        leadManagerQuoteId
-        productId
-        productType
-        quantity
-        status
-        updatedAt
-        uuid
-        creditApplications(
-          statuses: $statusesCA
-          excludeStatuses: $exStatusesCA
-        ) {
-          status
-          uuid
-        }
-        vehicleProduct {
-          derivativeCapId
-          description
-          vsku
-          financeType
-          depositPayment
-          monthlyPayment
-          term
-          annualMileage
-          depositMonths
-          funderId
-          funderData
-          colour
-          trim
-          maintenance
-          vehicleType
-        }
-      }
-    }
-  }
-`;
-
-/**
- *  @props partyByUuid - string with partyByUuid
- *  @props statuses - optional param, array of strings with statuses we want to get
- *  @props excludeStatuses - optional param, array of strings with statuses that we don’t want to receive
- */
-export function useOrdersByPartyUuidData(
-  partyByUuid: string[],
-  statuses?: string[],
-  excludeStatuses?: string[],
-  statusesCA?: string[],
-  exStatusesCA?: string[],
-) {
-  return useLazyQuery<GetOrdersByPartyUuid, GetOrdersByPartyUuidVariables>(
-    GET_ORDERS_BY_PARTY_UUID_DATA,
-    {
-      variables: {
-        partyUuid: partyByUuid,
-        statuses: statuses || null,
-        excludeStatuses: excludeStatuses || null,
-        statusesCA: statusesCA || null,
-        exStatusesCA: exStatusesCA || null,
-      },
-    },
-  );
-}
-
 export const GET_MY_ORDERS_DATA = gql`
-  query GetMyOrders($partyUuid: ID!, $filter: MyOrdersTypeEnum!) {
+  query GetMyOrders($partyUuid: [ID!]!, $filter: MyOrdersTypeEnum!) {
     myOrders(partyUuid: $partyUuid, filter: $filter) {
       uuid
       id
@@ -119,10 +31,7 @@ export const GET_MY_ORDERS_DATA = gql`
         status
         updatedAt
         uuid
-        creditApplications(
-          statuses: $statusesCA
-          excludeStatuses: $exStatusesCA
-        ) {
+        creditApplications {
           status
           uuid
         }
@@ -149,10 +58,13 @@ export const GET_MY_ORDERS_DATA = gql`
 `;
 
 /**
- *  @props partyByUuid - string with partyByUuid
+ *  @props partyByUuid - array string with partyByUuid
  *  @props filter - value for filter
  */
-export function useMyOrdersData(partyByUuid: string, filter: MyOrdersTypeEnum) {
+export function useMyOrdersData(
+  partyByUuid: string[],
+  filter: MyOrdersTypeEnum,
+) {
   return useLazyQuery<GetMyOrders, GetMyOrdersVariables>(GET_MY_ORDERS_DATA, {
     variables: {
       partyUuid: partyByUuid,

@@ -27,6 +27,7 @@ import {
 } from '../../../../utils/dataLayerHelpers';
 import { GetOlafData_orderByUuid } from '../../../../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../../../../generated/GetDerivative';
+import { MyOrdersTypeEnum } from '../../../../../generated/globalTypes';
 
 const handleCreateUpdateBusinessPersonError = () =>
   toast.error(
@@ -80,23 +81,15 @@ export const BusinessAboutPage: NextPage = () => {
 
     getOrdersData({
       partyUuid,
-      excludeStatuses: ['quote', 'expired', 'new'],
-      statuses: null,
+      filter: MyOrdersTypeEnum.ALL_ORDERS,
     }).then(response => {
-      localForage.setItem(
-        'ordersLength',
-        response.data?.ordersByPartyUuid.length,
-      );
+      localForage.setItem('ordersLength', response.data?.myOrders.length);
     });
     getOrdersData({
       partyUuid,
-      statuses: ['quote', 'new'],
-      excludeStatuses: ['expired'],
+      filter: MyOrdersTypeEnum.ALL_QUOTES,
     }).then(response => {
-      localForage.setItem(
-        'quotesLength',
-        response.data?.ordersByPartyUuid.length,
-      );
+      localForage.setItem('quotesLength', response.data?.myOrders.length);
     });
     router.replace(router.pathname, router.asPath);
   }, handleAccountFetchError);

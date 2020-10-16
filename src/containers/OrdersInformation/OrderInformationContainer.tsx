@@ -9,6 +9,7 @@ import { IProps } from './interfaces';
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../generated/GetCompaniesByPersonUuid';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
+import { MyOrdersTypeEnum } from '../../../generated/globalTypes';
 
 type QueryParams = {
   partyByUuid: string;
@@ -36,25 +37,17 @@ const OrderInformationContainer: React.FC<IProps> = () => {
         );
         getOrdersData({
           partyUuid: partyUuidArray,
-          excludeStatuses: ['quote', 'expired', 'new'],
-          statuses: null,
+          filter: MyOrdersTypeEnum.ALL_ORDERS,
         }).then(response => {
-          setOrdersLength(response.data?.ordersByPartyUuid.length);
-          localForage.setItem(
-            'ordersLength',
-            response.data?.ordersByPartyUuid.length,
-          );
+          setOrdersLength(response.data?.myOrders.length);
+          localForage.setItem('ordersLength', response.data?.myOrders.length);
         });
         getOrdersData({
           partyUuid: partyUuidArray,
-          statuses: ['quote', 'new'],
-          excludeStatuses: ['expired'],
+          filter: MyOrdersTypeEnum.ALL_QUOTES,
         }).then(response => {
-          setQuotesLength(response.data?.ordersByPartyUuid.length);
-          localForage.setItem(
-            'quotesLength',
-            response.data?.ordersByPartyUuid.length,
-          );
+          setQuotesLength(response.data?.myOrders.length);
+          localForage.setItem('quotesLength', response.data?.myOrders.length);
         });
       });
     }
