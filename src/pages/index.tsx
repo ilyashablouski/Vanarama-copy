@@ -201,6 +201,7 @@ export const HomePage: NextPage = () => {
       ...productsVanCapIds,
       ...productsCarCapIds,
     ];
+    // if Ids array contain empty string don't set DerivativeIds because it will lead to request error
     if (!ids.includes('')) {
       setDerivativeIds(ids);
     }
