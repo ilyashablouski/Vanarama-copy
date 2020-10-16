@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Router from 'next/router';
 import dynamic from 'next/dynamic';
 import { useQuery } from '@apollo/client';
@@ -119,9 +119,12 @@ const RouterLink = dynamic(() => import('../components/RouterLink/RouterLink'));
 
 export const HomePage: NextPage = () => {
   const [activeTab, setActiveTab] = useState(0);
+  const [derivativeIds, setDerivativeIds] = useState<string[]>([]);
   const { cachedLeaseType } = useLeaseType(null);
+  // TODO: should be moved to server side request
   const { data, loading, error } = useQuery<HomePageData>(ALL_HOME_CONTENT);
 
+  // TODO: should be moved to server side request
   const { data: productsVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
@@ -134,14 +137,18 @@ export const HomePage: NextPage = () => {
     },
   );
 
-  const productsVanCapIds = productsVan?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
+  const productsVanCapIds = useMemo(
+    () => productsVan?.productCarousel?.map(el => el?.capId || '') || [''],
+    [productsVan],
+  );
+
+  // TODO: should be moved to server side request
   const { data: productsVanDerivatives } = useCarDerivativesData(
     productsVanCapIds,
     VehicleTypeEnum.LCV,
   );
 
+  // TODO: should be moved to server side request
   const { data: productsCar } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
@@ -149,14 +156,18 @@ export const HomePage: NextPage = () => {
     },
   );
 
-  const productsCarCapIds = productsCar?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
+  const productsCarCapIds = useMemo(
+    () => productsCar?.productCarousel?.map(el => el?.capId || '') || [''],
+    [productsCar],
+  );
+
+  // TODO: should be moved to server side request
   const { data: productsCarDerivatives } = useCarDerivativesData(
     productsCarCapIds,
     VehicleTypeEnum.CAR,
   );
 
+  // TODO: should be moved to server side request
   const { data: productsPickUp } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
@@ -169,22 +180,31 @@ export const HomePage: NextPage = () => {
     },
   );
 
-  const productsPickUpCapIds = productsPickUp?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
+  const productsPickUpCapIds = useMemo(
+    () => productsPickUp?.productCarousel?.map(el => el?.capId || '') || [''],
+    [productsPickUp],
+  );
+  // TODO: should be moved to server side request
+
   const { data: productsPickUpDerivatives } = useCarDerivativesData(
     productsPickUpCapIds,
     VehicleTypeEnum.LCV,
   );
 
-  const derivativeIds = [
-    ...productsPickUpCapIds,
-    ...productsVanCapIds,
-    ...productsCarCapIds,
-  ];
   const vehicleListUrlQuery = useVehicleListUrl(derivativeIds);
 
   useVehicleListUrlFetchMore(vehicleListUrlQuery, derivativeIds);
+
+  useEffect(() => {
+    const ids = [
+      ...productsPickUpCapIds,
+      ...productsVanCapIds,
+      ...productsCarCapIds,
+    ];
+    if (!ids.includes('')) {
+      setDerivativeIds(ids);
+    }
+  }, [productsPickUpCapIds, productsVanCapIds, productsCarCapIds]);
 
   if (loading) {
     return <Loading size="large" />;
