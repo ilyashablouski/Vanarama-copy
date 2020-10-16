@@ -28,7 +28,7 @@ const mockOrdersValue = [
   {
     loading: false,
     data: {
-      ordersByPartyUuid: [
+      myOrders: [
         {
           id: 'id',
           leaseType: LeaseTypeEnum.PERSONAL,
