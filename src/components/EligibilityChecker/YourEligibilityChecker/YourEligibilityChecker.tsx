@@ -98,10 +98,7 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
       exportImages: false,
       exportFaceImage: false,
       exportFullDocumentImage: false,
-      // imageBase64: imageSrc,
-      imageURL:
-        'https://storage.googleapis.com/microblink-data-public/microblink-api/test-set/blinkid/UK_DL_FRONT/UK_DL_FRONT_specimen.jpg',
-      imageBase64: 'imageURL has priority!',
+      imageBase64: imageSrc,
     });
   }, [webcamRef]);
 
