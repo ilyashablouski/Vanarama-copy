@@ -32,6 +32,7 @@ export interface IProps {
     | null
     | undefined;
   isDisabled: boolean;
+  onCompletedCallBack: () => void;
   setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setLeaseType: React.Dispatch<React.SetStateAction<string>>;
   setLeadTime: React.Dispatch<React.SetStateAction<string>>;

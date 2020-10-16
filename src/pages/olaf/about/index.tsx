@@ -14,6 +14,10 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
+import {
+  pushAboutYouDataLayer,
+  pushAuthorizationEventDataLayer,
+} from '../../../utils/dataLayerHelpers';
 import AboutFormContainer from '../../../containers/AboutFormContainer/AboutFormContainer';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
@@ -31,11 +35,17 @@ import {
 import { formValuesToInputCreditApplication } from '../../../mappers/mappersCreditApplication';
 import { usePersonByUuidData } from '../../../gql/person';
 import { useCreateUpdateOrder } from '../../../gql/order';
-import { LeaseTypeEnum } from '../../../../generated/globalTypes';
+import {
+  LeaseTypeEnum,
+  CreditApplicationTypeEnum as CATypeEnum,
+  MyOrdersTypeEnum,
+} from '../../../../generated/globalTypes';
 import { useImperativeQuery } from '../../../hooks/useImperativeQuery';
-import { GET_ORDERS_BY_PARTY_UUID_DATA } from '../../../containers/OrdersInformation/gql';
+import { GET_MY_ORDERS_DATA } from '../../../containers/OrdersInformation/gql';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
+import { GetOlafData_orderByUuid } from '../../../../generated/GetOlafData';
+import { GetDerivative_derivative } from '../../../../generated/GetDerivative';
 
 const PERSON_BY_TOKEN_QUERY = gql`
   query PersonByToken($token: String!) {
@@ -44,6 +54,10 @@ const PERSON_BY_TOKEN_QUERY = gql`
       firstName
       lastName
       partyUuid
+      emailAddresses {
+        value
+        partyId
+      }
     }
   }
 `;
@@ -71,8 +85,16 @@ const AboutYouPage: NextPage = () => {
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [personUuid, setPersonUuid] = useState<string | undefined>(uuid);
+  const [
+    detailsData,
+    setDetailsData,
+  ] = useState<GetOlafData_orderByUuid | null>(null);
+  const [
+    derivativeData,
+    setDerivativeData,
+  ] = useState<GetDerivative_derivative | null>(null);
 
-  const getOrdersData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);
+  const getOrdersData = useImperativeQuery(GET_MY_ORDERS_DATA);
   const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
 
   const [updateOrderHandle] = useCreateUpdateOrder(() => {});
@@ -91,23 +113,15 @@ const AboutYouPage: NextPage = () => {
     });
     getOrdersData({
       partyUuid,
-      excludeStatuses: ['quote', 'expired', 'new'],
-      statuses: null,
+      filter: MyOrdersTypeEnum.ALL_ORDERS,
     }).then(response => {
-      localForage.setItem(
-        'ordersLength',
-        response.data?.ordersByPartyUuid.length,
-      );
+      localForage.setItem('ordersLength', response.data?.myOrders.length);
     });
     getOrdersData({
       partyUuid,
-      statuses: ['quote', 'new'],
-      excludeStatuses: ['expired'],
+      filter: MyOrdersTypeEnum.ALL_QUOTES,
     }).then(response => {
-      localForage.setItem(
-        'quotesLength',
-        response.data?.ordersByPartyUuid.length,
-      );
+      localForage.setItem('quotesLength', response.data?.myOrders.length);
     });
     router.replace(router.pathname, router.asPath);
   }, handleAccountFetchError);
@@ -117,6 +131,7 @@ const AboutYouPage: NextPage = () => {
   const clickOnComplete = async (
     createUpdatePerson: CreateUpdatePersonMutation_createUpdatePerson,
   ) => {
+    pushAboutYouDataLayer(detailsData, derivativeData, 'Car');
     await refetch({
       uuid: createUpdatePerson.uuid,
     }).then(resp => {
@@ -142,6 +157,7 @@ const AboutYouPage: NextPage = () => {
           ...creditApplication.data?.creditApplicationByOrderUuid,
           orderUuid: orderId,
           aboutDetails: createUpdatePerson,
+          creditApplicationType: CATypeEnum.B2C_PERSONAL,
         }),
       },
     });
@@ -175,7 +191,10 @@ const AboutYouPage: NextPage = () => {
   }, [personUuid]);
 
   return (
-    <OLAFLayout>
+    <OLAFLayout
+      setDetailsData={setDetailsData}
+      setDerivativeData={setDerivativeData}
+    >
       <Heading color="black" size="xlarge" dataTestId="aboutHeading" tag="h1">
         About You
       </Heading>
@@ -195,6 +214,7 @@ const AboutYouPage: NextPage = () => {
           {isLogInVisible && (
             <LoginFormContainer
               onCompleted={response => {
+                pushAuthorizationEventDataLayer();
                 // request person account after login
                 if (response.login !== null) {
                   getPersonByToken({

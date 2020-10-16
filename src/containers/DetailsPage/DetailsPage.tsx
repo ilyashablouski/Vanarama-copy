@@ -16,7 +16,8 @@ import cx from 'classnames';
 import {
   pushPDPDataLayer,
   pushAddToCartDataLayer,
-  pushPageData,
+  getCategory,
+  pushCallBackDataLayer,
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
 import { toPriceFormat } from '../../utils/helpers';
@@ -50,6 +51,7 @@ import useLeaseType from '../../hooks/useLeaseType';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { getProductPageBreadCrumb } from '../../utils/url';
 import Head from '../../components/Head/Head';
+import { useGenericPageHead } from '../../gql/genericPage';
 
 interface IDetailsPageProps {
   capId: number;
@@ -79,10 +81,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     true,
   );
 
-  useEffect(() => {
-    pushPageData(cars ? 'Cars' : 'Vans');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { data: genericPageHead } = useGenericPageHead(
+    Router.asPath.slice(1, -5),
+  );
 
   useEffect(() => {
     setCachedLeaseType(leaseType);
@@ -105,15 +106,26 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
       const derivativeInfo = data?.derivativeInfo;
       const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
+      // tracking
       pushPDPDataLayer({
         capId,
         derivativeInfo,
         vehicleConfigurationByCapId,
         price,
+        category: getCategory({ cars, vans, pickups }),
       });
+
       setFirstTimePushDataLayer(false);
     }
-  }, [data, capId, leaseScannerData, firstTimePushDataLayer]);
+  }, [
+    data,
+    cars,
+    vans,
+    pickups,
+    capId,
+    leaseScannerData,
+    firstTimePushDataLayer,
+  ]);
 
   const [createOrderHandle] = useCreateUpdateOrder(() => {});
 
@@ -128,6 +140,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       values,
       vehicleConfigurationByCapId,
       price,
+      category: getCategory({ cars, vans, pickups }),
     });
     return createOrderHandle({
       variables: {
@@ -385,6 +398,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             monthlyPayment:
               leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental || null,
             maintenance: leaseScannerData?.maintenance,
+            maintenancePrice: leaseScannerData?.maintenance
+              ? leaseScannerData?.quoteByCapId?.maintenanceCost?.monthlyRental
+              : undefined,
           },
           quantity: 1,
         },
@@ -393,7 +409,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   };
 
   const breadcrumbItems = getProductPageBreadCrumb(data?.derivativeInfo, cars);
-  const metaData = {
+  const metaData = genericPageHead?.genericPage.metaData ?? {
     title:
       `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription} 
     Leasing Deals | Vanarama` || null,
@@ -412,6 +428,20 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     canonicalUrl: '' || null,
     slug: '' || null,
     schema: schema || null,
+    breadcrumbs: breadcrumbItems || null,
+  };
+
+  // tracking
+  const onCompletedCallBack = () => {
+    const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
+
+    pushCallBackDataLayer({
+      capId,
+      derivativeInfo,
+      vehicleConfigurationByCapId,
+      price,
+      category: getCategory({ cars, vans, pickups }),
+    });
   };
 
   return (
@@ -468,6 +498,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         {isMobile && (
           <CustomiseLeaseContainer
             capId={capId}
+            onCompletedCallBack={onCompletedCallBack}
             financeProfile={financeProfile}
             vehicleType={vehicleType}
             derivativeInfo={derivativeInfo}
@@ -503,6 +534,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         isDisabled={isDisabled}
         setIsDisabled={setIsDisabled}
         setLeaseScannerData={setLeaseScannerData}
+        onCompletedCallBack={onCompletedCallBack}
         onCompleted={values => onSubmitClick(values)}
       />
       {!!capsId?.length && (
@@ -557,7 +589,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           />
         </div>
       )}
-      <Head metaData={metaData} featuredImage={null} />
+      <Head
+        metaData={metaData}
+        featuredImage={genericPageHead?.genericPage.featuredImage || null}
+      />
     </>
   );
 };

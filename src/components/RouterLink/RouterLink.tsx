@@ -4,6 +4,7 @@
 import * as React from 'react';
 import cx from 'classnames';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { UrlObject } from 'url';
 import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
 import { LinkTypes } from '../../models/enum/LinkTypes';
@@ -34,7 +35,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     as,
     withoutDefaultClassName,
   } = props;
-
+  const router = useRouter();
   const linkClassName = cx(className, {
     // eslint-disable-next-line prettier/prettier
     link: !withoutDefaultClassName,
@@ -43,6 +44,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     [`-${classNames?.position}`]: classNames?.position,
     '-plain': classNames?.plain,
     '-solid': classNames?.solid,
+    '-clear': classNames?.clear,
   });
 
   if (
@@ -64,9 +66,20 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     );
   }
 
+  const replaceSpaceInHref =
+    link.href.charAt(0) === ' ' ? link.href.replace(' ', '') : link.href;
+
+  const href =
+    replaceSpaceInHref?.charAt(0) !== '/'
+      ? `/${replaceSpaceInHref}`
+      : replaceSpaceInHref;
+
   return (
     <Link
-      href={{ pathname: link.href, query: link.query || {} }}
+      href={{
+        pathname: link.href ? href : router.asPath,
+        query: link.query || {},
+      }}
       replace={replace}
       as={as}
       shallow={!!as}

@@ -22,7 +22,11 @@ import { filtersConfig, budgets, filterFields } from './config';
 import { IFilterContainerProps, ISelectedFiltersState } from './interfaces';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
-import { findPreselectFilterValue, buildPreselectChoiseboxes } from './helpers';
+import {
+  findPreselectFilterValue,
+  buildPreselectChoiseboxes,
+  isInclude,
+} from './helpers';
 
 interface IChoiceBoxesData {
   [index: string]: IChoice[];
@@ -45,6 +49,7 @@ const FiltersContainer = ({
   onSearch,
   preSearchVehicleCount,
   isSpecialOffers,
+  setIsSpecialOffers,
   isMakePage,
   isPickups,
   isRangePage,
@@ -54,6 +59,7 @@ const FiltersContainer = ({
   isFuelPage,
   isTransmissionPage,
   isDynamicFilterPage,
+  sortOrder,
 }: IFilterContainerProps) => {
   const router = useRouter();
   const [filtersData, setFiltersData] = useState({} as IFilterList);
@@ -66,6 +72,8 @@ const FiltersContainer = ({
   const [modelsData, setModelsData] = useState([] as string[]);
   const [tempFilterName, setTempFilterName] = useState('');
   const [tempModelName, setTempModelName] = useState('');
+  // using for repeat initial filters preset
+  const [forceFiltersPreset, setForceFiltersPreset] = useState(false);
   const [fromBudget] = useState(budgets.slice(0, budgets.length - 1));
   const [toBudget] = useState(budgets.slice(1));
   const [choiceBoxesData, setChoiceBoxesData] = useState(
@@ -172,11 +180,19 @@ const FiltersContainer = ({
           : isSpecialOffers,
       ...filtersObjectForFilters,
     }).then(resp => {
-      // using then because apollo return incorrect cache result https://github.com/apollographql/apollo-client/issues/3550
-      setFiltersData(resp.data?.filterList || ({} as IFilterList));
-      setMakeData(makeHandler(resp.data?.filterList || ({} as IFilterList)));
-      // set force update to true for rerender choiceboxes with new filter data
-      setShouldMakeChoiceboxesForceUpdate(true);
+      // if groupedRanges is empty -> search params is incorrect
+      if (resp.data?.filterList?.groupedRanges?.length) {
+        // using then because apollo return incorrect cache result https://github.com/apollographql/apollo-client/issues/3550
+        setFiltersData(resp.data?.filterList || ({} as IFilterList));
+        setMakeData(makeHandler(resp.data?.filterList || ({} as IFilterList)));
+        // set force update to true for rerender choiceboxes with new filter data
+        setShouldMakeChoiceboxesForceUpdate(true);
+        // when allFiltersData changing, preset filters from query will be called
+        if (forceFiltersPreset) {
+          setAllFiltersData(resp.data?.filterList || ({} as IFilterList));
+          setForceFiltersPreset(false);
+        }
+      }
     });
   };
 
@@ -192,6 +208,10 @@ const FiltersContainer = ({
     }));
 
   useEffect(() => {
+    if (forceFiltersPreset) onViewResults(true);
+  }, [forceFiltersPreset]);
+
+  useEffect(() => {
     if (filtersData.bodyStyles) setChoiceBoxesData(buildChoiseBoxData());
   }, [filtersData, buildChoiseBoxData]);
 
@@ -204,16 +224,23 @@ const FiltersContainer = ({
     if (shouldPreselect) {
       const presetFilters = {} as ISelectedFiltersState;
       const routerQuery = Object.entries(router.query);
+      // flag for checking if any value from query don't exist in filters data
+      // using in case when we load search which actual only for none special offers
+      let isValueLose = false;
       routerQuery.forEach(entry => {
         const [key, values] = entry;
         if (key === 'rangeName') {
-          filtersData.groupedRanges?.some(element => {
-            const value = findPreselectFilterValue(
-              Array.isArray(values)
-                ? values[0].split('+').join(' ')
-                : values.split('+').join(' '),
-              element.children,
-            );
+          const isExist = filtersData.groupedRanges?.some(element => {
+            let value = '';
+            // if make correct then we are looking for a rangeName
+            if (isInclude(element.parent, router.query?.make as string)) {
+              value = findPreselectFilterValue(
+                Array.isArray(values)
+                  ? values[0].split('+').join(' ')
+                  : values.split('+').join(' '),
+                element.children,
+              );
+            }
             // saving model to temp because after set makes model will be removed
             if (value) {
               setTempModelName(value);
@@ -222,6 +249,7 @@ const FiltersContainer = ({
             }
             return false;
           });
+          isValueLose = isExist ? isValueLose : true;
         } else if (key !== 'pricePerMonth' && key !== 'isChangePage') {
           let query: string | string[];
           // transformation the query value to expected type
@@ -243,12 +271,19 @@ const FiltersContainer = ({
                   filtersMapper[key as keyof typeof filtersMapper],
                 ),
               ];
+          isValueLose = presetFilters[key][0] ? isValueLose : true;
         } else if (key !== 'isChangePage') {
           const rate = (values as string).split('|');
           presetFilters.from = [rate[0]] || null;
           presetFilters.to = [rate[1]] || null;
         }
       });
+      // check if try to preset values actual only for none special offers search
+      if (isSpecialOffers && isValueLose) {
+        setIsSpecialOffers(false);
+        setForceFiltersPreset(true);
+        return;
+      }
       setSelectedFiltersState(prevState => ({
         ...prevState,
         ...presetFilters,
@@ -284,7 +319,13 @@ const FiltersContainer = ({
     )
       setInitialLoad(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedFilterTags, isSpecialOffers, isInitialLoad, isPersonal]);
+  }, [
+    selectedFilterTags,
+    isSpecialOffers,
+    isInitialLoad,
+    isPersonal,
+    sortOrder,
+  ]);
 
   /** return true if model exist in filters data */
   const isCurrentModelValid = (model: string) =>

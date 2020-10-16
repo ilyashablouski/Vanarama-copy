@@ -3,7 +3,7 @@ import React from 'react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import SearchPageContainer from '../SearchPageContainer';
 import {
-  getVehiclesList,
+  useVehiclesList,
   getRangesList,
   useManufacturerList,
   GET_ALL_MAKES_PAGE,
@@ -95,13 +95,13 @@ jest.mock('next/router', () => ({
     pathname: '/car-leasing',
     query: {},
     route: '/car-leasing',
-    asPath: '',
+    asPath: '/car-leasing',
   }),
 }));
 
 jest.mock('../gql', () => ({
   ...jest.requireActual('../gql'),
-  getVehiclesList: jest.fn(),
+  useVehiclesList: jest.fn(),
   getRangesList: jest.fn(),
   useManufacturerList: jest.fn(),
   useSearchResultPage: jest.fn(),
@@ -114,7 +114,7 @@ jest.mock('../RangeCard', () => () => {
 let filterMockCalled = false;
 let vehicleMockCalled = false;
 
-(getVehiclesList as jest.Mock).mockReturnValue([
+(useVehiclesList as jest.Mock).mockReturnValue([
   () => {
     vehicleMockCalled = true;
   },
@@ -642,7 +642,7 @@ const mocksResponse: MockedResponse[] = [
     request: {
       query: GENERIC_PAGE,
       variables: {
-        slug: '/car-leasing/search',
+        slug: 'car-leasing/search',
       },
     },
     result: () => {
@@ -658,7 +658,7 @@ const mocksResponse: MockedResponse[] = [
     request: {
       query: GENERIC_PAGE,
       variables: {
-        slug: '/car-leasing/search',
+        slug: 'car-leasing/search',
       },
     },
     result: () => {

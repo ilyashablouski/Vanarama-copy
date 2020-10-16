@@ -13,4 +13,6 @@ const Script: FC = () => {
   ) : null;
 };
 
+Script.displayName = 'GTMScript';
+
 export default memo(Script);

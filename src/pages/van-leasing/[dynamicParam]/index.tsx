@@ -8,6 +8,8 @@ import {
 } from '../../../containers/SearchPageContainer/helpers';
 import SearchPageContainer from '../../../containers/SearchPageContainer';
 import withApollo from '../../../hocs/withApollo';
+import { pushPageData } from '../../../utils/dataLayerHelpers';
+import { PAGE_TYPES, SITE_SECTIONS } from '../../../utils/pageTypes';
 
 interface IPageType {
   isBodyStylePage: boolean;
@@ -24,6 +26,13 @@ interface IProps {
 const Page: NextPage<IProps> = ({ isServer, query, pageType }) => {
   const router = useRouter();
   useEffect(() => {
+    pushPageData({
+      pageType: pageType.isMakePage
+        ? PAGE_TYPES.makePage
+        : PAGE_TYPES.vehicleTypePage,
+      siteSection: SITE_SECTIONS.vans,
+      pathname: router.pathname,
+    });
     // copy dynamic param for actual filter query
     if (
       (pageType.isMakePage && !router.query.make) ||
@@ -69,7 +78,9 @@ export async function getServerSideProps({ query, req }: NextPageContext) {
     isMakePage: !(isBodyStylePage || isTransmissionPage),
   };
   if (isBodyStylePage)
-    newQuery.bodyStyles = (query.dynamicParam as string).replace('-', ' ');
+    newQuery.bodyStyles = (query.dynamicParam as string)
+      .replace('-', ' ')
+      .replace('-leasing', '');
   else if (isTransmissionPage)
     newQuery.transmissions = (query.dynamicParam as string).replace('-', ' ');
   else newQuery.make = query.dynamicParam;

@@ -19,6 +19,7 @@ export interface CreateUpdateOrder_createUpdateOrder_lineItems_vehicleProduct {
   depositMonths: number | null;
   funderId: string | null;
   funderData: any | null;
+  maintenancePrice: number | null;
 }
 
 export interface CreateUpdateOrder_createUpdateOrder_lineItems {

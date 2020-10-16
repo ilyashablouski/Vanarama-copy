@@ -3,6 +3,7 @@ import { MockedProvider } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
 import BlogPostContainer from '../BlogPostContainer';
 
+jest.mock('../../../hooks/useMediaQuery');
 jest.mock('next/router', () => ({
   useRouter: () => ({
     asPath: '/',
@@ -10,20 +11,62 @@ jest.mock('next/router', () => ({
 }));
 
 // ARRANGE
-const BODY =
-  '#### **By Paul Kirby, Vanarama Head Of EV & LCV**\n\n\n**If I was to scour the internet for the best lease deals on an electric van I would probably find only 4 electric vehicles available for sale.';
+const METADATA = {
+  canonicalUrl: 'https://www.vanarama.com/car-leasing.html',
+  legacyUrl: 'https://www.vanarama.com/car-leasing.html',
+  metaDescription:
+    'Find unbeatable Car Leasing Deals at Vanarama. Get top personal & business lease offers on brand new, in-stock cars in every make and model. Save money and lease your dream car today.',
+  metaRobots: 'all',
+  name: 'HubCarPage',
+  pageType: null,
+  publishedOn: null,
+  slug: 'hubcarpage',
+  title: 'Car Leasing Deals | Personal & Business Contract Hire | Vanarama',
+  schema: null,
+  breadcrumbs: null,
+};
 
 const ARTICLES = [
   {
-    pageTitle: 'Van News | Vanarama Blog | Van, Industry & Company News',
-    title: 'Van News',
-    slug: 'van-news',
-    metaDescription:
-      "Van and pickup news from the UK's number one van leasing specialists. Bringing you the latest news on all things connected to business motoring in 2019",
-    canonicalUrl: 'https://www.vanarama.com/latest-news/category/van-news.html',
-    legacyUrl: 'https://www.vanarama.com/latest-news/category/van-news.html',
+    body: 'Test1',
+    featuredImage: { __typename: 'Image', file: null },
+    intro: null,
+    isFeatured: null,
+    name: '4-year MoT exemption period could save YOU money!',
+    publishedOn: '2017-02-13',
+    slug: 'blog/vans/4-year-mot-exemption',
+    tags: null,
+    title: '4-year MoT exemption period proposed for vans | Vanarama',
+    __typename: 'Article',
+  },
+  {
+    body: 'Test2',
+    featuredImage: { __typename: 'Image', file: null },
+    intro: null,
+    isFeatured: null,
+    name: 'Top 5 Electric Vans… Sort Of',
+    publishedOn: '2017-02-13',
+    slug: 'blog/vans/top-5-electric-vans',
+    tags: null,
+    title: 'Top 5 Electric Vans | Vanarama',
+    __typename: 'Article',
+  },
+  {
+    body: 'Test3',
+    featuredImage: { __typename: 'Image', file: null },
+    intro: null,
+    isFeatured: null,
+    name: '5 Things We Love About Peugeot Boxer',
+    publishedOn: '2020-06-02',
+    slug: 'blog/vans/5-things-we-love-about-peugeot-boxer',
+    tags: null,
+    title: '5 Things We Love About Peugeot Boxer',
+    __typename: 'Article',
   },
 ];
+
+const BODY =
+  '#### **By Paul Kirby, Vanarama Head Of EV & LCV**\n\n\n**If I was to scour the internet for the best lease deals on an electric van I would probably find only 4 electric vehicles available for sale.';
 
 const NAME = 'Top 5 Electric Vans Sort Of';
 
@@ -36,10 +79,12 @@ describe('<FinanceExplainedContainer />', () => {
     const getComponent = render(
       <MockedProvider addTypename={false}>
         <BlogPostContainer
+          articles={ARTICLES}
           image={IMAGE}
           name={NAME}
           body={BODY}
-          articles={ARTICLES}
+          breadcrumbsItems={null}
+          metaData={METADATA}
         />
       </MockedProvider>,
     );
@@ -48,10 +93,6 @@ describe('<FinanceExplainedContainer />', () => {
       expect(
         screen.getByText(`Top 5 Electric Vans Sort Of`),
       ).toBeInTheDocument();
-    });
-
-    await waitFor(() => {
-      expect(screen.getByText(`Van News`)).toBeInTheDocument();
     });
 
     const tree = getComponent.baseElement;

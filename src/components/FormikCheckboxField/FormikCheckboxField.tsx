@@ -8,12 +8,14 @@ interface IProps extends ICheckboxProps {
   name: string;
   label: string;
   checkboxLabel: string;
+  isChecked?: boolean;
 }
 
 const FormikCheckboxField: React.FC<IProps> = ({
   name,
   label,
   checkboxLabel,
+  isChecked,
   ...rest
 }) => {
   const [field, meta] = useField(name);
@@ -21,6 +23,7 @@ const FormikCheckboxField: React.FC<IProps> = ({
   return (
     <Formgroup controlId={name} label={label} error={error}>
       <UIBookCheckbox
+        checked={isChecked}
         dataTestId={name}
         label={checkboxLabel}
         {...rest}

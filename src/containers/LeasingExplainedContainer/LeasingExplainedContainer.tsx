@@ -10,7 +10,6 @@ import {
   GenericPageQuery_genericPage_sections_cards_cards as Cards,
 } from '../../../generated/GenericPageQuery';
 import { getSectionsData } from '../../utils/getSectionsData';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   sections: Section | null;
@@ -26,7 +25,6 @@ const LeasingExplainedContainer: FC<IProps> = ({ title, sections }) => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading size="xlarge" color="black" tag="h1">
           {title}
         </Heading>
@@ -67,6 +65,7 @@ const LeasingExplainedContainer: FC<IProps> = ({ title, sections }) => {
           <div className="row:cards-3col">
             {cards?.map((el: Cards, ind: number) => (
               <Card
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 key={`${el?.title}_${ind}`}
                 title={{
                   title: el?.title || '',

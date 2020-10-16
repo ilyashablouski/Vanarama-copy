@@ -3,26 +3,31 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import OrderCard from '@vanarama/uibook/lib/components/molecules/cards/OrderCard/OrderCard';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Pagination from '@vanarama/uibook/lib/components/atoms/pagination';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import React, { useState, CSSProperties, useEffect } from 'react';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
+import Select from '@vanarama/uibook/lib/components/atoms/select';
+import { GET_CAR_DERIVATIVES, useMyOrdersData } from '../OrdersInformation/gql';
 import {
-  useOrdersByPartyUuidData,
-  GET_CAR_DERIVATIVES,
-} from '../OrdersInformation/gql';
-import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
-import {
-  GetOrdersByPartyUuid_ordersByPartyUuid,
-  GetOrdersByPartyUuid,
-} from '../../../generated/GetOrdersByPartyUuid';
-import { createOffersObject } from './helpers';
+  VehicleTypeEnum,
+  LeaseTypeEnum,
+  SortField,
+  SortDirection,
+  MyOrdersTypeEnum,
+} from '../../../generated/globalTypes';
+import { createOffersObject, sortOrders, sortOrderValues } from './helpers';
 import { getUrlParam } from '../../utils/url';
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../generated/GetCompaniesByPersonUuid';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import {
+  GetMyOrders,
+  GetMyOrders_myOrders,
+} from '../../../generated/GetMyOrders';
 
 type QueryParams = {
   partyByUuid?: string;
@@ -40,14 +45,18 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
 
   const [activePage, setActivePage] = useState(1);
   const [activeTab, setActiveTab] = useState(0);
-  const [status, changeStatus] = useState<string[]>([]);
-  const [statusesCA, changeStatusesCA] = useState<string[]>([]);
-  const [exStatusesCA, changeExlStatusesCA] = useState<string[]>([]);
-  const [initData, setInitData] = useState<GetOrdersByPartyUuid>();
+  const [filter, changeFilter] = useState<MyOrdersTypeEnum>(
+    MyOrdersTypeEnum.ALL_ORDERS,
+  );
+  const [initData, setInitData] = useState<GetMyOrders>();
   const [breadcrumbPath, setBreadcrumbPath] = useState([] as any);
   const [partyUuidArray, setPartyUuidArray] = useState<string[] | null>(null);
   const [dataCars, setDataCars] = useState<GetDerivatives | null>(null);
   const [dataCarsLCV, setDataCarsLCV] = useState<GetDerivatives | null>(null);
+  const [sortOrder, setSortOrder] = useState({
+    type: SortField.availability,
+    direction: SortDirection.ASC,
+  });
 
   const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
 
@@ -98,14 +107,11 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   ]);
 
   // call query for get Orders
-  const [getOrders, { data, loading }] = useOrdersByPartyUuidData(
+  const [getOrders, { data, loading }] = useMyOrdersData(
     partyUuidArray
       ? [partyByUuid as string, ...partyUuidArray]
       : [partyByUuid as string] || [''],
-    quote ? ['quote', 'new'] : status || [],
-    quote ? ['expired'] : ['quote', 'expired', 'new'],
-    (!quote && statusesCA) || [],
-    (!quote && exStatusesCA) || [],
+    quote ? MyOrdersTypeEnum.ALL_QUOTES : filter,
   );
 
   useEffect(() => {
@@ -115,7 +121,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   }, [partyByUuid, getOrders, router.query.partyByUuid, data, partyUuidArray]);
 
   // collect car and lcv capId from orders
-  const capIdArrayData = data?.ordersByPartyUuid?.reduce(
+  const capIdArrayData = data?.myOrders?.reduce(
     (array, el) => {
       const capId = el.lineItems[0].vehicleProduct?.derivativeCapId || '';
       if (
@@ -165,9 +171,18 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     }
   }, [data, initData]);
 
+  // handler for changing sort dropdown
+  const onChangeSortOrder = (value: string) => {
+    const [type, direction] = value.split('_');
+    setSortOrder({
+      type: type as SortField,
+      direction: direction as SortDirection,
+    });
+  };
+
   // check what we have 'credit' order and this order credit not in status 'draft'
   const hasCreditCompleteOrder = () =>
-    !!(initData?.ordersByPartyUuid as GetOrdersByPartyUuid_ordersByPartyUuid[])?.find(
+    !!(initData?.myOrders as any[])?.find(
       el =>
         el.status === 'credit' &&
         el.lineItems[0].creditApplications?.length &&
@@ -176,7 +191,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
 
   // check what we have 'credit' order and this order credit in status 'draft'
   const hasCreditIncompleteOrder = () =>
-    !!(initData?.ordersByPartyUuid as GetOrdersByPartyUuid_ordersByPartyUuid[])?.find(
+    !!(initData?.myOrders as any[])?.find(
       el =>
         el.status === 'credit' &&
         el.lineItems[0].creditApplications?.length &&
@@ -184,8 +199,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     );
 
   // calculate how many pages we have for pagination
-  const countPages = () =>
-    Math.ceil((data?.ordersByPartyUuid?.length || 0) / 6);
+  const countPages = () => Math.ceil((data?.myOrders?.length || 0) / 6);
 
   // create array with number of page for pagination
   const pages = [...Array(countPages())].map((_el, i) => i + 1);
@@ -195,21 +209,15 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     switch (value) {
       case 1:
         // when we click 'Complete' btn, change statuses for call useOrdersByPartyUuidData
-        changeStatus(['credit']);
-        changeStatusesCA([]);
-        changeExlStatusesCA(['draft']);
+        changeFilter(MyOrdersTypeEnum.COMPLETED_ORDERS);
         break;
       case 2:
         // when we click 'Incomplete' btn, change statuses for call useOrdersByPartyUuidData
-        changeStatus(['credit']);
-        changeStatusesCA(['draft']);
-        changeExlStatusesCA([]);
+        changeFilter(MyOrdersTypeEnum.IN_PROGRESS_ORDERS);
         break;
       default:
         // when we click 'All Orders' btn, change statuses for call useOrdersByPartyUuidData
-        changeStatus([]);
-        changeStatusesCA([]);
-        changeExlStatusesCA([]);
+        changeFilter(MyOrdersTypeEnum.ALL_ORDERS);
         break;
     }
   };
@@ -239,15 +247,19 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     const indexOfLastOffer = activePage * 6;
     const indexOfFirstOffer = indexOfLastOffer - 6;
     // we get the right amount of orders for the current page, sorted by createdAt date from last
+
+    const sortedOffers =
+      sortOrder.direction === SortDirection.DESC
+        ? data?.myOrders
+            .slice()
+            .sort((a, b) => sortOrders(a, b, sortOrder.type))
+            .reverse()
+        : data?.myOrders
+            .slice()
+            .sort((a, b) => sortOrders(a, b, sortOrder.type));
     const showOffers =
-      data?.ordersByPartyUuid
-        .slice()
-        .sort(
-          (a, b) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-        )
-        .slice(indexOfFirstOffer, indexOfLastOffer) || [];
-    return showOffers.map((order: GetOrdersByPartyUuid_ordersByPartyUuid) => {
+      sortedOffers?.slice(indexOfFirstOffer, indexOfLastOffer) || [];
+    return showOffers.map((order: GetMyOrders_myOrders) => {
       // we get derivative data for this offers
       const derivative =
         dataCars?.derivatives?.find(
@@ -277,6 +289,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
         '';
       return (
         <OrderCard
+          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           style={{ '--img-w': '300px' } as CSSProperties}
           inline
           imageSrc={imageSrc?.mainImageUrl || ''}
@@ -295,7 +308,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
             derivative,
             <Button
               color="teal"
-              label={quote ? 'Continue To Order' : 'Order Now'}
+              label={quote ? 'Continue To Order' : 'View Order'}
               onClick={() => onClickOrderBtn(order.uuid, order.leaseType)}
             />,
             quote,
@@ -303,7 +316,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
           header={
             !quote && !!creditState
               ? {
-                  text: creditState === 'draft' ? 'Incomplete' : 'Complete',
+                  text: creditState === 'draft' ? 'In Progress' : 'Complete',
                   complete: creditState !== 'draft',
                   incomplete: creditState === 'draft',
                 }
@@ -327,7 +340,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
           My {quote ? 'Quotes' : 'Orders'}
         </Heading>
       </div>
-      {!data?.ordersByPartyUuid?.length && !loading ? (
+      {!data?.myOrders?.length && !loading ? (
         <div
           className="dpd-content"
           style={{ minHeight: '40rem', display: 'flex', alignItems: 'center' }}
@@ -340,15 +353,29 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
             {!quote && (
               <div className="choiceboxes -cols-3 -teal">
                 {renderChoiceBtn(0, 'All Orders')}
-                {hasCreditCompleteOrder() && renderChoiceBtn(1, 'Complete')}
-                {hasCreditIncompleteOrder() && renderChoiceBtn(2, 'Incomplete')}
+                {hasCreditCompleteOrder() && renderChoiceBtn(1, 'Completed')}
+                {hasCreditIncompleteOrder() &&
+                  renderChoiceBtn(2, 'In Progress')}
               </div>
             )}
             {loading ? (
               <Loading size="large" />
             ) : (
-              data?.ordersByPartyUuid?.length && (
+              data?.myOrders?.length && (
                 <>
+                  <Text tag="span" color="darker" size="regular">
+                    Showing {data?.myOrders?.length} Orders
+                  </Text>
+                  <Select
+                    value={`${sortOrder.type}_${sortOrder.direction}`}
+                    onChange={e => onChangeSortOrder(e.target.value)}
+                  >
+                    {sortOrderValues.map(option => (
+                      <option key={option.value} value={option.value}>
+                        {option.text}
+                      </option>
+                    ))}
+                  </Select>
                   <div className="row:cards-1col">{renderOffers()}</div>
                   {pages.length > 1 && (
                     <Pagination

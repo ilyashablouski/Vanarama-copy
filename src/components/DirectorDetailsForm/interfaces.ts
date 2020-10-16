@@ -18,6 +18,7 @@ export type DirectorFormValues = {
   yearOfBirth: string;
   numberOfDependants: string;
   history: TAddressEntry[];
+  email?: string;
 };
 
 export type DirectorDetails = DirectorFormValues & { addresses?: Address[] };

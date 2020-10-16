@@ -44,6 +44,10 @@
         {
           "name": "GITHUB_TOKEN",
           "valueFrom": "%SSM_PARAMETER_BASE%/github-token"
+        },
+        {
+          "name": "GTM_ID",
+          "valueFrom": "%SSM_PARAMETER_BASE%/gtm-id"
         }
       ],
       "environment": [
@@ -72,12 +76,20 @@
           "value": "8080"
         },
         {
-          "name": "GTM_ID",
-          "value": "GTM-W49QWPM"
-        },
-        {
           "name": "ENV",
           "value": "%ENVIRONMENT%"
+        },
+        {
+          "name": "IMG_OPTIMISATION_HOST",
+          "value": "https://vanarama.com"
+        },
+        {
+          "name": "PRERENDER_SERVICE_URL",
+          "value": "https://prerender-service-production.herokuapp.com/"
+        },
+        {
+          "name": "HOSTNAME",
+          "value": "https://%ALTERNATEDOMAIN%"
         }
       ],
       "portMappings": [

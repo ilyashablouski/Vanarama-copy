@@ -8,28 +8,7 @@
 // ====================================================
 
 export interface HubVanPageData_hubVanPage_metaData {
-  title: string | null;
   name: string | null;
-  metaRobots: string | null;
-  metaDescription: string | null;
-  publishedOn: any | null;
-  legacyUrl: string | null;
-  pageType: string | null;
-  canonicalUrl: string | null;
-  slug: string | null;
-  schema: any | null;
-}
-
-export interface HubVanPageData_hubVanPage_featuredImage_file {
-  url: string;
-  fileName: string;
-  contentType: string;
-}
-
-export interface HubVanPageData_hubVanPage_featuredImage {
-  title: string | null;
-  description: string | null;
-  file: HubVanPageData_hubVanPage_featuredImage_file | null;
 }
 
 export interface HubVanPageData_hubVanPage_sections_hero_image_file {
@@ -54,36 +33,130 @@ export interface HubVanPageData_hubVanPage_sections_leadText {
   description: string | null;
 }
 
+export interface HubVanPageData_hubVanPage_sections_featured1_iconList {
+  text: string | null;
+}
+
+export interface HubVanPageData_hubVanPage_sections_featured1_link {
+  url: string | null;
+  text: string | null;
+}
+
+export interface HubVanPageData_hubVanPage_sections_featured1_cards_image_file {
+  url: string;
+  fileName: string;
+}
+
+export interface HubVanPageData_hubVanPage_sections_featured1_cards_image {
+  title: string | null;
+  description: string | null;
+  file: HubVanPageData_hubVanPage_sections_featured1_cards_image_file | null;
+}
+
+export interface HubVanPageData_hubVanPage_sections_featured1_cards_link {
+  text: string | null;
+  url: string | null;
+}
+
+export interface HubVanPageData_hubVanPage_sections_featured1_cards {
+  name: string | null;
+  title: string | null;
+  image: HubVanPageData_hubVanPage_sections_featured1_cards_image | null;
+  body: string | null;
+  link: HubVanPageData_hubVanPage_sections_featured1_cards_link | null;
+}
+
 export interface HubVanPageData_hubVanPage_sections_featured1_image_file {
   url: string;
+  fileName: string;
 }
 
 export interface HubVanPageData_hubVanPage_sections_featured1_image {
+  title: string | null;
+  description: string | null;
   file: HubVanPageData_hubVanPage_sections_featured1_image_file | null;
 }
 
+export interface HubVanPageData_hubVanPage_sections_featured1_testimonials {
+  customerName: string | null;
+  summary: string | null;
+  rating: string | null;
+}
+
 export interface HubVanPageData_hubVanPage_sections_featured1 {
+  layout: (string | null)[] | null;
+  body: string | null;
   title: string | null;
   titleTag: string | null;
-  body: string | null;
-  layout: (string | null)[] | null;
+  video: string | null;
+  iconList: (HubVanPageData_hubVanPage_sections_featured1_iconList | null)[] | null;
+  link: HubVanPageData_hubVanPage_sections_featured1_link | null;
+  cards: (HubVanPageData_hubVanPage_sections_featured1_cards | null)[] | null;
   image: HubVanPageData_hubVanPage_sections_featured1_image | null;
+  testimonials: (HubVanPageData_hubVanPage_sections_featured1_testimonials | null)[] | null;
+}
+
+export interface HubVanPageData_hubVanPage_sections_featured2_iconList {
+  text: string | null;
+}
+
+export interface HubVanPageData_hubVanPage_sections_featured2_link {
+  url: string | null;
+  text: string | null;
+}
+
+export interface HubVanPageData_hubVanPage_sections_featured2_cards_image_file {
+  url: string;
+  fileName: string;
+}
+
+export interface HubVanPageData_hubVanPage_sections_featured2_cards_image {
+  title: string | null;
+  description: string | null;
+  file: HubVanPageData_hubVanPage_sections_featured2_cards_image_file | null;
+}
+
+export interface HubVanPageData_hubVanPage_sections_featured2_cards_link {
+  text: string | null;
+  url: string | null;
+}
+
+export interface HubVanPageData_hubVanPage_sections_featured2_cards {
+  name: string | null;
+  title: string | null;
+  image: HubVanPageData_hubVanPage_sections_featured2_cards_image | null;
+  body: string | null;
+  link: HubVanPageData_hubVanPage_sections_featured2_cards_link | null;
 }
 
 export interface HubVanPageData_hubVanPage_sections_featured2_image_file {
   url: string;
+  fileName: string;
 }
 
 export interface HubVanPageData_hubVanPage_sections_featured2_image {
+  title: string | null;
+  description: string | null;
   file: HubVanPageData_hubVanPage_sections_featured2_image_file | null;
 }
 
+export interface HubVanPageData_hubVanPage_sections_featured2_testimonials {
+  customerName: string | null;
+  summary: string | null;
+  rating: string | null;
+}
+
 export interface HubVanPageData_hubVanPage_sections_featured2 {
+  layout: (string | null)[] | null;
+  body: string | null;
   title: string | null;
   titleTag: string | null;
-  body: string | null;
-  layout: (string | null)[] | null;
+  video: string | null;
+  iconList: (HubVanPageData_hubVanPage_sections_featured2_iconList | null)[] | null;
+  link: HubVanPageData_hubVanPage_sections_featured2_link | null;
+  cards: (HubVanPageData_hubVanPage_sections_featured2_cards | null)[] | null;
   image: HubVanPageData_hubVanPage_sections_featured2_image | null;
+  testimonials: (HubVanPageData_hubVanPage_sections_featured2_testimonials | null)[] | null;
 }
 
 export interface HubVanPageData_hubVanPage_sections_rowText {
@@ -134,24 +207,28 @@ export interface HubVanPageData_hubVanPage_sections_steps {
 
 export interface HubVanPageData_hubVanPage_sections_tiles_tiles_image_file {
   url: string;
+  fileName: string;
+  contentType: string;
 }
 
 export interface HubVanPageData_hubVanPage_sections_tiles_tiles_image {
-  file: HubVanPageData_hubVanPage_sections_tiles_tiles_image_file | null;
   title: string | null;
+  description: string | null;
+  file: HubVanPageData_hubVanPage_sections_tiles_tiles_image_file | null;
 }
 
 export interface HubVanPageData_hubVanPage_sections_tiles_tiles {
+  body: string | null;
   title: string | null;
   link: string | null;
-  body: string | null;
   image: HubVanPageData_hubVanPage_sections_tiles_tiles_image | null;
 }
 
 export interface HubVanPageData_hubVanPage_sections_tiles {
+  position: number | null;
   name: string | null;
-  titleTag: string | null;
   tilesTitle: string | null;
+  titleTag: string | null;
   tiles: HubVanPageData_hubVanPage_sections_tiles_tiles[] | null;
 }
 
@@ -169,7 +246,6 @@ export interface HubVanPageData_hubVanPage_sections {
 export interface HubVanPageData_hubVanPage {
   id: string;
   metaData: HubVanPageData_hubVanPage_metaData;
-  featuredImage: HubVanPageData_hubVanPage_featuredImage | null;
   sections: HubVanPageData_hubVanPage_sections | null;
 }
 

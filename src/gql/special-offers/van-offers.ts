@@ -8,30 +8,12 @@ export const VAN_OFFERS_CONTENT = gql`
       body
       intro
       metaData {
-        title
         name
-        metaRobots
-        metaDescription
-        publishedOn
-        legacyUrl
-        pageType
-        canonicalUrl
-        slug
-        publishedOn
-        schema
-      }
-      featuredImage {
-        title
-        description
-        file {
-          url
-          fileName
-          contentType
-        }
       }
       sections {
         featured {
           body
+          title
         }
         iconBullets {
           title

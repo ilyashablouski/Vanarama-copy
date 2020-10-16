@@ -50,7 +50,7 @@ const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> =
         <Heading tag="h3" color="black" size="large">
           Customers Also Viewed
         </Heading>
-        <div style={{ width: '100%' }}>
+        <div className="full-width">
           <ProductCarousel
             leaseType={leaseType}
             data={data}

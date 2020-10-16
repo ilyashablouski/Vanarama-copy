@@ -1,4 +1,5 @@
 import { gql } from '@apollo/client';
+import { FeaturedHtml } from '../../containers/FeaturedAndTilesContainer/getFeaturedHtml';
 
 // eslint-disable-next-line import/prefer-default-export
 export const ELIGIBILITY_CHECKER_CONTENT = gql`
@@ -6,26 +7,7 @@ export const ELIGIBILITY_CHECKER_CONTENT = gql`
     eligibilityCheckerLandingPage {
       id
       metaData {
-        title
         name
-        metaRobots
-        metaDescription
-        publishedOn
-        legacyUrl
-        pageType
-        canonicalUrl
-        slug
-        publishedOn
-        schema
-      }
-      featuredImage {
-        title
-        description
-        file {
-          url
-          fileName
-          contentType
-        }
       }
       sections {
         leadText {
@@ -33,34 +15,10 @@ export const ELIGIBILITY_CHECKER_CONTENT = gql`
           description
         }
         featured1 {
-          body
-          title
-          video
-          layout
+          ...GenericPageQueryFeatured
         }
         featured2 {
-          body
-          image {
-            title
-            description
-            file {
-              url
-              fileName
-              contentType
-              details {
-                size
-                image {
-                  width
-                  height
-                }
-              }
-            }
-          }
-          title
-          layout
-          iconList {
-            text
-          }
+          ...GenericPageQueryFeatured
         }
         faqs {
           title
@@ -87,4 +45,5 @@ export const ELIGIBILITY_CHECKER_CONTENT = gql`
       }
     }
   }
+  ${FeaturedHtml.fragments.featured}
 `;

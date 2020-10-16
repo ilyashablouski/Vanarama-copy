@@ -18,8 +18,6 @@ import {
   GetAboutUsPageData as Query,
 } from '../../../generated/GetAboutUsPageData';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import Head from '../../components/Head/Head';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 export interface IAboutPageProps {
   error: ApolloError | undefined;
@@ -37,6 +35,7 @@ const renderCarouselCards = (cards: (ICard | null)[]) =>
   cards.map(card =>
     card?.title && card.body && card.name ? (
       <Card
+        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         // TODO: remove width when Carousel component is fixed
         // now its slider is wider than carousel itself, and cards adapts and its right border is hidden
         style={{ width: '362px' }}
@@ -62,6 +61,7 @@ const renderCarouselCards = (cards: (ICard | null)[]) =>
 const renderMeetCard = (card: ICard | undefined) =>
   (card?.title && card.body && (
     <Card
+      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
       title={{
         title: card.title,
         link: (
@@ -125,7 +125,6 @@ const AboutUs: React.FC<IAboutPageProps> = ({ loading, error, data }) => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading size="xlarge" color="black" tag="h1">
           {metaData.name}
         </Heading>
@@ -133,7 +132,11 @@ const AboutUs: React.FC<IAboutPageProps> = ({ loading, error, data }) => {
       <div className="row:bg-black -compact">
         <div className="row:featured-image">
           {featuredImage?.file?.url && (
-            <Image src={featuredImage.file.url} alt="Featured image" />
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              src={featuredImage.file.url}
+              alt="Featured image"
+            />
           )}
         </div>
       </div>
@@ -201,10 +204,6 @@ const AboutUs: React.FC<IAboutPageProps> = ({ loading, error, data }) => {
           />
         </Link>
       </div>
-      <Head
-        metaData={metaData}
-        featuredImage={data?.aboutUsLandingPage.featuredImage}
-      />
     </>
   );
 };

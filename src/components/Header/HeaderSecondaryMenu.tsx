@@ -63,7 +63,10 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
           <li className={linkClassName({ title: true })}>
             <RouterLink
               link={{ label: '', href: '' }}
-              onClick={() => onClickTitle()}
+              onClick={el => {
+                el.preventDefault();
+                onClickTitle();
+              }}
               dataTestId="menu-title"
             >
               <span>{title}</span>

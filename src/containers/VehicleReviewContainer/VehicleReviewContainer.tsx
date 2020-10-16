@@ -15,7 +15,6 @@ import getTitleTag from '../../utils/getTitleTag';
 import mapToReviewCard from './helpers';
 import { ReviewsPageQuery_reviewsPage_sections as Sections } from '../../../generated/ReviewsPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   sections: Sections | null;
@@ -35,7 +34,6 @@ const VehicleReviewContainer: FC<IProps> = ({ body, title, sections }) => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {title}
         </Heading>
@@ -46,6 +44,7 @@ const VehicleReviewContainer: FC<IProps> = ({ body, title, sections }) => {
             <TabPanels className="-p-000">
               <TabPanel index={0}>
                 <Image
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                   src={
                     sections?.vehicleReviewMedia?.reviewPhoto?.file?.url || ''
                   }
@@ -105,6 +104,7 @@ const VehicleReviewContainer: FC<IProps> = ({ body, title, sections }) => {
             Expert Review
           </Heading>
           <ReviewCard
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             key="ExpertRevew"
             review={{
               text: sections?.vehicleReview?.summary || '',
@@ -119,6 +119,7 @@ const VehicleReviewContainer: FC<IProps> = ({ body, title, sections }) => {
             ?.slice(0, reviewsExpanded ? 10 : 2)
             .map((reviewTile, index) => (
               <ReviewCard
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 key={index.toString()}
                 review={{ ...mapToReviewCard(reviewTile) }}
               />

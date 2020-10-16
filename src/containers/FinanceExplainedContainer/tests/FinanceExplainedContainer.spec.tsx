@@ -2,11 +2,12 @@ import React from 'react';
 import { MockedProvider } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
 import FinanceExplainedContainer from '../FinanceExplainedContainer';
+import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 
 // ARRANGE
 const METADATA = {
   title: 'Car Finance Options | Business Car Leasing Deals UK',
-  name: 'Business & Personal Car Finance Leasing Options',
+  name: 'Car Finance Options | Business Car Leasing Deals UK',
   pageType: 'Finance Hub',
   __typename: 'Meta',
 };
@@ -92,16 +93,23 @@ const SECTIONS = {
   __typename: 'Sections',
 } as any;
 
+const DATA = {
+  genericPage: {
+    sections: SECTIONS,
+    metaData: METADATA,
+    body: BODY,
+    id: 'id',
+    featuredImage: null,
+    intro: '',
+  },
+} as GenericPageQuery;
+
 describe('<FinanceExplainedContainer />', () => {
   it('should match snapshot', async () => {
     // ACT
     const getComponent = render(
       <MockedProvider addTypename={false}>
-        <FinanceExplainedContainer
-          sections={SECTIONS}
-          title={METADATA.title}
-          body={BODY}
-        />
+        <FinanceExplainedContainer data={DATA} />
       </MockedProvider>,
     );
     // ASSERT

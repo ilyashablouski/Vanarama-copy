@@ -8,6 +8,7 @@ describe('<VehicleCard />', () => {
   const resetMocks = () => {
     return {
       url: '/car-leasing/vauxhall/crossland-x/bodystylename/slug',
+      appUrl: '/car-leasing/vauxhall/crossland-x/bodystylename/slug',
       title: {
         title: '',
         link: (

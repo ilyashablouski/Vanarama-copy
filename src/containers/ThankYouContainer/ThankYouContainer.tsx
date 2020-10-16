@@ -11,7 +11,6 @@ import {
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getSectionsData } from '../../utils/getSectionsData';
 import getTitleTag from '../../utils/getTitleTag';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   sections: Section | null;
@@ -23,9 +22,7 @@ const ThankYouContainer: FC<IProps> = ({ sections }) => {
 
   return (
     <>
-      <div className="row:title">
-        <Breadcrumb />
-      </div>
+      <div className="row:title" />
       <div className="row:lead-text">
         <Heading
           tag={getTitleTag(leadText?.titleTag || 'h1') as any}
@@ -50,6 +47,7 @@ const ThankYouContainer: FC<IProps> = ({ sections }) => {
           </Heading>
           {cards?.map((c: CardData, idx: number) => (
             <Card
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               key={c.title || idx}
               title={{
                 title: '',

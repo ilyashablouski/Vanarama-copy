@@ -43,7 +43,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           <a
             class="link -teal"
             data-testid="router-link"
-            href="mailto:enquiries@vanarama.co.uk"
+            href="/mailto:enquiries@vanarama.co.uk"
           >
             enquiries@vanarama.co.uk
           </a>
@@ -90,9 +90,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       >
         <p
           class="heading -black -lead"
-        >
-          Available New Car Finance Leasing Options
-        </p>
+        />
         <div
           class="card"
           data-testid="card"
@@ -163,75 +161,107 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           How Does Car Leasing Work?
         </p>
         <div>
-          <p
-            class="text -regular -darker"
+          <div
+            style="display: inline-block;"
           >
-            You simply choose the car you want to drive & tailor the deal depending on the following criteria:
-          </p>
-          <ul>
-            <li>
+            <p
+              class="text -regular -darker"
+            >
+              You simply choose the car you want to drive & tailor the deal depending on the following criteria:
+            </p>
+          </div>
+          <ol
+            style="display: list-item;"
+          >
+            <li
+              style="display: list-item; list-style-type: decimal; list-style-position: inside;"
+            >
               Your budget.
             </li>
-            <li>
+            <li
+              style="display: list-item; list-style-type: decimal; list-style-position: inside;"
+            >
               The duration of your agreement.
             </li>
-            <li>
+            <li
+              style="display: list-item; list-style-type: decimal; list-style-position: inside;"
+            >
               Your annual mileage.
             </li>
-            <li>
+            <li
+              style="display: list-item; list-style-type: decimal; list-style-position: inside;"
+            >
               Whether you need a personal or business lease.
             </li>
-            <li>
+            <li
+              style="display: list-item; list-style-type: decimal; list-style-position: inside;"
+            >
               If you want to add a maintenance package to your lease.
             </li>
-          </ul>
-          <p
-            class="text -regular -darker"
+          </ol>
+          <div
+            style="display: inline-block;"
           >
-            After choosing a vehicle, you will need to undergo a credit check. This is when the finance company verifies that you can comfortably afford the payments.
-          </p>
-          <p
-            class="text -regular -darker"
-          >
-            Once your finances have been approved, you will be asked to pay a Vehicle Reservation Fee of £500 (this secures your vehicle & prevents it being leased to someone else), which is refunded to you less our administration fee of £198 after delivery of your vehicles.
-          </p>
-          <p
-            class="text -regular -darker"
-          >
-            When the 
-            <a
-              class="link -teal"
-              data-testid="link"
-              href="https://beta.vanarama.com/car-leasing-explained/what-happens-at-end-of-car-lease.html"
-              rel="noopener noreferrer"
+            <p
+              class="text -regular -darker"
             >
-              contract finishes
-            </a>
-            , the car is returned to the finance company who will send out a driver to collect it. When the vehicle is returned, it will be inspected for damage & excess mileage. You will be charged for damage considered over & above the British Vehicle Rental & Leasing Association's (BVRLA) 
-            <a
-              class="link -teal"
-              data-testid="link"
-              href="https://beta.vanarama.com/car-leasing-explained/lease-car-fair-wear-and-tear.html"
-              rel="noopener noreferrer"
-            >
-              Fair Wear & Tear guidelines
-            </a>
-             or if you have exceeded the agreed mileage allowance.
-          </p>
-          <p
-            class="text -regular -darker"
+              After choosing a vehicle, you will need to undergo a credit check. This is when the finance company verifies that you can comfortably afford the payments.
+            </p>
+          </div>
+          <div
+            style="display: inline-block;"
           >
-            Don't worry about the end-of-contract damage charges – you've been driving the vehicle for up to 5 years, a bit of damage is to be expected, that's why it's called "Fair Wear & Tear". Take a look at our comprehensive 
-            <a
-              class="link -teal"
-              data-testid="link"
-              href="https://beta.vanarama.com/car-leasing-explained/lease-car-fair-wear-and-tear.html"
-              rel="noopener noreferrer"
+            <p
+              class="text -regular -darker"
             >
-              wear and tear guide
-            </a>
-             for more information.
-          </p>
+              Once your finances have been approved, you will be asked to pay a Vehicle Reservation Fee of £500 (this secures your vehicle & prevents it being leased to someone else), which is refunded to you less our administration fee of £198 after delivery of your vehicles.
+            </p>
+          </div>
+          <div
+            style="display: inline-block;"
+          >
+            <p
+              class="text -regular -darker"
+            >
+              When the 
+              <a
+                class="link -teal"
+                data-testid="link"
+                href="https://beta.vanarama.com/car-leasing-explained/what-happens-at-end-of-car-lease.html"
+                rel="noopener noreferrer"
+              >
+                contract finishes
+              </a>
+              , the car is returned to the finance company who will send out a driver to collect it. When the vehicle is returned, it will be inspected for damage & excess mileage. You will be charged for damage considered over & above the British Vehicle Rental & Leasing Association's (BVRLA) 
+              <a
+                class="link -teal"
+                data-testid="link"
+                href="https://beta.vanarama.com/car-leasing-explained/lease-car-fair-wear-and-tear.html"
+                rel="noopener noreferrer"
+              >
+                Fair Wear & Tear guidelines
+              </a>
+               or if you have exceeded the agreed mileage allowance.
+            </p>
+          </div>
+          <div
+            style="display: inline-block;"
+          >
+            <p
+              class="text -regular -darker"
+            >
+              Don't worry about the end-of-contract damage charges – you've been driving the vehicle for up to 5 years, a bit of damage is to be expected, that's why it's called "Fair Wear & Tear". Take a look at our comprehensive 
+              <a
+                class="link -teal"
+                data-testid="link"
+                href="https://beta.vanarama.com/car-leasing-explained/lease-car-fair-wear-and-tear.html"
+                rel="noopener noreferrer"
+              >
+                wear and tear guide
+              </a>
+               for more information.
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -243,11 +273,10 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         data-testid="card"
       >
         <div
-          class="image card-image -expand -plain"
+          class="lazyload-wrapper"
         >
-          <img
-            class="image--native"
-            src="//images.ctfassets.net/3xid768u5joa/31iQbyGS1DYs7b9viQHtXh/86ae2d62793162409d230b2042d9e00a/header-ivan.svg"
+          <div
+            class="lazyload-placeholder"
           />
         </div>
         <div
@@ -287,7 +316,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             <a
               class="link -teal"
               data-testid="router-link"
-              href="tel:01442838195"
+              href="/tel:01442838195"
             >
               01442 838 195
             </a>
@@ -295,7 +324,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             <a
               class="link -teal"
               data-testid="router-link"
-              href="mailto:enquiries@vanarama.co.uk"
+              href="/mailto:enquiries@vanarama.co.uk"
             >
               enquiries@vanarama.co.uk
             </a>

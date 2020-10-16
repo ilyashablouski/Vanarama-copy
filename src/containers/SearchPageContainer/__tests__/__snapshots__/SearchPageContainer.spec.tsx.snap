@@ -6,26 +6,9 @@ exports[`<SearchPageContainer /> should be render correctly 1`] = `
     <div
       class="row:title"
     >
-      <nav>
-        <ol
-          class="breadcrumb"
-        >
-          <li
-            class="breadcrumb-item -child"
-          >
-            <span
-              class="text breadcrumb-item--child -small -darker"
-            >
-              home
-            </span>
-          </li>
-        </ol>
-      </nav>
       <h1
         class="heading -black -xlarge"
-      >
-        Lorem Ips
-      </h1>
+      />
       <div
         class="text -regular -darker"
       />
@@ -729,6 +712,62 @@ exports[`<SearchPageContainer /> should be render correctly 1`] = `
           Showing 1 Results
         </span>
         <div
+          class="select"
+        >
+          <select
+            class="select--native"
+            disabled=""
+          >
+            <option
+              disabled=""
+              value=""
+            >
+              Please Select
+            </option>
+            <option
+              value="rate_ASC"
+            >
+              Price lowest to highest
+            </option>
+            <option
+              value="rate_DESC"
+            >
+              Price highest to lowest
+            </option>
+            <option
+              value="availability_ASC"
+            >
+              Quickest to longest delivery time
+            </option>
+            <option
+              value="availability_DESC"
+            >
+              Longest to quickest delivery time
+            </option>
+          </select>
+          <span
+            class="icon select--chevron"
+          >
+            <i
+              class="icon -stroke -dark"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="112 184 256 328 400 184"
+                  style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                />
+              </svg>
+            </i>
+          </span>
+        </div>
+        <div
           class="row:cards-3col"
         />
         <div
@@ -755,26 +794,9 @@ exports[`<SearchPageContainer /> should be render correctly all manufacturers Pa
     <div
       class="row:title"
     >
-      <nav>
-        <ol
-          class="breadcrumb"
-        >
-          <li
-            class="breadcrumb-item -child"
-          >
-            <span
-              class="text breadcrumb-item--child -small -darker"
-            >
-              home
-            </span>
-          </li>
-        </ol>
-      </nav>
       <h1
         class="heading -black -xlarge"
-      >
-        Lorem Ips
-      </h1>
+      />
       <div
         class="text -regular -darker"
       />
@@ -1454,6 +1476,62 @@ exports[`<SearchPageContainer /> should be render correctly all manufacturers Pa
         >
           Showing 3 Results
         </span>
+        <div
+          class="select"
+        >
+          <select
+            class="select--native"
+            disabled=""
+          >
+            <option
+              disabled=""
+              value=""
+            >
+              Please Select
+            </option>
+            <option
+              value="rate_ASC"
+            >
+              Price lowest to highest
+            </option>
+            <option
+              value="rate_DESC"
+            >
+              Price highest to lowest
+            </option>
+            <option
+              value="availability_ASC"
+            >
+              Quickest to longest delivery time
+            </option>
+            <option
+              value="availability_DESC"
+            >
+              Longest to quickest delivery time
+            </option>
+          </select>
+          <span
+            class="icon select--chevron"
+          >
+            <i
+              class="icon -stroke -dark"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="112 184 256 328 400 184"
+                  style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                />
+              </svg>
+            </i>
+          </span>
+        </div>
         <div
           class="row:cards-3col"
         >

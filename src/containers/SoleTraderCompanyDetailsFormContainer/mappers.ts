@@ -1,5 +1,6 @@
 import { ISoleTraderCompanyDetailsFormValues } from '../../components/SoleTraderCompanyDetailsForm/interfaces';
 import { CompanyTypes } from '../../models/enum/CompanyTypes';
+import { UpdateSoleTraderCompanyMutation_createUpdateSoleTraderCompany as Company } from '../../../generated/UpdateSoleTraderCompanyMutation';
 
 export const mapFormValues = (values: ISoleTraderCompanyDetailsFormValues) => {
   const tradingSince = new Date(
@@ -38,6 +39,26 @@ export const mapFormValues = (values: ISoleTraderCompanyDetailsFormValues) => {
   };
 };
 
+export const mapCreateUpdteApplicationData = (
+  values: ISoleTraderCompanyDetailsFormValues,
+  companyData?: Company | null,
+) => ({
+  ...mapFormValues(values),
+  addresses: [
+    {
+      ...companyData?.addresses?.[0],
+    },
+  ],
+  emailAddress: undefined,
+  emailAddresses: [
+    {
+      value: values.email,
+      kind: 'Home',
+    },
+  ],
+  uuid: companyData?.uuid,
+});
+
 export const prelodedValuesToInput = (details: any) => {
   const tradingAddress = details.addresses
     ? {
@@ -54,12 +75,14 @@ export const prelodedValuesToInput = (details: any) => {
     tradingSinceYear: String(new Date(details.trading_since).getFullYear()),
     tradingSinceMonth: String(new Date(details.trading_since).getMonth() + 1),
     businessTelephoneNumber: details.telephone_numbers?.[0].value,
-    email: details.email_address.value,
+    email: details.email_addresses?.[0].value,
     annualTurnover: String(details.annual_turnover),
     annualCostOfSales: String(details.annual_sales_cost),
     annualExpenses: String(details.annual_expenses),
     vehicleRegistrationNumber: details.vehicle_registration_number,
-    monthlyAmountBeingReplaced: String(details.monthly_amount_being_replaced),
+    monthlyAmountBeingReplaced: String(
+      details.monthly_amount_being_replaced || '',
+    ),
   };
 };
 

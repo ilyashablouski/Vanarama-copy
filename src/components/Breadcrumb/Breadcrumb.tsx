@@ -6,6 +6,7 @@ import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import { useRouter } from 'next/router';
 import RouterLink from '../RouterLink/RouterLink';
 import { routerItems, IBreadcrumbLink } from './helpers';
+import { useMobileViewport } from '../../hooks/useMediaQuery';
 
 interface IBreadcrumbProps {
   items?: IBreadcrumbLink[] | null;
@@ -13,35 +14,41 @@ interface IBreadcrumbProps {
 
 const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
   const router = useRouter();
+  const isMobile = useMobileViewport();
   const { items } = props;
 
   const renderParent = (item: IBreadcrumbLink) => (
     <li className="breadcrumb-item -parent" key={item.link.label}>
-      <RouterLink
-        classNames={{ color: 'teal', size: 'small' }}
-        className="breadcrumb-item--backlink"
-        link={item.link}
-        as={item.as}
-      >
-        <Icon icon={<ChevronBack />} color="teal" />
-        Back to {item.link.label}
-      </RouterLink>
-      <RouterLink
-        classNames={{ color: 'teal', size: 'small' }}
-        className="breadcrumb-item--parent"
-        link={item.link}
-        as={item.as}
-      >
-        {item.link.label}
-      </RouterLink>
-      <Icon icon={<ChevronForward />} size="xsmall" color="medium" />
+      {isMobile ? (
+        <RouterLink
+          classNames={{ color: 'teal', size: 'small' }}
+          className="breadcrumb-item--backlink"
+          link={item.link}
+          as={item.as}
+        >
+          <Icon icon={<ChevronBack />} color="teal" />
+          Back to {decodeURIComponent(item.link.label)}
+        </RouterLink>
+      ) : (
+        <>
+          <RouterLink
+            classNames={{ color: 'teal', size: 'small' }}
+            className="breadcrumb-item--parent"
+            link={item.link}
+            as={item.as}
+          >
+            {decodeURIComponent(item.link.label)}
+          </RouterLink>
+          <Icon icon={<ChevronForward />} size="xsmall" color="medium" />
+        </>
+      )}
     </li>
   );
 
   const renderChild = (item: IBreadcrumbLink) => (
     <li className="breadcrumb-item -child" key={item.link.label}>
       <Text size="small" color="darker" className="breadcrumb-item--child">
-        {item.link.label}
+        {decodeURIComponent(item.link.label)}
       </Text>
     </li>
   );

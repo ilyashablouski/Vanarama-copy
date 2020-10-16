@@ -10,7 +10,6 @@ import {
 } from '../../../generated/GenericPageQuery';
 import { getSectionsData } from '../../utils/getSectionsData';
 import getTitleTag from '../../utils/getTitleTag';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import RouterLink from '../../components/RouterLink/RouterLink';
 
 interface IProps {
@@ -31,14 +30,20 @@ const LeasingArticleContainer: FC<IProps> = ({
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading size="xlarge" color="black" tag="h1">
           {title}
         </Heading>
       </div>
       <div className="row:bg-black -compact">
         <div className="row:featured-image">
-          {image && <Image className="-white" size="expand" src={image} />}
+          {image && (
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              className="-white"
+              size="expand"
+              src={image}
+            />
+          )}
         </div>
       </div>
       <div className="row:article">
@@ -77,6 +82,7 @@ const LeasingArticleContainer: FC<IProps> = ({
           </Heading>
           {cards?.cards?.map((el: Cards, ind: number) => (
             <Card
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               key={`${el?.title}_${ind}`}
               title={{
                 title: el?.title || '',

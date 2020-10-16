@@ -1,4 +1,5 @@
-import { gql, useQuery } from '@apollo/client';
+import { useEffect } from 'react';
+import { gql, useQuery, QueryResult } from '@apollo/client';
 import { MockedResponse } from '@apollo/client/testing';
 import {
   VehicleListUrl,
@@ -7,8 +8,8 @@ import {
 } from '../../generated/VehicleListUrl';
 
 export const VEHICLE_LIST_URL = gql`
-  query VehicleListUrl($derivativeIds: [ID!]) {
-    vehicleList(filter: { derivativeIds: $derivativeIds }) {
+  query VehicleListUrl($derivativeIds: [ID!], $after: String) {
+    vehicleList(filter: { derivativeIds: $derivativeIds }, after: $after) {
       totalCount
       pageInfo {
         startCursor
@@ -22,17 +23,51 @@ export const VEHICLE_LIST_URL = gql`
           derivativeId
           url
           legacyUrl
+          vehicleType
         }
       }
     }
   }
 `;
 
-export function useVehicleListUrl(derivativeIds?: string[] | null) {
+export function useVehicleListUrl(derivativeIds?: string[], after?: string) {
   return useQuery<VehicleListUrl, VehicleListUrlVariables>(VEHICLE_LIST_URL, {
-    variables: { derivativeIds },
-    skip: !derivativeIds,
+    variables: { derivativeIds, after },
+    skip: !derivativeIds?.length || derivativeIds?.includes(''),
   });
+}
+
+export function useVehicleListUrlFetchMore(
+  query: QueryResult<VehicleListUrl, VehicleListUrlVariables>,
+  derivativeIds: string[],
+) {
+  const hasNextPage = query.data?.vehicleList.pageInfo.hasNextPage;
+  useEffect(() => {
+    if (query.fetchMore && hasNextPage) {
+      const edges = query.data?.vehicleList.edges || [];
+      const lastCursor = edges[edges.length - 1]?.cursor;
+
+      query.fetchMore({
+        variables: {
+          derivativeIds,
+          after: lastCursor,
+        },
+        updateQuery: (prev, { fetchMoreResult }) => {
+          if (!fetchMoreResult) return prev;
+          return {
+            vehicleList: {
+              pageInfo: fetchMoreResult.vehicleList.pageInfo,
+              totalCount: fetchMoreResult.vehicleList.totalCount,
+              edges: [
+                ...prev.vehicleList.edges,
+                ...fetchMoreResult?.vehicleList?.edges,
+              ],
+            },
+          };
+        },
+      });
+    }
+  }, [derivativeIds, query, hasNextPage]);
 }
 
 export function makeVehiclesListUrlMock(

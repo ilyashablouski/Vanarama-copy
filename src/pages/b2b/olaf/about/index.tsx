@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
@@ -17,9 +18,16 @@ import { usePersonByTokenLazyQuery } from '../../../olaf/about';
 import { CompanyTypes } from '../../../../models/enum/CompanyTypes';
 import { PersonByToken } from '../../../../../generated/PersonByToken';
 import { useImperativeQuery } from '../../../../hooks/useImperativeQuery';
-import { GET_ORDERS_BY_PARTY_UUID_DATA } from '../../../../containers/OrdersInformation/gql';
+import { GET_MY_ORDERS_DATA } from '../../../../containers/OrdersInformation/gql';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../../generated/GetCompaniesByPersonUuid';
+import {
+  pushAboutYouDataLayer,
+  pushAuthorizationEventDataLayer,
+} from '../../../../utils/dataLayerHelpers';
+import { GetOlafData_orderByUuid } from '../../../../../generated/GetOlafData';
+import { GetDerivative_derivative } from '../../../../../generated/GetDerivative';
+import { MyOrdersTypeEnum } from '../../../../../generated/globalTypes';
 
 const handleCreateUpdateBusinessPersonError = () =>
   toast.error(
@@ -44,8 +52,16 @@ export const BusinessAboutPage: NextPage = () => {
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [personUuid, setPersonUuid] = useState<string | undefined>();
+  const [
+    detailsData,
+    setDetailsData,
+  ] = useState<GetOlafData_orderByUuid | null>(null);
+  const [
+    derivativeData,
+    setDerivativeData,
+  ] = useState<GetDerivative_derivative | null>(null);
 
-  const getOrdersData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);
+  const getOrdersData = useImperativeQuery(GET_MY_ORDERS_DATA);
   const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
 
   const [getPersonByToken] = usePersonByTokenLazyQuery(async data => {
@@ -65,23 +81,15 @@ export const BusinessAboutPage: NextPage = () => {
 
     getOrdersData({
       partyUuid,
-      excludeStatuses: ['quote', 'expired', 'new'],
-      statuses: null,
+      filter: MyOrdersTypeEnum.ALL_ORDERS,
     }).then(response => {
-      localForage.setItem(
-        'ordersLength',
-        response.data?.ordersByPartyUuid.length,
-      );
+      localForage.setItem('ordersLength', response.data?.myOrders.length);
     });
     getOrdersData({
       partyUuid,
-      statuses: ['quote', 'new'],
-      excludeStatuses: ['expired'],
+      filter: MyOrdersTypeEnum.ALL_QUOTES,
     }).then(response => {
-      localForage.setItem(
-        'quotesLength',
-        response.data?.ordersByPartyUuid.length,
-      );
+      localForage.setItem('quotesLength', response.data?.myOrders.length);
     });
     router.replace(router.pathname, router.asPath);
   }, handleAccountFetchError);
@@ -89,9 +97,13 @@ export const BusinessAboutPage: NextPage = () => {
   const handleCreateUpdateBusinessPersonCompletion = async (
     result: SubmitResult,
   ) => {
+    pushAboutYouDataLayer(detailsData, derivativeData);
     const params = getUrlParam({ orderId });
     const slug =
-      result.companyType === CompanyTypes.limited ? '' : 'sole-trader/';
+      result.companyType === CompanyTypes.limited ||
+      result.companyType === CompanyTypes.partnership
+        ? ''
+        : 'sole-trader/';
     const url =
       router.query.redirect === 'summary'
         ? `/b2b/olaf/${slug}summary/[companyUuid]${params}`
@@ -118,7 +130,10 @@ export const BusinessAboutPage: NextPage = () => {
   }, [personUuid]);
 
   return (
-    <OLAFLayout>
+    <OLAFLayout
+      setDetailsData={setDetailsData}
+      setDerivativeData={setDerivativeData}
+    >
       <Heading
         color="black"
         dataTestId="about-you_heading"
@@ -143,6 +158,7 @@ export const BusinessAboutPage: NextPage = () => {
           {isLogInVisible && (
             <LoginFormContainer
               onCompleted={data => {
+                pushAuthorizationEventDataLayer();
                 // request person account after login
                 if (data.login !== null) {
                   getPersonByToken({

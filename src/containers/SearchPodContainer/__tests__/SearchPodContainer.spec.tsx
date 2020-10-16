@@ -254,7 +254,7 @@ describe('<SearchPodContainer />', () => {
     await waitFor(() => {
       expect(pushMock).toHaveBeenCalledTimes(1);
       expect(pushMock).toHaveBeenCalledWith({
-        pathname: '/van-leasing',
+        pathname: '/van-leasing/search',
         query: {},
       });
     });
@@ -282,7 +282,7 @@ describe('<SearchPodContainer />', () => {
     await waitFor(() => {
       expect(pushMock).toHaveBeenCalledTimes(1);
       expect(pushMock).toHaveBeenCalledWith({
-        pathname: '/car-leasing',
+        pathname: '/car-leasing/search',
         query: {},
       });
     });

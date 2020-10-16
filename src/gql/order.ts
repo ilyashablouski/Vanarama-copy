@@ -75,6 +75,10 @@ export const GET_CAR_DERIVATIVE = gql`
       capCode
       name
       slug
+      bodyType {
+        name
+        slug
+      }
       manufacturer {
         name
         slug
@@ -150,6 +154,7 @@ export const GET_OLAF_DATA = gql`
           depositPayment
           monthlyPayment
           term
+          maintenancePrice
           annualMileage
           depositMonths
           funderId
@@ -196,6 +201,7 @@ export const CREATE_UPDATE_ORDER_MUTATION = gql`
           depositMonths
           funderId
           funderData
+          maintenancePrice
         }
       }
     }

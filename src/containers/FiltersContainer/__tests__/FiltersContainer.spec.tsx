@@ -4,6 +4,7 @@ import { MockedResponse, MockedProvider } from '@apollo/client/testing';
 import FiltersContainer from '../FiltersContainer';
 
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
+import { SortDirection, SortField } from '../../../../generated/globalTypes';
 // TODO: Invistigate useQuery refetch problem
 
 // ARRANGE
@@ -15,6 +16,8 @@ const resetMocks = () => {
     onSearch: jest.fn(),
     preSearchVehicleCount: 10,
     isSpecialOffers: true,
+    setIsSpecialOffers: jest.fn(),
+    sortOrder: { type: SortField.availability, direction: SortDirection.ASC },
   };
 };
 

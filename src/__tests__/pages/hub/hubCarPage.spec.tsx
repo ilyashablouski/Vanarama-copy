@@ -8,11 +8,11 @@ import { HubCarPageData } from '../../../../generated/HubCarPageData';
 import { HUB_CAR_CONTENT } from '../../../gql/hub/hubCarPage';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
-import { CarsPage } from '../../../pages/hub/cars';
 import { mockSearchPodResponse } from '../../../../__mocks__/searchpod';
 import { ProductCardData } from '../../../../generated/ProductCardData';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { useVehicleListUrl } from '../../../gql/vehicleList';
+import { CarsPage } from '../../../pages/car-leasing';
 
 /**
  * NOTE: Mock the SearchPodContainer as it is out of scope for this test and is doing state
@@ -244,9 +244,9 @@ describe('<CarPage />', () => {
               cursor: 'cursor',
               node: {
                 derivativeId: '83615',
-                url:
-                  '/car-leasing/ford/focus/hatchback/10-ecoBoost-125-st-line-nav-5dr',
+                url: '/ford/focus/hatchback/10-ecoBoost-125-st-line-nav-5dr',
                 legacyUrl: null,
+                vehicleType: VehicleTypeEnum.CAR,
               },
             },
           ],
@@ -274,7 +274,7 @@ describe('<CarPage />', () => {
 
     expect(screen.getByTestId('view-all-cars')).toHaveAttribute(
       'href',
-      '/car-leasing',
+      '/car-leasing/search',
     );
   });
 

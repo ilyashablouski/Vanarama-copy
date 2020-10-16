@@ -8,23 +8,22 @@ import ReactMarkdown from 'react-markdown';
 import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import {
   GenericPageQuery_genericPage_sections_cards_cards as ICard,
-  GenericPageQuery_genericPage_sections as Section,
   GenericPageQuery_genericPage_sections_carousel_cards as ICaruselCard,
+  GenericPageQuery,
 } from '../../../generated/GenericPageQuery';
 import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import { getSectionsData } from '../../utils/getSectionsData';
 
 interface IProps {
-  sections: Section | null;
-  title: string | null;
-  body: string | null;
+  data: GenericPageQuery;
 }
 
 const renderCarouselCards = (cards: (ICaruselCard | null)[]) =>
   cards.map(card =>
     card?.title && card.body && card.name ? (
       <Card
+        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         key={card.name}
         title={{ title: card?.title }}
         imageSrc={card.image?.file?.url}
@@ -49,6 +48,7 @@ const renderCards = (cards: (ICard | null)[] | undefined | null) =>
   cards?.map(card =>
     card?.title && card.name ? (
       <Card
+        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         key={card.name || undefined}
         imageSrc={card.image?.file?.url}
         title={{
@@ -74,14 +74,16 @@ const renderCards = (cards: (ICard | null)[] | undefined | null) =>
     ) : null,
   );
 
-const LeasingExplainedContainer: FC<IProps> = ({ body, title, sections }) => {
-  const carousel = sections?.carousel;
-  const cards = sections?.cards;
+const LeasingExplainedContainer: FC<IProps> = ({ data }) => {
+  const body = getSectionsData(['body'], data?.genericPage);
+  const title = getSectionsData(['metaData', 'name'], data?.genericPage);
+
+  const carousel = getSectionsData(['sections', 'carousel'], data?.genericPage);
+  const cards = getSectionsData(['sections', 'cards'], data?.genericPage);
 
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading size="xlarge" color="black" tag="h1">
           {title}
         </Heading>

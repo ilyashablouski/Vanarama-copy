@@ -1,31 +1,11 @@
 import { gql } from '@apollo/client';
+import { FeaturedHtml } from '../../containers/FeaturedAndTilesContainer/getFeaturedHtml';
+import TilesContainer from '../../containers/TilesContainer/TilesContainer';
 
 const HUB_CAR_CONTENT = gql`
   query HubCarPageData {
     hubCarPage {
       id
-      metaData {
-        title
-        name
-        metaRobots
-        metaDescription
-        publishedOn
-        legacyUrl
-        pageType
-        canonicalUrl
-        slug
-        publishedOn
-        schema
-      }
-      featuredImage {
-        title
-        description
-        file {
-          url
-          fileName
-          contentType
-        }
-      }
       sections {
         hero {
           title
@@ -44,26 +24,10 @@ const HUB_CAR_CONTENT = gql`
           description
         }
         featured1 {
-          title
-          titleTag
-          body
-          layout
-          image {
-            file {
-              url
-            }
-          }
+          ...GenericPageQueryFeatured
         }
         featured2 {
-          title
-          titleTag
-          body
-          layout
-          image {
-            file {
-              url
-            }
-          }
+          ...GenericPageQueryFeatured
         }
         steps {
           heading
@@ -73,24 +37,13 @@ const HUB_CAR_CONTENT = gql`
           }
         }
         tiles {
-          name
-          titleTag
-          tilesTitle
-          tiles {
-            title
-            link
-            body
-            image {
-              file {
-                url
-              }
-              title
-            }
-          }
+          ...GenericPageQueryTiles
         }
       }
     }
   }
+  ${TilesContainer.fragments.tiles}
+  ${FeaturedHtml.fragments.featured}
 `;
 
 // eslint-disable-next-line import/prefer-default-export

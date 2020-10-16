@@ -8,11 +8,32 @@
 //==============================================================
 
 /**
+ * CreditApplication Type
+ */
+export enum CreditApplicationTypeEnum {
+  B2B_LIMITED = "B2B_LIMITED",
+  B2B_PARTNERSHIP = "B2B_PARTNERSHIP",
+  B2B_REGISTERED_PARTNERSHIP = "B2B_REGISTERED_PARTNERSHIP",
+  B2B_SOLE_TRADER = "B2B_SOLE_TRADER",
+  B2C_PERSONAL = "B2C_PERSONAL",
+}
+
+/**
  * Lease type
  */
 export enum LeaseTypeEnum {
   BUSINESS = "BUSINESS",
   PERSONAL = "PERSONAL",
+}
+
+/**
+ * Filter orders/quotes by section
+ */
+export enum MyOrdersTypeEnum {
+  ALL_ORDERS = "ALL_ORDERS",
+  ALL_QUOTES = "ALL_QUOTES",
+  COMPLETED_ORDERS = "COMPLETED_ORDERS",
+  IN_PROGRESS_ORDERS = "IN_PROGRESS_ORDERS",
 }
 
 /**
@@ -26,9 +47,18 @@ export enum OpportunityTypeEnum {
 }
 
 /**
+ * Sort direction
+ */
+export enum SortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+/**
  * Sort field
  */
 export enum SortField {
+  availability = "availability",
   manufacturer = "manufacturer",
   offerRanking = "offerRanking",
   rate = "rate",
@@ -150,6 +180,7 @@ export interface CreditApplicationInputObject {
   addresses?: any | null;
   bankAccounts?: any | null;
   companyDetails?: any | null;
+  creditApplicationType?: CreditApplicationTypeEnum | null;
   directorsDetails?: any | null;
   employmentHistories?: any | null;
   financeType?: string | null;
@@ -345,7 +376,8 @@ export interface PersonInputObject {
  * Input object to make quick credit check
  */
 export interface QuickCreditCheckerInputObject {
-  addressServiceId: string;
+  address?: AddressInputObject | null;
+  addressServiceId?: string | null;
   emailAddress: EmailAddressInputObject;
   person: PersonInputObject;
 }
@@ -434,6 +466,7 @@ export interface VehicleProductInputObject {
   financeType?: string | null;
   funderId?: string | null;
   maintenance?: boolean | null;
+  maintenancePrice?: number | null;
   monthlyPayment?: number | null;
   term?: number | null;
   trim?: string | null;

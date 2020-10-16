@@ -32,7 +32,10 @@ const SearchPod = ({
   headingText,
 }: ISearchPodProps) => {
   return (
-    <Card className="hero-card">
+    <Card
+      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+      className="hero-card"
+    >
       <Tabs
         align="expand"
         activeIndex={activeTab}
