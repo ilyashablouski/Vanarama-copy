@@ -1,13 +1,12 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { useApolloClient } from '@apollo/client';
 import { createContext } from 'react';
 import { GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA } from '../../gql/creditApplication';
 import { DEFAULT_TERM } from '../../models/enum/OlafVariables';
 import { CompanyTypes } from '../../models/enum/CompanyTypes';
-import { GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct } from '../../../generated/GetOrdersByPartyUuid';
-import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
+import { GetMyOrders_myOrders_lineItems_vehicleProduct as VehicleProduct } from '../../../generated/GetMyOrders';
+import { GetDerivatives_derivatives as Derivatives } from '../../../generated/GetDerivatives';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
-import { GetOlafData_orderByUuid } from '../../../generated/GetOlafData';
+import { GetOlafData_orderByUuid as OrderByUuid } from '../../../generated/GetOlafData';
 
 /**
  * @param leaseType - string, offer leaseType
@@ -16,8 +15,8 @@ import { GetOlafData_orderByUuid } from '../../../generated/GetOlafData';
  */
 export const createOlafDetails = (
   leaseType: string,
-  offer: GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct,
-  derivative: GetDerivatives_derivatives,
+  offer: VehicleProduct,
+  derivative: Derivatives,
 ) => ({
   price: offer.monthlyPayment || 0,
   priceDescription: `Per Month ${
@@ -53,9 +52,7 @@ export const createOlafDetails = (
 });
 
 // get funder term for address/employement history
-export const useFunderTerm = (
-  orderByUuid?: GetOlafData_orderByUuid | undefined | null,
-) => {
+export const useFunderTerm = (orderByUuid?: OrderByUuid | undefined | null) => {
   const client = useApolloClient();
   const data = orderByUuid?.lineItems?.[0].vehicleProduct || ({} as any);
   if (Object.values(data).length > 0) {
