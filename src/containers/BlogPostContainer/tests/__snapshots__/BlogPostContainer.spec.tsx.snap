@@ -38,9 +38,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             By Paul Kirby, Vanarama Head Of EV & LCV
           </strong>
         </h4>
-        <p
-          class="text -regular -darker"
-        >
+        <p>
           **If I was to scour the internet for the best lease deals on an electric van I would probably find only 4 electric vehicles available for sale.
         </p>
       </article>
