@@ -7,10 +7,10 @@
 // GraphQL mutation operation: LogOutUserMutation
 // ====================================================
 
-export interface LogOutUserMutation {
-  logout: boolean | null;
+export interface LogOutUserMutation_logoutV2 {
+  isSuccessfull: boolean | null;
 }
 
-export interface LogOutUserMutationVariables {
-  token: string;
+export interface LogOutUserMutation {
+  logoutV2: LogOutUserMutation_logoutV2 | null;
 }
