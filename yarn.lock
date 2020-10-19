@@ -3069,10 +3069,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@5.28.15":
-  version "5.28.15"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.28.15.tgz#06528d1e87a750778432cb718535b9ce0ef5bb7f"
-  integrity sha512-/ImVztgBuQjENPBkZsejOUBSgeW6cEKMDA2XLkds1ct0tKKr/SqQP+Tn95r2QBt+DdgzLSUS9kTiwbIpwJ4zhg==
+"@vanarama/uibook@5.28.18":
+  version "5.28.18"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.28.18.tgz#903766e3f20e4ac797bc60dc9c2d62a20b5c7160"
+  integrity sha512-LKn/dXwX3gnwTsgQNUEjU3MwcG3iWEd2seHdnoivV5VQBL+78OPSNf9Nu6oNs+pwo/ynPAD8pH+1hWxpBFDhRA==
   dependencies:
     "@egjs/flicking" "^3.4.7"
     "@reach/auto-id" "^0.10.3"
@@ -10267,6 +10267,11 @@ react-transition-group@^4.3.0, react-transition-group@^4.4.1:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+react-webcam@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/react-webcam/-/react-webcam-5.2.1.tgz#927f4542cdee1b21e1876e24feb9fd120655e2a3"
+  integrity sha512-3Bz6V75Dy9Ecv6hvhlR8JVP123iiceM143B5P5cym1v7vSLrNzCEZSPJqFIN05hHiT7BwtCtqs5mNoILSUQTpw==
 
 react@^16.12.0, react@^16.8.3:
   version "16.13.1"
