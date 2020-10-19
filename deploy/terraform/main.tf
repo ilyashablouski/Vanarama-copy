@@ -96,6 +96,22 @@ resource "aws_ssm_parameter" "redis-cache-host" {
   }
 }
 
+data "aws_ssm_parameter" "gateway-url" {
+  name = "/${var.env}/${var.stack}/gateway-service/gateway-url"
+}
+resource "aws_ssm_parameter" "gateway-api-url" {
+    name       = "/${var.env}/${var.stack}/${var.app}/gateway-api-url"
+    type       = "SecureString"
+    value      = "${data.aws_ssm_parameter.gateway-url.value}"
+
+    tags = {
+      env        = "${var.env}"
+      stack      = "${var.stack}"
+      app        = "${var.app}"
+      created-by = "terraform"
+    }
+}
+
 module "aws_cloudwatch_ecs_alarms" {
   source = "git@github.com:Autorama/autorama-infra-modules.git//ecs_service_alarms"
 
