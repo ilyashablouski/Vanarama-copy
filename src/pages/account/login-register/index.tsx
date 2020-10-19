@@ -17,7 +17,7 @@ import LoginFormContainer from '../../../containers/LoginFormContainer/LoginForm
 import RegisterFormContainer from '../../../containers/RegisterFormContainer/RegisterFormContainer';
 import withApollo from '../../../hocs/withApollo';
 import {
-  usePersonByTokenLazyQuery,
+  useGetPersonLazyQuery,
   handleAccountFetchError,
 } from '../../olaf/about';
 import { GET_MY_ORDERS_DATA } from '../../../containers/OrdersInformation/gql';
@@ -26,6 +26,7 @@ import { GET_COMPANIES_BY_PERSON_UUID } from '../../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
 import { pushAuthorizationEventDataLayer } from '../../../utils/dataLayerHelpers';
 import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
+import { isUserAuthenticated } from '../../../utils/authentication';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -47,11 +48,11 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
   const getOrdersData = useImperativeQuery(GET_MY_ORDERS_DATA);
   const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
 
-  const [getPersonByToken] = usePersonByTokenLazyQuery(async data => {
+  const [getPerson] = useGetPersonLazyQuery(async data => {
     await localForage.setItem('person', data);
-    const partyUuid = [data.personByToken?.partyUuid];
+    const partyUuid = [data.getPerson?.partyUuid];
     await getCompaniesData({
-      personUuid: data.personByToken?.uuid,
+      personUuid: data.getPerson?.uuid,
     }).then(resp => {
       resp.data?.companiesByPersonUuid?.forEach(
         (companies: CompaniesByPersonUuid) =>
@@ -117,17 +118,11 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
           <TabPanels className="-pv-400">
             <TabPanel index={1}>
               <LoginFormContainer
-                onCompleted={async data => {
+                onCompleted={() => {
                   pushAuthorizationEventDataLayer();
-                  if (data.login !== null) {
-                    // Put the token in localStorage
-                    await localForage.setItem('token', data.login);
 
-                    getPersonByToken({
-                      variables: {
-                        token: data.login,
-                      },
-                    });
+                  if (isUserAuthenticated()) {
+                    getPerson();
                   }
                 }}
               />

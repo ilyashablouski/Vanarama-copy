@@ -21,9 +21,9 @@ import { ILinkProps } from '../RouterLink/interface';
 import RouterLink from '../RouterLink/RouterLink';
 import HeaderMenu from './HeaderMenu';
 import {
-  PersonByToken_personByToken as Person,
-  PersonByToken,
-} from '../../../generated/PersonByToken';
+  GetPerson_getPerson as Person,
+  GetPerson,
+} from '../../../generated/GetPerson';
 
 export interface IHeaderLink extends ILinkProps {
   id?: string;
@@ -56,8 +56,8 @@ export const Header: FC<IHeaderProps> = memo(props => {
   useEffect(() => {
     if (!person) {
       localForage.getItem('person').then(value => {
-        if ((value as PersonByToken)?.personByToken)
-          setPerson((value as PersonByToken)?.personByToken as Person);
+        if ((value as GetPerson)?.getPerson)
+          setPerson((value as GetPerson)?.getPerson as Person);
       });
     }
     if (!ordersLength) {
