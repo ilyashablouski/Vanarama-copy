@@ -21,6 +21,7 @@ module.exports = {
       IMG_OPTIMISATION_HOST: process.env.IMG_OPTIMISATION_HOST,
       HOSTNAME: process.env.HOSTNAME,
       GTM_ID: process.env.GTM_ID,
+      MICROBLINK_URL: process.env.MICROBLINK_URL,
       API_URL: process.env.API_URL,
       API_KEY: process.env.API_KEY,
       LOQATE_KEY: process.env.LOQATE_KEY,

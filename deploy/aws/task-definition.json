@@ -90,6 +90,10 @@
         {
           "name": "HOSTNAME",
           "value": "https://%ALTERNATEDOMAIN%"
+        },
+        {
+          "name": "MICROBLINK_URL",
+          "value": "https://microblink-secure.motorama.com"
         }
       ],
       "portMappings": [

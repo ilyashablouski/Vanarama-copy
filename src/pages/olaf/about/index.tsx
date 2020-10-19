@@ -23,10 +23,7 @@ import LoginFormContainer from '../../../containers/LoginFormContainer/LoginForm
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
 import { getUrlParam, OLAFB2CQueryParams } from '../../../utils/url';
-import {
-  PersonByToken,
-  PersonByTokenVariables,
-} from '../../../../generated/PersonByToken';
+import { GetPerson } from '../../../../generated/GetPerson';
 import { CreateUpdatePersonMutation_createUpdatePerson } from '../../../../generated/CreateUpdatePersonMutation';
 import {
   useCreateUpdateCreditApplication,
@@ -46,10 +43,11 @@ import { GET_COMPANIES_BY_PERSON_UUID } from '../../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
 import { GetOlafData_orderByUuid } from '../../../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../../../generated/GetDerivative';
+import { isUserAuthenticated } from '../../../utils/authentication';
 
-const PERSON_BY_TOKEN_QUERY = gql`
-  query PersonByToken($token: String!) {
-    personByToken(token: $token) {
+const GET_PERSON_QUERY = gql`
+  query GetPerson {
+    getPerson {
       uuid
       firstName
       lastName
@@ -62,14 +60,14 @@ const PERSON_BY_TOKEN_QUERY = gql`
   }
 `;
 
-export function usePersonByTokenLazyQuery(
-  onCompleted: (data: PersonByToken) => void,
+export function useGetPersonLazyQuery(
+  onCompleted: (data: GetPerson) => void,
   onError: (error: ApolloError) => void,
 ) {
-  return useLazyQuery<PersonByToken, PersonByTokenVariables>(
-    PERSON_BY_TOKEN_QUERY,
-    { onCompleted, onError },
-  );
+  return useLazyQuery<GetPerson>(GET_PERSON_QUERY, {
+    onCompleted,
+    onError,
+  });
 }
 
 export const handleAccountFetchError = () =>
@@ -99,12 +97,12 @@ const AboutYouPage: NextPage = () => {
 
   const [updateOrderHandle] = useCreateUpdateOrder(() => {});
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
-  const [getPersonByToken] = usePersonByTokenLazyQuery(async data => {
-    setPersonUuid(data?.personByToken?.uuid);
+  const [getPerson] = useGetPersonLazyQuery(async data => {
+    setPersonUuid(data?.getPerson?.uuid);
     await localForage.setItem('person', data);
-    const partyUuid = [data.personByToken?.partyUuid];
+    const partyUuid = [data.getPerson?.partyUuid];
     await getCompaniesData({
-      personUuid: data.personByToken?.uuid,
+      personUuid: data.getPerson?.uuid,
     }).then(resp => {
       resp.data?.companiesByPersonUuid?.forEach(
         (companies: CompaniesByPersonUuid) =>
@@ -184,8 +182,8 @@ const AboutYouPage: NextPage = () => {
   useEffect(() => {
     if (!personUuid) {
       localForage.getItem('person').then(value => {
-        if ((value as PersonByToken)?.personByToken)
-          setPersonUuid((value as PersonByToken)?.personByToken?.uuid);
+        if ((value as GetPerson)?.getPerson)
+          setPersonUuid((value as GetPerson)?.getPerson?.uuid);
       });
     }
   }, [personUuid]);
@@ -213,15 +211,11 @@ const AboutYouPage: NextPage = () => {
           </div>
           {isLogInVisible && (
             <LoginFormContainer
-              onCompleted={response => {
+              onCompleted={() => {
                 pushAuthorizationEventDataLayer();
-                // request person account after login
-                if (response.login !== null) {
-                  getPersonByToken({
-                    variables: {
-                      token: response.login,
-                    },
-                  });
+
+                if (isUserAuthenticated()) {
+                  getPerson();
                 }
               }}
             />

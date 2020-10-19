@@ -7,8 +7,13 @@
 // GraphQL mutation operation: LoginUserMutation
 // ====================================================
 
+export interface LoginUserMutation_loginV2 {
+  idToken: string | null;
+  accessToken: string | null;
+}
+
 export interface LoginUserMutation {
-  login: string | null;
+  loginV2: LoginUserMutation_loginV2 | null;
 }
 
 export interface LoginUserMutationVariables {

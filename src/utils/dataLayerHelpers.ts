@@ -9,7 +9,7 @@ import {
   GetVehicleDetails_vehicleConfigurationByCapId,
 } from '../../generated/GetVehicleDetails';
 import { OrderInputObject, LeaseTypeEnum } from '../../generated/globalTypes';
-import { PersonByToken } from '../../generated/PersonByToken';
+import { GetPerson } from '../../generated/GetPerson';
 import {
   GetOlafData_orderByUuid,
   GetOlafData_orderByUuid_lineItems,
@@ -140,10 +140,8 @@ export const pushPageData = async ({
   siteSection,
 }: IPageData) => {
   if (!window.dataLayer) return;
-  const personData = (await localForage.getItem(
-    'person',
-  )) as PersonByToken | null;
-  const person = personData?.personByToken;
+  const personData = (await localForage.getItem('person')) as GetPerson | null;
+  const person = personData?.getPerson;
 
   let data = {};
 
