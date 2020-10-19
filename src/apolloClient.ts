@@ -7,6 +7,7 @@ import localForage from 'localforage';
 const BaseLink = createHttpLink({
   uri: process.env.API_URL!,
   fetch,
+  credentials: 'include',
   headers: {
     'x-api-key': process.env.API_KEY!,
   },

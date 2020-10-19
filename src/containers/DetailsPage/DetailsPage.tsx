@@ -205,10 +205,19 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         .imageUrls as string[])) ||
     [];
 
-  const video =
+  let video =
     (data?.vehicleImages?.length &&
       (data?.vehicleImages as GetVehicleDetails_vehicleImages[])[0].videoUrl) ||
     undefined;
+
+  // Disable autostart on video.
+  if (video) {
+    if (video.includes('?')) {
+      video = `${video}&autostart=false`;
+    } else {
+      video = `${video}?autostart=false`;
+    }
+  }
 
   const threeSixtyVideo =
     (data?.vehicleImages?.length &&
@@ -483,7 +492,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             incomplete: true,
           }}
           images={vehicleImages}
-          videoSrc={video && `${video}&autostart=false`}
+          videoSrc={video && video}
           threeSixtyVideoSrc={threeSixtyVideo}
           videoIframe
         />

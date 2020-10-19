@@ -1,7 +1,8 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import React from 'react';
-import LoginFormContainer, { LOGIN_USER_MUTATION } from './LoginFormContainer';
+import LoginFormContainer from './LoginFormContainer';
+import { LOGIN_USER_MUTATION } from './gql';
 
 jest.mock('../../components/LoginForm/LoginForm');
 
