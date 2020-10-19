@@ -26,6 +26,7 @@ import { GET_COMPANIES_BY_PERSON_UUID } from '../../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
 import { pushAuthorizationEventDataLayer } from '../../../utils/dataLayerHelpers';
 import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
+import { isUserAuthenticated } from '../../../utils/authentication';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -119,7 +120,10 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
               <LoginFormContainer
                 onCompleted={() => {
                   pushAuthorizationEventDataLayer();
-                  getPerson();
+
+                  if (isUserAuthenticated()) {
+                    getPerson();
+                  }
                 }}
               />
             </TabPanel>

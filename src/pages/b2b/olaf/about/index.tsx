@@ -28,6 +28,7 @@ import {
 import { GetOlafData_orderByUuid } from '../../../../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../../../../generated/GetDerivative';
 import { MyOrdersTypeEnum } from '../../../../../generated/globalTypes';
+import { isUserAuthenticated } from '../../../../utils/authentication';
 
 const handleCreateUpdateBusinessPersonError = () =>
   toast.error(
@@ -159,7 +160,10 @@ export const BusinessAboutPage: NextPage = () => {
             <LoginFormContainer
               onCompleted={() => {
                 pushAuthorizationEventDataLayer();
-                getPerson();
+
+                if (isUserAuthenticated()) {
+                  getPerson();
+                }
               }}
             />
           )}

@@ -43,6 +43,7 @@ import { GET_COMPANIES_BY_PERSON_UUID } from '../../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
 import { GetOlafData_orderByUuid } from '../../../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../../../generated/GetDerivative';
+import { isUserAuthenticated } from '../../../utils/authentication';
 
 const GET_PERSON_QUERY = gql`
   query GetPerson {
@@ -212,7 +213,10 @@ const AboutYouPage: NextPage = () => {
             <LoginFormContainer
               onCompleted={() => {
                 pushAuthorizationEventDataLayer();
-                getPerson();
+
+                if (isUserAuthenticated()) {
+                  getPerson();
+                }
               }}
             />
           )}
