@@ -411,6 +411,11 @@ export interface GenericPageQuery_genericPage_sections_carousel {
   cards: (GenericPageQuery_genericPage_sections_carousel_cards | null)[] | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_tiles_tiles_link {
+  text: string | null;
+  url: string | null;
+}
+
 export interface GenericPageQuery_genericPage_sections_tiles_tiles_image_file {
   url: string;
   fileName: string;
@@ -426,7 +431,7 @@ export interface GenericPageQuery_genericPage_sections_tiles_tiles_image {
 export interface GenericPageQuery_genericPage_sections_tiles_tiles {
   body: string | null;
   title: string | null;
-  link: string | null;
+  link: GenericPageQuery_genericPage_sections_tiles_tiles_link | null;
   image: GenericPageQuery_genericPage_sections_tiles_tiles_image | null;
 }
 
