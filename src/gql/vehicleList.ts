@@ -33,7 +33,7 @@ export const VEHICLE_LIST_URL = gql`
 export function useVehicleListUrl(derivativeIds?: string[], after?: string) {
   return useQuery<VehicleListUrl, VehicleListUrlVariables>(VEHICLE_LIST_URL, {
     variables: { derivativeIds, after },
-    skip: !derivativeIds,
+    skip: !derivativeIds?.length || derivativeIds?.includes(''),
   });
 }
 

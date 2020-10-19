@@ -78,7 +78,7 @@ export const bodyUrls = [
   'saloon',
   'city-car',
   'small',
-  'crew-vans',
+  'crew-van',
   'dropside-tipper',
   'large-van',
   'medium-van',

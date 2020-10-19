@@ -112,13 +112,23 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
                 input: formValuesToInputCreditApplication({
                   ...getCreditApplicationByOrderUuidQuery.data
                     ?.creditApplicationByOrderUuid,
-                  aboutDetails: values,
+                  aboutDetails: {
+                    ...values,
+                    emailAddress: undefined,
+                    email: undefined,
+                    mobile: undefined,
+                    emailAddresses:
+                      data?.createUpdateBusinessPerson?.emailAddresses,
+                    telephoneNumbers:
+                      data?.createUpdateBusinessPerson?.telephoneNumbers,
+                  },
                   orderUuid: orderId,
                   creditApplicationType:
-                    values.companyType === CompanyTypes.limited ||
-                    values.companyType === CompanyTypes.partnership
-                      ? CATypeEnum.B2B_LIMITED
-                      : CATypeEnum.B2B_SOLE_TRADER,
+                    (values.companyType === CompanyTypes.limited &&
+                      CATypeEnum.B2B_LIMITED) ||
+                    (values.companyType === CompanyTypes.partnership &&
+                      CATypeEnum.B2B_REGISTERED_PARTNERSHIP) ||
+                    CATypeEnum.B2B_SOLE_TRADER,
                 }),
               },
             }).then(() => {

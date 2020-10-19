@@ -35,3 +35,5 @@ export const mapAboutPersonData = (person: AboutFormPerson) => {
     uuid: person.uuid,
   };
 };
+
+export const mapAboutDataCreditApp = () => ({});

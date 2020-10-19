@@ -34,6 +34,7 @@ interface IProps {
   isDynamicFilterPage: boolean;
   viewOffer: (productPageUrl: IProductPageUrl) => void;
   viewModel: (model: string) => void;
+  manualBodyStyle: string[];
 }
 
 const TopOffersContainer: React.FC<IProps> = ({
@@ -49,6 +50,7 @@ const TopOffersContainer: React.FC<IProps> = ({
   viewOffer,
   viewModel,
   isDynamicFilterPage,
+  manualBodyStyle,
 }: IProps) => {
   const router = useRouter();
 
@@ -76,6 +78,7 @@ const TopOffersContainer: React.FC<IProps> = ({
   // using onCompleted callback for request card data after vehicle list was loaded
   const [getVehicles] = useVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
+    isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
     true,
     async vehicles => {
       try {
@@ -120,12 +123,20 @@ const TopOffersContainer: React.FC<IProps> = ({
   // API call after load new pages
   useEffect(() => {
     if (isSpecialOfferPage) getVehicles();
-    if (isMakePage || isRangePage || isDynamicFilterPage) {
+    // don't made request for BodyPage if bodyStyle isn't preselected
+    if (
+      isMakePage ||
+      isRangePage ||
+      (isDynamicFilterPage && !(isBodyPage && !manualBodyStyle))
+    ) {
       getVehicles({
         variables: {
           vehicleTypes: isCarSearch
             ? [VehicleTypeEnum.CAR]
             : [VehicleTypeEnum.LCV],
+          leaseType: isPersonal
+            ? LeaseTypeEnum.PERSONAL
+            : LeaseTypeEnum.BUSINESS,
           onOffer: true,
           sortField: SortField.offerRanking,
           sortDirection: SortDirection.ASC,
@@ -133,9 +144,7 @@ const TopOffersContainer: React.FC<IProps> = ({
             isMakePage || isRangePage
               ? (router.query?.dynamicParam as string)
               : undefined,
-          bodyStyles: isBodyPage
-            ? [(router.query?.dynamicParam as string).replace('-', ' ')]
-            : undefined,
+          bodyStyles: isBodyPage ? manualBodyStyle : undefined,
           transmissions: isTransmissionPage
             ? [router.query?.dynamicParam as string]
             : undefined,
@@ -165,6 +174,7 @@ const TopOffersContainer: React.FC<IProps> = ({
     isDynamicFilterPage,
     isFuelPage,
     isPersonal,
+    manualBodyStyle,
   ]);
 
   // using for get vehicles for carousel when we switching between pages by header links
@@ -178,6 +188,9 @@ const TopOffersContainer: React.FC<IProps> = ({
           vehicleTypes: isCarSearch
             ? [VehicleTypeEnum.CAR]
             : [VehicleTypeEnum.LCV],
+          leaseType: isPersonal
+            ? LeaseTypeEnum.PERSONAL
+            : LeaseTypeEnum.BUSINESS,
           onOffer: true,
           sortField: SortField.offerRanking,
           sortDirection: SortDirection.ASC,
@@ -208,6 +221,7 @@ const TopOffersContainer: React.FC<IProps> = ({
     isTransmissionPage,
     isDynamicFilterPage,
     getVehicles,
+    isPersonal,
   ]);
 
   const getCardData = (capId: string, dataForCards = cardsData) =>

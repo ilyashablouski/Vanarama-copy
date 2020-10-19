@@ -25,6 +25,7 @@ import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useLazyQuery } from '@apollo/client';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
+import { findPreselectFilterValue } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
 import { GENERIC_PAGE, GENERIC_PAGE_HEAD } from '../../gql/genericPage';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -167,19 +168,27 @@ const SearchPageContainer: React.FC<IProps> = ({
     if (isPickups) return ['Pickup'];
     if (isModelPage) return [router.query?.bodyStyles as string];
     if (isBodyStylePage) {
-      const bodyStyle = (router.query?.dynamicParam as string).replace(
-        '-leasing',
-        '',
-      );
+      const bodyStyle = (router.query?.dynamicParam as string)
+        .replace('-leasing', '')
+        .replace('-', ' ');
       // city-car is only one style with '-' we shouldn't to replace it
       return [
         bodyStyle.toLowerCase() === 'city-car'
-          ? bodyStyle
-          : bodyStyle.replace('-', ' '),
+          ? findPreselectFilterValue(bodyStyle, filtersData.bodyStyles)
+          : findPreselectFilterValue(
+              bodyStyle.replace('-', ' '),
+              filtersData.bodyStyles,
+            ),
       ];
     }
     return [''];
-  }, [isPickups, isModelPage, router.query, isBodyStylePage]);
+  }, [
+    isPickups,
+    isModelPage,
+    router.query,
+    isBodyStylePage,
+    filtersData.bodyStyles,
+  ]);
 
   // get Caps ids for product card request
   const getCapsIds = (data: (IVehicles | null)[]) =>
@@ -188,6 +197,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   // using onCompleted callback for request card data after vehicle list was loaded
   const [getVehicles, { data }] = useVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
+    isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
     isMakePage || isDynamicFilterPage || isSpecialOfferPage
       ? true
       : isSpecialOffers || null,
@@ -218,6 +228,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   // using for cache request
   const [getVehiclesCache, { data: cacheData }] = useVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
+    isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
     isRangePage ? null : isSpecialOffers || null,
     async vehicles => {
       try {
@@ -296,6 +307,9 @@ const SearchPageContainer: React.FC<IProps> = ({
           vehicleTypes: isCarSearch
             ? [VehicleTypeEnum.CAR]
             : [VehicleTypeEnum.LCV],
+          leaseType: isPersonal
+            ? LeaseTypeEnum.PERSONAL
+            : LeaseTypeEnum.BUSINESS,
           onOffer,
           ...filters,
           sortField: isSpecialOffers ? SortField.offerRanking : sortOrder.type,
@@ -305,7 +319,8 @@ const SearchPageContainer: React.FC<IProps> = ({
           ...{
             bodyStyles:
               isPickups || isModelPage || isBodyStylePage
-                ? manualBodyStyle
+                ? (filters.bodyStyles[0] && filters.bodyStyles) ||
+                  manualBodyStyle
                 : filters.bodyStyles,
             transmissions: isTransmissionPage
               ? [(router.query.dynamicParam as string).replace('-', ' ')]
@@ -445,6 +460,9 @@ const SearchPageContainer: React.FC<IProps> = ({
           vehicleTypes: isCarSearch
             ? [VehicleTypeEnum.CAR]
             : [VehicleTypeEnum.LCV],
+          leaseType: isPersonal
+            ? LeaseTypeEnum.PERSONAL
+            : LeaseTypeEnum.BUSINESS,
           onOffer: !(isRangePage || isModelPage || isDynamicFilterPage)
             ? isSpecialOffers || null
             : null,
@@ -469,6 +487,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     isDynamicFilterPage,
     sortOrder.direction,
     sortOrder.type,
+    isPersonal,
   ]);
 
   // set capsIds for cached data
@@ -769,6 +788,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           isSpecialOfferPage={isSpecialOfferPage || false}
           viewOffer={viewOffer}
           viewModel={viewModel}
+          manualBodyStyle={manualBodyStyle}
         />
       )}
       {!isMakePage &&
@@ -943,38 +963,31 @@ const SearchPageContainer: React.FC<IProps> = ({
       {pageData && (
         <>
           {(isRangePage || isDynamicFilterPage) && (
-            <>
-              <div className="row:title">
-                <Heading size="large" color="black">
-                  {metaData?.name}
-                </Heading>
+            <div className="row:text -columns">
+              <div>
+                <ReactMarkdown
+                  source={pageData?.genericPage.body || ''}
+                  escapeHtml={false}
+                  renderers={{
+                    link: props => {
+                      const { href, children } = props;
+                      return (
+                        <RouterLink
+                          link={{ href, label: children }}
+                          classNames={{ color: 'teal' }}
+                        />
+                      );
+                    },
+                    heading: props => (
+                      <Text {...props} size="lead" color="darker" tag="h3" />
+                    ),
+                    paragraph: props => (
+                      <Text {...props} tag="p" color="darker" />
+                    ),
+                  }}
+                />
               </div>
-              <div className="row:text -columns">
-                <div>
-                  <ReactMarkdown
-                    source={pageData?.genericPage.body || ''}
-                    escapeHtml={false}
-                    renderers={{
-                      link: props => {
-                        const { href, children } = props;
-                        return (
-                          <RouterLink
-                            link={{ href, label: children }}
-                            classNames={{ color: 'teal' }}
-                          />
-                        );
-                      },
-                      heading: props => (
-                        <Text {...props} size="lead" color="darker" tag="h3" />
-                      ),
-                      paragraph: props => (
-                        <Text {...props} tag="p" color="darker" />
-                      ),
-                    }}
-                  />
-                </div>
-              </div>
-            </>
+            </div>
           )}
           {featured && (
             <div className={`row:${getFeaturedClassPartial(featured)}`}>
@@ -984,7 +997,11 @@ const SearchPageContainer: React.FC<IProps> = ({
                 src={featured.image?.file?.url || ''}
               />
               <div>
-                <Heading tag="span" size="large" color="black">
+                <Heading
+                  tag={featured.titleTag || 'span'}
+                  size="large"
+                  color="black"
+                >
                   {featured.title}
                 </Heading>
                 <ReactMarkdown

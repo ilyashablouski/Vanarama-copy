@@ -3,18 +3,18 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { LeaseTypeEnum, VehicleTypeEnum } from "./globalTypes";
+import { MyOrdersTypeEnum, LeaseTypeEnum, VehicleTypeEnum } from "./globalTypes";
 
 // ====================================================
-// GraphQL query operation: GetOrdersByPartyUuid
+// GraphQL query operation: GetMyOrders
 // ====================================================
 
-export interface GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_creditApplications {
+export interface GetMyOrders_myOrders_lineItems_creditApplications {
   status: string;
   uuid: string;
 }
 
-export interface GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct {
+export interface GetMyOrders_myOrders_lineItems_vehicleProduct {
   derivativeCapId: string;
   description: string | null;
   vsku: string | null;
@@ -32,7 +32,7 @@ export interface GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct
   vehicleType: VehicleTypeEnum;
 }
 
-export interface GetOrdersByPartyUuid_ordersByPartyUuid_lineItems {
+export interface GetMyOrders_myOrders_lineItems {
   createdAt: any | null;
   leadManagerQuoteId: string | null;
   productId: string;
@@ -41,11 +41,11 @@ export interface GetOrdersByPartyUuid_ordersByPartyUuid_lineItems {
   status: string | null;
   updatedAt: any | null;
   uuid: string;
-  creditApplications: GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_creditApplications[] | null;
-  vehicleProduct: GetOrdersByPartyUuid_ordersByPartyUuid_lineItems_vehicleProduct | null;
+  creditApplications: GetMyOrders_myOrders_lineItems_creditApplications[] | null;
+  vehicleProduct: GetMyOrders_myOrders_lineItems_vehicleProduct | null;
 }
 
-export interface GetOrdersByPartyUuid_ordersByPartyUuid {
+export interface GetMyOrders_myOrders {
   uuid: string;
   id: string;
   leaseType: LeaseTypeEnum;
@@ -53,20 +53,17 @@ export interface GetOrdersByPartyUuid_ordersByPartyUuid {
   status: string;
   createdAt: any | null;
   updatedAt: any | null;
-  lineItems: GetOrdersByPartyUuid_ordersByPartyUuid_lineItems[];
+  lineItems: GetMyOrders_myOrders_lineItems[];
 }
 
-export interface GetOrdersByPartyUuid {
+export interface GetMyOrders {
   /**
-   * Get orders by party_uuid
+   * Get orders by party_uuid and filter
    */
-  ordersByPartyUuid: GetOrdersByPartyUuid_ordersByPartyUuid[];
+  myOrders: GetMyOrders_myOrders[];
 }
 
-export interface GetOrdersByPartyUuidVariables {
+export interface GetMyOrdersVariables {
   partyUuid: string[];
-  statuses?: string[] | null;
-  excludeStatuses?: string[] | null;
-  statusesCA?: string[] | null;
-  exStatusesCA?: string[] | null;
+  filter: MyOrdersTypeEnum;
 }

@@ -26,11 +26,10 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
             </strong>
           </p>
           <div
-            class="image hero--image -expand -plain"
+            class="lazyload-wrapper"
           >
-            <img
-              class="image--native"
-              src="https://www.vanarama.com/assets/images/insurance/home-hero/insurance-hero.png"
+            <div
+              class="lazyload-placeholder"
             />
           </div>
         </div>
@@ -566,12 +565,10 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
         </p>
       </div>
       <div
-        class="image -expand"
+        class="lazyload-wrapper"
       >
-        <img
-          alt="AudiQ30718 4 k5ojqt"
-          class="image--native"
-          src="//images.ctfassets.net/3xid768u5joa/2QbzKD75ObIHIeVMzNeCF/1455166780ba4eb095c965e278a63b69/AudiQ30718_4_k5ojqt.jpg"
+        <div
+          class="lazyload-placeholder"
         />
       </div>
     </div>

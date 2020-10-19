@@ -19,11 +19,10 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         class="row:featured-image"
       >
         <div
-          class="image -white -expand"
+          class="lazyload-wrapper"
         >
-          <img
-            class="image--native"
-            src="//images.ctfassets.net/3xid768u5joa/2FgrgR6JOuvUgIGRmV5rZg/648465d10d6aa137a720013270728029/maxus-top-electric-vans.jpg"
+          <div
+            class="lazyload-placeholder"
           />
         </div>
       </div>
@@ -43,7 +42,109 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           **If I was to scour the internet for the best lease deals on an electric van I would probably find only 4 electric vehicles available for sale.
         </p>
       </article>
-      <div />
+      <div>
+        <span
+          class="heading -black -large"
+        >
+          Related Articles
+        </span>
+        <div
+          class="card card__article"
+          data-testid="card"
+        >
+          <img
+            class="card-image"
+            data-testid="card-image"
+          />
+          <div
+            class="title"
+          >
+            <a
+              class="heading -black -lead"
+              href="/blog/vans/4-year-mot-exemption"
+            >
+              4-year MoT exemption period could save YOU money!
+            </a>
+          </div>
+          <span
+            class="text -regular -dark"
+            data-testid="card-description"
+          >
+            Test1...
+          </span>
+          <a
+            class="link -teal -regular"
+            data-testid="router-link"
+            href="/blog/vans/4-year-mot-exemption"
+          >
+            Read More
+          </a>
+        </div>
+        <div
+          class="card card__article"
+          data-testid="card"
+        >
+          <img
+            class="card-image"
+            data-testid="card-image"
+          />
+          <div
+            class="title"
+          >
+            <a
+              class="heading -black -lead"
+              href="/blog/vans/top-5-electric-vans"
+            >
+              Top 5 Electric Vans… Sort Of
+            </a>
+          </div>
+          <span
+            class="text -regular -dark"
+            data-testid="card-description"
+          >
+            Test2...
+          </span>
+          <a
+            class="link -teal -regular"
+            data-testid="router-link"
+            href="/blog/vans/top-5-electric-vans"
+          >
+            Read More
+          </a>
+        </div>
+        <div
+          class="card card__article"
+          data-testid="card"
+        >
+          <img
+            class="card-image"
+            data-testid="card-image"
+          />
+          <div
+            class="title"
+          >
+            <a
+              class="heading -black -lead"
+              href="/blog/vans/5-things-we-love-about-peugeot-boxer"
+            >
+              5 Things We Love About Peugeot Boxer
+            </a>
+          </div>
+          <span
+            class="text -regular -dark"
+            data-testid="card-description"
+          >
+            Test3...
+          </span>
+          <a
+            class="link -teal -regular"
+            data-testid="router-link"
+            href="/blog/vans/5-things-we-love-about-peugeot-boxer"
+          >
+            Read More
+          </a>
+        </div>
+      </div>
     </div>
     <script
       type="application/ld+json"

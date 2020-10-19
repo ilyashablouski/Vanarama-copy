@@ -89,12 +89,30 @@ describe('B2B About You page', () => {
         result: {
           data: {
             createUpdateBusinessPerson: {
-              uuid: 'f16564ce-b076-4a8d-aa6c-b4c394f090c9',
-              companies: [
+              uuid: '84e78193-c7dc-4859-b483-9f9e8d46a126',
+              emailAddresses: [
                 {
-                  uuid: '6b4b95b3-8fa4-47e8-8846-ce478ef85169',
+                  createdAt: '2020-09-08T15:07:53.541+00:00',
+                  kind: 'Home',
+                  partyId: '2252',
+                  primary: true,
+                  updatedAt: '2020-09-08T15:07:53.541+00:00',
+                  uuid: 'e7379b53-3059-44d9-9185-4b188505a2b5',
+                  value: 'a.douhal@reply.com',
                 },
               ],
+              telephoneNumbers: [
+                {
+                  createdAt: '2020-10-13T11:57:09.064+00:00',
+                  kind: 'Mobile',
+                  partyId: '2252',
+                  primary: true,
+                  updatedAt: '2020-10-13T11:57:09.064+00:00',
+                  uuid: '2f6f6d7f-89d9-42b4-97e0-d1544591b219',
+                  value: '01323223323',
+                },
+              ],
+              __typename: 'PersonType',
             },
           } as SaveBusinessAboutYou,
         },

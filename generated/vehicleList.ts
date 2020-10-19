@@ -98,4 +98,5 @@ export interface vehicleListVariables {
   sortField: SortField;
   first?: number | null;
   sortDirection: SortDirection;
+  leaseType?: LeaseTypeEnum | null;
 }
