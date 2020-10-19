@@ -13,6 +13,7 @@ import {
   useSoleTraderDetailsFormDataQuery,
   useUpdateSoleTraderMutation,
 } from './gql';
+import { UpdateSoleTraderMutation } from '../../../generated/UpdateSoleTraderMutation';
 
 const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerProps> = ({
   personUuid,
@@ -69,6 +70,7 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
 
   const handleCreditApplicationUpdate = (
     values: ISoleTraderDetailsFormValues,
+    resp: UpdateSoleTraderMutation,
   ) =>
     createUpdateApplication({
       variables: {
@@ -77,7 +79,11 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
             ?.creditApplicationByOrderUuid,
           soleTraderDetails: {
             uuid: companyUuid,
-            associate: formValuesToAssociate(values, personUuid),
+            associate: {
+              ...formValuesToAssociate(values, personUuid),
+              addresses:
+                resp?.updateCompanySoleTrader?.associates?.[0].addresses,
+            },
           },
           orderUuid: orderId,
         }),
@@ -94,7 +100,12 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
       isEdited={isEdited}
       onSubmit={async values => {
         handleSoleTraderDetailsSave(values)
-          .then(() => handleCreditApplicationUpdate(values))
+          .then(({ data }) =>
+            handleCreditApplicationUpdate(
+              values,
+              data || ({} as UpdateSoleTraderMutation),
+            ),
+          )
           .then(onCompleted)
           .catch(onError);
       }}

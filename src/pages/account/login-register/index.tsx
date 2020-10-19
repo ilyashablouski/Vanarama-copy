@@ -20,10 +20,12 @@ import {
   usePersonByTokenLazyQuery,
   handleAccountFetchError,
 } from '../../olaf/about';
-import { GET_ORDERS_BY_PARTY_UUID_DATA } from '../../../containers/OrdersInformation/gql';
+import { GET_MY_ORDERS_DATA } from '../../../containers/OrdersInformation/gql';
 import { useImperativeQuery } from '../../../hooks/useImperativeQuery';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
+import { pushAuthorizationEventDataLayer } from '../../../utils/dataLayerHelpers';
+import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -42,7 +44,7 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
   const [activeTab, setActiveTab] = useState(1);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
-  const getOrdersData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);
+  const getOrdersData = useImperativeQuery(GET_MY_ORDERS_DATA);
   const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
 
   const [getPersonByToken] = usePersonByTokenLazyQuery(async data => {
@@ -58,23 +60,15 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
     });
     getOrdersData({
       partyUuid,
-      excludeStatuses: ['quote', 'expired', 'new'],
-      statuses: null,
+      filter: MyOrdersTypeEnum.ALL_ORDERS,
     }).then(response => {
-      localForage.setItem(
-        'ordersLength',
-        response.data?.ordersByPartyUuid.length,
-      );
+      localForage.setItem('ordersLength', response.data?.myOrders.length);
     });
     getOrdersData({
       partyUuid,
-      statuses: ['quote', 'new'],
-      excludeStatuses: ['expired'],
+      filter: MyOrdersTypeEnum.ALL_QUOTES,
     }).then(response => {
-      localForage.setItem(
-        'quotesLength',
-        response.data?.ordersByPartyUuid.length,
-      );
+      localForage.setItem('quotesLength', response.data?.myOrders.length);
     });
 
     // Redirect to the user's previous route or homepage.
@@ -124,6 +118,7 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
             <TabPanel index={1}>
               <LoginFormContainer
                 onCompleted={async data => {
+                  pushAuthorizationEventDataLayer();
                   if (data.login !== null) {
                     // Put the token in localStorage
                     await localForage.setItem('token', data.login);
@@ -139,7 +134,10 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
             </TabPanel>
             <TabPanel index={2}>
               <RegisterFormContainer
-                onCompleted={() => setRegistrationSuccess(true)}
+                onCompleted={() => {
+                  pushAuthorizationEventDataLayer(true);
+                  setRegistrationSuccess(true);
+                }}
                 onError={handleRegisterError}
               />
             </TabPanel>

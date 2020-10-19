@@ -1,4 +1,6 @@
 import React from 'react';
+// @ts-ignore
+import preloadAll from 'jest-next-dynamic';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
 import FleetLandingPage from '../FleetLandingPage';
@@ -117,6 +119,10 @@ const mocked: MockedResponse[] = [
 ];
 
 describe('<FleetLandingPage />', () => {
+  beforeAll(async () => {
+    await preloadAll();
+  });
+
   it('should render hero section correctly', async () => {
     // ACT
     render(

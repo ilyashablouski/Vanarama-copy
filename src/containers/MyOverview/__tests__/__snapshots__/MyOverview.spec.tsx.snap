@@ -131,12 +131,12 @@ Array [
             Oldest To Newest
           </option>
           <option
-            value="rate_ASC"
+            value="rate_DESC"
           >
             Price low to high
           </option>
           <option
-            value="rate_DESC"
+            value="rate_ASC"
           >
             Price high to low
           </option>
@@ -491,12 +491,12 @@ Array [
             Oldest To Newest
           </option>
           <option
-            value="rate_ASC"
+            value="rate_DESC"
           >
             Price low to high
           </option>
           <option
-            value="rate_DESC"
+            value="rate_ASC"
           >
             Price high to low
           </option>

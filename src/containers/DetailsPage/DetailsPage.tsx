@@ -16,9 +16,8 @@ import cx from 'classnames';
 import {
   pushPDPDataLayer,
   pushAddToCartDataLayer,
-  pushPageData,
   getCategory,
-  pushPDPCallBackDataLayer,
+  pushCallBackDataLayer,
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
 import { toPriceFormat } from '../../utils/helpers';
@@ -85,11 +84,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const { data: genericPageHead } = useGenericPageHead(
     Router.asPath.slice(1, -5),
   );
-
-  useEffect(() => {
-    pushPageData('PDP', cars ? 'Cars' : 'Vans');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     setCachedLeaseType(leaseType);
@@ -441,7 +435,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const onCompletedCallBack = () => {
     const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
 
-    pushPDPCallBackDataLayer({
+    pushCallBackDataLayer({
       capId,
       derivativeInfo,
       vehicleConfigurationByCapId,

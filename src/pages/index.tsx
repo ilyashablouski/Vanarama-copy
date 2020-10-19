@@ -1,30 +1,32 @@
 import { NextPage } from 'next';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Router from 'next/router';
+import dynamic from 'next/dynamic';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import ReactMarkdown from 'react-markdown/with-html';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Image from '@vanarama/uibook/lib/components/atoms/image';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
-import Tab from '@vanarama/uibook/lib/components/molecules/tabs/Tab';
-import TabList from '@vanarama/uibook/lib/components/molecules/tabs/TabList';
-import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
-import TabPanels from '@vanarama/uibook/lib/components/molecules/tabs/TabPanels';
-import Tile from '@vanarama/uibook/lib/components/molecules/tile';
-import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
-import IconList, {
-  IconListItem,
-} from '@vanarama/uibook/lib/components/organisms/icon-list';
-import League from '@vanarama/uibook/lib/components/organisms/league';
-import Media from '@vanarama/uibook/lib/components/atoms/media';
 import Head from '../components/Head/Head';
-
-import RouterLink from '../components/RouterLink/RouterLink';
+// import Button from '@vanarama/uibook/lib/components/atoms/button';
+// import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+// import Image from '@vanarama/uibook/lib/components/atoms/image';
+// import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+// import Text from '@vanarama/uibook/lib/components/atoms/text';
+// import Card from '@vanarama/uibook/lib/components/molecules/cards';
+// import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
+// import Tab from '@vanarama/uibook/lib/components/molecules/tabs/Tab';
+// import TabList from '@vanarama/uibook/lib/components/molecules/tabs/TabList';
+// import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
+// import TabPanels from '@vanarama/uibook/lib/components/molecules/tabs/TabPanels';
+// import Tile from '@vanarama/uibook/lib/components/molecules/tile';
+// import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
+// import IconList, {
+//   IconListItem,
+// } from '@vanarama/uibook/lib/components/organisms/icon-list';
+// import League from '@vanarama/uibook/lib/components/organisms/league';
+// import Media from '@vanarama/uibook/lib/components/atoms/media';
+// import RouterLink from '../components/RouterLink/RouterLink';
+// import Hero, { HeroHeading, HeroTitle } from '../components/Hero';
+// import ProductCarousel from '../components/ProductCarousel/ProductCarousel';
 import {
   HomePageData,
   HomePageData_homePage_sections_tiles_tiles as TileData,
@@ -32,12 +34,10 @@ import {
   HomePageData_homePage_sections_featured1_iconList as IIconList,
 } from '../../generated/HomePageData';
 import { ProductCardData } from '../../generated/ProductCardData';
-import Hero, { HeroHeading, HeroTitle } from '../components/Hero';
 import { ALL_HOME_CONTENT } from '../gql/homepage';
 import { PRODUCT_CARD_CONTENT } from '../gql/productCard';
 import withApollo from '../hocs/withApollo';
 import { LeaseTypeEnum, VehicleTypeEnum } from '../../generated/globalTypes';
-import ProductCarousel from '../components/ProductCarousel/ProductCarousel';
 import { useCarDerivativesData } from '../containers/OrdersInformation/gql';
 import getTitleTag from '../utils/getTitleTag';
 import useLeaseType from '../hooks/useLeaseType';
@@ -48,11 +48,83 @@ import {
 } from '../gql/vehicleList';
 import TileLink from '../components/TileLink/TileLink';
 
+// Dynamic component loading
+const Button = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/button'),
+);
+const Heading = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/heading'),
+);
+const Image = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/image'),
+);
+const Loading = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/loading'),
+);
+const Text = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/text'),
+);
+const Card = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/cards'),
+);
+const Tabs = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/tabs'),
+);
+const Tab = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/tabs/Tab'),
+);
+const TabList = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/tabs/TabList'),
+);
+const TabPanel = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/tabs/TabPanel'),
+);
+const TabPanels = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/tabs/TabPanels'),
+);
+const Tile = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/tile'),
+);
+const TrustPilot = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/trustpilot'),
+);
+const IconList = dynamic(() =>
+  import('@vanarama/uibook/lib/components/organisms/icon-list'),
+);
+// @ts-ignore
+const IconListItem = dynamic(() =>
+  import('@vanarama/uibook/lib/components/organisms/icon-list').then(
+    mod => mod.IconListItem,
+  ),
+);
+const League = dynamic(() =>
+  import('@vanarama/uibook/lib/components/organisms/league'),
+);
+const Media = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/media'),
+);
+const Hero = dynamic(() => import('../components/Hero'));
+// @ts-ignore
+const HeroHeading = dynamic(() =>
+  import('../components/Hero').then(mod => mod.HeroHeading),
+);
+// @ts-ignore
+const HeroTitle = dynamic(() =>
+  import('../components/Hero').then(mod => mod.HeroTitle),
+);
+const ProductCarousel = dynamic(() =>
+  import('../components/ProductCarousel/ProductCarousel'),
+);
+const RouterLink = dynamic(() => import('../components/RouterLink/RouterLink'));
+
 export const HomePage: NextPage = () => {
   const [activeTab, setActiveTab] = useState(0);
+  const [derivativeIds, setDerivativeIds] = useState<string[]>([]);
   const { cachedLeaseType } = useLeaseType(null);
+  // TODO: should be moved to server side request
   const { data, loading, error } = useQuery<HomePageData>(ALL_HOME_CONTENT);
 
+  // TODO: should be moved to server side request
   const { data: productsVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
@@ -65,14 +137,18 @@ export const HomePage: NextPage = () => {
     },
   );
 
-  const productsVanCapIds = productsVan?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
+  const productsVanCapIds = useMemo(
+    () => productsVan?.productCarousel?.map(el => el?.capId || '') || [''],
+    [productsVan],
+  );
+
+  // TODO: should be moved to server side request
   const { data: productsVanDerivatives } = useCarDerivativesData(
     productsVanCapIds,
     VehicleTypeEnum.LCV,
   );
 
+  // TODO: should be moved to server side request
   const { data: productsCar } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
@@ -80,14 +156,18 @@ export const HomePage: NextPage = () => {
     },
   );
 
-  const productsCarCapIds = productsCar?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
+  const productsCarCapIds = useMemo(
+    () => productsCar?.productCarousel?.map(el => el?.capId || '') || [''],
+    [productsCar],
+  );
+
+  // TODO: should be moved to server side request
   const { data: productsCarDerivatives } = useCarDerivativesData(
     productsCarCapIds,
     VehicleTypeEnum.CAR,
   );
 
+  // TODO: should be moved to server side request
   const { data: productsPickUp } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
     {
@@ -100,22 +180,32 @@ export const HomePage: NextPage = () => {
     },
   );
 
-  const productsPickUpCapIds = productsPickUp?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
+  const productsPickUpCapIds = useMemo(
+    () => productsPickUp?.productCarousel?.map(el => el?.capId || '') || [''],
+    [productsPickUp],
+  );
+  // TODO: should be moved to server side request
+
   const { data: productsPickUpDerivatives } = useCarDerivativesData(
     productsPickUpCapIds,
     VehicleTypeEnum.LCV,
   );
 
-  const derivativeIds = [
-    ...productsPickUpCapIds,
-    ...productsVanCapIds,
-    ...productsCarCapIds,
-  ];
   const vehicleListUrlQuery = useVehicleListUrl(derivativeIds);
 
   useVehicleListUrlFetchMore(vehicleListUrlQuery, derivativeIds);
+
+  useEffect(() => {
+    const ids = [
+      ...productsPickUpCapIds,
+      ...productsVanCapIds,
+      ...productsCarCapIds,
+    ];
+    // if Ids array contain empty string don't set DerivativeIds because it will lead to request error
+    if (!ids.includes('')) {
+      setDerivativeIds(ids);
+    }
+  }, [productsPickUpCapIds, productsVanCapIds, productsCarCapIds]);
 
   if (loading) {
     return <Loading size="large" />;

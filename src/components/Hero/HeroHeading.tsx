@@ -1,6 +1,11 @@
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import dynamic from 'next/dynamic';
+// import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import getTitleTag from '../../utils/getTitleTag';
 import { IHeroHeadingProps } from './interface';
+
+const Heading = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/heading'),
+);
 
 const HeroHeading: React.FC<IHeroHeadingProps> = ({ text, titleTag }) => {
   return (

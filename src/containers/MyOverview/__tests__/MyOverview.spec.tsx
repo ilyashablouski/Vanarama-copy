@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import MyOverview from '../MyOverview';
 import {
-  useOrdersByPartyUuidData,
+  useMyOrdersData,
   useCarDerivativesData,
 } from '../../OrdersInformation/gql';
 import { LeaseTypeEnum } from '../../../../generated/globalTypes';
@@ -28,7 +28,7 @@ const mockOrdersValue = [
   {
     loading: false,
     data: {
-      ordersByPartyUuid: [
+      myOrders: [
         {
           id: 'id',
           leaseType: LeaseTypeEnum.PERSONAL,
@@ -121,7 +121,7 @@ describe('<MyOverview />', () => {
   });
 
   it('renders quotes correctly with data', async () => {
-    (useOrdersByPartyUuidData as jest.Mock).mockReturnValue(mockOrdersValue);
+    (useMyOrdersData as jest.Mock).mockReturnValue(mockOrdersValue);
 
     (useCarDerivativesData as jest.Mock).mockReturnValue(mockCarValue);
 
@@ -134,7 +134,7 @@ describe('<MyOverview />', () => {
   });
 
   it('renders orders correctly with data', async () => {
-    (useOrdersByPartyUuidData as jest.Mock).mockReturnValue(mockOrdersValue);
+    (useMyOrdersData as jest.Mock).mockReturnValue(mockOrdersValue);
 
     (useCarDerivativesData as jest.Mock).mockReturnValue(mockCarValue);
 
@@ -147,7 +147,7 @@ describe('<MyOverview />', () => {
   });
 
   it('renders correctly with error', async () => {
-    (useOrdersByPartyUuidData as jest.Mock).mockReturnValue([
+    (useMyOrdersData as jest.Mock).mockReturnValue([
       jest.fn(),
       {
         loading: false,
@@ -165,7 +165,7 @@ describe('<MyOverview />', () => {
   });
 
   it('renders correctly with loading', async () => {
-    (useOrdersByPartyUuidData as jest.Mock).mockReturnValue([
+    (useMyOrdersData as jest.Mock).mockReturnValue([
       jest.fn(),
       {
         loading: true,

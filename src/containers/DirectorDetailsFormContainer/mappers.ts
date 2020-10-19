@@ -26,13 +26,16 @@ export const mapFormValues = (
       addresses:
         addresses(director).length > 0 ? addresses(director) : undefined,
       gender: director.gender,
+      emailAddress: {
+        value: director.email || '',
+      },
       title: director.title,
       dateOfBirth: parseDate(
         director.dayOfBirth,
         director.monthOfBirth,
         director.yearOfBirth,
       ).format('YYYY-MM-DD'),
-      role: { position: 'director' },
+      role: { position: 'Director' },
       noOfDependants: director.numberOfDependants,
     })),
   };
@@ -56,6 +59,7 @@ export const mapDirectorDetails = (data: any): DirectorDetails => ({
   dayOfBirth: data?.day_of_birth,
   firstName: data?.first_name,
   gender: data?.gender,
+  email: data?.email,
   history: data?.history?.map((item: any) => ({
     month: item?.month,
     status: item?.status,

@@ -22,7 +22,11 @@ import { filtersConfig, budgets, filterFields } from './config';
 import { IFilterContainerProps, ISelectedFiltersState } from './interfaces';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
-import { findPreselectFilterValue, buildPreselectChoiseboxes } from './helpers';
+import {
+  findPreselectFilterValue,
+  buildPreselectChoiseboxes,
+  isInclude,
+} from './helpers';
 
 interface IChoiceBoxesData {
   [index: string]: IChoice[];
@@ -227,12 +231,16 @@ const FiltersContainer = ({
         const [key, values] = entry;
         if (key === 'rangeName') {
           const isExist = filtersData.groupedRanges?.some(element => {
-            const value = findPreselectFilterValue(
-              Array.isArray(values)
-                ? values[0].split('+').join(' ')
-                : values.split('+').join(' '),
-              element.children,
-            );
+            let value = '';
+            // if make correct then we are looking for a rangeName
+            if (isInclude(element.parent, router.query?.make as string)) {
+              value = findPreselectFilterValue(
+                Array.isArray(values)
+                  ? values[0].split('+').join(' ')
+                  : values.split('+').join(' '),
+                element.children,
+              );
+            }
             // saving model to temp because after set makes model will be removed
             if (value) {
               setTempModelName(value);

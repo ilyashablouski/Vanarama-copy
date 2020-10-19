@@ -45,6 +45,7 @@ export const GET_VEHICLE_LIST = gql`
     $sortField: SortField!
     $first: Int
     $sortDirection: SortDirection!
+    $leaseType: LeaseTypeEnum
   ) {
     vehicleList(
       first: $first
@@ -58,6 +59,7 @@ export const GET_VEHICLE_LIST = gql`
         bodyStyles: $bodyStyles
         transmissions: $transmissions
         fuelTypes: $fuelTypes
+        leaseType: $leaseType
       }
       sort: { field: $sortField, direction: $sortDirection }
     ) {
@@ -101,6 +103,7 @@ export const GET_VEHICLE_LIST = gql`
 
 export function useVehiclesList(
   vehicleTypes: VehicleTypeEnum[],
+  leaseType: LeaseTypeEnum,
   onOffer = false,
   onCompleted?: (data: vehicleList) => void,
   first = 9,
@@ -118,6 +121,7 @@ export function useVehiclesList(
     onCompleted,
     variables: {
       vehicleTypes,
+      leaseType,
       onOffer,
       after,
       manufacturerName,
