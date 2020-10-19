@@ -52,12 +52,10 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
     defaultValues,
   });
 
-  const endpoint = 'https://microblink-secure.motorama.com';
-
   const webcamRef = React.createRef<any>();
 
   const fetchData = () => {
-    const url = `${endpoint}/recognize/execute`;
+    const url = `${process?.env?.MICROBLINK_URL}/recognize/execute`;
 
     setLoadingData(true);
     setImgSrc(null);
@@ -148,16 +146,16 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
           title={notificationCamera ? 'Notification' : ''}
           text={
             !(camera || imgSrc || loadingData || notificationCamera)
-              ? 'Would like to access to the camera?'
+              ? 'Would you like to use your camera?'
               : ''
           }
           show={isModalShowing}
-          onRequestClose={() => onCloseModal()}
+          onRequestClose={onCloseModal}
         >
           {!(camera || imgSrc || loadingData || notificationCamera) && (
             <AccessCamera
               onClickYes={() => toggleCamera(true)}
-              onClickNo={() => onCloseModal()}
+              onClickNo={onCloseModal}
             />
           )}
           {!notificationCamera && camera && (
