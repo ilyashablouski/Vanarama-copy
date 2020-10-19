@@ -3,11 +3,10 @@ import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
 import withApollo from '../../hocs/withApollo';
 import { useGenericPage } from '../../gql/genericPage';
-import BlogPostContainer from '../../containers/BlogPostContainer/BlogPostContainer';
-import { getSectionsData } from '../../utils/getSectionsData';
+import FeaturedAndTilesContainer from '../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
-const BlogPost: NextPage = () => {
+const BlackFriday: NextPage = () => {
   const router = useRouter();
   const { data, loading, error } = useGenericPage(router.asPath.slice(1));
 
@@ -19,20 +18,11 @@ const BlogPost: NextPage = () => {
     return <ErrorMessage message={error.message} />;
   }
 
-  const body = getSectionsData(['body'], data?.genericPage);
-  const name = getSectionsData(['metaData', 'name'], data?.genericPage);
-  const image = getSectionsData(
-    ['featuredImage', 'file', 'url'],
-    data?.genericPage,
-  );
-  const cards = getSectionsData(
-    ['sections', 'cards', 'cards'],
-    data?.genericPage,
-  );
+  if (!data?.genericPage) {
+    return null;
+  }
 
-  return (
-    <BlogPostContainer body={body} name={name} image={image} cards={cards} />
-  );
+  return <FeaturedAndTilesContainer data={data} />;
 };
 
-export default withApollo(BlogPost);
+export default withApollo(BlackFriday);
