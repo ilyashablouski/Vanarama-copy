@@ -36,6 +36,7 @@ import {
 } from '../../generated/GenericPageHeadQuery';
 import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
 import { pushPageData } from '../utils/dataLayerHelpers';
+import { prepareSlugPart } from '../containers/SearchPageContainer/helpers';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   const [compareVehicles, setCompareVehicles] = useState<
@@ -48,7 +49,9 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   const [getPageHead, pageHead] = useLazyQuery<
     GenericPageHeadQuery,
     GenericPageHeadQueryVariables
-  >(GENERIC_PAGE_HEAD, { variables: { slug: router.asPath.slice(1) } });
+  >(GENERIC_PAGE_HEAD, {
+    variables: { slug: prepareSlugPart(router.asPath.slice(1).split('?')[0]) },
+  });
 
   useEffect(() => {
     // Anytime router.push is called, scroll to the top of the page.
@@ -99,8 +102,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     ) {
       getPageHead();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [router.asPath, getPageHead, router.pathname]);
 
   const compareChange = async (
     product?: IVehicle | IVehicleCarousel | null | undefined,
