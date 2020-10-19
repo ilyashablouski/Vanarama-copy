@@ -108,12 +108,7 @@ const HeaderContainer: FC = () => {
     return (
       <Header
         onLogOut={async () => {
-          const token = await localForage.getItem<string>('token');
-          await logOut({
-            variables: {
-              token,
-            },
-          });
+          await logOut();
           await localForage.clear();
         }}
         loginLink={LOGIN_LINK}
