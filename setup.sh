@@ -17,3 +17,4 @@ export GTM_ID="$(aws ssm get-parameter --name "/$ENV/$STACK/$APP/gtm-id" --regio
 export HOSTNAME="https://$ALTERNATEDOMAIN"
 export IMG_OPTIMISATION_HOST="https://vanarama.com"
 export PRERENDER_SERVICE_URL="https://prerender-service-production.herokuapp.com/"
+export MICROBLINK_URL="https://microblink-secure.motorama.com"

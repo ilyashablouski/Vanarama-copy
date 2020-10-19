@@ -50,7 +50,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     GenericPageHeadQuery,
     GenericPageHeadQueryVariables
   >(GENERIC_PAGE_HEAD, {
-    variables: { slug: prepareSlugPart(router.asPath.slice(1)) },
+    variables: { slug: prepareSlugPart(router.asPath.slice(1).split('?')[0]) },
   });
 
   useEffect(() => {
@@ -102,8 +102,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     ) {
       getPageHead();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [router.asPath, getPageHead, router.pathname]);
 
   const compareChange = async (
     product?: IVehicle | IVehicleCarousel | null | undefined,
