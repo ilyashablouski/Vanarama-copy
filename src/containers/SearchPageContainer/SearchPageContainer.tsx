@@ -542,9 +542,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         pathname: `/${href}/[dynamicParam]/[rangeName]`,
         query,
       },
-      `/${href}/${router.query.dynamicParam}/${range
-        .toLowerCase()
-        .replace(' ', '-')}`,
+      `/${href}/${router.query.dynamicParam}/${range}`,
       { shallow: true },
     );
   };
@@ -965,38 +963,31 @@ const SearchPageContainer: React.FC<IProps> = ({
       {pageData && (
         <>
           {(isRangePage || isDynamicFilterPage) && (
-            <>
-              <div className="row:title">
-                <Heading size="large" color="black">
-                  {metaData?.name}
-                </Heading>
+            <div className="row:text -columns">
+              <div>
+                <ReactMarkdown
+                  source={pageData?.genericPage.body || ''}
+                  escapeHtml={false}
+                  renderers={{
+                    link: props => {
+                      const { href, children } = props;
+                      return (
+                        <RouterLink
+                          link={{ href, label: children }}
+                          classNames={{ color: 'teal' }}
+                        />
+                      );
+                    },
+                    heading: props => (
+                      <Text {...props} size="lead" color="darker" tag="h3" />
+                    ),
+                    paragraph: props => (
+                      <Text {...props} tag="p" color="darker" />
+                    ),
+                  }}
+                />
               </div>
-              <div className="row:text -columns">
-                <div>
-                  <ReactMarkdown
-                    source={pageData?.genericPage.body || ''}
-                    escapeHtml={false}
-                    renderers={{
-                      link: props => {
-                        const { href, children } = props;
-                        return (
-                          <RouterLink
-                            link={{ href, label: children }}
-                            classNames={{ color: 'teal' }}
-                          />
-                        );
-                      },
-                      heading: props => (
-                        <Text {...props} size="lead" color="darker" tag="h3" />
-                      ),
-                      paragraph: props => (
-                        <Text {...props} tag="p" color="darker" />
-                      ),
-                    }}
-                  />
-                </div>
-              </div>
-            </>
+            </div>
           )}
           {featured && (
             <div className={`row:${getFeaturedClassPartial(featured)}`}>
