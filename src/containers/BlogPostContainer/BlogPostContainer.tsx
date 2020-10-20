@@ -3,6 +3,8 @@ import { NextPage } from 'next';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
+import Media from '@vanarama/uibook/lib/components/atoms/media';
 import ReactMarkdown from 'react-markdown';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery_genericPage_sections_cards_cards } from '../../../generated/GenericPageQuery';
@@ -11,8 +13,6 @@ import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import Head from '../../components/Head/Head';
 import { BlogPosts_blogPosts_articles } from '../../../generated/BlogPosts';
 import { getBody } from '../../utils/articles';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Media from '@vanarama/uibook/lib/components/atoms/media';
 
 interface IProps {
   body: string | null | undefined;
