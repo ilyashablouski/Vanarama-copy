@@ -67,9 +67,7 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
                 Breakdown Cover
               </span>
             </div>
-            <div
-              class=""
-            >
+            <div>
               <p
                 class="text -regular -dark"
               >
@@ -96,9 +94,7 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
                 At Home Cover
               </span>
             </div>
-            <div
-              class=""
-            >
+            <div>
               <p
                 class="text -regular -dark"
               >
@@ -125,9 +121,7 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
                 Recovery
               </span>
             </div>
-            <div
-              class=""
-            >
+            <div>
               <p
                 class="text -regular -dark"
               >
@@ -154,9 +148,7 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
                 Replacement Vehicle
               </span>
             </div>
-            <div
-              class=""
-            >
+            <div>
               <p
                 class="text -regular -dark"
               >
