@@ -49,7 +49,7 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
           style="padding-top: 10px;"
         >
           <div
-            class="card breakdown -inline"
+            class="card -inline"
             data-testid="card"
           >
             <img
@@ -67,9 +67,7 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
                 Breakdown Cover
               </span>
             </div>
-            <div
-              class=""
-            >
+            <div>
               <p
                 class="text -regular -dark"
               >
@@ -78,7 +76,7 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
             </div>
           </div>
           <div
-            class="card breakdown -inline"
+            class="card -inline"
             data-testid="card"
           >
             <img
@@ -96,9 +94,7 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
                 At Home Cover
               </span>
             </div>
-            <div
-              class=""
-            >
+            <div>
               <p
                 class="text -regular -dark"
               >
@@ -107,7 +103,7 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
             </div>
           </div>
           <div
-            class="card breakdown -inline"
+            class="card -inline"
             data-testid="card"
           >
             <img
@@ -125,9 +121,7 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
                 Recovery
               </span>
             </div>
-            <div
-              class=""
-            >
+            <div>
               <p
                 class="text -regular -dark"
               >
@@ -136,7 +130,7 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
             </div>
           </div>
           <div
-            class="card breakdown -inline"
+            class="card -inline"
             data-testid="card"
           >
             <img
@@ -154,9 +148,7 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
                 Replacement Vehicle
               </span>
             </div>
-            <div
-              class=""
-            >
+            <div>
               <p
                 class="text -regular -dark"
               >

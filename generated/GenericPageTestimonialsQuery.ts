@@ -11,6 +11,11 @@ export interface GenericPageTestimonialsQuery_genericPage_metaData {
   name: string | null;
 }
 
+export interface GenericPageTestimonialsQuery_genericPage_sections_tiles1_tiles_link {
+  text: string | null;
+  url: string | null;
+}
+
 export interface GenericPageTestimonialsQuery_genericPage_sections_tiles1_tiles_image_file {
   url: string;
   fileName: string;
@@ -26,7 +31,7 @@ export interface GenericPageTestimonialsQuery_genericPage_sections_tiles1_tiles_
 export interface GenericPageTestimonialsQuery_genericPage_sections_tiles1_tiles {
   body: string | null;
   title: string | null;
-  link: string | null;
+  link: GenericPageTestimonialsQuery_genericPage_sections_tiles1_tiles_link | null;
   image: GenericPageTestimonialsQuery_genericPage_sections_tiles1_tiles_image | null;
 }
 
@@ -36,6 +41,11 @@ export interface GenericPageTestimonialsQuery_genericPage_sections_tiles1 {
   tilesTitle: string | null;
   titleTag: string | null;
   tiles: GenericPageTestimonialsQuery_genericPage_sections_tiles1_tiles[] | null;
+}
+
+export interface GenericPageTestimonialsQuery_genericPage_sections_tiles2_tiles_link {
+  text: string | null;
+  url: string | null;
 }
 
 export interface GenericPageTestimonialsQuery_genericPage_sections_tiles2_tiles_image_file {
@@ -53,7 +63,7 @@ export interface GenericPageTestimonialsQuery_genericPage_sections_tiles2_tiles_
 export interface GenericPageTestimonialsQuery_genericPage_sections_tiles2_tiles {
   body: string | null;
   title: string | null;
-  link: string | null;
+  link: GenericPageTestimonialsQuery_genericPage_sections_tiles2_tiles_link | null;
   image: GenericPageTestimonialsQuery_genericPage_sections_tiles2_tiles_image | null;
 }
 
