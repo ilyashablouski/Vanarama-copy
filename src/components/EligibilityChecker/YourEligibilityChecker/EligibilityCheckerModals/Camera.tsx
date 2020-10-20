@@ -9,6 +9,10 @@ const Camera: FC<ICamera> = ({
   handleOnUserMedia,
   onClickCapture,
 }) => {
+  const videoConstraints = {
+    facingMode: 'user',
+  };
+
   return (
     <>
       <Webcam
@@ -18,6 +22,7 @@ const Camera: FC<ICamera> = ({
         width="100%"
         onUserMedia={handleOnUserMedia}
         onUserMediaError={handleOnUserMedia}
+        videoConstraints={videoConstraints}
       />
       <div className="-justify-content-row">
         <Button

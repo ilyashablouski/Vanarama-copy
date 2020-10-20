@@ -4,9 +4,12 @@ import { IDrivingLicence, IYourEligiblityCheckerValues } from './interface';
 export const responseBlinkIdToInitialFormValues = (
   drivingLicence: IDrivingLicence,
 ): IYourEligiblityCheckerValues => {
-  const dateOfBirth =
-    drivingLicence?.birthData &&
-    new Date(drivingLicence.birthData.split(' ')[0]);
+  const birthData = drivingLicence.birthData
+    .split(' ')[0]
+    .split('.')
+    .reverse()
+    .join('/');
+  const dateOfBirth = drivingLicence?.birthData && new Date(birthData);
 
   return {
     firstName: drivingLicence.firstName || '',
