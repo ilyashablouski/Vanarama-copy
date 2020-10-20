@@ -15,12 +15,7 @@ async function fetchRewritesList() {
   });
 
   // Attach patterns.
-  list = list.concat(json.patterns);
-
-  // Remove undefined elements.
-  list = list.filter(element => {
-    return element !== undefined;
-  });
+  list = list.concat(json.data.patterns);
 
   return list;
 }

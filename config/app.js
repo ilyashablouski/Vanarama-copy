@@ -48,7 +48,6 @@ module.exports = {
       if (process.env.LOCAL) {
         const rewriteList = await fetchRewritesList();
 
-        console.log(rewriteList);
         return rewriteList;
       }
       return [];
