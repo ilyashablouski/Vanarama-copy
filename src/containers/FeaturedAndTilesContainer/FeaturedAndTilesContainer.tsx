@@ -10,9 +10,10 @@ import { getSectionsData } from '../../utils/getSectionsData';
 
 interface IProps {
   data: GenericPageQuery | undefined;
+  leasingOffers?: boolean;
 }
 
-const FeaturedAndTilesContainer: FC<IProps> = ({ data }) => {
+const FeaturedAndTilesContainer: FC<IProps> = ({ data, leasingOffers }) => {
   const title = getSectionsData(['metaData', 'name'], data?.genericPage);
   const body = getSectionsData(['body'], data?.genericPage);
 
@@ -57,7 +58,7 @@ const FeaturedAndTilesContainer: FC<IProps> = ({ data }) => {
         />
       </div>
       <FeaturedHtml featured={featured1} />
-      {tiles && <TilesContainer tiles={tiles} />}
+      {tiles && <TilesContainer leasingOffers={leasingOffers} tiles={tiles} />}
       <FeaturedHtml featured={featured2} />
       <FeaturedHtml featured={featured3} />
     </>
