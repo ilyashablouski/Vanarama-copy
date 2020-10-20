@@ -81,7 +81,10 @@ TilesContainer.fragments = {
       tiles {
         body
         title
-        link
+        link {
+          text
+          url
+        }
         image {
           title
           description

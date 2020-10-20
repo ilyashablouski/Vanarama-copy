@@ -92,6 +92,11 @@ export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_
   layout: (string | null)[] | null;
 }
 
+export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_tiles_tiles_link {
+  text: string | null;
+  url: string | null;
+}
+
 export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_tiles_tiles_image_file {
   url: string;
   fileName: string;
@@ -107,7 +112,7 @@ export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_
 export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_tiles_tiles {
   title: string | null;
   body: string | null;
-  link: string | null;
+  link: advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_tiles_tiles_link | null;
   image: advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_tiles_tiles_image | null;
 }
 

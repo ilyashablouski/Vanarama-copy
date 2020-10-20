@@ -78,7 +78,10 @@ export const BLOG_POSTS_PAGE = gql`
           tiles {
             body
             title
-            link
+            link {
+              text
+              url
+            }
             image {
               title
               description

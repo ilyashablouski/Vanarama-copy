@@ -7,6 +7,11 @@
 // GraphQL fragment: GenericPageQueryTiles
 // ====================================================
 
+export interface GenericPageQueryTiles_tiles_link {
+  text: string | null;
+  url: string | null;
+}
+
 export interface GenericPageQueryTiles_tiles_image_file {
   url: string;
   fileName: string;
@@ -22,7 +27,7 @@ export interface GenericPageQueryTiles_tiles_image {
 export interface GenericPageQueryTiles_tiles {
   body: string | null;
   title: string | null;
-  link: string | null;
+  link: GenericPageQueryTiles_tiles_link | null;
   image: GenericPageQueryTiles_tiles_image | null;
 }
 

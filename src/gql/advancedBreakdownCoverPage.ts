@@ -83,7 +83,10 @@ export const ADVANCED_BREAKDOWN_COVER_PAGE = gql`
           tiles {
             title
             body
-            link
+            link {
+              text
+              url
+            }
             image {
               title
               description

@@ -205,6 +205,11 @@ export interface HubVanPageData_hubVanPage_sections_steps {
   steps: HubVanPageData_hubVanPage_sections_steps_steps[] | null;
 }
 
+export interface HubVanPageData_hubVanPage_sections_tiles_tiles_link {
+  text: string | null;
+  url: string | null;
+}
+
 export interface HubVanPageData_hubVanPage_sections_tiles_tiles_image_file {
   url: string;
   fileName: string;
@@ -220,7 +225,7 @@ export interface HubVanPageData_hubVanPage_sections_tiles_tiles_image {
 export interface HubVanPageData_hubVanPage_sections_tiles_tiles {
   body: string | null;
   title: string | null;
-  link: string | null;
+  link: HubVanPageData_hubVanPage_sections_tiles_tiles_link | null;
   image: HubVanPageData_hubVanPage_sections_tiles_tiles_image | null;
 }
 

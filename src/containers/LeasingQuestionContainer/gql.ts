@@ -236,7 +236,10 @@ export const GENERIC_PAGE_QUESTION = gql`
           tiles {
             body
             title
-            link
+            link {
+              text
+              url
+            }
             image {
               title
               description
