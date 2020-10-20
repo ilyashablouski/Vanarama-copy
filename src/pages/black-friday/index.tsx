@@ -1,9 +1,10 @@
 import { NextPage } from 'next';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
+import { getDataFromTree } from '@apollo/react-ssr';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import withApollo from '../../hocs/withApollo';
-import { useGenericPage } from '../../gql/genericPage';
 import FeaturedAndTilesContainer from '../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
+import { useGenericPage } from '../../gql/genericPage';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 const BlackFriday: NextPage = () => {
@@ -22,7 +23,7 @@ const BlackFriday: NextPage = () => {
     return null;
   }
 
-  return <FeaturedAndTilesContainer data={data} />;
+  return <FeaturedAndTilesContainer leasingOffers data={data} />;
 };
 
-export default withApollo(BlackFriday);
+export default withApollo(BlackFriday, { getDataFromTree });
