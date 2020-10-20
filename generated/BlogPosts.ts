@@ -92,6 +92,11 @@ export interface BlogPosts_blogPosts_sections_carousel {
   cards: (BlogPosts_blogPosts_sections_carousel_cards | null)[] | null;
 }
 
+export interface BlogPosts_blogPosts_sections_tiles_tiles_link {
+  text: string | null;
+  url: string | null;
+}
+
 export interface BlogPosts_blogPosts_sections_tiles_tiles_image_file {
   url: string;
   fileName: string;
@@ -107,7 +112,7 @@ export interface BlogPosts_blogPosts_sections_tiles_tiles_image {
 export interface BlogPosts_blogPosts_sections_tiles_tiles {
   body: string | null;
   title: string | null;
-  link: string | null;
+  link: BlogPosts_blogPosts_sections_tiles_tiles_link | null;
   image: BlogPosts_blogPosts_sections_tiles_tiles_image | null;
 }
 

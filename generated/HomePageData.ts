@@ -213,6 +213,11 @@ export interface HomePageData_homePage_sections_featured2 {
   testimonials: (HomePageData_homePage_sections_featured2_testimonials | null)[] | null;
 }
 
+export interface HomePageData_homePage_sections_tiles_tiles_link {
+  text: string | null;
+  url: string | null;
+}
+
 export interface HomePageData_homePage_sections_tiles_tiles_image_file {
   url: string;
   fileName: string;
@@ -228,7 +233,7 @@ export interface HomePageData_homePage_sections_tiles_tiles_image {
 export interface HomePageData_homePage_sections_tiles_tiles {
   body: string | null;
   title: string | null;
-  link: string | null;
+  link: HomePageData_homePage_sections_tiles_tiles_link | null;
   image: HomePageData_homePage_sections_tiles_tiles_image | null;
 }
 

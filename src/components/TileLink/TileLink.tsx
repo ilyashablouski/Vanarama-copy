@@ -12,7 +12,7 @@ const TileLink: React.FC<ITileLinkProps> = props => {
   if (tile.link) {
     return (
       <RouterLink
-        link={{ href: tile.link || '#', label: '' }}
+        link={{ href: tile.link.url || '#', label: '' }}
         className="tile--link"
       >
         <Heading tag="span" size="regular" color="black">
