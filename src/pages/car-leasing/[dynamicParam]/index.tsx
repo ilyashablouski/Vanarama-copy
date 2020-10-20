@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { NextPage, NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { PAGE_TYPES, SITE_SECTIONS } from '../../../utils/pageTypes';
@@ -20,18 +20,10 @@ interface IPageType {
 interface IProps {
   isServer: boolean;
   pageType: IPageType;
-  pathname?: string;
-  asPath?: string;
   query: any;
 }
 
-const Page: NextPage<IProps> = ({
-  isServer,
-  query,
-  pageType,
-  pathname,
-  asPath,
-}) => {
+const Page: NextPage<IProps> = ({ isServer, query, pageType }) => {
   const router = useRouter();
   useEffect(() => {
     pushPageData({
@@ -47,6 +39,7 @@ const Page: NextPage<IProps> = ({
       (pageType.isBodyStylePage && !router.query.bodyStyles) ||
       (pageType.isFuelType && !router.query.fuelTypes)
     ) {
+      const { asPath, pathname } = router;
       router.replace(
         {
           pathname,
@@ -69,7 +62,7 @@ const Page: NextPage<IProps> = ({
     />
   );
 };
-Page.getInitialProps = ({ query, req, pathname, asPath }) => {
+export async function getServerSideProps({ query, req }: NextPageContext) {
   const newQuery = { ...query };
   // check for bodystyle page
   const isBodyStylePage = !!bodyUrls.find(
@@ -92,12 +85,12 @@ Page.getInitialProps = ({ query, req, pathname, asPath }) => {
       fuelMapper[query.dynamicParam as keyof typeof fuelMapper];
   else newQuery.make = query.dynamicParam;
   return {
-    query: { ...newQuery },
-    isServer: !!req,
-    pageType,
-    pathname,
-    asPath,
+    props: {
+      query: { ...newQuery },
+      isServer: !!req,
+      pageType,
+    },
   };
-};
+}
 
 export default withApollo(Page);
