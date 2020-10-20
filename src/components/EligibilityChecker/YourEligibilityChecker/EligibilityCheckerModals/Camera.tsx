@@ -3,14 +3,17 @@ import CameraSharp from '@vanarama/uibook/lib/assets/icons/CameraSharp';
 import React, { FC } from 'react';
 import Webcam from 'react-webcam';
 import { ICamera } from './interface';
+import { useMobileViewport } from '../../../../hooks/useMediaQuery';
 
 const Camera: FC<ICamera> = ({
   webcamRef,
   handleOnUserMedia,
   onClickCapture,
 }) => {
+  const isMobile = useMobileViewport();
+
   const videoConstraints = {
-    facingMode: 'user',
+    facingMode: isMobile ? { exact: 'environment' } : 'user',
   };
 
   return (
