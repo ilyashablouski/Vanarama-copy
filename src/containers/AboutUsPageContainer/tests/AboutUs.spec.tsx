@@ -48,12 +48,14 @@ const mocks = {
           name: 'About Us Links',
           cards: [
             {
+              titleTag: 'p',
               name: 'Meet The Directors',
               title: 'Meet The Directors',
               body:
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. \n\n[Learn More](https://beta.vanarama.com/about-us/meet-the-directors.html)',
             },
             {
+              titleTag: 'p',
               name: 'Meet The Team',
               title: 'Meet The Team',
               body:
@@ -65,6 +67,7 @@ const mocks = {
           name: 'Awards',
           cards: [
             {
+              titleTag: 'p',
               name: 'Award 1',
               title:
                 'Sunday Times 100 Best Small Company To Work For in the UK ',
@@ -72,12 +75,14 @@ const mocks = {
                 'Vanarama has been confirmed as a Sunday Times 100 Best Small Company To Work For in the UK in 2016, 2017 and 2018, with Andy Alderson (CEO) being named Best Leader at the 2017 awards ceremony.',
             },
             {
+              titleTag: 'p',
               name: 'Award 2',
               title: 'Lloyds National Business Award',
               body:
                 'In 2015, Vanarama won the highly prestigious Lloyds National Business Award for Best Small to Medium Sized Business 2015, an accolade that recognised our commitment to training, customer service and innovation',
             },
             {
+              titleTag: 'p',
               name: 'Award 3',
               title: 'Football Business Awards',
               body:

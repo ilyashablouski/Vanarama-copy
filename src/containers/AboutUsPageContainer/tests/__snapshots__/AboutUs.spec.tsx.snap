@@ -16,7 +16,9 @@ Array [
   >
     <div
       className="row:featured-image"
-    />
+    >
+      
+    </div>
   </div>,
   <div
     className="row:article"
