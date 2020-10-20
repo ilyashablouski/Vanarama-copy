@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
@@ -11,10 +11,20 @@ import TrophySharp from '@vanarama/uibook/lib/assets/icons/TrophySharp';
 import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
-import { useAboutUsPageData } from './gql';
+import { ApolloError } from '@apollo/client';
 import { ABOUT_US_MEET_SECTION_NAMES } from './config';
-import { GetAboutUsPageData_aboutUsLandingPage_sections_carousel_cards as ICard } from '../../../generated/GetAboutUsPageData';
+import {
+  GetAboutUsPageData_aboutUsLandingPage_sections_carousel_cards as ICard,
+  GetAboutUsPageData as Query,
+} from '../../../generated/GetAboutUsPageData';
 import RouterLink from '../../components/RouterLink/RouterLink';
+
+export interface IAboutPageProps {
+  error: ApolloError | undefined;
+  loading: boolean;
+  data: Query;
+  children?: ReactNode;
+}
 
 const prepareTagName = (possibleTag: string | null) =>
   possibleTag && Heading.defaultProps?.tag?.indexOf(possibleTag) !== -1
@@ -90,9 +100,7 @@ const renderMeetCard = (card: ICard | undefined) =>
   )) ||
   null;
 
-const AboutUs: React.FC = () => {
-  const { data, error, loading } = useAboutUsPageData();
-
+const AboutUs: React.FC<IAboutPageProps> = ({ loading, error, data }) => {
   if (loading) {
     return <Loading size="large" />;
   }
