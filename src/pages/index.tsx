@@ -1,6 +1,6 @@
 import { NextPage, NextPageContext } from 'next';
-import createApolloClient from 'apolloClient';
-import { GET_CAR_DERIVATIVES } from 'containers/OrdersInformation/gql';
+import createApolloClient from '../apolloClient';
+import { GET_CAR_DERIVATIVES } from '../containers/OrdersInformation/gql';
 import { HomePageData } from '../../generated/HomePageData';
 import {
   ProductCardData,

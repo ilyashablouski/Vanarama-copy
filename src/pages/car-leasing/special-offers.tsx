@@ -1,6 +1,6 @@
 import { NextPage, NextPageContext } from 'next';
-import withApollo from '../../../hocs/withApollo';
-import SearchPageContainer from '../../../containers/SearchPageContainer';
+import withApollo from '../../hocs/withApollo';
+import SearchPageContainer from '../../containers/SearchPageContainer';
 
 interface IProps {
   isServer: boolean;
