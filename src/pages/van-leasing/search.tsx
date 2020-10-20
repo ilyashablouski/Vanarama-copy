@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { NextPage, NextPageContext } from 'next';
 import withApollo from '../../hocs/withApollo';
 import SearchPageContainer from '../../containers/SearchPageContainer';
 
@@ -9,8 +9,9 @@ interface IProps {
 const Page: NextPage<IProps> = ({ isServer }) => {
   return <SearchPageContainer isServer={isServer} isCarSearch={false} />;
 };
-Page.getInitialProps = ({ query, req }) => {
-  return { query, isServer: !!req };
-};
+
+export async function getServerSideProps({ query, req }: NextPageContext) {
+  return { props: { query, isServer: !!req } };
+}
 
 export default withApollo(Page);
