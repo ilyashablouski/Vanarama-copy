@@ -49,7 +49,7 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
           style="padding-top: 10px;"
         >
           <div
-            class="card -inline"
+            class="card breakdown -inline"
             data-testid="card"
           >
             <img
@@ -76,7 +76,7 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
             </div>
           </div>
           <div
-            class="card -inline"
+            class="card breakdown -inline"
             data-testid="card"
           >
             <img
@@ -103,7 +103,7 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
             </div>
           </div>
           <div
-            class="card -inline"
+            class="card breakdown -inline"
             data-testid="card"
           >
             <img
@@ -130,7 +130,7 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
             </div>
           </div>
           <div
-            class="card -inline"
+            class="card breakdown -inline"
             data-testid="card"
           >
             <img

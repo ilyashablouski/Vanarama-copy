@@ -58,7 +58,7 @@ const FeaturedAndTilesContainer: FC<IProps> = ({ data, leasingOffers }) => {
         />
       </div>
       <FeaturedHtml featured={featured1} />
-      {tiles && <TilesContainer leasingOffers tiles={tiles} />}
+      {tiles && <TilesContainer leasingOffers={leasingOffers} tiles={tiles} />}
       <FeaturedHtml featured={featured2} />
       <FeaturedHtml featured={featured3} />
     </>
