@@ -19,7 +19,7 @@ type QueryParams = {
 };
 
 const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
-  isSoleTraderJouney,
+  isSoleTraderJourney,
 }) => {
   const { pathname, query } = useRouter();
   const { companyUuid, redirect, orderId } = query as QueryParams;
@@ -31,7 +31,7 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
   // Only regenerate the steps if the `orderId` changes
   const steps = useMemo(
     () =>
-      isSoleTraderJouney ? generateSoleTraderSteps() : generateLimitedSteps(),
+      isSoleTraderJourney ? generateSoleTraderSteps() : generateLimitedSteps(),
     [orderId],
   );
   // Work out the current step based on the URL
@@ -44,6 +44,7 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
   const asHref = getUrlParam({
     companyUuid,
     redirect: activeStep === 6 ? 'summary' : '',
+    isSoleTraderJourney,
   });
 
   useEffect(() => {
