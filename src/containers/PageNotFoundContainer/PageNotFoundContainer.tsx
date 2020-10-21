@@ -25,11 +25,6 @@ interface IProps {
   metaData?: GenericPageHeadQuery_genericPage_metaData | null | undefined;
 }
 
-interface IImage {
-  src: string;
-  alt: string;
-}
-
 const renderCards = (
   cards: (GenericPageQuery_genericPage_sections_cards_cards | null)[],
 ) =>
@@ -51,7 +46,7 @@ const renderCards = (
               {card.title}
             </Heading>
           ),
-          title: card.title || '',
+          title: card.name || '',
           withBtn: true,
         }}
         description={card.body || ''}

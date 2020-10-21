@@ -1,22 +1,15 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading/Loading';
-import { NextPageContext } from 'next';
-import { ApolloError } from '@apollo/client';
+import { useRouter } from 'next/router';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import { GENERIC_PAGE } from '../../gql/genericPage';
+import { useGenericPage } from '../../gql/genericPage';
 import PageNotFoundContainer from '../../containers/PageNotFoundContainer/PageNotFoundContainer';
 import { getSectionsData } from '../../utils/getSectionsData';
-import createApolloClient from '../../apolloClient';
-import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 
-export interface IPageNotFoundProps {
-  error: ApolloError | undefined;
-  loading: boolean;
-  data: GenericPageQuery;
-  children?: ReactNode;
-}
+const PageNotFound = () => {
+  const router = useRouter();
+  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
 
-const PageNotFound = ({ data, loading, error }: IPageNotFoundProps) => {
   if (loading) {
     return <Loading size="large" />;
   }
@@ -25,6 +18,7 @@ const PageNotFound = ({ data, loading, error }: IPageNotFoundProps) => {
     return <ErrorMessage message={error.message} />;
   }
 
+  const metaData = getSectionsData(['metaData'], data?.genericPage);
   const name = getSectionsData(['metaData', 'name'], data?.genericPage);
   const cards = getSectionsData(
     ['sections', 'cards', 'cards'],
@@ -33,19 +27,13 @@ const PageNotFound = ({ data, loading, error }: IPageNotFoundProps) => {
   const featured = getSectionsData(['sections', 'featured'], data?.genericPage);
 
   return (
-    <PageNotFoundContainer featured={featured} name={name} cards={cards} />
+    <PageNotFoundContainer
+      featured={featured}
+      name={name}
+      cards={cards}
+      metaData={metaData}
+    />
   );
 };
-
-export async function getStaticProps(context: NextPageContext) {
-  const client = createApolloClient({}, context);
-  const { data, loading, errors } = await client.query({
-    query: GENERIC_PAGE,
-    variables: {
-      slug: context.pathname,
-    },
-  });
-  return { props: { data, loading, error: errors || null } };
-}
 
 export default PageNotFound;
