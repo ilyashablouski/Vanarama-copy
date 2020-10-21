@@ -42,10 +42,6 @@
           "valueFrom": "%SSM_PARAMETER_BASE%/rollbar-server-token"
         },
         {
-          "name": "GITHUB_TOKEN",
-          "valueFrom": "%SSM_PARAMETER_BASE%/github-token"
-        },
-        {
           "name": "GTM_ID",
           "valueFrom": "%SSM_PARAMETER_BASE%/gtm-id"
         }
