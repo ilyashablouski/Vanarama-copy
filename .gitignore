@@ -23,7 +23,7 @@ yarn-error.log*
 .idea
 
 # env
-.env
+.env.secret
 
 public/sitemap.xml
 
