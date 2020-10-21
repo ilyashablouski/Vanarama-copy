@@ -10,6 +10,7 @@ import generateSoleTraderSteps from './generateSoleTraderSteps';
 import { IBusinessProgressIndicatorProps } from './interfaces';
 import { getUrlParam } from '../../utils/url';
 import useProgressHistory from '../../hooks/useProgressHistory';
+import useGetPersonUuid from '../../hooks/useGetPersonUuid';
 
 type QueryParams = {
   companyUuid: string;
@@ -23,6 +24,7 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
   const { pathname, query } = useRouter();
   const { companyUuid, redirect, orderId } = query as QueryParams;
   const { setCachedLastStep, cachedLastStep } = useProgressHistory(orderId);
+  const personUuid = useGetPersonUuid();
 
   const latestStep = cachedLastStep;
 
@@ -41,7 +43,6 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
 
   const asHref = getUrlParam({
     companyUuid,
-    orderId,
     redirect: activeStep === 6 ? 'summary' : '',
   });
 
@@ -59,7 +60,10 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
           <Step key={href} editing={editingStep === step} step={step}>
             <NextJsLink
               href={url}
-              as={url.replace('[companyUuid]', companyUuid)}
+              as={url
+                .replace('[companyUuid]', companyUuid)
+                .replace('[personUuid]', personUuid)
+                .replace('[orderId]', orderId)}
               passHref
             >
               <StepLink label={label} />
