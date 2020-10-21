@@ -13,6 +13,7 @@ import {
 } from '../../../generated/GenericPageQuery';
 import { GenericPageHeadQuery_genericPage_metaData } from '../../../generated/GenericPageHeadQuery';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import getTitleTag from '../../utils/getTitleTag';
 
 interface IProps {
   name: string | null | undefined;
@@ -40,7 +41,9 @@ const renderCards = (
             <Heading
               size="lead"
               color="black"
-              tag="a"
+              tag={
+                getTitleTag(card.titleTag || 'a') as keyof JSX.IntrinsicElements
+              }
               href={card.link?.url || ''}
             >
               {card.title}

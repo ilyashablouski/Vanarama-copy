@@ -1,3 +1,4 @@
+require('dotenv').config({ path: '.env.secret' });
 require('dotenv').config();
 
 const redis = require('redis');
