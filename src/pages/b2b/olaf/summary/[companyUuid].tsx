@@ -16,7 +16,6 @@ import useGetOrderId from '../../../../hooks/useGetOrderId';
 
 type QueryParams = {
   companyUuid: string;
-  orderId: string;
 };
 
 const handleSubmitError = () =>
