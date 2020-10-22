@@ -19,12 +19,16 @@ import {
 } from '../../containers/GoldrushFormContainer/GoldrushFormContainer';
 import { useOpportunityCreation } from '../../containers/GoldrushFormContainer/gql';
 import { OpportunityTypeEnum } from '../../../generated/globalTypes';
-import { useGenericPage } from '../../gql/genericPage';
+import {
+  useGenericPage,
+  useGenericPageBreadcrumbs,
+} from '../../gql/genericPage';
 import getTitleTag from '../../utils/getTitleTag';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import GoldrushForm from '../../components/GoldrushForm/GoldrushForm';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { GenericPageQuery_genericPage_sections_hero as Hero } from '../../../generated/GenericPageQuery';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 export const LocationsPage: NextPage = () => {
   const router = useRouter();
@@ -46,6 +50,9 @@ export const LocationsPage: NextPage = () => {
   );
 
   const { data } = useGenericPage(router.asPath.slice(1));
+  const { data: breadcrumbsData } = useGenericPageBreadcrumbs(
+    router.asPath.slice(1),
+  );
 
   if (!data?.genericPage) {
     return null;
@@ -59,6 +66,10 @@ export const LocationsPage: NextPage = () => {
     ['sections', 'featured2'],
     data.genericPage,
   );
+  const metaData = getSectionsData(['metaData'], breadcrumbsData?.genericPage);
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
   return (
     <>
@@ -224,6 +235,9 @@ export const LocationsPage: NextPage = () => {
           </div>
         </div>
       )}
+      <div className="row:title -mt-200">
+        <Breadcrumb items={breadcrumbsItems} />
+      </div>
       {leadText && (
         <div className="row:lead-text">
           <Heading

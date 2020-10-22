@@ -8,8 +8,7 @@ import { getSectionsData } from '../../utils/getSectionsData';
 
 const PageNotFound = () => {
   const router = useRouter();
-  const slug = router.asPath.slice(1);
-  const { data, loading, error } = useGenericPage(slug);
+  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
 
   if (loading) {
     return <Loading size="large" />;
