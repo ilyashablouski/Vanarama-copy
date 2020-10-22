@@ -96,10 +96,6 @@ resource "aws_ssm_parameter" "redis-cache-host" {
   }
 }
 
-data "aws_ssm_parameter" "gateway-url" {
-  name = "/${var.env}/${var.stack}/gateway-service/gateway-url"
-}
-
 module "aws_cloudwatch_ecs_alarms" {
   source = "git@github.com:Autorama/autorama-infra-modules.git//ecs_service_alarms"
 
