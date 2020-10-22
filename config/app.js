@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
+require('dotenv').config({ path: '.env.secret' });
 require('dotenv').config();
 
-// const { getPdpRewiteList } = require('../rewrites/pdp');
-// const rewritePatterns = require('../rewrites/rewritePatterns');
+const fetchRewritesList = require('../rewrites');
 
 module.exports = {
   // Sass.
@@ -25,7 +25,6 @@ module.exports = {
       API_URL: process.env.API_URL,
       API_KEY: process.env.API_KEY,
       LOQATE_KEY: process.env.LOQATE_KEY,
-      GITHUB_TOKEN: process.env.GITHUB_TOKEN,
       ENABLE_DEV_TOOLS: process.env.ENABLE_DEV_TOOLS,
       REDIS_CACHE_HOST: process.env.REDIS_CACHE_HOST,
       REDIS_CACHE_PORT: process.env.REDIS_CACHE_PORT,
@@ -45,18 +44,14 @@ module.exports = {
     },
 
     // Rewrites.
-    // async rewrites() {
-    //   const pdpRewiteList = await getPdpRewiteList();
-    //   const rewriteList = [...pdpRewiteList, ...rewritePatterns];
+    async rewrites() {
+      if (process.env.LOCAL) {
+        const rewriteList = await fetchRewritesList();
 
-    //   return [
-    //     {
-    //       source: '/sitemap-vehicles.xml',
-    //       destination: '/api/sitemap-vehicles',
-    //     },
-    //     ...rewriteList,
-    //   ];
-    // },
+        return rewriteList;
+      }
+      return [];
+    },
 
     trailingSlash: false,
 
