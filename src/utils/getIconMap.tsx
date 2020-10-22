@@ -5,8 +5,9 @@ function getIconMap(keyInfo: (IKeyInfo | null)[]) {
   const iconMap = new Map();
   keyInfo.forEach(async key => {
     const iconRef = key?.name?.replace(/\s+/g, '');
-    const Icon = dynamic(() =>
-      import(`@vanarama/uibook/lib/assets/icons/${iconRef}`),
+    const Icon = dynamic(
+      () => import(`@vanarama/uibook/lib/assets/icons/${iconRef}`),
+      { ssr: false },
     );
     iconMap.set(iconRef, <Icon />);
   });
