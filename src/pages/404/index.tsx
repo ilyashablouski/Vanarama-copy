@@ -18,7 +18,6 @@ const PageNotFound = () => {
     return <ErrorMessage message={error.message} />;
   }
 
-  const metaData = getSectionsData(['metaData'], data?.genericPage);
   const name = getSectionsData(['metaData', 'name'], data?.genericPage);
   const cards = getSectionsData(
     ['sections', 'cards', 'cards'],
@@ -27,12 +26,7 @@ const PageNotFound = () => {
   const featured = getSectionsData(['sections', 'featured'], data?.genericPage);
 
   return (
-    <PageNotFoundContainer
-      featured={featured}
-      name={name}
-      cards={cards}
-      metaData={metaData}
-    />
+    <PageNotFoundContainer featured={featured} name={name} cards={cards} />
   );
 };
 
