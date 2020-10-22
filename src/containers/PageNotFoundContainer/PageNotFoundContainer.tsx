@@ -6,12 +6,10 @@ import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import ReactMarkdown from 'react-markdown';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import Head from '../../components/Head/Head';
 import {
   GenericPageQuery_genericPage_sections_cards_cards,
   GenericPageQuery_genericPage_sections_featured,
 } from '../../../generated/GenericPageQuery';
-import { GenericPageHeadQuery_genericPage_metaData } from '../../../generated/GenericPageHeadQuery';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import getTitleTag from '../../utils/getTitleTag';
 
@@ -23,7 +21,6 @@ interface IProps {
     | undefined;
   breadcrumbsItems?: any;
   featured?: GenericPageQuery_genericPage_sections_featured | null | undefined;
-  metaData?: GenericPageHeadQuery_genericPage_metaData | null | undefined;
 }
 
 const renderCards = (
@@ -61,7 +58,6 @@ const PageNotFoundContainer: NextPage<IProps> = ({
   name,
   featured,
   breadcrumbsItems,
-  metaData,
   cards,
 }) => {
   return (
@@ -109,7 +105,6 @@ const PageNotFoundContainer: NextPage<IProps> = ({
       <div className="row:bg-lighter -col-300">
         <div className="row:cards-3col">{cards && renderCards(cards)}</div>
       </div>
-      {metaData && <Head metaData={metaData} featuredImage={null} />}
     </>
   );
 };

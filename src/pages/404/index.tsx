@@ -8,7 +8,8 @@ import { getSectionsData } from '../../utils/getSectionsData';
 
 const PageNotFound = () => {
   const router = useRouter();
-  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
+  const slug = router.asPath.slice(1);
+  const { data, loading, error } = useGenericPage(slug);
 
   if (loading) {
     return <Loading size="large" />;
@@ -18,7 +19,6 @@ const PageNotFound = () => {
     return <ErrorMessage message={error.message} />;
   }
 
-  const metaData = getSectionsData(['metaData'], data?.genericPage);
   const name = getSectionsData(['metaData', 'name'], data?.genericPage);
   const cards = getSectionsData(
     ['sections', 'cards', 'cards'],
@@ -27,12 +27,7 @@ const PageNotFound = () => {
   const featured = getSectionsData(['sections', 'featured'], data?.genericPage);
 
   return (
-    <PageNotFoundContainer
-      featured={featured}
-      name={name}
-      cards={cards}
-      metaData={metaData}
-    />
+    <PageNotFoundContainer featured={featured} name={name} cards={cards} />
   );
 };
 
