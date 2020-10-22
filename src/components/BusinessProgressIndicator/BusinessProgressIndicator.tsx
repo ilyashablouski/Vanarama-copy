@@ -11,19 +11,18 @@ import { IBusinessProgressIndicatorProps } from './interfaces';
 import { getUrlParam } from '../../utils/url';
 import useProgressHistory from '../../hooks/useProgressHistory';
 import useGetPersonUuid from '../../hooks/useGetPersonUuid';
-import useGetOrderId from '../../hooks/useGetOrderId';
 
 type QueryParams = {
   companyUuid: string;
   redirect?: string;
+  orderId: string;
 };
 
 const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
   isSoleTraderJourney,
 }) => {
   const { pathname, query } = useRouter();
-  const orderId = useGetOrderId();
-  const { companyUuid, redirect } = query as QueryParams;
+  const { companyUuid, redirect, orderId } = query as QueryParams;
   const { setCachedLastStep, cachedLastStep } = useProgressHistory(orderId);
   const personUuid = useGetPersonUuid();
 
