@@ -143,7 +143,6 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
           company={
             getDataSummaryQueryOptions.data.companyByUuid as CompanyByUuid
           }
-          orderId={orderId}
         />
       ) : (
         <BusinessSummaryForm
@@ -156,7 +155,6 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
           company={
             getDataSummaryQueryOptions.data.companyByUuid as CompanyByUuid
           }
-          orderId={orderId}
         />
       )}
     </>

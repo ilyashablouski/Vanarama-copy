@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Router from 'next/router';
 import { ApolloError } from '@apollo/client';
+import localForage from 'localforage';
 
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -150,7 +151,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       const url =
         leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
           ? '/olaf/about/[orderId]'
-          : '/b2b/olaf/about/[orderId]';
+          : '/b2b/olaf/about';
+
+      localForage.setItem('orderId', response.data?.createUpdateOrder?.uuid);
 
       Router.push(
         url,

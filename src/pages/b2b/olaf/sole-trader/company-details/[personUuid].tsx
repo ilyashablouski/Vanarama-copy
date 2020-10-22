@@ -6,7 +6,8 @@ import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import SoleTraderCompanyDetailsFormContainer from '../../../../../containers/SoleTraderCompanyDetailsFormContainer';
 import withApollo from '../../../../../hocs/withApollo';
 import OLAFLayout from '../../../../../layouts/OLAFLayout/OLAFLayout';
-import { OLAFQueryParams, getUrlParam } from '../../../../../utils/url';
+import { OLAFQueryParams } from '../../../../../utils/url';
+import useGetOrderId from '../../../../../hooks/useGetOrderId';
 
 type QueryParams = OLAFQueryParams & {
   companyUuid: string;
@@ -14,7 +15,8 @@ type QueryParams = OLAFQueryParams & {
 
 export const SoleTraderCompanyDetailsPage: NextPage = () => {
   const router = useRouter();
-  const { personUuid, orderId, companyUuid } = router.query as QueryParams;
+  const orderId = useGetOrderId();
+  const { personUuid, companyUuid } = router.query as QueryParams;
   const isEdited = router.query.redirect === 'summary';
 
   const handleSubmitError = () =>
@@ -25,11 +27,10 @@ export const SoleTraderCompanyDetailsPage: NextPage = () => {
     );
 
   const handleSubmitCompletion = (uuid: string) => {
-    const params = getUrlParam({ orderId });
     const url =
       router.query.redirect === 'summary'
-        ? `/b2b/olaf/sole-trader/summary/[companyUuid]${params}`
-        : `/b2b/olaf/sole-trader/vat-details/[companyUuid]${params}`;
+        ? `/b2b/olaf/sole-trader/summary/[companyUuid]`
+        : `/b2b/olaf/sole-trader/vat-details/[companyUuid]`;
     router.push(url, url.replace('[companyUuid]', uuid));
   };
 

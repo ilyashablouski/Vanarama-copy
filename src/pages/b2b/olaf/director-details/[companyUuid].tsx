@@ -6,7 +6,8 @@ import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import DirectorDetailsFormContainer from '../../../../containers/DirectorDetailsFormContainer';
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
-import { getUrlParam, OLAFQueryParams } from '../../../../utils/url';
+import { OLAFQueryParams } from '../../../../utils/url';
+import useGetOrderId from '../../../../hooks/useGetOrderId';
 
 const handleSubmitError = () =>
   toast.error(
@@ -21,14 +22,14 @@ type QueryParams = OLAFQueryParams & {
 
 export const DirectorDetailsPage: NextPage = () => {
   const router = useRouter();
-  const { companyUuid, orderId, directorUuid } = router.query as QueryParams;
+  const orderId = useGetOrderId();
+  const { companyUuid, directorUuid } = router.query as QueryParams;
 
   const handleSubmitCompletion = () => {
-    const params = getUrlParam({ orderId });
     const url =
       router.query.redirect === 'summary'
-        ? `/b2b/olaf/summary/[companyUuid]${params}`
-        : `/b2b/olaf/company-bank-details/[companyUuid]${params}`;
+        ? '/b2b/olaf/summary/[companyUuid]'
+        : '/b2b/olaf/company-bank-details/[companyUuid]';
     router.push(url, url.replace('[companyUuid]', companyUuid));
   };
 
