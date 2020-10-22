@@ -28,7 +28,6 @@ import {
 import { GetOlafData_orderByUuid } from '../../../../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../../../../generated/GetDerivative';
 import { MyOrdersTypeEnum } from '../../../../../generated/globalTypes';
-import { isUserAuthenticated } from '../../../../utils/authentication';
 import useGetOrderId from '../../../../hooks/useGetOrderId';
 
 const handleCreateUpdateBusinessPersonError = () =>
