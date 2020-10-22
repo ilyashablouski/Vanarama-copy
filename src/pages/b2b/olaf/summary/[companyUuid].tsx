@@ -12,6 +12,7 @@ import useSoleTraderJourney from '../../../../hooks/useSoleTraderJourney';
 import { GetOlafData_orderByUuid } from '../../../../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../../../../generated/GetDerivative';
 import { pushSummaryDataLayer } from '../../../../utils/dataLayerHelpers';
+import useGetOrderId from '../../../../hooks/useGetOrderId';
 
 type QueryParams = {
   companyUuid: string;
@@ -26,7 +27,8 @@ const handleSubmitError = () =>
 
 const BusinessSummaryPage: NextPage = () => {
   const router = useRouter();
-  const { companyUuid, orderId } = router.query as QueryParams;
+  const { companyUuid } = router.query as QueryParams;
+  const orderId = useGetOrderId();
   const personUuid = useGetPersonUuid();
   const isSoleTrader = useSoleTraderJourney();
   const [

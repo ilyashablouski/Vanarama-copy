@@ -10,7 +10,7 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
-import { getUrlParam, OLAFQueryParams } from '../../../../utils/url';
+import { OLAFQueryParams } from '../../../../utils/url';
 import LoginFormContainer from '../../../../containers/LoginFormContainer/LoginFormContainer';
 import BusinessAboutFormContainer from '../../../../containers/BusinessAboutFormContainer';
 import { SubmitResult } from '../../../../containers/BusinessAboutFormContainer/interfaces';
@@ -29,6 +29,7 @@ import { GetOlafData_orderByUuid } from '../../../../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../../../../generated/GetDerivative';
 import { MyOrdersTypeEnum } from '../../../../../generated/globalTypes';
 import { isUserAuthenticated } from '../../../../utils/authentication';
+import useGetOrderId from '../../../../hooks/useGetOrderId';
 
 const handleCreateUpdateBusinessPersonError = () =>
   toast.error(
@@ -49,7 +50,8 @@ type QueryParams = OLAFQueryParams & {
 
 export const BusinessAboutPage: NextPage = () => {
   const router = useRouter();
-  const { orderId, companyUuid } = router.query as QueryParams;
+  const orderId = useGetOrderId();
+  const { companyUuid } = router.query as QueryParams;
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [personUuid, setPersonUuid] = useState<string | undefined>();
@@ -99,7 +101,7 @@ export const BusinessAboutPage: NextPage = () => {
     result: SubmitResult,
   ) => {
     pushAboutYouDataLayer(detailsData, derivativeData);
-    const params = getUrlParam({ orderId });
+
     const slug =
       result.companyType === CompanyTypes.limited ||
       result.companyType === CompanyTypes.partnership
@@ -107,8 +109,8 @@ export const BusinessAboutPage: NextPage = () => {
         : 'sole-trader/';
     const url =
       router.query.redirect === 'summary'
-        ? `/b2b/olaf/${slug}summary/[companyUuid]${params}`
-        : `/b2b/olaf/${slug}company-details/[personUuid]${params}`;
+        ? `/b2b/olaf/${slug}summary/[companyUuid]`
+        : `/b2b/olaf/${slug}company-details/[personUuid]`;
 
     const personId = personUuid || result.businessPersonUuid || '';
 
@@ -116,8 +118,7 @@ export const BusinessAboutPage: NextPage = () => {
       url,
       url
         .replace('[companyUuid]', companyUuid || '')
-        .replace('[personUuid]', personId)
-        .replace('[orderId]', orderId || ''),
+        .replace('[personUuid]', personId),
     );
   };
 
