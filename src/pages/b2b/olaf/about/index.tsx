@@ -161,10 +161,7 @@ export const BusinessAboutPage: NextPage = () => {
             <LoginFormContainer
               onCompleted={() => {
                 pushAuthorizationEventDataLayer();
-
-                if (isUserAuthenticated()) {
-                  getPerson();
-                }
+                getPerson();
               }}
             />
           )}
