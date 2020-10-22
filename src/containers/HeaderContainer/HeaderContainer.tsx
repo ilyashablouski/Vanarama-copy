@@ -110,7 +110,6 @@ const HeaderContainer: FC = () => {
         onLogOut={async () => {
           await logOut();
           await localForage.clear();
-          router.push('/');
         }}
         loginLink={LOGIN_LINK}
         phoneNumberLink={PHONE_NUMBER_LINK}
