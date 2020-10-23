@@ -4,6 +4,10 @@ import {
   GenericPageQueryVariables,
 } from '../../generated/GenericPageQuery';
 import {
+  GenericPageHeadQuery,
+  GenericPageHeadQueryVariables,
+} from '../../generated/GenericPageHeadQuery';
+import {
   GenericPageBreadcrumbsQuery,
   GenericPageBreadcrumbsQueryVariables,
 } from '../../generated/GenericPageBreadcrumbsQuery';
@@ -170,6 +174,48 @@ export function useGenericPage(slug: string) {
       slug,
     },
   });
+}
+
+export const GENERIC_PAGE_HEAD = gql`
+  query GenericPageHeadQuery($slug: String!) {
+    genericPage(slug: $slug) {
+      id
+      intro
+      metaData {
+        title
+        name
+        metaRobots
+        metaDescription
+        legacyUrl
+        pageType
+        canonicalUrl
+        slug
+        schema
+        publishedOn
+        breadcrumbs
+      }
+      featuredImage {
+        title
+        description
+        file {
+          url
+          fileName
+          contentType
+        }
+      }
+    }
+  }
+`;
+
+export function useGenericPageHead(slug: string) {
+  return useQuery<GenericPageHeadQuery, GenericPageHeadQueryVariables>(
+    GENERIC_PAGE_HEAD,
+    {
+      variables: {
+        slug,
+      },
+    },
+  );
 }
 
 export const GENERIC_PAGE_BREADCRUMBS = gql`
