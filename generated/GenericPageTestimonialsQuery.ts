@@ -14,6 +14,7 @@ export interface GenericPageTestimonialsQuery_genericPage_metaData {
 export interface GenericPageTestimonialsQuery_genericPage_sections_tiles1_tiles_link {
   text: string | null;
   url: string | null;
+  legacyUrl: string | null;
 }
 
 export interface GenericPageTestimonialsQuery_genericPage_sections_tiles1_tiles_image_file {
@@ -46,6 +47,7 @@ export interface GenericPageTestimonialsQuery_genericPage_sections_tiles1 {
 export interface GenericPageTestimonialsQuery_genericPage_sections_tiles2_tiles_link {
   text: string | null;
   url: string | null;
+  legacyUrl: string | null;
 }
 
 export interface GenericPageTestimonialsQuery_genericPage_sections_tiles2_tiles_image_file {
@@ -82,6 +84,7 @@ export interface GenericPageTestimonialsQuery_genericPage_sections_featured_icon
 export interface GenericPageTestimonialsQuery_genericPage_sections_featured_link {
   url: string | null;
   text: string | null;
+  legacyUrl: string | null;
 }
 
 export interface GenericPageTestimonialsQuery_genericPage_sections_featured_cards_image_file {
@@ -98,6 +101,7 @@ export interface GenericPageTestimonialsQuery_genericPage_sections_featured_card
 export interface GenericPageTestimonialsQuery_genericPage_sections_featured_cards_link {
   text: string | null;
   url: string | null;
+  legacyUrl: string | null;
 }
 
 export interface GenericPageTestimonialsQuery_genericPage_sections_featured_cards {

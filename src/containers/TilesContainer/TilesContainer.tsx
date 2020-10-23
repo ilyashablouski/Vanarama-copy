@@ -102,6 +102,7 @@ TilesContainer.fragments = {
         link {
           text
           url
+          legacyUrl
         }
         image {
           title
