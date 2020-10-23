@@ -130,8 +130,13 @@ const OLAFLayout: React.FC<IProps> = ({
   );
 };
 
+type QueryParams = {
+  isSoleTraderJourney: boolean;
+};
+
 function ProgressSection() {
-  const { pathname } = useRouter();
+  const { pathname, query } = useRouter();
+  const { isSoleTraderJourney } = (query as unknown) as QueryParams;
   const hideProgress = pathname === '/olaf/thank-you/[orderId]';
   if (hideProgress) {
     return null;
@@ -139,13 +144,14 @@ function ProgressSection() {
   const soleTraderPathMatchResult = pathname.match(
     /^\/b2b\/olaf\/sole-trader\/.+/,
   );
-  const isSoleTraderJourney = (soleTraderPathMatchResult || []).length > 0;
+  const isSoleTrader =
+    (soleTraderPathMatchResult || []).length > 0 || isSoleTraderJourney;
   const isB2BJourney = pathname.match(/^\/b2b\/.+/);
 
   return (
     <div className="row:progress">
       {isB2BJourney ? (
-        <BusinessProgressIndicator isSoleTraderJouney={isSoleTraderJourney} />
+        <BusinessProgressIndicator isSoleTraderJourney={isSoleTrader} />
       ) : (
         <ConsumerProgressIndicator />
       )}

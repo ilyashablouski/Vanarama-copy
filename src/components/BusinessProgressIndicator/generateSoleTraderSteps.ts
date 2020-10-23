@@ -1,7 +1,7 @@
 export default function generateSoleTraderSteps() {
   return [
     {
-      href: '/b2b/olaf/about/[orderId]',
+      href: '/b2b/olaf/about',
       label: 'About You',
       step: 1,
     },
@@ -21,7 +21,7 @@ export default function generateSoleTraderSteps() {
       step: 4,
     },
     {
-      href: '/b2b/olaf/sole-trader/company-bank-details/[companyUuid]',
+      href: '/b2b/olaf/sole-trader/bank-details/[companyUuid]',
       label: 'Company Bank Details',
       step: 5,
     },

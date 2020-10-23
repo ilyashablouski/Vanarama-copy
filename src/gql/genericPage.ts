@@ -7,6 +7,10 @@ import {
   GenericPageHeadQuery,
   GenericPageHeadQueryVariables,
 } from '../../generated/GenericPageHeadQuery';
+import {
+  GenericPageBreadcrumbsQuery,
+  GenericPageBreadcrumbsQueryVariables,
+} from '../../generated/GenericPageBreadcrumbsQuery';
 import TilesContainer from '../containers/TilesContainer/TilesContainer';
 import { FeaturedHtml } from '../containers/FeaturedAndTilesContainer/getFeaturedHtml';
 
@@ -199,4 +203,26 @@ export function useGenericPageHead(slug: string) {
       },
     },
   );
+}
+
+export const GENERIC_PAGE_BREADCRUMBS = gql`
+  query GenericPageBreadcrumbsQuery($slug: String!) {
+    genericPage(slug: $slug) {
+      id
+      metaData {
+        breadcrumbs
+      }
+    }
+  }
+`;
+
+export function useGenericPageBreadcrumbs(slug: string) {
+  return useQuery<
+    GenericPageBreadcrumbsQuery,
+    GenericPageBreadcrumbsQueryVariables
+  >(GENERIC_PAGE_BREADCRUMBS, {
+    variables: {
+      slug,
+    },
+  });
 }

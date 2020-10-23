@@ -19,7 +19,6 @@ import SoleTraderDetailsSummarySection from './SoleTraderDetailsSummarySection';
 
 interface IProps {
   company: SummaryFormSoleTrader;
-  orderId: string;
   person: AboutFormPerson;
   creditApplication?: CreditApplication | null;
   onSubmit: () => void;
@@ -29,7 +28,6 @@ interface IProps {
 const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
   creditApplication,
   company,
-  orderId,
   person,
   onSubmit,
   isSubmitting,
@@ -56,8 +54,7 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
       href,
       href
         .replace('[companyUuid]', company.uuid)
-        .replace('[personUuid]', person.uuid)
-        .replace('[orderId]', orderId),
+        .replace('[personUuid]', person.uuid),
     );
   };
 
@@ -76,7 +73,7 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
         <BusinessSummaryFormAboutSection
           soletrader
           person={person}
-          onEdit={handleEdit('/b2b/olaf/about/[orderId]', {
+          onEdit={handleEdit('/b2b/olaf/about/', {
             companyUuid: company.uuid,
           })}
         />
@@ -86,7 +83,6 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
             '/b2b/olaf/sole-trader/company-details/[personUuid]',
             {
               companyUuid: company.uuid,
-              orderId,
             },
           )}
         />
@@ -95,9 +91,6 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
             vatDetails={company}
             onEdit={handleEdit(
               '/b2b/olaf/sole-trader/vat-details/[companyUuid]',
-              {
-                orderId,
-              },
             )}
           />
         )}
@@ -105,9 +98,6 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
           soleTrader={company.associates?.[0]}
           onEdit={handleEdit(
             '/b2b/olaf/sole-trader/sole-trader-details/[companyUuid]',
-            {
-              orderId,
-            },
           )}
         />
         {primaryBankAccount && (
@@ -115,9 +105,6 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
             account={primaryBankAccount}
             onEdit={handleEdit(
               '/b2b/olaf/sole-trader/bank-details/[companyUuid]',
-              {
-                orderId,
-              },
             )}
           />
         )}
