@@ -27,7 +27,7 @@ import { useLazyQuery } from '@apollo/client';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
 import { findPreselectFilterValue } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
-import { GENERIC_PAGE, GENERIC_PAGE_HEAD } from '../../gql/genericPage';
+import { GENERIC_PAGE } from '../../gql/genericPage';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import TopOffersContainer from './TopOffersContainer';
 import { useProductCardData } from '../CustomerAlsoViewedContainer/gql';
@@ -72,10 +72,7 @@ import {
   GenericPageQuery_genericPage_sections_tiles as Tiles,
 } from '../../../generated/GenericPageQuery';
 import { getFeaturedClassPartial } from '../../utils/layout';
-import {
-  GenericPageHeadQuery,
-  GenericPageHeadQueryVariables,
-} from '../../../generated/GenericPageHeadQuery';
+
 import useLeaseType from '../../hooks/useLeaseType';
 import { LinkTypes } from '../../models/enum/LinkTypes';
 import { getLegacyUrl, getNewUrl } from '../../utils/url';
@@ -588,14 +585,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       setMetaData(result.genericPage.metaData);
     },
   });
-  const [getGenericPageHead] = useLazyQuery<
-    GenericPageHeadQuery,
-    GenericPageHeadQueryVariables
-  >(GENERIC_PAGE_HEAD, {
-    onCompleted: result => {
-      setMetaData(result.genericPage.metaData);
-    },
-  });
+
   const [getAllManufacturersPage] = useLazyQuery<manufacturerPage>(
     GET_ALL_MAKES_PAGE,
     {
@@ -644,7 +634,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         break;
       case isSpecialOfferPage:
         pageContentQueryExecutor(
-          getGenericPageHead,
+          getGenericPage,
           `${
             isCarSearch ? 'car-leasing' : 'pickup-truck-leasing'
           }/special-offers`,
@@ -671,7 +661,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     isFuelPage,
     getGenericPage,
     getAllManufacturersPage,
-    getGenericPageHead,
   ]);
 
   const tiles: Tiles = getSectionsData(
@@ -1136,6 +1125,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           )}
         </>
       )}
+
       <div className="row:text">
         <Text color="darker" size="regular" tag="span">
           Photos and videos are for illustration purposes only.
