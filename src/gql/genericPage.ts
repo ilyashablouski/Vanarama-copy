@@ -93,6 +93,7 @@ export const GENERIC_PAGE = gql`
             link {
               text
               url
+              legacyUrl
             }
           }
         }
@@ -153,6 +154,7 @@ export const GENERIC_PAGE = gql`
             link {
               text
               url
+              legacyUrl
             }
           }
         }
