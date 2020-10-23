@@ -29,6 +29,7 @@ const CARDS = [
     link: {
       text: 'Search Vans',
       url: '/van-leasing.html',
+      legacyUrl: '/van-leasing.html',
     },
     name: 'Search Vans',
     title: 'Search Vans',
@@ -49,6 +50,7 @@ const CARDS = [
     link: {
       text: 'Search Cars',
       url: '/van-leasing.html',
+      legacyUrl: '/van-leasing.html',
     },
     name: 'Search Cars',
     title: 'Search Cars',
