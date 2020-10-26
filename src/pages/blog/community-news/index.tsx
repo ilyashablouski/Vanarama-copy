@@ -42,7 +42,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       slug: 'blog/community-news',
     },
   });
-  return { props: { data, loading, error: errors ? errors[0].message : null } };
+  return { props: { data, loading, error: errors ? errors[0] : null } };
 }
 
 export default withApollo(CategoryPage);

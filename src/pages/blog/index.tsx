@@ -59,7 +59,9 @@ export async function getStaticProps(context: NextPageContext) {
       slug: 'blog',
     },
   });
-  return { props: { data, pageHead, loading, error: errors || null } };
+  return {
+    props: { data, pageHead, loading, error: errors ? errors[0] : null },
+  };
 }
 
 export default withApollo(CategoryPage);

@@ -86,10 +86,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     props: {
       data,
       loading,
-      error: errors || null,
+      error: errors ? errors[0] : null,
       blogPosts,
       blogPostsLoading,
-      blogPostsError: blogPostsError || null,
+      blogPostsError: blogPostsError ? blogPostsError[0] : null,
     },
   };
 }

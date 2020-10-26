@@ -42,7 +42,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       slug: 'blog/the-shoestring-marketing-blog',
     },
   });
-  return { props: { data, loading, error: errors ? errors[0].message : null } };
+  return { props: { data, loading, error: errors ? errors[0] : null } };
 }
 
 export default withApollo(CategoryPage);
