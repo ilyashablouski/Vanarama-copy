@@ -1,16 +1,14 @@
-import { NextPage } from 'next';
+import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import { useRouter } from 'next/router';
-import { useBlogPostsPage } from '../../../gql/blogPosts';
+import { BLOG_POSTS_PAGE } from '../../../gql/blogPosts';
 import withApollo from '../../../hocs/withApollo';
 import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
 import CategoryPageContainer from '../../../containers/CategoryPageContainer/CategoryPageContainer';
 import { getSectionsData } from '../../../utils/getSectionsData';
+import createApolloClient from '../../../apolloClient';
+import { IBlogCategory } from '../../../models/IBlogsProps';
 
-const CategoryPage: NextPage = () => {
-  const router = useRouter();
-  const { data, loading, error } = useBlogPostsPage(router.asPath.slice(1));
-
+const CategoryPage: NextPage<IBlogCategory> = ({ data, loading, error }) => {
   if (loading) {
     return <Loading size="large" />;
   }
@@ -35,5 +33,16 @@ const CategoryPage: NextPage = () => {
     />
   );
 };
+
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const client = createApolloClient({}, context as NextPageContext);
+  const { data, loading, errors } = await client.query({
+    query: BLOG_POSTS_PAGE,
+    variables: {
+      slug: 'blog/the-shoestring-marketing-blog',
+    },
+  });
+  return { props: { data, loading, error: errors ? errors[0].message : null } };
+}
 
 export default withApollo(CategoryPage);

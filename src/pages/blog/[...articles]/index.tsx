@@ -1,4 +1,4 @@
-import { NextPage, NextPageContext } from 'next';
+import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
 import { getArticles } from '../../../utils/articles';
@@ -55,12 +55,19 @@ const BlogPost: NextPage<IBlogPost> = ({
   );
 };
 
-export async function getStaticPaths(context: NextPageContext) {
-  const client = createApolloClient({}, context);
+export async function getStaticPaths() {
+  return {
+    paths: [{ params: { articles: [] } }],
+    fallback: true,
+  };
+}
+
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const client = createApolloClient({}, context as NextPageContext);
   const { data, loading, errors } = await client.query({
     query: BLOG_POST_PAGE,
     variables: {
-      slug: context.asPath?.slice(1),
+      slug: `blog/${context?.params?.articles}`,
     },
   });
   const {
@@ -80,7 +87,7 @@ export async function getStaticPaths(context: NextPageContext) {
       error: errors || null,
       blogPosts,
       blogPostsLoading,
-      blogPostsError,
+      blogPostsError: blogPostsError || null,
     },
   };
 }
