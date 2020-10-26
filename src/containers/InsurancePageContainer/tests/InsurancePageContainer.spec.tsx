@@ -64,8 +64,6 @@ const mocked: MockedResponse[] = [
                     text: 'Multi-Year Van Insurance',
                     url:
                       'https://beta.vanarama.com/van-insurance/multi-year-van-insurance.html',
-                    legacyUrl:
-                      'https://beta.vanarama.com/van-insurance/multi-year-van-insurance.html',
                   },
                   image: {
                     title: 'placeholder',
@@ -83,8 +81,6 @@ const mocked: MockedResponse[] = [
                   link: {
                     text: 'Finance GAP Insurance',
                     url:
-                      'https://beta.vanarama.com/van-insurance/finance-gap-insurance.html',
-                    legacyUrl:
                       'https://beta.vanarama.com/van-insurance/finance-gap-insurance.html',
                   },
                   image: {
@@ -105,8 +101,6 @@ const mocked: MockedResponse[] = [
                     text: 'Tools in Transit Insurance',
                     url:
                       'https://beta.vanarama.com/van-insurance/tools-in-transit.html',
-                    legacyUrl:
-                      'https://beta.vanarama.com/van-insurance/tools-in-transit.html',
                   },
                   image: {
                     title: 'placeholder',
@@ -125,8 +119,6 @@ const mocked: MockedResponse[] = [
                   link: {
                     text: '7-Day Free Insurance',
                     url:
-                      'https://beta.vanarama.com/van-insurance/7-day-free-van-insurance.html',
-                    legacyUrl:
                       'https://beta.vanarama.com/van-insurance/7-day-free-van-insurance.html',
                   },
                   image: {
@@ -147,8 +139,6 @@ const mocked: MockedResponse[] = [
                     text: 'Short-Term Van Insurance',
                     url:
                       'https://beta.vanarama.com/van-insurance/short-term-insurance.html',
-                    legacyUrl:
-                      'https://beta.vanarama.com/van-insurance/short-term-insurance.html',
                   },
                   image: {
                     title: 'placeholder',
@@ -167,8 +157,6 @@ const mocked: MockedResponse[] = [
                   link: {
                     text: 'FAQs',
                     url: 'https://beta.vanarama.com/van-insurance/faq.html',
-                    legacyUrl:
-                      'https://beta.vanarama.com/van-insurance/faq.html',
                   },
                   image: {
                     title: 'placeholder',
