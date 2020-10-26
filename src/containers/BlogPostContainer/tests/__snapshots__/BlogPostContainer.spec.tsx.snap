@@ -63,6 +63,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           >
             <a
               class="heading -black -lead"
+              data-testid="router-link"
               href="/blog/vans/4-year-mot-exemption"
             >
               4-year MoT exemption period could save YOU money!
@@ -95,6 +96,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           >
             <a
               class="heading -black -lead"
+              data-testid="router-link"
               href="/blog/vans/top-5-electric-vans"
             >
               Top 5 Electric Vans… Sort Of
@@ -127,6 +129,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           >
             <a
               class="heading -black -lead"
+              data-testid="router-link"
               href="/blog/vans/5-things-we-love-about-peugeot-boxer"
             >
               5 Things We Love About Peugeot Boxer

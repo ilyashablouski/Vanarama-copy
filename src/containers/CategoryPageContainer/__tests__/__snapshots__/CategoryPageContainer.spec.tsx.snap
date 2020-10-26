@@ -107,7 +107,8 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
           >
             <a
               class="heading -black -lead"
-              href="/null"
+              data-testid="router-link"
+              href="/"
             >
               Category Titles
             </a>
@@ -172,6 +173,7 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
           >
             <a
               class="heading -black -lead"
+              data-testid="router-link"
               href="/blog/cars/best-cars-for-mpg"
             >
               Best Cars For MPG
