@@ -36,7 +36,6 @@ export interface HubCarPageData_hubCarPage_sections_featured1_iconList {
 export interface HubCarPageData_hubCarPage_sections_featured1_link {
   url: string | null;
   text: string | null;
-  legacyUrl: string | null;
 }
 
 export interface HubCarPageData_hubCarPage_sections_featured1_cards_image_file {
@@ -53,7 +52,6 @@ export interface HubCarPageData_hubCarPage_sections_featured1_cards_image {
 export interface HubCarPageData_hubCarPage_sections_featured1_cards_link {
   text: string | null;
   url: string | null;
-  legacyUrl: string | null;
 }
 
 export interface HubCarPageData_hubCarPage_sections_featured1_cards {
@@ -101,7 +99,6 @@ export interface HubCarPageData_hubCarPage_sections_featured2_iconList {
 export interface HubCarPageData_hubCarPage_sections_featured2_link {
   url: string | null;
   text: string | null;
-  legacyUrl: string | null;
 }
 
 export interface HubCarPageData_hubCarPage_sections_featured2_cards_image_file {
@@ -118,7 +115,6 @@ export interface HubCarPageData_hubCarPage_sections_featured2_cards_image {
 export interface HubCarPageData_hubCarPage_sections_featured2_cards_link {
   text: string | null;
   url: string | null;
-  legacyUrl: string | null;
 }
 
 export interface HubCarPageData_hubCarPage_sections_featured2_cards {
@@ -172,7 +168,6 @@ export interface HubCarPageData_hubCarPage_sections_steps {
 export interface HubCarPageData_hubCarPage_sections_tiles_tiles_link {
   text: string | null;
   url: string | null;
-  legacyUrl: string | null;
 }
 
 export interface HubCarPageData_hubCarPage_sections_tiles_tiles_image_file {

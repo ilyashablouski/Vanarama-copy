@@ -36,7 +36,6 @@ export interface HubPickupPageData_hubPickupPage_sections_featured1_iconList {
 export interface HubPickupPageData_hubPickupPage_sections_featured1_link {
   url: string | null;
   text: string | null;
-  legacyUrl: string | null;
 }
 
 export interface HubPickupPageData_hubPickupPage_sections_featured1_cards_image_file {
@@ -53,7 +52,6 @@ export interface HubPickupPageData_hubPickupPage_sections_featured1_cards_image 
 export interface HubPickupPageData_hubPickupPage_sections_featured1_cards_link {
   text: string | null;
   url: string | null;
-  legacyUrl: string | null;
 }
 
 export interface HubPickupPageData_hubPickupPage_sections_featured1_cards {
@@ -101,7 +99,6 @@ export interface HubPickupPageData_hubPickupPage_sections_featured2_iconList {
 export interface HubPickupPageData_hubPickupPage_sections_featured2_link {
   url: string | null;
   text: string | null;
-  legacyUrl: string | null;
 }
 
 export interface HubPickupPageData_hubPickupPage_sections_featured2_cards_image_file {
@@ -118,7 +115,6 @@ export interface HubPickupPageData_hubPickupPage_sections_featured2_cards_image 
 export interface HubPickupPageData_hubPickupPage_sections_featured2_cards_link {
   text: string | null;
   url: string | null;
-  legacyUrl: string | null;
 }
 
 export interface HubPickupPageData_hubPickupPage_sections_featured2_cards {
@@ -180,7 +176,6 @@ export interface HubPickupPageData_hubPickupPage_sections_steps {
 export interface HubPickupPageData_hubPickupPage_sections_tiles1_tiles_link {
   text: string | null;
   url: string | null;
-  legacyUrl: string | null;
 }
 
 export interface HubPickupPageData_hubPickupPage_sections_tiles1_tiles_image_file {
@@ -213,7 +208,6 @@ export interface HubPickupPageData_hubPickupPage_sections_tiles1 {
 export interface HubPickupPageData_hubPickupPage_sections_tiles2_tiles_link {
   text: string | null;
   url: string | null;
-  legacyUrl: string | null;
 }
 
 export interface HubPickupPageData_hubPickupPage_sections_tiles2_tiles_image_file {

@@ -46,7 +46,7 @@ export interface GetDerivative_derivative {
   capCode: string;
   name: string;
   slug: string;
-  bodyType: GetDerivative_derivative_bodyType | null;
+  bodyType: GetDerivative_derivative_bodyType;
   manufacturer: GetDerivative_derivative_manufacturer;
   model: GetDerivative_derivative_model;
   fuelType: GetDerivative_derivative_fuelType;

@@ -92,7 +92,6 @@ export const GENERIC_PAGE_QUESTION = gql`
             link {
               text
               url
-              legacyUrl
             }
           }
         }
@@ -137,7 +136,6 @@ export const GENERIC_PAGE_QUESTION = gql`
           link {
             text
             url
-            legacyUrl
           }
           image {
             title
@@ -164,7 +162,6 @@ export const GENERIC_PAGE_QUESTION = gql`
           link {
             url
             text
-            legacyUrl
           }
           image {
             title
@@ -182,7 +179,6 @@ export const GENERIC_PAGE_QUESTION = gql`
           link {
             url
             text
-            legacyUrl
           }
           image {
             title
@@ -208,7 +204,6 @@ export const GENERIC_PAGE_QUESTION = gql`
             link {
               text
               url
-              legacyUrl
             }
           }
         }
@@ -230,7 +225,6 @@ export const GENERIC_PAGE_QUESTION = gql`
             link {
               text
               url
-              legacyUrl
             }
           }
         }
@@ -245,7 +239,6 @@ export const GENERIC_PAGE_QUESTION = gql`
             link {
               text
               url
-              legacyUrl
             }
             image {
               title

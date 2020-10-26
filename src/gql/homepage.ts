@@ -61,7 +61,6 @@ const ALL_HOME_CONTENT = gql`
             link {
               url
               text
-              legacyUrl
             }
           }
         }

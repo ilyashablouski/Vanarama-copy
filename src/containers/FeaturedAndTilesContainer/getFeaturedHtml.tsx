@@ -79,7 +79,6 @@ FeaturedHtml.fragments = {
       link {
         url
         text
-        legacyUrl
       }
       title
       cards {
@@ -97,7 +96,6 @@ FeaturedHtml.fragments = {
         link {
           text
           url
-          legacyUrl
         }
       }
       image {

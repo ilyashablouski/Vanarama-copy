@@ -14,7 +14,6 @@ export interface GenericPageQueryFeatured_iconList {
 export interface GenericPageQueryFeatured_link {
   url: string | null;
   text: string | null;
-  legacyUrl: string | null;
 }
 
 export interface GenericPageQueryFeatured_cards_image_file {
@@ -31,7 +30,6 @@ export interface GenericPageQueryFeatured_cards_image {
 export interface GenericPageQueryFeatured_cards_link {
   text: string | null;
   url: string | null;
-  legacyUrl: string | null;
 }
 
 export interface GenericPageQueryFeatured_cards {

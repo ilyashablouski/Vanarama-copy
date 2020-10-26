@@ -10,7 +10,6 @@
 export interface GenericPageQueryTiles_tiles_link {
   text: string | null;
   url: string | null;
-  legacyUrl: string | null;
 }
 
 export interface GenericPageQueryTiles_tiles_image_file {

@@ -46,7 +46,6 @@ export const BLOG_POSTS_PAGE = gql`
             link {
               text
               url
-              legacyUrl
             }
           }
         }
@@ -68,7 +67,6 @@ export const BLOG_POSTS_PAGE = gql`
             link {
               text
               url
-              legacyUrl
             }
           }
         }
@@ -83,7 +81,6 @@ export const BLOG_POSTS_PAGE = gql`
             link {
               text
               url
-              legacyUrl
             }
             image {
               title

@@ -50,7 +50,8 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
   if (
     link.linkType === LinkTypes.external ||
     !!link.target ||
-    link.href.match(/^(https?:)?\/\//)
+    link.href.match(/^(https?:)?\/\//) ||
+    link.href.match(/.html/)
   ) {
     return (
       <a
