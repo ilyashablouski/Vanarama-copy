@@ -1,5 +1,6 @@
 import { ISortOrder } from '../../hooks/useSortOrder';
 import { RateInputObject } from '../../../generated/globalTypes';
+import { filterList_filterList as IFilterList } from '../../../generated/filterList';
 
 export interface IFilterContainerProps {
   isPersonal: boolean;
@@ -19,6 +20,7 @@ export interface IFilterContainerProps {
   isTransmissionPage?: boolean;
   isDynamicFilterPage?: boolean;
   sortOrder: ISortOrder;
+  preLoadFilters?: IFilterList;
 }
 
 export interface IFilters {

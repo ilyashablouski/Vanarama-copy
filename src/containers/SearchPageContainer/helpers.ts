@@ -1,9 +1,19 @@
-import { QueryLazyOptions } from '@apollo/client';
+import {
+  ApolloClient,
+  DocumentNode,
+  NormalizedCacheObject,
+  QueryLazyOptions,
+} from '@apollo/client';
+import { GENERIC_PAGE, GENERIC_PAGE_HEAD } from '../../gql/genericPage';
+import { NextPageContext } from 'next';
 import { getBudgetForQuery } from '../SearchPodContainer/helpers';
 import { IFilters } from '../FiltersContainer/interfaces';
-import { GenericPageQueryVariables } from '../../../generated/GenericPageQuery';
+import {
+  GenericPageQueryVariables,
+} from '../../../generated/GenericPageQuery';
 import { GenericPageHeadQueryVariables } from '../../../generated/GenericPageHeadQuery';
 import { SortDirection, SortField } from '../../../generated/globalTypes';
+import { GET_ALL_MAKES_PAGE } from './gql';
 
 export const buildRewriteRoute = (
   {
@@ -130,3 +140,68 @@ export const sortValues = [
     value: `${SortField.availability}_${SortDirection.DESC}`,
   },
 ];
+
+async function onCallQuery(
+  client: ApolloClient<NormalizedCacheObject>,
+  query: DocumentNode,
+  slug: string,
+) {
+  return await client.query({
+    query,
+    variables: {
+      slug: slug || undefined,
+    },
+  });
+}
+
+export const ssrCMSQueryExecutor = async (
+  client: ApolloClient<NormalizedCacheObject>,
+  context: NextPageContext,
+  isCarSearch: boolean,
+  pageType: string,
+) => {
+  const searchType = isCarSearch ? 'car-leasing' : 'van-leasing';
+  // remove first slash from route and build valid path
+  const {
+    req: { url },
+    query,
+  } = context;
+  const slug = url.slice(1, url.length)
+  switch (pageType) {
+    case 'isMakePage':
+    case 'isRangePage':
+    case 'isModelPage':
+      return await onCallQuery(client, GENERIC_PAGE, prepareSlugPart(slug));
+    case 'isBodyStylePage':
+      return await onCallQuery(
+        client,
+        GENERIC_PAGE,
+        `${searchType}/${prepareSlugPart(
+          bodyUrls.find(
+            getBodyStyleForCms,
+            (query.dynamicParam as string).toLowerCase(),
+          ) || '',
+        )}${!isCarSearch ? '-leasing' : ''}`,
+      );
+    case 'isTransmissionPage':
+      return await onCallQuery(
+        client,
+        GENERIC_PAGE,
+        'van-leasing/automatic-van-leasing',
+      );
+    case 'isFuelPage':
+      return await onCallQuery(client, GENERIC_PAGE, slug);
+    case 'isSpecialOfferPage':
+      return onCallQuery(
+        client,
+        GENERIC_PAGE_HEAD,
+        `${
+          isCarSearch ? 'car-leasing' : 'pickup-truck-leasing'
+        }/special-offers`,
+      );
+    case 'isAllMakesPage':
+      return onCallQuery(client, GET_ALL_MAKES_PAGE, '');
+    default:
+      return await onCallQuery(client, GENERIC_PAGE, `${searchType}/search`);
+  }
+};

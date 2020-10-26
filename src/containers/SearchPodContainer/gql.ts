@@ -40,6 +40,7 @@ export function useFilterList(
   onOffer: boolean | null = null,
   onCompleted: (data: IFilterList) => void = data => data,
   filters = {},
+  skip = false,
 ) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   return useQuery(GET_SEARCH_POD_DATA, {
@@ -49,6 +50,7 @@ export function useFilterList(
       ...filters,
     },
     onCompleted,
+    skip: skip
   });
 }
 

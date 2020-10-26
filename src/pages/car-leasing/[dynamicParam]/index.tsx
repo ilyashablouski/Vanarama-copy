@@ -1,15 +1,24 @@
 import { NextPage, NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { ApolloQueryResult } from '@apollo/client';
+import createApolloClient from '../../../apolloClient';
 import { PAGE_TYPES, SITE_SECTIONS } from '../../../utils/pageTypes';
 import {
   bodyUrls,
   fuelMapper,
   getBodyStyleForCms,
+  ssrCMSQueryExecutor,
 } from '../../../containers/SearchPageContainer/helpers';
 import SearchPageContainer from '../../../containers/SearchPageContainer';
 import withApollo from '../../../hocs/withApollo';
 import { pushPageData } from '../../../utils/dataLayerHelpers';
+import {
+  GenericPageQuery,
+  GenericPageQuery_genericPage_metaData as PageMetaData,
+} from '../../../../generated/GenericPageQuery';
+import {GET_SEARCH_POD_DATA} from '../../../containers/SearchPodContainer/gql';
+import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 
 interface IPageType {
   isBodyStylePage: boolean;
@@ -21,9 +30,18 @@ interface IProps {
   isServer: boolean;
   pageType: IPageType;
   query: any;
+  pageData: GenericPageQuery;
+  metaData: PageMetaData;
 }
 
-const Page: NextPage<IProps> = ({ isServer, query, pageType }) => {
+const Page: NextPage<IProps> = ({
+  isServer,
+  query,
+  pageType,
+  pageData,
+  metaData,
+  filtersData,
+}) => {
   const router = useRouter();
   useEffect(() => {
     pushPageData({
@@ -59,11 +77,16 @@ const Page: NextPage<IProps> = ({ isServer, query, pageType }) => {
       isMakePage={pageType.isMakePage}
       isBodyStylePage={pageType.isBodyStylePage}
       isFuelPage={pageType.isFuelType}
+      pageData={pageData}
+      metaData={metaData}
+      preloadFiltersData={filtersData}
     />
   );
 };
-export async function getServerSideProps({ query, req }: NextPageContext) {
+export async function getServerSideProps(context: NextPageContext) {
+  const { query, req } = context;
   const newQuery = { ...query };
+
   // check for bodystyle page
   const isBodyStylePage = !!bodyUrls.find(
     getBodyStyleForCms,
@@ -84,11 +107,30 @@ export async function getServerSideProps({ query, req }: NextPageContext) {
     newQuery.fuelTypes =
       fuelMapper[query.dynamicParam as keyof typeof fuelMapper];
   else newQuery.make = query.dynamicParam;
+  const [type] =
+    Object.entries(pageType).find(([, value]) => value === true) || '';
+  const client = createApolloClient({}, context);
+  const { data } = (await ssrCMSQueryExecutor(
+    client,
+    context,
+    true,
+    type as string,
+  )) as ApolloQueryResult<any>;
+  const {data: filtersData} = await client.query({
+    query: GET_SEARCH_POD_DATA,
+    variables: {
+      onOffer: null,
+      vehicleTypes: [VehicleTypeEnum.CAR]
+    }
+  })
   return {
     props: {
       query: { ...newQuery },
       isServer: !!req,
       pageType,
+      pageData: data,
+      metaData: data.genericPage.metaData,
+      filtersData
     },
   };
 }

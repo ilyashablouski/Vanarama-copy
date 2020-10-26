@@ -1,15 +1,21 @@
 import { NextPage, NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { ApolloQueryResult } from '@apollo/client';
+import createApolloClient from '../../../apolloClient';
+import { PAGE_TYPES, SITE_SECTIONS } from '../../../utils/pageTypes';
 import {
   bodyUrls,
-  isTransmission,
   getBodyStyleForCms,
+  isTransmission,
+  ssrCMSQueryExecutor,
 } from '../../../containers/SearchPageContainer/helpers';
 import SearchPageContainer from '../../../containers/SearchPageContainer';
-import withApollo from '../../../hocs/withApollo';
 import { pushPageData } from '../../../utils/dataLayerHelpers';
-import { PAGE_TYPES, SITE_SECTIONS } from '../../../utils/pageTypes';
+import {
+  GenericPageQuery,
+  GenericPageQuery_genericPage_metaData as PageMetaData,
+} from '../../../../generated/GenericPageQuery';
 
 interface IPageType {
   isBodyStylePage: boolean;
@@ -21,9 +27,12 @@ interface IProps {
   isServer: boolean;
   pageType: IPageType;
   query: any;
+  pageData: GenericPageQuery;
+  metaData: PageMetaData;
 }
 
-const Page: NextPage<IProps> = ({ isServer, query, pageType }) => {
+const Page: NextPage<IProps> = ({ isServer, query, pageType, pageData,
+  metaData, }) => {
   const router = useRouter();
   useEffect(() => {
     pushPageData({
@@ -59,11 +68,14 @@ const Page: NextPage<IProps> = ({ isServer, query, pageType }) => {
       isMakePage={pageType.isMakePage}
       isBodyStylePage={pageType.isBodyStylePage}
       isTransmissionPage={pageType.isTransmissionPage}
+      pageData={pageData}
+      metaData={metaData}
     />
   );
 };
 
-export async function getServerSideProps({ query, req }: NextPageContext) {
+export async function getServerSideProps(context: NextPageContext) {
+  const { query, req } = context;
   const newQuery = { ...query };
   // check for bodystyle page
   const isBodyStylePage = !!bodyUrls.find(
@@ -85,7 +97,17 @@ export async function getServerSideProps({ query, req }: NextPageContext) {
     newQuery.transmissions = (query.dynamicParam as string).replace('-', ' ');
   else newQuery.make = query.dynamicParam;
 
-  return { props: { query: { ...newQuery }, isServer: !!req, pageType } };
+  const [type] =
+  Object.entries(pageType).find(([, value]) => value === true) || '';
+const client = createApolloClient({}, context);
+const { data } = (await ssrCMSQueryExecutor(
+  client,
+  context,
+  true,
+  type as string,
+)) as ApolloQueryResult<any>;
+  return { props: { query: { ...newQuery }, isServer: !!req, pageType,       pageData: data,
+  metaData: data.genericPage.metaData, } };
 }
 
-export default withApollo(Page);
+export default Page;

@@ -10,7 +10,7 @@ export const isInclude = (value: string, includedValue: string): boolean =>
   value
     .toLowerCase()
     .replace(' ', '-')
-    .includes(includedValue.toLowerCase().replace(' ', '-'));
+    .includes(includedValue?.toLowerCase().replace(' ', '-'));
 
 export const findPreselectFilterValue = (
   value: string,

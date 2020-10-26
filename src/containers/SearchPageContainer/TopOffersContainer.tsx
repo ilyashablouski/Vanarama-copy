@@ -127,7 +127,7 @@ const TopOffersContainer: React.FC<IProps> = ({
     if (
       isMakePage ||
       isRangePage ||
-      (isDynamicFilterPage && !(isBodyPage && !manualBodyStyle))
+      (isDynamicFilterPage && !(isBodyPage && !manualBodyStyle[0]))
     ) {
       getVehicles({
         variables: {

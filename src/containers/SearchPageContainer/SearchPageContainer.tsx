@@ -23,22 +23,15 @@ import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import { useLazyQuery } from '@apollo/client';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
 import { findPreselectFilterValue } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
-import { GENERIC_PAGE, GENERIC_PAGE_HEAD } from '../../gql/genericPage';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import TopOffersContainer from './TopOffersContainer';
 import { useProductCardData } from '../CustomerAlsoViewedContainer/gql';
 import { IFilters } from '../FiltersContainer/interfaces';
 import FiltersContainer from '../FiltersContainer';
-import {
-  useVehiclesList,
-  getRangesList,
-  useManufacturerList,
-  GET_ALL_MAKES_PAGE,
-} from './gql';
+import { useVehiclesList, getRangesList, useManufacturerList } from './gql';
 import VehicleCard, { IProductPageUrl } from './VehicleCard';
 import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
 import {
@@ -47,35 +40,19 @@ import {
   LeaseTypeEnum,
   SortDirection,
 } from '../../../generated/globalTypes';
-import {
-  buildRewriteRoute,
-  prepareSlugPart,
-  pageContentQueryExecutor,
-  fuelMapper,
-  getBodyStyleForCms,
-  bodyUrls,
-  sortValues,
-} from './helpers';
+import { buildRewriteRoute, fuelMapper, sortValues } from './helpers';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
 import RangeCard from './RangeCard';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import TopInfoBlock from './TopInfoBlock';
-import {
-  manufacturerPage_manufacturerPage_sections as sections,
-  manufacturerPage,
-} from '../../../generated/manufacturerPage';
+import { manufacturerPage_manufacturerPage_sections as sections } from '../../../generated/manufacturerPage';
 import {
   GenericPageQuery,
-  GenericPageQueryVariables,
   GenericPageQuery_genericPage_metaData as PageMetaData,
   GenericPageQuery_genericPage_sections_carousel as CarouselData,
   GenericPageQuery_genericPage_sections_tiles as Tiles,
 } from '../../../generated/GenericPageQuery';
 import { getFeaturedClassPartial } from '../../utils/layout';
-import {
-  GenericPageHeadQuery,
-  GenericPageHeadQueryVariables,
-} from '../../../generated/GenericPageHeadQuery';
 import useLeaseType from '../../hooks/useLeaseType';
 import { LinkTypes } from '../../models/enum/LinkTypes';
 import { getLegacyUrl, getNewUrl } from '../../utils/url';
@@ -94,6 +71,9 @@ interface IProps {
   isBodyStylePage?: boolean;
   isTransmissionPage?: boolean;
   isFuelPage?: boolean;
+  pageData?: GenericPageQuery;
+  metaData: PageMetaData;
+  topInfoSection?: sections | null;
 }
 
 const SearchPageContainer: React.FC<IProps> = ({
@@ -108,6 +88,10 @@ const SearchPageContainer: React.FC<IProps> = ({
   isBodyStylePage,
   isTransmissionPage,
   isFuelPage,
+  pageData,
+  metaData,
+  topInfoSection,
+  preloadFiltersData = undefined,
 }: IProps) => {
   const router = useRouter();
   const isDynamicFilterPage = useMemo(
@@ -174,10 +158,10 @@ const SearchPageContainer: React.FC<IProps> = ({
       // city-car is only one style with '-' we shouldn't to replace it
       return [
         bodyStyle.toLowerCase() === 'city-car'
-          ? findPreselectFilterValue(bodyStyle, filtersData.bodyStyles)
+          ? findPreselectFilterValue(bodyStyle, preloadFiltersData?.filterList.bodyStyles)
           : findPreselectFilterValue(
               bodyStyle.replace('-', ' '),
-              filtersData.bodyStyles,
+              preloadFiltersData?.filterList.bodyStyles,
             ),
       ];
     }
@@ -187,7 +171,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     isModelPage,
     router.query,
     isBodyStylePage,
-    filtersData.bodyStyles,
+    preloadFiltersData?.filterList.bodyStyles,
   ]);
 
   // get Caps ids for product card request
@@ -575,105 +559,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     }
   };
 
-  const [pageData, setPageData] = useState<GenericPageQuery>();
-  const [metaData, setMetaData] = useState<PageMetaData>();
-  const [topInfoSection, setTopInfoSection] = useState<sections | null>();
-
-  const [getGenericPage] = useLazyQuery<
-    GenericPageQuery,
-    GenericPageQueryVariables
-  >(GENERIC_PAGE, {
-    onCompleted: result => {
-      setPageData(result);
-      setMetaData(result.genericPage.metaData);
-    },
-  });
-  const [getGenericPageHead] = useLazyQuery<
-    GenericPageHeadQuery,
-    GenericPageHeadQueryVariables
-  >(GENERIC_PAGE_HEAD, {
-    onCompleted: result => {
-      setMetaData(result.genericPage.metaData);
-    },
-  });
-  const [getAllManufacturersPage] = useLazyQuery<manufacturerPage>(
-    GET_ALL_MAKES_PAGE,
-    {
-      onCompleted: result => {
-        setTopInfoSection(result.manufacturerPage.sections);
-        setMetaData(result.manufacturerPage.metaData);
-      },
-    },
-  );
-
-  // made requests for different types of search pages
-  useEffect(() => {
-    const searchType = isCarSearch ? 'car-leasing' : 'van-leasing';
-    const { query, pathname } = router;
-    // remove first slash from route and build valid path
-    const slug = pathname
-      .slice(1, pathname.length)
-      .replace('[dynamicParam]', (query.dynamicParam as string) || '')
-      .replace('[rangeName]', (query.rangeName as string) || '')
-      .replace('[bodyStyles]', (query.bodyStyles as string) || '');
-    switch (true) {
-      case isMakePage:
-      case isRangePage:
-      case isModelPage:
-        pageContentQueryExecutor(getGenericPage, prepareSlugPart(slug));
-        break;
-      case isBodyStylePage:
-        pageContentQueryExecutor(
-          getGenericPage,
-          `${searchType}/${prepareSlugPart(
-            bodyUrls.find(
-              getBodyStyleForCms,
-              (query.dynamicParam as string).toLowerCase(),
-            ) || '',
-          )}${!isCarSearch ? '-leasing' : ''}`,
-        );
-        break;
-      case isTransmissionPage:
-        pageContentQueryExecutor(
-          getGenericPage,
-          'van-leasing/automatic-van-leasing',
-        );
-        break;
-      case isFuelPage:
-        pageContentQueryExecutor(getGenericPage, slug);
-        break;
-      case isSpecialOfferPage:
-        pageContentQueryExecutor(
-          getGenericPageHead,
-          `${
-            isCarSearch ? 'car-leasing' : 'pickup-truck-leasing'
-          }/special-offers`,
-        );
-        break;
-      case isAllMakesPage:
-        getAllManufacturersPage();
-        break;
-      default:
-        pageContentQueryExecutor(getGenericPage, `${searchType}/search`);
-        break;
-    }
-    // router can't be added to deps, because it change every url replacing
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    isCarSearch,
-    isAllMakesPage,
-    isSpecialOfferPage,
-    isBodyStylePage,
-    isTransmissionPage,
-    isModelPage,
-    isRangePage,
-    isMakePage,
-    isFuelPage,
-    getGenericPage,
-    getAllManufacturersPage,
-    getGenericPageHead,
-  ]);
-
   const tiles: Tiles = getSectionsData(
     ['sections', 'tiles'],
     pageData?.genericPage,
@@ -694,7 +579,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       <div className="row:title">
         <Heading tag="h1" size="xlarge" color="black">
           {(isModelPage &&
-            `${filtersData.manufacturerName} ${filtersData.rangeName} ${filtersData.bodyStyles?.[0]}`) ||
+            metaData?.name?.slice(0, metaData?.name?.indexOf('Car Leasing'))) ||
             (metaData?.name ?? '')}
         </Heading>
         <Text color="darker" size="regular" tag="div">
@@ -826,6 +711,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             isFuelPage={isFuelPage}
             isTransmissionPage={isTransmissionPage}
             sortOrder={sortOrder}
+            preLoadFilters={preloadFiltersData?.filterList}
           />
         </div>
       </div>

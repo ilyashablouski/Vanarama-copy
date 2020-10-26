@@ -60,6 +60,7 @@ const FiltersContainer = ({
   isTransmissionPage,
   isDynamicFilterPage,
   sortOrder,
+  preLoadFilters,
 }: IFilterContainerProps) => {
   const router = useRouter();
   const [filtersData, setFiltersData] = useState({} as IFilterList);
@@ -68,7 +69,7 @@ const FiltersContainer = ({
     shouldMakeChoiceboxesForceUpdate,
     setShouldMakeChoiceboxesForceUpdate,
   ] = useState(false);
-  const [makeData, setMakeData] = useState([] as string[]);
+  const [makeData, setMakeData] = useState(makeHandler(preLoadFilters || ({} as IFilterList)));
   const [modelsData, setModelsData] = useState([] as string[]);
   const [tempFilterName, setTempFilterName] = useState('');
   const [tempModelName, setTempModelName] = useState('');

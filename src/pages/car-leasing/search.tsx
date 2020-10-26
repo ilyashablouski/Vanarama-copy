@@ -1,16 +1,44 @@
 import { NextPage, NextPageContext } from 'next';
-import withApollo from '../../hocs/withApollo';
+import { ApolloQueryResult } from '@apollo/client';
+import createApolloClient from '../../apolloClient';
 import SearchPageContainer from '../../containers/SearchPageContainer';
+import { ssrCMSQueryExecutor } from '../../containers/SearchPageContainer/helpers';
+import {
+  GenericPageQuery,
+  GenericPageQuery_genericPage_metaData as PageMetaData,
+} from '../../../generated/GenericPageQuery';
 
 interface IProps {
   isServer: boolean;
+  pageData: GenericPageQuery;
+  metaData: PageMetaData;
 }
 
-const Page: NextPage<IProps> = ({ isServer }) => {
-  return <SearchPageContainer isServer={isServer} isCarSearch />;
+const Page: NextPage<IProps> = ({ isServer, pageData, metaData }) => {
+  return (
+    <SearchPageContainer
+      isServer={isServer}
+      isCarSearch
+      metaData={metaData}
+      pageData={pageData}
+    />
+  );
 };
-export async function getServerSideProps({ query, req }: NextPageContext) {
-  return { props: { query, isServer: !!req } };
+export async function getServerSideProps(context: NextPageContext) {
+  const client = createApolloClient({});
+  const { data } = (await ssrCMSQueryExecutor(
+    client,
+    context,
+    true,
+    '',
+  )) as ApolloQueryResult<any>;
+  return {
+    props: {
+      pageData: data,
+      metaData: data.genericPage.metaData,
+      isServer: !!context.req,
+    },
+  };
 }
 
-export default withApollo(Page);
+export default Page;
