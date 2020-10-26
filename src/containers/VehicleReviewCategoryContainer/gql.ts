@@ -45,7 +45,6 @@ export const GENERIC_PAGE_QUESTION = gql`
             link {
               text
               url
-              legacyUrl
             }
             image {
               title

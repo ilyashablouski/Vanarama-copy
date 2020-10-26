@@ -35,7 +35,6 @@ export interface ReviewsHubCategoryQuery_genericPage_metaData {
 export interface ReviewsHubCategoryQuery_genericPage_sections_cards_cards_link {
   text: string | null;
   url: string | null;
-  legacyUrl: string | null;
 }
 
 export interface ReviewsHubCategoryQuery_genericPage_sections_cards_cards_image_file {

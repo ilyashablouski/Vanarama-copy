@@ -53,7 +53,6 @@ export const BLOG_POPST_PAGE = gql`
             link {
               text
               url
-              legacyUrl
             }
           }
         }
@@ -98,7 +97,6 @@ export const BLOG_POPST_PAGE = gql`
             link {
               text
               url
-              legacyUrl
             }
           }
         }

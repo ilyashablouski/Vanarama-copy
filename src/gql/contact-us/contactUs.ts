@@ -55,7 +55,6 @@ export const CONTACT_US_CONTENT = gql`
             link {
               url
               text
-              legacyUrl
             }
           }
         }

@@ -128,7 +128,7 @@ export interface GetVehicleDetails_derivativeInfo {
   fuelType: GetVehicleDetails_derivativeInfo_fuelType;
   transmission: GetVehicleDetails_derivativeInfo_transmission;
   bodyStyle: GetVehicleDetails_derivativeInfo_bodyStyle | null;
-  bodyType: GetVehicleDetails_derivativeInfo_bodyType | null;
+  bodyType: GetVehicleDetails_derivativeInfo_bodyType;
   technicals: (GetVehicleDetails_derivativeInfo_technicals | null)[];
   standardEquipments: (GetVehicleDetails_derivativeInfo_standardEquipments | null)[];
   colours: (GetVehicleDetails_derivativeInfo_colours | null)[] | null;
