@@ -92,6 +92,9 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
           />
 
           <FormikSelectField name="gender" label="Gender">
+            <option value="Please Select" disabled selected>
+              Please Select
+            </option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
             <option value="Prefer Not To Say">Prefer Not To Say</option>
@@ -183,11 +186,12 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
           />
 
           <FormikCheckBoxField
-            label="Does you expect your monthly income to decrease?"
+            label="Do you expect your monthly income to decrease?"
             id="monthlyIncomeChange"
             name="monthlyIncomeChange"
             checkboxLabel="I am anticipating a change in my monthly income"
             dataTestId="income-change"
+            isChecked={formikProps.values.monthlyIncomeChange}
           />
 
           {formikProps.values.monthlyIncomeChange && (

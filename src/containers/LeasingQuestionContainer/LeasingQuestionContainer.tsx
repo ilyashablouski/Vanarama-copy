@@ -9,7 +9,6 @@ import {
   GenericPageQuestionQuery_genericPage_sections_faqs_questionSets_questionAnswers as IQuestion,
 } from '../../../generated/GenericPageQuestionQuery';
 import CarouselCards from './CarouselCards';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   sections: Section | null;
@@ -19,7 +18,7 @@ interface IProps {
 
 const accordionItems = (questions: (IQuestion | null)[] | undefined | null) => {
   return questions
-    ? questions.map((item: IQuestion | null, id) => ({
+    ? questions.filter(Boolean).map((item: IQuestion | null, id) => ({
         id,
         key: item?.question || '',
         title: item?.question || '',
@@ -55,7 +54,6 @@ const LeasingQuestionContainer: FC<IProps> = ({ body, title, sections }) => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {title}
         </Heading>

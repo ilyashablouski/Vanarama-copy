@@ -201,7 +201,7 @@ describe('B2B Company Details page', () => {
     fireEvent.click(screen.getByText(/AUTORAMA UK LTD/i));
 
     // Confirm selection of this company
-    fireEvent.click(screen.getByRole('button', { name: /Yes And Proceed/i }));
+    fireEvent.click(screen.getByRole('button', { name: /Save And Proceed/i }));
 
     // Fill the rest of the form in
     await waitFor(() => expect(companyProfileCalled).toBeTruthy());
@@ -448,7 +448,7 @@ describe('B2B Company Details page', () => {
     fireEvent.click(screen.getByText(/AUTORAMA UK LTD/i));
 
     // Confirm selection of this company
-    fireEvent.click(screen.getByRole('button', { name: /Yes And Proceed/i }));
+    fireEvent.click(screen.getByRole('button', { name: /Save And Proceed/i }));
 
     // Fill the rest of the form in
     await waitFor(() => expect(companyProfileCalled).toBeTruthy());

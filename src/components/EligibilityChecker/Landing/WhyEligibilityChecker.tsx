@@ -42,6 +42,7 @@ const WhyEligibilityChecker: FC<IWhyEligibilityChecker> = ({
       )}
     </div>
     <Image
+      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
       width="900"
       height="500"
       src={image?.file?.url || ''}

@@ -10,9 +10,12 @@ import InsuranceTypeSection from './sections/InsuranceTypeSection';
 import InsuranceFormSection from './sections/InsuranceFormSection';
 import { useOpportunityCreation } from '../GoldrushFormContainer/gql';
 import { OpportunityTypeEnum } from '../../../generated/globalTypes';
+import { pushInsuranceEventDataLayer } from '../../utils/dataLayerHelpers';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   sections: Section | null;
+  breadcrumbsData: any;
 }
 
 interface IValues {
@@ -31,10 +34,13 @@ export const handleNetworkError = () =>
   );
 
 const toThankYouPage = () => {
-  Router.push('/van-insurance/multi-year-van-insurance/thank-you');
+  Router.push(`thank-you`);
 };
 
-const FinanceGapInsurancePageContainer = ({ sections }: IProps) => {
+const FinanceGapInsurancePageContainer = ({
+  sections,
+  breadcrumbsData,
+}: IProps) => {
   const hero = sections?.hero;
   const leadText = sections?.leadText;
   const featured1 = sections?.featured1;
@@ -52,15 +58,23 @@ const FinanceGapInsurancePageContainer = ({ sections }: IProps) => {
     },
   );
 
+  const breadcrumbsItems = breadcrumbsData?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
+
   return (
     <>
       {hero && <InsuranceHeroSection {...hero} />}
+      <div className="row:title -mt-200">
+        <Breadcrumb items={breadcrumbsItems} />
+      </div>
       {leadText && <InsuranceTypeSection {...leadText} />}
       {featured1 && (
         <InsuranceFormSection
           {...featured1}
           isSubmitting={loading}
           onSubmit={(values: IGoldrushFromValues) => {
+            pushInsuranceEventDataLayer(Router);
             createOppurtunity({
               variables: {
                 email: values.email,
@@ -90,6 +104,7 @@ const FinanceGapInsurancePageContainer = ({ sections }: IProps) => {
             isTextInVisible
             noTermsAndConditions
             onSubmit={(values: IGoldrushFromValues) => {
+              pushInsuranceEventDataLayer(Router);
               createOppurtunity({
                 variables: {
                   email: values.email,

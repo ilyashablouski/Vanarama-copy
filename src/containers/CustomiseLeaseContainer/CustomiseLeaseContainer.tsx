@@ -28,6 +28,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   setLeaseType,
   setLeadTime,
   onCompleted,
+  onCompletedCallBack,
   setLeaseScannerData,
   isDisabled,
   setIsDisabled,
@@ -124,6 +125,9 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         depositPayment: data?.quoteByCapId?.leaseCost?.initialRental || null,
         monthlyPayment: data?.quoteByCapId?.leaseCost?.monthlyRental || null,
         maintenance,
+        maintenancePrice: maintenance
+          ? data?.quoteByCapId?.maintenanceCost?.monthlyRental
+          : undefined,
       },
       quantity: 1,
     };
@@ -248,7 +252,10 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
             callBack
             opportunityType={OpportunityTypeEnum.QUOTE}
             vehicleType={vehicleType}
-            onCompleted={() => setShowCallBackForm(false)}
+            onCompleted={() => {
+              onCompletedCallBack();
+              setShowCallBackForm(false);
+            }}
           />
         </Modal>
       )}

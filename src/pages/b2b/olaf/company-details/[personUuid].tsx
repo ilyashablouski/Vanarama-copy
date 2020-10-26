@@ -4,8 +4,9 @@ import React from 'react';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
-import { getUrlParam, OLAFQueryParams } from '../../../../utils/url';
+import { OLAFQueryParams } from '../../../../utils/url';
 import CompanyDetailsFormContainer from '../../../../containers/CompanyDetailsFormContainer';
+import useGetOrderId from '../../../../hooks/useGetOrderId';
 
 const handleSubmitError = () =>
   toast.error(
@@ -21,14 +22,14 @@ type QueryParams = OLAFQueryParams & {
 
 export const CompanyDetailsPage: NextPage = () => {
   const router = useRouter();
-  const { personUuid, orderId, companyUuid } = router.query as QueryParams;
+  const orderId = useGetOrderId();
+  const { personUuid, companyUuid } = router.query as QueryParams;
 
   const isEdited = router.query.redirect === 'summary';
   const handleSubmitCompletion = (companyGuid: string) => {
-    const params = getUrlParam({ orderId });
     const url = isEdited
-      ? `/b2b/olaf/summary/[companyUuid]${params}`
-      : `/b2b/olaf/vat-details/[companyUuid]${params}`;
+      ? '/b2b/olaf/summary/[companyUuid]'
+      : '/b2b/olaf/vat-details/[companyUuid]';
     router.push(url, url.replace('[companyUuid]', companyGuid));
   };
 

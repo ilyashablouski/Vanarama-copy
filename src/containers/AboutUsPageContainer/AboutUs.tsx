@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
@@ -11,12 +11,20 @@ import TrophySharp from '@vanarama/uibook/lib/assets/icons/TrophySharp';
 import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
-import { useAboutUsPageData } from './gql';
+import { ApolloError } from '@apollo/client';
 import { ABOUT_US_MEET_SECTION_NAMES } from './config';
-import { GetAboutUsPageData_aboutUsLandingPage_sections_carousel_cards as ICard } from '../../../generated/GetAboutUsPageData';
+import {
+  GetAboutUsPageData_aboutUsLandingPage_sections_carousel_cards as ICard,
+  GetAboutUsPageData as Query,
+} from '../../../generated/GetAboutUsPageData';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import Head from '../../components/Head/Head';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+
+export interface IAboutPageProps {
+  error: ApolloError | undefined;
+  loading: boolean;
+  data: Query;
+  children?: ReactNode;
+}
 
 const prepareTagName = (possibleTag: string | null) =>
   possibleTag && Heading.defaultProps?.tag?.indexOf(possibleTag) !== -1
@@ -27,6 +35,7 @@ const renderCarouselCards = (cards: (ICard | null)[]) =>
   cards.map(card =>
     card?.title && card.body && card.name ? (
       <Card
+        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         // TODO: remove width when Carousel component is fixed
         // now its slider is wider than carousel itself, and cards adapts and its right border is hidden
         style={{ width: '362px' }}
@@ -52,6 +61,7 @@ const renderCarouselCards = (cards: (ICard | null)[]) =>
 const renderMeetCard = (card: ICard | undefined) =>
   (card?.title && card.body && (
     <Card
+      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
       title={{
         title: card.title,
         link: (
@@ -90,9 +100,7 @@ const renderMeetCard = (card: ICard | undefined) =>
   )) ||
   null;
 
-const AboutUs: React.FC = () => {
-  const { data, error, loading } = useAboutUsPageData();
-
+const AboutUs: React.FC<IAboutPageProps> = ({ loading, error, data }) => {
   if (loading) {
     return <Loading size="large" />;
   }
@@ -117,7 +125,6 @@ const AboutUs: React.FC = () => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading size="xlarge" color="black" tag="h1">
           {metaData.name}
         </Heading>
@@ -125,7 +132,11 @@ const AboutUs: React.FC = () => {
       <div className="row:bg-black -compact">
         <div className="row:featured-image">
           {featuredImage?.file?.url && (
-            <Image src={featuredImage.file.url} alt="Featured image" />
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              src={featuredImage.file.url}
+              alt="Featured image"
+            />
           )}
         </div>
       </div>
@@ -193,10 +204,6 @@ const AboutUs: React.FC = () => {
           />
         </Link>
       </div>
-      <Head
-        metaData={metaData}
-        featuredImage={data?.aboutUsLandingPage.featuredImage}
-      />
     </>
   );
 };

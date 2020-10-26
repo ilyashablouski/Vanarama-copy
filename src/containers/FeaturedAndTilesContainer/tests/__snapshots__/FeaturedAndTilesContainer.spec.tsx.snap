@@ -1,0 +1,180 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="row:title"
+    >
+      <h1
+        class="heading -black -xlarge"
+      >
+        Vanarama Smiles Container
+      </h1>
+    </div>
+    <section
+      class="row:featured-right"
+    >
+      <div
+        class="lazyload-wrapper"
+      >
+        <div
+          class="lazyload-placeholder"
+        />
+      </div>
+      <div>
+        <h2
+          class="heading -black -lead"
+        >
+          Welcome To Vanarama Smiles
+        </h2>
+        <p
+          class="text -regular -darker"
+        >
+          As a thank you, we're giving Vanarama customers exclusive access to our rewards scheme. When you lease with us you'll earn Smiles to enjoy some of the very best offers, discounts and free gifts.
+        </p>
+      </div>
+    </section>
+    <section
+      class="row:bg-light"
+    >
+      <div>
+        <h2
+          class="heading -black -large"
+        >
+          What's Included?
+        </h2>
+        <div
+          class="row:cards-2col"
+          style="padding-top: 10px;"
+        >
+          <div
+            class="card breakdown -inline"
+            data-testid="card"
+          >
+            <img
+              class="card-image"
+              data-testid="card-image"
+              src="//images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png"
+            />
+            <div
+              class="title"
+            >
+              <span
+                class="heading -black -lead"
+                data-testid="card-heading"
+              >
+                Breakdown Cover
+              </span>
+            </div>
+            <div>
+              <p
+                class="text -regular -dark"
+              >
+                Wherever your vehicle breaks down, our trusted partner, the RAC, will provide assistance, so you'll never be left stranded.
+              </p>
+            </div>
+          </div>
+          <div
+            class="card breakdown -inline"
+            data-testid="card"
+          >
+            <img
+              class="card-image"
+              data-testid="card-image"
+              src="//images.ctfassets.net/3xid768u5joa/7gH6pHpHcgXHt14wJlfqmz/0acc5f3d654e0a2f1e2e1e584901983e/delivery.jpg"
+            />
+            <div
+              class="title"
+            >
+              <span
+                class="heading -black -lead"
+                data-testid="card-heading"
+              >
+                At Home Cover
+              </span>
+            </div>
+            <div>
+              <p
+                class="text -regular -dark"
+              >
+                If your vehicle won't start, the RAC will fix your vehicle if you break down at, or within ¼ mile of home. Just pop the kettle on & sit tight.
+              </p>
+            </div>
+          </div>
+          <div
+            class="card breakdown -inline"
+            data-testid="card"
+          >
+            <img
+              class="card-image"
+              data-testid="card-image"
+              src="//images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png"
+            />
+            <div
+              class="title"
+            >
+              <span
+                class="heading -black -lead"
+                data-testid="card-heading"
+              >
+                Recovery
+              </span>
+            </div>
+            <div>
+              <p
+                class="text -regular -dark"
+              >
+                If your vehicle can't be fixed at the roadside, the RAC will take it for repair. All part of the service!
+              </p>
+            </div>
+          </div>
+          <div
+            class="card breakdown -inline"
+            data-testid="card"
+          >
+            <img
+              class="card-image"
+              data-testid="card-image"
+              src="//images.ctfassets.net/3xid768u5joa/4v2ALClaL6YnE0NYRsd8uc/7e92f2b83eb9e594ced8269152961026/Icon-PricePromise-RGB.png"
+            />
+            <div
+              class="title"
+            >
+              <span
+                class="heading -black -lead"
+                data-testid="card-heading"
+              >
+                Replacement Vehicle
+              </span>
+            </div>
+            <div>
+              <p
+                class="text -regular -dark"
+              >
+                If your vehicle's off the road needing repair, we'll keep your business moving by giving you a similar-sized vehicle for up to 7 days.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section
+      class="row:featured-right"
+    >
+      <div>
+        <h2
+          class="heading -black -lead"
+        >
+          Vanarama Smiles 2
+        </h2>
+        <p
+          class="text -regular -darker"
+        >
+          Due to the Covid-19 outbreak, earning and spending Smiles points on certain rewards is now temporarily on hold. We are sorry for any inconvenience this may cause. We are working hard behind the scenes to source some of the best in-home offers for you during this difficult time. To view these offers, simply visit the My Offers page on vanaramasmiles.co.uk
+        </p>
+      </div>
+    </section>
+  </div>
+</body>
+`;

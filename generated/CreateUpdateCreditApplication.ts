@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { CreditApplicationInputObject, VehicleTypeEnum } from "./globalTypes";
+import { CreditApplicationInputObject, VehicleTypeEnum, CreditApplicationTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: CreateUpdateCreditApplication
@@ -49,10 +49,12 @@ export interface CreateUpdateCreditApplication_createUpdateCreditApplication {
   bankAccounts: any | null;
   companyDetails: any | null;
   vatDetails: any | null;
+  soleTraderDetails: any | null;
   directorsDetails: any | null;
   employmentHistories: any | null;
   incomeAndExpenses: any | null;
   lineItem: CreateUpdateCreditApplication_createUpdateCreditApplication_lineItem | null;
+  creditApplicationType: CreditApplicationTypeEnum | null;
   leadManagerProposalId: string | null;
   createdAt: any | null;
   status: string;

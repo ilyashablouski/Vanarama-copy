@@ -1,4 +1,5 @@
 import { gql, useLazyQuery, useQuery } from '@apollo/client';
+import useSortOrder from '../../hooks/useSortOrder';
 import {
   vehicleList,
   vehicleListVariables,
@@ -9,6 +10,7 @@ import {
   RateInputObject,
   SortField,
   LeaseTypeEnum,
+  SortDirection,
 } from '../../../generated/globalTypes';
 import {
   RangesImages,
@@ -42,6 +44,8 @@ export const GET_VEHICLE_LIST = gql`
     $fuelTypes: [String!]
     $sortField: SortField!
     $first: Int
+    $sortDirection: SortDirection!
+    $leaseType: LeaseTypeEnum
   ) {
     vehicleList(
       first: $first
@@ -55,8 +59,9 @@ export const GET_VEHICLE_LIST = gql`
         bodyStyles: $bodyStyles
         transmissions: $transmissions
         fuelTypes: $fuelTypes
+        leaseType: $leaseType
       }
-      sort: { field: $sortField, direction: ASC }
+      sort: { field: $sortField, direction: $sortDirection }
     ) {
       totalCount
       pageInfo {
@@ -96,8 +101,9 @@ export const GET_VEHICLE_LIST = gql`
   }
 `;
 
-export function getVehiclesList(
+export function useVehiclesList(
   vehicleTypes: VehicleTypeEnum[],
+  leaseType: LeaseTypeEnum,
   onOffer = false,
   onCompleted?: (data: vehicleList) => void,
   first = 9,
@@ -109,11 +115,13 @@ export function getVehiclesList(
   transmissions?: string[],
   fuelTypes?: string[],
 ) {
+  const { savedSortOrder } = useSortOrder();
   // eslint-disable-next-line react-hooks/rules-of-hooks
   return useLazyQuery<vehicleList, vehicleListVariables>(GET_VEHICLE_LIST, {
     onCompleted,
     variables: {
       vehicleTypes,
+      leaseType,
       onOffer,
       after,
       manufacturerName,
@@ -122,7 +130,8 @@ export function getVehiclesList(
       bodyStyles,
       transmissions,
       fuelTypes,
-      sortField: onOffer ? SortField.offerRanking : SortField.rate,
+      sortField: onOffer ? SortField.offerRanking : savedSortOrder.type,
+      sortDirection: onOffer ? SortDirection.ASC : savedSortOrder.direction,
       first,
     },
   });
@@ -312,41 +321,11 @@ export const GET_ALL_MAKES_PAGE = gql`
   query manufacturerPage {
     manufacturerPage(slug: "car-leasing/all-manufacturers") {
       metaData {
-        title
         name
-        metaRobots
-        metaDescription
-        publishedOn
-        legacyUrl
-        pageType
-        canonicalUrl
-        slug
-        publishedOn
-        schema
       }
       sections {
         featured {
-          layout
-          body
-          title
-          titleTag
-          image {
-            title
-            description
-            file {
-              url
-              fileName
-            }
-          }
-        }
-      }
-      featuredImage {
-        title
-        description
-        file {
-          url
-          fileName
-          contentType
+          ...GenericPageQueryFeatured
         }
       }
     }

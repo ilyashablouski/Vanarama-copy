@@ -15,7 +15,13 @@ const BenefitsSection = ({ name, tiles }: IBenefitsSection) => (
       <Tile key={tile.title || undefined} className="-button" centered plain>
         <span>
           {tile.image?.file?.url && (
-            <Image src={tile.image.file.url} size="large" inline round />
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              src={tile.image.file.url}
+              size="large"
+              inline
+              round
+            />
           )}
         </span>
         <span className="tile--link">

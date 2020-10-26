@@ -61,7 +61,10 @@ const RequestCallBackForm: React.FC<IFleetCallBackFormProps> = ({
   }
 
   return (
-    <Card className="hero-card">
+    <Card
+      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+      className="hero-card"
+    >
       <div className="hero-card--inner">
         <Heading size="lead">Schedule A Call With Us</Heading>
         <Form

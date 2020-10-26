@@ -1,4 +1,6 @@
 import React from 'react';
+// @ts-ignore
+import preloadAll from 'jest-next-dynamic';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
 import GET_INSURANCE_LANDING_PAGE from '../gql';
@@ -22,29 +24,6 @@ const mocked: MockedResponse[] = [
       data: {
         insuranceLandingPage: {
           id: '7hZTNl0QA3NnggZlSXao8S',
-          metaData: {
-            title: 'Vehicle Leasing | Personal & Business Lease',
-            name: 'Vehicle Leasing | Personal & Business Lease',
-            metaRobots: 'all',
-            metaDescription: null,
-            publishedOn: '2020-08-02',
-            legacyUrl: 'https://www.vanarama.com/',
-            pageType: 'Leasing Explained Article',
-            canonicalUrl:
-              'https://www.vanarama.com/car-leasing-explained/business-vs-personal-car-leasing.html',
-            slug: '/car-leasing-explained/business-vs-personal-car-leasing',
-            schema: null,
-          },
-          featuredImage: {
-            title: 'Personal Vs Buisness Leasing-full',
-            description: 'Man searching though his bag in a business lease car',
-            file: {
-              url:
-                '//images.ctfassets.net/3xid768u5joa/2e4LdVtVx07Zo9SX2m6hC3/c6a589ac518aa667201206d6a8fa1402/personal-vs-buisness-leasing.jpg',
-              fileName: 'personal-vs-buisness-leasing.jpg',
-              contentType: 'image/jpeg',
-            },
-          },
           body:
             'Plus receive £100 if you switch from your current Insurance provider to Vanarama Insurance*\n\n*Only available to Vanarama leasing customers. Other terms and conditions apply.',
           sections: {
@@ -85,6 +64,8 @@ const mocked: MockedResponse[] = [
                     text: 'Multi-Year Van Insurance',
                     url:
                       'https://beta.vanarama.com/van-insurance/multi-year-van-insurance.html',
+                    legacyUrl:
+                      'https://beta.vanarama.com/van-insurance/multi-year-van-insurance.html',
                   },
                   image: {
                     title: 'placeholder',
@@ -102,6 +83,8 @@ const mocked: MockedResponse[] = [
                   link: {
                     text: 'Finance GAP Insurance',
                     url:
+                      'https://beta.vanarama.com/van-insurance/finance-gap-insurance.html',
+                    legacyUrl:
                       'https://beta.vanarama.com/van-insurance/finance-gap-insurance.html',
                   },
                   image: {
@@ -122,6 +105,8 @@ const mocked: MockedResponse[] = [
                     text: 'Tools in Transit Insurance',
                     url:
                       'https://beta.vanarama.com/van-insurance/tools-in-transit.html',
+                    legacyUrl:
+                      'https://beta.vanarama.com/van-insurance/tools-in-transit.html',
                   },
                   image: {
                     title: 'placeholder',
@@ -140,6 +125,8 @@ const mocked: MockedResponse[] = [
                   link: {
                     text: '7-Day Free Insurance',
                     url:
+                      'https://beta.vanarama.com/van-insurance/7-day-free-van-insurance.html',
+                    legacyUrl:
                       'https://beta.vanarama.com/van-insurance/7-day-free-van-insurance.html',
                   },
                   image: {
@@ -160,6 +147,8 @@ const mocked: MockedResponse[] = [
                     text: 'Short-Term Van Insurance',
                     url:
                       'https://beta.vanarama.com/van-insurance/short-term-insurance.html',
+                    legacyUrl:
+                      'https://beta.vanarama.com/van-insurance/short-term-insurance.html',
                   },
                   image: {
                     title: 'placeholder',
@@ -178,6 +167,8 @@ const mocked: MockedResponse[] = [
                   link: {
                     text: 'FAQs',
                     url: 'https://beta.vanarama.com/van-insurance/faq.html',
+                    legacyUrl:
+                      'https://beta.vanarama.com/van-insurance/faq.html',
                   },
                   image: {
                     title: 'placeholder',
@@ -234,6 +225,10 @@ const mocked: MockedResponse[] = [
 ];
 
 describe('<InsurancePageContainer />', () => {
+  beforeAll(async () => {
+    await preloadAll();
+  });
+
   it('should match snapshot', async () => {
     // ACT
     const getComponent = render(

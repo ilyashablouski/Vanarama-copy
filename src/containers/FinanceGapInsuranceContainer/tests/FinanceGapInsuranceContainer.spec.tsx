@@ -1,7 +1,11 @@
 import React from 'react';
+// @ts-ignore
+import preloadAll from 'jest-next-dynamic';
 import { MockedProvider } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
 import FinanceGapInsuranceContainer from '../FinanceGapInsuranceContainer';
+
+jest.mock('../../../hooks/useMediaQuery');
 
 // ARRANGE
 const SECTIONS = {
@@ -59,12 +63,25 @@ const SECTIONS = {
   cards: null,
 } as any;
 
+const BREADCRUMBS = [
+  { href: '/', label: 'Home' },
+  { href: '/van-insurance.html', label: 'Van Insurance' },
+  { label: 'Multi-Year Van Insurance' },
+];
+
 describe('<FinanceExplainedContainer />', () => {
+  beforeAll(async () => {
+    await preloadAll();
+  });
+
   it('should match snapshot', async () => {
     // ACT
     const getComponent = render(
       <MockedProvider addTypename={false}>
-        <FinanceGapInsuranceContainer sections={SECTIONS} />
+        <FinanceGapInsuranceContainer
+          sections={SECTIONS}
+          breadcrumbsData={BREADCRUMBS}
+        />
       </MockedProvider>,
     );
     // ASSERT
@@ -80,6 +97,10 @@ describe('<FinanceExplainedContainer />', () => {
 
     await waitFor(() => {
       expect(screen.getByText(`Get In Touch`)).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText(BREADCRUMBS[2].label)).toBeInTheDocument();
     });
 
     const tree = getComponent.baseElement;

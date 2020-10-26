@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { NextPage, NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import withApollo from '../../../../hocs/withApollo';
@@ -6,15 +6,14 @@ import SearchPageContainer from '../../../../containers/SearchPageContainer';
 
 interface IProps {
   isServer: boolean;
-  pathname?: string;
-  asPath?: string;
 }
 
-const Page: NextPage<IProps> = ({ isServer, pathname, asPath }) => {
+const Page: NextPage<IProps> = ({ isServer }) => {
   const router = useRouter();
   useEffect(() => {
     if (!router.query.make) {
       const query = { ...router.query, make: router.query.dynamicParam };
+      const { asPath, pathname } = router;
       router.replace(
         {
           pathname,
@@ -29,8 +28,9 @@ const Page: NextPage<IProps> = ({ isServer, pathname, asPath }) => {
   }, []);
   return <SearchPageContainer isServer={isServer} isCarSearch isModelPage />;
 };
-Page.getInitialProps = ({ query, req, pathname, asPath }) => {
-  return { query, isServer: !!req, pathname, asPath };
-};
+
+export async function getServerSideProps({ query, req }: NextPageContext) {
+  return { props: { query, isServer: !!req } };
+}
 
 export default withApollo(Page);

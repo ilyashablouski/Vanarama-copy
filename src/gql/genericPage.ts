@@ -7,23 +7,39 @@ import {
   GenericPageHeadQuery,
   GenericPageHeadQueryVariables,
 } from '../../generated/GenericPageHeadQuery';
+import {
+  GenericPageBreadcrumbsQuery,
+  GenericPageBreadcrumbsQueryVariables,
+} from '../../generated/GenericPageBreadcrumbsQuery';
+import TilesContainer from '../containers/TilesContainer/TilesContainer';
+import { FeaturedHtml } from '../containers/FeaturedAndTilesContainer/getFeaturedHtml';
 
 export const GENERIC_PAGE = gql`
   query GenericPageQuery($slug: String!) {
     genericPage(slug: $slug) {
       id
+      intro
       metaData {
         title
         name
         metaRobots
         metaDescription
-        publishedOn
         legacyUrl
         pageType
         canonicalUrl
         slug
-        publishedOn
         schema
+        publishedOn
+        breadcrumbs
+      }
+      featuredImage {
+        title
+        description
+        file {
+          url
+          fileName
+          contentType
+        }
       }
       sections {
         leadText {
@@ -77,6 +93,7 @@ export const GENERIC_PAGE = gql`
             link {
               text
               url
+              legacyUrl
             }
           }
         }
@@ -108,101 +125,16 @@ export const GENERIC_PAGE = gql`
           body
         }
         featured {
-          layout
-          body
-          title
-          video
-          link {
-            text
-            url
-          }
-          image {
-            title
-            description
-            file {
-              url
-              fileName
-              contentType
-              details {
-                size
-                image {
-                  width
-                  height
-                }
-              }
-            }
-          }
+          ...GenericPageQueryFeatured
         }
         featured1 {
-          layout
-          body
-          titleTag
-          title
-          link {
-            url
-            text
-          }
-          image {
-            title
-            description
-            file {
-              url
-              fileName
-            }
-          }
+          ...GenericPageQueryFeatured
         }
         featured2 {
-          layout
-          body
-          titleTag
-          link {
-            url
-            text
-          }
-          image {
-            title
-            description
-            file {
-              url
-              fileName
-            }
-          }
-          title
-          cards {
-            name
-            title
-            image {
-              title
-              description
-              file {
-                url
-                fileName
-              }
-            }
-            body
-            link {
-              text
-              url
-            }
-          }
+          ...GenericPageQueryFeatured
         }
         featured3 {
-          layout
-          body
-          titleTag
-          title
-          link {
-            url
-            text
-          }
-          image {
-            title
-            description
-            file {
-              url
-              fileName
-            }
-          }
+          ...GenericPageQueryFeatured
         }
         carousel {
           title
@@ -222,43 +154,20 @@ export const GENERIC_PAGE = gql`
             link {
               text
               url
+              legacyUrl
             }
           }
         }
         tiles {
-          position
-          name
-          tilesTitle
-          titleTag
-          tiles {
-            body
-            title
-            link
-            image {
-              title
-              description
-              file {
-                url
-                fileName
-                contentType
-              }
-            }
-          }
+          ...GenericPageQueryTiles
         }
       }
       intro
       body
-      featuredImage {
-        title
-        description
-        file {
-          url
-          fileName
-          contentType
-        }
-      }
     }
   }
+  ${TilesContainer.fragments.tiles}
+  ${FeaturedHtml.fragments.featured}
 `;
 
 export function useGenericPage(slug: string) {
@@ -279,13 +188,13 @@ export const GENERIC_PAGE_HEAD = gql`
         name
         metaRobots
         metaDescription
-        publishedOn
         legacyUrl
         pageType
         canonicalUrl
         slug
-        publishedOn
         schema
+        publishedOn
+        breadcrumbs
       }
       featuredImage {
         title
@@ -309,4 +218,26 @@ export function useGenericPageHead(slug: string) {
       },
     },
   );
+}
+
+export const GENERIC_PAGE_BREADCRUMBS = gql`
+  query GenericPageBreadcrumbsQuery($slug: String!) {
+    genericPage(slug: $slug) {
+      id
+      metaData {
+        breadcrumbs
+      }
+    }
+  }
+`;
+
+export function useGenericPageBreadcrumbs(slug: string) {
+  return useQuery<
+    GenericPageBreadcrumbsQuery,
+    GenericPageBreadcrumbsQueryVariables
+  >(GENERIC_PAGE_BREADCRUMBS, {
+    variables: {
+      slug,
+    },
+  });
 }

@@ -15,9 +15,9 @@ import { getDataFromTree } from '@apollo/react-ssr';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
 import {
-  PersonByToken_personByToken as Person,
-  PersonByToken,
-} from '../../../../generated/PersonByToken';
+  GetPerson_getPerson as Person,
+  GetPerson,
+} from '../../../../generated/GetPerson';
 
 const ThankYouPage: NextPage = () => {
   const router = useRouter();
@@ -27,8 +27,8 @@ const ThankYouPage: NextPage = () => {
   useEffect(() => {
     if (!person) {
       localForage.getItem('person').then(value => {
-        if ((value as PersonByToken)?.personByToken)
-          setPerson((value as PersonByToken)?.personByToken as Person);
+        if ((value as GetPerson)?.getPerson)
+          setPerson((value as GetPerson)?.getPerson as Person);
       });
     }
   }, [person]);
@@ -145,6 +145,7 @@ const ThankYouPage: NextPage = () => {
           <Tile plain className="-align-center -button">
             <span>
               <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 src="https://source.unsplash.com/collection/2102317/500x325?sig=40347"
                 inline
                 round
@@ -163,6 +164,7 @@ const ThankYouPage: NextPage = () => {
           <Tile plain className="-align-center -button">
             <span>
               <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 src="https://source.unsplash.com/collection/2102317/500x325?sig=403419"
                 inline
                 round
@@ -181,6 +183,7 @@ const ThankYouPage: NextPage = () => {
           <Tile plain className="-align-center -button">
             <span>
               <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 src="https://source.unsplash.com/collection/2102317/500x325?sig=403430"
                 inline
                 round
@@ -199,6 +202,7 @@ const ThankYouPage: NextPage = () => {
           <Tile plain className="-align-center -button">
             <span>
               <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 src="https://source.unsplash.com/collection/2102317/500x325?sig=40347"
                 inline
                 round

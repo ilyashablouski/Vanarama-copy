@@ -6,11 +6,11 @@ import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import Router from 'next/router';
 import { VAN_OFFERS_CONTENT } from '../../../gql/special-offers/van-offers';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
-import { VanOffers } from '../../../pages/special-offers/van-offers';
 import { ProductCardData } from '../../../../generated/ProductCardData';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { useVehicleListUrl } from '../../../gql/vehicleList';
+import { VanOffers } from '../../../pages/van-leasing/special-offers';
 
 jest.mock('../../../containers/OrdersInformation/gql');
 jest.mock('../../../gql/vehicleList');
@@ -461,7 +461,7 @@ describe('<VanOffers />', () => {
     fireEvent.click(screen.getAllByText('See All Small Vans')[0]);
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing?bodyStyles=Small+Van',
+        '/van-leasing/search?bodyStyles=Small+Van',
       ),
     );
   });
@@ -471,7 +471,7 @@ describe('<VanOffers />', () => {
     fireEvent.click(screen.getAllByText('See All Medium Vans')[0]);
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing?bodyStyles=Medium+Van',
+        '/van-leasing/search?bodyStyles=Medium+Van',
       ),
     );
   });
@@ -481,7 +481,7 @@ describe('<VanOffers />', () => {
     fireEvent.click(screen.getAllByText('See All Large Vans')[0]);
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing?bodyStyles=Large+Van',
+        '/van-leasing/search?bodyStyles=Large+Van',
       ),
     );
   });
@@ -491,7 +491,7 @@ describe('<VanOffers />', () => {
     fireEvent.click(screen.getAllByText('See All Pickup Trucks')[0]);
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing?bodyStyles=Pickup',
+        '/van-leasing/search?bodyStyles=Pickup',
       ),
     );
   });
@@ -501,7 +501,7 @@ describe('<VanOffers />', () => {
     fireEvent.click(screen.getAllByText('See All Dropside Tippers')[0]);
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing?bodyStyles=Dropside+Tipper',
+        '/van-leasing/search?bodyStyles=Dropside+Tipper',
       ),
     );
   });
@@ -511,7 +511,7 @@ describe('<VanOffers />', () => {
     fireEvent.click(screen.getAllByText('See All Specialist Vans')[0]);
     await waitFor(() =>
       expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing?bodyStyles=Specialist',
+        '/van-leasing/search?bodyStyles=Specialist',
       ),
     );
   });

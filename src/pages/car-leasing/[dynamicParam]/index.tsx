@@ -1,6 +1,7 @@
-import { NextPage } from 'next';
+import { NextPage, NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { PAGE_TYPES, SITE_SECTIONS } from '../../../utils/pageTypes';
 import {
   bodyUrls,
   fuelMapper,
@@ -8,6 +9,7 @@ import {
 } from '../../../containers/SearchPageContainer/helpers';
 import SearchPageContainer from '../../../containers/SearchPageContainer';
 import withApollo from '../../../hocs/withApollo';
+import { pushPageData } from '../../../utils/dataLayerHelpers';
 
 interface IPageType {
   isBodyStylePage: boolean;
@@ -18,26 +20,26 @@ interface IPageType {
 interface IProps {
   isServer: boolean;
   pageType: IPageType;
-  pathname?: string;
-  asPath?: string;
   query: any;
 }
 
-const Page: NextPage<IProps> = ({
-  isServer,
-  query,
-  pageType,
-  pathname,
-  asPath,
-}) => {
+const Page: NextPage<IProps> = ({ isServer, query, pageType }) => {
   const router = useRouter();
   useEffect(() => {
+    pushPageData({
+      pageType: pageType.isMakePage
+        ? PAGE_TYPES.makePage
+        : PAGE_TYPES.vehicleTypePage,
+      siteSection: SITE_SECTIONS.cars,
+      pathname: router.pathname,
+    });
     // copy dynamic param for actual filter query
     if (
       (pageType.isMakePage && !router.query.make) ||
       (pageType.isBodyStylePage && !router.query.bodyStyles) ||
       (pageType.isFuelType && !router.query.fuelTypes)
     ) {
+      const { asPath, pathname } = router;
       router.replace(
         {
           pathname,
@@ -60,7 +62,7 @@ const Page: NextPage<IProps> = ({
     />
   );
 };
-Page.getInitialProps = ({ query, req, pathname, asPath }) => {
+export async function getServerSideProps({ query, req }: NextPageContext) {
   const newQuery = { ...query };
   // check for bodystyle page
   const isBodyStylePage = !!bodyUrls.find(
@@ -83,12 +85,12 @@ Page.getInitialProps = ({ query, req, pathname, asPath }) => {
       fuelMapper[query.dynamicParam as keyof typeof fuelMapper];
   else newQuery.make = query.dynamicParam;
   return {
-    query: { ...newQuery },
-    isServer: !!req,
-    pageType,
-    pathname,
-    asPath,
+    props: {
+      query: { ...newQuery },
+      isServer: !!req,
+      pageType,
+    },
   };
-};
+}
 
 export default withApollo(Page);

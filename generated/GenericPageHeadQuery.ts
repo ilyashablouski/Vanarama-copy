@@ -12,12 +12,13 @@ export interface GenericPageHeadQuery_genericPage_metaData {
   name: string | null;
   metaRobots: string | null;
   metaDescription: string | null;
-  publishedOn: any | null;
   legacyUrl: string | null;
   pageType: string | null;
   canonicalUrl: string | null;
   slug: string | null;
   schema: any | null;
+  publishedOn: any | null;
+  breadcrumbs: any | null;
 }
 
 export interface GenericPageHeadQuery_genericPage_featuredImage_file {

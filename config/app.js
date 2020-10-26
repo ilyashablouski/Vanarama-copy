@@ -1,9 +1,8 @@
 /* eslint-disable no-param-reassign */
+require('dotenv').config({ path: '.env.secret' });
 require('dotenv').config();
-const { homepage } = require('../package.json');
 
-const { getPdpRewiteList } = require('../rewrites/pdp');
-const rewritePatterns = require('../rewrites/rewritePatterns');
+const fetchRewritesList = require('../rewrites');
 
 module.exports = {
   // Sass.
@@ -13,23 +12,19 @@ module.exports = {
         "@import './node_modules/@vanarama/uibook/src/components/variables.scss';",
     },
   },
-  // Sitemap.
-  sitemap: {
-    baseUrl: homepage,
-    pagesDirectory: 'src/pages',
-    targetDirectory: 'public/',
-  },
 
   // Next.
   next: {
     // Env vars.
     env: {
       ENV: process.env.ENV,
+      IMG_OPTIMISATION_HOST: process.env.IMG_OPTIMISATION_HOST,
+      HOSTNAME: process.env.HOSTNAME,
       GTM_ID: process.env.GTM_ID,
+      MICROBLINK_URL: process.env.MICROBLINK_URL,
       API_URL: process.env.API_URL,
       API_KEY: process.env.API_KEY,
       LOQATE_KEY: process.env.LOQATE_KEY,
-      GITHUB_TOKEN: process.env.GITHUB_TOKEN,
       ENABLE_DEV_TOOLS: process.env.ENABLE_DEV_TOOLS,
       REDIS_CACHE_HOST: process.env.REDIS_CACHE_HOST,
       REDIS_CACHE_PORT: process.env.REDIS_CACHE_PORT,
@@ -50,15 +45,16 @@ module.exports = {
 
     // Rewrites.
     async rewrites() {
-      const pdpRewiteList = await getPdpRewiteList();
-      const rewriteList = [...pdpRewiteList, ...rewritePatterns];
+      if (process.env.LOCAL) {
+        const rewriteList = await fetchRewritesList();
 
-      console.log(rewriteList);
-
-      return [...rewriteList];
+        return rewriteList;
+      }
+      return [];
     },
 
     trailingSlash: false,
+
     // Routes to export into static files.
     exportPathMap: () => {
       return {

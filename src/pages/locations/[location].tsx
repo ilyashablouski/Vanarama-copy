@@ -19,11 +19,16 @@ import {
 } from '../../containers/GoldrushFormContainer/GoldrushFormContainer';
 import { useOpportunityCreation } from '../../containers/GoldrushFormContainer/gql';
 import { OpportunityTypeEnum } from '../../../generated/globalTypes';
-import { useGenericPage } from '../../gql/genericPage';
-import Head from '../../components/Head/Head';
+import {
+  useGenericPage,
+  useGenericPageBreadcrumbs,
+} from '../../gql/genericPage';
 import getTitleTag from '../../utils/getTitleTag';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import GoldrushForm from '../../components/GoldrushForm/GoldrushForm';
+import { getSectionsData } from '../../utils/getSectionsData';
+import { GenericPageQuery_genericPage_sections_hero as Hero } from '../../../generated/GenericPageQuery';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 export const LocationsPage: NextPage = () => {
   const router = useRouter();
@@ -44,18 +49,27 @@ export const LocationsPage: NextPage = () => {
     },
   );
 
-  const { data } = useGenericPage(router.asPath);
+  const { data } = useGenericPage(router.asPath.slice(1));
+  const { data: breadcrumbsData } = useGenericPageBreadcrumbs(
+    router.asPath.slice(1),
+  );
 
   if (!data?.genericPage) {
     return null;
   }
 
-  const metaData = data.genericPage?.metaData;
-  const hero = data.genericPage?.sections?.hero;
-  const leadText = data.genericPage?.sections?.leadText;
-  const featured = data.genericPage?.sections?.featured1;
-  const tiles = data.genericPage?.sections?.tiles;
-  const featured1 = data.genericPage?.sections?.featured2;
+  const hero: Hero = getSectionsData(['sections', 'hero'], data.genericPage);
+  const leadText = getSectionsData(['sections', 'leadText'], data.genericPage);
+  const featured = getSectionsData(['sections', 'featured1'], data.genericPage);
+  const tiles = getSectionsData(['sections', 'tiles'], data.genericPage);
+  const featured1 = getSectionsData(
+    ['sections', 'featured2'],
+    data.genericPage,
+  );
+  const metaData = getSectionsData(['metaData'], breadcrumbsData?.genericPage);
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
   return (
     <>
@@ -78,6 +92,7 @@ export const LocationsPage: NextPage = () => {
                 {hero.body}
               </Text>
               <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 className="hero--image"
                 plain
                 src={
@@ -89,7 +104,10 @@ export const LocationsPage: NextPage = () => {
             <div className="hero--right">
               {hero.heroCard &&
                 hero.heroCard.map(el => (
-                  <Card className="hero-card">
+                  <Card
+                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                    className="hero-card"
+                  >
                     <div className="hero-card--inner">
                       <Heading tag="span" color="black" size="small">
                         {el?.title}
@@ -217,6 +235,9 @@ export const LocationsPage: NextPage = () => {
           </div>
         </div>
       )}
+      <div className="row:title -mt-200">
+        <Breadcrumb items={breadcrumbsItems} />
+      </div>
       {leadText && (
         <div className="row:lead-text">
           <Heading
@@ -248,7 +269,7 @@ export const LocationsPage: NextPage = () => {
       )}
       {featured && (
         <div className={`row:${getFeaturedClassPartial(featured)}`}>
-          <Card>
+          <Card optimisedHost={process.env.IMG_OPTIMISATION_HOST}>
             <GoldrushForm
               callBack={false}
               isSubmitting={loading}
@@ -307,6 +328,7 @@ export const LocationsPage: NextPage = () => {
               <Tile className="-plain -button -align-center" plain>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                   <Image
+                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                     inline
                     round
                     size="large"
@@ -384,10 +406,6 @@ export const LocationsPage: NextPage = () => {
           </div>
         </Modal>
       )}
-      <Head
-        metaData={metaData}
-        featuredImage={data?.genericPage.featuredImage}
-      />
     </>
   );
 };

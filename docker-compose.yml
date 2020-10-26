@@ -10,7 +10,12 @@ services:
         - API_URL
         - LOQATE_KEY
         - ENV
+        - GTM_ID
+        - HOSTNAME
+        - PRERENDER_SERVICE_URL
+        - IMG_OPTIMISATION_HOST
         - ENABLE_DEV_TOOLS
+        - MICROBLINK_URL
     command: yarn dev
     volumes:
       - '.:/usr/src/app'

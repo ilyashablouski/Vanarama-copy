@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+require('dotenv').config({ path: '.env.secret' });
 require('dotenv').config();
 require('colors');
 
@@ -43,15 +44,16 @@ app
     return server;
   })
   .then(server => {
-    server.disable('x-powered-by');
-    server.use(hpp());
-
     // Prevent brute force attack in production.
-    if (process.env.ENV === 'production')
+    if (process.env.ENV === 'production') {
       server.use(rateLimiterRedisMiddleware);
+    }
 
     // Prerender.
     if (prerender && process.env.PRERENDER_SERVICE_URL) server.use(prerender);
+
+    server.disable('x-powered-by');
+    server.use(hpp());
 
     return server;
   })
@@ -68,6 +70,14 @@ app
         nodeVersion: process.version,
         appVersion: version,
       });
+    });
+
+    // Env route.
+    server.get('/env', (_req, res) => {
+      const statusCode = 200;
+      res.setHeader('Content-Type', 'application/json');
+      res.status(statusCode);
+      res.json(process.env);
     });
 
     // All routes.

@@ -9,7 +9,6 @@ import MediaFeatureSection from './sections/MediaFeatureSection';
 import BenefitsSection from './sections/BenefitsSection';
 import { GetFleetLandingPage } from '../../../generated/GetFleetLandingPage';
 import config from './config';
-import Head from '../../components/Head/Head';
 
 const FleetLandingPage = () => {
   const { data, error, loading } = useQuery<GetFleetLandingPage>(
@@ -27,8 +26,6 @@ const FleetLandingPage = () => {
   if (!data) {
     return <></>;
   }
-
-  const metaData = data?.fleetLandingPage?.metaData;
 
   return (
     <>
@@ -54,10 +51,6 @@ const FleetLandingPage = () => {
       {data?.fleetLandingPage?.sections?.tiles && (
         <BenefitsSection {...data?.fleetLandingPage?.sections?.tiles} />
       )}
-      <Head
-        metaData={metaData}
-        featuredImage={data?.fleetLandingPage?.featuredImage}
-      />
     </>
   );
 };

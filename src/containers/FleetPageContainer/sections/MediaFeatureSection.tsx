@@ -42,7 +42,11 @@ const MediaFeatureSection: React.FC<IMediaFeatureProps> = ({
   return (
     <div className={`row:featured-${className}`}>
       {selectedLayout !== LayoutTypes.right && image?.file?.url ? (
-        <Image src={image.file.url} alt={image?.title || ''} />
+        <Image
+          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+          src={image.file.url}
+          alt={image?.title || ''}
+        />
       ) : null}
       <div>
         {imageOnly ? (
@@ -78,7 +82,11 @@ const MediaFeatureSection: React.FC<IMediaFeatureProps> = ({
         )}
       </div>
       {selectedLayout === LayoutTypes.right && image?.file?.url ? (
-        <Image src={image.file.url} alt={image?.title || ''} />
+        <Image
+          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+          src={image.file.url}
+          alt={image?.title || ''}
+        />
       ) : null}
     </div>
   );

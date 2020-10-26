@@ -1,8 +1,7 @@
 import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
-import { useQuery } from '@apollo/client';
 import { useState } from 'react';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
 
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -16,50 +15,47 @@ import CardTitle from '@vanarama/uibook/lib/components/molecules/cards/CardTitle
 import { getFeaturedClassPartial } from '../../utils/layout';
 import withApollo from '../../hocs/withApollo';
 import {
-  ContactUsPageData,
   ContactUsPageData_contactUsLandingPage_sections_cards_cards as Cards,
   ContactUsPageData_contactUsLandingPage_sections_featured2_cards as Cards2,
 } from '../../../generated/ContactUsPageData';
-import { CONTACT_US_CONTENT } from '../../gql/contact-us/contactUs';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import Head from '../../components/Head/Head';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { getSectionsData } from '../../utils/getSectionsData';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import { useGenericPage } from '../../gql/genericPage';
 
 export const ContactUsPage: NextPage = () => {
+  const router = useRouter();
+  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
   const [show, setShow] = useState(false);
-  const { data, loading, error } = useQuery<ContactUsPageData>(
-    CONTACT_US_CONTENT,
-  );
 
   if (loading) {
     return <Loading size="large" />;
   }
+
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <ErrorMessage message={error.message} />;
   }
 
   const COORDS = { lat: 51.762479, lng: -0.438241 };
-  const metaData = data?.contactUsLandingPage?.metaData;
+  const metaData = data?.genericPage?.metaData;
 
   return (
     <>
       <div className="row:title">
-        <Breadcrumb />
         <Heading size="xlarge" color="black" tag="h1">
           {metaData?.name}
         </Heading>
       </div>
       <section
         className={`row:${getFeaturedClassPartial(
-          getSectionsData(['featured1'], data?.contactUsLandingPage.sections),
+          getSectionsData(['featured1'], data?.genericPage.sections),
         )}`}
       >
         <div>
           <Heading tag="span" size="large" color="black">
             {getSectionsData(
               ['featured1', 'title'],
-              data?.contactUsLandingPage.sections,
+              data?.genericPage.sections,
             )}
           </Heading>
           <ReactMarkdown
@@ -67,7 +63,7 @@ export const ContactUsPage: NextPage = () => {
             source={
               getSectionsData(
                 ['featured1', 'body'],
-                data?.contactUsLandingPage.sections,
+                data?.genericPage.sections,
               ) || ''
             }
             renderers={{
@@ -128,9 +124,12 @@ export const ContactUsPage: NextPage = () => {
         <div className="row:tiles">
           {(getSectionsData(
             ['cards', 'cards'],
-            data?.contactUsLandingPage.sections,
+            data?.genericPage.sections,
           ) as Cards[])?.map((c: Cards, idx) => (
-            <Card key={c.title || idx}>
+            <Card
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              key={c.title || idx}
+            >
               <Heading size="large" color="black">
                 {c.title}
               </Heading>
@@ -156,14 +155,14 @@ export const ContactUsPage: NextPage = () => {
       </section>
       <section
         className={`row:${getFeaturedClassPartial(
-          getSectionsData(['featured2'], data?.contactUsLandingPage.sections),
+          getSectionsData(['featured2'], data?.genericPage.sections),
         )}`}
       >
         <div>
           <Heading size="large" color="black">
             {getSectionsData(
               ['featured2', 'title'],
-              data?.contactUsLandingPage.sections,
+              data?.genericPage.sections,
             )}
           </Heading>
           <ReactMarkdown
@@ -171,7 +170,7 @@ export const ContactUsPage: NextPage = () => {
             source={
               getSectionsData(
                 ['featured2', 'body'],
-                data?.contactUsLandingPage.sections,
+                data?.genericPage.sections,
               ) || ''
             }
             renderers={{
@@ -188,10 +187,18 @@ export const ContactUsPage: NextPage = () => {
         </div>
         {(getSectionsData(
           ['featured2', 'cards'],
-          data?.contactUsLandingPage.sections,
+          data?.genericPage.sections,
         ) as Cards2[])?.map((c: Cards2 | null, idx) => (
-          <Card inline key={c?.title || idx}>
-            <Image className="card-image" src={c?.image?.file?.url || ''} />
+          <Card
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            inline
+            key={c?.title || idx}
+          >
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              className="card-image"
+              src={c?.image?.file?.url || ''}
+            />
             <CardTitle title={c?.title || ''} />
             <Text color="darker">{c?.body}</Text>
             <Button
@@ -203,12 +210,6 @@ export const ContactUsPage: NextPage = () => {
           </Card>
         ))}
       </section>
-      {metaData && (
-        <Head
-          metaData={metaData}
-          featuredImage={data?.contactUsLandingPage?.featuredImage}
-        />
-      )}
     </>
   );
 };

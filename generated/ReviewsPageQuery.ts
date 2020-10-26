@@ -35,11 +35,13 @@ export interface ReviewsPageQuery_reviewsPage_featuredImage {
 export interface ReviewsPageQuery_reviewsPage_sections_link {
   text: string | null;
   url: string | null;
+  legacyUrl: string | null;
 }
 
 export interface ReviewsPageQuery_reviewsPage_sections_rowText_link {
   text: string | null;
   url: string | null;
+  legacyUrl: string | null;
 }
 
 export interface ReviewsPageQuery_reviewsPage_sections_rowText {

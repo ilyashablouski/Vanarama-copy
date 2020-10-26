@@ -32,11 +32,18 @@ const CustomerReviews: React.FC<ICustomerReviewsProps> = ({
         {title || ''}
       </Heading>
       {reviews.length === 1 ? (
-        <ReviewCard review={{ ...reviews[0] }} />
+        <ReviewCard
+          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+          review={{ ...reviews[0] }}
+        />
       ) : (
         <Carousel className={sliderClassName} countItems={reviews.length}>
           {reviews.slice(0, 6).map((reviewTile, index) => (
-            <ReviewCard key={index.toString()} review={{ ...reviewTile }} />
+            <ReviewCard
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              key={index.toString()}
+              review={{ ...reviewTile }}
+            />
           ))}
         </Carousel>
       )}

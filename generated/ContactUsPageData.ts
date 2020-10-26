@@ -59,6 +59,7 @@ export interface ContactUsPageData_contactUsLandingPage_sections_featured2_cards
 export interface ContactUsPageData_contactUsLandingPage_sections_featured2_cards_link {
   url: string | null;
   text: string | null;
+  legacyUrl: string | null;
 }
 
 export interface ContactUsPageData_contactUsLandingPage_sections_featured2_cards {

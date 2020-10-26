@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
@@ -9,17 +10,25 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
-import { getUrlParam, OLAFQueryParams } from '../../../../utils/url';
+import { OLAFQueryParams } from '../../../../utils/url';
 import LoginFormContainer from '../../../../containers/LoginFormContainer/LoginFormContainer';
 import BusinessAboutFormContainer from '../../../../containers/BusinessAboutFormContainer';
 import { SubmitResult } from '../../../../containers/BusinessAboutFormContainer/interfaces';
-import { usePersonByTokenLazyQuery } from '../../../olaf/about';
+import { useGetPersonLazyQuery } from '../../../olaf/about';
 import { CompanyTypes } from '../../../../models/enum/CompanyTypes';
-import { PersonByToken } from '../../../../../generated/PersonByToken';
+import { GetPerson } from '../../../../../generated/GetPerson';
 import { useImperativeQuery } from '../../../../hooks/useImperativeQuery';
-import { GET_ORDERS_BY_PARTY_UUID_DATA } from '../../../../containers/OrdersInformation/gql';
+import { GET_MY_ORDERS_DATA } from '../../../../containers/OrdersInformation/gql';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../../generated/GetCompaniesByPersonUuid';
+import {
+  pushAboutYouDataLayer,
+  pushAuthorizationEventDataLayer,
+} from '../../../../utils/dataLayerHelpers';
+import { GetOlafData_orderByUuid } from '../../../../../generated/GetOlafData';
+import { GetDerivative_derivative } from '../../../../../generated/GetDerivative';
+import { MyOrdersTypeEnum } from '../../../../../generated/globalTypes';
+import useGetOrderId from '../../../../hooks/useGetOrderId';
 
 const handleCreateUpdateBusinessPersonError = () =>
   toast.error(
@@ -40,24 +49,33 @@ type QueryParams = OLAFQueryParams & {
 
 export const BusinessAboutPage: NextPage = () => {
   const router = useRouter();
-  const { orderId, companyUuid } = router.query as QueryParams;
+  const orderId = useGetOrderId();
+  const { companyUuid } = router.query as QueryParams;
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [personUuid, setPersonUuid] = useState<string | undefined>();
+  const [
+    detailsData,
+    setDetailsData,
+  ] = useState<GetOlafData_orderByUuid | null>(null);
+  const [
+    derivativeData,
+    setDerivativeData,
+  ] = useState<GetDerivative_derivative | null>(null);
 
-  const getOrdersData = useImperativeQuery(GET_ORDERS_BY_PARTY_UUID_DATA);
+  const getOrdersData = useImperativeQuery(GET_MY_ORDERS_DATA);
   const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
 
-  const [getPersonByToken] = usePersonByTokenLazyQuery(async data => {
-    setPersonUuid(data?.personByToken?.uuid);
+  const [getPerson] = useGetPersonLazyQuery(async data => {
+    setPersonUuid(data?.getPerson?.uuid);
     await localForage.setItem('person', data);
 
     const companyData = await getCompaniesData({
-      personUuid: data.personByToken?.uuid,
+      personUuid: data.getPerson?.uuid,
     });
 
     const partyUuid = [
-      data.personByToken?.partyUuid,
+      data.getPerson?.partyUuid,
       ...companyData.data?.companiesByPersonUuid?.map(
         (companies: CompaniesByPersonUuid) => companies.partyUuid,
       ),
@@ -65,23 +83,15 @@ export const BusinessAboutPage: NextPage = () => {
 
     getOrdersData({
       partyUuid,
-      excludeStatuses: ['quote', 'expired', 'new'],
-      statuses: null,
+      filter: MyOrdersTypeEnum.ALL_ORDERS,
     }).then(response => {
-      localForage.setItem(
-        'ordersLength',
-        response.data?.ordersByPartyUuid.length,
-      );
+      localForage.setItem('ordersLength', response.data?.myOrders.length);
     });
     getOrdersData({
       partyUuid,
-      statuses: ['quote', 'new'],
-      excludeStatuses: ['expired'],
+      filter: MyOrdersTypeEnum.ALL_QUOTES,
     }).then(response => {
-      localForage.setItem(
-        'quotesLength',
-        response.data?.ordersByPartyUuid.length,
-      );
+      localForage.setItem('quotesLength', response.data?.myOrders.length);
     });
     router.replace(router.pathname, router.asPath);
   }, handleAccountFetchError);
@@ -89,13 +99,17 @@ export const BusinessAboutPage: NextPage = () => {
   const handleCreateUpdateBusinessPersonCompletion = async (
     result: SubmitResult,
   ) => {
-    const params = getUrlParam({ orderId });
+    pushAboutYouDataLayer(detailsData, derivativeData);
+
     const slug =
-      result.companyType === CompanyTypes.limited ? '' : 'sole-trader/';
+      result.companyType === CompanyTypes.limited ||
+      result.companyType === CompanyTypes.partnership
+        ? ''
+        : 'sole-trader/';
     const url =
       router.query.redirect === 'summary'
-        ? `/b2b/olaf/${slug}summary/[companyUuid]${params}`
-        : `/b2b/olaf/${slug}company-details/[personUuid]${params}`;
+        ? `/b2b/olaf/${slug}summary/[companyUuid]`
+        : `/b2b/olaf/${slug}company-details/[personUuid]`;
 
     const personId = personUuid || result.businessPersonUuid || '';
 
@@ -103,22 +117,24 @@ export const BusinessAboutPage: NextPage = () => {
       url,
       url
         .replace('[companyUuid]', companyUuid || '')
-        .replace('[personUuid]', personId)
-        .replace('[orderId]', orderId || ''),
+        .replace('[personUuid]', personId),
     );
   };
 
   useEffect(() => {
     if (!personUuid) {
       localForage.getItem('person').then(value => {
-        if ((value as PersonByToken)?.personByToken)
-          setPersonUuid((value as PersonByToken)?.personByToken?.uuid);
+        if ((value as GetPerson)?.getPerson)
+          setPersonUuid((value as GetPerson)?.getPerson?.uuid);
       });
     }
   }, [personUuid]);
 
   return (
-    <OLAFLayout>
+    <OLAFLayout
+      setDetailsData={setDetailsData}
+      setDerivativeData={setDerivativeData}
+    >
       <Heading
         color="black"
         dataTestId="about-you_heading"
@@ -142,15 +158,9 @@ export const BusinessAboutPage: NextPage = () => {
           </div>
           {isLogInVisible && (
             <LoginFormContainer
-              onCompleted={data => {
-                // request person account after login
-                if (data.login !== null) {
-                  getPersonByToken({
-                    variables: {
-                      token: data.login,
-                    },
-                  });
-                }
+              onCompleted={() => {
+                pushAuthorizationEventDataLayer();
+                getPerson();
               }}
             />
           )}

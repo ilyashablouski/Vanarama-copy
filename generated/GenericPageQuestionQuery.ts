@@ -47,6 +47,12 @@ export interface GenericPageQuestionQuery_genericPage_sections_hero {
   titleTag: string | null;
 }
 
+export interface GenericPageQuestionQuery_genericPage_sections_tiles_tiles_link {
+  text: string | null;
+  url: string | null;
+  legacyUrl: string | null;
+}
+
 export interface GenericPageQuestionQuery_genericPage_sections_tiles_tiles_image_file {
   url: string;
   fileName: string;
@@ -61,7 +67,7 @@ export interface GenericPageQuestionQuery_genericPage_sections_tiles_tiles_image
 export interface GenericPageQuestionQuery_genericPage_sections_tiles_tiles {
   body: string | null;
   title: string | null;
-  link: string | null;
+  link: GenericPageQuestionQuery_genericPage_sections_tiles_tiles_link | null;
   image: GenericPageQuestionQuery_genericPage_sections_tiles_tiles_image | null;
 }
 
@@ -128,6 +134,7 @@ export interface GenericPageQuestionQuery_genericPage_sections_cards_cards_image
 export interface GenericPageQuestionQuery_genericPage_sections_cards_cards_link {
   text: string | null;
   url: string | null;
+  legacyUrl: string | null;
 }
 
 export interface GenericPageQuestionQuery_genericPage_sections_cards_cards {
@@ -159,6 +166,7 @@ export interface GenericPageQuestionQuery_genericPage_sections_rowText {
 export interface GenericPageQuestionQuery_genericPage_sections_featured_link {
   text: string | null;
   url: string | null;
+  legacyUrl: string | null;
 }
 
 export interface GenericPageQuestionQuery_genericPage_sections_featured_image_file_details_image {
@@ -196,6 +204,7 @@ export interface GenericPageQuestionQuery_genericPage_sections_featured {
 export interface GenericPageQuestionQuery_genericPage_sections_featured1_link {
   url: string | null;
   text: string | null;
+  legacyUrl: string | null;
 }
 
 export interface GenericPageQuestionQuery_genericPage_sections_featured1_image_file {
@@ -221,6 +230,7 @@ export interface GenericPageQuestionQuery_genericPage_sections_featured1 {
 export interface GenericPageQuestionQuery_genericPage_sections_featured2_link {
   url: string | null;
   text: string | null;
+  legacyUrl: string | null;
 }
 
 export interface GenericPageQuestionQuery_genericPage_sections_featured2_image_file {
@@ -248,6 +258,7 @@ export interface GenericPageQuestionQuery_genericPage_sections_featured2_cards_i
 export interface GenericPageQuestionQuery_genericPage_sections_featured2_cards_link {
   text: string | null;
   url: string | null;
+  legacyUrl: string | null;
 }
 
 export interface GenericPageQuestionQuery_genericPage_sections_featured2_cards {
@@ -282,6 +293,7 @@ export interface GenericPageQuestionQuery_genericPage_sections_carousel_cards_im
 export interface GenericPageQuestionQuery_genericPage_sections_carousel_cards_link {
   text: string | null;
   url: string | null;
+  legacyUrl: string | null;
 }
 
 export interface GenericPageQuestionQuery_genericPage_sections_carousel_cards {

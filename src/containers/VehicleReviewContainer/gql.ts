@@ -34,6 +34,7 @@ export const GENERIC_PAGE_QUESTION = gql`
         link {
           text
           url
+          legacyUrl
         }
         rowText {
           heading
@@ -41,6 +42,7 @@ export const GENERIC_PAGE_QUESTION = gql`
           link {
             text
             url
+            legacyUrl
           }
         }
         vehicleReviewMedia {

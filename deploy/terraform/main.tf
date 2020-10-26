@@ -82,22 +82,6 @@ resource "aws_ssm_parameter" "secret-key-base" {
   }
 }
 
-data "aws_ssm_parameter" "gateway_url" {
-  name = "/${var.env}/${var.stack}/gateway-service/gateway-url"
-}
-
-resource "aws_ssm_parameter" "nextstorefront_gateway_url" {
-    name       = "/${var.env}/${var.stack}/${var.app}/gateway-api-url"
-    type       = "SecureString"
-    value      = "${data.aws_ssm_parameter.gateway_url.value}"
-
-    tags = {
-      env        = "${var.env}"
-      stack      = "${var.stack}"
-      app        = "${var.app}"
-      created-by = "terraform"
-    }
-  }
 
 resource "aws_ssm_parameter" "redis-cache-host" {
   name       = "/${var.env}/${var.stack}/${var.app}/redis-host"
@@ -110,4 +94,13 @@ resource "aws_ssm_parameter" "redis-cache-host" {
     app        = "${var.app}"
     created-by = "terraform"
   }
+}
+
+module "aws_cloudwatch_ecs_alarms" {
+  source = "git@github.com:Autorama/autorama-infra-modules.git//ecs_service_alarms"
+
+  env   = "${var.env}"
+  stack = "${var.stack}"
+  app   = "${var.app}"
+  cluster = "${data.terraform_remote_state.grid.outputs.cluster_arn}"
 }

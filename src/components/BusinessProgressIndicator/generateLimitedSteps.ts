@@ -1,7 +1,7 @@
 export default function generateLimitedSteps() {
   return [
     {
-      href: '/b2b/olaf/about/[orderId]',
+      href: '/b2b/olaf/about',
       label: 'About You',
       step: 1,
     },

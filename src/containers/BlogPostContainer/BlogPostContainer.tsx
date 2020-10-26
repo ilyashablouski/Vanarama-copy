@@ -3,13 +3,16 @@ import { NextPage } from 'next';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
+import Media from '@vanarama/uibook/lib/components/atoms/media';
 import ReactMarkdown from 'react-markdown';
-import Router from 'next/router';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import { BlogPost_blogPost_category } from '../../../generated/BlogPost';
 import { GenericPageQuery_genericPage_sections_cards_cards } from '../../../generated/GenericPageQuery';
+import { GenericPageHeadQuery_genericPage_metaData } from '../../../generated/GenericPageHeadQuery';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Head from '../../components/Head/Head';
+import { BlogPosts_blogPosts_articles } from '../../../generated/BlogPosts';
+import { getBody } from '../../utils/articles';
 
 interface IProps {
   body: string | null | undefined;
@@ -19,7 +22,9 @@ interface IProps {
     | (GenericPageQuery_genericPage_sections_cards_cards | null)[]
     | null
     | undefined;
-  articles?: (BlogPost_blogPost_category | null)[] | null | undefined;
+  breadcrumbsItems?: any;
+  metaData?: GenericPageHeadQuery_genericPage_metaData | null | undefined;
+  articles?: (BlogPosts_blogPosts_articles | null)[] | null | undefined;
 }
 
 interface IImage {
@@ -42,20 +47,32 @@ const BlogPostContainer: NextPage<IProps> = ({
   body,
   name,
   image,
-  cards,
+  breadcrumbsItems,
+  metaData,
   articles,
 }) => {
   return (
     <>
+      {breadcrumbsItems && (
+        <div className="row:title">
+          <Breadcrumb items={breadcrumbsItems} />
+        </div>
+      )}
       <div className="row:title">
-        <Breadcrumb />
         <Heading tag="h1" size="xlarge" color="black">
           {name || ''}
         </Heading>
       </div>
       <div className="row:bg-white -compact">
         <div className="row:featured-image">
-          {image && <Image className="-white" size="expand" src={image} />}
+          {image && (
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              className="-white"
+              size="expand"
+              src={image}
+            />
+          )}
         </div>
       </div>
       <div className="row:article">
@@ -73,77 +90,69 @@ const BlogPostContainer: NextPage<IProps> = ({
                   />
                 );
               },
+              paragraph: props => {
+                const { children } = props;
+                const isChangeToIframe = children.filter((el: any) =>
+                  el.props.value?.match('<a'),
+                );
+                if (isChangeToIframe.length) {
+                  const iframeSrc = isChangeToIframe[0].props.value
+                    .split('href="')[1]
+                    .split('"')[0];
+                  return (
+                    <Media
+                      iframe
+                      src={iframeSrc || ''}
+                      height="350px"
+                      width="100%"
+                    />
+                  );
+                }
+                return <Text {...props} tag="p" color="darker" />;
+              },
               image: props => renderImage(props),
             }}
           />
         </article>
         <div>
-          {(cards || articles) && (
+          {articles && (
             <Heading tag="span" size="large" color="black">
               Related Articles
             </Heading>
           )}
-          {cards?.map((el, indx) => (
-            <Card
-              key={`${el?.name}_${indx.toString()}`}
-              className="card__article"
-              imageSrc={el?.image?.file?.url || ''}
-              title={{
-                title: '',
-                link: (
-                  <RouterLink
-                    link={{ href: el?.link?.url || '', label: el?.title || '' }}
-                    className="card--link"
-                    classNames={{ color: 'black', size: 'regular' }}
-                  />
-                ),
-              }}
-              description={el?.body || ''}
-            >
-              <Button
-                onClick={() => {
-                  Router.push(el?.link?.url || '');
-                }}
-                label="Read More"
-                color="teal"
-                size="small"
-                fill="solid"
-                className="-mt-400"
-              />
-            </Card>
-          ))}
           {articles?.map((el, indx) => (
             <Card
-              key={`${el?.title}_${indx.toString()}`}
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              key={`${el?.name}_${indx.toString()}`}
+              className="card__article"
+              imageSrc={el?.featuredImage?.file?.url || ''}
               title={{
                 title: '',
                 link: (
-                  <RouterLink
-                    link={{
-                      href: el?.canonicalUrl || '',
-                      label: el?.title || '',
-                    }}
-                    className="card--link"
-                    classNames={{ color: 'black', size: 'regular' }}
-                  />
+                  <Heading
+                    size="lead"
+                    color="black"
+                    tag="a"
+                    href={`/${el?.slug || ''}`}
+                  >
+                    {el?.name}
+                  </Heading>
                 ),
               }}
-              description={el?.metaDescription || ''}
+              description={getBody(el?.body || '')}
             >
-              <Button
-                onClick={() => {
-                  Router.push(el?.canonicalUrl || '');
+              <RouterLink
+                classNames={{ color: 'teal', size: 'regular' }}
+                link={{
+                  label: 'Read More',
+                  href: el?.slug || '',
                 }}
-                label="Read More"
-                color="teal"
-                size="small"
-                fill="solid"
-                className="-mt-400"
               />
             </Card>
           ))}
         </div>
       </div>
+      {metaData && <Head metaData={metaData} featuredImage={null} />}
     </>
   );
 };

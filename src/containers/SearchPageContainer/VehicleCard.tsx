@@ -26,6 +26,7 @@ interface IVehicleCardProps {
   bodyStyle?: string | null | undefined;
   isModelPage?: boolean;
   url: string;
+  appUrl: string;
   derivativeId?: string | null;
 }
 
@@ -39,6 +40,7 @@ const VehicleCard = memo(
     viewOffer,
     bodyStyle,
     isModelPage,
+    appUrl,
   }: IVehicleCardProps) => {
     const { compareVehicles, compareChange } = useContext(CompareContext);
 
@@ -60,6 +62,7 @@ const VehicleCard = memo(
 
     return (
       <Card
+        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         {...imageProps}
         header={{
           accentIcon: data?.isOnOffer ? (
@@ -84,7 +87,7 @@ const VehicleCard = memo(
           link: (
             <RouterLink
               link={{
-                href: productPageUrl.href,
+                href: appUrl,
                 label: `${data?.manufacturerName} ${data?.rangeName}`,
               }}
               as={productPageUrl.url}
@@ -109,11 +112,11 @@ const VehicleCard = memo(
           />
           <RouterLink
             link={{
-              href: productPageUrl.href,
+              href: appUrl,
               label: 'View Offer',
             }}
             as={productPageUrl.url}
-            onClick={() => viewOffer(productPageUrl)}
+            onClick={() => viewOffer({ ...productPageUrl, href: appUrl })}
             classNames={{ color: 'teal', solid: true, size: 'regular' }}
             className="button"
             dataTestId="view-offer"

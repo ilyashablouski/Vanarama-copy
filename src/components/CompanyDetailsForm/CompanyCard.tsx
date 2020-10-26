@@ -15,7 +15,7 @@ export default function CompanyCard({ company }: IProps) {
     moment(company.dateOfCreation).format('MMMM YYYY');
 
   return (
-    <Card>
+    <Card optimisedHost={process.env.IMG_OPTIMISATION_HOST}>
       <Heading tag="span" color="black" size="lead">
         {company.title} - {company.companyNumber}
       </Heading>

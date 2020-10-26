@@ -1,3 +1,4 @@
+import { useLazyQuery } from '@apollo/client';
 import { ToastContainer } from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import '@vanarama/uibook/src/components/base.scss';
 import { AppProps } from 'next/app';
@@ -7,7 +8,7 @@ import cx from 'classnames';
 import ComparatorBar from '@vanarama/uibook/lib/components/organisms/comparator-bar';
 import Modal from '@vanarama/uibook/lib/components/molecules/modal';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import { SEARCH_PAGES } from '../utils/url';
+import { isNotShowBreadcrumbs, SEARCH_PAGES } from '../utils/url';
 import {
   PAGES_WITH_COMPARATOR,
   CompareContext,
@@ -25,6 +26,17 @@ import {
   changeCompares,
 } from '../utils/comparatorHelpers';
 import FooterContainer from '../containers/FooterContainer';
+import { GENERIC_PAGE_HEAD } from '../gql/genericPage';
+import { getSectionsData } from '../utils/getSectionsData';
+import Head from '../components/Head/Head';
+import withApollo from '../hocs/withApollo';
+import {
+  GenericPageHeadQuery,
+  GenericPageHeadQueryVariables,
+} from '../../generated/GenericPageHeadQuery';
+import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
+import { pushPageData } from '../utils/dataLayerHelpers';
+import { prepareSlugPart } from '../containers/SearchPageContainer/helpers';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   const [compareVehicles, setCompareVehicles] = useState<
@@ -34,6 +46,12 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     boolean | undefined
   >(false);
   const [existComparator, setExistComparator] = useState(false);
+  const [getPageHead, pageHead] = useLazyQuery<
+    GenericPageHeadQuery,
+    GenericPageHeadQueryVariables
+  >(GENERIC_PAGE_HEAD, {
+    variables: { slug: prepareSlugPart(router.asPath.slice(1).split('?')[0]) },
+  });
 
   useEffect(() => {
     // Anytime router.push is called, scroll to the top of the page.
@@ -47,6 +65,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   }, []);
 
   useEffect(() => {
+    pushPageData({ pathname: router.pathname });
     const getVehicles = async () => {
       const vehiclesCompares = (await getCompares()) as
         | IVehicle[]
@@ -70,6 +89,20 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
       setExistComparator(false);
     }
   }, [router.pathname]);
+
+  useEffect(() => {
+    if (
+      !(
+        router.pathname.includes('[...details-page]') ||
+        router.pathname.includes('/olaf') ||
+        router.pathname.includes('/blog') ||
+        router.pathname.includes('/non-blog') ||
+        router.pathname.length === 1
+      )
+    ) {
+      getPageHead();
+    }
+  }, [router.asPath, getPageHead, router.pathname]);
 
   const compareChange = async (
     product?: IVehicle | IVehicleCarousel | null | undefined,
@@ -105,11 +138,26 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     return 'page:default';
   };
 
+  const metaData = getSectionsData(['metaData'], pageHead?.data?.genericPage);
+  const featuredImage = getSectionsData(
+    ['featuredImage'],
+    pageHead?.data?.genericPage,
+  );
+
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
+
   return (
     <>
       <ToastContainer />
       <main className={cx(resolveMainClass())}>
         <HeaderContainer />
+        {!isNotShowBreadcrumbs(router.pathname) && (
+          <div className="row:title">
+            <Breadcrumb items={breadcrumbsItems} />
+          </div>
+        )}
         <CompareContext.Provider
           value={{
             compareVehicles,
@@ -146,6 +194,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         )}
         <FooterContainer />
       </main>
+      {metaData && <Head metaData={metaData} featuredImage={featuredImage} />}
     </>
   );
 };
@@ -162,4 +211,4 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 //   return { ...appProps }
 // }
 
-export default MyApp;
+export default withApollo(MyApp);

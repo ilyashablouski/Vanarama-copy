@@ -8,12 +8,12 @@ import { HubVanPageData } from '../../../../generated/HubVanPageData';
 import { HUB_VAN_CONTENT } from '../../../gql/hub/hubVanPage';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
-import { VansPage } from '../../../pages/hub/vans';
 import { mockSearchPodResponse } from '../../../../__mocks__/searchpod';
 import { ProductCardData } from '../../../../generated/ProductCardData';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { useVehicleListUrl } from '../../../gql/vehicleList';
+import { VansPage } from '../../../pages/van-leasing';
 
 /**
  * NOTE: Mock the SearchPodContainer as it is out of scope for this test and is doing state
@@ -492,8 +492,9 @@ describe('<VansPage />', () => {
               cursor: 'cursor',
               node: {
                 derivativeId: '44514',
-                url: '/van-leasing/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
+                url: '/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
                 legacyUrl: null,
+                vehicleType: VehicleTypeEnum.LCV,
               },
             },
           ],

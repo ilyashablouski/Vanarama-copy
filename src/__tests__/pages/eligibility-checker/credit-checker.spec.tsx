@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import Router from 'next/router';
-import CreditChecker from '../../../pages/eligibility-checker/credit-checker';
+import CreditChecker from '../../../pages/lease-eligibility-checker/credit-checker';
 import { useProductCard } from '../../../gql/productCard';
 import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 import { useVehicleListUrl } from '../../../gql/vehicleList';
@@ -138,7 +138,7 @@ describe('<CreditChecker />', () => {
   it('should trigger route push when clicking View All Cars', async () => {
     fireEvent.click(screen.getByText('View All Cars'));
     await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/car-leasing'),
+      expect(Router.push).toHaveBeenCalledWith('/car-leasing/search'),
     );
   });
 
