@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { ApolloError, gql, useQuery } from '@apollo/client';
 import {
   GenericPageQuery,
   GenericPageQueryVariables,
@@ -13,6 +13,13 @@ import {
 } from '../../generated/GenericPageBreadcrumbsQuery';
 import TilesContainer from '../containers/TilesContainer/TilesContainer';
 import { FeaturedHtml } from '../containers/FeaturedAndTilesContainer/getFeaturedHtml';
+
+export interface IGenericPage {
+  data: GenericPageQuery | undefined;
+  loading: boolean | undefined;
+  error: ApolloError;
+  pageHead: GenericPageHeadQuery;
+}
 
 export const GENERIC_PAGE = gql`
   query GenericPageQuery($slug: String!) {

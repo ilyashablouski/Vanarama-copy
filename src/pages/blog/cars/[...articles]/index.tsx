@@ -1,24 +1,32 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { NextPage } from 'next';
+import { NextPage, NextPageContext } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
 import withApollo from '../../../../hocs/withApollo';
-import { useBlogPostPage } from '../../../../gql/blogPost';
+import { BLOG_POST_PAGE, useBlogPostPage } from '../../../../gql/blogPost';
 import BlogPostContainer from '../../../../containers/BlogPostContainer/BlogPostContainer';
 import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
 import { getSectionsData } from '../../../../utils/getSectionsData';
-import { useBlogPostsPage } from '../../../../gql/blogPosts';
+import { BLOG_POSTS_PAGE, useBlogPostsPage } from '../../../../gql/blogPosts';
 import { getArticles, getArticlesSlug } from '../../../../utils/articles';
+import createApolloClient from '../../../../apolloClient';
 
-const BlogPost: NextPage = () => {
+const BlogPost: NextPage = ({
+  data,
+  loading,
+  error,
+  blogPosts,
+  blogPostsLoading,
+  blogPostsError,
+}) => {
   const router = useRouter();
-  const { data, loading, error } = useBlogPostPage(router.asPath.slice(1));
+  // const { data, loading, error } = useBlogPostPage(router.asPath.slice(1));
 
-  const {
-    data: blogPosts,
-    loading: blogPostsLoading,
-    error: blogPostsError,
-  } = useBlogPostsPage(getArticlesSlug(router));
+  // const {
+  //   data: blogPosts,
+  //   loading: blogPostsLoading,
+  //   error: blogPostsError,
+  // } = useBlogPostsPage(getArticlesSlug(router));
 
   if (loading || blogPostsLoading) {
     return <Loading size="large" />;
@@ -53,5 +61,42 @@ const BlogPost: NextPage = () => {
     />
   );
 };
+
+export async function getStaticPaths() {
+  return {
+    paths: [{ params: { articles: [] } }],
+    fallback: false,
+  };
+}
+
+export async function getStaticProps(context: NextPageContext) {
+  const client = createApolloClient({}, context);
+  const { data, loading, errors } = await client.query({
+    query: BLOG_POST_PAGE,
+    variables: {
+      slug: `blog/cars/${context.params.articles}`,
+    },
+  });
+  const {
+    data: blogPosts,
+    loading: blogPostsLoading,
+    errors: blogPostsError,
+  } = await client.query({
+    query: BLOG_POSTS_PAGE,
+    variables: {
+      slug: 'blog/cars',
+    },
+  });
+  return {
+    props: {
+      data,
+      loading,
+      error: errors || null,
+      blogPosts,
+      blogPostsLoading,
+      blogPostsError,
+    },
+  };
+}
 
 export default withApollo(BlogPost);
