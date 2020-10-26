@@ -1,16 +1,17 @@
 import { NextPage, NextPageContext } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
-import { getArticles, getArticlesSlug } from '../../../utils/articles';
+import { getArticles } from '../../../utils/articles';
 import withApollo from '../../../hocs/withApollo';
-import { BLOG_POPST_PAGE, useBlogPostPage } from '../../../gql/blogPost';
 import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostContainer';
 import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
 import { getSectionsData } from '../../../utils/getSectionsData';
-import { BLOG_POSTS_PAGE, useBlogPostsPage } from '../../../gql/blogPosts';
+import { BLOG_POSTS_PAGE } from '../../../gql/blogPosts';
 import createApolloClient from '../../../apolloClient';
+import { IBlogPost } from '../../../models/IBlogsProps';
+import { BLOG_POST_PAGE } from '../../../gql/blogPost';
 
-const BlogPost: NextPage = ({
+const BlogPost: NextPage<IBlogPost> = ({
   data,
   loading,
   error,
@@ -19,13 +20,6 @@ const BlogPost: NextPage = ({
   blogPostsError,
 }) => {
   const router = useRouter();
-  // const { data, loading, error } = useBlogPostPage(router.asPath.slice(1));
-
-  // const {
-  //   data: blogPosts,
-  //   loading: blogPostsLoading,
-  //   error: blogPostsError,
-  // } = useBlogPostsPage(getArticlesSlug(router));
 
   if (loading || blogPostsLoading) {
     return <Loading size="large" />;
@@ -64,7 +58,7 @@ const BlogPost: NextPage = ({
 export async function getStaticPaths(context: NextPageContext) {
   const client = createApolloClient({}, context);
   const { data, loading, errors } = await client.query({
-    query: BLOG_POPST_PAGE,
+    query: BLOG_POST_PAGE,
     variables: {
       slug: context.asPath?.slice(1),
     },

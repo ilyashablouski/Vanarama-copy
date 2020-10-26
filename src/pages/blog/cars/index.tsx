@@ -1,23 +1,20 @@
-import { NextPage } from 'next';
+import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import { useRouter } from 'next/router';
-import { useBlogPostsPage } from '../../../gql/blogPosts';
+import createApolloClient from '../../../apolloClient';
+import { BLOG_POSTS_PAGE } from '../../../gql/blogPosts';
 import withApollo from '../../../hocs/withApollo';
 import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
 import CategoryPageContainer from '../../../containers/CategoryPageContainer/CategoryPageContainer';
 import { getSectionsData } from '../../../utils/getSectionsData';
-import { GENERIC_PAGE, GENERIC_PAGE_HEAD } from '../../../gql/genericPage';
+import { IBlogCategory } from '../../../models/IBlogsProps';
 
-const CategoryPage: NextPage = () => {
-  const router = useRouter();
-  const { data, loading, error } = useBlogPostsPage(router.asPath.slice(1));
-
+const CategoryPage: NextPage<IBlogCategory> = ({ data, loading, error }) => {
   if (loading) {
     return <Loading size="large" />;
   }
 
   if (error) {
-    return <ErrorMessage message={error.message} />;
+    return <ErrorMessage message={error?.message} />;
   }
 
   const articles = getSectionsData(['articles'], data?.blogPosts);
@@ -37,21 +34,15 @@ const CategoryPage: NextPage = () => {
   );
 };
 
-export async function getStaticProps(context: NextPageContext) {
-  const client = createApolloClient({}, context);
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const client = createApolloClient({}, context as NextPageContext);
   const { data, loading, errors } = await client.query({
-    query: GENERIC_PAGE,
+    query: BLOG_POSTS_PAGE,
     variables: {
-      slug: 'blog',
+      slug: 'blog/cars',
     },
   });
-  const { data: pageHead } = await client.query({
-    query: GENERIC_PAGE_HEAD,
-    variables: {
-      slug: 'blog',
-    },
-  });
-  return { props: { data, pageHead, loading, error: errors || null } };
+  return { props: { data, loading, error: errors ? errors[0].message : null } };
 }
 
 export default withApollo(CategoryPage);
