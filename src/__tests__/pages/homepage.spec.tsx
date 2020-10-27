@@ -676,7 +676,7 @@ describe('<HomePage />', () => {
     });
   });
 
-  it('should should have correct link in van details path  ', async () => {
+  it('should have correct link in van details path  ', async () => {
     await screen.findByTestId('view-all-vans');
     expect(screen.getByTestId('view-all-vans')).toHaveAttribute(
       'href',
@@ -684,7 +684,7 @@ describe('<HomePage />', () => {
     );
   });
 
-  it('should should have correct link in pickup details path  ', async () => {
+  it('should have correct link in pickup details path  ', async () => {
     await screen.findByTestId('view-all-pickups');
     expect(screen.getByTestId('view-all-pickups')).toHaveAttribute(
       'href',
@@ -700,7 +700,7 @@ describe('<HomePage />', () => {
     );
   });
 
-  it('should should have correct link in car details path  ', async () => {
+  it('should have correct link in car details path  ', async () => {
     await screen.findByTestId('view-all-cars');
     expect(screen.getByTestId('view-all-cars')).toHaveAttribute(
       'href',
