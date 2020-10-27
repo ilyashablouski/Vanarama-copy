@@ -715,6 +715,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           />
         </Text>
       </div>
+
       {pageData && (
         <>
           {isModelPage && (
@@ -758,6 +759,69 @@ const SearchPageContainer: React.FC<IProps> = ({
             </>
           )}
         </>
+      )}
+
+      {featured && (
+        <div className={`row:${getFeaturedClassPartial(featured)}`}>
+          <Image
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            size="expand"
+            src={featured.image?.file?.url || ''}
+          />
+          <div>
+            <Heading
+              tag={featured.titleTag || 'span'}
+              size="large"
+              color="black"
+            >
+              {featured.title}
+            </Heading>
+            <Truncate
+              lines={
+                featured?.layout &&
+                featured?.layout.includes('Read More') &&
+                readmore
+                  ? 15
+                  : 0
+              }
+              /* ellipsis={
+                    <span>
+                      ...
+                      <Button
+                        size="small"
+                        color="black"
+                        fill="clear"
+                        label="READ MORE"
+                        onClick={() => setReadMore(!readmore)}
+                      />
+                    </span>
+                  } */
+            >
+              <ReactMarkdown
+                source={featured.body || ''}
+                escapeHtml={false}
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return (
+                      <RouterLink
+                        link={{ href, label: children }}
+                        classNames={{ color: 'teal' }}
+                      />
+                    );
+                  },
+                }}
+              />
+            </Truncate>
+            <Button
+              size="small"
+              color="black"
+              fill="clear"
+              label={readmore ? 'READ MORE' : 'READ LESS'}
+              onClick={() => setReadMore(!readmore)}
+            />
+          </div>
+        </div>
       )}
 
       {isAllMakesPage && topInfoSection && (
@@ -977,74 +1041,6 @@ const SearchPageContainer: React.FC<IProps> = ({
                       <Text {...props} tag="p" color="darker" />
                     ),
                   }}
-                />
-              </div>
-            </div>
-          )}
-          {featured && (
-            <div className={`row:${getFeaturedClassPartial(featured)}`}>
-<<<<<<< HEAD
-              <Image size="expand" src={featured.image?.file?.url || ''} />
-              <div className="markdown">
-                <Heading tag="span" size="large" color="black">
-=======
-              <Image
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                size="expand"
-                src={featured.image?.file?.url || ''}
-              />
-              <div>
-                <Heading
-                  tag={featured.titleTag || 'span'}
-                  size="large"
-                  color="black"
-                >
->>>>>>> develop
-                  {featured.title}
-                </Heading>
-                <Truncate
-                  lines={
-                    featured?.layout &&
-                    featured?.layout.includes('Read More') &&
-                    readmore
-                      ? 15
-                      : 0
-                  }
-                  /* ellipsis={
-                    <span>
-                      ...
-                      <Button
-                        size="small"
-                        color="black"
-                        fill="clear"
-                        label="READ MORE"
-                        onClick={() => setReadMore(!readmore)}
-                      />
-                    </span>
-                  } */
-                >
-                  <ReactMarkdown
-                    source={featured.body || ''}
-                    escapeHtml={false}
-                    renderers={{
-                      link: props => {
-                        const { href, children } = props;
-                        return (
-                          <RouterLink
-                            link={{ href, label: children }}
-                            classNames={{ color: 'teal' }}
-                          />
-                        );
-                      },
-                    }}
-                  />
-                </Truncate>
-                <Button
-                  size="small"
-                  color="black"
-                  fill="clear"
-                  label={readmore ? 'READ MORE' : 'READ LESS'}
-                  onClick={() => setReadMore(!readmore)}
                 />
               </div>
             </div>
