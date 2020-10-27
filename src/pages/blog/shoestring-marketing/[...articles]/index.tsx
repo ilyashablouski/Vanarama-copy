@@ -10,6 +10,8 @@ import { getArticles } from '../../../../utils/articles';
 import { IBlogPost } from '../../../../models/IBlogsProps';
 import createApolloClient from '../../../../apolloClient';
 import { BLOG_POSTS_PAGE } from '../../../../gql/blogPosts';
+import { getPaths } from '../../../../utils/blogSlugs';
+import { BlogPosts } from '../../../../../generated/BlogPosts';
 
 const BlogPost: NextPage<IBlogPost> = ({
   data,
@@ -56,9 +58,17 @@ const BlogPost: NextPage<IBlogPost> = ({
 };
 
 export async function getStaticPaths() {
+  const client = createApolloClient({});
+  const { data } = await client.query<BlogPosts>({
+    query: BLOG_POSTS_PAGE,
+    variables: {
+      slug: 'blog/shoestring-marketing',
+    },
+  });
+
   return {
-    paths: [{ params: { articles: ['beyond-the-brochure'] } }],
-    fallback: true,
+    paths: getPaths(data?.blogPosts),
+    fallback: false,
   };
 }
 
@@ -77,7 +87,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   } = await client.query({
     query: BLOG_POSTS_PAGE,
     variables: {
-      slug: 'blog/the-shoestring-marketing-blog',
+      slug: 'blog/shoestring-marketing',
     },
   });
   return {
