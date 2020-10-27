@@ -25,12 +25,27 @@ export const GENERIC_PAGE = gql`
   query GenericPageQuery($slug: String!) {
     genericPage(slug: $slug) {
       id
+      intro
       metaData {
+        title
         name
+        metaRobots
+        metaDescription
+        legacyUrl
+        pageType
+        canonicalUrl
+        slug
+        schema
+        publishedOn
+        breadcrumbs
       }
       featuredImage {
+        title
+        description
         file {
           url
+          fileName
+          contentType
         }
       }
       sections {

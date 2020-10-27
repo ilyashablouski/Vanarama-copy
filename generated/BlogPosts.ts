@@ -149,6 +149,7 @@ export interface BlogPosts_blogPosts_articles {
   tags: (string | null)[] | null;
   slug: string | null;
   body: string | null;
+  legacyUrl: string | null;
 }
 
 export interface BlogPosts_blogPosts {

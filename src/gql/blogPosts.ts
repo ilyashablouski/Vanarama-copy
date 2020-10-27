@@ -109,6 +109,7 @@ export const BLOG_POSTS_PAGE = gql`
         tags
         slug
         body
+        legacyUrl
       }
     }
   }

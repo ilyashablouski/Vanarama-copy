@@ -38,6 +38,7 @@ const ARTICLES = [
     isFeatured: false,
     name: 'Best Cars For MPG',
     title: 'Best Cars For MPG | Vanarama',
+    legacyUrl: 'blog/cars/best-cars-for-mpg',
     _typename: 'Article',
   },
 ];
