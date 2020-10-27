@@ -676,33 +676,35 @@ describe('<HomePage />', () => {
     });
   });
 
-  it('should trigger router push to with correct van details path  ', async () => {
+  it('should should have correct link in van details path  ', async () => {
     await screen.findByTestId('view-all-vans');
-    fireEvent.click(screen.getByTestId('view-all-vans'));
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/van-leasing/search'),
+    expect(screen.getByTestId('view-all-vans')).toHaveAttribute(
+      'href',
+      '/special-offers.html',
     );
   });
 
-  it('should trigger router push to with correct pickup details path  ', async () => {
+  it('should should have correct link in pickup details path  ', async () => {
     await screen.findByTestId('view-all-pickups');
-    fireEvent.click(screen.getByTestId('view-all-pickups'));
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/pickup-truck-leasing/search'),
+    expect(screen.getByTestId('view-all-pickups')).toHaveAttribute(
+      'href',
+      '/pickup-special-offers.html',
     );
   });
 
   it('should trigger route push when clicking Here', async () => {
     await screen.findByTestId('view-all-pickups');
     fireEvent.click(screen.getByText('Here'));
-    await waitFor(() => expect(Router.push).toHaveBeenCalledWith('/fan-hub'));
+    await waitFor(() =>
+      expect(Router.push).toHaveBeenCalledWith('/fan-hub.html'),
+    );
   });
 
-  it('should trigger router push to with correct car details path  ', async () => {
+  it('should should have correct link in car details path  ', async () => {
     await screen.findByTestId('view-all-cars');
-    fireEvent.click(screen.getByTestId('view-all-cars'));
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith('/car-leasing/search'),
+    expect(screen.getByTestId('view-all-cars')).toHaveAttribute(
+      'href',
+      '/car-leasing-special-offers.html',
     );
   });
 });

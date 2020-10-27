@@ -18,17 +18,19 @@ exports[`<Lease /> renders correctly 1`] = `
               pariatur laborum aute minim voluptate dolor ex adipisicing aliqua sit
               ipsum reprehenderit amet ut nostrud sint do exercitation
     </p>
-    <button
+    <a
       className="button -teal -regular -solid"
       data-testid="eligibility-Checker-btn"
+      href="/credit-checker.html"
       onClick={[Function]}
+      rel="noopener noreferrer"
     >
       <div
         className="button--inner"
       >
         Check Your Eligibility
       </div>
-    </button>
+    </a>
   </div>
   <div
     className="media"

@@ -246,7 +246,6 @@ export const VansPage: NextPage = () => {
           rating={offer?.averageRating || 3}
           viewOfferClick={() => {
             sessionStorage.setItem('capId', offer?.capId || '');
-            Router.push(dealOfMonthUrl.href, dealOfMonthUrl.url);
           }}
           link={{ href: dealOfMonthHref, url: dealOfMonthUrl.url }}
         />
@@ -274,11 +273,18 @@ export const VansPage: NextPage = () => {
             dataTestIdBtn="van-view-offer"
           />
           <div className="-justify-content-row -pt-500">
-            <Button
-              label="View Small Vans"
-              color="teal"
-              onClick={() => Router.push('/van-leasing?bodyStyles=Small+Van')}
-            />
+            <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'regular' }}
+              link={{
+                label: 'View Small Vans',
+                href: '/small-van-leasing.html',
+              }}
+              withoutDefaultClassName
+              dataTestId="small-van-leasing"
+            >
+              <div className="button--inner">View Small Vans</div>
+            </RouterLink>
           </div>
         </div>
       </div>
@@ -305,11 +311,18 @@ export const VansPage: NextPage = () => {
             dataTestIdBtn="van-view-offer"
           />
           <div className="-justify-content-row -pt-500">
-            <Button
-              label="View Medium Vans"
-              color="teal"
-              onClick={() => Router.push('/van-leasing?bodyStyles=Medium+Van')}
-            />
+            <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'regular' }}
+              link={{
+                label: 'View Medium Vans',
+                href: '/medium-van-leasing.html',
+              }}
+              withoutDefaultClassName
+              dataTestId="medium-van-leasing"
+            >
+              <div className="button--inner">View Medium Vans</div>
+            </RouterLink>
           </div>
         </div>
       </div>
@@ -341,10 +354,21 @@ export const VansPage: NextPage = () => {
               color="teal"
               onClick={() => Router.push('/van-leasing?bodyStyles=Large+Van')}
             />
+            <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'regular' }}
+              link={{
+                label: 'View Large Vans',
+                href: '/large-van-leasing.html',
+              }}
+              withoutDefaultClassName
+              dataTestId="large-van-leasing"
+            >
+              <div className="button--inner">View Large Vans</div>
+            </RouterLink>
           </div>
         </div>
       </div>
-
       <div className="row:bg-lighter ">
         <div className="row:cards-4col">
           <Heading
@@ -411,7 +435,6 @@ export const VansPage: NextPage = () => {
           ))}
         </div>
       </div>
-
       <section className="row:steps-4col">
         <Heading
           className="-a-center -mb-400"
@@ -441,7 +464,6 @@ export const VansPage: NextPage = () => {
           />
         ))}
       </section>
-
       <section
         className={`row:${getFeaturedClassPartial(
           getSectionsData(['featured1'], data?.hubVanPage.sections),
@@ -509,7 +531,6 @@ export const VansPage: NextPage = () => {
           </div>
         </div>
       </section>
-
       <section
         className={`row:${getFeaturedClassPartial(
           getSectionsData(['featured2'], data?.hubVanPage.sections),
@@ -576,7 +597,6 @@ export const VansPage: NextPage = () => {
           </div>
         </div>
       </section>
-
       <hr className="fullWidth" />
       <section className="row:text">
         <Heading
@@ -603,19 +623,19 @@ export const VansPage: NextPage = () => {
               data?.hubVanPage.sections,
             )}
           </Heading>
-          <Button
+          <RouterLink
             className="-pt-200"
-            label="Veiw Leasing Guides"
-            color="teal"
-            fill="clear"
-            size="regular"
-            icon={<ArrowForwardSharp />}
-            iconPosition="after"
-          />
+            classNames={{ color: 'teal', solid: true, size: 'regular' }}
+            link={{
+              label: 'View Leasing Guides',
+              href: '/van-leasing-explained.html',
+            }}
+          >
+            View Leasing Guides <ArrowForwardSharp />
+          </RouterLink>
         </div>
       </section>
       <hr className="fullWidth" />
-
       <section className="row:features-4col">
         <Heading
           size="large"
@@ -655,7 +675,6 @@ export const VansPage: NextPage = () => {
           </div>
         ))}
       </section>
-
       <section className="row:manufacturer-grid">
         <Heading
           size="large"
@@ -667,32 +686,43 @@ export const VansPage: NextPage = () => {
         </Heading>
         <div>
           {[
-            'Nissan',
-            'Ford',
-            'Toyota',
-            'Isuzu',
-            'Volkswagen',
-            'Mitsubishi',
-            'Mercedes-Benz',
+            { label: 'Citroen', href: '/citroen-van-leasing.html' },
+            { label: 'Fiat', href: '/fiat-van-leasing.html' },
+            { label: 'Ford', href: '/ford-van-leasing.html' },
+            {
+              label: 'Derenged Pickups & Vans',
+              href: '/deranged-vehicles.html',
+            },
+            { label: 'Isuzu', href: '/isuzu-van-leasing.html' },
+            { label: 'Mercedes-Benz', href: '/mercedes-benz-van-leasing.html' },
+            { label: 'Mitsubishi', href: '/mitsubishi-van-leasing.html' },
+            { label: 'Nissan', href: '/nissan-van-leasing.html' },
+            { label: 'Peugeot', href: '/peugeot-van-leasing.html' },
+            { label: 'Renault', href: '/renault-van-leasing.html' },
+            { label: 'Toyota', href: '/toyota-van-leasing.html' },
+            { label: 'Vauxhall', href: '/vauxhall-van-leasing.html' },
+            { label: 'Volkswagen', href: '/volkswagen-van-leasing.html' },
           ].map(man => (
-            <Button
-              key={man}
-              color="teal"
-              size="large"
-              label={man}
-              onClick={() => Router.push(`/van-leasing/${man} `)}
-            />
+            <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'large' }}
+              link={{
+                label: man.label,
+                href: man.href,
+              }}
+              withoutDefaultClassName
+            >
+              <div className="button--inner">{man.label}</div>
+            </RouterLink>
           ))}
         </div>
       </section>
-
       <section className="row:league">
         <League
-          clickReadMore={() => Router.push('/fan-hub')}
+          clickReadMore={() => Router.push('/fan-hub.html')}
           altText="vanarama national league"
         />
       </section>
-
       <section className="row:featured-logos">
         <Heading tag="span" size="small" color="darker">
           AS FEATURED ON
@@ -756,7 +786,6 @@ export const VansPage: NextPage = () => {
           ))}
         </div>
       </section>
-
       <section className="row:trustpilot">
         <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
       </section>

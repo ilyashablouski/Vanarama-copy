@@ -22,7 +22,7 @@ const Banner: React.FC = () => {
         </Text>
         <RouterLink
           link={{
-            href: '',
+            href: '/redundancy-and-life-event-cover.html',
             label: '',
           }}
           classNames={{
