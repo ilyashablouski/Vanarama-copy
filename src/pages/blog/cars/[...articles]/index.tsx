@@ -58,7 +58,7 @@ const BlogPost: NextPage<IBlogPost> = ({
 
 export async function getStaticPaths() {
   return {
-    paths: [{ params: { articles: [] } }],
+    paths: [{ params: { articles: ['volvo-xc40-review'] } }],
     fallback: true,
   };
 }

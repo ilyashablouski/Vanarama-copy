@@ -39,7 +39,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const { data, loading, errors } = await client.query({
     query: BLOG_POSTS_PAGE,
     variables: {
-      slug: 'blog/shoestring-marketing',
+      slug: 'blog/the-shoestring-marketing-blog',
     },
   });
   return { props: { data, loading, error: errors ? errors[0] : null } };

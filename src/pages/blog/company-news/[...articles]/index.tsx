@@ -57,7 +57,7 @@ const BlogPost: NextPage<IBlogPost> = ({
 
 export async function getStaticPaths() {
   return {
-    paths: [{ params: { articles: [] } }],
+    paths: [{ params: { articles: ['charity-donation'] } }],
     fallback: true,
   };
 }

@@ -57,7 +57,7 @@ const BlogPost: NextPage<IBlogPost> = ({
 
 export async function getStaticPaths() {
   return {
-    paths: [{ params: { articles: [] } }],
+    paths: [{ params: { articles: ['how-to-pay-vehicle-tax-html'] } }],
     fallback: true,
   };
 }
