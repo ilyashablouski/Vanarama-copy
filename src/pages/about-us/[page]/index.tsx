@@ -13,7 +13,9 @@ interface IAboutUsPage {
 }
 
 const AboutUsPage: NextPage<IAboutUsPage> = ({ data, loading, error }) => {
-  return <SimplePageContainer data={data} loading={loading} error={error} />;
+  return (
+    <SimplePageContainer data={data} loading={loading || !data} error={error} />
+  );
 };
 
 export async function getStaticPaths() {
