@@ -763,40 +763,35 @@ const SearchPageContainer: React.FC<IProps> = ({
 
       {featured && (
         <div className={`row:${getFeaturedClassPartial(featured)}`}>
-          <Image
+          {/*  <Image
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             size="expand"
             src={featured.image?.file?.url || ''}
-          />
+          /> */}
           <div>
-            <Heading
-              tag={featured.titleTag || 'span'}
-              size="large"
-              color="black"
+            <div
+              style={{
+                height: featured?.layout?.includes('Read More') ? 100 : '',
+                overflow: readmore ? 'hidden' : '',
+              }}
             >
-              {featured.title}
-            </Heading>
-            <Truncate
-              lines={
-                featured?.layout &&
-                featured?.layout.includes('Read More') &&
-                readmore
-                  ? 15
-                  : 0
-              }
-              /* ellipsis={
-                    <span>
-                      ...
-                      <Button
-                        size="small"
-                        color="black"
-                        fill="clear"
-                        label="READ MORE"
-                        onClick={() => setReadMore(!readmore)}
-                      />
-                    </span>
-                  } */
-            >
+              <Heading
+                tag={featured.titleTag || 'span'}
+                size="large"
+                color="black"
+              >
+                {featured.title}
+              </Heading>
+              {/*   <Truncate
+                lines={
+                  featured?.layout &&
+                  featured?.layout.includes('Read More') &&
+                  readmore
+                    ? 15
+                    : 0
+                }
+               
+              > */}
               <ReactMarkdown
                 source={featured.body || ''}
                 escapeHtml={false}
@@ -812,14 +807,17 @@ const SearchPageContainer: React.FC<IProps> = ({
                   },
                 }}
               />
-            </Truncate>
-            <Button
-              size="small"
-              color="black"
-              fill="clear"
-              label={readmore ? 'READ MORE' : 'READ LESS'}
-              onClick={() => setReadMore(!readmore)}
-            />
+              {/* </Truncate> */}
+            </div>
+            {featured?.layout?.includes('Read More') && (
+              <Button
+                size="small"
+                color="black"
+                fill="clear"
+                label={readmore ? 'READ MORE' : 'READ LESS'}
+                onClick={() => setReadMore(!readmore)}
+              />
+            )}
           </div>
         </div>
       )}
