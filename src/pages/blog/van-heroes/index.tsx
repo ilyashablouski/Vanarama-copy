@@ -9,12 +9,12 @@ import createApolloClient from '../../../apolloClient';
 import { IBlogCategory } from '../../../models/IBlogsProps';
 
 const CategoryPage: NextPage<IBlogCategory> = ({ data, loading, error }) => {
-  if (loading) {
-    return <Loading size="large" />;
-  }
-
   if (error) {
     return <ErrorMessage message={error.message} />;
+  }
+
+  if (loading && !data) {
+    return <Loading size="large" />;
   }
 
   const articles = getSectionsData(['articles'], data?.blogPosts);

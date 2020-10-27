@@ -9,12 +9,12 @@ import createApolloClient from '../../../apolloClient';
 import { BLOG_POSTS_PAGE } from '../../../gql/blogPosts';
 
 const CategoryPage: NextPage<IBlogCategory> = ({ data, loading, error }) => {
-  if (loading) {
-    return <Loading size="large" />;
-  }
-
   if (error) {
     return <ErrorMessage message={error.message} />;
+  }
+
+  if (loading && !data) {
+    return <Loading size="large" />;
   }
 
   const articles = getSectionsData(['articles'], data?.blogPosts);

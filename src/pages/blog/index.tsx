@@ -17,12 +17,12 @@ const CategoryPage: NextPage<IGenericPage> = ({
   loading,
   error,
 }) => {
-  if (loading) {
-    return <Loading size="large" />;
-  }
-
   if (error) {
     return <ErrorMessage message={error?.message} />;
+  }
+
+  if (loading || !data) {
+    return <Loading size="large" />;
   }
 
   const tiles = getSectionsData(['sections', 'tiles'], data?.genericPage);

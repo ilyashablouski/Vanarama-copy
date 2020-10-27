@@ -18,7 +18,7 @@ const AboutUsPage: NextPage<IAboutUsPage> = ({ data, loading, error }) => {
 
 export async function getStaticPaths() {
   return {
-    paths: [{ params: { page: null } }],
+    paths: [{ params: { page: '' } }],
     fallback: true,
   };
 }

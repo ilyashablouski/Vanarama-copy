@@ -6,10 +6,10 @@ import { BLOG_POST_PAGE } from '../../../../gql/blogPost';
 import BlogPostContainer from '../../../../containers/BlogPostContainer/BlogPostContainer';
 import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
 import { getSectionsData } from '../../../../utils/getSectionsData';
-import { BLOG_POSTS_PAGE } from '../../../../gql/blogPosts';
 import { getArticles } from '../../../../utils/articles';
 import { IBlogPost } from '../../../../models/IBlogsProps';
 import createApolloClient from '../../../../apolloClient';
+import { BLOG_POSTS_PAGE } from '../../../../gql/blogPosts';
 
 const BlogPost: NextPage<IBlogPost> = ({
   data,
@@ -21,14 +21,14 @@ const BlogPost: NextPage<IBlogPost> = ({
 }) => {
   const router = useRouter();
 
-  if (loading || blogPostsLoading) {
-    return <Loading size="large" />;
-  }
-
   if (error || blogPostsError) {
     return (
       <ErrorMessage message={error?.message || blogPostsError?.message || ''} />
     );
+  }
+
+  if (loading || blogPostsLoading || !data) {
+    return <Loading size="large" />;
   }
 
   const articles = getSectionsData(['blogPosts', 'articles'], blogPosts);
@@ -77,7 +77,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   } = await client.query({
     query: BLOG_POSTS_PAGE,
     variables: {
-      slug: 'blog/shoestring-marketing',
+      slug: 'blog/the-shoestring-marketing-blog',
     },
   });
   return {

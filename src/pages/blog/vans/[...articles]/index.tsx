@@ -21,14 +21,14 @@ const BlogPost: NextPage<IBlogPost> = ({
 }) => {
   const router = useRouter();
 
-  if (loading || blogPostsLoading) {
-    return <Loading size="large" />;
-  }
-
   if (error || blogPostsError) {
     return (
       <ErrorMessage message={error?.message || blogPostsError?.message || ''} />
     );
+  }
+
+  if (loading || blogPostsLoading || !data) {
+    return <Loading size="large" />;
   }
 
   const articles = getSectionsData(['blogPosts', 'articles'], blogPosts);

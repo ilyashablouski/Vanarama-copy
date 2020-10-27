@@ -2,14 +2,14 @@ import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
 import withApollo from '../../../../hocs/withApollo';
-import { BLOG_POST_PAGE, useBlogPostPage } from '../../../../gql/blogPost';
+import { BLOG_POST_PAGE } from '../../../../gql/blogPost';
 import BlogPostContainer from '../../../../containers/BlogPostContainer/BlogPostContainer';
 import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
 import { getSectionsData } from '../../../../utils/getSectionsData';
-import { BLOG_POSTS_PAGE, useBlogPostsPage } from '../../../../gql/blogPosts';
-import { getArticles, getArticlesSlug } from '../../../../utils/articles';
+import { BLOG_POSTS_PAGE } from '../../../../gql/blogPosts';
+import { getArticles } from '../../../../utils/articles';
 import { IBlogPost } from '../../../../models/IBlogsProps';
-import createApolloClient from 'apolloClient';
+import createApolloClient from '../../../../apolloClient';
 
 const BlogPost: NextPage<IBlogPost> = ({
   data,
@@ -20,22 +20,15 @@ const BlogPost: NextPage<IBlogPost> = ({
   blogPostsError,
 }) => {
   const router = useRouter();
-  const { data, loading, error } = useBlogPostPage(router.asPath.slice(1));
-
-  const {
-    data: blogPosts,
-    loading: blogPostsLoading,
-    error: blogPostsError,
-  } = useBlogPostsPage(getArticlesSlug(router));
-
-  if (loading || blogPostsLoading) {
-    return <Loading size="large" />;
-  }
 
   if (error || blogPostsError) {
     return (
       <ErrorMessage message={error?.message || blogPostsError?.message || ''} />
     );
+  }
+
+  if (loading || blogPostsLoading || !data) {
+    return <Loading size="large" />;
   }
 
   const articles = getSectionsData(['blogPosts', 'articles'], blogPosts);
