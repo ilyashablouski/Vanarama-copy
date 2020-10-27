@@ -1,23 +1,28 @@
-import { NextPage } from 'next';
+import { NextPage, NextPageContext } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import { useRouter } from 'next/router';
-import { useGenericPage, useGenericPageHead } from '../../gql/genericPage';
+import createApolloClient from '../../apolloClient';
+import {
+  GENERIC_PAGE,
+  GENERIC_PAGE_HEAD,
+  IGenericPage,
+} from '../../gql/genericPage';
 import withApollo from '../../hocs/withApollo';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import CategoryPageContainer from '../../containers/CategoryPageContainer/CategoryPageContainer';
 import { getSectionsData } from '../../utils/getSectionsData';
 
-const CategoryPage: NextPage = () => {
-  const router = useRouter();
-  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
-  const { data: pageHead } = useGenericPageHead(router.asPath.slice(1));
-
-  if (loading) {
-    return <Loading size="large" />;
-  }
-
+const CategoryPage: NextPage<IGenericPage> = ({
+  pageHead,
+  data,
+  loading,
+  error,
+}) => {
   if (error) {
     return <ErrorMessage message={error?.message} />;
+  }
+
+  if (loading || !data) {
+    return <Loading size="large" />;
   }
 
   const tiles = getSectionsData(['sections', 'tiles'], data?.genericPage);
@@ -39,5 +44,24 @@ const CategoryPage: NextPage = () => {
     />
   );
 };
+
+export async function getStaticProps(context: NextPageContext) {
+  const client = createApolloClient({}, context);
+  const { data, loading, errors } = await client.query({
+    query: GENERIC_PAGE,
+    variables: {
+      slug: 'blog',
+    },
+  });
+  const { data: pageHead } = await client.query({
+    query: GENERIC_PAGE_HEAD,
+    variables: {
+      slug: 'blog',
+    },
+  });
+  return {
+    props: { data, pageHead, loading, error: errors ? errors[0] : null },
+  };
+}
 
 export default withApollo(CategoryPage);

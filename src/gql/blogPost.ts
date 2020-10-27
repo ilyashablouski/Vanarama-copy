@@ -3,7 +3,7 @@ import { FeaturedHtml } from '../containers/FeaturedAndTilesContainer/getFeature
 import TilesContainer from '../containers/TilesContainer/TilesContainer';
 import { BlogPost, BlogPostVariables } from '../../generated/BlogPost';
 
-export const BLOG_POPST_PAGE = gql`
+export const BLOG_POST_PAGE = gql`
   query BlogPost($slug: String!) {
     blogPost(slug: $slug) {
       metaData {
@@ -115,7 +115,7 @@ export const BLOG_POPST_PAGE = gql`
 `;
 
 export function useBlogPostPage(slug: string) {
-  return useQuery<BlogPost, BlogPostVariables>(BLOG_POPST_PAGE, {
+  return useQuery<BlogPost, BlogPostVariables>(BLOG_POST_PAGE, {
     variables: {
       slug,
     },
