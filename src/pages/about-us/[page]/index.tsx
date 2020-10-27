@@ -20,8 +20,13 @@ const AboutUsPage: NextPage<IAboutUsPage> = ({ data, loading, error }) => {
 
 export async function getStaticPaths() {
   return {
-    paths: [{ params: { page: 'meet-the-directors' } }],
-    fallback: true,
+    paths: [
+      { params: { page: 'meet-the-directors' } },
+      { params: { page: 'five-star-service' } },
+      { params: { page: 'meet-your-support-team' } },
+      { params: { page: 'price-protection-guarantee' } },
+    ],
+    fallback: false,
   };
 }
 
