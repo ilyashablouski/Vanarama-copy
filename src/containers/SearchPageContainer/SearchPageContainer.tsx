@@ -771,7 +771,10 @@ const SearchPageContainer: React.FC<IProps> = ({
           <div>
             <div
               style={{
-                height: featured?.layout?.includes('Read More') ? 100 : '',
+                height:
+                  featured?.layout?.includes('Read More') && readmore
+                    ? 100
+                    : '',
                 overflow: readmore ? 'hidden' : '',
               }}
             >
