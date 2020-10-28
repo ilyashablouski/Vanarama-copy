@@ -7,12 +7,15 @@
 // GraphQL mutation operation: ChangePasswordByUuidMutation
 // ====================================================
 
+export interface ChangePasswordByUuidMutation_passwordChangeV2 {
+  isSuccessfull: boolean | null;
+}
+
 export interface ChangePasswordByUuidMutation {
-  passwordChange: string | null;
+  passwordChangeV2: ChangePasswordByUuidMutation_passwordChangeV2 | null;
 }
 
 export interface ChangePasswordByUuidMutationVariables {
-  uuid: string;
   oldPassword: string;
   newPassword: string;
 }
