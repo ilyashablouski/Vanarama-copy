@@ -31,7 +31,6 @@ export const IS_PASSWORD_CORRECT = gql`
 `;
 
 const PasswordChangeContainer = ({
-  uuid,
   onCompleted,
   onNetworkError,
 }: IPasswordChangeContainerProps) => {
