@@ -23,9 +23,6 @@ import TileLink from '../../components/TileLink/TileLink';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
 
 // Dynamic component loading.
-const Button = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/button'),
-);
 const Heading = dynamic(() =>
   import('@vanarama/uibook/lib/components/atoms/heading'),
 );
