@@ -49,6 +49,7 @@ import {
   useVehicleListUrlFetchMore,
 } from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
+import { VansSearch } from '../../models/enum/SearchByManufacturer';
 
 type ProdCards = ProdCardData[];
 
@@ -685,24 +686,7 @@ export const VansPage: NextPage = () => {
           Search By Manufacturer
         </Heading>
         <div>
-          {[
-            { label: 'Citroen', href: '/citroen-van-leasing.html' },
-            { label: 'Fiat', href: '/fiat-van-leasing.html' },
-            { label: 'Ford', href: '/ford-van-leasing.html' },
-            {
-              label: 'Derenged Pickups & Vans',
-              href: '/deranged-vehicles.html',
-            },
-            { label: 'Isuzu', href: '/isuzu-van-leasing.html' },
-            { label: 'Mercedes-Benz', href: '/mercedes-benz-van-leasing.html' },
-            { label: 'Mitsubishi', href: '/mitsubishi-van-leasing.html' },
-            { label: 'Nissan', href: '/nissan-van-leasing.html' },
-            { label: 'Peugeot', href: '/peugeot-van-leasing.html' },
-            { label: 'Renault', href: '/renault-van-leasing.html' },
-            { label: 'Toyota', href: '/toyota-van-leasing.html' },
-            { label: 'Vauxhall', href: '/vauxhall-van-leasing.html' },
-            { label: 'Volkswagen', href: '/volkswagen-van-leasing.html' },
-          ].map(man => (
+          {VansSearch.map(man => (
             <RouterLink
               className="button"
               classNames={{ color: 'teal', solid: true, size: 'large' }}

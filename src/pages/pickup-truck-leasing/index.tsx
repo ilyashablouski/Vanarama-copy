@@ -51,6 +51,7 @@ import {
   useVehicleListUrlFetchMore,
 } from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
+import { PickupsSearch } from '../../models/enum/SearchByManufacturer';
 
 export const PickupsPage: NextPage = () => {
   const [offer, setOffer] = useState<ProdData>();
@@ -520,21 +521,7 @@ export const PickupsPage: NextPage = () => {
           Search By Manufacturer
         </Heading>
         <div>
-          {[
-            { label: 'Ford', href: '/ford-van-leasing/ranger.html' },
-            { label: 'Nissan', href: '/nissan-van-leasing/navara.html' },
-            { label: 'Mitsubishi', href: '/mitsubishi-van-leasing/l200.html' },
-            {
-              label: 'Volkswagen',
-              href: '/volkswagen-van-leasing/amarok.html',
-            },
-            { label: 'Toyota', href: '/toyota-van-leasing/hilux.html' },
-            {
-              label: 'Mercedes-Benz',
-              href: '/mercedes-benz-van-leasing/x-class.html',
-            },
-            { label: 'Isuzu', href: '/isuzu-van-leasing.html' },
-          ].map(man => (
+          {PickupsSearch.map(man => (
             <RouterLink
               className="button"
               classNames={{ color: 'teal', solid: true, size: 'large' }}
