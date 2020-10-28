@@ -11,6 +11,8 @@ import { BLOG_POSTS_PAGE } from '../../../../gql/blogPosts';
 import { getArticles } from '../../../../utils/articles';
 import createApolloClient from '../../../../apolloClient';
 import { IBlogPost } from '../../../../models/IBlogsProps';
+import { BlogPosts } from '../../../../../generated/BlogPosts';
+import { getPaths } from '../../../../utils/blogSlugs';
 
 const BlogPost: NextPage<IBlogPost> = ({
   data,
@@ -57,9 +59,17 @@ const BlogPost: NextPage<IBlogPost> = ({
 };
 
 export async function getStaticPaths() {
+  const client = createApolloClient({});
+  const { data } = await client.query<BlogPosts>({
+    query: BLOG_POSTS_PAGE,
+    variables: {
+      slug: 'blog/cars',
+    },
+  });
+
   return {
-    paths: [{ params: { articles: ['volvo-xc40-review'] } }],
-    fallback: true,
+    paths: getPaths(data?.blogPosts),
+    fallback: false,
   };
 }
 
@@ -81,6 +91,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       slug: 'blog/cars',
     },
   });
+
   return {
     props: {
       data,

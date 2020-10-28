@@ -10,6 +10,8 @@ import { BLOG_POSTS_PAGE } from '../../../../gql/blogPosts';
 import { getArticles } from '../../../../utils/articles';
 import { IBlogPost } from '../../../../models/IBlogsProps';
 import createApolloClient from '../../../../apolloClient';
+import { BlogPosts } from '../../../../../generated/BlogPosts';
+import { getPaths } from '../../../../utils/blogSlugs';
 
 const BlogPost: NextPage<IBlogPost> = ({
   data,
@@ -56,9 +58,17 @@ const BlogPost: NextPage<IBlogPost> = ({
 };
 
 export async function getStaticPaths() {
+  const client = createApolloClient({});
+  const { data } = await client.query<BlogPosts>({
+    query: BLOG_POSTS_PAGE,
+    variables: {
+      slug: 'blog/company-news',
+    },
+  });
+
   return {
-    paths: [{ params: { articles: ['charity-donation'] } }],
-    fallback: true,
+    paths: getPaths(data?.blogPosts),
+    fallback: false,
   };
 }
 
