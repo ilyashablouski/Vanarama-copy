@@ -5,6 +5,7 @@ const withImages = require('next-images');
 const withFonts = require('next-fonts');
 // const sitemap = require('nextjs-sitemap-generator');
 const withCustomBabelConfig = require('next-plugin-custom-babel-config');
+const withBabelMinify = require('next-babel-minify')();
 /**
  * NOTE: uibook is not transpiled with webpack so some of the components contain
  * lines such as `import 'rheostat/css/rheostat.css';`. Next.js does not know how
@@ -16,6 +17,7 @@ const config = require('./config/app');
 
 module.exports = withPlugins(
   [
+    [withBabelMinify, { comments: false }],
     withTM,
     [withFonts],
     [

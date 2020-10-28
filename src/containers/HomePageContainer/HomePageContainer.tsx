@@ -22,7 +22,7 @@ import {
 import TileLink from '../../components/TileLink/TileLink';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
 
-// Dynamic component loading
+// Dynamic component loading.
 const Heading = dynamic(() =>
   import('@vanarama/uibook/lib/components/atoms/heading'),
 );
