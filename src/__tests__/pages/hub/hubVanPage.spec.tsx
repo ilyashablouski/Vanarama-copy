@@ -573,37 +573,33 @@ describe('<VansPage />', () => {
 
   it('should trigger route push when clicking View Small Vans', async () => {
     await screen.findAllByText('View Small Vans');
-    fireEvent.click(screen.getAllByText('View Small Vans')[0]);
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing?bodyStyles=Small+Van',
-      ),
+    expect(screen.getByTestId('small-van-leasing')).toHaveAttribute(
+      'href',
+      '/small-van-leasing.html',
     );
   });
 
   it('should trigger route push when clicking View Medium Vans', async () => {
     await screen.findAllByText('View Medium Vans');
-    fireEvent.click(screen.getAllByText('View Medium Vans')[0]);
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing?bodyStyles=Medium+Van',
-      ),
+    expect(screen.getByTestId('medium-van-leasing')).toHaveAttribute(
+      'href',
+      '/medium-van-leasing.html',
     );
   });
 
   it('should trigger route push when clicking Here', async () => {
     await screen.findAllByText('View Medium Vans');
     fireEvent.click(screen.getByText('Here'));
-    await waitFor(() => expect(Router.push).toHaveBeenCalledWith('/fan-hub'));
+    await waitFor(() =>
+      expect(Router.push).toHaveBeenCalledWith('/fan-hub.html'),
+    );
   });
 
   it('should trigger route push when clicking View Large Vans', async () => {
     await screen.findAllByText('View Large Vans');
-    fireEvent.click(screen.getAllByText('View Large Vans')[0]);
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing?bodyStyles=Large+Van',
-      ),
+    expect(screen.getByTestId('large-van-leasing')).toHaveAttribute(
+      'href',
+      '/large-van-leasing.html',
     );
   });
 });

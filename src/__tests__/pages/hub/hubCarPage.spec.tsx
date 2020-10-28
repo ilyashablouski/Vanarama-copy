@@ -274,7 +274,7 @@ describe('<CarPage />', () => {
 
     expect(screen.getByTestId('view-all-cars')).toHaveAttribute(
       'href',
-      '/car-leasing/search',
+      '/car-leasing-special-offers.html',
     );
   });
 

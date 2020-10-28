@@ -1,21 +1,20 @@
 import { FC } from 'react';
-import { useRouter } from 'next/router';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
+import RouterLink from '../../RouterLink/RouterLink';
 
 const EligibilityCheckerButton: FC<{}> = () => {
-  const router = useRouter();
-
-  const goToPage = () => {
-    router.push('/lease-eligibility-checker/details');
-  };
-
   return (
-    <Button
-      label="Check Your Eligibility"
-      onClick={goToPage}
-      color="teal"
+    <RouterLink
+      className="button"
+      classNames={{ color: 'teal', solid: true, size: 'regular' }}
+      link={{
+        label: 'Check Your Eligibility',
+        href: '/credit-checker.html',
+      }}
+      withoutDefaultClassName
       dataTestId="eligibility-Checker-btn"
-    />
+    >
+      <div className="button--inner">Check Your Eligibility</div>
+    </RouterLink>
   );
 };
 

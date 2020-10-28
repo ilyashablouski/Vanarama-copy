@@ -8,7 +8,6 @@ describe('<VehicleCard />', () => {
   const resetMocks = () => {
     return {
       url: '/car-leasing/vauxhall/crossland-x/bodystylename/slug',
-      appUrl: '/car-leasing/vauxhall/crossland-x/bodystylename/slug',
       title: {
         title: '',
         link: (
@@ -20,7 +19,6 @@ describe('<VehicleCard />', () => {
         score: 4.5,
       },
       onCompare: jest.fn(),
-      viewOffer: jest.fn(),
       isPersonalPrice: true,
       data: {
         averageRating: 0,
