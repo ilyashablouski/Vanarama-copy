@@ -1,6 +1,5 @@
 import { NextPage } from 'next';
 import Router from 'next/router';
-import Link from 'next/link';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import ReactMarkdown from 'react-markdown/with-html';
@@ -40,7 +39,7 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import getIconMap from '../../utils/getIconMap';
 import truncateString from '../../utils/truncateString';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import { getLegacyUrl, formatProductPageUrl, getNewUrl } from '../../utils/url';
+import { getLegacyUrl, formatProductPageUrl } from '../../utils/url';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
 import {
@@ -143,14 +142,17 @@ export const CarsPage: NextPage = () => {
           <Heading size="large" color="black">
             Check Your Eligibility For A New Car Lease
           </Heading>
-          <Link href="/eligibility-checker">
-            <Button
-              label="Check My Eligibility"
-              size="lead"
-              fill="solid"
-              color="teal"
-            />
-          </Link>
+          <RouterLink
+            className="button"
+            classNames={{ color: 'teal', solid: true, size: 'regular' }}
+            link={{
+              label: 'Check My Eligibility',
+              href: '/eligibility-checker.html',
+            }}
+            withoutDefaultClassName
+          >
+            <div className="button--inner">Check My Eligibility</div>
+          </RouterLink>
           <Text tag="p" color="dark" size="xsmall">
             This will not affect your credit score.
           </Text>
@@ -192,10 +194,6 @@ export const CarsPage: NextPage = () => {
               ),
               item?.capId,
             );
-            const href = getNewUrl(
-              vehicleListUrlQuery.data?.vehicleList?.edges,
-              item?.capId,
-            );
             return (
               <ProductCard
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -221,12 +219,11 @@ export const CarsPage: NextPage = () => {
                   link: (
                     <RouterLink
                       link={{
-                        href,
+                        href: productUrl.url,
                         label: truncateString(
                           `${item?.manufacturerName} ${item?.rangeName}`,
                         ),
                       }}
-                      as={productUrl.url}
                       onClick={() =>
                         sessionStorage.setItem('capId', item?.capId || '')
                       }
@@ -249,10 +246,9 @@ export const CarsPage: NextPage = () => {
                   />
                   <RouterLink
                     link={{
-                      href,
+                      href: productUrl.url,
                       label: 'View Offer',
                     }}
-                    as={productUrl.url}
                     onClick={() =>
                       sessionStorage.setItem('capId', item?.capId || '')
                     }
@@ -269,7 +265,7 @@ export const CarsPage: NextPage = () => {
 
           <RouterLink
             link={{
-              href: '/car-leasing/search',
+              href: '/car-leasing-special-offers.html',
               label: 'View All Cars',
             }}
             classNames={{ color: 'teal', size: 'large' }}

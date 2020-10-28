@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { MutableRefObject, useRef } from 'react';
 import { NextPage } from 'next';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -166,16 +166,15 @@ export const OffersPage: NextPage = () => {
             <Text size="regular" color="darker">
               Included With All Lease Deals
             </Text>
-            <Button
-              size="regular"
-              fill="clear"
-              color="teal"
-              label="Find Out More"
-              icon={<Arrow />}
-              iconColor="teal"
-              iconPosition="after"
-              onClick={() => Router.push('#')}
-            />
+            <RouterLink
+              classNames={{ color: 'teal', size: 'regular' }}
+              link={{
+                label: 'Find Out More',
+                href: '/redundancy-and-life-event-cover.html',
+              }}
+            >
+              Find Out More <Arrow />
+            </RouterLink>
           </Card>
         </div>
       </div>

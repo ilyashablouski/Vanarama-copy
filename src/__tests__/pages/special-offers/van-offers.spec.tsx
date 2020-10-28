@@ -2,8 +2,7 @@ import React from 'react';
 // @ts-ignore
 import preloadAll from 'jest-next-dynamic';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import Router from 'next/router';
+import { render, screen, waitFor } from '@testing-library/react';
 import { VAN_OFFERS_CONTENT } from '../../../gql/special-offers/van-offers';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import { ProductCardData } from '../../../../generated/ProductCardData';
@@ -456,63 +455,35 @@ describe('<VanOffers />', () => {
     });
   });
 
-  it('should trigger route push when clicking See All Small Vans', async () => {
+  it('should have link in See All Small Vans', async () => {
     await screen.findAllByText('See All Small Vans');
-    fireEvent.click(screen.getAllByText('See All Small Vans')[0]);
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing/search?bodyStyles=Small+Van',
-      ),
+    expect(screen.getByTestId('small-van-leasing')).toHaveAttribute(
+      'href',
+      '/small-van-leasing.html',
     );
   });
 
-  it('should trigger route push when clicking See All Medium Vans', async () => {
+  it('should have link in See All Medium Vans', async () => {
     await screen.findAllByText('See All Medium Vans');
-    fireEvent.click(screen.getAllByText('See All Medium Vans')[0]);
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing/search?bodyStyles=Medium+Van',
-      ),
+    expect(screen.getByTestId('medium-van-leasing')).toHaveAttribute(
+      'href',
+      '/medium-van-leasing.html',
     );
   });
 
-  it('should trigger route push when clicking See All Large Vans', async () => {
+  it('should have link in See All Large Vans', async () => {
     await screen.findAllByText('See All Large Vans');
-    fireEvent.click(screen.getAllByText('See All Large Vans')[0]);
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing/search?bodyStyles=Large+Van',
-      ),
+    expect(screen.getByTestId('large-van-leasing')).toHaveAttribute(
+      'href',
+      '/large-van-leasing.html',
     );
   });
 
-  it('should trigger route push when clicking See All Pickup Trucks', async () => {
-    await screen.findAllByText('See All Pickup Trucks');
-    fireEvent.click(screen.getAllByText('See All Pickup Trucks')[0]);
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing/search?bodyStyles=Pickup',
-      ),
-    );
-  });
-
-  it('should trigger route push when clicking See All Dropside Tippers', async () => {
-    await screen.findAllByText('See All Dropside Tippers');
-    fireEvent.click(screen.getAllByText('See All Dropside Tippers')[0]);
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing/search?bodyStyles=Dropside+Tipper',
-      ),
-    );
-  });
-
-  it('should trigger route push when clicking See All Specialist Vans', async () => {
+  it('should have link in See All Specialist Vans', async () => {
     await screen.findAllByText('See All Specialist Vans');
-    fireEvent.click(screen.getAllByText('See All Specialist Vans')[0]);
-    await waitFor(() =>
-      expect(Router.push).toHaveBeenCalledWith(
-        '/van-leasing/search?bodyStyles=Specialist',
-      ),
+    expect(screen.getByTestId('crew-vans')).toHaveAttribute(
+      'href',
+      '/crew-vans.html',
     );
   });
 });

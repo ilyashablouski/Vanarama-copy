@@ -76,10 +76,9 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
         <br />
         <RouterLink
           link={{
-            href: link.href,
+            href: link.url,
             label: 'View Offer',
           }}
-          as={link.url}
           onClick={viewOfferClick}
           classNames={{ color: 'teal', solid: true, size: 'regular' }}
           className="button"

@@ -398,13 +398,15 @@ describe('<PickupsPage />', () => {
 
     expect(screen.getByTestId('view-all-pickups')).toHaveAttribute(
       'href',
-      '/pickup-truck-leasing/search',
+      '/pickup-special-offers.html',
     );
   });
 
   it('should trigger route push when clicking Here', async () => {
     await screen.findByText('View All Pickups');
     fireEvent.click(screen.getByText('Here'));
-    await waitFor(() => expect(Router.push).toHaveBeenCalledWith('/fan-hub'));
+    await waitFor(() =>
+      expect(Router.push).toHaveBeenCalledWith('/fan-hub.html'),
+    );
   });
 });

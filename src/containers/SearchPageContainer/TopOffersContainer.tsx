@@ -6,7 +6,7 @@ import cx from 'classnames';
 import { useRouter } from 'next/router';
 import { useProductCardData } from '../CustomerAlsoViewedContainer/gql';
 import { useVehiclesList, useBodyStyleList } from './gql';
-import VehicleCard, { IProductPageUrl } from './VehicleCard';
+import VehicleCard from './VehicleCard';
 import ModelCard from './ModelCard';
 import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
 import {
@@ -19,7 +19,7 @@ import { GetProductCard_productCard as IProductCard } from '../../../generated/G
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import { bodyStyleList_bodyStyleList as IModelsData } from '../../../generated/bodyStyleList';
 import { fuelMapper } from './helpers';
-import { getLegacyUrl, getNewUrl } from '../../utils/url';
+import { getLegacyUrl } from '../../utils/url';
 
 interface IProps {
   isPersonal: boolean;
@@ -32,7 +32,6 @@ interface IProps {
   isTransmissionPage: boolean;
   isFuelPage: boolean;
   isDynamicFilterPage: boolean;
-  viewOffer: (productPageUrl: IProductPageUrl) => void;
   viewModel: (model: string) => void;
   manualBodyStyle: string[];
 }
@@ -47,7 +46,6 @@ const TopOffersContainer: React.FC<IProps> = ({
   isRangePage,
   isPersonal,
   isFuelPage,
-  viewOffer,
   viewModel,
   isDynamicFilterPage,
   manualBodyStyle,
@@ -248,8 +246,6 @@ const TopOffersContainer: React.FC<IProps> = ({
                 <VehicleCard
                   derivativeId={vehicle.node?.derivativeId}
                   url={getLegacyUrl(vehiclesList, vehicle.node?.derivativeId)}
-                  appUrl={getNewUrl(vehiclesList, vehicle.node?.derivativeId)}
-                  viewOffer={viewOffer}
                   key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
                   data={
                     getCardData(
@@ -273,8 +269,6 @@ const TopOffersContainer: React.FC<IProps> = ({
                   <VehicleCard
                     derivativeId={vehicle.node?.derivativeId}
                     url={getLegacyUrl(vehiclesList, vehicle.node?.derivativeId)}
-                    appUrl={getNewUrl(vehiclesList, vehicle.node?.derivativeId)}
-                    viewOffer={viewOffer}
                     key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
                     data={
                       getCardData(

@@ -60,7 +60,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
         target={link.target}
         rel="noopener noreferrer"
         onClick={e => onClick && onClick(e)}
-        data-testid="link"
+        data-testid={dataTestId ?? 'link'}
       >
         {children || link.label}
       </a>

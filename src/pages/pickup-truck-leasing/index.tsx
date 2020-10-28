@@ -6,7 +6,6 @@ import { getDataFromTree } from '@apollo/react-ssr';
 import ReactMarkdown from 'react-markdown/with-html';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
@@ -52,6 +51,7 @@ import {
   useVehicleListUrlFetchMore,
 } from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
+import { PickupsSearch } from '../../models/enum/SearchByManufacturer';
 
 export const PickupsPage: NextPage = () => {
   const [offer, setOffer] = useState<ProdData>();
@@ -161,7 +161,6 @@ export const PickupsPage: NextPage = () => {
           rating={offer?.averageRating || 3}
           viewOfferClick={() => {
             sessionStorage.setItem('capId', offer?.capId || '');
-            Router.push(dealOfMonthUrl.href, dealOfMonthUrl.url);
           }}
           link={{ href: dealOfMonthHref, url: dealOfMonthUrl.url }}
         />
@@ -176,10 +175,6 @@ export const PickupsPage: NextPage = () => {
                 vehicleListUrlQuery.data?.vehicleList?.edges,
                 item?.capId,
               ),
-              item?.capId,
-            );
-            const href = getNewUrl(
-              vehicleListUrlQuery.data?.vehicleList?.edges,
               item?.capId,
             );
             return (
@@ -211,12 +206,11 @@ export const PickupsPage: NextPage = () => {
                   link: (
                     <RouterLink
                       link={{
-                        href,
+                        href: productUrl.url,
                         label: truncateString(
                           `${item?.manufacturerName} ${item?.rangeName}`,
                         ),
                       }}
-                      as={productUrl.url}
                       onClick={() =>
                         sessionStorage.setItem('capId', item?.capId || '')
                       }
@@ -239,10 +233,9 @@ export const PickupsPage: NextPage = () => {
                   />
                   <RouterLink
                     link={{
-                      href,
+                      href: productUrl.url,
                       label: 'View Offer',
                     }}
-                    as={productUrl.url}
                     onClick={() =>
                       sessionStorage.setItem('capId', item?.capId || '')
                     }
@@ -258,7 +251,7 @@ export const PickupsPage: NextPage = () => {
 
           <RouterLink
             link={{
-              href: '/pickup-truck-leasing/search',
+              href: '/pickup-special-offers.html',
               label: 'View All Pickups',
             }}
             classNames={{ color: 'teal', size: 'large' }}
@@ -468,15 +461,16 @@ export const PickupsPage: NextPage = () => {
           <Heading size="regular" color="black">
             {data?.hubPickupPage.sections?.rowText?.subHeading}
           </Heading>
-          <Button
+          <RouterLink
             className="-pt-200"
-            label="View Leasing Guides"
-            color="teal"
-            fill="clear"
-            size="regular"
-            icon={<ArrowForwardSharp />}
-            iconPosition="after"
-          />
+            classNames={{ color: 'teal', solid: true, size: 'regular' }}
+            link={{
+              label: 'View Leasing Guides',
+              href: '/van-leasing-explained.html',
+            }}
+          >
+            View Leasing Guides <ArrowForwardSharp />
+          </RouterLink>
         </div>
       </section>
       <hr className="fullWidth" />
@@ -527,31 +521,25 @@ export const PickupsPage: NextPage = () => {
           Search By Manufacturer
         </Heading>
         <div>
-          {[
-            'Nissan',
-            'Toyota',
-            'Isuzu',
-            'Ford',
-            'Volkswagen',
-            'Mitsubishi',
-            'Mercedes-Benz',
-          ].map(man => (
-            <Button
-              key={man}
-              color="teal"
-              size="large"
-              label={man}
-              onClick={() =>
-                Router.push(`/van-leasing/${man}?bodyStyles=Pickup `)
-              }
-            />
+          {PickupsSearch.map(man => (
+            <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'large' }}
+              link={{
+                label: man.label,
+                href: man.href,
+              }}
+              withoutDefaultClassName
+            >
+              <div className="button--inner">{man.label}</div>
+            </RouterLink>
           ))}
         </div>
       </section>
 
       <section className="row:league">
         <League
-          clickReadMore={() => Router.push('/fan-hub')}
+          clickReadMore={() => Router.push('/fan-hub.html')}
           altText="vanarama national league"
         />
       </section>

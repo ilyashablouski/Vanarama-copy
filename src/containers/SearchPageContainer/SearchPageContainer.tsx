@@ -39,7 +39,7 @@ import {
   useManufacturerList,
   GET_ALL_MAKES_PAGE,
 } from './gql';
-import VehicleCard, { IProductPageUrl } from './VehicleCard';
+import VehicleCard from './VehicleCard';
 import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
 import {
   VehicleTypeEnum,
@@ -75,7 +75,7 @@ import { getFeaturedClassPartial } from '../../utils/layout';
 
 import useLeaseType from '../../hooks/useLeaseType';
 import { LinkTypes } from '../../models/enum/LinkTypes';
-import { getLegacyUrl, getNewUrl } from '../../utils/url';
+import { getLegacyUrl } from '../../utils/url';
 import TileLink from '../../components/TileLink/TileLink';
 import { getSectionsData } from '../../utils/getSectionsData';
 
@@ -526,10 +526,6 @@ const SearchPageContainer: React.FC<IProps> = ({
   const getCardData = (capId: string, dataForCards = cardsData) =>
     dataForCards?.filter(card => card?.capId === capId)[0];
 
-  const viewOffer = (productPageUrl: IProductPageUrl) => {
-    sessionStorage.setItem('capId', productPageUrl.capId);
-    router.push(productPageUrl.href, productPageUrl.url, { shallow: true });
-  };
   /** navigate to Range Page */
   const viewRange = (range: string) => {
     const href = isCarSearch ? 'car-leasing' : 'van-leasing';
@@ -775,7 +771,6 @@ const SearchPageContainer: React.FC<IProps> = ({
           isRangePage={isRangePage || false}
           isPickups={isPickups || false}
           isSpecialOfferPage={isSpecialOfferPage || false}
-          viewOffer={viewOffer}
           viewModel={viewModel}
           manualBodyStyle={manualBodyStyle}
         />
@@ -871,7 +866,6 @@ const SearchPageContainer: React.FC<IProps> = ({
                   !!carDer.length &&
                   vehiclesList?.map((vehicle: IVehicles) => (
                     <VehicleCard
-                      viewOffer={viewOffer}
                       bodyStyle={
                         router.query?.bodyStyles === 'Pickup' ? 'Pickup' : null
                       }
@@ -883,10 +877,6 @@ const SearchPageContainer: React.FC<IProps> = ({
                       }
                       derivativeId={vehicle.node?.derivativeId}
                       url={getLegacyUrl(
-                        vehiclesList,
-                        vehicle.node?.derivativeId,
-                      )}
-                      appUrl={getNewUrl(
                         vehiclesList,
                         vehicle.node?.derivativeId,
                       )}

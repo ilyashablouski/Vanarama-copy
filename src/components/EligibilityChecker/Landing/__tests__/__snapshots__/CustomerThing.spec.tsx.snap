@@ -14,16 +14,18 @@ exports[`<CustomerThing /> renders correctly 1`] = `
   >
     More than 1,000 people use our Eligibility Checker every week to find out their likelihood of getting accepted to lease a new car lease.
   </p>
-  <button
+  <a
     className="button -teal -regular -solid"
     data-testid="eligibility-Checker-btn"
+    href="/credit-checker.html"
     onClick={[Function]}
+    rel="noopener noreferrer"
   >
     <div
       className="button--inner"
     >
       Check Your Eligibility
     </div>
-  </button>
+  </a>
 </div>
 `;
