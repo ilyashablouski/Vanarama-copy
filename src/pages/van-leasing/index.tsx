@@ -626,7 +626,7 @@ export const VansPage: NextPage = () => {
           </Heading>
           <RouterLink
             className="-pt-200"
-            classNames={{ color: 'teal', solid: true, size: 'regular' }}
+            classNames={{ color: 'teal', size: 'regular' }}
             link={{
               label: 'View Leasing Guides',
               href: '/van-leasing-explained.html',
