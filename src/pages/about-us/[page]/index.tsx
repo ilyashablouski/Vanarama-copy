@@ -23,7 +23,6 @@ export async function getStaticPaths() {
     paths: [
       { params: { page: 'meet-the-directors' } },
       { params: { page: 'five-star-service' } },
-      { params: { page: 'meet-your-support-team' } },
       { params: { page: 'price-protection-guarantee' } },
     ],
     fallback: false,
