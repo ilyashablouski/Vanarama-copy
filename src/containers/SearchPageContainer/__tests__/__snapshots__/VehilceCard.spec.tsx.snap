@@ -13,18 +13,12 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
     </div>
     
   </div>
-  <div
-    className="card-image-wrapper"
-  >
-    <div
-      className="card-image-placeholder"
-      style={
-        Object {
-          "height": undefined,
-        }
-      }
-    />
-  </div>
+  <img
+    className="card-image"
+    data-testid="card-image"
+    onError={[Function]}
+    src="https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg"
+  />
   <div
     className="title"
   >

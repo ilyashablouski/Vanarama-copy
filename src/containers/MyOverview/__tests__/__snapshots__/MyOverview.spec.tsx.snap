@@ -183,18 +183,11 @@ Array [
             }
           }
         >
-          <div
-            className="card-image-wrapper"
-          >
-            <div
-              className="card-image-placeholder"
-              style={
-                Object {
-                  "height": undefined,
-                }
-              }
-            />
-          </div>
+          <img
+            className="card-image"
+            data-testid="card-image"
+            onError={[Function]}
+          />
           <div
             className="title"
           >
@@ -320,18 +313,11 @@ Array [
             }
           }
         >
-          <div
-            className="card-image-wrapper"
-          >
-            <div
-              className="card-image-placeholder"
-              style={
-                Object {
-                  "height": undefined,
-                }
-              }
-            />
-          </div>
+          <img
+            className="card-image"
+            data-testid="card-image"
+            onError={[Function]}
+          />
           <div
             className="title"
           >
@@ -557,18 +543,11 @@ Array [
             }
           }
         >
-          <div
-            className="card-image-wrapper"
-          >
-            <div
-              className="card-image-placeholder"
-              style={
-                Object {
-                  "height": undefined,
-                }
-              }
-            />
-          </div>
+          <img
+            className="card-image"
+            data-testid="card-image"
+            onError={[Function]}
+          />
           <div
             className="title"
           >
@@ -694,18 +673,11 @@ Array [
             }
           }
         >
-          <div
-            className="card-image-wrapper"
-          >
-            <div
-              className="card-image-placeholder"
-              style={
-                Object {
-                  "height": undefined,
-                }
-              }
-            />
-          </div>
+          <img
+            className="card-image"
+            data-testid="card-image"
+            onError={[Function]}
+          />
           <div
             className="title"
           >
