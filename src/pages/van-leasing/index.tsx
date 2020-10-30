@@ -405,7 +405,7 @@ export const VansPage: NextPage = () => {
                 link: (
                   <RouterLink
                     link={{
-                      href: card.link?.url || '#',
+                      href: card.link?.legacyUrl || card.link?.url || '#',
                       label: card.title || '',
                     }}
                     className="heading"

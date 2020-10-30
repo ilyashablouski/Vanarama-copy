@@ -28,6 +28,7 @@ export interface manufacturerPage_manufacturerPage_sections_featured_iconList {
 export interface manufacturerPage_manufacturerPage_sections_featured_link {
   url: string | null;
   text: string | null;
+  legacyUrl: string | null;
 }
 
 export interface manufacturerPage_manufacturerPage_sections_featured_cards_image_file {
@@ -44,6 +45,7 @@ export interface manufacturerPage_manufacturerPage_sections_featured_cards_image
 export interface manufacturerPage_manufacturerPage_sections_featured_cards_link {
   text: string | null;
   url: string | null;
+  legacyUrl: string | null;
 }
 
 export interface manufacturerPage_manufacturerPage_sections_featured_cards {

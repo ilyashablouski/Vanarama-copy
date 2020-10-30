@@ -26,6 +26,7 @@ const GET_INSURANCE_LANDING_PAGE = gql`
             link {
               text
               url
+              legacyUrl
             }
             image {
               title

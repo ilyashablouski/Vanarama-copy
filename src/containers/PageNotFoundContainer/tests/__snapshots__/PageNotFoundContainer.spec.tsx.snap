@@ -54,12 +54,14 @@ exports[`<PageNotFoundContainer /> should match snapshot 1`] = `
           <div
             class="title -flex-h"
           >
-            <h2
+            <a
               class="heading -black -lead"
+              data-testid="link"
               href="/van-leasing.html"
+              rel="noopener noreferrer"
             >
               Search Vans
-            </h2>
+            </a>
             <button
               class="button -teal -xsmall -solid -round"
             >
@@ -112,12 +114,14 @@ exports[`<PageNotFoundContainer /> should match snapshot 1`] = `
           <div
             class="title -flex-h"
           >
-            <h2
+            <a
               class="heading -black -lead"
+              data-testid="link"
               href="/van-leasing.html"
+              rel="noopener noreferrer"
             >
               Search Cars
-            </h2>
+            </a>
             <button
               class="button -teal -xsmall -solid -round"
             >

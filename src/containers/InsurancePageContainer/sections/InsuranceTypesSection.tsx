@@ -20,7 +20,10 @@ const renderCard = (card: TypeCard) => (
         <RouterLink
           classNames={{ size: 'lead', color: 'black' }}
           className="heading"
-          link={{ href: card.link?.url || '', label: 'card.title' }}
+          link={{
+            href: card.link?.legacyUrl || card.link?.url || '',
+            label: 'card.title',
+          }}
         >
           {card.title}
         </RouterLink>

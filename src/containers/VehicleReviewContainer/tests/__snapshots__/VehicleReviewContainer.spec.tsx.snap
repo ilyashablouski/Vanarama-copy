@@ -143,15 +143,17 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
         <div
           class="button-group"
         >
-          <button
-            class="button -teal -regular -outline"
+          <a
+            class="button link -teal -regular"
+            data-testid="router-link"
+            href="/van-leasing/citroen/berlingo"
           >
             <div
               class="button--inner"
             >
               Latest Deals
             </div>
-          </button>
+          </a>
         </div>
       </article>
       <div>
@@ -543,15 +545,17 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
         >
           Get Your Free Quote
         </h2>
-        <button
-          class="button -fullwidth  -teal -regular -solid"
+        <a
+          class="button -fullwidth link -teal -regular -solid"
+          data-testid="router-link"
+          href="/van-leasing/citroen/berlingo"
         >
           <div
             class="button--inner"
           >
             Get Quote
           </div>
-        </button>
+        </a>
       </div>
     </div>
   </div>
