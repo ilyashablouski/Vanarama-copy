@@ -350,11 +350,6 @@ export const VansPage: NextPage = () => {
             dataTestIdBtn="van-view-offer"
           />
           <div className="-justify-content-row -pt-500">
-            <Button
-              label="View Large Vans"
-              color="teal"
-              onClick={() => Router.push('/van-leasing?bodyStyles=Large+Van')}
-            />
             <RouterLink
               className="button"
               classNames={{ color: 'teal', solid: true, size: 'regular' }}

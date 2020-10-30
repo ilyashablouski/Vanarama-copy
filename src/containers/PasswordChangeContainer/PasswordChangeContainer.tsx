@@ -13,26 +13,24 @@ import { IPasswordChangeContainerProps } from './interfaces';
 
 export const CHANGE_PASSWORD_BY_UUID_MUTATION = gql`
   mutation ChangePasswordByUuidMutation(
-    $uuid: ID!
     $oldPassword: String!
     $newPassword: String!
   ) {
-    passwordChange(
-      uuid: $uuid
-      oldPassword: $oldPassword
-      newPassword: $newPassword
-    )
+    passwordChangeV2(oldPassword: $oldPassword, newPassword: $newPassword) {
+      isSuccessfull
+    }
   }
 `;
 
 export const IS_PASSWORD_CORRECT = gql`
-  mutation IsPasswordCorrectMutation($uuid: ID!, $password: String!) {
-    passwordCorrect(uuid: $uuid, password: $password)
+  mutation IsPasswordCorrectMutation($password: String!) {
+    passwordCorrectV2(password: $password) {
+      isSuccessfull
+    }
   }
 `;
 
 const PasswordChangeContainer = ({
-  uuid,
   onCompleted,
   onNetworkError,
 }: IPasswordChangeContainerProps) => {
@@ -70,7 +68,6 @@ const PasswordChangeContainer = ({
       onSubmit={async values => {
         await cahngePasswordByUuid({
           variables: {
-            uuid,
             oldPassword: values.code,
             newPassword: values.password,
           },
@@ -78,10 +75,10 @@ const PasswordChangeContainer = ({
       }}
       onPasswordValidation={async value => {
         const results = await isPasswordCorrect({
-          variables: { uuid, password: value },
+          variables: { password: value },
         });
 
-        return Boolean(!results?.data?.passwordCorrect);
+        return Boolean(!results?.data?.passwordCorrectV2?.isSuccessfull);
       }}
     />
   );

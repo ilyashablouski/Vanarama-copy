@@ -104,6 +104,13 @@ export const VanOffers: NextPage = () => {
       },
     },
   );
+  const productPickupsCapIds = productPickups?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
+  const { data: productPickupsDerivatives } = useCarDerivativesData(
+    productPickupsCapIds,
+    VehicleTypeEnum.LCV,
+  );
 
   const { data: productSpecialistVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
@@ -115,6 +122,13 @@ export const VanOffers: NextPage = () => {
         offer: true,
       },
     },
+  );
+  const productSpecialistVanCapIds = productPickups?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
+  const { data: productSpecialistVanDerivatives } = useCarDerivativesData(
+    productSpecialistVanCapIds,
+    VehicleTypeEnum.LCV,
   );
 
   const { data: productTippers } = useQuery<ProductCardData>(
@@ -128,11 +142,21 @@ export const VanOffers: NextPage = () => {
       },
     },
   );
+  const productTippersCapIds = productPickups?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
+  const { data: productTippersDerivatives } = useCarDerivativesData(
+    productTippersCapIds,
+    VehicleTypeEnum.LCV,
+  );
 
   const derivativeIds = [
     ...productSmallVanCapIds,
     ...productMediumVanCapIds,
     ...productLargeVanCapIds,
+    ...productPickupsCapIds,
+    ...productSpecialistVanCapIds,
+    ...productTippersCapIds,
   ];
   const vehicleListUrlQuery = useVehicleListUrl(derivativeIds);
 
@@ -291,7 +315,7 @@ export const VanOffers: NextPage = () => {
               isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
             }
             data={{
-              derivatives: null,
+              derivatives: productPickupsDerivatives?.derivatives || null,
               productCard: productPickups?.productCarousel || null,
               vehicleList: vehicleListUrlQuery.data?.vehicleList!,
             }}
@@ -329,7 +353,7 @@ export const VanOffers: NextPage = () => {
               isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
             }
             data={{
-              derivatives: null,
+              derivatives: productTippersDerivatives?.derivatives || null,
               productCard: productTippers?.productCarousel || null,
               vehicleList: vehicleListUrlQuery.data?.vehicleList!,
             }}
@@ -367,7 +391,7 @@ export const VanOffers: NextPage = () => {
               isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
             }
             data={{
-              derivatives: null,
+              derivatives: productSpecialistVanDerivatives?.derivatives || null,
               productCard: productSpecialistVan?.productCarousel || null,
               vehicleList: vehicleListUrlQuery.data?.vehicleList!,
             }}
