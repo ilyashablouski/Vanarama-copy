@@ -147,19 +147,18 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       variables: {
         input: values,
       },
-    }).then(response => {
-      const url =
-        leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
-          ? '/olaf/about/[orderId]'
-          : '/b2b/olaf/about';
+    })
+      .then(response =>
+        localForage.setItem('orderId', response.data?.createUpdateOrder?.uuid),
+      )
+      .then(orderId => {
+        const url =
+          leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
+            ? '/olaf/about/[orderId]'
+            : '/b2b/olaf/about';
 
-      localForage.setItem('orderId', response.data?.createUpdateOrder?.uuid);
-
-      Router.push(
-        url,
-        url.replace('[orderId]', response.data?.createUpdateOrder?.uuid || ''),
-      );
-    });
+        Router.push(url, url.replace('[orderId]', orderId || ''));
+      });
   };
 
   if (loading) {
