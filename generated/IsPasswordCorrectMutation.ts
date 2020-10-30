@@ -7,11 +7,14 @@
 // GraphQL mutation operation: IsPasswordCorrectMutation
 // ====================================================
 
+export interface IsPasswordCorrectMutation_passwordCorrectV2 {
+  isSuccessfull: boolean | null;
+}
+
 export interface IsPasswordCorrectMutation {
-  passwordCorrect: boolean | null;
+  passwordCorrectV2: IsPasswordCorrectMutation_passwordCorrectV2 | null;
 }
 
 export interface IsPasswordCorrectMutationVariables {
-  uuid: string;
   password: string;
 }

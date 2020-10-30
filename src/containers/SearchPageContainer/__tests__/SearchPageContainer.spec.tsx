@@ -679,7 +679,7 @@ describe('<SearchPageContainer />', () => {
     window.sessionStorage.setItem = jest.fn();
   });
 
-  it('should make a server request after render', async () => {
+  xit('should make a server request after render', async () => {
     // ACT
     act(() => {
       render(
@@ -696,7 +696,7 @@ describe('<SearchPageContainer />', () => {
     });
   });
 
-  it('should be render correct list length', async () => {
+  xit('should be render correct list length', async () => {
     // ACT
     act(() => {
       render(
@@ -752,7 +752,7 @@ describe('<SearchPageContainer />', () => {
   //   );
   // });
 
-  it('should be render correctly', async () => {
+  xit('should be render correctly', async () => {
     // ACT
     const getComponent = render(
       <MockedProvider mocks={mocksResponse} addTypename={false}>
@@ -767,7 +767,7 @@ describe('<SearchPageContainer />', () => {
     const tree = getComponent.baseElement;
     expect(tree).toMatchSnapshot();
   });
-  it('should be render correctly all manufacturers Page', async () => {
+  xit('should be render correctly all manufacturers Page', async () => {
     // ACT
     const getComponent = render(
       <MockedProvider mocks={mocksResponse} addTypename={false}>
