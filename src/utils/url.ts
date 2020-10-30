@@ -117,6 +117,8 @@ export const isNotShowBreadcrumbs = (routerPathName: string) => {
     routerPathName.includes('[...details-page]') ||
     // not to show on b2b and b2c pages
     routerPathName.includes('/olaf') ||
+    // not to show on b2b and b2c pages
+    routerPathName.includes('/fleet') ||
     // not to show on account pages
     routerPathName.includes('/account') ||
     routerPathName.includes('/blog') ||
