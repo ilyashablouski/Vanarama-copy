@@ -53,6 +53,7 @@ export const BLOG_POST_PAGE = gql`
             link {
               text
               url
+              legacyUrl
             }
           }
         }
@@ -97,6 +98,7 @@ export const BLOG_POST_PAGE = gql`
             link {
               text
               url
+              legacyUrl
             }
           }
         }

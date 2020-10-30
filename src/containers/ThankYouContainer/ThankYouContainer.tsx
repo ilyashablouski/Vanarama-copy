@@ -56,7 +56,7 @@ const ThankYouContainer: FC<IProps> = ({ sections }) => {
                   <Heading tag={getTitleTag(c.titleTag || 'span') as any}>
                     <RouterLink
                       link={{
-                        href: c.link?.url || '#',
+                        href: c.link?.legacyUrl || c.link?.url || '#',
                         label: c.link?.text || '',
                       }}
                       className="heading"

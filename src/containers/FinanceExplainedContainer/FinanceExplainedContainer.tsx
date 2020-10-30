@@ -96,7 +96,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
               >
                 <RouterLink
                   link={{
-                    href: el.link?.url || '',
+                    href: el.link?.legacyUrl || el.link?.url || '',
                     label: el.link?.text || '',
                   }}
                   classNames={{ color: 'teal' }}
@@ -190,11 +190,12 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
                   title={{
                     title: el?.title || '',
                     withBtn: true,
-                    btnClick: () => Router.push(el?.link?.url || ''),
+                    btnClick: () =>
+                      Router.push(el?.link?.legacyUrl || el?.link?.url || ''),
                     link: (
                       <RouterLink
                         link={{
-                          href: el?.link?.url || '',
+                          href: el?.link?.legacyUrl || el?.link?.url || '',
                           label: el?.link?.text || '',
                         }}
                         className="heading"
@@ -242,7 +243,10 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
             >
               <RouterLink
                 link={{
-                  href: featured2.cards[0]?.link?.url || '',
+                  href:
+                    featured2.cards[0]?.link?.legacyUrl ||
+                    featured2.cards[0]?.link?.url ||
+                    '',
                   label: featured2.cards[0]?.link?.text || '',
                 }}
                 classNames={{ color: 'teal' }}

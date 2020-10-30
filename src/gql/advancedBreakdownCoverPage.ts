@@ -86,6 +86,7 @@ export const ADVANCED_BREAKDOWN_COVER_PAGE = gql`
             link {
               text
               url
+              legacyUrl
             }
             image {
               title

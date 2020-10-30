@@ -1054,15 +1054,18 @@ const SearchPageContainer: React.FC<IProps> = ({
                           className="card__article"
                           imageSrc={card?.image?.file?.url || ''}
                           title={{
-                            title: card.link?.url ? '' : card.title || '',
+                            title:
+                              card.link?.legacyUrl || card.link?.url
+                                ? ''
+                                : card.title || '',
                             link: (
                               <RouterLink
                                 link={{
-                                  href: card.link?.url || '',
+                                  href:
+                                    card.link?.legacyUrl ||
+                                    card.link?.url ||
+                                    '',
                                   label: card.title || '',
-                                  linkType: card.link?.url?.match('http')
-                                    ? LinkTypes.external
-                                    : '',
                                 }}
                                 className="card--link"
                                 classNames={{ color: 'black', size: 'regular' }}
@@ -1098,11 +1101,9 @@ const SearchPageContainer: React.FC<IProps> = ({
                           />
                           <RouterLink
                             link={{
-                              href: card.link?.url || '',
+                              href:
+                                card.link?.legacyUrl || card.link?.url || '',
                               label: card.link?.text || '',
-                              linkType: card.link?.url?.match('http')
-                                ? LinkTypes.external
-                                : '',
                             }}
                             classNames={{ color: 'teal' }}
                           />

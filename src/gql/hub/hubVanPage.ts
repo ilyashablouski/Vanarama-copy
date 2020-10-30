@@ -54,6 +54,7 @@ const HUB_VAN_CONTENT = gql`
             link {
               url
               text
+              legacyUrl
             }
           }
         }

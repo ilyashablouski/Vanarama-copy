@@ -36,7 +36,12 @@ const renderCarouselCards = (cards: any[] | undefined) =>
                 className="heading"
                 classNames={{ color: 'black', size: 'lead' }}
                 link={{
-                  href: card.legacyUrl || card.link?.url || card.link || '',
+                  href:
+                    card.legacyUrl ||
+                    card.link?.legacyUrl ||
+                    card.link?.url ||
+                    card.link ||
+                    '',
                   label: card?.title || '',
                 }}
               >
@@ -69,7 +74,12 @@ const renderCarouselCards = (cards: any[] | undefined) =>
             classNames={{ color: 'teal', size: 'regular' }}
             link={{
               label: 'Read More',
-              href: card.legacyUrl || card.link?.url || card.link || '',
+              href:
+                card.legacyUrl ||
+                card.link?.legacyUrl ||
+                card.link?.url ||
+                card.link ||
+                '',
             }}
           />
         </Card>
@@ -93,7 +103,7 @@ const renderCards = (
               className="heading"
               classNames={{ color: 'black', size: 'lead' }}
               link={{
-                href: card.link?.url || '',
+                href: card.link?.legacyUrl || card.link?.url || '',
                 label: card?.title || '',
               }}
             >
