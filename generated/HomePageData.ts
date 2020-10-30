@@ -146,6 +146,7 @@ export interface HomePageData_homePage_sections_featured1 {
   title: string | null;
   titleTag: string | null;
   video: string | null;
+  defaultHeight: number | null;
   iconList: (HomePageData_homePage_sections_featured1_iconList | null)[] | null;
   link: HomePageData_homePage_sections_featured1_link | null;
   cards: (HomePageData_homePage_sections_featured1_cards | null)[] | null;
@@ -211,6 +212,7 @@ export interface HomePageData_homePage_sections_featured2 {
   title: string | null;
   titleTag: string | null;
   video: string | null;
+  defaultHeight: number | null;
   iconList: (HomePageData_homePage_sections_featured2_iconList | null)[] | null;
   link: HomePageData_homePage_sections_featured2_link | null;
   cards: (HomePageData_homePage_sections_featured2_cards | null)[] | null;

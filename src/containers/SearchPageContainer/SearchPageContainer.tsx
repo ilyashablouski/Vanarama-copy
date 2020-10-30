@@ -21,7 +21,6 @@ import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown';
-import Truncate from 'react-truncate';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useLazyQuery } from '@apollo/client';
@@ -763,17 +762,19 @@ const SearchPageContainer: React.FC<IProps> = ({
 
       {featured && (
         <div className={`row:${getFeaturedClassPartial(featured)}`}>
-          {/*  <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            size="expand"
-            src={featured.image?.file?.url || ''}
-          /> */}
+          {!featured?.layout?.includes('Full Width') && (
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              size="expand"
+              src={featured.image?.file?.url || ''}
+            />
+          )}
           <div>
             <div
               style={{
                 height:
                   featured?.layout?.includes('Read More') && readmore
-                    ? 100
+                    ? featured?.defaultHeight || 100
                     : '',
                 overflow: readmore ? 'hidden' : '',
               }}
@@ -785,16 +786,6 @@ const SearchPageContainer: React.FC<IProps> = ({
               >
                 {featured.title}
               </Heading>
-              {/*   <Truncate
-                lines={
-                  featured?.layout &&
-                  featured?.layout.includes('Read More') &&
-                  readmore
-                    ? 15
-                    : 0
-                }
-               
-              > */}
               <ReactMarkdown
                 source={featured.body || ''}
                 escapeHtml={false}
@@ -810,14 +801,13 @@ const SearchPageContainer: React.FC<IProps> = ({
                   },
                 }}
               />
-              {/* </Truncate> */}
             </div>
             {featured?.layout?.includes('Read More') && (
               <Button
                 size="small"
-                color="black"
+                color="teal"
                 fill="clear"
-                label={readmore ? 'READ MORE' : 'READ LESS'}
+                label={readmore ? 'Read More' : 'Read Less'}
                 onClick={() => setReadMore(!readmore)}
               />
             )}

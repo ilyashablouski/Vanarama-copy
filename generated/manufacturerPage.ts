@@ -8,7 +8,17 @@
 // ====================================================
 
 export interface manufacturerPage_manufacturerPage_metaData {
+  title: string | null;
   name: string | null;
+  metaRobots: string | null;
+  metaDescription: string | null;
+  legacyUrl: string | null;
+  pageType: string | null;
+  canonicalUrl: string | null;
+  slug: string | null;
+  schema: any | null;
+  publishedOn: any | null;
+  breadcrumbs: any | null;
 }
 
 export interface manufacturerPage_manufacturerPage_sections_featured_iconList {
@@ -69,6 +79,7 @@ export interface manufacturerPage_manufacturerPage_sections_featured {
   title: string | null;
   titleTag: string | null;
   video: string | null;
+  defaultHeight: number | null;
   iconList: (manufacturerPage_manufacturerPage_sections_featured_iconList | null)[] | null;
   link: manufacturerPage_manufacturerPage_sections_featured_link | null;
   cards: (manufacturerPage_manufacturerPage_sections_featured_cards | null)[] | null;
