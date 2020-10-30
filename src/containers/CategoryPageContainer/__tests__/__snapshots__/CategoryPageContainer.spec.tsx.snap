@@ -97,11 +97,13 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
           class="card"
           data-testid="card"
         >
-          <img
-            class="card-image"
-            data-testid="card-image"
-            src="//images.ctfassets.net/3xid768u5joa/2orLDit2z21KrvoHfleXI5/ff92ffe3245b88f55b4ad3bf442e4283/boxer4.jpg"
-          />
+          <div
+            class="card-image-wrapper"
+          >
+            <div
+              class="card-image-placeholder"
+            />
+          </div>
           <div
             class="title -flex-h"
           >
@@ -164,10 +166,13 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
           class="card"
           data-testid="card"
         >
-          <img
-            class="card-image"
-            data-testid="card-image"
-          />
+          <div
+            class="card-image-wrapper"
+          >
+            <div
+              class="card-image-placeholder"
+            />
+          </div>
           <div
             class="title"
           >

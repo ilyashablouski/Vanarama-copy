@@ -54,10 +54,13 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           class="card card__article"
           data-testid="card"
         >
-          <img
-            class="card-image"
-            data-testid="card-image"
-          />
+          <div
+            class="card-image-wrapper"
+          >
+            <div
+              class="card-image-placeholder"
+            />
+          </div>
           <div
             class="title"
           >
@@ -87,10 +90,13 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           class="card card__article"
           data-testid="card"
         >
-          <img
-            class="card-image"
-            data-testid="card-image"
-          />
+          <div
+            class="card-image-wrapper"
+          >
+            <div
+              class="card-image-placeholder"
+            />
+          </div>
           <div
             class="title"
           >
@@ -120,10 +126,13 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           class="card card__article"
           data-testid="card"
         >
-          <img
-            class="card-image"
-            data-testid="card-image"
-          />
+          <div
+            class="card-image-wrapper"
+          >
+            <div
+              class="card-image-placeholder"
+            />
+          </div>
           <div
             class="title"
           >
