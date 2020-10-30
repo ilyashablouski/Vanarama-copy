@@ -32,8 +32,6 @@ const OLAFLayout: React.FC<IProps> = ({
   setDetailsData,
   setDerivativeData,
 }) => {
-  // const router = useRouter();
-  // const { orderId } = router.query as OLAFQueryParams;
   const orderId = useGetOrderId();
 
   const isMobile = useMobileViewport();
