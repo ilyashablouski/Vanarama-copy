@@ -47,19 +47,11 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
                 class="media"
               >
                 <div
-                  class="media media-player"
+                  class="card-image-wrapper"
                 >
                   <div
-                    class="media-player--embed"
-                    src="https://www.youtube.com/embed/M-k__JMWG-k"
-                    style="width: 100%; height: 100%;"
-                  >
-                    <div
-                      style="width: 100%; height: 100%;"
-                    >
-                      <div />
-                    </div>
-                  </div>
+                    class="card-image-placeholder"
+                  />
                 </div>
               </div>
             </div>

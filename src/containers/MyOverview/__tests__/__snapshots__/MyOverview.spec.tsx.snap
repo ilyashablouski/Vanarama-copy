@@ -183,11 +183,18 @@ Array [
             }
           }
         >
-          <img
-            className="card-image"
-            data-testid="card-image"
-            onError={[Function]}
-          />
+          <div
+            className="card-image-wrapper"
+          >
+            <div
+              className="card-image-placeholder"
+              style={
+                Object {
+                  "height": undefined,
+                }
+              }
+            />
+          </div>
           <div
             className="title"
           >
@@ -313,11 +320,18 @@ Array [
             }
           }
         >
-          <img
-            className="card-image"
-            data-testid="card-image"
-            onError={[Function]}
-          />
+          <div
+            className="card-image-wrapper"
+          >
+            <div
+              className="card-image-placeholder"
+              style={
+                Object {
+                  "height": undefined,
+                }
+              }
+            />
+          </div>
           <div
             className="title"
           >
@@ -543,11 +557,18 @@ Array [
             }
           }
         >
-          <img
-            className="card-image"
-            data-testid="card-image"
-            onError={[Function]}
-          />
+          <div
+            className="card-image-wrapper"
+          >
+            <div
+              className="card-image-placeholder"
+              style={
+                Object {
+                  "height": undefined,
+                }
+              }
+            />
+          </div>
           <div
             className="title"
           >
@@ -673,11 +694,18 @@ Array [
             }
           }
         >
-          <img
-            className="card-image"
-            data-testid="card-image"
-            onError={[Function]}
-          />
+          <div
+            className="card-image-wrapper"
+          >
+            <div
+              className="card-image-placeholder"
+              style={
+                Object {
+                  "height": undefined,
+                }
+              }
+            />
+          </div>
           <div
             className="title"
           >

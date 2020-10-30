@@ -7,11 +7,13 @@ exports[`<RangeCard /> should be render correctly 1`] = `
       class="card"
       data-testid="card"
     >
-      <img
-        class="card-image"
-        data-testid="card-image"
-        src="https://images.autorama.co.uk/Photos/Cap/Vehicles/126268/cap-68051-126268.jpg"
-      />
+      <div
+        class="card-image-wrapper"
+      >
+        <div
+          class="card-image-placeholder"
+        />
+      </div>
       <div
         class="title"
       >
@@ -78,11 +80,13 @@ exports[`<RangeCard /> should be render correctly with all makes page 1`] = `
       class="card"
       data-testid="card"
     >
-      <img
-        class="card-image"
-        data-testid="card-image"
-        src="https://images.autorama.co.uk/Photos/Cap/Vehicles/126268/cap-68051-126268.jpg"
-      />
+      <div
+        class="card-image-wrapper"
+      >
+        <div
+          class="card-image-placeholder"
+        />
+      </div>
       <div
         class="title"
       >
