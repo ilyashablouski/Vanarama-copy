@@ -2899,6 +2899,14 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-lazy-load-image-component@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@types/react-lazy-load-image-component/-/react-lazy-load-image-component-1.5.1.tgz#8c62890c900656cc4fd2ca796086e394b508e5d4"
+  integrity sha512-MvR5/20LXczHorci3Yuo3c8/iSHqpSw5MC5aYnEPwytCitm6rd/fz7GFjRCk9wjjGS9750IP6qSP87oU9G+lSA==
+  dependencies:
+    "@types/react" "*"
+    csstype "^3.0.2"
+
 "@types/react-lazyload@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@types/react-lazyload/-/react-lazyload-3.0.0.tgz#7b43b45b5db7ead73ca9ccaf93d1c24397706d01"
@@ -3087,15 +3095,16 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@5.28.28":
-  version "5.28.28"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.28.28.tgz#a775c8c4185ec22aa77331e6e5a54fb67bce0970"
-  integrity sha512-U62eBxdDOCOXE3pJBhRe5GWlSo84MzyUf6Qk/84B4XjWs7C2Wobd4I7M4/zLxcjPZVrd1Wcy8+zZg7qxAZa/Lg==
+"@vanarama/uibook@5.28.33":
+  version "5.28.33"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.28.33.tgz#6843d814bf9962b55d6adfa9695dea3b35ab4c17"
+  integrity sha512-efB0189trv2rKp91kDHk773icOZ6ge9OmOZPkSlcOD7ZcyNs58PMsF2/j17PIZ67fstgh0RrWN5Y5vBsrIx3gQ==
   dependencies:
     "@egjs/flicking" "^3.4.7"
     "@reach/auto-id" "^0.10.3"
     "@react-google-maps/api" "^1.9.0"
     "@storybook/addon-knobs" "^5.3.19"
+    "@types/react-lazy-load-image-component" "^1.5.1"
     "@types/react-lazyload" "^3.0.0"
     classnames "^2.2.6"
     i18n-react "^0.7.0"
@@ -3107,6 +3116,7 @@
     react-autosuggest "^10.0.2"
     react-dom "^16.12.0"
     react-html-parser "^2.0.2"
+    react-lazy-load-image-component "^1.5.0"
     react-lazyload "^3.0.0"
     react-player "^1.15.3"
     react-responsive "^8.0.3"
@@ -5212,6 +5222,11 @@ csstype@^2.5.7:
 csstype@^2.6.6, csstype@^2.6.7:
   version "2.6.10"
   resolved "https://registry.npmjs.org/csstype/-/csstype-2.6.10.tgz#e63af50e66d7c266edb6b32909cfd0aabe03928b"
+
+csstype@^3.0.2:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.4.tgz#b156d7be03b84ff425c9a0a4b1e5f4da9c5ca888"
+  integrity sha512-xc8DUsCLmjvCfoD7LTGE0ou2MIWLx0K9RCZwSHMOdynqRsP4MtUcLeqh1HcQ2dInwDTqn+3CE0/FZh1et+p4jA==
 
 csvtojson@^2.0.10:
   version "2.0.10"
@@ -10146,6 +10161,14 @@ react-input-autosize@^2.2.2:
 react-is@16.13.1, react-is@^16.12.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
+
+react-lazy-load-image-component@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/react-lazy-load-image-component/-/react-lazy-load-image-component-1.5.0.tgz#48939f86cb262b93b345c6fa6322f75ede55160d"
+  integrity sha512-dAvuueTq0FNjswHEII8tcd0FRRHZgPoIdVhE1fcAfCdqY7LZ37IHd0xWb2c6rCl+dsSm9Z4AloEffM8JYPxTlA==
+  dependencies:
+    lodash.debounce "^4.0.8"
+    lodash.throttle "^4.1.1"
 
 react-lazyload@^3.0.0:
   version "3.0.0"

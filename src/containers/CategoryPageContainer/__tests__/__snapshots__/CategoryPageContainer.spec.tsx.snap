@@ -63,10 +63,13 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
       class="row:featured-left"
     >
       <div
-        class="lazyload-wrapper"
+        class="image -expand"
       >
-        <div
-          class="lazyload-placeholder"
+        <img
+          class="image--native"
+          height="100%"
+          src="//images.ctfassets.net/3xid768u5joa/3NMAHSKcOLSuiHzRa6DE46/190659547927a1af84fa8ca2eb5afb40/photo-1543934686-54bae151bd4c"
+          width="100%"
         />
       </div>
       <div>
@@ -100,7 +103,9 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
+            height="100%"
             src="//images.ctfassets.net/3xid768u5joa/2orLDit2z21KrvoHfleXI5/ff92ffe3245b88f55b4ad3bf442e4283/boxer4.jpg"
+            width="100%"
           />
           <div
             class="title -flex-h"
@@ -167,6 +172,8 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
+            height="100%"
+            width="100%"
           />
           <div
             class="title"

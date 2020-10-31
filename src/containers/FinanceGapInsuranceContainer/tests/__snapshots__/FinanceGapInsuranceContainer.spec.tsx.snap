@@ -21,10 +21,14 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             Extra Protection Should The Worst happen
           </h3>
           <div
-            class="lazyload-wrapper"
+            class="image hero--image -expand -plain"
           >
-            <div
-              class="lazyload-placeholder"
+            <img
+              alt="Hero Image"
+              class="image--native"
+              height="100%"
+              src="https://www.vanarama.com/assets/images/insurance/home-hero/insurance-hero.png"
+              width="100%"
             />
           </div>
         </div>
