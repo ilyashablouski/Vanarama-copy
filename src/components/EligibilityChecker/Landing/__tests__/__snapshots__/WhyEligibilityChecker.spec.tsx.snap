@@ -40,13 +40,15 @@ exports[`<WhyEligibilityChecker /> renders correctly 1`] = `
     </ul>
   </div>
   <div
-    className="lazyload-wrapper"
+    className="image -expand"
   >
-    <div
-      className="lazyload-placeholder"
+    <span
+      className="image--native"
       style={
         Object {
+          "display": "inline-block",
           "height": "500",
+          "width": "900",
         }
       }
     />

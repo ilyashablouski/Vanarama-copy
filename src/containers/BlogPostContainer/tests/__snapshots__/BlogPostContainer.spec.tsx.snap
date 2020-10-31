@@ -19,10 +19,13 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         class="row:featured-image"
       >
         <div
-          class="lazyload-wrapper"
+          class="image -white -expand"
         >
-          <div
-            class="lazyload-placeholder"
+          <img
+            class="image--native"
+            height="100%"
+            src="//images.ctfassets.net/3xid768u5joa/2FgrgR6JOuvUgIGRmV5rZg/648465d10d6aa137a720013270728029/maxus-top-electric-vans.jpg"
+            width="100%"
           />
         </div>
       </div>
@@ -57,6 +60,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
+            height="100%"
+            width="100%"
           />
           <div
             class="title"
@@ -90,6 +95,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
+            height="100%"
+            width="100%"
           />
           <div
             class="title"
@@ -123,6 +130,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
+            height="100%"
+            width="100%"
           />
           <div
             class="title"
