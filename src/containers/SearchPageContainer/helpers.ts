@@ -153,7 +153,7 @@ const onCallQuery = async (
     },
   });
 
-// get contentd data for different search pages
+// get content data for different search pages
 export const ssrCMSQueryExecutor = async (
   client: ApolloClient<NormalizedCacheObject>,
   context: NextPageContext,

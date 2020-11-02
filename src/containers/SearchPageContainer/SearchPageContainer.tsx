@@ -32,7 +32,7 @@ import { useProductCardData } from '../CustomerAlsoViewedContainer/gql';
 import { IFilters } from '../FiltersContainer/interfaces';
 import FiltersContainer from '../FiltersContainer';
 import { useVehiclesList, getRangesList, useManufacturerList } from './gql';
-import VehicleCard, { IProductPageUrl } from './VehicleCard';
+import VehicleCard from './VehicleCard';
 import {
   vehicleList_vehicleList_edges as IVehicles,
   vehicleList as IVehiclesData,

@@ -308,6 +308,8 @@ const FiltersContainer = ({
   useEffect(() => {
     // don't call onSearch already after render
     if (!isInitialLoad) onViewResults();
+    // using for checking if user try to load page without additional params
+    // numberOfParams - number of required params for page type
     const searchWithParams = (numberOfParams: number) =>
       Object.values(selectedFiltersState)
         ?.flat()
