@@ -7,7 +7,9 @@ import {
 } from '../../generated/GenericPageQuery';
 import { getSectionsData } from './getSectionsData';
 
-export const getPaths = (blogPosts: BlogPosts_blogPosts | undefined | null) => {
+export const getBlogPaths = (
+  blogPosts: BlogPosts_blogPosts | undefined | null,
+) => {
   const slugs = blogPosts?.articles?.map(article =>
     article?.slug?.split('/').pop(),
   );

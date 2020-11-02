@@ -10,7 +10,7 @@ import { BLOG_POSTS_PAGE } from '../../../../gql/blogPosts';
 import { getArticles } from '../../../../utils/articles';
 import { IBlogPost } from '../../../../models/IBlogsProps';
 import createApolloClient from '../../../../apolloClient';
-import { getPaths } from '../../../../utils/pageSlugs';
+import { getBlogPaths } from '../../../../utils/pageSlugs';
 import { BlogPosts } from '../../../../../generated/BlogPosts';
 
 const BlogPost: NextPage<IBlogPost> = ({
@@ -67,7 +67,7 @@ export async function getStaticPaths() {
   });
 
   return {
-    paths: getPaths(data?.blogPosts),
+    paths: getBlogPaths(data?.blogPosts),
     fallback: false,
   };
 }
