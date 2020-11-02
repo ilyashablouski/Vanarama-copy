@@ -7,8 +7,9 @@ import { ApolloError } from '@apollo/client';
 import SoleTraderDetailsFormContainer from '../../../../../containers/SoleTraderDetailsFormContainer';
 import withApollo from '../../../../../hocs/withApollo';
 import OLAFLayout from '../../../../../layouts/OLAFLayout/OLAFLayout';
-import { OLAFQueryParams, getUrlParam } from '../../../../../utils/url';
+import { OLAFQueryParams } from '../../../../../utils/url';
 import useGetPersonUuid from '../../../../../hooks/useGetPersonUuid';
+import useGetOrderId from '../../../../../hooks/useGetOrderId';
 
 type QueryParams = OLAFQueryParams & {
   companyUuid: string;
@@ -16,8 +17,9 @@ type QueryParams = OLAFQueryParams & {
 
 export const SoleTraderDetailsPage: NextPage = () => {
   const router = useRouter();
-  const { orderId, companyUuid } = router.query as QueryParams;
+  const orderId = useGetOrderId();
   const personUuid = useGetPersonUuid();
+  const { companyUuid } = router.query as QueryParams;
 
   const handleSubmitError = (err: ApolloError) => {
     console.error(err);
@@ -28,11 +30,10 @@ export const SoleTraderDetailsPage: NextPage = () => {
   };
 
   const handleSubmitCompletion = () => {
-    const params = getUrlParam({ orderId });
     const url =
       router.query.redirect === 'summary'
-        ? `/b2b/olaf/sole-trader/summary/[companyUuid]${params}`
-        : `/b2b/olaf/sole-trader/bank-details/[companyUuid]${params}`;
+        ? `/b2b/olaf/sole-trader/summary/[companyUuid]`
+        : `/b2b/olaf/sole-trader/bank-details/[companyUuid]`;
     router.push(url, url.replace('[companyUuid]', companyUuid));
   };
 

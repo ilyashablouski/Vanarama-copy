@@ -8,7 +8,17 @@
 // ====================================================
 
 export interface manufacturerPage_manufacturerPage_metaData {
+  title: string | null;
   name: string | null;
+  metaRobots: string | null;
+  metaDescription: string | null;
+  legacyUrl: string | null;
+  pageType: string | null;
+  canonicalUrl: string | null;
+  slug: string | null;
+  schema: any | null;
+  publishedOn: any | null;
+  breadcrumbs: any | null;
 }
 
 export interface manufacturerPage_manufacturerPage_sections_featured_iconList {
@@ -18,6 +28,7 @@ export interface manufacturerPage_manufacturerPage_sections_featured_iconList {
 export interface manufacturerPage_manufacturerPage_sections_featured_link {
   url: string | null;
   text: string | null;
+  legacyUrl: string | null;
 }
 
 export interface manufacturerPage_manufacturerPage_sections_featured_cards_image_file {
@@ -34,6 +45,7 @@ export interface manufacturerPage_manufacturerPage_sections_featured_cards_image
 export interface manufacturerPage_manufacturerPage_sections_featured_cards_link {
   text: string | null;
   url: string | null;
+  legacyUrl: string | null;
 }
 
 export interface manufacturerPage_manufacturerPage_sections_featured_cards {

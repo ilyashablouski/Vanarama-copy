@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+require('dotenv').config({ path: '.env.secret' });
 require('dotenv').config();
 require('colors');
 

@@ -42,10 +42,6 @@
           "valueFrom": "%SSM_PARAMETER_BASE%/rollbar-server-token"
         },
         {
-          "name": "GITHUB_TOKEN",
-          "valueFrom": "%SSM_PARAMETER_BASE%/github-token"
-        },
-        {
           "name": "GTM_ID",
           "valueFrom": "%SSM_PARAMETER_BASE%/gtm-id"
         }
@@ -81,7 +77,7 @@
         },
         {
           "name": "IMG_OPTIMISATION_HOST",
-          "value": "https://vanarama.com"
+          "value": "https://vanarama-nonprod.com"
         },
         {
           "name": "PRERENDER_SERVICE_URL",

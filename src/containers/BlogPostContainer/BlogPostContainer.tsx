@@ -3,6 +3,8 @@ import { NextPage } from 'next';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
+import Media from '@vanarama/uibook/lib/components/atoms/media';
 import ReactMarkdown from 'react-markdown';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery_genericPage_sections_cards_cards } from '../../../generated/GenericPageQuery';
@@ -88,6 +90,26 @@ const BlogPostContainer: NextPage<IProps> = ({
                   />
                 );
               },
+              paragraph: props => {
+                const { children } = props;
+                const isChangeToIframe = children.filter((el: any) =>
+                  el.props.value?.match('<a'),
+                );
+                if (isChangeToIframe.length) {
+                  const iframeSrc = isChangeToIframe[0].props.value
+                    .split('href="')[1]
+                    .split('"')[0];
+                  return (
+                    <Media
+                      iframe
+                      src={iframeSrc || ''}
+                      height="350px"
+                      width="100%"
+                    />
+                  );
+                }
+                return <Text {...props} tag="p" color="darker" />;
+              },
               image: props => renderImage(props),
             }}
           />
@@ -107,14 +129,17 @@ const BlogPostContainer: NextPage<IProps> = ({
               title={{
                 title: '',
                 link: (
-                  <Heading
-                    size="lead"
-                    color="black"
-                    tag="a"
-                    href={`/${el?.slug || ''}`}
+                  <RouterLink
+                    withoutDefaultClassName
+                    className="heading"
+                    classNames={{ color: 'black', size: 'lead' }}
+                    link={{
+                      href: el?.legacyUrl || '',
+                      label: el?.name || '',
+                    }}
                   >
                     {el?.name}
-                  </Heading>
+                  </RouterLink>
                 ),
               }}
               description={getBody(el?.body || '')}
@@ -123,7 +148,7 @@ const BlogPostContainer: NextPage<IProps> = ({
                 classNames={{ color: 'teal', size: 'regular' }}
                 link={{
                   label: 'Read More',
-                  href: el?.slug || '',
+                  href: el?.legacyUrl || '',
                 }}
               />
             </Card>

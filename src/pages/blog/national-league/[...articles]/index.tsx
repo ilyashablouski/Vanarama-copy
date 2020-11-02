@@ -1,31 +1,36 @@
-import { NextPage } from 'next';
+import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
 import withApollo from '../../../../hocs/withApollo';
-import { useBlogPostPage } from '../../../../gql/blogPost';
+import { BLOG_POST_PAGE } from '../../../../gql/blogPost';
 import BlogPostContainer from '../../../../containers/BlogPostContainer/BlogPostContainer';
 import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
 import { getSectionsData } from '../../../../utils/getSectionsData';
-import { useBlogPostsPage } from '../../../../gql/blogPosts';
-import { getArticles, getArticlesSlug } from '../../../../utils/articles';
+import { BLOG_POSTS_PAGE } from '../../../../gql/blogPosts';
+import { getArticles } from '../../../../utils/articles';
+import { IBlogPost } from '../../../../models/IBlogsProps';
+import createApolloClient from '../../../../apolloClient';
+import { getPaths } from '../../../../utils/blogSlugs';
+import { BlogPosts } from '../../../../../generated/BlogPosts';
 
-const BlogPost: NextPage = () => {
+const BlogPost: NextPage<IBlogPost> = ({
+  data,
+  loading,
+  error,
+  blogPosts,
+  blogPostsLoading,
+  blogPostsError,
+}) => {
   const router = useRouter();
-  const { data, loading, error } = useBlogPostPage(router.asPath.slice(1));
-  const {
-    data: blogPosts,
-    loading: blogPostsLoading,
-    error: blogPostsError,
-  } = useBlogPostsPage(getArticlesSlug(router));
-
-  if (loading || blogPostsLoading) {
-    return <Loading size="large" />;
-  }
 
   if (error || blogPostsError) {
     return (
       <ErrorMessage message={error?.message || blogPostsError?.message || ''} />
     );
+  }
+
+  if (loading || blogPostsLoading || !data) {
+    return <Loading size="large" />;
   }
 
   const articles = getSectionsData(['blogPosts', 'articles'], blogPosts);
@@ -51,5 +56,50 @@ const BlogPost: NextPage = () => {
     />
   );
 };
+
+export async function getStaticPaths() {
+  const client = createApolloClient({});
+  const { data } = await client.query<BlogPosts>({
+    query: BLOG_POSTS_PAGE,
+    variables: {
+      slug: 'blog/national-league',
+    },
+  });
+
+  return {
+    paths: getPaths(data?.blogPosts),
+    fallback: false,
+  };
+}
+
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const client = createApolloClient({}, context as NextPageContext);
+  const { data, loading, errors } = await client.query({
+    query: BLOG_POST_PAGE,
+    variables: {
+      slug: `blog/national-league/${context?.params?.articles}`,
+    },
+  });
+  const {
+    data: blogPosts,
+    loading: blogPostsLoading,
+    errors: blogPostsError,
+  } = await client.query({
+    query: BLOG_POSTS_PAGE,
+    variables: {
+      slug: 'blog/national-league',
+    },
+  });
+  return {
+    props: {
+      data,
+      loading,
+      error: errors ? errors[0] : null,
+      blogPosts,
+      blogPostsLoading,
+      blogPostsError: blogPostsError ? blogPostsError[0] : null,
+    },
+  };
+}
 
 export default withApollo(BlogPost);

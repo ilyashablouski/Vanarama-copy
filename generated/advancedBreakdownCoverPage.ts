@@ -95,6 +95,7 @@ export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_
 export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_tiles_tiles_link {
   text: string | null;
   url: string | null;
+  legacyUrl: string | null;
 }
 
 export interface advancedBreakdownCoverPage_advancedBreakdownCoverPage_sections_tiles_tiles_image_file {

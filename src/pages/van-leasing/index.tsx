@@ -49,6 +49,7 @@ import {
   useVehicleListUrlFetchMore,
 } from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
+import { VansSearch } from '../../models/enum/SearchByManufacturer';
 
 type ProdCards = ProdCardData[];
 
@@ -246,7 +247,6 @@ export const VansPage: NextPage = () => {
           rating={offer?.averageRating || 3}
           viewOfferClick={() => {
             sessionStorage.setItem('capId', offer?.capId || '');
-            Router.push(dealOfMonthUrl.href, dealOfMonthUrl.url);
           }}
           link={{ href: dealOfMonthHref, url: dealOfMonthUrl.url }}
         />
@@ -274,11 +274,18 @@ export const VansPage: NextPage = () => {
             dataTestIdBtn="van-view-offer"
           />
           <div className="-justify-content-row -pt-500">
-            <Button
-              label="View Small Vans"
-              color="teal"
-              onClick={() => Router.push('/van-leasing?bodyStyles=Small+Van')}
-            />
+            <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'regular' }}
+              link={{
+                label: 'View Small Vans',
+                href: '/small-van-leasing.html',
+              }}
+              withoutDefaultClassName
+              dataTestId="small-van-leasing"
+            >
+              <div className="button--inner">View Small Vans</div>
+            </RouterLink>
           </div>
         </div>
       </div>
@@ -305,11 +312,18 @@ export const VansPage: NextPage = () => {
             dataTestIdBtn="van-view-offer"
           />
           <div className="-justify-content-row -pt-500">
-            <Button
-              label="View Medium Vans"
-              color="teal"
-              onClick={() => Router.push('/van-leasing?bodyStyles=Medium+Van')}
-            />
+            <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'regular' }}
+              link={{
+                label: 'View Medium Vans',
+                href: '/medium-van-leasing.html',
+              }}
+              withoutDefaultClassName
+              dataTestId="medium-van-leasing"
+            >
+              <div className="button--inner">View Medium Vans</div>
+            </RouterLink>
           </div>
         </div>
       </div>
@@ -336,15 +350,21 @@ export const VansPage: NextPage = () => {
             dataTestIdBtn="van-view-offer"
           />
           <div className="-justify-content-row -pt-500">
-            <Button
-              label="View Large Vans"
-              color="teal"
-              onClick={() => Router.push('/van-leasing?bodyStyles=Large+Van')}
-            />
+            <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'regular' }}
+              link={{
+                label: 'View Large Vans',
+                href: '/large-van-leasing.html',
+              }}
+              withoutDefaultClassName
+              dataTestId="large-van-leasing"
+            >
+              <div className="button--inner">View Large Vans</div>
+            </RouterLink>
           </div>
         </div>
       </div>
-
       <div className="row:bg-lighter ">
         <div className="row:cards-4col">
           <Heading
@@ -385,7 +405,7 @@ export const VansPage: NextPage = () => {
                 link: (
                   <RouterLink
                     link={{
-                      href: card.link?.url || '#',
+                      href: card.link?.legacyUrl || card.link?.url || '#',
                       label: card.title || '',
                     }}
                     className="heading"
@@ -411,7 +431,6 @@ export const VansPage: NextPage = () => {
           ))}
         </div>
       </div>
-
       <section className="row:steps-4col">
         <Heading
           className="-a-center -mb-400"
@@ -441,7 +460,6 @@ export const VansPage: NextPage = () => {
           />
         ))}
       </section>
-
       <section
         className={`row:${getFeaturedClassPartial(
           getSectionsData(['featured1'], data?.hubVanPage.sections),
@@ -509,7 +527,6 @@ export const VansPage: NextPage = () => {
           </div>
         </div>
       </section>
-
       <section
         className={`row:${getFeaturedClassPartial(
           getSectionsData(['featured2'], data?.hubVanPage.sections),
@@ -576,7 +593,6 @@ export const VansPage: NextPage = () => {
           </div>
         </div>
       </section>
-
       <hr className="fullWidth" />
       <section className="row:text">
         <Heading
@@ -603,19 +619,19 @@ export const VansPage: NextPage = () => {
               data?.hubVanPage.sections,
             )}
           </Heading>
-          <Button
+          <RouterLink
             className="-pt-200"
-            label="Veiw Leasing Guides"
-            color="teal"
-            fill="clear"
-            size="regular"
-            icon={<ArrowForwardSharp />}
-            iconPosition="after"
-          />
+            classNames={{ color: 'teal', size: 'regular' }}
+            link={{
+              label: 'View Leasing Guides',
+              href: '/van-leasing-explained.html',
+            }}
+          >
+            View Leasing Guides <ArrowForwardSharp />
+          </RouterLink>
         </div>
       </section>
       <hr className="fullWidth" />
-
       <section className="row:features-4col">
         <Heading
           size="large"
@@ -655,7 +671,6 @@ export const VansPage: NextPage = () => {
           </div>
         ))}
       </section>
-
       <section className="row:manufacturer-grid">
         <Heading
           size="large"
@@ -666,33 +681,27 @@ export const VansPage: NextPage = () => {
           Search By Manufacturer
         </Heading>
         <div>
-          {[
-            'Nissan',
-            'Ford',
-            'Toyota',
-            'Isuzu',
-            'Volkswagen',
-            'Mitsubishi',
-            'Mercedes-Benz',
-          ].map(man => (
-            <Button
-              key={man}
-              color="teal"
-              size="large"
-              label={man}
-              onClick={() => Router.push(`/van-leasing/${man} `)}
-            />
+          {VansSearch.map(man => (
+            <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'large' }}
+              link={{
+                label: man.label,
+                href: man.href,
+              }}
+              withoutDefaultClassName
+            >
+              <div className="button--inner">{man.label}</div>
+            </RouterLink>
           ))}
         </div>
       </section>
-
       <section className="row:league">
         <League
-          clickReadMore={() => Router.push('/fan-hub')}
+          clickReadMore={() => Router.push('/fan-hub.html')}
           altText="vanarama national league"
         />
       </section>
-
       <section className="row:featured-logos">
         <Heading tag="span" size="small" color="darker">
           AS FEATURED ON
@@ -756,7 +765,6 @@ export const VansPage: NextPage = () => {
           ))}
         </div>
       </section>
-
       <section className="row:trustpilot">
         <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
       </section>

@@ -71,6 +71,7 @@ export interface HomePageData_homePage_sections_cards_cards_image {
 
 export interface HomePageData_homePage_sections_cards_cards_link {
   url: string | null;
+  legacyUrl: string | null;
   text: string | null;
 }
 
@@ -94,6 +95,7 @@ export interface HomePageData_homePage_sections_featured1_iconList {
 export interface HomePageData_homePage_sections_featured1_link {
   url: string | null;
   text: string | null;
+  legacyUrl: string | null;
 }
 
 export interface HomePageData_homePage_sections_featured1_cards_image_file {
@@ -110,6 +112,7 @@ export interface HomePageData_homePage_sections_featured1_cards_image {
 export interface HomePageData_homePage_sections_featured1_cards_link {
   text: string | null;
   url: string | null;
+  legacyUrl: string | null;
 }
 
 export interface HomePageData_homePage_sections_featured1_cards {
@@ -157,6 +160,7 @@ export interface HomePageData_homePage_sections_featured2_iconList {
 export interface HomePageData_homePage_sections_featured2_link {
   url: string | null;
   text: string | null;
+  legacyUrl: string | null;
 }
 
 export interface HomePageData_homePage_sections_featured2_cards_image_file {
@@ -173,6 +177,7 @@ export interface HomePageData_homePage_sections_featured2_cards_image {
 export interface HomePageData_homePage_sections_featured2_cards_link {
   text: string | null;
   url: string | null;
+  legacyUrl: string | null;
 }
 
 export interface HomePageData_homePage_sections_featured2_cards {
@@ -216,6 +221,7 @@ export interface HomePageData_homePage_sections_featured2 {
 export interface HomePageData_homePage_sections_tiles_tiles_link {
   text: string | null;
   url: string | null;
+  legacyUrl: string | null;
 }
 
 export interface HomePageData_homePage_sections_tiles_tiles_image_file {

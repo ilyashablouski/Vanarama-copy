@@ -28,10 +28,14 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
             *Only available to Vanarama leasing customers. Other terms and conditions apply.
           </p>
           <div
-            class="lazyload-wrapper"
+            class="image hero--image -expand -plain"
           >
-            <div
-              class="lazyload-placeholder"
+            <img
+              alt="Hero Image"
+              class="image--native"
+              height="100%"
+              src="//images.ctfassets.net/3xid768u5joa/7EJOmbBk6X2yzLtHunY3xU/e9af75665ee74bf1ccefede5c9142e60/insuranceicon.jpg"
+              width="100%"
             />
           </div>
         </div>
@@ -247,14 +251,18 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
+            height="100%"
             src="//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
+            width="100%"
           />
           <div
             class="title -flex-h"
           >
             <a
-              class="heading -black -lead"
+              class="heading link -black -lead"
+              data-testid="link"
               href="https://beta.vanarama.com/van-insurance/multi-year-van-insurance.html"
+              rel="noopener noreferrer"
             >
               Multi-Year Insurance
             </a>
@@ -305,14 +313,18 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
+            height="100%"
             src="//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
+            width="100%"
           />
           <div
             class="title -flex-h"
           >
             <a
-              class="heading -black -lead"
+              class="heading link -black -lead"
+              data-testid="link"
               href="https://beta.vanarama.com/van-insurance/finance-gap-insurance.html"
+              rel="noopener noreferrer"
             >
               Finance GAP Insurance
             </a>
@@ -363,14 +375,18 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
+            height="100%"
             src="//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
+            width="100%"
           />
           <div
             class="title -flex-h"
           >
             <a
-              class="heading -black -lead"
+              class="heading link -black -lead"
+              data-testid="link"
               href="https://beta.vanarama.com/van-insurance/tools-in-transit.html"
+              rel="noopener noreferrer"
             >
               Tools in Transit Insurance
             </a>
@@ -421,14 +437,18 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
+            height="100%"
             src="//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
+            width="100%"
           />
           <div
             class="title -flex-h"
           >
             <a
-              class="heading -black -lead"
+              class="heading link -black -lead"
+              data-testid="link"
               href="https://beta.vanarama.com/van-insurance/7-day-free-van-insurance.html"
+              rel="noopener noreferrer"
             >
               7-day free Insurance
             </a>
@@ -479,14 +499,18 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
+            height="100%"
             src="//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
+            width="100%"
           />
           <div
             class="title -flex-h"
           >
             <a
-              class="heading -black -lead"
+              class="heading link -black -lead"
+              data-testid="link"
               href="https://beta.vanarama.com/van-insurance/short-term-insurance.html"
+              rel="noopener noreferrer"
             >
               Short-Term Insurance
             </a>
@@ -537,14 +561,18 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
+            height="100%"
             src="//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
+            width="100%"
           />
           <div
             class="title -flex-h"
           >
             <a
-              class="heading -black -lead"
+              class="heading link -black -lead"
+              data-testid="link"
               href="https://beta.vanarama.com/van-insurance/faq.html"
+              rel="noopener noreferrer"
             >
               Our Customers Say
             </a>
@@ -656,7 +684,9 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                     <img
                       class="card-image"
                       data-testid="card-image"
+                      height="100%"
                       src="//images.ctfassets.net/3xid768u5joa/22ybEevo2hRu2pJImPp8tz/327aba1204a84c35b02490ca075c290c/insurance-on-leased-cars.jpg"
+                      width="100%"
                     />
                     <div
                       class="title"

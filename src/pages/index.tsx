@@ -8,7 +8,7 @@ import {
 } from '../../generated/ProductCardData';
 import { ALL_HOME_CONTENT } from '../gql/homepage';
 import { PRODUCT_CARD_CONTENT } from '../gql/productCard';
-import HomePageConatainer from '../containers/HomePageContainer';
+import HomePageContainer from '../containers/HomePageContainer';
 import { IHomePageContainer } from '../containers/HomePageContainer/HomePageContainer';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { GetDerivatives } from '../../generated/GetDerivatives';
@@ -25,7 +25,7 @@ export const HomePage: NextPage<IHomePageContainer> = ({
   productsVan,
   derivativeIds,
 }) => (
-  <HomePageConatainer
+  <HomePageContainer
     loading={loading}
     data={data}
     error={error}

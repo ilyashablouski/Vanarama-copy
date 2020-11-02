@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { NextPage } from 'next';
-import Router from 'next/router';
 import { useQuery } from '@apollo/client';
 import ReactMarkdown from 'react-markdown/with-html';
 import { getDataFromTree } from '@apollo/react-ssr';
@@ -9,7 +8,6 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import AddCircle from '@vanarama/uibook/lib/assets/icons/AddCircleSharp';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 
 import { ProductCardData } from '../../../generated/ProductCardData';
@@ -106,6 +104,13 @@ export const VanOffers: NextPage = () => {
       },
     },
   );
+  const productPickupsCapIds = productPickups?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
+  const { data: productPickupsDerivatives } = useCarDerivativesData(
+    productPickupsCapIds,
+    VehicleTypeEnum.LCV,
+  );
 
   const { data: productSpecialistVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
@@ -117,6 +122,13 @@ export const VanOffers: NextPage = () => {
         offer: true,
       },
     },
+  );
+  const productSpecialistVanCapIds = productPickups?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
+  const { data: productSpecialistVanDerivatives } = useCarDerivativesData(
+    productSpecialistVanCapIds,
+    VehicleTypeEnum.LCV,
   );
 
   const { data: productTippers } = useQuery<ProductCardData>(
@@ -130,11 +142,21 @@ export const VanOffers: NextPage = () => {
       },
     },
   );
+  const productTippersCapIds = productPickups?.productCarousel?.map(
+    el => el?.capId || '',
+  ) || [''];
+  const { data: productTippersDerivatives } = useCarDerivativesData(
+    productTippersCapIds,
+    VehicleTypeEnum.LCV,
+  );
 
   const derivativeIds = [
     ...productSmallVanCapIds,
     ...productMediumVanCapIds,
     ...productLargeVanCapIds,
+    ...productPickupsCapIds,
+    ...productSpecialistVanCapIds,
+    ...productTippersCapIds,
   ];
   const vehicleListUrlQuery = useVehicleListUrl(derivativeIds);
 
@@ -187,13 +209,18 @@ export const VanOffers: NextPage = () => {
             dataTestIdBtn="van-view-offer"
           />
           <div className="-justify-content-row -pt-500">
-            <Button
-              label="See All Small Vans"
-              color="teal"
-              onClick={() =>
-                Router.push('/van-leasing/search?bodyStyles=Small+Van')
-              }
-            />
+            <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'regular' }}
+              link={{
+                label: 'See All Small Vans',
+                href: '/small-van-leasing.html',
+              }}
+              withoutDefaultClassName
+              dataTestId="small-van-leasing"
+            >
+              <div className="button--inner">See All Small Vans</div>
+            </RouterLink>
           </div>
         </div>
       </div>
@@ -220,13 +247,18 @@ export const VanOffers: NextPage = () => {
             dataTestIdBtn="van-view-offer"
           />
           <div className="-justify-content-row -pt-500">
-            <Button
-              label="See All Medium Vans"
-              color="teal"
-              onClick={() =>
-                Router.push('/van-leasing/search?bodyStyles=Medium+Van')
-              }
-            />
+            <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'regular' }}
+              link={{
+                label: 'See All Medium Vans',
+                href: '/medium-van-leasing.html',
+              }}
+              withoutDefaultClassName
+              dataTestId="medium-van-leasing"
+            >
+              <div className="button--inner">See All Medium Vans</div>
+            </RouterLink>
           </div>
         </div>
       </div>
@@ -253,13 +285,18 @@ export const VanOffers: NextPage = () => {
             dataTestIdBtn="van-view-offer"
           />
           <div className="-justify-content-row -pt-500">
-            <Button
-              label="See All Large Vans"
-              color="teal"
-              onClick={() =>
-                Router.push('/van-leasing/search?bodyStyles=Large+Van')
-              }
-            />
+            <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'regular' }}
+              link={{
+                label: 'See All Large Vans',
+                href: '/large-van-leasing.html',
+              }}
+              withoutDefaultClassName
+              dataTestId="large-van-leasing"
+            >
+              <div className="button--inner">See All Large Vans</div>
+            </RouterLink>
           </div>
         </div>
       </div>
@@ -278,7 +315,7 @@ export const VanOffers: NextPage = () => {
               isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
             }
             data={{
-              derivatives: null,
+              derivatives: productPickupsDerivatives?.derivatives || null,
               productCard: productPickups?.productCarousel || null,
               vehicleList: vehicleListUrlQuery.data?.vehicleList!,
             }}
@@ -286,13 +323,18 @@ export const VanOffers: NextPage = () => {
             dataTestIdBtn="van-view-offer"
           />
           <div className="-justify-content-row -pt-500">
-            <Button
-              label="See All Pickup Trucks"
-              color="teal"
-              onClick={() =>
-                Router.push('/van-leasing/search?bodyStyles=Pickup')
-              }
-            />
+            <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'regular' }}
+              link={{
+                label: 'See All Pickup Vans',
+                href: '/pickup-special-offers.html',
+              }}
+              withoutDefaultClassName
+              dataTestId="pickup-special-offer"
+            >
+              <div className="button--inner">See All Pickup Vans</div>
+            </RouterLink>
           </div>
         </div>
       </div>
@@ -311,7 +353,7 @@ export const VanOffers: NextPage = () => {
               isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
             }
             data={{
-              derivatives: null,
+              derivatives: productTippersDerivatives?.derivatives || null,
               productCard: productTippers?.productCarousel || null,
               vehicleList: vehicleListUrlQuery.data?.vehicleList!,
             }}
@@ -319,13 +361,18 @@ export const VanOffers: NextPage = () => {
             dataTestIdBtn="van-view-offer"
           />
           <div className="-justify-content-row -pt-500">
-            <Button
-              label="See All Dropside Tippers"
-              color="teal"
-              onClick={() =>
-                Router.push('/van-leasing/search?bodyStyles=Dropside+Tipper')
-              }
-            />
+            <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'regular' }}
+              link={{
+                label: 'See All Dropside Vans',
+                href: '/dropside-tipper-leasing.html',
+              }}
+              withoutDefaultClassName
+              dataTestId="dropside-tipper-leasing"
+            >
+              <div className="button--inner">See All Dropside Vans</div>
+            </RouterLink>
           </div>
         </div>
       </div>
@@ -344,7 +391,7 @@ export const VanOffers: NextPage = () => {
               isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
             }
             data={{
-              derivatives: null,
+              derivatives: productSpecialistVanDerivatives?.derivatives || null,
               productCard: productSpecialistVan?.productCarousel || null,
               vehicleList: vehicleListUrlQuery.data?.vehicleList!,
             }}
@@ -352,13 +399,18 @@ export const VanOffers: NextPage = () => {
             dataTestIdBtn="van-view-offer"
           />
           <div className="-justify-content-row -pt-500">
-            <Button
-              label="See All Specialist Vans"
-              color="teal"
-              onClick={() =>
-                Router.push('/van-leasing/search?bodyStyles=Specialist')
-              }
-            />
+            <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'regular' }}
+              link={{
+                label: 'See All Specialist Vans',
+                href: '/crew-vans.html',
+              }}
+              withoutDefaultClassName
+              dataTestId="crew-vans"
+            >
+              <div className="button--inner">See All Specialist Vans</div>
+            </RouterLink>
           </div>
         </div>
       </div>

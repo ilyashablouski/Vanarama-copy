@@ -92,7 +92,10 @@ const LeasingArticleContainer: FC<IProps> = ({
             >
               <RouterLink
                 classNames={{ color: 'teal' }}
-                link={{ href: el.link?.url || '', label: el.link?.text || '' }}
+                link={{
+                  href: el.link?.legacyUrl || el.link?.url || '',
+                  label: el.link?.text || '',
+                }}
               >
                 {el.link?.text}
               </RouterLink>

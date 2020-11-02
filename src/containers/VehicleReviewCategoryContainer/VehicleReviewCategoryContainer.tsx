@@ -48,7 +48,7 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({ data }) => {
           link: (
             <RouterLink
               link={{
-                href: reviewCard.link?.url || '#',
+                href: reviewCard.link?.legacyUrl || reviewCard.link?.url || '#',
                 label: reviewCard.title || '',
               }}
               className="heading"
@@ -60,7 +60,10 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({ data }) => {
         imageSrc={reviewCard.image?.file?.url || ''}
       >
         <RouterLink
-          link={{ href: reviewCard.link?.url || '#', label: 'Read Review >' }}
+          link={{
+            href: reviewCard.link?.legacyUrl || reviewCard.link?.url || '#',
+            label: 'Read Review >',
+          }}
           className="button"
           classNames={{ color: 'teal', size: 'small', clear: true }}
           withoutDefaultClassName

@@ -10,12 +10,12 @@ import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicato
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { useOlafData, useCarDerivativeData } from '../../gql/order';
 import { createOlafDetails, useFunderTerm, OlafContext } from './helpers';
-import { OLAFQueryParams } from '../../utils/url';
 import {
   GetDerivative_derivative,
   GetDerivative_vehicleImages as VehicleImages,
 } from '../../../generated/GetDerivative';
 import { GetOlafData_orderByUuid } from '../../../generated/GetOlafData';
+import useGetOrderId from '../../hooks/useGetOrderId';
 
 interface IProps {
   setDetailsData?: React.Dispatch<
@@ -32,8 +32,7 @@ const OLAFLayout: React.FC<IProps> = ({
   setDetailsData,
   setDerivativeData,
 }) => {
-  const router = useRouter();
-  const { orderId } = router.query as OLAFQueryParams;
+  const orderId = useGetOrderId();
 
   const isMobile = useMobileViewport();
   const [asideOpen, setAsideOpen] = useState(false);
@@ -130,8 +129,13 @@ const OLAFLayout: React.FC<IProps> = ({
   );
 };
 
+type QueryParams = {
+  isSoleTraderJourney: boolean;
+};
+
 function ProgressSection() {
-  const { pathname } = useRouter();
+  const { pathname, query } = useRouter();
+  const { isSoleTraderJourney } = (query as unknown) as QueryParams;
   const hideProgress = pathname === '/olaf/thank-you/[orderId]';
   if (hideProgress) {
     return null;
@@ -139,13 +143,14 @@ function ProgressSection() {
   const soleTraderPathMatchResult = pathname.match(
     /^\/b2b\/olaf\/sole-trader\/.+/,
   );
-  const isSoleTraderJourney = (soleTraderPathMatchResult || []).length > 0;
+  const isSoleTrader =
+    (soleTraderPathMatchResult || []).length > 0 || isSoleTraderJourney;
   const isB2BJourney = pathname.match(/^\/b2b\/.+/);
 
   return (
     <div className="row:progress">
       {isB2BJourney ? (
-        <BusinessProgressIndicator isSoleTraderJouney={isSoleTraderJourney} />
+        <BusinessProgressIndicator isSoleTraderJourney={isSoleTrader} />
       ) : (
         <ConsumerProgressIndicator />
       )}

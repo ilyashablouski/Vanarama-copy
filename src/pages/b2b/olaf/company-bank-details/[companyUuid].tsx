@@ -5,11 +5,12 @@ import React from 'react';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import { ApolloError } from '@apollo/client';
 import CompanyBankDetailsFormContainer from '../../../../containers/CompanyBankDetailsFormContainer/CompanyBankDetailsFormContainer';
-import { OLAFQueryParams, getUrlParam } from '../../../../utils/url';
+import { OLAFQueryParams } from '../../../../utils/url';
 import useSoleTraderJorney from '../../../../hooks/useSoleTraderJourney';
 
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
+import useGetOrderId from '../../../../hooks/useGetOrderId';
 
 type QueryParams = OLAFQueryParams & {
   companyUuid: string;
@@ -18,7 +19,8 @@ type QueryParams = OLAFQueryParams & {
 const CompanyBankDetailsPage: NextPage = () => {
   const router = useRouter();
   const isSoleTraderJourney = useSoleTraderJorney();
-  const { orderId, companyUuid } = router.query as QueryParams;
+  const orderId = useGetOrderId();
+  const { companyUuid } = router.query as QueryParams;
 
   const handleSubmitError = (err: ApolloError) => {
     console.error(err);
@@ -29,10 +31,9 @@ const CompanyBankDetailsPage: NextPage = () => {
   };
 
   const handleSubmitCompletion = () => {
-    const params = getUrlParam({ orderId });
     const summaryUrl = !isSoleTraderJourney
-      ? `/b2b/olaf/summary/[companyUuid]${params}`
-      : `/b2b/olaf/sole-trader/summary/[companyUuid]${params}`;
+      ? '/b2b/olaf/summary/[companyUuid]'
+      : '/b2b/olaf/sole-trader/summary/[companyUuid]';
     const url = summaryUrl;
     router.push(url, url.replace('[companyUuid]', companyUuid));
   };

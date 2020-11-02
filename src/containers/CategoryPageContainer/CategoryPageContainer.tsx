@@ -31,14 +31,22 @@ const renderCarouselCards = (cards: any[] | undefined) =>
           title={{
             className: '-flex-h',
             link: (
-              <Heading
-                size="lead"
-                color="black"
-                tag="a"
-                href={`/${card.slug || card.link || ''}`}
+              <RouterLink
+                withoutDefaultClassName
+                className="heading"
+                classNames={{ color: 'black', size: 'lead' }}
+                link={{
+                  href:
+                    card.legacyUrl ||
+                    card.link?.legacyUrl ||
+                    card.link?.url ||
+                    card.link ||
+                    '',
+                  label: card?.title || '',
+                }}
               >
                 {card?.name}
-              </Heading>
+              </RouterLink>
             ),
             title: '',
           }}
@@ -66,7 +74,12 @@ const renderCarouselCards = (cards: any[] | undefined) =>
             classNames={{ color: 'teal', size: 'regular' }}
             link={{
               label: 'Read More',
-              href: card.slug || card.link || '',
+              href:
+                card.legacyUrl ||
+                card.link?.legacyUrl ||
+                card.link?.url ||
+                card.link ||
+                '',
             }}
           />
         </Card>
@@ -76,23 +89,26 @@ const renderCarouselCards = (cards: any[] | undefined) =>
 const renderCards = (
   cards: GenericPageQuery_genericPage_sections_tiles_tiles[] | null | undefined,
 ) => {
-  return cards?.map(card =>
+  return cards?.map((card, index) =>
     card?.body ? (
       <Card
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-        key={card.title || undefined}
+        key={`${card.title}_${index.toString()}_${card.body}`}
         imageSrc={card.image?.file?.url || ''}
         title={{
           className: '-flex-h',
           link: (
-            <Heading
-              size="lead"
-              color="black"
-              tag="a"
-              href={`/${card.link}` || ''}
+            <RouterLink
+              withoutDefaultClassName
+              className="heading"
+              classNames={{ color: 'black', size: 'lead' }}
+              link={{
+                href: card.link?.legacyUrl || card.link?.url || '',
+                label: card?.title || '',
+              }}
             >
               {card?.title}
-            </Heading>
+            </RouterLink>
           ),
           title: card.title || '',
           withBtn: true,
@@ -159,14 +175,17 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
           title={{
             className: '-flex-h',
             link: (
-              <Heading
-                size="lead"
-                color="black"
-                tag="a"
-                href={`/${card.slug}` || ''}
+              <RouterLink
+                withoutDefaultClassName
+                className="heading"
+                classNames={{ color: 'black', size: 'lead' }}
+                link={{
+                  href: card.legacyUrl || '',
+                  label: card?.name || '',
+                }}
               >
                 {card?.name}
-              </Heading>
+              </RouterLink>
             ),
             title: '',
           }}
@@ -196,7 +215,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
             classNames={{ color: 'teal', size: 'regular' }}
             link={{
               label: 'Read More',
-              href: card.slug || '',
+              href: card.legacyUrl || '',
             }}
           />
         </Card>

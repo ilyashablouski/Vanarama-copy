@@ -790,6 +790,7 @@ exports[`<SearchPageContainer /> should be render correctly 1`] = `
 
 exports[`<SearchPageContainer /> should be render correctly all manufacturers Page 1`] = `
 <body>
+  <div />
   <div>
     <div
       class="row:title"

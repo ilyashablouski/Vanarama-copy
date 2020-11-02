@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { ApolloError, gql, useQuery } from '@apollo/client';
 import {
   GenericPageQuery,
   GenericPageQueryVariables,
@@ -7,19 +7,45 @@ import {
   GenericPageHeadQuery,
   GenericPageHeadQueryVariables,
 } from '../../generated/GenericPageHeadQuery';
+import {
+  GenericPageBreadcrumbsQuery,
+  GenericPageBreadcrumbsQueryVariables,
+} from '../../generated/GenericPageBreadcrumbsQuery';
 import TilesContainer from '../containers/TilesContainer/TilesContainer';
 import { FeaturedHtml } from '../containers/FeaturedAndTilesContainer/getFeaturedHtml';
+
+export interface IGenericPage {
+  data: GenericPageQuery | undefined;
+  loading: boolean | undefined;
+  error: ApolloError;
+  pageHead: GenericPageHeadQuery;
+}
 
 export const GENERIC_PAGE = gql`
   query GenericPageQuery($slug: String!) {
     genericPage(slug: $slug) {
       id
+      intro
       metaData {
+        title
         name
+        metaRobots
+        metaDescription
+        legacyUrl
+        pageType
+        canonicalUrl
+        slug
+        schema
+        publishedOn
+        breadcrumbs
       }
       featuredImage {
+        title
+        description
         file {
           url
+          fileName
+          contentType
         }
       }
       sections {
@@ -74,6 +100,7 @@ export const GENERIC_PAGE = gql`
             link {
               text
               url
+              legacyUrl
             }
           }
         }
@@ -134,6 +161,7 @@ export const GENERIC_PAGE = gql`
             link {
               text
               url
+              legacyUrl
             }
           }
         }
@@ -197,4 +225,26 @@ export function useGenericPageHead(slug: string) {
       },
     },
   );
+}
+
+export const GENERIC_PAGE_BREADCRUMBS = gql`
+  query GenericPageBreadcrumbsQuery($slug: String!) {
+    genericPage(slug: $slug) {
+      id
+      metaData {
+        breadcrumbs
+      }
+    }
+  }
+`;
+
+export function useGenericPageBreadcrumbs(slug: string) {
+  return useQuery<
+    GenericPageBreadcrumbsQuery,
+    GenericPageBreadcrumbsQueryVariables
+  >(GENERIC_PAGE_BREADCRUMBS, {
+    variables: {
+      slug,
+    },
+  });
 }

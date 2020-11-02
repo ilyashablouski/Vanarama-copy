@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Router from 'next/router';
 import { ApolloError } from '@apollo/client';
+import localForage from 'localforage';
 
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -146,17 +147,18 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       variables: {
         input: values,
       },
-    }).then(response => {
-      const url =
-        leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
-          ? '/olaf/about/[orderId]'
-          : '/b2b/olaf/about/[orderId]';
+    })
+      .then(response =>
+        localForage.setItem('orderId', response.data?.createUpdateOrder?.uuid),
+      )
+      .then(orderId => {
+        const url =
+          leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
+            ? '/olaf/about/[orderId]'
+            : '/b2b/olaf/about';
 
-      Router.push(
-        url,
-        url.replace('[orderId]', response.data?.createUpdateOrder?.uuid || ''),
-      );
-    });
+        Router.push(url, url.replace('[orderId]', orderId || ''));
+      });
   };
 
   if (loading) {

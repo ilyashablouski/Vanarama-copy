@@ -42,6 +42,7 @@ export interface BlogPosts_blogPosts_sections_cards_cards_image {
 export interface BlogPosts_blogPosts_sections_cards_cards_link {
   text: string | null;
   url: string | null;
+  legacyUrl: string | null;
 }
 
 export interface BlogPosts_blogPosts_sections_cards_cards {
@@ -76,6 +77,7 @@ export interface BlogPosts_blogPosts_sections_carousel_cards_image {
 export interface BlogPosts_blogPosts_sections_carousel_cards_link {
   text: string | null;
   url: string | null;
+  legacyUrl: string | null;
 }
 
 export interface BlogPosts_blogPosts_sections_carousel_cards {
@@ -95,6 +97,7 @@ export interface BlogPosts_blogPosts_sections_carousel {
 export interface BlogPosts_blogPosts_sections_tiles_tiles_link {
   text: string | null;
   url: string | null;
+  legacyUrl: string | null;
 }
 
 export interface BlogPosts_blogPosts_sections_tiles_tiles_image_file {
@@ -149,6 +152,7 @@ export interface BlogPosts_blogPosts_articles {
   tags: (string | null)[] | null;
   slug: string | null;
   body: string | null;
+  legacyUrl: string | null;
 }
 
 export interface BlogPosts_blogPosts {

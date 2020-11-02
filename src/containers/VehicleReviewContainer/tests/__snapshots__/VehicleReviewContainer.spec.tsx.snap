@@ -29,10 +29,13 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
               role="tabpanel"
             >
               <div
-                class="lazyload-wrapper"
+                class="image -expand"
               >
-                <div
-                  class="lazyload-placeholder"
+                <img
+                  class="image--native"
+                  height="100%"
+                  src="//images.ctfassets.net/3xid768u5joa/1ufFnJNOsfjenEKcmSUeXt/f0978cb49686d6466600a17ea0d6d0e9/berlingo-outside.jpg"
+                  width="100%"
                 />
               </div>
             </div>
@@ -143,15 +146,17 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
         <div
           class="button-group"
         >
-          <button
-            class="button -teal -regular -outline"
+          <a
+            class="button link -teal -regular"
+            data-testid="router-link"
+            href="/van-leasing/citroen/berlingo"
           >
             <div
               class="button--inner"
             >
               Latest Deals
             </div>
-          </button>
+          </a>
         </div>
       </article>
       <div>
@@ -543,15 +548,17 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
         >
           Get Your Free Quote
         </h2>
-        <button
-          class="button -fullwidth  -teal -regular -solid"
+        <a
+          class="button -fullwidth link -teal -regular -solid"
+          data-testid="router-link"
+          href="/van-leasing/citroen/berlingo"
         >
           <div
             class="button--inner"
           >
             Get Quote
           </div>
-        </button>
+        </a>
       </div>
     </div>
   </div>

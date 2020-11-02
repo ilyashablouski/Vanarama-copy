@@ -16,10 +16,13 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
         class="review"
       >
         <div
-          class="lazyload-wrapper"
+          class="image -expand -round"
         >
-          <div
-            class="lazyload-placeholder"
+          <img
+            class="image--native"
+            height="100%"
+            src="https://eu.ui-avatars.com/api/?name=name=Steven Buckle&color=ffffff&background=0A0D10&format=svg&rounded=true"
+            width="100%"
           />
         </div>
         <p
@@ -164,10 +167,14 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
         class="testimonials--sidebar--service tilebox"
       >
         <div
-          class="lazyload-wrapper"
+          class="image -expand -round"
         >
-          <div
-            class="lazyload-placeholder"
+          <img
+            alt="Fleet-Icon"
+            class="image--native"
+            height="100%"
+            src="//images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png"
+            width="100%"
           />
         </div>
         <div>
@@ -187,10 +194,14 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
         class="testimonials--sidebar--service tilebox"
       >
         <div
-          class="lazyload-wrapper"
+          class="image -expand -round"
         >
-          <div
-            class="lazyload-placeholder"
+          <img
+            alt="Fleet-Icon"
+            class="image--native"
+            height="100%"
+            src="//images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png"
+            width="100%"
           />
         </div>
         <div>
@@ -210,10 +221,14 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
         class="testimonials--sidebar--service tilebox"
       >
         <div
-          class="lazyload-wrapper"
+          class="image -expand -round"
         >
-          <div
-            class="lazyload-placeholder"
+          <img
+            alt="Fleet-Icon"
+            class="image--native"
+            height="100%"
+            src="//images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png"
+            width="100%"
           />
         </div>
         <div>
@@ -233,10 +248,14 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
         class="testimonials--sidebar--service tilebox"
       >
         <div
-          class="lazyload-wrapper"
+          class="image -expand -round"
         >
-          <div
-            class="lazyload-placeholder"
+          <img
+            alt=""
+            class="image--native"
+            height="100%"
+            src=""
+            width="100%"
           />
         </div>
         <div>
@@ -270,10 +289,14 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
               style="display: flex; justify-content: center;"
             >
               <div
-                class="lazyload-wrapper"
+                class="image -large -round -inline"
               >
-                <div
-                  class="lazyload-placeholder"
+                <img
+                  alt="redundancy-life-event-cover"
+                  class="image--native"
+                  height="100%"
+                  src="//images.ctfassets.net/3xid768u5joa/3kTJFwdjcWkVHexxDcRSju/d94c9af10e343bfc271e2ed3204b56e0/redundancy.jpg"
+                  width="100%"
                 />
               </div>
             </div>
@@ -301,10 +324,14 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
               style="display: flex; justify-content: center;"
             >
               <div
-                class="lazyload-wrapper"
+                class="image -large -round -inline"
               >
-                <div
-                  class="lazyload-placeholder"
+                <img
+                  alt="Vanarama-Price-Promise-Icon"
+                  class="image--native"
+                  height="100%"
+                  src="//images.ctfassets.net/3xid768u5joa/4v2ALClaL6YnE0NYRsd8uc/7e92f2b83eb9e594ced8269152961026/Icon-PricePromise-RGB.png"
+                  width="100%"
                 />
               </div>
             </div>
@@ -332,10 +359,14 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
               style="display: flex; justify-content: center;"
             >
               <div
-                class="lazyload-wrapper"
+                class="image -large -round -inline"
               >
-                <div
-                  class="lazyload-placeholder"
+                <img
+                  alt="Insurance-Icon"
+                  class="image--native"
+                  height="100%"
+                  src="//images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png"
+                  width="100%"
                 />
               </div>
             </div>

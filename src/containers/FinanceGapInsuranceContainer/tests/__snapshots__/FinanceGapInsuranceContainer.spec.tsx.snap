@@ -21,10 +21,14 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             Extra Protection Should The Worst happen
           </h3>
           <div
-            class="lazyload-wrapper"
+            class="image hero--image -expand -plain"
           >
-            <div
-              class="lazyload-placeholder"
+            <img
+              alt="Hero Image"
+              class="image--native"
+              height="100%"
+              src="https://www.vanarama.com/assets/images/insurance/home-hero/insurance-hero.png"
+              width="100%"
             />
           </div>
         </div>
@@ -210,6 +214,82 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           </svg>
         </div>
       </div>
+    </div>
+    <div
+      class="row:title -mt-200"
+    >
+      <nav>
+        <ol
+          class="breadcrumb"
+        >
+          <li
+            class="breadcrumb-item -parent"
+          >
+            <a
+              class="breadcrumb-item--parent link -teal -small"
+              data-testid="router-link"
+              href="/"
+            >
+              Home
+            </a>
+            <i
+              class="icon -medium -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="184 112 328 256 184 400"
+                  style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                />
+              </svg>
+            </i>
+          </li>
+          <li
+            class="breadcrumb-item -parent"
+          >
+            <a
+              class="breadcrumb-item--parent link -teal -small"
+              data-testid="link"
+              href="/van-insurance.html"
+              rel="noopener noreferrer"
+            >
+              Van Insurance
+            </a>
+            <i
+              class="icon -medium -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="184 112 328 256 184 400"
+                  style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                />
+              </svg>
+            </i>
+          </li>
+          <li
+            class="breadcrumb-item -child"
+          >
+            <span
+              class="text breadcrumb-item--child -small -darker"
+            >
+              Multi-Year Van Insurance
+            </span>
+          </li>
+        </ol>
+      </nav>
     </div>
     <div
       class="row:lead-text"

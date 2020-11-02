@@ -2,14 +2,13 @@ import React, { FC } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Media from '@vanarama/uibook/lib/components/atoms/media';
-import Router from 'next/router';
 import {
   GenericPageQuery_genericPage_sections as Section,
   GenericPageQuery_genericPage_sections_cards_cards as Cards,
 } from '../../../generated/GenericPageQuery';
 import { getSectionsData } from '../../utils/getSectionsData';
+import RouterLink from '../../components/RouterLink/RouterLink';
 
 interface IProps {
   sections: Section | null;
@@ -39,14 +38,16 @@ const LeasingExplainedContainer: FC<IProps> = ({ title, sections }) => {
               {featured?.body || ''}
             </Text>
             {featured?.link && (
-              <Button
-                onClick={() => {
-                  Router.push(featured?.link?.url || '');
+              <RouterLink
+                classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                className="button"
+                link={{
+                  href: featured?.link?.legacyUrl || featured?.link?.url || '',
+                  label: featured?.link?.text || '',
                 }}
-                color="teal"
-                size="regular"
-                label={featured?.link?.text}
-              />
+              >
+                <div className="button--inner">{featured?.link?.text}</div>
+              </RouterLink>
             )}
           </div>
           <Media src={featured?.video || ''} width="100%" height="360px" />
@@ -73,17 +74,16 @@ const LeasingExplainedContainer: FC<IProps> = ({ title, sections }) => {
                 imageSrc={el.image?.file?.url}
                 description={el?.body || ''}
               >
-                <Button
-                  onClick={() => {
-                    Router.push(el.link?.url || '/');
+                <RouterLink
+                  classNames={{ color: 'teal', solid: true, size: 'small' }}
+                  className="button -mt-400"
+                  link={{
+                    href: el.link?.legacyUrl || el.link?.url || '',
+                    label: el?.link?.text || '',
                   }}
-                  label={el.link?.text}
-                  color="teal"
-                  size="small"
-                  fill="solid"
-                  type="button"
-                  className="-mt-400"
-                />
+                >
+                  <div className="button--inner">{el.link?.text}</div>
+                </RouterLink>
               </Card>
             ))}
           </div>

@@ -201,12 +201,16 @@ export const ContactUsPage: NextPage = () => {
             />
             <CardTitle title={c?.title || ''} />
             <Text color="darker">{c?.body}</Text>
-            <Button
-              fill="clear"
-              color="teal"
-              label={c?.link?.text || ''}
-              onClick={() => Router.push(c?.link?.url || '')}
-            />
+            <RouterLink
+              classNames={{ color: 'teal' }}
+              className="button"
+              link={{
+                href: c?.link?.legacyUrl || c?.link?.url || '',
+                label: c?.link?.text || '',
+              }}
+            >
+              <div className="button--inner">{c?.link?.text}</div>
+            </RouterLink>
           </Card>
         ))}
       </section>

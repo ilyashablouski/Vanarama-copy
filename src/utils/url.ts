@@ -2,7 +2,7 @@ import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { VehicleListUrl_vehicleList_edges as VehicleEdge } from '../../generated/VehicleListUrl';
 import { GetProductCard_vehicleList_edges as ProductEdge } from '../../generated/GetProductCard';
 
-type UrlParams = { [key: string]: string | undefined };
+type UrlParams = { [key: string]: string | boolean | undefined };
 
 export const getUrlParam = (urlParams: UrlParams, notReplace?: boolean) => {
   const url = Object.entries(urlParams).map(([key, value]) =>
@@ -117,6 +117,8 @@ export const isNotShowBreadcrumbs = (routerPathName: string) => {
     routerPathName.includes('[...details-page]') ||
     // not to show on b2b and b2c pages
     routerPathName.includes('/olaf') ||
+    // not to show on b2b and b2c pages
+    routerPathName.includes('/fleet') ||
     // not to show on account pages
     routerPathName.includes('/account') ||
     routerPathName.includes('/blog') ||
