@@ -129,14 +129,17 @@ const BlogPostContainer: NextPage<IProps> = ({
               title={{
                 title: '',
                 link: (
-                  <Heading
-                    size="lead"
-                    color="black"
-                    tag="a"
-                    href={`/${el?.slug || ''}`}
+                  <RouterLink
+                    withoutDefaultClassName
+                    className="heading"
+                    classNames={{ color: 'black', size: 'lead' }}
+                    link={{
+                      href: el?.legacyUrl || '',
+                      label: el?.name || '',
+                    }}
                   >
                     {el?.name}
-                  </Heading>
+                  </RouterLink>
                 ),
               }}
               description={getBody(el?.body || '')}
@@ -145,7 +148,7 @@ const BlogPostContainer: NextPage<IProps> = ({
                 classNames={{ color: 'teal', size: 'regular' }}
                 link={{
                   label: 'Read More',
-                  href: el?.slug || '',
+                  href: el?.legacyUrl || '',
                 }}
               />
             </Card>

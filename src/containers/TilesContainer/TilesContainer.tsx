@@ -74,7 +74,7 @@ const TilesContainer: FCWithFragments<IProps> = ({ tiles, leasingOffers }) => {
                           classNames={{ color: 'teal', size: 'regular' }}
                           link={{
                             label: el.link?.text || '',
-                            href: el.link?.url || '',
+                            href: el.link.legacyUrl || el.link?.url || '',
                           }}
                         />
                       )}

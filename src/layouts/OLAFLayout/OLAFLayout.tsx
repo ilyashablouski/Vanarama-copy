@@ -10,12 +10,12 @@ import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicato
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { useOlafData, useCarDerivativeData } from '../../gql/order';
 import { createOlafDetails, useFunderTerm, OlafContext } from './helpers';
-import { OLAFQueryParams } from '../../utils/url';
 import {
   GetDerivative_derivative,
   GetDerivative_vehicleImages as VehicleImages,
 } from '../../../generated/GetDerivative';
 import { GetOlafData_orderByUuid } from '../../../generated/GetOlafData';
+import useGetOrderId from '../../hooks/useGetOrderId';
 
 interface IProps {
   setDetailsData?: React.Dispatch<
@@ -32,8 +32,7 @@ const OLAFLayout: React.FC<IProps> = ({
   setDetailsData,
   setDerivativeData,
 }) => {
-  const router = useRouter();
-  const { orderId } = router.query as OLAFQueryParams;
+  const orderId = useGetOrderId();
 
   const isMobile = useMobileViewport();
   const [asideOpen, setAsideOpen] = useState(false);

@@ -2,8 +2,6 @@ import React, { FC } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Router from 'next/router';
 import ReactMarkdown from 'react-markdown';
 import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import {
@@ -11,7 +9,6 @@ import {
   GenericPageQuery_genericPage_sections_carousel_cards as ICaruselCard,
   GenericPageQuery,
 } from '../../../generated/GenericPageQuery';
-import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getSectionsData } from '../../utils/getSectionsData';
 
@@ -31,15 +28,16 @@ const renderCarouselCards = (cards: (ICaruselCard | null)[]) =>
         <Text size="regular" color="dark">
           {card.body || ''}
         </Text>
-        <Button
-          fill="clear"
-          color="teal"
-          size="regular"
-          label={card?.link?.text}
-          onClick={() => {
-            Router.push(card?.link?.url || '');
+        <RouterLink
+          classNames={{ color: 'teal', solid: true, size: 'regular' }}
+          className="button"
+          link={{
+            href: card.link?.legacyUrl || card.link?.url || '',
+            label: card?.link?.text || '',
           }}
-        />
+        >
+          <div className="button--inner">{card.link?.text}</div>
+        </RouterLink>
       </Card>
     ) : null,
   );
@@ -54,19 +52,19 @@ const renderCards = (cards: (ICard | null)[] | undefined | null) =>
         title={{
           className: '-flex-h',
           link: (
-            <Heading
-              size="lead"
-              color="black"
-              tag={
-                (getTitleTag(card.titleTag) as keyof JSX.IntrinsicElements) ||
-                'a'
-              }
-              href={card.link?.url || ''}
+            <RouterLink
+              withoutDefaultClassName
+              className="heading"
+              classNames={{ color: 'black', size: 'lead' }}
+              link={{
+                href: card.link?.legacyUrl || card.link?.url || '',
+                label: card.title || '',
+              }}
             >
               {card.title}
-            </Heading>
+            </RouterLink>
           ),
-          title: card.title || '',
+          title: '',
           withBtn: true,
         }}
         description={card.body || ''}

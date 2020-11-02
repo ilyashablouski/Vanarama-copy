@@ -11,7 +11,6 @@ import {
   GenericPageQuery_genericPage_sections_featured,
 } from '../../../generated/GenericPageQuery';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
-import getTitleTag from '../../utils/getTitleTag';
 
 interface IProps {
   name: string | null | undefined;
@@ -35,18 +34,19 @@ const renderCards = (
         title={{
           className: '-flex-h',
           link: (
-            <Heading
-              size="lead"
-              color="black"
-              tag={
-                getTitleTag(card.titleTag || 'a') as keyof JSX.IntrinsicElements
-              }
-              href={card.link?.url || ''}
+            <RouterLink
+              withoutDefaultClassName
+              className="heading"
+              classNames={{ color: 'black', size: 'lead' }}
+              link={{
+                href: card.link?.legacyUrl || card.link?.url || '',
+                label: card.title || '',
+              }}
             >
               {card.title}
-            </Heading>
+            </RouterLink>
           ),
-          title: card.name || '',
+          title: '',
           withBtn: true,
         }}
         description={card.body || ''}

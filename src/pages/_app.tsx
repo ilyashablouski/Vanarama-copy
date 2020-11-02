@@ -1,13 +1,11 @@
 import { useLazyQuery } from '@apollo/client';
-import { ToastContainer } from '@vanarama/uibook/lib/components/atoms/toast/Toast';
+// import { ToastContainer } from '@vanarama/uibook/lib/components/atoms/toast/Toast';
+import dynamic from 'next/dynamic';
 import '@vanarama/uibook/src/components/base.scss';
 import { AppProps } from 'next/app';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
-import ComparatorBar from '@vanarama/uibook/lib/components/organisms/comparator-bar';
-import Modal from '@vanarama/uibook/lib/components/molecules/modal';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import { isNotShowBreadcrumbs, SEARCH_PAGES } from '../utils/url';
 import {
   PAGES_WITH_COMPARATOR,
@@ -15,7 +13,6 @@ import {
   WHOLE_PATHS_PAGES_WITH_COMPARATOR,
   PAGES_WITHOUT_COMPARATOR,
 } from '../utils/comparatorTool';
-import HeaderContainer from '../containers/HeaderContainer';
 import {
   getCompares,
   deleteCompare,
@@ -25,10 +22,8 @@ import {
   isCorrectCompareType,
   changeCompares,
 } from '../utils/comparatorHelpers';
-import FooterContainer from '../containers/FooterContainer';
 import { GENERIC_PAGE_HEAD } from '../gql/genericPage';
 import { getSectionsData } from '../utils/getSectionsData';
-import Head from '../components/Head/Head';
 import withApollo from '../hocs/withApollo';
 import {
   GenericPageHeadQuery,
@@ -37,6 +32,26 @@ import {
 import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
 import { pushPageData } from '../utils/dataLayerHelpers';
 import { prepareSlugPart } from '../containers/SearchPageContainer/helpers';
+
+// Dynamic component loading.
+const Head = dynamic(() => import('../components/Head/Head'));
+const HeaderContainer = dynamic(() => import('../containers/HeaderContainer'));
+const FooterContainer = dynamic(() => import('../containers/FooterContainer'));
+// @ts-ignore
+const ToastContainer = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/toast/Toast').then(
+    mod => mod.ToastContainer,
+  ),
+);
+const ComparatorBar = dynamic(() =>
+  import('@vanarama/uibook/lib/components/organisms/comparator-bar'),
+);
+const Modal = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/modal'),
+);
+const Button = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/button'),
+);
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   const [compareVehicles, setCompareVehicles] = useState<

@@ -50,7 +50,8 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
   if (
     link.linkType === LinkTypes.external ||
     !!link.target ||
-    link.href.match(/^(https?:)?\/\//)
+    link.href.match(/^(https?:)?\/\//) ||
+    link.href.match(/.html/)
   ) {
     return (
       <a
@@ -59,7 +60,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
         target={link.target}
         rel="noopener noreferrer"
         onClick={e => onClick && onClick(e)}
-        data-testid="link"
+        data-testid={dataTestId ?? 'link'}
       >
         {children || link.label}
       </a>

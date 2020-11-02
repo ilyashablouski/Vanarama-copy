@@ -10,7 +10,6 @@ import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
 import Media from '@vanarama/uibook/lib/components/atoms/media';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import ReviewCard from '@vanarama/uibook/lib/components/molecules/cards/ReviewCard/ReviewCard';
-import { useRouter } from 'next/router';
 import getTitleTag from '../../utils/getTitleTag';
 import mapToReviewCard from './helpers';
 import { ReviewsPageQuery_reviewsPage_sections as Sections } from '../../../generated/ReviewsPageQuery';
@@ -23,7 +22,6 @@ interface IProps {
 }
 
 const VehicleReviewContainer: FC<IProps> = ({ body, title, sections }) => {
-  const router = useRouter();
   const [reviewsExpanded, setReviewsExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
 
@@ -81,22 +79,16 @@ const VehicleReviewContainer: FC<IProps> = ({ body, title, sections }) => {
             }}
           />
           <div className="button-group">
-            {/* <Button // NOTE: no such functionality yet, commented out
-              color="teal"
-              size="regular"
-              fill="solid"
-              label="Leave a review"
-              onClick={() => {}}
-            /> */}
-            <Button
-              color="teal"
-              size="regular"
-              fill="outline"
-              label={sections?.link?.text}
-              onClick={() => {
-                router.push(sections?.link?.url || '/');
+            <RouterLink
+              classNames={{ color: 'teal', size: 'regular' }}
+              className="button"
+              link={{
+                href: sections?.link?.legacyUrl || sections?.link?.url || '',
+                label: sections?.link?.text || '',
               }}
-            />
+            >
+              <div className="button--inner">{sections?.link?.text}</div>
+            </RouterLink>
           </div>
         </article>
         <div>
@@ -144,16 +136,19 @@ const VehicleReviewContainer: FC<IProps> = ({ body, title, sections }) => {
           >
             {sections?.rowText?.heading}
           </Heading>
-          <Button
-            className="-fullwidth "
-            color="teal"
-            size="regular"
-            fill="solid"
-            label={sections?.rowText?.link?.text}
-            onClick={() => {
-              router.push(sections?.rowText?.link?.url || '/');
+          <RouterLink
+            classNames={{ color: 'teal', solid: true, size: 'regular' }}
+            className="button -fullwidth"
+            link={{
+              href:
+                sections?.rowText?.link?.legacyUrl ||
+                sections?.rowText?.link?.url ||
+                '',
+              label: sections?.rowText?.link?.text || '',
             }}
-          />
+          >
+            <div className="button--inner">{sections?.rowText?.link?.text}</div>
+          </RouterLink>
         </div>
       </div>
     </>

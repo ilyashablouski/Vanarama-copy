@@ -7,7 +7,6 @@ import {
   GetInsuranceLandingPage_insuranceLandingPage_sections_cards as ITypesSection,
   GetInsuranceLandingPage_insuranceLandingPage_sections_cards_cards as TypeCard,
 } from '../../../../generated/GetInsuranceLandingPage';
-import getTitleTag from '../../../utils/getTitleTag';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 
 const renderCard = (card: TypeCard) => (
@@ -18,18 +17,18 @@ const renderCard = (card: TypeCard) => (
     title={{
       className: '-flex-h',
       link: (
-        <Heading
-          size="lead"
-          color="black"
-          tag={
-            (getTitleTag(card.titleTag) as keyof JSX.IntrinsicElements) || 'a'
-          }
-          href={card.link?.url || ''}
+        <RouterLink
+          classNames={{ size: 'lead', color: 'black' }}
+          className="heading"
+          link={{
+            href: card.link?.legacyUrl || card.link?.url || '',
+            label: 'card.title',
+          }}
         >
           {card.title}
-        </Heading>
+        </RouterLink>
       ),
-      title: card.title || '',
+      title: '',
       withBtn: true,
     }}
     description={card.body || ''}

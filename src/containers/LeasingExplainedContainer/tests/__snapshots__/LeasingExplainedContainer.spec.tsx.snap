@@ -31,15 +31,18 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
 
 [Read More](https://beta.vanarama.com/car-leasing-explained/what-is-car-leasing.html)
           </p>
-          <button
-            class="button -teal -regular -solid"
+          <a
+            class="button link -teal -regular -solid"
+            data-testid="link"
+            href="https://betavanarama.com/van-leasing-explained/how-does-van-leasing-work.html"
+            rel="noopener noreferrer"
           >
             <div
               class="button--inner"
             >
               Read More
             </div>
-          </button>
+          </a>
         </div>
         <div
           class="media"
@@ -82,7 +85,9 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             <img
               class="card-image"
               data-testid="card-image"
+              height="100%"
               src="//images.ctfassets.net/3xid768u5joa/FRg0wIDLXZqVIB9ZoJEw7/e04f3cfdfb2ad9405be84ef106d83d26/company-cash-allowance-vs-company-car.jpg"
+              width="100%"
             />
             <div
               class="title"
@@ -102,16 +107,18 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
 
 [Read More](https://beta.vanarama.com/car-leasing-explained/given-company-cash-allowance-vs-company-car.html)
             </span>
-            <button
-              class="button -mt-400 -teal -small -solid"
-              type="button"
+            <a
+              class="button -mt-400 link -teal -small -solid"
+              data-testid="link"
+              href="https://betavanarama.com/van-leasing-explained/how-does-van-leasing-work.html"
+              rel="noopener noreferrer"
             >
               <div
                 class="button--inner"
               >
                 Read More
               </div>
-            </button>
+            </a>
           </div>
           <div
             class="card"
@@ -120,7 +127,9 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             <img
               class="card-image"
               data-testid="card-image"
+              height="100%"
               src="//images.ctfassets.net/3xid768u5joa/2gBj5lixlkrla8kFNF8XSi/0fea9544b48e892f4f96d612b9be9c70/what-happens-at-end-of-car-lease.jpg"
+              width="100%"
             />
             <div
               class="title"
@@ -140,16 +149,18 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
 
 [Read More](https://beta.vanarama.com/car-leasing-explained/what-happens-at-end-of-car-lease.html)
             </span>
-            <button
-              class="button -mt-400 -teal -small -solid"
-              type="button"
+            <a
+              class="button -mt-400 link -teal -small -solid"
+              data-testid="link"
+              href="https://betavanarama.com/van-leasing-explained/how-does-van-leasing-work.html"
+              rel="noopener noreferrer"
             >
               <div
                 class="button--inner"
               >
                 Read More
               </div>
-            </button>
+            </a>
           </div>
         </div>
       </div>

@@ -8,7 +8,6 @@ import Image from '@vanarama/uibook/lib/components/atoms/image';
 import IvanCta from '@vanarama/uibook/lib/components/molecules/ivan-cta';
 import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import { LinkTypes } from '../../models/enum/LinkTypes';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
   GenericPageQuery,
@@ -97,11 +96,8 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
               >
                 <RouterLink
                   link={{
-                    href: el.link?.url || '',
+                    href: el.link?.legacyUrl || el.link?.url || '',
                     label: el.link?.text || '',
-                    linkType: el.link?.url?.match('http')
-                      ? LinkTypes.external
-                      : '',
                   }}
                   classNames={{ color: 'teal' }}
                 />
@@ -194,15 +190,13 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
                   title={{
                     title: el?.title || '',
                     withBtn: true,
-                    btnClick: () => Router.push(el?.link?.url || ''),
+                    btnClick: () =>
+                      Router.push(el?.link?.legacyUrl || el?.link?.url || ''),
                     link: (
                       <RouterLink
                         link={{
-                          href: el?.link?.url || '',
+                          href: el?.link?.legacyUrl || el?.link?.url || '',
                           label: el?.link?.text || '',
-                          linkType: el?.link?.url?.match('http')
-                            ? LinkTypes.external
-                            : '',
                         }}
                         className="heading"
                         classNames={{ size: 'lead', color: 'black' }}
@@ -249,11 +243,11 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
             >
               <RouterLink
                 link={{
-                  href: featured2.cards[0]?.link?.url || '',
+                  href:
+                    featured2.cards[0]?.link?.legacyUrl ||
+                    featured2.cards[0]?.link?.url ||
+                    '',
                   label: featured2.cards[0]?.link?.text || '',
-                  linkType: featured2.cards[0]?.link?.url?.match('http')
-                    ? LinkTypes.external
-                    : '',
                 }}
                 classNames={{ color: 'teal' }}
               />

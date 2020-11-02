@@ -71,8 +71,8 @@ export interface HomePageData_homePage_sections_cards_cards_image {
 
 export interface HomePageData_homePage_sections_cards_cards_link {
   url: string | null;
-  text: string | null;
   legacyUrl: string | null;
+  text: string | null;
 }
 
 export interface HomePageData_homePage_sections_cards_cards {

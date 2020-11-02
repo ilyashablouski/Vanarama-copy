@@ -22,10 +22,7 @@ import {
 import TileLink from '../../components/TileLink/TileLink';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
 
-// Dynamic component loading
-const Button = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/button'),
-);
+// Dynamic component loading.
 const Heading = dynamic(() =>
   import('@vanarama/uibook/lib/components/atoms/heading'),
 );
@@ -234,12 +231,18 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                   dataTestIdBtn="van-view-offer"
                 />
                 <div className="-justify-content-row -pt-500">
-                  <Button
-                    label="View All Van Offers"
-                    color="teal"
-                    onClick={() => Router.push('/van-leasing/search')}
+                  <RouterLink
+                    className="button"
+                    classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                    link={{
+                      label: 'View All Van Offers',
+                      href: '/special-offers.html',
+                    }}
+                    withoutDefaultClassName
                     dataTestId="view-all-vans"
-                  />
+                  >
+                    <div className="button--inner">View All Van Offers</div>
+                  </RouterLink>
                 </div>
               </div>
             </TabPanel>
@@ -261,12 +264,18 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                   dataTestIdBtn="pickup-view-offer"
                 />
                 <div className="-justify-content-row -pt-500">
-                  <Button
-                    label="View All Pickup Offers"
-                    color="teal"
-                    onClick={() => Router.push('/pickup-truck-leasing/search')}
+                  <RouterLink
+                    className="button"
+                    classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                    link={{
+                      label: 'View All Truck Offers',
+                      href: '/pickup-special-offers.html',
+                    }}
+                    withoutDefaultClassName
                     dataTestId="view-all-pickups"
-                  />
+                  >
+                    <div className="button--inner">View All Truck Offers</div>
+                  </RouterLink>
                 </div>
               </div>
             </TabPanel>
@@ -287,12 +296,18 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                   dataTestIdBtn="car-view-offer"
                 />
                 <div className="-justify-content-row -pt-500">
-                  <Button
-                    label="View All Car Offers"
-                    color="teal"
-                    onClick={() => Router.push('/car-leasing/search')}
+                  <RouterLink
+                    className="button"
+                    classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                    link={{
+                      label: 'View All Car Offers',
+                      href: '/car-leasing-special-offers.html',
+                    }}
+                    withoutDefaultClassName
                     dataTestId="view-all-cars"
-                  />
+                  >
+                    <div className="button--inner">View All Car Offers</div>
+                  </RouterLink>
                 </div>
               </div>
             </TabPanel>
@@ -316,7 +331,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                   <Heading tag={getTitleTag(c.titleTag || 'span') as any}>
                     <RouterLink
                       link={{
-                        href: c.link?.url || '#',
+                        href: c.link?.legacyUrl || c.link?.url || '#',
                         label: c.link?.text || '',
                       }}
                       className="heading"
@@ -507,7 +522,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
 
       <section className="row:league">
         <League
-          clickReadMore={() => Router.push('/fan-hub')}
+          clickReadMore={() => Router.push('/fan-hub.html')}
           altText="vanarama national league"
         />
       </section>

@@ -14,17 +14,17 @@ export const getArticles = (
           moment(firstArticle?.publishedOn),
         ),
       )
-    : [];
+    : null;
 
-  let firstArticles = articlesSorted.slice(0, 3);
-  const isCurrentBlog = firstArticles.find(
+  let firstArticles = articlesSorted?.slice(0, 3);
+  const isCurrentBlog = firstArticles?.find(
     article => article?.slug === router.asPath.slice(1),
   );
 
   if (isCurrentBlog) {
-    const index = firstArticles.indexOf(isCurrentBlog);
-    firstArticles.splice(index, 1);
-    firstArticles = [...firstArticles, ...articlesSorted.slice(3, 4)];
+    const index = firstArticles?.indexOf(isCurrentBlog);
+    firstArticles?.splice(index || 0, 1);
+    firstArticles = [...firstArticles, ...articlesSorted?.slice(3, 4)];
   }
   return firstArticles;
 };

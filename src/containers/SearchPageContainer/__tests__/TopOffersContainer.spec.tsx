@@ -243,7 +243,6 @@ describe('<TopOffersContainer />', () => {
       isTransmissionPage: false,
       isFuelPage: false,
       isDynamicFilterPage: false,
-      viewOffer: jest.fn(),
       viewModel: jest.fn(),
       manualBodyStyle: ['test'],
     };
