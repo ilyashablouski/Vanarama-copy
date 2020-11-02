@@ -15,9 +15,9 @@ import TilesContainer from '../containers/TilesContainer/TilesContainer';
 import { FeaturedHtml } from '../containers/FeaturedAndTilesContainer/getFeaturedHtml';
 
 export interface IGenericPage {
-  data: GenericPageQuery | undefined;
-  loading: boolean | undefined;
-  error: ApolloError;
+  data?: GenericPageQuery | undefined;
+  loading?: boolean | undefined;
+  error?: ApolloError;
   pageHead?: GenericPageHeadQuery;
 }
 

@@ -1,24 +1,16 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import DefaultErrorPage from 'next/error';
 import withApollo from '../../../../hocs/withApollo';
 import LeasingArticleContainer from '../../../../containers/LeasingArticleContainer/LeasingArticleContainer';
 import { GENERIC_PAGE, IGenericPage } from '../../../../gql/genericPage';
-import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
 import { getSectionsData } from '../../../../utils/getSectionsData';
 import createApolloClient from '../../../../apolloClient';
 import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
 import { getLeasingPaths } from '../../../../utils/pageSlugs';
 
-const FinanceInfo: NextPage<IGenericPage> = ({ data, loading, error }) => {
-  if (loading) {
-    return <Loading size="large" />;
-  }
-  if (error) {
-    return <ErrorMessage message={error.message} />;
-  }
-
-  if (!data?.genericPage) {
-    return null;
+const FinanceInfo: NextPage<IGenericPage> = ({ data, error }) => {
+  if (error || !data?.genericPage) {
+    return <DefaultErrorPage statusCode={404} />;
   }
 
   const title = getSectionsData(['metaData', 'name'], data?.genericPage);
@@ -55,20 +47,28 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-  const client = createApolloClient({}, context as NextPageContext);
-  const { data, loading, errors } = await client.query({
-    query: GENERIC_PAGE,
-    variables: {
-      slug: `guides/car-leasing-explained/${context?.params?.explained}`,
-    },
-  });
-  return {
-    props: {
-      data,
-      loading,
-      error: errors ? errors[0] : null,
-    },
-  };
+  try {
+    const client = createApolloClient({}, context as NextPageContext);
+    const { data, loading, errors } = await client.query({
+      query: GENERIC_PAGE,
+      variables: {
+        slug: `guides/car-leasing-explained/${context?.params?.explained}`,
+      },
+    });
+    return {
+      props: {
+        data,
+        loading,
+        error: errors ? errors[0] : null,
+      },
+    };
+  } catch (e) {
+    return {
+      props: {
+        error: true,
+      },
+    };
+  }
 }
 
 export default withApollo(FinanceInfo);
