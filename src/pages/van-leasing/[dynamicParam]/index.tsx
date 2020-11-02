@@ -2,11 +2,18 @@ import { NextPage, NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { ApolloQueryResult } from '@apollo/client';
+import { GET_PRODUCT_CARDS_DATA } from '../../../containers/CustomerAlsoViewedContainer/gql';
+import {
+  GET_RANGES,
+  GET_VEHICLE_LIST,
+} from '../../../containers/SearchPageContainer/gql';
+import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
 import createApolloClient from '../../../apolloClient';
 import { PAGE_TYPES, SITE_SECTIONS } from '../../../utils/pageTypes';
 import {
   bodyUrls,
   getBodyStyleForCms,
+  getCapsIds,
   isTransmission,
   ssrCMSQueryExecutor,
 } from '../../../containers/SearchPageContainer/helpers';
@@ -16,6 +23,16 @@ import {
   GenericPageQuery,
   GenericPageQuery_genericPage_metaData as PageMetaData,
 } from '../../../../generated/GenericPageQuery';
+import {
+  LeaseTypeEnum,
+  SortDirection,
+  SortField,
+  VehicleTypeEnum,
+} from '../../../../generated/globalTypes';
+import { filterList_filterList as IFilterList } from '../../../../generated/filterList';
+import { vehicleList } from '../../../../generated/vehicleList';
+import { GetProductCard } from '../../../../generated/GetProductCard';
+import { rangeList } from '../../../../generated/rangeList';
 
 interface IPageType {
   isBodyStylePage: boolean;
@@ -29,10 +46,25 @@ interface IProps {
   query: any;
   pageData: GenericPageQuery;
   metaData: PageMetaData;
+  filtersData?: IFilterList | undefined;
+  ranges: rangeList;
+  vehiclesList?: vehicleList;
+  productCardsData?: GetProductCard;
+  responseCapIds?: string[];
 }
 
-const Page: NextPage<IProps> = ({ isServer, query, pageType, pageData,
-  metaData, }) => {
+const Page: NextPage<IProps> = ({
+  isServer,
+  query,
+  pageType,
+  pageData,
+  metaData,
+  filtersData,
+  vehiclesList,
+  productCardsData,
+  responseCapIds,
+  ranges,
+}) => {
   const router = useRouter();
   useEffect(() => {
     pushPageData({
@@ -70,6 +102,11 @@ const Page: NextPage<IProps> = ({ isServer, query, pageType, pageData,
       isTransmissionPage={pageType.isTransmissionPage}
       pageData={pageData}
       metaData={metaData}
+      preLoadFiltersData={filtersData}
+      preLoadRanges={ranges}
+      preLoadVehiclesList={vehiclesList}
+      preLoadProductCardsData={productCardsData}
+      preLoadResponseCapIds={responseCapIds}
     />
   );
 };
@@ -77,6 +114,11 @@ const Page: NextPage<IProps> = ({ isServer, query, pageType, pageData,
 export async function getServerSideProps(context: NextPageContext) {
   const { query, req } = context;
   const newQuery = { ...query };
+  const client = createApolloClient({}, context);
+  let ranges;
+  let vehiclesList;
+  let productCardsData;
+  let responseCapIds;
   // check for bodystyle page
   const isBodyStylePage = !!bodyUrls.find(
     getBodyStyleForCms,
@@ -89,25 +131,92 @@ export async function getServerSideProps(context: NextPageContext) {
     isTransmissionPage,
     isMakePage: !(isBodyStylePage || isTransmissionPage),
   };
-  if (isBodyStylePage)
-    newQuery.bodyStyles = (query.dynamicParam as string)
-      .replace('-', ' ')
-      .replace('-leasing', '');
-  else if (isTransmissionPage)
-    newQuery.transmissions = (query.dynamicParam as string).replace('-', ' ');
-  else newQuery.make = query.dynamicParam;
+  if (isBodyStylePage || isTransmissionPage) {
+    const filter = {} as any;
+    if (isBodyStylePage) {
+      newQuery.bodyStyles = (query.dynamicParam as string)
+        .replace('-', ' ')
+        .replace('-leasing', '');
+      filter.bodyStyles = [newQuery.bodyStyles];
+    } else if (isTransmissionPage) {
+      newQuery.transmissions = (query.dynamicParam as string).replace('-', ' ');
+      filter.transmissions = [newQuery.transmissions];
+    }
+    if (Object.keys(context.query).length === 1) {
+      vehiclesList = await client
+        .query({
+          query: GET_VEHICLE_LIST,
+          variables: {
+            vehicleTypes: [VehicleTypeEnum.CAR],
+            leaseType: LeaseTypeEnum.PERSONAL,
+            onOffer: null,
+            first: 9,
+            sortField: SortField.availability,
+            sortDirection: SortDirection.ASC,
+            ...filter,
+          },
+        })
+        .then(resp => resp.data);
+      try {
+        responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
+        if (responseCapIds.length) {
+          productCardsData = await client
+            .query({
+              query: GET_PRODUCT_CARDS_DATA,
+              variables: {
+                capIds: responseCapIds,
+                vehicleType: VehicleTypeEnum.CAR,
+              },
+            })
+            .then(resp => resp.data);
+        }
+      } catch {
+        return false;
+      }
+    }
+  } else {
+    ranges = await client
+      .query({
+        query: GET_RANGES,
+        variables: {
+          vehicleTypes: VehicleTypeEnum.LCV,
+          manufacturerName: newQuery.make,
+          leaseType: LeaseTypeEnum.BUSINESS,
+        },
+      })
+      .then(resp => resp.data);
+    newQuery.make = query.dynamicParam;
+  }
 
   const [type] =
-  Object.entries(pageType).find(([, value]) => value === true) || '';
-const client = createApolloClient({}, context);
-const { data } = (await ssrCMSQueryExecutor(
-  client,
-  context,
-  true,
-  type as string,
-)) as ApolloQueryResult<any>;
-  return { props: { query: { ...newQuery }, isServer: !!req, pageType,       pageData: data,
-  metaData: data.genericPage.metaData, } };
+    Object.entries(pageType).find(([, value]) => value === true) || '';
+  const { data } = (await ssrCMSQueryExecutor(
+    client,
+    context,
+    true,
+    type as string,
+  )) as ApolloQueryResult<any>;
+  const { data: filtersData } = await client.query({
+    query: GET_SEARCH_POD_DATA,
+    variables: {
+      onOffer: null,
+      vehicleTypes: [VehicleTypeEnum.LCV],
+    },
+  });
+  return {
+    props: {
+      query: { ...newQuery },
+      isServer: !!req,
+      pageType,
+      pageData: data,
+      metaData: data.genericPage.metaData,
+      filtersData: filtersData?.filterList,
+      vehiclesList: vehiclesList || null,
+      productCardsData: productCardsData || null,
+      responseCapIds: responseCapIds || null,
+      ranges: ranges || null,
+    },
+  };
 }
 
 export default Page;

@@ -4,16 +4,16 @@ import {
   NormalizedCacheObject,
   QueryLazyOptions,
 } from '@apollo/client';
-import { GENERIC_PAGE, GENERIC_PAGE_HEAD } from '../../gql/genericPage';
 import { NextPageContext } from 'next';
+import { removeUrlQueryPart } from '../../utils/url';
+import { GENERIC_PAGE, GENERIC_PAGE_HEAD } from '../../gql/genericPage';
 import { getBudgetForQuery } from '../SearchPodContainer/helpers';
 import { IFilters } from '../FiltersContainer/interfaces';
-import {
-  GenericPageQueryVariables,
-} from '../../../generated/GenericPageQuery';
+import { GenericPageQueryVariables } from '../../../generated/GenericPageQuery';
 import { GenericPageHeadQueryVariables } from '../../../generated/GenericPageHeadQuery';
 import { SortDirection, SortField } from '../../../generated/globalTypes';
 import { GET_ALL_MAKES_PAGE } from './gql';
+import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
 
 export const buildRewriteRoute = (
   {
@@ -141,19 +141,19 @@ export const sortValues = [
   },
 ];
 
-async function onCallQuery(
+const onCallQuery = async (
   client: ApolloClient<NormalizedCacheObject>,
   query: DocumentNode,
   slug: string,
-) {
-  return await client.query({
+) =>
+  client.query({
     query,
     variables: {
       slug: slug || undefined,
     },
   });
-}
 
+// get contentd data for different search pages
 export const ssrCMSQueryExecutor = async (
   client: ApolloClient<NormalizedCacheObject>,
   context: NextPageContext,
@@ -162,18 +162,15 @@ export const ssrCMSQueryExecutor = async (
 ) => {
   const searchType = isCarSearch ? 'car-leasing' : 'van-leasing';
   // remove first slash from route and build valid path
-  const {
-    req: { url },
-    query,
-  } = context;
-  const slug = url.slice(1, url.length)
+  const { req, query } = context;
+  const slug = removeUrlQueryPart(req?.url || '').slice(1);
   switch (pageType) {
     case 'isMakePage':
     case 'isRangePage':
     case 'isModelPage':
-      return await onCallQuery(client, GENERIC_PAGE, prepareSlugPart(slug));
+      return onCallQuery(client, GENERIC_PAGE, prepareSlugPart(slug));
     case 'isBodyStylePage':
-      return await onCallQuery(
+      return onCallQuery(
         client,
         GENERIC_PAGE,
         `${searchType}/${prepareSlugPart(
@@ -184,13 +181,13 @@ export const ssrCMSQueryExecutor = async (
         )}${!isCarSearch ? '-leasing' : ''}`,
       );
     case 'isTransmissionPage':
-      return await onCallQuery(
+      return onCallQuery(
         client,
         GENERIC_PAGE,
         'van-leasing/automatic-van-leasing',
       );
     case 'isFuelPage':
-      return await onCallQuery(client, GENERIC_PAGE, slug);
+      return onCallQuery(client, GENERIC_PAGE, slug);
     case 'isSpecialOfferPage':
       return onCallQuery(
         client,
@@ -202,6 +199,10 @@ export const ssrCMSQueryExecutor = async (
     case 'isAllMakesPage':
       return onCallQuery(client, GET_ALL_MAKES_PAGE, '');
     default:
-      return await onCallQuery(client, GENERIC_PAGE, `${searchType}/search`);
+      return onCallQuery(client, GENERIC_PAGE, `${searchType}/search`);
   }
 };
+
+// get Caps ids for product card request
+export const getCapsIds = (data: (IVehicles | null)[]) =>
+  data.map(vehicle => vehicle?.node?.derivativeId || '') || [];

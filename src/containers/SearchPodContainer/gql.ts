@@ -50,7 +50,7 @@ export function useFilterList(
       ...filters,
     },
     onCompleted,
-    skip: skip
+    skip,
   });
 }
 

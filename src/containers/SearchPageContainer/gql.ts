@@ -1,5 +1,5 @@
 import { gql, useLazyQuery, useQuery } from '@apollo/client';
-import FeaturedHtml from 'containers/FeaturedAndTilesContainer/getFeaturedHtml';
+import { FeaturedHtml } from '../FeaturedAndTilesContainer/getFeaturedHtml';
 import useSortOrder from '../../hooks/useSortOrder';
 import {
   vehicleList,

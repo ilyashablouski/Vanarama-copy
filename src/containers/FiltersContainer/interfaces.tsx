@@ -21,6 +21,8 @@ export interface IFilterContainerProps {
   isDynamicFilterPage?: boolean;
   sortOrder: ISortOrder;
   preLoadFilters?: IFilterList;
+  isPreloadList: boolean;
+  setSearchFilters: (filters: IFilters) => void;
 }
 
 export interface IFilters {
