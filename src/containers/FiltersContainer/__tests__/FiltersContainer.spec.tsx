@@ -17,7 +17,7 @@ const resetMocks = () => {
     preSearchVehicleCount: 10,
     isSpecialOffers: true,
     setIsSpecialOffers: jest.fn(),
-    isPreloadList: false, 
+    isPreloadList: false,
     setSearchFilters: jest.fn(),
     sortOrder: { type: SortField.availability, direction: SortDirection.ASC },
   };

@@ -1,8 +1,4 @@
-import {
-  ApolloClient,
-  DocumentNode,
-  QueryLazyOptions,
-} from '@apollo/client';
+import { ApolloClient, DocumentNode, QueryLazyOptions } from '@apollo/client';
 import { NextPageContext } from 'next';
 import { removeUrlQueryPart } from '../../utils/url';
 import { GENERIC_PAGE, GENERIC_PAGE_HEAD } from '../../gql/genericPage';
