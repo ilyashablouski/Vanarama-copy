@@ -4,7 +4,8 @@ import {
   SubmissionValues,
   ICompanyDetailsFormValues,
 } from '../../components/CompanyDetailsForm/interfaces';
-import { SaveCompanyDetailsMutation_createUpdateLimitedCompany_addresses as Address } from '../../../generated/SaveCompanyDetailsMutation';
+import { SaveCompanyDetailsMutation_createUpdateLimitedCompany as ICompany } from '../../../generated/SaveCompanyDetailsMutation';
+import { IBusinessAboutFormValues } from '../../components/BusinessAboutForm/interfaces';
 
 const DATE_FORMAT = 'DD-MM-YYYY';
 
@@ -50,6 +51,7 @@ export const mapFormValues = (
   values: SubmissionValues,
   personUuid: string,
   companyUuid?: string,
+  companyType?: string,
 ) => {
   const searchResult =
     values.inputMode === 'search' && values.companySearchResult;
@@ -61,7 +63,7 @@ export const mapFormValues = (
   return {
     ...uuidData,
     uuid: values.uuid,
-    companyType: 'Limited',
+    companyType: companyType || 'Limited',
     legalName: searchResult ? searchResult.title : values.companyName,
     companyNumber: searchResult
       ? searchResult.companyNumber
@@ -121,23 +123,23 @@ export const mapDefaultValues = (data: {
     tradingDifferent: !!Object.keys(getAddress(data?.addresses, 'trading'))
       .length,
     tradingAddress: mapAddress(getAddress(data?.addresses, 'trading')),
-    email: data?.email_addresses?.value,
-    telephone: data?.telephone_numbers?.value,
+    email: data?.email_addresses?.[0]?.value,
+    telephone: data?.telephone_numbers?.[0]?.value,
   };
 };
 
 export const mapCompanyDetailsToCreditApplication = (
   values: ICompanyDetailsFormValues,
-  uuid?: string,
-  addresses?: Address[] | null,
+  company: ICompany | null,
+  aboutDetails?: IBusinessAboutFormValues | null,
 ) => {
   const registeredAddress =
-    addresses?.find(address => address.kind === 'registered') || {};
+    company?.addresses?.find(address => address.kind === 'registered') || {};
   const tradingAddress =
-    addresses?.find(address => address.kind === 'trading') || {};
+    company?.addresses?.find(address => address.kind === 'trading') || {};
 
   return {
-    uuid,
+    uuid: company?.uuid,
     companySearchResult: values.companySearchResult,
     businessName: values.companyName,
     businessRegistrationNumber:
@@ -160,8 +162,8 @@ export const mapCompanyDetailsToCreditApplication = (
       parseInt(values.tradingSinceMonth, 10),
       0,
     ),
-    companyType: 'Limited',
-    telephoneNumbers: { value: values.telephone, kind: 'business' },
-    emailAddresses: { kind: 'Home', value: values.email, primary: true },
+    companyType: aboutDetails?.companyType || 'Limited',
+    telephoneNumbers: [{ value: values.telephone, kind: 'business' }],
+    emailAddresses: [{ kind: 'Home', value: values.email, primary: true }],
   };
 };
