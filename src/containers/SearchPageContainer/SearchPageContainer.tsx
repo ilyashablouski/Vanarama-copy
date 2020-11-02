@@ -23,24 +23,20 @@ import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import { useLazyQuery } from '@apollo/client';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
 import { findPreselectFilterValue } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
-import { GENERIC_PAGE } from '../../gql/genericPage';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import TopOffersContainer from './TopOffersContainer';
 import { useProductCardData } from '../CustomerAlsoViewedContainer/gql';
 import { IFilters } from '../FiltersContainer/interfaces';
 import FiltersContainer from '../FiltersContainer';
-import {
-  useVehiclesList,
-  getRangesList,
-  useManufacturerList,
-  GET_ALL_MAKES_PAGE,
-} from './gql';
+import { useVehiclesList, getRangesList, useManufacturerList } from './gql';
 import VehicleCard from './VehicleCard';
-import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
+import {
+  vehicleList_vehicleList_edges as IVehicles,
+  vehicleList as IVehiclesData,
+} from '../../../generated/vehicleList';
 import {
   VehicleTypeEnum,
   SortField,
@@ -49,24 +45,20 @@ import {
 } from '../../../generated/globalTypes';
 import {
   buildRewriteRoute,
-  prepareSlugPart,
-  pageContentQueryExecutor,
   fuelMapper,
-  getBodyStyleForCms,
-  bodyUrls,
+  getCapsIds,
   sortValues,
 } from './helpers';
-import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
+import {
+  GetProductCard_productCard as IProductCard,
+  GetProductCard,
+} from '../../../generated/GetProductCard';
 import RangeCard from './RangeCard';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import TopInfoBlock from './TopInfoBlock';
-import {
-  manufacturerPage_manufacturerPage_sections as sections,
-  manufacturerPage,
-} from '../../../generated/manufacturerPage';
+import { manufacturerPage_manufacturerPage_sections as sections } from '../../../generated/manufacturerPage';
 import {
   GenericPageQuery,
-  GenericPageQueryVariables,
   GenericPageQuery_genericPage_metaData as PageMetaData,
   GenericPageQuery_genericPage_sections_carousel as CarouselData,
   GenericPageQuery_genericPage_sections_tiles as Tiles,
@@ -77,6 +69,9 @@ import useLeaseType from '../../hooks/useLeaseType';
 import { getLegacyUrl } from '../../utils/url';
 import TileLink from '../../components/TileLink/TileLink';
 import { getSectionsData } from '../../utils/getSectionsData';
+import { rangeList } from '../../../generated/rangeList';
+import { filterList_filterList as IFilterList } from '../../../generated/filterList';
+import { manufacturerList } from '../../../generated/manufacturerList';
 
 interface IProps {
   isServer: boolean;
@@ -90,6 +85,15 @@ interface IProps {
   isBodyStylePage?: boolean;
   isTransmissionPage?: boolean;
   isFuelPage?: boolean;
+  pageData?: GenericPageQuery;
+  metaData: PageMetaData;
+  topInfoSection?: sections | null;
+  preLoadFiltersData?: IFilterList | undefined;
+  preLoadVehiclesList?: IVehiclesData;
+  preLoadProductCardsData?: GetProductCard;
+  preLoadResponseCapIds?: string[];
+  preLoadRanges?: rangeList;
+  preLoadManufacturers?: manufacturerList | null;
 }
 
 const SearchPageContainer: React.FC<IProps> = ({
@@ -104,6 +108,15 @@ const SearchPageContainer: React.FC<IProps> = ({
   isBodyStylePage,
   isTransmissionPage,
   isFuelPage,
+  pageData,
+  metaData,
+  topInfoSection,
+  preLoadFiltersData,
+  preLoadVehiclesList,
+  preLoadProductCardsData,
+  preLoadResponseCapIds,
+  preLoadRanges,
+  preLoadManufacturers,
 }: IProps) => {
   const router = useRouter();
   const isDynamicFilterPage = useMemo(
@@ -123,28 +136,47 @@ const SearchPageContainer: React.FC<IProps> = ({
     [isCarSearch],
   );
 
-  const [vehiclesList, setVehicleList] = useState([] as any);
+  const [vehiclesList, setVehicleList] = useState(
+    preLoadVehiclesList?.vehicleList.edges || ([] as any),
+  );
+  const [ranges, setRanges] = useState(preLoadRanges || ({} as rangeList));
+  const [manufatcurers, setManufatcurers] = useState(
+    preLoadManufacturers || ({} as manufacturerList),
+  );
 
-  const [capIds, setCapsIds] = useState([] as string[]);
+  const [capIds, setCapsIds] = useState(
+    preLoadResponseCapIds || ([] as string[]),
+  );
   const [cardsDataCache, setCardsDataCache] = useState(
     [] as (IProductCard | null)[],
   );
-  const [cardsData, setCardsData] = useState([] as (IProductCard | null)[]);
+  const [cardsData, setCardsData] = useState(
+    preLoadProductCardsData?.productCard || ([] as (IProductCard | null)[]),
+  );
   const [carDerivativesCache, setCarDerivativesCache] = useState(
     [] as (GetDerivatives_derivatives | null)[],
   );
   const [carDer, setCarDerivatives] = useState(
-    [] as (GetDerivatives_derivatives | null)[],
+    preLoadProductCardsData?.derivatives ||
+      ([] as (GetDerivatives_derivatives | null)[]),
   );
-  const [lastCard, setLastCard] = useState('');
-  const [hasNextPage, setHasNextPage] = useState(true);
+  const [lastCard, setLastCard] = useState(
+    preLoadVehiclesList?.vehicleList.pageInfo.endCursor || '',
+  );
+  const [hasNextPage, setHasNextPage] = useState(
+    preLoadVehiclesList?.vehicleList?.pageInfo.hasNextPage ?? true,
+  );
 
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
   const [isPersonal, setIsPersonal] = useState(cachedLeaseType === 'Personal');
   const [isSpecialOffers, setIsSpecialOffers] = useState(
     isSpecialOfferPage ? true : getValueFromStorage(isServer) ?? true,
   );
-  const [totalCount, setTotalCount] = useState(0);
+  const [totalCount, setTotalCount] = useState(
+    isMakePage
+      ? preLoadRanges?.rangeList?.length || 0
+      : preLoadVehiclesList?.vehicleList.totalCount || 0,
+  );
   const { savedSortOrder, saveSortOrder } = useSortOrder();
   const [sortOrder, setSortOrder] = useState(savedSortOrder);
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
@@ -170,10 +202,10 @@ const SearchPageContainer: React.FC<IProps> = ({
       // city-car is only one style with '-' we shouldn't to replace it
       return [
         bodyStyle.toLowerCase() === 'city-car'
-          ? findPreselectFilterValue(bodyStyle, filtersData.bodyStyles)
+          ? findPreselectFilterValue(bodyStyle, preLoadFiltersData?.bodyStyles)
           : findPreselectFilterValue(
               bodyStyle.replace('-', ' '),
-              filtersData.bodyStyles,
+              preLoadFiltersData?.bodyStyles,
             ),
       ];
     }
@@ -183,15 +215,11 @@ const SearchPageContainer: React.FC<IProps> = ({
     isModelPage,
     router.query,
     isBodyStylePage,
-    filtersData.bodyStyles,
+    preLoadFiltersData,
   ]);
 
-  // get Caps ids for product card request
-  const getCapsIds = (data: (IVehicles | null)[]) =>
-    data.map(vehicle => vehicle?.node?.derivativeId || '') || [];
-
   // using onCompleted callback for request card data after vehicle list was loaded
-  const [getVehicles, { data }] = useVehiclesList(
+  const [getVehicles, { data, called }] = useVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
     isMakePage || isDynamicFilterPage || isSpecialOfferPage
@@ -221,6 +249,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     undefined,
     isPickups || isModelPage || isBodyStylePage ? manualBodyStyle : [],
   );
+
   // using for cache request
   const [getVehiclesCache, { data: cacheData }] = useVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
@@ -252,14 +281,17 @@ const SearchPageContainer: React.FC<IProps> = ({
   );
 
   // Ranges list query for make page
-  const [getRanges, { data: ranges }] = getRangesList(
+  const [getRanges, { data: rangesData }] = getRangesList(
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
     router.query?.dynamicParam as string,
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
   );
 
   // Make list query for all makes page
-  const [getManufacturerList, { data: manufatcurers }] = useManufacturerList(
+  const [
+    getManufacturerList,
+    { data: manufatcurersData },
+  ] = useManufacturerList(
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
   );
@@ -366,15 +398,30 @@ const SearchPageContainer: React.FC<IProps> = ({
     const objectQuery = Object.keys(router?.query || {});
     // prevent request with empty filters
     const queryLength = objectQuery.length;
-    if ((!queryLength || isSpecialOfferPage) && !isAllMakesPage) getVehicles();
-    // if page mount without additional search params in query we made request
-    // else request will be made after filters preselected
-    if (isMakePage && queryLength < 2) getRanges();
-    if (isAllMakesPage && !queryLength) getManufacturerList();
+    // if it's simple search page with presave special offers param made new request for actual params
+    if (
+      !queryLength &&
+      !getValueFromStorage() &&
+      !isAllMakesPage &&
+      !isSpecialOfferPage &&
+      !isDynamicFilterPage &&
+      !isRangePage &&
+      !isBodyStylePage
+    ) {
+      // load vehicles
+      getVehicles();
+    }
     // disabled lint because we can't add router to deps
     // it's change every url replace
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getVehicles, isCarSearch, isMakePage, getRanges, isSpecialOfferPage]);
+
+  // force call getVehicles query if user press to checkbox after SSR and getVehicles instanse don't exist
+  useEffect(() => {
+    if (isSpecialOffers && !isSpecialOfferPage && !called) {
+      // getVehicles();
+    }
+  }, [isSpecialOffers, called, getVehicles, isSpecialOfferPage]);
 
   // prevent case when we navigate use back/forward button and useCallback return empty result list
   useEffect(() => {
@@ -435,10 +482,11 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   // initial set ranges
   useEffect(() => {
-    if (ranges?.rangeList) {
-      setTotalCount(ranges.rangeList.length);
+    if (rangesData?.rangeList) {
+      setTotalCount(rangesData.rangeList.length);
+      setRanges(rangesData);
     }
-  }, [ranges, setTotalCount]);
+  }, [rangesData, setTotalCount]);
 
   // initial set makes
   useEffect(() => {
@@ -447,10 +495,24 @@ const SearchPageContainer: React.FC<IProps> = ({
     }
   }, [manufatcurers, setTotalCount, isAllMakesPage]);
 
+  useEffect(() => {
+    if (manufatcurersData?.manufacturerList && isAllMakesPage) {
+      setManufatcurers(manufatcurersData);
+    }
+  }, [manufatcurersData, setManufatcurers, isAllMakesPage]);
+
   // get vehicles to cache
   useEffect(() => {
     // don't make a request for cache in manufacture page
-    if (lastCard && !isMakePage && hasNextPage)
+    if (
+      lastCard &&
+      !isMakePage &&
+      hasNextPage &&
+      ((isRangePage && filtersData.rangeName) ||
+        (isDynamicFilterPage && Object.values(filtersData).flat().length > 0) ||
+        (isModelPage && filtersData.rangeName) ||
+        isSpecialOfferPage)
+    )
       getVehiclesCache({
         variables: {
           vehicleTypes: isCarSearch
@@ -484,6 +546,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     sortOrder.direction,
     sortOrder.type,
     isPersonal,
+    isSpecialOfferPage,
   ]);
 
   // set capsIds for cached data
@@ -567,97 +630,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     }
   };
 
-  const [pageData, setPageData] = useState<GenericPageQuery>();
-  const [metaData, setMetaData] = useState<PageMetaData>();
-  const [topInfoSection, setTopInfoSection] = useState<sections | null>();
-
-  const [getGenericPage] = useLazyQuery<
-    GenericPageQuery,
-    GenericPageQueryVariables
-  >(GENERIC_PAGE, {
-    onCompleted: result => {
-      setPageData(result);
-      setMetaData(result.genericPage.metaData);
-    },
-  });
-
-  const [getAllManufacturersPage] = useLazyQuery<manufacturerPage>(
-    GET_ALL_MAKES_PAGE,
-    {
-      onCompleted: result => {
-        setTopInfoSection(result.manufacturerPage.sections);
-        setMetaData(result.manufacturerPage.metaData);
-      },
-    },
-  );
-
-  // made requests for different types of search pages
-  useEffect(() => {
-    const searchType = isCarSearch ? 'car-leasing' : 'van-leasing';
-    const { query, pathname } = router;
-    // remove first slash from route and build valid path
-    const slug = pathname
-      .slice(1, pathname.length)
-      .replace('[dynamicParam]', (query.dynamicParam as string) || '')
-      .replace('[rangeName]', (query.rangeName as string) || '')
-      .replace('[bodyStyles]', (query.bodyStyles as string) || '');
-    switch (true) {
-      case isMakePage:
-      case isRangePage:
-      case isModelPage:
-        pageContentQueryExecutor(getGenericPage, prepareSlugPart(slug));
-        break;
-      case isBodyStylePage:
-        pageContentQueryExecutor(
-          getGenericPage,
-          `${searchType}/${prepareSlugPart(
-            bodyUrls.find(
-              getBodyStyleForCms,
-              (query.dynamicParam as string).toLowerCase(),
-            ) || '',
-          )}${!isCarSearch ? '-leasing' : ''}`,
-        );
-        break;
-      case isTransmissionPage:
-        pageContentQueryExecutor(
-          getGenericPage,
-          'van-leasing/automatic-van-leasing',
-        );
-        break;
-      case isFuelPage:
-        pageContentQueryExecutor(getGenericPage, slug);
-        break;
-      case isSpecialOfferPage:
-        pageContentQueryExecutor(
-          getGenericPage,
-          `${
-            isCarSearch ? 'car-leasing' : 'pickup-truck-leasing'
-          }/special-offers`,
-        );
-        break;
-      case isAllMakesPage:
-        getAllManufacturersPage();
-        break;
-      default:
-        pageContentQueryExecutor(getGenericPage, `${searchType}/search`);
-        break;
-    }
-    // router can't be added to deps, because it change every url replacing
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    isCarSearch,
-    isAllMakesPage,
-    isSpecialOfferPage,
-    isBodyStylePage,
-    isTransmissionPage,
-    isModelPage,
-    isRangePage,
-    isMakePage,
-    isFuelPage,
-    getGenericPage,
-    getAllManufacturersPage,
-  ]);
-
   const tiles: Tiles = getSectionsData(
     ['sections', 'tiles'],
     pageData?.genericPage,
@@ -678,7 +650,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       <div className="row:title">
         <Heading tag="h1" size="xlarge" color="black">
           {(isModelPage &&
-            `${filtersData.manufacturerName} ${filtersData.rangeName} ${filtersData.bodyStyles?.[0]}`) ||
+            metaData?.name?.slice(0, metaData?.name?.indexOf('Car Leasing'))) ||
             (metaData?.name ?? '')}
         </Heading>
         <Text color="darker" size="regular" tag="div">
@@ -772,6 +744,8 @@ const SearchPageContainer: React.FC<IProps> = ({
           isSpecialOfferPage={isSpecialOfferPage || false}
           viewModel={viewModel}
           manualBodyStyle={manualBodyStyle}
+          preLoadVehiclesList={preLoadVehiclesList}
+          preLoadProductCardsData={preLoadProductCardsData}
         />
       )}
       {!isMakePage &&
@@ -809,6 +783,9 @@ const SearchPageContainer: React.FC<IProps> = ({
             isFuelPage={isFuelPage}
             isTransmissionPage={isTransmissionPage}
             sortOrder={sortOrder}
+            isPreloadList={!!preLoadVehiclesList}
+            setSearchFilters={setFiltersData}
+            preLoadFilters={preLoadFiltersData}
           />
         </div>
       </div>

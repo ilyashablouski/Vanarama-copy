@@ -8,14 +8,20 @@ import { useProductCardData } from '../CustomerAlsoViewedContainer/gql';
 import { useVehiclesList, useBodyStyleList } from './gql';
 import VehicleCard from './VehicleCard';
 import ModelCard from './ModelCard';
-import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
+import {
+  vehicleList_vehicleList_edges as IVehicles,
+  vehicleList as IVehiclesData,
+} from '../../../generated/vehicleList';
 import {
   VehicleTypeEnum,
   SortField,
   LeaseTypeEnum,
   SortDirection,
 } from '../../../generated/globalTypes';
-import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
+import {
+  GetProductCard_productCard as IProductCard,
+  GetProductCard,
+} from '../../../generated/GetProductCard';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import { bodyStyleList_bodyStyleList as IModelsData } from '../../../generated/bodyStyleList';
 import { fuelMapper } from './helpers';
@@ -34,6 +40,9 @@ interface IProps {
   isDynamicFilterPage: boolean;
   viewModel: (model: string) => void;
   manualBodyStyle: string[];
+  preLoadVehiclesList?: IVehiclesData;
+  preLoadProductCardsData?: GetProductCard;
+  preLoadResponseCapIds?: string[];
 }
 
 const TopOffersContainer: React.FC<IProps> = ({
@@ -49,18 +58,25 @@ const TopOffersContainer: React.FC<IProps> = ({
   viewModel,
   isDynamicFilterPage,
   manualBodyStyle,
+  preLoadVehiclesList,
+  preLoadProductCardsData,
 }: IProps) => {
   const router = useRouter();
 
-  const [vehiclesList, setVehicleList] = useState([] as any);
+  const [vehiclesList, setVehicleList] = useState(
+    preLoadVehiclesList?.vehicleList.edges?.slice(0, 4) || ([] as any),
+  );
   const [bodyStyleList, setBodyStyleList] = useState([] as IModelsData[]);
 
   const [capIds, setCapsIds] = useState([] as string[]);
 
-  const [cardsData, setCardsData] = useState([] as (IProductCard | null)[]);
+  const [cardsData, setCardsData] = useState(
+    preLoadProductCardsData?.productCard || ([] as (IProductCard | null)[]),
+  );
 
   const [carDer, setCarDerivatives] = useState(
-    [] as (GetDerivatives_derivatives | null)[],
+    preLoadProductCardsData?.derivatives ||
+      ([] as (GetDerivatives_derivatives | null)[]),
   );
 
   const { refetch } = useProductCardData(
@@ -120,12 +136,11 @@ const TopOffersContainer: React.FC<IProps> = ({
 
   // API call after load new pages
   useEffect(() => {
-    if (isSpecialOfferPage) getVehicles();
     // don't made request for BodyPage if bodyStyle isn't preselected
     if (
       isMakePage ||
       isRangePage ||
-      (isDynamicFilterPage && !(isBodyPage && !manualBodyStyle))
+      (isDynamicFilterPage && !(isBodyPage && !manualBodyStyle[0]))
     ) {
       getVehicles({
         variables: {
