@@ -1,7 +1,6 @@
 import {
   ApolloClient,
   DocumentNode,
-  NormalizedCacheObject,
   QueryLazyOptions,
 } from '@apollo/client';
 import { NextPageContext } from 'next';
@@ -142,7 +141,7 @@ export const sortValues = [
 ];
 
 const onCallQuery = async (
-  client: ApolloClient<NormalizedCacheObject>,
+  client: ApolloClient<any>,
   query: DocumentNode,
   slug: string,
 ) =>
@@ -155,7 +154,7 @@ const onCallQuery = async (
 
 // get content data for different search pages
 export const ssrCMSQueryExecutor = async (
-  client: ApolloClient<NormalizedCacheObject>,
+  client: ApolloClient<any>,
   context: NextPageContext,
   isCarSearch: boolean,
   pageType: string,

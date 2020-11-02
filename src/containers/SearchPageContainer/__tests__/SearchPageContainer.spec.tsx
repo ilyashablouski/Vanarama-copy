@@ -13,6 +13,61 @@ import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
 // TODO: Invistigate useQuery refetch problem
+
+const metaData={
+  "title": "Car Leasing Deals | Personal & Business Contract Hire | Vanarama",
+  "name": "HubCarPage",
+  "metaRobots": "all",
+  "metaDescription": "Find unbeatable Car Leasing Deals at Vanarama. Get top personal & business lease offers on brand new, in-stock cars in every make and model. Save money and lease your dream car today.",
+  "legacyUrl": "https://www.vanarama.com/car-leasing.html",
+  "pageType": null,
+  "canonicalUrl": "https://www.vanarama.com/car-leasing.html",
+  "slug": "car-leasing",
+  "schema": {
+    "@graph": [
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "name": "Why Lease A Car?",
+            "@type": "Question",
+            "acceptedAnswer": {
+              "text": "Leasing your brand new car with Vanarama means you can drive the car of your dreams at a price you can afford. And you can upgrade to a new one every few years",
+              "@type": "Answer"
+            }
+          },
+          {
+            "name": "How Does Car Leasing Work?",
+            "@type": "Question",
+            "acceptedAnswer": {
+              "text": "Personal car leasing works very much like renting, but for a longer time period. You choose your new car, the contract length, how much you'd like your initial rental to be and how many miles you'll drive over the period. At the end of your lease agreement, you return the car & upgrade",
+              "@type": "Answer"
+            }
+          }
+        ]
+      },
+      {
+        "url": "https://www.vanarama.com/car-leasing.html",
+        "name": "Vanarama",
+        "@type": "Service",
+        "@context": "http://schema.org",
+        "description": "Leasing your brand new car with Vanarama means you can drive the car of your dreams at a price you can afford.",
+        "serviceType": "Car Leasing"
+      }
+    ]
+  },
+  "publishedOn": null,
+  "breadcrumbs": [
+    {
+      "href": "/",
+      "label": "Home"
+    },
+    {
+      "label": "Car Leasing"
+    }
+  ],
+  "__typename": "Meta"
+}
 const mockData = {
   loading: false,
   refetch() {
@@ -684,7 +739,7 @@ describe('<SearchPageContainer />', () => {
     act(() => {
       render(
         <MockedProvider mocks={mocksResponse} addTypename={false}>
-          <SearchPageContainer isCarSearch isServer={false} />
+          <SearchPageContainer isCarSearch isServer={false} metaData={metaData}/>
         </MockedProvider>,
       );
     });
@@ -701,7 +756,7 @@ describe('<SearchPageContainer />', () => {
     act(() => {
       render(
         <MockedProvider mocks={mocksResponse} addTypename={false}>
-          <SearchPageContainer isCarSearch isServer={false} />
+          <SearchPageContainer isCarSearch isServer={false} metaData={metaData} />
         </MockedProvider>,
       );
     });
@@ -756,7 +811,7 @@ describe('<SearchPageContainer />', () => {
     // ACT
     const getComponent = render(
       <MockedProvider mocks={mocksResponse} addTypename={false}>
-        <SearchPageContainer isCarSearch isServer={false} />
+        <SearchPageContainer metaData={metaData} isCarSearch isServer={false} />
       </MockedProvider>,
     );
 
@@ -771,7 +826,7 @@ describe('<SearchPageContainer />', () => {
     // ACT
     const getComponent = render(
       <MockedProvider mocks={mocksResponse} addTypename={false}>
-        <SearchPageContainer isCarSearch isServer={false} isAllMakesPage />
+        <SearchPageContainer metaData={metaData} isCarSearch isServer={false} isAllMakesPage />
       </MockedProvider>,
     );
 
