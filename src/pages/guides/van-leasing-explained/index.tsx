@@ -34,7 +34,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         error: errors ? errors[0] : null,
       },
     };
-  } catch (e) {
+  } catch {
     return {
       props: {
         error: true,
