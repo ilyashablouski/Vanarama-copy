@@ -8,7 +8,6 @@ import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
 import { getLeasingPaths } from '../../../../utils/pageSlugs';
 
 const FinanceInfo: NextPage<IGenericPage> = ({ data, error }) => {
-
   if (error || !data?.genericPage) {
     return <DefaultErrorPage statusCode={404} />;
   }

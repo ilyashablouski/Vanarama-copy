@@ -1,6 +1,5 @@
 import { NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
-import withApollo from '../../../hocs/withApollo';
 import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostContainer';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import createApolloClient from '../../../apolloClient';
