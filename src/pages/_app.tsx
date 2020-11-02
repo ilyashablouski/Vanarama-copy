@@ -1,5 +1,4 @@
 import { useLazyQuery } from '@apollo/client';
-// import { ToastContainer } from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import dynamic from 'next/dynamic';
 import '@vanarama/uibook/src/components/base.scss';
 import { AppProps } from 'next/app';
@@ -29,11 +28,11 @@ import {
   GenericPageHeadQuery,
   GenericPageHeadQueryVariables,
 } from '../../generated/GenericPageHeadQuery';
-import Breadcrumb from '../components/Breadcrumb/Breadcrumb';
 import { pushPageData } from '../utils/dataLayerHelpers';
 import { prepareSlugPart } from '../containers/SearchPageContainer/helpers';
 
 // Dynamic component loading.
+const Breadcrumb = dynamic(() => import('../components/Breadcrumb/Breadcrumb'));
 const Head = dynamic(() => import('../components/Head/Head'));
 const HeaderContainer = dynamic(() => import('../containers/HeaderContainer'));
 const FooterContainer = dynamic(() => import('../containers/FooterContainer'));

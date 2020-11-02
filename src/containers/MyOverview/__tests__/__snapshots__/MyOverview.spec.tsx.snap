@@ -188,8 +188,6 @@ Array [
             style={
               Object {
                 "display": "inline-block",
-                "height": "100%",
-                "width": "100%",
               }
             }
           />
@@ -323,8 +321,6 @@ Array [
             style={
               Object {
                 "display": "inline-block",
-                "height": "100%",
-                "width": "100%",
               }
             }
           />
@@ -558,8 +554,6 @@ Array [
             style={
               Object {
                 "display": "inline-block",
-                "height": "100%",
-                "width": "100%",
               }
             }
           />
@@ -693,8 +687,6 @@ Array [
             style={
               Object {
                 "display": "inline-block",
-                "height": "100%",
-                "width": "100%",
               }
             }
           />

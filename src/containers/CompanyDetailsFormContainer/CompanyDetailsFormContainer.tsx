@@ -24,6 +24,7 @@ import {
   mapCompanyDetailsToCreditApplication,
 } from './mappers';
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
+import { responseToInitialFormValues } from '../BusinessAboutFormContainer/mappers';
 
 export const SAVE_COMPANY_DETAILS = gql`
   mutation SaveCompanyDetailsMutation($input: LimitedCompanyInputObject!) {
@@ -66,10 +67,20 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
   );
   const { data, loading } = useGetCreditApplicationByOrderUuid(orderId);
 
-  const companyDetails = data?.creditApplicationByOrderUuid?.companyDetails;
+  const companyDetailsRaw = data?.creditApplicationByOrderUuid?.companyDetails;
+  const aboutDetailsRaw = data?.creditApplicationByOrderUuid?.aboutDetails;
+
   const company = useMemo(
-    () => (companyDetails ? mapDefaultValues(companyDetails) : undefined),
-    [companyDetails],
+    () => (companyDetailsRaw ? mapDefaultValues(companyDetailsRaw) : undefined),
+    [companyDetailsRaw],
+  );
+
+  const aboutDetails = useMemo(
+    () =>
+      aboutDetailsRaw
+        ? responseToInitialFormValues(aboutDetailsRaw)
+        : undefined,
+    [aboutDetailsRaw],
   );
 
   const handleCompanyDetailsSave = (input: LimitedCompanyInputObject) =>
@@ -101,8 +112,8 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
           ...data?.creditApplicationByOrderUuid,
           companyDetails: mapCompanyDetailsToCreditApplication(
             values,
-            companyData?.uuid,
-            companyData?.addresses,
+            companyData,
+            aboutDetails,
           ),
           orderUuid: orderId,
         }),
@@ -118,7 +129,12 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
       isEdited={isEdited}
       company={company}
       onSubmit={async values => {
-        const mappedFormValues = mapFormValues(values, personUuid, companyUuid);
+        const mappedFormValues = mapFormValues(
+          values,
+          personUuid,
+          companyUuid,
+          aboutDetails?.companyType,
+        );
 
         await handleCompanyDetailsSave(mappedFormValues)
           .then(response =>
