@@ -2907,14 +2907,17 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-truncate@^2.3.3":
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/@types/react-truncate/-/react-truncate-2.3.3.tgz#76dcea6a4a34db17c981dbe8e7515ae2b09fc997"
-  integrity sha512-wtbubWJSvT+A3zzacmxpXE1nkHKX0nybSXfwNTdHtBfwJEzm1Caau9AGAS6R7uBuYw0sHcK/DoqRALfSOexLew==
 "@types/react-textarea-autosize@^4.3.3":
   version "4.3.5"
   resolved "https://registry.yarnpkg.com/@types/react-textarea-autosize/-/react-textarea-autosize-4.3.5.tgz#6c4d2753fa1864c98c0b2b517f67bb1f6e4c46de"
   integrity sha512-PiDL83kPMTolyZAWW3lyzO6ktooTb9tFTntVy7CA83/qFLWKLJ5bLeRboy6J6j3b1e8h2Eec6gBTEOOJRjV14A==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-truncate@^2.3.3":
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/@types/react-truncate/-/react-truncate-2.3.3.tgz#76dcea6a4a34db17c981dbe8e7515ae2b09fc997"
+  integrity sha512-wtbubWJSvT+A3zzacmxpXE1nkHKX0nybSXfwNTdHtBfwJEzm1Caau9AGAS6R7uBuYw0sHcK/DoqRALfSOexLew==
   dependencies:
     "@types/react" "*"
 
@@ -3073,10 +3076,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@5.28.18":
-  version "5.28.18"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.28.18.tgz#903766e3f20e4ac797bc60dc9c2d62a20b5c7160"
-  integrity sha512-LKn/dXwX3gnwTsgQNUEjU3MwcG3iWEd2seHdnoivV5VQBL+78OPSNf9Nu6oNs+pwo/ynPAD8pH+1hWxpBFDhRA==
+"@vanarama/uibook@5.28.30":
+  version "5.28.30"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.28.30.tgz#a6b0fee9ba07306b1ef925918b8d8a809d1c508e"
+  integrity sha512-H5hy/UQm52Phud+rqvQBp01qfTLt19fPXDsmgtfb7CT3bYWZHEDJSiHV67Quoh744QoGYpPsIkJmRL5VVIYq3A==
   dependencies:
     "@egjs/flicking" "^3.4.7"
     "@reach/auto-id" "^0.10.3"
@@ -10277,7 +10280,6 @@ react-truncate@^2.4.0:
   resolved "https://registry.yarnpkg.com/react-truncate/-/react-truncate-2.4.0.tgz#3cf5ff09ab86f93e3c078d359f4de6d75aa60510"
   integrity sha512-3QW11/COYwi6iPUaunUhl06DW5NJBJD1WkmxW5YxqqUu6kvP+msB3jfoLg8WRbu57JqgebjVW8Lknw6T5/QZdA==
 
-react@^16.12.0:
 react-webcam@^5.2.1:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/react-webcam/-/react-webcam-5.2.1.tgz#927f4542cdee1b21e1876e24feb9fd120655e2a3"
