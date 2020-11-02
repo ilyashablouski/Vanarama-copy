@@ -18,7 +18,7 @@ export interface IGenericPage {
   data: GenericPageQuery | undefined;
   loading: boolean | undefined;
   error: ApolloError;
-  pageHead: GenericPageHeadQuery;
+  pageHead?: GenericPageHeadQuery;
 }
 
 export const GENERIC_PAGE = gql`

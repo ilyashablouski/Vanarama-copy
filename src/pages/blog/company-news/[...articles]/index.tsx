@@ -11,7 +11,7 @@ import { getArticles } from '../../../../utils/articles';
 import { IBlogPost } from '../../../../models/IBlogsProps';
 import createApolloClient from '../../../../apolloClient';
 import { BlogPosts } from '../../../../../generated/BlogPosts';
-import { getPaths } from '../../../../utils/blogSlugs';
+import { getPaths } from '../../../../utils/pageSlugs';
 
 const BlogPost: NextPage<IBlogPost> = ({
   data,
