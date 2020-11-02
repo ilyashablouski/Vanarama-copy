@@ -1,13 +1,11 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import DefaultErrorPage from 'next/error';
-import withApollo from '../../../../hocs/withApollo';
 import FinanceInformationExplainedContainer from '../../../../containers/FinanceInformationExplainedContainer/FinanceInfromationExplainedContainer';
 import { GENERIC_PAGE, IGenericPage } from '../../../../gql/genericPage';
 import { getSectionsData } from '../../../../utils/getSectionsData';
 import createApolloClient from '../../../../apolloClient';
 
-const FinanceInfo: NextPage<IGenericPage> = ({ data, loading, error }) => {
+const FinanceInfo: NextPage<IGenericPage> = ({ data, error }) => {
   if (error || !data?.genericPage) {
     return <DefaultErrorPage statusCode={404} />;
   }
@@ -61,4 +59,4 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 }
 
-export default withApollo(FinanceInfo);
+export default FinanceInfo;

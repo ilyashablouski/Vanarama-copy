@@ -1,14 +1,11 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import withApollo from '../../../../hocs/withApollo';
 import FinanceInformationExplainedContainer from '../../../../containers/FinanceInformationExplainedContainer/FinanceInfromationExplainedContainer';
 import { GENERIC_PAGE, IGenericPage } from '../../../../gql/genericPage';
 import { getSectionsData } from '../../../../utils/getSectionsData';
 import createApolloClient from '../../../../apolloClient';
 
-const FinanceInfo: NextPage<IGenericPage> = ({ data, loading, error }) => {
-
+const FinanceInfo: NextPage<IGenericPage> = ({ data, error }) => {
   if (error || !data?.genericPage) {
     return <DefaultErrorPage statusCode={404} />;
   }
@@ -34,7 +31,7 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, loading, errors } = await client.query({
+    const { data, errors } = await client.query({
       query: GENERIC_PAGE,
       variables: {
         slug: `lease-finance/cars/${context?.params?.page}`,
@@ -43,7 +40,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       props: {
         data,
-        loading,
         error: errors ? errors[0] : null,
       },
     };
@@ -56,4 +52,4 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 }
 
-export default withApollo(FinanceInfo);
+export default FinanceInfo;

@@ -1,5 +1,4 @@
 import { NextPage, NextPageContext } from 'next';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import DefaultErrorPage from 'next/error';
 import withApollo from '../../../hocs/withApollo';
 import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostContainer';
@@ -31,16 +30,16 @@ const BlogPost: NextPage<IGenericPage> = ({ data, error }) => {
 export async function getStaticProps(context: NextPageContext) {
   try {
     const client = createApolloClient({}, context);
-    const { data, loading, errors } = await client.query({
+    const { data, errors } = await client.query({
       query: GENERIC_PAGE,
       variables: {
         slug: `lease-finance/vans/van-tax-explained`,
       },
     });
-    return { props: { data, loading, error: errors ? errors[0] : null } };
+    return { props: { data, error: errors ? errors[0] : null } };
   } catch {
     return { props: { error: true } };
   }
 }
 
-export default withApollo(BlogPost);
+export default BlogPost;

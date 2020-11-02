@@ -1,6 +1,5 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
-import withApollo from '../../../hocs/withApollo';
 import LeasingExplainedContainer from '../../../containers/LeasingExplainedContainer/LeasingExplainedContainer';
 import { GENERIC_PAGE, IGenericPage } from '../../../gql/genericPage';
 import { getSectionsData } from '../../../utils/getSectionsData';
@@ -23,7 +22,7 @@ const FinanceInfo: NextPage<IGenericPage> = ({ data, error }) => {
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, loading, errors } = await client.query({
+    const { data, errors } = await client.query({
       query: GENERIC_PAGE,
       variables: {
         slug: `guides/van-leasing-explained`,
@@ -32,7 +31,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       props: {
         data,
-        loading,
         error: errors ? errors[0] : null,
       },
     };
@@ -45,4 +43,4 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 }
 
-export default withApollo(FinanceInfo);
+export default FinanceInfo;

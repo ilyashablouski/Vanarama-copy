@@ -1,5 +1,4 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import withApollo from '../../../hocs/withApollo';
 import { GENERIC_PAGE, IGenericPage } from '../../../gql/genericPage';
 import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostContainer';
 import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
@@ -7,7 +6,6 @@ import { getSectionsData } from '../../../utils/getSectionsData';
 import createApolloClient from '../../../apolloClient';
 
 const BlogPost: NextPage<IGenericPage> = ({ data, error }) => {
-
   if (error) {
     return <ErrorMessage message={error.message} />;
   }
@@ -41,7 +39,7 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, loading, errors } = await client.query({
+    const { data, errors } = await client.query({
       query: GENERIC_PAGE,
       variables: {
         slug: `lease-finance/${context?.params?.articles}`,
@@ -50,7 +48,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       props: {
         data,
-        loading,
         error: errors ? errors[0] : null,
       },
     };
@@ -63,4 +60,4 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 }
 
-export default withApollo(BlogPost);
+export default BlogPost;
