@@ -61,7 +61,8 @@ const ARTICLES = [
     name: '5 Things We Love About Peugeot Boxer',
     publishedOn: '2020-06-02',
     slug: 'blog/vans/5-things-we-love-about-peugeot-boxer',
-    legacyUrl: 'https://www.vanarama.com/blog/vans/5-things-we-love-about-peugeot-boxer',
+    legacyUrl:
+      'https://www.vanarama.com/blog/vans/5-things-we-love-about-peugeot-boxer',
     tags: null,
     title: '5 Things We Love About Peugeot Boxer',
     __typename: 'Article',
