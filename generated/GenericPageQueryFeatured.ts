@@ -65,6 +65,7 @@ export interface GenericPageQueryFeatured {
   title: string | null;
   titleTag: string | null;
   video: string | null;
+  defaultHeight: number | null;
   iconList: (GenericPageQueryFeatured_iconList | null)[] | null;
   link: GenericPageQueryFeatured_link | null;
   cards: (GenericPageQueryFeatured_cards | null)[] | null;
