@@ -12,6 +12,14 @@ export const getUrlParam = (urlParams: UrlParams, notReplace?: boolean) => {
   return notReplace ? url.join('') : url.join('').replace('&', '?');
 };
 
+export const setSource = (source: string) => {
+  let sanitized;
+  sanitized = source.replace(/^[^#]*?:\/\/.*?(\/.*)$/, '$1');
+  sanitized = sanitized.replace('https://www.vanarama.com/', '');
+  sanitized = sanitized.replace('//', '/');
+  return sanitized;
+};
+
 export const formatProductPageUrl = (
   url?: string | null,
   capId?: string | null,
