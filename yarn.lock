@@ -3051,10 +3051,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@5.30.2":
-  version "5.30.2"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.30.2.tgz#acf878f0da7b0e91210a6d55ec73ffc3550b5f08"
-  integrity sha512-e8/Cxn5BrXkesD5E/Gzcb3cysTUavJ/aBUPrLCuhQEfML0GloWZSO6h4hbLfWhgtIbhKUYhHoH6fdvL8PYep8Q==
+"@vanarama/uibook@5.35.0":
+  version "5.35.0"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.35.0.tgz#b7aaf166d64704258a26839e591add7b4af78297"
+  integrity sha512-/dUxIaoxJFOuk5PhDSF+40XMof9B1zbvWYUsp7N2lC6+CZ15s9HnRIZ6TDn3lqg2QrRPFxRQRzuNbEyHzw/JcA==
   dependencies:
     "@egjs/flicking" "^3.4.7"
     "@reach/auto-id" "^0.10.3"

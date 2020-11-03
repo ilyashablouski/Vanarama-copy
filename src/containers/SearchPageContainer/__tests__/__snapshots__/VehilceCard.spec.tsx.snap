@@ -18,6 +18,8 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
     style={
       Object {
         "display": "inline-block",
+        "height": "100%",
+        "width": "100%",
       }
     }
   />
