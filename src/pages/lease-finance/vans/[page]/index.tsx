@@ -1,11 +1,9 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
-import LeasingArticleContainer from '../../../../containers/LeasingArticleContainer/LeasingArticleContainer';
+import FinanceInformationExplainedContainer from '../../../../containers/FinanceInformationExplainedContainer/FinanceInfromationExplainedContainer';
 import { GENERIC_PAGE, IGenericPage } from '../../../../gql/genericPage';
 import { getSectionsData } from '../../../../utils/getSectionsData';
 import createApolloClient from '../../../../apolloClient';
-import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
-import { getLeasingPaths } from '../../../../utils/pageSlugs';
 
 const FinanceInfo: NextPage<IGenericPage> = ({ data, error }) => {
   if (error || !data?.genericPage) {
@@ -14,33 +12,21 @@ const FinanceInfo: NextPage<IGenericPage> = ({ data, error }) => {
 
   const title = getSectionsData(['metaData', 'name'], data?.genericPage);
   const sections = getSectionsData(['sections'], data?.genericPage);
-  const body = getSectionsData(['body'], data?.genericPage);
-  const featuredImage = getSectionsData(
-    ['featuredImage', 'file', 'url'],
-    data?.genericPage,
-  );
 
   return (
-    <LeasingArticleContainer
-      body={body}
-      title={title}
-      sections={sections}
-      image={featuredImage}
-    />
+    <FinanceInformationExplainedContainer title={title} sections={sections} />
   );
 };
 
 export async function getStaticPaths() {
-  const client = createApolloClient({});
-  const { data } = await client.query<GenericPageQuery>({
-    query: GENERIC_PAGE,
-    variables: {
-      slug: 'guides/car-leasing-explained',
-    },
-  });
-
   return {
-    paths: getLeasingPaths(data?.genericPage),
+    paths: [
+      { params: { page: 'business-contract-hire' } },
+      { params: { page: 'business-lease-purchase' } },
+      { params: { page: 'personal-contract-hire' } },
+      { params: { page: 'business-finance-lease' } },
+      { params: { page: 'business-contract-purchase' } },
+    ],
     fallback: false,
   };
 }
@@ -48,15 +34,19 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, errors } = await client.query({
+    const { data, loading, errors } = await client.query({
       query: GENERIC_PAGE,
       variables: {
-        slug: `guides/car-leasing-explained/${context?.params?.explained}`,
+        slug: `lease-finance/vans/${context?.params?.page}`,
       },
     });
+
+    if (errors) return { props: { error: true } };
+
     return {
       props: {
         data,
+        loading,
         error: errors ? errors[0] : null,
       },
     };

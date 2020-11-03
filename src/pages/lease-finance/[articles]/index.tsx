@@ -1,13 +1,13 @@
-import { NextPage, NextPageContext } from 'next';
-import DefaultErrorPage from 'next/error';
+import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { GENERIC_PAGE, IGenericPage } from '../../../gql/genericPage';
 import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostContainer';
+import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import createApolloClient from '../../../apolloClient';
-import { GENERIC_PAGE, IGenericPage } from '../../../gql/genericPage';
 
 const BlogPost: NextPage<IGenericPage> = ({ data, error }) => {
   if (error) {
-    return <DefaultErrorPage statusCode={404} />;
+    return <ErrorMessage message={error.message} />;
   }
 
   const body = getSectionsData(['body'], data?.genericPage);
@@ -26,18 +26,37 @@ const BlogPost: NextPage<IGenericPage> = ({ data, error }) => {
   );
 };
 
-export async function getStaticProps(context: NextPageContext) {
+export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: { articles: 'van-gap-insurance' } },
+      { params: { articles: 'glossary' } },
+    ],
+    fallback: false,
+  };
+}
+
+export async function getStaticProps(context: GetStaticPropsContext) {
   try {
-    const client = createApolloClient({}, context);
+    const client = createApolloClient({}, context as NextPageContext);
     const { data, errors } = await client.query({
       query: GENERIC_PAGE,
       variables: {
-        slug: `lease-finance/vans/van-tax-explained`,
+        slug: `lease-finance/${context?.params?.articles}`,
       },
     });
-    return { props: { data, error: errors ? errors[0] : null } };
+    return {
+      props: {
+        data,
+        error: errors ? errors[0] : null,
+      },
+    };
   } catch {
-    return { props: { error: true } };
+    return {
+      props: {
+        error: true,
+      },
+    };
   }
 }
 
