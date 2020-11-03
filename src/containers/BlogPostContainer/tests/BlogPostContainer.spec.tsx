@@ -37,7 +37,7 @@ const ARTICLES = [
     slug: 'blog/vans/4-year-mot-exemption',
     tags: null,
     title: '4-year MoT exemption period proposed for vans | Vanarama',
-    legacyUrl: 'blog/vans/4-year-mot-exemption',
+    legacyUrl: 'https://www.vanarama.com/blog/vans/4-year-mot-exemption',
     __typename: 'Article',
   },
   {
@@ -50,7 +50,7 @@ const ARTICLES = [
     slug: 'blog/vans/top-5-electric-vans',
     tags: null,
     title: 'Top 5 Electric Vans | Vanarama',
-    legacyUrl: 'blog/vans/top-5-electric-vans',
+    legacyUrl: 'https://www.vanarama.com/blog/vans/top-5-electric-vans',
     __typename: 'Article',
   },
   {
@@ -61,7 +61,8 @@ const ARTICLES = [
     name: '5 Things We Love About Peugeot Boxer',
     publishedOn: '2020-06-02',
     slug: 'blog/vans/5-things-we-love-about-peugeot-boxer',
-    legacyUrl: 'blog/vans/5-things-we-love-about-peugeot-boxer',
+    legacyUrl:
+      'https://www.vanarama.com/blog/vans/5-things-we-love-about-peugeot-boxer',
     tags: null,
     title: '5 Things We Love About Peugeot Boxer',
     __typename: 'Article',
