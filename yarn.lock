@@ -3125,6 +3125,7 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
+
 "@vanarama/uibook@5.35.1":
   version "5.35.1"
   resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.35.1.tgz#8c1f03d6a07d072fe50f15607ca16f400ab996af"
@@ -10275,6 +10276,11 @@ react-transition-group@^4.3.0, react-transition-group@^4.4.1:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+react-truncate@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/react-truncate/-/react-truncate-2.4.0.tgz#3cf5ff09ab86f93e3c078d359f4de6d75aa60510"
+  integrity sha512-3QW11/COYwi6iPUaunUhl06DW5NJBJD1WkmxW5YxqqUu6kvP+msB3jfoLg8WRbu57JqgebjVW8Lknw6T5/QZdA==
 
 react-webcam@^5.2.1:
   version "5.2.1"

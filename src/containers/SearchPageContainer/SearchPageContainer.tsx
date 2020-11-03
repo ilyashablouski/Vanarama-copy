@@ -601,6 +601,8 @@ const SearchPageContainer: React.FC<IProps> = ({
     pageData?.genericPage,
   );
 
+  const [readmore, setReadMore] = useState(true);
+
   // TODO: render must be refactored, some components should be moved to separate components
   // Some props should be contain in one param for achieve more readable code
   return (
@@ -637,6 +639,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           />
         </Text>
       </div>
+
       {pageData && (
         <>
           {isModelPage && (
@@ -680,6 +683,61 @@ const SearchPageContainer: React.FC<IProps> = ({
             </>
           )}
         </>
+      )}
+
+      {featured && (
+        <div className={`row:${getFeaturedClassPartial(featured)}`}>
+          {!featured?.layout?.includes('Full Width') && (
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              size="expand"
+              src={featured.image?.file?.url || ''}
+            />
+          )}
+          <div>
+            <div
+              style={{
+                height:
+                  featured?.layout?.includes('Read More') && readmore
+                    ? featured?.defaultHeight || 100
+                    : '',
+                overflow: readmore ? 'hidden' : '',
+              }}
+            >
+              <Heading
+                tag={featured.titleTag || 'span'}
+                size="large"
+                color="black"
+              >
+                {featured.title}
+              </Heading>
+              <ReactMarkdown
+                source={featured.body || ''}
+                escapeHtml={false}
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return (
+                      <RouterLink
+                        link={{ href, label: children }}
+                        classNames={{ color: 'teal' }}
+                      />
+                    );
+                  },
+                }}
+              />
+            </div>
+            {featured?.layout?.includes('Read More') && (
+              <Button
+                size="small"
+                color="teal"
+                fill="clear"
+                label={readmore ? 'Read More' : 'Read Less'}
+                onClick={() => setReadMore(!readmore)}
+              />
+            )}
+          </div>
+        </div>
       )}
 
       {isAllMakesPage && topInfoSection && (
@@ -877,45 +935,6 @@ const SearchPageContainer: React.FC<IProps> = ({
               <div>
                 <ReactMarkdown
                   source={pageData?.genericPage.body || ''}
-                  escapeHtml={false}
-                  renderers={{
-                    link: props => {
-                      const { href, children } = props;
-                      return (
-                        <RouterLink
-                          link={{ href, label: children }}
-                          classNames={{ color: 'teal' }}
-                        />
-                      );
-                    },
-                    heading: props => (
-                      <Text {...props} size="lead" color="darker" tag="h3" />
-                    ),
-                    paragraph: props => (
-                      <Text {...props} tag="p" color="darker" />
-                    ),
-                  }}
-                />
-              </div>
-            </div>
-          )}
-          {featured && (
-            <div className={`row:${getFeaturedClassPartial(featured)}`}>
-              <Image
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                size="expand"
-                src={featured.image?.file?.url || ''}
-              />
-              <div>
-                <Heading
-                  tag={featured.titleTag || 'span'}
-                  size="large"
-                  color="black"
-                >
-                  {featured.title}
-                </Heading>
-                <ReactMarkdown
-                  source={featured.body || ''}
                   escapeHtml={false}
                   renderers={{
                     link: props => {

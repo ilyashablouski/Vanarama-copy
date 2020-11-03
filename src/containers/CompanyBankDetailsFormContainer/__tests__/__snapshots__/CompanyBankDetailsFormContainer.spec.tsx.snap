@@ -23,6 +23,32 @@ exports[`<CompanyBankDetailsFormContainer /> should be render correctly 1`] = `
       >
         <label
           class="formgroup--legend"
+          for="bankName"
+        >
+          Bank Name
+        </label>
+        <div
+          class="formgroup--content"
+        >
+          <div
+            class="textinput regular"
+            style="width: 35ch;"
+          >
+            <input
+              class="textinput--native regular"
+              data-testid="bankName"
+              id="bankName"
+              name="bankName"
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="formgroup"
+      >
+        <label
+          class="formgroup--legend"
           for="accountName"
         >
           Account Name

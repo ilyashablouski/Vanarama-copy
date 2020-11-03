@@ -30,7 +30,7 @@ export const mapFormValues = (values: ISoleTraderCompanyDetailsFormValues) => {
     tradingName: values.tradingName,
     monthlyAmountBeingReplaced: parseFloat(values.monthlyAmountBeingReplaced),
     annualTurnover: parseFloat(values.annualTurnover),
-    companyNature: values.natureOfBusiness,
+    natureOfBusiness: values.natureOfBusiness,
     annualSalesCost: parseFloat(values.annualCostOfSales),
     annualExpenses: parseFloat(values.annualExpenses),
     vehicleRegistrationNumber: values.vehicleRegistrationNumber,
@@ -71,7 +71,7 @@ export const prelodedValuesToInput = (details: any) => {
   return {
     tradingName: details.trading_name,
     ...tradingAddress,
-    natureOfBusiness: details.company_nature,
+    natureOfBusiness: details.nature_of_business,
     tradingSinceYear: String(new Date(details.trading_since).getFullYear()),
     tradingSinceMonth: String(new Date(details.trading_since).getMonth() + 1),
     businessTelephoneNumber: details.telephone_numbers?.[0].value,

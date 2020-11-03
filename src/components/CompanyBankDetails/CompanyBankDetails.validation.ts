@@ -19,6 +19,18 @@ function timeValidator(this: yup.TestContext) {
 }
 
 const ValidationSchema = yup.object().shape({
+  bankName: yup
+    .string()
+    .required('Please enter bank name')
+    .matches(
+      /^^[a-zA-Z'-\s]+$/,
+      'Please use only letters, apostrophes and dashes',
+    )
+    .min(
+      2,
+      'Oops, this name’s too short. Please make it 2 characters or longer',
+    )
+    .max(100, 'Oops, this name’s too long. Please keep it to 100 characters'),
   accountName: yup
     .string()
     .required('Please enter bank account name')
