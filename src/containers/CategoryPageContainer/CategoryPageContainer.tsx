@@ -16,10 +16,18 @@ import { BlogPosts_blogPosts_articles } from '../../../generated/BlogPosts';
 import Head from '../../components/Head/Head';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { getBody } from '../../utils/articles';
+import { setSource } from '../../utils/url';
 
 const renderCarouselCards = (cards: any[] | undefined) =>
-  cards?.map(
-    (card, index) =>
+  cards?.map((card, index) => {
+    const hrefLink = setSource(
+      card.legacyUrl ||
+        card.link?.legacyUrl ||
+        card.link?.url ||
+        card.link ||
+        '',
+    );
+    return (
       card && (
         <Card
           optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -36,12 +44,7 @@ const renderCarouselCards = (cards: any[] | undefined) =>
                 className="heading"
                 classNames={{ color: 'black', size: 'lead' }}
                 link={{
-                  href:
-                    card.legacyUrl ||
-                    card.link?.legacyUrl ||
-                    card.link?.url ||
-                    card.link ||
-                    '',
+                  href: hrefLink,
                   label: card?.title || '',
                 }}
               >
@@ -74,17 +77,13 @@ const renderCarouselCards = (cards: any[] | undefined) =>
             classNames={{ color: 'teal', size: 'regular' }}
             link={{
               label: 'Read More',
-              href:
-                card.legacyUrl ||
-                card.link?.legacyUrl ||
-                card.link?.url ||
-                card.link ||
-                '',
+              href: hrefLink,
             }}
           />
         </Card>
-      ),
-  );
+      )
+    );
+  });
 
 const renderCards = (
   cards: GenericPageQuery_genericPage_sections_tiles_tiles[] | null | undefined,
@@ -103,7 +102,7 @@ const renderCards = (
               className="heading"
               classNames={{ color: 'black', size: 'lead' }}
               link={{
-                href: card.link?.legacyUrl || card.link?.url || '',
+                href: setSource(card.link?.legacyUrl || card.link?.url || ''),
                 label: card?.title || '',
               }}
             >
@@ -180,7 +179,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
                 className="heading"
                 classNames={{ color: 'black', size: 'lead' }}
                 link={{
-                  href: card.legacyUrl || '',
+                  href: setSource(card.legacyUrl || ''),
                   label: card?.name || '',
                 }}
               >
@@ -215,7 +214,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
             classNames={{ color: 'teal', size: 'regular' }}
             link={{
               label: 'Read More',
-              href: card.legacyUrl || '',
+              href: setSource(card.legacyUrl || ''),
             }}
           />
         </Card>

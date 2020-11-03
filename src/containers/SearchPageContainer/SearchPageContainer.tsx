@@ -588,48 +588,6 @@ const SearchPageContainer: React.FC<IProps> = ({
   const getCardData = (capId: string, dataForCards = cardsData) =>
     dataForCards?.filter(card => card?.capId === capId)[0];
 
-  /** navigate to Range Page */
-  const viewRange = (range: string) => {
-    const href = isCarSearch ? 'car-leasing' : 'van-leasing';
-    const query = { make: router.query.dynamicParam };
-    router.push(
-      {
-        pathname: `/${href}/[dynamicParam]/[rangeName]`,
-        query,
-      },
-      `/${href}/${router.query.dynamicParam}/${range}`,
-      { shallow: true },
-    );
-  };
-  /** navigate to Model Page */
-  const viewModel = (bodyStyle: string) => {
-    const href = isCarSearch ? 'car-leasing' : 'van-leasing';
-    const query = { make: router.query.dynamicParam };
-    router.push(
-      {
-        pathname: `/${href}/[dynamicParam]/[rangeName]/[bodyStyles]`,
-        query,
-      },
-      `/${href}/${router.query.dynamicParam}/${router.query.rangeName}/${bodyStyle}`,
-      { shallow: true },
-    );
-  };
-  /** navigate to Make Page */
-  const viewMake = (make: string) => {
-    if (make) {
-      const href = isCarSearch ? 'car-leasing' : 'van-leasing';
-      const query = { make: router.query.dynamicParam };
-      router.push(
-        {
-          pathname: `/${href}/[dynamicParam]`,
-          query,
-        },
-        `/${href}/${make}`,
-        { shallow: true },
-      );
-    }
-  };
-
   const tiles: Tiles = getSectionsData(
     ['sections', 'tiles'],
     pageData?.genericPage,
@@ -742,7 +700,6 @@ const SearchPageContainer: React.FC<IProps> = ({
           isRangePage={isRangePage || false}
           isPickups={isPickups || false}
           isSpecialOfferPage={isSpecialOfferPage || false}
-          viewModel={viewModel}
           manualBodyStyle={manualBodyStyle}
           preLoadVehiclesList={preLoadVehiclesList}
           preLoadProductCardsData={preLoadProductCardsData}
@@ -815,7 +772,6 @@ const SearchPageContainer: React.FC<IProps> = ({
                     !!ranges?.rangeList?.length &&
                     ranges?.rangeList?.map((range, index) => (
                       <RangeCard
-                        onView={() => viewRange(range.rangeName || '')}
                         title={range.rangeName || ''}
                         fromPrice={range.minPrice || undefined}
                         key={range.rangeId || index}
@@ -827,7 +783,6 @@ const SearchPageContainer: React.FC<IProps> = ({
                     !!manufatcurers?.manufacturerList?.length &&
                     manufatcurers?.manufacturerList?.map((makeData, index) => (
                       <RangeCard
-                        onView={() => viewMake(makeData.manufacturerName || '')}
                         title={makeData.manufacturerName || ''}
                         fromPrice={makeData.minPrice || undefined}
                         key={makeData.manufacturerId || index}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
 import ModelCard from '../ModelCard';
 import { GET_MODEL_IMAGES } from '../gql';
@@ -21,7 +21,6 @@ describe('<ModelCard />', () => {
         capId: 123,
       },
       isPersonalPrice: true,
-      viewModel: jest.fn(),
     };
   };
 
@@ -69,20 +68,5 @@ describe('<ModelCard />', () => {
     });
     const tree = getComponent.baseElement;
     expect(tree).toMatchSnapshot();
-  });
-  it('should be open model page', async () => {
-    // ACT
-    render(
-      <MockedProvider mocks={mocksResponse} addTypename={false}>
-        <ModelCard {...mocks} />
-      </MockedProvider>,
-    );
-
-    // ASSERT
-    await waitFor(() => {
-      expect(screen.getByText('View 2 Offers')).toBeInTheDocument();
-    });
-    fireEvent.click(screen.getByText('View 2 Offers'));
-    expect(mocks.viewModel).toBeCalledWith('coupe');
   });
 });

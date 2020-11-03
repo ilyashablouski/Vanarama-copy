@@ -79,7 +79,7 @@ export async function getServerSideProps(context: NextPageContext) {
   const { data } = (await ssrCMSQueryExecutor(
     client,
     context,
-    true,
+    false,
     'isRangePage',
   )) as ApolloQueryResult<any>;
   // should contain only 2 routs params(make, range)
