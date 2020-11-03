@@ -1,25 +1,14 @@
-import { NextPage } from 'next';
+import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import { useRouter } from 'next/router';
 import withApollo from '../../hocs/withApollo';
 import FAQContainer from '../../containers/FAQContainer/FAQContainer';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import { useGenericPage } from '../../gql/genericPage';
+import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
+import createApolloClient from '../../apolloClient';
 
-const EligibilityChecker: NextPage = () => {
-  const router = useRouter();
-  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
-
-  if (loading) {
-    return <Loading size="large" />;
-  }
-  if (error) {
+const EligibilityChecker: NextPage<IGenericPage> = ({ data, error }) => {
+  if (error || !data?.genericPage) {
     return <ErrorMessage message={error.message} />;
-  }
-
-  if (!data?.genericPage) {
-    return null;
   }
 
   const metaData = data?.genericPage?.metaData;
@@ -30,5 +19,29 @@ const EligibilityChecker: NextPage = () => {
     <FAQContainer title={metaData.name} sections={sections} intro={intro} />
   );
 };
+
+export async function getStaticProps(context: GetStaticPropsContext) {
+  try {
+    const client = createApolloClient({}, context as NextPageContext);
+    const { data, errors } = await client.query({
+      query: GENERIC_PAGE,
+      variables: {
+        slug: 'insurance/faq',
+      },
+    });
+    return {
+      props: {
+        data,
+        error: errors ? errors[0] : null,
+      },
+    };
+  } catch {
+    return {
+      props: {
+        error: true,
+      },
+    };
+  }
+}
 
 export default withApollo(EligibilityChecker, { getDataFromTree });
