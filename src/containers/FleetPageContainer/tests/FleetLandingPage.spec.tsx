@@ -2,6 +2,7 @@ import React from 'react';
 // @ts-ignore
 import preloadAll from 'jest-next-dynamic';
 import { screen, render, waitFor } from '@testing-library/react';
+import { MockedProvider } from '@apollo/client/testing';
 import FleetLandingPage from '../FleetLandingPage';
 
 import { GetFleetLandingPage_fleetLandingPage as FleetPageData } from '../../../../generated/GetFleetLandingPage';
@@ -110,7 +111,11 @@ describe('<FleetLandingPage />', () => {
 
   it('should render hero section correctly', async () => {
     // ACT
-    render(<FleetLandingPage data={DATA} />);
+    render(
+      <MockedProvider addTypename={false}>
+        <FleetLandingPage data={DATA} />
+      </MockedProvider>,
+    );
 
     // ASSERT
     await waitFor(() => {
@@ -135,7 +140,11 @@ describe('<FleetLandingPage />', () => {
 
   it('should render testimonial section correctly', async () => {
     // ACT
-    render(<FleetLandingPage data={DATA} />);
+    render(
+      <MockedProvider addTypename={false}>
+        <FleetLandingPage data={DATA} />
+      </MockedProvider>,
+    );
 
     // ASSERT
     await waitFor(() => {
@@ -157,7 +166,11 @@ describe('<FleetLandingPage />', () => {
 
   it('should render side media sections according to layout type', async () => {
     // ACT
-    render(<FleetLandingPage data={DATA} />);
+    render(
+      <MockedProvider addTypename={false}>
+        <FleetLandingPage data={DATA} />
+      </MockedProvider>,
+    );
 
     // ASSERT
     await waitFor(() => {
@@ -180,7 +193,11 @@ describe('<FleetLandingPage />', () => {
 
   it('should match snapshot', async () => {
     // ACT
-    const getComponent = render(<FleetLandingPage data={DATA} />);
+    const getComponent = render(
+      <MockedProvider addTypename={false}>
+        <FleetLandingPage data={DATA} />
+      </MockedProvider>,
+    );
     // ASSERT
     await waitFor(() => {
       expect(screen.getByText(`Flexible Fleet Management`)).toBeInTheDocument();

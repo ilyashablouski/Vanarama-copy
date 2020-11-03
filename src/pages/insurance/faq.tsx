@@ -1,14 +1,14 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
+import DefaultErrorPage from 'next/error';
 import withApollo from '../../hocs/withApollo';
 import FAQContainer from '../../containers/FAQContainer/FAQContainer';
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import createApolloClient from '../../apolloClient';
 
 const EligibilityChecker: NextPage<IGenericPage> = ({ data, error }) => {
   if (error || !data?.genericPage) {
-    return <ErrorMessage message={error.message} />;
+    return <DefaultErrorPage statusCode={404} />;
   }
 
   const metaData = data?.genericPage?.metaData;

@@ -3,8 +3,9 @@ import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import { screen, render, waitFor } from '@testing-library/react';
 
-import { GetInsuranceLandingPage } from '../../../../generated/GetInsuranceLandingPage';
+import { MockedProvider } from '@apollo/client/testing';
 import InsurancePageContainer from '../InsurancePageContainer';
+import { GetInsuranceLandingPage } from '../../../../generated/GetInsuranceLandingPage';
 
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -217,7 +218,11 @@ describe('<InsurancePageContainer />', () => {
 
   it('should match snapshot', async () => {
     // ACT
-    const getComponent = render(<InsurancePageContainer data={DATA} />);
+    const getComponent = render(
+      <MockedProvider addTypename={false}>
+        <InsurancePageContainer data={DATA} />
+      </MockedProvider>,
+    );
     // ASSERT
     await waitFor(() => {
       expect(
