@@ -147,8 +147,8 @@ export async function getServerSideProps(context: NextPageContext) {
         .query({
           query: GET_VEHICLE_LIST,
           variables: {
-            vehicleTypes: [VehicleTypeEnum.CAR],
-            leaseType: LeaseTypeEnum.PERSONAL,
+            vehicleTypes: [VehicleTypeEnum.LCV],
+            leaseType: LeaseTypeEnum.BUSINESS,
             onOffer: null,
             first: 9,
             sortField: SortField.availability,
@@ -165,7 +165,7 @@ export async function getServerSideProps(context: NextPageContext) {
               query: GET_PRODUCT_CARDS_DATA,
               variables: {
                 capIds: responseCapIds,
-                vehicleType: VehicleTypeEnum.CAR,
+                vehicleType: VehicleTypeEnum.LCV,
               },
             })
             .then(resp => resp.data);
@@ -175,6 +175,7 @@ export async function getServerSideProps(context: NextPageContext) {
       }
     }
   } else {
+    newQuery.make = query.dynamicParam;
     ranges = await client
       .query({
         query: GET_RANGES,
@@ -185,7 +186,6 @@ export async function getServerSideProps(context: NextPageContext) {
         },
       })
       .then(resp => resp.data);
-    newQuery.make = query.dynamicParam;
   }
 
   const [type] =
@@ -193,7 +193,7 @@ export async function getServerSideProps(context: NextPageContext) {
   const { data } = (await ssrCMSQueryExecutor(
     client,
     context,
-    true,
+    false,
     type as string,
   )) as ApolloQueryResult<any>;
   const { data: filtersData } = await client.query({

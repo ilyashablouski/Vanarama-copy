@@ -71,6 +71,7 @@ const FEATURED = {
   iconList: null,
   cards: null,
   testimonials: null,
+  defaultHeight: null,
   __typename: 'Featured',
 } as Featured;
 
