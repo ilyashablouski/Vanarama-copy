@@ -82,7 +82,6 @@ export const bodyUrls = [
   'prestige',
   'saloon',
   'city-car',
-  'small',
   'crew-van',
   'dropside-tipper',
   'large-van',
