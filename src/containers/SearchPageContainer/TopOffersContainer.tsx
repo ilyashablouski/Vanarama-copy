@@ -32,7 +32,6 @@ interface IProps {
   isTransmissionPage: boolean;
   isFuelPage: boolean;
   isDynamicFilterPage: boolean;
-  viewModel: (model: string) => void;
   manualBodyStyle: string[];
 }
 
@@ -46,7 +45,6 @@ const TopOffersContainer: React.FC<IProps> = ({
   isRangePage,
   isPersonal,
   isFuelPage,
-  viewModel,
   isDynamicFilterPage,
   manualBodyStyle,
 }: IProps) => {
@@ -293,11 +291,7 @@ const TopOffersContainer: React.FC<IProps> = ({
           <div className="row:bg-lighter">
             <div className="row:cards-2col">
               {bodyStyleList.map(bodyStyle => (
-                <ModelCard
-                  data={bodyStyle}
-                  isPersonalPrice={isPersonal}
-                  viewModel={viewModel}
-                />
+                <ModelCard data={bodyStyle} isPersonalPrice={isPersonal} />
               ))}
             </div>
           </div>
