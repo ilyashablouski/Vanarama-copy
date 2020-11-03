@@ -1,7 +1,12 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import renderer from 'react-test-renderer';
 import SearchPodContainer from '../SearchPodContainer';
 import { filterTypeAndBudget, useFilterList } from '../gql';
+
+// beforeAll(async () => {
+//   await preloadAll();
+// });
 
 jest.mock('../gql', () => ({
   filterTypeAndBudget: jest.fn(),
@@ -20,6 +25,7 @@ describe('<SearchPodContainer />', () => {
     jest.clearAllMocks();
   });
   it('renders correctly with data', async () => {
+    await preloadAll();
     (filterTypeAndBudget as jest.Mock).mockReturnValue([
       jest.fn(),
       {
