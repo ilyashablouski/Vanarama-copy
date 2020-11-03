@@ -3,3 +3,5 @@
 exports[`<VehicleCard /> should be render bussiness price 1`] = `null`;
 
 exports[`<VehicleCard /> should be render correctly 1`] = `null`;
+
+exports[`<VehicleCard /> should have link in View Offer 1`] = `null`;
