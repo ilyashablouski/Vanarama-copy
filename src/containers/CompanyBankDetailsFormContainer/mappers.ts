@@ -18,6 +18,7 @@ export const formValuesToInput = (
     uuid,
     bankAccount: {
       uuid: accountUuid || null,
+      bankName: values.bankName || null,
       accountName: values.accountName || null,
       accountNumber: values.accountNumber || null,
       sortCode: values.sortCode?.join('') || null,
@@ -35,6 +36,7 @@ export const mapBankAccountsForCreditApplication = (
   );
   const formattedBankAccount = {
     uuid: currentBankAccount?.uuid,
+    bankName: values.bankName,
     accountName: values.accountName,
     accountNumber: values.accountNumber,
     joinedAtMonth: values?.joinedAtMonth,
@@ -50,6 +52,7 @@ export const mapDefaultValues = (data?: CreditApplication | null) => {
 
   return {
     uuid: account?.uuid,
+    bankName: account?.bank_name,
     accountName: account?.account_name,
     accountNumber: account?.account_number,
     joinedAtMonth: account?.joined_at_month,
