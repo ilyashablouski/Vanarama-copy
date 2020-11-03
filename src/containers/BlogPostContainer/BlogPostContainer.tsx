@@ -13,6 +13,7 @@ import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import Head from '../../components/Head/Head';
 import { BlogPosts_blogPosts_articles } from '../../../generated/BlogPosts';
 import { getBody } from '../../utils/articles';
+import { setSource } from '../../utils/url';
 
 interface IProps {
   body: string | null | undefined;
@@ -120,39 +121,42 @@ const BlogPostContainer: NextPage<IProps> = ({
               Related Articles
             </Heading>
           )}
-          {articles?.map((el, indx) => (
-            <Card
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              key={`${el?.name}_${indx.toString()}`}
-              className="card__article"
-              imageSrc={el?.featuredImage?.file?.url || ''}
-              title={{
-                title: '',
-                link: (
-                  <RouterLink
-                    withoutDefaultClassName
-                    className="heading"
-                    classNames={{ color: 'black', size: 'lead' }}
-                    link={{
-                      href: el?.legacyUrl || '',
-                      label: el?.name || '',
-                    }}
-                  >
-                    {el?.name}
-                  </RouterLink>
-                ),
-              }}
-              description={getBody(el?.body || '')}
-            >
-              <RouterLink
-                classNames={{ color: 'teal', size: 'regular' }}
-                link={{
-                  label: 'Read More',
-                  href: el?.legacyUrl || '',
+          {articles?.map((el, indx) => {
+            const hrefLink = setSource(el?.legacyUrl || '');
+            return (
+              <Card
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                key={`${el?.name}_${indx.toString()}`}
+                className="card__article"
+                imageSrc={el?.featuredImage?.file?.url || ''}
+                title={{
+                  title: '',
+                  link: (
+                    <RouterLink
+                      withoutDefaultClassName
+                      className="heading"
+                      classNames={{ color: 'black', size: 'lead' }}
+                      link={{
+                        href: hrefLink,
+                        label: el?.name || '',
+                      }}
+                    >
+                      {el?.name}
+                    </RouterLink>
+                  ),
                 }}
-              />
-            </Card>
-          ))}
+                description={getBody(el?.body || '')}
+              >
+                <RouterLink
+                  classNames={{ color: 'teal', size: 'regular' }}
+                  link={{
+                    label: 'Read More',
+                    href: hrefLink,
+                  }}
+                />
+              </Card>
+            );
+          })}
         </div>
       </div>
       {metaData && <Head metaData={metaData} featuredImage={null} />}

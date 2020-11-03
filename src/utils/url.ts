@@ -12,6 +12,14 @@ export const getUrlParam = (urlParams: UrlParams, notReplace?: boolean) => {
   return notReplace ? url.join('') : url.join('').replace('&', '?');
 };
 
+export const setSource = (source: string) => {
+  let sanitized;
+  sanitized = source.replace(/^[^#]*?:\/\/.*?(\/.*)$/, '$1');
+  sanitized = sanitized.replace('https://www.vanarama.com/', '');
+  sanitized = sanitized.replace('//', '/');
+  return sanitized;
+};
+
 export const formatProductPageUrl = (
   url?: string | null,
   capId?: string | null,
@@ -30,13 +38,29 @@ export const formatNewUrl = (edge?: VehicleEdge | ProductEdge | null) => {
   return `${urlPrefix}${edge?.node?.url || ''}`;
 };
 
+export const formatUrl = (value: string) =>
+  value.toLocaleLowerCase().replace(/ /g, '-');
+
+const formatLegacyUrl = (edge?: VehicleEdge | ProductEdge | null) => {
+  const urlPrefix =
+    edge?.node?.vehicleType === VehicleTypeEnum.CAR
+      ? 'car-leasing'
+      : 'van-leasing';
+  const pathArray = edge?.node?.url?.split('/').filter(Boolean);
+  const manufacturer = pathArray?.shift();
+
+  return formatUrl(
+    `/${manufacturer}-${urlPrefix}/${pathArray?.join('/')}.html`,
+  );
+};
+
 export const getLegacyUrl = (
   data?: (VehicleEdge | ProductEdge | null)[] | null,
   derivativeId?: string | null,
 ) => {
   const edge = data?.find(item => item?.node?.derivativeId === derivativeId);
 
-  return edge?.node?.legacyUrl || formatNewUrl(edge);
+  return edge?.node?.legacyUrl || formatLegacyUrl(edge);
 };
 
 export const getNewUrl = (
