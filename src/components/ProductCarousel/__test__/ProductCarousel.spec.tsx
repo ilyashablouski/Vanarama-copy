@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { render, screen } from '@testing-library/react';
 import ProductCarousel from '../ProductCarousel';
 import {
@@ -79,7 +80,8 @@ const VEHICLE_LIST = {
 };
 
 describe('<ProductCarousel />', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
+    await preloadAll();
     jest.clearAllMocks();
     render(
       <ProductCarousel

@@ -1,17 +1,43 @@
 import React from 'react';
-import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
-import TabList from '@vanarama/uibook/lib/components/molecules/tabs/TabList';
-import Tab from '@vanarama/uibook/lib/components/molecules/tabs/Tab';
-import TabPanels from '@vanarama/uibook/lib/components/molecules/tabs/TabPanels';
-import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
-import Select from '@vanarama/uibook/lib/components/atoms/select';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
+import dynamic from 'next/dynamic';
+
 import { ISearchPodProps } from './interfaces';
 import { filterList_filterList_groupedRanges as IRanges } from '../../../generated/filterList';
+
+// Dynamic component loading.
+const Tabs = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/tabs'),
+);
+const TabList = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/tabs/TabList'),
+);
+const Tab = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/tabs/Tab'),
+);
+const TabPanels = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/tabs/TabPanels'),
+);
+const TabPanel = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/tabs/TabPanel'),
+);
+const Heading = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/heading'),
+);
+const Formgroup = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/formgroup'),
+);
+const Form = dynamic(() =>
+  import('@vanarama/uibook/lib/components/organisms/form'),
+);
+const Select = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/select'),
+);
+const Button = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/button'),
+);
+const Card = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/cards'),
+);
 
 enum typeToIndex {
   'Vans' = 1,

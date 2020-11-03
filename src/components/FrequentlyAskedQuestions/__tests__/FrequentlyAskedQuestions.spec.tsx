@@ -1,6 +1,16 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import FrequentlyAskedQuestions from '../FrequentlyAskedQuestions';
+import Loadable from 'react-loadable';
+// import FrequentlyAskedQuestions from '../FrequentlyAskedQuestions';
+
+const FrequentlyAskedQuestions = Loadable({
+  loader: () => import('../FrequentlyAskedQuestions'),
+  loading() {
+    return <div>Loading...</div>;
+  },
+});
+
+FrequentlyAskedQuestions.preload();
 
 describe('<FrequentlyAskedQuestions />', () => {
   it('renders correctly with empty review', () => {
