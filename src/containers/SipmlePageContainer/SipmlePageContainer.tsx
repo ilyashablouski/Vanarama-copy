@@ -4,10 +4,10 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import ReactMarkdown from 'react-markdown';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import DefaultErrorPage from 'next/error';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import { getSectionsData } from '../../utils/getSectionsData';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 interface ISimplePageContainer {
   data: GenericPageQuery | undefined;
@@ -23,7 +23,7 @@ const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
   }
 
   if (error) {
-    return <DefaultErrorPage statusCode={404} />;
+    return <ErrorMessage message={error.message} />;
   }
 
   const metaDataName = getSectionsData(['metaData', 'name'], data?.genericPage);
