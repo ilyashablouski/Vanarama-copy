@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { render, screen } from '@testing-library/react';
+// import { render, screen } from '@testing-library/react';
 import Loadable from 'react-loadable';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 

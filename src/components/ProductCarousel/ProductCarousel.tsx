@@ -69,16 +69,16 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
               header={
                 product.leadTime || product.isOnOffer
                   ? {
-                    text: product.leadTime || '',
-                    accentIcon:
-                      slidesToShow > 2 && product.isOnOffer ? (
-                        <Icon icon={<Flame />} color="white" />
-                      ) : (
+                      text: product.leadTime || '',
+                      accentIcon:
+                        slidesToShow > 2 && product.isOnOffer ? (
+                          <Icon icon={<Flame />} color="white" />
+                        ) : (
                           ''
                         ),
-                    accentText:
-                      slidesToShow > 2 && product.isOnOffer ? 'Hot Deal' : '',
-                  }
+                      accentText:
+                        slidesToShow > 2 && product.isOnOffer ? 'Hot Deal' : '',
+                    }
                   : undefined
               }
               features={product?.keyInformation?.map(info => ({
@@ -134,8 +134,9 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                   }
                   size="large"
                   separator="."
-                  priceDescription={`Per Month ${leaseType === LeaseTypeEnum.PERSONAL ? 'Inc' : 'Ex'
-                    }.VAT`}
+                  priceDescription={`Per Month ${
+                    leaseType === LeaseTypeEnum.PERSONAL ? 'Inc' : 'Ex'
+                  }.VAT`}
                 />
                 <RouterLink
                   link={{
