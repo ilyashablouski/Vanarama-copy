@@ -4,10 +4,6 @@ import renderer from 'react-test-renderer';
 import SearchPodContainer from '../SearchPodContainer';
 import { filterTypeAndBudget, useFilterList } from '../gql';
 
-// beforeAll(async () => {
-//   await preloadAll();
-// });
-
 jest.mock('../gql', () => ({
   filterTypeAndBudget: jest.fn(),
   useFilterList: jest.fn(),
