@@ -1,14 +1,13 @@
 import React, { memo } from 'react';
 import Card from '@vanarama/uibook/lib/components/molecules/cards/Card';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import { useRouter } from 'next/router';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getRangeImages, useModelImages } from './gql';
+import { formatUrl } from '../../utils/url';
 
 interface IVehicleCardProps {
   isPersonalPrice: boolean;
-  onView: () => void;
   title: string;
   fromPrice?: number;
   id: string;
@@ -21,15 +20,14 @@ const RangeCard = memo(
     id,
     title,
     fromPrice,
-    onView,
     isAllMakesCard,
   }: IVehicleCardProps) => {
     // TODO: Should be changed when query for get images will updated
     const { pathname, query } = useRouter();
     const searchType = pathname.slice(1).split('/')[0];
     const href = isAllMakesCard
-      ? `${searchType}/${title}`
-      : `${searchType}/${query.dynamicParam}/${title}`;
+      ? `/${title}-${searchType}.html`
+      : `/${query.dynamicParam}-${searchType}/${title}.html`;
     const { data: imagesData } = getRangeImages(id, !id || isAllMakesCard);
     const { data: imagesMakeData } = useModelImages(
       [id],
@@ -52,12 +50,8 @@ const RangeCard = memo(
           link: (
             <RouterLink
               link={{
-                href,
+                href: formatUrl(href),
                 label: title || '',
-              }}
-              onClick={e => {
-                e.preventDefault();
-                onView();
               }}
               className="heading"
               classNames={{ size: 'large', color: 'black' }}
@@ -75,13 +69,17 @@ const RangeCard = memo(
               isPersonalPrice ? 'Inc' : 'Exc'
             }.VAT`}
           />
-          <Button
-            color="teal"
-            fill="solid"
-            label="View All"
-            onClick={onView}
-            size="regular"
-          />
+          <RouterLink
+            link={{
+              href: formatUrl(href),
+              label: 'View All' || '',
+            }}
+            className="button"
+            classNames={{ size: 'regular', color: 'teal', solid: true }}
+            withoutDefaultClassName
+          >
+            <div className="button--inner">View All</div>
+          </RouterLink>
         </div>
       </Card>
     );

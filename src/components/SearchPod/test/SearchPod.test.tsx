@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import SearchPod from '../SearchPod';
@@ -35,7 +36,8 @@ describe('<SearchPod />', () => {
   };
 
   let mocks = resetMocks();
-  beforeEach(() => {
+  beforeEach(async () => {
+    await preloadAll();
     mocks = resetMocks();
   });
 

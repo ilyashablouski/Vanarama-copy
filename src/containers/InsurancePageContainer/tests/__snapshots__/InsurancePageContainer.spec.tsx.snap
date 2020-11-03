@@ -33,8 +33,9 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
             <img
               alt="Hero Image"
               class="image--native"
-              sizes="(min-width:3200px) 800px, 1200px"
+              height="100%"
               src="//images.ctfassets.net/3xid768u5joa/7EJOmbBk6X2yzLtHunY3xU/e9af75665ee74bf1ccefede5c9142e60/insuranceicon.jpg"
+              width="100%"
             />
           </div>
         </div>
@@ -250,8 +251,9 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
-            sizes="(min-width:3200px) 800px, 1200px"
+            height="100%"
             src="//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
+            width="100%"
           />
           <div
             class="title -flex-h"
@@ -311,8 +313,9 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
-            sizes="(min-width:3200px) 800px, 1200px"
+            height="100%"
             src="//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
+            width="100%"
           />
           <div
             class="title -flex-h"
@@ -372,8 +375,9 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
-            sizes="(min-width:3200px) 800px, 1200px"
+            height="100%"
             src="//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
+            width="100%"
           />
           <div
             class="title -flex-h"
@@ -433,8 +437,9 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
-            sizes="(min-width:3200px) 800px, 1200px"
+            height="100%"
             src="//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
+            width="100%"
           />
           <div
             class="title -flex-h"
@@ -494,8 +499,9 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
-            sizes="(min-width:3200px) 800px, 1200px"
+            height="100%"
             src="//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
+            width="100%"
           />
           <div
             class="title -flex-h"
@@ -555,8 +561,9 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
-            sizes="(min-width:3200px) 800px, 1200px"
+            height="100%"
             src="//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
+            width="100%"
           />
           <div
             class="title -flex-h"
@@ -677,8 +684,9 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                     <img
                       class="card-image"
                       data-testid="card-image"
-                      sizes="(min-width:3200px) 800px, 1200px"
+                      height="100%"
                       src="//images.ctfassets.net/3xid768u5joa/22ybEevo2hRu2pJImPp8tz/327aba1204a84c35b02490ca075c290c/insurance-on-leased-cars.jpg"
+                      width="100%"
                     />
                     <div
                       class="title"

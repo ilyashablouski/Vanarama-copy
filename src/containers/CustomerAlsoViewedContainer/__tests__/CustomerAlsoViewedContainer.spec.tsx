@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import renderer from 'react-test-renderer';
 import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer';
 import { useProductCardData } from '../gql';
@@ -13,6 +14,10 @@ jest.mock('@vanarama/uibook/lib/components/organisms/carousel', () => ({
 }));
 
 describe('<CustomerAlsoViewedContainer />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
+
   it('renders correctly with loading', () => {
     (useProductCardData as jest.Mock).mockReturnValue({
       loading: true,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
 import RangeCard from '../RangeCard';
 import { GET_RANGES_IMAGES, GET_MODEL_IMAGES } from '../gql';
@@ -21,7 +21,6 @@ describe('<RangeCard />', () => {
       id: '1208',
       fromPrice: 191.91,
       isPersonalPrice: true,
-      onView: jest.fn(),
       isAllMakesCard: false,
     };
   };
@@ -105,20 +104,5 @@ describe('<RangeCard />', () => {
     });
     const tree = getComponent.baseElement;
     expect(tree).toMatchSnapshot();
-  });
-  it('should be open car page', async () => {
-    // ACT
-    render(
-      <MockedProvider mocks={mocksResponse} addTypename={false}>
-        <RangeCard {...mocks} />
-      </MockedProvider>,
-    );
-
-    // ASSERT
-    await waitFor(() => {
-      expect(imageRequest).toBeTruthy();
-    });
-    fireEvent.click(screen.getByText('View All'));
-    expect(mocks.onView).toBeCalled();
   });
 });

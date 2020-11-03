@@ -5,7 +5,7 @@ async function fetchRewritesList() {
 
   // Get list from dev S3 bucket.
   const raw = await fetch(
-    'https://grid-rewrites.s3.eu-west-2.amazonaws.com/dev/rewrites.json',
+    'https://s3.eu-west-2.amazonaws.com/static.vanarama-nonprod.com/rewrites/dev/rewrites.json',
   );
   const json = await raw.json();
 

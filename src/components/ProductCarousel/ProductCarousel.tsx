@@ -1,10 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useContext } from 'react';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
-import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
-import Price from '@vanarama/uibook/lib/components/atoms/price';
-import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
+import dynamic from 'next/dynamic';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
@@ -17,6 +13,23 @@ import {
 import getIconMap from '../../utils/getIconMap';
 import truncateString from '../../utils/truncateString';
 import useSliderProperties from '../../hooks/useSliderProperties';
+
+// Dynamic component loading.
+const Icon = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/icon'),
+);
+const Carousel = dynamic(() =>
+  import('@vanarama/uibook/lib/components/organisms/carousel'),
+);
+const ProductCard = dynamic(() =>
+  import(
+    '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard'
+  ),
+);
+const Price = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/price'),
+);
+const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'));
 
 interface IProductCarouselProps {
   leaseType: string;
