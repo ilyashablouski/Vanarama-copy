@@ -26,6 +26,7 @@ import {
   findPreselectFilterValue,
   buildPreselectChoiseboxes,
   isInclude,
+  filtersSearchMapper,
 } from './helpers';
 
 interface IChoiceBoxesData {
@@ -60,6 +61,9 @@ const FiltersContainer = ({
   isTransmissionPage,
   isDynamicFilterPage,
   sortOrder,
+  preLoadFilters,
+  isPreloadList,
+  setSearchFilters,
 }: IFilterContainerProps) => {
   const router = useRouter();
   const [filtersData, setFiltersData] = useState({} as IFilterList);
@@ -68,7 +72,9 @@ const FiltersContainer = ({
     shouldMakeChoiceboxesForceUpdate,
     setShouldMakeChoiceboxesForceUpdate,
   ] = useState(false);
-  const [makeData, setMakeData] = useState([] as string[]);
+  const [makeData, setMakeData] = useState(
+    makeHandler(preLoadFilters || ({} as IFilterList)),
+  );
   const [modelsData, setModelsData] = useState([] as string[]);
   const [tempFilterName, setTempFilterName] = useState('');
   const [tempModelName, setTempModelName] = useState('');
@@ -150,20 +156,7 @@ const FiltersContainer = ({
 
   /** memo object for search filter */
   const filtersObject = useMemo(
-    () => ({
-      rate: {
-        min: parseInt(selectedFiltersState.from[0], 10),
-        max:
-          selectedFiltersState.to[0] === '550+'
-            ? null
-            : parseInt(selectedFiltersState.to[0], 10),
-      },
-      manufacturerName: selectedFiltersState.make[0],
-      rangeName: selectedFiltersState.model[0],
-      fuelTypes: selectedFiltersState.fuelTypes,
-      bodyStyles: selectedFiltersState.bodyStyles,
-      transmissions: selectedFiltersState.transmissions,
-    }),
+    () => filtersSearchMapper(selectedFiltersState),
     [selectedFiltersState],
   );
 
@@ -233,7 +226,9 @@ const FiltersContainer = ({
           const isExist = filtersData.groupedRanges?.some(element => {
             let value = '';
             // if make correct then we are looking for a rangeName
-            if (isInclude(element.parent, router.query?.make as string)) {
+            if (
+              isInclude(element.parent, router.query?.dynamicParam as string)
+            ) {
               value = findPreselectFilterValue(
                 Array.isArray(values)
                   ? values[0].split('+').join(' ')
@@ -288,6 +283,12 @@ const FiltersContainer = ({
         ...prevState,
         ...presetFilters,
       }));
+      if (isPreloadList) {
+        setSearchFilters(
+          filtersSearchMapper({ ...selectedFiltersState, ...presetFilters }),
+        );
+        setShouldMakeChoiceboxesForceUpdate(true);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allFiltersData, router.query.isChangePage]);
@@ -307,15 +308,29 @@ const FiltersContainer = ({
   useEffect(() => {
     // don't call onSearch already after render
     if (!isInitialLoad) onViewResults();
+    // using for checking if user try to load page without additional params
+    // numberOfParams - number of required params for page type
+    const searchWithParams = (numberOfParams: number) =>
+      Object.values(selectedFiltersState)
+        ?.flat()
+        .filter(Boolean).length > numberOfParams;
     if (
       (selectedFilterTags[0] && isInitialLoad) ||
       (isInitialLoad &&
         ((isMakePage && selectedFiltersState.make[0]) ||
-          (isBodyPage && selectedFiltersState.bodyStyles[0]) ||
-          (isTransmissionPage && selectedFiltersState.transmissions[0]) ||
-          (isFuelPage && selectedFiltersState.fuelTypes[0]) ||
-          (isRangePage && selectedFiltersState.model[0]))) ||
-      (isModelPage && selectedFiltersState.model[0])
+          (isBodyPage &&
+            selectedFiltersState.bodyStyles[0] &&
+            searchWithParams(1)) ||
+          (isTransmissionPage &&
+            selectedFiltersState.transmissions[0] &&
+            searchWithParams(1)) ||
+          (isFuelPage &&
+            selectedFiltersState.fuelTypes[0] &&
+            searchWithParams(1)) ||
+          (isRangePage &&
+            selectedFiltersState.model[0] &&
+            searchWithParams(2)))) ||
+      (isModelPage && selectedFiltersState.model[0] && searchWithParams(3))
     )
       setInitialLoad(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
