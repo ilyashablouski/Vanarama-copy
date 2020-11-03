@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import VehicleCard from '../VehicleCard';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 
-describe('<VehicleCard />', () => {
+describe.skip('<VehicleCard />', () => {
   const resetMocks = () => {
     return {
       url: '/car-leasing/vauxhall/crossland-x/bodystylename/slug',
