@@ -66,7 +66,7 @@ export async function getStaticPaths() {
     return {
       paths: [
         {
-          params: { explained: '/' },
+          params: { articles: ['/'] },
         },
       ],
       fallback: false,
