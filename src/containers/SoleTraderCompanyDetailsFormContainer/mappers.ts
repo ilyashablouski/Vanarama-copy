@@ -30,7 +30,7 @@ export const mapFormValues = (values: ISoleTraderCompanyDetailsFormValues) => {
     tradingName: values.tradingName,
     monthlyAmountBeingReplaced: parseFloat(values.monthlyAmountBeingReplaced),
     annualTurnover: parseFloat(values.annualTurnover),
-    natureOfBusiness: values.natureOfBusiness,
+    companyNature: values.natureOfBusiness,
     annualSalesCost: parseFloat(values.annualCostOfSales),
     annualExpenses: parseFloat(values.annualExpenses),
     vehicleRegistrationNumber: values.vehicleRegistrationNumber,
@@ -44,6 +44,8 @@ export const mapCreateUpdteApplicationData = (
   companyData?: Company | null,
 ) => ({
   ...mapFormValues(values),
+  companyNature: undefined,
+  natureOfBusiness: values.natureOfBusiness,
   addresses: [
     {
       ...companyData?.addresses?.[0],
