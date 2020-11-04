@@ -152,6 +152,9 @@ export const isNotShowBreadcrumbs = (routerPathName: string) => {
     (pathNameLength === 3 &&
       routerPathName.includes('/insurance') &&
       !pathNamePart[2].includes('/faq')) ||
+    (pathNameLength === 3 &&
+      routerPathName.includes('/insurance') &&
+      !pathNamePart[2].includes('[...articles]')) ||
     // not to show on main van leasing page
     (pathNameLength === 2 && routerPathName.includes('/van-leasing')) ||
     // not to show on main car leasing page
