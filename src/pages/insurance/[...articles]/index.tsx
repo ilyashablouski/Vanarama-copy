@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import withApollo from '../../../hocs/withApollo';
 import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostContainer';
-import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
+import PageNotFound from '../../404';
 import { useGenericPage } from '../../../gql/genericPage';
 
 const BlogPost: NextPage = () => {
@@ -16,7 +16,7 @@ const BlogPost: NextPage = () => {
   }
 
   if (error) {
-    return <ErrorMessage message={error.message} />;
+    return <PageNotFound />;
   }
 
   const body = data?.genericPage?.body;
