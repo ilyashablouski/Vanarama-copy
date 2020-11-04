@@ -8,11 +8,14 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import AddCircle from '@vanarama/uibook/lib/assets/icons/AddCircleSharp';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+// import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import createApolloClient from '../../apolloClient';
 
 import { ProductCardData } from '../../../generated/ProductCardData';
-import { VanOffersPageData } from '../../../generated/VanOffersPageData';
+import {
+  VanOffersPageData,
+  VanOffersPageData_vanOffersPage_sections_iconBullets_iconBullets as VanIconBullet,
+} from '../../../generated/VanOffersPageData';
 import { VAN_OFFERS_CONTENT } from '../../gql/special-offers/van-offers';
 import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
 import withApollo from '../../hocs/withApollo';
@@ -29,7 +32,7 @@ import {
 
 type Props = {
   pageData: any;
-}
+};
 
 export const VanOffers: NextPage<Props> = ({ pageData }) => {
   const { data } = pageData;
@@ -164,14 +167,6 @@ export const VanOffers: NextPage<Props> = ({ pageData }) => {
   const vehicleListUrlQuery = useVehicleListUrl(derivativeIds);
 
   useVehicleListUrlFetchMore(vehicleListUrlQuery, derivativeIds);
-
-  if (loading) {
-    return <Loading size="large" />;
-  }
-
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
 
   const isPersonal = cachedLeaseType === 'Personal';
   const metaDataName = getSectionsData(
@@ -439,7 +434,7 @@ export const VanOffers: NextPage<Props> = ({ pageData }) => {
         </Heading>
         <hr />
         {data?.vanOffersPage?.sections?.iconBullets?.iconBullets?.map(
-          (item, idx: number) => (
+          (item: VanIconBullet, idx: number) => (
             <>
               <Icon
                 key={`${item?.text || idx}-icon`}
