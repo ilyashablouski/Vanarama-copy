@@ -1,6 +1,10 @@
-import { VehicleTypeEnum } from '../../generated/globalTypes';
-import { VehicleListUrl_vehicleList_edges as VehicleEdge } from '../../generated/VehicleListUrl';
+import { IncomingMessage, ServerResponse } from 'http';
+import { ApolloClient } from '@apollo/client';
+import { GENERIC_PAGE } from '../gql/genericPage';
 import { GetProductCard_vehicleList_edges as ProductEdge } from '../../generated/GetProductCard';
+import { VehicleListUrl_vehicleList_edges as VehicleEdge } from '../../generated/VehicleListUrl';
+import { VehicleTypeEnum } from '../../generated/globalTypes';
+import { getSectionsData } from './getSectionsData';
 
 type UrlParams = { [key: string]: string | boolean | undefined };
 
@@ -203,3 +207,47 @@ export const SEARCH_PAGES = ['/car-leasing', '/van-leasing', '/special-offers'];
 
 export const removeUrlQueryPart = (url: string) =>
   url.slice(0, url.indexOf('?') > -1 ? url.indexOf('?') : url.length);
+
+/**
+ * make redirect on server side in 404 page
+ * @param res
+ * @param req
+ * @param client
+ */
+export const serverRedirect = async (
+  res: ServerResponse,
+  req: IncomingMessage,
+  client: ApolloClient<any>,
+) => {
+  const { referer } = req?.headers; // if referer don't exist it's means that is server request
+  if (!referer) {
+    res.setHeader('Location', '/404');
+    res.statusCode = 302;
+    res.end();
+    return { props: {} };
+  }
+  // if we receive not found slug error when using app ->
+  // made request for 404 page data ant render 404 container in page
+  const { data } = await client.query({
+    query: GENERIC_PAGE,
+    variables: {
+      slug: '404',
+    },
+  });
+  const name = getSectionsData(['metaData', 'name'], data?.genericPage);
+  const cards = getSectionsData(
+    ['sections', 'cards', 'cards'],
+    data?.genericPage,
+  );
+  const featured = getSectionsData(['sections', 'featured'], data?.genericPage);
+  return {
+    props: {
+      error: true,
+      notFoundPageData: {
+        name: name || null,
+        cards: cards || null,
+        featured: featured || null,
+      },
+    },
+  };
+};

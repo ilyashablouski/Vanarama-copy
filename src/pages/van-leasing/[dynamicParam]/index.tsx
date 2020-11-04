@@ -19,10 +19,7 @@ import {
 } from '../../../containers/SearchPageContainer/helpers';
 import SearchPageContainer from '../../../containers/SearchPageContainer';
 import { pushPageData } from '../../../utils/dataLayerHelpers';
-import {
-  GenericPageQuery,
-  GenericPageQuery_genericPage_metaData as PageMetaData,
-} from '../../../../generated/GenericPageQuery';
+import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 import {
   LeaseTypeEnum,
   SortDirection,
@@ -33,6 +30,9 @@ import { filterList_filterList as IFilterList } from '../../../../generated/filt
 import { vehicleList } from '../../../../generated/vehicleList';
 import { GetProductCard } from '../../../../generated/GetProductCard';
 import { rangeList } from '../../../../generated/rangeList';
+import { serverRedirect } from '../../../utils/url';
+import { ISearchPageProps } from '../../../models/ISearchPageProps';
+import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 
 interface IPageType {
   isBodyStylePage: boolean;
@@ -40,12 +40,10 @@ interface IPageType {
   isMakePage: boolean;
 }
 
-interface IProps {
-  isServer: boolean;
+interface IProps extends ISearchPageProps {
   pageType: IPageType;
   query: any;
   pageData: GenericPageQuery;
-  metaData: PageMetaData;
   filtersData?: IFilterList | undefined;
   ranges: rangeList;
   vehiclesList?: vehicleList;
@@ -64,8 +62,11 @@ const Page: NextPage<IProps> = ({
   productCardsData,
   responseCapIds,
   ranges,
+  error,
+  notFoundPageData,
 }) => {
   const router = useRouter();
+
   useEffect(() => {
     pushPageData({
       pageType: pageType.isMakePage
@@ -93,6 +94,17 @@ const Page: NextPage<IProps> = ({
     // it's should executed only when page init
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (error) {
+    return (
+      <PageNotFoundContainer
+        featured={notFoundPageData?.featured}
+        cards={notFoundPageData?.cards}
+        name={notFoundPageData?.name}
+      />
+    );
+  }
+
   return (
     <SearchPageContainer
       isServer={isServer}
@@ -112,7 +124,7 @@ const Page: NextPage<IProps> = ({
 };
 
 export async function getServerSideProps(context: NextPageContext) {
-  const { query, req } = context;
+  const { query, req, res } = context;
   const newQuery = { ...query };
   const client = createApolloClient({}, context);
   let ranges;
@@ -190,12 +202,6 @@ export async function getServerSideProps(context: NextPageContext) {
 
   const [type] =
     Object.entries(pageType).find(([, value]) => value === true) || '';
-  const { data } = (await ssrCMSQueryExecutor(
-    client,
-    context,
-    false,
-    type as string,
-  )) as ApolloQueryResult<any>;
   const { data: filtersData } = await client.query({
     query: GET_SEARCH_POD_DATA,
     variables: {
@@ -203,20 +209,36 @@ export async function getServerSideProps(context: NextPageContext) {
       vehicleTypes: [VehicleTypeEnum.LCV],
     },
   });
-  return {
-    props: {
-      query: { ...newQuery },
-      isServer: !!req,
-      pageType,
-      pageData: data,
-      metaData: data.genericPage.metaData,
-      filtersData: filtersData?.filterList,
-      vehiclesList: vehiclesList || null,
-      productCardsData: productCardsData || null,
-      responseCapIds: responseCapIds || null,
-      ranges: ranges || null,
-    },
-  };
+  try {
+    const { data, errors } = (await ssrCMSQueryExecutor(
+      client,
+      context,
+      false,
+      type as string,
+    )) as ApolloQueryResult<any>;
+    return {
+      props: {
+        query: { ...newQuery },
+        isServer: !!req,
+        pageType,
+        pageData: data,
+        metaData: data.genericPage.metaData,
+        filtersData: filtersData?.filterList,
+        vehiclesList: vehiclesList || null,
+        productCardsData: productCardsData || null,
+        responseCapIds: responseCapIds || null,
+        ranges: ranges || null,
+        error: errors ? errors[0] : null,
+      },
+    };
+  } catch {
+    if (res && req) return serverRedirect(res, req, client);
+    return {
+      props: {
+        error: true,
+      },
+    };
+  }
 }
 
 export default Page;
