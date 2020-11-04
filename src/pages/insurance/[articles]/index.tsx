@@ -1,16 +1,22 @@
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import React from 'react';
-import DefaultErrorPage from 'next/error';
-import { IInsurancePage } from '../../../models/IInsuranceProps';
+import { NextPage } from 'next';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import { useRouter } from 'next/router';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import withApollo from '../../../hocs/withApollo';
 import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostContainer';
-import { GENERIC_PAGE } from '../../../gql/genericPage';
-import createApolloClient from '../../../apolloClient';
+import { useGenericPage } from '../../../gql/genericPage';
+import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
 
-const BlogPost: NextPage<IInsurancePage> = ({ data, error }) => {
+const BlogPost: NextPage = () => {
+  const router = useRouter();
+  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
+
+  if (loading) {
+    return <Loading size="large" />;
+  }
+
   if (error) {
-    return <DefaultErrorPage statusCode={404} />;
+    return <ErrorMessage message={error.message} />;
   }
 
   const body = data?.genericPage?.body;
@@ -25,40 +31,5 @@ const BlogPost: NextPage<IInsurancePage> = ({ data, error }) => {
     <BlogPostContainer body={body} name={name} image={image} cards={cards} />
   );
 };
-
-export async function getStaticPaths() {
-  return {
-    paths: [
-      { params: { page: 'dine-club' } },
-      { params: { page: 'refer-a-friend' } },
-      { params: { page: 'vanarama-switch-guarantee' } },
-    ],
-    fallback: false,
-  };
-}
-
-export async function getStaticProps(context: GetStaticPropsContext) {
-  try {
-    const client = createApolloClient({}, context as NextPageContext);
-    const { data, errors } = await client.query({
-      query: GENERIC_PAGE,
-      variables: {
-        slug: `insurance/${context?.params?.explained}`,
-      },
-    });
-    return {
-      props: {
-        data,
-        error: errors ? errors[0] : null,
-      },
-    };
-  } catch {
-    return {
-      props: {
-        error: true,
-      },
-    };
-  }
-}
 
 export default withApollo(BlogPost);
