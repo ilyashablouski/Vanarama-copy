@@ -607,11 +607,51 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="row:featured-left"
+      class="row:featured-right"
     >
       <div>
         <p
           class="heading -black -large"
+        >
+          Save with Drive Tag
+        </p>
+        <p
+          class="text -regular -darker"
+        >
+          Nulla fugiat laborum elit laborum in irure cillum do laboris fugiat tempor elit consectetur id Lorem mollit duis culpa ea ipsum ipsum nulla magna mollit culpa est non Lorem eiusmod Lorem aute ex sunt laboris enim amet voluptate fugiat officia
+        </p>
+        <p
+          class="text -regular -darker"
+        >
+          <a
+            class="link -teal"
+            data-testid="link"
+            href="https://www.vanarama.com/van-insurance.html"
+            rel="noopener noreferrer"
+          >
+            Find Out More
+          </a>
+          
+
+          <a
+            class="link -teal"
+            data-testid="link"
+            href="https://www.vanarama.com/van-insurance.html"
+            rel="noopener noreferrer"
+          >
+            Find Out More
+          </a>
+        </p>
+      </div>
+      <div
+        class="image -expand"
+      >
+        <img
+          alt="Tesla-Test-6"
+          class="image--native"
+          height="100%"
+          src="//images.ctfassets.net/3xid768u5joa/24o810jIcvjhhvKGcxbvDZ/498e6cacaafaaff2e71f9e97bd4a44f7/Tesla-Test-6.jpg"
+          width="100%"
         />
       </div>
     </div>
@@ -623,7 +663,31 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
     >
       <p
         class="heading -black -large"
-      />
+      >
+        Our Van Insurance Services
+      </p>
+      <h3
+        class="text -lead -darker"
+      >
+        What You Need To Know
+      </h3>
+      <p
+        class="text -regular -darker"
+      >
+        In incididunt reprehenderit nostrud occaecat ea qui Lorem deserunt commodo enim commodo quis commodo anim nostrud consectetur ex aliquip quis
+      </p>
+      <p
+        class="text -regular -darker"
+      >
+        <a
+          class="link -teal -lead"
+          data-testid="link"
+          href="https://beta.vanarama.com/van-insurance.html"
+          rel="noopener noreferrer"
+        >
+          Read Our FAQs
+        </a>
+      </p>
     </div>
     <div
       class="row:bg-lighter"
