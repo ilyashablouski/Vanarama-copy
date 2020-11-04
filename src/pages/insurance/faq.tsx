@@ -1,5 +1,4 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import { getDataFromTree } from '@apollo/react-ssr';
 import DefaultErrorPage from 'next/error';
 import withApollo from '../../hocs/withApollo';
 import FAQContainer from '../../containers/FAQContainer/FAQContainer';
