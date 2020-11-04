@@ -44,4 +44,4 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 }
 
-export default withApollo(EligibilityChecker, { getDataFromTree });
+export default withApollo(EligibilityChecker);
