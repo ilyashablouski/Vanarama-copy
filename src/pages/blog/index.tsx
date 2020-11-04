@@ -1,5 +1,5 @@
 import { NextPage, NextPageContext } from 'next';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import DefaultErrorPage from 'next/error';
 import createApolloClient from '../../apolloClient';
 import {
   GENERIC_PAGE,
@@ -7,22 +7,12 @@ import {
   IGenericPage,
 } from '../../gql/genericPage';
 import withApollo from '../../hocs/withApollo';
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import CategoryPageContainer from '../../containers/CategoryPageContainer/CategoryPageContainer';
 import { getSectionsData } from '../../utils/getSectionsData';
 
-const CategoryPage: NextPage<IGenericPage> = ({
-  pageHead,
-  data,
-  loading,
-  error,
-}) => {
-  if (error) {
-    return <ErrorMessage message={error?.message} />;
-  }
-
-  if (loading || !data) {
-    return <Loading size="large" />;
+const CategoryPage: NextPage<IGenericPage> = ({ pageHead, data, error }) => {
+  if (error || !data) {
+    return <DefaultErrorPage statusCode={404} />;
   }
 
   const tiles = getSectionsData(['sections', 'tiles'], data?.genericPage);
@@ -46,22 +36,28 @@ const CategoryPage: NextPage<IGenericPage> = ({
 };
 
 export async function getStaticProps(context: NextPageContext) {
-  const client = createApolloClient({}, context);
-  const { data, loading, errors } = await client.query({
-    query: GENERIC_PAGE,
-    variables: {
-      slug: 'blog',
-    },
-  });
-  const { data: pageHead } = await client.query({
-    query: GENERIC_PAGE_HEAD,
-    variables: {
-      slug: 'blog',
-    },
-  });
-  return {
-    props: { data, pageHead, loading, error: errors ? errors[0] : null },
-  };
+  try {
+    const client = createApolloClient({}, context);
+    const { data, errors } = await client.query({
+      query: GENERIC_PAGE,
+      variables: {
+        slug: 'blog',
+      },
+    });
+    const { data: pageHead } = await client.query({
+      query: GENERIC_PAGE_HEAD,
+      variables: {
+        slug: 'blog',
+      },
+    });
+    return {
+      props: { data, pageHead, error: errors ? errors[0] : null },
+    };
+  } catch {
+    return {
+      props: { error: true },
+    };
+  }
 }
 
 export default withApollo(CategoryPage);

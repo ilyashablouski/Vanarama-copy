@@ -5,9 +5,9 @@ import Image from '@vanarama/uibook/lib/components/atoms/image';
 import ReactMarkdown from 'react-markdown';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import { getSectionsData } from '../../utils/getSectionsData';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 interface ISimplePageContainer {
   data: GenericPageQuery | undefined;

@@ -64,6 +64,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
           product && (
             <ProductCard
               loadImage
+              alt={`${product?.manufacturerName} ${product?.rangeName} ${product?.derivativeName}`}
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               key={`${product.capId}_${inx}` || ''}
               header={

@@ -103,9 +103,7 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
-            height="100%"
             src="//images.ctfassets.net/3xid768u5joa/2orLDit2z21KrvoHfleXI5/ff92ffe3245b88f55b4ad3bf442e4283/boxer4.jpg"
-            width="100%"
           />
           <div
             class="title -flex-h"
@@ -172,8 +170,6 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
-            height="100%"
-            width="100%"
           />
           <div
             class="title"

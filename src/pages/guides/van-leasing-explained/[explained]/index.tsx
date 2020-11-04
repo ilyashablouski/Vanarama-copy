@@ -31,18 +31,28 @@ const FinanceInfo: NextPage<IGenericPage> = ({ data, error }) => {
 };
 
 export async function getStaticPaths() {
-  const client = createApolloClient({});
-  const { data } = await client.query<GenericPageQuery>({
-    query: GENERIC_PAGE,
-    variables: {
-      slug: 'guides/car-leasing-explained',
-    },
-  });
-
-  return {
-    paths: getLeasingPaths(data?.genericPage),
-    fallback: false,
-  };
+  try {
+    const client = createApolloClient({});
+    const { data } = await client.query<GenericPageQuery>({
+      query: GENERIC_PAGE,
+      variables: {
+        slug: 'guides/car-leasing-explained',
+      },
+    });
+    return {
+      paths: getLeasingPaths(data?.genericPage),
+      fallback: false,
+    };
+  } catch {
+    return {
+      paths: [
+        {
+          params: { explained: '/' },
+        },
+      ],
+      fallback: false,
+    };
+  }
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {

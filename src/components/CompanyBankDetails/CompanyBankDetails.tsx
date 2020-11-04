@@ -59,6 +59,20 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
       </Text>
       <br />
       <FormGroup
+        controlId="bankName"
+        label="Bank Name"
+        error={errors?.bankName?.message?.toString()}
+      >
+        <TextInput
+          id="bankName"
+          type="text"
+          name="bankName"
+          dataTestId="bankName"
+          ref={register}
+          width="35ch"
+        />
+      </FormGroup>
+      <FormGroup
         controlId="accountName"
         label="Account Name"
         error={errors?.accountName?.message?.toString()}
