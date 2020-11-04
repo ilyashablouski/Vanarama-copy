@@ -9,6 +9,7 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import AddCircle from '@vanarama/uibook/lib/assets/icons/AddCircleSharp';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import createApolloClient from '../../apolloClient';
 
 import { ProductCardData } from '../../../generated/ProductCardData';
 import { VanOffersPageData } from '../../../generated/VanOffersPageData';
@@ -26,10 +27,12 @@ import {
   useVehicleListUrlFetchMore,
 } from '../../gql/vehicleList';
 
-export const VanOffers: NextPage = () => {
-  const { data, loading, error } = useQuery<VanOffersPageData>(
-    VAN_OFFERS_CONTENT,
-  );
+type Props = {
+  pageData: any;
+}
+
+export const VanOffers: NextPage<Props> = ({ pageData }) => {
+  const { data } = pageData;
 
   const { cachedLeaseType } = useLeaseType(false);
 
@@ -484,5 +487,17 @@ export const VanOffers: NextPage = () => {
     </>
   );
 };
+
+export async function getStaticProps() {
+  const client = createApolloClient({});
+  const { data } = await client.query<VanOffersPageData>({
+    query: VAN_OFFERS_CONTENT,
+  });
+  return {
+    data: {
+      pageData: data,
+    },
+  };
+}
 
 export default withApollo(VanOffers, { getDataFromTree });
