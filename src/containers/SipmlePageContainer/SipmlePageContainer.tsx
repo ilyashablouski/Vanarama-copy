@@ -11,8 +11,8 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 interface ISimplePageContainer {
   data: GenericPageQuery | undefined;
-  loading: boolean;
-  error: ApolloError | undefined;
+  loading?: boolean;
+  error?: ApolloError | undefined;
 }
 
 const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
