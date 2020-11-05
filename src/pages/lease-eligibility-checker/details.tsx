@@ -37,7 +37,7 @@ const EligibilityCheckerDetails: NextPage = () => {
             ) {
               setEligibilityCheckerScoreError(true);
             } else {
-              const url = `/eligibility-checker/credit-checker?score=${quickCreditChecker?.score}`;
+              const url = `/lease-eligibility-checker/credit-checker?score=${quickCreditChecker?.score}`;
               router.push(url);
             }
           }}
