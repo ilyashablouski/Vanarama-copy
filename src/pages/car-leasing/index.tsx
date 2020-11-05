@@ -36,7 +36,6 @@ import withApollo from '../../hocs/withApollo';
 
 import Hero, { HeroTitle, HeroHeading } from '../../components/Hero';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import getIconMap from '../../utils/getIconMap';
 import truncateString from '../../utils/truncateString';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { getLegacyUrl, formatProductPageUrl } from '../../utils/url';
@@ -47,6 +46,7 @@ import {
   useVehicleListUrlFetchMore,
 } from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
+import { features } from '../../components/ProductCarousel/helpers';
 
 export const CarsPage: NextPage = () => {
   const { data, loading, error } = useQuery<HubCarPageData>(HUB_CAR_CONTENT);
@@ -186,7 +186,6 @@ export const CarsPage: NextPage = () => {
             }}
           />
           {products?.productCarousel?.map((item, idx) => {
-            const iconMap = getIconMap(item?.keyInformation || []);
             const productUrl = formatProductPageUrl(
               getLegacyUrl(
                 vehicleListUrlQuery.data?.vehicleList?.edges,
@@ -203,11 +202,11 @@ export const CarsPage: NextPage = () => {
                   accentText: 'Hot Deal',
                   text: 'In Stock - 14-21 Days Delivery',
                 }}
-                features={item?.keyInformation?.map(info => ({
-                  icon: iconMap.get(info?.name?.replace(/\s+/g, '')),
-                  label: info?.value || '',
-                  index: `${item.capId}_${info?.name || ''}`,
-                }))}
+                features={features(
+                  item?.keyInformation || [],
+                  item?.capId || '',
+                  Icon,
+                )}
                 imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
                 onCompare={() =>
                   compareChange(item ? { ...item, pageUrl: productUrl } : null)
