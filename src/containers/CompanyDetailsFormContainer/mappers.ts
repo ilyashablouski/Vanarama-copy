@@ -141,7 +141,7 @@ export const mapCompanyDetailsToCreditApplication = (
   return {
     uuid: company?.uuid,
     companySearchResult: values.companySearchResult,
-    businessName: values.companyName,
+    businessName: values.companySearchResult?.title || values.companyName,
     businessRegistrationNumber:
       values.companySearchResult?.companyNumber || values.companyNumber,
     natureOfBusiness: values.nature,
