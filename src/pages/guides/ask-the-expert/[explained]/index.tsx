@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
-import { useGenericPage } from '../../../gql/genericPage';
-import withApollo from '../../../hocs/withApollo';
-import SimplePageContainer from '../../../containers/SipmlePageContainer/SipmlePageContainer';
+import { useGenericPage } from '../../../../gql/genericPage';
+import withApollo from '../../../../hocs/withApollo';
+import SimplePageContainer from '../../../../containers/SipmlePageContainer/SipmlePageContainer';
 
 const AskTheExpertPage: NextPage = () => {
   const router = useRouter();

@@ -14,7 +14,7 @@ import { pushInsuranceEventDataLayer } from '../../utils/dataLayerHelpers';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
-  sections: Section | null;
+  sections: Section | null | undefined;
   breadcrumbsData: any;
 }
 

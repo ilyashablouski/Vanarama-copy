@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import { useQuery } from '@apollo/client';
 import ReactMarkdown from 'react-markdown/with-html';
 import { getDataFromTree } from '@apollo/react-ssr';
-
+import { useEffect, useState } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
@@ -15,7 +15,7 @@ import { VanOffersPageData } from '../../../generated/VanOffersPageData';
 import { VAN_OFFERS_CONTENT } from '../../gql/special-offers/van-offers';
 import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
 import withApollo from '../../hocs/withApollo';
-import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
+import { GET_CAR_DERIVATIVES } from '../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import useLeaseType from '../../hooks/useLeaseType';
@@ -25,130 +25,185 @@ import {
   useVehicleListUrl,
   useVehicleListUrlFetchMore,
 } from '../../gql/vehicleList';
+import { useImperativeQuery } from '../../hooks/useImperativeQuery';
+import { GetDerivatives } from '../../../generated/GetDerivatives';
 
 export const VanOffers: NextPage = () => {
   const { data, loading, error } = useQuery<VanOffersPageData>(
     VAN_OFFERS_CONTENT,
   );
+  const [productSmallVan, setProductSmallVan] = useState<
+    ProductCardData | undefined
+  >(undefined);
+  const [productSmallVanCapIds, setProductSmallVanCapIds] = useState<string[]>(
+    [],
+  );
+  const [productSmallVanDerivatives, setProductSmallVanDerivatives] = useState<
+    GetDerivatives | undefined
+  >(undefined);
+
+  const [productMediumVan, setProductMediumVan] = useState<
+    ProductCardData | undefined
+  >(undefined);
+  const [productMediumVanCapIds, setProductMediumVanCapIds] = useState<
+    string[]
+  >([]);
+  const [
+    productMediumVanDerivatives,
+    setProductMediumVanDerivatives,
+  ] = useState<GetDerivatives | undefined>(undefined);
+
+  const [productLargeVan, setProductLargeVan] = useState<
+    ProductCardData | undefined
+  >(undefined);
+  const [productLargeVanCapIds, setProductLargeVanCapIds] = useState<string[]>(
+    [],
+  );
+  const [productLargeVanDerivatives, setProductLargeVanDerivatives] = useState<
+    GetDerivatives | undefined
+  >(undefined);
+
+  const [productPickups, setProductPickups] = useState<
+    ProductCardData | undefined
+  >(undefined);
+  const [productPickupsCapIds, setProductPickupsCapIds] = useState<string[]>(
+    [],
+  );
+  const [productPickupsDerivatives, setProductPickupsDerivatives] = useState<
+    GetDerivatives | undefined
+  >(undefined);
+
+  const [productSpecialistVan, setProductSpecialistVan] = useState<
+    ProductCardData | undefined
+  >(undefined);
+  const [productSpecialistVanCapIds, setProductSpecialistVanCapIds] = useState<
+    string[]
+  >([]);
+  const [
+    productSpecialistVanDerivatives,
+    setProductSpecialistVanDerivatives,
+  ] = useState<GetDerivatives | undefined>(undefined);
+
+  const [productTippers, setProductTippers] = useState<
+    ProductCardData | undefined
+  >(undefined);
+  const [productTippersCapIds, setProductTippersCapIds] = useState<string[]>(
+    [],
+  );
+  const [productTippersDerivatives, setProductTippersDerivatives] = useState<
+    GetDerivatives | undefined
+  >(undefined);
 
   const { cachedLeaseType } = useLeaseType(false);
 
-  const { data: productSmallVan } = useQuery<ProductCardData>(
-    PRODUCT_CARD_CONTENT,
-    {
-      variables: {
-        type: VehicleTypeEnum.LCV,
-        bodyType: 'SmallVan',
-        size: 9,
-        offer: true,
-      },
-    },
-  );
+  const getProduct = useImperativeQuery(PRODUCT_CARD_CONTENT);
+  const getProductDerivatives = useImperativeQuery(GET_CAR_DERIVATIVES);
 
-  const productSmallVanCapIds = productSmallVan?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
-  const { data: productSmallVanDerivatives } = useCarDerivativesData(
-    productSmallVanCapIds,
-    VehicleTypeEnum.LCV,
-  );
-
-  const { data: productMediumVan } = useQuery<ProductCardData>(
-    PRODUCT_CARD_CONTENT,
-    {
-      variables: {
-        type: VehicleTypeEnum.LCV,
-        bodyType: 'MediumVan',
-        size: 9,
-        offer: true,
-      },
-    },
-  );
-
-  const productMediumVanCapIds = productMediumVan?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
-  const { data: productMediumVanDerivatives } = useCarDerivativesData(
-    productMediumVanCapIds,
-    VehicleTypeEnum.LCV,
-  );
-
-  const { data: productLargeVan } = useQuery<ProductCardData>(
-    PRODUCT_CARD_CONTENT,
-    {
-      variables: {
-        type: VehicleTypeEnum.LCV,
-        bodyType: 'LargeVan',
-        size: 9,
-        offer: true,
-      },
-    },
-  );
-
-  const productLargeVanCapIds = productLargeVan?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
-  const { data: productLargeVanDerivatives } = useCarDerivativesData(
-    productLargeVanCapIds,
-    VehicleTypeEnum.LCV,
-  );
-
-  const { data: productPickups } = useQuery<ProductCardData>(
-    PRODUCT_CARD_CONTENT,
-    {
-      variables: {
-        type: VehicleTypeEnum.LCV,
-        bodyType: 'Pickup',
-        size: 9,
-        offer: true,
-      },
-    },
-  );
-  const productPickupsCapIds = productPickups?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
-  const { data: productPickupsDerivatives } = useCarDerivativesData(
-    productPickupsCapIds,
-    VehicleTypeEnum.LCV,
-  );
-
-  const { data: productSpecialistVan } = useQuery<ProductCardData>(
-    PRODUCT_CARD_CONTENT,
-    {
-      variables: {
-        type: VehicleTypeEnum.LCV,
-        bodyType: 'Specialist',
-        size: 9,
-        offer: true,
-      },
-    },
-  );
-  const productSpecialistVanCapIds = productPickups?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
-  const { data: productSpecialistVanDerivatives } = useCarDerivativesData(
-    productSpecialistVanCapIds,
-    VehicleTypeEnum.LCV,
-  );
-
-  const { data: productTippers } = useQuery<ProductCardData>(
-    PRODUCT_CARD_CONTENT,
-    {
-      variables: {
-        type: VehicleTypeEnum.LCV,
-        bodyType: 'DropsideTipper',
-        size: 9,
-        offer: true,
-      },
-    },
-  );
-  const productTippersCapIds = productPickups?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
-  const { data: productTippersDerivatives } = useCarDerivativesData(
-    productTippersCapIds,
-    VehicleTypeEnum.LCV,
-  );
+  useEffect(() => {
+    // get Small Vans
+    getProduct({
+      type: VehicleTypeEnum.LCV,
+      bodyType: 'SmallVan',
+      size: 9,
+      offer: true,
+    }).then(async (response: any) => {
+      setProductSmallVan(response.data);
+      const capIds = response.data.productCarousel
+        ?.map((el: any) => el?.capId)
+        .filter(Boolean);
+      setProductSmallVanCapIds(capIds);
+      getProductDerivatives({
+        ids: capIds,
+        vehicleType: VehicleTypeEnum.LCV,
+      }).then(resp => setProductSmallVanDerivatives(resp.data));
+    });
+    // get Medium Vans
+    getProduct({
+      type: VehicleTypeEnum.LCV,
+      bodyType: 'MediumVan',
+      size: 9,
+      offer: true,
+    }).then(response => {
+      setProductMediumVan(response.data);
+      const capIds = response.data.productCarousel
+        ?.map((el: any) => el?.capId)
+        .filter(Boolean);
+      setProductMediumVanCapIds(capIds);
+      getProductDerivatives({
+        ids: capIds,
+        vehicleType: VehicleTypeEnum.LCV,
+      }).then(resp => setProductMediumVanDerivatives(resp.data));
+    });
+    // get Large Vans
+    getProduct({
+      type: VehicleTypeEnum.LCV,
+      bodyType: 'LargeVan',
+      size: 9,
+      offer: true,
+    }).then(response => {
+      setProductLargeVan(response.data);
+      const capIds = response.data.productCarousel
+        ?.map((el: any) => el?.capId)
+        .filter(Boolean);
+      setProductLargeVanCapIds(capIds);
+      getProductDerivatives({
+        ids: capIds,
+        vehicleType: VehicleTypeEnum.LCV,
+      }).then(resp => setProductLargeVanDerivatives(resp.data));
+    });
+    // get Pickups
+    getProduct({
+      type: VehicleTypeEnum.LCV,
+      bodyType: 'Pickup',
+      size: 9,
+      offer: true,
+    }).then(response => {
+      setProductPickups(response.data);
+      const capIds = response.data.productCarousel
+        ?.map((el: any) => el?.capId)
+        .filter(Boolean);
+      setProductPickupsCapIds(capIds);
+      getProductDerivatives({
+        ids: capIds,
+        vehicleType: VehicleTypeEnum.LCV,
+      }).then(resp => setProductPickupsDerivatives(resp.data));
+    });
+    // get Specialist
+    getProduct({
+      type: VehicleTypeEnum.LCV,
+      bodyType: 'Specialist',
+      size: 9,
+      offer: true,
+    }).then(response => {
+      setProductSpecialistVan(response.data);
+      const capIds = response.data.productCarousel
+        ?.map((el: any) => el?.capId)
+        .filter(Boolean);
+      setProductSpecialistVanCapIds(capIds);
+      getProductDerivatives({
+        ids: capIds,
+        vehicleType: VehicleTypeEnum.LCV,
+      }).then(resp => setProductSpecialistVanDerivatives(resp.data));
+    });
+    // get DropsideTipper
+    getProduct({
+      type: VehicleTypeEnum.LCV,
+      bodyType: 'DropsideTipper',
+      size: 9,
+      offer: true,
+    }).then(response => {
+      setProductTippers(response.data);
+      const capIds = response.data.productCarousel
+        ?.map((el: any) => el?.capId)
+        .filter(Boolean);
+      setProductTippersCapIds(capIds);
+      getProductDerivatives({
+        ids: capIds,
+        vehicleType: VehicleTypeEnum.LCV,
+      }).then(resp => setProductTippersDerivatives(resp.data));
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const derivativeIds = [
     ...productSmallVanCapIds,
