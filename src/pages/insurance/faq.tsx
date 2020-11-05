@@ -1,6 +1,5 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
-import withApollo from '../../hocs/withApollo';
 import FAQContainer from '../../containers/FAQContainer/FAQContainer';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import createApolloClient from '../../apolloClient';
@@ -43,4 +42,4 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 }
 
-export default withApollo(EligibilityChecker);
+export default EligibilityChecker;
