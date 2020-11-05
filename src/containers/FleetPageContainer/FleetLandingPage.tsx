@@ -1,32 +1,16 @@
 import React from 'react';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import { useQuery } from '@apollo/client';
-import GET_FLEET_PAGE_CONTENT from './gql';
 import HeroSection from './sections/HeroSection';
 import LeadTextSection from './sections/LeadTextSection';
 import TestimonialSection from './sections/TestimonialSection';
 import MediaFeatureSection from './sections/MediaFeatureSection';
 import BenefitsSection from './sections/BenefitsSection';
 import { GetFleetLandingPage } from '../../../generated/GetFleetLandingPage';
-import config from './config';
 
-const FleetLandingPage = () => {
-  const { data, error, loading } = useQuery<GetFleetLandingPage>(
-    GET_FLEET_PAGE_CONTENT,
-  );
+interface IFleetLandingPage {
+  data: GetFleetLandingPage | undefined;
+}
 
-  if (loading) {
-    return <Loading size="large" />;
-  }
-
-  if (error) {
-    return <p>{config.errorMessage.replace('{{error}}', error.message)}</p>;
-  }
-
-  if (!data) {
-    return <></>;
-  }
-
+const FleetLandingPage = ({ data }: IFleetLandingPage) => {
   return (
     <>
       {data?.fleetLandingPage?.sections?.hero && (

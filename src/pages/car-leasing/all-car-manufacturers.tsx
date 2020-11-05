@@ -5,14 +5,12 @@ import createApolloClient from '../../apolloClient';
 import { ssrCMSQueryExecutor } from '../../containers/SearchPageContainer/helpers';
 import SearchPageContainer from '../../containers/SearchPageContainer';
 import withApollo from '../../hocs/withApollo';
-import { GenericPageQuery_genericPage_metaData as PageMetaData } from '../../../generated/GenericPageQuery';
 import { manufacturerPage_manufacturerPage_sections as sections } from '../../../generated/manufacturerPage';
 import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
 import { manufacturerList } from '../../../generated/manufacturerList';
+import { ISearchPageProps } from '../../models/ISearchPageProps';
 
-interface IProps {
-  isServer: boolean;
-  metaData: PageMetaData;
+interface IProps extends ISearchPageProps {
   topInfoSection?: sections | null;
   manufacturers: manufacturerList | null;
 }
