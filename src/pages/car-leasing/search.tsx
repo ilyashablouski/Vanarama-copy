@@ -1,5 +1,6 @@
 import { NextPage, NextPageContext } from 'next';
 import { ApolloQueryResult } from '@apollo/client';
+import { ISearchPageProps } from '../../models/ISearchPageProps';
 import { GET_VEHICLE_LIST } from '../../containers/SearchPageContainer/gql';
 import createApolloClient from '../../apolloClient';
 import SearchPageContainer from '../../containers/SearchPageContainer';
@@ -7,10 +8,7 @@ import {
   getCapsIds,
   ssrCMSQueryExecutor,
 } from '../../containers/SearchPageContainer/helpers';
-import {
-  GenericPageQuery,
-  GenericPageQuery_genericPage_metaData as PageMetaData,
-} from '../../../generated/GenericPageQuery';
+import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import {
   LeaseTypeEnum,
   SortDirection,
@@ -21,10 +19,8 @@ import { vehicleList } from '../../../generated/vehicleList';
 import { GET_PRODUCT_CARDS_DATA } from '../../containers/CustomerAlsoViewedContainer/gql';
 import { GetProductCard } from '../../../generated/GetProductCard';
 
-interface IProps {
-  isServer: boolean;
+interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
-  metaData: PageMetaData;
   vehiclesList?: vehicleList;
   productCardsData?: GetProductCard;
   responseCapIds?: string[];
