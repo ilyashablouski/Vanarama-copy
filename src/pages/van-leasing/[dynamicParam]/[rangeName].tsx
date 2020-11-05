@@ -10,10 +10,7 @@ import {
   getCapsIds,
   ssrCMSQueryExecutor,
 } from '../../../containers/SearchPageContainer/helpers';
-import {
-  GenericPageQuery,
-  GenericPageQuery_genericPage_metaData as PageMetaData,
-} from '../../../../generated/GenericPageQuery';
+import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 import {
   LeaseTypeEnum,
   SortDirection,
@@ -22,11 +19,12 @@ import {
 } from '../../../../generated/globalTypes';
 import { GetProductCard } from '../../../../generated/GetProductCard';
 import { vehicleList } from '../../../../generated/vehicleList';
+import { serverRedirect } from '../../../utils/url';
+import { ISearchPageProps } from '../../../models/ISearchPageProps';
+import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 
-interface IProps {
-  isServer: boolean;
+interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
-  metaData: PageMetaData;
   vehiclesList?: vehicleList;
   productCardsData?: GetProductCard;
   responseCapIds?: string[];
@@ -39,8 +37,11 @@ const Page: NextPage<IProps> = ({
   vehiclesList,
   productCardsData,
   responseCapIds,
+  error,
+  notFoundPageData,
 }) => {
   const router = useRouter();
+
   useEffect(() => {
     if (!router.query.make) {
       const query = { ...router.query, make: router.query.dynamicParam };
@@ -57,6 +58,17 @@ const Page: NextPage<IProps> = ({
     // it's should executed only when page init
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (error) {
+    return (
+      <PageNotFoundContainer
+        featured={notFoundPageData?.featured}
+        cards={notFoundPageData?.cards}
+        name={notFoundPageData?.name}
+      />
+    );
+  }
+
   return (
     <SearchPageContainer
       isServer={isServer}
@@ -76,56 +88,67 @@ export async function getServerSideProps(context: NextPageContext) {
   let vehiclesList;
   let productCardsData;
   let responseCapIds;
-  const { data } = (await ssrCMSQueryExecutor(
-    client,
-    context,
-    false,
-    'isRangePage',
-  )) as ApolloQueryResult<any>;
-  // should contain only 2 routs params(make, range)
-  if (Object.keys(context.query).length === 2) {
-    vehiclesList = await client
-      .query({
-        query: GET_VEHICLE_LIST,
-        variables: {
-          vehicleTypes: [VehicleTypeEnum.LCV],
-          leaseType: LeaseTypeEnum.BUSINESS,
-          onOffer: null,
-          first: 9,
-          sortField: SortField.availability,
-          sortDirection: SortDirection.ASC,
-          manufacturerName: context?.query?.dynamicParam,
-          rangeName: context?.query?.rangeName,
-        },
-      })
-      .then(resp => resp.data);
-    try {
-      responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
-      if (responseCapIds.length) {
-        productCardsData = await client
-          .query({
-            query: GET_PRODUCT_CARDS_DATA,
-            variables: {
-              capIds: responseCapIds,
-              vehicleType: VehicleTypeEnum.LCV,
-            },
-          })
-          .then(resp => resp.data);
+  try {
+    const { data, errors } = (await ssrCMSQueryExecutor(
+      client,
+      context,
+      false,
+      'isRangePage',
+    )) as ApolloQueryResult<any>;
+    // should contain only 2 routs params(make, range)
+    if (Object.keys(context.query).length === 2) {
+      vehiclesList = await client
+        .query({
+          query: GET_VEHICLE_LIST,
+          variables: {
+            vehicleTypes: [VehicleTypeEnum.LCV],
+            leaseType: LeaseTypeEnum.BUSINESS,
+            onOffer: null,
+            first: 9,
+            sortField: SortField.availability,
+            sortDirection: SortDirection.ASC,
+            manufacturerName: context?.query?.dynamicParam,
+            rangeName: context?.query?.rangeName,
+          },
+        })
+        .then(resp => resp.data);
+      try {
+        responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
+        if (responseCapIds.length) {
+          productCardsData = await client
+            .query({
+              query: GET_PRODUCT_CARDS_DATA,
+              variables: {
+                capIds: responseCapIds,
+                vehicleType: VehicleTypeEnum.LCV,
+              },
+            })
+            .then(resp => resp.data);
+        }
+      } catch {
+        return false;
       }
-    } catch {
-      return false;
     }
+    return {
+      props: {
+        pageData: data,
+        metaData: data.genericPage.metaData,
+        isServer: !!context.req,
+        vehiclesList: vehiclesList || null,
+        productCardsData: productCardsData || null,
+        responseCapIds: responseCapIds || null,
+        error: errors ? errors[0] : null,
+      },
+    };
+  } catch {
+    const { res, req } = context;
+    if (res && req) return serverRedirect(res, req, client);
+    return {
+      props: {
+        error: true,
+      },
+    };
   }
-  return {
-    props: {
-      pageData: data,
-      metaData: data.genericPage.metaData,
-      isServer: !!context.req,
-      vehiclesList: vehiclesList || null,
-      productCardsData: productCardsData || null,
-      responseCapIds: responseCapIds || null,
-    },
-  };
 }
 
 export default Page;

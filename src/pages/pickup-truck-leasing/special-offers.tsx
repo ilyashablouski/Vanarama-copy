@@ -7,7 +7,6 @@ import {
   ssrCMSQueryExecutor,
 } from '../../containers/SearchPageContainer/helpers';
 import SearchPageContainer from '../../containers/SearchPageContainer';
-import { GenericPageQuery_genericPage_metaData as PageMetaData } from '../../../generated/GenericPageQuery';
 import {
   LeaseTypeEnum,
   SortDirection,
@@ -17,10 +16,9 @@ import {
 import { vehicleList } from '../../../generated/vehicleList';
 import { GET_PRODUCT_CARDS_DATA } from '../../containers/CustomerAlsoViewedContainer/gql';
 import { GetProductCard } from '../../../generated/GetProductCard';
+import { ISearchPageProps } from '../../models/ISearchPageProps';
 
-interface IProps {
-  isServer: boolean;
-  metaData: PageMetaData;
+interface IProps extends ISearchPageProps {
   vehiclesList?: vehicleList;
   productCardsData?: GetProductCard;
   responseCapIds?: string[];
