@@ -615,6 +615,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         </Heading>
         <Text color="darker" size="regular" tag="div">
           <ReactMarkdown
+            className="markdown"
             escapeHtml={false}
             source={pageData?.genericPage.intro || ''}
             renderers={{
@@ -652,6 +653,7 @@ const SearchPageContainer: React.FC<IProps> = ({
               <div className="row:text -columns">
                 <div>
                   <ReactMarkdown
+                    className="markdown"
                     escapeHtml={false}
                     source={pageData?.genericPage.body || ''}
                     renderers={{
@@ -712,6 +714,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                 {featured.title}
               </Heading>
               <ReactMarkdown
+                className="markdown"
                 source={featured.body || ''}
                 escapeHtml={false}
                 renderers={{
@@ -934,6 +937,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             <div className="row:text -columns">
               <div>
                 <ReactMarkdown
+                  className="markdown"
                   source={pageData?.genericPage.body || ''}
                   escapeHtml={false}
                   renderers={{
@@ -1024,6 +1028,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                           }}
                         >
                           <ReactMarkdown
+                            className="markdown"
                             escapeHtml={false}
                             source={card.body || ''}
                             renderers={{

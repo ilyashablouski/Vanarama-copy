@@ -64,11 +64,13 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
             }
             color="black"
             size="large"
+            className="-mb-400"
           >
             {sections.featured1.title || ''}
           </Heading>
           <div className="content">
             <ReactMarkdown
+              className="markdown"
               escapeHtml={false}
               source={sections.featured1.body || ''}
               renderers={{
