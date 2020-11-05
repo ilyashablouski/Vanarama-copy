@@ -90,12 +90,14 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             <div
               class="title"
             >
-              <span
+              <a
                 class="heading -black -lead"
-                data-testid="card-heading"
+                data-testid="link"
+                href="https://betavanarama.com/van-leasing-explained/how-does-van-leasing-work.html"
+                rel="noopener noreferrer"
               >
                 Company Cash Allowance Vs Company Car
-              </span>
+              </a>
             </div>
             <span
               class="text -regular -dark"
@@ -130,12 +132,14 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             <div
               class="title"
             >
-              <span
+              <a
                 class="heading -black -lead"
-                data-testid="card-heading"
+                data-testid="link"
+                href="https://betavanarama.com/van-leasing-explained/how-does-van-leasing-work.html"
+                rel="noopener noreferrer"
               >
                 What Happens At The End Of A Car Lease?
-              </span>
+              </a>
             </div>
             <span
               class="text -regular -dark"
