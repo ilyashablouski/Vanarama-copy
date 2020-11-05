@@ -1,35 +1,23 @@
-import { useRouter } from 'next/router';
-import { NextPage } from 'next';
-import { getDataFromTree } from '@apollo/react-ssr';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import withApollo from '../../../hocs/withApollo';
-import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
+import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import DefaultErrorPage from 'next/error';
+import { IInsurancePage } from '../../../models/IInsuranceProps';
 import {
-  useGenericPage,
-  useGenericPageBreadcrumbs,
+  GENERIC_PAGE,
+  GENERIC_PAGE_BREADCRUMBS,
 } from '../../../gql/genericPage';
 import FinanceGapInsuranceContainer from '../../../containers/FinanceGapInsuranceContainer/FinanceGapInsuranceContainer';
+import createApolloClient from '../../../apolloClient';
 
-const MultiYearInsurancePage: NextPage = () => {
-  const router = useRouter();
-  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
-  const { data: breadcrumbsData } = useGenericPageBreadcrumbs(
-    router.asPath.slice(1),
-  );
-
-  if (loading) {
-    return <Loading size="large" />;
-  }
-
+const MultiYearInsurancePage: NextPage<IInsurancePage> = ({
+  data,
+  breadcrumbsData,
+  error,
+}) => {
   if (error) {
-    return <ErrorMessage message={error.message} />;
+    return <DefaultErrorPage statusCode={404} />;
   }
 
-  if (!data?.genericPage) {
-    return null;
-  }
-
-  const sections = data.genericPage?.sections;
+  const sections = data?.genericPage?.sections;
   const breadcrumbsItems = breadcrumbsData?.genericPage.metaData.breadcrumbs;
 
   return (
@@ -40,4 +28,35 @@ const MultiYearInsurancePage: NextPage = () => {
   );
 };
 
-export default withApollo(MultiYearInsurancePage, { getDataFromTree });
+export async function getStaticProps(context: GetStaticPropsContext) {
+  try {
+    const client = createApolloClient({}, context as NextPageContext);
+    const { data, errors } = await client.query({
+      query: GENERIC_PAGE,
+      variables: {
+        slug: 'insurance/public-liability-insurance',
+      },
+    });
+    const { data: breadcrumbsData } = await client.query({
+      query: GENERIC_PAGE_BREADCRUMBS,
+      variables: {
+        slug: 'insurance/public-liability-insurance',
+      },
+    });
+    return {
+      props: {
+        data,
+        breadcrumbsData,
+        error: errors ? errors[0] : null,
+      },
+    };
+  } catch {
+    return {
+      props: {
+        error: true,
+      },
+    };
+  }
+}
+
+export default MultiYearInsurancePage;
