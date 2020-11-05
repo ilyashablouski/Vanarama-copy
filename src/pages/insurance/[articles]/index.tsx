@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import withApollo from '../../../hocs/withApollo';
 import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostContainer';
-import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
 import { useGenericPage } from '../../../gql/genericPage';
+import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
 
 const BlogPost: NextPage = () => {
   const router = useRouter();

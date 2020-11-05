@@ -27,26 +27,6 @@ def app_environment = [
         alternateDomain: 'dev.vanarama-nonprod.com'
     ],
     "master": [
-        clusterName: 'grid-test',
-        logGroupName: "test/grid/apps",
-        taskFamily: "grid-test-${serviceName}",
-        app: "${serviceName}",
-        ssmParametersBase: "arn:aws:ssm:eu-west-2:126764662304:parameter/test/${stack}/${serviceName}",
-        env: 'test',
-        stack: 'grid',
-        slackChannelInfra: '#qa-infra-approvals',
-        jenkinsCredentialsId: 'aws-keys-terraform-grid-test',
-        accountId: '126764662304',
-        awsMasterRole: 'arn:aws:iam::126764662304:role/AutoramaGridDelegate',
-        state_bucket: 'grid-terraform-state-1',
-        backendConfigDynamoDbTable: 'test-grid-terraform-state-lock',
-        jenkinsAgent: 'grid-test-jenkins-agent',
-        dockerRepoName: "126764662304.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}",
-        NODE_ENV: 'development',
-        terraformService: true,
-        alternateDomain: 'test.vanarama-nonprod.com'
-    ],
-    "uat": [
         clusterName: 'grid-uat',
         logGroupName: "uat/grid/apps",
         taskFamily: "grid-uat-${serviceName}",
@@ -137,7 +117,6 @@ pipeline {
                 anyOf {
                   branch 'develop'
                   branch 'master'
-                  branch 'uat'
                 }
             }
 
@@ -219,7 +198,6 @@ pipeline {
                 anyOf {
                   branch 'develop'
                   branch 'master'
-                  branch 'uat'
                 }
             }
 
@@ -264,7 +242,6 @@ pipeline {
                 anyOf {
                   branch 'develop'
                   branch 'master'
-                  branch 'uat'
                 }
             }
 
@@ -324,7 +301,6 @@ pipeline {
                   anyOf {
                     branch 'develop'
                     branch 'master'
-                    branch 'uat'
                   }
               }
 
@@ -414,7 +390,6 @@ pipeline {
                   anyOf {
                     branch 'develop'
                     branch 'master'
-                    branch 'uat'
                   }
                   expression { terraformHasChange == true }
               }
@@ -463,7 +438,6 @@ pipeline {
                   anyOf {
                     branch 'develop'
                     branch 'master'
-                    branch 'uat'
                   }
               }
 
@@ -530,28 +504,6 @@ pipeline {
                   milestone(80)
                   script {
                       mergeAndPushBranch(app_environment, 'master');
-                  }
-              }
-          }
-          stage("11. Merge to UAT") {
-              input {
-                  message 'Merge to uat?'
-              }
-              agent { node('master') }
-              environment { //todo can the agent determine path.
-                  PATH = "${env.PATH}:/usr/local/bin"
-              }
-              when {
-                  beforeAgent true
-                  beforeInput true
-                  anyOf {
-                      branch 'master'
-                  }
-              }
-              steps {
-                  milestone(90)
-                  script {
-                      mergeAndPushBranch(app_environment, 'uat');
                   }
               }
           }
