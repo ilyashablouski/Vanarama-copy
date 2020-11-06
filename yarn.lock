@@ -6875,6 +6875,7 @@ hosted-git-info@^2.1.4:
 hpp@^0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/hpp/-/hpp-0.2.3.tgz#33bcc5fda713d2a962173c84f79a915a739b57bc"
+  integrity sha512-4zDZypjQcxK/8pfFNR7jaON7zEUpXZxz4viyFmqjb3kWNWAHsLEUmWXcdn25c5l76ISvnD6hbOGO97cXUI3Ryw==
   dependencies:
     lodash "^4.17.12"
     type-is "^1.6.12"
