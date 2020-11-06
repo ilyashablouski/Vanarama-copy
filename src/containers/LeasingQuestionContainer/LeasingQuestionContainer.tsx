@@ -24,7 +24,7 @@ const accordionItems = (questions: (IQuestion | null)[] | undefined | null) => {
         title: item?.question || '',
         children: (
           <ReactMarkdown
-            escapeHtml={false}
+            allowDangerousHtml
             source={item?.answer || ''}
             renderers={{
               link: props => {
@@ -58,7 +58,7 @@ const LeasingQuestionContainer: FC<IProps> = ({ body, title, sections }) => {
           {title}
         </Heading>
         <ReactMarkdown
-          escapeHtml={false}
+          allowDangerousHtml
           source={body || ''}
           renderers={{
             link: props => {

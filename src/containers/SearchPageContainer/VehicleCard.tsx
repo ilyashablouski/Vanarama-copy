@@ -68,7 +68,7 @@ const VehicleCard = memo(
         }}
         compared={isCompared(compareVehicles, data)}
         onWishlist={() => {}}
-        features={features(data?.keyInformation || [], data.capId || '', Icon)}
+        features={features(data?.keyInformation || [], data?.capId || '', Icon)}
         title={{
           ...title,
           score: data?.averageRating || undefined,

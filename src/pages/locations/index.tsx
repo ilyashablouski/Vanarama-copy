@@ -49,7 +49,7 @@ export const LocationsPage: NextPage = () => {
         </Heading>
         <div>
           <ReactMarkdown
-            escapeHtml={false}
+            allowDangerousHtml
             source={data?.genericPage.body || ''}
             renderers={{
               link: props => {
@@ -81,7 +81,7 @@ export const LocationsPage: NextPage = () => {
                   }
                 />
                 <ReactMarkdown
-                  escapeHtml={false}
+                  allowDangerousHtml
                   source={card.body || ''}
                   renderers={{
                     link: props => {

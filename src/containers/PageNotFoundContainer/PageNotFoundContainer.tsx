@@ -83,7 +83,7 @@ const PageNotFoundContainer: NextPage<IProps> = ({
         </div>
         <div className="full-height">
           <ReactMarkdown
-            escapeHtml={false}
+            allowDangerousHtml
             source={featured?.body || ''}
             renderers={{
               paragraph: props => (

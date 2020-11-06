@@ -22,7 +22,7 @@ const InsuranceFormSection = ({
         <Heading size="large" color="black">
           {title || ''}
         </Heading>
-        <ReactMarkdown escapeHtml={false} source={body || ''} />
+        <ReactMarkdown allowDangerousHtml source={body || ''} />
       </div>
       <div className="card">
         <GoldrushForm

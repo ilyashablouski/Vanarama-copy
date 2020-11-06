@@ -30,7 +30,7 @@ const BenefitsSection = ({ name, tiles }: IBenefitsSection) => (
           </Heading>
         </span>
         <ReactMarkdown
-          escapeHtml={false}
+          allowDangerousHtml
           source={tile.body || ''}
           renderers={{
             link: props => {

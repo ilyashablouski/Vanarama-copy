@@ -44,7 +44,7 @@ const TilesContainer: FCWithFragments<IProps> = ({ tiles, leasingOffers }) => {
                   >
                     <div>
                       <ReactMarkdown
-                        escapeHtml={false}
+                        allowDangerousHtml
                         source={el.body || ''}
                         renderers={{
                           link: props => {

@@ -73,6 +73,15 @@ import { rangeList } from '../../../generated/rangeList';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
 import { manufacturerList } from '../../../generated/manufacturerList';
 
+const htmlParser = require('react-markdown/plugins/html-parser');
+
+const parseHtml = htmlParser({
+  // isValidNode: (node: any) => node.type !== 'script',
+  processingInstructions: [
+    /* ... */
+  ],
+});
+
 interface IProps {
   isServer: boolean;
   isCarSearch?: boolean;
@@ -608,15 +617,16 @@ const SearchPageContainer: React.FC<IProps> = ({
   return (
     <>
       <div className="row:title">
-        <Heading tag="h1" size="xlarge" color="black">
+        <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
           {(isModelPage &&
             metaData?.name?.slice(0, metaData?.name?.indexOf('Car Leasing'))) ||
             (metaData?.name ?? '')}
         </Heading>
         <Text color="darker" size="regular" tag="div">
           <ReactMarkdown
+            astPlugins={[parseHtml]}
             className="markdown"
-            escapeHtml={false}
+            allowDangerousHtml
             source={pageData?.genericPage.intro || ''}
             renderers={{
               link: props => {
@@ -646,7 +656,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           {isModelPage && (
             <>
               <div className="row:title">
-                <Heading size="large" color="black">
+                <Heading size="large" color="black" className="-mb-300">
                   {metaData?.name}
                 </Heading>
               </div>
@@ -654,7 +664,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                 <div>
                   <ReactMarkdown
                     className="markdown"
-                    escapeHtml={false}
+                    allowDangerousHtml
                     source={pageData?.genericPage.body || ''}
                     renderers={{
                       link: props => {
@@ -710,13 +720,14 @@ const SearchPageContainer: React.FC<IProps> = ({
                 tag={featured.titleTag || 'span'}
                 size="large"
                 color="black"
+                className="-mb-300"
               >
                 {featured.title}
               </Heading>
               <ReactMarkdown
                 className="markdown"
                 source={featured.body || ''}
-                escapeHtml={false}
+                allowDangerousHtml
                 renderers={{
                   link: props => {
                     const { href, children } = props;
@@ -939,7 +950,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                 <ReactMarkdown
                   className="markdown"
                   source={pageData?.genericPage.body || ''}
-                  escapeHtml={false}
+                  allowDangerousHtml
                   renderers={{
                     link: props => {
                       const { href, children } = props;
@@ -1029,7 +1040,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                         >
                           <ReactMarkdown
                             className="markdown"
-                            escapeHtml={false}
+                            allowDangerousHtml
                             source={card.body || ''}
                             renderers={{
                               link: props => {
