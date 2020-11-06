@@ -105,6 +105,8 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
 
   useVehicleListUrlFetchMore(vehicleListUrlQuery, derivativeIds);
 
+  // NOTE: can be still be made use of for products loading states combined
+
   /* if (loading) {
     return <Loading size="large" />;
   } */
