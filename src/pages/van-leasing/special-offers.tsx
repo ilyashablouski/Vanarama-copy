@@ -465,7 +465,7 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
       </div>
       <div className="row:text -columns">
         <ReactMarkdown
-          escapeHtml={false}
+          allowDangerousHtml
           source={data?.vanOffersPage.body || ''}
           renderers={{
             link: props => {
@@ -510,7 +510,7 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
         </Heading>
         <div>
           <ReactMarkdown
-            escapeHtml={false}
+            allowDangerousHtml
             source={data?.vanOffersPage?.sections?.featured?.body || ''}
             renderers={{
               link: props => {
