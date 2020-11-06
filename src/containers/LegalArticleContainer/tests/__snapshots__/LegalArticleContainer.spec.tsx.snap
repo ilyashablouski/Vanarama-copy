@@ -51,7 +51,6 @@ exports[`<LegalArticleContainer /> should match snapshot 1`] = `
         style="max-width: none;"
       >
         <p>
-           
           <strong>
             Autorama UK is the UK's most-recognised vehicle leasing brand. Our principal business is brokering the sale of vehicles, finance and insurance to our customers. All of our directly employed staff are based in the UK.
           </strong>
@@ -66,10 +65,10 @@ exports[`<LegalArticleContainer /> should match snapshot 1`] = `
         </p>
         <ul>
           <li>
-            Autorama UK Ltd is committed to preventing slavery and human trafficking in our business and our supply chains. 
+            Autorama UK Ltd is committed to preventing slavery and human trafficking in our business and our supply chains.
           </li>
           <li>
-            We seek to uphold the highest standards of honesty and integrity in all our business dealings and relationships. 
+            We seek to uphold the highest standards of honesty and integrity in all our business dealings and relationships.
           </li>
           <li>
             We operate a zero-tolerance approach to modern slavery of any kind within our organisation and our supply chain.
@@ -81,9 +80,7 @@ exports[`<LegalArticleContainer /> should match snapshot 1`] = `
             Autorama UK LTD will quickly and thoroughly investigate any claim or indication that any area of its business or supply chains is engaging in human trafficking or slave labour.
           </li>
           <li>
-            <p>
-              Any such claim coming to the attention of personnel within Autorama UK LTD should be reported to senior management in accordance with our Whistleblowing Policy. The board of directors will be informed of the issue including the findings and outcome of the investigation.
-            </p>
+            Any such claim coming to the attention of personnel within Autorama UK LTD should be reported to senior management in accordance with our Whistleblowing Policy. The board of directors will be informed of the issue including the findings and outcome of the investigation.
           </li>
         </ul>
         <p>
@@ -93,17 +90,23 @@ exports[`<LegalArticleContainer /> should match snapshot 1`] = `
         </p>
         <ul>
           <li>
-            We ensure all employees have the right to work in UK.
-          </li>
-          <li>
-            Our people are our most highly valued asset and are critical to Autorama UK LTD's success and growth. 
-          </li>
-          <li>
-            Our Core Values set out guiding principles for members of staff which outlines they should always act lawfully and ethically. 
+            <p>
+              We ensure all employees have the right to work in UK.
+            </p>
           </li>
           <li>
             <p>
-              All staff undertake mandatory compliance training courses which outline these values further. 
+              Our people are our most highly valued asset and are critical to Autorama UK LTD's success and growth.
+            </p>
+          </li>
+          <li>
+            <p>
+              Our Core Values set out guiding principles for members of staff which outlines they should always act lawfully and ethically.
+            </p>
+          </li>
+          <li>
+            <p>
+              All staff undertake mandatory compliance training courses which outline these values further.
             </p>
           </li>
         </ul>
@@ -114,7 +117,7 @@ exports[`<LegalArticleContainer /> should match snapshot 1`] = `
         </p>
         <ul>
           <li>
-            We recognise that our business is exposed to greater risk when dealing with suppliers. 
+            We recognise that our business is exposed to greater risk when dealing with suppliers.
           </li>
           <li>
             Our approach to managing this is to identify the level of risk.
@@ -123,12 +126,10 @@ exports[`<LegalArticleContainer /> should match snapshot 1`] = `
             Our supply chains are predominately funders (finance companies), vehicle dealers and vehicle manufacturers. We consider the sectors in which we operate and our supply chains to be at lower risk of modern slavery.
           </li>
           <li>
-            The vast majority of suppliers for our core business are registered and trade in the UK. 
+            The vast majority of suppliers for our core business are registered and trade in the UK.
           </li>
           <li>
-            <p>
-              A review has been completed of our top suppliers, (who themselves are eligible to publish statements) and we have sufficiently concluded that their Modern Slavery Statements meet requirements under the Modern Slavery Act 2015. These statements will be reviewed periodically to ensure compliance.
-            </p>
+            A review has been completed of our top suppliers, (who themselves are eligible to publish statements) and we have sufficiently concluded that their Modern Slavery Statements meet requirements under the Modern Slavery Act 2015. These statements will be reviewed periodically to ensure compliance.
           </li>
         </ul>
         <p>
@@ -138,20 +139,28 @@ exports[`<LegalArticleContainer /> should match snapshot 1`] = `
         </p>
         <ul>
           <li>
-            Our Modern-Day Slavery policy is published on our website and our intranet for easy accessibility for all members of staff and customers.
-          </li>
-          <li>
-            Review of our top suppliers in our supply chain completed to ensure compliance with the MSA 2015.
-          </li>
-          <li>
-            Risk Assessments were undertaken to highlight key areas for focus going in to 2020.
-          </li>
-          <li>
-            National Minimum Wage reviews were completed to ensure all employees were paid within legal requirements.
+            <p>
+              Our Modern-Day Slavery policy is published on our website and our intranet for easy accessibility for all members of staff and customers.
+            </p>
           </li>
           <li>
             <p>
-              Employee induction and training provisions were created, all new members of staff would be aware of our obligations and where to find our statement. 
+              Review of our top suppliers in our supply chain completed to ensure compliance with the MSA 2015.
+            </p>
+          </li>
+          <li>
+            <p>
+              Risk Assessments were undertaken to highlight key areas for focus going in to 2020.
+            </p>
+          </li>
+          <li>
+            <p>
+              National Minimum Wage reviews were completed to ensure all employees were paid within legal requirements.
+            </p>
+          </li>
+          <li>
+            <p>
+              Employee induction and training provisions were created, all new members of staff would be aware of our obligations and where to find our statement.
             </p>
           </li>
         </ul>
@@ -165,13 +174,19 @@ exports[`<LegalArticleContainer /> should match snapshot 1`] = `
         </p>
         <ul>
           <li>
-            Complete internal and supplier risk assessments to highlight key areas for focus
+            <p>
+              Complete internal and supplier risk assessments to highlight key areas for focus
+            </p>
           </li>
           <li>
-            Review our supply chain to ensure compliance with the MSA 2015
+            <p>
+              Review our supply chain to ensure compliance with the MSA 2015
+            </p>
           </li>
           <li>
-            Ensure ongoing training and awareness for new and existing staff
+            <p>
+              Ensure ongoing training and awareness for new and existing staff
+            </p>
           </li>
           <li>
             <p>

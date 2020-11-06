@@ -55,7 +55,7 @@ const renderCarouselCards = (cards: any[] | undefined) =>
           }}
         >
           <ReactMarkdown
-            escapeHtml={false}
+            allowDangerousHtml
             source={getBody(card?.body || '')}
             renderers={{
               link: props => {
@@ -192,7 +192,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
           <div>
             <ReactMarkdown
               source={getBody(card?.body)}
-              escapeHtml={false}
+              allowDangerousHtml
               renderers={{
                 link: props => {
                   const { href, children } = props;
@@ -243,7 +243,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
               {featured?.title}
             </Heading>
             <ReactMarkdown
-              escapeHtml={false}
+              allowDangerousHtml
               source={featured?.body || ''}
               renderers={{
                 link: props => {

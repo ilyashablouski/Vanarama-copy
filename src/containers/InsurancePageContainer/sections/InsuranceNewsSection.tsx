@@ -19,7 +19,7 @@ const renderCarouselCards = (cards: (ICard | null)[]) =>
         imageSrc={card.image?.file?.url}
       >
         <ReactMarkdown
-          escapeHtml={false}
+          allowDangerousHtml
           source={card.body || ''}
           renderers={{
             link: props => {

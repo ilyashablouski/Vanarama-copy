@@ -333,7 +333,7 @@ export const CarsPage: NextPage = () => {
           </Heading>
           <div className="markdown">
             <ReactMarkdown
-              escapeHtml={false}
+              allowDangerousHtml
               source={data?.hubCarPage.sections?.featured1?.body || ''}
               renderers={{
                 link: props => {
@@ -392,7 +392,7 @@ export const CarsPage: NextPage = () => {
           </Heading>
           <div className="markdown">
             <ReactMarkdown
-              escapeHtml={false}
+              allowDangerousHtml
               source={data?.hubCarPage.sections?.featured2?.body || ''}
               renderers={{
                 link: props => {

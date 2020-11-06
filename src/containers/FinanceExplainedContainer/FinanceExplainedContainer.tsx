@@ -52,7 +52,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
         <div>
           <ReactMarkdown
             source={body || ''}
-            escapeHtml={false}
+            allowDangerousHtml
             renderers={{
               link: props => {
                 const { href, children } = props;
@@ -109,7 +109,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
       {featured1 && (
         <div
           className={
-            featured1.image?.file?.url
+            featured1.layout
               ? `row:${getFeaturedClassPartial(featured1)}`
               : 'row:text -columns'
           }
@@ -131,7 +131,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
               <ReactMarkdown
                 className="markdown"
                 source={featured1.body || ''}
-                escapeHtml={false}
+                allowDangerousHtml
                 renderers={{
                   link: props => {
                     const { href, children } = props;
@@ -209,7 +209,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
                   <div>
                     <ReactMarkdown
                       source={el?.body || ''}
-                      escapeHtml={false}
+                      allowDangerousHtml
                       renderers={{
                         link: props => {
                           const { href, children } = props;
@@ -270,7 +270,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
             <div>
               <ReactMarkdown
                 source={featured2.body || ''}
-                escapeHtml={false}
+                allowDangerousHtml
                 renderers={{
                   link: props => {
                     const { href, children } = props;

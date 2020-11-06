@@ -33,8 +33,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         <p
           class="text -regular -darker"
         >
-          We understand the importance of your new car decision and want to make sure the process is as simple and seamless as possible for you. You can find out how we do this by visiting our page about
-           
+          We understand the importance of your new car decision and want to make sure the process is as simple and seamless as possible for you. You can find out how we do this by visiting our page about 
           <a
             class="link -teal"
             data-testid="link"
@@ -75,18 +74,14 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             </a>
           </li>
           <li>
-            <p
-              class="text -regular -darker"
+            <a
+              class="link -teal"
+              data-testid="link"
+              href="https://beta.vanarama.com/car-personal-contract-hire.html"
+              rel="noopener noreferrer"
             >
-              <a
-                class="link -teal"
-                data-testid="link"
-                href="https://beta.vanarama.com/car-personal-contract-hire.html"
-                rel="noopener noreferrer"
-              >
-                Personal Contract Hire
-              </a>
-            </p>
+              Personal Contract Hire
+            </a>
           </li>
         </ul>
       </article>
