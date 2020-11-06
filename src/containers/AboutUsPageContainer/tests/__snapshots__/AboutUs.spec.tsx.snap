@@ -176,13 +176,12 @@ Array [
       <p
         className="text -regular -darker"
       >
-        <strong>
-          <img
-            alt="Sunday Time Best Small Companies to work for award 2018"
-            src="/assets/careers/sunday-times-best-small-companies-to-work-for-award-2018.jpg"
-          />
-        </strong>
-        The company provides industry-leading customer service and has found investing in that service, and the staff that provide it, to be a successful formula for success. From sector awards to national awards you will be dealing with a business that has had scrutiny at the highest level in industry. In 2015, Vanarama won the highly prestigious Lloyds National Business Award for Best Small to Medium Sized Business 2015, an accolade that recognised our commitment to training, customer service and innovation. Read our 
+        **
+        <img
+          alt="Sunday Time Best Small Companies to work for award 2018"
+          src="/assets/careers/sunday-times-best-small-companies-to-work-for-award-2018.jpg"
+        />
+        **The company provides industry-leading customer service and has found investing in that service, and the staff that provide it, to be a successful formula for success. From sector awards to national awards you will be dealing with a business that has had scrutiny at the highest level in industry. In 2015, Vanarama won the highly prestigious Lloyds National Business Award for Best Small to Medium Sized Business 2015, an accolade that recognised our commitment to training, customer service and innovation. Read our 
         <a
           className="link -teal"
           data-testid="link"
@@ -246,7 +245,7 @@ Array [
         <p
           className="text -regular -darker"
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
         <p
           className="text -regular -darker"
@@ -271,7 +270,7 @@ Array [
         <p
           className="text -regular -darker"
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
         <p
           className="text -regular -darker"
