@@ -3125,10 +3125,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@5.35.2":
-  version "5.35.2"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.35.2.tgz#64ad700109c1ab47894c3bfbe6e9e0c5e48f23ec"
-  integrity sha512-RLgIw9htS2XTtdZEKslnz0l7D7vZOQ0MFO/Pp5jEpTOmY8MqWJjAjwrs62Y3aq2ZoXeaXCo0w+utENzMFOQlRw==
+"@vanarama/uibook@5.35.3":
+  version "5.35.3"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.35.3.tgz#10830eabdc5edc6efcaa5805b681924786067231"
+  integrity sha512-VawCVQmcN5gzIKzcmUtp5Xf3kCJph0KFLUuxwuNqAAg8d6p5JQFuGDtiUgCJkRnaBoUTmRVYC9O15g+uwe3gzA==
   dependencies:
     "@egjs/flicking" "^3.4.7"
     "@loadable/component" "^5.14.1"
@@ -6875,6 +6875,7 @@ hosted-git-info@^2.1.4:
 hpp@^0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/hpp/-/hpp-0.2.3.tgz#33bcc5fda713d2a962173c84f79a915a739b57bc"
+  integrity sha512-4zDZypjQcxK/8pfFNR7jaON7zEUpXZxz4viyFmqjb3kWNWAHsLEUmWXcdn25c5l76ISvnD6hbOGO97cXUI3Ryw==
   dependencies:
     lodash "^4.17.12"
     type-is "^1.6.12"
