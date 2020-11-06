@@ -8,7 +8,7 @@ import {
   isCompared,
 } from '../comparatorHelpers';
 
-describe('articles', () => {
+describe('comparatorHelpers', () => {
   describe('changeCompares', () => {
     it('changeCompares should return promise', () => {
       jest.mock('localforage', () => ({
