@@ -45,8 +45,8 @@ describe('Date utils', () => {
       const yr = '1999';
       const mth = '08';
       const day = '04';
-      expect(parseDate(day, mth, yr).toLocaleString()).toBe(
-        'Wed Aug 04 1999 00:00:00 GMT+0400',
+      expect(JSON.stringify(parseDate(day, mth, yr))).toEqual(
+        JSON.stringify('1999-08-03T20:00:00.000Z'),
       );
     });
   });
@@ -56,11 +56,11 @@ describe('Date utils', () => {
       const yr = '1999';
       const mth = '08';
       expect(
-        historyToMoment({ month: mth, year: yr } as any).toLocaleString(),
-      ).toBe('Sun Aug 01 1999 00:00:00 GMT+0400');
+        JSON.stringify(historyToMoment({ month: mth, year: yr } as any)),
+      ).toEqual(JSON.stringify('1999-07-31T20:00:00.000Z'));
       expect(
-        historyToDate({ month: mth, year: yr } as any).toLocaleString(),
-      ).toBe('8/1/1999, 12:00:00 AM');
+        JSON.stringify(historyToDate({ month: mth, year: yr } as any)),
+      ).toEqual(JSON.stringify('1999-07-31T20:00:00.000Z'));
     });
   });
 
