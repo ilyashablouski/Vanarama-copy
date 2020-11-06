@@ -330,7 +330,7 @@ export const PickupsPage: NextPage = () => {
           </Heading>
           <div className="markdown">
             <ReactMarkdown
-              escapeHtml={false}
+              allowDangerousHtml
               source={data?.hubPickupPage.sections?.featured1?.body || ''}
               renderers={{
                 link: props => {
@@ -389,7 +389,7 @@ export const PickupsPage: NextPage = () => {
           </Heading>
           <div className="markdown">
             <ReactMarkdown
-              escapeHtml={false}
+              allowDangerousHtml
               source={data?.hubPickupPage.sections?.featured2?.body || ''}
               renderers={{
                 link: props => {

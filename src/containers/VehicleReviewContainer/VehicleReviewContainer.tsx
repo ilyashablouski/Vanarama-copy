@@ -68,7 +68,7 @@ const VehicleReviewContainer: FC<IProps> = ({ body, title, sections }) => {
             </TabList>
           </Tabs>
           <ReactMarkdown
-            escapeHtml={false}
+            allowDangerousHtml
             className="markdown -mt-500"
             source={body || ''}
             renderers={{

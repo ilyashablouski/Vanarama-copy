@@ -40,7 +40,7 @@ export const FeaturedHtml: FCWithFragments<IFeatured> = ({ featured }) => {
               {featured.title}
             </Heading>
             <ReactMarkdown
-              escapeHtml={false}
+              allowDangerousHtml
               source={featured.body || ''}
               renderers={{
                 link: props => {

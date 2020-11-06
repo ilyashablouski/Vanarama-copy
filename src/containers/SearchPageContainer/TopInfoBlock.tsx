@@ -34,7 +34,7 @@ const TopInfoBlock = memo(({ topInfoSection }: ITopInfoBlockProps) => {
         </Heading>
         <div className="markdown">
           <ReactMarkdown
-            escapeHtml={false}
+            allowDangerousHtml
             source={topInfoSection.featured?.body || ''}
             renderers={{
               link: props => {

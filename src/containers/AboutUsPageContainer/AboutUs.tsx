@@ -77,7 +77,7 @@ const renderMeetCard = (card: ICard | undefined) =>
     >
       <div>
         <ReactMarkdown
-          escapeHtml={false}
+          allowDangerousHtml
           source={card.body}
           renderers={{
             link: props => {
@@ -143,7 +143,7 @@ const AboutUs: React.FC<IAboutPageProps> = ({ loading, error, data }) => {
       <div className="row:article">
         <article className="markdown">
           <ReactMarkdown
-            escapeHtml={false}
+            allowDangerousHtml
             source={body || ''}
             renderers={{
               link: props => {
@@ -182,7 +182,7 @@ const AboutUs: React.FC<IAboutPageProps> = ({ loading, error, data }) => {
         </Heading>
         <Link color="teal" href="#">
           <ReactMarkdown
-            escapeHtml={false}
+            allowDangerousHtml
             source={sections?.rowText?.body || ''}
             renderers={{
               paragraph: props => <React.Fragment {...props} />,
