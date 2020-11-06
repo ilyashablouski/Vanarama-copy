@@ -44,6 +44,10 @@ export const mapCreateUpdteApplicationData = (
   companyData?: Company | null,
 ) => ({
   ...mapFormValues(values),
+  companyNature: undefined,
+  tradingName: undefined,
+  businessName: values.tradingName,
+  natureOfBusiness: values.natureOfBusiness,
   addresses: [
     {
       ...companyData?.addresses?.[0],
@@ -69,9 +73,9 @@ export const prelodedValuesToInput = (details: any) => {
       }
     : null;
   return {
-    tradingName: details.trading_name,
+    tradingName: details.business_name,
     ...tradingAddress,
-    natureOfBusiness: details.company_nature,
+    natureOfBusiness: details.nature_of_business,
     tradingSinceYear: String(new Date(details.trading_since).getFullYear()),
     tradingSinceMonth: String(new Date(details.trading_since).getMonth() + 1),
     businessTelephoneNumber: details.telephone_numbers?.[0].value,

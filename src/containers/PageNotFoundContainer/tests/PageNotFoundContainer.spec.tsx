@@ -75,6 +75,7 @@ const FEATURED = {
   layout: ['Media Left'],
   link: null,
   testimonials: null,
+  defaultHeight: null,
   title: null,
   titleTag: null,
   video: null,

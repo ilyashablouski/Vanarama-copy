@@ -588,48 +588,6 @@ const SearchPageContainer: React.FC<IProps> = ({
   const getCardData = (capId: string, dataForCards = cardsData) =>
     dataForCards?.filter(card => card?.capId === capId)[0];
 
-  /** navigate to Range Page */
-  const viewRange = (range: string) => {
-    const href = isCarSearch ? 'car-leasing' : 'van-leasing';
-    const query = { make: router.query.dynamicParam };
-    router.push(
-      {
-        pathname: `/${href}/[dynamicParam]/[rangeName]`,
-        query,
-      },
-      `/${href}/${router.query.dynamicParam}/${range}`,
-      { shallow: true },
-    );
-  };
-  /** navigate to Model Page */
-  const viewModel = (bodyStyle: string) => {
-    const href = isCarSearch ? 'car-leasing' : 'van-leasing';
-    const query = { make: router.query.dynamicParam };
-    router.push(
-      {
-        pathname: `/${href}/[dynamicParam]/[rangeName]/[bodyStyles]`,
-        query,
-      },
-      `/${href}/${router.query.dynamicParam}/${router.query.rangeName}/${bodyStyle}`,
-      { shallow: true },
-    );
-  };
-  /** navigate to Make Page */
-  const viewMake = (make: string) => {
-    if (make) {
-      const href = isCarSearch ? 'car-leasing' : 'van-leasing';
-      const query = { make: router.query.dynamicParam };
-      router.push(
-        {
-          pathname: `/${href}/[dynamicParam]`,
-          query,
-        },
-        `/${href}/${make}`,
-        { shallow: true },
-      );
-    }
-  };
-
   const tiles: Tiles = getSectionsData(
     ['sections', 'tiles'],
     pageData?.genericPage,
@@ -643,6 +601,8 @@ const SearchPageContainer: React.FC<IProps> = ({
     pageData?.genericPage,
   );
 
+  const [readmore, setReadMore] = useState(true);
+
   // TODO: render must be refactored, some components should be moved to separate components
   // Some props should be contain in one param for achieve more readable code
   return (
@@ -655,6 +615,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         </Heading>
         <Text color="darker" size="regular" tag="div">
           <ReactMarkdown
+            className="markdown"
             escapeHtml={false}
             source={pageData?.genericPage.intro || ''}
             renderers={{
@@ -679,6 +640,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           />
         </Text>
       </div>
+
       {pageData && (
         <>
           {isModelPage && (
@@ -691,6 +653,7 @@ const SearchPageContainer: React.FC<IProps> = ({
               <div className="row:text -columns">
                 <div>
                   <ReactMarkdown
+                    className="markdown"
                     escapeHtml={false}
                     source={pageData?.genericPage.body || ''}
                     renderers={{
@@ -724,6 +687,62 @@ const SearchPageContainer: React.FC<IProps> = ({
         </>
       )}
 
+      {featured && (
+        <div className={`row:${getFeaturedClassPartial(featured)}`}>
+          {!featured?.layout?.includes('Full Width') && (
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              size="expand"
+              src={featured.image?.file?.url || ''}
+            />
+          )}
+          <div>
+            <div
+              style={{
+                height:
+                  featured?.layout?.includes('Read More') && readmore
+                    ? featured?.defaultHeight || 100
+                    : '',
+                overflow: readmore ? 'hidden' : '',
+              }}
+            >
+              <Heading
+                tag={featured.titleTag || 'span'}
+                size="large"
+                color="black"
+              >
+                {featured.title}
+              </Heading>
+              <ReactMarkdown
+                className="markdown"
+                source={featured.body || ''}
+                escapeHtml={false}
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return (
+                      <RouterLink
+                        link={{ href, label: children }}
+                        classNames={{ color: 'teal' }}
+                      />
+                    );
+                  },
+                }}
+              />
+            </div>
+            {featured?.layout?.includes('Read More') && (
+              <Button
+                size="small"
+                color="teal"
+                fill="clear"
+                label={readmore ? 'Read More' : 'Read Less'}
+                onClick={() => setReadMore(!readmore)}
+              />
+            )}
+          </div>
+        </div>
+      )}
+
       {isAllMakesPage && topInfoSection && (
         <TopInfoBlock topInfoSection={topInfoSection} />
       )}
@@ -742,7 +761,6 @@ const SearchPageContainer: React.FC<IProps> = ({
           isRangePage={isRangePage || false}
           isPickups={isPickups || false}
           isSpecialOfferPage={isSpecialOfferPage || false}
-          viewModel={viewModel}
           manualBodyStyle={manualBodyStyle}
           preLoadVehiclesList={preLoadVehiclesList}
           preLoadProductCardsData={preLoadProductCardsData}
@@ -815,7 +833,6 @@ const SearchPageContainer: React.FC<IProps> = ({
                     !!ranges?.rangeList?.length &&
                     ranges?.rangeList?.map((range, index) => (
                       <RangeCard
-                        onView={() => viewRange(range.rangeName || '')}
                         title={range.rangeName || ''}
                         fromPrice={range.minPrice || undefined}
                         key={range.rangeId || index}
@@ -827,7 +844,6 @@ const SearchPageContainer: React.FC<IProps> = ({
                     !!manufatcurers?.manufacturerList?.length &&
                     manufatcurers?.manufacturerList?.map((makeData, index) => (
                       <RangeCard
-                        onView={() => viewMake(makeData.manufacturerName || '')}
                         title={makeData.manufacturerName || ''}
                         fromPrice={makeData.minPrice || undefined}
                         key={makeData.manufacturerId || index}
@@ -921,46 +937,8 @@ const SearchPageContainer: React.FC<IProps> = ({
             <div className="row:text -columns">
               <div>
                 <ReactMarkdown
+                  className="markdown"
                   source={pageData?.genericPage.body || ''}
-                  escapeHtml={false}
-                  renderers={{
-                    link: props => {
-                      const { href, children } = props;
-                      return (
-                        <RouterLink
-                          link={{ href, label: children }}
-                          classNames={{ color: 'teal' }}
-                        />
-                      );
-                    },
-                    heading: props => (
-                      <Text {...props} size="lead" color="darker" tag="h3" />
-                    ),
-                    paragraph: props => (
-                      <Text {...props} tag="p" color="darker" />
-                    ),
-                  }}
-                />
-              </div>
-            </div>
-          )}
-          {featured && (
-            <div className={`row:${getFeaturedClassPartial(featured)}`}>
-              <Image
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                size="expand"
-                src={featured.image?.file?.url || ''}
-              />
-              <div>
-                <Heading
-                  tag={featured.titleTag || 'span'}
-                  size="large"
-                  color="black"
-                >
-                  {featured.title}
-                </Heading>
-                <ReactMarkdown
-                  source={featured.body || ''}
                   escapeHtml={false}
                   renderers={{
                     link: props => {
@@ -1050,6 +1028,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                           }}
                         >
                           <ReactMarkdown
+                            className="markdown"
                             escapeHtml={false}
                             source={card.body || ''}
                             renderers={{

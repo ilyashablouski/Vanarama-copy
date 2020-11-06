@@ -1,10 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useContext } from 'react';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
-import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
-import Price from '@vanarama/uibook/lib/components/atoms/price';
-import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
+import dynamic from 'next/dynamic';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
@@ -14,9 +10,26 @@ import {
   GetProductCard,
   GetProductCard_productCard,
 } from '../../../generated/GetProductCard';
-import getIconMap from '../../utils/getIconMap';
 import truncateString from '../../utils/truncateString';
 import useSliderProperties from '../../hooks/useSliderProperties';
+import { features } from './helpers';
+
+// Dynamic component loading.
+const Icon = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/icon'),
+);
+const Carousel = dynamic(() =>
+  import('@vanarama/uibook/lib/components/organisms/carousel'),
+);
+const ProductCard = dynamic(() =>
+  import(
+    '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard'
+  ),
+);
+const Price = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/price'),
+);
+const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'));
 
 interface IProductCarouselProps {
   leaseType: string;
@@ -51,6 +64,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
           product && (
             <ProductCard
               loadImage
+              alt={`${product?.manufacturerName} ${product?.rangeName} ${product?.derivativeName}`}
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               key={`${product.capId}_${inx}` || ''}
               header={
@@ -68,13 +82,11 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                     }
                   : undefined
               }
-              features={product?.keyInformation?.map(info => ({
-                icon: getIconMap(product?.keyInformation || []).get(
-                  info?.name?.replace(/\s+/g, ''),
-                ),
-                label: info?.value || '',
-                index: `${product.capId}_${info?.name || ''}`,
-              }))}
+              features={features(
+                product?.keyInformation || [],
+                product.capId || '',
+                Icon,
+              )}
               onCompare={() => {
                 compareChange({
                   pageUrl: formatProductPageUrl(

@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import Router from 'next/router';
 import CreditChecker from '../../../pages/lease-eligibility-checker/credit-checker';
@@ -29,6 +30,7 @@ jest.mock('next/router', () => ({
 
 describe('<CreditChecker />', () => {
   beforeEach(async () => {
+    await preloadAll();
     (useProductCard as jest.Mock).mockReturnValue({
       loading: false,
       data: {

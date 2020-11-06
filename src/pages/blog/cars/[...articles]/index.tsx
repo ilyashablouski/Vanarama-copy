@@ -1,37 +1,28 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
+import DefaultErrorPage from 'next/error';
 import withApollo from '../../../../hocs/withApollo';
 import { BLOG_POST_PAGE } from '../../../../gql/blogPost';
 import BlogPostContainer from '../../../../containers/BlogPostContainer/BlogPostContainer';
-import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
 import { getSectionsData } from '../../../../utils/getSectionsData';
 import { BLOG_POSTS_PAGE } from '../../../../gql/blogPosts';
 import { getArticles } from '../../../../utils/articles';
 import createApolloClient from '../../../../apolloClient';
 import { IBlogPost } from '../../../../models/IBlogsProps';
 import { BlogPosts } from '../../../../../generated/BlogPosts';
-import { getPaths } from '../../../../utils/blogSlugs';
+import { getBlogPaths } from '../../../../utils/pageSlugs';
 
 const BlogPost: NextPage<IBlogPost> = ({
   data,
-  loading,
   error,
   blogPosts,
-  blogPostsLoading,
   blogPostsError,
 }) => {
   const router = useRouter();
 
-  if (error || blogPostsError) {
-    return (
-      <ErrorMessage message={error?.message || blogPostsError?.message || ''} />
-    );
-  }
-
-  if (loading || blogPostsLoading || !data) {
-    return <Loading size="large" />;
+  if (error || blogPostsError || !data) {
+    return <DefaultErrorPage statusCode={404} />;
   }
 
   const articles = getSectionsData(['blogPosts', 'articles'], blogPosts);
@@ -59,49 +50,67 @@ const BlogPost: NextPage<IBlogPost> = ({
 };
 
 export async function getStaticPaths() {
-  const client = createApolloClient({});
-  const { data } = await client.query<BlogPosts>({
-    query: BLOG_POSTS_PAGE,
-    variables: {
-      slug: 'blog/cars',
-    },
-  });
+  try {
+    const client = createApolloClient({});
+    const { data } = await client.query<BlogPosts>({
+      query: BLOG_POSTS_PAGE,
+      variables: {
+        slug: 'blog/cars',
+      },
+    });
 
-  return {
-    paths: getPaths(data?.blogPosts),
-    fallback: false,
-  };
+    return {
+      paths: getBlogPaths(data?.blogPosts),
+      fallback: false,
+    };
+  } catch {
+    return {
+      paths: [
+        {
+          params: { articles: ['/'] },
+        },
+      ],
+      fallback: false,
+    };
+  }
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-  const client = createApolloClient({}, context as NextPageContext);
-  const { data, loading, errors } = await client.query({
-    query: BLOG_POST_PAGE,
-    variables: {
-      slug: `blog/cars/${context?.params?.articles}`,
-    },
-  });
-  const {
-    data: blogPosts,
-    loading: blogPostsLoading,
-    errors: blogPostsError,
-  } = await client.query({
-    query: BLOG_POSTS_PAGE,
-    variables: {
-      slug: 'blog/cars',
-    },
-  });
+  try {
+    const client = createApolloClient({}, context as NextPageContext);
+    const { data, errors } = await client.query({
+      query: BLOG_POST_PAGE,
+      variables: {
+        slug: `blog/cars/${context?.params?.articles}`,
+      },
+    });
+    const {
+      data: blogPosts,
+      loading: blogPostsLoading,
+      errors: blogPostsError,
+    } = await client.query({
+      query: BLOG_POSTS_PAGE,
+      variables: {
+        slug: 'blog/cars',
+      },
+    });
 
-  return {
-    props: {
-      data,
-      loading,
-      error: errors ? errors[0] : null,
-      blogPosts,
-      blogPostsLoading,
-      blogPostsError: blogPostsError ? blogPostsError[0] : null,
-    },
-  };
+    return {
+      props: {
+        data,
+        error: errors ? errors[0] : null,
+        blogPosts,
+        blogPostsLoading,
+        blogPostsError: blogPostsError ? blogPostsError[0] : null,
+      },
+    };
+  } catch {
+    return {
+      props: {
+        error: true,
+      },
+    };
+  }
 }
 
 export default withApollo(BlogPost);

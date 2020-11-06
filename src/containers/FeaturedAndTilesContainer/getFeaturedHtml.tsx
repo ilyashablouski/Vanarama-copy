@@ -73,6 +73,7 @@ FeaturedHtml.fragments = {
       title
       titleTag
       video
+      defaultHeight
       iconList {
         text
       }

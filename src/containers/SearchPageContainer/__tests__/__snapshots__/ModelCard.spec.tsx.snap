@@ -10,7 +10,6 @@ exports[`<ModelCard /> should be render correctly 1`] = `
       <img
         class="card-image"
         data-testid="card-image"
-        sizes="(min-width:3200px) 800px, 1200px"
         src="https://images.autorama.co.uk/Photos/Cap/Vehicles/126268/cap-68051-126268.jpg"
       />
       <div
@@ -18,8 +17,9 @@ exports[`<ModelCard /> should be render correctly 1`] = `
       >
         <a
           class="heading link -black -large"
-          data-testid="router-link"
-          href="/car-leasing/BMW/3%20series/coupe"
+          data-testid="link"
+          href="/bmw-car-leasing/3-series/coupe.html"
+          rel="noopener noreferrer"
         >
           3 series coupe
         </a>
@@ -57,15 +57,20 @@ exports[`<ModelCard /> should be render correctly 1`] = `
             Per Month Inc.VAT
           </div>
         </div>
-        <button
+        <a
           class="button -teal -regular -solid"
+          data-testid="link"
+          href="/bmw-car-leasing/3-series/coupe.html"
+          rel="noopener noreferrer"
         >
           <div
             class="button--inner"
           >
-            View 2 Offers
+            View 
+            2
+             Offers
           </div>
-        </button>
+        </a>
       </div>
     </div>
   </div>

@@ -3,15 +3,11 @@ import { ApolloQueryResult } from '@apollo/client';
 import createApolloClient from '../../apolloClient';
 import SearchPageContainer from '../../containers/SearchPageContainer';
 import { ssrCMSQueryExecutor } from '../../containers/SearchPageContainer/helpers';
-import {
-  GenericPageQuery,
-  GenericPageQuery_genericPage_metaData as PageMetaData,
-} from '../../../generated/GenericPageQuery';
+import { GenericPageQuery } from '../../../generated/GenericPageQuery';
+import { ISearchPageProps } from '../../models/ISearchPageProps';
 
-interface IProps {
-  isServer: boolean;
+interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
-  metaData: PageMetaData;
 }
 
 const Page: NextPage<IProps> = ({ isServer, pageData, metaData }) => {

@@ -85,18 +85,19 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             <img
               class="card-image"
               data-testid="card-image"
-              sizes="(min-width:3200px) 800px, 1200px"
               src="//images.ctfassets.net/3xid768u5joa/FRg0wIDLXZqVIB9ZoJEw7/e04f3cfdfb2ad9405be84ef106d83d26/company-cash-allowance-vs-company-car.jpg"
             />
             <div
               class="title"
             >
-              <span
+              <a
                 class="heading -black -lead"
-                data-testid="card-heading"
+                data-testid="link"
+                href="https://betavanarama.com/van-leasing-explained/how-does-van-leasing-work.html"
+                rel="noopener noreferrer"
               >
                 Company Cash Allowance Vs Company Car
-              </span>
+              </a>
             </div>
             <span
               class="text -regular -dark"
@@ -126,18 +127,19 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             <img
               class="card-image"
               data-testid="card-image"
-              sizes="(min-width:3200px) 800px, 1200px"
               src="//images.ctfassets.net/3xid768u5joa/2gBj5lixlkrla8kFNF8XSi/0fea9544b48e892f4f96d612b9be9c70/what-happens-at-end-of-car-lease.jpg"
             />
             <div
               class="title"
             >
-              <span
+              <a
                 class="heading -black -lead"
-                data-testid="card-heading"
+                data-testid="link"
+                href="https://betavanarama.com/van-leasing-explained/how-does-van-leasing-work.html"
+                rel="noopener noreferrer"
               >
                 What Happens At The End Of A Car Lease?
-              </span>
+              </a>
             </div>
             <span
               class="text -regular -dark"

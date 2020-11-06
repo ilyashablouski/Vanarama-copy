@@ -1,6 +1,10 @@
-import { VehicleTypeEnum } from '../../generated/globalTypes';
-import { VehicleListUrl_vehicleList_edges as VehicleEdge } from '../../generated/VehicleListUrl';
+import { IncomingMessage, ServerResponse } from 'http';
+import { ApolloClient } from '@apollo/client';
+import { GENERIC_PAGE } from '../gql/genericPage';
 import { GetProductCard_vehicleList_edges as ProductEdge } from '../../generated/GetProductCard';
+import { VehicleListUrl_vehicleList_edges as VehicleEdge } from '../../generated/VehicleListUrl';
+import { VehicleTypeEnum } from '../../generated/globalTypes';
+import { getSectionsData } from './getSectionsData';
 
 type UrlParams = { [key: string]: string | boolean | undefined };
 
@@ -10,6 +14,14 @@ export const getUrlParam = (urlParams: UrlParams, notReplace?: boolean) => {
   );
 
   return notReplace ? url.join('') : url.join('').replace('&', '?');
+};
+
+export const setSource = (source: string) => {
+  let sanitized;
+  sanitized = source.replace(/^[^#]*?:\/\/.*?(\/.*)$/, '$1');
+  sanitized = sanitized.replace('https://www.vanarama.com/', '');
+  sanitized = sanitized.replace('//', '/');
+  return sanitized;
 };
 
 export const formatProductPageUrl = (
@@ -30,13 +42,29 @@ export const formatNewUrl = (edge?: VehicleEdge | ProductEdge | null) => {
   return `${urlPrefix}${edge?.node?.url || ''}`;
 };
 
+export const formatUrl = (value: string) =>
+  value.toLocaleLowerCase().replace(/ /g, '-');
+
+export const formatLegacyUrl = (edge?: VehicleEdge | ProductEdge | null) => {
+  const urlPrefix =
+    edge?.node?.vehicleType === VehicleTypeEnum.CAR
+      ? 'car-leasing'
+      : 'van-leasing';
+  const pathArray = edge?.node?.url?.split('/').filter(Boolean);
+  const manufacturer = pathArray?.shift();
+
+  return formatUrl(
+    `/${manufacturer}-${urlPrefix}/${pathArray?.join('/')}.html`,
+  );
+};
+
 export const getLegacyUrl = (
   data?: (VehicleEdge | ProductEdge | null)[] | null,
   derivativeId?: string | null,
 ) => {
   const edge = data?.find(item => item?.node?.derivativeId === derivativeId);
 
-  return edge?.node?.legacyUrl || formatNewUrl(edge);
+  return edge?.node?.legacyUrl || formatLegacyUrl(edge);
 };
 
 export const getNewUrl = (
@@ -179,3 +207,47 @@ export const SEARCH_PAGES = ['/car-leasing', '/van-leasing', '/special-offers'];
 
 export const removeUrlQueryPart = (url: string) =>
   url.slice(0, url.indexOf('?') > -1 ? url.indexOf('?') : url.length);
+
+/**
+ * make redirect on server side in 404 page
+ * @param res
+ * @param req
+ * @param client
+ */
+export const serverRedirect = async (
+  res: ServerResponse,
+  req: IncomingMessage,
+  client: ApolloClient<any>,
+) => {
+  const { referer } = req?.headers; // if referer don't exist it's means that is server request
+  if (!referer) {
+    res.setHeader('Location', '/404');
+    res.statusCode = 302;
+    res.end();
+    return { props: {} };
+  }
+  // if we receive not found slug error when using app ->
+  // made request for 404 page data ant render 404 container in page
+  const { data } = await client.query({
+    query: GENERIC_PAGE,
+    variables: {
+      slug: '404',
+    },
+  });
+  const name = getSectionsData(['metaData', 'name'], data?.genericPage);
+  const cards = getSectionsData(
+    ['sections', 'cards', 'cards'],
+    data?.genericPage,
+  );
+  const featured = getSectionsData(['sections', 'featured'], data?.genericPage);
+  return {
+    props: {
+      error: true,
+      notFoundPageData: {
+        name: name || null,
+        cards: cards || null,
+        featured: featured || null,
+      },
+    },
+  };
+};
