@@ -40,30 +40,6 @@ describe('Date utils', () => {
     });
   });
 
-  describe('parseDate', () => {
-    it('should parse date to moment', () => {
-      const yr = '1999';
-      const mth = '08';
-      const day = '04';
-      expect(JSON.stringify(parseDate(day, mth, yr))).toEqual(
-        JSON.stringify('1999-08-03T20:00:00.000Z'),
-      );
-    });
-  });
-
-  describe('historyToMoment + historyToDate', () => {
-    it('should return date', () => {
-      const yr = '1999';
-      const mth = '08';
-      expect(
-        JSON.stringify(historyToMoment({ month: mth, year: yr } as any)),
-      ).toEqual(JSON.stringify('1999-07-31T20:00:00.000Z'));
-      expect(
-        JSON.stringify(historyToDate({ month: mth, year: yr } as any)),
-      ).toEqual(JSON.stringify('1999-07-31T20:00:00.000Z'));
-    });
-  });
-
   describe('calculateExtraneousEntries', () => {
     it('should return empty array', () => {
       expect(
