@@ -45,7 +45,7 @@ export const formatNewUrl = (edge?: VehicleEdge | ProductEdge | null) => {
 export const formatUrl = (value: string) =>
   value.toLocaleLowerCase().replace(/ /g, '-');
 
-const formatLegacyUrl = (edge?: VehicleEdge | ProductEdge | null) => {
+export const formatLegacyUrl = (edge?: VehicleEdge | ProductEdge | null) => {
   const urlPrefix =
     edge?.node?.vehicleType === VehicleTypeEnum.CAR
       ? 'car-leasing'

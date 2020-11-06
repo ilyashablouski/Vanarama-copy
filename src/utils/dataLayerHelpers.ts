@@ -112,7 +112,7 @@ export const getCategory = ({ cars, pickups }: ICategory): string => {
   return 'Van';
 };
 
-const getCategoryAboutYouData = (
+export const getCategoryAboutYouData = (
   derivativeData: GetDerivative_derivative | null,
 ) => {
   if (derivativeData?.bodyType?.name?.includes('Pick-Up')) {

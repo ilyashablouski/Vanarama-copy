@@ -10,9 +10,9 @@ import {
   GetProductCard,
   GetProductCard_productCard,
 } from '../../../generated/GetProductCard';
-import getIconMap from '../../utils/getIconMap';
 import truncateString from '../../utils/truncateString';
 import useSliderProperties from '../../hooks/useSliderProperties';
+import { features } from './helpers';
 
 // Dynamic component loading.
 const Icon = dynamic(() =>
@@ -82,13 +82,11 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                     }
                   : undefined
               }
-              features={product?.keyInformation?.map(info => ({
-                icon: getIconMap(product?.keyInformation || []).get(
-                  info?.name?.replace(/\s+/g, ''),
-                ),
-                label: info?.value || '',
-                index: `${product.capId}_${info?.name || ''}`,
-              }))}
+              features={features(
+                product?.keyInformation || [],
+                product.capId || '',
+                Icon,
+              )}
               onCompare={() => {
                 compareChange({
                   pageUrl: formatProductPageUrl(
