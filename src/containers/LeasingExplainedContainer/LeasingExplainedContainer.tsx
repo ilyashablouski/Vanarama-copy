@@ -70,6 +70,19 @@ const LeasingExplainedContainer: FC<IProps> = ({ title, sections }) => {
                 key={`${el?.title}_${ind}`}
                 title={{
                   title: el?.title || '',
+                  link: (
+                    <RouterLink
+                      withoutDefaultClassName
+                      className="heading"
+                      classNames={{ color: 'black', size: 'lead' }}
+                      link={{
+                        href: el.link?.legacyUrl || el.link?.url || '',
+                        label: el.title || '',
+                      }}
+                    >
+                      {el.title}
+                    </RouterLink>
+                  ),
                 }}
                 imageSrc={el.image?.file?.url}
                 description={el?.body || ''}
