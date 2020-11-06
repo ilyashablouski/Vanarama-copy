@@ -73,15 +73,6 @@ import { rangeList } from '../../../generated/rangeList';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
 import { manufacturerList } from '../../../generated/manufacturerList';
 
-const htmlParser = require('react-markdown/plugins/html-parser');
-
-const parseHtml = htmlParser({
-  // isValidNode: (node: any) => node.type !== 'script',
-  processingInstructions: [
-    /* ... */
-  ],
-});
-
 interface IProps {
   isServer: boolean;
   isCarSearch?: boolean;
@@ -624,7 +615,6 @@ const SearchPageContainer: React.FC<IProps> = ({
         </Heading>
         <Text color="darker" size="regular" tag="div">
           <ReactMarkdown
-            astPlugins={[parseHtml]}
             className="markdown"
             allowDangerousHtml
             source={pageData?.genericPage.intro || ''}
