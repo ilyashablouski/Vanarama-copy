@@ -118,6 +118,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
             <Heading
               color="black"
               size="lead"
+              className="-mb-400"
               tag={
                 getTitleTag(
                   featured1.titleTag || null,
@@ -128,6 +129,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
             </Heading>
             <div>
               <ReactMarkdown
+                className="markdown"
                 source={featured1.body || ''}
                 escapeHtml={false}
                 renderers={{
@@ -150,7 +152,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
                   ),
                   list: props => {
                     const { children } = props;
-                    return <ol style={{ display: 'list-item' }}>{children}</ol>;
+                    return <ol>{children}</ol>;
                   },
                   listItem: props => {
                     const { children } = props;
