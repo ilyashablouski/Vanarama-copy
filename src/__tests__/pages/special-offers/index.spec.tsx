@@ -291,7 +291,7 @@ describe('<OffersPage />', () => {
     await preloadAll();
     render(
       <MockedProvider addTypename={false} mocks={mocked}>
-        <OffersPage />
+        <OffersPage genericPageCMS />
       </MockedProvider>,
     );
   });
