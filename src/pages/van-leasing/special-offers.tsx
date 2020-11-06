@@ -2,7 +2,6 @@
 import { NextPage } from 'next';
 import { useQuery } from '@apollo/client';
 import ReactMarkdown from 'react-markdown/with-html';
-import { getDataFromTree } from '@apollo/react-ssr';
 
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
@@ -18,7 +17,6 @@ import {
 } from '../../../generated/VanOffersPageData';
 import { VAN_OFFERS_CONTENT } from '../../gql/special-offers/van-offers';
 import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
-import withApollo from '../../hocs/withApollo';
 import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
@@ -34,8 +32,7 @@ type Props = {
   pageData: any;
 };
 
-export const VanOffers: NextPage<Props> = ({ pageData }) => {
-  const { data } = pageData;
+export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
 
   const { cachedLeaseType } = useLeaseType(false);
 
@@ -489,10 +486,10 @@ export async function getServerSideProps() {
     query: VAN_OFFERS_CONTENT,
   });
   return {
-    data: {
+    props: {
       pageData: data,
     },
   };
 }
 
-export default withApollo(VanOffers, { getDataFromTree });
+export default VanOffers;
