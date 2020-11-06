@@ -33,7 +33,6 @@ type Props = {
 };
 
 export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
-
   const { cachedLeaseType } = useLeaseType(false);
 
   const { data: productSmallVan } = useQuery<ProductCardData>(
