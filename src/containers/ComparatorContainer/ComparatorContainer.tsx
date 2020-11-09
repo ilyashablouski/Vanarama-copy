@@ -35,7 +35,7 @@ const ComparatorContainer: React.FC = () => {
     }
   }, [vehicles, compareVehicles, refetch]);
 
-  if (loading && compareVehicles?.length) {
+  if (loading || !compareVehicles?.length) {
     return (
       <div
         style={{ minHeight: '10rem', display: 'flex', alignItems: 'center' }}
