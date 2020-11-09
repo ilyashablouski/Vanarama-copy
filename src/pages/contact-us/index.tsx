@@ -59,7 +59,7 @@ export const ContactUsPage: NextPage = () => {
             )}
           </Heading>
           <ReactMarkdown
-            escapeHtml={false}
+            allowDangerousHtml
             source={
               getSectionsData(
                 ['featured1', 'body'],
@@ -134,7 +134,7 @@ export const ContactUsPage: NextPage = () => {
                 {c.title}
               </Heading>
               <ReactMarkdown
-                escapeHtml={false}
+                allowDangerousHtml
                 source={c.body || ''}
                 renderers={{
                   link: props => {
@@ -166,7 +166,7 @@ export const ContactUsPage: NextPage = () => {
             )}
           </Heading>
           <ReactMarkdown
-            escapeHtml={false}
+            allowDangerousHtml
             source={
               getSectionsData(
                 ['featured2', 'body'],

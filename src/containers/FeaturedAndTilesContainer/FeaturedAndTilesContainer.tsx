@@ -38,7 +38,7 @@ const FeaturedAndTilesContainer: FC<IProps> = ({ data, leasingOffers }) => {
           {title}
         </Heading>
         <ReactMarkdown
-          escapeHtml={false}
+          allowDangerousHtml
           source={body || ''}
           renderers={{
             link: props => {

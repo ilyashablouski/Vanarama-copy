@@ -608,14 +608,15 @@ const SearchPageContainer: React.FC<IProps> = ({
   return (
     <>
       <div className="row:title">
-        <Heading tag="h1" size="xlarge" color="black">
+        <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
           {(isModelPage &&
             metaData?.name?.slice(0, metaData?.name?.indexOf('Car Leasing'))) ||
             (metaData?.name ?? '')}
         </Heading>
         <Text color="darker" size="regular" tag="div">
           <ReactMarkdown
-            escapeHtml={false}
+            className="markdown"
+            allowDangerousHtml
             source={pageData?.genericPage.intro || ''}
             renderers={{
               link: props => {
@@ -645,14 +646,15 @@ const SearchPageContainer: React.FC<IProps> = ({
           {isModelPage && (
             <>
               <div className="row:title">
-                <Heading size="large" color="black">
+                <Heading size="large" color="black" className="-mb-300">
                   {metaData?.name}
                 </Heading>
               </div>
               <div className="row:text -columns">
                 <div>
                   <ReactMarkdown
-                    escapeHtml={false}
+                    className="markdown"
+                    allowDangerousHtml
                     source={pageData?.genericPage.body || ''}
                     renderers={{
                       link: props => {
@@ -708,12 +710,14 @@ const SearchPageContainer: React.FC<IProps> = ({
                 tag={featured.titleTag || 'span'}
                 size="large"
                 color="black"
+                className="-mb-300"
               >
                 {featured.title}
               </Heading>
               <ReactMarkdown
+                className="markdown"
                 source={featured.body || ''}
-                escapeHtml={false}
+                allowDangerousHtml
                 renderers={{
                   link: props => {
                     const { href, children } = props;
@@ -934,8 +938,9 @@ const SearchPageContainer: React.FC<IProps> = ({
             <div className="row:text -columns">
               <div>
                 <ReactMarkdown
+                  className="markdown"
                   source={pageData?.genericPage.body || ''}
-                  escapeHtml={false}
+                  allowDangerousHtml
                   renderers={{
                     link: props => {
                       const { href, children } = props;
@@ -1024,7 +1029,8 @@ const SearchPageContainer: React.FC<IProps> = ({
                           }}
                         >
                           <ReactMarkdown
-                            escapeHtml={false}
+                            className="markdown"
+                            allowDangerousHtml
                             source={card.body || ''}
                             renderers={{
                               link: props => {

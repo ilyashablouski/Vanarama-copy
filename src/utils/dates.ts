@@ -6,7 +6,7 @@ export interface THistoryEntry {
 }
 
 export const formatDate = (year: string, month: string, day: string) =>
-  moment(new Date(+year, +month - 1, +day)).format('DD MMMM YYYY') || '';
+  moment(new Date(+year, +month - 1, +day)).format('DD MMMM YYYY');
 
 export const dateToFormat = (date: string) => {
   const arr = date.split('-');

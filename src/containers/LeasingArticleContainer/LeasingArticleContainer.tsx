@@ -49,7 +49,7 @@ const LeasingArticleContainer: FC<IProps> = ({
       <div className="row:article">
         <article className="markdown">
           <ReactMarkdown
-            escapeHtml={false}
+            allowDangerousHtml
             source={body || ''}
             renderers={{
               link: props => {

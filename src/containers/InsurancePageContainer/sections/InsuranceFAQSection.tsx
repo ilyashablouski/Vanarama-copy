@@ -16,7 +16,7 @@ const InsuranceFAQSection = ({ title, titleTag, body }: FAQSection) => (
       {title}
     </Heading>
     <ReactMarkdown
-      escapeHtml={false}
+      allowDangerousHtml
       source={body || ''}
       renderers={{
         heading: props => (

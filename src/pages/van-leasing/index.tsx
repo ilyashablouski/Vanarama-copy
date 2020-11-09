@@ -506,7 +506,7 @@ export const VansPage: NextPage = () => {
           </Heading>
           <div className="markdown">
             <ReactMarkdown
-              escapeHtml={false}
+              allowDangerousHtml
               source={
                 getSectionsData(
                   ['featured1', 'body'],
@@ -572,7 +572,7 @@ export const VansPage: NextPage = () => {
           </Heading>
           <div className="markdown">
             <ReactMarkdown
-              escapeHtml={false}
+              allowDangerousHtml
               source={
                 getSectionsData(
                   ['featured2', 'body'],
