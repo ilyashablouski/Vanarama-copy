@@ -81,32 +81,29 @@ export const getProductPageBreadCrumb = (
 ) => {
   const { manufacturer, range, bodyStyle, name } = data;
 
-  const leasing = cars ? '/car-leasing' : '/van-leasing';
+  const leasing = cars ? 'car-leasing' : 'van-leasing';
 
   if (manufacturer && range) {
     const makeLink = {
       link: {
         label: manufacturer?.name,
-        href: `${leasing}/[dynamicParam]`,
+        href: `${manufacturer?.slug}-${leasing}.html`,
       },
-      as: `${leasing}/${manufacturer?.slug}`,
     };
     const rangeLink = {
       link: {
         label: range?.name,
-        href: `${leasing}/[dynamicParam]/[rangeName]`,
+        href: `/${manufacturer?.slug}-${leasing}/${range?.slug}.html`,
       },
-      as: `${leasing}/${manufacturer?.slug}/${range?.slug}`,
     };
     const modelLink = {
       link: {
         label: bodyStyle?.name,
-        href: `${leasing}/[dynamicParam]/[rangeName]/[bodyStyles]`,
+        href: `/${manufacturer?.slug}-${leasing}/${
+          range?.slug
+        }/${bodyStyle?.name?.toLocaleLowerCase().replace(/ /g, '-') ||
+          null}.html`,
       },
-      as: `${leasing}/${manufacturer?.slug}/${range?.slug}/${bodyStyle?.name
-        ?.toLocaleLowerCase()
-        .split(' ')
-        .join('-') || null}`,
     };
     const derivativeLink = {
       link: {
