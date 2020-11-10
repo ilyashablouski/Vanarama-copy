@@ -15,6 +15,7 @@ import {
   PrimaryHeader_primaryHeader_linkGroups_linkGroups as LinkGroups,
 } from '../../../generated/PrimaryHeader';
 import { IHeaderLink } from '../../components/Header/Header';
+import { useMobileViewport } from '../../hooks/useMediaQuery';
 
 export const LOGOUT_USER_MUTATION = gql`
   mutation LogOutUserMutation {
@@ -27,6 +28,7 @@ export const LOGOUT_USER_MUTATION = gql`
 const HeaderContainer: FC = () => {
   const { data, loading } = useQuery<PrimaryHeader>(PRIMARY_HEADER);
   const router = useRouter();
+  const isMobile = useMobileViewport();
 
   const LOGIN_LINK = {
     label: 'Login',
@@ -88,7 +90,9 @@ const HeaderContainer: FC = () => {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
           id: linksGroupUrl.label || '',
-          children: childrenGroupLinks,
+          children: isMobile
+            ? [linksGroupUrl, ...childrenGroupLinks]
+            : childrenGroupLinks,
         };
       } else {
         const linksGroupUrl = transformLinks?.shift();

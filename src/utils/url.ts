@@ -87,7 +87,7 @@ export const getProductPageBreadCrumb = (
     const makeLink = {
       link: {
         label: manufacturer?.name,
-        href: `${manufacturer?.slug}-${leasing}.html`,
+        href: `/${manufacturer?.slug}-${leasing}.html`,
       },
     };
     const rangeLink = {

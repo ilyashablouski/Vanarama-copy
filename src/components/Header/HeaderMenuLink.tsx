@@ -59,7 +59,7 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
         key={link.id}
         link={link}
         onClick={
-          isMobile
+          isMobile && link.children?.length
             ? el => {
                 el.preventDefault();
                 setIsOpenMenu(true);
