@@ -2,7 +2,6 @@
 import React, { memo, useContext } from 'react';
 import Card from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
 import { ICardTitleProps } from '@vanarama/uibook/lib/components/molecules/cards/CardTitle';
-import { TIcon } from '@vanarama/uibook/lib/components/molecules/cards/CardIcons';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
@@ -11,6 +10,7 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import { formatProductPageUrl } from '../../utils/url';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
+import { features } from '../../components/ProductCarousel/helpers';
 
 export interface IProductPageUrl {
   url: string;
@@ -40,14 +40,6 @@ const VehicleCard = memo(
   }: IVehicleCardProps) => {
     const { compareVehicles, compareChange } = useContext(CompareContext);
 
-    const features = (keyInformation: any[]): TIcon[] => {
-      return keyInformation.map(information => ({
-        icon: <Icon name={information.name.replace(' ', '')} color="dark" />,
-        label: information.value,
-        index: `${data.capId}_${information.name}`,
-      }));
-    };
-
     const productPageUrl = formatProductPageUrl(url, derivativeId);
 
     const imageProps = !isModelPage
@@ -76,7 +68,7 @@ const VehicleCard = memo(
         }}
         compared={isCompared(compareVehicles, data)}
         onWishlist={() => {}}
-        features={features(data?.keyInformation || [])}
+        features={features(data?.keyInformation || [], data?.capId || '', Icon)}
         title={{
           ...title,
           score: data?.averageRating || undefined,

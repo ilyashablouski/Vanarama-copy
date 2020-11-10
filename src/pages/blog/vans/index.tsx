@@ -35,7 +35,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const { data, errors } = await client.query({
       query: BLOG_POSTS_PAGE,
       variables: {
-        slug: 'blog/van-heroes',
+        slug: 'blog/vans',
       },
     });
     return { props: { data, error: errors ? errors[0] : null } };

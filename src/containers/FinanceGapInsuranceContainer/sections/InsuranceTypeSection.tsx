@@ -35,7 +35,7 @@ const InsuranceTypeSection = ({
     {(description || body) && (
       <div>
         <ReactMarkdown
-          escapeHtml={false}
+          allowDangerousHtml
           source={description || body || ''}
           renderers={{
             link: props => {

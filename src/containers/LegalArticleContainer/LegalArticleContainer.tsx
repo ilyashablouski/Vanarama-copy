@@ -56,7 +56,7 @@ const LegalArticleContainer: NextPage<IProps> = ({
       <div className="row:centered">
         <div className="markdown" style={{ maxWidth: 'none' }}>
           <ReactMarkdown
-            escapeHtml={false}
+            allowDangerousHtml
             source={body || ''}
             renderers={{
               link: props => {
@@ -80,7 +80,7 @@ const LegalArticleContainer: NextPage<IProps> = ({
               </Heading>
             )}
             <ReactMarkdown
-              escapeHtml={false}
+              allowDangerousHtml
               source={sections?.legalStatement?.body || ''}
               renderers={{
                 link: props => {
@@ -105,7 +105,7 @@ const LegalArticleContainer: NextPage<IProps> = ({
               </Heading>
             )}
             <ReactMarkdown
-              escapeHtml={false}
+              allowDangerousHtml
               source={sections?.legalStatement1?.body || ''}
               renderers={{
                 link: props => {
@@ -130,7 +130,7 @@ const LegalArticleContainer: NextPage<IProps> = ({
               </Heading>
             )}
             <ReactMarkdown
-              escapeHtml={false}
+              allowDangerousHtml
               source={sections?.legalStatement2?.body || ''}
               renderers={{
                 link: props => {

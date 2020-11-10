@@ -1,20 +1,21 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { NextPage } from 'next';
-import { useQuery } from '@apollo/client';
 import ReactMarkdown from 'react-markdown/with-html';
-import { getDataFromTree } from '@apollo/react-ssr';
 import { useEffect, useState } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import AddCircle from '@vanarama/uibook/lib/assets/icons/AddCircleSharp';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+// import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import createApolloClient from '../../apolloClient';
 
 import { ProductCardData } from '../../../generated/ProductCardData';
-import { VanOffersPageData } from '../../../generated/VanOffersPageData';
+import {
+  VanOffersPageData,
+  VanOffersPageData_vanOffersPage_sections_iconBullets_iconBullets as VanIconBullet,
+} from '../../../generated/VanOffersPageData';
 import { VAN_OFFERS_CONTENT } from '../../gql/special-offers/van-offers';
 import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
-import withApollo from '../../hocs/withApollo';
 import { GET_CAR_DERIVATIVES } from '../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
@@ -28,10 +29,11 @@ import {
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
 
-export const VanOffers: NextPage = () => {
-  const { data, loading, error } = useQuery<VanOffersPageData>(
-    VAN_OFFERS_CONTENT,
-  );
+type Props = {
+  pageData: any;
+};
+
+export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
   const [productSmallVan, setProductSmallVan] = useState<
     ProductCardData | undefined
   >(undefined);
@@ -216,14 +218,6 @@ export const VanOffers: NextPage = () => {
   const vehicleListUrlQuery = useVehicleListUrl(derivativeIds);
 
   useVehicleListUrlFetchMore(vehicleListUrlQuery, derivativeIds);
-
-  if (loading) {
-    return <Loading size="large" />;
-  }
-
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
 
   const isPersonal = cachedLeaseType === 'Personal';
   const metaDataName = getSectionsData(
@@ -471,7 +465,7 @@ export const VanOffers: NextPage = () => {
       </div>
       <div className="row:text -columns">
         <ReactMarkdown
-          escapeHtml={false}
+          allowDangerousHtml
           source={data?.vanOffersPage.body || ''}
           renderers={{
             link: props => {
@@ -491,7 +485,7 @@ export const VanOffers: NextPage = () => {
         </Heading>
         <hr />
         {data?.vanOffersPage?.sections?.iconBullets?.iconBullets?.map(
-          (item, idx: number) => (
+          (item: VanIconBullet, idx: number) => (
             <>
               <Icon
                 key={`${item?.text || idx}-icon`}
@@ -516,7 +510,7 @@ export const VanOffers: NextPage = () => {
         </Heading>
         <div>
           <ReactMarkdown
-            escapeHtml={false}
+            allowDangerousHtml
             source={data?.vanOffersPage?.sections?.featured?.body || ''}
             renderers={{
               link: props => {
@@ -540,4 +534,16 @@ export const VanOffers: NextPage = () => {
   );
 };
 
-export default withApollo(VanOffers, { getDataFromTree });
+export async function getServerSideProps() {
+  const client = createApolloClient({});
+  const { data } = await client.query<VanOffersPageData>({
+    query: VAN_OFFERS_CONTENT,
+  });
+  return {
+    props: {
+      pageData: data,
+    },
+  };
+}
+
+export default VanOffers;

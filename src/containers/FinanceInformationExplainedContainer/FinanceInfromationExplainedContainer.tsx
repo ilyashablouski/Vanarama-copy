@@ -64,12 +64,14 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
             }
             color="black"
             size="large"
+            className="-mb-400"
           >
             {sections.featured1.title || ''}
           </Heading>
           <div className="content">
             <ReactMarkdown
-              escapeHtml={false}
+              className="markdown"
+              allowDangerousHtml
               source={sections.featured1.body || ''}
               renderers={{
                 link: props => {
@@ -149,7 +151,7 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
           </Heading>
           <div className="content">
             <ReactMarkdown
-              escapeHtml={false}
+              allowDangerousHtml
               source={sections.featured2.body || ''}
               renderers={{
                 link: props => {
