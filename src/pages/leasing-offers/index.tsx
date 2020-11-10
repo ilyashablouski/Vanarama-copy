@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { MutableRefObject, useRef } from 'react';
-import { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import { NextPage, NextPageContext } from 'next';
 import { useQuery } from '@apollo/client';
-import { getDataFromTree } from '@apollo/react-ssr';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
@@ -11,28 +9,33 @@ import Flame from '@vanarama/uibook/lib/assets/icons/FlameSharp';
 import Arrow from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Redundancy from '@vanarama/uibook/lib/assets/icons/Redundancy';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+// import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+
+import createApolloClient from '../../apolloClient';
+import {
+  GenericPageHeadQuery,
+  GenericPageHeadQueryVariables,
+} from '../../../generated/GenericPageHeadQuery';
 import { ProductCardData } from '../../../generated/ProductCardData';
 import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
-import withApollo from '../../hocs/withApollo';
 import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
-import { useGenericPageHead } from '../../gql/genericPage';
+import { GENERIC_PAGE_HEAD } from '../../gql/genericPage';
 import {
   useVehicleListUrl,
   useVehicleListUrlFetchMore,
 } from '../../gql/vehicleList';
 import RouterLink from '../../components/RouterLink/RouterLink';
 
-export const OffersPage: NextPage = () => {
+type Props = {
+  genericPageCMS?: any;
+};
+
+export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
   const vanRef = useRef<HTMLDivElement>();
   const truckRef = useRef<HTMLDivElement>();
   const carRef = useRef<HTMLDivElement>();
-  const router = useRouter();
-  const { data: genericPageCMS, loading } = useGenericPageHead(
-    router.asPath.slice(1),
-  );
 
   const { data: productsVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
@@ -102,11 +105,13 @@ export const OffersPage: NextPage = () => {
 
   useVehicleListUrlFetchMore(vehicleListUrlQuery, derivativeIds);
 
-  if (loading) {
-    return <Loading size="large" />;
-  }
+  // NOTE: can still be made use of for products loading states combined
 
-  const metaData = genericPageCMS?.genericPage.metaData;
+  /* if (loading) {
+    return <Loading size="large" />;
+  } */
+
+  const metaData = genericPageCMS?.genericPage?.metaData;
 
   return (
     <>
@@ -299,4 +304,22 @@ export const OffersPage: NextPage = () => {
   );
 };
 
-export default withApollo(OffersPage, { getDataFromTree });
+export async function getServerSideProps(ctx: NextPageContext) {
+  const client = createApolloClient({});
+  const { data } = await client.query<
+    GenericPageHeadQuery,
+    GenericPageHeadQueryVariables
+  >({
+    query: GENERIC_PAGE_HEAD,
+    variables: {
+      slug: ctx.asPath?.slice(1) || '',
+    },
+  });
+  return {
+    props: {
+      genericPageCMS: data,
+    },
+  };
+}
+
+export default OffersPage;
