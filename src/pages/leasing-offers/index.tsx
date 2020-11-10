@@ -29,7 +29,7 @@ import {
 import RouterLink from '../../components/RouterLink/RouterLink';
 
 type Props = {
-  genericPageCMS: any;
+  genericPageCMS?: any;
 };
 
 export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
