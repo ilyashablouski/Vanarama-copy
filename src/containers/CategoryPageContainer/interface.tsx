@@ -17,4 +17,5 @@ export interface ICategoryPage {
   featured?: GenericPageQuery_genericPage_sections_featured | null | undefined;
   featuredImage?: GenericPageQuery_genericPage_featuredImage | null | undefined;
   breadcrumbsItems: any;
+  activePageRoute?: number;
 }

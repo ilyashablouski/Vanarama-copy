@@ -15,4 +15,5 @@ export interface IBlogCategory {
   data: BlogPosts | undefined;
   loading: boolean | undefined;
   error: ApolloError | undefined;
+  pageNumber?: number;
 }
