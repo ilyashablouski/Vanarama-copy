@@ -133,6 +133,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   const { pathname, query, push } = useRouter();
 
   useEffect(() => {
+    // change url for first pagination page
     if (activePage === 1 && query.pageNumber) {
       push(
         {
@@ -141,6 +142,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
         undefined,
         { shallow: true },
       );
+      // cases when we have page route, for example change page from 2 to 3
     } else if (
       query.pageNumber &&
       parseInt(query?.pageNumber as string, 10) !== activePage
@@ -152,6 +154,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
         pathname.replace('[pageNumber]', `${activePage}`),
         { shallow: true },
       );
+      // when changing from first page to others
     } else if (activePage !== 1 && !query.pageNumber) {
       push(
         {
