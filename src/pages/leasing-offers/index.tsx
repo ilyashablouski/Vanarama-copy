@@ -111,7 +111,7 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
     return <Loading size="large" />;
   } */
 
-  const metaData = genericPageCMS?.genericPage.metaData;
+  const metaData = genericPageCMS?.genericPage?.metaData;
 
   return (
     <>
