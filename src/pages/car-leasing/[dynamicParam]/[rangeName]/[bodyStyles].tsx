@@ -156,8 +156,8 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     };
   } catch {
-    const { res, req } = context;
-    if (res && req) return serverRedirect(res, req, client);
+    const { res } = context;
+    if (res) return serverRedirect(res, client);
     return {
       props: {
         error: true,

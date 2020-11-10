@@ -66,7 +66,6 @@ const Page: NextPage<IProps> = ({
   notFoundPageData,
 }) => {
   const router = useRouter();
-
   useEffect(() => {
     pushPageData({
       pageType: pageType.isMakePage
@@ -231,10 +230,11 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     };
   } catch {
-    if (res && req) return serverRedirect(res, req, client);
+    if (res) return serverRedirect(res, client);
     return {
       props: {
         error: true,
+        pageType,
       },
     };
   }
