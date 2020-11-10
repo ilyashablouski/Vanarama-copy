@@ -10,7 +10,7 @@ const InsuranceHeroSection = ({ title, body, heroCard, image }: IHero) => (
   <Hero workingHoursCard={(heroCard && heroCard[0]) || undefined}>
     <HeroHeading text={title || ''} />
     <ReactMarkdown
-      escapeHtml={false}
+      allowDangerousHtml
       source={body || ''}
       renderers={{
         heading: props => (

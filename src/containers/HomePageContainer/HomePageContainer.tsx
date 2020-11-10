@@ -370,7 +370,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
           </Heading>
           <div className="markdown">
             <ReactMarkdown
-              escapeHtml={false}
+              allowDangerousHtml
               source={
                 getSectionsData(
                   ['featured1', 'body'],
@@ -462,7 +462,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
           </Heading>
           <div className="markdown">
             <ReactMarkdown
-              escapeHtml={false}
+              allowDangerousHtml
               source={
                 getSectionsData(
                   ['featured2', 'body'],

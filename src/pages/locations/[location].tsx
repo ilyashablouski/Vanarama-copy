@@ -114,7 +114,7 @@ export const LocationsPage: NextPage = () => {
                       </Heading>
                       {el?.body ? (
                         <ReactMarkdown
-                          escapeHtml={false}
+                          allowDangerousHtml
                           source={el?.body || ''}
                           renderers={{
                             link: props => {
@@ -252,7 +252,7 @@ export const LocationsPage: NextPage = () => {
             {leadText.heading}
           </Heading>
           <ReactMarkdown
-            escapeHtml={false}
+            allowDangerousHtml
             source={leadText.description || ''}
             renderers={{
               link: props => {
@@ -296,7 +296,7 @@ export const LocationsPage: NextPage = () => {
             </Heading>
             <hr className="-fullwidth\" />
             <ReactMarkdown
-              escapeHtml={false}
+              allowDangerousHtml
               source={featured.body || ''}
               renderers={{
                 link: props => {
@@ -367,7 +367,7 @@ export const LocationsPage: NextPage = () => {
           </Heading>
           <div>
             <ReactMarkdown
-              escapeHtml={false}
+              allowDangerousHtml
               source={featured1.body || ''}
               renderers={{
                 link: props => {

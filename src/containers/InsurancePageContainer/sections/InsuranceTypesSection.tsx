@@ -43,7 +43,7 @@ const InsuranceTypesSection = ({ name, description, cards }: ITypesSection) => (
       </Heading>
       <Text size="regular" color="darker" tag="p">
         <ReactMarkdown
-          escapeHtml={false}
+          allowDangerousHtml
           source={description || ''}
           renderers={{
             link: props => {

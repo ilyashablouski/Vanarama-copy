@@ -52,7 +52,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
         <div>
           <ReactMarkdown
             source={body || ''}
-            escapeHtml={false}
+            allowDangerousHtml
             renderers={{
               link: props => {
                 const { href, children } = props;
@@ -109,7 +109,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
       {featured1 && (
         <div
           className={
-            featured1.image?.file?.url
+            featured1.layout
               ? `row:${getFeaturedClassPartial(featured1)}`
               : 'row:text -columns'
           }
@@ -118,6 +118,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
             <Heading
               color="black"
               size="lead"
+              className="-mb-400"
               tag={
                 getTitleTag(
                   featured1.titleTag || null,
@@ -128,8 +129,9 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
             </Heading>
             <div>
               <ReactMarkdown
+                className="markdown"
                 source={featured1.body || ''}
-                escapeHtml={false}
+                allowDangerousHtml
                 renderers={{
                   link: props => {
                     const { href, children } = props;
@@ -150,7 +152,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
                   ),
                   list: props => {
                     const { children } = props;
-                    return <ol style={{ display: 'list-item' }}>{children}</ol>;
+                    return <ol>{children}</ol>;
                   },
                   listItem: props => {
                     const { children } = props;
@@ -207,7 +209,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
                   <div>
                     <ReactMarkdown
                       source={el?.body || ''}
-                      escapeHtml={false}
+                      allowDangerousHtml
                       renderers={{
                         link: props => {
                           const { href, children } = props;
@@ -268,7 +270,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
             <div>
               <ReactMarkdown
                 source={featured2.body || ''}
-                escapeHtml={false}
+                allowDangerousHtml
                 renderers={{
                   link: props => {
                     const { href, children } = props;
