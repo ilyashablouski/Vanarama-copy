@@ -30,7 +30,7 @@ import { filterList_filterList as IFilterList } from '../../../../generated/filt
 import { vehicleList } from '../../../../generated/vehicleList';
 import { GetProductCard } from '../../../../generated/GetProductCard';
 import { rangeList } from '../../../../generated/rangeList';
-import { serverRedirect } from '../../../utils/url';
+import { notFoundPageHandler } from '../../../utils/url';
 import { ISearchPageProps } from '../../../models/ISearchPageProps';
 import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 
@@ -231,7 +231,7 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     };
   } catch {
-    if (res) return serverRedirect(res, client);
+    if (res) return notFoundPageHandler(res, client);
     return {
       props: {
         error: true,

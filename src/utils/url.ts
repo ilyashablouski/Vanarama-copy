@@ -207,12 +207,11 @@ export const removeUrlQueryPart = (url: string) =>
   url.slice(0, url.indexOf('?') > -1 ? url.indexOf('?') : url.length);
 
 /**
- * make redirect on server side in 404 page
+ * make request for 404 page data on server side
  * @param res
- * @param req
  * @param client
  */
-export const serverRedirect = async (
+export const notFoundPageHandler = async (
   res: ServerResponse,
   client: ApolloClient<any>,
 ) => {
