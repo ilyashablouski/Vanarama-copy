@@ -443,7 +443,7 @@ xdescribe('<VanOffers />', () => {
 
     render(
       <MockedProvider addTypename={false} mocks={mocked}>
-        <VanOffers />
+        <VanOffers pageData />
       </MockedProvider>,
     );
   });
