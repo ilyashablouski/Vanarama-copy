@@ -25,7 +25,10 @@ import {
   GET_PARTY_BY_UUID,
 } from './gql';
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
-import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
+import {
+  useCreateUpdateCreditApplication,
+  useGetCreditApplicationByOrderUuid,
+} from '../../gql/creditApplication';
 
 interface IProps {
   person: SummaryFormPerson;
@@ -40,12 +43,14 @@ const SummaryForm: FCWithFragments<IProps> = ({
 }) => {
   const router = useRouter();
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
+  const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
 
   const onCreditCheckComplete = () => {
     onComplete?.();
     createUpdateCA({
       variables: {
         input: {
+          ...creditApplication.data?.creditApplicationByOrderUuid,
           orderUuid: orderId,
           submittedAt: new Date(),
         },
