@@ -5,6 +5,7 @@ import { GetProductCard_vehicleList_edges as ProductEdge } from '../../generated
 import { VehicleListUrl_vehicleList_edges as VehicleEdge } from '../../generated/VehicleListUrl';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { getSectionsData } from './getSectionsData';
+import { GenericPageHeadQuery_genericPage_metaData as IMetadata } from '../../generated/GenericPageHeadQuery';
 
 type UrlParams = { [key: string]: string | boolean | undefined };
 
@@ -246,5 +247,19 @@ export const serverRedirect = async (
         featured: featured || null,
       },
     },
+  };
+};
+
+export const getMetadataForPagination = (metadata: IMetadata, page = 1) => {
+  const canonicalUrl =
+    page > 1
+      ? `${metadata.canonicalUrl?.slice(
+          0,
+          metadata.canonicalUrl?.indexOf('.html'),
+        )}/page/${page}.html`
+      : metadata.canonicalUrl;
+  return {
+    ...metadata,
+    canonicalUrl,
   };
 };

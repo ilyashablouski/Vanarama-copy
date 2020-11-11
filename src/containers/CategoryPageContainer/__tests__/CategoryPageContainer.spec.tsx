@@ -8,6 +8,7 @@ jest.mock('../../../hooks/useMediaQuery');
 jest.mock('next/router', () => ({
   useRouter: () => ({
     asPath: '/',
+    query: {},
   }),
 }));
 

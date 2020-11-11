@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
@@ -8,6 +8,7 @@ import Image from '@vanarama/uibook/lib/components/atoms/image';
 import ReactMarkdown from 'react-markdown';
 import Pagination from '@vanarama/uibook/lib/components/atoms/pagination';
 import moment from 'moment';
+import { useRouter } from 'next/router';
 import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { ICategoryPage } from './interface';
@@ -126,8 +127,45 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   tiles,
   breadcrumbsItems,
   carousel,
+  activePageRoute,
 }) => {
-  const [activePage, setActivePage] = useState(1);
+  const [activePage, setActivePage] = useState(activePageRoute || 1);
+  const { pathname, query, push } = useRouter();
+
+  useEffect(() => {
+    // change url for first pagination page
+    if (activePage === 1 && query.pageNumber) {
+      push(
+        {
+          pathname: pathname.replace('/page/[pageNumber]', ''),
+        },
+        undefined,
+        { shallow: true },
+      );
+      // cases when we have page route, for example change page from 2 to 3
+    } else if (
+      query.pageNumber &&
+      parseInt(query?.pageNumber as string, 10) !== activePage
+    ) {
+      push(
+        {
+          pathname,
+        },
+        pathname.replace('[pageNumber]', `${activePage}`),
+        { shallow: true },
+      );
+      // when changing from first page to others
+    } else if (activePage !== 1 && !query.pageNumber) {
+      push(
+        {
+          pathname: `${pathname}/page/[pageNumber]`,
+        },
+        `${pathname}/page/${activePage}`,
+        { shallow: true },
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activePage]);
 
   const articlesSorted = articles
     ? [...articles]?.sort((firstArticle, secondArticle) =>
@@ -322,7 +360,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
           {data?.articles.length > 9 && (
             <div className="row:pagination">
               <Pagination
-                path=""
+                path={pathname.replace('/[pageNumber]', '')}
                 pages={pages}
                 onClick={el => {
                   el.preventDefault();
