@@ -30,6 +30,11 @@ class MyDocument extends Document {
           {gtmEnvs.includes(env) && <GTMBody />}
           <Main />
           <NextScript />
+          <script
+            async
+            src="//cdn.embedly.com/widgets/platform.js"
+            charSet="UTF-8"
+          />
         </body>
       </Html>
     );

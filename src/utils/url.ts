@@ -1,10 +1,11 @@
-import { IncomingMessage, ServerResponse } from 'http';
+import { ServerResponse } from 'http';
 import { ApolloClient } from '@apollo/client';
 import { GENERIC_PAGE } from '../gql/genericPage';
 import { GetProductCard_vehicleList_edges as ProductEdge } from '../../generated/GetProductCard';
 import { VehicleListUrl_vehicleList_edges as VehicleEdge } from '../../generated/VehicleListUrl';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { getSectionsData } from './getSectionsData';
+import { GenericPageHeadQuery_genericPage_metaData as IMetadata } from '../../generated/GenericPageHeadQuery';
 
 type UrlParams = { [key: string]: string | boolean | undefined };
 
@@ -81,32 +82,29 @@ export const getProductPageBreadCrumb = (
 ) => {
   const { manufacturer, range, bodyStyle, name } = data;
 
-  const leasing = cars ? '/car-leasing' : '/van-leasing';
+  const leasing = cars ? 'car-leasing' : 'van-leasing';
 
   if (manufacturer && range) {
     const makeLink = {
       link: {
         label: manufacturer?.name,
-        href: `${leasing}/[dynamicParam]`,
+        href: `/${manufacturer?.slug}-${leasing}.html`,
       },
-      as: `${leasing}/${manufacturer?.slug}`,
     };
     const rangeLink = {
       link: {
         label: range?.name,
-        href: `${leasing}/[dynamicParam]/[rangeName]`,
+        href: `/${manufacturer?.slug}-${leasing}/${range?.slug}.html`,
       },
-      as: `${leasing}/${manufacturer?.slug}/${range?.slug}`,
     };
     const modelLink = {
       link: {
         label: bodyStyle?.name,
-        href: `${leasing}/[dynamicParam]/[rangeName]/[bodyStyles]`,
+        href: `/${manufacturer?.slug}-${leasing}/${
+          range?.slug
+        }/${bodyStyle?.name?.toLocaleLowerCase().replace(/ /g, '-') ||
+          null}.html`,
       },
-      as: `${leasing}/${manufacturer?.slug}/${range?.slug}/${bodyStyle?.name
-        ?.toLocaleLowerCase()
-        .split(' ')
-        .join('-') || null}`,
     };
     const derivativeLink = {
       link: {
@@ -209,25 +207,15 @@ export const removeUrlQueryPart = (url: string) =>
   url.slice(0, url.indexOf('?') > -1 ? url.indexOf('?') : url.length);
 
 /**
- * make redirect on server side in 404 page
+ * make request for 404 page data on server side
  * @param res
- * @param req
  * @param client
  */
-export const serverRedirect = async (
+export const notFoundPageHandler = async (
   res: ServerResponse,
-  req: IncomingMessage,
   client: ApolloClient<any>,
 ) => {
-  const { referer } = req?.headers; // if referer don't exist it's means that is server request
-  if (!referer) {
-    res.setHeader('Location', '/404');
-    res.statusCode = 302;
-    res.end();
-    return { props: {} };
-  }
-  // if we receive not found slug error when using app ->
-  // made request for 404 page data ant render 404 container in page
+  res.statusCode = 404;
   const { data } = await client.query({
     query: GENERIC_PAGE,
     variables: {
@@ -249,5 +237,19 @@ export const serverRedirect = async (
         featured: featured || null,
       },
     },
+  };
+};
+
+export const getMetadataForPagination = (metadata: IMetadata, page = 1) => {
+  const canonicalUrl =
+    page > 1
+      ? `${metadata.canonicalUrl?.slice(
+          0,
+          metadata.canonicalUrl?.indexOf('.html'),
+        )}/page/${page}.html`
+      : metadata.canonicalUrl;
+  return {
+    ...metadata,
+    canonicalUrl,
   };
 };

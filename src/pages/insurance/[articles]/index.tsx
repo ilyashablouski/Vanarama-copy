@@ -1,22 +1,35 @@
-import { NextPage } from 'next';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import { useRouter } from 'next/router';
+import { NextPage, NextPageContext } from 'next';
+import React from 'react';
+import { ApolloError } from '@apollo/client';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import withApollo from '../../../hocs/withApollo';
 import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostContainer';
-import { useGenericPage } from '../../../gql/genericPage';
-import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
+import { GENERIC_PAGE } from '../../../gql/genericPage';
+import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
+import createApolloClient from '../../../apolloClient';
+import { notFoundPageHandler } from '../../../utils/url';
+import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
+import { INotFoundPageData } from '../../../models/ISearchPageProps';
 
-const BlogPost: NextPage = () => {
-  const router = useRouter();
-  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
+interface IInsuranceArticle {
+  data: GenericPageQuery | undefined;
+  error: ApolloError | undefined;
+  notFoundPageData: INotFoundPageData | undefined;
+}
 
-  if (loading) {
-    return <Loading size="large" />;
-  }
-
+const BlogPost: NextPage<IInsuranceArticle> = ({
+  data,
+  error,
+  notFoundPageData,
+}) => {
   if (error) {
-    return <ErrorMessage message={error.message} />;
+    return (
+      <PageNotFoundContainer
+        featured={notFoundPageData?.featured}
+        cards={notFoundPageData?.cards}
+        name={notFoundPageData?.name}
+      />
+    );
   }
 
   const body = data?.genericPage?.body;
@@ -31,5 +44,31 @@ const BlogPost: NextPage = () => {
     <BlogPostContainer body={body} name={name} image={image} cards={cards} />
   );
 };
+
+export async function getServerSideProps(context: NextPageContext) {
+  const client = createApolloClient({}, context as NextPageContext);
+  const { req, res } = context;
+  try {
+    const { data, errors } = await client.query({
+      query: GENERIC_PAGE,
+      variables: {
+        slug: req?.url?.slice(1) || '/',
+      },
+    });
+    return {
+      props: {
+        data,
+        error: errors ? errors[0] : null,
+      },
+    };
+  } catch {
+    if (res) return notFoundPageHandler(res, client);
+    return {
+      props: {
+        error: true,
+      },
+    };
+  }
+}
 
 export default withApollo(BlogPost);
