@@ -49,7 +49,7 @@ export const buildRewriteRoute = (
       queries[key] = value;
     }
   });
-  if (rate.max || Number.isInteger(rate.min)) {
+  if (rate?.max || Number.isInteger(rate?.min)) {
     queries.pricePerMonth = getBudgetForQuery(
       `${rate.min || '0'}-${rate.max || ''}`,
     );

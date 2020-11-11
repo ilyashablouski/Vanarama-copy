@@ -72,6 +72,7 @@ import { getSectionsData } from '../../utils/getSectionsData';
 import { rangeList } from '../../../generated/rangeList';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
 import { manufacturerList } from '../../../generated/manufacturerList';
+import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 
 interface IProps {
   isServer: boolean;
@@ -569,6 +570,10 @@ const SearchPageContainer: React.FC<IProps> = ({
       direction: direction as SortDirection,
     });
   };
+
+  useFirstRenderEffect(() => {
+    onSearch();
+  }, [sortOrder])
 
   // load more offers
   const onLoadMore = () => {
