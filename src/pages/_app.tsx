@@ -42,11 +42,17 @@ const ToastContainer = dynamic(() =>
     mod => mod.ToastContainer,
   ),
 );
-const ComparatorBar = dynamic(() =>
-  import('@vanarama/uibook/lib/components/organisms/comparator-bar'),
+const ComparatorBar = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/comparator-bar'),
+  {
+    ssr: false,
+  },
 );
-const Modal = dynamic(() =>
-  import('@vanarama/uibook/lib/components/molecules/modal'),
+const Modal = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/modal'),
+  {
+    ssr: false,
+  },
 );
 const Button = dynamic(() =>
   import('@vanarama/uibook/lib/components/atoms/button'),

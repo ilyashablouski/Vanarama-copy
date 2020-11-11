@@ -23,14 +23,23 @@ const TabPanel = dynamic(() =>
 const Heading = dynamic(() =>
   import('@vanarama/uibook/lib/components/atoms/heading'),
 );
-const Formgroup = dynamic(() =>
-  import('@vanarama/uibook/lib/components/molecules/formgroup'),
+const Formgroup = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/formgroup'),
+  {
+    ssr: false,
+  },
 );
-const Form = dynamic(() =>
-  import('@vanarama/uibook/lib/components/organisms/form'),
+const Form = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form'),
+  {
+    ssr: false,
+  },
 );
-const Select = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/select'),
+const Select = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/select'),
+  {
+    ssr: false,
+  },
 );
 const Button = dynamic(() =>
   import('@vanarama/uibook/lib/components/atoms/button'),
