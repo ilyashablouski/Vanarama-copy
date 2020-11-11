@@ -41,7 +41,7 @@ interface IPageType {
 }
 
 interface IProps extends ISearchPageProps {
-  pageType: IPageType;
+  pageType?: IPageType;
   query: any;
   pageData: GenericPageQuery;
   filtersData?: IFilterList | undefined;
@@ -54,7 +54,7 @@ interface IProps extends ISearchPageProps {
 const Page: NextPage<IProps> = ({
   isServer,
   query,
-  pageType,
+  pageType = {},
   pageData,
   metaData,
   filtersData,
