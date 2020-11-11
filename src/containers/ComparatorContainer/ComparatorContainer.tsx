@@ -35,7 +35,17 @@ const ComparatorContainer: React.FC = () => {
     }
   }, [vehicles, compareVehicles, refetch]);
 
-  if (loading && compareVehicles?.length) {
+  if (error) {
+    return (
+      <div
+        style={{ minHeight: '10rem', display: 'flex', alignItems: 'center' }}
+      >
+        {error?.message}
+      </div>
+    );
+  }
+
+  if (loading || !compareVehicles?.length) {
     return (
       <div
         style={{ minHeight: '10rem', display: 'flex', alignItems: 'center' }}
@@ -54,16 +64,6 @@ const ComparatorContainer: React.FC = () => {
       Router.push(currentVehicle.pageUrl.href, currentVehicle.pageUrl.url);
     }
   };
-
-  if (error) {
-    return (
-      <div
-        style={{ minHeight: '10rem', display: 'flex', alignItems: 'center' }}
-      >
-        {error?.message}
-      </div>
-    );
-  }
 
   return (
     <ComparatorTable
