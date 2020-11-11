@@ -67,10 +67,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   ] = useQuoteDataLazyQuery(updatedQuote => setQuoteData(updatedQuote));
 
   useEffect(() => {
-    if (isInitialLoading) {
-      if (isDisabled && !loading) {
-        setTimeout(() => setIsDisabled(false), 1000);
-      }
+    if (isInitialLoading && isDisabled && !loading) {
+      setTimeout(() => setIsDisabled(false), 1000);
     }
   });
 

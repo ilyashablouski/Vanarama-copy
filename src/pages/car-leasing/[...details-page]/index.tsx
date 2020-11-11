@@ -1,10 +1,8 @@
 import { NextPage, NextPageContext } from 'next';
 import { ApolloError } from '@apollo/client';
 import React from 'react';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { ParsedUrlQuery } from 'querystring';
 import { GET_CAR_DATA } from '../../../gql/carpage';
-import withApollo from '../../../hocs/withApollo';
 import {
   LeaseTypeEnum,
   VehicleTypeEnum,
@@ -15,7 +13,10 @@ import {
   VehicleConfigurationByUrl,
   VehicleConfigurationByUrlVariables,
 } from '../../../../generated/VehicleConfigurationByUrl';
-import { getVehicleConfigurationPath } from '../../../utils/url';
+import {
+  getVehicleConfigurationPath,
+  notFoundPageHandler,
+} from '../../../utils/url';
 import createApolloClient from '../../../apolloClient';
 import { GET_QUOTE_DATA } from '../../../containers/CustomiseLeaseContainer/gql';
 import {
@@ -26,6 +27,8 @@ import {
   GetVehicleDetails,
   GetVehicleDetailsVariables,
 } from '../../../../generated/GetVehicleDetails';
+import { INotFoundPageData } from '../../../models/ISearchPageProps';
+import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -33,21 +36,27 @@ interface IProps {
   error?: string;
   capId?: number;
   quote?: GetQuoteDetails;
+  notFoundPageData?: INotFoundPageData;
 }
 
-const CarDetailsPage: NextPage<IProps> = ({ capId, data, error, quote }) => {
+const CarDetailsPage: NextPage<IProps> = ({
+  capId,
+  data,
+  error,
+  quote,
+  notFoundPageData,
+}) => {
   const apolloError = error
     ? new ApolloError({ errorMessage: error })
     : undefined;
 
-  if (!data) {
+  if (error) {
     return (
-      <div
-        className="pdp--content"
-        style={{ minHeight: '40rem', display: 'flex', alignItems: 'center' }}
-      >
-        <Loading size="xlarge" />
-      </div>
+      <PageNotFoundContainer
+        featured={notFoundPageData?.featured}
+        cards={notFoundPageData?.cards}
+        name={notFoundPageData?.name}
+      />
     );
   }
 
@@ -62,9 +71,7 @@ const CarDetailsPage: NextPage<IProps> = ({ capId, data, error, quote }) => {
   );
 };
 
-export async function getServerSideProps(
-  context: NextPageContext,
-): Promise<{ props: IProps }> {
+export async function getServerSideProps(context: NextPageContext) {
   const client = createApolloClient({});
   const path = context.req?.url || '';
 
@@ -130,6 +137,10 @@ export async function getServerSideProps(
       },
     };
   } catch (error) {
+    if (context.res) {
+      return notFoundPageHandler(context.res, client);
+    }
+
     return {
       props: {
         error: error.message,
@@ -138,4 +149,4 @@ export async function getServerSideProps(
   }
 }
 
-export default withApollo(CarDetailsPage);
+export default CarDetailsPage;
