@@ -9,7 +9,7 @@ export default function parseCreditApplicationData(
   const lineItem =
     creditApplicationData?.creditApplicationByOrderUuid?.lineItem;
   // NOTE: Many are returned so just take the first one?
-  const creditAppUuid = lineItem?.creditApplications?.length
+  const creditAppUuid = Array.isArray(lineItem?.creditApplications)
     ? lineItem?.creditApplications?.[0].uuid
     : '';
   const vehicleType =
