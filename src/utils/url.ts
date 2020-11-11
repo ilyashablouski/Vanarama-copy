@@ -1,4 +1,4 @@
-import { IncomingMessage, ServerResponse } from 'http';
+import { ServerResponse } from 'http';
 import { ApolloClient } from '@apollo/client';
 import { GENERIC_PAGE } from '../gql/genericPage';
 import { GetProductCard_vehicleList_edges as ProductEdge } from '../../generated/GetProductCard';
@@ -207,25 +207,15 @@ export const removeUrlQueryPart = (url: string) =>
   url.slice(0, url.indexOf('?') > -1 ? url.indexOf('?') : url.length);
 
 /**
- * make redirect on server side in 404 page
+ * make request for 404 page data on server side
  * @param res
- * @param req
  * @param client
  */
-export const serverRedirect = async (
+export const notFoundPageHandler = async (
   res: ServerResponse,
-  req: IncomingMessage,
   client: ApolloClient<any>,
 ) => {
-  const { referer } = req?.headers; // if referer don't exist it's means that is server request
-  if (!referer) {
-    res.setHeader('Location', '/404');
-    res.statusCode = 302;
-    res.end();
-    return { props: {} };
-  }
-  // if we receive not found slug error when using app ->
-  // made request for 404 page data ant render 404 container in page
+  res.statusCode = 404;
   const { data } = await client.query({
     query: GENERIC_PAGE,
     variables: {
