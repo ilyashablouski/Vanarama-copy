@@ -19,7 +19,7 @@ import {
 } from '../../../../../generated/globalTypes';
 import { GetProductCard } from '../../../../../generated/GetProductCard';
 import { vehicleList } from '../../../../../generated/vehicleList';
-import { serverRedirect } from '../../../../utils/url';
+import { notFoundPageHandler } from '../../../../utils/url';
 import { ISearchPageProps } from '../../../../models/ISearchPageProps';
 import PageNotFoundContainer from '../../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 
@@ -141,8 +141,8 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     };
   } catch {
-    const { res, req } = context;
-    if (res && req) return serverRedirect(res, req, client);
+    const { res } = context;
+    if (res) return notFoundPageHandler(res, client);
     return {
       props: {
         error: true,

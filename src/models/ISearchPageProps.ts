@@ -12,7 +12,7 @@ export interface ISearchPageProps {
   metaData: IPageMetaData;
 }
 
-interface INotFoundPageData {
+export interface INotFoundPageData {
   name: string | null | undefined;
   cards?: (ICards | null)[] | null | undefined;
   featured?: IFeatured | null | undefined;
