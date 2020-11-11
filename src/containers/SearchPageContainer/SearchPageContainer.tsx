@@ -573,7 +573,7 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   useFirstRenderEffect(() => {
     onSearch();
-  }, [sortOrder])
+  }, [sortOrder]);
 
   // load more offers
   const onLoadMore = () => {
