@@ -42,19 +42,19 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     GetQuoteDetails | null | undefined
   >(quote || null);
   const [mileage, setMileage] = useState<number | null>(
-    quote.quoteByCapId?.mileage || null,
+    quote?.quoteByCapId?.mileage || null,
   );
   const [upfront, setUpfront] = useState<number | null>(
-    quote.quoteByCapId?.upfront || null,
+    quote?.quoteByCapId?.upfront || null,
   );
   const [colour, setColour] = useState<number | null>(
-    parseQuoteParams(quote.quoteByCapId?.colour),
+    parseQuoteParams(quote?.quoteByCapId?.colour),
   );
   const [term, setTerm] = useState<number | null>(
-    quote.quoteByCapId?.term || null,
+    quote?.quoteByCapId?.term || null,
   );
   const [trim, setTrim] = useState<number | null>(
-    parseQuoteParams(quote.quoteByCapId?.trim),
+    parseQuoteParams(quote?.quoteByCapId?.trim),
   );
   const [maintenance, setMaintenance] = useState<boolean | null>(null);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
