@@ -49,7 +49,7 @@ export const buildRewriteRoute = (
       queries[key] = value;
     }
   });
-  if (rate.max || Number.isInteger(rate.min)) {
+  if (rate?.max || Number.isInteger(rate?.min)) {
     queries.pricePerMonth = getBudgetForQuery(
       `${rate.min || '0'}-${rate.max || ''}`,
     );
@@ -118,20 +118,16 @@ export function getBodyStyleForCms(this: string, element: string) {
 
 export const sortValues = [
   {
-    text: 'Price lowest to highest',
+    text: 'Price Low To High',
     value: `${SortField.rate}_${SortDirection.ASC}`,
   },
   {
-    text: 'Price highest to lowest',
+    text: 'Price High To Low',
     value: `${SortField.rate}_${SortDirection.DESC}`,
   },
   {
-    text: 'Quickest to longest delivery time',
+    text: 'Fastest Delivery Time',
     value: `${SortField.availability}_${SortDirection.ASC}`,
-  },
-  {
-    text: 'Longest to quickest delivery time',
-    value: `${SortField.availability}_${SortDirection.DESC}`,
   },
 ];
 

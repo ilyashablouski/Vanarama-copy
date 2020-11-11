@@ -30,7 +30,7 @@ import {
 import { filterList_filterList as IFilterList } from '../../../../generated/filterList';
 import { vehicleList } from '../../../../generated/vehicleList';
 import { GetProductCard } from '../../../../generated/GetProductCard';
-import { serverRedirect } from '../../../utils/url';
+import { notFoundPageHandler } from '../../../utils/url';
 import { ISearchPageProps } from '../../../models/ISearchPageProps';
 import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 
@@ -41,7 +41,7 @@ interface IPageType {
 }
 
 interface IProps extends ISearchPageProps {
-  pageType: IPageType;
+  pageType?: IPageType;
   query: any;
   pageData: GenericPageQuery;
   filtersData?: IFilterList | undefined;
@@ -54,7 +54,7 @@ interface IProps extends ISearchPageProps {
 const Page: NextPage<IProps> = ({
   isServer,
   query,
-  pageType,
+  pageType = {},
   pageData,
   metaData,
   filtersData,
@@ -66,7 +66,6 @@ const Page: NextPage<IProps> = ({
   notFoundPageData,
 }) => {
   const router = useRouter();
-
   useEffect(() => {
     pushPageData({
       pageType: pageType.isMakePage
@@ -231,10 +230,11 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     };
   } catch {
-    if (res && req) return serverRedirect(res, req, client);
+    if (res) return notFoundPageHandler(res, client);
     return {
       props: {
         error: true,
+        pageType,
       },
     };
   }

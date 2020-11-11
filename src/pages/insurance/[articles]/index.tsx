@@ -7,7 +7,7 @@ import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostCon
 import { GENERIC_PAGE } from '../../../gql/genericPage';
 import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 import createApolloClient from '../../../apolloClient';
-import { serverRedirect } from '../../../utils/url';
+import { notFoundPageHandler } from '../../../utils/url';
 import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 import { INotFoundPageData } from '../../../models/ISearchPageProps';
 
@@ -47,8 +47,8 @@ const BlogPost: NextPage<IInsuranceArticle> = ({
 
 export async function getServerSideProps(context: NextPageContext) {
   const client = createApolloClient({}, context as NextPageContext);
+  const { req, res } = context;
   try {
-    const { req } = context;
     const { data, errors } = await client.query({
       query: GENERIC_PAGE,
       variables: {
@@ -62,8 +62,7 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     };
   } catch {
-    const { res, req } = context;
-    if (res && req) return serverRedirect(res, req, client);
+    if (res) return notFoundPageHandler(res, client);
     return {
       props: {
         error: true,
