@@ -26,11 +26,17 @@ import { GetDerivatives } from '../../../generated/GetDerivatives';
 const Heading = dynamic(() =>
   import('@vanarama/uibook/lib/components/atoms/heading'),
 );
-const Image = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/image'),
+const Image = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/image'),
+  {
+    ssr: false,
+  },
 );
-const Loading = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/loading'),
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    ssr: false,
+  },
 );
 const Text = dynamic(() =>
   import('@vanarama/uibook/lib/components/atoms/text'),
@@ -56,8 +62,11 @@ const TabPanels = dynamic(() =>
 const Tile = dynamic(() =>
   import('@vanarama/uibook/lib/components/molecules/tile'),
 );
-const TrustPilot = dynamic(() =>
-  import('@vanarama/uibook/lib/components/molecules/trustpilot'),
+const TrustPilot = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/trustpilot'),
+  {
+    ssr: false,
+  },
 );
 const IconList = dynamic(() =>
   import('@vanarama/uibook/lib/components/organisms/icon-list'),

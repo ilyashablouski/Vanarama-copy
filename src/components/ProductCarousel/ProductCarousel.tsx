@@ -15,8 +15,11 @@ import useSliderProperties from '../../hooks/useSliderProperties';
 import { features } from './helpers';
 
 // Dynamic component loading.
-const Icon = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/icon'),
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon'),
+  {
+    ssr: false,
+  },
 );
 const Carousel = dynamic(() =>
   import('@vanarama/uibook/lib/components/organisms/carousel'),
@@ -29,7 +32,9 @@ const ProductCard = dynamic(() =>
 const Price = dynamic(() =>
   import('@vanarama/uibook/lib/components/atoms/price'),
 );
-const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'));
+const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'), {
+  ssr: false,
+});
 
 interface IProductCarouselProps {
   leaseType: string;
