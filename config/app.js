@@ -31,7 +31,6 @@ module.exports = {
       REDIS_KEY_PREFIX: process.env.REDIS_KEY_PREFIX,
     },
     experimental: {
-      optimizeFonts: true,
       optimizeImages: true,
     },
     devIndicators: {
