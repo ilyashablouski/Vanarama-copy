@@ -1,15 +1,27 @@
 /* eslint-disable import/no-cycle */
 import React, { FC, memo, useState, useEffect } from 'react';
 import cx from 'classnames';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import FlameSharp from '@vanarama/uibook/lib/assets/icons/FlameSharp';
 import RouterLink from '../RouterLink/RouterLink';
 import { IHeaderLink } from './Header';
 import HeaderSecondaryMenu from './HeaderSecondaryMenu';
 import { useHover } from '../../hooks/useHover';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
+
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon'),
+  {
+    ssr: false,
+  },
+);
+const FlameSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/FlameSharp'),
+  {
+    ssr: false,
+  },
+);
 
 export interface IHeaderMenuLinkProps extends IBaseProps {
   link: IHeaderLink;
