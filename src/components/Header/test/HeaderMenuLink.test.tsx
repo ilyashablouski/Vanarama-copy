@@ -1,5 +1,7 @@
 import renderer from 'react-test-renderer';
 import React from 'react';
+// @ts-ignore
+import preloadAll from 'jest-next-dynamic';
 import { TOP_BAR_LINKS } from '../../../models/enum/HeaderLinks';
 import HeaderMenuLink from '../HeaderMenuLink';
 
@@ -16,6 +18,9 @@ jest.mock('next/router', () => ({
 jest.mock('../../../hooks/useMediaQuery');
 
 describe('<HeaderMenuLink />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('renders correctly', () => {
     const getComponent = () => {
       return renderer.create(<HeaderMenuLink {...mocks} />).toJSON();

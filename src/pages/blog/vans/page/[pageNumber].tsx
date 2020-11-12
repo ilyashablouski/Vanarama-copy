@@ -39,7 +39,7 @@ export async function getStaticPaths() {
   const { data } = await client.query({
     query: BLOG_POSTS_PAGE,
     variables: {
-      slug: 'blog/van-heroes',
+      slug: 'blog/vans',
     },
   });
   const paths = buildStaticPathes(data);
@@ -51,7 +51,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const client = createApolloClient({}, context as NextPageContext);
-  return getBlogPosts(client, BLOG_POSTS_PAGE, 'blog/van-heroes', context);
+  return getBlogPosts(client, BLOG_POSTS_PAGE, 'blog/vans', context);
 }
 
 export default CategoryPage;
