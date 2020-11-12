@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect } from 'react';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { ApolloError } from '@apollo/client';
 import localForage from 'localforage';
+import cx from 'classnames';
 
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -13,7 +14,7 @@ import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import DownloadSharp from '@vanarama/uibook/lib/assets/icons/DownloadSharp';
 import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-gallery';
 import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
-import cx from 'classnames';
+
 import {
   pushPDPDataLayer,
   pushAddToCartDataLayer,
@@ -53,6 +54,7 @@ import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { getProductPageBreadCrumb } from '../../utils/url';
 import Head from '../../components/Head/Head';
 import { useGenericPageHead } from '../../gql/genericPage';
+import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 
 interface IDetailsPageProps {
   capId: number;
@@ -62,6 +64,7 @@ interface IDetailsPageProps {
   data?: GetVehicleDetails;
   loading?: boolean;
   error?: ApolloError;
+  quote?: GetQuoteDetails;
 }
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
@@ -72,7 +75,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   data,
   loading,
   error,
+  quote,
 }) => {
+  const router = useRouter();
   // pass cars prop(Boolean)
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(cars);
   const [leaseType, setLeaseType] = useState<string>(cachedLeaseType);
@@ -83,7 +88,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   );
 
   const { data: genericPageHead } = useGenericPageHead(
-    Router.asPath.slice(1, -5),
+    router.asPath.slice(1, -5),
   );
 
   useEffect(() => {
@@ -157,7 +162,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             ? '/olaf/about/[orderId]'
             : '/b2b/olaf/about';
 
-        Router.push(url, url.replace('[orderId]', orderId || ''));
+        router.push(url, url.replace('[orderId]', orderId || ''));
       });
   };
 
@@ -187,7 +192,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const derivativeInfo = data?.derivativeInfo;
   const leaseAdjustParams = data?.leaseAdjustParams;
   const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
-  const financeProfile = data?.vehicleConfigurationByCapId?.financeProfile;
   const independentReview = data?.vehicleDetails?.independentReview;
   const warranty = data?.vehicleDetails?.warranty;
   const capsId = data?.vehicleDetails?.relatedVehicles?.map(
@@ -508,9 +512,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         )}
         {isMobile && (
           <CustomiseLeaseContainer
+            quote={quote}
             capId={capId}
             onCompletedCallBack={onCompletedCallBack}
-            financeProfile={financeProfile}
             vehicleType={vehicleType}
             derivativeInfo={derivativeInfo}
             leaseAdjustParams={leaseAdjustParams}
@@ -534,8 +538,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         />
       </div>
       <CustomiseLeaseContainer
+        quote={quote}
         capId={capId}
-        financeProfile={financeProfile}
         vehicleType={vehicleType}
         derivativeInfo={derivativeInfo}
         leaseAdjustParams={leaseAdjustParams}

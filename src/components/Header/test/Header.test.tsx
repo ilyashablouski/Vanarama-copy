@@ -1,5 +1,7 @@
 import renderer from 'react-test-renderer';
 import React from 'react';
+// @ts-ignore
+import preloadAll from 'jest-next-dynamic';
 import {
   TOP_BAR_LINKS,
   PHONE_NUMBER_LINK,
@@ -37,6 +39,9 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 describe('<Header />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('renders correctly', () => {
     jest.mock('localforage', () => ({
       getItem: jest.fn(() => null),
