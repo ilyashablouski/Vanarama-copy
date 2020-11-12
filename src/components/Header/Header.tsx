@@ -2,21 +2,13 @@
 /* eslint-disable import/no-cycle */
 import React, { FC, memo, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 import cx from 'classnames';
 import localForage from 'localforage';
 import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
+
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Logo from '@vanarama/uibook/lib/components/atoms/logo';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import SearchCircle from '@vanarama/uibook/lib/assets/icons/SearchOutline';
-import PersonCircleSharp from '@vanarama/uibook/lib/assets/icons/PersonCircleSharp';
-import HomeOutline from '@vanarama/uibook/lib/assets/icons/HomeOutline';
-import ReceiptOutline from '@vanarama/uibook/lib/assets/icons/ReceiptOutline';
-import CarOutline from '@vanarama/uibook/lib/assets/icons/CarOutline';
-import LogOutOutline from '@vanarama/uibook/lib/assets/icons/LogOutOutline';
-import Menu from '@vanarama/uibook/lib/assets/icons/Menu';
-import Close from '@vanarama/uibook/lib/assets/icons/Close';
-import Call from '@vanarama/uibook/lib/assets/icons/Call';
 import { ILinkProps } from '../RouterLink/interface';
 import RouterLink from '../RouterLink/RouterLink';
 import HeaderMenu from './HeaderMenu';
@@ -24,6 +16,58 @@ import {
   GetPerson_getPerson as Person,
   GetPerson,
 } from '../../../generated/GetPerson';
+
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon'),
+  {
+    ssr: false,
+  },
+);
+const SearchCircle = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/SearchOutline'),
+  {
+    ssr: false,
+  },
+);
+const PersonCircleSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/PersonCircleSharp'),
+  {
+    ssr: false,
+  },
+);
+const HomeOutline = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/HomeOutline'),
+  {
+    ssr: false,
+  },
+);
+const ReceiptOutline = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/ReceiptOutline'),
+  {
+    ssr: false,
+  },
+);
+const CarOutline = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/CarOutline'),
+  {
+    ssr: false,
+  },
+);
+const Menu = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Menu'), {
+  ssr: false,
+});
+const LogOutOutline = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/LogOutOutline'),
+  {
+    ssr: false,
+  },
+);
+const Close = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Close'), {
+  ssr: false,
+});
+const Call = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Call'), {
+  ssr: false,
+});
 
 export interface IHeaderLink extends ILinkProps {
   id?: string;
