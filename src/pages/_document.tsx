@@ -35,6 +35,7 @@ class MyDocument extends Document {
             src="//cdn.embedly.com/widgets/platform.js"
             charSet="UTF-8"
           />
+          <script async src="https://www.riddle.com/files/js/embed.js" />
         </body>
       </Html>
     );
