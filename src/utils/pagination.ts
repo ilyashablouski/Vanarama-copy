@@ -62,7 +62,7 @@ export const buildStaticPathes = (data: BlogPosts) => {
     (sortingArticles.call(articles).articles.length || 0) / ARTICLES_PER_PAGE,
   );
   let paths = [] as any[];
-  for (let i = 1; i < pageCount; i += 1) {
+  for (let i = 1; i <= pageCount; i += 1) {
     paths = [...paths, { params: { pageNumber: i.toString() } }];
   }
   return paths;
