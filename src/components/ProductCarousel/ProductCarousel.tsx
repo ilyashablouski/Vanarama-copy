@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useContext } from 'react';
 import dynamic from 'next/dynamic';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
@@ -114,18 +115,24 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                         data.vehicleList?.edges,
                         product?.capId,
                       ),
-                      label: truncateString(
-                        `${product.manufacturerName} ${product.rangeName}`,
-                      ),
+                      label: '',
                     }}
                     onClick={() =>
                       sessionStorage.setItem('capId', product.capId || '')
                     }
                     className="heading"
                     classNames={{ size: 'large', color: 'black' }}
-                  />
+                  >
+                    <Heading tag="span" size="large" className="-pb-100">
+                      {truncateString(
+                        `${product?.manufacturerName} ${product?.rangeName}`,
+                      )}
+                    </Heading>
+                    <Heading tag="span" size="small" color="dark">
+                      {product?.derivativeName || ''}
+                    </Heading>
+                  </RouterLink>
                 ),
-                description: product.derivativeName || '',
                 score: product.averageRating || 5,
               }}
             >

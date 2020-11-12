@@ -219,18 +219,24 @@ export const CarsPage: NextPage = () => {
                     <RouterLink
                       link={{
                         href: productUrl.url,
-                        label: truncateString(
-                          `${item?.manufacturerName} ${item?.rangeName}`,
-                        ),
+                        label: '',
                       }}
                       onClick={() =>
                         sessionStorage.setItem('capId', item?.capId || '')
                       }
                       className="heading"
                       classNames={{ size: 'large', color: 'black' }}
-                    />
+                    >
+                      <Heading tag="span" size="large" className="-pb-100">
+                        {truncateString(
+                          `${item?.manufacturerName} ${item?.rangeName}`,
+                        )}
+                      </Heading>
+                      <Heading tag="span" size="small" color="dark">
+                        {item?.derivativeName || ''}
+                      </Heading>
+                    </RouterLink>
                   ),
-                  description: item?.derivativeName || '',
                   score: item?.averageRating || 5,
                 }}
               >
