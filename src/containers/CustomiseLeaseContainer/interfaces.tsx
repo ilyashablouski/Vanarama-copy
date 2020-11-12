@@ -7,9 +7,11 @@ import {
 import {
   GetVehicleDetails_derivativeInfo,
   GetVehicleDetails_leaseAdjustParams,
-  GetVehicleDetails_vehicleConfigurationByCapId_financeProfile,
 } from '../../../generated/GetVehicleDetails';
-import { GetQuoteDetails_quoteByCapId } from '../../../generated/GetQuoteDetails';
+import {
+  GetQuoteDetails_quoteByCapId,
+  GetQuoteDetails,
+} from '../../../generated/GetQuoteDetails';
 
 export interface ILeaseScannerData {
   maintenance: boolean | null;
@@ -27,10 +29,6 @@ export interface IProps {
   derivativeInfo: GetVehicleDetails_derivativeInfo | null | undefined;
   leaseAdjustParams: GetVehicleDetails_leaseAdjustParams | null | undefined;
   leaseType: string;
-  financeProfile:
-    | GetVehicleDetails_vehicleConfigurationByCapId_financeProfile
-    | null
-    | undefined;
   isDisabled: boolean;
   onCompletedCallBack: () => void;
   setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -40,6 +38,7 @@ export interface IProps {
   setLeaseScannerData?: React.Dispatch<
     React.SetStateAction<ILeaseScannerData | null>
   >;
+  quote?: GetQuoteDetails;
 }
 
 export interface IQuoteDataInputs {
