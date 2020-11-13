@@ -15,6 +15,7 @@ const Page: NextPage<IProps> = ({ isServer, pageData, metaData }) => {
     <SearchPageContainer
       isServer={isServer}
       isPickups
+      isSimpleSearchPage
       metaData={metaData}
       pageData={pageData}
     />
