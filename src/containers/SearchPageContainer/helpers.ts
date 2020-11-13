@@ -69,8 +69,30 @@ export const fuelMapper = {
   electric: 'Electric',
 };
 
+// using for get CMS slugs from url
+export const bodyUrlsSlugMapper = {
+  automatic: 'automatic-vans',
+  '4x4': '4x4-suv',
+  convertible: 'convertible',
+  coupe: 'coupe',
+  eco: 'eco',
+  estate: 'estate',
+  family: 'family',
+  hatchback: 'hatchback',
+  'people-carrier': 'people-carrier',
+  prestige: 'prestige',
+  saloon: 'saloon',
+  'city-car': 'city-car',
+  'crew-van': 'crew-vans',
+  'dropside-tipper': 'dropside-tipper-leasing',
+  'large-van': 'large-van-leasing',
+  'medium-van': 'medium-van-leasing',
+  'refrigerated-van': 'refrigerated-van-leasing',
+  'small-van': 'small-van-leasing',
+  specialist: 'specialist-van-leasing',
+};
+
 export const bodyUrls = [
-  'automatic-vans',
   '4x4-suv',
   'convertible',
   'coupe',
@@ -164,11 +186,10 @@ export const ssrCMSQueryExecutor = async (
         client,
         GENERIC_PAGE,
         `${searchType}/${prepareSlugPart(
-          bodyUrls.find(
-            getBodyStyleForCms,
-            (query.dynamicParam as string).toLowerCase(),
-          ) || '',
-        )}${!isCarSearch ? '-leasing' : ''}`,
+          bodyUrlsSlugMapper[
+            query.dynamicParam as keyof typeof bodyUrlsSlugMapper
+          ],
+        )}`,
       );
     case 'isTransmissionPage':
       return onCallQuery(
