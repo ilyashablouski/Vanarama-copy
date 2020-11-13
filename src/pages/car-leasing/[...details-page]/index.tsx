@@ -50,7 +50,7 @@ const CarDetailsPage: NextPage<IProps> = ({
     ? new ApolloError({ errorMessage: error })
     : undefined;
 
-  if (error) {
+  if (notFoundPageData) {
     return (
       <PageNotFoundContainer
         featured={notFoundPageData?.featured}
@@ -137,7 +137,9 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     };
   } catch (error) {
-    if (context.res) {
+    const apolloError = error as ApolloError;
+
+    if (apolloError.graphQLErrors.length > 0 && context.res) {
       return notFoundPageHandler(context.res, client);
     }
 

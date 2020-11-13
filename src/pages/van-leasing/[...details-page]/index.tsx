@@ -52,7 +52,7 @@ const VanDetailsPage: NextPage<IProps> = ({
 
   const isPickup = !data?.derivativeInfo?.bodyType?.slug?.match('van');
 
-  if (error) {
+  if (notFoundPageData) {
     return (
       <PageNotFoundContainer
         featured={notFoundPageData?.featured}
@@ -140,13 +140,15 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     };
   } catch (error) {
-    if (context.res) {
+    const apolloError = error as ApolloError;
+
+    if (apolloError.graphQLErrors.length > 0 && context.res) {
       return notFoundPageHandler(context.res, client);
     }
 
     return {
       props: {
-        error: error.message,
+        errors: error.graphQLErrors,
       },
     };
   }
