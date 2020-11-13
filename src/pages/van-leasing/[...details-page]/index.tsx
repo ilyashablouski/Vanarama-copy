@@ -46,19 +46,26 @@ const VanDetailsPage: NextPage<IProps> = ({
   quote,
   notFoundPageData,
 }) => {
-  const apolloError = error
-    ? new ApolloError({ errorMessage: error })
-    : undefined;
-
   const isPickup = !data?.derivativeInfo?.bodyType?.slug?.match('van');
 
-  if (error) {
+  if (notFoundPageData) {
     return (
       <PageNotFoundContainer
         featured={notFoundPageData?.featured}
         cards={notFoundPageData?.cards}
         name={notFoundPageData?.name}
       />
+    );
+  }
+
+  if (error) {
+    return (
+      <div
+        className="pdp--content"
+        style={{ minHeight: '40rem', display: 'flex', alignItems: 'center' }}
+      >
+        {error}
+      </div>
     );
   }
 
@@ -69,7 +76,6 @@ const VanDetailsPage: NextPage<IProps> = ({
       pickups={isPickup}
       data={data}
       quote={quote}
-      error={apolloError}
     />
   );
 };
@@ -140,7 +146,9 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     };
   } catch (error) {
-    if (context.res) {
+    const apolloError = error as ApolloError;
+
+    if ((apolloError?.graphQLErrors || []).length > 0 && context.res) {
       return notFoundPageHandler(context.res, client);
     }
 
