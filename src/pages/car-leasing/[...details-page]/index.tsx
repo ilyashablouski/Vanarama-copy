@@ -1,70 +1,152 @@
-import { NextPage } from 'next';
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { useLazyQuery } from '@apollo/client';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import { NextPage, NextPageContext } from 'next';
+import { ApolloError } from '@apollo/client';
+import React from 'react';
 import { ParsedUrlQuery } from 'querystring';
-import { useCarData } from '../../../gql/carpage';
-import withApollo from '../../../hocs/withApollo';
-import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import { GET_CAR_DATA } from '../../../gql/carpage';
+import {
+  LeaseTypeEnum,
+  VehicleTypeEnum,
+} from '../../../../generated/globalTypes';
 import DetailsPage from '../../../containers/DetailsPage/DetailsPage';
 import { VEHICLE_CONFIGURATION_BY_URL } from '../../../gql/productCard';
-import { VehicleConfigurationByUrl } from '../../../../generated/VehicleConfigurationByUrl';
-import { getVehicleConfigurationPath } from '../../../utils/url';
+import {
+  VehicleConfigurationByUrl,
+  VehicleConfigurationByUrlVariables,
+} from '../../../../generated/VehicleConfigurationByUrl';
+import {
+  getVehicleConfigurationPath,
+  notFoundPageHandler,
+} from '../../../utils/url';
+import createApolloClient from '../../../apolloClient';
+import { GET_QUOTE_DATA } from '../../../containers/CustomiseLeaseContainer/gql';
+import {
+  GetQuoteDetails,
+  GetQuoteDetailsVariables,
+} from '../../../../generated/GetQuoteDetails';
+import {
+  GetVehicleDetails,
+  GetVehicleDetailsVariables,
+} from '../../../../generated/GetVehicleDetails';
+import { INotFoundPageData } from '../../../models/ISearchPageProps';
+import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 
 interface IProps {
   query?: ParsedUrlQuery;
+  data?: GetVehicleDetails;
+  error?: string;
+  capId?: number;
+  quote?: GetQuoteDetails;
+  notFoundPageData?: INotFoundPageData;
 }
 
-const CarDetailsPage: NextPage<IProps> = () => {
-  const router = useRouter();
-  const [capId, setCapId] = useState(0);
+const CarDetailsPage: NextPage<IProps> = ({
+  capId,
+  data,
+  error,
+  quote,
+  notFoundPageData,
+}) => {
+  const apolloError = error
+    ? new ApolloError({ errorMessage: error })
+    : undefined;
 
-  const [getCarData, { data, loading, error }] = useCarData(
-    capId,
-    VehicleTypeEnum.CAR,
-  );
-
-  const [getConfiguration, { data: configuration }] = useLazyQuery<
-    VehicleConfigurationByUrl
-  >(VEHICLE_CONFIGURATION_BY_URL, {
-    variables: {
-      url: getVehicleConfigurationPath(router.asPath, '/car-leasing'),
-    },
-    onCompleted: d =>
-      setCapId(d.vehicleConfigurationByUrl?.capDerivativeId || 0),
-  });
-
-  useEffect(() => {
-    if (capId) {
-      getCarData();
-    } else if (sessionStorage && sessionStorage.getItem('capId')) {
-      setCapId(parseInt(sessionStorage.getItem('capId') ?? '', 10));
-    } else if (router.asPath !== router.pathname) {
-      getConfiguration();
-    }
-  }, [capId, getCarData, router, configuration, getConfiguration]);
-
-  if (!data) {
+  if (error) {
     return (
-      <div
-        className="pdp--content"
-        style={{ minHeight: '40rem', display: 'flex', alignItems: 'center' }}
-      >
-        <Loading size="xlarge" />
-      </div>
+      <PageNotFoundContainer
+        featured={notFoundPageData?.featured}
+        cards={notFoundPageData?.cards}
+        name={notFoundPageData?.name}
+      />
     );
   }
 
   return (
     <DetailsPage
-      capId={capId}
       cars
+      quote={quote}
+      capId={capId || 0}
       data={data}
-      loading={loading}
-      error={error}
+      error={apolloError}
     />
   );
 };
 
-export default withApollo(CarDetailsPage);
+export async function getServerSideProps(context: NextPageContext) {
+  const client = createApolloClient({});
+  const path = context.req?.url || '';
+
+  try {
+    const vehicleConfigurationByUrlQuery = await client.query<
+      VehicleConfigurationByUrl,
+      VehicleConfigurationByUrlVariables
+    >({
+      query: VEHICLE_CONFIGURATION_BY_URL,
+      variables: {
+        url: getVehicleConfigurationPath(path, '/van-leasing'),
+      },
+    });
+
+    const capId =
+      vehicleConfigurationByUrlQuery.data?.vehicleConfigurationByUrl
+        ?.capDerivativeId || 0;
+
+    const getCarDataQuery = await client.query<
+      GetVehicleDetails,
+      GetVehicleDetailsVariables
+    >({
+      query: GET_CAR_DATA,
+      variables: {
+        capId,
+        capIdDetails: `${capId}`,
+        vehicleType: VehicleTypeEnum.CAR,
+      },
+    });
+
+    const mileage =
+      getCarDataQuery.data?.vehicleConfigurationByCapId?.financeProfile
+        ?.mileage;
+    const term =
+      getCarDataQuery.data?.vehicleConfigurationByCapId?.financeProfile?.term;
+    const upfront =
+      getCarDataQuery.data?.vehicleConfigurationByCapId?.financeProfile
+        ?.upfront;
+
+    const quoteDataQuery = await client.query<
+      GetQuoteDetails,
+      GetQuoteDetailsVariables
+    >({
+      query: GET_QUOTE_DATA,
+      variables: {
+        capId: `${capId}`,
+        vehicleType: VehicleTypeEnum.LCV,
+        mileage,
+        term,
+        upfront,
+        leaseType: LeaseTypeEnum.BUSINESS,
+        trim: null,
+        colour: null,
+      },
+    });
+
+    return {
+      props: {
+        capId,
+        data: getCarDataQuery.data,
+        quote: quoteDataQuery.data,
+        query: context.query,
+      },
+    };
+  } catch (error) {
+    if (context.res) {
+      return notFoundPageHandler(context.res, client);
+    }
+
+    return {
+      props: {
+        error: error.message,
+      },
+    };
+  }
+}
+
+export default CarDetailsPage;

@@ -250,6 +250,6 @@ export const getMetadataForPagination = (metadata: IMetadata, page = 1) => {
       : metadata.canonicalUrl;
   return {
     ...metadata,
-    canonicalUrl,
+    canonicalUrl: canonicalUrl || metadata.canonicalUrl,
   };
 };

@@ -1,4 +1,4 @@
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, gql, useLazyQuery, ApolloError } from '@apollo/client';
 import {
   GetQuoteDetails,
   GetQuoteDetailsVariables,
@@ -77,4 +77,17 @@ export function useQuoteData({
       colour,
     },
   });
+}
+
+export function useQuoteDataLazyQuery(
+  onCompleted?: (data: GetQuoteDetails) => void,
+  onError?: (error: ApolloError) => void,
+) {
+  return useLazyQuery<GetQuoteDetails, GetQuoteDetailsVariables>(
+    GET_QUOTE_DATA,
+    {
+      onCompleted,
+      onError,
+    },
+  );
 }

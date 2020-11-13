@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Link from '@vanarama/uibook/lib/components/atoms/link';
-import DOMPurify from 'dompurify';
+import DOMPurify from 'isomorphic-dompurify';
 
 interface IIndependentReviewProps {
   review: any;
