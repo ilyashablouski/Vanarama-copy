@@ -21,7 +21,7 @@ exports[`<ModelCard /> should be render correctly 1`] = `
           href="/bmw-car-leasing/3-series/coupe.html"
           rel="noopener noreferrer"
         >
-          3 series coupe
+          BMW 3 series coupe
         </a>
       </div>
       <div
