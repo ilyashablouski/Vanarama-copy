@@ -39,6 +39,14 @@ jest.mock('next/router', () => ({
   }),
 }));
 
+jest.mock('next/config', () => () => ({
+  publicRuntimeConfig: {
+    apiUrl: 'http://',
+    apiKey: '123',
+    enableDevTools: false,
+  },
+}));
+
 const updateCreditApplication = makeGetCreditApplicationMock(MOCK_ORDER_UUID);
 
 const getCompanyMock: MockedResponse = {

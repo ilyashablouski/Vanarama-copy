@@ -37,6 +37,14 @@ jest.mock('next/router', () => ({
   },
 }));
 
+jest.mock('next/config', () => () => ({
+  publicRuntimeConfig: {
+    apiUrl: 'http://',
+    apiKey: '123',
+    enableDevTools: false,
+  },
+}));
+
 const mocked: MockedResponse[] = [
   {
     request: {
