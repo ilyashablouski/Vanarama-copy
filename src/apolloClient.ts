@@ -8,18 +8,18 @@ import Router from 'next/router';
 import { onError } from '@apollo/client/link/error';
 import fetch from 'isomorphic-unfetch';
 import { NextPageContext } from 'next';
-// import getConfig from 'next/config';
+import getConfig from 'next/config';
 
-// const { publicRuntimeConfig } = getConfig();
+const { publicRuntimeConfig } = getConfig();
 
 const HttpLink = createHttpLink({
-  uri: process.env.API_URL!,
-  // uri: publicRuntimeConfig.apiUrl!,
+  // uri: process.env.API_URL!,
+  uri: publicRuntimeConfig.apiUrl!,
   fetch,
   credentials: 'include',
   headers: {
-    'x-api-key': process.env.API_KEY!,
-    // 'x-api-key': publicRuntimeConfig.apiKey!,
+    // 'x-api-key': process.env.API_KEY!,
+    'x-api-key': publicRuntimeConfig.apiKey!,
   },
 });
 
@@ -45,8 +45,8 @@ export default function createApolloClient(
     // use it to extract auth headers (ctx.req) or similar.
     ssrMode: Boolean(ctx),
     link: from([ErrorLink, HttpLink]),
-    connectToDevTools: Boolean(process.env.ENABLE_DEV_TOOLS),
-    // connectToDevTools: Boolean(publicRuntimeConfig.enableDevTools),
+    // connectToDevTools: Boolean(process.env.ENABLE_DEV_TOOLS),
+    connectToDevTools: Boolean(publicRuntimeConfig.enableDevTools),
     cache: new InMemoryCache({
       typePolicies: {
         Query: {
