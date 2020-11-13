@@ -6,6 +6,7 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import { bodyStyleList_bodyStyleList as IModelData } from '../../../generated/bodyStyleList';
 import { useModelImages } from './gql';
 import { formatUrl } from '../../utils/url';
+import { capitalizeFirstLetter } from '../../utils/textTransform';
 
 interface IModelCardProps {
   isPersonalPrice: boolean;
@@ -24,6 +25,7 @@ const ModelCard = memo(({ isPersonalPrice, data }: IModelCardProps) => {
       }
     : {};
 
+  const make = query.make as string;
   const rangeName = (query.rangeName as string).split('+').join(' ') || '';
   const legacyUrl = `/${query.dynamicParam}-car-leasing/${rangeName}/${data?.bodyStyle}.html`;
   return (
@@ -37,7 +39,9 @@ const ModelCard = memo(({ isPersonalPrice, data }: IModelCardProps) => {
           <RouterLink
             link={{
               href: formatUrl(legacyUrl),
-              label: `${rangeName} ${data?.bodyStyle || ''}`,
+              label: `${capitalizeFirstLetter(make)} ${capitalizeFirstLetter(
+                rangeName,
+              )} ${data?.bodyStyle || ''}`,
             }}
             className="heading"
             classNames={{ size: 'large', color: 'black' }}
