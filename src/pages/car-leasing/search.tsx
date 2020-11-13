@@ -38,6 +38,7 @@ const Page: NextPage<IProps> = ({
     <SearchPageContainer
       isServer={isServer}
       isCarSearch
+      isSimpleSearchPage
       metaData={metaData}
       pageData={pageData}
       preLoadVehiclesList={vehiclesList}
