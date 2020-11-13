@@ -148,7 +148,7 @@ export async function getServerSideProps(context: NextPageContext) {
 
     return {
       props: {
-        errors: error.graphQLErrors,
+        errors: error.message,
       },
     };
   }
