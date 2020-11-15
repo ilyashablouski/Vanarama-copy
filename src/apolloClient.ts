@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   ApolloClient,
   InMemoryCache,
@@ -25,6 +26,8 @@ const HttpLink = createHttpLink({
 
 const ErrorLink = onError(({ graphQLErrors }) => {
   if (graphQLErrors) {
+    console.log('graphQLErrors', graphQLErrors);
+
     const authorizationError = graphQLErrors.find(
       error => error?.extensions?.code === 'UNAUTHORISED',
     );

@@ -30,9 +30,6 @@ module.exports = {
       REDIS_CACHE_PORT: process.env.REDIS_CACHE_PORT,
       REDIS_KEY_PREFIX: process.env.REDIS_KEY_PREFIX,
     },
-    experimental: {
-      optimizeImages: true,
-    },
     devIndicators: {
       autoPrerender: false,
     },
