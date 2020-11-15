@@ -24,9 +24,11 @@ const HttpLink = createHttpLink({
   },
 });
 
+const inspect = require('../inspect');
+
 const ErrorLink = onError(({ graphQLErrors }) => {
   if (graphQLErrors) {
-    console.log('graphQLErrors', graphQLErrors);
+    inspect(graphQLErrors);
 
     const authorizationError = graphQLErrors.find(
       error => error?.extensions?.code === 'UNAUTHORISED',
