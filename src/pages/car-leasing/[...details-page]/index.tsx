@@ -1,5 +1,5 @@
 import { NextPage, NextPageContext } from 'next';
-import { ApolloError } from '@apollo/client';
+// import { ApolloError } from '@apollo/client';
 import React from 'react';
 import { ParsedUrlQuery } from 'querystring';
 import { GET_CAR_DATA } from '../../../gql/carpage';
@@ -15,7 +15,7 @@ import {
 } from '../../../../generated/VehicleConfigurationByUrl';
 import {
   getVehicleConfigurationPath,
-  notFoundPageHandler,
+  // notFoundPageHandler,
 } from '../../../utils/url';
 import createApolloClient from '../../../apolloClient';
 import { GET_QUOTE_DATA } from '../../../containers/CustomiseLeaseContainer/gql';
