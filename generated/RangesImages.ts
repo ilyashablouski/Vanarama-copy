@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { VehicleTypeEnum } from "./globalTypes";
+
 // ====================================================
 // GraphQL query operation: RangesImages
 // ====================================================
@@ -17,5 +19,6 @@ export interface RangesImages {
 
 export interface RangesImagesVariables {
   rangeId?: string | null;
+  vehicleType?: VehicleTypeEnum | null;
   capIds?: (string | null)[] | null;
 }
