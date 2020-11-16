@@ -412,7 +412,7 @@ export const pushSummaryDataLayer = ({
     ecommerce: {
       visitorEmail: emailAddress ? sha256(emailAddress) : 'undefined',
       currencyCode: 'GBP',
-      checkout: {
+      purchase: {
         actionField: {
           id: orderId,
           revenue: `${price}`,
@@ -422,7 +422,7 @@ export const pushSummaryDataLayer = ({
     },
   };
 
-  const product = data.ecommerce.checkout.products[0];
+  const product = data.ecommerce.purchase.products[0];
   getProductDataForCheckout({
     product,
     detailsData,
