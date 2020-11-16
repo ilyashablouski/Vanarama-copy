@@ -1,5 +1,5 @@
 import { NextPage, NextPageContext } from 'next';
-import { ApolloError } from '@apollo/client';
+// import { ApolloError } from '@apollo/client';
 import React from 'react';
 import { ParsedUrlQuery } from 'querystring';
 import { GET_CAR_DATA } from '../../../gql/carpage';
@@ -15,7 +15,7 @@ import {
 } from '../../../../generated/VehicleConfigurationByUrl';
 import {
   getVehicleConfigurationPath,
-  notFoundPageHandler,
+  // notFoundPageHandler,
 } from '../../../utils/url';
 import createApolloClient from '../../../apolloClient';
 import { GET_QUOTE_DATA } from '../../../containers/CustomiseLeaseContainer/gql';
@@ -46,11 +46,7 @@ const CarDetailsPage: NextPage<IProps> = ({
   quote,
   notFoundPageData,
 }) => {
-  const apolloError = error
-    ? new ApolloError({ errorMessage: error })
-    : undefined;
-
-  if (error) {
+  if (notFoundPageData) {
     return (
       <PageNotFoundContainer
         featured={notFoundPageData?.featured}
@@ -60,15 +56,18 @@ const CarDetailsPage: NextPage<IProps> = ({
     );
   }
 
-  return (
-    <DetailsPage
-      cars
-      quote={quote}
-      capId={capId || 0}
-      data={data}
-      error={apolloError}
-    />
-  );
+  if (error) {
+    return (
+      <div
+        className="pdp--content"
+        style={{ minHeight: '40rem', display: 'flex', alignItems: 'center' }}
+      >
+        {error}
+      </div>
+    );
+  }
+
+  return <DetailsPage cars quote={quote} capId={capId || 0} data={data} />;
 };
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -137,9 +136,11 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     };
   } catch (error) {
-    if (context.res) {
-      return notFoundPageHandler(context.res, client);
-    }
+    // const apolloError = error as ApolloError;
+
+    // if ((apolloError?.graphQLErrors || []).length > 0 && context.res) {
+    //   return notFoundPageHandler(context.res, client);
+    // }
 
     return {
       props: {

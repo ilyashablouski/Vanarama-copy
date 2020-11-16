@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { ApolloError } from '@apollo/client';
 import localForage from 'localforage';
 import cx from 'classnames';
 
@@ -63,7 +62,6 @@ interface IDetailsPageProps {
   pickups?: boolean;
   data?: GetVehicleDetails;
   loading?: boolean;
-  error?: ApolloError;
   quote?: GetQuoteDetails;
 }
 
@@ -74,7 +72,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   pickups,
   data,
   loading,
-  error,
   quote,
 }) => {
   const router = useRouter();
@@ -87,9 +84,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     true,
   );
 
-  const { data: genericPageHead } = useGenericPageHead(
-    router.asPath.slice(1, -5),
-  );
+  const { data: genericPageHead } = useGenericPageHead(router.asPath);
 
   useEffect(() => {
     setCachedLeaseType(leaseType);
@@ -173,17 +168,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         style={{ minHeight: '40rem', display: 'flex', alignItems: 'center' }}
       >
         <Loading size="xlarge" />
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div
-        className="pdp--content"
-        style={{ minHeight: '40rem', display: 'flex', alignItems: 'center' }}
-      >
-        {error?.message}
       </div>
     );
   }

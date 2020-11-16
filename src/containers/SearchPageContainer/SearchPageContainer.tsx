@@ -78,6 +78,7 @@ interface IProps {
   isServer: boolean;
   isCarSearch?: boolean;
   isMakePage?: boolean;
+  isSimpleSearchPage?: boolean;
   isSpecialOfferPage?: boolean;
   isPickups?: boolean;
   isRangePage?: boolean;
@@ -100,6 +101,7 @@ interface IProps {
 const SearchPageContainer: React.FC<IProps> = ({
   isServer,
   isCarSearch = false,
+  isSimpleSearchPage,
   isMakePage,
   isSpecialOfferPage,
   isPickups,
@@ -512,7 +514,8 @@ const SearchPageContainer: React.FC<IProps> = ({
       ((isRangePage && filtersData.rangeName) ||
         (isDynamicFilterPage && Object.values(filtersData).flat().length > 0) ||
         (isModelPage && filtersData.rangeName) ||
-        isSpecialOfferPage)
+        isSpecialOfferPage ||
+        isSimpleSearchPage)
     )
       getVehiclesCache({
         variables: {
@@ -548,6 +551,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     sortOrder.type,
     isPersonal,
     isSpecialOfferPage,
+    isSimpleSearchPage,
   ]);
 
   // set capsIds for cached data
