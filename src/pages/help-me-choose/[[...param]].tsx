@@ -10,36 +10,43 @@ import {
 } from '../../../generated/globalTypes';
 import { ProductsFilterListVariables } from '../../../generated/ProductsFilterList';
 import HelpMeChooseContainer from '../../containers/HelpMeChooseContainer';
-import { getBuckets } from '../../containers/HelpMeChooseContainer/helpers';
+import {
+  buildAnObjectFromAQuery,
+  getBuckets,
+  IStep,
+  onReplace,
+} from '../../containers/HelpMeChooseContainer/helpers';
 import { getSectionsData } from '../../utils/getSectionsData';
 
-interface IStep {
-  active: boolean;
-  value: string[];
+export interface IInitStep {
+  leaseType: IStep;
+  bodyStyles: IStep;
+  fuelTypes: IStep;
+  transmissions: IStep;
 }
 
-const initialSteps = {
+const initialSteps: IInitStep = {
   leaseType: {
     active: true,
     value: 'Personal' as any,
-  } as IStep,
+  },
   bodyStyles: {
     active: false,
     value: [],
-  } as IStep,
+  },
   fuelTypes: {
     active: false,
     value: [],
-  } as IStep,
+  },
   transmissions: {
     active: false,
     value: [],
-  } as IStep,
+  },
 };
 
 const HelpMeChoose: NextPage = () => {
   const router = useRouter();
-  const [steps, setSteps] = useState(initialSteps);
+  const [steps, setSteps] = useState<IInitStep>(initialSteps);
   const [leaseTypeValue, setLeaseTypeValue] = useState<string>(
     steps.leaseType.value as any,
   );
@@ -75,43 +82,62 @@ const HelpMeChoose: NextPage = () => {
     ProductsFilterListData?.data,
   );
 
-  const onReplace = (newStep: {
-    leaseType: IStep;
-    bodyStyles: IStep;
-    fuelTypes: IStep;
-    transmissions: IStep;
-  }) => {
-    let pathname = router.route.replace('[[...param]]', '');
-    const queryString = new URLSearchParams();
-    // don't add range and make to query for make/range pages
-    const queries = {} as any;
-    Object.entries(newStep).forEach(filter => {
-      const [key, step] = filter;
-      if (step.value?.length) {
-        queries[key] = step.value;
-      }
-    });
-    Object.entries(queries).forEach(([key, value]) =>
-      queryString.set(key, value as string),
-    );
-    if (Object.keys(queries).length)
-      pathname += `?${decodeURIComponent(queryString.toString())}`;
-    // changing url dynamically
-    router.replace(
-      {
-        pathname: router.route,
-        query: queries,
-      },
-      pathname,
-      { shallow: true },
-    );
-  };
-
-  // useEffect(() => {
-  //   if (router.query) {
-
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (window?.location.search.length) {
+      const searchParams = new URLSearchParams(window.location.search);
+      const leaseTypeQueryValue = searchParams.get('leaseType');
+      const bodyStylesQuery = searchParams.getAll('bodyStyles');
+      const fuelTypesQuery = searchParams.getAll('fuelTypes');
+      const transmissionsQuery = searchParams.getAll('transmissions');
+      const bodyStylesQueryValue = bodyStylesQuery.length
+        ? bodyStylesQuery[0].split(',')
+        : [];
+      const fuelTypesQueryValue = fuelTypesQuery.length
+        ? fuelTypesQuery[0].split(',')
+        : [];
+      const transmissionsQueryValue = transmissionsQuery.length
+        ? transmissionsQuery[0].split(',')
+        : [];
+      const isLeaseTypeActive =
+        searchParams.has('leaseType') && !searchParams.has('bodyStyles');
+      const isBodyStylesActive =
+        searchParams.has('bodyStyles') && !searchParams.has('fuelTypes');
+      const isFuelTypesActive =
+        searchParams.has('fuelTypes') && !searchParams.has('transmissions');
+      const isTransmissionsActive = searchParams.has('transmissions');
+      setSteps({
+        leaseType: {
+          active: isLeaseTypeActive,
+          value: leaseTypeQueryValue as any,
+        },
+        bodyStyles: {
+          active: isBodyStylesActive,
+          value: bodyStylesQueryValue,
+        },
+        fuelTypes: {
+          active: isFuelTypesActive,
+          value: fuelTypesQueryValue,
+        },
+        transmissions: {
+          active: isTransmissionsActive,
+          value: transmissionsQueryValue,
+        },
+      });
+      setLeaseTypeValue(leaseTypeQueryValue as string);
+      setBodyStylesValue(bodyStylesQueryValue);
+      setFuelTypesValue(fuelTypesQueryValue);
+      setTransmissionsValue(transmissionsQueryValue);
+      const variables = {
+        filter: {
+          ...buildAnObjectFromAQuery(searchParams),
+          vehicleTypes: [VehicleTypeEnum.CAR],
+        },
+      };
+      getProductsFilterList({
+        variables,
+      });
+    }
+  }, [getProductsFilterList]);
 
   return (
     <>
@@ -133,7 +159,7 @@ const HelpMeChoose: NextPage = () => {
               leaseType: { active: false, value: leaseTypeValue as any },
               bodyStyles: { active: true, value: steps.bodyStyles.value },
             });
-            onReplace({
+            onReplace(router, {
               ...steps,
               leaseType: { active: false, value: leaseTypeValue as any },
             });
@@ -160,7 +186,7 @@ const HelpMeChoose: NextPage = () => {
               bodyStyles: { active: false, value: bodyStylesValue },
               fuelTypes: { active: true, value: steps.fuelTypes.value },
             });
-            onReplace({
+            onReplace(router, {
               ...steps,
               bodyStyles: { active: false, value: bodyStylesValue },
             });
@@ -190,7 +216,7 @@ const HelpMeChoose: NextPage = () => {
               fuelTypes: { active: false, value: fuelTypesValue },
               transmissions: { active: true, value: steps.transmissions.value },
             });
-            onReplace({
+            onReplace(router, {
               ...steps,
               fuelTypes: { active: false, value: fuelTypesValue },
             });
@@ -220,7 +246,7 @@ const HelpMeChoose: NextPage = () => {
               ...steps,
               transmissions: { active: true, value: transmissionsValue },
             });
-            onReplace({
+            onReplace(router, {
               ...steps,
               transmissions: { active: true, value: transmissionsValue },
             });
