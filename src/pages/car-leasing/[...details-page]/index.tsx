@@ -1,5 +1,5 @@
 import { NextPage, NextPageContext } from 'next';
-import { ApolloError } from '@apollo/client';
+// import { ApolloError } from '@apollo/client';
 import React from 'react';
 import { ParsedUrlQuery } from 'querystring';
 import { GET_CAR_DATA } from '../../../gql/carpage';
@@ -15,7 +15,7 @@ import {
 } from '../../../../generated/VehicleConfigurationByUrl';
 import {
   getVehicleConfigurationPath,
-  notFoundPageHandler,
+  // notFoundPageHandler,
 } from '../../../utils/url';
 import createApolloClient from '../../../apolloClient';
 import { GET_QUOTE_DATA } from '../../../containers/CustomiseLeaseContainer/gql';
@@ -37,6 +37,7 @@ interface IProps {
   capId?: number;
   quote?: GetQuoteDetails;
   notFoundPageData?: INotFoundPageData;
+  errors: any[];
 }
 
 const CarDetailsPage: NextPage<IProps> = ({
@@ -45,7 +46,9 @@ const CarDetailsPage: NextPage<IProps> = ({
   error,
   quote,
   notFoundPageData,
+  errors,
 }) => {
+  console.log({ errors });
   if (notFoundPageData) {
     return (
       <PageNotFoundContainer
@@ -117,11 +120,11 @@ export async function getServerSideProps(context: NextPageContext) {
       query: GET_QUOTE_DATA,
       variables: {
         capId: `${capId}`,
-        vehicleType: VehicleTypeEnum.LCV,
+        vehicleType: VehicleTypeEnum.CAR,
         mileage,
         term,
         upfront,
-        leaseType: LeaseTypeEnum.BUSINESS,
+        leaseType: LeaseTypeEnum.PERSONAL,
         trim: null,
         colour: null,
       },
@@ -129,6 +132,11 @@ export async function getServerSideProps(context: NextPageContext) {
 
     return {
       props: {
+        errors: [
+          vehicleConfigurationByUrlQuery.error,
+          getCarDataQuery.error,
+          quoteDataQuery.error,
+        ],
         capId,
         data: getCarDataQuery.data,
         quote: quoteDataQuery.data,
@@ -136,11 +144,11 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     };
   } catch (error) {
-    const apolloError = error as ApolloError;
+    // const apolloError = error as ApolloError;
 
-    if ((apolloError?.graphQLErrors || []).length > 0 && context.res) {
-      return notFoundPageHandler(context.res, client);
-    }
+    // if ((apolloError?.graphQLErrors || []).length > 0 && context.res) {
+    //   return notFoundPageHandler(context.res, client);
+    // }
 
     return {
       props: {

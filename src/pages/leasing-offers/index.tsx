@@ -306,20 +306,25 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
 
 export async function getServerSideProps(ctx: NextPageContext) {
   const client = createApolloClient({});
-  const { data } = await client.query<
-    GenericPageHeadQuery,
-    GenericPageHeadQueryVariables
-  >({
-    query: GENERIC_PAGE_HEAD,
-    variables: {
-      slug: ctx.asPath?.slice(1) || '',
-    },
-  });
-  return {
-    props: {
-      genericPageCMS: data,
-    },
-  };
+
+  try {
+    const { data } = await client.query<
+      GenericPageHeadQuery,
+      GenericPageHeadQueryVariables
+    >({
+      query: GENERIC_PAGE_HEAD,
+      variables: {
+        slug: ctx.asPath?.slice(1) || '',
+      },
+    });
+    return {
+      props: {
+        genericPageCMS: data,
+      },
+    };
+  } catch {
+    return false;
+  }
 }
 
 export default OffersPage;
