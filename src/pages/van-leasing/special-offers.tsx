@@ -536,14 +536,19 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
 
 export async function getServerSideProps() {
   const client = createApolloClient({});
-  const { data } = await client.query<VanOffersPageData>({
-    query: VAN_OFFERS_CONTENT,
-  });
-  return {
-    props: {
-      pageData: data,
-    },
-  };
+
+  try {
+    const { data } = await client.query<VanOffersPageData>({
+      query: VAN_OFFERS_CONTENT,
+    });
+    return {
+      props: {
+        pageData: data,
+      },
+    };
+  } catch {
+    return false;
+  }
 }
 
 export default VanOffers;
