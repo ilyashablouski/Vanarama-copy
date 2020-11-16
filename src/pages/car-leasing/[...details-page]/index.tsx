@@ -46,9 +46,7 @@ const CarDetailsPage: NextPage<IProps> = ({
   error,
   quote,
   notFoundPageData,
-  errors,
 }) => {
-  console.log({ errors });
   if (notFoundPageData) {
     return (
       <PageNotFoundContainer
@@ -84,7 +82,7 @@ export async function getServerSideProps(context: NextPageContext) {
     >({
       query: VEHICLE_CONFIGURATION_BY_URL,
       variables: {
-        url: getVehicleConfigurationPath(path, '/van-leasing'),
+        url: getVehicleConfigurationPath(path, '/car-leasing'),
       },
     });
 
@@ -132,11 +130,6 @@ export async function getServerSideProps(context: NextPageContext) {
 
     return {
       props: {
-        errors: [
-          vehicleConfigurationByUrlQuery.error,
-          getCarDataQuery.error,
-          quoteDataQuery.error,
-        ],
         capId,
         data: getCarDataQuery.data,
         quote: quoteDataQuery.data,
@@ -152,7 +145,7 @@ export async function getServerSideProps(context: NextPageContext) {
 
     return {
       props: {
-        error: error.message,
+        error: `${error.message} ${path}`,
       },
     };
   }
