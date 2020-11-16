@@ -154,7 +154,7 @@ export async function getServerSideProps(context: NextPageContext) {
 
     return {
       props: {
-        error: error.message,
+        error: `${error.message} ${path}`,
       },
     };
   }

@@ -13,6 +13,8 @@ import getConfig from 'next/config';
 
 const { publicRuntimeConfig } = getConfig();
 
+const inspect = require('../inspect');
+
 const HttpLink = createHttpLink({
   // uri: process.env.API_URL!,
   uri: publicRuntimeConfig.apiUrl!,
@@ -23,8 +25,6 @@ const HttpLink = createHttpLink({
     'x-api-key': publicRuntimeConfig.apiKey!,
   },
 });
-
-const inspect = require('../inspect');
 
 const ErrorLink = onError(({ graphQLErrors }) => {
   if (graphQLErrors) {
