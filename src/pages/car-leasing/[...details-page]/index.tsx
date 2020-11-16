@@ -117,11 +117,11 @@ export async function getServerSideProps(context: NextPageContext) {
       query: GET_QUOTE_DATA,
       variables: {
         capId: `${capId}`,
-        vehicleType: VehicleTypeEnum.LCV,
+        vehicleType: VehicleTypeEnum.CAR,
         mileage,
         term,
         upfront,
-        leaseType: LeaseTypeEnum.BUSINESS,
+        leaseType: LeaseTypeEnum.PERSONAL,
         trim: null,
         colour: null,
       },
