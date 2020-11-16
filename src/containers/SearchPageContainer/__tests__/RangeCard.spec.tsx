@@ -19,6 +19,7 @@ describe('<RangeCard />', () => {
     return {
       title: '2 Series',
       id: '1208',
+      vehicleType: 'CAR',
       fromPrice: 191.91,
       isPersonalPrice: true,
       isAllMakesCard: false,
@@ -34,6 +35,7 @@ describe('<RangeCard />', () => {
         query: GET_RANGES_IMAGES,
         variables: {
           rangeId: '1208',
+          vehicleType: 'CAR',
         },
       },
       result: () => {
