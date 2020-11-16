@@ -1,31 +1,51 @@
-import React, { FC, useState } from 'react';
-import { useLazyQuery } from '@apollo/client';
-import withApollo from '../../../hocs/withApollo';
-import { PRODUCTS_FILTER_LIST } from '../../../gql/help-me-choose';
-import {
-  ProductFilterListInputObject,
-  VehicleTypeEnum,
-} from '../../../../generated/globalTypes';
-import { ProductsFilterListVariables } from '../../../../generated/ProductsFilterList';
+import { useRouter } from 'next/router';
+import { FC, useEffect, useState } from 'react';
+import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import HelpMeChooseContainer from '../HelpMeChooseContainer';
+import { onReplace, IInitStep } from '../helpers';
 
-const HelpMeChooseAboutYou: FC = () => {
-  const [leaseType, setLeaseType] = useState<string>('Personal');
+export interface HelpMeChooseStep {
+  steps: IInitStep;
+  setSteps: (step: IInitStep) => void;
+  getProductsFilterList: any;
+  productsFilterListData: any;
+}
+
+const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
+  const { setSteps, steps, getProductsFilterList } = props;
+  const router = useRouter();
+  const [leaseTypeValue, setLeaseTypeValue] = useState<string>(
+    steps.leaseType.value as any,
+  );
+
   const leaseTypes = [
-    { label: 'Personal', active: leaseType === 'Personal' },
-    { label: 'Business', active: leaseType === 'Business' },
+    { label: 'Personal', active: leaseTypeValue === 'Personal' },
+    { label: 'Business', active: leaseTypeValue === 'Business' },
   ];
 
-  const [getProductsFilterList] = useLazyQuery<
-    ProductFilterListInputObject,
-    ProductsFilterListVariables
-  >(PRODUCTS_FILTER_LIST);
+  useEffect(() => {
+    if (window?.location.search.length) {
+      const searchParams = new URLSearchParams(window.location.search);
+      const leaseTypeQueryValue = searchParams.get('leaseType');
+      const isLeaseTypeActive =
+        searchParams.has('leaseType') && !searchParams.has('bodyStyles');
+      setSteps({
+        ...steps,
+        leaseType: {
+          active: isLeaseTypeActive,
+          value: leaseTypeQueryValue as any,
+        },
+      });
+      setLeaseTypeValue(leaseTypeQueryValue as string);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <HelpMeChooseContainer
       title="Are you looking for a lease for you personally or for your business?"
       choicesValues={leaseTypes}
-      setChoice={setLeaseType}
+      setChoice={setLeaseTypeValue}
       onClickContinue={() => {
         getProductsFilterList({
           variables: {
@@ -34,10 +54,19 @@ const HelpMeChooseAboutYou: FC = () => {
             },
           },
         });
+        setSteps({
+          ...steps,
+          leaseType: { active: false, value: leaseTypeValue as any },
+          bodyStyles: { active: true, value: steps.bodyStyles.value },
+        });
+        onReplace(router, {
+          ...steps,
+          leaseType: { active: false, value: leaseTypeValue as any },
+        });
       }}
-      currentValue={leaseType}
+      currentValue={leaseTypeValue}
     />
   );
 };
 
-export default withApollo(HelpMeChooseAboutYou);
+export default HelpMeChooseAboutYou;

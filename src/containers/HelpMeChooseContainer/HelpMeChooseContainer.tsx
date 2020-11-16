@@ -14,6 +14,7 @@ interface HelpMeChooseContainer {
   currentValue?: string | string[];
   onClickContinue: () => void;
   clearMultiSelectTitle?: string;
+  withIcons?: boolean;
 }
 
 const HelpMeChooseContainer: FC<HelpMeChooseContainer> = ({
@@ -24,6 +25,7 @@ const HelpMeChooseContainer: FC<HelpMeChooseContainer> = ({
   currentValue,
   onClickContinue,
   clearMultiSelectTitle,
+  withIcons,
 }) => {
   /** handler for multiselect */
   const handleChecked = (value: IChoice) => {
@@ -50,7 +52,7 @@ const HelpMeChooseContainer: FC<HelpMeChooseContainer> = ({
       {choicesValues.length && (
         <div className="row:cards-3col">
           <Choiceboxes
-            className={`-cols-${choicesValues?.length}`}
+            className={`-cols-${choicesValues?.length < 3 ? 2 : 3}`}
             choices={choicesValues}
             onSubmit={value => {
               // eslint-disable-next-line @typescript-eslint/no-unused-expressions
@@ -59,6 +61,7 @@ const HelpMeChooseContainer: FC<HelpMeChooseContainer> = ({
             multiSelect={multiSelect}
             clearMultiSelectTitle={clearMultiSelectTitle}
             onClearClick={() => setChoice([''])}
+            withIcons={withIcons}
           />
           {choicesValues.length === 1 && (
             <Text>

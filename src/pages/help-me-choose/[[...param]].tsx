@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
@@ -9,14 +8,15 @@ import {
   VehicleTypeEnum,
 } from '../../../generated/globalTypes';
 import { ProductsFilterListVariables } from '../../../generated/ProductsFilterList';
-import HelpMeChooseContainer from '../../containers/HelpMeChooseContainer';
 import {
   buildAnObjectFromAQuery,
-  getBuckets,
   IStep,
-  onReplace,
 } from '../../containers/HelpMeChooseContainer/helpers';
 import { getSectionsData } from '../../utils/getSectionsData';
+import HelpMeChooseAboutYou from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseAboutYou';
+import HelpMeChooseBodyStyle from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseBodyStyle';
+import HelpMeChooseFuelTypes from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseFuelTypes';
+import HelpMeChooseTransmissions from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseTransmissions';
 
 export interface IInitStep {
   leaseType: IStep;
@@ -45,41 +45,24 @@ const initialSteps: IInitStep = {
 };
 
 const HelpMeChoose: NextPage = () => {
-  const router = useRouter();
   const [steps, setSteps] = useState<IInitStep>(initialSteps);
-  const [leaseTypeValue, setLeaseTypeValue] = useState<string>(
-    steps.leaseType.value as any,
-  );
-  const [bodyStylesValue, setBodyStylesValue] = useState<string[]>(
-    steps.bodyStyles.value as string[],
-  );
-  const [fuelTypesValue, setFuelTypesValue] = useState<string[]>(
-    steps.fuelTypes.value as string[],
-  );
-  const [transmissionsValue, setTransmissionsValue] = useState<string[]>(
-    steps.transmissions.value as string[],
-  );
 
-  const [getProductsFilterList, ProductsFilterListData] = useLazyQuery<
+  const [getProductsFilterList, productsFilterListData] = useLazyQuery<
     ProductFilterListInputObject,
     ProductsFilterListVariables
   >(PRODUCTS_FILTER_LIST);
 
-  const leaseTypes = [
-    { label: 'Personal', active: leaseTypeValue === 'Personal' },
-    { label: 'Business', active: leaseTypeValue === 'Business' },
-  ];
   const bodyStyleData = getSectionsData(
     ['productsFilterList', 'bodyStyles', 'buckets'],
-    ProductsFilterListData?.data,
+    productsFilterListData?.data,
   );
   const fuelTypesData = getSectionsData(
     ['productsFilterList', 'fuelTypes', 'buckets'],
-    ProductsFilterListData?.data,
+    productsFilterListData?.data,
   );
   const transmissionsData = getSectionsData(
     ['productsFilterList', 'transmissions', 'buckets'],
-    ProductsFilterListData?.data,
+    productsFilterListData?.data,
   );
 
   useEffect(() => {
@@ -123,10 +106,6 @@ const HelpMeChoose: NextPage = () => {
           value: transmissionsQueryValue,
         },
       });
-      setLeaseTypeValue(leaseTypeQueryValue as string);
-      setBodyStylesValue(bodyStylesQueryValue);
-      setFuelTypesValue(fuelTypesQueryValue);
-      setTransmissionsValue(transmissionsQueryValue);
       const variables = {
         filter: {
           ...buildAnObjectFromAQuery(searchParams),
@@ -142,118 +121,35 @@ const HelpMeChoose: NextPage = () => {
   return (
     <>
       {steps.leaseType.active && (
-        <HelpMeChooseContainer
-          title="Are you looking for a lease for you personally or for your business?"
-          choicesValues={leaseTypes}
-          setChoice={setLeaseTypeValue}
-          onClickContinue={() => {
-            getProductsFilterList({
-              variables: {
-                filter: {
-                  vehicleTypes: [VehicleTypeEnum.CAR],
-                },
-              },
-            });
-            setSteps({
-              ...steps,
-              leaseType: { active: false, value: leaseTypeValue as any },
-              bodyStyles: { active: true, value: steps.bodyStyles.value },
-            });
-            onReplace(router, {
-              ...steps,
-              leaseType: { active: false, value: leaseTypeValue as any },
-            });
-          }}
-          currentValue={leaseTypeValue}
+        <HelpMeChooseAboutYou
+          steps={steps}
+          setSteps={setSteps}
+          getProductsFilterList={getProductsFilterList}
+          productsFilterListData={productsFilterListData}
         />
       )}
       {steps.bodyStyles.active && bodyStyleData?.length && (
-        <HelpMeChooseContainer
-          title="What Type Of Vehicle Suits You Best?"
-          choicesValues={getBuckets(bodyStyleData, bodyStylesValue)}
-          setChoice={setBodyStylesValue}
-          onClickContinue={() => {
-            getProductsFilterList({
-              variables: {
-                filter: {
-                  vehicleTypes: [VehicleTypeEnum.CAR],
-                  bodyStyles: bodyStylesValue,
-                },
-              },
-            });
-            setSteps({
-              ...steps,
-              bodyStyles: { active: false, value: bodyStylesValue },
-              fuelTypes: { active: true, value: steps.fuelTypes.value },
-            });
-            onReplace(router, {
-              ...steps,
-              bodyStyles: { active: false, value: bodyStylesValue },
-            });
-          }}
-          multiSelect
-          currentValue={bodyStylesValue}
-          clearMultiSelectTitle="I Don't Mind"
+        <HelpMeChooseBodyStyle
+          steps={steps}
+          setSteps={setSteps}
+          getProductsFilterList={getProductsFilterList}
+          productsFilterListData={productsFilterListData}
         />
       )}
       {steps.fuelTypes.active && fuelTypesData?.length && (
-        <HelpMeChooseContainer
-          title="Which Fuel Type Do You Prefer?"
-          choicesValues={getBuckets(fuelTypesData, fuelTypesValue)}
-          setChoice={setFuelTypesValue}
-          onClickContinue={() => {
-            getProductsFilterList({
-              variables: {
-                filter: {
-                  vehicleTypes: [VehicleTypeEnum.CAR],
-                  bodyStyles: steps.bodyStyles.value,
-                  fuelTypes: fuelTypesValue,
-                },
-              },
-            });
-            setSteps({
-              ...steps,
-              fuelTypes: { active: false, value: fuelTypesValue },
-              transmissions: { active: true, value: steps.transmissions.value },
-            });
-            onReplace(router, {
-              ...steps,
-              fuelTypes: { active: false, value: fuelTypesValue },
-            });
-          }}
-          multiSelect
-          currentValue={fuelTypesValue}
-          clearMultiSelectTitle="I Don't Mind"
+        <HelpMeChooseFuelTypes
+          steps={steps}
+          setSteps={setSteps}
+          getProductsFilterList={getProductsFilterList}
+          productsFilterListData={productsFilterListData}
         />
       )}
       {steps.transmissions.active && transmissionsData?.length && (
-        <HelpMeChooseContainer
-          title="Which Fuel Type Do You Prefer?"
-          choicesValues={getBuckets(transmissionsData, transmissionsValue)}
-          setChoice={setTransmissionsValue}
-          onClickContinue={() => {
-            getProductsFilterList({
-              variables: {
-                filter: {
-                  vehicleTypes: [VehicleTypeEnum.CAR],
-                  bodyStyles: steps.bodyStyles.value,
-                  fuelTypes: steps.fuelTypes.value,
-                  transmissions: transmissionsValue,
-                },
-              },
-            });
-            setSteps({
-              ...steps,
-              transmissions: { active: true, value: transmissionsValue },
-            });
-            onReplace(router, {
-              ...steps,
-              transmissions: { active: true, value: transmissionsValue },
-            });
-          }}
-          multiSelect
-          currentValue={transmissionsValue}
-          clearMultiSelectTitle="I Don't Mind"
+        <HelpMeChooseTransmissions
+          steps={steps}
+          setSteps={setSteps}
+          getProductsFilterList={getProductsFilterList}
+          productsFilterListData={productsFilterListData}
         />
       )}
     </>

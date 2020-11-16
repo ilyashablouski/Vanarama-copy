@@ -6,7 +6,7 @@ import { buildAnObjectFromAQuery, getBuckets, onReplace } from '../helpers';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
 
-const HelpMeChooseBodyStyle: FC<HelpMeChooseStep> = props => {
+const HelpMeChooseFuelTypes: FC<HelpMeChooseStep> = props => {
   const {
     setSteps,
     steps,
@@ -14,27 +14,27 @@ const HelpMeChooseBodyStyle: FC<HelpMeChooseStep> = props => {
     productsFilterListData,
   } = props;
   const router = useRouter();
-  const [bodyStylesValue, setBodyStylesValue] = useState<string[]>(
-    steps.bodyStyles.value,
+  const [fuelTypesValue, setFuelTypesValue] = useState<string[]>(
+    steps.fuelTypes.value as string[],
   );
 
   useEffect(() => {
     if (window?.location.search.length) {
       const searchParams = new URLSearchParams(window.location.search);
-      const bodyStylesQuery = searchParams.getAll('bodyStyles');
-      const bodyStylesQueryValue = bodyStylesQuery.length
-        ? bodyStylesQuery[0].split(',')
+      const fuelTypesQuery = searchParams.getAll('fuelTypes');
+      const fuelTypesQueryValue = fuelTypesQuery.length
+        ? fuelTypesQuery[0].split(',')
         : [];
-      const isBodyStylesActive =
-        searchParams.has('bodyStyles') && !searchParams.has('fuelTypes');
+      const isFuelTypesActive =
+        searchParams.has('fuelTypes') && !searchParams.has('transmissions');
       setSteps({
         ...steps,
-        bodyStyles: {
-          active: steps.bodyStyles.active || isBodyStylesActive,
-          value: bodyStylesQueryValue,
+        fuelTypes: {
+          active: steps.fuelTypes.active || isFuelTypesActive,
+          value: fuelTypesQueryValue,
         },
       });
-      setBodyStylesValue(bodyStylesQueryValue);
+      setFuelTypesValue(fuelTypesQueryValue);
       getProductsFilterList({
         variables: {
           filter: {
@@ -47,33 +47,32 @@ const HelpMeChooseBodyStyle: FC<HelpMeChooseStep> = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const bodyStyleData = getSectionsData(
-    ['productsFilterList', 'bodyStyles', 'buckets'],
+  const fuelTypesData = getSectionsData(
+    ['productsFilterList', 'fuelTypes', 'buckets'],
     productsFilterListData?.data,
   );
 
   return (
     <HelpMeChooseContainer
-      title="What Type Of Vehicle Suits You Best?"
-      choicesValues={getBuckets(bodyStyleData, bodyStylesValue)}
-      setChoice={setBodyStylesValue}
+      title="Which Fuel Type Do You Prefer?"
+      choicesValues={getBuckets(fuelTypesData, fuelTypesValue)}
+      setChoice={setFuelTypesValue}
       onClickContinue={() => {
         setSteps({
           ...steps,
-          bodyStyles: { active: false, value: bodyStylesValue },
-          fuelTypes: { active: true, value: steps.fuelTypes.value },
+          fuelTypes: { active: false, value: fuelTypesValue },
+          transmissions: { active: true, value: steps.transmissions.value },
         });
         onReplace(router, {
           ...steps,
-          bodyStyles: { active: false, value: bodyStylesValue },
+          fuelTypes: { active: false, value: fuelTypesValue },
         });
       }}
       multiSelect
-      withIcons
-      currentValue={bodyStylesValue}
+      currentValue={fuelTypesValue}
       clearMultiSelectTitle="I Don't Mind"
     />
   );
 };
 
-export default HelpMeChooseBodyStyle;
+export default HelpMeChooseFuelTypes;
