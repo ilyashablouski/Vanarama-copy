@@ -4,6 +4,8 @@ import { MockedResponse, MockedProvider } from '@apollo/client/testing';
 import RangeCard from '../RangeCard';
 import { GET_RANGES_IMAGES, GET_MODEL_IMAGES } from '../gql';
 
+import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+
 jest.mock('next/router', () => ({
   useRouter: () => ({
     asPath: '/',
@@ -19,6 +21,7 @@ describe('<RangeCard />', () => {
     return {
       title: '2 Series',
       id: '1208',
+      vehicleType: VehicleTypeEnum.CAR,
       fromPrice: 191.91,
       isPersonalPrice: true,
       isAllMakesCard: false,
@@ -34,6 +37,7 @@ describe('<RangeCard />', () => {
         query: GET_RANGES_IMAGES,
         variables: {
           rangeId: '1208',
+          vehicleType: VehicleTypeEnum.CAR,
         },
       },
       result: () => {

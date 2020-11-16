@@ -37,6 +37,7 @@ interface IProps {
   capId?: number;
   quote?: GetQuoteDetails;
   notFoundPageData?: INotFoundPageData;
+  errors: any[];
 }
 
 const CarDetailsPage: NextPage<IProps> = ({
@@ -81,7 +82,7 @@ export async function getServerSideProps(context: NextPageContext) {
     >({
       query: VEHICLE_CONFIGURATION_BY_URL,
       variables: {
-        url: getVehicleConfigurationPath(path, '/van-leasing'),
+        url: getVehicleConfigurationPath(path, '/car-leasing'),
       },
     });
 
@@ -117,11 +118,11 @@ export async function getServerSideProps(context: NextPageContext) {
       query: GET_QUOTE_DATA,
       variables: {
         capId: `${capId}`,
-        vehicleType: VehicleTypeEnum.LCV,
+        vehicleType: VehicleTypeEnum.CAR,
         mileage,
         term,
         upfront,
-        leaseType: LeaseTypeEnum.BUSINESS,
+        leaseType: LeaseTypeEnum.PERSONAL,
         trim: null,
         colour: null,
       },
@@ -144,7 +145,7 @@ export async function getServerSideProps(context: NextPageContext) {
 
     return {
       props: {
-        error: error.message,
+        error: `${error.message} ${path}`,
       },
     };
   }
