@@ -3190,10 +3190,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@5.36.2":
-  version "5.36.2"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.36.2.tgz#eb79d7e1541781192ab1a83c8771192b9135b214"
-  integrity sha512-OPbqN3MQLBo1JhxpDyuNmdTkoKrvhEHIzA/e1uxFW9kRqN5VgZS3lpfz64yCRt/HtR8oT+CCaBQTqatOxTeFVQ==
+"@vanarama/uibook@5.36.6":
+  version "5.36.6"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.36.6.tgz#ef16b1e3db6fe3e60bb3bd80f36c589d25164e0e"
+  integrity sha512-CBPDvcCBPiY92Njizlg6g7zumUcSxw3PyK/KNJkHwAIzIMZEqFxmdxZq89EZIM6wLh6coXRonCZT2vq1N0ZQ5w==
   dependencies:
     "@egjs/flicking" "^3.4.7"
     "@loadable/component" "^5.14.1"

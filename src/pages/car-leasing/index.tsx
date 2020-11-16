@@ -167,12 +167,17 @@ export const CarsPage: NextPage = () => {
           <Heading size="large" color="black">
             Not Sure Which Vehicle Is Best For You?
           </Heading>
-          <Button
-            label="Help Me Choose"
-            size="lead"
-            fill="solid"
-            color="teal"
-          />
+          <RouterLink
+            className="button"
+            classNames={{ color: 'teal', solid: true, size: 'regular' }}
+            link={{
+              label: 'Help Me Choose',
+              href: '/help-me-choose',
+            }}
+            withoutDefaultClassName
+          >
+            <div className="button--inner">Help Me Choose</div>
+          </RouterLink>
         </div>
       </section>
 
