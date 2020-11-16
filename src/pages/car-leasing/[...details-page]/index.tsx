@@ -136,11 +136,11 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     };
   } catch (error) {
-    const apolloError = error as ApolloError;
+    // const apolloError = error as ApolloError;
 
-    if ((apolloError?.graphQLErrors || []).length > 0 && context.res) {
-      return notFoundPageHandler(context.res, client);
-    }
+    // if ((apolloError?.graphQLErrors || []).length > 0 && context.res) {
+    //   return notFoundPageHandler(context.res, client);
+    // }
 
     return {
       props: {
