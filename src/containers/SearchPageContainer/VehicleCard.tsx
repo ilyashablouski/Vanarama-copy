@@ -5,6 +5,8 @@ import { ICardTitleProps } from '@vanarama/uibook/lib/components/molecules/cards
 import Price from '@vanarama/uibook/lib/components/atoms/price';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import truncateString from '../../utils/truncateString';
 import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { formatProductPageUrl } from '../../utils/url';
@@ -70,13 +72,13 @@ const VehicleCard = memo(
         onWishlist={() => {}}
         features={features(data?.keyInformation || [], data?.capId || '', Icon)}
         title={{
-          ...title,
+          title: '',
           score: data?.averageRating || undefined,
           link: (
             <RouterLink
               link={{
                 href: productPageUrl.url,
-                label: `${data?.manufacturerName} ${data?.rangeName}`,
+                label: '',
               }}
               onClick={() => {
                 sessionStorage.setItem('capId', data.capId || '');
@@ -84,7 +86,14 @@ const VehicleCard = memo(
               className="heading"
               classNames={{ size: 'large', color: 'black' }}
               dataTestId="heading-link"
-            />
+            >
+              <Heading tag="span" size="large" className="-pb-100">
+                {truncateString(`${data?.manufacturerName} ${data?.rangeName}`)}
+              </Heading>
+              <Heading tag="span" size="small" color="dark">
+                {title?.description || ''}
+              </Heading>
+            </RouterLink>
           ),
         }}
       >
