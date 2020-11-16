@@ -28,7 +28,7 @@ const inspect = require('../inspect');
 
 const ErrorLink = onError(({ graphQLErrors }) => {
   if (graphQLErrors) {
-    inspect(graphQLErrors);
+    inspect(['GQL Error', graphQLErrors]);
 
     const authorizationError = graphQLErrors.find(
       error => error?.extensions?.code === 'UNAUTHORISED',
