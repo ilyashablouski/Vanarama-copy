@@ -36,7 +36,7 @@ const HelpMeChooseContainer: FC<HelpMeChooseContainer> = ({
         (filter: string | number) => value.label !== filter,
       );
     }
-    setChoice(newSelectedData);
+    setChoice(newSelectedData.filter(Boolean));
   };
 
   return (
