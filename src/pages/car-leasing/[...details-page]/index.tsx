@@ -37,6 +37,7 @@ interface IProps {
   capId?: number;
   quote?: GetQuoteDetails;
   notFoundPageData?: INotFoundPageData;
+  errors: any[];
 }
 
 const CarDetailsPage: NextPage<IProps> = ({
@@ -45,7 +46,9 @@ const CarDetailsPage: NextPage<IProps> = ({
   error,
   quote,
   notFoundPageData,
+  errors,
 }) => {
+  console.log({ errors });
   if (notFoundPageData) {
     return (
       <PageNotFoundContainer
@@ -117,11 +120,11 @@ export async function getServerSideProps(context: NextPageContext) {
       query: GET_QUOTE_DATA,
       variables: {
         capId: `${capId}`,
-        vehicleType: VehicleTypeEnum.LCV,
+        vehicleType: VehicleTypeEnum.CAR,
         mileage,
         term,
         upfront,
-        leaseType: LeaseTypeEnum.BUSINESS,
+        leaseType: LeaseTypeEnum.PERSONAL,
         trim: null,
         colour: null,
       },
@@ -129,6 +132,11 @@ export async function getServerSideProps(context: NextPageContext) {
 
     return {
       props: {
+        errors: [
+          vehicleConfigurationByUrlQuery.error,
+          getCarDataQuery.error,
+          quoteDataQuery.error,
+        ],
         capId,
         data: getCarDataQuery.data,
         quote: quoteDataQuery.data,
