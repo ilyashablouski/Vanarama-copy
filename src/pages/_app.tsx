@@ -70,7 +70,13 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     GenericPageHeadQuery,
     GenericPageHeadQueryVariables
   >(GENERIC_PAGE_HEAD, {
-    variables: { slug: prepareSlugPart(router.asPath.slice(1).split('?')[0]) },
+    variables: {
+      slug: prepareSlugPart(
+        router.asPath.includes('.html')
+          ? router.asPath.split('?')[0]
+          : router.asPath.slice(1).split('?')[0],
+      ),
+    },
   });
 
   useEffect(() => {

@@ -373,6 +373,32 @@ export interface PersonInputObject {
 }
 
 /**
+ * Search filters
+ */
+export interface ProductFilterListInputObject {
+  bodyStyles?: string[] | null;
+  fuelTypes?: string[] | null;
+  initialPayment?: ProductFilterRangeListObject | null;
+  initialPeriods?: number[] | null;
+  manufacturerName?: string | null;
+  mileages?: number[] | null;
+  modelName?: string | null;
+  rangeName?: string | null;
+  rental?: ProductFilterRangeListObject | null;
+  terms?: number[] | null;
+  transmissions?: string[] | null;
+  vehicleTypes?: VehicleTypeEnum[] | null;
+}
+
+/**
+ * Search filter range
+ */
+export interface ProductFilterRangeListObject {
+  max?: number | null;
+  min?: number | null;
+}
+
+/**
  * Input object to make quick credit check
  */
 export interface QuickCreditCheckerInputObject {

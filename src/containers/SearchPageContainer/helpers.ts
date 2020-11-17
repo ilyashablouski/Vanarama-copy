@@ -175,7 +175,8 @@ export const ssrCMSQueryExecutor = async (
   const searchType = isCarSearch ? 'car-leasing' : 'van-leasing';
   // remove first slash from route and build valid path
   const { req, query } = context;
-  const slug = removeUrlQueryPart(req?.url || '').slice(1);
+  const queryUrl = removeUrlQueryPart(req?.url || '');
+  const slug = queryUrl.includes('.html') ? queryUrl : queryUrl.slice(1);
   switch (pageType) {
     case 'isMakePage':
     case 'isRangePage':

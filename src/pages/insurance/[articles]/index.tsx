@@ -52,7 +52,9 @@ export async function getServerSideProps(context: NextPageContext) {
     const { data, errors } = await client.query({
       query: GENERIC_PAGE,
       variables: {
-        slug: req?.url?.slice(1) || '/',
+        slug: req?.url?.includes('.html')
+          ? req?.url || '/'
+          : req?.url?.slice(1) || '/',
       },
     });
     return {
