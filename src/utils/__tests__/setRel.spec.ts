@@ -8,6 +8,8 @@ describe('setRel', () => {
     const link = { label: 'Google', href: 'https://www.google.com' };
     const actual = setRel(link);
 
+    console.log(process.env.HOSTNAME);
+
     expect(actual).toEqual('noopener noreferrer');
   });
   it('should return undefined for internal links', () => {
