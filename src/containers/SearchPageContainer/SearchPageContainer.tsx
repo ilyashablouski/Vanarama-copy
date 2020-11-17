@@ -848,6 +848,11 @@ const SearchPageContainer: React.FC<IProps> = ({
                         key={range.rangeId || index}
                         isPersonalPrice={isPersonal}
                         id={range.rangeId || ''}
+                        vehicleType={
+                          isCarSearch
+                            ? VehicleTypeEnum.CAR
+                            : VehicleTypeEnum.LCV
+                        }
                       />
                     ))}
                   {isAllMakesPage &&
@@ -859,6 +864,11 @@ const SearchPageContainer: React.FC<IProps> = ({
                         key={makeData.manufacturerId || index}
                         isPersonalPrice={isPersonal}
                         id={makeData?.capId?.toString() || ''}
+                        vehicleType={
+                          isCarSearch
+                            ? VehicleTypeEnum.CAR
+                            : VehicleTypeEnum.LCV
+                        }
                         isAllMakesCard
                       />
                     ))}

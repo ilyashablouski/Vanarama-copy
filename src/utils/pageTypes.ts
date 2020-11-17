@@ -95,7 +95,7 @@ export const PAGES = [
     siteSection: SITE_SECTIONS.proposition,
   },
   {
-    pages: ['/b2b/olaf/about'],
+    pages: ['/b2b/olaf'],
     pageType: PAGE_TYPES.checkoutPage,
     siteSection: SITE_SECTIONS.vans,
   },
@@ -105,7 +105,7 @@ export const PAGES = [
     siteSection: SITE_SECTIONS.cars,
   },
   {
-    pages: ['/olaf/about/thank-you'],
+    pages: ['/olaf/thank-you'],
     pageType: PAGE_TYPES.enquiryConfirmationPage,
     siteSection: SITE_SECTIONS.cars,
   },

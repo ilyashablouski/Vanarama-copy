@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { bodyStyleList_bodyStyleList as IModelData } from '../../../generated/bodyStyleList';
 import { useModelImages } from './gql';
+import { useGenericSearchPageSlug } from '../../gql/genericPage';
 import { formatUrl } from '../../utils/url';
 import { capitalizeFirstLetter } from '../../utils/textTransform';
 
@@ -24,10 +25,12 @@ const ModelCard = memo(({ isPersonalPrice, data }: IModelCardProps) => {
         imageSrc: imagesData?.vehicleImages?.[0]?.mainImageUrl || '',
       }
     : {};
-
   const make = query.make as string;
   const rangeName = (query.rangeName as string).split('+').join(' ') || '';
-  const legacyUrl = `/${query.dynamicParam}-car-leasing/${rangeName}/${data?.bodyStyle}.html`;
+  const newUrl = formatUrl(
+    `car-leasing/${query.dynamicParam}/${rangeName}/${data?.bodyStyle}`,
+  );
+  const { data: legacySlug } = useGenericSearchPageSlug(newUrl);
   return (
     <Card
       optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -38,7 +41,7 @@ const ModelCard = memo(({ isPersonalPrice, data }: IModelCardProps) => {
         link: (
           <RouterLink
             link={{
-              href: formatUrl(legacyUrl),
+              href: legacySlug?.genericPage.metaData.legacyUrl || newUrl,
               label: `${capitalizeFirstLetter(make)} ${capitalizeFirstLetter(
                 rangeName,
               )} ${data?.bodyStyle || ''}`,
@@ -59,7 +62,7 @@ const ModelCard = memo(({ isPersonalPrice, data }: IModelCardProps) => {
         />
         <RouterLink
           link={{
-            href: formatUrl(legacyUrl),
+            href: legacySlug?.genericPage.metaData.legacyUrl || newUrl,
             label: `View ${data?.count || 'All'} Offers`,
           }}
           className="button"

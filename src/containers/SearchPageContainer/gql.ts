@@ -191,18 +191,31 @@ export function getRangesList(
 }
 
 export const GET_RANGES_IMAGES = gql`
-  query RangesImages($rangeId: ID, $capIds: [ID]) {
-    vehicleImages(rangeId: $rangeId, capIds: $capIds) {
+  query RangesImages(
+    $rangeId: ID
+    $vehicleType: VehicleTypeEnum
+    $capIds: [ID]
+  ) {
+    vehicleImages(
+      rangeId: $rangeId
+      vehicleType: $vehicleType
+      capIds: $capIds
+    ) {
       mainImageUrl
     }
   }
 `;
 
-export function getRangeImages(rangeId?: string, skip = false) {
+export function getRangeImages(
+  rangeId?: string,
+  vehicleType?: VehicleTypeEnum,
+  skip = false,
+) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   return useQuery<RangesImages, RangesImagesVariables>(GET_RANGES_IMAGES, {
     variables: {
       rangeId,
+      vehicleType,
     },
     skip,
   });
