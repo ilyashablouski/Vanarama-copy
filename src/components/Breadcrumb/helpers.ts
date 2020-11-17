@@ -15,7 +15,7 @@ export const routerItems = (router: NextRouter): IBreadcrumbLink[] => {
     const href = path.slice(0, index + 1); // collect href from prev. item
     arr.push({
       link: {
-        href: el ? `${href.join('/')}.html` : '/', // if el not empty we create href with prev. href and el
+        href: el ? href.join('/') : '/', // if el not empty we create href with prev. href and el
         label: el ? el.replace(/-/g, ' ') : 'home',
       },
     });
