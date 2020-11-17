@@ -6,7 +6,6 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput/';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
-import Link from '@vanarama/uibook/lib/components/atoms/link';
 import LockClosed from '@vanarama/uibook/lib/assets/icons/LockClosed';
 import AddressFinder from '@vanarama/uibook/lib/components/molecules/address-finder';
 import { IAddressSuggestion } from '@vanarama/uibook/lib/components/molecules/address-finder/interfaces';
@@ -14,6 +13,7 @@ import React, { FC, useState } from 'react';
 import { genMonths, genYears, genDays } from '../../../utils/helpers';
 import { IFormProps } from './interface';
 import useDateOfBirthValidation from './useDateOfBirthValidation';
+import RouterLink from '../../RouterLink/RouterLink';
 
 const EligibilityCheckerForm: FC<IFormProps> = ({
   submit,
@@ -162,21 +162,27 @@ const EligibilityCheckerForm: FC<IFormProps> = ({
       <FormGroup>
         <Text tag="p" color="darker" size="regular">
           By checking your eligibility, you agree to our{' '}
-          <Link
+          <RouterLink
             dataTestId="terms_and_conditions"
-            href="https://www.motorama.com/terms-conditions"
-            size="regular"
+            link={{
+              href: '/legal/terms-and-conditions',
+              label: 'Terms and Conditions',
+            }}
+            classNames={{ size: 'regular', color: 'teal' }}
           >
             Terms and Conditions
-          </Link>{' '}
+          </RouterLink>{' '}
           and{' '}
-          <Link
+          <RouterLink
             dataTestId="privacy_policy"
-            href="https://www.motorama.com/cookie-privacy-policy"
-            size="regular"
+            link={{
+              href: '/legal/privacy-policy',
+              label: 'Privacy Policy',
+            }}
+            classNames={{ size: 'regular', color: 'teal' }}
           >
             Privacy Policy
-          </Link>{' '}
+          </RouterLink>{' '}
           and a soft credit check.
         </Text>
       </FormGroup>
