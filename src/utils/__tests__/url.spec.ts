@@ -192,19 +192,17 @@ describe('Url utils', () => {
   describe('getVehicleConfigurationPath', () => {
     it('getVehicleConfigurationPath should return newPath', () => {
       const actual = getVehicleConfigurationPath(
-        '/bmw-van-leasing/2 -series/coupe',
-        ' ',
+        '/bmw-van-leasing/2-series/coupe',
       );
 
       expect(actual).toEqual('/bmw-van-leasing/2-series/coupe');
     });
     it('getVehicleConfigurationPath should return newPath', () => {
       const actual = getVehicleConfigurationPath(
-        '/bmw-van-leasing/2 -series/coupe/',
-        ' ',
+        '/bmw-van-leasing/2-series/coupe/',
       );
 
-      expect(actual).toEqual('/bmw-van-leasing/2-series/coupe');
+      expect(actual).toEqual('/bmw-van-leasing/2-series/coupe/');
     });
   });
 

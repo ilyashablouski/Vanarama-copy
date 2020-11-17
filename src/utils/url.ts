@@ -121,12 +121,9 @@ export const getProductPageBreadCrumb = (
   return null;
 };
 
-export const getVehicleConfigurationPath = (path: string, prefix: string) => {
-  const newPath = path.replace(prefix, '');
-  if (newPath.slice(-1) === '/') {
-    return newPath.slice(0, -1);
-  }
-  return newPath;
+export const getVehicleConfigurationPath = (path: string) => {
+  // used regexp to save functionality for local builds
+  return path.replace(/^(\/van|\/car)/, match => match.slice(1));
 };
 
 /**

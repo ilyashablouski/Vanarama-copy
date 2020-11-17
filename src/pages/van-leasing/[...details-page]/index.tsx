@@ -1,5 +1,5 @@
 import { NextPage, NextPageContext } from 'next';
-// import { ApolloError } from '@apollo/client';
+import { ApolloError } from '@apollo/client';
 import React from 'react';
 import { ParsedUrlQuery } from 'querystring';
 import { INotFoundPageData } from '../../../models/ISearchPageProps';
@@ -16,7 +16,7 @@ import {
 } from '../../../../generated/VehicleConfigurationByUrl';
 import {
   getVehicleConfigurationPath,
-  // notFoundPageHandler,
+  notFoundPageHandler,
 } from '../../../utils/url';
 import createApolloClient from '../../../apolloClient';
 import { GET_QUOTE_DATA } from '../../../containers/CustomiseLeaseContainer/gql';
@@ -91,7 +91,7 @@ export async function getServerSideProps(context: NextPageContext) {
     >({
       query: VEHICLE_CONFIGURATION_BY_URL,
       variables: {
-        url: getVehicleConfigurationPath(path, '/van-leasing'),
+        url: getVehicleConfigurationPath(path),
       },
     });
 
@@ -146,15 +146,15 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     };
   } catch (error) {
-    // const apolloError = error as ApolloError;
+    const apolloError = error as ApolloError;
 
-    // if ((apolloError?.graphQLErrors || []).length > 0 && context.res) {
-    //   return notFoundPageHandler(context.res, client);
-    // }
+    if ((apolloError?.graphQLErrors || []).length > 0 && context.res) {
+      return notFoundPageHandler(context.res, client);
+    }
 
     return {
       props: {
-        error: `${error.message} ${path}`,
+        error: error.message,
       },
     };
   }
