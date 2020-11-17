@@ -314,7 +314,9 @@ export async function getServerSideProps(ctx: NextPageContext) {
     >({
       query: GENERIC_PAGE_HEAD,
       variables: {
-        slug: ctx.asPath?.slice(1) || '',
+        slug: ctx.asPath?.includes('.html')
+          ? ctx.asPath || ''
+          : ctx.asPath?.slice(1) || '',
       },
     });
     return {

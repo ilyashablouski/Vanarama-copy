@@ -4,7 +4,6 @@ import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import ReactMarkdown from 'react-markdown/with-html';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
@@ -167,12 +166,17 @@ export const CarsPage: NextPage = () => {
           <Heading size="large" color="black">
             Not Sure Which Vehicle Is Best For You?
           </Heading>
-          <Button
-            label="Help Me Choose"
-            size="lead"
-            fill="solid"
-            color="teal"
-          />
+          <RouterLink
+            className="button"
+            classNames={{ color: 'teal', solid: true, size: 'regular' }}
+            link={{
+              label: 'Help Me Choose',
+              href: '/help-me-choose',
+            }}
+            withoutDefaultClassName
+          >
+            <div className="button--inner">Help Me Choose</div>
+          </RouterLink>
         </div>
       </section>
 
