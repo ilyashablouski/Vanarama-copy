@@ -10,6 +10,7 @@ import {
   useUpdateLimitedBankDetails,
   useUpdateSoleTraderBankDetails,
 } from './gql';
+import useGetSetBankUuid from '../../hooks/useGetSetBankUuid';
 import { IProps } from './interfaces';
 import {
   formValuesToInput,
@@ -32,6 +33,7 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
     orderUuid,
     () => {},
   );
+  const { setBankUuid, getBankUuid } = useGetSetBankUuid();
   const { loading, error, data } = useGetCreditApplicationByOrderUuid(
     orderUuid,
   );
@@ -49,9 +51,10 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
     return null;
   }
 
-  const handleUpdateBankDetails = (values: ICompanyBankDetails) => {
+  const handleUpdateBankDetails = async (values: ICompanyBankDetails) => {
+    const accountUuid = await getBankUuid();
     const input = {
-      variables: { input: formValuesToInput(companyUuid, values) },
+      variables: { input: formValuesToInput(companyUuid, values, accountUuid) },
     };
 
     return isSoleTrader
@@ -68,6 +71,7 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   const handleSubmit = async (values: ICompanyBankDetails) => {
     try {
       const res = await handleUpdateBankDetails(values);
+      setBankUuid(pluckBankAccountData(res)?.[0].uuid);
       await createUpdateApplication({
         variables: {
           input: formValuesToInputCreditApplication({
