@@ -297,7 +297,7 @@ describe('<CarPage />', () => {
 
     expect(screen.getByTestId('view-offer')).toHaveAttribute(
       'href',
-      '/ford-car-leasing/focus/hatchback/10-ecoboost-125-st-line-nav-5dr.html',
+      '/ford/focus/hatchback/10-ecoBoost-125-st-line-nav-5dr',
     );
   });
 });
