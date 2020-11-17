@@ -1,7 +1,7 @@
 import { ILink } from '@vanarama/uibook/lib/interfaces/link';
 
-const setRel = (link: ILink) => {
-  const domain = process?.env?.HOSTNAME?.split('//');
+const setRel = (link: ILink, hostname = process?.env?.HOSTNAME) => {
+  const domain = hostname?.split('//');
 
   return domain?.length &&
     link.href.match(/^(https?:)?\/\//) &&
