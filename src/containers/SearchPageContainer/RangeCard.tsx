@@ -5,12 +5,14 @@ import { useRouter } from 'next/router';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getRangeImages, useModelImages } from './gql';
 import { formatUrl } from '../../utils/url';
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
 interface IVehicleCardProps {
   isPersonalPrice: boolean;
   title: string;
   fromPrice?: number;
   id: string;
+  vehicleType: VehicleTypeEnum;
   isAllMakesCard?: boolean;
 }
 
@@ -18,6 +20,7 @@ const RangeCard = memo(
   ({
     isPersonalPrice,
     id,
+    vehicleType,
     title,
     fromPrice,
     isAllMakesCard,
@@ -28,7 +31,11 @@ const RangeCard = memo(
     const href = isAllMakesCard
       ? `/${title}-${searchType}.html`
       : `/${query.dynamicParam}-${searchType}/${title}.html`;
-    const { data: imagesData } = getRangeImages(id, !id || isAllMakesCard);
+    const { data: imagesData } = getRangeImages(
+      id,
+      vehicleType,
+      !id || isAllMakesCard,
+    );
     const { data: imagesMakeData } = useModelImages(
       [id],
       !id || !isAllMakesCard,

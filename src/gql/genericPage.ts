@@ -13,6 +13,10 @@ import {
 } from '../../generated/GenericPageBreadcrumbsQuery';
 import TilesContainer from '../containers/TilesContainer/TilesContainer';
 import { FeaturedHtml } from '../containers/FeaturedAndTilesContainer/getFeaturedHtml';
+import {
+  SearchPageSlug,
+  SearchPageSlugVariables,
+} from '../../generated/SearchPageSlug';
 
 export interface IGenericPage {
   data?: GenericPageQuery | undefined;
@@ -247,4 +251,25 @@ export function useGenericPageBreadcrumbs(slug: string) {
       slug,
     },
   });
+}
+
+export const GENERIC_SEARCH_PAGE_SLUG = gql`
+  query SearchPageSlug($slug: String!) {
+    genericPage(slug: $slug) {
+      metaData {
+        legacyUrl
+      }
+    }
+  }
+`;
+
+export function useGenericSearchPageSlug(slug: string) {
+  return useQuery<SearchPageSlug, SearchPageSlugVariables>(
+    GENERIC_SEARCH_PAGE_SLUG,
+    {
+      variables: {
+        slug,
+      },
+    },
+  );
 }
