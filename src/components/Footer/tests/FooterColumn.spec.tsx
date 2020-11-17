@@ -32,15 +32,15 @@ describe('<FooterColumn />', () => {
               links: [
                 {
                   text: 'Van Leasing',
-                  url: 'https://beta.vanarama.com/van-leasing.html',
+                  url: 'https://vanarama.com/van-leasing.html',
                 },
                 {
                   text: 'Pickup Truck Leasing',
-                  url: 'https://beta.vanarama.com/pickup-truck-leasing.html',
+                  url: 'https://vanarama.com/pickup-truck-leasing.html',
                 },
                 {
                   text: 'Van Reviews',
-                  url: 'https://beta.vanarama.com/van-reviews.html',
+                  url: 'https://vanarama.com/van-reviews.html',
                 },
               ],
               name: 'VANS & TRUCKS',
