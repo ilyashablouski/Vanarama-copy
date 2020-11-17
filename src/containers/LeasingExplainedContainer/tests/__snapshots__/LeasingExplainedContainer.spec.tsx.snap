@@ -35,7 +35,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             class="button link -teal -regular -solid"
             data-testid="link"
             href="https://betavanarama.com/van-leasing-explained/how-does-van-leasing-work.html"
-            rel="noopener noreferrer"
           >
             <div
               class="button--inner"
@@ -94,7 +93,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                 class="heading -black -lead"
                 data-testid="link"
                 href="https://betavanarama.com/van-leasing-explained/how-does-van-leasing-work.html"
-                rel="noopener noreferrer"
               >
                 Company Cash Allowance Vs Company Car
               </a>
@@ -111,7 +109,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
               class="button -mt-400 link -teal -small -solid"
               data-testid="link"
               href="https://betavanarama.com/van-leasing-explained/how-does-van-leasing-work.html"
-              rel="noopener noreferrer"
             >
               <div
                 class="button--inner"
@@ -136,7 +133,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                 class="heading -black -lead"
                 data-testid="link"
                 href="https://betavanarama.com/van-leasing-explained/how-does-van-leasing-work.html"
-                rel="noopener noreferrer"
               >
                 What Happens At The End Of A Car Lease?
               </a>
@@ -153,7 +149,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
               class="button -mt-400 link -teal -small -solid"
               data-testid="link"
               href="https://betavanarama.com/van-leasing-explained/how-does-van-leasing-work.html"
-              rel="noopener noreferrer"
             >
               <div
                 class="button--inner"

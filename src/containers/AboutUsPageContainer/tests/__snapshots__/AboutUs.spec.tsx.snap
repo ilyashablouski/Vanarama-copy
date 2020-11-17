@@ -35,7 +35,6 @@ Array [
           data-testid="link"
           href="https://beta.vanarama.com/car-leasing.html"
           onClick={[Function]}
-          rel="noopener noreferrer"
         >
           car
         </a>
@@ -45,7 +44,6 @@ Array [
           data-testid="link"
           href="/van-leasing.html"
           onClick={[Function]}
-          rel="noopener noreferrer"
         >
           new van
         </a>
@@ -55,7 +53,6 @@ Array [
           data-testid="link"
           href="https://beta.vanarama.com/pickup-truck-leasing.html"
           onClick={[Function]}
-          rel="noopener noreferrer"
         >
           pick-up truck
         </a>
@@ -85,7 +82,6 @@ Array [
           data-testid="link"
           href="https://beta.vanarama.com/van-insurance.html"
           onClick={[Function]}
-          rel="noopener noreferrer"
         >
           van insurance
         </a>
@@ -147,7 +143,6 @@ Array [
           data-testid="link"
           href="https://beta.vanarama.com/latest-news/the-sunday-times-100-best-small-companies-to-work-for.html"
           onClick={[Function]}
-          rel="noopener noreferrer"
         >
           2017
         </a>
@@ -157,7 +152,6 @@ Array [
           data-testid="link"
           href="https://beta.vanarama.com/latest-news/the-sunday-times-100-best-small-companies-to-work-for.html"
           onClick={[Function]}
-          rel="noopener noreferrer"
         >
           Best Leader at the 2017 awards ceremony
         </a>
@@ -167,7 +161,6 @@ Array [
           data-testid="link"
           href="https://beta.vanarama.com/latest-news/the-sunday-times-100-best-small-companies-to-work-for.html"
           onClick={[Function]}
-          rel="noopener noreferrer"
         >
           Best Small Companies To Work For in the UK
         </a>
@@ -187,7 +180,6 @@ Array [
           data-testid="link"
           href="https://beta.vanarama.com/about-us/customer-testimonials.html"
           onClick={[Function]}
-          rel="noopener noreferrer"
         >
           latest customer reviews
         </a>
@@ -212,7 +204,6 @@ Array [
           data-testid="link"
           href="https://beta.vanarama.com/careers.html"
           onClick={[Function]}
-          rel="noopener noreferrer"
         >
           Careers page
         </a>
@@ -255,7 +246,6 @@ Array [
             data-testid="link"
             href="https://beta.vanarama.com/about-us/meet-the-directors.html"
             onClick={[Function]}
-            rel="noopener noreferrer"
           >
             Learn More
           </a>
@@ -280,7 +270,6 @@ Array [
             data-testid="link"
             href="https://www.vanarama.com/about-us/meet-your-support-team.html"
             onClick={[Function]}
-            rel="noopener noreferrer"
           >
             Learn More
           </a>

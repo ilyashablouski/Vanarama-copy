@@ -23,7 +23,6 @@ exports[`<Lease /> renders correctly 1`] = `
       data-testid="eligibility-Checker-btn"
       href="/credit-checker.html"
       onClick={[Function]}
-      rel="noopener noreferrer"
     >
       <div
         className="button--inner"

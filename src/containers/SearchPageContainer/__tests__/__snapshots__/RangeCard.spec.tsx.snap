@@ -19,7 +19,6 @@ exports[`<RangeCard /> should be render correctly 1`] = `
           class="heading link -black -large"
           data-testid="link"
           href="/bmw-car-leasing/2-series.html"
-          rel="noopener noreferrer"
         >
           2 Series
         </a>
@@ -61,7 +60,6 @@ exports[`<RangeCard /> should be render correctly 1`] = `
           class="button -teal -regular -solid"
           data-testid="link"
           href="/bmw-car-leasing/2-series.html"
-          rel="noopener noreferrer"
         >
           <div
             class="button--inner"
@@ -94,7 +92,6 @@ exports[`<RangeCard /> should be render correctly with all makes page 1`] = `
           class="heading link -black -large"
           data-testid="link"
           href="/2-series-car-leasing.html"
-          rel="noopener noreferrer"
         >
           2 Series
         </a>
@@ -136,7 +133,6 @@ exports[`<RangeCard /> should be render correctly with all makes page 1`] = `
           class="button -teal -regular -solid"
           data-testid="link"
           href="/2-series-car-leasing.html"
-          rel="noopener noreferrer"
         >
           <div
             class="button--inner"
