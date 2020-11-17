@@ -43,6 +43,9 @@ export const formatNewUrl = (edge?: VehicleEdge | ProductEdge | null) => {
   return `${urlPrefix}${edge?.node?.url || ''}`;
 };
 
+export const formatUrl = (value: string) =>
+  value.toLocaleLowerCase().replace(/ /g, '-');
+
 export const getLegacyUrl = (
   data?: (VehicleEdge | ProductEdge | null)[] | null,
   derivativeId?: string | null,
