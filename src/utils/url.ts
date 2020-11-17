@@ -159,7 +159,9 @@ export const isNotShowBreadcrumbs = (routerPathName: string) => {
     (pathNameLength === 2 &&
       routerPathName.includes('/pickup-truck-leasing')) ||
     // not to show on home page
-    routerPathName.length === 1
+    routerPathName.length === 1 ||
+    // not to show on help-me-choose pages
+    routerPathName.includes('/help-me-choose')
   );
 };
 
