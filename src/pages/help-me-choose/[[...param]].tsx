@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import withApollo from '../../hocs/withApollo';
 import { PRODUCTS_FILTER_LIST } from '../../gql/help-me-choose';
 import {
@@ -117,6 +118,10 @@ const HelpMeChoose: NextPage = () => {
       });
     }
   }, [getProductsFilterList]);
+
+  if (productsFilterListData.loading) {
+    return <Loading size="large" />;
+  }
 
   return (
     <>

@@ -31,7 +31,7 @@ export const onReplace = (
   if (Object.keys(queries).length)
     pathname += `?${decodeURIComponent(queryString.toString())}`;
   // changing url dynamically
-  return router.replace(
+  router.replace(
     {
       pathname: router.route,
       query: queries,
