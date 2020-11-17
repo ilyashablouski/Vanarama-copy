@@ -1,11 +1,18 @@
 import { ILink } from '@vanarama/uibook/lib/interfaces/link';
 
-const setRel = (link: ILink, hostname: string | undefined) => {
-  const domain = hostname?.split('//');
+function checker(value: string) {
+  const allowed = ['vanarama.com', 'vanarama-nonprod.com'];
 
-  return domain?.length &&
-    link.href.match(/^(https?:)?\/\//) &&
-    !link.href.includes(domain[1])
+  for (let i = 0; i < allowed.length; i += 1) {
+    if (value.indexOf(allowed[i]) > -1) {
+      return true;
+    }
+  }
+  return false;
+}
+
+const setRel = (link: ILink) => {
+  return link.href.match(/^(https?:)?\/\//) && !checker(link.href)
     ? 'noopener noreferrer'
     : undefined;
 };
