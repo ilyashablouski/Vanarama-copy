@@ -6,6 +6,7 @@ export const responseToInitialFormValues = (
 ): ICompanyBankDetails => {
   return {
     uuid: account?.uuid,
+    bankName: account?.bankName || '',
     accountNumber: account?.accountNumber || '',
     accountName: account?.accountName || '',
     joinedAtMonth: account?.joinedAtMonth || '',

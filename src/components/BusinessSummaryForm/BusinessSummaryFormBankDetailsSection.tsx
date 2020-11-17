@@ -24,17 +24,22 @@ const SummaryFormBankDetailsSection: FCWithFragments<IProps> = ({
       onEditClicked={onEdit}
       list={[
         {
-          label: 'Bank Account Name',
-          value: account.accountName || '',
-          dataTestId: 'summary-name-on-card',
+          label: 'Bank Name',
+          value: account.bankName || '',
+          dataTestId: 'summary-bank-name',
         },
         {
-          label: 'Bank Account Number',
+          label: 'Account Name',
+          value: account.accountName || '',
+          dataTestId: 'summary-account-name',
+        },
+        {
+          label: 'Account Number',
           value: account.accountNumber || '',
           dataTestId: 'summary-account-number',
         },
         {
-          label: 'Bank Sort Code',
+          label: 'Sort Code',
           value: (account.sortCode || [])
             .join('')
             .replace(/(\d{2})(\d{2})(\d{2})/, '$1-$2-$3'),
