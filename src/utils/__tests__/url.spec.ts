@@ -4,9 +4,6 @@ import {
   setSource,
   formatProductPageUrl,
   formatNewUrl,
-  formatUrl,
-  formatLegacyUrl,
-  getLegacyUrl,
   getNewUrl,
   getVehicleConfigurationPath,
   isNotShowBreadcrumbs,
@@ -99,93 +96,6 @@ describe('Url utils', () => {
 
       expect(actualGetNewUrl).toEqual('/van-leasing/url');
       expect(actual).toEqual('/van-leasing/url');
-    });
-  });
-
-  describe('formatUrl + formatLegacyUrl + getLegacyUrl', () => {
-    it('getLegacyUrl should return legacyUrl from data', () => {
-      const actual = getLegacyUrl(
-        [
-          {
-            node: { derivativeId: 'derivativeId', legacyUrl: 'legacyUrl' },
-          } as any,
-        ],
-        'derivativeId',
-      );
-
-      expect(actual).toEqual('legacyUrl');
-    });
-    it('getLegacyUrl should return dynamic van-leasing legacyUrl and call formatLegacyUrl and formatUrl ', () => {
-      const actualGetLegacyUrl = getLegacyUrl(
-        [
-          {
-            node: {
-              derivativeId: 'derivativeId',
-              legacyUrl: '',
-              vehicleType: VehicleTypeEnum.LCV,
-              url: '/BMW/2 Series/Coupe/218i m sport 2dr nav step auto 151254',
-            },
-          } as any,
-        ],
-        'derivativeId',
-      );
-      const actualFormatLegacyUrl = formatLegacyUrl({
-        node: {
-          derivativeId: 'derivativeId',
-          legacyUrl: '',
-          vehicleType: VehicleTypeEnum.LCV,
-          url: '/BMW/2 Series/Coupe/218i m sport 2dr nav step auto 151254',
-        },
-      } as any);
-      const actualFormatUrl = formatUrl(
-        '/BMW-van-leasing/2 Series/Coupe/218i m sport 2dr nav step auto 151254.html',
-      );
-
-      expect(actualGetLegacyUrl).toEqual(
-        '/bmw-van-leasing/2-series/coupe/218i-m-sport-2dr-nav-step-auto-151254.html',
-      );
-      expect(actualFormatLegacyUrl).toEqual(
-        '/bmw-van-leasing/2-series/coupe/218i-m-sport-2dr-nav-step-auto-151254.html',
-      );
-      expect(actualFormatUrl).toEqual(
-        '/bmw-van-leasing/2-series/coupe/218i-m-sport-2dr-nav-step-auto-151254.html',
-      );
-    });
-    it('getLegacyUrl should return dynamic car-leasing legacyUrl and call formatLegacyUrl and formatUrl ', () => {
-      const actualGetLegacyUrl = getLegacyUrl(
-        [
-          {
-            node: {
-              derivativeId: 'derivativeId',
-              legacyUrl: '',
-              vehicleType: VehicleTypeEnum.CAR,
-              url: '/BMW/2 Series/Coupe/218i m sport 2dr nav step auto 151254',
-            },
-          } as any,
-        ],
-        'derivativeId',
-      );
-      const actualFormatLegacyUrl = formatLegacyUrl({
-        node: {
-          derivativeId: 'derivativeId',
-          legacyUrl: '',
-          vehicleType: VehicleTypeEnum.CAR,
-          url: '/BMW/2 Series/Coupe/218i m sport 2dr nav step auto 151254',
-        },
-      } as any);
-      const actualFormatUrl = formatUrl(
-        '/BMW-car-leasing/2 Series/Coupe/218i m sport 2dr nav step auto 151254.html',
-      );
-
-      expect(actualGetLegacyUrl).toEqual(
-        '/bmw-car-leasing/2-series/coupe/218i-m-sport-2dr-nav-step-auto-151254.html',
-      );
-      expect(actualFormatLegacyUrl).toEqual(
-        '/bmw-car-leasing/2-series/coupe/218i-m-sport-2dr-nav-step-auto-151254.html',
-      );
-      expect(actualFormatUrl).toEqual(
-        '/bmw-car-leasing/2-series/coupe/218i-m-sport-2dr-nav-step-auto-151254.html',
-      );
     });
   });
 
