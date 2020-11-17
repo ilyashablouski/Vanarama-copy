@@ -59,7 +59,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
         href={link.href}
         className={linkClassName}
         target={link.target}
-        rel={setRel(link, process?.env?.HOSTNAME || 'https://vanarama.com')}
+        rel={setRel(link)}
         onClick={e => onClick && onClick(e)}
         data-testid={dataTestId ?? 'link'}
       >
