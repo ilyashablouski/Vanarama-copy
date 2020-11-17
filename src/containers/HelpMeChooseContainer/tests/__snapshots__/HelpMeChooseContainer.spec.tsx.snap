@@ -34,6 +34,13 @@ Array [
       >
         Petrol
       </button>
+      <button
+        className="choicebox"
+        onClick={[Function]}
+        type="button"
+      >
+        I Don't Mind
+      </button>
     </div>
     <button
       className="button -primary -large -solid -disabled"
@@ -110,6 +117,13 @@ Array [
         type="button"
       >
         Petrol
+      </button>
+      <button
+        className="choicebox"
+        onClick={[Function]}
+        type="button"
+      >
+        I Don't Mind
       </button>
     </div>
     <button
