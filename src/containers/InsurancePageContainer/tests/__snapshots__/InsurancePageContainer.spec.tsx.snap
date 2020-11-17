@@ -178,7 +178,6 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
               class="heading link -black -lead"
               data-testid="link"
               href="https://beta.vanarama.com/van-insurance/multi-year-van-insurance.html"
-              rel="noopener noreferrer"
             >
               Multi-Year Insurance
             </a>
@@ -238,7 +237,6 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
               class="heading link -black -lead"
               data-testid="link"
               href="https://beta.vanarama.com/van-insurance/finance-gap-insurance.html"
-              rel="noopener noreferrer"
             >
               Finance GAP Insurance
             </a>
@@ -298,7 +296,6 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
               class="heading link -black -lead"
               data-testid="link"
               href="https://beta.vanarama.com/van-insurance/tools-in-transit.html"
-              rel="noopener noreferrer"
             >
               Tools in Transit Insurance
             </a>
@@ -358,7 +355,6 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
               class="heading link -black -lead"
               data-testid="link"
               href="https://beta.vanarama.com/van-insurance/7-day-free-van-insurance.html"
-              rel="noopener noreferrer"
             >
               7-day free Insurance
             </a>
@@ -418,7 +414,6 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
               class="heading link -black -lead"
               data-testid="link"
               href="https://beta.vanarama.com/van-insurance/short-term-insurance.html"
-              rel="noopener noreferrer"
             >
               Short-Term Insurance
             </a>
@@ -478,7 +473,6 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
               class="heading link -black -lead"
               data-testid="link"
               href="https://beta.vanarama.com/van-insurance/faq.html"
-              rel="noopener noreferrer"
             >
               Our Customers Say
             </a>
@@ -545,7 +539,6 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
             class="link -teal"
             data-testid="link"
             href="https://www.vanarama.com/van-insurance.html"
-            rel="noopener noreferrer"
           >
             Find Out More
           </a>
@@ -555,7 +548,6 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
             class="link -teal"
             data-testid="link"
             href="https://www.vanarama.com/van-insurance.html"
-            rel="noopener noreferrer"
           >
             Find Out More
           </a>
@@ -601,7 +593,6 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           class="link -teal -lead"
           data-testid="link"
           href="https://beta.vanarama.com/van-insurance.html"
-          rel="noopener noreferrer"
         >
           Read Our FAQs
         </a>
@@ -674,7 +665,6 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                         class="link -teal -regular"
                         data-testid="link"
                         href="https://beta.vanarama.com/car-leasing-explained/do-i-need-insurance-for-leased-car.html"
-                        rel="noopener noreferrer"
                       >
                         Read More
                       </a>

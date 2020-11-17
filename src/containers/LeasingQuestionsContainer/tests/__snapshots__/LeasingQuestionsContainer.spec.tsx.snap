@@ -20,7 +20,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           class="link -teal"
           data-testid="link"
           href="https://beta.vanarama.com/car-leasing-explained.html"
-          rel="noopener noreferrer"
         >
           How Car Leasing Works
         </a>
@@ -46,7 +45,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             class="link -teal"
             data-testid="link"
             href="https://beta.vanarama.com/car-business-contract-hire.html"
-            rel="noopener noreferrer"
           >
             Business Contract Hire
           </a>
@@ -56,7 +54,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             class="link -teal"
             data-testid="link"
             href="https://beta.vanarama.com/car-personal-contract-hire.html"
-            rel="noopener noreferrer"
           >
             Personal Contract Hire
           </a>
@@ -260,7 +257,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
               class="heading -black -lead"
               data-testid="link"
               href="https://betavanarama.com/van-leasing-explained/how-does-van-leasing-work.html"
-              rel="noopener noreferrer"
             >
               Company Cash Allowance Vs Company Car
             </a>
@@ -322,7 +318,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
               class="heading -black -lead"
               data-testid="link"
               href="https://betavanarama.com/van-leasing-explained/how-does-van-leasing-work.html"
-              rel="noopener noreferrer"
             >
               What Happens At The End Of A Car Lease?
             </a>

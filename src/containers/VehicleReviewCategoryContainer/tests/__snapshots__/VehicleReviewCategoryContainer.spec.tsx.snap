@@ -42,7 +42,6 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
             class="heading link -black -lead"
             data-testid="link"
             href="https://next-storefront.grid.dev.autorama.co.uk/van-reviews/citroen-berlingo-review"
-            rel="noopener noreferrer"
           >
             Citroen Berlingo Review
           </a>
@@ -156,7 +155,6 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
           class="button -teal -small -clear"
           data-testid="link"
           href="https://next-storefront.grid.dev.autorama.co.uk/van-reviews/citroen-berlingo-review"
-          rel="noopener noreferrer"
         >
           <div
             class="button--inner"
@@ -181,7 +179,6 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
             class="heading link -black -lead"
             data-testid="link"
             href="https://next-storefront.grid.dev.autorama.co.uk/van-reviews/citroen-dispatch-review"
-            rel="noopener noreferrer"
           >
             Citroen Dispatch Review
           </a>
@@ -295,7 +292,6 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
           class="button -teal -small -clear"
           data-testid="link"
           href="https://next-storefront.grid.dev.autorama.co.uk/van-reviews/citroen-dispatch-review"
-          rel="noopener noreferrer"
         >
           <div
             class="button--inner"
@@ -320,7 +316,6 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
             class="heading link -black -lead"
             data-testid="link"
             href="https://next-storefront.grid.dev.autorama.co.uk/van-reviews/citroen-relay-review"
-            rel="noopener noreferrer"
           >
             Citroen Relay Review
           </a>
@@ -434,7 +429,6 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
           class="button -teal -small -clear"
           data-testid="link"
           href="https://next-storefront.grid.dev.autorama.co.uk/van-reviews/citroen-relay-review"
-          rel="noopener noreferrer"
         >
           <div
             class="button--inner"

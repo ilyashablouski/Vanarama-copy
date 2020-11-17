@@ -31,7 +31,6 @@ exports[`<FooterColumn /> renders correctly with links 1`] = `
         data-testid="link"
         href="https://beta.vanarama.com/van-leasing.html"
         onClick={[Function]}
-        rel="noopener noreferrer"
       >
         Van Leasing
       </a>
@@ -42,7 +41,6 @@ exports[`<FooterColumn /> renders correctly with links 1`] = `
         data-testid="link"
         href="https://beta.vanarama.com/pickup-truck-leasing.html"
         onClick={[Function]}
-        rel="noopener noreferrer"
       >
         Pickup Truck Leasing
       </a>
@@ -53,7 +51,6 @@ exports[`<FooterColumn /> renders correctly with links 1`] = `
         data-testid="link"
         href="https://beta.vanarama.com/van-reviews.html"
         onClick={[Function]}
-        rel="noopener noreferrer"
       >
         Van Reviews
       </a>

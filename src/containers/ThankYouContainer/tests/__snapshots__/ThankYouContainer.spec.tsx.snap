@@ -67,7 +67,6 @@ exports[`<ThankYouContainer /> should match snapshot 1`] = `
                 class="heading link -black -lead"
                 data-testid="link"
                 href="https://beta.vanarama.com/van-insurance/multi-year-van-insurance.html"
-                rel="noopener noreferrer"
               >
                 Multi-Year Insurance
               </a>
@@ -131,7 +130,6 @@ exports[`<ThankYouContainer /> should match snapshot 1`] = `
                 class="heading link -black -lead"
                 data-testid="link"
                 href="https://beta.vanarama.com/van-insurance/finance-gap-insurance.html"
-                rel="noopener noreferrer"
               >
                 Finance GAP Insurance
               </a>
@@ -195,7 +193,6 @@ exports[`<ThankYouContainer /> should match snapshot 1`] = `
                 class="heading link -black -lead"
                 data-testid="link"
                 href="https://beta.vanarama.com/van-insurance/tools-in-transit.html"
-                rel="noopener noreferrer"
               >
                 Tools in Transit Insurance
               </a>
