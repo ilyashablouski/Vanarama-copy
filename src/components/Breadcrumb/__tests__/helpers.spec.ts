@@ -11,13 +11,13 @@ describe('<helpers />', () => {
       { link: { href: '/', label: 'home' } },
       {
         link: {
-          href: '/car-leasing-explained.html',
+          href: '/car-leasing-explained',
           label: 'car leasing explained',
         },
       },
       {
         link: {
-          href: '/car-leasing-explained/business-vs-personal-car-leasing.html',
+          href: '/car-leasing-explained/business-vs-personal-car-leasing',
           label: 'business vs personal car leasing',
         },
       },
