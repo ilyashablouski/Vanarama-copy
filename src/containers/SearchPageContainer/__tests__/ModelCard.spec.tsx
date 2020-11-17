@@ -3,6 +3,7 @@ import { render, waitFor } from '@testing-library/react';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
 import ModelCard from '../ModelCard';
 import { GET_MODEL_IMAGES } from '../gql';
+import { GENERIC_SEARCH_PAGE_SLUG } from '../../../gql/genericPage';
 
 jest.mock('next/router', () => ({
   useRouter: jest.fn().mockReturnValue({
@@ -45,6 +46,25 @@ describe('<ModelCard />', () => {
                   'https://images.autorama.co.uk/Photos/Cap/Vehicles/126268/cap-68051-126268.jpg',
               },
             ],
+          },
+        };
+      },
+    },
+    {
+      request: {
+        query: GENERIC_SEARCH_PAGE_SLUG,
+        variables: {
+          slug: 'car-leasing/bmw/3-series/coupe',
+        },
+      },
+      result: () => {
+        return {
+          data: {
+            genericPage: {
+              metaData: {
+                legacyUrl: '/bmw-car-leasing/3-series/coupe.html',
+              },
+            },
           },
         };
       },
