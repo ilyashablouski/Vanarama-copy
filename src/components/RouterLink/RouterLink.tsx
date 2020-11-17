@@ -10,6 +10,7 @@ import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
 import { LinkTypes } from '../../models/enum/LinkTypes';
 import { IClassNamesProps } from '../../models/IClassNamesProps';
 import { ILinkProps } from './interface';
+import setRel from '../../utils/setRel';
 
 interface IAppLinkProps extends IBaseProps {
   link: ILinkProps;
@@ -47,17 +48,6 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     '-clear': classNames?.clear,
   });
 
-  // Rel for exetrnal links only.
-  const setRel = () => {
-    const domain = process?.env?.HOSTNAME?.split('//');
-
-    return domain?.length &&
-      link.href.match(/^(https?:)?\/\//) &&
-      !link.href.includes(domain[1])
-      ? 'noopener noreferrer'
-      : undefined;
-  };
-
   if (
     link.linkType === LinkTypes.external ||
     !!link.target ||
@@ -69,7 +59,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
         href={link.href}
         className={linkClassName}
         target={link.target}
-        rel={setRel()}
+        rel={setRel(link)}
         onClick={e => onClick && onClick(e)}
         data-testid={dataTestId ?? 'link'}
       >
