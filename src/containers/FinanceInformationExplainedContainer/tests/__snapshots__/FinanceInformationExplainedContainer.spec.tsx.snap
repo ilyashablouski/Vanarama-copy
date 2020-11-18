@@ -66,7 +66,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
               class="link -teal"
               data-testid="link"
               href="https://beta.vanarama.com/car-leasing-explained/what-happens-at-end-of-car-lease.html"
-              rel="noopener noreferrer"
             >
               contract finishes
             </a>
@@ -75,7 +74,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
               class="link -teal"
               data-testid="link"
               href="https://beta.vanarama.com/car-leasing-explained/lease-car-fair-wear-and-tear.html"
-              rel="noopener noreferrer"
             >
               Fair Wear & Tear guidelines
             </a>
@@ -89,7 +87,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
               class="link -teal"
               data-testid="link"
               href="https://beta.vanarama.com/car-leasing-explained/lease-car-fair-wear-and-tear.html"
-              rel="noopener noreferrer"
             >
               wear and tear guide
             </a>

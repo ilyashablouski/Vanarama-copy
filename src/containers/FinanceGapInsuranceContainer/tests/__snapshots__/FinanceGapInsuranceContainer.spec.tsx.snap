@@ -175,7 +175,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
               class="breadcrumb-item--parent link -teal -small"
               data-testid="link"
               href="/van-insurance.html"
-              rel="noopener noreferrer"
             >
               Van Insurance
             </a>

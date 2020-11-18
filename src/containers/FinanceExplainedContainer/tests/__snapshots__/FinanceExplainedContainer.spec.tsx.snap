@@ -29,7 +29,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             class="link -teal"
             data-testid="link"
             href="https://beta.vanarama.com/car-leasing-explained.html"
-            rel="noopener noreferrer"
           >
             How Car Leasing Works
           </a>
@@ -59,7 +58,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
               class="link -teal"
               data-testid="link"
               href="https://beta.vanarama.com/car-business-contract-hire.html"
-              rel="noopener noreferrer"
             >
               Business Contract Hire
             </a>
@@ -69,7 +67,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
               class="link -teal"
               data-testid="link"
               href="https://beta.vanarama.com/car-personal-contract-hire.html"
-              rel="noopener noreferrer"
             >
               Personal Contract Hire
             </a>
@@ -110,7 +107,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             class="link -teal"
             data-testid="link"
             href="https://beta.vanarama.com/car-business-contract-hire.html"
-            rel="noopener noreferrer"
           >
             See Details
           </a>
@@ -139,7 +135,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             class="link -teal"
             data-testid="link"
             href="https://beta.vanarama.com/car-personal-contract-hire.html"
-            rel="noopener noreferrer"
           >
             See Details
           </a>
@@ -224,7 +219,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   class="link -teal"
                   data-testid="link"
                   href="https://beta.vanarama.com/car-leasing-explained/what-happens-at-end-of-car-lease.html"
-                  rel="noopener noreferrer"
                 >
                   contract finishes
                 </a>
@@ -233,7 +227,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   class="link -teal"
                   data-testid="link"
                   href="https://beta.vanarama.com/car-leasing-explained/lease-car-fair-wear-and-tear.html"
-                  rel="noopener noreferrer"
                 >
                   Fair Wear & Tear guidelines
                 </a>
@@ -251,7 +244,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   class="link -teal"
                   data-testid="link"
                   href="https://beta.vanarama.com/car-leasing-explained/lease-car-fair-wear-and-tear.html"
-                  rel="noopener noreferrer"
                 >
                   wear and tear guide
                 </a>
@@ -297,7 +289,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           class="link -teal"
           data-testid="link"
           href="https://www.vanarama.com"
-          rel="noopener noreferrer"
         >
           Chat With iVan
         </a>

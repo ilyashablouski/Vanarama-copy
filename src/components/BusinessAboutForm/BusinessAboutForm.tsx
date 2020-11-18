@@ -242,7 +242,6 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
               className="link -teal"
               href="/legal/terms-and-conditions/"
               target="_blank"
-              rel="noopener noreferrer"
             >
               Terms and Conditions
             </a>,

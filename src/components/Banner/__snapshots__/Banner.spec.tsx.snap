@@ -316,7 +316,6 @@ exports[`BusinessAboutForm should show required field validation messages if the
       data-testid="link"
       href="/redundancy-and-life-event-cover.html"
       onClick={[Function]}
-      rel="noopener noreferrer"
     >
       <b>
         Find Out More
