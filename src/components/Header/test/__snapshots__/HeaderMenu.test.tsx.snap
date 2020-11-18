@@ -13,11 +13,8 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
     >
       <a
         className="link"
-        data-menu={null}
         data-testid="menu-title"
-        href="/"
         onClick={[Function]}
-        onMouseEnter={[Function]}
       >
         Menu
       </a>
@@ -84,11 +81,8 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             >
               <a
                 className="link"
-                data-menu={null}
                 data-testid="menu-title"
-                href="/"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
                 <span>
                   Vans
@@ -183,11 +177,8 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             >
               <a
                 className="link"
-                data-menu={null}
-                data-testid="router-link"
-                href="/"
+                data-testid="withoutLink"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
                 <span>
                   Vans By Manufacturer
@@ -433,11 +424,8 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             >
               <a
                 className="link"
-                data-menu={null}
                 data-testid="menu-title"
-                href="/"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
                 <span>
                   Pickups
@@ -510,11 +498,8 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             >
               <a
                 className="link"
-                data-menu={null}
-                data-testid="router-link"
-                href="/"
+                data-testid="withoutLink"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
                 <span>
                   Pickups By Manufacturer
@@ -760,11 +745,8 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             >
               <a
                 className="link"
-                data-menu={null}
                 data-testid="menu-title"
-                href="/"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
                 <span>
                   Cars
@@ -854,11 +836,8 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             >
               <a
                 className="link"
-                data-menu={null}
-                data-testid="router-link"
-                href="/"
+                data-testid="withoutLink"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
                 <span>
                   Cars By Manufacturer
@@ -1232,11 +1211,8 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             >
               <a
                 className="link"
-                data-menu={null}
                 data-testid="menu-title"
-                href="/"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
                 <span>
                   Insurance
@@ -1369,11 +1345,8 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
     >
       <a
         className="link"
-        data-menu={null}
         data-testid="menu-title"
-        href="/"
         onClick={[Function]}
-        onMouseEnter={[Function]}
       >
         Menu
       </a>
@@ -1440,11 +1413,8 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             >
               <a
                 className="link"
-                data-menu={null}
                 data-testid="menu-title"
-                href="/"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
                 <span>
                   Vans
@@ -1539,11 +1509,8 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             >
               <a
                 className="link"
-                data-menu={null}
-                data-testid="router-link"
-                href="/"
+                data-testid="withoutLink"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
                 <span>
                   Vans By Manufacturer
@@ -1789,11 +1756,8 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             >
               <a
                 className="link"
-                data-menu={null}
                 data-testid="menu-title"
-                href="/"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
                 <span>
                   Pickups
@@ -1866,11 +1830,8 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             >
               <a
                 className="link"
-                data-menu={null}
-                data-testid="router-link"
-                href="/"
+                data-testid="withoutLink"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
                 <span>
                   Pickups By Manufacturer
@@ -2116,11 +2077,8 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             >
               <a
                 className="link"
-                data-menu={null}
                 data-testid="menu-title"
-                href="/"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
                 <span>
                   Cars
@@ -2210,11 +2168,8 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             >
               <a
                 className="link"
-                data-menu={null}
-                data-testid="router-link"
-                href="/"
+                data-testid="withoutLink"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
                 <span>
                   Cars By Manufacturer
@@ -2588,11 +2543,8 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             >
               <a
                 className="link"
-                data-menu={null}
                 data-testid="menu-title"
-                href="/"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
                 <span>
                   Insurance
