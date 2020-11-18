@@ -44,52 +44,35 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
       }}
       imageSrc={imageSrc}
     />
-    <div className="-inset -middle -col-500">
-      <div
-        style={{
-          padding: '1rem',
-          display: 'flex',
-          justifyContent: 'center',
-          flexDirection: 'column',
+    <div>
+      <Heading size="xlarge" color="black">
+        {vehicle}
+      </Heading>
+      <Text tag="p" size="lead" color="darker">
+        {specification}
+      </Text>
+      {rating && <Rating score={rating} color="orange" />}
+      <br />
+      <Price size="xlarge" price={price} />
+      <Text tag="p" size="small" color="dark">
+        {isPersonal ? 'Per Month Inc VAT' : 'Per Month Excluding VAT'}
+      </Text>
+      <RouterLink
+        link={{
+          href: link.url,
+          label: 'View Offer',
         }}
+        onClick={viewOfferClick}
+        classNames={{ color: 'teal', solid: true, size: 'regular' }}
+        className="button"
+        dataTestId="deal-of-month__view-offer"
+        withoutDefaultClassName
       >
-        <Heading size="xlarge" color="black">
-          {vehicle}
-        </Heading>
-        <Text tag="p" size="lead" color="darker">
-          {specification}
-        </Text>
-        {rating && <Rating score={rating} color="orange" />}
-      </div>
-      <div
-        style={{
-          padding: '1rem',
-          display: 'flex',
-          justifyContent: 'center',
-          flexDirection: 'column',
-        }}
-      >
-        <Price size="xlarge" price={price} />
-        <Text tag="p" size="small" color="dark">
-          {isPersonal ? 'Per Month Inc VAT' : 'Per Month Excluding VAT'}
-        </Text>
-        <br />
-        <RouterLink
-          link={{
-            href: link.url,
-            label: 'View Offer',
-          }}
-          onClick={viewOfferClick}
-          classNames={{ color: 'teal', solid: true, size: 'regular' }}
-          className="button"
-          dataTestId="deal-of-month__view-offer"
-        >
-          <div className="button--inner">
-            View Offer
-            <Icon color="white" icon={<ArrowForwardSharp />} />
-          </div>
-        </RouterLink>
-      </div>
+        <div className="button--inner">
+          View Offer
+          <Icon color="white" icon={<ArrowForwardSharp />} />
+        </div>
+      </RouterLink>
     </div>
   </>
 );
