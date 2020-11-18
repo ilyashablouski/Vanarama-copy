@@ -49,7 +49,7 @@ const HelpMeChooseContainer: FC<HelpMeChooseContainer> = ({
           {title}
         </Heading>
       </section>
-      {choicesValues.length && (
+      {!!choicesValues.length && (
         <div className="row:cards-3col">
           <Choiceboxes
             className={`-cols-${choicesValues?.length < 3 ? 2 : 3}`}

@@ -11,20 +11,14 @@ import {
 import { ProductsFilterListVariables } from '../../../generated/ProductsFilterList';
 import {
   buildAnObjectFromAQuery,
-  IStep,
+  IInitStep,
 } from '../../containers/HelpMeChooseContainer/helpers';
 import { getSectionsData } from '../../utils/getSectionsData';
 import HelpMeChooseAboutYou from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseAboutYou';
 import HelpMeChooseBodyStyle from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseBodyStyle';
 import HelpMeChooseFuelTypes from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseFuelTypes';
 import HelpMeChooseTransmissions from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseTransmissions';
-
-export interface IInitStep {
-  leaseType: IStep;
-  bodyStyles: IStep;
-  fuelTypes: IStep;
-  transmissions: IStep;
-}
+import HelpMeChooseLeaseLength from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseLeaseLength';
 
 const initialSteps: IInitStep = {
   leaseType: {
@@ -42,6 +36,10 @@ const initialSteps: IInitStep = {
   transmissions: {
     active: false,
     value: [],
+  },
+  leaseLength: {
+    active: false,
+    value: '' as any,
   },
 };
 
@@ -88,7 +86,9 @@ const HelpMeChoose: NextPage = () => {
         searchParams.has('bodyStyles') && !searchParams.has('fuelTypes');
       const isFuelTypesActive =
         searchParams.has('fuelTypes') && !searchParams.has('transmissions');
-      const isTransmissionsActive = searchParams.has('transmissions');
+      const isTransmissionsActive =
+        searchParams.has('transmissions') && !searchParams.has('leaseLength');
+      const isLeaseLengthActive = searchParams.has('leaseLength');
       setSteps({
         leaseType: {
           active: isLeaseTypeActive,
@@ -105,6 +105,10 @@ const HelpMeChoose: NextPage = () => {
         transmissions: {
           active: isTransmissionsActive,
           value: transmissionsQueryValue,
+        },
+        leaseLength: {
+          active: isLeaseLengthActive,
+          value: '' as any,
         },
       });
       const variables = {
@@ -151,6 +155,14 @@ const HelpMeChoose: NextPage = () => {
       )}
       {steps.transmissions.active && transmissionsData?.length && (
         <HelpMeChooseTransmissions
+          steps={steps}
+          setSteps={setSteps}
+          getProductsFilterList={getProductsFilterList}
+          productsFilterListData={productsFilterListData}
+        />
+      )}
+      {steps.leaseLength.active && (
+        <HelpMeChooseLeaseLength
           steps={steps}
           setSteps={setSteps}
           getProductsFilterList={getProductsFilterList}

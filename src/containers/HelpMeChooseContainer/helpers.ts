@@ -13,6 +13,7 @@ export const onReplace = (
     bodyStyles: IStep;
     fuelTypes: IStep;
     transmissions: IStep;
+    leaseLength: IStep;
   },
 ) => {
   let pathname = router.route.replace('[[...param]]', '');
@@ -53,6 +54,9 @@ export const buildAnObjectFromAQuery = (query: any) => {
     if (key === 'transmissions' && value.length) {
       object.transmissions = value.split(',');
     }
+    if (key === 'leaseLength' && value.length) {
+      object.leaseLength = value;
+    }
   });
   return object;
 };
@@ -67,4 +71,5 @@ export interface IInitStep {
   bodyStyles: IStep;
   fuelTypes: IStep;
   transmissions: IStep;
+  leaseLength: IStep;
 }
