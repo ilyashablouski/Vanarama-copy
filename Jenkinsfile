@@ -26,7 +26,7 @@ def app_environment = [
         terraformService: true,
         alternateDomain: 'dev.vanarama-nonprod.com'
     ],
-    "feature/public-runtime-config": [
+    "master": [
         clusterName: 'grid-uat',
         logGroupName: "uat/grid/apps",
         taskFamily: "grid-uat-${serviceName}",
@@ -116,7 +116,7 @@ pipeline {
                 beforeAgent true
                 anyOf {
                   branch 'develop'
-                  branch 'feature/public-runtime-config'
+                  branch 'master'
                 }
             }
 
@@ -197,7 +197,7 @@ pipeline {
                 beforeAgent true
                 anyOf {
                   branch 'develop'
-                  branch 'feature/public-runtime-config'
+                  branch 'master'
                 }
             }
 

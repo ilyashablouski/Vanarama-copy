@@ -21,13 +21,6 @@ jest.mock('../../../containers/OrdersInformation/gql');
 jest.mock('../../../gql/vehicleList');
 jest.mock('../../../gql/genericPage');
 
-jest.mock('next/config', () => () => ({
-  publicRuntimeConfig: {
-    apiUrl: 'http://',
-    apiKey: '123',
-    enableDevTools: false,
-  },
-}));
 
 const mocked: MockedResponse[] = [
   {

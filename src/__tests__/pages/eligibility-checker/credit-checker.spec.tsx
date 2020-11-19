@@ -28,14 +28,6 @@ jest.mock('next/router', () => ({
   push: jest.fn(),
 }));
 
-jest.mock('next/config', () => () => ({
-  publicRuntimeConfig: {
-    apiUrl: 'http://',
-    apiKey: '123',
-    enableDevTools: false,
-  },
-}));
-
 describe('<CreditChecker />', () => {
   beforeEach(async () => {
     await preloadAll();

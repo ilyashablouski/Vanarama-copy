@@ -15,14 +15,6 @@ jest.mock('next/router', () => ({
   },
 }));
 
-jest.mock('next/config', () => () => ({
-  publicRuntimeConfig: {
-    apiUrl: 'http://',
-    apiKey: '123',
-    enableDevTools: false,
-  },
-}));
-
 describe('<ThankYouPage />', () => {
   it('should redirect to the home page when clicking the "View order" button', async () => {
     // ARRANGE

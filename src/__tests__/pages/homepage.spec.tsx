@@ -32,14 +32,6 @@ jest.mock('next/router', () => ({
   }),
 }));
 
-jest.mock('next/config', () => () => ({
-  publicRuntimeConfig: {
-    apiUrl: 'http://',
-    apiKey: '123',
-    enableDevTools: false,
-  },
-}));
-
 const homePageData = {
   request: {
     query: ALL_HOME_CONTENT,

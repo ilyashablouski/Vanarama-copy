@@ -8,18 +8,15 @@ import Router from 'next/router';
 import { onError } from '@apollo/client/link/error';
 import fetch from 'isomorphic-unfetch';
 import { NextPageContext } from 'next';
-import getConfig from 'next/config';
-
-const { publicRuntimeConfig } = getConfig();
 
 const inspect = require('../inspect');
 
 const HttpLink = createHttpLink({
-  uri: publicRuntimeConfig.apiUrl!,
+  uri: process.env.API_URL!,
   fetch,
   credentials: 'include',
   headers: {
-    'x-api-key': publicRuntimeConfig.apiKey!,
+    'x-api-key': process.env.API_KEY!,
   },
 });
 
@@ -47,7 +44,7 @@ export default function createApolloClient(
     // use it to extract auth headers (ctx.req) or similar.
     ssrMode: Boolean(ctx),
     link: from([ErrorLink, HttpLink]),
-    connectToDevTools: Boolean(publicRuntimeConfig.enableDevTools),
+    connectToDevTools: Boolean(process.env.ENABLE_DEV_TOOLS),
     cache: new InMemoryCache({
       typePolicies: {
         Query: {

@@ -42,9 +42,6 @@ module.exports = {
       // Rollbar.
       rollbarClientToken: process.env.ROLLBAR_CLIENT_TOKEN || '',
       // Apollo.
-      apiUrl: process.env.API_URL,
-      apiKey: process.env.API_KEY,
-      enableDevTools: process.env.ENABLE_DEV_TOOLS,
     },
 
     // Rewrites.
