@@ -39,7 +39,6 @@ jest.mock('next/router', () => ({
   }),
 }));
 
-
 const updateCreditApplication = makeGetCreditApplicationMock(MOCK_ORDER_UUID);
 
 const getCompanyMock: MockedResponse = {

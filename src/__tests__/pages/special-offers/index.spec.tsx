@@ -21,7 +21,6 @@ jest.mock('../../../containers/OrdersInformation/gql');
 jest.mock('../../../gql/vehicleList');
 jest.mock('../../../gql/genericPage');
 
-
 const mocked: MockedResponse[] = [
   {
     request: {

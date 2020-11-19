@@ -22,7 +22,6 @@ jest.mock('next/router', () => ({
   }),
 }));
 
-
 const mocked: MockedResponse[] = [
   {
     request: {
