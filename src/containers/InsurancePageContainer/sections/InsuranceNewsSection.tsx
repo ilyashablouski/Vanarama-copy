@@ -18,38 +18,33 @@ const renderCarouselCards = (cards: (ICard | null)[]) =>
         title={{ title: card.title }}
         imageSrc={card.image?.file?.url}
       >
-        <ReactMarkdown
-          allowDangerousHtml
-          source={card.body || ''}
-          renderers={{
-            link: props => {
-              const { href, children } = props;
-              return (
-                <RouterLink
-                  classNames={{ color: 'teal', size: 'regular' }}
-                  link={{ href, label: children }}
-                />
-              );
-            },
+        <ReactMarkdown allowDangerousHtml source={card.body || ''} />
+        <RouterLink
+          classNames={{ color: 'teal', size: 'regular' }}
+          link={{
+            label: card.link?.text || '',
+            href: card.link?.url || '',
           }}
         />
       </Card>
     ) : null,
   );
 
-const InsuranceNewsSection = ({ cards, name }: ICarouselData) => (
-  <div className="row:bg-lighter">
-    <div className="row:carousel">
-      <Heading size="large" color="black">
-        {name}
-      </Heading>
-      {cards && (
-        <Carousel className="-col3" countItems={3}>
-          {renderCarouselCards(cards.slice(0, 9))}
-        </Carousel>
-      )}
+const InsuranceNewsSection = ({ cards, name }: ICarouselData) => {
+  return (
+    <div className="row:bg-lighter">
+      <div className="row:carousel">
+        <Heading size="large" color="black">
+          {name}
+        </Heading>
+        {cards && (
+          <Carousel className="-col3" countItems={3}>
+            {renderCarouselCards(cards.slice(0, 9))}
+          </Carousel>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default InsuranceNewsSection;
