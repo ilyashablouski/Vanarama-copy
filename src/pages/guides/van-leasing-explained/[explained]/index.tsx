@@ -36,7 +36,7 @@ export async function getStaticPaths() {
     const { data } = await client.query<GenericPageQuery>({
       query: GENERIC_PAGE,
       variables: {
-        slug: 'guides/car-leasing-explained',
+        slug: 'guides/van-leasing-explained',
       },
     });
     return {
