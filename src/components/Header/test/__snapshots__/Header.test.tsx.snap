@@ -153,7 +153,6 @@ exports[`<Header /> renders correctly 1`] = `
       data-testid="link"
       href="tel:01442838195"
       onClick={[Function]}
-      rel="noopener noreferrer"
     >
        
       <i
@@ -221,11 +220,8 @@ exports[`<Header /> renders correctly 1`] = `
         >
           <a
             className="link"
-            data-menu={null}
             data-testid="menu-title"
-            href="/"
             onClick={[Function]}
-            onMouseEnter={[Function]}
           >
             Menu
           </a>
@@ -292,11 +288,8 @@ exports[`<Header /> renders correctly 1`] = `
                 >
                   <a
                     className="link"
-                    data-menu={null}
                     data-testid="menu-title"
-                    href="/"
                     onClick={[Function]}
-                    onMouseEnter={[Function]}
                   >
                     <span>
                       Vans
@@ -391,11 +384,8 @@ exports[`<Header /> renders correctly 1`] = `
                 >
                   <a
                     className="link"
-                    data-menu={null}
-                    data-testid="router-link"
-                    href="/"
+                    data-testid="withoutLink"
                     onClick={[Function]}
-                    onMouseEnter={[Function]}
                   >
                     <span>
                       Vans By Manufacturer
@@ -641,11 +631,8 @@ exports[`<Header /> renders correctly 1`] = `
                 >
                   <a
                     className="link"
-                    data-menu={null}
                     data-testid="menu-title"
-                    href="/"
                     onClick={[Function]}
-                    onMouseEnter={[Function]}
                   >
                     <span>
                       Pickups
@@ -718,11 +705,8 @@ exports[`<Header /> renders correctly 1`] = `
                 >
                   <a
                     className="link"
-                    data-menu={null}
-                    data-testid="router-link"
-                    href="/"
+                    data-testid="withoutLink"
                     onClick={[Function]}
-                    onMouseEnter={[Function]}
                   >
                     <span>
                       Pickups By Manufacturer
@@ -968,11 +952,8 @@ exports[`<Header /> renders correctly 1`] = `
                 >
                   <a
                     className="link"
-                    data-menu={null}
                     data-testid="menu-title"
-                    href="/"
                     onClick={[Function]}
-                    onMouseEnter={[Function]}
                   >
                     <span>
                       Cars
@@ -1062,11 +1043,8 @@ exports[`<Header /> renders correctly 1`] = `
                 >
                   <a
                     className="link"
-                    data-menu={null}
-                    data-testid="router-link"
-                    href="/"
+                    data-testid="withoutLink"
                     onClick={[Function]}
-                    onMouseEnter={[Function]}
                   >
                     <span>
                       Cars By Manufacturer
@@ -1440,11 +1418,8 @@ exports[`<Header /> renders correctly 1`] = `
                 >
                   <a
                     className="link"
-                    data-menu={null}
                     data-testid="menu-title"
-                    href="/"
                     onClick={[Function]}
-                    onMouseEnter={[Function]}
                   >
                     <span>
                       Insurance
@@ -1808,7 +1783,6 @@ exports[`<Header /> renders correctly with login user 1`] = `
       data-testid="link"
       href="tel:01442838195"
       onClick={[Function]}
-      rel="noopener noreferrer"
     >
        
       <i
@@ -1876,11 +1850,8 @@ exports[`<Header /> renders correctly with login user 1`] = `
         >
           <a
             className="link"
-            data-menu={null}
             data-testid="menu-title"
-            href="/"
             onClick={[Function]}
-            onMouseEnter={[Function]}
           >
             Menu
           </a>
@@ -1947,11 +1918,8 @@ exports[`<Header /> renders correctly with login user 1`] = `
                 >
                   <a
                     className="link"
-                    data-menu={null}
                     data-testid="menu-title"
-                    href="/"
                     onClick={[Function]}
-                    onMouseEnter={[Function]}
                   >
                     <span>
                       Vans
@@ -2046,11 +2014,8 @@ exports[`<Header /> renders correctly with login user 1`] = `
                 >
                   <a
                     className="link"
-                    data-menu={null}
-                    data-testid="router-link"
-                    href="/"
+                    data-testid="withoutLink"
                     onClick={[Function]}
-                    onMouseEnter={[Function]}
                   >
                     <span>
                       Vans By Manufacturer
@@ -2296,11 +2261,8 @@ exports[`<Header /> renders correctly with login user 1`] = `
                 >
                   <a
                     className="link"
-                    data-menu={null}
                     data-testid="menu-title"
-                    href="/"
                     onClick={[Function]}
-                    onMouseEnter={[Function]}
                   >
                     <span>
                       Pickups
@@ -2373,11 +2335,8 @@ exports[`<Header /> renders correctly with login user 1`] = `
                 >
                   <a
                     className="link"
-                    data-menu={null}
-                    data-testid="router-link"
-                    href="/"
+                    data-testid="withoutLink"
                     onClick={[Function]}
-                    onMouseEnter={[Function]}
                   >
                     <span>
                       Pickups By Manufacturer
@@ -2623,11 +2582,8 @@ exports[`<Header /> renders correctly with login user 1`] = `
                 >
                   <a
                     className="link"
-                    data-menu={null}
                     data-testid="menu-title"
-                    href="/"
                     onClick={[Function]}
-                    onMouseEnter={[Function]}
                   >
                     <span>
                       Cars
@@ -2717,11 +2673,8 @@ exports[`<Header /> renders correctly with login user 1`] = `
                 >
                   <a
                     className="link"
-                    data-menu={null}
-                    data-testid="router-link"
-                    href="/"
+                    data-testid="withoutLink"
                     onClick={[Function]}
-                    onMouseEnter={[Function]}
                   >
                     <span>
                       Cars By Manufacturer
@@ -3095,11 +3048,8 @@ exports[`<Header /> renders correctly with login user 1`] = `
                 >
                   <a
                     className="link"
-                    data-menu={null}
                     data-testid="menu-title"
-                    href="/"
                     onClick={[Function]}
-                    onMouseEnter={[Function]}
                   >
                     <span>
                       Insurance

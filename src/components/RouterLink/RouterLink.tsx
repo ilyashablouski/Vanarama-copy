@@ -10,6 +10,7 @@ import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
 import { LinkTypes } from '../../models/enum/LinkTypes';
 import { IClassNamesProps } from '../../models/IClassNamesProps';
 import { ILinkProps } from './interface';
+import setRel from '../../utils/setRel';
 
 interface IAppLinkProps extends IBaseProps {
   link: ILinkProps;
@@ -20,6 +21,7 @@ interface IAppLinkProps extends IBaseProps {
   as?: string | UrlObject | undefined;
   dataMenu?: string;
   withoutDefaultClassName?: boolean;
+  withoutLink?: boolean;
 }
 
 const RouterLink: React.FC<IAppLinkProps> = props => {
@@ -34,6 +36,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     dataMenu,
     as,
     withoutDefaultClassName,
+    withoutLink,
   } = props;
   const router = useRouter();
   const linkClassName = cx(className, {
@@ -47,6 +50,19 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     '-clear': classNames?.clear,
   });
 
+  if (withoutLink) {
+    return (
+      <a
+        className={linkClassName}
+        rel={setRel(link)}
+        onClick={e => onClick && onClick(e)}
+        data-testid={dataTestId ?? 'withoutLink'}
+      >
+        {children || link.label}
+      </a>
+    );
+  }
+
   if (
     link.linkType === LinkTypes.external ||
     !!link.target ||
@@ -58,7 +74,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
         href={link.href}
         className={linkClassName}
         target={link.target}
-        rel="noopener noreferrer"
+        rel={setRel(link)}
         onClick={e => onClick && onClick(e)}
         data-testid={dataTestId ?? 'link'}
       >

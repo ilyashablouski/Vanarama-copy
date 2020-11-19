@@ -159,33 +159,33 @@ const EligibilityCheckerForm: FC<IFormProps> = ({
           ref={register}
         />
       </FormGroup>
-      <FormGroup>
-        <Text tag="p" color="darker" size="regular">
-          By checking your eligibility, you agree to our{' '}
-          <RouterLink
-            dataTestId="terms_and_conditions"
-            link={{
-              href: '/legal/terms-and-conditions',
-              label: 'Terms and Conditions',
-            }}
-            classNames={{ size: 'regular', color: 'teal' }}
-          >
-            Terms and Conditions
-          </RouterLink>{' '}
-          and{' '}
-          <RouterLink
-            dataTestId="privacy_policy"
-            link={{
-              href: '/legal/privacy-policy',
-              label: 'Privacy Policy',
-            }}
-            classNames={{ size: 'regular', color: 'teal' }}
-          >
-            Privacy Policy
-          </RouterLink>{' '}
-          and a soft credit check.
-        </Text>
-      </FormGroup>
+      <Text tag="p" color="darker" size="regular">
+        By checking your eligibility, you agree to our{' '}
+        <RouterLink
+          dataTestId="terms_and_conditions"
+          link={{
+            href: '/legal/terms-and-conditions',
+            label: 'Terms and Conditions',
+          }}
+          classNames={{ size: 'regular', color: 'teal' }}
+          key="terms_and_conditions"
+        >
+          Terms and Conditions
+        </RouterLink>{' '}
+        and{' '}
+        <RouterLink
+          dataTestId="privacy_policy"
+          link={{
+            href: '/legal/privacy-policy',
+            label: 'Privacy Policy',
+          }}
+          classNames={{ size: 'regular', color: 'teal' }}
+          key="privacy_policy"
+        >
+          Privacy Policy
+        </RouterLink>{' '}
+        and a soft credit check.
+      </Text>
       <Button
         type="submit"
         label={formState.isSubmitting ? 'Saving...' : 'Check Your Eligibility'}
