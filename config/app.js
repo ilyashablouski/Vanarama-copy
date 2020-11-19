@@ -29,20 +29,19 @@ module.exports = {
       REDIS_CACHE_PORT: process.env.REDIS_CACHE_PORT,
       REDIS_KEY_PREFIX: process.env.REDIS_KEY_PREFIX,
     },
-    experimental: {
-      optimizeImages: true,
-    },
     devIndicators: {
       autoPrerender: false,
     },
     poweredByHeader: false,
 
-    // Rollbar.
     serverRuntimeConfig: {
+      // Rollbar.
       rollbarServerToken: process.env.ROLLBAR_SERVER_TOKEN || '',
     },
     publicRuntimeConfig: {
+      // Rollbar.
       rollbarClientToken: process.env.ROLLBAR_CLIENT_TOKEN || '',
+      // Apollo.
     },
 
     // Rewrites.

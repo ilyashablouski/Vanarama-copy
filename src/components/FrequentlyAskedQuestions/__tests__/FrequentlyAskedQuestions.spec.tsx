@@ -1,18 +1,13 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Loadable from 'react-loadable';
-// import FrequentlyAskedQuestions from '../FrequentlyAskedQuestions';
 
-const FrequentlyAskedQuestions = Loadable({
-  loader: () => import('../FrequentlyAskedQuestions'),
-  loading() {
-    return <div>Loading...</div>;
-  },
-});
-
-FrequentlyAskedQuestions.preload();
+import preloadAll from 'jest-next-dynamic';
+import FrequentlyAskedQuestions from '../FrequentlyAskedQuestions';
 
 describe('<FrequentlyAskedQuestions />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('renders correctly with empty review', () => {
     const getComponent = () => {
       return renderer
