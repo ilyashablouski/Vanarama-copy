@@ -180,7 +180,6 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
           {faqs?.body || ''}
         </Text>
       </div>
-
       {faqs?.questionSets?.length && (
         <div className="tabs-wrap row:tabbed">
           <nav className="tabs -content-end -alt -lead -center">
