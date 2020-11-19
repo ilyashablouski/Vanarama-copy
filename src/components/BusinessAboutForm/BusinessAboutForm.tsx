@@ -160,6 +160,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
         )}
       >
         <TextInput
+          disabled={!!person?.email}
           id="email"
           name="email"
           dataTestId="about-you_email"
