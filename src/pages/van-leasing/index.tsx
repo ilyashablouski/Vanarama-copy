@@ -79,9 +79,9 @@ export const VansPage: NextPage = () => {
     },
   );
 
-  const productSmallVanCapIds = productSmallVan?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
+  const productSmallVanCapIds = productSmallVan?.productCarousel
+    ?.map(el => el?.capId || '')
+    .filter(Boolean) || [''];
   const { data: productSmallVanDerivatives } = useCarDerivativesData(
     productSmallVanCapIds,
     VehicleTypeEnum.LCV,
@@ -105,9 +105,9 @@ export const VansPage: NextPage = () => {
     },
   );
 
-  const productMediumVanCapIds = productMediumVan?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
+  const productMediumVanCapIds = productMediumVan?.productCarousel
+    ?.map(el => el?.capId || '')
+    .filter(Boolean) || [''];
   const { data: productMediumVanDerivatives } = useCarDerivativesData(
     productMediumVanCapIds,
     VehicleTypeEnum.LCV,
@@ -131,9 +131,9 @@ export const VansPage: NextPage = () => {
     },
   );
 
-  const productLargeVanCapIds = productLargeVan?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
+  const productLargeVanCapIds = productLargeVan?.productCarousel
+    ?.map(el => el?.capId || '')
+    .filter(Boolean) || [''];
   const { data: productLargeVanDerivatives } = useCarDerivativesData(
     productLargeVanCapIds,
     VehicleTypeEnum.LCV,
@@ -143,7 +143,7 @@ export const VansPage: NextPage = () => {
     ...productSmallVanCapIds,
     ...productMediumVanCapIds,
     ...productLargeVanCapIds,
-  ];
+  ].filter(Boolean);
   const vehicleListUrlQuery = useVehicleListUrl(derivativeIds);
 
   useVehicleListUrlFetchMore(vehicleListUrlQuery, derivativeIds);

@@ -154,11 +154,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <script
-      type="application/ld+json"
-    >
-      null
-    </script>
   </div>
 </body>
 `;

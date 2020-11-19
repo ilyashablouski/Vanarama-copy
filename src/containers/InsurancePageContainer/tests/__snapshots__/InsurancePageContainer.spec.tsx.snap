@@ -662,13 +662,15 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                     </p>
                     <p>
                       <a
-                        class="link -teal -regular"
-                        data-testid="link"
                         href="https://beta.vanarama.com/car-leasing-explained/do-i-need-insurance-for-leased-car.html"
                       >
                         Read More
                       </a>
                     </p>
+                    <a
+                      class="link -teal -regular"
+                      data-testid="withoutLink"
+                    />
                   </div>
                 </li>
               </ul>
