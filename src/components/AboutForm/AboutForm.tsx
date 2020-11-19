@@ -107,6 +107,7 @@ const AboutForm: FCWithFragments<IProps> = ({
         )}
       >
         <TextInput
+          disabled={!!defaultValues?.email}
           id="email"
           type="email"
           name="email"
