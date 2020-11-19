@@ -3,9 +3,8 @@ import ChevronBack from '@vanarama/uibook/lib/assets/icons/ChevronBack';
 import ChevronForward from '@vanarama/uibook/lib/assets/icons/ChevronForward';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import { useRouter } from 'next/router';
 import RouterLink from '../RouterLink/RouterLink';
-import { routerItems, IBreadcrumbLink } from './helpers';
+import { IBreadcrumbLink } from './helpers';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 
 interface IBreadcrumbProps {
@@ -13,7 +12,6 @@ interface IBreadcrumbProps {
 }
 
 const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
-  const router = useRouter();
   const isMobile = useMobileViewport();
   const { items } = props;
 
@@ -53,15 +51,15 @@ const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
     </li>
   );
 
-  const breadcrumbArray = items ?? routerItems(router);
+  if (!items?.length) {
+    return null;
+  }
 
   return (
     <nav>
       <ol className="breadcrumb">
-        {breadcrumbArray.map((item, key) =>
-          breadcrumbArray.length === key + 1
-            ? renderChild(item)
-            : renderParent(item),
+        {items.map((item, key) =>
+          items.length === key + 1 ? renderChild(item) : renderParent(item),
         )}
       </ol>
     </nav>
