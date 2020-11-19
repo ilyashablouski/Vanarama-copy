@@ -5,6 +5,7 @@ import cx from 'classnames';
 import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import FlameSharp from '@vanarama/uibook/lib/assets/icons/FlameSharp';
+import Button from '@vanarama/uibook/lib/components/atoms/button';
 import RouterLink from '../RouterLink/RouterLink';
 import { IHeaderLink } from './Header';
 
@@ -61,17 +62,18 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
       <div className="menu-secondary--wrapper-inner">
         <ul className="menu-secondary">
           <li className={linkClassName({ title: true })}>
-            <RouterLink
-              link={{ label: '', href: '' }}
+            <Button
+              withoutDefaultClass
+              className="link"
               onClick={el => {
                 el.preventDefault();
                 onClickTitle();
               }}
               dataTestId="menu-title"
-              withoutLink
-            >
-              <span>{title}</span>
-            </RouterLink>
+              color="black"
+              fill="clear"
+              label={title}
+            />
           </li>
           {links.map((link: IHeaderLink) => (
             <li
@@ -139,16 +141,18 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
             })}
           >
             <li className={linkClassName({ title: true })}>
-              <RouterLink
-                link={{ label: '', href: '' }}
+              <Button
+                withoutDefaultClass
+                className="link"
                 onClick={el => {
                   el.preventDefault();
                   setIsOpenMenu(null);
                 }}
-                withoutLink
-              >
-                <span>{childrenLinks.label}</span>
-              </RouterLink>
+                dataTestId="menu-tertiary-title"
+                color="black"
+                fill="clear"
+                label={childrenLinks.label}
+                />
             </li>
             {(childrenLinks.children as IHeaderLink[]).map(
               (linkSecondary: IHeaderLink) => (
