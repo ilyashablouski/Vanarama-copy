@@ -22,6 +22,7 @@ export const VatDetailsPage: NextPage = () => {
   const { companyUuid } = router.query as QueryParams;
 
   const handleSubmitError = (err: ApolloError) => {
+    // eslint-disable-next-line no-console
     console.error(err);
     toast.error(
       'Oops, an unexpected error occurred',
