@@ -50,7 +50,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     '-clear': classNames?.clear,
   });
 
-  if (withoutLink) {
+  if (withoutLink || link.href === '') {
     return (
       <a
         className={linkClassName}
