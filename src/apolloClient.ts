@@ -8,7 +8,8 @@ import Router from 'next/router';
 import { onError } from '@apollo/client/link/error';
 import fetch from 'isomorphic-unfetch';
 import { NextPageContext } from 'next';
-import inspect from '../inspect';
+
+const inspect = require('../inspect');
 
 const HttpLink = createHttpLink({
   uri: process.env.API_URL!,
@@ -22,6 +23,7 @@ const HttpLink = createHttpLink({
 const ErrorLink = onError(({ graphQLErrors }) => {
   if (graphQLErrors) {
     inspect(['GQL Error', graphQLErrors]);
+
     const authorizationError = graphQLErrors.find(
       error => error?.extensions?.code === 'UNAUTHORISED',
     );

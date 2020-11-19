@@ -5,51 +5,7 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
   <div>
     <div
       class="row:title"
-    >
-      <nav>
-        <ol
-          class="breadcrumb"
-        >
-          <li
-            class="breadcrumb-item -parent"
-          >
-            <a
-              class="breadcrumb-item--parent link -teal -small"
-              data-testid="router-link"
-              href="/"
-            >
-              home
-            </a>
-            <i
-              class="icon -medium -xsmall"
-            >
-              <svg
-                height="1em"
-                viewBox="0 0 512 512"
-                width="1em"
-              >
-                <title>
-                  ionicons-v5-a
-                </title>
-                <polyline
-                  points="184 112 328 256 184 400"
-                  style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
-                />
-              </svg>
-            </i>
-          </li>
-          <li
-            class="breadcrumb-item -child"
-          >
-            <span
-              class="text breadcrumb-item--child -small -darker"
-            >
-              home
-            </span>
-          </li>
-        </ol>
-      </nav>
-    </div>
+    />
     <div
       class="row:title"
     >
@@ -110,8 +66,7 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
           >
             <a
               class="heading -black -lead"
-              data-testid="router-link"
-              href="/"
+              data-testid="withoutLink"
             >
               Category Titles
             </a>
@@ -199,11 +154,6 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <script
-      type="application/ld+json"
-    >
-      null
-    </script>
   </div>
 </body>
 `;

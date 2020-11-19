@@ -110,9 +110,10 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
       offer: true,
     }).then(async (response: any) => {
       setProductSmallVan(response.data);
-      const capIds = response.data.productCarousel
-        ?.map((el: any) => el?.capId)
-        .filter(Boolean);
+      const capIds =
+        response.data.productCarousel
+          ?.map((el: any) => el?.capId)
+          .filter(Boolean) || [];
       setProductSmallVanCapIds(capIds);
       getProductDerivatives({
         ids: capIds,
@@ -127,9 +128,10 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
       offer: true,
     }).then(response => {
       setProductMediumVan(response.data);
-      const capIds = response.data.productCarousel
-        ?.map((el: any) => el?.capId)
-        .filter(Boolean);
+      const capIds =
+        response.data.productCarousel
+          ?.map((el: any) => el?.capId)
+          .filter(Boolean) || [];
       setProductMediumVanCapIds(capIds);
       getProductDerivatives({
         ids: capIds,
@@ -144,9 +146,10 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
       offer: true,
     }).then(response => {
       setProductLargeVan(response.data);
-      const capIds = response.data.productCarousel
-        ?.map((el: any) => el?.capId)
-        .filter(Boolean);
+      const capIds =
+        response.data.productCarousel
+          ?.map((el: any) => el?.capId)
+          .filter(Boolean) || [];
       setProductLargeVanCapIds(capIds);
       getProductDerivatives({
         ids: capIds,
@@ -161,9 +164,10 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
       offer: true,
     }).then(response => {
       setProductPickups(response.data);
-      const capIds = response.data.productCarousel
-        ?.map((el: any) => el?.capId)
-        .filter(Boolean);
+      const capIds =
+        response.data.productCarousel
+          ?.map((el: any) => el?.capId)
+          .filter(Boolean) || [];
       setProductPickupsCapIds(capIds);
       getProductDerivatives({
         ids: capIds,
@@ -178,9 +182,10 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
       offer: true,
     }).then(response => {
       setProductSpecialistVan(response.data);
-      const capIds = response.data.productCarousel
-        ?.map((el: any) => el?.capId)
-        .filter(Boolean);
+      const capIds =
+        response.data.productCarousel
+          ?.map((el: any) => el?.capId)
+          .filter(Boolean) || [];
       setProductSpecialistVanCapIds(capIds);
       getProductDerivatives({
         ids: capIds,
@@ -195,9 +200,10 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
       offer: true,
     }).then(response => {
       setProductTippers(response.data);
-      const capIds = response.data.productCarousel
-        ?.map((el: any) => el?.capId)
-        .filter(Boolean);
+      const capIds =
+        response.data.productCarousel
+          ?.map((el: any) => el?.capId)
+          .filter(Boolean) || [];
       setProductTippersCapIds(capIds);
       getProductDerivatives({
         ids: capIds,
