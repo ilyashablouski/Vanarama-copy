@@ -304,8 +304,9 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
   );
 };
 
-export async function getServerSideProps(ctx: NextPageContext) {
+export async function getServerSideProps(context: NextPageContext) {
   const client = createApolloClient({});
+  const path = context.req?.url || '';
 
   try {
     const { data } = await client.query<
@@ -314,9 +315,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
     >({
       query: GENERIC_PAGE_HEAD,
       variables: {
-        slug: ctx.asPath?.includes('.html')
-          ? ctx.asPath || ''
-          : ctx.asPath?.slice(1) || '',
+        slug: path,
       },
     });
     return {
