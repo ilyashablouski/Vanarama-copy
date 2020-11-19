@@ -126,8 +126,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                     </span>
                     <a
                       class="button link -teal -regular -solid"
-                      data-testid="router-link"
-                      href="/"
+                      data-testid="withoutLink"
                     >
                       <div
                         class="button--inner"

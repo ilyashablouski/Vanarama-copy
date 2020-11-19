@@ -110,8 +110,7 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
           >
             <a
               class="heading -black -lead"
-              data-testid="router-link"
-              href="/"
+              data-testid="withoutLink"
             >
               Category Titles
             </a>
