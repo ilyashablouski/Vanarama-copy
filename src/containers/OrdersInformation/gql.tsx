@@ -14,7 +14,7 @@ import {
 
 export const GET_MY_ORDERS_DATA = gql`
   query GetMyOrders($partyUuid: [ID!]!, $filter: MyOrdersTypeEnum!) {
-    myOrders(partyUuid: $partyUuid, filter: $filter) {
+    myOrders(partyUuids: $partyUuid, filter: $filter) {
       uuid
       id
       leaseType
