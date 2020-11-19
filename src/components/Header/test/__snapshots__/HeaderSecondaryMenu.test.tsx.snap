@@ -16,11 +16,8 @@ exports[`<HeaderSecondaryMenu /> renders correctly 1`] = `
       >
         <a
           className="link"
-          data-menu={null}
           data-testid="menu-title"
-          href="/"
           onClick={[Function]}
-          onMouseEnter={[Function]}
         >
           <span>
             title
@@ -115,11 +112,8 @@ exports[`<HeaderSecondaryMenu /> renders correctly 1`] = `
       >
         <a
           className="link"
-          data-menu={null}
-          data-testid="router-link"
-          href="/"
+          data-testid="withoutLink"
           onClick={[Function]}
-          onMouseEnter={[Function]}
         >
           <span>
             Vans By Manufacturer

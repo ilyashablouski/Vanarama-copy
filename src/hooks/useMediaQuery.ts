@@ -23,7 +23,3 @@ export default function useMediaQuery(query: string) {
 export function useMobileViewport() {
   return useMediaQuery('(max-width: 767px)');
 }
-
-export function useTabletViewport() {
-  return useMediaQuery('(max-width: 1215px)');
-}
