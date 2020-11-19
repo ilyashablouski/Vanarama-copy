@@ -64,6 +64,7 @@ export function useGetPersonLazyQuery(
   onError: (error: ApolloError) => void,
 ) {
   return useLazyQuery<GetPerson>(GET_PERSON_QUERY, {
+    fetchPolicy: 'no-cache',
     onCompleted,
     onError,
   });
