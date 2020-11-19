@@ -2,6 +2,7 @@ import { NextPage, NextPageContext } from 'next';
 import { ApolloError } from '@apollo/client';
 import React from 'react';
 import { ParsedUrlQuery } from 'querystring';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { GET_CAR_DATA } from '../../../gql/carpage';
 import {
   LeaseTypeEnum,
@@ -29,6 +30,7 @@ import {
 } from '../../../../generated/GetVehicleDetails';
 import { INotFoundPageData } from '../../../models/ISearchPageProps';
 import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
+import { toPriceFormat } from '../../../utils/helpers';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -68,7 +70,86 @@ const CarDetailsPage: NextPage<IProps> = ({
     );
   }
 
-  return <DetailsPage cars quote={quote} capId={capId || 0} data={data} />;
+  // Schema JSON.
+  const seller = {
+    '@type': 'Organization',
+    name: 'Vanarama',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Maylands Avenue',
+      addressLocality: 'Hemel Hempstead',
+      addressRegion: 'Hertfordshire',
+      postalCode: 'HP2 7DE',
+      addressCountry: 'United Kingdom',
+    },
+    contactPoint: {
+      contactType: 'Vehicle Sales',
+      telephone: '+441442838195',
+      email: 'enquiries@vanarama.co.uk',
+    },
+  };
+
+  const getTechValue = (description: String) =>
+    data?.derivativeInfo?.technicals?.find(
+      (obj: any) => obj?.technicalDescription === description,
+    )?.value || 'N/A';
+
+  const pageTitle = `${data?.vehicleConfigurationByCapId?.capManufacturerDescription} ${data?.vehicleConfigurationByCapId?.capRangeDescription}`;
+
+  const schema = {
+    '@context': 'http://schema.org',
+    '@type': 'Car',
+    name: `${pageTitle} ${data?.vehicleConfigurationByCapId?.capDerivativeDescription}`,
+    description: `New ${pageTitle} ${
+      data?.vehicleConfigurationByCapId?.capDerivativeDescription
+    } lease deal from Vanarama starts from £${toPriceFormat(
+      quote?.quoteByCapId?.leaseCost?.monthlyRental,
+    )} per month. FREE UK delivery. Mileage Buffer. 8 Point Price Promise.`,
+    offers: {
+      '@type': 'AggregateOffer',
+      availability: 'http://schema.org/InStock',
+      name: `${quote?.quoteByCapId?.term} month Contract Hire agreement`,
+      lowPrice: quote?.quoteByCapId?.leaseCost?.monthlyRental,
+      url: `https://www.vanarama.com/car-leasing${data?.data?.vehicleConfigurationByCapId?.url}`,
+      priceCurrency: 'GBP',
+      seller,
+    },
+    image: (data?.vehicleImages && data?.vehicleImages[0]?.mainImageUrl) || '',
+    manufacturer: data?.vehicleConfigurationByCapId?.capManufacturerDescription,
+    brand: data?.vehicleConfigurationByCapId?.capManufacturerDescription,
+    model: data?.vehicleConfigurationByCapId?.capModelDescription,
+    vehicleTransmission: data?.derivativeInfo?.transmission.name,
+    fuelType: data?.derivativeInfo?.fuelType.name,
+    seatingCapacity: getTechValue('No. of Seats'),
+    meetsEmissionStandard: getTechValue('Standard Euro Emissions'),
+    emissionsCO2: getTechValue('CO2 (g/km)'),
+    bodyType: data?.derivativeInfo?.bodyStyle?.name,
+    itemCondition: 'New',
+    steeringPosition: 'RightHandDriving',
+    fuelConsumption: {
+      '@type': 'QuantitativeValue',
+      name: 'Fuel Consumption EC Combined (Mpg)',
+      value: getTechValue('EC Combined'),
+      unitCode: 'mpg',
+    },
+    vehicleEngine: {
+      '@type': 'EngineSpecification',
+      fuelType: data?.derivativeInfo?.fuelType.name,
+      engineDisplacement: {
+        '@type': 'QuantitativeValue',
+        name: 'CC',
+        value: getTechValue('CC'),
+        unitCode: 'CMQ',
+      },
+    },
+  };
+
+  return (
+    <>
+      <DetailsPage cars quote={quote} capId={capId || 0} data={data} />
+      <SchemaJSON json={JSON.stringify(schema)} />
+    </>
+  );
 };
 
 export async function getServerSideProps(context: NextPageContext) {

@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React, { FC } from 'react';
 import NextHead from 'next/head';
 import { useRouter } from 'next/router';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
@@ -51,11 +51,11 @@ const Head: FC<IHeadProps> = props => {
         <meta name="twitter:creator" content={twitter} />
         <meta name="twitter:site" content={twitter} />
       </NextHead>
-      <SchemaJSON json={JSON.stringify(schema)} />
+      {/* <SchemaJSON json={JSON.stringify(schema)} /> */}
     </>
   );
 };
 
 Head.displayName = 'Head';
 
-export default memo(Head);
+export default React.memo(Head);

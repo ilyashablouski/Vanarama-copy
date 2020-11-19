@@ -63,6 +63,7 @@ interface IDetailsPageProps {
   data?: GetVehicleDetails;
   loading?: boolean;
   quote?: GetQuoteDetails;
+  schema?: any;
 }
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
@@ -73,6 +74,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   data,
   loading,
   quote,
+  schema,
 }) => {
   const router = useRouter();
   // pass cars prop(Boolean)
@@ -245,7 +247,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       (obj: any) => obj?.technicalDescription === description,
     )?.value || 'N/A';
 
-  const schema = cars
+  const schema_old = cars
     ? // Cars
       {
         '@context': 'http://schema.org',
@@ -254,15 +256,13 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         description: `New ${pageTitle} ${
           vehicleConfigurationByCapId?.capDerivativeDescription
         } lease deal from Vanarama starts from £${toPriceFormat(
-          leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
+          quote?.quoteByCapId?.leaseCost?.monthlyRental,
         )} per month. FREE UK delivery. Mileage Buffer. 8 Point Price Promise.`,
         offers: {
           '@type': 'AggregateOffer',
           availability: 'http://schema.org/InStock',
-          name: `${leaseScannerData?.quoteByCapId?.term} month Contract Hire agreement`,
-          lowPrice: toPriceFormat(
-            leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
-          ),
+          name: `${quote?.quoteByCapId?.term} month Contract Hire agreement`,
+          lowPrice: quote?.quoteByCapId?.leaseCost?.monthlyRental,
           url: `https://www.vanarama.com/car-leasing${data?.vehicleConfigurationByCapId?.url}`,
           priceCurrency: 'GBP',
           seller,
@@ -305,14 +305,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         description: `New ${pageTitle} ${
           vehicleConfigurationByCapId?.capDerivativeDescription
         } Van lease deal from Vanarama starts from £${toPriceFormat(
-          leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
+          quote?.quoteByCapId?.leaseCost?.monthlyRental,
         )} per month. FREE UK delivery. Mileage Buffer. 8 Point Price Promise.`,
         offers: {
           '@type': 'AggregateOffer',
           availability: 'http://schema.org/InStock',
-          name: `${leaseScannerData?.quoteByCapId?.term} month Contract Hire agreement`,
+          name: `${quote?.quoteByCapId?.term} month Contract Hire agreement`,
           lowPrice: toPriceFormat(
-            leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
+            quote?.quoteByCapId?.leaseCost?.monthlyRental,
           ),
           url: `https://www.vanarama.com/van-leasing${data?.vehicleConfigurationByCapId?.url}`,
           priceCurrency: 'GBP',
