@@ -315,7 +315,7 @@ export async function getServerSideProps(context: NextPageContext) {
     >({
       query: GENERIC_PAGE_HEAD,
       variables: {
-        slug: path,
+        slug: path.includes('.html') ? path : path.slice(1),
       },
     });
     return {
