@@ -180,34 +180,37 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
           {faqs?.body || ''}
         </Text>
       </div>
-      <div className="tabs-wrap row:tabbed">
-        <nav className="tabs -content-end -alt -lead -center">
-          <div className="tabs__list-wrap">
-            <div className="tabs__list" role="tablist">
-              {questionTypes?.map((type, idx) => (
-                <button
-                  key={type || idx}
-                  onClick={() => setQuestionType(type)}
-                  type="button"
-                  className={cx(
-                    '-start',
-                    questionType === type ? '-active' : '',
-                  )}
-                  role="tab"
-                >
-                  {type}
-                </button>
-              ))}
+
+      {faqs?.questionSets?.length && (
+        <div className="tabs-wrap row:tabbed">
+          <nav className="tabs -content-end -alt -lead -center">
+            <div className="tabs__list-wrap">
+              <div className="tabs__list" role="tablist">
+                {questionTypes?.map((type, idx) => (
+                  <button
+                    key={type || idx}
+                    onClick={() => setQuestionType(type)}
+                    type="button"
+                    className={cx(
+                      '-start',
+                      questionType === type ? '-active' : '',
+                    )}
+                    role="tab"
+                  >
+                    {type}
+                  </button>
+                ))}
+              </div>
             </div>
+          </nav>
+          <div className="tabs__panel -ph-000" role="tabpanel">
+            <Accordion
+              className="tilebox tabs--active"
+              items={getQuestions() || []}
+            />
           </div>
-        </nav>
-        <div className="tabs__panel -ph-000" role="tabpanel">
-          <Accordion
-            className="tilebox tabs--active"
-            items={getQuestions() || []}
-          />
         </div>
-      </div>
+      )}
     </>
   );
 };
