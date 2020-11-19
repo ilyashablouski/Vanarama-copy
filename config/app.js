@@ -19,7 +19,6 @@ module.exports = {
     env: {
       ENV: process.env.ENV,
       IMG_OPTIMISATION_HOST: process.env.IMG_OPTIMISATION_HOST,
-      HOSTNAME: process.env.HOSTNAME,
       GTM_ID: process.env.GTM_ID,
       MICROBLINK_URL: process.env.MICROBLINK_URL,
       API_URL: process.env.API_URL,
