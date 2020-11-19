@@ -30,21 +30,19 @@ const renderCarouselCards = (cards: (ICard | null)[]) =>
     ) : null,
   );
 
-const InsuranceNewsSection = ({ cards, name }: ICarouselData) => {
-  return (
-    <div className="row:bg-lighter">
-      <div className="row:carousel">
-        <Heading size="large" color="black">
-          {name}
-        </Heading>
-        {cards && (
-          <Carousel className="-col3" countItems={3}>
-            {renderCarouselCards(cards.slice(0, 9))}
-          </Carousel>
-        )}
-      </div>
+const InsuranceNewsSection = ({ cards, name }: ICarouselData) => (
+  <div className="row:bg-lighter">
+    <div className="row:carousel">
+      <Heading size="large" color="black">
+        {name}
+      </Heading>
+      {cards && (
+        <Carousel className="-col3" countItems={3}>
+          {renderCarouselCards(cards.slice(0, 9))}
+        </Carousel>
+      )}
     </div>
-  );
-};
+  </div>
+);
 
 export default InsuranceNewsSection;
