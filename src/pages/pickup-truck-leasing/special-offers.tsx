@@ -7,6 +7,7 @@ import {
   ssrCMSQueryExecutor,
 } from '../../containers/SearchPageContainer/helpers';
 import SearchPageContainer from '../../containers/SearchPageContainer';
+import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import {
   LeaseTypeEnum,
   SortDirection,
@@ -19,7 +20,7 @@ import { GetProductCard } from '../../../generated/GetProductCard';
 import { ISearchPageProps } from '../../models/ISearchPageProps';
 
 interface IProps extends ISearchPageProps {
-  pageData: any;
+  pageData: GenericPageQuery;
   vehiclesList?: vehicleList;
   productCardsData?: GetProductCard;
   responseCapIds?: string[];
