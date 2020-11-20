@@ -5,7 +5,6 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
 import HeaderMenuLink from './HeaderMenuLink';
 import { IHeaderLink } from './Header';
-import RouterLink from '../RouterLink/RouterLink';
 
 export interface IHeaderMenuProps extends IBaseProps {
   menuLinks: IHeaderLink[];
