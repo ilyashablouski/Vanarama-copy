@@ -3,6 +3,7 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import ReactMarkdown from 'react-markdown';
 import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
 import { IList } from '@vanarama/uibook/lib/components/organisms/structured-list/interfaces';
+import gfm from 'remark-gfm';
 import { GetInsuranceLandingPage_insuranceLandingPage_sections_hero_heroCard as HeroCard } from '../../../../generated/GetInsuranceLandingPage';
 import { ParsedLink } from '../ParsedLink';
 
@@ -37,13 +38,13 @@ const WorkingHoursTable = ({ body, title }: HeroCard) => (
         renderers={{
           paragraph: props => {
             const { children } = props;
-            const href = `tel:${children[1]?.props.value
+            const href = `tel:${children[0]?.props.value
               .split('')
               .filter((item: string) => item === '0' || +item > 0)
               .join('')}`;
-            return children[0].props.children[0].props?.value ? (
+            return children[0].props?.value ? (
               <ParsedLink
-                title={children[0].props.children[0].props?.value}
+                title={children[0].props?.value.split('"')[1]}
                 color="teal"
                 size="large"
                 fill="solid"
@@ -56,6 +57,7 @@ const WorkingHoursTable = ({ body, title }: HeroCard) => (
           },
           table: props => renderTable(props),
         }}
+        plugins={[gfm]}
       />
     </div>
   </Card>
