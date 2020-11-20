@@ -304,13 +304,14 @@ const SearchPageContainer: React.FC<IProps> = ({
     // set search filters data
     setFiltersData(filters);
     if (isMakePage) {
+      const filtersForRanges = { ...filters, manufacturerSlug: undefined };
       getRanges({
         variables: {
           vehicleTypes: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
           leaseType: isPersonal
             ? LeaseTypeEnum.PERSONAL
             : LeaseTypeEnum.BUSINESS,
-          ...filters,
+          ...filtersForRanges,
           manufacturerName: router.query?.dynamicParam as string,
         },
       });
@@ -511,9 +512,9 @@ const SearchPageContainer: React.FC<IProps> = ({
       lastCard &&
       !isMakePage &&
       hasNextPage &&
-      ((isRangePage && filtersData.rangeName) ||
+      ((isRangePage && filtersData.rangeSlug) ||
         (isDynamicFilterPage && Object.values(filtersData).flat().length > 0) ||
-        (isModelPage && filtersData.rangeName) ||
+        (isModelPage && filtersData.rangeSlug) ||
         isSpecialOfferPage ||
         isSimpleSearchPage)
     )
@@ -802,7 +803,11 @@ const SearchPageContainer: React.FC<IProps> = ({
             isPickups={isPickups}
             isCarSearch={isCarSearch}
             preSearchVehicleCount={totalCount}
-            isSpecialOffers={isSpecialOffers || null}
+            isSpecialOffers={
+              (isSpecialOffers &&
+                !(isRangePage || isModelPage || isDynamicFilterPage)) ||
+              null
+            }
             setIsSpecialOffers={setIsSpecialOffers}
             isModelPage={isModelPage}
             isAllMakesPage={isAllMakesPage}

@@ -129,6 +129,7 @@ export async function getServerSideProps(context: NextPageContext) {
   let vehiclesList;
   let productCardsData;
   let responseCapIds;
+  const filter = {} as any;
   // check for bodystyle page
   const isBodyStylePage = !!bodyUrls.find(
     getBodyStyleForCms,
@@ -144,7 +145,6 @@ export async function getServerSideProps(context: NextPageContext) {
     isMakePage: !(isBodyStylePage || isFuelType),
   };
   if (isBodyStylePage || isFuelType) {
-    const filter = {} as any;
     if (isBodyStylePage) {
       newQuery.bodyStyles = (query.dynamicParam as string).replace('-', ' ');
       filter.bodyStyles = [newQuery.bodyStyles];
@@ -186,7 +186,8 @@ export async function getServerSideProps(context: NextPageContext) {
       }
     }
   } else {
-    newQuery.make = query.dynamicParam;
+    newQuery.make = (query.dynamicParam as string).toLowerCase();
+    filter.manufacturerSlug = newQuery.make;
     ranges = await client
       .query({
         query: GET_RANGES,
@@ -203,6 +204,7 @@ export async function getServerSideProps(context: NextPageContext) {
     variables: {
       onOffer: null,
       vehicleTypes: [VehicleTypeEnum.CAR],
+      ...filter,
     },
   });
   const [type] =

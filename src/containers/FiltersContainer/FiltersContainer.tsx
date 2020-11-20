@@ -21,12 +21,16 @@ import { makeHandler, modelHandler } from '../SearchPodContainer/helpers';
 import { filtersConfig, budgets, filterFields } from './config';
 import { IFilterContainerProps, ISelectedFiltersState } from './interfaces';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import { filterList_filterList as IFilterList } from '../../../generated/filterList';
+import {
+  filterList_filterList as IFilterList,
+  filterList_filterList_groupedRangesWithSlug_children as IFiltersChildren,
+} from '../../../generated/filterList';
 import {
   findPreselectFilterValue,
   buildPreselectChoiseboxes,
   isInclude,
   filtersSearchMapper,
+  getLabelForSlug,
 } from './helpers';
 
 interface IChoiceBoxesData {
@@ -66,16 +70,20 @@ const FiltersContainer = ({
   setSearchFilters,
 }: IFilterContainerProps) => {
   const router = useRouter();
-  const [filtersData, setFiltersData] = useState({} as IFilterList);
-  const [allFiltersData, setAllFiltersData] = useState({} as IFilterList);
+  const [filtersData, setFiltersData] = useState(
+    preLoadFilters || ({} as IFilterList),
+  );
+  const [allFiltersData, setAllFiltersData] = useState(
+    preLoadFilters || ({} as IFilterList),
+  );
   const [
     shouldMakeChoiceboxesForceUpdate,
     setShouldMakeChoiceboxesForceUpdate,
   ] = useState(false);
-  const [makeData, setMakeData] = useState(
+  const [makeData, setMakeData] = useState<Array<IFiltersChildren>>(
     makeHandler(preLoadFilters || ({} as IFilterList)),
   );
-  const [modelsData, setModelsData] = useState([] as string[]);
+  const [modelsData, setModelsData] = useState([] as IFiltersChildren[]);
   const [tempFilterName, setTempFilterName] = useState('');
   const [tempModelName, setTempModelName] = useState('');
   // using for repeat initial filters preset
@@ -121,16 +129,21 @@ const FiltersContainer = ({
       }
       return resp;
     },
+    !!preLoadFilters,
   );
 
-  const filtersMapper = {
+  interface IFiltersMapper {
+    [index: string]: Array<string | IFiltersChildren> | null;
+  }
+
+  const filtersMapper: IFiltersMapper = {
     make: makeData,
     model: modelsData,
     from: fromBudget,
     to: toBudget,
-    bodyStyles: filtersData.bodyStyles,
-    transmissions: filtersData.transmissions,
-    fuelTypes: filtersData.fuelTypes,
+    bodyStyles: filtersData?.bodyStyles,
+    transmissions: filtersData?.transmissions,
+    fuelTypes: filtersData?.fuelTypes,
   };
 
   /** build correct data for choiseboxes component */
@@ -163,8 +176,7 @@ const FiltersContainer = ({
   /** start new search */
   const onViewResults = (onlyFiltersUpdate = false) => {
     if (!onlyFiltersUpdate) onSearch(filtersObject);
-    const filtersObjectForFilters = { ...filtersObject };
-    delete filtersObjectForFilters.rate;
+    const filtersObjectForFilters = { ...filtersObject, rate: undefined };
     refetch({
       vehicleTypes: isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
       onOffer:
@@ -174,7 +186,7 @@ const FiltersContainer = ({
       ...filtersObjectForFilters,
     }).then(resp => {
       // if groupedRanges is empty -> search params is incorrect
-      if (resp.data?.filterList?.groupedRanges?.length) {
+      if (resp.data?.filterList?.groupedRangesWithSlug?.length) {
         // using then because apollo return incorrect cache result https://github.com/apollographql/apollo-client/issues/3550
         setFiltersData(resp.data?.filterList || ({} as IFilterList));
         setMakeData(makeHandler(resp.data?.filterList || ({} as IFilterList)));
@@ -205,14 +217,14 @@ const FiltersContainer = ({
   }, [forceFiltersPreset]);
 
   useEffect(() => {
-    if (filtersData.bodyStyles) setChoiceBoxesData(buildChoiseBoxData());
+    if (filtersData?.bodyStyles) setChoiceBoxesData(buildChoiseBoxData());
   }, [filtersData, buildChoiseBoxData]);
 
   useEffect(() => {
     // if we have query parameters filters should be preselected
     const shouldPreselect =
       (Object.keys(router?.query || {}).length &&
-        Object.keys(allFiltersData).length) ||
+        Object.keys(allFiltersData || {}).length) ||
       router.query.isChangePage === 'true';
     if (shouldPreselect) {
       const presetFilters = {} as ISelectedFiltersState;
@@ -223,11 +235,14 @@ const FiltersContainer = ({
       routerQuery.forEach(entry => {
         const [key, values] = entry;
         if (key === 'rangeName') {
-          const isExist = filtersData.groupedRanges?.some(element => {
+          const isExist = filtersData.groupedRangesWithSlug?.some(element => {
             let value = '';
             // if make correct then we are looking for a rangeName
             if (
-              isInclude(element.parent, router.query?.dynamicParam as string)
+              isInclude(
+                element.parent?.slug || '',
+                (router.query?.make || router.query?.dynamicParam) as string,
+              )
             ) {
               value = findPreselectFilterValue(
                 Array.isArray(values)
@@ -266,6 +281,11 @@ const FiltersContainer = ({
                   filtersMapper[key as keyof typeof filtersMapper],
                 ),
               ];
+          if (key === 'dynamicParam' && (isMakePage || isRangePage)) {
+            presetFilters.make = [
+              findPreselectFilterValue(values as string, filtersMapper.make),
+            ];
+          }
           isValueLose = presetFilters[key][0] ? isValueLose : true;
         } else if (key !== 'isChangePage') {
           const rate = (values as string).split('|');
@@ -344,20 +364,22 @@ const FiltersContainer = ({
 
   /** return true if model exist in filters data */
   const isCurrentModelValid = (model: string) =>
-    filtersData.groupedRanges?.some(({ children }) => children.includes(model));
+    filtersData.groupedRangesWithSlug?.some(({ children }) =>
+      children.map(range => range.slug).includes(model),
+    );
 
   // set actual models after make changing
   useEffect(() => {
     if (
-      filtersObject.manufacturerName &&
+      filtersObject.manufacturerSlug &&
       !isMakePage &&
       !((isRangePage || isModelPage) && !tempModelName)
     ) {
       // every time when filters update active model missed
       // for preset filters using temp variable
       // for cases when we change model manually we check for include this model in  new filters data
-      const model = isCurrentModelValid(filtersObject.rangeName)
-        ? [filtersObject.rangeName]
+      const model = isCurrentModelValid(filtersObject.rangeSlug)
+        ? [filtersObject.rangeSlug]
         : [];
       setSelectedFiltersState(prevState => ({
         ...prevState,
@@ -366,11 +388,11 @@ const FiltersContainer = ({
       setModelsData(modelHandler(filtersData, selectedFiltersState.make[0]));
       // clear temp model value
       if (tempModelName) setTempModelName('');
-    } else if (!filtersObject.manufacturerName && modelsData.length)
+    } else if (!filtersObject.manufacturerSlug && modelsData.length)
       setModelsData([]);
     // clear models data after remove make filter
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filtersObject.manufacturerName, filtersData]);
+  }, [filtersObject.manufacturerSlug, filtersData]);
 
   // hack for subscribe multiselects changes and update Choiceboxes state
   useEffect(() => {
@@ -392,7 +414,11 @@ const FiltersContainer = ({
   /** get parent filter name after deleting a tag */
   const getValueKey = (value: string) => {
     const arr = Object.entries(selectedFiltersState) || [];
-    return arr.find(filter => filter[1].includes(value))?.[0] || '';
+    return (
+      arr.find(filter =>
+        filter[1].some(filterValue => value === filterValue.toLowerCase()),
+      )?.[0] || ''
+    );
   };
 
   /** check budget rules for valid value */
@@ -422,14 +448,25 @@ const FiltersContainer = ({
         ) {
           return `£${entry[1]}`;
         }
-        return ((isMakePage || isRangePage || isModelPage) &&
-          entry[0] === filterFields.make) ||
+        const value =
+          ((isMakePage || isRangePage || isModelPage) &&
+            entry[0] === filterFields.make) ||
           ((isRangePage || isModelPage) && entry[0] === filterFields.model) ||
           (isFuelPage && entry[0] === filterFields.fuelTypes) ||
           (isTransmissionPage && entry[0] === filterFields.transmissions) ||
           ((isModelPage || isBodyPage) && entry[0] === filterFields.bodyStyles)
-          ? ''
-          : entry[1];
+            ? ''
+            : entry[1];
+        // for make and model we should get label value
+        return (entry[0] === filterFields.make ||
+          entry[0] === filterFields.model) &&
+          value.length
+          ? getLabelForSlug(
+              entry[1][0],
+              filtersData,
+              entry[0] === filterFields.make,
+            )
+          : value;
       })
       .flat()
       .filter(Boolean);
@@ -510,12 +547,16 @@ const FiltersContainer = ({
    * remove value from filter after deleting tag
    */
   const handleRemoveTag = (value: string) => {
-    const formatedValue = value.replace('£', '');
+    const formatedValue = value
+      .replace('£', '')
+      .split(' ')
+      .join('-')
+      .toLowerCase();
     const filter = getValueKey(formatedValue) as keyof typeof filtersMapper;
     const newSelectedFiltersState = {
       ...selectedFiltersState,
       [filter]: selectedFiltersState[filter].filter(
-        selectedValue => selectedValue !== formatedValue,
+        selectedValue => selectedValue.toLowerCase() !== formatedValue,
       ),
     };
 
@@ -531,7 +572,7 @@ const FiltersContainer = ({
           newSelectedFiltersState,
         ),
       }));
-      setTempFilterName(filter);
+      setTempFilterName(filter as string);
     }
   };
 
@@ -552,7 +593,7 @@ const FiltersContainer = ({
         newSelectedFiltersState,
       ),
     }));
-    setTempFilterName(filterName);
+    setTempFilterName(filterName as string);
   };
 
   /** handle filter expand status */
@@ -610,19 +651,22 @@ const FiltersContainer = ({
                     >
                       {filtersMapper[
                         dropdown.accessor as keyof typeof filtersMapper
-                      ]?.map(option =>
+                      ]?.map((option: string | IFiltersChildren) =>
                         filter.accessor === 'budget' ? (
                           <option
-                            value={option}
-                            key={option}
+                            value={option as string}
+                            key={option as string}
                             disabled={isInvalidBudget(
-                              option,
+                              option as string,
                               dropdown.accessor,
                             )}
                           >{`£${option}`}</option>
                         ) : (
-                          <option value={option} key={option}>
-                            {option}
+                          <option
+                            value={(option as IFiltersChildren)?.slug || ''}
+                            key={(option as IFiltersChildren)?.slug || ''}
+                          >
+                            {(option as IFiltersChildren)?.label || ''}
                           </option>
                         ),
                       )}
@@ -678,10 +722,7 @@ const FiltersContainer = ({
                     {choiceBoxesData[filter.accessor]?.length > 0 && (
                       <Choiceboxes
                         onSubmit={value =>
-                          handleChecked(
-                            value,
-                            filter.accessor as keyof typeof filtersMapper,
-                          )
+                          handleChecked(value, filter.accessor as any)
                         }
                         choices={
                           isPickups || isModelPage || isDynamicFilterPage
