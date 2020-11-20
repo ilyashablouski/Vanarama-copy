@@ -46,7 +46,7 @@ module.exports = {
 
     // Rewrites.
     async rewrites() {
-      if (process.env.LOCAL === 'true') {
+      if (process.env.LOCAL) {
         const rewriteList = await fetchRewritesList();
 
         return rewriteList;
