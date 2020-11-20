@@ -1,5 +1,9 @@
 /* eslint-disable import/prefer-default-export */
-import { gql } from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
+import {
+  PageCollection,
+  PageCollectionVariables,
+} from '../../generated/PageCollection';
 
 export const PAGE_COLLECTION = gql`
   query PageCollection($pageType: String!, $limit: Int, $skip: Int) {
@@ -14,3 +18,17 @@ export const PAGE_COLLECTION = gql`
     }
   }
 `;
+
+export function usePageCollection(
+  pageType: string,
+  limit?: number,
+  skip?: number,
+) {
+  return useQuery<PageCollection, PageCollectionVariables>(PAGE_COLLECTION, {
+    variables: {
+      pageType,
+      limit,
+      skip,
+    },
+  });
+}

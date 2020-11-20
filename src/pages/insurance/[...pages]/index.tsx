@@ -10,6 +10,11 @@ import {
 } from '../../../gql/genericPage';
 import FinanceGapInsuranceContainer from '../../../containers/FinanceGapInsuranceContainer/FinanceGapInsuranceContainer';
 import createApolloClient from '../../../apolloClient';
+import {
+  PageCollection,
+  PageCollectionVariables,
+} from '../../../../generated/PageCollection';
+import { getPathsFromPageCollection } from '../../../utils/pageSlugs';
 
 const MultiYearInsurancePage: NextPage<IInsurancePage> = ({
   data,
@@ -19,16 +24,18 @@ const MultiYearInsurancePage: NextPage<IInsurancePage> = ({
   if (error) {
     return <DefaultErrorPage statusCode={404} />;
   }
+  const genericPage = data?.genericPage;
 
-  const sections = data?.genericPage?.sections;
-  const intro = data?.genericPage?.intro;
+  const sections = genericPage?.sections;
+  const intro = genericPage?.intro;
   const breadcrumbsItems = breadcrumbsData?.genericPage.metaData.breadcrumbs;
+  const title = genericPage?.metaData.title;
 
-  if (data?.genericPage.metaData.title?.includes('Thank You')) {
+  if (title?.includes('Thank You')) {
     return <ThankYouContainer sections={sections} />;
   }
 
-  if (data?.genericPage.metaData.title?.includes('FAQ')) {
+  if (title?.includes('FAQ')) {
     return (
       <FAQContainer
         title={data?.genericPage.metaData.name}
@@ -48,18 +55,16 @@ const MultiYearInsurancePage: NextPage<IInsurancePage> = ({
 
 export async function getStaticPaths() {
   const client = createApolloClient({});
-  const { data } = await client.query({
+  const { data } = await client.query<PageCollection, PageCollectionVariables>({
     query: PAGE_COLLECTION,
     variables: {
       pageType: 'Insurance',
     },
   });
-  const paths = data.pageCollection.items
-    .filter(item => item.slug.split('/').length > 1)
-    .map(item => `/${item.slug}`);
+  const items = data?.pageCollection?.items;
 
   return {
-    paths,
+    paths: getPathsFromPageCollection(items),
     fallback: false,
   };
 }
@@ -67,18 +72,18 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const insurances = context?.params?.insurances as string[];
+    const paths = context?.params?.pages as string[];
 
     const { data, errors } = await client.query({
       query: GENERIC_PAGE,
       variables: {
-        slug: `insurance/${insurances?.join('/')}`,
+        slug: `insurance/${paths?.join('/')}`,
       },
     });
     const { data: breadcrumbsData } = await client.query({
       query: GENERIC_PAGE_BREADCRUMBS,
       variables: {
-        slug: `insurance/${insurances?.join('/')}`,
+        slug: `insurance/${paths?.join('/')}`,
       },
     });
     return {

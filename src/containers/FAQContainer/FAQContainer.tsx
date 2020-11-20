@@ -12,9 +12,9 @@ import {
 import RouterLink from '../../components/RouterLink/RouterLink';
 
 interface IProps {
-  sections: Section | null;
-  title: string | null;
-  intro: string | null;
+  sections: Section | null | undefined;
+  title: string | null | undefined;
+  intro: string | null | undefined;
 }
 
 const getAccordionItemsInside = (
