@@ -68,6 +68,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                 onClickTitle();
               }}
               dataTestId="menu-title"
+              withoutLink
             >
               <span>{title}</span>
             </RouterLink>
@@ -144,6 +145,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                   el.preventDefault();
                   setIsOpenMenu(null);
                 }}
+                withoutLink
               >
                 <span>{childrenLinks.label}</span>
               </RouterLink>

@@ -9,7 +9,6 @@ ARG ENV
 ARG GTM_ID
 ARG MICROBLINK_URL
 ARG ENABLE_DEV_TOOLS
-ARG HOSTNAME
 ARG PRERENDER_SERVICE_URL
 ARG IMG_OPTIMISATION_HOST
 ARG NODE_OPTIONS
@@ -29,8 +28,7 @@ COPY . .
 
 RUN npm rebuild node-sass
 
-# Build the app (this is now executed in "yarn start" command)
-RUN yarn build
+RUN yarn build && yarn --production
 
 EXPOSE 8080
 

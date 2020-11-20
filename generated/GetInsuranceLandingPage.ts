@@ -169,6 +169,12 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections_cards {
   cards: GetInsuranceLandingPage_insuranceLandingPage_sections_cards_cards[] | null;
 }
 
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_carousel_cards_link {
+  text: string | null;
+  url: string | null;
+  legacyUrl: string | null;
+}
+
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_carousel_cards_image_file {
   url: string;
 }
@@ -182,6 +188,7 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections_carousel_
   name: string | null;
   title: string | null;
   body: string | null;
+  link: GetInsuranceLandingPage_insuranceLandingPage_sections_carousel_cards_link | null;
   image: GetInsuranceLandingPage_insuranceLandingPage_sections_carousel_cards_image | null;
 }
 

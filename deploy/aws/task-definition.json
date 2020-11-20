@@ -84,10 +84,6 @@
           "value": "https://prerender-service-production.herokuapp.com/"
         },
         {
-          "name": "HOSTNAME",
-          "value": "https://%ALTERNATEDOMAIN%"
-        },
-        {
           "name": "MICROBLINK_URL",
           "value": "https://microblink-secure.motorama.com"
         }
