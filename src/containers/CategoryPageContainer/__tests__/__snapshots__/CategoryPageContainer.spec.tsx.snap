@@ -64,12 +64,12 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
           <div
             class="title -flex-h"
           >
-            <a
+            <span
               class="heading -black -lead"
               data-testid="withoutLink"
             >
               Category Titles
-            </a>
+            </span>
             <button
               class="button -teal -xsmall -solid -round"
             >
