@@ -22,12 +22,15 @@ import { vehicleList } from '../../../../generated/vehicleList';
 import { notFoundPageHandler } from '../../../utils/url';
 import { ISearchPageProps } from '../../../models/ISearchPageProps';
 import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
+import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
+import { filterList_filterList as IFilterList } from '../../../../generated/filterList';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
   vehiclesList?: vehicleList;
   productCardsData?: GetProductCard;
   responseCapIds?: string[];
+  filtersData?: IFilterList | undefined;
 }
 
 const Page: NextPage<IProps> = ({
@@ -39,6 +42,7 @@ const Page: NextPage<IProps> = ({
   responseCapIds,
   error,
   notFoundPageData,
+  filtersData,
 }) => {
   const router = useRouter();
 
@@ -79,6 +83,7 @@ const Page: NextPage<IProps> = ({
       preLoadVehiclesList={vehiclesList}
       preLoadProductCardsData={productCardsData}
       preLoadResponseCapIds={responseCapIds}
+      preLoadFiltersData={filtersData}
     />
   );
 };
@@ -107,8 +112,9 @@ export async function getServerSideProps(context: NextPageContext) {
             first: 9,
             sortField: SortField.availability,
             sortDirection: SortDirection.ASC,
-            manufacturerName: context?.query?.dynamicParam,
-            rangeName: context?.query?.rangeName,
+            manufacturerSlug: (context?.query
+              ?.dynamicParam as string).toLowerCase(),
+            rangeSlug: (context?.query?.rangeName as string).toLowerCase(),
           },
         })
         .then(resp => resp.data);
@@ -129,6 +135,16 @@ export async function getServerSideProps(context: NextPageContext) {
         return false;
       }
     }
+    const { data: filtersData } = await client.query({
+      query: GET_SEARCH_POD_DATA,
+      variables: {
+        onOffer: null,
+        vehicleTypes: [VehicleTypeEnum.LCV],
+        manufacturerSlug: (context?.query
+          ?.dynamicParam as string).toLowerCase(),
+        rangeSlug: (context?.query?.rangeName as string).toLowerCase(),
+      },
+    });
     return {
       props: {
         pageData: data,
@@ -138,6 +154,7 @@ export async function getServerSideProps(context: NextPageContext) {
         productCardsData: productCardsData || null,
         responseCapIds: responseCapIds || null,
         error: errors ? errors[0] : null,
+        filtersData: filtersData?.filterList || null,
       },
     };
   } catch {

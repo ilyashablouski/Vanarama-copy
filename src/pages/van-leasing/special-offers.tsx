@@ -110,11 +110,10 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
       offer: true,
     }).then(async (response: any) => {
       setProductSmallVan(response.data);
-      const capIds =
-        response.data.productCarousel
-          ?.map((el: any) => el?.capId)
-          .filter(Boolean) || [];
-      setProductSmallVanCapIds(capIds);
+      const capIds = response.data.productCarousel
+        ?.map((el: any) => el?.capId)
+        .filter(Boolean);
+      if (capIds) setProductSmallVanCapIds(capIds);
       getProductDerivatives({
         ids: capIds,
         vehicleType: VehicleTypeEnum.LCV,
@@ -128,11 +127,10 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
       offer: true,
     }).then(response => {
       setProductMediumVan(response.data);
-      const capIds =
-        response.data.productCarousel
-          ?.map((el: any) => el?.capId)
-          .filter(Boolean) || [];
-      setProductMediumVanCapIds(capIds);
+      const capIds = response.data.productCarousel
+        ?.map((el: any) => el?.capId)
+        .filter(Boolean);
+      if (capIds) setProductMediumVanCapIds(capIds);
       getProductDerivatives({
         ids: capIds,
         vehicleType: VehicleTypeEnum.LCV,
@@ -146,11 +144,10 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
       offer: true,
     }).then(response => {
       setProductLargeVan(response.data);
-      const capIds =
-        response.data.productCarousel
-          ?.map((el: any) => el?.capId)
-          .filter(Boolean) || [];
-      setProductLargeVanCapIds(capIds);
+      const capIds = response.data.productCarousel
+        ?.map((el: any) => el?.capId)
+        .filter(Boolean);
+      if (capIds) setProductLargeVanCapIds(capIds);
       getProductDerivatives({
         ids: capIds,
         vehicleType: VehicleTypeEnum.LCV,
@@ -164,11 +161,10 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
       offer: true,
     }).then(response => {
       setProductPickups(response.data);
-      const capIds =
-        response.data.productCarousel
-          ?.map((el: any) => el?.capId)
-          .filter(Boolean) || [];
-      setProductPickupsCapIds(capIds);
+      const capIds = response.data.productCarousel
+        ?.map((el: any) => el?.capId)
+        .filter(Boolean);
+      if (capIds) setProductPickupsCapIds(capIds);
       getProductDerivatives({
         ids: capIds,
         vehicleType: VehicleTypeEnum.LCV,
@@ -182,11 +178,10 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
       offer: true,
     }).then(response => {
       setProductSpecialistVan(response.data);
-      const capIds =
-        response.data.productCarousel
-          ?.map((el: any) => el?.capId)
-          .filter(Boolean) || [];
-      setProductSpecialistVanCapIds(capIds);
+      const capIds = response.data.productCarousel
+        ?.map((el: any) => el?.capId)
+        .filter(Boolean);
+      if (capIds) setProductSpecialistVanCapIds(capIds);
       getProductDerivatives({
         ids: capIds,
         vehicleType: VehicleTypeEnum.LCV,
@@ -200,11 +195,10 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
       offer: true,
     }).then(response => {
       setProductTippers(response.data);
-      const capIds =
-        response.data.productCarousel
-          ?.map((el: any) => el?.capId)
-          .filter(Boolean) || [];
-      setProductTippersCapIds(capIds);
+      const capIds = response.data.productCarousel
+        ?.map((el: any) => el?.capId)
+        .filter(Boolean);
+      if (capIds) setProductTippersCapIds(capIds);
       getProductDerivatives({
         ids: capIds,
         vehicleType: VehicleTypeEnum.LCV,
@@ -241,234 +235,260 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
           {data?.vanOffersPage.intro}
         </Text>
       </div>
-      <div className="row:bg-lighter">
-        <div>
-          <Heading size="large" color="black">
-            <span
-              style={{ textAlign: 'center', display: 'block' }}
-              className="-mb-400"
-            >
-              Best Small Van Lease Offers
-            </span>
-          </Heading>
-          <ProductCarousel
-            leaseType={
-              isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-            }
-            data={{
-              derivatives: productSmallVanDerivatives?.derivatives || null,
-              productCard: productSmallVan?.productCarousel || null,
-              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
-            }}
-            countItems={productSmallVan?.productCarousel?.length || 6}
-            dataTestIdBtn="van-view-offer"
-          />
-          <div className="-justify-content-row -pt-500">
-            <RouterLink
-              className="button"
-              classNames={{ color: 'teal', solid: true, size: 'regular' }}
-              link={{
-                label: 'See All Small Vans',
-                href: '/small-van-leasing.html',
-              }}
-              withoutDefaultClassName
-              dataTestId="small-van-leasing"
-            >
-              <div className="button--inner">See All Small Vans</div>
-            </RouterLink>
+
+      {productSmallVan?.productCarousel &&
+        productSmallVan?.productCarousel?.length > 0 && (
+          <div className="row:bg-lighter">
+            <div>
+              <Heading size="large" color="black">
+                <span
+                  style={{ textAlign: 'center', display: 'block' }}
+                  className="-mb-400"
+                >
+                  Best Small Van Lease Offers
+                </span>
+              </Heading>
+              <ProductCarousel
+                leaseType={
+                  isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+                }
+                data={{
+                  derivatives: productSmallVanDerivatives?.derivatives || null,
+                  productCard: productSmallVan?.productCarousel || null,
+                  vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                }}
+                countItems={productSmallVan?.productCarousel?.length || 6}
+                dataTestIdBtn="van-view-offer"
+              />
+              <div className="-justify-content-row -pt-500">
+                <RouterLink
+                  className="button"
+                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                  link={{
+                    label: 'See All Small Vans',
+                    href: '/small-van-leasing.html',
+                  }}
+                  withoutDefaultClassName
+                  dataTestId="small-van-leasing"
+                >
+                  <div className="button--inner">See All Small Vans</div>
+                </RouterLink>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="row:bg-lighter">
-        <div>
-          <Heading size="large" color="black">
-            <span
-              style={{ textAlign: 'center', display: 'block' }}
-              className="-mb-400"
-            >
-              Best Medium Van Lease Offers
-            </span>
-          </Heading>
-          <ProductCarousel
-            leaseType={
-              isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-            }
-            data={{
-              derivatives: productMediumVanDerivatives?.derivatives || null,
-              productCard: productMediumVan?.productCarousel || null,
-              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
-            }}
-            countItems={productMediumVan?.productCarousel?.length || 6}
-            dataTestIdBtn="van-view-offer"
-          />
-          <div className="-justify-content-row -pt-500">
-            <RouterLink
-              className="button"
-              classNames={{ color: 'teal', solid: true, size: 'regular' }}
-              link={{
-                label: 'See All Medium Vans',
-                href: '/medium-van-leasing.html',
-              }}
-              withoutDefaultClassName
-              dataTestId="medium-van-leasing"
-            >
-              <div className="button--inner">See All Medium Vans</div>
-            </RouterLink>
+        )}
+
+      {productMediumVan?.productCarousel &&
+        productMediumVan?.productCarousel?.length > 0 && (
+          <div className="row:bg-lighter">
+            <div>
+              <Heading size="large" color="black">
+                <span
+                  style={{ textAlign: 'center', display: 'block' }}
+                  className="-mb-400"
+                >
+                  Best Medium Van Lease Offers
+                </span>
+              </Heading>
+              <ProductCarousel
+                leaseType={
+                  isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+                }
+                data={{
+                  derivatives: productMediumVanDerivatives?.derivatives || null,
+                  productCard: productMediumVan?.productCarousel || null,
+                  vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                }}
+                countItems={productMediumVan?.productCarousel?.length || 6}
+                dataTestIdBtn="van-view-offer"
+              />
+              <div className="-justify-content-row -pt-500">
+                <RouterLink
+                  className="button"
+                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                  link={{
+                    label: 'See All Medium Vans',
+                    href: '/medium-van-leasing.html',
+                  }}
+                  withoutDefaultClassName
+                  dataTestId="medium-van-leasing"
+                >
+                  <div className="button--inner">See All Medium Vans</div>
+                </RouterLink>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="row:bg-lighter">
-        <div>
-          <Heading size="large" color="black">
-            <span
-              style={{ textAlign: 'center', display: 'block' }}
-              className="-mb-400"
-            >
-              Best Large Van Lease Offers
-            </span>
-          </Heading>
-          <ProductCarousel
-            leaseType={
-              isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-            }
-            data={{
-              derivatives: productLargeVanDerivatives?.derivatives || null,
-              productCard: productLargeVan?.productCarousel || null,
-              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
-            }}
-            countItems={productLargeVan?.productCarousel?.length || 6}
-            dataTestIdBtn="van-view-offer"
-          />
-          <div className="-justify-content-row -pt-500">
-            <RouterLink
-              className="button"
-              classNames={{ color: 'teal', solid: true, size: 'regular' }}
-              link={{
-                label: 'See All Large Vans',
-                href: '/large-van-leasing.html',
-              }}
-              withoutDefaultClassName
-              dataTestId="large-van-leasing"
-            >
-              <div className="button--inner">See All Large Vans</div>
-            </RouterLink>
+        )}
+
+      {productLargeVan?.productCarousel &&
+        productLargeVan?.productCarousel?.length > 0 && (
+          <div className="row:bg-lighter">
+            <div>
+              <Heading size="large" color="black">
+                <span
+                  style={{ textAlign: 'center', display: 'block' }}
+                  className="-mb-400"
+                >
+                  Best Large Van Lease Offers
+                </span>
+              </Heading>
+              <ProductCarousel
+                leaseType={
+                  isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+                }
+                data={{
+                  derivatives: productLargeVanDerivatives?.derivatives || null,
+                  productCard: productLargeVan?.productCarousel || null,
+                  vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                }}
+                countItems={productLargeVan?.productCarousel?.length || 6}
+                dataTestIdBtn="van-view-offer"
+              />
+              <div className="-justify-content-row -pt-500">
+                <RouterLink
+                  className="button"
+                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                  link={{
+                    label: 'See All Large Vans',
+                    href: '/large-van-leasing.html',
+                  }}
+                  withoutDefaultClassName
+                  dataTestId="large-van-leasing"
+                >
+                  <div className="button--inner">See All Large Vans</div>
+                </RouterLink>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="row:bg-lighter">
-        <div>
-          <Heading size="large" color="black">
-            <span
-              style={{ textAlign: 'center', display: 'block' }}
-              className="-mb-400"
-            >
-              Best Pickup Truck Lease Offers
-            </span>
-          </Heading>
-          <ProductCarousel
-            leaseType={
-              isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-            }
-            data={{
-              derivatives: productPickupsDerivatives?.derivatives || null,
-              productCard: productPickups?.productCarousel || null,
-              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
-            }}
-            countItems={productPickups?.productCarousel?.length || 6}
-            dataTestIdBtn="van-view-offer"
-          />
-          <div className="-justify-content-row -pt-500">
-            <RouterLink
-              className="button"
-              classNames={{ color: 'teal', solid: true, size: 'regular' }}
-              link={{
-                label: 'See All Pickup Vans',
-                href: '/pickup-special-offers.html',
-              }}
-              withoutDefaultClassName
-              dataTestId="pickup-special-offer"
-            >
-              <div className="button--inner">See All Pickup Vans</div>
-            </RouterLink>
+        )}
+
+      {productPickups?.productCarousel &&
+        productPickups?.productCarousel?.length > 0 && (
+          <div className="row:bg-lighter">
+            <div>
+              <Heading size="large" color="black">
+                <span
+                  style={{ textAlign: 'center', display: 'block' }}
+                  className="-mb-400"
+                >
+                  Best Pickup Truck Lease Offers
+                </span>
+              </Heading>
+              <ProductCarousel
+                leaseType={
+                  isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+                }
+                data={{
+                  derivatives: productPickupsDerivatives?.derivatives || null,
+                  productCard: productPickups?.productCarousel || null,
+                  vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                }}
+                countItems={productPickups?.productCarousel?.length || 6}
+                dataTestIdBtn="van-view-offer"
+              />
+              <div className="-justify-content-row -pt-500">
+                <RouterLink
+                  className="button"
+                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                  link={{
+                    label: 'See All Pickup Vans',
+                    href: '/pickup-special-offers.html',
+                  }}
+                  withoutDefaultClassName
+                  dataTestId="pickup-special-offer"
+                >
+                  <div className="button--inner">See All Pickup Vans</div>
+                </RouterLink>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="row:bg-lighter">
-        <div>
-          <Heading size="large" color="black">
-            <span
-              style={{ textAlign: 'center', display: 'block' }}
-              className="-mb-400"
-            >
-              Best Dropside Tipper Offers
-            </span>
-          </Heading>
-          <ProductCarousel
-            leaseType={
-              isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-            }
-            data={{
-              derivatives: productTippersDerivatives?.derivatives || null,
-              productCard: productTippers?.productCarousel || null,
-              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
-            }}
-            countItems={productTippers?.productCarousel?.length || 6}
-            dataTestIdBtn="van-view-offer"
-          />
-          <div className="-justify-content-row -pt-500">
-            <RouterLink
-              className="button"
-              classNames={{ color: 'teal', solid: true, size: 'regular' }}
-              link={{
-                label: 'See All Dropside Vans',
-                href: '/dropside-tipper-leasing.html',
-              }}
-              withoutDefaultClassName
-              dataTestId="dropside-tipper-leasing"
-            >
-              <div className="button--inner">See All Dropside Vans</div>
-            </RouterLink>
+        )}
+
+      {productTippers?.productCarousel &&
+        productTippers?.productCarousel?.length > 0 && (
+          <div className="row:bg-lighter">
+            <div>
+              <Heading size="large" color="black">
+                <span
+                  style={{ textAlign: 'center', display: 'block' }}
+                  className="-mb-400"
+                >
+                  Best Dropside Tipper Offers
+                </span>
+              </Heading>
+              <ProductCarousel
+                leaseType={
+                  isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+                }
+                data={{
+                  derivatives: productTippersDerivatives?.derivatives || null,
+                  productCard: productTippers?.productCarousel || null,
+                  vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                }}
+                countItems={productTippers?.productCarousel?.length || 6}
+                dataTestIdBtn="van-view-offer"
+              />
+              <div className="-justify-content-row -pt-500">
+                <RouterLink
+                  className="button"
+                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                  link={{
+                    label: 'See All Dropside Vans',
+                    href: '/dropside-tipper-leasing.html',
+                  }}
+                  withoutDefaultClassName
+                  dataTestId="dropside-tipper-leasing"
+                >
+                  <div className="button--inner">See All Dropside Vans</div>
+                </RouterLink>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="row:bg-lighter">
-        <div>
-          <Heading size="large" color="black">
-            <span
-              style={{ textAlign: 'center', display: 'block' }}
-              className="-mb-400"
-            >
-              Specialist Van Lease Offers
-            </span>
-          </Heading>
-          <ProductCarousel
-            leaseType={
-              isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-            }
-            data={{
-              derivatives: productSpecialistVanDerivatives?.derivatives || null,
-              productCard: productSpecialistVan?.productCarousel || null,
-              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
-            }}
-            countItems={productSpecialistVan?.productCarousel?.length || 6}
-            dataTestIdBtn="van-view-offer"
-          />
-          <div className="-justify-content-row -pt-500">
-            <RouterLink
-              className="button"
-              classNames={{ color: 'teal', solid: true, size: 'regular' }}
-              link={{
-                label: 'See All Specialist Vans',
-                href: '/crew-vans.html',
-              }}
-              withoutDefaultClassName
-              dataTestId="crew-vans"
-            >
-              <div className="button--inner">See All Specialist Vans</div>
-            </RouterLink>
+        )}
+
+      {productSpecialistVan?.productCarousel &&
+        productSpecialistVan?.productCarousel?.length > 0 && (
+          <div className="row:bg-lighter">
+            <div>
+              <Heading size="large" color="black">
+                <span
+                  style={{ textAlign: 'center', display: 'block' }}
+                  className="-mb-400"
+                >
+                  Specialist Van Lease Offers
+                </span>
+              </Heading>
+              <ProductCarousel
+                leaseType={
+                  isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+                }
+                data={{
+                  derivatives:
+                    productSpecialistVanDerivatives?.derivatives || null,
+                  productCard: productSpecialistVan?.productCarousel || null,
+                  vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                }}
+                countItems={productSpecialistVan?.productCarousel?.length || 6}
+                dataTestIdBtn="van-view-offer"
+              />
+              <div className="-justify-content-row -pt-500">
+                <RouterLink
+                  className="button"
+                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                  link={{
+                    label: 'See All Specialist Vans',
+                    href: '/crew-vans.html',
+                  }}
+                  withoutDefaultClassName
+                  dataTestId="crew-vans"
+                >
+                  <div className="button--inner">See All Specialist Vans</div>
+                </RouterLink>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        )}
+
       <div className="row:text -columns">
         <ReactMarkdown
           allowDangerousHtml

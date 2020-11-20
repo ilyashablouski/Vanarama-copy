@@ -58,7 +58,7 @@ export interface GetMyOrders_myOrders {
 
 export interface GetMyOrders {
   /**
-   * Get orders by party_uuid and filter
+   * Get orders by party_uuids and filter
    */
   myOrders: GetMyOrders_myOrders[];
 }
