@@ -20,14 +20,18 @@ describe('<SearchPod />', () => {
       hasVansMakeSelected: false,
       vansCachedData: {
         vehicleTypes: ['LCV'],
-        groupedRanges: [
+        groupedRangesWithSlug: [
           {
-            parent: 'Citroën',
-            children: ['Berlingo', 'Dispatch', 'Relay'],
+            parent: { label: 'Citroën', slug: 'Citroën' },
+            children: [
+              { label: 'Berlingo', slug: 'Berlingo' },
+              { label: 'Dispatch', slug: 'Dispatch' },
+              { label: 'Relay', slug: 'Relay' },
+            ],
           },
           {
-            parent: 'Dacia',
-            children: ['Duster'],
+            parent: { label: 'Dacia', slug: 'Dacia' },
+            children: [{ label: 'Duster', slug: 'Duster' }],
           },
         ],
         bodyStyles: ['Dropside Tipper', 'Large Van'],

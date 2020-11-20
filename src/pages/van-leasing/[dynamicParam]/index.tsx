@@ -130,6 +130,7 @@ export async function getServerSideProps(context: NextPageContext) {
   let vehiclesList;
   let productCardsData;
   let responseCapIds;
+  const filter = {} as any;
   // check for bodystyle page
   const isBodyStylePage = !!bodyUrls.find(
     getBodyStyleForCms,
@@ -143,7 +144,6 @@ export async function getServerSideProps(context: NextPageContext) {
     isMakePage: !(isBodyStylePage || isTransmissionPage),
   };
   if (isBodyStylePage || isTransmissionPage) {
-    const filter = {} as any;
     if (isBodyStylePage) {
       newQuery.bodyStyles = (query.dynamicParam as string)
         .replace('-', ' ')
@@ -186,7 +186,8 @@ export async function getServerSideProps(context: NextPageContext) {
       }
     }
   } else {
-    newQuery.make = query.dynamicParam;
+    newQuery.make = (query.dynamicParam as string).toLowerCase();
+    filter.manufacturerSlug = newQuery.make;
     ranges = await client
       .query({
         query: GET_RANGES,
@@ -198,16 +199,16 @@ export async function getServerSideProps(context: NextPageContext) {
       })
       .then(resp => resp.data);
   }
-
-  const [type] =
-    Object.entries(pageType).find(([, value]) => value === true) || '';
   const { data: filtersData } = await client.query({
     query: GET_SEARCH_POD_DATA,
     variables: {
       onOffer: null,
       vehicleTypes: [VehicleTypeEnum.LCV],
+      ...filter,
     },
   });
+  const [type] =
+    Object.entries(pageType).find(([, value]) => value === true) || '';
   try {
     const { data, errors } = (await ssrCMSQueryExecutor(
       client,

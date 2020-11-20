@@ -37,8 +37,8 @@ export const GET_VEHICLE_LIST = gql`
     $vehicleTypes: [VehicleTypeEnum!]
     $onOffer: Boolean
     $after: String
-    $manufacturerName: String
-    $rangeName: String
+    $manufacturerSlug: String
+    $rangeSlug: String
     $rate: RateInputObject
     $bodyStyles: [String!]
     $transmissions: [String!]
@@ -54,8 +54,8 @@ export const GET_VEHICLE_LIST = gql`
       filter: {
         vehicleTypes: $vehicleTypes
         onOffer: $onOffer
-        manufacturerName: $manufacturerName
-        rangeName: $rangeName
+        manufacturerSlug: $manufacturerSlug
+        rangeSlug: $rangeSlug
         rate: $rate
         bodyStyles: $bodyStyles
         transmissions: $transmissions
@@ -110,8 +110,8 @@ export function useVehiclesList(
   first = 9,
   after?: string,
   bodyStyles?: string[],
-  manufacturerName?: string,
-  rangeName?: string,
+  manufacturerSlug?: string,
+  rangeSlug?: string,
   rate?: RateInputObject,
   transmissions?: string[],
   fuelTypes?: string[],
@@ -125,8 +125,8 @@ export function useVehiclesList(
       leaseType,
       onOffer,
       after,
-      manufacturerName,
-      rangeName,
+      manufacturerSlug,
+      rangeSlug,
       rate,
       bodyStyles,
       transmissions,
@@ -243,14 +243,14 @@ export const GET_BODY_STYLES = gql`
   query bodyStyleList(
     $vehicleTypes: VehicleTypeEnum
     $leaseType: LeaseTypeEnum
-    $manufacturerName: String!
-    $rangeName: String!
+    $manufacturerSlug: String!
+    $rangeSlug: String!
   ) {
     bodyStyleList(
       filter: {
         vehicleType: $vehicleTypes
-        manufacturerName: $manufacturerName
-        rangeName: $rangeName
+        manufacturerSlug: $manufacturerSlug
+        rangeSlug: $rangeSlug
         leaseType: $leaseType
       }
     ) {
@@ -265,16 +265,16 @@ export const GET_BODY_STYLES = gql`
 export function useBodyStyleList(
   vehicleTypes: VehicleTypeEnum,
   leaseType: LeaseTypeEnum,
-  manufacturerName: string,
-  rangeName: string,
+  manufacturerSlug: string,
+  rangeSlug: string,
 ) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   return useLazyQuery<bodyStyleList, bodyStyleListVariables>(GET_BODY_STYLES, {
     variables: {
       vehicleTypes,
-      manufacturerName,
+      manufacturerSlug,
       leaseType,
-      rangeName,
+      rangeSlug,
     },
   });
 }

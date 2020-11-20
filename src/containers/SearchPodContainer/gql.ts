@@ -6,8 +6,8 @@ export const GET_SEARCH_POD_DATA = gql`
   query filterList(
     $vehicleTypes: [VehicleTypeEnum!]
     $onOffer: Boolean
-    $manufacturerName: String
-    $rangeName: String
+    $manufacturerSlug: String
+    $rangeSlug: String
     $bodyStyles: [String!]
     $transmissions: [String!]
     $fuelTypes: [String!]
@@ -16,17 +16,23 @@ export const GET_SEARCH_POD_DATA = gql`
       filter: {
         vehicleTypes: $vehicleTypes
         onOffer: $onOffer
-        manufacturerName: $manufacturerName
-        rangeName: $rangeName
+        manufacturerSlug: $manufacturerSlug
+        rangeSlug: $rangeSlug
         bodyStyles: $bodyStyles
         transmissions: $transmissions
         fuelTypes: $fuelTypes
       }
     ) {
       vehicleTypes
-      groupedRanges {
-        parent
-        children
+      groupedRangesWithSlug {
+        parent {
+          label
+          slug
+        }
+        children {
+          label
+          slug
+        }
       }
       bodyStyles
       transmissions
@@ -57,15 +63,15 @@ export function useFilterList(
 export const GET_TYPE_AND_BUDGET_DATA = gql`
   query filterTypeAndBudget(
     $vehicleTypes: [VehicleTypeEnum!]
-    $manufacturerName: String
-    $rangeName: String
+    $manufacturerSlug: String
+    $rangeSlug: String
     $bodyStyles: [String!]
   ) {
     filterList(
       filter: {
         vehicleTypes: $vehicleTypes
-        manufacturerName: $manufacturerName
-        rangeName: $rangeName
+        manufacturerSlug: $manufacturerSlug
+        rangeSlug: $rangeSlug
         bodyStyles: $bodyStyles
       }
     ) {
@@ -73,9 +79,15 @@ export const GET_TYPE_AND_BUDGET_DATA = gql`
       bodyStyles
       financeProfilesRateMax
       financeProfilesRateMin
-      groupedRanges {
-        parent
-        children
+      groupedRangesWithSlug {
+        parent {
+          label
+          slug
+        }
+        children {
+          label
+          slug
+        }
       }
     }
   }
@@ -83,7 +95,7 @@ export const GET_TYPE_AND_BUDGET_DATA = gql`
 
 export function filterTypeAndBudget(
   vehicleTypes: string[],
-  manufacturerName?: string,
+  manufacturerSlug?: string,
   rangeName?: string,
   bodyStyles?: string[],
   onCompleted?: (data: IFilterTypeAndBudget) => void,
@@ -93,7 +105,7 @@ export function filterTypeAndBudget(
     onCompleted,
     variables: {
       vehicleTypes,
-      manufacturerName,
+      manufacturerSlug,
       rangeName,
       bodyStyles,
     },
