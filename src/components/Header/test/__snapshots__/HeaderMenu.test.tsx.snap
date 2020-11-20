@@ -11,13 +11,17 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
     <li
       className="menu-li menu-title"
     >
-      <a
-        className="link"
+      <button
+        className="link -black -regular -clear"
         data-testid="menu-title"
         onClick={[Function]}
       >
-        Menu
-      </a>
+        <div
+          className="button--inner"
+        >
+          Menu
+        </div>
+      </button>
     </li>
     <li
       className="menu-li -highlight"
@@ -79,15 +83,17 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
+              <button
+                className="link -black -regular -clear"
                 data-testid="menu-title"
                 onClick={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Vans
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -highlight"
@@ -175,15 +181,17 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
-                data-testid="withoutLink"
+              <button
+                className="link -black -regular -clear"
+                data-testid="menu-tertiary-title"
                 onClick={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Vans By Manufacturer
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -span-half"
@@ -422,15 +430,17 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
+              <button
+                className="link -black -regular -clear"
                 data-testid="menu-title"
                 onClick={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Pickups
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -highlight"
@@ -496,15 +506,17 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
-                data-testid="withoutLink"
+              <button
+                className="link -black -regular -clear"
+                data-testid="menu-tertiary-title"
                 onClick={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Pickups By Manufacturer
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -span-half"
@@ -743,15 +755,17 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
+              <button
+                className="link -black -regular -clear"
                 data-testid="menu-title"
                 onClick={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Cars
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -highlight"
@@ -834,15 +848,17 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
-                data-testid="withoutLink"
+              <button
+                className="link -black -regular -clear"
+                data-testid="menu-tertiary-title"
                 onClick={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Cars By Manufacturer
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -span-half"
@@ -1209,15 +1225,17 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
+              <button
+                className="link -black -regular -clear"
                 data-testid="menu-title"
                 onClick={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Insurance
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li"
@@ -1343,13 +1361,17 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
     <li
       className="menu-li menu-title"
     >
-      <a
-        className="link"
+      <button
+        className="link -black -regular -clear"
         data-testid="menu-title"
         onClick={[Function]}
       >
-        Menu
-      </a>
+        <div
+          className="button--inner"
+        >
+          Menu
+        </div>
+      </button>
     </li>
     <li
       className="menu-li -highlight"
@@ -1411,15 +1433,17 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
+              <button
+                className="link -black -regular -clear"
                 data-testid="menu-title"
                 onClick={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Vans
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -highlight"
@@ -1507,15 +1531,17 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
-                data-testid="withoutLink"
+              <button
+                className="link -black -regular -clear"
+                data-testid="menu-tertiary-title"
                 onClick={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Vans By Manufacturer
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -span-half"
@@ -1754,15 +1780,17 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
+              <button
+                className="link -black -regular -clear"
                 data-testid="menu-title"
                 onClick={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Pickups
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -highlight"
@@ -1828,15 +1856,17 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
-                data-testid="withoutLink"
+              <button
+                className="link -black -regular -clear"
+                data-testid="menu-tertiary-title"
                 onClick={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Pickups By Manufacturer
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -span-half"
@@ -2075,15 +2105,17 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
+              <button
+                className="link -black -regular -clear"
                 data-testid="menu-title"
                 onClick={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Cars
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -highlight"
@@ -2166,15 +2198,17 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
-                data-testid="withoutLink"
+              <button
+                className="link -black -regular -clear"
+                data-testid="menu-tertiary-title"
                 onClick={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Cars By Manufacturer
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -span-half"
@@ -2541,15 +2575,17 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
+              <button
+                className="link -black -regular -clear"
                 data-testid="menu-title"
                 onClick={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Insurance
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li"

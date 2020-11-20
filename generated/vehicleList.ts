@@ -89,8 +89,8 @@ export interface vehicleListVariables {
   vehicleTypes?: VehicleTypeEnum[] | null;
   onOffer?: boolean | null;
   after?: string | null;
-  manufacturerName?: string | null;
-  rangeName?: string | null;
+  manufacturerSlug?: string | null;
+  rangeSlug?: string | null;
   rate?: RateInputObject | null;
   bodyStyles?: string[] | null;
   transmissions?: string[] | null;

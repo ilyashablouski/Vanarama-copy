@@ -15,7 +15,10 @@ import {
   budgetBetween,
   getBudgetForQuery,
 } from './helpers';
-import { filterList_filterList as IFilterList } from '../../../generated/filterList';
+import {
+  filterList_filterList as IFilterList,
+  filterList_filterList_groupedRangesWithSlug_children as IFiltersListOptions,
+} from '../../../generated/filterList';
 
 enum Tabs {
   'LCV' = 1,
@@ -29,7 +32,7 @@ const SearchPodContainer = () => {
 
   const [vansDataCache, setVansDataCache] = useState({} as IFilterList);
   const [carsDataCache, setCarsDataCache] = useState({} as IFilterList);
-  const [pickupMakes, setPickupMakes] = useState([] as string[]);
+  const [pickupMakes, setPickupMakes] = useState([{}] as IFiltersListOptions[]);
 
   const [config, setConfig] = useState([] as any);
   const [headingText, setHeadingText] = useState('Search Vans');
@@ -42,11 +45,11 @@ const SearchPodContainer = () => {
   const [typeVans, setTypesVans] = useState(['']);
   const [typeCars, setTypesCars] = useState(['']);
 
-  const [makeVans, setMakesVans] = useState(['']);
-  const [makeCars, setMakesCars] = useState(['']);
+  const [makeVans, setMakesVans] = useState([{}] as IFiltersListOptions[]);
+  const [makeCars, setMakesCars] = useState([{}] as IFiltersListOptions[]);
 
-  const [modelVans, setModelsVans] = useState(['']);
-  const [modelCars, setModelsCars] = useState(['']);
+  const [modelVans, setModelsVans] = useState([{}] as IFiltersListOptions[]);
+  const [modelCars, setModelsCars] = useState([{}] as IFiltersListOptions[]);
   // using for auto make select if Vans model was selected without make
   const [modelVansTemp, setModelsVansTemp] = useState('');
 
@@ -160,7 +163,10 @@ const SearchPodContainer = () => {
 
   // set actual models value for a specific manufacturer
   useEffect(() => {
-    if (vansDataCache.groupedRanges || carsDataCache.groupedRanges) {
+    if (
+      vansDataCache.groupedRangesWithSlug ||
+      carsDataCache.groupedRangesWithSlug
+    ) {
       if (activeIndex === 1) {
         setModelsVans(modelHandler(vansDataCache, selectMakeVans));
       } else {
@@ -178,10 +184,10 @@ const SearchPodContainer = () => {
   useEffect(() => {
     if (!selectMakeVans && getValues('modelVans')) {
       setModelsVansTemp(selectModelVans);
-      const parent = vansDataCache.groupedRanges?.find(range =>
-        range.children.includes(selectModelVans),
+      const parent = vansDataCache.groupedRangesWithSlug?.find(range =>
+        range.children.some(ranges => ranges.slug === selectModelVans),
       );
-      setValue('makeVans', parent?.parent);
+      setValue('makeVans', parent?.parent.slug);
     } else if (modelVansTemp && selectMakeVans && !selectModelVans) {
       // return back a model value because auto change make call a rerender options list
       setValue('modelVans', modelVansTemp);
@@ -193,7 +199,7 @@ const SearchPodContainer = () => {
     modelVansTemp,
     setValue,
     getValues,
-    vansDataCache.groupedRanges,
+    vansDataCache.groupedRangesWithSlug,
   ]);
 
   // refetch body types and budgets for selected vehicle

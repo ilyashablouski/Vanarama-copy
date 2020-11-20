@@ -122,8 +122,11 @@ const TopOffersContainer: React.FC<IProps> = ({
   const [getBodyStylesList, { data }] = useBodyStyleList(
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
-    router.query.dynamicParam as string,
-    ((router.query?.rangeName as string) || '').split('+').join(' '),
+    (router.query.dynamicParam as string).toLowerCase(),
+    ((router.query?.rangeName as string) || '')
+      .split('+')
+      .join(' ')
+      .toLowerCase(),
   );
 
   useEffect(() => {
@@ -151,9 +154,9 @@ const TopOffersContainer: React.FC<IProps> = ({
           onOffer: true,
           sortField: SortField.offerRanking,
           sortDirection: SortDirection.ASC,
-          manufacturerName:
+          manufacturerSlug:
             isMakePage || isRangePage
-              ? (router.query?.dynamicParam as string)
+              ? (router.query?.dynamicParam as string).toLowerCase()
               : undefined,
           bodyStyles: isBodyPage ? manualBodyStyle : undefined,
           transmissions: isTransmissionPage
@@ -164,8 +167,11 @@ const TopOffersContainer: React.FC<IProps> = ({
                 router.query.dynamicParam as keyof typeof fuelMapper
               ] as string).split(',')
             : undefined,
-          rangeName: isRangePage
-            ? ((router.query?.rangeName as string) || '').split('+').join(' ')
+          rangeSlug: isRangePage
+            ? ((router.query?.rangeName as string) || '')
+                .split('+')
+                .join(' ')
+                .toLowerCase()
             : '',
           first: isMakePage ? 6 : 3,
         },
@@ -205,8 +211,8 @@ const TopOffersContainer: React.FC<IProps> = ({
           onOffer: true,
           sortField: SortField.offerRanking,
           sortDirection: SortDirection.ASC,
-          manufacturerName: isMakePage
-            ? (router.query?.dynamicParam as string)
+          manufacturerSlug: isMakePage
+            ? (router.query?.dynamicParam as string).toLowerCase()
             : undefined,
           bodyStyles: isBodyPage
             ? [router.query?.dynamicParam as string]
