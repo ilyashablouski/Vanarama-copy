@@ -1,8 +1,10 @@
+import { filterList_filterList_groupedRangesWithSlug_children as IOptionsDropdown } from '../../../generated/filterList';
+
 export interface ISearchPodProps {
   activeTab: number;
   onChangeTab: (index: number) => void;
   config: ITabsConfig[];
-  getOptions: (accessor: any) => string[];
+  getOptions: (accessor: any) => Array<string | IOptionsDropdown>;
   onSearch: (tabType: string) => void;
   registerDropdown: () => void;
   hasCarMakeSelected: boolean;

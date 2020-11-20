@@ -14,8 +14,8 @@ export const buildRewriteRoute = (
   {
     transmissions,
     bodyStyles,
-    rangeName,
-    manufacturerName: make,
+    rangeSlug: rangeName,
+    manufacturerSlug: make,
     rate,
     fuelTypes,
   }: IFilters,
