@@ -110,11 +110,10 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
       offer: true,
     }).then(async (response: any) => {
       setProductSmallVan(response.data);
-      const capIds =
-        response.data.productCarousel
-          ?.map((el: any) => el?.capId)
-          .filter(Boolean) || [];
-      setProductSmallVanCapIds(capIds);
+      const capIds = response.data.productCarousel
+        ?.map((el: any) => el?.capId)
+        .filter(Boolean);
+      if (capIds) setProductSmallVanCapIds(capIds);
       getProductDerivatives({
         ids: capIds,
         vehicleType: VehicleTypeEnum.LCV,
@@ -128,11 +127,10 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
       offer: true,
     }).then(response => {
       setProductMediumVan(response.data);
-      const capIds =
-        response.data.productCarousel
-          ?.map((el: any) => el?.capId)
-          .filter(Boolean) || [];
-      setProductMediumVanCapIds(capIds);
+      const capIds = response.data.productCarousel
+        ?.map((el: any) => el?.capId)
+        .filter(Boolean);
+      if (capIds) setProductMediumVanCapIds(capIds);
       getProductDerivatives({
         ids: capIds,
         vehicleType: VehicleTypeEnum.LCV,
@@ -146,11 +144,10 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
       offer: true,
     }).then(response => {
       setProductLargeVan(response.data);
-      const capIds =
-        response.data.productCarousel
-          ?.map((el: any) => el?.capId)
-          .filter(Boolean) || [];
-      setProductLargeVanCapIds(capIds);
+      const capIds = response.data.productCarousel
+        ?.map((el: any) => el?.capId)
+        .filter(Boolean);
+      if (capIds) setProductLargeVanCapIds(capIds);
       getProductDerivatives({
         ids: capIds,
         vehicleType: VehicleTypeEnum.LCV,
@@ -164,11 +161,10 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
       offer: true,
     }).then(response => {
       setProductPickups(response.data);
-      const capIds =
-        response.data.productCarousel
-          ?.map((el: any) => el?.capId)
-          .filter(Boolean) || [];
-      setProductPickupsCapIds(capIds);
+      const capIds = response.data.productCarousel
+        ?.map((el: any) => el?.capId)
+        .filter(Boolean);
+      if (capIds) setProductPickupsCapIds(capIds);
       getProductDerivatives({
         ids: capIds,
         vehicleType: VehicleTypeEnum.LCV,
@@ -182,11 +178,10 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
       offer: true,
     }).then(response => {
       setProductSpecialistVan(response.data);
-      const capIds =
-        response.data.productCarousel
-          ?.map((el: any) => el?.capId)
-          .filter(Boolean) || [];
-      setProductSpecialistVanCapIds(capIds);
+      const capIds = response.data.productCarousel
+        ?.map((el: any) => el?.capId)
+        .filter(Boolean);
+      if (capIds) setProductSpecialistVanCapIds(capIds);
       getProductDerivatives({
         ids: capIds,
         vehicleType: VehicleTypeEnum.LCV,
@@ -200,11 +195,10 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
       offer: true,
     }).then(response => {
       setProductTippers(response.data);
-      const capIds =
-        response.data.productCarousel
-          ?.map((el: any) => el?.capId)
-          .filter(Boolean) || [];
-      setProductTippersCapIds(capIds);
+      const capIds = response.data.productCarousel
+        ?.map((el: any) => el?.capId)
+        .filter(Boolean);
+      if (capIds) setProductTippersCapIds(capIds);
       getProductDerivatives({
         ids: capIds,
         vehicleType: VehicleTypeEnum.LCV,
