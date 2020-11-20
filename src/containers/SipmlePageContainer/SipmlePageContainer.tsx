@@ -53,6 +53,7 @@ const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
       )}
       <div className="row:text -columns">
         <ReactMarkdown
+          className="markdown"
           allowDangerousHtml
           source={data?.genericPage.body || ''}
           renderers={{
