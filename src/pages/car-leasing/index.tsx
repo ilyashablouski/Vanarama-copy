@@ -60,9 +60,9 @@ export const CarsPage: NextPage = () => {
     },
   );
 
-  const productsCapIds = products?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
+  const productsCapIds = products?.productCarousel
+    ?.map(el => el?.capId || '')
+    .filter(Boolean) || [''];
   const vehicleListUrlQuery = useVehicleListUrl(productsCapIds);
 
   useVehicleListUrlFetchMore(vehicleListUrlQuery, productsCapIds);

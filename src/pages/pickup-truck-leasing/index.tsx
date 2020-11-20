@@ -75,9 +75,9 @@ export const PickupsPage: NextPage = () => {
     },
   });
 
-  const productsPickupsCapIds = products?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
+  const productsPickupsCapIds = products?.productCarousel
+    ?.map(el => el?.capId || '')
+    .filter(Boolean) || [''];
   const vehicleListUrlQuery = useVehicleListUrl(productsPickupsCapIds);
 
   useVehicleListUrlFetchMore(vehicleListUrlQuery, productsPickupsCapIds);

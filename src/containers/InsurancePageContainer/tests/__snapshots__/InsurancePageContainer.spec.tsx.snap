@@ -54,6 +54,88 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
               >
                 Contact Us
               </p>
+              <section
+                class="structured-list -styled-headers -small -opening-times"
+              >
+                <div
+                  class="structured-list-tbody"
+                >
+                  <div
+                    class="structured-list-row "
+                  >
+                    <div
+                      class="structured-list-td structured-list-content--nowrap"
+                      data-testid="data_id-0-Monday–Thursday"
+                    >
+                      Monday–Thursday
+                    </div>
+                    <div
+                      class="structured-list-td"
+                    >
+                      8:30am–7pm
+                    </div>
+                  </div>
+                  <div
+                    class="structured-list-row "
+                  >
+                    <div
+                      class="structured-list-td structured-list-content--nowrap"
+                      data-testid="data_id-1-Friday"
+                    >
+                      Friday
+                    </div>
+                    <div
+                      class="structured-list-td"
+                    >
+                      9am–5pm
+                    </div>
+                  </div>
+                  <div
+                    class="structured-list-row "
+                  >
+                    <div
+                      class="structured-list-td structured-list-content--nowrap"
+                      data-testid="data_id-2-Saturday"
+                    >
+                      Saturday
+                    </div>
+                    <div
+                      class="structured-list-td"
+                    >
+                      9am–3pm
+                    </div>
+                  </div>
+                  <div
+                    class="structured-list-row "
+                  >
+                    <div
+                      class="structured-list-td structured-list-content--nowrap"
+                      data-testid="data_id-3-Sunday"
+                    >
+                      Sunday
+                    </div>
+                    <div
+                      class="structured-list-td"
+                    >
+                      Closed
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <a
+                class="link -primary -regular -plain"
+                href="tel:0144283817301442838173"
+              >
+                <button
+                  class="button -fullwidth -teal -large -solid"
+                >
+                  <div
+                    class="button--inner"
+                  >
+                    Call 01442 838173
+                  </div>
+                </button>
+              </a>
             </div>
           </div>
         </div>
@@ -662,13 +744,15 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                     </p>
                     <p>
                       <a
-                        class="link -teal -regular"
-                        data-testid="link"
                         href="https://beta.vanarama.com/car-leasing-explained/do-i-need-insurance-for-leased-car.html"
                       >
                         Read More
                       </a>
                     </p>
+                    <a
+                      class="link -teal -regular"
+                      data-testid="withoutLink"
+                    />
                   </div>
                 </li>
               </ul>
