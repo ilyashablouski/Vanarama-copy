@@ -14,15 +14,17 @@ exports[`<HeaderSecondaryMenu /> renders correctly 1`] = `
       <li
         className="menu-li menu-title"
       >
-        <a
-          className="link"
+        <button
+          className="link -black -regular -clear"
           data-testid="menu-title"
           onClick={[Function]}
         >
-          <span>
+          <div
+            className="button--inner"
+          >
             title
-          </span>
-        </a>
+          </div>
+        </button>
       </li>
       <li
         className="menu-li -highlight"
@@ -110,15 +112,17 @@ exports[`<HeaderSecondaryMenu /> renders correctly 1`] = `
       <li
         className="menu-li menu-title"
       >
-        <a
-          className="link"
-          data-testid="withoutLink"
+        <button
+          className="link -black -regular -clear"
+          data-testid="menu-tertiary-title"
           onClick={[Function]}
         >
-          <span>
+          <div
+            className="button--inner"
+          >
             Vans By Manufacturer
-          </span>
-        </a>
+          </div>
+        </button>
       </li>
       <li
         className="menu-li -span-half"
