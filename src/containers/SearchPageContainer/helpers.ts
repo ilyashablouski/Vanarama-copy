@@ -203,7 +203,7 @@ export const ssrCMSQueryExecutor = async (
     case 'isSpecialOfferPage':
       return onCallQuery(
         client,
-        GENERIC_PAGE_HEAD,
+        GENERIC_PAGE,
         `${
           isCarSearch ? 'car-leasing' : 'pickup-truck-leasing'
         }/special-offers`,
