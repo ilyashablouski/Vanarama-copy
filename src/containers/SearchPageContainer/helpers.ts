@@ -196,7 +196,7 @@ export const ssrCMSQueryExecutor = async (
       return onCallQuery(
         client,
         GENERIC_PAGE,
-        'van-leasing/automatic',
+        'van-leasing/automatic-van-leasing',
       );
     case 'isFuelPage':
       return onCallQuery(client, GENERIC_PAGE, slug);
