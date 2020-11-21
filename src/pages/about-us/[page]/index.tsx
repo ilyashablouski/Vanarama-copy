@@ -1,5 +1,6 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { ApolloError } from '@apollo/client';
+import DefaultErrorPage from 'next/error';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
 import withApollo from '../../../hocs/withApollo';
 import SimplePageContainer from '../../../containers/SipmlePageContainer/SipmlePageContainer';
@@ -15,6 +16,10 @@ interface IAboutUsPage {
 }
 
 const AboutUsPage: NextPage<IAboutUsPage> = ({ data, loading, error }) => {
+  if (error || !data) {
+    return <DefaultErrorPage statusCode={404} />;
+  }
+
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
@@ -46,20 +51,28 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-  const client = createApolloClient({}, context as NextPageContext);
-  const { data, loading, errors } = await client.query({
-    query: GENERIC_PAGE,
-    variables: {
-      slug: `about-us/${context?.params?.page}`,
-    },
-  });
-  return {
-    props: {
-      data,
-      loading,
-      error: errors ? errors[0] : null,
-    },
-  };
+  try {
+    const client = createApolloClient({}, context as NextPageContext);
+    const { data, loading, errors } = await client.query({
+      query: GENERIC_PAGE,
+      variables: {
+        slug: `about-us/${context?.params?.page}`,
+      },
+    });
+    return {
+      props: {
+        data,
+        loading,
+        error: errors ? errors[0] : null,
+      },
+    };
+  } catch {
+    return {
+      props: {
+        error: true,
+      },
+    };
+  }
 }
 
 export default withApollo(AboutUsPage);
