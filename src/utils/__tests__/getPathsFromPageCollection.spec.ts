@@ -20,19 +20,15 @@ const ITEMS = [
 const PATHS = ['/insurance/faq', '/insurance/tools-in-transit/thank-you'];
 
 describe('getPathsFromPageCollection', () => {
-  describe('getPathsFromPageCollection ', () => {
-    it('getPathsFromPageCollection should return correct paths', () => {
-      const paths = getPathsFromPageCollection(ITEMS);
+  it('getPathsFromPageCollection should return correct paths', () => {
+    const paths = getPathsFromPageCollection(ITEMS);
 
-      expect(paths).toEqual(PATHS);
-    });
+    expect(paths).toEqual(PATHS);
   });
 
-  describe('getPathsFromPageCollection ', () => {
-    it('getPathsFromPageCollection should return empty array', () => {
-      const paths = getPathsFromPageCollection([]);
+  it('getPathsFromPageCollection should return empty array', () => {
+    const paths = getPathsFromPageCollection([]);
 
-      expect(paths).toEqual([]);
-    });
+    expect(paths).toEqual([]);
   });
 });
