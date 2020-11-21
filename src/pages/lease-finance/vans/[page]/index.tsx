@@ -4,6 +4,7 @@ import FinanceInformationExplainedContainer from '../../../../containers/Finance
 import { GENERIC_PAGE, IGenericPage } from '../../../../gql/genericPage';
 import { getSectionsData } from '../../../../utils/getSectionsData';
 import createApolloClient from '../../../../apolloClient';
+import Breadcrumb from '../../../../components/Breadcrumb/Breadcrumb';
 
 const FinanceInfo: NextPage<IGenericPage> = ({ data, error }) => {
   if (error || !data?.genericPage) {
@@ -12,9 +13,18 @@ const FinanceInfo: NextPage<IGenericPage> = ({ data, error }) => {
 
   const title = getSectionsData(['metaData', 'name'], data?.genericPage);
   const sections = getSectionsData(['sections'], data?.genericPage);
+  const metaData = getSectionsData(['metaData'], data?.genericPage);
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
   return (
-    <FinanceInformationExplainedContainer title={title} sections={sections} />
+    <>
+      <div className="row:title">
+        <Breadcrumb items={breadcrumbsItems} />
+      </div>
+      <FinanceInformationExplainedContainer title={title} sections={sections} />
+    </>
   );
 };
 
