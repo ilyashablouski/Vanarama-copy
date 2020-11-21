@@ -193,11 +193,7 @@ export const ssrCMSQueryExecutor = async (
         )}`,
       );
     case 'isTransmissionPage':
-      return onCallQuery(
-        client,
-        GENERIC_PAGE,
-        'van-leasing/automatic',
-      );
+      return onCallQuery(client, GENERIC_PAGE, 'van-leasing/automatic');
     case 'isFuelPage':
       return onCallQuery(client, GENERIC_PAGE, slug);
     case 'isSpecialOfferPage':
