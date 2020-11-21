@@ -452,7 +452,7 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
       >
         <a
           class="link pagination--chevron -disabled -primary -regular -plain"
-          href=""
+          href="test/page"
         >
           <i
             class="icon"
@@ -474,13 +474,13 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
         </a>
         <a
           class="link pagination--item -active -primary -regular -plain"
-          href="/1"
+          href="test/page/1"
         >
           1
         </a>
         <a
           class="link pagination--chevron -disabled -primary -regular -plain"
-          href=""
+          href="test/page"
         >
           <i
             class="icon"

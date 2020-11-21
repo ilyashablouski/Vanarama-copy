@@ -31,6 +31,7 @@ export const GENERIC_PAGE_QUESTION = gql`
         slug
         publishedOn
         schema
+        breadcrumbs
       }
       sections {
         cards {

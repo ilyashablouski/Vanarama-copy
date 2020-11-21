@@ -1,24 +1,21 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
 import { IInsurancePage } from '../../../models/IInsuranceProps';
-import {
-  GENERIC_PAGE,
-  GENERIC_PAGE_BREADCRUMBS,
-} from '../../../gql/genericPage';
+import { GENERIC_PAGE } from '../../../gql/genericPage';
 import FinanceGapInsuranceContainer from '../../../containers/FinanceGapInsuranceContainer/FinanceGapInsuranceContainer';
 import createApolloClient from '../../../apolloClient';
+import { getSectionsData } from '../../../utils/getSectionsData';
 
-const MultiYearInsurancePage: NextPage<IInsurancePage> = ({
-  data,
-  breadcrumbsData,
-  error,
-}) => {
+const MultiYearInsurancePage: NextPage<IInsurancePage> = ({ data, error }) => {
   if (error) {
     return <DefaultErrorPage statusCode={404} />;
   }
 
-  const sections = data?.genericPage?.sections;
-  const breadcrumbsItems = breadcrumbsData?.genericPage.metaData.breadcrumbs;
+  const sections = getSectionsData(['sections'], data?.genericPage);
+  const breadcrumbsItems = getSectionsData(
+    ['metaData', 'breadcrumbs'],
+    data?.genericPage,
+  );
 
   return (
     <FinanceGapInsuranceContainer
@@ -37,16 +34,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: 'insurance/tools-in-transit',
       },
     });
-    const { data: breadcrumbsData } = await client.query({
-      query: GENERIC_PAGE_BREADCRUMBS,
-      variables: {
-        slug: 'insurance/tools-in-transit',
-      },
-    });
     return {
       props: {
         data,
-        breadcrumbsData,
         error: errors ? errors[0] : null,
       },
     };

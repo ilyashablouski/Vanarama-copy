@@ -8,6 +8,7 @@ export const GET_ABOUT_US_PAGE_DATA = gql`
       body
       metaData {
         name
+        breadcrumbs
       }
       featuredImage {
         file {

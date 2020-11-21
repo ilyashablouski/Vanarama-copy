@@ -330,33 +330,31 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             ['cards', 'cards'],
             data?.homePage?.sections,
           ) as CardData[])?.map((c: CardData, idx) => (
-            <Card
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              key={c.title || idx}
-              title={{
-                title: '',
-                withBtn: true,
-                link: (
-                  <Heading tag={getTitleTag(c.titleTag || 'span') as any}>
-                    <RouterLink
-                      link={{
-                        href: c.link?.legacyUrl || c.link?.url || '#',
-                        label: c.link?.text || '',
-                      }}
-                      className="heading"
-                      classNames={{ size: 'lead', color: 'black' }}
-                    >
-                      {c.title}
-                    </RouterLink>
-                  </Heading>
-                ),
+            <RouterLink
+              link={{
+                href: c.link?.legacyUrl || c.link?.url || '#',
+                label: c.link?.text || '',
               }}
-              imageSrc={
-                c.image?.file?.url ||
-                'https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/CitroenBerlingo0718_4_xjonps.jpg'
-              }
-              description={c.body || ''}
-            />
+            >
+              <Card
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                key={c.title || idx}
+                title={{
+                  title: '',
+                  withBtn: true,
+                  link: (
+                    <Heading tag={getTitleTag(c.titleTag || 'span') as any}>
+                      {c.title}
+                    </Heading>
+                  ),
+                }}
+                imageSrc={
+                  c.image?.file?.url ||
+                  'https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/CitroenBerlingo0718_4_xjonps.jpg'
+                }
+                description={c.body || ''}
+              />
+            </RouterLink>
           ))}
         </div>
       </section>

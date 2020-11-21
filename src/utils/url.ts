@@ -131,6 +131,8 @@ export const isNotShowBreadcrumbs = (routerPathName: string) => {
     routerPathName.includes('/fleet') ||
     // not to show on account pages
     routerPathName.includes('/account') ||
+    // not to show on reviews vans pagination page
+    routerPathName.includes('/reviews/vans/page/') ||
     routerPathName.includes('/blog') ||
     routerPathName.includes('/non-blog') ||
     // not to show on insurance pages, but show on faq insurance
@@ -148,7 +150,10 @@ export const isNotShowBreadcrumbs = (routerPathName: string) => {
     // not to show on home page
     routerPathName.length === 1 ||
     // not to show on help-me-choose pages
-    routerPathName.includes('/help-me-choose')
+    routerPathName.includes('/help-me-choose') ||
+    routerPathName.includes('/about-us') ||
+    routerPathName.includes('/guides') ||
+    routerPathName.includes('/lease-finance')
   );
 };
 
