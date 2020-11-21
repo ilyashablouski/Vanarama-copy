@@ -22,9 +22,18 @@ const PageNotFound: NextPage<IGenericPage> = ({ error, loading, data }) => {
     data?.genericPage,
   );
   const featured = getSectionsData(['sections', 'featured'], data?.genericPage);
+  const breadcrumbs = getSectionsData(
+    ['metaData', 'breadcrumbs'],
+    data?.genericPage,
+  );
 
   return (
-    <PageNotFoundContainer featured={featured} name={name} cards={cards} />
+    <PageNotFoundContainer
+      featured={featured}
+      name={name}
+      cards={cards}
+      breadcrumbsItems={breadcrumbs}
+    />
   );
 };
 

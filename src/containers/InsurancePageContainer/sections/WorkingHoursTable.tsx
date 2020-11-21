@@ -3,9 +3,10 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import ReactMarkdown from 'react-markdown';
 import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
 import { IList } from '@vanarama/uibook/lib/components/organisms/structured-list/interfaces';
-import gfm from 'remark-gfm';
 import { GetInsuranceLandingPage_insuranceLandingPage_sections_hero_heroCard as HeroCard } from '../../../../generated/GetInsuranceLandingPage';
 import { ParsedLink } from '../ParsedLink';
+// eslint-disable-next-line import/no-unresolved
+const gfm = require('remark-gfm');
 
 const parseTable = (table: any[]): IList[] =>
   table.map(

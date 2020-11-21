@@ -67,7 +67,7 @@ export const GET_PRODUCT_CARDS_DATA = gql`
 `;
 
 /**
- *  @props capIdArray - string array with capId from relatedVehicles in vehicleDetails
+ *  @props capIds - string array with capId from relatedVehicles in vehicleDetails
  *  @props vehicleType - VehicleTypeEnum
  */
 export function useProductCardData(

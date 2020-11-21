@@ -5,6 +5,8 @@ import withApollo from '../../../hocs/withApollo';
 import SimplePageContainer from '../../../containers/SipmlePageContainer/SipmlePageContainer';
 import createApolloClient from '../../../apolloClient';
 import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
+import Breadcrumb from '../../../components/Breadcrumb/Breadcrumb';
+import { getSectionsData } from '../../../utils/getSectionsData';
 
 interface IAboutUsPage {
   data: GenericPageQuery | undefined;
@@ -13,8 +15,22 @@ interface IAboutUsPage {
 }
 
 const AboutUsPage: NextPage<IAboutUsPage> = ({ data, loading, error }) => {
+  const metaData = getSectionsData(['metaData'], data?.genericPage);
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
+
   return (
-    <SimplePageContainer data={data} loading={loading || !data} error={error} />
+    <>
+      <div className="row:title">
+        <Breadcrumb items={breadcrumbsItems} />
+      </div>
+      <SimplePageContainer
+        data={data}
+        loading={loading || !data}
+        error={error}
+      />
+    </>
   );
 };
 
