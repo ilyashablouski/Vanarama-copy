@@ -749,7 +749,7 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                         Read More
                       </a>
                     </p>
-                    <a
+                    <span
                       class="link -teal -regular"
                       data-testid="withoutLink"
                     />
