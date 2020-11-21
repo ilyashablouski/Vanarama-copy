@@ -3,15 +3,16 @@ import DefaultErrorPage from 'next/error';
 import FAQContainer from '../../containers/FAQContainer/FAQContainer';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import createApolloClient from '../../apolloClient';
+import { getSectionsData } from '../../utils/getSectionsData';
 
 const EligibilityChecker: NextPage<IGenericPage> = ({ data, error }) => {
   if (error || !data?.genericPage) {
     return <DefaultErrorPage statusCode={404} />;
   }
 
-  const metaData = data?.genericPage?.metaData;
-  const sections = data.genericPage?.sections;
-  const intro = data.genericPage?.intro;
+  const metaData = getSectionsData(['metaData'], data?.genericPage);
+  const sections = getSectionsData(['sections'], data?.genericPage);
+  const intro = getSectionsData(['intro'], data?.genericPage);
 
   return (
     <FAQContainer title={metaData.name} sections={sections} intro={intro} />
