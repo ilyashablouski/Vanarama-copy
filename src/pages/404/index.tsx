@@ -1,19 +1,14 @@
 import React from 'react';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading/Loading';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import DefaultErrorPage from 'next/error';
 import createApolloClient from '../../apolloClient';
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import PageNotFoundContainer from '../../containers/PageNotFoundContainer/PageNotFoundContainer';
 import { getSectionsData } from '../../utils/getSectionsData';
 
-const PageNotFound: NextPage<IGenericPage> = ({ error, loading, data }) => {
-  if (loading) {
-    return <Loading size="large" />;
-  }
-
-  if (error) {
-    return <ErrorMessage message={error.message} />;
+const PageNotFound: NextPage<IGenericPage> = ({ error, data }) => {
+  if (error || !data) {
+    return <DefaultErrorPage statusCode={404} />;
   }
 
   const name = getSectionsData(['metaData', 'name'], data?.genericPage);
@@ -38,15 +33,23 @@ const PageNotFound: NextPage<IGenericPage> = ({ error, loading, data }) => {
 };
 
 export async function getStaticProps(context: GetStaticPropsContext) {
-  const client = createApolloClient({}, context as NextPageContext);
-  const { data, loading, errors } = await client.query({
-    query: GENERIC_PAGE,
-    variables: {
-      slug: '404',
-    },
-  });
+  try {
+    const client = createApolloClient({}, context as NextPageContext);
+    const { data, loading, errors } = await client.query({
+      query: GENERIC_PAGE,
+      variables: {
+        slug: '404',
+      },
+    });
 
-  return { props: { data, loading, error: errors ? errors[0] : null } };
+    return { props: { data, loading, error: errors ? errors[0] : null } };
+  } catch {
+    return {
+      props: {
+        error: true,
+      },
+    };
+  }
 }
 
 export default PageNotFound;
