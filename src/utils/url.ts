@@ -148,7 +148,10 @@ export const isNotShowBreadcrumbs = (routerPathName: string) => {
     // not to show on home page
     routerPathName.length === 1 ||
     // not to show on help-me-choose pages
-    routerPathName.includes('/help-me-choose')
+    routerPathName.includes('/help-me-choose') ||
+    routerPathName.includes('/about-us') ||
+    routerPathName.includes('/guides') ||
+    routerPathName.includes('/lease-finance')
   );
 };
 
