@@ -50,16 +50,15 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     '-clear': classNames?.clear,
   });
 
-  if (withoutLink) {
+  if (withoutLink || link.href === '') {
     return (
-      <a
+      <span
         className={linkClassName}
-        rel={setRel(link)}
         onClick={e => onClick && onClick(e)}
         data-testid={dataTestId ?? 'withoutLink'}
       >
         {children || link.label}
-      </a>
+      </span>
     );
   }
 

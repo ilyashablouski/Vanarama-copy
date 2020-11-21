@@ -16,6 +16,7 @@ import {
 } from '../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../generated/GetDerivative';
 import { PAGES } from './pageTypes';
+import { getDeviceType } from './deviceType';
 
 interface ICheckoutData {
   price: string | number | null | undefined;
@@ -166,6 +167,7 @@ export const pushPageData = async ({
   }
 
   pushDetail('customerId', person?.uuid || 'undefined', data);
+  pushDetail('deviceType', getDeviceType(), data);
   pushDetail(
     'visitorEmail',
     person?.emailAddresses && person?.emailAddresses[0]?.value

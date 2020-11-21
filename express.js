@@ -45,7 +45,7 @@ app
   })
   .then(server => {
     // Prevent brute force attack in production.
-    if (process.env.ENV === 'production') {
+    if (!process.env.ENV === 'dev') {
       server.use(rateLimiterRedisMiddleware);
     }
 
@@ -82,8 +82,10 @@ app
 
     // All routes.
     server.all('*', cors(), (req, res) => {
-      if (process.env.ENV !== 'production')
-        res.setHeader('X-Robots-Tag', 'noindex'); // Disable indexing.
+      // Disable indexing on live domain.
+      if (!req.get('host').includes('vanarama.com'))
+        res.setHeader('X-Robots-Tag', 'noindex');
+
       return handle(req, res);
     });
     return server;

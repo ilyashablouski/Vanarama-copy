@@ -49,9 +49,9 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
     },
   );
 
-  const productVanCapIds = productsVan?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
+  const productVanCapIds = productsVan?.productCarousel
+    ?.map(el => el?.capId || '')
+    .filter(Boolean) || [''];
   const { data: productVanDerivatives } = useCarDerivativesData(
     productVanCapIds,
     VehicleTypeEnum.LCV,
@@ -69,9 +69,9 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
     },
   );
 
-  const productPickupCapIds = productsPickup?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
+  const productPickupCapIds = productsPickup?.productCarousel
+    ?.map(el => el?.capId || '')
+    .filter(Boolean) || [''];
   const { data: productPickupDerivatives } = useCarDerivativesData(
     productPickupCapIds,
     VehicleTypeEnum.LCV,
@@ -88,9 +88,9 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
     },
   );
 
-  const productCarCapIds = productsCar?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
+  const productCarCapIds = productsCar?.productCarousel
+    ?.map(el => el?.capId || '')
+    .filter(Boolean) || [''];
   const { data: productCarDerivatives } = useCarDerivativesData(
     productCarCapIds,
     VehicleTypeEnum.CAR,
@@ -100,7 +100,7 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
     ...productVanCapIds,
     ...productPickupCapIds,
     ...productCarCapIds,
-  ];
+  ].filter(Boolean);
   const vehicleListUrlQuery = useVehicleListUrl(derivativeIds);
 
   useVehicleListUrlFetchMore(vehicleListUrlQuery, derivativeIds);
@@ -304,8 +304,9 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
   );
 };
 
-export async function getServerSideProps(ctx: NextPageContext) {
+export async function getServerSideProps(context: NextPageContext) {
   const client = createApolloClient({});
+  const path = context.req?.url || '';
 
   try {
     const { data } = await client.query<
@@ -314,9 +315,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
     >({
       query: GENERIC_PAGE_HEAD,
       variables: {
-        slug: ctx.asPath?.includes('.html')
-          ? ctx.asPath || ''
-          : ctx.asPath?.slice(1) || '',
+        slug: path.slice(1),
       },
     });
     return {

@@ -5,6 +5,8 @@ import StructuredList from '@vanarama/uibook/lib/components/organisms/structured
 import { IList } from '@vanarama/uibook/lib/components/organisms/structured-list/interfaces';
 import { GetInsuranceLandingPage_insuranceLandingPage_sections_hero_heroCard as HeroCard } from '../../../../generated/GetInsuranceLandingPage';
 import { ParsedLink } from '../ParsedLink';
+// eslint-disable-next-line import/no-unresolved
+const gfm = require('remark-gfm');
 
 const parseTable = (table: any[]): IList[] =>
   table.map(
@@ -37,13 +39,13 @@ const WorkingHoursTable = ({ body, title }: HeroCard) => (
         renderers={{
           paragraph: props => {
             const { children } = props;
-            const href = `tel:${children[1]?.props.value
+            const href = `tel:${children[0]?.props.value
               .split('')
               .filter((item: string) => item === '0' || +item > 0)
               .join('')}`;
-            return children[0].props.children[0].props?.value ? (
+            return children[0].props?.value ? (
               <ParsedLink
-                title={children[0].props.children[0].props?.value}
+                title={children[0].props?.value.split('"')[1]}
                 color="teal"
                 size="large"
                 fill="solid"
@@ -56,6 +58,7 @@ const WorkingHoursTable = ({ body, title }: HeroCard) => (
           },
           table: props => renderTable(props),
         }}
+        plugins={[gfm]}
       />
     </div>
   </Card>

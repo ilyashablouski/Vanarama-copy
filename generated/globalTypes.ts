@@ -19,6 +19,14 @@ export enum CreditApplicationTypeEnum {
 }
 
 /**
+ * Finance type enum
+ */
+export enum FinanceTypeEnum {
+  BCH = "BCH",
+  PCH = "PCH",
+}
+
+/**
  * Lease type
  */
 export enum LeaseTypeEnum {
@@ -377,6 +385,7 @@ export interface PersonInputObject {
  */
 export interface ProductFilterListInputObject {
   bodyStyles?: string[] | null;
+  financeTypes?: FinanceTypeEnum | null;
   fuelTypes?: string[] | null;
   initialPayment?: ProductFilterRangeListObject | null;
   initialPeriods?: number[] | null;
