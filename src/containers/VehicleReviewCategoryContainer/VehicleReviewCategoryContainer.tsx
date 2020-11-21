@@ -1,8 +1,10 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Pagination from '@vanarama/uibook/lib/components/atoms/pagination';
 import ReactMarkdown from 'react-markdown';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import {
   ReviewsHubCategoryQuery,
   ReviewsHubCategoryQuery_genericPage_sections_cards_cards as Cards,
@@ -13,9 +15,15 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 
 interface IProps {
   data: ReviewsHubCategoryQuery | undefined;
+  pageNumber?: number;
+  breadcrumbsItems?: any;
 }
 
-const VehicleReviewCategoryContainer: FC<IProps> = ({ data }) => {
+const VehicleReviewCategoryContainer: FC<IProps> = ({
+  data,
+  pageNumber,
+  breadcrumbsItems,
+}) => {
   const title = getSectionsData(['metaData', 'name'], data?.genericPage);
   const body = getSectionsData(['body'], data?.genericPage);
   const cards = getSectionsData(
@@ -23,12 +31,51 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({ data }) => {
     data?.genericPage,
   );
 
-  const [activePage, setActivePage] = useState(1);
+  const [activePage, setActivePage] = useState(pageNumber || 1);
+  const { pathname, query, push } = useRouter();
+  const path =
+    pathname.indexOf('/page') > -1
+      ? pathname.replace('/[pageNumber]', '')
+      : `${pathname}/page`;
 
   const countPages = () => Math.ceil((cards.length || 0) / 12);
 
   // create array with number of page for pagination
   const pages = [...Array(countPages())].map((_el, i) => i + 1);
+  useEffect(() => {
+    // change url for first pagination page
+    if (activePage === 1 && query.pageNumber) {
+      push(
+        {
+          pathname: pathname.replace('/page/[pageNumber]', ''),
+        },
+        undefined,
+        { shallow: true },
+      );
+      // cases when we have page route, for example change page from 2 to 3
+    } else if (
+      query.pageNumber &&
+      parseInt(query?.pageNumber as string, 10) !== activePage
+    ) {
+      push(
+        {
+          pathname,
+        },
+        pathname.replace('[pageNumber]', `${activePage}`),
+        { shallow: true },
+      );
+      // when changing from first page to others
+    } else if (activePage !== 1 && !query.pageNumber) {
+      push(
+        {
+          pathname: `${pathname}/page/[pageNumber]`,
+        },
+        `${pathname}/page/${activePage}`,
+        { shallow: true },
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activePage]);
 
   const renderCards = () => {
     const indexOfLastOffer = activePage * 12;
@@ -76,6 +123,11 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({ data }) => {
 
   return (
     <>
+      {breadcrumbsItems && (
+        <div className="row:title">
+          <Breadcrumb items={breadcrumbsItems} />
+        </div>
+      )}
       <div className="row:title">
         <Heading tag="h1" size="xlarge" color="black">
           {title}
@@ -94,7 +146,7 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({ data }) => {
           <div className="row:cards-3col -pt-300">{renderCards()}</div>
           <div className="row:pagination">
             <Pagination
-              path=""
+              path={path}
               pages={pages}
               onClick={el => {
                 el.preventDefault();

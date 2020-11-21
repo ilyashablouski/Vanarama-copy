@@ -131,6 +131,8 @@ export const isNotShowBreadcrumbs = (routerPathName: string) => {
     routerPathName.includes('/fleet') ||
     // not to show on account pages
     routerPathName.includes('/account') ||
+    // not to show on reviews vans pagination page
+    routerPathName.includes('/reviews/vans/page/') ||
     routerPathName.includes('/blog') ||
     routerPathName.includes('/non-blog') ||
     // not to show on insurance pages, but show on faq insurance
