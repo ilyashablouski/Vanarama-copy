@@ -190,12 +190,6 @@ export const VansPage: NextPage = () => {
             getSectionsData(['hero', 'body'], data?.hubVanPage.sections) || ''
           }
         />
-        <Button
-          size="lead"
-          fill="outline"
-          label=" View Special Offers"
-          color="white"
-        />
         <br />
         <Image
           optimisedHost={process.env.IMG_OPTIMISATION_HOST}
