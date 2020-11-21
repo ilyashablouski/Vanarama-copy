@@ -1,7 +1,7 @@
 import { ApolloClient, DocumentNode, QueryLazyOptions } from '@apollo/client';
 import { NextPageContext } from 'next';
 import { removeUrlQueryPart } from '../../utils/url';
-import { GENERIC_PAGE, GENERIC_PAGE_HEAD } from '../../gql/genericPage';
+import { GENERIC_PAGE } from '../../gql/genericPage';
 import { getBudgetForQuery } from '../SearchPodContainer/helpers';
 import { IFilters } from '../FiltersContainer/interfaces';
 import { GenericPageQueryVariables } from '../../../generated/GenericPageQuery';
@@ -203,7 +203,7 @@ export const ssrCMSQueryExecutor = async (
     case 'isSpecialOfferPage':
       return onCallQuery(
         client,
-        GENERIC_PAGE_HEAD,
+        GENERIC_PAGE,
         `${
           isCarSearch ? 'car-leasing' : 'pickup-truck-leasing'
         }/special-offers`,
