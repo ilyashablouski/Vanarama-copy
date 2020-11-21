@@ -251,120 +251,132 @@ export const VansPage: NextPage = () => {
           link={{ href: dealOfMonthHref, url: dealOfMonthUrl.url }}
         />
       </div>
-      <div className="row:bg-lighter">
-        <div>
-          <Heading size="large" color="black" tag="h2">
-            <span
-              style={{ textAlign: 'center', display: 'block' }}
-              className="-mb-400"
-            >
-              Small Vans
-            </span>
-          </Heading>
-          <ProductCarousel
-            leaseType={
-              isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-            }
-            data={{
-              derivatives: productSmallVanDerivatives?.derivatives || null,
-              productCard: productSmallVan?.productCarousel || null,
-              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
-            }}
-            countItems={productSmallVan?.productCarousel?.length || 6}
-            dataTestIdBtn="van-view-offer"
-          />
-          <div className="-justify-content-row -pt-500">
-            <RouterLink
-              className="button"
-              classNames={{ color: 'teal', solid: true, size: 'regular' }}
-              link={{
-                label: 'View Small Vans',
-                href: '/small-van-leasing.html',
-              }}
-              withoutDefaultClassName
-              dataTestId="small-van-leasing"
-            >
-              <div className="button--inner">View Small Vans</div>
-            </RouterLink>
+      {productSmallVan?.productCarousel &&
+        productSmallVan?.productCarousel?.length > 0 && (
+          <div className="row:bg-lighter">
+            <div>
+              <Heading size="large" color="black" tag="h2">
+                <span
+                  style={{ textAlign: 'center', display: 'block' }}
+                  className="-mb-400"
+                >
+                  Small Vans
+                </span>
+              </Heading>
+              <ProductCarousel
+                leaseType={
+                  isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+                }
+                data={{
+                  derivatives: productSmallVanDerivatives?.derivatives || null,
+                  productCard: productSmallVan?.productCarousel || null,
+                  vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                }}
+                countItems={productSmallVan?.productCarousel?.length || 6}
+                dataTestIdBtn="van-view-offer"
+              />
+              <div className="-justify-content-row -pt-500">
+                <RouterLink
+                  className="button"
+                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                  link={{
+                    label: 'View Small Vans',
+                    href: '/small-van-leasing.html',
+                  }}
+                  withoutDefaultClassName
+                  dataTestId="small-van-leasing"
+                >
+                  <div className="button--inner">View Small Vans</div>
+                </RouterLink>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="row:bg-lighter">
-        <div>
-          <Heading size="large" color="black" tag="h2">
-            <span
-              style={{ textAlign: 'center', display: 'block' }}
-              className="-mb-400"
-            >
-              Medium Vans
-            </span>
-          </Heading>
-          <ProductCarousel
-            leaseType={
-              isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-            }
-            data={{
-              derivatives: productMediumVanDerivatives?.derivatives || null,
-              productCard: productMediumVan?.productCarousel || null,
-              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
-            }}
-            countItems={productMediumVan?.productCarousel?.length || 6}
-            dataTestIdBtn="van-view-offer"
-          />
-          <div className="-justify-content-row -pt-500">
-            <RouterLink
-              className="button"
-              classNames={{ color: 'teal', solid: true, size: 'regular' }}
-              link={{
-                label: 'View Medium Vans',
-                href: '/medium-van-leasing.html',
-              }}
-              withoutDefaultClassName
-              dataTestId="medium-van-leasing"
-            >
-              <div className="button--inner">View Medium Vans</div>
-            </RouterLink>
+        )}
+
+      {productMediumVan?.productCarousel &&
+        productMediumVan?.productCarousel?.length > 0 && (
+          <div className="row:bg-lighter">
+            <div>
+              <Heading size="large" color="black" tag="h2">
+                <span
+                  style={{ textAlign: 'center', display: 'block' }}
+                  className="-mb-400"
+                >
+                  Medium Vans
+                </span>
+              </Heading>
+              <ProductCarousel
+                leaseType={
+                  isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+                }
+                data={{
+                  derivatives: productMediumVanDerivatives?.derivatives || null,
+                  productCard: productMediumVan?.productCarousel || null,
+                  vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                }}
+                countItems={productMediumVan?.productCarousel?.length || 6}
+                dataTestIdBtn="van-view-offer"
+              />
+              <div className="-justify-content-row -pt-500">
+                <RouterLink
+                  className="button"
+                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                  link={{
+                    label: 'View Medium Vans',
+                    href: '/medium-van-leasing.html',
+                  }}
+                  withoutDefaultClassName
+                  dataTestId="medium-van-leasing"
+                >
+                  <div className="button--inner">View Medium Vans</div>
+                </RouterLink>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="row:bg-lighter">
-        <div>
-          <Heading size="large" color="black" tag="h2">
-            <span
-              style={{ textAlign: 'center', display: 'block' }}
-              className="-mb-400"
-            >
-              Large Vans
-            </span>
-          </Heading>
-          <ProductCarousel
-            leaseType={
-              isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-            }
-            data={{
-              derivatives: productLargeVanDerivatives?.derivatives || null,
-              productCard: productLargeVan?.productCarousel || null,
-              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
-            }}
-            countItems={productLargeVan?.productCarousel?.length || 6}
-            dataTestIdBtn="van-view-offer"
-          />
-          <div className="-justify-content-row -pt-500">
-            <RouterLink
-              className="button"
-              classNames={{ color: 'teal', solid: true, size: 'regular' }}
-              link={{
-                label: 'View Large Vans',
-                href: '/large-van-leasing.html',
-              }}
-              withoutDefaultClassName
-              dataTestId="large-van-leasing"
-            >
-              <div className="button--inner">View Large Vans</div>
-            </RouterLink>
+        )}
+
+      {productLargeVan?.productCarousel &&
+        productLargeVan?.productCarousel?.length > 0 && (
+          <div className="row:bg-lighter">
+            <div>
+              <Heading size="large" color="black" tag="h2">
+                <span
+                  style={{ textAlign: 'center', display: 'block' }}
+                  className="-mb-400"
+                >
+                  Large Vans
+                </span>
+              </Heading>
+              <ProductCarousel
+                leaseType={
+                  isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+                }
+                data={{
+                  derivatives: productLargeVanDerivatives?.derivatives || null,
+                  productCard: productLargeVan?.productCarousel || null,
+                  vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                }}
+                countItems={productLargeVan?.productCarousel?.length || 6}
+                dataTestIdBtn="van-view-offer"
+              />
+              <div className="-justify-content-row -pt-500">
+                <RouterLink
+                  className="button"
+                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                  link={{
+                    label: 'View Large Vans',
+                    href: '/large-van-leasing.html',
+                  }}
+                  withoutDefaultClassName
+                  dataTestId="large-van-leasing"
+                >
+                  <div className="button--inner">View Large Vans</div>
+                </RouterLink>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        )}
+
       <div className="row:bg-lighter ">
         <div className="row:cards-4col">
           <Heading
