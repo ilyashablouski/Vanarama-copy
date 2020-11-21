@@ -4,10 +4,7 @@ import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import ThankYouContainer from '../../../containers/ThankYouContainer/ThankYouContainer';
 import { IInsurancePage } from '../../../models/IInsuranceProps';
 import FAQContainer from '../../../containers/FAQContainer/FAQContainer';
-import {
-  GENERIC_PAGE,
-  GENERIC_PAGE_BREADCRUMBS,
-} from '../../../gql/genericPage';
+import { GENERIC_PAGE } from '../../../gql/genericPage';
 import FinanceGapInsuranceContainer from '../../../containers/FinanceGapInsuranceContainer/FinanceGapInsuranceContainer';
 import createApolloClient from '../../../apolloClient';
 import {
@@ -15,12 +12,9 @@ import {
   PageCollectionVariables,
 } from '../../../../generated/PageCollection';
 import { getPathsFromPageCollection } from '../../../utils/pageSlugs';
+import { getSectionsData } from '../../../utils/getSectionsData';
 
-const MultiYearInsurancePage: NextPage<IInsurancePage> = ({
-  data,
-  breadcrumbsData,
-  error,
-}) => {
+const MultiYearInsurancePage: NextPage<IInsurancePage> = ({ data, error }) => {
   if (error) {
     return <DefaultErrorPage statusCode={404} />;
   }
@@ -28,7 +22,10 @@ const MultiYearInsurancePage: NextPage<IInsurancePage> = ({
 
   const sections = genericPage?.sections;
   const intro = genericPage?.intro;
-  const breadcrumbsItems = breadcrumbsData?.genericPage.metaData.breadcrumbs;
+  const breadcrumbsItems = getSectionsData(
+    ['metaData', 'breadcrumbs'],
+    data?.genericPage,
+  );
   const title = genericPage?.metaData.title;
 
   if (title?.includes('Thank You')) {
@@ -80,16 +77,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: `insurance/${paths?.join('/')}`,
       },
     });
-    const { data: breadcrumbsData } = await client.query({
-      query: GENERIC_PAGE_BREADCRUMBS,
-      variables: {
-        slug: `insurance/${paths?.join('/')}`,
-      },
-    });
     return {
       props: {
         data,
-        breadcrumbsData,
         error: errors ? errors[0] : null,
       },
     };
