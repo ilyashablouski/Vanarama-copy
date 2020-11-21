@@ -7,6 +7,8 @@ import { ReviewsHubCategoryQuery } from '../../../../generated/ReviewsHubCategor
 jest.mock('next/router', () => ({
   useRouter: () => ({
     asPath: '/',
+    pathname: 'test',
+    query: {},
   }),
 }));
 

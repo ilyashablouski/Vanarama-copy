@@ -123,6 +123,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         router.pathname.includes('/olaf') ||
         router.pathname.includes('/blog') ||
         router.pathname.includes('/non-blog') ||
+        router.pathname.includes('/reviews/vans/page') ||
         router.pathname.length === 1
       )
     ) {
