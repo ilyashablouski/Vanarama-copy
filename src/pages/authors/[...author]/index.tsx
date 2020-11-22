@@ -16,7 +16,7 @@ const Breadcrumb = dynamic(() =>
   import('../../../components/Breadcrumb/Breadcrumb'),
 );
 
-const CareerPage: NextPage<IGenericPage> = ({ data, error, loading }) => {
+const AuthorPage: NextPage<IGenericPage> = ({ data, error, loading }) => {
   if (error || !data?.genericPage) {
     return <DefaultErrorPage statusCode={404} />;
   }
@@ -42,13 +42,13 @@ export async function getStaticPaths() {
   const { data } = await client.query<PageCollection, PageCollectionVariables>({
     query: PAGE_COLLECTION,
     variables: {
-      pageType: 'Careers',
+      pageType: 'Authors',
     },
   });
   const items = data?.pageCollection?.items;
 
   return {
-    paths: getPathsFromPageCollection(items, 'careers'),
+    paths: getPathsFromPageCollection(items, 'authors'),
     fallback: false,
   };
 }
@@ -56,12 +56,12 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const paths = context?.params?.page as string[];
+    const paths = context?.params?.author as string[];
 
     const { data, errors } = await client.query({
       query: GENERIC_PAGE,
       variables: {
-        slug: `careers/${paths?.join('/')}`,
+        slug: `authors/${paths?.join('/')}`,
       },
     });
     return {
@@ -79,4 +79,4 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 }
 
-export default CareerPage;
+export default AuthorPage;

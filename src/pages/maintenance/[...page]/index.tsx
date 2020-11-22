@@ -1,8 +1,8 @@
 import dynamic from 'next/dynamic';
 import DefaultErrorPage from 'next/error';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { GENERIC_PAGE, IGenericPage } from '../../../gql/genericPage';
-import SimplePageContainer from '../../../containers/SipmlePageContainer/SipmlePageContainer';
 import createApolloClient from '../../../apolloClient';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import { getPathsFromPageCollection } from '../../../utils/pageSlugs';
@@ -10,15 +10,20 @@ import {
   PageCollection,
   PageCollectionVariables,
 } from '../../../../generated/PageCollection';
+import FeaturedAndTilesContainer from '../../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 import { getSectionsData } from '../../../utils/getSectionsData';
 
 const Breadcrumb = dynamic(() =>
   import('../../../components/Breadcrumb/Breadcrumb'),
 );
 
-const CareerPage: NextPage<IGenericPage> = ({ data, error, loading }) => {
+const MaintenancePage: NextPage<IGenericPage> = ({ data, error, loading }) => {
   if (error || !data?.genericPage) {
     return <DefaultErrorPage statusCode={404} />;
+  }
+
+  if (loading) {
+    return <Loading size="large" />;
   }
 
   const metaData = getSectionsData(['metaData'], data?.genericPage);
@@ -32,7 +37,7 @@ const CareerPage: NextPage<IGenericPage> = ({ data, error, loading }) => {
       <div className="row:title">
         <Breadcrumb items={breadcrumbsItems} />
       </div>
-      <SimplePageContainer data={data} loading={!!loading} error={error} />
+      <FeaturedAndTilesContainer data={data} />
     </>
   );
 };
@@ -42,13 +47,13 @@ export async function getStaticPaths() {
   const { data } = await client.query<PageCollection, PageCollectionVariables>({
     query: PAGE_COLLECTION,
     variables: {
-      pageType: 'Careers',
+      pageType: 'Maintenance',
     },
   });
   const items = data?.pageCollection?.items;
 
   return {
-    paths: getPathsFromPageCollection(items, 'careers'),
+    paths: getPathsFromPageCollection(items, 'maintenance'),
     fallback: false,
   };
 }
@@ -61,7 +66,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const { data, errors } = await client.query({
       query: GENERIC_PAGE,
       variables: {
-        slug: `careers/${paths?.join('/')}`,
+        slug: `maintenance/${paths?.join('/')}`,
       },
     });
     return {
@@ -79,4 +84,4 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 }
 
-export default CareerPage;
+export default MaintenancePage;

@@ -153,7 +153,10 @@ export const isNotShowBreadcrumbs = (routerPathName: string) => {
     routerPathName.includes('/help-me-choose') ||
     routerPathName.includes('/about-us') ||
     routerPathName.includes('/guides') ||
-    routerPathName.includes('/lease-finance')
+    routerPathName.includes('/lease-finance') ||
+    routerPathName.includes('/careers') ||
+    routerPathName.includes('/maintenance') ||
+    routerPathName.includes('/authors')
   );
 };
 
