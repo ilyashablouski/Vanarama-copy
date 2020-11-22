@@ -68,7 +68,7 @@ const Hero: React.FC<IHeroProps> = ({
         <div className="hero--left">{children}</div>
         <div className="hero--right">{renderHeroRight()}</div>
         <div className="hero--decals">
-          <svg
+          {/* <svg
             aria-hidden="true"
             focusable="false"
             className="hero-logomark"
@@ -103,7 +103,7 @@ const Hero: React.FC<IHeroProps> = ({
                 />
               </g>
             </g>
-          </svg>
+          </svg> */}
           <svg
             id="hero--curve"
             className="hero--curve"
