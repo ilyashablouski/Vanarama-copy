@@ -51,7 +51,7 @@ export async function getStaticPaths() {
   const items = data?.pageCollection?.items;
 
   return {
-    paths: getPathsFromPageCollection(items),
+    paths: getPathsFromPageCollection(items, 'about-us'),
     fallback: false,
   };
 }
