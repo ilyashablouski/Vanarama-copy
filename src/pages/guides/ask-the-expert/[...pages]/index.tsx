@@ -1,7 +1,6 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
 import React from 'react';
-import dynamic from 'next/dynamic';
 import createApolloClient from '../../../../apolloClient';
 import { PAGE_COLLECTION } from '../../../../gql/pageCollection';
 import { getPathsFromPageCollection } from '../../../../utils/pageSlugs';
@@ -12,10 +11,7 @@ import {
 } from '../../../../../generated/PageCollection';
 import { GENERIC_PAGE, IGenericPage } from '../../../../gql/genericPage';
 import { getSectionsData } from '../../../../utils/getSectionsData';
-
-const Breadcrumb = dynamic(() =>
-  import('../../../../components/Breadcrumb/Breadcrumb'),
-);
+import Breadcrumb from '../../../../components/Breadcrumb/Breadcrumb';
 
 const AskTheExpertPage: NextPage<IGenericPage> = ({ data, error }) => {
   if (error || !data) {
