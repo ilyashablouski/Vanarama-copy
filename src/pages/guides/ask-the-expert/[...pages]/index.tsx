@@ -1,18 +1,22 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
-import FinanceInformationExplainedContainer from '../../../../containers/FinanceInformationExplainedContainer/FinanceInfromationExplainedContainer';
+import React from 'react';
+import createApolloClient from '../../../../apolloClient';
+import { PAGE_COLLECTION } from '../../../../gql/pageCollection';
+import { getPathsFromPageCollection } from '../../../../utils/pageSlugs';
+import SimplePageContainer from '../../../../containers/SipmlePageContainer/SipmlePageContainer';
+import {
+  PageCollection,
+  PageCollectionVariables,
+} from '../../../../../generated/PageCollection';
 import { GENERIC_PAGE, IGenericPage } from '../../../../gql/genericPage';
 import { getSectionsData } from '../../../../utils/getSectionsData';
-import createApolloClient from '../../../../apolloClient';
 import Breadcrumb from '../../../../components/Breadcrumb/Breadcrumb';
 
-const FinanceInfo: NextPage<IGenericPage> = ({ data, error }) => {
-  if (error || !data?.genericPage) {
+const AskTheExpertPage: NextPage<IGenericPage> = ({ data, error }) => {
+  if (error || !data) {
     return <DefaultErrorPage statusCode={404} />;
   }
-
-  const title = getSectionsData(['metaData', 'name'], data?.genericPage);
-  const sections = getSectionsData(['sections'], data?.genericPage);
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
@@ -23,17 +27,23 @@ const FinanceInfo: NextPage<IGenericPage> = ({ data, error }) => {
       <div className="row:title">
         <Breadcrumb items={breadcrumbsItems} />
       </div>
-      <FinanceInformationExplainedContainer title={title} sections={sections} />
+      <SimplePageContainer data={data} />
     </>
   );
 };
 
 export async function getStaticPaths() {
+  const client = createApolloClient({});
+  const { data } = await client.query<PageCollection, PageCollectionVariables>({
+    query: PAGE_COLLECTION,
+    variables: {
+      pageType: 'Ask The Expert',
+    },
+  });
+  const items = data?.pageCollection?.items;
+
   return {
-    paths: [
-      { params: { page: 'business-contract-hire' } },
-      { params: { page: 'personal-contract-hire' } },
-    ],
+    paths: getPathsFromPageCollection(items, 'ask-the-expert'),
     fallback: false,
   };
 }
@@ -41,10 +51,12 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
+    const paths = context?.params?.pages as string[];
+
     const { data, errors } = await client.query({
       query: GENERIC_PAGE,
       variables: {
-        slug: `lease-finance/cars/${context?.params?.page}`,
+        slug: `guides/ask-the-expert/${paths?.join('/')}`,
       },
     });
     return {
@@ -53,7 +65,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         error: errors ? errors[0] : null,
       },
     };
-  } catch (e) {
+  } catch {
     return {
       props: {
         error: true,
@@ -62,4 +74,4 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 }
 
-export default FinanceInfo;
+export default AskTheExpertPage;
