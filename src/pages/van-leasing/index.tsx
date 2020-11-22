@@ -7,7 +7,6 @@ import ReactMarkdown from 'react-markdown/with-html';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
 import League from '@vanarama/uibook/lib/components/organisms/league';
@@ -189,12 +188,6 @@ export const VansPage: NextPage = () => {
           text={
             getSectionsData(['hero', 'body'], data?.hubVanPage.sections) || ''
           }
-        />
-        <Button
-          size="lead"
-          fill="outline"
-          label=" View Special Offers"
-          color="white"
         />
         <br />
         <Image
