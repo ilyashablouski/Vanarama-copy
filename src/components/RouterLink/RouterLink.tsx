@@ -68,13 +68,8 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     link.href.match(/^(https?:)?\/\//) ||
     link.href.match(/.html/)
   ) {
-    // Prepend slash if not already.
-    if (
-      !link.href.match(/^(https?:)?\/\//) &&
-      !link.href.startsWith('/') &&
-      !link.href.startsWith('tel:') &&
-      !link.href.startsWith('mailto:')
-    ) {
+    // Prepend slash to internal links if not already.
+    if (!link.href.match(/^(mailto:|tel:|https:|http:|\/)/)) {
       link.href = `/${link.href}`;
     }
 
