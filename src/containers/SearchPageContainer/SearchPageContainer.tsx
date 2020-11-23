@@ -73,6 +73,7 @@ import { rangeList } from '../../../generated/rangeList';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
 import { manufacturerList } from '../../../generated/manufacturerList';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   isServer: boolean;
@@ -610,6 +611,9 @@ const SearchPageContainer: React.FC<IProps> = ({
     ['sections', 'featured'],
     pageData?.genericPage,
   );
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
   const [readmore, setReadMore] = useState(true);
 
@@ -617,6 +621,9 @@ const SearchPageContainer: React.FC<IProps> = ({
   // Some props should be contain in one param for achieve more readable code
   return (
     <>
+      <div className="row:title">
+        <Breadcrumb items={breadcrumbsItems} />
+      </div>
       <div className="row:title">
         <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
           {(isModelPage &&

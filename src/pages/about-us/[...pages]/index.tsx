@@ -5,8 +5,6 @@ import { GENERIC_PAGE } from '../../../gql/genericPage';
 import SimplePageContainer from '../../../containers/SipmlePageContainer/SipmlePageContainer';
 import createApolloClient from '../../../apolloClient';
 import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
-import Breadcrumb from '../../../components/Breadcrumb/Breadcrumb';
-import { getSectionsData } from '../../../utils/getSectionsData';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import { getPathsFromPageCollection } from '../../../utils/pageSlugs';
 import {
@@ -25,19 +23,7 @@ const AboutUsPage: NextPage<IAboutUsPage> = ({ data, error }) => {
     return <DefaultErrorPage statusCode={404} />;
   }
 
-  const metaData = getSectionsData(['metaData'], data?.genericPage);
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
-
-  return (
-    <>
-      <div className="row:title">
-        <Breadcrumb items={breadcrumbsItems} />
-      </div>
-      <SimplePageContainer data={data} loading={!data} error={error} />
-    </>
-  );
+  return <SimplePageContainer data={data} loading={!data} error={error} />;
 };
 
 export async function getStaticPaths() {

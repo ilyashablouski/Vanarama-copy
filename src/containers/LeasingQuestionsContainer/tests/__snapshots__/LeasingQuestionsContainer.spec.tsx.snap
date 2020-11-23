@@ -5,6 +5,9 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
   <div>
     <div
       class="row:title"
+    />
+    <div
+      class="row:title"
     >
       <h1
         class="heading -black -xlarge"
