@@ -74,12 +74,9 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
         target: { value: 'test nature of business' },
       },
     );
-    fireEvent.input(
-      screen.getByTestId('sole-trader-company-details_nature-of-business'),
-      {
-        target: { value: 'test nature of business' },
-      },
-    );
+    fireEvent.input(screen.getByTestId('company-details_nature'), {
+      target: { value: 'test nature of business' },
+    });
     fireEvent.change(
       screen.getByTestId('sole-trader-company-details_trading-address'),
       {
