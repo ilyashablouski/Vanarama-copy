@@ -29,9 +29,19 @@ const BlogPost: NextPage = () => {
     ['sections', 'cards', 'cards'],
     data?.genericPage,
   );
+  const metaData = getSectionsData(['metaData'], data?.genericPage);
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
   return (
-    <BlogPostContainer body={body} name={name} image={image} cards={cards} />
+    <BlogPostContainer
+      body={body}
+      name={name}
+      image={image}
+      cards={cards}
+      breadcrumbsItems={breadcrumbsItems}
+    />
   );
 };
 

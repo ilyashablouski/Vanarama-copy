@@ -8,11 +8,7 @@ const SitemapPage: NextPage = () => {
   const router = useRouter();
   const { data, loading, error } = useGenericPage(router.asPath.slice(1));
 
-  return (
-    <>
-      <SimplePageContainer data={data} loading={loading} error={error} />
-    </>
-  );
+  return <SimplePageContainer data={data} loading={loading} error={error} />;
 };
 
 export default withApollo(SitemapPage);

@@ -6,6 +6,9 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import withApollo from '../../hocs/withApollo';
 import EligibilityCheckerContainer from '../../containers/EligibilityCheckerContainer/EligibilityCheckerContainer';
 import ErrorMessage from './error-message';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import { useGenericPage } from '../../gql/genericPage';
+import { getSectionsData } from '../../utils/getSectionsData';
 
 const EligibilityCheckerDetails: NextPage = () => {
   const [
@@ -13,9 +16,18 @@ const EligibilityCheckerDetails: NextPage = () => {
     setEligibilityCheckerScoreError,
   ] = useState(false);
   const router = useRouter();
+  const { data } = useGenericPage(router.asPath.slice(1));
+
+  const metaData = getSectionsData(['metaData'], data?.genericPage);
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
   return (
     <>
+      <div className="row:title">
+        <Breadcrumb items={breadcrumbsItems} />
+      </div>
       <div className="row:title">
         <Heading
           color="black"

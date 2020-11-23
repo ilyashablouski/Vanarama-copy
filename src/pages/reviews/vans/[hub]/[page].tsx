@@ -27,9 +27,18 @@ const ReviewPage: NextPage = () => {
   const title = getSectionsData(['metaData', 'name'], data?.reviewsPage);
   const body = getSectionsData(['body'], data?.reviewsPage);
   const sections = getSectionsData(['sections'], data?.reviewsPage);
+  const metaData = getSectionsData(['metaData', 'name'], data.reviewsPage);
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
   return (
-    <VehicleReviewContainer body={body} title={title} sections={sections} />
+    <VehicleReviewContainer
+      body={body}
+      title={title}
+      sections={sections}
+      breadcrumbsItems={breadcrumbsItems}
+    />
   );
 };
 

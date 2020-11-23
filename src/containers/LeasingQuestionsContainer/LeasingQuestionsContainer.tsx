@@ -11,6 +11,7 @@ import {
 } from '../../../generated/GenericPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getSectionsData } from '../../utils/getSectionsData';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   data: GenericPageQuery;
@@ -75,12 +76,18 @@ const renderCards = (cards: (ICard | null)[] | undefined | null) =>
 const LeasingExplainedContainer: FC<IProps> = ({ data }) => {
   const body = getSectionsData(['body'], data?.genericPage);
   const title = getSectionsData(['metaData', 'name'], data?.genericPage);
-
   const carousel = getSectionsData(['sections', 'carousel'], data?.genericPage);
   const cards = getSectionsData(['sections', 'cards'], data?.genericPage);
+  const metaData = getSectionsData(['metaData'], data?.genericPage);
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
   return (
     <>
+      <div className="row:title">
+        <Breadcrumb items={breadcrumbsItems} />
+      </div>
       <div className="row:title">
         <Heading size="xlarge" color="black" tag="h1">
           {title}

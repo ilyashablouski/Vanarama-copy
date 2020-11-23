@@ -12,24 +12,37 @@ import {
   PageCollection,
   PageCollectionVariables,
 } from '../../../generated/PageCollection';
+import { getSectionsData } from '../../utils/getSectionsData';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 const BlogPost: NextPage<ILegalPage> = ({ data, error }) => {
   if (error || !data?.genericPage) {
     return <DefaultErrorPage statusCode={404} />;
   }
 
-  const body = data?.genericPage?.body;
-  const name = data?.genericPage?.metaData?.name;
-  const image = data?.genericPage?.featuredImage?.file?.url;
-  const sections = data?.genericPage?.sections;
+  const metaData = getSectionsData(['metaData'], data?.genericPage);
+  const body = getSectionsData(['body'], data?.genericPage);
+  const sections = getSectionsData(['sections'], data?.genericPage);
+  const image = getSectionsData(
+    ['featuredImage', 'file', 'url'],
+    data?.genericPage,
+  );
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
   return (
-    <LegalArticleContainer
-      body={body}
-      name={name}
-      image={image}
-      sections={sections}
-    />
+    <>
+      <div className="row:title">
+        <Breadcrumb items={breadcrumbsItems} />
+      </div>
+      <LegalArticleContainer
+        body={body}
+        name={metaData.name}
+        image={image}
+        sections={sections}
+      />
+    </>
   );
 };
 
