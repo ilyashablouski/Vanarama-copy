@@ -73,6 +73,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
       link.href = `/${link.href}`;
     }
 
+    // TODO: Possible fix for local rewrites. To be tested.
     // if (process.env.LOCAL)
     //   return (
     //     <Link

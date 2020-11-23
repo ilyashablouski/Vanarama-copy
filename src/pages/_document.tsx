@@ -1,14 +1,10 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import dynamic from 'next/dynamic';
 
-// import {
-//   Script as GTMScript,
-//   Body as GTMBody,
-//   DataLayer as GTMDataLayerScript,
-// } from '../components/GTM';
-// import { Script as VWOScript } from '../components/VWO';
-
-// import { Script as RollbarScript } from '../components/Rollbar';
+// @ts-ignore
+// const RollbarScript = dynamic(() =>
+//   import('../components/Rollbar').then(mod => mod.Script),
+// );
 
 // @ts-ignore
 const GTMScript = dynamic(() =>
