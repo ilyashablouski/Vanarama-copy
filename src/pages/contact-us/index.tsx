@@ -22,6 +22,7 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { useGenericPage } from '../../gql/genericPage';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 export const ContactUsPage: NextPage = () => {
   const router = useRouter();
@@ -38,9 +39,15 @@ export const ContactUsPage: NextPage = () => {
 
   const COORDS = { lat: 51.762479, lng: -0.438241 };
   const metaData = data?.genericPage?.metaData;
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
   return (
     <>
+      <div className="row:title">
+        <Breadcrumb items={breadcrumbsItems} />
+      </div>
       <div className="row:title">
         <Heading size="xlarge" color="black" tag="h1">
           {metaData?.name}

@@ -30,6 +30,7 @@ export interface ReviewsHubCategoryQuery_genericPage_metaData {
   canonicalUrl: string | null;
   slug: string | null;
   schema: any | null;
+  breadcrumbs: any | null;
 }
 
 export interface ReviewsHubCategoryQuery_genericPage_sections_cards_cards_link {

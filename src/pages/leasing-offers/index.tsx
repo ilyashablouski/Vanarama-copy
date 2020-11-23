@@ -27,6 +27,8 @@ import {
   useVehicleListUrlFetchMore,
 } from '../../gql/vehicleList';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import { getSectionsData } from '../../utils/getSectionsData';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 type Props = {
   genericPageCMS?: any;
@@ -111,10 +113,16 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
     return <Loading size="large" />;
   } */
 
-  const metaData = genericPageCMS?.genericPage?.metaData;
+  const metaData = getSectionsData(['metaData'], genericPageCMS?.genericPage);
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
   return (
     <>
+      <div className="row:title">
+        <Breadcrumb items={breadcrumbsItems} />
+      </div>
       <div className="row:plain-hero">
         <div className="-col-100">
           <Heading color="black" size="xlarge" tag="h1">
