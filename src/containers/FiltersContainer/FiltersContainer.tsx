@@ -337,7 +337,7 @@ const FiltersContainer = ({
     if (
       (selectedFilterTags[0] && isInitialLoad) ||
       (isInitialLoad &&
-        ((isMakePage && selectedFiltersState.make[0]) ||
+        ((isMakePage && selectedFiltersState.make[0] && searchWithParams(1)) ||
           (isBodyPage &&
             selectedFiltersState.bodyStyles[0] &&
             searchWithParams(1)) ||
@@ -423,15 +423,12 @@ const FiltersContainer = ({
 
   /** check budget rules for valid value */
   const isInvalidBudget = (value: string, type: string) => {
-    if (
+    return !(
       (type === 'from' &&
         (value < selectedFiltersState.to[0] || !selectedFiltersState.to[0])) ||
       (type === 'to' &&
         (value > selectedFiltersState.from[0] || !selectedFiltersState.from[0]))
-    ) {
-      return false;
-    }
-    return true;
+    );
   };
 
   // subscribe for change applied filters value for manage tags state
