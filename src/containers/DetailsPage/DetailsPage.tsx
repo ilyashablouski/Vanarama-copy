@@ -5,9 +5,6 @@ import dynamic from 'next/dynamic';
 import localForage from 'localforage';
 import cx from 'classnames';
 
-import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
-import DownloadSharp from '@vanarama/uibook/lib/assets/icons/DownloadSharp';
-
 import {
   pushPDPDataLayer,
   pushAddToCartDataLayer,
@@ -37,6 +34,10 @@ import { getProductPageBreadCrumb } from '../../utils/url';
 import { useGenericPageHead } from '../../gql/genericPage';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 
+const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'));
+const DownloadSharp = dynamic(() =>
+  import('@vanarama/uibook/lib/assets/icons/DownloadSharp'),
+);
 const Loading = dynamic(() =>
   import('@vanarama/uibook/lib/components/atoms/loading'),
 );
