@@ -110,7 +110,7 @@ export const getProductPageBreadCrumb = (
 
 export const getVehicleConfigurationPath = (path: string) => {
   // used regexp to save functionality for local builds
-  return path.replace(/^(\/van|\/car)/, match => match.slice(1));
+  return path.replace(/^(\/van|\/car)/, match => match.slice(1)).slice(1);
 };
 
 export type productPageUrlData = {
