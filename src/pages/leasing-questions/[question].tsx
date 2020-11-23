@@ -6,6 +6,8 @@ import withApollo from '../../hocs/withApollo';
 import LeasingQuestionContainer from '../../containers/LeasingQuestionContainer/LeasingQuestionContainer';
 import { useGenericPageQuestion } from '../../containers/LeasingQuestionContainer/gql';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import { getSectionsData } from '../../utils/getSectionsData';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 const LeasingQuestion: NextPage = () => {
   const router = useRouter();
@@ -26,16 +28,24 @@ const LeasingQuestion: NextPage = () => {
     return null;
   }
 
-  const metaData = data?.genericPage?.metaData;
-  const sections = data.genericPage?.sections;
-  const body = data.genericPage?.intro;
+  const metaData = getSectionsData(['metaData'], data?.genericPage);
+  const body = getSectionsData(['intro', 'body'], data?.genericPage);
+  const sections = getSectionsData(['sections'], data?.genericPage);
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
   return (
-    <LeasingQuestionContainer
-      body={body}
-      title={metaData?.name}
-      sections={sections}
-    />
+    <>
+      <div className="row:title">
+        <Breadcrumb items={breadcrumbsItems} />
+      </div>
+      <LeasingQuestionContainer
+        body={body}
+        title={metaData?.name}
+        sections={sections}
+      />
+    </>
   );
 };
 

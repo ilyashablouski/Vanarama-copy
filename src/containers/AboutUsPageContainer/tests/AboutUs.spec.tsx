@@ -37,6 +37,7 @@ const mocks = {
             },
           ],
         },
+        breadcrumbs: null,
       },
       sections: {
         rowText: {

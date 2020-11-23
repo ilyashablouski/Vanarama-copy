@@ -6,7 +6,6 @@ import {
   formatNewUrl,
   getNewUrl,
   getVehicleConfigurationPath,
-  isNotShowBreadcrumbs,
   removeUrlQueryPart,
 } from '../url';
 
@@ -113,24 +112,6 @@ describe('Url utils', () => {
       );
 
       expect(actual).toEqual('/bmw-van-leasing/2-series/coupe/');
-    });
-  });
-
-  describe('isNotShowBreadcrumbs', () => {
-    it('isNotShowBreadcrumbs should return false', () => {
-      const actual = isNotShowBreadcrumbs('/bmw-van-leasing/2-series/coupe');
-
-      expect(actual).toEqual(false);
-    });
-    it('isNotShowBreadcrumbs should return true', () => {
-      const actual = isNotShowBreadcrumbs('/');
-
-      expect(actual).toEqual(true);
-    });
-    it('isNotShowBreadcrumbs should return true', () => {
-      const actual = isNotShowBreadcrumbs('/insurance/2-series');
-
-      expect(actual).toEqual(true);
     });
   });
 

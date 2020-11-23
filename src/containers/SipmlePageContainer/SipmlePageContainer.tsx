@@ -8,6 +8,7 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import { getSectionsData } from '../../utils/getSectionsData';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface ISimplePageContainer {
   data: GenericPageQuery | undefined;
@@ -31,9 +32,16 @@ const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
     ['featuredImage', 'file', 'url'],
     data?.genericPage,
   );
+  const metaData = getSectionsData(['metaData'], data?.genericPage);
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
   return (
     <>
+      <div className="row:title">
+        <Breadcrumb items={breadcrumbsItems} />
+      </div>
       <div className="row:title">
         <Heading tag="h1" size="xlarge" color="black">
           {metaDataName}

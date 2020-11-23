@@ -9,6 +9,7 @@
 
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_metaData {
   name: string | null;
+  breadcrumbs: any | null;
 }
 
 export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_leadText {

@@ -10,26 +10,13 @@ import {
   PageCollectionVariables,
 } from '../../../../../generated/PageCollection';
 import { GENERIC_PAGE, IGenericPage } from '../../../../gql/genericPage';
-import { getSectionsData } from '../../../../utils/getSectionsData';
-import Breadcrumb from '../../../../components/Breadcrumb/Breadcrumb';
 
 const AskTheExpertPage: NextPage<IGenericPage> = ({ data, error }) => {
   if (error || !data) {
     return <DefaultErrorPage statusCode={404} />;
   }
-  const metaData = getSectionsData(['metaData'], data?.genericPage);
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
 
-  return (
-    <>
-      <div className="row:title">
-        <Breadcrumb items={breadcrumbsItems} />
-      </div>
-      <SimplePageContainer data={data} />
-    </>
-  );
+  return <SimplePageContainer data={data} />;
 };
 
 export async function getStaticPaths() {
