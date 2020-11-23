@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, FormContext } from 'react-hook-form';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
@@ -21,6 +21,7 @@ import {
   ISoleTraderCompanyDetailsFormValues,
   ISoleTraderCompanyDetailsFormProps,
 } from './interfaces';
+import NatureTypeahead from '../CompanyDetailsForm/NatureTypehead';
 
 const isMonthInFuture = (month: string, year: string) => {
   const selectedMonth = parseInt(month, 10);
@@ -47,6 +48,7 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
   const existingVehicle = watch('existingVehicle');
   const tradingSinceYear = watch('tradingSinceYear');
   const tradingSinceMonth = watch('tradingSinceMonth');
+  const [natureOfBusiness, setNatureOfBusiness] = useState<string[]>([]);
 
   React.useEffect(() => {
     reset(defaultValues);
@@ -87,21 +89,10 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
           }}
         />
       </FormContext>
-      <Formgroup
-        controlId="natureOfBusiness"
-        label="Nature of Business"
-        hint="e.g. building firm/marketing agency"
-        error={errors.natureOfBusiness?.message?.toString()}
-      >
-        <TextInput
-          id="nature-of-business"
-          name="natureOfBusiness"
-          dataTestId="sole-trader-company-details_nature-of-business"
-          ref={register(
-            requiredTextFieldValidator('Please enter nature of business', 254),
-          )}
-        />
-      </Formgroup>
+      <NatureTypeahead
+        value={natureOfBusiness}
+        setNatureValue={setNatureOfBusiness}
+      />
       <Formgroup
         controlId="tradingSinceMonth"
         label="Trading Since"
