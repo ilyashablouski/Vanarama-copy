@@ -161,29 +161,33 @@ const EligibilityCheckerForm: FC<IFormProps> = ({
       </FormGroup>
       <Text tag="p" color="darker" size="regular">
         By checking your eligibility, you agree to our{' '}
-        <RouterLink
-          dataTestId="privacy_policy"
-          link={{
-            href: '/legal/privacy-policy',
-            label: 'Privacy Policy',
-          }}
-          classNames={{ size: 'regular', color: 'teal' }}
-          key="privacy_policy"
-        >
-          Privacy Policy
-        </RouterLink>{' '}
+        <span>
+          <RouterLink
+            dataTestId="terms_and_conditions"
+            link={{
+              href: '/legal/terms-and-conditions.html',
+              label: 'Terms and Conditions',
+            }}
+            classNames={{ size: 'regular', color: 'teal' }}
+            key="terms_and_conditions"
+          >
+            Terms and Conditions
+          </RouterLink>
+        </span>{' '}
         and{' '}
-        <RouterLink
-          dataTestId="terms_and_conditions"
-          link={{
-            href: '/legal/terms-and-conditions',
-            label: 'Terms and Conditions',
-          }}
-          classNames={{ size: 'regular', color: 'teal' }}
-          key="terms_and_conditions"
-        >
-          Terms and Conditions
-        </RouterLink>{' '}
+        <span>
+          <RouterLink
+            dataTestId="privacy_policy"
+            link={{
+              href: '/legal/privacy-policy.html',
+              label: 'Privacy Policy',
+            }}
+            classNames={{ size: 'regular', color: 'teal' }}
+            key="privacy_policy"
+          >
+            Privacy Policy
+          </RouterLink>
+        </span>{' '}
         and a soft credit check.
       </Text>
       <Button
