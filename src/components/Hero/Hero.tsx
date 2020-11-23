@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import dynamic from 'next/dynamic';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import SearchPodContainer from '../../containers/SearchPodContainer';
 import { IHeroProps } from './interface';
