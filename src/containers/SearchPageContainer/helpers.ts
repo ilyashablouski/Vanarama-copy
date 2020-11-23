@@ -176,7 +176,7 @@ export const ssrCMSQueryExecutor = async (
   // remove first slash from route and build valid path
   const { req, query } = context;
   const queryUrl = removeUrlQueryPart(req?.url || '');
-  const slug = queryUrl.includes('.html') ? queryUrl : queryUrl.slice(1);
+  const slug = queryUrl.slice(1);
   switch (pageType) {
     case 'isMakePage':
     case 'isRangePage':
