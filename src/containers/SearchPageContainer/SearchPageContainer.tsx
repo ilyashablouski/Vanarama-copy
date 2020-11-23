@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
-/* 
-  The first route param renamed to dynamicParam. 
+/*
+  The first route param renamed to dynamicParam.
   Because this route can be any filter value: make, bodystyle, transmission, fuel type.
   We define type of this params before page rendering in root page container,
   this query param should be using only with page type context for prevent any issues with it
@@ -313,7 +313,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             ? LeaseTypeEnum.PERSONAL
             : LeaseTypeEnum.BUSINESS,
           ...filtersForRanges,
-          manufacturerName: router.query?.dynamicParam as string,
+          manufacturerSlug: router.query?.dynamicParam as string,
         },
       });
       // call only manufacturer list query call after select new filter
