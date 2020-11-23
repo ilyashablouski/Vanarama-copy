@@ -1,15 +1,29 @@
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
-import SearchPodContainer from '../../containers/SearchPodContainer';
 import { IHeroProps } from './interface';
-import RequestCallBackForm from '../RequestCallBackForm';
-import WorkingHoursTable from '../../containers/InsurancePageContainer/sections/WorkingHoursTable';
 import { useOpportunityCreation } from '../../containers/GoldrushFormContainer/gql';
 import {
   handleNetworkError,
   DEFAULT_POSTCODE,
 } from '../../containers/GoldrushFormContainer/GoldrushFormContainer';
 import { OpportunityTypeEnum } from '../../../generated/globalTypes';
+
+// @ts-ignore
+const SearchPodContainer = dynamic(
+  () => import('../../containers/SearchPodContainer'),
+  {
+    ssr: false,
+  },
+);
+// @ts-ignore
+const WorkingHoursTable = dynamic(() =>
+  import('../../containers/InsurancePageContainer/sections/WorkingHoursTable'),
+);
+// @ts-ignore
+const RequestCallBackForm = dynamic(() => import('../RequestCallBackForm'), {
+  ssr: false,
+});
 
 const Hero: React.FC<IHeroProps> = ({
   children,
