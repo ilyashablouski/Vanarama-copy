@@ -1,18 +1,12 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 import localForage from 'localforage';
 import cx from 'classnames';
 
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Rating from '@vanarama/uibook/lib/components/atoms/rating';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import DownloadSharp from '@vanarama/uibook/lib/assets/icons/DownloadSharp';
-import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-gallery';
-import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
 
 import {
   pushPDPDataLayer,
@@ -28,9 +22,6 @@ import {
   LeaseTypeEnum,
   OrderInputObject,
 } from '../../../generated/globalTypes';
-import VehicleTechDetails from '../VehicleTechDetails/VehicleTechDetails';
-import IndependentReview from '../../components/IndependentReview/IndependentReview';
-import CustomiseLeaseContainer from '../CustomiseLeaseContainer/CustomiseLeaseContainer';
 import {
   GetVehicleDetails,
   GetVehicleDetails_vehicleDetails_rangeFaqs,
@@ -39,21 +30,67 @@ import {
   GetVehicleDetails_derivativeInfo_trims,
 } from '../../../generated/GetVehicleDetails';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
-import WhyChooseLeasing from '../../components/WhyChooseLeasing/WhyChooseLeasing';
-import Banner from '../../components/Banner/Banner';
-import CustomerReviews from '../../components/CustomerReviews/CustomerReviews';
-import WhyChooseVanarama from '../../components/WhyChooseVanarama/WhyChooseVanarama';
-import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer';
 import { replaceReview } from '../../components/CustomerReviews/helpers';
-import FrequentlyAskedQuestions from '../../components/FrequentlyAskedQuestions/FrequentlyAskedQuestions';
 import { useCreateUpdateOrder } from '../../gql/order';
-import RouterLink from '../../components/RouterLink/RouterLink';
 import useLeaseType from '../../hooks/useLeaseType';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { getProductPageBreadCrumb } from '../../utils/url';
-import Head from '../../components/Head/Head';
 import { useGenericPageHead } from '../../gql/genericPage';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
+
+const Loading = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/loading'),
+);
+const Heading = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/heading'),
+);
+const Text = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/text'),
+);
+const Rating = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/rating'),
+);
+const Icon = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/icon'),
+);
+const MediaGallery = dynamic(() =>
+  import('@vanarama/uibook/lib/components/organisms/media-gallery'),
+);
+const LeaseScanner = dynamic(() =>
+  import('@vanarama/uibook/lib/components/organisms/lease-scanner'),
+);
+const IndependentReview = dynamic(() =>
+  import('../../components/IndependentReview/IndependentReview'),
+);
+const WhyChooseLeasing = dynamic(() =>
+  import('../../components/WhyChooseLeasing/WhyChooseLeasing'),
+);
+const Banner = dynamic(() => import('../../components/Banner/Banner'));
+const CustomerReviews = dynamic(() =>
+  import('../../components/CustomerReviews/CustomerReviews'),
+);
+const WhyChooseVanarama = dynamic(() =>
+  import('../../components/WhyChooseVanarama/WhyChooseVanarama'),
+);
+const FrequentlyAskedQuestions = dynamic(() =>
+  import('../../components/FrequentlyAskedQuestions/FrequentlyAskedQuestions'),
+);
+const RouterLink = dynamic(() =>
+  import('../../components/RouterLink/RouterLink'),
+);
+const Breadcrumb = dynamic(() =>
+  import('../../components/Breadcrumb/Breadcrumb'),
+);
+const Head = dynamic(() => import('../../components/Head/Head'));
+
+const VehicleTechDetails = dynamic(() =>
+  import('../VehicleTechDetails/VehicleTechDetails'),
+);
+const CustomiseLeaseContainer = dynamic(() =>
+  import('../CustomiseLeaseContainer/CustomiseLeaseContainer'),
+);
+const CustomerAlsoViewedContainer = dynamic(() =>
+  import('../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer'),
+);
 
 interface IDetailsPageProps {
   capId: number;
