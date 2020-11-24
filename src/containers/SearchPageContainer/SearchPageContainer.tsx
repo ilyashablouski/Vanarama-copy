@@ -28,7 +28,7 @@ import { findPreselectFilterValue } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import TopOffersContainer from './TopOffersContainer';
-import { useProductCardData } from '../CustomerAlsoViewedContainer/gql';
+import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
 import { IFilters } from '../FiltersContainer/interfaces';
 import FiltersContainer from '../FiltersContainer';
 import { useVehiclesList, getRangesList, useManufacturerList } from './gql';
@@ -190,10 +190,21 @@ const SearchPageContainer: React.FC<IProps> = ({
     setCachedLeaseType(type);
   }, [isPersonal, setCachedLeaseType]);
 
-  const { refetch, loading } = useProductCardData(
+  const [getProductCardData, { loading }] = useProductCardDataLazyQuery(
     capIds,
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-    !!capIds.length,
+    data => {
+      setCardsData(data?.productCard || []);
+      setCarDerivatives(data?.derivatives || []);
+    },
+  );
+  const [getProductCacheCardData] = useProductCardDataLazyQuery(
+    capIds,
+    isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+    data => {
+      setCardsDataCache(data?.productCard || []);
+      setCarDerivativesCache(data?.derivatives || []);
+    },
   );
 
   const manualBodyStyle = useMemo(() => {
@@ -234,14 +245,13 @@ const SearchPageContainer: React.FC<IProps> = ({
         const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
         setCapsIds(responseCapIds);
         if (responseCapIds.length) {
-          return await refetch({
-            capIds: responseCapIds,
-            vehicleType: isCarSearch
-              ? VehicleTypeEnum.CAR
-              : VehicleTypeEnum.LCV,
-          }).then(resp => {
-            setCardsData(resp.data?.productCard || []);
-            setCarDerivatives(resp.data?.derivatives || []);
+          return await getProductCardData({
+            variables: {
+              capIds: responseCapIds,
+              vehicleType: isCarSearch
+                ? VehicleTypeEnum.CAR
+                : VehicleTypeEnum.LCV,
+            },
           });
         }
         return false;
@@ -264,14 +274,14 @@ const SearchPageContainer: React.FC<IProps> = ({
         const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
         setCapsIds(responseCapIds);
         if (responseCapIds.length) {
-          return await refetch({
-            capIds: responseCapIds,
-            vehicleType: isCarSearch
-              ? VehicleTypeEnum.CAR
-              : VehicleTypeEnum.LCV,
-          }).then(resp => {
-            setCardsDataCache(resp.data?.productCard || []);
-            setCarDerivativesCache(resp.data?.derivatives || []);
+          // add cache variable
+          return await getProductCacheCardData({
+            variables: {
+              capIds: responseCapIds,
+              vehicleType: isCarSearch
+                ? VehicleTypeEnum.CAR
+                : VehicleTypeEnum.LCV,
+            },
           });
         }
         return false;
@@ -431,12 +441,11 @@ const SearchPageContainer: React.FC<IProps> = ({
   // prevent case when we navigate use back/forward button and useCallback return empty result list
   useEffect(() => {
     if (data && !cardsData.length && loading) {
-      refetch({
-        capIds: getCapsIds(data.vehicleList.edges || []),
-        vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-      }).then(resp => {
-        setCardsData(resp.data?.productCard || []);
-        setCarDerivatives(resp.data?.derivatives || []);
+      getProductCardData({
+        variables: {
+          capIds: getCapsIds(data.vehicleList.edges || []),
+          vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+        },
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
