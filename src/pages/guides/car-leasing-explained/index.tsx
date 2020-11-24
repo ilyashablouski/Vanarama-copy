@@ -21,9 +21,11 @@ const FinanceInfo: NextPage<IGenericPage> = ({ data, error }) => {
 
   return (
     <>
-      <div className="row:title">
-        <Breadcrumb items={breadcrumbsItems} />
-      </div>
+      {breadcrumbsItems && (
+        <div className="row:title">
+          <Breadcrumb items={breadcrumbsItems} />
+        </div>
+      )}
       <LeasingExplainedContainer
         body={body}
         title={title}
