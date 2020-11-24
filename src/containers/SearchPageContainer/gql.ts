@@ -142,7 +142,7 @@ export const GET_RANGES = gql`
   query rangeList(
     $vehicleTypes: VehicleTypeEnum
     $leaseType: LeaseTypeEnum
-    $manufacturerName: String!
+    $manufacturerSlug: String!
     $bodyStyles: [String!]
     $transmissions: [String!]
     $fuelTypes: [String!]
@@ -151,7 +151,7 @@ export const GET_RANGES = gql`
     rangeList(
       filter: {
         vehicleType: $vehicleTypes
-        manufacturerName: $manufacturerName
+        manufacturerSlug: $manufacturerSlug
         rate: $rate
         bodyStyles: $bodyStyles
         transmissions: $transmissions
@@ -169,7 +169,7 @@ export const GET_RANGES = gql`
 
 export function getRangesList(
   vehicleTypes: VehicleTypeEnum,
-  manufacturerName: string,
+  manufacturerSlug: string,
   leaseType: LeaseTypeEnum,
   rate?: RateInputObject,
   bodyStyles?: string[],
@@ -180,7 +180,7 @@ export function getRangesList(
   return useLazyQuery<rangeList, rangeListVariables>(GET_RANGES, {
     variables: {
       vehicleTypes,
-      manufacturerName,
+      manufacturerSlug,
       leaseType,
       rate,
       bodyStyles,

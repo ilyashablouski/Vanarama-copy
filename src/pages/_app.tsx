@@ -5,7 +5,7 @@ import { AppProps } from 'next/app';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
-import { isNotShowBreadcrumbs, SEARCH_PAGES } from '../utils/url';
+import { SEARCH_PAGES } from '../utils/url';
 import {
   PAGES_WITH_COMPARATOR,
   CompareContext,
@@ -32,7 +32,6 @@ import { pushPageData } from '../utils/dataLayerHelpers';
 import { prepareSlugPart } from '../containers/SearchPageContainer/helpers';
 
 // Dynamic component loading.
-const Breadcrumb = dynamic(() => import('../components/Breadcrumb/Breadcrumb'));
 const Head = dynamic(() => import('../components/Head/Head'));
 const HeaderContainer = dynamic(() => import('../containers/HeaderContainer'));
 const FooterContainer = dynamic(() => import('../containers/FooterContainer'));
@@ -71,11 +70,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     GenericPageHeadQueryVariables
   >(GENERIC_PAGE_HEAD, {
     variables: {
-      slug: prepareSlugPart(
-        router.asPath.includes('.html')
-          ? router.asPath.split('?')[0]
-          : router.asPath.slice(1).split('?')[0],
-      ),
+      slug: prepareSlugPart(router.asPath.slice(1).split('?')[0]),
     },
   });
 
@@ -171,20 +166,11 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     pageHead?.data?.genericPage,
   );
 
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
-
   return (
     <>
       <ToastContainer />
       <main className={cx(resolveMainClass())}>
         <HeaderContainer />
-        {!isNotShowBreadcrumbs(router.pathname) && (
-          <div className="row:title">
-            <Breadcrumb items={breadcrumbsItems} />
-          </div>
-        )}
         <CompareContext.Provider
           value={{
             compareVehicles,

@@ -6,6 +6,7 @@ import withApollo from '../../../../hocs/withApollo';
 import VehicleReviewCategoryContainer from '../../../../containers/VehicleReviewCategoryContainer/VehicleReviewCategoryContainer';
 import { useReviewsHubCategoryQuery } from '../../../../containers/VehicleReviewCategoryContainer/gql';
 import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
+import { getSectionsData } from '../../../../utils/getSectionsData';
 
 const ReviewHub: NextPage = () => {
   const router = useRouter();
@@ -25,7 +26,17 @@ const ReviewHub: NextPage = () => {
     return null;
   }
 
-  return <VehicleReviewCategoryContainer data={data} />;
+  const metaData = getSectionsData(['metaData', 'name'], data.genericPage);
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
+
+  return (
+    <VehicleReviewCategoryContainer
+      data={data}
+      breadcrumbsItems={breadcrumbsItems}
+    />
+  );
 };
 
 export default withApollo(ReviewHub, { getDataFromTree });

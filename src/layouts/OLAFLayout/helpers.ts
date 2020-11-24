@@ -28,14 +28,14 @@ export const createOlafDetails = (
         leaseType === LeaseTypeEnum.PERSONAL ? 'inc.' : 'ex.'
       } VAT)`
     : '-',
-  contractLength: offer.term ? `${offer.term} month` : '-',
+  contractLength: offer.depositMonths ? `${offer.depositMonths} month` : '-',
   annualMileage: offer.annualMileage ? `${offer.annualMileage} miles` : '-',
   maintenance: offer.maintenance ? 'Yes' : 'No',
   fuel: derivative?.fuelType.name || '-',
   transmission: derivative?.transmission.name || '-',
   color: offer.colour || '-',
   trim: offer.trim || '-',
-  description: `${(offer.term || 1) - 1} month contact (${
+  description: `${(offer.depositMonths || 1) - 1} month contact (${
     leaseType === LeaseTypeEnum.PERSONAL ? 'inc.' : 'ex.'
   } VAT). Paid by Direct Debit. First due ≈ 10 days after delivery.`,
   initialRentalDataTestId: 'about_intial-rental-testID',

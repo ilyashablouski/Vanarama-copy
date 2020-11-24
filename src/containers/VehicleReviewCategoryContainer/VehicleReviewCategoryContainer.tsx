@@ -123,12 +123,8 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
 
   return (
     <>
-      {breadcrumbsItems && (
-        <div className="row:title">
-          <Breadcrumb items={breadcrumbsItems} />
-        </div>
-      )}
       <div className="row:title">
+        <Breadcrumb items={breadcrumbsItems} />
         <Heading tag="h1" size="xlarge" color="black">
           {title}
         </Heading>

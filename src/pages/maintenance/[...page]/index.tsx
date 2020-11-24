@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic';
 import DefaultErrorPage from 'next/error';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
@@ -11,11 +10,6 @@ import {
   PageCollectionVariables,
 } from '../../../../generated/PageCollection';
 import FeaturedAndTilesContainer from '../../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
-import { getSectionsData } from '../../../utils/getSectionsData';
-
-const Breadcrumb = dynamic(() =>
-  import('../../../components/Breadcrumb/Breadcrumb'),
-);
 
 const MaintenancePage: NextPage<IGenericPage> = ({ data, error, loading }) => {
   if (error || !data?.genericPage) {
@@ -26,20 +20,7 @@ const MaintenancePage: NextPage<IGenericPage> = ({ data, error, loading }) => {
     return <Loading size="large" />;
   }
 
-  const metaData = getSectionsData(['metaData'], data?.genericPage);
-
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
-
-  return (
-    <>
-      <div className="row:title">
-        <Breadcrumb items={breadcrumbsItems} />
-      </div>
-      <FeaturedAndTilesContainer data={data} />
-    </>
-  );
+  return <FeaturedAndTilesContainer data={data} />;
 };
 
 export async function getStaticPaths() {

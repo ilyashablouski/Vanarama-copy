@@ -7,6 +7,7 @@ import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import TilesContainer from '../TilesContainer/TilesContainer';
 import { FeaturedHtml } from './getFeaturedHtml';
 import { getSectionsData } from '../../utils/getSectionsData';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   data: GenericPageQuery | undefined;
@@ -30,10 +31,15 @@ const FeaturedAndTilesContainer: FC<IProps> = ({ data, leasingOffers }) => {
     ['sections', 'featured3'],
     data?.genericPage,
   );
+  const metaData = getSectionsData(['metaData'], data?.genericPage);
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
   return (
     <>
       <div className="row:title">
+        <Breadcrumb items={breadcrumbsItems} />
         <Heading size="xlarge" color="black" tag="h1">
           {title}
         </Heading>

@@ -3,7 +3,7 @@ import React from 'react';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import { useProductCardData } from './gql';
+import { useProductCardDataQuery } from './gql';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 
 interface ICustomerAlsoViewedContainerProps {
@@ -17,7 +17,11 @@ const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> =
   leaseType,
   vehicleType,
 }) => {
-  const { data, loading, error } = useProductCardData(capsId, vehicleType);
+  const { data, loading, error } = useProductCardDataQuery(
+    capsId,
+    vehicleType,
+    !!capsId.length,
+  );
   if (loading) {
     return (
       <div

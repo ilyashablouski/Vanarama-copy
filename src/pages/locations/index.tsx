@@ -13,6 +13,7 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import getTitleTag from '../../utils/getTitleTag';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { useGenericPage } from '../../gql/genericPage';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 export const LocationsPage: NextPage = () => {
   const router = useRouter();
@@ -30,15 +31,20 @@ export const LocationsPage: NextPage = () => {
     return <></>;
   }
 
+  const metaData = getSectionsData(['metaData'], data?.genericPage);
   const cards = getSectionsData(['cards', 'cards'], data.genericPage?.sections);
   const metaDataName = getSectionsData(
     ['metaData', 'name'],
     data.genericPage?.sections,
   );
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
   return (
     <>
       <div className="row:title">
+        <Breadcrumb items={breadcrumbsItems} />
         <Heading size="xlarge" color="black" tag="h1">
           {metaDataName}
         </Heading>

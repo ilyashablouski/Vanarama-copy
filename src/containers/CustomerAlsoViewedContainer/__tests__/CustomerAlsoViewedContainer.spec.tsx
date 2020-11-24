@@ -2,7 +2,7 @@ import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import renderer from 'react-test-renderer';
 import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer';
-import { useProductCardData } from '../gql';
+import { useProductCardDataQuery } from '../gql';
 
 jest.mock('../gql');
 
@@ -19,7 +19,7 @@ describe('<CustomerAlsoViewedContainer />', () => {
   });
 
   it('renders correctly with loading', () => {
-    (useProductCardData as jest.Mock).mockReturnValue({
+    (useProductCardDataQuery as jest.Mock).mockReturnValue({
       loading: true,
       data: undefined,
       error: undefined,
@@ -38,7 +38,7 @@ describe('<CustomerAlsoViewedContainer />', () => {
   });
 
   it('renders correctly with error', () => {
-    (useProductCardData as jest.Mock).mockReturnValue({
+    (useProductCardDataQuery as jest.Mock).mockReturnValue({
       loading: false,
       data: undefined,
       error: { message: 'message' },
@@ -57,7 +57,7 @@ describe('<CustomerAlsoViewedContainer />', () => {
   });
 
   it('renders correctly with empty data', () => {
-    (useProductCardData as jest.Mock).mockReturnValue({
+    (useProductCardDataQuery as jest.Mock).mockReturnValue({
       loading: false,
       data: { productCards: [] },
       error: undefined,

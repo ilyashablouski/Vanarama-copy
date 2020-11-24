@@ -8,6 +8,7 @@ export const ELIGIBILITY_CHECKER_CONTENT = gql`
       id
       metaData {
         name
+        breadcrumbs
       }
       sections {
         leadText {

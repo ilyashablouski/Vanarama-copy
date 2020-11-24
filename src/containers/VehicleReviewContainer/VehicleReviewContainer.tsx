@@ -14,14 +14,21 @@ import getTitleTag from '../../utils/getTitleTag';
 import mapToReviewCard from './helpers';
 import { ReviewsPageQuery_reviewsPage_sections as Sections } from '../../../generated/ReviewsPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   sections: Sections | null;
   title: string | null;
   body: string | null;
+  breadcrumbsItems: any;
 }
 
-const VehicleReviewContainer: FC<IProps> = ({ body, title, sections }) => {
+const VehicleReviewContainer: FC<IProps> = ({
+  body,
+  title,
+  sections,
+  breadcrumbsItems,
+}) => {
   const [reviewsExpanded, setReviewsExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
 
@@ -29,9 +36,11 @@ const VehicleReviewContainer: FC<IProps> = ({ body, title, sections }) => {
     ? sections?.vehicleReview?.author[0]?.name || ''
     : '';
   const expertMark = Number(sections?.vehicleReview?.rating || 0);
+
   return (
     <>
       <div className="row:title">
+        <Breadcrumb items={breadcrumbsItems} />
         <Heading tag="h1" size="xlarge" color="black">
           {title}
         </Heading>

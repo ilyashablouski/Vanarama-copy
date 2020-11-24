@@ -14,6 +14,7 @@ jest.mock('next/router', () => ({
   }),
 }));
 jest.mock('../../../gql/genericPage');
+jest.mock('../../../hooks/useMediaQuery');
 
 const mocked: MockedResponse[] = [];
 

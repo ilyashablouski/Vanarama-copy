@@ -110,54 +110,7 @@ export const getProductPageBreadCrumb = (
 
 export const getVehicleConfigurationPath = (path: string) => {
   // used regexp to save functionality for local builds
-  return path.replace(/^(\/van|\/car)/, match => match.slice(1));
-};
-
-/**
- * define on which page not to show Breadcrumbs
- * @param routerPathName - string router pathName
- */
-export const isNotShowBreadcrumbs = (routerPathName: string) => {
-  const pathNamePart = routerPathName.split('/');
-  const pathNameLength = pathNamePart.length;
-  return (
-    // not to show on location pages
-    routerPathName.includes('[location]') ||
-    // not to show on PDP pages
-    routerPathName.includes('[...details-page]') ||
-    // not to show on b2b and b2c pages
-    routerPathName.includes('/olaf') ||
-    // not to show on b2b and b2c pages
-    routerPathName.includes('/fleet') ||
-    // not to show on account pages
-    routerPathName.includes('/account') ||
-    // not to show on reviews vans pagination page
-    routerPathName.includes('/reviews/vans/page/') ||
-    routerPathName.includes('/blog') ||
-    routerPathName.includes('/non-blog') ||
-    // not to show on insurance pages, but show on faq insurance
-    (pathNameLength === 2 && routerPathName.includes('/insurance')) ||
-    (pathNameLength === 3 &&
-      routerPathName.includes('/insurance') &&
-      !pathNamePart[2].includes('/faq')) ||
-    // not to show on main van leasing page
-    (pathNameLength === 2 && routerPathName.includes('/van-leasing')) ||
-    // not to show on main car leasing page
-    (pathNameLength === 2 && routerPathName.includes('/car-leasing')) ||
-    // not to show on main pickup leasing page
-    (pathNameLength === 2 &&
-      routerPathName.includes('/pickup-truck-leasing')) ||
-    // not to show on home page
-    routerPathName.length === 1 ||
-    // not to show on help-me-choose pages
-    routerPathName.includes('/help-me-choose') ||
-    routerPathName.includes('/about-us') ||
-    routerPathName.includes('/guides') ||
-    routerPathName.includes('/lease-finance') ||
-    routerPathName.includes('/careers') ||
-    routerPathName.includes('/maintenance') ||
-    routerPathName.includes('/authors')
-  );
+  return path.replace(/^(\/)/, match => match.slice(1));
 };
 
 export type productPageUrlData = {
