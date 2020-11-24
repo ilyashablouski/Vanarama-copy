@@ -623,8 +623,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     <>
       <div className="row:title">
         <Breadcrumb items={breadcrumbsItems} />
-      </div>
-      <div className="row:title">
         <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
           {(isModelPage &&
             metaData?.name?.slice(0, metaData?.name?.indexOf('Car Leasing'))) ||

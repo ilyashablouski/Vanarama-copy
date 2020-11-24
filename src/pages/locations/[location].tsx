@@ -235,9 +235,11 @@ export const LocationsPage: NextPage = () => {
           </div>
         </div>
       )}
-      <div className="row:title -mt-200">
-        <Breadcrumb items={breadcrumbsItems} />
-      </div>
+      {breadcrumbsItems && (
+        <div className="row:title -mt-200">
+          <Breadcrumb items={breadcrumbsItems} />
+        </div>
+      )}
       {leadText && (
         <div className="row:lead-text">
           <Heading

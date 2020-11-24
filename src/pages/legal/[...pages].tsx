@@ -33,9 +33,11 @@ const BlogPost: NextPage<ILegalPage> = ({ data, error }) => {
 
   return (
     <>
-      <div className="row:title">
-        <Breadcrumb items={breadcrumbsItems} />
-      </div>
+      {breadcrumbsItems && (
+        <div className="row:title">
+          <Breadcrumb items={breadcrumbsItems} />
+        </div>
+      )}
       <LegalArticleContainer
         body={body}
         name={metaData.name}

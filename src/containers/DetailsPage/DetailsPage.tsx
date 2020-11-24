@@ -338,7 +338,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   return (
     <>
       <div className="pdp--content">
-        <Breadcrumb items={breadcrumbItems} />
+        {breadcrumbItems && (
+          <div className="row:title">
+            <Breadcrumb items={breadcrumbItems} />
+          </div>
+        )}
         <Heading tag="h1">
           <Heading className="-pt-100" tag="span" size="xlarge" color="black">
             {pageTitle}

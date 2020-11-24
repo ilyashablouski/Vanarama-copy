@@ -19,9 +19,11 @@ const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
 
   return (
     <>
-      <div className="row:title">
-        <Breadcrumb items={breadcrumbsItems} />
-      </div>
+      {breadcrumbsItems && (
+        <div className="row:title">
+          <Breadcrumb items={breadcrumbsItems} />
+        </div>
+      )}
       <AboutUs data={data} loading={loading} error={error} />
     </>
   );
