@@ -359,6 +359,8 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
             <div className="row:pagination">
               <Pagination
                 path={pathname.replace('/[pageNumber]', '')}
+                pathForFirstPage={pathname.replace('/page/[pageNumber]', '')}
+                pathWithHtml
                 pages={pages}
                 onClick={el => {
                   el.preventDefault();
