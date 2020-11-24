@@ -124,7 +124,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     true,
   );
 
-  const { data: genericPageHead } = useGenericPageHead(router.asPath);
+  const { data: genericPageHead } = useGenericPageHead(router.asPath.slice(1));
 
   useEffect(() => {
     setCachedLeaseType(leaseType);
