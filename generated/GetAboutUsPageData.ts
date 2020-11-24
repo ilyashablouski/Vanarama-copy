@@ -9,6 +9,7 @@
 
 export interface GetAboutUsPageData_aboutUsLandingPage_metaData {
   name: string | null;
+  breadcrumbs: any | null;
 }
 
 export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage_file {
