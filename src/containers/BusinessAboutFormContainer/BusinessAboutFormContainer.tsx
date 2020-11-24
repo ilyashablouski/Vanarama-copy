@@ -3,6 +3,7 @@ import localForage from 'localforage';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import BusinessAboutForm from '../../components/BusinessAboutForm/BusinessAboutForm';
+import { IBusinessAboutFormValues } from '../../components/BusinessAboutForm/interfaces';
 import { useEmailCheck } from '../RegisterFormContainer/gql';
 import { useAboutYouData } from '../AboutFormContainer/gql';
 import {
@@ -16,7 +17,14 @@ import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditA
 import { responseToInitialFormValues, mapAboutPersonData } from './mappers';
 import { CompanyTypes } from '../../models/enum/CompanyTypes';
 import { CreditApplicationTypeEnum as CATypeEnum } from '../../../generated/globalTypes';
-import { useRegistrationForTemporaryAccessMutation } from '../../gql/temporaryRegistration';
+import {
+  useRegistrationForTemporaryAccessMutation,
+  handlerMock,
+} from '../../gql/temporaryRegistration';
+// import {
+//   SaveBusinessAboutYou,
+//   SaveBusinessAboutYouVariables,
+// } from '../../../generated/SaveBusinessAboutYou';
 
 const savePersonUuid = async (data: SaveBusinessAboutYou) =>
   localForage.setItem('personUuid', data.createUpdateBusinessPerson?.uuid);
@@ -57,20 +65,22 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     return null;
   }, [creditApplication, personByUuid]);
 
-  const handleTemporaryRegistration = (
+  const handleTemporaryRegistrationIfGuest = (
     username: string,
     firstName: string,
     lastName: string,
   ) =>
-    registerTemporary({
-      variables: {
-        username,
-        firstName,
-        lastName,
-      },
-    });
+    personUuid
+      ? handlerMock()
+      : registerTemporary({
+          variables: {
+            username,
+            firstName,
+            lastName,
+          },
+        });
 
-  const handleDetailsSave = (values: any) =>
+  const handleDetailsSave = (values: IBusinessAboutFormValues) =>
     saveDetails({
       variables: {
         input: {
@@ -94,7 +104,10 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
       },
     });
 
-  const handleCreateUpdateCreditApplication = (values: any, data: any) =>
+  const handleCreateUpdateCreditApplication = (
+    values: IBusinessAboutFormValues,
+    data?: SaveBusinessAboutYou | null,
+  ) =>
     createUpdateApplication({
       variables: {
         input: formValuesToInputCreditApplication({
@@ -149,7 +162,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
         return Boolean(results?.data?.emailAlreadyExists);
       }}
       onSubmit={values => {
-        handleTemporaryRegistration(
+        handleTemporaryRegistrationIfGuest(
           values.email,
           values.firstName,
           values.lastName,

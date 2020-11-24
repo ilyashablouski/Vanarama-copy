@@ -1,4 +1,4 @@
-import { useMutation, gql } from '@apollo/client';
+import { useMutation, gql, FetchResult } from '@apollo/client';
 import {
   RegisterForTemporaryAccess,
   RegisterForTemporaryAccessVariables,
@@ -26,3 +26,11 @@ export function useRegistrationForTemporaryAccessMutation() {
     RegisterForTemporaryAccessVariables
   >(REGISTER_FOR_TEMPORARY_ACCESS_MUTATION);
 }
+export const handlerMock = (): Promise<FetchResult<
+  RegisterForTemporaryAccess
+>> =>
+  Promise.resolve({
+    data: {
+      registerForTemporaryAccess: null,
+    },
+  });
