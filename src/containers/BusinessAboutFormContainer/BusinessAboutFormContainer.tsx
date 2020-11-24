@@ -21,10 +21,6 @@ import {
   useRegistrationForTemporaryAccessMutation,
   handlerMock,
 } from '../../gql/temporaryRegistration';
-// import {
-//   SaveBusinessAboutYou,
-//   SaveBusinessAboutYouVariables,
-// } from '../../../generated/SaveBusinessAboutYou';
 
 const savePersonUuid = async (data: SaveBusinessAboutYou) =>
   localForage.setItem('personUuid', data.createUpdateBusinessPerson?.uuid);
