@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
-/* 
-  The first route param renamed to dynamicParam. 
+/*
+  The first route param renamed to dynamicParam.
   Because this route can be any filter value: make, bodystyle, transmission, fuel type.
   We define type of this params before page rendering in root page container,
   this query param should be using only with page type context for prevent any issues with it
@@ -28,7 +28,7 @@ import { findPreselectFilterValue } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import TopOffersContainer from './TopOffersContainer';
-import { useProductCardData } from '../CustomerAlsoViewedContainer/gql';
+import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
 import { IFilters } from '../FiltersContainer/interfaces';
 import FiltersContainer from '../FiltersContainer';
 import { useVehiclesList, getRangesList, useManufacturerList } from './gql';
@@ -190,10 +190,21 @@ const SearchPageContainer: React.FC<IProps> = ({
     setCachedLeaseType(type);
   }, [isPersonal, setCachedLeaseType]);
 
-  const { refetch, loading } = useProductCardData(
+  const [getProductCardData, { loading }] = useProductCardDataLazyQuery(
     capIds,
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-    !!capIds.length,
+    data => {
+      setCardsData(data?.productCard || []);
+      setCarDerivatives(data?.derivatives || []);
+    },
+  );
+  const [getProductCacheCardData] = useProductCardDataLazyQuery(
+    capIds,
+    isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+    data => {
+      setCardsDataCache(data?.productCard || []);
+      setCarDerivativesCache(data?.derivatives || []);
+    },
   );
 
   const manualBodyStyle = useMemo(() => {
@@ -234,14 +245,13 @@ const SearchPageContainer: React.FC<IProps> = ({
         const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
         setCapsIds(responseCapIds);
         if (responseCapIds.length) {
-          return await refetch({
-            capIds: responseCapIds,
-            vehicleType: isCarSearch
-              ? VehicleTypeEnum.CAR
-              : VehicleTypeEnum.LCV,
-          }).then(resp => {
-            setCardsData(resp.data?.productCard || []);
-            setCarDerivatives(resp.data?.derivatives || []);
+          return await getProductCardData({
+            variables: {
+              capIds: responseCapIds,
+              vehicleType: isCarSearch
+                ? VehicleTypeEnum.CAR
+                : VehicleTypeEnum.LCV,
+            },
           });
         }
         return false;
@@ -264,14 +274,14 @@ const SearchPageContainer: React.FC<IProps> = ({
         const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
         setCapsIds(responseCapIds);
         if (responseCapIds.length) {
-          return await refetch({
-            capIds: responseCapIds,
-            vehicleType: isCarSearch
-              ? VehicleTypeEnum.CAR
-              : VehicleTypeEnum.LCV,
-          }).then(resp => {
-            setCardsDataCache(resp.data?.productCard || []);
-            setCarDerivativesCache(resp.data?.derivatives || []);
+          // add cache variable
+          return await getProductCacheCardData({
+            variables: {
+              capIds: responseCapIds,
+              vehicleType: isCarSearch
+                ? VehicleTypeEnum.CAR
+                : VehicleTypeEnum.LCV,
+            },
           });
         }
         return false;
@@ -313,7 +323,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             ? LeaseTypeEnum.PERSONAL
             : LeaseTypeEnum.BUSINESS,
           ...filtersForRanges,
-          manufacturerName: router.query?.dynamicParam as string,
+          manufacturerSlug: router.query?.dynamicParam as string,
         },
       });
       // call only manufacturer list query call after select new filter
@@ -431,12 +441,11 @@ const SearchPageContainer: React.FC<IProps> = ({
   // prevent case when we navigate use back/forward button and useCallback return empty result list
   useEffect(() => {
     if (data && !cardsData.length && loading) {
-      refetch({
-        capIds: getCapsIds(data.vehicleList.edges || []),
-        vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-      }).then(resp => {
-        setCardsData(resp.data?.productCard || []);
-        setCarDerivatives(resp.data?.derivatives || []);
+      getProductCardData({
+        variables: {
+          capIds: getCapsIds(data.vehicleList.edges || []),
+          vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+        },
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -623,8 +632,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     <>
       <div className="row:title">
         <Breadcrumb items={breadcrumbsItems} />
-      </div>
-      <div className="row:title">
         <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
           {(isModelPage &&
             metaData?.name?.slice(0, metaData?.name?.indexOf('Car Leasing'))) ||

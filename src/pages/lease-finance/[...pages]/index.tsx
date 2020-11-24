@@ -31,9 +31,11 @@ const EligibilityChecker: NextPage<IGenericPage> = ({ data, error }) => {
   if (router.asPath.split('/').length > 3) {
     return (
       <>
-        <div className="row:title">
-          <Breadcrumb items={breadcrumbsItems} />
-        </div>
+        {breadcrumbsItems && (
+          <div className="row:title">
+            <Breadcrumb items={breadcrumbsItems} />
+          </div>
+        )}
         <FinanceInformationExplainedContainer
           title={title}
           sections={sections}
@@ -44,9 +46,11 @@ const EligibilityChecker: NextPage<IGenericPage> = ({ data, error }) => {
 
   return (
     <>
-      <div className="row:title">
-        <Breadcrumb items={breadcrumbsItems} />
-      </div>
+      {breadcrumbsItems && (
+        <div className="row:title">
+          <Breadcrumb items={breadcrumbsItems} />
+        </div>
+      )}
       <FinanceExplainedContainer data={data} />
     </>
   );

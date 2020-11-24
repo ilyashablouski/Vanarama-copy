@@ -264,8 +264,6 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
     <>
       <div className="row:title">
         <Breadcrumb items={breadcrumbsItems} />
-      </div>
-      <div className="row:title">
         <Heading tag="h1" size="xlarge" color="black">
           {metaData?.name || pageTitle}
         </Heading>
@@ -361,6 +359,8 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
             <div className="row:pagination">
               <Pagination
                 path={pathname.replace('/[pageNumber]', '')}
+                pathForFirstPage={pathname.replace('/page/[pageNumber]', '')}
+                pathWithHtml
                 pages={pages}
                 onClick={el => {
                   el.preventDefault();

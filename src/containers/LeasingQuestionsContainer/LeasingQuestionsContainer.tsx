@@ -87,8 +87,6 @@ const LeasingExplainedContainer: FC<IProps> = ({ data }) => {
     <>
       <div className="row:title">
         <Breadcrumb items={breadcrumbsItems} />
-      </div>
-      <div className="row:title">
         <Heading size="xlarge" color="black" tag="h1">
           {title}
         </Heading>

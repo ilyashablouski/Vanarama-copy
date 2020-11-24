@@ -193,7 +193,7 @@ export async function getServerSideProps(context: NextPageContext) {
         query: GET_RANGES,
         variables: {
           vehicleTypes: VehicleTypeEnum.LCV,
-          manufacturerName: newQuery.make,
+          manufacturerSlug: newQuery.make,
           leaseType: LeaseTypeEnum.BUSINESS,
         },
       })

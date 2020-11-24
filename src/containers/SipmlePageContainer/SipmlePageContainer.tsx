@@ -41,8 +41,6 @@ const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
     <>
       <div className="row:title">
         <Breadcrumb items={breadcrumbsItems} />
-      </div>
-      <div className="row:title">
         <Heading tag="h1" size="xlarge" color="black">
           {metaDataName}
         </Heading>

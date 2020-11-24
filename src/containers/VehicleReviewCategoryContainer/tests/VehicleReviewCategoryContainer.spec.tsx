@@ -11,6 +11,7 @@ jest.mock('next/router', () => ({
     query: {},
   }),
 }));
+jest.mock('../../../hooks/useMediaQuery');
 
 // ARRANGE
 const TITLE = 'Citroen Van Reviews';
