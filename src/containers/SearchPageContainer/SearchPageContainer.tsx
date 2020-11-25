@@ -633,7 +633,6 @@ const SearchPageContainer: React.FC<IProps> = ({
   // Some props should be contain in one param for achieve more readable code
   return (
     <>
-      {console.log(pageData?.genericPage)}
       <div className="row:title">
         <Breadcrumb items={breadcrumbsItems} />
         <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
