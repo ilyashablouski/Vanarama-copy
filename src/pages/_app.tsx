@@ -31,10 +31,16 @@ import {
 import { pushPageData } from '../utils/dataLayerHelpers';
 import { prepareSlugPart } from '../containers/SearchPageContainer/helpers';
 
+import Skeleton from '../components/Skeleton';
+
 // Dynamic component loading.
 const Head = dynamic(() => import('../components/Head/Head'));
-const HeaderContainer = dynamic(() => import('../containers/HeaderContainer'));
-const FooterContainer = dynamic(() => import('../containers/FooterContainer'));
+const HeaderContainer = dynamic(() => import('../containers/HeaderContainer'), {
+  loading: () => <Skeleton count={2} />,
+});
+const FooterContainer = dynamic(() => import('../containers/FooterContainer'), {
+  loading: () => <Skeleton count={6} />,
+});
 // @ts-ignore
 const ToastContainer = dynamic(() =>
   import('@vanarama/uibook/lib/components/atoms/toast/Toast').then(
@@ -53,8 +59,11 @@ const Modal = dynamic(
     ssr: false,
   },
 );
-const Button = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/button'),
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
 );
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
