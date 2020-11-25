@@ -43,6 +43,11 @@ const Head: FC<IHeadProps> = props => {
       <meta name="twitter:title" content={title || defaultTitle} />
       <meta name="twitter:creator" content={twitter} />
       <meta name="twitter:site" content={twitter} />
+      <link rel="preconnect" href="https://static.vanarama-nonprod.com" />
+      <link
+        rel="preconnect"
+        href={process?.env?.API_URL?.replace('/graphql/', '')}
+      />
     </NextHead>
   );
 };
