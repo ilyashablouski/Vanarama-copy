@@ -12,6 +12,7 @@ import Map from '@vanarama/uibook/lib/components/atoms/map';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import CardTitle from '@vanarama/uibook/lib/components/molecules/cards/CardTitle';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import withApollo from '../../hocs/withApollo';
 import {
@@ -23,6 +24,7 @@ import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { useGenericPage } from '../../gql/genericPage';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Head from '../../components/Head/Head';
 
 export const ContactUsPage: NextPage = () => {
   const router = useRouter();
@@ -219,6 +221,15 @@ export const ContactUsPage: NextPage = () => {
           </Card>
         ))}
       </section>
+      {metaData && (
+        <>
+          <Head
+            metaData={metaData}
+            featuredImage={data?.genericPage.featuredImage}
+          />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
     </>
   );
 };

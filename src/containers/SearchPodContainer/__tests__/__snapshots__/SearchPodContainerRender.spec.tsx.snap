@@ -61,7 +61,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
         <h2
           className="heading -dark -small"
         >
-          Search Vans
+          Search Van Leasing
         </h2>
         <form
           className="form"
@@ -378,7 +378,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
         <h2
           className="heading -dark -small"
         >
-          Search Vans
+          Search Van Leasing
         </h2>
         <form
           className="form"
