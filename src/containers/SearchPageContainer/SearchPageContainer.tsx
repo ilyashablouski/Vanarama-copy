@@ -24,6 +24,7 @@ import ReactMarkdown from 'react-markdown';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { findPreselectFilterValue } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -74,6 +75,7 @@ import { filterList_filterList as IFilterList } from '../../../generated/filterL
 import { manufacturerList } from '../../../generated/manufacturerList';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Head from '../../components/Head/Head';
 import { genericPagesQuery_genericPages_items as IRangeUrls } from '../../../generated/genericPagesQuery';
 
 interface IProps {
@@ -636,36 +638,53 @@ const SearchPageContainer: React.FC<IProps> = ({
       <div className="row:title">
         <Breadcrumb items={breadcrumbsItems} />
         <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
-          {(isModelPage &&
-            metaData?.name?.slice(0, metaData?.name?.indexOf('Car Leasing'))) ||
-            (metaData?.name ?? '')}
+          {metaData?.name}
         </Heading>
-        <Text color="darker" size="regular" tag="div">
-          <ReactMarkdown
-            className="markdown"
-            allowDangerousHtml
-            source={pageData?.genericPage.intro || ''}
-            renderers={{
-              link: props => {
-                const { href, children } = props;
-                return (
-                  <RouterLink
-                    link={{ href, label: children }}
-                    classNames={{ color: 'teal' }}
-                  />
-                );
-              },
-              image: props => {
-                const { src, alt } = props;
-                return <img {...{ src, alt }} style={{ maxWidth: '100%' }} />;
-              },
-              heading: props => (
-                <Text {...props} size="lead" color="darker" tag="h3" />
-              ),
-              paragraph: props => <Text {...props} tag="p" color="darker" />,
-            }}
-          />
-        </Text>
+
+        <section className="row:featured-right">
+          {pageData?.genericPage?.featuredImage?.file?.url && (
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              src={pageData.genericPage.featuredImage.file.url}
+              alt="Featured image"
+            />
+          )}
+
+          <div>
+            {pageData?.genericPage?.sections?.featured1?.body && (
+              <Text color="darker" size="regular" tag="div">
+                <ReactMarkdown
+                  className="markdown"
+                  allowDangerousHtml
+                  source={pageData.genericPage.sections.featured1.body}
+                  renderers={{
+                    link: props => {
+                      const { href, children } = props;
+                      return (
+                        <RouterLink
+                          link={{ href, label: children }}
+                          classNames={{ color: 'teal' }}
+                        />
+                      );
+                    },
+                    image: props => {
+                      const { src, alt } = props;
+                      return (
+                        <img {...{ src, alt }} style={{ maxWidth: '100%' }} />
+                      );
+                    },
+                    heading: props => (
+                      <Text {...props} size="lead" color="darker" tag="h3" />
+                    ),
+                    paragraph: props => (
+                      <Text {...props} tag="p" color="darker" />
+                    ),
+                  }}
+                />
+              </Text>
+            )}
+          </div>
+        </section>
       </div>
 
       {pageData && (
@@ -945,6 +964,41 @@ const SearchPageContainer: React.FC<IProps> = ({
           )}
         </div>
       </div>
+
+      {pageData?.genericPage?.sections?.featured2?.body && (
+        <div className="row:text">
+          <Heading tag="h2" size="large" color="black" className="-mb-300">
+            {pageData.genericPage.sections.featured2.title}
+          </Heading>
+          <Text color="darker" size="regular" tag="div">
+            <ReactMarkdown
+              className="markdown"
+              allowDangerousHtml
+              source={pageData.genericPage.sections.featured2.body}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return (
+                    <RouterLink
+                      link={{ href, label: children }}
+                      classNames={{ color: 'teal' }}
+                    />
+                  );
+                },
+                image: props => {
+                  const { src, alt } = props;
+                  return <img {...{ src, alt }} style={{ maxWidth: '100%' }} />;
+                },
+                heading: props => (
+                  <Text {...props} size="lead" color="darker" tag="h3" />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
+              }}
+            />
+          </Text>
+        </div>
+      )}
+
       {!pageData && isRangePage && <Loading size="large" />}
 
       {isDynamicFilterPage && (
@@ -1120,6 +1174,12 @@ const SearchPageContainer: React.FC<IProps> = ({
           Photos and videos are for illustration purposes only.
         </Text>
       </div>
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={null} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
     </>
   );
 };

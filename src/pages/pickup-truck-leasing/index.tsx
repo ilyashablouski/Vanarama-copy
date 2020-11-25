@@ -17,7 +17,7 @@ import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
 import League from '@vanarama/uibook/lib/components/organisms/league';
-
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import Media from '@vanarama/uibook/lib/components/atoms/media';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { getFeaturedClassPartial } from '../../utils/layout';
@@ -52,6 +52,7 @@ import {
 import TileLink from '../../components/TileLink/TileLink';
 import { PickupsSearch } from '../../models/enum/SearchByManufacturer';
 import { features } from '../../components/ProductCarousel/helpers';
+import Head from '../../components/Head/Head';
 
 export const PickupsPage: NextPage = () => {
   const [offer, setOffer] = useState<ProdData>();
@@ -615,6 +616,17 @@ export const PickupsPage: NextPage = () => {
       <section className="row:trustpilot">
         <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
       </section>
+      {data?.hubPickupPage.metaData && (
+        <>
+          <Head
+            metaData={data?.hubPickupPage.metaData}
+            featuredImage={data?.hubPickupPage.featuredImage}
+          />
+          <SchemaJSON
+            json={JSON.stringify(data?.hubPickupPage.metaData.schema)}
+          />
+        </>
+      )}
     </>
   );
 };

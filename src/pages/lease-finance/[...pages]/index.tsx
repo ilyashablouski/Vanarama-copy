@@ -1,5 +1,6 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import FinanceInformationExplainedContainer from '../../../containers/FinanceInformationExplainedContainer/FinanceInfromationExplainedContainer';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import { getPathsFromPageCollection } from '../../../utils/pageSlugs';
@@ -12,6 +13,7 @@ import {
   PageCollection,
   PageCollectionVariables,
 } from '../../../../generated/PageCollection';
+import Head from '../../../components/Head/Head';
 
 const EligibilityChecker: NextPage<IGenericPage> = ({ data, error }) => {
   if (error || !data?.genericPage) {
@@ -21,6 +23,7 @@ const EligibilityChecker: NextPage<IGenericPage> = ({ data, error }) => {
   const title = getSectionsData(['metaData', 'name'], data?.genericPage);
   const sections = getSectionsData(['sections'], data?.genericPage);
   const metaData = getSectionsData(['metaData'], data?.genericPage);
+  const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
   }));
@@ -39,6 +42,12 @@ const EligibilityChecker: NextPage<IGenericPage> = ({ data, error }) => {
           title={title}
           sections={sections}
         />
+        {metaData && (
+          <>
+            <Head metaData={metaData} featuredImage={featuredImage} />
+            <SchemaJSON json={JSON.stringify(metaData.schema)} />
+          </>
+        )}
       </>
     );
   }
@@ -51,6 +60,12 @@ const EligibilityChecker: NextPage<IGenericPage> = ({ data, error }) => {
         </div>
       )}
       <FinanceExplainedContainer data={data} />
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={featuredImage} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
     </>
   );
 };
