@@ -10,6 +10,8 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
     onSubmitMock.mockReset();
     render(
       <SoleTraderCompanyDetailsForm
+        natureOfBusiness={['']}
+        setNatureOfBusiness={jest.fn()}
         companyDetails={{ monthlyAmountBeingReplaced: '' }}
         onSubmit={onSubmitMock}
       />,
