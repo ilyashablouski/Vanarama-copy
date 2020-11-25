@@ -112,7 +112,6 @@ const Tile = dynamic(
 const TrustPilot = dynamic(
   () => import('@vanarama/uibook/lib/components/molecules/trustpilot'),
   {
-    loading: () => <Skeleton count={3} />,
     ssr: false,
   },
 );
