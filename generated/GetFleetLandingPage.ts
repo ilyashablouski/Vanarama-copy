@@ -7,6 +7,28 @@
 // GraphQL query operation: GetFleetLandingPage
 // ====================================================
 
+export interface GetFleetLandingPage_fleetLandingPage_metaData {
+  title: string | null;
+  name: string | null;
+  metaRobots: string | null;
+  metaDescription: string | null;
+  legacyUrl: string | null;
+  pageType: string | null;
+  canonicalUrl: string | null;
+  slug: string | null;
+  schema: any | null;
+  publishedOn: any | null;
+  breadcrumbs: any | null;
+}
+
+export interface GetFleetLandingPage_fleetLandingPage_featuredImage_file {
+  url: string;
+}
+
+export interface GetFleetLandingPage_fleetLandingPage_featuredImage {
+  file: GetFleetLandingPage_fleetLandingPage_featuredImage_file | null;
+}
+
 export interface GetFleetLandingPage_fleetLandingPage_sections_featured1_testimonials {
   customerName: string | null;
   summary: string | null;
@@ -126,6 +148,8 @@ export interface GetFleetLandingPage_fleetLandingPage_sections {
 
 export interface GetFleetLandingPage_fleetLandingPage {
   id: string;
+  metaData: GetFleetLandingPage_fleetLandingPage_metaData;
+  featuredImage: GetFleetLandingPage_fleetLandingPage_featuredImage | null;
   sections: GetFleetLandingPage_fleetLandingPage_sections | null;
 }
 

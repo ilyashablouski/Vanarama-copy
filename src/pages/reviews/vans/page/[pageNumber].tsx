@@ -1,5 +1,6 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { ApolloError } from '@apollo/client';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import createApolloClient from '../../../../apolloClient';
 import VehicleReviewCategoryContainer from '../../../../containers/VehicleReviewCategoryContainer/VehicleReviewCategoryContainer';
 import { GENERIC_PAGE_QUESTION } from '../../../../containers/VehicleReviewCategoryContainer/gql';
@@ -20,10 +21,11 @@ const ReviewHub: NextPage<IReviewHubPage> = ({ data, error, pageNumber }) => {
   }
 
   const metaData = getSectionsData(['metaData'], data?.genericPage);
-
+  const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
   }));
+
   return (
     <>
       <VehicleReviewCategoryContainer
@@ -31,7 +33,12 @@ const ReviewHub: NextPage<IReviewHubPage> = ({ data, error, pageNumber }) => {
         pageNumber={pageNumber}
         breadcrumbsItems={breadcrumbsItems}
       />
-      {metaData && <Head metaData={metaData} featuredImage={null} />}
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={featuredImage} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
     </>
   );
 };

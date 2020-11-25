@@ -1,10 +1,12 @@
 import React from 'react';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import createApolloClient from '../../apolloClient';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import PageNotFoundContainer from '../../containers/PageNotFoundContainer/PageNotFoundContainer';
 import { getSectionsData } from '../../utils/getSectionsData';
+import Head from '../../components/Head/Head';
 
 const PageNotFound: NextPage<IGenericPage> = ({ error, data }) => {
   if (error || !data) {
@@ -21,14 +23,25 @@ const PageNotFound: NextPage<IGenericPage> = ({ error, data }) => {
     ['metaData', 'breadcrumbs'],
     data?.genericPage,
   );
+  const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
+  const schema = getSectionsData(['metaData', 'schema'], data?.genericPage);
+  const metaData = getSectionsData(['metaData'], data.genericPage);
 
   return (
-    <PageNotFoundContainer
-      featured={featured}
-      name={name}
-      cards={cards}
-      breadcrumbsItems={breadcrumbs}
-    />
+    <>
+      <PageNotFoundContainer
+        featured={featured}
+        name={name}
+        cards={cards}
+        breadcrumbsItems={breadcrumbs}
+      />
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={featuredImage} />
+          <SchemaJSON json={JSON.stringify(schema)} />
+        </>
+      )}
+    </>
   );
 };
 

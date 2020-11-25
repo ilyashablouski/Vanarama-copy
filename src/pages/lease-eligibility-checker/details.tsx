@@ -3,12 +3,14 @@ import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { useRouter } from 'next/router';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import withApollo from '../../hocs/withApollo';
 import EligibilityCheckerContainer from '../../containers/EligibilityCheckerContainer/EligibilityCheckerContainer';
 import ErrorMessage from './error-message';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { useGenericPage } from '../../gql/genericPage';
 import { getSectionsData } from '../../utils/getSectionsData';
+import Head from '../../components/Head/Head';
 
 const EligibilityCheckerDetails: NextPage = () => {
   const [
@@ -19,6 +21,7 @@ const EligibilityCheckerDetails: NextPage = () => {
   const { data } = useGenericPage(router.asPath.slice(1));
 
   const metaData = getSectionsData(['metaData'], data?.genericPage);
+  const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
   }));
@@ -53,6 +56,12 @@ const EligibilityCheckerDetails: NextPage = () => {
           }}
         />
       </div>
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={featuredImage} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
     </>
   );
 };

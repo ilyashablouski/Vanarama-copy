@@ -3,12 +3,14 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import ReactMarkdown from 'react-markdown';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import { getSectionsData } from '../../utils/getSectionsData';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Head from '../../components/Head/Head';
 
 interface ISimplePageContainer {
   data: GenericPageQuery | undefined;
@@ -28,7 +30,8 @@ const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
   }
 
   const metaDataName = getSectionsData(['metaData', 'name'], data?.genericPage);
-  const featuredImage = getSectionsData(
+  const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
+  const featuredImageUrl = getSectionsData(
     ['featuredImage', 'file', 'url'],
     data?.genericPage,
   );
@@ -45,14 +48,14 @@ const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
           {metaDataName}
         </Heading>
       </div>
-      {featuredImage && (
+      {featuredImageUrl && (
         <div className="row:bg-white -compact">
           <div className="row:featured-image">
             <Image
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               className="-white"
               size="expand"
-              src={featuredImage}
+              src={featuredImageUrl}
             />
           </div>
         </div>
@@ -83,6 +86,12 @@ const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
           }}
         />
       </div>
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={featuredImage} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
     </>
   );
 };

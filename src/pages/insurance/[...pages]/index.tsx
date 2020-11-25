@@ -1,5 +1,6 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import ThankYouContainer from '../../../containers/ThankYouContainer/ThankYouContainer';
 import { IInsurancePage } from '../../../models/IInsuranceProps';
@@ -13,40 +14,62 @@ import {
 } from '../../../../generated/PageCollection';
 import { getPathsFromPageCollection } from '../../../utils/pageSlugs';
 import { getSectionsData } from '../../../utils/getSectionsData';
+import Head from '../../../components/Head/Head';
 
 const MultiYearInsurancePage: NextPage<IInsurancePage> = ({ data, error }) => {
   if (error) {
     return <DefaultErrorPage statusCode={404} />;
   }
-  const genericPage = data?.genericPage;
-
-  const sections = genericPage?.sections;
-  const intro = genericPage?.intro;
+  const metaData = getSectionsData(['metaData'], data?.genericPage);
+  const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
+  const sections = getSectionsData(['sections'], data?.genericPage);
+  const intro = getSectionsData(['intro'], data?.genericPage);
   const breadcrumbsItems = getSectionsData(
     ['metaData', 'breadcrumbs'],
     data?.genericPage,
   );
-  const title = genericPage?.metaData.title;
 
-  if (title?.includes('Thank You')) {
-    return <ThankYouContainer sections={sections} />;
+  if (metaData.title?.includes('Thank You')) {
+    return (
+      <>
+        <ThankYouContainer sections={sections} />
+        {metaData && (
+          <>
+            <Head metaData={metaData} featuredImage={featuredImage} />
+            <SchemaJSON json={JSON.stringify(metaData.schema)} />
+          </>
+        )}
+      </>
+    );
   }
 
-  if (title?.includes('FAQ')) {
+  if (metaData.title?.includes('FAQ')) {
     return (
-      <FAQContainer
-        title={data?.genericPage.metaData.name}
-        sections={sections}
-        intro={intro}
-      />
+      <>
+        <FAQContainer title={metaData.name} sections={sections} intro={intro} />
+        {metaData && (
+          <>
+            <Head metaData={metaData} featuredImage={featuredImage} />
+            <SchemaJSON json={JSON.stringify(metaData.schema)} />
+          </>
+        )}
+      </>
     );
   }
 
   return (
-    <FinanceGapInsuranceContainer
-      sections={sections}
-      breadcrumbsData={breadcrumbsItems}
-    />
+    <>
+      <FinanceGapInsuranceContainer
+        sections={sections}
+        breadcrumbsData={breadcrumbsItems}
+      />
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={featuredImage} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
+    </>
   );
 };
 

@@ -7,7 +7,16 @@ export const GET_ABOUT_US_PAGE_DATA = gql`
       id
       body
       metaData {
+        title
         name
+        metaRobots
+        metaDescription
+        legacyUrl
+        pageType
+        canonicalUrl
+        slug
+        schema
+        publishedOn
         breadcrumbs
       }
       featuredImage {
