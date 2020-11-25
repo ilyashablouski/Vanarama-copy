@@ -120,9 +120,11 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
 
   return (
     <>
-      <div className="row:title">
-        <Breadcrumb items={breadcrumbsItems} />
-      </div>
+      {breadcrumbsItems && (
+        <div className="row:title">
+          <Breadcrumb items={breadcrumbsItems} />
+        </div>
+      )}
       <div className="row:plain-hero">
         <div className="-col-100">
           <Heading color="black" size="xlarge" tag="h1">

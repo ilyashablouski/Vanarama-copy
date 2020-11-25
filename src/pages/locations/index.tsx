@@ -45,8 +45,6 @@ export const LocationsPage: NextPage = () => {
     <>
       <div className="row:title">
         <Breadcrumb items={breadcrumbsItems} />
-      </div>
-      <div className="row:title">
         <Heading size="xlarge" color="black" tag="h1">
           {metaDataName}
         </Heading>

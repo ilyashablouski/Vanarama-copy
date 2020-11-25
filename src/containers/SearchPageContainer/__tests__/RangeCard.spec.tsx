@@ -25,6 +25,12 @@ describe('<RangeCard />', () => {
       fromPrice: 191.91,
       isPersonalPrice: true,
       isAllMakesCard: false,
+      rangesUrls: [
+        {
+          slug: 'car-leasing/bmw/2-series',
+          legacyUrl: '/bmw-car-leasing/2-series.html',
+        },
+      ],
     };
   };
 

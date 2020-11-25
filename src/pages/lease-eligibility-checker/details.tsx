@@ -27,8 +27,6 @@ const EligibilityCheckerDetails: NextPage = () => {
     <>
       <div className="row:title">
         <Breadcrumb items={breadcrumbsItems} />
-      </div>
-      <div className="row:title">
         <Heading
           color="black"
           size="xlarge"

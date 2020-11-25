@@ -67,7 +67,7 @@ export const getProductPageBreadCrumb = (
   data: any,
   cars: boolean | undefined,
 ) => {
-  const { manufacturer, range, bodyStyle, name } = data;
+  const { manufacturer, range, bodyType, name } = data;
 
   const leasing = cars ? 'car-leasing' : 'van-leasing';
 
@@ -86,11 +86,10 @@ export const getProductPageBreadCrumb = (
     };
     const modelLink = {
       link: {
-        label: bodyStyle?.name,
+        label: bodyType?.name,
         href: `/${manufacturer?.slug}-${leasing}/${
           range?.slug
-        }/${bodyStyle?.name?.toLocaleLowerCase().replace(/ /g, '-') ||
-          null}.html`,
+        }/${bodyType?.slug || null}.html`,
       },
     };
     const derivativeLink = {
@@ -110,7 +109,7 @@ export const getProductPageBreadCrumb = (
 
 export const getVehicleConfigurationPath = (path: string) => {
   // used regexp to save functionality for local builds
-  return path.replace(/^(\/van|\/car)/, match => match.slice(1)).slice(1);
+  return path.replace(/^(\/)/, match => match.slice(1));
 };
 
 export type productPageUrlData = {

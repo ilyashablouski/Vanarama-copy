@@ -28,7 +28,7 @@ import { findPreselectFilterValue } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import TopOffersContainer from './TopOffersContainer';
-import { useProductCardData } from '../CustomerAlsoViewedContainer/gql';
+import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
 import { IFilters } from '../FiltersContainer/interfaces';
 import FiltersContainer from '../FiltersContainer';
 import { useVehiclesList, getRangesList, useManufacturerList } from './gql';
@@ -74,6 +74,7 @@ import { filterList_filterList as IFilterList } from '../../../generated/filterL
 import { manufacturerList } from '../../../generated/manufacturerList';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import { genericPagesQuery_genericPages_items as IRangeUrls } from '../../../generated/genericPagesQuery';
 
 interface IProps {
   isServer: boolean;
@@ -96,6 +97,7 @@ interface IProps {
   preLoadProductCardsData?: GetProductCard;
   preLoadResponseCapIds?: string[];
   preLoadRanges?: rangeList;
+  rangesUrls?: IRangeUrls[];
   preLoadManufacturers?: manufacturerList | null;
 }
 
@@ -120,6 +122,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   preLoadProductCardsData,
   preLoadResponseCapIds,
   preLoadRanges,
+  rangesUrls,
   preLoadManufacturers,
 }: IProps) => {
   const router = useRouter();
@@ -190,10 +193,21 @@ const SearchPageContainer: React.FC<IProps> = ({
     setCachedLeaseType(type);
   }, [isPersonal, setCachedLeaseType]);
 
-  const { refetch, loading } = useProductCardData(
+  const [getProductCardData, { loading }] = useProductCardDataLazyQuery(
     capIds,
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-    !!capIds.length,
+    data => {
+      setCardsData(data?.productCard || []);
+      setCarDerivatives(data?.derivatives || []);
+    },
+  );
+  const [getProductCacheCardData] = useProductCardDataLazyQuery(
+    capIds,
+    isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+    data => {
+      setCardsDataCache(data?.productCard || []);
+      setCarDerivativesCache(data?.derivatives || []);
+    },
   );
 
   const manualBodyStyle = useMemo(() => {
@@ -234,14 +248,13 @@ const SearchPageContainer: React.FC<IProps> = ({
         const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
         setCapsIds(responseCapIds);
         if (responseCapIds.length) {
-          return await refetch({
-            capIds: responseCapIds,
-            vehicleType: isCarSearch
-              ? VehicleTypeEnum.CAR
-              : VehicleTypeEnum.LCV,
-          }).then(resp => {
-            setCardsData(resp.data?.productCard || []);
-            setCarDerivatives(resp.data?.derivatives || []);
+          return await getProductCardData({
+            variables: {
+              capIds: responseCapIds,
+              vehicleType: isCarSearch
+                ? VehicleTypeEnum.CAR
+                : VehicleTypeEnum.LCV,
+            },
           });
         }
         return false;
@@ -264,14 +277,14 @@ const SearchPageContainer: React.FC<IProps> = ({
         const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
         setCapsIds(responseCapIds);
         if (responseCapIds.length) {
-          return await refetch({
-            capIds: responseCapIds,
-            vehicleType: isCarSearch
-              ? VehicleTypeEnum.CAR
-              : VehicleTypeEnum.LCV,
-          }).then(resp => {
-            setCardsDataCache(resp.data?.productCard || []);
-            setCarDerivativesCache(resp.data?.derivatives || []);
+          // add cache variable
+          return await getProductCacheCardData({
+            variables: {
+              capIds: responseCapIds,
+              vehicleType: isCarSearch
+                ? VehicleTypeEnum.CAR
+                : VehicleTypeEnum.LCV,
+            },
           });
         }
         return false;
@@ -431,12 +444,11 @@ const SearchPageContainer: React.FC<IProps> = ({
   // prevent case when we navigate use back/forward button and useCallback return empty result list
   useEffect(() => {
     if (data && !cardsData.length && loading) {
-      refetch({
-        capIds: getCapsIds(data.vehicleList.edges || []),
-        vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-      }).then(resp => {
-        setCardsData(resp.data?.productCard || []);
-        setCarDerivatives(resp.data?.derivatives || []);
+      getProductCardData({
+        variables: {
+          capIds: getCapsIds(data.vehicleList.edges || []),
+          vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+        },
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -623,8 +635,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     <>
       <div className="row:title">
         <Breadcrumb items={breadcrumbsItems} />
-      </div>
-      <div className="row:title">
         <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
           {(isModelPage &&
             metaData?.name?.slice(0, metaData?.name?.indexOf('Car Leasing'))) ||
@@ -860,6 +870,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                         key={range.rangeId || index}
                         isPersonalPrice={isPersonal}
                         id={range.rangeId || ''}
+                        rangesUrls={rangesUrls}
                         vehicleType={
                           isCarSearch
                             ? VehicleTypeEnum.CAR

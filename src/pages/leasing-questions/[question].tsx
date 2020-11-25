@@ -37,9 +37,11 @@ const LeasingQuestion: NextPage = () => {
 
   return (
     <>
-      <div className="row:title">
-        <Breadcrumb items={breadcrumbsItems} />
-      </div>
+      {breadcrumbsItems && (
+        <div className="row:title">
+          <Breadcrumb items={breadcrumbsItems} />
+        </div>
+      )}
       <LeasingQuestionContainer
         body={body}
         title={metaData?.name}

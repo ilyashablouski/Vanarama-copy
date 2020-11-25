@@ -4,7 +4,7 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
-import { useProductCardData } from '../CustomerAlsoViewedContainer/gql';
+import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
 import { useVehiclesList, useBodyStyleList } from './gql';
 import VehicleCard from './VehicleCard';
 import ModelCard from './ModelCard';
@@ -77,10 +77,13 @@ const TopOffersContainer: React.FC<IProps> = ({
       ([] as (GetDerivatives_derivatives | null)[]),
   );
 
-  const { refetch } = useProductCardData(
+  const [getProductCardData] = useProductCardDataLazyQuery(
     capIds,
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-    true,
+    data => {
+      setCardsData(data?.productCard || []);
+      setCarDerivatives(data?.derivatives || []);
+    },
   );
 
   // get Caps ids for product card request
@@ -98,14 +101,13 @@ const TopOffersContainer: React.FC<IProps> = ({
         setVehicleList(vehicles.vehicleList.edges);
         setCapsIds(responseCapIds);
         if (responseCapIds.length) {
-          return await refetch({
-            capIds: responseCapIds,
-            vehicleType: isCarSearch
-              ? VehicleTypeEnum.CAR
-              : VehicleTypeEnum.LCV,
-          }).then(resp => {
-            setCardsData(resp.data?.productCard || []);
-            setCarDerivatives(resp.data?.derivatives || []);
+          return await getProductCardData({
+            variables: {
+              capIds: responseCapIds,
+              vehicleType: isCarSearch
+                ? VehicleTypeEnum.CAR
+                : VehicleTypeEnum.LCV,
+            },
           });
         }
         return false;
