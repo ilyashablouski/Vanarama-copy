@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect } from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
+import dynamic from 'next/dynamic';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
 import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
@@ -26,6 +25,20 @@ import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import { bodyStyleList_bodyStyleList as IModelsData } from '../../../generated/bodyStyleList';
 import { fuelMapper } from './helpers';
 import { getLegacyUrl } from '../../utils/url';
+import Skeleton from '../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Carousel = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/carousel'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
 
 interface IProps {
   isPersonal: boolean;
@@ -124,7 +137,7 @@ const TopOffersContainer: React.FC<IProps> = ({
   const [getBodyStylesList, { data }] = useBodyStyleList(
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
-    (router.query.dynamicParam as string).toLowerCase(),
+    ((router.query.dynamicParam as string) || '').toLowerCase(),
     ((router.query?.rangeName as string) || '')
       .split('+')
       .join(' ')

@@ -24,6 +24,7 @@ enum Tabs {
   'LCV' = 1,
   'CAR',
 }
+const VANS_TAB_HEADING = 'Search Van Leasing';
 
 const SearchPodContainer = () => {
   const router = useRouter();
@@ -35,7 +36,7 @@ const SearchPodContainer = () => {
   const [pickupMakes, setPickupMakes] = useState([{}] as IFiltersListOptions[]);
 
   const [config, setConfig] = useState([] as any);
-  const [headingText, setHeadingText] = useState('Search Vans');
+  const [headingText, setHeadingText] = useState(VANS_TAB_HEADING);
   // set it to true if we need preselect some data
   const [isShouldPreselectTypes, setIsShouldPreselectTypes] = useState(false);
 
@@ -110,7 +111,7 @@ const SearchPodContainer = () => {
       setHeadingText('Search Car Leasing');
       setActiveIndex(2);
     } else if (router.pathname.indexOf('van') > -1) {
-      setHeadingText('Search Van Leasing');
+      setHeadingText(VANS_TAB_HEADING);
       setConfig(vanPageTabFields);
     } else if (router.pathname.indexOf('pickup') > -1) {
       setHeadingText('Search Pickup Leasing');
@@ -303,7 +304,7 @@ const SearchPodContainer = () => {
 
   const onChangeTab = (index: number) => {
     setActiveIndex(index);
-    if (index === 1) setHeadingText('Search Vans');
+    if (index === 1) setHeadingText(VANS_TAB_HEADING);
     if (index === 2) setHeadingText('Search Cars');
   };
 

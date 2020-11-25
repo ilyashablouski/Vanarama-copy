@@ -1,4 +1,5 @@
 import { NextPage, NextPageContext } from 'next';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { GET_ABOUT_US_PAGE_DATA } from '../../containers/AboutUsPageContainer/gql';
 import AboutUs, {
   IAboutPageProps,
@@ -6,6 +7,7 @@ import AboutUs, {
 import createApolloClient from '../../apolloClient';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Head from '../../components/Head/Head';
 
 const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
   data,
@@ -13,6 +15,10 @@ const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
   error,
 }) => {
   const metaData = getSectionsData(['metaData'], data?.aboutUsLandingPage);
+  const featuredImage = getSectionsData(
+    ['featuredImage'],
+    data?.aboutUsLandingPage,
+  );
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
   }));
@@ -25,6 +31,12 @@ const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
         </div>
       )}
       <AboutUs data={data} loading={loading} error={error} />
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={featuredImage} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
     </>
   );
 };

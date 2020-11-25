@@ -15,7 +15,7 @@ import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSha
 import Step from '@vanarama/uibook/lib/components/molecules/step';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useState } from 'react';
-
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import Media from '@vanarama/uibook/lib/components/atoms/media';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
@@ -49,6 +49,7 @@ import {
 } from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
 import { VansSearch } from '../../models/enum/SearchByManufacturer';
+import Head from '../../components/Head/Head';
 
 type ProdCards = ProdCardData[];
 
@@ -773,6 +774,15 @@ export const VansPage: NextPage = () => {
       <section className="row:trustpilot">
         <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
       </section>
+      {data?.hubVanPage.metaData && (
+        <>
+          <Head
+            metaData={data?.hubVanPage.metaData}
+            featuredImage={data?.hubVanPage.featuredImage}
+          />
+          <SchemaJSON json={JSON.stringify(data?.hubVanPage.metaData.schema)} />
+        </>
+      )}
     </>
   );
 };

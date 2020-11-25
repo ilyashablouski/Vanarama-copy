@@ -1,11 +1,25 @@
 import React, { memo } from 'react';
-import Card from '@vanarama/uibook/lib/components/molecules/cards/Card';
-import Price from '@vanarama/uibook/lib/components/atoms/price';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getRangeImages, useModelImages } from './gql';
 import { formatUrl } from '../../utils/url';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import { genericPagesQuery_genericPages_items as IRangeUrls } from '../../../generated/genericPagesQuery';
+import Skeleton from '../../components/Skeleton';
+
+const Price = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/price'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards/Card'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IVehicleCardProps {
   isPersonalPrice: boolean;
@@ -14,6 +28,7 @@ interface IVehicleCardProps {
   id: string;
   vehicleType: VehicleTypeEnum;
   isAllMakesCard?: boolean;
+  rangesUrls?: IRangeUrls[];
 }
 
 const RangeCard = memo(
@@ -24,13 +39,25 @@ const RangeCard = memo(
     title,
     fromPrice,
     isAllMakesCard,
+    rangesUrls,
   }: IVehicleCardProps) => {
     // TODO: Should be changed when query for get images will updated
     const { pathname, query } = useRouter();
+    const convertSlug = (value: string) =>
+      value
+        .toLowerCase()
+        .split(' ')
+        .join('-');
     const searchType = pathname.slice(1).split('/')[0];
-    const href = isAllMakesCard
-      ? `/${title}-${searchType}.html`
-      : `/${query.dynamicParam}-${searchType}/${title}.html`;
+    const getUrl = () =>
+      rangesUrls?.find(
+        range =>
+          range.slug ===
+          `${searchType}/${convertSlug(
+            query.dynamicParam as string,
+          )}/${convertSlug(title)}`,
+      )?.legacyUrl || '';
+    const href = isAllMakesCard ? `/${title}-${searchType}.html` : getUrl();
     const { data: imagesData } = getRangeImages(
       id,
       vehicleType,

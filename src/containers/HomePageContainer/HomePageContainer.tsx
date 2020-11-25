@@ -22,45 +22,92 @@ import {
 import TileLink from '../../components/TileLink/TileLink';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
 
+import Skeleton from '../../components/Skeleton';
+// import Hero, { HeroHeading, HeroTitle } from '../../components/Hero';
+
 // Dynamic component loading.
-const Heading = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/heading'),
+// const Loading = dynamic(
+//   () => import('@vanarama/uibook/lib/components/atoms/loading'),
+//   {
+//     ssr: false,
+//   },
+// );
+
+const Hero = dynamic(() => import('../../components/Hero'), {
+  loading: () => <Skeleton count={9} />,
+});
+const HeroHeading = dynamic(
+  // @ts-ignore
+  () => import('../../components/Hero').then(mod => mod.HeroHeading),
+  {
+    loading: () => <Skeleton count={2} />,
+  },
+);
+const HeroTitle = dynamic(
+  // @ts-ignore
+  () => import('../../components/Hero').then(mod => mod.HeroTitle),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
 );
 const Image = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/image'),
   {
+    loading: () => <Skeleton count={4} />,
     ssr: false,
   },
 );
-const Loading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
   {
-    ssr: false,
+    loading: () => <Skeleton count={1} />,
   },
 );
-const Text = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/text'),
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
 );
-const Card = dynamic(() =>
-  import('@vanarama/uibook/lib/components/molecules/cards'),
+const Tabs = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
 );
-const Tabs = dynamic(() =>
-  import('@vanarama/uibook/lib/components/molecules/tabs'),
-);
-const Tab = dynamic(() =>
-  import('@vanarama/uibook/lib/components/molecules/tabs/Tab'),
+const Tab = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs/Tab'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
 );
 const TabList = dynamic(() =>
   import('@vanarama/uibook/lib/components/molecules/tabs/TabList'),
 );
-const TabPanel = dynamic(() =>
-  import('@vanarama/uibook/lib/components/molecules/tabs/TabPanel'),
+const TabPanel = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs/TabPanel'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
 );
-const TabPanels = dynamic(() =>
-  import('@vanarama/uibook/lib/components/molecules/tabs/TabPanels'),
+const TabPanels = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs/TabPanels'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
 );
-const Tile = dynamic(() =>
-  import('@vanarama/uibook/lib/components/molecules/tile'),
+const Tile = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tile'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
 );
 const TrustPilot = dynamic(
   () => import('@vanarama/uibook/lib/components/molecules/trustpilot'),
@@ -68,8 +115,11 @@ const TrustPilot = dynamic(
     ssr: false,
   },
 );
-const IconList = dynamic(() =>
-  import('@vanarama/uibook/lib/components/organisms/icon-list'),
+const IconList = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/icon-list'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
 );
 // @ts-ignore
 const IconListItem = dynamic(() =>
@@ -77,23 +127,24 @@ const IconListItem = dynamic(() =>
     mod => mod.IconListItem,
   ),
 );
-const League = dynamic(() =>
-  import('@vanarama/uibook/lib/components/organisms/league'),
+const League = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/league'),
+  {
+    loading: () => <Skeleton count={2} />,
+  },
 );
-const Media = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/media'),
+const Media = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/media'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
 );
-const Hero = dynamic(() => import('../../components/Hero'));
-// @ts-ignore
-const HeroHeading = dynamic(() =>
-  import('../../components/Hero').then(mod => mod.HeroHeading),
-);
-// @ts-ignore
-const HeroTitle = dynamic(() =>
-  import('../../components/Hero').then(mod => mod.HeroTitle),
-);
-const ProductCarousel = dynamic(() =>
-  import('../../components/ProductCarousel/ProductCarousel'),
+
+const ProductCarousel = dynamic(
+  () => import('../../components/ProductCarousel/ProductCarousel'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
 );
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
@@ -113,7 +164,7 @@ export interface IHomePageContainer {
 }
 
 export const HomePageContainer: React.FC<IHomePageContainer> = ({
-  loading,
+  // loading,
   error,
   data,
   productsVanDerivatives,
@@ -131,9 +182,9 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
 
   useVehicleListUrlFetchMore(vehicleListUrlQuery, derivativeIds);
 
-  if (loading) {
-    return <Loading size="large" />;
-  }
+  // if (loading) {
+  //   return <Loading size="large" />;
+  // }
 
   if (error) {
     return <p>Error: {error.message}</p>;
