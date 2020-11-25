@@ -363,3 +363,14 @@ export function useAllMakePage(skip = false) {
     skip,
   });
 }
+
+export const GET_RANGES_URLS = gql`
+  query genericPagesQuery($slugs: [String!]!) {
+    genericPages(slugs: $slugs) {
+      items {
+        slug
+        legacyUrl
+      }
+    }
+  }
+`;
