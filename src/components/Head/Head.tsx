@@ -80,9 +80,9 @@ const Head: FC<IHeadProps> = props => {
           />
         );
       })}
-      <link rel="preconnect" href={FONT_PATH.replace('/fonts/', '')} />
+      <link rel="preload" href={FONT_PATH.replace('/fonts/', '')} />
       <link
-        rel="preconnect"
+        rel="preload"
         href={process?.env?.API_URL?.replace('/graphql/', '')}
       />
     </NextHead>
