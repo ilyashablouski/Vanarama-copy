@@ -74,6 +74,7 @@ import { filterList_filterList as IFilterList } from '../../../generated/filterL
 import { manufacturerList } from '../../../generated/manufacturerList';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import { genericPagesQuery_genericPages_items as IRangeUrls } from '../../../generated/genericPagesQuery';
 
 interface IProps {
   isServer: boolean;
@@ -96,6 +97,7 @@ interface IProps {
   preLoadProductCardsData?: GetProductCard;
   preLoadResponseCapIds?: string[];
   preLoadRanges?: rangeList;
+  rangesUrls?: IRangeUrls[];
   preLoadManufacturers?: manufacturerList | null;
 }
 
@@ -120,6 +122,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   preLoadProductCardsData,
   preLoadResponseCapIds,
   preLoadRanges,
+  rangesUrls,
   preLoadManufacturers,
 }: IProps) => {
   const router = useRouter();
@@ -867,6 +870,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                         key={range.rangeId || index}
                         isPersonalPrice={isPersonal}
                         id={range.rangeId || ''}
+                        rangesUrls={rangesUrls}
                         vehicleType={
                           isCarSearch
                             ? VehicleTypeEnum.CAR
