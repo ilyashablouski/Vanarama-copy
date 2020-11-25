@@ -1,10 +1,15 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, { Html, Head, Main } from 'next/document';
 import dynamic from 'next/dynamic';
 
 // @ts-ignore
 // const RollbarScript = dynamic(() =>
 //   import('../components/Rollbar').then(mod => mod.Script),
 // );
+
+// @ts-ignore
+const NextScript = dynamic(() =>
+  import('next/document').then(mod => mod.NextScript),
+);
 
 // @ts-ignore
 const GTMScript = dynamic(() =>

@@ -50,7 +50,9 @@ app
     }
 
     // Prerender.
-    if (prerender && process.env.PRERENDER_SERVICE_URL) server.use(prerender);
+    if (prerender && process.env.PRERENDER_SERVICE_URL) {
+      server.use(prerender);
+    }
 
     server.disable('x-powered-by');
     server.use(hpp());

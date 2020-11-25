@@ -5,14 +5,6 @@ require('dotenv').config();
 const fetchRewritesList = require('../rewrites');
 
 module.exports = {
-  // Sass.
-  sass: {
-    sassLoaderOptions: {
-      data:
-        "@import './node_modules/@vanarama/uibook/src/components/variables.scss';",
-    },
-  },
-
   // Next.
   next: {
     // Env vars.

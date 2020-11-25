@@ -145,6 +145,8 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
           <div className="row:pagination">
             <Pagination
               path={path}
+              pathWithHtml
+              pathForFirstPage={pathname.replace('/page/[pageNumber]', '')}
               pages={pages}
               onClick={el => {
                 el.preventDefault();
