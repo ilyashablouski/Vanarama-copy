@@ -6,9 +6,8 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import AddCircle from '@vanarama/uibook/lib/assets/icons/AddCircleSharp';
-// import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import createApolloClient from '../../apolloClient';
-
 import { ProductCardData } from '../../../generated/ProductCardData';
 import {
   VanOffersPageData,
@@ -28,6 +27,7 @@ import {
 } from '../../gql/vehicleList';
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
+import Head from '../../components/Head/Head';
 
 type Props = {
   pageData: any;
@@ -556,6 +556,17 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
           Photos and videos are for illustration purposes only.
         </Text>
       </div>
+      {data?.vanOffersPage.metaData && (
+        <>
+          <Head
+            metaData={data?.vanOffersPage.metaData}
+            featuredImage={data?.vanOffersPage.featuredImage}
+          />
+          <SchemaJSON
+            json={JSON.stringify(data?.vanOffersPage.metaData.schema)}
+          />
+        </>
+      )}
     </>
   );
 };

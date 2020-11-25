@@ -1,5 +1,6 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import {
   ILegalPage,
   LEGAL_PAGE_QUERY,
@@ -14,6 +15,7 @@ import {
 } from '../../../generated/PageCollection';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Head from '../../components/Head/Head';
 
 const BlogPost: NextPage<ILegalPage> = ({ data, error }) => {
   if (error || !data?.genericPage) {
@@ -27,6 +29,7 @@ const BlogPost: NextPage<ILegalPage> = ({ data, error }) => {
     ['featuredImage', 'file', 'url'],
     data?.genericPage,
   );
+  const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
   }));
@@ -44,6 +47,12 @@ const BlogPost: NextPage<ILegalPage> = ({ data, error }) => {
         image={image}
         sections={sections}
       />
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={featuredImage} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
     </>
   );
 };

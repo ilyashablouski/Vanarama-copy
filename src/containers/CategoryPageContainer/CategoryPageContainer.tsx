@@ -7,6 +7,7 @@ import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import ReactMarkdown from 'react-markdown';
 import Pagination from '@vanarama/uibook/lib/components/atoms/pagination';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import moment from 'moment';
 import { useRouter } from 'next/router';
 import getTitleTag from '../../utils/getTitleTag';
@@ -380,7 +381,12 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
           )}
         </div>
       )}
-      {metaData && <Head metaData={metaData} featuredImage={null} />}
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={null} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
     </>
   );
 };
