@@ -11,6 +11,7 @@ import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import Modal from '@vanarama/uibook/lib/components/molecules/modal';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import withApollo from '../../hocs/withApollo';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import {
@@ -29,6 +30,7 @@ import GoldrushForm from '../../components/GoldrushForm/GoldrushForm';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { GenericPageQuery_genericPage_sections_hero as Hero } from '../../../generated/GenericPageQuery';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Head from '../../components/Head/Head';
 
 export const LocationsPage: NextPage = () => {
   const router = useRouter();
@@ -67,6 +69,7 @@ export const LocationsPage: NextPage = () => {
     data.genericPage,
   );
   const metaData = getSectionsData(['metaData'], breadcrumbsData?.genericPage);
+  const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
   }));
@@ -407,6 +410,12 @@ export const LocationsPage: NextPage = () => {
             />
           </div>
         </Modal>
+      )}
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={featuredImage} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
       )}
     </>
   );

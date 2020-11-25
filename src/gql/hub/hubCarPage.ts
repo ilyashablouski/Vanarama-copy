@@ -6,6 +6,24 @@ const HUB_CAR_CONTENT = gql`
   query HubCarPageData {
     hubCarPage {
       id
+      metaData {
+        title
+        name
+        metaRobots
+        metaDescription
+        legacyUrl
+        pageType
+        canonicalUrl
+        slug
+        schema
+        publishedOn
+        breadcrumbs
+      }
+      featuredImage {
+        file {
+          url
+        }
+      }
       sections {
         hero {
           title

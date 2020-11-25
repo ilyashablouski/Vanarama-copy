@@ -6,6 +6,24 @@ const GET_INSURANCE_LANDING_PAGE = gql`
     insuranceLandingPage {
       id
       body
+      metaData {
+        title
+        name
+        metaRobots
+        metaDescription
+        legacyUrl
+        pageType
+        canonicalUrl
+        slug
+        schema
+        publishedOn
+        breadcrumbs
+      }
+      featuredImage {
+        file {
+          url
+        }
+      }
       sections {
         featured1 {
           ...GenericPageQueryFeatured

@@ -7,6 +7,28 @@
 // GraphQL query operation: HubCarPageData
 // ====================================================
 
+export interface HubCarPageData_hubCarPage_metaData {
+  title: string | null;
+  name: string | null;
+  metaRobots: string | null;
+  metaDescription: string | null;
+  legacyUrl: string | null;
+  pageType: string | null;
+  canonicalUrl: string | null;
+  slug: string | null;
+  schema: any | null;
+  publishedOn: any | null;
+  breadcrumbs: any | null;
+}
+
+export interface HubCarPageData_hubCarPage_featuredImage_file {
+  url: string;
+}
+
+export interface HubCarPageData_hubCarPage_featuredImage {
+  file: HubCarPageData_hubCarPage_featuredImage_file | null;
+}
+
 export interface HubCarPageData_hubCarPage_sections_hero_image_file {
   url: string;
 }
@@ -215,6 +237,8 @@ export interface HubCarPageData_hubCarPage_sections {
 
 export interface HubCarPageData_hubCarPage {
   id: string;
+  metaData: HubCarPageData_hubCarPage_metaData;
+  featuredImage: HubCarPageData_hubCarPage_featuredImage | null;
   sections: HubCarPageData_hubCarPage_sections | null;
 }
 
