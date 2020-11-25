@@ -24,7 +24,10 @@ const Price = dynamic(
   },
 );
 const Card = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/cards/Card'),
+  () =>
+    import(
+      '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard'
+    ),
   {
     loading: () => <Skeleton count={1} />,
   },
