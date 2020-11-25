@@ -299,7 +299,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   const breadcrumbItems =
     genericPageHead?.genericPage.metaData?.breadcrumbs ??
-    getProductPageBreadCrumb(data?.derivativeInfo, cars);
+    getProductPageBreadCrumb(
+      data?.derivativeInfo,
+      genericPageHead?.genericPage.metaData.legacyUrl || router.asPath.slice(1),
+      cars,
+    );
   const metaData = genericPageHead?.genericPage.metaData ?? {
     title:
       `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription} 
