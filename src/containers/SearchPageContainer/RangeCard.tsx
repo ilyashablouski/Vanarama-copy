@@ -1,12 +1,25 @@
 import React, { memo } from 'react';
-import Card from '@vanarama/uibook/lib/components/molecules/cards/Card';
-import Price from '@vanarama/uibook/lib/components/atoms/price';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getRangeImages, useModelImages } from './gql';
 import { formatUrl } from '../../utils/url';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { genericPagesQuery_genericPages_items as IRangeUrls } from '../../../generated/genericPagesQuery';
+import Skeleton from '../../components/Skeleton';
+
+const Price = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/price'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards/Card'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IVehicleCardProps {
   isPersonalPrice: boolean;
