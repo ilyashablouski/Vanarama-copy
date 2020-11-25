@@ -1,6 +1,5 @@
 import React, { memo } from 'react';
-import Card from '@vanarama/uibook/lib/components/molecules/cards/Card';
-import Price from '@vanarama/uibook/lib/components/atoms/price';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { bodyStyleList_bodyStyleList as IModelData } from '../../../generated/bodyStyleList';
@@ -8,6 +7,20 @@ import { useModelImages } from './gql';
 import { useGenericSearchPageSlug } from '../../gql/genericPage';
 import { formatUrl } from '../../utils/url';
 import { capitalizeFirstLetter } from '../../utils/textTransform';
+import Skeleton from '../../components/Skeleton';
+
+const Price = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/price'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards/Card'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IModelCardProps {
   isPersonalPrice: boolean;

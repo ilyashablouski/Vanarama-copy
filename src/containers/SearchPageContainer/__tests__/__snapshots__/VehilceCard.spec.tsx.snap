@@ -1,7 +1,178 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<VehicleCard /> should be render bussiness price 1`] = `null`;
+exports[`<VehicleCard /> should be render bussiness price 1`] = `
+<div
+  className="card"
+  data-testid="card"
+>
+  <span
+    className="card-image"
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
+  />
+  <div
+    className="-flex-h"
+  >
+    <div
+      className="price -large -black"
+    >
+      <span
+        className="price--sub"
+      >
+        £
+      </span>
+      <span
+        className="price--pounds"
+      >
+        138
+      </span>
+      <span
+        className="price--sub"
+      >
+        .
+        91
+      </span>
+      <div
+        className="price--label"
+      >
+        Per Month Exc.VAT
+      </div>
+    </div>
+    <a
+      className="button link -teal -regular -solid"
+      data-menu={null}
+      data-testid="view-offer"
+      href="/car-leasing/vauxhall/crossland-x/bodystylename/slug"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      <div
+        className="button--inner"
+      >
+        View Offer
+      </div>
+    </a>
+  </div>
+</div>
+`;
 
-exports[`<VehicleCard /> should be render correctly 1`] = `null`;
+exports[`<VehicleCard /> should be render correctly 1`] = `
+<div
+  className="card"
+  data-testid="card"
+>
+  <span
+    className="card-image"
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
+  />
+  <div
+    className="-flex-h"
+  >
+    <div
+      className="price -large -black"
+    >
+      <span
+        className="price--sub"
+      >
+        £
+      </span>
+      <span
+        className="price--pounds"
+      >
+        189
+      </span>
+      <span
+        className="price--sub"
+      >
+        .
+        97
+      </span>
+      <div
+        className="price--label"
+      >
+        Per Month Inc.VAT
+      </div>
+    </div>
+    <a
+      className="button link -teal -regular -solid"
+      data-menu={null}
+      data-testid="view-offer"
+      href="/car-leasing/vauxhall/crossland-x/bodystylename/slug"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      <div
+        className="button--inner"
+      >
+        View Offer
+      </div>
+    </a>
+  </div>
+</div>
+`;
 
-exports[`<VehicleCard /> should have link in View Offer 1`] = `null`;
+exports[`<VehicleCard /> should have link in View Offer 1`] = `
+<div
+  className="card"
+  data-testid="card"
+>
+  <span
+    className="card-image"
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
+  />
+  <div
+    className="-flex-h"
+  >
+    <div
+      className="price -large -black"
+    >
+      <span
+        className="price--sub"
+      >
+        £
+      </span>
+      <span
+        className="price--pounds"
+      >
+        138
+      </span>
+      <span
+        className="price--sub"
+      >
+        .
+        91
+      </span>
+      <div
+        className="price--label"
+      >
+        Per Month Exc.VAT
+      </div>
+    </div>
+    <a
+      className="button link -teal -regular -solid"
+      data-menu={null}
+      data-testid="view-offer"
+      href="/car-leasing/vauxhall/crossland-x/bodystylename/slug"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      <div
+        className="button--inner"
+      >
+        View Offer
+      </div>
+    </a>
+  </div>
+</div>
+`;

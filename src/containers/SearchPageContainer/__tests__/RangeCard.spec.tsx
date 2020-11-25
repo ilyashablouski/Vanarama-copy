@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { render, waitFor } from '@testing-library/react';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
 import RangeCard from '../RangeCard';
@@ -17,6 +18,10 @@ jest.mock('next/router', () => ({
 }));
 
 describe('<RangeCard />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
+
   const resetMocks = () => {
     return {
       title: '2 Series',

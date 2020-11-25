@@ -1,11 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, { memo, useContext } from 'react';
-import Card from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
+import React, { useContext } from 'react';
+import dynamic from 'next/dynamic';
 import { ICardTitleProps } from '@vanarama/uibook/lib/components/molecules/cards/CardTitle';
-import Price from '@vanarama/uibook/lib/components/atoms/price';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import truncateString from '../../utils/truncateString';
 import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -13,6 +9,30 @@ import { formatProductPageUrl } from '../../utils/url';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
 import { features } from '../../components/ProductCarousel/helpers';
+import Skeleton from '../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Price = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/price'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards/Card'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Icon = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/icon'),
+);
+const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'));
 
 export interface IProductPageUrl {
   url: string;
@@ -30,7 +50,7 @@ interface IVehicleCardProps {
   derivativeId?: string | null;
 }
 
-const VehicleCard = memo(
+const VehicleCard = React.memo(
   ({
     url,
     derivativeId,
