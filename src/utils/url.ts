@@ -65,11 +65,12 @@ export const getNewUrl = (
 
 export const getProductPageBreadCrumb = (
   data: any,
+  legacyUrl: string,
   cars: boolean | undefined,
 ) => {
-  const { manufacturer, range, bodyType, name } = data;
-
+  const { manufacturer, range, name } = data;
   const leasing = cars ? 'car-leasing' : 'van-leasing';
+  const bodyType = legacyUrl.split('/')[2];
 
   if (manufacturer && range) {
     const makeLink = {
@@ -86,10 +87,10 @@ export const getProductPageBreadCrumb = (
     };
     const modelLink = {
       link: {
-        label: bodyType?.name,
-        href: `/${manufacturer?.slug}-${leasing}/${
-          range?.slug
-        }/${bodyType?.slug || null}.html`,
+        label: bodyType
+          .replace(/-/g, ' ')
+          .replace(/^(.)|\s+(.)/g, c => c.toUpperCase()),
+        href: `/${manufacturer?.slug}-${leasing}/${range?.slug}/${bodyType}.html`,
       },
     };
     const derivativeLink = {
