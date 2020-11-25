@@ -1,20 +1,41 @@
 import React from 'react';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import SoleTraderCompanyDetailsForm from '../SoleTraderCompanyDetailsForm';
 import { ISoleTraderCompanyDetailsFormValues } from '../interfaces';
+import { GET_SIC_CODES } from '../../../containers/CompanyDetailsFormContainer/gql';
 
 describe('<SoleTraderCompanyDetailsForm />', () => {
   const onSubmitMock = jest.fn<void, [ISoleTraderCompanyDetailsFormValues]>();
+  const handleNatureMock = jest.fn();
+
+  const sicData: MockedResponse[] = [
+    {
+      request: {
+        query: GET_SIC_CODES,
+      },
+      result: {
+        data: {
+          sicData: {
+            sicCode: '',
+            description: '',
+          },
+        },
+      },
+    },
+  ];
 
   beforeEach(() => {
     onSubmitMock.mockReset();
     render(
-      <SoleTraderCompanyDetailsForm
-        natureOfBusiness={['']}
-        setNatureOfBusiness={jest.fn()}
-        companyDetails={{ monthlyAmountBeingReplaced: '' }}
-        onSubmit={onSubmitMock}
-      />,
+      <MockedProvider addTypename={false} mocks={sicData}>
+        <SoleTraderCompanyDetailsForm
+          natureOfBusiness={['']}
+          setNatureOfBusiness={handleNatureMock}
+          companyDetails={{ monthlyAmountBeingReplaced: '' }}
+          onSubmit={onSubmitMock}
+        />
+      </MockedProvider>,
     );
   });
 
@@ -68,12 +89,6 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
       screen.getByTestId('sole-trader-company-details_trading-name'),
       {
         target: { value: 'test trading name' },
-      },
-    );
-    fireEvent.input(
-      screen.getByTestId('sole-trader-company-details_nature-of-business'),
-      {
-        target: { value: 'test nature of business' },
       },
     );
     fireEvent.input(screen.getByTestId('company-details_nature'), {
