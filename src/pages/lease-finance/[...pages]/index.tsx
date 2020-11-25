@@ -1,6 +1,5 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
-import { useRouter } from 'next/router';
 import FinanceInformationExplainedContainer from '../../../containers/FinanceInformationExplainedContainer/FinanceInfromationExplainedContainer';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import { getPathsFromPageCollection } from '../../../utils/pageSlugs';
@@ -15,8 +14,6 @@ import {
 } from '../../../../generated/PageCollection';
 
 const EligibilityChecker: NextPage<IGenericPage> = ({ data, error }) => {
-  const router = useRouter();
-
   if (error || !data?.genericPage) {
     return <DefaultErrorPage statusCode={404} />;
   }
@@ -28,7 +25,9 @@ const EligibilityChecker: NextPage<IGenericPage> = ({ data, error }) => {
     link: { href: el.href || '', label: el.label },
   }));
 
-  if (router.asPath.split('/').length > 3) {
+  const isIconBullets = !!sections?.iconBullets1 || !!sections?.iconBullets2;
+
+  if (isIconBullets) {
     return (
       <>
         {breadcrumbsItems && (
