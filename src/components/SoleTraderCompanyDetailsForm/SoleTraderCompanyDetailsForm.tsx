@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm, FormContext } from 'react-hook-form';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
@@ -38,6 +38,8 @@ const isMonthInFuture = (month: string, year: string) => {
 const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps> = ({
   onSubmit,
   companyDetails,
+  natureOfBusiness,
+  setNatureOfBusiness,
 }) => {
   const defaultValues = companyDetails;
   const methods = useForm<ISoleTraderCompanyDetailsFormValues>({
@@ -48,7 +50,6 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
   const existingVehicle = watch('existingVehicle');
   const tradingSinceYear = watch('tradingSinceYear');
   const tradingSinceMonth = watch('tradingSinceMonth');
-  const [natureOfBusiness, setNatureOfBusiness] = useState<string[]>([]);
 
   React.useEffect(() => {
     reset(defaultValues);
@@ -88,11 +89,12 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
             required: 'Please enter the registered business address',
           }}
         />
+        <NatureTypeahead
+          setNatureValue={setNatureOfBusiness}
+          value={natureOfBusiness}
+        />
       </FormContext>
-      <NatureTypeahead
-        value={natureOfBusiness}
-        setNatureValue={setNatureOfBusiness}
-      />
+
       <Formgroup
         controlId="tradingSinceMonth"
         label="Trading Since"
