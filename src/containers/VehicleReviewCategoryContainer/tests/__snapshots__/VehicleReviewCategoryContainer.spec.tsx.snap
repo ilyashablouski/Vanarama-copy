@@ -477,7 +477,7 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
         </a>
         <a
           class="link pagination--item -active -primary -regular -plain"
-          href="test.html"
+          href="test/page/1"
         >
           1
         </a>
