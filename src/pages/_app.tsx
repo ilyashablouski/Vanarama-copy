@@ -1,4 +1,3 @@
-import { useLazyQuery } from '@apollo/client';
 import dynamic from 'next/dynamic';
 import '@vanarama/uibook/src/components/base.scss';
 import { AppProps } from 'next/app';
@@ -21,18 +20,10 @@ import {
   isCorrectCompareType,
   changeCompares,
 } from '../utils/comparatorHelpers';
-import { GENERIC_PAGE_HEAD } from '../gql/genericPage';
-import { getSectionsData } from '../utils/getSectionsData';
 import withApollo from '../hocs/withApollo';
-import {
-  GenericPageHeadQuery,
-  GenericPageHeadQueryVariables,
-} from '../../generated/GenericPageHeadQuery';
 import { pushPageData } from '../utils/dataLayerHelpers';
-import { prepareSlugPart } from '../containers/SearchPageContainer/helpers';
 
 // Dynamic component loading.
-const Head = dynamic(() => import('../components/Head/Head'));
 const HeaderContainer = dynamic(() => import('../containers/HeaderContainer'));
 const FooterContainer = dynamic(() => import('../containers/FooterContainer'));
 // @ts-ignore
@@ -65,14 +56,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     boolean | undefined
   >(false);
   const [existComparator, setExistComparator] = useState(false);
-  const [getPageHead, pageHead] = useLazyQuery<
-    GenericPageHeadQuery,
-    GenericPageHeadQueryVariables
-  >(GENERIC_PAGE_HEAD, {
-    variables: {
-      slug: prepareSlugPart(router.asPath.slice(1).split('?')[0]),
-    },
-  });
 
   useEffect(() => {
     // Anytime router.push is called, scroll to the top of the page.
@@ -111,21 +94,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     }
   }, [router.pathname]);
 
-  useEffect(() => {
-    if (
-      !(
-        router.pathname.includes('[...details-page]') ||
-        router.pathname.includes('/olaf') ||
-        router.pathname.includes('/blog') ||
-        router.pathname.includes('/non-blog') ||
-        router.pathname.includes('/reviews/vans/page') ||
-        router.pathname.length === 1
-      )
-    ) {
-      getPageHead();
-    }
-  }, [router.asPath, getPageHead, router.pathname]);
-
   const compareChange = async (
     product?: IVehicle | IVehicleCarousel | null | undefined,
     capId?: string | number,
@@ -159,12 +127,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     }
     return 'page:default';
   };
-
-  const metaData = getSectionsData(['metaData'], pageHead?.data?.genericPage);
-  const featuredImage = getSectionsData(
-    ['featuredImage'],
-    pageHead?.data?.genericPage,
-  );
 
   return (
     <>
@@ -207,7 +169,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         )}
         <FooterContainer />
       </main>
-      {metaData && <Head metaData={metaData} featuredImage={featuredImage} />}
     </>
   );
 };

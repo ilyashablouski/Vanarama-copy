@@ -6,6 +6,7 @@ import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import CardTitle from '@vanarama/uibook/lib/components/molecules/cards/CardTitle';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { useRouter } from 'next/router';
 import { GenericPageQuery_genericPage_sections_cards_cards as ICard } from '../../../generated/GenericPageQuery';
 import withApollo from '../../hocs/withApollo';
@@ -14,6 +15,7 @@ import getTitleTag from '../../utils/getTitleTag';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { useGenericPage } from '../../gql/genericPage';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Head from '../../components/Head/Head';
 
 export const LocationsPage: NextPage = () => {
   const router = useRouter();
@@ -32,6 +34,7 @@ export const LocationsPage: NextPage = () => {
   }
 
   const metaData = getSectionsData(['metaData'], data?.genericPage);
+  const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const cards = getSectionsData(['cards', 'cards'], data.genericPage?.sections);
   const metaDataName = getSectionsData(
     ['metaData', 'name'],
@@ -107,6 +110,12 @@ export const LocationsPage: NextPage = () => {
           </div>
         </section>
       ) : null}
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={featuredImage} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
     </>
   );
 };

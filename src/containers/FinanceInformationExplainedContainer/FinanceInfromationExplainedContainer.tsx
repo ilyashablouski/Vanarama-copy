@@ -40,7 +40,28 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
     return sets?.questionAnswers?.map(set => ({
       id: set?.question || '',
       title: set?.question || '',
-      children: <Text>{set?.answer || ''}</Text>,
+      children: (
+        <ReactMarkdown
+          className="markdown"
+          allowDangerousHtml
+          source={set?.answer || ''}
+          renderers={{
+            link: props => {
+              const { href, children } = props;
+              return (
+                <RouterLink
+                  link={{ href, label: children }}
+                  classNames={{ color: 'teal' }}
+                />
+              );
+            },
+            heading: props => (
+              <Text {...props} size="lead" color="darker" tag="h3" />
+            ),
+            paragraph: props => <Text {...props} tag="p" color="darker" />,
+          }}
+        />
+      ),
     }));
   };
 

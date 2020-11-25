@@ -15,6 +15,7 @@ import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
 import League from '@vanarama/uibook/lib/components/organisms/league';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { useContext, useEffect, useState } from 'react';
 
 import Choiceboxes from '@vanarama/uibook/lib/components/atoms/choiceboxes';
@@ -46,6 +47,7 @@ import {
 } from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
 import { features } from '../../components/ProductCarousel/helpers';
+import Head from '../../components/Head/Head';
 
 export const CarsPage: NextPage = () => {
   const { data, loading, error } = useQuery<HubCarPageData>(HUB_CAR_CONTENT);
@@ -526,6 +528,16 @@ export const CarsPage: NextPage = () => {
       <section className="row:trustpilot">
         <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
       </section>
+      <SchemaJSON json={JSON.stringify(data?.hubCarPage.metaData?.schema)} />
+      {data?.hubCarPage.metaData && (
+        <>
+          <Head
+            metaData={data?.hubCarPage.metaData}
+            featuredImage={data?.hubCarPage.featuredImage}
+          />
+          <SchemaJSON json={JSON.stringify(data?.hubCarPage.metaData.schema)} />
+        </>
+      )}
     </>
   );
 };

@@ -24,6 +24,7 @@ import ReactMarkdown from 'react-markdown';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { findPreselectFilterValue } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -74,6 +75,7 @@ import { filterList_filterList as IFilterList } from '../../../generated/filterL
 import { manufacturerList } from '../../../generated/manufacturerList';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Head from '../../components/Head/Head';
 
 interface IProps {
   isServer: boolean;
@@ -1116,6 +1118,12 @@ const SearchPageContainer: React.FC<IProps> = ({
           Photos and videos are for illustration purposes only.
         </Text>
       </div>
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={null} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
     </>
   );
 };
