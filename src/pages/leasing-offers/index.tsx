@@ -9,7 +9,7 @@ import Flame from '@vanarama/uibook/lib/assets/icons/FlameSharp';
 import Arrow from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Redundancy from '@vanarama/uibook/lib/assets/icons/Redundancy';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
-// import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 
 import createApolloClient from '../../apolloClient';
 import {
@@ -29,6 +29,7 @@ import {
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Head from '../../components/Head/Head';
 
 type Props = {
   genericPageCMS?: any;
@@ -114,6 +115,10 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
   } */
 
   const metaData = getSectionsData(['metaData'], genericPageCMS?.genericPage);
+  const featuredImage = getSectionsData(
+    ['featuredImage'],
+    genericPageCMS?.genericPage,
+  );
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
   }));
@@ -310,6 +315,12 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
           </div>
         </div>
       </div>
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={featuredImage} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
     </>
   );
 };

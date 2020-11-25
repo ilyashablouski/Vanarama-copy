@@ -124,7 +124,7 @@ const TopOffersContainer: React.FC<IProps> = ({
   const [getBodyStylesList, { data }] = useBodyStyleList(
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
-    (router.query.dynamicParam as string).toLowerCase(),
+    ((router.query.dynamicParam as string) || '').toLowerCase(),
     ((router.query?.rangeName as string) || '')
       .split('+')
       .join(' ')

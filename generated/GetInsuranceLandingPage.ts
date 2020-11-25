@@ -7,6 +7,28 @@
 // GraphQL query operation: GetInsuranceLandingPage
 // ====================================================
 
+export interface GetInsuranceLandingPage_insuranceLandingPage_metaData {
+  title: string | null;
+  name: string | null;
+  metaRobots: string | null;
+  metaDescription: string | null;
+  legacyUrl: string | null;
+  pageType: string | null;
+  canonicalUrl: string | null;
+  slug: string | null;
+  schema: any | null;
+  publishedOn: any | null;
+  breadcrumbs: any | null;
+}
+
+export interface GetInsuranceLandingPage_insuranceLandingPage_featuredImage_file {
+  url: string;
+}
+
+export interface GetInsuranceLandingPage_insuranceLandingPage_featuredImage {
+  file: GetInsuranceLandingPage_insuranceLandingPage_featuredImage_file | null;
+}
+
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_featured1_iconList {
   text: string | null;
 }
@@ -235,6 +257,8 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections {
 export interface GetInsuranceLandingPage_insuranceLandingPage {
   id: string;
   body: string | null;
+  metaData: GetInsuranceLandingPage_insuranceLandingPage_metaData;
+  featuredImage: GetInsuranceLandingPage_insuranceLandingPage_featuredImage | null;
   sections: GetInsuranceLandingPage_insuranceLandingPage_sections | null;
 }
 
