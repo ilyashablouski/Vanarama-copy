@@ -33,6 +33,7 @@ import useLeaseType from '../../hooks/useLeaseType';
 import { getProductPageBreadCrumb } from '../../utils/url';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 import { GenericPageHeadQuery } from '../../../generated/GenericPageHeadQuery';
+import { genericPagesQuery_genericPages_items as GenericPages } from '../../../generated/genericPagesQuery';
 
 const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'));
 const DownloadSharp = dynamic(() =>
@@ -103,6 +104,7 @@ interface IDetailsPageProps {
   quote?: GetQuoteDetails;
   schema?: any;
   genericPageHead: GenericPageHeadQuery | undefined;
+  genericPages: GenericPages[] | null | undefined;
 }
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
@@ -115,6 +117,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   quote,
   schema,
   genericPageHead,
+  genericPages,
 }) => {
   const router = useRouter();
   // pass cars prop(Boolean)
@@ -301,7 +304,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     genericPageHead?.genericPage.metaData?.breadcrumbs ??
     getProductPageBreadCrumb(
       data?.derivativeInfo,
-      genericPageHead?.genericPage.metaData.legacyUrl || '',
+      genericPages,
+      genericPageHead?.genericPage.metaData.slug || '',
       cars,
     );
   const metaData = genericPageHead?.genericPage.metaData ?? {

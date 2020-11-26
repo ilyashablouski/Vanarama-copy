@@ -6,6 +6,7 @@ import { VehicleListUrl_vehicleList_edges as VehicleEdge } from '../../generated
 import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { getSectionsData } from './getSectionsData';
 import { GenericPageHeadQuery_genericPage_metaData as IMetadata } from '../../generated/GenericPageHeadQuery';
+import { genericPagesQuery_genericPages_items as GenericPages } from '../../generated/genericPagesQuery';
 
 type UrlParams = { [key: string]: string | boolean | undefined };
 
@@ -65,27 +66,41 @@ export const getNewUrl = (
 
 export const getProductPageBreadCrumb = (
   data: any,
-  legacyUrl: string,
+  genericPagesData: GenericPages[] | null | undefined,
+  slug: string,
   cars: boolean | undefined,
 ) => {
   const { manufacturer, range, name } = data;
   const leasing = cars ? 'car-leasing' : 'van-leasing';
-  const legacyUrlArray = legacyUrl.split('/');
-  const manufacturerSlug = legacyUrlArray[0].replace(`-${leasing}`, '');
-  const rangeSlug = legacyUrlArray[1];
-  const bodyType = legacyUrlArray[2];
+  const slugArray = slug.split('/');
+  const manufacturerSlug = slugArray[1];
+  const rangeSlug = slugArray[2];
+  const bodyType = slugArray[3] || '';
 
   if (manufacturer && range) {
+    const manufacturerPage = genericPagesData?.find(
+      el => el?.slug?.split('/').length === 2,
+    );
+    const rangePage = genericPagesData?.find(
+      el => el?.slug?.split('/').length === 3,
+    );
+    const modelPage = genericPagesData?.find(
+      el => el?.slug?.split('/').length === 4,
+    );
     const makeLink = {
       link: {
         label: manufacturer?.name,
-        href: `/${manufacturerSlug}-${leasing}.html`,
+        href: manufacturerPage?.legacyUrl
+          ? `/${manufacturerPage?.legacyUrl}`
+          : `/${manufacturerSlug}-${leasing}.html`,
       },
     };
     const rangeLink = {
       link: {
         label: range?.name,
-        href: `/${manufacturerSlug}-${leasing}/${rangeSlug}.html`,
+        href: rangePage?.legacyUrl
+          ? `/${rangePage?.legacyUrl}`
+          : `/${manufacturerSlug}-${leasing}/${rangeSlug}.html`,
       },
     };
     const modelLink = {
@@ -93,7 +108,9 @@ export const getProductPageBreadCrumb = (
         label: bodyType
           .replace(/-/g, ' ')
           .replace(/^(.)|\s+(.)/g, c => c.toUpperCase()),
-        href: `/${manufacturerSlug}-${leasing}/${rangeSlug}/${bodyType}.html`,
+        href: modelPage?.legacyUrl
+          ? `/${modelPage?.legacyUrl}`
+          : `/${manufacturerSlug}-${leasing}/${rangeSlug}/${bodyType}.html`,
       },
     };
     const derivativeLink = {
