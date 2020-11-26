@@ -36,6 +36,8 @@ import {
   GenericPageHeadQuery,
   GenericPageHeadQueryVariables,
 } from '../../../../generated/GenericPageHeadQuery';
+import { GET_RANGES_URLS } from '../../../containers/SearchPageContainer/gql';
+import { genericPagesQuery_genericPages_items as GenericPages } from '../../../../generated/genericPagesQuery';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -46,6 +48,7 @@ interface IProps {
   notFoundPageData?: INotFoundPageData;
   errors: any[];
   genericPageHead: GenericPageHeadQuery;
+  genericPages: GenericPages[];
 }
 
 const CarDetailsPage: NextPage<IProps> = ({
@@ -55,6 +58,7 @@ const CarDetailsPage: NextPage<IProps> = ({
   quote,
   notFoundPageData,
   genericPageHead,
+  genericPages,
 }) => {
   if (notFoundPageData) {
     return (
@@ -159,6 +163,7 @@ const CarDetailsPage: NextPage<IProps> = ({
         capId={capId || 0}
         data={data}
         genericPageHead={genericPageHead}
+        genericPages={genericPages}
       />
       <SchemaJSON json={JSON.stringify(schema)} />
     </>
@@ -232,6 +237,20 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     });
 
+    const breadcrumbSlugsArray = data?.genericPage.metaData.slug?.split('/');
+    const breadcrumbSlugs = breadcrumbSlugsArray?.map((el, id) =>
+      breadcrumbSlugsArray.slice(0, id + 1).join('/'),
+    );
+
+    const genericPages = await client
+      .query({
+        query: GET_RANGES_URLS,
+        variables: {
+          slugs: breadcrumbSlugs,
+        },
+      })
+      .then(resp => resp.data.genericPages.items);
+
     return {
       props: {
         capId,
@@ -239,6 +258,7 @@ export async function getServerSideProps(context: NextPageContext) {
         quote: quoteDataQuery.data,
         query: context.query,
         genericPageHead: data,
+        genericPages,
       },
     };
   } catch (error) {

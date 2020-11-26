@@ -36,6 +36,8 @@ import {
   GenericPageHeadQuery,
   GenericPageHeadQueryVariables,
 } from '../../../../generated/GenericPageHeadQuery';
+import { GET_RANGES_URLS } from '../../../containers/SearchPageContainer/gql';
+import { genericPagesQuery_genericPages_items as GenericPages } from '../../../../generated/genericPagesQuery';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -45,6 +47,7 @@ interface IProps {
   quote?: GetQuoteDetails;
   notFoundPageData?: INotFoundPageData;
   genericPageHead: GenericPageHeadQuery;
+  genericPages: GenericPages[];
 }
 
 const VanDetailsPage: NextPage<IProps> = ({
@@ -54,6 +57,7 @@ const VanDetailsPage: NextPage<IProps> = ({
   quote,
   notFoundPageData,
   genericPageHead,
+  genericPages,
 }) => {
   const isPickup = !data?.derivativeInfo?.bodyType?.slug?.match('van');
 
@@ -183,6 +187,7 @@ const VanDetailsPage: NextPage<IProps> = ({
         data={data}
         quote={quote}
         genericPageHead={genericPageHead}
+        genericPages={genericPages}
       />
       <SchemaJSON json={JSON.stringify(schema)} />
     </>
@@ -256,6 +261,20 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     });
 
+    const breadcrumbSlugsArray = data?.genericPage.metaData.slug?.split('/');
+    const breadcrumbSlugs = breadcrumbSlugsArray?.map((el, id) =>
+      breadcrumbSlugsArray.slice(0, id + 1).join('/'),
+    );
+
+    const genericPages = await client
+      .query({
+        query: GET_RANGES_URLS,
+        variables: {
+          slugs: breadcrumbSlugs,
+        },
+      })
+      .then(resp => resp.data.genericPages.items);
+
     return {
       props: {
         capId,
@@ -263,6 +282,7 @@ export async function getServerSideProps(context: NextPageContext) {
         quote: quoteDataQuery.data,
         query: context.query,
         genericPageHead: data,
+        genericPages,
       },
     };
   } catch (error) {
