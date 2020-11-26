@@ -1,18 +1,45 @@
 import React from 'react';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import SoleTraderCompanyDetailsForm from '../SoleTraderCompanyDetailsForm';
 import { ISoleTraderCompanyDetailsFormValues } from '../interfaces';
+import { GET_SIC_CODES } from '../../../containers/CompanyDetailsFormContainer/gql';
 
 describe('<SoleTraderCompanyDetailsForm />', () => {
   const onSubmitMock = jest.fn<void, [ISoleTraderCompanyDetailsFormValues]>();
+  const handleNatureMock = jest.fn();
+
+  const sicData: MockedResponse[] = [
+    {
+      request: {
+        query: GET_SIC_CODES,
+      },
+      result: {
+        data: {
+          sicCodes: {
+            sicData: [
+              {
+                sicCode: '',
+                description: '',
+              },
+            ],
+          },
+        },
+      },
+    },
+  ];
 
   beforeEach(() => {
     onSubmitMock.mockReset();
     render(
-      <SoleTraderCompanyDetailsForm
-        companyDetails={{ monthlyAmountBeingReplaced: '' }}
-        onSubmit={onSubmitMock}
-      />,
+      <MockedProvider addTypename={false} mocks={sicData}>
+        <SoleTraderCompanyDetailsForm
+          natureOfBusiness={['orange man']}
+          setNatureOfBusiness={handleNatureMock}
+          companyDetails={{ monthlyAmountBeingReplaced: '' }}
+          onSubmit={onSubmitMock}
+        />
+      </MockedProvider>,
     );
   });
 
@@ -68,18 +95,6 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
         target: { value: 'test trading name' },
       },
     );
-    fireEvent.input(
-      screen.getByTestId('sole-trader-company-details_nature-of-business'),
-      {
-        target: { value: 'test nature of business' },
-      },
-    );
-    fireEvent.input(
-      screen.getByTestId('sole-trader-company-details_nature-of-business'),
-      {
-        target: { value: 'test nature of business' },
-      },
-    );
     fireEvent.change(
       screen.getByTestId('sole-trader-company-details_trading-address'),
       {
@@ -88,6 +103,9 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
         },
       },
     );
+    fireEvent.input(screen.getByTestId('company-details_nature'), {
+      target: { value: 'test nature of business' },
+    });
     fireEvent.input(screen.getByTestId('company-details_trading-since-month'), {
       target: { value: new Date().getMonth() },
     });
