@@ -244,6 +244,7 @@ describe('<TopOffersContainer />', () => {
       isPickups: false,
       isRangePage: false,
       isBodyPage: false,
+      isBudgetPage: false,
       isTransmissionPage: false,
       isFuelPage: false,
       isDynamicFilterPage: false,
